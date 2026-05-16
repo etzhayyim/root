@@ -1,0 +1,987 @@
+"""Hong Kong SAR states actor primitives.
+
+This module moves the `did:web:hkg-state.gftd.ai` app actor off its
+dedicated Cloudflare Worker path. The public edge keeps only XRPC/MCP
+facade duties; these functions run as Zeebe jobs in Kubernetes and write
+the same graph-visible state the Worker previously wrote via host-sdk.
+"""
+
+from __future__ import annotations
+
+import asyncio
+import datetime as _dt
+import hashlib
+import hmac
+import json
+import os
+import re
+import time
+import urllib.error as _u_err
+import urllib.request as _u_req
+from typing import Any
+
+from pymagatama.db_sync import sync_cursor
+
+
+PRIMARY_DID = "did:web:hkg-state.gftd.ai"
+DOMAIN_CODE = "hkg"
+SITE_NANOID = "w3bpg001"
+SITE_GOV_TOPIC_DID = "did:web:site.gftd.ai:topic:government"
+PDS_BASE = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
+PDS_SERVICE_AUTH_TOKEN = os.environ.get("PDS_SERVICE_AUTH_TOKEN", "").strip()
+PDS_SERVICE_AUTH_MINT_URL = os.environ.get(
+    "PDS_SERVICE_AUTH_MINT_URL",
+    f"{PDS_BASE}/_internal/mint-pds-bearer",
+).strip()
+PDS_SERVICE_AUTH_MINT_SECRET = os.environ.get("PDS_SERVICE_AUTH_MINT_SECRET", "").strip()
+PDS_LEGACY_INTERNAL_TRUST = os.environ.get("PDS_LEGACY_INTERNAL_TRUST", "0") == "1"
+try:
+    PDS_SERVICE_AUTH_TTL_SEC = int(os.environ.get("PDS_SERVICE_AUTH_TTL_SEC", "600"))
+except ValueError:
+    PDS_SERVICE_AUTH_TTL_SEC = 600
+PDS_SERVICE_AUTH_TTL_SEC = max(30, min(600, PDS_SERVICE_AUTH_TTL_SEC))
+_PDS_SERVICE_AUTH_CACHE: dict[str, dict[str, Any]] = {}
+
+_MINISTRY_NDJSON = """\
+{"path":"chief-executives-office","name":"行政長官辦公室","nameEn":"Chief Executive's Office","website":"https://www.ceo.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:01","executive","chief-executive"],"orgTier":"ministry"}
+{"path":"civil-service-bureau","name":"公務員事務局","nameEn":"Civil Service Bureau","website":"https://www.csb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:01","civil-service"],"orgTier":"ministry"}
+{"path":"constitutional-mainland-affairs-bureau","name":"憲制及內地事務局","nameEn":"Constitutional and Mainland Affairs Bureau","website":"https://www.cmab.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:01","constitutional","mainland-affairs"],"orgTier":"ministry"}
+{"path":"commerce-economic-development-bureau","name":"商務及經濟發展局","nameEn":"Commerce and Economic Development Bureau","website":"https://www.cedb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:04","commerce","economy","development"],"orgTier":"ministry"}
+{"path":"culture-sports-tourism-bureau","name":"文化體育及旅遊局","nameEn":"Culture, Sports and Tourism Bureau","website":"https://www.cstb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:08","culture","sports","tourism"],"orgTier":"ministry"}
+{"path":"development-bureau","name":"發展局","nameEn":"Development Bureau","website":"https://www.devb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:04.5","development","land","planning"],"orgTier":"ministry"}
+{"path":"education-bureau","name":"教育局","nameEn":"Education Bureau","website":"https://www.edb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:09","education"],"orgTier":"ministry"}
+{"path":"environment-ecology-bureau","name":"環境及生態局","nameEn":"Environment and Ecology Bureau","website":"https://www.eeb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:05","environment","ecology"],"orgTier":"ministry"}
+{"path":"financial-services-treasury-bureau","name":"財經事務及庫務局","nameEn":"Financial Services and the Treasury Bureau","website":"https://www.fstb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:01.1","finance","treasury"],"orgTier":"ministry"}
+{"path":"health-bureau","name":"醫務衛生局","nameEn":"Health Bureau","website":"https://www.healthbureau.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:07","health"],"orgTier":"ministry"}
+{"path":"home-youth-affairs-bureau","name":"民政及青年事務局","nameEn":"Home and Youth Affairs Bureau","website":"https://www.hyab.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:10","home-affairs","youth"],"orgTier":"ministry"}
+{"path":"housing-bureau","name":"房屋局","nameEn":"Housing Bureau","website":"https://www.housingbureau.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:06","housing"],"orgTier":"ministry"}
+{"path":"innovation-technology-industry-bureau","name":"創新科技及工業局","nameEn":"Innovation, Technology and Industry Bureau","website":"https://www.itib.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:04","innovation","technology","industry"],"orgTier":"ministry"}
+{"path":"justice","name":"律政司","nameEn":"Department of Justice","website":"https://www.doj.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:03","justice","legal"],"orgTier":"ministry"}
+{"path":"labour-welfare-bureau","name":"勞工及福利局","nameEn":"Labour and Welfare Bureau","website":"https://www.lwb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:10","labour","welfare"],"orgTier":"ministry"}
+{"path":"security-bureau","name":"保安局","nameEn":"Security Bureau","website":"https://www.sb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:03","security","police"],"orgTier":"ministry"}
+{"path":"transport-logistics-bureau","name":"運輸及物流局","nameEn":"Transport and Logistics Bureau","website":"https://www.tlb.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:04.5","transport","logistics"],"orgTier":"ministry"}
+{"path":"hong-kong-police-force","name":"香港警察","nameEn":"Hong Kong Police Force","website":"https://www.police.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:03","police","law-enforcement"],"orgTier":"agency"}
+{"path":"immigration-department","name":"入境事務處","nameEn":"Immigration Department","website":"https://www.immd.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:01","immigration","border"],"orgTier":"agency"}
+{"path":"customs-excise-department","name":"香港海關","nameEn":"Customs and Excise Department","website":"https://www.customs.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:01","customs","excise"],"orgTier":"agency"}
+{"path":"fire-services-department","name":"消防處","nameEn":"Fire Services Department","website":"https://www.hkfsd.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:03","fire","emergency"],"orgTier":"agency"}
+{"path":"inland-revenue-department","name":"稅務局","nameEn":"Inland Revenue Department","website":"https://www.ird.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:01.1","tax","revenue"],"orgTier":"agency"}
+{"path":"trade-industry-department","name":"工業貿易署","nameEn":"Trade and Industry Department","website":"https://www.tid.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:04","trade","industry"],"orgTier":"agency"}
+{"path":"invest-hong-kong","name":"投資推廣署","nameEn":"InvestHK","website":"https://www.investhk.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:04","investment-promotion","fdi"],"orgTier":"agency"}
+{"path":"hong-kong-monetary-authority","name":"金融管理局","nameEn":"Hong Kong Monetary Authority","website":"https://www.hkma.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:01.1","monetary","central-bank"],"orgTier":"agency"}
+{"path":"securities-futures-commission","name":"證券及期貨事務監察委員會","nameEn":"Securities and Futures Commission","website":"https://www.sfc.hk/","contract":"Basic Law of HKSAR","tags":["cofog:04","securities","futures","regulation"],"orgTier":"agency"}
+{"path":"hospital-authority","name":"醫院管理局","nameEn":"Hospital Authority","website":"https://www.ha.org.hk/","contract":"Basic Law of HKSAR","tags":["cofog:07","hospital","healthcare"],"orgTier":"agency"}
+{"path":"environmental-protection-department","name":"環境保護署","nameEn":"Environmental Protection Department","website":"https://www.epd.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:05","environment","pollution"],"orgTier":"agency"}
+{"path":"planning-department","name":"規劃署","nameEn":"Planning Department","website":"https://www.pland.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:04.5","planning","land-use"],"orgTier":"agency"}
+{"path":"lands-department","name":"地政總署","nameEn":"Lands Department","website":"https://www.landsd.gov.hk/","contract":"Basic Law of HKSAR","tags":["cofog:04.5","land","property"],"orgTier":"agency"}
+"""
+
+_STATE_NDJSON = """\
+{"path":"district:central-western","name":"中西區","nameEn":"Central and Western District","website":"https://www.districtcouncils.gov.hk/cw/","contract":"District Councils Ordinance","tags":["cofog:01","district","hk-island"],"orgTier":"state"}
+{"path":"district:wan-chai","name":"灣仔區","nameEn":"Wan Chai District","website":"https://www.districtcouncils.gov.hk/wc/","contract":"District Councils Ordinance","tags":["cofog:01","district","hk-island"],"orgTier":"state"}
+{"path":"district:eastern","name":"東區","nameEn":"Eastern District","website":"https://www.districtcouncils.gov.hk/east/","contract":"District Councils Ordinance","tags":["cofog:01","district","hk-island"],"orgTier":"state"}
+{"path":"district:southern","name":"南區","nameEn":"Southern District","website":"https://www.districtcouncils.gov.hk/south/","contract":"District Councils Ordinance","tags":["cofog:01","district","hk-island"],"orgTier":"state"}
+{"path":"district:yau-tsim-mong","name":"油尖旺區","nameEn":"Yau Tsim Mong District","website":"https://www.districtcouncils.gov.hk/ytm/","contract":"District Councils Ordinance","tags":["cofog:01","district","kowloon"],"orgTier":"state"}
+{"path":"district:sham-shui-po","name":"深水埗區","nameEn":"Sham Shui Po District","website":"https://www.districtcouncils.gov.hk/ssp/","contract":"District Councils Ordinance","tags":["cofog:01","district","kowloon"],"orgTier":"state"}
+{"path":"district:kowloon-city","name":"九龍城區","nameEn":"Kowloon City District","website":"https://www.districtcouncils.gov.hk/kc/","contract":"District Councils Ordinance","tags":["cofog:01","district","kowloon"],"orgTier":"state"}
+{"path":"district:wong-tai-sin","name":"黃大仙區","nameEn":"Wong Tai Sin District","website":"https://www.districtcouncils.gov.hk/wts/","contract":"District Councils Ordinance","tags":["cofog:01","district","kowloon"],"orgTier":"state"}
+{"path":"district:kwun-tong","name":"觀塘區","nameEn":"Kwun Tong District","website":"https://www.districtcouncils.gov.hk/kt/","contract":"District Councils Ordinance","tags":["cofog:01","district","kowloon"],"orgTier":"state"}
+{"path":"district:kwai-tsing","name":"葵青區","nameEn":"Kwai Tsing District","website":"https://www.districtcouncils.gov.hk/kt2/","contract":"District Councils Ordinance","tags":["cofog:01","district","new-territories"],"orgTier":"state"}
+{"path":"district:tsuen-wan","name":"荃灣區","nameEn":"Tsuen Wan District","website":"https://www.districtcouncils.gov.hk/tw/","contract":"District Councils Ordinance","tags":["cofog:01","district","new-territories"],"orgTier":"state"}
+{"path":"district:tuen-mun","name":"屯門區","nameEn":"Tuen Mun District","website":"https://www.districtcouncils.gov.hk/tm/","contract":"District Councils Ordinance","tags":["cofog:01","district","new-territories"],"orgTier":"state"}
+{"path":"district:yuen-long","name":"元朗區","nameEn":"Yuen Long District","website":"https://www.districtcouncils.gov.hk/yl/","contract":"District Councils Ordinance","tags":["cofog:01","district","new-territories"],"orgTier":"state"}
+{"path":"district:north","name":"北區","nameEn":"North District","website":"https://www.districtcouncils.gov.hk/north/","contract":"District Councils Ordinance","tags":["cofog:01","district","new-territories"],"orgTier":"state"}
+{"path":"district:tai-po","name":"大埔區","nameEn":"Tai Po District","website":"https://www.districtcouncils.gov.hk/tp/","contract":"District Councils Ordinance","tags":["cofog:01","district","new-territories"],"orgTier":"state"}
+{"path":"district:sha-tin","name":"沙田區","nameEn":"Sha Tin District","website":"https://www.districtcouncils.gov.hk/st/","contract":"District Councils Ordinance","tags":["cofog:01","district","new-territories"],"orgTier":"state"}
+{"path":"district:sai-kung","name":"西貢區","nameEn":"Sai Kung District","website":"https://www.districtcouncils.gov.hk/sk/","contract":"District Councils Ordinance","tags":["cofog:01","district","new-territories"],"orgTier":"state"}
+{"path":"district:islands","name":"離島區","nameEn":"Islands District","website":"https://www.districtcouncils.gov.hk/islands/","contract":"District Councils Ordinance","tags":["cofog:01","district","new-territories","islands"],"orgTier":"state"}
+"""
+
+_OFFICIAL_SOURCE_URLS = [
+    "https://www.gov.hk/",
+    "https://www.info.gov.hk/",
+    "https://www.legco.gov.hk/",
+]
+
+
+def _utc_now_iso() -> str:
+    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _url_to_domain_slug(url: str) -> str:
+    try:
+        host = re.sub(r"^https?://", "", url).split("/", 1)[0]
+        host = re.sub(r"^(www|web)\.", "", host)
+        return host.replace(".", "-")
+    except Exception:
+        return ""
+
+
+def _url_to_hostname(url: str) -> str:
+    try:
+        return re.sub(r"^https?://", "", url).split("/", 1)[0].lower()
+    except Exception:
+        return ""
+
+
+def _wet_domain_candidates(website: str, slug: str) -> list[str]:
+    host = _url_to_hostname(website)
+    stripped = re.sub(r"^(www|web)\.", "", host)
+    candidates = [slug, host, stripped]
+    return [candidate for idx, candidate in enumerate(candidates) if candidate and candidate not in candidates[:idx]]
+
+
+def _direct_fetch_hash(url: str, timeout: int = 10) -> tuple[str, str]:
+    """Fetch url and return (md5_content_hash, text_snippet). Returns ('', '') on failure."""
+    if not url or not url.startswith("http"):
+        return "", ""
+    try:
+        req = _u_req.Request(url, headers={"User-Agent": "GovBot/1.0"})
+        with _u_req.urlopen(req, timeout=timeout) as resp:
+            body = resp.read(65536)
+        content_hash = hashlib.md5(body).hexdigest()
+        text = re.sub(r"<[^>]+>", " ", body.decode("utf-8", errors="replace"))
+        text = re.sub(r"\s+", " ", text).strip()[:300]
+        return content_hash, text
+    except Exception:
+        return "", ""
+
+
+def _load_seed_orgs() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for blob in (_MINISTRY_NDJSON, _STATE_NDJSON):
+        for line in blob.splitlines():
+            line = line.strip()
+            if line:
+                row = json.loads(line)
+                props = row.setdefault("props", {})
+                props.setdefault(
+                    "officialSourceUrls",
+                    [_OFFICIAL_SOURCE_URLS[0]],
+                )
+                rows.append(row)
+    return rows
+
+
+def _vertex_id(path: str) -> str:
+    return f"at://{PRIMARY_DID}/ai.gftd.apps.states.govOrg/{path}"
+
+
+def _repo_rkey(prefix: str, key: str) -> str:
+    stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S%f")
+    safe = re.sub(r"[^a-zA-Z0-9._~-]+", "-", key).strip("-")[:80] or "record"
+    return f"{prefix}-{safe}-{stamp}"
+
+
+def _http_post_json(url: str, payload: dict[str, Any], headers: dict[str, str], timeout: float = 30.0) -> dict[str, Any]:
+    body = json.dumps(payload, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    merged_headers = {
+        "User-Agent": "gftd-pymagatama-gov-hkg/0.1",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+    merged_headers.update(headers)
+    req = _u_req.Request(url, data=body, headers=merged_headers, method="POST")
+    try:
+        with _u_req.urlopen(req, timeout=timeout) as resp:
+            raw = resp.read()
+            status = int(resp.status)
+    except _u_err.HTTPError as e:
+        raw = e.read()
+        status = int(e.code)
+    except Exception as e:  # noqa: BLE001
+        return {"status": -1, "body": {"error": f"transport: {e}"}}
+    try:
+        parsed: Any = json.loads(raw.decode("utf-8"))
+    except Exception:
+        parsed = {"raw": raw.decode("utf-8", errors="replace")[:500]}
+    return {"status": status, "body": parsed}
+
+
+def _mint_pds_service_auth(lxm: str) -> str:
+    cached = _PDS_SERVICE_AUTH_CACHE.get(lxm)
+    now = int(time.time())
+    if cached and int(cached.get("expiresAt", 0)) > now + 30:
+        token = str(cached.get("token") or "")
+        if token:
+            return token
+    if not PDS_SERVICE_AUTH_MINT_URL or not PDS_SERVICE_AUTH_MINT_SECRET:
+        return ""
+    payload = {"lxm": lxm, "ttlSeconds": PDS_SERVICE_AUTH_TTL_SEC}
+    body = json.dumps(payload, separators=(",", ":")).encode("utf-8")
+    sig = hmac.new(PDS_SERVICE_AUTH_MINT_SECRET.encode("utf-8"), body, hashlib.sha256).hexdigest()
+    req = _u_req.Request(
+        PDS_SERVICE_AUTH_MINT_URL,
+        data=body,
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "x-bpmn-auth": sig,
+        },
+        method="POST",
+    )
+    try:
+        with _u_req.urlopen(req, timeout=10.0) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except Exception:
+        return ""
+    token = str(data.get("token") or "")
+    expires_at = int(data.get("expiresAt") or (now + PDS_SERVICE_AUTH_TTL_SEC))
+    if token:
+        _PDS_SERVICE_AUTH_CACHE[lxm] = {"token": token, "expiresAt": expires_at}
+    return token
+
+
+async def _pds_xrpc(lxm: str, payload: dict[str, Any]) -> dict[str, Any]:
+    token = await asyncio.to_thread(_mint_pds_service_auth, lxm)
+    bearer = token or PDS_SERVICE_AUTH_TOKEN
+    headers: dict[str, str] = {}
+    if bearer:
+        headers["Authorization"] = f"Bearer {bearer}"
+    elif PDS_LEGACY_INTERNAL_TRUST:
+        headers["x-magatama-verified"] = "true"
+    else:
+        return {"status": 401, "body": {"error": "PDS service auth unavailable"}}
+    return await asyncio.to_thread(_http_post_json, f"{PDS_BASE}/xrpc/{lxm}", payload, headers)
+
+
+def _insert_repo_record(repo: str, collection: str, rkey: str, record: dict[str, Any]) -> str:
+    created_at = str(record.get("createdAt") or _utc_now_iso())
+    uri = f"at://{repo}/{collection}/{rkey}"
+    if collection != "app.bsky.feed.post":
+        value_json = json.dumps(record, separators=(",", ":"), ensure_ascii=False)
+        if collection == "actorManifest":
+            path = str(record.get("path") or rkey)
+            params = {
+                "vertex_id": uri,
+                "record_key": rkey,
+                "record_kind": collection,
+                "path": path,
+                "country": str(record.get("country") or DOMAIN_CODE),
+                "display_name": str(record.get("displayName") or ""),
+                "description": str(record.get("description") or ""),
+                "performer_type": str(record.get("performerType") or ""),
+                "agent_type": str(record.get("agentType") or ""),
+                "is_bot": bool(record.get("isBot") or False),
+                "value_json": value_json,
+                "indexed_at": created_at,
+                "created_at": created_at,
+                "updated_at": str(record.get("updated_at") or created_at),
+                "actor_did": repo,
+                "org_did": repo,
+                "owner_did": PRIMARY_DID,
+                "sensitivity_ord": 2,
+            }
+            with sync_cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO vertex_gov_actor_manifest
+                      (vertex_id,record_key,record_kind,path,country,display_name,description,performer_type,agent_type,is_bot,value_json,indexed_at,created_at,updated_at,actor_did,org_did,owner_did,sensitivity_ord)
+                    VALUES (%(vertex_id)s,%(record_key)s,%(record_kind)s,%(path)s,%(country)s,%(display_name)s,%(description)s,%(performer_type)s,%(agent_type)s,%(is_bot)s,%(value_json)s,%(indexed_at)s,%(created_at)s,%(updated_at)s,%(actor_did)s,%(org_did)s,%(owner_did)s,%(sensitivity_ord)s)
+                    ON CONFLICT (vertex_id) DO UPDATE SET
+                      display_name = EXCLUDED.display_name,
+                      description = EXCLUDED.description,
+                      value_json = EXCLUDED.value_json,
+                      indexed_at = EXCLUDED.indexed_at,
+                      updated_at = EXCLUDED.updated_at
+                    """,
+                    params,
+                )
+            return uri
+        if collection == "ai.gftd.apps.states.govOrgSiteDep":
+            path = str(record.get("path") or "")
+            site_did = str(record.get("siteDid") or "")
+            params = {
+                "edge_id": uri,
+                "record_key": rkey,
+                "from_vertex_id": _vertex_id(path) if path else repo,
+                "to_vertex_id": site_did,
+                "path": path,
+                "site_nanoid": str(record.get("siteNanoid") or ""),
+                "site_topic_did": str(record.get("siteTopicDid") or ""),
+                "site_did": site_did,
+                "value_json": value_json,
+                "indexed_at": created_at,
+                "created_at": created_at,
+                "updated_at": str(record.get("updated_at") or created_at),
+                "actor_did": repo,
+                "org_did": str(record.get("orgId") or "anon"),
+                "owner_did": repo,
+                "sensitivity_ord": 2,
+            }
+            with sync_cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO edge_gov_org_site_dependency
+                      (edge_id,record_key,from_vertex_id,to_vertex_id,path,site_nanoid,site_topic_did,site_did,value_json,indexed_at,created_at,updated_at,actor_did,org_did,owner_did,sensitivity_ord)
+                    VALUES (%(edge_id)s,%(record_key)s,%(from_vertex_id)s,%(to_vertex_id)s,%(path)s,%(site_nanoid)s,%(site_topic_did)s,%(site_did)s,%(value_json)s,%(indexed_at)s,%(created_at)s,%(updated_at)s,%(actor_did)s,%(org_did)s,%(owner_did)s,%(sensitivity_ord)s)
+                    ON CONFLICT (edge_id) DO UPDATE SET
+                      value_json = EXCLUDED.value_json,
+                      indexed_at = EXCLUDED.indexed_at,
+                      updated_at = EXCLUDED.updated_at,
+                      site_did = EXCLUDED.site_did,
+                      to_vertex_id = EXCLUDED.to_vertex_id
+                    """,
+                    params,
+                )
+            return uri
+        raise ValueError(f"unsupported gov collection: {collection!r}")
+    params = {
+        "vertex_id": uri,
+        "record_kind": collection,
+        "record_key": rkey,
+        "label": "GovRecord",
+        "status": "active",
+        "value_json": json.dumps(record, separators=(",", ":"), ensure_ascii=False),
+        "indexed_at": created_at,
+        "created_at": created_at,
+        "updated_at": str(record.get("updated_at") or record.get("updatedAt") or created_at),
+        "org_id": str(record.get("orgId") or "anon"),
+        "user_id": str(record.get("userId") or "anon"),
+        "actor_id": str(record.get("actorId") or repo),
+        "actor_did": repo,
+        "org_did": str(record.get("orgDid") or "anon"),
+        "owner_did": repo,
+        "sensitivity_ord": 2,
+    }
+    with sync_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO vertex_gov_record (
+              vertex_id, record_kind, record_key, label, status, value_json,
+              indexed_at, created_at, updated_at, org_id, user_id, actor_id,
+              actor_did, org_did, owner_did, sensitivity_ord
+            )
+            VALUES (
+              %(vertex_id)s, %(record_kind)s, %(record_key)s, %(label)s, %(status)s,
+              %(value_json)s, %(indexed_at)s, %(created_at)s, %(updated_at)s,
+              %(org_id)s, %(user_id)s, %(actor_id)s, %(actor_did)s, %(org_did)s,
+              %(owner_did)s, %(sensitivity_ord)s
+            )
+            ON CONFLICT (vertex_id) DO UPDATE SET
+              value_json = EXCLUDED.value_json,
+              indexed_at = EXCLUDED.indexed_at,
+              updated_at = EXCLUDED.updated_at,
+              status = EXCLUDED.status
+            """,
+            params,
+        )
+    return uri
+
+
+def _upsert_gov_org(row: dict[str, Any]) -> None:
+    now = _utc_now_iso()
+    path = str(row["path"])
+    params = {
+        "vertex_id": _vertex_id(path),
+        "sensitivity_ord": 1,
+        "owner_did": PRIMARY_DID,
+        "path": path,
+        "name": str(row.get("name") or ""),
+        "name_en": str(row.get("nameEn") or row.get("name_en") or ""),
+        "website": str(row.get("website") or ""),
+        "contract": str(row.get("contract") or ""),
+        "tags": json.dumps(row.get("tags") or [], separators=(",", ":"), ensure_ascii=False),
+        "domain_code": DOMAIN_CODE,
+        "org_tier": str(row.get("orgTier") or row.get("org_tier") or ""),
+        "site_domain_slug": str(row.get("site_domain_slug") or _url_to_domain_slug(str(row.get("website") or ""))),
+        "site_followed": str(row.get("site_followed") or "false"),
+        "did_registered": str(row.get("did_registered") or "false"),
+        "last_ingested_at": str(row.get("last_ingested_at") or ""),
+        "last_content_hash": str(row.get("last_content_hash") or ""),
+        "last_kyumei_at": str(row.get("last_kyumei_at") or ""),
+        "last_shinka_at": str(row.get("last_shinka_at") or ""),
+        "created_at": str(row.get("created_at") or now),
+        "props": json.dumps(row.get("props") or {}, separators=(",", ":"), ensure_ascii=False),
+    }
+    with sync_cursor() as cur:
+        cur.execute("DELETE FROM vertex_gov_org WHERE vertex_id = %(vertex_id)s", params)
+        cur.execute(
+            """
+            INSERT INTO vertex_gov_org (
+              vertex_id, sensitivity_ord, owner_did, path, name, name_en,
+              website, contract, tags, domain_code, org_tier, site_domain_slug,
+              site_followed, did_registered, last_ingested_at, last_content_hash,
+              last_kyumei_at, last_shinka_at, created_at, props
+            )
+            VALUES (
+              %(vertex_id)s, %(sensitivity_ord)s, %(owner_did)s, %(path)s,
+              %(name)s, %(name_en)s, %(website)s, %(contract)s, %(tags)s,
+              %(domain_code)s, %(org_tier)s, %(site_domain_slug)s,
+              %(site_followed)s, %(did_registered)s, %(last_ingested_at)s,
+              %(last_content_hash)s, %(last_kyumei_at)s, %(last_shinka_at)s,
+              %(created_at)s, %(props)s
+            )
+            """,
+            params,
+        )
+
+
+def _update_gov_org_fields(path: str, fields: dict[str, str]) -> None:
+    allowed = {
+        "site_followed",
+        "did_registered",
+        "last_ingested_at",
+        "last_content_hash",
+        "last_kyumei_at",
+        "last_shinka_at",
+    }
+    updates = {k: str(v) for k, v in fields.items() if k in allowed}
+    if not path or not updates:
+        return
+    set_sql = ", ".join(f"{key} = %({key})s" for key in updates)
+    params: dict[str, Any] = {
+        "domain_code": DOMAIN_CODE,
+        "owner_did": PRIMARY_DID,
+        "path": path,
+        **updates,
+    }
+    with sync_cursor() as cur:
+        cur.execute(
+            (
+                f"UPDATE vertex_gov_org SET {set_sql} "
+                "WHERE domain_code = %(domain_code)s AND owner_did = %(owner_did)s AND path = %(path)s"
+            ),
+            params,
+        )
+
+
+def _get_org(path: str) -> dict[str, Any] | None:
+    with sync_cursor() as cur:
+        cur.execute(
+            """
+            SELECT path, name, name_en, website, contract, tags, org_tier,
+                   site_domain_slug, site_followed, did_registered,
+                   last_ingested_at, last_content_hash, last_kyumei_at,
+                   last_shinka_at, created_at
+              FROM vertex_gov_org
+             WHERE domain_code = %s AND owner_did = %s AND path = %s
+             LIMIT 1
+            """,
+            (DOMAIN_CODE, PRIMARY_DID, path),
+        )
+        row = cur.fetchone()
+    if not row:
+        return None
+    keys = [
+        "path", "name", "name_en", "website", "contract", "tags", "org_tier",
+        "site_domain_slug", "site_followed", "did_registered",
+        "last_ingested_at", "last_content_hash", "last_kyumei_at",
+        "last_shinka_at", "created_at",
+    ]
+    return dict(zip(keys, row))
+
+
+def task_gov_hkg_seed_orgs(limit: int = 30) -> dict[str, Any]:
+    limit = max(1, min(int(limit or 30), 100))
+    with sync_cursor() as cur:
+        cur.execute(
+            (
+                "SELECT path FROM vertex_gov_org "
+                "WHERE domain_code = %s AND owner_did = %s AND name_en != '' LIMIT 10000"
+            ),
+            (DOMAIN_CODE, PRIMARY_DID),
+        )
+        existing = {str(r[0]) for r in cur.fetchall()}
+    pending = [row for row in _load_seed_orgs() if row["path"] not in existing]
+    written = 0
+    for row in pending[:limit]:
+        _upsert_gov_org(row)
+        written += 1
+    return {"ok": True, "seeded": written, "remaining": max(0, len(pending) - written)}
+
+
+def task_gov_hkg_resolve_org_path(path: str = "") -> dict[str, Any]:
+    path = str(path or "").strip()
+    if not path:
+        return {"error": "missing path"}
+    row = _get_org(path)
+    if not row:
+        return {"error": f"not found: {path}"}
+    return {
+        "did": f"{PRIMARY_DID}:{path}",
+        "name": str(row.get("name") or ""),
+        "nameEn": str(row.get("name_en") or ""),
+        "website": str(row.get("website") or ""),
+    }
+
+
+def task_gov_hkg_list_orgs(orgTier: str = "", offset: int = 0, limit: int = 50) -> dict[str, Any]:
+    org_tier = str(orgTier or "").strip()
+    offset = max(0, int(offset or 0))
+    limit = max(1, min(int(limit or 50), 100))
+    params: list[Any] = [DOMAIN_CODE, PRIMARY_DID]
+    where = "domain_code = %s AND owner_did = %s AND name_en != ''"
+    if org_tier:
+        where += " AND org_tier = %s"
+        params.append(org_tier)
+    with sync_cursor() as cur:
+        cur.execute(f"SELECT COUNT(*) FROM vertex_gov_org WHERE {where}", tuple(params))
+        total = int((cur.fetchone() or [0])[0] or 0)
+        cur.execute(
+            f"""
+            SELECT path, name, name_en, website, did_registered
+              FROM vertex_gov_org
+             WHERE {where}
+             ORDER BY path
+             LIMIT {limit} OFFSET {offset}
+            """,
+            tuple(params),
+        )
+        rows = cur.fetchall()
+    return {
+        "orgs": [
+            {
+                "path": str(r[0] or ""),
+                "did": f"{PRIMARY_DID}:{str(r[0] or '')}",
+                "name": str(r[1] or ""),
+                "nameEn": str(r[2] or ""),
+                "website": str(r[3] or ""),
+                "didRegistered": str(r[4] or "") == "true",
+            }
+            for r in rows
+        ],
+        "total": total,
+    }
+
+
+async def task_gov_hkg_register_dids(limit: int = 10) -> dict[str, Any]:
+    limit = max(1, min(int(limit or 10), 50))
+    with sync_cursor() as cur:
+        cur.execute(
+            f"""
+            SELECT path, name, name_en, website, contract, tags, org_tier,
+                   site_domain_slug, site_followed, last_ingested_at,
+                   last_content_hash, last_kyumei_at, last_shinka_at, created_at
+              FROM vertex_gov_org
+             WHERE domain_code = %s AND owner_did = %s AND name_en != '' AND did_registered != 'true'
+             ORDER BY path
+             LIMIT {limit}
+            """,
+            (DOMAIN_CODE, PRIMARY_DID),
+        )
+        rows = cur.fetchall()
+    registered: list[str] = []
+    pds_results: list[dict[str, Any]] = []
+    for r in rows:
+        row = {
+            "path": str(r[0] or ""),
+            "name": str(r[1] or ""),
+            "name_en": str(r[2] or ""),
+            "website": str(r[3] or ""),
+            "contract": str(r[4] or ""),
+            "tags": json.loads(str(r[5] or "[]")),
+            "org_tier": str(r[6] or ""),
+            "site_domain_slug": str(r[7] or ""),
+            "site_followed": str(r[8] or "false"),
+            "last_ingested_at": str(r[9] or ""),
+            "last_content_hash": str(r[10] or ""),
+            "last_kyumei_at": str(r[11] or ""),
+            "last_shinka_at": str(r[12] or ""),
+            "created_at": str(r[13] or _utc_now_iso()),
+            "did_registered": "true",
+        }
+        path = row["path"]
+        org_did = f"{PRIMARY_DID}:{path}"
+        display_name = f"{row['name']} ({row['name_en']})"
+        description = (
+            "[AI Agent - unofficial, not affiliated with the real organization] "
+            f"{row['name_en']}"
+        )
+        pds_results.append(
+            {
+                "path": path,
+                "identity": await _pds_xrpc(
+                    "com.atproto.identity.create",
+                    {
+                        "path": path,
+                        "documentJson": json.dumps(
+                            {
+                                "displayName": display_name,
+                                "description": f"{description} - {row['website']}",
+                            },
+                            separators=(",", ":"),
+                            ensure_ascii=False,
+                        ),
+                    },
+                ),
+            }
+        )
+        _insert_repo_record(
+            org_did,
+            "actorManifest",
+            _repo_rkey("actor", path),
+            {
+                "$type": "actorManifest",
+                "displayName": display_name,
+                "description": description,
+                "performerType": "service",
+                "isBot": True,
+                "agentType": "autonomous",
+                "country": DOMAIN_CODE,
+                "path": path,
+                "createdAt": _utc_now_iso(),
+            },
+        )
+        pds_results[-1]["post"] = await _pds_xrpc(
+            "app.bsky.feed.post",
+            {"did": org_did, "text": f"{row['name_en']} registered.\n{org_did}"},
+        )
+        _insert_repo_record(
+            org_did,
+            "app.bsky.feed.post",
+            _repo_rkey("registered", path),
+            {
+                "$type": "app.bsky.feed.post",
+                "text": f"{row['name_en']} registered.\n{org_did}",
+                "createdAt": _utc_now_iso(),
+            },
+        )
+        _upsert_gov_org(row)
+        registered.append(org_did)
+    pds_ok = sum(
+        1
+        for result in pds_results
+        if int(result.get("identity", {}).get("status") or 0) in range(200, 300)
+    )
+    return {"ok": True, "registered": len(registered), "dids": registered, "pdsIdentityOk": pds_ok}
+
+
+async def task_gov_hkg_follow_site_deps(limit: int = 15) -> dict[str, Any]:
+    limit = max(1, min(int(limit or 15), 50))
+    followed = 0
+    with sync_cursor() as cur:
+        cur.execute(
+            f"""
+            SELECT path, name, name_en, website, contract, tags, org_tier,
+                   site_domain_slug, did_registered, last_ingested_at,
+                   last_content_hash, last_kyumei_at, last_shinka_at, created_at
+              FROM vertex_gov_org
+             WHERE domain_code = %s
+               AND owner_did = %s
+               AND site_followed != 'true'
+               AND site_domain_slug != ''
+             ORDER BY path
+             LIMIT {limit}
+            """,
+            (DOMAIN_CODE, PRIMARY_DID),
+        )
+        rows = cur.fetchall()
+    for r in rows:
+        path = str(r[0] or "")
+        slug = str(r[7] or "")
+        await _pds_xrpc("app.bsky.graph.follow", {"did": f"did:web:site.gftd.ai:{slug}"})
+        row = {
+            "path": path,
+            "name": str(r[1] or ""),
+            "name_en": str(r[2] or ""),
+            "website": str(r[3] or ""),
+            "contract": str(r[4] or ""),
+            "tags": json.loads(str(r[5] or "[]")),
+            "org_tier": str(r[6] or ""),
+            "site_domain_slug": slug,
+            "site_followed": "true",
+            "did_registered": str(r[8] or "false"),
+            "last_ingested_at": str(r[9] or ""),
+            "last_content_hash": str(r[10] or ""),
+            "last_kyumei_at": str(r[11] or ""),
+            "last_shinka_at": str(r[12] or ""),
+            "created_at": str(r[13] or _utc_now_iso()),
+        }
+        _insert_repo_record(
+            f"{PRIMARY_DID}:{path}",
+            "ai.gftd.apps.states.govOrgSiteDep",
+            _repo_rkey("site-dep", path),
+            {
+                "$type": "ai.gftd.apps.states.govOrgSiteDep",
+                "path": path,
+                "siteNanoid": SITE_NANOID,
+                "siteTopicDid": SITE_GOV_TOPIC_DID,
+                "siteDid": f"did:web:site.gftd.ai:{slug}",
+                "updated_at": _utc_now_iso(),
+            },
+        )
+        _upsert_gov_org(row)
+        followed += 1
+    return {"ok": True, "followed": followed}
+
+
+async def task_gov_hkg_ingest_official_sources(
+    limit: int = 10,
+    processBatchSize: int = 10,
+    includeOrgSites: bool = True,
+) -> dict[str, Any]:
+    """Queue official Hong Kong SAR government sources through site.gftd.ai."""
+    limit = max(1, min(int(limit or 10), 50))
+    process_batch_size = max(1, min(int(processBatchSize or 10), 50))
+    targets: list[dict[str, str]] = [
+        {"kind": "page", "url": url}
+        for url in _OFFICIAL_SOURCE_URLS
+    ]
+    if includeOrgSites:
+        with sync_cursor() as cur:
+            cur.execute(
+                f"""
+                SELECT DISTINCT website
+                  FROM vertex_gov_org
+                 WHERE domain_code = %s
+                   AND owner_did = %s
+                   AND website != ''
+                 ORDER BY website
+                 LIMIT {limit}
+                """,
+                (DOMAIN_CODE, PRIMARY_DID),
+            )
+            for (website,) in cur.fetchall():
+                host = _url_to_hostname(str(website or ""))
+                if host:
+                    targets.append({"kind": "domain", "domain": host})
+
+    enqueued = 0
+    results: list[dict[str, Any]] = []
+    for target in targets[: limit + len(_OFFICIAL_SOURCE_URLS)]:
+        if target["kind"] == "page":
+            result = await _pds_xrpc(
+                "ai.gftd.apps.site.crawlPage",
+                {"url": target["url"], "topics": ["government", "hkg", "official-source"], "depth": 0},
+            )
+        else:
+            result = await _pds_xrpc(
+                "ai.gftd.apps.site.crawlDomain",
+                {
+                    "domain": target["domain"],
+                    "topics": ["government", "hkg", "official-source"],
+                    "maxDepth": 1,
+                    "maxPages": 25,
+                },
+            )
+        status = int(result.get("status") or 0)
+        if status in range(200, 300):
+            enqueued += 1
+        results.append({"target": target, "status": status, "body": result.get("body")})
+
+    process_result = await _pds_xrpc(
+        "ai.gftd.apps.site.processFrontier",
+        {"batchSize": process_batch_size},
+    )
+    return {
+        "ok": enqueued > 0,
+        "enqueued": enqueued,
+        "targets": len(targets),
+        "processed": (process_result.get("body") or {}).get("processed", 0),
+        "processStatus": process_result.get("status"),
+        "results": results[:10],
+    }
+
+
+async def task_gov_hkg_sync_wet_updates(limit: int = 10, postUpdates: bool = True) -> dict[str, Any]:
+    limit = max(1, min(int(limit or 10), 50))
+    cutoff = (_dt.datetime.now(tz=_dt.UTC) - _dt.timedelta(days=7)).replace(microsecond=0)
+    cutoff_iso = cutoff.isoformat().replace("+00:00", "Z")
+    with sync_cursor() as cur:
+        cur.execute(
+            f"""
+            SELECT path, name_en, website, site_domain_slug, last_content_hash
+              FROM vertex_gov_org
+             WHERE domain_code = %s
+               AND owner_did = %s
+               AND site_domain_slug != ''
+               AND (
+                 last_ingested_at = ''
+                 OR last_ingested_at IS NULL
+                 OR last_ingested_at < %s
+               )
+             ORDER BY last_ingested_at ASC
+             LIMIT {limit}
+            """,
+            (DOMAIN_CODE, PRIMARY_DID, cutoff_iso),
+        )
+        rows = cur.fetchall()
+    checked = 0
+    updated = 0
+    posted = 0
+    now = _utc_now_iso()
+    for r in rows:
+        path = str(r[0] or "")
+        name_en = str(r[1] or "")
+        website = str(r[2] or "")
+        slug = str(r[3] or "")
+        last_hash = str(r[4] or "")
+        if not path or not slug:
+            continue
+        checked += 1
+        domains = _wet_domain_candidates(website, slug)
+        with sync_cursor() as cur:
+            cur.execute(
+                """
+                SELECT markdown, content_hash
+                  FROM vertex_wet_chunk
+                 WHERE domain = ANY(%s)
+                 ORDER BY crawled_at DESC
+                 LIMIT 1
+                """,
+                (domains,),
+            )
+            wet = cur.fetchone()
+        if not wet:
+            fetch_hash, fetch_text = _direct_fetch_hash(website)
+            if fetch_hash:
+                fields: dict[str, str] = {"last_ingested_at": now, "last_content_hash": fetch_hash}
+                _update_gov_org_fields(path, fields)
+                if fetch_hash != last_hash:
+                    updated += 1
+                    text = f"{name_en} - official site updated\n{fetch_text[:200]}..."
+                    org_did = f"{PRIMARY_DID}:{path}"
+                    if postUpdates:
+                        result = await _pds_xrpc("app.bsky.feed.post", {"did": org_did, "text": text})
+                        if int(result.get("status") or 0) in range(200, 300):
+                            posted += 1
+                    _insert_repo_record(
+                        org_did,
+                        "app.bsky.feed.post",
+                        _repo_rkey("wet-update", path),
+                        {"$type": "app.bsky.feed.post", "text": text, "createdAt": now},
+                    )
+            else:
+                _update_gov_org_fields(path, {"last_ingested_at": now})
+            continue
+        markdown = str(wet[0] or "")
+        content_hash = str(wet[1] or "")
+        fields = {"last_ingested_at": now}
+        if content_hash:
+            fields["last_content_hash"] = content_hash
+        _update_gov_org_fields(path, fields)
+        if content_hash and content_hash != last_hash:
+            updated += 1
+            summary = re.sub(r"\s+", " ", markdown)[:200]
+            text = f"{name_en} - official site updated\n{summary}..."
+            org_did = f"{PRIMARY_DID}:{path}"
+            if postUpdates:
+                result = await _pds_xrpc("app.bsky.feed.post", {"did": org_did, "text": text})
+                if int(result.get("status") or 0) in range(200, 300):
+                    posted += 1
+            _insert_repo_record(
+                org_did,
+                "app.bsky.feed.post",
+                _repo_rkey("wet-update", path),
+                {
+                    "$type": "app.bsky.feed.post",
+                    "text": text,
+                    "createdAt": now,
+                },
+            )
+    return {"ok": True, "checked": checked, "updated": updated, "posted": posted}
+
+
+async def task_gov_hkg_shinka(limit: int = 1, postUpdates: bool = True) -> dict[str, Any]:
+    limit = max(1, min(int(limit or 1), 5))
+    with sync_cursor() as cur:
+        cur.execute(
+            f"""
+            SELECT path, name_en
+              FROM vertex_gov_org
+             WHERE domain_code = %s
+               AND owner_did = %s
+               AND did_registered = 'true'
+             ORDER BY last_shinka_at ASC
+             LIMIT {limit}
+            """,
+            (DOMAIN_CODE, PRIMARY_DID),
+        )
+        rows = cur.fetchall()
+    posted = 0
+    now = _utc_now_iso()
+    for r in rows:
+        path = str(r[0] or "")
+        name_en = str(r[1] or "")
+        if not path:
+            continue
+        org_did = f"{PRIMARY_DID}:{path}"
+        text = f"{name_en} - government organization update"
+        if postUpdates:
+            result = await _pds_xrpc("app.bsky.feed.post", {"did": org_did, "text": text})
+            if int(result.get("status") or 0) in range(200, 300):
+                posted += 1
+        _insert_repo_record(
+            org_did,
+            "app.bsky.feed.post",
+            _repo_rkey("shinka", path),
+            {
+                "$type": "app.bsky.feed.post",
+                "text": text,
+                "createdAt": now,
+            },
+        )
+        _update_gov_org_fields(path, {"last_shinka_at": now})
+    return {"ok": True, "posted": posted, "touched": len(rows)}
+
+
+async def task_gov_hkg_heartbeat_tick(
+    seedLimit: int = 30,
+    registerLimit: int = 10,
+    followLimit: int = 15,
+    ingestLimit: int = 5,
+    shinkaLimit: int = 1,
+) -> dict[str, Any]:
+    seed = await asyncio.to_thread(task_gov_hkg_seed_orgs, seedLimit)
+    official_sources = await task_gov_hkg_ingest_official_sources(limit=max(1, min(seedLimit, 10)))
+    register = await task_gov_hkg_register_dids(registerLimit)
+    follow = await task_gov_hkg_follow_site_deps(followLimit)
+    ingest = await task_gov_hkg_sync_wet_updates(ingestLimit)
+    shinka = await task_gov_hkg_shinka(shinkaLimit)
+    return {
+        "ok": True,
+        "seeded": seed.get("seeded", 0),
+        "officialSourcesEnqueued": official_sources.get("enqueued", 0),
+        "registered": register.get("registered", 0),
+        "followed": follow.get("followed", 0),
+        "wetUpdated": ingest.get("updated", 0),
+        "shinkaPosted": shinka.get("posted", 0),
+    }
+
+
+def register(worker: Any, *, timeout_ms: int) -> None:
+    worker.task(
+        task_type="xrpc.ai.gftd.govHkg.seedOrgs",
+        single_value=False,
+        timeout_ms=timeout_ms,
+    )(task_gov_hkg_seed_orgs)
+    worker.task(
+        task_type="xrpc.ai.gftd.govHkg.registerDIDs",
+        single_value=False,
+        timeout_ms=timeout_ms,
+    )(task_gov_hkg_register_dids)
+    worker.task(
+        task_type="xrpc.ai.gftd.govHkg.followSiteDeps",
+        single_value=False,
+        timeout_ms=timeout_ms,
+    )(task_gov_hkg_follow_site_deps)
+    worker.task(
+        task_type="xrpc.ai.gftd.govHkg.ingestOfficialSources",
+        single_value=False,
+        timeout_ms=timeout_ms,
+    )(task_gov_hkg_ingest_official_sources)
+    worker.task(
+        task_type="xrpc.ai.gftd.govHkg.resolveOrgPath",
+        single_value=False,
+        timeout_ms=timeout_ms,
+    )(task_gov_hkg_resolve_org_path)
+    worker.task(
+        task_type="xrpc.ai.gftd.govHkg.listOrgs",
+        single_value=False,
+        timeout_ms=timeout_ms,
+    )(task_gov_hkg_list_orgs)
+    worker.task(
+        task_type="xrpc.ai.gftd.govHkg.syncWetUpdates",
+        single_value=False,
+        timeout_ms=timeout_ms,
+    )(task_gov_hkg_sync_wet_updates)
+    worker.task(
+        task_type="xrpc.ai.gftd.govHkg.shinka",
+        single_value=False,
+        timeout_ms=timeout_ms,
+    )(task_gov_hkg_shinka)
+    worker.task(
+        task_type="xrpc.ai.gftd.govHkg.heartbeatTick",
+        single_value=False,
+        timeout_ms=timeout_ms,
+    )(task_gov_hkg_heartbeat_tick)
