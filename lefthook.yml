@@ -1,0 +1,28 @@
+# lefthook config — etzhayyim/root
+#
+# Scaffolding stub. Real hooks (adr-validate, docs-registry, bpmn-contract-gates,
+# lint-dangerous-query, llm-model-ssot, etc.) will be added in ADR 2605152100
+# Step 6 (content seed) when the corresponding source paths land in this repo.
+#
+# Reference for full hook set: gftdcojp/ai-gftd-apps-gftdcojp/lefthook.yml
+
+pre-commit:
+  parallel: true
+  commands:
+    trailing-whitespace:
+      glob: "*.{md,toml,yaml,yml,json,jsonc,ts,tsx,js,mjs,cjs,py,rs,go,sh}"
+      run: |
+        if grep -nE ' +$' {staged_files} 2>/dev/null; then
+          echo "✘ trailing whitespace found"; exit 1
+        fi
+      stage_fixed: false
+
+    end-of-file:
+      glob: "*.{md,toml,yaml,yml,json,jsonc,ts,tsx,js,mjs,cjs,py,rs,go,sh}"
+      run: |
+        for f in {staged_files}; do
+          if [ -s "$f" ] && [ "$(tail -c1 "$f" | xxd -p)" != "0a" ]; then
+            echo "✘ missing final newline: $f"; exit 1
+          fi
+        done
+      stage_fixed: false
