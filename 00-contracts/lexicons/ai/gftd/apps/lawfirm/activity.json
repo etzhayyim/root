@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.activity",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Atomic unit of work on a matter (call / meeting / research / draft / review / filing / travel). Linked to optional timeEntry for billing.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["matterDid", "actorDid", "kind", "startedAt"],
+        "properties": {
+          "matterDid":    { "type": "string", "format": "did" },
+          "actorDid":     { "type": "string", "format": "did", "description": "Performer (bengoshi / paralegal / AI agent / client)" },
+          "kind":         { "type": "string", "enum": ["call","meeting","research","draft","review","filing","travel","deposition","negotiation","other"] },
+          "subject":      { "type": "string" },
+          "note":         { "type": "string" },
+          "startedAt":    { "type": "string", "format": "datetime" },
+          "durationMin":  { "type": "integer" },
+          "billable":     { "type": "boolean", "default": true },
+          "timeEntryRef": { "type": "string", "format": "at-uri", "description": "Optional at://.../ai.gftd.apps.lawfirm.timeEntry/{rkey}" },
+          "hearingRef":   { "type": "string", "format": "at-uri", "description": "Optional link to ai.gftd.apps.lawfirm.hearing record" },
+          "documentRefs": { "type": "array", "items": { "type": "string", "format": "at-uri" } },
+          "createdAt":    { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

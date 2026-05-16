@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return Shinshi coverage bucket statistics.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "appDid": { "type": "string", "default": "did:web:sh1n5h1x.gftd.ai" }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["latencyMs", "assistantId"],
+          "properties": {
+            "zero": { "type": "integer" },
+            "partial": { "type": "integer" },
+            "complete": { "type": "integer" },
+            "total": { "type": "integer" },
+            "pctComplete": { "type": "number" },
+            "drainRemaining": { "type": "integer" },
+            "queryMs": { "type": "integer" },
+            "connectMs": { "type": "integer" },
+            "pureQueryMs": { "type": "integer" },
+            "cached": { "type": "boolean" },
+            "cacheAgeSec": { "type": "number" },
+            "latencyMs": { "type": "integer" },
+            "assistantId": { "type": "string", "const": "coverage" },
+            "error": { "type": "string" },
+            "errorDetail": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

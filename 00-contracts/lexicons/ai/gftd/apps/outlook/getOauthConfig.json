@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.outlook.getOauthConfig",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated outlook lexicon for getOauthConfig (F-Plan F2 holdout migration 2026-04-13).",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "clientId": {
+              "type": "integer"
+            },
+            "tenantId": {
+              "type": "integer"
+            },
+            "scope": {
+              "type": "object"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

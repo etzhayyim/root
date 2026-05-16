@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.ransomwarePay.flagSanctionsHit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OFAC SDN match / sanctions risk / CFI IEEPA (bridges kevCatalog.flagRemediationLag + ofac-sanctions-sdn + enforcement-action)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "paymentVid",
+            "riskKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "paymentVid": {
+              "type": "string",
+              "description": "bridges recordPayment"
+            },
+            "riskKind": {
+              "type": "string",
+              "enum": [
+                "sdn_match_actor",
+                "sanctioned_jurisdiction",
+                "mixer_chain",
+                "sdn_wallet",
+                "sibling_wallet",
+                "intermediary",
+                "fintech_off_ramp",
+                "dual_national",
+                "iran_cyber",
+                "russia_cyber",
+                "north_korea_cyber",
+                "lazarus",
+                "conti_legacy"
+              ]
+            },
+            "ofacCaseRef": {
+              "type": "string"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

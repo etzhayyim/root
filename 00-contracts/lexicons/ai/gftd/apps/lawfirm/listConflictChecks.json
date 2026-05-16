@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.listConflictChecks",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "List conflict-of-interest scan history for a matter. Reads view_lawfirm_conflict_findings. Ordered by scannedAt DESC so the first row is the most recent scan (used by the UI to surface the current header badge).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["matterDid"],
+          "properties": {
+            "matterDid": { "type": "string", "format": "did" },
+            "scanScope": { "type": "string", "enum": ["matterIntake","externalCounselInvite","periodicAudit"] },
+            "result":    { "type": "string", "enum": ["clear","disclosureRequired","waivable","blocked"] },
+            "limit":     { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+            "offset":    { "type": "integer", "minimum": 0, "default": 0 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "offset", "limit", "total"],
+          "properties": {
+            "items":  { "type": "array", "items": { "type": "object" } },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" },
+            "total":  { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

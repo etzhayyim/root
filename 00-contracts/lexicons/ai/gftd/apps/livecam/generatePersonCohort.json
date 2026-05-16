@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.livecam.generatePersonCohort",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "country": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "zoneSlug": {
+              "type": "string"
+            },
+            "ageClass": {
+              "type": "string"
+            },
+            "genderApparent": {
+              "type": "string"
+            },
+            "clothingUpperColor": {
+              "type": "string"
+            },
+            "clothingLowerColor": {
+              "type": "string"
+            },
+            "activity": {
+              "type": "string"
+            },
+            "carrying": {
+              "type": "string"
+            },
+            "timeSlot": {
+              "type": "string"
+            },
+            "dayOfWeek": {
+              "type": "string"
+            },
+            "groupSize": {
+              "type": "number"
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cohortHash": {
+              "type": "string"
+            },
+            "did": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

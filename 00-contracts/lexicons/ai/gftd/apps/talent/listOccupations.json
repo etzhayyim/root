@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.talent.listOccupations",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List talent cohorts (ISCO × country × experience-band). Cohort-first per ADR-0018 — no individual PII exposed.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "iscoCode": { "type": "string" },
+          "country": { "type": "string", "description": "ISO-3166-1 alpha-3" },
+          "experienceBand": { "type": "string", "enum": ["entry", "mid", "senior", "lead"] },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cohorts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "iscoCode": { "type": "string" },
+                  "country": { "type": "string" },
+                  "experienceBand": { "type": "string" },
+                  "size": { "type": "integer" }
+                },
+                "required": ["iscoCode", "country", "size"]
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          },
+          "required": ["cohorts", "total", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

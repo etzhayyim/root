@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.recomputeWithholding",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0051 fuyou propagation. JP 給与所得 源泉徴収 月額再計算 trigger. Phase 1 = posts a marker journal entry; Phase 2 = full per-employee withholding recomputation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "employeeDid": { "type": "string" },
+            "employerOrgId": { "type": "string" },
+            "taxYear": { "type": "integer" },
+            "effectiveFromMonth": { "type": "string", "description": "YYYY-MM" },
+            "triggerVertexId": { "type": "string" },
+            "triggerSource": { "type": "string" },
+            "amendmentReason": { "type": "string" }
+          },
+          "required": ["employerOrgId", "taxYear", "effectiveFromMonth"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "monthsAffected": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

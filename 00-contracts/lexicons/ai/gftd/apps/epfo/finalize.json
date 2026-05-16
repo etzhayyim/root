@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.epfo.finalize",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0052. Commit a reviewed ECR, capture TRRN, and propagate PF payable accounting to kaikei.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "trrn": { "type": "string", "description": "Temporary Return Reference Number issued by the EPFO portal." },
+            "effectiveWageMonth": { "type": "string", "description": "YYYY-MM. Defaults to the ECR's wage month." }
+          },
+          "required": ["vertexId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "trrn": { "type": "string" },
+            "propagatedToKaikei": { "type": "boolean" },
+            "error": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.fuyou.listForOrg",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-0051. HR-officer dashboard: list declarations for the caller's org. Returns Tier 1 metadata only (no Tier 3 PII). RLS gated by employer_org_id = jwt.org_id AND jwt.role = 'hr-officer'.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "taxYear": { "type": "integer" },
+          "status": { "type": "string", "description": "Optional filter: draft|submitted|approved|rejected|amended|purged" },
+          "limit": { "type": "integer", "default": 50, "minimum": 1, "maximum": 500 },
+          "cursor": { "type": "string" }
+        },
+        "required": ["taxYear"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "employeeDid": { "type": "string" },
+                  "status": { "type": "string" },
+                  "processType": { "type": "string" },
+                  "amendmentCount": { "type": "integer" },
+                  "submittedAt": { "type": "string" },
+                  "approvedAt": { "type": "string" }
+                }
+              }
+            },
+            "cursor": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": ["items"]
+        }
+      }
+    }
+  }
+}

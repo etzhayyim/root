@@ -1,0 +1,211 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.draftPoliceReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Generate a Japanese-police-format evidence packet (被害届 / 告訴状 / 捜査報告書 / 捜査関係事項照会書 / 証拠資料目録 / 送致書) for a fraud case, render each document as markdown, fire PEGEL ticks (RW vertex_malak_investigation_tick), and return file paths + reporting-line metadata. Per ADR-2605091400, this surface is exposed via magatama MCP only; raw victim PII never appears in the response (zero-knowledge invariant).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["caseId", "caseFacts"],
+          "properties": {
+            "caseId": {
+              "type": "string",
+              "description": "Stable case identifier, e.g. case:takahashi-hiroyuki-20260512"
+            },
+            "caseFacts": {
+              "type": "ref",
+              "ref": "#caseFacts",
+              "description": "Consolidated case facts (victim, actors, incident, mule accounts, infrastructure, evidence, OSINT)."
+            },
+            "outputDir": {
+              "type": "string",
+              "description": "Absolute path on the worker's disk to write the markdown packet. Empty = in-memory only (no persistence)."
+            },
+            "docTypes": {
+              "type": "array",
+              "description": "Subset of documents to render. Default = all 6.",
+              "items": {
+                "type": "string",
+                "knownValues": [
+                  "higai_todoke",
+                  "kokuso_jo",
+                  "sousa_houkokusho",
+                  "shoukai_sho",
+                  "shouko_mokuroku",
+                  "souchi_sho"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "caseNo": {
+              "type": "string",
+              "description": "Police case number assigned to this packet (e.g. 磯刑知第26-…号)."
+            },
+            "files": {
+              "type": "ref",
+              "ref": "#filesMap",
+              "description": "doc_type → filesystem path (only set when outputDir was provided)."
+            },
+            "documentSha256": {
+              "type": "ref",
+              "ref": "#shaMap",
+              "description": "doc_type → sha256 of the markdown body. Returned instead of raw text per zero-knowledge invariant."
+            },
+            "pegelTicks": {
+              "type": "array",
+              "description": "RW vertex_malak_investigation_tick IDs emitted, one per rendered document.",
+              "items": { "type": "string" }
+            },
+            "reportingLine": {
+              "type": "array",
+              "description": "Reporting chain (起案→係長→課長→副署長→署長→県警本部→警察庁→JC3→ICPO).",
+              "items": {
+                "type": "ref",
+                "ref": "#reportingStep"
+              }
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    },
+    "caseFacts": {
+      "type": "object",
+      "description": "Consolidated case facts. All inner records carry TLP=RED.",
+      "properties": {
+        "victim":            { "type": "ref", "ref": "#victim" },
+        "actors":            { "type": "array", "items": { "type": "ref", "ref": "#actor" } },
+        "incident":          { "type": "ref", "ref": "#incident" },
+        "mule_accounts":     { "type": "array", "items": { "type": "ref", "ref": "#muleAccount" } },
+        "infrastructure":    { "type": "ref", "ref": "#infrastructure" },
+        "evidence":          { "type": "array", "items": { "type": "ref", "ref": "#evidenceItem" } },
+        "osint_findings":    { "type": "array", "items": { "type": "ref", "ref": "#osintFinding" } },
+        "shoukai_targets":   { "type": "array", "items": { "type": "ref", "ref": "#shoukaiTarget" } },
+        "addressee":         { "type": "string" },
+        "case_no":           { "type": "string" },
+        "perpetrator_summary": { "type": "string" }
+      }
+    },
+    "victim": {
+      "type": "object",
+      "properties": {
+        "name":       { "type": "string" },
+        "address":    { "type": "string" },
+        "phone":      { "type": "string" },
+        "email":      { "type": "string" },
+        "dob":        { "type": "string" },
+        "occupation": { "type": "string" }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "properties": {
+        "role": { "type": "string" },
+        "name": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "incident": {
+      "type": "object",
+      "properties": {
+        "summary":   { "type": "string" },
+        "narrative": { "type": "string" },
+        "period":    { "type": "string" },
+        "place":     { "type": "string" },
+        "loss_jpy":  { "type": "integer" }
+      }
+    },
+    "muleAccount": {
+      "type": "object",
+      "properties": {
+        "datetime":       { "type": "string" },
+        "bank":           { "type": "string" },
+        "branch":         { "type": "string" },
+        "account_type":   { "type": "string" },
+        "account_number": { "type": "string" },
+        "holder":         { "type": "string" },
+        "amount":         { "type": "integer" }
+      }
+    },
+    "infrastructure": {
+      "type": "object",
+      "properties": {
+        "fake_brokerage": { "type": "string" },
+        "fake_sites":     { "type": "array", "items": { "type": "string" } },
+        "line_handles":   { "type": "array", "items": { "type": "string" } },
+        "phishing_apps":  { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "evidenceItem": {
+      "type": "object",
+      "properties": {
+        "kind":        { "type": "string" },
+        "title":       { "type": "string" },
+        "source":      { "type": "string" },
+        "acquired_on": { "type": "string" },
+        "tlp":         { "type": "string" },
+        "sha256":      { "type": "string" }
+      }
+    },
+    "osintFinding": {
+      "type": "object",
+      "properties": {
+        "finding": { "type": "string" }
+      }
+    },
+    "shoukaiTarget": {
+      "type": "object",
+      "properties": {
+        "addressee":           { "type": "string" },
+        "account_or_contract": { "type": "string" },
+        "holder":              { "type": "string" },
+        "period":              { "type": "string" },
+        "queries":             { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "reportingStep": {
+      "type": "object",
+      "properties": {
+        "step":   { "type": "string" },
+        "rank":   { "type": "string" },
+        "post":   { "type": "string" },
+        "name":   { "type": "string" },
+        "agency": { "type": "string" }
+      }
+    },
+    "filesMap": {
+      "type": "object",
+      "description": "Map doc_type → absolute filesystem path.",
+      "properties": {
+        "higai_todoke":     { "type": "string" },
+        "kokuso_jo":        { "type": "string" },
+        "sousa_houkokusho": { "type": "string" },
+        "shoukai_sho":      { "type": "string" },
+        "shouko_mokuroku":  { "type": "string" },
+        "souchi_sho":       { "type": "string" }
+      }
+    },
+    "shaMap": {
+      "type": "object",
+      "description": "Map doc_type → sha256 of rendered markdown.",
+      "properties": {
+        "higai_todoke":     { "type": "string" },
+        "kokuso_jo":        { "type": "string" },
+        "sousa_houkokusho": { "type": "string" },
+        "shoukai_sho":      { "type": "string" },
+        "shouko_mokuroku":  { "type": "string" },
+        "souchi_sho":       { "type": "string" }
+      }
+    }
+  }
+}

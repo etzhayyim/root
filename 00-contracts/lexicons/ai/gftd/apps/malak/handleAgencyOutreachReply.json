@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.handleAgencyOutreachReply",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Process an inbound reply from a prospect (via Cloudflare email worker → reply.malak.gftd.ai). Runs the inbound_reply LangGraph (parse_intent → classify interest/disinterest/question → update CRM stage → optionally assign owner). PII is redacted before persistence.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "emailFrom",
+            "emailTo",
+            "subject",
+            "bodyTextSha256",
+            "receivedAt"
+          ],
+          "properties": {
+            "emailFrom": {
+              "type": "string"
+            },
+            "emailTo": {
+              "type": "string"
+            },
+            "subject": {
+              "type": "string"
+            },
+            "bodyTextSha256": {
+              "type": "string",
+              "description": "Raw body is stored in R2 with restricted ACL; only sha256 is passed through XRPC."
+            },
+            "bodyR2Key": {
+              "type": "string"
+            },
+            "msMessageId": {
+              "type": "string",
+              "description": "Source ms message id if available (to thread with vertex_malak_surveillance_send)."
+            },
+            "receivedAt": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "replyId": {
+              "type": "string"
+            },
+            "senderClass": {
+              "type": "string",
+              "knownValues": [
+                "interested",
+                "needsInfo",
+                "notNow",
+                "unsubscribe",
+                "outOfScope",
+                "unknown"
+              ]
+            },
+            "intent": {
+              "type": "string"
+            },
+            "linkedProspectId": {
+              "type": "string"
+            },
+            "linkedSendId": {
+              "type": "string"
+            },
+            "assignedOwnerDid": {
+              "type": "string"
+            },
+            "pegelTick": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

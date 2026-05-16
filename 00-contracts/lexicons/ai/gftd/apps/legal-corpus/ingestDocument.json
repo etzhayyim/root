@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.legal-corpus.ingestDocument",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Ingest one foreign-jurisdiction primary legal document (case opinion / statute / regulation / arbitration award) and persist to vertex_legal_corpus_document. Idempotent on (sourceId, canonicalUri). Embedding is enqueued asynchronously via embedDocument BPMN. ADR-0049.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sourceId", "canonicalUri", "documentType", "jurisdiction", "languageCode", "title", "fetchedAt"],
+          "properties": {
+            "sourceId":      { "type": "string", "description": "Slug of source row in vertex_legal_corpus_source (e.g. 'courtlistener', 'eur-lex', 'bailii', 'worldlii', 'canlii')" },
+            "canonicalUri":  { "type": "string", "format": "uri", "description": "Stable upstream URI used as dedupe key" },
+            "documentType":  { "type": "string", "enum": ["opinion", "statute", "regulation", "rule", "treaty", "award", "filing", "order", "comment"] },
+            "jurisdiction":  { "type": "string", "description": "ISO 3166-1 alpha-3 + optional subdivision (e.g. 'USA', 'USA-CA-9', 'EU', 'GBR', 'IND', 'CAN', 'AUS')" },
+            "court":         { "type": "string", "description": "Court / authority name" },
+            "courtDid":      { "type": "string", "format": "did", "description": "Optional saiban / court actor DID for cross-cluster join" },
+            "languageCode":  { "type": "string", "description": "ISO 639-1/2/3 (en, fr, de, es, ja, hi, ...)" },
+            "title":         { "type": "string", "maxLength": 1024 },
+            "citation":      { "type": "string", "description": "Bluebook / OSCOLA / vendor-neutral citation" },
+            "decidedAt":     { "type": "string", "format": "datetime" },
+            "publishedAt":   { "type": "string", "format": "datetime" },
+            "fetchedAt":     { "type": "string", "format": "datetime" },
+            "bodyText":      { "type": "string", "description": "Plain text. Server may truncate to 1 MiB. signal:v1: prefix if jurisdiction in {EU,DE,FR,...}" },
+            "bodyUri":       { "type": "string", "format": "uri", "description": "Optional pointer to off-graph blob (R2/B2)" },
+            "parties":       { "type": "array", "items": { "type": "string" }, "description": "Party display names (anonymized for GDPR jurisdictions)" },
+            "judgeNames":    { "type": "array", "items": { "type": "string" } },
+            "counselNames":  { "type": "array", "items": { "type": "string" } },
+            "topicTags":     { "type": "array", "items": { "type": "string" } },
+            "citesUris":     { "type": "array", "items": { "type": "string" }, "description": "Outbound citations (canonicalUri of cited documents)" },
+            "sensitivityOrd":{ "type": "integer", "default": 1, "description": "1=public, 2=restricted, 3=PII Tier 3 (arbitration awards / GDPR-anon)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId", "alreadyKnown"],
+          "properties": {
+            "vertexId":     { "type": "string" },
+            "alreadyKnown": { "type": "boolean", "description": "true if (sourceId, canonicalUri) already existed (no-op INSERT)" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "InvalidJurisdiction" },
+        { "name": "BodyTooLarge", "description": "bodyText > 1 MiB; provide bodyUri instead" }
+      ]
+    }
+  }
+}

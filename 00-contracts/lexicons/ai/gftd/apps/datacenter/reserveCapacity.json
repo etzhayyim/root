@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.datacenter.reserveCapacity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0055. Start a rack/power/cooling capacity reservation workflow.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "requestId": { "type": "string" },
+            "facilityId": { "type": "string" },
+            "orgId": { "type": "string" },
+            "requesterDid": { "type": "string" }
+          },
+          "required": ["requestId", "facilityId", "orgId", "requesterDid"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "requestId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

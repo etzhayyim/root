@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.bitnestExitPursuit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pregel-style LangGraph pursuit of the BitNest exit-fraud (2025-12 Medium / decripto.org / dehek.com / LinkedIn / TradersUnion reporting) with automatic link-back to case:takahashi-hiroyuki-20260512. Fans out parallel fetches of seed investigative reports, fans out LLM entity extraction per source (or serial when GFTD_LLM_SERIAL=1 for single-GPU local Ollama), correlates operators / wallets / smart contracts / aliases / recovery-scam follow-ups, probes public chain explorers for discovered wallet addresses, and writes edge_malak_target_extends from new entities to existing yabai anchors (bitnest-ex.com / leedsil.com / bitnest.apk / leedsec.com / leeds-securities / jpevaluation.net). Phase 0 keeps RW INSERT in dry-run via live_write=false (default). Phase 1 enables pegel tick emit + RW edge writes after G1+G2 GREEN. Defense-in-depth: edge layer + LangServer gate_input + LangGraph route_extract / route_chain_probe all enforce input validation and Phase 0 live-write guard.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "case_id": {
+              "type": "string",
+              "description": "Anchor case ID. Defaults to 'case:takahashi-hiroyuki-20260512'."
+            },
+            "output_dir": {
+              "type": "string",
+              "description": "Absolute path to persist report.md + raw HTML + extractions.json + chain-probes.json + edges-staged.json + MANIFEST.txt. Empty = no filesystem write."
+            },
+            "sources": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#seedSource" },
+              "description": "Override default seed sources (6 BitNest-specific URLs). Empty = use built-in SEED_SOURCES."
+            },
+            "extra_seed_urls": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Ad-hoc URLs to add to the fetch list (annotated as publisher=adhoc, credibility=0.5)."
+            },
+            "live_write": {
+              "type": "boolean",
+              "description": "Phase 1+ only: emit pegel ticks + RW edge writes. Default false. Phase 0 keeps dry-run."
+            },
+            "llm_disabled": {
+              "type": "boolean",
+              "description": "Skip LLM extraction entirely (smoke-test mode: fetch + persist only)."
+            },
+            "serial_llm": {
+              "type": "boolean",
+              "description": "Force serial LLM extraction across sources. Required for single-GPU local Ollama. Equivalent to env GFTD_LLM_SERIAL=1."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status":         { "type": "string", "knownValues": ["ok", "denied", "error"] },
+            "case_id":        { "type": "string" },
+            "operators":      { "type": "integer", "description": "Count of correlated operator entities." },
+            "wallets":        { "type": "integer", "description": "Count of correlated wallet addresses (chain × address)." },
+            "smart_contracts": { "type": "integer", "description": "Count of correlated smart contracts." },
+            "edges":          { "type": "integer", "description": "Edges staged from new entities to Takahashi yabai anchors." },
+            "files":          { "type": "array", "items": { "type": "string" }, "description": "Filesystem paths of persisted artifacts." },
+            "pegel_ticks":    { "type": "array", "items": { "type": "string" }, "description": "Investigation-tick vertex_ids emitted." },
+            "document_sha256": { "type": "string", "description": "SHA-256 of concat(report + extractions + probes + edges)." },
+            "error":          { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "seedSource": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "key":         { "type": "string", "description": "Stable key for state-channel addressing (e.g. 'medium-orzo')." },
+        "url":         { "type": "string" },
+        "title":       { "type": "string" },
+        "publisher":   { "type": "string" },
+        "published":   { "type": "string", "description": "Publication date (YYYY-MM or YYYY-MM-DD)." },
+        "credibility": { "type": "number", "description": "Reliability weight 0..1 used in observation confidence." },
+        "notes":       { "type": "string" }
+      }
+    }
+  }
+}

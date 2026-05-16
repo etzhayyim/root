@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpFiscal.kofuzeiTransfer",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "地方交付税 / 国庫支出金 の transfer record。sourceMinistry (L5) から recipient L4 (都道府県/市町村) へ。",
+      "record": {
+        "type": "object",
+        "required": ["sourceMinistryDid", "recipientLgDid", "basis", "amountJpy", "fiscalYear", "createdAt"],
+        "properties": {
+          "sourceMinistryDid": { "type": "string", "format": "did" },
+          "recipientLgDid": { "type": "string", "format": "did", "description": "did:web:gov.gftd.ai:country:jpn:prefecture:* or :municipality:{団体コード6桁}" },
+          "basis": { "type": "string", "enum": ["ordinary-kofuzei", "special-kofuzei", "kokko-shishutsukin", "grant-in-aid", "other"] },
+          "programCode": { "type": "string", "description": "対応する appropriation.programCode" },
+          "amountJpy": { "type": "integer", "minimum": 0 },
+          "fiscalYear": { "type": "integer" },
+          "derivationStage": { "type": "string", "enum": ["L4", "L5"] },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  targetNamespace="http://bpmn.io/schema/bpmn"
+                  exporter="Camunda Modeler"
+                  exporterVersion="2.0">
+
+  <!--
+    OWL Reasoner Batch Pipeline
+    Process: owl_reasoner_batch
+    Cadence: R/PT1H (EL+QL), R/P7D gate for DL consistency
+
+    Task flow:
+      Timer -> EL classify -> QL precompute -> [DL gate] -> DL classify -> benchmark compare -> End
+
+    EL++ O(n^3) polynomial, runs every hour.
+    DL HermiT EXPTIME, gated to weekly via exclusive gateway.
+    mv_owl_el_dl_diff is a Streaming MV; it stays current after both writes.
+  -->
+
+  <bpmn:process id="owl_reasoner_batch" name="OWL Reasoner Batch" isExecutable="true">
+
+    <!-- R/PT1H timer start -->
+    <bpmn:startEvent id="Start_Timer" name="Hourly Timer">
+      <bpmn:outgoing>Flow_to_EL</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <!-- EL++ classification -->
+    <bpmn:serviceTask id="Task_EL" name="EL++ Classification">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="owl.el.classify" retries="0"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=ontology_ver" target="ontology_ver"/>
+          <zeebe:output source="=inferred"    target="el_inferred"/>
+          <zeebe:output source="=duration_ms" target="el_duration_ms"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_to_EL</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_QL</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- QL perfect reformulation cache -->
+    <bpmn:serviceTask id="Task_QL" name="QL Precompute Cache">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="owl.ql.precompute" retries="0"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=sparql_queries" target="sparql_queries"/>
+          <zeebe:output source="=rewritten"     target="ql_rewritten"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_to_QL</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_DL_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!--
+      DL gate: run HermiT weekly only.
+      FEEL condition: date(now()) - date(last_dl_run_date) >= duration("P7D")
+      Defaults to true if last_dl_run_date is null (first run).
+    -->
+    <bpmn:exclusiveGateway id="Gate_DL" name="DL this run?">
+      <bpmn:incoming>Flow_to_DL_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_DL_Yes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_DL_Skip</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_DL_Yes" sourceRef="Gate_DL" targetRef="Task_DL">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+        =last_dl_run_date = null or (today() - date(last_dl_run_date)) >= duration("P7D")
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:sequenceFlow id="Flow_DL_Skip" sourceRef="Gate_DL" targetRef="Gate_Join">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+        =last_dl_run_date != null and (today() - date(last_dl_run_date)) &lt; duration("P7D")
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- OWL DL classification (HermiT, EXPTIME, weekly) -->
+    <bpmn:serviceTask id="Task_DL" name="OWL DL Classification (HermiT)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="owl.dl.classify"/>
+        <zeebe:taskHeaders>
+          <zeebe:header key="retries" value="1"/>
+          <zeebe:header key="retryBackoff" value="PT10M"/>
+        </zeebe:taskHeaders>
+        <zeebe:ioMapping>
+          <zeebe:input source="=ontology_ver"  target="ontology_ver"/>
+          <zeebe:output source="=inferred"     target="dl_inferred"/>
+          <zeebe:output source="=consistent"   target="dl_consistent"/>
+          <zeebe:output source="=duration_ms"  target="dl_duration_ms"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_DL_Yes</bpmn:incoming>
+      <bpmn:outgoing>Flow_DL_to_Benchmark</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Join gateway before benchmark -->
+    <bpmn:exclusiveGateway id="Gate_Join" name="Merge">
+      <bpmn:incoming>Flow_DL_to_Benchmark</bpmn:incoming>
+      <bpmn:incoming>Flow_DL_Skip</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_Benchmark</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- EL++ vs DL comparison: writes el_completeness_pct to vertex_owl_benchmark -->
+    <bpmn:serviceTask id="Task_Benchmark" name="EL++ vs DL Comparison">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="owl.benchmark.compare" retries="0"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=ontology_ver"         target="ontology_ver"/>
+          <zeebe:output source="=el_completeness_pct" target="el_completeness_pct"/>
+          <zeebe:output source="=el_soundness_ok"     target="el_soundness_ok"/>
+          <zeebe:output source="=dl_only"             target="dl_only_count"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_to_Benchmark</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End" name="Done">
+      <bpmn:incoming>Flow_to_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- Sequence flows -->
+    <bpmn:sequenceFlow id="Flow_to_EL"          sourceRef="Start_Timer"   targetRef="Task_EL"/>
+    <bpmn:sequenceFlow id="Flow_to_QL"          sourceRef="Task_EL"       targetRef="Task_QL"/>
+    <bpmn:sequenceFlow id="Flow_to_DL_Gate"     sourceRef="Task_QL"       targetRef="Gate_DL"/>
+    <bpmn:sequenceFlow id="Flow_DL_to_Benchmark" sourceRef="Task_DL"      targetRef="Gate_Join"/>
+    <bpmn:sequenceFlow id="Flow_to_Benchmark"   sourceRef="Gate_Join"     targetRef="Task_Benchmark"/>
+    <bpmn:sequenceFlow id="Flow_to_End"         sourceRef="Task_Benchmark" targetRef="End"/>
+
+  </bpmn:process>
+</bpmn:definitions>

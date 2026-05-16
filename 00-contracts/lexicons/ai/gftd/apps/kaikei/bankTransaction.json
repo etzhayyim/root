@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.bankTransaction",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Bank statement line ingested from bank API or CSV. bankTxnId is the bank's own identifier, used to deduplicate imports. matchedJeDid links to a journalEntry after reconciliation; reconcileStatus tracks progress.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["ownerDid", "bankDid", "bankTxnId", "postedAt", "amount", "reconcileStatus", "createdAt"],
+        "properties": {
+          "ownerDid":         { "type": "string", "format": "did" },
+          "bankDid":          { "type": "string", "format": "did", "description": "Bank account actor DID" },
+          "bankTxnId":        { "type": "string" },
+          "postedAt":         { "type": "string", "format": "datetime" },
+          "amount":           { "type": "number", "description": "Positive = credit (incoming), negative = debit (outgoing)" },
+          "counterpartyName": { "type": "string" },
+          "matchedJeDid":     { "type": "string", "format": "did" },
+          "reconcileStatus":  { "type": "string", "enum": ["pending","matched","ignored","manualReview"] },
+          "createdAt":        { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

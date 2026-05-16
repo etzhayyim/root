@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.insatsu.printMailJob.createPrintMailJob",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create and dispatch a cloud print-and-mail job.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "document_url": { "type": "string" },
+            "destination_country": { "type": "string" },
+            "recipient_name": { "type": "string" },
+            "address_line1": { "type": "string" },
+            "postal_code": { "type": "string" },
+            "page_count": { "type": "integer", "minimum": 1 },
+            "quantity": { "type": "integer", "minimum": 1 },
+            "print_method": { "type": "string" },
+            "mail_class": { "type": "string" },
+            "service_level": { "type": "string" },
+            "case_id": { "type": "string" },
+            "subject": { "type": "string" }
+          },
+          "required": ["document_url", "destination_country", "page_count", "quantity"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jobId": { "type": "string" },
+            "status": { "type": "string" },
+            "partnerDid": { "type": "string" },
+            "downstreamActorDid": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

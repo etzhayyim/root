@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.crm.autoreviewLei",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Batch-verify high-confidence candidate CRM to GLEIF LEI matches using an allowlist of match methods.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "crmSystem": { "type": "string", "enum": ["lawfirm", "hubspot"] },
+            "entityType": { "type": "string", "enum": ["lead", "tenant", "company"] },
+            "country": { "type": "string" },
+            "allowedMatchMethods": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "normalized_exact_name_country",
+                  "normalized_name_country",
+                  "exact_name_country",
+                  "exact_lei"
+                ]
+              },
+              "default": ["normalized_exact_name_country", "normalized_name_country"]
+            },
+            "minConfidencePermille": { "type": "integer", "minimum": 0, "maximum": 1000, "default": 910 },
+            "limit": { "type": "integer", "minimum": 1, "maximum": 500, "default": 50 },
+            "actorDid": { "type": "string" },
+            "evidenceNote": { "type": "string" },
+            "dryRun": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "inputCount": { "type": "integer" },
+            "verifiedCount": { "type": "integer" },
+            "verified": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#verifiedLeiLink" }
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    },
+    "verifiedLeiLink": {
+      "type": "object",
+      "properties": {
+        "edgeId": { "type": "string" },
+        "crmSystem": { "type": "string" },
+        "entityType": { "type": "string" },
+        "crmSourceId": { "type": "string" },
+        "lei": { "type": "string" },
+        "matchStatus": { "type": "string" },
+        "verifiedAt": { "type": "string" }
+      },
+      "required": ["edgeId", "crmSystem", "entityType", "crmSourceId", "lei", "matchStatus"]
+    }
+  }
+}

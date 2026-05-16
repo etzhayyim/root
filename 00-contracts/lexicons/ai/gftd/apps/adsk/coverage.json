@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.adsk.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Per-org/per-modality coverage of HF datasets ingested into vertex_hf_dataset_record (catalog rows × ingested record counts). Reads from vertex_hf_dataset.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "org": {"type": "string"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {"type": "array", "items": {"type": "unknown"}},
+            "totalDatasets": {"type": "integer"},
+            "totalRows": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

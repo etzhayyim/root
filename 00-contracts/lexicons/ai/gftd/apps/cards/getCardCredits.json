@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.cards.getCardCredits",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get allocated and consumed credits balance for an issued card.",
+      "parameters": {
+        "type": "params",
+        "required": ["userId", "cardId"],
+        "properties": {
+          "userId": { "type": "string" },
+          "cardId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cardId": { "type": "string" },
+            "allocated": { "type": "integer" },
+            "consumed": { "type": "integer" },
+            "available": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

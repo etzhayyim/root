@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.mailer.provisionMailbox",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Provision a new {handle}@gftd.ai mailbox by registering the email→DID binding with the inbound email-relay Worker. After this call, mail sent to that address is parsed by email-relay and stored as ai.gftd.apps.mailer.inboundEmail records on did:web:ml1nb0nd.gftd.ai. Catch-all routing in Cloudflare Email Routing means mail to *@gftd.ai is *received* even without a binding — this command makes the address discoverable by handle and routes it to the requested recipient DID.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "handle": {
+              "type": "string",
+              "description": "Local part of the mailbox, before @gftd.ai. Lowercase, alpha-start (a-z), kebab-case allowed. Example: \"uspto-acct\" → uspto-acct@gftd.ai.",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "did": {
+              "type": "string",
+              "description": "Recipient DID for the binding. Defaults to did:web:{handle}.gftd.ai (convention from project CLAUDE.md). Pass an explicit DID to override (e.g. did:web:patent.gftd.ai for shared inboxes)."
+            },
+            "purpose": {
+              "type": "string",
+              "description": "Free-text label (e.g. \"USPTO ODP signup\", \"EPO OPS verification\"). Stored on the binding record for ops auditability."
+            }
+          },
+          "required": ["handle"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "email": {"type": "string"},
+            "did": {"type": "string"},
+            "registered": {"type": "boolean"},
+            "alreadyExisted": {"type": "boolean"},
+            "error": {"type": "string"}
+          },
+          "required": ["email", "did"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.listCases",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List cases scoped by cohort / geo / lang / domain. Default 50, max 200.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "cohortDid": { "type": "string", "format": "did" },
+          "state": { "type": "string", "description": "ISO 3166-2:IN" },
+          "lang": { "type": "string" },
+          "domain": { "type": "string" },
+          "status": { "type": "string" },
+          "limit": { "type": "integer", "default": 50, "maximum": 200 },
+          "cursor": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cases", "limit"],
+          "properties": {
+            "cases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "did": { "type": "string", "format": "did" },
+                  "domain": { "type": "string" },
+                  "status": { "type": "string" },
+                  "filedAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "limit": { "type": "integer" },
+            "cursor": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

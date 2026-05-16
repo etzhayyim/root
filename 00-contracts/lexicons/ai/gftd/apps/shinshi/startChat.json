@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.startChat",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Provision a 1:1 chat convo between the caller (authenticated user) and a model DID. Idempotent by (userDid, modelDid).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["modelDid"],
+          "properties": { "modelDid": { "type": "string", "format": "did" } }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "convoId": { "type": "string" },
+            "modelDid": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

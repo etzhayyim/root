@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.dataCenterOps.dependency.collectGlobal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Data Center Ops: collect global country-scoped dependency topology from RisingWave materialized views.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  }
+}

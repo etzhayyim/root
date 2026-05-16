@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.mailer.sendEmail",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Send outbound email via Resend. Backend for abuse.sendReport and other outbound flows. Requires SS_RESEND_API_KEY secret on mailer Worker.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "to":       { "type": "string", "description": "Recipient email address" },
+            "subject":  { "type": "string", "description": "Email subject line" },
+            "text":     { "type": "string", "description": "Plain-text body (RFC 5322)" },
+            "html":     { "type": "string", "description": "Optional HTML body" },
+            "from":     { "type": "string", "description": "Sender (must be Resend-verified domain). Default: abuse-report@gftd.ai" },
+            "fromAddress": { "type": "string", "description": "Sender alias accepted by BPMN workers; equivalent to from" },
+            "replyTo":  { "type": "string", "description": "Optional Reply-To header" }
+          },
+          "required": ["to", "subject", "text"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "messageId": { "type": "string", "description": "Resend message ID" },
+            "provider":  { "type": "string" },
+            "from":      { "type": "string" },
+            "to":        { "type": "string" },
+            "subject":   { "type": "string" },
+            "sentAt":    { "type": "string" },
+            "error":     { "type": "string" },
+            "status":    { "type": "integer" },
+            "body":      { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

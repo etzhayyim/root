@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.igAudit.recordReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Inspector General audit / GAO / OMB A-123 report (bridges ethicsWaiver.flagConflictWaived + enforcement-action + ethics-disclosure)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "agency",
+            "auditKind",
+            "publishedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "agency": {
+              "type": "string",
+              "enum": [
+                "dod_ig",
+                "state_ig",
+                "hhs_ig",
+                "dhs_oig",
+                "ed_ig",
+                "treasury_ig",
+                "usaid_ig",
+                "gao",
+                "oig_ep",
+                "nsa_ig",
+                "cia_ig",
+                "tigta",
+                "sigar",
+                "sigir",
+                "sigtarp"
+              ]
+            },
+            "auditKind": {
+              "type": "string",
+              "enum": [
+                "financial",
+                "performance",
+                "inspection",
+                "evaluation",
+                "criminal_referral",
+                "quicklook",
+                "cross_agency",
+                "whistleblower_investigation",
+                "management_alert",
+                "programmatic"
+              ]
+            },
+            "waiverVid": {
+              "type": "string",
+              "description": "bridges ethicsWaiver.flagConflictWaived"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

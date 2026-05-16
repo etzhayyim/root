@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.recruit.getMatchProposal",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get one persisted cohort-first recruit match proposal by proposalId.",
+      "parameters": {
+        "type": "params",
+        "required": ["proposalId"],
+        "properties": {
+          "proposalId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["proposal", "privacyMode"],
+          "properties": {
+            "proposal": {
+              "type": "ref",
+              "ref": "ai.gftd.apps.recruit.listMatchProposals#proposal"
+            },
+            "privacyMode": { "type": "string", "const": "cohort-first" }
+          }
+        }
+      }
+    }
+  }
+}

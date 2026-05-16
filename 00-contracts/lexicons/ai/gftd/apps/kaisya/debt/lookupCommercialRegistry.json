@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaisya.debt.lookupCommercialRegistry",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fetch commercial registry (商業登記) for a Japanese corporation via 法務省 登記情報提供サービス (https://www1.touki.or.jp/). Used to (1) satisfy 資格証明書 filing requirement (creditor + debtor + third-party), (2) identify 代表取締役 for §429 individual liability, (3) detect 本店移転・商号変更 (詐害行為 tracking).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["corporateName"],
+          "properties": {
+            "corporateName": { "type": "string", "description": "法人名. 株式会社/合同会社等の形態含む正式名" },
+            "corporateNumber": {
+              "type": "string",
+              "pattern": "^[0-9]{13}$",
+              "description": "13 桁 国税庁法人番号 (あれば高精度)"
+            },
+            "registryOffice": { "type": "string", "description": "登記所 (例: 東京法務局渋谷出張所). 不明なら本店所在地から自動判定" },
+            "kind": {
+              "type": "string",
+              "enum": ["currentItems", "closedItems", "historicalItems"],
+              "default": "currentItems",
+              "description": "現在事項 / 閉鎖事項 / 履歴事項. 詐害行為検出には historicalItems を使う"
+            },
+            "caseCode": { "type": "string", "description": "紐付け先 case. 取得 PDF を legal-cases/{caseCode}/evidence/ に保存" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["corporateName", "registryR2Key", "fetchedAt"],
+          "properties": {
+            "corporateName":    { "type": "string" },
+            "corporateNumber":  { "type": "string" },
+            "registryOffice":   { "type": "string" },
+            "registryR2Key":    { "type": "string", "description": "取得 PDF の B2 key" },
+            "sha256":           { "type": "string" },
+            "fetchedAt":        { "type": "string", "format": "datetime" },
+            "feeJpy":           { "type": "integer", "description": "1 通あたり 331 円 (オンライン取得)" },
+            "extracted": {
+              "type": "object",
+              "properties": {
+                "headquartersAddress": { "type": "string" },
+                "representatives":     { "type": "array", "items": { "type": "string" } },
+                "directors":           { "type": "array", "items": { "type": "string" } },
+                "capitalJpy":          { "type": "integer" },
+                "establishedAt":       { "type": "string", "format": "date" },
+                "lastUpdatedAt":       { "type": "string", "format": "date" },
+                "nameChanges":         { "type": "array", "items": { "type": "object" } },
+                "addressChanges":      { "type": "array", "items": { "type": "object" } }
+              }
+            },
+            "redFlags": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "判決後の本店移転・商号変更・取締役変更等、詐害行為兆候"
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "CorporateNotFound", "description": "登記情報提供サービスで該当なし" },
+        { "name": "ServiceUnavailable", "description": "登記情報提供サービス メンテ・障害" },
+        { "name": "CredentialsMissing", "description": "gftd.touki keychain 未登録" }
+      ]
+    }
+  }
+}

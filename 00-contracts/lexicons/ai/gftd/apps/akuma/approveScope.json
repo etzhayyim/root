@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.akuma.approveScope",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Attach owner + amanomibashira authority signatures to a draft scope. On success status transitions draft -> active and the scope becomes eligible for runProbe.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "scopeId",
+            "ownerDid",
+            "ownerSignature",
+            "authorityDid",
+            "authoritySignature",
+            "payloadHash"
+          ],
+          "properties": {
+            "scopeId": { "type": "string" },
+            "ownerDid": { "type": "string" },
+            "ownerSignature": {
+              "type": "string",
+              "description": "Detached signature over payloadHash by ownerDid."
+            },
+            "authorityDid": {
+              "type": "string",
+              "description": "amanomibashira authority DID issuing approval."
+            },
+            "authoritySignature": {
+              "type": "string",
+              "description": "Detached signature over payloadHash by authorityDid."
+            },
+            "payloadHash": {
+              "type": "string",
+              "description": "SHA-256 hex digest of canonical scope payload signed by both parties."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["scopeUri", "status"],
+          "properties": {
+            "scopeUri": { "type": "string" },
+            "status": { "type": "string", "enum": ["active"] },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

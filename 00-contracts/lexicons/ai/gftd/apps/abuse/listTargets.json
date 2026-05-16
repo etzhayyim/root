@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.abuse.listTargets",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List registered abuse contacts (registrar / hosting / brand / cert).",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "targets": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "targetType": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    }
+  }
+}

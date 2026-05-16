@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "app.bsky.authSocial",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Social Features",
+      "title:lang": {},
+      "detail": "Post, like, repost, and follow on Bluesky",
+      "detail:lang": {},
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "repo",
+          "collection": [
+            "app.bsky.feed.post",
+            "app.bsky.feed.like",
+            "app.bsky.feed.repost",
+            "app.bsky.graph.follow"
+          ],
+          "action": [
+            "create",
+            "delete"
+          ]
+        }
+      ]
+    }
+  }
+}

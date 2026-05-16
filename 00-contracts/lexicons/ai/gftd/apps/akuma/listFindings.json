@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.akuma.listFindings",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List findings for a scope. Returns metadata only; raw finding payloads remain in vault.gftd.ai.",
+      "parameters": {
+        "type": "params",
+        "required": ["scopeId"],
+        "properties": {
+          "scopeId": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["open", "pending-verify", "closed", "still-open", "duplicate"]
+          },
+          "limit": { "type": "integer" },
+          "offset": { "type": "integer" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["findings", "limit", "offset"],
+          "properties": {
+            "findings": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#findingItem" }
+            },
+            "limit": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    },
+    "findingItem": {
+      "type": "object",
+      "required": ["findingUri", "target", "severity", "status", "createdAtMs"],
+      "properties": {
+        "findingUri": { "type": "string" },
+        "probeUri": { "type": "string" },
+        "target": { "type": "string" },
+        "severity": { "type": "string" },
+        "summary": { "type": "string" },
+        "cveIds": { "type": "array", "items": { "type": "string" } },
+        "cvssScoreCentile": { "type": "integer" },
+        "status": { "type": "string" },
+        "createdAtMs": { "type": "integer" },
+        "vaultCiphertextCid": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.openIsic.listSections",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List ISIC Rev.4 top-level sections (A–U, 21 sections).",
+      "parameters": { "type": "params", "properties": {} },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sections"],
+          "properties": {
+            "sections": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": { "type": "string", "description": "A, B, C, …" },
+                  "did": { "type": "string", "format": "did" },
+                  "nameEn": { "type": "string" },
+                  "divisionRange": { "type": "string", "description": "e.g. '01–03'" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.billing.issueInvoice",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Promote a draft invoice to issued. Renders the 適格請求書 PDF (T9007028460042) via `generateInvoicePdf`, stores it in B2 archive bucket, sets `status='issued'` + `issued_at`. (Phase 7.1 will additionally call Stripe.invoices.create + .send when the org has Stripe Connect wired.)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["invoiceId"],
+          "properties": {
+            "invoiceId": {"type": "string"},
+            "skipPdfRender": {"type": "boolean", "default": false, "description": "Phase 7 ops escape hatch — promote without re-rendering."},
+            "skipStripePush": {"type": "boolean", "default": true, "description": "Phase 7 default — Stripe push lands in 7.1."}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "invoiceId", "status"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "invoiceId": {"type": "string"},
+            "status": {"type": "string"},
+            "qualifiedInvoicePdfB2Key": {"type": "string"},
+            "renderedAt": {"type": "string", "format": "datetime"},
+            "issuedAt": {"type": "string", "format": "datetime"},
+            "stripeInvoiceId": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.externalCounselGrant",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Scoped collaboration grant for external counsel. ADR-0029: grant itself is a did:gftd child of the matter (did:gftd:{firm}:{matter}:{grant}, depth 3). Revocation cascades to all descendants (sessions / capabilities) via vertex_gftd_identity.revoked_at.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["matterDid", "grantDid", "granteeDid", "inviterDid", "capabilities", "status", "createdAt"],
+        "properties": {
+          "matterDid":         { "type": "string", "format": "did" },
+          "grantDid":          { "type": "string", "format": "did" },
+          "granteeDid":        { "type": "string", "format": "did", "description": "External bengoshi root DID (did:gftd root). May belong to a different firm org." },
+          "granteeHandle":     { "type": "string", "description": "Handle snapshot for display (e.g. 'jdoe-otherfirm.gftd.ai')" },
+          "granteeOrgDid":     { "type": "string", "format": "did", "description": "Grantee's org DID at grant time (conflict scan snapshot)" },
+          "inviterDid":        { "type": "string", "format": "did", "description": "leadBengoshi or firm admin who issued the invite" },
+          "role":              { "type": "string", "enum": ["coCounsel","local","advisory","reviewer"] },
+          "capabilities": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["read","comment","uploadDocument","propose","sign","scheduleHearing"] }
+          },
+          "scope": {
+            "type": "string",
+            "description": "AT URI prefix governed by this grant; always a matter-scoped prefix for ethical wall.",
+            "pattern": "^at://did:gftd:[0-9a-f]{24}/ai\\.gftd\\.apps\\.lawfirm\\.matter/[0-9a-f]{24}/?\\*?$"
+          },
+          "materialHashProof": { "type": "string" },
+          "status":            { "type": "string", "enum": ["invited","accepted","revoked","expired"] },
+          "expiresAt":         { "type": "string", "format": "datetime" },
+          "createdAt":         { "type": "string", "format": "datetime" },
+          "acceptedAt":        { "type": "string", "format": "datetime" },
+          "revokedAt":         { "type": "string", "format": "datetime" },
+          "revokeReason":      { "type": "string" }
+        }
+      }
+    }
+  }
+}

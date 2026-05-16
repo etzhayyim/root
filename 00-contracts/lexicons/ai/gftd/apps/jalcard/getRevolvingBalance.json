@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jalcard.getRevolvingBalance",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Read latest scraped MUFG Nicos JAL card Raku-Pay revolving balance snapshot from RisingWave (vertex_jalcard_revolving_snapshot). Does NOT trigger a new scrape; call payoffRevolving with mode='balanceOnly' to refresh.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "maxAgeMinutes": { "type": "integer", "default": 1440 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "balanceJpy": { "type": "integer" },
+            "scrapedAt": { "type": "string" },
+            "stale": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.requestConsult",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Initial intake. Routes through triage cohort → service cohort (ADR-0026). No PII in AT Repo; PII to Preferences tier 3.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["lang", "summary"],
+          "properties": {
+            "lang": { "type": "string" },
+            "state": { "type": "string", "description": "ISO 3166-2:IN" },
+            "city": { "type": "string" },
+            "summary": { "type": "string", "description": "Free-text complaint in client lang" },
+            "domainHint": { "type": "string" },
+            "channel": { "type": "string", "enum": ["web", "voice", "whatsapp", "in-person"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["consultDid", "uri"],
+          "properties": {
+            "consultDid": { "type": "string", "format": "did" },
+            "uri": { "type": "string", "format": "at-uri" },
+            "triageCohortDid": { "type": "string", "format": "did" },
+            "suggestedDomain": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

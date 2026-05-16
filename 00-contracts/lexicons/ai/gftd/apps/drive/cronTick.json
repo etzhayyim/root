@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.drive.cronTick",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Scheduled cron tick — incremental sync for all active accounts. Invoked by BPMN contract timer (R/PT30M) per ADR-0056 + ADR-2604251801. Replaces wrangler triggers.crons.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {} }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {"type": "boolean"},
+            "accounts": {"type": "integer"},
+            "synced": {"type": "integer"},
+            "errors": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

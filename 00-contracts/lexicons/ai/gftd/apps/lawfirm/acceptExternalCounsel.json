@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.acceptExternalCounsel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "External counsel accepts an externalCounselGrant. Caller must authenticate as granteeDid. Server flips grant status from 'invited' → 'accepted' and vault-wraps the matter document keys for the grantee (ECIES X25519+HKDF+AES-KW).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["grantDid"],
+          "properties": {
+            "grantDid":        { "type": "string", "format": "did" },
+            "granteeSignalPubkey": { "type": "string", "description": "Signal X25519 identity pubkey for per-document key wrap" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["grantDid", "status", "acceptedAt"],
+          "properties": {
+            "grantDid":   { "type": "string" },
+            "status":     { "type": "string", "enum": ["accepted"] },
+            "acceptedAt": { "type": "string", "format": "datetime" },
+            "wrappedDocumentKeyCount": { "type": "integer" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "Forbidden",    "description": "caller session accountDid != granteeDid" },
+        { "name": "GrantExpired", "description": "grant.expiresAt is in the past" },
+        { "name": "GrantRevoked", "description": "grant or ancestor already revoked" },
+        { "name": "InvalidState", "description": "grant already accepted/revoked" }
+      ]
+    }
+  }
+}

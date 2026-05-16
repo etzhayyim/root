@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.hospitality.leiBridge",
+  "description": "Bridge record linking a hospitality actor DID (path-based, ADR-0019) to its GLEIF LEI and the canonical did:web:legal-entity.gftd.ai:lei:{LEI} DID. Drives edge_same_as in RisingWave. ADR-0028 Phase 1.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "actorDid",
+          "lei",
+          "legalEntityDid",
+          "industryCode",
+          "source"
+        ],
+        "properties": {
+          "actorDid": {
+            "type": "string",
+            "description": "Hospitality path-based actor DID (did:web:hospitality.gftd.ai:actor:...)"
+          },
+          "lei": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 20,
+            "description": "20-char GLEIF Legal Entity Identifier"
+          },
+          "legalEntityDid": {
+            "type": "string",
+            "description": "Canonical did:web:legal-entity.gftd.ai:lei:{LEI}"
+          },
+          "industryCode": {
+            "type": "string",
+            "description": "ISIC rev4 code (I5510 chain / N7911 OTA / N7990 assoc)"
+          },
+          "region": {
+            "type": "string",
+            "description": "Region slug (global / europe / mena / apac / latam / africa / us / jp / cis / cee / south-asia / oceania / caribbean / central-asia)"
+          },
+          "source": {
+            "type": "string",
+            "description": "LEI source (gleif-api / sec-10k / sec-20f / amf / cnmv / etc.)"
+          }
+        }
+      }
+    }
+  }
+}

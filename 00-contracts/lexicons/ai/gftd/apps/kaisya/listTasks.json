@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaisya.listTasks",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "承認待ちタスク一覧を返す。kaisya.gftd.ai/tasks UI および Teams Bot の tasklist コマンドから呼び出す。呼び出し元 DID に紐づくタスクのみを返す (RLS)。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "フィルター: 'pending' | 'approved' | 'rejected' | 'expired' (省略時: pending)"
+          },
+          "agentId": {
+            "type": "string",
+            "description": "特定 agent に絞り込む (任意)"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "最大件数 (default 50, max 200)"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "ページネーション offset"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tasks", "total", "offset", "limit"],
+          "properties": {
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["taskId", "agentId", "title", "priority", "status", "createdAt"],
+                "properties": {
+                  "taskId":      { "type": "string" },
+                  "agentId":     { "type": "string" },
+                  "title":       { "type": "string" },
+                  "contextJson": { "type": "string" },
+                  "priority":    { "type": "integer" },
+                  "status":      { "type": "string" },
+                  "dueAt":       { "type": "string" },
+                  "createdAt":   { "type": "string" }
+                }
+              }
+            },
+            "pendingCount":  { "type": "integer" },
+            "criticalCount": { "type": "integer" },
+            "total":         { "type": "integer" },
+            "offset":        { "type": "integer" },
+            "limit":         { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

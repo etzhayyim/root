@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.abuse.gatherIntel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Enrich a phishing target with DNS/whois/reverse-IP/ASN/wayback intel. Writes evidence to yabai graph.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "entityId": {
+              "type": "string",
+              "description": "yabai entity_id (e.g. url-whatsapp_com)"
+            },
+            "target": {
+              "type": "string",
+              "description": "alternate: raw domain or IP"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "entityId": {
+              "type": "string"
+            },
+            "evidenceId": {
+              "type": "string"
+            },
+            "asn": {
+              "type": "string"
+            },
+            "liveIp": {
+              "type": "string"
+            },
+            "reverseIpCount": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  }
+}

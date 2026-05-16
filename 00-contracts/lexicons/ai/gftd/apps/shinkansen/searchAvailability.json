@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinkansen.searchAvailability",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "新幹線 空席照会 (スマートEX/EX予約/えきねっと cross-source). Returns available seats for a specific train/route/date.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "required": ["fromStation", "toStation", "departureDate"],
+        "properties": {
+          "fromStation": { "type": "string", "description": "JR station code (e.g. TYO/OSA/HIR/HKD)" },
+          "toStation": { "type": "string" },
+          "departureDate": { "type": "string", "format": "date" },
+          "departureTimeMin": { "type": "string", "description": "HH:MM lower bound" },
+          "departureTimeMax": { "type": "string" },
+          "trainType": { "type": "string", "enum": ["nozomi", "hikari", "kodama", "mizuho", "sakura", "tsubame", "hayabusa", "yamabiko", "tsubasa", "asama", "toki", "kagayaki", "hakutaka"] },
+          "seatClass": { "type": "string", "enum": ["ordinary", "green", "gran-class", "ordinary-non-reserved"] }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["trains"],
+          "properties": {
+            "trains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "trainNumber": { "type": "string" },
+                  "trainType": { "type": "string" },
+                  "departureTime": { "type": "string", "format": "datetime" },
+                  "arrivalTime": { "type": "string", "format": "datetime" },
+                  "availability": { "type": "string", "enum": ["available", "limited", "standing-only", "full"] },
+                  "fareYen": { "type": "integer" },
+                  "source": { "type": "string", "enum": ["smart-ex", "ex-yoyaku", "ekinet"] }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

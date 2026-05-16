@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.seedScenesWithImagesReal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Photorealistic variant of seedScenesWithImages. Uses waiREALCN_v150 (WAI Real CN v1.5) for cinematic photo-realism instead of Animagine/WAI Illustrious anime style. Same 5-scene narrative arc, same upload+post flow.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "slugs": { "type": "array", "items": { "type": "string" }, "maxLength": 3 },
+            "sceneType": { "type": "string", "enum": ["thumb", "standard", "hires"] },
+            "skipIfExisting": { "type": "boolean" },
+            "sceneIndices": { "type": "array", "items": { "type": "integer", "minimum": 0, "maximum": 4 }, "maxLength": 5 }
+          },
+          "required": ["slugs"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "slug": { "type": "string" },
+                  "did": { "type": "string" },
+                  "scenesPosted": { "type": "integer" },
+                  "blobKeys": { "type": "array", "items": { "type": "string" } },
+                  "skipped": { "type": "boolean" },
+                  "error": { "type": "string" }
+                }
+              }
+            },
+            "totalActresses": { "type": "integer" },
+            "totalPosted": { "type": "integer" },
+            "totalSkipped": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.epfo.listForEstablishment",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-0052. Payroll-officer dashboard: list ECR rows for one establishment. Returns Tier 1 metadata only.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "establishmentPfCode": { "type": "string" },
+          "wageMonth": { "type": "string", "description": "Optional YYYY-MM filter." },
+          "status": { "type": "string", "description": "Optional filter: draft|submitted|reviewed|rejected|amended|purged" },
+          "limit": { "type": "integer", "default": 50, "minimum": 1, "maximum": 500 },
+          "cursor": { "type": "string" }
+        },
+        "required": ["establishmentPfCode"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "wageMonth": { "type": "string" },
+                  "status": { "type": "string" },
+                  "processType": { "type": "string" },
+                  "totalMembers": { "type": "integer" },
+                  "totalWageInrPaise": { "type": "integer" },
+                  "totalEmployerPfInrPaise": { "type": "integer" },
+                  "totalEmployeePfInrPaise": { "type": "integer" },
+                  "trrn": { "type": "string" },
+                  "submittedAt": { "type": "string" },
+                  "approvedAt": { "type": "string" }
+                }
+              }
+            },
+            "cursor": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": ["items"]
+        }
+      }
+    }
+  }
+}

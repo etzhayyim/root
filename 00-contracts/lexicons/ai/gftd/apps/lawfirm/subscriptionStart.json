@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.subscriptionStart",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start a recurring Stripe subscription for a lawfirm tenant. Mode A flat tier (USD 5K/mo) creates customer + product + recurring price + subscription with collection_method=send_invoice and 30-day net terms. Persists stripe_customer_id and billing_mode='flat' to vertex_lawfirm_tenant.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tenantId", "legalName", "adminEmail"],
+          "properties": {
+            "tenantId": {
+              "type": "string",
+              "description": "vertex_lawfirm_tenant.tenant_id (e.g. 'prod-nishith')"
+            },
+            "legalName": { "type": "string", "maxLength": 256 },
+            "adminEmail": { "type": "string", "description": "Sponsor partner email — Stripe customer.email" },
+            "monthlyAmountMinor": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 500000,
+              "description": "Monthly amount in minor currency unit. 500000 = USD 5000.00."
+            },
+            "currency": {
+              "type": "string",
+              "enum": ["usd", "jpy", "inr"],
+              "default": "usd",
+              "description": "Stripe price currency. JPY has no minor unit (amount = whole yen)."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tenantId", "stripeCustomerId", "stripeSubscriptionId"],
+          "properties": {
+            "tenantId":             { "type": "string" },
+            "stripeCustomerId":     { "type": "string" },
+            "stripePriceId":        { "type": "string" },
+            "stripeSubscriptionId": { "type": "string" },
+            "accountLabel":         { "type": "string", "description": "stripe_us / stripe_japan / stripe_india" },
+            "dryRun":               { "type": "boolean" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "InvalidInput", "description": "Required field missing or amount <= 0" },
+        { "name": "TenantNotFound", "description": "tenantId does not match an existing vertex_lawfirm_tenant row" },
+        { "name": "StripeApiError", "description": "Underlying Stripe API call returned an error" },
+        { "name": "Forbidden", "description": "Caller lacks lawfirm.admin scope" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.credits.getBalance",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get current credit balance for an account DID across currencies (JPY/USD/HC etc).",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["accountDid"], "properties": { "accountDid": { "type": "string", "format": "did" }, "currency": { "type": "string", "description": "filter to a single currency; default = all" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "accountDid": { "type": "string", "format": "did" }, "balances": { "type": "array", "items": { "type": "object", "properties": { "currency": { "type": "string" }, "amount": { "type": "number" }, "lastTxAt": { "type": "string", "format": "datetime" } } } }, "pendingLedgerEntries": { "type": "integer", "description": "entries awaiting anti-fraud clearance" }, "asOf": { "type": "string", "format": "datetime" } } } }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.billing.listInvoices",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List invoices for an org sorted newest-first. Reads `vertex_billing_invoice`. Uses `cursor` (last invoiceId seen) for pagination since RisingWave does not support OFFSET on streaming MVs.",
+      "parameters": {
+        "type": "params",
+        "required": ["orgDid"],
+        "properties": {
+          "orgDid": {"type": "string"},
+          "status": {"type": "string", "enum": ["draft", "issued", "paid", "overdue", "void"]},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50},
+          "cursor": {"type": "string", "description": "Last invoiceId from previous page."}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["orgDid", "invoices"],
+          "properties": {
+            "orgDid": {"type": "string"},
+            "invoices": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["invoiceId", "periodStart", "periodEnd", "totalJpyMicro", "status"],
+                "properties": {
+                  "invoiceId": {"type": "string"},
+                  "vertexId": {"type": "string"},
+                  "periodStart": {"type": "string", "format": "date"},
+                  "periodEnd": {"type": "string", "format": "date"},
+                  "totalJpyMicro": {"type": "integer"},
+                  "totalDiscountJpyMicro": {"type": "integer"},
+                  "status": {"type": "string"},
+                  "issuedAt": {"type": "string", "format": "datetime"},
+                  "dueAt": {"type": "string", "format": "datetime"},
+                  "paidAt": {"type": "string", "format": "datetime"}
+                }
+              }
+            },
+            "nextCursor": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

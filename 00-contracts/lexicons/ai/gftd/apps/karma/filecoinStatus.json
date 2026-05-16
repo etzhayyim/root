@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.karma.filecoinStatus",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Query Filecoin deal status for a karma IPFS CID. Returns all deals (across SPs) covering this CID with current status (proposed / sealed / active / expired / failed). Used for L4 persistence verification during karma.ipfs.verifyRandom.",
+      "parameters": {
+        "type": "params",
+        "required": ["cid"],
+        "properties": {
+          "cid": {"type": "string"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cid", "deals"],
+          "properties": {
+            "cid": {"type": "string"},
+            "deals": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "dealId": {"type": "string"},
+                  "spAddress": {"type": "string"},
+                  "status": {"type": "string"},
+                  "sealedAtMs": {"type": "integer"},
+                  "expiresAtMs": {"type": "integer"},
+                  "bytesSize": {"type": "integer"},
+                  "retrievalUrl": {"type": "string"}
+                }
+              }
+            },
+            "activeDealCount": {"type": "integer"},
+            "expiringSoonCount": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

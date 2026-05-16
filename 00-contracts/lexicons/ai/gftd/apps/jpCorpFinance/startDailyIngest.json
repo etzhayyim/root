@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpCorpFinance.startDailyIngest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start JP corporate financial disclosure daily ingest. Dispatches BPMN only; fetch and extraction run in Python workers.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sources": {
+              "type": "array",
+              "items": { "type": "string", "enum": ["edinet-v2", "kanpo", "moj-e-koukoku"] }
+            },
+            "targetDate": { "type": "string", "format": "date" },
+            "dryRun": { "type": "boolean" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "runId": { "type": "string" },
+            "processInstanceKey": { "type": "string" }
+          },
+          "required": ["runId"]
+        }
+      }
+    }
+  }
+}

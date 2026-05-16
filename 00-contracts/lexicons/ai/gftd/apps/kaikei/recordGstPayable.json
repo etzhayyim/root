@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.recordGstPayable",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0056 GSTR-3B propagation. Posts summary journal entry for India GST net payable.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "gstinHash": { "type": "string" },
+            "taxPeriod": { "type": "string", "description": "YYYY-MM" },
+            "totalOutwardTaxInrPaise": { "type": "integer" },
+            "totalInwardItcInrPaise": { "type": "integer" },
+            "totalNetTaxInrPaise": { "type": "integer" },
+            "triggerVertexId": { "type": "string" },
+            "triggerSource": { "type": "string" },
+            "arn": { "type": "string" },
+            "amendmentReason": { "type": "string" },
+            "deltaTaxInrPaise": { "type": "integer" }
+          },
+          "required": ["gstinHash", "taxPeriod"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "totalAmountInrPaise": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

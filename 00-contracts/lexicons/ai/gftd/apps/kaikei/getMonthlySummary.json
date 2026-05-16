@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.getMonthlySummary",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Monthly P/L and B/S summary for kaikei, backed by view_kaikei_monthly_summary.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "owner": { "type": "string", "description": "works|japan|labo|did:..." },
+          "periodYm": { "type": "string" },
+          "fromYm": { "type": "string" },
+          "toYm": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["owner", "pl", "bs", "rows"],
+          "properties": {
+            "owner": { "type": "string" },
+            "periodYm": { "type": "string" },
+            "fromYm": { "type": "string" },
+            "toYm": { "type": "string" },
+            "pl": { "type": "object" },
+            "bs": { "type": "object" },
+            "rows": { "type": "array", "items": { "type": "object" } },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

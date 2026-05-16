@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.validateMoneyForwardParity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a dual-run parity check against a MoneyForward export artifact.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["periodFrom", "periodTo"],
+          "properties": {
+            "owner": { "type": "string" },
+            "periodFrom": { "type": "string", "format": "datetime" },
+            "periodTo": { "type": "string", "format": "datetime" },
+            "mfExportCid": { "type": "string" },
+            "mfTotal": { "type": "number" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "parityRunDid", "status", "diffAmount"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "parityRunDid": { "type": "string" },
+            "status": { "type": "string" },
+            "diffAmount": { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}

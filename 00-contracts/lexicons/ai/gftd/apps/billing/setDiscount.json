@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.billing.setDiscount",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sales / CFO operation: set discount percentage for an org. Caller MUST be `did:web:billing.gftd.ai` admin or have role `sales-rep` (≤ 40%) / `cfo` (≤ 50%) / `ceo` (> 50%) per `vertex_billing_role_grant`. Records audit row in `vertex_billing_discount`.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["orgDid", "discountPct", "kind", "approver"],
+          "properties": {
+            "orgDid": {"type": "string"},
+            "discountPct": {"type": "number", "minimum": 0, "maximum": 100, "description": "0 - 100. Stored on vertex_billing_org_plan.applied_discount_pct."},
+            "kind": {"type": "string", "enum": ["annual_prepay", "multi_year", "student_oss", "startup_credit", "channel_partner", "volume", "migration", "competitive_match", "discretionary"]},
+            "approver": {"type": "string", "description": "DID of approver (sales rep / CFO / CEO)."},
+            "approverRole": {"type": "string", "enum": ["sales-rep", "csm", "cfo", "ceo"]},
+            "rationale": {"type": "string", "maxLength": 2000},
+            "validFrom": {"type": "string", "format": "date"},
+            "validUntil": {"type": "string", "format": "date", "description": "Optional expiry. Permanent if omitted."}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "orgDid", "discountId", "discountPct"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "orgDid": {"type": "string"},
+            "discountId": {"type": "string"},
+            "discountPct": {"type": "number"},
+            "previousDiscountPct": {"type": "number"},
+            "approvalState": {"type": "string", "enum": ["approved", "pending", "rejected"]},
+            "rejectReason": {"type": "string", "description": "If approverRole exceeds the discount band (e.g. sales-rep approving > 40%), returned with approvalState=rejected."},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

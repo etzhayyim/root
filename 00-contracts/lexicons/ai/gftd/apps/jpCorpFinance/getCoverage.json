@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpCorpFinance.getCoverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get JP corporate financial disclosure coverage for one company.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "jcn": { "type": "string" },
+          "edinetCode": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jcn": { "type": "string" },
+            "companyName": { "type": "string" },
+            "coverageStatus": { "type": "string" },
+            "missingReason": { "type": "string" },
+            "latestPeriodEnd": { "type": "string" },
+            "latestDisclosureVid": { "type": "string" },
+            "checkedAt": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

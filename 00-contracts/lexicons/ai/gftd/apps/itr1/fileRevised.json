@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.itr1.fileRevised",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0055. File a §139(5) revised return against a previously filed ITR-1. Window: until 31 Dec of AY.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "predecessorVertexId": { "type": "string", "description": "Vertex ID of the original filed return." },
+            "revisedReason": {
+              "type": "string",
+              "enum": ["correctWageIncome", "correctTdsClaim", "correctDeduction", "correctBank", "correctAddress", "other"]
+            },
+            "revisedDescription": { "type": "string" },
+            "amendmentPayload": { "type": "string", "description": "signal:v1: encrypted JSON delta payload" }
+          },
+          "required": ["predecessorVertexId", "revisedReason"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string", "description": "New vertex_id for the revised return." },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

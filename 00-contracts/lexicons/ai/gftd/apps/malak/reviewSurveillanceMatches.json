@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.reviewSurveillanceMatches",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record an investigator's human assessment of the top-K matches from queryScene / queryPerson. This is the human_review_gate in the LangGraph person_search.py (DESIGN §4.3) — top-1 auto-adoption is forbidden by design. Without this record, exportEvidence cannot proceed.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "queryId",
+            "reviewerDid",
+            "assessments"
+          ],
+          "properties": {
+            "queryId": {
+              "type": "string"
+            },
+            "reviewerDid": {
+              "type": "string"
+            },
+            "assessments": {
+              "type": "array",
+              "items": {
+                "type": "ref",
+                "ref": "#assessment"
+              }
+            },
+            "freeNote": {
+              "type": "string",
+              "description": "Investigator note; will be redacted from external evidence packets if it contains PII."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "queryId": {
+              "type": "string"
+            },
+            "recordedAt": {
+              "type": "string"
+            },
+            "acceptedCount": {
+              "type": "integer"
+            },
+            "rejectedCount": {
+              "type": "integer"
+            },
+            "pegelTick": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "properties": {
+        "resultId": {
+          "type": "string"
+        },
+        "verdict": {
+          "type": "string",
+          "knownValues": [
+            "accept",
+            "reject",
+            "deferEscalate"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpFiscal.beneficialOwner",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "UBO (実質的支配者) record. childDid の contractor に対する parentDid (UBO). status=OPAQUE は匿名組合/信託/外国SPCで到達不能.",
+      "record": {
+        "type": "object",
+        "required": ["childDid", "parentDid", "evidenceKind", "observedAt", "status", "createdAt"],
+        "properties": {
+          "childDid": { "type": "string", "format": "did", "description": "受注側 legalEntity DID" },
+          "childJcn": { "type": "string" },
+          "parentDid": { "type": "string", "format": "did", "description": "UBO 側 DID (自然人 cohort or legal entity)" },
+          "parentType": { "type": "string", "enum": ["NATURAL", "LEGAL", "TRUST", "SPC", "OPAQUE"] },
+          "ownershipPct": { "type": "number", "minimum": 0, "maximum": 100 },
+          "votingPct": { "type": "number", "minimum": 0, "maximum": 100 },
+          "evidenceKind": { "type": "string", "enum": ["UBO_LIST", "EDINET", "COMMERCIAL_REGISTER", "OPEN_CORPORATES", "OPEN_SANCTIONS", "INFERRED"] },
+          "evidenceUrl": { "type": "string", "format": "uri" },
+          "observedAt": { "type": "string", "format": "date" },
+          "status": { "type": "string", "enum": ["RESOLVED", "OPAQUE", "CYCLE", "PENDING"] },
+          "opacityReason": { "type": "string" },
+          "externalRefs": { "type": "array", "items": { "type": "ref", "ref": "#externalRef" } },
+          "piiTier": { "type": "integer", "enum": [1, 3], "description": "NATURAL parent details = Tier 3" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    },
+    "externalRef": {
+      "type": "object",
+      "required": ["source", "id"],
+      "properties": {
+        "source": { "type": "string", "enum": ["OPEN_CORPORATES", "OPEN_SANCTIONS", "EDINET", "JCN", "OTHER"] },
+        "id": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
+      }
+    }
+  }
+}

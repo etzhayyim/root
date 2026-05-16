@@ -1,0 +1,19 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.contacts.connectAccount",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start Google contacts OAuth2 connect flow. Returns authorization URL.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": { "accountDid": {"type":"string","format":"did"}, "email": {"type":"string"} } }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": { "status":{"type":"string"}, "oauthUrl":{"type":"string","format":"uri"}, "error":{"type":"string"} } }
+      }
+    }
+  }
+}

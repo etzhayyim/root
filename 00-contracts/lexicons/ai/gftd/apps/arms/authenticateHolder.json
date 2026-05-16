@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.arms.authenticateHolder",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Issue a 32-character DID challenge for a holder attempting to access a specific firearm. Challenge expires in 300 seconds. Caller must submit the signed challenge to verifyAuthChallenge to complete authentication.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["firearmVid", "holderDid"],
+          "properties": {
+            "firearmVid": { "type": "string", "description": "at:// URI of the firearm" },
+            "holderDid":  { "type": "string", "format": "did" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessionVid", "challenge", "holderDid", "firearmVid", "expiresIn"],
+          "properties": {
+            "sessionVid":    { "type": "string" },
+            "challenge":     { "type": "string", "description": "32-char nonce to sign with holder DID private key" },
+            "holderDid":     { "type": "string", "format": "did" },
+            "firearmVid":    { "type": "string" },
+            "expiresIn":     { "type": "integer", "description": "seconds until challenge expires" },
+            "instructions":  { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

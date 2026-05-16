@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.microsoft.listInbox",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List received messages from the inbox of the given mailbox (newest first). Returns enough fields for pregel email triage. Paginated via nextLink.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "fromUpn": { "type": "string", "description": "Mailbox UPN. Defaults to env DEFAULT_SENDER_UPN." },
+          "top": { "type": "integer", "default": 50, "minimum": 1, "maximum": 200 },
+          "since": { "type": "string", "description": "ISO8601 lower bound on receivedDateTime (exclusive). Enables incremental polling." },
+          "nextLink": { "type": "string", "description": "OData nextLink returned by a prior call for pagination." },
+          "folder": { "type": "string", "description": "Well-known folder name or folder ID to filter. E.g. 'inbox', 'sentitems', 'deleteditems'. Omit to query all messages." }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "fromUpn": { "type": "string" },
+            "messages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id":              { "type": "string" },
+                  "conversationId":  { "type": "string" },
+                  "subject":         { "type": "string" },
+                  "fromAddress":     { "type": "string" },
+                  "fromName":        { "type": "string" },
+                  "toAddresses":     { "type": "string" },
+                  "receivedAt":      { "type": "string" },
+                  "bodyPreview":     { "type": "string" },
+                  "isRead":          { "type": "boolean" },
+                  "importance":      { "type": "string" },
+                  "hasAttachments":  { "type": "boolean" }
+                }
+              }
+            },
+            "nextLink": { "type": "string" }
+          },
+          "required": ["fromUpn", "messages"]
+        }
+      }
+    }
+  }
+}

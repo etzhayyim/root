@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.compintel.getAlert",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get recent competitive intelligence alerts (significant changes detected).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "competitorId": { "type": "string", "description": "Filter by competitor (optional)" },
+          "dimension": { "type": "string", "description": "pricing|product|hiring|funding|press" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 50, "default": 10 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["alerts", "total", "offset", "limit"],
+          "properties": {
+            "alerts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "alertId": { "type": "string" },
+                  "competitorId": { "type": "string" },
+                  "competitorName": { "type": "string" },
+                  "dimension": { "type": "string" },
+                  "summary": { "type": "string" },
+                  "severity": { "type": "string", "description": "low|medium|high" },
+                  "detectedAt": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

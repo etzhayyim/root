@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.gstr3b.fileAmendment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0056. File a DRC-03 amendment against a previously filed GSTR-3B return.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "predecessorVertexId": { "type": "string" },
+            "amendmentReason": {
+              "type": "string",
+              "enum": ["undeclaredOutward", "excessItc", "wrongItc", "rateError", "rcmOmission", "other"]
+            },
+            "amendmentDescription": { "type": "string" },
+            "amendmentPayload": { "type": "string", "description": "signal:v1: DRC-03 delta payload" }
+          },
+          "required": ["predecessorVertexId", "amendmentReason"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "deltaTaxInrPaise": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

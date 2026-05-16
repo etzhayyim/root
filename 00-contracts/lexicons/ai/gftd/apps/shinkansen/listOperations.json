@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinkansen.listOperations",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "新幹線運行情報照会 (遅延・運休・運行情報). All public — no PII.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "line": { "type": "string", "enum": ["tokaido", "sanyo", "kyushu", "tohoku", "hokkaido", "joetsu", "hokuriku", "yamagata", "akita"] },
+          "status": { "type": "string", "enum": ["normal", "delayed", "suspended", "partial-suspension"] },
+          "asOf": { "type": "string", "format": "datetime", "description": "snapshot time; default = now" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["operations", "total", "offset", "limit"],
+          "properties": {
+            "operations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "line": { "type": "string" },
+                  "status": { "type": "string" },
+                  "delayMinutes": { "type": "integer" },
+                  "affectedSection": { "type": "string", "description": "e.g. Tokyo-Nagoya" },
+                  "reason": { "type": "string" },
+                  "asOf": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

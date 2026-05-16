@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.keiyaku.submitForSignature",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Flip agreement status from 'drafted' to 'sent' and create the signingFlow record. Optionally dispatches to external provider (docusign/cloudsign/adobeSign).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["agreementDid", "signers"],
+          "properties": {
+            "agreementDid": { "type": "string", "format": "did" },
+            "provider":     { "type": "string", "enum": ["docusign","cloudsign","adobeSign","internal"], "default": "internal" },
+            "signers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["did", "role"],
+                "properties": {
+                  "did":  { "type": "string", "format": "did" },
+                  "role": { "type": "string", "enum": ["representative","witness","counterparty","internal"] }
+                }
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["agreementDid", "signingFlowDid", "status"],
+          "properties": {
+            "agreementDid":   { "type": "string", "format": "did" },
+            "signingFlowDid": { "type": "string", "format": "did" },
+            "status":         { "type": "string", "enum": ["sent"] },
+            "externalId":     { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

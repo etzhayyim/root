@@ -1,0 +1,27 @@
+{
+  "name": "@gftd/did-gftd",
+  "version": "0.1.0",
+  "description": "did:gftd DID method reference implementation (ADR-0029): CIDv1 + DAG-CBOR genesis op + path-form sub-DIDs.",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./cid": "./src/cid.ts",
+    "./cbor": "./src/cbor.ts",
+    "./multibase": "./src/multibase.ts",
+    "./multihash": "./src/multihash.ts",
+    "./genesis": "./src/genesis.ts",
+    "./did-doc": "./src/did-doc.ts",
+    "./resolve": "./src/resolve.ts"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.4.0",
+    "vitest": "^4.1.4"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.keiyaku.obligation",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Delivery / payment obligation extracted from an agreement. Used by calendar + AR/AP schedulers. kind='delivery' drives procurement reminders; kind='payment' drives seikyu.recurringSchedule or kaikei.apBill.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["ownerDid", "agreementDid", "kind", "dueAt", "status", "createdAt"],
+        "properties": {
+          "ownerDid":      { "type": "string", "format": "did" },
+          "agreementDid":  { "type": "string", "format": "did" },
+          "kind":          { "type": "string", "enum": ["payment","delivery","milestone","renewalReview"] },
+          "description":   { "type": "string" },
+          "dueAt":         { "type": "string", "format": "datetime" },
+          "amount":        { "type": "number" },
+          "currency":      { "type": "string" },
+          "status":        { "type": "string", "enum": ["pending","done","overdue","waived"] },
+          "completedAt":   { "type": "string", "format": "datetime" },
+          "createdAt":     { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

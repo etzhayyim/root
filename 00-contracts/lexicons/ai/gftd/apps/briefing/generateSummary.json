@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.briefing.generateSummary",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roomId": {
+              "type": "integer"
+            },
+            "recordingId": {
+              "type": "integer"
+            },
+            "text": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "roomId",
+            "text"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "error": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "summaryId": {
+              "type": "integer"
+            },
+            "roomId": {
+              "type": "integer"
+            },
+            "format": {
+              "type": "string"
+            },
+            "summaryLength": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

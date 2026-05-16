@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kabi.getNutrientFlow",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get the nutrient flow gradient for an agent from mv_kabi_eta_gradient. Used by PoNF consensus to determine block eligibility.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "agentDid": { "type": "string", "description": "Agent DID to query inbound η gradient" },
+          "limit": { "type": "integer", "description": "Max hypha rows to return", "default": 50 }
+        },
+        "required": ["agentDid"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "agentDid": { "type": "string" },
+            "inboundCount": { "type": "integer" },
+            "inboundFlow": { "type": "number" },
+            "inboundEtaAvg": { "type": "number" },
+            "inboundEtaMax": { "type": "number" },
+            "hyphae": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "srcAgentDid": { "type": "string" },
+                  "flow": { "type": "number" },
+                  "eta": { "type": "number" }
+                }
+              }
+            },
+            "error": { "type": "string" }
+          },
+          "required": ["agentDid"]
+        }
+      }
+    }
+  }
+}

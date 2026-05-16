@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.gstr3b.submitDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0056. Persist Tier 3 GSTR-3B payloads (signal:v1: encrypted GSTIN/PAN/supplies/ITC/tax payment).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "applicantPayload": { "type": "string", "description": "signal:v1: GSTIN+PAN+legal name+trade name+address" },
+            "suppliesPayload": { "type": "string", "description": "signal:v1: 3.1 + 3.2 details" },
+            "itcPayload": { "type": "string", "description": "signal:v1: section 4 ITC" },
+            "taxPaymentPayload": { "type": "string", "description": "signal:v1: section 6.1 cash/credit usage" }
+          },
+          "required": ["vertexId", "applicantPayload", "suppliesPayload", "itcPayload", "taxPaymentPayload"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "filingHash": { "type": "string" },
+            "totalOutwardTaxInrPaise": { "type": "integer" },
+            "totalInwardItcInrPaise": { "type": "integer" },
+            "totalNetTaxInrPaise": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

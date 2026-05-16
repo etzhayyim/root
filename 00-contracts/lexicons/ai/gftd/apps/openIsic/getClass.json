@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.openIsic.getClass",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get an ISIC Rev.4 4-digit class with full description, inclusions, exclusions, and ancestor taxonomy (section/division/group).",
+      "parameters": {
+        "type": "params",
+        "required": ["code"],
+        "properties": {
+          "code": { "type": "string", "description": "4-digit ISIC class code (e.g. '0111')" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["code", "did", "nameEn", "section", "division", "group"],
+          "properties": {
+            "code":      { "type": "string" },
+            "did":       { "type": "string", "format": "did" },
+            "nameEn":    { "type": "string" },
+            "section":   { "type": "string" },
+            "sectionNameEn":  { "type": "string" },
+            "division":  { "type": "string" },
+            "divisionNameEn": { "type": "string" },
+            "group":     { "type": "string" },
+            "groupNameEn":    { "type": "string" },
+            "description":{ "type": "string" },
+            "includes":  { "type": "array", "items": { "type": "string" } },
+            "excludes":  { "type": "array", "items": { "type": "string" } },
+            "isicVersion": { "type": "string", "default": "Rev.4" },
+            "implementedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "errors": [{ "name": "NotFound" }]
+    }
+  }
+}

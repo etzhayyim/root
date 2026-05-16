@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.m365Ingest.syncStatus",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Read sync state for all tracked users.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "upn": { "type": "string", "description": "Filter to one UPN (omit for all)" },
+          "limit": { "type": "integer", "default": 100, "maximum": 500 },
+          "offset": { "type": "integer", "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "users": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "upn": { "type": "string" },
+                  "emailLastSync": { "type": "string" },
+                  "emailCount": { "type": "integer" },
+                  "lastRunAt": { "type": "string" },
+                  "lastError": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          },
+          "required": ["users", "total", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

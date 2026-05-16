@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.updateCase",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Append a status transition or note to an existing case. Write-only derived (260407): handler writes ai.gftd.apps.lawfirm.caseEvent record; downstream notification + projector derive from magatama.jsonld rule.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["caseDid", "event"],
+          "properties": {
+            "caseDid": { "type": "string", "format": "did" },
+            "event": { "type": "string", "enum": ["filed", "served", "hearing-scheduled", "hearing-held", "evidence-submitted", "judgment", "appeal", "settled", "withdrawn", "closed"] },
+            "occurredAt": { "type": "string", "format": "datetime" },
+            "noteEncrypted": { "type": "string", "description": "signal:v1:{ciphertext} (attorney-client privilege)" },
+            "nextHearingAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uri", "cid"],
+          "properties": {
+            "uri": { "type": "string", "format": "at-uri" },
+            "cid": { "type": "string", "format": "cid" }
+          }
+        }
+      }
+    }
+  }
+}

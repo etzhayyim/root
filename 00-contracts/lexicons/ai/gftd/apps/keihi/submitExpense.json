@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.keihi.submitExpense",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit an employee expense claim. Approval derives kaikei AP/expense posting.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["employeeDid", "expenseDate", "amount"],
+          "properties": {
+            "owner": { "type": "string" },
+            "employeeDid": { "type": "string", "format": "did" },
+            "projectDid": { "type": "string", "format": "did" },
+            "vendorName": { "type": "string" },
+            "expenseDate": { "type": "string", "format": "datetime" },
+            "amount": { "type": "number" },
+            "currency": { "type": "string", "default": "JPY" },
+            "taxRate": { "type": "number", "default": 0 },
+            "category": { "type": "string" },
+            "receiptCid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["expenseDid", "uri", "status"],
+          "properties": {
+            "expenseDid": { "type": "string", "format": "did" },
+            "uri": { "type": "string", "format": "at-uri" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

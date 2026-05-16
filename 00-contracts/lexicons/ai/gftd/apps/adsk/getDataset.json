@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.adsk.getDataset",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get one HF dataset catalog row by slug + recent record sample.",
+      "parameters": {
+        "type": "params",
+        "required": ["slug"],
+        "properties": {
+          "slug": {"type": "string"},
+          "sampleSize": {"type": "integer", "default": 5, "minimum": 0, "maximum": 50}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["dataset"],
+          "properties": {
+            "dataset": {"type": "unknown"},
+            "samples": {"type": "array", "items": {"type": "unknown"}}
+          }
+        }
+      }
+    }
+  }
+}

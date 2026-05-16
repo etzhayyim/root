@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.hubspot.syncAll",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run incremental sync for all 8 HubSpot CRM object types in dependency order: owner → product → company → contact → deal → lineItem → ticket → engagement. Each per-type sync is delegated to ai.gftd.apps.hubspot.syncObjectType. Designed to be called by the R/PT15M BPMN contract timer (L7 BPMN) for steady-state ingest, or manually with since='1970-01-01' for full backfill.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "since": { "type": "string", "description": "ISO 8601 lower bound applied to every object type. Omit for cursor-based incremental." },
+            "maxPagesPerType": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+            "portalId": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "totalIngested": { "type": "integer" },
+            "perType": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#perTypeResult" }
+            },
+            "startedAt": { "type": "string" },
+            "finishedAt": { "type": "string" }
+          },
+          "required": ["totalIngested", "perType", "startedAt", "finishedAt"]
+        }
+      }
+    },
+    "perTypeResult": {
+      "type": "object",
+      "properties": {
+        "objectType": { "type": "string" },
+        "ingested": { "type": "integer" },
+        "pagesFetched": { "type": "integer" },
+        "completed": { "type": "boolean" },
+        "error": { "type": "string" }
+      },
+      "required": ["objectType", "ingested", "pagesFetched", "completed"]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpFiscal.procurementBid",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "政府電子調達 (GEPS) / NJSS から取得する入札公告 record。awarded 後に contract record と link.",
+      "record": {
+        "type": "object",
+        "required": ["tenderNo", "issuerDid", "method", "openedAt", "createdAt"],
+        "properties": {
+          "tenderNo": { "type": "string" },
+          "issuerDid": { "type": "string", "format": "did" },
+          "method": { "type": "string", "enum": ["general-tender", "select-tender", "zuikei-random", "framework", "reverse-auction"] },
+          "title": { "type": "string" },
+          "estimatedJpy": { "type": "integer", "minimum": 0 },
+          "currency": { "type": "string", "default": "JPY" },
+          "openedAt": { "type": "string", "format": "datetime" },
+          "closedAt": { "type": "string", "format": "datetime" },
+          "awardedAt": { "type": "string", "format": "datetime" },
+          "awardedContractDid": { "type": "string", "format": "did" },
+          "awardedAmountJpy": { "type": "integer", "minimum": 0 },
+          "bidders": { "type": "array", "items": { "type": "ref", "ref": "#bidder" } },
+          "tenderUrl": { "type": "string", "format": "uri" },
+          "externalRefs": { "type": "array", "items": { "type": "ref", "ref": "#externalRef" } },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    },
+    "bidder": {
+      "type": "object",
+      "required": ["bidderDid"],
+      "properties": {
+        "bidderDid": { "type": "string", "format": "did" },
+        "bidderJcn": { "type": "string" },
+        "bidAmountJpy": { "type": "integer", "minimum": 0 },
+        "awarded": { "type": "boolean", "default": false }
+      }
+    },
+    "externalRef": {
+      "type": "object",
+      "required": ["source", "id"],
+      "properties": {
+        "source": { "type": "string", "enum": ["GEPS", "NJSS", "PREFECTURE", "MUNICIPALITY", "OTHER"] },
+        "id": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.gmail.getThread",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch one Gmail thread with its messages.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "threadId": { "type": "string" },
+          "accountEmail": { "type": "string" }
+        },
+        "required": ["threadId"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": { "type": "string" },
+            "threadId": { "type": "string" },
+            "subject": { "type": "string" },
+            "messageCount": { "type": "integer" },
+            "messages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "emailId": { "type": "string" },
+                  "from": { "type": "string" },
+                  "to": { "type": "string" },
+                  "subject": { "type": "string" },
+                  "snippet": { "type": "string" },
+                  "sentAt": { "type": "string" }
+                }
+              }
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

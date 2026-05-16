@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.roukisho.listOffices",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List 労働基準監督署 (Labor Standards Inspection Offices) across Japan. ~320 offices total, grouped under 47 都道府県労働局 (Prefectural Labour Bureaus), all under 厚生労働省 (MHLW).",
+      "parameters": {
+        "type": "params",
+        "required": [],
+        "properties": {
+          "prefecture": { "type": "string", "description": "ISO 3166-2 JP subdivision code (e.g. JP-13 for Tokyo) or kanji name" },
+          "bureau": { "type": "string", "description": "都道府県労働局 name (e.g. 東京労働局)" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 500, "default": 100 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "offices", "total", "offset", "limit"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "offices": { "type": "array", "items": { "type": "ref", "ref": "#officeRecord" } },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "officeRecord": {
+      "type": "object",
+      "required": ["officeId", "did", "name"],
+      "properties": {
+        "officeId": { "type": "string", "description": "slug identifier (e.g. jp-tokyo-chuo)" },
+        "did": { "type": "string", "format": "did" },
+        "name": { "type": "string", "description": "正式名称 (e.g. 中央労働基準監督署)" },
+        "prefecture": { "type": "string" },
+        "bureau": { "type": "string", "description": "都道府県労働局" },
+        "address": { "type": "string" },
+        "postalCode": { "type": "string" },
+        "tel": { "type": "string", "description": "E.164 format" },
+        "fax": { "type": "string", "description": "E.164 format" },
+        "url": { "type": "string", "format": "uri" },
+        "jurisdiction": { "type": "array", "items": { "type": "string" }, "description": "管轄 (e.g. 千代田区, 中央区, 文京区, 島しょ)" }
+      }
+    }
+  }
+}

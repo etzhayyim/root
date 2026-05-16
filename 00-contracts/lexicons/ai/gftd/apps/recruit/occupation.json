@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.recruit.occupation",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Occupation taxonomy record ingested from a public-licensed source (ISCO-08 / ESCO / O*NET). `sourceLicense` MUST be set for audit lineage. Records are PII-free.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["code", "name", "source", "sourceLicense", "ingestedAt"],
+        "properties": {
+          "code": { "type": "string", "description": "Primary code in source namespace (ISCO 4-digit / ESCO conceptUri / O*NET SOC)" },
+          "iscoCode": { "type": "string", "description": "ISCO-08 mapping (empty if no mapping)" },
+          "name": { "type": "string", "maxLength": 500 },
+          "description": { "type": "string", "maxLength": 4000 },
+          "level": { "type": "string", "enum": ["major", "submajor", "minor", "unit", "detail"] },
+          "escoCode": { "type": "string" },
+          "onetSocCode": { "type": "string" },
+          "source": { "type": "string", "enum": ["isco", "esco", "onet"] },
+          "sourceLicense": { "type": "string", "description": "SPDX-style identifier (CC-BY-3.0-IGO / CC-BY-4.0 / public-domain)" },
+          "sourceHomepage": { "type": "string", "format": "uri" },
+          "ingestedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

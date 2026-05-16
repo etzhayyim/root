@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.akuma.revokeScope",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "One-way revocation of an active scope contract. After revocation runProbe immediately denies and the egress NetworkPolicy reconciler removes target IPs from akuma-probe egress allowlist.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["scopeId", "revokerDid", "reason"],
+          "properties": {
+            "scopeId": { "type": "string" },
+            "revokerDid": {
+              "type": "string",
+              "description": "ownerDid or authorityDid; either party may revoke."
+            },
+            "reason": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["scopeUri", "status"],
+          "properties": {
+            "scopeUri": { "type": "string" },
+            "status": { "type": "string", "enum": ["revoked"] },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

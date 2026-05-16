@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.intel.corroborateChain",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "chainIdA": { "type": "string" },
+            "chainIdB": { "type": "string" }
+          },
+          "required": ["chainIdA", "chainIdB"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "corroborated": { "type": "boolean" },
+            "matchedCohorts": { "type": "integer" },
+            "maxDeviation": { "type": "float" }
+          },
+          "required": ["corroborated", "matchedCohorts"]
+        }
+      }
+    }
+  }
+}

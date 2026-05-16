@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.dataCenterOps.dependency.listNodes",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Data Center Ops: list dependency nodes.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {},
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  }
+}

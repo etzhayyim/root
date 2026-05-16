@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.legal-corpus.registerSource",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register an upstream legal corpus source (CourtListener, EUR-Lex, etc.) and its watermark cursor. Idempotent on sourceId. ADR-0049.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sourceId", "displayName", "baseUrl", "jurisdictions", "cadenceIso8601"],
+          "properties": {
+            "sourceId":       { "type": "string", "pattern": "^[a-z0-9-]+$" },
+            "displayName":    { "type": "string" },
+            "baseUrl":        { "type": "string", "format": "uri" },
+            "jurisdictions":  { "type": "array", "items": { "type": "string" } },
+            "cadenceIso8601": { "type": "string", "description": "ISO 8601 repeating duration, e.g. R/PT24H" },
+            "authStrategy":   { "type": "string", "enum": ["none", "token", "apiKey", "oauth"], "default": "none" },
+            "secretRef":      { "type": "string", "description": "gftd Vault item ref e.g. vault://gftd/legal-corpus/courtlistener.token" },
+            "license":        { "type": "string", "description": "SPDX or custom license identifier" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

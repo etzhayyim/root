@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.arms.checkOutFirearm",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Check out a firearm for deployment. Requires a 'passed' auth session matching the holder DID and firearm VID. Firearm status transitions from 'active' to 'checked_out'. Prevents concurrent check-outs.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["firearmVid", "holderDid", "authSessionVid"],
+          "properties": {
+            "firearmVid":     { "type": "string" },
+            "holderDid":      { "type": "string", "format": "did" },
+            "authSessionVid": { "type": "string", "description": "Passed auth session (from verifyAuthChallenge)" },
+            "locationCode":   { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "eventVid", "firearmVid", "holderDid", "status", "occurredAt"],
+          "properties": {
+            "ok":         { "type": "boolean" },
+            "eventVid":   { "type": "string" },
+            "firearmVid": { "type": "string" },
+            "holderDid":  { "type": "string", "format": "did" },
+            "status":     { "type": "string", "enum": ["checked_out"] },
+            "occurredAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

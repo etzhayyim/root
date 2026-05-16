@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.graphSosIntel.listRelations",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List current graph relation inventory for vertex, edge, mv, view, and related read-model relations.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "Optional relation kind filter: vertex, edge, mv, view, or other."
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "relations": { "type": "unknown" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

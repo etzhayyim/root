@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.crm.enrichLeiReviewQueue",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create or refresh manual review queue items for unresolved CRM to GLEIF LEI records, including candidate evidence JSON.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "crmSystem": { "type": "string", "enum": ["lawfirm", "hubspot"] },
+            "entityType": { "type": "string", "enum": ["lead", "tenant", "company"] },
+            "country": { "type": "string" },
+            "limit": { "type": "integer", "minimum": 1, "maximum": 500, "default": 50 },
+            "maxCandidates": { "type": "integer", "minimum": 1, "maximum": 20, "default": 5 },
+            "dryRun": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "inputCount": { "type": "integer" },
+            "enrichedCount": { "type": "integer" },
+            "enriched": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#reviewItem" }
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    },
+    "reviewItem": {
+      "type": "object",
+      "properties": {
+        "reviewId": { "type": "string" },
+        "crmSystem": { "type": "string" },
+        "entityType": { "type": "string" },
+        "crmSourceId": { "type": "string" },
+        "legalName": { "type": "string" },
+        "country": { "type": "string" },
+        "candidateCount": { "type": "integer" },
+        "needsHumanReview": { "type": "boolean" }
+      }
+    }
+  }
+}

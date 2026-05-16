@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "app.bsky.feed.unlike",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Remove an existing like by post URI.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uri"],
+          "properties": {
+            "uri": { "type": "string", "format": "at-uri" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.epfo.startMonthlyEcr",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0052. Begin a new EPFO monthly ECR (Electronic Challan-cum-Return) for a wage month. Starts BPMN process epfo_submit_monthly_ecr.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "employerOrgId": { "type": "string", "description": "Employer org_id / establishment owner scope." },
+            "establishmentPfCode": { "type": "string", "description": "EPFO establishment code, e.g. MH/BAN/0123456/000" },
+            "wageMonth": { "type": "string", "description": "YYYY-MM. Wage month being filed." },
+            "dueDate": { "type": "string", "description": "ISO 8601 date. Defaults to wage month + 15 days per EPF Scheme 1952 §38." },
+            "filerDid": { "type": "string", "description": "Payroll-officer DID. Defaults to caller." }
+          },
+          "required": ["employerOrgId", "establishmentPfCode", "wageMonth"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

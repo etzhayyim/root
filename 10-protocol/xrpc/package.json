@@ -1,0 +1,31 @@
+{
+  "name": "@gftd/xrpc",
+  "version": "1.0.0",
+  "description": "Unified XRPC client — NSID utilities, transport abstraction, auth resolution, error handling",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./nsid": "./src/nsid.ts",
+    "./command-dsl": "./src/command-dsl.ts",
+    "./app-convention": "./src/app-convention.ts",
+    "./dispatch": "./src/dispatch.ts",
+    "./transport": "./src/transport.ts",
+    "./auth": "./src/auth.ts",
+    "./error": "./src/error.ts",
+    "./encode": "./src/encode.ts",
+    "./lexicon-types": "./src/lexicon-types.gen.ts"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@atproto/common-web": "^0.4.0",
+    "@atproto/syntax": "^0.4.0"
+  },
+  "files": [
+    "src"
+  ],
+  "license": "UNLICENSED"
+}

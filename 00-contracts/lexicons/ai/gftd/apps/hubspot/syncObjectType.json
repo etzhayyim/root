@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.hubspot.syncObjectType",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Trigger an incremental HubSpot CRM sync for a single object type. Reads vertex_hubspot_sync_cursor for the last modified watermark, calls /crm/v3/objects/{objectType}/search with filter `hs_lastmodifieddate > cursor`, paginates 100 per page (HubSpot v3 max), upserts each record to vertex_hubspot_{objectType} via Hyperdrive direct write (ADR-0036), and advances the cursor. Idempotent — safe to retry. Backfill: pass since='1970-01-01' to ignore the cursor.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "objectType": {
+              "type": "string",
+              "enum": ["contact", "company", "deal", "ticket", "owner", "engagement", "lineItem", "product"]
+            },
+            "since": { "type": "string", "description": "ISO 8601 timestamp lower bound for hs_lastmodifieddate. Overrides the persisted cursor when set." },
+            "maxPages": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+            "portalId": { "type": "string", "description": "HubSpot portal id for multi-tenant. Defaults to env HUBSPOT_PORTAL_ID." }
+          },
+          "required": ["objectType"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "objectType": { "type": "string" },
+            "ingested": { "type": "integer" },
+            "pagesFetched": { "type": "integer" },
+            "cursorBefore": { "type": "string" },
+            "cursorAfter": { "type": "string" },
+            "completed": { "type": "boolean", "description": "True when the API returned no more pages." }
+          },
+          "required": ["objectType", "ingested", "pagesFetched", "completed"]
+        }
+      }
+    }
+  }
+}

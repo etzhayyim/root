@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.arms.registerFirearm",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a firearm in the national registry. Serial number is stored as SHA-256 hash (Tier 3 PII). Returns firearmVid and serialHash. Caller must hold issuer or military/law-enforcement authority.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["serialNumber", "make", "model", "caliber", "category"],
+          "properties": {
+            "serialNumber":      { "type": "string", "minLength": 4, "description": "Manufacturer serial number (stored hashed)" },
+            "make":              { "type": "string" },
+            "model":             { "type": "string" },
+            "caliber":           { "type": "string", "description": "e.g. 9mm, 5.56x45mm, 12ga" },
+            "category":          { "type": "string", "description": "pistol|revolver|rifle|carbine|shotgun|smg|hmg|lmg|sniper_rifle|anti_material_rifle|rocket_launcher|grenade_launcher|mortar|other_small_arms|other_military" },
+            "countryOfOrigin":   { "type": "string", "description": "ISO 3166 alpha-2" },
+            "yearOfManufacture": { "type": "integer" },
+            "registrantDid":     { "type": "string", "format": "did", "description": "Initial holder DID (defaults to caller)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["firearmVid", "serialHash", "make", "model", "caliber", "category", "status", "registeredAt"],
+          "properties": {
+            "firearmVid":    { "type": "string" },
+            "serialHash":    { "type": "string", "description": "SHA-256 hex of serialNumber" },
+            "make":          { "type": "string" },
+            "model":         { "type": "string" },
+            "caliber":       { "type": "string" },
+            "category":      { "type": "string" },
+            "status":        { "type": "string" },
+            "registeredAt":  { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

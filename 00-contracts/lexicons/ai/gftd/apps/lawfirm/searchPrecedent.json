@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.searchPrecedent",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Lawfirm-scoped wrapper over ai.gftd.apps.legal-corpus.searchDocument. Adds firm authz wrap (caller must be leadBengoshi / firm-admin) and default jurisdiction filter to the firm's primary jurisdiction. ADR-0049 Future Phase 3.",
+      "parameters": {
+        "type": "params",
+        "required": ["firmDid", "queryText"],
+        "properties": {
+          "firmDid":        { "type": "string", "format": "did" },
+          "queryText":      { "type": "string", "maxLength": 4096 },
+          "jurisdiction":   { "type": "string", "description": "ISO 3166-1 alpha-3. Defaults to firm primary if omitted." },
+          "documentType":   { "type": "string" },
+          "languageCode":   { "type": "string" },
+          "decidedAfter":   { "type": "string", "format": "datetime" },
+          "decidedBefore":  { "type": "string", "format": "datetime" },
+          "limit":          { "type": "integer", "minimum": 1, "maximum": 50, "default": 10 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["hits"],
+          "properties": {
+            "hits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["vertexId", "canonicalUri", "title", "score"],
+                "properties": {
+                  "vertexId":     { "type": "string" },
+                  "canonicalUri": { "type": "string" },
+                  "title":        { "type": "string" },
+                  "court":        { "type": "string" },
+                  "jurisdiction": { "type": "string" },
+                  "decidedAt":    { "type": "string" },
+                  "score":        { "type": "number" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "Forbidden", "description": "caller lacks leadBengoshi / firm-admin role for firmDid" }
+      ]
+    }
+  }
+}

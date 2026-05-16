@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpFiscal.runScrapers",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run all active vertex_scraper_dsl rows (dsl_kind=schema-first). ADR-0040 C+G hybrid runtime entry point.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": { "type": "integer", "description": "Max DSL rows to process this run (default 50)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["wrote", "source"],
+          "properties": {
+            "wrote": { "type": "integer" },
+            "source": { "type": "string" },
+            "note": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

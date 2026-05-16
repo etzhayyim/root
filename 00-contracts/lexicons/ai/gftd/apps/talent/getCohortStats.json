@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.talent.getCohortStats",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Cohort-level statistics for (ISCO × country). No individual records. ADR-0018 Tier 3.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "iscoCode": { "type": "string" },
+          "country": { "type": "string" }
+        },
+        "required": ["iscoCode", "country"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "iscoCode": { "type": "string" },
+            "country": { "type": "string" },
+            "size": { "type": "integer" },
+            "experienceBandDistribution": {
+              "type": "object",
+              "properties": {
+                "entry": { "type": "integer" },
+                "mid": { "type": "integer" },
+                "senior": { "type": "integer" },
+                "lead": { "type": "integer" }
+              }
+            },
+            "skillsTop10": { "type": "array", "items": { "type": "string" } },
+            "updatedAt": { "type": "string", "format": "datetime" }
+          },
+          "required": ["iscoCode", "country", "size"]
+        }
+      }
+    }
+  }
+}

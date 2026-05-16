@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.marketingDispatch",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "XRPC trigger for lawfirm marketing LangGraph. Routes to supervisor → content/social/outreach/platform/analytics/compliance agent. BCI Rule 36 enforced: advocate-brand assets MUST pass compliance gate before publish.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["task_type"],
+          "properties": {
+            "task_type": {
+              "type": "string",
+              "description": "marketing.{blogDraft|linkedinPost|outreachMail|platformCopy|kpiReport|complianceCheck|eventPrep}"
+            },
+            "brand": {
+              "type": "string",
+              "enum": ["advocate", "platform"],
+              "default": "advocate",
+              "description": "advocate = k-bakshi practice (BCI Rule 36 strict); platform = amanomibashira SaaS (commercial OK)"
+            },
+            "audience": {
+              "type": "string",
+              "description": "Target audience (e.g. 'NRI individual', 'mid-tier Indian firm', 'Japan corp India desk')"
+            },
+            "topic": {
+              "type": "string",
+              "description": "Topic or matter context"
+            },
+            "payload": {
+              "type": "string",
+              "description": "Free-form context JSON (matter ref / draft outline / reference URLs)"
+            },
+            "schedule_at": {
+              "type": "string",
+              "format": "datetime",
+              "description": "Optional scheduled publish datetime (ISO 8601)"
+            },
+            "requester_did": {
+              "type": "string",
+              "format": "did"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok":               { "type": "boolean" },
+            "asset_uris":       { "type": "array", "items": { "type": "string" } },
+            "compliance_check": { "type": "string", "enum": ["approved", "rejected", "needs_review", "skipped"] },
+            "compliance_notes": { "type": "string" },
+            "summary":          { "type": "string" },
+            "error":            { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

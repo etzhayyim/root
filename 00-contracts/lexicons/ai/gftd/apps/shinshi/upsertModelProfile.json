@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.upsertModelProfile",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create or update the public taxonomy record for a model DID.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "modelDid": { "type": "string", "format": "did" },
+            "charName": { "type": "string" },
+            "series": { "type": "string" },
+            "ageLook": { "type": "integer", "minimum": 18, "maximum": 120 },
+            "bodyType": { "type": "string" },
+            "ethnicityLook": { "type": "string" },
+            "language": { "type": "array", "items": { "type": "string" } },
+            "relationshipRole": { "type": "string" },
+            "occupation": { "type": "string" },
+            "hobbies": { "type": "array", "items": { "type": "string" } },
+            "personality": { "type": "array", "items": { "type": "string" } },
+            "promptStyle": { "type": "string" },
+            "externalUri": { "type": "string", "format": "uri" }
+          },
+          "required": ["modelDid", "charName", "series", "ageLook"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "uri": { "type": "string" },
+            "cid": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.abuse.submitReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Draft takedown reports for a phishing domain. Routes to registrar + hosting + brand owner + CERT targets.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "domain": {
+              "type": "string",
+              "description": "phishing domain e.g. whatsaapp.com"
+            },
+            "brandHint": {
+              "type": "string",
+              "description": "optional brand override (whatsapp/mastercard/line/apple/smbc)"
+            },
+            "evidence": {
+              "type": "object",
+              "description": "optional SMS / screenshot metadata"
+            }
+          },
+          "required": [
+            "domain"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "reportIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "targets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

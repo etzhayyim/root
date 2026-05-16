@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.itr1.startReturn",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0055. Begin a new ITR-1 Sahaj return for an Assessment Year. Starts BPMN itr1_file_return.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "taxpayerPanHash": { "type": "string", "description": "sha256 of PAN. Raw PAN goes in submitDraft Tier 3 only." },
+            "assessmentYear": { "type": "string", "description": "AYYYYY-YY, e.g. AY2025-26" },
+            "filerDid": { "type": "string", "description": "Defaults to caller." }
+          },
+          "required": ["taxpayerPanHash", "assessmentYear"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

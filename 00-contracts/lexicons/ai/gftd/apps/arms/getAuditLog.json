@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.arms.getAuditLog",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Retrieve the full chain-of-custody audit log for a specific firearm (all check-out, check-in, transfer, and incident events in chronological order). Used for forensic investigations and compliance audits under 銃砲刀剣類所持等取締法.",
+      "parameters": {
+        "type": "params",
+        "required": ["firearmVid"],
+        "properties": {
+          "firearmVid": { "type": "string", "description": "at:// URI of the firearm" },
+          "limit":      { "type": "integer", "minimum": 1, "maximum": 500, "default": 100 },
+          "offset":     { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["firearmVid", "events", "limit", "offset"],
+          "properties": {
+            "firearmVid": { "type": "string" },
+            "events": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vertex_id":       { "type": "string" },
+                  "event_type":      { "type": "string", "description": "check_out|check_in|transfer|reported_stolen|reported_lost|destroyed|exported" },
+                  "from_holder_did": { "type": "string" },
+                  "to_holder_did":   { "type": "string" },
+                  "auth_session_vid":{ "type": "string" },
+                  "permit_vid":      { "type": "string" },
+                  "location_code":   { "type": "string" },
+                  "notes":           { "type": "string" },
+                  "occurred_at":     { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "limit":  { "type": "integer" },
+            "offset": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

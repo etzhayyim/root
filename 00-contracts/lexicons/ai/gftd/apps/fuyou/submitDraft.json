@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.fuyou.submitDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0051. Persist Tier 3 PII payload (signal:v1: encrypted) for a draft declaration. Form data only; no state transition until reviewed.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string", "description": "Declaration vertex_id from startDeclaration." },
+            "applicantPayload": { "type": "string", "description": "signal:v1: encrypted JSON of applicant section." },
+            "spousePayload": { "type": "string", "description": "signal:v1: encrypted JSON of spouse section. Optional." },
+            "dependentsPayload": { "type": "string", "description": "signal:v1: encrypted JSON array of >=16 dependents." },
+            "minorDependentsPayload": { "type": "string", "description": "signal:v1: encrypted JSON array of <16 dependents." },
+            "specialStatusPayload": { "type": "string", "description": "signal:v1: encrypted JSON of disability/widow/single-parent flags." }
+          },
+          "required": ["vertexId", "applicantPayload", "dependentsPayload"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "declarationHash": { "type": "string", "description": "sha256 of canonical PII payload, mirrored to Tier 1." },
+            "error": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.trackFiling",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Track court filing status (registry acceptance, defect notice, listing, hearing date).",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "required": ["filingDid"],
+        "properties": {
+          "filingDid": { "type": "string", "format": "did" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["filingDid", "status"],
+          "properties": {
+            "filingDid": { "type": "string", "format": "did" },
+            "status": { "type": "string", "enum": ["draft", "submitted", "accepted", "defective", "registered", "listed", "disposed"] },
+            "filingNumber": { "type": "string" },
+            "courtDid": { "type": "string", "format": "did" },
+            "nextDate": { "type": "string", "format": "datetime" },
+            "defectReason": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

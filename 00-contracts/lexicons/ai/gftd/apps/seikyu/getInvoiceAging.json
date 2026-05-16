@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.seikyu.getInvoiceAging",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get AR aging bucket summary or per-invoice listing. Reads mv_seikyu_invoice_aging (streaming MV).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "customerDid":  { "type": "string", "format": "did" },
+          "agingBucket":  { "type": "string", "enum": ["current","overdue_30","overdue_60","overdue_90","overdue_90plus"] },
+          "limit":        { "type": "integer", "minimum": 1, "maximum": 500, "default": 100 },
+          "cursor":       { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["rows"],
+          "properties": {
+            "rows":   { "type": "array", "items": { "type": "object" } },
+            "cursor": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

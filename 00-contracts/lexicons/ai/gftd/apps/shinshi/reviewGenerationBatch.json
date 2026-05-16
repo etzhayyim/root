@@ -1,0 +1,160 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.reviewGenerationBatch",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Review recent Shinshi generated posts and return quality/process improvement signals.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "did": {
+              "type": "string",
+              "description": "Model DID to review."
+            },
+            "slug": {
+              "type": "string",
+              "description": "Model slug. Used with appDid when did is omitted."
+            },
+            "appDid": {
+              "type": "string",
+              "default": "did:web:sh1n5h1x.gftd.ai"
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "minScore": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 0.86
+            },
+            "includeAesthetic": {
+              "type": "boolean",
+              "default": false,
+              "description": "Run optional VLM/aesthetic review for the latest generated images."
+            },
+            "aestheticLimit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20,
+              "default": 5
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "assistantId",
+            "latencyMs"
+          ],
+          "properties": {
+            "did": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "integer"
+            },
+            "minScore": {
+              "type": "number"
+            },
+            "includeAesthetic": {
+              "type": "boolean"
+            },
+            "aestheticLimit": {
+              "type": "integer"
+            },
+            "total": {
+              "type": "integer"
+            },
+            "accepted": {
+              "type": "integer"
+            },
+            "retry": {
+              "type": "integer"
+            },
+            "quarantined": {
+              "type": "integer"
+            },
+            "reviews": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uri": {
+                    "type": "string"
+                  },
+                  "rkey": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string"
+                  },
+                  "imageUrl": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "score": {
+                    "type": "number"
+                  },
+                  "aestheticScore": {
+                    "type": "number"
+                  },
+                  "aestheticReasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "decision": {
+                    "type": "string",
+                    "enum": [
+                      "accept",
+                      "retry",
+                      "quarantine"
+                    ]
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "improvementPlan": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "latencyMs": {
+              "type": "integer"
+            },
+            "assistantId": {
+              "type": "string",
+              "const": "review_generation_batch"
+            },
+            "error": {
+              "type": "string"
+            },
+            "errorDetail": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

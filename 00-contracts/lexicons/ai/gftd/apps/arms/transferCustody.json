@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.arms.transferCustody",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Transfer firearm custody from one holder to another. Requires a 'passed' auth session from the current holder. Updates edge_arms_firearm_to_holder and records a custody event. Optional permitVid links the transfer to the receiving holder's possession permit.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["firearmVid", "fromHolderDid", "toHolderDid", "authSessionVid"],
+          "properties": {
+            "firearmVid":     { "type": "string" },
+            "fromHolderDid":  { "type": "string", "format": "did" },
+            "toHolderDid":    { "type": "string", "format": "did" },
+            "authSessionVid": { "type": "string", "description": "Passed auth session from fromHolder" },
+            "permitVid":      { "type": "string", "description": "toHolder's active permit VID (optional)" },
+            "locationCode":   { "type": "string", "description": "Optional UN/LOCODE or facility code" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "eventVid", "firearmVid", "fromHolderDid", "toHolderDid", "occurredAt"],
+          "properties": {
+            "ok":            { "type": "boolean" },
+            "eventVid":      { "type": "string" },
+            "firearmVid":    { "type": "string" },
+            "fromHolderDid": { "type": "string", "format": "did" },
+            "toHolderDid":   { "type": "string", "format": "did" },
+            "occurredAt":    { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

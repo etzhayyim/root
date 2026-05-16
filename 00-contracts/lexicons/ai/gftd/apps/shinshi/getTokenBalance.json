@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.getTokenBalance",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return the caller's shinshi token ledger (Tier 3 Preferences).",
+      "parameters": {
+        "type": "params",
+        "properties": { "userDid": { "type": "string", "format": "did" } }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "userDid": { "type": "string" },
+            "balance": { "type": "integer" },
+            "granted": { "type": "integer" },
+            "purchased": { "type": "integer" },
+            "spent": { "type": "integer" },
+            "freeQuotaUsed": { "type": "integer" },
+            "freeQuotaResetAt": { "type": "string", "format": "datetime" },
+            "tier": { "type": "string", "enum": ["free", "premium"] },
+            "updatedAt": { "type": "string", "format": "datetime" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.gmail.sendEmail",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Send an email via the connected Gmail account.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "accountEmail": { "type": "string" },
+            "to": { "type": "array", "items": { "type": "string" } },
+            "cc": { "type": "array", "items": { "type": "string" } },
+            "bcc": { "type": "array", "items": { "type": "string" } },
+            "subject": { "type": "string" },
+            "body": { "type": "string" },
+            "bodyHtml": { "type": "string" }
+          },
+          "required": ["to", "subject", "body"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": { "type": "string" },
+            "outboundId": { "type": "string" },
+            "gmailMessageId": { "type": "string" },
+            "threadId": { "type": "string" },
+            "status": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

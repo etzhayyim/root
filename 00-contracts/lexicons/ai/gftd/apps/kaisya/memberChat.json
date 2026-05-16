@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaisya.memberChat",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Member chat surface for kaisya.gftd.ai. Authenticated via Outlook (M365 OAuth) / MCP ServiceAuth JWT / kaisya web session. Routes to kaisya-member-assistant LangGraph (RACI-aware supervisor → company_ops / lawfirm_marketing / lawfirm_sales / direct_reply).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["user_upn", "user_message"],
+          "properties": {
+            "user_upn":     { "type": "string", "description": "M365 UPN (e.g. k.bakshi@gftd.co), resolved to member DID via _UPN_TO_DID" },
+            "user_message": { "type": "string" },
+            "session_id":   { "type": "string", "description": "Optional thread id; auto-generated if absent" },
+            "channel":      { "type": "string", "enum": ["web", "mcp", "outlook"], "default": "web" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "reply_text"],
+          "properties": {
+            "ok":             { "type": "boolean" },
+            "member_did":     { "type": "string" },
+            "member_name":    { "type": "string" },
+            "route":          { "type": "string" },
+            "routing_reason": { "type": "string" },
+            "reply_text":     { "type": "string" },
+            "sub_summary":    { "type": "string" },
+            "requires_human_approval": { "type": "boolean" },
+            "session_id":     { "type": "string" },
+            "error":          { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

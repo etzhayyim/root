@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.microsoft.sendDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Send a previously created draft by id (post human approval). The draft was created either via ai.gftd.apps.microsoft.sendMail (auto-draft for external recipients) or directly in Outlook.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "fromUpn": { "type": "string", "description": "Mailbox UPN that owns the draft. Defaults to env DEFAULT_SENDER_UPN when omitted." },
+            "draftId": { "type": "string", "description": "Graph message id returned by sendMail (status=drafted)." }
+          },
+          "required": ["draftId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string", "enum": ["sent"] },
+            "fromUpn": { "type": "string" },
+            "draftId": { "type": "string" }
+          },
+          "required": ["status", "fromUpn", "draftId"]
+        }
+      }
+    }
+  }
+}

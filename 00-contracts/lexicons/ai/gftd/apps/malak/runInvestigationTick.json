@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.runInvestigationTick",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run one bounded Active Inference investigation tick for a Malak threat actor.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["actorId"],
+          "properties": {
+            "actorId": { "type": "string" },
+            "caseId": { "type": "string" },
+            "tickKind": { "type": "string" },
+            "observationRefs": { "type": "array", "items": { "type": "string" } },
+            "candidateActions": { "type": "array", "items": { "type": "unknown" } },
+            "attributionConfidence": { "type": "number" },
+            "legalBasis": { "type": "string" },
+            "approvalRef": { "type": "string" },
+            "maxIterations": { "type": "integer" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "tickId": { "type": "string" },
+            "selectedActionId": { "type": "string" },
+            "expectedFreeEnergy": { "type": "unknown" },
+            "rejected": { "type": "array", "items": { "type": "unknown" } },
+            "gatePass": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}
+
