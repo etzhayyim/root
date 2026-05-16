@@ -1,0 +1,49 @@
+# etzhayyim/root — deps.toml (scaffolding stub)
+#
+# Full SSoT lives in the vendor monorepo at:
+#   https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/deps.toml
+#
+# This file holds only the minimum platform identity needed during the
+# scaffolding phase. Full sections (deps_convention, directory_index,
+# mitama_actors, conventions, app_layer, infra_layer, versions, path_lexicon,
+# objective_function, migrations, etc.) will be selectively copied / generated
+# when the content seed (git filter-repo) is executed in ADR 2605152100 Step 6.
+
+[platform]
+name = "etzhayyim-root"
+license = "Apache-2.0"
+boundary_adr = "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605152100-etzhayyim-github-org-boundary.md"
+
+[platform.operating_entity]
+# Canonical name as of 2026-05-15 (ADR 2605102200 partial revert + ALA-LC upgrade).
+name = "etzhayyim"
+name_ja = "天御柱"
+name_hebrew = "עץ חיים"
+name_hebrew_romanized = "etzhayyim"
+aliases = ["amanomibashira", "etz hayim", "etz_hayim", "etzhayim", "etz chaim", "etz chayim", "エツ・ハイム", "天御柱"]
+form = "宗教法人 (任意団体)"
+form_en = "Religious voluntary association (unincorporated)"
+registry = "On-chain (blockchain-registered constitution and member roster)"
+not_registered_under = "日本国 宗教法人法 (no 所轄庁 認証 by 文部科学省/都道府県知事)"
+domain = "etzhayyim.com"
+domain_aliases = ["etzhayyim.ai"]
+did = "did:web:etzhayyim.com"
+github_org_open = "etzhayyim"
+github_org_open_monorepo = "etzhayyim/root"
+github_org_vendor = "gftdcojp"
+github_org_vendor_monorepo = "gftdcojp/ai-gftd-apps-gftdcojp"
+
+[platform.vendor]
+# Vendor providing engineering capacity under SOW.
+name = "Gftd Japan株式会社"
+corporate_number = "9007-2846"
+did = "did:web:gftd.co.jp"
+relationship = "etzhayyim が Gftd Japan に SOW でシステム開発・運用を発注。Payoff の帰属は常に etzhayyim。"
+
+[platform.scaffolding]
+# Files present during scaffolding phase. Removed when seed lands.
+files = ["LICENSE", "README.md", "CLAUDE.md", "deps.toml", ".gitignore", "lefthook.yml"]
+seed_plan_adr = "2605152100"
+seed_method = "git filter-repo --path 00-contracts/ --path 10-protocol/ --path 20-actors/magatama/ --path 30-graph/ --path 50-infra/{geth-private,holochain,ipfs,blockscout,k8s/atproto-pds}/ --path 60-apps/ai-gftd-project-{open-*,public-*,atproto,ameno,baien*}/ --path 90-docs/baien/"
+seed_source = "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp"
+seed_status = "pending"
