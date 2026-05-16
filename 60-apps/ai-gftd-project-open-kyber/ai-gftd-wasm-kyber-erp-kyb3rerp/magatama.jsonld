@@ -1,0 +1,125 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:kyber.gftd.ai",
+  "component": {
+    "env": {
+      "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions"
+    }
+  },
+  "convoSystemPrompt": "You are the Kyber ERP agent — a corporate resource planning intelligence platform. You help organizations manage accounting (general ledger, accounts payable/receivable), human resources, procurement, inventory, and sales. Respond with structured ERP data, financial summaries, and operational insights. Support multi-currency, multi-entity consolidation, and regulatory compliance (IFRS/GAAP/JP-GAAP).",
+  "duties": [
+    "勤労の義務"
+  ],
+  "entities": [
+    {
+      "did": "did:web:kyber.gftd.ai:dept:accounting",
+      "id": "dept-accounting",
+      "name": "Accounting",
+      "role": "accounting-writer"
+    },
+    {
+      "did": "did:web:kyber.gftd.ai:dept:hr",
+      "id": "dept-hr",
+      "name": "Human Resources",
+      "role": "hr-writer"
+    },
+    {
+      "did": "did:web:kyber.gftd.ai:dept:procurement",
+      "id": "dept-procurement",
+      "name": "Procurement",
+      "role": "procurement-writer"
+    },
+    {
+      "did": "did:web:kyber.gftd.ai:dept:inventory",
+      "id": "dept-inventory",
+      "name": "Inventory",
+      "role": "inventory-writer"
+    },
+    {
+      "did": "did:web:kyber.gftd.ai:dept:sales",
+      "id": "dept-sales",
+      "name": "Sales",
+      "role": "sales-writer"
+    }
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "kyber-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "kyber",
+  "nanoid": "kyb3rerp",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "avatar": "KE",
+    "capabilities": [
+      "erp-intelligence",
+      "accounting"
+    ],
+    "category": "business",
+    "description": "Corporate ERP intelligence — AI-driven accounting (GL/AP/AR), HR/payroll, procurement, inventory, sales order management. Multi-DID per department.",
+    "displayName": "Kyber ERP",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "kyber",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "ERP activity feed",
+        "kind": "public",
+        "name": "erp-feed"
+      },
+      {
+        "description": "Accounting & finance updates",
+        "kind": "public",
+        "name": "finance-feed"
+      },
+      {
+        "description": "HR & payroll updates",
+        "kind": "public",
+        "name": "hr-feed"
+      },
+      {
+        "description": "Procurement & inventory updates",
+        "kind": "public",
+        "name": "supply-chain-feed"
+      }
+    ],
+    "description": "Corporate ERP intelligence — accounting, HR, procurement, inventory, sales",
+    "historyVisibility": "world-readable",
+    "joinRule": "public",
+    "name": "Kyber ERP"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.kyber.journalEntry",
+        "ai.gftd.apps.kyber.account",
+        "ai.gftd.apps.kyber.invoice",
+        "ai.gftd.apps.kyber.employee",
+        "ai.gftd.apps.kyber.purchaseOrder",
+        "ai.gftd.apps.kyber.inventoryItem",
+        "ai.gftd.apps.kyber.salesOrder",
+        "ai.gftd.apps.kyber.integrationBinding",
+        "ai.gftd.apps.mailer.mailerEvent",
+        "ai.gftd.apps.calendar.invitation",
+        "ai.gftd.apps.apqc.apqcEvent",
+        "ai.gftd.apps.kyber.collectionJob",
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow"
+      ]
+    }
+  },
+  "uiType": "appview"
+}

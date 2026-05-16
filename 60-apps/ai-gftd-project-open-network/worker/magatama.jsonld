@@ -1,0 +1,57 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:open-network.gftd.ai",
+  "name": "open-network",
+  "handle": "open-network.gftd.ai",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "project": "open-network",
+  "convoSystemPrompt": "You are the GFTD Open Network agent. You manage telecom NMS topology design (sites + links), telemetry ingest, incident reporting, and change-management workflow. Apply ITIL-aligned rules: severity DMN gates public notice, change risk DMN gates CAB approval.",
+  "governance": {
+    "raci": "responsible",
+    "classification": "operations",
+    "complianceFrameworks": ["itil-change-mgmt", "tm-forum-sid-aligned", "gftd-ops-policy"]
+  },
+  "profile": {
+    "displayName": "GFTD Open Network",
+    "description": "Open-source telecom NMS reference implementation — site/link topology design + utilization ingest + incident + change management.",
+    "avatar": "🌐",
+    "category": "telecom",
+    "isBot": true,
+    "operator": "gftd.co.jp",
+    "agentType": "autonomous",
+    "capabilities": [
+      "site-define",
+      "link-define",
+      "site-query",
+      "utilization-ingest",
+      "incident-report",
+      "incident-severity-decisioning",
+      "change-request",
+      "change-risk-decisioning"
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "ai.gftd.apps.openNetwork.site",
+        "ai.gftd.apps.openNetwork.link",
+        "ai.gftd.apps.openNetwork.utilization",
+        "ai.gftd.apps.openNetwork.incident",
+        "ai.gftd.apps.openNetwork.change"
+      ]
+    }
+  },
+  "space": {
+    "name": "GFTD Open Network",
+    "description": "Open-source telecom NMS reference implementation",
+    "joinRule": "public",
+    "historyVisibility": "world-readable",
+    "convos": [
+      { "name": "noc-ops", "kind": "public",
+        "description": "Public operational events (topology changes, SEV1/2 incidents, HIGH-risk CAB notices)",
+        "default": true }
+    ]
+  }
+}

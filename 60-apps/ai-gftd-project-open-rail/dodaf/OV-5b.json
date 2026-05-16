@@ -1,0 +1,60 @@
+{
+  "viewId": "open-rail.OV-5b",
+  "viewType": "OV-5b",
+  "title": "Operational Activity Model",
+  "did": "did:web:open-rail.gftd.ai",
+  "format": "json",
+  "content": {
+    "activities": [
+      {
+        "id": "act.defineLine",
+        "name": "Define Line + Station Sequence",
+        "type": "bpmn",
+        "bpmnProcessKey": "defineLine",
+        "source": "bpmn/define-line.bpmn",
+        "realisedBy": [
+          { "xrpc": "ai.gftd.apps.openRail.defineLine" },
+          { "form": "openRail.defineLine.v1" }
+        ]
+      },
+      {
+        "id": "act.scheduleTrain",
+        "name": "Schedule Train Run",
+        "type": "xrpc",
+        "realisedBy": [
+          { "xrpc": "ai.gftd.apps.openRail.scheduleTrain" }
+        ]
+      },
+      {
+        "id": "act.reportIncident",
+        "name": "Report Incident",
+        "type": "bpmn",
+        "bpmnProcessKey": "reportIncident",
+        "source": "bpmn/report-incident.bpmn",
+        "realisedBy": [
+          { "xrpc": "ai.gftd.apps.openRail.reportIncident" },
+          { "form": "openRail.reportIncident.v1" },
+          { "dmn":  "openRail.incidentSeverity" }
+        ]
+      },
+      {
+        "id": "act.queryNetwork",
+        "name": "Query Lines / Runs / Incidents",
+        "type": "xrpc",
+        "realisedBy": [
+          { "xrpc": "ai.gftd.apps.openRail.getLine" },
+          { "xrpc": "ai.gftd.apps.openRail.listLines" },
+          { "xrpc": "ai.gftd.apps.openRail.listTrainRuns" },
+          { "xrpc": "ai.gftd.apps.openRail.listIncidents" }
+        ]
+      }
+    ]
+  },
+  "refs": {
+    "bpmnProcessKeys": ["defineLine", "reportIncident"],
+    "dmnDecisionKeys": ["openRail.incidentSeverity"],
+    "formKeys": ["openRail.defineLine.v1", "openRail.reportIncident.v1"],
+    "viewIds": ["open-rail.OV-6a", "open-rail.SV-1"]
+  },
+  "version": 1
+}

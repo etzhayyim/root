@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ai-gftd-open-rail",
+  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2026-04-20",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "account_id": "4da88288dc30d9ee257f319d3c33ecf0",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "open-rail.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    }
+  ],
+  "vars": {
+    "APP_HANDLE": "open-rail.gftd.ai",
+    "PRIMARY_DID": "did:web:open-rail.gftd.ai",
+    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}

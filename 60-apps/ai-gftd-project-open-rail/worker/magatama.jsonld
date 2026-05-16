@@ -1,0 +1,56 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:open-rail.gftd.ai",
+  "name": "open-rail",
+  "handle": "open-rail.gftd.ai",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "project": "open-rail",
+  "convoSystemPrompt": "You are the GFTD Open Rail agent. You manage railway network design (lines + stations), train run scheduling, and incident reporting for DID-identified operators. Apply railway safety rules: append-only incident log, monotonic km posts, severity-driven gov-audit posts.",
+  "governance": {
+    "raci": "responsible",
+    "classification": "operations",
+    "complianceFrameworks": ["rail-safety-baseline", "gftd-ops-policy"]
+  },
+  "profile": {
+    "displayName": "GFTD Open Rail",
+    "description": "Open-source railway operations reference implementation — line/station design + train scheduling + incident reporting (DMN severity).",
+    "avatar": "🚆",
+    "category": "transport",
+    "isBot": true,
+    "operator": "gftd.co.jp",
+    "agentType": "autonomous",
+    "capabilities": [
+      "line-define",
+      "line-query",
+      "train-schedule",
+      "incident-report",
+      "incident-severity-decisioning"
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "ai.gftd.apps.openRail.line",
+        "ai.gftd.apps.openRail.station",
+        "ai.gftd.apps.openRail.trainRun",
+        "ai.gftd.apps.openRail.incident"
+      ]
+    }
+  },
+  "space": {
+    "name": "GFTD Open Rail",
+    "description": "Open-source railway operations reference implementation",
+    "joinRule": "public",
+    "historyVisibility": "world-readable",
+    "convos": [
+      {
+        "name": "rail-ops",
+        "kind": "public",
+        "description": "Public operational events (line definitions, run publications, severity≥major incidents)",
+        "default": true
+      }
+    ]
+  }
+}
