@@ -1,0 +1,9 @@
+DROP VIEW IF EXISTS view_actor_universal;
+
+FLUSH;
+
+DROP FUNCTION IF EXISTS derive_handle(VARCHAR, VARCHAR);
+
+DROP FUNCTION IF EXISTS derive_did(VARCHAR, VARCHAR);
+
+FLUSH;

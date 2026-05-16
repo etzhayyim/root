@@ -1,0 +1,1 @@
+-- Column drops intentionally omitted — data loss risk on rollback.

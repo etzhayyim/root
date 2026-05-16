@@ -1,0 +1,3 @@
+DROP MATERIALIZED VIEW IF EXISTS mv_jp_fiscal_procurement_pipeline_coverage;
+
+DROP MATERIALIZED VIEW IF EXISTS mv_jp_fiscal_procurement_bid_contract_coverage;

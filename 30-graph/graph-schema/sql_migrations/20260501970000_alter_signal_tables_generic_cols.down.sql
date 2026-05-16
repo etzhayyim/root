@@ -1,0 +1,3 @@
+DROP MATERIALIZED VIEW IF EXISTS mv_signal_area_integral;
+
+DROP MATERIALIZED VIEW IF EXISTS mv_signal_entropy;
