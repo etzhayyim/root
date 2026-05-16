@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.reviewAgencyReferralDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a human review decision for a draft-only Malak agency referral package.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["referralId", "decision", "reviewerDid", "reason"],
+          "properties": {
+            "referralId": { "type": "string" },
+            "decision": {
+              "type": "string",
+              "knownValues": ["approve", "reject", "escalate"]
+            },
+            "reviewerDid": { "type": "string" },
+            "reviewerRole": { "type": "string" },
+            "reason": { "type": "string" },
+            "approvalRef": { "type": "string" },
+            "externalCaseRef": { "type": "string" },
+            "notes": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "referralId": { "type": "string" },
+            "reviewId": { "type": "string" },
+            "draftState": { "type": "string" },
+            "decision": { "type": "string" },
+            "payloadHash": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

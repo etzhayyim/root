@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.abuse.sendReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Dispatch a queued abuse report draft via mailer.gftd.ai (Resend). Requires abuse:send scope.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "reportId": {
+              "type": "string",
+              "description": "rkey of abuse_report draft"
+            },
+            "dryRun": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          "required": [
+            "reportId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "sent",
+                "dry-run",
+                "error"
+              ]
+            },
+            "messageId": {
+              "type": "string"
+            },
+            "sentAt": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

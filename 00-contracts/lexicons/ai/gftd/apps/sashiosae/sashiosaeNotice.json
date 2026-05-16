@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.sashiosae.sashiosaeNotice",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "差押通知 (国税徴収法 §47 / 地方税法 準用). 差押対象財産の詳細 (口座番号・不動産番号・動産詳細) は Tier 3 Preferences。ここには propertyType の粒度のみ記録。",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["noticeId", "caseId", "authorityDid", "propertyType", "noticedAt", "createdAt"],
+        "properties": {
+          "noticeId":     { "type": "string", "description": "差押通知 ID (anonymized)" },
+          "caseId":       { "type": "string", "description": "choushuuCase.caseId" },
+          "authorityDid": { "type": "string", "format": "did" },
+          "propertyType": { "type": "string", "enum": ["deposit","salary","pension","receivable","realEstate","movable","securities","crypto","other"] },
+          "priorityRank": { "type": "integer", "description": "同一物件への多重差押時の優先順位 (1=最優先)" },
+          "noticedAt":    { "type": "string", "format": "datetime" },
+          "effectiveAt":  { "type": "string", "format": "datetime" },
+          "createdAt":    { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

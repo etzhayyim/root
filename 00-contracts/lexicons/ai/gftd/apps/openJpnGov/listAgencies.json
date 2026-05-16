@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.openJpnGov.listAgencies",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List agencies (外局/特別の機関/委員会) under a parent ministry.",
+      "parameters": {
+        "type": "params",
+        "required": ["parentCode"],
+        "properties": {
+          "parentCode": { "type": "string", "description": "parent ministry code" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["agencies", "total", "offset", "limit"],
+          "properties": {
+            "agencies": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": { "type": "string" },
+                  "did": { "type": "string", "format": "did" },
+                  "nameJa": { "type": "string" },
+                  "nameEn": { "type": "string" },
+                  "parentCode": { "type": "string" },
+                  "kind": { "type": "string", "enum": ["gaikyoku", "tokubetsu", "iinkai"] }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

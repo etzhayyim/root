@@ -1,0 +1,120 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.registerCamera",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a surveillance camera + its recording-utilisation agreement. Required before any clip from this camera can be ingested. Owner agreement and blur-zone metadata are mandatory (COMPLIANCE-MEMO Q8).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "cameraId",
+            "ownerDid",
+            "agreementId",
+            "location"
+          ],
+          "properties": {
+            "cameraId": {
+              "type": "string",
+              "description": "Stable camera identifier, e.g. cam:shibuya-crossing-007"
+            },
+            "ownerDid": {
+              "type": "string",
+              "description": "DID of the camera owner (commercial operator / municipal body / railway)"
+            },
+            "agreementId": {
+              "type": "string",
+              "description": "Recording-utilisation agreement record id. Hard reject if not present."
+            },
+            "location": {
+              "type": "ref",
+              "ref": "#geo"
+            },
+            "blurZones": {
+              "type": "array",
+              "items": {
+                "type": "ref",
+                "ref": "#blurZone"
+              },
+              "description": "Default blur regions (private windows, schools, hospitals)."
+            },
+            "audioPolicy": {
+              "type": "string",
+              "knownValues": [
+                "abortOnIngest"
+              ],
+              "description": "Always abortOnIngest per §3 wire policy."
+            },
+            "retentionDays": {
+              "type": "integer",
+              "description": "Raw clip retention. Default 90 if absent."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cameraId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "knownValues": [
+                "registered",
+                "rejected"
+              ]
+            },
+            "rejectionReason": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "geo": {
+      "type": "object",
+      "properties": {
+        "latMicro": {
+          "type": "integer",
+          "description": "Latitude × 1e6 (integer, per AT Lexicon float restriction)."
+        },
+        "lonMicro": {
+          "type": "integer"
+        },
+        "heightCm": {
+          "type": "integer"
+        },
+        "address": {
+          "type": "string"
+        },
+        "jurisdictionPref": {
+          "type": "string",
+          "description": "都道府県 code, e.g. JP-14 (Kanagawa)"
+        }
+      }
+    },
+    "blurZone": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "polygon": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "Flattened polygon as [x1,y1,x2,y2,...] in pixel coords."
+        }
+      }
+    }
+  }
+}

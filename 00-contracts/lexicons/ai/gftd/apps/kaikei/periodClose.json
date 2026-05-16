@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.periodClose",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Period lock marker. Once present for (ownerDid, periodYm), PDS onCommit rejects any new journalEntry with periodYm <= closed period. Reopening requires a new record with reopenedAt set and firm-admin role audit.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["ownerDid", "periodYm", "closedAt", "closedByDid", "createdAt"],
+        "properties": {
+          "ownerDid":     { "type": "string", "format": "did" },
+          "periodYm":     { "type": "string" },
+          "closedAt":     { "type": "string", "format": "datetime" },
+          "closedByDid":  { "type": "string", "format": "did" },
+          "reopenedAt":   { "type": "string", "format": "datetime" },
+          "reopenReason": { "type": "string" },
+          "createdAt":    { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

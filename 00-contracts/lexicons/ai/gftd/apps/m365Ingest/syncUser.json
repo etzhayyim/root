@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.m365Ingest.syncUser",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "On-demand mailbox ingest for one UPN. Trigger for initial full sync or manual backfill.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "upn": { "type": "string" },
+            "full": { "type": "boolean", "default": false, "description": "Ignore sync watermark, fetch all history" },
+            "since": { "type": "string", "description": "Override watermark with explicit ISO timestamp" },
+            "limit": { "type": "integer", "default": 0, "description": "0 = unlimited" }
+          },
+          "required": ["upn"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "upn": { "type": "string" },
+            "fetched": { "type": "integer" },
+            "inserted": { "type": "integer" },
+            "skipped": { "type": "integer" },
+            "yabaiFlagged": { "type": "integer" },
+            "lastReceived": { "type": "string" }
+          },
+          "required": ["upn", "fetched", "inserted"]
+        }
+      }
+    }
+  }
+}

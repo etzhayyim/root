@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.abuse.getReport",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch single abuse report by rkey (includes full EML body).",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rkey": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "targetEmail": {
+              "type": "string"
+            },
+            "targetType": {
+              "type": "string"
+            },
+            "subject": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "reportId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reportId"
+        ]
+      }
+    }
+  }
+}

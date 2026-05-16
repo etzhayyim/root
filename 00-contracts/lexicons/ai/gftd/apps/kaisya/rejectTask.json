@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaisya.rejectTask",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AI agent が生成した vertex_kaisya_task を却下する。status を 'pending' → 'rejected' に遷移させ、BPMN LangServer signal correlation (reject path) を発行する。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["taskId", "reason"],
+          "properties": {
+            "taskId": {
+              "type": "string",
+              "description": "vertex_kaisya_task.vertex_id"
+            },
+            "reason": {
+              "type": "string",
+              "description": "却下理由 (必須。BPMN worker が代替アクションを決定するために使用)"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["taskId", "status", "resolvedAt"],
+          "properties": {
+            "taskId":     { "type": "string" },
+            "status":     { "type": "string" },
+            "resolvedAt": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

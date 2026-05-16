@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.crm.listLeiReviewQueue",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List CRM LEI manual review queue items from view_crm_lei_review_queue.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "crmSystem": { "type": "string", "enum": ["lawfirm", "hubspot"] },
+          "entityType": { "type": "string", "enum": ["lead", "tenant", "company"] },
+          "reviewStatus": { "type": "string", "enum": ["open", "needs_human_review", "verified", "rejected", "closed"] },
+          "country": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 500, "default": 100 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#reviewQueueItem" }
+            }
+          }
+        }
+      }
+    },
+    "reviewQueueItem": {
+      "type": "object",
+      "properties": {
+        "reviewId": { "type": "string" },
+        "crmSystem": { "type": "string" },
+        "entityType": { "type": "string" },
+        "crmSourceId": { "type": "string" },
+        "crmLegalName": { "type": "string" },
+        "crmCountry": { "type": "string" },
+        "reviewStatus": { "type": "string" },
+        "reviewReason": { "type": "string" },
+        "candidateCount": { "type": "integer" },
+        "candidatesJson": { "type": "string" },
+        "priority": { "type": "integer" }
+      }
+    }
+  }
+}

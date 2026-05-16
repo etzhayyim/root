@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.akuma.registerScope",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a draft red team scope contract for an owner-attested target set. Status starts as 'draft' and requires approveScope before runProbe will be authorized.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "scopeId",
+            "ownerDid",
+            "targetKind",
+            "targets",
+            "intrusivenessTier",
+            "validFromMs",
+            "validUntilMs",
+            "legalBasis"
+          ],
+          "properties": {
+            "scopeId": {
+              "type": "string",
+              "description": "Caller-chosen identifier (rkey) for this scope contract."
+            },
+            "ownerDid": {
+              "type": "string",
+              "description": "DID of the target owner attesting the scope (did:web | did:plc | did:gftd)."
+            },
+            "targetKind": {
+              "type": "string",
+              "enum": ["ip", "cidr", "hostname", "url"]
+            },
+            "targets": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Explicit IPs, CIDRs, hostnames, or URLs. No wildcards beyond CIDR."
+            },
+            "excludedTargets": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Targets that MUST be skipped even if covered by a CIDR in targets."
+            },
+            "allowedPorts": {
+              "type": "array",
+              "items": { "type": "integer" },
+              "description": "Explicit ports. Empty = no port-bound probing allowed."
+            },
+            "allowedPaths": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "For url kind, explicit path prefixes."
+            },
+            "intrusivenessTier": {
+              "type": "string",
+              "enum": ["passive", "safe-active", "intrusive"]
+            },
+            "validFromMs": {
+              "type": "integer",
+              "description": "Engagement window start (epoch ms)."
+            },
+            "validUntilMs": {
+              "type": "integer",
+              "description": "Engagement window end (epoch ms). Default cap = validFromMs + 14d."
+            },
+            "rateLimitRps": {
+              "type": "integer",
+              "description": "Max requests per second per target. Default = 1."
+            },
+            "legalBasis": {
+              "type": "string",
+              "description": "Reference to SOW id, contract clause, CTF rules, bug bounty URL, or written authorization document CID."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["scopeUri", "status"],
+          "properties": {
+            "scopeUri": { "type": "string" },
+            "status": { "type": "string", "enum": ["draft"] },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.mapAccount",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Phase 3 customer COA override. Maps a kaikei SENTINEL account DID to a customer's own chart-of-accounts vertex_id by creating a customer account row with parent_account_did=sentinel. Subsequent journal entries that reference the sentinel are auto-rewritten to the customer's vertex_id by resolveAccountDid().",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ownerOrgId": { "type": "string", "description": "works|japan|labo|did:..." },
+            "sentinelDid": { "type": "string", "description": "Must start with did:web:kaikei.gftd.ai:account: (one of the 21 SENTINEL DIDs)" },
+            "customerAccountCode": { "type": "string", "description": "Customer's COA code (e.g. 2110 in chart of accounts)" },
+            "customerAccountName": { "type": "string", "description": "Customer-facing account name" },
+            "customerAccountType": { "type": "string", "enum": ["asset", "liability", "equity", "revenue", "expense"] }
+          },
+          "required": ["ownerOrgId", "sentinelDid", "customerAccountCode", "customerAccountName", "customerAccountType"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "ownerDid": { "type": "string" },
+            "sentinelDid": { "type": "string" },
+            "customerAccountVertexId": { "type": "string" },
+            "customerAccountCode": { "type": "string" },
+            "inserted": { "type": "boolean" },
+            "alreadyMapped": { "type": "boolean" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

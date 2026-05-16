@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.billing.getInvoice",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Single invoice detail with line items broken down by metric × product. Caller MUST be the org owner or `did:web:billing.gftd.ai` admin.",
+      "parameters": {
+        "type": "params",
+        "required": ["invoiceId"],
+        "properties": {
+          "invoiceId": {"type": "string"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["invoiceId", "orgDid", "periodStart", "periodEnd", "totalJpyMicro", "status", "lineItems"],
+          "properties": {
+            "invoiceId": {"type": "string"},
+            "vertexId": {"type": "string"},
+            "orgDid": {"type": "string"},
+            "periodStart": {"type": "string", "format": "date"},
+            "periodEnd": {"type": "string", "format": "date"},
+            "totalJpyMicro": {"type": "integer"},
+            "subtotalJpyMicro": {"type": "integer"},
+            "totalDiscountJpyMicro": {"type": "integer"},
+            "taxJpyMicro": {"type": "integer", "description": "10% 消費税 (内税表示)"},
+            "currency": {"type": "string", "default": "JPY"},
+            "status": {"type": "string"},
+            "issuedAt": {"type": "string", "format": "datetime"},
+            "dueAt": {"type": "string", "format": "datetime"},
+            "paidAt": {"type": "string", "format": "datetime"},
+            "qualifiedInvoiceNumber": {"type": "string", "description": "適格請求書発行事業者登録番号 (T9007028460042)"},
+            "lineItems": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["metric", "product", "qty", "unitPriceJpyMicro", "billedJpyMicro"],
+                "properties": {
+                  "metric": {"type": "string"},
+                  "product": {"type": "string"},
+                  "qty": {"type": "number"},
+                  "unitPriceJpyMicro": {"type": "integer"},
+                  "billedJpyMicro": {"type": "integer"},
+                  "appliedDiscountPct": {"type": "number"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

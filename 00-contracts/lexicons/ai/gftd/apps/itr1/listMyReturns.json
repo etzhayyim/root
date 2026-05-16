@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.itr1.listMyReturns",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-0055. Self list of past ITR-1 returns by AY. Tier 1 metadata only.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "fromAssessmentYear": { "type": "string" },
+          "toAssessmentYear": { "type": "string" },
+          "status": { "type": "string", "description": "Optional filter: draft|filed|revised|superseded|purged" },
+          "limit": { "type": "integer", "default": 7, "minimum": 1, "maximum": 30 },
+          "cursor": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "assessmentYear": { "type": "string" },
+                  "status": { "type": "string" },
+                  "ackNumber": { "type": "string" },
+                  "totalIncomeInrPaise": { "type": "integer" },
+                  "totalTaxInrPaise": { "type": "integer" },
+                  "refundInrPaise": { "type": "integer" },
+                  "filedAt": { "type": "string" }
+                }
+              }
+            },
+            "cursor": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": ["items"]
+        }
+      }
+    }
+  }
+}

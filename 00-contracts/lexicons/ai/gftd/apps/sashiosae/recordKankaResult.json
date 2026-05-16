@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.sashiosae.recordKankaResult",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "換価結果 (公売・随契・取立) を記録する。auctionId + scheduledAt は Tier 1 public (国税庁公売公告連動)、落札者 DID + 正確落札額 は Tier 3 Preferences。clearingBucket は bucketed 公開値。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["noticeId", "kankaMethod", "auctionId", "scheduledAt", "status"],
+          "properties": {
+            "noticeId":       { "type": "string" },
+            "kankaMethod":    { "type": "string", "enum": ["public-auction","bid-auction","private-contract","collection","return"] },
+            "auctionId":      { "type": "string" },
+            "propertyType":   { "type": "string", "enum": ["deposit","salary","pension","receivable","realEstate","movable","securities","crypto","other"] },
+            "estimatedValue": { "type": "number", "description": "公開売却予定価額" },
+            "scheduledAt":    { "type": "string", "format": "datetime" },
+            "venueUrl":       { "type": "string", "format": "uri" },
+            "closedAt":       { "type": "string", "format": "datetime" },
+            "clearedAmount":  { "type": "number", "description": "Tier 3 — server-only. 実落札額" },
+            "winnerDid":      { "type": "string", "format": "did", "description": "Tier 3 — server-only" },
+            "status":         { "type": "string", "enum": ["scheduled","open","closed","cancelled","withdrawn"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["kankaId", "uri"],
+          "properties": {
+            "kankaId": { "type": "string" },
+            "uri":     { "type": "string", "format": "at-uri" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "NoticeNotFound",    "description": "noticeId 存在しない" },
+        { "name": "AuthorityMismatch", "description": "caller が noticeId の authorityDid と不一致" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.billing.getUsage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Per-org usage roll-up across `vertex_billing_event` for a date range. Returns daily aggregates from `mv_billing_daily_org` (preferred, < 100ms freshness) or computes from raw events when `forceRaw=true`.",
+      "parameters": {
+        "type": "params",
+        "required": ["orgDid"],
+        "properties": {
+          "orgDid": {"type": "string"},
+          "fromDate": {"type": "string", "format": "date", "description": "Inclusive start date (UTC). Defaults to first day of current month."},
+          "toDate": {"type": "string", "format": "date", "description": "Inclusive end date (UTC). Defaults to today."},
+          "product": {"type": "string", "enum": ["yata", "obj", "gateway", "platform"], "description": "Optional product filter."},
+          "groupBy": {"type": "string", "enum": ["day", "metric", "product", "actor"], "default": "day"},
+          "forceRaw": {"type": "boolean", "default": false}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["orgDid", "fromDate", "toDate", "rows", "totalBilledJpyMicro"],
+          "properties": {
+            "orgDid": {"type": "string"},
+            "fromDate": {"type": "string", "format": "date"},
+            "toDate": {"type": "string", "format": "date"},
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["bucket", "metric", "qty", "billedJpyMicro"],
+                "properties": {
+                  "bucket": {"type": "string", "description": "Group key (date / metric / product / actor)."},
+                  "metric": {"type": "string"},
+                  "product": {"type": "string"},
+                  "qty": {"type": "number"},
+                  "billedJpyMicro": {"type": "integer"}
+                }
+              }
+            },
+            "totalBilledJpyMicro": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

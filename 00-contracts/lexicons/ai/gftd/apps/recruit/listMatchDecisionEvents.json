@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.recruit.listMatchDecisionEvents",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List cohort-first recruit match proposal decision events for audit review.",
+      "parameters": {
+        "type": "params",
+        "required": ["proposalId"],
+        "properties": {
+          "proposalId": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "offset", "limit", "privacyMode"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#decisionEvent" }
+            },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "privacyMode": { "type": "string", "const": "cohort-first" }
+          }
+        }
+      }
+    },
+    "decisionEvent": {
+      "type": "object",
+      "required": ["eventId", "proposalId", "proposalState"],
+      "properties": {
+        "eventId": { "type": "string" },
+        "proposalId": { "type": "string" },
+        "proposalState": { "type": "string" },
+        "decisionReason": { "type": "string" },
+        "decidedAt": { "type": "string", "format": "datetime" },
+        "decidedBy": { "type": "string" },
+        "privacyMode": { "type": "string", "const": "cohort-first" }
+      }
+    }
+  }
+}

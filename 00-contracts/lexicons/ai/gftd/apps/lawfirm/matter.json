@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.matter",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Legal matter (案件) — one per engagement. rkey = last 24 hex of matterDid (ADR-0029 DID ↔ rkey isomorphism). Authoritative record lives at at://{firmDid}/ai.gftd.apps.lawfirm.matter/{rkey}.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["firmDid", "matterDid", "matterType", "clientDid", "leadBengoshiDid", "status", "openedAt", "materialHashProof"],
+        "properties": {
+          "firmDid":           { "type": "string", "format": "did" },
+          "matterDid":         { "type": "string", "format": "did" },
+          "matterNumber":      { "type": "string" },
+          "matterType":        { "type": "string" },
+          "clientDid":         { "type": "string", "format": "did" },
+          "leadBengoshiDid":   { "type": "string", "format": "did" },
+          "coCounselDids":     { "type": "array", "items": { "type": "string", "format": "did" } },
+          "counterpartyDids":  { "type": "array", "items": { "type": "string", "format": "did" } },
+          "jurisdiction":      { "type": "string" },
+          "procedureCode":     { "type": "string" },
+          "subjectMatter":     { "type": "string" },
+          "feeStructure":      { "type": "string", "enum": ["hourly","fixed","contingency","retainer","pro-bono"] },
+          "estimatedFee":      { "type": "number" },
+          "currency":          { "type": "string" },
+          "confidentiality":   { "type": "string", "enum": ["firm","matter","ethicalWall"] },
+          "status": {
+            "type": "string",
+            "enum": ["intake","conflictCheck","engaged","filed","hearing","trial","judgment","appeal","execution","closed","archived"]
+          },
+          "openedAt":          { "type": "string", "format": "datetime" },
+          "closedAt":          { "type": "string", "format": "datetime" },
+          "materialHashProof": { "type": "string", "description": "Hex material bytes for ADR-0029 DID chain verification" }
+        }
+      }
+    }
+  }
+}

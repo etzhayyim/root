@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.insatsu.printMailJob.getPrintMailJob",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a cloud print-and-mail job by ID.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "job_id": { "type": "string" }
+        },
+        "required": ["job_id"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jobId": { "type": "string" },
+            "status": { "type": "string" },
+            "partnerDid": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

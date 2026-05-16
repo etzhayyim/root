@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.updateMatterStatus",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Transition a matter's lifecycle status. Enforces allowed transitions:\n  intake          → conflictCheck / engaged / withdrawn\n  conflictCheck   → engaged (requires conflictCheck.result IN {clear, disclosureRequired, waivable}) / withdrawn\n  engaged         → filed / closed (settled) / archived\n  filed           → hearing / judgment / withdrawn\n  hearing         → trial / judgment / conciliated\n  trial           → judgment\n  judgment        → appeal / execution / closed\n  appeal          → judgment / closed\n  execution       → closed\nReverse transitions are rejected. Use closeMatter for the terminal close flow (which performs open-blocker checks + grant cascade revoke).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["matterDid", "newStatus"],
+          "properties": {
+            "matterDid":  { "type": "string", "format": "did" },
+            "newStatus":  { "type": "string", "enum": ["intake","conflictCheck","engaged","filed","hearing","trial","judgment","appeal","execution","closed","archived","withdrawn"] },
+            "reason":     { "type": "string" },
+            "conflictCheckRef": { "type": "string", "format": "at-uri", "description": "Required when newStatus=engaged and previous status was conflictCheck" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["matterDid", "previousStatus", "newStatus", "updatedAt"],
+          "properties": {
+            "matterDid":     { "type": "string" },
+            "previousStatus":{ "type": "string" },
+            "newStatus":     { "type": "string" },
+            "updatedAt":     { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "Forbidden",         "description": "caller lacks leadBengoshi role on matter" },
+        { "name": "InvalidTransition", "description": "newStatus is not reachable from previousStatus" },
+        { "name": "ConflictBlocked",   "description": "transition to engaged requires a conflictCheck with result IN {clear, disclosureRequired, waivable}" },
+        { "name": "UseCloseMatter",    "description": "close via dedicated closeMatter procedure (runs open-blocker checks)" }
+      ]
+    }
+  }
+}

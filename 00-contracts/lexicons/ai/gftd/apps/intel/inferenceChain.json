@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.intel.inferenceChain",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chainId": { "type": "string" },
+          "subjectName": { "type": "string" },
+          "subjectDid": { "type": "string" },
+          "industry": { "type": "string" },
+          "sourceText": { "type": "string" },
+          "sourceUrl": { "type": "string" },
+          "stepsCount": { "type": "integer" },
+          "cohortsGenerated": { "type": "integer" },
+          "orgId": { "type": "string" },
+          "userId": { "type": "string" },
+          "actorId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        },
+        "required": ["chainId", "subjectName", "industry"]
+      }
+    }
+  }
+}

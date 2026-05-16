@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpCorpFinance.repairCompany",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Repair one company's public financial disclosure evidence by JCN, EDINET code, ticker, or explicit URL.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jcn": { "type": "string" },
+            "edinetCode": { "type": "string" },
+            "ticker": { "type": "string" },
+            "sourceUrl": { "type": "string", "format": "uri" },
+            "dryRun": { "type": "boolean" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["runId"],
+          "properties": {
+            "runId": { "type": "string" },
+            "processInstanceKey": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

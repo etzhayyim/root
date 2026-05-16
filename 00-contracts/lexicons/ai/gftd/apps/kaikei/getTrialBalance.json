@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.getTrialBalance",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Trial balance for a period. Reads mv_kaikei_trial_balance (streaming MV, <100ms freshness). Returns debit and credit totals per account; balanced if sum(debit)=sum(credit).",
+      "parameters": {
+        "type": "params",
+        "required": ["periodYm"],
+        "properties": {
+          "periodYm":    { "type": "string" },
+          "accountType": { "type": "string", "enum": ["asset","liability","equity","revenue","expense"] }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["periodYm", "rows", "debitTotal", "creditTotal", "balanced"],
+          "properties": {
+            "periodYm":    { "type": "string" },
+            "rows":        { "type": "array", "items": { "type": "object" } },
+            "debitTotal":  { "type": "number" },
+            "creditTotal": { "type": "number" },
+            "balanced":    { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

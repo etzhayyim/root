@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.pds.authPlatform",
+  "description": "PDS platform permissions. Superset — includes official com.atproto.repo and com.atproto.server RPCs plus GFTD PDS extensions (entity graph, heartbeat, agent chat).",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "PDS Platform",
+      "title:lang": {
+        "ja": "PDSプラットフォーム"
+      },
+      "detail": "Access PDS platform features. Includes official repo CRUD, sync, and server operations plus GFTD extensions: entity graph, heartbeat monitoring, and agent chat.",
+      "detail:lang": {
+        "ja": "PDSプラットフォーム機能。公式リポジトリCRUD/同期/サーバー操作に加え、GFTDのエンティティグラフ、ハートビート、エージェントチャットを含む"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official com.atproto repo RPCs",
+          "lxm": [
+            "com.atproto.repo.createRecord",
+            "com.atproto.repo.putRecord",
+            "com.atproto.repo.deleteRecord",
+            "com.atproto.repo.getRecord",
+            "com.atproto.repo.listRecords",
+            "com.atproto.repo.describeRepo",
+            "com.atproto.repo.applyWrites",
+            "com.atproto.repo.uploadBlob",
+            "com.atproto.repo.importRepo",
+            "com.atproto.repo.listMissingBlobs"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official com.atproto server RPCs",
+          "lxm": [
+            "com.atproto.server.getSession",
+            "com.atproto.server.describeServer",
+            "com.atproto.server.getServiceAuth"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official com.atproto identity RPCs",
+          "lxm": [
+            "com.atproto.identity.resolveHandle",
+            "com.atproto.identity.resolveDid",
+            "com.atproto.identity.resolveIdentity",
+            "com.atproto.identity.updateHandle"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "GFTD PDS extension RPCs",
+          "lxm": [
+            "ai.gftd.pds.getActorProfile",
+            "ai.gftd.pds.getAppPreview",
+            "ai.gftd.pds.getEntityGraph",
+            "ai.gftd.pds.getProfile",
+            "ai.gftd.pds.putProfile",
+            "ai.gftd.pds.exportRepo",
+            "ai.gftd.pds.importRepo",
+            "ai.gftd.pds.invoke",
+            "ai.gftd.pds.query",
+            "ai.gftd.pds.listHeartbeatApps",
+            "ai.gftd.pds.registerSyncApp",
+            "ai.gftd.agent.chat"
+          ]
+        }
+      ]
+    }
+  }
+}

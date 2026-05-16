@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.sashiosae.sashiosaeRelease",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "差押解除 (国税徴収法 §79 / 地方税法 準用). 完納・換価不要・徴収停止・執行停止等による解除。",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["releaseId", "noticeId", "caseId", "authorityDid", "reason", "releasedAt", "createdAt"],
+        "properties": {
+          "releaseId":    { "type": "string" },
+          "noticeId":     { "type": "string", "description": "sashiosaeNotice.noticeId" },
+          "caseId":       { "type": "string" },
+          "authorityDid": { "type": "string", "format": "did" },
+          "reason":       { "type": "string", "enum": ["kannou","muzaisan","shikkou-teishi","choushuu-teishi","jidai-koukyo","suspension-agreement","judicial-injunction","other"] },
+          "releasedAt":   { "type": "string", "format": "datetime" },
+          "createdAt":    { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

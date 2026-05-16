@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.karma.listEdges",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List karma edges for an organism (incoming or outgoing). Edges persist regardless of organism dissolution status. Privacy: when proofEncrypted=true, the proofCid is signal:v1: encrypted and only the original recipient can decrypt.",
+      "parameters": {
+        "type": "params",
+        "required": ["did"],
+        "properties": {
+          "did": {"type": "string", "format": "did"},
+          "direction": {
+            "type": "string",
+            "enum": ["outgoing", "incoming", "both"],
+            "default": "both"
+          },
+          "axis": {"type": "string"},
+          "tier": {"type": "string"},
+          "since": {"type": "integer", "description": "ts_ms lower bound"},
+          "until": {"type": "integer", "description": "ts_ms upper bound"},
+          "limit": {"type": "integer", "default": 100, "maximum": 1000},
+          "offset": {"type": "integer", "default": 0}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["edges", "total"],
+          "properties": {
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "edgeId": {"type": "string"},
+                  "sourceDid": {"type": "string"},
+                  "targetDid": {"type": "string"},
+                  "axis": {"type": "string"},
+                  "tier": {"type": "string"},
+                  "magnitude": {"type": "number"},
+                  "direction": {"type": "string"},
+                  "victimVul": {"type": "number"},
+                  "tsMs": {"type": "integer"},
+                  "ipfsCid": {"type": "string"},
+                  "atrepoUri": {"type": "string"},
+                  "proofEncrypted": {"type": "boolean"},
+                  "blockchainAnchorId": {"type": "string"}
+                }
+              }
+            },
+            "total": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

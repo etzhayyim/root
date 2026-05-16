@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.abuse.markSent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Manually mark a draft as sent (for out-of-band dispatch).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "messageId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "reportId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

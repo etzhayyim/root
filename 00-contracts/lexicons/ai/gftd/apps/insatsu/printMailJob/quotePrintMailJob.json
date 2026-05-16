@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.insatsu.printMailJob.quotePrintMailJob",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Quote and route a print-and-mail job to the best matching partner.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "destination_country": { "type": "string" },
+          "page_count": { "type": "integer", "minimum": 1 },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "print_method": { "type": "string" },
+          "mail_class": { "type": "string" },
+          "service_level": { "type": "string" },
+          "color_mode": { "type": "string" }
+        },
+        "required": ["destination_country", "page_count", "quantity"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "partnerDid": { "type": "string" },
+            "partnerDisplayName": { "type": "string" },
+            "routeType": { "type": "string" },
+            "downstreamActorDid": { "type": "string" },
+            "estimatedProductionDays": { "type": "number" },
+            "estimatedDeliveryDays": { "type": "number" },
+            "estimatedTotalDays": { "type": "number" },
+            "estimatedCostUsd": { "type": "number" },
+            "currency": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

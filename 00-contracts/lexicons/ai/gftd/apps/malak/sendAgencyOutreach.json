@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.sendAgencyOutreach",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Dispatch an approved draft. Idempotent on draftId. Calls ai.gftd.apps.microsoft.sendMail under the hood. Re-runs SAFETY_GATES (defence in depth) and enforces 09:00-17:00 JST business-hour gate (delay until next business day if outside). Records vertex_malak_surveillance_send with ms_message_id for downstream tracking.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "draftId",
+            "senderDid"
+          ],
+          "properties": {
+            "draftId": {
+              "type": "string"
+            },
+            "senderDid": {
+              "type": "string",
+              "description": "System DID; the underlying microsoft.gftd.ai call is app-only Mail.Send."
+            },
+            "channelEmail": {
+              "type": "string",
+              "description": "Teams channel email or shared mailbox used as From."
+            },
+            "scheduleHint": {
+              "type": "string",
+              "knownValues": [
+                "immediate",
+                "nextBusinessHour"
+              ]
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sendId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "knownValues": [
+                "sent",
+                "queued",
+                "rejectedNotApproved",
+                "rejectedOutsideHours",
+                "rejectedSafety",
+                "error"
+              ]
+            },
+            "msMessageId": {
+              "type": "string"
+            },
+            "scheduledFor": {
+              "type": "string",
+              "description": "Set when status=queued."
+            },
+            "pegelTick": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

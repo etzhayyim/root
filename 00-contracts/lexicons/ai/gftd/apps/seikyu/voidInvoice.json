@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.seikyu.voidInvoice",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Void an invoice. Valid from status in ('draft','sent','partiallyPaid'). If derive has posted journalEntry, reverse entries are emitted automatically. Paid invoices cannot be voided — use creditNote instead.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["invoiceDid", "reason"],
+          "properties": {
+            "invoiceDid": { "type": "string", "format": "did" },
+            "reason":     { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["invoiceDid", "status"],
+          "properties": {
+            "invoiceDid":               { "type": "string", "format": "did" },
+            "status":                   { "type": "string", "enum": ["void"] },
+            "reversingJournalEntryDids": { "type": "array", "items": { "type": "string", "format": "did" } }
+          }
+        }
+      },
+      "errors": [
+        { "name": "InvalidTransition", "description": "invoice is already paid or already void" }
+      ]
+    }
+  }
+}

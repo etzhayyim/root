@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.recordEsiPayable",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0054 ESIC propagation. Posts summary journal entry for India ESI contribution payable.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "employerOrgId": { "type": "string" },
+            "establishmentEsiCode": { "type": "string" },
+            "wageMonth": { "type": "string" },
+            "totalEmployerContributionInrPaise": { "type": "integer" },
+            "totalEmployeeContributionInrPaise": { "type": "integer" },
+            "triggerVertexId": { "type": "string" },
+            "triggerSource": { "type": "string" },
+            "challanReference": { "type": "string" }
+          },
+          "required": ["employerOrgId", "wageMonth"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "totalAmountInrPaise": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

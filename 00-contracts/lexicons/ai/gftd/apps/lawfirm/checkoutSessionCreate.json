@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.checkoutSessionCreate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create Stripe Checkout Session for engagement / pilot SOW / consult fee. Returns hosted Checkout URL to send to client. Account routing: USD → Stripe US (sole prop), INR → Stripe India (k-bakshi PAN).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["product_kind", "amount_minor", "currency", "matter_uri"],
+          "properties": {
+            "product_kind": {
+              "type": "string",
+              "enum": ["legal-consult-30min", "legal-consult-1h", "engagement-fixed", "engagement-retainer", "saas-standard", "saas-pro", "saas-enterprise"]
+            },
+            "amount_minor":  { "type": "integer", "minimum": 0 },
+            "currency":      { "type": "string", "enum": ["USD", "INR"] },
+            "matter_uri":    { "type": "string" },
+            "client_did":    { "type": "string", "format": "did" },
+            "client_email":  { "type": "string" },
+            "client_name":   { "type": "string" },
+            "stream":        { "type": "string", "enum": ["advocate-fee", "saas-pilot", "saas-paid", "consult"], "default": "advocate-fee" },
+            "description":   { "type": "string" },
+            "success_url":   { "type": "string" },
+            "cancel_url":    { "type": "string" },
+            "expires_in_minutes": { "type": "integer", "default": 1440, "minimum": 30, "maximum": 10080 },
+            "metadata":      { "type": "string", "description": "Optional JSON for extra metadata" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok":              { "type": "boolean" },
+            "checkout_url":    { "type": "string" },
+            "session_id":      { "type": "string" },
+            "stripe_account":  { "type": "string" },
+            "expires_at":      { "type": "string", "format": "datetime" },
+            "dry_run":         { "type": "boolean" },
+            "error":           { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

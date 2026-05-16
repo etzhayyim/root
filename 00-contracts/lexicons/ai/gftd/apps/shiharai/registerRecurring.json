@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shiharai.registerRecurring",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a recurring credit-card payment binding with a biller (e.g., suidocard.jp for Tokyo Waterworks). Phase 3. No card material persisted server-side — card info goes only to the biller through Playwright on the user's Mac.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["billerHandle", "customerNumber"],
+          "properties": {
+            "billerHandle": { "type": "string" },
+            "customerNumber": { "type": "string" },
+            "payMethod": { "type": "string", "enum": ["credit-card"], "default": "credit-card" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "recurringId": { "type": "string" },
+            "state": { "type": "string", "enum": ["pending", "active", "failed"] },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

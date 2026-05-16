@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.intel.inferredCohort",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "cohortId": { "type": "string" },
+          "chainId": { "type": "string" },
+          "targetDomain": { "type": "string" },
+          "entityType": { "type": "string" },
+          "layer": { "type": "integer" },
+          "estimatedCount": { "type": "float" },
+          "confidence": { "type": "float" },
+          "methodology": { "type": "string" },
+          "inferenceRule": { "type": "string" },
+          "inputFact": { "type": "string" },
+          "assumptions": { "type": "string" },
+          "status": { "type": "string" },
+          "cohortHash": { "type": "string" },
+          "subjectDid": { "type": "string" },
+          "subjectName": { "type": "string" },
+          "orgId": { "type": "string" },
+          "userId": { "type": "string" },
+          "actorId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        },
+        "required": ["cohortId", "chainId", "targetDomain", "status", "cohortHash"]
+      }
+    }
+  }
+}

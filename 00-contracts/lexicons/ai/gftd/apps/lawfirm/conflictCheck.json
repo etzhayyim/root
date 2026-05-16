@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.conflictCheck",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Result of a conflict-of-interest scan. Runs before matter intake (forward check) or before inviteExternalCounsel (reverse check). result=blocked prevents matter.status leaving 'conflictCheck'. waivable=true allows leadBengoshi to advance with a recorded waiver.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["matterDid", "scanScope", "result", "scannedAt", "scannedBy"],
+        "properties": {
+          "matterDid":       { "type": "string", "format": "did" },
+          "scanScope":       { "type": "string", "enum": ["matterIntake","externalCounselInvite","periodicAudit"] },
+          "counterpartyDids":{ "type": "array", "items": { "type": "string", "format": "did" } },
+          "candidateDid":    { "type": "string", "format": "did", "description": "For scope=externalCounselInvite, the grantee DID being scanned" },
+          "subjectMatter":   { "type": "string" },
+          "result":          { "type": "string", "enum": ["clear","disclosureRequired","waivable","blocked"] },
+          "conflicts": {
+            "type": "array",
+            "description": "Detailed conflicts found (prior representation, adverse party overlap, ownership chain, etc.)",
+            "items": {
+              "type": "object",
+              "required": ["kind"],
+              "properties": {
+                "kind":       { "type": "string", "enum": ["priorRepresentation","adverseParty","ownershipChain","bengoshiConflict","firmConflict","other"] },
+                "partyDid":   { "type": "string", "format": "did" },
+                "priorMatterDid": { "type": "string", "format": "did" },
+                "note":       { "type": "string" }
+              }
+            }
+          },
+          "waivedBy":        { "type": "string", "format": "did", "description": "Only set when result=waivable AND a leadBengoshi recorded a waiver" },
+          "waivedAt":        { "type": "string", "format": "datetime" },
+          "waiverReason":    { "type": "string" },
+          "wallId":          { "type": "string", "description": "Ethical wall identifier when result requires screening" },
+          "scannedBy":       { "type": "string", "format": "did" },
+          "scannedAt":       { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

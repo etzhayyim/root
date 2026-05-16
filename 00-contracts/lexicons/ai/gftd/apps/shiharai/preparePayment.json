@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shiharai.preparePayment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Enqueue a Playwright payment job for a given billId. Non-destructive: emits ai.gftd.apps.shiharai.job with state=pending. A local daemon picks it up via dequeueJob.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["billId"],
+          "properties": {
+            "billId": { "type": "string" },
+            "payUrl": { "type": "string" },
+            "method": { "type": "string", "enum": ["credit-card", "pay-easy", "bank-transfer", "convenience-store", "auto"] },
+            "requireConfirm": { "type": "boolean", "default": true }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jobId": { "type": "string" },
+            "vertexId": { "type": "string" },
+            "state": { "type": "string" },
+            "expiresAt": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.credits.spendCredits",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Charge credits for `action` and route 10% to public fund per allocation preference. Supports `mcp_invoke` action with byte-based metering (ADR-2604271400). 10% redistribution is inherited from the existing SpendCredits allocation path — no new split logic.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["userId", "action"],
+          "properties": {
+            "userId": { "type": "string" },
+            "action": { "type": "string", "description": "Spend action: post / reply / dm / mcp_invoke / inference" },
+            "amount": { "type": "number", "description": "Override computed cost. mcp_invoke computes from req+resBytes if omitted." },
+            "toolNsid": { "type": "string", "description": "Required when action=mcp_invoke." },
+            "actorDid": { "type": "string", "description": "Actor DID (this MCP server) for audit metadata." },
+            "reqBytes": { "type": "integer", "minimum": 0 },
+            "resBytes": { "type": "integer", "minimum": 0 },
+            "destinationId": { "type": "string", "description": "Override user's public-fund allocation preference for this spend." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "balance": { "type": "number" },
+            "txId": { "type": "string" },
+            "amount": { "type": "number" },
+            "allocation": {
+              "type": "object",
+              "properties": {
+                "spendAmount": { "type": "number" },
+                "serviceAmount": { "type": "number" },
+                "publicFundAmount": { "type": "number" },
+                "publicFundBps": { "type": "integer" }
+              }
+            },
+            "destination": {
+              "type": "object",
+              "properties": {
+                "destinationId": { "type": "string" },
+                "title": { "type": "string" },
+                "kind": { "type": "string" },
+                "projectId": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

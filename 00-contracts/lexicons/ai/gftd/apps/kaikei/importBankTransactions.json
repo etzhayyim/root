@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.importBankTransactions",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bulk-import bank statement rows. Server deduplicates by (bankDid, bankTxnId). Phase 1: CSV upload only (pdfCid points at vault-encrypted source file). Phase 3: direct bank API ingest.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["bankDid", "transactions"],
+          "properties": {
+            "bankDid":      { "type": "string", "format": "did" },
+            "sourceFileCid":{ "type": "string", "description": "vault-encrypted CSV or PDF for audit" },
+            "transactions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["bankTxnId", "postedAt", "amount"],
+                "properties": {
+                  "bankTxnId":        { "type": "string" },
+                  "postedAt":         { "type": "string", "format": "datetime" },
+                  "amount":           { "type": "number" },
+                  "counterpartyName": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["imported", "skipped"],
+          "properties": {
+            "imported": { "type": "integer", "description": "New rows inserted" },
+            "skipped":  { "type": "integer", "description": "Rows skipped due to duplicate bankTxnId" }
+          }
+        }
+      }
+    }
+  }
+}

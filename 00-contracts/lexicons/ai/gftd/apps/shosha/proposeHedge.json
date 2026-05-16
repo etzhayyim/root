@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shosha.proposeHedge",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Analyze current open exposure for a commodity and propose a hedge instrument (futures/forward/swap). Returns proposed hedge with notional and direction; does NOT execute.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["commodity"],
+          "properties": {
+            "commodity": {"type": "string"},
+            "instrument": {"type": "string", "enum": ["futures", "forward", "swap", "option"], "default": "futures"},
+            "targetHedgeRatio": {"type": "number", "minimum": 0, "maximum": 1.5, "default": 0.8, "description": "Fraction of net exposure to hedge (0-1.5)"},
+            "expiryDate": {"type": "string", "format": "date"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "hedgeId", "vertexId", "instrument", "commodity", "direction", "notional"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "hedgeId": {"type": "string"},
+            "vertexId": {"type": "string"},
+            "instrument": {"type": "string"},
+            "commodity": {"type": "string"},
+            "direction": {"type": "string", "enum": ["long", "short"]},
+            "notional": {"type": "number"},
+            "currentExposure": {"type": "number"},
+            "rationale": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

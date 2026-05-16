@@ -1,0 +1,152 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.draftAgencyBriefing",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Generate a graph-native agency briefing (e.g. 警察庁照会 15ページ + FAQ) for the surveillance capability cluster. Ingests briefingFacts + sourceDocs, extracts entities (person/project/ADR/URL/law/concept) + date_events + org_mentions + dependencies, persists them into vertex_malak_briefing graph (and 4 edge tables) per ADR-2605091400 MCP-as-cell-membrane (raw PII never returned in response, only sha256 + counts). Renders one markdown doc per section via briefing_templates, optionally exports DOCX + PDF via pandoc. Mirrors draftPoliceReport pattern with graph-first design.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["briefingType", "targetAgencyPath", "requesterDid", "title", "briefingFacts"],
+          "properties": {
+            "briefingType": {
+              "type": "string",
+              "knownValues": [
+                "npa_cyber_initial",
+                "npa_seian_initial",
+                "npa_keiji_initial",
+                "interpol_ipsg_initial",
+                "interpol_cybercrime_initial",
+                "jc3_initial",
+                "prefectural_pilot",
+                "followup",
+                "audit_response"
+              ],
+              "description": "Which briefing template family to render."
+            },
+            "targetAgencyPath": {
+              "type": "string",
+              "description": "Path to the addressee org (e.g. 'npa:cyber', 'intl:interpol:ipsg', 'prefectural-police:kanagawa')."
+            },
+            "requesterDid": {
+              "type": "string",
+              "description": "Engineering / sales DID requesting the draft. Must have role malak:agency_outreach:operator OR malak:surveillance:operator."
+            },
+            "title": { "type": "string", "description": "Briefing display title (Japanese OK)." },
+            "language": { "type": "string", "knownValues": ["ja", "en", "ja+en"], "description": "Language for rendered markdown. Default 'ja'." },
+            "tlp": { "type": "string", "knownValues": ["WHITE", "GREEN", "AMBER", "RED"], "description": "TLP classification. Default 'AMBER'." },
+            "briefingFacts": {
+              "type": "ref",
+              "ref": "#briefingFacts",
+              "description": "Structured facts that drive rendering. Same role as caseFacts in draftPoliceReport."
+            },
+            "sourceDocs": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#sourceDoc" },
+              "description": "Reference documents to mine entities/dates from. Body text is read but never echoed in response."
+            },
+            "outputDir": {
+              "type": "string",
+              "description": "Absolute path to write markdown + (optional) DOCX/PDF. Empty = no filesystem write."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "briefingId":     { "type": "string" },
+            "version":        { "type": "integer" },
+            "files":          { "type": "ref", "ref": "#filesMap" },
+            "documentSha256": { "type": "string", "description": "SHA-256 of the concatenated rendered markdown." },
+            "sectionShas":    { "type": "array", "items": { "type": "ref", "ref": "#sectionSha" } },
+            "pegelTicks":     { "type": "array", "items": { "type": "string" } },
+            "entityCounts":   { "type": "ref", "ref": "#entityCounts" },
+            "graphVertexIds": { "type": "ref", "ref": "#graphVertexIds" },
+            "error":          { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "briefingFacts": {
+      "type": "object",
+      "description": "Structured facts for rendering. TLP=AMBER unless overridden.",
+      "properties": {
+        "executiveSummary":   { "type": "string" },
+        "useCasePitch":       { "type": "string", "knownValues": ["fraud", "missingPerson", "streetCrime", "cyberOps", "interpolCooperation"] },
+        "operatingEntity":    { "type": "string", "description": "Defaults to 'amanomibashira'." },
+        "vendor":             { "type": "string", "description": "Defaults to 'Gftd Japan株式会社'." },
+        "designAdrs":         { "type": "array", "items": { "type": "string" }, "description": "ADR IDs to cross-reference (e.g. ADR-2605091400)." },
+        "complianceFrameworks": { "type": "array", "items": { "type": "string" }, "description": "Frameworks the design adheres to." },
+        "phaseStatus":        { "type": "string", "description": "Current Phase (Phase 0/1/2/...) plus key milestones for the agency reader." },
+        "dataResidency":      { "type": "string", "description": "国内拘束 details. Default = murakumo on-prem JP DC + AES-256-GCM." },
+        "humanReviewGate":    { "type": "boolean", "description": "Always true for surveillance pitches." },
+        "outreachOptInSource": { "type": "string", "description": "How the addressee opt-in was obtained (展示会名簿/講演主催者経由/紹介/inbound)." },
+        "extraNotes":         { "type": "string", "description": "Free-form notes; entity extractor will mine this too." }
+      }
+    },
+
+    "sourceDoc": {
+      "type": "object",
+      "properties": {
+        "docKind":     { "type": "string", "knownValues": ["adr", "compliance-memo", "design-doc", "lead-pipeline-seed", "ndjson", "external-pdf", "url"] },
+        "label":       { "type": "string" },
+        "path":        { "type": "string", "description": "Repo path or external URL." },
+        "sha256":      { "type": "string" },
+        "tlp":         { "type": "string" }
+      }
+    },
+
+    "filesMap": {
+      "type": "object",
+      "description": "Map doc_kind → filesystem path.",
+      "properties": {
+        "briefing_md":  { "type": "string" },
+        "faq_md":       { "type": "string" },
+        "briefing_docx": { "type": "string" },
+        "briefing_pdf": { "type": "string" },
+        "manifest":     { "type": "string" }
+      }
+    },
+
+    "sectionSha": {
+      "type": "object",
+      "properties": {
+        "sectionNo": { "type": "string" },
+        "sha256":    { "type": "string" }
+      }
+    },
+
+    "entityCounts": {
+      "type": "object",
+      "description": "Per-category entity tallies. Used by reader to gauge briefing density.",
+      "properties": {
+        "person":  { "type": "integer" },
+        "project": { "type": "integer" },
+        "adr":     { "type": "integer" },
+        "url":     { "type": "integer" },
+        "law":     { "type": "integer" },
+        "concept": { "type": "integer" },
+        "org":     { "type": "integer" },
+        "dateEvent": { "type": "integer" },
+        "dependency": { "type": "integer" }
+      }
+    },
+
+    "graphVertexIds": {
+      "type": "object",
+      "description": "Top-level graph vertex IDs created by this draft. Useful for follow-up queries.",
+      "properties": {
+        "briefing":     { "type": "string", "description": "vertex_id of vertex_malak_briefing root." },
+        "sectionIds":   { "type": "array", "items": { "type": "string" } },
+        "entityIds":    { "type": "array", "items": { "type": "string" } },
+        "dateEventIds": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

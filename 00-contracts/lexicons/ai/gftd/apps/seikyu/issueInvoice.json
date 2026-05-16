@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.seikyu.issueInvoice",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Issue a new invoice. Server (1) validates customer + optional project/agreement refs, (2) aggregates line items from approved kousuu.timeEntry rows (when projectDid given and lineItems omitted), (3) writes the invoice as status='draft'. sendInvoice flips to 'sent'.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["customerDid", "issuedAt", "dueAt", "currency"],
+          "properties": {
+            "customerDid":   { "type": "string", "format": "did" },
+            "projectDid":    { "type": "string", "format": "did" },
+            "agreementDid":  { "type": "string", "format": "did" },
+            "invoiceNumber": { "type": "string" },
+            "period": {
+              "type": "object",
+              "properties": {
+                "from": { "type": "string", "format": "datetime" },
+                "to":   { "type": "string", "format": "datetime" }
+              }
+            },
+            "lineItems": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["description", "amount"],
+                "properties": {
+                  "kind":        { "type": "string", "enum": ["time","flatFee","expense","adjustment"] },
+                  "description": { "type": "string" },
+                  "quantity":    { "type": "number" },
+                  "unitRate":    { "type": "number" },
+                  "amount":      { "type": "number" }
+                }
+              }
+            },
+            "includeApprovedTimeEntries": { "type": "boolean", "default": false, "description": "When true + projectDid + period set, auto-attach approved billable timeEntry rows as 'time' line items" },
+            "taxRate":        { "type": "number", "default": 0.10 },
+            "discountAmount": { "type": "number" },
+            "currency":       { "type": "string", "default": "JPY" },
+            "issuedAt":       { "type": "string", "format": "datetime" },
+            "dueAt":          { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["invoiceDid", "uri", "total", "status"],
+          "properties": {
+            "invoiceDid":   { "type": "string", "format": "did" },
+            "uri":          { "type": "string", "format": "at-uri" },
+            "subtotal":     { "type": "number" },
+            "taxAmount":    { "type": "number" },
+            "total":        { "type": "number" },
+            "status":       { "type": "string", "enum": ["draft"] },
+            "timeEntriesAttached": { "type": "integer" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "CustomerNotFound", "description": "customerDid does not exist or belongs to different ownerDid" },
+        { "name": "NoBillableTime",   "description": "includeApprovedTimeEntries=true but no matching entries found" }
+      ]
+    }
+  }
+}

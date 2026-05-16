@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shosha.settleTrade",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Settle an open trade. Validates `comply_ok=true` + `status='open'`, inserts vertex_shosha_settlement, transitions trade.status to 'closed' (auto-promotes approval_state pending→approved). Phase 2c: minimal — bank wire only; LC / CAD methods deferred to Phase 3.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tradeId"],
+          "properties": {
+            "tradeId": {"type": "string", "description": "Existing vertex_shosha_trade.trade_id"},
+            "settlementId": {"type": "string", "description": "Optional client-supplied ID; auto-generated as `st-{hash12}` if omitted"},
+            "method": {"type": "string", "enum": ["wire", "swift", "lc", "cad"], "default": "wire"},
+            "bankRef": {"type": "string", "description": "Counterparty bank reference / SWIFT MT103 ref / LC number", "maxLength": 200},
+            "valueDate": {"type": "string", "format": "date"},
+            "amountOverride": {"type": "number", "description": "If omitted, settles at trade.amount_usd. Provide to settle at a different amount (e.g. partial fees deducted)"},
+            "remarks": {"type": "string", "maxLength": 1000}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "settlementId": {"type": "string"},
+            "vertexId": {"type": "string"},
+            "tradeId": {"type": "string"},
+            "tradeStatus": {"type": "string", "description": "Post-settlement status of the trade (expected: 'closed')"},
+            "amountUsd": {"type": "number"},
+            "settledAt": {"type": "string", "format": "datetime"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.cards.approveAuthorization",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Manually approve a pending Stripe Issuing authorization.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["authorizationId"],
+          "properties": {
+            "authorizationId": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "authorizationId": { "type": "string" },
+            "status": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

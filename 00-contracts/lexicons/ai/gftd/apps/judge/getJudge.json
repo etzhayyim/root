@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.judge.getJudge",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a single judge by DID.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "required": ["did"],
+        "properties": {
+          "did": { "type": "string", "format": "did" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "did": { "type": "string", "format": "did" },
+            "fullName": { "type": "string" },
+            "fullNameLocal": { "type": "string" },
+            "jurisdiction": { "type": "string" },
+            "courtDid": { "type": "string", "format": "did" },
+            "courtLevel": { "type": "string" },
+            "appointedAt": { "type": "string", "format": "datetime" },
+            "retiredAt": { "type": "string", "format": "datetime" },
+            "specializations": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}

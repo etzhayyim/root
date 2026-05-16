@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.seikyu.paymentReceived",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Payment received against one or more invoices. Derive rule emits journalEntry (debit=cash/bank, credit=AR) and flips invoice.status based on remaining balance.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["ownerDid", "receivedAt", "amount", "currency", "createdAt"],
+        "properties": {
+          "ownerDid":   { "type": "string", "format": "did" },
+          "invoiceDids":{ "type": "array", "items": { "type": "string", "format": "did" } },
+          "receivedAt": { "type": "string", "format": "datetime" },
+          "amount":     { "type": "number" },
+          "currency":   { "type": "string" },
+          "paymentRef": { "type": "string" },
+          "bankDid":    { "type": "string", "format": "did", "description": "Receiving bank account" },
+          "memo":       { "type": "string" },
+          "createdAt":  { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

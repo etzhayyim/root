@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.tsukuru.productionOrder.createProductionOrder",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "manufacturer_did": {
+              "type": "integer"
+            },
+            "customer_id": {
+              "type": "integer"
+            },
+            "priority": {
+              "type": "string"
+            },
+            "okaimono_order_id": {
+              "type": "integer"
+            },
+            "factory_did": {
+              "type": "integer"
+            },
+            "fulfillment_mode": {
+              "type": "string"
+            },
+            "deadline": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "manufacturer_did",
+            "customer_id"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  }
+}

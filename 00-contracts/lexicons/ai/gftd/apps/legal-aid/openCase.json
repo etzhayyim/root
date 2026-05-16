@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.legal-aid.openCase",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Open a legal aid case (income-eligible representation). PII Tier 3 — applicant identity stored only as hash + signal:v1 ciphertext. ADR-0018 + ADR-0049 D5.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["officeDid", "applicantHash", "matterArea", "openedAt"],
+          "properties": {
+            "officeDid":      { "type": "string", "format": "did" },
+            "applicantHash":  { "type": "string", "description": "sha256(canonical applicant identifier) — never plaintext" },
+            "applicantPiiEnc":{ "type": "string", "description": "signal:v1: encrypted blob (full PII, vault-wrapped)" },
+            "matterArea":     { "type": "string", "enum": ["criminal-defense","family","housing","immigration","social-benefit","disability","employment","consumer","civil-other"] },
+            "incomeBracket":  { "type": "string" },
+            "languageCode":   { "type": "string" },
+            "openedAt":       { "type": "string", "format": "datetime" },
+            "intakeChannel":  { "type": "string", "enum": ["walk-in","phone","online","duty-counsel","court-referred"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId", "caseRef"],
+          "properties": {
+            "vertexId": { "type": "string" },
+            "caseRef":  { "type": "string", "description": "Anonymous case reference (no PII)" }
+          }
+        }
+      }
+    }
+  }
+}

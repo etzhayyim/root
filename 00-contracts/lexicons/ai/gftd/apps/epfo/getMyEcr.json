@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.epfo.getMyEcr",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-0052. Employee self-read of a submitted ECR contribution snapshot for a given wage month.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "wageMonth": { "type": "string", "description": "YYYY-MM" },
+          "establishmentPfCode": { "type": "string" }
+        },
+        "required": ["wageMonth", "establishmentPfCode"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "status": { "type": "string" },
+            "processType": { "type": "string" },
+            "wageMonth": { "type": "string" },
+            "trrn": { "type": "string" },
+            "submittedAt": { "type": "string" },
+            "approvedAt": { "type": "string" },
+            "rosterPayload": { "type": "string", "description": "signal:v1: ciphertext. Client decrypts and filters to the caller's UAN." },
+            "amendmentLog": { "type": "string" },
+            "retentionUntil": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

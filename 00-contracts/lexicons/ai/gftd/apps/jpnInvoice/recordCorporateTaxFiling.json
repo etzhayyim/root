@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpnInvoice.recordCorporateTaxFiling",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "国税庁 法人税申告",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "filerCorporateNumber",
+            "fiscalYear",
+            "taxableIncome",
+            "taxPayable",
+            "filingType",
+            "filedAt"
+          ],
+          "properties": {
+            "filerCorporateNumber": {
+              "type": "string"
+            },
+            "fiscalYear": {
+              "type": "string"
+            },
+            "taxableIncome": {
+              "type": "number"
+            },
+            "taxPayable": {
+              "type": "number"
+            },
+            "filingType": {
+              "type": "string",
+              "enum": [
+                "original",
+                "amended",
+                "loss-carryover"
+              ]
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "sizeTier": {
+              "type": "string",
+              "enum": [
+                "small",
+                "medium",
+                "large"
+              ]
+            },
+            "requireAudit": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

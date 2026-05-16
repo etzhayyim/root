@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.itr1.getMyReturn",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-0055. Self read of a single ITR-1 return. RLS gated by taxpayer_pan_hash = sha256(jwt.pan).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "assessmentYear": { "type": "string" },
+          "vertexId": { "type": "string", "description": "Optional — exact vertex if known." }
+        },
+        "required": ["assessmentYear"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "status": { "type": "string" },
+            "ackNumber": { "type": "string" },
+            "filedVia": { "type": "string" },
+            "filedAt": { "type": "string" },
+            "totalIncomeInrPaise": { "type": "integer" },
+            "totalTaxInrPaise": { "type": "integer" },
+            "refundInrPaise": { "type": "integer" },
+            "applicantPayload": { "type": "string", "description": "signal:v1: ciphertext, decrypt client-side." },
+            "incomePayload": { "type": "string" },
+            "deductionsPayload": { "type": "string" },
+            "taxPayload": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

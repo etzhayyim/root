@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.insatsu.printPartner.getPrintPartner",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Resolve a cloud print partner by slug or actor DID.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "slug": { "type": "string" },
+          "actor_did": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "partnerDid": { "type": "string" },
+            "slug": { "type": "string" },
+            "displayName": { "type": "string" },
+            "country": { "type": "string" },
+            "region": { "type": "string" },
+            "printMethods": { "type": "array", "items": { "type": "string" } },
+            "mailClasses": { "type": "array", "items": { "type": "string" } },
+            "supportsCertifiedMail": { "type": "boolean" },
+            "downstreamActorDid": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

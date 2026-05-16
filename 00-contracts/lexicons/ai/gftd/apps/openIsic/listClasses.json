@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.openIsic.listClasses",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List ISIC Rev.4 4-digit classes (419 total). Optionally filter by section / division / group.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "section":  { "type": "string", "description": "A–U" },
+          "division": { "type": "string", "description": "2-digit, e.g. '01'" },
+          "group":    { "type": "string", "description": "3-digit, e.g. '011'" },
+          "limit":    { "type": "integer", "minimum": 1, "maximum": 500, "default": 50 },
+          "offset":   { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["classes", "total", "offset", "limit"],
+          "properties": {
+            "classes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": { "type": "string", "description": "4-digit, e.g. '0111'" },
+                  "did":  { "type": "string", "format": "did" },
+                  "nameEn": { "type": "string" },
+                  "section": { "type": "string" },
+                  "division": { "type": "string" },
+                  "group": { "type": "string" }
+                }
+              }
+            },
+            "total":  { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.smishing.addToBlocklist",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "reason": {
+              "type": "string"
+            },
+            "senderAddress": {
+              "type": "string"
+            },
+            "senderDid": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "blockId": {
+              "type": "integer"
+            },
+            "senderDid": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.openJpnGov.listMinistries",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List Japanese central government ministries and cabinet-level agencies (1府11省 + デジタル庁/復興庁/こども家庭庁 + 独立機関).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "category": { "type": "string", "enum": ["cabinet", "ministry", "agency", "independent"] },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ministries", "total", "offset", "limit"],
+          "properties": {
+            "ministries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": { "type": "string", "description": "short code (mof, meti, mhlw, ...)" },
+                  "did": { "type": "string", "format": "did" },
+                  "nameJa": { "type": "string" },
+                  "nameEn": { "type": "string" },
+                  "category": { "type": "string" },
+                  "established": { "type": "string", "description": "ISO date" },
+                  "website": { "type": "string", "format": "uri" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

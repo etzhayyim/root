@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.seedProfiles",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bulk seed model profiles from slugs (idempotent, internal-trust via sdk.pds).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "slugs": { "type": "array", "items": { "type": "string" }, "maxLength": 500 }
+          },
+          "required": ["slugs"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "slug": { "type": "string" },
+                  "did": { "type": "string" },
+                  "status": { "type": "string" },
+                  "error": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "ok": { "type": "integer" },
+            "failed": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

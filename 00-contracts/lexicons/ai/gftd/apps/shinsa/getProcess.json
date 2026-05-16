@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinsa.getProcess",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a shinsa (審査) review process by DID.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["did"], "properties": { "did": { "type": "string", "format": "did" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "processType": { "type": "string" }, "issuingAuthorityDid": { "type": "string", "format": "did" }, "domain": { "type": "string" }, "applicantDid": { "type": "string", "format": "did" }, "submittedAt": { "type": "string", "format": "datetime" }, "stage": { "type": "string" }, "expectedDecisionAt": { "type": "string", "format": "datetime" }, "feeAmount": { "type": "number" } } } }
+    }
+  }
+}

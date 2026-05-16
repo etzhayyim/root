@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.cards.getBalance",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get the Stripe Issuing balance (available and pending).",
+      "parameters": {
+        "type": "params",
+        "properties": {}
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "available": { "type": "array", "items": { "type": "object" } },
+            "pending": { "type": "array", "items": { "type": "object" } },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

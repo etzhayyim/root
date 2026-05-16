@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.billing.stripeWebhook",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Inbound Stripe webhook receiver. Caller (Stripe) MUST sign the request body with the webhook secret stored on `vertex_billing_stripe_customer.stripe_webhook_secret`. PDS verifies the `stripe-signature` header before delegating to the BPMN. Idempotent on `stripe_event_id`.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["id", "type", "account"],
+          "properties": {
+            "id":      {"type": "string", "description": "Stripe event id (evt_*)"},
+            "type":    {"type": "string", "description": "Stripe event type (e.g. invoice.paid)"},
+            "account": {"type": "string", "description": "Stripe Connect account (acct_*) — used to scope to org_did"},
+            "data":    {"type": "string", "description": "JSON-encoded event.data (full Stripe object)"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "stripeEventId"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "stripeEventId": {"type": "string"},
+            "duplicate": {"type": "boolean", "description": "true if this event_id was already ingested (idempotent)"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

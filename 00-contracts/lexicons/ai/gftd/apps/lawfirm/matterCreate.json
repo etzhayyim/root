@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.matterCreate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Advocate accepts an intake (or creates direct matter), persists vertex_lawfirm_matter with status='pending_pwc'. Triggers downstream pwcClearance + engagementClose pipeline. RACI-gated: lead_advocate_did MUST have R or A on advocate practice for the relevant jurisdiction.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["matter_type", "lead_advocate_did", "subject"],
+          "properties": {
+            "tenant_id":          { "type": "string", "default": "production" },
+            "intake_uri":         { "type": "string", "description": "Optional vertex_lawfirm_intake source" },
+            "client_did":         { "type": "string", "format": "did" },
+            "client_name":        { "type": "string", "description": "App layer encrypts before persist" },
+            "lead_advocate_did":  { "type": "string", "format": "did" },
+            "co_counsel_dids":    { "type": "array", "items": { "type": "string", "format": "did" } },
+            "matter_type":        {
+              "type": "string",
+              "enum": ["litigation","arbitration","transactional","advisory","compliance","ip","tax","labor","criminal-defense","family","administrative","cross-border"]
+            },
+            "jurisdiction":       { "type": "string", "description": "ISO 3166-1 alpha-3" },
+            "subject":            { "type": "string", "description": "Privileged; encrypted before persist" },
+            "fee_structure":      { "type": "string", "enum": ["hourly","fixed","retainer","contingency","pro-bono"] },
+            "fee_amount_minor":   { "type": "integer", "minimum": 0 },
+            "currency":           { "type": "string", "enum": ["USD","INR"] },
+            "skip_pwc_clearance": { "type": "boolean", "default": false, "description": "true only when matter is documented as out-of-PwC-scope (k-bakshi attests)" },
+            "requester_did":      { "type": "string", "format": "did" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok":               { "type": "boolean" },
+            "matter_id":        { "type": "string" },
+            "matter_uri":       { "type": "string" },
+            "status":           { "type": "string" },
+            "pwc_clearance_uri":{ "type": "string", "description": "Set if PwC clearance triggered" },
+            "next_action":      { "type": "string", "description": "Description of next step" },
+            "error":            { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

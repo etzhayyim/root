@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shosha.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Coverage snapshot — counts of trades / counterparties / open exposure / at-risk trades.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "asOf": {"type": "string", "format": "datetime"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["asOf", "tradesOpen", "tradesClosed", "counterpartiesActive", "atRiskTrades", "lastIntelTsMs"],
+          "properties": {
+            "asOf": {"type": "string", "format": "datetime"},
+            "tradesOpen": {"type": "integer"},
+            "tradesClosed": {"type": "integer"},
+            "counterpartiesActive": {"type": "integer"},
+            "atRiskTrades": {"type": "integer"},
+            "lastIntelTsMs": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

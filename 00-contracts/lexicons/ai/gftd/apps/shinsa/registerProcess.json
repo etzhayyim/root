@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinsa.registerProcess",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a shinsa (審査) review process — regulatory/grant/permit/certification review across domains. Tracks process coverage orchestration.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["processType", "issuingAuthorityDid"],
+          "properties": {
+            "processType": { "type": "string", "enum": ["regulatory-approval", "grant-evaluation", "permit-issuance", "certification", "accreditation", "license-renewal", "audit", "appeal-review"] },
+            "issuingAuthorityDid": { "type": "string", "format": "did", "description": "gov agency DID" },
+            "domain": { "type": "string", "description": "pharma / financial / construction / environmental / etc" },
+            "applicantDid": { "type": "string", "format": "did" },
+            "submittedAt": { "type": "string", "format": "datetime" },
+            "stage": { "type": "string", "enum": ["submitted", "preliminary-review", "substantive-review", "expert-panel", "decision-pending", "approved", "rejected", "withdrawn"] },
+            "expectedDecisionAt": { "type": "string", "format": "datetime" },
+            "feeAmount": { "type": "number" }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "uri": { "type": "string", "format": "at-uri" } } } }
+    }
+  }
+}

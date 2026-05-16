@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaisya.startProcess",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "gftdcojp BPMN 業務プロセスを開始する。全メンバーの担当タスクを vertex_human_task に登録し、cowork-graph sendBpmnGuidance を通じて Teams GJ/CE/General に案内を投稿する。Teams Bot が「業務開始: 案件名」メッセージを受信したとき自動で呼び出される。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["projectName"],
+          "properties": {
+            "projectName": {
+              "type": "string",
+              "description": "案件名 (プロセスインスタンスのラベル)"
+            },
+            "projectRef": {
+              "type": "string",
+              "description": "案件参照 ID (任意。省略時はプロセスID を使用)"
+            },
+            "teamId": {
+              "type": "string",
+              "description": "Teams チーム ID (任意。省略時はデフォルト GJ/CE/General)"
+            },
+            "channelId": {
+              "type": "string",
+              "description": "Teams チャンネル ID (任意)"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["processInstanceId", "tasksCreated"],
+          "properties": {
+            "processInstanceId": { "type": "string" },
+            "projectRef":        { "type": "string" },
+            "tasksCreated":      { "type": "integer" },
+            "taskCodes":         { "type": "array", "items": { "type": "string" } },
+            "teamsGuidance":     { "type": "unknown" },
+            "startedBy":         { "type": "string" },
+            "startedAt":         { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

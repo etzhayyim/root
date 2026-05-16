@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.igAudit.flagRecommendationStall",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Recommendation stall / agency disagreement / retaliation (bridges ethicsWaiver.flagConflictWaived + enforcement-action + whistleblower-protect)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "reportVid",
+            "stallKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "reportVid": {
+              "type": "string",
+              "description": "bridges recordReport"
+            },
+            "stallKind": {
+              "type": "string",
+              "enum": [
+                "recommendations_ignored",
+                "agency_disagreement",
+                "redaction_excess",
+                "ig_removed",
+                "shadow_investigation",
+                "budget_defunded",
+                "staff_retaliation",
+                "classification_misused",
+                "legal_hold_abused",
+                "congressional_gag"
+              ]
+            },
+            "openRecommendations": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

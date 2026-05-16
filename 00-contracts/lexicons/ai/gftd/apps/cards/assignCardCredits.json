@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.cards.assignCardCredits",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Allocate credits.gftd.ai credits to an issued card for authorization-time spending.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["userId", "cardId", "amount"],
+          "properties": {
+            "userId": { "type": "string" },
+            "cardId": { "type": "string" },
+            "amount": { "type": "integer" },
+            "destinationId": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "cardId": { "type": "string" },
+            "allocated": { "type": "integer" },
+            "consumed": { "type": "integer" },
+            "available": { "type": "integer" },
+            "creditsBalanceAfter": { "type": "integer" },
+            "creditsTxId": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

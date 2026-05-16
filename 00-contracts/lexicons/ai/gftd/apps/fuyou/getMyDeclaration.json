@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.fuyou.getMyDeclaration",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-0051. Self-only read of the caller's declaration for a given tax year. Returns Tier 3 PII payload to the rightful employee only (RLS gated by employee_did = jwt.sub).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "taxYear": { "type": "integer" },
+          "employerOrgId": { "type": "string" }
+        },
+        "required": ["taxYear"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "status": { "type": "string" },
+            "processType": { "type": "string" },
+            "amendmentCount": { "type": "integer" },
+            "submittedAt": { "type": "string" },
+            "approvedAt": { "type": "string" },
+            "applicantPayload": { "type": "string", "description": "signal:v1: ciphertext. Decrypt client-side with employee key." },
+            "spousePayload": { "type": "string" },
+            "dependentsPayload": { "type": "string" },
+            "minorDependentsPayload": { "type": "string" },
+            "specialStatusPayload": { "type": "string" },
+            "amendmentLog": { "type": "string" },
+            "retentionUntil": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

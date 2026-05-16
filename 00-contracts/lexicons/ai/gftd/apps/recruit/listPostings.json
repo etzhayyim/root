@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.recruit.listPostings",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List job postings filtered by ISCO occupation, country, or employer DID. Public feed sources only (ESCO/O*NET/EURES/HelloWork/USAJOBS/Job Bank).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "iscoCode": { "type": "string", "description": "ISCO-08 code (major/submajor/minor/unit)" },
+          "country": { "type": "string", "description": "ISO-3166-1 alpha-3" },
+          "employerDid": { "type": "string", "description": "legal-entity DID anchor" },
+          "source": { "type": "string", "enum": ["esco", "onet", "eures", "hellowork", "usajobs", "jobbank"] },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": { "type": "array", "items": { "type": "ref", "ref": "#posting" } },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          },
+          "required": ["items", "total", "offset", "limit"]
+        }
+      }
+    },
+    "posting": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "source": { "type": "string" },
+        "sourceId": { "type": "string" },
+        "sourceLicense": { "type": "string" },
+        "employerDid": { "type": "string" },
+        "employerName": { "type": "string" },
+        "iscoCode": { "type": "string" },
+        "title": { "type": "string" },
+        "country": { "type": "string" },
+        "location": { "type": "string" },
+        "postedAt": { "type": "string", "format": "datetime" },
+        "expiresAt": { "type": "string", "format": "datetime" },
+        "url": { "type": "string", "format": "uri" }
+      },
+      "required": ["id", "source", "employerDid", "iscoCode", "title"]
+    }
+  }
+}

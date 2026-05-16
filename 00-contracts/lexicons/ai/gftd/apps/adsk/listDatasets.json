@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.adsk.listDatasets",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List ingested HF datasets in the catalog (vertex_hf_dataset). Read-only.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "org": {"type": "string", "description": "filter by HF org (e.g. 'ADSKAILab')"},
+          "modality": {"type": "string"},
+          "status": {"type": "string"},
+          "offset": {"type": "integer", "default": 0, "minimum": 0},
+          "limit": {"type": "integer", "default": 50, "minimum": 1, "maximum": 200}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "offset", "limit", "total"],
+          "properties": {
+            "items": {"type": "array", "items": {"type": "unknown"}},
+            "offset": {"type": "integer"},
+            "limit": {"type": "integer"},
+            "total": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

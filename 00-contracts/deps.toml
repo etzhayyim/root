@@ -1,0 +1,308 @@
+# 00-contracts — Layer 0: AT Protocol contracts
+#
+# 各サブディレクトリはそれぞれの領域の情報を所有する:
+#   - Lexicon JSON: AT Protocol wire format + NSID 定義
+#   - BPMN / DMN / Forms: app-level process artifacts
+
+name = "00-contracts"
+layer = 0
+tier = "production"
+role = "contracts"
+description = "Layer 0 contracts — AT Protocol Lexicon JSON plus app process artifacts"
+language = "json+typescript"
+
+depends_on = []
+
+provides = [
+  "lexicons/",                 # AT Protocol Lexicon JSON (wire format)
+  "bpmn/",
+  "dmn/",
+  "forms/",
+]
+
+[invariants]
+lexicon_nsid_count = 2695
+
+[subdirs.lexicons]
+role = "at-protocol-lexicon"
+tier = "production"
+description = "AT Protocol Lexicon JSON (wire format + NSID 定義)"
+
+[subdirs."lexicons/ai"]
+role = "lexicon-ai-gftd"
+tier = "production"
+description = "ai.gftd.* Lexicon JSON (2344 NSID files, permission scopes, 9 permission-set Lexicons)"
+
+[subdirs."lexicons/ai/gftd"]
+role = "lexicon-ai-gftd-scope"
+tier = "production"
+description = "ai.gftd.* leaf namespace"
+
+[subdirs."lexicons/ai/gftd/apps/graphSosIntel"]
+role = "graph-sos-intel-lexicons"
+tier = "production"
+kind = "lexicon-namespace"
+flags = ["editable"]
+description = "Graph SoS Intel XRPC query contracts for health, relation inventory, and open findings."
+
+[files."at-protocol-nsids.json"]
+role = "nsid-registry"
+flags = ["editable"]
+description = "Complete AT Protocol NSID registry"
+
+[files."README.md"]
+role = "doc"
+flags = ["editable"]
+
+[files."schemas/agent-runtime-registration.schema.json"]
+role = "public-schema"
+kind = "contract"
+toolchain = "json-schema"
+workspace = "standalone"
+flags = ["editable"]
+description = "Public ERC-8004-compatible agent runtime registration schema; agentURI document shape for ERC725/IPFS/MCP/k8s runtime discovery."
+
+[files."schemas/k8s-runtime-public.schema.json"]
+role = "public-schema"
+kind = "contract"
+toolchain = "json-schema"
+workspace = "standalone"
+flags = ["editable"]
+description = "Redacted public Kubernetes runtime projection schema for IPFS publication; excludes env, secret refs, service-account tokens, and private URLs."
+
+[knowledge."yoro-bpmn-pyzeebe-social-v2-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "Yoro reactive social processes are BPMN definitions backed by PyZeebe service tasks"
+details = """
+`00-contracts/bpmn/ai/gftd/yoro/{platformPulse,respondToMention,respondToFollow}.bpmn`
+remain the process SSoT. The BPMN files now call PyZeebe task types
+`yoro.social.{platformPulse,respondToMention,respondToFollow}GraphFallback`
+instead of assembling JSON with FEEL or calling PDS directly from the process.
+This keeps CF Workers as thin trigger edges and moves long-running actor
+execution into K8s/Zeebe/PyZeebe.
+"""
+impact = "Yoro CF Worker migration, Zeebe process deployment, PyZeebe worker image"
+
+[knowledge."yoro-post-translation-bpmn-gemma-20260514"]
+discovered_on = "2026-05-14"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "Yoro post translation is a BPMN-backed LangServer task using Gemma 4 E4B"
+details = """
+`00-contracts/bpmn/ai/gftd/yoro/{translatePost,translatePostBatch}.bpmn`
+define the single-post and multi-language translation processes. They call
+PyZeebe task types `yoro.social.translatePost` and
+`yoro.social.translatePostBatch` on the yoro actor LangServer worker.
+The worker creates translated sibling `app.bsky.feed.post` records and writes
+`ai.gftd.apps.media_gamers.record.translationLink` projection rows so
+`yoro.gftd.ai` post detail can render language tabs without changing AT URI
+semantics. The Murakumo route is pinned to `gemma-4-e4b-it`.
+"""
+impact = "Yoro multilingual post UX, LangServer task routing, Murakumo Gemma 4 E4B usage"
+
+[knowledge."murakumo-fleet-health-bpmn-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "Murakumo fleet health has a BPMN timer process backed by PyZeebe"
+details = """
+`00-contracts/bpmn/ai/gftd/murakumo/fleetHealthCheck.bpmn` defines the
+five-minute fleet sampler process. It calls PyZeebe task type
+`murakumo.fleet.healthCheck`; the Cloudflare Worker remains the request gateway
+and can keep its scheduled handler as fallback until the Zeebe deployment is
+live.
+"""
+impact = "Murakumo CF scheduled cron migration, K8s Zeebe worker rollout"
+
+[knowledge."graph-consumer-bpmn-bridge-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "Graph repo-commit consumer has a BPMN/PyZeebe scheduling bridge"
+details = """
+`00-contracts/bpmn/ai/gftd/graph/consumeRepoCommits.bpmn` defines the
+one-minute graph consumer tick. It calls PyZeebe task type
+`graph.repo.consumeCommits`, which invokes the existing Cloudflare Worker
+`/consume` endpoint and records each run as
+`ai.gftd.apps.graph.consumeTick` in `vertex_repo_record`. This keeps the
+projection implementation in the Worker while moving cron/retry ownership to
+K8s/Zeebe. The worker pod must set `GRAPH_CONSUMER_URL` to the routable
+`/consume` URL before the BPMN timer is activated.
+"""
+impact = "Graph CF scheduled cron migration, K8s Zeebe worker rollout"
+
+[knowledge."magatama-organizer-bpmn-bridge-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "Magatama organizer has a BPMN/PyZeebe scheduling bridge"
+details = """
+`00-contracts/bpmn/ai/gftd/magatama/organizerRun.bpmn` defines the
+five-minute Goose activity organizer tick. It calls PyZeebe task type
+`magatama.organizer.run`, which invokes the existing magatama Cloudflare Worker
+`/api/organizer/run` endpoint and records each run as
+`ai.gftd.apps.magatama.organizerRun` in `vertex_repo_record`. This keeps the
+classification/R2 plan implementation in the dashboard Worker while moving
+cron/retry ownership to K8s/Zeebe. The worker pod must set
+`MAGATAMA_ORGANIZER_URL` to the routable `/api/organizer/run` URL before the
+BPMN timer is activated.
+"""
+impact = "Magatama CF scheduled cron migration, K8s Zeebe worker rollout"
+
+[knowledge."pds-write-outbox-bpmn-bridge-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "PDS write-outbox replay has a BPMN/PyZeebe scheduling bridge"
+details = """
+`00-contracts/bpmn/ai/gftd/pds/syncWriteOutbox.bpmn` defines the five-minute
+write-outbox replay tick. It calls PyZeebe task type `pds.writeOutbox.sync`,
+which invokes the HMAC-protected PDS internal endpoint
+`/_internal/sync-write-outbox` and records each run as
+`ai.gftd.apps.pds.writeOutboxSync` in `vertex_repo_record`. This keeps XRPC
+dispatch and Hyperdrive access inside the PDS Worker while moving the replay
+cron/retry owner to K8s/Zeebe.
+"""
+impact = "PDS CF scheduled cron migration, K8s Zeebe worker rollout"
+
+[knowledge."pds-key-rotation-bpmn-bridge-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "PDS signing key rotation has a BPMN/PyZeebe scheduling bridge"
+details = """
+`00-contracts/bpmn/ai/gftd/pds/rotateSigningKeys.bpmn` defines the five-minute
+per-DID signing key rotation tick. It calls PyZeebe task type
+`pds.signingKeys.rotateStale`, which invokes the HMAC-protected PDS internal
+endpoint `/_internal/rotate-signing-keys` and records each run as
+`ai.gftd.apps.pds.keyRotation` in `vertex_repo_record`. This keeps D1 signing
+key storage and KEK access inside the PDS Worker while moving scheduled
+maintenance ownership to K8s/Zeebe.
+"""
+impact = "PDS CF scheduled cron migration, key hygiene, K8s Zeebe worker rollout"
+
+[knowledge."pds-mitama-cron-resync-bpmn-bridge-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "PDS Mitama actor cron trigger resync has a BPMN/PyZeebe scheduling bridge"
+details = """
+`00-contracts/bpmn/ai/gftd/pds/resyncMitamaCronTriggers.bpmn` defines the
+five-minute actor manifest cron-trigger resync tick. It calls PyZeebe task type
+`pds.mitama.cronTriggers.resync`, which invokes the HMAC-protected PDS internal
+endpoint `/_internal/resync-mitama-cron-triggers` and records each run as
+`ai.gftd.apps.pds.mitamaCronResync` in `vertex_repo_record`. This keeps actor
+manifest loading and inline pipeline execution inside the PDS Worker while
+moving scheduled trigger ownership to K8s/Zeebe.
+"""
+impact = "PDS CF scheduled cron migration, Mitama actor cron trigger resync, K8s Zeebe worker rollout"
+
+[knowledge."pds-heartbeat-cron-bpmn-bridge-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "PDS app and shinka heartbeat cron has a BPMN/PyZeebe scheduling bridge"
+details = """
+`00-contracts/bpmn/ai/gftd/pds/runHeartbeatCron.bpmn` defines the five-minute
+PDS heartbeat batch. It calls PyZeebe task type `pds.heartbeat.run`, which
+invokes the HMAC-protected PDS internal endpoint `/_internal/run-heartbeat-cron`
+and records each run as `ai.gftd.apps.pds.heartbeatCron` in
+`vertex_repo_record`. This keeps app graph lookup and HTTP fan-out inside the
+PDS Worker while moving heartbeat scheduling and audit ownership to K8s/Zeebe.
+"""
+impact = "PDS CF scheduled cron migration, app heartbeat fan-out, shinka trigger, K8s Zeebe worker rollout"
+
+[knowledge."pds-discover-cache-bpmn-bridge-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "PDS DiscoverFeed cache warm has a BPMN/PyZeebe scheduling bridge"
+details = """
+`00-contracts/bpmn/ai/gftd/pds/warmDiscoverCache.bpmn` defines the five-minute
+DiscoverFeed cache warm tick. It calls PyZeebe task type
+`pds.discoverCache.warm`, which invokes the HMAC-protected PDS internal
+endpoint `/_internal/warm-discover-cache` and records each run as
+`ai.gftd.apps.pds.discoverCacheWarm` in `vertex_repo_record`. This keeps
+Hyperdrive reads and Cloudflare Cache API writes inside the PDS Worker while
+moving scheduling and audit ownership to K8s/Zeebe.
+"""
+impact = "PDS CF scheduled cron migration, DiscoverFeed cache warm, K8s Zeebe worker rollout"
+
+[knowledge."pds-domain-coverage-bpmn-bridge-20260425"]
+discovered_on = "2026-04-25"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "PDS autonomous domain expansion has a BPMN/PyZeebe scheduling bridge"
+details = """
+`00-contracts/bpmn/ai/gftd/pds/expandDomainCoverage.bpmn` defines the five-minute
+domain coverage expansion tick. It calls PyZeebe task type
+`pds.domainCoverage.expand`, which invokes the HMAC-protected PDS internal
+endpoint `/_internal/expand-domain-coverage` and records each run as
+`ai.gftd.apps.pds.domainCoverageExpansion` in `vertex_repo_record`. PDS still
+owns Common Crawl/site/gyotaku fetches, Murakumo classification, repo writes,
+and the social post, while K8s/Zeebe owns cadence and audit visibility.
+"""
+impact = "PDS CF scheduled cron migration, autonomous app/domain expansion, social post tick, K8s Zeebe worker rollout"
+
+[knowledge."zeebe-85-compatibility-contracts-20260429"]
+discovered_on = "2026-04-29"
+category = "license-architecture"
+severity = "warning"
+status = "active"
+summary = "BPMN contracts target the Zeebe 8.5.23 compatibility track until Camunda 8.6+ licensing is resolved"
+details = """
+ADR-0056 now treats `camunda/zeebe:8.5.23` as the short-term runtime target for
+the BPMN contract corpus. Existing BPMN files may continue to use
+`zeebe:taskDefinition` and `zeebe:ioMapping` because pyzeebe workers remain the
+execution substrate. Do not introduce Camunda Operate / Tasklist / Optimize
+dependencies into `00-contracts` BPMN assumptions under this posture.
+
+The 8.5 track is EOL and is accepted only as a compatibility bridge. Any future
+move to Camunda 8.6+ self-managed production requires Enterprise/SaaS approval
+or an approved OSS/self-owned runtime replacement. Live downgrade from the
+current 8.6 broker must use fresh broker state per
+`50-infra/vultr/zeebe/8.5-downgrade-runbook.md`; do not assume existing Zeebe
+partition data is downgrade-compatible.
+"""
+impact = "BPMN XML authoring constraints, pyzeebe task contract stability, Camunda licensing posture"
+references = [
+  "90-docs/adr/0056-bpmn-as-actor.md",
+  "50-infra/vultr/zeebe/zeebe.yaml",
+  "50-infra/vultr/zeebe/8.5-downgrade-runbook.md",
+  "30-graph/graph-schema/migrations/20260429161000_seed_camunda_zeebe_license_policy.ts",
+]
+
+[knowledge."process-mining-contract-entrypoint-20260429"]
+discovered_on = "2026-04-29"
+category = "contract"
+severity = "info"
+status = "active"
+summary = "Process mining contract entrypoint is ai.gftd.apps.bpmn.analyzeProcess"
+details = """
+The phrase "process mining" maps to the Lexicon query
+`ai.gftd.apps.bpmn.analyzeProcess` unless a request explicitly names another
+tool. The contract accepts filter params over BPMN/Zeebe OCEL audit events and
+returns deterministic KPIs plus optional LLM diagnosis. It is intentionally
+Optimize-free and does not assume Operate, Tasklist, Elasticsearch, or
+OpenSearch.
+"""
+impact = "Lexicon authoring, XRPC clients, BPMN analytics contracts"
+references = [
+  "00-contracts/lexicons/ai/gftd/apps/bpmn/analyzeProcess.json",
+  "20-actors/magatama/py/src/pymagatama/handlers/bpmn.py",
+  "30-graph/graph-schema/migrations/20260429193000_udf_bpmn_analyze_process.ts",
+  "90-docs/adr/0056-bpmn-as-actor.md",
+]

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.closePeriod",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Lock a fiscal period. After this, PDS onCommit rejects any journalEntry with periodYm <= closed period. Reopening requires firm-admin role and writes reopenedAt + reopenReason to the same record for audit.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["periodYm"],
+          "properties": {
+            "periodYm": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["periodCloseDid", "closedAt"],
+          "properties": {
+            "periodCloseDid": { "type": "string", "format": "did" },
+            "closedAt":       { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "AlreadyClosed", "description": "periodClose already exists and not reopened" },
+        { "name": "Forbidden",     "description": "caller lacks firm-admin role" }
+      ]
+    }
+  }
+}

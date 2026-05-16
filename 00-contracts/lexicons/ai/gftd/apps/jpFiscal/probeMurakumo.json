@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpFiscal.probeMurakumo",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Probe murakumo.gftd.ai minimal LLM call from jp-fiscal worker — latency + error surface.",
+      "input": { "encoding": "application/json", "schema": { "type": "object" } },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["wrote", "source"],
+          "properties": {
+            "wrote": { "type": "integer" },
+            "source": { "type": "string" },
+            "note": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaikei.fixedAsset",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Fixed asset register. Depreciation entries are posted monthly by runDepreciation via derive rule (not written here). disposedAt marks end-of-life; book value after disposal is settled via reverseJournalEntry on the asset account.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["ownerDid", "assetName", "acquisitionDate", "acquisitionCost", "depreciationMethod", "usefulLifeMonths", "accountDid", "createdAt"],
+        "properties": {
+          "ownerDid":           { "type": "string", "format": "did" },
+          "assetName":          { "type": "string" },
+          "acquisitionDate":    { "type": "string", "format": "datetime" },
+          "acquisitionCost":    { "type": "number" },
+          "depreciationMethod": { "type": "string", "enum": ["straightLine","decliningBalance","sumOfYears","unitsOfProduction"] },
+          "usefulLifeMonths":   { "type": "integer" },
+          "accountDid":         { "type": "string", "format": "did", "description": "Asset account (e.g. 備品) where cost is capitalized" },
+          "disposedAt":         { "type": "string", "format": "datetime" },
+          "createdAt":          { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

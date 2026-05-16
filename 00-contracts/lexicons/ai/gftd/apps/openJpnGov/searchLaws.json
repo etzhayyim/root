@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.openJpnGov.searchLaws",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Search Japanese laws via e-Gov 法令API (elaws.e-gov.go.jp). Returns law metadata list.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "query": { "type": "string", "description": "free-text query (法令名/本文)" },
+          "lawType": { "type": "string", "enum": ["constitution", "law", "cabinetOrder", "ministerialOrdinance", "rule", "all"], "default": "all" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["laws", "total", "offset", "limit"],
+          "properties": {
+            "laws": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "lawNum": { "type": "string", "description": "法令番号 (e.g., 明治二十二年法律第三十四号)" },
+                  "lawId": { "type": "string" },
+                  "lawName": { "type": "string" },
+                  "lawType": { "type": "string" },
+                  "promulgationDate": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

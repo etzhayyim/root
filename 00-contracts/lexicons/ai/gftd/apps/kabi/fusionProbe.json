@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kabi.fusionProbe",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Anastomosis gate: test whether two kabi networks are compatible for fusion. Checks DID trust score + η diff + prion compatibility. Records result in edge_kabi_anastomosis.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "networkADid": { "type": "string", "description": "Root DID of network A" },
+            "networkBDid": { "type": "string", "description": "Root DID of network B" }
+          },
+          "required": ["networkADid", "networkBDid"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "edgeId": { "type": "string" },
+            "result": { "type": "string", "description": "compatible | incompatible | pending" },
+            "compatibilityScore": { "type": "number" },
+            "reason": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": ["edgeId", "result", "compatibilityScore"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.datacenter.listForFacility",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-0055. List datacenter operations for a facility, newest first.",
+      "parameters": {
+        "type": "params",
+        "required": ["facilityId"],
+        "properties": {
+          "facilityId": { "type": "string" },
+          "status": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "requestId": { "type": "string" },
+                  "operationKind": { "type": "string" },
+                  "riskClass": { "type": "string" },
+                  "status": { "type": "string" },
+                  "openedAt": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

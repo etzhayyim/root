@@ -1,0 +1,21 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jinji.employee",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "T3 employee master record. PII fields are signal:v1 encrypted.",
+      "record": {
+        "type": "object",
+        "required": ["employeeDid", "displayNameEncrypted", "employmentStatus"],
+        "properties": {
+          "employeeDid": { "type": "string", "format": "did" },
+          "displayNameEncrypted": { "type": "string" },
+          "employmentStatus": { "type": "string", "enum": ["active", "leave", "terminated"] },
+          "joinedOn": { "type": "string", "format": "datetime" },
+          "leftOn": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

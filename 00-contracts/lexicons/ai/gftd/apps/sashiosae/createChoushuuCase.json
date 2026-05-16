@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.sashiosae.createChoushuuCase",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "徴収事案 (taino) を起票する。caller は authority Service Auth JWT (lxm=ai.gftd.apps.sashiosae.createChoushuuCase) を所持する権限主体 DID のみ。Server: (1) authorityDid が caller JWT sub と一致検証、(2) debtorDid + amount + property 詳細を Tier 3 Preferences に格納、(3) Tier 1/2 choushuuCase record を write。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["debtorDid", "caseType", "amount", "periodYm", "taxKind"],
+          "properties": {
+            "debtorDid":   { "type": "string", "format": "did", "description": "Tier 3 — server-only" },
+            "caseType":    { "type": "string", "enum": ["kokuzei","chihozei","kokuho","shaho","rousai","koyou","minji-shikkou","sousa-sashiosae","mokkai-hozen","other"] },
+            "amount":      { "type": "number", "description": "Tier 3 — bucketed to amountBucket for Repo" },
+            "currency":    { "type": "string", "default": "JPY" },
+            "periodYm":    { "type": "string" },
+            "taxKind":     { "type": "string" },
+            "status":      { "type": "string", "enum": ["toku-tokurei","sokutatsu","sashiosae-yokoku"], "default": "sokutatsu" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["caseId", "uri"],
+          "properties": {
+            "caseId": { "type": "string" },
+            "uri":    { "type": "string", "format": "at-uri" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "AuthorityMismatch", "description": "caller JWT sub が authorityDid と不一致" },
+        { "name": "DuplicateCase",     "description": "同一 debtorDid+authorityDid+periodYm+taxKind は既に存在 (idempotent fail)" },
+        { "name": "InvalidPeriod",     "description": "periodYm が 未来または 時効経過" }
+      ]
+    }
+  }
+}

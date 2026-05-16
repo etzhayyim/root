@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.livecam.commitAnalysis",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Thin edge boundary for LangServer-generated livecam vision analysis records.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "detectionId": { "type": "string" },
+            "cameraSlug": { "type": "string" },
+            "frameTs": { "type": "integer" },
+            "personCount": { "type": "integer" },
+            "vehicleCount": { "type": "integer" },
+            "detections": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "personCohorts": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "vehicleCohorts": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "modelVersion": { "type": "string" },
+            "inferenceMs": { "type": "integer" },
+            "socialText": { "type": "string" }
+          },
+          "required": ["cameraSlug"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "detectionId": { "type": "string" },
+            "cameraSlug": { "type": "string" },
+            "personCount": { "type": "integer" },
+            "vehicleCount": { "type": "integer" },
+            "cohortsCreated": { "type": "integer" },
+            "status": { "type": "string" }
+          },
+          "required": ["ok"]
+        }
+      }
+    }
+  }
+}

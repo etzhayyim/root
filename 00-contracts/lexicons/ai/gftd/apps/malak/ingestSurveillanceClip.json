@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.ingestSurveillanceClip",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Ingest a recorded clip into the malak surveillance pipeline. Kicks scene_index LangGraph (frame_decoder → embed_scene_clip → detect_persons → encrypt_face_templates → write_vertex_*). Per ADR-2605111200 / DESIGN §4.1 the CF Worker only forwards; actual decode + inference runs on murakumo on-prem pod. Audio track is hard-rejected at ffmpeg layer.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "cameraId",
+            "clipSha256",
+            "startedAt",
+            "durationMs",
+            "sourceR2Key"
+          ],
+          "properties": {
+            "cameraId": {
+              "type": "string"
+            },
+            "clipSha256": {
+              "type": "string",
+              "description": "sha256 of the source mp4. Treated as canonical clipId."
+            },
+            "startedAt": {
+              "type": "string",
+              "description": "ISO-8601 UTC start time."
+            },
+            "durationMs": {
+              "type": "integer"
+            },
+            "sourceR2Key": {
+              "type": "string",
+              "description": "R2 object key in the police-only bucket. The Worker MUST NOT pre-sign for public access."
+            },
+            "warrantRef": {
+              "type": "string",
+              "description": "Optional warrant or 捜査関係事項照会書 reference if the clip was obtained under one."
+            },
+            "submittedByDid": {
+              "type": "string",
+              "description": "DID of the officer / system that uploaded the clip."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "clipId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "knownValues": [
+                "accepted",
+                "rejected",
+                "queued"
+              ]
+            },
+            "rejectionReason": {
+              "type": "string"
+            },
+            "pegelTick": {
+              "type": "string",
+              "description": "vertex_malak_surveillance_investigation_tick id emitted on accept."
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

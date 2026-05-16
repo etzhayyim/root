@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.legal-corpus.embedDocument",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Compute bge-m3 (1024-dim) embedding for a legal corpus document and write to vertex_legal_corpus_document.embedding. Triggered by embedDocument BPMN after ingestDocument. Idempotent — recomputes if model_version drifts. ADR-0049 D3.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId":     { "type": "string" },
+            "modelId":      { "type": "string", "default": "@cf/baai/bge-m3", "description": "Workers AI binding ID. Fallback: 'murakumo-bge-m3' via env LEGAL_CORPUS_EMBED_FALLBACK" },
+            "force":        { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId", "modelId", "dim", "updated"],
+          "properties": {
+            "vertexId":     { "type": "string" },
+            "modelId":      { "type": "string" },
+            "dim":          { "type": "integer" },
+            "updated":      { "type": "boolean" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "DocumentNotFound" },
+        { "name": "EmbeddingProviderUnavailable" }
+      ]
+    }
+  }
+}

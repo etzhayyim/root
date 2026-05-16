@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jinji.recordAttendance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record encrypted-scope attendance summary for payroll.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["employeeDid", "workDate", "minutesWorked"],
+          "properties": {
+            "owner": { "type": "string" },
+            "employeeDid": { "type": "string", "format": "did" },
+            "workDate": { "type": "string", "format": "datetime" },
+            "minutesWorked": { "type": "integer" },
+            "status": { "type": "string", "default": "submitted" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "attendanceDid"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "attendanceDid": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

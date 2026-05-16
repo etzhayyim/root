@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.cards.handleAuthorization",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Process a Stripe authorization webhook: approve if assigned credits cover the amount, decline otherwise. Consumes credits on approval.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "stripeSignature": { "type": "string" },
+            "payload": { "type": "string" },
+            "authorization": { "type": "object" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "approved": { "type": "boolean" },
+            "reason": { "type": "string" },
+            "cardId": { "type": "string" },
+            "amount": { "type": "integer" },
+            "creditSnapshot": { "type": "object" }
+          }
+        }
+      }
+    }
+  }
+}

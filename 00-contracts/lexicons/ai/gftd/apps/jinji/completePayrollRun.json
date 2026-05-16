@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jinji.completePayrollRun",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Persist a completed encrypted payroll aggregate. Only encrypted totals are stored.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["payrollMonth", "grossTotalEncrypted"],
+          "properties": {
+            "owner": { "type": "string" },
+            "payrollMonth": { "type": "string" },
+            "grossTotalEncrypted": { "type": "string" },
+            "statutoryTotalEncrypted": { "type": "string" },
+            "netTotalEncrypted": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "payrollRunDid", "status"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "payrollRunDid": { "type": "string" },
+            "status": { "type": "string" },
+            "kaikeiSourceType": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.draftAgencyReferral",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a draft-only agency referral package for review and approval.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["actorId", "caseId", "agency", "legalBasis", "approvalRef", "summary"],
+          "properties": {
+            "actorId": { "type": "string" },
+            "caseId": { "type": "string" },
+            "agency": { "type": "string" },
+            "referralKind": { "type": "string" },
+            "tlp": { "type": "string" },
+            "attributionConfidence": { "type": "number" },
+            "legalBasis": { "type": "string" },
+            "approvalRef": { "type": "string" },
+            "evidenceIds": { "type": "array", "items": { "type": "string" } },
+            "summary": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "referralId": { "type": "string" },
+            "draftState": { "type": "string" },
+            "payloadHash": { "type": "string" },
+            "requiresReview": { "type": "boolean" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
+

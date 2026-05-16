@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.akuma.runProbe",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Execute a single authorized probe against a target inside an active scope contract. Policy gate (gftd.akuma.scope) MUST allow the request before the probe pod is dispatched.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["scopeId", "tool", "target", "intrusiveness"],
+          "properties": {
+            "scopeId": { "type": "string" },
+            "tool": {
+              "type": "string",
+              "enum": [
+                "dns",
+                "whois",
+                "tls",
+                "http-head",
+                "nmap",
+                "nuclei",
+                "zap",
+                "sqlmap"
+              ]
+            },
+            "target": {
+              "type": "string",
+              "description": "Single IP, hostname, or URL inside scope.targets and not in scope.excludedTargets."
+            },
+            "port": {
+              "type": "integer",
+              "description": "Optional port; must be in scope.allowedPorts when set."
+            },
+            "intrusiveness": {
+              "type": "string",
+              "enum": ["passive", "safe-active", "intrusive"]
+            },
+            "toolArgs": {
+              "type": "string",
+              "description": "JSON-encoded tool-specific arguments. Tool wrapper validates against tier-allowed arg patterns."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["probeUri", "status"],
+          "properties": {
+            "probeUri": { "type": "string" },
+            "status": {
+              "type": "string",
+              "enum": ["queued", "running", "completed", "denied", "error"]
+            },
+            "denyReason": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

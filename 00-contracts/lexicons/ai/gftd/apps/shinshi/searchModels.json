@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.searchModels",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Search model DIDs by series, personality tag, or free text.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "q": { "type": "string" },
+          "series": { "type": "string" },
+          "personality": { "type": "string" },
+          "bodyType": { "type": "string" },
+          "limit": { "type": "integer", "default": 50, "maximum": 200 },
+          "offset": { "type": "integer", "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "models": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "modelDid": { "type": "string" },
+                  "charName": { "type": "string" },
+                  "series": { "type": "string" },
+                  "ageLook": { "type": "integer" },
+                  "personality": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

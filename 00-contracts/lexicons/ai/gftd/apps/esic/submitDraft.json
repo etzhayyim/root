@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.esic.submitDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0054. Persist Tier 3 ESIC member roster (signal:v1: encrypted IP No / Aadhaar / wage register).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "rosterPayload": { "type": "string", "description": "signal:v1: encrypted JSON array of member contributions." },
+            "ipNumberPayload": { "type": "string", "description": "Optional signal:v1: encrypted IP Number bundle." },
+            "aadhaarPayload": { "type": "string", "description": "Optional signal:v1: encrypted Aadhaar bundle." },
+            "nomineePayload": { "type": "string", "description": "Optional signal:v1: encrypted nominee bundle." }
+          },
+          "required": ["vertexId", "rosterPayload"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "declarationHash": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

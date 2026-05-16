@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.datacenter.getOperation",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-0055. Fetch one datacenter operation by request ID.",
+      "parameters": {
+        "type": "params",
+        "required": ["requestId"],
+        "properties": {
+          "requestId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "requestId": { "type": "string" },
+            "facilityId": { "type": "string" },
+            "operationKind": { "type": "string" },
+            "riskClass": { "type": "string" },
+            "status": { "type": "string" },
+            "metricRef": { "type": "string" },
+            "approvedAt": { "type": "string" },
+            "completedAt": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

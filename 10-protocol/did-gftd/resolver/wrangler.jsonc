@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ai-gftd-did-gftd-resolver",
+  "main": "worker.ts",
+  "compatibility_date": "2026-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    { "pattern": "did.gftd.ai/*", "zone_name": "gftd.ai" }
+  ],
+
+  "observability": { "enabled": true }
+}

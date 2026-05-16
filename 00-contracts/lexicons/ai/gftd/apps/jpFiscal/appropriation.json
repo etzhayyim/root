@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpFiscal.appropriation",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "L6 mof:budget-bureau が発行する予算計上 record。国会議決後に確定。",
+      "record": {
+        "type": "object",
+        "required": ["fiscalYear", "accountType", "ministryDid", "programCode", "amountJpy", "createdAt"],
+        "properties": {
+          "fiscalYear": { "type": "integer", "minimum": 1947, "maximum": 2100 },
+          "accountType": { "type": "string", "enum": ["general", "special"] },
+          "specialAccountCode": { "type": "string", "description": "特別会計コード (when accountType=special)" },
+          "ministryDid": { "type": "string", "format": "did" },
+          "programCode": { "type": "string", "description": "項・目コード or 政策評価 program code" },
+          "programName": { "type": "string" },
+          "amountJpy": { "type": "integer", "minimum": 0 },
+          "dietApprovalId": { "type": "string", "description": "国会議決の議案番号" },
+          "docType": { "type": "string", "enum": ["initial", "supplementary1", "supplementary2", "supplementary3", "settlement"] },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.keiyaku.draftAgreement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create an agreement in signingStatus='drafted'. PDF upload to vault happens separately; client provides pdfCid after upload.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["counterpartyDid", "title", "agreementType", "effectiveFrom", "pdfCid"],
+          "properties": {
+            "counterpartyDid":    { "type": "string", "format": "did" },
+            "title":              { "type": "string" },
+            "agreementType":      { "type": "string", "enum": ["nda","msa","sow","employment","lease","vendor","customer","license","other"] },
+            "effectiveFrom":      { "type": "string", "format": "datetime" },
+            "termMonths":         { "type": "integer" },
+            "autoRenew":          { "type": "boolean" },
+            "totalAmount":        { "type": "number" },
+            "currency":           { "type": "string" },
+            "recurringAmount":    { "type": "number" },
+            "recurringFrequency": { "type": "string", "enum": ["monthly","quarterly","yearly"] },
+            "pdfCid":             { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["agreementDid", "uri"],
+          "properties": {
+            "agreementDid": { "type": "string", "format": "did" },
+            "uri":          { "type": "string", "format": "at-uri" }
+          }
+        }
+      }
+    }
+  }
+}

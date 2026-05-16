@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.briefing.joinRoom",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roomId": {
+              "type": "integer"
+            },
+            "peerId": {
+              "type": "integer"
+            },
+            "displayName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "roomId",
+            "peerId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "error": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "roomId": {
+              "type": "integer"
+            },
+            "peerId": {
+              "type": "integer"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "joinedAt": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

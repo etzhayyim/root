@@ -1,0 +1,110 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.getSurveillanceAuditTrail",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Retrieve append-only audit events from vertex_malak_surveillance_audit_event. RBAC: malak:surveillance:auditor role only. 7-year retention per §3 statutory requirement. Output never includes face templates or raw clip references — only event metadata.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "requesterDid": {
+            "type": "string"
+          },
+          "queryId": {
+            "type": "string",
+            "description": "Filter to a specific queryId."
+          },
+          "actorDid": {
+            "type": "string",
+            "description": "Filter to events triggered by a specific actor."
+          },
+          "eventTypes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "knownValues": [
+                "queryStart",
+                "approvalRequested",
+                "approvalGranted",
+                "approvalDenied",
+                "reviewRecorded",
+                "evidenceExported",
+                "unblurGranted",
+                "rbacDeny"
+              ]
+            }
+          },
+          "fromTs": {
+            "type": "string"
+          },
+          "toTs": {
+            "type": "string"
+          },
+          "cursor": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "items": {
+                "type": "ref",
+                "ref": "#auditEvent"
+              }
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "offset": {
+              "type": "integer"
+            },
+            "limit": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "auditEvent": {
+      "type": "object",
+      "properties": {
+        "eventId": {
+          "type": "string"
+        },
+        "ts": {
+          "type": "string"
+        },
+        "actorDid": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "queryId": {
+          "type": "string"
+        },
+        "mtlsFingerprint": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

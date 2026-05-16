@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.gmail.oauthCallback",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "OAuth2 redirect target. Exchanges the Google authorization code for access + refresh tokens and stores them KEK-wrapped. Registered redirect URI: https://gmail.gftd.ai/xrpc/ai.gftd.apps.gmail.oauthCallback",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "code": { "type": "string" },
+          "state": { "type": "string" },
+          "error": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": { "type": "string" },
+            "status": { "type": "string" },
+            "email": { "type": "string" },
+            "accountDid": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

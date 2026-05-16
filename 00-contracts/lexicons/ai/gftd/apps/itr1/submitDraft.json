@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.itr1.submitDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0055. Persist Tier 3 ITR-1 payloads (signal:v1: encrypted PAN/Aadhaar/income/deductions/tax/bank).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "applicantPayload": { "type": "string", "description": "signal:v1: PAN+Aadhaar+name+DOB+address" },
+            "incomePayload": { "type": "string", "description": "signal:v1: salary+house property+other sources" },
+            "deductionsPayload": { "type": "string", "description": "signal:v1: Chapter VI-A deductions" },
+            "taxPayload": { "type": "string", "description": "signal:v1: TDS+advance+self-assessment+refund" }
+          },
+          "required": ["vertexId", "applicantPayload", "incomePayload", "taxPayload"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "filingHash": { "type": "string" },
+            "totalIncomeInrPaise": { "type": "integer" },
+            "totalTaxInrPaise": { "type": "integer" },
+            "refundInrPaise": { "type": "integer" },
+            "taxPayableInrPaise": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

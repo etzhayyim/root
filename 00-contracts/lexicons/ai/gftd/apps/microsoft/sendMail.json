@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.microsoft.sendMail",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Send email via Microsoft 365 (Graph API). Policy-routed per deps.toml [gftdcojp_agent.auth]: all-internal recipients (@gftd.co.jp / @gftd.ai / @gftd.works / @gftd.group / configured Teams channel email domains) send directly; any external recipient → create draft in Outlook Drafts and return draftId + webLink for human approval (caller then calls sendDraft). For Teams channel posting, pass the channel email address as a recipient.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "fromUpn": { "type": "string", "description": "Sender mailbox UPN. Defaults to env DEFAULT_SENDER_UPN when omitted." },
+            "to": { "type": "array", "items": { "type": "string" } },
+            "cc": { "type": "array", "items": { "type": "string" } },
+            "bcc": { "type": "array", "items": { "type": "string" } },
+            "subject": { "type": "string" },
+            "bodyHtml": { "type": "string" },
+            "bodyText": { "type": "string" },
+            "importance": { "type": "string", "enum": ["low", "normal", "high"], "default": "normal" },
+            "replyTo": { "type": "array", "items": { "type": "string" } }
+          },
+          "required": ["to", "subject"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string", "enum": ["sent", "drafted"] },
+            "reason": { "type": "string", "description": "When status=drafted, explains why (e.g. external recipients)." },
+            "fromUpn": { "type": "string" },
+            "recipientCount": { "type": "integer" },
+            "draftId": { "type": "string", "description": "Present when status=drafted. Pass to sendDraft after human approval." },
+            "webLink": { "type": "string", "description": "Outlook web URL for the draft. Present when status=drafted." }
+          },
+          "required": ["status", "fromUpn"]
+        }
+      }
+    }
+  }
+}

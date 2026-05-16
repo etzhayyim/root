@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.projector.authProjectManagement",
+  "description": "Project management permissions. Superset — includes official app.bsky feed RPCs (projector extends feed concepts) plus GFTD project management extensions.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Project Management",
+      "title:lang": {
+        "ja": "プロジェクト管理"
+      },
+      "detail": "Create and manage projects, conversations, tasks, branching, and reflection features. Includes official feed/timeline read access plus GFTD projector extensions.",
+      "detail:lang": {
+        "ja": "プロジェクトの作成・管理、会話、タスク、ブランチ、リフレクション。公式フィード/タイムライン読取に加えGFTDプロジェクター拡張を含む"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official app.bsky feed RPCs (read-only, for projector timeline integration)",
+          "lxm": [
+            "app.bsky.feed.getTimeline",
+            "app.bsky.feed.getAuthorFeed",
+            "app.bsky.feed.getPostThread",
+            "app.bsky.feed.getPosts",
+            "app.bsky.feed.getFeed",
+            "app.bsky.feed.getFeedGenerator",
+            "app.bsky.feed.describeFeedGenerator",
+            "app.bsky.notification.listNotifications",
+            "app.bsky.notification.getUnreadCount",
+            "app.bsky.notification.updateSeen"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "repo",
+          "description": "GFTD projector record collections",
+          "collection": ["ai.gftd.projector.*"],
+          "action": ["create", "update", "delete"]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "GFTD projector extension RPCs",
+          "lxm": [
+            "ai.gftd.projector.getProjectConvo",
+            "ai.gftd.projector.listProjectConvos",
+            "ai.gftd.projector.listConvoTasks",
+            "ai.gftd.projector.getConvoProjectStatus",
+            "ai.gftd.projector.loadProjectChat",
+            "ai.gftd.projector.listProjectTree",
+            "ai.gftd.projector.resolveProjectEmail",
+            "ai.gftd.projector.listProjectNotifications",
+            "ai.gftd.projector.getProjectUnreadCounts",
+            "ai.gftd.projector.listBranches",
+            "ai.gftd.projector.listReflections",
+            "ai.gftd.projector.newProjectConvo",
+            "ai.gftd.projector.updateProjectConvo",
+            "ai.gftd.projector.archiveProjectConvo",
+            "ai.gftd.projector.sendProjectMessage",
+            "ai.gftd.projector.addConvoTask",
+            "ai.gftd.projector.completeConvoTask",
+            "ai.gftd.projector.addConvoMember",
+            "ai.gftd.projector.moveProject",
+            "ai.gftd.projector.branchConvo",
+            "ai.gftd.projector.exploreThoughts",
+            "ai.gftd.projector.consistentAnswer",
+            "ai.gftd.projector.addReflection"
+          ]
+        }
+      ]
+    }
+  }
+}

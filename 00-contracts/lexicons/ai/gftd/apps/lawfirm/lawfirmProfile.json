@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.lawfirmProfile",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Law firm public profile — bar association membership, jurisdictions, practice areas, contact metadata. Keyed by the firm's depth-1 did:gftd root; rkey = last 24 hex of firmDid.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["firmDid", "name", "createdAt"],
+        "properties": {
+          "firmDid":          { "type": "string", "format": "did" },
+          "name":             { "type": "string" },
+          "displayName":      { "type": "string" },
+          "displayNameYomi":  { "type": "string", "description": "ふりがな（ひらがな）" },
+          "loraAdapterId":    { "type": "string", "description": "vertex_lora_adapter.adapter_id — per-actor LoRA weight reference for Ameno browser inference" },
+          "legalForm":      { "type": "string", "description": "LLP / PLC / Sole Proprietor / LLC / Partnership / …" },
+          "barAssociation": { "type": "string", "description": "Primary bar (e.g. 'Daiichi Tokyo Bar Association')" },
+          "barNumber":      { "type": "string" },
+          "jurisdictions":  { "type": "array", "items": { "type": "string", "description": "ISO 3166-1 alpha-3" } },
+          "practiceAreas":  { "type": "array", "items": { "type": "string" } },
+          "languages":      { "type": "array", "items": { "type": "string", "description": "ISO 639-1" } },
+          "addressCountry": { "type": "string" },
+          "addressCity":    { "type": "string" },
+          "contactEmail":   { "type": "string" },
+          "contactPhone":   { "type": "string" },
+          "websiteUrl":     { "type": "string", "format": "uri" },
+          "avatarCid":      { "type": "string" },
+          "foundedAt":      { "type": "string", "format": "datetime" },
+          "createdAt":      { "type": "string", "format": "datetime" },
+          "updatedAt":      { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

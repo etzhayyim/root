@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.esic.purge",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0054. Cron / manual purge of Tier 3 ESIC roster older than 7 years (ESI Reg §32 + DPDP §8(7)).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "asOf": { "type": "string" },
+            "dryRun": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "purgedCount": { "type": "integer" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

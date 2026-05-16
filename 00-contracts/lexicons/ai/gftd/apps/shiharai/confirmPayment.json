@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shiharai.confirmPayment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DESTRUCTIVE: authorize the awaiting-confirm job to commit its final submit. Phase 2 implementation — this lexicon is the contract. Requires explicit user-issued approval token.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["jobId", "approvalToken"],
+          "properties": {
+            "jobId": { "type": "string" },
+            "approvalToken": { "type": "string", "description": "Short-lived token minted by gftd CLI via user interactive confirm." },
+            "expectedAmountJpy": { "type": "integer", "description": "Amount guardrail — if the prepared page shows a different amount, reject." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jobId": { "type": "string" },
+            "committed": { "type": "boolean" },
+            "resultTxId": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

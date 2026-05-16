@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.crm.submitLeiEvidence",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Attach official-name evidence to a CRM LEI review queue item and regenerate GLEIF candidates without mutating the CRM source row.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "reviewId": { "type": "string" },
+            "crmSystem": { "type": "string", "enum": ["lawfirm", "hubspot"] },
+            "entityType": { "type": "string", "enum": ["lead", "tenant", "company"] },
+            "crmSourceId": { "type": "string" },
+            "officialLegalName": { "type": "string" },
+            "country": { "type": "string" },
+            "evidenceUri": { "type": "string" },
+            "evidenceNote": { "type": "string" },
+            "maxCandidates": { "type": "integer", "minimum": 1, "maximum": 20, "default": 5 },
+            "actorDid": { "type": "string" },
+            "dryRun": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "reviewId": { "type": "string" },
+            "crmSourceId": { "type": "string" },
+            "officialLegalName": { "type": "string" },
+            "candidateCount": { "type": "integer" },
+            "reviewStatus": { "type": "string" },
+            "reviewReason": { "type": "string" },
+            "updatedAt": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

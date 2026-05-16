@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.engagementClose",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "End-to-end engagement close: PwC clearance → Engagement Letter draft → DocuSign envelope → Stripe Checkout link. Returns checkout_url to send to client.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["matter_uri", "client_name", "client_email", "fee_amount_minor", "currency", "product_kind"],
+          "properties": {
+            "matter_uri":       { "type": "string" },
+            "client_did":       { "type": "string", "format": "did" },
+            "client_name":      { "type": "string" },
+            "client_email":     { "type": "string" },
+            "matter_summary":   { "type": "string" },
+            "fee_amount_minor": { "type": "integer", "minimum": 0 },
+            "currency":         { "type": "string", "enum": ["USD", "INR"] },
+            "fee_structure":    { "type": "string", "enum": ["hourly", "fixed", "retainer"] },
+            "product_kind":     { "type": "string" },
+            "stream":           { "type": "string", "enum": ["advocate-fee", "saas-pilot", "saas-paid", "consult"] },
+            "recipients":       { "type": "array", "items": { "type": "object" } },
+            "requester_did":    { "type": "string", "format": "did" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok":            { "type": "boolean" },
+            "clearance_uri": { "type": "string" },
+            "envelope_id":   { "type": "string" },
+            "checkout_url":  { "type": "string" },
+            "error":         { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

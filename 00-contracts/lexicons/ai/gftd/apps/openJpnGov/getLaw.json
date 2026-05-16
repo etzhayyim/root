@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.openJpnGov.getLaw",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get full text of a law by law number or law ID via e-Gov 法令API.",
+      "parameters": {
+        "type": "params",
+        "required": ["lawNumOrId"],
+        "properties": {
+          "lawNumOrId": { "type": "string", "description": "法令番号 or lawId" },
+          "format": { "type": "string", "enum": ["xml", "plain"], "default": "plain" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["lawNum", "lawName", "body"],
+          "properties": {
+            "lawNum": { "type": "string" },
+            "lawId": { "type": "string" },
+            "lawName": { "type": "string" },
+            "promulgationDate": { "type": "string" },
+            "lastAmendedDate": { "type": "string" },
+            "body": { "type": "string", "description": "XML or plain text depending on format" },
+            "sourceUri": { "type": "string", "format": "uri", "description": "e-Gov 原文 URI" }
+          }
+        }
+      },
+      "errors": [{ "name": "NotFound" }, { "name": "UpstreamError" }]
+    }
+  }
+}

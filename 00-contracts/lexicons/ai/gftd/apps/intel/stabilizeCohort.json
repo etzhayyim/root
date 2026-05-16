@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.intel.stabilizeCohort",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cohortId": { "type": "string" },
+            "actualCount": { "type": "float" },
+            "actualSourceApp": { "type": "string" }
+          },
+          "required": ["cohortId", "actualCount"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cohortId": { "type": "string" },
+            "previousEstimate": { "type": "float" },
+            "actualCount": { "type": "float" },
+            "deviation": { "type": "float" },
+            "status": { "type": "string" }
+          },
+          "required": ["cohortId", "status"]
+        }
+      }
+    }
+  }
+}

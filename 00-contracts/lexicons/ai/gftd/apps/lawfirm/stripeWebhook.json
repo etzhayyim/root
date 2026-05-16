@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.stripeWebhook",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stripe webhook receiver. Verifies signature, dispatches to lawfirm_payment_intake BPMN. Source: Stripe India + Stripe US (multi-account).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["event_id", "type", "data"],
+          "properties": {
+            "event_id":          { "type": "string", "description": "Stripe event id (evt_*)" },
+            "type":              { "type": "string", "description": "Stripe event type (e.g. invoice.paid, charge.succeeded)" },
+            "livemode":          { "type": "boolean" },
+            "stripe_account":    { "type": "string", "description": "Stripe account id (acct_*) — distinguishes IN vs US" },
+            "data":              { "type": "string", "description": "Stripe event.data.object JSON serialized" },
+            "signature_header":  { "type": "string", "description": "Stripe-Signature header for HMAC verify" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok":         { "type": "boolean" },
+            "matter_uri": { "type": "string" },
+            "amount_minor": { "type": "integer" },
+            "currency":   { "type": "string" },
+            "error":      { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.billing.syncSubscription",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sync a Stripe Subscription state down to vertex_billing_org_plan. Caller MUST be admin (`did:web:billing.gftd.ai`). Used both as a manual reconciliation tool and as the body of `customer.subscription.*` Stripe webhook handlers.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["orgDid", "stripeSubscriptionId"],
+          "properties": {
+            "orgDid": {"type": "string"},
+            "stripeSubscriptionId": {"type": "string"},
+            "stripeCustomerId": {"type": "string"},
+            "plan": {"type": "string", "enum": ["free", "starter", "developer", "team", "business", "enterprise"]},
+            "billingPeriodStart": {"type": "string", "format": "date"},
+            "billingPeriodEnd":   {"type": "string", "format": "date"},
+            "status":             {"type": "string", "description": "active / past_due / canceled / trialing / incomplete"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "orgDid", "plan"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "orgDid": {"type": "string"},
+            "plan": {"type": "string"},
+            "previousPlan": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

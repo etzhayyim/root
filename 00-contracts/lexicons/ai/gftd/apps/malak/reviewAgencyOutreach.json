@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.malak.reviewAgencyOutreach",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sales-manager approval gate for a generated draft. Uses the kaisya consent helper (submit/approve/deny). Without an approve verdict on this draftId, sendSalesEmail is a no-op and returns rejectedNotApproved.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "draftId",
+            "approverDid",
+            "verdict"
+          ],
+          "properties": {
+            "draftId": {
+              "type": "string"
+            },
+            "approverDid": {
+              "type": "string",
+              "description": "Must have role malak:agency_outreach:operator_manager."
+            },
+            "verdict": {
+              "type": "string",
+              "knownValues": [
+                "approve",
+                "deny",
+                "requestRewrite"
+              ]
+            },
+            "comment": {
+              "type": "string"
+            },
+            "editedSubject": {
+              "type": "string",
+              "description": "Optional: approver may override subject."
+            },
+            "editedBodyMarkdown": {
+              "type": "string",
+              "description": "Optional: approver may override body. Re-runs SAFETY_GATES on the edited body."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "draftId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "knownValues": [
+                "approved",
+                "denied",
+                "rewriteRequested",
+                "safetyReRejected"
+              ]
+            },
+            "safetyFlags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "pegelTick": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

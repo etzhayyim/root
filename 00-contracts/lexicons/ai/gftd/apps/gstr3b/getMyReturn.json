@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.gstr3b.getMyReturn",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-0056. Read a GSTR-3B return for {GSTIN, taxPeriod}. RLS gated by gstin_hash = sha256(jwt.gstin).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "taxPeriod": { "type": "string" },
+          "vertexId": { "type": "string" }
+        },
+        "required": ["taxPeriod"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "status": { "type": "string" },
+            "arn": { "type": "string" },
+            "filedVia": { "type": "string" },
+            "filedAt": { "type": "string" },
+            "totalOutwardTaxInrPaise": { "type": "integer" },
+            "totalInwardItcInrPaise": { "type": "integer" },
+            "totalNetTaxInrPaise": { "type": "integer" },
+            "applicantPayload": { "type": "string" },
+            "suppliesPayload": { "type": "string" },
+            "itcPayload": { "type": "string" },
+            "taxPaymentPayload": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

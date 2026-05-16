@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.ransomwarePay.recordPayment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Ransomware payment / demand / negotiation record (bridges kevCatalog.flagRemediationLag + cyber-incident-ioc + ofac-sanctions-sdn)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "paymentId",
+            "threatActorDesignator",
+            "demandCrypto",
+            "paidAt"
+          ],
+          "properties": {
+            "paymentId": {
+              "type": "string"
+            },
+            "victimLei": {
+              "type": "string"
+            },
+            "threatActorDesignator": {
+              "type": "string"
+            },
+            "demandCrypto": {
+              "type": "string",
+              "enum": [
+                "btc",
+                "xmr",
+                "eth",
+                "usdt",
+                "bch",
+                "dash",
+                "ltc",
+                "zec",
+                "stealth",
+                "mixer_tornado",
+                "wrapped"
+              ]
+            },
+            "paymentUsd": {
+              "type": "number"
+            },
+            "kevLagVid": {
+              "type": "string",
+              "description": "bridges kevCatalog.flagRemediationLag"
+            },
+            "paidAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

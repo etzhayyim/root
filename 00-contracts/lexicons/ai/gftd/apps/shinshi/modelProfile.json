@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.modelProfile",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Character taxonomy for AI-generated cosplay models (Tier 2 domain data). ageLook is enforced >= 18. All other fields describe the visual portrayal, not a real person.",
+      "record": {
+        "type": "object",
+        "properties": {
+          "charName": { "type": "string" },
+          "series": { "type": "string" },
+          "ageLook": { "type": "integer", "minimum": 18, "maximum": 120 },
+          "bodyType": { "type": "string", "enum": ["slim", "athletic", "curvy", "plus"] },
+          "ethnicityLook": { "type": "string" },
+          "language": { "type": "array", "items": { "type": "string" } },
+          "relationshipRole": { "type": "string" },
+          "occupation": { "type": "string" },
+          "hobbies": { "type": "array", "items": { "type": "string" } },
+          "personality": { "type": "array", "items": { "type": "string" } },
+          "promptStyle": { "type": "string", "description": "Public LLM persona hint (non-secret)." },
+          "externalUri": { "type": "string", "format": "uri" },
+          "orgId": { "type": "string" },
+          "userId": { "type": "string" },
+          "actorId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        },
+        "required": ["charName", "series", "ageLook", "createdAt"]
+      }
+    }
+  }
+}

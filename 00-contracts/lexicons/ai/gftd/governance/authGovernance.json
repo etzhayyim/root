@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.governance.authGovernance",
+  "description": "Governance & access control permissions. Superset — includes official com.atproto.label and com.atproto.moderation RPCs plus GFTD governance extensions.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Governance & Access Control",
+      "title:lang": {
+        "ja": "ガバナンス・アクセス制御"
+      },
+      "detail": "Manage access policies, labels, moderation, follow requests, role bindings, and actor sensitivity. Includes official AT Protocol label/moderation RPCs plus GFTD governance extensions.",
+      "detail:lang": {
+        "ja": "アクセスポリシー、ラベル、モデレーション、フォローリクエスト、ロールバインディング、Actor感度の管理。公式AT Protocolラベル/モデレーションRPCに加えGFTDガバナンス拡張を含む"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official AT Protocol label and moderation RPCs",
+          "lxm": [
+            "com.atproto.label.queryLabels",
+            "com.atproto.label.subscribeLabels",
+            "com.atproto.moderation.createReport"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official app.bsky labeler RPCs",
+          "lxm": [
+            "app.bsky.labeler.getServices"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "repo",
+          "description": "Official labeler record collections",
+          "collection": [
+            "app.bsky.labeler.service"
+          ],
+          "action": ["create", "update", "delete"]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "GFTD governance extension RPCs",
+          "lxm": [
+            "ai.gftd.governance.checkAccess",
+            "ai.gftd.governance.getPolicy",
+            "ai.gftd.governance.resolveActorVisibility",
+            "ai.gftd.governance.queryLabels",
+            "ai.gftd.governance.approveFollowRequest",
+            "ai.gftd.governance.rejectFollowRequest",
+            "ai.gftd.governance.approveAllFollowRequests",
+            "ai.gftd.governance.registerPolicy",
+            "ai.gftd.governance.registerMethodPolicy",
+            "ai.gftd.governance.registerManifest",
+            "ai.gftd.governance.registerRoleBindings",
+            "ai.gftd.governance.setActorSensitivity",
+            "ai.gftd.governance.createLabel"
+          ]
+        }
+      ]
+    }
+  }
+}

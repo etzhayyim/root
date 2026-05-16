@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.sashiosae.statsByType",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "法域別・期別の差押件数・金額帯分布統計。RisingWave MV mv_sashiosae_stats_by_type から。公開粒度 = 日次集計、金額は amountBucket 分布のみ (個別 PII 露出なし).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "caseType":     { "type": "string", "enum": ["kokuzei","chihozei","kokuho","shaho","rousai","koyou","minji-shikkou","sousa-sashiosae","mokkai-hozen","other"] },
+          "authorityDid": { "type": "string", "format": "did", "description": "指定で権限主体絞込" },
+          "periodYmFrom": { "type": "string" },
+          "periodYmTo":   { "type": "string" },
+          "groupBy":      { "type": "string", "enum": ["caseType","authorityDid","amountBucket","status","periodYm"], "default": "caseType" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["buckets", "totalCases"],
+          "properties": {
+            "buckets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["key", "caseCount"],
+                "properties": {
+                  "key":                 { "type": "string" },
+                  "caseCount":           { "type": "integer" },
+                  "amountBucketDist":    { "type": "object", "description": "amountBucket → count" },
+                  "activeCount":         { "type": "integer", "description": "status ∈ {sashiosae, kanka, haitou} の件数" },
+                  "releasedCount":       { "type": "integer" }
+                }
+              }
+            },
+            "totalCases":   { "type": "integer" },
+            "asOf":         { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

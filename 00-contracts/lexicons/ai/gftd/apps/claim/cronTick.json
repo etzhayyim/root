@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.claim.cronTick",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Scheduled cron tick — invoked by pod-side LangServer scheduling (R/PT1M) per ADR-2604282300. Replaces wrangler triggers.crons.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {} }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":         {"type": "boolean"},
+            "dispatched": {"type": "boolean"}
+          }
+        }
+      }
+    }
+  }
+}

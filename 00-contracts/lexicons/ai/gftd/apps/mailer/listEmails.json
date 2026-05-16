@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.mailer.listEmails",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "List recent inbound emails received by the mailer. Backed by ai.gftd.apps.mailer.inboundEmail records on did:web:ml1nb0nd.gftd.ai (the inbound mailer DID where the email-relay Worker writes parsed inbound mail). Catch-all routing in Cloudflare Email Routing means *@gftd.ai is always received; this command exposes the mail.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "description": "Page size (1-100, default 30)."
+            },
+            "toLocal": {
+              "type": "string",
+              "description": "Optional local-part filter (e.g. \"uspto-acct\" returns only mail addressed to uspto-acct@gftd.ai)."
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uri":               {"type": "string", "description": "AT URI of the inboundEmail record."},
+                  "cid":               {"type": "string"},
+                  "toLocal":           {"type": "string", "description": "Local part (before @gftd.ai). Plaintext only when content is unencrypted; otherwise the literal \"[encrypted]\"."},
+                  "toLocalHash":       {"type": "string", "description": "SHA-256 hex of the local part (always present, addressable even when ciphertext is sealed)."},
+                  "fromAddressHash":   {"type": "string"},
+                  "subject":           {"type": "string", "description": "Plaintext when content is unencrypted; otherwise the literal \"[encrypted]\"."},
+                  "bodyText":          {"type": "string", "description": "Plaintext when content is unencrypted; otherwise the literal \"[encrypted]\"."},
+                  "receivedAtMs":      {"type": "integer"},
+                  "contentProtection": {"type": "string", "description": "\"plaintext\" | \"aes-256-gcm\" | \"redacted-no-key\"."},
+                  "status":            {"type": "string"}
+                },
+                "required": ["uri", "toLocalHash", "receivedAtMs"]
+              }
+            },
+            "count": {"type": "integer"},
+            "error": {"type": "string", "description": "Set on PDS fetch failure; items will be empty."}
+          },
+          "required": ["items", "count"]
+        }
+      }
+    }
+  }
+}

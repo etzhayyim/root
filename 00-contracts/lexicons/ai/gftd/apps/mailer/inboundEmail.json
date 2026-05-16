@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.mailer.inboundEmail",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Inbound email received by the mailer relay. PII fields are redacted and also carried as AES-256-GCM ciphertext (`contentProtection='aes-256-gcm'`) or omitted when the encryption key is absent (`contentProtection='redacted-no-key'`).",
+      "record": {
+        "type": "object",
+        "properties": {
+          "messageId": { "type": "string" },
+          "fromAddress": { "type": "string" },
+          "fromAddressHash": { "type": "string" },
+          "fromAddressEnc": { "type": "string" },
+          "toLocal": { "type": "string" },
+          "toLocalHash": { "type": "string" },
+          "toLocalEnc": { "type": "string" },
+          "subject": { "type": "string" },
+          "subjectEnc": { "type": "string" },
+          "bodyText": { "type": "string" },
+          "bodyTextEnc": { "type": "string" },
+          "bodyHtml": { "type": "string" },
+          "headersJson": { "type": "string" },
+          "headersJsonEnc": { "type": "string" },
+          "contentProtection": { "type": "string" },
+          "receivedAtMs": { "type": "integer" },
+          "status": { "type": "string" },
+          "orgId": { "type": "string" },
+          "userId": { "type": "string" },
+          "actorId": { "type": "string" }
+        },
+        "required": ["messageId", "receivedAtMs", "status"]
+      }
+    }
+  }
+}

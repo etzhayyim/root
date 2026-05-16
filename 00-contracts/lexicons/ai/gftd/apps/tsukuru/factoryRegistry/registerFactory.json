@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.tsukuru.factoryRegistry.registerFactory",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "manufacturer_did": {
+              "type": "integer"
+            },
+            "factory_name": {
+              "type": "string"
+            },
+            "country_iso3": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "address": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "manufacturer_did",
+            "factory_name"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.karma.organismResume",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Resume a resident organism agent from its latest LangGraph checkpoint after pod restart / migration / dissolution recovery. Loads the most recent vertex_organism_checkpoint row by (did, thread_id), reconstructs the LangGraph state, and re-arms the resident tick loop. Idempotent: calling on an already-running organism is a no-op (returns currentCheckpointId).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did"],
+          "properties": {
+            "did": {"type": "string", "format": "did"},
+            "threadId": {
+              "type": "string",
+              "description": "LangGraph thread ID. Default = 'main' (one thread per organism)."
+            },
+            "checkpointId": {
+              "type": "string",
+              "description": "Specific checkpoint to resume from. Default = latest by saved_at_ms."
+            },
+            "force": {
+              "type": "boolean",
+              "default": false,
+              "description": "Force resume even if runtime status is 'alive' (used for migration)."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "did": {"type": "string"},
+            "threadId": {"type": "string"},
+            "resumedFromCheckpointId": {"type": "string"},
+            "parentCheckpointId": {"type": "string"},
+            "langgraphNode": {
+              "type": "string",
+              "description": "Node where the checkpoint was taken; resume continues from here"
+            },
+            "stateByteSize": {"type": "integer"},
+            "savedAtMs": {"type": "integer"},
+            "rejectedReason": {
+              "type": "string",
+              "description": "When ok=false: 'no-checkpoint' | 'organism-dissolved' | 'thread-not-found'"
+            },
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

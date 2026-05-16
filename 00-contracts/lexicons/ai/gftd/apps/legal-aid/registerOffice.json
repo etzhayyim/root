@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.legal-aid.registerOffice",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a legal aid office / public defender bureau (logical actor, BPMN-as-actor per ADR-0049 D4 / ADR-0056). Path DID did:web:legal-aid.gftd.ai:{iso3}:{slug}. ADR-0019 path topology, ADR-0016 legal cluster.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["officeSlug", "displayName", "jurisdiction", "officeType"],
+          "properties": {
+            "officeSlug":     { "type": "string", "pattern": "^[a-z0-9-]+$" },
+            "displayName":    { "type": "string" },
+            "jurisdiction":   { "type": "string", "description": "ISO 3166-1 alpha-3 (+ subdivision)" },
+            "officeType":     { "type": "string", "enum": ["houterasu", "public-defender", "duty-counsel", "ngo", "law-school-clinic", "pro-bono-org"] },
+            "addressLocality":{ "type": "string" },
+            "languages":      { "type": "array", "items": { "type": "string" } },
+            "specialties":    { "type": "array", "items": { "type": "string" } },
+            "intakeUrl":      { "type": "string", "format": "uri" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId", "officeDid"],
+          "properties": {
+            "vertexId":  { "type": "string" },
+            "officeDid": { "type": "string", "format": "did" }
+          }
+        }
+      }
+    }
+  }
+}

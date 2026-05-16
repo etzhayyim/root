@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.arms.issuePermit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Issue a firearm possession, acquisition, carry, or export permit to a holder DID. Permit number is stored hashed (Tier 3 PII). Issuer must have authority to grant the requested permit type.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["holderDid", "permitType", "categoryAllowed", "permitNumber"],
+          "properties": {
+            "holderDid":       { "type": "string", "format": "did" },
+            "permitType":      { "type": "string", "description": "acquisition|possession|carry|military|law_enforcement|export|research" },
+            "categoryAllowed": { "type": "string", "description": "Firearm category covered by this permit (or '*' for all)" },
+            "permitNumber":    { "type": "string", "minLength": 4, "description": "Official permit number (stored hashed)" },
+            "expiresAt":       { "type": "string", "format": "datetime", "description": "Optional expiry; null = indefinite" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["permitVid", "permitHash", "holderDid", "permitType", "categoryAllowed", "status", "issuedAt"],
+          "properties": {
+            "permitVid":       { "type": "string" },
+            "permitHash":      { "type": "string", "description": "SHA-256 hex of permitNumber" },
+            "holderDid":       { "type": "string", "format": "did" },
+            "permitType":      { "type": "string" },
+            "categoryAllowed": { "type": "string" },
+            "status":          { "type": "string" },
+            "issuedAt":        { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

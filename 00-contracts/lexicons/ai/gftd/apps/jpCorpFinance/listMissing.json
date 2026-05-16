@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpCorpFinance.listMissing",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List companies with missing or stale JP corporate financial disclosure coverage.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "coverageStatus": { "type": "string", "enum": ["missing", "stale", "source_unknown", "failed"] },
+          "missingReason": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 500 },
+          "cursor": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "jcn": { "type": "string" },
+                  "companyName": { "type": "string" },
+                  "coverageStatus": { "type": "string" },
+                  "missingReason": { "type": "string" },
+                  "checkedAt": { "type": "string" }
+                }
+              }
+            },
+            "cursor": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

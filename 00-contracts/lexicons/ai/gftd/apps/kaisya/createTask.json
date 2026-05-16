@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaisya.createTask",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AI エージェントが人間の承認を必要とするタスクを登録する。microsoft agent が外部宛メール下書きを作成した際などに呼び出す。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["agentId", "humanDid", "title"],
+          "properties": {
+            "agentId":     { "type": "string", "description": "タスクを作成した agent の識別子 (例: microsoft.gftd.ai)" },
+            "humanDid":    { "type": "string", "description": "承認者の DID" },
+            "title":       { "type": "string", "description": "タスクのタイトル (1行)" },
+            "contextJson": { "type": "string", "description": "タスクのコンテキスト情報 (JSON 文字列、任意)" },
+            "priority":    { "type": "integer", "description": "優先度: 1=critical, 2=high, 3=normal (省略時: 2)" },
+            "dueAt":       { "type": "string", "description": "期限 ISO 8601 (任意)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["taskId", "status", "createdAt"],
+          "properties": {
+            "taskId":    { "type": "string" },
+            "status":    { "type": "string" },
+            "createdAt": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

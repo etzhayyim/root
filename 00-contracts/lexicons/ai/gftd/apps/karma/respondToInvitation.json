@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.karma.respondToInvitation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Respond to a pending witness invitation. Accept → produces vertex_karma_witness row (signed attestation, attestation_kind passed through). Decline → records the decline (no witness row). Caller must equal invitation.invitee_did.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["invitationId", "responderDid", "response"],
+          "properties": {
+            "invitationId": {"type": "string"},
+            "responderDid": {"type": "string", "format": "did"},
+            "response": {
+              "type": "string",
+              "enum": ["accept", "decline"]
+            },
+            "attestationKind": {
+              "type": "string",
+              "enum": ["confirms", "disputes", "contextualizes", "addsEvidence"],
+              "default": "confirms",
+              "description": "Required when response=accept"
+            },
+            "signature": {
+              "type": "string",
+              "description": "Required when response=accept"
+            },
+            "signatureAlg": {
+              "type": "string",
+              "enum": ["es256", "ed25519"],
+              "default": "es256"
+            },
+            "rationaleCid": {"type": "string"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "witnessId": {
+              "type": "string",
+              "description": "Set on accept (matches new vertex_karma_witness row)"
+            },
+            "respondedAt": {"type": "string", "format": "datetime"},
+            "rejectedReason": {
+              "type": "string",
+              "description": "When ok=false: 'invitation-not-found' | 'invitation-expired' | 'invitation-already-responded' | 'responder-mismatch' | 'missing-signature'"
+            },
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

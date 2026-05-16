@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.legal-corpus.listJurisdictions",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List jurisdictions covered with document counts and last-fetched watermark. Reads from mv_legal_corpus_jurisdiction_coverage. ADR-0049.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "sourceId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["jurisdictions"],
+          "properties": {
+            "jurisdictions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["jurisdiction", "sourceId", "documentCount"],
+                "properties": {
+                  "jurisdiction":  { "type": "string" },
+                  "sourceId":      { "type": "string" },
+                  "documentCount": { "type": "integer" },
+                  "lastFetchedAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.getKpiSnapshot",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Read KPI snapshot from streaming MVs (revenue, outstanding invoices, marketing pipeline, active matters). RLS-gated: CEO/COO/CLO only.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "window_months": { "type": "integer", "default": 6, "minimum": 1, "maximum": 24 },
+          "currency":      { "type": "string", "default": "USD" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["snapshot_at"],
+          "properties": {
+            "snapshot_at": { "type": "string", "format": "datetime" },
+            "revenue_by_month": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "month":             { "type": "string" },
+                  "currency":          { "type": "string" },
+                  "stream":            { "type": "string" },
+                  "amount_minor":      { "type": "integer" },
+                  "payment_count":     { "type": "integer" }
+                }
+              }
+            },
+            "outstanding_invoices": {
+              "type": "object",
+              "properties": {
+                "count":           { "type": "integer" },
+                "total_minor":     { "type": "integer" },
+                "currency_breakdown": { "type": "string" }
+              }
+            },
+            "marketing_pipeline": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "compliance_check": { "type": "string" },
+                  "count":            { "type": "integer" }
+                }
+              }
+            },
+            "active_matter_count": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

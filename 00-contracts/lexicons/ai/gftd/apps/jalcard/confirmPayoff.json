@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jalcard.confirmPayoff",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Resume a paused payoffRevolving process at the irreversible commit gate. Publishes LangServer signal 'ai.gftd.apps.jalcard.approvalReceived' with correlationKey=processInstanceKey and variable {approved}. approved=false routes to canceled branch (no payoff click). This is the explicit human-in-the-loop required by root CLAUDE.md for financial actions.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["processInstanceKey", "approved"],
+          "properties": {
+            "processInstanceKey": { "type": "string" },
+            "approved": { "type": "boolean" },
+            "actorDid": {
+              "type": "string",
+              "description": "DID of the human that approved. Captured into audit row."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "messageKey": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

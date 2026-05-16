@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shosha.rejectTrade",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Reject a pending trade. Records the decision in vertex_shosha_approval, transitions trade.approval_state='rejected' + status='cancelled'. Trade becomes terminal (cannot be settled or re-approved).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tradeId", "approverDid", "rationale"],
+          "properties": {
+            "tradeId": {"type": "string"},
+            "approverDid": {"type": "string"},
+            "approverRole": {"type": "string", "default": "trader"},
+            "rationale": {"type": "string", "maxLength": 2000, "description": "Required for rejection (audit)"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "approvalId": {"type": "string"},
+            "vertexId": {"type": "string"},
+            "tradeId": {"type": "string"},
+            "approvalState": {"type": "string"},
+            "tradeStatus": {"type": "string"},
+            "decidedAt": {"type": "string", "format": "datetime"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

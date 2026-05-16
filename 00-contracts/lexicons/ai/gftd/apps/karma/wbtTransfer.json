@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.karma.wbtTransfer",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Transfer Well-Becoming Tokens (WBT) between organism DIDs. Atomic single-transaction debit-credit. Insufficient funds rejected. Transfer record is content-addressed (ADR-0041) and immutable (append-only log). Phase K1 supports (a) generic transfer between two organism DIDs, (b) forfeit-to-commons (called from rebirth.forfeit). Issuance / faucet semantics deferred to Phase K2.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["fromDid", "toDid", "amount", "reason"],
+          "properties": {
+            "fromDid": {"type": "string", "format": "did"},
+            "toDid": {"type": "string", "format": "did"},
+            "amount": {"type": "number", "minimum": 0.0},
+            "reason": {
+              "type": "string",
+              "enum": ["transfer", "forfeit", "tax", "tip", "settlement", "refund"]
+            },
+            "memo": {"type": "string", "maxLength": 1000}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "transferId": {"type": "string"},
+            "fromBalance": {"type": "number"},
+            "toBalance": {"type": "number"},
+            "tsMs": {"type": "integer"},
+            "rejectedReason": {
+              "type": "string",
+              "description": "When ok=false: 'insufficient-funds' | 'invalid-amount' | 'self-transfer' | 'organism-dissolved'"
+            },
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

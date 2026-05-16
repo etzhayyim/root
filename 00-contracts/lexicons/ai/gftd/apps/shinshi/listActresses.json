@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shinshi.listActresses",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List Shinshi character DID identities for appview pages.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "limit": { "type": "integer", "minimum": 1, "maximum": 5000, "default": 1000 },
+          "appDid": { "type": "string", "default": "did:web:sh1n5h1x.gftd.ai" }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["appDid", "limit", "dids", "total", "latencyMs", "assistantId"],
+          "properties": {
+            "appDid": { "type": "string" },
+            "limit": { "type": "integer" },
+            "dids": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["did", "status", "createdAt"],
+                "properties": {
+                  "did": { "type": "string" },
+                  "status": { "type": "string" },
+                  "createdAt": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "queryMs": { "type": "integer" },
+            "cached": { "type": "boolean" },
+            "cacheAgeSec": { "type": "number" },
+            "latencyMs": { "type": "integer" },
+            "assistantId": { "type": "string", "const": "list_actresses" },
+            "error": { "type": "string" },
+            "errorDetail": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

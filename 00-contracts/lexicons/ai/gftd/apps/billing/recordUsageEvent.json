@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.billing.recordUsageEvent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a usage event (storage, egress, llm tokens, gpu hour, api request, mcp call, did mint, yata node-hour, yata edge-hour, yata query CU-ms, yata reasoning run, obj class A/B). Internal endpoint — only `did:web:billing.gftd.ai` host-sdk metering caller is authorized via service auth `lxm`. Idempotent on `vertexId` (content-addressed, ADR-0041).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["orgDid", "metric", "qty", "product"],
+          "properties": {
+            "vertexId": {"type": "string", "description": "Optional client-supplied event ID (content-addressed `at://did:web:billing.gftd.ai/ai.gftd.apps.billing.event/{sha256(orgDid+metric+tsMs+refResource)[:32]}`); auto-generated if omitted."},
+            "orgDid": {"type": "string", "description": "ERC725 org DID (`did:erc725:gftd:...`) per ADR-0095. Mapped from API key."},
+            "actorDid": {"type": "string", "description": "Optional sub-actor DID (`did:web:*.gftd.ai` or sub-DID path) attributable inside the org for cost split."},
+            "tsMs": {"type": "integer", "description": "Event ms epoch; defaults to server now()."},
+            "metric": {"type": "string", "enum": ["storage_gb_hour", "egress_gb", "llm_input_tokens", "llm_output_tokens", "gpu_hour", "api_request", "mcp_call", "did_mint", "yata_node_hour", "yata_edge_hour", "yata_query_cu_ms", "yata_reasoning_run", "obj_class_a", "obj_class_b"]},
+            "qty": {"type": "number", "description": "Numeric quantity in metric unit (GB, GB-hour, tokens, hours, count). Float for sub-unit precision."},
+            "product": {"type": "string", "enum": ["yata", "obj", "gateway", "platform"], "description": "Product line for revenue attribution."},
+            "refResource": {"type": "string", "description": "Optional reference resource ID (yatabase DB name, obj bucket, NSID called) for downstream attribution / per-resource breakdown."},
+            "unitCostJpyMicro": {"type": "integer", "description": "Server-side cost in JPY-micro (¥ × 1e6). Filled by host-sdk from cost registry; clients MUST NOT supply (overwritten)."},
+            "listPriceJpyMicro": {"type": "integer", "description": "Server-side list price in JPY-micro per metric unit. Filled by host-sdk from price registry."}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "vertexId"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "vertexId": {"type": "string"},
+            "billedAmountJpyMicro": {"type": "integer", "description": "Final billable amount after applied_discount_pct from vertex_billing_org_plan."},
+            "appliedDiscountPct": {"type": "number"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.recruit.decideMatchProposal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Update the state of a persisted cohort-first recruit match proposal. This records review state only; it does not contact individual candidates.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["proposalId", "proposalState"],
+          "properties": {
+            "proposalId": { "type": "string" },
+            "proposalState": { "type": "string", "enum": ["accepted", "rejected", "expired"] },
+            "decisionReason": { "type": "string", "maxLength": 2000 },
+            "decidedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["proposalId", "proposalState", "privacyMode"],
+          "properties": {
+            "proposalId": { "type": "string" },
+            "proposalState": { "type": "string", "enum": ["accepted", "rejected", "expired"] },
+            "privacyMode": { "type": "string", "const": "cohort-first" }
+          }
+        }
+      }
+    }
+  }
+}

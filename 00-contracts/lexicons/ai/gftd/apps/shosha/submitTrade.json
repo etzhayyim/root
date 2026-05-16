@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.shosha.submitTrade",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a trade ticket. Routed through complySanctionsCheck → approval gate → vertex_shosha_trade insert. Returns approvalState (pending|approved|rejected) and complyOk.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["side", "commodity", "quantity", "unit", "price", "currency", "counterparty"],
+          "properties": {
+            "tradeId": {"type": "string", "description": "Optional client-supplied trade ID; auto-generated if omitted."},
+            "side": {"type": "string", "enum": ["buy", "sell"]},
+            "commodity": {"type": "string", "description": "e.g. crude-wti / crude-brent / lng / copper / iron-ore / wheat / coffee"},
+            "quantity": {"type": "number"},
+            "unit": {"type": "string", "description": "bbl / mt / tonne / boe / mmbtu"},
+            "price": {"type": "number"},
+            "currency": {"type": "string", "description": "ISO 4217 (USD / JPY / EUR ...)"},
+            "counterparty": {"type": "string", "description": "Counterparty legal name (resolved to vertex_shosha_counterparty)"},
+            "desk": {"type": "string", "enum": ["procure", "trade", "hedge"], "default": "trade"},
+            "deliveryDate": {"type": "string", "format": "date"},
+            "deliveryLocation": {"type": "string"},
+            "rationale": {"type": "string", "maxLength": 2000}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "tradeId", "vertexId", "complyOk", "approvalState"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "tradeId": {"type": "string"},
+            "vertexId": {"type": "string"},
+            "complyOk": {"type": "boolean"},
+            "complyFlags": {"type": "array", "items": {"type": "string"}},
+            "approvalState": {"type": "string", "enum": ["pending", "approved", "rejected"]},
+            "amountUsd": {"type": "number"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

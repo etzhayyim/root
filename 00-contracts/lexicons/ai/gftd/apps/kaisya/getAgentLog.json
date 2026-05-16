@@ -1,0 +1,60 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.kaisya.getAgentLog",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "AI agent の実行ログ (vertex_kaisya_agent_run) を返す。kaisya.gftd.ai/agents UI から各 agent の稼働状況確認に使用する。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "agentId": {
+            "type": "string",
+            "description": "対象 agent (kaisya_ceo_agent 等)。省略時は全 agent"
+          },
+          "status": {
+            "type": "string",
+            "description": "フィルター: 'ok' | 'partial' | 'error' (省略時: 全て)"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "最大件数 (default 50, max 500)"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "ページネーション offset"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["runs", "total", "offset", "limit"],
+          "properties": {
+            "runs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["runId", "agentId", "taskType", "status", "ranAt"],
+                "properties": {
+                  "runId":         { "type": "string" },
+                  "agentId":       { "type": "string" },
+                  "processId":     { "type": "string" },
+                  "taskType":      { "type": "string" },
+                  "status":        { "type": "string" },
+                  "outputSummary": { "type": "string" },
+                  "tasksCreated":  { "type": "integer" },
+                  "ranAt":         { "type": "string" }
+                }
+              }
+            },
+            "total":  { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

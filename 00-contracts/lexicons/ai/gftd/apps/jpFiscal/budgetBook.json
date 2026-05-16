@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpFiscal.budgetBook",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "財務省 予算書 / 決算書 のカタログ record。本文 PDF/XBRL は R2 に CID で格納し参照のみ保持。",
+      "record": {
+        "type": "object",
+        "required": ["fiscalYear", "docType", "accountType", "totalJpy", "sourceUrl", "createdAt"],
+        "properties": {
+          "fiscalYear": { "type": "integer" },
+          "docType": { "type": "string", "enum": ["initial-budget", "supplementary1", "supplementary2", "supplementary3", "settlement", "be-book"] },
+          "accountType": { "type": "string", "enum": ["general", "special", "combined"] },
+          "specialAccountCode": { "type": "string" },
+          "totalJpy": { "type": "integer", "minimum": 0 },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "pdfCid": { "type": "string", "description": "IPFS/CID for archived PDF in B2" },
+          "xbrlCid": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

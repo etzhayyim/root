@@ -1,0 +1,68 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.karma.escalate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Open a 覚者 DAO arbitration over a candidate or recorded karma edge. Triggered by `karma.evaluate` when recommendation = 'escalate-dao' (Tier=High Harm with zero direct witnesses), or by any caller with elevated standing (positive multi-generational karma streak). Produces an arbitration with auto-discovered 覚者 voters drawn from cohort intersection. Voting window default 7 days; 2/3 supermajority required; majority position becomes binding.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["openedBy"],
+          "properties": {
+            "edgeId": {
+              "type": "string",
+              "description": "Already-recorded edge to arbitrate. Mutually exclusive with `candidate`."
+            },
+            "candidate": {
+              "type": "ref",
+              "ref": "ai.gftd.apps.karma.evaluate#candidate",
+              "description": "Candidate edge under deliberation (not yet recorded)."
+            },
+            "openedBy": {
+              "type": "string",
+              "format": "did",
+              "description": "DID opening the arbitration (must have 覚者 standing OR be referee for an evaluate→escalate-dao recommendation)"
+            },
+            "rationale": {
+              "type": "string",
+              "maxLength": 2000,
+              "description": "Why arbitration is needed (free-form text, also stored as encrypted CID if proofEncrypted=true at vote time)"
+            },
+            "votingDays": {
+              "type": "integer",
+              "default": 7,
+              "minimum": 1,
+              "maximum": 30
+            },
+            "minVoters": {
+              "type": "integer",
+              "default": 5,
+              "minimum": 3,
+              "maximum": 50
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "arbitrationId"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "arbitrationId": {"type": "string"},
+            "votersInvited": {"type": "array", "items": {"type": "string", "format": "did"}},
+            "closesAtMs": {"type": "integer"},
+            "rejectedReason": {
+              "type": "string",
+              "description": "When ok=false: 'opener-not-eligible' | 'no-voters-available' | 'arbitration-already-open'"
+            },
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

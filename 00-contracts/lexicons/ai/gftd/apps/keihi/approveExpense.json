@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.keihi.approveExpense",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Approve or reject an expense claim.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["expenseDid", "approved"],
+          "properties": {
+            "expenseDid": { "type": "string", "format": "did" },
+            "approved": { "type": "boolean" },
+            "approvedByDid": { "type": "string", "format": "did" },
+            "reason": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "status"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "status": { "type": "string" },
+            "kaikeiSourceType": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

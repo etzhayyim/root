@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.insatsu.printMailJob.listPrintMailJobs",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List cloud print-and-mail jobs.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "status": { "type": "string" },
+          "destination_country": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "offset": { "type": "integer", "minimum": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": { "type": "array", "items": { "type": "unknown" } },
+            "total": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "offset": { "type": "integer" }
+          },
+          "required": ["items", "total", "limit", "offset"]
+        }
+      }
+    }
+  }
+}

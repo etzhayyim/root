@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.gstr3b.review",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0056. Finance-controller verdict on a GSTR-3B return.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "verdict": { "type": "string", "enum": ["approve", "reject"] },
+            "comment": { "type": "string" }
+          },
+          "required": ["vertexId", "verdict"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "newStatus": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

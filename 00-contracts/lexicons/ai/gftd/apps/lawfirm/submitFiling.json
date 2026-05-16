@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.lawfirm.submitFiling",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.gftd.ai). AT Repo holds metadata + Vault item id only.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["caseDid", "filingType", "courtDid", "vaultItemId"],
+          "properties": {
+            "caseDid": { "type": "string", "format": "did" },
+            "filingType": { "type": "string", "enum": ["plaint", "complaint", "vakalatnama", "written-statement", "rejoinder", "interim-application", "appeal", "review", "writ-petition", "evidence-affidavit", "exhibit"] },
+            "courtDid": { "type": "string", "format": "did" },
+            "vaultItemId": { "type": "string", "description": "ai.gftd.vault.* item id holding ciphertext PDF/scan" },
+            "filedAt": { "type": "string", "format": "datetime" },
+            "feeAmount": { "type": "number" },
+            "feeCurrency": { "type": "string", "default": "INR" },
+            "lang": { "type": "string", "description": "Filing language (court of record requires en/hi or state language)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did", "uri"],
+          "properties": {
+            "did": { "type": "string", "format": "did" },
+            "uri": { "type": "string", "format": "at-uri" },
+            "filingNumber": { "type": "string" },
+            "ackAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

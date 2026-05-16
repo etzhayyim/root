@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.jpFiscal.paymentRecord",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "契約に基づく実支払 record。複数回分割支払は tranches[] で記録 ($ref to #tranche).",
+      "record": {
+        "type": "object",
+        "required": ["contractDid", "payeeDid", "paidJpy", "createdAt"],
+        "properties": {
+          "contractDid": { "type": "string", "format": "did" },
+          "contractUri": { "type": "string", "format": "at-uri" },
+          "payeeDid": { "type": "string", "format": "did" },
+          "tranches": { "type": "array", "items": { "type": "ref", "ref": "#tranche" } },
+          "paidJpy": { "type": "integer", "minimum": 0 },
+          "remainingJpy": { "type": "integer", "minimum": 0 },
+          "fiscalYear": { "type": "integer" },
+          "derivationStage": { "type": "string", "enum": ["L1"] },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    },
+    "tranche": {
+      "type": "object",
+      "required": ["paidAt", "amountJpy"],
+      "properties": {
+        "paidAt": { "type": "string", "format": "date" },
+        "amountJpy": { "type": "integer", "minimum": 0 },
+        "method": { "type": "string", "description": "支払方法 (振込/現金/相殺/etc)" },
+        "invoiceRef": { "type": "string", "description": "請求書参照番号" }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.fuyou.startDeclaration",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0051. Begin a new fuyou-koujo declaration for a tax year. Starts BPMN process fuyou_declare_initial.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "employeeDid": { "type": "string", "description": "Employee DID. Defaults to caller's DID when omitted." },
+            "employerOrgId": { "type": "string", "description": "Employer org_id (kaisya scope)." },
+            "taxYear": { "type": "integer", "description": "Tax year (Reiwa equivalent stored elsewhere). e.g. 2026" }
+          },
+          "required": ["employerOrgId", "taxYear"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

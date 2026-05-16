@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.karma.fissionCohort",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fission an active cohort into N child cohorts (default N=2). Per ADR-0026, fission fires when the cohort's posterior > 0.95 — a statistical signal that the cohort has accumulated enough internal evidence to bifurcate. Splits member_did_csv evenly across children, INSERTs new vertex_organism_cohort rows with parent_cohort_id pointing back, increments their generation, marks parent status='fissioned'. Each child inherits a share of the parent's fitness score for continuity tracking.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cohortId"],
+          "properties": {
+            "cohortId": {"type": "string"},
+            "splitInto": {
+              "type": "integer",
+              "default": 2,
+              "minimum": 2,
+              "maximum": 8,
+              "description": "Number of child cohorts to produce"
+            },
+            "trigger": {
+              "type": "string",
+              "enum": ["posterior-threshold", "manual", "size-overflow"],
+              "default": "posterior-threshold"
+            },
+            "force": {
+              "type": "boolean",
+              "default": false,
+              "description": "Bypass posterior > 0.95 check (manual fission)"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "parentCohortId": {"type": "string"},
+            "childCohortIds": {"type": "array", "items": {"type": "string"}},
+            "childCohortDids": {"type": "array", "items": {"type": "string"}},
+            "membersPerChild": {"type": "array", "items": {"type": "integer"}},
+            "fissionedAt": {"type": "string", "format": "datetime"},
+            "rejectedReason": {
+              "type": "string",
+              "description": "When ok=false: 'cohort-not-active' | 'posterior-below-threshold' | 'insufficient-members' | 'parent-fissioned'"
+            },
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

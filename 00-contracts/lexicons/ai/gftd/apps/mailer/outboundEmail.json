@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.mailer.outboundEmail",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Outbound email sent via the mailer relay (Resend provider by default).",
+      "record": {
+        "type": "object",
+        "properties": {
+          "messageId": { "type": "string" },
+          "fromAddress": { "type": "string" },
+          "toAddress": { "type": "string" },
+          "subject": { "type": "string" },
+          "bodyText": { "type": "string" },
+          "bodyHtml": { "type": "string" },
+          "provider": { "type": "string" },
+          "providerMessageId": { "type": "string" },
+          "status": { "type": "string" },
+          "error": { "type": "string" },
+          "sentAtMs": { "type": "integer" },
+          "orgId": { "type": "string" },
+          "userId": { "type": "string" },
+          "actorId": { "type": "string" }
+        },
+        "required": ["messageId", "fromAddress", "toAddress", "status", "sentAtMs"]
+      }
+    }
+  }
+}

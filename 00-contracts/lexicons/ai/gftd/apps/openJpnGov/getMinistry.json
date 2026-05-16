@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.openJpnGov.getMinistry",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get ministry details by code (mof, meti, mhlw, ...) or DID.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "code": { "type": "string" },
+          "did": { "type": "string", "format": "did" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["code", "did", "nameJa", "nameEn", "category"],
+          "properties": {
+            "code": { "type": "string" },
+            "did": { "type": "string", "format": "did" },
+            "nameJa": { "type": "string" },
+            "nameEn": { "type": "string" },
+            "category": { "type": "string" },
+            "established": { "type": "string" },
+            "statuteJa": { "type": "string", "description": "設置法名" },
+            "website": { "type": "string", "format": "uri" },
+            "agencies": { "type": "array", "items": { "type": "string" } },
+            "description": { "type": "string" }
+          }
+        }
+      },
+      "errors": [{ "name": "NotFound" }]
+    }
+  }
+}

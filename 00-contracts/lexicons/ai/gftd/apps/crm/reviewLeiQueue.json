@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "ai.gftd.apps.crm.reviewLeiQueue",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Apply a human decision to one CRM LEI review queue item: verify a selected LEI, reject current candidates, or close as no-match.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["action"],
+          "properties": {
+            "reviewId": { "type": "string" },
+            "crmSystem": { "type": "string", "enum": ["lawfirm", "hubspot"] },
+            "entityType": { "type": "string", "enum": ["lead", "tenant", "company"] },
+            "crmSourceId": { "type": "string" },
+            "action": { "type": "string", "enum": ["verify_selected_lei", "reject_candidates", "no_match"] },
+            "selectedLei": { "type": "string" },
+            "confidencePermille": { "type": "integer", "minimum": 0, "maximum": 1000 },
+            "actorDid": { "type": "string" },
+            "evidenceUri": { "type": "string" },
+            "evidenceNote": { "type": "string" },
+            "dryRun": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "reviewId": { "type": "string" },
+            "crmSystem": { "type": "string" },
+            "entityType": { "type": "string" },
+            "crmSourceId": { "type": "string" },
+            "selectedLei": { "type": "string" },
+            "edgeId": { "type": "string" },
+            "reviewStatus": { "type": "string" },
+            "reviewedAt": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
