@@ -1,0 +1,24 @@
+import { createWorkerExport } from '@gftd/magatama-host-sdk';
+
+const _inner = createWorkerExport((sdk) => {
+  sdk.app.query('ai.gftd.apps.openRoboHp.getProduct', async (_input, _ctx) => {
+    return {
+      name: 'Giemon Otete',
+      version: '1.0.0',
+      price_jpy: 98780,
+      url: 'https://giemon.gftd.ai',
+    };
+  });
+});
+
+export default {
+  async fetch(request: Request, env: Record<string, unknown>, ctx?: { waitUntil(p: Promise<unknown>): void }) {
+    // 301 redirect: armcrawler.gftd.ai → giemon.gftd.ai
+    const url = new URL(request.url);
+    if (url.hostname === 'armcrawler.gftd.ai') {
+      url.hostname = 'giemon.gftd.ai';
+      return Response.redirect(url.toString(), 301);
+    }
+    return _inner.fetch(request, env, ctx);
+  },
+};
