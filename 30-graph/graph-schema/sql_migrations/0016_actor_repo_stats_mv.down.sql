@@ -1,0 +1,1 @@
+DROP MATERIALIZED VIEW IF EXISTS mv_actor_repo_stats;

@@ -1,0 +1,1 @@
+DROP MATERIALIZED VIEW IF EXISTS mv_tsukuru_manufacturer_industry_counts;

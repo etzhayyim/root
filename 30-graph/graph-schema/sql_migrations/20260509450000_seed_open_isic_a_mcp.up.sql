@@ -1,0 +1,44 @@
+-- Register ai.gftd.apps.openIsicA.* MCP primitives.
+
+INSERT INTO vertex_mcp_tool_def
+  (vertex_id, _seq, sensitivity_ord, nsid, actor_did, actor_host, lexicon_type,
+   description, input_schema, output_schema, visibility, version, enabled,
+   source_path, org_id, user_id, actor_id, created_at)
+VALUES
+  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-openisica-classifycrop',
+   0, 0, 'ai.gftd.apps.openIsicA.classifyCrop', 'did:web:open-isic.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'Classify crop production entities (ISIC 011-013).',
+   '{"type":"object","properties":{"vertexId":{"type":"string"},"isicClassCode":{"type":"string"},"entityDid":{"type":"string"}},"required":["vertexId","isicClassCode","entityDid"]}',
+   '{"type":"object"}',
+   'public', 1, TRUE,
+   '00-contracts/lexicons/ai/gftd/apps/openisica/classifyCrop.json',
+   'anon', 'anon', '', '2026-05-14T00:00:00Z'),
+
+  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-openisica-classifylivestock',
+   0, 0, 'ai.gftd.apps.openIsicA.classifyLivestock', 'did:web:open-isic.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'Classify animal production entities (ISIC 014).',
+   '{"type":"object","properties":{"vertexId":{"type":"string"},"isicClassCode":{"type":"string"},"entityDid":{"type":"string"}},"required":["vertexId","isicClassCode","entityDid"]}',
+   '{"type":"object"}',
+   'public', 1, TRUE,
+   '00-contracts/lexicons/ai/gftd/apps/openisica/classifyLivestock.json',
+   'anon', 'anon', '', '2026-05-14T00:00:00Z'),
+
+  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-openisica-classifyforestry',
+   0, 0, 'ai.gftd.apps.openIsicA.classifyForestry', 'did:web:open-isic.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'Classify forestry and logging entities (ISIC 02).',
+   '{"type":"object","properties":{"vertexId":{"type":"string"},"isicClassCode":{"type":"string"},"entityDid":{"type":"string"}},"required":["vertexId","isicClassCode","entityDid"]}',
+   '{"type":"object"}',
+   'public', 1, TRUE,
+   '00-contracts/lexicons/ai/gftd/apps/openisica/classifyForestry.json',
+   'anon', 'anon', '', '2026-05-14T00:00:00Z'),
+
+  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-openisica-classifyfishing',
+   0, 0, 'ai.gftd.apps.openIsicA.classifyFishing', 'did:web:open-isic.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'Classify fishing and aquaculture entities (ISIC 03).',
+   '{"type":"object","properties":{"vertexId":{"type":"string"},"isicClassCode":{"type":"string"},"entityDid":{"type":"string"}},"required":["vertexId","isicClassCode","entityDid"]}',
+   '{"type":"object"}',
+   'public', 1, TRUE,
+   '00-contracts/lexicons/ai/gftd/apps/openisica/classifyFishing.json',
+   'anon', 'anon', '', '2026-05-14T00:00:00Z');
+
+FLUSH;
