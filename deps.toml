@@ -1,8 +1,13 @@
 # etzhayyim/root — deps.toml
 #
 # Machine-readable SSoT for the etzhayyim/root monorepo.
-# Updated 2026-05-17 after substrate scaffolding wave (ADR-2605170900
-# through ADR-2605172200, SDK + 4 infra modules + paymaster).
+# Updated 2026-05-17 after:
+#   1. Substrate scaffolding wave (ADR-2605170900 through ADR-2605172200,
+#      SDK + 4 infra modules + paymaster)
+#   2. ADR-2605152100 Step 8 functional completion (open scope migration
+#      from vendor → etzhayyim, ~60 dirs + ~2600 stub LoC removed from vendor)
+#   3. Mechanical gftd-→-etzhayyim sweep (1934 files rewritten, ADR-2605172900
+#      classifies what was preserved as historical vs deferred)
 #
 # Human-readable docs:
 #   - CLAUDE.md (this dir)            ← index, operating-entity boundary
@@ -212,6 +217,42 @@ title = "Open Email — atproto MST-native mail with bidirectional SMTP bridge a
 status = "proposed"
 path = "90-docs/adr/2605172200-openmail-atproto-mst-smtp-bridge.md"
 
+[[adrs]]
+id = "2605172300"
+title = "etzhayyim Kisha-Stream / Goji-Treasury — two-chain (geth-private + Base L2) basic-income and asset substrate"
+status = "proposed"
+path = "90-docs/adr/2605172300-etzhayyim-bi-asset-substrate.md"
+
+[[adrs]]
+id = "2605172600"
+title = "etzhayyim Membership Ritual — dual-permanent record (Base L2 + Github) + signed oath"
+status = "proposed"
+path = "90-docs/adr/2605172600-etzhayyim-membership-ritual.md"
+
+[[adrs]]
+id = "2605172700"
+title = "Membership layering — 信者 (172600) and Adherent (172300 S0) as complementary tiers"
+status = "proposed"
+path = "90-docs/adr/2605172700-membership-layering-shinto-adherent.md"
+
+[[adrs]]
+id = "2605172800-geth"
+title = "geth-private migration to etzhayyim — DNS / sealer / governance handoff"
+status = "proposed"
+path = "90-docs/adr/2605172800-geth-private-migration-to-etzhayyim.md"
+
+[[adrs]]
+id = "2605172800-gftd-cli"
+title = "70-tools/gftd CLI migration strategy — git-subrepo unwind + open-scope fork"
+status = "proposed"
+path = "90-docs/adr/2605172800-gftd-cli-migration-strategy.md"
+
+[[adrs]]
+id = "2605172900"
+title = "gftd-→-etzhayyim follow-up cutover policy — what is rewritten, what is preserved as historical"
+status = "active"
+path = "90-docs/adr/2605172900-gftd-followup-cutover-policy.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -300,6 +341,106 @@ status = "migrated-from-vendor"
 description = "18,343 LangGraph Pregel agent files generated for UNSPSC commodity classification. Per ADR-2605171300. Loaded via importlib (RW-free)."
 adr = ["2605171300"]
 runtime_loader = "20-actors/magatama/py/src/pymagatama/langgraph_graphs/dynamic_runner.py"
+
+[[modules]]
+path = "50-infra/etzhayyim-membership-contract"
+kind = "solidity-foundry"
+version = "0.0.0"
+status = "local-anvil-validated"
+description = "EtzhayyimMembership 信者 registry on Base L2 — anyone-callable join + 7-level commitment ladder (Oath→Practice→Dedication→Witness→Steward→Council→Elder)."
+adr = ["2605172600", "2605172700"]
+solc_version = "0.8.27"
+
+[[modules]]
+path = "50-infra/etzhayyim-chain-contracts"
+kind = "solidity-foundry"
+version = "0.0.0"
+status = "scaffold"
+description = "9 Solidity contracts for the etzhayyim bi-asset substrate on geth-private (chainId 260425): AdherentRegistry, AnchorBridge, Constitution, CorpusRegistry, Governance, HoldingAttestation, KishaStream, Phenotype, TreasuryMirror."
+adr = ["2605172300"]
+solc_version = "0.8.27"
+
+[[modules]]
+path = "50-infra/openmail-postage"
+kind = "solidity-foundry"
+version = "0.0.0"
+status = "scaffold"
+description = "Postage.sol — USDC postage contract for app.openmail.message records. ~50 LoC, stateless event-only. Per ADR-2605172200 § 4."
+adr = ["2605172200"]
+solc_version = "0.8.27"
+
+[[modules]]
+path = "00-contracts/lexicons/app/openmail"
+kind = "atproto-lexicon"
+version = "0.0.0"
+status = "scaffold"
+description = "app.openmail.* lexicon family (message + postageReceipt + smtpAttestation + legacyHeaders + anchorRef). Per ADR-2605172200."
+adr = ["2605172200"]
+
+[[modules]]
+path = "70-tools/gftd"
+kind = "go-cli"
+version = "dev"
+status = "migrated-from-vendor-build-green"
+description = "Main developer CLI migrated from vendor 70-tools/gftd (was git-subrepo of gftdcojp/gftd-cli). 178 .go cmd files + 1779 collector configs (FDA NDC, ATC, character refs, etc.). vault commands + malak_* surveillance data stripped on copy. Per ADR-2605172800."
+adr = ["2605172800-gftd-cli", "2605172900"]
+inner_module = "github.com/etzhayyim/root/70-tools/gftd/gftd"
+outer_module = "github.com/etzhayyim/root/70-tools/gftd-pkg"
+
+[[modules]]
+path = "70-tools/gftd-py"
+kind = "python-cli"
+version = "0.1.0"
+status = "migrated-from-vendor"
+description = "Python port of gftd CLI (parallel operation per vendor ADR-2605151500). vault_cmd.py + 14 vault test functions stripped on copy."
+adr = ["2605172900"]
+
+# ─── ADR-2605152100 Step 8 — migration completion ───────────────────
+
+[platform.migration_step8]
+# "gftdcojp 側 open scope cleanup" — functionally complete 2026-05-17.
+# Vendor-side [MOVED] stubs leave a paper trail from old paths to new
+# canonical etzhayyim/root locations.
+status = "functionally-complete"
+completed_at = "2026-05-17"
+adr = "2605152100"   # vendor-side authoritative ADR
+cutover_policy_adr = "2605172900"   # what was rewritten vs preserved
+
+migrated_paths = [
+  "50-infra/k8s/murakumo-kubelet (virtual-kubelet for Murakumo GPU cloud)",
+  "60-apps/ai-gftd-project-comfyui (mac mini fleet, ComfyUI image-gen)",
+  "50-infra/k8s/{ameno-langserver,buildkit,claim-consumer-actor,comfyui-generation-actor,copyright-fulltext-fetch,domain-expansion-langgraph,gleif-lei-s3-ingester,gyosei-source-archiver,intel-dependency-worker,legal-corpus-langgraph,legal-entity-collector-actor,lg-gov,lg-gyosei,lg-isin,lg-jukyu,lg-open-unispsc,lg-ses,lg-yatabase,livecam-vision-actor,maps-coverage-langgraph,maps-osm-ingest,maps-read-langserver,maps-tilemaker-build,maps3d,media-gamers-guide-actor,medical-coverage-ingester,medical-coverage-mcp} (27 langservers)",
+  "50-infra/k8s/bpmn-timers (scope-split: 127 open / 14 vendor-business cronjobs dropped)",
+  "70-tools/{cost-analysis,maps-osm-ingest,mf-ingest-extension,templates,reports/yoro}",
+  "60-apps/ai-gftd-project-{open-*,public-*,ameno,atproto,yoro} (30 dirs [MOVED]-stubbed in vendor)",
+  "70-tools/gftd (main developer CLI, 1965 files, build green)",
+  "70-tools/gftd-py (Python port, 117 files)",
+  "50-infra/k8s/ingress-nginx-dispatcher-values.yaml",
+]
+parallel_copy = [
+  "70-tools/scripts (vendor build deps on ~30+ scripts in lint/, contract/, top-level — kept in both repos)",
+  "70-tools/config (bpmn-coverage-manifest.json consumed by vendor lint scripts — kept in both)",
+]
+mechanical_sweep_files = 1934
+mechanical_sweep_commits = ["8d90e691", "44a3d85d", "3b83b9f0", "dc45e314", "83cdda57", "1cafabb9", "c5617342", "bc726d2e"]
+stub_pattern = "Each migrated dir replaced in vendor with a single README.md [MOVED → etzhayyim/root/...] pointing at the canonical location + rewrite policy summary."
+
+deferred_cutovers = [
+  "D.1 @gftdcojp/ npm scope rename — requires npm org + republish + redirect",
+  "D.2 ai.gftd.apps.* NSID cutover — requires lexicon versioning + grace period",
+  "D.3 did:web:X.gftd.ai → did:web:X.etzhayyim.com — per-actor DID rotation (precedent: ADR-2605171900 yoro)",
+]
+preserved_as_historical = [
+  "00-contracts/lexicons/ai/gftd/*.json (~5434 NSID files — protocol identifiers)",
+  "00-contracts/bpmn/ai/gftd/*.bpmn (~4027 BPMN process IDs)",
+  "00-contracts/dmn/ai/gftd/*.dmn (DMN decision tables)",
+  "30-graph/graph-schema/alembic/versions/r_*_seed_*.py (525 migration history files)",
+  "60-apps/*/PROJECT.jsonld + magatama.jsonld (33 DID/handle identity files)",
+]
+preserved_as_grace_period = [
+  "geth.gftd.ai → geth.etzhayyim.com (12-month grace, see [platform.l2.private_chain])",
+  "did:web:gftd.co.jp (vendor company DID, stays vendor permanently — boundary marker)",
+]
 
 # ─── Pending content seed (legacy — kept for reference) ─────────────
 
