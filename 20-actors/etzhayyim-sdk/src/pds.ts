@@ -98,7 +98,7 @@ export async function getAgent(
     )
 ): Promise<AtpAgent> {
   const agent = new AtpAgent({ service: cfg.service ?? DEFAULT_PDS });
-  if ("session" in cfg) {
+  if ("session" in cfg && cfg.session) {
     await agent.resumeSession({
       did: cfg.session.did,
       handle: cfg.session.handle,
