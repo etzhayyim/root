@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "app.openmail.postageReceipt",
+  "description": "On-chain postage receipt for an openmail message. References a Paid event from Postage.sol on Base L2. Per ADR-2605172200.",
+  "defs": {
+    "main": {
+      "type": "object",
+      "required": ["txHash", "chain", "contract", "messageHash", "amountUsdc", "recipientCount", "paidAt"],
+      "properties": {
+        "txHash": {
+          "type": "string",
+          "description": "0x-prefixed 32-byte tx hash on the chain identified by `chain`.",
+          "maxLength": 66
+        },
+        "chain": {
+          "type": "integer",
+          "description": "EIP-155 chain ID. 8453 = Base mainnet; 84532 = Base Sepolia."
+        },
+        "contract": {
+          "type": "string",
+          "description": "0x-prefixed Postage.sol contract address that emitted the Paid event.",
+          "maxLength": 42
+        },
+        "messageHash": {
+          "type": "string",
+          "description": "keccak256 of the canonical CBOR encoding of the parent message record with `postage` field elided. Binds this payment to one specific record.",
+          "maxLength": 66
+        },
+        "amountUsdc": {
+          "type": "string",
+          "description": "USDC amount paid as a decimal string (e.g. '0.02'). Stored as string for precision."
+        },
+        "recipientCount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "paidAt": {
+          "type": "string",
+          "format": "datetime",
+          "description": "Block timestamp when Paid event was emitted."
+        }
+      }
+    }
+  }
+}
