@@ -2,20 +2,29 @@
 pragma solidity 0.8.27;
 
 import {Fixture} from "./_helpers/Fixture.sol";
-import {CorpusRegistry} from "../src/CorpusRegistry.sol";
+import {CorpusRegistry, IERC5192} from "../src/CorpusRegistry.sol";
 
 contract CorpusRegistryTest is Fixture {
     CorpusRegistry cr;
 
+    // Cached constants — read once at setUp so `vm.prank` is never
+    // consumed by a getter call in argument position.
+    uint8 internal KIND_FACILITY;
+    uint8 internal KIND_IP;
+    uint8 internal KIND_REAL_PROPERTY;
+
     function setUp() public {
         _deployStack();
         cr = new CorpusRegistry(c);
+        KIND_FACILITY      = cr.KIND_FACILITY();
+        KIND_IP            = cr.KIND_IP();
+        KIND_REAL_PROPERTY = cr.KIND_REAL_PROPERTY();
     }
 
     function _mintShrine() internal returns (uint256) {
         vm.prank(address(gov));
         return cr.mint(
-            cr.KIND_FACILITY(),
+            KIND_FACILITY,
             "did:web:rep.etzhayyim.com",
             keccak256("JP-13"),
             keccak256("attestation-1"),
@@ -24,30 +33,32 @@ contract CorpusRegistryTest is Fixture {
     }
 
     function test_mint_byGovernance_emitsLocked() public {
+        // CorpusMinted: 3 indexed + 3 non-indexed → expectEmit(true, true, true, true)
         vm.expectEmit(true, true, true, true);
         emit CorpusRegistry.CorpusMinted(
             1,
-            cr.KIND_FACILITY(),
+            KIND_FACILITY,
             keccak256("attestation-1"),
             "did:web:rep.etzhayyim.com",
             keccak256("JP-13"),
             keccak256("ipfs-cid-shrine-doc-bundle")
         );
-        vm.expectEmit(true, false, false, false);
-        emit CorpusRegistry.Locked(1);
+        // Locked: 0 indexed + 1 non-indexed → check data only
+        vm.expectEmit(false, false, false, true);
+        emit IERC5192.Locked(1);
 
         uint256 id = _mintShrine();
         assertEq(id, 1);
         assertTrue(cr.locked(id));
         CorpusRegistry.CorpusRecord memory rec = cr.getRecord(id);
-        assertEq(rec.kind, cr.KIND_FACILITY());
+        assertEq(rec.kind, KIND_FACILITY);
         assertTrue(rec.governanceLocked);
         assertFalse(rec.disposed);
     }
 
     function test_mint_onlyGovernance() public {
         vm.expectRevert(CorpusRegistry.NotGovernance.selector);
-        cr.mint(cr.KIND_REAL_PROPERTY(), "did:web:x", bytes32(0), keccak256("a"), bytes32(0));
+        cr.mint(KIND_REAL_PROPERTY, "did:web:x", bytes32(0), keccak256("a"), bytes32(0));
     }
 
     function test_mint_rejectsZeroKind() public {
@@ -59,13 +70,13 @@ contract CorpusRegistryTest is Fixture {
     function test_mint_rejectsEmptyHolder() public {
         vm.prank(address(gov));
         vm.expectRevert(CorpusRegistry.EmptyHolderDid.selector);
-        cr.mint(cr.KIND_IP(), "", bytes32(0), keccak256("a"), bytes32(0));
+        cr.mint(KIND_IP, "", bytes32(0), keccak256("a"), bytes32(0));
     }
 
     function test_mint_rejectsEmptyAttestation() public {
         vm.prank(address(gov));
         vm.expectRevert(CorpusRegistry.EmptyAttestation.selector);
-        cr.mint(cr.KIND_IP(), "did:web:x", bytes32(0), bytes32(0), bytes32(0));
+        cr.mint(KIND_IP, "did:web:x", bytes32(0), bytes32(0), bytes32(0));
     }
 
     function test_transferFrom_revertsSoulbound() public {
