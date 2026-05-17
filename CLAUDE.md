@@ -8,7 +8,7 @@ This monorepo is the **principal-owned half** of the source-control boundary est
   - Aliases: `amanomibashira` / `天御柱` / `עץ חיים` (Tree of Life) / `etz hayim` / `etzhayim` / `etz chaim` / `エツ・ハイム`
   - Form: 宗教法人 (任意団体 / unincorporated religious voluntary association)
   - Registry: On-chain (blockchain-registered constitution and member roster); NOT registered under 日本国 宗教法人法
-  - DID: `did:web:etzhayyim.com` (Worker scaffold at `50-infra/etzhayyim-did-web/`, deployment pending DNS prerequisite)
+  - DID: `did:web:etzhayyim.com` (LIVE — CF Worker at `50-infra/etzhayyim-did-web/`, resolvable via curl + Universal Resolver since 2026-05-17T03:25Z)
   - Domain: https://etzhayyim.com (Cloudflare Registrar, 2026-05-15)
   - License default: Apache 2.0
 - **Vendor**: Gftd Japan株式会社 (corporate number 9007-2846, `did:web:gftd.co.jp`)
@@ -29,7 +29,7 @@ This monorepo is the **principal-owned half** of the source-control boundary est
 | 7. 既存 gftdcojp open repos archive + [MOVED] prefix | ✅ 26 repos archived |
 | 8. gftdcojp 側 open scope cleanup | ⏳ pending |
 | 9. CI / wrangler / package.json `repository` field sed | ✅ etzhayyim/root 側 done (11 pkg.json + 2 wrangler.jsonc) |
-| 10. did:web publish (DNS + wrangler deploy) | ⏳ scaffold ✅, deploy ⏳ |
+| 10. did:web publish (DNS + wrangler deploy) | ✅ 2026-05-17T03:25Z (verified via curl + dev.uniresolver.io) |
 | 11. 220-file `amanomibashira` → `etzhayyim` cutover | ⏳ 登記変更後 |
 
 ## Repo Layout (Shannon-Optimal 8-Layer, ADR-2604251830)
@@ -84,7 +84,9 @@ For shared foundational ADRs (Shannon-Optimal 8-Layer, MCP-as-Cell-Membrane, Bon
 - **GitHub Actions CI**: lint / type-check / build / test per layer
 - **Dependabot** for npm + cargo + uv ecosystems
 - **`90-docs/_registry/docs.json`** generator + validator (parity with vendor)
-- **did:web deployment**: DNS prerequisite (AAAA `@` `100::` proxied) + `wrangler deploy` (`50-infra/etzhayyim-did-web/`)
+- **1Password mirror** of `gftd.etzhayyim` / `DID_PRIVATE_KEY_ED25519` (Keychain primary; mirror to `Gftd Japan株式会社` vault, item `etzhayyim/did-web/key-0`)
+- **did:gftd → did:etzhayyim method spec** (optional future migration; existing did:gftd:xxx identifiers preserved meanwhile)
+- **vendor cleanup (ADR-2605152100 Step 8)**: remove open scope from vendor monorepo + update directory_index pointers
 
 ## SSoT pointers
 
@@ -97,4 +99,4 @@ For shared foundational ADRs (Shannon-Optimal 8-Layer, MCP-as-Cell-Membrane, Bon
 - Vendor (proprietary) monorepo: https://github.com/gftdcojp/ai-gftd-apps-gftdcojp
 - This repo (public): https://github.com/etzhayyim/root
 - Domain landing (pending): https://etzhayyim.com
-- DID resolver: https://etzhayyim.com/.well-known/did.json (pending deploy)
+- DID resolver: https://etzhayyim.com/.well-known/did.json (LIVE; CF Worker at zone `etzhayyim.com`, DNS AAAA `@` `100::` proxied, deployed 2026-05-17T03:25Z)
