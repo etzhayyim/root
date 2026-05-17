@@ -1,8 +1,11 @@
-# syntax=docker/dockerfile:1.7
+# lg-open-isic OSS Dockerfile.
+#
 # Build:
+#   cd 60-apps/ai-gftd-project-open-isic/lg
 #   docker buildx build --platform linux/amd64 \
-#     --build-context py=../../20-actors/magatama/py \
-#     -t ghcr.io/etzhayyim/lg-pd-color:0.1.0-amd64 --push .
+#     --build-context py=../../../20-actors/magatama/py \
+#     -t ghcr.io/etzhayyim/lg-open-isic:0.1.0-amd64 \
+#     --push .
 
 FROM python:3.11-slim-bookworm
 
@@ -12,26 +15,29 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libpq5 ca-certificates curl ffmpeg \
+        libpq5 \
+        ca-certificates \
+        curl \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir 'uv>=0.4'
 
 WORKDIR /app
 
-# Install pymagatama (editable) — provides pymagatama.zeebe_worker_main pd_color tasks
 COPY --from=py . /opt/pymagatama
 RUN uv pip install --system --no-cache -e /opt/pymagatama
 
-# Install this package
 COPY pyproject.toml /app/pyproject.toml
 COPY langgraph.json /app/langgraph.json
-COPY lg_pd_color /app/lg_pd_color
+COPY lg_open_isic /app/lg_open_isic
+
 RUN uv pip install --system --no-cache -e /app
 
 RUN uv pip uninstall --system uv 2>/dev/null || true
 
 EXPOSE 8000
-CMD ["uvicorn", "lg_pd_color.server:app", \
+
+CMD ["uvicorn", "lg_open_isic.server:app", \
      "--host", "0.0.0.0", "--port", "8000", \
-     "--workers", "1", "--access-log", "--log-level", "info"]
+     "--workers", "1", \
+     "--access-log", "--log-level", "info"]
