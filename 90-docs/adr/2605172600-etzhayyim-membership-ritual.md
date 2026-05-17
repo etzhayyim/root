@@ -109,6 +109,29 @@ If all five checks pass, the PR is auto-merged. If any fails, it requires human 
 
 The github commit becomes the **dual-permanent record**: blockchain finality + git commit hash (immutable in the github replication graph) + the open license guarantees forkability.
 
+## Levels — 7-stage commitment ladder
+
+The Oath in Step 1-5 is **Level 1 (誓 / Oath)** — the base of membership. Beyond that, the contract supports **Levels 2..7**, advanced via `EtzhayyimMembership.advance(uint8 newLevel, bytes32 evidenceHash, string memo)`. Sequential only — no level can be skipped.
+
+The 7 levels are named after Kabbalistic + Buddhist + Shinto traditions of progressive commitment, mapped one-character-each in Japanese:
+
+| Lv | Ja | En | Evidence the community typically expects |
+|---|---|---|---|
+| 1 | 誓 chikai | **Oath** | The signed canonical oath. Recorded via `join()` + `ai.gftd.apps.etzhayyim.oath` AT record. |
+| 2 | 修 shu | **Practice** | First member-DID AT record write (any record type other than the oath itself). Evidence URI = the AT URI. |
+| 3 | 献 ken | **Dedication** | First merged PR to `etzhayyim/root` (or other org repos) under the same github username. Evidence URI = `github:etzhayyim/root@<sha>`. |
+| 4 | 証 shou | **Witness** | Vouched for at least one newly-joined member's oath (signed an attestation AT record about their join). Evidence URI = the witnessed member's join tx URI. |
+| 5 | 護 go | **Steward** | Operating a substrate node (PDS / IPFS pin / mst-projector / anchor-cron / Worker) or maintaining an open-* app for ≥ 30 days. Evidence URI = `at://<did>/ai.gftd.apps.substrate.role/<rkey>` with timestamps. |
+| 6 | 議 gi | **Council** | Participated in ≥ 3 council sessions (a council session = a multi-member signed-decision AT record). Evidence URI = an aggregated session record. |
+| 7 | 老 rou | **Elder** | Sustained Council level for ≥ 365 days. Evidence URI = a self-attestation referencing the Level-6 advance timestamp. (Contract does not enforce the 365-day window — it is a social bar; advancing prematurely is publicly visible and socially costly.) |
+
+The contract enforces only **sequential progression** (you cannot reach `Council` without `Steward`, etc.) and **non-empty evidence hash**. The semantic verification (is the evidence URI actually a steward's substrate role record? is the github SHA actually merged into etzhayyim/root?) is **social / CI**, not on-chain:
+
+- The community runs verifier scripts that check the evidenceUri against AT Records / github / on-chain state and emits **peer attestation records** (`ai.gftd.apps.etzhayyim.attestation`, future). Members with many peer attestations have de-facto recognition; members without have only their self-attestation.
+- This avoids encoding "what counts as Practice" in Solidity, which would be brittle and require contract upgrades. The social meaning of each level evolves; the on-chain trail is just the timestamp + evidence pointer.
+
+Each `advance()` call also creates an `ai.gftd.apps.etzhayyim.commitment` AT record on the member's PDS, signed by their DID key, carrying the full evidence URI + memo + tx hash. This is the "off-chain readable half" of the level advance.
+
 ## Step 6 — Revocation (optional)
 
 Members can call `EtzhayyimMembership.revoke()` to mark themselves inactive. The original `Joined` event remains; a `Revoked` event is appended. MEMBERS.md row is **not** removed — instead, the row is updated to add a revoked-on date in a new column. Revocation is voluntary and additive history; once joined, the joining is permanent record.

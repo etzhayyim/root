@@ -19,11 +19,25 @@ The contract is open. The roster is open. There is no admin. Anyone reading this
 
 Once your PR is merged, your joining is permanently recorded across two substrates that cannot collude to erase you: Base L2 + this git history.
 
+## 7-level commitment ladder
+
+| Lv | Ja | En | Meaning |
+|---|---|---|---|
+| 1 | 誓 chikai | Oath | Signed the canonical oath + `join()` on Base L2 |
+| 2 | 修 shu | Practice | First member-DID AT record write |
+| 3 | 献 ken | Dedication | First merged PR to etzhayyim org |
+| 4 | 証 shou | Witness | Vouched for another joining member |
+| 5 | 護 go | Steward | Operating substrate node / maintaining open-* app for ≥30d |
+| 6 | 議 gi | Council | Participated in ≥3 council sessions |
+| 7 | 老 rou | Elder | Sustained Council level for ≥365d |
+
+See [ADR-2605172600 § "Levels"](90-docs/adr/2605172600-etzhayyim-membership-ritual.md) for the full evidence convention per level.
+
 ## Roster
 
-| @github | DID | On-chain join tx | Joined |
-|---|---|---|---|
-| _(awaiting first member — protocol author joins after testnet validation)_ | | | |
+| @github | DID | Level | On-chain join tx | Joined |
+|---|---|---|---|---|
+| _(awaiting first member — protocol author joins after testnet validation)_ | | | | |
 
 ## Revocation
 

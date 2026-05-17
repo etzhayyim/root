@@ -74,4 +74,69 @@ contract EtzhayyimMembershipTest is Test {
         assertEq(page[0], address(2));
         assertEq(page[1], address(3));
     }
+
+    function test_join_starts_at_level_1() public {
+        vm.prank(alice);
+        reg.join(oath, "alice");
+        assertEq(reg.levelOf(alice), 1);
+    }
+
+    function test_advance_sequential() public {
+        vm.prank(alice);
+        reg.join(oath, "alice");
+        vm.prank(alice);
+        reg.advance(2, keccak256("at://alice/practice"), "first practice");
+        assertEq(reg.levelOf(alice), 2);
+        vm.prank(alice);
+        reg.advance(3, keccak256("github:etzhayyim/root@abc"), "first PR");
+        assertEq(reg.levelOf(alice), 3);
+    }
+
+    function test_advance_reverts_on_skip() public {
+        vm.prank(alice);
+        reg.join(oath, "alice");
+        vm.expectRevert(abi.encodeWithSelector(EtzhayyimMembership.LevelNotSequential.selector, uint8(3), uint8(1)));
+        vm.prank(alice);
+        reg.advance(3, keccak256("skip"), "skipping");
+    }
+
+    function test_advance_reverts_on_invalid_level() public {
+        vm.prank(alice);
+        reg.join(oath, "alice");
+        vm.expectRevert(abi.encodeWithSelector(EtzhayyimMembership.InvalidLevel.selector, uint8(8)));
+        vm.prank(alice);
+        reg.advance(8, keccak256("over"), "too high");
+    }
+
+    function test_advance_reverts_on_empty_evidence() public {
+        vm.prank(alice);
+        reg.join(oath, "alice");
+        vm.expectRevert(EtzhayyimMembership.EmptyEvidence.selector);
+        vm.prank(alice);
+        reg.advance(2, bytes32(0), "no evidence");
+    }
+
+    function test_revoked_member_cannot_advance() public {
+        vm.prank(alice);
+        reg.join(oath, "alice");
+        vm.prank(alice);
+        reg.revoke();
+        vm.expectRevert(abi.encodeWithSelector(EtzhayyimMembership.NotMember.selector, alice));
+        vm.prank(alice);
+        reg.advance(2, keccak256("after revoke"), "");
+    }
+
+    function test_advance_to_level_7_full_path() public {
+        vm.startPrank(alice);
+        reg.join(oath, "alice");
+        for (uint8 lv = 2; lv <= 7; lv++) {
+            reg.advance(lv, keccak256(abi.encode(lv)), "");
+        }
+        vm.stopPrank();
+        assertEq(reg.levelOf(alice), 7);
+        // Level 7 is the cap; advancing further reverts on InvalidLevel
+        vm.expectRevert(abi.encodeWithSelector(EtzhayyimMembership.InvalidLevel.selector, uint8(8)));
+        vm.prank(alice);
+        reg.advance(8, keccak256("over"), "");
+    }
 }
