@@ -135,7 +135,7 @@ Subcommands:
 Flags:
   --json      JSON output
   --url       RisingWave PostgreSQL URL (default: prod LB)
-  --env       Preset: local (127.0.0.1:14566) | prod (45.32.79.245:4566)`)
+  --env       Preset: local (127.0.0.1:14566) | prod (<vendor-rw-host>:4566)`)
 }
 
 // ── Subcommand implementations ────────────────────────────────────────

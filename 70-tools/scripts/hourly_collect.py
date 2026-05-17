@@ -11,7 +11,7 @@ Sources
 
 Sink
 ----
-  RisingWave vertex_repo_record (direct psycopg2 to 45.32.79.245:4566)
+  RisingWave vertex_repo_record (direct psycopg2 to <vendor-rw-host>:4566)
 
 State
 -----

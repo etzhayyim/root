@@ -29,7 +29,7 @@ B2_KEY_ID = os.environ.get("B2_ACCESS_KEY_ID", "")
 B2_APP_KEY = os.environ.get("B2_APPLICATION_KEY", "")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 
-RW_DSN = os.environ.get("RISINGWAVE_DSN", "postgresql://root@45.32.79.245:4566/dev")
+RW_DSN = os.environ.get("RISINGWAVE_DSN", "REDACTED_USE_DATABASE_URL_ENV")
 BPMN_DISPATCHER_URL = os.environ.get(
     "BPMN_DISPATCHER_INTERNAL_URL",
     "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080",

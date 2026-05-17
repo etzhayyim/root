@@ -12,7 +12,7 @@
 
 set -uo pipefail
 
-RW="postgresql://root@45.32.79.245:4566/dev?sslmode=disable"
+RW="REDACTED_USE_DATABASE_URL_ENV?sslmode=disable"
 TRANCO="/tmp/tranco/top-1m.csv"
 GEOIP_TOKEN="3009b811ddb7498373031d744a7dc042e036df42e1763602d8b268e1d105536d"
 GEOIP_URL="http://localhost:8083/json"

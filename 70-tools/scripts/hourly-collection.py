@@ -18,7 +18,7 @@ import psycopg2
 import psycopg2.extras
 
 # ── Config ────────────────────────────────────────────────────────────────────
-RW_HOST = "45.32.79.245"
+RW_HOST = "<vendor-rw-host>"
 RW_PORT = 4566
 RW_USER = "root"
 RW_DB   = "dev"

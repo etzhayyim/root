@@ -35,7 +35,7 @@ import urllib.request
 from datetime import datetime, timezone
 
 PSQL_BIN = os.environ.get("PSQL", "/opt/homebrew/opt/libpq/bin/psql")
-RW_URL = os.environ.get("RW_URL", "postgresql://root@45.32.79.245:4566/dev")
+RW_URL = os.environ.get("RW_URL", "REDACTED_USE_DATABASE_URL_ENV")
 PDS_URL = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
 REPO = os.environ.get("ANIMEKA_REPO", "did:web:an1m3k4x.etzhayyim.com")
 COLLECTION = "app.bsky.feed.post"

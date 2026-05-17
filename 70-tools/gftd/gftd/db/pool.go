@@ -24,7 +24,7 @@ var (
 // Vultr VKE LoadBalancer per 50-infra/vultr/risingwave/deps.toml lb_ip (ADR-0048).
 // Name retained for backwards compat with internal refs — this is the prod fallback
 // when neither GFTD_DATABASE_URL nor DATABASE_URL is set.
-const defaultLocalDatabaseURL = "postgresql://root@45.32.79.245:4566/dev?sslmode=disable"
+const defaultLocalDatabaseURL = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable"
 
 // Pool returns a process-wide pgx pool against RisingWave.
 //

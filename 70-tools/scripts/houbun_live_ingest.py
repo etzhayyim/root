@@ -28,7 +28,7 @@ from psycopg2.extras import execute_values
 
 
 REPO = Path(__file__).resolve().parents[2]
-DB_URL = "postgres://root@45.32.79.245:4566/dev"
+DB_URL = "REDACTED_USE_DATABASE_URL_ENV"
 EGOV_BASE = "https://laws.e-gov.go.jp/api/2"
 ACTOR_DID = "did:web:houbun.etzhayyim.com"
 JPN_PATH_DID = f"{ACTOR_DID}:jpn:e-gov"

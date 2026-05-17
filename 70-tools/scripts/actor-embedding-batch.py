@@ -52,7 +52,7 @@ PROGRESS_PATH = Path("/tmp/actor-embed-progress.json")
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
     # Default to the Vultr primary (ADR-0048). Override via env.
-    "postgresql://root:rw_66a4db7736799bf888c50a817b4c6a65@45.32.79.245:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 
 

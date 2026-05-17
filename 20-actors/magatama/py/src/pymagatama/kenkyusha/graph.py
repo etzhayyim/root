@@ -71,7 +71,7 @@ _LLM_KEY   = os.getenv("GFTD_LLM_API_KEY", "")
 
 _DB_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://root:rw_66a4db7736799bf888c50a817b4c6a65@45.32.79.245:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 
 ACTOR_KENKYUSHA = os.getenv("KENKYUSHA_OWNER_DID", "did:web:kenkyusha.etzhayyim.com")

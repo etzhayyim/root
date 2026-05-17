@@ -49,7 +49,7 @@ import { join } from "node:path";
 // ── Config ──────────────────────────────────────────────────────────────────
 
 const RW_CONN = process.env.RISINGWAVE_URL
-  ?? "postgresql://root@45.32.79.245:4566/dev?sslmode=disable";
+  ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const COLLECTOR_DID = "did:web:bigquery.etzhayyim.com";
 const COLLECTION_PROFILE = "ai.gftd.apps.bigquery.publicDatasetProfile";
 const COLLECTION_PROFILES_TABLE = "ai.gftd.apps.bigquery.profilesTable";

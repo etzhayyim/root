@@ -266,7 +266,7 @@ class TestDatabaseUpCLI:
         ):
             CliRunner().invoke(main, ["database", "up", "--env", "prod"])
 
-        assert any("45.32.79.245" in e.get("DATABASE_URL", "") for e in env_received)
+        assert any("<vendor-rw-host>" in e.get("DATABASE_URL", "") for e in env_received)
 
 
 # ─── CLI: repair-order ────────────────────────────────────────────────────────

@@ -40,7 +40,7 @@ Live XRPC checks against `https://bsky.etzhayyim.com/xrpc/app.bsky.actor.searchA
 Command:
 
 ```sh
-DATABASE_URL='postgres://root@45.32.79.245:4566/dev?sslmode=disable' \
+DATABASE_URL='REDACTED_USE_DATABASE_URL_ENV' \
   node 70-tools/scripts/yoro/actor-quality-process-mining.mjs --since-hours=24 --limit=500 --json
 ```
 

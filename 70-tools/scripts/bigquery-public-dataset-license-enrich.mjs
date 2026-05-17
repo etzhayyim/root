@@ -30,7 +30,7 @@
 import { readFile } from "node:fs/promises";
 
 const RW_CONN = process.env.RISINGWAVE_URL
-  ?? "postgresql://root@45.32.79.245:4566/dev?sslmode=disable";
+  ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const SSOT_PATH = "/Users/junkawasaki/github/etzhayyim-root/00-contracts/catalogs/bigquery/public-dataset-licenses.json";
 
 // ── CLI args ────────────────────────────────────────────────────────────────

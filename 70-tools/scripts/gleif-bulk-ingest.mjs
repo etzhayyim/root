@@ -45,7 +45,7 @@ const PDS_URL = "https://atproto.etzhayyim.com";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
 const COLLECTION = "ai.gftd.apps.legalEntity.legalEntity";
 const PROGRESS_FILE = "/tmp/gleif-ingest-progress.json";
-const RW_CONN = "postgresql://root@45.32.79.245:4566/dev?sslmode=disable";
+const RW_CONN = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 
 // ── CLI args ────────────────────────────────────────────────────────────────
 

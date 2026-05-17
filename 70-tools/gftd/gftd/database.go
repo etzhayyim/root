@@ -32,7 +32,7 @@ const graphSchemaRel = "30-graph/graph-schema"
 // moved Linode LKE → Vultr VKE LAX on 2026-04-22.
 const (
 	rwLocalURL = "postgres://root@127.0.0.1:14566/dev?sslmode=disable"
-	rwProdURL  = "postgres://root@45.32.79.245:4566/dev"
+	rwProdURL  = "REDACTED_USE_DATABASE_URL_ENV"
 )
 
 // runDatabaseUp bootstraps an empty cluster by running all pending migrations

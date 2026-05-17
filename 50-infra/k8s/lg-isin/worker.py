@@ -67,7 +67,7 @@ _EU_EXCH_CODES = ["GY", "FP", "NA", "BB", "IM", "LN"]
 
 DB_URL = os.environ.get(
     "DATABASE_URL",
-    "postgresql://root:rw_66a4db7736799bf888c50a817b4c6a65@45.32.79.245:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 EDINET_KEY = os.environ.get("EDINET_SUBSCRIPTION_KEY", "")
 

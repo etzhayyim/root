@@ -40,7 +40,7 @@ import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 
 const RW_CONN = process.env.RISINGWAVE_URL
-  ?? "postgresql://root@45.32.79.245:4566/dev?sslmode=disable";
+  ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const COLLECTOR_DID = "did:web:bigquery.etzhayyim.com";
 
 const args = process.argv.slice(2);
