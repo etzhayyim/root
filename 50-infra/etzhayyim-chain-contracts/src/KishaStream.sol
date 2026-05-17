@@ -3,6 +3,7 @@ pragma solidity 0.8.27;
 
 import {AdherentRegistry} from "./AdherentRegistry.sol";
 import {Constitution} from "./Constitution.sol";
+import {Phenotype} from "./Phenotype.sol";
 
 /**
  * @title KishaStream
@@ -48,6 +49,7 @@ contract KishaStream {
     // -------------------------------------------------------------------
 
     event BaseRateSet(uint256 oldRate, uint256 newRate);
+    event PhenotypeSet(address indexed oldPhenotype, address indexed newPhenotype);
     event ClaimTicketIssued(
         bytes32 indexed ticketId,
         uint256 indexed tokenId,
@@ -93,6 +95,10 @@ contract KishaStream {
     ///         used as the ticket's uniqueness component.
     mapping(uint256 => uint64) public claimSeq;
 
+    /// @notice Optional Phenotype contract (S2). When unset, the
+    ///         multiplier is treated as 10_000 bps (1.0×).
+    Phenotype public phenotype;
+
     // -------------------------------------------------------------------
     // Construction
     // -------------------------------------------------------------------
@@ -127,6 +133,11 @@ contract KishaStream {
         activeWindowSecs = newWindowSecs;
     }
 
+    function setPhenotype(Phenotype newPhenotype) external onlyGovernance {
+        emit PhenotypeSet(address(phenotype), address(newPhenotype));
+        phenotype = newPhenotype;
+    }
+
     // -------------------------------------------------------------------
     // Reads
     // -------------------------------------------------------------------
@@ -135,6 +146,11 @@ contract KishaStream {
      * @notice Pure accrual computation as of `at`. Does not mutate state.
      *         Returns 0 if the adherent is not active in the trailing
      *         `activeWindowSecs` window.
+     *
+     * @dev S2: applies Phenotype multiplier when the phenotype contract
+     *      is wired. Multiplier is in basis points (10_000 = 1.0×) and
+     *      is already bounded by Phenotype.sol against constitutional
+     *      floor/ceiling — no second clamp needed here.
      */
     function previewAccrued(uint256 tokenId, uint64 at) public view returns (uint256) {
         AdherentRegistry.AdherentRecord memory r = registry.getRecord(tokenId);
@@ -147,8 +163,12 @@ contract KishaStream {
 
         unchecked {
             uint256 elapsed = uint256(at - last);
-            // amount = baseRatePerDay × elapsed / 86400
-            return (baseRatePerDay * elapsed) / 1 days;
+            // base amount = baseRatePerDay × elapsed / 86400
+            uint256 base = (baseRatePerDay * elapsed) / 1 days;
+            if (address(phenotype) == address(0)) return base;
+            uint16 mulBps = phenotype.getMultiplierBps(tokenId);
+            // amount = base × mulBps / 10_000
+            return (base * uint256(mulBps)) / 10_000;
         }
     }
 
@@ -194,9 +214,11 @@ contract KishaStream {
         if (amount > accrued) revert AmountAboveAccrued();
 
         // Advance lastClaimedAt proportionally to the amount we issued
-        // (partial claim).
-        uint256 elapsed = (amount * 1 days) / baseRatePerDay;
-        // Defensively clamp to current time.
+        // (partial claim). Use the same multiplier as previewAccrued so
+        // the inverse maps elapsed back from amount correctly even with
+        // a non-unity phenotype multiplier.
+        uint16 mulBps = (address(phenotype) == address(0)) ? uint16(10_000) : phenotype.getMultiplierBps(tokenId);
+        uint256 elapsed = (amount * 1 days * 10_000) / (baseRatePerDay * uint256(mulBps));
         uint64 advanced = uint64(uint256(lastClaimedAt[tokenId] == 0 ? r.joinedAt : lastClaimedAt[tokenId]) + elapsed);
         if (advanced > uint64(block.timestamp)) advanced = uint64(block.timestamp);
         lastClaimedAt[tokenId] = advanced;

@@ -53,6 +53,10 @@ export interface BIConfig {
 
   /** Treasury Safe address on Base L2 (info only; SDK doesn't write here). */
   treasurySafeAddress?: `0x${string}`;
+
+  /** Phenotype.sol address on geth-private (S2+). Optional — when unset,
+   *  the SDK reports a neutral 10_000 bps multiplier. */
+  phenotypeAddress?: `0x${string}`;
 }
 
 // ─── join ───────────────────────────────────────────────────────────
@@ -141,9 +145,57 @@ export async function status(_tokenId: bigint, _cfg: BIConfig): Promise<KishaSta
     "[etzhayyim-sdk/bi] status() TODO: " +
       "(1) read AdherentRegistry.getRecord(tokenId), " +
       "(2) read KishaStream.baseRatePerDay + .accruedNow(tokenId), " +
-      "(3) (S2+) read Phenotype.getMultiplier(tokenId), " +
+      "(3) (S2) if cfg.phenotypeAddress set, read Phenotype.getMultiplierBps(tokenId); " +
+      "    else default to 10_000, " +
       "(4) aggregate Fulfilled(ticketId, tokenId, ...) events from KishaPayout for claimedTotal, " +
       "(5) assemble KishaStatus."
+  );
+}
+
+// ─── Phenotype — cell-signed multiplier update (S2) ─────────────────
+
+export interface PhenotypeUpdateInput {
+  tokenId: bigint;
+  /** Multiplier in basis points, bounded by Constitution band (5000..20000). */
+  bps: number;
+  /** Cell-supplied epoch (Pregel super-step number). */
+  epoch: bigint;
+  /** Optional IPFS CID hash of the evidence record (32-byte). */
+  evidenceHash?: `0x${string}`;
+  /** Signature TTL from now, in seconds. Default 600. */
+  ttlSecs?: number;
+}
+
+export interface PhenotypeUpdateResult {
+  txHash: `0x${string}`;
+  oldBps: number;
+  newBps: number;
+}
+
+/**
+ * Submit a cell-signed phenotype update. Caller MUST be running with
+ * a signer registered as a cell in `Phenotype.sol` (registered via
+ * `Phenotype.registerCell` by governance).
+ *
+ * In typical operation this is NOT called by app code — the Pregel
+ * `EligibilityCell` (Python, at
+ * `20-actors/magatama/py/src/pymagatama/eligibility/cell.py`)
+ * computes the multiplier and submits it directly via web3.py. This
+ * SDK function exists for TypeScript-side test rigs and dashboard
+ * tooling that want to issue cell updates from the same process that
+ * holds the cell key.
+ */
+export async function setPhenotype(
+  _input: PhenotypeUpdateInput,
+  _cfg: BIConfig
+): Promise<PhenotypeUpdateResult> {
+  throw new Error(
+    "[etzhayyim-sdk/bi] setPhenotype() TODO: " +
+      "(1) read Phenotype.expectedNonce(cell) on geth-private, " +
+      "(2) build payloadHash matching Phenotype.payloadHash, " +
+      "(3) sign EIP-191 envelope with the cell key, " +
+      "(4) submit Phenotype.setMultiplier(tokenId, bps, epoch, nonce, expiresAt, evidenceHash, cell, sig), " +
+      "(5) parse MultiplierSet(tokenId, cell, oldBps, newBps, epoch, ...) event."
   );
 }
 

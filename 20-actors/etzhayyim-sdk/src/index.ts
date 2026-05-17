@@ -298,6 +298,14 @@ export class Etzhayyim {
     const { claim } = await import("./bi.js");
     return claim(opts, this.biConfig ?? {});
   }
+
+  /** Submit a cell-signed phenotype multiplier update (S2). Requires a
+   *  signer registered as a cell in Phenotype.sol. Normally invoked
+   *  from the Python EligibilityCell; exposed in TS for test rigs. */
+  async biSetPhenotype(input: import("./bi.js").PhenotypeUpdateInput) {
+    const { setPhenotype } = await import("./bi.js");
+    return setPhenotype(input, this.biConfig ?? {});
+  }
 }
 
 // ─── Re-exports ─────────────────────────────────────────────────────
