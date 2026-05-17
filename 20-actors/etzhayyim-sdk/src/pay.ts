@@ -1,12 +1,28 @@
 /**
- * @etzhayyim/sdk/pay — On-chain payment helpers (Base L2 + USDC + ERC-4337).
+ * @etzhayyim/sdk/pay — On-chain payment helpers (Base L2 + USDC + ERC-20).
  *
- * Status: scaffold. Stubs only. See ADR-2605172100.
+ * v0.1.0: working EOA-based USDC.transfer path + payment.sent AT record
+ * creation. ERC-4337 Smart Account + Paymaster + Superfluid + 0xSplits +
+ * Safe escrow remain stubs for v0.2+.
  *
  * Hard rule: this is the ONLY seam where viem writeContract for value
- * transfer is allowed. App code MUST call Etzhayyim.pay() / .payStream()
- * / .payStreamStop() — direct USDC transfers from app code are prohibited.
+ * transfer is allowed. App code MUST call Etzhayyim.pay() — direct USDC
+ * transfers from app code are prohibited (ADR-2605172100).
  */
+
+import {
+  createPublicClient,
+  createWalletClient,
+  http,
+  type Address,
+  type Hash,
+  type Hex,
+  type PublicClient,
+  type WalletClient,
+} from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+import { createRecord, type PdsConfig } from "./pds.js";
+import { AtpAgent } from "@atproto/api";
 
 // ─── Constants ──────────────────────────────────────────────────────
 
@@ -16,7 +32,34 @@ export const USDC_BASE = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as const;
 /** Default Base L2 RPC. */
 export const BASE_RPC_DEFAULT = "https://mainnet.base.org" as const;
 
-/** Reserved purpose tags for payment.sent record. */
+/** USDC.transfer / .balanceOf / .approve ABI subset. */
+export const USDC_ABI = [
+  {
+    type: "function",
+    name: "transfer",
+    inputs: [
+      { name: "to", type: "address" },
+      { name: "amount", type: "uint256" },
+    ],
+    outputs: [{ name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "balanceOf",
+    inputs: [{ name: "account", type: "address" }],
+    outputs: [{ name: "", type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "decimals",
+    inputs: [],
+    outputs: [{ name: "", type: "uint8" }],
+    stateMutability: "view",
+  },
+] as const;
+
 export type PaymentPurpose =
   | "donation"
   | "tip"
@@ -30,7 +73,7 @@ export type PaymentPurpose =
 // ─── Helpers ────────────────────────────────────────────────────────
 
 /**
- * Convert human-readable USDC amount ("10.00") to base units (10000000n).
+ * Convert human-readable USDC amount ("10.00") to base units (10_000_000n).
  * USDC has 6 decimals on Base.
  */
 export function parseUsdc(human: string): bigint {
@@ -40,174 +83,252 @@ export function parseUsdc(human: string): bigint {
 }
 
 /**
- * Convert "10.00 / month" or "1.00 / day" to USDC base units per second
- * (Superfluid flowRate convention).
+ * Format a USDC base-units bigint as a human string.
  */
-export function parseUsdcPerSecond(_perPeriod: string): bigint {
-  throw new Error(
-    "[etzhayyim-sdk/pay] parseUsdcPerSecond() TODO: parse '<amount> / <month|day|hour|second>', " +
-      "convert to base units / second."
-  );
+export function formatUsdc(micros: bigint): string {
+  const whole = micros / 1_000_000n;
+  const frac = (micros % 1_000_000n).toString().padStart(6, "0").replace(/0+$/, "");
+  return frac.length > 0 ? `${whole}.${frac}` : `${whole}`;
 }
 
-// ─── One-shot payment ───────────────────────────────────────────────
+/**
+ * Convert "10.00 / month" to USDC base units per second.
+ * For Superfluid streaming (v0.2 — currently stubbed in payStream).
+ */
+export function parseUsdcPerSecond(perPeriod: string): bigint {
+  const m = perPeriod.match(/^([\d.]+)\s*\/\s*(second|minute|hour|day|week|month|year)$/);
+  if (!m) {
+    throw new Error(
+      `[etzhayyim-sdk/pay] parseUsdcPerSecond: invalid format ${JSON.stringify(perPeriod)} ` +
+        `(expected '<amount> / <second|minute|hour|day|week|month|year>')`
+    );
+  }
+  const amount = parseUsdc(m[1]);
+  const periodSec: Record<string, bigint> = {
+    second: 1n,
+    minute: 60n,
+    hour: 3600n,
+    day: 86400n,
+    week: 604800n,
+    month: 2592000n, // 30 days
+    year: 31536000n,
+  };
+  return amount / periodSec[m[2]];
+}
+
+// ─── One-shot payment (v0.1 — EOA-based USDC.transfer) ──────────────
+
+export interface PayClientConfig {
+  /** Base L2 RPC URL. */
+  rpcUrl: string;
+  /** EOA private key. v0.2 swaps this for an ERC-4337 Smart Account. */
+  privateKey: Hex;
+  /** USDC contract address. Default USDC_BASE. */
+  tokenContract?: Address;
+}
 
 export interface PayOpts {
-  /** Recipient. DID resolved to Smart Wallet address, or raw 0x address. */
-  to: string;
-
-  /** Amount in token base units. Use `parseUsdc("10.00")` for USDC. */
+  /** Recipient address. v0.2 will accept did:web/did:plc too. */
+  to: Address;
+  /** Amount in USDC base units. Use parseUsdc("10.00") for human input. */
   amount: bigint;
-
-  /** Default "USDC". v0.1 only supports USDC on Base. */
-  token?: "USDC";
-
   /** Recorded as the AT payment.sent record body. */
   reason: PaymentReason;
-
-  /**
-   * Gas sponsorship. Default "sponsored" = etzhayyim paymaster pays.
-   * "user" = user's Smart Wallet pays gas (must have ETH).
-   * Address = use this paymaster contract.
-   */
-  paymaster?: "sponsored" | "user" | `0x${string}`;
-
-  /** Idempotency key. SDK derives one if omitted. */
-  idempotencyKey?: string;
 }
 
 export interface PaymentReason {
   /** NSID. Default `ai.gftd.apps.payment.sent`. */
   collection?: string;
-
   /** Purpose tag. */
   purpose: PaymentPurpose;
-
   /** Optional AT URI of the thing being paid for. */
   forUri?: string;
-
   /** Optional memo (≤ 280 chars, plaintext). */
   memo?: string;
 }
 
 export interface PaymentReceipt {
   /** On-chain tx hash on Base L2. */
-  txHash: `0x${string}`;
-
+  txHash: Hash;
   /** Block number where the tx was included. */
   blockNumber: bigint;
-
-  /** AT URI of the payment.sent record on the sender's PDS. */
+  /** AT URI of the payment.sent record on the sender's PDS. (Empty if no PDS supplied.) */
   recordUri: string;
-
-  /** True if the tx was part of an atomic multi-op user-op. */
-  atomicBatch: boolean;
+  /** Sender's on-chain address. */
+  from: Address;
+  /** Recipient. */
+  to: Address;
+  /** Amount in USDC base units. */
+  amount: bigint;
 }
 
-export async function pay(_opts: PayOpts): Promise<PaymentReceipt> {
-  throw new Error(
-    "[etzhayyim-sdk/pay] pay() TODO: " +
-      "(1) resolve `to` DID → Smart Wallet address, " +
-      "(2) build ERC-4337 UserOperation with USDC.transfer(to, amount), " +
-      "(3) attach paymaster + signature (passkey → P256), " +
-      "(4) submit to Base bundler, await receipt, " +
-      "(5) on success, create ai.gftd.apps.payment.sent AT record with txHash, " +
-      "(6) enqueue MST root for next L2 anchor batch."
+export class PayClient {
+  readonly publicClient: PublicClient;
+  readonly walletClient: WalletClient;
+  readonly tokenContract: Address;
+  readonly account;
+
+  constructor(cfg: PayClientConfig) {
+    this.account = privateKeyToAccount(cfg.privateKey);
+    this.tokenContract = cfg.tokenContract ?? (USDC_BASE as Address);
+    this.publicClient = createPublicClient({ transport: http(cfg.rpcUrl) });
+    this.walletClient = createWalletClient({
+      account: this.account,
+      transport: http(cfg.rpcUrl),
+    });
+  }
+
+  /** USDC balance of an address. */
+  async balanceOf(addr: Address): Promise<bigint> {
+    return (await this.publicClient.readContract({
+      address: this.tokenContract,
+      abi: USDC_ABI,
+      functionName: "balanceOf",
+      args: [addr],
+    })) as bigint;
+  }
+
+  /**
+   * One-shot USDC transfer. Optionally writes a payment.sent AT record to
+   * the sender's PDS if `pdsAgent` is provided.
+   */
+  async pay(
+    opts: PayOpts,
+    pdsAgent?: { agent: AtpAgent; did: string }
+  ): Promise<PaymentReceipt> {
+    const chain = null;
+    const txHash = await this.walletClient.writeContract({
+      address: this.tokenContract,
+      abi: USDC_ABI,
+      functionName: "transfer",
+      args: [opts.to, opts.amount],
+      account: this.account,
+      chain,
+    });
+    const receipt = await this.publicClient.waitForTransactionReceipt({
+      hash: txHash,
+    });
+    if (receipt.status !== "success") {
+      throw new Error(`[etzhayyim-sdk/pay] USDC.transfer reverted: ${txHash}`);
+    }
+
+    let recordUri = "";
+    if (pdsAgent) {
+      const chainId = await this.publicClient.getChainId();
+      const collection = opts.reason.collection ?? "ai.gftd.apps.payment.sent";
+      const record = {
+        to: opts.to,
+        amountUsdcMicros: Number(opts.amount), // safe up to 2^53; cast bigint to JSON number
+        tokenContract: this.tokenContract,
+        chainId,
+        txHash: txHash as string,
+        blockNumber: Number(receipt.blockNumber),
+        purpose: opts.reason.purpose,
+        forUri: opts.reason.forUri,
+        memo: opts.reason.memo,
+        sentAt: new Date().toISOString(),
+        atomicBatch: false,
+      };
+      const res = await createRecord(
+        pdsAgent.agent,
+        pdsAgent.did,
+        collection,
+        record
+      );
+      recordUri = res.uri;
+    }
+
+    return {
+      txHash,
+      blockNumber: receipt.blockNumber,
+      recordUri,
+      from: this.account.address,
+      to: opts.to,
+      amount: opts.amount,
+    };
+  }
+}
+
+// ─── Functional API (matches earlier stub surface) ──────────────────
+
+export async function pay(opts: {
+  rpcUrl: string;
+  privateKey: Hex;
+  to: Address;
+  amount: bigint;
+  reason: PaymentReason;
+  tokenContract?: Address;
+  pds?: { agent: AtpAgent; did: string };
+}): Promise<PaymentReceipt> {
+  const client = new PayClient({
+    rpcUrl: opts.rpcUrl,
+    privateKey: opts.privateKey,
+    tokenContract: opts.tokenContract,
+  });
+  return client.pay(
+    { to: opts.to, amount: opts.amount, reason: opts.reason },
+    opts.pds
   );
 }
 
-// ─── Streaming payment (Superfluid) ─────────────────────────────────
+// ─── v0.2 stubs ─────────────────────────────────────────────────────
 
 export interface PayStreamOpts {
-  /** Recipient (DID or 0x). */
-  to: string;
-
-  /** Flow rate in token base units per second. Use `parseUsdcPerSecond`. */
+  to: Address;
   flowRate: bigint;
-
-  token?: "USDC";
-
   reason: PaymentReason;
-
-  paymaster?: "sponsored" | "user" | `0x${string}`;
 }
 
-export interface StreamHandle {
-  /** Superfluid stream identifier (the receiver address as the key). */
-  streamId: `0x${string}`;
-
-  /** When the stream started (block timestamp). */
-  startedAt: bigint;
-
-  /** AT URI of the payment.streamStarted record. */
+export async function payStream(_opts: PayStreamOpts): Promise<{
+  streamId: Hex;
   recordUri: string;
-}
-
-export async function payStream(_opts: PayStreamOpts): Promise<StreamHandle> {
+  startedAt: bigint;
+}> {
   throw new Error(
-    "[etzhayyim-sdk/pay] payStream() TODO: " +
-      "Superfluid Host.callAgreement(CFAv1.createFlow(...)) via ERC-4337 UserOp, " +
-      "create ai.gftd.apps.payment.streamStarted record."
+    "[etzhayyim-sdk/pay] payStream() v0.2+: Superfluid.callAgreement(CFAv1.createFlow). " +
+      "v0.1 only supports one-shot pay()."
   );
 }
 
-export async function payStreamStop(_streamId: `0x${string}`): Promise<void> {
-  throw new Error(
-    "[etzhayyim-sdk/pay] payStreamStop() TODO: " +
-      "Superfluid Host.callAgreement(CFAv1.deleteFlow(...)), " +
-      "create ai.gftd.apps.payment.streamStopped record."
-  );
+export async function payStreamStop(_streamId: Hex): Promise<void> {
+  throw new Error("[etzhayyim-sdk/pay] payStreamStop() v0.2+");
 }
-
-// ─── Escrow (Gnosis Safe) ───────────────────────────────────────────
 
 export interface EscrowOpenOpts {
-  to: string;
+  to: Address;
   amount: bigint;
-  token?: "USDC";
-  arbiter: `0x${string}`;
+  arbiter: Address;
   dueDate: Date;
   reason: PaymentReason;
 }
 
-export interface EscrowHandle {
-  safeAddress: `0x${string}`;
+export async function escrowOpen(_opts: EscrowOpenOpts): Promise<{
+  safeAddress: Address;
   recordUri: string;
-}
-
-export async function escrowOpen(_opts: EscrowOpenOpts): Promise<EscrowHandle> {
+}> {
   throw new Error(
-    "[etzhayyim-sdk/pay] escrowOpen() TODO: deploy Safe 2-of-3 (user/recipient/arbiter), " +
-      "fund with USDC, create ai.gftd.apps.payment.escrowOpened record."
+    "[etzhayyim-sdk/pay] escrowOpen() v0.2+: Gnosis Safe 2-of-3 deploy."
   );
 }
 
 export async function escrowRelease(
-  _safeAddress: `0x${string}`,
+  _safeAddress: Address,
   _to: "recipient" | "user"
-): Promise<{ txHash: `0x${string}`; recordUri: string }> {
-  throw new Error(
-    "[etzhayyim-sdk/pay] escrowRelease() TODO: collect 2 signatures, " +
-      "execTransaction releasing to recipient (release) or user (refund), " +
-      "create ai.gftd.apps.payment.escrowReleased record."
-  );
+): Promise<{ txHash: Hash; recordUri: string }> {
+  throw new Error("[etzhayyim-sdk/pay] escrowRelease() v0.2+");
 }
 
-// ─── Splits (0xSplits) ──────────────────────────────────────────────
-
 export interface SplitDistributeOpts {
-  splitAddress: `0x${string}`;
+  splitAddress: Address;
   amount: bigint;
-  token?: "USDC";
   reason: PaymentReason;
 }
 
 export async function splitDistribute(_opts: SplitDistributeOpts): Promise<{
-  txHash: `0x${string}`;
+  txHash: Hash;
   recordUri: string;
 }> {
   throw new Error(
-    "[etzhayyim-sdk/pay] splitDistribute() TODO: send USDC to split contract, " +
-      "call distributeERC20(token), create ai.gftd.apps.payment.split record."
+    "[etzhayyim-sdk/pay] splitDistribute() v0.2+: 0xSplits.distributeERC20."
   );
 }
