@@ -1,0 +1,21 @@
+{
+  "domain": "recycle_rate",
+  "appHost": "recycle",
+  "repo": "did:web:recycle.etzhayyim.com",
+  "collection": "ai.gftd.apps.recycle.rate",
+  "source": {
+    "url": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.CD?format=json&mrv=1&per_page=300&page=1",
+    "format": "json",
+    "path": "1"
+  },
+  "rkey": "rate-{{countryiso3code}}",
+  "mapping": {
+    "countryCode": "{{countryiso3code}}",
+    "country": "{{country.value}}",
+    "indicator": "{{indicator.id}}",
+    "value": "{{value}}",
+    "date": "{{date}}"
+  },
+  "chunkSize": 500,
+  "note": "World Bank national economic data as environmental policy proxy (200 countries)."
+}

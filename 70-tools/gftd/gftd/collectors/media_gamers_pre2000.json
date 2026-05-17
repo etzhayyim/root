@@ -1,0 +1,19 @@
+{
+  "domain": "media_gamers",
+  "appHost": "media-gamers",
+  "repo": "did:web:media-gamers.etzhayyim.com",
+  "collection": "ai.gftd.apps.media_gamers.title",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3FpubDate%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ7889.%20%3Fitem%20wdt%3AP577%20%3FpubDate.%20FILTER%20(%3FpubDate%20%3C%20%222000-01-01T00%3A00%3A00Z%22%5E%5Exsd%3AdateTime)%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%2010000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "{{item.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "title": "{{itemLabel.value}}",
+    "publicationDate": "{{pubDate.value}}"
+  },
+  "chunkSize": 200,
+  "note": "Wikidata Q7889 games pre-2000 slice"
+}

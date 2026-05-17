@@ -1,0 +1,18 @@
+{
+  "domain": "media_gamers",
+  "appHost": "media-gamers",
+  "repo": "did:web:media-gamers.etzhayyim.com",
+  "collection": "ai.gftd.apps.media_gamers.title",
+  "source": {
+    "url": "https://en.wikipedia.org/w/api.php?action=query&list=categorymembers&cmtitle=Category%3AXbox_Series_X_and_Series_S_games&cmlimit=500&format=json",
+    "format": "json",
+    "path": "query.categorymembers"
+  },
+  "rkey": "enWikiwpXboxSeries-{{pageid}}",
+  "mapping": {
+    "title": "{{title}}",
+    "source": "enwiki-Xbox_Series_X_and_Series_S_games"
+  },
+  "chunkSize": 500,
+  "note": "Wikipedia Category:Xbox_Series_X_and_Series_S_games (up to 500 games)"
+}

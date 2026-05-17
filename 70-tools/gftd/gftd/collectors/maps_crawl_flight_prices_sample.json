@@ -1,0 +1,42 @@
+{
+  "domain": "maps_crawl_flight_prices_sample",
+  "appHost": "maps",
+  "repo": "did:web:maps.etzhayyim.com",
+  "collection": "ai.gftd.apps.maps.crawlFlightPrices",
+  "source": {
+    "format": "inline",
+    "data": [
+      {
+        "provider": "skyscanner",
+        "originIata": "NRT",
+        "destinationIata": "LAX",
+        "outboundDate": "2026-06-15",
+        "returnDate": "2026-06-22",
+        "adults": 1,
+        "children": 0,
+        "cabinClass": "economy",
+        "currency": "USD",
+        "locale": "en-US",
+        "market": "US",
+        "autoIngest": true
+      }
+    ]
+  },
+  "rkey": "crawl-{{originIata}}-{{destinationIata}}-{{outboundDate}}",
+  "mapping": {
+    "provider": "{{provider}}",
+    "originIata": "{{originIata}}",
+    "destinationIata": "{{destinationIata}}",
+    "outboundDate": "{{outboundDate}}",
+    "returnDate": "{{returnDate}}",
+    "adults": "{{adults}}",
+    "children": "{{children}}",
+    "cabinClass": "{{cabinClass}}",
+    "currency": "{{currency}}",
+    "locale": "{{locale}}",
+    "market": "{{market}}",
+    "autoIngest": "{{autoIngest}}"
+  },
+  "chunkSize": 1,
+  "note": "Queue Skyscanner-like crawl and auto-ingest extracted offers (includes booking links)."
+}

@@ -1,0 +1,20 @@
+{
+  "domain": "sdg",
+  "appHost": "sdg.etzhayyim.com",
+  "repo": "did:web:sdg.etzhayyim.com",
+  "collection": "ai.gftd.apps.sdg.indicator",
+  "source": {
+    "url": "https://unstats.un.org/sdgapi/v1/sdg/Indicator/List",
+    "format": "json"
+  },
+  "rkey": "sdg-{{code}}",
+  "mapping": {
+    "code": "{{code}}",
+    "goal": "{{goal}}",
+    "target": "{{target}}",
+    "description": "{{description}}",
+    "tier": "{{tier}}"
+  },
+  "chunkSize": 500,
+  "note": "UN SDG Indicators (251 items) from unstats.un.org."
+}

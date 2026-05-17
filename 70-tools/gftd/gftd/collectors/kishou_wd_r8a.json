@@ -1,0 +1,18 @@
+{
+  "domain": "kishou",
+  "appHost": "shizen",
+  "repo": "did:web:shizen.etzhayyim.com",
+  "collection": "ai.gftd.apps.shizen.weatherStation",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20WHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP31/wdt%3AP279%2A%20wd%3AQ190107.%0A%20%20FILTER%28xsd%3Ainteger%28STRAFTER%28STR%28%3Fitem%29%2C%20%22Q%22%29%29%20%3E%20100000000%20%26%26%20xsd%3Ainteger%28STRAFTER%28STR%28%3Fitem%29%2C%20%22Q%22%29%29%20%3C%3D%20130000000%29%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%20LIMIT%2010000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "{{item.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}"
+  },
+  "chunkSize": 500,
+  "note": "Wikidata weather stations Q190107, Q range 100000000-130000000"
+}

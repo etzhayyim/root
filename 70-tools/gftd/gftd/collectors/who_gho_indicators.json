@@ -1,0 +1,19 @@
+{
+  "domain": "who_gho",
+  "appHost": "gho.etzhayyim.com",
+  "repo": "did:web:gho.etzhayyim.com",
+  "collection": "ai.gftd.apps.gho.indicator",
+  "source": {
+    "url": "https://ghoapi.azureedge.net/api/Indicator",
+    "format": "json",
+    "path": "value"
+  },
+  "rkey": "gho-{{IndicatorCode}}",
+  "mapping": {
+    "code": "{{IndicatorCode}}",
+    "name": "{{IndicatorName}}",
+    "language": "{{Language}}"
+  },
+  "chunkSize": 500,
+  "note": "WHO GHO Indicators (3057 items) from ghoapi.azureedge.net."
+}

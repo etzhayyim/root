@@ -1,0 +1,19 @@
+{
+  "domain": "hs1996",
+  "appHost": "hs1996.etzhayyim.com",
+  "repo": "did:web:hs1996.etzhayyim.com",
+  "collection": "ai.gftd.apps.hs1996.code",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Fcode%20WHERE%20%7B%20%3Fitem%20wdt%3AP3329%20%3Fcode.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%2010000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "hs-{{code.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}",
+    "hsCode": "{{code.value}}"
+  },
+  "chunkSize": 500,
+  "note": "Wikidata P3329 (HS 2007 code) for hs1996 domain."
+}

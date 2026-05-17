@@ -1,0 +1,19 @@
+{
+  "domain": "i18n",
+  "appHost": "i18n.etzhayyim.com",
+  "repo": "did:web:i18n.etzhayyim.com",
+  "collection": "ai.gftd.apps.i18n.language",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Fcode%20WHERE%20%7B%20%3Fitem%20wdt%3AP220%20%3Fcode.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%2010000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "iso639-{{code.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}",
+    "iso639_3": "{{code.value}}"
+  },
+  "chunkSize": 500,
+  "note": "Wikidata P220 (ISO 639-3 code) for i18n living languages. ~7000 entries."
+}

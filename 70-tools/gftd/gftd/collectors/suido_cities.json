@@ -1,0 +1,18 @@
+{
+  "domain": "suido",
+  "appHost": "suido",
+  "repo": "did:web:suido.etzhayyim.com",
+  "collection": "ai.gftd.apps.suido.utility",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20DISTINCT%20%3Fitem%20%3FitemLabel%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ1059478.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%201000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "suido-city-{{item.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}"
+  },
+  "chunkSize": 500,
+  "note": "Japanese cities (water utilities) from Wikidata Q1059478."
+}

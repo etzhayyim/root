@@ -1,0 +1,43 @@
+{
+  "domain": "kyotei",
+  "appHost": "kyotei",
+  "repo": "did:web:kyotei.etzhayyim.com",
+  "collection": "ai.gftd.apps.kyotei.venue",
+  "source": {
+    "format": "inline",
+    "data": [
+      { "code": "01", "name_ja": "桐生",     "pref": "群馬県" },
+      { "code": "02", "name_ja": "戸田",     "pref": "埼玉県" },
+      { "code": "03", "name_ja": "江戸川",   "pref": "東京都" },
+      { "code": "04", "name_ja": "平和島",   "pref": "東京都" },
+      { "code": "05", "name_ja": "多摩川",   "pref": "東京都" },
+      { "code": "06", "name_ja": "浜名湖",   "pref": "静岡県" },
+      { "code": "07", "name_ja": "蒲郡",     "pref": "愛知県" },
+      { "code": "08", "name_ja": "常滑",     "pref": "愛知県" },
+      { "code": "09", "name_ja": "津",       "pref": "三重県" },
+      { "code": "10", "name_ja": "三国",     "pref": "福井県" },
+      { "code": "11", "name_ja": "びわこ",   "pref": "滋賀県" },
+      { "code": "12", "name_ja": "住之江",   "pref": "大阪府" },
+      { "code": "13", "name_ja": "尼崎",     "pref": "兵庫県" },
+      { "code": "14", "name_ja": "鳴門",     "pref": "徳島県" },
+      { "code": "15", "name_ja": "丸亀",     "pref": "香川県" },
+      { "code": "16", "name_ja": "児島",     "pref": "岡山県" },
+      { "code": "17", "name_ja": "宮島",     "pref": "広島県" },
+      { "code": "18", "name_ja": "徳山",     "pref": "山口県" },
+      { "code": "19", "name_ja": "下関",     "pref": "山口県" },
+      { "code": "20", "name_ja": "若松",     "pref": "福岡県" },
+      { "code": "21", "name_ja": "芦屋",     "pref": "福岡県" },
+      { "code": "22", "name_ja": "福岡",     "pref": "福岡県" },
+      { "code": "23", "name_ja": "唐津",     "pref": "佐賀県" },
+      { "code": "24", "name_ja": "大村",     "pref": "長崎県" }
+    ]
+  },
+  "rkey": "{{code}}",
+  "mapping": {
+    "code": "{{code}}",
+    "nameJa": "{{name_ja}}",
+    "prefecture": "{{pref}}"
+  },
+  "chunkSize": 50,
+  "note": "24 BOATRACE (kyotei) venues (JP) — official BOATRACE list"
+}
