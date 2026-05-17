@@ -249,13 +249,11 @@ AMENO_LANGSERVER_PROXY_NSIDS = frozenset({
 })
 AMENO_LANGSERVER_PROXY_NSIDS_LOWER = frozenset(nsid.lower() for nsid in AMENO_LANGSERVER_PROXY_NSIDS)
 
-# malak surveillance (ADR-2605131600 LangGraph+Pregel+LangServe, 2026-05-15).
-# 4 chains exposed by pymagatama.malak.langgraph.server:app on port 8765.
+
 # Phase 0 dry-run: pod env pins MALAK_PHASE=0 + MALAK_LIVE_WRITE=false.
 # Phase 1 (G1+G2+G3 GREEN, target 2026-08-01) flips live writes via pod env.
 MALAK_LANGSERVER_INTERNAL_URL = os.environ.get(
     "MALAK_LANGSERVER_INTERNAL_URL",
-    "http://malak-langserver.mitama-udf.svc.cluster.local:8765",
 )
 MALAK_LANGSERVER_PROXY_NSIDS = frozenset({
     "ai.gftd.apps.malak.bitnestExitPursuit",

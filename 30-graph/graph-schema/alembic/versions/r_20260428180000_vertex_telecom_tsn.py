@@ -10,7 +10,7 @@ from graph_schema.db import execute_sql_text
 
 
 revision = "r_20260428180000_vertex_telecom_tsn"
-down_revision = 'r_20260428180000_seed_malak_get_dashboard_bpmn'
+down_revision = None  # parent removed: vendor malak BPMN seed
 branch_labels = None
 depends_on = None
 
