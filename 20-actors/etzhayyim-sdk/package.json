@@ -1,0 +1,59 @@
+{
+  "name": "@etzhayyim/sdk",
+  "version": "0.0.0",
+  "description": "RW-free substrate SDK for etzhayyim open religious-corp apps: AT Protocol MST + IPFS + Base L2 anchor. Per ADR-2605172000.",
+  "license": "Apache-2.0",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./pds": {
+      "import": "./dist/pds.js",
+      "types": "./dist/pds.d.ts"
+    },
+    "./ipfs": {
+      "import": "./dist/ipfs.js",
+      "types": "./dist/ipfs.d.ts"
+    },
+    "./l2": {
+      "import": "./dist/l2.js",
+      "types": "./dist/l2.d.ts"
+    }
+  },
+  "files": ["dist", "src", "README.md"],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@atproto/api": "^0.13.0",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etzhayyim/root.git",
+    "directory": "20-actors/etzhayyim-sdk"
+  },
+  "homepage": "https://etzhayyim.com",
+  "keywords": [
+    "etzhayyim",
+    "atproto",
+    "ipfs",
+    "base-l2",
+    "decentralized",
+    "verifiable",
+    "religious-corp",
+    "open"
+  ]
+}
