@@ -35,12 +35,16 @@ import {AtpAgent} from "@atproto/api";
 
 import {
   ADHERENT_REGISTRY_ABI,
+  CONSTITUTION_ABI,
   ETZHAYYIM_MEMBERSHIP_ABI,
-  KISHA_PAYOUT_ABI,
+  GOVERNANCE_ABI,
   KISHA_STREAM_ABI,
   OATH_RECORD_NSID,
   PHENOTYPE_ABI,
+  VOTE_CHOICE,
 } from "./abi.js";
+import {encodeFunctionData} from "viem";
+import {sponsoredWriteContract, type SponsoredBundle} from "./paymaster.js";
 import type {PaymentReceipt} from "./pay.js";
 
 // Parsed once at module load; used by claim() fulfillment polling.
@@ -137,6 +141,14 @@ export interface BIConfig {
    * `claim()` Stage 5 (payment.kisha AT Record write).
    */
   pdsAgent?: AtpAgent;
+
+  /**
+   * Optional ERC-4337 sponsored-write bundle. When set, Base-side
+   * adherent writes (initially `join()` Stage 1) route through the
+   * bundler + paymaster rather than calling `baseWalletClient.
+   * writeContract` directly. Per ADR-2605172100 §"Gas sponsorship".
+   */
+  sponsored?: SponsoredBundle;
 }
 
 // ─── join — two-chain atomic ritual (ADR-2605172700) ────────────────
@@ -328,19 +340,42 @@ interface _BaseJoinIn {
 }
 
 async function _baseJoin(args: _BaseJoinIn, cfg: BIConfig): Promise<`0x${string}`> {
+  // ─── Sponsored (ERC-4337) path ─────────────────────────────────
+  // When BIConfig.sponsored is wired, route the join through the
+  // bundler so the adherent pays no gas. The SmartAccount's address
+  // becomes the SBT holder on the Base side, so sanity-check the
+  // match the same way the EOA path does.
+  if (cfg.sponsored) {
+    const sender = cfg.sponsored.smartAccount.address.toLowerCase();
+    if (sender !== args.holder.toLowerCase()) {
+      throw new Error(
+        `[etzhayyim-sdk/bi] _baseJoin (sponsored): smartAccount address ${sender} ` +
+          `does not match opts.holder ${args.holder.toLowerCase()}; ` +
+          "EtzhayyimMembership.join binds msg.sender = member."
+      );
+    }
+    return sponsoredWriteContract(
+      {
+        address: args.membership,
+        abi: ETZHAYYIM_MEMBERSHIP_ABI,
+        functionName: "join",
+        args: [args.oathHash, args.githubUsername],
+      },
+      cfg.sponsored
+    );
+  }
+
+  // ─── EOA path (fallback) ───────────────────────────────────────
   if (!cfg.baseWalletClient) {
     throw new Error(
       "[etzhayyim-sdk/bi] _baseJoin: cfg.baseWalletClient required " +
-        "(a viem WalletClient bound to the adherent's Base wallet). " +
-        "Future upgrade: ERC-4337 SmartAccountClient + paymaster."
+        "(or wire cfg.sponsored for ERC-4337 paymaster path)."
     );
   }
   if (!cfg.baseWalletClient.account) {
     throw new Error("[etzhayyim-sdk/bi] _baseJoin: walletClient has no account");
   }
   const pub = createPublicClient({transport: http(args.rpcUrl)});
-  // EtzhayyimMembership.join writes msg.sender's slot, so the wallet
-  // account MUST equal the adherent's holder address. Sanity-check.
   const sender = cfg.baseWalletClient.account.address.toLowerCase();
   if (sender !== args.holder.toLowerCase()) {
     throw new Error(
@@ -1000,16 +1035,142 @@ export interface ProposeOpts {
   rationale: string;
 }
 
-export async function propose(_opts: ProposeOpts, _cfg: BIConfig): Promise<bigint> {
-  throw new Error(
-    "[etzhayyim-sdk/bi] propose() TODO (S3): " +
-      "encode Constitution.setMutable(<keccak(change)>, bytes32(to)) as a Governance proposal, " +
-      "submit Governance.propose(...), return proposalId."
-  );
+/**
+ * Submit a governance proposal that changes one constitutional mutable.
+ *
+ * The current shape is single-key: `change` names the mutable, `to`
+ * is the new bytes32 value (a uint256 cast to bytes32 for numeric
+ * keys). The proposal payload is a single-call array calling
+ * `Constitution.setMutable(keccak256(change), bytes32(to))`.
+ *
+ * Multi-call proposals (e.g., the bootstrap proposal from the deploy
+ * RUNBOOK that wires Phenotype + cell + oracle in one shot) are not
+ * directly exposed here yet — callers needing that should drop down to
+ * a raw `Governance.propose(targets, calldatas, descCid)` call. The
+ * common adherent-side case is one-key adjustments to kisha rate, κ,
+ * tier ratios, etc., which is what this helper covers.
+ */
+export async function propose(opts: ProposeOpts, cfg: BIConfig): Promise<bigint> {
+  if (!cfg.privateWalletClient || !cfg.privateWalletClient.account) {
+    throw new Error("[etzhayyim-sdk/bi] propose: cfg.privateWalletClient required");
+  }
+  if (!cfg.privateRpcUrl) {
+    throw new Error("[etzhayyim-sdk/bi] propose: cfg.privateRpcUrl required");
+  }
+  if (!cfg.constitutionAddress) {
+    throw new Error("[etzhayyim-sdk/bi] propose: cfg.constitutionAddress required");
+  }
+  // Locate Governance via Constitution.governance() so callers don't
+  // have to pass the address separately — we deliberately bind to the
+  // active governance set at the constitution level.
+  const privatePub: PublicClient = createPublicClient({transport: http(cfg.privateRpcUrl)});
+  const governanceAddr = (await privatePub.readContract({
+    address: cfg.constitutionAddress,
+    abi: CONSTITUTION_ABI,
+    functionName: "governance",
+  })) as Address;
+  if (governanceAddr === "0x0000000000000000000000000000000000000000") {
+    throw new Error(
+      "[etzhayyim-sdk/bi] propose: Constitution.governance() is zero — bind it first via Deploy.bindGovernance"
+    );
+  }
+
+  // Encode the constitutional change as a single setMutable call.
+  const key = keccak256(toBytes(opts.change));
+  const valueHex = toHex(opts.to, {size: 32});
+  const calldata = encodeFunctionData({
+    abi: CONSTITUTION_ABI,
+    functionName: "setMutable",
+    args: [key, valueHex],
+  });
+  const descCid = keccak256(toBytes(opts.rationale));
+
+  const wallet = cfg.privateWalletClient;
+  const txHash: Hash = await wallet.writeContract({
+    account: wallet.account!,
+    chain: wallet.chain ?? null,
+    address: governanceAddr,
+    abi: GOVERNANCE_ABI,
+    functionName: "propose",
+    args: [[cfg.constitutionAddress], [calldata], descCid],
+  });
+  const receipt = await privatePub.waitForTransactionReceipt({hash: txHash});
+  if (receipt.status !== "success") {
+    throw new Error(
+      `[etzhayyim-sdk/bi] propose: tx ${txHash} reverted; likely NotAdherent / NotActive`
+    );
+  }
+  const log = receipt.logs.find((l) => l.address.toLowerCase() === governanceAddr.toLowerCase());
+  if (!log) {
+    throw new Error("[etzhayyim-sdk/bi] propose: ProposalCreated log missing");
+  }
+  const decoded = decodeEventLog({
+    abi: GOVERNANCE_ABI,
+    eventName: "ProposalCreated",
+    data: log.data,
+    topics: log.topics,
+  });
+  return (decoded.args as {proposalId: bigint}).proposalId;
 }
 
-export async function vote(_proposalId: bigint, _choice: "for" | "against" | "abstain", _cfg: BIConfig): Promise<void> {
-  throw new Error(
-    "[etzhayyim-sdk/bi] vote() TODO (S3): call Governance.castVote(proposalId, choice)."
-  );
+export async function vote(
+  proposalId: bigint,
+  choice: "for" | "against" | "abstain",
+  cfg: BIConfig
+): Promise<void> {
+  if (!cfg.privateWalletClient || !cfg.privateWalletClient.account) {
+    throw new Error("[etzhayyim-sdk/bi] vote: cfg.privateWalletClient required");
+  }
+  if (!cfg.privateRpcUrl) {
+    throw new Error("[etzhayyim-sdk/bi] vote: cfg.privateRpcUrl required");
+  }
+  if (!cfg.constitutionAddress) {
+    throw new Error("[etzhayyim-sdk/bi] vote: cfg.constitutionAddress required");
+  }
+  const privatePub: PublicClient = createPublicClient({transport: http(cfg.privateRpcUrl)});
+  const governanceAddr = (await privatePub.readContract({
+    address: cfg.constitutionAddress,
+    abi: CONSTITUTION_ABI,
+    functionName: "governance",
+  })) as Address;
+  const wallet = cfg.privateWalletClient;
+  const txHash = await wallet.writeContract({
+    account: wallet.account!,
+    chain: wallet.chain ?? null,
+    address: governanceAddr,
+    abi: GOVERNANCE_ABI,
+    functionName: "castVote",
+    args: [proposalId, VOTE_CHOICE[choice]],
+  });
+  const receipt = await privatePub.waitForTransactionReceipt({hash: txHash});
+  if (receipt.status !== "success") {
+    throw new Error(`[etzhayyim-sdk/bi] vote: tx ${txHash} reverted (likely AlreadyVoted / NotActive)`);
+  }
+}
+
+/**
+ * Read the current proposal state. Mirrors `Governance.state(proposalId)`
+ * and maps the uint8 to a typed label.
+ */
+export async function proposalState(
+  proposalId: bigint,
+  cfg: BIConfig
+): Promise<"Pending" | "Active" | "Defeated" | "Succeeded" | "Queued" | "Executed" | "Canceled" | "Expired"> {
+  if (!cfg.privateRpcUrl || !cfg.constitutionAddress) {
+    throw new Error("[etzhayyim-sdk/bi] proposalState: privateRpcUrl + constitutionAddress required");
+  }
+  const privatePub: PublicClient = createPublicClient({transport: http(cfg.privateRpcUrl)});
+  const governanceAddr = (await privatePub.readContract({
+    address: cfg.constitutionAddress,
+    abi: CONSTITUTION_ABI,
+    functionName: "governance",
+  })) as Address;
+  const u8 = (await privatePub.readContract({
+    address: governanceAddr,
+    abi: GOVERNANCE_ABI,
+    functionName: "state",
+    args: [proposalId],
+  })) as number;
+  const labels = ["Pending", "Active", "Defeated", "Succeeded", "Queued", "Executed", "Canceled", "Expired"] as const;
+  return labels[u8] ?? "Pending";
 }
