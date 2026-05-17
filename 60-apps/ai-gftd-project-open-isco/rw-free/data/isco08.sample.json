@@ -1,0 +1,52 @@
+[
+  {
+    "code": "2511",
+    "name": "Systems Analysts",
+    "major": "2",
+    "subMajor": "25",
+    "minor": "251",
+    "unitGroup": "2511",
+    "description": "Systems analysts conduct research, analyse and evaluate client information technology requirements...",
+    "publishedAt": "2008-01-01T00:00:00Z"
+  },
+  {
+    "code": "2512",
+    "name": "Software Developers",
+    "major": "2",
+    "subMajor": "25",
+    "minor": "251",
+    "unitGroup": "2512",
+    "description": "Software developers research, analyse and evaluate requirements for existing or new software applications...",
+    "publishedAt": "2008-01-01T00:00:00Z"
+  },
+  {
+    "code": "2521",
+    "name": "Database Designers and Administrators",
+    "major": "2",
+    "subMajor": "25",
+    "minor": "252",
+    "unitGroup": "2521",
+    "description": "Database designers and administrators design, develop, control, maintain and support the optimal performance and security of databases...",
+    "publishedAt": "2008-01-01T00:00:00Z"
+  },
+  {
+    "code": "2611",
+    "name": "Lawyers",
+    "major": "2",
+    "subMajor": "26",
+    "minor": "261",
+    "unitGroup": "2611",
+    "description": "Lawyers provide legal advice and act for clients in legal proceedings...",
+    "publishedAt": "2008-01-01T00:00:00Z"
+  },
+  {
+    "code": "3514",
+    "name": "Web Technicians",
+    "major": "3",
+    "subMajor": "35",
+    "minor": "351",
+    "unitGroup": "3514",
+    "description": "Web technicians maintain web sites, ensuring their proper functioning, appropriate security measures and adequate response to user demand...",
+    "publishedAt": "2008-01-01T00:00:00Z"
+  }
+]
