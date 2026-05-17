@@ -1,0 +1,13 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc = "0.8.27"
+optimizer = true
+optimizer_runs = 1000000
+via_ir = true
+
+# geth-private internal chain (ChainID 2605, PoA / Clique).
+# Endpoint set by deployer environment; no public RPC.
+[rpc_endpoints]
+etzhayyim_private = "${ETZHAYYIM_PRIVATE_RPC}"
