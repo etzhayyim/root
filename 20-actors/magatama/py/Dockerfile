@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-LABEL org.opencontainers.image.source="https://github.com/gftdcojp/etzhayyim/root"
+LABEL org.opencontainers.image.source="https://github.com/gftdcojp/ai-gftd-apps-gftdcojp"
 LABEL org.opencontainers.image.description="mitama reactive agent shared UDF pool (ADR-0049)"
 
 WORKDIR /app
