@@ -22,8 +22,8 @@ These contracts live on the **internal** chain (geth-private at `50-infra/vultr/
 | `src/AnchorBridge.sol` | geth-private | Permissionless state-root commit (relayer → Base anchor) | **S1** |
 | `src/base/KishaPayout.sol` | Base L2 | M-of-N relayer-signed claim fulfillment; pulls USDC from Treasury Safe | **S1** |
 | `src/Phenotype.sol` | geth-private | Per-adherent multiplier (0.5×–2.0×) populated by cell-signed updates from `EligibilityCell` | **S2** |
-| `src/TreasuryMirror.sol` | geth-private | NAV oracle mirror, envelope computation | S3 |
-| `src/Governance.sol` | geth-private | OZ Governor derivative, 1 SBT = 1 vote, 72h timelock | S3 |
+| `src/TreasuryMirror.sol` | geth-private | Oracle-signed 3-tier NAV mirror; 156-slot weekly ring buffer; κ-band envelope calc | **S3** |
+| `src/Governance.sol` | geth-private | Minimal in-house Governor; 1 SBT = 1 vote; quorum + 72h timelock + 14d grace | **S3** |
 
 ## Design rules (inherited)
 
@@ -38,9 +38,14 @@ From ADR-2605172000 + ADR-2605172100 (and reiterated in ADR-2605172300):
 ## Build
 
 ```bash
+# First-time setup (per checkout):
+forge install foundry-rs/forge-std --no-commit
+
 forge build
-forge test
+forge test -vvv
 ```
+
+Tests live under `test/` and depend on `forge-std`. `_helpers/Fixture.sol` deploys the full Constitution → Registry → KishaStream → Phenotype → Governance → TreasuryMirror stack with S0/S1/S2/S3 defaults; individual `*.t.sol` files exercise behavior on top.
 
 ## Deploy (later, not in S0)
 
@@ -48,4 +53,4 @@ Deployment scripts will live under `script/` and target `etzhayyim_private` (RPC
 
 ## Status
 
-**S2 — Phenotype-modulated kisha**. `Phenotype.sol` accepts cell-signed multiplier updates (EIP-191, bounded by `Constitution` floor/ceiling) and is composed at read time by `KishaStream.previewAccrued`. The Python `EligibilityCell` at `20-actors/magatama/py/src/pymagatama/eligibility/` runs the BSP super-step over MST attestation events and submits updates via the cell key. Per-adherent `PhenotypeAgent` files are emitted by `scripts/gen_phenotype_agent.py` mirroring ADR-2605171300's unispsc_agents pattern. Governance + Treasury 3-tier ship in S3.
+**S3 — Governance + Treasury mirror**. `Governance.sol` lands a minimal in-house Governor (no OZ import): 1 SBT = 1 vote, active-window-gated voters, snapshot-at-voteStart quorum, 72h timelock (governance-mutable), 14d execution grace period, low-level `call` dispatch. `TreasuryMirror.sol` lands oracle-signed NAV updates per tier (流動 / 準備 / 本財) with a 156-slot weekly ring buffer feeding the constitutional κ-band monthly envelope. Wiring at deploy time: `Constitution.bindGovernance(<governance>)` → governance proposals reach `setMutable`, `KishaStream.set*`, `Phenotype.registerCell`, `TreasuryMirror.registerOracle`.
