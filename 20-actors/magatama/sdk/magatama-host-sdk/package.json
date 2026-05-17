@@ -33,7 +33,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@gftd/did-gftd": "workspace:*",
+    "@etzhayyim/did-etzhayyim": "workspace:*",
     "@gftd/graph-schema": "workspace:*",
     "@gftd/xrpc": "workspace:*",
     "@gftdcojp/kami-engine-sdk": "workspace:*",

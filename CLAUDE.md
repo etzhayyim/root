@@ -28,7 +28,7 @@ This monorepo is the **principal-owned half** of the source-control boundary est
 | 6. Content seed (Tranches A-E + Wave 2) | ✅ |
 | 7. 既存 gftdcojp open repos archive + [MOVED] prefix | ✅ 26 repos archived |
 | 8. gftdcojp 側 open scope cleanup | ⏳ pending |
-| 9. CI / wrangler / package.json `repository` field sed | ⏳ pending |
+| 9. CI / wrangler / package.json `repository` field sed | ✅ etzhayyim/root 側 done (11 pkg.json + 2 wrangler.jsonc) |
 | 10. did:web publish (DNS + wrangler deploy) | ⏳ scaffold ✅, deploy ⏳ |
 | 11. 220-file `amanomibashira` → `etzhayyim` cutover | ⏳ 登記変更後 |
 
@@ -37,7 +37,7 @@ This monorepo is the **principal-owned half** of the source-control boundary est
 ```
 etzhayyim/root/
 ├── 00-contracts/        # lexicons / bpmn / dmn / Rego policies / resources (JSON-LD)
-├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-gftd*,
+├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim,
 │                        # wproto, at-client, signal-client
 ├── 20-actors/           # magatama (Pregel framework + host SDK),
 │                        # magatama-go, kami-engine-sdk, effect-cypher,
@@ -58,8 +58,6 @@ etzhayyim/root/
 ├── lefthook.yml         # pre-commit (trailing-ws + EOF; full hooks pending)
 └── .gitignore
 ```
-
-\* `10-protocol/did-gftd` → `did-etzhayyim` rename pending (planned in a follow-up commit).
 
 ## ADR Authority (per ADR-2605170900)
 
@@ -87,7 +85,6 @@ For shared foundational ADRs (Shannon-Optimal 8-Layer, MCP-as-Cell-Membrane, Bon
 - **Dependabot** for npm + cargo + uv ecosystems
 - **`90-docs/_registry/docs.json`** generator + validator (parity with vendor)
 - **did:web deployment**: DNS prerequisite (AAAA `@` `100::` proxied) + `wrangler deploy` (`50-infra/etzhayyim-did-web/`)
-- **did-gftd → did-etzhayyim** rename in `10-protocol/`
 
 ## SSoT pointers
 

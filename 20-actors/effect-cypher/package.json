@@ -56,11 +56,11 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/gftdcojp/effect-cypher.git"
+		"url": "https://github.com/etzhayyim/root.git"
 	},
-	"homepage": "https://github.com/gftdcojp/effect-cypher#readme",
+	"homepage": "https://github.com/etzhayyim/root",
 	"bugs": {
-		"url": "https://github.com/gftdcojp/effect-cypher/issues"
+		"url": "https://github.com/etzhayyim/rootissues"
 	},
 	"publishConfig": {
 		"access": "public",

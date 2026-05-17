@@ -42,7 +42,7 @@ etzhayyim/root/
 
 | 領域 | Description | Source path in vendor monorepo |
 |---|---|---|
-| **blockchain** | Private ethereum (geth), Holochain, IPFS, Blockscout, DID method | `50-infra/{geth-private,holochain,ipfs,blockscout}`, `10-protocol/did-gftd` |
+| **blockchain** | Private ethereum (geth), Holochain, IPFS, Blockscout, DID method | `50-infra/{geth-private,holochain,ipfs,blockscout}`, `10-protocol/did-etzhayyim` |
 | **baien** | BitNet b1.58 1-bit multimodal CPU/edge/browser LLM | `60-apps/ai-gftd-project-baien*`, `90-docs/baien/` |
 | **bpmn** | Open BPMN 2.0 process definitions + DMN decision tables | `00-contracts/bpmn/`, `00-contracts/dmn/`, `60-apps/ai-gftd-project-open-bpmn` |
 | **lexicon** | AT Protocol Lexicon schemas + XRPC framework | `00-contracts/lexicons/`, `10-protocol/lexicons-bundle`, `10-protocol/xrpc` |

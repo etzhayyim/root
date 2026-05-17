@@ -12,9 +12,9 @@
 //   did:gftd   — legacy / migration window
 //
 // did:gftd-specific helpers (depth, parent, root) re-export from
-// @gftd/did-gftd to keep the canonical impl single-sourced (ADR-0029).
+// @etzhayyim/did-etzhayyim to keep the canonical impl single-sourced (ADR-0029).
 
-import { isValidDidGftd, didDepth as didDepthGftd, didParent as didParentGftd, didRoot as didRootGftd } from "@gftd/did-gftd";
+import { isValidDidGftd, didDepth as didDepthGftd, didParent as didParentGftd, didRoot as didRootGftd } from "@etzhayyim/did-etzhayyim";
 
 export type DidMethod = "erc725" | "web" | "plc" | "pkh" | "gftd";
 
@@ -42,7 +42,7 @@ const KNOWN_METHODS: ReadonlySet<DidMethod> = new Set(["erc725", "web", "plc", "
  *   - web:    did:web:{host}[:{path}...] — at least 1 part after method
  *   - plc:    did:plc:{base32-cid} — exactly 1 part
  *   - pkh:    did:pkh:{namespace}:{reference}:{address} — CAIP-10 shape
- *   - gftd:   delegates to @gftd/did-gftd isValidDidGftd (depth ≤ 6)
+ *   - gftd:   delegates to @etzhayyim/did-etzhayyim isValidDidGftd (depth ≤ 6)
  */
 export function parseDid(did: string): ParsedDid {
   if (typeof did !== "string" || did.length === 0) {
@@ -92,7 +92,7 @@ export function parseDid(did: string): ParsedDid {
       break;
     }
     case "gftd": {
-      if (!isValidDidGftd(did)) throw new DidParseError(did, "fails @gftd/did-gftd isValidDidGftd");
+      if (!isValidDidGftd(did)) throw new DidParseError(did, "fails @etzhayyim/did-etzhayyim isValidDidGftd");
       break;
     }
   }

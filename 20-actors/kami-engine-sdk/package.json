@@ -4,13 +4,13 @@
   "description": "KAMI Engine SDK: Svelte 5 VRM character components, headless builders, Genko manga editor, trackpad embeds, and manufacturing planning helpers.",
   "type": "module",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/gftdcojp/kami-engine-sdk#readme",
+  "homepage": "https://github.com/etzhayyim/root",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gftdcojp/kami-engine-sdk.git"
+    "url": "https://github.com/etzhayyim/root.git"
   },
   "bugs": {
-    "url": "https://github.com/gftdcojp/kami-engine-sdk/issues"
+    "url": "https://github.com/etzhayyim/rootissues"
   },
   "keywords": [
     "kami",
