@@ -1,0 +1,13 @@
+psycopg[binary]==3.2.3
+httpx==0.27.2
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+h3==4.1.2
+# LangGraph + LLM (curator + actor-link pods only — colmap pod can skip)
+langgraph==0.2.45
+langchain-core==0.3.21
+# Mesh post-processing (colmap pod only)
+open3d==0.19.0
+numpy==1.26.4
+# B2 client (colmap pod only)
+b2sdk==2.5.0
