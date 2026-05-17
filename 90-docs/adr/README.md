@@ -83,6 +83,7 @@ These ADRs originated in the vendor monorepo. They are **referenced** from etzha
 
 - [ADR-2605102200 Operating Entity Rename (etz hayim → amanomibashira)](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605102200-operating-entity-amanomibashira-rename.md) (later partially reverted; see ADR-2605152100)
 - [ADR-2605152100 etzhayyim GitHub Org Boundary + Monorepo Seed Strategy](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605152100-etzhayyim-github-org-boundary.md)
+- [ADR-2605172400 etzhayyim / vendor split — 3-axis decision rule + Tranche F scope](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md) (operationalizes ADR-2605152100 / 2605172000 / 2605172100 as a 3-axis OR-test: Liability / Custody / Settlement; Tranche F target list includes pregel runtime + DID OAuth spec + sanctions list + kyber+APQC full move + yoro AppView + Well-Becoming spec + vault zero-knowledge spec + A/B/C-group bulk waves)
 
 ### Python / DB contracts
 

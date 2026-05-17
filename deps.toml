@@ -620,3 +620,46 @@ seed_completed_at = "2026-05-15T..2026-05-17T"
 seed_method_actual = "rsync (per user direction 'filter-repo は不要、関連する最新コードだけ commit でok')"
 seed_plan_adr = "2605152100"
 seed_source = "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp"
+
+# ─── Tranche F catalog freeze (incoming from vendor monorepo) ──────────
+
+[platform.tranche_f]
+# Mirror of vendor's `etzhayyim-tranche-f-three-axis-split-2026-05-17`
+# migration. The canonical entry + ADR live in the vendor monorepo
+# because Tranche F is a *vendor-side* cleanup decision (which open
+# scope leaves vendor to come here). This block tracks etzhayyim/root-
+# side scaffolding state for the incoming targets.
+status = "phase-2-scaffolding"
+vendor_adr = "90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md"
+vendor_adr_url = "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md"
+vendor_migration_id = "etzhayyim-tranche-f-three-axis-split-2026-05-17"
+decision_rule = "3-axis OR-test (Liability / Custody / Settlement). All 3 clean → etzhayyim. Any 1 hit → vendor."
+phase_2_initial_wave = [
+  "20-actors/etzhayyim-pregel",
+  "00-contracts/lexicons/ai/gftd/apqc",
+  "00-contracts/lexicons/ai/gftd/sanctions",
+  "00-contracts/lexicons/ai/gftd/wellBecoming",
+  "00-contracts/lexicons/ai/gftd/oauth",
+  "60-apps/ai-gftd-project-open-apqc",
+  "60-apps/ai-gftd-project-open-sanctions",
+  "60-apps/ai-gftd-project-open-wellbecoming",
+]
+phase_2_deferred_waves = [
+  "A-group open standards (28 items: blockchain, bpmn, gtin, isbn, issn, isin, ndc, ocel, sbom, scap, ipaddress, ipfs, dns, arxiv, common-crawl, distill, rare-earth, rare-earth-coverage, legal-corpus, hanrei, houbun, houki, treaty, customary, legal-aid, legal-entity, industry-standard, unispec)",
+  "B-group religious/cultural (23 items: religious, yorishiro, omikuji, otakiage, kiyome, omatsuri, ki, kareyanagi, koke, kiyo, ijin, ethics, social-contract, ohanashi, narou, syosetsu, tradition, hakkou, houshi, joucho, kagami, sense)",
+  "C-group creative Lexicons (25 items: anime, animeka, anima, manga, mangaka, drama, gameka, dougaka, douga, music, ongakuka, color-by-number, voxelforge, canvas, editor, comfyui, image2metahuman, image2vrm, images, gazo, img2pptx, photos, gyotaku, isekai, obebe)",
+]
+already_present_at_freeze = [
+  "60-apps/ai-gftd-project-open-kyber (Tranche E)",
+  "60-apps/ai-gftd-project-yoro (Tranche E; ADR-2605171900 promotes)",
+  "00-contracts/lexicons/ai/gftd/kyber (Tranche A)",
+  "00-contracts/lexicons/ai/gftd/vault (Tranche A — spec only; running service stays vendor)",
+  "10-protocol/did-etzhayyim (Wave 2)",
+  "20-actors/etzhayyim-sdk (substrate scaffolding wave 2026-05-17)",
+]
+notes = """Tranche F Phase 2 (this scaffolding) creates directory shells +
+README + stub manifests so the open repo has a landing zone before vendor
+side Phase 4 (business-app dep switch) and Phase 5 (vendor open-scope
+deletion). No file content is moved from vendor in Phase 2; Phase 3
+(content copy via `git subtree split` / `git filter-repo`) is a separate
+work item per the ADR-2605172400 sequencing."""
