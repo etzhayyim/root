@@ -45,18 +45,21 @@ etzhayyim/root/
 │                        # etzhayyim-bpmn-sdk, etzhayyim-sdk (RW-free substrate per ADR-2605172000+2605172100)
 ├── 30-graph/            # graph-schema, kagami, risingwave-udf, vectorization
 ├── 50-infra/            # SEEDED: geth-private, holochain, ipfs, blockscout,
-│                        #   k8s/atproto-pds, lancedb-wasm, yata, tonbo,
+│                        #   k8s/atproto-pds, k8s/murakumo-kubelet (migrated 2026-05-17),
+│                        #   lancedb-wasm, yata, tonbo,
 │                        #   nats-tiered-storage, nats-jetstream-{objectstore-s3, kv-resp},
 │                        #   sveltejs-adapter-wasm, spin-tinygo-flight
-│                        # SUBSTRATE (ADR-2605171800 + 2605172100):
+│                        # SUBSTRATE (ADR-2605171800 + 2605172100 + 2605172200):
 │                        #   etzhayyim-did-web/ (CF Worker, LIVE 2026-05-17T03:25Z)
 │                        #   mst-projector/   (Stage 3, scaffold)
 │                        #   ipfs-pinner/     (Stage 4, scaffold)
 │                        #   l2-anchor-contract/ (Stage 5a, Foundry Solidity)
 │                        #   anchor-cron/     (Stage 5b, K8s CronJob)
 │                        #   etzhayyim-paymaster/ (ERC-4337, Foundry Solidity)
-├── 60-apps/             # ai-gftd-project-{open-*, public-*, atproto, ameno, yoro}, watashi
+│                        #   openmail-postage/ (Postage.sol, Foundry, Phase 1 scaffold)
+├── 60-apps/             # ai-gftd-project-{open-*, public-*, atproto, ameno, yoro, comfyui}, watashi
 │                        # FIRST RW-FREE REFERENCE IMPL: ai-gftd-project-open-isco/rw-free/
+│                        # MAC MINI FLEET: ai-gftd-project-comfyui/ (migrated 2026-05-17)
 ├── 70-tools/            # etzhayyim-cli (renamed from gftd-cli), cdn
 ├── 90-docs/             # CLAUDE.md (docs rules), adr/, baien/
 ├── CLAUDE.md            # this file
