@@ -80,24 +80,73 @@ entrypoint_v07 = "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
 [platform.l2.anchor_contract]
 # EtzhayyimAnchor — immutable append-only MST root anchor.
 # Source: 50-infra/l2-anchor-contract/src/EtzhayyimAnchor.sol
-# Status: scaffold v0.0.0, NOT yet deployed.
 source = "50-infra/l2-anchor-contract/"
 adr = "2605171800"
 address_mainnet = ""    # set after `forge script Deploy.s.sol`
 address_testnet = ""
-deploy_status = "pending"
+address_local_anvil = "0x5fbdb2315678afecb367f032d93f642f64180aa3"  # anvil chainId 260425, deployed 2026-05-17 for substrate smoke test (validated: rootCount=1)
+deploy_status = "local-anvil-validated"
 
 [platform.l2.paymaster]
 # EtzhayyimPaymaster — ERC-4337 paymaster, allowlist + per-sender daily cap.
 # Source: 50-infra/etzhayyim-paymaster/src/EtzhayyimPaymaster.sol
-# Status: scaffold v0.0.0, NOT yet deployed.
 source = "50-infra/etzhayyim-paymaster/"
 adr = "2605172100"
 address_mainnet = ""
 address_testnet = ""
+address_local_anvil = "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512"  # anvil chainId 260425, deployed 2026-05-17 (validated: setAllowedTarget × 2 OK)
 owner_safe = ""         # 2-of-3 Safe address (TBD)
 default_daily_cap_wei = "20000000000000000"  # 0.02 ETH ≈ $50
-deploy_status = "pending"
+deploy_status = "local-anvil-validated"
+
+[platform.l2.membership_contract]
+# EtzhayyimMembership — 信者 registry on Base L2 (anyone-callable join, 7-level commitment ladder).
+# Source: 50-infra/etzhayyim-membership-contract/src/EtzhayyimMembership.sol
+source = "50-infra/etzhayyim-membership-contract/"
+adr = "2605172600"
+address_mainnet = ""
+address_testnet = ""
+address_local_anvil = "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0"  # anvil chainId 260425, deployed 2026-05-17 (validated: join + advance L1→L7 OK)
+levels = ["1=誓 Oath", "2=修 Practice", "3=献 Dedication", "4=証 Witness", "5=護 Steward", "6=議 Council", "7=老 Elder"]
+deploy_status = "local-anvil-validated"
+
+# ─── Private chain ────────────────────────────────────────────────────
+# geth-private migration to etzhayyim.com per ADR-2605172800 (in progress).
+
+[platform.l2.private_chain]
+chain_id = 260425
+consensus = "Clique PoA (5s blocks)"
+canonical_domain = "geth.etzhayyim.com"        # ← new canonical (DNS placeholder created 2026-05-17 per ADR-2605172800)
+legacy_domain = "geth.gftd.ai"                 # ← vendor-controlled, retained 12 months during migration
+rpc_canonical = "https://geth.etzhayyim.com"
+rpc_legacy = "https://geth.gftd.ai"
+ws_canonical = "wss://geth.etzhayyim.com"
+sealer_address = "0xaFed0Cb7633EDBd26aA52658e71528309F562501"   # current single sealer (vendor-controlled); etzhayyim governance multisig TBD per ADR-2605172800 Stage 4
+native_currency_name = "neth"
+native_currency_symbol = "NETH"
+native_currency_decimals = 18
+contracts_repo = "50-infra/etzhayyim-chain-contracts/"            # 9 Solidity contracts per ADR-2605172300 (AdherentRegistry, AnchorBridge, Constitution, CorpusRegistry, Governance, HoldingAttestation, KishaStream, Phenotype, TreasuryMirror)
+governance_responsible = "etzhayyim (post-migration)"
+governance_legacy = "Gftd Japan株式会社 (operator until migration completes)"
+
+# ─── Validation ───────────────────────────────────────────────────────
+
+[[validation]]
+id = "anvil-substrate-smoke-2026-05-17"
+date = "2026-05-17"
+network = "local anvil (chainId 260425)"
+rpc = "http://localhost:8545"
+deployer = "0xf39Fd6e51aad88F6F4ce6aB8827279cfFFb92266 (anvil pre-funded acct[0])"
+forge_unit_tests = "Anchor 4 + Paymaster 5 + Membership 13 = 22 all PASS"
+smoke_txs = [
+  "Paymaster.setAllowedTarget(Anchor, true)        → status=1",
+  "Paymaster.setAllowedTarget(Membership, true)    → status=1",
+  "Anchor.anchor(rootHash, ipfsCid='bafyreidemo', batchSize=42)  → rootCount()=1",
+  "Membership.join(oathHash, 'junkawasaki')         → memberCount()=1, levelOf()=1, isActive=true",
+  "Membership.advance(2, evidence, 'Practice')      → levelOf()=2",
+  "Membership.advance(3..7, ...)                    → levelOf()=7 (full Oath→Elder ladder traversed)",
+]
+conclusion = "Substrate proof-of-life on private EVM. Same chainId 260425 as the deployed geth-private; tx sequence will replay against geth.etzhayyim.com once that DNS / proxy is live."
 
 # ─── DNS records on etzhayyim.com (managed via CF API) ──────────────
 
