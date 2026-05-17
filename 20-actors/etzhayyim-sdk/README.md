@@ -13,6 +13,10 @@ RW-free substrate SDK for `etzhayyim/root` open religious-corp apps. Per **[ADR-
 | streaming materialized view | `e.subscribe({ collections })` AsyncGenerator over PDS firehose |
 | tamper-evidence / audit log | `e.verify(uri)` returns Merkle proof + on-chain anchor tx |
 | large blob in RW row | `WriteOpts.blobs` Map → SDK pins to IPFS, embeds CID in record |
+| Stripe Checkout / one-shot charge | `e.pay({ to, amount, reason })` USDC on Base L2 |
+| Stripe Billing / subscription | `e.payStream({ to, flowRate, reason })` Superfluid stream |
+| Refund / dispute | `e.escrowOpen(...)` + `e.escrowRelease(...)` Gnosis Safe 2-of-3 |
+| Revenue share (W-9 1099 distribution) | `e.splitDistribute({ splitAddress, amount })` 0xSplits |
 
 ## Quick start (target API, scaffold only)
 
@@ -69,16 +73,25 @@ src/
 ├── index.ts    # Etzhayyim class, public types, re-exports
 ├── pds.ts      # AT Protocol PDS write/read helpers
 ├── ipfs.ts     # IPFS pin/fetch helpers
-└── l2.ts       # Base L2 anchor contract helpers
+├── l2.ts       # Base L2 anchor contract helpers
+└── pay.ts      # USDC + ERC-4337 + Superfluid + Safe + 0xSplits (ADR-2605172100)
 ```
 
 Apps MUST import from `@etzhayyim/sdk` only. Direct imports of `@atproto/api`, IPFS client libraries, or `viem` from app code are prohibited (the SDK is the only seam where substrate clients are imported).
 
-## Hard rules (enforced by ADR-2605172000 + future CI hook)
+## Hard rules (enforced by ADR-2605172000 + ADR-2605172100 + future CI hook)
 
+State substrate (ADR-2605172000):
 - **No `risingwave` / `kysely` / `pg` / `postgres` imports** anywhere under `etzhayyim/root/60-apps/` or `etzhayyim/root/20-actors/` (excluding this SDK itself).
 - **No SQL strings** (`SELECT`, `INSERT`, `CREATE TABLE`, `mv_`, `vertex_`) outside SQL-migration test fixtures.
 - **No central DB credentials** in app code or env. Identity is DID; signing is WebAuthn or operator-held private key.
+
+Payment substrate (ADR-2605172100):
+- **No `stripe` / `paypal` / `square` / `razorpay` / `braintree` / `adyen` imports** anywhere under `etzhayyim/root/`.
+- **No fiat currency codes** (`USD`, `EUR`, `JPY`, `INR`, ...) as `currency` field in payment records. USDC base units only.
+- **No `bank_account` / `ach_credit` / `wire_transfer` / `card_number` literals**.
+- **All payments through SDK pay/payStream/escrow/split methods.** Direct `viem.writeContract` for USDC transfer from app code is prohibited — `src/pay.ts` is the only seam.
+- **All payment events recorded as AT Records** (in addition to on-chain tx) so MST traversal can reconstruct payment history without a chain indexer.
 
 ## Dependencies
 

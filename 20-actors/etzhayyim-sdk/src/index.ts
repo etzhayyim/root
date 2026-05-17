@@ -230,6 +230,44 @@ export class Etzhayyim {
         "filter ops by opts.collections, yield events."
     );
   }
+
+  // ─── Payment surface (ADR-2605172100) ────────────────────────────
+
+  /** One-shot USDC payment on Base L2. See ./pay.ts for full opts. */
+  async pay(opts: import("./pay.js").PayOpts) {
+    const { pay } = await import("./pay.js");
+    return pay(opts);
+  }
+
+  /** Open a Superfluid streaming payment. */
+  async payStream(opts: import("./pay.js").PayStreamOpts) {
+    const { payStream } = await import("./pay.js");
+    return payStream(opts);
+  }
+
+  /** Close a Superfluid streaming payment. */
+  async payStreamStop(streamId: `0x${string}`) {
+    const { payStreamStop } = await import("./pay.js");
+    return payStreamStop(streamId);
+  }
+
+  /** Open a Gnosis-Safe-backed escrow (2-of-3: user/recipient/arbiter). */
+  async escrowOpen(opts: import("./pay.js").EscrowOpenOpts) {
+    const { escrowOpen } = await import("./pay.js");
+    return escrowOpen(opts);
+  }
+
+  /** Release or refund an open escrow. */
+  async escrowRelease(safeAddress: `0x${string}`, to: "recipient" | "user") {
+    const { escrowRelease } = await import("./pay.js");
+    return escrowRelease(safeAddress, to);
+  }
+
+  /** Distribute USDC through an immutable 0xSplits contract. */
+  async splitDistribute(opts: import("./pay.js").SplitDistributeOpts) {
+    const { splitDistribute } = await import("./pay.js");
+    return splitDistribute(opts);
+  }
 }
 
 // ─── Re-exports ─────────────────────────────────────────────────────
@@ -237,3 +275,5 @@ export class Etzhayyim {
 export * as pds from "./pds.js";
 export * as ipfs from "./ipfs.js";
 export * as l2 from "./l2.js";
+export * as pay from "./pay.js";
+export { parseUsdc, parseUsdcPerSecond, USDC_BASE } from "./pay.js";

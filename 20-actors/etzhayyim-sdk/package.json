@@ -24,6 +24,10 @@
     "./l2": {
       "import": "./dist/l2.js",
       "types": "./dist/l2.d.ts"
+    },
+    "./pay": {
+      "import": "./dist/pay.js",
+      "types": "./dist/pay.d.ts"
     }
   },
   "files": ["dist", "src", "README.md"],
@@ -51,6 +55,10 @@
     "atproto",
     "ipfs",
     "base-l2",
+    "usdc",
+    "erc-4337",
+    "smart-wallet",
+    "passkey",
     "decentralized",
     "verifiable",
     "religious-corp",
