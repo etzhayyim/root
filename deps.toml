@@ -16,7 +16,7 @@
 name = "etzhayyim-root"
 license = "Apache-2.0"
 description = "Open religious-corp activities of etzhayyim (宗教法人). Blockchain-self-contained substrate: AT MST + IPFS + Base L2. No RisingWave. No fiat payment processor."
-boundary_adr = "https://github.com/gftdcojp/etzhayyim/root/blob/main/90-docs/adr/2605152100-etzhayyim-github-org-boundary.md"
+boundary_adr = "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605152100-etzhayyim-github-org-boundary.md"
 
 [platform.operating_entity]
 # Canonical name as of 2026-05-15 (ADR 2605102200 partial revert + ALA-LC upgrade).
@@ -39,7 +39,7 @@ did_public_key_multibase = "z6Mkw6xsibvozxkzEDDM9b8Zh1YnVy6t349jYPx9UWvARFfS"  #
 github_org_open = "etzhayyim"
 github_org_open_monorepo = "etzhayyim/root"
 github_org_vendor = "gftdcojp"
-github_org_vendor_monorepo = "gftdcojp/etzhayyim/root"
+github_org_vendor_monorepo = "gftdcojp/ai-gftd-apps-gftdcojp"
 
 [platform.vendor]
 # Vendor providing engineering capacity under SOW. Retains RisingWave +
@@ -310,4 +310,4 @@ status = "seed-done"
 seed_completed_at = "2026-05-15T..2026-05-17T"
 seed_method_actual = "rsync (per user direction 'filter-repo は不要、関連する最新コードだけ commit でok')"
 seed_plan_adr = "2605152100"
-seed_source = "https://github.com/gftdcojp/etzhayyim/root"
+seed_source = "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp"
