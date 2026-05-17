@@ -27,7 +27,7 @@ This monorepo is the **principal-owned half** of the source-control boundary est
 | 5. Scaffold (LICENSE/README/CLAUDE.md/deps.toml/.gitignore/lefthook.yml) | ✅ |
 | 6. Content seed (Tranches A-E + Wave 2) | ✅ |
 | 7. 既存 gftdcojp open repos archive + [MOVED] prefix | ✅ 26 repos archived |
-| 8. gftdcojp 側 open scope cleanup | ⏳ pending |
+| 8. gftdcojp 側 open scope cleanup | ✅ 2026-05-17 (60 dirs [MOVED]-stubbed + 1934-file mechanical sweep; deferred cutovers tracked in ADR-2605172900) |
 | 9. CI / wrangler / package.json `repository` field sed | ✅ etzhayyim/root 側 done (11 pkg.json + 2 wrangler.jsonc) |
 | 10. did:web publish (DNS + wrangler deploy) | ✅ 2026-05-17T03:25Z (verified via curl + dev.uniresolver.io) |
 | 11. 220-file `amanomibashira` → `etzhayyim` cutover | ⏳ 登記変更後 |
