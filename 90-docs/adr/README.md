@@ -37,6 +37,7 @@ When in doubt: **new open-scope ADRs go here.** Don't dual-author across repos.
 | ID | Title | Status | Date |
 |---|---|---|---|
 | [2605170900](./2605170900-etzhayyim-root-adr-canonical-home.md) | etzhayyim/root as canonical home for religious-corp open ADRs | active | 2026-05-17 |
+| [2605171800](./2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) | Artificial Organism Ecosystem — LangGraph Pregel → PostgresSaver → atproto MST → IPFS → Base L2 anchor pipeline | proposed | 2026-05-17 |
 
 (Future ADRs added here as they're authored.)
 
