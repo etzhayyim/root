@@ -8,7 +8,8 @@
 # durable defense is **network-level access restriction**.
 #
 # This script installs a Vultr firewall group on the VKE LB / instance
-# fronting RisingWave at 45.32.79.245, allowing only:
+# fronting RisingWave (host tracked in deps.toml / 1Password — never
+# hardcode the public IP in this repo), allowing only:
 #   - K8s pod CIDRs (intra-cluster traffic)
 #   - explicitly-allowlisted developer / operator IPs
 #   - (optional) Cloudflare Hyperdrive egress ranges
@@ -154,7 +155,8 @@ echo "  - Edit the Service manifest: spec.loadBalancerSourceRanges: [<CIDR>, ...
 echo "  - OR attach the firewall group via the Vultr console → Load Balancer → Firewall"
 echo ""
 echo "Verify post-attach:"
-echo "  # From an allowed IP:    psql 'postgresql://root@45.32.79.245:4566/dev' -c 'SELECT 1'  → OK"
+echo "  # From an allowed IP:    psql \"postgresql://root@\${RW_HOST}:4566/dev\" -c 'SELECT 1'  → OK"
 echo "  # From a non-allowed IP: same command → connection refused / timeout"
+echo "  # (RW_HOST: see 1Password item 'RisingWave root' or deps.toml [infra.risingwave])"
 echo ""
 echo "[fw] Done."

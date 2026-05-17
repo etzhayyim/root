@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # RisingWave PostgreSQL credential rotation — via 1Password CLI
 #
-# Per the 2026-05-17 GitGuardian incident:
-#   leaked password: rw_66a4db7736799bf888c50a817b4c6a65 (full DSN exposed)
+# Background: 2026-05-17 GitGuardian incident — RisingWave PostgreSQL DSN
+# (root user, embedded password) leaked into git history via vendor seed.
+# Leaked credential identifier is tracked in 1Password vault
+# `Gftd Japan株式会社`, item "RisingWave root (compromised 2026-05-17)".
+# Do not re-print the literal credential anywhere in this repo.
 #
 # This script:
 #   1. Generates a strong replacement password via `op generate` (32 chars,
@@ -47,9 +50,11 @@ fi
 echo "  ✓ op authenticated"
 
 step "Pre-flight: Vultr API key from Keychain"
-: "${VULTR_API_KEY:=$(security find-generic-password -s gftd.vultr -a VULTR_API_KEY -w 2>/dev/null || true)}"
+# Try common account names: VULTR_API_KEY (older convention) → API_KEY (current).
+: "${VULTR_API_KEY:=$(security find-generic-password -s gftd.vultr -a VULTR_API_KEY -w 2>/dev/null || \
+                       security find-generic-password -s gftd.vultr -a API_KEY -w 2>/dev/null || true)}"
 if [[ -z "${VULTR_API_KEY}" ]]; then
-  echo "ERROR: VULTR_API_KEY not in Keychain (service=gftd.vultr account=VULTR_API_KEY)" >&2
+  echo "ERROR: VULTR_API_KEY not in Keychain (service=gftd.vultr; tried accounts: VULTR_API_KEY, API_KEY)" >&2
   exit 2
 fi
 echo "  ✓ VULTR_API_KEY loaded"
@@ -66,24 +71,28 @@ echo "  ✓ kubeconfig: ${KUBECONFIG}"
 # ─── 1. Generate new password via op ───────────────────────────────────────
 
 step "Generate new password"
-NEW_PW=$(op item template get password \
-  | op item create --vault="${VAULT_NAME}" \
-      --title="${ITEM_TITLE}" \
-      --tags="security,risingwave,rotation,gitguardian-incident-2026-05-17" \
-      --generate-password=letters,digits,symbols,32 \
-      - 2>&1 | tee /tmp/op-output.json | jq -r '.fields[] | select(.id=="password") | .value')
-
 if $DRY_RUN; then
+  echo "  [dry-run] op item create --category=password --vault='${VAULT_NAME}' --title='${ITEM_TITLE}' --generate-password=letters,digits,symbols,32"
   NEW_PW="<would-be-generated>"
-  echo "  [dry-run] new password: <would-be-generated>"
 else
+  # Create new password item in 1Password vault, get JSON, extract password value.
+  op_json=$(op item create \
+    --category=password \
+    --vault="${VAULT_NAME}" \
+    --title="${ITEM_TITLE}" \
+    --tags="security,risingwave,rotation,gitguardian-incident-2026-05-17" \
+    --generate-password='letters,digits,symbols,32' \
+    --format=json 2>&1)
+  echo "${op_json}" > /tmp/op-output.json
+  NEW_PW=$(echo "${op_json}" | jq -r '.fields[]? | select(.id=="password" or .label=="password") | .value' | head -1)
+
   if [[ -z "${NEW_PW}" || "${NEW_PW}" == "null" ]]; then
-    echo "ERROR: op did not return a password. Check /tmp/op-output.json" >&2
+    echo "ERROR: op did not return a password. Output saved to /tmp/op-output.json:" >&2
+    echo "${op_json}" | head -20 >&2
     exit 3
   fi
   echo "  ✓ new password stored in 1Password vault '${VAULT_NAME}', item '${ITEM_TITLE}'"
   echo "  ✓ password length: ${#NEW_PW}"
-  # Don't echo the actual password
 fi
 
 # ─── 2. Update the K8s Secret ──────────────────────────────────────────────
@@ -151,7 +160,8 @@ echo "    - GitHub Actions secrets"
 echo "    - CI environment configs"
 echo "    - Developer .env files"
 echo "  - The new password is in 1Password: vault='${VAULT_NAME}' item='${ITEM_TITLE}'"
-echo "  - Old password 'rw_66a4db7736799bf888c50a817b4c6a65' is now invalid network-wide."
+echo "  - Previous (compromised) password is now invalid network-wide."
+echo "    (See 1Password item 'RisingWave root (compromised 2026-05-17)' for audit.)"
 echo ""
 echo "Companion actions:"
 echo "  - 50-infra/vultr/risingwave-firewall-restrict.sh    (IP-restrict network access)"
