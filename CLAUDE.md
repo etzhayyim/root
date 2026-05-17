@@ -44,12 +44,19 @@ etzhayyim/root/
 │                        # magatama-go, kami-engine-sdk, effect-cypher,
 │                        # etzhayyim-bpmn-sdk, etzhayyim-sdk (RW-free substrate per ADR-2605172000+2605172100)
 ├── 30-graph/            # graph-schema, kagami, risingwave-udf, vectorization
-├── 50-infra/            # geth-private, holochain, ipfs, blockscout,
-│                        # k8s/atproto-pds, etzhayyim-did-web,
-│                        # lancedb-wasm, yata, tonbo,
-│                        # nats-tiered-storage, nats-jetstream-{objectstore-s3, kv-resp},
-│                        # sveltejs-adapter-wasm, spin-tinygo-flight
-├── 60-apps/             # ai-gftd-project-{open-*, public-*, atproto, ameno}, watashi
+├── 50-infra/            # SEEDED: geth-private, holochain, ipfs, blockscout,
+│                        #   k8s/atproto-pds, lancedb-wasm, yata, tonbo,
+│                        #   nats-tiered-storage, nats-jetstream-{objectstore-s3, kv-resp},
+│                        #   sveltejs-adapter-wasm, spin-tinygo-flight
+│                        # SUBSTRATE (ADR-2605171800 + 2605172100):
+│                        #   etzhayyim-did-web/ (CF Worker, LIVE 2026-05-17T03:25Z)
+│                        #   mst-projector/   (Stage 3, scaffold)
+│                        #   ipfs-pinner/     (Stage 4, scaffold)
+│                        #   l2-anchor-contract/ (Stage 5a, Foundry Solidity)
+│                        #   anchor-cron/     (Stage 5b, K8s CronJob)
+│                        #   etzhayyim-paymaster/ (ERC-4337, Foundry Solidity)
+├── 60-apps/             # ai-gftd-project-{open-*, public-*, atproto, ameno, yoro}, watashi
+│                        # FIRST RW-FREE REFERENCE IMPL: ai-gftd-project-open-isco/rw-free/
 ├── 70-tools/            # etzhayyim-cli (renamed from gftd-cli), cdn
 ├── 90-docs/             # CLAUDE.md (docs rules), adr/, baien/
 ├── CLAUDE.md            # this file
@@ -89,11 +96,25 @@ For shared foundational ADRs (Shannon-Optimal 8-Layer, MCP-as-Cell-Membrane, Bon
 - **did:gftd → did:etzhayyim method spec** (optional future migration; existing did:gftd:xxx identifiers preserved meanwhile)
 - **vendor cleanup (ADR-2605152100 Step 8)**: remove open scope from vendor monorepo + update directory_index pointers
 
+## Substrate boundary (CRITICAL — ADRs 2605172000 + 2605172100)
+
+This repo is **blockchain-self-contained**. Hard rules enforced by ADRs and (future) CI hooks:
+
+| Concern | Allowed | Prohibited |
+|---|---|---|
+| State | AT Protocol MST + IPFS + Base L2 anchor | RisingWave / Postgres / Kysely / centralized DB |
+| Payment | USDC on Base L2 + ERC-4337 Smart Account | Stripe / PayPal / Square / fiat processors |
+| Identity | did:web:etzhayyim.com + did:plc + WebAuthn passkey | server-issued JWTs without DID binding |
+| Substrate client imports | Only via `@etzhayyim/sdk` | Direct `@atproto/api` / `viem` / IPFS client from app code |
+
+When an open app needs fiat / paid features, it calls vendor backend via XRPC consent-capability (progressive enhancement). Open app remains operational without it.
+
 ## SSoT pointers
 
-- `deps.toml` — operating entity / vendor relationship / scaffolding state
+- `deps.toml` — operating entity, vendor relationship, substrate rules, L2 contracts, DNS records, ADR registry, module registry
 - `90-docs/CLAUDE.md` — docs system rules + ADR placement policy
-- `90-docs/adr/README.md` — ADR index (this repo) + URL-links to vendor ADRs
+- `90-docs/adr/README.md` — ADR index (7 ADRs as of 2026-05-17)
+- `20-actors/etzhayyim-sdk/README.md` — SDK API surface + hard rules
 
 ## Cross-repo references
 
