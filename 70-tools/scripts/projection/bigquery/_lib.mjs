@@ -14,7 +14,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { execSync } from "node:child_process";
 
 export const RW_CONN = process.env.RISINGWAVE_URL
-  ?? "postgresql://root@<vendor-rw-host>:4566/dev?sslmode=disable";
+  ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 export const COLLECTOR_DID = "did:web:bigquery.etzhayyim.com";
 export const BQ_API = "https://bigquery.googleapis.com/bigquery/v2";
 

@@ -27,7 +27,7 @@ const migrationsDir = path.join(repoRoot, "30-graph/graph-schema/migrations");
 
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) {
-  console.error("DATABASE_URL required (RisingWave PG wire, e.g. postgresql://root:...@<vendor-rw-host>:4566/dev)");
+  console.error("DATABASE_URL required (RisingWave PG wire, e.g. REDACTED_USE_DATABASE_URL_ENV)");
   process.exit(2);
 }
 

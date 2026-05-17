@@ -50,7 +50,7 @@ spec:
                   print("error:", r.get("error"))
               env:
                 - name: RW_URL
-                  value: "postgresql://root:REDACTED@risingwave.risingwave.svc.cluster.local:4566/dev"
+                  value: "REDACTED_USE_DATABASE_URL_ENV"
                 - name: RW_DDL_GUARD
                   value: "1"
                 - name: RW_ALLOW_FLUSH

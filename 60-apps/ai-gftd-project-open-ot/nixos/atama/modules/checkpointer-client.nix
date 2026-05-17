@@ -8,7 +8,7 @@ in {
 
     dsn = lib.mkOption {
       type = lib.types.str;
-      example = "postgresql://orchestrator:CHANGE@<vendor-rw-host>:4566/dev";
+      example = "REDACTED_USE_DATABASE_URL_ENV";
       description = ''
         PostgreSQL-protocol DSN to RisingWave (per ADR-0048). Real
         deployments inject this via `agenix` / `sops-nix` — do NOT

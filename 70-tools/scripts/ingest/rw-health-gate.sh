@@ -24,7 +24,7 @@
 #     return {"healthy": False, "reason": result.stdout.decode().strip()}
 #
 # Environment variables (all optional, shown with defaults):
-#   RW_DSN                  postgres://root@<vendor-rw-host>:4566/dev?sslmode=disable
+#   RW_DSN                  REDACTED_USE_DATABASE_URL_ENV
 #   RW_NAMESPACE            risingwave
 #   COMPUTE_SELECTOR        risingwave.risingwavelabs.com/component=compute
 #   META_SELECTOR           risingwave.risingwavelabs.com/component=meta
@@ -39,7 +39,7 @@
 
 set -u
 
-RW_DSN="${RW_DSN:-postgres://root@<vendor-rw-host>:4566/dev?sslmode=disable}"
+RW_DSN="${RW_DSN:-REDACTED_USE_DATABASE_URL_ENV"
 RW_NAMESPACE="${RW_NAMESPACE:-risingwave}"
 COMPUTE_SELECTOR="${COMPUTE_SELECTOR:-risingwave.risingwavelabs.com/component=compute}"
 META_SELECTOR="${META_SELECTOR:-risingwave.risingwavelabs.com/component=meta}"

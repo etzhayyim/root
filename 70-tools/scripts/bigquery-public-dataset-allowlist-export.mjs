@@ -29,7 +29,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 
 const RW_CONN = process.env.RISINGWAVE_URL
-  ?? "postgresql://root@<vendor-rw-host>:4566/dev?sslmode=disable";
+  ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 
 const args = process.argv.slice(2);
 const arg = (k, d) => {

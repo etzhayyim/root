@@ -16,7 +16,7 @@ from pymagatama.langserver_compat import LangServerWorker, create_langserver_cha
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
 DB_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 
 ACTOR_DID = "did:web:manga.etzhayyim.com"

@@ -49,7 +49,7 @@ _LLM_KEY   = os.getenv("GFTD_LLM_API_KEY", "")
 
 _DB_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 
 _OWNER_DID = os.getenv("PREGEL_OWNER_DID", "did:web:pregel.etzhayyim.com")

@@ -17,7 +17,7 @@ import { join } from "node:path";
 const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
 
 const RW_CONN = process.env.RW_CONN
-  ?? "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev?sslmode=disable";
+  ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const REPO_DID = "did:web:yabai.etzhayyim.com";
 const CONTENT_DIR = "/Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-yabai/content";
 

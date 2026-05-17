@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
-    "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 
 ACTOR_DID = "did:web:narou.etzhayyim.com"

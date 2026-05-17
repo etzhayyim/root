@@ -7,7 +7,7 @@ Phase 2: CREATE INDEX × 12  (1.5s settle after phase 1)
 Phase 3: INSERTs + FLUSH    (1.5s settle after phase 2)
 
 Usage:
-  DATABASE_URL=postgresql://root:...@<vendor-rw-host>:4566/dev python3 \
+  DATABASE_URL=REDACTED_USE_DATABASE_URL_ENV python3 \
       30-graph/graph-schema/scripts/apply-20260514-tsukuru-cad-pcb.py
 """
 

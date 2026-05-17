@@ -23,7 +23,7 @@ from .projector import resolve_pds
 _GRAPH_SCHEMA_REL = "30-graph/graph-schema"
 
 _RW_LOCAL_URL = "postgres://root@127.0.0.1:14566/dev?sslmode=disable"
-_RW_PROD_URL = "postgres://root@<vendor-rw-host>:4566/dev"
+_RW_PROD_URL = "REDACTED_USE_DATABASE_URL_ENV"
 
 _VALID_SUBCOMMANDS = {"latest", "up", "down", "list", "to"}
 

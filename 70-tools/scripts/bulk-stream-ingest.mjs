@@ -29,7 +29,7 @@ import { readFile, writeFile } from "node:fs/promises";
 
 const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
 
-const RW_CONN = "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev?sslmode=disable";
+const RW_CONN = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
 const COLLECTION = "ai.gftd.apps.legalEntity.legalEntity";
 

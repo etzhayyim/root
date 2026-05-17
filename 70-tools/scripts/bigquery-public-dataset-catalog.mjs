@@ -52,7 +52,7 @@ import { join } from "node:path";
 // ── Config ──────────────────────────────────────────────────────────────────
 
 const RW_CONN = process.env.RISINGWAVE_URL
-  ?? "postgresql://root@<vendor-rw-host>:4566/dev?sslmode=disable";
+  ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const COLLECTOR_DID = "did:web:bigquery.etzhayyim.com";
 const COLLECTION_CATALOG = "ai.gftd.apps.bigquery.publicDatasetCatalog";
 const COLLECTION_TABLE = "ai.gftd.apps.bigquery.publicDatasetTable";
