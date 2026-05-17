@@ -1,0 +1,17 @@
+name = "etzhayyim-pds-did-web"
+main = "src/worker.ts"
+compatibility_date = "2026-05-17"
+
+# Route the spec-required did:web resolution path. Other pds.etzhayyim.com
+# paths fall through to the CF tunnel CNAME (DNS routing) → simeon Mac
+# mini PDS port 2583.
+[[routes]]
+pattern = "pds.etzhayyim.com/.well-known/did.json"
+zone_name = "etzhayyim.com"
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+[placement]
+mode = "smart"
