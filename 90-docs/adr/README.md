@@ -48,6 +48,7 @@ When in doubt: **new open-scope ADRs go here.** Don't dual-author across repos.
 | [2605172700](./2605172700-membership-layering-shinto-adherent.md) | Membership layering — 信者 (172600) and Adherent (172300 S0) as complementary tiers | proposed | 2026-05-17 |
 | [2605172800](./2605172800-gftd-cli-migration-strategy.md) | 70-tools/gftd CLI migration strategy — git-subrepo unwind + open-scope fork | proposed | 2026-05-17 |
 | [2605172900](./2605172900-gftd-followup-cutover-policy.md) | gftd-→-etzhayyim follow-up cutover policy — what is rewritten, what is preserved as historical | active | 2026-05-17 |
+| [2605173000](./2605173000-pds-did-web-resolution-worker.md) | did:web:pds.etzhayyim.com resolution via path-specific Cloudflare Worker | active | 2026-05-17 |
 
 (Future ADRs added here as they're authored.)
 
