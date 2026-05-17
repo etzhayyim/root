@@ -1,0 +1,47 @@
+[package]
+name = "wproto"
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+description = "W Protocol: AT Protocol + Signal Protocol over wRPC/WIT, with MDAG content-addressed sync"
+repository = "https://github.com/gftdcojp/wproto"
+homepage = "https://github.com/gftdcojp/wproto"
+
+[dependencies]
+# yata integration (MDAG, CAS, Signal, AT)
+yata-core = { git = "https://github.com/gftdcojp/yata.git" }
+yata-cas = { git = "https://github.com/gftdcojp/yata.git" }
+yata-cbor = { git = "https://github.com/gftdcojp/yata.git" }
+yata-mdag = { git = "https://github.com/gftdcojp/yata.git" }
+yata-at = { git = "https://github.com/gftdcojp/yata.git" }
+yata-signal = { git = "https://github.com/gftdcojp/yata.git" }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Hashing / IDs
+blake3 = "1"
+uuid = { version = "1", features = ["v4", "serde"] }
+indexmap = { version = "2", features = ["serde"] }
+
+# Async
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time"] }
+async-trait = "0.1"
+
+# Error / tracing
+thiserror = "2"
+tracing = "0.1"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Bytes
+bytes = "1"
+
+# Stream
+futures = "0.3"
+
+[dev-dependencies]
+tempfile = "3"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "test-util"] }

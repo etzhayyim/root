@@ -1,0 +1,39 @@
+{
+  "name": "@gftd/bpmn-sdk/compiler",
+  "version": "0.1.0",
+  "description": "BPMN 2.0 IR to XML compiler using bpmn-moddle",
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "clean": "rm -rf dist",
+    "doc": "typedoc --out docs src/index.ts"
+  },
+  "dependencies": {
+    "@gftd/bpmn-sdk/core": "workspace:*",
+    "bpmn-moddle": "^8.1.0",
+    "moddle-xml": "^9.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@gftd/bpmn-sdk/core": "workspace:*"
+  },
+  "files": [
+    "dist"
+  ]
+}

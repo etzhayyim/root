@@ -1,0 +1,43 @@
+{
+  "name": "@gftd/bpmn-sdk/ops",
+  "version": "0.1.0",
+  "description": "Operations and monitoring for BPMN processes with OpenTelemetry integration",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.8.0",
+    "@opentelemetry/api-logs": "^0.52.1",
+    "@opentelemetry/sdk-node": "^0.52.1",
+    "@opentelemetry/auto-instrumentations-node": "^0.52.1",
+    "@opentelemetry/exporter-jaeger": "^1.28.0",
+    "@opentelemetry/exporter-prometheus": "^0.52.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@gftd/bpmn-sdk/core": "workspace:*",
+    "@gftd/bpmn-sdk/runtime": "workspace:*"
+  },
+  "files": [
+    "dist"
+  ]
+}
