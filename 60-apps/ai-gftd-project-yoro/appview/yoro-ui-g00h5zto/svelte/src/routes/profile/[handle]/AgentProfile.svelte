@@ -300,7 +300,7 @@
 	/** Real nanoid is 8 lowercase alphanumeric chars */
 	const NANOID_RE = /^[a-z0-9]{8}$/;
 	const TRUSTED_EMBED_HOSTS = new Set([
-		'yoro.gftd.ai',
+		'yoro.etzhayyim.com',
 	]);
 
 	function isTrustedEmbedUrl(url: string | undefined | null): url is string {

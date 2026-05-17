@@ -8,13 +8,13 @@
     name="description"
     content="YORO and connected services are operated by amanomibashira (עץ חיים), a religious voluntary association (宗教法人・任意団体) registered on a public blockchain."
   />
-  <link rel="canonical" href="https://yoro.gftd.ai/support/operator" />
+  <link rel="canonical" href="https://yoro.etzhayyim.com/support/operator" />
   {@html `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: operatingEntity.name,
     alternateName: [operatingEntity.nameHebrew, operatingEntity.nameJa, operatingEntity.form],
-    url: 'https://yoro.gftd.ai/support/operator',
+    url: 'https://yoro.etzhayyim.com/support/operator',
     email: operatingEntity.contact,
     description: `${operatingEntity.formEn}. Constitution and member roster: ${operatingEntity.registry}. ${operatingEntity.registryNote}`
   })}</script>`}

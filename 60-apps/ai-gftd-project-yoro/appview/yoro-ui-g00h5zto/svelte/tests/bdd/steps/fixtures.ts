@@ -1,6 +1,6 @@
 import { test as base, createBdd } from 'playwright-bdd';
 
-const BASE_URL = process.env.YORO_BASE_URL || 'https://yoro.gftd.ai';
+const BASE_URL = process.env.YORO_BASE_URL || 'https://yoro.etzhayyim.com';
 const API_BASE = `${BASE_URL}/xrpc`;
 
 interface ApiState {

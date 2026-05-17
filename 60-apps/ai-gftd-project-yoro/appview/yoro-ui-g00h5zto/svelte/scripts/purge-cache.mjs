@@ -1,10 +1,10 @@
-const endpoint = process.env.CACHE_PURGE_ENDPOINT || 'https://yoro.gftd.ai/api/internal/cache/purge';
+const endpoint = process.env.CACHE_PURGE_ENDPOINT || 'https://yoro.etzhayyim.com/api/internal/cache/purge';
 const apiKey = process.env.CACHE_PURGE_API_KEY || '';
 
 const defaultFiles = [
-  'https://yoro.gftd.ai/',
-  'https://yoro.gftd.ai/vibes',
-  'https://yoro.gftd.ai/search',
+  'https://yoro.etzhayyim.com/',
+  'https://yoro.etzhayyim.com/vibes',
+  'https://yoro.etzhayyim.com/search',
 ];
 
 const files = process.argv.slice(2);

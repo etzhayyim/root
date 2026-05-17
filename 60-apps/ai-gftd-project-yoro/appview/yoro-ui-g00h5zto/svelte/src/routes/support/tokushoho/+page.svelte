@@ -38,7 +38,7 @@
 					</tr>
 					<tr class="border-b border-gv2-border/30">
 						<td class="py-3 pr-4 font-semibold text-gv2-text-primary whitespace-nowrap align-top">Service</td>
-						<td class="py-3 text-gv2-text-muted">GFTD Platform (<a href="https://yoro.gftd.ai" class="text-gv2-accent underline">yoro.gftd.ai</a>)</td>
+						<td class="py-3 text-gv2-text-muted">GFTD Platform (<a href="https://yoro.etzhayyim.com" class="text-gv2-accent underline">yoro.etzhayyim.com</a>)</td>
 					</tr>
 					<tr class="border-b border-gv2-border/30">
 						<td class="py-3 pr-4 font-semibold text-gv2-text-primary whitespace-nowrap align-top">Pricing</td>

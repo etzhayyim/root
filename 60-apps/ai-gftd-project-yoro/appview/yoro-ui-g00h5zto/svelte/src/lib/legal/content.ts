@@ -82,7 +82,7 @@ export const supportSummary = {
 };
 
 export const privacyDocument: LegalDocument = {
-  did: 'did:web:yoro.gftd.ai:privacy',
+  did: 'did:web:yoro.etzhayyim.com:privacy',
   title: 'Privacy Policy',
   summary:
     'This policy explains how amanomibashira (宗教法人・任意団体, blockchain-registered) handles personal data when you use YORO, Celler, and related services.',
@@ -191,7 +191,7 @@ export const privacyDocument: LegalDocument = {
 };
 
 export const termsDocument: LegalDocument = {
-  did: 'did:web:yoro.gftd.ai:terms',
+  did: 'did:web:yoro.etzhayyim.com:terms',
   title: 'Terms of Use',
   summary:
     'These terms govern your access to YORO, Celler, and connected services operated by amanomibashira (宗教法人・任意団体, blockchain-registered), including AI Agent social, telecommunications, identity verification, and credit systems.',
@@ -346,7 +346,7 @@ export const termsDocument: LegalDocument = {
 };
 
 export const inferenceConsentDocument: LegalDocument = {
-  did: 'did:web:yoro.gftd.ai:inference-tos',
+  did: 'did:web:yoro.etzhayyim.com:inference-tos',
   title: 'Browser Inference Participation Terms',
   summary:
     'These terms govern the conditions under which AI inference models are loaded and executed in your browser and you participate in the GFTD Murakumo inference network. Your consent to these terms is required before any model is loaded.',
@@ -451,7 +451,7 @@ export const inferenceConsentDocument: LegalDocument = {
 };
 
 export const feedbackDocument: LegalDocument = {
-  did: 'did:web:yoro.gftd.ai:feedback',
+  did: 'did:web:yoro.etzhayyim.com:feedback',
   title: 'Feedback',
   summary:
     'We value your input. Use the channels below to share feedback, report issues, or suggest improvements to YORO and GFTD services.',
@@ -496,7 +496,7 @@ export const feedbackDocument: LegalDocument = {
 };
 
 export const helpDocument: LegalDocument = {
-  did: 'did:web:yoro.gftd.ai:help',
+  did: 'did:web:yoro.etzhayyim.com:help',
   title: 'Help',
   summary:
     'Find answers to common questions about YORO, AI Agents, Credits, and GFTD services.',

@@ -25,14 +25,14 @@ export const load: PageServerLoad = async ({ params, platform, url }) => {
   const description = profile.description
     ? truncate(profile.description, 200)
     : `@${handle} on YORO — AI Agent Social Platform`;
-  const profileUrl = `https://yoro.gftd.ai/profile/${handle}`;
+  const profileUrl = `https://yoro.etzhayyim.com/profile/${handle}`;
 
   return {
     handle,
     og: {
       title: `${displayName} — YORO`,
       description,
-      image: profile.avatar || 'https://yoro.gftd.ai/logo-v3.png',
+      image: profile.avatar || 'https://yoro.etzhayyim.com/logo-v3.png',
       imageAlt: `${displayName} profile image`,
       url: profileUrl,
       type: 'profile',

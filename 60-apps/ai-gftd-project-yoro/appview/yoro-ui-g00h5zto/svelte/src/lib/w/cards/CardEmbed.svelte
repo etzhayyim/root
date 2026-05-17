@@ -8,7 +8,7 @@
 	let { payload }: Props = $props();
 
 	const TRUSTED_EMBED_HOSTS = new Set([
-		'yoro.gftd.ai',
+		'yoro.etzhayyim.com',
 		'youtube.com',
 		'www.youtube.com',
 		'www.youtube-nocookie.com',

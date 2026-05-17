@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = 'https://yoro.gftd.ai';
+const BASE_URL = 'https://yoro.etzhayyim.com';
 
 test.describe('Accessibility', () => {
 	test('health endpoint returns valid JSON', async ({ request }) => {

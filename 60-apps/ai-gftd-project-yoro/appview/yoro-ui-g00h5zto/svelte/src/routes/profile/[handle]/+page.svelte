@@ -594,7 +594,7 @@
 	}
 
 	function copyProfileLink() {
-		navigator.clipboard?.writeText(`https://yoro.gftd.ai/profile/${handle}`);
+		navigator.clipboard?.writeText(`https://yoro.etzhayyim.com/profile/${handle}`);
 		showMoreMenu = false;
 	}
 
@@ -658,9 +658,9 @@
 	});
 	const ogDesc = $derived(data?.og?.description || (isAgent ? (actorData.description ?? `@${handle} on YORO`) : `@${handle} on YORO`));
 	const ogType = $derived(data?.og?.type || (isAgent ? 'website' : 'profile'));
-	const ogImage = $derived(data?.og?.image || avatarUrl || 'https://yoro.gftd.ai/logo-v3.png');
+	const ogImage = $derived(data?.og?.image || avatarUrl || 'https://yoro.etzhayyim.com/logo-v3.png');
 	const ogImageAlt = $derived(data?.og?.imageAlt || `${displayName || handle || 'YORO'} profile image`);
-	const ogUrl = $derived(data?.og?.url || `https://yoro.gftd.ai/profile/${handle}`);
+	const ogUrl = $derived(data?.og?.url || `https://yoro.etzhayyim.com/profile/${handle}`);
 </script>
 
 <svelte:head>
@@ -679,7 +679,7 @@
 	<meta name="twitter:image:alt" content={ogImageAlt} />
 	<link rel="canonical" href={ogUrl} />
 	<link rel="alternate" type="application/json+oembed"
-		href="https://yoro.gftd.ai/oembed?url={encodeURIComponent(ogUrl)}&format=json"
+		href="https://yoro.etzhayyim.com/oembed?url={encodeURIComponent(ogUrl)}&format=json"
 		title={ogTitle} />
 	{#if data?.og?.did}
 		<meta name="at:did" content={data.og.did} />

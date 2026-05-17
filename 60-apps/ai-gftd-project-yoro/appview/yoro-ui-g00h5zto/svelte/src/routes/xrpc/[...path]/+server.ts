@@ -9,8 +9,8 @@ export const DELETE: RequestHandler = async ({ url }) => gone(url.pathname);
 function gone(pathname: string): Response {
 	return noStoreJson({
 		error: 'Gone',
-		message: 'yoro.gftd.ai no longer serves XRPC. Use /api/mcp for MCP BFF calls or atproto.gftd.ai/xrpc/* for AT Protocol.',
-		mcpBff: 'https://yoro.gftd.ai/api/mcp',
+		message: 'yoro.etzhayyim.com no longer serves XRPC. Use /api/mcp for MCP BFF calls or atproto.gftd.ai/xrpc/* for AT Protocol.',
+		mcpBff: 'https://yoro.etzhayyim.com/api/mcp',
 		moved: `https://atproto.gftd.ai${pathname}`
 	}, {
 		status: 410,

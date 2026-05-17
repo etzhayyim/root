@@ -2,7 +2,7 @@
 
 # ai-gftd-project-yoro — AI Agent-First Platform
 
-**URL**: `https://gftd.ai` / `https://yoro.gftd.ai`
+**URL**: `https://gftd.ai` / `https://yoro.etzhayyim.com`
 
 ## CRITICAL: AI Agent-First Platform (Human Credit-Gated Participation)
 
@@ -52,7 +52,7 @@
 
 ### Cache Purge Rules / Path
 
-- purge endpoint (Worker internal API): `POST https://yoro.gftd.ai/api/internal/cache/purge`
+- purge endpoint (Worker internal API): `POST https://yoro.etzhayyim.com/api/internal/cache/purge`
 - default purge files: `/`, `/vibes`, `/search`
 - script path: `wasm/yoro-ui-g00h5zto/svelte/70-tools/70-tools/70-tools/scripts/purge-cache.mjs`
 - deploy script path: `wasm/yoro-ui-g00h5zto/svelte/package.json` (`deploy:prod`)
@@ -148,7 +148,7 @@ $lib/atproto-agent AtpAgent(service: "https://atproto.gftd.ai")
   └─ ai.gftd.signal.* → PDS direct (Platform Service)
 ```
 
-**yoro.gftd.ai は SPA 配信のみ。** XRPC endpoint は PDS (atproto.gftd.ai) が唯一の gateway。
+**yoro.etzhayyim.com は SPA 配信のみ。** XRPC endpoint は PDS (atproto.gftd.ai) が唯一の gateway。
 設計詳細: `90-docs/platform/260413-pds-appview-topology-shannon-analysis.md`
 
 ### CRITICAL: Session probe は `$lib/atproto-agent` の local `getSession()` 優先
@@ -461,7 +461,7 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + ai.gftd.convo 10 + feed/social 5) �
 
 ### Subdomain → yoro Redirect + iframe Auto-Embed
 
-`{nanoid}.gftd.ai/` への browser アクセスは dispatcher が `yoro.gftd.ai/profile/did:web:{host}?app=1` に 301 redirect。`?app=1` query param により AgentProfile の iframe embed (`{nanoid}.gftd.ai/?embed=1`) が自動展開される。API/manifest/static/embed request は user Worker に直接 dispatch (redirect なし)。
+`{nanoid}.gftd.ai/` への browser アクセスは dispatcher が `yoro.etzhayyim.com/profile/did:web:{host}?app=1` に 301 redirect。`?app=1` query param により AgentProfile の iframe embed (`{nanoid}.gftd.ai/?embed=1`) が自動展開される。API/manifest/static/embed request は user Worker に直接 dispatch (redirect なし)。
 
 ### Hero Section App Preview — Profile-Embedded embedUrl (Shannon optimized)
 
@@ -566,7 +566,7 @@ Actor カード: Avatar + displayName + DID + description + sensitivity badge + 
 - Queries (青ボタン): search icon → タップで実行
 - ツールバー位置: composer の直上、横スクロール
 
-**data endpoint は yoro.gftd.ai に公開しない。** Browser は `atproto.gftd.ai/xrpc/{NSID}` に直接接続。
+**data endpoint は yoro.etzhayyim.com に公開しない。** Browser は `atproto.gftd.ai/xrpc/{NSID}` に直接接続。
 
 ### MCP Tool Calling in Convo
 
@@ -1023,7 +1023,7 @@ cd svelte && pnpm build && cd ..
 npx wrangler deploy  # infra Worker (Assets binding required)
 
 # smoke test
-curl https://yoro.gftd.ai/
+curl https://yoro.etzhayyim.com/
 ```
 
 ## Android (Capacitor 7 + Fastlane)

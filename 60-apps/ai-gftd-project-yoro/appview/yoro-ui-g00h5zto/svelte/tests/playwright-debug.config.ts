@@ -4,7 +4,7 @@ export default defineConfig({
   testMatch: ["debug-*.spec.ts"],
   timeout: 60_000,
   use: {
-    baseURL: "https://yoro.gftd.ai",
+    baseURL: "https://yoro.etzhayyim.com",
     headless: false,
     viewport: { width: 390, height: 844 },
   },

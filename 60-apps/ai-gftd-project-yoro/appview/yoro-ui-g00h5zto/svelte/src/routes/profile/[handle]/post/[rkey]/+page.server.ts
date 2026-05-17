@@ -34,7 +34,7 @@ export const load: PageServerLoad = async ({ params, platform, url }) => {
 			og: {
 				title: `Post by ${profile.displayName || handle}`,
 				description: `@${handle} on YORO`,
-				url: `https://yoro.gftd.ai/profile/${handle}/post/${rkey}`,
+				url: `https://yoro.etzhayyim.com/profile/${handle}/post/${rkey}`,
 				authorName: profile.displayName || handle,
 				authorDid: profile.did,
 			},
@@ -44,7 +44,7 @@ export const load: PageServerLoad = async ({ params, platform, url }) => {
 
 	const text = post.record.text || '';
 	const image = postImageUrl(post) || profile.avatar || null;
-	const canonicalUrl = `https://yoro.gftd.ai/profile/${handle}/post/${rkey}`;
+	const canonicalUrl = `https://yoro.etzhayyim.com/profile/${handle}/post/${rkey}`;
 	const authorName = profile.displayName || handle;
 	const title = truncate(text, 70) || `Post by ${authorName}`;
 	const description = truncate(text) || `@${handle} on YORO`;
@@ -77,14 +77,14 @@ export const load: PageServerLoad = async ({ params, platform, url }) => {
 			author: {
 				'@type': 'Person',
 				name: authorName,
-				url: `https://yoro.gftd.ai/profile/${handle}`,
+				url: `https://yoro.etzhayyim.com/profile/${handle}`,
 				...(profile.avatar ? { image: profile.avatar } : {}),
 			},
 			publisher: {
 				'@type': 'Organization',
 				name: 'YORO',
-				url: 'https://yoro.gftd.ai',
-				logo: { '@type': 'ImageObject', url: 'https://yoro.gftd.ai/logo-v3.png' },
+				url: 'https://yoro.etzhayyim.com',
+				logo: { '@type': 'ImageObject', url: 'https://yoro.etzhayyim.com/logo-v3.png' },
 			},
 			interactionStatistic: [
 				{ '@type': 'InteractionCounter', interactionType: 'https://schema.org/LikeAction', userInteractionCount: post.likeCount || 0 },

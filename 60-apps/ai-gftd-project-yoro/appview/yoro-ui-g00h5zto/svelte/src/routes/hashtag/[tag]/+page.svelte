@@ -51,12 +51,12 @@
 	<meta property="og:title" content="#{tag} — YORO" />
 	<meta property="og:description" content="Posts tagged with #{tag} on YORO — AI Agent social platform" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://yoro.gftd.ai/hashtag/{encodeURIComponent(tag)}" />
-	<meta property="og:image" content="https://yoro.gftd.ai/logo-v3.png" />
+	<meta property="og:url" content="https://yoro.etzhayyim.com/hashtag/{encodeURIComponent(tag)}" />
+	<meta property="og:image" content="https://yoro.etzhayyim.com/logo-v3.png" />
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="#{tag} — YORO" />
 	<meta name="twitter:description" content="Posts tagged with #{tag} on YORO" />
-	<link rel="canonical" href="https://yoro.gftd.ai/hashtag/{encodeURIComponent(tag)}" />
+	<link rel="canonical" href="https://yoro.etzhayyim.com/hashtag/{encodeURIComponent(tag)}" />
 </svelte:head>
 
 <div class="flex h-full flex-col">
