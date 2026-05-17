@@ -293,6 +293,133 @@ export const KISHA_PAYOUT_ABI = [
   },
 ] as const;
 
+// ─── Constitution (geth-private, ADR-2605172300 S0) ─────────────────
+// Only the surface the SDK needs to encode setMutable() proposals.
+
+export const CONSTITUTION_ABI = [
+  {
+    type: "function",
+    name: "setMutable",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "key", type: "bytes32" },
+      { name: "value", type: "bytes32" },
+    ],
+    outputs: [],
+  },
+  {
+    type: "function",
+    name: "getMutable",
+    stateMutability: "view",
+    inputs: [{ name: "key", type: "bytes32" }],
+    outputs: [{ name: "", type: "bytes32" }],
+  },
+  {
+    type: "function",
+    name: "governance",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [{ name: "", type: "address" }],
+  },
+] as const;
+
+// ─── Governance (geth-private, ADR-2605172300 S3) ───────────────────
+
+export const GOVERNANCE_ABI = [
+  {
+    type: "function",
+    name: "propose",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "targets", type: "address[]" },
+      { name: "calldatas", type: "bytes[]" },
+      { name: "descCid", type: "bytes32" },
+    ],
+    outputs: [{ name: "proposalId", type: "uint256" }],
+  },
+  {
+    type: "function",
+    name: "castVote",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "proposalId", type: "uint256" },
+      { name: "choice", type: "uint8" },
+    ],
+    outputs: [],
+  },
+  {
+    type: "function",
+    name: "queue",
+    stateMutability: "nonpayable",
+    inputs: [{ name: "proposalId", type: "uint256" }],
+    outputs: [],
+  },
+  {
+    type: "function",
+    name: "execute",
+    stateMutability: "payable",
+    inputs: [{ name: "proposalId", type: "uint256" }],
+    outputs: [],
+  },
+  {
+    type: "function",
+    name: "state",
+    stateMutability: "view",
+    inputs: [{ name: "proposalId", type: "uint256" }],
+    outputs: [{ name: "", type: "uint8" }],
+  },
+  {
+    type: "event",
+    name: "ProposalCreated",
+    anonymous: false,
+    inputs: [
+      { name: "proposalId", type: "uint256", indexed: true },
+      { name: "proposer", type: "address", indexed: true },
+      { name: "proposerTokenId", type: "uint256", indexed: true },
+      { name: "targets", type: "address[]", indexed: false },
+      { name: "calldatas", type: "bytes[]", indexed: false },
+      { name: "descCid", type: "bytes32", indexed: false },
+      { name: "voteStart", type: "uint64", indexed: false },
+      { name: "voteEnd", type: "uint64", indexed: false },
+    ],
+  },
+  {
+    type: "event",
+    name: "VoteCast",
+    anonymous: false,
+    inputs: [
+      { name: "proposalId", type: "uint256", indexed: true },
+      { name: "tokenId", type: "uint256", indexed: true },
+      { name: "choice", type: "uint8", indexed: false },
+      { name: "voter", type: "address", indexed: false },
+    ],
+  },
+] as const;
+
+/**
+ * Governance proposal state mirror — matches the on-chain
+ * `Governance.State` enum exactly. Used by `Etzhayyim.biProposalState()`.
+ */
+export const GOVERNANCE_STATE = {
+  Pending: 0,
+  Active: 1,
+  Defeated: 2,
+  Succeeded: 3,
+  Queued: 4,
+  Executed: 5,
+  Canceled: 6,
+  Expired: 7,
+} as const;
+
+export type GovernanceStateLabel = keyof typeof GOVERNANCE_STATE;
+
+/** Vote choice → uint8 mapping. Matches Governance.castVote semantics. */
+export const VOTE_CHOICE = {
+  against: 0,
+  for: 1,
+  abstain: 2,
+} as const;
+
 // ─── Lexicon NSID for the oath AT Record (ADR-2605172600) ───────────
 
 export const OATH_RECORD_NSID = "ai.gftd.apps.etzhayyim.oath" as const;
