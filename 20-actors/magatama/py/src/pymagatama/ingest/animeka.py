@@ -9,8 +9,8 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR_DID = "did:web:animeka.gftd.ai"
-REPO_DID = "did:web:an1m3k4x.gftd.ai"
+ACTOR_DID = "did:web:animeka.etzhayyim.com"
+REPO_DID = "did:web:an1m3k4x.etzhayyim.com"
 
 STRING_KEYS = {
     "title", "name", "displayName", "description", "parentRkey", "workId", "episodeId",

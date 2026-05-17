@@ -188,7 +188,7 @@ def test_gov_url_to_domain_slug_empty_returns_empty() -> None:
 
 def test_gov_vertex_id_starts_with_at() -> None:
     vid = GA._vertex_id("mod")
-    assert vid.startswith("at://did:web:afg-state.gftd.ai/")
+    assert vid.startswith("at://did:web:afg-state.etzhayyim.com/")
     assert "mod" in vid
 
 

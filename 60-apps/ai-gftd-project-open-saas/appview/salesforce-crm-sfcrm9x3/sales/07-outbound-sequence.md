@@ -31,7 +31,7 @@ Body (JP or EN, localised):
 >
 > We built open-salesforce on AT / W Protocol specifically for those two — tenant = DID, PII split between Tier-1 hashed indices and a Tier-3 residency-pinned vault, per-seat LLM invocation instead of a platform-wide add-on.
 >
-> One artifact that's worth more than any call: `https://salesforce.opensaas.gftd.ai/docs/posture-appi-gdpr`. Forward to your DPO; it's the packet most Security teams want before they'll sit at the table.
+> One artifact that's worth more than any call: `https://salesforce.opensaas.etzhayyim.com/docs/posture-appi-gdpr`. Forward to your DPO; it's the packet most Security teams want before they'll sit at the table.
 >
 > Worth 20 minutes?
 > — `<AE>`
@@ -95,7 +95,7 @@ Subject: Pre-reading for `<VP Sales>` / `<RevOps>`'s CRM renewal decision
 
 ## Sequence B — "LLM-led" (Tier A/B where own-LLM signal is strongest)
 
-Same cadence, different beats. Openers reference their named model in production and how `magatama.Invoke` from inside the CRM UI lets the seat DID call that model directly. Beat 2 links Pillar 2 video; Beat 5 links the `atproto.gftd.ai` post "per-seat LLM auth is the seat DID, not an API key".
+Same cadence, different beats. Openers reference their named model in production and how `magatama.Invoke` from inside the CRM UI lets the seat DID call that model directly. Beat 2 links Pillar 2 video; Beat 5 links the `atproto.etzhayyim.com` post "per-seat LLM auth is the seat DID, not an API key".
 
 ## Sequence C — "Security-led" (Tier A in regulated industry)
 

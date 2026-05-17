@@ -23,7 +23,7 @@ export interface XrpcCallOpts {
 }
 
 const PDS_INTERNAL = "https://pds.internal";
-const PDS_PUBLIC = "https://atproto.gftd.ai";
+const PDS_PUBLIC = "https://atproto.etzhayyim.com";
 
 /** Worker host transport: service binding (default) or HTTP fallback. */
 export class BindingTransport {

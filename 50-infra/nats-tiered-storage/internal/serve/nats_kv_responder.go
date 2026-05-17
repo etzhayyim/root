@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/config"
-	"github.com/gftdcojp/nats-tiered-storage/internal/ingest"
-	"github.com/gftdcojp/nats-tiered-storage/internal/meta"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/ingest"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/meta"
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/nats.go/jetstream"
 	"go.uber.org/zap"

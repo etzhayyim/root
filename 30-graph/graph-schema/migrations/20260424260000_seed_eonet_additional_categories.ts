@@ -9,15 +9,15 @@ import { sql } from "kysely";
 export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
   const seed: Array<[string, string, number, number, number]> = [
-    ["did:web:maps.gftd.ai:eonet:seaLakeIce",    "SpatialEvent", 50, 0.3, 6.0],
-    ["did:web:maps.gftd.ai:eonet:snow",          "SpatialEvent", 20, 0.3, 6.0],
-    ["did:web:maps.gftd.ai:eonet:dustHaze",      "SpatialEvent", 30, 0.3, 6.0],
-    ["did:web:maps.gftd.ai:eonet:tempExtremes",  "SpatialEvent", 20, 0.3, 6.0],
-    ["did:web:maps.gftd.ai:eonet:earthquakes",   "SpatialEvent", 100, 0.3, 6.0],
+    ["did:web:maps.etzhayyim.com:eonet:seaLakeIce",    "SpatialEvent", 50, 0.3, 6.0],
+    ["did:web:maps.etzhayyim.com:eonet:snow",          "SpatialEvent", 20, 0.3, 6.0],
+    ["did:web:maps.etzhayyim.com:eonet:dustHaze",      "SpatialEvent", 30, 0.3, 6.0],
+    ["did:web:maps.etzhayyim.com:eonet:tempExtremes",  "SpatialEvent", 20, 0.3, 6.0],
+    ["did:web:maps.etzhayyim.com:eonet:earthquakes",   "SpatialEvent", 100, 0.3, 6.0],
   ];
   for (const [sourceDid, label, worldTotal, priority, ttl] of seed) {
     const sourceSlug = sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || "primary";
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

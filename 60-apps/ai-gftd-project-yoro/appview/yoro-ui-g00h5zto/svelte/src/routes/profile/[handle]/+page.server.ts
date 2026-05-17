@@ -8,7 +8,7 @@ export const ssr = true;
 export const load: PageServerLoad = async ({ params, platform, url }) => {
   const handle = decodeURIComponent(params.handle);
 
-  // ADR-0013 Phase 3 grace: {nanoid}.gftd.ai → {handle}.gftd.ai (301).
+  // ADR-0013 Phase 3 grace: {nanoid}.etzhayyim.com → {handle}.etzhayyim.com (301).
   // Drops 2026-10-01 (ADR-0021).
   const canonical = resolveLegacyHandle(handle);
   if (canonical && canonical !== handle) {

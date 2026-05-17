@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/schemas/camunda-form/v1",
+  "$schema": "https://etzhayyim.com/schemas/camunda-form/v1",
   "formKey": "openGas.reportLeak.v1",
   "name": "Report Gas Leak",
   "version": 1,

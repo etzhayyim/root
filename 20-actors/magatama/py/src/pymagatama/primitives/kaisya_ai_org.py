@@ -29,19 +29,19 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("kaisya.ai_org")
 
-OWNER_DID = "did:web:bpmn.gftd.ai"
-ORG_DID   = "did:web:kaisya.gftd.ai"
+OWNER_DID = "did:web:bpmn.etzhayyim.com"
+ORG_DID   = "did:web:kaisya.etzhayyim.com"
 
 # human_did for each agent (must match deps.toml [gftdcojp_agent.org_members])
 _AGENT_HUMAN: dict[str, str] = {
-    "kaisya_ceo_agent":        "did:web:j-kawasaki.gftd.ai",
-    "kaisya_coo_agent":        "did:web:a-nakamura.gftd.ai",
-    "kaisya_clo_agent":        "did:web:k-bakshi.gftd.ai",
-    "kaisya_eng_deploy_agent": "did:web:t-chikada.gftd.ai",
-    "kaisya_eng_review_agent": "did:web:f-tanaka.gftd.ai",
-    "kaisya_eng_infra_agent":  "did:web:y-nishino.gftd.ai",
-    "kaisya_brand_agent":      "did:web:t-ichihara.gftd.ai",
-    "kaisya_creative_agent":   "did:web:k-takahashi.gftd.ai",
+    "kaisya_ceo_agent":        "did:web:j-kawasaki.etzhayyim.com",
+    "kaisya_coo_agent":        "did:web:a-nakamura.etzhayyim.com",
+    "kaisya_clo_agent":        "did:web:k-bakshi.etzhayyim.com",
+    "kaisya_eng_deploy_agent": "did:web:t-chikada.etzhayyim.com",
+    "kaisya_eng_review_agent": "did:web:f-tanaka.etzhayyim.com",
+    "kaisya_eng_infra_agent":  "did:web:y-nishino.etzhayyim.com",
+    "kaisya_brand_agent":      "did:web:t-ichihara.etzhayyim.com",
+    "kaisya_creative_agent":   "did:web:k-takahashi.etzhayyim.com",
 }
 
 # ADR-2605010000: RunPod 6000 Ada is LLM SSoT. Murakumo removed from LLM path.
@@ -237,10 +237,10 @@ async def _clo_legal_reason(open_cases: list[dict]) -> dict[str, Any]:
 
 async def _eng_deploy_health_check() -> dict[str, Any]:
     endpoints = [
-        "https://kaisya.gftd.ai/health",
-        "https://bsky.gftd.ai/health",
-        "https://atproto.gftd.ai/health",
-        "https://murakumo.gftd.ai/health",
+        "https://kaisya.etzhayyim.com/health",
+        "https://bsky.etzhayyim.com/health",
+        "https://atproto.etzhayyim.com/health",
+        "https://murakumo.etzhayyim.com/health",
     ]
     failed = []
     try:
@@ -283,7 +283,7 @@ async def _eng_infra_probe() -> dict[str, Any]:
     try:
         import httpx  # type: ignore
         async with httpx.AsyncClient(timeout=8.0) as client:
-            resp = await client.get("https://dispatcher.gftd.ai/health")
+            resp = await client.get("https://dispatcher.etzhayyim.com/health")
             if resp.is_success:
                 checks.append("Zeebe dispatcher OK")
             else:

@@ -8,19 +8,19 @@ Scope: `ai-gftd-project-open-unispsc`, app namespace = `unispsc`
 - Use repository directory `ai-gftd-project-open-unispsc`.
 - Runtime identity/namespace is `unispsc`.
 - Adopt DID path model compatible with platform rule:
-  - `did:web:{app}.gftd.ai:{path}`
+  - `did:web:{app}.etzhayyim.com:{path}`
   - path segments must be alpha-start.
 
 ## 2. Canonical DID Shapes
 
 - App DID:
-  - `did:web:unispsc.gftd.ai`
+  - `did:web:unispsc.etzhayyim.com`
 - Segment DID:
-  - `did:web:unispsc.gftd.ai:seg{NN}`
-  - Example: `did:web:unispsc.gftd.ai:seg43`
+  - `did:web:unispsc.etzhayyim.com:seg{NN}`
+  - Example: `did:web:unispsc.etzhayyim.com:seg43`
 - Commodity DID:
-  - `did:web:unispsc.gftd.ai:seg{NN}:commodity:c{UNSPSC8}`
-  - Example: `did:web:unispsc.gftd.ai:seg43:commodity:c43211501`
+  - `did:web:unispsc.etzhayyim.com:seg{NN}:commodity:c{UNSPSC8}`
+  - Example: `did:web:unispsc.etzhayyim.com:seg43:commodity:c43211501`
 
 Rationale:
 - `seg43` is alpha-start.
@@ -45,7 +45,7 @@ Examples:
 - Update design docs/WIT comments to canonical naming.
 
 2. Canonical-read-default
-- Switch UI/API default links to `unispsc.gftd.ai`.
+- Switch UI/API default links to `unispsc.etzhayyim.com`.
 
 3. Canonical-only
 - Write/read/subscribe all flows only via `ai.gftd.apps.unispsc.*`.
@@ -56,5 +56,5 @@ Examples:
 - `segNN` and `c{UNSPSC8}` are always alpha-start.
 - `commodity_code` remains raw 8-digit in payload.
 - DID controller graph:
-  - `did:web:unispsc.gftd.ai` CONTROLS `did:web:unispsc.gftd.ai:seg43`
-  - `did:web:unispsc.gftd.ai:seg43` CONTROLS `did:web:unispsc.gftd.ai:seg43:commodity:c43211501`
+  - `did:web:unispsc.etzhayyim.com` CONTROLS `did:web:unispsc.etzhayyim.com:seg43`
+  - `did:web:unispsc.etzhayyim.com:seg43` CONTROLS `did:web:unispsc.etzhayyim.com:seg43:commodity:c43211501`

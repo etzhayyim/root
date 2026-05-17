@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T13:30:00Z";
-const ownerDid = "did:web:open-airplane.gftd.ai:ops";
+const ownerDid = "did:web:open-airplane.etzhayyim.com:ops";
 const actorTag = "sys.bpmn.seed.open-airplane";
 
 const processSeeds: ProcessSeed[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-schedule-flight-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-schedule-flight-v1",
     bpmnProcessId: "open_airplane_schedule_flight",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-airplane/scheduleFlight.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-report-incident-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-report-incident-v1",
     bpmnProcessId: "open_airplane_report_incident",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-airplane/reportIncident.bpmn", ownerDid },
 ];
 
 const bindingSeeds: BindingSeed[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-scheduleFlight-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-scheduleFlight-v1",
     nsid: "ai.gftd.apps.openAirplane.scheduleFlight", bpmnProcessId: "open_airplane_schedule_flight",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-reportIncident-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-reportIncident-v1",
     nsid: "ai.gftd.apps.openAirplane.reportIncident", bpmnProcessId: "open_airplane_report_incident",
     ownerDid, resultTimeoutMs: 30000 },
 ];

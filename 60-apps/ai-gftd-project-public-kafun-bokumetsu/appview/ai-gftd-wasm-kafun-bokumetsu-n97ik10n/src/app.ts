@@ -16,7 +16,7 @@
  * Public-by-default policy:
  *   *Every* externally visible activity (research findings, proposals,
  *   dispatched actions, future emails / file uploads / generated content)
- *   MUST be mirrored to yoro.gftd.ai by dispatching `app.bsky.feed.post`
+ *   MUST be mirrored to yoro.etzhayyim.com by dispatching `app.bsky.feed.post`
  *   under the appropriate path-based actor DID. yoro appview reads the
  *   PDS firehose for these collections and renders them. Use `publishToYoro`.
  */
@@ -32,20 +32,20 @@ import {
   withOCELEvent,
 } from "@gftd/magatama-host-sdk";
 
-const DISPATCHER_BASE = "http://dispatcher.gftd.ai:8080";
+const DISPATCHER_BASE = "http://dispatcher.etzhayyim.com:8080";
 
-const RESEARCHER_DID = "did:web:n97ik10n.gftd.ai:actor:researcher";
-const PROPOSER_DID   = "did:web:n97ik10n.gftd.ai:actor:proposer";
-const EXECUTOR_DID   = "did:web:n97ik10n.gftd.ai:actor:executor";
+const RESEARCHER_DID = "did:web:n97ik10n.etzhayyim.com:actor:researcher";
+const PROPOSER_DID   = "did:web:n97ik10n.etzhayyim.com:actor:proposer";
+const EXECUTOR_DID   = "did:web:n97ik10n.etzhayyim.com:actor:executor";
 // Envoy = outbound communications (email / DM / external API). Every send
 // MUST mirror to yoro via publishToYoro under this DID.
-const ENVOY_DID      = "did:web:n97ik10n.gftd.ai:actor:envoy";
+const ENVOY_DID      = "did:web:n97ik10n.etzhayyim.com:actor:envoy";
 // Scout = satellite imagery ingest + ML canopy detection (L0-1a/b sub-DAG).
-const SCOUT_DID      = "did:web:n97ik10n.gftd.ai:actor:scout";
+const SCOUT_DID      = "did:web:n97ik10n.etzhayyim.com:actor:scout";
 // Cadastral = canopy → parcel → landowner resolution (L0-1c/d sub-DAG).
-const CADASTRAL_DID  = "did:web:n97ik10n.gftd.ai:actor:cadastral";
+const CADASTRAL_DID  = "did:web:n97ik10n.etzhayyim.com:actor:cadastral";
 
-const APP_DID = "did:web:n97ik10n.gftd.ai";
+const APP_DID = "did:web:n97ik10n.etzhayyim.com";
 
 type Env = { HYPERDRIVE: unknown };
 type Db = ReturnType<typeof createKyselyDb>;
@@ -69,7 +69,7 @@ async function dispatch(graphNsid: string, input: unknown, timeoutMs = 180_000):
 }
 
 // ── yoro public-by-default helper ─────────────────────────────────────────────
-// Every kafun activity is published to yoro.gftd.ai as an app.bsky.feed.post
+// Every kafun activity is published to yoro.etzhayyim.com as an app.bsky.feed.post
 // under the responsible path-based actor DID. yoro appview tails the PDS
 // firehose for these collections; no separate yoro write API is required.
 // For future emails/files/blob outputs: also call this helper with a short
@@ -131,7 +131,7 @@ async function sendEmailAndPublish(
   subject: string,
   body: string,
 ): Promise<void> {
-  // Outbound mail goes through the microsoft.gftd.ai actor (`ai.gftd.apps.microsoft.sendMail`).
+  // Outbound mail goes through the microsoft.etzhayyim.com actor (`ai.gftd.apps.microsoft.sendMail`).
   // Direct dispatch is intentional — we route through host-imports invoke so the
   // microsoft actor handles tenant binding (root CLAUDE.md §gftdcojp Agent).
   const params = { to: [to], subject, body };
@@ -139,7 +139,7 @@ async function sendEmailAndPublish(
   try {
     await (sdk.hostImports as unknown as { invoke?: (b: Uint8Array) => unknown }).invoke?.(
       new TextEncoder().encode(JSON.stringify({
-        did: "did:web:microsoft.gftd.ai",
+        did: "did:web:microsoft.etzhayyim.com",
         method: "ai.gftd.apps.microsoft.sendMail",
         params: paramsJson,
       })),

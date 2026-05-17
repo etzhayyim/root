@@ -1,11 +1,11 @@
 """JP Fiscal ingest primitives (ADR-0035 BPMN-as-actor, ADR-0056).
 
-2 Zeebe task types for jp-fiscal.gftd.ai:
+2 Zeebe task types for jp-fiscal.etzhayyim.com:
   jpFiscal.ingest.edinet       — EDINET v2 大量保有報告書 → vertex_jp_fiscal_beneficial_owner
   jpFiscal.ingest.egovContracts — e-GOV 省庁契約公表 CSV  → vertex_jp_fiscal_contract
 
 Tables: vertex_jp_fiscal_beneficial_owner / vertex_jp_fiscal_contract
-Owner:  did:web:jp-fiscal.gftd.ai
+Owner:  did:web:jp-fiscal.etzhayyim.com
 ADR:    0035 (JP tax money flow reverse topology)
 """
 
@@ -24,7 +24,7 @@ from pymagatama import llm as _llm
 from pymagatama.db_sync import sync_cursor
 
 
-_OWNER_DID = "did:web:jp-fiscal.gftd.ai"
+_OWNER_DID = "did:web:jp-fiscal.etzhayyim.com"
 _COL_UBO = "ai.gftd.apps.jpFiscal.beneficialOwner"
 _COL_CONTRACT = "ai.gftd.apps.jpFiscal.contract"
 _EDINET_URL = "https://disclosure.edinet-fsa.go.jp/api/v2/documents.json"
@@ -78,7 +78,7 @@ async def task_jp_fiscal_ingest_edinet(
     async with aiohttp.ClientSession() as session:
         async with session.get(
             url,
-            headers={"User-Agent": "jp-fiscal.gftd.ai/1.0 contact@gftd.co.jp"},
+            headers={"User-Agent": "jp-fiscal.etzhayyim.com/1.0 contact@gftd.co.jp"},
             timeout=aiohttp.ClientTimeout(total=30),
         ) as resp:
             if resp.status != 200:
@@ -103,8 +103,8 @@ async def task_jp_fiscal_ingest_edinet(
         if not doc_id or not target or not filer:
             continue
 
-        child_did = f"did:web:legal-entity.gftd.ai:sec:{target}"
-        parent_did = f"did:web:legal-entity.gftd.ai:edinet:{filer}"
+        child_did = f"did:web:legal-entity.etzhayyim.com:sec:{target}"
+        parent_did = f"did:web:legal-entity.etzhayyim.com:edinet:{filer}"
         evidence_url = f"https://disclosure.edinet-fsa.go.jp/PublicDoc/{doc_id}"
         vid = _ubo_vid(doc_id)
         doc_type_code = str(d.get("docTypeCode") or "")
@@ -173,14 +173,14 @@ async def task_jp_fiscal_ingest_egov_contracts(
                 ministry_results[ministry] = {"skipped": True, "reason": "unknown ministry"}
                 continue
 
-            ministry_did = f"did:web:gov.gftd.ai:country:jpn:{ministry}"
+            ministry_did = f"did:web:gov.etzhayyim.com:country:jpn:{ministry}"
             written = 0
             errors = 0
 
             try:
                 async with session.get(
                     url,
-                    headers={"User-Agent": "jp-fiscal.gftd.ai/1.0 contact@gftd.co.jp"},
+                    headers={"User-Agent": "jp-fiscal.etzhayyim.com/1.0 contact@gftd.co.jp"},
                     timeout=aiohttp.ClientTimeout(total=20),
                 ) as resp:
                     if resp.status != 200:
@@ -215,7 +215,7 @@ async def task_jp_fiscal_ingest_egov_contracts(
                     if len(cleaned) >= 10:
                         signed_date = cleaned[:10]
 
-                contractor_did = f"did:web:legal-entity.gftd.ai:jcn:{contractor_jcn}"
+                contractor_did = f"did:web:legal-entity.etzhayyim.com:jcn:{contractor_jcn}"
                 kaikeiho_article = "29-3" if method in ("zuikei-random", "随契") else "29-1"
                 vid = _contract_vid(ministry, contract_no, seq)
 

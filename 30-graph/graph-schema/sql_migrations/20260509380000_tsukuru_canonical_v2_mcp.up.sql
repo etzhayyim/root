@@ -16,9 +16,9 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-selectManufacturers',
+  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-selectManufacturers',
    0, 0, 'ai.gftd.apps.tsukuru.selectManufacturers',
-   'did:web:tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'tsukuru ISIC pulse — select manufacturers by industry code (data-bound SQL).',
    '{"type":"object","properties":{"industry_codes":{"type":"array"}}}',
    '{"type":"object","properties":{"rows":{"type":"array"},"rowCount":{"type":"integer"}}}',
@@ -33,7 +33,7 @@ VALUES
   ('tsukuru_isic_pulse.v2', 0, 0, 'tsukuru_isic_pulse.v2', 2, 'topology', NULL,
    '{"state_keys":["industry_codes","queryOut","auditOut","ok","error"],"entry":"select_manufacturers","edges":[{"from":"select_manufacturers","to":"emit_audit"},{"from":"emit_audit","to":"END"}]}',
    'tsukuru ISIC pulse (topology v2, mcp_tool: tools.sql.query + tools.audit.emit)',
-   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.tsukuru.gftd.ai');
+   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.tsukuru.etzhayyim.com');
 
 INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
@@ -44,7 +44,7 @@ VALUES
    '2026-05-09T00:00:00Z'),
   ('tsukuru_isic_pulse.v2:emit_audit', 0, 0, 'tsukuru_isic_pulse.v2', 'emit_audit',
    'mcp_tool', 'mcp://ai.gftd.tools.audit.emit',
-   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:tsukuru.gftd.ai","collection":"ai.gftd.apps.tsukuru.audit","action":"isic_pulse"}}',
+   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:tsukuru.etzhayyim.com","collection":"ai.gftd.apps.tsukuru.audit","action":"isic_pulse"}}',
    '2026-05-09T00:00:00Z');
 
 UPDATE vertex_langgraph_assistant SET superseded_by = 'tsukuru_isic_pulse.v2'

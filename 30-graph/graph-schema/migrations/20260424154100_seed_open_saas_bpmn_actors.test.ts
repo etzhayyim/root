@@ -34,7 +34,7 @@ describe("Seed open-saas BPMN actors migration", () => {
 
   it("uses open-saas-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-saas"');
-    expect(migrationSource).toContain("did:web:open-saas.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-saas.etzhayyim.com");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

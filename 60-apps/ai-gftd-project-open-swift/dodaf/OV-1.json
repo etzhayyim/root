@@ -2,15 +2,15 @@
   "viewId": "open-swift.OV-1",
   "viewType": "OV-1",
   "title": "High-Level Operational Concept Graphic",
-  "did": "did:web:open-swift.gftd.ai",
+  "did": "did:web:open-swift.etzhayyim.com",
   "format": "json",
   "content": {
     "operationalNodes": [
       { "id": "debtorAgent",     "label": "Debtor Agent (sender FI, DID)" },
       { "id": "creditorAgent",   "label": "Creditor Agent (beneficiary FI, DID)" },
-      { "id": "swift",           "label": "open-swift.gftd.ai (Worker)" },
+      { "id": "swift",           "label": "open-swift.etzhayyim.com (Worker)" },
       { "id": "store",           "label": "D1 (institutions/messages/ack SSoT)" },
-      { "id": "pds",             "label": "atproto.gftd.ai (PDS, public audit)" },
+      { "id": "pds",             "label": "atproto.etzhayyim.com (PDS, public audit)" },
       { "id": "regulator",       "label": "Banking Regulator (DID)" }
     ],
     "operationalFlows": [

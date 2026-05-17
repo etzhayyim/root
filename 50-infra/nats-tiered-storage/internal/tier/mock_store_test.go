@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/block"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/block"
 )
 
 // mockTierStore is a thread-safe in-memory TierStore for testing.

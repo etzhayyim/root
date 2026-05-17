@@ -67,7 +67,7 @@ def test_jf_ubo_vid_contains_doc_id():
 
 def test_jf_ubo_vid_contains_owner_did():
     result = JF._ubo_vid("S001")
-    assert "jp-fiscal.gftd.ai" in result
+    assert "jp-fiscal.etzhayyim.com" in result
 
 
 def test_jf_ubo_vid_contains_edinet_prefix():
@@ -456,7 +456,7 @@ def test_oc_site_did_starts_with_did():
 
 def test_oc_site_did_contains_onion_gftd():
     result = OC._site_did("abc.onion")
-    assert "onion.gftd.ai" in result
+    assert "onion.etzhayyim.com" in result
 
 
 # ─── onion_crawl — _clean_text ───────────────────────────────────────────────

@@ -110,5 +110,5 @@ export function buildVRMCharacterScene(config: VRMCharacterConfig): Record<strin
 
 /** Generate CDN URL for a VRM blob. */
 export function vrmCdnUrl(blobKey: string): string {
-  return `https://cdn.gftd.ai/${blobKey}`;
+  return `https://cdn.etzhayyim.com/${blobKey}`;
 }

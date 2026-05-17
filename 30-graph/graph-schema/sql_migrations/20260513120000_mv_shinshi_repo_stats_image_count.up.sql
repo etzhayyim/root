@@ -20,7 +20,7 @@ SELECT
       AND value_json LIKE '%"app.bsky.embed.images"%'
   ) AS image_post_count
 FROM vertex_repo_record
-WHERE repo LIKE 'did:web:sh1n5h1x.gftd.ai:%'
-  AND repo != 'did:web:sh1n5h1x.gftd.ai'
+WHERE repo LIKE 'did:web:sh1n5h1x.etzhayyim.com:%'
+  AND repo != 'did:web:sh1n5h1x.etzhayyim.com'
   AND collection IN ('ai.gftd.apps.shinshi.modelProfile', 'app.bsky.feed.post')
 GROUP BY repo;

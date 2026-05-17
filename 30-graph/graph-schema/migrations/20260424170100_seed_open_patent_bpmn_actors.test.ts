@@ -30,7 +30,7 @@ describe("Seed open-patent BPMN actors migration", () => {
   });
   it("uses open-patent-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-patent');
-    expect(migrationSource).toContain("did:web:open-patent.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-patent.etzhayyim.com");
   });
   it("BPMN processes target Zeebe generic.* primitives", () => {
     for (const xml of [bpmn1, bpmn2]) {

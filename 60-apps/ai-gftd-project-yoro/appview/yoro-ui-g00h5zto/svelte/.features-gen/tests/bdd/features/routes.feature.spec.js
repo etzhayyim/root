@@ -4,77 +4,77 @@ import { test } from "../../../../tests/bdd/steps/fixtures.ts";
 test.describe("Bluesky-Compatible Route Coverage", () => {
 
   test("Home feed is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/\"");
     await Then("the fetch status should be 200");
   });
 
   test("Search page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/search\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/search\"");
     await Then("the fetch status should be 200");
   });
 
   test("Notifications page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/notifications\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/notifications\"");
     await Then("the fetch status should be 200");
   });
 
   test("My Feeds page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/feeds\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/feeds\"");
     await Then("the fetch status should be 200");
   });
 
   test("My Lists page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/lists\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/lists\"");
     await Then("the fetch status should be 200");
   });
 
   test("Messages page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/messages\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/messages\"");
     await Then("the fetch status should be 200");
   });
 
   test("Profile page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/profile/testuser\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/profile/testuser\"");
     await Then("the fetch status should be 200");
   });
 
   test("Post thread page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/profile/testuser/post/abc123\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/profile/testuser/post/abc123\"");
     await Then("the fetch status should be 200");
   });
 
   test("Privacy page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/privacy\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/privacy\"");
     await Then("the fetch status should be 200");
   });
 
   test("Terms page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/terms\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/terms\"");
     await Then("the fetch status should be 200");
   });
 
   test("Welcome page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/welcome\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/welcome\"");
     await Then("the fetch status should be 200");
   });
 
   test("Hashtag feed is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/hashtag/test\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/hashtag/test\"");
     await Then("the fetch status should be 200");
   });
 
   test("Settings page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/settings\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/settings\"");
     await Then("the fetch status should be 200");
   });
 
   test("Moderation page is accessible", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/moderation\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/moderation\"");
     await Then("the fetch status should be 200");
   });
 
   test("Sitemap returns XML", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/sitemap.xml\"");
+    await When("I fetch \"https://yoro.etzhayyim.com/sitemap.xml\"");
     await Then("the fetch status should be 200");
   });
 

@@ -4,7 +4,7 @@ import { sql } from "kysely";
 // ADR-0040 vertex tier: tier B  (curated balance + transfer log; no Tier-3 PII).
 
 /**
- * karma.gftd.ai — Well-Becoming Token (WBT) settlement schema (Phase K1).
+ * karma.etzhayyim.com — Well-Becoming Token (WBT) settlement schema (Phase K1).
  *
  * Backs the rebirth.forfeit primitive. On rebirth the old organism's
  * WBT balance moves to the commons pool. WBT issuance / faucet
@@ -102,13 +102,13 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       CAST(NULL AS bigint),
       CAST(${today} AS date),
       1,
-      'did:web:karma.gftd.ai:commons',
+      'did:web:karma.etzhayyim.com:commons',
       0.0, 0.0, CAST(0 AS bigint), CAST(0 AS bigint),
       CAST(NULL AS bigint),
       CAST(NULL AS varchar),
       ${nowTs},
-      'did:web:karma.gftd.ai:commons',
-      'did:web:karma.gftd.ai:commons',
+      'did:web:karma.etzhayyim.com:commons',
+      'did:web:karma.etzhayyim.com:commons',
       'sys.commons.init'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_karma_commons_pool WHERE vertex_id = 'commons-pool'

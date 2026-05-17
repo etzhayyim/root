@@ -41,9 +41,9 @@ from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("saikin_worker")
 
-SAIKIN_DID = "did:web:saikin.gftd.ai"
-KOKE_DID = "did:web:koke.gftd.ai"
-KI_DID = "did:web:ki.gftd.ai"
+SAIKIN_DID = "did:web:saikin.etzhayyim.com"
+KOKE_DID = "did:web:koke.etzhayyim.com"
+KI_DID = "did:web:ki.etzhayyim.com"
 
 BATCH_SIZE = int(os.environ.get("SAIKIN_BATCH_SIZE", "10"))
 

@@ -1,12 +1,12 @@
 /**
  * brief-stream.ts — EventSource wrapper for ai.gftd.apps.ameno.subscribeBriefs.
  *
- * Connects to the AT Protocol PDS (atproto.gftd.ai) which routes the SSE
+ * Connects to the AT Protocol PDS (atproto.etzhayyim.com) which routes the SSE
  * stream through bpmn-dispatcher → ameno-langserver → NATS JetStream.
  * Each `event: brief` frame carries one PDS commit's text + provenance.
  */
 
-const PDS_BASE = "https://atproto.gftd.ai";
+const PDS_BASE = "https://atproto.etzhayyim.com";
 
 export interface Brief {
   /** at://did/collection/rkey of the source record. */

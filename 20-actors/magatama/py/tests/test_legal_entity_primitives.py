@@ -28,7 +28,7 @@ def test_registry_entity_row_maps_core_columns() -> None:
 
     assert row is not None
     assert row["vertex_id"].endswith("/ch-gbr-12345678")
-    assert row["did"] == "did:web:legal-entity.gftd.ai:ch-gbr-12345678"
+    assert row["did"] == "did:web:legal-entity.etzhayyim.com:ch-gbr-12345678"
     assert row["source"] == "ch-gbr"
     assert row["source_record_id"] == "12345678"
     assert row["status"] == "active"

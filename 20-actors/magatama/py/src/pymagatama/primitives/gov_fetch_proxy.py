@@ -77,7 +77,7 @@ def direct_fetch_hash_status(
 
 
 def proxy_fetch_hash(url: str, timeout: int = 20) -> tuple[str, str]:
-    proxy_base = os.environ.get("GOV_FETCH_PROXY_URL", "https://gov-fetch.gftd.ai/fetch").strip()
+    proxy_base = os.environ.get("GOV_FETCH_PROXY_URL", "https://gov-fetch.etzhayyim.com/fetch").strip()
     secret = os.environ.get("GOV_FETCH_HMAC", "").strip()
     if not proxy_base or not secret or not url or not url.startswith("http"):
         return "", ""
@@ -105,7 +105,7 @@ def proxy_fetch_hash(url: str, timeout: int = 20) -> tuple[str, str]:
 
 
 def proxy_fetch_hash_status(url: str, timeout: int = 20) -> tuple[str, str, str, str]:
-    proxy_base = os.environ.get("GOV_FETCH_PROXY_URL", "https://gov-fetch.gftd.ai/fetch").strip()
+    proxy_base = os.environ.get("GOV_FETCH_PROXY_URL", "https://gov-fetch.etzhayyim.com/fetch").strip()
     secret = os.environ.get("GOV_FETCH_HMAC", "").strip()
     if not proxy_base or not secret:
         return "", "", "proxy_not_configured", "GOV_FETCH_PROXY_URL or GOV_FETCH_HMAC is empty"

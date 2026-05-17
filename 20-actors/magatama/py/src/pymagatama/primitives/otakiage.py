@@ -1,4 +1,4 @@
-"""otakiage.gftd.ai LangServer primitives — Reuse & Ritual Platform Phase 1.
+"""otakiage.etzhayyim.com LangServer primitives — Reuse & Ritual Platform Phase 1.
 
 ADR-2605081700 + ADR-0036 (Worker-direct Hyperdrive) + ADR-0056 (BPMN-as-actor)
 + ADR-2604282300 (T2 = pymagatama + Zeebe, no CF Worker).
@@ -46,10 +46,10 @@ CATEGORY_MODE: dict[str, str] = {
     "kaden": "reuse_only",
 }
 
-PATH_DID_ROOT = "did:web:otakiage.gftd.ai"
-PATH_DID_REUSE = "did:web:otakiage.gftd.ai:reuse"
-PATH_DID_RITUAL = "did:web:otakiage.gftd.ai:ritual"
-PATH_DID_MATSURI = "did:web:otakiage.gftd.ai:matsuri"
+PATH_DID_ROOT = "did:web:otakiage.etzhayyim.com"
+PATH_DID_REUSE = "did:web:otakiage.etzhayyim.com:reuse"
+PATH_DID_RITUAL = "did:web:otakiage.etzhayyim.com:ritual"
+PATH_DID_MATSURI = "did:web:otakiage.etzhayyim.com:matsuri"
 
 REUSE_TTL_DAYS = 30
 

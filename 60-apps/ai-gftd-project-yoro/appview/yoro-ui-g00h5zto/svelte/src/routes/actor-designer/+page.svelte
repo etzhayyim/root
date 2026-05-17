@@ -41,7 +41,7 @@
                   xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
                   xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
                   xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-                  id="Definitions_1" targetNamespace="https://gftd.ai/bpmn">
+                  id="Definitions_1" targetNamespace="https://etzhayyim.com/bpmn">
   <bpmn:process id="Process_1" name="New Actor Pipeline" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Trigger">
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
@@ -161,7 +161,7 @@
 
       const result = await atProcedure('ai.gftd.actor.compileBpmn', {
         bpmnXml: xml,
-        did: actorDid || 'did:web:new-actor.gftd.ai',
+        did: actorDid || 'did:web:new-actor.etzhayyim.com',
         name: actorName || 'new-actor',
         nanoid: actorNanoid || 'new00000',
         dmnXml,
@@ -237,7 +237,7 @@
     <div class="flex items-center gap-2">
       <input
         bind:value={actorDid}
-        placeholder="did:web:actor.gftd.ai"
+        placeholder="did:web:actor.etzhayyim.com"
         class="px-2 py-1 text-sm rounded bg-[var(--gv2-bg-secondary)] border border-[var(--gv2-border)] w-48"
       />
       <input

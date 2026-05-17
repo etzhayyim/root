@@ -1,4 +1,4 @@
-"""iryo.gftd.ai (医療 / hospital operations) primitives — Phase 1.
+"""iryo.etzhayyim.com (医療 / hospital operations) primitives — Phase 1.
 
 T2 actor (ADR-2604282300): pymagatama module + BPMN + Zeebe, no CF Worker.
 All domain writes hit RisingWave directly via Hyperdrive (ADR-0036). Social
@@ -49,7 +49,7 @@ from pymagatama.db_sync import sync_cursor
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-_IRYO_ROOT = "did:web:iryo.gftd.ai"
+_IRYO_ROOT = "did:web:iryo.etzhayyim.com"
 _IRYO_HOSPITAL = f"{_IRYO_ROOT}:hospital"
 
 # Phase 1 seed hospital — single 300-bed acute-care hospital. Multi-hospital
@@ -745,7 +745,7 @@ def _fhir_get(path: str, *, count: int = 50) -> dict[str, Any]:
     sep = "&" if "?" in path else "?"
     url = f"{url}{sep}_count={count}&_format=json"
     req = urllib.request.Request(
-        url, headers={"User-Agent": "iryo.gftd.ai/1.0", "Accept": "application/fhir+json"},
+        url, headers={"User-Agent": "iryo.etzhayyim.com/1.0", "Accept": "application/fhir+json"},
     )
     with urllib.request.urlopen(req, timeout=20.0) as r:
         return json.loads(r.read().decode("utf-8"))
@@ -816,7 +816,7 @@ async def task_iryo_kpi_refresh_who_gho(**kwargs: Any) -> dict[str, Any]:
     for code in indicators:
         try:
             url = f"{_WHO_GHO_BASE}/{urllib.parse.quote(code)}"
-            req = urllib.request.Request(url, headers={"User-Agent": "iryo.gftd.ai/1.0"})
+            req = urllib.request.Request(url, headers={"User-Agent": "iryo.etzhayyim.com/1.0"})
             with urllib.request.urlopen(req, timeout=15.0) as r:
                 payload = json.loads(r.read().decode("utf-8"))
         except Exception:

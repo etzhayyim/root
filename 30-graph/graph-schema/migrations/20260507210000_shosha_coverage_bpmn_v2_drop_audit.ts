@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shosha.gftd.ai Phase 3 step 1.1 — coverage BPMN v2 drops audit step.
+ * shosha.etzhayyim.com Phase 3 step 1.1 — coverage BPMN v2 drops audit step.
  *
  * coverage probes are high-frequency (soak monitor will hit hourly).
  * The audit step (generic.audit.emit) was hitting Zeebe broker
@@ -26,7 +26,7 @@ const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf
 
 const seeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1",
     bpmnProcessId: "shosha_coverage",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/coverage.bpmn",
   },

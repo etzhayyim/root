@@ -6,18 +6,18 @@ import { sql } from "kysely";
  *
  * Observed during first auto-run (2026-04-24):
  *   mv_maps_collected_per_source_label surfaces ~3000+ rows under
- *   `did:web:uqpel6i6.gftd.ai:*` (nanoid hostname) and
+ *   `did:web:uqpel6i6.etzhayyim.com:*` (nanoid hostname) and
  *   `did:web:uqpel6i6:*` (colon-less legacy form), while the coverage
- *   frontier seed uses the vanity hostname `did:web:maps.gftd.ai:*`.
+ *   frontier seed uses the vanity hostname `did:web:maps.etzhayyim.com:*`.
  *   refreshCoverageStats can't match them → collected_count stays 0 even
  *   though the data is already in the graph.
  *
  * Fix: canonicalize both nanoid hostname variants onto the vanity hostname
  * before GROUP BY. Plan-time inlined, zero per-row cost (CASE + STRING).
  *
- *   'did:web:uqpel6i6.gftd.ai:infrastructure' → 'did:web:maps.gftd.ai:infrastructure'
- *   'did:web:uqpel6i6:infrastructure'         → 'did:web:maps.gftd.ai:infrastructure'
- *   'did:web:maps.gftd.ai:infrastructure'     → (unchanged)
+ *   'did:web:uqpel6i6.etzhayyim.com:infrastructure' → 'did:web:maps.etzhayyim.com:infrastructure'
+ *   'did:web:uqpel6i6:infrastructure'         → 'did:web:maps.etzhayyim.com:infrastructure'
+ *   'did:web:maps.etzhayyim.com:infrastructure'     → (unchanged)
  *   any other did                             → (unchanged)
  *
  * Also creates `mv_maps_collected_per_source_label_canonical` — same as
@@ -32,14 +32,14 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       LANGUAGE sql
     AS $$
       SELECT CASE
-        WHEN source_did LIKE 'did:web:uqpel6i6.gftd.ai:%'
-          THEN 'did:web:maps.gftd.ai' || SUBSTRING(source_did FROM 25)
+        WHEN source_did LIKE 'did:web:uqpel6i6.etzhayyim.com:%'
+          THEN 'did:web:maps.etzhayyim.com' || SUBSTRING(source_did FROM 25)
         WHEN source_did LIKE 'did:web:uqpel6i6:%'
-          THEN 'did:web:maps.gftd.ai' || SUBSTRING(source_did FROM 17)
-        WHEN source_did = 'did:web:uqpel6i6.gftd.ai'
-          THEN 'did:web:maps.gftd.ai'
+          THEN 'did:web:maps.etzhayyim.com' || SUBSTRING(source_did FROM 17)
+        WHEN source_did = 'did:web:uqpel6i6.etzhayyim.com'
+          THEN 'did:web:maps.etzhayyim.com'
         WHEN source_did = 'did:web:uqpel6i6'
-          THEN 'did:web:maps.gftd.ai'
+          THEN 'did:web:maps.etzhayyim.com'
         ELSE source_did
       END
     $$

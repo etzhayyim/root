@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shosha.gftd.ai Phase 2a — register `shosha_react_to_upstream` BPMN.
+ * shosha.etzhayyim.com Phase 2a — register `shosha_react_to_upstream` BPMN.
  * Timer-start only (R/PT5M, no XRPC binding).
  */
 
@@ -16,12 +16,12 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-07T15:00:00Z";
-const ownerDid = "did:web:shosha.gftd.ai";
+const ownerDid = "did:web:shosha.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.shosha.phase2a";
 
 const seeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-react-to-upstream-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-react-to-upstream-v1",
     bpmnProcessId: "shosha_react_to_upstream",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/reactToUpstream.bpmn",
     ownerDid,

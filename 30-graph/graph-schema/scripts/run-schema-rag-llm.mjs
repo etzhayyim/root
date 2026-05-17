@@ -10,9 +10,9 @@ function parseArgs(argv) {
   const args = {
     query: "",
     model: process.env.SCHEMA_RAG_LLM_MODEL || "gemma4-runpod",
-    url: process.env.SCHEMA_RAG_LLM_URL || process.env.MURAKUMO_CHAT_URL || "https://llm.gftd.ai/v1/chat/completions",
+    url: process.env.SCHEMA_RAG_LLM_URL || process.env.MURAKUMO_CHAT_URL || "https://llm.etzhayyim.com/v1/chat/completions",
     apiKey: process.env.SCHEMA_RAG_LLM_API_KEY || process.env.MURAKUMO_API_KEY || process.env.LITELLM_MASTER_KEY || "",
-    creditsDid: process.env.SCHEMA_RAG_CREDITS_DID || process.env.CREDITS_DID || "did:web:llm.gftd.ai",
+    creditsDid: process.env.SCHEMA_RAG_CREDITS_DID || process.env.CREDITS_DID || "did:web:llm.etzhayyim.com",
     magatamaVerified: /^(1|true|yes|on)$/i.test(process.env.SCHEMA_RAG_MAGATAMA_VERIFIED || ""),
     topK: 8,
     maxTokens: 700,

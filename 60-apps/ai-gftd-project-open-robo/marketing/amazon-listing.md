@@ -76,10 +76,10 @@ KONDOバスサーボ×6 / タミヤ互換クローラー / ICS3.5+ROS2対応 / �
 - 産業ロボット入門 (6軸 IK 体験)
 
 ### モジュール 5 — ソフトウェアエコシステム
-- GitHub リポジトリ + ドキュメントサイト (armcrawler.gftd.ai)
+- GitHub リポジトリ + ドキュメントサイト (armcrawler.etzhayyim.com)
 - Python サンプルスクリプト 10+本
 - ROS2 Navigation2 連携ガイド
-- tsukuru.gftd.ai による部品調達・保守サポート
+- tsukuru.etzhayyim.com による部品調達・保守サポート
 
 ---
 
@@ -156,7 +156,7 @@ A: Otete HAT は実装済み基板のため半田付け不要です。コネク�
 A: ROS2 Humble Hawksbill (Ubuntu 22.04) に対応しています。Python 単体でも動作可能です。
 
 **Q: スペアパーツは入手できますか?**  
-A: KRS-3204 サーボ・ミスミアルミ部品・Otete HAT は Amazon JP および tsukuru.gftd.ai で個別購入可能です。
+A: KRS-3204 サーボ・ミスミアルミ部品・Otete HAT は Amazon JP および tsukuru.etzhayyim.com で個別購入可能です。
 
 **Q: 法人・学校向けの見積もりは可能ですか?**  
 A: 可能です。5セット以上は別途お見積もりいたします。sales@gftd.co.jp までお問い合わせください。

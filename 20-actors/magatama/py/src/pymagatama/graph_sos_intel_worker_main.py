@@ -34,7 +34,7 @@ from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("graph_sos_intel_worker")
 
-ACTOR_DID = "did:web:graph-sos-intel.gftd.ai"
+ACTOR_DID = "did:web:graph-sos-intel.etzhayyim.com"
 
 # ─── helpers ──────────────────────────────────────────────────────────────
 

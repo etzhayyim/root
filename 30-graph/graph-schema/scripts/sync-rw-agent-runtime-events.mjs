@@ -78,7 +78,7 @@ function buildRow({ proof, registration, rpcUrl }) {
   }
 
   const now = new Date().toISOString();
-  const actorDid = registration.rootIdentity?.facadeDids?.[0] || "did:web:kami-agent.gftd.ai";
+  const actorDid = registration.rootIdentity?.facadeDids?.[0] || "did:web:kami-agent.etzhayyim.com";
   const rootDid = registration.rootIdentity?.rootDid || "";
   return {
     vertex_id: `agent-publication-${chain.chainId || 260425}-${tokenId}`,

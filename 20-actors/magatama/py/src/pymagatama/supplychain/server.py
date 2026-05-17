@@ -26,7 +26,7 @@ GRAPHS: dict[str, Any] = {"supplychain_cleaning_robot_v1": _GRAPH}
 
 app = FastAPI(
     title="lg-supplychain",
-    description="Resident LangGraph server for supplychain.gftd.ai cleaning-robot material Pregel.",
+    description="Resident LangGraph server for supplychain.etzhayyim.com cleaning-robot material Pregel.",
     version="0.1.0",
 )
 

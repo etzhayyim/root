@@ -3,7 +3,7 @@
 ## 1. Goal
 
 `ai-gftd-project-public-fund` の教育・家庭支援ファンド領域に特化した ISCO agent 群を設計する。
-既存の crowdfunding 基盤 (`pb.gftd.ai`) 上で、子どもの教育と家庭を支えるファンドの起案・審査・分配を専門的に支援する。
+既存の crowdfunding 基盤 (`pb.etzhayyim.com`) 上で、子どもの教育と家庭を支えるファンドの起案・審査・分配を専門的に支援する。
 
 ## 2. COFOG Classification
 
@@ -149,18 +149,18 @@ Safeguard (in !xp-safeguard-{nanoid} — 緊急)
 
 | Room | 用途 |
 |---|---|
-| `!team-pb-edu-{nanoid}:gftd.ai` | 教育ファンド agent チーム対話 + evolution |
-| `!team-pb-fam-{nanoid}:gftd.ai` | 家庭支援 agent チーム対話 + evolution |
-| `!evo-pb-edu-{nanoid}:gftd.ai` | 教育 agent evolution room |
-| `!evo-pb-fam-{nanoid}:gftd.ai` | 家庭支援 agent evolution room |
+| `!team-pb-edu-{nanoid}:etzhayyim.com` | 教育ファンド agent チーム対話 + evolution |
+| `!team-pb-fam-{nanoid}:etzhayyim.com` | 家庭支援 agent チーム対話 + evolution |
+| `!evo-pb-edu-{nanoid}:etzhayyim.com` | 教育 agent evolution room |
+| `!evo-pb-fam-{nanoid}:etzhayyim.com` | 家庭支援 agent evolution room |
 
 ### Cross-Project Shared Rooms (with well-becoming)
 
 | Room | Members | 用途 |
 |---|---|---|
-| `!xp-edu-child-{nanoid}:gftd.ai` | 学,芽,守,育,遊 | 教育 × 子ども成長 協議 |
-| `!xp-fam-child-{nanoid}:gftd.ai` | 結,心,盾,和,守 | 家庭支援 × 子ども保護 協議 |
-| `!xp-safeguard-{nanoid}:gftd.ai` | 心,盾,守,和 | セーフガード緊急協議 |
+| `!xp-edu-child-{nanoid}:etzhayyim.com` | 学,芽,守,育,遊 | 教育 × 子ども成長 協議 |
+| `!xp-fam-child-{nanoid}:etzhayyim.com` | 結,心,盾,和,守 | 家庭支援 × 子ども保護 協議 |
+| `!xp-safeguard-{nanoid}:etzhayyim.com` | 心,盾,守,和 | セーフガード緊急協議 |
 | `!case-{application-id}` | 動的 | 申請ケース別審査 (COFOG により agent 選択) |
 
 ## 7. App Components
@@ -174,7 +174,7 @@ Safeguard (in !xp-safeguard-{nanoid} — 緊急)
 
 ## 8. LLM Integration
 
-全 agent は `murakumo.gftd.ai` (`qwen3-vl-8b`) を使用。各 agent の systemPrompt は ISCO 職種・COFOG 専門性・キャラクター traits を反映する。
+全 agent は `murakumo.etzhayyim.com` (`qwen3-vl-8b`) を使用。各 agent の systemPrompt は ISCO 職種・COFOG 専門性・キャラクター traits を反映する。
 
 ## 9. Data Schema Extensions
 

@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shosha.gftd.ai Phase 3 step 1 — register `shosha_coverage` BPMN +
+ * shosha.etzhayyim.com Phase 3 step 1 — register `shosha_coverage` BPMN +
  * `ai.gftd.apps.shosha.coverage` XRPC binding (was schema-only in
  * Phase 1).
  */
@@ -18,12 +18,12 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-07T20:00:00Z";
-const ownerDid = "did:web:shosha.gftd.ai";
+const ownerDid = "did:web:shosha.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.shosha.phase3";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1",
     bpmnProcessId: "shosha_coverage",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/coverage.bpmn",
     ownerDid,
@@ -32,7 +32,7 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-coverage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-coverage-v1",
     nsid: "ai.gftd.apps.shosha.coverage",
     bpmnProcessId: "shosha_coverage",
     ownerDid,

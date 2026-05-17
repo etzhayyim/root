@@ -146,12 +146,12 @@ export async function up(db: Kysely<any>): Promise<void> {
   //   Toba bottleneck (74k BCE): Ambrose (1998) ~2,000–10,000 survivors
   //
   // vertex_id convention:
-  //   at://did:web:natural-person.gftd.ai/ai.gftd.apps.naturalPerson.populationCohort/{rkey}
+  //   at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/{rkey}
   //   rkey = {era_label}-{region_m49}-{|era_start_year|}
   //
-  const NP_DID = 'did:web:natural-person.gftd.ai';
-  const ACTOR_DID = 'did:web:natural-person.gftd.ai';
-  const ORG_DID = 'did:web:natural-person.gftd.ai';
+  const NP_DID = 'did:web:natural-person.etzhayyim.com';
+  const ACTOR_DID = 'did:web:natural-person.etzhayyim.com';
+  const ORG_DID = 'did:web:natural-person.etzhayyim.com';
   const NOW = '2026-04-28T00:00:00Z';
   const REPO = `at://${NP_DID}`;
 

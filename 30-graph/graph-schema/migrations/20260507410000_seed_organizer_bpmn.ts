@@ -15,7 +15,7 @@ type Seed = {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:organizer.gftd.ai";
+const ownerDid = "did:web:organizer.etzhayyim.com";
 const createdAt = "2026-05-07T01:25:00Z";
 const actorId = "sys.bpmn.seed.organizer";
 
@@ -89,8 +89,8 @@ const seeds: Seed[] = procs.map((proc) => ({
 }));
 
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/organizer/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-${slug(s.proc)}-v1`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

@@ -135,8 +135,8 @@ def test_5gc_require_missing_raises():
 # ─── telecom_5gcore — _caller ────────────────────────────────────────────────
 
 def test_5gc_caller_uses_caller_did():
-    result = G5C._caller({"callerDid": "did:web:amf.gftd.ai"})
-    assert result == "did:web:amf.gftd.ai"
+    result = G5C._caller({"callerDid": "did:web:amf.etzhayyim.com"})
+    assert result == "did:web:amf.etzhayyim.com"
 
 
 def test_5gc_caller_falls_back_to_telecom_did():
@@ -285,8 +285,8 @@ def test_sup_require_missing_raises():
 # ─── telecom_supplier — _caller ──────────────────────────────────────────────
 
 def test_sup_caller_uses_caller_did():
-    result = SUP._caller({"callerDid": "did:web:mno.gftd.ai"})
-    assert result == "did:web:mno.gftd.ai"
+    result = SUP._caller({"callerDid": "did:web:mno.etzhayyim.com"})
+    assert result == "did:web:mno.etzhayyim.com"
 
 
 def test_sup_caller_falls_back_to_telecom_did():

@@ -37,7 +37,7 @@ import { Kysely, sql } from 'kysely';
  *   modern:      ~5B deaths  (125 years, faster still but higher life expectancy)
  */
 export async function up(db: Kysely<any>): Promise<void> {
-  const NP_DID = 'did:web:natural-person.gftd.ai';
+  const NP_DID = 'did:web:natural-person.etzhayyim.com';
   const REPO = `at://${NP_DID}`;
   const NOW = '2026-04-28T00:00:00Z';
 

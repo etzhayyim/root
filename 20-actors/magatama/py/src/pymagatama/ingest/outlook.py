@@ -14,7 +14,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR = "did:web:outlook.gftd.ai"
+ACTOR = "did:web:outlook.etzhayyim.com"
 SCOPE = "offline_access openid profile email Mail.Read Mail.Send Mail.ReadWrite Calendars.Read"
 DEFAULT_TENANT = "common"
 PENDING_TTL_SEC = 600
@@ -132,7 +132,7 @@ def get_auth_status(userId: str = "", actorId: str = "", **_: Any) -> dict[str, 
     return {"ok": True, "signed_in": signed, "user_id": userId if signed else None, "actor_id": actorId if signed else None}
 
 
-def start_auth(redirect_uri: str = "https://outlook.gftd.ai/auth/callback", **kwargs: Any) -> dict[str, Any]:
+def start_auth(redirect_uri: str = "https://outlook.etzhayyim.com/auth/callback", **kwargs: Any) -> dict[str, Any]:
     client_id, _secret, tenant = _client()
     key = _user_key(**kwargs)
     state = _random(24)
@@ -183,7 +183,7 @@ def _sync_summary(access: str, limit: int = 25) -> dict[str, Any]:
         return {"last_synced_at": now_iso(), "emails_found": 0, "emails_saved": 0, "calendar_events_found": 0, "calendar_events_saved": 0, "error": str(e)[:240]}
 
 
-def exchange_code(code: str = "", redirect_uri: str = "https://outlook.gftd.ai/auth/callback", state: str = "", code_verifier: str = "", **kwargs: Any) -> dict[str, Any]:
+def exchange_code(code: str = "", redirect_uri: str = "https://outlook.etzhayyim.com/auth/callback", state: str = "", code_verifier: str = "", **kwargs: Any) -> dict[str, Any]:
     if not code:
         return {"ok": False, "error": "code required"}
     client_id, client_secret, tenant = _client()

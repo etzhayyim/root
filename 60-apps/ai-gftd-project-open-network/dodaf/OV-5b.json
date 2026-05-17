@@ -2,7 +2,7 @@
   "viewId": "open-network.OV-5b",
   "viewType": "OV-5b",
   "title": "Operational Activity Model",
-  "did": "did:web:open-network.gftd.ai",
+  "did": "did:web:open-network.etzhayyim.com",
   "format": "json",
   "content": {
     "activities": [

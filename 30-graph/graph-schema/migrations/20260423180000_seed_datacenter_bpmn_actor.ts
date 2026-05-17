@@ -31,58 +31,58 @@ const createdAt = "2026-04-23T18:00:00Z";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/datacenter-operate-facility-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/datacenter-operate-facility-v1",
     bpmnProcessId: "datacenter_operate_facility",
     sourcePath: "00-contracts/bpmn/ai/gftd/datacenter/operateFacility.bpmn",
-    ownerDid: "did:web:infra.gftd.ai:datacenter",
+    ownerDid: "did:web:infra.etzhayyim.com:datacenter",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/datacenter-access-review-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/datacenter-access-review-v1",
     bpmnProcessId: "datacenter_access_review",
     sourcePath: "00-contracts/bpmn/ai/gftd/datacenter/accessReview.bpmn",
-    ownerDid: "did:web:infra.gftd.ai:datacenter",
+    ownerDid: "did:web:infra.etzhayyim.com:datacenter",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/datacenter-reserve-capacity-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/datacenter-reserve-capacity-v1",
     bpmnProcessId: "datacenter_reserve_capacity",
     sourcePath: "00-contracts/bpmn/ai/gftd/datacenter/reserveCapacity.bpmn",
-    ownerDid: "did:web:infra.gftd.ai:datacenter",
+    ownerDid: "did:web:infra.etzhayyim.com:datacenter",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/datacenter-purge-access-pii-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/datacenter-purge-access-pii-v1",
     bpmnProcessId: "datacenter_purge_access_pii",
     sourcePath: "00-contracts/bpmn/ai/gftd/datacenter/purgeAccessPii.bpmn",
-    ownerDid: "did:web:infra.gftd.ai:datacenter",
+    ownerDid: "did:web:infra.etzhayyim.com:datacenter",
   },
 ];
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/datacenter-startOperation-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/datacenter-startOperation-v1",
     nsid: "ai.gftd.apps.datacenter.startOperation",
     bpmnProcessId: "datacenter_operate_facility",
-    ownerDid: "did:web:infra.gftd.ai:datacenter",
+    ownerDid: "did:web:infra.etzhayyim.com:datacenter",
     resultTimeoutMs: 0,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/datacenter-requestAccess-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/datacenter-requestAccess-v1",
     nsid: "ai.gftd.apps.datacenter.requestAccess",
     bpmnProcessId: "datacenter_access_review",
-    ownerDid: "did:web:infra.gftd.ai:datacenter",
+    ownerDid: "did:web:infra.etzhayyim.com:datacenter",
     resultTimeoutMs: 0,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/datacenter-reserveCapacity-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/datacenter-reserveCapacity-v1",
     nsid: "ai.gftd.apps.datacenter.reserveCapacity",
     bpmnProcessId: "datacenter_reserve_capacity",
-    ownerDid: "did:web:infra.gftd.ai:datacenter",
+    ownerDid: "did:web:infra.etzhayyim.com:datacenter",
     resultTimeoutMs: 0,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/datacenter-purgeAccessPii-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/datacenter-purgeAccessPii-v1",
     nsid: "ai.gftd.apps.datacenter.purgeAccessPii",
     bpmnProcessId: "datacenter_purge_access_pii",
-    ownerDid: "did:web:infra.gftd.ai:datacenter",
+    ownerDid: "did:web:infra.etzhayyim.com:datacenter",
     resultTimeoutMs: 120_000,
   },
 ];

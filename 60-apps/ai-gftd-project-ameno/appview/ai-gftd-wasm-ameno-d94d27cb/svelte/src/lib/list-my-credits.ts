@@ -2,7 +2,7 @@
  * list-my-credits.ts — client helper for ai.gftd.apps.ameno.listMyCredits.
  *
  * Same-origin GET to the ameno worker, which forwards via sdk.pds.xrpc()
- * → atproto.gftd.ai → bpmn-dispatcher → ameno-langserver SELECT
+ * → atproto.etzhayyim.com → bpmn-dispatcher → ameno-langserver SELECT
  * mv_ameno_credits_balance (Phase 5j).
  */
 

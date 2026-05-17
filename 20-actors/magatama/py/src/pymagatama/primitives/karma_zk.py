@@ -27,7 +27,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("karma.zk")
 
-KARMA_DID = "did:web:karma.gftd.ai"
+KARMA_DID = "did:web:karma.etzhayyim.com"
 
 DEFAULT_VERIFIER_CONTRACT = os.environ.get(
     "KARMA_REBIRTH_VERIFIER_CONTRACT",

@@ -7,7 +7,7 @@
 //     env.CREDITS_SERVICE is a CF Worker service binding (Fetcher)
 //
 //   HTTP (fallback):
-//     env.CREDITS_MCP_URL is "https://credits.gftd.ai" (or staging URL)
+//     env.CREDITS_MCP_URL is "https://credits.etzhayyim.com" (or staging URL)
 //
 // Usage in src/app.ts:
 //
@@ -27,7 +27,7 @@ type Fetcher = { fetch(input: RequestInfo, init?: RequestInit): Promise<Response
 export interface CreditsMeterEnv {
 	/** CF Worker service binding to credits-mcp (preferred). */
 	CREDITS_SERVICE?: Fetcher;
-	/** HTTP base URL fallback: "https://credits.gftd.ai". */
+	/** HTTP base URL fallback: "https://credits.etzhayyim.com". */
 	CREDITS_MCP_URL?: string;
 	/** Service Auth bearer token for credits-mcp. */
 	CREDITS_INTERNAL_TOKEN?: string;
@@ -58,7 +58,7 @@ async function xrpcPost(
 			body: payload,
 		});
 	} else {
-		const base = (env.CREDITS_MCP_URL ?? "https://credits.gftd.ai").replace(/\/$/, "");
+		const base = (env.CREDITS_MCP_URL ?? "https://credits.etzhayyim.com").replace(/\/$/, "");
 		res = await fetch(`${base}/xrpc/${nsid}`, {
 			method: "POST",
 			headers,

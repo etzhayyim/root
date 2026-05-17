@@ -8,7 +8,7 @@ from uuid import uuid4
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:k3t5g0r1.gftd.ai"
+OWNER_DID = "did:web:k3t5g0r1.etzhayyim.com"
 
 
 def now_iso() -> str:

@@ -46,8 +46,8 @@ class _SyncCursorFactory:
 def test_build_social_post_record_matches_at_uri_shape():
     row = Y.build_social_post_record(created_at="2026-04-25T10:27:24Z", rkey="rk")
 
-    assert row["uri"] == "at://did:web:yoro.gftd.ai/app.bsky.feed.post/rk"
-    assert row["repo"] == "did:web:yoro.gftd.ai"
+    assert row["uri"] == "at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/rk"
+    assert row["repo"] == "did:web:yoro.etzhayyim.com"
     assert row["collection"] == "app.bsky.feed.post"
     assert row["cid"] == "rk"
     value = json.loads(row["value_json"])
@@ -75,7 +75,7 @@ def test_task_inserts_record_and_flushes(monkeypatch):
     )
 
     assert out["ok"] is True
-    assert out["uri"] == "at://did:web:yoro.gftd.ai/app.bsky.feed.post/rk"
+    assert out["uri"] == "at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/rk"
     assert len(factory.cursors) == 1
     assert factory.cursors[0].sqls[0] == "DELETE FROM vertex_repo_record WHERE uri = %(uri)s"
     assert "INSERT INTO vertex_repo_record" in factory.cursors[0].sqls[1]
@@ -91,8 +91,8 @@ def test_respond_to_mention_builds_reply_record(monkeypatch):
 
     out = asyncio.run(
         Y.task_yoro_social_respond_to_mention_graph_fallback(
-            authorDid="did:web:alice.gftd.ai",
-            postUri="at://did:web:alice.gftd.ai/app.bsky.feed.post/p1",
+            authorDid="did:web:alice.etzhayyim.com",
+            postUri="at://did:web:alice.etzhayyim.com/app.bsky.feed.post/p1",
             postCid="cid1",
             postText="hello @yoro",
         )
@@ -102,10 +102,10 @@ def test_respond_to_mention_builds_reply_record(monkeypatch):
     row = factory.cursors[0].params[0]
     value = json.loads(row["value_json"])
     assert value["reply"]["root"] == {
-        "uri": "at://did:web:alice.gftd.ai/app.bsky.feed.post/p1",
+        "uri": "at://did:web:alice.etzhayyim.com/app.bsky.feed.post/p1",
         "cid": "cid1",
     }
-    assert "@alice.gftd.ai" in value["text"]
+    assert "@alice.etzhayyim.com" in value["text"]
 
 
 def test_respond_to_follow_writes_follow_and_welcome(monkeypatch):
@@ -114,7 +114,7 @@ def test_respond_to_follow_writes_follow_and_welcome(monkeypatch):
 
     out = asyncio.run(
         Y.task_yoro_social_respond_to_follow_graph_fallback(
-            followerDid="did:web:bob.gftd.ai",
+            followerDid="did:web:bob.etzhayyim.com",
             followRkey="f1",
             flush=True,
         )
@@ -123,7 +123,7 @@ def test_respond_to_follow_writes_follow_and_welcome(monkeypatch):
     assert out["ok"] is True
     follow_params, welcome_row = factory.cursors[0].params[0], factory.cursors[0].params[1]
     assert "edge_follows" in factory.cursors[0].sqls[0]
-    assert follow_params[2] == "did:web:bob.gftd.ai"
+    assert follow_params[2] == "did:web:bob.etzhayyim.com"
     assert welcome_row["collection"] == "app.bsky.feed.post"
-    assert "Welcome @bob.gftd.ai" in json.loads(welcome_row["value_json"])["text"]
+    assert "Welcome @bob.etzhayyim.com" in json.loads(welcome_row["value_json"])["text"]
     assert factory.cursors[0].sqls[-1] == "FLUSH"

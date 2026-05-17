@@ -5,12 +5,12 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * lifehack.gftd.ai BPMN-as-actor seeding (ADR-0056 + ADR-2604282300).
+ * lifehack.etzhayyim.com BPMN-as-actor seeding (ADR-0056 + ADR-2604282300).
  *
  * 8 BPMN process defs + 6 XRPC bindings.  No CF Worker (T2 tier:
  * pymagatama + Zeebe only).  3 timer-start BPMNs are autonomous;
  * 6 XRPC bindings are reachable via bpmn-dispatcher
- * `http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.lifehack.*`.
+ * `http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.lifehack.*`.
  *
  *  Process / NSID                                Trigger
  *  ---------------------------------------------------------------------
@@ -37,53 +37,53 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T12:00:00Z";
-const ownerDid = "did:web:lifehack.gftd.ai";
+const ownerDid = "did:web:lifehack.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.lifehack";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lifehack-research-topic-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-research-topic-v1",
     bpmnProcessId: "lifehack_research_topic",
     sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/researchTopic.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lifehack-daily-dust-post-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-daily-dust-post-v1",
     bpmnProcessId: "lifehack_daily_dust_post",
     sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/dailyDustPost.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lifehack-static-alert-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-static-alert-v1",
     bpmnProcessId: "lifehack_static_alert",
     sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/staticAlert.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lifehack-submit-tip-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-submit-tip-v1",
     bpmnProcessId: "lifehack_submit_tip",
     sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/submitTip.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lifehack-recommend-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-recommend-v1",
     bpmnProcessId: "lifehack_recommend",
     sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/recommend.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lifehack-agent-loop-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-agent-loop-v1",
     bpmnProcessId: "lifehack_agent_loop",
     sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/agentLoop.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lifehack-submit-environment-reading-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-submit-environment-reading-v1",
     bpmnProcessId: "lifehack_submit_environment_reading",
     sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/submitEnvironmentReading.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lifehack-coverage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-coverage-v1",
     bpmnProcessId: "lifehack_coverage",
     sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/coverage.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lifehack-dailyDustPost-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-dailyDustPost-v1",
     nsid: "ai.gftd.apps.lifehack.dailyDustPost",
     bpmnProcessId: "lifehack_daily_dust_post", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lifehack-submitTip-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-submitTip-v1",
     nsid: "ai.gftd.apps.lifehack.submitTip",
     bpmnProcessId: "lifehack_submit_tip", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lifehack-recommend-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-recommend-v1",
     nsid: "ai.gftd.apps.lifehack.recommend",
     bpmnProcessId: "lifehack_recommend", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lifehack-agentLoop-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-agentLoop-v1",
     nsid: "ai.gftd.apps.lifehack.agentLoop",
     bpmnProcessId: "lifehack_agent_loop", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1",
     nsid: "ai.gftd.apps.lifehack.submitEnvironmentReading",
     bpmnProcessId: "lifehack_submit_environment_reading", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lifehack-coverage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-coverage-v1",
     nsid: "ai.gftd.apps.lifehack.coverage",
     bpmnProcessId: "lifehack_coverage", ownerDid, resultTimeoutMs: 15_000 },
 ];

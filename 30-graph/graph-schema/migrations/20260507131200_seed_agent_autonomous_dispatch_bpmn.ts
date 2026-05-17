@@ -8,15 +8,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const CREATED_AT = "2026-05-07T13:12:00Z";
 const ACTOR_ID = "sys.bpmn.seed.agent-autonomous-dispatch";
 
 const ENTRY = {
   processVid:
-    "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1",
+    "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1",
   bindingVid:
-    "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1",
+    "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1",
   bpmnProcessId: "agent_realworld_autonomous_dispatch",
   nsid: "ai.gftd.apps.agent.planRealWorldDispatch",
   sourcePath: "00-contracts/bpmn/ai/gftd/agent/realWorldAutonomousDispatch.bpmn",

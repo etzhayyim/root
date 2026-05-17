@@ -20,7 +20,7 @@ from typing import Any, TypedDict
 from pymagatama.db_sync import sync_cursor
 from pymagatama import llm
 
-WEBMK_DID = "did:web:webmk.gftd.ai"
+WEBMK_DID = "did:web:webmk.etzhayyim.com"
 QUALITY_THRESHOLD = 0.7
 
 

@@ -6,7 +6,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/gftdcojp/nats-jetstream-objectstore-s3/internal/backend"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-objectstore-s3/internal/backend"
 	server "github.com/nats-io/nats-server/v2/server"
 	natsserver "github.com/nats-io/nats-server/v2/test"
 	"github.com/nats-io/nats.go"

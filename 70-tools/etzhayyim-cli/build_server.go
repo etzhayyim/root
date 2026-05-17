@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	defaultServerImage = "ghcr.io/gftdcojp/magatama-server"
+	defaultServerImage = "ghcr.io/etzhayyim/magatama-server"
 	defaultTarget      = "x86_64-unknown-linux-gnu"
 )
 

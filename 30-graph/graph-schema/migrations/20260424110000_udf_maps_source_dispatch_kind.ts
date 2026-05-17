@@ -15,7 +15,7 @@ import { sql } from "kysely";
  *   'wikidata'     — Wikidata SPARQL (registry:wikidata source)
  *   'stac'         — STAC search (satellite source + SatelliteScene/TerrainPatch)
  *   'seismic'      — USGS earthquake feed
- *   'web_crawl'    — site.gftd.ai WET/WAT geo extraction (cross-actor)
+ *   'web_crawl'    — site.etzhayyim.com WET/WAT geo extraction (cross-actor)
  *   'unsupported'  — no consumer wired yet; runCoverageJob marks the job error
  *
  * Design: plan-time inlined CASE — no per-row language boundary. Used in
@@ -33,15 +33,15 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     LANGUAGE sql
     AS $$
       SELECT CASE
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:gleif'    THEN 'gleif'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata' THEN 'wikidata'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:%'        THEN 'registry_other'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite'         THEN 'stac'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic'           THEN 'seismic'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:street_view'       THEN 'mapillary'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:infrastructure'    THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:gtfs'              THEN 'gtfs'
-        WHEN source_did LIKE 'did:web:site.gftd.ai'                   THEN 'web_crawl'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:gleif'    THEN 'gleif'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata' THEN 'wikidata'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:%'        THEN 'registry_other'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite'         THEN 'stac'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic'           THEN 'seismic'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:street_view'       THEN 'mapillary'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:infrastructure'    THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gtfs'              THEN 'gtfs'
+        WHEN source_did LIKE 'did:web:site.etzhayyim.com'                   THEN 'web_crawl'
         ELSE 'unsupported'
       END
     $$

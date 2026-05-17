@@ -24,7 +24,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-YATA_DID = "did:web:yatabase.gftd.ai"
+YATA_DID = "did:web:yatabase.etzhayyim.com"
 JPY_MICRO = 1_000_000
 STORAGE_GB_HOUR_PRICE_JPY_MICRO = round(10 * JPY_MICRO / (30 * 24))
 
@@ -43,12 +43,12 @@ def _today() -> str:
 
 def _event_id(*parts: str) -> str:
     digest = hashlib.sha256("|".join(parts).encode()).hexdigest()[:32]
-    return f"at://did:web:billing.gftd.ai/ai.gftd.apps.billing.event/{digest}"
+    return f"at://did:web:billing.etzhayyim.com/ai.gftd.apps.billing.event/{digest}"
 
 
 def _object_id(bucket: str, key: str, version: str = "") -> str:
     digest = hashlib.sha256(f"{bucket}|{key}|{version}".encode()).hexdigest()[:32]
-    return f"at://did:web:yatabase.gftd.ai/ai.gftd.apps.yata.blob/{digest}"
+    return f"at://did:web:yatabase.etzhayyim.com/ai.gftd.apps.yata.blob/{digest}"
 
 
 async def task_yata_database_provision(**kwargs: Any) -> dict[str, Any]:
@@ -59,7 +59,7 @@ async def task_yata_database_provision(**kwargs: Any) -> dict[str, Any]:
     pg_user = db_name + "_rw"
     now = _now_ts()
     today = _today()
-    vertex_id = f"at://did:web:yatabase.gftd.ai/ai.gftd.apps.yata.database/{db_name}"
+    vertex_id = f"at://did:web:yatabase.etzhayyim.com/ai.gftd.apps.yata.database/{db_name}"
 
     with sync_cursor() as cur:
         cur.execute(
@@ -198,7 +198,7 @@ async def task_yata_storage_presign(**kwargs: Any) -> dict[str, Any]:
     expires_in = int(kwargs.get("expiresIn") or 3600)
     token = hashlib.sha256(f"{bucket}|{key}|{_now_ms()}|{expires_in}".encode()).hexdigest()
     return {
-        "url": f"https://yatabase.gftd.ai/storage/v1/object/sign/{bucket}/{key}?token={token}",
+        "url": f"https://yatabase.etzhayyim.com/storage/v1/object/sign/{bucket}/{key}?token={token}",
         "expiresIn": expires_in,
     }
 
@@ -1470,7 +1470,7 @@ async def task_yata_storage_multipart_init(
     ).hexdigest()[:24]
     expires_at = _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0)
     expires_at += _dt.timedelta(hours=24)
-    vid = "at://did:web:yatabase.gftd.ai/ai.gftd.apps.yata.multipart/" + upload_id
+    vid = "at://did:web:yatabase.etzhayyim.com/ai.gftd.apps.yata.multipart/" + upload_id
     with sync_cursor() as cur:
         cur.execute(
             """

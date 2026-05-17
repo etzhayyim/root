@@ -17,7 +17,7 @@ contract AgentRuntimeLeaseEscrowTest is Test {
     address beneficiary = address(0xBEEF);
 
     bytes32 leaseId = keccak256(bytes("lease-1"));
-    bytes32 agentDidHash = keccak256(bytes("did:web:agent.gftd.ai"));
+    bytes32 agentDidHash = keccak256(bytes("did:web:agent.etzhayyim.com"));
     bytes32 resourceHash = keccak256(bytes("cpu=2,memory=8192,gpu=l4"));
     bytes32 policyHash = keccak256(bytes("slash-policy-v1"));
 

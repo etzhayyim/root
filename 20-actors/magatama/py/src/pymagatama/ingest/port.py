@@ -9,8 +9,8 @@ from uuid import uuid4
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:p0rt7890.gftd.ai"
-PUBLIC_DID = "did:web:port.gftd.ai"
+OWNER_DID = "did:web:p0rt7890.etzhayyim.com"
+PUBLIC_DID = "did:web:port.etzhayyim.com"
 NANOID = "p0rt7890"
 
 OTHER_COLLECTION = {

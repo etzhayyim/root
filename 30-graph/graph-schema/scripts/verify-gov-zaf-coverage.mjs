@@ -7,7 +7,7 @@ if (!connectionString) {
 }
 
 const timeoutMs = Number(process.env.GOV_ZAF_VERIFY_TIMEOUT_MS || 15000);
-const owner = "did:web:zaf-state.gftd.ai";
+const owner = "did:web:zaf-state.etzhayyim.com";
 const rkeys = [
   "zaf-national-departments-9cfc7bff4a-10304550",
   "zaf-provinces-2aa86b5df1-10305612",

@@ -17,11 +17,11 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:00:00Z";
-const ownerDid = "did:web:lawfirm.gftd.ai";
+const ownerDid = "did:web:lawfirm.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-msgraph-subscription-renew-tick-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-msgraph-subscription-renew-tick-v1",
   bpmnProcessId: "lawfirm_msgraph_subscription_renew_tick",
   sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/msGraphSubscriptionRenewTick.bpmn",
 };

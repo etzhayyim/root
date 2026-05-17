@@ -70,24 +70,24 @@ const defaultManifestPath = path.resolve(
 const userAgent = 'gftd-jp-fiscal-appropriations/0.1 (+https://gftd.co.jp)';
 
 const ministryDidByCode: Record<string, string> = {
-  '01': 'did:web:gov-jpn.gftd.ai:imperial-household',
-  '02': 'did:web:gov-jpn.gftd.ai:diet',
-  '03': 'did:web:gov-jpn.gftd.ai:supreme-court',
-  '04': 'did:web:gov-jpn.gftd.ai:boa',
-  '05': 'did:web:gov-jpn.gftd.ai:cabinet',
-  '06': 'did:web:gov-jpn.gftd.ai:cao',
-  '07': 'did:web:gov-jpn.gftd.ai:digital',
-  '08': 'did:web:gov-jpn.gftd.ai:mic',
-  '09': 'did:web:gov-jpn.gftd.ai:moj',
-  '10': 'did:web:gov-jpn.gftd.ai:mofa',
-  '11': 'did:web:gov-jpn.gftd.ai:mof',
-  '12': 'did:web:gov-jpn.gftd.ai:mext',
-  '13': 'did:web:gov-jpn.gftd.ai:mhlw',
-  '14': 'did:web:gov-jpn.gftd.ai:maff',
-  '15': 'did:web:gov-jpn.gftd.ai:meti',
-  '16': 'did:web:gov-jpn.gftd.ai:mlit',
-  '17': 'did:web:gov-jpn.gftd.ai:moe',
-  '18': 'did:web:gov-jpn.gftd.ai:mod',
+  '01': 'did:web:gov-jpn.etzhayyim.com:imperial-household',
+  '02': 'did:web:gov-jpn.etzhayyim.com:diet',
+  '03': 'did:web:gov-jpn.etzhayyim.com:supreme-court',
+  '04': 'did:web:gov-jpn.etzhayyim.com:boa',
+  '05': 'did:web:gov-jpn.etzhayyim.com:cabinet',
+  '06': 'did:web:gov-jpn.etzhayyim.com:cao',
+  '07': 'did:web:gov-jpn.etzhayyim.com:digital',
+  '08': 'did:web:gov-jpn.etzhayyim.com:mic',
+  '09': 'did:web:gov-jpn.etzhayyim.com:moj',
+  '10': 'did:web:gov-jpn.etzhayyim.com:mofa',
+  '11': 'did:web:gov-jpn.etzhayyim.com:mof',
+  '12': 'did:web:gov-jpn.etzhayyim.com:mext',
+  '13': 'did:web:gov-jpn.etzhayyim.com:mhlw',
+  '14': 'did:web:gov-jpn.etzhayyim.com:maff',
+  '15': 'did:web:gov-jpn.etzhayyim.com:meti',
+  '16': 'did:web:gov-jpn.etzhayyim.com:mlit',
+  '17': 'did:web:gov-jpn.etzhayyim.com:moe',
+  '18': 'did:web:gov-jpn.etzhayyim.com:mod',
 };
 
 function parseArgs(argv: string[]): { apply: boolean; manifestPath: string; sourceId?: string } {
@@ -267,7 +267,7 @@ async function syncAppropriations(db: Kysely<unknown>, records: AppropriationRec
         program_code, program_name, amount_jpy, diet_approval_id,
         doc_type, source_url, source_id, document_id, created_at
       ) VALUES (
-        ${vertexId}, ${createdDate}, 1, 'did:web:gov-jpn.gftd.ai:mof',
+        ${vertexId}, ${createdDate}, 1, 'did:web:gov-jpn.etzhayyim.com:mof',
         ${record.fiscalYear}, ${record.accountType}, NULL, ${record.ministryDid},
         ${record.programCode}, ${record.programName}, ${record.amountJpy.toString()}, NULL,
         ${record.docType}, ${record.sourceUrl}, ${record.source.source_id}, ${documentId}, ${now}

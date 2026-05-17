@@ -26,7 +26,7 @@ const seeds: Seed[] = [
     proc: "recordMechanism",
     bpmnProcessId: "open_electricity_market_record_mechanism",
     nsid: "ai.gftd.apps.electricityMarket.recordMechanism",
-    ownerDid: "did:web:open-electricity-market.gftd.ai",
+    ownerDid: "did:web:open-electricity-market.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -34,7 +34,7 @@ const seeds: Seed[] = [
     proc: "flagMissingMoney",
     bpmnProcessId: "open_electricity_market_flag_missing_money",
     nsid: "ai.gftd.apps.electricityMarket.flagMissingMoney",
-    ownerDid: "did:web:open-electricity-market.gftd.ai",
+    ownerDid: "did:web:open-electricity-market.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
@@ -42,7 +42,7 @@ const seeds: Seed[] = [
     proc: "recordCrossBorderFlow",
     bpmnProcessId: "open_power_grid_interconnect_record_cross_border_flow",
     nsid: "ai.gftd.apps.powerGridInterconnect.recordCrossBorderFlow",
-    ownerDid: "did:web:open-power-grid-interconnect.gftd.ai",
+    ownerDid: "did:web:open-power-grid-interconnect.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -50,7 +50,7 @@ const seeds: Seed[] = [
     proc: "flagCurtailment",
     bpmnProcessId: "open_power_grid_interconnect_flag_curtailment",
     nsid: "ai.gftd.apps.powerGridInterconnect.flagCurtailment",
-    ownerDid: "did:web:open-power-grid-interconnect.gftd.ai",
+    ownerDid: "did:web:open-power-grid-interconnect.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
@@ -58,7 +58,7 @@ const seeds: Seed[] = [
     proc: "recordBasinMetric",
     bpmnProcessId: "open_water_scarcity_record_basin_metric",
     nsid: "ai.gftd.apps.waterScarcity.recordBasinMetric",
-    ownerDid: "did:web:open-water-scarcity.gftd.ai",
+    ownerDid: "did:web:open-water-scarcity.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -66,7 +66,7 @@ const seeds: Seed[] = [
     proc: "flagTreatyDispute",
     bpmnProcessId: "open_water_scarcity_flag_treaty_dispute",
     nsid: "ai.gftd.apps.waterScarcity.flagTreatyDispute",
-    ownerDid: "did:web:open-water-scarcity.gftd.ai",
+    ownerDid: "did:web:open-water-scarcity.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
@@ -74,7 +74,7 @@ const seeds: Seed[] = [
     proc: "recordStewardshipPlan",
     bpmnProcessId: "open_water_stewardship_record_stewardship_plan",
     nsid: "ai.gftd.apps.waterStewardship.recordStewardshipPlan",
-    ownerDid: "did:web:open-water-stewardship.gftd.ai",
+    ownerDid: "did:web:open-water-stewardship.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -82,7 +82,7 @@ const seeds: Seed[] = [
     proc: "flagBasinStress",
     bpmnProcessId: "open_water_stewardship_flag_basin_stress",
     nsid: "ai.gftd.apps.waterStewardship.flagBasinStress",
-    ownerDid: "did:web:open-water-stewardship.gftd.ai",
+    ownerDid: "did:web:open-water-stewardship.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
@@ -90,7 +90,7 @@ const seeds: Seed[] = [
     proc: "registerFacility",
     bpmnProcessId: "open_wastewater_reuse_register_facility",
     nsid: "ai.gftd.apps.wastewaterReuse.registerFacility",
-    ownerDid: "did:web:open-wastewater-reuse.gftd.ai",
+    ownerDid: "did:web:open-wastewater-reuse.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -98,7 +98,7 @@ const seeds: Seed[] = [
     proc: "recordMonitoringMetric",
     bpmnProcessId: "open_wastewater_reuse_record_monitoring_metric",
     nsid: "ai.gftd.apps.wastewaterReuse.recordMonitoringMetric",
-    ownerDid: "did:web:open-wastewater-reuse.gftd.ai",
+    ownerDid: "did:web:open-wastewater-reuse.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
@@ -106,7 +106,7 @@ const seeds: Seed[] = [
     proc: "registerCable",
     bpmnProcessId: "open_telecom_infra_register_cable",
     nsid: "ai.gftd.apps.telecomInfra.registerCable",
-    ownerDid: "did:web:open-telecom-infra.gftd.ai",
+    ownerDid: "did:web:open-telecom-infra.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -114,7 +114,7 @@ const seeds: Seed[] = [
     proc: "flagCableFault",
     bpmnProcessId: "open_telecom_infra_flag_cable_fault",
     nsid: "ai.gftd.apps.telecomInfra.flagCableFault",
-    ownerDid: "did:web:open-telecom-infra.gftd.ai",
+    ownerDid: "did:web:open-telecom-infra.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
@@ -122,7 +122,7 @@ const seeds: Seed[] = [
     proc: "registerDeployment",
     bpmnProcessId: "open_rural_broadband_register_deployment",
     nsid: "ai.gftd.apps.ruralBroadband.registerDeployment",
-    ownerDid: "did:web:open-rural-broadband.gftd.ai",
+    ownerDid: "did:web:open-rural-broadband.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -130,7 +130,7 @@ const seeds: Seed[] = [
     proc: "flagDigitalDivideGap",
     bpmnProcessId: "open_rural_broadband_flag_digital_divide_gap",
     nsid: "ai.gftd.apps.ruralBroadband.flagDigitalDivideGap",
-    ownerDid: "did:web:open-rural-broadband.gftd.ai",
+    ownerDid: "did:web:open-rural-broadband.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
@@ -138,7 +138,7 @@ const seeds: Seed[] = [
     proc: "recordCorridorFlow",
     bpmnProcessId: "open_rail_cross_border_record_corridor_flow",
     nsid: "ai.gftd.apps.railCrossBorder.recordCorridorFlow",
-    ownerDid: "did:web:open-rail-cross-border.gftd.ai",
+    ownerDid: "did:web:open-rail-cross-border.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -146,7 +146,7 @@ const seeds: Seed[] = [
     proc: "flagInteropFailure",
     bpmnProcessId: "open_rail_cross_border_flag_interop_failure",
     nsid: "ai.gftd.apps.railCrossBorder.flagInteropFailure",
-    ownerDid: "did:web:open-rail-cross-border.gftd.ai",
+    ownerDid: "did:web:open-rail-cross-border.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
 ];
@@ -156,11 +156,11 @@ function sourcePath(seed: Seed): string {
 }
 
 function processVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${seed.project}-${seed.proc}-v1`;
 }
 
 function bindingVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
 }
 
 async function insertProcessDef(db: Kysely<unknown>, seed: Seed): Promise<void> {

@@ -1,7 +1,7 @@
 /**
  * Client-side feed/profile/search queries.
  *
- * Candidate C: $lib/atproto-agent connects to PDS (atproto.gftd.ai) with AT Protocol
+ * Candidate C: $lib/atproto-agent connects to PDS (atproto.etzhayyim.com) with AT Protocol
  * standard NSIDs. PDS pipethroughs app.bsky.* reads to yoro AppView via service
  * binding. This wrapper adds timeline→discover fallback.
  */

@@ -112,7 +112,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── seed sandbox bootstrap row for the pilot leads already in the table ────
   // Idempotent: WHERE NOT EXISTS guards against re-apply.
-  // tenant_did follows did:web:<slug>.lawfirm.gftd.ai per ADR-0029 depth-1 root.
+  // tenant_did follows did:web:<slug>.lawfirm.etzhayyim.com per ADR-0029 depth-1 root.
   const SEED = [
     { slug: "nishith",  legal: "Nishith Desai Associates", lead: "nishith-desai-2026", country: "IN" },
     { slug: "trilegal", legal: "Trilegal",                 lead: "trilegal-2026",      country: "IN" },
@@ -120,14 +120,14 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   ];
 
   const NOW = "2026-05-08T00:00:00Z";
-  const OWNER = "did:web:lawfirm.gftd.ai";
+  const OWNER = "did:web:lawfirm.etzhayyim.com";
 
   for (const t of SEED) {
     const tenantId = `sandbox-${t.slug}`;
-    const vertexId = `at://did:web:lawfirm.gftd.ai/ai.gftd.apps.lawfirm.tenant/${tenantId}`;
-    const tenantDid = `did:web:${t.slug}.sandbox.lawfirm.gftd.ai`;
-    const pdsUrl = `https://${t.slug}.sandbox.lawfirm.gftd.ai`;
-    const kpi = `https://kpi-lawfirm.gftd.ai/${t.slug}`;
+    const vertexId = `at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenant/${tenantId}`;
+    const tenantDid = `did:web:${t.slug}.sandbox.lawfirm.etzhayyim.com`;
+    const pdsUrl = `https://${t.slug}.sandbox.lawfirm.etzhayyim.com`;
+    const kpi = `https://kpi-lawfirm.etzhayyim.com/${t.slug}`;
     await sql`
       INSERT INTO vertex_lawfirm_tenant
         (vertex_id, tenant_id, slug, tenant_did, legal_name, country,
@@ -137,13 +137,13 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       SELECT
         ${vertexId}, ${tenantId}, ${t.slug}, ${tenantDid}, ${t.legal}, ${t.country},
         'vultr-lax', 'sandbox', 'pending_kickoff', ${t.lead},
-        ${pdsUrl}, 'https://lawfirm.gftd.ai', ${kpi},
+        ${pdsUrl}, 'https://lawfirm.etzhayyim.com', ${kpi},
         ${NOW}, ${NOW}, 200, ${OWNER}
       WHERE NOT EXISTS (SELECT 1 FROM vertex_lawfirm_tenant WHERE vertex_id = ${vertexId})
     `.execute(db);
 
     // tenant <-> lead edge
-    const leadVid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.lead/${t.lead}`;
+    const leadVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/${t.lead}`;
     const edgeId = `edge:tenant:${tenantId}:for-lead:${t.lead}`;
     await sql`
       INSERT INTO edge_lawfirm_tenant_lead
@@ -156,7 +156,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     `.execute(db);
 
     // audit-log: provisioning event (status: '' -> pending_kickoff)
-    const eventVid = `at://did:web:lawfirm.gftd.ai/ai.gftd.apps.lawfirm.tenantEvent/${tenantId}-provisioned`;
+    const eventVid = `at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenantEvent/${tenantId}-provisioned`;
     await sql`
       INSERT INTO vertex_lawfirm_tenant_event
         (vertex_id, tenant_id, event_kind, from_status, to_status,

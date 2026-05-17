@@ -23,12 +23,12 @@ import aiohttp
 from pymagatama.db_sync import sync_cursor
 
 
-_OWNER_DID = "did:web:legal-entity.gftd.ai"
+_OWNER_DID = "did:web:legal-entity.etzhayyim.com"
 _COL_ENTITY = "ai.gftd.apps.legalEntity.legalEntity"
 _COL_FILING = "ai.gftd.apps.legalEntity.filing"
 _GLEIF_URL = "https://api.gleif.org/api/v1/lei-records"
 _EDGAR_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
-_EDGAR_UA = os.environ.get("SEC_USER_AGENT", "legal-entity.gftd.ai/1.0 contact@gftd.co.jp")
+_EDGAR_UA = os.environ.get("SEC_USER_AGENT", "legal-entity.etzhayyim.com/1.0 contact@gftd.co.jp")
 
 _REGISTRY_TASKS: dict[str, dict[str, str]] = {
     "Jpn": {"country": "JP", "label": "Japan registry", "source": "jpn-registry"},

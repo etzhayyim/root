@@ -2,15 +2,15 @@
   "viewId": "open-ports.OV-1",
   "viewType": "OV-1",
   "title": "High-Level Operational Concept Graphic",
-  "did": "did:web:open-ports.gftd.ai",
+  "did": "did:web:open-ports.etzhayyim.com",
   "format": "json",
   "content": {
     "operationalNodes": [
       { "id": "operator",  "label": "Vessel operator (DID)" },
       { "id": "port",      "label": "Port authority (DID)" },
-      { "id": "ports",     "label": "open-ports.gftd.ai (Worker)" },
+      { "id": "ports",     "label": "open-ports.etzhayyim.com (Worker)" },
       { "id": "store",     "label": "D1 (ports/vessels/calls/events/containers/incidents SSoT)" },
-      { "id": "pds",       "label": "atproto.gftd.ai (PDS, public audit)" },
+      { "id": "pds",       "label": "atproto.etzhayyim.com (PDS, public audit)" },
       { "id": "coastGuard","label": "Coast Guard / Port State Control (DID)" }
     ],
     "operationalFlows": [

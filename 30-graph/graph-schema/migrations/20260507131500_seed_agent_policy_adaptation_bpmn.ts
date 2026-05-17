@@ -8,14 +8,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const CREATED_AT = "2026-05-07T13:15:00Z";
 const ACTOR_ID = "sys.bpmn.seed.agent-policy-adaptation";
 const SOURCE_PATH = "00-contracts/bpmn/ai/gftd/agent/policyAdaptation.bpmn";
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-policy-adaptation-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-policy-adaptation-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-policy-adaptation-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-policy-adaptation-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(path.resolve(repoRoot, SOURCE_PATH), "utf8");

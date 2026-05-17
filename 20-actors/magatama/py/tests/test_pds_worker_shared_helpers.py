@@ -123,7 +123,7 @@ def test_pds_did_starts_with_did(mod_name: str):
 @pytest.mark.parametrize("mod_name", _PDS_MODULE_NAMES)
 def test_pds_did_contains_atproto_gftd_ai(mod_name: str):
     mod = _load(mod_name)
-    assert "atproto.gftd.ai" in mod.PDS_DID
+    assert "atproto.etzhayyim.com" in mod.PDS_DID
 
 
 @pytest.mark.parametrize("mod_name", _PDS_MODULE_NAMES)

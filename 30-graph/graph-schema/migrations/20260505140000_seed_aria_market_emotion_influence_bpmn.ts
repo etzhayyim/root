@@ -19,27 +19,27 @@ const readBpmn = (file: string) =>
   );
 
 const CREATED_AT = "2026-05-05T14:00:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.aria";
 
 const ENTRIES = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/aria-market-ingest-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-market-ingest-v1",
     bpmnProcessId: "aria_market_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/aria/marketIngest.bpmn",
     file: "marketIngest.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/aria-emotion-ingest-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-emotion-ingest-v1",
     bpmnProcessId: "aria_emotion_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/aria/emotionIngest.bpmn",
     file: "emotionIngest.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/aria-influence-ingest-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-influence-ingest-v1",
     bpmnProcessId: "aria_influence_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/aria/influenceIngest.bpmn",
     file: "influenceIngest.bpmn",

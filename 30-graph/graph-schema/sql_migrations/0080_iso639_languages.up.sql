@@ -10,6 +10,6 @@ CREATE VIEW IF NOT EXISTS view_iso639_language AS
     WHERE collection = 'ai.gftd.apps.iso639.language';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('iso639', 'iso639.gftd.ai', 184, 'languages', 'culture');
+    VALUES ('iso639', 'iso639.etzhayyim.com', 184, 'languages', 'culture');
 
 DELETE FROM edge_classified_as WHERE system = 'iso3166_m49';

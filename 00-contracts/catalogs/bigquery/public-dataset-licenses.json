@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/schemas/bigquery-public-dataset-licenses.schema.json",
+  "$schema": "https://etzhayyim.com/schemas/bigquery-public-dataset-licenses.schema.json",
   "version": "2026-05-10",
   "description": "Curated SSoT mapping BigQuery public-dataset names to license / terms / category / training guess. Consumed by 70-tools/scripts/bigquery-public-dataset-license-enrich.mjs. Per ADR 2605092700 §P0 these are GUESSES (catalog.allowed_for_train_guess); actual training authorization lives in edge_dataset_allowed_for_training_task and remains default-deny until explicit review.",
   "providers": {

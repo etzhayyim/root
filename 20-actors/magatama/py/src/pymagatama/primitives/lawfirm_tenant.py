@@ -13,7 +13,7 @@ Schema target: vertex_lawfirm_tenant + vertex_lawfirm_tenant_event +
 edge_lawfirm_tenant_lead (added by 20260509150000 migration).
 
 ADR-0036 Hyperdrive direct.
-ADR-0029 depth-1 root DID per tenant (did:web:<slug>.lawfirm.gftd.ai).
+ADR-0029 depth-1 root DID per tenant (did:web:<slug>.lawfirm.etzhayyim.com).
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ from typing import Any
 
 LOG = logging.getLogger("lawfirm.tenant")
 
-_FIRM_DID = "did:web:lawfirm.gftd.ai"
+_FIRM_DID = "did:web:lawfirm.etzhayyim.com"
 _SLUG_REGEX = re.compile(r"^[a-z][a-z0-9-]{1,15}$")
 _VALID_REGIONS = {"vultr-lax", "vultr-mum", "vultr-tyo"}
 _BUILT_OUT_REGIONS = {"vultr-lax"}  # Phase 1 only
@@ -95,7 +95,7 @@ async def task_lawfirm_tenant_bootstrap(
 
     # Idempotency check: existing (slug, tier) pair
     tenant_id = f"{tier.replace('saas-', '')}-{slug}" if tier == "sandbox" else f"prod-{slug}"
-    vertex_id = f"at://did:web:lawfirm.gftd.ai/ai.gftd.apps.lawfirm.tenant/{tenant_id}"
+    vertex_id = f"at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenant/{tenant_id}"
     existing = _query(
         "SELECT vertex_id, status, tier FROM vertex_lawfirm_tenant WHERE slug = :slug AND tier = :tier",
         {"slug": slug, "tier": tier},
@@ -107,8 +107,8 @@ async def task_lawfirm_tenant_bootstrap(
             "status": "already_exists",
             "tenantDid": _tenant_did(slug, tier),
             "pdsUrl": _pds_url(slug, tier),
-            "xrpcEndpoint": "https://lawfirm.gftd.ai",
-            "kpiDashboardUrl": f"https://kpi-lawfirm.gftd.ai/{slug}",
+            "xrpcEndpoint": "https://lawfirm.etzhayyim.com",
+            "kpiDashboardUrl": f"https://kpi-lawfirm.etzhayyim.com/{slug}",
             "tenant_id": tenant_id,
             "vertex_id": row["vertex_id"],
             "existing_status": row.get("status"),
@@ -127,7 +127,7 @@ async def task_lawfirm_tenant_bootstrap(
 
     tenant_did = _tenant_did(slug, tier)
     pds_url = _pds_url(slug, tier)
-    kpi_url = f"https://kpi-lawfirm.gftd.ai/{slug}"
+    kpi_url = f"https://kpi-lawfirm.etzhayyim.com/{slug}"
     now = _now_iso()
     consent_str = ",".join(consent_regions or []) if consent_regions else ""
 
@@ -139,7 +139,7 @@ async def task_lawfirm_tenant_bootstrap(
         " provisioned_at, created_at, sensitivity_ord, owner_did) "
         "VALUES (:vid, :tid, :slug, :did, :legal, :country, "
         " :region, :tier, 'active', :lead, :admin, :consent, "
-        " :pds, 'https://lawfirm.gftd.ai', :kpi, "
+        " :pds, 'https://lawfirm.etzhayyim.com', :kpi, "
         " :now, :now, 200, :owner)",
         {
             "vid": vertex_id, "tid": tenant_id, "slug": slug, "did": tenant_did,
@@ -154,7 +154,7 @@ async def task_lawfirm_tenant_bootstrap(
         return {"ok": False, "error": "PersistFailed"}
 
     # Audit event
-    event_vid = f"at://did:web:lawfirm.gftd.ai/ai.gftd.apps.lawfirm.tenantEvent/{tenant_id}-provisioned-{now}"
+    event_vid = f"at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenantEvent/{tenant_id}-provisioned-{now}"
     _execute(
         "INSERT INTO vertex_lawfirm_tenant_event "
         "(vertex_id, tenant_id, event_kind, from_status, to_status, "
@@ -171,7 +171,7 @@ async def task_lawfirm_tenant_bootstrap(
 
     # tenant ↔ lead edge (sandbox tier only)
     if tier == "sandbox" and pilot_lead_id:
-        lead_vid = f"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.lead/{pilot_lead_id}"
+        lead_vid = f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/{pilot_lead_id}"
         edge_id = f"edge:tenant:{tenant_id}:for-lead:{pilot_lead_id}"
         _execute(
             "INSERT INTO edge_lawfirm_tenant_lead "
@@ -194,7 +194,7 @@ async def task_lawfirm_tenant_bootstrap(
         "status": "created",
         "tenantDid": tenant_did,
         "pdsUrl": pds_url,
-        "xrpcEndpoint": "https://lawfirm.gftd.ai",
+        "xrpcEndpoint": "https://lawfirm.etzhayyim.com",
         "kpiDashboardUrl": kpi_url,
         "tenant_id": tenant_id,
         "vertex_id": vertex_id,
@@ -203,14 +203,14 @@ async def task_lawfirm_tenant_bootstrap(
 
 def _tenant_did(slug: str, tier: str) -> str:
     if tier == "sandbox":
-        return f"did:web:{slug}.sandbox.lawfirm.gftd.ai"
-    return f"did:web:{slug}.lawfirm.gftd.ai"
+        return f"did:web:{slug}.sandbox.lawfirm.etzhayyim.com"
+    return f"did:web:{slug}.lawfirm.etzhayyim.com"
 
 
 def _pds_url(slug: str, tier: str) -> str:
     if tier == "sandbox":
-        return f"https://{slug}.sandbox.lawfirm.gftd.ai"
-    return f"https://{slug}.lawfirm.gftd.ai"
+        return f"https://{slug}.sandbox.lawfirm.etzhayyim.com"
+    return f"https://{slug}.lawfirm.etzhayyim.com"
 
 
 # ── Task: lawfirm.tenant.suspend (pilot end, 90-day retention) ────────────────
@@ -239,7 +239,7 @@ async def task_lawfirm_tenant_suspend(
             "WHERE vertex_id = :vid",
             {"now": now, "vid": row["vertex_id"]},
         ):
-            event_vid = f"at://did:web:lawfirm.gftd.ai/ai.gftd.apps.lawfirm.tenantEvent/{row['tenant_id']}-suspended-{now}"
+            event_vid = f"at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenantEvent/{row['tenant_id']}-suspended-{now}"
             _execute(
                 "INSERT INTO vertex_lawfirm_tenant_event "
                 "(vertex_id, tenant_id, event_kind, from_status, to_status, "
@@ -301,7 +301,7 @@ async def task_lawfirm_tenant_promote(
 
     # Audit promotion
     now = _now_iso()
-    event_vid = f"at://did:web:lawfirm.gftd.ai/ai.gftd.apps.lawfirm.tenantEvent/{src['tenant_id']}-promoted-{now}"
+    event_vid = f"at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenantEvent/{src['tenant_id']}-promoted-{now}"
     _execute(
         "INSERT INTO vertex_lawfirm_tenant_event "
         "(vertex_id, tenant_id, event_kind, from_status, to_status, "

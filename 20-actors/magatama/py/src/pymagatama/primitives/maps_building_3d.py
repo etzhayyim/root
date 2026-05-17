@@ -25,7 +25,7 @@ from pymagatama.db_sync import sync_cursor
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-DEFAULT_REPO = "did:web:maps.gftd.ai"
+DEFAULT_REPO = "did:web:maps.etzhayyim.com"
 COLLECTION_BUILDING_3D = "ai.gftd.apps.maps.building3d"
 COLLECTION_COVERAGE = "ai.gftd.apps.maps.buildingCoverage"
 

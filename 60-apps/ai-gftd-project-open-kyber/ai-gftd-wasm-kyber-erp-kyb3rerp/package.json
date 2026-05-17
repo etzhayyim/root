@@ -1,7 +1,7 @@
 {
   "name": "ai-gftd-wasm-kyber-erp-kyb3rerp",
   "version": "1.0.0",
-  "description": "kyber.gftd.ai — corporate ERP intelligence (accounting, HR, procurement, inventory, sales)",
+  "description": "kyber.etzhayyim.com — corporate ERP intelligence (accounting, HR, procurement, inventory, sales)",
   "main": "src/app.ts",
   "type": "module",
   "dependencies": {

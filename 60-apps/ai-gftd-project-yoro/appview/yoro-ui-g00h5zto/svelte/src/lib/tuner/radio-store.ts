@@ -1,9 +1,9 @@
 import { writable, derived } from 'svelte/store';
 import type { MoodPreset } from './vibes-store.js';
 
-const PDS = 'https://atproto.gftd.ai';
+const PDS = 'https://atproto.etzhayyim.com';
 
-/** A track from tuner.gftd.ai musician actors. */
+/** A track from tuner.etzhayyim.com musician actors. */
 export interface RadioTrack {
 	id: string;
 	title: string;
@@ -54,7 +54,7 @@ const MOOD_MAP: Record<MoodPreset, string> = {
 	cozy: 'chill',
 };
 
-/** Fetch tracks for a mood from tuner.gftd.ai via PDS XRPC. */
+/** Fetch tracks for a mood from tuner.etzhayyim.com via PDS XRPC. */
 async function fetchTracks(mood: MoodPreset): Promise<RadioTrack[]> {
 	const tunerMood = MOOD_MAP[mood] || 'chill';
 	try {

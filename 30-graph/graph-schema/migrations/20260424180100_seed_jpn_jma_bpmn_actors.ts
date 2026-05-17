@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T18:30:00Z";
-const ownerDid = "did:web:jpn-jma.gftd.ai";
+const ownerDid = "did:web:jpn-jma.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.jpn-jma";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jma-report-earthquake-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-report-earthquake-v1",
     bpmnProcessId: "jpn_jma_report_earthquake",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-jma/reportEarthquake.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1",
     bpmnProcessId: "jpn_jma_issue_weather_warning",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-jma/issueWeatherWarning.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jma-reportEarthquake-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-reportEarthquake-v1",
     nsid: "ai.gftd.apps.jpnJma.reportEarthquake", bpmnProcessId: "jpn_jma_report_earthquake",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1",
     nsid: "ai.gftd.apps.jpnJma.issueWeatherWarning", bpmnProcessId: "jpn_jma_issue_weather_warning",
     ownerDid, resultTimeoutMs: 30000 },
 ];

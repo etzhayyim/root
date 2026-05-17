@@ -30,7 +30,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger(__name__)
 
-INGEST_ACTOR = "did:web:ingest.gftd.ai"
+INGEST_ACTOR = "did:web:ingest.etzhayyim.com"
 SOURCE_ID = "netintel-dns"
 _DOH_URL = "https://cloudflare-dns.com/dns-query"
 # rdap.org bootstraps to the correct registrar per RFC 7484.
@@ -132,7 +132,7 @@ def _stale_domains(batch_size: int) -> list[str]:
 
 def _insert_dns_row(domain: str, rdap: dict, doh: dict, run_id: str) -> bool:
     ts = now_iso()
-    vertex_id = f"at://did:web:ingest.gftd.ai/ai.gftd.apps.collector.dnsObservation/{domain}"
+    vertex_id = f"at://did:web:ingest.etzhayyim.com/ai.gftd.apps.collector.dnsObservation/{domain}"
     sql = (
         "INSERT INTO vertex_dns_observation "
         "(vertex_id, owner_did, domain, registrar, nameservers, "

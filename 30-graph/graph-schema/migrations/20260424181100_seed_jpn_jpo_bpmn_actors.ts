@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T18:30:00Z";
-const ownerDid = "did:web:jpn-jpo.gftd.ai";
+const ownerDid = "did:web:jpn-jpo.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.jpn-jpo";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jpo-file-application-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jpo-file-application-v1",
     bpmnProcessId: "jpn_jpo_file_application",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-jpo/fileApplication.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jpo-record-examination-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jpo-record-examination-v1",
     bpmnProcessId: "jpn_jpo_record_examination",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-jpo/recordExamination.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jpo-fileApplication-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jpo-fileApplication-v1",
     nsid: "ai.gftd.apps.jpnJpo.fileApplication", bpmnProcessId: "jpn_jpo_file_application",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jpo-recordExamination-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jpo-recordExamination-v1",
     nsid: "ai.gftd.apps.jpnJpo.recordExamination", bpmnProcessId: "jpn_jpo_record_examination",
     ownerDid, resultTimeoutMs: 15000 },
 ];

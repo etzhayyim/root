@@ -215,7 +215,7 @@ def normalize_lei_record(record: dict[str, Any]) -> dict[str, Any]:
         legal_name = legal_name.get("name")
     legal_address = entity.get("legalAddress") if isinstance(entity.get("legalAddress"), dict) else {}
     return {
-        "vertex_id": f"at://did:web:open-lei.gftd.ai/ai.gftd.apps.openLei.entity/{attributes.get('lei') or record.get('id')}",
+        "vertex_id": f"at://did:web:open-lei.etzhayyim.com/ai.gftd.apps.openLei.entity/{attributes.get('lei') or record.get('id')}",
         "lei": attributes.get("lei") or record.get("id"),
         "legal_name": legal_name or attributes.get("legalName"),
         "country": legal_address.get("country") or entity.get("legalJurisdiction"),
@@ -226,10 +226,10 @@ def normalize_lei_record(record: dict[str, Any]) -> dict[str, Any]:
         "next_renewal_at": registration.get("nextRenewalDate") or attributes.get("nextRenewalAt"),
         "status": "active" if (registration.get("status") or attributes.get("registrationStatus")) == "ISSUED" else "lapsed",
         "created_at": _utc_now(),
-        "owner_did": "did:web:open-lei.gftd.ai",
+        "owner_did": "did:web:open-lei.etzhayyim.com",
         "sensitivity_ord": 1,
-        "org_id": "did:web:open-lei.gftd.ai",
-        "user_id": "did:web:open-lei.gftd.ai",
+        "org_id": "did:web:open-lei.etzhayyim.com",
+        "user_id": "did:web:open-lei.etzhayyim.com",
         "actor_id": "sys.langserver.open-lei.gleif",
     }
 
@@ -251,7 +251,7 @@ def gleif_record_normalize(*, dataset_kind: str = "lei-cdf", records: Any = None
     }
 
 
-_OWNER_DID = "did:web:open-lei.gftd.ai"
+_OWNER_DID = "did:web:open-lei.etzhayyim.com"
 _ACTOR_ID = "sys.langserver.open-lei.gleif"
 
 

@@ -12,12 +12,12 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-05-06T10:00:00Z";
-const ownerDid = "did:web:maps.gftd.ai";
+const ownerDid = "did:web:maps.etzhayyim.com";
 const actorId = "sys.bpmn.seed.maps-celestial";
 
 const seed = {
-  processVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1",
-  bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1",
+  processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1",
+  bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1",
   processId: "maps_ingest_celestial_catalogs",
   nsid: "ai.gftd.apps.maps.ingestCelestialCatalogs",
   sourcePath: "00-contracts/bpmn/ai/gftd/maps/ingestCelestialCatalogs.bpmn",

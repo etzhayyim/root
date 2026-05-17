@@ -34,7 +34,7 @@ describe("Seed open-rail BPMN actors migration", () => {
 
   it("uses open-rail-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-rail"');
-    expect(migrationSource).toContain("did:web:open-rail.gftd.ai:ops");
+    expect(migrationSource).toContain("did:web:open-rail.etzhayyim.com:ops");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

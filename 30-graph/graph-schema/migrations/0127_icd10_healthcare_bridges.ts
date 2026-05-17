@@ -33,7 +33,7 @@ import { Kysely, sql } from 'kysely';
  * - Chapter Z (Health status) → also 88/881/8810/889/8890 (social work activities)
  *
  * ISIC4 healthcare vertex IDs resolved from `isic4_isic5` and `isic4_cofog`
- * bridge src_vids (at://did:web:isic.gftd.ai/.../).
+ * bridge src_vids (at://did:web:isic.etzhayyim.com/.../).
  *
  * ### icd10_atc (direct concordance)
  *

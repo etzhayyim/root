@@ -11,11 +11,11 @@
 ## Scope — 3 tracks, run in parallel
 
 ### Track 1 — Functional (own the happy path)
-The customer must see their own business flow land on `https://salesforce.opensaas.gftd.ai/` with *their* data, not demo seeds.
+The customer must see their own business flow land on `https://salesforce.opensaas.etzhayyim.com/` with *their* data, not demo seeds.
 
-- **Day 1–2**: provision sandbox Tenant DID `did:web:<slug>-poc.opensaas.gftd.ai` in customer's declared region. DNS + `_atproto` TXT auto via `gftd dns-sync`.
+- **Day 1–2**: provision sandbox Tenant DID `did:web:<slug>-poc.opensaas.etzhayyim.com` in customer's declared region. DNS + `_atproto` TXT auto via `gftd dns-sync`.
 - **Day 3**: customer exports a 10%-slice of Salesforce (1 business unit, ~3 months of records) → `sfdc_slice.zip`.
-- **Day 4**: Provider runs `gftd opensaas migrate sfdc --in sfdc_slice.zip --map poc/map.jsonl --tenant did:web:<slug>-poc.opensaas.gftd.ai --dry-run` → customer reviews drop list (target ≤3%).
+- **Day 4**: Provider runs `gftd opensaas migrate sfdc --in sfdc_slice.zip --map poc/map.jsonl --tenant did:web:<slug>-poc.opensaas.etzhayyim.com --dry-run` → customer reviews drop list (target ≤3%).
 - **Day 5**: real ingest (same command, no `--dry-run`). All records land under tenant DID as `ai.gftd.apps.opensaas.salesforce.{account,contact,lead,opportunity,case}`.
 - **Day 6**: customer AEs log in (temporary passkey enrollment for 3 named seats), re-stage 3 opportunities → `activity(kind=stage-change)` rows derived within 200ms. Screenshot captured for the case study template.
 - **Day 7**: customer calls `listPipeline({tenantDid})` and compares the stage rollup to their Salesforce pipeline report for the same slice. Delta target: ±0.5%.
@@ -48,7 +48,7 @@ Exec-level review. Each gate is a file or a URL, not a claim.
 | Migration | Reconciliation report format | DRI sign-off email + file committed as Schedule C-1b |
 | Migration | Rollback envelope timing | <15 min for 10%-slice; linear projection acceptable for full |
 | Integration | SAP webhook → opportunity → activity chain | One successful end-to-end in the sandbox |
-| LLM | per-seat Murakumo invocation from within the CRM UI | one "summarise this opportunity" action run from `https://<slug>-poc.opensaas.gftd.ai/` with latency <3s |
+| LLM | per-seat Murakumo invocation from within the CRM UI | one "summarise this opportunity" action run from `https://<slug>-poc.opensaas.etzhayyim.com/` with latency <3s |
 
 ## Disqualifying outcomes (honest kill criteria)
 

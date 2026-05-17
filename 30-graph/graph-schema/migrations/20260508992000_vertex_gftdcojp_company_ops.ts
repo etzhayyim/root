@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * gftdcojp.gftd.ai Company Ops schema
+ * gftdcojp.etzhayyim.com Company Ops schema
  * Principal: amanomibashira. Vendor: Gftd Japan株式会社.
  *
  * Tables (5 domain event tables + 1 streaming MV):
@@ -31,7 +31,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:00:00Z";
-const ownerDid = "did:web:gftdcojp.gftd.ai";
+const ownerDid = "did:web:gftdcojp.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.gftdcojp";
 
 type P = { vertexId: string; bpmnProcessId: string; sourcePath: string };
@@ -39,12 +39,12 @@ type B = { vertexId: string; nsid: string; bpmnProcessId: string; resultTimeoutM
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gftdcojp-governance-daily-check-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gftdcojp-governance-daily-check-v1",
     bpmnProcessId: "gftdcojp_governance_daily_check",
     sourcePath: "00-contracts/bpmn/ai/gftd/gftdcojp/governanceDailyCheck.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gftdcojp-company-ops-dispatch-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gftdcojp-company-ops-dispatch-v1",
     bpmnProcessId: "gftdcojp_company_ops_dispatch",
     sourcePath: "00-contracts/bpmn/ai/gftd/gftdcojp/companyOpsDispatch.bpmn",
   },
@@ -52,7 +52,7 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/gftdcojp-company-ops-dispatch-xrpc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gftdcojp-company-ops-dispatch-xrpc-v1",
     nsid: "ai.gftd.apps.gftdcojp.companyOpsDispatch",
     bpmnProcessId: "gftdcojp_company_ops_dispatch",
     resultTimeoutMs: 180_000,

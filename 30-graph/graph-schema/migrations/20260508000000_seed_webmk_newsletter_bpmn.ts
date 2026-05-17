@@ -11,8 +11,8 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ownerDid = "did:web:bpmn.gftd.ai";
-const actorTag = "did:web:bpmn.gftd.ai";
+const ownerDid = "did:web:bpmn.etzhayyim.com";
+const actorTag = "did:web:bpmn.etzhayyim.com";
 const createdAt = "2026-05-08T00:00:00Z";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -42,19 +42,19 @@ interface BindingSeed {
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1",
     ownerDid,
     bpmnProcessId: "webmk_create_proposal",
     sourcePath: "00-contracts/bpmn/ai/gftd/webmk/createProposal.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webmk-deliverProposal-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webmk-deliverProposal-v1",
     ownerDid,
     bpmnProcessId: "webmk_deliver_proposal",
     sourcePath: "00-contracts/bpmn/ai/gftd/webmk/deliverProposal.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/newsletter-sendCampaign-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-sendCampaign-v1",
     ownerDid,
     bpmnProcessId: "newsletter_send_campaign",
     sourcePath: "00-contracts/bpmn/ai/gftd/newsletter/sendCampaign.bpmn",
@@ -63,7 +63,7 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/webmk-createProposal-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webmk-createProposal-v1",
     ownerDid,
     nsid: "ai.gftd.apps.webmk.createProposal",
     bpmnProcessId: "webmk_create_proposal",
@@ -71,7 +71,7 @@ const bindingSeeds: BindingSeed[] = [
     routingTarget: "langgraph",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/webmk-deliverProposal-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webmk-deliverProposal-v1",
     ownerDid,
     nsid: "ai.gftd.apps.webmk.deliverProposal",
     bpmnProcessId: "webmk_deliver_proposal",
@@ -79,7 +79,7 @@ const bindingSeeds: BindingSeed[] = [
     routingTarget: "zeebe",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/newsletter-sendCampaign-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/newsletter-sendCampaign-v1",
     ownerDid,
     nsid: "ai.gftd.apps.newsletter.sendCampaign",
     bpmnProcessId: "newsletter_send_campaign",

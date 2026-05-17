@@ -15,8 +15,8 @@ export interface ExpertRecommendation {
 	reason: string;
 }
 
-const WEB4_API_BASE = 'https://web4.gftd.ai/api/v1';
-const WEB4_XRPC_BASE = 'https://web4.gftd.ai/xrpc';
+const WEB4_API_BASE = 'https://web4.etzhayyim.com/api/v1';
+const WEB4_XRPC_BASE = 'https://web4.etzhayyim.com/xrpc';
 
 export async function getMarketInfo(): Promise<MarketInfo> {
 	const resp = await fetch(`${WEB4_API_BASE}/market`);

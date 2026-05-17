@@ -6,7 +6,7 @@ import { sql } from "kysely";
 //          donor/recipient PII lives in T3 Preferences, not in these tables)
 
 /**
- * otakiage.gftd.ai Phase 1 — Reuse & Ritual Platform schema
+ * otakiage.etzhayyim.com Phase 1 — Reuse & Ritual Platform schema
  * (ADR-2605081700 + ADR-0036 Worker-direct Hyperdrive +
  *  ADR-0056 BPMN-as-actor + ADR-2604282300 T2 = pymagatama + Zeebe).
  *

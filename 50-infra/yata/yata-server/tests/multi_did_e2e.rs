@@ -1,7 +1,7 @@
 //! E2E tests for Multi-DID data flows against yata-server + MinIO (docker-compose).
 //!
 //! Verifies that STARTS WITH Cypher queries correctly aggregate posts from
-//! path-based DIDs (e.g. did:web:news.gftd.ai:writer:gigazine).
+//! path-based DIDs (e.g. did:web:news.etzhayyim.com:writer:gigazine).
 //!
 //! Regression: yoro profile showed 0 posts because getAuthorFeed used exact
 //! r.repo match, excluding path-based writer DIDs.
@@ -142,10 +142,10 @@ fn t01_health() {
 fn t02_seed_multi_did_posts() {
     cleanup();
 
-    let app_did = "did:web:news.gftd.ai";
-    let writer1 = "did:web:news.gftd.ai:writer:gigazine";
-    let writer2 = "did:web:news.gftd.ai:writer:techcrunch";
-    let unrelated = "did:web:handotai.gftd.ai";
+    let app_did = "did:web:news.etzhayyim.com";
+    let writer1 = "did:web:news.etzhayyim.com:writer:gigazine";
+    let writer2 = "did:web:news.etzhayyim.com:writer:techcrunch";
+    let unrelated = "did:web:handotai.etzhayyim.com";
 
     // Seed posts from different DIDs
     seed_post(app_did, "mdid_001", "Primary DID post");
@@ -165,7 +165,7 @@ fn t02_seed_multi_did_posts() {
 
 #[test]
 fn t03_starts_with_aggregates_path_based_dids() {
-    let app_did = "did:web:news.gftd.ai";
+    let app_did = "did:web:news.etzhayyim.com";
 
     // Multi-DID query: exact OR STARTS WITH (the fix)
     let result = cypher(&format!(
@@ -177,7 +177,7 @@ fn t03_starts_with_aggregates_path_based_dids() {
 
 #[test]
 fn t04_exact_match_returns_only_primary_did() {
-    let app_did = "did:web:news.gftd.ai";
+    let app_did = "did:web:news.etzhayyim.com";
 
     // Old buggy query: exact match only
     let result = cypher(&format!(
@@ -189,8 +189,8 @@ fn t04_exact_match_returns_only_primary_did() {
 
 #[test]
 fn t05_starts_with_excludes_unrelated_dids() {
-    let app_did = "did:web:news.gftd.ai";
-    let unrelated = "did:web:handotai.gftd.ai";
+    let app_did = "did:web:news.etzhayyim.com";
+    let unrelated = "did:web:handotai.etzhayyim.com";
 
     // Multi-DID query should NOT include handotai
     let result = cypher(&format!(
@@ -208,7 +208,7 @@ fn t05_starts_with_excludes_unrelated_dids() {
 
 #[test]
 fn t06_path_based_did_direct_query() {
-    let writer1 = "did:web:news.gftd.ai:writer:gigazine";
+    let writer1 = "did:web:news.etzhayyim.com:writer:gigazine";
 
     // Query a specific path-based DID directly
     let result = cypher(&format!(
@@ -221,14 +221,14 @@ fn t06_path_based_did_direct_query() {
 #[test]
 fn t07_colon_separator_prevents_prefix_collision() {
     // Seed a post with a DID that has a similar prefix but different path
-    seed_post("did:web:news.gftd.ai-extra", "mdid_collision", "Collision test");
+    seed_post("did:web:news.etzhayyim.com-extra", "mdid_collision", "Collision test");
 
-    let app_did = "did:web:news.gftd.ai";
+    let app_did = "did:web:news.etzhayyim.com";
     let result = cypher(&format!(
         r#"MATCH (r:Post) WHERE r.rkey STARTS WITH 'mdid_' AND (r.repo = '{app_did}' OR r.repo STARTS WITH '{app_did}:') RETURN count(r) AS cnt"#
     ));
     let c = cnt(&result);
-    // "did:web:news.gftd.ai-extra" does NOT start with "did:web:news.gftd.ai:"
+    // "did:web:news.etzhayyim.com-extra" does NOT start with "did:web:news.etzhayyim.com:"
     // so it should NOT be included
     assert_eq!(c, 5, "Prefix collision DID should NOT be included, got {c}");
 

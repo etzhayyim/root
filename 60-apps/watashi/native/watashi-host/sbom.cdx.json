@@ -14,7 +14,7 @@
     ],
     "component": {
       "type": "application",
-      "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/projects/ai-gftd-project-watashi/native/watashi-host#0.1.0",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-watashi/native/watashi-host#0.1.0",
       "name": "watashi-host",
       "version": "0.1.0",
       "description": "Watashi — cross-platform input sharing native host binary (cursor ferry between screens)",
@@ -28,7 +28,7 @@
       "components": [
         {
           "type": "application",
-          "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/projects/ai-gftd-project-watashi/native/watashi-host#0.1.0 bin-target-0",
+          "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-watashi/native/watashi-host#0.1.0 bin-target-0",
           "name": "watashi",
           "version": "0.1.0",
           "purl": "pkg:cargo/watashi-host@0.1.0?download_url=file://.#src/main.rs"
@@ -45,68 +45,68 @@
   "components": [
     {
       "type": "library",
-      "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-bridge#0.1.0",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-bridge#0.1.0",
       "name": "kami-bridge",
       "version": "0.1.0",
       "description": "OS-level input capture/injection bridge (macOS CGEvent, Windows Win32)",
       "scope": "required",
-      "purl": "pkg:cargo/kami-bridge@0.1.0?download_url=file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-bridge"
+      "purl": "pkg:cargo/kami-bridge@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-bridge"
     },
     {
       "type": "library",
-      "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-core#0.1.0",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-core#0.1.0",
       "name": "kami-core",
       "version": "0.1.0",
       "scope": "required",
-      "purl": "pkg:cargo/kami-core@0.1.0?download_url=file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-core"
+      "purl": "pkg:cargo/kami-core@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-core"
     },
     {
       "type": "library",
-      "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-devtools#0.1.0",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-devtools#0.1.0",
       "name": "kami-devtools",
       "version": "0.1.0",
       "description": "Automation, inspection, and screenshot contracts for KAMI runtimes",
       "scope": "required",
-      "purl": "pkg:cargo/kami-devtools@0.1.0?download_url=file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-devtools"
+      "purl": "pkg:cargo/kami-devtools@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-devtools"
     },
     {
       "type": "library",
-      "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-input#0.1.0",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-input#0.1.0",
       "name": "kami-input",
       "version": "0.1.0",
       "description": "Unified input system (keyboard, mouse, touch, gamepad, gesture)",
       "scope": "required",
-      "purl": "pkg:cargo/kami-input@0.1.0?download_url=file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-input"
+      "purl": "pkg:cargo/kami-input@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-input"
     },
     {
       "type": "library",
-      "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-knp#0.1.0",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-knp#0.1.0",
       "name": "kami-knp",
       "version": "0.1.0",
       "scope": "required",
-      "purl": "pkg:cargo/kami-knp@0.1.0?download_url=file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-knp"
+      "purl": "pkg:cargo/kami-knp@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-knp"
     },
     {
       "type": "library",
-      "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-text#0.1.0",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-text#0.1.0",
       "name": "kami-text",
       "version": "0.1.0",
       "description": "SDF text rendering for wgpu",
       "scope": "required",
-      "purl": "pkg:cargo/kami-text@0.1.0?download_url=file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-text"
+      "purl": "pkg:cargo/kami-text@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-text"
     },
     {
       "type": "library",
-      "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-ui-gpu#0.1.0",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-ui-gpu#0.1.0",
       "name": "kami-ui-gpu",
       "version": "0.1.0",
       "description": "GPU-rendered UI primitives (rect, rounded rect, gradient)",
       "scope": "required",
-      "purl": "pkg:cargo/kami-ui-gpu@0.1.0?download_url=file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-ui-gpu"
+      "purl": "pkg:cargo/kami-ui-gpu@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-ui-gpu"
     },
     {
       "type": "library",
-      "bom-ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/runtime/magatama/magatama-kami-host#0.1.0",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/magatama/magatama-kami-host#0.1.0",
       "name": "magatama-kami-host",
       "version": "0.1.0",
       "description": "KAMI-powered native desktop host scaffold for Magatama WASM apps",
@@ -116,7 +116,7 @@
           "expression": "MIT"
         }
       ],
-      "purl": "pkg:cargo/magatama-kami-host@0.1.0?download_url=file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/runtime/magatama/magatama-kami-host"
+      "purl": "pkg:cargo/magatama-kami-host@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/magatama/magatama-kami-host"
     },
     {
       "type": "library",
@@ -4862,17 +4862,17 @@
   ],
   "dependencies": [
     {
-      "ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-bridge#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-bridge#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#core-foundation@0.10.1",
         "registry+https://github.com/rust-lang/crates.io-index#core-graphics@0.24.0",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-input#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-input#0.1.0",
         "registry+https://github.com/rust-lang/crates.io-index#log@0.4.29",
         "registry+https://github.com/rust-lang/crates.io-index#thiserror@2.0.18"
       ]
     },
     {
-      "ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-core#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-core#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#bytemuck@1.25.0",
         "registry+https://github.com/rust-lang/crates.io-index#glam@0.29.3",
@@ -4882,33 +4882,33 @@
       ]
     },
     {
-      "ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-devtools#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-devtools#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#glam@0.29.3",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-input#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-input#0.1.0",
         "registry+https://github.com/rust-lang/crates.io-index#serde@1.0.228",
         "registry+https://github.com/rust-lang/crates.io-index#serde_json@1.0.149"
       ]
     },
     {
-      "ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-input#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-input#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#glam@0.29.3"
       ]
     },
     {
-      "ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-knp#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-knp#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#bitflags@2.11.0",
         "registry+https://github.com/rust-lang/crates.io-index#bytemuck@1.25.0",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-core#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-core#0.1.0",
         "registry+https://github.com/rust-lang/crates.io-index#log@0.4.29",
         "registry+https://github.com/rust-lang/crates.io-index#ring@0.17.14",
         "registry+https://github.com/rust-lang/crates.io-index#thiserror@2.0.18"
       ]
     },
     {
-      "ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-text#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-text#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#ab_glyph@0.2.32",
         "registry+https://github.com/rust-lang/crates.io-index#bytemuck@1.25.0",
@@ -4921,22 +4921,22 @@
       ]
     },
     {
-      "ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-ui-gpu#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-ui-gpu#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#bytemuck@1.25.0",
         "registry+https://github.com/rust-lang/crates.io-index#glam@0.29.3"
       ]
     },
     {
-      "ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/runtime/magatama/magatama-kami-host#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/magatama/magatama-kami-host#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#anyhow@1.0.102",
         "registry+https://github.com/rust-lang/crates.io-index#bytemuck@1.25.0",
         "registry+https://github.com/rust-lang/crates.io-index#glam@0.29.3",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-devtools#0.1.0",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-input#0.1.0",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-text#0.1.0",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-ui-gpu#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-devtools#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-input#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-text#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-ui-gpu#0.1.0",
         "registry+https://github.com/rust-lang/crates.io-index#png@0.17.16",
         "registry+https://github.com/rust-lang/crates.io-index#pollster@0.4.0",
         "registry+https://github.com/rust-lang/crates.io-index#serde@1.0.228",
@@ -4946,20 +4946,20 @@
       ]
     },
     {
-      "ref": "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/projects/ai-gftd-project-watashi/native/watashi-host#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-watashi/native/watashi-host#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#anyhow@1.0.102",
         "registry+https://github.com/rust-lang/crates.io-index#bytemuck@1.25.0",
         "registry+https://github.com/rust-lang/crates.io-index#env_logger@0.11.10",
         "registry+https://github.com/rust-lang/crates.io-index#glam@0.29.3",
         "registry+https://github.com/rust-lang/crates.io-index#hostname@0.4.2",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-bridge#0.1.0",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-input#0.1.0",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-knp#0.1.0",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-text#0.1.0",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/engine/kami-engine/kami-ui-gpu#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-bridge#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-input#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-knp#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-text#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-ui-gpu#0.1.0",
         "registry+https://github.com/rust-lang/crates.io-index#log@0.4.29",
-        "path+file:///Users/junkawasaki/github/ai-gftd-apps-gftdcojp/packages/runtime/magatama/magatama-kami-host#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/magatama/magatama-kami-host#0.1.0",
         "registry+https://github.com/rust-lang/crates.io-index#mdns-sd@0.11.5",
         "registry+https://github.com/rust-lang/crates.io-index#pollster@0.4.0",
         "registry+https://github.com/rust-lang/crates.io-index#serde@1.0.228",

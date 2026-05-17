@@ -1,4 +1,4 @@
-"""scheduler.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""scheduler.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -24,7 +24,7 @@ async def run_worker():
     async def task_create_job(**kwargs):
         name = kwargs.get("name", "")
         cron = kwargs.get("cron", "")
-        owner_did = kwargs.get("ownerDid", "did:web:scheduler.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:scheduler.etzhayyim.com")
 
         job_id = str(uuid.uuid4())
         vertex_id = f"scheduler:job:{job_id}"
@@ -40,7 +40,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 job_id, name, cron, "active",
-                "did:web:scheduler.gftd.ai", "did:web:scheduler.gftd.ai", now, now,
+                "did:web:scheduler.etzhayyim.com", "did:web:scheduler.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

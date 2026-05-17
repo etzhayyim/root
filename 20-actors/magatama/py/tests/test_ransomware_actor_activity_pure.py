@@ -53,7 +53,7 @@ def test_pregel_score_marks_strong_claim_active() -> None:
 def test_onion_item_normalizes_existing_crawl_metadata() -> None:
     item = M._onion_item({
         "onion_host": "lockbitabcd1234.onion",
-        "site_did": "did:web:onion.gftd.ai:lockbitabcd1234",
+        "site_did": "did:web:onion.etzhayyim.com:lockbitabcd1234",
         "risk_score": 76,
         "page_count": 4,
         "ransomware_page_count": 2,

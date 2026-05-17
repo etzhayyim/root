@@ -5413,18 +5413,18 @@ mod tests {
     -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         let (_dir, ctx) = open_test_context().await?;
         ctx.execute_update_sql(
-            "INSERT INTO messaging_matrix_federation_keys (server_name, key_id, public_key_base64, valid_until_ts, fetched_at) VALUES ('matrix.gftd.ai', 'ed25519:a', 'key-v1', 1, 10)",
+            "INSERT INTO messaging_matrix_federation_keys (server_name, key_id, public_key_base64, valid_until_ts, fetched_at) VALUES ('matrix.etzhayyim.com', 'ed25519:a', 'key-v1', 1, 10)",
         )
         .await?;
         ctx.execute_update_sql(
-            "INSERT OR REPLACE INTO messaging_matrix_federation_keys (server_name, key_id, public_key_base64, valid_until_ts, fetched_at) VALUES ('matrix.gftd.ai', 'ed25519:a', 'key-v2', 2, 20)",
+            "INSERT OR REPLACE INTO messaging_matrix_federation_keys (server_name, key_id, public_key_base64, valid_until_ts, fetched_at) VALUES ('matrix.etzhayyim.com', 'ed25519:a', 'key-v2', 2, 20)",
         )
         .await?;
 
         let rows = ctx
             .execute_dataframe_query(DataFrameQueryRequest {
                 table: Some("messaging_matrix_federation_keys".into()),
-                filter: Some("server_name = 'matrix.gftd.ai'".into()),
+                filter: Some("server_name = 'matrix.etzhayyim.com'".into()),
                 limit: Some(10),
                 offset: None,
                 order_by: Some("key_id ASC".into()),

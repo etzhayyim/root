@@ -50,7 +50,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ──────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs2012', 'hs2012.gftd.ai', 6529, 'products', 'trade')
+    VALUES ('hs2012', 'hs2012.etzhayyim.com', 6529, 'products', 'trade')
   `.execute(db);
 
   // ── concordance repair: data-only, idempotent ─────────────────────────

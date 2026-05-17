@@ -1,8 +1,8 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-const APP_DID = 'did:web:yoro.gftd.ai';
-const PDS_ENDPOINT = 'https://pds.gftd.ai';
+const APP_DID = 'did:web:yoro.etzhayyim.com';
+const PDS_ENDPOINT = 'https://pds.etzhayyim.com';
 
 export const GET: RequestHandler = ({ platform }) => {
   const pubKey = String((platform as any)?.env?.SIGNING_PUBLIC_KEY ?? '').trim();

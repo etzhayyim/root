@@ -15,7 +15,7 @@ type Seed = {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:copyright.gftd.ai";
+const ownerDid = "did:web:copyright.etzhayyim.com";
 const createdAt = "2026-04-30T15:00:00+09:00";
 const actorId = "sys.bpmn.seed.copyright";
 
@@ -47,9 +47,9 @@ const seeds: Seed[] = [
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/copyright/${s.file}.bpmn`;
 const slug = (s: Seed) => s.file.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/copyright-${slug(s)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/copyright-${slug(s)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/copyright-${slug(s)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/copyright-${slug(s)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

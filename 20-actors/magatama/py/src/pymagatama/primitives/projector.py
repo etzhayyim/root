@@ -66,7 +66,7 @@ except ImportError:
 # Common helpers
 # ──────────────────────────────────────────────────────────────────────
 
-DEFAULT_REPO_PROJECTOR = "did:web:ops.gftd.ai"
+DEFAULT_REPO_PROJECTOR = "did:web:ops.etzhayyim.com"
 COLLECTION_MESSAGE = "ai.gftd.convo.message"
 COLLECTION_REFLECTION = "ai.gftd.projector.reflection"
 
@@ -292,7 +292,7 @@ _PM_BUILTIN_TOOLS: list[dict[str, Any]] = [
     },
     {
         "name": "pm.web_research",
-        "description": "Fetch a URL via site.gftd.ai and return Markdown.",
+        "description": "Fetch a URL via site.etzhayyim.com and return Markdown.",
         "schema": {"url": "string", "topic": "string"},
     },
     {

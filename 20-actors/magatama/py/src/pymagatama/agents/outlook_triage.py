@@ -61,7 +61,7 @@ from pymagatama.agents.gmail_triage import (
     _yabai_evidence_meta,
 )
 
-ACTOR_OUTLOOK = "did:web:outlook.gftd.ai"
+ACTOR_OUTLOOK = "did:web:outlook.etzhayyim.com"
 
 
 # ── Graph state ────────────────────────────────────────────────────────

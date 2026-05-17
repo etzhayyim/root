@@ -17,8 +17,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-05-07T14:29:00Z";
-const ownerDid = "did:web:cze-state.gftd.ai";
-const actorHost = "cze-state.gftd.ai";
+const ownerDid = "did:web:cze-state.etzhayyim.com";
+const actorHost = "cze-state.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.gov-cze";
 const writeTableAllowlist = [
   "vertex_gov_org",
@@ -27,105 +27,105 @@ const writeTableAllowlist = [
 
 const seeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-seedOrgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-seedOrgs-v1",
     nsid: "ai.gftd.govCze.seedOrgs",
     bpmnProcessId: "gov_cze_seed_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-registerDIDs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-registerDIDs-v1",
     nsid: "ai.gftd.govCze.registerDIDs",
     bpmnProcessId: "gov_cze_register_dids",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-followSiteDeps-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-followSiteDeps-v1",
     nsid: "ai.gftd.govCze.followSiteDeps",
     bpmnProcessId: "gov_cze_follow_site_deps",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-resolveOrgPath-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-resolveOrgPath-v1",
     nsid: "ai.gftd.govCze.resolveOrgPath",
     bpmnProcessId: "gov_cze_resolve_org_path",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-listOrgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-listOrgs-v1",
     nsid: "ai.gftd.govCze.listOrgs",
     bpmnProcessId: "gov_cze_list_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-syncWetUpdates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-syncWetUpdates-v1",
     nsid: "ai.gftd.govCze.syncWetUpdates",
     bpmnProcessId: "gov_cze_sync_wet_updates",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-shinka-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-shinka-v1",
     nsid: "ai.gftd.govCze.shinka",
     bpmnProcessId: "gov_cze_shinka",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/shinka.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeatTick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeatTick-v1",
     nsid: "ai.gftd.govCze.heartbeatTick",
     bpmnProcessId: "gov_cze_heartbeat_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/heartbeatTick.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-seed-orgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-seed-orgs-v1",
     nsid: "ai.gftd.govCze.seedOrgs",
     bpmnProcessId: "gov_cze_seed_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-register-dids-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-register-dids-v1",
     nsid: "ai.gftd.govCze.registerDIDs",
     bpmnProcessId: "gov_cze_register_dids",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-follow-site-deps-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-follow-site-deps-v1",
     nsid: "ai.gftd.govCze.followSiteDeps",
     bpmnProcessId: "gov_cze_follow_site_deps",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-resolve-org-path-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-resolve-org-path-v1",
     nsid: "ai.gftd.govCze.resolveOrgPath",
     bpmnProcessId: "gov_cze_resolve_org_path",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-list-orgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-list-orgs-v1",
     nsid: "ai.gftd.govCze.listOrgs",
     bpmnProcessId: "gov_cze_list_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-sync-wet-updates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-sync-wet-updates-v1",
     nsid: "ai.gftd.govCze.syncWetUpdates",
     bpmnProcessId: "gov_cze_sync_wet_updates",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeat-tick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeat-tick-v1",
     nsid: "ai.gftd.govCze.heartbeatTick",
     bpmnProcessId: "gov_cze_heartbeat_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/govCze/heartbeatTick.bpmn",
@@ -146,7 +146,7 @@ function mcpVertexId(nsid: string): string {
 }
 
 function bindingVertexId(nsid: string): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
 }
 
 function stableStringify(value: unknown): string {

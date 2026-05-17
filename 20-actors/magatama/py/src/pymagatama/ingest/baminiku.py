@@ -10,7 +10,7 @@ from uuid import NAMESPACE_URL, uuid4, uuid5
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:baminiku.gftd.ai"
+OWNER_DID = "did:web:baminiku.etzhayyim.com"
 KAMI_SDK = "gftd:kami@1.0.0"
 COLLECTION_TABLES = {
     "ai.gftd.apps.baminiku.agent": "vertex_baminiku_agent_profile",
@@ -266,7 +266,7 @@ def _kami(action: str, payload: dict[str, Any], stream_id: str | None = None) ->
 
 def _default_scene(stream_id: str, title: str, stage_preset: str) -> dict[str, Any]:
     return {
-        "@context": "https://gftd.ai/ns/kami/live-stage/v1",
+        "@context": "https://etzhayyim.com/ns/kami/live-stage/v1",
         "@type": "KamiIsland",
         "id": stream_id,
         "genre": "social",
@@ -335,7 +335,7 @@ def create_stream(
     stream_title = _s(title, "Baminiku Live")
     stage_preset = _s(stagePreset, "default-live-stage")
     scene = _default_scene(stream_id, stream_title, stage_preset)
-    knp_room = f"knp://baminiku.gftd.ai/{stream_id}"
+    knp_room = f"knp://baminiku.etzhayyim.com/{stream_id}"
     stream = {
         "streamId": stream_id,
         "agentDid": agent_did,

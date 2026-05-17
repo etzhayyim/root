@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T13:30:00Z";
-const ownerDid = "did:web:open-power.gftd.ai:grid";
+const ownerDid = "did:web:open-power.etzhayyim.com:grid";
 const actorTag = "sys.bpmn.seed.open-power";
 
 const processSeeds: ProcessSeed[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-define-feeder-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-define-feeder-v1",
     bpmnProcessId: "open_power_define_feeder",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-power/defineFeeder.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-report-outage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-report-outage-v1",
     bpmnProcessId: "open_power_report_outage",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-power/reportOutage.bpmn", ownerDid },
 ];
 
 const bindingSeeds: BindingSeed[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-defineFeeder-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-defineFeeder-v1",
     nsid: "ai.gftd.apps.openPower.defineFeeder", bpmnProcessId: "open_power_define_feeder",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-reportOutage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-reportOutage-v1",
     nsid: "ai.gftd.apps.openPower.reportOutage", bpmnProcessId: "open_power_report_outage",
     ownerDid, resultTimeoutMs: 30000 },
 ];

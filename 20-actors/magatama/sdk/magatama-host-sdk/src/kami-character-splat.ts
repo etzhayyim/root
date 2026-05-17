@@ -100,5 +100,5 @@ export function buildSplatCharacterScene(config: SplatCharacterConfig): Record<s
 
 /** Generate CDN URL for a splat blob. */
 export function splatCdnUrl(splatKey: string): string {
-  return `https://cdn.gftd.ai/${splatKey}`;
+  return `https://cdn.etzhayyim.com/${splatKey}`;
 }

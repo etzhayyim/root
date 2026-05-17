@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 const YORO_BASE = process.env.YORO_BASE_URL || 'https://yoro.etzhayyim.com';
-const BSKY_XRPC = process.env.BSKY_XRPC_BASE || 'https://bsky.gftd.ai/xrpc';
-const ATPROTO_XRPC = process.env.PDS_BASE_URL || 'https://atproto.gftd.ai/xrpc';
+const BSKY_XRPC = process.env.BSKY_XRPC_BASE || 'https://bsky.etzhayyim.com/xrpc';
+const ATPROTO_XRPC = process.env.PDS_BASE_URL || 'https://atproto.etzhayyim.com/xrpc';
 
 test.describe('search AppView integration', () => {
 	test('bsky AppView searchPosts is reachable with YORO CORS', async ({ request }) => {

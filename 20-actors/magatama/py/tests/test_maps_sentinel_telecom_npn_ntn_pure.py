@@ -294,8 +294,8 @@ def test_npn_require_missing_raises():
 # ─── telecom_npn — _caller ───────────────────────────────────────────────────
 
 def test_npn_caller_uses_caller_did():
-    result = NPN._caller({"callerDid": "did:web:npn.gftd.ai"})
-    assert result == "did:web:npn.gftd.ai"
+    result = NPN._caller({"callerDid": "did:web:npn.etzhayyim.com"})
+    assert result == "did:web:npn.etzhayyim.com"
 
 
 def test_npn_caller_falls_back_to_telecom_did():

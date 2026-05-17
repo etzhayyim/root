@@ -1,4 +1,4 @@
-"""apps.gftd.ai directory handlers for BPMN + Zeebe."""
+"""apps.etzhayyim.com directory handlers for BPMN + Zeebe."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from uuid import NAMESPACE_URL, uuid4, uuid5
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:apps.gftd.ai"
+OWNER_DID = "did:web:apps.etzhayyim.com"
 COLLECTION_TABLES = {
     "ai.gftd.apps.apps.appListing": "vertex_apps_directory_listing",
     "ai.gftd.apps.apps.feature": "vertex_apps_directory_feature",

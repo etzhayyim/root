@@ -4,7 +4,7 @@ openPatent.ingestMulti — LangGraph multi-jurisdiction enrichment coordinator.
 ADR-2605080600 Phase 5.  Triggered daily (02:00 UTC) via K8s CronJob.
 
 Follow-based rule: this graph does NOT call external APIs.  It processes
-patent data already received from patent.gftd.ai (and jurisdiction sub-actors)
+patent data already received from patent.etzhayyim.com (and jurisdiction sub-actors)
 via AT Protocol subscribeRepos firehose and written to vertex_open_patent_*.
 
 Graph:
@@ -93,8 +93,8 @@ def enrich_epo(state: OpenPatentIngestMultiState) -> dict:
 
 def enrich_jpo(state: OpenPatentIngestMultiState) -> dict:
     """
-    JPO citation enrichment — reads AT records published by patent.gftd.ai:jp.
-    Skeleton: requires patent.gftd.ai:jp to be publishing JP patent AT records.
+    JPO citation enrichment — reads AT records published by patent.etzhayyim.com:jp.
+    Skeleton: requires patent.etzhayyim.com:jp to be publishing JP patent AT records.
     """
     jurs = state.get("jurisdictions") or ["us", "ep", "jp", "wo"]
     if "jp" not in jurs:
@@ -105,7 +105,7 @@ def enrich_jpo(state: OpenPatentIngestMultiState) -> dict:
             {
                 "jurisdiction": "jp",
                 "skipped": True,
-                "reason": "JPO enrichment pending patent.gftd.ai:jp actor",
+                "reason": "JPO enrichment pending patent.etzhayyim.com:jp actor",
                 "ok": True,
             }
         ]
@@ -149,7 +149,7 @@ def emit_audit(state: OpenPatentIngestMultiState) -> dict:
                 """,
                 (
                     str(uuid.uuid4()),
-                    "did:web:open-patent.gftd.ai",
+                    "did:web:open-patent.etzhayyim.com",
                     "ai.gftd.apps.openPatent.ingestMulti",
                     f"lg-{int(_time.time() * 1000)}",
                     "create",

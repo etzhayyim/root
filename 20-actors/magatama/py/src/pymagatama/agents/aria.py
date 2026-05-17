@@ -187,7 +187,7 @@ def _audit(state: AriaState) -> AriaState:
     """Insert one row into vertex_wellbecoming_event for OCEL trail."""
     ts_ms = int(time.time() * 1000)
     rkey = f"aria-{ts_ms}"
-    vertex_id = f"did:web:langgraph.gftd.ai:ai.gftd.signal.aria:{rkey}:create"
+    vertex_id = f"did:web:langgraph.etzhayyim.com:ai.gftd.signal.aria:{rkey}:create"
     created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     payload = {
         "area_integral": state.get("area_integral"),
@@ -205,7 +205,7 @@ def _audit(state: AriaState) -> AriaState:
             cur.execute(sql_text, (
                 vertex_id,
                 "aria.signal.ingest",
-                "did:web:langgraph.gftd.ai",
+                "did:web:langgraph.etzhayyim.com",
                 json.dumps(payload, ensure_ascii=False),
                 ts_ms,
                 created_at,

@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gftdcojp/nats-jetstream-objectstore-s3/internal/auth"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-objectstore-s3/internal/auth"
 )
 
 func TestSigV4_PresignedURL(t *testing.T) {

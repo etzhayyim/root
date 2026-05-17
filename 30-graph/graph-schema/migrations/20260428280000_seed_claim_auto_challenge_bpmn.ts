@@ -21,10 +21,10 @@ function readContract(relPath: string): string {
 const createdAt = "2026-04-28T19:00:00Z";
 
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/claim-unchallengedSweep-v1";
-const OWNER_DID = "did:web:claim-consumer.gftd.ai";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/claim-unchallengedSweep-v1";
+const OWNER_DID = "did:web:claim-consumer.etzhayyim.com";
 const BPMN_PROCESS_ID = "claim_auto_challenge";
 const SOURCE_PATH = "00-contracts/bpmn/ai/gftd/claim/claimAutoChallenge.bpmn";
 const NSID = "ai.gftd.apps.claim.unchallengedSweep";

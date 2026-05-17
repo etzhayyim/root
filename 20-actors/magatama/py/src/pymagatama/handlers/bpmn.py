@@ -164,8 +164,8 @@ def _compile_json_to_xml(doc: dict[str, Any]) -> str:
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
         'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-        'xmlns:gftd="https://gftd.ai/bpmn/extension" '
-        f'id="def-{process_id}" targetNamespace="https://gftd.ai/bpmn">\n'
+        'xmlns:gftd="https://etzhayyim.com/bpmn/extension" '
+        f'id="def-{process_id}" targetNamespace="https://etzhayyim.com/bpmn">\n'
         f"  {message_defs}\n"
         f'  <bpmn:process id="{process_id}" name="{process_name}" isExecutable="true">\n'
         f"    {body_xml}\n"

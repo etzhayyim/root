@@ -143,7 +143,7 @@ async def task_jp_corp_finance_webp_ocr(
     webpQuality: int = 82,
     dryRun: bool = False,
 ) -> dict[str, Any]:
-    """Convert PDF/image to WebP, pin pages to ipfs.gftd.ai, then OCR with Gemma 4."""
+    """Convert PDF/image to WebP, pin pages to ipfs.etzhayyim.com, then OCR with Gemma 4."""
     temp_path: Path | None = None
     try:
         if contentB64:

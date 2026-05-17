@@ -69,7 +69,7 @@ def tick_actor(params_json: str) -> str:
 
     if not actor_did or not actor_did.startswith("did:"):
         return json.dumps(
-            {"error": "actorDid required (did:web:*.gftd.ai or did:plc:*)"}
+            {"error": "actorDid required (did:web:*.etzhayyim.com or did:plc:*)"}
         )
 
     result = run_tick(actor_did)

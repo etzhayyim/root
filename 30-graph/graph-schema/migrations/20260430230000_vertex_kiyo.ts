@@ -1,9 +1,9 @@
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-// kiyo.gftd.ai — self-hosted research archive (紀要)
+// kiyo.etzhayyim.com — self-hosted research archive (紀要)
 // paper_id format: kiyo:{YYYY}:{TID}
-// file storage: ipfs.gftd.ai (CIDv1 content-addressed)
+// file storage: ipfs.etzhayyim.com (CIDv1 content-addressed)
 // ADR: 90-docs/adr/2604300000-kiyo-research-archive.md
 
 export async function up(db: Kysely<unknown>): Promise<void> {

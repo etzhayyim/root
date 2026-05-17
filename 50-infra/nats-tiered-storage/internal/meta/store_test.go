@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/types"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/types"
 	"go.uber.org/zap"
 )
 

@@ -2,7 +2,7 @@
   "viewId": "open-water.OV-5b",
   "viewType": "OV-5b",
   "title": "Operational Activity Model",
-  "did": "did:web:open-water.gftd.ai",
+  "did": "did:web:open-water.etzhayyim.com",
   "format": "json",
   "content": {
     "activities": [

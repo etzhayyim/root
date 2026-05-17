@@ -10,7 +10,7 @@ import { sql } from "kysely";
  * the per-DID kyumei-shinka-autonomy rule (90-docs/rules/compliance/).
  *
  * Use from SQL:
- *   SELECT shinka_tick_actor('did:web:yoro.gftd.ai') AS result;
+ *   SELECT shinka_tick_actor('did:web:yoro.etzhayyim.com') AS result;
  *
  * Scheduled via K8s CronJob every 15 min per registered actor — see
  * `50-infra/vultr/mitama-udf-pool/templates/cronjob-shinka.yaml`.

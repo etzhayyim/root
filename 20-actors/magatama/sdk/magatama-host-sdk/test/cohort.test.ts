@@ -49,7 +49,7 @@ describe("apqcL1DidFromSegment", () => {
       "sha256:pcfL1=7-human-capital;role=hrGeneralist;locale=jp",
     )!;
     expect(apqcL1DidFromSegment(s)).toBe(
-      "did:web:kyber-projector.gftd.ai:apqc:7-human-capital",
+      "did:web:kyber-projector.etzhayyim.com:apqc:7-human-capital",
     );
   });
 
@@ -57,8 +57,8 @@ describe("apqcL1DidFromSegment", () => {
     const s = parseSegmentHash(
       "sha256:pcfL1=1-vision-strategy;role=strategist;locale=en",
     )!;
-    expect(apqcL1DidFromSegment(s, "staging-projector.gftd.ai")).toBe(
-      "did:web:staging-projector.gftd.ai:apqc:1-vision-strategy",
+    expect(apqcL1DidFromSegment(s, "staging-projector.etzhayyim.com")).toBe(
+      "did:web:staging-projector.etzhayyim.com:apqc:1-vision-strategy",
     );
   });
 });

@@ -89,7 +89,7 @@ async def test_mcp_tool_node_posts_envelope():
         "result_key": "research",
         "args": {"name": "web_research", "headers": {"x-test": "1"}},
     }
-    node = make_mcp_tool_node("https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message", cfg)
+    node = make_mcp_tool_node("https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message", cfg)
 
     sent = {}
 
@@ -250,7 +250,7 @@ async def test_mcp_tool_registry_ref_resolves_via_vertex_mcp_tool_def():
     # Reset cache so the test is hermetic.
     mod._MCP_REGISTRY_CACHE.clear()
 
-    pool, conn = _pool_returning(("research.gftd.ai",))
+    pool, conn = _pool_returning(("research.etzhayyim.com",))
     cfg = {"input_keys": ["query"], "result_key": "out"}
     node = mod.make_mcp_tool_node(
         "mcp://ai.gftd.tools.web.research",
@@ -281,8 +281,8 @@ async def test_mcp_tool_registry_ref_resolves_via_vertex_mcp_tool_def():
     assert out2 == {"out": {"ok": True}}
     # Endpoint built from registry actor_host:
     assert sent["urls"] == [
-        "https://research.gftd.ai/xrpc/ai.gftd.mcp.message",
-        "https://research.gftd.ai/xrpc/ai.gftd.mcp.message",
+        "https://research.etzhayyim.com/xrpc/ai.gftd.mcp.message",
+        "https://research.etzhayyim.com/xrpc/ai.gftd.mcp.message",
     ]
     # tools/call name defaults to the nsid:
     assert sent["envelopes"][0]["params"]["name"] == "ai.gftd.tools.web.research"

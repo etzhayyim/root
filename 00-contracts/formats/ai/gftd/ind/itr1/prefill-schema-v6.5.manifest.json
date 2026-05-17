@@ -1,7 +1,7 @@
 {
   "formatKey": "ind.itr1.prefillSchema.v6_5",
   "jurisdiction": "itr1",
-  "actorDid": "did:web:ind-union.gftd.ai:cbdt:itr1",
+  "actorDid": "did:web:ind-union.etzhayyim.com:cbdt:itr1",
   "formatKind": "official_json_schema",
   "officialSourceUrl": "https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/PreFillSchemaJSON_V6.5.zip",
   "sourcePageUrl": "https://www.incometax.gov.in/iec/foportal/api-specifications",

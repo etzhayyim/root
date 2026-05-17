@@ -40,7 +40,7 @@ def platform_pulse(state: YoroPlatformPulseState) -> dict:
     try:
         result = asyncio.run(
             task_yoro_social_platform_pulse_graph_fallback(
-                postRepo="did:web:yoro.gftd.ai",
+                postRepo="did:web:yoro.etzhayyim.com",
                 flush=False,
             )
         )

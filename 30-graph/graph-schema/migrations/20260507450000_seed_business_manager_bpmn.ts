@@ -9,7 +9,7 @@ type Seed = { proc: string; bpmnProcessId: string; nsid: string; resultTimeoutMs
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:business-manager.gftd.ai";
+const ownerDid = "did:web:business-manager.etzhayyim.com";
 const createdAt = "2026-05-07T02:05:00Z";
 const actorId = "sys.bpmn.seed.business-manager";
 
@@ -36,8 +36,8 @@ const seeds: Seed[] = procs.map((proc) => ({
 }));
 
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/business-manager/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/business-manager-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/business-manager-${slug(s.proc)}-v1`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-manager-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/business-manager-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

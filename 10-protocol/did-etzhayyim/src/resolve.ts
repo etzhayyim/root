@@ -3,7 +3,7 @@
  *
  * Spec: https://w3c-ccg.github.io/did-resolution/
  *
- * The platform resolver is `https://did.gftd.ai/{did}`.
+ * The platform resolver is `https://did.etzhayyim.com/{did}`.
  * This module produces the response shape; the actual HTTP layer is
  * implemented in the resolver Worker.
  */

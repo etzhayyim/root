@@ -1005,7 +1005,7 @@ _LIB_RS_TEMPLATE = """\
 //! `src/mechanic.rs` and is driven from JS via wasm-bindgen exports
 //! (`mechanic_init`, `mechanic_swipe`/`drop_at`/`place`, …).
 //!
-//! Bridges into the host page (playtest-shell or game-play.gftd.ai/play/{slug}):
+//! Bridges into the host page (playtest-shell or game-play.etzhayyim.com/play/{slug}):
 //!   - `__kamiPlay(name)`         — Web Audio SFX synth (kami-sound.js presets)
 //!   - `__kamiSocialShare(text)`  — POST app.bsky.feed.post AS the game's sub-DID
 //!   - `__kamiSocialFollow()`     — toggle follow on the game's sub-DID
@@ -1037,7 +1037,7 @@ use wasm_bindgen::prelude::*;
 
 /// JS bridges. These mirror the kami-engine convention that
 /// `window.__kamiPlay` / `window.__kamiSocial.*` are owned by the
-/// hosting page (playtest-shell / game-play.gftd.ai). `catch` ensures
+/// hosting page (playtest-shell / game-play.etzhayyim.com). `catch` ensures
 /// a missing function doesn't panic the wasm — typical for unit tests
 /// run outside the browser shell.
 #[cfg(target_family = "wasm")]
@@ -1079,7 +1079,7 @@ pub fn start_bgm() {{
 pub fn start_bgm() {{}}
 
 /// Public WASM export — game logic calls this on win / milestone /
-/// other share-worthy moments. The host posts to atproto.gftd.ai
+/// other share-worthy moments. The host posts to atproto.etzhayyim.com
 /// AS the game's sub-DID via `app.bsky.feed.post`.
 #[cfg(target_family = "wasm")]
 #[wasm_bindgen]
@@ -1181,7 +1181,7 @@ Mechanic
 Scene
 :   {scene}
 
-## Host bridges (provided by the playtest shell / game-play.gftd.ai)
+## Host bridges (provided by the playtest shell / game-play.etzhayyim.com)
 
 | Rust fn | JS bridge | Effect |
 |---|---|---|

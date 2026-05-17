@@ -1,5 +1,5 @@
 /**
- * Messaging XRPC client — all requests via atproto.gftd.ai (AT Protocol compliant).
+ * Messaging XRPC client — all requests via atproto.etzhayyim.com (AT Protocol compliant).
  *
  * PDS is the sole XRPC endpoint. App-specific routing is handled by PDS
  * via atproto-proxy header (DID → App Worker).
@@ -8,7 +8,7 @@ import { get } from 'svelte/store';
 import { currentOrg, clerkUser, getSessionToken } from '../auth.js';
 import { AtpAgent } from '@atproto/api';
 
-const _agent = new AtpAgent({ service: 'https://atproto.gftd.ai' });
+const _agent = new AtpAgent({ service: 'https://atproto.etzhayyim.com' });
 
 // ─── XRPC messaging transport (via PDS) ──────────────────────────────────────
 
@@ -20,7 +20,7 @@ async function buildHeaders(nanoid: string): Promise<Record<string, string>> {
 	if (user?.id) h['x-gftd-user-id'] = user.id;
 	const org = get(currentOrg);
 	if (org?.id) h['x-gftd-org-id'] = org.id;
-	h['atproto-proxy'] = `did:web:${nanoid}.gftd.ai#atprotoLabeler`;
+	h['atproto-proxy'] = `did:web:${nanoid}.etzhayyim.com#atprotoLabeler`;
 	return h;
 }
 

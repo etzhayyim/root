@@ -7,9 +7,9 @@ import { sql } from "kysely";
 //          per CLAUDE.md field-level encrypt convention)
 
 /**
- * gftd.ai chat shell — Phase 1 schema (ADR-0036 + ADR-2604282300 + ADR-0049).
+ * etzhayyim.com chat shell — Phase 1 schema (ADR-0036 + ADR-2604282300 + ADR-0049).
  *
- * Apex chat product (`gftd.ai/`) — ChatGPT/Claude.ai-style. Hot path is
+ * Apex chat product (`etzhayyim.com/`) — ChatGPT/Claude.ai-style. Hot path is
  * **HTTP SSE direct** (CF Worker → CF Tunnel → aiohttp pod), not BPMN-as-actor.
  * Side effects + maintenance run as Zeebe BPMN.
  *

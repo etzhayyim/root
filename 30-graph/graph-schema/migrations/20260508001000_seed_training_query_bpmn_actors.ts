@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * training.gftd.ai query-side BPMN-as-actor seeding (ADR-2605070700).
+ * training.etzhayyim.com query-side BPMN-as-actor seeding (ADR-2605070700).
  *
  * 3 read-only XRPC queries that wrap the lineage tables added by
  * 20260508000000_vertex_training_lineage. No audit step (high-frequency
@@ -27,29 +27,29 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:10:00Z";
-const ownerDid = "did:web:training.gftd.ai";
+const ownerDid = "did:web:training.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.training.query";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-list-runs-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-list-runs-v1",
     bpmnProcessId: "training_list_runs",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/listRuns.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-list-checkpoints-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-list-checkpoints-v1",
     bpmnProcessId: "training_list_checkpoints",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/listCheckpoints.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-serving-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-serving-v1",
     bpmnProcessId: "training_serving",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/serving.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-listRuns-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-listRuns-v1",
     nsid: "ai.gftd.apps.training.listRuns",
     bpmnProcessId: "training_list_runs", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-listCheckpoints-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-listCheckpoints-v1",
     nsid: "ai.gftd.apps.training.listCheckpoints",
     bpmnProcessId: "training_list_checkpoints", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-serving-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-serving-v1",
     nsid: "ai.gftd.apps.training.serving",
     bpmnProcessId: "training_serving", ownerDid, resultTimeoutMs: 15_000 },
 ];

@@ -9,7 +9,7 @@ type Seed = { proc: string; bpmnProcessId: string; nsid: string; resultTimeoutMs
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:kenkyusha.gftd.ai";
+const ownerDid = "did:web:kenkyusha.etzhayyim.com";
 const createdAt = "2026-05-07T01:35:00Z";
 const actorId = "sys.bpmn.seed.kenkyusha";
 
@@ -37,8 +37,8 @@ const seeds: Seed[] = procs.map((proc) => ({
 }));
 
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/kenkyusha/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kenkyusha-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kenkyusha-${slug(s.proc)}-v1`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kenkyusha-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kenkyusha-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

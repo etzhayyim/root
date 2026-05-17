@@ -9,7 +9,7 @@ import { sql } from "kysely";
 //          and for LangGraph checkpoint, with sensitivity_ord=1.)
 
 /**
- * otakiage.gftd.ai Phase 2 — conversational agent state schema
+ * otakiage.etzhayyim.com Phase 2 — conversational agent state schema
  * (ADR-2605081700 + ADR-2605072000 LangGraph + ADR-2605080200 Pydantic L6).
  *
  * Tables (2 vertex):

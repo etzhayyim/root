@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.ai/ns/open-ot/cell/v1",
+  "@context": "https://etzhayyim.com/ns/open-ot/cell/v1",
   "name": "pid-stack-100",
   "description": "Risk-1 Gate A workload BFB — 100 independent PI controllers per tick (shared params, per-instance state)",
   "fb_kind": "BFB",

@@ -2,7 +2,7 @@
   "viewId": "open-network.AV-1",
   "viewType": "AV-1",
   "title": "Overview and Summary Information",
-  "did": "did:web:open-network.gftd.ai",
+  "did": "did:web:open-network.etzhayyim.com",
   "format": "json",
   "content": {
     "purpose": "Provide a DID-addressed network management system (NMS) — site/link topology design + utilization ingest + incident reporting + change request workflow — as an auditable, open-source reference implementation.",

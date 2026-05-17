@@ -25,8 +25,8 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("resource_flow.detect")
 
-_PRIMARY_DID = "did:web:resource-flow.gftd.ai"
-_BPMN_REPO   = "did:web:bpmn.gftd.ai"
+_PRIMARY_DID = "did:web:resource-flow.etzhayyim.com"
+_BPMN_REPO   = "did:web:bpmn.etzhayyim.com"
 
 _FLOW_CLASSES = ("currency", "service", "personnel")
 
@@ -49,14 +49,14 @@ _DOMAIN_INDUSTRY: dict[str, tuple[str, ...]] = {
 }
 
 _LEGAL_ENTITY_PREFIXES = (
-    "did:web:legal-entity.gftd.ai:lei:",
-    "did:web:hospitality.gftd.ai:actor:",
-    "did:web:transport.gftd.ai:actor:",
-    "did:web:manufacturing.gftd.ai:actor:",
+    "did:web:legal-entity.etzhayyim.com:lei:",
+    "did:web:hospitality.etzhayyim.com:actor:",
+    "did:web:transport.etzhayyim.com:actor:",
+    "did:web:manufacturing.etzhayyim.com:actor:",
     "did:web:gov-",
-    "did:web:resource-flow.gftd.ai",
-    "did:web:yadoya.gftd.ai",
-    "did:web:minpaku.gftd.ai",
+    "did:web:resource-flow.etzhayyim.com",
+    "did:web:yadoya.etzhayyim.com",
+    "did:web:minpaku.etzhayyim.com",
 )
 
 _ANOMALY_REVIEW_TABLE = "vertex_resource_flow_anomaly_review"

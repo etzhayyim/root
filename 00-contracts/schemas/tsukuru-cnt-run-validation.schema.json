@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/schemas/tsukuru-cnt-run-validation.schema.json",
+  "$id": "https://etzhayyim.com/schemas/tsukuru-cnt-run-validation.schema.json",
   "title": "Tsukuru CNT run validation",
   "type": "object",
   "required": ["schema", "runId", "status", "blockers", "warnings", "checks", "dryRun"],

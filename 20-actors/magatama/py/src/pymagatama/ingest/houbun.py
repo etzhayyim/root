@@ -31,7 +31,7 @@ from pymagatama.ingest.core import (
     upsert_run,
 )
 
-ACTOR_DID = "did:web:houbun.gftd.ai"
+ACTOR_DID = "did:web:houbun.etzhayyim.com"
 JPN_PATH_DID = f"{ACTOR_DID}:jpn:e-gov"
 EGOV_BASE = "https://laws.e-gov.go.jp/api/2"
 EGOV_LAW_DATA = f"{EGOV_BASE}/law_data"
@@ -74,7 +74,7 @@ def _get_json(url: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         url,
         headers={
             "Accept": "application/json",
-            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.gftd.ai)",
+            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
         },
     )
     with urllib.request.urlopen(req, timeout=60) as resp:
@@ -286,7 +286,7 @@ def _fetch_ecfr_title_xml(title_num: int, date_str: str) -> str:
         url,
         headers={
             "Accept": "application/xml",
-            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.gftd.ai)",
+            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
         },
     )
     with urllib.request.urlopen(req, timeout=180) as resp:
@@ -921,7 +921,7 @@ def _npc_fdb_search(page: int = 1, size: int = 10, law_type: str = "") -> dict[s
         headers={
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.gftd.ai)",
+            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
         },
     )
     with urllib.request.urlopen(req, timeout=60) as resp:
@@ -935,7 +935,7 @@ def _npc_fdb_detail(law_id: str) -> dict[str, Any]:
         url,
         headers={
             "Accept": "application/json",
-            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.gftd.ai)",
+            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
         },
     )
     with urllib.request.urlopen(req, timeout=60) as resp:

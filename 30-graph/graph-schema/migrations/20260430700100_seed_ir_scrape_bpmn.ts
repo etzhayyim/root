@@ -15,7 +15,7 @@ type Seed = {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:news.gftd.ai";
+const ownerDid = "did:web:news.etzhayyim.com";
 const createdAt = "2026-04-30T21:00:00+09:00";
 const actorId = "sys.bpmn.seed.irScrape";
 
@@ -43,10 +43,10 @@ const slug = (s: Seed) =>
   s.file.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 
 const processVid = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ir-scrape-${slug(s)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ir-scrape-${slug(s)}-v1`;
 
 const bindingVid = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ir-scrape-${slug(s)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ir-scrape-${slug(s)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shosha.gftd.ai Phase 2d (simplified) — register approveTrade /
+ * shosha.etzhayyim.com Phase 2d (simplified) — register approveTrade /
  * rejectTrade BPMN + 2 XRPC bindings.
  *
  * 2 process_def + 2 lexicon binding rows (XRPC-only, no autonomous timer).
@@ -19,18 +19,18 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-07T18:00:00Z";
-const ownerDid = "did:web:shosha.gftd.ai";
+const ownerDid = "did:web:shosha.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.shosha.phase2d";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-approve-trade-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-approve-trade-v1",
     bpmnProcessId: "shosha_approve_trade",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/approveTrade.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-reject-trade-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-reject-trade-v1",
     bpmnProcessId: "shosha_reject_trade",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/rejectTrade.bpmn",
     ownerDid,
@@ -39,14 +39,14 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-approveTrade-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-approveTrade-v1",
     nsid: "ai.gftd.apps.shosha.approveTrade",
     bpmnProcessId: "shosha_approve_trade",
     ownerDid,
     resultTimeoutMs: 30_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-rejectTrade-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-rejectTrade-v1",
     nsid: "ai.gftd.apps.shosha.rejectTrade",
     bpmnProcessId: "shosha_reject_trade",
     ownerDid,

@@ -2,17 +2,17 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * gameka.gftd.ai studio actor — 4 vertex + 2 edge tables (ADR 2604250900).
+ * gameka.etzhayyim.com studio actor — 4 vertex + 2 edge tables (ADR 2604250900).
  *
  * P1 wires only proposeGame → vertex_gameka_spec; the remaining tables
  * (artifact / qa / title) are created up front so generateGame /
  * playtestGame / publishGame phases land without follow-up migrations.
  *
  * vertex_id convention (ADR-0036 + ADR-0056 addendum):
- *   at://did:web:gameka.gftd.ai/ai.gftd.apps.gameka.gameSpec/{rkey}
- *   at://did:web:gameka.gftd.ai/ai.gftd.apps.gameka.buildArtifact/{rkey}
- *   at://did:web:gameka.gftd.ai/ai.gftd.apps.gameka.gameQa/{rkey}
- *   at://did:web:gameka.gftd.ai/ai.gftd.apps.gameka.gameTitle/{slug}
+ *   at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameSpec/{rkey}
+ *   at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.buildArtifact/{rkey}
+ *   at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameQa/{rkey}
+ *   at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameTitle/{slug}
  *
  * RW caveats honoured: VARCHAR for JSON payload columns, DOUBLE PRECISION
  * for monetary / score, no MV (ADR-0026 §MV Memory Safety Guardrails).

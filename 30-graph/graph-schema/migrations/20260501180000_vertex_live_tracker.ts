@@ -1,4 +1,4 @@
-// Live tracker tables (Flightradar24 + N2YO equivalent for maps.gftd.ai).
+// Live tracker tables (Flightradar24 + N2YO equivalent for maps.etzhayyim.com).
 //
 // 4 tables:
 //   - vertex_aircraft_state    (real-time ADS-B / OpenSky state vectors, 24h TTL)
@@ -36,10 +36,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       source              VARCHAR,
       ts_ms               BIGINT,
       ingested_at_ms      BIGINT,
-      actor_did           VARCHAR DEFAULT 'did:web:maps.gftd.ai:flightradar',
+      actor_did           VARCHAR DEFAULT 'did:web:maps.etzhayyim.com:flightradar',
       org_did             VARCHAR DEFAULT 'anon',
       sensitivity_ord     INTEGER DEFAULT 1,
-      owner_did           VARCHAR DEFAULT 'did:web:maps.gftd.ai'
+      owner_did           VARCHAR DEFAULT 'did:web:maps.etzhayyim.com'
     )
   `.execute(db);
 
@@ -61,10 +61,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       max_altitude_m      DOUBLE PRECISION,
       max_velocity_ms     DOUBLE PRECISION,
       point_count         INTEGER,
-      actor_did           VARCHAR DEFAULT 'did:web:maps.gftd.ai:flightradar',
+      actor_did           VARCHAR DEFAULT 'did:web:maps.etzhayyim.com:flightradar',
       org_did             VARCHAR DEFAULT 'anon',
       sensitivity_ord     INTEGER DEFAULT 1,
-      owner_did           VARCHAR DEFAULT 'did:web:maps.gftd.ai',
+      owner_did           VARCHAR DEFAULT 'did:web:maps.etzhayyim.com',
       created_at          VARCHAR
     )
   `.execute(db);
@@ -88,10 +88,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       source              VARCHAR,
       catalog_group       VARCHAR,
       ingested_at_ms      BIGINT,
-      actor_did           VARCHAR DEFAULT 'did:web:maps.gftd.ai:n2yo',
+      actor_did           VARCHAR DEFAULT 'did:web:maps.etzhayyim.com:n2yo',
       org_did             VARCHAR DEFAULT 'anon',
       sensitivity_ord     INTEGER DEFAULT 1,
-      owner_did           VARCHAR DEFAULT 'did:web:maps.gftd.ai'
+      owner_did           VARCHAR DEFAULT 'did:web:maps.etzhayyim.com'
     )
   `.execute(db);
 
@@ -114,10 +114,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       visible_at_night    BOOLEAN,
       magnitude           DOUBLE PRECISION,
       computed_at_ms      BIGINT,
-      actor_did           VARCHAR DEFAULT 'did:web:maps.gftd.ai:n2yo',
+      actor_did           VARCHAR DEFAULT 'did:web:maps.etzhayyim.com:n2yo',
       org_did             VARCHAR DEFAULT 'anon',
       sensitivity_ord     INTEGER DEFAULT 1,
-      owner_did           VARCHAR DEFAULT 'did:web:maps.gftd.ai'
+      owner_did           VARCHAR DEFAULT 'did:web:maps.etzhayyim.com'
     )
   `.execute(db);
 

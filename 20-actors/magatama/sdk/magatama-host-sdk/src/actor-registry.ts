@@ -41,7 +41,7 @@ export interface ActorRegistryConfig {
   collectionPrefix: string;
   /** App nanoid for orgId/actorId fields. */
   appNanoid: string;
-  /** DID host prefix (e.g. "gov-jpn" → did:web:gov-jpn.gftd.ai:{path}). */
+  /** DID host prefix (e.g. "gov-jpn" → did:web:gov-jpn.etzhayyim.com:{path}). */
   didHostPrefix: string;
 }
 
@@ -465,12 +465,12 @@ export class ActorRegistry {
 
   /** Build full DID from actor path. */
   didFor(path: string): string {
-    return `did:web:${this.cfg.didHostPrefix}.gftd.ai:${path}`;
+    return `did:web:${this.cfg.didHostPrefix}.etzhayyim.com:${path}`;
   }
 
   /** Build primary (root) DID. */
   primaryDid(): string {
-    return `did:web:${this.cfg.didHostPrefix}.gftd.ai`;
+    return `did:web:${this.cfg.didHostPrefix}.etzhayyim.com`;
   }
 
   /** Get config. */

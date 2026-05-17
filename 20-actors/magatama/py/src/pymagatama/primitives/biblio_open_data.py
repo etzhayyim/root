@@ -31,7 +31,7 @@ from sqlalchemy import BigInteger, Column, Date, Float, Integer, String, Table, 
 
 from pymagatama.db_alchemy import sa_execute_one, sa_executemany, sa_metadata, sa_rowcount
 
-_ACTOR = "did:web:biblio.gftd.ai"
+_ACTOR = "did:web:biblio.etzhayyim.com"
 _B2_BUCKET = os.environ.get("B2_BIBLIO_BUCKET", "ai-gftd-biblio").strip() or "ai-gftd-biblio"
 _B2_PREFIX = os.environ.get("B2_BIBLIO_PREFIX", "biblio/").strip().strip("/") + "/"
 
@@ -533,7 +533,7 @@ def _http_get(url: str, *, timeout: float = 60.0, accept: str = "*/*") -> bytes:
             pass
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "biblio.gftd.ai/0.1", "Accept": accept},
+        headers={"User-Agent": "biblio.etzhayyim.com/0.1", "Accept": accept},
         method="GET",
     )
     try:
@@ -608,7 +608,7 @@ async def _ocr_webp(webp: bytes) -> dict[str, Any]:
             from pymagatama.primitives.ipfs_ingest import add_content
 
             cid = await add_content(webp, f"biblio-page-{_sha256(webp)[:16]}.webp")
-            image_url = f"https://ipfs.gftd.ai/ipfs/{cid}"
+            image_url = f"https://ipfs.etzhayyim.com/ipfs/{cid}"
         except Exception:
             image_url = ""
     if not image_url:
@@ -626,7 +626,7 @@ async def _ocr_webp(webp: bytes) -> dict[str, Any]:
         or os.environ.get("NDL_OCR_URL")
         or os.environ.get("LLM_CHAT_COMPLETIONS_URL")
         or os.environ.get("GFTD_LLM_URL")
-        or "https://llm.gftd.ai/v1/chat/completions"
+        or "https://llm.etzhayyim.com/v1/chat/completions"
     )
     headers = {"Content-Type": "application/json", "x-magatama-verified": "true"}
     token = (

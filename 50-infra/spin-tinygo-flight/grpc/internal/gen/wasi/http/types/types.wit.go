@@ -6,10 +6,10 @@
 package types
 
 import (
-	monotonicclock "github.com/gftdcojp/spin-tinygo-flight/grpc/internal/gen/wasi/clocks/monotonic-clock"
-	ioerror "github.com/gftdcojp/spin-tinygo-flight/grpc/internal/gen/wasi/io/error"
-	"github.com/gftdcojp/spin-tinygo-flight/grpc/internal/gen/wasi/io/poll"
-	"github.com/gftdcojp/spin-tinygo-flight/grpc/internal/gen/wasi/io/streams"
+	monotonicclock "github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc/internal/gen/wasi/clocks/monotonic-clock"
+	ioerror "github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc/internal/gen/wasi/io/error"
+	"github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc/internal/gen/wasi/io/poll"
+	"github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc/internal/gen/wasi/io/streams"
 	"go.bytecodealliance.org/cm"
 )
 

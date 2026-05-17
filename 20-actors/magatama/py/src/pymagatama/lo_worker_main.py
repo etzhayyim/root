@@ -1,4 +1,4 @@
-"""lo.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""lo.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -11,7 +11,7 @@ from pymagatama.langserver_compat import LangServerWorker, create_langserver_cha
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
 DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
 
-ACTOR_DID = "did:web:lo.gftd.ai"
+ACTOR_DID = "did:web:lo.etzhayyim.com"
 
 
 async def get_db():

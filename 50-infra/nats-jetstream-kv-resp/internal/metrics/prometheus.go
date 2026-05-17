@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gftdcojp/nats-jetstream-kv-resp/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp/internal/config"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"

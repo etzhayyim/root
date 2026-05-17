@@ -18,7 +18,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-MURAKUMO_DID = "did:web:murakumo.gftd.ai"
+MURAKUMO_DID = "did:web:murakumo.etzhayyim.com"
 FLEET_COLLECTION = "ai.gftd.apps.murakumo.fleetHealth"
 DEFAULT_LITELLM_URL = "http://litellm.murakumo-system.svc.cluster.local:4000"
 HEALTH_TIMEOUT_SEC = 5.0

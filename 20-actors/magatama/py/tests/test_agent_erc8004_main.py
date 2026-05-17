@@ -8,7 +8,7 @@ from pymagatama import agent_erc8004_main
 
 def test_build_agent_registration_uses_erc8004_envelope() -> None:
     registration = agent_erc8004_main.build_agent_registration(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         status_report={"organismState": "repairing", "organismScore": 0.8, "processes": {}},
         chain_id=260425,
         agent_registry="0xcA3480edDAfa39c9377B83eEB18291286C8Cb865",
@@ -16,15 +16,15 @@ def test_build_agent_registration_uses_erc8004_envelope() -> None:
         agent_uri="ipfs://bafy-agent/agent.json",
         root_address="0x1111111111111111111111111111111111111111",
         smart_account="0x2222222222222222222222222222222222222222",
-        public_status_url="https://kami-agent.gftd.ai",
+        public_status_url="https://kami-agent.etzhayyim.com",
     )
 
     assert registration["schema"] == agent_erc8004_main.ERC8004_SCHEMA
     assert registration["agent"]["agentRegistry"].startswith("eip155:260425:")
     assert registration["agent"]["agentId"] == "123"
-    assert registration["rootIdentity"]["facadeDids"] == ["did:web:kami-agent.gftd.ai"]
+    assert registration["rootIdentity"]["facadeDids"] == ["did:web:kami-agent.etzhayyim.com"]
     assert registration["protocols"][1]["kind"] == "local-status"
-    assert registration["protocols"][1]["api"] == "https://kami-agent.gftd.ai/api/status"
+    assert registration["protocols"][1]["api"] == "https://kami-agent.etzhayyim.com/api/status"
 
 
 def test_registration_hash_is_stable_for_key_order() -> None:
@@ -49,7 +49,7 @@ def test_publish_registration_ipfs_dry_run_does_not_need_secret() -> None:
 
 def test_execute_publish_flow_blocks_placeholder_chain_submit(tmp_path: Path) -> None:
     registration = agent_erc8004_main.build_agent_registration(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         status_report={"organismState": "repairing", "organismScore": 0.8, "processes": {}},
         chain_id=260425,
         agent_registry="0xcA3480edDAfa39c9377B83eEB18291286C8Cb865",
@@ -63,7 +63,7 @@ def test_execute_publish_flow_blocks_placeholder_chain_submit(tmp_path: Path) ->
         publish_ipfs=True,
         submit_chain=True,
         dry_run=True,
-        ipfs_base="https://ipfs.gftd.ai",
+        ipfs_base="https://ipfs.etzhayyim.com",
         rpc_url="https://geth.gftd.ai",
         chain_id=260425,
         registry="0xcA3480edDAfa39c9377B83eEB18291286C8Cb865",
@@ -106,7 +106,7 @@ def test_execute_publish_flow_rewrites_existing_registration_before_chain(monkey
     stale_path = tmp_path / "agent.json"
     stale_path.write_text('{"rootIdentity":{"address":"0x0000000000000000000000000000000000000000"}}\n')
     registration = agent_erc8004_main.build_agent_registration(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         status_report={"organismState": "active", "organismScore": 1.0, "processes": {}},
         chain_id=260425,
         agent_registry="0xcA3480edDAfa39c9377B83eEB18291286C8Cb865",
@@ -127,7 +127,7 @@ def test_execute_publish_flow_rewrites_existing_registration_before_chain(monkey
         publish_ipfs=False,
         submit_chain=True,
         dry_run=True,
-        ipfs_base="https://ipfs.gftd.ai",
+        ipfs_base="https://ipfs.etzhayyim.com",
         rpc_url="https://geth.gftd.ai",
         chain_id=260425,
         registry="0xcA3480edDAfa39c9377B83eEB18291286C8Cb865",

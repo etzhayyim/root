@@ -1,4 +1,4 @@
-"""cards.gftd.ai — standalone LangServer worker (BPMN service task handlers).
+"""cards.etzhayyim.com — standalone LangServer worker (BPMN service task handlers).
 
 Tables used (RisingWave via asyncpg):
   vertex_cards_cardholder   — cardholder registry
@@ -22,7 +22,7 @@ DB_URL = os.getenv(
     "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev",
 )
 
-ACTOR_DID = "did:web:cards.gftd.ai"
+ACTOR_DID = "did:web:cards.etzhayyim.com"
 
 
 async def get_db() -> asyncpg.Connection:

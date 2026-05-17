@@ -40,7 +40,7 @@ const entries: Entry[] = [
     proc: "dispatchLeg",
     bpmnProcessId: "open_logistics_lastmile_dispatch_leg",
     nsid: "ai.gftd.apps.openLogisticsLastmile.dispatchLeg",
-    ownerDid: "did:web:open-logistics-lastmile.gftd.ai",
+    ownerDid: "did:web:open-logistics-lastmile.etzhayyim.com",
     timeoutMs: 30000,
   },
   {
@@ -48,7 +48,7 @@ const entries: Entry[] = [
     proc: "confirmDelivery",
     bpmnProcessId: "open_logistics_lastmile_confirm_delivery",
     nsid: "ai.gftd.apps.openLogisticsLastmile.confirmDelivery",
-    ownerDid: "did:web:open-logistics-lastmile.gftd.ai",
+    ownerDid: "did:web:open-logistics-lastmile.etzhayyim.com",
     timeoutMs: 30000,
   },
   {
@@ -56,7 +56,7 @@ const entries: Entry[] = [
     proc: "recordMaintenancePlan",
     bpmnProcessId: "open_machinery_maintenance_record_plan",
     nsid: "ai.gftd.apps.openMachineryMaintenance.recordMaintenancePlan",
-    ownerDid: "did:web:open-machinery-maintenance.gftd.ai",
+    ownerDid: "did:web:open-machinery-maintenance.etzhayyim.com",
     timeoutMs: 30000,
   },
   {
@@ -64,7 +64,7 @@ const entries: Entry[] = [
     proc: "flagDowntime",
     bpmnProcessId: "open_machinery_maintenance_flag_downtime",
     nsid: "ai.gftd.apps.openMachineryMaintenance.flagDowntime",
-    ownerDid: "did:web:open-machinery-maintenance.gftd.ai",
+    ownerDid: "did:web:open-machinery-maintenance.etzhayyim.com",
     timeoutMs: 30000,
   },
   {
@@ -72,7 +72,7 @@ const entries: Entry[] = [
     proc: "recordSafetyAssessment",
     bpmnProcessId: "open_industrial_safety_record_safety_assessment",
     nsid: "ai.gftd.apps.industrialSafety.recordSafetyAssessment",
-    ownerDid: "did:web:open-industrial-safety.gftd.ai",
+    ownerDid: "did:web:open-industrial-safety.etzhayyim.com",
     timeoutMs: 30000,
   },
   {
@@ -80,7 +80,7 @@ const entries: Entry[] = [
     proc: "flagMajorAccident",
     bpmnProcessId: "open_industrial_safety_flag_major_accident",
     nsid: "ai.gftd.apps.industrialSafety.flagMajorAccident",
-    ownerDid: "did:web:open-industrial-safety.gftd.ai",
+    ownerDid: "did:web:open-industrial-safety.etzhayyim.com",
     timeoutMs: 30000,
   },
 ];
@@ -92,14 +92,14 @@ const procSlug = (proc: string): string =>
   proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 
 const processSeeds: ProcessSeed[] = entries.map((entry) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${entry.project}-${procSlug(entry.proc)}-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${entry.project}-${procSlug(entry.proc)}-v1`,
   bpmnProcessId: entry.bpmnProcessId,
   sourcePath: `00-contracts/bpmn/ai/gftd/${entry.project}/${entry.proc}.bpmn`,
   ownerDid: entry.ownerDid,
 }));
 
 const bindingSeeds: BindingSeed[] = entries.map((entry) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${entry.project}-${entry.proc}-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${entry.project}-${entry.proc}-v1`,
   nsid: entry.nsid,
   bpmnProcessId: entry.bpmnProcessId,
   ownerDid: entry.ownerDid,

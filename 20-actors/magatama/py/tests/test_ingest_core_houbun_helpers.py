@@ -50,7 +50,7 @@ def test_slug_truncates_at_160() -> None:
 
 def test_run_vertex_id_starts_with_did() -> None:
     vid = C.run_vertex_id("my-run-001")
-    assert vid.startswith("at://did:web:ingest.gftd.ai/")
+    assert vid.startswith("at://did:web:ingest.etzhayyim.com/")
 
 
 def test_run_vertex_id_contains_slug() -> None:
@@ -65,7 +65,7 @@ def test_run_vertex_id_collection_in_path() -> None:
 
 def test_cursor_vertex_id_starts_with_did() -> None:
     vid = C.cursor_vertex_id("houbun", "jpn", "main")
-    assert vid.startswith("at://did:web:ingest.gftd.ai/")
+    assert vid.startswith("at://did:web:ingest.etzhayyim.com/")
 
 
 def test_cursor_vertex_id_collection_in_path() -> None:
@@ -87,7 +87,7 @@ def test_cursor_vertex_id_varies_by_family() -> None:
 
 def test_artifact_vertex_id_starts_with_did() -> None:
     vid = C.artifact_vertex_id("run-001", "html", "https://example.com/page")
-    assert vid.startswith("at://did:web:ingest.gftd.ai/")
+    assert vid.startswith("at://did:web:ingest.etzhayyim.com/")
 
 
 def test_artifact_vertex_id_collection_in_path() -> None:

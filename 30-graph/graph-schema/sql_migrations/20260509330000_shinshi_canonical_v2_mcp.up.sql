@@ -21,18 +21,18 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:shinshi.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-shinshi-coverageFindIncomplete',
-   0, 0, 'ai.gftd.apps.shinshi.coverageFindIncomplete', 'did:web:shinshi.gftd.ai', 'shinshi.gftd.ai', 'procedure',
+  ('at://did:web:shinshi.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-shinshi-coverageFindIncomplete',
+   0, 0, 'ai.gftd.apps.shinshi.coverageFindIncomplete', 'did:web:shinshi.etzhayyim.com', 'shinshi.etzhayyim.com', 'procedure',
    'shinshi find slugs with incomplete scene coverage.', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/shinshi/coverageFindIncomplete.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:shinshi.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-shinshi-sceneBulkSeed',
-   0, 0, 'ai.gftd.apps.shinshi.sceneBulkSeed', 'did:web:shinshi.gftd.ai', 'shinshi.gftd.ai', 'procedure',
+  ('at://did:web:shinshi.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-shinshi-sceneBulkSeed',
+   0, 0, 'ai.gftd.apps.shinshi.sceneBulkSeed', 'did:web:shinshi.etzhayyim.com', 'shinshi.etzhayyim.com', 'procedure',
    'shinshi bulk-seed scenes for incomplete slugs.', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/shinshi/sceneBulkSeed.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:shinshi.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-shinshi-sceneRender',
-   0, 0, 'ai.gftd.apps.shinshi.sceneRender', 'did:web:shinshi.gftd.ai', 'shinshi.gftd.ai', 'procedure',
+  ('at://did:web:shinshi.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-shinshi-sceneRender',
+   0, 0, 'ai.gftd.apps.shinshi.sceneRender', 'did:web:shinshi.etzhayyim.com', 'shinshi.etzhayyim.com', 'procedure',
    'shinshi scene render (shelf-stocked).', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/shinshi/sceneRender.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z');
@@ -44,7 +44,7 @@ VALUES
   ('shinshi_seed_gap_fill.v2', 0, 0, 'shinshi_seed_gap_fill.v2', 2, 'topology', NULL,
    '{"state_keys":["findOut","seedOut","auditOut","ok","error"],"entry":"find_incomplete","edges":[{"from":"bulk_seed","to":"emit_audit"},{"from":"emit_audit","to":"END"}],"conditional_edges":[{"from":"find_incomplete","router":"pymagatama.langgraph_graphs.shinshi_seed_gap_fill:_route_after_find","paths":{"bulk_seed":"bulk_seed","emit_audit":"emit_audit"}}]}',
    'shinshi seed gap fill (topology v2, mcp_tool + audit.emit + conditional)',
-   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.shinshi.gftd.ai');
+   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.shinshi.etzhayyim.com');
 
 INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
@@ -59,7 +59,7 @@ VALUES
    '2026-05-09T00:00:00Z'),
   ('shinshi_seed_gap_fill.v2:emit_audit', 0, 0, 'shinshi_seed_gap_fill.v2', 'emit_audit',
    'mcp_tool', 'mcp://ai.gftd.tools.audit.emit',
-   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:shinshi.gftd.ai","collection":"ai.gftd.apps.shinshi.audit","action":"seed_gap_fill"}}',
+   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:shinshi.etzhayyim.com","collection":"ai.gftd.apps.shinshi.audit","action":"seed_gap_fill"}}',
    '2026-05-09T00:00:00Z');
 
 UPDATE vertex_langgraph_assistant SET superseded_by = 'shinshi_seed_gap_fill.v2'

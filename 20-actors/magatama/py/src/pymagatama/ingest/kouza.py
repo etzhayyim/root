@@ -13,7 +13,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 NS = "ai.gftd.apps.kouza"
-ACTOR = "did:web:kouza.gftd.ai"
+ACTOR = "did:web:kouza.etzhayyim.com"
 READ_SCOPES = {"accounts.read", "transactions.read", "documents.read", "balances.read"}
 
 

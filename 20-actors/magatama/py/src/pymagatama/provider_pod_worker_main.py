@@ -1,4 +1,4 @@
-"""provider-pod.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""provider-pod.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -22,7 +22,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.providerPod.register.provider")
     async def task_register_provider(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:provider-pod.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:provider-pod.etzhayyim.com")
         name = kwargs.get("name", "")
         endpoint = kwargs.get("endpoint", "")
         capabilities = kwargs.get("capabilities", [])
@@ -41,7 +41,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 provider_id, name, endpoint, "registered",
-                "did:web:provider-pod.gftd.ai", "did:web:provider-pod.gftd.ai", now, now,
+                "did:web:provider-pod.etzhayyim.com", "did:web:provider-pod.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -145,7 +145,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.providerPod.create.pod")
     async def task_create_pod(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:provider-pod.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:provider-pod.etzhayyim.com")
         provider_id = kwargs.get("providerId", "")
         pod_name = kwargs.get("podName", "")
         config = kwargs.get("config", {})
@@ -164,7 +164,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 pod_id, provider_id, pod_name, "pending",
-                "did:web:provider-pod.gftd.ai", "did:web:provider-pod.gftd.ai", now, now,
+                "did:web:provider-pod.etzhayyim.com", "did:web:provider-pod.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

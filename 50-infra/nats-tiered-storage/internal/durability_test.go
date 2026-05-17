@@ -8,12 +8,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/block"
-	"github.com/gftdcojp/nats-tiered-storage/internal/config"
-	"github.com/gftdcojp/nats-tiered-storage/internal/file"
-	"github.com/gftdcojp/nats-tiered-storage/internal/memory"
-	"github.com/gftdcojp/nats-tiered-storage/internal/meta"
-	"github.com/gftdcojp/nats-tiered-storage/internal/tier"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/block"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/file"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/memory"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/meta"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/tier"
 	"go.uber.org/zap"
 )
 

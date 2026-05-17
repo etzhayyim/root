@@ -21,7 +21,7 @@ async function settle(page: Page) {
   await page.waitForTimeout(400);
 }
 
-test.describe('kyber.gftd.ai — visual', () => {
+test.describe('kyber.etzhayyim.com — visual', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     await expect(page.getByText('Kyber Command Center')).toBeVisible();

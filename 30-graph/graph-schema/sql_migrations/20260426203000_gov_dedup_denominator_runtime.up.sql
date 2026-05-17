@@ -90,16 +90,16 @@ CREATE MATERIALIZED VIEW mv_gov_coverage_dedup AS
 
 CREATE MATERIALIZED VIEW mv_gov_org_runtime AS
     SELECT
-      CONCAT('at://did:web:gov.gftd.ai/ai.gftd.apps.gov.orgRuntime/', runtime_key) AS vertex_id,
+      CONCAT('at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.orgRuntime/', runtime_key) AS vertex_id,
       entity_key AS gov_org_key,
       sample_uri AS source_uri,
       repo,
       sample_collection AS source_collection,
-      CONCAT('did:web:gov.gftd.ai:org:', entity_key) AS actor_did,
+      CONCAT('did:web:gov.etzhayyim.com:org:', entity_key) AS actor_did,
       CONCAT('gov_org_', runtime_key, '_coverage_refresh') AS bpmn_process_id,
-      CONCAT('at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-org-', runtime_key, '-coverage-refresh-v1') AS bpmn_process_vertex_id,
+      CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-org-', runtime_key, '-coverage-refresh-v1') AS bpmn_process_vertex_id,
       CONCAT('gov-org-', runtime_key, '-mcp') AS mcp_id,
-      CONCAT('https://mcp.gftd.ai/mcp/gov/org/', runtime_key) AS mcp_endpoint,
+      CONCAT('https://mcp.etzhayyim.com/mcp/gov/org/', runtime_key) AS mcp_endpoint,
       'ai.gftd.apps.gov.coverage.get,ai.gftd.apps.ingest.status,ai.gftd.apps.coverage.refresh' AS tool_nsids,
       'planned' AS status,
       latest_indexed_at

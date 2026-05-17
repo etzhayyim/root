@@ -34,7 +34,7 @@ describe("Seed open-gas BPMN actors migration", () => {
 
   it("uses open-gas-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-gas"');
-    expect(migrationSource).toContain("did:web:open-gas.gftd.ai:network");
+    expect(migrationSource).toContain("did:web:open-gas.etzhayyim.com:network");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

@@ -42,20 +42,20 @@ const APPS: ReadonlyArray<{
   ownerDid: string;
   cadence: "R/PT1M" | "R/PT5M";
 }> = [
-  { app: "atproto",  ownerDid: "did:web:atproto.gftd.ai",        cadence: "R/PT5M" },
-  { app: "claim",    ownerDid: "did:web:claim-consumer.gftd.ai", cadence: "R/PT1M" },
-  { app: "murakumo", ownerDid: "did:web:murakumo.gftd.ai",       cadence: "R/PT5M" },
+  { app: "atproto",  ownerDid: "did:web:atproto.etzhayyim.com",        cadence: "R/PT5M" },
+  { app: "claim",    ownerDid: "did:web:claim-consumer.etzhayyim.com", cadence: "R/PT1M" },
+  { app: "murakumo", ownerDid: "did:web:murakumo.etzhayyim.com",       cadence: "R/PT5M" },
 ];
 
 const processSeeds: ProcessSeed[] = APPS.map(({ app, ownerDid }) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${app}-cron-tick-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${app}-cron-tick-v1`,
   bpmnProcessId: `${app}_cron_tick`,
   sourcePath: `00-contracts/bpmn/ai/gftd/${app}/cronTick.bpmn`,
   ownerDid,
 }));
 
 const bindingSeeds: BindingSeed[] = APPS.map(({ app, ownerDid }) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${app}-cronTick-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${app}-cronTick-v1`,
   nsid: `ai.gftd.apps.${app}.cronTick`,
   bpmnProcessId: `${app}_cron_tick`,
   ownerDid,

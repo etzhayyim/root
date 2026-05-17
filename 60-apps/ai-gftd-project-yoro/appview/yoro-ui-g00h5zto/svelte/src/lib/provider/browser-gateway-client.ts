@@ -111,7 +111,7 @@ export interface BrowserDiffusionModel {
  * Available models for browser-local image generation (WebGPU ONNX Runtime).
  *
  * Uses sequential load/unload strategy: CLIP → (unload) → UNet ×N steps → (unload) → VAE.
- * Peak VRAM = UNet alone (~1.7GB FP16). ONNX files hosted on R2 (cdn.gftd.ai).
+ * Peak VRAM = UNet alone (~1.7GB FP16). ONNX files hosted on R2 (cdn.etzhayyim.com).
  */
 export const BROWSER_DIFFUSION_MODELS: readonly BrowserDiffusionModel[] = [
 	{
@@ -120,7 +120,7 @@ export const BROWSER_DIFFUSION_MODELS: readonly BrowserDiffusionModel[] = [
 		arch: 'SD 1.5',
 		sizeMb: 2400,
 		minGpuTier: 'g2',
-		cdnBase: 'https://cdn.gftd.ai/models/sd15',
+		cdnBase: 'https://cdn.etzhayyim.com/models/sd15',
 		clipPath: 'text_encoder/model.onnx',
 		unetPath: 'unet/model.onnx',
 		unetWeightsPath: 'unet/weights.pb',

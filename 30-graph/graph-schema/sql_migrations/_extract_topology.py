@@ -15,7 +15,7 @@ import json
 import sys
 from pathlib import Path
 
-PKG_ROOT = Path("/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/py/src/pymagatama/langgraph_graphs")
+PKG_ROOT = Path("/Users/junkawasaki/github/etzhayyim/root/20-actors/magatama/py/src/pymagatama/langgraph_graphs")
 
 
 def _const_str(node: ast.AST) -> str | None:

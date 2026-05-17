@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/schemas/form/v1.json",
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
   "key": "open-seiyaku-export-control-v1",
   "version": 1,
   "title": "製薬バッチ 輸出管理レビュー",

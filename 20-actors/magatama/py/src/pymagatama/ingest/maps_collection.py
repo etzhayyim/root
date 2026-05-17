@@ -12,7 +12,7 @@ from uuid import uuid4
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:maps.gftd.ai"
+OWNER_DID = "did:web:maps.etzhayyim.com"
 APP_ID = "maps"
 
 MAPS_ENTITY_LABELS = {
@@ -769,7 +769,7 @@ def _complete_collection_job(job_id: str, records_count: int) -> None:
 def import_osm_pois(jobId: Any = None, overpassResponse: Any = None, **_: Any) -> dict[str, Any]:
     if not jobId or not overpassResponse:
         return {"error": "jobId and overpassResponse required"}
-    source_did = f"did:web:{APP_ID}.gftd.ai:source:osm"
+    source_did = f"did:web:{APP_ID}.etzhayyim.com:source:osm"
     pois = _parse_overpass_response(overpassResponse, source_did)
     job_id = _s(jobId)
     for poi in pois:
@@ -781,7 +781,7 @@ def import_osm_pois(jobId: Any = None, overpassResponse: Any = None, **_: Any) -
 def import_wikidata_pois(jobId: Any = None, sparqlResponse: Any = None, **_: Any) -> dict[str, Any]:
     if not jobId or not sparqlResponse:
         return {"error": "jobId and sparqlResponse required"}
-    source_did = f"did:web:{APP_ID}.gftd.ai:source:wikidata"
+    source_did = f"did:web:{APP_ID}.etzhayyim.com:source:wikidata"
     pois = _parse_wikidata_response(sparqlResponse, source_did)
     job_id = _s(jobId)
     for poi in pois:
@@ -812,13 +812,13 @@ def register_writer_profiles(**_: Any) -> dict[str, Any]:
         {
             "sourceId": "src-osm",
             "name": "OpenStreetMap",
-            "did": "did:web:maps.gftd.ai:source:osm",
+            "did": "did:web:maps.etzhayyim.com:source:osm",
             "status": "available",
         },
         {
             "sourceId": "src-wikidata",
             "name": "Wikidata",
-            "did": "did:web:maps.gftd.ai:source:wikidata",
+            "did": "did:web:maps.etzhayyim.com:source:wikidata",
             "status": "available",
         },
     ]
@@ -1217,7 +1217,7 @@ def infra_cross_section(lat: Any = None, lng: Any = None, radiusM: Any = 100, **
 def register_air_route(**kwargs: Any) -> dict[str, Any]:
     if not _s(kwargs.get("name")):
         return {"error": "name required"}
-    route_did = _s(kwargs.get("routeDid")) or f"did:web:maps.gftd.ai:air-route:{_id('air')}"
+    route_did = _s(kwargs.get("routeDid")) or f"did:web:maps.etzhayyim.com:air-route:{_id('air')}"
     node_id = f"airRoute:{_id('air')}"
     _insert_spatial("airRoute", {**kwargs, "routeDid": route_did, "nodeId": node_id, "nodeLabel": "AirRoute", "createdAt": now_iso(), "orgId": _s(kwargs.get("orgId"), "anon"), "userId": _s(kwargs.get("userId"), "anon"), "actorId": APP_ID}, node_id)
     return {"nodeId": node_id, "routeDid": route_did, "status": "created"}
@@ -1518,10 +1518,10 @@ def mapraly_import_poi(pois: Any = None, **_: Any) -> dict[str, Any]:
             continue
         if poi.get("routeGeojson"):
             route_id = _id("mapralyRoute")
-            _insert_spatial("route", {"nodeId": f"route:{route_id}", "name": poi.get("name"), "routeType": "mapraly", "geojson": poi.get("routeGeojson"), "lat": poi.get("lat"), "lng": poi.get("lng"), "source": "mapraly", "sourceDid": "did:web:maps.gftd.ai:mapraly", "mapralyId": poi.get("mapralyId"), "description": poi.get("description"), "nodeLabel": "Route", "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID}, f"route:{route_id}")
+            _insert_spatial("route", {"nodeId": f"route:{route_id}", "name": poi.get("name"), "routeType": "mapraly", "geojson": poi.get("routeGeojson"), "lat": poi.get("lat"), "lng": poi.get("lng"), "source": "mapraly", "sourceDid": "did:web:maps.etzhayyim.com:mapraly", "mapralyId": poi.get("mapralyId"), "description": poi.get("description"), "nodeLabel": "Route", "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID}, f"route:{route_id}")
         else:
             spot_id = _id("mapralySpot")
-            _insert_spatial("spot", {"nodeId": f"spot:{spot_id}", "name": poi.get("name"), "spotType": "mapralyPoi", "category": poi.get("category") or "general", "lat": poi.get("lat"), "lng": poi.get("lng"), "description": poi.get("description"), "photosJson": _json(poi.get("photos")) if poi.get("photos") is not None else None, "source": "mapraly", "sourceDid": "did:web:maps.gftd.ai:mapraly", "mapralyId": poi.get("mapralyId"), "nodeLabel": "Spot", "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID}, f"spot:{spot_id}")
+            _insert_spatial("spot", {"nodeId": f"spot:{spot_id}", "name": poi.get("name"), "spotType": "mapralyPoi", "category": poi.get("category") or "general", "lat": poi.get("lat"), "lng": poi.get("lng"), "description": poi.get("description"), "photosJson": _json(poi.get("photos")) if poi.get("photos") is not None else None, "source": "mapraly", "sourceDid": "did:web:maps.etzhayyim.com:mapraly", "mapralyId": poi.get("mapralyId"), "nodeLabel": "Spot", "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID}, f"spot:{spot_id}")
         created += 1
     return {"imported": created, "total": len(pois)}
 
@@ -1544,8 +1544,8 @@ def vision_import_entities(jobId: Any = None, imageCid: Any = None, entities: An
             continue
         collection = _s(ent.get("kind"))
         node_id = f"{collection}:{_id('vision_' + collection)}"
-        _insert_spatial(collection, {"nodeId": node_id, "name": ent.get("name"), "lat": ent.get("lat"), "lng": ent.get("lng"), "confidence": ent.get("confidence"), "detectedClasses": _json(ent.get("classes")) if ent.get("classes") is not None else None, "source": "murakumoVision", "sourceDid": "did:web:maps.gftd.ai:vision", "sourceImageCid": imageCid, "visionJobId": jobId, **(ent.get("properties") if isinstance(ent.get("properties"), dict) else {}), "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID}, node_id)
-        _insert_spatial("visionResult", {"nodeId": f"vr:{_id('vr')}", "jobId": jobId, "imageCid": imageCid, "entityKind": collection, "entityNodeId": node_id, "confidence": ent.get("confidence"), "classesJson": _json(ent.get("classes")) if ent.get("classes") is not None else None, "lat": ent.get("lat"), "lng": ent.get("lng"), "nodeLabel": "VisionResult", "sourceDid": "did:web:maps.gftd.ai:vision", "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID})
+        _insert_spatial(collection, {"nodeId": node_id, "name": ent.get("name"), "lat": ent.get("lat"), "lng": ent.get("lng"), "confidence": ent.get("confidence"), "detectedClasses": _json(ent.get("classes")) if ent.get("classes") is not None else None, "source": "murakumoVision", "sourceDid": "did:web:maps.etzhayyim.com:vision", "sourceImageCid": imageCid, "visionJobId": jobId, **(ent.get("properties") if isinstance(ent.get("properties"), dict) else {}), "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID}, node_id)
+        _insert_spatial("visionResult", {"nodeId": f"vr:{_id('vr')}", "jobId": jobId, "imageCid": imageCid, "entityKind": collection, "entityNodeId": node_id, "confidence": ent.get("confidence"), "classesJson": _json(ent.get("classes")) if ent.get("classes") is not None else None, "lat": ent.get("lat"), "lng": ent.get("lng"), "nodeLabel": "VisionResult", "sourceDid": "did:web:maps.etzhayyim.com:vision", "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID})
         created += 1
     return {"imported": created, "total": len(entities)}
 
@@ -1569,7 +1569,7 @@ def satellite_import_scene(scenes: Any = None, **_: Any) -> dict[str, Any]:
         if not isinstance(scene, dict) or not scene.get("sceneId"):
             continue
         bbox = scene.get("bbox") if isinstance(scene.get("bbox"), dict) else {}
-        _insert_spatial("satelliteScene", {"nodeId": f"sat:{scene.get('sceneId')}", "sceneId": scene.get("sceneId"), "satellite": scene.get("satellite"), "acquisitionDate": scene.get("acquisitionDate"), "cloudCover": scene.get("cloudCover"), "resolutionM": scene.get("resolutionM"), "sensorType": scene.get("sensorType") or "optical", "bboxJson": _json(bbox), "lat": (_n(bbox.get("latMin")) + _n(bbox.get("latMax"))) / 2 if bbox else None, "lng": (_n(bbox.get("lngMin")) + _n(bbox.get("lngMax"))) / 2 if bbox else None, "bandsJson": _json(scene.get("bands")) if scene.get("bands") is not None else None, "cogUrl": scene.get("cogUrl"), "thumbnailUrl": scene.get("thumbnailUrl"), "source": "satellite", "sourceDid": "did:web:maps.gftd.ai:satellite", "nodeLabel": "SatelliteScene", "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID}, f"sat:{scene.get('sceneId')}")
+        _insert_spatial("satelliteScene", {"nodeId": f"sat:{scene.get('sceneId')}", "sceneId": scene.get("sceneId"), "satellite": scene.get("satellite"), "acquisitionDate": scene.get("acquisitionDate"), "cloudCover": scene.get("cloudCover"), "resolutionM": scene.get("resolutionM"), "sensorType": scene.get("sensorType") or "optical", "bboxJson": _json(bbox), "lat": (_n(bbox.get("latMin")) + _n(bbox.get("latMax"))) / 2 if bbox else None, "lng": (_n(bbox.get("lngMin")) + _n(bbox.get("lngMax"))) / 2 if bbox else None, "bandsJson": _json(scene.get("bands")) if scene.get("bands") is not None else None, "cogUrl": scene.get("cogUrl"), "thumbnailUrl": scene.get("thumbnailUrl"), "source": "satellite", "sourceDid": "did:web:maps.etzhayyim.com:satellite", "nodeLabel": "SatelliteScene", "createdAt": now_iso(), "orgId": "anon", "userId": "anon", "actorId": APP_ID}, f"sat:{scene.get('sceneId')}")
         created += 1
     return {"imported": created, "total": len(scenes)}
 
@@ -1750,9 +1750,9 @@ def expand_frontier(targets: Any = None, **_: Any) -> dict[str, Any]:
         world_total = max(_i(target.get("worldTotal"), 1_000_000), 1)
         priority_weight = _n(target.get("priorityWeight"), 0.3)
         ttl_hours = _n(target.get("ttlHours"), 168)
-        slug = source_did.replace("did:web:maps.gftd.ai:", "").replace("did:web:maps.gftd.ai", "")
+        slug = source_did.replace("did:web:maps.etzhayyim.com:", "").replace("did:web:maps.etzhayyim.com", "")
         slug = slug.replace(".", "-").replace(":", "-") or "primary"
-        vertex_id = f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/{slug}:{label}"
+        vertex_id = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/{slug}:{label}"
         exists = _row("SELECT vertex_id FROM vertex_maps_coverage_target WHERE vertex_id = %s LIMIT 1", (vertex_id,))
         if exists:
             skipped += 1
@@ -1777,7 +1777,7 @@ def expand_frontier(targets: Any = None, **_: Any) -> dict[str, Any]:
 def seed_all_known_variations(dryRun: Any = False, **_: Any) -> dict[str, Any]:
     candidates: list[dict[str, Any]] = []
     for key, label in WIKIDATA_PROFILE_LABELS.items():
-        source_did = "did:web:maps.gftd.ai:registry:wikidata" if key == "corp" else f"did:web:maps.gftd.ai:registry:wikidata:{key}"
+        source_did = "did:web:maps.etzhayyim.com:registry:wikidata" if key == "corp" else f"did:web:maps.etzhayyim.com:registry:wikidata:{key}"
         candidates.append({
             "sourceDid": source_did,
             "label": label,
@@ -1789,7 +1789,7 @@ def seed_all_known_variations(dryRun: Any = False, **_: Any) -> dict[str, Any]:
     stac_world_totals = {"sentinel2": 5000000, "landsat": 2000000, "sentinel1": 1500000, "naip": 500000}
     for key, world_total in stac_world_totals.items():
         candidates.append({
-            "sourceDid": f"did:web:maps.gftd.ai:satellite:{key}",
+            "sourceDid": f"did:web:maps.etzhayyim.com:satellite:{key}",
             "label": "SatelliteScene",
             "worldTotal": world_total,
             "priorityWeight": 0.3 if key == "naip" else 0.6,
@@ -1798,7 +1798,7 @@ def seed_all_known_variations(dryRun: Any = False, **_: Any) -> dict[str, Any]:
         })
     for label in OVERPASS_LABELS:
         candidates.append({
-            "sourceDid": "did:web:maps.gftd.ai:infrastructure",
+            "sourceDid": "did:web:maps.etzhayyim.com:infrastructure",
             "label": label,
             "worldTotal": 1000000,
             "priorityWeight": 0.3,
@@ -1819,9 +1819,9 @@ def seed_all_known_variations(dryRun: Any = False, **_: Any) -> dict[str, Any]:
     for candidate in candidates:
         source_did = _s(candidate["sourceDid"])
         label = _s(candidate["label"])
-        slug = source_did.replace("did:web:maps.gftd.ai:", "").replace("did:web:maps.gftd.ai", "")
+        slug = source_did.replace("did:web:maps.etzhayyim.com:", "").replace("did:web:maps.etzhayyim.com", "")
         slug = slug.replace(".", "-").replace(":", "-") or "primary"
-        vertex_id = f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/{slug}:{label}"
+        vertex_id = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/{slug}:{label}"
         if vertex_id in have:
             skipped += 1
             continue
@@ -2044,7 +2044,7 @@ def _maps_xrpc_post(nsid: str, body: dict[str, Any], timeout_sec: float = 90.0) 
     base = (
         os.environ.get("MAPS_XRPC_BASE_URL")
         or os.environ.get("MAPS_WORKER_URL")
-        or "https://maps.gftd.ai"
+        or "https://maps.etzhayyim.com"
     ).rstrip("/")
     url = f"{base}/xrpc/{nsid}"
     headers = {

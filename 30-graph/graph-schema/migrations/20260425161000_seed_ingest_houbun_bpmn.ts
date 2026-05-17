@@ -11,10 +11,10 @@ const sourcePath = "00-contracts/bpmn/ai/gftd/ingest/houbunEgovJpnDelta.bpmn";
 const xml = () => readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
 
 const processVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ingest-houbun-egov-jpn-delta-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-houbun-egov-jpn-delta-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-houbun-egov-jpn-delta-v1";
-const ownerDid = "did:web:ingest.gftd.ai";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-houbun-egov-jpn-delta-v1";
+const ownerDid = "did:web:ingest.etzhayyim.com";
 const createdAt = "2026-04-25T16:10:00Z";
 const actorTag = "sys.bpmn.seed.ingest-houbun";
 

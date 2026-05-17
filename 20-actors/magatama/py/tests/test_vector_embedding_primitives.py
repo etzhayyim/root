@@ -124,25 +124,25 @@ def test_clean_text_handles_none():
 def test_actor_text_combines_fields():
     row = {
         "display_name": "Shinshi Actor",
-        "handle": "shinshi.gftd.ai",
+        "handle": "shinshi.etzhayyim.com",
         "description": "AI music actor",
         "root_did": "did:erc725:gftd:260425:abc",
     }
     text = VE._actor_text(row)
     assert "Shinshi Actor" in text
-    assert "shinshi.gftd.ai" in text
+    assert "shinshi.etzhayyim.com" in text
     assert "AI music actor" in text
 
 
 def test_post_text_combines_fields():
     row = {
         "text": "New album released",
-        "handle": "shinshi.gftd.ai",
-        "source_uri": "at://did:web:shinshi.gftd.ai/app.bsky.feed.post/rk1",
+        "handle": "shinshi.etzhayyim.com",
+        "source_uri": "at://did:web:shinshi.etzhayyim.com/app.bsky.feed.post/rk1",
     }
     text = VE._post_text(row)
     assert "New album released" in text
-    assert "shinshi.gftd.ai" in text
+    assert "shinshi.etzhayyim.com" in text
 
 
 # ─── _summarize_hume_prediction / _collect_emotion_scores (pure) ─────────

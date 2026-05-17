@@ -39,7 +39,7 @@ LOG = logging.getLogger("karma")
 
 # ── Constants ──────────────────────────────────────────────────────────
 
-KARMA_DID = "did:web:karma.gftd.ai"
+KARMA_DID = "did:web:karma.etzhayyim.com"
 
 VALID_AXES = ("vita", "vivere", "veritas", "vinculum", "venturum")
 VALID_TIERS = ("floor", "high", "mid", "low")
@@ -1208,7 +1208,7 @@ async def task_karma_rebirth_wipe_agents(**kwargs: Any) -> dict[str, Any]:
          each as 'agent-wiped' in vertex_karma_rebirth_severance_log
          (Karma.lean N2: checkpoints are not deleted, only annotated)
       3. Vault key burn semantics: ciphertext stays at rest (zero-
-         knowledge invariant — vault.gftd.ai), but the organism's
+         knowledge invariant — vault.etzhayyim.com), but the organism's
          runtime can no longer dispatch decryption requests because
          status='dissolved' blocks new tick activations
     """

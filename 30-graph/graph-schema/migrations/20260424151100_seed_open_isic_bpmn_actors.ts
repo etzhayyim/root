@@ -12,22 +12,22 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T15:30:00Z";
-const ownerDid = "did:web:open-isic.gftd.ai";
+const ownerDid = "did:web:open-isic.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-isic";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-isic-classify-entity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-isic-classify-entity-v1",
     bpmnProcessId: "open_isic_classify_entity",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-isic/classifyEntity.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-isic-record-concordance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-isic-record-concordance-v1",
     bpmnProcessId: "open_isic_record_concordance",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-isic/recordConcordance.bpmn", ownerDid },
 ];
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-isic-classifyEntity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-isic-classifyEntity-v1",
     nsid: "ai.gftd.apps.openIsic.classifyEntity", bpmnProcessId: "open_isic_classify_entity",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-isic-recordConcordance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-isic-recordConcordance-v1",
     nsid: "ai.gftd.apps.openIsic.recordConcordance", bpmnProcessId: "open_isic_record_concordance",
     ownerDid, resultTimeoutMs: 15000 },
 ];

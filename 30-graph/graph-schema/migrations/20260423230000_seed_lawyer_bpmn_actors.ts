@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-// Phase D pilot #1 (ADR-0056) — retire the 38-LoC lawyer.gftd.ai Worker.
+// Phase D pilot #1 (ADR-0056) — retire the 38-LoC lawyer.etzhayyim.com Worker.
 // Mirrors the oshinobi seed migration shape (20260423220000_*) so the F5
 // watcher picks this up and deploys lawyer_health to Zeebe automatically.
 
@@ -32,11 +32,11 @@ function readContract(relPath: string): string {
 }
 
 const createdAt = "2026-04-23T23:00:00Z";
-const ownerDid = "did:web:lawyer.gftd.ai";
+const ownerDid = "did:web:lawyer.etzhayyim.com";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawyer-health-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawyer-health-v1",
     bpmnProcessId: "lawyer_health",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawyer/health.bpmn",
     ownerDid,
@@ -45,7 +45,7 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawyer-health-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawyer-health-v1",
     nsid: "ai.gftd.apps.lawyer.health",
     bpmnProcessId: "lawyer_health",
     ownerDid,

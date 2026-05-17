@@ -1,13 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Debug: maps.gftd.ai hero section not showing map iframe
+ * Debug: maps.etzhayyim.com hero section not showing map iframe
  */
 
-const TARGET_URL = '/profile/did%3Aweb%3Amaps.gftd.ai';
-const DECODED_DID = 'did:web:maps.gftd.ai';
+const TARGET_URL = '/profile/did%3Aweb%3Amaps.etzhayyim.com';
+const DECODED_DID = 'did:web:maps.etzhayyim.com';
 
-test.describe('Debug: maps.gftd.ai hero section', () => {
+test.describe('Debug: maps.etzhayyim.com hero section', () => {
 	test('capture hero section state and network', async ({ page }) => {
 		const errors: string[] = [];
 		const consoleMessages: string[] = [];
@@ -29,7 +29,7 @@ test.describe('Debug: maps.gftd.ai hero section', () => {
 
 		page.on('response', (res) => {
 			const url = res.url();
-			if (url.includes('_app/meta') || url.includes('_app/meta') || url.includes('maps.gftd.ai') || url.includes('uqpel6i6')) {
+			if (url.includes('_app/meta') || url.includes('_app/meta') || url.includes('maps.etzhayyim.com') || url.includes('uqpel6i6')) {
 				console.log(`RESPONSE: ${res.status()} ${res.request().method()} ${url}`);
 			}
 			if (res.status() >= 400) {
@@ -88,20 +88,20 @@ test.describe('Debug: maps.gftd.ai hero section', () => {
 
 	test('/_app/meta endpoints', async ({ request }) => {
 		// Vanity host
-		console.log('\n=== maps.gftd.ai/_app/meta ===');
-		const vanity = await request.get('https://maps.gftd.ai/_app/meta');
+		console.log('\n=== maps.etzhayyim.com/_app/meta ===');
+		const vanity = await request.get('https://maps.etzhayyim.com/_app/meta');
 		console.log(`Status: ${vanity.status()}`);
 		console.log(`Body: ${await vanity.text()}`);
 
 		// Nanoid host
-		console.log('\n=== uqpel6i6.gftd.ai/_app/meta ===');
-		const nanoid = await request.get('https://uqpel6i6.gftd.ai/_app/meta');
+		console.log('\n=== uqpel6i6.etzhayyim.com/_app/meta ===');
+		const nanoid = await request.get('https://uqpel6i6.etzhayyim.com/_app/meta');
 		console.log(`Status: ${nanoid.status()}`);
 		console.log(`Body: ${await nanoid.text()}`);
 
 		// Embed URL
-		console.log('\n=== uqpel6i6.gftd.ai/?embed=1 ===');
-		const embed = await request.get('https://uqpel6i6.gftd.ai/?embed=1');
+		console.log('\n=== uqpel6i6.etzhayyim.com/?embed=1 ===');
+		const embed = await request.get('https://uqpel6i6.etzhayyim.com/?embed=1');
 		console.log(`Status: ${embed.status()}`);
 		const html = await embed.text();
 		console.log(`HTML (first 500 chars): ${html.slice(0, 500)}`);
@@ -109,8 +109,8 @@ test.describe('Debug: maps.gftd.ai hero section', () => {
 
 	test('/_app/meta fallback', async ({ request }) => {
 		// This should 404 (host-sdk doesn't serve it)
-		console.log('\n=== maps.gftd.ai/_app/meta ===');
-		const res = await request.get('https://maps.gftd.ai/_app/meta').catch((e) =>
+		console.log('\n=== maps.etzhayyim.com/_app/meta ===');
+		const res = await request.get('https://maps.etzhayyim.com/_app/meta').catch((e) =>
 			({ status: () => 0, text: async () => `FETCH_ERROR: ${e.message}` })
 		);
 		console.log(`Status: ${res.status()}`);
@@ -118,7 +118,7 @@ test.describe('Debug: maps.gftd.ai hero section', () => {
 	});
 
 	test('PDS getProfile for maps DID', async ({ request }) => {
-		const res = await request.post('https://atproto.gftd.ai/xrpc/app.bsky.actor.getProfile', {
+		const res = await request.post('https://atproto.etzhayyim.com/xrpc/app.bsky.actor.getProfile', {
 			headers: { 'Content-Type': 'application/json' },
 			data: { actor: DECODED_DID },
 		});

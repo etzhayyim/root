@@ -29,7 +29,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger(__name__)
 
-INGEST_ACTOR = "did:web:ingest.gftd.ai"
+INGEST_ACTOR = "did:web:ingest.etzhayyim.com"
 SOURCE_ID = "netintel-whois"
 # rdap.org bootstraps to the correct registrar RDAP endpoint per RFC 7484.
 # rdap.iana.org serves TLD info only and returns 404 for SLDs like cloudflare.com.
@@ -132,7 +132,7 @@ def _insert_whois(domain: str, rdap: dict, run_id: str) -> bool:
     ts = now_iso()
     created_date = ts[:10]  # CURRENT_DATE unsupported in RW prepared statements
     snap_hash = hashlib.sha256(f"{domain}:{ts}".encode()).hexdigest()[:16]
-    vertex_id = f"at://did:web:ingest.gftd.ai/ai.gftd.apps.ingest.whoisRecord/{domain}:{snap_hash}"
+    vertex_id = f"at://did:web:ingest.etzhayyim.com/ai.gftd.apps.ingest.whoisRecord/{domain}:{snap_hash}"
     sql = (
         "INSERT INTO vertex_whois_record "
         "(vertex_id, owner_did, domain, registrar, registrar_iana_id, nameservers, "

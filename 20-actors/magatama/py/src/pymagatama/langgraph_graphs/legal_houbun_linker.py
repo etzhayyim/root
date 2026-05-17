@@ -20,7 +20,7 @@ from pymagatama import llm
 from pymagatama.db_sync import sync_cursor
 
 
-OWNER_DID = "did:web:legal-intel.gftd.ai"
+OWNER_DID = "did:web:legal-intel.etzhayyim.com"
 RUN_COLLECTION = "ai.gftd.apps.legalHoubun.linkRun"
 HYP_COLLECTION = "ai.gftd.apps.legalHoubun.linkHypothesis"
 

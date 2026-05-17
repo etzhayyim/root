@@ -1,10 +1,10 @@
 """Shared helpers for kafun-bokumetsu LangGraph chains.
 
 Path-based actor DIDs (ADR-0019):
-  did:web:n97ik10n.gftd.ai                     — controller (Fund)
-  did:web:n97ik10n.gftd.ai:actor:researcher    — research output author
-  did:web:n97ik10n.gftd.ai:actor:proposer      — think output author
-  did:web:n97ik10n.gftd.ai:actor:executor      — tick output author
+  did:web:n97ik10n.etzhayyim.com                     — controller (Fund)
+  did:web:n97ik10n.etzhayyim.com:actor:researcher    — research output author
+  did:web:n97ik10n.etzhayyim.com:actor:proposer      — think output author
+  did:web:n97ik10n.etzhayyim.com:actor:executor      — tick output author
 
 Persistence is OUT OF SCOPE here — graphs only return rows. Pod-side
 LangServer handlers write through the runtime data boundary (ADR-0036).
@@ -19,12 +19,12 @@ from datetime import datetime, timezone
 import httpx
 
 
-KAFUN_CONTROLLER_DID = "did:web:n97ik10n.gftd.ai"
+KAFUN_CONTROLLER_DID = "did:web:n97ik10n.etzhayyim.com"
 RESEARCHER_DID = f"{KAFUN_CONTROLLER_DID}:actor:researcher"
 PROPOSER_DID = f"{KAFUN_CONTROLLER_DID}:actor:proposer"
 EXECUTOR_DID = f"{KAFUN_CONTROLLER_DID}:actor:executor"
 
-_LLM_URL = os.environ.get("GFTD_LLM_URL", "https://murakumo.gftd.ai/v1/chat/completions")
+_LLM_URL = os.environ.get("GFTD_LLM_URL", "https://murakumo.etzhayyim.com/v1/chat/completions")
 _LLM_KEY = os.environ.get("GFTD_LLM_API_KEY", "sk-murakumo-local")
 _LLM_MODEL = os.environ.get("KAFUN_LLM_MODEL", os.environ.get("GFTD_LLM_MODEL", "qwen3-vl-8b"))
 

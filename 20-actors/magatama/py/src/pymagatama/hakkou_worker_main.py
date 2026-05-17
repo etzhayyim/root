@@ -36,7 +36,7 @@ from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("hakkou_worker")
 
-HAKKOU_DID = "did:web:hakkou.gftd.ai"
+HAKKOU_DID = "did:web:hakkou.etzhayyim.com"
 
 
 def _now() -> str:

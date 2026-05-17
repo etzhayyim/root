@@ -16,8 +16,8 @@ import {
 
 // Sample DIDs aligned with ADR-0074 + ADR-0049 D5 + ADR-0029.
 const ERC725 = "did:erc725:gftd:260425:0xabcdef0123456789abcdef0123456789abcdef01";
-const WEB_FLAT = "did:web:lawfirm.gftd.ai";
-const WEB_PATH = "did:web:judge.gftd.ai:JPN:tanaka-001";
+const WEB_FLAT = "did:web:lawfirm.etzhayyim.com";
+const WEB_PATH = "did:web:judge.etzhayyim.com:JPN:tanaka-001";
 const PLC = "did:plc:abcdefghijklmnopqrstuvwx";
 const PKH = "did:pkh:eip155:1:0xab5801a7d398351b8be11c439e05c5b3259aec9b";
 const GFTD_ROOT = "did:gftd:lf1rm8k0";

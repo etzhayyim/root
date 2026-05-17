@@ -78,7 +78,7 @@ func CdnUpload(_, _ string, _ []byte, _ string) (string, string) { return "", Er
 func CdnFetchUpload(_, _, _, _ string) (string, string)          { return "", ErrNotAvailable.Error() }
 func CdnDelete(_, _ string) string                               { return ErrNotAvailable.Error() }
 func CdnPublicURL(subdomain, path string) string {
-	return "https://" + subdomain + ".gftd.ai/" + path
+	return "https://" + subdomain + ".etzhayyim.com/" + path
 }
 func CdnUploadImage(_, _ string, _ []byte, _ ImageUploadOptions) (string, string) {
 	return "", ErrNotAvailable.Error()

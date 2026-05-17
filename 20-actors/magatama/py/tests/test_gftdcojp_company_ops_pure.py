@@ -144,7 +144,7 @@ class TestHelpers(unittest.TestCase):
     def test_vid_format(self):
         from pymagatama.langgraph_graphs.gftdcojp_company_ops import _vid
         v = _vid("test")
-        self.assertTrue(v.startswith("at://did:web:bpmn.gftd.ai/ai.gftd.apps.gftdcojp.test/"))
+        self.assertTrue(v.startswith("at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.test/"))
 
     def test_now_iso_format(self):
         from pymagatama.langgraph_graphs.gftdcojp_company_ops import _now_iso
@@ -199,18 +199,18 @@ class TestGftdcojpPersonnelPrimitive(unittest.TestCase):
     def test_tier3_readers_membership(self):
         import pymagatama.primitives.gftdcojp_personnel as p
         for did in (
-            "did:web:j-kawasaki.gftd.ai",
-            "did:web:a-nakamura.gftd.ai",
-            "did:web:k-bakshi.gftd.ai",
+            "did:web:j-kawasaki.etzhayyim.com",
+            "did:web:a-nakamura.etzhayyim.com",
+            "did:web:k-bakshi.etzhayyim.com",
         ):
             self.assertIn(did, p._TIER3_READERS)
-        self.assertNotIn("did:web:t-chikada.gftd.ai", p._TIER3_READERS)
+        self.assertNotIn("did:web:t-chikada.etzhayyim.com", p._TIER3_READERS)
 
     def test_vid_format(self):
         import pymagatama.primitives.gftdcojp_personnel as p
         v = p._vid("personMinimax")
         self.assertTrue(
-            v.startswith("at://did:web:bpmn.gftd.ai/ai.gftd.apps.gftdcojp.personMinimax/")
+            v.startswith("at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.personMinimax/")
         )
 
 

@@ -24,7 +24,7 @@ from pymagatama.agents.outlook_triage import (
 
 
 def test_metadata_score_clean():
-    score, reasons = _phish_score_metadata("pass", "pass", "pass", "", "u@gftd.ai", "internal", "")
+    score, reasons = _phish_score_metadata("pass", "pass", "pass", "", "u@etzhayyim.com", "internal", "")
     assert score == 0
     assert reasons == []
 
@@ -102,7 +102,7 @@ def _outlook_row(**overrides) -> dict:
         "spf_result": "pass",
         "dkim_result": "pass",
         "dmarc_result": "pass",
-        "account_did": "did:web:outlook.gftd.ai",
+        "account_did": "did:web:outlook.etzhayyim.com",
         "received_at": "2026-05-08T10:00:00Z",
     }
     base.update(overrides)

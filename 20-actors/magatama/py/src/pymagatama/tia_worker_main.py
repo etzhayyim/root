@@ -1,4 +1,4 @@
-"""tia.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""tia.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -51,9 +51,9 @@ async def run_worker():
                     id, signal_text, source, classification, risk_score,
                     actor_did, org_did, created_at, updated_at)
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
-                vertex_id, 0, date.today(), 0, "did:web:tia.gftd.ai",
+                vertex_id, 0, date.today(), 0, "did:web:tia.etzhayyim.com",
                 signal_id, signal_text, source, "unclassified", 0.0,
-                "did:web:tia.gftd.ai", "did:web:tia.gftd.ai", now, now,
+                "did:web:tia.etzhayyim.com", "did:web:tia.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

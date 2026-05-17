@@ -7,8 +7,8 @@ import { resolveValue, resolveFacetIndices, type TemplateContext, type SelfRef }
 import { DERIVE_RULES, rulesForCollection } from "../src/derive/registry.js";
 import { recordLink, getLink, clearLinks, linkCount } from "../src/derive/state.js";
 
-function makeCtx(record: Record<string, unknown>, selfUri = "at://mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.chapter/tid1", selfCid = "bafyTestCid"): TemplateContext {
-  return { record, self: { uri: selfUri, cid: selfCid }, repo: "did:web:mangaka.gftd.ai", derivedPosts: {} };
+function makeCtx(record: Record<string, unknown>, selfUri = "at://mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.chapter/tid1", selfCid = "bafyTestCid"): TemplateContext {
+  return { record, self: { uri: selfUri, cid: selfCid }, repo: "did:web:mangaka.etzhayyim.com", derivedPosts: {} };
 }
 
 describe("resolveValue — scalar templates", () => {
@@ -29,9 +29,9 @@ describe("resolveValue — scalar templates", () => {
 
   it("resolves resolve(ref).workDid to at-uri authority", () => {
     const out = resolveValue("{{resolve(record.workRef).workDid}}", makeCtx({
-      workRef: { uri: "at://mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.work/abc", cid: "bafy" },
+      workRef: { uri: "at://mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.work/abc", cid: "bafy" },
     }));
-    expect(out).toBe("mng4k4x1.gftd.ai");
+    expect(out).toBe("mng4k4x1.etzhayyim.com");
   });
 
   it("preserves whole-string structured values (SelfRef)", () => {
@@ -52,7 +52,7 @@ describe("resolveValue — _from/_each iteration", () => {
         _from: "record.charactersAppearing",
         _each: {
           index: { _matchText: "@{{item.displayName}}" },
-          features: [{ $type: "app.bsky.richtext.facet#mention", did: "did:web:mangaka.gftd.ai:character:{{item.slug}}" }],
+          features: [{ $type: "app.bsky.richtext.facet#mention", did: "did:web:mangaka.etzhayyim.com:character:{{item.slug}}" }],
         },
       },
     ];
@@ -66,8 +66,8 @@ describe("resolveValue — _from/_each iteration", () => {
     const arr = out as Array<Record<string, unknown>>;
     expect(arr).toHaveLength(2);
     expect((arr[0].index as Record<string, string>)._matchText).toBe("@Tamaki");
-    expect(((arr[0].features as Array<Record<string, string>>)[0]).did).toBe("did:web:mangaka.gftd.ai:character:tamaki");
-    expect(((arr[1].features as Array<Record<string, string>>)[0]).did).toBe("did:web:mangaka.gftd.ai:character:nei");
+    expect(((arr[0].features as Array<Record<string, string>>)[0]).did).toBe("did:web:mangaka.etzhayyim.com:character:tamaki");
+    expect(((arr[1].features as Array<Record<string, string>>)[0]).did).toBe("did:web:mangaka.etzhayyim.com:character:nei");
   });
 
   it("expands scalar string array via {{item}}", () => {
@@ -144,15 +144,15 @@ describe("derived(ref).strongRef resolution", () => {
   });
 
   it("returns recorded link via in-memory callback", () => {
-    const chapterUri = "at://mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.chapter/ch01";
-    const postRef: SelfRef = { uri: "at://mng4k4x1.gftd.ai/app.bsky.feed.post/tid-ch01-post", cid: "bafy-post-cid" };
+    const chapterUri = "at://mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.chapter/ch01";
+    const postRef: SelfRef = { uri: "at://mng4k4x1.etzhayyim.com/app.bsky.feed.post/tid-ch01-post", cid: "bafy-post-cid" };
     recordLink(chapterUri, postRef);
     expect(linkCount()).toBe(1);
 
     const ctx: TemplateContext = {
       record: { chapterRef: { uri: chapterUri, cid: "bafy-ch-cid" } },
       self: { uri: "at://self", cid: "bafy-self" },
-      repo: "did:web:mangaka.gftd.ai",
+      repo: "did:web:mangaka.etzhayyim.com",
       resolveDerivedPost: (u) => getLink(u),
     };
     const r = resolveValue("{{derived(record.chapterRef).strongRef}}", ctx);
@@ -175,8 +175,8 @@ describe("derived(ref).strongRef resolution", () => {
   });
 
   it("page-published-social reply resolves once chapter link is recorded", () => {
-    const chapterUri = "at://mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.chapter/sip-vol01-loneliness-ch01";
-    const chapterPostRef: SelfRef = { uri: "at://mng4k4x1.gftd.ai/app.bsky.feed.post/tid-post-1", cid: "bafy-p1" };
+    const chapterUri = "at://mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.chapter/sip-vol01-loneliness-ch01";
+    const chapterPostRef: SelfRef = { uri: "at://mng4k4x1.etzhayyim.com/app.bsky.feed.post/tid-post-1", cid: "bafy-p1" };
     recordLink(chapterUri, chapterPostRef);
 
     const rule = DERIVE_RULES.find((r) => r.id === "page-published-social")!;
@@ -190,8 +190,8 @@ describe("derived(ref).strongRef resolution", () => {
     };
     const ctx: TemplateContext = {
       record: pageRecord,
-      self: { uri: "at://mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.page/p3", cid: "bafy-p3-cid" },
-      repo: "did:web:mangaka.gftd.ai",
+      self: { uri: "at://mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.page/p3", cid: "bafy-p3-cid" },
+      repo: "did:web:mangaka.etzhayyim.com",
       resolveDerivedPost: (u) => getLink(u),
     };
     const reply = resolveValue(rule.emit.reply, ctx) as { root: SelfRef; parent: SelfRef };
@@ -218,7 +218,7 @@ describe("DERIVE_RULES registry + end-to-end chapter commit", () => {
   it("full resolution of chapter-published-social emits a valid post shape", () => {
     const rule = DERIVE_RULES.find((r) => r.id === "chapter-published-social")!;
     const record = {
-      workRef: { uri: "at://mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.work/spirit-in-physics", cid: "bafy-work" },
+      workRef: { uri: "at://mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.work/spirit-in-physics", cid: "bafy-work" },
       chapterNum: 1,
       titleJP: "第1話 配属の日",
       volumeId: "vol01-loneliness",
@@ -226,20 +226,20 @@ describe("DERIVE_RULES registry + end-to-end chapter commit", () => {
       charactersAppearing: [{ slug: "tamaki", displayName: "Tamaki" }, { slug: "nei", displayName: "Nei" }],
       coverCid: "bafy-cover-cid",
       coverAlt: "Vol1 cover",
-      readerUri: "https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.chapter/sip-vol01-loneliness-ch01",
+      readerUri: "https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.chapter/sip-vol01-loneliness-ch01",
       status: "published",
     };
     const ctx = makeCtx(record);
 
     const did = resolveValue(rule.emit.did, ctx);
-    expect(did).toBe("mng4k4x1.gftd.ai");
+    expect(did).toBe("mng4k4x1.etzhayyim.com");
 
     const text = resolveValue(rule.emit.text, ctx) as string;
     expect(text).toContain("📖 新章公開");
     expect(text).toContain("vol01-loneliness ch.1");
     expect(text).toContain("第1話 配属の日");
     expect(text).toContain("#sip-vol1");
-    expect(text).toContain("https://mangaka.gftd.ai/at/");
+    expect(text).toContain("https://mangaka.etzhayyim.com/at/");
 
     const facetsExpanded = resolveValue(rule.emit.facets, ctx);
     const facets = resolveFacetIndices(facetsExpanded, text);
@@ -247,8 +247,8 @@ describe("DERIVE_RULES registry + end-to-end chapter commit", () => {
     expect(facets.length).toBe(5);
     const mentionFeatures = facets.flatMap((f) => f.features).filter((feat) => (feat as Record<string, string>).$type === "app.bsky.richtext.facet#mention");
     expect(mentionFeatures.map((f) => (f as Record<string, string>).did)).toEqual([
-      "did:web:mangaka.gftd.ai:character:tamaki",
-      "did:web:mangaka.gftd.ai:character:nei",
+      "did:web:mangaka.etzhayyim.com:character:tamaki",
+      "did:web:mangaka.etzhayyim.com:character:nei",
     ]);
     const tagFeatures = facets.flatMap((f) => f.features).filter((feat) => (feat as Record<string, string>).$type === "app.bsky.richtext.facet#tag");
     expect(tagFeatures.map((f) => (f as Record<string, string>).tag).sort()).toEqual(["TamakiGrowth", "sip-vol1"]);

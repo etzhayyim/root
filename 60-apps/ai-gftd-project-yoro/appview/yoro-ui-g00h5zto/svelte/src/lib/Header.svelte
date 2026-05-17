@@ -60,8 +60,8 @@
     launcherApps,
     showStandardActions = true,
     showCredits = true,
-    signInHref = 'https://authn.gftd.ai/sign-in',
-    signUpHref = 'https://authn.gftd.ai/sign-up',
+    signInHref = 'https://authn.etzhayyim.com/sign-in',
+    signUpHref = 'https://authn.etzhayyim.com/sign-up',
     walletHref = 'https://metamask.io/download/',
     walletLabel = 'MetaMask',
     appName = 'GFTD',
@@ -78,7 +78,7 @@
     const candidate = signUpHref || signInHref;
     if (!candidate) return undefined;
     try {
-      return new URL(candidate, typeof window !== 'undefined' ? window.location.origin : 'https://auth.gftd.ai').origin;
+      return new URL(candidate, typeof window !== 'undefined' ? window.location.origin : 'https://auth.etzhayyim.com').origin;
     } catch {
       return undefined;
     }

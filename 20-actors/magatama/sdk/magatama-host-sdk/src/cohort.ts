@@ -46,7 +46,7 @@ export function parseSegmentHash(segmentHash: string): CohortSegment | null {
 
 export function apqcL1DidFromSegment(
   segment: CohortSegment,
-  projectorHost = "kyber-projector.gftd.ai"
+  projectorHost = "kyber-projector.etzhayyim.com"
 ): string {
   return `did:web:${projectorHost}:apqc:${segment.pcfL1}`;
 }

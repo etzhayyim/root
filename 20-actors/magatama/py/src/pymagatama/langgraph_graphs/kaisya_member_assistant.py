@@ -1,5 +1,5 @@
 """
-kaisya.gftd.ai member assistant LangGraph.
+kaisya.etzhayyim.com member assistant LangGraph.
 
 Per-member chat surface that wraps gftdcojp-company-ops and
 lawfirm-marketing-ops behind a member-identity-aware supervisor.
@@ -33,26 +33,26 @@ from typing import Any, Literal, TypedDict
 
 LOG = logging.getLogger("kaisya.member")
 
-_KAISYA_DID = "did:web:kaisya.gftd.ai"
-_OWNER_DID = "did:web:bpmn.gftd.ai"
+_KAISYA_DID = "did:web:kaisya.etzhayyim.com"
+_OWNER_DID = "did:web:bpmn.etzhayyim.com"
 
 # UPN → member DID resolution table (extend as new members onboard)
 _UPN_TO_DID: dict[str, str] = {
-    "j-kawasaki@gftd.co":  "did:web:j-kawasaki.gftd.ai",
-    "j.kawasaki@gftd.co":  "did:web:j-kawasaki.gftd.ai",
-    "a-nakamura@gftd.co":  "did:web:a-nakamura.gftd.ai",
-    "a.nakamura@gftd.co":  "did:web:a-nakamura.gftd.ai",
-    "k-bakshi@gftd.co":    "did:web:k-bakshi.gftd.ai",
-    "k.bakshi@gftd.co":    "did:web:k-bakshi.gftd.ai",
-    "t-chikada@gftd.co":   "did:web:t-chikada.gftd.ai",
-    "t.chikada@gftd.co":   "did:web:t-chikada.gftd.ai",
-    "f-tanaka@gftd.co":    "did:web:f-tanaka.gftd.ai",
-    "f.tanaka@gftd.co":    "did:web:f-tanaka.gftd.ai",
-    "y-nishino@gftd.co":   "did:web:y-nishino.gftd.ai",
-    "y.nishino@gftd.co":   "did:web:y-nishino.gftd.ai",
-    "t-ichihara@gftd.co":  "did:web:t-ichihara.gftd.ai",
-    "k-takahashi@gftd.co": "did:web:k-takahashi.gftd.ai",
-    "n-takahashi@gftd.co": "did:web:n-takahashi.gftd.ai",
+    "j-kawasaki@gftd.co":  "did:web:j-kawasaki.etzhayyim.com",
+    "j.kawasaki@gftd.co":  "did:web:j-kawasaki.etzhayyim.com",
+    "a-nakamura@gftd.co":  "did:web:a-nakamura.etzhayyim.com",
+    "a.nakamura@gftd.co":  "did:web:a-nakamura.etzhayyim.com",
+    "k-bakshi@gftd.co":    "did:web:k-bakshi.etzhayyim.com",
+    "k.bakshi@gftd.co":    "did:web:k-bakshi.etzhayyim.com",
+    "t-chikada@gftd.co":   "did:web:t-chikada.etzhayyim.com",
+    "t.chikada@gftd.co":   "did:web:t-chikada.etzhayyim.com",
+    "f-tanaka@gftd.co":    "did:web:f-tanaka.etzhayyim.com",
+    "f.tanaka@gftd.co":    "did:web:f-tanaka.etzhayyim.com",
+    "y-nishino@gftd.co":   "did:web:y-nishino.etzhayyim.com",
+    "y.nishino@gftd.co":   "did:web:y-nishino.etzhayyim.com",
+    "t-ichihara@gftd.co":  "did:web:t-ichihara.etzhayyim.com",
+    "k-takahashi@gftd.co": "did:web:k-takahashi.etzhayyim.com",
+    "n-takahashi@gftd.co": "did:web:n-takahashi.etzhayyim.com",
 }
 
 
@@ -234,7 +234,7 @@ def load_context(state: MemberChatState) -> dict:
 
 # ── Node: supervisor (LLM-driven route classification) ────────────────────────
 
-_SUPERVISOR_SYSTEM = """You are the kaisya.gftd.ai member chat supervisor.
+_SUPERVISOR_SYSTEM = """You are the kaisya.etzhayyim.com member chat supervisor.
 The member has already been authenticated. You see their RACI scope.
 
 Classify the user's message into ONE route:
@@ -310,7 +310,7 @@ def lawfirm_marketing_dispatch(state: MemberChatState) -> dict:
         from pymagatama.langgraph_graphs.lawfirm_marketing_ops import build_graph
         sub = build_graph().invoke({
             "task_type": task_type,
-            "brand": "advocate" if state.get("member_did") == "did:web:k-bakshi.gftd.ai" else "platform",
+            "brand": "advocate" if state.get("member_did") == "did:web:k-bakshi.etzhayyim.com" else "platform",
             "audience": state.get("member_role", ""),
             "topic": msg,
             "requester_did": state.get("member_did", ""),
@@ -330,8 +330,8 @@ def lawfirm_sales_dispatch(state: MemberChatState) -> dict:
     member_did = state.get("member_did", "")
     # RACI gate: only k-bakshi or a-nakamura can trigger pipeline transitions
     can_mutate = member_did in (
-        "did:web:k-bakshi.gftd.ai", "did:web:a-nakamura.gftd.ai",
-        "did:web:j-kawasaki.gftd.ai",
+        "did:web:k-bakshi.etzhayyim.com", "did:web:a-nakamura.etzhayyim.com",
+        "did:web:j-kawasaki.etzhayyim.com",
     )
     leads = _db_query(
         "SELECT lead_id, target_name, stage, last_touch_at, conversion_value_usd "
@@ -349,7 +349,7 @@ def lawfirm_sales_dispatch(state: MemberChatState) -> dict:
 
 # ── Node: direct_reply / escalate ─────────────────────────────────────────────
 
-_REPLY_SYSTEM = """You are the kaisya.gftd.ai member chat assistant.
+_REPLY_SYSTEM = """You are the kaisya.etzhayyim.com member chat assistant.
 Reply directly to the user's message. Be specific. Cite RACI scope when
 declining or escalating. Tone: professional, concise, Japanese OK.
 

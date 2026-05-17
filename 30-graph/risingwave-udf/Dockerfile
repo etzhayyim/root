@@ -22,7 +22,7 @@ EXPOSE 8815
 #   LLM_TIMEOUT_SEC  — default 8
 #   T3_IO_THREADS    — default 50 (ADR-0044 D3 recommended)
 ENV UDF_PORT=8815 \
-    LLM_URL=http://ollama.gftd.ai/v1/chat/completions \
+    LLM_URL=http://ollama.etzhayyim.com/v1/chat/completions \
     LLM_MODEL=gemma4:e2b \
     LLM_TIMEOUT_SEC=8 \
     T3_IO_THREADS=50

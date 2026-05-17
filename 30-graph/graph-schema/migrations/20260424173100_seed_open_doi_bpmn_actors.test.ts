@@ -30,7 +30,7 @@ describe("Seed open-doi BPMN actors migration", () => {
   });
   it("uses open-doi-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-doi');
-    expect(migrationSource).toContain("did:web:open-doi.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-doi.etzhayyim.com");
   });
   it("BPMN processes target Zeebe generic.* primitives", () => {
     for (const xml of [bpmn1, bpmn2]) {

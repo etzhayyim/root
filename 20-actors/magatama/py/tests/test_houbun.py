@@ -3,7 +3,7 @@ Unit tests for pymagatama.handlers.houbun (ADR-0052 Phase 1).
 
 Pure-function coverage:
 - Article DID hash is deterministic + distinct across inputs.
-- DID format matches `did:web:houbun.gftd.ai:article:{12hex}`.
+- DID format matches `did:web:houbun.etzhayyim.com:article:{12hex}`.
 - _flatten_text handles str / list / nested dicts / #text / attribute keys.
 - _iter_articles extracts <Article> nodes and threads chapter label into section.
 
@@ -57,7 +57,7 @@ def test_article_did_deterministic():
     a = H._article_did("jpn", "129AC0000000089", "第九条", "")
     b = H._article_did("jpn", "129AC0000000089", "第九条", "")
     assert a == b
-    assert a.startswith("did:web:houbun.gftd.ai:article:")
+    assert a.startswith("did:web:houbun.etzhayyim.com:article:")
     assert len(a.rsplit(":", 1)[-1]) == 12
 
 

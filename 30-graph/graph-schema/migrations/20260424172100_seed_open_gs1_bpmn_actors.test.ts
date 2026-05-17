@@ -30,7 +30,7 @@ describe("Seed open-gs1 BPMN actors migration", () => {
   });
   it("uses open-gs1-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-gs1');
-    expect(migrationSource).toContain("did:web:open-gs1.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-gs1.etzhayyim.com");
   });
   it("BPMN processes target Zeebe generic.* primitives", () => {
     for (const xml of [bpmn1, bpmn2]) {

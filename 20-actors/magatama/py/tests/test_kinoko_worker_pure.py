@@ -93,7 +93,7 @@ def test_threshold_met_forms_block():
 
     assert result["blockFormed"] is True
     assert result["blockId"].startswith("blk-")
-    assert result["blockVertexId"].startswith("at://did:web:kinoko.gftd.ai/")
+    assert result["blockVertexId"].startswith("at://did:web:kinoko.etzhayyim.com/")
     assert result["totalFlow"] == 120.0
     assert result["participantCount"] == 7
     assert result["minEta"] == 0.72

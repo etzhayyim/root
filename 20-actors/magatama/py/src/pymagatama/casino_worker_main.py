@@ -1,4 +1,4 @@
-"""casino.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""casino.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -75,7 +75,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.casino.createReview")
     async def task_create_review(**kwargs):
         casino_id = kwargs.get("casinoId", "")
-        reviewer_did = kwargs.get("reviewerDid", "did:web:casino.gftd.ai")
+        reviewer_did = kwargs.get("reviewerDid", "did:web:casino.etzhayyim.com")
         rating = int(kwargs.get("rating", 3))
         content = kwargs.get("content", "")
 
@@ -93,7 +93,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, reviewer_did,
                 review_id, casino_id, reviewer_did, rating, content,
-                "did:web:casino.gftd.ai", "did:web:casino.gftd.ai", now, now,
+                "did:web:casino.etzhayyim.com", "did:web:casino.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

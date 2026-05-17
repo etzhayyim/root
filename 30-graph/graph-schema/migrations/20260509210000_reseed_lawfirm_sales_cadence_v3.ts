@@ -10,7 +10,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const SEED_CREATED_AT = "2026-05-09T00:00:00Z";
-const SEED_OWNER_DID = "did:web:lawfirm.gftd.ai";
+const SEED_OWNER_DID = "did:web:lawfirm.etzhayyim.com";
 const SEED_ACTOR_TAG = "sys.bpmn.seed.lawfirm";
 
 /**
@@ -31,12 +31,12 @@ const SEED_ACTOR_TAG = "sys.bpmn.seed.lawfirm";
  * Down() restores v2 → 'active', flips v3 → 'inactive' + delete v3 row.
  */
 const PROCESS_V3 = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v3",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v3",
   bpmnProcessId: "lawfirm_sales_cadence_tick",
   sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/salesCadenceTick.bpmn",
   version: 3,
 };
-const PROCESS_V2_VID = "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v2";
+const PROCESS_V2_VID = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v2";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readContract(PROCESS_V3.sourcePath);

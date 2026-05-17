@@ -6,19 +6,19 @@ import { sql } from "kysely";
 
 /**
  * vertex_contracts_* — projection of vertex_legal_entity into
- * social-contract.gftd.ai:entity:* DID space, plus fresh-crawl
+ * social-contract.etzhayyim.com:entity:* DID space, plus fresh-crawl
  * vertex_contracts_social_contract (constitution / treaty).
  *
  * Design (ADR-0049 contracts pilot, 2026-04-22):
  *   vertex_contracts_organization is a PROJECTION over vertex_legal_entity
- *   (123.5M rows already ingested by legal-entity.gftd.ai crawler).
+ *   (123.5M rows already ingested by legal-entity.etzhayyim.com crawler).
  *   legal_entity_ref is the foreign key back to the authoritative row.
  *   vertex_id is content-addressed via the minted entity DID so repeat
  *   projection is idempotent (ON CONFLICT (vertex_id) DO NOTHING).
  *
  *   vertex_contracts_social_contract is FRESH CRAWL output from
  *   UN Treaty Collection / Constitute Project (law full-text corpus is
- *   out of scope — delegated to houbun.gftd.ai per ADR-0052).
+ *   out of scope — delegated to houbun.etzhayyim.com per ADR-0052).
  *
  * Write path: Hyperdrive direct (ADR-0036). Handlers:
  *   20-actors/magatama/py/src/pymagatama/handlers/contracts.py

@@ -5,11 +5,11 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * training.gftd.ai BPMN-as-actor seeding (ADR-0056 + ADR-2604282300 + ADR-2605070700).
+ * training.etzhayyim.com BPMN-as-actor seeding (ADR-0056 + ADR-2604282300 + ADR-2605070700).
  *
  * 5 BPMN process defs + 5 XRPC bindings.  No CF Worker (T2 tier:
  * pymagatama + Zeebe only).  Reachable via bpmn-dispatcher
- * `http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.training.*`.
+ * `http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.training.*`.
  *
  *  Process / NSID                        Result timeout
  *  -----------------------------------------------------
@@ -34,41 +34,41 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:01:00Z";
-const ownerDid = "did:web:training.gftd.ai";
+const ownerDid = "did:web:training.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.training";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-run-sft-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-sft-v1",
     bpmnProcessId: "training_run_sft",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/runSft.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-run-lora-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-lora-v1",
     bpmnProcessId: "training_run_lora",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/runLora.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-run-distill-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-distill-v1",
     bpmnProcessId: "training_run_distill",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/runDistill.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-run-eval-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-eval-v1",
     bpmnProcessId: "training_run_eval",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/runEval.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-promote-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-promote-v1",
     bpmnProcessId: "training_promote",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/promote.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-runSft-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runSft-v1",
     nsid: "ai.gftd.apps.training.runSft",
     bpmnProcessId: "training_run_sft", ownerDid, resultTimeoutMs: 1_800_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-runLora-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runLora-v1",
     nsid: "ai.gftd.apps.training.runLora",
     bpmnProcessId: "training_run_lora", ownerDid, resultTimeoutMs: 1_800_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-runDistill-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runDistill-v1",
     nsid: "ai.gftd.apps.training.runDistill",
     bpmnProcessId: "training_run_distill", ownerDid, resultTimeoutMs: 3_600_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-runEval-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runEval-v1",
     nsid: "ai.gftd.apps.training.runEval",
     bpmnProcessId: "training_run_eval", ownerDid, resultTimeoutMs: 600_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-promote-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-promote-v1",
     nsid: "ai.gftd.apps.training.promote",
     bpmnProcessId: "training_promote", ownerDid, resultTimeoutMs: 30_000 },
 ];

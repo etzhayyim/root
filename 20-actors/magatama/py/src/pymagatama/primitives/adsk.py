@@ -46,7 +46,7 @@ from pymagatama.db_sync import sync_cursor
 # Constants / env
 # ──────────────────────────────────────────────────────────────────────
 
-_ADSK_ACTOR = "did:web:adsk.gftd.ai"
+_ADSK_ACTOR = "did:web:adsk.etzhayyim.com"
 _HF_TOKEN = os.environ.get("HF_TOKEN", "").strip() or None
 
 # Hard cap on a single record body persisted inline (RW varchar safety).

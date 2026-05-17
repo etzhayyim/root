@@ -31,7 +31,7 @@ branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
 
-_ACTOR = "did:web:kenkyusha.gftd.ai"
+_ACTOR = "did:web:kenkyusha.etzhayyim.com"
 
 
 def upgrade() -> None:

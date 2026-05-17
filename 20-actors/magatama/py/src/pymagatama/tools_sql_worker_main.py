@@ -176,7 +176,7 @@ def _render_vertex_id(template: str, owner_did: str, collection: str) -> str:
     """Expand a vertex_id template per the ADR-2605082000 Phase E convention.
 
     Placeholders:
-      {owner_did}  — caller-provided DID, e.g. did:web:bpmn.gftd.ai
+      {owner_did}  — caller-provided DID, e.g. did:web:bpmn.etzhayyim.com
       {collection} — caller-provided NSID,  e.g. ai.gftd.apps.hr.event
       {stamp}      — UTC YYYYMMDDHHMMSS
       {nanoid8}    — 8-char hex nanoid (uuid4 first 8)

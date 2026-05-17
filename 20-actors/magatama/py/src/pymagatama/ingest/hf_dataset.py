@@ -33,7 +33,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger(__name__)
 
-_OWNER_DID = "did:web:ingest.gftd.ai"
+_OWNER_DID = "did:web:ingest.etzhayyim.com"
 _HF_TOKEN = os.environ.get("HF_TOKEN", "").strip()
 _HF_API = "https://huggingface.co/api"
 _DS_SERVER = "https://datasets-server.huggingface.co"

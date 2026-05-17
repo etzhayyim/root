@@ -97,7 +97,7 @@ describe('cohortToolNsid', () => {
 describe('createCohortToolHandler', () => {
   it('returns null for unknown tool name', async () => {
     const handler = createCohortToolHandler({
-      pdsBaseUrl: 'https://atproto.gftd.ai',
+      pdsBaseUrl: 'https://atproto.etzhayyim.com',
       bearerToken: 'tok',
       fetchImpl: (async () => new Response('{}')) as any,
     });
@@ -108,7 +108,7 @@ describe('createCohortToolHandler', () => {
   it('routes cohort_seed via POST + Bearer auth + segmentJsonld', async () => {
     let captured: any = null;
     const handler = createCohortToolHandler({
-      pdsBaseUrl: 'https://atproto.gftd.ai',
+      pdsBaseUrl: 'https://atproto.etzhayyim.com',
       bearerToken: 'tok-abc',
       fetchImpl: (async (url: string, init: any) => {
         captured = { url, init };
@@ -123,7 +123,7 @@ describe('createCohortToolHandler', () => {
       locale: 'jp',
     }) as any;
     expect(r.did).toBe('did:plc:pending-x');
-    expect(captured.url).toBe('https://atproto.gftd.ai/xrpc/ai.gftd.cohort.seed');
+    expect(captured.url).toBe('https://atproto.etzhayyim.com/xrpc/ai.gftd.cohort.seed');
     expect(captured.init.method).toBe('POST');
     expect(captured.init.headers.Authorization).toBe('Bearer tok-abc');
     const body = JSON.parse(captured.init.body);
@@ -135,7 +135,7 @@ describe('createCohortToolHandler', () => {
   it('routes cohort_list via GET + query params', async () => {
     let captured: any = null;
     const handler = createCohortToolHandler({
-      pdsBaseUrl: 'https://atproto.gftd.ai',
+      pdsBaseUrl: 'https://atproto.etzhayyim.com',
       bearerToken: 'tok',
       fetchImpl: (async (url: string, init: any) => {
         captured = { url, init };
@@ -151,7 +151,7 @@ describe('createCohortToolHandler', () => {
 
   it('returns error object on non-2xx', async () => {
     const handler = createCohortToolHandler({
-      pdsBaseUrl: 'https://atproto.gftd.ai',
+      pdsBaseUrl: 'https://atproto.etzhayyim.com',
       bearerToken: 'tok',
       fetchImpl: (async () => new Response('oops', { status: 500 })) as any,
     });

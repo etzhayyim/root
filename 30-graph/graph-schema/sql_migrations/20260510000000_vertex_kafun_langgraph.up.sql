@@ -12,9 +12,9 @@
 --      vertex_bpmn_lexicon_binding  × 3  (routing_target='langgraph')
 --
 -- Path-based actor DIDs (ADR-0019, persisted by Worker via sdk.did.create on first request):
---   did:web:n97ik10n.gftd.ai:actor:researcher
---   did:web:n97ik10n.gftd.ai:actor:proposer
---   did:web:n97ik10n.gftd.ai:actor:executor
+--   did:web:n97ik10n.etzhayyim.com:actor:researcher
+--   did:web:n97ik10n.etzhayyim.com:actor:proposer
+--   did:web:n97ik10n.etzhayyim.com:actor:executor
 --
 -- Persistence model: record-log semantics (PK re-INSERT = implicit upsert; no ON CONFLICT, no UPDATE).
 -- RisingWave: no JSONB; JSON arrays stored as VARCHAR.
@@ -120,18 +120,18 @@ INSERT INTO vertex_bpmn_lexicon_binding
    result_timeout_ms, status, created_at, sensitivity_ord,
    org_id, user_id, actor_id, routing_target)
 VALUES
-  ('at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kafun-research-langgraph-v1',
-   'did:web:bpmn.gftd.ai', 'ai.gftd.apps.kafun.agent.research',
+  ('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kafun-research-langgraph-v1',
+   'did:web:bpmn.etzhayyim.com', 'ai.gftd.apps.kafun.agent.research',
    'kafun.research.v1', 1, CAST(180000 AS integer), 'active',
    '2026-05-10T00:00:00Z', 1,
-   'did:web:bpmn.gftd.ai', 'did:web:bpmn.gftd.ai', 'did:web:bpmn.gftd.ai', 'langgraph'),
-  ('at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kafun-think-langgraph-v1',
-   'did:web:bpmn.gftd.ai', 'ai.gftd.apps.kafun.agent.think',
+   'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'langgraph'),
+  ('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kafun-think-langgraph-v1',
+   'did:web:bpmn.etzhayyim.com', 'ai.gftd.apps.kafun.agent.think',
    'kafun.think.v1', 1, CAST(180000 AS integer), 'active',
    '2026-05-10T00:00:00Z', 1,
-   'did:web:bpmn.gftd.ai', 'did:web:bpmn.gftd.ai', 'did:web:bpmn.gftd.ai', 'langgraph'),
-  ('at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kafun-tick-langgraph-v1',
-   'did:web:bpmn.gftd.ai', 'ai.gftd.apps.kafun.agent.tick',
+   'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'langgraph'),
+  ('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kafun-tick-langgraph-v1',
+   'did:web:bpmn.etzhayyim.com', 'ai.gftd.apps.kafun.agent.tick',
    'kafun.tick.v1', 1, CAST(180000 AS integer), 'active',
    '2026-05-10T00:00:00Z', 1,
-   'did:web:bpmn.gftd.ai', 'did:web:bpmn.gftd.ai', 'did:web:bpmn.gftd.ai', 'langgraph');
+   'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'langgraph');

@@ -56,7 +56,7 @@ class ShoshaAgentState(TypedDict, total=False):
 # ── System prompt ──────────────────────────────────────────────────────
 
 _AGENT_SYSTEM = (
-    "You are 商社 (shosha.gftd.ai), an autonomous AI sogo-shosha agent. "
+    "You are 商社 (shosha.etzhayyim.com), an autonomous AI sogo-shosha agent. "
     "You have read access to recent market intel, market views, and open "
     "exposure. Be concise, factual, and acknowledge uncertainty. Default "
     "to Japanese unless the user writes English. Keep replies under 600 "
@@ -182,7 +182,7 @@ def emit_audit(state: ShoshaAgentState) -> dict:
                 """,
                 (
                     str(uuid.uuid4()),
-                    "did:web:shosha.gftd.ai",
+                    "did:web:shosha.etzhayyim.com",
                     "ai.gftd.apps.shosha.agentLoop",
                     f"lg-{int(_time.time() * 1000)}",
                     "create",

@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const CREATED_AT = "2026-04-29T23:35:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.kaisya";
 
 function readBpmn(relativePath: string): string {
@@ -18,7 +18,7 @@ function readBpmn(relativePath: string): string {
 const PROCESS_DEFS = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-master-routine-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-master-routine-v1",
     bpmnProcessId: "kaisya_master_routine",
     sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/masterRoutine.bpmn",
   },

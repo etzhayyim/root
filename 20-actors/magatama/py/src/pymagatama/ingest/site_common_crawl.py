@@ -1,4 +1,4 @@
-"""Zeebe task handlers for site.gftd.ai Common Crawl orchestration.
+"""Zeebe task handlers for site.etzhayyim.com Common Crawl orchestration.
 
 Common Crawl acquisition stays artifact-first: download/graph/intel commands
 produce files, and the write step is explicitly delegated to the domain ingest
@@ -28,7 +28,7 @@ from pymagatama.ingest.core import (
     upsert_run,
 )
 
-ACTOR_DID = "did:web:site.gftd.ai"
+ACTOR_DID = "did:web:site.etzhayyim.com"
 SOURCE_ID = "common-crawl"
 INGEST_FAMILY = "site"
 BPMN_PROCESS_ID = "ingest_site_common_crawl_delta"

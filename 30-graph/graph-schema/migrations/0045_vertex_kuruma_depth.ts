@@ -255,13 +255,13 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   await sql`CREATE MATERIALIZED VIEW IF NOT EXISTS mv_kuruma_dealer_density_by_country AS
     SELECT
-      SPLIT_PART(SPLIT_PART(repo, '.gftd.ai', 1), 'did:web:', 2) AS app_host,
+      SPLIT_PART(SPLIT_PART(repo, '.etzhayyim.com', 1), 'did:web:', 2) AS app_host,
       CAST(NULL AS VARCHAR) AS country,
       COUNT(*)::BIGINT AS dealer_count
     FROM vertex_repo_record
     WHERE collection = 'ai.gftd.apps.car_dealer.dealer'
-      AND repo = 'did:web:kuruma.gftd.ai'
-    GROUP BY SPLIT_PART(SPLIT_PART(repo, '.gftd.ai', 1), 'did:web:', 2)`.execute(db);
+      AND repo = 'did:web:kuruma.etzhayyim.com'
+    GROUP BY SPLIT_PART(SPLIT_PART(repo, '.etzhayyim.com', 1), 'did:web:', 2)`.execute(db);
 }
 
 export async function down(db: Kysely<unknown>): Promise<void> {

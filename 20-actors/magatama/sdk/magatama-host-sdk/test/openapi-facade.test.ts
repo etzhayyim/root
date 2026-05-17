@@ -39,9 +39,9 @@ describe("buildOpenApiDocument", () => {
 		const doc = buildOpenApiDocument({
 			appName: LAWFIRM_APP_NAME,
 			routes: LAWFIRM_ROUTES,
-			serverUrl: "https://lawfirm.gftd.ai",
+			serverUrl: "https://lawfirm.etzhayyim.com",
 		}) as { servers: Array<{ url: string }> };
-		expect(doc.servers).toEqual([{ url: "https://lawfirm.gftd.ai" }]);
+		expect(doc.servers).toEqual([{ url: "https://lawfirm.etzhayyim.com" }]);
 	});
 
 	it("emits empty servers[] when serverUrl is omitted (deployment-agnostic spec)", () => {

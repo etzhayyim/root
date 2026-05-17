@@ -1,7 +1,7 @@
 """Ameno LangServer handlers (ADR-2605111200).
 
 Receives XRPC saveResult / listHistory forwarded from
-ameno.gftd.ai CF Worker → bpmn-dispatcher → AgentGateway MCP →
+ameno.etzhayyim.com CF Worker → bpmn-dispatcher → AgentGateway MCP →
 ameno-langserver pod, and persists / queries vertex_ameno_inferenceresult
 via the shared sync psycopg pool.
 
@@ -130,7 +130,7 @@ def handle_save_result(payload: dict[str, Any]) -> dict[str, Any]:
     result_id = _new_result_id()
     actor_did = _safe_str(payload.get("actorDid"))
     vertex_id = (
-        f"at://{actor_did or 'did:web:ameno.gftd.ai'}"
+        f"at://{actor_did or 'did:web:ameno.etzhayyim.com'}"
         f"/ai.gftd.apps.ameno.inferenceResult/{result_id}"
     )
     created_at = _now_iso()
@@ -173,7 +173,7 @@ def handle_save_result(payload: dict[str, Any]) -> dict[str, Any]:
         bool(payload.get("ragContextUsed")),
         actor_did or "anon",
         _safe_str(payload.get("orgDid"), "anon"),
-        actor_did or "did:web:ameno.gftd.ai",
+        actor_did or "did:web:ameno.etzhayyim.com",
         2,
         created_at,
     )

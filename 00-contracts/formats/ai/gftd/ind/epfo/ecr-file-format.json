@@ -1,7 +1,7 @@
 {
   "formatKey": "ind.epfo.ecrFile.forEmployers",
   "jurisdiction": "epfo",
-  "actorDid": "did:web:ind-payroll.gftd.ai:epfo",
+  "actorDid": "did:web:ind-payroll.etzhayyim.com:epfo",
   "formatKind": "official_plain_text_upload",
   "officialSourceUrl": "https://www.epfindia.gov.in/site_docs/PDFs/OnlineECR_PDFs/ECR_ForEmployers_FileStructure.pdf",
   "lastVerified": "2026-04-26",

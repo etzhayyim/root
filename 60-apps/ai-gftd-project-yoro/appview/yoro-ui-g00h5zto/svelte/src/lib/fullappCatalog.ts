@@ -13,7 +13,7 @@ export const fullappHeroCatalog: FullappHeroEntry[] = [
 		name: '6IR',
 		title: 'Industry 6 Cross-Sector Agent Directory',
 		description: 'ISIC / States / ISCO / COFOG / CPC を横断する directory intelligence を yoro の先頭から直接プレビューする。',
-		url: 'https://6ir.gftd.ai/?embed=hero&surface=yoro',
+		url: 'https://6ir.etzhayyim.com/?embed=hero&surface=yoro',
 		accent: '#1185FE',
 	},
 ];

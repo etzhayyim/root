@@ -13,7 +13,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR = "did:web:shiharai.gftd.ai"
+ACTOR = "did:web:shiharai.etzhayyim.com"
 APP = "shiharai"
 APP_ACTOR_ID = "sys.shiharai"
 APP_ORG = "gftd"

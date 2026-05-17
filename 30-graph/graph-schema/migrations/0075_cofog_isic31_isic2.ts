@@ -111,17 +111,17 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ───────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('cofog', 'cofog.gftd.ai', 188, 'government functions', 'governance')
+    VALUES ('cofog', 'cofog.etzhayyim.com', 188, 'government functions', 'governance')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('isic31', 'isic31.gftd.ai', 538, 'industries', 'governance')
+    VALUES ('isic31', 'isic31.etzhayyim.com', 538, 'industries', 'governance')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('isic2', 'isic2.gftd.ai', 277, 'industries', 'governance')
+    VALUES ('isic2', 'isic2.etzhayyim.com', 277, 'industries', 'governance')
   `.execute(db);
 
   // ── ISIC version bridges (data-only, idempotent) ──────────────────────

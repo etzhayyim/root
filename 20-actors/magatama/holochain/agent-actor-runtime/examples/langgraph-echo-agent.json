@@ -1,5 +1,5 @@
 {
-  "actor_did": "did:web:kami-agent.gftd.ai",
+  "actor_did": "did:web:kami-agent.etzhayyim.com",
   "assistant_id": "echo.v1",
   "runtime_family": "LangGraph",
   "graph_kind": "PyFactory",

@@ -51,8 +51,8 @@ def test_anastomosis_no_networks():
         from pymagatama.myco_yeast_worker_main import task_kabi_anastomosis_probe
 
         result = _run(task_kabi_anastomosis_probe(
-            network_a_did="did:web:kabi.gftd.ai:a",
-            network_b_did="did:web:kabi.gftd.ai:b",
+            network_a_did="did:web:kabi.etzhayyim.com:a",
+            network_b_did="did:web:kabi.etzhayyim.com:b",
         ))
 
     assert result["result"] == "REJECT"
@@ -82,8 +82,8 @@ def test_anastomosis_malignant_prion():
         from pymagatama.myco_yeast_worker_main import task_kabi_anastomosis_probe
 
         result = _run(task_kabi_anastomosis_probe(
-            network_a_did="did:web:kabi.gftd.ai:a",
-            network_b_did="did:web:kabi.gftd.ai:b",
+            network_a_did="did:web:kabi.etzhayyim.com:a",
+            network_b_did="did:web:kabi.etzhayyim.com:b",
         ))
 
     assert result["result"] == "REJECT"
@@ -113,8 +113,8 @@ def test_anastomosis_accept():
         from pymagatama.myco_yeast_worker_main import task_kabi_anastomosis_probe
 
         result = _run(task_kabi_anastomosis_probe(
-            network_a_did="did:web:kabi.gftd.ai:a",
-            network_b_did="did:web:kabi.gftd.ai:b",
+            network_a_did="did:web:kabi.etzhayyim.com:a",
+            network_b_did="did:web:kabi.etzhayyim.com:b",
         ))
 
     assert result["result"] == "ACCEPT"
@@ -136,7 +136,7 @@ def test_bud_agent_parent_not_found():
     with patch("pymagatama.myco_yeast_worker_main.fetch_one", return_value=None):
         from pymagatama.myco_yeast_worker_main import task_kobo_bud_agent
 
-        result = _run(task_kobo_bud_agent(parent_did="did:web:kobo.gftd.ai:p1"))
+        result = _run(task_kobo_bud_agent(parent_did="did:web:kobo.etzhayyim.com:p1"))
     assert "error" in result
 
 
@@ -145,7 +145,7 @@ def test_bud_agent_success():
     mock_cm.__enter__ = MagicMock(return_value=MagicMock())
     mock_cm.__exit__ = MagicMock(return_value=False)
 
-    parent_row = ("at://kobo.gftd.ai/rec/1", 0.7, "scout", 0.1)
+    parent_row = ("at://kobo.etzhayyim.com/rec/1", 0.7, "scout", 0.1)
     prions = [("ph1", True, 0.0, "pattern_a"), ("ph2", True, 0.0, "pattern_b")]
 
     with (
@@ -156,11 +156,11 @@ def test_bud_agent_success():
         from pymagatama.myco_yeast_worker_main import task_kobo_bud_agent
 
         result = _run(task_kobo_bud_agent(
-            parent_did="did:web:kobo.gftd.ai:p1",
-            child_did="did:web:kobo.gftd.ai:c1",
+            parent_did="did:web:kobo.etzhayyim.com:p1",
+            child_did="did:web:kobo.etzhayyim.com:c1",
         ))
 
-    assert result["childDid"] == "did:web:kobo.gftd.ai:c1"
+    assert result["childDid"] == "did:web:kobo.etzhayyim.com:c1"
     assert result["prionCount"] == 2
     assert result["edgeId"].startswith("bud-")
 
@@ -179,7 +179,7 @@ def test_sporulate_agent_not_found():
     with patch("pymagatama.myco_yeast_worker_main.fetch_one", return_value=None):
         from pymagatama.myco_yeast_worker_main import task_kobo_sporulate
 
-        result = _run(task_kobo_sporulate(agent_did="did:web:kobo.gftd.ai:a1"))
+        result = _run(task_kobo_sporulate(agent_did="did:web:kobo.etzhayyim.com:a1"))
     assert "error" in result
 
 
@@ -188,7 +188,7 @@ def test_sporulate_success():
     mock_cm.__enter__ = MagicMock(return_value=MagicMock())
     mock_cm.__exit__ = MagicMock(return_value=False)
 
-    agent = ("at://kobo.gftd.ai/rec/1", 0.8, '{"state":"active"}')
+    agent = ("at://kobo.etzhayyim.com/rec/1", 0.8, '{"state":"active"}')
     prions = [("ph1", True, "foo")]
 
     with (
@@ -198,7 +198,7 @@ def test_sporulate_success():
     ):
         from pymagatama.myco_yeast_worker_main import task_kobo_sporulate
 
-        result = _run(task_kobo_sporulate(agent_did="did:web:kobo.gftd.ai:a1"))
+        result = _run(task_kobo_sporulate(agent_did="did:web:kobo.etzhayyim.com:a1"))
 
     assert result["sporeId"].startswith("spr-")
     assert result["revivalKeyHint"]
@@ -223,7 +223,7 @@ def test_germinate_spore_not_found():
 
 
 def test_germinate_quorum_not_met():
-    spore = ("at://houshi.gftd.ai/rec/1", "did:web:kobo.gftd.ai:a1", "{}", 3, None)
+    spore = ("at://houshi.etzhayyim.com/rec/1", "did:web:kobo.etzhayyim.com:a1", "{}", 3, None)
     custody_count = (1,)  # need 2, only have 1
 
     with patch(
@@ -239,7 +239,7 @@ def test_germinate_quorum_not_met():
 
 
 def test_germinate_quorum_met():
-    spore = ("at://houshi.gftd.ai/rec/1", "did:web:kobo.gftd.ai:a1", "{}", 3, None)
+    spore = ("at://houshi.etzhayyim.com/rec/1", "did:web:kobo.etzhayyim.com:a1", "{}", 3, None)
     custody_count = (2,)  # 2 >= 3//2+1=2
 
     mock_cm = MagicMock()
@@ -258,7 +258,7 @@ def test_germinate_quorum_met():
         result = _run(task_kobo_germinate(spore_id="spr-abc123"))
 
     assert result["quorumMet"] is True
-    assert result["agentDid"] == "did:web:kobo.gftd.ai:a1"
+    assert result["agentDid"] == "did:web:kobo.etzhayyim.com:a1"
 
 
 # ─── task_kinoko_check_flow_threshold ────────────────────────────────────

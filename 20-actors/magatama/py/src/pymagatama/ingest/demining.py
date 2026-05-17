@@ -13,7 +13,7 @@ from uuid import uuid4
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:dm1nactz.gftd.ai"
+OWNER_DID = "did:web:dm1nactz.etzhayyim.com"
 PROHIBITED_PATTERNS = ("produce_apm", "stockpile_apm", "transfer_apm", "deploy_apm", "manufacture_apm")
 TIER3_FIELDS = {"geometryWkt", "hitCoordsWkt", "operatorDid", "operatorDids", "victimRef"}
 

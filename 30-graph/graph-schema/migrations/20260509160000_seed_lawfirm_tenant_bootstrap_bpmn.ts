@@ -10,17 +10,17 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const SEED_CREATED_AT = "2026-05-08T00:00:00Z";
-const SEED_OWNER_DID = "did:web:lawfirm.gftd.ai";
+const SEED_OWNER_DID = "did:web:lawfirm.etzhayyim.com";
 const SEED_ACTOR_TAG = "sys.bpmn.seed.lawfirm";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-tenant-bootstrap-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-tenant-bootstrap-v1",
   bpmnProcessId: "lawfirm_tenant_bootstrap",
   sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/tenantBootstrap.bpmn",
 };
 
 const BINDING = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-tenant-bootstrap-xrpc-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-tenant-bootstrap-xrpc-v1",
   nsid: "ai.gftd.apps.lawfirm.tenantBootstrap",
   bpmnProcessId: "lawfirm_tenant_bootstrap",
   resultTimeoutMs: 30_000,

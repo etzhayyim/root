@@ -30,7 +30,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('m49', 'sovereign.gftd.ai', 460, 'geo_areas', 'governance')
+    VALUES ('m49', 'sovereign.etzhayyim.com', 460, 'geo_areas', 'governance')
   `.execute(db);
 
   // ── ISIC4↔ISIC5 concordance edges ────────────────────────────────────

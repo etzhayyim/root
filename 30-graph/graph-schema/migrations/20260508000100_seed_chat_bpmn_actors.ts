@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * gftd.ai chat — BPMN seed (ADR-0056 + ADR-2604282300).
+ * etzhayyim.com chat — BPMN seed (ADR-0056 + ADR-2604282300).
  *
  * 4 BPMN process defs:
  *   chat_memory_reindex          R/PT24H  (autonomous)
@@ -27,31 +27,31 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:00:00Z";
-const ownerDid = "did:web:gftd.ai";
+const ownerDid = "did:web:etzhayyim.com";
 const actorTag = "sys.bpmn.seed.chat";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-memory-reindex-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-memory-reindex-v1",
     bpmnProcessId: "chat_memory_reindex",
     sourcePath: "00-contracts/bpmn/ai/gftd/chat/memoryReindex.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-artifact-gc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-artifact-gc-v1",
     bpmnProcessId: "chat_artifact_gc",
     sourcePath: "00-contracts/bpmn/ai/gftd/chat/artifactGc.bpmn",
     ownerDid,
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-conversation-archive-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-conversation-archive-v1",
     bpmnProcessId: "chat_conversation_archive",
     sourcePath: "00-contracts/bpmn/ai/gftd/chat/conversationArchive.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-schedule-report-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-schedule-report-v1",
     bpmnProcessId: "chat_schedule_report",
     sourcePath: "00-contracts/bpmn/ai/gftd/chat/scheduleReport.bpmn",
     ownerDid,
@@ -60,7 +60,7 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/chat-scheduleReport-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/chat-scheduleReport-v1",
     nsid: "ai.gftd.apps.chat.scheduleReport",
     bpmnProcessId: "chat_schedule_report",
     ownerDid,

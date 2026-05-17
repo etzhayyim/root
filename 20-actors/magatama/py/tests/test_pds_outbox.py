@@ -79,7 +79,7 @@ def test_task_writes_outbox_sync_tick(monkeypatch):
     assert out["ok"] is True
     assert out["replayed"] == 3
     row = factory.cursors[0].params[0]
-    assert row["repo"] == "did:web:atproto.gftd.ai"
+    assert row["repo"] == "did:web:atproto.etzhayyim.com"
     assert row["collection"] == "ai.gftd.apps.pds.writeOutboxSync"
     value = json.loads(row["value_json"])
     assert value["expired"] == 1

@@ -23,9 +23,9 @@ describe('apps registry', () => {
 		expect(duplicates.length).toBeLessThanOrEqual(1);
 	});
 
-	it('all hrefs end with .gftd.ai path', () => {
+	it('all hrefs end with .etzhayyim.com path', () => {
 		for (const app of apps) {
-			expect(app.href).toContain('gftd.ai');
+			expect(app.href).toContain('etzhayyim.com');
 		}
 	});
 });
@@ -35,8 +35,8 @@ describe('normalizeAppId', () => {
 		expect(normalizeAppId('  NEWS ')).toBe('news');
 	});
 
-	it('strips .gftd.ai suffix', () => {
-		expect(normalizeAppId('news.gftd.ai')).toBe('news');
+	it('strips .etzhayyim.com suffix', () => {
+		expect(normalizeAppId('news.etzhayyim.com')).toBe('news');
 	});
 
 	it('replaces underscores with hyphens', () => {
@@ -76,14 +76,14 @@ describe('findAppById', () => {
 
 describe('resolveAppHref', () => {
 	it('returns known app href', () => {
-		expect(resolveAppHref('news')).toBe('https://news.gftd.ai');
+		expect(resolveAppHref('news')).toBe('https://news.etzhayyim.com');
 	});
 
 	it('falls back to provided href', () => {
-		expect(resolveAppHref('nonexistent', 'https://custom.gftd.ai')).toBe('https://custom.gftd.ai');
+		expect(resolveAppHref('nonexistent', 'https://custom.etzhayyim.com')).toBe('https://custom.etzhayyim.com');
 	});
 
 	it('generates default href for unknown app without fallback', () => {
-		expect(resolveAppHref('mystery')).toBe('https://mystery.gftd.ai');
+		expect(resolveAppHref('mystery')).toBe('https://mystery.etzhayyim.com');
 	});
 });

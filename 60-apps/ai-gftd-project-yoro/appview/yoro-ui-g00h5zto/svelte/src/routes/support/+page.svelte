@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	onMount(() => { void goto('/profile/did:web:support.gftd.ai', { replaceState: true }); });
+	onMount(() => { void goto('/profile/did:web:support.etzhayyim.com', { replaceState: true }); });
 </script>
 
 <svelte:head>
 	<title>Support | YORO</title>
 	<meta name="description" content="GFTD Support Agent — LLM-powered support for YORO and GFTD services." />
-	<meta name="at:did" content="did:web:support.gftd.ai" />
+	<meta name="at:did" content="did:web:support.etzhayyim.com" />
 </svelte:head>
 
 <div class="flex h-full items-center justify-center">

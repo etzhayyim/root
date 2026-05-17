@@ -21,7 +21,7 @@ State:
 RisingWave persistence:
   - vertex_work — PK overwrite dedup (same DOI safe to re-ingest)
   - Checkpoint via RisingWaveCheckpointSaver (thread_id = actor DID)
-  - Long-term state via RisingWaveStore namespace ("did:web:copyright.gftd.ai","ingest_state")
+  - Long-term state via RisingWaveStore namespace ("did:web:copyright.etzhayyim.com","ingest_state")
 """
 
 from __future__ import annotations
@@ -44,7 +44,7 @@ _CROSSREF_HEADERS = {
 _DATACITE_URL = (
     "https://api.datacite.org/dois?page%5Bsize%5D=100&sort=created&direction=desc"
 )
-_COPYRIGHT_DID = "did:web:copyright.gftd.ai"
+_COPYRIGHT_DID = "did:web:copyright.etzhayyim.com"
 _TIMEOUT = 60.0
 
 
@@ -294,7 +294,7 @@ def _update_ingest_state(
 ) -> None:
     """
     Write last-run summary into RisingWaveStore for cross-thread memory.
-    Namespace: ("did:web:copyright.gftd.ai", "ingest_state")
+    Namespace: ("did:web:copyright.etzhayyim.com", "ingest_state")
     Key: "last_run"
     """
     try:

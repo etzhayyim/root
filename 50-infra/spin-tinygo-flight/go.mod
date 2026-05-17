@@ -1,4 +1,4 @@
-module github.com/gftdcojp/spin-tinygo-flight
+module github.com/etzhayyim/root/50-infra/spin-tinygo-flight
 
 go 1.23.0
 

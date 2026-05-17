@@ -13,7 +13,7 @@ from pymagatama import llm
 from pymagatama.db_sync import sync_cursor
 
 
-APP_DID = "did:web:kenkyusha.gftd.ai"
+APP_DID = "did:web:kenkyusha.etzhayyim.com"
 APP_ID = "kk8r3n5v"
 KIND_TABLES = {
     "discipline": "vertex_kenkyusha_discipline",
@@ -328,7 +328,7 @@ def task_kenkyusha_seed_disciplines(**_: Any) -> dict[str, Any]:
         cohort = _djb2("d", [broad, narrow, isced4, "mixed", "nascent", "mono"])
         _write("discipline", {
             "id": _gid("disc"),
-            "did": f"did:web:kenkyusha.gftd.ai:discipline:{isced4}",
+            "did": f"did:web:kenkyusha.etzhayyim.com:discipline:{isced4}",
             "isced4": isced4,
             "iscedBroad": broad,
             "iscedNarrow": narrow,
@@ -357,7 +357,7 @@ def task_kenkyusha_detect_frontiers(method: str = "citationGap", limit: Any = 10
         frontier_id = _gid("frontier")
         _write("frontier", {
             "id": frontier_id,
-            "did": f"did:web:kenkyusha.gftd.ai:frontier:{cohort}",
+            "did": f"did:web:kenkyusha.etzhayyim.com:frontier:{cohort}",
             "title": f"{method}: research frontier {idx + 1}",
             "description": "Potential unresolved research area detected by fallback BPMN worker",
             "detectionMethod": method,
@@ -443,7 +443,7 @@ def task_kenkyusha_get_frontier(id: str = "", did: str = "", **_: Any) -> dict[s
 def task_kenkyusha_list_disciplines(broad: str = "", limit: Any = 100, offset: Any = 0, **_: Any) -> dict[str, Any]:
     rows = _list("discipline", {"iscedBroad": broad}, int(_num(limit, 100)), int(_num(offset, 0)))
     if not rows and not broad:
-        rows = [{"isced4": a, "iscedBroad": b, "iscedNarrow": c, "nameEn": d, "nameJa": e, "paradigm": "mixed", "maturity": "nascent", "frontierCount": 0, "did": f"did:web:kenkyusha.gftd.ai:discipline:{a}"} for a, b, c, d, e in ISCED]
+        rows = [{"isced4": a, "iscedBroad": b, "iscedNarrow": c, "nameEn": d, "nameJa": e, "paradigm": "mixed", "maturity": "nascent", "frontierCount": 0, "did": f"did:web:kenkyusha.etzhayyim.com:discipline:{a}"} for a, b, c, d, e in ISCED]
     return {"ok": True, "disciplines": rows, "total": len(rows), "offset": int(_num(offset, 0)), "limit": int(_num(limit, 100))}
 
 

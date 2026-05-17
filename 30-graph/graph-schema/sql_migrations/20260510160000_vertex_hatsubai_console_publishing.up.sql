@@ -1,6 +1,6 @@
 -- ai-gftd-project-hatsubai (発売) — console publishing pipeline schema.
 --
--- One actor (`hatsubai.gftd.ai`) covers the partner / cert / submission
+-- One actor (`hatsubai.etzhayyim.com`) covers the partner / cert / submission
 -- pipeline shared by Nintendo Switch 2, PlayStation 5, Xbox Series X|S
 -- and Steam. Per-platform variation is captured by `platform_code`
 -- column, not separate tables, so cross-platform queries (release

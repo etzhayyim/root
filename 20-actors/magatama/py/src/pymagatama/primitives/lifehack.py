@@ -1,4 +1,4 @@
-"""lifehack.gftd.ai household life-hack primitives (Phase 1 — dust prevention).
+"""lifehack.etzhayyim.com household life-hack primitives (Phase 1 — dust prevention).
 
 T2 actor (ADR-2604282300): pymagatama module + BPMN + Zeebe, no CF Worker.
 All domain writes hit RisingWave directly via Hyperdrive (ADR-0036). Social
@@ -48,7 +48,7 @@ from pymagatama.db_sync import sync_cursor
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-_LIFEHACK_ACTOR = "did:web:lifehack.gftd.ai"
+_LIFEHACK_ACTOR = "did:web:lifehack.etzhayyim.com"
 
 _THINK_BLOCK_RE = re.compile(r"<think>.*?</think>\s*", re.DOTALL | re.IGNORECASE)
 
@@ -202,7 +202,7 @@ _POST_COMPOSE_SYSTEM = (
 )
 
 _AGENT_CHAT_SYSTEM = (
-    "You are lifehack.gftd.ai, a household life-hack assistant. Use the "
+    "You are lifehack.etzhayyim.com, a household life-hack assistant. Use the "
     "context (active topics + top tips + recent posts) to answer in "
     "Japanese unless the user clearly writes English. Cite source URLs "
     "verbatim from the context — never invent URLs. Be concrete; prefer "

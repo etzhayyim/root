@@ -6,7 +6,7 @@
 package outgoinghandler
 
 import (
-	"github.com/gftdcojp/spin-tinygo-flight/grpc/internal/gen/wasi/http/types"
+	"github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc/internal/gen/wasi/http/types"
 	"go.bytecodealliance.org/cm"
 )
 

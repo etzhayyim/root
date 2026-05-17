@@ -66,7 +66,7 @@ type FeedOptions = {
 	light?: boolean;
 };
 
-const DEFAULT_SERVICE = 'https://atproto.gftd.ai';
+const DEFAULT_SERVICE = 'https://atproto.etzhayyim.com';
 const service = DEFAULT_SERVICE;
 
 export const agent = new AtpAgent({ service });
@@ -248,7 +248,7 @@ export async function getAuthorFeed(actor: string, limitOrOpts: number | FeedOpt
 	syncFromAtprotoSession();
 	const { limit, cursor: normalizedCursor } = normalizeFeedOptions(limitOrOpts, cursor);
     
-	if (actor.includes('malak.gftd.ai')) {
+	if (actor.includes('malak.etzhayyim.com')) {
 		try {
 			const res = await fetch('http://localhost:8099/feed');
 			if (res.ok) {

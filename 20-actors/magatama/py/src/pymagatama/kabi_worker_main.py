@@ -34,7 +34,7 @@ from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("kabi_worker")
 
-KABI_DID = "did:web:kabi.gftd.ai"
+KABI_DID = "did:web:kabi.etzhayyim.com"
 
 ETA_DIFF_THRESHOLD = float(os.environ.get("KABI_ETA_DIFF_THRESHOLD", "0.1"))
 MIN_TRUST_SCORE = float(os.environ.get("KABI_MIN_TRUST_SCORE", "0.5"))

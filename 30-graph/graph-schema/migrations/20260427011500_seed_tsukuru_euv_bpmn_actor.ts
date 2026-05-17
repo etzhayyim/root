@@ -23,36 +23,36 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-27T01:15:00Z";
-const ownerDid = "did:web:tsukuru.gftd.ai:industry:isic:c";
+const ownerDid = "did:web:tsukuru.etzhayyim.com:industry:isic:c";
 const actorTag = "sys.bpmn.seed.tsukuru-euv";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/tsukuru-euv-lithography-manufacturing-flow-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-euv-lithography-manufacturing-flow-v1",
     bpmnProcessId: "tsukuru_euv_lithography_manufacturing_flow",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/euv-lithography-manufacturing-flow.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/tsukuru-normalize-supplier-exchange-package-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-normalize-supplier-exchange-package-v1",
     bpmnProcessId: "tsukuru_normalize_supplier_exchange_package",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/normalize-supplier-exchange-package.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/tsukuru-prepare-euv-order-package-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-prepare-euv-order-package-v1",
     bpmnProcessId: "tsukuru_prepare_euv_order_package",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/prepare-euv-order-package.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/tsukuru-get-euv-implementation-coverage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-get-euv-implementation-coverage-v1",
     bpmnProcessId: "tsukuru_get_euv_implementation_coverage",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/get-euv-implementation-coverage.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/tsukuru-validate-supplier-exchange-package-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-validate-supplier-exchange-package-v1",
     bpmnProcessId: "tsukuru_validate_supplier_exchange_package",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/validate-supplier-exchange-package.bpmn",
     ownerDid,
@@ -61,35 +61,35 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/tsukuru-euv-designManufacturingFlow-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-designManufacturingFlow-v1",
     nsid: "ai.gftd.apps.tsukuru.euv.designManufacturingFlow",
     bpmnProcessId: "tsukuru_euv_lithography_manufacturing_flow",
     ownerDid,
     resultTimeoutMs: 30000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-normalizePackage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-normalizePackage-v1",
     nsid: "ai.gftd.apps.tsukuru.supplierExchange.normalizePackage",
     bpmnProcessId: "tsukuru_normalize_supplier_exchange_package",
     ownerDid,
     resultTimeoutMs: 30000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/tsukuru-euv-prepareOrderPackage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-prepareOrderPackage-v1",
     nsid: "ai.gftd.apps.tsukuru.euv.prepareOrderPackage",
     bpmnProcessId: "tsukuru_prepare_euv_order_package",
     ownerDid,
     resultTimeoutMs: 30000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/tsukuru-euv-getImplementationCoverage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-getImplementationCoverage-v1",
     nsid: "ai.gftd.apps.tsukuru.euv.getImplementationCoverage",
     bpmnProcessId: "tsukuru_get_euv_implementation_coverage",
     ownerDid,
     resultTimeoutMs: 30000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-validatePackage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-validatePackage-v1",
     nsid: "ai.gftd.apps.tsukuru.supplierExchange.validatePackage",
     bpmnProcessId: "tsukuru_validate_supplier_exchange_package",
     ownerDid,

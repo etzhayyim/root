@@ -6,7 +6,7 @@ import { sql } from "kysely";
 //          but per-tenant business-confidential.)
 
 /**
- * yatabase.gftd.ai — Phase 3 Supabase-style integrated storage schema
+ * yatabase.etzhayyim.com — Phase 3 Supabase-style integrated storage schema
  * (ADR-2605080000 §D10, supersedes §D4 obj-as-separate-product).
  *
  * Pattern: T2 BPMN-as-actor (ADR-0036 Worker-direct Hyperdrive +

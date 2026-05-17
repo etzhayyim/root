@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gftdcojp/nats-jetstream-kv-resp/internal/resp"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp/internal/resp"
 )
 
 func TestReader_InlineCommand(t *testing.T) {

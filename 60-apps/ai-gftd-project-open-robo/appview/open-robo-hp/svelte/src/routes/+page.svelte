@@ -56,7 +56,7 @@
     { label: 'MoveIt! 2', desc: '軌道計画・衝突回避', link: null },
     { label: 'OpenCV + IMX477', desc: 'Sony 12MP カメラ物体認識', link: null },
     { label: 'Stable-Baselines3', desc: 'Gymnasium 強化学習実験', link: null },
-    { label: 'tsukuru.gftd.ai', desc: 'B2B 直販・法人見積', link: 'https://tsukuru.gftd.ai' },
+    { label: 'tsukuru.etzhayyim.com', desc: 'B2B 直販・法人見積', link: 'https://tsukuru.etzhayyim.com' },
   ];
 
   const plans = [
@@ -110,7 +110,7 @@
         "price": "98780",
         "priceCurrency": "JPY",
         "availability": "https://schema.org/PreOrder",
-        "url": "https://giemon.gftd.ai/buy"
+        "url": "https://giemon.etzhayyim.com/buy"
       }
     })}
   </script>
@@ -427,7 +427,7 @@
       {/each}
     </div>
     <p class="mt-8 text-center text-slate-600 text-xs">
-      Amazon JP FBA / Makuake / Kickstarter / tsukuru.gftd.ai (B2B 直販) で展開予定
+      Amazon JP FBA / Makuake / Kickstarter / tsukuru.etzhayyim.com (B2B 直販) で展開予定
     </p>
   </div>
 </section>
@@ -461,7 +461,7 @@
         <li><a href="https://github.com/gftdcojp/otete" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a></li>
         <li><a href="/blog" class="hover:text-white transition-colors">技術ブログ</a></li>
         <li><a href="mailto:sales@gftd.co.jp" class="hover:text-white transition-colors">法人・教育機関問い合わせ</a></li>
-        <li><a href="https://tsukuru.gftd.ai" target="_blank" rel="noopener" class="hover:text-white transition-colors">tsukuru.gftd.ai (B2B)</a></li>
+        <li><a href="https://tsukuru.etzhayyim.com" target="_blank" rel="noopener" class="hover:text-white transition-colors">tsukuru.etzhayyim.com (B2B)</a></li>
       </ul>
     </div>
   </div>

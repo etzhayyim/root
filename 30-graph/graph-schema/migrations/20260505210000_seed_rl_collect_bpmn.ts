@@ -13,11 +13,11 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-05-05T21:00:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/rl-collect-trajectories-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-collect-trajectories-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/rl-collect-trajectories-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-collect-trajectories-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(

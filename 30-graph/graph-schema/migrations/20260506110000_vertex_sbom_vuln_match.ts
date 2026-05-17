@@ -5,13 +5,13 @@ import { sql } from "kysely";
 // tier: C
 
 /**
- * sbom.gftd.ai — Phase C: vuln-match schema.
+ * sbom.etzhayyim.com — Phase C: vuln-match schema.
  *
  *   vertex_cve_entry        — CVE feed (NVD / OSV / GHSA / Renault FAR / etc.)
  *   vertex_sbom_vuln_match  — one row per (component, cve) pair detected
  *
  * `vertex_cve_entry` is owned by sbom but populated by upstream feeders
- * (`yabai.gftd.ai` ingest-cve, OSV API, GitHub GHSA mirror). This
+ * (`yabai.etzhayyim.com` ingest-cve, OSV API, GitHub GHSA mirror). This
  * migration only creates the empty table — separate ingestion BPMNs
  * fill it.
  *

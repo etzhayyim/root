@@ -9,14 +9,14 @@
  * Wire path:
  *   browser EIP-1193 wallet
  *     → eth_requestAccounts → address
- *     → POST authz.gftd.ai/xrpc/ai.gftd.authz.linkEthereumBegin
+ *     → POST authz.etzhayyim.com/xrpc/ai.gftd.authz.linkEthereumBegin
  *     → personal_sign (window.ethereum)
- *     → POST authz.gftd.ai/xrpc/ai.gftd.authz.linkEthereumVerify
+ *     → POST authz.etzhayyim.com/xrpc/ai.gftd.authz.linkEthereumVerify
  */
 
 import { getSessionToken } from './passkey';
 
-const AUTHZ_BASE = 'https://authz.gftd.ai';
+const AUTHZ_BASE = 'https://authz.etzhayyim.com';
 
 export interface EthereumLinkResult {
 	ok: boolean;

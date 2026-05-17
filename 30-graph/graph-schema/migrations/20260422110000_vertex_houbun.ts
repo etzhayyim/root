@@ -5,7 +5,7 @@ import { sql } from "kysely";
 // tier: C
 
 /**
- * vertex_houbun_* — houbun.gftd.ai law corpus (ADR-0052).
+ * vertex_houbun_* — houbun.etzhayyim.com law corpus (ADR-0052).
  *
  * Four vertex tables + two edge tables:
  *   vertex_houbun_statute         — statute / regulation / treaty metadata

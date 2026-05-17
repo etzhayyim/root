@@ -7,7 +7,7 @@ system=..., user=...)` and this module picks the current best model per tier,
 wraps the HTTP call, strips Markdown code fences, and returns a parsed dict
 so each handler's core logic stays readable.
 
-Tier mapping (2026-04-28 — routed via llm.gftd.ai → murakumo-serve.gftd.ai LiteLLM):
+Tier mapping (2026-04-28 — routed via llm.etzhayyim.com → murakumo-serve.etzhayyim.com LiteLLM):
 
 | Tier         | Model (murakumo alias)  | Backend            | Why |
 |--------------|-------------------------|--------------------|-----|
@@ -74,7 +74,7 @@ TIER_ENDPOINT_OVERRIDES: dict[str, tuple[str, str | None, str | None]] = {
     "classifier":     (_GFTD_LLM_URL, _GFTD_KEY_ENV, _GFTD_LLM_MODEL),
     "structured":     (_GFTD_LLM_URL, _GFTD_KEY_ENV, _GFTD_LLM_MODEL),
     "fast":           (_GFTD_LLM_URL, _GFTD_KEY_ENV, _GFTD_LLM_MODEL),
-    # SES extraction: always llm.gftd.ai; model resolved from TIER_MODELS["ses-extraction"].
+    # SES extraction: always llm.etzhayyim.com; model resolved from TIER_MODELS["ses-extraction"].
     "ses-extraction": (_GFTD_LLM_URL, _GFTD_KEY_ENV, None),
 }
 # Empirical (2026-04-22): Vultr Serverless occasionally hangs for 30s+ then
@@ -101,7 +101,7 @@ TIER_MODELS: dict[str, str] = {
     "mid":  "Qwen/Qwen3.5-397B-A17B-FP8",
     # Generic alias used by newsletter/webmk LangGraph nodes.
     "default": "claude-sonnet-4-5",
-    # SES案件 ingest extraction (ADR-2605120000). Routed via llm.gftd.ai →
+    # SES案件 ingest extraction (ADR-2605120000). Routed via llm.etzhayyim.com →
     # OpenRouter → DeepSeek Pro V4. Model ID overridable via SES_EXTRACTOR_MODEL.
     "ses-extraction": os.environ.get("SES_EXTRACTOR_MODEL", "deepseek/deepseek-chat"),
 }
@@ -165,7 +165,7 @@ def call_tier(
         endpoint, key_env, model_override = override
         model = model_override or resolve_model(tier)
         if timeout_sec == _DEFAULT_TIMEOUT_SEC:
-            # llm.gftd.ai → murakumo (warm fleet, no cold-start); 60s is generous.
+            # llm.etzhayyim.com → murakumo (warm fleet, no cold-start); 60s is generous.
             # Legacy RunPod cold-start required 120s; keep 60s for all gateways.
             timeout_sec = 60.0
     else:
@@ -203,7 +203,7 @@ def call_tier(
         if api_key:
             headers["Authorization"] = f"Bearer {api_key}"
     # Internal gateway credits gate: bypassed for trusted in-cluster callers.
-    if "llm.gftd.ai" in endpoint or "murakumo.gftd.ai" in endpoint:
+    if "llm.etzhayyim.com" in endpoint or "murakumo.etzhayyim.com" in endpoint:
         headers["x-magatama-verified"] = "true"
 
     started = time.monotonic()

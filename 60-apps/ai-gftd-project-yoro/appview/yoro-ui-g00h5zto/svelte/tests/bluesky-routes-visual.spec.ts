@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.YORO_BASE_URL || 'https://g00h5zto.gftd.ai';
+const BASE = process.env.YORO_BASE_URL || 'https://g00h5zto.etzhayyim.com';
 
 test.use({
 	viewport: { width: 390, height: 844 },

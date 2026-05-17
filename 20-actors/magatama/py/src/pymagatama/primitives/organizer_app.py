@@ -13,7 +13,7 @@ from pymagatama import llm
 from pymagatama.db_sync import sync_cursor
 
 
-APP_DID = "did:web:organizer.gftd.ai"
+APP_DID = "did:web:organizer.etzhayyim.com"
 APP_ID = "org4n1z3"
 KIND_TABLES = {
     "item": "vertex_organizer_item",
@@ -389,7 +389,7 @@ def task_organizer_register_item(filename: str = "", blake3: str = "", contentTy
         return {"error": "filename required"}
     if not blake3:
         return {"error": "blake3 required"}
-    vault_did = vaultDid or f"did:web:organizer.gftd.ai:vault:{userId or 'anon'}"
+    vault_did = vaultDid or f"did:web:organizer.etzhayyim.com:vault:{userId or 'anon'}"
     ct = contentType or "application/octet-stream"
     item_id = _gid("item")
     key = f"blobs/{_fnv1a(vault_did)}/{blake3}.{_ext(ct)}"

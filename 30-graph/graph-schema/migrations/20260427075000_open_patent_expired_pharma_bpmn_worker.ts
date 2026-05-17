@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-27T07:50:00Z";
-const ownerDid = "did:web:open-patent.gftd.ai";
+const ownerDid = "did:web:open-patent.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-patent-expired-pharma";
 
 const seeds: Seed[] = [
@@ -112,11 +112,11 @@ function slug(proc: string): string {
 }
 
 function processVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${seed.project}-${slug(seed.proc)}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${seed.project}-${slug(seed.proc)}-v1`;
 }
 
 function bindingVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
 }
 
 async function createTables(db: Kysely<unknown>): Promise<void> {

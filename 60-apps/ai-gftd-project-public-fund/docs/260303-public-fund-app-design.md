@@ -3,7 +3,7 @@
 ## 1. Goal
 
 `ai-gftd-project-public-fund` は、公共資金の執行を以下の 3 フェーズで標準化する。
-`pb.gftd.ai` はクラウドファンディング方式で、認証済みユーザーが誰でも基金を起案できる。
+`pb.etzhayyim.com` はクラウドファンディング方式で、認証済みユーザーが誰でも基金を起案できる。
 
 1. 基金を立ち上げる
 2. 条件を定義して審査する
@@ -16,9 +16,9 @@
 - FundCampaign
   - 一般ユーザーが起案する基金案件。目標 credits、締切、公開状態を持つ。
 - Pledge
-  - 支援者の拠出。`credits.gftd.ai` 台帳トランザクションと 1:1 で紐付く。
+  - 支援者の拠出。`credits.etzhayyim.com` 台帳トランザクションと 1:1 で紐付く。
 - RoutedAllocation
-  - `credits.gftd.ai` の credits 消費時に自動生成される 10% 分配。user 選択の destination を持つ。
+  - `credits.etzhayyim.com` の credits 消費時に自動生成される 10% 分配。user 選択の destination を持つ。
 - EligibilityPolicy
   - 条件セット。ISIC/APQC 条件、地理条件、財務条件を持つ。
 - Application
@@ -48,7 +48,7 @@
 - `ApqcWorkflowService` (XRPC)
   - APQC 工程の状態遷移・KPI 収集。
 - `CreditsLedgerBridgeService` (XRPC)
-  - `credits.gftd.ai` と接続し、pledge/disbursement の credits 残高と移動を記録。
+  - `credits.etzhayyim.com` と接続し、pledge/disbursement の credits 残高と移動を記録。
 
 Frontend は XRPC-Web で `PublicFundService` のみを呼び出す。
 
@@ -57,9 +57,9 @@ Frontend は XRPC-Web で `PublicFundService` のみを呼び出す。
 - App namespace: `magatama-runtime`
 - HTTPRoute namespace: `edge-router-performers` (default namespace は不使用)
 - Gateway namespace: `edge-gateway-system`
-- 公開ホスト: `pb.gftd.ai`
-- API endpoint convention: `https://{nanoid}.gftd.ai/xrpc`
-- `pb.gftd.ai` は crowdfunding UI/公開ポータル
+- 公開ホスト: `pb.etzhayyim.com`
+- API endpoint convention: `https://{nanoid}.etzhayyim.com/xrpc`
+- `pb.etzhayyim.com` は crowdfunding UI/公開ポータル
 - バックエンド連携先は上記 convention で統一
 
 ## 6. Core Flows
@@ -77,9 +77,9 @@ Frontend は XRPC-Web で `PublicFundService` のみを呼び出す。
 
 3. Pledge + Disbursement
 - 支援者が credits で pledge 実行
-- `credits.gftd.ai` 側の spend では 10% が `ai-gftd-project-public-fund` に自動流入
+- `credits.etzhayyim.com` 側の spend では 10% が `ai-gftd-project-public-fund` に自動流入
 - user は `credits` UI で routed allocation の destination を選択
-- `credits.gftd.ai` に escrow 取引を作成
+- `credits.etzhayyim.com` に escrow 取引を作成
 - 承認済み Application を対象に分配実行
 - 失敗時は retry と補償トランザクション
 - 監査ログを immutable event として記録
@@ -95,8 +95,8 @@ Frontend は XRPC-Web で `PublicFundService` のみを呼び出す。
 ## 8. MVP Backlog
 
 1. FundCampaign/FundProgram create (any authenticated user)
-2. Pledge API (`credits.gftd.ai` escrow)
+2. Pledge API (`credits.etzhayyim.com` escrow)
 3. EligibilityPolicy (ISIC/APQC 条件式)
 4. Application submit + review queue
 5. Decision API + credits disbursement execute
-6. pb.gftd.ai 公開ルート + ヘルスチェック
+6. pb.etzhayyim.com 公開ルート + ヘルスチェック

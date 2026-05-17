@@ -23,8 +23,8 @@ import { sql } from "kysely";
  *   S&R (mid-small but PE-rich)         = USD 50K
  */
 const NOW = "2026-05-09T00:00:00Z";
-const OWNER = "did:web:lawfirm.gftd.ai";
-const ASSIGNEE = "did:web:k-bakshi.gftd.ai";
+const OWNER = "did:web:lawfirm.etzhayyim.com";
+const ASSIGNEE = "did:web:k-bakshi.etzhayyim.com";
 
 type Lead = {
   leadId: string;
@@ -128,7 +128,7 @@ const LEADS: Lead[] = [
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const l of LEADS) {
-    const vid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.lead/${l.leadId}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/${l.leadId}`;
     await sql`
       INSERT INTO vertex_lawfirm_lead
         (vertex_id, lead_id, lead_kind, target_name, target_email,
@@ -147,7 +147,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
 export async function down(db: Kysely<unknown>): Promise<void> {
   for (const l of LEADS) {
-    const vid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.lead/${l.leadId}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/${l.leadId}`;
     await sql`DELETE FROM vertex_lawfirm_lead WHERE vertex_id = ${vid}`.execute(db);
   }
 }

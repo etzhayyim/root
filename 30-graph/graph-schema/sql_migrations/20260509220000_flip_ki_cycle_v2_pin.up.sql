@@ -2,7 +2,7 @@
 --
 -- Pre-conditions (operator must verify before applying):
 --   1. r_20260509190000_seed_ki_mcp_tools applied — vertex_mcp_tool_def has
---      4 enabled rows for ai.gftd.apps.ki.* (actor_host=ki.gftd.ai).
+--      4 enabled rows for ai.gftd.apps.ki.* (actor_host=ki.etzhayyim.com).
 --   2. r_20260509200000_topology_ki_cycle_v2_mcp applied — assistant
 --      ki.cycle.v2 + 5 mcp_tool node rows exist (4 actor + 1 const.echo).
 --   3. r_20260509210000_seed_tools_const_mcp applied — vertex_mcp_tool_def
@@ -10,13 +10,13 @@
 --   4. dispatcher (pymagatama/dispatcher_main.py) is deployed with the
 --      `/xrpc/ai.gftd.mcp.message` route AND _DEFAULT_ACTORS includes
 --      ("ki", [...]) AND _build_const_overrides registers tools.const.echo.
---   5. ki.gftd.ai Worker (`60-apps/ai-gftd-project-ki/src/app.ts`) is
+--   5. ki.etzhayyim.com Worker (`60-apps/ai-gftd-project-ki/src/app.ts`) is
 --      deployed with the MCP_NSID branch in fetch().
 --   6. End-to-end smoke test passed:
---        curl -X POST https://ki.gftd.ai/xrpc/ai.gftd.mcp.message \
+--        curl -X POST https://ki.etzhayyim.com/xrpc/ai.gftd.mcp.message \
 --          -H 'Content-Type: application/json' \
 --          -d '{"method":"tools/call","params":{"name":"ai.gftd.apps.ki.absorb","arguments":{"sourceVertexId":"at://test/x"}}}'
---        curl -X POST https://ki.gftd.ai/xrpc/ai.gftd.mcp.message \
+--        curl -X POST https://ki.etzhayyim.com/xrpc/ai.gftd.mcp.message \
 --          -H 'Content-Type: application/json' \
 --          -d '{"method":"tools/call","params":{"name":"ai.gftd.tools.const.echo","arguments":{"constant":{"k":1}}}}'
 --      Both → 200 OK with `{"result":{...}}`.

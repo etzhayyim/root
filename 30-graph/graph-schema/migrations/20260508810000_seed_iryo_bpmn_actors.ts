@@ -5,12 +5,12 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * iryo.gftd.ai BPMN-as-actor seeding (ADR-2605080800 + ADR-0056 + ADR-2604282300).
+ * iryo.etzhayyim.com BPMN-as-actor seeding (ADR-2605080800 + ADR-0056 + ADR-2604282300).
  *
  * 5 BPMN process defs + 4 XRPC bindings.  No CF Worker (T2 tier:
  * pymagatama + Zeebe only).  3 timer-start BPMNs are autonomous;
  * the 4 XRPC bindings are reachable via bpmn-dispatcher
- * `http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.iryo.*`.
+ * `http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.iryo.*`.
  *
  *  Process / NSID                                     Trigger
  *  ---------------------------------------------------------------------
@@ -31,38 +31,38 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T11:00:00Z";
-const ownerDid = "did:web:iryo.gftd.ai:hospital";
+const ownerDid = "did:web:iryo.etzhayyim.com:hospital";
 const actorTag = "sys.bpmn.seed.iryo";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/iryo-admission-discharge-cycle-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/iryo-admission-discharge-cycle-v1",
     bpmnProcessId: "iryo_admission_discharge_cycle",
     sourcePath: "00-contracts/bpmn/ai/gftd/iryo/admissionDischargeCycle.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/iryo-drg-claim-cycle-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/iryo-drg-claim-cycle-v1",
     bpmnProcessId: "iryo_drg_claim_cycle",
     sourcePath: "00-contracts/bpmn/ai/gftd/iryo/drgClaimCycle.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/iryo-bed-occupancy-and-shift-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/iryo-bed-occupancy-and-shift-v1",
     bpmnProcessId: "iryo_bed_occupancy_and_shift",
     sourcePath: "00-contracts/bpmn/ai/gftd/iryo/bedOccupancyAndShift.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/iryo-agent-loop-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/iryo-agent-loop-v1",
     bpmnProcessId: "iryo_agent_loop",
     sourcePath: "00-contracts/bpmn/ai/gftd/iryo/agentLoop.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/iryo-synthetic-event-tick-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/iryo-synthetic-event-tick-v1",
     bpmnProcessId: "iryo_synthetic_event_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/iryo/syntheticEventTick.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/iryo-submitEncounter-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/iryo-submitEncounter-v1",
     nsid: "ai.gftd.apps.iryo.submitEncounter",
     bpmnProcessId: "iryo_admission_discharge_cycle", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/iryo-dischargeEncounter-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/iryo-dischargeEncounter-v1",
     nsid: "ai.gftd.apps.iryo.dischargeEncounter",
     bpmnProcessId: "iryo_admission_discharge_cycle", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/iryo-submitDrgClaim-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/iryo-submitDrgClaim-v1",
     nsid: "ai.gftd.apps.iryo.submitDrgClaim",
     bpmnProcessId: "iryo_drg_claim_cycle", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/iryo-agentLoop-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/iryo-agentLoop-v1",
     nsid: "ai.gftd.apps.iryo.agentLoop",
     bpmnProcessId: "iryo_agent_loop", ownerDid, resultTimeoutMs: 60_000 },
 ];

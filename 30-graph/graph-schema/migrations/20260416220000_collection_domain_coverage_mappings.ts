@@ -122,7 +122,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
     VALUES ('icd_shikkan', 'iryo', 'ai.gftd.apps.iryo.shikkan', 70000, 'ICD-11 disease codes', 'healthcare')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('icd10', 'icd10.gftd.ai', 'ai.gftd.apps.icd10.disease', 90168, 'ICD-10-CM disease codes', 'healthcare')`.execute(db);
+    VALUES ('icd10', 'icd10.etzhayyim.com', 'ai.gftd.apps.icd10.disease', 90168, 'ICD-10-CM disease codes', 'healthcare')`.execute(db);
 
   // Food
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
@@ -232,7 +232,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
     VALUES ('vessel', 'vessel', 'ai.gftd.apps.vessel.ship', 105000, 'merchant vessels', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('locode', 'locode.gftd.ai', 'ai.gftd.apps.locode.location', 116067, 'UN LOCODE locations', 'transport')`.execute(db);
+    VALUES ('locode', 'locode.etzhayyim.com', 'ai.gftd.apps.locode.location', 116067, 'UN LOCODE locations', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
     VALUES ('locode', 'unece', 'ai.gftd.apps.locode.location', 116067, 'UN LOCODE locations', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)

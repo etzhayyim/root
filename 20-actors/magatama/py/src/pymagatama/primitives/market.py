@@ -12,7 +12,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-PRIMARY_DID = "did:web:market.gftd.ai"
+PRIMARY_DID = "did:web:market.etzhayyim.com"
 APP_ID = "market"
 VALID_LANES = {"vault", "sashiosae", "lawfirm", "bpmn", "murakumo"}
 LANE_FLOOR_LIMIT = {
@@ -305,7 +305,7 @@ def task_market_well_known(**_: Any) -> dict[str, Any]:
         cur["vacuum"] += _num(v.get("vacuum_score"), 0.0)
         vacuum_by_lane[lane] = cur
     return {
-        "@context": "https://gftd.ai/ns/market/v1",
+        "@context": "https://etzhayyim.com/ns/market/v1",
         "actor": PRIMARY_DID,
         "adr": "2605011300",
         "phase": "1.2",
@@ -331,11 +331,11 @@ def task_market_well_known(**_: Any) -> dict[str, Any]:
             for lane in sorted(VALID_LANES)
         ],
         "nsids": {
-            "list": "https://market.gftd.ai/xrpc/ai.gftd.market.listOffer",
-            "quote": "https://market.gftd.ai/xrpc/ai.gftd.market.quotePrice",
-            "publish": "https://market.gftd.ai/xrpc/ai.gftd.market.publishOffer",
-            "settle": "https://market.gftd.ai/xrpc/ai.gftd.market.settleInvoice",
-            "observe": "https://market.gftd.ai/xrpc/ai.gftd.market.observeDemand",
+            "list": "https://market.etzhayyim.com/xrpc/ai.gftd.market.listOffer",
+            "quote": "https://market.etzhayyim.com/xrpc/ai.gftd.market.quotePrice",
+            "publish": "https://market.etzhayyim.com/xrpc/ai.gftd.market.publishOffer",
+            "settle": "https://market.etzhayyim.com/xrpc/ai.gftd.market.settleInvoice",
+            "observe": "https://market.etzhayyim.com/xrpc/ai.gftd.market.observeDemand",
         },
         "auth": "Service Auth ES256 JWT, lxm-scoped, <=60s lifetime",
     }

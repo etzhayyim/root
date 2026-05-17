@@ -6,7 +6,7 @@ import time
 from typing import Any
 from uuid import uuid4
 
-OWNER_DID = "did:web:vehicle.gftd.ai"
+OWNER_DID = "did:web:vehicle.etzhayyim.com"
 NANOID = "v3h1cl01"
 
 PACKAGE_BPMN = "00-contracts/bpmn/ai/gftd/robotics/manufactureVehicleProductPackage.bpmn"

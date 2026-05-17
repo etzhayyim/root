@@ -426,11 +426,11 @@ export class App {
 
     this.command(command.health as any, (_ctx, _body) => ({
       status: "healthy", agent: domain, nanoid,
-      did: `did:web:${nanoid}.gftd.ai`, ts: nowISO(),
+      did: `did:web:${nanoid}.etzhayyim.com`, ts: nowISO(),
     }), asAgentTool(`Health check for ${domain}`), withCapabilityTags("system", domain));
 
     this.command(command.describe as any, (_ctx, _body) => ({
-      name: this.def.name, did: `did:web:${nanoid}.gftd.ai`, nanoid, domain,
+      name: this.def.name, did: `did:web:${nanoid}.etzhayyim.com`, nanoid, domain,
       capabilities: this.commands.map((c) => c.name),
       protocols: ["xrpc", "w-protocol"],
     }), asAgentTool(`Describe ${domain} agent`), withCapabilityTags("system", domain));
@@ -564,7 +564,7 @@ export class App {
     const actions: Array<Record<string, unknown>> = [];
     const ts = nowISO();
     const nanoid = this.host.configGet("PERFORMER_ID") ?? this.host.configGet("APP_NANOID") ?? this.def.id;
-    const did = `did:web:${nanoid}.gftd.ai`;
+    const did = `did:web:${nanoid}.etzhayyim.com`;
 
     // Check own profile completeness before cadence resolution
     try {
@@ -604,7 +604,7 @@ export class App {
 Step 1: Inspect your current records using the app's available read paths.
 Step 2: Call post to share an insight about this update with your followers.
 You MUST inspect data before posting and then call post.`
-          : `You are an AI agent for "${domain}" (DID: did:web:${nanoid}.gftd.ai).
+          : `You are an AI agent for "${domain}" (DID: did:web:${nanoid}.etzhayyim.com).
 Step 1: Inspect your current data using the app's available read paths.
 Step 2: Based on the results, call post to share a useful insight about "${domain}" with your followers. If no data exists, post about what you plan to investigate.
 You MUST inspect data before posting and then call post.`;
@@ -640,7 +640,7 @@ You MUST inspect data before posting and then call post.`;
       try {
         const domain = this._autoCrudConfig?.domain ?? this.def.name ?? nanoid;
         const result = await agentReact(
-          `You are an AI agent for "${domain}" (DID: did:web:${nanoid}.gftd.ai). Perform kyumei-koji (究明工事) — self-information gathering.
+          `You are an AI agent for "${domain}" (DID: did:web:${nanoid}.etzhayyim.com). Perform kyumei-koji (究明工事) — self-information gathering.
 
 Step 1: Inspect your current records using the app's available read paths.
 Step 2: Call web_fetch to gather domain knowledge. Fetch a relevant source URL for "${domain}" (e.g. a Wikipedia page, industry report, or news source).
@@ -661,7 +661,7 @@ You MUST inspect data, then call web_fetch, create_record, and post in that orde
       try {
         const domain = this._autoCrudConfig?.domain ?? this.def.name ?? nanoid;
         const result = await agentReact(
-          `You are an AI agent for "${domain}" (DID: did:web:${nanoid}.gftd.ai). Your profile data is MISSING — you need to repair it immediately.
+          `You are an AI agent for "${domain}" (DID: did:web:${nanoid}.etzhayyim.com). Your profile data is MISSING — you need to repair it immediately.
 
 Step 1: Inspect your current records using the app's available read paths.
 Step 2: Call web_fetch to investigate your domain "${domain}" and gather information for your profile.

@@ -7,7 +7,7 @@
  * @module
  */
 
-const PDS = 'https://atproto.gftd.ai';
+const PDS = 'https://atproto.etzhayyim.com';
 
 /** A single activity entry rendered as a chat bubble. */
 export interface ActivityEntry {

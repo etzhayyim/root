@@ -1,7 +1,7 @@
 """
 open-patent generation primitives (ai.gftd.apps.openPatent.*).
 
-Reads from vertex_open_patent_patent corpus (ingested by patent.gftd.ai via AT
+Reads from vertex_open_patent_patent corpus (ingested by patent.etzhayyim.com via AT
 firehose — open-patent never calls external APIs directly).
 
 Writes to:
@@ -25,12 +25,12 @@ import httpx
 from pymagatama.db_sync import sync_cursor
 
 # ── Actor DIDs ─────────────────────────────────────────────────────────
-OWNER_DID = "did:web:open-patent.gftd.ai"
+OWNER_DID = "did:web:open-patent.etzhayyim.com"
 INVENTOR_DID = f"{OWNER_DID}:actor:inventor"
 ANALYST_DID = f"{OWNER_DID}:actor:analyst"
 
 # ── LLM ───────────────────────────────────────────────────────────────
-_LLM_URL = os.environ.get("GFTD_LLM_URL", "https://murakumo.gftd.ai/v1/chat/completions")
+_LLM_URL = os.environ.get("GFTD_LLM_URL", "https://murakumo.etzhayyim.com/v1/chat/completions")
 _LLM_KEY = os.environ.get("GFTD_LLM_API_KEY", "sk-murakumo-local")
 _LLM_MODEL = os.environ.get("OPEN_PATENT_LLM_MODEL", os.environ.get("GFTD_LLM_MODEL", "qwen3-30b"))
 

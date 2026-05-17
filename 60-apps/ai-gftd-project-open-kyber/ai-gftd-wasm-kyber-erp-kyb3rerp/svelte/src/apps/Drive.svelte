@@ -292,7 +292,7 @@
     </div>
 
     <div class="border-t border-gftd-border px-5 py-2 text-[11px] text-gftd-muted flex items-center gap-3">
-      <Badge value="drive.gftd.ai" variant="default" />
+      <Badge value="drive.etzhayyim.com" variant="default" />
       <span>SHA-256 content-addressed · E2EE blob storage</span>
       <span class="ml-auto">{filtered.length} item(s) — stub data; <code>listFiles</code> XRPC pending</span>
     </div>

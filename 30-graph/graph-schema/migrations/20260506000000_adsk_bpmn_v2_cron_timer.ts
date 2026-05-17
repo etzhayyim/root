@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * adsk.gftd.ai BPMN v2 — replace ISO 8601 `R/P30D` timeCycle with
+ * adsk.etzhayyim.com BPMN v2 — replace ISO 8601 `R/P30D` timeCycle with
  * Zeebe-supported cron expression `0 0 0 6 * ?` (monthly day 6, 00:00 UTC).
  *
  * v1 was rejected by Zeebe with `ProcessInvalidError` (empty message,
@@ -24,12 +24,12 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-06T00:00:00Z";
-const ownerDid = "did:web:adsk.gftd.ai";
+const ownerDid = "did:web:adsk.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.adsk-cron";
 
-const v1VertexId = "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v1";
+const v1VertexId = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v1";
 const v2Seed: P = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v2",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v2",
   bpmnProcessId: "adsk_ingest_dataset",
   sourcePath: "00-contracts/bpmn/ai/gftd/adsk/ingestAdskDataset.bpmn",
   ownerDid,

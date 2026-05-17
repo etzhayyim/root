@@ -34,7 +34,7 @@ describe("Seed open-swift BPMN actors migration", () => {
 
   it("uses open-swift-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-swift"');
-    expect(migrationSource).toContain("did:web:open-swift.gftd.ai:core");
+    expect(migrationSource).toContain("did:web:open-swift.etzhayyim.com:core");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

@@ -9,10 +9,10 @@ import { getSessionToken } from '$lib/auth';
 
 /**
  * A single browsing history entry.
- * `ipDid` is injected server-side by the PDS Worker (CF-Connecting-IP → ipaddress.gftd.ai DID).
+ * `ipDid` is injected server-side by the PDS Worker (CF-Connecting-IP → ipaddress.etzhayyim.com DID).
  */
 export interface HistoryEntry {
-	/** Unique path (e.g. /profile/did:web:abc.gftd.ai) */
+	/** Unique path (e.g. /profile/did:web:abc.etzhayyim.com) */
 	path: string;
 	/** Display title */
 	title: string;

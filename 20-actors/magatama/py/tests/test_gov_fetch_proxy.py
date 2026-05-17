@@ -41,7 +41,7 @@ def test_proxy_fetch_hash_signs_get_payload(monkeypatch: Any) -> None:
         seen["timeout"] = timeout
         return FakeResponse()
 
-    monkeypatch.setenv("GOV_FETCH_PROXY_URL", "https://gov-fetch.gftd.ai/fetch")
+    monkeypatch.setenv("GOV_FETCH_PROXY_URL", "https://gov-fetch.etzhayyim.com/fetch")
     monkeypatch.setenv("GOV_FETCH_HMAC", "secret")
     monkeypatch.setattr(gov_fetch_proxy._u_req, "urlopen", fake_urlopen)
 

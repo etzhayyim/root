@@ -3,7 +3,7 @@
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 // Japanese central government roster (1府11省 + 3庁 + 独立機関 + 主要外局).
-// DID pattern: did:web:open-jpn-gov.gftd.ai:{category}:{code}
+// DID pattern: did:web:open-jpn-gov.etzhayyim.com:{category}:{code}
 //
 // category ∈ { cabinet, ministry, agency, independent }
 // kind (for agency) ∈ { gaikyoku (外局), tokubetsu (特別の機関), iinkai (委員会) }
@@ -73,7 +73,7 @@ export const ROSTER: Entity[] = [
   { code: "soumu-shobo", nameJa: "消防庁", nameEn: "Fire and Disaster Management Agency", category: "agency", kind: "gaikyoku", parentCode: "soumu", website: "https://www.fdma.go.jp/" },
 ];
 
-export const APP_DID = "did:web:open-jpn-gov.gftd.ai";
+export const APP_DID = "did:web:open-jpn-gov.etzhayyim.com";
 
 export function didFor(e: Entity): string {
   return `${APP_DID}:${e.category}:${e.code}`;

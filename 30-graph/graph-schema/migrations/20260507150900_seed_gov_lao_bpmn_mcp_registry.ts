@@ -17,8 +17,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-05-07T15:09:00Z";
-const ownerDid = "did:web:lao-state.gftd.ai";
-const actorHost = "lao-state.gftd.ai";
+const ownerDid = "did:web:lao-state.etzhayyim.com";
+const actorHost = "lao-state.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.gov-lao";
 const writeTableAllowlist = [
   "vertex_gov_org",
@@ -27,105 +27,105 @@ const writeTableAllowlist = [
 
 const seeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-seedOrgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-seedOrgs-v1",
     nsid: "ai.gftd.govLao.seedOrgs",
     bpmnProcessId: "gov_lao_seed_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-registerDIDs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-registerDIDs-v1",
     nsid: "ai.gftd.govLao.registerDIDs",
     bpmnProcessId: "gov_lao_register_dids",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-followSiteDeps-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-followSiteDeps-v1",
     nsid: "ai.gftd.govLao.followSiteDeps",
     bpmnProcessId: "gov_lao_follow_site_deps",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-resolveOrgPath-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-resolveOrgPath-v1",
     nsid: "ai.gftd.govLao.resolveOrgPath",
     bpmnProcessId: "gov_lao_resolve_org_path",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-listOrgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-listOrgs-v1",
     nsid: "ai.gftd.govLao.listOrgs",
     bpmnProcessId: "gov_lao_list_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-syncWetUpdates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-syncWetUpdates-v1",
     nsid: "ai.gftd.govLao.syncWetUpdates",
     bpmnProcessId: "gov_lao_sync_wet_updates",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-shinka-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-shinka-v1",
     nsid: "ai.gftd.govLao.shinka",
     bpmnProcessId: "gov_lao_shinka",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/shinka.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-heartbeatTick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-heartbeatTick-v1",
     nsid: "ai.gftd.govLao.heartbeatTick",
     bpmnProcessId: "gov_lao_heartbeat_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/heartbeatTick.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-seed-orgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-seed-orgs-v1",
     nsid: "ai.gftd.govLao.seedOrgs",
     bpmnProcessId: "gov_lao_seed_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-register-dids-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-register-dids-v1",
     nsid: "ai.gftd.govLao.registerDIDs",
     bpmnProcessId: "gov_lao_register_dids",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-follow-site-deps-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-follow-site-deps-v1",
     nsid: "ai.gftd.govLao.followSiteDeps",
     bpmnProcessId: "gov_lao_follow_site_deps",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-resolve-org-path-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-resolve-org-path-v1",
     nsid: "ai.gftd.govLao.resolveOrgPath",
     bpmnProcessId: "gov_lao_resolve_org_path",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-list-orgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-list-orgs-v1",
     nsid: "ai.gftd.govLao.listOrgs",
     bpmnProcessId: "gov_lao_list_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-sync-wet-updates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-sync-wet-updates-v1",
     nsid: "ai.gftd.govLao.syncWetUpdates",
     bpmnProcessId: "gov_lao_sync_wet_updates",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-lao-heartbeat-tick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-lao-heartbeat-tick-v1",
     nsid: "ai.gftd.govLao.heartbeatTick",
     bpmnProcessId: "gov_lao_heartbeat_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/govLao/heartbeatTick.bpmn",
@@ -146,7 +146,7 @@ function mcpVertexId(nsid: string): string {
 }
 
 function bindingVertexId(nsid: string): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
 }
 
 function stableStringify(value: unknown): string {

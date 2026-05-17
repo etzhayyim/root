@@ -15,13 +15,13 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-05-06T22:00:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
-const INGEST_DID = "did:web:ingest.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
+const INGEST_DID = "did:web:ingest.etzhayyim.com";
 
 const PROCESS_VID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hf-dataset-scan-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-dataset-scan-v1";
 const BINDING_VID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/hf-dataset-scan-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hf-dataset-scan-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── BPMN process def ───────────────────────────────────────────────────────

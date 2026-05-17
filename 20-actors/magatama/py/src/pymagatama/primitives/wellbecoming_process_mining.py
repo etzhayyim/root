@@ -26,7 +26,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("wellbecoming.process_mining")
 
-DEFAULT_REPO = "did:web:bpmn.gftd.ai"
+DEFAULT_REPO = "did:web:bpmn.etzhayyim.com"
 COLLECTION_REPORT = "ai.gftd.apps.wellbecoming.processMiningReport"
 
 # Max events to score per BPMN fire (throttle LLM spend).

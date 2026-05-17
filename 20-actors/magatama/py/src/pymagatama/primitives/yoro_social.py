@@ -4,7 +4,7 @@ These helpers keep the graph-visible `vertex_repo_record` fallback used by
 the Murakumo cron job available to BPMN/Zeebe workers. The ATProto PDS write
 path can be layered on top, but this primitive is intentionally the verified
 minimum: one service task produces the same record shape the live cron already
-proved visible through atproto.gftd.ai.
+proved visible through atproto.etzhayyim.com.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-DEFAULT_REPO = "did:web:yoro.gftd.ai"
+DEFAULT_REPO = "did:web:yoro.etzhayyim.com"
 DEFAULT_COLLECTION = "app.bsky.feed.post"
 DEFAULT_PREFIX = "Murakumo actor pulse"
 PROFILE_COLLECTION = "app.bsky.actor.profile"
@@ -328,8 +328,8 @@ def _diet_speaker_actor(speaker_name: str) -> dict[str, str]:
     digest = hashlib.sha256(name.encode("utf-8", errors="ignore")).hexdigest()[:12]
     return {
         "name": name,
-        "handle": f"speaker-{digest}.kokkai.gftd.ai",
-        "did": f"did:web:yoro.gftd.ai:kokkai:speaker:{digest}",
+        "handle": f"speaker-{digest}.kokkai.etzhayyim.com",
+        "did": f"did:web:yoro.etzhayyim.com:kokkai:speaker:{digest}",
     }
 
 
@@ -529,7 +529,7 @@ def build_translation_link_record(
         "source": source,
         "quality_score": float(quality_score or 0),
         "created_at": created_at,
-        "org_id": "did:web:yoro.gftd.ai",
+        "org_id": "did:web:yoro.etzhayyim.com",
         "user_id": "system",
         "actor_id": repo,
     }
@@ -865,10 +865,10 @@ def _emit_actor_quality_activity_event(
             if key in {"ok", "dryRun", "profileChanged", "seedPostCreated", "qualityScore", "postsCount", "reason"}
         }
     row = {
-        "vertex_id": f"at://did:web:yoro.gftd.ai/ai.gftd.bpmn.activityEvent/{rkey}",
-        "owner_did": "did:web:yoro.gftd.ai",
+        "vertex_id": f"at://did:web:yoro.etzhayyim.com/ai.gftd.bpmn.activityEvent/{rkey}",
+        "owner_did": "did:web:yoro.etzhayyim.com",
         "rkey": rkey,
-        "repo": "did:web:yoro.gftd.ai",
+        "repo": "did:web:yoro.etzhayyim.com",
         "event_id": event_id,
         "instance_id": case_id,
         "activity_id": task_type,
@@ -877,7 +877,7 @@ def _emit_actor_quality_activity_event(
         "occurred_at": now,
         "created_at": now,
         "actor_did": actor_did,
-        "org_did": "did:web:yoro.gftd.ai",
+        "org_did": "did:web:yoro.etzhayyim.com",
     }
     try:
         with sync_cursor() as cur:
@@ -1096,7 +1096,7 @@ async def task_yoro_social_respond_to_mention_graph_fallback(
     actor = _display_actor(authorDid, authorHandle)
     text = (
         f"Thanks for the mention, @{actor}. Yoro is an AI-Agent-First "
-        "social platform. https://yoro.gftd.ai/"
+        "social platform. https://yoro.etzhayyim.com/"
     )
     reply_ref = {"uri": postUri, "cid": postCid or postUri.rsplit("/", 1)[-1]}
     row = build_social_post_record(
@@ -1458,7 +1458,7 @@ def _enrich_actor_quality_profile(
         "qualityEnrichedAt": utc_now_iso(),
         "sourceHint": sourceHint,
         "missingFields": missingFields if isinstance(missingFields, list) else before.get("missingFields", []),
-        "profileGenerator": "llm.gftd.ai" if draft.get("ok") else "safe-template",
+        "profileGenerator": "llm.etzhayyim.com" if draft.get("ok") else "safe-template",
         "profileBasis": draft.get("profileBasis", ""),
         "profileGenerationError": "" if draft.get("ok") else str(draft.get("error") or draft.get("reason") or "")[:300],
     }
@@ -1490,7 +1490,7 @@ def _enrich_actor_quality_profile(
                   description = COALESCE(NULLIF(description, ''), %(description)s),
                   props = %(props)s,
                   actor_did = COALESCE(actor_did, %(actor_did)s),
-                  org_did = COALESCE(org_did, 'did:web:yoro.gftd.ai')
+                  org_did = COALESCE(org_did, 'did:web:yoro.etzhayyim.com')
                 WHERE vertex_id = %(vertex_id)s OR did = %(actor_did)s
                 """,
                 {
@@ -1513,7 +1513,7 @@ def _enrich_actor_quality_profile(
                   %(vertex_id)s, %(actor_did)s, %(actor_did)s, %(handle)s,
                   %(display_name)s, %(description)s, %(props)s,
                   %(collection)s, 'self', %(created_at)s, 1,
-                  'did:web:yoro.gftd.ai', %(actor_did)s, 'did:web:yoro.gftd.ai'
+                  'did:web:yoro.etzhayyim.com', %(actor_did)s, 'did:web:yoro.etzhayyim.com'
                 )
                 """,
                 {

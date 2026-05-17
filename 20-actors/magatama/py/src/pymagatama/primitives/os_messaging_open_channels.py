@@ -15,7 +15,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-OWNER_DID = "did:web:os-messaging.gftd.ai"
+OWNER_DID = "did:web:os-messaging.etzhayyim.com"
 ACTOR_ID = "sys.langserver.os-messaging.open-channels"
 KNOWN_PLATFORMS = {"telegram", "line"}
 
@@ -98,7 +98,7 @@ def _fetch(url: str, timeout_sec: float) -> dict[str, Any]:
         url,
         headers={
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "User-Agent": "pymagatama-os-messaging-open-channels/1 (+https://os-messaging.gftd.ai)",
+            "User-Agent": "pymagatama-os-messaging-open-channels/1 (+https://os-messaging.etzhayyim.com)",
         },
     )
     try:

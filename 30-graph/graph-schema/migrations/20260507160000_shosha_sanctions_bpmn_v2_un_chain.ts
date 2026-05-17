@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shosha.gftd.ai Phase 2b-ext — refreshSanctionsList BPMN v2.
+ * shosha.etzhayyim.com Phase 2b-ext — refreshSanctionsList BPMN v2.
  *
  * Adds Task_Un (`shosha.sanctions.refreshUn`) between Task_Ofac and
  * Task_Audit. Audit eventType + attributes now also include UN counts.
@@ -26,7 +26,7 @@ const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf
 
 const seeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1",
     bpmnProcessId: "shosha_refresh_sanctions_list",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/refreshSanctionsList.bpmn",
   },

@@ -162,8 +162,8 @@ def test_g5_require_none_raises():
 # ─── telecom_5g_security — _caller ───────────────────────────────────────────
 
 def test_g5_caller_uses_caller_did():
-    result = G5._caller({"callerDid": "did:web:nrf.gftd.ai"})
-    assert result == "did:web:nrf.gftd.ai"
+    result = G5._caller({"callerDid": "did:web:nrf.etzhayyim.com"})
+    assert result == "did:web:nrf.etzhayyim.com"
 
 
 def test_g5_caller_falls_back_to_telecom_did():
@@ -352,8 +352,8 @@ def test_opt_require_missing_raises():
 # ─── telecom_optical — _caller ───────────────────────────────────────────────
 
 def test_opt_caller_uses_caller_did():
-    result = OPT._caller({"callerDid": "did:web:pce.gftd.ai"})
-    assert result == "did:web:pce.gftd.ai"
+    result = OPT._caller({"callerDid": "did:web:pce.etzhayyim.com"})
+    assert result == "did:web:pce.etzhayyim.com"
 
 
 def test_opt_caller_falls_back_to_telecom_did():
@@ -478,8 +478,8 @@ def test_mec_require_missing_raises():
 # ─── telecom_mec — _caller ───────────────────────────────────────────────────
 
 def test_mec_caller_uses_caller_did():
-    result = MEC._caller({"callerDid": "did:web:mec.gftd.ai"})
-    assert result == "did:web:mec.gftd.ai"
+    result = MEC._caller({"callerDid": "did:web:mec.etzhayyim.com"})
+    assert result == "did:web:mec.etzhayyim.com"
 
 
 def test_mec_caller_falls_back_to_telecom_did():
@@ -618,8 +618,8 @@ def test_nfv_require_missing_raises():
 # ─── telecom_nfv — _caller ───────────────────────────────────────────────────
 
 def test_nfv_caller_uses_caller_did():
-    result = NFV._caller({"callerDid": "did:web:vnfm.gftd.ai"})
-    assert result == "did:web:vnfm.gftd.ai"
+    result = NFV._caller({"callerDid": "did:web:vnfm.etzhayyim.com"})
+    assert result == "did:web:vnfm.etzhayyim.com"
 
 
 def test_nfv_caller_falls_back_to_telecom_did():

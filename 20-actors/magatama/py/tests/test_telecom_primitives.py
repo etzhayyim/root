@@ -74,7 +74,7 @@ def test_require_passes_when_all_present():
 
 
 def test_caller_returns_custom_did():
-    assert T._caller({"callerDid": "did:web:custom.gftd.ai"}) == "did:web:custom.gftd.ai"
+    assert T._caller({"callerDid": "did:web:custom.etzhayyim.com"}) == "did:web:custom.etzhayyim.com"
 
 
 def test_caller_defaults_to_telecom_did():
@@ -83,7 +83,7 @@ def test_caller_defaults_to_telecom_did():
 
 def test_vid_subscriber_format():
     vid = T._vid_subscriber("sub_abc123")
-    assert vid.startswith("at://did:web:telecom.gftd.ai/")
+    assert vid.startswith("at://did:web:telecom.etzhayyim.com/")
     assert "sub_abc123" in vid
 
 

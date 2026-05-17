@@ -54,7 +54,7 @@ describe('installedToAppLinks', () => {
 				'appId': 'news',
 				'appName': 'News',
 				'appIcon': '📰',
-				'appHref': 'https://news.gftd.ai',
+				'appHref': 'https://news.etzhayyim.com',
 				version: '1.0.0',
 				'grantedScopes': ['profile:read'],
 				'installedAt': 1710700800,
@@ -65,7 +65,7 @@ describe('installedToAppLinks', () => {
 		expect(links[0].id).toBe('inst1');
 		expect(links[0].name).toBe('News');
 		expect(links[0].icon).toBe('📰');
-		expect(links[0].href).toBe('https://news.gftd.ai');
+		expect(links[0].href).toBe('https://news.etzhayyim.com');
 	});
 
 	it('falls back to first char of name for missing icon', () => {

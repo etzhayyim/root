@@ -272,7 +272,7 @@ def test_runpod_invoke_sync_completed_path():
          patch("time.sleep"):
         result = MS._runpod_invoke_sync(
             "change_detection",
-            "at://maps.gftd.ai/scene/001",
+            "at://maps.etzhayyim.com/scene/001",
             api_key="rp_test_key",
             endpoint_id="ep123",
         )
@@ -301,7 +301,7 @@ def test_runpod_invoke_sync_failed_status_raises():
              patch("time.sleep"):
             MS._runpod_invoke_sync(
                 "land_use",
-                "at://maps.gftd.ai/scene/002",
+                "at://maps.etzhayyim.com/scene/002",
                 api_key="key",
                 endpoint_id="ep",
             )
@@ -455,12 +455,12 @@ def test_task_runpod_analyze_without_credentials_writes_degraded_row(monkeypatch
 
     with patch("pymagatama.primitives.maps_sentinel.sync_cursor", return_value=ctx):
         result = MS.task_maps_sentinel_runpod_analyze(
-            scene_uri="at://maps.gftd.ai/ai.gftd.apps.maps.satelliteScene/abc123",
+            scene_uri="at://maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/abc123",
             analysis_type="change_detection",
         )
 
     assert result["ok"] is False
-    assert result["analysisUri"].startswith("at://did:web:maps.gftd.ai/ai.gftd.apps.maps.satelliteAnalysis/")
+    assert result["analysisUri"].startswith("at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteAnalysis/")
     assert len(ctx.cursor.sqls) == 1
 
     record = json.loads(ctx.cursor.params[0][5])  # value_json is index 5
@@ -494,7 +494,7 @@ def test_task_runpod_analyze_with_credentials_writes_result(monkeypatch):
          patch("time.sleep"), \
          patch("pymagatama.primitives.maps_sentinel.sync_cursor", return_value=ctx):
         result = MS.task_maps_sentinel_runpod_analyze(
-            scene_uri="at://maps.gftd.ai/ai.gftd.apps.maps.satelliteScene/s1flood",
+            scene_uri="at://maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/s1flood",
             analysis_type="sar_flood",
             model_version="phase1",
         )
@@ -503,10 +503,10 @@ def test_task_runpod_analyze_with_credentials_writes_result(monkeypatch):
     assert result["summary"] == "Flood detected in low-lying area"
     # phase1 cap: 0.79 < 0.85 → unchanged
     assert result["confidence"] == 0.79
-    assert result["analysisUri"].startswith("at://did:web:maps.gftd.ai/ai.gftd.apps.maps.satelliteAnalysis/")
+    assert result["analysisUri"].startswith("at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteAnalysis/")
 
     record = json.loads(ctx.cursor.params[0][5])
-    assert record["sceneUri"] == "at://maps.gftd.ai/ai.gftd.apps.maps.satelliteScene/s1flood"
+    assert record["sceneUri"] == "at://maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/s1flood"
     assert record["analysisType"] == "sar_flood"
     assert record["modelVersion"] == "phase1"
 

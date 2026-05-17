@@ -2,7 +2,7 @@
 //
 // Registers 6 intel processes in vertex_bpmn_process_def +
 // vertex_bpmn_lexicon_binding so the F5 watcher deploys them
-// to Zeebe and dispatcher.gftd.ai routes XRPC POSTs.
+// to Zeebe and dispatcher.etzhayyim.com routes XRPC POSTs.
 //
 // Workers: intel-pyzeebe-worker (50-infra/k8s/intel-dependency-worker)
 // handles all intel.* task types. Pod is already Running in the
@@ -34,7 +34,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-28T14:00:00Z";
-const ownerDid = "did:web:intel.gftd.ai";
+const ownerDid = "did:web:intel.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.intel";
 const project = "intel";
 
@@ -81,9 +81,9 @@ const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

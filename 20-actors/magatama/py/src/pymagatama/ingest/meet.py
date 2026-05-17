@@ -14,7 +14,7 @@ from pymagatama.db_sync import sync_cursor
 MEET_TOKEN_TABLE = "vertex_gmeet_oauth_token"
 MEET_CONFERENCE_TABLE = "vertex_gmeet_conference"
 MEET_PARTICIPANT_TABLE = "vertex_gmeet_participant"
-ACTOR_DID = "did:web:meet.gftd.ai"
+ACTOR_DID = "did:web:meet.etzhayyim.com"
 
 
 def now_iso() -> str:

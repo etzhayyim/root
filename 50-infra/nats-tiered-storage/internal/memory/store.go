@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/block"
-	"github.com/gftdcojp/nats-tiered-storage/internal/config"
-	"github.com/gftdcojp/nats-tiered-storage/internal/tier"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/block"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/tier"
 	"go.uber.org/zap"
 )
 

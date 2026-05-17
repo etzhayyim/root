@@ -71,7 +71,7 @@ def test_task_writes_mitama_cron_resync_tick(monkeypatch):
     assert out["ok"] is True
     assert out["scheduled"] == 4
     row = factory.cursors[0].params[0]
-    assert row["repo"] == "did:web:atproto.gftd.ai"
+    assert row["repo"] == "did:web:atproto.etzhayyim.com"
     assert row["collection"] == "ai.gftd.apps.pds.mitamaCronResync"
     value = json.loads(row["value_json"])
     assert value["scheduled"] == 4

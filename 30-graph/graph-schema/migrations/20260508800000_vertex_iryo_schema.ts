@@ -6,7 +6,7 @@ import { sql } from "kysely";
 //          Tier 1 in Phase 1; Tier 3 patient table is deferred to Phase 2.)
 
 /**
- * iryo.gftd.ai Phase 1 — hospital operations schema
+ * iryo.etzhayyim.com Phase 1 — hospital operations schema
  * (ADR-2605080800 + ADR-0036 Worker-direct Hyperdrive +
  *  ADR-0056 BPMN-as-actor + ADR-2604282300 T2 = pymagatama + Zeebe).
  *

@@ -234,7 +234,7 @@ def robotics_mission_simulate(*, mission: Any = None, mission_id: str = "robotic
     }
 
 
-def robotics_approval_record(*, request_id: str = "robotics-request", decision: str = "hold", approver_did: str = "did:web:robotics-operator.gftd.ai", scope: str = "robot-motion-and-transport") -> dict[str, Any]:
+def robotics_approval_record(*, request_id: str = "robotics-request", decision: str = "hold", approver_did: str = "did:web:robotics-operator.etzhayyim.com", scope: str = "robot-motion-and-transport") -> dict[str, Any]:
     normalized = decision if decision in {"approve", "reject", "hold"} else "hold"
     return {
         "roboticsApprovalRecord": {
@@ -809,7 +809,7 @@ def task_approval_record(**kwargs: Any) -> dict[str, Any]:
     return robotics_approval_record(
         request_id=str(kwargs.get("requestId") or "robotics-request"),
         decision=str(kwargs.get("decision") or kwargs.get("approvalDecision") or "hold"),
-        approver_did=str(kwargs.get("approverDid") or "did:web:robotics-operator.gftd.ai"),
+        approver_did=str(kwargs.get("approverDid") or "did:web:robotics-operator.etzhayyim.com"),
         scope=str(kwargs.get("scope") or "robot-motion-and-transport"),
     )
 

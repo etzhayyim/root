@@ -1,4 +1,4 @@
-"""training.gftd.ai — model training + weight lineage primitives.
+"""training.etzhayyim.com — model training + weight lineage primitives.
 
 ADR-2605070700. T2 actor (ADR-2604282300): pymagatama module + BPMN +
 Zeebe, no CF Worker. All domain writes hit RisingWave directly via
@@ -53,11 +53,11 @@ from pymagatama.primitives import training_export as _texp
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-_TRAINING_ACTOR = "did:web:training.gftd.ai"
+_TRAINING_ACTOR = "did:web:training.etzhayyim.com"
 _BPMN_NSID_PREFIX = "ai.gftd.apps.training"
 _CHECKPOINT_PREFIX = os.environ.get("TRAINING_CHECKPOINT_PREFIX", "v1/checkpoints")
 _TEACHER_LABEL_PREFIX = os.environ.get("TRAINING_TEACHER_LABEL_PREFIX", "v1/teacher_labels")
-_MURAKUMO_URL = os.environ.get("MURAKUMO_INFERENCE_URL", "https://murakumo-serve.gftd.ai/v1/chat/completions").rstrip("/")
+_MURAKUMO_URL = os.environ.get("MURAKUMO_INFERENCE_URL", "https://murakumo-serve.etzhayyim.com/v1/chat/completions").rstrip("/")
 _MURAKUMO_KEY = os.environ.get("MURAKUMO_API_KEY", "").strip()
 _DEFAULT_BASE_REVISION = "main"
 _DEFAULT_SAVE_STEP_INTERVAL = int(os.environ.get("TRAINING_SAVE_STEP_INTERVAL", "500"))

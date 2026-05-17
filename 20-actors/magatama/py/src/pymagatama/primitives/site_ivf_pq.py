@@ -1,4 +1,4 @@
-"""IVF+PQ codebook training and chunk encoding tasks for site.gftd.ai.
+"""IVF+PQ codebook training and chunk encoding tasks for site.etzhayyim.com.
 
 Weekly batch pipeline (Zeebe R/P7D timer):
   site.ivfPq.updateCentroids  — re-cluster wet_chunk embeddings (K-means via faiss)
@@ -23,7 +23,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("site_ivf_pq")
 
-_OWNER_DID = "did:web:site.gftd.ai"
+_OWNER_DID = "did:web:site.etzhayyim.com"
 _DEFAULT_N_CENTROIDS = 256
 _DEFAULT_M_SUBSPACES = 96
 _DEFAULT_K_CENTROIDS = 256

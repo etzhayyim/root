@@ -1,4 +1,4 @@
-"""Corpus2Skill distillation tasks for site.gftd.ai.
+"""Corpus2Skill distillation tasks for site.etzhayyim.com.
 
 Implements arXiv 2604.14572 "Don't Retrieve, Navigate" offline distillation:
   site.corpus2skill.distillDomain — offline build of level-0..3 skill tree
@@ -21,7 +21,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("site_corpus2skill")
 
-_OWNER_DID = "did:web:site.gftd.ai"
+_OWNER_DID = "did:web:site.etzhayyim.com"
 _DEFAULT_BRANCH_K = 8  # children per non-leaf node
 _MAX_HOPS = 3
 

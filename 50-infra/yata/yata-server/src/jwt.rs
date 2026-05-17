@@ -392,7 +392,7 @@ mod tests {
 
     #[test]
     fn test_verify_rejects_malformed() {
-        let result = verify_es256_jwt("not.a.jwt", "did:web:pds.gftd.ai", |_| None);
+        let result = verify_es256_jwt("not.a.jwt", "did:web:pds.etzhayyim.com", |_| None);
         assert!(result.is_err());
     }
 
@@ -400,9 +400,9 @@ mod tests {
     fn test_verify_rejects_expired() {
         // Construct a token with exp=0 (expired)
         let header = base64url_encode(br#"{"alg":"ES256"}"#);
-        let payload = base64url_encode(br#"{"iss":"did:web:test","aud":"did:web:pds.gftd.ai","exp":0}"#);
+        let payload = base64url_encode(br#"{"iss":"did:web:test","aud":"did:web:pds.etzhayyim.com","exp":0}"#);
         let token = format!("{}.{}.AAAA", header, payload);
-        let result = verify_es256_jwt(&token, "did:web:pds.gftd.ai", |_| None);
+        let result = verify_es256_jwt(&token, "did:web:pds.etzhayyim.com", |_| None);
         assert!(matches!(result, Err(JwtError::Expired)));
     }
 
@@ -417,7 +417,7 @@ mod tests {
         let payload_str = format!(r#"{{"iss":"did:web:test","aud":"did:web:wrong","exp":{}}}"#, exp);
         let payload = base64url_encode(payload_str.as_bytes());
         let token = format!("{}.{}.AAAA", header, payload);
-        let result = verify_es256_jwt(&token, "did:web:pds.gftd.ai", |_| None);
+        let result = verify_es256_jwt(&token, "did:web:pds.etzhayyim.com", |_| None);
         assert!(matches!(result, Err(JwtError::InvalidAudience)));
     }
 

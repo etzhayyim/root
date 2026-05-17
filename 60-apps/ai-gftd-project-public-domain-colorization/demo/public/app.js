@@ -3,7 +3,7 @@ const catalogUrl = new URL("../publications.json", import.meta.url);
 const $ = (id) => document.getElementById(id);
 
 function ipfsUrl(cid) {
-  return `https://ipfs.gftd.ai/ipfs/${cid}`;
+  return `https://ipfs.etzhayyim.com/ipfs/${cid}`;
 }
 
 function setText(id, value) {

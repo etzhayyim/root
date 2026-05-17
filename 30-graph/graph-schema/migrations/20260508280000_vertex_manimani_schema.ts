@@ -8,7 +8,7 @@ import { sql } from "kysely";
 //          default block (ADR-2605080800). Visible to org owner + actor.)
 
 /**
- * manimani.gftd.ai — LangGraph user-intake routing pipeline schema
+ * manimani.etzhayyim.com — LangGraph user-intake routing pipeline schema
  * (ADR-2605080800).
  *
  * Pattern: T3 actor (CF Worker = edge facade only, ADR-2604282300) with
@@ -27,7 +27,7 @@ import { sql } from "kysely";
  *                              Content-addressed PK keyed on
  *                              sha256(actor_did + slug). project_did is
  *                              path-based sub-DID
- *                              `did:web:manimani.gftd.ai:project:{slug}`.
+ *                              `did:web:manimani.etzhayyim.com:project:{slug}`.
  *
  *   vertex_manimani_artifact — LLM output per (intake, project, processor).
  *                              Content-addressed PK keyed on

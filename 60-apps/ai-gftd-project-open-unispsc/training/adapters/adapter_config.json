@@ -1,8 +1,8 @@
 {
-  "adapterPath": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/projects/ai-gftd-project-open-unispsc/training/adapters",
+  "adapterPath": "/Users/junkawasaki/github/etzhayyim/root/projects/ai-gftd-project-open-unispsc/training/adapters",
   "batchSize": 1,
-  "config": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/projects/ai-gftd-project-open-unispsc/training/lora-config.yaml",
-  "data": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/projects/ai-gftd-project-open-unispsc/training",
+  "config": "/Users/junkawasaki/github/etzhayyim/root/projects/ai-gftd-project-open-unispsc/training/lora-config.yaml",
+  "data": "/Users/junkawasaki/github/etzhayyim/root/projects/ai-gftd-project-open-unispsc/training",
   "fineTuneType": "lora",
   "gradAccumulationSteps": 1,
   "gradCheckpoint": true,

@@ -8,7 +8,7 @@ import { sql } from "kysely";
  * P2 added `product_scope` so a single sk_live_yata_* token can carry
  * the yata product gate.  P3.2 adds a parallel AWS-style identity
  * (`aws_access_key_id` + `aws_secret_access_key`) on the same row so
- * boto3 / aws-sdk-js / mc clients can talk to yatabase.gftd.ai/s3/*
+ * boto3 / aws-sdk-js / mc clients can talk to yatabase.etzhayyim.com/s3/*
  * with native AWS Signature Version 4.
  *
  * Each api key row now carries TWO equivalent identities:

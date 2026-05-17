@@ -2,10 +2,10 @@
  * Migration 0057: Hospitality actor coverage MV (ADR-0028 Phase 1, AT-Protocol-native).
  *
  * Source: `vertex_profile` (canonical projection of `app.bsky.actor.profile` records).
- * Filter: hospitality.gftd.ai path-based DIDs only.
+ * Filter: hospitality.etzhayyim.com path-based DIDs only.
  *
  * Path-based DID convention (ADR-0019):
- *   did:web:hospitality.gftd.ai:actor:{kind}:{slug}
+ *   did:web:hospitality.etzhayyim.com:actor:{kind}:{slug}
  *   kind ∈ {assoc, ota, chain, cruise, property}
  *
  * Pre-flight (CLAUDE.md §MV Memory Safety Guardrails):
@@ -24,7 +24,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       split_part(split_part(did, ':actor:', 2), ':', 1) AS kind,
       COUNT(*) AS actor_cnt
     FROM vertex_profile
-    WHERE did LIKE 'did:web:hospitality.gftd.ai:actor:%'
+    WHERE did LIKE 'did:web:hospitality.etzhayyim.com:actor:%'
     GROUP BY kind
   `.execute(db);
 }

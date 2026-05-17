@@ -101,7 +101,7 @@ for i in $(seq 1 $NUM_WRITES); do
 
   RESULT=$(curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.mergeRecordWal" \
     -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
-    -d "{\"label\":\"LtNode\",\"pk_key\":\"rkey\",\"pk_value\":\"lt_$i\",\"props\":{\"idx\":$i,\"batch\":\"ci\",\"text\":\"record $i\",\"collection\":\"ai.gftd.apps.loadtest\",\"repo\":\"did:web:loadtest.gftd.ai\"}}")
+    -d "{\"label\":\"LtNode\",\"pk_key\":\"rkey\",\"pk_value\":\"lt_$i\",\"props\":{\"idx\":$i,\"batch\":\"ci\",\"text\":\"record $i\",\"collection\":\"ai.gftd.apps.loadtest\",\"repo\":\"did:web:loadtest.etzhayyim.com\"}}")
 
   T1=$(python3 -c "import time; print(int(time.time()*1000))")
   WRITE_LATENCIES="$WRITE_LATENCIES $((T1 - T0))"

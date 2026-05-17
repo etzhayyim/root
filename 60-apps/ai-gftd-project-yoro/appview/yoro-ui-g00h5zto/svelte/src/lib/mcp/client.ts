@@ -77,7 +77,7 @@ export class McpClient {
 
 	private createAgent(endpoint: string): AtpAgent {
 		const baseUrl = this.resolveBaseUrl(endpoint);
-		return new AtpAgent({ service: baseUrl || 'https://atproto.gftd.ai' });
+		return new AtpAgent({ service: baseUrl || 'https://atproto.etzhayyim.com' });
 	}
 
 	private async buildHeaders(extraHeaders?: Record<string, string>): Promise<Record<string, string>> {

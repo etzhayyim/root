@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/schemas/form/v1.json",
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
   "key": "fuyou-amend-v1",
   "version": 1,
   "title": "扶養控除等異動申告 (delta only)",

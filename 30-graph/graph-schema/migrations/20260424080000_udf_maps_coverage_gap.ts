@@ -20,8 +20,8 @@ import { sql } from "kysely";
  * Schema (minimal coverage frontier registry, NOT 1NF — promoted columns):
  *   vertex_maps_coverage_target (
  *     vertex_id         varchar PRIMARY KEY
- *                         at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/{sourceSlug}:{label}
- *     source_did        varchar  NOT NULL   -- did:web:maps.gftd.ai:registry:gleif etc.
+ *                         at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/{sourceSlug}:{label}
+ *     source_did        varchar  NOT NULL   -- did:web:maps.etzhayyim.com:registry:gleif etc.
  *     label             varchar  NOT NULL   -- LegalEntity / AdminArea / Airport / ...
  *     world_total       bigint   NOT NULL   -- upper-bound estimate (see ADR maps CLAUDE.md §Coverage Targets)
  *     collected_count   bigint   NOT NULL   -- current graph row count for this (source, label)
@@ -127,22 +127,22 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   //    §Coverage Targets. priority_weight: P0=1.0 / P1=0.6 / P2=0.3.
   const now = new Date().toISOString();
   const seed: Array<[string, string, number, number]> = [
-    ["did:web:maps.gftd.ai:registry:gleif",         "LegalEntity",    2_500_000, 1.0],
-    ["did:web:maps.gftd.ai:registry:jp-nta",        "LegalEntity",    6_000_000, 1.0],
-    ["did:web:maps.gftd.ai:registry:wikidata",      "LegalEntity",      500_000, 1.0],
-    ["did:web:maps.gftd.ai:registry:openaddresses", "Place",      1_000_000_000, 0.6],
-    ["did:web:maps.gftd.ai:registry:opencorporates","LegalEntity",  200_000_000, 0.6],
-    ["did:web:maps.gftd.ai:registry:osm",           "Place",         50_000_000, 0.3],
-    ["did:web:maps.gftd.ai:infrastructure",         "Building",      10_000_000, 0.6],
-    ["did:web:maps.gftd.ai:infrastructure",         "Airport",            3_000, 1.0],
-    ["did:web:maps.gftd.ai:infrastructure",         "Station",           10_000, 0.6],
-    ["did:web:maps.gftd.ai:infrastructure",         "AdminArea",          7_800, 1.0],
-    ["did:web:maps.gftd.ai:satellite",              "SatelliteScene",   500_000, 0.3],
-    ["did:web:maps.gftd.ai:gtfs",                   "BusRoute",          50_000, 0.6],
+    ["did:web:maps.etzhayyim.com:registry:gleif",         "LegalEntity",    2_500_000, 1.0],
+    ["did:web:maps.etzhayyim.com:registry:jp-nta",        "LegalEntity",    6_000_000, 1.0],
+    ["did:web:maps.etzhayyim.com:registry:wikidata",      "LegalEntity",      500_000, 1.0],
+    ["did:web:maps.etzhayyim.com:registry:openaddresses", "Place",      1_000_000_000, 0.6],
+    ["did:web:maps.etzhayyim.com:registry:opencorporates","LegalEntity",  200_000_000, 0.6],
+    ["did:web:maps.etzhayyim.com:registry:osm",           "Place",         50_000_000, 0.3],
+    ["did:web:maps.etzhayyim.com:infrastructure",         "Building",      10_000_000, 0.6],
+    ["did:web:maps.etzhayyim.com:infrastructure",         "Airport",            3_000, 1.0],
+    ["did:web:maps.etzhayyim.com:infrastructure",         "Station",           10_000, 0.6],
+    ["did:web:maps.etzhayyim.com:infrastructure",         "AdminArea",          7_800, 1.0],
+    ["did:web:maps.etzhayyim.com:satellite",              "SatelliteScene",   500_000, 0.3],
+    ["did:web:maps.etzhayyim.com:gtfs",                   "BusRoute",          50_000, 0.6],
   ];
   for (const [sourceDid, label, worldTotal, priority] of seed) {
     const sourceSlug = sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || "primary";
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/:/g, "-")}:${label}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/:/g, "-")}:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/schemas/form/v1.json",
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
   "key": "gstr3b-form-v1",
   "version": 1,
   "title": "GSTR-3B Monthly Summary Return",

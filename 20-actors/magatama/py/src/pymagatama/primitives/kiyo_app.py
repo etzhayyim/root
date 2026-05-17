@@ -10,7 +10,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-KIYO_DID = "did:web:kiyo.gftd.ai"
+KIYO_DID = "did:web:kiyo.etzhayyim.com"
 PAPER_COLLECTION = "ai.gftd.apps.kiyo.paper"
 
 
@@ -168,7 +168,7 @@ def task_kiyo_search_papers(q: str = "", subject: str = "", limit: Any = 20, off
     return {"papers": papers, "offset": offset_n, "limit": limit_n}
 
 
-def task_kiyo_get_paper_file(paperId: str = "", version: Any = None, fileType: str = "pdf", ipfsGatewayUrl: str = "https://ipfs.gftd.ai", **_: Any) -> dict[str, Any]:
+def task_kiyo_get_paper_file(paperId: str = "", version: Any = None, fileType: str = "pdf", ipfsGatewayUrl: str = "https://ipfs.etzhayyim.com", **_: Any) -> dict[str, Any]:
     version_n = _bounded_int(version, 0, min_value=0, max_value=10_000) if version not in (None, "") else 0
     cid = ""
     with sync_cursor() as cur:
@@ -187,7 +187,7 @@ def task_kiyo_get_paper_file(paperId: str = "", version: Any = None, fileType: s
                 cid = str(rows[0].get("ipfs_cid") or "")
     if not cid:
         return {"error": "not found"}
-    base = (ipfsGatewayUrl or "https://ipfs.gftd.ai").rstrip("/")
+    base = (ipfsGatewayUrl or "https://ipfs.etzhayyim.com").rstrip("/")
     return {
         "url": f"{base}/ipfs/{cid}",
         "cid": cid,

@@ -165,9 +165,9 @@ def test_resolve_cadence_actions_reset_to_empty() -> None:
 
 def test_resolve_cadence_preserves_actor_did() -> None:
     state = {"now_ms": 1_000_000, "last_heartbeat_ms": 0, "mood": "joyful",
-             "actor_did": "did:web:actor.gftd.ai"}
+             "actor_did": "did:web:actor.etzhayyim.com"}
     result = _resolve_cadence(state)
-    assert result["actor_did"] == "did:web:actor.gftd.ai"
+    assert result["actor_did"] == "did:web:actor.etzhayyim.com"
 
 
 def test_resolve_cadence_stressed_disables_post() -> None:

@@ -67,7 +67,7 @@ _TOPO_ORDER: list[str] = [
 ]
 
 _HTTP_TIMEOUT = 15
-_USER_AGENT = "aria-signal/1 (+https://gftd.ai)"
+_USER_AGENT = "aria-signal/1 (+https://etzhayyim.com)"
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
@@ -878,7 +878,7 @@ def task_aria_minimax_sweep(**kwargs: Any) -> dict[str, Any]:
                 (
                     event_id,
                     "aria-minimax",
-                    "did:web:bpmn.gftd.ai",
+                    "did:web:bpmn.etzhayyim.com",
                     "aria_minimax_sweep",
                     bottleneck_axis,
                     False,

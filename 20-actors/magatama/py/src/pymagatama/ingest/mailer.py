@@ -22,10 +22,10 @@ from pymagatama.gewp import (
 )
 from pymagatama.local_agent_env import load_keychain_secret
 
-ACTOR = "did:web:mailer.gftd.ai"
-INBOUND_REPO = "did:web:ml1nb0nd.gftd.ai"
+ACTOR = "did:web:mailer.etzhayyim.com"
+INBOUND_REPO = "did:web:ml1nb0nd.etzhayyim.com"
 INBOUND_COLLECTION = "ai.gftd.apps.mailer.inboundEmail"
-PDS_ORIGIN = os.environ.get("PDS_ORIGIN", "https://atproto.gftd.ai")
+PDS_ORIGIN = os.environ.get("PDS_ORIGIN", "https://atproto.etzhayyim.com")
 
 
 def now_iso() -> str:
@@ -193,7 +193,7 @@ def stats(**_: Any) -> dict[str, Any]:
 
 
 def send_email(to: str = "", subject: str = "", text: str = "", html: str = "", from_: str = "", fromAddress: str = "", replyTo: str = "", **kwargs: Any) -> dict[str, Any]:
-    sender = from_ or fromAddress or _str(kwargs.get("from")) or "abuse-report@gftd.ai"
+    sender = from_ or fromAddress or _str(kwargs.get("from")) or "abuse-report@etzhayyim.com"
     if not to or not subject or not text:
         return {"error": "to/subject/text required"}
     api_key = _secret("RESEND_API_KEY", "SS_RESEND_API_KEY")
@@ -252,9 +252,9 @@ def provision_mailbox(handle: str = "", did: str = "", purpose: str = "", **_: A
         return {"error": "handle is required", "email": "", "did": ""}
     if not re.match(r"^[a-z][a-z0-9._-]{0,63}$", local):
         return {"error": "handle must be alpha-start, lowercase, kebab/dot/underscore", "email": "", "did": ""}
-    recipient_did = did or f"did:web:{local}.gftd.ai"
-    email = f"{local}@gftd.ai"
-    relay_url = os.environ.get("EMAIL_RELAY_ADMIN_URL", "https://email-relay.gftd.ai/register-email")
+    recipient_did = did or f"did:web:{local}.etzhayyim.com"
+    email = f"{local}@etzhayyim.com"
+    relay_url = os.environ.get("EMAIL_RELAY_ADMIN_URL", "https://email-relay.etzhayyim.com/register-email")
     token = _secret("EMAIL_RELAY_ADMIN_TOKEN", "SS_EMAIL_RELAY_ADMIN_TOKEN")
     if not token:
         return {"email": email, "did": recipient_did, "registered": False, "error": "EMAIL_RELAY_ADMIN_TOKEN not configured"}
@@ -293,7 +293,7 @@ def send_gewp_message(
       Layer 2: <!-- GEWP:{base64url} --> in HTML body (fallback)
       Layer 3: X-GEWP-* headers (best-effort routing hint)
     """
-    sender = from_ or fromAddress or _str(kwargs.get("from")) or "mailer@gftd.ai"
+    sender = from_ or fromAddress or _str(kwargs.get("from")) or "mailer@etzhayyim.com"
     if not to or not subject:
         return {"error": "to/subject required"}
     api_key = _secret("RESEND_API_KEY", "SS_RESEND_API_KEY")

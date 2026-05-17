@@ -19,16 +19,16 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:00:00Z";
-const ownerDid = "did:web:kaisya.gftd.ai";
+const ownerDid = "did:web:kaisya.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.kaisya";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-member-chat-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-member-chat-v1",
   bpmnProcessId: "kaisya_member_chat",
   sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/memberChat.bpmn",
 };
 const BINDING = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kaisya-member-chat-xrpc-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaisya-member-chat-xrpc-v1",
   nsid: "ai.gftd.apps.kaisya.memberChat",
   bpmnProcessId: "kaisya_member_chat",
   resultTimeoutMs: 120_000,

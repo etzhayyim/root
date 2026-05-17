@@ -31,7 +31,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       split_part(split_part(did, ':actor:', 2), ':', 1)     AS kind,
       COUNT(*)                                              AS actor_cnt
     FROM vertex_profile
-    WHERE did LIKE 'did:web:hospitality.gftd.ai:actor:%'
+    WHERE did LIKE 'did:web:hospitality.etzhayyim.com:actor:%'
     GROUP BY tier, kind
   `.execute(db);
 }

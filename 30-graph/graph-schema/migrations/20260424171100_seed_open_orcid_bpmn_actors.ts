@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T17:30:00Z";
-const ownerDid = "did:web:open-orcid.gftd.ai";
+const ownerDid = "did:web:open-orcid.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-orcid";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-orcid-register-researcher-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-orcid-register-researcher-v1",
     bpmnProcessId: "open_orcid_register_researcher",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-orcid/registerResearcher.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-orcid-record-affiliation-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-orcid-record-affiliation-v1",
     bpmnProcessId: "open_orcid_record_affiliation",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-orcid/recordAffiliation.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-orcid-registerResearcher-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-orcid-registerResearcher-v1",
     nsid: "ai.gftd.apps.openOrcid.registerResearcher", bpmnProcessId: "open_orcid_register_researcher",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-orcid-recordAffiliation-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-orcid-recordAffiliation-v1",
     nsid: "ai.gftd.apps.openOrcid.recordAffiliation", bpmnProcessId: "open_orcid_record_affiliation",
     ownerDid, resultTimeoutMs: 15000 },
 ];

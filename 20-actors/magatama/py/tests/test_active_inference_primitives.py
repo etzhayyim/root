@@ -135,7 +135,7 @@ def test_score_candidate_actions_rejects_when_mokuteki_gate_fails() -> None:
 
 def test_minimax_counterparty_model_builds_graph_rows() -> None:
     model = active_inference.build_counterparty_model(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         counterparty_ref="mailto:partner@example.com",
         prior_preferences={"protects": ["reputation", "budget"]},
         protected_assets=[{"assetRef": "asset://counterparty/reputation"}],
@@ -143,7 +143,7 @@ def test_minimax_counterparty_model_builds_graph_rows() -> None:
         uncertainty=0.2,
     )
     asset = active_inference.build_protected_asset(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         counterparty_ref="mailto:partner@example.com",
         asset_ref="asset://counterparty/reputation",
         asset_kind="reputation",
@@ -154,7 +154,7 @@ def test_minimax_counterparty_model_builds_graph_rows() -> None:
     edge = active_inference.build_counterparty_protects_asset_edge(
         counterparty_model_id=model["vertex_id"],
         protected_asset_id=asset["vertex_id"],
-        owner_did="did:web:kami-agent.gftd.ai",
+        owner_did="did:web:kami-agent.etzhayyim.com",
     )
 
     assert model["counterparty_ref"] == "mailto:partner@example.com"
@@ -166,7 +166,7 @@ def test_minimax_counterparty_model_builds_graph_rows() -> None:
 
 def test_evaluate_minimax_regret_selects_worst_counterparty_response() -> None:
     result = active_inference.evaluate_minimax_regret(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         action_id="send-notice",
         counterparty_ref="mailto:partner@example.com",
         payoff_matrix=[
@@ -191,7 +191,7 @@ def test_evaluate_minimax_regret_selects_worst_counterparty_response() -> None:
 
 def test_information_flow_helpers_build_height_and_flow_rows() -> None:
     root = active_inference.build_information_node(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         info_ref="info://strategy/protected-asset-map",
         info_kind="strategy",
         abstraction_level=7,
@@ -199,7 +199,7 @@ def test_information_flow_helpers_build_height_and_flow_rows() -> None:
         counterparty_ref="mailto:partner@example.com",
     )
     detail = active_inference.build_information_node(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         info_ref="info://evidence/message-thread",
         info_kind="evidence",
         abstraction_level=2,
@@ -287,7 +287,7 @@ def test_plan_real_world_dispatch_allows_email_with_capability_policy_and_hash()
         effect_class="private_send",
         payload=payload,
         target_ref="mailto:ops@example.com",
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         autonomous_authority_ref="capability://agent/email/outbound/low-risk",
     )["realWorldEffect"]
 
@@ -301,8 +301,8 @@ def test_plan_real_world_dispatch_allows_email_with_capability_policy_and_hash()
     assert plan["taskType"] == "mailer.sendEmail"
     assert plan["nsid"] == "ai.gftd.apps.mailer.sendEmail"
     assert plan["channelPayload"] == {
-        "from": "kami-agent@gftd.ai",
-        "fromAddress": "kami-agent@gftd.ai",
+        "from": "kami-agent@etzhayyim.com",
+        "fromAddress": "kami-agent@etzhayyim.com",
         "subject": "Ping",
         "text": "hello",
         "to": "ops@example.com",
@@ -332,10 +332,10 @@ def test_plan_real_world_dispatch_blocks_payload_tampering() -> None:
 
 
 def test_sender_email_for_agent_derives_gftd_sender() -> None:
-    assert active_inference.sender_email_for_agent("did:web:mailer.gftd.ai") == "mailer@gftd.ai"
-    assert active_inference.sender_email_for_agent("did:web:a8wwtz73.gftd.ai") == "a8wwtz73@gftd.ai"
-    assert active_inference.sender_email_for_agent("did:gftd:agent:local") == "local@gftd.ai"
-    assert active_inference.sender_email_for_agent("did:gftd:agent:123") == "a-123@gftd.ai"
+    assert active_inference.sender_email_for_agent("did:web:mailer.etzhayyim.com") == "mailer@etzhayyim.com"
+    assert active_inference.sender_email_for_agent("did:web:a8wwtz73.etzhayyim.com") == "a8wwtz73@etzhayyim.com"
+    assert active_inference.sender_email_for_agent("did:gftd:agent:local") == "local@etzhayyim.com"
+    assert active_inference.sender_email_for_agent("did:gftd:agent:123") == "a-123@etzhayyim.com"
 
 
 def test_plan_real_world_dispatch_blocks_unsupported_phone_channel() -> None:
@@ -386,7 +386,7 @@ def test_plan_real_world_dispatch_applies_inline_policy() -> None:
         effect_class="private_send",
         payload=payload,
         target_ref="mailto:ops@blocked.example",
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         autonomous_authority_ref="capability://agent/email/outbound/low-risk",
     )["realWorldEffect"]
 
@@ -429,15 +429,15 @@ def test_verify_delegated_authority_allows_target_ref_wildcard() -> None:
         policy_ref="policy://agent/autonomous-email-v1",
         channel="email",
         effect_class="private_send",
-        payload={"to": "kami-agent@gftd.ai"},
-        target_ref="mailto:kami-agent@gftd.ai",
+        payload={"to": "kami-agent@etzhayyim.com"},
+        target_ref="mailto:kami-agent@etzhayyim.com",
         policy={
             "authorityRef": "capability://agent/email/outbound/low-risk",
             "policyRef": "policy://agent/autonomous-email-v1",
             "allowedChannels": ["email"],
             "allowedEffectClasses": ["private_send"],
-            "allowedTargetRefs": ["mailto:*@gftd.ai"],
-            "allowedRecipientDomains": ["gftd.ai"],
+            "allowedTargetRefs": ["mailto:*@etzhayyim.com"],
+            "allowedRecipientDomains": ["etzhayyim.com"],
             "signatureRef": "sig://authority/test",
         },
     )
@@ -467,7 +467,7 @@ def test_high_risk_requires_specific_predelegation() -> None:
 
 
 def test_build_dispatch_receipt_observation_records_message_id() -> None:
-    effect = {"vertex_id": "effect-1", "agent_did": "did:web:kami-agent.gftd.ai", "channel": "email"}
+    effect = {"vertex_id": "effect-1", "agent_did": "did:web:kami-agent.etzhayyim.com", "channel": "email"}
     plan = {
         "dispatchPlanId": "plan-1",
         "channel": "email",
@@ -498,7 +498,7 @@ def test_inbound_email_to_observation_maps_to_agent() -> None:
         }
     )
 
-    assert result["observation"]["agent_did"] == "did:web:kami-agent.gftd.ai"
+    assert result["observation"]["agent_did"] == "did:web:kami-agent.etzhayyim.com"
     assert result["observation"]["source_kind"] == "inbound_email"
     assert result["payload"]["subject"] == "hello"
 
@@ -528,7 +528,7 @@ def test_evaluate_viability_transitions() -> None:
 
 def test_adapt_policy_accepts_bounded_prior_update() -> None:
     result = active_inference.adapt_policy(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         preference_key="runtime.email.low_risk_latency",
         current_preference={"weight": 1.0, "target_range_json": {"maxMinutes": 10}},
         proposal={
@@ -550,7 +550,7 @@ def test_adapt_policy_accepts_bounded_prior_update() -> None:
 
 def test_adapt_policy_blocks_objective_and_unbounded_change() -> None:
     result = active_inference.adapt_policy(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         preference_key="mokuteki.core",
         current_preference={"weight": 1.0},
         proposal={"proposedWeight": 2.0, "hardFloor": True},

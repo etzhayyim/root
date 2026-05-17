@@ -24,7 +24,7 @@ import (
 const (
 	agentRuntimeSchema          = "https://etzhayyim.com/schemas/k8s-runtime-public/v1.json"
 	defaultIPFSGateway          = "https://ipfs.etzhayyim.com"
-	defaultPrivateChainRPC      = "https://geth.etzhayyim.com"
+	defaultPrivateChainRPC      = "https://geth.gftd.ai"
 	defaultPrivateChainID       = "260425"
 	defaultAgentRegistryAddress = "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865"
 )

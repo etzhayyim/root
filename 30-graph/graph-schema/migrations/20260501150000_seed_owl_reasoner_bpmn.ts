@@ -7,13 +7,13 @@ import { sql } from "kysely";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 const repoRoot   = path.resolve(__dirname, "..", "..", "..");
-const ownerDid   = "did:web:bpmn.gftd.ai";
+const ownerDid   = "did:web:bpmn.etzhayyim.com";
 const createdAt  = "2026-05-01T13:00:00+09:00";
 const actorId    = "sys.bpmn.seed.owl-reasoner";
 
 const BPMN_PATH   = "00-contracts/bpmn/ai/gftd/owl/owlReasonerBatch.bpmn";
 const PROCESS_ID  = "owl_reasoner_batch";
-const PROCESS_VID = "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/owl-reasoner-batch-v1";
+const PROCESS_VID = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/owl-reasoner-batch-v1";
 // Timer-start process: no external NSID binding (self-scheduled R/PT1H).
 // Task types (owl.el.classify / owl.dl.classify / owl.benchmark.compare / owl.ql.precompute)
 // are registered via pyzeebe register_owl_tasks(worker) in zeebe_worker_main.py.

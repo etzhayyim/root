@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shosha.gftd.ai BPMN v2 — audit actor input fix.
+ * shosha.etzhayyim.com BPMN v2 — audit actor input fix.
  *
  * Phase 1 (2026-05-06) deployed all 8 shosha BPMN with audit task
  * passing only `eventType` + `attributes` to `generic.audit.emit`. The
@@ -14,7 +14,7 @@ import { sql } from "kysely";
  * OCEL audit row never lands in `vertex_repo_commit`.
  *
  * Fix: each Task_Audit now also passes
- *   <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" target="actor"/>
+ *   <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
  *
  * UPDATE in place + version bump + reset deployed_zeebe_key so the
  * F5 watcher in bpmn-dispatcher re-deploys to Zeebe on its next tick
@@ -30,28 +30,28 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const seeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1",
     bpmnProcessId: "shosha_market_intelligence_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/marketIntelligenceIngest.bpmn" },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1",
     bpmnProcessId: "shosha_trade_book_recompute",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/tradeBookRecompute.bpmn" },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1",
     bpmnProcessId: "shosha_trade_idea_synthesize",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/tradeIdeaSynthesize.bpmn" },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1",
     bpmnProcessId: "shosha_daily_report",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/dailyShoshaReport.bpmn" },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1",
     bpmnProcessId: "shosha_submit_trade",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/submitTrade.bpmn" },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1",
     bpmnProcessId: "shosha_propose_hedge",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/proposeHedge.bpmn" },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1",
     bpmnProcessId: "shosha_comply_check",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/complyCheck.bpmn" },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1",
     bpmnProcessId: "shosha_agent_loop",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/agentLoop.bpmn" },
 ];

@@ -199,7 +199,7 @@ def test_base_url_default(monkeypatch):
 
 
 def test_api_requires_hmac_true_for_gftd_domain(monkeypatch):
-    monkeypatch.setenv("IPFS_API_URL", "https://ipfs.gftd.ai")
+    monkeypatch.setenv("IPFS_API_URL", "https://ipfs.etzhayyim.com")
     assert II._api_requires_hmac() is True
 
 

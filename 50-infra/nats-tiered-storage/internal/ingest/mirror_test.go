@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/config"
 	"github.com/nats-io/nats-server/v2/server"
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/nats.go/jetstream"

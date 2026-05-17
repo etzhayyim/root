@@ -109,7 +109,7 @@ def _run_el_plus_plus(axioms: list[dict]) -> list[tuple[str, str, str]]:
 def _run_el_owlready2(axioms: list[dict]) -> list[tuple[str, str, str]]:
     import owlready2 as owl  # type: ignore
 
-    onto = owl.get_ontology("http://gftd.ai/owl/reasoner/")
+    onto = owl.get_ontology("http://etzhayyim.com/owl/reasoner/")
     with onto:
         classes: dict[str, Any] = {}
 
@@ -182,7 +182,7 @@ def _run_dl_hermit(axioms: list[dict]) -> tuple[list[tuple[str, str, str]], bool
     """
     import owlready2 as owl  # type: ignore
 
-    onto = owl.get_ontology("http://gftd.ai/owl/dl/")
+    onto = owl.get_ontology("http://etzhayyim.com/owl/dl/")
     with onto:
         classes: dict[str, Any] = {}
         properties: dict[str, Any] = {}

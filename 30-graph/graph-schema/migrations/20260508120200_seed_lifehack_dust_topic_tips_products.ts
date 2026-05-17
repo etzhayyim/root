@@ -3,13 +3,13 @@ import { sql } from "kysely";
 import { createHash } from "node:crypto";
 
 /**
- * lifehack.gftd.ai Phase 1 seed data — dust prevention.
+ * lifehack.etzhayyim.com Phase 1 seed data — dust prevention.
  *
  * 5 topics + 12 tips + 10 commercial products + edges, hand-curated
  * from the design conversation (CLAUDE → user, 2026-05-08).  All
  * commercial products carry an Amazon search keyword (the root rule
  * forbids guessing Amazon URLs); diy_tsukuru cross-reference fields
- * stay null in Phase 1 — they get back-filled when tsukuru.gftd.ai
+ * stay null in Phase 1 — they get back-filled when tsukuru.etzhayyim.com
  * publishes the matching CAD model + factory DID.
  *
  * Authority policy (matches schema cap rules):
@@ -19,7 +19,7 @@ import { createHash } from "node:crypto";
  * Re-runs are idempotent (content-hashed PKs + INSERT WHERE NOT EXISTS).
  */
 
-const OWNER_DID = "did:web:lifehack.gftd.ai";
+const OWNER_DID = "did:web:lifehack.etzhayyim.com";
 const ACTOR_TAG = "sys.lifehack.seed.phase1";
 const CREATED_AT = "2026-05-08T12:00:00Z";
 const NSID_TOPIC = "ai.gftd.apps.lifehack.topic";

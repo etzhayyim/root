@@ -23,7 +23,7 @@ CREATE VIEW IF NOT EXISTS view_isic5_activity AS
     WHERE collection = 'ai.gftd.apps.open_isic.economic_activity_rev5';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('naics', 'naics.gftd.ai', 2125, 'industries', 'industry');
+    VALUES ('naics', 'naics.etzhayyim.com', 2125, 'industries', 'industry');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('isic5', 'isic5.gftd.ai', 830, 'industries', 'governance');
+    VALUES ('isic5', 'isic5.etzhayyim.com', 830, 'industries', 'governance');

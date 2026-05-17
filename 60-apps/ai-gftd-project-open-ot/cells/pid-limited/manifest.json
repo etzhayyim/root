@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.ai/ns/open-ot/cell/v1",
+  "@context": "https://etzhayyim.com/ns/open-ot/cell/v1",
   "name": "pid-limited",
   "description": "IEC 61499 PID_LIMITED reference BFB — saturating PI with anti-windup, fixed-point i32 micro-unit math",
   "fb_kind": "BFB",

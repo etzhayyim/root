@@ -94,7 +94,7 @@ def test_insert_normalizes_timestamp_values_for_risingwave(
     AE._insert(
         "vertex_agent_economy_profile",
         {
-            "vertex_id": "at://did:web:agent.gftd.ai/ai.gftd.agent.economyProfile/profile_test",
+            "vertex_id": "at://did:web:agent.etzhayyim.com/ai.gftd.agent.economyProfile/profile_test",
             "created_at": "2026-04-30T02:04:58Z",
             "updated_at": None,
         },
@@ -112,7 +112,7 @@ def test_spawn_child_org_dry_run_returns_lineage_and_profile_ids() -> None:
         parentAgentDid="did:plc:parent",
         childRootDid="did:ethr:260425:0xchild",
         childAgentDid="did:plc:child",
-        childOrgDid="did:web:child.gftd.ai",
+        childOrgDid="did:web:child.etzhayyim.com",
         dryRun=True,
     )
 

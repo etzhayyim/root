@@ -24,7 +24,7 @@ describe("Seed kouza BPMN actor migration", () => {
 
   it("seeds the MCP/lexicon binding", () => {
     expect(migrationSource).toContain('nsid: "ai.gftd.apps.kouza.syncDueConnections"');
-    expect(migrationSource).toContain("did:web:kouza.gftd.ai");
+    expect(migrationSource).toContain("did:web:kouza.etzhayyim.com");
     expect(migrationSource).toContain("sys.bpmn.seed.kouza");
   });
 

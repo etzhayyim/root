@@ -110,7 +110,7 @@ INSERT INTO vertex_bpmn_process_def
      source_path, status, created_at, sensitivity_ord, org_id, user_id, actor_id)
 SELECT
     'bpmn-pregel-outlook-triage-v1',
-    'did:web:pregel.gftd.ai',
+    'did:web:pregel.etzhayyim.com',
     'outlook_triage',
     1,
     '{bpmn_xml}',
@@ -119,8 +119,8 @@ SELECT
     'active',
     NOW()::VARCHAR,
     1,
-    'did:web:pregel.gftd.ai',
-    'did:web:pregel.gftd.ai',
+    'did:web:pregel.etzhayyim.com',
+    'did:web:pregel.etzhayyim.com',
     'sys.bpmn.pregel'
 WHERE NOT EXISTS (
     SELECT 1 FROM vertex_bpmn_process_def
@@ -135,16 +135,16 @@ INSERT INTO vertex_bpmn_lexicon_binding
      org_id, user_id, actor_id, actor_did)
 SELECT
     'bpmn-bind-outlook-triage',
-    'did:web:pregel.gftd.ai',
+    'did:web:pregel.etzhayyim.com',
     'ai.gftd.apps.pregel.outlookTriage',
     'outlook_triage',
     'active',
     NOW()::VARCHAR,
     1,
-    'did:web:pregel.gftd.ai',
-    'did:web:pregel.gftd.ai',
+    'did:web:pregel.etzhayyim.com',
+    'did:web:pregel.etzhayyim.com',
     'sys.bpmn.pregel',
-    'did:web:pregel.gftd.ai'
+    'did:web:pregel.etzhayyim.com'
 WHERE NOT EXISTS (
     SELECT 1 FROM vertex_bpmn_lexicon_binding
     WHERE vertex_id = 'bpmn-bind-outlook-triage'
@@ -157,16 +157,16 @@ INSERT INTO vertex_bpmn_lexicon_binding
      org_id, user_id, actor_id, actor_did)
 SELECT
     'bpmn-bind-outlook-email-route',
-    'did:web:pregel.gftd.ai',
+    'did:web:pregel.etzhayyim.com',
     'ai.gftd.apps.pregel.outlookEmailRoute',
     'outlook_triage',
     'active',
     NOW()::VARCHAR,
     1,
-    'did:web:pregel.gftd.ai',
-    'did:web:pregel.gftd.ai',
+    'did:web:pregel.etzhayyim.com',
+    'did:web:pregel.etzhayyim.com',
     'sys.bpmn.pregel',
-    'did:web:pregel.gftd.ai'
+    'did:web:pregel.etzhayyim.com'
 WHERE NOT EXISTS (
     SELECT 1 FROM vertex_bpmn_lexicon_binding
     WHERE vertex_id = 'bpmn-bind-outlook-email-route'

@@ -97,12 +97,12 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ───────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('locode', 'locode.gftd.ai', 116067, 'locations', 'transport')
+    VALUES ('locode', 'locode.etzhayyim.com', 116067, 'locations', 'transport')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('iso3166', 'iso3166.gftd.ai', 296, 'countries', 'governance')
+    VALUES ('iso3166', 'iso3166.etzhayyim.com', 296, 'countries', 'governance')
   `.execute(db);
 
   // ── geographic concordances (data-only, idempotent) ───────────────────
