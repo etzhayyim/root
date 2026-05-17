@@ -12,7 +12,7 @@ metadata:
   namespace: maps
   labels:
     app.kubernetes.io/name: maps-osm-ingest
-    app.kubernetes.io/part-of: maps.gftd.ai
+    app.kubernetes.io/part-of: maps.etzhayyim.com
 spec:
   # Weekly full replace, Sunday 03:00 UTC.
   schedule: "0 3 * * 0"
@@ -45,7 +45,7 @@ spec:
           dnsPolicy: ClusterFirst
           containers:
             - name: ingest
-              image: ghcr.io/gftdcojp/maps-osm-ingest:latest
+              image: ghcr.io/etzhayyim/maps-osm-ingest:latest
               imagePullPolicy: IfNotPresent
               args:
                 - "--pbf-url"
@@ -53,7 +53,7 @@ spec:
                 - "--db"
                 - "$(RISINGWAVE_URL)"
                 - "--source-did"
-                - "did:web:maps.gftd.ai:planet"
+                - "did:web:maps.etzhayyim.com:planet"
                 - "--batch-size"
                 - "10000"
                 - "--parallelism"

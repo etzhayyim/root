@@ -1,6 +1,6 @@
 # claim-consumer actor
 
-Python LangServer worker for claim.gftd.ai operational tasks that should not run in
+Python LangServer worker for claim.etzhayyim.com operational tasks that should not run in
 Cloudflare Workers.
 
 ## Tasks

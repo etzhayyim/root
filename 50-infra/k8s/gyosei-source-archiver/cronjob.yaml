@@ -5,7 +5,7 @@ metadata:
   namespace: __NAMESPACE__
   labels:
     app.kubernetes.io/name: gyosei-source-archiver
-    app.kubernetes.io/part-of: jpn-state.gftd.ai
+    app.kubernetes.io/part-of: jpn-state.etzhayyim.com
 spec:
   schedule: "__SCHEDULE__"
   timeZone: "Etc/UTC"

@@ -16,7 +16,7 @@ from typing import Any
 from fastapi import FastAPI, HTTPException
 import uvicorn
 
-OWNER_DID = "did:web:intel.gftd.ai"
+OWNER_DID = "did:web:intel.etzhayyim.com"
 ACTOR_ID = "sys.langserver.intel-dependency-worker"
 
 
@@ -206,7 +206,7 @@ def dependency_hint(edge_table: str, predicate: str | None = None) -> dict[str, 
 
 
 def open_lei_vertex_id(lei: str) -> str:
-    return f"at://did:web:open-lei.gftd.ai/ai.gftd.apps.openLei.entity/{lei}"
+    return f"at://did:web:open-lei.etzhayyim.com/ai.gftd.apps.openLei.entity/{lei}"
 
 
 def flatten_gleif_lei_record(record: dict[str, Any]) -> dict[str, Any] | None:
@@ -271,7 +271,7 @@ def llm_config() -> tuple[str, str, str | None]:
         os.environ.get("INTEL_LLM_URL")
         or os.environ.get("RUNPOD_LLM_URL")
         or os.environ.get("LLM_BASE_URL")
-        or "https://llm.gftd.ai/v1/chat/completions"
+        or "https://llm.etzhayyim.com/v1/chat/completions"
     ).strip()
     if url and not url.endswith("/chat/completions"):
         url = url.rstrip("/") + "/v1/chat/completions"
@@ -1443,7 +1443,7 @@ class IntelStore:
                     (
                         row["vertex_id"],
                         utc_date(),
-                        "did:web:open-lei.gftd.ai",
+                        "did:web:open-lei.etzhayyim.com",
                         row["lei"],
                         row["legal_name"],
                         row.get("country"),
@@ -1454,8 +1454,8 @@ class IntelStore:
                         row.get("next_renewal_at"),
                         row.get("status") or "active",
                         row.get("created_at") or utc_iso(),
-                        "did:web:open-lei.gftd.ai",
-                        "did:web:open-lei.gftd.ai",
+                        "did:web:open-lei.etzhayyim.com",
+                        "did:web:open-lei.etzhayyim.com",
                         "sys.langserver.intel.gleif",
                         row["vertex_id"],
                     ),

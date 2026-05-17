@@ -41,7 +41,7 @@ spec:
               effect: NoSchedule
           containers:
             - name: refresh
-              image: ghcr.io/gftdcojp/pymagatama:ndl-oai-resident-0077fecc6a2-20260509110241-amd64
+              image: ghcr.io/etzhayyim/pymagatama:ndl-oai-resident-0077fecc6a2-20260509110241-amd64
               imagePullPolicy: IfNotPresent
               env:
                 - name: RW_URL

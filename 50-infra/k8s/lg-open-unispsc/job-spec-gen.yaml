@@ -9,7 +9,7 @@ metadata:
   labels:
     app.kubernetes.io/name: open-unispsc-batch
     app.kubernetes.io/component: batch-job
-    app.kubernetes.io/part-of: unispsc.gftd.ai
+    app.kubernetes.io/part-of: unispsc.etzhayyim.com
 spec:
   # We want the job to process pending commodities.
   # Adjust parallelism if we want to run multiple pods.
@@ -28,7 +28,7 @@ spec:
       containers:
         - name: batch-runner
           # In production, use the pinned latest hash/tag
-          image: ghcr.io/gftdcojp/pymagatama:main
+          image: ghcr.io/etzhayyim/pymagatama:main
           imagePullPolicy: Always
           command:
             - python

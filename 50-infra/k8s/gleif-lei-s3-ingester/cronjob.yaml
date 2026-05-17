@@ -40,7 +40,7 @@ metadata:
   labels:
     app.kubernetes.io/name: gleif-lei-s3-ingester
     app.kubernetes.io/component: ingester
-    app.kubernetes.io/part-of: open-lei.gftd.ai
+    app.kubernetes.io/part-of: open-lei.etzhayyim.com
 spec:
   # GLEIF Golden Copy publishes every Monday.  Run Monday 03:00 UTC to
   # ensure the new file is available before we fetch it.
@@ -71,7 +71,7 @@ spec:
                 sizeLimit: 2Gi
           containers:
             - name: ingester
-              image: ghcr.io/gftdcojp/gleif-lei-s3-ingester:latest
+              image: ghcr.io/etzhayyim/gleif-lei-s3-ingester:latest
               imagePullPolicy: Always
               volumeMounts:
                 - name: tmp

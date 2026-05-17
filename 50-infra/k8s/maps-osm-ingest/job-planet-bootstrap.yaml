@@ -3,7 +3,7 @@
 # ~18-36h wallclock on vc2-8c-32gb). Weekly refreshes go via cronjob.yaml.
 #
 # Prerequisites:
-#   - ghcr.io/gftdcojp/maps-osm-ingest:latest pushed
+#   - ghcr.io/etzhayyim/maps-osm-ingest:latest pushed
 #   - maps-osm-ingest-secrets { RISINGWAVE_URL } in `maps` namespace
 #   - osm-ingest node pool running (label workload=osm-ingest,
 #     taint workload=osm-ingest:NoSchedule) — Vultr vc2-8c-32gb persistent pool
@@ -22,8 +22,8 @@ metadata:
   namespace: maps
   labels:
     app.kubernetes.io/name: maps-osm-ingest
-    app.kubernetes.io/part-of: maps.gftd.ai
-    maps.gftd.ai/phase: planet-bootstrap
+    app.kubernetes.io/part-of: maps.etzhayyim.com
+    maps.etzhayyim.com/phase: planet-bootstrap
 spec:
   backoffLimit: 3
   activeDeadlineSeconds: 129600  # 36h hard cap (vc2-8c-32gb, conservative)
@@ -31,7 +31,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: maps-osm-ingest
-        maps.gftd.ai/phase: planet-bootstrap
+        maps.etzhayyim.com/phase: planet-bootstrap
     spec:
       serviceAccountName: maps-osm-ingest
       imagePullSecrets:
@@ -49,7 +49,7 @@ spec:
       dnsPolicy: ClusterFirst
       containers:
         - name: ingest
-          image: ghcr.io/gftdcojp/maps-osm-ingest:latest
+          image: ghcr.io/etzhayyim/maps-osm-ingest:latest
           imagePullPolicy: IfNotPresent
           args:
             - "--pbf-url"
@@ -57,7 +57,7 @@ spec:
             - "--db"
             - "$(RISINGWAVE_URL)"
             - "--source-did"
-            - "did:web:maps.gftd.ai:planet"
+            - "did:web:maps.etzhayyim.com:planet"
             - "--batch-size"
             - "10000"
             - "--parallelism"

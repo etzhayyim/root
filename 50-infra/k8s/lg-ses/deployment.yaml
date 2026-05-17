@@ -22,7 +22,7 @@ metadata:
   labels:
     app.kubernetes.io/name: lg-ses
     app.kubernetes.io/component: langgraph-server
-    app.kubernetes.io/part-of: ses.gftd.ai
+    app.kubernetes.io/part-of: ses.etzhayyim.com
 spec:
   replicas: 1
   strategy:
@@ -43,7 +43,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: server
-          image: ghcr.io/gftdcojp/lg-ses:0.3.0-amd64
+          image: ghcr.io/etzhayyim/lg-ses:0.3.0-amd64
           imagePullPolicy: Always
           command:
             - granian
@@ -90,7 +90,7 @@ spec:
                 secretKeyRef:
                   name: lg-ses-secrets
                   key: M365_CLIENT_SECRET
-            # Mailbox to poll (e.g. ses-inbox@gftd.co.jp).
+            # Mailbox to poll (e.g. ses-inbox@etzhayyim).
             - name: SES_MAILBOX_UPN
               valueFrom:
                 secretKeyRef:
@@ -109,9 +109,9 @@ spec:
                   key: SES_ORG_DID
             # LLM for extract_details + classify_anken nodes.
             - name: MURAKUMO_BASE_URL
-              value: "https://murakumo.gftd.ai"
+              value: "https://murakumo.etzhayyim.com"
             - name: GFTD_LLM_URL
-              value: "https://gemma.gftd.ai/v1"
+              value: "https://gemma.etzhayyim.com/v1"
             - name: GFTD_LLM_MODEL
               value: "gemma-4-e4b-it"
             - name: GFTD_LLM_API_KEY

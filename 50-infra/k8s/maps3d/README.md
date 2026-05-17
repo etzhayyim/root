@@ -9,10 +9,10 @@ AgentGateway MCP in namespace `mitama-udf`.
 
 | Pod | Image | LangServer tools |
 |---|---|---|
-| `maps3d-mapillary-fetcher` | `ghcr.io/gftdcojp/maps3d-worker:latest` | `maps3d.fetchMapillary` |
-| `maps3d-colmap-worker` | `ghcr.io/gftdcojp/maps3d-colmap-worker:latest` | `maps3d.colmapTile`, `maps3d.simplifyAndExport` |
-| `maps3d-langgraph-curator` | `ghcr.io/gftdcojp/maps3d-worker:latest` | `maps3d.curateImages`, `maps3d.replanReconstruction` |
-| `maps3d-langgraph-actor-link` | `ghcr.io/gftdcojp/maps3d-worker:latest` | `maps3d.visionAnnotate`, `maps3d.linkActor` |
+| `maps3d-mapillary-fetcher` | `ghcr.io/etzhayyim/maps3d-worker:latest` | `maps3d.fetchMapillary` |
+| `maps3d-colmap-worker` | `ghcr.io/etzhayyim/maps3d-colmap-worker:latest` | `maps3d.colmapTile`, `maps3d.simplifyAndExport` |
+| `maps3d-langgraph-curator` | `ghcr.io/etzhayyim/maps3d-worker:latest` | `maps3d.curateImages`, `maps3d.replanReconstruction` |
+| `maps3d-langgraph-actor-link` | `ghcr.io/etzhayyim/maps3d-worker:latest` | `maps3d.visionAnnotate`, `maps3d.linkActor` |
 
 ## Bring up
 
@@ -45,11 +45,11 @@ Manual phase reference (if you'd rather drive each step yourself):
 ```bash
 # 2/3. images
 docker buildx build --platform=linux/amd64 \
-  -t ghcr.io/gftdcojp/maps3d-worker:latest \
+  -t ghcr.io/etzhayyim/maps3d-worker:latest \
   -f 50-infra/k8s/maps3d/workers/Dockerfile \
   50-infra/k8s/maps3d/workers --push
 docker buildx build --platform=linux/amd64 \
-  -t ghcr.io/gftdcojp/maps3d-colmap-worker:latest \
+  -t ghcr.io/etzhayyim/maps3d-colmap-worker:latest \
   -f 50-infra/k8s/maps3d/workers/Dockerfile.colmap \
   50-infra/k8s/maps3d/workers --push
 
@@ -66,7 +66,7 @@ a contract/audit artifact; execution is pod-side LangServer through AgentGateway
 Trigger a tile manually:
 
 ```bash
-curl -X POST http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.maps3d.processTile \
+curl -X POST http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.maps3d.processTile \
   -H "content-type: application/json" \
   -d '{"tileH3":"8a2a1072b59ffff"}'
 ```
@@ -100,7 +100,7 @@ Three layers, runnable independently:
 | Layer | What | Needs | Run |
 |---|---|---|---|
 | 1 | Static validation — lexicon JSON shape, BPMN XML structure, BPMN ↔ Lexicon ↔ Worker NSID cross-refs, migration DDL contains required tables. | nothing | `70-tools/scripts/test/maps3d-static-validation.py` |
-| 2 | BPMN flow integration — POST `/xrpc/ai.gftd.apps.maps3d.processTile`, poll `vertex_maps3d_tile` until `status=done`, assert `mesh_uri` populated + audit row recorded. | dispatcher.gftd.ai + AgentGateway MCP + 4 pods + RisingWave (RW_URL via Keychain) | `70-tools/scripts/test/maps3d-bpmn-integration.py` |
+| 2 | BPMN flow integration — POST `/xrpc/ai.gftd.apps.maps3d.processTile`, poll `vertex_maps3d_tile` until `status=done`, assert `mesh_uri` populated + audit row recorded. | dispatcher.etzhayyim.com + AgentGateway MCP + 4 pods + RisingWave (RW_URL via Keychain) | `70-tools/scripts/test/maps3d-bpmn-integration.py` |
 | 3 | Engine — `MeshTileAdapter` GLB parse roundtrip without wgpu (synthetic triangle GLB built in-memory; tests POSITION extraction, NORMAL fallback, COLOR_0 fallback, garbage rejection). | `cargo` only | `cargo test -p kami-app-maps3d --lib` |
 | 3b | COLMAP worker — error classification, output parsers, pipeline driver short-circuits (TOO_FEW_MATCHES at mapper, timeout on first step, sparse-only fallback). Uses an injectable subprocess runner so no COLMAP binary is required. | python3 only | `cd 50-infra/k8s/maps3d && python3 -m unittest workers.test_colmap` |
 | 3c | Bounded-retry replanner policy — TIMEOUT/DENSE_OOM → sparse-only retry; BUNDLE_DIVERGED → retry as-is; TOO_FEW_MATCHES → requestMore; attempt ≥ 2 → downgradeOsm. Never returns `abort` from the COLMAP-failure branch. | python3 only | `cd 50-infra/k8s/maps3d && python3 -m unittest workers.test_replan_policy` |

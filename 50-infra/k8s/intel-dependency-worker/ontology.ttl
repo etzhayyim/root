@@ -1,4 +1,4 @@
-@prefix intel: <https://gftd.ai/ontology/intel#> .
+@prefix intel: <https://etzhayyim.com/ontology/intel#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 

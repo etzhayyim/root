@@ -40,7 +40,7 @@ metadata:
   labels:
     app.kubernetes.io/name: medical-coverage-ingester
     app.kubernetes.io/component: ingester
-    app.kubernetes.io/part-of: iryo.gftd.ai
+    app.kubernetes.io/part-of: iryo.etzhayyim.com
 spec:
   # Runs often enough to drain API-backed gaps, while concurrencyPolicy keeps
   # PubMed / ClinicalTrials.gov paging strictly single-writer per target.
@@ -68,7 +68,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: ingester
-              image: ghcr.io/gftdcojp/medical-coverage-ingester:latest
+              image: ghcr.io/etzhayyim/medical-coverage-ingester:latest
               imagePullPolicy: Always
               env:
                 - name: RW_DSN

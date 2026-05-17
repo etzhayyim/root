@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-LABEL org.opencontainers.image.source="https://github.com/gftdcojp/ai-gftd-apps-gftdcojp"
+LABEL org.opencontainers.image.source="https://github.com/etzhayyim/root"
 LABEL org.opencontainers.image.description="legal-corpus LangGraph worker (ADR-0049, ADR-2605080600)"
 
 WORKDIR /app

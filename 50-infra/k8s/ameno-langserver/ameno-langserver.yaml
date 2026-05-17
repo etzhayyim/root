@@ -4,7 +4,7 @@ metadata:
   name: ameno-langserver
   labels:
     app.kubernetes.io/name: ameno-langserver
-    app.kubernetes.io/part-of: ameno-gftd-ai
+    app.kubernetes.io/part-of: ameno-etzhayyim-com
 spec:
   replicas: 1
   selector:
@@ -14,13 +14,13 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: ameno-langserver
-        app.kubernetes.io/part-of: ameno-gftd-ai
+        app.kubernetes.io/part-of: ameno-etzhayyim-com
     spec:
       imagePullSecrets:
         - name: ghcr-creds
       containers:
         - name: worker-api
-          image: ghcr.io/gftdcojp/pymagatama:maps-worldmonitor-market-91d57ab127d-20260514082800-amd64
+          image: ghcr.io/etzhayyim/pymagatama:maps-worldmonitor-market-91d57ab127d-20260514082800-amd64
           imagePullPolicy: IfNotPresent
           command:
             - python
@@ -84,7 +84,7 @@ metadata:
   name: ameno-langserver
   labels:
     app.kubernetes.io/name: ameno-langserver
-    app.kubernetes.io/part-of: ameno-gftd-ai
+    app.kubernetes.io/part-of: ameno-etzhayyim-com
 spec:
   selector:
     app.kubernetes.io/name: ameno-langserver

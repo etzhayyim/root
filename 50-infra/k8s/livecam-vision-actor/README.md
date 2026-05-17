@@ -1,6 +1,6 @@
 # livecam-vision-actor
 
-LangServer worker for `livecam.gftd.ai` camera-frame analysis.
+LangServer worker for `livecam.etzhayyim.com` camera-frame analysis.
 
 Responsibilities:
 - fetch camera frame images when only `imageUrl` is supplied

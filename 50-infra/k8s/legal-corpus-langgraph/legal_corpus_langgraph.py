@@ -1,6 +1,6 @@
 """legal-corpus LangGraph chains.
 
-Replaces the Zeebe/pyzeebe BPMN-as-actor runtime for legal-corpus.gftd.ai
+Replaces the Zeebe/pyzeebe BPMN-as-actor runtime for legal-corpus.etzhayyim.com
 (ADR-0049, ADR-2605080600).  BPMN files under
 00-contracts/bpmn/ai/gftd/legal-corpus/ remain as process contracts and
 audit documents; this module is the runtime implementation.
@@ -47,7 +47,7 @@ from langgraph.types import Send
 # ─────────────────────────────────────────────────────────────
 
 RW_DSN    = os.environ.get("RW_URL", "postgresql://root@risingwave.risingwave.svc.cluster.local:4566/dev")
-OWNER_DID = "did:web:legal-corpus.gftd.ai"
+OWNER_DID = "did:web:legal-corpus.etzhayyim.com"
 
 
 def _now() -> str:
@@ -462,7 +462,7 @@ def build_fetch_and_embed_graph() -> Any:
 # EUR-Lex body-text fetch helpers (shared with FetchAndEmbed)
 # ─────────────────────────────────────────────────────────────
 
-_UA = "Mozilla/5.0 (compatible; gftd-legal-corpus/1.0; +https://legal-corpus.gftd.ai)"
+_UA = "Mozilla/5.0 (compatible; gftd-legal-corpus/1.0; +https://legal-corpus.etzhayyim.com)"
 _MAX_BODY_CHARS = 50_000
 
 

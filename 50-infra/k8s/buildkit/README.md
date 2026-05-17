@@ -18,7 +18,7 @@ BuildKit pods in the `buildkit` namespace.
 
 ```sh
 70-tools/scripts/buildkit/remote-build.sh \
-  --image ghcr.io/gftdcojp/pymagatama \
+  --image ghcr.io/etzhayyim/pymagatama \
   --context 20-actors/magatama/py \
   --dockerfile 20-actors/magatama/py/Dockerfile
 ```
@@ -27,17 +27,17 @@ The wrapper uses the remote `gftd-vke` builder, targets `linux/amd64`, and
 imports/exports registry cache by default:
 
 ```sh
---cache-from type=registry,ref=${BUILDKIT_CACHE_REF:-ghcr.io/gftdcojp/build-cache:main}
---cache-to   type=registry,ref=${BUILDKIT_CACHE_REF:-ghcr.io/gftdcojp/build-cache:main},mode=max
+--cache-from type=registry,ref=${BUILDKIT_CACHE_REF:-ghcr.io/etzhayyim/build-cache:main}
+--cache-to   type=registry,ref=${BUILDKIT_CACHE_REF:-ghcr.io/etzhayyim/build-cache:main},mode=max
 ```
 
 Prefer workload-specific cache refs for repeated deploy paths:
 
 ```sh
-BUILDKIT_CACHE_REF=ghcr.io/gftdcojp/build-cache:pymagatama \
+BUILDKIT_CACHE_REF=ghcr.io/etzhayyim/build-cache:pymagatama \
   IMAGE_TAG="$(git rev-parse --short HEAD)-amd64" \
   70-tools/scripts/buildkit/remote-build.sh \
-    --image ghcr.io/gftdcojp/pymagatama \
+    --image ghcr.io/etzhayyim/pymagatama \
     --context 20-actors/magatama/py \
     --dockerfile 20-actors/magatama/py/Dockerfile
 ```
@@ -47,7 +47,7 @@ Only bypass cache when diagnosing a confirmed stale-layer issue:
 ```sh
 IMAGE_TAG="$(git rev-parse --short HEAD)-amd64" \
   70-tools/scripts/buildkit/remote-build.sh \
-    --image ghcr.io/gftdcojp/pymagatama \
+    --image ghcr.io/etzhayyim/pymagatama \
     --context 20-actors/magatama/py \
     --dockerfile 20-actors/magatama/py/Dockerfile \
     --extra-arg --no-cache
@@ -59,8 +59,8 @@ Useful environment overrides:
 - `BUILDKIT_NAMESPACE`: Kubernetes namespace, default `buildkit`
 - `BUILDKIT_PLATFORM`: target platform, default `linux/amd64`
 - `BUILDKIT_CACHE_REF`: registry cache ref, default
-  `ghcr.io/gftdcojp/build-cache:main`. Workload scripts should use stable
-  per-image tags such as `ghcr.io/gftdcojp/build-cache:maps-bulk-ingest`.
+  `ghcr.io/etzhayyim/build-cache:main`. Workload scripts should use stable
+  per-image tags such as `ghcr.io/etzhayyim/build-cache:maps-bulk-ingest`.
 - `IMAGE_TAG`: explicit image tag. Defaults to
   `<git-sha>-<platform-arch>`.
 

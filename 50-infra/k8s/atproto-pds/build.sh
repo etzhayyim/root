@@ -17,14 +17,14 @@ if [[ "${2:-}" == "--load" || "${2:-}" == "--no-push" ]]; then
   PUSH_MODE="--load"
 fi
 
-export BUILDKIT_CACHE_REF="ghcr.io/gftdcojp/build-cache:atproto-pds-bun"
+export BUILDKIT_CACHE_REF="ghcr.io/etzhayyim/build-cache:atproto-pds-bun"
 
 cd "$REPO_ROOT"
 
-echo "[atproto-pds build] image=ghcr.io/gftdcojp/atproto-pds tag=${TAG} mode=${PUSH_MODE}"
+echo "[atproto-pds build] image=ghcr.io/etzhayyim/atproto-pds tag=${TAG} mode=${PUSH_MODE}"
 
 exec "$REPO_ROOT/70-tools/scripts/buildkit/remote-build.sh" \
-  --image ghcr.io/gftdcojp/atproto-pds \
+  --image ghcr.io/etzhayyim/atproto-pds \
   --tag "$TAG" \
   --context "$REPO_ROOT" \
   --dockerfile 50-infra/k8s/atproto-pds/Dockerfile \

@@ -11,7 +11,7 @@
     "description": "OpenMapTiles-schema vector tiles built by gftd-cojp tilemaker pipeline",
     "compress": "gzip",
     "filemetadata": {
-      "attribution": "© OpenStreetMap contributors (ODbL) — tiles by gftd.co.jp"
+      "attribution": "© OpenStreetMap contributors (ODbL) — tiles by etzhayyim"
     }
   }
 }

@@ -43,7 +43,7 @@ Optional Secret keys:
 
 The server uses the pod ServiceAccount for Kubernetes API access.
 
-For external MCP access, route `actor.gftd.ai/iryo/mcp` to this service through
+For external MCP access, route `actor.etzhayyim.com/iryo/mcp` to this service through
 a Cloudflare Tunnel or Ingress URL and set `MEDICAL_COVERAGE_MCP_URL` on the
 `actor-resolver` Worker.
 

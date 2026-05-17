@@ -14,7 +14,7 @@ metadata:
   labels:
     app.kubernetes.io/name: lg-gyosei
     app.kubernetes.io/component: langgraph-server
-    app.kubernetes.io/part-of: gyosei.gftd.ai
+    app.kubernetes.io/part-of: gyosei.etzhayyim.com
 spec:
   replicas: 0
   strategy:
@@ -35,7 +35,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: server
-          image: ghcr.io/gftdcojp/lg-gyosei:latest
+          image: ghcr.io/etzhayyim/lg-gyosei:latest
           imagePullPolicy: IfNotPresent
           command:
             - uvicorn
@@ -61,7 +61,7 @@ spec:
                   name: lg-gyosei-secrets
                   key: RW_URL
             - name: GFTD_LLM_URL
-              value: "https://gemma.gftd.ai/v1"
+              value: "https://gemma.etzhayyim.com/v1"
             - name: GFTD_LLM_MODEL
               value: "gemma-4-E2B-it"
           ports:

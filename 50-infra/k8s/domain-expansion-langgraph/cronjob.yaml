@@ -47,7 +47,7 @@ spec:
             - name: ghcr-creds
           containers:
             - name: expand
-              image: ghcr.io/gftdcojp/pymagatama:domain-expansion-abe4017bac0-20260514080645-amd64
+              image: ghcr.io/etzhayyim/pymagatama:domain-expansion-abe4017bac0-20260514080645-amd64
               imagePullPolicy: IfNotPresent
               env:
                 - name: RW_URL

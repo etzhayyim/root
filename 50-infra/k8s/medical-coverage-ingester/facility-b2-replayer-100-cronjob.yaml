@@ -7,7 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/name: medical-facility-b2-replayer-100
     app.kubernetes.io/component: b2-replayer
-    app.kubernetes.io/part-of: iryo.gftd.ai
+    app.kubernetes.io/part-of: iryo.etzhayyim.com
 spec:
   schedule: "*/5 * * * *"
   timeZone: "Etc/UTC"
@@ -34,7 +34,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: replayer
-              image: ghcr.io/gftdcojp/medical-coverage-ingester:latest
+              image: ghcr.io/etzhayyim/medical-coverage-ingester:latest
               imagePullPolicy: Always
               env:
                 - name: FACILITY_REPLAY_FROM_B2
