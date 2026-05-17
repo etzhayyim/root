@@ -1,0 +1,52 @@
+{
+  "extends": "../tsconfig.typecheck.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowJs": false,
+    "checkJs": false,
+    "noEmit": true,
+    "paths": {
+      "@gftd/wproto": [
+        "./src/typecheck-shims/wproto.d.ts"
+      ],
+      "@gftdcojp/design-system": [
+        "./src/typecheck-shims/design-system.d.ts"
+      ],
+      "@gftdcojp/design-system/audio": [
+        "./src/typecheck-shims/design-system-audio.d.ts"
+      ],
+      "@gftdcojp/design-system/motion": [
+        "./src/typecheck-shims/design-system-motion.d.ts"
+      ],
+      "@gftd/ameno/inference": [
+        "./src/typecheck-shims/ameno-inference.d.ts"
+      ],
+      "@gftd/ameno/lora-runtime": [
+        "./src/typecheck-shims/ameno-lora-runtime.d.ts"
+      ],
+      "@gftd/ameno/rag-lora": [
+        "./src/typecheck-shims/ameno-rag-lora.d.ts"
+      ],
+      "$lib/auth/passkey": [
+        "./src/typecheck-shims/auth-passkey.d.ts"
+      ],
+      "kysely": [
+        "./src/typecheck-shims/kysely.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "./src/app.d.ts",
+    "./src/global.d.ts",
+    "./src/typecheck-shims/ameno-inference.d.ts",
+    "./src/typecheck-shims/ameno-lora-runtime.d.ts",
+    "./src/typecheck-shims/ameno-rag-lora.d.ts",
+    "./src/typecheck-shims/auth-passkey.d.ts",
+    "./src/typecheck-shims/design-system-audio.d.ts",
+    "./src/typecheck-shims/design-system-motion.d.ts",
+    "./src/typecheck-shims/design-system.d.ts",
+    "./src/typecheck-shims/kysely.d.ts",
+    "./src/typecheck-shims/wproto.d.ts",
+    "./src/lib/w/profile-utils.ts"
+  ]
+}
