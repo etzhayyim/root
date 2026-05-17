@@ -3,7 +3,7 @@
 # Validates the full pipeline end-to-end before the 12-24h planet ingest.
 #
 # Prerequisites:
-#   - ghcr.io/gftdcojp/maps-osm-ingest:latest pushed
+#   - ghcr.io/etzhayyim/maps-osm-ingest:latest pushed
 #   - maps-osm-ingest-secrets { RISINGWAVE_URL } exists in `maps` namespace
 #   - Temporary osm-ingest node pool running with taint workload=osm-ingest:NoSchedule
 #     (see 50-infra/k8s/maps-osm-ingest/README.md bootstrap runbook)
@@ -13,9 +13,9 @@
 #   kubectl -n maps logs -f job/maps-osm-ingest-japan-dryrun
 #
 # Verify (after success):
-#   SELECT COUNT(*) FROM vertex_osm_element WHERE source_did = 'did:web:maps.gftd.ai:jp';
+#   SELECT COUNT(*) FROM vertex_osm_element WHERE source_did = 'did:web:maps.etzhayyim.com:jp';
 #     -- expect ~70-80M rows (nodes + ways + relations for Japan)
-#   SELECT osm_type, COUNT(*) FROM vertex_osm_element WHERE source_did='did:web:maps.gftd.ai:jp' GROUP BY osm_type;
+#   SELECT osm_type, COUNT(*) FROM vertex_osm_element WHERE source_did='did:web:maps.etzhayyim.com:jp' GROUP BY osm_type;
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -23,8 +23,8 @@ metadata:
   namespace: maps
   labels:
     app.kubernetes.io/name: maps-osm-ingest
-    app.kubernetes.io/part-of: maps.gftd.ai
-    maps.gftd.ai/phase: dry-run
+    app.kubernetes.io/part-of: maps.etzhayyim.com
+    maps.etzhayyim.com/phase: dry-run
 spec:
   backoffLimit: 3
   activeDeadlineSeconds: 7200   # 2h hard cap
@@ -32,7 +32,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: maps-osm-ingest
-        maps.gftd.ai/phase: dry-run
+        maps.etzhayyim.com/phase: dry-run
     spec:
       serviceAccountName: maps-osm-ingest
       imagePullSecrets:
@@ -51,7 +51,7 @@ spec:
       dnsPolicy: ClusterFirst
       containers:
         - name: ingest
-          image: ghcr.io/gftdcojp/maps-osm-ingest:latest
+          image: ghcr.io/etzhayyim/maps-osm-ingest:latest
           imagePullPolicy: IfNotPresent
           args:
             - "--pbf-url"
@@ -59,7 +59,7 @@ spec:
             - "--db"
             - "$(RISINGWAVE_URL)"
             - "--source-did"
-            - "did:web:maps.gftd.ai:jp"
+            - "did:web:maps.etzhayyim.com:jp"
             - "--batch-size"
             - "5000"
             - "--parallelism"

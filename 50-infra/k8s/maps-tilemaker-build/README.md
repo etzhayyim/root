@@ -31,9 +31,9 @@ until an operator prunes them; the Worker only reads the key referenced by
 
 ```bash
 cd 50-infra/k8s/maps-tilemaker-build
-docker build -t ghcr.io/gftdcojp/maps-tilemaker-build:$(date -u +%Y%m%d) -t ghcr.io/gftdcojp/maps-tilemaker-build:latest .
-docker push  ghcr.io/gftdcojp/maps-tilemaker-build:latest
-docker push  ghcr.io/gftdcojp/maps-tilemaker-build:$(date -u +%Y%m%d)
+docker build -t ghcr.io/etzhayyim/maps-tilemaker-build:$(date -u +%Y%m%d) -t ghcr.io/etzhayyim/maps-tilemaker-build:latest .
+docker push  ghcr.io/etzhayyim/maps-tilemaker-build:latest
+docker push  ghcr.io/etzhayyim/maps-tilemaker-build:$(date -u +%Y%m%d)
 ```
 
 ## B2 setup (one-time)
@@ -80,7 +80,7 @@ Expect ≈ 12 h wall clock and ≈ 100 GB output PMTiles.
    ```bash
    wrangler kv:key delete --binding=TILE_MANIFEST "manifest:v1"
    ```
-4. Smoke test: `curl -I https://tiles.maps.gftd.ai/v1/0/0/0.pbf` — expect
+4. Smoke test: `curl -I https://tiles.maps.etzhayyim.com/v1/0/0/0.pbf` — expect
    `200 application/vnd.mapbox-vector-tile` within a few hundred ms.
 
 ## TODO

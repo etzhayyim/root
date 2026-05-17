@@ -26,7 +26,7 @@ metadata:
   labels:
     app.kubernetes.io/name: lg-isin
     app.kubernetes.io/component: langgraph-server
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   replicas: 1
   strategy:
@@ -47,7 +47,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: server
-          image: ghcr.io/gftdcojp/lg-isin:78ac04f8378-20260515082509-amd64
+          image: ghcr.io/etzhayyim/lg-isin:78ac04f8378-20260515082509-amd64
           imagePullPolicy: Always
           env:
             - name: DATABASE_URL

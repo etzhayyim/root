@@ -19,7 +19,7 @@ metadata:
   labels:
     app.kubernetes.io/name: lg-jukyu
     app.kubernetes.io/component: langgraph-server
-    app.kubernetes.io/part-of: jukyu.gftd.ai
+    app.kubernetes.io/part-of: jukyu.etzhayyim.com
 spec:
   replicas: 1
   strategy:
@@ -40,7 +40,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: server
-          image: ghcr.io/gftdcojp/pymagatama:jukyu-mcp-query-1127e93592e-20260515170344-amd64
+          image: ghcr.io/etzhayyim/pymagatama:jukyu-mcp-query-1127e93592e-20260515170344-amd64
           imagePullPolicy: IfNotPresent
           command:
             - granian

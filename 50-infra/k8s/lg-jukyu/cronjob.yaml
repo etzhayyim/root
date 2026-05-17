@@ -9,7 +9,7 @@ metadata:
   labels:
     app.kubernetes.io/name: jukyu-naphtha-adapter
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: jukyu.gftd.ai
+    app.kubernetes.io/part-of: jukyu.etzhayyim.com
 spec:
   schedule: "7 * * * *"
   concurrencyPolicy: Forbid
@@ -84,7 +84,7 @@ metadata:
   labels:
     app.kubernetes.io/name: jukyu-energy-adapter
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: jukyu.gftd.ai
+    app.kubernetes.io/part-of: jukyu.etzhayyim.com
 spec:
   schedule: "27 */2 * * *"
   concurrencyPolicy: Forbid
@@ -158,7 +158,7 @@ metadata:
   labels:
     app.kubernetes.io/name: jukyu-food-adapter
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: jukyu.gftd.ai
+    app.kubernetes.io/part-of: jukyu.etzhayyim.com
 spec:
   schedule: "37 */2 * * *"
   concurrencyPolicy: Forbid
@@ -232,7 +232,7 @@ metadata:
   labels:
     app.kubernetes.io/name: jukyu-metals-adapter
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: jukyu.gftd.ai
+    app.kubernetes.io/part-of: jukyu.etzhayyim.com
 spec:
   schedule: "47 */3 * * *"
   concurrencyPolicy: Forbid
@@ -306,7 +306,7 @@ metadata:
   labels:
     app.kubernetes.io/name: jukyu-logistics-adapter
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: jukyu.gftd.ai
+    app.kubernetes.io/part-of: jukyu.etzhayyim.com
 spec:
   schedule: "57 */3 * * *"
   concurrencyPolicy: Forbid
@@ -381,7 +381,7 @@ metadata:
   labels:
     app.kubernetes.io/name: jukyu-transport-adapter
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: jukyu.gftd.ai
+    app.kubernetes.io/part-of: jukyu.etzhayyim.com
 spec:
   schedule: "17 * * * *"
   concurrencyPolicy: Forbid
@@ -459,7 +459,7 @@ metadata:
   labels:
     app.kubernetes.io/name: jukyu-equilibrium-loop
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: jukyu.gftd.ai
+    app.kubernetes.io/part-of: jukyu.etzhayyim.com
 spec:
   schedule: "*/15 * * * *"
   concurrencyPolicy: Forbid
@@ -535,7 +535,7 @@ metadata:
   labels:
     app.kubernetes.io/name: jukyu-signal-outbox-drain
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: jukyu.gftd.ai
+    app.kubernetes.io/part-of: jukyu.etzhayyim.com
 spec:
   schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid

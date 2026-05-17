@@ -54,7 +54,7 @@ metadata:
   labels:
     app.kubernetes.io/name: medical-coverage-mcp
     app.kubernetes.io/component: mcp-control-plane
-    app.kubernetes.io/part-of: iryo.gftd.ai
+    app.kubernetes.io/part-of: iryo.etzhayyim.com
 spec:
   replicas: 1
   selector:
@@ -70,7 +70,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: mcp
-          image: ghcr.io/gftdcojp/medical-coverage-mcp:latest
+          image: ghcr.io/etzhayyim/medical-coverage-mcp:latest
           imagePullPolicy: Always
           ports:
             - name: http

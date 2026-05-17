@@ -5,8 +5,8 @@ Operational runbook for the K8s pod replacement of the PDS CF Worker (`ai-gftd-p
 ## Status (2026-05-14)
 
 - **P0 — planning ADR + scaffolding**: done (2026-05-11)
-- **P1 — Bun image build, canary deploy**: done (2026-05-14) — image `ghcr.io/gftdcojp/atproto-pds:bun-canary`, k8s Deployment in `atproto` ns, CF Tunnel `ce620136-d8cf-49cf-b247-477de89a1be7`
-- **P2 — sanity / smoke tests on canary**: done (2026-05-14) — resolveHandle ✓, describeServer ✓, /_app/meta ✓ (via port-forward; CF Worker wildcard route intercepts atproto-canary.gftd.ai directly — P3 traffic split will address routing)
+- **P1 — Bun image build, canary deploy**: done (2026-05-14) — image `ghcr.io/etzhayyim/atproto-pds:bun-canary`, k8s Deployment in `atproto` ns, CF Tunnel `ce620136-d8cf-49cf-b247-477de89a1be7`
+- **P2 — sanity / smoke tests on canary**: done (2026-05-14) — resolveHandle ✓, describeServer ✓, /_app/meta ✓ (via port-forward; CF Worker wildcard route intercepts atproto-canary.etzhayyim.com directly — P3 traffic split will address routing)
 - **P3 — traffic split via CF Tunnel weighting**: not started
 - **P4 — 100% pod, CF Worker stopped**: not started
 - **P5 — CF Worker deleted, T3 carve-out closed**: not started
@@ -17,19 +17,19 @@ Operational runbook for the K8s pod replacement of the PDS CF Worker (`ai-gftd-p
 - `ghcr-pull` imagePullSecret must be created in `atproto` namespace from current docker credentials.
 - RisingWave service is `risingwave.risingwave.svc.cluster.local:4566` (NOT `risingwave-frontend`). User=`root`, no password.
 - Metastore credentials (`risingwave` user, `wXIqw7pXSUxBmsD9Lx3TtGVP5yqPO6Qm`) are for the metastore PostgreSQL, not the RW data plane.
-- CF Tunnel public hostname (`atproto-canary.gftd.ai`) is shadowed by PDS Worker's wildcard route — direct access via port-forward works. P3 must modify CF Worker routes or add canary-specific route.
+- CF Tunnel public hostname (`atproto-canary.etzhayyim.com`) is shadowed by PDS Worker's wildcard route — direct access via port-forward works. P3 must modify CF Worker routes or add canary-specific route.
 
 ## Build (Phase P1)
 
 ```bash
 # Wrapper around 70-tools/scripts/buildkit/remote-build.sh (gftd-vke builder).
-50-infra/k8s/atproto-pds/build.sh                  # → ghcr.io/gftdcojp/atproto-pds:bun-canary
-50-infra/k8s/atproto-pds/build.sh v1               # → ghcr.io/gftdcojp/atproto-pds:bun-v1
+50-infra/k8s/atproto-pds/build.sh                  # → ghcr.io/etzhayyim/atproto-pds:bun-canary
+50-infra/k8s/atproto-pds/build.sh v1               # → ghcr.io/etzhayyim/atproto-pds:bun-v1
 50-infra/k8s/atproto-pds/build.sh canary --load    # local Docker only (smoke run)
 ```
 
 Expect ~6-10 min first build (dep install + bun build of ~30k LOC). Subsequent
-builds reuse the registry cache `ghcr.io/gftdcojp/build-cache:atproto-pds-bun`
+builds reuse the registry cache `ghcr.io/etzhayyim/build-cache:atproto-pds-bun`
 and finish in ~2-3 min.
 
 ### Local smoke run
@@ -38,15 +38,15 @@ and finish in ~2-3 min.
 50-infra/k8s/atproto-pds/build.sh canary --load
 docker run --rm -p 8787:8787 \
   -e RISINGWAVE_URL=postgres://root@host.docker.internal:14566/dev?sslmode=disable \
-  -e PLC_DIRECTORY_URL=https://plc.gftd.ai \
-  -e AUTH_SERVICE_URL=https://auth.gftd.ai \
-  -e APPVIEW_SERVICE_URL=https://bsky.gftd.ai \
-  -e ROUTING_GATEWAY_URL=https://gateway.gftd.ai \
-  -e VAULT_SERVICE_URL=https://vault.gftd.ai \
+  -e PLC_DIRECTORY_URL=https://plc.etzhayyim.com \
+  -e AUTH_SERVICE_URL=https://auth.etzhayyim.com \
+  -e APPVIEW_SERVICE_URL=https://bsky.etzhayyim.com \
+  -e ROUTING_GATEWAY_URL=https://gateway.etzhayyim.com \
+  -e VAULT_SERVICE_URL=https://vault.etzhayyim.com \
   -e BPMN_DISPATCHER_URL=http://localhost:8080 \
-  -e IPFS_API_URL=https://ipfs.gftd.ai \
-  -e LLM_GATEWAY_URL=https://llm.gftd.ai \
-  ghcr.io/gftdcojp/atproto-pds:bun-canary
+  -e IPFS_API_URL=https://ipfs.etzhayyim.com \
+  -e LLM_GATEWAY_URL=https://llm.etzhayyim.com \
+  ghcr.io/etzhayyim/atproto-pds:bun-canary
 
 # In another terminal
 curl -i http://localhost:8787/_app/meta
@@ -56,7 +56,7 @@ curl -i http://localhost:8787/_app/meta
 
 1. CF dashboard → Zero Trust → Networks → Tunnels → Create a tunnel
 2. Name: `atproto-gftd-pds`
-3. Public hostname: `atproto-canary.gftd.ai` → `http://atproto-pds.atproto.svc.cluster.local:8787` (during P1-P3), then add `atproto.gftd.ai` in P3
+3. Public hostname: `atproto-canary.etzhayyim.com` → `http://atproto-pds.atproto.svc.cluster.local:8787` (during P1-P3), then add `atproto.etzhayyim.com` in P3
 4. Copy tunnel token → `kubectl -n atproto create secret generic atproto-pds-tunnel-token --from-literal=token=<token>`
 
 ## Secrets (manual via Vault)
@@ -85,19 +85,19 @@ kubectl -n atproto rollout status deploy/atproto-pds --timeout=10m
 
 ```bash
 # Health (via tunnel)
-curl https://atproto-canary.gftd.ai/_app/meta | jq
+curl https://atproto-canary.etzhayyim.com/_app/meta | jq
 
 # AT Protocol identity resolution
-curl 'https://atproto-canary.gftd.ai/xrpc/com.atproto.identity.resolveHandle?handle=jun.gftd.ai'
+curl 'https://atproto-canary.etzhayyim.com/xrpc/com.atproto.identity.resolveHandle?handle=jun.etzhayyim.com'
 
 # Repo describe
-curl 'https://atproto-canary.gftd.ai/xrpc/com.atproto.repo.describeRepo?repo=did:web:jun.gftd.ai'
+curl 'https://atproto-canary.etzhayyim.com/xrpc/com.atproto.repo.describeRepo?repo=did:web:jun.etzhayyim.com'
 
 # Firehose subscribe (websocket)
-wscat -c 'wss://atproto-canary.gftd.ai/xrpc/com.atproto.sync.subscribeRepos?cursor=0'
+wscat -c 'wss://atproto-canary.etzhayyim.com/xrpc/com.atproto.sync.subscribeRepos?cursor=0'
 ```
 
-Compare each response shape against the live CF Worker PDS (`https://atproto.gftd.ai/...`). Document deltas in `_deltas.md`.
+Compare each response shape against the live CF Worker PDS (`https://atproto.etzhayyim.com/...`). Document deltas in `_deltas.md`.
 
 ## Traffic cutover (Phase P3)
 
@@ -109,7 +109,7 @@ CF dashboard → Traffic → Origin rules / Page rules:
 
 Monitor:
 
-- `atproto.gftd.ai` 5xx rate (CF Analytics)
+- `atproto.etzhayyim.com` 5xx rate (CF Analytics)
 - `atproto-pds` pod 5xx (Prometheus, k8s ServiceMonitor)
 - RisingWave write rate (no spikes / no stalls)
 - AT Protocol firehose lag (commit replication, separate dashboard)

@@ -27,7 +27,7 @@ import psycopg2.extras
 import requests
 
 
-REPO = "did:web:iryo.gftd.ai"
+REPO = "did:web:iryo.etzhayyim.com"
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "50"))
 MAX_RECORDS_PER_RUN = int(os.environ.get("MAX_RECORDS_PER_RUN", "5000"))
 DEADLINE_SECONDS = int(os.environ.get("DEADLINE_SECONDS", "1320"))

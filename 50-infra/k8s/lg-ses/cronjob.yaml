@@ -17,7 +17,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ses-outlook-pull
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: ses.gftd.ai
+    app.kubernetes.io/part-of: ses.etzhayyim.com
 spec:
   schedule: "*/15 * * * *"
   suspend: true

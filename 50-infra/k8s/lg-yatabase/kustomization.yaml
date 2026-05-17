@@ -8,5 +8,5 @@ resources:
 # from local creds (1Password / Keychain) before `kubectl apply -k`.
 # See secret.yaml.example for the create-secret one-liner.
 images:
-  - name: ghcr.io/gftdcojp/lg-yatabase
+  - name: ghcr.io/etzhayyim/lg-yatabase
     newTag: 0.0.6-amd64

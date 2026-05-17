@@ -49,8 +49,8 @@ from fastapi import FastAPI, HTTPException
 import uvicorn
 
 
-_OWNER_DID = "did:web:isin.gftd.ai"
-_EDGAR_UA = "isin.gftd.ai/1.0 contact@gftd.co.jp"
+_OWNER_DID = "did:web:isin.etzhayyim.com"
+_EDGAR_UA = "isin.etzhayyim.com/1.0 contact@etzhayyim"
 _EDGAR_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 _OPENFIGI_URL = "https://api.openfigi.com/v3/mapping"
 _OPENFIGI_FILTER_URL = "https://api.openfigi.com/v3/filter"
@@ -197,7 +197,7 @@ async def tool_ingest_us_securities(
                     figi.get("securityType", "Common Stock"),
                     figi.get("exchCode", "US"),
                     "pending", "active",
-                    "did:web:isin.gftd.ai:source:sec",
+                    "did:web:isin.etzhayyim.com:source:sec",
                     _OWNER_DID, "anon", now, now,
                 )
                 registered += 1
@@ -283,7 +283,7 @@ async def tool_ingest_jp_securities(
                             "JP", "equity",
                             match.get("securityType", "Common Stock"),
                             "JP", "pending", "active",
-                            "did:web:isin.gftd.ai:source:openfigi",
+                            "did:web:isin.etzhayyim.com:source:openfigi",
                             _OWNER_DID, "anon", now, now,
                         )
                         registered += 1
@@ -810,7 +810,7 @@ async def tool_ingest_hk_securities(fromTicker: int = 1, count: int = 25) -> dic
                             "HK", "equity",
                             match.get("securityType", "Common Stock"),
                             "HK", "pending", "active",
-                            "did:web:isin.gftd.ai:source:openfigi",
+                            "did:web:isin.etzhayyim.com:source:openfigi",
                             _OWNER_DID, "anon", now, now,
                         )
                         registered += 1
@@ -911,7 +911,7 @@ async def tool_ingest_au_securities(offset: int = 0, limit: int = 200) -> dict:
                     "AU", "equity",
                     figi.get("securityType", "Common Stock"),
                     "AU", "pending", "active",
-                    "did:web:isin.gftd.ai:source:asx",
+                    "did:web:isin.etzhayyim.com:source:asx",
                     _OWNER_DID, "anon", now, now,
                 )
                 registered += 1
@@ -997,7 +997,7 @@ async def tool_ingest_eu_securities(
                             country, "equity",
                             item.get("securityType", "Common Stock"),
                             exch, "pending", "active",
-                            f"did:web:isin.gftd.ai:source:openfigi:{exch.lower()}",
+                            f"did:web:isin.etzhayyim.com:source:openfigi:{exch.lower()}",
                             _OWNER_DID, "anon", now, now,
                         )
                         registered += 1

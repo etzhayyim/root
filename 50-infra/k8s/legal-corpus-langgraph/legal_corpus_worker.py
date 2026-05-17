@@ -1,6 +1,6 @@
 """legal-corpus LangServer worker.
 
-Replaces pyzeebe task handlers for legal-corpus.gftd.ai
+Replaces pyzeebe task handlers for legal-corpus.etzhayyim.com
 (ADR-0049, ADR-2605080600).
 
 Task types registered:

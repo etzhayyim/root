@@ -45,14 +45,14 @@ GLEIF_GOLDEN_COPY_API = os.environ.get(
     "https://goldencopy.gleif.org/api/v2/golden-copies/publishes/latest",
 )
 FETCH_TIMEOUT = int(os.environ.get("FETCH_TIMEOUT", "120"))
-USER_AGENT = "gftd-gleif-s3-ingester/1.0 (+https://gftd.ai)"
+USER_AGENT = "gftd-gleif-s3-ingester/1.0 (+https://etzhayyim.com)"
 
 RW_HEALTH_GATE = os.environ.get("RW_HEALTH_GATE", "true").lower() == "true"
 RW_MIN_COMPUTE_READY = int(os.environ.get("RW_MIN_COMPUTE_READY", "2"))
 RW_MIN_COMPUTE_AGE_SECONDS = int(os.environ.get("RW_MIN_COMPUTE_AGE_SECONDS", "1800"))
 
 DATASET_KIND = "lei-cdf-s3"
-OWNER_DID = "did:web:open-lei.gftd.ai"
+OWNER_DID = "did:web:open-lei.etzhayyim.com"
 ACTOR_ID = "sys.k8s.open-lei.gleif-s3-ingester"
 
 # ── helpers ────────────────────────────────────────────────────────────────────
@@ -237,7 +237,7 @@ def parse_lei_records(zip_path: Path) -> Iterator[dict[str, Any]]:
                     next_renewal_at = _text(reg, "NextRenewalDate") or None
 
                 yield {
-                    "vertex_id": f"at://did:web:open-lei.gftd.ai/ai.gftd.apps.openLei.entity/{lei}",
+                    "vertex_id": f"at://did:web:open-lei.etzhayyim.com/ai.gftd.apps.openLei.entity/{lei}",
                     "lei": lei,
                     "legal_name": legal_name or lei,
                     "country": country[:64] if country else "",
@@ -315,7 +315,7 @@ def upsert_s3_run(
     records_written: int,
     error_msg: str = "",
 ) -> None:
-    vid = f"at://did:web:open-lei.gftd.ai/ai.gftd.apps.openLei.s3Run/{publish_date}"
+    vid = f"at://did:web:open-lei.etzhayyim.com/ai.gftd.apps.openLei.s3Run/{publish_date}"
     cur.execute(
         """
         INSERT INTO vertex_open_lei_s3_run (

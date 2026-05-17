@@ -1,0 +1,4164 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bpmn-timers
+  labels:
+    app.kubernetes.io/part-of: mitama.etzhayyim.com
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-bulkrefreshgtfsjp
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshgtfsjp
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_gtfs_jp
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.bulkRefreshGtfsJp
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-refreshcoveragestats
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-refreshcoveragestats
+    etzhayyim.com/bpmn-process: maps_refresh_coverage_stats
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.refreshCoverageStats
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-computeaircrafttrack
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-computeaircrafttrack
+    etzhayyim.com/bpmn-process: maps_compute_aircraft_track
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.computeAircraftTrack
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-bulkrefreshwikipedia
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshwikipedia
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_wikipedia
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.bulkRefreshWikipedia
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-ingestcelestialcatalogs
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-ingestcelestialcatalogs
+    etzhayyim.com/bpmn-process: maps_ingest_celestial_catalogs
+spec:
+  schedule: "0 0 1 * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.ingestCelestialCatalogs
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-sciencetaxonsync
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-sciencetaxonsync
+    etzhayyim.com/bpmn-process: science_taxon_sync
+spec:
+  schedule: "0 */12 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.scienceTaxonSync
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-bulkrefreshosmplanet
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshosmplanet
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_osm_planet
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.bulkRefreshOsmPlanet
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-sentinelingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-sentinelingest
+    etzhayyim.com/bpmn-process: maps_sentinel_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.sentinelIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-runpendingcoveragejobs
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-runpendingcoveragejobs
+    etzhayyim.com/bpmn-process: maps_run_pending_coverage_jobs
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.runPendingCoverageJobs
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-sciencepaperingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-sciencepaperingest
+    etzhayyim.com/bpmn-process: science_paper_ingest
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.sciencePaperIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-refreshtlecatalog
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-refreshtlecatalog
+    etzhayyim.com/bpmn-process: maps_refresh_tle_catalog
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.refreshTleCatalog
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-advancecoverage
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-advancecoverage
+    etzhayyim.com/bpmn-process: maps_advance_coverage
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.advanceCoverage
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-backfillaircraftregistry
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-backfillaircraftregistry
+    etzhayyim.com/bpmn-process: maps_backfill_aircraft_registry
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.backfillAircraftRegistry
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-bulkrefreshgeonames
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshgeonames
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_geonames
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.bulkRefreshGeonames
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-buildingingest3d
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-buildingingest3d
+    etzhayyim.com/bpmn-process: maps_building_ingest_3d
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.buildingIngest3d
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-bulkrefreshferryroutes
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshferryroutes
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_ferry_routes
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.bulkRefreshFerryRoutes
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-bulkrefreshwikidata
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshwikidata
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_wikidata
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.bulkRefreshWikidata
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-bulkrefreshopenflights
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshopenflights
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_openflights
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.bulkRefreshOpenflights
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-precomputesatellitepasses
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-precomputesatellitepasses
+    etzhayyim.com/bpmn-process: maps_precompute_satellite_passes
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.precomputeSatellitePasses
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-purgestalelivetracker
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-purgestalelivetracker
+    etzhayyim.com/bpmn-process: maps_purge_stale_live_tracker
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.purgeStaleLiveTracker
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-livetrackaircraft
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-livetrackaircraft
+    etzhayyim.com/bpmn-process: maps_live_track_aircraft
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.liveTrackAircraft
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-scienceelementseed
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-scienceelementseed
+    etzhayyim.com/bpmn-process: science_element_seed
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.scienceElementSeed
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-aismarine-refreshvesseldensity
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-aismarine-refreshvesseldensity
+    etzhayyim.com/bpmn-process: maps_aismarine_refresh_vessel_density
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.aismarine.refreshVesselDensity
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-aismarine-voyagedetector
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-aismarine-voyagedetector
+    etzhayyim.com/bpmn-process: maps_aismarine_voyage_detector
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.aismarine.voyageDetector
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps-aismarine-refreshvesselmaster
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps-aismarine-refreshvesselmaster
+    etzhayyim.com/bpmn-process: maps_aismarine_refresh_vessel_master
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps.aismarine.refreshVesselMaster
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-tasks-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-tasks-crontick
+    etzhayyim.com/bpmn-process: tasks_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.tasks.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-calendar-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-calendar-crontick
+    etzhayyim.com/bpmn-process: calendar_cron_tick
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.calendar.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-sheets-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-sheets-crontick
+    etzhayyim.com/bpmn-process: sheets_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.sheets.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-murakumo-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-murakumo-crontick
+    etzhayyim.com/bpmn-process: murakumo_cron_tick
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.murakumo.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-murakumo-fleethealthcheck
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-murakumo-fleethealthcheck
+    etzhayyim.com/bpmn-process: murakumo_fleet_health_check
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.murakumo.fleetHealthCheck
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-otakiage-matsurischedule
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-otakiage-matsurischedule
+    etzhayyim.com/bpmn-process: otakiage_matsuri_schedule
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.otakiage.matsuriSchedule
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-otakiage-reuseexpire
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-otakiage-reuseexpire
+    etzhayyim.com/bpmn-process: otakiage_reuse_expire
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.otakiage.reuseExpire
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-otakiage-certificateanchorsweep
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-otakiage-certificateanchorsweep
+    etzhayyim.com/bpmn-process: otakiage_certificate_anchor_sweep
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.otakiage.certificateAnchorSweep
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-otakiage-reusematch
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-otakiage-reusematch
+    etzhayyim.com/bpmn-process: otakiage_reuse_match
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.otakiage.reuseMatch
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-meet-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-meet-crontick
+    etzhayyim.com/bpmn-process: meet_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.meet.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-ingest-netintelfingerprintdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-ingest-netintelfingerprintdelta
+    etzhayyim.com/bpmn-process: netintel_fingerprint_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.ingest.netintelFingerprintDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-ingest-netintelwhoisdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-ingest-netintelwhoisdelta
+    etzhayyim.com/bpmn-process: netintel_whois_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.ingest.netintelWhoisDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-ingest-netintelipenrichdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-ingest-netintelipenrichdelta
+    etzhayyim.com/bpmn-process: netintel_ip_enrich_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.ingest.netintelIpEnrichDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-ingest-netintelscanbannerdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-ingest-netintelscanbannerdelta
+    etzhayyim.com/bpmn-process: netintel_scan_banner_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.ingest.netintelScanBannerDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-ingest-netinteldnsdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-ingest-netinteldnsdelta
+    etzhayyim.com/bpmn-process: netintel_dns_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.ingest.netintelDnsDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-contacts-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-contacts-crontick
+    etzhayyim.com/bpmn-process: contacts_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.contacts.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-graph-expandtick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-graph-expandtick
+    etzhayyim.com/bpmn-process: graph_expand_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.graph.expandTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-graph-consumerepocommits
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-graph-consumerepocommits
+    etzhayyim.com/bpmn-process: graph_consume_repo_commits
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.graph.consumeRepoCommits
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-wellbecoming-minimaxsweep
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-minimaxsweep
+    etzhayyim.com/bpmn-process: wellbecoming_minimax_sweep
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.wellbecoming.minimaxSweep
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-wellbecoming-beliefnoiseinject
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-beliefnoiseinject
+    etzhayyim.com/bpmn-process: wellbecoming_belief_noise_inject
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.wellbecoming.beliefNoiseInject
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-wellbecoming-processmining
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-processmining
+    etzhayyim.com/bpmn-process: wellbecoming_process_mining
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.wellbecoming.processMining
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-wellbecoming-floorviolationalert
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-floorviolationalert
+    etzhayyim.com/bpmn-process: wellbecoming_floor_violation_alert
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.wellbecoming.floorViolationAlert
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-wellbecoming-trustweightupdate
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-trustweightupdate
+    etzhayyim.com/bpmn-process: wellbecoming_trust_weight_update
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.wellbecoming.trustWeightUpdate
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-wellbecoming-beliefinfluencepropagate
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-beliefinfluencepropagate
+    etzhayyim.com/bpmn-process: wellbecoming_belief_influence_propagate
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.wellbecoming.beliefInfluencePropagate
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-wellbecoming-detectbottleneck
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-detectbottleneck
+    etzhayyim.com/bpmn-process: wellbecoming_detect_bottleneck
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.wellbecoming.detectBottleneck
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-wellbecoming-beliefrestoringcapture
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-beliefrestoringcapture
+    etzhayyim.com/bpmn-process: wellbecoming_belief_restoring_capture
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.wellbecoming.beliefRestoringCapture
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-wellbecoming-proactiveconnect
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-proactiveconnect
+    etzhayyim.com/bpmn-process: wellbecoming_proactive_connect
+spec:
+  schedule: "0 */2 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.wellbecoming.proactiveConnect
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-science-sciencepaperingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-science-sciencepaperingest
+    etzhayyim.com/bpmn-process: science_paper_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.science.sciencePaperIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-science-kamiseedscientific
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-science-kamiseedscientific
+    etzhayyim.com/bpmn-process: science_kami_seed_scientific
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.science.kamiSeedScientific
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-lifehack-dailydustpost
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-lifehack-dailydustpost
+    etzhayyim.com/bpmn-process: lifehack_daily_dust_post
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.lifehack.dailyDustPost
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-pds-resyncmitamacrontriggers
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-pds-resyncmitamacrontriggers
+    etzhayyim.com/bpmn-process: pds_resync_mitama_cron_triggers
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.pds.resyncMitamaCronTriggers
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-pds-warmdiscovercache
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-pds-warmdiscovercache
+    etzhayyim.com/bpmn-process: pds_warm_discover_cache
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.pds.warmDiscoverCache
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-pds-syncwriteoutbox
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-pds-syncwriteoutbox
+    etzhayyim.com/bpmn-process: pds_sync_write_outbox
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.pds.syncWriteOutbox
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-pds-runheartbeatcron
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-pds-runheartbeatcron
+    etzhayyim.com/bpmn-process: pds_run_heartbeat_cron
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.pds.runHeartbeatCron
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-pds-rotatesigningkeys
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-pds-rotatesigningkeys
+    etzhayyim.com/bpmn-process: pds_rotate_signing_keys
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.pds.rotateSigningKeys
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-opensmartphonesoc-fetchriscvecosystemde
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-opensmartphonesoc-fetchriscvecosystemde
+    etzhayyim.com/bpmn-process: open_smartphone_soc_fetch_riscv_ecosystem_delta
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.openSmartphoneSoc.fetchRiscvEcosystemDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-docs-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-docs-crontick
+    etzhayyim.com/bpmn-process: docs_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.docs.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-yoro-platformpulse
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-yoro-platformpulse
+    etzhayyim.com/bpmn-process: yoro_platform_pulse
+spec:
+  schedule: "0 */4 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.yoro.platformPulse
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-atproto-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-atproto-crontick
+    etzhayyim.com/bpmn-process: atproto_cron_tick
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.atproto.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-slides-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-slides-crontick
+    etzhayyim.com/bpmn-process: slides_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.slides.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-hanrei-hanreiingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-hanrei-hanreiingest
+    etzhayyim.com/bpmn-process: hanrei_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.hanrei.hanreiIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-businessperson-enrichorglei
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-businessperson-enrichorglei
+    etzhayyim.com/bpmn-process: business_person_enrich_org_lei
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.businessPerson.enrichOrgLei
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-businessperson-scoreinfluence
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-businessperson-scoreinfluence
+    etzhayyim.com/bpmn-process: business_person_score_influence
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.businessPerson.scoreInfluence
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-businessperson-enrichglobalpersons
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-businessperson-enrichglobalpersons
+    etzhayyim.com/bpmn-process: business_person_enrich_global_persons
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.businessPerson.enrichGlobalPersons
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-businessperson-enrichcareerllm
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-businessperson-enrichcareerllm
+    etzhayyim.com/bpmn-process: business_person_enrich_career_llm
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.businessPerson.enrichCareerLLM
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-jpcorpfinance-startdailyingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-jpcorpfinance-startdailyingest
+    etzhayyim.com/bpmn-process: jp_corp_finance_daily
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.jpCorpFinance.startDailyIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-aria-attentioningest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-aria-attentioningest
+    etzhayyim.com/bpmn-process: aria_attention_ingest
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.aria.attentionIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-aria-marketingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-aria-marketingest
+    etzhayyim.com/bpmn-process: aria_market_ingest
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.aria.marketIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-aria-emotioningest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-aria-emotioningest
+    etzhayyim.com/bpmn-process: aria_emotion_ingest
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.aria.emotionIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-aria-requestingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-aria-requestingest
+    etzhayyim.com/bpmn-process: aria_request_ingest
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.aria.requestIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-aria-influenceingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-aria-influenceingest
+    etzhayyim.com/bpmn-process: aria_influence_ingest
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.aria.influenceIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-aria-moneyflowingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-aria-moneyflowingest
+    etzhayyim.com/bpmn-process: aria_money_flow_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.aria.moneyFlowIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-aria-minimaxsweep
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-aria-minimaxsweep
+    etzhayyim.com/bpmn-process: aria_minimax_sweep
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.aria.minimaxSweep
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-bluesky-refreshstalest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-bluesky-refreshstalest
+    etzhayyim.com/bpmn-process: bluesky_refresh_stalest
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.bluesky.refreshStalest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-hf-modelscan
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-hf-modelscan
+    etzhayyim.com/bpmn-process: hf_model_scan
+spec:
+  schedule: "0 */12 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.hf.modelScan
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-hf-datasetscan
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-hf-datasetscan
+    etzhayyim.com/bpmn-process: hf_dataset_scan
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.hf.datasetScan
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-irscrape-processqueue
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-irscrape-processqueue
+    etzhayyim.com/bpmn-process: ir_scrape_process_queue
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.irScrape.processQueue
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-irscrape-queueseeds
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-irscrape-queueseeds
+    etzhayyim.com/bpmn-process: ir_scrape_queue_seeds
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.irScrape.queueSeeds
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-handotai-handotaicollect
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-handotai-handotaicollect
+    etzhayyim.com/bpmn-process: handotai_collect
+spec:
+  schedule: "0 */4 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.handotai.handotaiCollect
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-market-chaindemandpoll
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-market-chaindemandpoll
+    etzhayyim.com/bpmn-process: market_chain_demand_poll
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.market.chainDemandPoll
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-market-internetdemandpoll
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-market-internetdemandpoll
+    etzhayyim.com/bpmn-process: market_internet_demand_poll
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.market.internetDemandPoll
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-market-settlementbundle
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-market-settlementbundle
+    etzhayyim.com/bpmn-process: market_settlement_bundle
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.market.settlementBundle
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-arb-scanrealestate
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-arb-scanrealestate
+    etzhayyim.com/bpmn-process: arb_scan_re
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.arb.scanRealEstate
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-arb-scanequities
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-arb-scanequities
+    etzhayyim.com/bpmn-process: arb_scan_eq
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.arb.scanEquities
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-arb-scancommodities
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-arb-scancommodities
+    etzhayyim.com/bpmn-process: arb_scan_com
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.arb.scanCommodities
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-arb-publishdigest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-arb-publishdigest
+    etzhayyim.com/bpmn-process: arb_publish_digest
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.arb.publishDigest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-arb-scanfx
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-arb-scanfx
+    etzhayyim.com/bpmn-process: arb_scan_fx
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.arb.scanFx
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-arb-scanfutures
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-arb-scanfutures
+    etzhayyim.com/bpmn-process: arb_scan_fut
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.arb.scanFutures
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-arb-scancrypto
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-arb-scancrypto
+    etzhayyim.com/bpmn-process: arb_scan_cr
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.arb.scanCrypto
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-copyright-socialcoveragereport
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-copyright-socialcoveragereport
+    etzhayyim.com/bpmn-process: copyright_coverage_report
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.copyright.socialCoverageReport
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-copyright-ingestdatacite
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-copyright-ingestdatacite
+    etzhayyim.com/bpmn-process: copyright_datacite_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.copyright.ingestDatacite
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-copyright-ingestcrossref
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-copyright-ingestcrossref
+    etzhayyim.com/bpmn-process: copyright_crossref_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.copyright.ingestCrossref
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-flightoffer-cleanupruns
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-flightoffer-cleanupruns
+    etzhayyim.com/bpmn-process: flight_offer_cleanup_runs
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.flightOffer.cleanupRuns
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-flightoffer-pollwatchlist
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-flightoffer-pollwatchlist
+    etzhayyim.com/bpmn-process: flight_offer_poll_watchlist
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.flightOffer.pollWatchlist
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-magatama-organizerrun
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-magatama-organizerrun
+    etzhayyim.com/bpmn-process: magatama_organizer_run
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.magatama.organizerRun
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-arms-scanexpiredpermits
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-arms-scanexpiredpermits
+    etzhayyim.com/bpmn-process: arms_expired_permit_scanner
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.arms.scanExpiredPermits
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-drive-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-drive-crontick
+    etzhayyim.com/bpmn-process: drive_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.drive.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-resourceflow-detectanomaly
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-resourceflow-detectanomaly
+    etzhayyim.com/bpmn-process: resource_flow_detect_anomaly
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.resourceFlow.detectAnomaly
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-isin-isincollect
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-isin-isincollect
+    etzhayyim.com/bpmn-process: isin_collect
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.isin.isinCollect
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-maps3d-processtile
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-maps3d-processtile
+    etzhayyim.com/bpmn-process: maps3d_process_tile
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.maps3d.processTile
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-jpfiscal-fiscaledinetdaily
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-jpfiscal-fiscaledinetdaily
+    etzhayyim.com/bpmn-process: jp_fiscal_edinet_daily
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.jpFiscal.fiscalEdinetDaily
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-jpfiscal-runscrapers
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-jpfiscal-runscrapers
+    etzhayyim.com/bpmn-process: jp_fiscal_run_scrapers
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.jpFiscal.runScrapers
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-jpfiscal-fiscalcontractweekly
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-jpfiscal-fiscalcontractweekly
+    etzhayyim.com/bpmn-process: jp_fiscal_contract_weekly
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.jpFiscal.fiscalContractWeekly
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-coverage-inferkdrift
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-coverage-inferkdrift
+    etzhayyim.com/bpmn-process: coverage_infer_kdrift
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.coverage.inferKdrift
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-coverage-inferpersoncohorts
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-coverage-inferpersoncohorts
+    etzhayyim.com/bpmn-process: coverage_infer_person_cohorts
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.coverage.inferPersonCohorts
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-coverage-inferldatopics
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-coverage-inferldatopics
+    etzhayyim.com/bpmn-process: coverage_infer_lda_topics
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.coverage.inferLdaTopics
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-coverage-coveragegapbridge
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-coverage-coveragegapbridge
+    etzhayyim.com/bpmn-process: coverage_gap_bridge
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.coverage.coverageGapBridge
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-coverage-inferdeceasedcohorts
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-coverage-inferdeceasedcohorts
+    etzhayyim.com/bpmn-process: coverage_infer_deceased_cohorts
+spec:
+  schedule: "0 0 1 * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.coverage.inferDeceasedCohorts
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-coverage-inferldasignals
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-coverage-inferldasignals
+    etzhayyim.com/bpmn-process: coverage_infer_lda_signals
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.coverage.inferLdaSignals
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-coverage-inferldaentities
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-coverage-inferldaentities
+    etzhayyim.com/bpmn-process: coverage_infer_lda_entities
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.coverage.inferLdaEntities
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-coverage-inferldaincremental
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-coverage-inferldaincremental
+    etzhayyim.com/bpmn-process: coverage_infer_lda_incremental_v1
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.coverage.inferLdaIncremental
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-coverage-inferfission
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-coverage-inferfission
+    etzhayyim.com/bpmn-process: coverage_infer_fission_v1
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.coverage.inferFission
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-gmail-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-gmail-crontick
+    etzhayyim.com/bpmn-process: gmail_cron_tick
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.gmail.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-rl-collecttrajectories
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-rl-collecttrajectories
+    etzhayyim.com/bpmn-process: rl_collect_trajectories
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.rl.collectTrajectories
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-rl-aifattributeoutcomes
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-rl-aifattributeoutcomes
+    etzhayyim.com/bpmn-process: rl_aif_attribute_outcomes
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.rl.aifAttributeOutcomes
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-rl-aiflearnmodel
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-rl-aiflearnmodel
+    etzhayyim.com/bpmn-process: rl_aif_learn_model
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.rl.aifLearnModel
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-rl-policydispatch
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-rl-policydispatch
+    etzhayyim.com/bpmn-process: rl_policy_dispatch
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.rl.policyDispatch
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-rl-generatepreferences
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-rl-generatepreferences
+    etzhayyim.com/bpmn-process: rl_generate_preferences
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.rl.generatePreferences
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-rl-aifupdatebeliefs
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-rl-aifupdatebeliefs
+    etzhayyim.com/bpmn-process: rl_aif_belief_update
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.rl.aifUpdateBeliefs
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-claim-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-claim-crontick
+    etzhayyim.com/bpmn-process: claim_cron_tick
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.claim.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-gftd-apps-claim-unchallengedsweep
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: ai-gftd-apps-claim-unchallengedsweep
+    etzhayyim.com/bpmn-process: claim_auto_challenge
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/ai.gftd.apps.claim.unchallengedSweep
+          restartPolicy: OnFailure

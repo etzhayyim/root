@@ -20,7 +20,7 @@ spec:
         - name: ghcr-creds
       containers:
         - name: worker-api
-          image: ghcr.io/gftdcojp/pymagatama:maps-worldmonitor-market-91d57ab127d-20260514082800-amd64
+          image: ghcr.io/etzhayyim/pymagatama:maps-worldmonitor-market-91d57ab127d-20260514082800-amd64
           imagePullPolicy: IfNotPresent
           command:
             - python

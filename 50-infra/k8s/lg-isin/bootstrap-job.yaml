@@ -11,7 +11,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-bootstrap
     app.kubernetes.io/component: bootstrap
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   ttlSecondsAfterFinished: 86400
   activeDeadlineSeconds: 60

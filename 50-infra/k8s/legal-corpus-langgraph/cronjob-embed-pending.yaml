@@ -39,7 +39,7 @@ spec:
             - name: ghcr-creds
           containers:
             - name: run
-              image: ghcr.io/gftdcojp/legal-corpus-langgraph:latest-amd64
+              image: ghcr.io/etzhayyim/legal-corpus-langgraph:latest-amd64
               imagePullPolicy: Always
               env:
                 - name: RW_URL

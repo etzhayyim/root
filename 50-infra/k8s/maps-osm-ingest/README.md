@@ -35,8 +35,8 @@ curl -sH "Authorization: Bearer $LINODE_API_KEY" \
 1. **Build + push image** (skip if already pushed):
    ```bash
    cd 70-tools/maps-osm-ingest
-   docker build --platform linux/amd64 -t ghcr.io/gftdcojp/maps-osm-ingest:latest .
-   docker push ghcr.io/gftdcojp/maps-osm-ingest:latest
+   docker build --platform linux/amd64 -t ghcr.io/etzhayyim/maps-osm-ingest:latest .
+   docker push ghcr.io/etzhayyim/maps-osm-ingest:latest
    ```
 
 2. **Create secrets** (RISINGWAVE_URL only — B2 no longer required):
@@ -95,8 +95,8 @@ Weekly full-replace ingest of the OSM planet PBF into RisingWave.
 
 - Namespace: `maps`
 - Schedule: `0 3 * * 0` (Sun 03:00 UTC)
-- Source DID: `did:web:maps.gftd.ai:planet`
-- Image: `ghcr.io/gftdcojp/maps-osm-ingest:<tag>`
+- Source DID: `did:web:maps.etzhayyim.com:planet`
+- Image: `ghcr.io/etzhayyim/maps-osm-ingest:<tag>`
 - Node class requirement: Linode `g7-premium-16` or similar (16 vCPU, 32 GiB).
   The job requests 8 CPU / 16 Gi and peaks near 12 CPU / 24 Gi during decode.
 
@@ -140,11 +140,11 @@ Structured JSON logs are picked up by the cluster fluent-bit → Grafana Loki.
 psql "postgres://root@risingwave-frontend.risingwave:4566/dev" <<'SQL'
 SELECT COUNT(*) AS n
 FROM vertex_osm_element
-WHERE source_did = 'did:web:maps.gftd.ai:planet';
+WHERE source_did = 'did:web:maps.etzhayyim.com:planet';
 
 SELECT osm_type, COUNT(*) AS n
 FROM vertex_osm_element
-WHERE source_did = 'did:web:maps.gftd.ai:planet'
+WHERE source_did = 'did:web:maps.etzhayyim.com:planet'
 GROUP BY osm_type;
 SQL
 ```

@@ -1,4 +1,4 @@
-"""LangServer actor for media-gamers.gftd.ai guide generation.
+"""LangServer actor for media-gamers.etzhayyim.com guide generation.
 
 The actor owns expensive/long-running work: LLM guide writing, translation,
 quality scoring, and social-post drafting. Cloudflare app.ts only commits the
@@ -149,7 +149,7 @@ async def openai_chat(url: str, api_key: str, model: str, prompt: str, max_token
 
 
 async def llm(prompt: str, max_tokens: int = 2048) -> str:
-    murakumo_url = os.environ.get("MURAKUMO_OPENAI_URL", "https://murakumo.gftd.ai/api/openai/v1/chat/completions")
+    murakumo_url = os.environ.get("MURAKUMO_OPENAI_URL", "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions")
     murakumo_key = os.environ.get("MURAKUMO_API_KEY", "")
     murakumo_model = os.environ.get("MURAKUMO_MODEL", "qwen3.5-4b")
     try:
@@ -292,7 +292,7 @@ def title_for(game: dict[str, Any], guide_type: str) -> str:
 
 
 def social_post(title: str, body: str, game: dict[str, Any], guide_type: str, lang: str = "en") -> str:
-    url = f"https://media-gamers.gftd.ai/{lang}/game/{game['slug']}/{guide_type}"
+    url = f"https://media-gamers.etzhayyim.com/{lang}/game/{game['slug']}/{guide_type}"
     compact = re.sub(r"\s+", " ", body).strip()
     teaser = compact[:220]
     return f"{title}\n\n{teaser}\n\n#{game['genre']} #gaming #{guide_type}\n{url}"
@@ -301,7 +301,7 @@ def social_post(title: str, body: str, game: dict[str, Any], guide_type: str, la
 async def commit_guide(payload: dict[str, Any]) -> dict[str, Any]:
     url = os.environ.get(
         "MEDIA_GAMERS_COMMIT_GUIDE_URL",
-        "https://media-gamers.gftd.ai/xrpc/ai.gftd.apps.media_gamers.guide.commitGuide",
+        "https://media-gamers.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.guide.commitGuide",
     )
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
         res = await client.post(url, json=payload)
@@ -393,7 +393,7 @@ async def generate_knowledge(
     guide = await generate_knowledge_guide(graph or {})
     commit = await post_xrpc(
         "MEDIA_GAMERS_COMMIT_KNOWLEDGE_GUIDE_URL",
-        "https://media-gamers.gftd.ai/xrpc/ai.gftd.apps.media_gamers.knowledge.commitKnowledgeGuide",
+        "https://media-gamers.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.knowledge.commitKnowledgeGuide",
         {
             "graph": graph or {},
             "title": guide["title"],
@@ -411,7 +411,7 @@ async def eval_models(**_: Any) -> dict[str, Any]:
     evaluation = await evaluate_model()
     commit = await post_xrpc(
         "MEDIA_GAMERS_COMMIT_MODEL_EVALUATION_URL",
-        "https://media-gamers.gftd.ai/xrpc/ai.gftd.apps.media_gamers.commitModelEvaluation",
+        "https://media-gamers.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.commitModelEvaluation",
         {**evaluation, "generatedBy": "media-gamers-guide-actor"},
     )
     return {"result": commit}

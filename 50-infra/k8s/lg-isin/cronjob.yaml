@@ -10,7 +10,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-sweep-us
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "3 2 * * 1-5"
   concurrencyPolicy: Forbid
@@ -67,7 +67,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-sweep-jp
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "3 1 * * 1-5"
   concurrencyPolicy: Forbid
@@ -124,7 +124,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-enrich-cik
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "7 3 * * 0"
   concurrencyPolicy: Forbid
@@ -181,7 +181,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-link-lei
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "7 4 * * 0"
   concurrencyPolicy: Forbid
@@ -238,7 +238,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-sweep-hk
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "33 1 * * 1-5"
   concurrencyPolicy: Forbid
@@ -295,7 +295,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-sweep-au
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "33 3 * * 1"
   concurrencyPolicy: Forbid
@@ -352,7 +352,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-sweep-eu
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "33 2 * * 1-5"
   concurrencyPolicy: Forbid
@@ -409,7 +409,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-link-filing
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "37 4 * * 0"
   concurrencyPolicy: Forbid
@@ -468,7 +468,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-edinet-sweep
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "7 2 * * 6"
   concurrencyPolicy: Forbid
@@ -524,7 +524,7 @@ metadata:
   labels:
     app.kubernetes.io/name: isin-coverage-tick
     app.kubernetes.io/component: cron
-    app.kubernetes.io/part-of: isin.gftd.ai
+    app.kubernetes.io/part-of: isin.etzhayyim.com
 spec:
   schedule: "7 0 * * *"
   concurrencyPolicy: Forbid
