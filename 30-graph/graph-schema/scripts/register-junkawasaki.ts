@@ -11,8 +11,8 @@
 import crypto from "node:crypto";
 import { execSync } from "node:child_process";
 import pg from "pg";
-import { createGenesis } from "../../../10-protocol/did-gftd/src/genesis.js";
-import { multibaseEncode } from "../../../10-protocol/did-gftd/src/multibase.js";
+import { createGenesis } from "../../../10-protocol/did-etzhayyim/src/genesis.js";
+import { multibaseEncode } from "../../../10-protocol/did-etzhayyim/src/multibase.js";
 
 const HANDLE = "junkawasaki.com";
 const DISPLAY_NAME = "Jun Kawasaki";

@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/did-gftd",
+  "name": "@etzhayyim/did-etzhayyim",
   "version": "0.1.0",
   "description": "did:gftd DID method reference implementation (ADR-0029): CIDv1 + DAG-CBOR genesis op + path-form sub-DIDs.",
   "type": "module",

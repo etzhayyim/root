@@ -1,7 +1,7 @@
 /**
  * Spec compliance tests for did:gftd (ADR-0029).
  *
- * Run: pnpm -F @gftd/did-gftd test
+ * Run: pnpm -F @etzhayyim/did-etzhayyim test
  */
 
 import { describe, it, expect } from "vitest";

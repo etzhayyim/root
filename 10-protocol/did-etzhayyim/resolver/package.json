@@ -1,11 +1,11 @@
 {
-  "name": "ai-gftd-did-gftd-resolver",
+  "name": "etzhayyim-did-etzhayyim-resolver",
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@gftd/did-gftd": "workspace:*",
+    "@etzhayyim/did-etzhayyim": "workspace:*",
     "@gftd/magatama-host-sdk": "workspace:*",
     "kysely": "^0.27.4",
     "pg": "^8.20.0"

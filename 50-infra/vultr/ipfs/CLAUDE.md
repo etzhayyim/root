@@ -177,7 +177,7 @@ For now this is documented but not exercised — Phase 2 will land a
   staked claim's evidence stays content-addressed even if the original
   AT Record is later compacted. Service binding `IPFS_API` →
   `ai-gftd-ipfs-proxy`.
-- **did:gftd resolver** (`10-protocol/did-gftd/resolver/`): Phase 3 — pin
+- **did:gftd resolver** (`10-protocol/did-etzhayyim/resolver/`): Phase 3 — pin
   every genesis-op DAG-CBOR CID under a dedicated namespace (`/keys/did-gftd-genesis`)
   and serve via `/ipfs/{cid}` for federation peers.
 
