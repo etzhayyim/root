@@ -1,0 +1,20 @@
+{
+  "name": "demo-javy",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": { "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.18.2",
+  "devDependencies": {
+    "@gftdcojp/sveltejs-adapter-wasm": "link:../../projects/sveltejs-adapter-wasm/adapter",
+    "@sveltejs/kit": "^2.52.2",
+    "svelte": "^5.53.0",
+    "vite": "^7.3.1"
+  }
+}

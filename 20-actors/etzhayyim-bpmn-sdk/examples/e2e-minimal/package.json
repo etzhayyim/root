@@ -1,0 +1,28 @@
+{
+  "name": "e2e-minimal",
+  "version": "0.1.0",
+  "description": "Minimal E2E test for @gftd/bpmn-sdk",
+  "type": "commonjs",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "jest",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@gftd/bpmn-sdk/dsl": "workspace:*",
+    "@gftd/bpmn-sdk/compiler": "workspace:*",
+    "@gftd/bpmn-sdk/runtime": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "jest": "^29.0.0"
+  }
+}

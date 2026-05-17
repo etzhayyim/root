@@ -1,0 +1,8 @@
+{
+  "project": {
+    "id": "sveltejs-adapter-wasm",
+    "name": "SvelteKit Adapter for wasmCloud",
+    "namespace": "ai-gftd-performers-org-gftdcojp"
+  },
+  "type": "adapter"
+}

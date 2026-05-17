@@ -1,0 +1,5 @@
+package gftdcojp:quickjs-engine;
+
+world engine {
+    export gftdcojp:svelte-adapter/js-runtime;
+}

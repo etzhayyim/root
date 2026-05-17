@@ -1,0 +1,15 @@
+{
+  "name": "@gftd/bpmn-sdk-example/form-js-minimal",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vite"
+  },
+  "dependencies": {
+    "@gftd/bpmn-sdk/form": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}
+

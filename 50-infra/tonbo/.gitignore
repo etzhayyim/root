@@ -1,0 +1,14 @@
+# Rust
+server/target/
+*.pdb
+
+# Go
+go/vendor/
+
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp

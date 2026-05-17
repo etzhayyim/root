@@ -1,0 +1,40 @@
+{
+  "name": "@gftd/bpmn-sdk/testing",
+  "version": "0.1.0",
+  "description": "Property-based testing framework for BPMN processes",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "fast-check": "^3.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3.2.4"
+  },
+  "peerDependencies": {
+    "@gftd/bpmn-sdk/core": "workspace:*",
+    "@gftd/bpmn-sdk/runtime": "workspace:*",
+    "@gftd/bpmn-sdk/validation": "workspace:*"
+  },
+  "files": [
+    "dist"
+  ]
+}
