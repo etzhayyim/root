@@ -80,6 +80,17 @@ export const ADHERENT_REGISTRY_ABI = [
   },
   {
     type: "function",
+    name: "attest",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "tokenId", type: "uint256" },
+      { name: "eventType", type: "bytes32" },
+      { name: "evidenceCid", type: "bytes32" },
+    ],
+    outputs: [],
+  },
+  {
+    type: "function",
     name: "tokenOf",
     stateMutability: "view",
     inputs: [{ name: "", type: "address" }],
@@ -96,6 +107,28 @@ export const ADHERENT_REGISTRY_ABI = [
     outputs: [{ name: "", type: "bool" }],
   },
   {
+    type: "function",
+    name: "getRecord",
+    stateMutability: "view",
+    inputs: [{ name: "tokenId", type: "uint256" }],
+    outputs: [
+      {
+        name: "",
+        type: "tuple",
+        components: [
+          { name: "holder", type: "address" },
+          { name: "did", type: "string" },
+          { name: "joinAttestation", type: "bytes32" },
+          { name: "joinedAt", type: "uint64" },
+          { name: "lastAttestedAt", type: "uint64" },
+          { name: "attestationCount", type: "uint32" },
+          { name: "revoked", type: "bool" },
+          { name: "revokeReason", type: "bytes32" },
+        ],
+      },
+    ],
+  },
+  {
     type: "event",
     name: "Joined",
     anonymous: false,
@@ -104,6 +137,80 @@ export const ADHERENT_REGISTRY_ABI = [
       { name: "holder", type: "address", indexed: true },
       { name: "did", type: "string", indexed: false },
       { name: "attestationCid", type: "bytes32", indexed: false },
+    ],
+  },
+  {
+    type: "event",
+    name: "Attested",
+    anonymous: false,
+    inputs: [
+      { name: "tokenId", type: "uint256", indexed: true },
+      { name: "eventType", type: "bytes32", indexed: true },
+      { name: "evidenceCid", type: "bytes32", indexed: false },
+      { name: "attestedAt", type: "uint64", indexed: false },
+    ],
+  },
+] as const;
+
+// ─── Phenotype (geth-private, ADR-2605172300 S2) ────────────────────
+
+export const PHENOTYPE_ABI = [
+  {
+    type: "function",
+    name: "getMultiplierBps",
+    stateMutability: "view",
+    inputs: [{ name: "tokenId", type: "uint256" }],
+    outputs: [{ name: "", type: "uint16" }],
+  },
+  {
+    type: "function",
+    name: "expectedNonce",
+    stateMutability: "view",
+    inputs: [{ name: "cell", type: "address" }],
+    outputs: [{ name: "", type: "uint64" }],
+  },
+  {
+    type: "function",
+    name: "payloadHash",
+    stateMutability: "view",
+    inputs: [
+      { name: "tokenId", type: "uint256" },
+      { name: "newBps", type: "uint16" },
+      { name: "epoch", type: "uint64" },
+      { name: "nonce", type: "uint64" },
+      { name: "expiresAt", type: "uint64" },
+      { name: "evidenceHash", type: "bytes32" },
+      { name: "cell", type: "address" },
+    ],
+    outputs: [{ name: "", type: "bytes32" }],
+  },
+  {
+    type: "function",
+    name: "setMultiplier",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "tokenId", type: "uint256" },
+      { name: "newBps", type: "uint16" },
+      { name: "epoch", type: "uint64" },
+      { name: "nonce", type: "uint64" },
+      { name: "expiresAt", type: "uint64" },
+      { name: "evidenceHash", type: "bytes32" },
+      { name: "cell", type: "address" },
+      { name: "sig", type: "bytes" },
+    ],
+    outputs: [],
+  },
+  {
+    type: "event",
+    name: "MultiplierSet",
+    anonymous: false,
+    inputs: [
+      { name: "tokenId", type: "uint256", indexed: true },
+      { name: "cell", type: "address", indexed: true },
+      { name: "oldBps", type: "uint16", indexed: false },
+      { name: "newBps", type: "uint16", indexed: false },
+      { name: "epoch", type: "uint64", indexed: false },
+      { name: "evidenceHash", type: "bytes32", indexed: false },
     ],
   },
 ] as const;

@@ -20,18 +20,26 @@ import {
   createPublicClient,
   http,
   decodeEventLog,
+  encodeAbiParameters,
+  keccak256,
   parseAbiItem,
+  toBytes,
+  toHex,
   type Address,
   type Hash,
+  type Hex,
   type PublicClient,
   type WalletClient,
 } from "viem";
 import {AtpAgent} from "@atproto/api";
 
 import {
+  ADHERENT_REGISTRY_ABI,
   ETZHAYYIM_MEMBERSHIP_ABI,
+  KISHA_PAYOUT_ABI,
   KISHA_STREAM_ABI,
   OATH_RECORD_NSID,
+  PHENOTYPE_ABI,
 } from "./abi.js";
 import type {PaymentReceipt} from "./pay.js";
 
@@ -478,14 +486,63 @@ export interface AttestResult {
   recordUri: string;
 }
 
-export async function attest(_opts: AttestOpts, _cfg: BIConfig): Promise<AttestResult> {
-  throw new Error(
-    "[etzhayyim-sdk/bi] attest() TODO: " +
-      "(1) create com.etzhayyim.event.<eventType> AT Record (encrypt evidence if private), " +
-      "(2) call AdherentRegistry.attest(tokenId, keccak256(eventType), keccak256(evidenceCid)) — " +
-      "    paymaster-sponsored if available, otherwise officer-relayed, " +
-      "(3) MST commit + anchor enqueue."
-  );
+export async function attest(opts: AttestOpts, cfg: BIConfig): Promise<AttestResult> {
+  if (!cfg.privateWalletClient || !cfg.privateWalletClient.account) {
+    throw new Error("[etzhayyim-sdk/bi] attest: cfg.privateWalletClient required");
+  }
+  if (!cfg.registryAddress) {
+    throw new Error("[etzhayyim-sdk/bi] attest: cfg.registryAddress required");
+  }
+  if (!cfg.privateRpcUrl) {
+    throw new Error("[etzhayyim-sdk/bi] attest: cfg.privateRpcUrl required");
+  }
+  const wallet = cfg.privateWalletClient;
+  const account = wallet.account!;
+  const eventTypeHash = keccak256(toBytes(opts.eventType));
+  const evidenceCidHash = opts.evidenceCid
+    ? keccak256(toBytes(opts.evidenceCid))
+    : ("0x" + "0".repeat(64) as Hex);
+
+  const privatePub: PublicClient = createPublicClient({transport: http(cfg.privateRpcUrl)});
+  const txHash = await wallet.writeContract({
+    account,
+    chain: wallet.chain ?? null,
+    address: cfg.registryAddress,
+    abi: ADHERENT_REGISTRY_ABI,
+    functionName: "attest",
+    args: [opts.tokenId, eventTypeHash, evidenceCidHash],
+  });
+  const receipt = await privatePub.waitForTransactionReceipt({hash: txHash});
+  if (receipt.status !== "success") {
+    throw new Error(`[etzhayyim-sdk/bi] attest: tx ${txHash} reverted`);
+  }
+
+  // Best-effort AT Record write. Skipped silently when no PDS agent
+  // is bound — the on-chain Attested event remains the canonical
+  // source. The AT Record carries optional richer body the chain log
+  // can't.
+  let recordUri = "";
+  if (cfg.pdsAgent?.session) {
+    try {
+      const collection = `com.etzhayyim.event.${opts.eventType}`;
+      const created = await cfg.pdsAgent.com.atproto.repo.createRecord({
+        repo: cfg.pdsAgent.session.did,
+        collection,
+        record: {
+          $type: collection,
+          tokenId: Number(opts.tokenId),
+          eventType: opts.eventType,
+          evidenceCid: opts.evidenceCid ?? "",
+          chainTxHash: txHash,
+          attestedAt: new Date().toISOString(),
+        },
+      });
+      recordUri = created.data.uri;
+    } catch {
+      // Best-effort.
+    }
+  }
+  return {txHash, recordUri};
 }
 
 // ─── status ─────────────────────────────────────────────────────────
@@ -509,16 +566,97 @@ export interface KishaStatus {
   claimedTotal: bigint;
 }
 
-export async function status(_tokenId: bigint, _cfg: BIConfig): Promise<KishaStatus> {
-  throw new Error(
-    "[etzhayyim-sdk/bi] status() TODO: " +
-      "(1) read AdherentRegistry.getRecord(tokenId), " +
-      "(2) read KishaStream.baseRatePerDay + .accruedNow(tokenId), " +
-      "(3) (S2) if cfg.phenotypeAddress set, read Phenotype.getMultiplierBps(tokenId); " +
-      "    else default to 10_000, " +
-      "(4) aggregate Fulfilled(ticketId, tokenId, ...) events from KishaPayout for claimedTotal, " +
-      "(5) assemble KishaStatus."
-  );
+export async function status(tokenId: bigint, cfg: BIConfig): Promise<KishaStatus> {
+  if (!cfg.privateRpcUrl) {
+    throw new Error("[etzhayyim-sdk/bi] status: cfg.privateRpcUrl required");
+  }
+  if (!cfg.registryAddress) {
+    throw new Error("[etzhayyim-sdk/bi] status: cfg.registryAddress required");
+  }
+  if (!cfg.kishaStreamAddress) {
+    throw new Error("[etzhayyim-sdk/bi] status: cfg.kishaStreamAddress required");
+  }
+
+  const privatePub: PublicClient = createPublicClient({transport: http(cfg.privateRpcUrl)});
+
+  const [record, baseRatePerDay, accruedNow, multiplierBps] = await Promise.all([
+    privatePub.readContract({
+      address: cfg.registryAddress,
+      abi: ADHERENT_REGISTRY_ABI,
+      functionName: "getRecord",
+      args: [tokenId],
+    }),
+    privatePub.readContract({
+      address: cfg.kishaStreamAddress,
+      abi: KISHA_STREAM_ABI,
+      functionName: "baseRatePerDay",
+    }),
+    privatePub.readContract({
+      address: cfg.kishaStreamAddress,
+      abi: KISHA_STREAM_ABI,
+      functionName: "accruedNow",
+      args: [tokenId],
+    }),
+    cfg.phenotypeAddress
+      ? privatePub.readContract({
+          address: cfg.phenotypeAddress,
+          abi: PHENOTYPE_ABI,
+          functionName: "getMultiplierBps",
+          args: [tokenId],
+        })
+      : Promise.resolve<number>(10_000),
+  ] as const);
+
+  // Aggregate Fulfilled events on Base keyed by tokenId for claimedTotal.
+  // Skipped when kishaPayoutAddress / baseRpcUrl unset (returns 0n);
+  // this is the common case during local Anvil development.
+  let claimedTotal = 0n;
+  if (cfg.kishaPayoutAddress && cfg.baseRpcUrl) {
+    try {
+      const basePub: PublicClient = createPublicClient({transport: http(cfg.baseRpcUrl)});
+      const logs = await basePub.getLogs({
+        address: cfg.kishaPayoutAddress,
+        event: parseAbiItem(
+          "event Fulfilled(bytes32 indexed ticketId, uint256 indexed tokenId, address indexed baseRecipient, uint256 amount, uint64 fulfilledAt)"
+        ),
+        args: {tokenId},
+        fromBlock: "earliest",
+        toBlock: "latest",
+      });
+      for (const lg of logs) {
+        const amount = lg.args.amount;
+        if (typeof amount === "bigint") claimedTotal += amount;
+      }
+    } catch {
+      // Best-effort; we still return the rest of the status.
+    }
+  }
+
+  const adherent = record as {
+    holder: Address;
+    did: string;
+    joinAttestation: Hex;
+    joinedAt: bigint;
+    lastAttestedAt: bigint;
+    attestationCount: number;
+    revoked: boolean;
+    revokeReason: Hex;
+  };
+  const activeWindow = 30n * 24n * 60n * 60n; // mirror Constitution default; status() is informational
+  const isActive =
+    !adherent.revoked &&
+    adherent.lastAttestedAt > 0n &&
+    BigInt(Math.floor(Date.now() / 1000)) - adherent.lastAttestedAt <= activeWindow;
+  return {
+    tokenId,
+    adherentSince: adherent.joinedAt,
+    lastAttestedAt: adherent.lastAttestedAt,
+    isActive,
+    baseRatePerDay: baseRatePerDay as bigint,
+    phenotypeMultiplierBps: Number(multiplierBps),
+    claimable: accruedNow as bigint,
+    claimedTotal,
+  };
 }
 
 // ─── Phenotype — cell-signed multiplier update (S2) ─────────────────
@@ -555,17 +693,115 @@ export interface PhenotypeUpdateResult {
  * holds the cell key.
  */
 export async function setPhenotype(
-  _input: PhenotypeUpdateInput,
-  _cfg: BIConfig
+  input: PhenotypeUpdateInput,
+  cfg: BIConfig
 ): Promise<PhenotypeUpdateResult> {
-  throw new Error(
-    "[etzhayyim-sdk/bi] setPhenotype() TODO: " +
-      "(1) read Phenotype.expectedNonce(cell) on geth-private, " +
-      "(2) build payloadHash matching Phenotype.payloadHash, " +
-      "(3) sign EIP-191 envelope with the cell key, " +
-      "(4) submit Phenotype.setMultiplier(tokenId, bps, epoch, nonce, expiresAt, evidenceHash, cell, sig), " +
-      "(5) parse MultiplierSet(tokenId, cell, oldBps, newBps, epoch, ...) event."
+  if (!cfg.privateWalletClient || !cfg.privateWalletClient.account) {
+    throw new Error("[etzhayyim-sdk/bi] setPhenotype: cfg.privateWalletClient required (cell key)");
+  }
+  if (!cfg.phenotypeAddress) {
+    throw new Error("[etzhayyim-sdk/bi] setPhenotype: cfg.phenotypeAddress required");
+  }
+  if (!cfg.privateRpcUrl) {
+    throw new Error("[etzhayyim-sdk/bi] setPhenotype: cfg.privateRpcUrl required");
+  }
+  if (input.bps < 0 || input.bps > 0xffff) {
+    throw new Error(
+      `[etzhayyim-sdk/bi] setPhenotype: bps ${input.bps} out of uint16 range`
+    );
+  }
+
+  const wallet = cfg.privateWalletClient;
+  const cell = wallet.account!.address as Address;
+  const privatePub: PublicClient = createPublicClient({transport: http(cfg.privateRpcUrl)});
+  const chainId = BigInt(wallet.chain?.id ?? (await privatePub.getChainId()));
+
+  // 1. Read expected nonce.
+  const nonce = (await privatePub.readContract({
+    address: cfg.phenotypeAddress,
+    abi: PHENOTYPE_ABI,
+    functionName: "expectedNonce",
+    args: [cell],
+  })) as bigint;
+
+  // 2. Build payload hash matching Phenotype.payloadHash, EIP-191 envelope.
+  const ttlSecs = BigInt(input.ttlSecs ?? 600);
+  const expiresAt = BigInt(Math.floor(Date.now() / 1000)) + ttlSecs;
+  const evidence = input.evidenceHash ?? ("0x" + "0".repeat(64) as Hex);
+  const inner = keccak256(
+    encodeAbiParameters(
+      [
+        {type: "address"},
+        {type: "uint256"},
+        {type: "uint256"},
+        {type: "uint16"},
+        {type: "uint64"},
+        {type: "uint64"},
+        {type: "uint64"},
+        {type: "bytes32"},
+        {type: "address"},
+      ],
+      [
+        cfg.phenotypeAddress,
+        chainId,
+        input.tokenId,
+        input.bps,
+        input.epoch,
+        nonce,
+        expiresAt,
+        evidence,
+        cell,
+      ]
+    )
   );
+
+  // 3. Sign EIP-191 envelope. viem's signMessage prepends the standard
+  //    "\x19Ethereum Signed Message:\n<len>" prefix automatically.
+  const sig = await wallet.signMessage({
+    account: wallet.account!,
+    message: {raw: inner},
+  });
+
+  // 4. Submit setMultiplier.
+  const txHash = await wallet.writeContract({
+    account: wallet.account!,
+    chain: wallet.chain ?? null,
+    address: cfg.phenotypeAddress,
+    abi: PHENOTYPE_ABI,
+    functionName: "setMultiplier",
+    args: [
+      input.tokenId,
+      input.bps,
+      input.epoch,
+      nonce,
+      expiresAt,
+      evidence,
+      cell,
+      sig as Hex,
+    ],
+  });
+  const receipt = await privatePub.waitForTransactionReceipt({hash: txHash});
+  if (receipt.status !== "success") {
+    throw new Error(`[etzhayyim-sdk/bi] setPhenotype: tx ${txHash} reverted`);
+  }
+
+  // 5. Parse MultiplierSet.
+  const log = receipt.logs.find(
+    (l) => l.address.toLowerCase() === cfg.phenotypeAddress!.toLowerCase()
+  );
+  let oldBps = 0;
+  let newBps = input.bps;
+  if (log) {
+    const dec = decodeEventLog({
+      abi: PHENOTYPE_ABI,
+      eventName: "MultiplierSet",
+      data: log.data,
+      topics: log.topics,
+    });
+    oldBps = Number((dec.args as {oldBps: number}).oldBps);
+    newBps = Number((dec.args as {newBps: number}).newBps);
+  }
+  return {txHash, oldBps, newBps};
 }
 
 // ─── claim ──────────────────────────────────────────────────────────
