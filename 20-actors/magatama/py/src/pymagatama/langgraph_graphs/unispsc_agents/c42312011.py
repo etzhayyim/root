@@ -1,0 +1,1 @@
+from langgraph.graph import StateGraph, END; from typing import TypedDict; class State(TypedDict): spec: dict; valid: bool; def val_spec(s: State) -> State: s['valid'] = 'ISO 13485' in s['spec']; return s; graph = StateGraph(State); graph.add_node('validate', val_spec); graph.set_entry_point('validate'); graph.add_edge('validate', END); graph = graph.compile()

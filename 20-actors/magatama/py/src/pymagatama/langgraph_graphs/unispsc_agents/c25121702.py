@@ -1,0 +1,1 @@
+from langgraph.graph import StateGraph, END; from typing import TypedDict; class State(TypedDict): specs: dict; valid: bool; def val_dim(state: State): state['valid'] = state['specs'].get('length') > 2000; return state; graph = StateGraph(State); graph.add_node('validate', val_dim); graph.set_entry_point('validate'); graph.add_edge('validate', END); app = graph.compile()
