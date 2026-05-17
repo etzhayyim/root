@@ -1,4 +1,4 @@
-"""LangServer actor for livecam.gftd.ai vision analysis."""
+"""LangServer actor for livecam.etzhayyim.com vision analysis."""
 
 from __future__ import annotations
 
@@ -134,7 +134,7 @@ async def image_to_base64(image_url: str, image_base64: str) -> tuple[str, int]:
 
 
 async def call_vision_model(model: str, image_base64: str) -> str:
-    url = os.environ.get("MURAKUMO_CHAT_COMPLETIONS_URL", "https://murakumo.gftd.ai/api/openai/v1/chat/completions")
+    url = os.environ.get("MURAKUMO_CHAT_COMPLETIONS_URL", "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions")
     payload = {
         "model": model,
         "messages": [
@@ -205,7 +205,7 @@ def build_records(analysis: dict[str, Any], context: dict[str, str], model: str,
         person_cohorts.append(
             {
                 "cohortHash": h,
-                "did": f"did:web:livecam.gftd.ai:person:{h}",
+                "did": f"did:web:livecam.etzhayyim.com:person:{h}",
                 "zoneSlug": dims["zoneSlug"],
                 "dimensionsJson": json.dumps(dims, separators=(",", ":")),
                 "count": 1,
@@ -234,7 +234,7 @@ def build_records(analysis: dict[str, Any], context: dict[str, str], model: str,
         vehicle_cohorts.append(
             {
                 "cohortHash": h,
-                "did": f"did:web:livecam.gftd.ai:vehicle:{h}",
+                "did": f"did:web:livecam.etzhayyim.com:vehicle:{h}",
                 "zoneSlug": dims["zoneSlug"],
                 "dimensionsJson": json.dumps(dims, separators=(",", ":")),
                 "count": 1,
@@ -273,7 +273,7 @@ def build_records(analysis: dict[str, Any], context: dict[str, str], model: str,
 
 
 async def commit_analysis(payload: dict[str, Any]) -> dict[str, Any]:
-    url = os.environ.get("LIVECAM_COMMIT_ANALYSIS_URL", "https://livecam.gftd.ai/xrpc/ai.gftd.apps.livecam.commitAnalysis")
+    url = os.environ.get("LIVECAM_COMMIT_ANALYSIS_URL", "https://livecam.etzhayyim.com/xrpc/ai.gftd.apps.livecam.commitAnalysis")
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
         res = await client.post(url, json=payload)
     if res.status_code >= 400:

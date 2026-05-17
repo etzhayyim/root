@@ -1,7 +1,7 @@
 # lg-yatabase deploy runbook
 
 LangGraph Server (Granian / FastAPI) hosting BMC + marketing + sales graphs
-for yatabase.gftd.ai. The pod is the **single writer** for `vertex_bmc_*` /
+for yatabase.etzhayyim.com. The pod is the **single writer** for `vertex_bmc_*` /
 `edge_bmc_*` / `mv_bmc_*` (ADR-2605111200). yatabase CF Worker is a thin
 HMAC forwarder (`src/bmc-forward.ts`) and never touches Hyperdrive for BMC.
 
@@ -19,7 +19,7 @@ HMAC forwarder (`src/bmc-forward.ts`) and never touches Hyperdrive for BMC.
      --docker-server=ghcr.io \
      --docker-username="$(gh api user -q .login)" \
      --docker-password="$GHCR_TOKEN" \
-     --docker-email=ops@gftd.ai \
+     --docker-email=ops@etzhayyim.com \
      --dry-run=client -o yaml | kubectl apply -f -
    ```
 3. **RisingWave schema applied** — see `30-graph/graph-schema/sql_migrations/20260512000000_bmc_lean_iteration.up.sql`. If the cluster is in DDL backpressure (P29), wait for `rw-health-gate.sh` to return clean before retry.
@@ -35,9 +35,9 @@ docker buildx build \
   --builder gftd-vke \
   --platform linux/amd64 \
   --build-context py=../../../20-actors/magatama/py \
-  --cache-from type=registry,ref=ghcr.io/gftdcojp/build-cache:lg-yatabase \
-  --cache-to   type=registry,ref=ghcr.io/gftdcojp/build-cache:lg-yatabase,mode=max \
-  -t ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64 \
+  --cache-from type=registry,ref=ghcr.io/etzhayyim/build-cache:lg-yatabase \
+  --cache-to   type=registry,ref=ghcr.io/etzhayyim/build-cache:lg-yatabase,mode=max \
+  -t ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64 \
   --push .
 ```
 
@@ -90,10 +90,10 @@ Two production-grade paths:
 ### Path A — Cloudflare Tunnel (recommended)
 
 ```bash
-cloudflared tunnel route dns <tunnel-id> lg-yatabase.internal.gftd.ai
+cloudflared tunnel route dns <tunnel-id> lg-yatabase.internal.etzhayyim.com
 # In the tunnel config:
 #   ingress:
-#     - hostname: lg-yatabase.internal.gftd.ai
+#     - hostname: lg-yatabase.internal.etzhayyim.com
 #       service: http://lg-yatabase.mitama-udf.svc.cluster.local:8000
 #     - service: http_status:404
 ```
@@ -101,26 +101,26 @@ cloudflared tunnel route dns <tunnel-id> lg-yatabase.internal.gftd.ai
 Then on the Worker:
 ```bash
 cd 60-apps/ai-gftd-project-yatabase
-wrangler secret put LG_YATABASE_URL   # https://lg-yatabase.internal.gftd.ai
+wrangler secret put LG_YATABASE_URL   # https://lg-yatabase.internal.etzhayyim.com
 ```
 
 ### Path B — bpmn-dispatcher passthrough (interim)
 
 Route Worker BMC traffic through the existing dispatcher (no new tunnel) by
-setting `LG_YATABASE_URL=https://dispatcher.gftd.ai/lg-yatabase` and adding
+setting `LG_YATABASE_URL=https://dispatcher.etzhayyim.com/lg-yatabase` and adding
 the corresponding ingress rule in `bpmn-dispatcher`. Trades a hop for zero
 new infra.
 
 ## 5. Smoke
 
 ```bash
-curl -sS https://yatabase.gftd.ai/health
+curl -sS https://yatabase.etzhayyim.com/health
 curl -sS -H "authorization: Bearer sk_live_yata_..." \
-  https://yatabase.gftd.ai/xrpc/ai.gftd.apps.yata.bmcGetState
+  https://yatabase.etzhayyim.com/xrpc/ai.gftd.apps.yata.bmcGetState
 curl -sS -X POST -H "authorization: Bearer sk_live_yata_..." \
   -H "content-type: application/json" \
   -d '{"dryRun":true}' \
-  https://yatabase.gftd.ai/xrpc/ai.gftd.apps.yata.bmcIterate
+  https://yatabase.etzhayyim.com/xrpc/ai.gftd.apps.yata.bmcIterate
 ```
 
 Expected for the first call after fresh schema apply: `bmcGetState` returns

@@ -34,7 +34,7 @@ REPO="$(cd "$HERE/../../.." && pwd)"
 
 # ─── Defaults + flags ───────────────────────────────────────────────
 IMAGE_TAG="${IMAGE_TAG:-latest}"
-GHCR_REGISTRY="ghcr.io/gftdcojp"
+GHCR_REGISTRY="ghcr.io/etzhayyim"
 WORKER_IMAGE="$GHCR_REGISTRY/maps3d-worker:$IMAGE_TAG"
 COLMAP_IMAGE="$GHCR_REGISTRY/maps3d-colmap-worker:$IMAGE_TAG"
 TEST_TILE_H3="${TEST_TILE_H3:-8a2a1072b59ffff}"

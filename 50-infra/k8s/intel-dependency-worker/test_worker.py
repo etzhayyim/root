@@ -364,15 +364,15 @@ class IntelWorkerIntegrationTest(unittest.TestCase):
         if importlib.util.find_spec("litellm") is None:
             self.skipTest("litellm is not installed")
         if not worker.bool_env("INTEL_RUN_LIVE_LLM_INTEGRATION", False):
-            self.skipTest("set INTEL_RUN_LIVE_LLM_INTEGRATION=true to call llm.gftd.ai")
+            self.skipTest("set INTEL_RUN_LIVE_LLM_INTEGRATION=true to call llm.etzhayyim.com")
 
         with mock.patch.dict(
             worker.os.environ,
             {
-                "INTEL_LLM_URL": "https://llm.gftd.ai/v1/chat/completions",
+                "INTEL_LLM_URL": "https://llm.etzhayyim.com/v1/chat/completions",
                 "INTEL_LLM_MODEL": worker.os.environ.get("INTEL_LLM_MODEL", "gemma4-runpod"),
                 "INTEL_LLM_MAGATAMA_VERIFIED": "true",
-                "INTEL_LLM_CREDITS_DID": worker.os.environ.get("INTEL_LLM_CREDITS_DID", "did:web:llm.gftd.ai"),
+                "INTEL_LLM_CREDITS_DID": worker.os.environ.get("INTEL_LLM_CREDITS_DID", "did:web:llm.etzhayyim.com"),
                 "INTEL_LLM_TIMEOUT_SEC": worker.os.environ.get("INTEL_LLM_TIMEOUT_SEC", "90"),
             },
             clear=False,
@@ -453,7 +453,7 @@ class IntelWorkerIntegrationTest(unittest.TestCase):
                 self.inserted.append(row)
 
         gleif_row = {
-            "vertex_id": "at://did:web:open-lei.gftd.ai/ai.gftd.apps.openLei.entity/HWUPKR0MPOU8FGXBT394",
+            "vertex_id": "at://did:web:open-lei.etzhayyim.com/ai.gftd.apps.openLei.entity/HWUPKR0MPOU8FGXBT394",
             "lei": "HWUPKR0MPOU8FGXBT394",
             "legal_name": "Apple Inc.",
             "country": "US",

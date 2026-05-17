@@ -42,7 +42,7 @@ spec:
         - name: ghcr-creds
       containers:
         - name: worker
-          image: ghcr.io/gftdcojp/legal-corpus-langgraph:latest-amd64
+          image: ghcr.io/etzhayyim/legal-corpus-langgraph:latest-amd64
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -133,7 +133,7 @@ spec:
         - name: ghcr-creds
       containers:
         - name: mcp
-          image: ghcr.io/gftdcojp/legal-corpus-langgraph:latest-amd64
+          image: ghcr.io/etzhayyim/legal-corpus-langgraph:latest-amd64
           imagePullPolicy: Always
           command: ["python", "/app/mcp_server.py"]
           ports:

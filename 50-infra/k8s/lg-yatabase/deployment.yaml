@@ -22,7 +22,7 @@ metadata:
   labels:
     app.kubernetes.io/name: lg-yatabase
     app.kubernetes.io/component: langgraph-server
-    app.kubernetes.io/part-of: yatabase.gftd.ai
+    app.kubernetes.io/part-of: yatabase.etzhayyim.com
 spec:
   replicas: 1
   selector:
@@ -38,7 +38,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: server
-          image: ghcr.io/gftdcojp/lg-yatabase:0.0.6-amd64
+          image: ghcr.io/etzhayyim/lg-yatabase:0.0.6-amd64
           imagePullPolicy: Always
           command:
             - uvicorn
@@ -80,7 +80,7 @@ spec:
                   optional: true
             # LLM-judge providers (deterministic decide() still fires when both miss).
             - name: MURAKUMO_BASE_URL
-              value: "https://murakumo.gftd.ai"
+              value: "https://murakumo.etzhayyim.com"
             - name: OPENROUTER_API_KEY
               valueFrom:
                 secretKeyRef:

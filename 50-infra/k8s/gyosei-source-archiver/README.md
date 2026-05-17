@@ -39,7 +39,7 @@ sources are mirrored into graph table `vertex_gyosei_source_blob`.
 ## Deploy
 
 ```bash
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp
+cd /Users/junkawasaki/github/etzhayyim-root
 50-infra/k8s/gyosei-source-archiver/deploy.sh
 ```
 

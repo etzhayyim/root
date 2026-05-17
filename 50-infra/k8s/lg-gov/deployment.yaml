@@ -20,7 +20,7 @@ metadata:
   labels:
     app.kubernetes.io/name: lg-gov
     app.kubernetes.io/component: langgraph-server
-    app.kubernetes.io/part-of: gov.gftd.ai
+    app.kubernetes.io/part-of: gov.etzhayyim.com
 spec:
   replicas: 0
   strategy:
@@ -41,7 +41,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: server
-          image: ghcr.io/gftdcojp/lg-gov:latest
+          image: ghcr.io/etzhayyim/lg-gov:latest
           imagePullPolicy: IfNotPresent
           command:
             - uvicorn
@@ -75,7 +75,7 @@ spec:
                   key: DISPATCHER_INTERNAL_SECRET
             # LLM routing
             - name: GFTD_LLM_URL
-              value: "https://gemma.gftd.ai/v1"
+              value: "https://gemma.etzhayyim.com/v1"
             - name: GFTD_LLM_MODEL
               value: "gemma-4-E2B-it"
             - name: GFTD_LLM_API_KEY
@@ -85,7 +85,7 @@ spec:
                   key: GFTD_LLM_API_KEY
                   optional: true
             - name: MURAKUMO_BASE_URL
-              value: "https://murakumo.gftd.ai"
+              value: "https://murakumo.etzhayyim.com"
           ports:
             - name: http
               containerPort: 8000

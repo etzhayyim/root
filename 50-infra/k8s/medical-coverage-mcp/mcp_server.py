@@ -308,7 +308,7 @@ def trigger(args: dict[str, Any]) -> dict[str, Any]:
             raise ValueError(f"unknown target: {target}")
     idempotency_key = str(args.get("idempotencyKey") or "").strip()
     if idempotency_key:
-        existing = list_jobs(batch, f"app.kubernetes.io/name={APP_LABEL},ai.gftd.ai/idempotency-key={clean_label(idempotency_key)}", 1)
+        existing = list_jobs(batch, f"app.kubernetes.io/name={APP_LABEL},ai.etzhayyim.com/idempotency-key={clean_label(idempotency_key)}", 1)
         if existing:
             return {"ok": True, "jobName": existing[0].metadata.name, "namespace": NAMESPACE, "existing": True}
 
@@ -348,12 +348,12 @@ def trigger(args: dict[str, Any]) -> dict[str, Any]:
     job_name = f"medical-coverage-manual-{suffix}-{secrets.token_hex(2)}"
     labels = {
         "app.kubernetes.io/name": APP_LABEL,
-        "ai.gftd.ai/requested-by": clean_label(str(args.get("requestedBy") or "mcp")),
-        "ai.gftd.ai/targets": clean_label("-".join(targets)),
-        "ai.gftd.ai/run-kind": "manual",
+        "ai.etzhayyim.com/requested-by": clean_label(str(args.get("requestedBy") or "mcp")),
+        "ai.etzhayyim.com/targets": clean_label("-".join(targets)),
+        "ai.etzhayyim.com/run-kind": "manual",
     }
     if idempotency_key:
-        labels["ai.gftd.ai/idempotency-key"] = clean_label(idempotency_key)
+        labels["ai.etzhayyim.com/idempotency-key"] = clean_label(idempotency_key)
 
     job = client.V1Job(
         api_version="batch/v1",
@@ -396,11 +396,11 @@ def patch_cron_suspend(suspend: bool, args: dict[str, Any]) -> dict[str, Any]:
     batch, _ = load_k8s()
     now = utc_now()
     annotations = {
-        f"ai.gftd.ai/{'paused' if suspend else 'resumed'}-by": str(args.get("requestedBy") or "mcp"),
-        f"ai.gftd.ai/{'paused' if suspend else 'resumed'}-at": now,
+        f"ai.etzhayyim.com/{'paused' if suspend else 'resumed'}-by": str(args.get("requestedBy") or "mcp"),
+        f"ai.etzhayyim.com/{'paused' if suspend else 'resumed'}-at": now,
     }
     if suspend and args.get("reason"):
-        annotations["ai.gftd.ai/pause-reason"] = str(args["reason"])[:200]
+        annotations["ai.etzhayyim.com/pause-reason"] = str(args["reason"])[:200]
     body = {"metadata": {"annotations": annotations}, "spec": {"suspend": suspend}}
     cron = batch.patch_namespaced_cron_job(CRONJOB_NAME, NAMESPACE, body)
     return {"ok": True, "cronJob": cron.metadata.name, "suspend": cron.spec.suspend}

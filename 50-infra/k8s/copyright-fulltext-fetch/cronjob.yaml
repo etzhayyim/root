@@ -7,7 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/name: copyright-fulltext-fetch
     app.kubernetes.io/component: ingester
-    app.kubernetes.io/part-of: copyright.gftd.ai
+    app.kubernetes.io/part-of: copyright.etzhayyim.com
 spec:
   schedule: "0 */6 * * *"
   timeZone: "Etc/UTC"
@@ -35,7 +35,7 @@ spec:
             - name: ghcr-creds
           containers:
             - name: fulltext
-              image: ghcr.io/gftdcojp/pymagatama:0.3.96-20260508104813-amd64
+              image: ghcr.io/etzhayyim/pymagatama:0.3.96-20260508104813-amd64
               imagePullPolicy: IfNotPresent
               command: ["python", "-c"]
               args:

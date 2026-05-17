@@ -27,7 +27,7 @@ SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 COLLECTION = "ai.gftd.apps.legalEntity.legalEntity"
 COLLECTION_COMPANY_FILING = "ai.gftd.apps.legalEntity.companyFiling"
 COLLECTION_COMPANY_FACT = "ai.gftd.apps.legalEntity.companyFact"
-COLLECTOR_DID = "did:web:legal-entity.gftd.ai"
+COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com"
 SEC_FACT_SPECS = [
     {
         "canonical": "revenue",
@@ -246,7 +246,7 @@ def collect_records(items: list[Any], mapper: Any) -> list[dict[str, Any]]:
 async def commit_entities(source: str, page: int, records: list[dict[str, Any]]) -> dict[str, Any]:
     url = os.environ.get(
         "LEGAL_ENTITY_COMMIT_ENTITIES_URL",
-        "https://legal-entity.gftd.ai/xrpc/ai.gftd.apps.legalEntity.commitEntities",
+        "https://legal-entity.etzhayyim.com/xrpc/ai.gftd.apps.legalEntity.commitEntities",
     )
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
         res = await client.post(url, json={"source": source, "page": page, "records": records})
@@ -258,7 +258,7 @@ async def commit_entities(source: str, page: int, records: list[dict[str, Any]])
 async def fetch_sec_tickers() -> dict[str, Any]:
     headers = {
         "Accept": "application/json",
-        "User-Agent": "gftd-legal-entity/1.0 legal-entity@gftd.ai",
+        "User-Agent": "gftd-legal-entity/1.0 legal-entity@etzhayyim.com",
     }
     async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
         res = await client.get(SEC_TICKERS_URL, headers=headers)
@@ -297,7 +297,7 @@ async def resolve_sec_cik(ticker: str, cik: str) -> tuple[str, str]:
 async def fetch_sec_json(url: str) -> dict[str, Any]:
     headers = {
         "Accept": "application/json",
-        "User-Agent": "gftd-legal-entity/1.0 legal-entity@gftd.ai",
+        "User-Agent": "gftd-legal-entity/1.0 legal-entity@etzhayyim.com",
     }
     async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
         res = await client.get(url, headers=headers)
@@ -420,7 +420,7 @@ def build_company_fact_records(company_facts: dict[str, Any], company_did: str, 
 async def commit_sec_disclosure(cik: str, ticker: str, company_did: str, filings: list[dict[str, Any]], facts: list[dict[str, Any]]) -> dict[str, Any]:
     url = os.environ.get(
         "LEGAL_ENTITY_COMMIT_SEC_DISCLOSURE_URL",
-        "https://legal-entity.gftd.ai/xrpc/ai.gftd.apps.legalEntity.commitSecDisclosure",
+        "https://legal-entity.etzhayyim.com/xrpc/ai.gftd.apps.legalEntity.commitSecDisclosure",
     )
     payload = {"source": "SEC_EDGAR", "cik": cik, "ticker": ticker, "companyDid": company_did, "filings": filings, "facts": facts}
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
@@ -450,7 +450,7 @@ def gleif_to_did(rec: dict[str, Any]) -> dict[str, Any] | None:
 async def commit_entity_dids(source: str, page: int, dids: list[dict[str, Any]]) -> dict[str, Any]:
     url = os.environ.get(
         "LEGAL_ENTITY_COMMIT_ENTITY_DIDS_URL",
-        "https://legal-entity.gftd.ai/xrpc/ai.gftd.apps.legalEntity.commitEntityDids",
+        "https://legal-entity.etzhayyim.com/xrpc/ai.gftd.apps.legalEntity.commitEntityDids",
     )
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
         res = await client.post(url, json={"source": source, "page": page, "dids": dids})

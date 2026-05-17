@@ -43,7 +43,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: tilemaker
-          image: ghcr.io/gftdcojp/maps-tilemaker-build:latest
+          image: ghcr.io/etzhayyim/maps-tilemaker-build:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: PBF_URL

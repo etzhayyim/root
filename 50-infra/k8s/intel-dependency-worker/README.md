@@ -1,6 +1,6 @@
 # intel-dependency-worker
 
-Kubernetes worker for `intel.gftd.ai` dependency inference.
+Kubernetes worker for `intel.etzhayyim.com` dependency inference.
 
 The first slice continuously infers:
 
@@ -41,7 +41,7 @@ kubectl -n intel create secret generic intel-dependency-worker-secrets \
 ```
 
 RunPod/OpenAI-compatible LLM assist for ambiguous dependency/entity resolution
-uses `https://llm.gftd.ai/v1/chat/completions` by default:
+uses `https://llm.etzhayyim.com/v1/chat/completions` by default:
 
 ```sh
 kubectl -n intel create secret generic intel-dependency-worker-secrets \
@@ -51,7 +51,7 @@ kubectl -n intel create secret generic intel-dependency-worker-secrets \
 ```
 
 The Deployment sets `INTEL_LLM_MAGATAMA_VERIFIED=true` for the internal
-`llm.gftd.ai` gateway path. Override `INTEL_LLM_URL` / `INTEL_LLM_MODEL` only
+`llm.etzhayyim.com` gateway path. Override `INTEL_LLM_URL` / `INTEL_LLM_MODEL` only
 when pointing the worker at a different OpenAI-compatible endpoint.
 
 Topology controls:
@@ -59,10 +59,10 @@ Topology controls:
 ```sh
 INTEL_TOPOLOGY_DAEMON=true          # Deployment background loop
 INTEL_TOPOLOGY_ANALYZE=true         # RUN_ONCE path runs topology pipeline
-INTEL_TOPOLOGY_LLM_RESOLVE=true     # use llm.gftd.ai for ambiguous edges
+INTEL_TOPOLOGY_LLM_RESOLVE=true     # use llm.etzhayyim.com for ambiguous edges
 INTEL_TOPOLOGY_MAX_NODES_PER_TABLE=1000
 INTEL_TOPOLOGY_MAX_EDGES_PER_TABLE=5000
-INTEL_LLM_TIMEOUT_SEC=90           # llm.gftd.ai can wait on RunPod queue
+INTEL_LLM_TIMEOUT_SEC=90           # llm.etzhayyim.com can wait on RunPod queue
 LANGSERVER_WORKER_RESTART_DELAY_SEC=15
 ```
 

@@ -1,4 +1,4 @@
-"""LangServer actor for comfyui.gftd.ai generation jobs."""
+"""LangServer actor for comfyui.etzhayyim.com generation jobs."""
 
 from __future__ import annotations
 

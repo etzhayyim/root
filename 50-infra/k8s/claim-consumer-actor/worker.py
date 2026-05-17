@@ -1,4 +1,4 @@
-"""LangServer actor for claim.gftd.ai claim operations."""
+"""LangServer actor for claim.etzhayyim.com claim operations."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ import uvicorn
 
 
 LOG = logging.getLogger("claim-consumer-actor")
-OWNER_DID = "did:web:claim.gftd.ai"
+OWNER_DID = "did:web:claim.etzhayyim.com"
 CONSUMER_FAMILY = "claim-consumer"
 CLAIM_COLLECTION = "ai.gftd.claim.stakedAttestation"
 
@@ -237,7 +237,7 @@ async def submit_unchallenged_sweep(claim_ids: list[str]) -> dict[str, Any]:
     secret = os.environ.get("CLAIM_SETTLER_HMAC", "").strip()
     if not secret:
         raise RuntimeError("CLAIM_SETTLER_HMAC is required")
-    url = os.environ.get("AUTHZ_SWEEP_URL", "https://authz.gftd.ai/internal/claim-unchallenged-sweep")
+    url = os.environ.get("AUTHZ_SWEEP_URL", "https://authz.etzhayyim.com/internal/claim-unchallenged-sweep")
     body = json.dumps({"claimIds": claim_ids}, separators=(",", ":"))
     headers = {"content-type": "application/json", "x-claim-settler-auth": hmac_hex(secret, body)}
     async with httpx.AsyncClient(timeout=120, follow_redirects=True) as client:
