@@ -41,7 +41,9 @@ contract KishaStreamTest is Fixture {
         vm.prank(officer);
         r.revoke(id, bytes32(uint256(0xDEAD)));
         vm.prank(alice);
-        vm.expectRevert(KishaStream.NotActive.selector);
+        // KishaStream.claim checks `r.revoked` before `isActive`, so the
+        // revoked branch is hit first.
+        vm.expectRevert(KishaStream.TokenRevoked.selector);
         ks.claim(id, alice, 0);
     }
 

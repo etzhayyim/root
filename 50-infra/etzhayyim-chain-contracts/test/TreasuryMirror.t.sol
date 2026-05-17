@@ -5,8 +5,14 @@ import {Fixture} from "./_helpers/Fixture.sol";
 import {TreasuryMirror} from "../src/TreasuryMirror.sol";
 
 contract TreasuryMirrorTest is Fixture {
+    // Cached tier constants — read once at setUp so `vm.prank` /
+    // `vm.expectRevert` are never consumed by a getter in argument
+    // position.
+    uint8 internal TIER_RESERVE;
+
     function setUp() public {
         _deployStack();
+        TIER_RESERVE = tm.TIER_RESERVE();
         vm.prank(address(gov));
         tm.registerOracle(oracleAddr, keccak256("nav-oracle-0"));
     }
@@ -19,9 +25,9 @@ contract TreasuryMirrorTest is Fixture {
     }
 
     function test_updateNAV_happyPath() public {
-        _signAndPost(tm.TIER_RESERVE(), 1_000_000_000, 1, 0);
-        assertEq(tm.tierLatest(tm.TIER_RESERVE()), 1_000_000_000);
-        assertEq(tm.tierFilledSamples(tm.TIER_RESERVE()), 1);
+        _signAndPost(TIER_RESERVE, 1_000_000_000, 1, 0);
+        assertEq(tm.tierLatest(TIER_RESERVE), 1_000_000_000);
+        assertEq(tm.tierFilledSamples(TIER_RESERVE), 1);
         assertEq(tm.oracleNonce(oracleAddr), 1);
     }
 
@@ -37,53 +43,51 @@ contract TreasuryMirrorTest is Fixture {
         uint256 fakeKey = uint256(keccak256("nope"));
         address fakeAddr = vm.addr(fakeKey);
         uint64 exp = uint64(block.timestamp + 1 hours);
-        bytes32 inner = tm.payloadHash(tm.TIER_RESERVE(), 1_000, 1, 0, exp, fakeAddr);
+        bytes32 inner = tm.payloadHash(TIER_RESERVE, 1_000, 1, 0, exp, fakeAddr);
         bytes memory sig = _signEip191(fakeKey, inner);
         vm.expectRevert(abi.encodeWithSelector(TreasuryMirror.UnknownOracle.selector, fakeAddr));
-        tm.updateNAV(tm.TIER_RESERVE(), 1_000, 1, 0, exp, fakeAddr, sig);
+        tm.updateNAV(TIER_RESERVE, 1_000, 1, 0, exp, fakeAddr, sig);
     }
 
     function test_updateNAV_expired() public {
         uint64 exp = uint64(block.timestamp);
         vm.warp(block.timestamp + 2);
-        bytes32 inner = tm.payloadHash(tm.TIER_RESERVE(), 1_000, 1, 0, exp, oracleAddr);
+        bytes32 inner = tm.payloadHash(TIER_RESERVE, 1_000, 1, 0, exp, oracleAddr);
         bytes memory sig = _signEip191(oracleKey, inner);
         vm.expectRevert(TreasuryMirror.ExpiredSignature.selector);
-        tm.updateNAV(tm.TIER_RESERVE(), 1_000, 1, 0, exp, oracleAddr, sig);
+        tm.updateNAV(TIER_RESERVE, 1_000, 1, 0, exp, oracleAddr, sig);
     }
 
     function test_updateNAV_badNonce() public {
         uint64 exp = uint64(block.timestamp + 1 hours);
-        bytes32 inner = tm.payloadHash(tm.TIER_RESERVE(), 1_000, 1, 5, exp, oracleAddr);
+        bytes32 inner = tm.payloadHash(TIER_RESERVE, 1_000, 1, 5, exp, oracleAddr);
         bytes memory sig = _signEip191(oracleKey, inner);
         vm.expectRevert(abi.encodeWithSelector(TreasuryMirror.BadNonce.selector, uint64(0), uint64(5)));
-        tm.updateNAV(tm.TIER_RESERVE(), 1_000, 1, 5, exp, oracleAddr, sig);
+        tm.updateNAV(TIER_RESERVE, 1_000, 1, 5, exp, oracleAddr, sig);
     }
 
     function test_reserveAverage_overSamples() public {
         // Post 3 samples: 100, 200, 300 → avg 200
-        _signAndPost(tm.TIER_RESERVE(), 100, 1, 0);
-        _signAndPost(tm.TIER_RESERVE(), 200, 2, 1);
-        _signAndPost(tm.TIER_RESERVE(), 300, 3, 2);
+        _signAndPost(TIER_RESERVE, 100, 1, 0);
+        _signAndPost(TIER_RESERVE, 200, 2, 1);
+        _signAndPost(TIER_RESERVE, 300, 3, 2);
         assertEq(tm.reserveAverage(), 200);
     }
 
     function test_monthlyEnvelope_appliesKappa() public {
-        // avg = 1_200_000_000_000 (1.2M USDC base units actually 1.2T = 1.2M)
         // kappa_bps default = 300 (3%)
         // monthly = avg * 300 / 10_000 / 12 = avg * 0.0025
         // For avg=1_200_000, expect 3_000.
-        _signAndPost(tm.TIER_RESERVE(), 1_200_000, 1, 0);
+        _signAndPost(TIER_RESERVE, 1_200_000, 1, 0);
         assertEq(tm.monthlyEnvelopeUsdc(), 3_000);
     }
 
     function test_monthlyEnvelope_clampsKappaToCeiling() public {
         // Push kappa above ceiling and confirm the envelope clamps.
-        // gov is bound; prank as the gov contract and set mutable directly via Constitution.
         vm.prank(address(gov));
-        c.setMutable(K_KAPPA, bytes32(uint256(9_999))); // would imply ~99.99% — well above the 500 ceiling
-        _signAndPost(tm.TIER_RESERVE(), 1_200_000, 1, 0);
-        // ceiling = 500 → annual = avg * 500/10_000 = avg * 0.05; monthly = avg * 0.05 / 12
+        c.setMutable(K_KAPPA, bytes32(uint256(9_999)));
+        _signAndPost(TIER_RESERVE, 1_200_000, 1, 0);
+        // ceiling = 500 → annual = avg * 500/10_000 = avg * 0.05; monthly /12
         // For avg=1_200_000, expect 1_200_000 * 500 / 10_000 / 12 = 5_000
         assertEq(tm.monthlyEnvelopeUsdc(), 5_000);
     }
