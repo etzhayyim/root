@@ -110,7 +110,10 @@ export class AnchorClient {
     const ipfsCidHex: Hex =
       typeof ipfsCid === "string"
         ? ipfsCid
-        : (("0x" + Buffer.from(ipfsCid).toString("hex")) as Hex);
+        : ("0x" +
+            Array.from(ipfsCid)
+              .map((b) => b.toString(16).padStart(2, "0"))
+              .join("")) as Hex;
 
     const txHash = await this.walletClient.writeContract({
       address: this.contract,

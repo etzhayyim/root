@@ -31,7 +31,10 @@ export async function pinBlob(
   if (typeof blob === "string") {
     body = new Blob([blob], { type: "application/octet-stream" });
   } else if (blob instanceof Uint8Array) {
-    body = new Blob([blob], { type: "application/octet-stream" });
+    // Cast: TS 5.7+ tightened Uint8Array → BlobPart typing
+    // (ArrayBufferLike vs ArrayBuffer); at runtime any Uint8Array is
+    // a valid BlobPart.
+    body = new Blob([blob as BlobPart], { type: "application/octet-stream" });
   } else {
     body = blob;
   }
