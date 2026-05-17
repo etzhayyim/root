@@ -38,16 +38,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_collector_dashboard_counts AS
     FROM vertex_blockchain_actor
     WHERE repo IS NOT NULL;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS mv_malak_dashboard_counts AS
-    SELECT 'threatActors'::varchar AS metric, COUNT(*)::bigint AS cnt
-    FROM vertex_threat
-    WHERE repo IS NOT NULL
-
-    UNION ALL
-
-    SELECT 'btcRiskSignals'::varchar, COUNT(*)::bigint
-    FROM vertex_risk_signal
-    WHERE chain = 'btc';
+-- (mv_malak_dashboard_counts removed for etzhayyim/root open scope)
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS mv_vertex_ip_address_total AS
     SELECT COUNT(*)::bigint AS cnt

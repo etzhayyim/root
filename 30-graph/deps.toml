@@ -240,7 +240,7 @@ gftd world-coverage mapping (2026-05-10 review):
 - BigQuery cannot fill: `photos` (5T), `kessai`/`serial`/`seizo`/`nimotsu`/
   `bim`/`mac`/`iot` (each 100B–1T, industrial telemetry), `invoice`/`receipt`
   (each 500B, private), `natural-person` (108B), `shisan`/`haikibutsu`/
-  `kachiku`/`phonenumber`/`malak`/`keiyaku`/`software` (each 10–50B), all
+  `kachiku`/`phonenumber`/`keiyaku`/`software` (each 10–50B), all
   JP-vertical (`anime`/`manga`/`gameya`/`mercari`/`rakuten`/`ndl_books`/
   `houbun_jp`). These keep their dedicated collector / partnership pipelines.
 - Topology decision: BigQuery is the international-public-record substrate;
