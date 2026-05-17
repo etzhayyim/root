@@ -1,6 +1,6 @@
 ---
 id: adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-title: "ADR-2605171800: Artificial Organism Ecosystem — LangGraph Pregel → PostgresSaver → atproto MST → IPFS → Base L2 anchor pipeline"
+title: "ADR-2605171800: Artificial Organism Ecosystem — LangGraph Pregel → MstCheckpointSaver → atproto MST → IPFS → Base L2 anchor pipeline"
 status: proposed
 doc_type: adr
 topic: langgraph-mst-ipfs-l2-anchor-pipeline
@@ -11,25 +11,27 @@ axis: architecture
 weight: 0.70
 priority_note: "Defines the durable-state and verifiability spine for the artificial organism ecosystem (magatama actors). Touches every cell-class actor in 20-actors/magatama. Active once first reference impl lands; this ADR is the contract."
 authoritative_for:
-  - artificial organism checkpoint pipeline (Pregel → Postgres → MST → IPFS → L2)
-  - LangGraph PostgresSaver usage convention for organism cells
+  - artificial organism checkpoint pipeline (Pregel → MstCheckpointSaver → MST → IPFS → L2)
+  - LangGraph MstCheckpointSaver usage convention for organism cells (Python thin shim + TS sidecar via @etzhayyim/sdk)
   - MST projection schema (atproto-compatible, standalone — no PDS coupling)
   - L2 anchor target (Base) and batching semantics
   - IPFS pinning responsibility split
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605082000-langgraph-graph-definition-as-data.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091300-bonsai-cultivar-layer-above-myco-yeast.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605111300-pds-to-pod-bun-container.md
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605171800: Artificial Organism Ecosystem — LangGraph Pregel → PostgresSaver → atproto MST → IPFS → Base L2 anchor pipeline
+# ADR-2605171800: Artificial Organism Ecosystem — LangGraph Pregel → MstCheckpointSaver → atproto MST → IPFS → Base L2 anchor pipeline
 
 **Status**: proposed
 **Date**: 2026-05-17
@@ -41,27 +43,30 @@ superseded_by: []
 
 For that metaphor to hold up in production, every cell's state must be:
 
-1. **Durable** — survives crashes / migrations / scale-down. LangGraph already solves this with `PostgresSaver` (the canonical checkpoint saver from `langgraph-checkpoint-postgres`).
+1. **Durable** — survives crashes / migrations / scale-down. LangGraph normally solves this with `PostgresSaver` (the canonical checkpoint saver from `langgraph-checkpoint-postgres`), but ADR-2605172000 (RW-free substrate) prohibits centralized off-chain DBs in this monorepo. This ADR provides a substrate-compliant equivalent.
 2. **Replayable** — any past super-step can be reconstructed deterministically.
 3. **Verifiable** — a third party (auditor, peer cell, off-chain observer) can confirm a given state existed at a given step without trusting our infrastructure.
 4. **Content-addressed** — large blobs (LoRA weights, embedding tensors, observation buffers, tool outputs) live by hash, not by mutable pointer.
 5. **Finalizable** — at coarse intervals, a checkpoint root is anchored on-chain so the chain of state has a public, immutable history.
 
-Plain `PostgresSaver` satisfies (1) and (2) only. The remaining three properties are what this ADR adds.
+A plain LangGraph checkpoint saver (memory or Postgres) only satisfies (1)–(2), and Postgres specifically is disallowed here per ADR-2605172000. The remaining three properties — plus substrate compliance — are what this ADR delivers via `MstCheckpointSaver`.
 
-## Why MST, IPFS, and an L2 — not just Postgres + signatures?
+## Why MST, IPFS, and an L2 — directly as the LangGraph saver, not as projection from Postgres?
 
-| Property | Postgres alone | + signed Postgres | + MST + IPFS + L2 anchor |
+| Property | `MemorySaver` (LG default) | `PostgresSaver` (prohibited here per ADR-2605172000) | **`MstCheckpointSaver`** (this ADR) |
 |---|---|---|---|
-| Durable | ✅ | ✅ | ✅ |
-| Replayable | ✅ | ✅ | ✅ |
-| Verifiable by third party | ❌ (trust DB owner) | ⚠️ (trust signing key custody) | ✅ (Merkle proof against on-chain root) |
+| Durable across restart | ❌ | ✅ | ✅ (IPFS + L2 anchor) |
+| Replayable | ⚠️ (in-process only) | ✅ | ✅ |
+| Verifiable by third party | ❌ | ❌ (trust DB owner) | ✅ (Merkle proof against on-chain root) |
 | Content-addressed | ❌ | ❌ | ✅ |
 | Public, immutable history | ❌ | ❌ | ✅ |
 | Federable with atproto ecosystem | ❌ | ❌ | ✅ (atproto-shaped MST + CAR) |
-| Cell can migrate between hosts without coordination | ⚠️ | ⚠️ | ✅ (IPFS-addressed state, anchor as ground truth) |
+| Cell can migrate between hosts without coordination | ❌ | ⚠️ | ✅ (IPFS-addressed state, anchor as ground truth) |
+| Compliant with ADR-2605172000 substrate boundary | ✅ (no state) | ❌ | ✅ |
 
 The MST + IPFS + L2 trio is also exactly the shape atproto uses for its repo (MST → CAR → optional anchor). Adopting an **atproto-compatible MST projection** means each organism cell is automatically compatible with atproto tooling (`@atproto/repo`, CAR readers, MST verifiers, ipld libraries), which the religious-corp open ecosystem already uses (`10-protocol/at-client`, `50-infra/k8s/atproto-pds`, `60-apps/ai-gftd-project-atproto`).
+
+An earlier draft of this ADR routed all checkpoints through `PostgresSaver` first and projected to MST asynchronously. That draft was superseded by the present design before any reference impl landed, because ADR-2605172000 prohibits Postgres in this monorepo. The new design folds projection *into* the saver itself: `MstCheckpointSaver.put()` writes directly to the MST/IPFS layer via a TS sidecar (`@etzhayyim/sdk`) over a local Unix socket. The LangGraph hot path now has exactly one substrate hop instead of two.
 
 ## Why standalone MST, not the PDS?
 
@@ -85,48 +90,50 @@ The MST + IPFS + L2 trio is also exactly the shape atproto uses for its repo (MS
 
 # Decision
 
-Adopt the following five-stage pipeline for every magatama organism cell that needs verifiable durable state. The pipeline is **append-only**: each stage adds artifacts; nothing is overwritten.
+Adopt the following four-stage pipeline for every magatama organism cell that needs verifiable durable state. The pipeline is **append-only**: each stage adds artifacts; nothing is overwritten. Stages 1–2 are synchronous (Pregel hot path); Stages 3–4 are async.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  LangGraph Pregel super-step                                        │
+│  Stage 1 — LangGraph Pregel super-step                              │
 │  (cell.invoke / cell.stream — BSP boundaries)                       │
 └─────────────────────────────────────────────────────────────────────┘
                               │
-                              ▼ checkpoint(t)
+                              ▼ checkpoint(t)  [Python side]
 ┌─────────────────────────────────────────────────────────────────────┐
-│  PostgresSaver (langgraph-checkpoint-postgres, unmodified)          │
-│  Tables: checkpoints, checkpoint_writes, checkpoint_blobs            │
+│  MstCheckpointSaver (Python, BaseCheckpointSaver subclass)          │
+│  • serialises checkpoint → msgpack                                  │
+│  • IPC over Unix socket → TS sidecar                                │
 └─────────────────────────────────────────────────────────────────────┘
                               │
-                              ▼ async projection (LISTEN/NOTIFY OR cron)
+                              ▼ socket /run/etzhayyim/checkpointer.sock
 ┌─────────────────────────────────────────────────────────────────────┐
-│  MST projector (atproto-shaped, standalone)                         │
-│  Reads checkpoint row → builds atproto MST → writes CAR file        │
-│  Records (checkpoint_id, mst_root_cid, car_size) into side-table    │
+│  Stage 2 — @etzhayyim/sdk checkpointer sidecar (TypeScript)         │
+│  • @atproto/repo: build deterministic MST → CAR                     │
+│  • emits mst_root_cid synchronously to caller (saver receipt)       │
+│  • enqueues CAR for IPFS pin (Stage 3) and L2 anchor (Stage 4)      │
 └─────────────────────────────────────────────────────────────────────┘
                               │
-                              ▼ pin
+                              ▼ async pin
 ┌─────────────────────────────────────────────────────────────────────┐
-│  IPFS                                                                │
-│  CAR pinned to local node + remote pinning service                  │
-│  Large blobs (>blob_inline_threshold) deduplicated by CID            │
+│  Stage 3 — IPFS                                                     │
+│  CAR pinned to local kubo + remote pinning service                  │
+│  Large blobs (>blob_inline_threshold) deduplicated by CID           │
 └─────────────────────────────────────────────────────────────────────┘
                               │
                               ▼ batched anchor (configurable cadence)
 ┌─────────────────────────────────────────────────────────────────────┐
-│  Base L2 — CheckpointAnchor.sol                                     │
+│  Stage 4 — Base L2 — CheckpointAnchor.sol                           │
 │  emit Anchored(did, mst_root_cid, checkpoint_id, ts)                │
-│  Side-table records tx_hash, block, log_index                       │
+│  anchor-cron records tx_hash, block, log_index in saver state       │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
 Each stage is independently replayable from the previous stage's artifacts. The chain of cryptographic links is:
 
 ```
-state(t)  ─sha256─▶  postgres checkpoint row
+state(t)  ─msgpack─▶  Python saver call
                               │
-                              ▼
+                              ▼ (IPC, in-host)
                      atproto MST root CID  ◀── CAR file (deterministic encode)
                               │
                               ▼
@@ -139,124 +146,76 @@ state(t)  ─sha256─▶  postgres checkpoint row
                      Tx mined → block hash → L1 calldata batch → L1 finality
 ```
 
-## Stage 1 — LangGraph Pregel runtime (host: `20-actors/magatama`)
+Postgres / RisingWave / Kysely do not appear anywhere in this pipeline. Per ADR-2605172000, the substrate is exhausted by MST + IPFS + L2.
 
-Unchanged from existing `magatama` host. Each cell is a LangGraph graph constructed with the magatama host SDK. Super-step boundaries are defined by LangGraph's normal `interrupt_after` / `interrupt_before` semantics and by the cell's BSP scheduler.
+## Stage 1 — LangGraph Pregel runtime + Python saver shim (host: `20-actors/magatama`)
 
-**Convention**: every cell graph builds with `checkpointer=PostgresSaver(...)`. No custom saver subclass. (See § "Alternatives Considered" → C.)
+Each cell is a LangGraph graph constructed with the magatama host SDK. Super-step boundaries are defined by LangGraph's normal `interrupt_after` / `interrupt_before` semantics and by the cell's BSP scheduler.
 
-## Stage 2 — PostgresSaver (plain, from `langgraph-checkpoint-postgres`)
+**Convention**: every cell graph builds with `checkpointer=MstCheckpointSaver(socket_path=..., cell_did=...)`. The saver is a thin (~50 LOC) `langgraph.checkpoint.base.BaseCheckpointSaver` subclass living at:
 
-Use upstream `langgraph-checkpoint-postgres` as-is. Apply its migrations to the organism Postgres schema. Configure connection per cell or per cell-cohort.
-
-Add **one side-table** owned by this ADR, not by upstream:
-
-```sql
--- 50-infra/mst-anchor/migrations/0001_checkpoint_anchor_sidecar.sql
-CREATE TABLE checkpoint_anchor_sidecar (
-  -- foreign key into upstream PostgresSaver checkpoints table
-  thread_id           TEXT      NOT NULL,
-  checkpoint_ns       TEXT      NOT NULL DEFAULT '',
-  checkpoint_id       TEXT      NOT NULL,
-
-  -- MST projection
-  mst_root_cid        TEXT,                            -- base32 CIDv1 (sha2-256)
-  car_size_bytes      BIGINT,
-  car_blob_count      INT,
-  mst_projected_at    TIMESTAMPTZ,
-
-  -- IPFS
-  ipfs_pinned_at      TIMESTAMPTZ,
-  ipfs_pin_service    TEXT,                            -- 'local' | 'web3-storage' | …
-  ipfs_pin_id         TEXT,
-
-  -- L2 anchor (Base)
-  anchor_tx_hash      TEXT,                            -- 0x… 32 bytes
-  anchor_block_number BIGINT,
-  anchor_log_index    INT,
-  anchor_chain_id     INT      NOT NULL DEFAULT 8453,  -- Base mainnet
-  anchored_at         TIMESTAMPTZ,
-
-  -- Cell identity
-  cell_did            TEXT      NOT NULL,              -- did:web:… or did:plc:…
-
-  -- bookkeeping
-  created_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
-
-  PRIMARY KEY (thread_id, checkpoint_ns, checkpoint_id)
-);
-
-CREATE INDEX idx_anchor_pending_projection
-  ON checkpoint_anchor_sidecar (created_at)
-  WHERE mst_projected_at IS NULL;
-
-CREATE INDEX idx_anchor_pending_pin
-  ON checkpoint_anchor_sidecar (mst_projected_at)
-  WHERE ipfs_pinned_at IS NULL AND mst_projected_at IS NOT NULL;
-
-CREATE INDEX idx_anchor_pending_anchor
-  ON checkpoint_anchor_sidecar (ipfs_pinned_at)
-  WHERE anchor_tx_hash IS NULL AND ipfs_pinned_at IS NOT NULL;
-
-CREATE INDEX idx_anchor_by_cell
-  ON checkpoint_anchor_sidecar (cell_did, anchored_at);
+```
+20-actors/magatama/py/src/pymagatama/checkpointer/mst_saver.py
 ```
 
-PostgresSaver writes are completed transactionally before any sidecar processing starts. The sidecar table is **strictly downstream**; failure of any later stage does not corrupt LangGraph state.
+It implements `put` / `get_tuple` / `list` / `put_writes` by:
 
-A Postgres trigger inserts a `checkpoint_anchor_sidecar` row on every new `checkpoints` row and `NOTIFY`s the projector daemon:
+1. Serialising the checkpoint payload to **msgpack** (binary, deterministic).
+2. Opening (or reusing) a connection to the Unix socket at `socket_path` (default: `/run/etzhayyim/checkpointer.sock`).
+3. Sending a length-prefixed msgpack request `{op, cell_did, thread_id, checkpoint_ns, checkpoint_id, payload}` and awaiting the response.
+4. Returning the LangGraph-expected tuple unchanged on the Python side. The saver holds **no MST / IPFS / viem logic** — all substrate code lives TS-side per ADR-2605172100 ("Substrate client imports | Only via `@etzhayyim/sdk`").
 
-```sql
-CREATE OR REPLACE FUNCTION fn_checkpoint_inserted() RETURNS trigger AS $$
-BEGIN
-  INSERT INTO checkpoint_anchor_sidecar (thread_id, checkpoint_ns, checkpoint_id, cell_did)
-  VALUES (NEW.thread_id, NEW.checkpoint_ns, NEW.checkpoint_id,
-          COALESCE(current_setting('app.cell_did', true), 'did:unknown'))
-  ON CONFLICT (thread_id, checkpoint_ns, checkpoint_id) DO NOTHING;
-  PERFORM pg_notify('checkpoint_inserted',
-    json_build_object('thread_id', NEW.thread_id,
-                      'checkpoint_id', NEW.checkpoint_id)::text);
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+IPC schema (msgpack, request / response framed by 4-byte big-endian length prefix):
 
-CREATE TRIGGER trg_checkpoint_inserted
-  AFTER INSERT ON checkpoints
-  FOR EACH ROW EXECUTE FUNCTION fn_checkpoint_inserted();
+```
+Request  := { v: 1, op: "put" | "get_tuple" | "list" | "put_writes",
+              cell_did: str, thread_id: str, checkpoint_ns: str,
+              checkpoint_id: str | null, payload: bytes, meta: {…} }
+Response := { ok: bool, mst_root_cid: str | null,
+              data: bytes | null, error: str | null }
 ```
 
-`app.cell_did` is set per session by the magatama host before invoking the graph (`SET LOCAL app.cell_did = 'did:web:…'`). Cells without an explicit DID are tagged `did:unknown` and excluded from anchoring (see § "Cell DID provisioning" below).
+Unix socket is preferred over TCP/HTTP for (a) zero-copy via SOCK_STREAM, (b) host-local-only by construction (filesystem permission as access control), (c) sub-millisecond round-trip vs ~1ms HTTP/1.1. For non-co-located deployment (test rigs running saver against a remote sidecar) the same wire format works over TCP; the saver accepts `socket_path=tcp://host:port`.
 
-## Stage 3 — MST projector (`50-infra/mst-projector`)
+## Stage 2 — `@etzhayyim/sdk` checkpointer sidecar (TypeScript)
 
-A standalone daemon (Node.js, uses `@atproto/repo` from npm) that:
+A long-lived Node.js process (one per magatama host) shipped as part of `20-actors/etzhayyim-sdk`. Source layout:
 
-1. Subscribes to `pg_notify('checkpoint_inserted', …)`.
-2. On each notification, loads the checkpoint row (`checkpoints` + `checkpoint_writes` + `checkpoint_blobs`).
-3. **Projects** the checkpoint to an atproto MST. Projection rules:
+```
+20-actors/etzhayyim-sdk/src/checkpointer.ts   — sidecar entrypoint + IPC server + MST commit
+```
+
+Responsibilities, on each `op="put"` request:
+
+1. msgpack-decode the request body.
+2. **Project** the checkpoint payload to an atproto MST. Projection rules (deterministic; same payload → same CID, bit-for-bit):
    - MST key namespace: `magatama.cell.{cell_did_suffix}/checkpoint/{checkpoint_id}`.
    - Each top-level LangGraph state key becomes a record under `magatama.cell.{…}/state/{key}`.
    - LangGraph channel writes (the per-step delta) go under `magatama.cell.{…}/channel/{step}/{channel}`.
    - Records >`blob_inline_threshold` bytes (default 16 KiB) become **separate blobs**, referenced by CID in the MST record. Below threshold, inlined as record content.
-4. Serializes the MST to **CAR v1** with deterministic block ordering (so the same logical state produces the same CID).
-5. Computes the MST **root CID** and writes it back into `checkpoint_anchor_sidecar.mst_root_cid` along with `car_size_bytes`, `car_blob_count`, `mst_projected_at`.
-6. Hands the CAR to Stage 4 (IPFS).
+3. Build the MST with `@atproto/repo` and serialise to **CAR v1** with canonical block ordering.
+4. Compute the MST **root CID** and return it synchronously to the Python saver in the response.
+5. Enqueue the CAR for asynchronous IPFS pinning (Stage 3) and L2 anchor batching (Stage 4) in an on-disk durable queue (`~/.etzhayyim/checkpointer/queue/{cell_did}/{checkpoint_id}.car`).
+6. Maintain a small **saver state index** (BoltDB / level / plain SQLite — implementation choice, not load-bearing) so `op="get_tuple"` and `op="list"` can be served without re-walking the queue. This is the **only** local persistence; it holds nothing that isn't also derivable from IPFS-pinned CARs.
 
-Projection is **pure**: same checkpoint row → same MST root CID, bit-for-bit. This is how third parties verify replay.
+Projection is **pure**. This is how third parties verify replay.
 
-## Stage 4 — IPFS pinning (`50-infra/ipfs-pinner`, or service of choice)
+The sidecar is **not a database**. Its on-disk state is a write-ahead spool plus a derived index; both can be reconstructed at any time by walking the host's IPFS pins for the cell's DID. The substrate of record is still IPFS + Base L2.
 
-The projector daemon pushes the CAR to:
+Cell DID is provided by the saver on every call (`cell_did` field). The sidecar refuses requests for any DID it has not been provisioned to anchor for (see § "Cell DID provisioning").
+
+## Stage 3 — IPFS pinning (`50-infra/ipfs-pinner`, or service of choice)
+
+The sidecar drains its pin queue to:
 
 1. **Local IPFS node** (Kubo or Helia, deployed in `50-infra/ipfs/` — currently absent; to be scaffolded in a follow-up).
 2. **Remote pinning service** (configurable: web3.storage, Filebase, or Cloudflare R2 with IPFS gateway). At least one remote pin is required for durability.
 
-On successful pin, the daemon writes `ipfs_pinned_at`, `ipfs_pin_service`, `ipfs_pin_id` to the sidecar table.
+On successful pin, the sidecar updates its saver-state index with `ipfs_pinned_at`, `ipfs_pin_service`, `ipfs_pin_id`.
 
 Large blobs referenced from MST records are pinned **independently** by CID (deduplication: identical embeddings or LoRA weights pinned once across all cells).
 
-## Stage 5 — Base L2 anchor (`50-infra/l2-anchor-contract` + `50-infra/anchor-cron`)
+## Stage 4 — Base L2 anchor (`50-infra/l2-anchor-contract` + `50-infra/anchor-cron`)
 
 A simple Solidity contract on Base mainnet (chain id 8453):
 
@@ -330,10 +289,10 @@ contract CheckpointAnchor {
 
 `50-infra/anchor-cron` runs every `anchor_period` (default 60s; configurable per cell-cohort):
 
-1. Selects all sidecar rows with `ipfs_pinned_at IS NOT NULL AND anchor_tx_hash IS NULL`, grouped by cell DID, up to a batch cap (default 100 rows per tx).
+1. Reads the checkpointer sidecar's saver-state index for entries with `ipfs_pinned_at IS NOT NULL AND anchor_tx_hash IS NULL`, grouped by cell DID, up to a batch cap (default 100 entries per tx). The index is queried over the same Unix socket via `op="anchor_pending"`.
 2. Constructs `anchorBatch(...)` calldata.
 3. Signs with the **organism anchor key** (separate from `did:web:etzhayyim.com` controller key; this is a hot key funded with Base ETH).
-4. Submits to Base; waits for 1 confirmation; writes `anchor_tx_hash`, `anchor_block_number`, `anchor_log_index`, `anchored_at` back to the sidecar rows in a single Postgres tx.
+4. Submits to Base; waits for 1 confirmation; writes `anchor_tx_hash`, `anchor_block_number`, `anchor_log_index`, `anchored_at` back into the sidecar's index via `op="anchor_commit"`.
 5. On revert / gas-price spike, backs off exponentially and retries.
 
 Anchor cadence is tunable per cohort. Defaults:
@@ -369,35 +328,41 @@ No trust in our Postgres, our IPFS pinner, or our daemons is required. Only Base
 
 | Stage failure | Consequence | Recovery |
 |---|---|---|
-| PostgresSaver write fails | LangGraph treats checkpoint as not persisted; retries per LangGraph semantics. Sidecar not affected. | None needed (upstream LangGraph behavior). |
-| Trigger / NOTIFY fails | Sidecar row not created. | Reconciliation job (hourly): scan `checkpoints` LEFT JOIN sidecar WHERE sidecar.checkpoint_id IS NULL, backfill. |
-| MST projection daemon down | Sidecar rows accumulate with `mst_projected_at IS NULL`. | Daemon recovery; index `idx_anchor_pending_projection` makes the backlog cheap to scan. |
-| IPFS pin fails | `ipfs_pinned_at` stays NULL; anchor blocked for this row. | Pinner daemon retries with exponential backoff; pin to alternate service if primary down. |
-| Anchor tx reverts / underprices | `anchor_tx_hash` stays NULL; row eligible for next batch. | Anchor-cron retries with re-priced gas; circuit breaker if RPC unreachable. |
-| Base RPC down | Anchor-cron pauses; sidecar grows. | Self-heals when RPC recovers; backlog auto-drains via index. |
-| Anchor key compromised | Attacker can post arbitrary `Anchored` events under our DID. | Rotate the key in the DID document; peers/verifiers reject anchors with old key. The actual cell state in Postgres+IPFS is unaffected — only the *public claim* layer is impacted. |
-| MST projection daemon bug → wrong CID | Anchored CID points at corrupted CAR. | Anchors are append-only logs; we cannot un-anchor. Issue a `corrupted=true` follow-up anchor referencing the bad one + the corrected CID. Verifiers prefer latest non-corrupted anchor per (did, checkpoint_id). |
+| Sidecar Unix socket unreachable (process dead) | Python saver `put()` raises; LangGraph treats checkpoint as not persisted; retries per LangGraph semantics. No cell state lost in-memory. | Restart sidecar (systemd / k8s liveness probe). Saver auto-reconnects on next call. |
+| Sidecar CAR write to local disk fails | Saver returns error; LangGraph retry. | Investigate disk pressure; sidecar is bounded by `~/.etzhayyim/checkpointer/queue` size which an operator can monitor. |
+| IPC schema mismatch (Python ↔ TS version skew) | `op` rejected with `error: "unknown op"`. | Pin both sides on the same `@etzhayyim/sdk` version; CI gate (future) verifies cross-language schema parity. |
+| MST projection bug → wrong CID | Anchored CID points at corrupted CAR. | Anchors are append-only logs; we cannot un-anchor. Issue a `corrupted=true` follow-up anchor referencing the bad one + the corrected CID. Verifiers prefer latest non-corrupted anchor per (did, checkpoint_id). Golden-CAR tests in CI prevent the bug class. |
+| IPFS pin fails | `ipfs_pinned_at` stays NULL in saver-state index; anchor blocked for this entry. | Sidecar retries with exponential backoff; pin to alternate service if primary down. |
+| Anchor tx reverts / underprices | `anchor_tx_hash` stays NULL; entry eligible for next batch. | Anchor-cron retries with re-priced gas; circuit breaker if RPC unreachable. |
+| Base RPC down | Anchor-cron pauses; sidecar pin-queue grows on disk. | Self-heals when RPC recovers; backlog auto-drains. |
+| Anchor key compromised | Attacker can post arbitrary `Anchored` events under our DID. | Rotate the key in the DID document; peers/verifiers reject anchors with old key. The actual cell state in IPFS is unaffected — only the *public claim* layer is impacted. |
+| Sidecar saver-state index lost (disk corruption) | `op="get_tuple"` / `op="list"` return empty until rebuild. | Walk the host's IPFS pins for this cell's DID and rebuild the index. The index is derived, not authoritative. |
 
-## Repository layout (target — not built in this ADR)
+## Repository layout (target — scaffolded alongside this ADR's revise)
 
 ```
-20-actors/magatama/
-  hosts/                    # existing — magatama Pregel host
-  checkpoint-mst/           # NEW — host-side glue: SET LOCAL app.cell_did, etc.
+20-actors/magatama/py/src/pymagatama/
+  checkpointer/             # NEW — Python BaseCheckpointSaver shim
+    __init__.py
+    mst_saver.py            # MstCheckpointSaver (~50 LOC, IPC over Unix socket)
+
+20-actors/etzhayyim-sdk/
+  src/
+    checkpointer.ts         # NEW — TypeScript sidecar (IPC server + MST + queue)
+  bin/
+    etzhayyim-checkpointer  # NEW — sidecar launcher (node-based)
 
 50-infra/
-  mst-projector/            # NEW — Node.js daemon, @atproto/repo + pg LISTEN
-  ipfs-pinner/              # NEW — wraps Kubo/Helia + remote pinning client
-  l2-anchor-contract/       # NEW — foundry project, CheckpointAnchor.sol
-  anchor-cron/              # NEW — TS service: batch + viem + Base
-  ipfs/                     # currently MISSING from CLAUDE.md — to be scaffolded
-                            #   (Kubo node deployment manifests)
+  ipfs-pinner/              # existing scaffold (Stage 3); consumed by sidecar
+  l2-anchor-contract/       # existing scaffold (Stage 4); Foundry project
+  anchor-cron/              # existing scaffold (Stage 4); reads via op="anchor_pending"
+  ipfs/                     # MISSING from CLAUDE.md — to be scaffolded (Kubo manifests)
 
 60-apps/
   organism-demo/            # NEW — single-cell PoC consuming the pipeline
 ```
 
-The actual scaffolding of these directories is out of scope for this ADR (per scope decision: ADR-only). A follow-up implementation ADR or task will land them.
+Note the absence of `50-infra/mst-projector/` — the projector daemon from the original draft is gone. Its role is folded into the `@etzhayyim/sdk` checkpointer sidecar, which is the only IPC peer Python ever talks to for checkpoint state.
 
 # Consequences
 
@@ -407,17 +372,20 @@ The actual scaffolding of these directories is out of scope for this ADR (per sc
 - **Cell migration is cheap.** Move a cell between hosts → ship its DID + IPFS pins; new host re-binds to its Postgres or rebuilds Postgres state from the CAR. No coordination with central authority.
 - **atproto ecosystem compatibility.** Standard tooling (`@atproto/repo`, CAR readers, IPLD libs) reads organism state. Bridge to PDS publication is a future ADR away.
 - **Composable with Bonsai Cultivar metaphor** (ADR-2605091300). Cells have lineage (anchor chain), metabolism (rate of MST growth), and reproduction (fission = copy CAR + fork DID). All measurable from public artifacts.
-- **No vendor lock-in.** Postgres, IPFS, Base, and atproto MST are all open standards / open-source. Anchor contract is 50 lines of permissive-license Solidity.
-- **Failure isolation.** PostgresSaver is the only stage in the cell's hot path. MST/IPFS/L2 are async; their failures degrade verifiability, not cell operation.
+- **No supplier lock-in.** IPFS, Base, and atproto MST are all open standards / open-source. Anchor contract is 50 lines of permissive-license Solidity.
+- **Substrate compliance for free.** The saver is the only piece of LangGraph integration; once it's in place, every cell on every magatama host is automatically ADR-2605172000 / 2605172100 compliant. No leakage of `@atproto/api` or `viem` imports into Python or app code.
+- **Failure isolation.** The Python saver's only synchronous dependency is the TS sidecar over Unix socket. MST/IPFS/L2 latencies are absorbed by the sidecar's queue; a slow IPFS pin or a stalled Base RPC does not slow the Pregel super-step beyond the local MST commit.
+- **Single-language substrate.** All MST + IPFS + viem code lives in TypeScript via `@etzhayyim/sdk`. Tests, type-checks, and security review concentrate in one place rather than being duplicated across Python and TS.
 
 ## 負の効果 / コスト
 
-- **Operational surface area grows by 4 services**: MST projector, IPFS pinner (+ IPFS node), anchor cron, and the deployed Base contract. Each needs monitoring, key custody, and a runbook.
+- **Operational surface area: 1 new sidecar + 3 existing services**: `@etzhayyim/sdk` checkpointer sidecar (new), IPFS pinner (+ IPFS node), anchor cron, and the deployed Base contract. The sidecar is a long-lived Node.js process per magatama host — needs a systemd unit / k8s sidecar container, a healthcheck, and a restart policy. The previous draft's separate MST projector daemon is gone, so net process count is the same as the draft (4 → 4) but with one fewer IPC peer.
 - **L2 anchor cost.** At 60s cadence per cell with batching, rough order-of-magnitude is $0.01–$0.10 per cell per day on Base (calldata-dominated). Cheap individually, but linear in cell count. For 10⁴ cells: ~$100–$1000/day. Mitigation: longer batch periods, IPFS-as-default + opt-in anchor per cohort, future move to a data-availability layer if scale demands it.
 - **Hot anchor key custody.** A wallet funded with Base ETH that signs anchor txs must be protected. Mitigation: HSM or threshold signature; rotation procedure in the DID document.
 - **Standalone MST cannot federate via PDS-relay.** Cells are not visible in atproto firehoses unless we add a publishing surface. Acceptable for v1 (verifiability ≠ federation); future ADR can add a PDS export.
-- **MST projection determinism is load-bearing.** A bug that changes block ordering or encoding silently breaks reproducibility. Mitigation: golden-CAR tests in CI, snapshot tests across `@atproto/repo` upgrades.
-- **Postgres trigger adds load** to checkpoint writes. NOTIFY is cheap but adds ~10–50µs per checkpoint. Negligible at expected cell rates (<10 Hz/cell) but worth measuring under load.
+- **MST projection determinism is load-bearing.** A bug that changes block ordering or encoding silently breaks reproducibility. Mitigation: golden-CAR tests in CI, snapshot tests across `@atproto/repo` upgrades. With projection happening in one place (the TS sidecar), there's exactly one codepath to gate.
+- **Python ↔ TS IPC schema drift risk.** If `@etzhayyim/sdk` and `pymagatama.checkpointer` versions skew on the wire, the saver fails closed (`error: "unknown op"`). Mitigation: pin compatible versions in `deps.toml`; future CI gate runs both sides against a shared msgpack schema fixture.
+- **IPC adds ~hundreds of µs per super-step.** Unix socket round-trip + msgpack encode/decode. Negligible at expected cell rates (<10 Hz/cell) but measurable; budget appropriately for high-cadence cohorts.
 - **IPFS unpinning risk.** If both local and remote pin lapse, the CAR is unreachable, but the anchor on Base still claims its CID. Mitigation: pinning service redundancy + monitoring + Filecoin deal as cold tier (future).
 
 ## Out of scope for this ADR
@@ -432,15 +400,16 @@ The actual scaffolding of these directories is out of scope for this ADR (per sc
 
 ## Migration / rollout plan
 
-This ADR is the **contract**, not the build. Rollout is staged:
+This ADR is the **contract**, accompanied by Phase-1 scaffolds. Rollout is staged:
 
-- [ ] **Phase 0 — this ADR (now).** Contract is published.
-- [ ] **Phase 1 — reference impl (follow-up).** Scaffold the 4 new infra packages + 1 PoC app under `60-apps/organism-demo/`. Single cell, single thread, end-to-end verifiable on Base sepolia.
-- [ ] **Phase 2 — magatama host integration.** Magatama Pregel host calls `SET LOCAL app.cell_did` on every cell session start.
-- [ ] **Phase 3 — Base mainnet deploy.** Deploy `CheckpointAnchor.sol` on Base mainnet. Address recorded in `deps.toml` under `[platform.l2_anchor]`. Wallet funded.
-- [ ] **Phase 4 — first production cell.** A real cell from an `60-apps/ai-gftd-project-open-*` project opts into the pipeline. Monitor cost + latency for one week.
-- [ ] **Phase 5 — IPFS infra scaffolded.** `50-infra/ipfs/` Kubo deployment (currently missing from layout in `CLAUDE.md`).
-- [ ] **Phase 6 — `lefthook.yml` `adr-validate` hook** ensures any ADR claiming `authoritative_for` overlapping this one is properly chained via `supersedes`.
+- [x] **Phase 0 — this ADR (revise).** Contract published with PostgresSaver dropped in favour of `MstCheckpointSaver`.
+- [ ] **Phase 1 — reference impl scaffolds (this revise).** Python `MstCheckpointSaver` shim in `20-actors/magatama/py/src/pymagatama/checkpointer/`, TS sidecar in `20-actors/etzhayyim-sdk/src/checkpointer.ts`. Both compile / lint clean; no end-to-end test yet.
+- [ ] **Phase 2 — wire end-to-end on Base sepolia.** Local kubo + sepolia anchor-cron + a single cell from `60-apps/organism-demo/`.
+- [ ] **Phase 3 — magatama host integration.** Host SDK passes `cell_did` into the saver constructor on every cell session start.
+- [ ] **Phase 4 — Base mainnet deploy.** Deploy `CheckpointAnchor.sol` on Base mainnet. Address recorded in `deps.toml` under `[platform.l2_anchor]`. Wallet funded.
+- [ ] **Phase 5 — first production cell.** A real cell from an `60-apps/ai-gftd-project-open-*` project opts into the pipeline. Monitor cost + latency for one week.
+- [ ] **Phase 6 — IPFS infra scaffolded.** `50-infra/ipfs/` Kubo deployment (currently missing from layout in `CLAUDE.md`).
+- [ ] **Phase 7 — `lefthook.yml` `adr-validate` hook** ensures any ADR claiming `authoritative_for` overlapping this one is properly chained via `supersedes`, plus IPC schema parity check (Python msgpack codec ↔ TS msgpack codec).
 
 # Alternatives Considered
 
@@ -448,7 +417,7 @@ This ADR is the **contract**, not the build. Rollout is staged:
 
 LangGraph + PostgresSaver, done. Cells are durable and replayable.
 
-却下理由: fails third-party verifiability, content-addressability, and public history. The organism metaphor's "open" property collapses to "trust the operator." This is the same failure mode that motivates ADR-2605152100's principal/vendor boundary — we want the open ecosystem to be *demonstrably* open, not just nominally so.
+却下理由: directly prohibited by ADR-2605172000 (RW-free substrate) in this monorepo. Even ignoring the substrate rule, this approach fails third-party verifiability, content-addressability, and public history. The organism metaphor's "open" property collapses to "trust the operator." This is the same failure mode that motivates ADR-2605152100's source-control boundary — we want the open ecosystem to be *demonstrably* open, not just nominally so. If a future use case needs Postgres-grade query performance (e.g., HITL workflows requiring rich filtering), the route is XRPC consent-capability into an upstream backend, not a Postgres on the open side.
 
 ## B. Atproto PDS as canonical store
 
@@ -456,11 +425,15 @@ LangGraph + PostgresSaver, done. Cells are durable and replayable.
 
 却下理由: couples cell cadence to PDS commit rate, forces every cell to look like an atproto identity (heavyweight for short-lived cells), and bakes federation policy into the data layer. The MST is the useful primitive, not the PDS; we adopt the primitive without the package. PDS publication can be added later as a publishing surface (Phase 6+).
 
-## C. Custom PostgresSaver subclass that emits MST inline
+## C. PostgresSaver + async MST projector daemon (original draft of this ADR)
 
-Subclass `PostgresSaver`, override `put()` to project + pin + (optionally) anchor in the same transaction.
+The earlier draft of this ADR kept upstream `PostgresSaver` on the hot path and projected to MST asynchronously via a `pg_notify`-driven Node daemon, with a Postgres sidecar table tracking projection / pin / anchor state per checkpoint.
 
-却下理由: tight coupling between cell hot path and three async dependencies. A slow IPFS or Base RPC stalls every super-step. Even with retries-and-fallback, debugging becomes hard. The chosen design (plain saver + async sidecar) preserves LangGraph's stability and keeps verifiability fully decoupled.
+却下理由: ADR-2605172000 prohibits Postgres in this monorepo, so the entire upper half of that pipeline is non-starter. Beyond the substrate rule, the original draft had two practical drawbacks the new design fixes:
+- Two substrate hops per super-step (Postgres write, then projection daemon read) instead of one.
+- A separate daemon (`50-infra/mst-projector`) duplicating concerns that already live in `@etzhayyim/sdk`.
+
+The chosen design (`MstCheckpointSaver` thin shim + TS sidecar via Unix socket) preserves the *spirit* of the original — keep the hot path simple, do projection close to the saver — while complying with the substrate boundary and removing a process.
 
 ## D. L1 Ethereum anchor (not L2)
 
@@ -498,6 +471,18 @@ Permanent storage instead of pinning.
 
 却下理由: paid-up-front cost model is poorly matched to the high-churn early phase. Pinning + future Filecoin cold tier is the cheaper path. Revisit when access patterns are understood.
 
+## J. Python-native MST + IPFS + viem port (no TS sidecar)
+
+Reimplement `@atproto/repo`'s MST, kubo client, and viem-equivalent L2 calldata builder in pure Python. `MstCheckpointSaver` becomes a one-process saver with no IPC.
+
+却下理由: violates ADR-2605172100 ("Substrate client imports | Only via `@etzhayyim/sdk`"), which exists precisely to avoid two parallel substrate stacks. The MST encoding is determinism-sensitive — divergence between Python and TS at the bit level silently breaks third-party verification. The TS ecosystem also has `@atproto/repo`, `viem`, and `kubo-rpc-client` as battle-tested upstream; Python equivalents either don't exist or are immature. The IPC hop is sub-millisecond on Unix socket — cheap compared to the IPFS pin and L2 anchor latencies that dominate the pipeline. Revisit only if (a) `@etzhayyim/sdk` itself migrates to a non-TS host language, or (b) magatama moves to a runtime where IPC has macro-cost (unlikely on Linux hosts).
+
+## K. RisingWave as the saver
+
+Use `langgraph-checkpoint-postgres` against a RisingWave Postgres-compatible endpoint, leveraging its streaming materialised views for downstream projection.
+
+却下理由: identical to (A) under ADR-2605172000; RisingWave is the specific exemplar of the prohibited category. If RW-grade streaming is needed for an upstream workflow, run RW upstream and call it via XRPC consent-capability; do not embed it on the open side.
+
 # References
 
 - LangGraph PostgresSaver — https://langchain-ai.github.io/langgraph/concepts/persistence/#postgres
@@ -510,10 +495,12 @@ Permanent storage instead of pinning.
 - `CLAUDE.md` (repo root) — operating entity identity, monorepo layout
 - `90-docs/CLAUDE.md` (this repo) — docs system rules
 - ADR-2605170900 — this repo as canonical ADR home (depends_on)
-- ADR-2605152100 — etzhayyim org boundary (vendor; cross-repo)
-- ADR-2605080600 — LangGraph Server + Granian runtime (vendor; sets server runtime context)
-- ADR-2605082000 — LangGraph graph-as-data (vendor; cell graph schema heritage)
-- ADR-2605091300 — Bonsai Cultivar (vendor; organism metaphor)
-- ADR-2605092000 — Ecosystem-as-Model FP8 substrate (vendor; large-blob CID consumer)
-- ADR-2605091400 — MCP-as-Cell-Membrane / Lexicon dual-wire (vendor; explains why MST is a "cell membrane" concern)
-- ADR-2605111300 — PDS-to-Pod Bun container (vendor; PDS infra reference for future bridge)
+- ADR-2605172000 — RW-free substrate (depends_on; the rule that forced this revise)
+- ADR-2605172100 — payments + substrate-via-SDK boundary (depends_on)
+- ADR-2605152100 — etzhayyim org boundary (cross-repo)
+- ADR-2605080600 — LangGraph Server + Granian runtime (sets server runtime context)
+- ADR-2605082000 — LangGraph graph-as-data (cell graph schema heritage)
+- ADR-2605091300 — Bonsai Cultivar (organism metaphor)
+- ADR-2605092000 — Ecosystem-as-Model FP8 substrate (large-blob CID consumer)
+- ADR-2605091400 — MCP-as-Cell-Membrane / Lexicon dual-wire (explains why MST is a "cell membrane" concern)
+- ADR-2605111300 — PDS-to-Pod Bun container (PDS infra reference for future bridge)

@@ -21,8 +21,8 @@ depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605170900-etzhayyim-root-adr-canonical-home
 related:
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0095-simplified-3layer-identity-rw-vault.md
+  - 
+  - 
 supersedes: []
 superseded_by: []
 ---
@@ -39,13 +39,13 @@ ADR-2605172000 established that etzhayyim apps run on AT MST + IPFS + Base L2 wi
 
 To close the loop, **payments must live on the same substrate as state**. The Base L2 anchor that already exists (ADR-2605171800 Stage 5) is also the natural payment rail: it's EVM-compatible, has USDC native, and Coinbase operates it so settlement reliability is comparable to a traditional payment processor.
 
-The vendor monorepo already commits to **ERC-725 Root Identity + Coinbase Smart Wallet** at the identity layer (vendor ADR-0074, ADR-0095). This ADR extends that to the payment layer: the same Smart Wallet that the user signs DIDs with is the same wallet that pays.
+The upstream identity stack already commits to **ERC-725 Root Identity + Coinbase Smart Wallet** at the identity layer (ADR-0074, ADR-0095). This ADR extends that to the payment layer: the same Smart Wallet that the user signs DIDs with is the same wallet that pays.
 
 # Decision
 
 **Hard rule**: every app under `etzhayyim/root/` that handles value transfer MUST use on-chain settlement via Base L2. **Fiat payment processors (Stripe / PayPal / Square / Razorpay / credit-card gateways / bank ACH / wire transfer) are prohibited in etzhayyim/root.**
 
-If an open app legitimately needs fiat acceptance (regulatory, accessibility), the fiat side lives in **vendor monorepo** as a separate service exposing a paid-tier XRPC. The open app calls it as progressive enhancement (per ADR-2605172000 vendor carve-out) and remains operational with on-chain-only payments.
+If an open app legitimately needs fiat acceptance (regulatory, accessibility), the fiat side lives **upstream** as a separate service exposing a paid-tier XRPC. The open app calls it as progressive enhancement (per ADR-2605172000 upstream carve-out) and remains operational with on-chain-only payments.
 
 ## Payment substrate (4 layers)
 
@@ -73,7 +73,7 @@ If an open app legitimately needs fiat acceptance (regulatory, accessibility), t
 |---|---|---|
 | **L2 network** | Base (Coinbase L2) | Native USDC, ~$0.001 / tx, 2s blocks, EVM-compatible, regulated operator (Coinbase). Same chain as ADR-2605171800 anchor; one less network to manage. |
 | **Stablecoin** | USDC (Coinbase Bridged on Base, `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`) | Native to Base, 1:1 reserves, regulated issuer, broad acceptance. Avoids Tether / algorithmic stablecoin risk. |
-| **Account model** | ERC-4337 Smart Account via Coinbase Smart Wallet | Per vendor ADR-0095. Social recovery + passkey signing + sponsored gas. EOA prohibited for new accounts. |
+| **Account model** | ERC-4337 Smart Account via Coinbase Smart Wallet | Per ADR-0095. Social recovery + passkey signing + sponsored gas. EOA prohibited for new accounts. |
 | **Signing** | WebAuthn passkey → Smart Wallet validator (P256 verifier on-chain) | No seed phrase. iCloud Keychain / Google Password Manager sync. Recovery via passkey re-enroll. |
 | **Gas sponsorship** | etzhayyim Paymaster contract (deployed by etzhayyim, funded by anchor-batch fee skim) | Users never see gas. Onboarding friction = zero. Paymaster solvency monitored by anchor-cron (ADR-2605171800 Stage 5). |
 | **Subscription model** | Superfluid streaming (per-second flow) for ongoing, or simple periodic Permit2 pull for monthly | Superfluid = no missed-payment risk; Permit2 = simpler integration. App chooses per use-case. |
@@ -164,7 +164,7 @@ Each record carries the on-chain `txHash` and `blockNumber` so any reader can re
 - **Programmable money.** Splits / streams / escrow are native, not bolted-on. Public funds disburse via on-chain split, not via 1099 form workflows.
 - **Audit by anyone.** Every payment leaves a public on-chain tx + an AT Record. No "trust our internal Stripe export"; any third party can replay.
 - **Onboarding friction = zero gas.** Passkey signs; Paymaster sponsors. User experience matches Stripe Checkout, but with on-chain settlement.
-- **DID = identity = wallet.** One signature flow for state writes and for payments. No separate KYC layer needed for open scope (regulated activities use vendor backend per carve-out).
+- **DID = identity = wallet.** One signature flow for state writes and for payments. No separate KYC layer needed for open scope (regulated activities use upstream backend per carve-out).
 
 ## 負の効果 / コスト
 
@@ -173,7 +173,7 @@ Each record carries the on-chain `txHash` and `blockNumber` so any reader can re
 - **L2 reorg / outage risk.** Base has had brief outages. Mitigation: payment finality wait (3 blocks ~6s) before AT Record creation; idempotency key in `sent.json` to detect double-spend reconciliation.
 - **Privacy of payment graph.** All payments are public on-chain. Mitigation: stealth-address ephemeral Smart Accounts for sensitive flows (out of scope for v0.1; future ADR).
 - **Paymaster solvency.** etzhayyim must keep paymaster topped up. anchor-cron (ADR-2605171800) extends to monitor + auto-refill from anchor batch fee skim.
-- **Regulatory uncertainty.** Some jurisdictions treat USDC transfers as MSB / money transmission. etzhayyim's religious-corp form gives some shelter for non-commercial flows (donations / offerings); commercial flows route through vendor backend or are scoped to non-restrictive jurisdictions.
+- **Regulatory uncertainty.** Some jurisdictions treat USDC transfers as MSB / money transmission. etzhayyim's religious-corp form gives some shelter for non-commercial flows (donations / offerings); commercial flows route through upstream backend or are scoped to non-restrictive jurisdictions.
 - **No chargebacks.** On-chain is final. Refund flow is opt-in via escrow Safe; users must understand the trade-off vs Stripe-style chargeback protection.
 
 ## Migration plan
@@ -213,8 +213,8 @@ Multi-chain for redundancy. 却下: not the right time. SDK abstraction will all
 - ADR-2605172000 [etzhayyim/root open apps MUST be RW-free](./2605172000-etzhayyim-rw-free-substrate.md) — substrate context this ADR extends to money
 - ADR-2605171800 [LangGraph Pregel → MST → IPFS → Base L2 anchor pipeline](./2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — same chain, same anchor contract
 - ADR-2605170900 [etzhayyim/root canonical home](./2605170900-etzhayyim-root-adr-canonical-home.md)
-- Vendor ADR-0074 [Ethereum Identity Bridge — CACAO + WebAuthn](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md)
-- Vendor ADR-0095 [Simplified 3-Layer Identity (ERC-725 + Coinbase Smart Wallet)](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0095-simplified-3layer-identity-rw-vault.md)
+- ADR-0074 Ethereum Identity Bridge — CACAO + WebAuthn
+- ADR-0095 Simplified 3-Layer Identity (ERC-725 + Coinbase Smart Wallet)
 - USDC on Base — https://docs.cdp.coinbase.com/onchain-payments/welcome
 - ERC-4337 Smart Account spec — https://eips.ethereum.org/EIPS/eip-4337
 - Coinbase Smart Wallet — https://www.smartwallet.dev/

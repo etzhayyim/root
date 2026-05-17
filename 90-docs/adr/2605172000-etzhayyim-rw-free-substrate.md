@@ -19,10 +19,10 @@ depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091300-bonsai-cultivar-layer-above-myco-yeast.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2604251830-shannon-optimal-layered-architecture.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605111200-cf-worker-edge-only-no-rw-connection.md
+  - 
+  - 
+  - 
+  - 
 supersedes: []
 superseded_by: []
 ---
@@ -35,9 +35,9 @@ superseded_by: []
 
 # Context
 
-ADR-2605152100 split the GitHub org along principal/vendor lines (etzhayyim = open religious-corp activities; gftdcojp = Gftd Japan vendor business). The criterion was originally "open vs vendor" — a license/branding distinction.
+ADR-2605152100 split the GitHub org along principal/upstream lines (etzhayyim = open religious-corp activities; upstream business stays elsewhere). The criterion was originally "open vs proprietary" — a license/branding distinction.
 
-That criterion is **too soft**. An "open" app that internally requires a centralized RisingWave cluster (operated by one party, behind one set of credentials) is structurally indistinguishable from a vendor app — the only difference is the README license header. External contributors, peer cells, and auditors still have to trust the RW operator to honor the open framing.
+That criterion is **too soft**. An "open" app that internally requires a centralized RisingWave cluster (operated by one party, behind one set of credentials) is structurally indistinguishable from a proprietary app — the only difference is the README license header. External contributors, peer cells, and auditors still have to trust the RW operator to honor the open framing.
 
 A stronger criterion: **etzhayyim/root apps MUST be verifiable and operable without depending on any centralized off-chain database**. They run on AT Protocol MST + IPFS + Base L2 as the primary substrate. The same data, the same compute, the same verification are reachable from any client with internet access, no privileged operator credentials.
 
@@ -124,15 +124,15 @@ The SDK is the **only** module in `etzhayyim/root` allowed to import database cl
 | Lexicon registry | generated bundle from RW | Lexicon JSON tree in IPFS; registry root anchored on L2; SDK fetches and validates |
 | Open data API (`open-*` 22 本) | RW + materialized view + query worker | static MST snapshot pinned to IPFS per release; client fetches snapshot once, traverses locally |
 
-## Carve-out: vendor backend services
+## Carve-out: upstream backend services
 
-If an open app legitimately needs a vendor-side backend (paid-tier features, M365 integration, lawfirm-specific workflows), that backend lives in **vendor monorepo** (`gftdcojp/ai-gftd-apps-gftdcojp`) and exposes its surface via:
+If an open app legitimately needs an upstream backend (paid-tier features, M365 integration, regulated workflows), that backend lives in a separate upstream monorepo and exposes its surface via:
 
-- XRPC over HTTPS at a vendor-controlled DID (`did:web:gftd.co.jp` or sub-DIDs)
-- Lexicon JSON declared in vendor's `00-contracts/`
+- XRPC over HTTPS at an upstream-controlled DID (or sub-DIDs)
+- Lexicon JSON declared in the upstream's `00-contracts/`
 - Called from open app only via the user's explicit opt-in (consent capability)
 
-The open app remains operational without the vendor backend — paid features are progressive enhancement, not the substrate.
+The open app remains operational without the upstream backend — paid features are progressive enhancement, not the substrate.
 
 # Consequences
 
@@ -185,9 +185,9 @@ Pure client-side CRDT with peer-to-peer sync. Works for collaboration apps but l
 - `etzhayyim/root/20-actors/etzhayyim-sdk/` — SDK scaffold (this commit)
 - ADR-2605171800 [LangGraph Pregel → PostgresSaver → atproto MST → IPFS → Base L2 anchor pipeline](./2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — pipeline this ADR inverts
 - ADR-2605170900 [etzhayyim/root as canonical home](./2605170900-etzhayyim-root-adr-canonical-home.md)
-- ADR-2605091300 [Bonsai Cultivar Layer](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091300-bonsai-cultivar-layer-above-myco-yeast.md) — open ecosystem metaphor
-- ADR-2605091400 [MCP-as-Cell-Membrane / Lexicon Dual-Wire SSoT](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion.md) — Lexicon as contract
-- ADR-2605111200 [CF Worker Edge-Only — RW Connection K8s-Pod Only](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605111200-cf-worker-edge-only-no-rw-connection.md) — vendor's RW topology (contrast)
+- ADR-2605091300 Bonsai Cultivar Layer — open ecosystem metaphor
+- ADR-2605091400 MCP-as-Cell-Membrane / Lexicon Dual-Wire SSoT — Lexicon as contract
+- ADR-2605111200 CF Worker Edge-Only — RW Connection K8s-Pod Only — upstream RW topology (contrast)
 - AT Protocol MST spec — https://atproto.com/specs/repository
 - IPFS spec — https://github.com/ipfs/specs
 - Base L2 — https://base.org

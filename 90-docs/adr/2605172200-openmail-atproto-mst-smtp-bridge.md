@@ -23,8 +23,8 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605111300-pds-to-pod-bun-container.md
+  - 
+  - 
 supersedes: []
 superseded_by: []
 ---
@@ -37,11 +37,11 @@ superseded_by: []
 
 # Context
 
-etzhayyim needs an email-equivalent communication primitive for religious-corp public-facing activity (open governance announcements, member-to-member communication, public correspondence with vendors and the State, archive-grade record of public deliberation). The substrate choice is constrained by **ADR-2605172000**: all open apps MUST be RW-free and run on the atproto MST + IPFS + Base L2 stack.
+etzhayyim needs an email-equivalent communication primitive for religious-corp public-facing activity (open governance announcements, member-to-member communication, public correspondence with external parties and the State, archive-grade record of public deliberation). The substrate choice is constrained by **ADR-2605172000**: all open apps MUST be RW-free and run on the atproto MST + IPFS + Base L2 stack.
 
 Three properties define the requirement:
 
-1. **Public content is acceptable.** This is religious-corp open activity. End-to-end encryption is *not* required for v1 and is intentionally out of scope (a parallel encrypted-channel ADR will handle confidential pastoral / vendor correspondence). Sidestepping E2EE removes the single hardest problem in federated mail design.
+1. **Public content is acceptable.** This is religious-corp open activity. End-to-end encryption is *not* required for v1 and is intentionally out of scope (a parallel encrypted-channel ADR will handle confidential pastoral / counterparty correspondence). Sidestepping E2EE removes the single hardest problem in federated mail design.
 2. **SMTP interop is required.** The world outside etzhayyim runs on SMTP. A pure atproto-native mail with no SMTP bridge is a closed garden — unacceptable. Members must be able to send to and receive from `alice@gmail.com`, `boss@corporate.example`, government CC addresses, etc.
 3. **Spam mitigation must scale.** Public mail addresses are the worst case for spam. Without a strong economic or social filter, any public openmail address becomes unusable within hours. Existing solutions (greylisting, RBL, content classifiers, reputation scores) are insufficient on their own at the federated scale; they need to be augmented.
 
@@ -594,7 +594,7 @@ Use a different transport for the per-recipient routing.
 
 Use RisingWave streaming MVs to maintain inbox indexes.
 
-却下理由: violates ADR-2605172000 (RW-free open substrate). AppView for openmail uses Postgres + atproto firehose subscriber. RW would be tempting (it's the right *technical* primitive for streaming materialized views), but it's exactly the kind of vendor-stack coupling the RW-free ADR forbids in open apps.
+却下理由: violates ADR-2605172000 (RW-free open substrate). AppView for openmail uses Postgres + atproto firehose subscriber. RW would be tempting (it's the right *technical* primitive for streaming materialized views), but it's exactly the kind of centralized-substrate coupling the RW-free ADR forbids in open apps.
 
 # References
 
