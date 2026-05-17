@@ -106,7 +106,7 @@ export async function getAgent(
       refreshJwt: cfg.session.refreshJwt,
       active: true,
     });
-  } else {
+  } else if ("handle" in cfg && "password" in cfg) {
     await agent.login({
       identifier: cfg.handle,
       password: cfg.password,

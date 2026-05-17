@@ -234,7 +234,7 @@ export class Etzhayyim {
   // ─── Payment surface (ADR-2605172100) ────────────────────────────
 
   /** One-shot USDC payment on Base L2. See ./pay.ts for full opts. */
-  async pay(opts: import("./pay.js").PayOpts) {
+  async pay(opts: Parameters<typeof import("./pay.js").pay>[0]) {
     const { pay } = await import("./pay.js");
     return pay(opts);
   }
