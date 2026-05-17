@@ -16,7 +16,29 @@
  * single coherent surface: join → attest → status → claim.
  */
 
+import {
+  createPublicClient,
+  http,
+  decodeEventLog,
+  parseAbiItem,
+  type Address,
+  type Hash,
+  type PublicClient,
+  type WalletClient,
+} from "viem";
+import {AtpAgent} from "@atproto/api";
+
+import {
+  ETZHAYYIM_MEMBERSHIP_ABI,
+  KISHA_STREAM_ABI,
+  OATH_RECORD_NSID,
+} from "./abi.js";
 import type {PaymentReceipt} from "./pay.js";
+
+// Parsed once at module load; used by claim() fulfillment polling.
+const FULFILLED_EVENT = parseAbiItem(
+  "event Fulfilled(bytes32 indexed ticketId, uint256 indexed tokenId, address indexed baseRecipient, uint256 amount, uint64 fulfilledAt)"
+);
 
 // ─── Constants ──────────────────────────────────────────────────────
 
@@ -85,6 +107,28 @@ export interface BIConfig {
     url: string;
     bearerToken?: string;
   };
+
+  /**
+   * viem WalletClient bound to the adherent's wallet on Base. Required
+   * for `join()` Stage 1 (EtzhayyimMembership.join) and `claim()`
+   * fulfillment polling. EOA wallet acceptable for v0; a future
+   * upgrade swaps this for an ERC-4337 SmartAccountClient with a
+   * paymaster (ADR-2605172100 §"Account model").
+   */
+  baseWalletClient?: WalletClient;
+
+  /**
+   * viem WalletClient bound to the adherent's wallet on geth-private.
+   * Required for `claim()` Stage 1 (KishaStream.claim, holder-only).
+   */
+  privateWalletClient?: WalletClient;
+
+  /**
+   * @atproto/api AtpAgent bound to the adherent's PDS, with an active
+   * session. Required for `join()` Stage 2 (oath AT Record write) and
+   * `claim()` Stage 5 (payment.kisha AT Record write).
+   */
+  pdsAgent?: AtpAgent;
 }
 
 // ─── join — two-chain atomic ritual (ADR-2605172700) ────────────────
@@ -198,24 +242,32 @@ export async function join(opts: JoinOpts, cfg: BIConfig): Promise<JoinResult> {
   //   Reuses the same paymaster-sponsored ERC-4337 path as pay.ts.
   //   See pay.ts `pay()` for the eventual viem wiring; here we delegate
   //   to a future low-level helper.
-  const membershipTxHash = await _baseJoin({
-    membership: cfg.membershipAddress,
-    rpcUrl: cfg.baseRpcUrl ?? "https://mainnet.base.org",
-    holder: opts.holder,
-    oathHash: opts.oathHash,
-    githubUsername: opts.githubUsername ?? "",
-  });
+  const baseRpc = cfg.baseRpcUrl ?? "https://mainnet.base.org";
+  const baseChainId = cfg.baseWalletClient?.chain?.id ?? 8453;
+  const membershipTxHash = await _baseJoin(
+    {
+      membership: cfg.membershipAddress,
+      rpcUrl: baseRpc,
+      holder: opts.holder,
+      oathHash: opts.oathHash,
+      githubUsername: opts.githubUsername ?? "",
+    },
+    cfg
+  );
 
   // ─── Stage 2: AT Record (ai.gftd.apps.etzhayyim.oath) ──────────────
-  const {recordUri, recordCid} = await _writeOathRecord({
-    did: opts.did,
-    holder: opts.holder,
-    oathHash: opts.oathHash,
-    baseChainId: 8453, // Base mainnet; SDK defaults; override via cfg.baseRpcUrl chain probe in a follow-up
-    membershipTxHash,
-    githubUsername: opts.githubUsername ?? "",
-    githubCommitSha: opts.githubCommitSha ?? "",
-  });
+  const {recordUri, recordCid} = await _writeOathRecord(
+    {
+      did: opts.did,
+      holder: opts.holder,
+      oathHash: opts.oathHash,
+      baseChainId,
+      membershipTxHash,
+      githubUsername: opts.githubUsername ?? "",
+      githubCommitSha: opts.githubCommitSha ?? "",
+    },
+    cfg
+  );
   const attestationCid = recordCid;
 
   // ─── Stage 3: Github MEMBERS.md PR — out-of-band, caller's responsibility ─
@@ -242,7 +294,7 @@ export async function join(opts: JoinOpts, cfg: BIConfig): Promise<JoinResult> {
     did: opts.did,
     attestationCid,
     membershipTxHash,
-    baseChainId: 8453,
+    baseChainId,
     githubCommitSha: opts.githubCommitSha ?? "",
   });
 
@@ -267,14 +319,44 @@ interface _BaseJoinIn {
   githubUsername: string;
 }
 
-async function _baseJoin(_args: _BaseJoinIn): Promise<`0x${string}`> {
-  throw new Error(
-    "[etzhayyim-sdk/bi] _baseJoin TODO: " +
-      "(1) instantiate viem Public+Wallet clients against args.rpcUrl, " +
-      "(2) build ERC-4337 UserOperation with EtzhayyimMembership.join(oathHash, githubUsername), " +
-      "(3) attach paymaster signature (see pay.ts), " +
-      "(4) submit to Base bundler; return tx hash from the Joined receipt."
-  );
+async function _baseJoin(args: _BaseJoinIn, cfg: BIConfig): Promise<`0x${string}`> {
+  if (!cfg.baseWalletClient) {
+    throw new Error(
+      "[etzhayyim-sdk/bi] _baseJoin: cfg.baseWalletClient required " +
+        "(a viem WalletClient bound to the adherent's Base wallet). " +
+        "Future upgrade: ERC-4337 SmartAccountClient + paymaster."
+    );
+  }
+  if (!cfg.baseWalletClient.account) {
+    throw new Error("[etzhayyim-sdk/bi] _baseJoin: walletClient has no account");
+  }
+  const pub = createPublicClient({transport: http(args.rpcUrl)});
+  // EtzhayyimMembership.join writes msg.sender's slot, so the wallet
+  // account MUST equal the adherent's holder address. Sanity-check.
+  const sender = cfg.baseWalletClient.account.address.toLowerCase();
+  if (sender !== args.holder.toLowerCase()) {
+    throw new Error(
+      `[etzhayyim-sdk/bi] _baseJoin: walletClient account ${sender} ` +
+        `does not match opts.holder ${args.holder.toLowerCase()}; ` +
+        "EtzhayyimMembership.join binds msg.sender = member."
+    );
+  }
+  const hash = await cfg.baseWalletClient.writeContract({
+    account: cfg.baseWalletClient.account,
+    chain: cfg.baseWalletClient.chain ?? null,
+    address: args.membership,
+    abi: ETZHAYYIM_MEMBERSHIP_ABI,
+    functionName: "join",
+    args: [args.oathHash, args.githubUsername],
+  });
+  const receipt = await pub.waitForTransactionReceipt({hash});
+  if (receipt.status !== "success") {
+    throw new Error(
+      `[etzhayyim-sdk/bi] _baseJoin: tx ${hash} reverted; check that the ` +
+        "wallet is not already a 信者 (EtzhayyimMembership.AlreadyMember)"
+    );
+  }
+  return hash;
 }
 
 interface _OathRecordIn {
@@ -287,16 +369,50 @@ interface _OathRecordIn {
   githubCommitSha: string;
 }
 
+/** Canonical oath text per ADR-2605172600 (both languages equivalent). */
+export const CANONICAL_OATH_TEXT = [
+  "我、etzhayyim の信者として、生命の樹 (עץ חיים) の支柱の一として、自らの行いと意思を、永続的な公開記録 (blockchain と github) として残すことを誓う。",
+  "",
+  "I, as a 信者 (follower) of etzhayyim, as one of the pillars of the Tree of Life (עץ חיים), swear to leave my acts and intentions as a permanent public record (blockchain and github).",
+].join("\n");
+
 async function _writeOathRecord(
-  _args: _OathRecordIn
+  args: _OathRecordIn,
+  cfg: BIConfig
 ): Promise<{recordUri: string; recordCid: string}> {
-  throw new Error(
-    "[etzhayyim-sdk/bi] _writeOathRecord TODO: " +
-      "(1) resolve PDS via DID document, (2) compose ai.gftd.apps.etzhayyim.oath " +
-      "record (canonical text + signature + base chain id + tx hash + github commit), " +
-      "(3) sign with the DID's WebAuthn key, " +
-      "(4) call pds.com.atproto.repo.createRecord; return at://uri + CID."
-  );
+  if (!cfg.pdsAgent) {
+    throw new Error(
+      "[etzhayyim-sdk/bi] _writeOathRecord: cfg.pdsAgent required " +
+        "(AtpAgent with an active session bound to the adherent's DID)"
+    );
+  }
+  const session = cfg.pdsAgent.session;
+  if (!session || session.did !== args.did) {
+    throw new Error(
+      "[etzhayyim-sdk/bi] _writeOathRecord: pdsAgent session DID " +
+        `(${session?.did ?? "none"}) does not match opts.did ${args.did}`
+    );
+  }
+  // The record body is the lexicon-defined shape. The lexicon itself
+  // lives at 00-contracts/lexicons/ai/gftd/apps/etzhayyim/oath.json
+  // (per ADR-2605172600 § Phase 1).
+  const record = {
+    $type: OATH_RECORD_NSID,
+    oathText: CANONICAL_OATH_TEXT,
+    oathHash: args.oathHash,
+    holder: args.holder,
+    baseChainId: args.baseChainId,
+    membershipTxHash: args.membershipTxHash,
+    githubUsername: args.githubUsername,
+    githubCommitSha: args.githubCommitSha,
+    joinedAt: new Date().toISOString(),
+  };
+  const created = await cfg.pdsAgent.com.atproto.repo.createRecord({
+    repo: args.did,
+    collection: OATH_RECORD_NSID,
+    record,
+  });
+  return {recordUri: created.data.uri, recordCid: created.data.cid};
 }
 
 interface _OfficerRelayIn {
@@ -473,17 +589,159 @@ export interface ClaimResult {
   fulfilled: Promise<PaymentReceipt>;
 }
 
-export async function claim(_opts: ClaimOpts, _cfg: BIConfig): Promise<ClaimResult> {
+export async function claim(opts: ClaimOpts, cfg: BIConfig): Promise<ClaimResult> {
+  // ─── Precondition checks ───────────────────────────────────────────
+  if (!cfg.privateWalletClient) {
+    throw new Error("[etzhayyim-sdk/bi] claim: cfg.privateWalletClient required (geth-private wallet)");
+  }
+  if (!cfg.privateWalletClient.account) {
+    throw new Error("[etzhayyim-sdk/bi] claim: privateWalletClient has no account");
+  }
+  if (!cfg.kishaStreamAddress) {
+    throw new Error("[etzhayyim-sdk/bi] claim: cfg.kishaStreamAddress required");
+  }
+  if (!cfg.kishaPayoutAddress) {
+    throw new Error("[etzhayyim-sdk/bi] claim: cfg.kishaPayoutAddress required (for fulfillment polling)");
+  }
+  if (!cfg.privateRpcUrl) {
+    throw new Error("[etzhayyim-sdk/bi] claim: cfg.privateRpcUrl required");
+  }
+
+  const privateWallet = cfg.privateWalletClient;
+  const account = privateWallet.account!;
+  const baseRecipient: Address = opts.baseRecipient ?? (account.address as Address);
+  const maxAmount: bigint = opts.maxAmount ?? 0n;
+
+  const privatePub: PublicClient = createPublicClient({transport: http(cfg.privateRpcUrl)});
+
+  // ─── Stage 1: KishaStream.claim on geth-private ────────────────────
+  const privateTxHash: Hash = await privateWallet.writeContract({
+    account,
+    chain: privateWallet.chain ?? null,
+    address: cfg.kishaStreamAddress,
+    abi: KISHA_STREAM_ABI,
+    functionName: "claim",
+    args: [opts.tokenId, baseRecipient, maxAmount],
+  });
+  const privateReceipt = await privatePub.waitForTransactionReceipt({hash: privateTxHash});
+  if (privateReceipt.status !== "success") {
+    throw new Error(
+      `[etzhayyim-sdk/bi] claim: KishaStream.claim tx ${privateTxHash} reverted; ` +
+        "likely NotHolder / TokenRevoked / NotActive / NothingAccrued — see KISHA_STREAM_ABI for typed errors"
+    );
+  }
+
+  // ─── Stage 2: decode ClaimTicketIssued ─────────────────────────────
+  const ticketLog = privateReceipt.logs.find(
+    (l) => l.address.toLowerCase() === cfg.kishaStreamAddress!.toLowerCase()
+  );
+  if (!ticketLog) {
+    throw new Error("[etzhayyim-sdk/bi] claim: ClaimTicketIssued log missing from receipt");
+  }
+  const decoded = decodeEventLog({
+    abi: KISHA_STREAM_ABI,
+    eventName: "ClaimTicketIssued",
+    data: ticketLog.data,
+    topics: ticketLog.topics,
+  });
+  const eventArgs = decoded.args as {
+    ticketId: `0x${string}`;
+    tokenId: bigint;
+    holder: Address;
+    baseRecipient: Address;
+    amount: bigint;
+    claimSeq: bigint;
+    issuedAt: bigint;
+    expiresAt: bigint;
+  };
+  const ticketId = eventArgs.ticketId;
+  const amount = eventArgs.amount;
+  const expiresAt = Number(eventArgs.expiresAt);
+
+  // ─── Stage 3: fulfillment Promise ──────────────────────────────────
+  // The relayer is off-chain and out of this SDK's control. We watch
+  // Base for the matching `Fulfilled(ticketId, ...)` event and resolve
+  // once it lands. Caller awaits at their convenience.
+  const fulfilled: Promise<PaymentReceipt> = _waitForFulfillment({
+    cfg,
+    ticketId,
+    expiresAt,
+    privateTxHash,
+  });
+
+  return {ticketId, privateTxHash, amount, fulfilled};
+}
+
+// ─── claim() fulfillment helper ─────────────────────────────────────
+
+interface _WaitForFulfillmentIn {
+  cfg: BIConfig;
+  ticketId: `0x${string}`;
+  expiresAt: number; // unix seconds
+  privateTxHash: Hash;
+}
+
+async function _waitForFulfillment(args: _WaitForFulfillmentIn): Promise<PaymentReceipt> {
+  const cfg = args.cfg;
+  if (!cfg.kishaPayoutAddress) {
+    throw new Error("[etzhayyim-sdk/bi] _waitForFulfillment: cfg.kishaPayoutAddress required");
+  }
+  const baseRpc = cfg.baseRpcUrl ?? "https://mainnet.base.org";
+  const basePub: PublicClient = createPublicClient({transport: http(baseRpc)});
+
+  // Poll for the Fulfilled event keyed on ticketId. Short-circuit if
+  // the ticket TTL has already lapsed; in that case the relayer is
+  // either down or the ticket was never submitted, and the caller can
+  // call `claim()` again to mint a fresh ticket.
+  const pollIntervalMs = 5_000;
+  const deadlineMs = Date.now() + Math.max(0, args.expiresAt - Math.floor(Date.now() / 1000)) * 1000;
+  while (Date.now() < deadlineMs) {
+    const logs = await basePub.getLogs({
+      address: cfg.kishaPayoutAddress,
+      event: FULFILLED_EVENT,
+      args: {ticketId: args.ticketId},
+      fromBlock: "earliest",
+      toBlock: "latest",
+    });
+    if (logs.length > 0) {
+      const hit = logs[0];
+      // Optional Stage 5: write ai.gftd.apps.payment.kisha record if the
+      // SDK has a PDS agent. Skipped silently when no agent is bound —
+      // the public audit record then comes only from the on-chain
+      // Fulfilled event.
+      let recordUri = "";
+      if (cfg.pdsAgent && cfg.pdsAgent.session) {
+        try {
+          const created = await cfg.pdsAgent.com.atproto.repo.createRecord({
+            repo: cfg.pdsAgent.session.did,
+            collection: "ai.gftd.apps.payment.kisha",
+            record: {
+              $type: "ai.gftd.apps.payment.kisha",
+              ticketId: args.ticketId,
+              privateTxHash: args.privateTxHash,
+              baseTxHash: hit.transactionHash,
+              baseBlockNumber: Number(hit.blockNumber ?? 0),
+              fulfilledAt: new Date().toISOString(),
+            },
+          });
+          recordUri = created.data.uri;
+        } catch {
+          // Audit record is best-effort; on-chain Fulfilled remains canonical.
+        }
+      }
+      return {
+        txHash: hit.transactionHash as `0x${string}`,
+        blockNumber: hit.blockNumber ?? 0n,
+        recordUri,
+        atomicBatch: false,
+      };
+    }
+    await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
+  }
   throw new Error(
-    "[etzhayyim-sdk/bi] claim() TODO: " +
-      "(1) call KishaStream.claim(tokenId, baseRecipient, maxAmount) on geth-private; " +
-      "    paymaster-sponsored if available, otherwise officer-relayed, " +
-      "(2) parse ClaimTicketIssued event → ticketId, amount, expiresAt, " +
-      "(3) request fulfillment from the relayer service (REST or AT messaging): " +
-      "    relayer collects M-of-N officer signatures, submits KishaPayout.fulfill on Base, " +
-      "(4) await Fulfilled event on Base, " +
-      "(5) create ai.gftd.apps.payment.kisha AT Record citing privateTxHash + base tx, " +
-      "(6) anchor enqueue. The `fulfilled` promise resolves with a PaymentReceipt."
+    `[etzhayyim-sdk/bi] claim: fulfillment for ticket ${args.ticketId} did not land before expiry. ` +
+      "Relayer is either down, throttled, or the ticket was rejected. " +
+      "Re-call claim() to mint a fresh ticket."
   );
 }
 
