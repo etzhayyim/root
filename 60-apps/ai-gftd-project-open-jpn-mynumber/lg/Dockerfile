@@ -3,7 +3,7 @@
 #   docker buildx build --platform linux/amd64 \
 #     --build-context py=../../../20-actors/magatama/py \
 #     --build-context worker=../worker/python \
-#     -t ghcr.io/gftdcojp/lg-open-jpn-mynumber:0.1.0-amd64 --push .
+#     -t ghcr.io/etzhayyim/lg-open-jpn-mynumber:0.1.0-amd64 --push .
 
 FROM python:3.11-slim-bookworm
 
