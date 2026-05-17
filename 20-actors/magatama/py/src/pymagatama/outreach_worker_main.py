@@ -9,7 +9,7 @@ LangServer job types:
   outreach.run_research_agent   — LangGraph loop: research + personalized draft (180s)
   outreach.send_via_resend      — Send step N email via Resend (60s)
   outreach.correlate_reply      — Correlate gmail/m365Ingest reply to active sequence (30s)
-  outreach.create_sponsor_slot  — XRPC to ads.gftd.ai createCampaign (30s)
+  outreach.create_sponsor_slot  — XRPC to ads.etzhayyim.com createCampaign (30s)
 
 Reply detection: subscribeRepos fires on ai.gftd.apps.gmail.message and
 ai.gftd.apps.m365Ingest.email; the dispatcher routes to outreach.correlate_reply.
@@ -25,8 +25,8 @@ Env:
   RW_URL             — RisingWave postgres URL
   ANTHROPIC_API_KEY
   RESEND_API_KEY
-  RESEND_FROM        — sender address (default outreach@gftd.ai)
-  ADS_XRPC_URL       — ads.gftd.ai base (default https://adsm4d5c.gftd.ai)
+  RESEND_FROM        — sender address (default outreach@etzhayyim.com)
+  ADS_XRPC_URL       — ads.etzhayyim.com base (default https://adsm4d5c.etzhayyim.com)
   OUTREACH_QUALITY_THRESHOLD — min score to send (default 0.75)
 """
 
@@ -53,12 +53,12 @@ from pymagatama.llm import resolve_model
 
 LOG = logging.getLogger("outreach_worker")
 
-OUTREACH_DID = "did:web:outreach.gftd.ai"
-ADS_DID = "did:web:ads.gftd.ai"
+OUTREACH_DID = "did:web:outreach.etzhayyim.com"
+ADS_DID = "did:web:ads.etzhayyim.com"
 
 QUALITY_THRESHOLD = float(os.environ.get("OUTREACH_QUALITY_THRESHOLD", "0.75"))
-RESEND_FROM = os.environ.get("RESEND_FROM", "outreach@gftd.ai")
-ADS_XRPC_URL = os.environ.get("ADS_XRPC_URL", "https://adsm4d5c.gftd.ai")
+RESEND_FROM = os.environ.get("RESEND_FROM", "outreach@etzhayyim.com")
+ADS_XRPC_URL = os.environ.get("ADS_XRPC_URL", "https://adsm4d5c.etzhayyim.com")
 
 
 # ---------------------------------------------------------------------------
@@ -447,7 +447,7 @@ async def task_create_sponsor_slot(
     include_sponsor_slot: bool = False,
     **_: Any,
 ) -> dict[str, Any]:
-    """Optional XRPC call to ads.gftd.ai createCampaign."""
+    """Optional XRPC call to ads.etzhayyim.com createCampaign."""
     if not include_sponsor_slot:
         return {"adCampaignId": ""}
 

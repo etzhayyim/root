@@ -113,7 +113,7 @@ def task_oshinobi_payment_charge(
         "automatic_payment_methods[enabled]": "true",
         "automatic_payment_methods[allow_redirects]": "never",
         "metadata[kind]": kind,
-        "metadata[platform]": "oshinobi.gftd.ai",
+        "metadata[platform]": "oshinobi.etzhayyim.com",
     })
 
     if result.get("error"):

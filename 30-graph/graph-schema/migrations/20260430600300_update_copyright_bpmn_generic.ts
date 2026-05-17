@@ -21,7 +21,7 @@ const processes = [
 const sourcePath = (file: string) => `00-contracts/bpmn/ai/gftd/copyright/${file}.bpmn`;
 const slug      = (file: string) => file.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 const processVertexId = (file: string) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/copyright-${slug(file)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/copyright-${slug(file)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const p of processes) {

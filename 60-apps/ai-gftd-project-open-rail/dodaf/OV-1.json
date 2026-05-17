@@ -2,14 +2,14 @@
   "viewId": "open-rail.OV-1",
   "viewType": "OV-1",
   "title": "High-Level Operational Concept Graphic",
-  "did": "did:web:open-rail.gftd.ai",
+  "did": "did:web:open-rail.etzhayyim.com",
   "format": "json",
   "content": {
     "operationalNodes": [
       { "id": "client",     "label": "Client (planner / operator UI / agent)" },
-      { "id": "rail",       "label": "open-rail.gftd.ai (Worker)" },
+      { "id": "rail",       "label": "open-rail.etzhayyim.com (Worker)" },
       { "id": "store",      "label": "D1 (lines/stations/runs/incidents SSoT)" },
-      { "id": "pds",        "label": "atproto.gftd.ai (PDS, public audit)" },
+      { "id": "pds",        "label": "atproto.etzhayyim.com (PDS, public audit)" },
       { "id": "regulator",  "label": "Safety Regulator (DID)" },
       { "id": "passenger",  "label": "Passenger / public" }
     ],

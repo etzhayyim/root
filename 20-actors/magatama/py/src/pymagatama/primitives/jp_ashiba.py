@@ -18,10 +18,10 @@ from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives.yoro_social import build_repo_record, insert_social_post_record
 
 
-ASHIBA_DID = "did:web:jp-ashiba.gftd.ai"
-ESTIMATOR_DID = "did:web:jp-ashiba.gftd.ai:actor:estimator"
-SCHEDULER_DID = "did:web:jp-ashiba.gftd.ai:actor:scheduler"
-INSPECTOR_DID = "did:web:jp-ashiba.gftd.ai:actor:inspector"
+ASHIBA_DID = "did:web:jp-ashiba.etzhayyim.com"
+ESTIMATOR_DID = "did:web:jp-ashiba.etzhayyim.com:actor:estimator"
+SCHEDULER_DID = "did:web:jp-ashiba.etzhayyim.com:actor:scheduler"
+INSPECTOR_DID = "did:web:jp-ashiba.etzhayyim.com:actor:inspector"
 
 SUBSCRIPTION_TIERS = {
     "starter": {"monthlyFee": 80_000, "deliveries": 2, "label": "starter"},

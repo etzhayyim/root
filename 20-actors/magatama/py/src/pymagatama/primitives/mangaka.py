@@ -20,7 +20,7 @@ task that writes the trace event.
 
 Env:
   COMFYUI_POD_URL    — RunPod ComfyUI proxy URL (default: same as shinshi worker)
-  ATPROTO_BASE_URL   — PDS gateway (default: https://atproto.gftd.ai)
+  ATPROTO_BASE_URL   — PDS gateway (default: https://atproto.etzhayyim.com)
   PDS_INTERNAL_TOKEN — x-magatama-verified header value (default: "true")
   RW_URL             — RisingWave PG URL for direct INSERT (Hyperdrive in prod)
 """
@@ -40,7 +40,7 @@ import aiohttp
 LOG = logging.getLogger("zeebe_worker.mangaka")
 
 POD_URL = os.environ.get("COMFYUI_POD_URL", "https://85q7hno6n60xxk-8188.proxy.runpod.net")
-ATPROTO_BASE = os.environ.get("ATPROTO_BASE_URL", "https://atproto.gftd.ai")
+ATPROTO_BASE = os.environ.get("ATPROTO_BASE_URL", "https://atproto.etzhayyim.com")
 PDS_TOKEN = os.environ.get("PDS_INTERNAL_TOKEN", "true")
 RW_URL = os.environ.get("RW_URL", "")
 
@@ -66,7 +66,7 @@ async def _pds_upload_blob(session: aiohttp.ClientSession, png_bytes: bytes) -> 
         return cid, size
 
 
-async def _pds_get_blob(session: aiohttp.ClientSession, cid: str, repo: str = "did:web:mangaka.gftd.ai") -> bytes:
+async def _pds_get_blob(session: aiohttp.ClientSession, cid: str, repo: str = "did:web:mangaka.etzhayyim.com") -> bytes:
     """Fetch blob bytes from PDS by CID."""
     async with session.get(
         f"{ATPROTO_BASE}/xrpc/com.atproto.sync.getBlob",
@@ -452,9 +452,9 @@ async def task_batch_insert_pages(charSlug: str = "", script: dict | None = None
         LOG.warning("RW_URL not set — skipping DB write (vertex_mangaka)")
         # Still return synthetic IDs so downstream tasks have something
         ts = int(time.time())
-        work_vertex_id = f"at://did:web:mangaka.gftd.ai/ai.gftd.apps.mangaka.work/{charSlug}-{ts}"
+        work_vertex_id = f"at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.work/{charSlug}-{ts}"
         page_vertex_ids = [
-            f"at://did:web:mangaka.gftd.ai/ai.gftd.apps.mangaka.page/{charSlug}-{ts}-p{i+1:02d}"
+            f"at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.page/{charSlug}-{ts}-p{i+1:02d}"
             for i in range(len(pageBlobKeys))
         ]
         return {"workVertexId": work_vertex_id, "pageVertexIds": page_vertex_ids,
@@ -474,14 +474,14 @@ async def task_batch_insert_pages(charSlug: str = "", script: dict | None = None
 
     conn = await asyncpg.connect(RW_URL)
     try:
-        work_vertex_id = f"at://did:web:mangaka.gftd.ai/ai.gftd.apps.mangaka.work/{charSlug}-{ts}"
+        work_vertex_id = f"at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.work/{charSlug}-{ts}"
         await conn.execute(
             """INSERT INTO vertex_mangaka (vertex_id, owner_did, repo, did, collection, rkey,
                 kind, title, description, stage, sensitivity_ord, page_id, panel_id, work_id, chapter_id)
                VALUES ($1, $2, $2, $3, $4, $5, $6, $7, $8, $9, $10, NULL, NULL, $11, NULL)
                ON CONFLICT (vertex_id) DO NOTHING""",
-            work_vertex_id, "did:web:mangaka.gftd.ai",
-            f"did:web:mangaka.gftd.ai:work:{charSlug}",
+            work_vertex_id, "did:web:mangaka.etzhayyim.com",
+            f"did:web:mangaka.etzhayyim.com:work:{charSlug}",
             "ai.gftd.apps.mangaka.work", f"{charSlug}-{ts}",
             "work", title, setting, "published", 10, f"{charSlug}-{ts}",
         )
@@ -489,14 +489,14 @@ async def task_batch_insert_pages(charSlug: str = "", script: dict | None = None
         pages = script.get("pages", [])
         for i, (page_def, blob, size) in enumerate(zip(pages, pageBlobKeys, pageSizes or [])):
             pg_num = i + 1
-            page_vertex_id = f"at://did:web:mangaka.gftd.ai/ai.gftd.apps.mangaka.page/{charSlug}-{ts}-p{pg_num:02d}"
+            page_vertex_id = f"at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.page/{charSlug}-{ts}-p{pg_num:02d}"
             await conn.execute(
                 """INSERT INTO vertex_mangaka (vertex_id, owner_did, repo, did, collection, rkey,
                     kind, title, description, stage, sensitivity_ord, page_id, work_id, chapter_id)
                    VALUES ($1, $2, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NULL)
                    ON CONFLICT (vertex_id) DO NOTHING""",
-                page_vertex_id, "did:web:mangaka.gftd.ai",
-                f"did:web:mangaka.gftd.ai:page:{charSlug}-{pg_num:02d}",
+                page_vertex_id, "did:web:mangaka.etzhayyim.com",
+                f"did:web:mangaka.etzhayyim.com:page:{charSlug}-{pg_num:02d}",
                 "ai.gftd.apps.mangaka.page", f"{charSlug}-{ts}-p{pg_num:02d}",
                 "page", f"Page {pg_num}", page_def.get("act", ""), "published", 10,
                 f"{charSlug}-{ts}-p{pg_num:02d}", f"{charSlug}-{ts}",
@@ -530,10 +530,10 @@ async def task_post_publish(workUri: str = "", charName: str = "", charSlug: str
     if not workUri or not pageBlobKeys:
         return {"error": "workUri + pageBlobKeys required", "status": "error"}
 
-    # work URI looks like: at://did:web:mangaka.gftd.ai/ai.gftd.apps.mangaka.work/{rkey}
+    # work URI looks like: at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.work/{rkey}
     work_rkey = workUri.rsplit("/", 1)[-1]
     slug_flat = charSlug.replace("-", "")
-    link_text = f"mangaka.gftd.ai/at/did:web:mangaka.gftd.ai/ai.gftd.apps.mangaka.work/{work_rkey}"
+    link_text = f"mangaka.etzhayyim.com/at/did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.work/{work_rkey}"
     text = (f"📕 {charName} 編 ({genre}) — 20 ページ完結\n\n"
             f"設定: {setting}\nコマ数: {panelCount}\n\n"
             f"#manga #{genre} #shinshi #{slug_flat} {link_text}")
@@ -567,7 +567,7 @@ async def task_post_publish(workUri: str = "", charName: str = "", charSlug: str
                                   "mimeType": "image/png", "size": int(size)}, "alt": alt})
 
     record = {
-        "repo": "did:web:mangaka.gftd.ai",
+        "repo": "did:web:mangaka.etzhayyim.com",
         "collection": "app.bsky.feed.post",
         "record": {
             "$type": "app.bsky.feed.post",

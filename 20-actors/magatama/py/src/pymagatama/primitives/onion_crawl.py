@@ -1,7 +1,7 @@
 """Onion (.onion / Tor) darkweb crawl primitives for BPMN/LangServer.
 
 Zeebe owns cadence (`crawlSeeds.bpmn`, R/PT6H). This module owns the Python
-worker side: pick stale seeds → fetch via `darkweb-proxy.gftd.ai/fetch`
+worker side: pick stale seeds → fetch via `darkweb-proxy.etzhayyim.com/fetch`
 (Tor + Playwright CF Container) → classify → write `vertex_onion_*` rows
 directly via RW so the onion appview keeps its current Kysely read path.
 
@@ -26,9 +26,9 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-OWNER_DID = "did:web:onion.gftd.ai"
+OWNER_DID = "did:web:onion.etzhayyim.com"
 ACTOR_ID = "sys.langserver.onion.crawl"
-DARKWEB_PROXY_URL = "https://darkweb-proxy.gftd.ai/fetch"
+DARKWEB_PROXY_URL = "https://darkweb-proxy.etzhayyim.com/fetch"
 DEFAULT_TIMEOUT_SEC = 45.0
 STALE_SEED_MAX_AGE_SEC = 6 * 60 * 60  # 6h — match BPMN cadence
 MAX_INTERNAL_LINKS = 5  # BFS depth-1 cap, mirrors legacy Worker
@@ -86,7 +86,7 @@ def _crawl_vid(host: str, started_at: str) -> str:
 
 
 def _site_did(host: str) -> str:
-    return f"did:web:onion.gftd.ai:{_onion_slug(host)}"
+    return f"did:web:onion.etzhayyim.com:{_onion_slug(host)}"
 
 
 def _clean_text(value: str, limit: int) -> str:
@@ -156,7 +156,7 @@ def _fetch_via_proxy(url: str, timeout_sec: float) -> dict[str, Any]:
         data=body,
         headers={
             "Content-Type": "application/json",
-            "User-Agent": "pymagatama-onion-crawl/1 (+https://onion.gftd.ai)",
+            "User-Agent": "pymagatama-onion-crawl/1 (+https://onion.etzhayyim.com)",
         },
         method="POST",
     )

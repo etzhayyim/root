@@ -42,7 +42,7 @@ ADR refs:
   - 2605082000 LangGraph Graph Definition as Data
   - 2605082100 LangGraph Checkpointer Storage (lg_kenkyusha_checkpoint)
   - 2605111200 CF Worker = Edge-Only (this pod owns the RW writes)
-  - 0019       Identifier Topology (did:web:kenkyusha.gftd.ai:...)
+  - 0019       Identifier Topology (did:web:kenkyusha.etzhayyim.com:...)
 """
 
 from __future__ import annotations
@@ -65,7 +65,7 @@ _log = logging.getLogger(__name__)
 
 
 # ── Config (resolveModelId pattern — no hardcoded model names) ───────────────
-_LLM_URL   = os.getenv("GFTD_LLM_URL", "https://gemma.gftd.ai/v1")
+_LLM_URL   = os.getenv("GFTD_LLM_URL", "https://gemma.etzhayyim.com/v1")
 _LLM_MODEL = os.getenv("GFTD_LLM_MODEL", "gemma-4-E2B-it")
 _LLM_KEY   = os.getenv("GFTD_LLM_API_KEY", "")
 
@@ -74,7 +74,7 @@ _DB_URL = os.getenv(
     "postgresql://root:rw_66a4db7736799bf888c50a817b4c6a65@45.32.79.245:4566/dev",
 )
 
-ACTOR_KENKYUSHA = os.getenv("KENKYUSHA_OWNER_DID", "did:web:kenkyusha.gftd.ai")
+ACTOR_KENKYUSHA = os.getenv("KENKYUSHA_OWNER_DID", "did:web:kenkyusha.etzhayyim.com")
 
 # Hypothesis tournament configuration.
 HYPOTHESES_PER_FRONTIER  = int(os.getenv("KENKYUSHA_HYPOTHESES_PER_FRONTIER", "4"))
@@ -177,7 +177,7 @@ _DISAGREEMENT_KEYWORDS: tuple[tuple[tuple[str, ...], str], ...] = (
 
 # Evidence retrieval — peer actor XRPC base (bunken/arxiv/hanrei). Pod talks to
 # the canonical edge router; per-actor routing happens server-side.
-_XRPC_BASE = os.getenv("XRPC_BASE", "https://atproto.gftd.ai/xrpc")
+_XRPC_BASE = os.getenv("XRPC_BASE", "https://atproto.etzhayyim.com/xrpc")
 
 
 # ── State (Pregel global state — all nodes see/write it) ─────────────────────
@@ -1730,7 +1730,7 @@ def _build_arxiv_tex(state: KenkyushaState, winner: Hypothesis,
         r"\usepackage{hyperref}",
         r"\title{" + _latex_escape(title) + r"}",
         r"\author{Kenkyusha — AI Research Frontier Explorer\\"
-        r"\texttt{did:web:kenkyusha.gftd.ai}}",
+        r"\texttt{did:web:kenkyusha.etzhayyim.com}}",
         r"\date{\today}",
         r"\begin{document}",
         r"\maketitle",

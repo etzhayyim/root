@@ -5,7 +5,7 @@ import { Kysely, sql } from 'kysely';
  *
  * 1. ADD COLUMN icon VARCHAR to vertex_app
  * 2. INSERT 74 platform app entries from apps.ts into vertex_app
- *    owner_did = did:web:yoro.gftd.ai so listApps can scope by owner
+ *    owner_did = did:web:yoro.etzhayyim.com so listApps can scope by owner
  *
  * RisingWave PK implicit upsert: same vertex_id re-INSERT = overwrite.
  */
@@ -16,7 +16,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   // Helper to build a canonical vertex_id for a yoro app registration
   const vid = (id: string) =>
-    `at://did:web:yoro.gftd.ai/ai.gftd.apps.yoro.appRegistry/${id}`;
+    `at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/${id}`;
 
   type Row = {
     vertex_id: string;
@@ -39,7 +39,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   const svc = 'service';
   const sys = 'system';
   const org = 'organization';
-  const OWNER = 'did:web:yoro.gftd.ai';
+  const OWNER = 'did:web:yoro.etzhayyim.com';
   const COL = 'ai.gftd.apps.yoro.appRegistry';
   const base = {
     status: 'active',
@@ -76,86 +76,86 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   const rows: Row[] = [
     // ── Orgs ──
-    row('gftd', 'GFTD', '🌐', 'Orgs', 'https://gftd.ai', 'gftd.ai', 'GFTD portal'),
+    row('gftd', 'GFTD', '🌐', 'Orgs', 'https://etzhayyim.com', 'etzhayyim.com', 'GFTD portal'),
 
     // ── Security ──
-    row('kiyome', 'Kiyome', '🔍', 'Services', 'https://smishing.gftd.ai', 'smishing.gftd.ai:actor:kiyome', 'SMS phishing analysis & threat intelligence'),
-    row('harai', 'Harai', '🚫', 'Services', 'https://smishing.gftd.ai', 'smishing.gftd.ai:actor:harai', 'Smishing enforcement & takedown coordinator'),
+    row('kiyome', 'Kiyome', '🔍', 'Services', 'https://smishing.etzhayyim.com', 'smishing.etzhayyim.com:actor:kiyome', 'SMS phishing analysis & threat intelligence'),
+    row('harai', 'Harai', '🚫', 'Services', 'https://smishing.etzhayyim.com', 'smishing.etzhayyim.com:actor:harai', 'Smishing enforcement & takedown coordinator'),
 
     // ── Services ──
-    row('news', 'News', '📰', 'Services', 'https://news.gftd.ai', 'news.gftd.ai', 'AI-driven news portal'),
-    row('search', 'Search', '🔎', 'Services', 'https://search.gftd.ai', 'search.gftd.ai', 'Unified search and discovery'),
-    row('6ir', '6IR', '🧠', 'Services', 'https://6ir.gftd.ai', '6ir.gftd.ai', '6IR analytics'),
-    row('maps', 'Maps', '🗺️', 'Services', 'https://maps.gftd.ai', 'maps.gftd.ai', 'Spatial maps and geolocation'),
-    row('kareyanagi', 'Kareyanagi', '🦠', 'Services', 'https://kareyanagi.gftd.ai', 'kareyanagi.gftd.ai', 'Mold eradication platform with IoT sensors and maps integration'),
-    row('drive', 'Drive', '📁', 'Services', 'https://drive.gftd.ai', 'drive.gftd.ai', 'Cloud storage'),
-    row('organizer', 'Organizer', '🗂️', 'Services', 'https://organizer.gftd.ai', 'organizer.gftd.ai', 'Upload anything — AI auto-classifies, tags, and organizes'),
-    row('sheets', 'Sheets', '📊', 'Services', 'https://sheets.gftd.ai', 'sheets.gftd.ai', 'Spreadsheets'),
-    row('docs', 'Docs', '📝', 'Services', 'https://docs.gftd.ai', 'docs.gftd.ai', 'Documentation'),
-    row('mailer', 'Mailer', '📧', 'Services', 'https://mailer.gftd.ai', 'mailer.gftd.ai', 'Email client'),
-    row('gmail', 'Gmail', '✉️', 'Services', 'https://gmail.gftd.ai', 'gmail.gftd.ai', 'Gmail sync + AI triage + contact DID messenger bridge'),
-    row('outlook', 'Outlook', '📬', 'Services', 'https://outlook.gftd.ai', 'outlook.gftd.ai', 'Outlook sync + calendar + contact DID bridge'),
-    row('oshikatsu', 'Oshikatsu', '🍚', 'Services', 'https://oshikatsu.gftd.ai', 'oshikatsu.gftd.ai', 'Career support'),
-    row('oshinobi', 'Oshinobi', '🥷', 'Services', 'https://oshinobi.gftd.ai', 'oshinobi.gftd.ai', 'Creator subscription platform (tiers, tips, posts)'),
-    row('calendar', 'Calendar', '📅', 'Services', 'https://calendar.gftd.ai', 'calendar.gftd.ai', 'Calendar'),
-    row('forms', 'Forms', '📋', 'Services', 'https://forms.gftd.ai', 'forms.gftd.ai', 'Forms builder'),
-    row('threads', 'Matrix', '💬', 'Services', 'https://gftd.ai', 'gftd.ai', 'Matrix messaging'),
-    row('hub', 'Hub', '🏠', 'Services', 'https://hub.gftd.ai', 'hub.gftd.ai', 'Git-compatible project hub'),
-    row('translate', 'Translate', '🌍', 'Services', 'https://translate.gftd.ai', 'translate.gftd.ai', 'Translation service'),
-    row('images', 'Images', '🖼️', 'Services', 'https://images.gftd.ai', 'images.gftd.ai', 'Image processing'),
-    row('videos', 'Videos', '🎬', 'Services', 'https://douga.gftd.ai', 'douga.gftd.ai', 'Video platform'),
-    row('videos-legacy', 'Videos2', '🎥', 'Services', 'https://videos.gftd.ai', 'videos.gftd.ai', 'Video platform'),
-    row('music', 'Music', '🎵', 'Services', 'https://music.gftd.ai', 'music.gftd.ai', 'Music streaming'),
-    row('manga', 'Manga', '📚', 'Services', 'https://manga.gftd.ai', 'manga.gftd.ai', 'Manga reader'),
-    row('anime', 'Anime', '🎞️', 'Services', 'https://anime.gftd.ai', 'anime.gftd.ai', 'Anime platform'),
-    row('games', 'Games', '🎮', 'Services', 'https://games.gftd.ai', 'games.gftd.ai', 'Games'),
-    row('narou', 'Narou', '📖', 'Services', 'https://narou.gftd.ai', 'narou.gftd.ai', 'Novel platform'),
-    row('cards', 'Cards', '💳', 'Services', 'https://cards.gftd.ai', 'cards.gftd.ai', 'Stripe Issuing cards'),
-    row('tenki', 'Tenki', '🌤️', 'Services', 'https://tenki.gftd.ai', 'tenki.gftd.ai', 'Weather'),
-    row('yadoya', 'Yadoya', '🏨', 'Services', 'https://yadoya.gftd.ai', 'yadoya.gftd.ai', 'Lodging and stays'),
-    row('fleamarket', 'FleaMarket', '🛍️', 'Services', 'https://fleamarket.gftd.ai', 'fleamarket.gftd.ai', 'Marketplace'),
-    row('okaimono', 'Shopping', '🛒', 'Services', 'https://okaimono.gftd.ai', 'okaimono.gftd.ai', 'Shopping'),
-    row('briefing', 'Briefing', '📑', 'Services', 'https://briefing.gftd.ai', 'briefing.gftd.ai', 'Content briefing'),
-    row('tsukuru', 'Tsukuru', '🏭', 'Services', 'https://tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'Factory-direct ordering platform'),
-    row('cowork', 'Cowork', '👥', 'Services', 'https://cowork.gftd.ai', 'cowork.gftd.ai', 'Co-working'),
-    row('shigotoba', 'Shigotoba', '💼', 'Services', 'https://shigotoba.gftd.ai', 'shigotoba.gftd.ai', 'Job board'),
-    row('scheduler', 'Scheduler', '⏰', 'Services', 'https://scheduler.gftd.ai', 'scheduler.gftd.ai', 'Scheduler and automation'),
-    row('web4', 'Web4', '🔗', 'Services', 'https://web4.gftd.ai', 'web4.gftd.ai', 'Web4 / GCC token'),
-    row('society6', 'Society6', '🏛️', 'Services', 'https://society6.gftd.ai', 'society6.gftd.ai', 'COFOG access and Society6 policy portal'),
-    row('lawfirm', 'Law Firm', '⚖️', 'Services', 'https://lawfirm.gftd.ai', 'lawfirm.gftd.ai', 'Law firm client portal'),
-    row('lawyer', 'Lawyer', '👨‍⚖️', 'Services', 'https://lawyer.gftd.ai', 'lawyer.gftd.ai', 'Lawyer workspace'),
-    row('ekyc', 'eKYC', '🪪', 'Services', 'https://ekyc.gftd.ai', 'ekyc.gftd.ai', 'Identity verification'),
-    row('shomeisyashin', 'ID Photo', '📸', 'Services', 'https://shomeisyashin.gftd.ai', 'shomeisyashin.gftd.ai', 'AI証明写真メーカー'),
-    row('global', 'Global', '🌏', 'Services', 'https://global.gftd.ai', 'global.gftd.ai', 'Global services'),
-    row('worlds', 'Worlds', '🌌', 'Services', 'https://worlds.gftd.ai', 'worlds.gftd.ai', 'Virtual worlds'),
-    row('pachinko', 'Pachinko', '🎰', 'Services', 'https://pachinko.gftd.ai', 'pachinko.gftd.ai', 'Pachinko simulation'),
-    row('casino', 'Casino', '🎲', 'Services', 'https://casino.gftd.ai', 'casino.gftd.ai', 'World casino directory'),
-    row('oshiete', 'Oshiete', '❓', 'Services', 'https://oshiete.gftd.ai', 'oshiete.gftd.ai', 'Q&A platform'),
-    row('webpage', 'Webpage', '🌐', 'Services', 'https://webpage.gftd.ai', 'webpage.gftd.ai', 'Web page crawl and text extraction'),
-    row('marketer', 'Marketer', '📣', 'Services', 'https://marketer.gftd.ai', 'marketer.gftd.ai', 'Marketing tools'),
-    row('omikuji', 'Omikuji', '🎋', 'Services', 'https://omikuji.gftd.ai', 'omikuji.gftd.ai', 'Fortune telling'),
-    row('aima', 'AIMA', '🤖', 'Services', 'https://aima.gftd.ai', 'aima.gftd.ai', 'AI models'),
-    row('robot', 'Robot', '🦾', 'Services', 'https://robot.gftd.ai', 'robot.gftd.ai', 'Robot automation'),
-    row('wire', 'Wire', '📡', 'Services', 'https://wire.gftd.ai', 'wire.gftd.ai', 'Messaging'),
-    row('lawfirm-admin', 'LF Admin', '🏛️', 'Services', 'https://lawfirm-admin.gftd.ai', 'lawfirm-admin.gftd.ai', 'Law firm admin'),
+    row('news', 'News', '📰', 'Services', 'https://news.etzhayyim.com', 'news.etzhayyim.com', 'AI-driven news portal'),
+    row('search', 'Search', '🔎', 'Services', 'https://search.etzhayyim.com', 'search.etzhayyim.com', 'Unified search and discovery'),
+    row('6ir', '6IR', '🧠', 'Services', 'https://6ir.etzhayyim.com', '6ir.etzhayyim.com', '6IR analytics'),
+    row('maps', 'Maps', '🗺️', 'Services', 'https://maps.etzhayyim.com', 'maps.etzhayyim.com', 'Spatial maps and geolocation'),
+    row('kareyanagi', 'Kareyanagi', '🦠', 'Services', 'https://kareyanagi.etzhayyim.com', 'kareyanagi.etzhayyim.com', 'Mold eradication platform with IoT sensors and maps integration'),
+    row('drive', 'Drive', '📁', 'Services', 'https://drive.etzhayyim.com', 'drive.etzhayyim.com', 'Cloud storage'),
+    row('organizer', 'Organizer', '🗂️', 'Services', 'https://organizer.etzhayyim.com', 'organizer.etzhayyim.com', 'Upload anything — AI auto-classifies, tags, and organizes'),
+    row('sheets', 'Sheets', '📊', 'Services', 'https://sheets.etzhayyim.com', 'sheets.etzhayyim.com', 'Spreadsheets'),
+    row('docs', 'Docs', '📝', 'Services', 'https://docs.etzhayyim.com', 'docs.etzhayyim.com', 'Documentation'),
+    row('mailer', 'Mailer', '📧', 'Services', 'https://mailer.etzhayyim.com', 'mailer.etzhayyim.com', 'Email client'),
+    row('gmail', 'Gmail', '✉️', 'Services', 'https://gmail.etzhayyim.com', 'gmail.etzhayyim.com', 'Gmail sync + AI triage + contact DID messenger bridge'),
+    row('outlook', 'Outlook', '📬', 'Services', 'https://outlook.etzhayyim.com', 'outlook.etzhayyim.com', 'Outlook sync + calendar + contact DID bridge'),
+    row('oshikatsu', 'Oshikatsu', '🍚', 'Services', 'https://oshikatsu.etzhayyim.com', 'oshikatsu.etzhayyim.com', 'Career support'),
+    row('oshinobi', 'Oshinobi', '🥷', 'Services', 'https://oshinobi.etzhayyim.com', 'oshinobi.etzhayyim.com', 'Creator subscription platform (tiers, tips, posts)'),
+    row('calendar', 'Calendar', '📅', 'Services', 'https://calendar.etzhayyim.com', 'calendar.etzhayyim.com', 'Calendar'),
+    row('forms', 'Forms', '📋', 'Services', 'https://forms.etzhayyim.com', 'forms.etzhayyim.com', 'Forms builder'),
+    row('threads', 'Matrix', '💬', 'Services', 'https://etzhayyim.com', 'etzhayyim.com', 'Matrix messaging'),
+    row('hub', 'Hub', '🏠', 'Services', 'https://hub.etzhayyim.com', 'hub.etzhayyim.com', 'Git-compatible project hub'),
+    row('translate', 'Translate', '🌍', 'Services', 'https://translate.etzhayyim.com', 'translate.etzhayyim.com', 'Translation service'),
+    row('images', 'Images', '🖼️', 'Services', 'https://images.etzhayyim.com', 'images.etzhayyim.com', 'Image processing'),
+    row('videos', 'Videos', '🎬', 'Services', 'https://douga.etzhayyim.com', 'douga.etzhayyim.com', 'Video platform'),
+    row('videos-legacy', 'Videos2', '🎥', 'Services', 'https://videos.etzhayyim.com', 'videos.etzhayyim.com', 'Video platform'),
+    row('music', 'Music', '🎵', 'Services', 'https://music.etzhayyim.com', 'music.etzhayyim.com', 'Music streaming'),
+    row('manga', 'Manga', '📚', 'Services', 'https://manga.etzhayyim.com', 'manga.etzhayyim.com', 'Manga reader'),
+    row('anime', 'Anime', '🎞️', 'Services', 'https://anime.etzhayyim.com', 'anime.etzhayyim.com', 'Anime platform'),
+    row('games', 'Games', '🎮', 'Services', 'https://games.etzhayyim.com', 'games.etzhayyim.com', 'Games'),
+    row('narou', 'Narou', '📖', 'Services', 'https://narou.etzhayyim.com', 'narou.etzhayyim.com', 'Novel platform'),
+    row('cards', 'Cards', '💳', 'Services', 'https://cards.etzhayyim.com', 'cards.etzhayyim.com', 'Stripe Issuing cards'),
+    row('tenki', 'Tenki', '🌤️', 'Services', 'https://tenki.etzhayyim.com', 'tenki.etzhayyim.com', 'Weather'),
+    row('yadoya', 'Yadoya', '🏨', 'Services', 'https://yadoya.etzhayyim.com', 'yadoya.etzhayyim.com', 'Lodging and stays'),
+    row('fleamarket', 'FleaMarket', '🛍️', 'Services', 'https://fleamarket.etzhayyim.com', 'fleamarket.etzhayyim.com', 'Marketplace'),
+    row('okaimono', 'Shopping', '🛒', 'Services', 'https://okaimono.etzhayyim.com', 'okaimono.etzhayyim.com', 'Shopping'),
+    row('briefing', 'Briefing', '📑', 'Services', 'https://briefing.etzhayyim.com', 'briefing.etzhayyim.com', 'Content briefing'),
+    row('tsukuru', 'Tsukuru', '🏭', 'Services', 'https://tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'Factory-direct ordering platform'),
+    row('cowork', 'Cowork', '👥', 'Services', 'https://cowork.etzhayyim.com', 'cowork.etzhayyim.com', 'Co-working'),
+    row('shigotoba', 'Shigotoba', '💼', 'Services', 'https://shigotoba.etzhayyim.com', 'shigotoba.etzhayyim.com', 'Job board'),
+    row('scheduler', 'Scheduler', '⏰', 'Services', 'https://scheduler.etzhayyim.com', 'scheduler.etzhayyim.com', 'Scheduler and automation'),
+    row('web4', 'Web4', '🔗', 'Services', 'https://web4.etzhayyim.com', 'web4.etzhayyim.com', 'Web4 / GCC token'),
+    row('society6', 'Society6', '🏛️', 'Services', 'https://society6.etzhayyim.com', 'society6.etzhayyim.com', 'COFOG access and Society6 policy portal'),
+    row('lawfirm', 'Law Firm', '⚖️', 'Services', 'https://lawfirm.etzhayyim.com', 'lawfirm.etzhayyim.com', 'Law firm client portal'),
+    row('lawyer', 'Lawyer', '👨‍⚖️', 'Services', 'https://lawyer.etzhayyim.com', 'lawyer.etzhayyim.com', 'Lawyer workspace'),
+    row('ekyc', 'eKYC', '🪪', 'Services', 'https://ekyc.etzhayyim.com', 'ekyc.etzhayyim.com', 'Identity verification'),
+    row('shomeisyashin', 'ID Photo', '📸', 'Services', 'https://shomeisyashin.etzhayyim.com', 'shomeisyashin.etzhayyim.com', 'AI証明写真メーカー'),
+    row('global', 'Global', '🌏', 'Services', 'https://global.etzhayyim.com', 'global.etzhayyim.com', 'Global services'),
+    row('worlds', 'Worlds', '🌌', 'Services', 'https://worlds.etzhayyim.com', 'worlds.etzhayyim.com', 'Virtual worlds'),
+    row('pachinko', 'Pachinko', '🎰', 'Services', 'https://pachinko.etzhayyim.com', 'pachinko.etzhayyim.com', 'Pachinko simulation'),
+    row('casino', 'Casino', '🎲', 'Services', 'https://casino.etzhayyim.com', 'casino.etzhayyim.com', 'World casino directory'),
+    row('oshiete', 'Oshiete', '❓', 'Services', 'https://oshiete.etzhayyim.com', 'oshiete.etzhayyim.com', 'Q&A platform'),
+    row('webpage', 'Webpage', '🌐', 'Services', 'https://webpage.etzhayyim.com', 'webpage.etzhayyim.com', 'Web page crawl and text extraction'),
+    row('marketer', 'Marketer', '📣', 'Services', 'https://marketer.etzhayyim.com', 'marketer.etzhayyim.com', 'Marketing tools'),
+    row('omikuji', 'Omikuji', '🎋', 'Services', 'https://omikuji.etzhayyim.com', 'omikuji.etzhayyim.com', 'Fortune telling'),
+    row('aima', 'AIMA', '🤖', 'Services', 'https://aima.etzhayyim.com', 'aima.etzhayyim.com', 'AI models'),
+    row('robot', 'Robot', '🦾', 'Services', 'https://robot.etzhayyim.com', 'robot.etzhayyim.com', 'Robot automation'),
+    row('wire', 'Wire', '📡', 'Services', 'https://wire.etzhayyim.com', 'wire.etzhayyim.com', 'Messaging'),
+    row('lawfirm-admin', 'LF Admin', '🏛️', 'Services', 'https://lawfirm-admin.etzhayyim.com', 'lawfirm-admin.etzhayyim.com', 'Law firm admin'),
 
     // ── Systems ──
-    row('performers', 'Performers', '🚀', 'Systems', 'https://gftd.ai', 'gftd.ai', 'Platform dashboard'),
-    row('analytics', 'Analytics', '📈', 'Systems', 'https://analytics.gftd.ai', 'analytics.gftd.ai', 'Analytics dashboard'),
-    row('ops', 'Ops', '⚙️', 'Systems', 'https://ops.gftd.ai', 'ops.gftd.ai', 'Project operations'),
-    row('sre', 'SRE', '🔧', 'Systems', 'https://sre.gftd.ai', 'sre.gftd.ai', 'Site reliability'),
-    row('os', 'OS', '🖥️', 'Systems', 'https://os.gftd.ai', 'os.gftd.ai', 'Operating system UI'),
-    row('po', 'PO', '📐', 'Systems', 'https://po.gftd.ai', 'po.gftd.ai', 'Projection operator'),
-    row('gov', 'Gov', '🏢', 'Systems', 'https://gov.gftd.ai', 'gov.gftd.ai', 'Governance'),
-    row('resources', 'Resources', '🗄️', 'Systems', 'https://resources.gftd.ai', 'resources.gftd.ai', 'JSON-LD/RDF resources'),
-    row('completer', 'Completer', '✏️', 'Systems', 'https://completer.gftd.ai', 'completer.gftd.ai', 'Code completion'),
-    row('har', 'HAR', '🗂️', 'Systems', 'https://har.gftd.ai', 'har.gftd.ai', 'HAR viewer'),
-    row('provider-pod', 'Provider', '📦', 'Systems', 'https://provider-pod.gftd.ai', 'provider-pod.gftd.ai', 'Provider pod marketplace'),
-    row('ge', 'GE', '🎓', 'Systems', 'https://ge.gftd.ai', 'ge.gftd.ai', 'General education'),
-    row('lo', 'LO', '🧩', 'Systems', 'https://lo.gftd.ai', 'lo.gftd.ai', 'Learning objects'),
-    row('tia', 'TIA', '🎙️', 'Systems', 'https://tia.gftd.ai', 'tia.gftd.ai', 'TIA assistant'),
-    row('wvme', 'WVME', '🎛️', 'Systems', 'https://wvme.gftd.ai', 'wvme.gftd.ai', 'WVME platform'),
-    row('tasklist', 'TaskList', '✅', 'Systems', 'https://tasklist.gftd.ai', 'tasklist.gftd.ai', 'Task approval'),
+    row('performers', 'Performers', '🚀', 'Systems', 'https://etzhayyim.com', 'etzhayyim.com', 'Platform dashboard'),
+    row('analytics', 'Analytics', '📈', 'Systems', 'https://analytics.etzhayyim.com', 'analytics.etzhayyim.com', 'Analytics dashboard'),
+    row('ops', 'Ops', '⚙️', 'Systems', 'https://ops.etzhayyim.com', 'ops.etzhayyim.com', 'Project operations'),
+    row('sre', 'SRE', '🔧', 'Systems', 'https://sre.etzhayyim.com', 'sre.etzhayyim.com', 'Site reliability'),
+    row('os', 'OS', '🖥️', 'Systems', 'https://os.etzhayyim.com', 'os.etzhayyim.com', 'Operating system UI'),
+    row('po', 'PO', '📐', 'Systems', 'https://po.etzhayyim.com', 'po.etzhayyim.com', 'Projection operator'),
+    row('gov', 'Gov', '🏢', 'Systems', 'https://gov.etzhayyim.com', 'gov.etzhayyim.com', 'Governance'),
+    row('resources', 'Resources', '🗄️', 'Systems', 'https://resources.etzhayyim.com', 'resources.etzhayyim.com', 'JSON-LD/RDF resources'),
+    row('completer', 'Completer', '✏️', 'Systems', 'https://completer.etzhayyim.com', 'completer.etzhayyim.com', 'Code completion'),
+    row('har', 'HAR', '🗂️', 'Systems', 'https://har.etzhayyim.com', 'har.etzhayyim.com', 'HAR viewer'),
+    row('provider-pod', 'Provider', '📦', 'Systems', 'https://provider-pod.etzhayyim.com', 'provider-pod.etzhayyim.com', 'Provider pod marketplace'),
+    row('ge', 'GE', '🎓', 'Systems', 'https://ge.etzhayyim.com', 'ge.etzhayyim.com', 'General education'),
+    row('lo', 'LO', '🧩', 'Systems', 'https://lo.etzhayyim.com', 'lo.etzhayyim.com', 'Learning objects'),
+    row('tia', 'TIA', '🎙️', 'Systems', 'https://tia.etzhayyim.com', 'tia.etzhayyim.com', 'TIA assistant'),
+    row('wvme', 'WVME', '🎛️', 'Systems', 'https://wvme.etzhayyim.com', 'wvme.etzhayyim.com', 'WVME platform'),
+    row('tasklist', 'TaskList', '✅', 'Systems', 'https://tasklist.etzhayyim.com', 'tasklist.etzhayyim.com', 'Task approval'),
   ];
 
   for (const r of rows) {

@@ -265,7 +265,7 @@ def test_mnp_payload_returns_ok():
     out = SP._mnp_payload(
         "in", "08012345678", "sub_001", "partner_a",
         "2026-04-29T10:00:00Z", "", "", "auth-123",
-        "did:web:telecom.gftd.ai", True,
+        "did:web:telecom.etzhayyim.com", True,
     )
     assert out["ok"] is True
     assert out["status"] == "requested"
@@ -275,7 +275,7 @@ def test_mnp_payload_vertex_id_starts_with_at():
     out = SP._mnp_payload(
         "out", "08098765432", "sub_002", "partner_b",
         "2026-04-29T11:00:00Z", "", "", "",
-        "did:web:telecom.gftd.ai", True,
+        "did:web:telecom.etzhayyim.com", True,
     )
     assert out["vertexId"].startswith("at://")
 
@@ -284,7 +284,7 @@ def test_mnp_payload_uses_provided_request_id():
     out = SP._mnp_payload(
         "in", "09011112222", "sub_003", "partner_c",
         "2026-04-29T12:00:00Z", "req_custom_001", "", "auth-xyz",
-        "did:web:telecom.gftd.ai", True,
+        "did:web:telecom.etzhayyim.com", True,
     )
     assert out["requestId"] == "req_custom_001"
 
@@ -293,7 +293,7 @@ def test_mnp_payload_generates_request_id_when_empty():
     out = SP._mnp_payload(
         "in", "09099999999", "sub_004", "partner_d",
         "2026-04-29T13:00:00Z", "", "", "auth-abc",
-        "did:web:telecom.gftd.ai", True,
+        "did:web:telecom.etzhayyim.com", True,
     )
     assert out["requestId"].startswith("mnp_")
 
@@ -304,14 +304,14 @@ def test_mnp_payload_raises_on_missing_msisdn():
         SP._mnp_payload(
             "in", "", "sub_005", "partner_e",
             "2026-04-29T14:00:00Z", "", "", "",
-            "did:web:telecom.gftd.ai", True,
+            "did:web:telecom.etzhayyim.com", True,
         )
 
 
 def test_mnp_payload_in_out_variants_differ():
     common_args = (
         "08012345678", "sub_001", "partner_a", "2026-04-29T10:00:00Z",
-        "", "", "", "did:web:telecom.gftd.ai", True,
+        "", "", "", "did:web:telecom.etzhayyim.com", True,
     )
     out_in = SP._mnp_payload("in", *common_args)
     out_out = SP._mnp_payload("out", *common_args)

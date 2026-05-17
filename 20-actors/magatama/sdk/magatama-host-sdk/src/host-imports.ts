@@ -492,7 +492,7 @@ export function createHostImports(
       pds.dispatch({ type: "com.atproto.identity.create", payload: { path, documentJson } });
       const nanoid = appId || (env["PERFORMER_ID"] as string) || (env["APP_NANOID"] as string) || "";
       if (nanoid && path) {
-        return `did:web:${nanoid}.gftd.ai:${path}`;
+        return `did:web:${nanoid}.etzhayyim.com:${path}`;
       }
       return "";
     },
@@ -728,7 +728,7 @@ export function createHostImports(
     },
 
     ipfsGatewayUrl(cid: string): string {
-      return `https://ipfs.gftd.ai/ipfs/${cid}`;
+      return `https://ipfs.etzhayyim.com/ipfs/${cid}`;
     },
 
     storagePutObject(bucket: string, key: string, data: Uint8Array, contentType: string): string {
@@ -759,7 +759,7 @@ export function createHostImports(
     },
 
     cdnPublicUrl(subdomain: string, path: string): string {
-      return `https://cdn.gftd.ai/${subdomain}/${path}`;
+      return `https://cdn.etzhayyim.com/${subdomain}/${path}`;
     },
 
     cdnUploadImage(subdomain: string, path: string, data: Uint8Array, optionsJson: string): string {

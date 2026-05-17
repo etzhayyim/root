@@ -21,9 +21,9 @@ Env:
   RW_URL             — RisingWave postgres URL
   ANTHROPIC_API_KEY
   RESEND_API_KEY
-  RESEND_FROM        — sender (default digest@gftd.ai)
+  RESEND_FROM        — sender (default digest@etzhayyim.com)
   DIGEST_TO          — recipient for weekly digest
-  ADS_XRPC_URL       — ads.gftd.ai base (default https://adsm4d5c.gftd.ai)
+  ADS_XRPC_URL       — ads.etzhayyim.com base (default https://adsm4d5c.etzhayyim.com)
 """
 
 from __future__ import annotations
@@ -50,9 +50,9 @@ from pymagatama.llm import resolve_model_id
 
 LOG = logging.getLogger("compintel_worker")
 
-COMPINTEL_DID = "did:web:compintel.gftd.ai"
-ADS_XRPC_URL = os.environ.get("ADS_XRPC_URL", "https://adsm4d5c.gftd.ai")
-RESEND_FROM = os.environ.get("RESEND_FROM", "digest@gftd.ai")
+COMPINTEL_DID = "did:web:compintel.etzhayyim.com"
+ADS_XRPC_URL = os.environ.get("ADS_XRPC_URL", "https://adsm4d5c.etzhayyim.com")
+RESEND_FROM = os.environ.get("RESEND_FROM", "digest@etzhayyim.com")
 DIGEST_TO = os.environ.get("DIGEST_TO", "")
 
 

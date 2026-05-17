@@ -17,10 +17,10 @@ const repoRoot = path.resolve(path.dirname(here), "..", "..", "..");
 
 const sourcePath = "00-contracts/bpmn/ai/gftd/outlook/triageTick.bpmn";
 const processId = "outlook_triage_tick";
-const ownerDid = "did:web:outlook.gftd.ai";
+const ownerDid = "did:web:outlook.etzhayyim.com";
 const actorId = "sys.outlook";
 const createdAt = "2026-05-08T15:30:00Z";
-const vertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/outlook-triage-tick-v1`;
+const vertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-triage-tick-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(path.resolve(repoRoot, sourcePath), "utf8");

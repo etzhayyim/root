@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * sbom.gftd.ai — bump registerArtifact.bpmn to version 2 to trigger
+ * sbom.etzhayyim.com — bump registerArtifact.bpmn to version 2 to trigger
  * F5 watcher redeploy. Phase C adds the Task_VulnMatch step between
  * Persist and Audit.
  *
@@ -22,9 +22,9 @@ const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf
 
 const sourcePath = "00-contracts/bpmn/ai/gftd/sbom/registerArtifact.bpmn";
 const processVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1";
 const updatedAt = "2026-05-06T11:01:00Z";
 
 export async function up(db: Kysely<unknown>): Promise<void> {

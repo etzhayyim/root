@@ -5,7 +5,7 @@ P16-b of ADR-2605141200. Registers the 7 NEW MCP tools backing
 already registered by r_20260514180000 and is the 8th Pregel node;
 this revision covers the upstream pipeline.
 
-Self-hosted invariant: every tool's pod image is `ghcr.io/gftdcojp/*`
+Self-hosted invariant: every tool's pod image is `ghcr.io/etzhayyim/*`
 running open-weight / OSS models on the VKE pool. External commercial
 APIs are train-only teacher signals — see
 `data/ghosthacker/TRAINING_PIPELINE.md`.

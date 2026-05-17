@@ -9,7 +9,7 @@ type Seed = { slug: string; processId: string; nsid: string; sourcePath: string;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:calendar.gftd.ai";
+const ownerDid = "did:web:calendar.etzhayyim.com";
 const createdAt = "2026-04-29T21:10:00+09:00";
 const actorId = "sys.bpmn.seed.calendar";
 const project = "calendar";
@@ -29,8 +29,8 @@ const seeds: Seed[] = [
   { slug: "cron-tick", processId: "calendar_cron_tick", nsid: "ai.gftd.apps.calendar.cronTick", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/cronTick.bpmn", timeoutMs: 180000, writeTableAllowlist: "vertex_gcal_oauth_token,vertex_gcal_event,vertex_gcal_attendee" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

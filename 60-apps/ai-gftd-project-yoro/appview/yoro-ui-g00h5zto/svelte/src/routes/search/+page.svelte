@@ -18,7 +18,7 @@
 
 	const shinka = useShinkaInference();
 	const embedding = useEmbedding();
-	const BSKY_XRPC_BASE = 'https://bsky.gftd.ai/xrpc';
+	const BSKY_XRPC_BASE = 'https://bsky.etzhayyim.com/xrpc';
 
 	let { data } = $props();
 

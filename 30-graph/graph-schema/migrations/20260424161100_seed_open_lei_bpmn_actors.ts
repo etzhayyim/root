@@ -12,29 +12,29 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T16:30:00Z";
-const ownerDid = "did:web:open-lei.gftd.ai";
+const ownerDid = "did:web:open-lei.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-lei";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-lei-register-legal-entity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-register-legal-entity-v1",
     bpmnProcessId: "open_lei_register_legal_entity",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/registerLegalEntity.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-lei-record-ownership-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-record-ownership-v1",
     bpmnProcessId: "open_lei_record_ownership",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/recordOwnership.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-lei-collect-gleif-global-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-collect-gleif-global-v1",
     bpmnProcessId: "open_lei_collect_gleif_global_lei",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/collectGleifGlobalLei.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-lei-registerLegalEntity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-registerLegalEntity-v1",
     nsid: "ai.gftd.apps.openLei.registerLegalEntity", bpmnProcessId: "open_lei_register_legal_entity",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-lei-recordOwnership-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-recordOwnership-v1",
     nsid: "ai.gftd.apps.openLei.recordOwnership", bpmnProcessId: "open_lei_record_ownership",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-lei-collectGleifGlobal-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-collectGleifGlobal-v1",
     nsid: "ai.gftd.apps.openLei.collectGleifGlobal", bpmnProcessId: "open_lei_collect_gleif_global_lei",
     ownerDid, resultTimeoutMs: 180000 },
 ];

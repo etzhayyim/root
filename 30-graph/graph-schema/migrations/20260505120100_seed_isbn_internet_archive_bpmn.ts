@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * isbn.gftd.ai Phase 2 — Internet Archive timer-start BPMN seed.
+ * isbn.etzhayyim.com Phase 2 — Internet Archive timer-start BPMN seed.
  * Adds a 6th source covering body text + cover + (optional) per-page
  * IIIF scan images.
  */
@@ -17,11 +17,11 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-05T12:01:00Z";
-const ownerDid = "did:web:isbn.gftd.ai";
+const ownerDid = "did:web:isbn.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.isbn-internet-archive";
 
 const seeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-internet-archive-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-internet-archive-v1",
     bpmnProcessId: "isbn_ingest_internet_archive",
     sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestInternetArchive.bpmn", ownerDid },
 ];

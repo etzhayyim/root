@@ -16,7 +16,7 @@ from pymagatama import llm
 from pymagatama.db_sync import sync_cursor
 
 
-APP_DID = "did:web:bunken.gftd.ai"
+APP_DID = "did:web:bunken.etzhayyim.com"
 CDX_API = "https://index.commoncrawl.org/CC-MAIN-2026-12-index"
 
 BIBLIOGRAPHIC_SOURCES: list[tuple[str, str, str]] = [
@@ -236,7 +236,7 @@ def _insert_edge(src: dict[str, Any], dst: dict[str, Any], label: str, relation:
 
 
 def _fetch_text(url: str, timeout: int = 20) -> str:
-    req = urllib.request.Request(url, headers={"user-agent": "bunken.gftd.ai/1.0"})
+    req = urllib.request.Request(url, headers={"user-agent": "bunken.etzhayyim.com/1.0"})
     with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310
         return resp.read().decode("utf-8", errors="replace")
 

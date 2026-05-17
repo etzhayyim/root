@@ -1,6 +1,6 @@
 # Giemon Otete 公式サイト IA (情報アーキテクチャ) v1
 
-URL: giemon.gftd.ai  
+URL: giemon.etzhayyim.com  
 フレームワーク: SvelteKit (既存 open-robo-hp performer)  
 ホスティング: Cloudflare Pages (CDN)  
 作成日: 2026-05-14
@@ -10,7 +10,7 @@ URL: giemon.gftd.ai
 ## 1. サイトマップ
 
 ```
-giemon.gftd.ai/
+giemon.etzhayyim.com/
 ├── /                    ランディングページ (LP)
 ├── /product             製品詳細
 │   ├── /product/specs   仕様・スペック表
@@ -147,7 +147,7 @@ python test/home_pose.py   # 全軸ホームポジション確認
 | Amazon JP (FBA) | amazon.co.jp/dp/{ASIN} | プライム翌日配送 |
 | Makuake | makuake.com/project/otete | 早期割引 ¥79,800 |
 | Kickstarter | kickstarter.com/projects/gftd/otete | $499 early bird |
-| tsukuru.gftd.ai | 直販 (B2B 法人向け) | 見積もり対応 |
+| tsukuru.etzhayyim.com | 直販 (B2B 法人向け) | 見積もり対応 |
 
 **在庫状況**: Cloudflare KV から動的取得 (Amazon API / Makuake API)
 
@@ -231,5 +231,5 @@ open-robo-hp (SvelteKit)
 └── wrangler.jsonc
 ```
 
-**ドメイン**: `giemon.gftd.ai` → Cloudflare Pages  
+**ドメイン**: `giemon.etzhayyim.com` → Cloudflare Pages  
 **CD**: GitHub Actions → `pnpm build` → `gftd deploy` (mainブランチマージ時)

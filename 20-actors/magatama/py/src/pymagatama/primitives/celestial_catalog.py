@@ -35,8 +35,8 @@ from urllib.request import Request
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR_DID = "did:web:maps.gftd.ai:tentai"
-DEFAULT_REPO = "did:web:maps.gftd.ai"
+ACTOR_DID = "did:web:maps.etzhayyim.com:tentai"
+DEFAULT_REPO = "did:web:maps.etzhayyim.com"
 
 HYG_URL = "https://github.com/astronexus/HYG-Database/raw/main/hyg/CURRENT/hygdata_v41.csv"
 MESSIER_URL = "https://raw.githubusercontent.com/mattiaverga/OpenNGC/master/database_files/NGC.csv"
@@ -111,8 +111,8 @@ INSERT INTO vertex_celestial_object (
 def _ensure_catalog(cur: Any, catalog_id: str, authority: str, version: str,
                     name: str, display_name: str, description: str) -> None:
     """Idempotent catalog row upsert (RW PK overwrite)."""
-    vid = f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.celestialCatalog/{catalog_id}"
-    did = f"did:web:maps.gftd.ai:tentai:catalog:{catalog_id}"
+    vid = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.celestialCatalog/{catalog_id}"
+    did = f"did:web:maps.etzhayyim.com:tentai:catalog:{catalog_id}"
     today = _today_date()
     cur.execute(
         _INSERT_CATALOG_SQL,
@@ -190,8 +190,8 @@ def task_celestial_hyg_refresh(mag_max: float = 6.5, max_rows: int = 12_000) -> 
             hr = (row.get("hr") or "").strip()
             ident = proper or (f"HR {hr}" if hr else None) or (f"HIP {hip}" if hip else None) or (f"HD {hd}" if hd else None) or f"HYG-{row.get('id') or written}"
             object_id = f"hyg-{row.get('id') or hip or hd or hr or written}"
-            vid = f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.celestialObject/{object_id}"
-            did = f"did:web:maps.gftd.ai:tentai:object:{object_id}"
+            vid = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.celestialObject/{object_id}"
+            did = f"did:web:maps.etzhayyim.com:tentai:object:{object_id}"
             # Render priority: brighter star = higher priority. Inverse mag.
             render_priority = max(1, int((mag_max - mag) * 10))
             try:
@@ -317,8 +317,8 @@ def task_celestial_ngc_refresh(max_rows: int = 5_000) -> dict[str, Any]:
                 messier_count += 1
             ident = name if not is_messier else f"M{messier} ({name})"
             object_id = f"ngc-{name.lower().replace(' ', '-')}"
-            vid = f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.celestialObject/{object_id}"
-            did = f"did:web:maps.gftd.ai:tentai:object:{object_id}"
+            vid = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.celestialObject/{object_id}"
+            did = f"did:web:maps.etzhayyim.com:tentai:object:{object_id}"
             mag_for_priority = v_mag if v_mag is not None else (b_mag if b_mag is not None else 12.0)
             render_priority = max(1, int((15.0 - mag_for_priority) * 5))
             metadata = {

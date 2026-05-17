@@ -1,7 +1,7 @@
 {
   "formatKey": "ind.gstr3b.gspFramework.v3",
   "jurisdiction": "gstr3b",
-  "actorDid": "did:web:ind-union.gftd.ai:cbic:gstr3b",
+  "actorDid": "did:web:ind-union.etzhayyim.com:cbic:gstr3b",
   "formatKind": "official_provider_framework",
   "officialSourceUrl": "https://www.gstn.org.in/assets/mainDashboard/Pdf/GSP_Implementation_Framework_V_3.0.pdf",
   "lastVerified": "2026-04-26",

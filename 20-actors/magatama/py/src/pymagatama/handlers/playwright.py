@@ -29,7 +29,7 @@ from datetime import datetime, timedelta, timezone
 from pymagatama import udf
 
 ACTOR_NAME = "playwright"
-ACTOR_DID = f"did:web:{ACTOR_NAME}.gftd.ai"
+ACTOR_DID = f"did:web:{ACTOR_NAME}.etzhayyim.com"
 
 SESSION_TTL_LOCAL_SEC = 30 * 60
 SESSION_TTL_CF_SEC = 5 * 60

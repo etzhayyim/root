@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-29T09:00:00Z";
-const ownerDid = "did:web:pd-color.gftd.ai";
+const ownerDid = "did:web:pd-color.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.public-domain-colorization";
 
 const seed = {
@@ -20,8 +20,8 @@ const seed = {
 };
 
 const sourcePath = `00-contracts/bpmn/ai/gftd/${seed.project}/${seed.proc}.bpmn`;
-const processVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${seed.project}-colorize-work-v1`;
-const bindingVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
+const processVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${seed.project}-colorize-work-v1`;
+const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
 
 function readContract(relPath: string): string {
   return readFileSync(path.resolve(repoRoot, relPath), "utf8");

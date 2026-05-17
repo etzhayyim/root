@@ -43,7 +43,7 @@ except ImportError:
 
 # ── Constants ─────────────────────────────────────────────────────────
 
-DEFAULT_REPO = "did:web:bpmn.gftd.ai"
+DEFAULT_REPO = "did:web:bpmn.etzhayyim.com"
 COLLECTION_MESSAGE = "ai.gftd.convo.message"
 COLLECTION_REPORT  = "ai.gftd.apps.wellbecoming.proactiveMessage"
 COLLECTION_ALERT   = "ai.gftd.apps.wellbecoming.floorAlert"

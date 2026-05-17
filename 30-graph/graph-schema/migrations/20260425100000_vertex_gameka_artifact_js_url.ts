@@ -10,7 +10,7 @@ import { sql } from "kysely";
  *                                       kami_app_{slug}.js for stable URL)
  *
  * Both presigned URLs are written to the -built row of vertex_gameka_artifact.
- * The playtest shell at game-play.gftd.ai/__playtest__.html loads the glue
+ * The playtest shell at game-play.etzhayyim.com/__playtest__.html loads the glue
  * first, then calls `init(wasmUrl)` to override the default same-dir wasm
  * fetch with the explicit presigned binary URL.
  *

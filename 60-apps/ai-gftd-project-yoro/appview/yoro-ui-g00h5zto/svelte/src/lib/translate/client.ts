@@ -14,7 +14,7 @@ import type { LanguageCode } from '../language/types.js';
 
 import { AtpAgent } from '@atproto/api';
 
-const DEFAULT_BASE = 'https://i18n.gftd.ai';
+const DEFAULT_BASE = 'https://i18n.etzhayyim.com';
 
 let config: TranslateConfig = {};
 let _agent = new AtpAgent({ service: DEFAULT_BASE });

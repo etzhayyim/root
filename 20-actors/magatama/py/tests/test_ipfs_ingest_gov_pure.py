@@ -175,7 +175,7 @@ def test_ga_vertex_id_contains_path():
 
 def test_ga_vertex_id_contains_primary_did():
     result = GA._vertex_id("some-path")
-    assert "ago-state.gftd.ai" in result
+    assert "ago-state.etzhayyim.com" in result
 
 
 # ─── gov_ago — constants ──────────────────────────────────────────────────────

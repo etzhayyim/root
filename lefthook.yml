@@ -4,7 +4,7 @@
 # lint-dangerous-query, llm-model-ssot, etc.) will be added in ADR 2605152100
 # Step 6 (content seed) when the corresponding source paths land in this repo.
 #
-# Reference for full hook set: gftdcojp/ai-gftd-apps-gftdcojp/lefthook.yml
+# Reference for full hook set: gftdcojp/etzhayyim/root/lefthook.yml
 
 pre-commit:
   parallel: true

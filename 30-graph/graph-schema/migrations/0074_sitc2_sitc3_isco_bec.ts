@@ -119,22 +119,22 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ───────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('sitc3', 'sitc3.gftd.ai', 5690, 'products', 'trade')
+    VALUES ('sitc3', 'sitc3.etzhayyim.com', 5690, 'products', 'trade')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('sitc2', 'sitc2.gftd.ai', 3723, 'products', 'trade')
+    VALUES ('sitc2', 'sitc2.etzhayyim.com', 3723, 'products', 'trade')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('isco', 'isco.gftd.ai', 393, 'occupations', 'labour')
+    VALUES ('isco', 'isco.etzhayyim.com', 393, 'occupations', 'labour')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('bec', 'bec.gftd.ai', 31, 'categories', 'trade')
+    VALUES ('bec', 'bec.etzhayyim.com', 31, 'categories', 'trade')
   `.execute(db);
 
   // ── SITC concordance bridges (data-only, idempotent) ──────────────────

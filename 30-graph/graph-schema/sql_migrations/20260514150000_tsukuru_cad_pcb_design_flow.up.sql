@@ -1,5 +1,5 @@
 -- tsukuru: CAD/PCB design project schema + LangGraph design-flow topologies
--- Supports open-robo (and any hardware project) on tsukuru.gftd.ai
+-- Supports open-robo (and any hardware project) on tsukuru.etzhayyim.com
 --
 -- Tables:
 --   vertex_tsukuru_cad_project  — one row per hardware design project
@@ -141,9 +141,9 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-cadProject-create',
+  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-cadProject-create',
    0, 0, 'ai.gftd.apps.tsukuru.cadProject.create',
-   'did:web:tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Create a new CAD design project on tsukuru, linked to a hardware product.',
    '{"type":"object","required":["projectName","productRef","cadTool","totalParts"],"properties":{"projectName":{"type":"string"},"productRef":{"type":"string"},"cadTool":{"type":"string","enum":["fusion360","onshape","freecad"]},"totalParts":{"type":"integer"}}}',
    '{"type":"object","properties":{"projectVid":{"type":"string"},"projectId":{"type":"string"}}}',
@@ -151,9 +151,9 @@ VALUES
    '00-contracts/lexicons/ai/gftd/apps/tsukuru/cadProject/create.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-cadPart-upsert',
+  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-cadPart-upsert',
    0, 0, 'ai.gftd.apps.tsukuru.cadPart.upsert',
-   'did:web:tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Upsert a CAD part record within a project (create or update status/step_file_ref).',
    '{"type":"object","required":["projectVid","partNumber","partName"],"properties":{"projectVid":{"type":"string"},"partNumber":{"type":"string"},"partName":{"type":"string"},"material":{"type":"string"},"process":{"type":"string"},"status":{"type":"string"},"stepFileRef":{"type":"string"},"quantity":{"type":"integer"}}}',
    '{"type":"object","properties":{"partVid":{"type":"string"}}}',
@@ -161,9 +161,9 @@ VALUES
    '00-contracts/lexicons/ai/gftd/apps/tsukuru/cadPart/upsert.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-meviy-requestQuote',
+  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-meviy-requestQuote',
    0, 0, 'ai.gftd.apps.tsukuru.meviy.requestQuote',
-   'did:web:tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Submit STEP files to Misumi Meviy for automatic machining quote.',
    '{"type":"object","required":["projectVid"],"properties":{"projectVid":{"type":"string"},"partVids":{"type":"array","items":{"type":"string"}}}}',
    '{"type":"object","properties":{"quoteId":{"type":"string"},"totalJpy":{"type":"integer"},"lineItems":{"type":"array"},"leadDays":{"type":"integer"}}}',
@@ -171,9 +171,9 @@ VALUES
    '00-contracts/lexicons/ai/gftd/apps/tsukuru/meviy/requestQuote.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-pcbProject-create',
+  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-pcbProject-create',
    0, 0, 'ai.gftd.apps.tsukuru.pcbProject.create',
-   'did:web:tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Create a new PCB design project on tsukuru.',
    '{"type":"object","required":["pcbName","productRef"],"properties":{"pcbName":{"type":"string"},"productRef":{"type":"string"},"kicadVersion":{"type":"string"},"boardSizeMm":{"type":"string"},"layerCount":{"type":"integer"}}}',
    '{"type":"object","properties":{"projectVid":{"type":"string"},"projectId":{"type":"string"}}}',
@@ -181,9 +181,9 @@ VALUES
    '00-contracts/lexicons/ai/gftd/apps/tsukuru/pcbProject/create.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-pban-requestQuote',
+  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-pban-requestQuote',
    0, 0, 'ai.gftd.apps.tsukuru.pban.requestQuote',
-   'did:web:tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+   'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Submit Gerber ZIP to P-Ban.com for PCB fabrication + assembly quote.',
    '{"type":"object","required":["projectVid","gerberRef"],"properties":{"projectVid":{"type":"string"},"gerberRef":{"type":"string"},"quantity":{"type":"integer"},"needsAssembly":{"type":"boolean"}}}',
    '{"type":"object","properties":{"quoteId":{"type":"string"},"pcbJpy":{"type":"integer"},"assemblyJpy":{"type":"integer"},"totalJpy":{"type":"integer"},"leadDays":{"type":"integer"}}}',
@@ -202,7 +202,7 @@ VALUES
   ('tsukuru_cad_design_flow.v1', 0, 0, 'tsukuru_cad_design_flow.v1', 1, 'topology', NULL,
    '{"state_keys":["projectVid","currentPartIdx","totalParts","stepFiles","toleranceErrors","meviyQuote","orderApproved","orderId","fitCheckResults","ok","error"],"entry":"project_init","edges":[{"from":"project_init","to":"part_modeling"},{"from":"part_modeling","to":"tolerance_review","condition":"allPartsModeled"},{"from":"part_modeling","to":"part_modeling","condition":"hasRemainingParts"},{"from":"tolerance_review","to":"meviy_quote","condition":"toleranceOk"},{"from":"tolerance_review","to":"part_modeling","condition":"hasToleranceErrors"},{"from":"meviy_quote","to":"order_decision"},{"from":"order_decision","to":"order_submit","condition":"approved"},{"from":"order_decision","to":"END","condition":"rejected"},{"from":"order_submit","to":"delivery_track"},{"from":"delivery_track","to":"fit_check","condition":"delivered"},{"from":"delivery_track","to":"delivery_track","condition":"inTransit"},{"from":"fit_check","to":"END"}]}',
    'CAD design flow: Fusion360 part modeling → tolerance review → Meviy quote → order → delivery → fit check',
-   '2026-05-14T15:00:00Z', 'rw_vertex', 'did:web:tsukuru.gftd.ai');
+   '2026-05-14T15:00:00Z', 'rw_vertex', 'did:web:tsukuru.etzhayyim.com');
 
 INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
@@ -234,7 +234,7 @@ VALUES
 
   ('tsukuru_cad_design_flow.v1:order_submit', 0, 0, 'tsukuru_cad_design_flow.v1',
    'order_submit', 'mcp_tool', 'mcp://ai.gftd.apps.tsukuru.productionOrder.create',
-   '{"input_keys":["projectVid","meviyQuote"],"result_key":"orderId","args":{"name":"ai.gftd.apps.tsukuru.productionOrder.create","fulfillmentMode":"mto","vendorDid":"did:web:misumi-meviy.tsukuru.gftd.ai"}}',
+   '{"input_keys":["projectVid","meviyQuote"],"result_key":"orderId","args":{"name":"ai.gftd.apps.tsukuru.productionOrder.create","fulfillmentMode":"mto","vendorDid":"did:web:misumi-meviy.tsukuru.etzhayyim.com"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_cad_design_flow.v1:delivery_track', 0, 0, 'tsukuru_cad_design_flow.v1',
@@ -258,7 +258,7 @@ VALUES
   ('tsukuru_pcb_design_flow.v1', 0, 0, 'tsukuru_pcb_design_flow.v1', 1, 'topology', NULL,
    '{"state_keys":["projectVid","schematicDone","layoutDone","gerberRef","drcErrors","pbanQuote","orderApproved","orderId","assemblyStatus","testResults","ok","error"],"entry":"schematic_design","edges":[{"from":"schematic_design","to":"pcb_layout","condition":"schematicDone"},{"from":"pcb_layout","to":"drc_check","condition":"layoutDone"},{"from":"drc_check","to":"gerber_export","condition":"drcErrors==0"},{"from":"drc_check","to":"pcb_layout","condition":"drcErrors>0"},{"from":"gerber_export","to":"pban_quote"},{"from":"pban_quote","to":"order_decision"},{"from":"order_decision","to":"order_submit","condition":"approved"},{"from":"order_decision","to":"END","condition":"rejected"},{"from":"order_submit","to":"delivery_track"},{"from":"delivery_track","to":"assembly_check","condition":"pcbDelivered"},{"from":"delivery_track","to":"delivery_track","condition":"inTransit"},{"from":"assembly_check","to":"END"}]}',
    'PCB design flow: KiCad schematic → layout → DRC → Gerber → P-Ban.com quote → order → assembly → test',
-   '2026-05-14T15:00:00Z', 'rw_vertex', 'did:web:tsukuru.gftd.ai');
+   '2026-05-14T15:00:00Z', 'rw_vertex', 'did:web:tsukuru.etzhayyim.com');
 
 INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
@@ -295,7 +295,7 @@ VALUES
 
   ('tsukuru_pcb_design_flow.v1:order_submit', 0, 0, 'tsukuru_pcb_design_flow.v1',
    'order_submit', 'mcp_tool', 'mcp://ai.gftd.apps.tsukuru.productionOrder.create',
-   '{"input_keys":["projectVid","pbanQuote"],"result_key":"orderId","args":{"name":"ai.gftd.apps.tsukuru.productionOrder.create","fulfillmentMode":"mto","vendorDid":"did:web:pban-com.tsukuru.gftd.ai"}}',
+   '{"input_keys":["projectVid","pbanQuote"],"result_key":"orderId","args":{"name":"ai.gftd.apps.tsukuru.productionOrder.create","fulfillmentMode":"mto","vendorDid":"did:web:pban-com.tsukuru.etzhayyim.com"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_pcb_design_flow.v1:delivery_track', 0, 0, 'tsukuru_pcb_design_flow.v1',

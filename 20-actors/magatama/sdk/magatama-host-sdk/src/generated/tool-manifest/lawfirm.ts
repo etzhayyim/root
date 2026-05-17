@@ -21,7 +21,7 @@ export const InputCloseMatter = z.object({ matterDid: z.string(), outcome: z.enu
 
 export const OutputCloseMatter = z.object({ matterDid: z.string(), closedAt: z.string().datetime({ offset: true }), grantsRevoked: z.number().int(), openBlockers: z.array(z.string()).describe("If present, close was blocked").optional() }).openapi("LawfirmCloseMatterOutput");
 
-export const InputCreateCase = z.object({ domain: z.enum(["ni138", "land", "family", "consumer", "labour", "corporate", "tax", "criminal", "rera", "fema", "pil-rti", "visa"] as const), state: z.string().describe("ISO 3166-2:IN code (e.g. IN-MH, IN-TN, IN-UP)"), city: z.string().describe("Municipality slug (mumbai, chennai, lucknow, ...)").optional(), lang: z.string().describe("ISO 639-1/3 of client interaction (hi/bn/ta/te/mr/gu/kn/ml/pa/or/as/ur/sa/ne/sd/ks/kok/mai/mni/sat/doi/brx/en)"), courtDid: z.string().describe("did:web:lawfirm.gftd.ai:court:{level}:{code} when known").optional(), subjectSummary: z.string().describe("Plaintext summary in client lang. Server encrypts via signal:v1: before persist.").optional(), amountInDispute: z.number().optional(), currency: z.string().default("INR").optional(), urgency: z.enum(["routine", "urgent", "ex-parte"] as const).optional() }).openapi("LawfirmCreateCaseInput");
+export const InputCreateCase = z.object({ domain: z.enum(["ni138", "land", "family", "consumer", "labour", "corporate", "tax", "criminal", "rera", "fema", "pil-rti", "visa"] as const), state: z.string().describe("ISO 3166-2:IN code (e.g. IN-MH, IN-TN, IN-UP)"), city: z.string().describe("Municipality slug (mumbai, chennai, lucknow, ...)").optional(), lang: z.string().describe("ISO 639-1/3 of client interaction (hi/bn/ta/te/mr/gu/kn/ml/pa/or/as/ur/sa/ne/sd/ks/kok/mai/mni/sat/doi/brx/en)"), courtDid: z.string().describe("did:web:lawfirm.etzhayyim.com:court:{level}:{code} when known").optional(), subjectSummary: z.string().describe("Plaintext summary in client lang. Server encrypts via signal:v1: before persist.").optional(), amountInDispute: z.number().optional(), currency: z.string().default("INR").optional(), urgency: z.enum(["routine", "urgent", "ex-parte"] as const).optional() }).openapi("LawfirmCreateCaseInput");
 
 export const OutputCreateCase = z.object({ did: z.string(), uri: z.string(), cohortDid: z.string().describe("service cohort actor handling this matter"), caseNumber: z.string().optional() }).openapi("LawfirmCreateCaseOutput");
 
@@ -29,7 +29,7 @@ export const InputCreateMatter = z.object({ firmDid: z.string().regex(new RegExp
 
 export const OutputCreateMatter = z.object({ matterDid: z.string().describe("did:gftd:{firm}:{matterHash} (depth 2)"), matterRkey: z.string().describe("Last 24 hex of matterDid; used as AT record rkey (DID ↔ AT URI isomorphism)"), uri: z.string(), materialHashProof: z.string().describe("Hex-encoded material bytes used in H(firmDid || 0x1F || material) (ADR-0029 chain verification input)").optional() }).openapi("LawfirmCreateMatterOutput");
 
-export const InputGetCaseStatus = z.object({ caseDid: z.string(), lang: z.string().describe("Translate output to this lang via did:web:lawfirm.gftd.ai:lang:{iso}").optional() }).openapi("LawfirmGetCaseStatusInput");
+export const InputGetCaseStatus = z.object({ caseDid: z.string(), lang: z.string().describe("Translate output to this lang via did:web:lawfirm.etzhayyim.com:lang:{iso}").optional() }).openapi("LawfirmGetCaseStatusInput");
 
 export const OutputGetCaseStatus = z.object({ caseDid: z.string(), status: z.string(), domain: z.string().optional(), courtDid: z.string().optional(), cohortDid: z.string().optional(), nextHearingAt: z.string().datetime({ offset: true }).optional(), events: z.array(z.object({ event: z.string().optional(), occurredAt: z.string().datetime({ offset: true }).optional() })) }).openapi("LawfirmGetCaseStatusOutput");
 
@@ -73,7 +73,7 @@ export const InputRequestConsult = z.object({ lang: z.string(), state: z.string(
 
 export const OutputRequestConsult = z.object({ consultDid: z.string(), uri: z.string(), triageCohortDid: z.string().optional(), suggestedDomain: z.string().optional() }).openapi("LawfirmRequestConsultOutput");
 
-export const InputRespondConsult = z.object({ consultDid: z.string(), responseEncrypted: z.string().describe("signal:v1:{ciphertext}"), respondedAt: z.string().datetime({ offset: true }).optional(), responderDid: z.string().describe("did:web:bengoshi.gftd.ai:IND:{barId} or cohort agent").optional(), nextAction: z.enum(["createCase", "moreInfo", "referOut", "decline"] as const).optional() }).openapi("LawfirmRespondConsultInput");
+export const InputRespondConsult = z.object({ consultDid: z.string(), responseEncrypted: z.string().describe("signal:v1:{ciphertext}"), respondedAt: z.string().datetime({ offset: true }).optional(), responderDid: z.string().describe("did:web:bengoshi.etzhayyim.com:IND:{barId} or cohort agent").optional(), nextAction: z.enum(["createCase", "moreInfo", "referOut", "decline"] as const).optional() }).openapi("LawfirmRespondConsultInput");
 
 export const OutputRespondConsult = z.object({ uri: z.string(), cid: z.string() }).openapi("LawfirmRespondConsultOutput");
 
@@ -162,7 +162,7 @@ export const RouteCreateCase = createRoute({
 	path: "/xrpc/ai.gftd.apps.lawfirm.createCase",
 	operationId: "ai_gftd_apps_lawfirm_createCase",
 	tags: ["lawfirm"],
-	summary: "Open a new client matter at lawfirm.gftd.ai. Routes to service cohort actor did:web:lawfirm.gftd.ai:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
+	summary: "Open a new client matter at lawfirm.etzhayyim.com. Routes to service cohort actor did:web:lawfirm.etzhayyim.com:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
 	request: { body: { content: { "application/json": { schema: InputCreateCase } }, required: true } },
 	responses: {
 		200: {
@@ -371,7 +371,7 @@ export const RouteRegisterLawfirm = createRoute({
 	path: "/xrpc/ai.gftd.apps.lawfirm.registerLawfirm",
 	operationId: "ai_gftd_apps_lawfirm_registerLawfirm",
 	tags: ["lawfirm"],
-	summary: "Register a law firm. Path-based DID: did:web:lawfirm.gftd.ai:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
+	summary: "Register a law firm. Path-based DID: did:web:lawfirm.etzhayyim.com:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
 	request: { body: { content: { "application/json": { schema: InputRegisterLawfirm } }, required: true } },
 	responses: {
 		200: {
@@ -485,7 +485,7 @@ export const RouteSubmitFiling = createRoute({
 	path: "/xrpc/ai.gftd.apps.lawfirm.submitFiling",
 	operationId: "ai_gftd_apps_lawfirm_submitFiling",
 	tags: ["lawfirm"],
-	summary: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.gftd.ai). AT Repo holds metadata + Vault item id only.",
+	summary: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.etzhayyim.com). AT Repo holds metadata + Vault item id only.",
 	request: { body: { content: { "application/json": { schema: InputSubmitFiling } }, required: true } },
 	responses: {
 		200: {
@@ -542,7 +542,7 @@ export const RouteTranslateToLang = createRoute({
 	path: "/xrpc/ai.gftd.apps.lawfirm.translateToLang",
 	operationId: "ai_gftd_apps_lawfirm_translateToLang",
 	tags: ["lawfirm"],
-	summary: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.gftd.ai:lang:{targetLang} actor (Murakumo MLX backend).",
+	summary: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.etzhayyim.com:lang:{targetLang} actor (Murakumo MLX backend).",
 	request: { query: InputTranslateToLang },
 	responses: {
 		200: {
@@ -711,7 +711,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 	},
 	{
 		name: "ai.gftd.apps.lawfirm.createCase",
-		description: "Open a new client matter at lawfirm.gftd.ai. Routes to service cohort actor did:web:lawfirm.gftd.ai:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
+		description: "Open a new client matter at lawfirm.etzhayyim.com. Routes to service cohort actor did:web:lawfirm.etzhayyim.com:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -752,7 +752,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				courtDid: {
 					type: "string",
 					format: "did",
-					description: "did:web:lawfirm.gftd.ai:court:{level}:{code} when known",
+					description: "did:web:lawfirm.etzhayyim.com:court:{level}:{code} when known",
 				},
 				subjectSummary: {
 					type: "string",
@@ -902,7 +902,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				},
 				lang: {
 					type: "string",
-					description: "Translate output to this lang via did:web:lawfirm.gftd.ai:lang:{iso}",
+					description: "Translate output to this lang via did:web:lawfirm.etzhayyim.com:lang:{iso}",
 				},
 			},
 			required: [
@@ -1302,7 +1302,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 	},
 	{
 		name: "ai.gftd.apps.lawfirm.registerLawfirm",
-		description: "Register a law firm. Path-based DID: did:web:lawfirm.gftd.ai:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
+		description: "Register a law firm. Path-based DID: did:web:lawfirm.etzhayyim.com:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -1419,7 +1419,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				responderDid: {
 					type: "string",
 					format: "did",
-					description: "did:web:bengoshi.gftd.ai:IND:{barId} or cohort agent",
+					description: "did:web:bengoshi.etzhayyim.com:IND:{barId} or cohort agent",
 				},
 				nextAction: {
 					type: "string",
@@ -1565,7 +1565,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 	},
 	{
 		name: "ai.gftd.apps.lawfirm.submitFiling",
-		description: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.gftd.ai). AT Repo holds metadata + Vault item id only.",
+		description: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.etzhayyim.com). AT Repo holds metadata + Vault item id only.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -1666,7 +1666,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 	},
 	{
 		name: "ai.gftd.apps.lawfirm.translateToLang",
-		description: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.gftd.ai:lang:{targetLang} actor (Murakumo MLX backend).",
+		description: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.etzhayyim.com:lang:{targetLang} actor (Murakumo MLX backend).",
 		inputSchema: {
 			type: "object",
 			properties: {
@@ -1970,7 +1970,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 	},
 	{
 		nsid: "ai.gftd.apps.lawfirm.createCase",
-		description: "Open a new client matter at lawfirm.gftd.ai. Routes to service cohort actor did:web:lawfirm.gftd.ai:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
+		description: "Open a new client matter at lawfirm.etzhayyim.com. Routes to service cohort actor did:web:lawfirm.etzhayyim.com:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -2011,7 +2011,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				courtDid: {
 					type: "string",
 					format: "did",
-					description: "did:web:lawfirm.gftd.ai:court:{level}:{code} when known",
+					description: "did:web:lawfirm.etzhayyim.com:court:{level}:{code} when known",
 				},
 				subjectSummary: {
 					type: "string",
@@ -2215,7 +2215,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				},
 				lang: {
 					type: "string",
-					description: "Translate output to this lang via did:web:lawfirm.gftd.ai:lang:{iso}",
+					description: "Translate output to this lang via did:web:lawfirm.etzhayyim.com:lang:{iso}",
 				},
 			},
 			required: [
@@ -2945,7 +2945,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 	},
 	{
 		nsid: "ai.gftd.apps.lawfirm.registerLawfirm",
-		description: "Register a law firm. Path-based DID: did:web:lawfirm.gftd.ai:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
+		description: "Register a law firm. Path-based DID: did:web:lawfirm.etzhayyim.com:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -3105,7 +3105,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				responderDid: {
 					type: "string",
 					format: "did",
-					description: "did:web:bengoshi.gftd.ai:IND:{barId} or cohort agent",
+					description: "did:web:bengoshi.etzhayyim.com:IND:{barId} or cohort agent",
 				},
 				nextAction: {
 					type: "string",
@@ -3356,7 +3356,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 	},
 	{
 		nsid: "ai.gftd.apps.lawfirm.submitFiling",
-		description: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.gftd.ai). AT Repo holds metadata + Vault item id only.",
+		description: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.etzhayyim.com). AT Repo holds metadata + Vault item id only.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -3544,7 +3544,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 	},
 	{
 		nsid: "ai.gftd.apps.lawfirm.translateToLang",
-		description: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.gftd.ai:lang:{targetLang} actor (Murakumo MLX backend).",
+		description: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.etzhayyim.com:lang:{targetLang} actor (Murakumo MLX backend).",
 		inputSchema: {
 			type: "object",
 			properties: {

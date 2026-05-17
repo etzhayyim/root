@@ -1,4 +1,4 @@
-module github.com/gftdcojp/at-client
+module github.com/etzhayyim/root/10-protocol/at-client
 
 go 1.23.0
 

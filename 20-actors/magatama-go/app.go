@@ -294,8 +294,8 @@ func (a *App) autoRegisterIdentity() {
 	protocols := []string{"a2a", "connect-grpc", "w-protocol"}
 
 	addresses := []ActorAddress{
-		{Address: nanoid + ".gftd.ai", Scheme: AddressSchemeActor, Nanoid: nanoid},
-		{Address: nanoid + "@gftd.ai", Scheme: AddressSchemeEmail, Nanoid: nanoid},
+		{Address: nanoid + ".etzhayyim.com", Scheme: AddressSchemeActor, Nanoid: nanoid},
+		{Address: nanoid + "@etzhayyim.com", Scheme: AddressSchemeEmail, Nanoid: nanoid},
 	}
 
 	card := ActorCard{

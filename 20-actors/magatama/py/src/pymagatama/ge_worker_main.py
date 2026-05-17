@@ -1,4 +1,4 @@
-"""ge.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""ge.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -25,7 +25,7 @@ async def run_worker():
         name = kwargs.get("name", "")
         country = kwargs.get("country", "")
         industry = kwargs.get("industry", "")
-        owner_did = kwargs.get("ownerDid", "did:web:ge.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:ge.etzhayyim.com")
 
         org_id = str(uuid.uuid4())
         vertex_id = f"ge:org:{org_id}"
@@ -41,7 +41,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 org_id, name, country, industry, "active",
-                "did:web:ge.gftd.ai", "did:web:ge.gftd.ai", now, now,
+                "did:web:ge.etzhayyim.com", "did:web:ge.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -87,7 +87,7 @@ async def run_worker():
         org_id = kwargs.get("orgId", "")
         name = kwargs.get("name", "")
         description = kwargs.get("description", "")
-        owner_did = kwargs.get("ownerDid", "did:web:ge.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:ge.etzhayyim.com")
 
         project_id = str(uuid.uuid4())
         vertex_id = f"ge:project:{project_id}"
@@ -103,7 +103,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 project_id, org_id, name, description, "active",
-                "did:web:ge.gftd.ai", "did:web:ge.gftd.ai", now, now,
+                "did:web:ge.etzhayyim.com", "did:web:ge.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -149,7 +149,7 @@ async def run_worker():
         project_id = kwargs.get("projectId", "")
         resource_did = kwargs.get("resourceDid", "")
         role = kwargs.get("role", "member")
-        owner_did = kwargs.get("ownerDid", "did:web:ge.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:ge.etzhayyim.com")
 
         assignment_id = str(uuid.uuid4())
         vertex_id = f"ge:resource_assignment:{assignment_id}"
@@ -165,7 +165,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 assignment_id, project_id, resource_did, role, "assigned",
-                "did:web:ge.gftd.ai", "did:web:ge.gftd.ai", now, now,
+                "did:web:ge.etzhayyim.com", "did:web:ge.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

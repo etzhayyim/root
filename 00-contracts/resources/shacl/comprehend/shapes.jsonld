@@ -6,7 +6,7 @@
     "sh": "http://www.w3.org/ns/shacl#",
     "prov": "http://www.w3.org/ns/prov#",
     "schema": "https://schema.org/",
-    "gftd": "https://resources.gftd.ai/ontology#"
+    "gftd": "https://resources.etzhayyim.com/ontology#"
   },
   "@graph": [
     {

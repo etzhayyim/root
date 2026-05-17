@@ -6,7 +6,7 @@ import { sql } from "kysely";
 //          not Tier-3 PII; full PII split deferred to Phase 2)
 
 /**
- * shosha.gftd.ai Phase 1 — sogo-shosha (general trading company) schema
+ * shosha.etzhayyim.com Phase 1 — sogo-shosha (general trading company) schema
  * (ADR-0036 Worker-direct Hyperdrive + ADR-0056 BPMN-as-actor +
  *  ADR-2604282300 T2 = pymagatama + Zeebe, no CF Worker).
  *

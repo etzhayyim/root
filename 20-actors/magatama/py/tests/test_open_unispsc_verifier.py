@@ -38,7 +38,7 @@ def test_open_unispsc_verifier_writes_report(tmp_path: Path):
     assert result["segmentImport"]["transformTool"] == "ai.gftd.apps.openUnispsc.syncCatalogItem"
     assert result["catalogSync"]["catalogCollection"] == "ai.gftd.apps.okaimono.catalogItem"
     assert result["catalogSync"]["productId"] == "unispsc-43211501"
-    assert result["purchasePlan"]["targetActorDid"] == "did:web:unispsc.gftd.ai:seg43"
+    assert result["purchasePlan"]["targetActorDid"] == "did:web:unispsc.etzhayyim.com:seg43"
     assert result["purchasePlan"]["mcpTool"] == "ai.gftd.apps.openUnispsc.itemGetSpec"
     assert set(result["workflowScenarios"]) == {"manualReview", "ready", "blocked"}
     assert result["workflowScenarios"]["manualReview"]["workflowStatus"] == "manual-review"

@@ -120,7 +120,7 @@ INSERT INTO vertex_langgraph_assistant
   (vertex_id, _seq, sensitivity_ord, owner_did, assistant_id, version, kind,
    factory_path, description, checkpointer_mode, created_at)
 SELECT
-  'global_product_enrich_one', 0, 0, 'did:web:gtin.gftd.ai',
+  'global_product_enrich_one', 0, 0, 'did:web:gtin.etzhayyim.com',
   'global_product_enrich_one', 1, 'py_factory',
   'pymagatama.langgraph_graphs.global_product_enrich_one',
   'Enrich one global product from official pages, merchant pages, webfetch, intel, and inference.',
@@ -135,7 +135,7 @@ INSERT INTO vertex_langgraph_deployment
   (vertex_id, _seq, sensitivity_ord, owner_did, nsid, assistant_id,
    version, status, replicas, updated_at)
 SELECT
-  'langgraph.builtin.global_product_enrich_one', 0, 0, 'did:web:gtin.gftd.ai',
+  'langgraph.builtin.global_product_enrich_one', 0, 0, 'did:web:gtin.etzhayyim.com',
   'langgraph.builtin.global_product_enrich_one', 'global_product_enrich_one',
   1, 'active', 1, '2026-05-09T23:00:00Z'
 WHERE NOT EXISTS (

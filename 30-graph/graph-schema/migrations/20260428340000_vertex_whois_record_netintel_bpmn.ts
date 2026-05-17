@@ -7,43 +7,43 @@ import { sql } from "kysely";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:ingest.gftd.ai";
-const ingestDid = "did:web:ingest.gftd.ai";
+const ownerDid = "did:web:ingest.etzhayyim.com";
+const ingestDid = "did:web:ingest.etzhayyim.com";
 const createdAt = "2026-04-28T18:00:00Z";
 const actorTag = "sys.bpmn.seed.netintel-ingest";
 
 const seeds = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1",
-    bindingId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1",
+    bindingId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1",
     processId: "netintel_dns_delta",
     sourcePath: "00-contracts/bpmn/ai/gftd/ingest/netintelDnsDelta.bpmn",
     writeTables: "vertex_dns_observation,vertex_ingest_run",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1",
-    bindingId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1",
+    bindingId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1",
     processId: "netintel_ip_enrich_delta",
     sourcePath: "00-contracts/bpmn/ai/gftd/ingest/ipEnrichDelta.bpmn",
     writeTables: "vertex_ip_address,vertex_ingest_run",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1",
-    bindingId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1",
+    bindingId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1",
     processId: "netintel_whois_delta",
     sourcePath: "00-contracts/bpmn/ai/gftd/ingest/whoisDelta.bpmn",
     writeTables: "vertex_whois_record,vertex_ingest_run",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1",
-    bindingId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1",
+    bindingId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1",
     processId: "netintel_scan_banner_delta",
     sourcePath: "00-contracts/bpmn/ai/gftd/ingest/scanBannerDelta.bpmn",
     writeTables: "vertex_scan_result,vertex_ingest_run",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1",
-    bindingId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1",
+    bindingId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1",
     processId: "netintel_fingerprint_delta",
     sourcePath: "00-contracts/bpmn/ai/gftd/ingest/fingerprintDelta.bpmn",
     writeTables: "vertex_scan_result,vertex_ingest_run",

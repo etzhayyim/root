@@ -28,7 +28,7 @@ CRITICAL rules for main.go:
 - Use `magatama.WSend()` for W Protocol publishing
 - Include RLS columns: org_id, user_id, actor_id in all tables
 - Schema tables: unispsc_specs, unispsc_procurements, unispsc_suppliers, unispsc_standards, unispsc_risks
-- Import: `magatama "github.com/gftdcojp/magatama-go"`
+- Import: `magatama "github.com/etzhayyim/root/20-actors/magatama-go"`
 - Commands: get-spec, search-variants, get-concordance, evaluate-supplier, generate-rfp, record-procurement, get-standards, assess-risk, get-contract-info
 - func main() {} must be empty"""
 

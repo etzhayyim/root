@@ -17,15 +17,15 @@ import { sql } from "kysely";
 const __filename  = fileURLToPath(import.meta.url);
 const __dirname   = path.dirname(__filename);
 const repoRoot    = path.resolve(__dirname, "..", "..", "..");
-const ownerDid    = "did:web:bpmn.gftd.ai";
+const ownerDid    = "did:web:bpmn.etzhayyim.com";
 const createdAt   = "2026-05-02T13:00:00+09:00";
 const actorId     = "sys.bpmn.seed.training-export";
 
 const BPMN_PATH   = "00-contracts/bpmn/ai/gftd/training/trainingExport.bpmn";
 const PROCESS_ID  = "training_export";
-const PROCESS_VID = "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-export-v1";
+const PROCESS_VID = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-export-v1";
 const NSID        = "ai.gftd.apps.training.startExport";
-const BINDING_VID = "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-export-v1";
+const BINDING_VID = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-export-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml  = readFileSync(path.resolve(repoRoot, BPMN_PATH), "utf8");

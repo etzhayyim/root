@@ -1,4 +1,4 @@
-module github.com/gftdcojp/signal-client
+module github.com/etzhayyim/root/10-protocol/signal-client
 
 go 1.23.0
 

@@ -25,7 +25,7 @@ from pymagatama.db_sync import sync_cursor  # noqa: F401  (re-exported for mock 
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-DEFAULT_REPO = "did:web:maps.gftd.ai"
+DEFAULT_REPO = "did:web:maps.etzhayyim.com"
 COLLECTION_SCENE = "ai.gftd.apps.maps.satelliteScene"
 COLLECTION_ANALYSIS = "ai.gftd.apps.maps.satelliteAnalysis"
 

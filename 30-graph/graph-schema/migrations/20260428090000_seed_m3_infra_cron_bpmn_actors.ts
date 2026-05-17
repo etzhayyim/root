@@ -15,23 +15,23 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   const entries = [
     {
-      vid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/magatama-cron-tick-v1",
-      ownerDid: "did:web:magatama.gftd.ai",
+      vid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/magatama-cron-tick-v1",
+      ownerDid: "did:web:magatama.etzhayyim.com",
       bpmnProcessId: "ai.gftd.magatama.cronTick",
       rel: "00-contracts/bpmn/ai/gftd/magatama/cronTick.bpmn",
       nsid: "ai.gftd.apps.magatama.cronTick",
-      bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/magatama-cron-tick-v1",
-      httpUrl: "https://magatama.gftd.ai/xrpc/ai.gftd.apps.magatama.cronTick",
+      bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/magatama-cron-tick-v1",
+      httpUrl: "https://magatama.etzhayyim.com/xrpc/ai.gftd.apps.magatama.cronTick",
       actorTag: "sys.bpmn.seed.magatama",
     },
     {
-      vid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-cron-tick-v1",
-      ownerDid: "did:web:graph.gftd.ai",
+      vid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-cron-tick-v1",
+      ownerDid: "did:web:graph.etzhayyim.com",
       bpmnProcessId: "ai.gftd.graph.cronTick",
       rel: "00-contracts/bpmn/ai/gftd/graph/cronTick.bpmn",
       nsid: "ai.gftd.apps.graph.cronTick",
-      bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/graph-cron-tick-v1",
-      httpUrl: "https://graph.gftd.ai/xrpc/ai.gftd.apps.graph.cronTick",
+      bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/graph-cron-tick-v1",
+      httpUrl: "https://graph.etzhayyim.com/xrpc/ai.gftd.apps.graph.cronTick",
       actorTag: "sys.bpmn.seed.graph",
     },
   ] as const;
@@ -70,12 +70,12 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
 export async function down(db: Kysely<unknown>): Promise<void> {
   const bindingVids = [
-    "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/magatama-cron-tick-v1",
-    "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/graph-cron-tick-v1",
+    "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/magatama-cron-tick-v1",
+    "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/graph-cron-tick-v1",
   ] as const;
   const processVids = [
-    "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/magatama-cron-tick-v1",
-    "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-cron-tick-v1",
+    "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/magatama-cron-tick-v1",
+    "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-cron-tick-v1",
   ] as const;
   for (const v of bindingVids) {
     await sql`DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${v}`.execute(db);

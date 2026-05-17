@@ -1,6 +1,6 @@
 """IRL Government states actor primitives.
 
-This module moves the `did:web:irl-state.gftd.ai` app actor off its
+This module moves the `did:web:irl-state.etzhayyim.com` app actor off its
 dedicated Cloudflare Worker path. The public edge keeps only XRPC/MCP
 facade duties; these functions run as Zeebe jobs in Kubernetes and write
 the same graph-visible state the Worker previously wrote via host-sdk.
@@ -23,11 +23,11 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-PRIMARY_DID = "did:web:irl-state.gftd.ai"
+PRIMARY_DID = "did:web:irl-state.etzhayyim.com"
 DOMAIN_CODE = "irl"
 SITE_NANOID = "w3bpg001"
-SITE_GOV_TOPIC_DID = "did:web:site.gftd.ai:topic:government"
-PDS_BASE = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
+SITE_GOV_TOPIC_DID = "did:web:site.etzhayyim.com:topic:government"
+PDS_BASE = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
 PDS_SERVICE_AUTH_TOKEN = os.environ.get("PDS_SERVICE_AUTH_TOKEN", "").strip()
 PDS_SERVICE_AUTH_MINT_URL = os.environ.get(
     "PDS_SERVICE_AUTH_MINT_URL",
@@ -636,7 +636,7 @@ async def task_gov_irl_follow_site_deps(limit: int = 15) -> dict[str, Any]:
     for r in rows:
         path = str(r[0] or "")
         slug = str(r[7] or "")
-        await _pds_xrpc("app.bsky.graph.follow", {"did": f"did:web:site.gftd.ai:{slug}"})
+        await _pds_xrpc("app.bsky.graph.follow", {"did": f"did:web:site.etzhayyim.com:{slug}"})
         row = {
             "path": path,
             "name": str(r[1] or ""),
@@ -663,7 +663,7 @@ async def task_gov_irl_follow_site_deps(limit: int = 15) -> dict[str, Any]:
                 "path": path,
                 "siteNanoid": SITE_NANOID,
                 "siteTopicDid": SITE_GOV_TOPIC_DID,
-                "siteDid": f"did:web:site.gftd.ai:{slug}",
+                "siteDid": f"did:web:site.etzhayyim.com:{slug}",
                 "updated_at": _utc_now_iso(),
             },
         )

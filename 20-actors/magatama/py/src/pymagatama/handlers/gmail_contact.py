@@ -44,7 +44,7 @@ from pymagatama import udf
 from pymagatama.db_sync import execute
 
 _CONTACT_COLLECTION = "ai.gftd.apps.gmail.contact"
-_CONTACT_DID_PREFIX = "did:web:gmail.gftd.ai:contact:"
+_CONTACT_DID_PREFIX = "did:web:gmail.etzhayyim.com:contact:"
 _MAX_SEGMENT_LEN = 63  # DNS label ceiling (RFC 1035)
 
 # Match "Display Name" <email@host> or just email@host.
@@ -108,7 +108,7 @@ def upsert_contact(request_json: str) -> str:
 
     email_id = str(body.get("emailId") or "").strip()
     from_addr = str(body.get("fromAddr") or "").strip()
-    account_did = str(body.get("accountDid") or "did:web:gmail.gftd.ai").strip()
+    account_did = str(body.get("accountDid") or "did:web:gmail.etzhayyim.com").strip()
     if not email_id:
         return _err("emailId is required")
     if not from_addr:
@@ -117,7 +117,7 @@ def upsert_contact(request_json: str) -> str:
     display_name, email = _parse_from(from_addr)
     if not email or "@" not in email:
         # Reject bare tokens that slipped past _RFC5322 — we never want
-        # contacts like `did:web:gmail.gftd.ai:contact:junk-no-email`.
+        # contacts like `did:web:gmail.etzhayyim.com:contact:junk-no-email`.
         return _err("could not extract email from fromAddr", fromAddr=from_addr)
 
     sanitized = sanitize_path_segment(email)

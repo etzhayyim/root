@@ -32,7 +32,7 @@ describe("Seed open-hs BPMN actors migration", () => {
   });
   it("uses open-hs-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-hs"');
-    expect(migrationSource).toContain("did:web:open-hs.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-hs.etzhayyim.com");
   });
   it("BPMN processes target the Zeebe generic.* primitive set", () => {
     for (const xml of [bpmn1, bpmn2]) {

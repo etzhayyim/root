@@ -20,7 +20,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-KAKAKU_DID = "did:web:kakaku.gftd.ai"
+KAKAKU_DID = "did:web:kakaku.etzhayyim.com"
 PRODUCT_COLLECTION = "ai.gftd.apps.kakaku.product"
 MERCHANT_COLLECTION = "ai.gftd.apps.kakaku.merchant"
 OFFER_COLLECTION = "ai.gftd.apps.kakaku.offer"

@@ -19,7 +19,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Clipboard sync (text/image/file, 10 MB limit)
 - File transfer (drag-and-drop, 1 GB limit)
 - WASM coordination app (AT Protocol peer registry, session management)
-- Binary distribution via R2 CDN + download page (mfbtsuyc.gftd.ai)
+- Binary distribution via R2 CDN + download page (mfbtsuyc.etzhayyim.com)
 - macOS: .app bundle + Developer ID signing + Apple notarization
 - Windows: app manifest (UAC asInvoker, PerMonitorV2 DPI, version info)
 - Windows: Authenticode self-signed + DigiCert timestamp

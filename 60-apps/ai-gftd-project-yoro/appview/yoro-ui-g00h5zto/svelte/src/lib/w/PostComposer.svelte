@@ -185,13 +185,13 @@
 	}
 
 	// ADR-2604261717 — POST `ai.gftd.claim.postStakedAttestation` against
-	// authz.gftd.ai. The XRPC handler does gcc.approve + ClaimStakeEscrow.postClaim
+	// authz.etzhayyim.com. The XRPC handler does gcc.approve + ClaimStakeEscrow.postClaim
 	// + tx submit serially. Auth = Passkey-bearer session JWT (same token yoro
-	// uses for atproto.gftd.ai), forwarded as `Authorization: Bearer <jwt>`.
+	// uses for atproto.etzhayyim.com), forwarded as `Authorization: Bearer <jwt>`.
 	async function postStakedAttestation(claim: string, bondGcc: number, atRecordCid: string) {
 		const token = await getSessionToken();
 		if (!token) throw new Error('not signed in');
-		const resp = await fetch('https://authz.gftd.ai/xrpc/ai.gftd.claim.postStakedAttestation', {
+		const resp = await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.claim.postStakedAttestation', {
 			method: 'POST',
 			headers: { 'authorization': `Bearer ${token}`, 'content-type': 'application/json' },
 			body: JSON.stringify({ claim, bond: bondGcc.toString(), atRecordCid }),

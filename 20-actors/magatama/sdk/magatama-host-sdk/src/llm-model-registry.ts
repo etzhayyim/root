@@ -101,8 +101,8 @@ export const MODEL_REGISTRY: Record<string, ModelDef> = {
     useCases: ["training-base"],
     available: true,
   },
-  // DeepSeek Pro V4 — routed via llm.gftd.ai → OpenRouter (ADR-2605120000, SES extraction).
-  // cfModel is the OpenRouter path forwarded by the LiteLLM gateway at llm.gftd.ai.
+  // DeepSeek Pro V4 — routed via llm.etzhayyim.com → OpenRouter (ADR-2605120000, SES extraction).
+  // cfModel is the OpenRouter path forwarded by the LiteLLM gateway at llm.etzhayyim.com.
   "deepseek-pro-v4": {
     cfModel: "deepseek/deepseek-chat",
     maxTokens: 8192,
@@ -156,7 +156,7 @@ export const USE_CASE_DEFAULTS: Record<UseCaseName, string> = {
 /**
  * LLM SSoT default model alias (ADR-2605010000).
  * Despite the legacy name, this constant resolves to the **RunPod-served default
- * model alias** (gemma-4-26B-A4B-it FP8) accessed via `https://llm.gftd.ai/v1/chat/completions`.
+ * model alias** (gemma-4-26B-A4B-it FP8) accessed via `https://llm.etzhayyim.com/v1/chat/completions`.
  * Murakumo は LLM 推論経路として想定しない。Rename は破壊的変更のため deferred — 意味は ADR で再定義。
  */
 export const MURAKUMO_DEFAULT_MODEL = "gemma-4-e4b-it";

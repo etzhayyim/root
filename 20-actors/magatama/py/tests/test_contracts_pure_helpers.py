@@ -164,7 +164,7 @@ def test_mint_did_inc_stripped_before_hashing() -> None:
 
 def test_mint_did_format_has_three_segments_after_prefix() -> None:
     result = CO._mint_did("jpn", "001", "Corp", "2020-01-01")
-    # e.g. "did:web:social-contract.gftd.ai:entity:jpn:abc123..."
+    # e.g. "did:web:social-contract.etzhayyim.com:entity:jpn:abc123..."
     parts = result.split(":")
     assert len(parts) >= 6
 
@@ -172,7 +172,7 @@ def test_mint_did_format_has_three_segments_after_prefix() -> None:
 # ─── _rkey_for_org_did ───────────────────────────────────────────────────────
 
 def test_rkey_for_org_did_returns_last_segment() -> None:
-    did = "did:web:social-contract.gftd.ai:entity:jpn:abc123def456"
+    did = "did:web:social-contract.etzhayyim.com:entity:jpn:abc123def456"
     result = CO._rkey_for_org_did(did)
     assert result == "abc123def456"
 
@@ -191,7 +191,7 @@ def test_rkey_for_org_did_from_mint_did() -> None:
 
 def _make_resolve_row(**kwargs: object) -> dict:
     base: dict = {
-        "did": "did:web:social-contract.gftd.ai:entity:jpn:abc123def456",
+        "did": "did:web:social-contract.etzhayyim.com:entity:jpn:abc123def456",
         "vertex_id": "at://did:web:x/ai.gftd.apps.contracts.organization/rkey1",
         "legal_entity_ref": "at://x/le/rkey2",
         "country": "JPN",
@@ -210,7 +210,7 @@ def _make_resolve_row(**kwargs: object) -> dict:
 
 def test_row_to_resolve_dto_did_field() -> None:
     dto = CO._row_to_resolve_dto(_make_resolve_row())
-    assert dto["did"] == "did:web:social-contract.gftd.ai:entity:jpn:abc123def456"
+    assert dto["did"] == "did:web:social-contract.etzhayyim.com:entity:jpn:abc123def456"
 
 
 def test_row_to_resolve_dto_vertex_id_mapped_to_camel() -> None:

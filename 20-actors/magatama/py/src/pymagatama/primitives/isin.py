@@ -1,6 +1,6 @@
 """ISIN (ISO 6166) securities registry primitives (ADR-0056 BPMN-as-actor).
 
-4 Zeebe task types for isin.gftd.ai:
+4 Zeebe task types for isin.etzhayyim.com:
   isin.collect.usSecurities  — SEC EDGAR ticker list → OpenFIGI batch → vertex_isin_security
   isin.collect.jpSecurities  — OpenFIGI JP ticker range → vertex_isin_security
   isin.enrich.cik            — EDGAR CIK submissions → enrich vertex_isin_security row
@@ -20,10 +20,10 @@ import aiohttp
 from pymagatama.db_sync import sync_cursor
 
 
-_OWNER_DID = "did:web:isin.gftd.ai"
+_OWNER_DID = "did:web:isin.etzhayyim.com"
 _COL_SEC = "ai.gftd.apps.isin.security"
 _COL_FILING = "ai.gftd.apps.isin.filing"
-_EDGAR_UA = "isin.gftd.ai/1.0 contact@gftd.co.jp"
+_EDGAR_UA = "isin.etzhayyim.com/1.0 contact@gftd.co.jp"
 _EDGAR_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 _OPENFIGI_URL = "https://api.openfigi.com/v3/mapping"
 _EDINET_URL = "https://api.edinet-fsa.go.jp/api/v2/documents.json"
@@ -150,7 +150,7 @@ async def task_isin_collect_us_securities(
                         figi.get("securityType", "Common Stock"),
                         figi.get("exchCode", "US"),
                         "pending", "active",
-                        "did:web:isin.gftd.ai:source:sec",
+                        "did:web:isin.etzhayyim.com:source:sec",
                         _OWNER_DID, "anon", now, now,
                     ),
                 )
@@ -243,7 +243,7 @@ async def task_isin_collect_jp_securities(
                                 match.get("securityType", "Common Stock"),
                                 "JP",
                                 "pending", "active",
-                                "did:web:isin.gftd.ai:source:openfigi",
+                                "did:web:isin.etzhayyim.com:source:openfigi",
                                 _OWNER_DID, "anon", now, now,
                             ),
                         )

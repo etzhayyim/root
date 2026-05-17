@@ -1,7 +1,7 @@
-"""gftd.ai chat — aiohttp HTTP server entrypoint.
+"""etzhayyim.com chat — aiohttp HTTP server entrypoint.
 
-Hot path for the chat product. CF Worker (gftd.ai) → CF Tunnel
-(chat-agent.gftd.ai) → ClusterIP `chat-agent.mitama-chat-pool.svc:8080`
+Hot path for the chat product. CF Worker (etzhayyim.com) → CF Tunnel
+(chat-agent.etzhayyim.com) → ClusterIP `chat-agent.mitama-chat-pool.svc:8080`
 → this server.
 
 Routes:
@@ -29,9 +29,9 @@ Env:
 Auth model (Phase 1):
     The `viewer-did` HTTP header is treated as the caller's DID. The CF
     Worker (chat-shell) is responsible for validating the AT Protocol
-    session cookie (atproto.gftd.ai) and attaching this header before
+    session cookie (atproto.etzhayyim.com) and attaching this header before
     forwarding here. Anonymous browser sessions get
-    `viewer-did = did:web:gftd.ai:anon:<sha-of-ip-ua>`.
+    `viewer-did = did:web:etzhayyim.com:anon:<sha-of-ip-ua>`.
 
     The internal-trust HMAC (CHAT_INTERNAL_SECRET) verifies that the
     request originated from the CF Tunnel (not the public Internet).
@@ -62,7 +62,7 @@ logging.basicConfig(level=logging.INFO,
 LISTEN_HOST = os.environ.get("CHAT_LISTEN_HOST", "0.0.0.0")
 LISTEN_PORT = int(os.environ.get("CHAT_LISTEN_PORT", "8080"))
 INTERNAL_TRUST_SECRET = os.environ.get("CHAT_INTERNAL_SECRET", "")
-ANON_DID_PREFIX = "did:web:gftd.ai:anon:"
+ANON_DID_PREFIX = "did:web:etzhayyim.com:anon:"
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -335,7 +335,7 @@ async def xrpc_get_conversation(request: web.Request) -> web.Response:
                 artifacts.append({
                     "artifactId": r[0], "kind": r[1], "mimeType": r[2],
                     "byteSize": int(r[3] or 0), "title": r[4] or "",
-                    "url": f"https://gftd.ai/api/chat/artifact/{r[0]}",
+                    "url": f"https://etzhayyim.com/api/chat/artifact/{r[0]}",
                 })
 
         invocations: list[dict[str, Any]] = []
@@ -703,8 +703,8 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
 #   schedule_report
 #   chat        wraps the agent loop — same surface as POST /v1/chat/completions
 #
-# `did:web:gftd.ai` already advertises this endpoint at
-# https://gftd.ai/mcp via the chat-shell Worker's /.well-known/did.json.
+# `did:web:etzhayyim.com` already advertises this endpoint at
+# https://etzhayyim.com/mcp via the chat-shell Worker's /.well-known/did.json.
 
 MCP_PROTOCOL_VERSION = "2025-03-26"
 MCP_SERVER_NAME = "gftd-chat-mcp"
@@ -1033,8 +1033,8 @@ _LG_CLOSED = object()  # sentinel that closes a subscriber queue
 _LG_ASSISTANT = {
     "assistant_id": "agent",
     "graph_id": "chat",
-    "name": "gftd.ai Chat Agent",
-    "description": "gftd.ai LangGraph chat agent",
+    "name": "etzhayyim.com Chat Agent",
+    "description": "etzhayyim.com LangGraph chat agent",
     "config": {},
     "context": None,
     "created_at": "2026-01-01T00:00:00Z",

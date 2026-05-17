@@ -96,7 +96,7 @@ def test_ma_deal_workflow_tasks_are_deterministic_enough() -> None:
     )
     assert intake["dealId"].startswith("ma-deal-")
     assert intake["status"] == "intake-complete"
-    assert intake["dealDid"].startswith("did:web:ma.gftd.ai:deal:")
+    assert intake["dealDid"].startswith("did:web:ma.etzhayyim.com:deal:")
 
     screen = asyncio.run(
         ma.task_ma_target_screening_score(
@@ -151,11 +151,11 @@ def test_ma_deal_workflow_tasks_are_deterministic_enough() -> None:
         )
     )
     assert outreach["status"] == "outreach-draft-ready"
-    assert outreach["outreachDraft"]["provider"] == "mailer.gftd.ai"
+    assert outreach["outreachDraft"]["provider"] == "mailer.etzhayyim.com"
     assert outreach["outreachDraft"]["outboundProvider"] == "resend"
     assert outreach["outreachDraft"]["inboundProvider"] == "cloudflare-email-routing"
     assert outreach["outreachDraft"]["sendNsid"] == "ai.gftd.apps.mailer.sendEmail"
-    assert outreach["outreachDraft"]["from"] == "ma@gftd.ai"
+    assert outreach["outreachDraft"]["from"] == "ma@etzhayyim.com"
     assert outreach["pendingApproval"]["status"] == "pending"
 
     blocked_send = asyncio.run(
@@ -174,7 +174,7 @@ def test_ma_deal_workflow_tasks_are_deterministic_enough() -> None:
                 "recipientEmail": "corpdev@example.com",
             },
             outreachApproved=True,
-            approvedBy="did:web:operator.gftd.ai",
+            approvedBy="did:web:operator.etzhayyim.com",
             approvedAt="2026-04-27T00:00:00Z",
         )
     )
@@ -182,7 +182,7 @@ def test_ma_deal_workflow_tasks_are_deterministic_enough() -> None:
     assert approved_send["sendReady"] is True
     assert approved_send["sendNsid"] == "ai.gftd.apps.mailer.sendEmail"
     assert approved_send["mailerSendPayload"]["to"] == "corpdev@example.com"
-    assert approved_send["mailerSendPayload"]["from"] == "ma@gftd.ai"
+    assert approved_send["mailerSendPayload"]["from"] == "ma@etzhayyim.com"
 
     staged_send = asyncio.run(
         ma.task_ma_outreach_send_approved(
@@ -195,7 +195,7 @@ def test_ma_deal_workflow_tasks_are_deterministic_enough() -> None:
     assert staged_send["ok"] is True
     assert staged_send["sent"] is False
     assert staged_send["request"]["url"] == (
-        "https://mailer.gftd.ai/xrpc/ai.gftd.apps.mailer.sendEmail"
+        "https://mailer.etzhayyim.com/xrpc/ai.gftd.apps.mailer.sendEmail"
     )
 
     handoff = asyncio.run(

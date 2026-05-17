@@ -2,12 +2,12 @@
   "viewId": "open-jpn-gov.OV-1",
   "viewType": "OV-1",
   "title": "High-Level Operational Concept Graphic",
-  "did": "did:web:open-jpn-gov.gftd.ai",
+  "did": "did:web:open-jpn-gov.etzhayyim.com",
   "format": "json",
   "content": {
     "operationalNodes": [
       { "id": "client",  "label": "Client (citizen/journalist/agent)" },
-      { "id": "gftd",    "label": "open-jpn-gov.gftd.ai (Worker)" },
+      { "id": "gftd",    "label": "open-jpn-gov.etzhayyim.com (Worker)" },
       { "id": "roster",  "label": "Embedded roster (TS)" },
       { "id": "elaws",   "label": "e-Gov 法令API v2" },
       { "id": "cfcache", "label": "CF edge cache (1h)" }

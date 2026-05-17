@@ -34,7 +34,7 @@ def upgrade() -> None:
             '{"nodes": ["fetch_pending_cases", "fan_out_procedures", "start_procedure", "gather_evidence", "generate_draft", "review_gate", "submit_draft", "commit_case_state"], "entry": "fetch_pending_cases"}',
             'Pregel Map-Reduce architecture for mass dispatching administrative procedures.',
             'rw_vertex',
-            'did:web:gyosei.gftd.ai',
+            'did:web:gyosei.etzhayyim.com',
             NULL,
             NOW()::VARCHAR,
             NOW()::VARCHAR

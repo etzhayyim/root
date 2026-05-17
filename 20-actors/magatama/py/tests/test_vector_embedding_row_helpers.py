@@ -18,9 +18,9 @@ from pymagatama.primitives.vector_embedding import (
 
 def _make_candidate(**kwargs) -> EmbeddingCandidate:
     defaults = {
-        "source_uri": "at://did:web:test.gftd.ai/collection/rkey001",
+        "source_uri": "at://did:web:test.etzhayyim.com/collection/rkey001",
         "source_kind": "actor_profile",
-        "source_vertex_id": "at://did:web:test.gftd.ai/collection/rkey001",
+        "source_vertex_id": "at://did:web:test.etzhayyim.com/collection/rkey001",
         "modality": "text",
         "tenant_id": "test-tenant",
         "shard_id": 0,

@@ -1,4 +1,4 @@
-"""web4.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""web4.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -40,7 +40,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, did,
                 expert_id, name, did, specialization, "active",
-                "did:web:web4.gftd.ai", "did:web:web4.gftd.ai", now, now,
+                "did:web:web4.etzhayyim.com", "did:web:web4.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -80,9 +80,9 @@ async def run_worker():
                     id, expert_id, model, status,
                     actor_did, org_did, created_at, updated_at)
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
-                vertex_id, 0, date.today(), 0, "did:web:web4.gftd.ai",
+                vertex_id, 0, date.today(), 0, "did:web:web4.etzhayyim.com",
                 job_id, expert_id, model, "pending",
-                "did:web:web4.gftd.ai", "did:web:web4.gftd.ai", now, now,
+                "did:web:web4.etzhayyim.com", "did:web:web4.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

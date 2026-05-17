@@ -12,4 +12,4 @@ CREATE VIEW IF NOT EXISTS view_atc_substance AS
     WHERE collection = 'ai.gftd.apps.atc.substance';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('atc', 'atc.gftd.ai', 6440, 'drug substances', 'pharma');
+    VALUES ('atc', 'atc.etzhayyim.com', 6440, 'drug substances', 'pharma');

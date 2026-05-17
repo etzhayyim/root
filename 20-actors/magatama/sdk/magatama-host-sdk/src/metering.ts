@@ -148,7 +148,7 @@ async function contentPk(parts: string[]): Promise<string> {
     .map(b => b.toString(16).padStart(2, "0"))
     .join("")
     .slice(0, 32);
-  return `at://did:web:billing.gftd.ai/ai.gftd.apps.billing.event/${hex}`;
+  return `at://did:web:billing.etzhayyim.com/ai.gftd.apps.billing.event/${hex}`;
 }
 
 // ──────────────────────────────────────────────────────────────────────
@@ -196,7 +196,7 @@ export function recordUsageEvent(
         vertex_id: vertexId,
         created_date: today,
         sensitivity_ord: 2,
-        owner_did: "did:web:billing.gftd.ai",
+        owner_did: "did:web:billing.etzhayyim.com",
         org_did: params.orgDid,
         actor_did: params.actorDid ?? null,
         ts_ms: tsMs,

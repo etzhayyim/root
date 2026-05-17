@@ -4,21 +4,21 @@
 
 ## Entry criteria (Friday 18:00 local)
 - Customer signed SOW (node 03).
-- Tenant DID provisioned: `did:web:<slug>.opensaas.gftd.ai` (created by `gftd deploy` on the tenant's CF account).
+- Tenant DID provisioned: `did:web:<slug>.opensaas.etzhayyim.com` (created by `gftd deploy` on the tenant's CF account).
 - `sfdc_export.zip` from Salesforce Data Loader in hand (Accounts, Contacts, Leads, Opportunities, Cases, Activities, Users).
-- Customer's identity team has chosen the seat DID naming rule (recommended: `did:web:<slug>.opensaas.gftd.ai:seat:<role>-<nn>`).
+- Customer's identity team has chosen the seat DID naming rule (recommended: `did:web:<slug>.opensaas.etzhayyim.com:seat:<role>-<nn>`).
 
 ## Exit criteria (Monday 09:00 local)
 - `listPipeline({tenantDid})` returns the same stage rollup totals as the customer's last Salesforce pipeline report, ±0.5%.
-- All 22 seats (or N) can log in at `https://salesforce.opensaas.gftd.ai/` with their WebAuthn passkey.
+- All 22 seats (or N) can log in at `https://salesforce.opensaas.etzhayyim.com/` with their WebAuthn passkey.
 - 5 VP-owned opportunities re-stage successfully → `activity(kind=stage-change)` auto-derived rows present.
-- Customer's EU sub's separate tenant (`did:web:acme-eu.opensaas.gftd.ai`) is also up with zero-byte data (to prove the multi-tenant split before real EU data lands).
+- Customer's EU sub's separate tenant (`did:web:acme-eu.opensaas.etzhayyim.com`) is also up with zero-byte data (to prove the multi-tenant split before real EU data lands).
 
 ## Timeline
 
 ### Friday 18:00–20:00 — provisioning
-1. `gftd deploy --project open-saas --appview salesforce-crm-sfcrm9x3 --tenant-did did:web:acme.opensaas.gftd.ai`
-2. DNS: CNAME `acme.opensaas.gftd.ai` → CF route; `_atproto` TXT auto-provisioned by `gftd dns-sync`.
+1. `gftd deploy --project open-saas --appview salesforce-crm-sfcrm9x3 --tenant-did did:web:acme.opensaas.etzhayyim.com`
+2. DNS: CNAME `acme.opensaas.etzhayyim.com` → CF route; `_atproto` TXT auto-provisioned by `gftd dns-sync`.
 3. Seed plan: `POST /api/open-saas/tenants` on open-saas-console with `{ name: "Acme Robotics K.K.", planId: "enterprise-flat" }`.
 4. `gftd vault create --tenant acme --policy appi-gdpr` for Tier-3 Preferences vault.
 
@@ -43,7 +43,7 @@ Apply the canonical Salesforce → W Protocol mapping (deliver as `migration/map
 Rule: any field not in the map table is dropped, not guessed. Customer reviews the dropped-field list before proceeding (target: ≤ 3% drop).
 
 ### Saturday 00:00–12:00 — ingest
-- Run `gftd opensaas migrate sfdc --in sfdc_export.zip --map migration/map.jsonl --tenant did:web:acme.opensaas.gftd.ai --parallel 8`.
+- Run `gftd opensaas migrate sfdc --in sfdc_export.zip --map migration/map.jsonl --tenant did:web:acme.opensaas.etzhayyim.com --parallel 8`.
 - Ingest order (matters — foreign keys resolve in-order):
   1. Users → seat DIDs (WebAuthn enrollment email queued, passkeys set Monday).
   2. Accounts (`createRecord` → `ai.gftd.apps.opensaas.salesforce.account`).

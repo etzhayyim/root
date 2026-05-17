@@ -11,7 +11,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:media-gamers.gftd.ai"
+OWNER_DID = "did:web:media-gamers.etzhayyim.com"
 SLUG_RE = re.compile(r"^[a-z0-9-]+$")
 
 
@@ -138,7 +138,7 @@ def expand_title(scope_did: str = "", target_count: Any = 12, **_: Any) -> dict[
     year = title_rows[0].get("release_year")
     existing = ", ".join(f"{r.get('name')} ({r.get('character_role')})" for r in existing_rows)
     out = _ollama_json(
-        "You are a knowledge graph generator for media-gamers.gftd.ai. Output strict JSON only. Slugs MUST match ^[a-z0-9-]+$.",
+        "You are a knowledge graph generator for media-gamers.etzhayyim.com. Output strict JSON only. Slugs MUST match ^[a-z0-9-]+$.",
         f"Game: \"{title}\" ({year}). Existing characters: {existing or '(none)'}. Generate {need} more canonical characters from this game's universe NOT in the existing list. Include name in English + Japanese (name_ja), role, character_class, and one-sentence description. Output JSON: {{\"characters\":[...]}}.",
         CHAR_SCHEMA,
     )
@@ -162,7 +162,7 @@ def expand_title(scope_did: str = "", target_count: Any = 12, **_: Any) -> dict[
             ON CONFLICT (vertex_id) DO NOTHING""",
             (slug, OWNER_DID, scope_did, name, _str(raw.get("name_ja")), _str(raw.get("role")), _str(raw.get("character_class")), scope_did),
         )
-        handle = f"{slug_text}.media-gamers.gftd.ai"
+        handle = f"{slug_text}.media-gamers.etzhayyim.com"
         _execute(
             """INSERT INTO vertex_actor
             (vertex_id, sensitivity_ord, owner_did, did, handle, display_name, name, execution_tier, performer_type, status, category, classification, operator, agent_type, runtime_type, ui_type, country, created_at)

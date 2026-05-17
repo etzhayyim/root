@@ -6,7 +6,7 @@ import { sql } from "kysely";
 //          but exposes regulatory-determined identity, not financial data)
 
 /**
- * shosha.gftd.ai Phase 2b — live sanctions list (OFAC SDN first).
+ * shosha.etzhayyim.com Phase 2b — live sanctions list (OFAC SDN first).
  *
  * Replaces the static curated sieve in `task_shosha_comply_sanctions_check`
  * with a daily-refreshed table. Phase 2b ingests OFAC SDN only; EU

@@ -72,7 +72,7 @@ describe('displayName — derived store', () => {
 	it('falls back to email local part', () => {
 		clerkUser.set({
 			id: 'u3', firstName: null, lastName: null, fullName: null,
-			username: null, emailAddress: 'bob@gftd.ai', phoneNumber: null,
+			username: null, emailAddress: 'bob@etzhayyim.com', phoneNumber: null,
 			hasVerifiedEmail: false, hasVerifiedPhone: false, imageUrl: null,
 			publicMetadata: {},
 		});
@@ -122,7 +122,7 @@ describe('trustSummary — derived store', () => {
 	it('updates when user changes', () => {
 		clerkUser.set({
 			id: 'u6', firstName: 'Alice', lastName: null, fullName: 'Alice',
-			username: 'alice', emailAddress: 'a@gftd.ai', phoneNumber: null,
+			username: 'alice', emailAddress: 'a@etzhayyim.com', phoneNumber: null,
 			hasVerifiedEmail: true, hasVerifiedPhone: false, imageUrl: null,
 			publicMetadata: {},
 		});

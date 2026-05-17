@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import re
 
-ACTOR_DID = "did:web:jp-corp-finance.gftd.ai"
+ACTOR_DID = "did:web:jp-corp-finance.etzhayyim.com"
 
 
 def slug(value: object, *, max_len: int = 160) -> str:

@@ -40,8 +40,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     ["mt",    5_000],
   ];
   for (const [lang, worldTotal] of seed) {
-    const sourceDid = `did:web:maps.gftd.ai:wikipedia:${lang}`;
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-${lang}:Spot`;
+    const sourceDid = `did:web:maps.etzhayyim.com:wikipedia:${lang}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-${lang}:Spot`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

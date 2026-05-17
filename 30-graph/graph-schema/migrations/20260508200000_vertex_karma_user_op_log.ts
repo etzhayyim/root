@@ -4,7 +4,7 @@ import { sql } from "kysely";
 // ADR-0040 vertex tier: tier B  (curated bundler interaction log).
 
 /**
- * karma.gftd.ai — ERC-4337 user operation log (Phase K3).
+ * karma.etzhayyim.com — ERC-4337 user operation log (Phase K3).
  *
  * Audit trail for ERC-4337 user operations submitted to the bundler.
  * Backs the karma.anchor.submitTx primitive when wired to a real

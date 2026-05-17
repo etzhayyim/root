@@ -5,7 +5,7 @@ import { sql } from "kysely";
 // tier: C
 
 /**
- * sbom.gftd.ai — Phase B persistence schema.
+ * sbom.etzhayyim.com — Phase B persistence schema.
  *
  * Two append-only vertex tables for the SBOM artifact registry. Both
  * `cargo-cyclonedx` (software) and `kami-cad-import` (vehicle hardware,

@@ -17,8 +17,8 @@ import { sql } from "kysely";
  *     Used by: mv_actor_repo_stats (0016 tree-oriented hierarchy)
  *
  *   normalize_actor_did(varchar) → varchar
- *     Full normalization with site.gftd.ai aliasing:
- *       did:web:site.gftd.ai:appname → did:web:appname.gftd.ai
+ *     Full normalization with site.etzhayyim.com aliasing:
+ *       did:web:site.etzhayyim.com:appname → did:web:appname.etzhayyim.com
  *       did:web:host:subpath         → did:web:host
  *       anything else                → unchanged
  *     Used by: mv_profile_page_stats (profile page counters)
@@ -53,10 +53,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // ── normalize_actor_did ───────────────────────────────────────────────────
   // Normalize a DID for profile aggregation.
   //
-  // site.gftd.ai sub-DIDs use a reverse-alias convention:
-  //   did:web:site.gftd.ai:foo → did:web:foo.gftd.ai
+  // site.etzhayyim.com sub-DIDs use a reverse-alias convention:
+  //   did:web:site.etzhayyim.com:foo → did:web:foo.etzhayyim.com
   // All other did:web paths are reduced to root host DID:
-  //   did:web:foo.gftd.ai:bar → did:web:foo.gftd.ai
+  //   did:web:foo.etzhayyim.com:bar → did:web:foo.etzhayyim.com
   // Non-did:web DIDs are passed through unchanged.
   await sql`DROP FUNCTION IF EXISTS normalize_actor_did(varchar)`.execute(db);
   await sql`
@@ -65,11 +65,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     LANGUAGE sql
     AS $$
       SELECT CASE
-        WHEN did LIKE 'did:web:site.gftd.ai:%'
+        WHEN did LIKE 'did:web:site.etzhayyim.com:%'
           THEN CONCAT(
             'did:web:',
-            SPLIT_PART(SPLIT_PART(did, 'did:web:site.gftd.ai:', 2), ':', 1),
-            '.gftd.ai'
+            SPLIT_PART(SPLIT_PART(did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+            '.etzhayyim.com'
           )
         WHEN did LIKE 'did:web:%'
           THEN CONCAT(

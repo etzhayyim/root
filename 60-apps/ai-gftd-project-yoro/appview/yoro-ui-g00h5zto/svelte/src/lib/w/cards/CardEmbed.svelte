@@ -19,7 +19,7 @@
 		try {
 			const parsed = new URL(url);
 			if (parsed.protocol !== 'https:') return false;
-			return parsed.hostname.endsWith('.gftd.ai') || TRUSTED_EMBED_HOSTS.has(parsed.hostname);
+			return parsed.hostname.endsWith('.etzhayyim.com') || TRUSTED_EMBED_HOSTS.has(parsed.hostname);
 		} catch {
 			return false;
 		}

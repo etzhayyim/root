@@ -13,7 +13,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-ISEKAI_DID = "did:web:isekai.gftd.ai"
+ISEKAI_DID = "did:web:isekai.etzhayyim.com"
 APP_ID = "is3k41w0"
 BIOMES = ["plains", "forest", "desert", "tundra", "nether", "skibidi-dimension"]
 BRAINROT_NPCS = [

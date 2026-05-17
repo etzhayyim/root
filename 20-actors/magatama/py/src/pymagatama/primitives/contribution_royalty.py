@@ -43,7 +43,7 @@ _REGISTRY_ADDR = os.environ.get(
     "0x689706981d7D10D4CC8244C2BF1a4cA8b0f67cD7",
 ).strip()
 
-_ACTOR_DID = "did:web:bpmn.gftd.ai"
+_ACTOR_DID = "did:web:bpmn.etzhayyim.com"
 _ORG_DID = "anon"
 
 # Maximum batch size for a single credit() call to stay inside block gas limit
@@ -85,7 +85,7 @@ def emit_contribution_usage(
     from pymagatama.primitives.ipfs_ingest import _generate_tid  # local TID helper
     tid = _generate_tid()
     vertex_id = (
-        f"at://did:web:contribution.gftd.ai"
+        f"at://did:web:contribution.etzhayyim.com"
         f"/ai.gftd.apps.contribution.usage/{tid}"
     )
     used_at = _utc_now_iso()
@@ -275,7 +275,7 @@ def register_source_task(
     source_hash = _keccak256_hex(canonical_id)
     tid = _generate_tid()
     vertex_id = (
-        f"at://did:web:contribution.gftd.ai"
+        f"at://did:web:contribution.etzhayyim.com"
         f"/ai.gftd.apps.contribution.source/{tid}"
     )
     created_at = _utc_now_iso()

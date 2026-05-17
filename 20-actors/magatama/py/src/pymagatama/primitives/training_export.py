@@ -36,7 +36,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-_OWNER_DID = "did:web:training.gftd.ai"
+_OWNER_DID = "did:web:training.etzhayyim.com"
 _SHARD_ROWS = int(os.environ.get("TRAINING_SHARD_ROWS", "50000"))
 _B2_BUCKET = os.environ.get("TRAINING_B2_BUCKET", "gftd-training-data")
 _B2_PREFIX = os.environ.get("TRAINING_B2_PREFIX", "v1")

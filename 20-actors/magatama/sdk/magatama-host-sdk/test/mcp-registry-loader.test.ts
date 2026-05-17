@@ -27,7 +27,7 @@ import {
 } from "../src/mcp-registry-loader.js";
 
 const HYPERDRIVE = { __mock: true };
-const ACTOR_DID = "did:web:lawfirm.gftd.ai";
+const ACTOR_DID = "did:web:lawfirm.etzhayyim.com";
 
 beforeEach(() => {
 	resetChain();

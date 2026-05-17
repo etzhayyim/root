@@ -3,8 +3,8 @@ package tier
 import (
 	"context"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/block"
-	"github.com/gftdcojp/nats-tiered-storage/internal/types"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/block"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/types"
 )
 
 // Re-export types for convenience.

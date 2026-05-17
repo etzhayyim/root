@@ -6,7 +6,7 @@ import { sql } from "kysely";
 //          but not Tier-3 PII; full RACI split deferred to Phase 3.)
 
 /**
- * shosha.gftd.ai Phase 2d (simplified) — approval audit trail.
+ * shosha.etzhayyim.com Phase 2d (simplified) — approval audit trail.
  *
  * Phase 1 set `approval_state='pending'` on trades >= $1M but had no
  * way to flip pending → approved (or rejected). Phase 2c settleTrade

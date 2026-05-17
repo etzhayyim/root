@@ -2,7 +2,7 @@
   "viewId": "open-swift.SV-1",
   "viewType": "SV-1",
   "title": "Systems Interface Description",
-  "did": "did:web:open-swift.gftd.ai",
+  "did": "did:web:open-swift.etzhayyim.com",
   "format": "json",
   "content": {
     "systems": [
@@ -20,9 +20,9 @@
       },
       { "id": "sys.d1", "name": "Cloudflare D1 (SQLite)", "platform": "D1",
         "tables": ["institutions", "messages", "acknowledgements"] },
-      { "id": "sys.pds",  "name": "atproto.gftd.ai PDS", "platform": "Service binding",
+      { "id": "sys.pds",  "name": "atproto.etzhayyim.com PDS", "platform": "Service binding",
         "interfaces": [{ "id": "if.pds.post", "kind": "wRPC", "method": "app.bsky.feed.post" }] },
-      { "id": "sys.auth", "name": "auth.gftd.ai", "platform": "Service binding",
+      { "id": "sys.auth", "name": "auth.etzhayyim.com", "platform": "Service binding",
         "interfaces": [{ "id": "if.auth.resolveCaller", "kind": "wRPC", "method": "resolveCallerDid" }] }
     ],
     "connections": [

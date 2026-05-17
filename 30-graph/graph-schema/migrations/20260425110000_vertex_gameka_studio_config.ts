@@ -48,8 +48,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       max_iterations, score_threshold,
       note, created_at
     ) VALUES (
-      'at://did:web:gameka.gftd.ai/ai.gftd.apps.gameka.studioConfig/global',
-      'did:web:gameka.gftd.ai', 'global', 'did:web:gameka.gftd.ai',
+      'at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.studioConfig/global',
+      'did:web:gameka.etzhayyim.com', 'global', 'did:web:gameka.etzhayyim.com',
       'global', false,
       3, 0.8,
       'P7 dry-run seed — flip tick_live_mode=true after 14-day soak.',

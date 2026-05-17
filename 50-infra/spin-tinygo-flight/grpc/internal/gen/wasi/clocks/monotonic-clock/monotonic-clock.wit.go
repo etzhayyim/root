@@ -6,7 +6,7 @@
 package monotonicclock
 
 import (
-	"github.com/gftdcojp/spin-tinygo-flight/grpc/internal/gen/wasi/io/poll"
+	"github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc/internal/gen/wasi/io/poll"
 	"go.bytecodealliance.org/cm"
 )
 

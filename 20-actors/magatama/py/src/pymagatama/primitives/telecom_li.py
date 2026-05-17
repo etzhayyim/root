@@ -33,7 +33,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-TELECOM_DID = "did:web:telecom.gftd.ai"
+TELECOM_DID = "did:web:telecom.etzhayyim.com"
 ACTOR_TAG = "sys.worker.telecom.li"
 LI_SENSITIVITY = 4
 
@@ -107,7 +107,7 @@ def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
 
 
 def _vid(kind: str, ident: str) -> str:
-    return f"at://did:web:telecom.gftd.ai/ai.gftd.apps.telecom.{kind}/{ident}"
+    return f"at://did:web:telecom.etzhayyim.com/ai.gftd.apps.telecom.{kind}/{ident}"
 
 
 def _require_vault_ref(value: str | None, field: str) -> None:

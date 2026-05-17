@@ -50,12 +50,12 @@ requires_wasm = pytest.mark.skipif(
 @requires_wasm
 def test_single_cell_step():
     runner = build_freq_droop_loop(
-        bess_assets=[("did:web:open-ot.gftd.ai:cell:droop-test", 1000.0)],
+        bess_assets=[("did:web:open-ot.etzhayyim.com:cell:droop-test", 1000.0)],
         cycle_period_ms=100,
     )
     runner.initialize()
     cp = step_freq_droop(runner, grid_freq_hz=50.0, current_p_per_asset_kw={
-        "did:web:open-ot.gftd.ai:cell:droop-test": 500.0,
+        "did:web:open-ot.etzhayyim.com:cell:droop-test": 500.0,
     })
     assert cp.super_step == 1
     assert len(cp.emissions) == 1

@@ -17,7 +17,7 @@ ADR-0056 BPMN-as-actor.
 
 Env vars:
   KOKORO_URL      OpenAI-compat TTS endpoint, e.g. http://kokoro-worker:8020
-  COMFYUI_URL     ComfyUI gateway, e.g. https://comfyui.gftd.ai  (default)
+  COMFYUI_URL     ComfyUI gateway, e.g. https://comfyui.etzhayyim.com  (default)
   COMFYUI_API_KEY ComfyUI auth token (optional for internal gateway)
 """
 
@@ -34,14 +34,14 @@ from pymagatama import llm as _llm
 from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives.yoro_social import build_repo_record, insert_social_post_record
 
-DEFAULT_REPO = "did:web:y5kk5r1x.gftd.ai"
+DEFAULT_REPO = "did:web:y5kk5r1x.etzhayyim.com"
 COLLECTION_VIDEO = "ai.gftd.apps.yukkuri.video"
 COLLECTION_SCENE = "ai.gftd.apps.yukkuri.scene"
 COLLECTION_LINE = "ai.gftd.apps.yukkuri.line"
 COLLECTION_ASSET = "ai.gftd.apps.yukkuri.asset"
 COLLECTION_GENERATION = "ai.gftd.apps.yukkuri.generation"
 
-PATH_SCRIPTWRITER = "did:web:yukkuri.gftd.ai:actor:scriptwriter"
+PATH_SCRIPTWRITER = "did:web:yukkuri.etzhayyim.com:actor:scriptwriter"
 
 _SCRIPT_SYSTEM = (
     "Output ONLY valid JSON. No preamble, no commentary, no code fences.\n"
@@ -80,11 +80,11 @@ def _generate_script_from_llm(topic: str, language: str = "ja") -> list[dict]:
     return []
 
 
-PATH_VOICE_LEFT = "did:web:yukkuri.gftd.ai:actor:voiceLeft"
-PATH_VOICE_RIGHT = "did:web:yukkuri.gftd.ai:actor:voiceRight"
-PATH_ILLUSTRATOR = "did:web:yukkuri.gftd.ai:actor:illustrator"
-PATH_EDITOR = "did:web:yukkuri.gftd.ai:actor:editor"
-PATH_CRITIC = "did:web:yukkuri.gftd.ai:actor:critic"
+PATH_VOICE_LEFT = "did:web:yukkuri.etzhayyim.com:actor:voiceLeft"
+PATH_VOICE_RIGHT = "did:web:yukkuri.etzhayyim.com:actor:voiceRight"
+PATH_ILLUSTRATOR = "did:web:yukkuri.etzhayyim.com:actor:illustrator"
+PATH_EDITOR = "did:web:yukkuri.etzhayyim.com:actor:editor"
+PATH_CRITIC = "did:web:yukkuri.etzhayyim.com:actor:critic"
 
 
 def _now_iso() -> str:
@@ -564,7 +564,7 @@ def task_yukkuri_image_generate(
     if not video_uri:
         return {"ok": False, "scenesProcessed": 0, "error": "video_uri required", "imageOk": False}
 
-    comfyui_url = os.environ.get("COMFYUI_URL", "https://comfyui.gftd.ai").rstrip("/")
+    comfyui_url = os.environ.get("COMFYUI_URL", "https://comfyui.etzhayyim.com").rstrip("/")
     comfyui_api_key = os.environ.get("COMFYUI_API_KEY", "")
 
     headers: dict[str, str] = {"Content-Type": "application/json"}
@@ -909,8 +909,8 @@ def task_yukkuri_social_post(
 ) -> dict[str, Any]:
     """Emit a social post to vertex_repo_record after critic passes.
 
-    Visible on yoro.gftd.ai via the vertex_repo_record → mv_actor_social_stats
-    pipeline.  Posts as did:web:yukkuri.gftd.ai.
+    Visible on yoro.etzhayyim.com via the vertex_repo_record → mv_actor_social_stats
+    pipeline.  Posts as did:web:yukkuri.etzhayyim.com.
     """
     if not video_uri:
         return {"ok": False, "error": "video_uri required", "postUri": ""}
@@ -947,7 +947,7 @@ def task_yukkuri_social_post(
         embed = {
             "$type": "app.bsky.embed.external",
             "external": {
-                "uri": f"https://yukkuri.gftd.ai/video/{video_rkey}",
+                "uri": f"https://yukkuri.etzhayyim.com/video/{video_rkey}",
                 "title": (title or "🎬 Yukkuri AI Video")[:200],
                 "description": (topic or "AI-generated ゆっくり commentary video")[:300],
             },

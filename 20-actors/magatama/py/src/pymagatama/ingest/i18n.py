@@ -10,8 +10,8 @@ from uuid import NAMESPACE_URL, uuid4, uuid5
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:i18n.gftd.ai"
-CREDIT_PORTAL_URL = "https://yoro.gftd.ai/credits"
+OWNER_DID = "did:web:i18n.etzhayyim.com"
+CREDIT_PORTAL_URL = "https://yoro.etzhayyim.com/credits"
 COLLECTION_TABLES = {
     "ai.gftd.apps.i18n.project": "vertex_i18n_project",
     "ai.gftd.apps.i18n.projectTranslation": "vertex_i18n_project_translation",

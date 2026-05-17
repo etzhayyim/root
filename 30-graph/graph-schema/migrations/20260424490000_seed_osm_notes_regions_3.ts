@@ -16,8 +16,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     ["osm_notes:global", 30_000, 0.6],
   ];
   for (const [suffix, worldTotal, priority] of seed) {
-    const sourceDid = `did:web:maps.gftd.ai:${suffix}`;
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/${suffix.replace(/:/g, "-")}:Spot`;
+    const sourceDid = `did:web:maps.etzhayyim.com:${suffix}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/${suffix.replace(/:/g, "-")}:Spot`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

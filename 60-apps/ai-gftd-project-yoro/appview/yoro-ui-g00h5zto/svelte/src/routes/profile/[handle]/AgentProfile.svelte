@@ -202,9 +202,9 @@
 
 	/** Whether this agent is a utility service that supports contract subscription. */
 	const isContractableUtility = $derived(
-		did.includes('dk3n7k8p') || did.includes('denki.gftd.ai') ||
-		did.includes('sd9w2t4r') || did.includes('suido.gftd.ai') ||
-		did.includes('gs5a6s1m') || did.includes('gas.gftd.ai')
+		did.includes('dk3n7k8p') || did.includes('denki.etzhayyim.com') ||
+		did.includes('sd9w2t4r') || did.includes('suido.etzhayyim.com') ||
+		did.includes('gs5a6s1m') || did.includes('gas.etzhayyim.com')
 	);
 
 	// Gov / civic profile detection
@@ -308,7 +308,7 @@
 		try {
 			const parsed = new URL(url);
 			if (parsed.protocol !== 'https:') return false;
-			return parsed.hostname.endsWith('.gftd.ai') || TRUSTED_EMBED_HOSTS.has(parsed.hostname);
+			return parsed.hostname.endsWith('.etzhayyim.com') || TRUSTED_EMBED_HOSTS.has(parsed.hostname);
 		} catch {
 			return false;
 		}
@@ -342,18 +342,18 @@
 				if (!deploySha && normalizedUi === 'appview') {
 					// Try the real nanoid host if meta returns a valid appId
 					if (metaNanoid && NANOID_RE.test(metaNanoid)) {
-						const realHost = `${metaNanoid}.gftd.ai`;
+						const realHost = `${metaNanoid}.etzhayyim.com`;
 						if (await tryHost(realHost)) return true;
 					}
 					return false;
 				}
 
-				const canInlineEmbed = did.startsWith('did:web:') && host !== 'atproto.gftd.ai';
+				const canInlineEmbed = did.startsWith('did:web:') && host !== 'atproto.etzhayyim.com';
 				const isGame = normalizedUi === 'game';
 				const previewUi = isGame ? 'game' : ((normalizedUi !== 'appview' || canInlineEmbed) ? 'iframe' : 'appview');
 				// Embed URL: prefer /_app/meta embedUrl, fallback to ?embed=1
 				const embedNanoid = NANOID_RE.test(metaNanoid) ? metaNanoid : (NANOID_RE.test(nn) ? nn : '');
-				const embedHost = embedNanoid ? `${embedNanoid}.gftd.ai` : host;
+				const embedHost = embedNanoid ? `${embedNanoid}.etzhayyim.com` : host;
 				const metaEmbedUrl = (meta as any).embedUrl as string | undefined;
 				const fallbackEmbedUrl = `https://${embedHost}/?embed=1${actor.subPath ? `&entity=${encodeURIComponent(actor.subPath)}` : ''}`;
 				const embedUrl = isTrustedEmbedUrl(metaEmbedUrl) ? metaEmbedUrl : fallbackEmbedUrl;
@@ -374,7 +374,7 @@
 		// Try vanity host first
 		if (await tryHost(appHost)) return;
 		// Try actor nanoid host
-		const nanoidHost = nn ? `${nn}.gftd.ai` : '';
+		const nanoidHost = nn ? `${nn}.etzhayyim.com` : '';
 		if (nanoidHost !== appHost && await tryHost(nanoidHost)) return;
 
 		appPreview = { uiType: 'appview', nanoid: nn };
@@ -405,10 +405,10 @@
 				const didParts = did.replace('did:web:', '').split(':');
 				appHost = didParts[0];
 			} else {
-				appHost = `${actor.nanoid}.gftd.ai`;
+				appHost = `${actor.nanoid}.etzhayyim.com`;
 			}
-				// atproto.gftd.ai is the data gateway, not an App — skip manifest
-			if (appHost === 'atproto.gftd.ai') {
+				// atproto.etzhayyim.com is the data gateway, not an App — skip manifest
+			if (appHost === 'atproto.etzhayyim.com') {
 				appPreview = { uiType: 'appview', nanoid: actor.nanoid ?? '' };
 				return;
 			}
@@ -416,8 +416,8 @@
 		} catch (e) {
 			console.warn('agent profile: loadAppPreview failed, trying /_app/meta', e);
 			try {
-				const appHost = did.startsWith('did:web:') ? did.replace('did:web:', '').split(':')[0] : `${actor.nanoid}.gftd.ai`;
-				if (appHost !== 'atproto.gftd.ai') await loadAppPreviewFromMeta(appHost);
+				const appHost = did.startsWith('did:web:') ? did.replace('did:web:', '').split(':')[0] : `${actor.nanoid}.etzhayyim.com`;
+				if (appHost !== 'atproto.etzhayyim.com') await loadAppPreviewFromMeta(appHost);
 				else appPreview = { uiType: 'appview', nanoid: actor.nanoid ?? '' };
 			} catch {
 				appPreview = { uiType: 'appview', nanoid: actor.nanoid ?? '' };
@@ -738,7 +738,7 @@
 
 	async function loadPostsFromListRecords(): Promise<FeedItem[]> {
 		try {
-			const url = new URL('https://atproto.gftd.ai/xrpc/com.atproto.repo.listRecords');
+			const url = new URL('https://atproto.etzhayyim.com/xrpc/com.atproto.repo.listRecords');
 			url.searchParams.set('repo', did);
 			url.searchParams.set('collection', 'app.bsky.feed.post');
 			url.searchParams.set('limit', '50');
@@ -999,27 +999,27 @@
 		const mkDid = (host: string, path: string[]) => path.length > 0 ? `did:web:${host}:${path.join(':')}` : `did:web:${host}`;
 		const out: string[] = [];
 		const pushSiteAliases = (slug: string, tail: string[]) => {
-			out.push(mkDid('site.gftd.ai', [slug, ...tail]));
-			out.push(mkDid('w3bpg001.gftd.ai', [slug, ...tail]));
+			out.push(mkDid('site.etzhayyim.com', [slug, ...tail]));
+			out.push(mkDid('w3bpg001.etzhayyim.com', [slug, ...tail]));
 		};
 
-		if (parsed.host === 'site.gftd.ai' && parsed.path.length > 0) {
+		if (parsed.host === 'site.etzhayyim.com' && parsed.path.length > 0) {
 			const [slug, ...tail] = parsed.path;
-			const canonicalHost = slug.endsWith('.gftd.ai') ? slug : `${slug}.gftd.ai`;
+			const canonicalHost = slug.endsWith('.etzhayyim.com') ? slug : `${slug}.etzhayyim.com`;
 			out.push(mkDid(canonicalHost, tail));
 			pushSiteAliases(slug, tail);
 			return Array.from(new Set(out));
 		}
 
-		if (parsed.host === 'w3bpg001.gftd.ai' && parsed.path.length > 0) {
+		if (parsed.host === 'w3bpg001.etzhayyim.com' && parsed.path.length > 0) {
 			const [slug, ...tail] = parsed.path;
-			const canonicalHost = slug.endsWith('.gftd.ai') ? slug : `${slug}.gftd.ai`;
+			const canonicalHost = slug.endsWith('.etzhayyim.com') ? slug : `${slug}.etzhayyim.com`;
 			out.push(mkDid(canonicalHost, tail));
 			pushSiteAliases(slug, tail);
 			return Array.from(new Set(out));
 		}
 
-		if (parsed.host.endsWith('.gftd.ai') && parsed.host !== 'atproto.gftd.ai') {
+		if (parsed.host.endsWith('.etzhayyim.com') && parsed.host !== 'atproto.etzhayyim.com') {
 			const slug = parsed.host.replace(/\.gftd\.ai$/, '');
 			out.push(mkDid(parsed.host, parsed.path));
 			pushSiteAliases(slug, parsed.path);
@@ -1031,10 +1031,10 @@
 	function domainHintFromDid(d: string): string | null {
 		const parsed = splitDidWeb(domainDidCandidatesFromDid(d)[0] ?? d);
 		if (!parsed) return null;
-		if (parsed.host === 'site.gftd.ai') {
+		if (parsed.host === 'site.etzhayyim.com') {
 			return parsed.path[0] ? parsed.path[0].replace(/-/g, '.') : null;
 		}
-		if (parsed.host.endsWith('.gftd.ai')) {
+		if (parsed.host.endsWith('.etzhayyim.com')) {
 			return parsed.host.replace(/\.gftd\.ai$/, '').replace(/-/g, '.');
 		}
 		return null;
@@ -1207,7 +1207,7 @@
 					did,
 					actor.did ?? '',
 					hostFromDid ? `did:web:${hostFromDid}` : '',
-					hostFromDid ? `did:web:${hostFromDid.replace(/\.gftd\.ai$/, '')}.gftd.ai` : '',
+					hostFromDid ? `did:web:${hostFromDid.replace(/\.gftd\.ai$/, '')}.etzhayyim.com` : '',
 				].filter(Boolean)),
 			);
 			const governanceRows = await Promise.all([
@@ -1586,7 +1586,7 @@
 				<!-- App preview card -->
 				<div class="rounded-xl border border-gv2-border/30 overflow-hidden">
 					{#if appPreview?.screenshotCid}
-						<img src="https://cdn.gftd.ai/cas/{appPreview.screenshotCid}" alt="" class="w-full h-48 object-cover" loading="lazy" />
+						<img src="https://cdn.etzhayyim.com/cas/{appPreview.screenshotCid}" alt="" class="w-full h-48 object-cover" loading="lazy" />
 					{:else}
 						<div class="w-full h-32 bg-gradient-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
 							<span class="text-4xl">{actor.name?.slice(0, 2).toUpperCase() ?? '??'}</span>
@@ -1849,7 +1849,7 @@
 			{:else}
 				<div>
 					<h3 class="text-[13px] font-semibold text-gv2-text-muted uppercase tracking-wider mb-3">利用可能なプラン</h3>
-					{#if did.includes('dk3n7k8p') || did.includes('denki.gftd.ai')}
+					{#if did.includes('dk3n7k8p') || did.includes('denki.etzhayyim.com')}
 						{@const plans = [
 							{ id: 'dk-basic', name: '基本プラン', desc: '従量電灯B相当。一般家庭向け', price: '¥1,200/月' },
 							{ id: 'dk-setsuyaku', name: '節約プラン', desc: '深夜割引 + 省エネアドバイス', price: '¥980/月' },
@@ -1866,7 +1866,7 @@
 								</div>
 							{/each}
 						</div>
-					{:else if did.includes('sd9w2t4r') || did.includes('suido.gftd.ai')}
+					{:else if did.includes('sd9w2t4r') || did.includes('suido.etzhayyim.com')}
 						{@const plans = [
 							{ id: 'sd-basic', name: '基本プラン', desc: '一般家庭向け上下水道', price: '¥800/月' },
 							{ id: 'sd-setsuyaku', name: '節約プラン', desc: '節水アドバイス + 漏水検知', price: '¥650/月' },
@@ -1883,7 +1883,7 @@
 								</div>
 							{/each}
 						</div>
-					{:else if did.includes('gs5a6s1m') || did.includes('gas.gftd.ai')}
+					{:else if did.includes('gs5a6s1m') || did.includes('gas.etzhayyim.com')}
 						{@const plans = [
 							{ id: 'gs-basic', name: '基本プラン', desc: '一般家庭向け都市ガス', price: '¥900/月' },
 							{ id: 'gs-setsuyaku', name: '節約プラン', desc: 'ガスファンヒーター割引 + 省エネ診断', price: '¥750/月' },
@@ -1906,7 +1906,7 @@
 				<!-- Provider list (Japan default) -->
 				<div>
 					<h3 class="text-[13px] font-semibold text-gv2-text-muted uppercase tracking-wider mb-3">提携プロバイダー (日本)</h3>
-					{#if did.includes('dk3n7k8p') || did.includes('denki.gftd.ai')}
+					{#if did.includes('dk3n7k8p') || did.includes('denki.etzhayyim.com')}
 						{@const jpProviders = [
 							{ name: '東京電力 (TEPCO)', region: '関東' },
 							{ name: '関西電力', region: '関西' },
@@ -1927,7 +1927,7 @@
 								</div>
 							{/each}
 						</div>
-					{:else if did.includes('sd9w2t4r') || did.includes('suido.gftd.ai')}
+					{:else if did.includes('sd9w2t4r') || did.includes('suido.etzhayyim.com')}
 						{@const jpProviders = [
 							{ name: '東京都水道局', region: '東京' },
 							{ name: '大阪市水道局', region: '大阪' },
@@ -1948,7 +1948,7 @@
 								</div>
 							{/each}
 						</div>
-					{:else if did.includes('gs5a6s1m') || did.includes('gas.gftd.ai')}
+					{:else if did.includes('gs5a6s1m') || did.includes('gas.etzhayyim.com')}
 						{@const jpProviders = [
 							{ name: '東京ガス', region: '関東' },
 							{ name: '大阪ガス (Daigas)', region: '関西' },
@@ -2251,7 +2251,7 @@
 														<span class="text-[11px] text-gv2-text-muted">→</span>
 														{#each boundDids as bd}
 															<a href="/profile/{encodeURIComponent(bd.did)}" class="inline-flex items-center gap-1 rounded-md bg-emerald-500/10 px-2 py-0.5 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 no-underline hover:bg-emerald-500/20">
-																{bd.did.replace('did:web:', '').replace('.gftd.ai', '')}
+																{bd.did.replace('did:web:', '').replace('.etzhayyim.com', '')}
 															</a>
 														{/each}
 													{:else}

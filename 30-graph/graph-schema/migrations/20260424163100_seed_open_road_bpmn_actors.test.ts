@@ -32,7 +32,7 @@ describe("Seed open-road BPMN actors migration", () => {
   });
   it("uses open-road-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-road"');
-    expect(migrationSource).toContain("did:web:open-road.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-road.etzhayyim.com");
   });
   it("BPMN processes target the Zeebe generic.* primitive set", () => {
     for (const xml of [bpmn1, bpmn2]) {

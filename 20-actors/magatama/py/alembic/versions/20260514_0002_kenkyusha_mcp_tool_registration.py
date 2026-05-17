@@ -7,16 +7,16 @@ Create Date: 2026-05-14
 SCOPE
 -----
 Phase 2A — expose kenkyusha's research lifecycle endpoints as MCP tools at
-``atproto.gftd.ai/xrpc/ai.gftd.mcp.message`` (compat: ``atproto.gftd.ai/mcp``).
+``atproto.etzhayyim.com/xrpc/ai.gftd.mcp.message`` (compat: ``atproto.etzhayyim.com/mcp``).
 
 The MCP adapter (``50-infra/cloudflare/workers/atproto/src/mcp-adapter.ts``)
 discovers tools by querying ``vertex_capability`` rows where
 ``collection = 'ai.gftd.tool.tool'`` and ``status = 'active'``. Each row also
 declares the ``capability_worker`` (= kenkyusha nanoid ``kk8r3n5v``); the
 generic dispatcher in ``handleToolsCall`` then proxies to
-``https://kk8r3n5v.gftd.ai/xrpc/ai.gftd.apps.kenkyusha.<method>``, which is
+``https://kk8r3n5v.etzhayyim.com/xrpc/ai.gftd.apps.kenkyusha.<method>``, which is
 handled by the kenkyusha appview Worker — it in turn proxies to the
-lg-kenkyusha pod at ``https://kenkyusha.gftd.ai`` (ADR-2605111200).
+lg-kenkyusha pod at ``https://kenkyusha.etzhayyim.com`` (ADR-2605111200).
 
 Three tools are registered:
 
@@ -49,12 +49,12 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 # capability_worker = subdomain (NOT nanoid) so that mcp-adapter routes
-# directly to https://kenkyusha.gftd.ai/xrpc/... (= lg-kenkyusha pod
+# directly to https://kenkyusha.etzhayyim.com/xrpc/... (= lg-kenkyusha pod
 # ingress) rather than the appview Worker. This matches the ADR-2605111200
 # rule that the pod is the single writer for vertex_kenkyusha_*. Without
 # the indirection, MCP traffic is 1 hop (CF edge → pod) instead of 2 hops
 # (CF edge → appview Worker → pod).
-_ACTOR = "did:web:kenkyusha.gftd.ai"
+_ACTOR = "did:web:kenkyusha.etzhayyim.com"
 _NANOID = "kenkyusha"
 
 

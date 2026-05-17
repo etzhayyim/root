@@ -9,15 +9,15 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const createdAt = "2026-04-29T14:41:00+09:00";
-const ownerDid = "did:web:llm.gftd.ai";
+const ownerDid = "did:web:llm.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.llm-knowledge";
 const bpmnProcessId = "llm_answer_with_knowledge";
 const nsid = "ai.gftd.apps.llm.answerWithKnowledge";
 const sourcePath = "00-contracts/bpmn/ai/gftd/llm/answerWithKnowledge.bpmn";
 const processVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/llm-answer-with-knowledge-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/llm-answer-with-knowledge-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/llm-answer-with-knowledge-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/llm-answer-with-knowledge-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(path.resolve(repoRoot, sourcePath), "utf8");

@@ -536,15 +536,15 @@ def test_execute_real_world_action_direct_blocks_unready_email_live_channel(monk
 def test_resend_dns_ready_checks_apex_resend_records(monkeypatch) -> None:
     def fake_dns(record_type: str, name: str) -> list[str]:
         records = {
-            ("TXT", "resend._domainkey.gftd.ai"): ["p=abc"],
-            ("TXT", "send.gftd.ai"): ["v=spf1 include:amazonses.com ~all"],
-            ("MX", "send.gftd.ai"): ["10 feedback-smtp.ap-northeast-1.amazonses.com."],
+            ("TXT", "resend._domainkey.etzhayyim.com"): ["p=abc"],
+            ("TXT", "send.etzhayyim.com"): ["v=spf1 include:amazonses.com ~all"],
+            ("MX", "send.etzhayyim.com"): ["10 feedback-smtp.ap-northeast-1.amazonses.com."],
         }
         return records.get((record_type, name), [])
 
     monkeypatch.setattr(agent_daemon_main, "_dns_short", fake_dns)
 
-    assert agent_daemon_main.resend_dns_ready("gftd.ai") is True
+    assert agent_daemon_main.resend_dns_ready("etzhayyim.com") is True
 
 
 def test_email_live_channel_blocker_distinguishes_resend_account_pending(monkeypatch) -> None:
@@ -558,7 +558,7 @@ def test_email_live_channel_blocker_distinguishes_resend_account_pending(monkeyp
         def fetchone(self):
             self.calls += 1
             if self.calls == 1:
-                return ["error", '{"message":"The gftd.ai domain is not verified."}']
+                return ["error", '{"message":"The etzhayyim.com domain is not verified."}']
             return None
 
     class FakeSyncCursor:

@@ -53,7 +53,7 @@ import { Kysely, sql } from 'kysely';
  * | sitc4_cpc21   | 61,697    | 3,638 | reverse                         |
  *
  * ### HS succession chain (hs2022 pivot — vertex ID format mismatch in hs07/hs12 bridges)
- * NOTE: hs07_hs12.dst uses hs2012.gftd.ai domain; hs2012_cpc21.src uses hs.gftd.ai domain
+ * NOTE: hs07_hs12.dst uses hs2012.etzhayyim.com domain; hs2012_cpc21.src uses hs.etzhayyim.com domain
  * — vertex ID format incompatible. Use hs2022 as neutral pivot instead.
  * | system        | before    | after | method                                    |
  * |---------------|-----------|-------|-------------------------------------------|

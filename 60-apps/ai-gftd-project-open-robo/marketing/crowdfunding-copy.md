@@ -184,7 +184,7 @@ Giemon Otete 6軸ロボットアーム+クローラー 組み立てキット Ras
 
 ---
 
-## 公式サイト構成案 (armcrawler.gftd.ai)
+## 公式サイト構成案 (armcrawler.etzhayyim.com)
 
 ### ページ構成
 

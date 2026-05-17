@@ -23,8 +23,8 @@ from typing import Any
 
 LOG = logging.getLogger("yard_ops.primitive")
 
-_YARD_DID = "did:web:yard-ops.gftd.ai"
-_ROBOT_DID = "did:web:robot.gftd.ai:loading-robot"
+_YARD_DID = "did:web:yard-ops.etzhayyim.com"
+_ROBOT_DID = "did:web:robot.etzhayyim.com:loading-robot"
 
 
 def _now_iso() -> str:

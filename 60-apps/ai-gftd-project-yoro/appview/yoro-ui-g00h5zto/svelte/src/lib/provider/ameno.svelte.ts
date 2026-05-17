@@ -222,7 +222,7 @@ async function* chatCompletionStream(
 async function loadActorAdapter(
 	actorDid: string,
 	adapterId: string,
-	pdsBaseUrl = 'https://atproto.gftd.ai',
+	pdsBaseUrl = 'https://atproto.etzhayyim.com',
 ): Promise<LoadedLoraAdapter | null> {
 	_state = 'merging-lora';
 	_actorDid = actorDid;

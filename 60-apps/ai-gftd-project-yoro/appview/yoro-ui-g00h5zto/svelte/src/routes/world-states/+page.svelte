@@ -10,13 +10,13 @@
 
 	async function load() {
 		try {
-			// Query graph for all stateProfile rkeys under states.gftd.ai repo.
+			// Query graph for all stateProfile rkeys under states.etzhayyim.com repo.
 			// /api/kagami/query is public (read-only, no auth).
 			const sql = `SELECT rkey, value_json, indexed_at
 			             FROM vertex_state_profile
-			             WHERE repo = 'states.gftd.ai'
+			             WHERE repo = 'states.etzhayyim.com'
 			             ORDER BY rkey`;
-			const r = await fetch('https://atproto.gftd.ai/api/kagami/query', {
+			const r = await fetch('https://atproto.etzhayyim.com/api/kagami/query', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ sql }),
@@ -108,7 +108,7 @@
 		<div class="p-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
 			{#each filtered as s}
 				<a
-					href={`/profile/did:web:states.gftd.ai:state:${s.iso}`}
+					href={`/profile/did:web:states.etzhayyim.com:state:${s.iso}`}
 					class="rounded-lg border border-gv2-border/30 p-2.5 hover:bg-gv2-bg-secondary/50 transition-colors block"
 				>
 					<div class="flex items-start justify-between gap-1">

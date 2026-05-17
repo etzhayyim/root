@@ -60,7 +60,7 @@ export interface BpmnRouterConfig {
 /**
  * ADR-2604271400 — `mcp_invoke` action metering hook.
  *
- * Wraps `credits.gftd.ai` `CheckSpendAllowed` + `SpendCredits` so the host-sdk
+ * Wraps `credits.etzhayyim.com` `CheckSpendAllowed` + `SpendCredits` so the host-sdk
  * has no direct dependency on the credits-mcp Worker. 10% public-fund
  * redistribution is handled inside `SpendCredits` (ADR — see
  * `20-actors/credits/CLAUDE.md`); this layer only reports byte counts and the

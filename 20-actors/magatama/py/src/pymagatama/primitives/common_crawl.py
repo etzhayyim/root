@@ -40,7 +40,7 @@ _DOMAINS: dict[str, dict[str, Any]] = {
             "www.subaru.com", "www.porsche.com",
         ],
         "collection": "ai.gftd.apps.kuruma.model",
-        "repo": "did:web:kuruma.gftd.ai",
+        "repo": "did:web:kuruma.etzhayyim.com",
         "entity_key": "model_name",
     },
     "media_anime": {
@@ -49,7 +49,7 @@ _DOMAINS: dict[str, dict[str, Any]] = {
             "kitsu.io", "anime-planet.com", "livechart.me", "notify.moe",
         ],
         "collection": "ai.gftd.apps.media_anime.title",
-        "repo": "did:web:media-anime.gftd.ai",
+        "repo": "did:web:media-anime.etzhayyim.com",
         "entity_key": "title",
     },
     "media_gamers": {
@@ -60,7 +60,7 @@ _DOMAINS: dict[str, dict[str, Any]] = {
             "store.epicgames.com", "www.gog.com",
         ],
         "collection": "ai.gftd.apps.media_gamers.title",
-        "repo": "did:web:media-gamers.gftd.ai",
+        "repo": "did:web:media-gamers.etzhayyim.com",
         "entity_key": "title",
     },
     "handotai": {
@@ -70,7 +70,7 @@ _DOMAINS: dict[str, dict[str, Any]] = {
             "www.tomshardware.com", "semiwiki.com",
         ],
         "collection": "ai.gftd.apps.handotai.chip",
-        "repo": "did:web:handotai.gftd.ai",
+        "repo": "did:web:handotai.etzhayyim.com",
         "entity_key": "name",
     },
 }
@@ -204,7 +204,7 @@ def _openrouter_extract(domain: str, url: str, title: str, description: str) -> 
     req = _req.Request(_OPENROUTER_URL, data=payload, method="POST", headers={
         "Content-Type": "application/json",
         "Authorization": f"Bearer {_OPENROUTER_KEY}",
-        "HTTP-Referer": "https://cc26m4x1.gftd.ai",
+        "HTTP-Referer": "https://cc26m4x1.etzhayyim.com",
         "X-Title": "gftd-common-crawl",
     })
     try:

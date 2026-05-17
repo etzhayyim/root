@@ -13,11 +13,11 @@ import { sql } from "kysely";
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   const deadSourceDids = [
-    "did:web:maps.gftd.ai:registry:wikidata:parliamentBldg",
-    "did:web:maps.gftd.ai:registry:wikidata:aquariumWd",
-    "did:web:maps.gftd.ai:registry:wikidata:prisonWd",
-    "did:web:maps.gftd.ai:registry:wikidata:boardingSchool",
-    "did:web:maps.gftd.ai:registry:wikidata:gurdwara",
+    "did:web:maps.etzhayyim.com:registry:wikidata:parliamentBldg",
+    "did:web:maps.etzhayyim.com:registry:wikidata:aquariumWd",
+    "did:web:maps.etzhayyim.com:registry:wikidata:prisonWd",
+    "did:web:maps.etzhayyim.com:registry:wikidata:boardingSchool",
+    "did:web:maps.etzhayyim.com:registry:wikidata:gurdwara",
   ];
   for (const sd of deadSourceDids) {
     await sql`DELETE FROM vertex_maps_coverage_target WHERE source_did = ${sd}`.execute(db);

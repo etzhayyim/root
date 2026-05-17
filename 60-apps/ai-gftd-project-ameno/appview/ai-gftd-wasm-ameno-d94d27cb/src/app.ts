@@ -6,7 +6,7 @@ import {
   type LexiconOutput,
 } from "@gftd/magatama-host-sdk";
 
-const APP_EMBED_URL = "https://d94d27cb.gftd.ai/?embed=1";
+const APP_EMBED_URL = "https://d94d27cb.etzhayyim.com/?embed=1";
 
 type ModelEntry = LexiconOutput<"ai.gftd.apps.ameno.listModels">["models"][number];
 
@@ -101,7 +101,7 @@ async function saveResultHandler(
 
   // ADR-2605111200: CF Worker is edge proxy only. Persistence path is
   //   XRPC → bpmn-dispatcher → AgentGateway MCP → LangServer pod → INSERT vertex_ameno_inferenceresult.
-  // Worker forwards via sdk.pds.xrpc(), which routes to atproto.gftd.ai PDS
+  // Worker forwards via sdk.pds.xrpc(), which routes to atproto.etzhayyim.com PDS
   // and onward to the server-side dispatcher.
   try {
     const res = (await sdk.pds.xrpc("ai.gftd.apps.ameno.saveResult", record)) as

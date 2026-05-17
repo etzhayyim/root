@@ -1,6 +1,6 @@
 """Hanrei (判例) collection primitives (ADR-0056 BPMN-as-actor).
 
-Implements 13 Zeebe task types for the hanrei.gftd.ai actor:
+Implements 13 Zeebe task types for the hanrei.etzhayyim.com actor:
   hanrei.register.courtProfiles    — register 6 JP court + 2 source DIDs
   hanrei.register.jurisdictions    — register 75 national + 8 intl court jurisdiction DIDs
   hanrei.collect.cases             — create collection jobs for courts.go.jp (6 courts)
@@ -30,7 +30,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-_OWNER_DID = "did:web:hanrei.gftd.ai"
+_OWNER_DID = "did:web:hanrei.etzhayyim.com"
 _COL_JOB = "ai.gftd.apps.hanrei.collectionJob"
 _COL_CASE = "ai.gftd.apps.hanrei.caseRecord"
 _COL_JURISDICTION = "ai.gftd.apps.hanrei.jurisdiction"

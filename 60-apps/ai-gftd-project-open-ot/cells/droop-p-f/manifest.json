@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.ai/ns/open-ot/cell/v1",
+  "@context": "https://etzhayyim.com/ns/open-ot/cell/v1",
   "name": "droop-p-f",
   "description": "IEC 61499 DROOP_P_F BFB — frequency-droop active-power response with deadband (P-f droop, pure proportional)",
   "fb_kind": "BFB",

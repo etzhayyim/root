@@ -10,17 +10,17 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const SEED_CREATED_AT = "2026-05-08T00:00:00Z";
-const SEED_OWNER_DID = "did:web:lawfirm.gftd.ai";
+const SEED_OWNER_DID = "did:web:lawfirm.etzhayyim.com";
 const SEED_ACTOR_TAG = "sys.bpmn.seed.lawfirm";
 
 const PROCESSES = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-subscription-start-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-subscription-start-v1",
     bpmnProcessId: "lawfirm_subscription_start",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/subscriptionStart.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-connect-onboard-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-connect-onboard-v1",
     bpmnProcessId: "lawfirm_connect_onboard",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/connectOnboard.bpmn",
   },
@@ -28,13 +28,13 @@ const PROCESSES = [
 
 const BINDINGS = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-subscription-start-xrpc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-subscription-start-xrpc-v1",
     nsid: "ai.gftd.apps.lawfirm.subscriptionStart",
     bpmnProcessId: "lawfirm_subscription_start",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-connect-onboard-xrpc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-connect-onboard-xrpc-v1",
     nsid: "ai.gftd.apps.lawfirm.connectOnboard",
     bpmnProcessId: "lawfirm_connect_onboard",
     resultTimeoutMs: 60_000,

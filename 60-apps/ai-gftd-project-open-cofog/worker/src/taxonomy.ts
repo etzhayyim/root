@@ -13,7 +13,7 @@
 //   division code = class.slice(0, 2)
 //   group code    = class.slice(0, 3)
 
-export const APP_DID = "did:web:open-cofog.gftd.ai";
+export const APP_DID = "did:web:open-cofog.etzhayyim.com";
 
 export interface Division { code: string; nameEn: string; }
 export interface Group    { code: string; nameEn: string; division: string; }

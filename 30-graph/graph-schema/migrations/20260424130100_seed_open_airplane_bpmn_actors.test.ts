@@ -34,7 +34,7 @@ describe("Seed open-airplane BPMN actors migration", () => {
 
   it("uses open-airplane-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-airplane"');
-    expect(migrationSource).toContain("did:web:open-airplane.gftd.ai:ops");
+    expect(migrationSource).toContain("did:web:open-airplane.etzhayyim.com:ops");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

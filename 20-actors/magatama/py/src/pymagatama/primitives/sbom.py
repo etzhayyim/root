@@ -1,7 +1,7 @@
-"""sbom.gftd.ai — SBOM artifact registry persistence (LangServer handlers).
+"""sbom.etzhayyim.com — SBOM artifact registry persistence (LangServer handlers).
 
 CF Worker forwards `ai.gftd.apps.sbom.registerArtifact` to
-`dispatcher.gftd.ai`; the BPMN routes the job here. This handler does
+`dispatcher.etzhayyim.com`; the BPMN routes the job here. This handler does
 the actual psycopg2 INSERT into `vertex_sbom_artifact` and the
 `vertex_sbom_component` fan-out, per ADR-2604282300 (CF Worker stays
 edge-facade only).
@@ -29,7 +29,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-_APP_DID = "did:web:sb0m001x.gftd.ai"
+_APP_DID = "did:web:sb0m001x.etzhayyim.com"
 
 _INSERT_ARTIFACT = """
     INSERT INTO vertex_sbom_artifact (
@@ -103,7 +103,7 @@ async def task_sbom_register_artifact(**job_vars: Any) -> dict[str, Any]:
     """Persist a CDX 1.5 / SPDX 3.0 artifact + its components into RisingWave.
 
     BPMN job variables (passed through from CF Worker → dispatcher):
-        artifactUri          str  — `at://did:web:sb0m001x.gftd.ai/...`
+        artifactUri          str  — `at://did:web:sb0m001x.etzhayyim.com/...`
         format               str  — "CycloneDX" | "SPDX"
         specVersion          str  — "1.5" / "1.6" / "3.0"
         sourceUri            str

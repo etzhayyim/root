@@ -16,7 +16,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-05-01T17:00:00Z";
-const ownerDid = "did:web:maps.gftd.ai";
+const ownerDid = "did:web:maps.etzhayyim.com";
 const actorId = "sys.bpmn.seed.maps-live-tracker";
 
 interface BpmnSeed {
@@ -31,8 +31,8 @@ interface BpmnSeed {
 
 const seeds: BpmnSeed[] = [
   {
-    processVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-liveTrackAircraft-v1",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-liveTrackAircraft-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-liveTrackAircraft-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-liveTrackAircraft-v1",
     processId: "maps_live_track_aircraft",
     nsid: "ai.gftd.apps.maps.liveTrackAircraft",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/liveTrackAircraft.bpmn",
@@ -40,8 +40,8 @@ const seeds: BpmnSeed[] = [
     writeTableAllowlist: "vertex_aircraft_state",
   },
   {
-    processVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-computeAircraftTrack-v1",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-computeAircraftTrack-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-computeAircraftTrack-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-computeAircraftTrack-v1",
     processId: "maps_compute_aircraft_track",
     nsid: "ai.gftd.apps.maps.computeAircraftTrack",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/computeAircraftTrack.bpmn",
@@ -49,8 +49,8 @@ const seeds: BpmnSeed[] = [
     writeTableAllowlist: "vertex_aircraft_track",
   },
   {
-    processVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-refreshTleCatalog-v1",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-refreshTleCatalog-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-refreshTleCatalog-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-refreshTleCatalog-v1",
     processId: "maps_refresh_tle_catalog",
     nsid: "ai.gftd.apps.maps.refreshTleCatalog",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/refreshTleCatalog.bpmn",
@@ -58,8 +58,8 @@ const seeds: BpmnSeed[] = [
     writeTableAllowlist: "vertex_satellite_tle",
   },
   {
-    processVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-precomputeSatellitePasses-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-precomputeSatellitePasses-v1",
     processId: "maps_precompute_satellite_passes",
     nsid: "ai.gftd.apps.maps.precomputeSatellitePasses",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/precomputeSatellitePasses.bpmn",

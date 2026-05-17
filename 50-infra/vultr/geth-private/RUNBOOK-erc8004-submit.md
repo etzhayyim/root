@@ -24,9 +24,9 @@ moves to `"completed"`.
      -d '{"jsonrpc":"2.0","id":1,"method":"eth_chainId"}'
    # → {"result":"0x3f949"}
    ```
-4. `ipfs.gftd.ai` healthy:
+4. `ipfs.etzhayyim.com` healthy:
    ```bash
-   curl -sS https://ipfs.gftd.ai/api/v0/version
+   curl -sS https://ipfs.etzhayyim.com/api/v0/version
    ```
 
 ## Step 1 — render + dry-run

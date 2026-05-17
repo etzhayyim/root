@@ -12,7 +12,7 @@ describe("Seed Datacenter BPMN Actor Migration", () => {
     expect(migrationSource).toContain("datacenter-operate-facility-v1");
     expect(migrationSource).toContain('bpmnProcessId: "datacenter_operate_facility"');
     expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/datacenter/operateFacility.bpmn"');
-    expect(migrationSource).toContain('ownerDid: "did:web:infra.gftd.ai:datacenter"');
+    expect(migrationSource).toContain('ownerDid: "did:web:infra.etzhayyim.com:datacenter"');
     expect(migrationSource).toContain("datacenter-access-review-v1");
     expect(migrationSource).toContain("datacenter-reserve-capacity-v1");
     expect(migrationSource).toContain("datacenter-purge-access-pii-v1");

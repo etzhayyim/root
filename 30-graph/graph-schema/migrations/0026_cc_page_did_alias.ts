@@ -11,7 +11,7 @@ import { Kysely, sql } from 'kysely';
  *     legacy:   rkey = "a3b4c5d6e7f89012"           (SHA-8 hex × 2)
  *               owner_did = NULL
  *     new:      rkey = "example-com:foo:bar"        (domain-slug:path-segments)
- *               owner_did = "did:web:site.gftd.ai:example-com:foo:bar"
+ *               owner_did = "did:web:site.etzhayyim.com:example-com:foo:bar"
  *
  *   Both forms point to the same page (same URL). We preserve legacy rows
  *   untouched and alias them to the new canonical DID via a lightweight

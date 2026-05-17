@@ -9,8 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/gftdcojp/nats-jetstream-kv-resp/internal/config"
-	"github.com/gftdcojp/nats-jetstream-kv-resp/pkg/bridge"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp/pkg/bridge"
 	"go.uber.org/zap"
 )
 

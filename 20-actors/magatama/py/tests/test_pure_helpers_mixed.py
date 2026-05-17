@@ -198,8 +198,8 @@ def test_mb3_now_iso_contains_t():
 # ─── maps_building_3d — _stable_rkey ─────────────────────────────────────────
 
 def test_mb3_stable_rkey_is_deterministic():
-    a = MB3._stable_rkey("at://did:web:maps.gftd.ai/ai.gftd.apps.maps.building/001")
-    b = MB3._stable_rkey("at://did:web:maps.gftd.ai/ai.gftd.apps.maps.building/001")
+    a = MB3._stable_rkey("at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.building/001")
+    b = MB3._stable_rkey("at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.building/001")
     assert a == b
 
 

@@ -2,7 +2,7 @@
 // Copyright 2026 Gftd Japan株式会社 / amanomibashira. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// kyber.gftd.ai — Corporate ERP Intelligence
+// kyber.etzhayyim.com — Corporate ERP Intelligence
 // TS Native Worker: 28 XRPC commands across Accounting / AP-AR / HR / Procurement / Inventory / Sales / Asset / Governance / Management / Billing
 // Design E 3-Tier Write: domain data via com.atproto.repo.createRecord (internal, non-federable)
 //
@@ -34,18 +34,18 @@ let appId = "";
 let actorDID = "";
 
 // Kyber APQC/BPMN projector (cross-project; see ADR-0025)
-const APQC_PROJECTOR_DID = "did:web:kyber-projector.gftd.ai";
+const APQC_PROJECTOR_DID = "did:web:kyber-projector.etzhayyim.com";
 const APQC_PROJECTOR_NANOID = "kyb3proj";
 
 // Department DIDs (multi-DID per app; pre-registered via magatama.jsonld entities)
 const DEPT = {
-  accounting: "did:web:kyber.gftd.ai:dept:accounting",
-  hr: "did:web:kyber.gftd.ai:dept:hr",
-  procurement: "did:web:kyber.gftd.ai:dept:procurement",
-  inventory: "did:web:kyber.gftd.ai:dept:inventory",
-  sales: "did:web:kyber.gftd.ai:dept:sales",
-  asset: "did:web:kyber.gftd.ai:dept:asset",
-  governance: "did:web:kyber.gftd.ai:dept:governance",
+  accounting: "did:web:kyber.etzhayyim.com:dept:accounting",
+  hr: "did:web:kyber.etzhayyim.com:dept:hr",
+  procurement: "did:web:kyber.etzhayyim.com:dept:procurement",
+  inventory: "did:web:kyber.etzhayyim.com:dept:inventory",
+  sales: "did:web:kyber.etzhayyim.com:dept:sales",
+  asset: "did:web:kyber.etzhayyim.com:dept:asset",
+  governance: "did:web:kyber.etzhayyim.com:dept:governance",
 } as const;
 
 // IFRS-aligned chart of accounts seed (25 entries)
@@ -596,7 +596,7 @@ function cmdListRiskIssues(_sdk: HostSDK, body: Uint8Array) {
 
 // ───────────────────── Billing / Tenant (4) — ADR-2605072300 ─────────────────────────────
 
-const BILLING_DID = "did:web:kyber.gftd.ai:dept:billing";
+const BILLING_DID = "did:web:kyber.etzhayyim.com:dept:billing";
 
 function nowMonth(): string {
   return new Date().toISOString().slice(0, 7);
@@ -954,10 +954,10 @@ async function cmdSyncIntegrationCatalog(sdk: HostSDK, _body: Uint8Array) {
     const bindingId = genID("bind");
     try {
       await (db.insertInto("vertex_kyber_integration_binding" as never).values({
-        vertex_id: `at://${actorDID || "did:web:kyber.gftd.ai"}/ai.gftd.apps.kyber.integrationBinding/${bindingId}`,
+        vertex_id: `at://${actorDID || "did:web:kyber.etzhayyim.com"}/ai.gftd.apps.kyber.integrationBinding/${bindingId}`,
         binding_id: bindingId,
         org_did: "anon",
-        actor_did: actorDID || "did:web:kyber.gftd.ai",
+        actor_did: actorDID || "did:web:kyber.etzhayyim.com",
         integration_id: i.id,
         name: i.name,
         description: i.kind,
@@ -1113,7 +1113,7 @@ function configureApp(sdk: HostSDK): void {
       withCapabilityTags("apqc", "bpmn", "bootstrap", "cross-project"))
     // Billing (4) — ADR-2605072300
     .command(nsid("ai.gftd.apps.kyber.provisionTenant"), async (_c, b) => cmdProvisionTenant(sdk, b),
-      asAgentTool("Provision a kyber tenant (idempotent by orgDid). Called by yoro.gftd.ai signup flow."),
+      asAgentTool("Provision a kyber tenant (idempotent by orgDid). Called by yoro.etzhayyim.com signup flow."),
       withCapabilityTags("billing", "tenant", "signup"))
     .command(nsid("ai.gftd.apps.kyber.getTenantPlan"), async (_c, b) => cmdGetTenantPlan(sdk, b),
       asAgentTool("Return current plan, usage counters, and limits for a tenant"),
@@ -1130,7 +1130,7 @@ function configureApp(sdk: HostSDK): void {
 
 export default createWorkerExport((sdk) => {
   appId = sdk.pds.selfNanoid ?? "kyb3rerp";
-  actorDID = sdk.pds.selfRepo ?? "did:web:kyber.gftd.ai";
+  actorDID = sdk.pds.selfRepo ?? "did:web:kyber.etzhayyim.com";
   void actorDID;
   void cadenceState;
   configureApp(sdk);

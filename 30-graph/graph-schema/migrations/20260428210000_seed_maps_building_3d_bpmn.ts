@@ -17,7 +17,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-04-28T21:00:00+09:00";
-const ownerDid = "did:web:bpmn.gftd.ai";
+const ownerDid = "did:web:bpmn.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.maps";
 
 interface ProcessSeed {
@@ -29,7 +29,7 @@ interface ProcessSeed {
 const processSeeds: ProcessSeed[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1",
     bpmnProcessId: "maps_building_ingest_3d",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/buildingIngest3d.bpmn",
   },

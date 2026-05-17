@@ -2,7 +2,7 @@
   "viewId": "open-jpn-gov.AV-1",
   "viewType": "AV-1",
   "title": "Overview and Summary Information",
-  "did": "did:web:open-jpn-gov.gftd.ai",
+  "did": "did:web:open-jpn-gov.etzhayyim.com",
   "format": "json",
   "content": {
     "purpose": "Expose Japanese central government (1府11省 + 庁 + 独立機関 + 主要外局) as a DID-addressed open directory, and the e-Gov 法令API as XRPC query methods.",

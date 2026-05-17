@@ -29,7 +29,7 @@
 
 	// Revoke state
 	let revoking = $state<string | null>(null);
-	const AUTH_XRPC_BASE = 'https://authn.gftd.ai/xrpc';
+	const AUTH_XRPC_BASE = 'https://authn.etzhayyim.com/xrpc';
 
 	const SCOPE_OPTIONS = [
 		{ id: 'read', label: 'Read', desc: 'Graph query, list records' },
@@ -221,7 +221,7 @@
 						<p class="mb-1 text-[12px] font-medium text-gv2-text-muted">Usage (CLI / SDK / LLM Agent):</p>
 						<code class="block text-[12px] text-gv2-text-primary">export GFTD_TOKEN={createdKey}</code>
 						<code class="mt-1 block text-[12px] text-gv2-text-primary">curl -H "Authorization: Bearer {createdKey}" \</code>
-						<code class="block pl-4 text-[12px] text-gv2-text-primary">atproto.gftd.ai/xrpc/ai.gftd.kagami.sql</code>
+						<code class="block pl-4 text-[12px] text-gv2-text-primary">atproto.etzhayyim.com/xrpc/ai.gftd.kagami.sql</code>
 					</div>
 					<button
 						type="button"
@@ -382,13 +382,13 @@
 					</p>
 					<div class="rounded-xl bg-gv2-bg-hover/40 p-3">
 						<p class="mb-1 text-[12px] font-medium text-gv2-text-primary">MCP Tool Calling:</p>
-						<code class="block text-[12px]">POST mcp.gftd.ai/mcp</code>
+						<code class="block text-[12px]">POST mcp.etzhayyim.com/mcp</code>
 						<code class="block text-[12px]">Authorization: Bearer sk_live_...</code>
 						<code class="mt-1 block text-[12px]">{"{"}"method":"tools/call","params":{"{"}"name":"gftd.seed"{"}"}{"}"}}</code>
 					</div>
 					<div class="rounded-xl bg-gv2-bg-hover/40 p-3">
 						<p class="mb-1 text-[12px] font-medium text-gv2-text-primary">XRPC Direct:</p>
-						<code class="block text-[12px]">POST atproto.gftd.ai/xrpc/ai.gftd.kagami.sql</code>
+						<code class="block text-[12px]">POST atproto.etzhayyim.com/xrpc/ai.gftd.kagami.sql</code>
 						<code class="block text-[12px]">Authorization: Bearer sk_live_...</code>
 						<code class="mt-1 block text-[12px]">{"{"}"statement":"SELECT did FROM vertex_did ORDER BY _seq DESC LIMIT 10"{"}"}</code>
 					</div>

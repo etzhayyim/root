@@ -7,7 +7,7 @@
  * `isRunning` to prevent a reactive start→cleanup-stop→start infinite loop.
  *
  * Architecture:
- *   murakumo.gftd.ai scheduler → browser-gateway WS → taskPush
+ *   murakumo.etzhayyim.com scheduler → browser-gateway WS → taskPush
  *   → local LLM Web Worker (`llm-worker.ts`, off main thread)
  *   → taskResult → murakumo → PDS record + credit earn
  *
@@ -24,7 +24,7 @@
 import { useLocalLLM, type ChatMessage } from './local-llm.svelte.js';
 import { getSessionToken } from '$lib/auth';
 
-const PDS = 'https://atproto.gftd.ai';
+const PDS = 'https://atproto.etzhayyim.com';
 
 /**
  * Build authenticated headers for PDS XRPC calls.

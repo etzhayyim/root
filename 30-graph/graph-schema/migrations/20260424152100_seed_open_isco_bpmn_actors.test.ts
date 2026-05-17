@@ -34,7 +34,7 @@ describe("Seed open-isco BPMN actors migration", () => {
 
   it("uses open-isco-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-isco"');
-    expect(migrationSource).toContain("did:web:open-isco.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-isco.etzhayyim.com");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * vertex_spatial bbox query index.
  *
- * Context (2026-04-20 debug HUD session on maps.gftd.ai):
+ * Context (2026-04-20 debug HUD session on maps.etzhayyim.com):
  * empty bbox query `WHERE label IN (...) AND lat BETWEEN .. AND lng BETWEEN ..`
  * took 2.1 s on a zoom-12 viewport with 7 H3 cells, despite returning 0 rows.
  * Root cause: no composite index over (label, lat, lng), so RisingWave falls

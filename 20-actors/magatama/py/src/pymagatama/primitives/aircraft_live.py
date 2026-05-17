@@ -38,8 +38,8 @@ from pymagatama.db_sync import sync_cursor  # noqa: F401  (re-exported for mock 
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-DEFAULT_REPO = "did:web:maps.gftd.ai"
-ACTOR_DID = "did:web:maps.gftd.ai:flightradar"
+DEFAULT_REPO = "did:web:maps.etzhayyim.com"
+ACTOR_DID = "did:web:maps.etzhayyim.com:flightradar"
 
 OPENSKY_STATES_URL = "https://opensky-network.org/api/states/all"
 OPENSKY_TOKEN_URL = "https://auth.opensky-network.org/auth/realms/opensky-network/protocol/openid-connect/token"
@@ -595,10 +595,10 @@ def task_flight_registry_refresh(csv_url: Any = None, max_rows: int = 200_000) -
             operator = (row.get("operator") or row.get("operatoricao") or row.get("operatoriata") or "").strip()
             owner = (row.get("owner") or "").strip()
 
-            did = f"did:web:maps.gftd.ai:aircraft:{icao24}"
+            did = f"did:web:maps.etzhayyim.com:aircraft:{icao24}"
             vertex_id = f"at://{did}/ai.gftd.apps.maps.aircraft/{icao24}"
-            operator_did = f"did:web:maps.gftd.ai:operator:{operator.lower().replace(' ', '_')}" if operator else None
-            owner_did = f"did:web:maps.gftd.ai:owner:{owner.lower().replace(' ', '_')}" if owner else None
+            operator_did = f"did:web:maps.etzhayyim.com:operator:{operator.lower().replace(' ', '_')}" if operator else None
+            owner_did = f"did:web:maps.etzhayyim.com:owner:{owner.lower().replace(' ', '_')}" if owner else None
 
             params = (
                 vertex_id,

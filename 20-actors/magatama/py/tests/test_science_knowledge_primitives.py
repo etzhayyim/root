@@ -19,7 +19,7 @@ from pymagatama.primitives import science_knowledge as SK  # noqa: E402
 
 def test_vid_format():
     v = SK._vid("chemistry", "element", "Fe")
-    assert v == "at://did:web:chemistry.gftd.ai/ai.gftd.apps.chemistry.element/Fe"
+    assert v == "at://did:web:chemistry.etzhayyim.com/ai.gftd.apps.chemistry.element/Fe"
 
 
 def test_edge_id_is_deterministic():
@@ -260,7 +260,7 @@ def test_resolve_to_ontology_returns_empty_when_no_db_match(monkeypatch):
 def test_resolve_to_ontology_includes_matched_element(monkeypatch):
     class FakeCur:
         def execute(self, sql, params=None): pass
-        def fetchone(self): return ("at://did:web:chemistry.gftd.ai/element/Fe",)
+        def fetchone(self): return ("at://did:web:chemistry.etzhayyim.com/element/Fe",)
         def __enter__(self): return self
         def __exit__(self, *a): return False
 

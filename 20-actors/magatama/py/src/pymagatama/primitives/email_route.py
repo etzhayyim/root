@@ -31,7 +31,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR_PREGEL = "did:web:pregel.gftd.ai"
+ACTOR_PREGEL = "did:web:pregel.etzhayyim.com"
 COLLECTION_MESSAGE = "ai.gftd.convo.message"
 
 

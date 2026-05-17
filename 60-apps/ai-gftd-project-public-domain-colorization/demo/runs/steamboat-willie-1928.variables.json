@@ -4,7 +4,7 @@
   "workId": "pdcolor:work:steamboat-willie-1928",
   "sourceUrl": "",
   "sourceIpfsCid": "bafybeifanztr2e2wnhpnonwbezm3p5gvxveo4uumrr2xbdsgu55uix2mga",
-  "sourceIpfsUrl": "https://ipfs.gftd.ai/ipfs/bafybeifanztr2e2wnhpnonwbezm3p5gvxveo4uumrr2xbdsgu55uix2mga",
+  "sourceIpfsUrl": "https://ipfs.etzhayyim.com/ipfs/bafybeifanztr2e2wnhpnonwbezm3p5gvxveo4uumrr2xbdsgu55uix2mga",
   "sourceFilename": "steamboat-willie-1928.mp4",
   "sourceContentType": "video/mp4",
   "maxSourceBytes": 34603008,
@@ -23,6 +23,6 @@
   "voicePolicy": "narration-neutral",
   "voiceLipSync": false,
   "requestedLicense": "pd-mark",
-  "callerDid": "did:web:pd-color.gftd.ai",
+  "callerDid": "did:web:pd-color.etzhayyim.com",
   "dryRun": true
 }

@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import Any, Literal, TypedDict
 
 
-OPEN_UNISPSC_DID = "did:web:unispsc.gftd.ai"
+OPEN_UNISPSC_DID = "did:web:unispsc.etzhayyim.com"
 ACTOR_ID = "sys.worker.open-unispsc"
 Level = Literal["segment", "family", "class", "commodity"]
 
@@ -842,7 +842,7 @@ async def task_open_unispsc_import_segment_catalog(
         "importPlan": {
             "mode": "bulk-query-to-catalog-upsert",
             "upstreamCollection": "ai.gftd.apps.unispsc.commodity",
-            "targetRepo": "did:web:okaimono.gftd.ai",
+            "targetRepo": "did:web:okaimono.etzhayyim.com",
             "targetCollection": "ai.gftd.apps.okaimono.catalogItem",
             "transformTool": "ai.gftd.apps.openUnispsc.syncCatalogItem",
             "idempotencyKey": f"import-unispsc-segment-{segment}",
@@ -995,7 +995,7 @@ async def task_open_unispsc_flag_arms_commodity(
     commodityVid: str = "",
     unspscCode: str = "",
     subFamily: str = "",
-    callerDid: str = "did:web:open-unispsc.gftd.ai:ops",
+    callerDid: str = "did:web:open-unispsc.etzhayyim.com:ops",
     detectedAt: str = "",
     evidenceUri: str = "",
     confidence: float = 1.0,
@@ -1051,7 +1051,7 @@ async def task_open_unispsc_flag_dual_use_commodity(
     commodityVid: str = "",
     unspscCode: str = "",
     dualUseCategory: str = "",
-    callerDid: str = "did:web:open-unispsc.gftd.ai:ops",
+    callerDid: str = "did:web:open-unispsc.etzhayyim.com:ops",
     detectedAt: str = "",
     evidenceUri: str = "",
     confidence: float = 1.0,
@@ -1181,7 +1181,7 @@ async def task_open_unispsc_run_item_workflow(
     dangerousGoods: bool = False,
     sanctionsCheck: str = "",
     dualUseCategory: str = "",
-    callerDid: str = "did:web:open-unispsc.gftd.ai:ops",
+    callerDid: str = "did:web:open-unispsc.etzhayyim.com:ops",
     eventAt: str = "",
     evidenceUri: str = "",
     confidence: float = 1.0,

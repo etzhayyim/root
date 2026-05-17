@@ -156,7 +156,7 @@ describe("SDK handleRequest", () => {
 
     const request = {
       method: "POST",
-      url: "https://test.gftd.ai/xrpc/ai.gftd.apps.test.ping",
+      url: "https://test.etzhayyim.com/xrpc/ai.gftd.apps.test.ping",
       headers: new Headers({ "content-type": "application/json" }),
       body: null,
     };
@@ -175,7 +175,7 @@ describe("SDK handleRequest", () => {
 
     const request = {
       method: "GET",
-      url: "https://test.gftd.ai/health",
+      url: "https://test.etzhayyim.com/health",
       headers: new Headers(),
       body: null,
     };

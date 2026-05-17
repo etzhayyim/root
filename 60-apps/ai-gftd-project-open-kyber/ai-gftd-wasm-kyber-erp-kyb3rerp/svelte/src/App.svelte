@@ -35,7 +35,7 @@
       <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-500 to-sky-400 grid place-items-center text-white font-bold">K</div>
       <div class="leading-tight">
         <h1 class="text-sm font-semibold">Kyber Command Center</h1>
-        <p class="text-[11px] text-gftd-muted">kyber.gftd.ai · designsystem + gftduikit</p>
+        <p class="text-[11px] text-gftd-muted">kyber.etzhayyim.com · designsystem + gftduikit</p>
       </div>
     </div>
     <div class="flex items-center gap-2">
@@ -111,7 +111,7 @@
           <Projector />
         {:else if active === 'calendar'}
           <CalendarApp
-            xrpcBase="https://calendar.gftd.ai"
+            xrpcBase="https://calendar.etzhayyim.com"
             embed
             onResult={(r) => ui.setResult(r)}
           />

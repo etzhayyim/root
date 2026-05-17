@@ -95,7 +95,7 @@ class TestPipelineTransition(unittest.TestCase):
             lead_id="nishith-desai-2026",
             to_stage="meeting_set",
             reason="confirmed Tuesday slot",
-            decided_by_did="did:web:k-bakshi.gftd.ai",
+            decided_by_did="did:web:k-bakshi.etzhayyim.com",
         ))
         self.assertTrue(out["ok"])
         self.assertEqual(out["from_stage"], "engaged")
@@ -130,7 +130,7 @@ class TestRecordOutreach(unittest.TestCase):
         out = asyncio.run(task_lawfirm_record_outreach(
             lead_id="nishith-desai-2026", event_kind="mail_sent",
             direction="out", subject="Pilot intro", body_preview="...",
-            actor_did="did:web:k-bakshi.gftd.ai",
+            actor_did="did:web:k-bakshi.etzhayyim.com",
         ))
         self.assertTrue(out["ok"])
         # Should INSERT event + UPDATE lead.last_touch_at

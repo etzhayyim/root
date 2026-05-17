@@ -4,7 +4,7 @@ import { Kysely, sql } from 'kysely';
 // tier: B
 
 /**
- * Migration 0043: vertex_talent_cohort table for talent.gftd.ai (ADR-0018 Tier 3 cohort-first).
+ * Migration 0043: vertex_talent_cohort table for talent.etzhayyim.com (ADR-0018 Tier 3 cohort-first).
  *
  * Stores aggregate employment-by-occupation statistics from ILOSTAT
  * (ILO Modelled Estimates, CC-BY-4.0) and other public stat sources

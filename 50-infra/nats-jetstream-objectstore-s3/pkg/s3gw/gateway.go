@@ -4,9 +4,9 @@ package s3gw
 import (
 	"net/http"
 
-	"github.com/gftdcojp/nats-jetstream-objectstore-s3/internal/auth"
-	"github.com/gftdcojp/nats-jetstream-objectstore-s3/internal/backend"
-	"github.com/gftdcojp/nats-jetstream-objectstore-s3/internal/s3api"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-objectstore-s3/internal/auth"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-objectstore-s3/internal/backend"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-objectstore-s3/internal/s3api"
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/nats.go/jetstream"
 	"go.uber.org/zap"

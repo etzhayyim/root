@@ -6,7 +6,7 @@ import { Kysely, sql } from 'kysely';
  *
  * Problem:
  * - dim_world_domain.public_fund uses canonical host `public-fund`
- * - live app host is `pb.gftd.ai` → repo host fragment `pb`
+ * - live app host is `pb.etzhayyim.com` → repo host fragment `pb`
  * - collection-level coverage defaulted public_fund to bootstrap, so real
  *   public fund records were invisible in mv_world_collection_coverage_live
  *

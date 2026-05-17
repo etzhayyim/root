@@ -34,7 +34,7 @@ describe("Seed open-unispsc BPMN actors migration", () => {
 
   it("uses open-unispsc-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-unispsc"');
-    expect(migrationSource).toContain("did:web:open-unispsc.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-unispsc.etzhayyim.com");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

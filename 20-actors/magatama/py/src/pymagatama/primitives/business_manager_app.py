@@ -12,7 +12,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-APP_DID = "did:web:business-manager.gftd.ai"
+APP_DID = "did:web:business-manager.etzhayyim.com"
 APP_ID = "bm4f8k2d1"
 JOURNAL_APPROVAL_THRESHOLD = 1_000_000
 DEFAULT_PAYMENT_TERMS_DAYS = 30

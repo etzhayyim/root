@@ -1,4 +1,4 @@
-"""Conversational agent for otakiage.gftd.ai (Reuse & Ritual Platform).
+"""Conversational agent for otakiage.etzhayyim.com (Reuse & Ritual Platform).
 
 Graph id: ``otakiage.agent.chat.v1``
 Task type: ``otakiage.agent.chat`` (registered via ``primitives/otakiage.py``)

@@ -32,7 +32,7 @@ describe("Seed open-transit BPMN actors migration", () => {
   });
   it("uses open-transit-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-transit"');
-    expect(migrationSource).toContain("did:web:open-transit.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-transit.etzhayyim.com");
   });
   it("BPMN processes target the Zeebe generic.* primitive set", () => {
     for (const xml of [bpmn1, bpmn2]) {

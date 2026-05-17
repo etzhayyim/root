@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T14:30:00Z";
-const ownerDid = "did:web:open-rail.gftd.ai:ops";
+const ownerDid = "did:web:open-rail.etzhayyim.com:ops";
 const actorTag = "sys.bpmn.seed.open-rail";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-define-line-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-define-line-v1",
     bpmnProcessId: "open_rail_define_line",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-rail/defineLine.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-report-incident-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-report-incident-v1",
     bpmnProcessId: "open_rail_report_incident",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-rail/reportIncident.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-defineLine-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-defineLine-v1",
     nsid: "ai.gftd.apps.openRail.defineLine", bpmnProcessId: "open_rail_define_line",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-reportIncident-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-reportIncident-v1",
     nsid: "ai.gftd.apps.openRail.reportIncident", bpmnProcessId: "open_rail_report_incident",
     ownerDid, resultTimeoutMs: 30000 },
 ];

@@ -253,7 +253,7 @@ def draft_item_spec(state: OpenUnispscItemState) -> dict[str, Any]:
                 "class": state.get("class_code", ""),
                 "commodity": code,
             },
-            "did": f"did:web:unispsc.gftd.ai:seg{code[:2]}:commodity:c{code}",
+            "did": f"did:web:unispsc.etzhayyim.com:seg{code[:2]}:commodity:c{code}",
             "specTemplate": {
                 "identity": ["commodityCode", "commodityName", "segment", "family", "class"],
                 "commercial": ["quantity", "unit", "currency", "unitPrice", "leadTimeDays"],
@@ -326,7 +326,7 @@ def plan_procurement(state: OpenUnispscItemState) -> dict[str, Any]:
             "sanctionsCheck": state.get("sanctions_check", ""),
             "approvalTier": approval_tier,
             "requireCab": approval_tier == "enterprise",
-            "commodityDst": f"did:web:unispsc.gftd.ai:seg{state.get('commodity_code', '')[:2]}:commodity:c{state.get('commodity_code', '')}",
+            "commodityDst": f"did:web:unispsc.etzhayyim.com:seg{state.get('commodity_code', '')[:2]}:commodity:c{state.get('commodity_code', '')}",
             "bpmnProcessId": "open_unispsc_procurement",
             "auditAction": "openUnispsc.procurement.cabRequest" if approval_tier == "enterprise" else "openUnispsc.procurement.autoApprove",
             "bpmnReferences": [
@@ -357,7 +357,7 @@ def flag_compliance(state: OpenUnispscItemState) -> dict[str, Any]:
             "ok": True,
             "operation": "flagCompliance",
             "commodityCode": code,
-            "commodityVid": f"did:web:unispsc.gftd.ai:seg{code[:2]}:commodity:c{code}",
+            "commodityVid": f"did:web:unispsc.etzhayyim.com:seg{code[:2]}:commodity:c{code}",
             "arms": is_arms,
             "dualUse": is_dual_use,
             "dualUseCategory": state.get("dual_use_category", ""),
@@ -375,8 +375,8 @@ def sync_catalog_item(state: OpenUnispscItemState) -> dict[str, Any]:
     segment = state.get("segment", "")
     family = state.get("family", "")
     class_code = state.get("class_code", "")
-    commodity_did = f"did:web:unispsc.gftd.ai:seg{segment}:commodity:c{code}"
-    source_repo = state.get("source_repo", "") or "did:web:unispsc.gftd.ai"
+    commodity_did = f"did:web:unispsc.etzhayyim.com:seg{segment}:commodity:c{code}"
+    source_repo = state.get("source_repo", "") or "did:web:unispsc.etzhayyim.com"
     rkey = state.get("rkey", "") or code
     active = bool(state.get("active", True))
     record = {
@@ -406,13 +406,13 @@ def sync_catalog_item(state: OpenUnispscItemState) -> dict[str, Any]:
             "atprotoWritePlan": {
                 "mode": "deterministic-upsert",
                 "operation": "upsertOkaimonoCatalogItemFromUnispscCommodity",
-                "repo": "did:web:okaimono.gftd.ai",
+                "repo": "did:web:okaimono.etzhayyim.com",
                 "collection": "ai.gftd.apps.okaimono.catalogItem",
                 "rkey": product_id,
                 "record": record,
             },
             "classificationEdge": {
-                "src": f"at://did:web:okaimono.gftd.ai/ai.gftd.apps.okaimono.catalogItem/{product_id}",
+                "src": f"at://did:web:okaimono.etzhayyim.com/ai.gftd.apps.okaimono.catalogItem/{product_id}",
                 "dst": commodity_did,
                 "role": "CLASSIFIED_BY",
             },
@@ -426,7 +426,7 @@ def plan_catalog_purchase(state: OpenUnispscItemState) -> dict[str, Any]:
     quantity = float(state.get("quantity", 1.0) or 1.0)
     unit_price = float(state.get("unit_price", 0.0) or 0.0)
     currency = state.get("currency", "") or "USD"
-    segment_actor = f"did:web:unispsc.gftd.ai:seg{code[:2]}"
+    segment_actor = f"did:web:unispsc.etzhayyim.com:seg{code[:2]}"
     order_id = state.get("order_id", "")
     buyer_org_id = state.get("buyer_org_id", "")
     return {
@@ -435,7 +435,7 @@ def plan_catalog_purchase(state: OpenUnispscItemState) -> dict[str, Any]:
             "operation": "planCatalogPurchase",
             "productId": product_id,
             "commodityCode": code,
-            "commodityDid": f"did:web:unispsc.gftd.ai:seg{code[:2]}:commodity:c{code}",
+            "commodityDid": f"did:web:unispsc.etzhayyim.com:seg{code[:2]}:commodity:c{code}",
             "orderLine": {
                 "orderId": order_id,
                 "productId": product_id,

@@ -36,7 +36,7 @@ def test_hash_empty_returns_none():
 
 def test_vid_format():
     vid = ES._vid("euicc", "test123")
-    assert vid.startswith("at://did:web:telecom.gftd.ai/")
+    assert vid.startswith("at://did:web:telecom.etzhayyim.com/")
     assert "test123" in vid
 
 

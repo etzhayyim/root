@@ -38,11 +38,11 @@ from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("myco_yeast_worker")
 
-KABI_DID = "did:web:kabi.gftd.ai"
-KOBO_DID = "did:web:kobo.gftd.ai"
-KINOKO_DID = "did:web:kinoko.gftd.ai"
-HOUSHI_DID = "did:web:houshi.gftd.ai"
-HAKKOU_DID = "did:web:hakkou.gftd.ai"
+KABI_DID = "did:web:kabi.etzhayyim.com"
+KOBO_DID = "did:web:kobo.etzhayyim.com"
+KINOKO_DID = "did:web:kinoko.etzhayyim.com"
+HOUSHI_DID = "did:web:houshi.etzhayyim.com"
+HAKKOU_DID = "did:web:hakkou.etzhayyim.com"
 
 PONF_FLOW_THRESHOLD = float(os.environ.get("PONF_FLOW_THRESHOLD", "100.0"))
 PONF_ETA_MIN = float(os.environ.get("PONF_ETA_MIN", "0.5"))
@@ -190,7 +190,7 @@ async def task_kobo_bud_agent(
 
     generated_child = not child_did
     if not child_did:
-        child_did = f"did:web:kobo.gftd.ai:agent:{_uid('bud')}"
+        child_did = f"did:web:kobo.etzhayyim.com:agent:{_uid('bud')}"
 
     def _run() -> dict[str, Any]:
         parent = fetch_one(

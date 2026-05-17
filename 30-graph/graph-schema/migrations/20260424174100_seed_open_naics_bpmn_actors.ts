@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T17:30:00Z";
-const ownerDid = "did:web:open-naics.gftd.ai";
+const ownerDid = "did:web:open-naics.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-naics";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-naics-classify-entity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-naics-classify-entity-v1",
     bpmnProcessId: "open_naics_classify_entity",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-naics/classifyEntity.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-naics-record-concordance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-naics-record-concordance-v1",
     bpmnProcessId: "open_naics_record_concordance",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-naics/recordConcordance.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-naics-classifyEntity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-naics-classifyEntity-v1",
     nsid: "ai.gftd.apps.openNaics.classifyEntity", bpmnProcessId: "open_naics_classify_entity",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-naics-recordConcordance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-naics-recordConcordance-v1",
     nsid: "ai.gftd.apps.openNaics.recordConcordance", bpmnProcessId: "open_naics_record_concordance",
     ownerDid, resultTimeoutMs: 15000 },
 ];

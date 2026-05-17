@@ -24,7 +24,7 @@ from typing import Generator, Any
 from pymagatama.db_sync import sync_cursor
 
 
-OWNER_DID = "did:web:patent.gftd.ai"
+OWNER_DID = "did:web:patent.etzhayyim.com"
 ACTOR_ID = "sys.langserver.patent.ingest"
 JURISDICTION_USPTO = "US"
 OFFICE_ORG_ID = "USPTO"

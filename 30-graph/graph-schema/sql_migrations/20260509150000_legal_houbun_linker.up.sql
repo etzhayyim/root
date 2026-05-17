@@ -73,7 +73,7 @@ INSERT INTO vertex_langgraph_assistant
   (vertex_id, _seq, sensitivity_ord, owner_did, assistant_id, version, kind,
    factory_path, description, created_at)
 SELECT
-  'legal_houbun_linker', 0, 0, 'did:web:legal-intel.gftd.ai', 'legal_houbun_linker', 1, 'py_factory',
+  'legal_houbun_linker', 0, 0, 'did:web:legal-intel.etzhayyim.com', 'legal_houbun_linker', 1, 'py_factory',
   'pymagatama.langgraph_graphs.legal_houbun_linker',
   'Infer Japanese LEI / contract / houbun article dependency links as reviewable graph hypotheses.',
   '2026-05-09T15:00:00Z'
@@ -86,6 +86,6 @@ INSERT INTO vertex_langgraph_deployment
   (vertex_id, _seq, sensitivity_ord, owner_did, nsid, assistant_id,
    version, status, replicas, updated_at)
 VALUES
-  ('langgraph.builtin.legal_houbun_linker', 0, 0, 'did:web:legal-intel.gftd.ai',
+  ('langgraph.builtin.legal_houbun_linker', 0, 0, 'did:web:legal-intel.etzhayyim.com',
    'langgraph.builtin.legal_houbun_linker', 'legal_houbun_linker', 1, 'active', 1,
    '2026-05-09T15:00:00Z');

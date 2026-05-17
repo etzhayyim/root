@@ -26,13 +26,13 @@ class TestUpnResolution(unittest.TestCase):
     def test_known_upn_resolves(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import resolve_member
         out = resolve_member(_make_state(user_upn="f-tanaka@gftd.co"))
-        self.assertEqual(out["member_did"], "did:web:f-tanaka.gftd.ai")
+        self.assertEqual(out["member_did"], "did:web:f-tanaka.etzhayyim.com")
         self.assertTrue(out["ok"])
 
     def test_lowercase_upn(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import resolve_member
         out = resolve_member(_make_state(user_upn="K-Bakshi@gftd.co"))
-        self.assertEqual(out["member_did"], "did:web:k-bakshi.gftd.ai")
+        self.assertEqual(out["member_did"], "did:web:k-bakshi.etzhayyim.com")
 
     def test_unknown_upn_denied(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import resolve_member
@@ -43,7 +43,7 @@ class TestUpnResolution(unittest.TestCase):
     def test_dot_separator_alias(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import resolve_member
         out = resolve_member(_make_state(user_upn="y.nishino@gftd.co"))
-        self.assertEqual(out["member_did"], "did:web:y-nishino.gftd.ai")
+        self.assertEqual(out["member_did"], "did:web:y-nishino.etzhayyim.com")
 
 
 class TestRouterFunctions(unittest.TestCase):
@@ -53,7 +53,7 @@ class TestRouterFunctions(unittest.TestCase):
 
     def test_after_resolve_ok(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import _after_resolve
-        self.assertEqual(_after_resolve(_make_state(member_did="did:web:x.gftd.ai")), "load_context")
+        self.assertEqual(_after_resolve(_make_state(member_did="did:web:x.etzhayyim.com")), "load_context")
 
     def test_route_after_supervisor_default(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import _route_after_supervisor

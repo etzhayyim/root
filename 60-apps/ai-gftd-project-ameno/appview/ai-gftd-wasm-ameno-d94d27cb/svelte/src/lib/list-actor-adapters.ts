@@ -2,7 +2,7 @@
  * list-actor-adapters.ts — client helper for ai.gftd.apps.ameno.listActorAdapters.
  *
  * Same-origin GET to the ameno worker, which forwards via sdk.pds.xrpc()
- * → atproto.gftd.ai → bpmn-dispatcher → ameno-langserver SELECT
+ * → atproto.etzhayyim.com → bpmn-dispatcher → ameno-langserver SELECT
  * vertex_lora_adapter (Phase 5g).
  */
 

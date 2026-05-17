@@ -1,4 +1,4 @@
-"""gftd.ai chat — LangGraph agent + tool implementations + maintenance.
+"""etzhayyim.com chat — LangGraph agent + tool implementations + maintenance.
 
 T2 actor (ADR-2604282300, but with HTTP SSE hot path instead of Zeebe).
 LangGraph drives the per-turn agent loop in-process; Zeebe handles only
@@ -6,7 +6,7 @@ side effects (chat.report.compose) and maintenance crons (memory reindex,
 artifact GC, conversation archive).
 
 Architecture:
-    Browser  ──SSE──▶  CF Worker (gftd.ai)  ──CF Tunnel─▶  aiohttp pod
+    Browser  ──SSE──▶  CF Worker (etzhayyim.com)  ──CF Tunnel─▶  aiohttp pod
                                                               │
                                                               ▼
                                                        LangGraph StateGraph
@@ -25,7 +25,7 @@ State graph:
 
 Tools (Phase 1, all in-process; no Zeebe RTT):
     code_exec    Python subprocess (gVisor sandbox) — math / data manipulation
-    image_gen    POST comfyui.gftd.ai — Stable Diffusion / Flux
+    image_gen    POST comfyui.etzhayyim.com — Stable Diffusion / Flux
     file_save    B2 PUT — persist artifact, return b2_key
     rag_search   SQL on vertex_chat_message.embedding (RisingWave IVF)
     domain_knowledge_search
@@ -114,7 +114,7 @@ _RW_TABLE_EXISTS_CACHE: dict[str, bool] = {}
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-CHAT_ACTOR = "did:web:gftd.ai"
+CHAT_ACTOR = "did:web:etzhayyim.com"
 # Empty default = let `_TIER_TO_ENDPOINT[tier][2]` (read from
 # LLM_PRIMARY_MODEL env) drive the model name. Hard-coding here would
 # override env wiring downstream (run_turn → llm_node → _llm_chat).
@@ -294,7 +294,7 @@ def _llm_headers(endpoint: str, key_env: str | None, *, accept: str) -> dict[str
         api_key = os.environ.get(key_env, "").strip()
         if api_key:
             headers["Authorization"] = f"Bearer {api_key}"
-    if "llm.gftd.ai" in endpoint:
+    if "llm.etzhayyim.com" in endpoint:
         headers["x-magatama-verified"] = "true"
     return headers
 

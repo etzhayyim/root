@@ -21,8 +21,8 @@ export function buildActorCardFromCommands(def: AppDef, commands: CommandEntry[]
   }));
 
   const addresses: ActorAddress[] = [
-    { address: `${nanoid}.gftd.ai`, scheme: "actor", nanoid, displayName: "" },
-    { address: `${nanoid}@gftd.ai`, scheme: "email", nanoid, displayName: "" },
+    { address: `${nanoid}.etzhayyim.com`, scheme: "actor", nanoid, displayName: "" },
+    { address: `${nanoid}@etzhayyim.com`, scheme: "email", nanoid, displayName: "" },
   ];
 
   return {

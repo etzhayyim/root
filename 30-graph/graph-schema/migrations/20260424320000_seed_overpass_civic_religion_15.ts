@@ -4,7 +4,7 @@ import { sql } from "kysely";
 /**
  * Seed 15 new Overpass civic/education/religion/amenity coverage targets
  * (Phase 48). Every mid-size city has these → high yield per Overpass call.
- * All share source_did = `did:web:maps.gftd.ai:infrastructure` which the
+ * All share source_did = `did:web:maps.etzhayyim.com:infrastructure` which the
  * dispatch UDF routes to Overpass; label determines the Overpass filter.
  *
  * Productivity factor defaults to NULL (= 1.0), so new rows compete on
@@ -12,7 +12,7 @@ import { sql } from "kysely";
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
-  const source = "did:web:maps.gftd.ai:infrastructure";
+  const source = "did:web:maps.etzhayyim.com:infrastructure";
   // [label, world_total_estimate]
   const seed: Array<[string, number]> = [
     ["University",     30_000],
@@ -32,7 +32,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     ["SikhTemple",     10_000],
   ];
   for (const [label, worldTotal] of seed) {
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/infrastructure:${label}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

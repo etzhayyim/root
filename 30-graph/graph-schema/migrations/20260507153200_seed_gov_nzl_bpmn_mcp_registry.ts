@@ -17,8 +17,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-05-07T15:32:00Z";
-const ownerDid = "did:web:nzl-state.gftd.ai";
-const actorHost = "nzl-state.gftd.ai";
+const ownerDid = "did:web:nzl-state.etzhayyim.com";
+const actorHost = "nzl-state.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.gov-nzl";
 const writeTableAllowlist = [
   "vertex_gov_org",
@@ -27,105 +27,105 @@ const writeTableAllowlist = [
 
 const seeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-seedOrgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-seedOrgs-v1",
     nsid: "ai.gftd.govNzl.seedOrgs",
     bpmnProcessId: "gov_nzl_seed_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-registerDIDs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-registerDIDs-v1",
     nsid: "ai.gftd.govNzl.registerDIDs",
     bpmnProcessId: "gov_nzl_register_dids",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-followSiteDeps-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-followSiteDeps-v1",
     nsid: "ai.gftd.govNzl.followSiteDeps",
     bpmnProcessId: "gov_nzl_follow_site_deps",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-resolveOrgPath-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-resolveOrgPath-v1",
     nsid: "ai.gftd.govNzl.resolveOrgPath",
     bpmnProcessId: "gov_nzl_resolve_org_path",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-listOrgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-listOrgs-v1",
     nsid: "ai.gftd.govNzl.listOrgs",
     bpmnProcessId: "gov_nzl_list_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-syncWetUpdates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-syncWetUpdates-v1",
     nsid: "ai.gftd.govNzl.syncWetUpdates",
     bpmnProcessId: "gov_nzl_sync_wet_updates",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-shinka-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-shinka-v1",
     nsid: "ai.gftd.govNzl.shinka",
     bpmnProcessId: "gov_nzl_shinka",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/shinka.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-heartbeatTick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-heartbeatTick-v1",
     nsid: "ai.gftd.govNzl.heartbeatTick",
     bpmnProcessId: "gov_nzl_heartbeat_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/heartbeatTick.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-seed-orgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-seed-orgs-v1",
     nsid: "ai.gftd.govNzl.seedOrgs",
     bpmnProcessId: "gov_nzl_seed_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-register-dids-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-register-dids-v1",
     nsid: "ai.gftd.govNzl.registerDIDs",
     bpmnProcessId: "gov_nzl_register_dids",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-follow-site-deps-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-follow-site-deps-v1",
     nsid: "ai.gftd.govNzl.followSiteDeps",
     bpmnProcessId: "gov_nzl_follow_site_deps",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-resolve-org-path-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-resolve-org-path-v1",
     nsid: "ai.gftd.govNzl.resolveOrgPath",
     bpmnProcessId: "gov_nzl_resolve_org_path",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-list-orgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-list-orgs-v1",
     nsid: "ai.gftd.govNzl.listOrgs",
     bpmnProcessId: "gov_nzl_list_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-sync-wet-updates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-sync-wet-updates-v1",
     nsid: "ai.gftd.govNzl.syncWetUpdates",
     bpmnProcessId: "gov_nzl_sync_wet_updates",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-nzl-heartbeat-tick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-nzl-heartbeat-tick-v1",
     nsid: "ai.gftd.govNzl.heartbeatTick",
     bpmnProcessId: "gov_nzl_heartbeat_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/govNzl/heartbeatTick.bpmn",
@@ -146,7 +146,7 @@ function mcpVertexId(nsid: string): string {
 }
 
 function bindingVertexId(nsid: string): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
 }
 
 function stableStringify(value: unknown): string {

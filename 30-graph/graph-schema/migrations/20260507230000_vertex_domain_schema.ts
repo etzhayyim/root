@@ -7,7 +7,7 @@ import { sql } from "kysely";
 //          domain owner DID, not contact PII per ADR-0018 Tier 1)
 
 /**
- * domain.gftd.ai Phase 1 — TLD registration assistance schema
+ * domain.etzhayyim.com Phase 1 — TLD registration assistance schema
  * (ADR-0036 Worker-direct Hyperdrive + ADR-0056 BPMN-as-actor +
  *  ADR-2604282300 T2 = pymagatama + Zeebe, no CF Worker).
  *

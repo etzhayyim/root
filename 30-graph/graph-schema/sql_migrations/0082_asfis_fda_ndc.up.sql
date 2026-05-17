@@ -30,9 +30,9 @@ CREATE VIEW IF NOT EXISTS view_fda_ndc AS
     WHERE collection = 'ai.gftd.apps.fda.ndc';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('asfis', 'asfis.gftd.ai', 13708, 'aquatic species', 'food');
+    VALUES ('asfis', 'asfis.etzhayyim.com', 13708, 'aquatic species', 'food');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('fda_ndc', 'ndc.gftd.ai', 131664, 'FDA drug products', 'pharma');
+    VALUES ('fda_ndc', 'ndc.etzhayyim.com', 131664, 'FDA drug products', 'pharma');
 
 DELETE FROM edge_classified_as WHERE system = 'atc_ndc';

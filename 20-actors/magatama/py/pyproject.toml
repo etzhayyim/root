@@ -24,7 +24,7 @@ dependencies = [
   # entrypoints while FastAPI + Granian becomes the worker pod server standard.
   "aiohttp>=3.10.0",
   "nats-py>=2.7.0",  # ADR-2605091700: NATS JetStream fan-out (dispatcher)
-  # HTTP client for public source fetches and llm.gftd.ai OpenAI-compatible calls.
+  # HTTP client for public source fetches and llm.etzhayyim.com OpenAI-compatible calls.
   # `h2` extra is included so training_run._pod_submit_and_wait can opt into
   # HTTP/2 if the RunPod proxy turns out to fingerprint on TLS/h2 in addition
   # to User-Agent (ADR 2605092345, 2026-05-09 client-side fix follow-up).

@@ -1,4 +1,4 @@
-"""billing.gftd.ai retail cloud billing v2 primitives (ADR-2605080000).
+"""billing.etzhayyim.com retail cloud billing v2 primitives (ADR-2605080000).
 
 T2 actor (ADR-2604282300): pymagatama module + BPMN + Zeebe, no CF Worker.
 All writes hit RisingWave directly via Hyperdrive (ADR-0036).
@@ -54,7 +54,7 @@ from pymagatama.db_sync import sync_cursor
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-_BILLING_ACTOR = "did:web:billing.gftd.ai"
+_BILLING_ACTOR = "did:web:billing.etzhayyim.com"
 
 # JPY-micro = ¥ × 1e6. All money internally is JPY-micro to keep integer
 # arithmetic. Display layer divides by 1e6 to get yen.

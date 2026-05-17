@@ -16,7 +16,7 @@ data:
       auto_https off
     }
 
-    https://ipfs-origin.gftd.ai:8443 {
+    https://ipfs-origin.etzhayyim.com:8443 {
       tls /tls/tls.crt /tls/tls.key
       reverse_proxy http://kubo.ipfs.svc.cluster.local:8080 {
         # Strip any caller-supplied auth header; HMAC enforcement happens at

@@ -28,10 +28,10 @@ CREATE VIEW IF NOT EXISTS view_iso3166_country AS
     WHERE collection = 'ai.gftd.apps.iso3166.country';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('locode', 'locode.gftd.ai', 116067, 'locations', 'transport');
+    VALUES ('locode', 'locode.etzhayyim.com', 116067, 'locations', 'transport');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('iso3166', 'iso3166.gftd.ai', 296, 'countries', 'governance');
+    VALUES ('iso3166', 'iso3166.etzhayyim.com', 296, 'countries', 'governance');
 
 DELETE FROM edge_classified_as WHERE system = 'sovereign_m49';
 

@@ -23,7 +23,7 @@ async def fetch_jurisdictions(state: GovFractalState) -> GovFractalState:
     """Fetch all country DIDs (e.g., country:jpn)."""
     logger.info("[gov_pregel] Fetching global jurisdictions")
     # MCP Tool Call: query RisingWave for country DIDs
-    countries = [{"did": "did:web:gov.gftd.ai:country:jpn"}] # Mocked
+    countries = [{"did": "did:web:gov.etzhayyim.com:country:jpn"}] # Mocked
     state["discovered_entities"] = countries
     return state
 
@@ -39,7 +39,7 @@ async def fetch_agencies(state: GovFractalState) -> GovFractalState:
     """Fetch top-level agencies for a country."""
     logger.info(f"[gov_pregel] Fetching agencies for {state.get('target_did')}")
     # MCP Tool Call: query vertex_gov_org
-    agencies = [{"did": "did:web:gov.gftd.ai:country:jpn:moj"}] # Mocked
+    agencies = [{"did": "did:web:gov.etzhayyim.com:country:jpn:moj"}] # Mocked
     state["discovered_entities"] = agencies
     return state
 
@@ -61,7 +61,7 @@ async def extract_entities(state: GovFractalState) -> GovFractalState:
     """LLM Node: Extract sub-agencies from signals."""
     logger.info(f"[gov_pregel] Extracting entities for {state.get('target_did')}")
     # LLM Call to identify new sub-DIDs
-    state["discovered_entities"] = [{"did": "did:web:gov.gftd.ai:country:jpn:moj:civil_affairs"}]
+    state["discovered_entities"] = [{"did": "did:web:gov.etzhayyim.com:country:jpn:moj:civil_affairs"}]
     return state
 
 

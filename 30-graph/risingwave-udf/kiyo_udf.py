@@ -29,7 +29,7 @@ import urllib.request
 
 from arrow_udf import UdfServer, udf
 
-MURAKUMO_URL = os.environ.get("MURAKUMO_URL", "https://murakumo-serve.gftd.ai")
+MURAKUMO_URL = os.environ.get("MURAKUMO_URL", "https://murakumo-serve.etzhayyim.com")
 MURAKUMO_KEY = os.environ.get("MURAKUMO_API_KEY", "")
 EMBED_MODEL  = os.environ.get("KIYO_EMBED_MODEL", "nomic-embed-text")
 LLM_MODEL    = os.environ.get("KIYO_LLM_MODEL", "gemma3:4b")

@@ -76,8 +76,8 @@ def test_shinka_tick_actor_non_did_string_returns_error():
 
 def test_shinka_tick_actor_bare_did_calls_run_tick():
     with patch.object(SH, "run_tick", return_value={"ok": True, "actor": "test"}) as mock_rt:
-        out = json.loads(SH.tick_actor("did:web:test.gftd.ai"))
-    mock_rt.assert_called_once_with("did:web:test.gftd.ai")
+        out = json.loads(SH.tick_actor("did:web:test.etzhayyim.com"))
+    mock_rt.assert_called_once_with("did:web:test.etzhayyim.com")
     assert out["ok"] is True
 
 
@@ -90,15 +90,15 @@ def test_shinka_tick_actor_json_wrapped_did_calls_run_tick():
 
 def test_shinka_tick_actor_snake_case_actor_did():
     with patch.object(SH, "run_tick", return_value={"ticked": True}) as mock_rt:
-        out = json.loads(SH.tick_actor(json.dumps({"actor_did": "did:web:shinshi.gftd.ai"})))
-    mock_rt.assert_called_once_with("did:web:shinshi.gftd.ai")
+        out = json.loads(SH.tick_actor(json.dumps({"actor_did": "did:web:shinshi.etzhayyim.com"})))
+    mock_rt.assert_called_once_with("did:web:shinshi.etzhayyim.com")
     assert out["ticked"] is True
 
 
 def test_shinka_tick_actor_whitespace_stripped():
     with patch.object(SH, "run_tick", return_value={"ok": True}) as mock_rt:
-        SH.tick_actor("  did:web:test.gftd.ai  ")
-    mock_rt.assert_called_once_with("did:web:test.gftd.ai")
+        SH.tick_actor("  did:web:test.etzhayyim.com  ")
+    mock_rt.assert_called_once_with("did:web:test.etzhayyim.com")
 
 
 # ─── plan agent pure functions ────────────────────────────────────────────────

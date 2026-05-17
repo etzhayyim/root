@@ -90,7 +90,7 @@ def test_es_vid_contains_key():
 
 def test_es_vid_contains_telecom_did():
     result = ES._vid("euicc", "key")
-    assert "telecom.gftd.ai" in result
+    assert "telecom.etzhayyim.com" in result
 
 
 # ─── telecom_esim — _hash ─────────────────────────────────────────────────────
@@ -304,8 +304,8 @@ def test_or_require_missing_raises():
 # ─── telecom_oran — _caller ──────────────────────────────────────────────────
 
 def test_or_caller_returns_did_when_present():
-    result = OR._caller({"callerDid": "did:web:my-actor.gftd.ai"})
-    assert result == "did:web:my-actor.gftd.ai"
+    result = OR._caller({"callerDid": "did:web:my-actor.etzhayyim.com"})
+    assert result == "did:web:my-actor.etzhayyim.com"
 
 
 def test_or_caller_falls_back_to_telecom_did():

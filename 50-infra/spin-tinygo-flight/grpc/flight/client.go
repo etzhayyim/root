@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	grpc "github.com/gftdcojp/spin-tinygo-flight/grpc"
+	grpc "github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc"
 )
 
 const (

@@ -10,7 +10,7 @@
  * Storage: a 256-bit AES-GCM key per browser origin, persisted in
  * localStorage as base64. Loss of localStorage = lost data; this is the
  * acceptable failure mode for "private mode" without a real Vault wrap.
- * A future phase can swap this for a vault.gftd.ai-wrapped device key.
+ * A future phase can swap this for a vault.etzhayyim.com-wrapped device key.
  */
 
 const KEY_STORAGE = "ameno.private-vault.key.v1";

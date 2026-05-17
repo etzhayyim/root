@@ -23,7 +23,7 @@ def test_open_isic_classify_entity_dry_run():
     assert out["ok"] is True
     assert out["verification"] == "authoritative"
     assert out["status"] == "confirmed"
-    assert out["classDid"] == "did:web:open-isic.gftd.ai:class:2520"
+    assert out["classDid"] == "did:web:open-isic.etzhayyim.com:class:2520"
 
 
 def test_open_isic_record_concordance_rejects_bad_relation():
@@ -47,7 +47,7 @@ def test_apqc_materializes_all_l2_for_l1():
     assert out["ok"] is True
     assert out["materialized"] == 49
     assert out["subprocesses"][0]["did"].startswith(
-        "did:web:kyber-projector.gftd.ai:apqc:12-external-relations:subprocess:"
+        "did:web:kyber-projector.etzhayyim.com:apqc:12-external-relations:subprocess:"
     )
 
 
@@ -60,7 +60,7 @@ def test_apqc_coverage_snapshot_marks_runtime_migrated():
 
 def test_apqc_did_normalizes_l2_to_l1_actor():
     assert apqc.apqc_did("9.4.1").startswith(
-        "did:web:kyber-projector.gftd.ai:apqc:9-financial-resources:subprocess:"
+        "did:web:kyber-projector.etzhayyim.com:apqc:9-financial-resources:subprocess:"
     )
 
 
@@ -76,7 +76,7 @@ def test_open_isco_classify_worker_dry_run():
     assert out["ok"] is True
     assert out["codeLevel"] == "unit"
     assert out["verification"] == "authoritative"
-    assert out["occupationDid"] == "did:web:isco.gftd.ai:occupation:2512"
+    assert out["occupationDid"] == "did:web:isco.etzhayyim.com:occupation:2512"
 
 
 def test_open_isco_record_concordance_rejects_bad_relation():

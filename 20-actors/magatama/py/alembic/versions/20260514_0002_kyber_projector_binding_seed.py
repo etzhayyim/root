@@ -41,7 +41,7 @@ down_revision: Union[str, Sequence[str], None] = "20260514_0001"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
-_OWNER_DID = "did:web:kyber-projector.gftd.ai"
+_OWNER_DID = "did:web:kyber-projector.etzhayyim.com"
 _ACTOR_ID = "sys.worker.apqc.pregel"
 _PROCESS_ID = "apqc-pregel-orchestrator"
 

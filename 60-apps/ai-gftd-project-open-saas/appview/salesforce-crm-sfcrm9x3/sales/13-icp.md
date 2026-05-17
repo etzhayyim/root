@@ -93,7 +93,7 @@ Sequence design (node 07) maps each persona to a specific beat; this ICP page is
 - Quarterly review: did the closed-won cohort match the ICP? If 40%+ of wins are outside ICP, widen it. If <10% of contacted-in-ICP converted, tighten or fix messaging.
 - New trigger proposals need CRO sign-off before SDRs act on them.
 - "ICP drift" (AE chasing off-ICP deals because the month is short) is surfaced in weekly pipeline review; off-ICP deals are flagged but not killed — some win, some teach us to widen.
-- ICP page is public-facing: posted at `https://salesforce.opensaas.gftd.ai/about/ideal-customer` so prospects self-select. Self-disqualification is a feature, not a bug.
+- ICP page is public-facing: posted at `https://salesforce.opensaas.etzhayyim.com/about/ideal-customer` so prospects self-select. Self-disqualification is a feature, not a bug.
 
 ---
 

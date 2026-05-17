@@ -34,7 +34,7 @@ describe("Seed open-power BPMN actors migration", () => {
 
   it("uses open-power-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-power"');
-    expect(migrationSource).toContain("did:web:open-power.gftd.ai:grid");
+    expect(migrationSource).toContain("did:web:open-power.etzhayyim.com:grid");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

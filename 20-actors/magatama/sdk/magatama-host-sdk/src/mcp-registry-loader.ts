@@ -76,15 +76,15 @@ async function fetchFromDb(opts: LoadOptions): Promise<McpManifest> {
 
 	if (rows.length === 0) {
 		// 0 rows usually means actorDid mismatch with sync-mcp-registry.py keying.
-		// Sync uses NSID 4th-segment slug → did:web:{slug}.gftd.ai (e.g.
-		// did:web:lawfirm.gftd.ai), but env-default falls back to APP_NANOID
-		// → did:web:{nanoid}.gftd.ai (e.g. did:web:lf1rm8k0.gftd.ai). When this
-		// happens, set mcpRegistry: { actorDid: "did:web:{actorSlug}.gftd.ai" }
+		// Sync uses NSID 4th-segment slug → did:web:{slug}.etzhayyim.com (e.g.
+		// did:web:lawfirm.etzhayyim.com), but env-default falls back to APP_NANOID
+		// → did:web:{nanoid}.etzhayyim.com (e.g. did:web:lf1rm8k0.etzhayyim.com). When this
+		// happens, set mcpRegistry: { actorDid: "did:web:{actorSlug}.etzhayyim.com" }
 		// in createWorkerExport. See ADR-2604261000 §Pilot findings.
 		console.warn(
 			`[mcp-registry] 0 tools for actor_did=${opts.actorDid} (appName=${opts.appName}). ` +
 				"Verify mcpRegistry.actorDid matches sync-mcp-registry.py keying " +
-				"(typically did:web:{actorSlug}.gftd.ai from NSID 4th segment, not APP_NANOID).",
+				"(typically did:web:{actorSlug}.etzhayyim.com from NSID 4th segment, not APP_NANOID).",
 		);
 	}
 

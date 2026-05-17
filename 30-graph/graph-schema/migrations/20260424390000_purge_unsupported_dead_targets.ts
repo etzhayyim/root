@@ -22,17 +22,17 @@ import { sql } from "kysely";
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   const deadSourceDids = [
-    "did:web:maps.gftd.ai:registry:openaddresses",
-    "did:web:maps.gftd.ai:registry:osm",
-    "did:web:maps.gftd.ai:registry:uk-ch",
-    "did:web:maps.gftd.ai:registry:eu-br",
-    "did:web:maps.gftd.ai:registry:jp-moj",
-    "did:web:maps.gftd.ai:registry:jp-nta",
-    "did:web:maps.gftd.ai:registry:us-edgar",
-    "did:web:maps.gftd.ai:registry:opencorporates",
-    "did:web:maps.gftd.ai:gtfs",
-    "did:web:maps.gftd.ai:street_view",
-    "did:web:maps.gftd.ai:opensky",
+    "did:web:maps.etzhayyim.com:registry:openaddresses",
+    "did:web:maps.etzhayyim.com:registry:osm",
+    "did:web:maps.etzhayyim.com:registry:uk-ch",
+    "did:web:maps.etzhayyim.com:registry:eu-br",
+    "did:web:maps.etzhayyim.com:registry:jp-moj",
+    "did:web:maps.etzhayyim.com:registry:jp-nta",
+    "did:web:maps.etzhayyim.com:registry:us-edgar",
+    "did:web:maps.etzhayyim.com:registry:opencorporates",
+    "did:web:maps.etzhayyim.com:gtfs",
+    "did:web:maps.etzhayyim.com:street_view",
+    "did:web:maps.etzhayyim.com:opensky",
   ];
   for (const sd of deadSourceDids) {
     await sql`DELETE FROM vertex_maps_coverage_target WHERE source_did = ${sd}`.execute(db);

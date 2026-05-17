@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-29T09:04:00Z";
-const ownerDid = "did:web:smishing.gftd.ai";
+const ownerDid = "did:web:smishing.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.smishing";
 // bpmn-coverage gate marker: project: "smishing"
 const project = "smishing";
@@ -16,8 +16,8 @@ const proc = "analyzeMessage";
 const bpmnProcessId = "smishing_analyze_message";
 const nsid = "ai.gftd.apps.smishing.analyzeMessageProcess";
 const sourcePath = "00-contracts/bpmn/ai/gftd/smishing/analyzeMessage.bpmn";
-const processVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-${proc}-v1`;
-const bindingVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${proc}-v1`;
+const processVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${proc}-v1`;
+const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${proc}-v1`;
 
 function readContract(relPath: string): string {
   return readFileSync(path.resolve(repoRoot, relPath), "utf8");

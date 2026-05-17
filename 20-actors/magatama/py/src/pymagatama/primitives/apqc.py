@@ -29,7 +29,7 @@ from pymagatama.langgraph_graphs.apqc_pregel import (
 )
 
 
-PROJECTOR_DID = "did:web:kyber-projector.gftd.ai"
+PROJECTOR_DID = "did:web:kyber-projector.etzhayyim.com"
 ACTOR_ID = "sys.worker.apqc"
 
 # Re-export catalog from pregel module (single source of truth)

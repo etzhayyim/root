@@ -17,7 +17,7 @@ describe('AT Protocol session management', () => {
 	it('setSession stores session and getSession retrieves it', () => {
 		const session: Session = {
 			did: 'did:plc:alice123',
-			handle: 'alice.gftd.ai',
+			handle: 'alice.etzhayyim.com',
 			accessJwt: 'access-jwt-token',
 			refreshJwt: 'refresh-jwt-token',
 		};
@@ -25,7 +25,7 @@ describe('AT Protocol session management', () => {
 		const got = getSession();
 		expect(got).not.toBeNull();
 		expect(got!.did).toBe('did:plc:alice123');
-		expect(got!.handle).toBe('alice.gftd.ai');
+		expect(got!.handle).toBe('alice.etzhayyim.com');
 		expect(got!.accessJwt).toBe('access-jwt-token');
 	});
 
@@ -49,7 +49,7 @@ describe('isDid', () => {
 	});
 
 	it('returns true for did:web', () => {
-		expect(isDid('did:web:gftd.ai')).toBe(true);
+		expect(isDid('did:web:etzhayyim.com')).toBe(true);
 	});
 
 	it('returns false for did:key', () => {
@@ -78,7 +78,7 @@ describe('formatDID', () => {
 	});
 
 	it('returns did:web as-is', () => {
-		expect(formatDID('did:web:gftd.ai')).toBe('did:web:gftd.ai');
+		expect(formatDID('did:web:etzhayyim.com')).toBe('did:web:etzhayyim.com');
 	});
 
 	it('compacts did:gftd CIDv1 path-form', () => {
@@ -102,7 +102,7 @@ describe('memberLabel', () => {
 	});
 
 	it('strips did:web: prefix', () => {
-		expect(memberLabel('did:web:gftd.ai')).toBe('gftd.ai');
+		expect(memberLabel('did:web:etzhayyim.com')).toBe('etzhayyim.com');
 	});
 
 	it('truncates long did:plc', () => {

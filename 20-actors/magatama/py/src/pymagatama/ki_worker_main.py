@@ -41,9 +41,9 @@ from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("ki_worker")
 
-KI_DID = "did:web:ki.gftd.ai"
-HAKKOU_DID = "did:web:hakkou.gftd.ai"
-KOKE_DID = "did:web:koke.gftd.ai"
+KI_DID = "did:web:ki.etzhayyim.com"
+HAKKOU_DID = "did:web:hakkou.etzhayyim.com"
+KOKE_DID = "did:web:koke.etzhayyim.com"
 
 CONFIDENCE_CUTOFF = float(os.environ.get("KI_CONFIDENCE_CUTOFF", "0.6"))
 

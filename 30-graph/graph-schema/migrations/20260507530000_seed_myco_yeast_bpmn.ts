@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-05-07T23:30:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 interface BpmnEntry {
   processId: string;
@@ -34,43 +34,43 @@ const ENTRIES: BpmnEntry[] = [
   {
     processId: "kobo_budding",
     bpmnPath: "00-contracts/bpmn/ai/gftd/kobo/budding.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-budding-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-budding-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-budding-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-budding-v1",
     nsid: "ai.gftd.apps.kobo.budAgent",
   },
   {
     processId: "kobo_germination",
     bpmnPath: "00-contracts/bpmn/ai/gftd/kobo/germination.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-germination-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-germination-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-germination-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-germination-v1",
     nsid: "ai.gftd.apps.kobo.spawnAgent",
   },
   {
     processId: "kobo_sporulation",
     bpmnPath: "00-contracts/bpmn/ai/gftd/kobo/sporulation.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-sporulation-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-sporulation-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-sporulation-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-sporulation-v1",
     nsid: "ai.gftd.apps.kobo.sporulate",
   },
   {
     processId: "kabi_anastomosis_gate",
     bpmnPath: "00-contracts/bpmn/ai/gftd/kabi/anastomosis-gate.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kabi-anastomosis-gate-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kabi-anastomosis-gate-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kabi-anastomosis-gate-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kabi-anastomosis-gate-v1",
     nsid: "ai.gftd.apps.kabi.fusionProbe",
   },
   {
     processId: "kinoko_ponf_fruiting",
     bpmnPath: "00-contracts/bpmn/ai/gftd/kinoko/ponf-fruiting.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kinoko-ponf-fruiting-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kinoko-ponf-fruiting-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kinoko-ponf-fruiting-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kinoko-ponf-fruiting-v1",
     nsid: "ai.gftd.apps.kinoko.formBlock",
   },
   {
     processId: "hakkou_ferment_pipeline",
     bpmnPath: "00-contracts/bpmn/ai/gftd/hakkou/ferment-pipeline.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hakkou-ferment-pipeline-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/hakkou-ferment-pipeline-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hakkou-ferment-pipeline-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hakkou-ferment-pipeline-v1",
     nsid: "ai.gftd.apps.hakkou.startFerment",
   },
 ];

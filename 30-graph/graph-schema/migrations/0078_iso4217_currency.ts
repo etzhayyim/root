@@ -60,7 +60,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('iso4217', 'iso4217.gftd.ai', 178, 'currencies', 'finance')
+    VALUES ('iso4217', 'iso4217.etzhayyim.com', 178, 'currencies', 'finance')
   `.execute(db);
 }
 

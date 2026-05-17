@@ -1,6 +1,6 @@
 """GFTD Email Wire Protocol (GEWP) v1.0 — core protocol module.
 
-Spec: https://spec.gftd.ai/gewp/v1/
+Spec: https://spec.etzhayyim.com/gewp/v1/
 License: Apache-2.0
 MIME type: application/vnd.gewp+json
 

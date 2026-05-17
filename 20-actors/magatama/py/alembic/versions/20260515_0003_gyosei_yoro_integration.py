@@ -33,9 +33,9 @@ def upgrade() -> None:
             1,
             'topology',
             '{"nodes": ["listen_yoro_messages", "classify_intent", "start_procedure", "gather_missing_info", "generate_draft", "submit_draft"], "entry": "listen_yoro_messages"}',
-            'Conversational intake agent for gyosei procedures via yoro.gftd.ai.',
+            'Conversational intake agent for gyosei procedures via yoro.etzhayyim.com.',
             'rw_vertex',
-            'did:web:gyosei.gftd.ai',
+            'did:web:gyosei.etzhayyim.com',
             NULL,
             NOW()::VARCHAR,
             NOW()::VARCHAR
@@ -86,7 +86,7 @@ def upgrade() -> None:
             '{"nodes": ["receive_submitted_draft", "validate_schema", "decision_gate", "update_case_status", "notify_user_yoro"], "entry": "receive_submitted_draft"}',
             'Internal back-office processing for gyosei cases.',
             'rw_vertex',
-            'did:web:gyosei.gftd.ai',
+            'did:web:gyosei.etzhayyim.com',
             NULL,
             NOW()::VARCHAR,
             NOW()::VARCHAR

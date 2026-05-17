@@ -36,7 +36,7 @@ contract MurakumoRegistry {
         // Stored as bytes32 to leave room for future schemes without
         // contract migration.
         bytes32 capabilities;
-        // Inference HTTP endpoint, e.g. "https://murakumo-3.gftd.ai/v1".
+        // Inference HTTP endpoint, e.g. "https://murakumo-3.etzhayyim.com/v1".
         string endpoint;
         uint64 registeredAt;
         bool active;

@@ -318,7 +318,7 @@ async function reportIncident(env: Env, input: any): Promise<Response> {
          requirePublicNotice ? 1 : 0, title, description ?? null, reportedAt).run();
   if (requirePublicNotice && env.PDS) {
     try {
-      await env.PDS.fetch(`https://atproto.gftd.ai/xrpc/com.atproto.repo.createRecord`, {
+      await env.PDS.fetch(`https://atproto.etzhayyim.com/xrpc/com.atproto.repo.createRecord`, {
         method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({
           repo: env.PRIMARY_DID, collection: "app.bsky.feed.post",
@@ -383,7 +383,7 @@ async function requestChange(env: Env, input: any): Promise<Response> {
          scheduledStart, scheduledEnd, description ?? null, submittedAt).run();
   if (riskLevel === "HIGH" && env.PDS) {
     try {
-      await env.PDS.fetch(`https://atproto.gftd.ai/xrpc/com.atproto.repo.createRecord`, {
+      await env.PDS.fetch(`https://atproto.etzhayyim.com/xrpc/com.atproto.repo.createRecord`, {
         method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({
           repo: env.PRIMARY_DID, collection: "app.bsky.feed.post",

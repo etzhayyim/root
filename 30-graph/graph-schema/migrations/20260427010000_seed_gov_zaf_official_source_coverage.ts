@@ -1,7 +1,7 @@
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-const ownerDid = "did:web:zaf-state.gftd.ai";
+const ownerDid = "did:web:zaf-state.etzhayyim.com";
 const actorDid = ownerDid;
 const actorPath = "country:zaf";
 const actorName = "South African Government";

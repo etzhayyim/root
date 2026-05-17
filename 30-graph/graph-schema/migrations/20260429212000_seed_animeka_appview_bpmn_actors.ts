@@ -9,7 +9,7 @@ type Seed = { slug: string; processId: string; nsid: string; file: string; timeo
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:animeka.gftd.ai";
+const ownerDid = "did:web:animeka.etzhayyim.com";
 const createdAt = "2026-04-29T21:20:00+09:00";
 const actorId = "sys.bpmn.seed.animeka-appview";
 const project = "animeka";
@@ -29,8 +29,8 @@ const seeds: Seed[] = [
   { slug: "health", processId: "animeka_health", nsid: "ai.gftd.apps.animeka.health", file: "health.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

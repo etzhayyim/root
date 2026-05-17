@@ -58,7 +58,7 @@ def _run_via_http(task_type: str, payload: dict, requester_did: str, thread_id: 
     body = json.dumps({
         "assistant_id": _ASSISTANT_ID,
         "thread_id": thread_id,
-        "actor_did": requester_did or f"did:web:gftdcojp.gftd.ai",
+        "actor_did": requester_did or f"did:web:gftdcojp.etzhayyim.com",
         "input": {
             "task_type": task_type,
             "payload": payload,

@@ -35,7 +35,7 @@
 - ❌ "Einstein GPT alternative" (anchors us to the competitor; instead: "without the Einstein GPT line item").
 - ❌ "GenAI-first" (bingo word).
 
-**30-word support**: Seat `did:web:<tenant>.opensaas.gftd.ai:seat:<role>-<nn>` invokes Murakumo (or your own LLM) directly. Every invocation emits an `activity(kind=note, source=derived-convo)` with `actorDid=<seat>`. Swap fleets with one `ConfigPut`.
+**30-word support**: Seat `did:web:<tenant>.opensaas.etzhayyim.com:seat:<role>-<nn>` invokes Murakumo (or your own LLM) directly. Every invocation emits an `activity(kind=note, source=derived-convo)` with `actorDid=<seat>`. Swap fleets with one `ConfigPut`.
 
 **100-word support**: Einstein GPT is a line item because Salesforce's data model has no way to attribute an LLM invocation to the individual seat that triggered it — so they bill at the tenant plan tier. In open-salesforce, every XRPC call carries the seat DID, `magatama.Invoke` carries it forward to Murakumo (or any HTTP-invocable fleet you bind), and the fleet's response is tied back to the calling seat in the `activity` record with a signed convo URI. Provenance, cost attribution, and audit are the same object. Swapping Murakumo for Azure OpenAI, Anthropic, or your in-house GPU is `ConfigPut fleet=<didOrUrl>`.
 
@@ -48,7 +48,7 @@
 
 **Canonical sentence**: `activity` records aren't typed by a user; they're derived by the PDS commit pipeline from stage-changes, status-changes, and conversions — every row is cryptographically tied to the commit that caused it and is verifiable outside the CRM.
 
-**Proof anchor**: a real record at `/at/democo.opensaas.gftd.ai/ai.gftd.apps.opensaas.salesforce.activity/act-demo-conv-001`. Landing CTA link: **See a real record**.
+**Proof anchor**: a real record at `/at/democo.opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.activity/act-demo-conv-001`. Landing CTA link: **See a real record**.
 
 **Disallowed phrasings**:
 - ❌ "Immutable ledger" (blockchainy; just say content-addressed).

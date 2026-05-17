@@ -1,5 +1,5 @@
 -- GEWP (GFTD Email Wire Protocol) columns for mailer tables
--- ADR-2605141900 — mailer.gftd.ai GEWP implementation
+-- ADR-2605141900 — mailer.etzhayyim.com GEWP implementation
 
 ALTER TABLE vertex_mailer_inbound_email
   ADD COLUMN IF NOT EXISTS gewp_thread_id   VARCHAR,

@@ -4,7 +4,7 @@ import hashlib
 import re
 from typing import Any
 
-FUND_DID = "did:web:fund.gftd.ai"
+FUND_DID = "did:web:fund.etzhayyim.com"
 
 
 def clean(value: Any) -> str:

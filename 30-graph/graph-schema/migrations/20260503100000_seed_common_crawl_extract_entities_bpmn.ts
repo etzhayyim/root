@@ -17,8 +17,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 const repoRoot   = path.resolve(__dirname, "..", "..", "..");
 
-const ownerDid  = "did:web:bpmn.gftd.ai";
-const actorId   = "did:web:commoncrawl.gftd.ai";
+const ownerDid  = "did:web:bpmn.etzhayyim.com";
+const actorId   = "did:web:commoncrawl.etzhayyim.com";
 const createdAt = "2026-05-03T10:00:00Z";
 
 const PROCESS_ID  = "common_crawl_extract_entities";

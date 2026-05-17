@@ -17,8 +17,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-05-07T14:42:00Z";
-const ownerDid = "did:web:fra-state.gftd.ai";
-const actorHost = "fra-state.gftd.ai";
+const ownerDid = "did:web:fra-state.etzhayyim.com";
+const actorHost = "fra-state.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.gov-fra";
 const writeTableAllowlist = [
   "vertex_gov_org",
@@ -27,105 +27,105 @@ const writeTableAllowlist = [
 
 const seeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-seedOrgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-seedOrgs-v1",
     nsid: "ai.gftd.govFra.seedOrgs",
     bpmnProcessId: "gov_fra_seed_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-registerDIDs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-registerDIDs-v1",
     nsid: "ai.gftd.govFra.registerDIDs",
     bpmnProcessId: "gov_fra_register_dids",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-followSiteDeps-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-followSiteDeps-v1",
     nsid: "ai.gftd.govFra.followSiteDeps",
     bpmnProcessId: "gov_fra_follow_site_deps",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-resolveOrgPath-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-resolveOrgPath-v1",
     nsid: "ai.gftd.govFra.resolveOrgPath",
     bpmnProcessId: "gov_fra_resolve_org_path",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-listOrgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-listOrgs-v1",
     nsid: "ai.gftd.govFra.listOrgs",
     bpmnProcessId: "gov_fra_list_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-syncWetUpdates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-syncWetUpdates-v1",
     nsid: "ai.gftd.govFra.syncWetUpdates",
     bpmnProcessId: "gov_fra_sync_wet_updates",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-shinka-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-shinka-v1",
     nsid: "ai.gftd.govFra.shinka",
     bpmnProcessId: "gov_fra_shinka",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/shinka.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-heartbeatTick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-heartbeatTick-v1",
     nsid: "ai.gftd.govFra.heartbeatTick",
     bpmnProcessId: "gov_fra_heartbeat_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/heartbeatTick.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-seed-orgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-seed-orgs-v1",
     nsid: "ai.gftd.govFra.seedOrgs",
     bpmnProcessId: "gov_fra_seed_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-register-dids-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-register-dids-v1",
     nsid: "ai.gftd.govFra.registerDIDs",
     bpmnProcessId: "gov_fra_register_dids",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-follow-site-deps-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-follow-site-deps-v1",
     nsid: "ai.gftd.govFra.followSiteDeps",
     bpmnProcessId: "gov_fra_follow_site_deps",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-resolve-org-path-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-resolve-org-path-v1",
     nsid: "ai.gftd.govFra.resolveOrgPath",
     bpmnProcessId: "gov_fra_resolve_org_path",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-list-orgs-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-list-orgs-v1",
     nsid: "ai.gftd.govFra.listOrgs",
     bpmnProcessId: "gov_fra_list_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-sync-wet-updates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-sync-wet-updates-v1",
     nsid: "ai.gftd.govFra.syncWetUpdates",
     bpmnProcessId: "gov_fra_sync_wet_updates",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fra-heartbeat-tick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fra-heartbeat-tick-v1",
     nsid: "ai.gftd.govFra.heartbeatTick",
     bpmnProcessId: "gov_fra_heartbeat_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/govFra/heartbeatTick.bpmn",
@@ -146,7 +146,7 @@ function mcpVertexId(nsid: string): string {
 }
 
 function bindingVertexId(nsid: string): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
 }
 
 function stableStringify(value: unknown): string {

@@ -15,11 +15,11 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-IMAGE="ghcr.io/gftdcojp/risingwave-python-udf"
+IMAGE="ghcr.io/etzhayyim/risingwave-python-udf"
 TAG="${TAG:-latest}"
 PLATFORM="${PLATFORM:-linux/amd64}"  # LKE node arch
 BUILDER="${BUILDKIT_BUILDER:-gftd-vke}"
-CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/gftdcojp/build-cache:risingwave-python-udf}"
+CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/etzhayyim/build-cache:risingwave-python-udf}"
 NAMESPACE="risingwave"
 KUBECONFIG="${KUBECONFIG:-${SCRIPT_DIR}/../../50-infra/linode/risingwave-iceberg/kubeconfig.yaml}"
 KUSTOMIZE_DIR="${SCRIPT_DIR}/../../50-infra/linode/risingwave-iceberg/kustomize/base"

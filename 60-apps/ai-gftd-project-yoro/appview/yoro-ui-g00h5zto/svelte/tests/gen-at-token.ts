@@ -20,7 +20,7 @@
  *   YORO_AT_TOKEN=$(AT_IDENTIFIER=... AT_PASSWORD=... npx tsx tests/gen-at-token.ts) npx playwright test tests/pds-e2e.spec.ts
  */
 
-const PDS = process.env.PDS_BASE_URL || 'https://atproto.gftd.ai';
+const PDS = process.env.PDS_BASE_URL || 'https://atproto.etzhayyim.com';
 
 async function main() {
 	// Fallback: AT Protocol createSession

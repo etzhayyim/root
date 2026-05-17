@@ -103,7 +103,7 @@ def test_voyage_port_radius_is_positive():
 
 
 def test_default_repo_is_maps_did_web():
-    assert A.DEFAULT_REPO == "did:web:maps.gftd.ai"
+    assert A.DEFAULT_REPO == "did:web:maps.etzhayyim.com"
 
 
 def test_source_constant():

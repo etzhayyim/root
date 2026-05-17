@@ -3,9 +3,9 @@ shinshi.scene.render — SDXL still-image generation via ComfyUI + AT post.
 shinshi.scene.bulkSeed — bulk 5-scene seeding per actress (anime / photoreal).
 
 Generation pipeline lives here per ADR-2604282300 (CF Worker = edge layer
-only). The shinshi CF Worker proxies to dispatcher.gftd.ai → Zeebe →
+only). The shinshi CF Worker proxies to dispatcher.etzhayyim.com → Zeebe →
 this handler, which builds the ComfyUI workflow, submits to RunPod
-(via comfyui.gftd.ai or pod direct with browser UA per
+(via comfyui.etzhayyim.com or pod direct with browser UA per
 runpod-proxy-browser-ua-required), polls /history, fetches /view bytes,
 uploads to PDS, and writes the AT post (graph C-path).
 
@@ -45,8 +45,8 @@ _COMFY_POD_URL = os.environ.get(
     "COMFY_POD_URL",
     "https://vyp99t9px7h4dl-8188.proxy.runpod.net",
 )
-_PDS_BASE = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
-_SHINSHI_DID = "did:web:sh1n5h1x.gftd.ai"
+_PDS_BASE = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
+_SHINSHI_DID = "did:web:sh1n5h1x.etzhayyim.com"
 
 _BROWSER_UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "

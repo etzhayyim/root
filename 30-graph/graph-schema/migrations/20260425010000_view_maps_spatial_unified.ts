@@ -42,7 +42,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'LegalEntity'::varchar AS label,
       NULL::real AS lat,
       NULL::real AS lon,
-      'did:web:legal-entity.gftd.ai'::varchar AS source_did,
+      'did:web:legal-entity.etzhayyim.com'::varchar AS source_did,
       'vertex_legal_entity'::varchar AS origin
     FROM vertex_legal_entity
     UNION ALL
@@ -52,7 +52,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'Hotel'::varchar AS label,
       lat,
       lon,
-      'did:web:hospitality.gftd.ai'::varchar AS source_did,
+      'did:web:hospitality.etzhayyim.com'::varchar AS source_did,
       'vertex_accommodation'::varchar AS origin
     FROM vertex_accommodation
   `.execute(db);
@@ -63,7 +63,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     UPDATE vertex_maps_coverage_target
        SET priority_weight = 0.0
-     WHERE source_did = 'did:web:maps.gftd.ai:registry:gleif'
+     WHERE source_did = 'did:web:maps.etzhayyim.com:registry:gleif'
   `.execute(db);
 
   await sql`FLUSH`.execute(db);
@@ -74,6 +74,6 @@ export async function down(db: Kysely<unknown>): Promise<void> {
   await sql`
     UPDATE vertex_maps_coverage_target
        SET priority_weight = 0.6
-     WHERE source_did = 'did:web:maps.gftd.ai:registry:gleif'
+     WHERE source_did = 'did:web:maps.etzhayyim.com:registry:gleif'
   `.execute(db);
 }

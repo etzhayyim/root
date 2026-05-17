@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const createdAt = "2026-05-03T00:00:00Z";
-const ownerDid = "did:web:bpmn.gftd.ai";
+const ownerDid = "did:web:bpmn.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.common-crawl";
 
 const BPMN_PROCESS_ID = "common_crawl_extract_entities";
@@ -28,9 +28,9 @@ const NSID = "ai.gftd.apps.commonCrawl.extractEntities";
 const BPMN_FILE = "00-contracts/bpmn/ai/gftd/common-crawl/extractEntities.bpmn";
 
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/common-crawl-extract-entities-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/common-crawl-extract-entities-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/common-crawl-extractEntities-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/common-crawl-extractEntities-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(path.resolve(repoRoot, BPMN_FILE), "utf8");

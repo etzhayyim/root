@@ -32,7 +32,7 @@ func recordDeployToChain(cfg *magatamaJSONLD, appID string, compDir string) {
 	const (
 		chainID        = "260425"
 		deployRegistry = "0x995AD6A2bb4D8916Ba036f5B2e29E7739Ee243b5"
-		rpcURL         = "https://geth.etzhayyim.com"
+		rpcURL         = "https://geth.gftd.ai"
 	)
 
 	if _, err := exec.LookPath("cast"); err != nil {

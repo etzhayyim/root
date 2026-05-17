@@ -15,7 +15,7 @@ VALUES (
   'ki vertical-synthesis cycle (topology v2, mcp_tool nodes)',
   '2026-05-09T00:00:00Z',
   'rw_vertex',
-  'did:web:agent.ki.gftd.ai'
+  'did:web:agent.ki.etzhayyim.com'
 );
 
 INSERT INTO vertex_langgraph_assistant_node

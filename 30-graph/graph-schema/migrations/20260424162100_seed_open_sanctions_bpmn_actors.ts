@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T16:30:00Z";
-const ownerDid = "did:web:open-sanctions.gftd.ai";
+const ownerDid = "did:web:open-sanctions.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-sanctions";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-sanctions-record-entry-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-sanctions-record-entry-v1",
     bpmnProcessId: "open_sanctions_record_entry",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-sanctions/recordSanctionsEntry.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-sanctions-screen-entity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-sanctions-screen-entity-v1",
     bpmnProcessId: "open_sanctions_screen_entity",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-sanctions/screenEntity.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-sanctions-recordSanctionsEntry-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-sanctions-recordSanctionsEntry-v1",
     nsid: "ai.gftd.apps.openSanctions.recordSanctionsEntry", bpmnProcessId: "open_sanctions_record_entry",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-sanctions-screenEntity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-sanctions-screenEntity-v1",
     nsid: "ai.gftd.apps.openSanctions.screenEntity", bpmnProcessId: "open_sanctions_screen_entity",
     ownerDid, resultTimeoutMs: 30000 },
 ];

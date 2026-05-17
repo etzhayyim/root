@@ -1,4 +1,4 @@
-"""Domain adapters for supplychain.gftd.ai — cleaning robot manufacturing.
+"""Domain adapters for supplychain.etzhayyim.com — cleaning robot manufacturing.
 
 Normalizes robotics and automotive material tables into the shared
 jukyu SoS tables (domain='cleaning_robot') so the Pregel graph can run
@@ -69,8 +69,8 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           'jukyu-node:cleaning_robot:material:' || vertex_id,
           CURRENT_DATE,
           COALESCE(sensitivity_ord, 1),
-          COALESCE(owner_did, 'did:web:supplychain.gftd.ai'),
-          COALESCE(repo, 'did:web:supplychain.gftd.ai'),
+          COALESCE(owner_did, 'did:web:supplychain.etzhayyim.com'),
+          COALESCE(repo, 'did:web:supplychain.etzhayyim.com'),
           'cleaning_robot',
           material_id,
           COALESCE(material_kind, 'material'),
@@ -85,7 +85,7 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           'vertex_automotive_material_requirement',
           vertex_id,
           'ai.gftd.apps.supplychain.supplyNode',
-          'did:web:supplychain.gftd.ai',
+          'did:web:supplychain.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_automotive_material_requirement
         WHERE status IS NULL OR status <> 'deleted'
@@ -105,8 +105,8 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           'jukyu-node:cleaning_robot:package:' || vertex_id,
           CURRENT_DATE,
           COALESCE(sensitivity_ord, 1),
-          COALESCE(owner_did, 'did:web:supplychain.gftd.ai'),
-          COALESCE(repo, 'did:web:supplychain.gftd.ai'),
+          COALESCE(owner_did, 'did:web:supplychain.etzhayyim.com'),
+          COALESCE(repo, 'did:web:supplychain.etzhayyim.com'),
           'cleaning_robot',
           package_id,
           COALESCE(asset_kind, 'assembly'),
@@ -120,7 +120,7 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           'vertex_robotics_product_package',
           vertex_id,
           'ai.gftd.apps.supplychain.supplyNode',
-          'did:web:supplychain.gftd.ai',
+          'did:web:supplychain.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_robotics_product_package
         WHERE readiness_status IS NULL OR readiness_status <> 'cancelled'
@@ -151,8 +151,8 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           'jukyu-node:cleaning_robot:supplier:' || s.supplier_lei,
           CURRENT_DATE,
           1,
-          'did:web:supplychain.gftd.ai',
-          'did:web:supplychain.gftd.ai',
+          'did:web:supplychain.etzhayyim.com',
+          'did:web:supplychain.etzhayyim.com',
           'cleaning_robot',
           s.supplier_lei,
           'supplier',
@@ -166,7 +166,7 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           'edge_automotive_material_supplied_by',
           s.edge_id,
           'ai.gftd.apps.supplychain.supplyNode',
-          'did:web:supplychain.gftd.ai',
+          'did:web:supplychain.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM unique_suppliers s
         """
@@ -185,7 +185,7 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           mat_node.vertex_id,
           CURRENT_DATE,
           1,
-          'did:web:supplychain.gftd.ai',
+          'did:web:supplychain.etzhayyim.com',
           'cleaning_robot',
           'material_supply',
           e.material_id,
@@ -226,7 +226,7 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           pkg_node.vertex_id,
           CURRENT_DATE,
           1,
-          'did:web:supplychain.gftd.ai',
+          'did:web:supplychain.etzhayyim.com',
           'cleaning_robot',
           'material_required',
           e.material_id,
@@ -266,8 +266,8 @@ def normalize_cleaning_robot() -> dict[str, Any]:
             || ':' || COALESCE(m.material_kind, 'unknown'),
           CURRENT_DATE,
           1,
-          'did:web:supplychain.gftd.ai',
-          'did:web:supplychain.gftd.ai',
+          'did:web:supplychain.etzhayyim.com',
+          'did:web:supplychain.etzhayyim.com',
           'cleaning_robot_adapter:'
             || COALESCE(m.country_of_origin, 'ZZ')
             || ':' || COALESCE(m.material_kind, 'unknown'),
@@ -285,7 +285,7 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           0.60,
           'active',
           'ai.gftd.apps.supplychain.balanceObservation',
-          'did:web:supplychain.gftd.ai',
+          'did:web:supplychain.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_automotive_material_requirement m
         LEFT JOIN edge_automotive_material_supplied_by ms

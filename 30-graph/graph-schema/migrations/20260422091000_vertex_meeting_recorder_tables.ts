@@ -2,13 +2,13 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * meeting-recorder (did:web:meeting-recorder.gftd.ai, nanoid m33tr3c0) —
+ * meeting-recorder (did:web:meeting-recorder.etzhayyim.com, nanoid m33tr3c0) —
  * graph landing tables for Teams / Meet / Zoom recorder sessions.
  *
  * PII Tier 3 (ADR-0018): transcript_seg.text_cipher は `signal:v1:` field-level
  * encrypted; AT Repo には hash のみ、plaintext は Preferences 経由のみ。
  * Write path is Worker-direct Hyperdrive (ADR-0036) from
- * `meeting-recorder.gftd.ai` CF Worker.
+ * `meeting-recorder.etzhayyim.com` CF Worker.
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── vertex_meetingrecorder_session ─────────────────────────────────────────

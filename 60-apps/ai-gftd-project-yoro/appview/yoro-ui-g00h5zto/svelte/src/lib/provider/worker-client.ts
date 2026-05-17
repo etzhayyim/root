@@ -27,7 +27,7 @@ export interface WorkerStats {
 
 type StateChangeCallback = (stats: WorkerStats) => void;
 
-const WEB4_API_BASE = 'https://web4.gftd.ai/api/v1';
+const WEB4_API_BASE = 'https://web4.etzhayyim.com/api/v1';
 
 export class WorkerClient {
 	private config: WorkerConfig;

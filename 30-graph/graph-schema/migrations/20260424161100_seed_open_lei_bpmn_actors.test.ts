@@ -40,7 +40,7 @@ describe("Seed open-lei BPMN actors migration", () => {
   });
   it("uses open-lei-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-lei"');
-    expect(migrationSource).toContain("did:web:open-lei.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-lei.etzhayyim.com");
   });
   it("BPMN processes target the Zeebe generic.* primitive set", () => {
     for (const xml of [bpmn1, bpmn2, bpmn3]) {

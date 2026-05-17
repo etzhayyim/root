@@ -210,7 +210,7 @@ describe("dispatchMcp — tools/call", () => {
 			timeoutMs: 30000,
 		});
 		bpmnRouterMocks.dispatch.mockResolvedValue({
-			body: new TextEncoder().encode(JSON.stringify({ caseDid: "did:web:lawfirm.gftd.ai:case:42" })),
+			body: new TextEncoder().encode(JSON.stringify({ caseDid: "did:web:lawfirm.etzhayyim.com:case:42" })),
 			status: 200,
 			headers: { "content-type": "application/json" },
 		});
@@ -232,7 +232,7 @@ describe("dispatchMcp — tools/call", () => {
 		expect(handleXrpcCalls).toHaveLength(0);  // in-process path NOT taken
 		const result = resp!.result as { content: Array<{ text: string }>; isError: boolean };
 		expect(result.isError).toBe(false);
-		expect(JSON.parse(result.content[0].text)).toEqual({ caseDid: "did:web:lawfirm.gftd.ai:case:42" });
+		expect(JSON.parse(result.content[0].text)).toEqual({ caseDid: "did:web:lawfirm.etzhayyim.com:case:42" });
 	});
 
 	it("G4: falls through to handleXRPC when no binding exists", async () => {

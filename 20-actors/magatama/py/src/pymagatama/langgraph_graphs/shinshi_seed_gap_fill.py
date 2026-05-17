@@ -26,7 +26,7 @@ from typing import TypedDict
 
 from pymagatama.db_sync import sync_cursor
 
-_SHINSHI_ACTOR = "did:web:sh1n5h1x.gftd.ai"
+_SHINSHI_ACTOR = "did:web:sh1n5h1x.etzhayyim.com"
 
 
 # ── State ──────────────────────────────────────────────────────────────

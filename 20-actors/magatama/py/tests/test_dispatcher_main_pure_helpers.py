@@ -65,7 +65,7 @@ DM = sys.modules[_DM_MOD_NAME]
 
 def test_langgraph_run_payload_preserves_input_and_promotes_identity() -> None:
     process_vars = {
-        "actorDid": "did:web:yoro.gftd.ai",
+        "actorDid": "did:web:yoro.etzhayyim.com",
         "threadId": "thread-1",
         "config": {"tags": ["resident"]},
         "_nsid": "ai.gftd.apps.yoro.platformPulse",
@@ -75,7 +75,7 @@ def test_langgraph_run_payload_preserves_input_and_promotes_identity() -> None:
 
     assert payload["assistant_id"] == "yoro_platform_pulse"
     assert payload["input"] is process_vars
-    assert payload["actor_did"] == "did:web:yoro.gftd.ai"
+    assert payload["actor_did"] == "did:web:yoro.etzhayyim.com"
     assert payload["thread_id"] == "thread-1"
     assert payload["config"] == {"tags": ["resident"]}
 

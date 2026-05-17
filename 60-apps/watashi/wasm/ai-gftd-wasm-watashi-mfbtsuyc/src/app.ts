@@ -717,12 +717,12 @@ async function cmdInitiatePairing(
   const result: Record<string, unknown> = { ok: true, pairingId, method, expiresInSeconds: 300 };
 
   if (method === "webauthn") {
-    // Return WebAuthn challenge for the remote device to complete via auth.gftd.ai
+    // Return WebAuthn challenge for the remote device to complete via auth.etzhayyim.com
     result.webauthn = {
       challenge,
-      rpId: "watashi.gftd.ai",
+      rpId: "watashi.etzhayyim.com",
       userVerification: "preferred",
-      authUrl: `https://auth.gftd.ai/pair?challenge=${challenge}&app=watashi&pairingId=${pairingId}`,
+      authUrl: `https://auth.etzhayyim.com/pair?challenge=${challenge}&app=watashi&pairingId=${pairingId}`,
     };
   } else if (method === "pin") {
     result.pin = pin;

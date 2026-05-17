@@ -295,7 +295,7 @@ async function reportLeak(env: Env, input: any): Promise<Response> {
          requireEmergencyNotice ? 1 : 0, reportedAt).run();
   if (requireEmergencyNotice && env.PDS) {
     try {
-      await env.PDS.fetch(`https://atproto.gftd.ai/xrpc/com.atproto.repo.createRecord`, {
+      await env.PDS.fetch(`https://atproto.etzhayyim.com/xrpc/com.atproto.repo.createRecord`, {
         method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({
           repo: env.PRIMARY_DID, collection: "app.bsky.feed.post",
@@ -361,7 +361,7 @@ async function recordPressureLog(env: Env, input: any): Promise<Response> {
          overMaop ? 1 : 0).run();
   if (overMaop && env.PDS) {
     try {
-      await env.PDS.fetch(`https://atproto.gftd.ai/xrpc/com.atproto.repo.createRecord`, {
+      await env.PDS.fetch(`https://atproto.etzhayyim.com/xrpc/com.atproto.repo.createRecord`, {
         method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({
           repo: env.PRIMARY_DID, collection: "app.bsky.feed.post",

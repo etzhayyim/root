@@ -26,7 +26,7 @@ from typing import Any
 
 LOG = logging.getLogger("lawfirm.checkout")
 
-_FIRM_DID = "did:web:lawfirm.gftd.ai"
+_FIRM_DID = "did:web:lawfirm.etzhayyim.com"
 
 
 def _now_iso() -> str:
@@ -34,7 +34,7 @@ def _now_iso() -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _execute(sql_str: str, params: dict) -> bool:
@@ -124,8 +124,8 @@ async def task_lawfirm_checkout_create(
     expires_at_unix = int(expires_at.timestamp())
     expires_at_iso = expires_at.strftime("%Y-%m-%d %H:%M:%S")
 
-    success_url = success_url or "https://lawfirm.gftd.ai/checkout/success?session_id={CHECKOUT_SESSION_ID}"
-    cancel_url = cancel_url or "https://lawfirm.gftd.ai/checkout/cancel"
+    success_url = success_url or "https://lawfirm.etzhayyim.com/checkout/success?session_id={CHECKOUT_SESSION_ID}"
+    cancel_url = cancel_url or "https://lawfirm.etzhayyim.com/checkout/cancel"
 
     try:
         meta = json.loads(metadata) if metadata else {}

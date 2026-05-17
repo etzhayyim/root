@@ -4,7 +4,7 @@
 
 import { defineConfig, devices } from '@playwright/test';
 
-const BASE = process.env.KYBER_BASE_URL ?? 'https://kyber.gftd.ai';
+const BASE = process.env.KYBER_BASE_URL ?? 'https://kyber.etzhayyim.com';
 
 export default defineConfig({
   testDir: './tests',

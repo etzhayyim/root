@@ -40,12 +40,12 @@ def test_ys_utc_now_iso_contains_t():
 # ─── yoro_social — _display_actor ────────────────────────────────────────────
 
 def test_ys_display_actor_strips_did_web():
-    result = YS._display_actor("did:web:shinshi.gftd.ai")
-    assert result == "shinshi.gftd.ai"
+    result = YS._display_actor("did:web:shinshi.etzhayyim.com")
+    assert result == "shinshi.etzhayyim.com"
 
 
 def test_ys_display_actor_uses_handle_if_present():
-    result = YS._display_actor("did:web:foo.gftd.ai", handle="@alice")
+    result = YS._display_actor("did:web:foo.etzhayyim.com", handle="@alice")
     assert result == "@alice"
 
 
@@ -60,7 +60,7 @@ def test_ys_display_actor_did_plc_returns_as_is():
 
 
 def test_ys_display_actor_returns_string():
-    assert isinstance(YS._display_actor("did:web:test.gftd.ai"), str)
+    assert isinstance(YS._display_actor("did:web:test.etzhayyim.com"), str)
 
 
 # ─── yoro_social — build_social_post_record ──────────────────────────────────
@@ -87,8 +87,8 @@ def test_ys_build_social_post_record_text_in_value_json():
 
 
 def test_ys_build_social_post_record_custom_repo():
-    result = YS.build_social_post_record(repo="did:web:custom.gftd.ai", text="x")
-    assert "did:web:custom.gftd.ai" in result["uri"]
+    result = YS.build_social_post_record(repo="did:web:custom.etzhayyim.com", text="x")
+    assert "did:web:custom.etzhayyim.com" in result["uri"]
 
 
 def test_ys_build_social_post_record_has_created_at():
@@ -105,7 +105,7 @@ def test_ys_build_social_post_record_explicit_rkey():
 
 def test_ys_build_repo_record_returns_dict():
     result = YS.build_repo_record(
-        repo="did:web:yoro.gftd.ai",
+        repo="did:web:yoro.etzhayyim.com",
         collection="app.bsky.feed.post",
         record={"$type": "app.bsky.feed.post", "text": "hello"},
     )
@@ -114,17 +114,17 @@ def test_ys_build_repo_record_returns_dict():
 
 def test_ys_build_repo_record_uri_format():
     result = YS.build_repo_record(
-        repo="did:web:yoro.gftd.ai",
+        repo="did:web:yoro.etzhayyim.com",
         collection="app.bsky.feed.post",
         record={"text": "hi"},
     )
-    assert result["uri"].startswith("at://did:web:yoro.gftd.ai/app.bsky.feed.post/")
+    assert result["uri"].startswith("at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/")
 
 
 def test_ys_build_repo_record_value_json_serialized():
     record = {"$type": "app.bsky.feed.post", "text": "test content"}
     result = YS.build_repo_record(
-        repo="did:web:yoro.gftd.ai",
+        repo="did:web:yoro.etzhayyim.com",
         collection="app.bsky.feed.post",
         record=record,
     )
@@ -133,7 +133,7 @@ def test_ys_build_repo_record_value_json_serialized():
 
 def test_ys_build_repo_record_explicit_rkey():
     result = YS.build_repo_record(
-        repo="did:web:yoro.gftd.ai",
+        repo="did:web:yoro.etzhayyim.com",
         collection="app.bsky.feed.post",
         record={"text": "x"},
         rkey="explicit-rkey",
@@ -245,7 +245,7 @@ def test_oc_site_did_starts_with_did():
 
 def test_oc_site_did_contains_onion_gftd_ai():
     result = OC._site_did("abc123.onion")
-    assert "onion.gftd.ai" in result
+    assert "onion.etzhayyim.com" in result
 
 
 # ─── onion_crawl — _clean_text ───────────────────────────────────────────────

@@ -16,7 +16,7 @@
 // in-process). Same TTL as mcp-registry-loader for consistency.
 //
 // Reuses the dispatcher URL convention from the PDS path:
-//   env.BPMN_URL || "https://dispatcher.gftd.ai"
+//   env.BPMN_URL || "https://dispatcher.etzhayyim.com"
 //
 // On 5xx from dispatcher: returns null so the caller falls through to
 // in-process handleXRPC. 4xx and timeouts surface verbatim.
@@ -40,7 +40,7 @@ export interface BpmnRoute {
 
 const ROUTING_CACHE_TTL_MS = 60_000;
 const DEFAULT_TIMEOUT_MS = 60_000;
-const DEFAULT_BPMN_URL = "https://dispatcher.gftd.ai";
+const DEFAULT_BPMN_URL = "https://dispatcher.etzhayyim.com";
 
 interface CachedRoute {
 	route: BpmnRoute | null;

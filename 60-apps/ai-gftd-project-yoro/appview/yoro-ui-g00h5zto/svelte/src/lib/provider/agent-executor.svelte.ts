@@ -64,7 +64,7 @@ export const BROWSER_TOOLS: AgentTool[] = [
 		parameters: {
 			method: { type: 'string', description: 'MCP method (例: tools/list, tools/call)', required: true },
 			params: { type: 'string', description: 'JSON-RPC params object', required: false },
-			endpoint: { type: 'string', description: 'MCP endpoint (default: atproto.gftd.ai)', required: false },
+			endpoint: { type: 'string', description: 'MCP endpoint (default: atproto.etzhayyim.com)', required: false },
 		},
 	},
 	{
@@ -73,7 +73,7 @@ export const BROWSER_TOOLS: AgentTool[] = [
 		parameters: {
 			operation: { type: 'string', description: 'forms operation name', required: true },
 			args: { type: 'string', description: 'tools/call に渡す arguments object(JSON)', required: false },
-			endpoint: { type: 'string', description: 'MCP endpoint (default: atproto.gftd.ai)', required: false },
+			endpoint: { type: 'string', description: 'MCP endpoint (default: atproto.etzhayyim.com)', required: false },
 		},
 	},
 	{
@@ -82,7 +82,7 @@ export const BROWSER_TOOLS: AgentTool[] = [
 		parameters: {
 			operation: { type: 'string', description: 'bpmn operation name', required: true },
 			args: { type: 'string', description: 'tools/call に渡す arguments object(JSON)', required: false },
-			endpoint: { type: 'string', description: 'MCP endpoint (default: atproto.gftd.ai)', required: false },
+			endpoint: { type: 'string', description: 'MCP endpoint (default: atproto.etzhayyim.com)', required: false },
 		},
 	},
 	{
@@ -91,7 +91,7 @@ export const BROWSER_TOOLS: AgentTool[] = [
 		parameters: {
 			operation: { type: 'string', description: 'dmn operation name', required: true },
 			args: { type: 'string', description: 'tools/call に渡す arguments object(JSON)', required: false },
-			endpoint: { type: 'string', description: 'MCP endpoint (default: atproto.gftd.ai)', required: false },
+			endpoint: { type: 'string', description: 'MCP endpoint (default: atproto.etzhayyim.com)', required: false },
 		},
 	},
 	{

@@ -160,7 +160,7 @@ def _audit_plan(state: PlanState) -> PlanState:
     auditable alongside the BPMN flow. Mirrors `generic.audit.emit`."""
     ts_ms = int(time.time() * 1000)
     rkey = f"plan-{ts_ms}"
-    vertex_id = f"did:web:langgraph.gftd.ai:ai.gftd.agent.plan:{rkey}:create"
+    vertex_id = f"did:web:langgraph.etzhayyim.com:ai.gftd.agent.plan:{rkey}:create"
     created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     payload = {
         "branch": state.get("branch"),
@@ -181,7 +181,7 @@ def _audit_plan(state: PlanState) -> PlanState:
     try:
         with sync_cursor() as cur:
             cur.execute(sql_text, (
-                vertex_id, ts_ms, "did:web:langgraph.gftd.ai",
+                vertex_id, ts_ms, "did:web:langgraph.etzhayyim.com",
                 "ai.gftd.agent.plan", rkey, "create",
                 json.dumps(payload, ensure_ascii=False),
                 ts_ms, created_at,

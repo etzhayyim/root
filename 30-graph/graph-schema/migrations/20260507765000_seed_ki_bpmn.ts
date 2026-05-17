@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-05-07T19:31:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 interface BpmnEntry {
   processId: string;
@@ -23,8 +23,8 @@ const ENTRIES: BpmnEntry[] = [
   {
     processId: "ki_vascular_synthesis_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/ki/vascular-synthesis-cycle.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/ki-vascular-synthesis-cycle-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/ki-vascular-synthesis-cycle-v1",
     nsid: "ai.gftd.apps.ki.absorb",
   },
 ];

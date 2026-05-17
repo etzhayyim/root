@@ -8,8 +8,8 @@ import { sql } from "kysely";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:copyright.gftd.ai";
-const actorHost = "copyright.gftd.ai";
+const ownerDid = "did:web:copyright.etzhayyim.com";
+const actorHost = "copyright.etzhayyim.com";
 const actorId = "sys.mcp.seed.copyright";
 const createdAt = "2026-04-30T15:00:00+09:00";
 
@@ -30,7 +30,7 @@ function lexiconPath(nsid: string): string {
 }
 
 function mcpVertexId(nsid: string): string {
-  return `at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
+  return `at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
 }
 
 function stableStringify(value: unknown): string {

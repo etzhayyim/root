@@ -220,8 +220,8 @@ async function syncBid(db: Kysely<unknown>, record: ProcurementBidRecord, docume
       bidders_json, tender_url, external_refs_json, source_id,
       document_id, created_at
     ) VALUES (
-      ${record.vertexId}, ${createdDate}, 1, 'did:web:gov-jpn.gftd.ai:digital',
-      ${record.tenderNo}, 'did:web:gov-jpn.gftd.ai:digital', ${record.method}, ${record.title},
+      ${record.vertexId}, ${createdDate}, 1, 'did:web:gov-jpn.etzhayyim.com:digital',
+      ${record.tenderNo}, 'did:web:gov-jpn.etzhayyim.com:digital', ${record.method}, ${record.title},
       NULL, 'JPY', ${record.openedAt}, NULL,
       NULL, NULL, NULL,
       NULL, ${record.tenderUrl}, ${externalRefs}, ${record.source.source_id},
@@ -240,7 +240,7 @@ async function syncBid(db: Kysely<unknown>, record: ProcurementBidRecord, docume
         edge_id, created_date, sensitivity_ord, owner_did,
         src_vid, dst_vid, evidence_kind, source_url, confidence, created_at
       ) VALUES (
-        ${edgeId}, ${createdDate}, 1, 'did:web:gov-jpn.gftd.ai:digital',
+        ${edgeId}, ${createdDate}, 1, 'did:web:gov-jpn.etzhayyim.com:digital',
         ${documentId}, ${record.vertexId}, 'DOCUMENT_SUPPORTS_RECORD',
         ${record.source.source_url}, 0.95, ${now}
       )

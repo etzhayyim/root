@@ -1,7 +1,7 @@
-// Phase B of the live.gftd.ai L4 actor migration.
+// Phase B of the live.etzhayyim.com L4 actor migration.
 //
 // Registers three single-task BPMN flows + their lexicon bindings so
-// `dispatcher.gftd.ai/xrpc/ai.gftd.apps.live.{postChat,scheduleSet,
+// `dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.live.{postChat,scheduleSet,
 // sendCheer}` calls can land directly without going through the
 // `magatama-l1ve9pq4` Worker. Each binding maps the NSID to the
 // matching BPMN process_id; pyzeebe / Zeebe gateway picks up the
@@ -21,7 +21,7 @@
 //   ai.gftd.apps.live.scheduleSet     — registered here ✓
 //   ai.gftd.apps.live.sendCheer       — registered here ✓
 //
-// After this migration applies + dispatcher.gftd.ai picks up the
+// After this migration applies + dispatcher.etzhayyim.com picks up the
 // `vertex_bpmn_lexicon_binding` rows (typically a few seconds), the
 // dispatcher returns 200 for the three NSIDs above without the live
 // Worker being in the path.
@@ -43,7 +43,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-29T01:00:00Z";
-const ownerDid = "did:web:live.gftd.ai";
+const ownerDid = "did:web:live.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.live";
 // bpmn-coverage gate marker: project: "apps/live"
 const project = "apps/live";
@@ -74,9 +74,9 @@ const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), 
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const projectKey = project.replace(/\//g, "-");
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${projectKey}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${projectKey}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${projectKey}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${projectKey}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

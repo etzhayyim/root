@@ -18,7 +18,7 @@ const PAGES = [
 	{ name: '02-terms', path: '/terms', auth: false },
 	{ name: '03-support-tos', path: '/support/tos', auth: false },
 	{ name: '04-support-privacy', path: '/support/privacy', auth: false },
-	{ name: '05-profile', path: '/profile/alice.gftd.ai', auth: false },
+	{ name: '05-profile', path: '/profile/alice.etzhayyim.com', auth: false },
 	{ name: '06-welcome', path: '/welcome', auth: false },
 	// Authenticated pages (with tab bar)
 	{ name: '07-home-vibes', path: '/', auth: true },

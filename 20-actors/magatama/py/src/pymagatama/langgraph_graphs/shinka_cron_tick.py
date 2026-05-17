@@ -8,7 +8,7 @@ Graph:
   START → shinka_tick → END
 
 State:
-  actor           str   actor DID (input, default: did:web:yoro.gftd.ai)
+  actor           str   actor DID (input, default: did:web:yoro.etzhayyim.com)
   mood            str   tick mood output
   actions         list  actions taken during tick
   heartbeatWritten bool  whether heartbeat was written
@@ -24,7 +24,7 @@ import asyncio
 from typing import Any
 from typing import TypedDict
 
-_DEFAULT_ACTOR = "did:web:yoro.gftd.ai"
+_DEFAULT_ACTOR = "did:web:yoro.etzhayyim.com"
 
 
 class ShinkaCronTickState(TypedDict, total=False):

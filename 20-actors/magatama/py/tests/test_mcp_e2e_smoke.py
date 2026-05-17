@@ -82,7 +82,7 @@ async def test_e2e_const_echo_via_resolver_and_dispatcher():
     handlers = build_default_handlers()
     assert "ai.gftd.tools.const.echo" in handlers, "const.echo must be registered"
 
-    pool = _mock_pool_for_registry("ki.gftd.ai")
+    pool = _mock_pool_for_registry("ki.etzhayyim.com")
     cfg = {
         "input_keys": [],
         "result_key": "out",
@@ -127,7 +127,7 @@ async def test_e2e_actor_tool_input_keys_drive_arguments():
 
     handlers = {"ai.gftd.apps.saikin.formColony": _fake_form_colony}
 
-    pool = _mock_pool_for_registry("saikin.gftd.ai")
+    pool = _mock_pool_for_registry("saikin.etzhayyim.com")
     cfg = {
         "input_keys": ["signalIds"],
         "result_key": "formOut",
@@ -156,7 +156,7 @@ async def test_e2e_unknown_nsid_surfaces_dispatcher_404():
 
     resolvers._MCP_REGISTRY_CACHE.clear()
 
-    pool = _mock_pool_for_registry("nonexistent.gftd.ai")
+    pool = _mock_pool_for_registry("nonexistent.etzhayyim.com")
     cfg = {
         "input_keys": [],
         "result_key": "out",
@@ -237,7 +237,7 @@ async def test_e2e_full_data_chain_fetch_extract_transform_insert():
         "ai.gftd.tools.transform.map":  task_transform_map,
         "ai.gftd.tools.sql.exec":       task_sql_exec,
     }
-    pool = _mock_pool_for_registry("copyright.gftd.ai")
+    pool = _mock_pool_for_registry("copyright.etzhayyim.com")
     pool_factory = lambda: _async_return(pool)
 
     # Unified httpx mock: .post is the MCP envelope path (resolver →
@@ -360,7 +360,7 @@ async def test_e2e_input_paths_chain_through_dispatcher():
     resolvers._MCP_REGISTRY_CACHE.clear()
     handlers = {"ai.gftd.tools.json.extract": task_json_extract}
 
-    pool = _mock_pool_for_registry("copyright.gftd.ai")
+    pool = _mock_pool_for_registry("copyright.etzhayyim.com")
     cfg = {
         "input_keys": [],
         "input_paths": {"json": "fetchOut.body"},
@@ -392,7 +392,7 @@ async def test_e2e_registry_resolution_is_cached():
     from pymagatama import langgraph_node_resolvers as resolvers
 
     resolvers._MCP_REGISTRY_CACHE.clear()
-    pool = _mock_pool_for_registry("ki.gftd.ai")
+    pool = _mock_pool_for_registry("ki.etzhayyim.com")
 
     async def _echo(*, constant=None, **_):
         return constant or {}

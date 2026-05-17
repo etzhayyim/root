@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T14:30:00Z";
-const ownerDid = "did:web:open-gas.gftd.ai:network";
+const ownerDid = "did:web:open-gas.etzhayyim.com:network";
 const actorTag = "sys.bpmn.seed.open-gas";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-gas-define-pipe-segment-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gas-define-pipe-segment-v1",
     bpmnProcessId: "open_gas_define_pipe_segment",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-gas/definePipeSegment.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-gas-report-leak-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gas-report-leak-v1",
     bpmnProcessId: "open_gas_report_leak",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-gas/reportLeak.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-gas-definePipeSegment-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gas-definePipeSegment-v1",
     nsid: "ai.gftd.apps.openGas.definePipeSegment", bpmnProcessId: "open_gas_define_pipe_segment",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-gas-reportLeak-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gas-reportLeak-v1",
     nsid: "ai.gftd.apps.openGas.reportLeak", bpmnProcessId: "open_gas_report_leak",
     ownerDid, resultTimeoutMs: 30000 },
 ];

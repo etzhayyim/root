@@ -13,7 +13,7 @@ from pymagatama.db_sync import sync_cursor
 
 DOCS_TOKEN_TABLE = "vertex_gdocs_oauth_token"
 DOCS_DOCUMENT_TABLE = "vertex_gdocs_document"
-ACTOR_DID = "did:web:docs.gftd.ai"
+ACTOR_DID = "did:web:docs.etzhayyim.com"
 GDOCS_MIME = "application/vnd.google-apps.document"
 
 

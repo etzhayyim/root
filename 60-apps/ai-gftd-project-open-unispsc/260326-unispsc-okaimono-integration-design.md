@@ -2,7 +2,7 @@
 
 ## Overview
 
-UNSPSC ~70,000 commodity を path-based DID として登録し、okaimono.gftd.ai で Amazon ライクに購入可能にする。
+UNSPSC ~70,000 commodity を path-based DID として登録し、okaimono.etzhayyim.com で Amazon ライクに購入可能にする。
 
 ## Architecture
 
@@ -10,7 +10,7 @@ UNSPSC ~70,000 commodity を path-based DID として登録し、okaimono.gftd.a
 UNSPSC (51 segment APPs)
   ├── register-commodities-bulk → ~70,000 unispsc_commodity records
   ├── register-commodity-profiles → ~70,000 path-based DIDs
-  │     did:web:unispsc.gftd.ai:seg{NN}:commodity:c{8-digit}
+  │     did:web:unispsc.etzhayyim.com:seg{NN}:commodity:c{8-digit}
   └── Social post per commodity DID
 
         ↓ Follow (ComAtprotoSyncSubscribeRepos)
@@ -28,9 +28,9 @@ okaimono (ok4imn1o)
 
 ## DID Schema (canonical, from 260326-unispsc-did-design.md)
 
-- App: `did:web:unispsc.gftd.ai`
-- Segment: `did:web:unispsc.gftd.ai:seg{NN}`
-- Commodity: `did:web:unispsc.gftd.ai:seg{NN}:commodity:c{8-digit}`
+- App: `did:web:unispsc.etzhayyim.com`
+- Segment: `did:web:unispsc.etzhayyim.com:seg{NN}`
+- Commodity: `did:web:unispsc.etzhayyim.com:seg{NN}:commodity:c{8-digit}`
 
 ## Data Flow
 
@@ -59,7 +59,7 @@ ComAtprotoSyncSubscribeRepos
         unispsc_segment: segment,
         unispsc_family: family,
         unispsc_class: class_,
-        commodity_did: "did:web:unispsc.gftd.ai:seg{NN}:commodity:c{code}",
+        commodity_did: "did:web:unispsc.etzhayyim.com:seg{NN}:commodity:c{code}",
         active: true,
       })
 ```

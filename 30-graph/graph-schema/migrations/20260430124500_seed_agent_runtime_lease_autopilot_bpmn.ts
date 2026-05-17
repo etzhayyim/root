@@ -13,11 +13,11 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-04-30T12:45:00Z";
-const OWNER_DID = "did:web:agent.gftd.ai";
+const OWNER_DID = "did:web:agent.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.agent.runtime.autopilot";
 
 const VERTEX_ID =
-  "at://did:web:agent.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1";
+  "at://did:web:agent.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1";
 const BPMN_PROCESS_ID = "agent_runtime_lease_autopilot";
 const SOURCE_PATH =
   "00-contracts/bpmn/ai/gftd/agent/runtimeLeaseAutopilot.bpmn";

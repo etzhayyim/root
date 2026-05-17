@@ -6,7 +6,7 @@ Renders a deterministic 256×256 RGB PNG identicon from `slug` + biome.
 Used by `publishGame.bpmn` Task_RenderAvatar between sub-DID provision
 and title persistence so the resulting `vertex_gameka_title` row
 carries an `avatar_data_uri` (data:image/png;base64,…). The shell
-page at `game-play.gftd.ai/play/{slug}` then surfaces it as the
+page at `game-play.etzhayyim.com/play/{slug}` then surfaces it as the
 `<link rel="icon">` and OG image.
 
 Why a data URI rather than a PDS blob ref:

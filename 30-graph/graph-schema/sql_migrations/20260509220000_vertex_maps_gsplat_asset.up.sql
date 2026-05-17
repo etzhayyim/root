@@ -1,6 +1,6 @@
 -- ADR 2605092800 — KAMI Gsplat preview asset registry.
 --
--- Persists 3D Gaussian Splat assets fetched / generated for the maps.gftd.ai
+-- Persists 3D Gaussian Splat assets fetched / generated for the maps.etzhayyim.com
 -- street-level pipeline. Asset binary lives in B2 (`b2_key`); this row holds
 -- only metadata. The bake pipeline (k8s pod) extracts a static mesh and
 -- back-links via `edge_maps_gsplat_baked_to`.

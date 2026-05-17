@@ -38,7 +38,7 @@ from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("kinoko_worker")
 
-KINOKO_DID = "did:web:kinoko.gftd.ai"
+KINOKO_DID = "did:web:kinoko.etzhayyim.com"
 
 FLOW_THRESHOLD = float(os.environ.get("KINOKO_FLOW_THRESHOLD", "100"))
 ETA_THRESHOLD = float(os.environ.get("KINOKO_ETA_THRESHOLD", "0.5"))

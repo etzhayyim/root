@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { Given, When, Then } from './fixtures';
 
-const PDS_BASE = 'https://atproto.gftd.ai';
+const PDS_BASE = 'https://atproto.etzhayyim.com';
 const PDS_XRPC = `${PDS_BASE}/xrpc`;
 
 async function xrpcCall(nsid: string, body: Record<string, unknown> = {}): Promise<{ res: Response; data: Record<string, unknown> }> {
@@ -17,7 +17,7 @@ async function xrpcCall(nsid: string, body: Record<string, unknown> = {}): Promi
 
 // ─── Timeline / Feed ─────────────────────────────────────────────
 
-When('I call GetTimeline on atproto.gftd.ai with limit {int}', async ({ apiState }, limit: number) => {
+When('I call GetTimeline on atproto.etzhayyim.com with limit {int}', async ({ apiState }, limit: number) => {
 	const { res, data } = await xrpcCall('app.bsky.feed.getTimeline', { limit });
 	apiState.lastResponse = res;
 	apiState.lastBody = data;
@@ -31,19 +31,19 @@ Then('the response should contain a feed array', async ({ apiState }) => {
 	}
 });
 
-When('I call listPublicConvos on atproto.gftd.ai with limit {int}', async ({ apiState }, limit: number) => {
+When('I call listPublicConvos on atproto.etzhayyim.com with limit {int}', async ({ apiState }, limit: number) => {
 	const { res, data } = await xrpcCall('ai.gftd.convo.listPublicConvos', { limit });
 	apiState.lastResponse = res;
 	apiState.lastBody = data;
 });
 
-When('I call SearchPosts on atproto.gftd.ai with query {string}', async ({ apiState }, q: string) => {
+When('I call SearchPosts on atproto.etzhayyim.com with query {string}', async ({ apiState }, q: string) => {
 	const { res, data } = await xrpcCall('ai.gftd.convo.search', { q, limit: 10 });
 	apiState.lastResponse = res;
 	apiState.lastBody = data;
 });
 
-When('I call GetProfile on atproto.gftd.ai', async ({ apiState }) => {
+When('I call GetProfile on atproto.etzhayyim.com', async ({ apiState }) => {
 	const { res, data } = await xrpcCall('app.bsky.actor.getProfile', {});
 	apiState.lastResponse = res;
 	apiState.lastBody = data;
@@ -56,9 +56,9 @@ Then('the response should contain a did field', async ({ apiState }) => {
 	}
 });
 
-// ─── Channel + Message via atproto.gftd.ai ──────────────────────────
+// ─── Channel + Message via atproto.etzhayyim.com ──────────────────────────
 
-Given('I create a channel named {string} via atproto.gftd.ai', async ({ apiState }, name: string) => {
+Given('I create a channel named {string} via atproto.etzhayyim.com', async ({ apiState }, name: string) => {
 	const { res, data } = await xrpcCall('ai.gftd.convo.createConvo', { name });
 	apiState.lastResponse = res;
 	apiState.lastBody = data;
@@ -66,7 +66,7 @@ Given('I create a channel named {string} via atproto.gftd.ai', async ({ apiState
 	else if (data.rkey) apiState.createdConvoId = data.rkey as string;
 });
 
-When('I send a message {string} to the created channel via atproto.gftd.ai', async ({ apiState }, body: string) => {
+When('I send a message {string} to the created channel via atproto.etzhayyim.com', async ({ apiState }, body: string) => {
 	const { res, data } = await xrpcCall('ai.gftd.convo.send', {
 		convoId: apiState.createdConvoId,
 		body,
@@ -80,7 +80,7 @@ When('I send a message {string} to the created channel via atproto.gftd.ai', asy
 	if (data.id) apiState.lastMessageId = data.id as string;
 });
 
-When('I send a reply {string} to the root message via atproto.gftd.ai', async ({ apiState }, body: string) => {
+When('I send a reply {string} to the root message via atproto.etzhayyim.com', async ({ apiState }, body: string) => {
 	const { res, data } = await xrpcCall('ai.gftd.convo.send', {
 		convoId: apiState.createdConvoId,
 		body,
@@ -92,7 +92,7 @@ When('I send a reply {string} to the root message via atproto.gftd.ai', async ({
 	if (data.rkey) apiState.lastMessageRkey = data.rkey as string;
 });
 
-When('I list envelopes in the created channel via atproto.gftd.ai', async ({ apiState }) => {
+When('I list envelopes in the created channel via atproto.etzhayyim.com', async ({ apiState }) => {
 	const { res, data } = await xrpcCall('ai.gftd.convo.listEnvelopes', {
 		convoId: apiState.createdConvoId,
 		limit: 50,
@@ -101,7 +101,7 @@ When('I list envelopes in the created channel via atproto.gftd.ai', async ({ api
 	apiState.lastBody = data;
 });
 
-When('I get the thread for the root message via atproto.gftd.ai', async ({ apiState }) => {
+When('I get the thread for the root message via atproto.etzhayyim.com', async ({ apiState }) => {
 	const { res, data } = await xrpcCall('ai.gftd.convo.getThread', {
 		convoId: apiState.createdConvoId,
 		rootRkey: apiState.rootMessageRkey,
@@ -110,7 +110,7 @@ When('I get the thread for the root message via atproto.gftd.ai', async ({ apiSt
 	apiState.lastBody = data;
 });
 
-When('I react with {string} to the last message via atproto.gftd.ai', async ({ apiState }, emoji: string) => {
+When('I react with {string} to the last message via atproto.etzhayyim.com', async ({ apiState }, emoji: string) => {
 	const { res, data } = await xrpcCall('ai.gftd.convo.react', {
 		convoId: apiState.createdConvoId,
 		rkey: apiState.lastMessageRkey,
@@ -120,7 +120,7 @@ When('I react with {string} to the last message via atproto.gftd.ai', async ({ a
 	apiState.lastBody = data;
 });
 
-When('I call GetNotificationCount on atproto.gftd.ai', async ({ apiState }) => {
+When('I call GetNotificationCount on atproto.etzhayyim.com', async ({ apiState }) => {
 	const { res, data } = await xrpcCall('app.bsky.notification.getUnreadCount', {});
 	apiState.lastResponse = res;
 	apiState.lastBody = data;
@@ -139,7 +139,7 @@ async function getTimelineSubject(): Promise<{ uri: string; cid: string } | null
 	return null;
 }
 
-When('I like a timeline post via atproto.gftd.ai', async ({ apiState }) => {
+When('I like a timeline post via atproto.etzhayyim.com', async ({ apiState }) => {
 	const subject = await getTimelineSubject();
 	if (!subject) {
 		apiState.lastResponse = new Response(null, { status: 401 });
@@ -151,7 +151,7 @@ When('I like a timeline post via atproto.gftd.ai', async ({ apiState }) => {
 	apiState.lastBody = data;
 });
 
-When('I repost a timeline post via atproto.gftd.ai', async ({ apiState }) => {
+When('I repost a timeline post via atproto.etzhayyim.com', async ({ apiState }) => {
 	const subject = await getTimelineSubject();
 	if (!subject) {
 		apiState.lastResponse = new Response(null, { status: 401 });
@@ -163,7 +163,7 @@ When('I repost a timeline post via atproto.gftd.ai', async ({ apiState }) => {
 	apiState.lastBody = data;
 });
 
-When('I reply to a timeline post via atproto.gftd.ai', async ({ apiState }) => {
+When('I reply to a timeline post via atproto.etzhayyim.com', async ({ apiState }) => {
 	const subject = await getTimelineSubject();
 	if (!subject) {
 		apiState.lastResponse = new Response(null, { status: 401 });
@@ -181,7 +181,7 @@ When('I reply to a timeline post via atproto.gftd.ai', async ({ apiState }) => {
 	apiState.lastBody = data;
 });
 
-When('I bookmark a timeline post via atproto.gftd.ai', async ({ apiState }) => {
+When('I bookmark a timeline post via atproto.etzhayyim.com', async ({ apiState }) => {
 	const subject = await getTimelineSubject();
 	if (!subject) {
 		apiState.lastResponse = new Response(null, { status: 401 });

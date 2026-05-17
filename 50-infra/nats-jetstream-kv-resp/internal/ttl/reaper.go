@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/gftdcojp/nats-jetstream-kv-resp/internal/store"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp/internal/store"
 	"go.uber.org/zap"
 )
 

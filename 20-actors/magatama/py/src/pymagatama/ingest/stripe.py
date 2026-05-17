@@ -13,7 +13,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 from pymagatama.ingest import credits
 
-ACTOR = "did:web:stripe.gftd.ai"
+ACTOR = "did:web:stripe.etzhayyim.com"
 
 
 def now_iso() -> str:

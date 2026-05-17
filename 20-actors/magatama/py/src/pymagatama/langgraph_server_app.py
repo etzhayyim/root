@@ -385,7 +385,7 @@ app = FastAPI(
 async def create_run(body: RunRequest, background_tasks: BackgroundTasks):
     run_id = str(uuid.uuid4())
     thread_id = body.thread_id or str(uuid.uuid4())
-    actor_did = body.actor_did or f"did:web:{body.assistant_id}.gftd.ai"
+    actor_did = body.actor_did or f"did:web:{body.assistant_id}.etzhayyim.com"
 
     if body.assistant_id not in _GRAPH_REGISTRY:
         raise HTTPException(
@@ -438,7 +438,7 @@ async def create_run_stream(body: RunRequest, request: Request):
     """
     run_id = str(uuid.uuid4())
     thread_id = body.thread_id or str(uuid.uuid4())
-    actor_did = body.actor_did or f"did:web:{body.assistant_id}.gftd.ai"
+    actor_did = body.actor_did or f"did:web:{body.assistant_id}.etzhayyim.com"
 
     graph = _GRAPH_REGISTRY.get(body.assistant_id)
     if graph is None:

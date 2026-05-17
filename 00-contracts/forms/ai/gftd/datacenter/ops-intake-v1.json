@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/schemas/form/v1.json",
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
   "key": "datacenter-ops-intake-v1",
   "version": 1,
   "title": "データセンター運営要求 起票",

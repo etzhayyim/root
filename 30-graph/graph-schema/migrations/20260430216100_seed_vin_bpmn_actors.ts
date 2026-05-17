@@ -9,7 +9,7 @@ type Seed = { op: string; fn: string; processId: string; writeTableAllowlist: st
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:vin.gftd.ai";
+const ownerDid = "did:web:vin.etzhayyim.com";
 const createdAt = "2026-04-30T22:01:00+09:00";
 const actorId = "sys.bpmn.seed.vin";
 
@@ -45,8 +45,8 @@ const seeds: Seed[] = [
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/vin/${s.op}.bpmn`;
 const slug = (s: Seed) => s.op.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
-const processVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vin-${slug(s)}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vin-${slug(s)}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-${slug(s)}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-${slug(s)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

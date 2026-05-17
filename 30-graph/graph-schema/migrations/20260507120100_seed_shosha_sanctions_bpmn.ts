@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shosha.gftd.ai Phase 2b — register `shosha_refresh_sanctions_list` BPMN.
+ * shosha.etzhayyim.com Phase 2b — register `shosha_refresh_sanctions_list` BPMN.
  *
  * Timer-start only (no XRPC binding), so just one row in
  * vertex_bpmn_process_def. F5 watcher in bpmn-dispatcher will deploy
@@ -19,12 +19,12 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-07T12:00:00Z";
-const ownerDid = "did:web:shosha.gftd.ai";
+const ownerDid = "did:web:shosha.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.shosha.phase2b";
 
 const seeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1",
     bpmnProcessId: "shosha_refresh_sanctions_list",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/refreshSanctionsList.bpmn",
     ownerDid,

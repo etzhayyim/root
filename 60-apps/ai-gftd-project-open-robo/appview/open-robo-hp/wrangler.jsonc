@@ -60,8 +60,8 @@
     { "type": "CompiledWasm", "globs": ["**/*.wasm"] }
   ],
   "routes": [
-    { "pattern": "op3nr0b0.gftd.ai/*", "zone_name": "gftd.ai" },
-    { "pattern": "giemon.gftd.ai/*", "zone_name": "gftd.ai" },
-    { "pattern": "armcrawler.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "op3nr0b0.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "giemon.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "armcrawler.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

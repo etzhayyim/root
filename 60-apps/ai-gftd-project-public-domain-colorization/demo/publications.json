@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-04-29T06:25:00Z",
-  "gatewayBaseUrl": "https://ipfs.gftd.ai/ipfs",
-  "pdsBaseUrl": "https://atproto.gftd.ai",
+  "gatewayBaseUrl": "https://ipfs.etzhayyim.com/ipfs",
+  "pdsBaseUrl": "https://atproto.etzhayyim.com",
   "publications": [
     {
       "slug": "gertie-the-dinosaur-1914",
@@ -20,17 +20,17 @@
       "source": {
         "archiveUrl": "https://archive.org/details/Gertie",
         "sourceIpfsCid": "bafybeifeqsv57dnlfvhjhwm6aah6emxljva2tkbshd7x6tfubw7ow4opue",
-        "sourceIpfsUrl": "https://ipfs.gftd.ai/ipfs/bafybeifeqsv57dnlfvhjhwm6aah6emxljva2tkbshd7x6tfubw7ow4opue",
+        "sourceIpfsUrl": "https://ipfs.etzhayyim.com/ipfs/bafybeifeqsv57dnlfvhjhwm6aah6emxljva2tkbshd7x6tfubw7ow4opue",
         "sourceFilename": "gertie-the-dinosaur-1914.mp4",
         "sourceContentType": "video/mp4"
       },
       "publication": {
         "cid": "3mkmf36owkk2m",
-        "uri": "at://did:web:pd-color.gftd.ai/ai.gftd.apps.publicDomainColorization.publication/3mkmf36owkk2m",
-        "repo": "did:web:pd-color.gftd.ai",
+        "uri": "at://did:web:pd-color.etzhayyim.com/ai.gftd.apps.publicDomainColorization.publication/3mkmf36owkk2m",
+        "repo": "did:web:pd-color.etzhayyim.com",
         "collection": "ai.gftd.apps.publicDomainColorization.publication",
         "rkey": "3mkmf36owkk2m",
-        "recordUrl": "https://atproto.gftd.ai/xrpc/com.atproto.repo.getRecord?repo=did%3Aweb%3Apd-color.gftd.ai&collection=ai.gftd.apps.publicDomainColorization.publication&rkey=3mkmf36owkk2m"
+        "recordUrl": "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.getRecord?repo=did%3Aweb%3Apd-color.etzhayyim.com&collection=ai.gftd.apps.publicDomainColorization.publication&rkey=3mkmf36owkk2m"
       },
       "assets": {
         "masterVideoCid": "bafkreibf2d5q7t4thvtro2qjomq4ejytqlv2rh3z5vg5otrpwngma4fice",
@@ -43,7 +43,7 @@
       },
       "rights": {
         "classification": "public-domain",
-        "reviewerDid": "did:web:pd-color.gftd.ai",
+        "reviewerDid": "did:web:pd-color.etzhayyim.com",
         "evidenceUri": "ipfs://bafkreigah4hd3vf3poqc5fmi6w2bbrn674bfatpq3yrckr2hfvott5l3qu",
         "notice": "Demo publication. Public-domain status is recorded for the requested jurisdiction and must be re-reviewed for other jurisdictions or different source editions."
       }

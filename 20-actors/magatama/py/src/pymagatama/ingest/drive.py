@@ -13,7 +13,7 @@ from pymagatama.db_sync import sync_cursor
 
 DRIVE_TOKEN_TABLE = "vertex_gdrive_oauth_token"
 DRIVE_FILE_TABLE = "vertex_gdrive_file"
-ACTOR_DID = "did:web:drive.gftd.ai"
+ACTOR_DID = "did:web:drive.etzhayyim.com"
 
 
 def now_iso() -> str:

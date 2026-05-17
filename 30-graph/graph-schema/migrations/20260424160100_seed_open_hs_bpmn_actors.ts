@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T16:30:00Z";
-const ownerDid = "did:web:open-hs.gftd.ai";
+const ownerDid = "did:web:open-hs.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-hs";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-hs-classify-shipment-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-hs-classify-shipment-v1",
     bpmnProcessId: "open_hs_classify_shipment",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-hs/classifyShipment.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-hs-record-concordance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-hs-record-concordance-v1",
     bpmnProcessId: "open_hs_record_concordance",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-hs/recordConcordance.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-hs-classifyShipment-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-hs-classifyShipment-v1",
     nsid: "ai.gftd.apps.openHs.classifyShipment", bpmnProcessId: "open_hs_classify_shipment",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-hs-recordConcordance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-hs-recordConcordance-v1",
     nsid: "ai.gftd.apps.openHs.recordConcordance", bpmnProcessId: "open_hs_record_concordance",
     ownerDid, resultTimeoutMs: 15000 },
 ];

@@ -1,4 +1,4 @@
-"""resources.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""resources.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -24,7 +24,7 @@ async def run_worker():
     async def task_create_resource(**kwargs):
         name = kwargs.get("name", "")
         kind = kwargs.get("kind", "")
-        owner_did = kwargs.get("ownerDid", "did:web:resources.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:resources.etzhayyim.com")
 
         resource_id = str(uuid.uuid4())
         vertex_id = f"resources:resource:{resource_id}"
@@ -40,7 +40,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 resource_id, name, kind, "active",
-                "did:web:resources.gftd.ai", "did:web:resources.gftd.ai", now, now,
+                "did:web:resources.etzhayyim.com", "did:web:resources.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -155,7 +155,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, requester_did,
                 allocation_id, resource_id, requester_did, quantity, "allocated",
-                "did:web:resources.gftd.ai", "did:web:resources.gftd.ai", now, now,
+                "did:web:resources.etzhayyim.com", "did:web:resources.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

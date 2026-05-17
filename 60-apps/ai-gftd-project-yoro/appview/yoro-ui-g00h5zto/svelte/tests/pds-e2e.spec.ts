@@ -4,15 +4,15 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 /**
- * E2E tests against real atproto.gftd.ai.
+ * E2E tests against real atproto.etzhayyim.com.
  *
- * atproto.gftd.ai requires authentication for all endpoints except /health.
+ * atproto.etzhayyim.com requires authentication for all endpoints except /health.
  * Tests validate:
  * - Unauthenticated: endpoint reachability + correct 401 rejection
  * - Authenticated (accessJwt from WebAuthn session): full CRUD round-trip
  */
 
-const PDS = process.env.PDS_BASE_URL || 'https://atproto.gftd.ai';
+const PDS = process.env.PDS_BASE_URL || 'https://atproto.etzhayyim.com';
 const TOKEN_CACHE_FILE = process.env.YORO_AT_TOKEN_CACHE_FILE?.trim()
 	|| path.resolve(process.cwd(), '../../../../../tmp/e2e/yoro-at-token.json');
 const USE_WEBAUTHN_TOKEN_BOOTSTRAP = process.env.YORO_USE_WEBAUTHN_TOKEN === '1';
@@ -81,7 +81,7 @@ async function xrpc(nsid: string, body: Record<string, unknown> = {}) {
 
 // ─── Health (no auth required) ───────────────────────────────────────────────
 
-test.describe('atproto.gftd.ai — Health', () => {
+test.describe('atproto.etzhayyim.com — Health', () => {
 	test('health endpoint returns 200', async () => {
 		const res = await fetch(`${PDS}/health`);
 		expect(res.status).toBe(200);
@@ -98,7 +98,7 @@ test.describe('atproto.gftd.ai — Health', () => {
 
 // ─── Endpoint reachability (accepts 200 or 401) ─────────────────────────────
 
-	test.describe('atproto.gftd.ai — Endpoint Reachability', () => {
+	test.describe('atproto.etzhayyim.com — Endpoint Reachability', () => {
 	test('ai.gftd.convo.listPublicConvos is reachable', async () => {
 		const { status } = await xrpc('ai.gftd.convo.listPublicConvos', { limit: 5 });
 		expect([200, 401]).toContain(status);
@@ -192,7 +192,7 @@ test.describe('atproto.gftd.ai — Health', () => {
 
 	test('XRPC ResolveHandle is reachable', async () => {
 		const res = await fetch(`${PDS}/xrpc/com.atproto.identity.resolveHandle`, {
-			method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ handle: 'gftd.ai' }),
+			method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ handle: 'etzhayyim.com' }),
 		});
 		expect([200, 400, 401]).toContain(res.status);
 	});
@@ -207,7 +207,7 @@ test.describe('atproto.gftd.ai — Health', () => {
 
 // ─── Authenticated round-trip (skipped without accessJwt) ───────────────────
 
-test.describe('atproto.gftd.ai — Authenticated Round-Trip', () => {
+test.describe('atproto.etzhayyim.com — Authenticated Round-Trip', () => {
 	test.skip(!IS_AUTHED, 'No accessJwt found. Set YORO_AT_TOKEN, or run with YORO_USE_WEBAUTHN_TOKEN=1 to bootstrap from WebAuthn E2E.');
 
 	let convoId = '';

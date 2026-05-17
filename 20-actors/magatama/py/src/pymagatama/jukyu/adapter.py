@@ -59,7 +59,7 @@ def normalize_naphtha() -> dict[str, Any]:
           'vertex_naphtha_market_node',
           vertex_id,
           'ai.gftd.apps.jukyu.supplyNode',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           org_did
         FROM vertex_naphtha_market_node
         WHERE status IS NULL OR status <> 'deleted'
@@ -132,8 +132,8 @@ def normalize_naphtha() -> dict[str, Any]:
           'jukyu-balance:naphtha:' || COALESCE(country_code, 'ZZ') || ':latest',
           CAST(NOW() AS DATE),
           1,
-          'did:web:jukyu.gftd.ai',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
+          'did:web:jukyu.etzhayyim.com',
           'naphtha:' || COALESCE(country_code, 'ZZ') || ':latest',
           'naphtha',
           country_code,
@@ -148,7 +148,7 @@ def normalize_naphtha() -> dict[str, Any]:
           0.72,
           'active',
           'ai.gftd.apps.jukyu.balanceObservation',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM mv_naphtha_country_balance
         """
@@ -166,8 +166,8 @@ def normalize_naphtha() -> dict[str, Any]:
           'jukyu-exposure:naphtha:' || n.operator_did || ':' || COALESCE(n.country_code, 'ZZ'),
           CAST(NOW() AS DATE),
           1,
-          'did:web:jukyu.gftd.ai',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
+          'did:web:jukyu.etzhayyim.com',
           'naphtha:' || n.operator_did || ':' || COALESCE(n.country_code, 'ZZ'),
           'jukyu.adapter.naphtha.latest',
           n.operator_did,
@@ -204,7 +204,7 @@ def normalize_naphtha() -> dict[str, Any]:
           'Evaluate alternate naphtha supply routes, term coverage, cracker run-rate flexibility, and inventory buffer.',
           'active',
           'ai.gftd.apps.jukyu.companyExposure',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           COALESCE(n.org_did, 'did:web:gftd.co.jp')
         FROM vertex_naphtha_market_node n
         JOIN mv_naphtha_country_balance b ON b.country_code = n.country_code
@@ -276,7 +276,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           'vertex_oil_field',
           vertex_id,
           'ai.gftd.apps.jukyu.supplyNode',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           CAST(NULL AS VARCHAR)
         FROM vertex_oil_field
         WHERE status IS NULL OR status <> 'deleted'
@@ -315,7 +315,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           'vertex_oil_terminal',
           vertex_id,
           'ai.gftd.apps.jukyu.supplyNode',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           CAST(NULL AS VARCHAR)
         FROM vertex_oil_terminal
         WHERE status IS NULL OR status <> 'deleted'
@@ -354,7 +354,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           'vertex_refinery',
           vertex_id,
           'ai.gftd.apps.jukyu.supplyNode',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           CAST(NULL AS VARCHAR)
         FROM vertex_refinery
         WHERE status IS NULL OR status <> 'deleted'
@@ -435,8 +435,8 @@ def normalize_crude_oil() -> dict[str, Any]:
           'jukyu-balance:crude_oil:' || COALESCE(country_code, 'ZZ') || ':latest',
           CAST(NOW() AS DATE),
           1,
-          'did:web:jukyu.gftd.ai',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
+          'did:web:jukyu.etzhayyim.com',
           'crude_oil:' || COALESCE(country_code, 'ZZ') || ':latest',
           'crude_oil',
           country_code,
@@ -451,7 +451,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           0.55,
           'active',
           'ai.gftd.apps.jukyu.balanceObservation',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_refinery
         WHERE (status IS NULL OR status <> 'deleted')
@@ -474,8 +474,8 @@ def normalize_crude_oil() -> dict[str, Any]:
           'jukyu-exposure:crude_oil:' || r.operator_did || ':' || COALESCE(r.country_code, 'ZZ'),
           CAST(NOW() AS DATE),
           1,
-          'did:web:jukyu.gftd.ai',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
+          'did:web:jukyu.etzhayyim.com',
           'crude_oil:' || r.operator_did || ':' || COALESCE(r.country_code, 'ZZ'),
           'jukyu.adapter.crude_oil.latest',
           r.operator_did,
@@ -505,7 +505,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           'Evaluate term crude supply contracts, strategic petroleum reserves, and crude grade flexibility.',
           'active',
           'ai.gftd.apps.jukyu.companyExposure',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_refinery r
         WHERE r.operator_did IS NOT NULL
@@ -571,8 +571,8 @@ def normalize_semiconductor() -> dict[str, Any]:
           'jukyu-node:semiconductor:fab:' || fab_did,
           CURRENT_DATE,
           1,
-          'did:web:jukyu.gftd.ai',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
+          'did:web:jukyu.etzhayyim.com',
           'semiconductor',
           fab_did,
           'foundry',
@@ -586,7 +586,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           'vertex_open_smartphone_soc_design:fab',
           chip_vertex_id,
           'ai.gftd.apps.jukyu.supplyNode',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM unique_fabs
         """
@@ -605,8 +605,8 @@ def normalize_semiconductor() -> dict[str, Any]:
           'jukyu-node:semiconductor:soc:' || vertex_id,
           CURRENT_DATE,
           COALESCE(sensitivity_ord, 1),
-          COALESCE(owner_did, 'did:web:jukyu.gftd.ai'),
-          'did:web:jukyu.gftd.ai',
+          COALESCE(owner_did, 'did:web:jukyu.etzhayyim.com'),
+          'did:web:jukyu.etzhayyim.com',
           'semiconductor',
           chip_id,
           'soc',
@@ -620,7 +620,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           'vertex_open_smartphone_soc_design',
           vertex_id,
           'ai.gftd.apps.jukyu.supplyNode',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_open_smartphone_soc_design
         WHERE status IS NULL OR status <> 'deleted'
@@ -642,8 +642,8 @@ def normalize_semiconductor() -> dict[str, Any]:
           'jukyu-node:semiconductor:ems:' || vertex_id,
           CURRENT_DATE,
           COALESCE(sensitivity_ord, 1),
-          COALESCE(owner_did, 'did:web:jukyu.gftd.ai'),
-          'did:web:jukyu.gftd.ai',
+          COALESCE(owner_did, 'did:web:jukyu.etzhayyim.com'),
+          'did:web:jukyu.etzhayyim.com',
           'semiconductor',
           facility_id,
           COALESCE(facility_type, 'ems'),
@@ -662,7 +662,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           'vertex_open_smartphone_ems_facility',
           vertex_id,
           'ai.gftd.apps.jukyu.supplyNode',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_open_smartphone_ems_facility
         WHERE status IS NULL OR status <> 'deleted'
@@ -682,7 +682,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           soc_node.vertex_id,
           CURRENT_DATE,
           1,
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'semiconductor',
           'manufactures',
           COALESCE('nm' || CAST(d.process_node_nm AS VARCHAR), 'wafer'),
@@ -718,7 +718,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           ems_node.vertex_id,
           CURRENT_DATE,
           1,
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'semiconductor',
           'assembled_by',
           'units',
@@ -753,7 +753,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           jsn.vertex_id,
           CURRENT_DATE,
           1,
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'operator',
           CAST(NULL AS DOUBLE PRECISION),
           CASE WHEN jsn.node_kind IN ('foundry', 'soc') THEN 0.70 ELSE 0.65 END,
@@ -780,8 +780,8 @@ def normalize_semiconductor() -> dict[str, Any]:
             || COALESCE(CAST(o.process_node_nm AS VARCHAR), 'unknown') || ':latest',
           CURRENT_DATE,
           1,
-          'did:web:jukyu.gftd.ai',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
+          'did:web:jukyu.etzhayyim.com',
           'semiconductor:nm'
             || COALESCE(CAST(o.process_node_nm AS VARCHAR), 'unknown') || ':latest',
           'semiconductor',
@@ -797,7 +797,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           0.55,
           'active',
           'ai.gftd.apps.jukyu.balanceObservation',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_open_smartphone_soc_fab_order o
         WHERE o.order_status IS NULL OR o.order_status NOT IN ('cancelled', 'rejected')
@@ -818,8 +818,8 @@ def normalize_semiconductor() -> dict[str, Any]:
           'jukyu-exposure:semiconductor:' || e.vertex_id,
           CURRENT_DATE,
           1,
-          'did:web:jukyu.gftd.ai',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
+          'did:web:jukyu.etzhayyim.com',
           'semiconductor:' || e.vertex_id,
           'jukyu.adapter.semiconductor.latest',
           CASE
@@ -850,7 +850,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           'Diversify foundry sourcing, increase wafer safety stock, qualify alternate EMS facilities, and monitor export control alerts.',
           'active',
           'ai.gftd.apps.jukyu.companyExposure',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_open_smartphone_ems_facility e
         WHERE e.status IS NULL OR e.status <> 'deleted'
@@ -895,7 +895,7 @@ def normalize_entity_vessel_transport(domain: str | None = None) -> dict[str, An
           n.vertex_id,
           CAST(NOW() AS DATE),
           1,
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           n.domain,
           'operator',
           CAST(NULL AS DOUBLE PRECISION),
@@ -930,8 +930,8 @@ def normalize_entity_vessel_transport(domain: str | None = None) -> dict[str, An
           'jukyu-transport:crude_oil:' || c.vertex_id,
           COALESCE(c.created_date, CAST(NOW() AS DATE)),
           COALESCE(c.sensitivity_ord, 1),
-          COALESCE(c.owner_did, 'did:web:jukyu.gftd.ai'),
-          COALESCE(c.repo, 'did:web:jukyu.gftd.ai'),
+          COALESCE(c.owner_did, 'did:web:jukyu.etzhayyim.com'),
+          COALESCE(c.repo, 'did:web:jukyu.etzhayyim.com'),
           COALESCE(c.cargo_id, c.vertex_id),
           'crude_oil',
           e.edge_id,
@@ -963,7 +963,7 @@ def normalize_entity_vessel_transport(domain: str | None = None) -> dict[str, An
           'vertex_oil_cargo',
           c.vertex_id,
           'ai.gftd.apps.jukyu.transportLeg',
-          'did:web:jukyu.gftd.ai',
+          'did:web:jukyu.etzhayyim.com',
           'did:web:gftd.co.jp'
         FROM vertex_oil_cargo c
         INNER JOIN vertex_jukyu_supply_node src
@@ -990,7 +990,7 @@ def normalize_entity_vessel_transport(domain: str | None = None) -> dict[str, An
           destination_node_vid,
           COALESCE(created_date, CAST(NOW() AS DATE)),
           COALESCE(sensitivity_ord, 1),
-          COALESCE(owner_did, 'did:web:jukyu.gftd.ai'),
+          COALESCE(owner_did, 'did:web:jukyu.etzhayyim.com'),
           domain,
           'transports',
           product_code,

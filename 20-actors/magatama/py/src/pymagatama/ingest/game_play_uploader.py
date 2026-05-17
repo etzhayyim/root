@@ -9,7 +9,7 @@ from uuid import NAMESPACE_URL, uuid4, uuid5
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:game-play-uploader.gftd.ai"
+OWNER_DID = "did:web:game-play-uploader.etzhayyim.com"
 RATE_JPY_PER_HOUR = 100
 COLLECTION_TABLES = {
     "ai.gftd.apps.gamePlayUploader.participant": "vertex_game_play_participant",

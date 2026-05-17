@@ -18,7 +18,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR = "did:web:gmail.gftd.ai"
+ACTOR = "did:web:gmail.etzhayyim.com"
 TOKEN_TABLE = "vertex_gmail_oauth_token"
 SCOPES = " ".join([
     "https://www.googleapis.com/auth/gmail.readonly",
@@ -85,7 +85,7 @@ def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, head
 
 
 def _redirect_uri() -> str:
-    return os.environ.get("GMAIL_GOOGLE_REDIRECT_URI", "https://gmail.gftd.ai/oauth/callback")
+    return os.environ.get("GMAIL_GOOGLE_REDIRECT_URI", "https://gmail.etzhayyim.com/oauth/callback")
 
 
 def _google_client() -> tuple[str, str]:

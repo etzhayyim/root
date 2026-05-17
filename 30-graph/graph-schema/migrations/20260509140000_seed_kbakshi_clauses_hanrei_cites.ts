@@ -9,12 +9,12 @@ import { sql } from "kysely";
  * dual-source legal traceability for each k-bakshi contract clause.
  *
  * Targets vertex_hanrei_case_record (existing, seeded 2026-04-29).
- * actor_did / org_did = hanrei.gftd.ai (curation-tier provenance).
+ * actor_did / org_did = hanrei.etzhayyim.com (curation-tier provenance).
  *
  * k-bakshi sign-off required before any external publication of cite edges.
  */
 const NOW = "2026-05-08 00:00:00";
-const HANREI_OWNER = "did:web:hanrei.gftd.ai";
+const HANREI_OWNER = "did:web:hanrei.etzhayyim.com";
 
 type CaseRec = {
   rkey: string;
@@ -109,7 +109,7 @@ const CITES: Cite[] = [
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── case records ────────────────────────────────────────────────────────────
   for (const c of CASES) {
-    const vid = `at://did:web:hanrei.gftd.ai/ai.gftd.apps.hanrei.caseRecord/${c.rkey}`;
+    const vid = `at://did:web:hanrei.etzhayyim.com/ai.gftd.apps.hanrei.caseRecord/${c.rkey}`;
     await sql`
       INSERT INTO vertex_hanrei_case_record
         (vertex_id, rkey, title, case_number, court_id, decision_date,
@@ -124,8 +124,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── clause→hanrei cite edges via edge_cites ─────────────────────────────────
   for (const cite of CITES) {
-    const srcVid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.gftdcojp.contractClause/${cite.clauseCid}`;
-    const dstVid = `at://did:web:hanrei.gftd.ai/ai.gftd.apps.hanrei.caseRecord/${cite.caseRkey}`;
+    const srcVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${cite.clauseCid}`;
+    const dstVid = `at://did:web:hanrei.etzhayyim.com/ai.gftd.apps.hanrei.caseRecord/${cite.caseRkey}`;
     const edgeId = `edge:${cite.clauseCid}:cites:hanrei--${cite.caseRkey}`;
     const label = `判例 ${cite.caseRkey} — ${cite.paragraph}`;
     await sql`
@@ -146,8 +146,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       cc.contract_id,
       cc.clause_kind,
       cc.severity,
-      COUNT(DISTINCT e.dst_vid) FILTER (WHERE e.dst_vid LIKE 'at://did:web:hourei.gftd.ai/%') AS hourei_cites,
-      COUNT(DISTINCT e.dst_vid) FILTER (WHERE e.dst_vid LIKE 'at://did:web:hanrei.gftd.ai/%') AS hanrei_cites,
+      COUNT(DISTINCT e.dst_vid) FILTER (WHERE e.dst_vid LIKE 'at://did:web:hourei.etzhayyim.com/%') AS hourei_cites,
+      COUNT(DISTINCT e.dst_vid) FILTER (WHERE e.dst_vid LIKE 'at://did:web:hanrei.etzhayyim.com/%') AS hanrei_cites,
       COUNT(DISTINCT e.dst_vid)                                                                AS total_cites
     FROM vertex_gftdcojp_contract_clause cc
     LEFT JOIN edge_cites e ON e.src_vid = cc.vertex_id
@@ -162,7 +162,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     await sql`DELETE FROM edge_cites WHERE edge_id = ${edgeId}`.execute(db);
   }
   for (const c of CASES) {
-    const vid = `at://did:web:hanrei.gftd.ai/ai.gftd.apps.hanrei.caseRecord/${c.rkey}`;
+    const vid = `at://did:web:hanrei.etzhayyim.com/ai.gftd.apps.hanrei.caseRecord/${c.rkey}`;
     await sql`DELETE FROM vertex_hanrei_case_record WHERE vertex_id = ${vid}`.execute(db);
   }
 }

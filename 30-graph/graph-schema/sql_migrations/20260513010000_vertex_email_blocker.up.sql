@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS graphar.vertex_email_blocker (
     follow_up_at        TIMESTAMPTZ,            -- scheduled re-check time
     -- RLS canonical columns (ADR-0095)
     owner               VARCHAR     NOT NULL,
-    actor               VARCHAR     NOT NULL DEFAULT 'did:web:pregel.gftd.ai',
-    org_did             VARCHAR     NOT NULL DEFAULT 'did:web:gftd.ai',
+    actor               VARCHAR     NOT NULL DEFAULT 'did:web:pregel.etzhayyim.com',
+    org_did             VARCHAR     NOT NULL DEFAULT 'did:web:etzhayyim.com',
     sensitivity_ord     INTEGER     NOT NULL DEFAULT 0
 ) WITH (appendonly = false);
 

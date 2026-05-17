@@ -52,13 +52,13 @@ def test_onion_slug_non_onion_host():
 
 def test_site_vid_format():
     vid = OC._site_vid("abc12345.onion")
-    assert vid.startswith("at://did:web:onion.gftd.ai/")
+    assert vid.startswith("at://did:web:onion.etzhayyim.com/")
     assert "abc12345" in vid
 
 
 def test_page_vid_format():
     vid = OC._page_vid("http://abc12345.onion/page1")
-    assert vid.startswith("at://did:web:onion.gftd.ai/")
+    assert vid.startswith("at://did:web:onion.etzhayyim.com/")
 
 
 def test_crawl_vid_format():
@@ -69,7 +69,7 @@ def test_crawl_vid_format():
 
 def test_site_did_format():
     did = OC._site_did("abc12345.onion")
-    assert did == "did:web:onion.gftd.ai:abc12345"
+    assert did == "did:web:onion.etzhayyim.com:abc12345"
 
 
 def test_clean_text_strips_html_tags():

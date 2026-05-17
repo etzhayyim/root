@@ -178,8 +178,8 @@ def test_telecom_caller_returns_caller_did(mod_name: str):
     mod = _load(mod_name)
     if not hasattr(mod, "_caller"):
         pytest.skip(f"{mod_name} has no _caller")
-    result = mod._caller({"callerDid": "did:web:test.gftd.ai"})
-    assert result == "did:web:test.gftd.ai"
+    result = mod._caller({"callerDid": "did:web:test.etzhayyim.com"})
+    assert result == "did:web:test.etzhayyim.com"
 
 
 @pytest.mark.parametrize("mod_name", _TELECOM_MODULE_NAMES)
@@ -233,8 +233,8 @@ def test_telecom_audit_uses_caller_did(mod_name: str):
     mod = _load(mod_name)
     if not hasattr(mod, "_audit"):
         pytest.skip(f"{mod_name} has no _audit")
-    result = mod._audit({"callerDid": "did:web:caller.gftd.ai"})
-    assert result.get("org_id") == "did:web:caller.gftd.ai"
+    result = mod._audit({"callerDid": "did:web:caller.etzhayyim.com"})
+    assert result.get("org_id") == "did:web:caller.etzhayyim.com"
 
 
 # ─── constants ────────────────────────────────────────────────────────────────

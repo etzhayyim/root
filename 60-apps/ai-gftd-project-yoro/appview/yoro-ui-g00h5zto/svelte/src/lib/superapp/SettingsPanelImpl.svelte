@@ -53,8 +53,8 @@
 		appName = 'GFTD',
 		accentColor = 'bg-gftd-accent',
 		whatsappNumber = '',
-		privacyHref = 'https://gftd.ai/privacy/',
-		termsHref = 'https://gftd.ai/terms/',
+		privacyHref = 'https://etzhayyim.com/privacy/',
+		termsHref = 'https://etzhayyim.com/terms/',
 		supportHref = '',
 		languageCodes = ['ja', 'en'],
 		onLanguageChange,
@@ -116,7 +116,7 @@
 		if (!get(isSignedIn)) { claims = []; return; }
 		claimsLoading = true;
 		try {
-			const resp = await fetch('https://authz.gftd.ai/xrpc/ai.gftd.claim.listStakedAttestations?limit=20', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.claim.listStakedAttestations?limit=20', {
 				credentials: 'include',
 			});
 			if (!resp.ok) { claims = []; return; }
@@ -151,7 +151,7 @@
 		}
 		linkedMethodsLoading = true;
 		try {
-			const resp = await fetch('https://authz.gftd.ai/xrpc/ai.gftd.authz.getSession', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.authz.getSession', {
 				credentials: 'include',
 			});
 			if (!resp.ok) return;
@@ -204,7 +204,7 @@
 		actorAccountLoading = true;
 		actorAccountError = '';
 		try {
-			const resp = await fetch('https://authz.gftd.ai/xrpc/ai.gftd.authz.getActorAccount', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.authz.getActorAccount', {
 				credentials: 'include',
 			});
 			if (!resp.ok) {
@@ -235,7 +235,7 @@
 		activating = true;
 		actorAccountError = '';
 		try {
-			const resp = await fetch('https://authz.gftd.ai/xrpc/ai.gftd.authz.activateActorAccount', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.authz.activateActorAccount', {
 				method: 'POST',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
@@ -603,7 +603,7 @@
 												await unlinkEthereumAddress(method.providerSubject, method.provider);
 											}
 											else if (method.provider === 'webauthn-additional') await unlinkAdditionalPasskey(method.providerSubject);
-											else await fetch('https://authz.gftd.ai/xrpc/ai.gftd.authz.unlinkMethod', {
+											else await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.authz.unlinkMethod', {
 												method: 'POST',
 												credentials: 'include',
 												headers: { 'Content-Type': 'application/json' },

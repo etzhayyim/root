@@ -25,7 +25,7 @@
 	let error = $state('');
 
 	const appEntry = $derived(apps.find((a) => a.id === nanoid || a.href.includes(nanoid)));
-	const appBaseUrl = $derived(appEntry?.href ?? `https://${nanoid}.gftd.ai`);
+	const appBaseUrl = $derived(appEntry?.href ?? `https://${nanoid}.etzhayyim.com`);
 	const appName = $derived(profile?.displayName ?? appEntry?.shortName ?? appEntry?.name ?? nanoid);
 	const appIcon = $derived(profile?.icon ?? appEntry?.icon ?? '');
 	const contentMode = $derived(profile?.contentMode ?? 'timeline');

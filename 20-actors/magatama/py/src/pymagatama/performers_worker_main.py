@@ -1,4 +1,4 @@
-"""performers.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""performers.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -22,7 +22,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.performers.create.profile")
     async def task_create_profile(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:performers.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:performers.etzhayyim.com")
         display_name = kwargs.get("displayName", "")
         genre = kwargs.get("genre", "")
         bio = kwargs.get("bio", "")
@@ -41,7 +41,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 profile_id, display_name, genre, bio, "active",
-                "did:web:performers.gftd.ai", "did:web:performers.gftd.ai", now, now,
+                "did:web:performers.etzhayyim.com", "did:web:performers.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -104,7 +104,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.performers.create.booking")
     async def task_create_booking(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:performers.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:performers.etzhayyim.com")
         profile_id = kwargs.get("profileId", "")
         event_date = kwargs.get("eventDate", "")
         venue = kwargs.get("venue", "")
@@ -123,7 +123,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 booking_id, profile_id, event_date, venue, "pending",
-                "did:web:performers.gftd.ai", "did:web:performers.gftd.ai", now, now,
+                "did:web:performers.etzhayyim.com", "did:web:performers.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -166,7 +166,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.performers.record.performance")
     async def task_record_performance(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:performers.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:performers.etzhayyim.com")
         booking_id = kwargs.get("bookingId", "")
         notes = kwargs.get("notes", "")
 
@@ -212,7 +212,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.performers.submit.review")
     async def task_submit_review(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:performers.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:performers.etzhayyim.com")
         profile_id = kwargs.get("profileId", "")
         rating = int(kwargs.get("rating", 5))
         comment = kwargs.get("comment", "")

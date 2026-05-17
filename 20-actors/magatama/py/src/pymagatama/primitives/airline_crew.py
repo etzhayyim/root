@@ -9,7 +9,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-APP_DID = "did:web:air-crew.gftd.ai"
+APP_DID = "did:web:air-crew.etzhayyim.com"
 ACTOR_SLUG = "air-crew"
 
 # Flight Time Limitations (EASA/ICAO reference)

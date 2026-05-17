@@ -141,7 +141,7 @@ class TestVidFormat(unittest.TestCase):
     def test_vid(self):
         from pymagatama.langgraph_graphs.lawfirm_marketing_ops import _vid
         v = _vid("marketingAsset")
-        self.assertTrue(v.startswith("at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.marketingAsset/"))
+        self.assertTrue(v.startswith("at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.marketingAsset/"))
 
 
 if __name__ == "__main__":

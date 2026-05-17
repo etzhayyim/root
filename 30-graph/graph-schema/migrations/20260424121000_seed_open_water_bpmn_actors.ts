@@ -28,18 +28,18 @@ function readContract(relPath: string): string {
 }
 
 const createdAt = "2026-04-24T12:10:00Z";
-const ownerDid = "did:web:open-water.gftd.ai:network";
+const ownerDid = "did:web:open-water.etzhayyim.com:network";
 const actorTag = "sys.bpmn.seed.open-water";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1",
     bpmnProcessId: "open_water_define_main",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-water/defineMain.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1",
     bpmnProcessId: "open_water_report_leak",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-water/reportLeak.bpmn",
     ownerDid,
@@ -48,14 +48,14 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1",
     nsid: "ai.gftd.apps.openWater.defineMain",
     bpmnProcessId: "open_water_define_main",
     ownerDid,
     resultTimeoutMs: 15000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1",
     nsid: "ai.gftd.apps.openWater.reportLeak",
     bpmnProcessId: "open_water_report_leak",
     ownerDid,

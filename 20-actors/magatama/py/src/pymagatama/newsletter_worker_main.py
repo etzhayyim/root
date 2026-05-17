@@ -8,7 +8,7 @@ LangGraph intra-job curation loop:
 LangServer job types:
   newsletter.run_curation_agent  — LangGraph loop (~60–120s)
   newsletter.send_via_resend     — Resend batch send per subscriber
-  newsletter.create_sponsor_slot — XRPC to ads.gftd.ai createCampaign
+  newsletter.create_sponsor_slot — XRPC to ads.etzhayyim.com createCampaign
 
 Weekly schedule: Zeebe BPMN timer "0 0 * * 2" (Tuesday 09:00 JST).
 
@@ -20,9 +20,9 @@ Env:
   RW_URL             — RisingWave postgres URL
   ANTHROPIC_API_KEY
   RESEND_API_KEY
-  RESEND_FROM        — sender address (default newsletter@gftd.ai)
-  ADS_XRPC_URL       — ads.gftd.ai base (default https://adsm4d5c.gftd.ai)
-  NEWS_XRPC_URL      — news.gftd.ai base (default https://news.gftd.ai)
+  RESEND_FROM        — sender address (default newsletter@etzhayyim.com)
+  ADS_XRPC_URL       — ads.etzhayyim.com base (default https://adsm4d5c.etzhayyim.com)
+  NEWS_XRPC_URL      — news.etzhayyim.com base (default https://news.etzhayyim.com)
 """
 
 from __future__ import annotations
@@ -48,13 +48,13 @@ from pymagatama.llm import resolve_model_id
 
 LOG = logging.getLogger("newsletter_worker")
 
-NEWSLETTER_DID = "did:web:newsletter.gftd.ai"
-ADS_DID = "did:web:ads.gftd.ai"
+NEWSLETTER_DID = "did:web:newsletter.etzhayyim.com"
+ADS_DID = "did:web:ads.etzhayyim.com"
 
 QUALITY_THRESHOLD = float(os.environ.get("NEWSLETTER_QUALITY_THRESHOLD", "0.7"))
-RESEND_FROM = os.environ.get("RESEND_FROM", "newsletter@gftd.ai")
-ADS_XRPC_URL = os.environ.get("ADS_XRPC_URL", "https://adsm4d5c.gftd.ai")
-NEWS_XRPC_URL = os.environ.get("NEWS_XRPC_URL", "https://news.gftd.ai")
+RESEND_FROM = os.environ.get("RESEND_FROM", "newsletter@etzhayyim.com")
+ADS_XRPC_URL = os.environ.get("ADS_XRPC_URL", "https://adsm4d5c.etzhayyim.com")
+NEWS_XRPC_URL = os.environ.get("NEWS_XRPC_URL", "https://news.etzhayyim.com")
 MAX_SIGNALS = int(os.environ.get("NEWSLETTER_MAX_SIGNALS", "50"))
 TOP_N_SIGNALS = int(os.environ.get("NEWSLETTER_TOP_N", "10"))
 
@@ -116,7 +116,7 @@ async def node_init_defaults(state: NewsletterState) -> dict[str, Any]:
 
 
 async def node_ingest_signals(state: NewsletterState) -> dict[str, Any]:
-    """Pull recent articles from news.gftd.ai and narou.gftd.ai via RisingWave.
+    """Pull recent articles from news.etzhayyim.com and narou.etzhayyim.com via RisingWave.
 
     Sources may not exist yet (vertex_news_article is reserved for future
     ingest); a missing table is treated as zero signals, not a fatal error.
@@ -144,7 +144,7 @@ async def node_ingest_signals(state: NewsletterState) -> dict[str, Any]:
                 meta = json.loads(r[2] or "{}")
                 signals.append({
                     "id": r[0],
-                    "source": "news.gftd.ai",
+                    "source": "news.etzhayyim.com",
                     "title": meta.get("title", ""),
                     "summary": meta.get("summary", ""),
                     "url": meta.get("url", ""),
@@ -169,7 +169,7 @@ async def node_ingest_signals(state: NewsletterState) -> dict[str, Any]:
                 meta = json.loads(r[2] or "{}")
                 signals.append({
                     "id": r[0],
-                    "source": "narou.gftd.ai",
+                    "source": "narou.etzhayyim.com",
                     "title": meta.get("title", ""),
                     "summary": meta.get("summary", meta.get("body", ""))[:300],
                     "url": "",

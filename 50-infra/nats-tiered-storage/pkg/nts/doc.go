@@ -7,7 +7,7 @@
 //
 // # Installation
 //
-//	go get github.com/gftdcojp/nats-tiered-storage/pkg/nts
+//	go get github.com/etzhayyim/root/50-infra/nats-tiered-storage/pkg/nts
 //
 // # Basic Usage
 //

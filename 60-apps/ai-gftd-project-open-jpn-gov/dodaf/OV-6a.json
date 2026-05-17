@@ -2,7 +2,7 @@
   "viewId": "open-jpn-gov.OV-6a",
   "viewType": "OV-6a",
   "title": "Operational Rules Model",
-  "did": "did:web:open-jpn-gov.gftd.ai",
+  "did": "did:web:open-jpn-gov.etzhayyim.com",
   "format": "json",
   "content": {
     "businessRules": [
@@ -13,7 +13,7 @@
       },
       {
         "id": "rule.didPattern",
-        "statement": "Every entity DID MUST match did:web:open-jpn-gov.gftd.ai:{category}:{code} where category ∈ {cabinet, ministry, agency, independent}.",
+        "statement": "Every entity DID MUST match did:web:open-jpn-gov.etzhayyim.com:{category}:{code} where category ∈ {cabinet, ministry, agency, independent}.",
         "kind": "constraint",
         "enforcedBy": "worker/src/roster.ts:didFor()"
       },

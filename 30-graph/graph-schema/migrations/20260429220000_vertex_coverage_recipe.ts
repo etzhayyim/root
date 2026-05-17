@@ -264,7 +264,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       llm_tier: "fast",
       langgraph_id: "",
       world_total: 1_000_000_000,
-      notes: "1B API endpoints — discoverable only via crawl; site.gftd.ai dependency",
+      notes: "1B API endpoints — discoverable only via crawl; site.etzhayyim.com dependency",
     },
     {
       domain: "api_schema",

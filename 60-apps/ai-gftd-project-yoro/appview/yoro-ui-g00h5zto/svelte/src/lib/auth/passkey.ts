@@ -17,8 +17,8 @@ import {
 } from './stores.js';
 import { setSession, clearSession } from '$lib/atproto-agent';
 
-const AUTH_BASE = 'https://atproto.gftd.ai';
-const AUTH_RPC_BASE = 'https://authn.gftd.ai';
+const AUTH_BASE = 'https://atproto.etzhayyim.com';
+const AUTH_RPC_BASE = 'https://authn.etzhayyim.com';
 const SESSION_STORAGE_KEY = 'gftd-auth-session';
 const CREDENTIAL_STORAGE_KEY = 'gftd-auth-credential';
 const DID_STORAGE_KEY = 'gftd-auth-did';
@@ -159,7 +159,7 @@ export async function initClerk(config?: AuthConfig): Promise<any> {
 	if (initialized) return null;
 	initialized = true;
 
-	// Receive session from auth.gftd.ai via temporary sessionStorage transfer,
+	// Receive session from auth.etzhayyim.com via temporary sessionStorage transfer,
 	// falling back to the legacy hash fragment path for backward compatibility.
 	const transferredRaw = (() => {
 		const storage = getSessionStorage();
@@ -237,7 +237,7 @@ async function refreshSessionFromStored(stored: StoredSession): Promise<void> {
 				refreshToken: stored.refreshJwt,
 			});
 		} catch (primaryError) {
-			// Fallback: route refresh via atproto.gftd.ai (AUTH_SERVICE delegate) when auth.gftd.ai CORS blocks browser calls.
+			// Fallback: route refresh via atproto.etzhayyim.com (AUTH_SERVICE delegate) when auth.etzhayyim.com CORS blocks browser calls.
 			const fallbackResp = await fetch(`${AUTH_BASE}/xrpc/com.atproto.server.refreshSession`, {
 				method: 'POST',
 				headers: {
@@ -273,7 +273,7 @@ async function refreshSessionFromStored(stored: StoredSession): Promise<void> {
 }
 
 function updateUserFromDid(did: string): void {
-	const handle = did.replace('did:web:authn.gftd.ai:', '').replace(/:/g, '.');
+	const handle = did.replace('did:web:authn.etzhayyim.com:', '').replace(/:/g, '.');
 	clerkUser.set({
 		id: did,
 		firstName: null,
@@ -370,7 +370,7 @@ export async function signUp(): Promise<void> {
 	try {
 		// Generate a temporary user ID for registration
 		const userId = crypto.randomUUID();
-		const userName = `user-${userId.slice(0, 8)}@gftd.ai`;
+		const userName = `user-${userId.slice(0, 8)}@etzhayyim.com`;
 
 		// 1. Begin registration — get challenge + options from server
 		const beginResp = await authRpc('/xrpc/ai.gftd.auth.passkeyBeginRegister', {
@@ -421,7 +421,7 @@ export async function signUp(): Promise<void> {
 		// 4. Issue session for the new user
 		const sessionResult = await authRpc('/xrpc/com.atproto.server.createSession', {
 			did: verifyResult.did,
-			handle: verifyResult.did.replace('did:web:authn.gftd.ai:', '').replace(/:/g, '.'),
+			handle: verifyResult.did.replace('did:web:authn.etzhayyim.com:', '').replace(/:/g, '.'),
 		});
 
 		const session: StoredSession = {

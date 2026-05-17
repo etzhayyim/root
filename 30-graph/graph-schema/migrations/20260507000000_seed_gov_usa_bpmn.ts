@@ -22,15 +22,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-05-07T00:00:00Z";
-const ownerDid = "did:web:usa-state.gftd.ai";
-const actorHost = "usa-state.gftd.ai";
+const ownerDid = "did:web:usa-state.etzhayyim.com";
+const actorHost = "usa-state.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.gov-usa";
 const writeTableAllowlist = ["vertex_gov_org", "edge_gov_org_site_dependency"].join(",");
 
 const seeds: ProcessSeed[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-usa-seedOrgs-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-usa-seedOrgs-v1",
     nsid: "ai.gftd.govUsa.seedOrgs",
     bpmnProcessId: "gov_usa_seed_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govUsa/seedOrgs.bpmn",
@@ -38,7 +38,7 @@ const seeds: ProcessSeed[] = [
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-usa-registerDIDs-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-usa-registerDIDs-v1",
     nsid: "ai.gftd.govUsa.registerDIDs",
     bpmnProcessId: "gov_usa_register_dids",
     sourcePath: "00-contracts/bpmn/ai/gftd/govUsa/registerDIDs.bpmn",
@@ -46,7 +46,7 @@ const seeds: ProcessSeed[] = [
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-usa-followSiteDeps-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-usa-followSiteDeps-v1",
     nsid: "ai.gftd.govUsa.followSiteDeps",
     bpmnProcessId: "gov_usa_follow_site_deps",
     sourcePath: "00-contracts/bpmn/ai/gftd/govUsa/followSiteDeps.bpmn",
@@ -54,7 +54,7 @@ const seeds: ProcessSeed[] = [
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-usa-resolveOrgPath-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-usa-resolveOrgPath-v1",
     nsid: "ai.gftd.govUsa.resolveOrgPath",
     bpmnProcessId: "gov_usa_resolve_org_path",
     sourcePath: "00-contracts/bpmn/ai/gftd/govUsa/resolveOrgPath.bpmn",
@@ -62,7 +62,7 @@ const seeds: ProcessSeed[] = [
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-usa-listOrgs-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-usa-listOrgs-v1",
     nsid: "ai.gftd.govUsa.listOrgs",
     bpmnProcessId: "gov_usa_list_orgs",
     sourcePath: "00-contracts/bpmn/ai/gftd/govUsa/listOrgs.bpmn",
@@ -70,7 +70,7 @@ const seeds: ProcessSeed[] = [
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-usa-syncWetUpdates-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-usa-syncWetUpdates-v1",
     nsid: "ai.gftd.govUsa.syncWetUpdates",
     bpmnProcessId: "gov_usa_sync_wet_updates",
     sourcePath: "00-contracts/bpmn/ai/gftd/govUsa/syncWetUpdates.bpmn",
@@ -78,7 +78,7 @@ const seeds: ProcessSeed[] = [
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-usa-shinka-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-usa-shinka-v1",
     nsid: "ai.gftd.govUsa.shinka",
     bpmnProcessId: "gov_usa_shinka",
     sourcePath: "00-contracts/bpmn/ai/gftd/govUsa/shinka.bpmn",
@@ -86,7 +86,7 @@ const seeds: ProcessSeed[] = [
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-usa-heartbeatTick-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-usa-heartbeatTick-v1",
     nsid: "ai.gftd.govUsa.heartbeatTick",
     bpmnProcessId: "gov_usa_heartbeat_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/govUsa/heartbeatTick.bpmn",
@@ -107,7 +107,7 @@ function mcpVertexId(nsid: string): string {
 }
 
 function bindingVertexId(nsid: string): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
 }
 
 function stableStringify(value: unknown): string {

@@ -23,7 +23,7 @@ export function a2aAgentCard(env: YoroEnv): Record<string, unknown> {
 		version: '1.1.0',
 		description: 'AI Agent-First social platform for public AT Protocol profiles, posts, hashtags, and projects.',
 		url: YORO_SITE_ORIGIN,
-		provider: { organization: 'GFTD', url: 'https://gftd.ai/' },
+		provider: { organization: 'GFTD', url: 'https://etzhayyim.com/' },
 		supportedInterfaces: [
 			{ name: 'MCP JSON-RPC BFF', url: `${YORO_SITE_ORIGIN}/api/mcp`, transport: 'https', protocol: 'mcp' },
 			{ name: 'Agentgateway MCP router', url: mcpRouterUrl(env), transport: 'https', protocol: 'mcp-upstream' },

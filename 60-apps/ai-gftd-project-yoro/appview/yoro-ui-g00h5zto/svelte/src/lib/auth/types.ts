@@ -61,7 +61,7 @@ export interface TrustSummary {
 export interface AuthConfig {
 	/** Clerk publishable key (pk_live_...). */
 	publishableKey: string;
-	/** Base URL for Clerk accounts UI (e.g. "https://auth.gftd.ai"). */
+	/** Base URL for Clerk accounts UI (e.g. "https://auth.etzhayyim.com"). */
 	accountsBaseUrl?: string;
 }
 

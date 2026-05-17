@@ -6,24 +6,24 @@
 
 ## 2. Cross-Project Agent Map
 
-### Public Fund 側 (pb.gftd.ai)
+### Public Fund 側 (pb.etzhayyim.com)
 
 | Agent | Matrix User | ISCO | Role |
 |---|---|---|---|
-| 学 (Manabu) | `@pb-edu-mgr-{nanoid}:gftd.ai` | 1345 | Education Fund Manager |
-| 芽 (Mei) | `@pb-ece-{nanoid}:gftd.ai` | 2342 | Early Childhood Specialist |
-| 結 (Yui) | `@pb-fam-mgr-{nanoid}:gftd.ai` | 1344 | Family Welfare Manager |
-| 心 (Kokoro) | `@pb-sw-{nanoid}:gftd.ai` | 2635 | Social Worker |
+| 学 (Manabu) | `@pb-edu-mgr-{nanoid}:etzhayyim.com` | 1345 | Education Fund Manager |
+| 芽 (Mei) | `@pb-ece-{nanoid}:etzhayyim.com` | 2342 | Early Childhood Specialist |
+| 結 (Yui) | `@pb-fam-mgr-{nanoid}:etzhayyim.com` | 1344 | Family Welfare Manager |
+| 心 (Kokoro) | `@pb-sw-{nanoid}:etzhayyim.com` | 2635 | Social Worker |
 
-### Well-Becoming 側 (becoming.gftd.ai)
+### Well-Becoming 側 (becoming.etzhayyim.com)
 
 | Agent | Matrix User | ISCO | Role |
 |---|---|---|---|
-| 守 (Mamoru) | `@becoming-guardian-{nanoid}:gftd.ai` | 2634 | Growth Guardian |
-| 育 (Hagukumi) | `@becoming-nurturer-{nanoid}:gftd.ai` | 2359 | Capability Nurturer |
-| 盾 (Tate) | `@becoming-protector-{nanoid}:gftd.ai` | 2635 | Safety Protector |
-| 遊 (Yuu) | `@becoming-play-{nanoid}:gftd.ai` | 3423 | Play & Wellbeing Facilitator |
-| 和 (Nagomi) | `@becoming-family-{nanoid}:gftd.ai` | 2635 | Family Bond Strengthener |
+| 守 (Mamoru) | `@becoming-guardian-{nanoid}:etzhayyim.com` | 2634 | Growth Guardian |
+| 育 (Hagukumi) | `@becoming-nurturer-{nanoid}:etzhayyim.com` | 2359 | Capability Nurturer |
+| 盾 (Tate) | `@becoming-protector-{nanoid}:etzhayyim.com` | 2635 | Safety Protector |
+| 遊 (Yuu) | `@becoming-play-{nanoid}:etzhayyim.com` | 3423 | Play & Wellbeing Facilitator |
+| 和 (Nagomi) | `@becoming-family-{nanoid}:etzhayyim.com` | 2635 | Family Bond Strengthener |
 
 ## 3. Matrix Room Topology
 
@@ -31,9 +31,9 @@
 
 | Room ID | Alias | Members | 用途 |
 |---|---|---|---|
-| `!xp-edu-child-{nanoid}` | `#xp-edu-child-{nanoid}:gftd.ai` | 学,芽,守,育,遊 | 教育ファンド × 子ども成長 協議 |
-| `!xp-fam-child-{nanoid}` | `#xp-fam-child-{nanoid}:gftd.ai` | 結,心,盾,和,守 | 家庭支援 × 子ども保護 協議 |
-| `!xp-safeguard-{nanoid}` | `#xp-safeguard-{nanoid}:gftd.ai` | 心,盾,守,和 | セーフガード緊急協議 |
+| `!xp-edu-child-{nanoid}` | `#xp-edu-child-{nanoid}:etzhayyim.com` | 学,芽,守,育,遊 | 教育ファンド × 子ども成長 協議 |
+| `!xp-fam-child-{nanoid}` | `#xp-fam-child-{nanoid}:etzhayyim.com` | 結,心,盾,和,守 | 家庭支援 × 子ども保護 協議 |
+| `!xp-safeguard-{nanoid}` | `#xp-safeguard-{nanoid}:etzhayyim.com` | 心,盾,守,和 | セーフガード緊急協議 |
 
 ### 3.2 Per-Project Internal Rooms (既存設計を維持)
 
@@ -75,8 +75,8 @@ org.gftd.xproject.outcome.acknowledge   — 成果指標確認
     "org.gftd.xproject": {
       "source_project": "ai-gftd-project-public-fund",
       "target_project": "ai-gftd-project-well-becoming",
-      "source_agent": "@pb-edu-mgr-{nanoid}:gftd.ai",
-      "target_agents": ["@becoming-guardian-{nanoid}:gftd.ai", "@becoming-nurturer-{nanoid}:gftd.ai"],
+      "source_agent": "@pb-edu-mgr-{nanoid}:etzhayyim.com",
+      "target_agents": ["@becoming-guardian-{nanoid}:etzhayyim.com", "@becoming-nurturer-{nanoid}:etzhayyim.com"],
       "correlation_id": "xp-assess-{uuid}",
       "application_id": "app_42",
       "assessment_type": "developmental_stage",
@@ -98,7 +98,7 @@ org.gftd.xproject.outcome.acknowledge   — 成果指標確認
     "org.gftd.xproject": {
       "source_project": "ai-gftd-project-well-becoming",
       "target_project": "ai-gftd-project-public-fund",
-      "source_agent": "@becoming-protector-{nanoid}:gftd.ai",
+      "source_agent": "@becoming-protector-{nanoid}:etzhayyim.com",
       "correlation_id": "xp-safeguard-{uuid}",
       "case_id": "case_17",
       "risk_level": "high",
@@ -114,7 +114,7 @@ org.gftd.xproject.outcome.acknowledge   — 成果指標確認
 ### 5.1 教育ファンド申請審査フロー
 
 ```
-Timeline in !case-{application-id}:gftd.ai
+Timeline in !case-{application-id}:etzhayyim.com
 
 1. [心 Kokoro] org.gftd.xproject.referral.request
    "教育ファンド申請 app_42 受理。子どもの発達評価を becoming チームに依頼します。"
@@ -146,7 +146,7 @@ Timeline in !case-{application-id}:gftd.ai
 ### 5.2 家庭支援ファンド × 子ども保護フロー
 
 ```
-Timeline in !xp-fam-child-{nanoid}:gftd.ai
+Timeline in !xp-fam-child-{nanoid}:etzhayyim.com
 
 1. [結 Yui] org.gftd.xproject.referral.request
    "家庭支援申請 app_58。世帯人数5、子ども3名。becoming チームに家族環境評価を依頼。"
@@ -184,7 +184,7 @@ Timeline in !xp-fam-child-{nanoid}:gftd.ai
 ### 5.3 セーフガード緊急フロー
 
 ```
-Timeline in !xp-safeguard-{nanoid}:gftd.ai
+Timeline in !xp-safeguard-{nanoid}:etzhayyim.com
 
 1. [盾 Tate] org.gftd.xproject.safeguard.alert
    "緊急: ケース case_31。定期モニタリングで身体的安全 capability score が
@@ -220,12 +220,12 @@ Timeline in !xp-safeguard-{nanoid}:gftd.ai
 public-fund appservice:
   app_id: "pb-gftd-ai"
   sender_localpart: "pb-bot"
-  namespace: "@pb-*:gftd.ai"
+  namespace: "@pb-*:etzhayyim.com"
 
 well-becoming appservice:
   app_id: "becoming-gftd-ai"
   sender_localpart: "becoming-bot"
-  namespace: "@becoming-*:gftd.ai"
+  namespace: "@becoming-*:etzhayyim.com"
 ```
 
 ### 6.2 Cross-Project Room Provisioning
@@ -245,13 +245,13 @@ func provisionCrossProjectRoom(matrixCli *performer.MatrixClient, appNanoid stri
     // room.ID = !xp-edu-child-{nanoid}
 
     // 2. Invite public-fund agents
-    matrixCli.InviteToRoom(ctx, room.ID, "@pb-edu-mgr-{nanoid}:gftd.ai")
-    matrixCli.InviteToRoom(ctx, room.ID, "@pb-ece-{nanoid}:gftd.ai")
+    matrixCli.InviteToRoom(ctx, room.ID, "@pb-edu-mgr-{nanoid}:etzhayyim.com")
+    matrixCli.InviteToRoom(ctx, room.ID, "@pb-ece-{nanoid}:etzhayyim.com")
 
     // 3. Invite well-becoming agents (cross-project)
-    matrixCli.InviteToRoom(ctx, room.ID, "@becoming-guardian-{nanoid}:gftd.ai")
-    matrixCli.InviteToRoom(ctx, room.ID, "@becoming-nurturer-{nanoid}:gftd.ai")
-    matrixCli.InviteToRoom(ctx, room.ID, "@becoming-play-{nanoid}:gftd.ai")
+    matrixCli.InviteToRoom(ctx, room.ID, "@becoming-guardian-{nanoid}:etzhayyim.com")
+    matrixCli.InviteToRoom(ctx, room.ID, "@becoming-nurturer-{nanoid}:etzhayyim.com")
+    matrixCli.InviteToRoom(ctx, room.ID, "@becoming-play-{nanoid}:etzhayyim.com")
 }
 ```
 
@@ -271,23 +271,23 @@ func provisionCaseRoom(matrixCli *performer.MatrixClient, applicationID string, 
 }
 
 func selectAgentsForCase(cofogCode string) []string {
-    base := []string{"@pb-sw-{nanoid}:gftd.ai"} // 心 は全ケースに参加
+    base := []string{"@pb-sw-{nanoid}:etzhayyim.com"} // 心 は全ケースに参加
     switch {
     case strings.HasPrefix(cofogCode, "09"):
         // 教育系: 学 + 芽 + 守 + 育
         return append(base,
-            "@pb-edu-mgr-{nanoid}:gftd.ai",
-            "@pb-ece-{nanoid}:gftd.ai",
-            "@becoming-guardian-{nanoid}:gftd.ai",
-            "@becoming-nurturer-{nanoid}:gftd.ai",
+            "@pb-edu-mgr-{nanoid}:etzhayyim.com",
+            "@pb-ece-{nanoid}:etzhayyim.com",
+            "@becoming-guardian-{nanoid}:etzhayyim.com",
+            "@becoming-nurturer-{nanoid}:etzhayyim.com",
         )
     case cofogCode == "10.4":
         // 家庭・子ども系: 結 + 盾 + 和 + 守
         return append(base,
-            "@pb-fam-mgr-{nanoid}:gftd.ai",
-            "@becoming-protector-{nanoid}:gftd.ai",
-            "@becoming-family-{nanoid}:gftd.ai",
-            "@becoming-guardian-{nanoid}:gftd.ai",
+            "@pb-fam-mgr-{nanoid}:etzhayyim.com",
+            "@becoming-protector-{nanoid}:etzhayyim.com",
+            "@becoming-family-{nanoid}:etzhayyim.com",
+            "@becoming-guardian-{nanoid}:etzhayyim.com",
         )
     default:
         return base
@@ -355,11 +355,11 @@ Matrix event は command/conversation 用。typed query は XRPC:
 
 | Source | Target | XRPC Method | 用途 |
 |---|---|---|---|
-| pb.gftd.ai | becoming.gftd.ai | `CapabilityQueryService/GetChildProfile` | 子どもプロフィール照会 |
-| pb.gftd.ai | becoming.gftd.ai | `CapabilityQueryService/GetCapabilityAssessment` | capability 評価結果照会 |
-| pb.gftd.ai | becoming.gftd.ai | `CapabilityQueryService/ListInterventionPlans` | 介入計画一覧照会 |
-| becoming.gftd.ai | pb.gftd.ai | `PublicFundQueryService/GetApplication` | 申請情報照会 |
-| becoming.gftd.ai | pb.gftd.ai | `PublicFundQueryService/ListDisbursements` | 分配状況照会 |
+| pb.etzhayyim.com | becoming.etzhayyim.com | `CapabilityQueryService/GetChildProfile` | 子どもプロフィール照会 |
+| pb.etzhayyim.com | becoming.etzhayyim.com | `CapabilityQueryService/GetCapabilityAssessment` | capability 評価結果照会 |
+| pb.etzhayyim.com | becoming.etzhayyim.com | `CapabilityQueryService/ListInterventionPlans` | 介入計画一覧照会 |
+| becoming.etzhayyim.com | pb.etzhayyim.com | `PublicFundQueryService/GetApplication` | 申請情報照会 |
+| becoming.etzhayyim.com | pb.etzhayyim.com | `PublicFundQueryService/ListDisbursements` | 分配状況照会 |
 
 ## 9. Daily Evolution (Cross-Project Awareness)
 

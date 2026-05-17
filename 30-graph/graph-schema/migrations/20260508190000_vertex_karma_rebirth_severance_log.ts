@@ -4,7 +4,7 @@ import { sql } from "kysely";
 // ADR-0040 vertex tier: tier B  (curated audit log; no Tier-3 PII).
 
 /**
- * karma.gftd.ai — rebirth severance log (Phase K3).
+ * karma.etzhayyim.com — rebirth severance log (Phase K3).
  *
  * Audit trail for the rebirth.severFollows step. Records every
  * follow-edge action taken during organism rebirth:

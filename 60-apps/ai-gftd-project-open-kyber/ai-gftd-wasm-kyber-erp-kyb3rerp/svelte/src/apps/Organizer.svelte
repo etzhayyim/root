@@ -3,8 +3,8 @@
   import { callXrpc } from '../lib/xrpc';
   import { ui } from '../lib/store.svelte';
 
-  // organizer.gftd.ai is a separate Worker; calls go cross-origin (CORS-enabled XRPC).
-  const BASE = 'https://organizer.gftd.ai';
+  // organizer.etzhayyim.com is a separate Worker; calls go cross-origin (CORS-enabled XRPC).
+  const BASE = 'https://organizer.etzhayyim.com';
 
   const nsid = {
     listItems: 'ai.gftd.apps.organizer.listItems',
@@ -25,7 +25,7 @@
   async function run(kind: string, payload: Record<string, unknown> = {}) {
     ui.loading = true;
     try {
-      // Cross-origin call to organizer.gftd.ai
+      // Cross-origin call to organizer.etzhayyim.com
       const res = await fetch(`${BASE}/xrpc/${kind}`, {
         method: 'POST',
         mode: 'cors',
@@ -47,7 +47,7 @@
 
 <div class="flex flex-col gap-4">
   <div class="flex flex-wrap items-center gap-2">
-    <Badge value="organizer.gftd.ai" variant="accent" />
+    <Badge value="organizer.etzhayyim.com" variant="accent" />
     <span class="text-xs text-gftd-muted">
       Upload anything · Blake3 dedup · AI auto-classify · subscription recommender
     </span>
@@ -118,6 +118,6 @@
   </div>
 
   <p class="text-[11px] text-gftd-muted">
-    Cross-origin XRPC to <code>organizer.gftd.ai</code>. If browser blocks CORS the call falls back to same-origin (kyber proxy not implemented).
+    Cross-origin XRPC to <code>organizer.etzhayyim.com</code>. If browser blocks CORS the call falls back to same-origin (kyber proxy not implemented).
   </p>
 </div>

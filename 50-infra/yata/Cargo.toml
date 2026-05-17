@@ -20,7 +20,7 @@ members = [
 version = "0.1.0"
 edition = "2024"
 license = "Apache-2.0"
-repository = "https://github.com/gftdcojp/yata"
+repository = "https://github.com/etzhayyim/root/50-infra/yata"
 
 [profile.dev]
 debug = 1

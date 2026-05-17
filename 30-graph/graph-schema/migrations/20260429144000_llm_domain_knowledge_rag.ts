@@ -3,15 +3,15 @@ import { sql } from "kysely";
 
 // tier: B
 //
-// Generic domain-knowledge RAG spine for llm.gftd.ai.
+// Generic domain-knowledge RAG spine for llm.etzhayyim.com.
 // Facts live in RisingWave vertices and are retrieved by Zeebe Python/LangGraph
 // workers. CF Workers must not hard-code domain facts.
 
-const ownerDid = "did:web:llm.gftd.ai";
-const mediaGamersDid = "did:web:a7m8oocs.gftd.ai";
+const ownerDid = "did:web:llm.etzhayyim.com";
+const mediaGamersDid = "did:web:a7m8oocs.etzhayyim.com";
 const createdAt = "2026-04-29T14:40:00+09:00";
 const pokopiaDocVid =
-  "at://did:web:llm.gftd.ai/ai.gftd.apps.llm.domainKnowledge/pokemon-pokopia-dream-island";
+  "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/pokemon-pokopia-dream-island";
 const pokopiaImageUrl =
   "https://www.gamespot.com/a/uploads/scale_super/1639/16394540/4662653-drifloonupdrafts.jpg";
 
@@ -27,21 +27,21 @@ const pokopiaBody = [
 
 const sources = [
   {
-    vid: "at://did:web:llm.gftd.ai/ai.gftd.apps.llm.knowledgeSource/nintendo-pokopia-dream-island",
+    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/nintendo-pokopia-dream-island",
     url: "https://en-americas-support.nintendo.com/app/answers/detail/a_id/71382",
     title: "Nintendo Support: How to Visit a Dream Island (Pokémon Pokopia)",
     kind: "official-support",
     confidence: "high",
   },
   {
-    vid: "at://did:web:llm.gftd.ai/ai.gftd.apps.llm.knowledgeSource/gamespot-pokopia-dream-island",
+    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/gamespot-pokopia-dream-island",
     url: "https://www.gamespot.com/articles/how-dream-islands-work-in-pokemon-pokopia/1100-6538621/",
     title: "GameSpot: How Dream Islands Work in Pokemon Pokopia",
     kind: "guide",
     confidence: "medium",
   },
   {
-    vid: "at://did:web:llm.gftd.ai/ai.gftd.apps.llm.knowledgeSource/gamespot-pokopia-dream-island-image",
+    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/gamespot-pokopia-dream-island-image",
     url: pokopiaImageUrl,
     title: "GameSpot image: Drifloon brings you to Dream Island",
     kind: "image",
@@ -207,7 +207,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       ${pokopiaDocVid}, 1, DATE '2026-04-29', 1, ${ownerDid}, ${mediaGamersDid},
       'media_gamers', 'game:work:pokemon-pokopia', 'pokemon-pokopia',
       'Pokémon Pokopia Dream Island domain knowledge', 'ja', ${pokopiaBody},
-      'sha256:pending', 'at://did:web:a7m8oocs.gftd.ai/ai.gftd.apps.media_gamers.article/3mkmcl7x3bt2b',
+      'sha256:pending', 'at://did:web:a7m8oocs.etzhayyim.com/ai.gftd.apps.media_gamers.article/3mkmcl7x3bt2b',
       'high', 'active', ${createdAt}, ${createdAt},
       'anon', 'anon', 'sys.llm.domain-knowledge.seed',
       ${JSON.stringify({ image: pokopiaImageUrl })}

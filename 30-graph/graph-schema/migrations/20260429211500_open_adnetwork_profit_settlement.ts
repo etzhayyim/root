@@ -9,15 +9,15 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const createdAt = "2026-04-29T21:15:00+09:00";
-const ownerDid = "did:web:yoro.gftd.ai";
+const ownerDid = "did:web:yoro.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.business-profit";
 const sourcePath = "00-contracts/bpmn/ai/gftd/open-adnetwork/settleBusinessProfit.bpmn";
 const bpmnProcessId = "open_adnetwork_settle_business_profit";
 const nsid = "ai.gftd.apps.openAdnetwork.settleBusinessProfit";
 const processVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-adnetwork-settle-business-profit-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-adnetwork-settle-business-profit-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`

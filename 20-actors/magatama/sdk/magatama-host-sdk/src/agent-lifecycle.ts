@@ -152,7 +152,7 @@ export function createAgentLifecycle(
   return {
     async spawn(config: AgentSpawnConfig): Promise<AgentRecord> {
       const agentId = genID("agent");
-      const did = `did:web:${config.appId}.gftd.ai`;
+      const did = `did:web:${config.appId}.etzhayyim.com`;
       const ts = nowISO();
       const tags = config.tags ?? [];
 

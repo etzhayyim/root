@@ -1,4 +1,4 @@
-module github.com/gftdcojp/tonbo/go
+module github.com/etzhayyim/root/50-infra/tonbo/go
 
 go 1.23.0
 

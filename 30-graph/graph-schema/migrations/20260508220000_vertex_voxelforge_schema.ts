@@ -8,7 +8,7 @@ import { sql } from "kysely";
 //          confidential not Tier-3 PII. Visible to org owner + actor.)
 
 /**
- * voxelforge.gftd.ai — LangGraph 3D design pipeline schema (ADR-2605080700).
+ * voxelforge.etzhayyim.com — LangGraph 3D design pipeline schema (ADR-2605080700).
  *
  * Pattern: T2 actor with LangGraph Server execution runtime
  * (ADR-2605080600). Domain writes go through `createKyselyDb(env.HYPERDRIVE)`

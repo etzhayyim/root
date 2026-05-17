@@ -226,7 +226,7 @@
 					const redirectUrl = isNative
 						? `ai.gftd.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
 						: window.location.href;
-					window.location.href = `https://authn.gftd.ai/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`;
+					window.location.href = `https://authn.etzhayyim.com/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`;
 				}}
 				class="flex min-h-[36px] items-center rounded-full border border-gv2-border px-4 py-1.5 text-[14px] font-semibold text-gv2-text-primary touch-manipulation active:bg-gv2-bg-hover active:scale-[0.97] transition-transform"
 			>
@@ -239,7 +239,7 @@
 					const redirectUrl = isNative
 						? `ai.gftd.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
 						: window.location.href;
-					window.location.href = `https://authn.gftd.ai/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`;
+					window.location.href = `https://authn.etzhayyim.com/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`;
 				}}
 				class="flex min-h-[36px] items-center rounded-full bg-[#58CC02] px-4 py-1.5 text-[14px] font-bold text-white shadow-[0_3px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[3px] transition-all duration-75"
 			>
