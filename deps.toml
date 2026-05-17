@@ -209,6 +209,10 @@ deployed_at = "2026-05-17T12:09:00Z"
 health_endpoint = "https://pds.etzhayyim.com/xrpc/_health"
 persistence = "crontab @reboot on simeon"
 secrets_1password_item = "gftdcojp / etzhayyim/pds-simeon/secrets-2026-05-17"
+did_web_resolution = "https://pds.etzhayyim.com/.well-known/did.json"
+did_web_worker = "etzhayyim-pds-did-web (50-infra/etzhayyim-pds-did-web)"
+did_web_route = "pds.etzhayyim.com/.well-known/did.json (CF Worker, path-specific; other paths fall through to tunnel CNAME)"
+did_web_deployed_at = "2026-05-17T12:21:27Z"
 
 [platform.ipfs]
 node_id = "12D3KooWMjzJdChBp9HqorSvxkrfSFfSNanjR8tJmtmJwVmZif16"
