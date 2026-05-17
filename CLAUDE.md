@@ -39,9 +39,10 @@ etzhayyim/root/
 ├── 00-contracts/        # lexicons / bpmn / dmn / Rego policies / resources (JSON-LD)
 ├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim,
 │                        # wproto, at-client, signal-client
-├── 20-actors/           # magatama (Pregel framework + host SDK),
+├── 20-actors/           # magatama (Pregel framework + host SDK +
+│                        # unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
 │                        # magatama-go, kami-engine-sdk, effect-cypher,
-│                        # etzhayyim-bpmn-sdk
+│                        # etzhayyim-bpmn-sdk, etzhayyim-sdk (RW-free substrate per ADR-2605172000+2605172100)
 ├── 30-graph/            # graph-schema, kagami, risingwave-udf, vectorization
 ├── 50-infra/            # geth-private, holochain, ipfs, blockscout,
 │                        # k8s/atproto-pds, etzhayyim-did-web,

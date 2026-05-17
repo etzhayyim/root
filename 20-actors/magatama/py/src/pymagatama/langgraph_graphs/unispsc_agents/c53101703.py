@@ -1,0 +1,1 @@
+from langgraph.graph import StateGraph, END; from typing import TypedDict; class State(TypedDict): input_text: str; validated: bool; state = StateGraph(State); def validate_spec(s: State): return {'validated': True}; state.add_node('validate', validate_spec); state.set_entry_point('validate'); state.add_edge('validate', END); graph = state.compile()

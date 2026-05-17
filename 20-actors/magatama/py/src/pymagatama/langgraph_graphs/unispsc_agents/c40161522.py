@@ -1,0 +1,1 @@
+from langgraph.graph import StateGraph, END; from typing import TypedDict, List; class FilterSpec(TypedDict): specs: List[str]; validated: bool; def check_dimensions(state: FilterSpec): return {'validated': True}; graph = StateGraph(FilterSpec); graph.add_node('validate', check_dimensions); graph.set_entry_point('validate'); graph.add_edge('validate', END); app = graph.compile()

@@ -1,0 +1,1 @@
+from langgraph.graph import StateGraph, END; class RobotState(dict): pass; def validate_spec(state): return {'status': 'validated'}; def compile_graph(): graph = StateGraph(RobotState); graph.add_node('validate', validate_spec); graph.set_entry_point('validate'); graph.add_edge('validate', END); return graph.compile(); graph = compile_graph()

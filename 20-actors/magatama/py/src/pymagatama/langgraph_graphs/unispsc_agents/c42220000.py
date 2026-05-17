@@ -1,0 +1,2 @@
+from typing import TypedDict, List; from langgraph.graph import StateGraph, END; class IvState(TypedDict): items: List[dict]; validated: bool; def check_medical_compliance(state: IvState): 
+    state['validated'] = all('cert' in item for item in state['items']); return state; graph = StateGraph(IvState); graph.add_node('validate', check_medical_compliance); graph.set_entry_point('validate'); graph.add_edge('validate', END); graph = graph.compile()
