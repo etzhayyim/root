@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "MF CSV Ingest Helper",
+  "version": "1.0.0",
+  "description": "Rename MoneyForward CSV exports into ~/Downloads/mf-ingest/ with canonical names, for ADR-0031 ingest pipeline.",
+  "permissions": [
+    "downloads",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://accounting.moneyforward.com/*",
+    "https://invoice.moneyforward.com/*",
+    "https://contract.moneyforward.com/*",
+    "https://pc.moneyforward.com/*"
+  ],
+  "action": {
+    "default_title": "MF CSV Ingest Helper",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
