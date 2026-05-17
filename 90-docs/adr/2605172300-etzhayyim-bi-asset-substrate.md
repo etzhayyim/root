@@ -1,7 +1,7 @@
 ---
 id: adr-2605172300-etzhayyim-bi-asset-substrate
 title: "ADR-2605172300: etzhayyim Kisha-Stream / Goji-Treasury — two-chain (geth-private + Base L2) basic-income and asset substrate for an on-chain religious voluntary association"
-status: proposed
+status: accepted
 doc_type: adr
 topic: etzhayyim-bi-asset-substrate
 authoritative: true
@@ -36,9 +36,35 @@ superseded_by: []
 
 # ADR-2605172300: etzhayyim Kisha-Stream / Goji-Treasury — two-chain (geth-private + Base L2) basic-income and asset substrate for an on-chain religious voluntary association
 
-**Status**: proposed
+**Status**: accepted (S0–S4 implemented + e2e verified on Anvil; production deploy pending operational readiness)
 **Date**: 2026-05-17
 **Deciders**: Jun Kawasaki
+
+## Implementation status (2026-05-17 session close)
+
+| Stage | Surface | Status |
+|---|---|---|
+| S0 | `Constitution.sol` + `AdherentRegistry.sol` | ✅ deployed locally, 16/16 forge tests |
+| S1 | `KishaStream.sol` + `AnchorBridge.sol` + `base/KishaPayout.sol` + `@etzhayyim/sdk` `bi.join` / `bi.attest` / `bi.status` / `bi.claim` | ✅ deployed + 21/21 forge tests + 29/29 vitest |
+| S2 | `Phenotype.sol` + `KishaStream` multiplier composition + `pymagatama.eligibility` (`scoring`, `cell`, `web3_ports`) + per-adherent `PhenotypeAgent` code-gen | ✅ 10/10 forge tests + 22/22 pytest; Python `EligibilityCell.step` produces a multiplier that lands on-chain and KishaStream accrual scales by it |
+| S3 | `Governance.sol` + `TreasuryMirror.sol` + `bi.propose` / `bi.vote` / `bi.proposalState` + ERC-4337 sponsored path (`paymaster.ts` + `EtzhayyimPaymaster.sol`) | ✅ 16/16 forge tests + 13/13 vitest; sponsored UserOp lands against real EntryPoint v0.7 + SimpleAccount |
+| S4 | `CorpusRegistry.sol` + `HoldingAttestation.sol` | ✅ 21/21 forge tests; deploy gated on Japan-jurisdiction lawfirm review of the attestation template (per the legal caveat in §4) |
+| S5 | `script/Deploy.s.sol` + `script/MockUsdc.sol` + `RUNBOOK-deploy.md` | ✅ deploy script runs cold-to-live on Anvil in <10s |
+
+**End-to-end smokes** (all passing):
+
+- `20-actors/etzhayyim-sdk/test/integration-full.mjs` — full SDK lifecycle (`join → attest → status → propose → vote → queue → execute → claim → fulfill`) against Anvil with deterministic addresses; daily accrual delta matches `baseRate × bps / 10_000`.
+- `20-actors/etzhayyim-sdk/test/integration-eligibility.mjs` — JS orchestrator + Python `run_eligibility_step.py` child process; Python cell reads `Attested` events from chain, scores, signs EIP-191, submits `Phenotype.setMultiplier`; verifies multiplier propagates to `KishaStream.accruedNow`.
+- `50-infra/etzhayyim-paymaster/test/PaymasterIntegration.t.sol` — real EntryPoint v0.7 + SimpleAccount stack (eth-infinitism/account-abstraction@v0.7.0); sponsored UserOps land for allowlisted targets; rejected for non-allowlisted; daily cap respected.
+- `20-actors/etzhayyim-sdk/test/integration-fake-pds.mjs` — `bi.join` Stage 2 + `bi.attest` PDS record writes hit an in-memory fake `AtpAgent`; canonical oath text + cross-chain refs (Base tx, github SHA) threaded into the record.
+
+**What is NOT yet done** (intentional out-of-scope):
+
+- Production deploy on Base mainnet + a real geth-private chain (operational readiness gate, not a code gate).
+- Lawfirm review of the `HoldingAttestation` template (S4 production deploy is gated on this).
+- Multi-adherent fleet test (current smokes drive a single adherent).
+- A real ERC-4337 bundler (Alto / Skandha) — local tests use direct `EntryPoint.handleOps` from a test EOA.
+- A real PDS — local tests use `test/fake-pds.mjs`.
 
 # Context
 

@@ -78,3 +78,6 @@ htmlcov/
 _working/
 tmp/
 .tmp/
+
+# Foundry transient lockfile (held during `forge` invocations; persists if forge crashes)
+foundry.lock
