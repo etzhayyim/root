@@ -1,0 +1,19 @@
+{
+  "domain": "treaty",
+  "appHost": "treaty",
+  "repo": "did:web:treaty.etzhayyim.com",
+  "collection": "ai.gftd.apps.treaty.treaty",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3FsignedDate%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%2Fwdt%3AP279%2A%20wd%3AQ131569.%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP585%20%3FsignedDate.%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%203000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "{{item.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}",
+    "signedDate": "{{signedDate.value}}"
+  },
+  "chunkSize": 200,
+  "note": "Wikidata Q131569 (treaty) + subclasses. Target world_total=560, expect ~2000+ hits."
+}

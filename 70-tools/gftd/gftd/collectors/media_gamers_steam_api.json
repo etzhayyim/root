@@ -1,0 +1,19 @@
+{
+  "domain": "media_gamers",
+  "appHost": "media-gamers",
+  "repo": "did:web:media-gamers.etzhayyim.com",
+  "collection": "ai.gftd.apps.media_gamers.title",
+  "source": {
+    "url": "https://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json",
+    "format": "json",
+    "path": "applist.apps"
+  },
+  "rkey": "steam-{{appid}}",
+  "mapping": {
+    "steamAppId": "{{appid}}",
+    "title": "{{name}}",
+    "source": "steam-appslist"
+  },
+  "chunkSize": 1000,
+  "note": "Steam Web API ISteamApps/GetAppList — all Steam apps (~200K+: games, DLC, videos, tools). No auth. world_total=900K, expect ~22% instant hit."
+}

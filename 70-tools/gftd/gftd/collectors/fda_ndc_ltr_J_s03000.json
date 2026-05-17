@@ -1,0 +1,19 @@
+{
+  "domain": "fda_ndc",
+  "appHost": "ndc",
+  "repo": "did:web:ndc.etzhayyim.com",
+  "collection": "ai.gftd.apps.ndc.drug",
+  "source": {
+    "url": "https://api.fda.gov/drug/ndc.json?search=generic_name:J*&limit=1000&skip=3000",
+    "format": "json",
+    "path": "results"
+  },
+  "rkey": "ndc-{{product_ndc}}",
+  "mapping": {
+    "productNdc": "{{product_ndc}}",
+    "genericName": "{{generic_name}}",
+    "brandName": "{{brand_name}}"
+  },
+  "chunkSize": 500,
+  "note": "FDA NDC J* skip=3000"
+}

@@ -1,0 +1,20 @@
+{
+  "domain": "media_gamers",
+  "appHost": "media-gamers",
+  "repo": "did:web:media-gamers.etzhayyim.com",
+  "collection": "ai.gftd.apps.media_gamers.title",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FgogId%20%3FitemLabel%20WHERE%20%7B%20%3Fitem%20wdt%3AP2725%20%3FgogId.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%2050000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "wdgog-{{gogId.value}}",
+  "mapping": {
+    "wikidataId": "{{item.value}}",
+    "gogId": "{{gogId.value}}",
+    "title": "{{itemLabel.value}}",
+    "source": "wikidata-p2725-gog"
+  },
+  "chunkSize": 500,
+  "note": "Wikidata P2725 (GOG.com application ID). 4728 games."
+}

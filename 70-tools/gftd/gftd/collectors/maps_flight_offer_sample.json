@@ -1,0 +1,46 @@
+{
+  "domain": "maps_flight_offer_sample",
+  "appHost": "maps",
+  "repo": "did:web:maps.etzhayyim.com",
+  "collection": "ai.gftd.apps.maps.flightOffer",
+  "source": {
+    "format": "inline",
+    "data": [
+      {
+        "provider": "skyscanner-like",
+        "airline": "Example Air",
+        "flightNumber": "EA123",
+        "originIata": "NRT",
+        "destinationIata": "LAX",
+        "outboundDate": "2026-05-10",
+        "returnDate": "2026-05-20",
+        "basePrice": "610",
+        "taxes": "88",
+        "totalPrice": "698",
+        "currency": "USD",
+        "bookingUrl": "https://www.skyscanner.net/transport/flights/nrt/lax/260510/260520/",
+        "deeplinkUrl": "https://www.skyscanner.net/transport/flights/nrt/lax/260510/260520/",
+        "observedAt": "2026-04-15T00:00:00Z"
+      }
+    ]
+  },
+  "rkey": "flight-offer-{{originIata}}-{{destinationIata}}-{{outboundDate}}-{{provider}}",
+  "mapping": {
+    "provider": "{{provider}}",
+    "airline": "{{airline}}",
+    "flightNumber": "{{flightNumber}}",
+    "originIata": "{{originIata}}",
+    "destinationIata": "{{destinationIata}}",
+    "outboundDate": "{{outboundDate}}",
+    "returnDate": "{{returnDate}}",
+    "basePrice": "{{basePrice}}",
+    "taxes": "{{taxes}}",
+    "totalPrice": "{{totalPrice}}",
+    "currency": "{{currency}}",
+    "bookingUrl": "{{bookingUrl}}",
+    "deeplinkUrl": "{{deeplinkUrl}}",
+    "observedAt": "{{observedAt}}"
+  },
+  "chunkSize": 200,
+  "note": "Skyscanner-like fare offer seed sample for maps flight pricing pipeline."
+}

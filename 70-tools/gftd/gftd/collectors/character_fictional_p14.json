@@ -1,0 +1,18 @@
+{
+  "domain": "character_anime",
+  "appHost": "character",
+  "repo": "did:web:character.etzhayyim.com",
+  "collection": "ai.gftd.apps.character.anime",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20DISTINCT%20%3Fitem%20%3FitemLabel%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%2Fwdt%3AP279*%20wd%3AQ95074.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20OFFSET%20120000%20LIMIT%2010000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "{{item.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}"
+  },
+  "chunkSize": 500,
+  "note": "Q95074 fictional character transitive OFFSET 120000."
+}

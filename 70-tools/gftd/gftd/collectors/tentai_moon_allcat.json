@@ -1,0 +1,18 @@
+{
+  "domain": "tentai_moon",
+  "appHost": "tentai",
+  "repo": "did:web:tentai.etzhayyim.com",
+  "collection": "ai.gftd.apps.tentai.moon",
+  "source": {
+    "url": "https://en.wikipedia.org/w/api.php?action=query&list=categorymembers&cmtitle=Category:Moons_of_Jupiter&cmlimit=500&format=json",
+    "format": "json",
+    "path": "query.categorymembers"
+  },
+  "rkey": "moon-{{pageid}}",
+  "mapping": {
+    "title": "{{title}}",
+    "pageid": "{{pageid}}"
+  },
+  "chunkSize": 500,
+  "note": "Wikipedia Moons of Jupiter category."
+}

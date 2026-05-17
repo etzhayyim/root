@@ -1,0 +1,19 @@
+{
+  "domain": "kuruma",
+  "appHost": "kuruma",
+  "repo": "did:web:kuruma.etzhayyim.com",
+  "collection": "ai.gftd.apps.kuruma.model",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3FmanufacturerLabel%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ1420.%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP176%20%3Fmanufacturer.%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%2010000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "{{item.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}",
+    "manufacturer": "{{manufacturerLabel.value}}"
+  },
+  "chunkSize": 200,
+  "note": "Wikidata Q1420 (automobile) direct instances, complements Q3231690 (automobile model) slice."
+}
