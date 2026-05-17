@@ -8,6 +8,11 @@
 #      from vendor → etzhayyim, ~60 dirs + ~2600 stub LoC removed from vendor)
 #   3. Mechanical gftd-→-etzhayyim sweep (1934 files rewritten, ADR-2605172900
 #      classifies what was preserved as historical vs deferred)
+#   4. GitGuardian RisingWave credential-leak incident response (ADR-2605173100,
+#      8 defense layers — HEAD scrub, filter-repo on etzhayyim, secret-scan
+#      hook both repos, ClusterIP lockdown, RW root auth enforced via ALTER USER,
+#      CF Private Tunnel for Hyperdrive, 1Password rotation runbook,
+#      Vultr firewall template)
 #
 # Human-readable docs:
 #   - CLAUDE.md (this dir)            ← index, operating-entity boundary
@@ -344,6 +349,12 @@ title = "did:web:pds.etzhayyim.com resolution via path-specific Cloudflare Worke
 status = "active"
 path = "90-docs/adr/2605173000-pds-did-web-resolution-worker.md"
 
+[[adrs]]
+id = "2605173100"
+title = "GitGuardian RisingWave credential-leak incident response — full remediation 2026-05-17"
+status = "active"
+path = "90-docs/adr/2605173100-gitguardian-incident-response.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -486,6 +497,32 @@ status = "migrated-from-vendor"
 description = "Python port of gftd CLI (parallel operation per vendor ADR-2605151500). vault_cmd.py + 14 vault test functions stripped on copy."
 adr = ["2605172900"]
 
+[[modules]]
+path = "50-infra/vultr/risingwave/private-tunnel"
+kind = "k8s-manifests"
+version = "1.0.0"
+status = "deployed"
+description = "Cloudflare Tunnel 'risingwave-private' (id a17cdf9d-7b9d-4cf4-a482-66129bc2a43d) — exposes RisingWave to CF Hyperdrive via private TCP tunnel after the public LoadBalancer was decommissioned in the 2026-05-17 GitGuardian incident. cloudflared 2/2 replicas in risingwave ns; DNS risingwave-private.gftd.ai CNAME → tunnel."
+adr = ["2605173100"]
+tunnel_id = "a17cdf9d-7b9d-4cf4-a482-66129bc2a43d"
+origin = "tcp://risingwave.risingwave.svc.cluster.local:4566"
+
+[[modules]]
+path = "50-infra/vultr/risingwave/rotate-password.sh"
+kind = "runbook-script"
+version = "1.0.0"
+status = "ready"
+description = "1Password-CLI-driven RisingWave root password rotation runbook. Auto-fetches kubeconfig from Vultr API, generates 32-char pw via `op item create --generate-password`, stores in vault 'gftdcojp', applies to K8s Secret + restarts RW + smoke tests. --dry-run supported."
+adr = ["2605173100"]
+
+[[modules]]
+path = "50-infra/vultr/risingwave-firewall-restrict.sh"
+kind = "runbook-script"
+version = "1.0.0"
+status = "template-only"
+description = "Vultr Cloud Firewall lockdown script for VKE node instances. Not applied to RW (superseded by ClusterIP). Kept as a template for similar IP-restrict patterns on other infrastructure."
+adr = ["2605173100"]
+
 # ─── ADR-2605152100 Step 8 — migration completion ───────────────────
 
 [platform.migration_step8]
@@ -531,6 +568,46 @@ preserved_as_historical = [
 preserved_as_grace_period = [
   "geth.gftd.ai → geth.etzhayyim.com (12-month grace, see [platform.l2.private_chain])",
   "did:web:gftd.co.jp (vendor company DID, stays vendor permanently — boundary marker)",
+]
+
+# ─── Security: GitGuardian incident 2026-05-17 (full audit) ─────────
+
+[platform.security.gitguardian_2026_05_17]
+# Full ADR: 90-docs/adr/2605173100-gitguardian-incident-response.md
+incident_date = "2026-05-17"
+detected_by = "GitGuardian (public repo scanner)"
+leaked_credential_class = "PostgreSQL DSN with embedded password"
+adr = "2605173100"
+status = "remediated (Layer 1-7 done; Layer 8 = template)"
+
+# What was leaked (now fully invalidated by ALTER USER + ClusterIP + Tunnel)
+leaked_dsn_was = "postgres(ql)://root:rw_<32-hex>@<vendor-rw-host>:4566/dev"
+leaked_pw_format = "rw_<32-hex>"
+leaked_host_ip_historical = "45.32.79.245"  # released back to Vultr pool 2026-05-17T21:55Z
+
+# Defense layers (in order applied)
+layer_1_head_scrub_etzhayyim_commit = "23e499b5"
+layer_1_head_scrub_vendor_commit = "f7e53eba2aa"
+layer_2_filter_repo_etzhayyim = "executed 2026-05-17T21:18, force-pushed, backup tag backup/pre-filter-repo-20260517-211628"
+layer_2_filter_repo_vendor = "skipped per user direction (private repo)"
+layer_3_secret_scan_etzhayyim_commit = "da059d91"
+layer_3_secret_scan_vendor_commit = "47996c2c27a"
+layer_4_network_lockdown = "K8s Service risingwave patched LoadBalancer → ClusterIP at 2026-05-17T21:55"
+layer_5_rw_auth = "ALTER USER root WITH PASSWORD '<32-char>' executed in-cluster Job; empty/bogus PW now rejected"
+layer_6_cf_tunnel = "Tunnel risingwave-private (a17cdf9d-7b9d-4cf4-a482-66129bc2a43d) + cloudflared deploy 2/2 in risingwave ns"
+layer_7_rotation_runbook = "50-infra/vultr/risingwave/rotate-password.sh (commit a523b012, op-CLI-driven)"
+layer_8_vultr_firewall_template = "50-infra/vultr/risingwave-firewall-restrict.sh (commit 143421d5, not applied — superseded by ClusterIP)"
+
+# Credential custody
+rotated_password_location = "1Password vault 'gftdcojp', item 'RisingWave root (rotated 2026-05-17)' (id kudkk66526jk3ft4iasbezf6uy)"
+rotated_password_length_chars = 32
+
+# Pending follow-ups (security)
+pending = [
+  "Hyperdrive dashboard update (CF API token lacks Hyperdrive scope; user finishes in CF dashboard per 50-infra/vultr/risingwave/private-tunnel/README.md)",
+  "Helm chart values override so root-password is wired by chart (currently auth state is in RW metastore only; chart Secret remains empty)",
+  "Audit other RW users (kaisya_app, postgres, rw_admin, rwadmin) — only root was ALTER'd",
+  "ADR-2605172000 alignment: 20-actors/magatama/py/ RW-dependent workers should arguably live in vendor (~50 *_worker_main.py files)",
 ]
 
 # ─── Pending content seed (legacy — kept for reference) ─────────────
