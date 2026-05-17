@@ -7,7 +7,16 @@ optimizer = true
 optimizer_runs = 1000000
 via_ir = true
 
-# geth-private internal chain (ChainID 2605, PoA / Clique).
-# Endpoint set by deployer environment; no public RPC.
+# Two-chain target per ADR-2605172300:
+#   etzhayyim_private — internal PoA chain (ChainID 2605); endpoint
+#                       supplied by deployer env, no public RPC.
+#   base / base_sepolia — Base L2 (Coinbase). Used for src/base/*.sol
+#                         (KishaPayout settlement).
 [rpc_endpoints]
 etzhayyim_private = "${ETZHAYYIM_PRIVATE_RPC}"
+base              = "https://mainnet.base.org"
+base_sepolia      = "https://sepolia.base.org"
+
+[etherscan]
+base         = { key = "${BASESCAN_KEY}", url = "https://api.basescan.org/api" }
+base_sepolia = { key = "${BASESCAN_KEY}", url = "https://api-sepolia.basescan.org/api" }

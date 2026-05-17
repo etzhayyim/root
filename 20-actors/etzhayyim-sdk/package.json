@@ -28,6 +28,10 @@
     "./pay": {
       "import": "./dist/pay.js",
       "types": "./dist/pay.d.ts"
+    },
+    "./bi": {
+      "import": "./dist/bi.js",
+      "types": "./dist/bi.d.ts"
     }
   },
   "files": ["dist", "src", "README.md"],
@@ -62,6 +66,10 @@
     "decentralized",
     "verifiable",
     "religious-corp",
-    "open"
+    "open",
+    "basic-income",
+    "kisha",
+    "soulbound",
+    "did"
   ]
 }
