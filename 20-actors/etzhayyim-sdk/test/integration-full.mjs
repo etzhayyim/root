@@ -20,7 +20,7 @@
 // Usage:
 //   cd 20-actors/etzhayyim-sdk && pnpm build && node test/integration-full.mjs
 
-import {createPublicClient, createWalletClient, http, keccak256, toHex} from "viem";
+import {createPublicClient, createWalletClient, encodeAbiParameters, http, keccak256, toBytes, toHex} from "viem";
 import {privateKeyToAccount} from "viem/accounts";
 
 import {
@@ -28,8 +28,9 @@ import {
   ADHERENT_REGISTRY_ABI,
   ETZHAYYIM_MEMBERSHIP_ABI,
   GOVERNANCE_ABI,
+  KISHA_STREAM_ABI,
 } from "../dist/abi.js";
-import {join, propose, vote, proposalState} from "../dist/bi.js";
+import {attest, claim, join, propose, proposalState, status, vote} from "../dist/bi.js";
 
 const RPC = "http://localhost:8545";
 
@@ -46,7 +47,19 @@ const ADDR = {
   CorpusRegistry: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
   HoldingAttestation: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
   EtzhayyimMembership: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+  // Settlement layer for bi.claim e2e:
+  MockUsdc:     "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+  KishaPayout:  "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
 };
+// Sorted relayer set the KishaPayout was constructed with.
+// Anvil accounts #2, #1, #3 by address sort.
+const RELAYER_PKS = [
+  "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a", // → 0x3C44…93BC
+  "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d", // → 0x70997970…79C8
+  "0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6", // → 0x90F79bf6…b906
+];
+const RELAYER_THRESHOLD = 2;
+const TREASURY = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"; // anvil #0 (also officer)
 
 // Anvil default account #0 — the founder officer for this run.
 const OFFICER_PK = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
@@ -67,6 +80,8 @@ const cfg = {
   registryAddress: ADDR.AdherentRegistry,
   kishaStreamAddress: ADDR.KishaStream,
   membershipAddress: ADDR.EtzhayyimMembership,
+  kishaPayoutAddress: ADDR.KishaPayout,
+  treasurySafeAddress: TREASURY,
   baseWalletClient: wallet,
   privateWalletClient: wallet,
 };
@@ -122,17 +137,10 @@ const tokenId = await pub.readContract({
 log("  tokenId:", tokenId, "(expected 1)");
 if (tokenId !== 1n) fail("tokenId != 1", tokenId);
 
-// ─── Step 3: attest → isActive true ───
-log("Step 3 — AdherentRegistry.attest");
-const attestTx = await wallet.writeContract({
-  account: officer,
-  chain: null,
-  address: ADDR.AdherentRegistry,
-  abi: ADHERENT_REGISTRY_ABI,
-  functionName: "attest",
-  args: [tokenId, keccak256(new TextEncoder().encode("prayer")), "0x" + "00".repeat(32)],
-});
-await pub.waitForTransactionReceipt({hash: attestTx});
+// ─── Step 3: bi.attest → isActive true ───
+log("Step 3 — bi.attest (via SDK)");
+const attestRes = await attest({tokenId, eventType: "prayer"}, cfg);
+log("  attest tx:", attestRes.txHash);
 const isActive = await pub.readContract({
   address: ADDR.AdherentRegistry,
   abi: ADHERENT_REGISTRY_ABI,
@@ -141,6 +149,20 @@ const isActive = await pub.readContract({
 });
 log("  isActive:", isActive, "(expected true)");
 if (!isActive) fail("isActive false");
+
+// ─── Step 3b: bi.status snapshot ───
+log("Step 3b — bi.status snapshot");
+const stat = await status(tokenId, cfg);
+log("  tokenId:           ", stat.tokenId);
+log("  adherentSince:     ", stat.adherentSince);
+log("  lastAttestedAt:    ", stat.lastAttestedAt);
+log("  isActive:          ", stat.isActive);
+log("  baseRatePerDay:    ", stat.baseRatePerDay);
+log("  phenotypeMultiplier:", stat.phenotypeMultiplierBps, "(expected 10000 = 1.0x — phenotype not wired)");
+log("  claimable:         ", stat.claimable);
+log("  claimedTotal:      ", stat.claimedTotal);
+if (!stat.isActive) fail("status.isActive false");
+if (stat.phenotypeMultiplierBps !== 10_000) fail("expected 10000 bps", stat.phenotypeMultiplierBps);
 
 // ─── Step 4: bi.propose ───
 log("Step 4 — bi.propose: kisha_base_rate 1 USDC/day → 2 USDC/day");
@@ -230,5 +252,143 @@ const newRate = await pub.readContract({
 const newRateBigInt = BigInt(newRate);
 log("  new rate (bytes32 as bigint):", newRateBigInt, "(expected 2000000)");
 if (newRateBigInt !== 2_000_000n) fail("setMutable did not land", newRateBigInt);
+
+// ─── Step 9: bi.claim with a manual mock relayer ───
+// The "relayer" here is the integration script itself: it tails
+// ClaimTicketIssued, collects M-of-N relayer signatures over the
+// EIP-191 payload KishaPayout expects, and submits fulfill() so the
+// Promise returned by bi.claim() resolves.
+
+log("Step 9 — bi.claim (with manual mock relayer)");
+
+// Warp +2 days so accruedNow > 0 (2 USDC after rate change).
+await fetch(RPC, {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({jsonrpc: "2.0", method: "evm_increaseTime", params: [2 * 86400], id: 1}),
+});
+await fetch(RPC, {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({jsonrpc: "2.0", method: "evm_mine", params: [], id: 1}),
+});
+
+const accrued = await pub.readContract({
+  address: ADDR.KishaStream,
+  abi: KISHA_STREAM_ABI,
+  functionName: "accruedNow",
+  args: [tokenId],
+});
+log("  accruedNow:", accrued, "(after rate change + 2 days; expected ≥ 2_000_000n)");
+if (accrued < 2_000_000n) fail("accrued < 2 USDC", accrued);
+
+// Kick off the claim — note: bi.claim returns immediately with the
+// ticket info and a `fulfilled` Promise that polls Base for Fulfilled.
+const claimPromise = claim({tokenId}, cfg);
+
+// Spawn the mock relayer in parallel: tail logs for the freshly-issued
+// ticket, sign the payload with M-of-N relayer keys, submit fulfill().
+const mockRelayer = async () => {
+  // Wait a tick for the KishaStream tx to land + ClaimTicketIssued.
+  await new Promise((r) => setTimeout(r, 1500));
+
+  // Latest ClaimTicketIssued for this holder.
+  const ticketLogs = await pub.getLogs({
+    address: ADDR.KishaStream,
+    event: KISHA_STREAM_ABI.find((x) => x.type === "event" && x.name === "ClaimTicketIssued"),
+    args: {holder: officer.address},
+    fromBlock: "earliest",
+    toBlock: "latest",
+  });
+  if (ticketLogs.length === 0) throw new Error("relayer: no ClaimTicketIssued log");
+  const ev = ticketLogs[ticketLogs.length - 1];
+  const {ticketId, tokenId: tid, baseRecipient, amount, expiresAt} = ev.args;
+  log("  relayer saw ticket:", ticketId, "amount=" + amount);
+
+  // EIP-191 envelope over KishaPayout's payload.
+  const inner = keccak256(
+    encodeAbiParameters(
+      [
+        {type: "address"}, {type: "uint256"}, {type: "bytes32"},
+        {type: "uint256"}, {type: "address"}, {type: "uint256"}, {type: "uint64"},
+      ],
+      [ADDR.KishaPayout, BigInt(31337), ticketId, tid, baseRecipient, amount, expiresAt]
+    )
+  );
+
+  // Sort relayer keys by signer address (ascending) — matches the order
+  // KishaPayout's constructor recorded them in.
+  const relayers = RELAYER_PKS
+    .map((pk) => {
+      const acct = privateKeyToAccount(pk);
+      return {pk, addr: acct.address.toLowerCase()};
+    })
+    .sort((a, b) => (a.addr < b.addr ? -1 : 1));
+
+  const chosen = relayers.slice(0, RELAYER_THRESHOLD);
+  const signers = [];
+  const sigs = [];
+  for (const r of chosen) {
+    const a = privateKeyToAccount(r.pk);
+    const sig = await a.signMessage({message: {raw: inner}});
+    signers.push(a.address);
+    sigs.push(sig);
+  }
+
+  const fulfillAbi = [
+    {
+      type: "function",
+      name: "fulfill",
+      stateMutability: "nonpayable",
+      inputs: [
+        {name: "ticketId", type: "bytes32"},
+        {name: "tokenId", type: "uint256"},
+        {name: "baseRecipient", type: "address"},
+        {name: "amount", type: "uint256"},
+        {name: "expiresAt", type: "uint64"},
+        {name: "signatures", type: "bytes[]"},
+        {name: "signers", type: "address[]"},
+      ],
+      outputs: [],
+    },
+  ];
+  const fulfillTx = await wallet.writeContract({
+    account: officer,
+    chain: null,
+    address: ADDR.KishaPayout,
+    abi: fulfillAbi,
+    functionName: "fulfill",
+    args: [ticketId, tid, baseRecipient, amount, expiresAt, sigs, signers],
+  });
+  log("  relayer fulfill tx:", fulfillTx);
+};
+
+// Race the claim Promise against the mock relayer.
+const [, claimRes] = await Promise.all([mockRelayer(), claimPromise]);
+log("  claim ticketId:    ", claimRes.ticketId);
+log("  privateTxHash:     ", claimRes.privateTxHash);
+log("  amount:            ", claimRes.amount);
+
+const settled = await claimRes.fulfilled;
+log("  fulfilled tx (Base):", settled.txHash);
+log("  blockNumber:       ", settled.blockNumber);
+
+// Verify USDC moved to officer's wallet.
+const balAbi = [{type: "function", name: "balanceOf", stateMutability: "view", inputs: [{name: "", type: "address"}], outputs: [{name: "", type: "uint256"}]}];
+const officerUsdc = await pub.readContract({
+  address: ADDR.MockUsdc,
+  abi: balAbi,
+  functionName: "balanceOf",
+  args: [officer.address],
+});
+log("  officer USDC balance:", officerUsdc, "(expected ≥ amount)");
+if (officerUsdc < claimRes.amount) fail("USDC not transferred", officerUsdc);
+
+// Verify bi.status now reflects claimedTotal.
+const statAfter = await status(tokenId, cfg);
+log("  status.claimedTotal after settle:", statAfter.claimedTotal, "(expected", claimRes.amount + ")");
+if (statAfter.claimedTotal < claimRes.amount) fail("claimedTotal didn't update");
+
+console.log("\n✓ e2e PASS — full bi flow: join + attest + status + propose + vote + queue + execute + claim + fulfill lands on-chain");
 
 console.log("\n✓ e2e PASS — full bi flow (join + propose + vote + queue + execute) lands on-chain");
