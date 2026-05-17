@@ -276,19 +276,30 @@ export async function join(opts: JoinOpts, cfg: BIConfig): Promise<JoinResult> {
   );
 
   // ─── Stage 2: AT Record (ai.gftd.apps.etzhayyim.oath) ──────────────
-  const {recordUri, recordCid} = await _writeOathRecord(
-    {
-      did: opts.did,
-      holder: opts.holder,
-      oathHash: opts.oathHash,
-      baseChainId,
-      membershipTxHash,
-      githubUsername: opts.githubUsername ?? "",
-      githubCommitSha: opts.githubCommitSha ?? "",
-    },
-    cfg
-  );
-  const attestationCid = recordCid;
+  // Stage 2 is optional in the same sense as Stage 4: if no PDS agent
+  // is wired we cannot write the cross-substrate index, but the 信者
+  // commitment on Base (Stage 1) is already permanent. Caller gets back
+  // `fullyEnrolled=false` with the Stage 1 receipt and can complete
+  // Stage 2 / 4 later. This matches the semantic of ADR-2605172600 §"Step 4 — AT Record"
+  // and ADR-2605172700 §"Cross-chain link convention".
+  let recordUri = "";
+  let attestationCid = "";
+  if (cfg.pdsAgent) {
+    const written = await _writeOathRecord(
+      {
+        did: opts.did,
+        holder: opts.holder,
+        oathHash: opts.oathHash,
+        baseChainId,
+        membershipTxHash,
+        githubUsername: opts.githubUsername ?? "",
+        githubCommitSha: opts.githubCommitSha ?? "",
+      },
+      cfg
+    );
+    recordUri = written.recordUri;
+    attestationCid = written.recordCid;
+  }
 
   // ─── Stage 3: Github MEMBERS.md PR — out-of-band, caller's responsibility ─
   //   We do not drive the PR. The Stage 2 record carries
@@ -298,7 +309,10 @@ export async function join(opts: JoinOpts, cfg: BIConfig): Promise<JoinResult> {
   //   verified by an auditor reading the AT Record.
 
   // ─── Stage 4: officer-relayed AdherentRegistry.join ─────────────────
-  if (!cfg.officerRelayer) {
+  // Requires both an officer relayer AND a successful Stage 2 (Stage 4
+  // consumes the AT Record CID as `attestationCid`). When either is
+  // missing, return partial state.
+  if (!cfg.officerRelayer || !attestationCid) {
     return {
       tokenId: 0n,
       membershipTxHash,
