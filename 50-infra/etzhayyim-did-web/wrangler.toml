@@ -1,0 +1,18 @@
+name = "etzhayyim-did-web"
+main = "src/worker.ts"
+compatibility_date = "2026-05-17"
+
+# Route the spec-required did:web resolution path through this Worker.
+# zone_name binds to the etzhayyim.com zone in the Cloudflare account that
+# registered etzhayyim.com via Cloudflare Registrar (2026-05-15).
+[[routes]]
+pattern = "etzhayyim.com/.well-known/did.json"
+zone_name = "etzhayyim.com"
+
+# Observability — capture failed resolution attempts in CF Logs.
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+[placement]
+mode = "smart"
