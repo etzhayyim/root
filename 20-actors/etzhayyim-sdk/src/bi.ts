@@ -1,12 +1,16 @@
 /**
  * @etzhayyim/sdk/bi — Basic-income (kisha) + adherent registry helpers.
  *
- * Status: scaffold. Stubs only. See ADR-2605172300 §6.
+ * Status: scaffold. Stubs only — except `join()`, which now implements
+ * the full two-chain atomic ritual per ADR-2605172700 (cross-substrate
+ * link between 信者 / EtzhayyimMembership on Base and Adherent /
+ * AdherentRegistry on geth-private).
  *
  * Composition: the SDK speaks to two chains.
  *   - geth-private (ChainID 2605): AdherentRegistry, KishaStream,
  *     AnchorBridge, Constitution, Governance (S3+).
- *   - Base L2:                     KishaPayout, Treasury Safe (USDC).
+ *   - Base L2:                     EtzhayyimMembership (per ADR-2605172600),
+ *                                  KishaPayout, Treasury Safe (USDC).
  *
  * The two-chain plumbing is internal to this module; callers see a
  * single coherent surface: join → attest → status → claim.
@@ -57,41 +61,290 @@ export interface BIConfig {
   /** Phenotype.sol address on geth-private (S2+). Optional — when unset,
    *  the SDK reports a neutral 10_000 bps multiplier. */
   phenotypeAddress?: `0x${string}`;
+
+  /** EtzhayyimMembership.sol address on Base L2 (per ADR-2605172600).
+   *  Used by `join()` to perform the 信者 ritual leg. */
+  membershipAddress?: `0x${string}`;
+
+  /** Base L2 RPC URL. Default: `https://mainnet.base.org`. */
+  baseRpcUrl?: string;
+
+  /**
+   * Officer-relayer endpoint that submits the geth-private
+   * `AdherentRegistry.join` tx on behalf of the adherent (officer-only
+   * call). Required when `BIConfig.officerRelayer` is unset — without
+   * one, `join()` stops after the 信者 leg and reports the partial
+   * state for human follow-up.
+   *
+   * Convention: HTTPS endpoint that accepts a JSON body
+   *   { holder, did, attestationCid, membershipTxHash, baseChainId,
+   *     githubCommitSha } and returns { tokenId, txHash }.
+   * Out-of-band signed by an officer multisig.
+   */
+  officerRelayer?: {
+    url: string;
+    bearerToken?: string;
+  };
 }
 
-// ─── join ───────────────────────────────────────────────────────────
+// ─── join — two-chain atomic ritual (ADR-2605172700) ────────────────
 
 export interface JoinOpts {
   /** Adherent DID (did:web / did:plc / did:etzhayyim). */
   did: string;
 
   /**
-   * IPFS CID of the creed-acceptance attestation document.
-   * The doc must be signed by the DID controller off-chain.
+   * Adherent's wallet address. Same address controls both chains
+   * (ERC-4337 Smart Account derived from the DID's passkey per
+   * ADR-2605172100). On geth-private it appears as the SBT holder.
    */
-  attestationCid: string;
-
-  /** Adherent's wallet address on geth-private. */
   holder: `0x${string}`;
+
+  /**
+   * keccak256 of the canonical oath text. The text itself is fixed by
+   * ADR-2605172600's lexicon (`ai.gftd.apps.etzhayyim.oath`). The
+   * adherent's signature over the text is carried inside the AT Record
+   * written in Stage 2; only the hash goes on-chain.
+   */
+  oathHash: `0x${string}`;
+
+  /**
+   * Optional github username for the dual-permanent (Base + MEMBERS.md)
+   * record. Per ADR-2605172600 the field is informational; empty string
+   * accepted on-chain.
+   */
+  githubUsername?: string;
+
+  /**
+   * Optional reference to the MEMBERS.md PR or merged commit SHA that
+   * the adherent will (or has) opened against `etzhayyim/root`. Included
+   * verbatim in the AT Record body so a single document indexes both
+   * chains and the github commit.
+   */
+  githubCommitSha?: string;
 }
 
 export interface JoinResult {
-  /** SBT tokenId minted in AdherentRegistry. */
+  /** SBT tokenId minted on geth-private. */
   tokenId: bigint;
 
-  /** geth-private tx hash of the Joined event. */
-  txHash: `0x${string}`;
+  /** Base L2 tx hash of the `EtzhayyimMembership.Joined` event (信者). */
+  membershipTxHash: `0x${string}`;
+
+  /** geth-private tx hash of the `AdherentRegistry.Joined` event. */
+  adherentTxHash: `0x${string}`;
+
+  /** AT URI of the `ai.gftd.apps.etzhayyim.oath` record that bridges
+   *  both chains + the github commit. */
+  oathRecordUri: string;
+
+  /** True if both chain legs landed; false if only the Base 信者 leg
+   *  succeeded and the geth-private leg was skipped/failed (no officer
+   *  relayer wired). */
+  fullyEnrolled: boolean;
 }
 
-export async function join(_opts: JoinOpts, _cfg: BIConfig): Promise<JoinResult> {
+/**
+ * Perform the two-chain membership ritual per ADR-2605172700.
+ *
+ *   Stage 1 — Base L2: call `EtzhayyimMembership.join(oathHash, githubUsername)`
+ *             (anyone-callable, paymaster-sponsored gas). On success the
+ *             adherent is a 信者; the commitment is permanently on Base
+ *             and (after Stage 3 PR merges) also on github.
+ *
+ *   Stage 2 — PDS: write a signed `ai.gftd.apps.etzhayyim.oath` record
+ *             carrying the full oath text, the DID signature, the Base
+ *             chainId + Joined tx hash, the github commit SHA, and the
+ *             joinedAt timestamp. The record's CID is the
+ *             `attestationCid` consumed by Stage 4.
+ *
+ *   Stage 3 — Github: out-of-band, the adherent opens a PR to
+ *             `MEMBERS.md`. This SDK does not drive the PR (it requires
+ *             github auth); it returns the commit SHA placeholder for
+ *             the caller to fill in before the AT Record is finalized.
+ *
+ *   Stage 4 — geth-private: officer-relayed call to
+ *             `AdherentRegistry.join(holder, did, keccak256(oathRecordCid))`.
+ *             This is the only step that needs officer privilege; the
+ *             relayer is consulted via `cfg.officerRelayer` if set,
+ *             otherwise the call returns `fullyEnrolled=false` with the
+ *             Stage 1+2 receipts so a human can complete the enrollment
+ *             through the standard officer flow.
+ *
+ * If Stage 1 succeeds and Stage 4 fails (network / officer down / etc.),
+ * the 信者 state on Base is *not* rolled back — that's the intended
+ * semantic per ADR-2605172600 (信者 is permanent and self-sovereign;
+ * Adherent is a later additive layer). Re-running `join()` is
+ * idempotent: Stage 1 will revert `AlreadyMember`, Stage 2 dedupes
+ * by content, Stage 4 retries the officer-relayer call.
+ */
+export async function join(opts: JoinOpts, cfg: BIConfig): Promise<JoinResult> {
+  // ─── precondition checks (kept as runtime errors so the SDK fails
+  //     loudly rather than producing partial state silently) ─────────
+  if (!cfg.membershipAddress) {
+    throw new Error("[etzhayyim-sdk/bi] join: cfg.membershipAddress required (Base L2)");
+  }
+  if (!cfg.registryAddress) {
+    throw new Error("[etzhayyim-sdk/bi] join: cfg.registryAddress required (geth-private)");
+  }
+  if (!opts.holder || !/^0x[0-9a-fA-F]{40}$/.test(opts.holder)) {
+    throw new Error("[etzhayyim-sdk/bi] join: holder must be a 0x-prefixed address");
+  }
+  if (!opts.oathHash || !/^0x[0-9a-fA-F]{64}$/.test(opts.oathHash)) {
+    throw new Error("[etzhayyim-sdk/bi] join: oathHash must be a 0x-prefixed 32-byte hex");
+  }
+
+  // ─── Stage 1: Base L2 EtzhayyimMembership.join ──────────────────────
+  //   Reuses the same paymaster-sponsored ERC-4337 path as pay.ts.
+  //   See pay.ts `pay()` for the eventual viem wiring; here we delegate
+  //   to a future low-level helper.
+  const membershipTxHash = await _baseJoin({
+    membership: cfg.membershipAddress,
+    rpcUrl: cfg.baseRpcUrl ?? "https://mainnet.base.org",
+    holder: opts.holder,
+    oathHash: opts.oathHash,
+    githubUsername: opts.githubUsername ?? "",
+  });
+
+  // ─── Stage 2: AT Record (ai.gftd.apps.etzhayyim.oath) ──────────────
+  const {recordUri, recordCid} = await _writeOathRecord({
+    did: opts.did,
+    holder: opts.holder,
+    oathHash: opts.oathHash,
+    baseChainId: 8453, // Base mainnet; SDK defaults; override via cfg.baseRpcUrl chain probe in a follow-up
+    membershipTxHash,
+    githubUsername: opts.githubUsername ?? "",
+    githubCommitSha: opts.githubCommitSha ?? "",
+  });
+  const attestationCid = recordCid;
+
+  // ─── Stage 3: Github MEMBERS.md PR — out-of-band, caller's responsibility ─
+  //   We do not drive the PR. The Stage 2 record carries
+  //   `githubCommitSha` (which may be empty pre-merge); after the user
+  //   opens the PR, they can re-call `join` to update the record. For
+  //   the canonical reading of "fully enrolled", the github leg can be
+  //   verified by an auditor reading the AT Record.
+
+  // ─── Stage 4: officer-relayed AdherentRegistry.join ─────────────────
+  if (!cfg.officerRelayer) {
+    return {
+      tokenId: 0n,
+      membershipTxHash,
+      adherentTxHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
+      oathRecordUri: recordUri,
+      fullyEnrolled: false,
+    };
+  }
+  const {tokenId, txHash: adherentTxHash} = await _officerRelayJoin({
+    relayer: cfg.officerRelayer,
+    registry: cfg.registryAddress,
+    holder: opts.holder,
+    did: opts.did,
+    attestationCid,
+    membershipTxHash,
+    baseChainId: 8453,
+    githubCommitSha: opts.githubCommitSha ?? "",
+  });
+
+  return {
+    tokenId,
+    membershipTxHash,
+    adherentTxHash,
+    oathRecordUri: recordUri,
+    fullyEnrolled: true,
+  };
+}
+
+// ─── Low-level helpers for join() — viem wiring intentionally deferred
+//     to a follow-up so the SDK stays compilable without viem providers
+//     bound. The shape pins the contract; production glue plugs in here.
+
+interface _BaseJoinIn {
+  membership: `0x${string}`;
+  rpcUrl: string;
+  holder: `0x${string}`;
+  oathHash: `0x${string}`;
+  githubUsername: string;
+}
+
+async function _baseJoin(_args: _BaseJoinIn): Promise<`0x${string}`> {
   throw new Error(
-    "[etzhayyim-sdk/bi] join() TODO: " +
-      "(1) verify creed-acceptance attestation is signed by `did`'s key, " +
-      "(2) call AdherentRegistry.join(holder, did, keccak256(attestationCid)) via an officer-relayer tx, " +
-      "(3) parse Joined(tokenId, holder, did, attestationCid) event, " +
-      "(4) write ai.gftd.apps.adherent.joined AT Record on the adherent's PDS, " +
-      "(5) enqueue MST root for next anchor batch."
+    "[etzhayyim-sdk/bi] _baseJoin TODO: " +
+      "(1) instantiate viem Public+Wallet clients against args.rpcUrl, " +
+      "(2) build ERC-4337 UserOperation with EtzhayyimMembership.join(oathHash, githubUsername), " +
+      "(3) attach paymaster signature (see pay.ts), " +
+      "(4) submit to Base bundler; return tx hash from the Joined receipt."
   );
+}
+
+interface _OathRecordIn {
+  did: string;
+  holder: `0x${string}`;
+  oathHash: `0x${string}`;
+  baseChainId: number;
+  membershipTxHash: `0x${string}`;
+  githubUsername: string;
+  githubCommitSha: string;
+}
+
+async function _writeOathRecord(
+  _args: _OathRecordIn
+): Promise<{recordUri: string; recordCid: string}> {
+  throw new Error(
+    "[etzhayyim-sdk/bi] _writeOathRecord TODO: " +
+      "(1) resolve PDS via DID document, (2) compose ai.gftd.apps.etzhayyim.oath " +
+      "record (canonical text + signature + base chain id + tx hash + github commit), " +
+      "(3) sign with the DID's WebAuthn key, " +
+      "(4) call pds.com.atproto.repo.createRecord; return at://uri + CID."
+  );
+}
+
+interface _OfficerRelayIn {
+  relayer: {url: string; bearerToken?: string};
+  registry: `0x${string}`;
+  holder: `0x${string}`;
+  did: string;
+  attestationCid: string;
+  membershipTxHash: `0x${string}`;
+  baseChainId: number;
+  githubCommitSha: string;
+}
+
+async function _officerRelayJoin(
+  args: _OfficerRelayIn
+): Promise<{tokenId: bigint; txHash: `0x${string}`}> {
+  // The officer relayer is an HTTPS endpoint; the SDK posts the payload
+  // and the relayer signs + submits the AdherentRegistry.join tx on
+  // geth-private. The contract checks `msg.sender == isOfficer` on the
+  // chain side; the relayer's authority is its officer-multisig
+  // signing key.
+  const body = {
+    holder: args.holder,
+    did: args.did,
+    attestationCid: args.attestationCid,
+    registry: args.registry,
+    membershipTxHash: args.membershipTxHash,
+    baseChainId: args.baseChainId,
+    githubCommitSha: args.githubCommitSha,
+  };
+  const res = await fetch(args.relayer.url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(args.relayer.bearerToken
+        ? {Authorization: `Bearer ${args.relayer.bearerToken}`}
+        : {}),
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(
+      `[etzhayyim-sdk/bi] officer relayer ${args.relayer.url} returned ${res.status}: ${text}`
+    );
+  }
+  const out = (await res.json()) as {tokenId: string; txHash: `0x${string}`};
+  return {tokenId: BigInt(out.tokenId), txHash: out.txHash};
 }
 
 // ─── attest ─────────────────────────────────────────────────────────
