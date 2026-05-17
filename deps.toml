@@ -1,17 +1,21 @@
-# etzhayyim/root — deps.toml (scaffolding stub)
+# etzhayyim/root — deps.toml
 #
-# Full SSoT lives in the vendor monorepo at:
-#   https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/deps.toml
+# Machine-readable SSoT for the etzhayyim/root monorepo.
+# Updated 2026-05-17 after substrate scaffolding wave (ADR-2605170900
+# through ADR-2605172200, SDK + 4 infra modules + paymaster).
 #
-# This file holds only the minimum platform identity needed during the
-# scaffolding phase. Full sections (deps_convention, directory_index,
-# mitama_actors, conventions, app_layer, infra_layer, versions, path_lexicon,
-# objective_function, migrations, etc.) will be selectively copied / generated
-# when the content seed (git filter-repo) is executed in ADR 2605152100 Step 6.
+# Human-readable docs:
+#   - CLAUDE.md (this dir)            ← index, operating-entity boundary
+#   - 90-docs/CLAUDE.md               ← docs system rules + ADR placement
+#   - 90-docs/adr/README.md           ← ADR index
+#   - 20-actors/etzhayyim-sdk/README.md ← SDK API surface
+
+# ─── Platform identity ──────────────────────────────────────────────
 
 [platform]
 name = "etzhayyim-root"
 license = "Apache-2.0"
+description = "Open religious-corp activities of etzhayyim (宗教法人). Blockchain-self-contained substrate: AT MST + IPFS + Base L2. No RisingWave. No fiat payment processor."
 boundary_adr = "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605152100-etzhayyim-github-org-boundary.md"
 
 [platform.operating_entity]
@@ -28,22 +32,233 @@ not_registered_under = "日本国 宗教法人法 (no 所轄庁 認証 by 文部
 domain = "etzhayyim.com"
 domain_aliases = ["etzhayyim.ai"]
 did = "did:web:etzhayyim.com"
+did_resolver_url = "https://etzhayyim.com/.well-known/did.json"
+did_resolver_status = "LIVE since 2026-05-17T03:25Z"
+did_public_key_jwk_x = "92Olqj6uOx86SECPGeBCnwXORWThGTFWYQr7lK3AQt0"        # Ed25519 base64url
+did_public_key_multibase = "z6Mkw6xsibvozxkzEDDM9b8Zh1YnVy6t349jYPx9UWvARFfS"  # multibase z-base58btc
 github_org_open = "etzhayyim"
 github_org_open_monorepo = "etzhayyim/root"
 github_org_vendor = "gftdcojp"
 github_org_vendor_monorepo = "gftdcojp/ai-gftd-apps-gftdcojp"
 
 [platform.vendor]
-# Vendor providing engineering capacity under SOW.
+# Vendor providing engineering capacity under SOW. Retains RisingWave +
+# Stripe + fiat payment + commercial SaaS integration as paid-tier
+# backend layer (per ADR-2605172100 vendor carve-out).
 name = "Gftd Japan株式会社"
 corporate_number = "9007-2846"
 did = "did:web:gftd.co.jp"
 relationship = "etzhayyim が Gftd Japan に SOW でシステム開発・運用を発注。Payoff の帰属は常に etzhayyim。"
 
+# ─── Substrate rules (CRITICAL — enforced by ADRs 2605172000 + 2605172100) ──
+
+[platform.substrate]
+# Hard rules for any module under etzhayyim/root.
+state_substrate = ["AT Protocol MST", "IPFS", "Base L2 anchor"]
+state_prohibited = ["RisingWave", "Postgres", "Kysely", "MySQL", "MongoDB", "centralized DB"]
+state_rule_adr = "2605172000"
+
+payment_substrate = ["USDC on Base L2", "ERC-4337 Smart Account", "Coinbase Smart Wallet", "Superfluid streams", "0xSplits", "Gnosis Safe escrow"]
+payment_prohibited = ["Stripe", "PayPal", "Square", "Razorpay", "Braintree", "Adyen", "credit-card gateways", "bank ACH", "wire transfer"]
+payment_rule_adr = "2605172100"
+
+identity_substrate = ["did:web:etzhayyim.com", "did:plc", "WebAuthn passkey", "Coinbase Smart Wallet"]
+auth_substrate = ["DID-bound signature", "WebAuthn", "passkey"]
+sdk_seam = "@etzhayyim/sdk (20-actors/etzhayyim-sdk/) — only seam allowed to import substrate clients"
+
+# ─── L2 / Base contracts (testnet first → mainnet) ──────────────────
+
+[platform.l2]
+chain_id_mainnet = 8453
+chain_id_testnet = 84532
+rpc_mainnet = "https://mainnet.base.org"
+rpc_testnet = "https://sepolia.base.org"
+usdc_mainnet = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+usdc_decimals = 6
+entrypoint_v07 = "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+
+[platform.l2.anchor_contract]
+# EtzhayyimAnchor — immutable append-only MST root anchor.
+# Source: 50-infra/l2-anchor-contract/src/EtzhayyimAnchor.sol
+# Status: scaffold v0.0.0, NOT yet deployed.
+source = "50-infra/l2-anchor-contract/"
+adr = "2605171800"
+address_mainnet = ""    # set after `forge script Deploy.s.sol`
+address_testnet = ""
+deploy_status = "pending"
+
+[platform.l2.paymaster]
+# EtzhayyimPaymaster — ERC-4337 paymaster, allowlist + per-sender daily cap.
+# Source: 50-infra/etzhayyim-paymaster/src/EtzhayyimPaymaster.sol
+# Status: scaffold v0.0.0, NOT yet deployed.
+source = "50-infra/etzhayyim-paymaster/"
+adr = "2605172100"
+address_mainnet = ""
+address_testnet = ""
+owner_safe = ""         # 2-of-3 Safe address (TBD)
+default_daily_cap_wei = "20000000000000000"  # 0.02 ETH ≈ $50
+deploy_status = "pending"
+
+# ─── DNS records on etzhayyim.com (managed via CF API) ──────────────
+
+[[platform.dns]]
+type = "AAAA"
+name = "@"
+content = "100::"   # RFC 6666 discard prefix, proxied for CF Worker route
+proxied = true
+purpose = "did:web Worker route placeholder (etzhayyim.com/.well-known/did.json)"
+cf_record_id = "9348b7c102ee94336871b0b5c9455ce6"
+created_at = "2026-05-17T03:23:00Z"
+
+[[platform.dns]]
+type = "AAAA"
+name = "yoro"
+content = "100::"
+proxied = true
+purpose = "yoro AppView placeholder (ADR-2605171900) — Worker/Pages binding pending"
+cf_record_id = "5df2d02dd52796f169ecc04ec50d56ac"
+created_at = "2026-05-17T11:53:00Z"
+
+# ─── ADR registry (mirrors 90-docs/adr/README.md for machine discovery) ──
+
+[[adrs]]
+id = "2605170900"
+title = "etzhayyim/root as canonical home for religious-corp open ADRs"
+status = "active"
+path = "90-docs/adr/2605170900-etzhayyim-root-adr-canonical-home.md"
+
+[[adrs]]
+id = "2605171300"
+title = "Open-UNSPSC Generative Agent Fleet using OpenRouter and Local Fallback"
+status = "accepted"
+path = "90-docs/adr/2605171300-open-unispsc-generative-agent-fleet.md"
+
+[[adrs]]
+id = "2605171800"
+title = "Artificial Organism Ecosystem — LangGraph Pregel → PostgresSaver → atproto MST → IPFS → Base L2 anchor pipeline"
+status = "proposed"
+path = "90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md"
+
+[[adrs]]
+id = "2605171900"
+title = "yoro AppView migration — code + DNS + deployment to yoro.etzhayyim.com"
+status = "proposed"
+path = "90-docs/adr/2605171900-yoro-migration-to-etzhayyim.md"
+
+[[adrs]]
+id = "2605172000"
+title = "etzhayyim/root open apps MUST be RW-free — AT MST + IPFS + Base L2 substrate"
+status = "proposed"
+path = "90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md"
+
+[[adrs]]
+id = "2605172100"
+title = "etzhayyim payments — Base L2 + USDC + ERC-4337 Smart Account (on-chain only, no fiat processor)"
+status = "proposed"
+path = "90-docs/adr/2605172100-etzhayyim-payments-on-chain-only.md"
+
+[[adrs]]
+id = "2605172200"
+title = "Open Email — atproto MST-native mail with bidirectional SMTP bridge and on-chain postage"
+status = "proposed"
+path = "90-docs/adr/2605172200-openmail-atproto-mst-smtp-bridge.md"
+
+# ─── Module registry ────────────────────────────────────────────────
+
+[[modules]]
+path = "20-actors/etzhayyim-sdk"
+kind = "sdk"
+version = "0.0.0"
+status = "scaffold"
+description = "RW-free + on-chain-only substrate SDK (PDS + IPFS + Base L2 + USDC + ERC-4337 + Superfluid + 0xSplits + Safe escrow). Stubs only."
+adr = ["2605172000", "2605172100"]
+exports = ["./", "./pds", "./ipfs", "./l2", "./pay"]
+
+[[modules]]
+path = "50-infra/etzhayyim-did-web"
+kind = "cf-worker"
+version = "deployed"
+status = "live"
+description = "Cloudflare Worker serving did:web:etzhayyim.com/.well-known/did.json"
+adr = ["2605152100"]
+deployed_at = "2026-05-17T03:25:00Z"
+worker_version = "3a7b6806-a046-40bd-a1f9-5a02f776b683"
+
+[[modules]]
+path = "50-infra/mst-projector"
+kind = "ts-service"
+version = "0.0.0"
+status = "scaffold"
+description = "PDS firehose → MST shard projector. Stage 3 of ADR-2605171800."
+adr = ["2605171800"]
+
+[[modules]]
+path = "50-infra/ipfs-pinner"
+kind = "ts-service"
+version = "0.0.0"
+status = "scaffold"
+description = "MST CAR → IPFS pinning service (Pinata + Filecoin/Storacha + Web3.Storage + Kubo). Stage 4 of ADR-2605171800."
+adr = ["2605171800"]
+
+[[modules]]
+path = "50-infra/l2-anchor-contract"
+kind = "solidity-foundry"
+version = "0.0.0"
+status = "scaffold"
+description = "EtzhayyimAnchor immutable append-only MST root log on Base L2. Stage 5a of ADR-2605171800. NO admin, NO pause, NO proxy."
+adr = ["2605171800"]
+solc_version = "0.8.27"
+
+[[modules]]
+path = "50-infra/anchor-cron"
+kind = "ts-cronjob"
+version = "0.0.0"
+status = "scaffold"
+description = "Batched MST root submission to EtzhayyimAnchor on Base L2. Stage 5b of ADR-2605171800."
+adr = ["2605171800"]
+
+[[modules]]
+path = "50-infra/etzhayyim-paymaster"
+kind = "solidity-foundry"
+version = "0.0.0"
+status = "scaffold"
+description = "ERC-4337 Paymaster on Base L2 sponsoring etzhayyim app user-ops (allowlist + per-sender daily cap)."
+adr = ["2605172100"]
+solc_version = "0.8.27"
+
+[[modules]]
+path = "60-apps/ai-gftd-project-open-isco/rw-free"
+kind = "reference-impl"
+version = "0.0.0"
+status = "scaffold"
+description = "First SDK reference implementation — ISCO occupation lookup via @etzhayyim/sdk. Proves substrate end-to-end at minimum cardinality."
+adr = ["2605172000"]
+sdk_dep = "@etzhayyim/sdk"
+
+[[modules]]
+path = "60-apps/ai-gftd-project-yoro"
+kind = "appview-svelte"
+version = "migration-stage-3-prep"
+status = "stages-1-2-done"
+description = "yoro AppView migrated from vendor monorepo. Sed pass (yoro.gftd.ai → yoro.etzhayyim.com) committed. Stages 3-5 (deploy + redirect + vendor cleanup) pending."
+adr = ["2605171900"]
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents"
+kind = "generated-agents"
+version = "18345-agents"
+status = "migrated-from-vendor"
+description = "18,343 LangGraph Pregel agent files generated for UNSPSC commodity classification. Per ADR-2605171300. Loaded via importlib (RW-free)."
+adr = ["2605171300"]
+runtime_loader = "20-actors/magatama/py/src/pymagatama/langgraph_graphs/dynamic_runner.py"
+
+# ─── Pending content seed (legacy — kept for reference) ─────────────
+
 [platform.scaffolding]
-# Files present during scaffolding phase. Removed when seed lands.
-files = ["LICENSE", "README.md", "CLAUDE.md", "deps.toml", ".gitignore", "lefthook.yml"]
+# Original scaffolding stage tracker. Most fields obsolete now (seed
+# completed via rsync per ADR-2605152100 migration plan steps 5-6).
+status = "seed-done"
+seed_completed_at = "2026-05-15T..2026-05-17T"
+seed_method_actual = "rsync (per user direction 'filter-repo は不要、関連する最新コードだけ commit でok')"
 seed_plan_adr = "2605152100"
-seed_method = "git filter-repo --path 00-contracts/ --path 10-protocol/ --path 20-actors/magatama/ --path 30-graph/ --path 50-infra/{geth-private,holochain,ipfs,blockscout,k8s/atproto-pds}/ --path 60-apps/ai-gftd-project-{open-*,public-*,atproto,ameno,baien*}/ --path 90-docs/baien/"
 seed_source = "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp"
-seed_status = "pending"
