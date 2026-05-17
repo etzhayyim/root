@@ -9,6 +9,40 @@
 pre-commit:
   parallel: true
   commands:
+    secret-scan:
+      # Block obvious credentials before they hit git history.
+      # Per the GitGuardian incident (2026-05-17): the RisingWave
+      # PostgreSQL credential `rw_66a4db…` landed in HEAD via vendor
+      # framework seed and required cross-repo remediation.
+      #
+      # Detection regex covers:
+      #   - postgres://USER:PASSWORD@HOST/DB                     (DSN with embedded password)
+      #   - sk_live_… / sk_test_… (Stripe-style secret keys)     (also matches arbitrary `sk_*` tokens)
+      #   - rw_<32-hex>             (RisingWave password format used by upstream)
+      #   - AWS_SECRET_ACCESS_KEY=  / aws_secret_access_key=     (env-style aws keys)
+      #   - github_pat_              (GitHub personal access tokens)
+      #   - ghp_ / ghs_ / ghr_ / gho_  (GitHub PATs short prefixes)
+      #   - PRIVATE KEY-----         (PEM headers)
+      glob: "*.{md,toml,yaml,yml,json,jsonc,ts,tsx,js,mjs,cjs,py,rs,go,sh,sol,sql,env,example}"
+      run: |
+        # Allow false-positive-ish matches inside ADR docs / tests
+        # describing the secret pattern as a literal example.
+        # Reject in all other code paths.
+        leaks=$(grep -nE \
+          'postgres(ql)?://[^@[:space:]]*:[^@[:space:]]+@|sk_(live|test)_[A-Za-z0-9]{16,}|rw_[a-f0-9]{32}|AWS_SECRET_ACCESS_KEY=[A-Za-z0-9/+]{16,}|github_pat_[A-Za-z0-9_]{20,}|ghp_[A-Za-z0-9]{20,}|ghs_[A-Za-z0-9]{20,}|gho_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----' \
+          {staged_files} 2>/dev/null | \
+          grep -vE '(REDACTED|<vendor-rw-host>|example|fixture|placeholder|EXAMPLE_|DUMMY_|XXXX|<your-|<insert-|/test/|_test\.|\.test\.|/tests/|\.example|\.sample)' || true)
+        if [ -n "$leaks" ]; then
+          echo "✘ secret-scan detected potential credential leak:"
+          echo "$leaks"
+          echo ""
+          echo "  Move the value to a secret manager (Keychain / 1Password / k8s Secret) and"
+          echo "  reference via env var instead. If this is a documented EXAMPLE format, mark"
+          echo "  the line with the token 'EXAMPLE' or 'placeholder' to bypass this check."
+          exit 1
+        fi
+      stage_fixed: false
+
     trailing-whitespace:
       glob: "*.{md,toml,yaml,yml,json,jsonc,ts,tsx,js,mjs,cjs,py,rs,go,sh}"
       run: |
