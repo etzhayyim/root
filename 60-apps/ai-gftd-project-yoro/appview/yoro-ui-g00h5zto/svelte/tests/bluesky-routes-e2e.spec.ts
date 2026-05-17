@@ -185,7 +185,7 @@ test.describe('oEmbed endpoint', () => {
 	});
 
 	test('GET /oembed with format=xml returns 501', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/test&format=xml`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/test&format=xml`);
 		expect(res.status()).toBe(501);
 	});
 
@@ -195,12 +195,12 @@ test.describe('oEmbed endpoint', () => {
 	});
 
 	test('GET /oembed with nonexistent profile returns 404', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/nonexistent-user-xyz999`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/nonexistent-user-xyz999`);
 		expect(res.status()).toBe(404);
 	});
 
 	test('GET /oembed with valid profile URL returns JSON', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/testuser&format=json`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/testuser&format=json`);
 		// May return 200 (valid user) or 404 (no such user on this instance)
 		expect([200, 404]).toContain(res.status());
 		if (res.status() === 200) {
@@ -254,7 +254,7 @@ test.describe('SSR OG tags', () => {
 		const res = await request.get(`${BASE}/profile/nonexistent-user-xyz999`);
 		if (res.status() === 200) {
 			const html = await res.text();
-			expect(html).toContain('https://yoro.gftd.ai/logo-v3.png');
+			expect(html).toContain('https://yoro.etzhayyim.com/logo-v3.png');
 			expect(html).toContain('og:image');
 			expect(html).toContain('twitter:image');
 			expect(html).toContain('og:image:alt');

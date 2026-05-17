@@ -244,7 +244,7 @@
 	// ── Share ──
 	async function sharePost() {
 		if (!rootPost) return;
-		const url = `https://yoro.gftd.ai/profile/${encodeURIComponent(handle)}/post/${encodeURIComponent(rkey)}`;
+		const url = `https://yoro.etzhayyim.com/profile/${encodeURIComponent(handle)}/post/${encodeURIComponent(rkey)}`;
 		try {
 			if (navigator.share) {
 				await navigator.share({ title: `${rootPost.author?.displayName || handle} on YORO`, url });
@@ -308,7 +308,7 @@
 	const ogTitle = $derived(data?.og?.title ?? `Post — YORO`);
 	const ogDescription = $derived(data?.og?.description ?? `@${handle} on YORO`);
 	const ogImage = $derived(data?.og?.image ?? null);
-	const ogUrl = $derived(data?.og?.url ?? `https://yoro.gftd.ai/profile/${handle}/post/${rkey}`);
+	const ogUrl = $derived(data?.og?.url ?? `https://yoro.etzhayyim.com/profile/${handle}/post/${rkey}`);
 </script>
 
 <svelte:head>
@@ -334,7 +334,7 @@
 	{#if ogImage}<meta name="twitter:image" content={ogImage} />{/if}
 	<link rel="canonical" href={ogUrl} />
 	<link rel="alternate" type="application/json+oembed"
-		href="https://yoro.gftd.ai/oembed?url={encodeURIComponent(ogUrl)}&format=json"
+		href="https://yoro.etzhayyim.com/oembed?url={encodeURIComponent(ogUrl)}&format=json"
 		title={ogTitle} />
 	{#if data?.og?.authorDid}
 		<meta name="at:uri" content="at://{data.og.authorDid}/app.bsky.feed.post/{rkey}" />

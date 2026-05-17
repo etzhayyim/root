@@ -14,20 +14,20 @@
   <title>{document.title} | YORO</title>
   <meta name="description" content={document.summary} />
   <meta name="at:did" content={document.did} />
-  <link rel="canonical" href="https://yoro.gftd.ai{canonicalPath}" />
+  <link rel="canonical" href="https://yoro.etzhayyim.com{canonicalPath}" />
   {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": document.did,
     "name": document.title,
     "description": document.summary,
-    "url": `https://yoro.gftd.ai${canonicalPath}`,
+    "url": `https://yoro.etzhayyim.com${canonicalPath}`,
     "dateModified": document.lastUpdated,
     "publisher": {
       "@type": "Organization",
       "name": "amanomibashira",
       "alternateName": ["עץ חיים", "宗教法人 amanomibashira (任意団体)"],
-      "url": "https://yoro.gftd.ai/support/operator",
+      "url": "https://yoro.etzhayyim.com/support/operator",
       "description": "Religious voluntary association (宗教法人・任意団体), constitution and member roster registered on a public blockchain. Not an incorporated 宗教法人 under the Japanese 宗教法人法."
     }
   })}</script>`}

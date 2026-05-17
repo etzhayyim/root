@@ -1,5 +1,5 @@
 /**
- * E2E debug: yoro.gftd.ai feed display via kagami B+G DuckDB.
+ * E2E debug: yoro.etzhayyim.com feed display via kagami B+G DuckDB.
  *
  * Tests the full path:
  *   1. kagami /api/query returns Post data
@@ -10,7 +10,7 @@
 import { test, expect } from "@playwright/test";
 
 const KAGAMI_URL = "https://ai-gftd-kagami-2604021830.04-feasts-minded.workers.dev";
-const YORO_URL = "https://yoro.gftd.ai";
+const YORO_URL = "https://yoro.etzhayyim.com";
 
 test.describe("Feed E2E Debug", () => {
   test("kagami /api/query returns Posts", async ({ request }) => {

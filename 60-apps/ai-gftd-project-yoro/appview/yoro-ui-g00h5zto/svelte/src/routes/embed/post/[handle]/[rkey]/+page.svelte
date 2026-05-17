@@ -11,7 +11,7 @@
 	const post = data.post;
 	const handle = data.handle;
 	const rkey = data.rkey;
-	const profileUrl = `https://yoro.gftd.ai/profile/${handle}`;
+	const profileUrl = `https://yoro.etzhayyim.com/profile/${handle}`;
 	const postUrl = `${profileUrl}/post/${rkey}`;
 
 	function timeAgo(ts: string): string {
@@ -76,6 +76,6 @@
 	</div>
 {:else}
 	<div style="padding: 32px; text-align: center; color: #777; font-size: 14px;">
-		Post not found · <a href="https://yoro.gftd.ai/profile/{handle}" style="color: #3b82f6;">View profile</a>
+		Post not found · <a href="https://yoro.etzhayyim.com/profile/{handle}" style="color: #3b82f6;">View profile</a>
 	</div>
 {/if}

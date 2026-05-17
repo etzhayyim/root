@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const BASE = "https://yoro.gftd.ai";
+const BASE = "https://yoro.etzhayyim.com";
 
 test.describe("Embedding E2E", () => {
   test("embedding model loads on /credits", async ({ page }) => {

@@ -4,7 +4,7 @@
  */
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.YORO_BASE_URL || 'https://yoro.gftd.ai';
+const BASE = process.env.YORO_BASE_URL || 'https://yoro.etzhayyim.com';
 
 test('debug: profile page load for main-thread blocking', async ({ page }) => {
   const consoleLogs: string[] = [];
@@ -236,7 +236,7 @@ test('debug: simulate real user interaction (scroll + navigate + DuckDB queries)
   // Step 4: Navigate to a profile (SSR + DuckDB graph queries)
   console.log('=== Step 4: Navigate to profile ===');
   const profileStart = Date.now();
-  await page.goto(`${BASE}/profile/did:web:yoro.gftd.ai`, { waitUntil: 'domcontentloaded', timeout: 15_000 }).catch((error) => {
+  await page.goto(`${BASE}/profile/did:web:yoro.etzhayyim.com`, { waitUntil: 'domcontentloaded', timeout: 15_000 }).catch((error) => {
     console.warn('[silent-fail] debug-edge-freeze.spec.ts: profile goto failed', error);
   });
   await page.waitForTimeout(3000);

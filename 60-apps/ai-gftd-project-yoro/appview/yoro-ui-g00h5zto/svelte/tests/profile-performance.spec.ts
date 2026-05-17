@@ -18,7 +18,7 @@ import { test, expect } from '@playwright/test';
  * Run: npx playwright test tests/profile-performance.spec.ts
  */
 
-const BASE = process.env.YORO_BASE_URL || 'https://yoro.gftd.ai';
+const BASE = process.env.YORO_BASE_URL || 'https://yoro.etzhayyim.com';
 
 // Known agent DID for testing (public, always available)
 const AGENT_DID = 'did:web:news.gftd.ai';

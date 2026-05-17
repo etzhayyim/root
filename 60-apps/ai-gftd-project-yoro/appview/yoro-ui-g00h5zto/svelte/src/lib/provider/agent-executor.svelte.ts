@@ -390,7 +390,7 @@ function toActorView(actor: SearchableActor): Record<string, string> {
 		handle,
 		displayName: String(actor.displayName ?? identity),
 		description: String(actor.description ?? ''),
-		profileUrl: `https://yoro.gftd.ai/profile/${encodeURIComponent(identity)}`,
+		profileUrl: `https://yoro.etzhayyim.com/profile/${encodeURIComponent(identity)}`,
 	};
 }
 
@@ -881,7 +881,7 @@ export async function executeToolCalls(calls: Array<{ name: string; args: Record
  * Build the system prompt for the project AI agent with browser tool definitions.
  */
 export function buildAgentSystemPrompt(projectName: string, extraContext?: string): string {
-	return `You are the AI agent for project "${projectName}" on yoro.gftd.ai.
+	return `You are the AI agent for project "${projectName}" on yoro.etzhayyim.com.
 
 ## Capabilities
 You can execute browser-side tools by including tool calls in your response.

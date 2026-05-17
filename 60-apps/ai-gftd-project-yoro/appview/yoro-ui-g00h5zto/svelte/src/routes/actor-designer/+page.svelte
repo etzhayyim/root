@@ -1,6 +1,6 @@
 <script lang="ts">
   /**
-   * Actor Designer — yoro.gftd.ai visual BPMN/DMN/Forms pipeline editor.
+   * Actor Designer — yoro.etzhayyim.com visual BPMN/DMN/Forms pipeline editor.
    *
    * Enables drag-drop actor pipeline design:
    * - BPMN tab: bpmn-js modeler for process flow design

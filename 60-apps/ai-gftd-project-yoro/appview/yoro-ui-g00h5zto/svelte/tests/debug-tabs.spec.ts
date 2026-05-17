@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * E2E debug: verify AppShell v2 stability for yoro.gftd.ai.
+ * E2E debug: verify AppShell v2 stability for yoro.etzhayyim.com.
  * Validates: dark theme, splash, auth gate, tab configuration.
  */
 

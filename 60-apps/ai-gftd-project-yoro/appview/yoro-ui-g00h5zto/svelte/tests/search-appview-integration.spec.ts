@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const YORO_BASE = process.env.YORO_BASE_URL || 'https://yoro.gftd.ai';
+const YORO_BASE = process.env.YORO_BASE_URL || 'https://yoro.etzhayyim.com';
 const BSKY_XRPC = process.env.BSKY_XRPC_BASE || 'https://bsky.gftd.ai/xrpc';
 const ATPROTO_XRPC = process.env.PDS_BASE_URL || 'https://atproto.gftd.ai/xrpc';
 

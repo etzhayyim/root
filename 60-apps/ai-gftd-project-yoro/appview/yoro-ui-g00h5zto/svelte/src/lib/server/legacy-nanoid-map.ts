@@ -50,7 +50,7 @@ export const LEGACY_NANOID_MAP: Record<string, string> = {
   "ed1t0r00": "editor.gftd.ai",
   "erp6xu1c": "joucho.gftd.ai",
   "fly10001": "yorishiro.gftd.ai",
-  "g00h5zto": "yoro.gftd.ai",
+  "g00h5zto": "yoro.etzhayyim.com",
   "g0v9a1cy": "gov.gftd.ai",
   "g4m3ya00": "gameya.gftd.ai",
   "gm4il0x1": "gmail.gftd.ai",

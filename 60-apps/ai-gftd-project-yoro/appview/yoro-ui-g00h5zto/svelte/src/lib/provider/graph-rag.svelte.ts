@@ -386,7 +386,7 @@ export function useGraphRAG() {
       _lastContextChars = graphContext.length;
 
       // Step 3: Build grounded system prompt
-      const defaultPrompt = 'You are a helpful AI assistant on yoro.gftd.ai. Respond concisely in the same language as the user.';
+      const defaultPrompt = 'You are a helpful AI assistant on yoro.etzhayyim.com. Respond concisely in the same language as the user.';
       const systemPrompt = buildGraphRAGSystemPrompt(
         baseSystemPrompt ?? defaultPrompt,
         graphContext,
@@ -435,7 +435,7 @@ export function useGraphRAG() {
       _lastContextLabels = graphContext ? graphContext.split('\n').length : 0;
       _lastContextChars = graphContext.length;
 
-      const defaultPrompt = 'You are a helpful AI assistant on yoro.gftd.ai. Respond concisely in the same language as the user.';
+      const defaultPrompt = 'You are a helpful AI assistant on yoro.etzhayyim.com. Respond concisely in the same language as the user.';
       const systemPrompt = buildGraphRAGSystemPrompt(
         baseSystemPrompt ?? defaultPrompt,
         graphContext,
@@ -483,7 +483,7 @@ export function useGraphRAG() {
       _lastContextLabels = combinedContext ? combinedContext.split('\n').length : 0;
       _lastContextChars = combinedContext.length;
 
-      const defaultPrompt = 'You are a helpful AI assistant on yoro.gftd.ai. Respond concisely in the same language as the user.';
+      const defaultPrompt = 'You are a helpful AI assistant on yoro.etzhayyim.com. Respond concisely in the same language as the user.';
       const systemPrompt = buildGraphRAGSystemPrompt(
         baseSystemPrompt ?? defaultPrompt,
         combinedContext,

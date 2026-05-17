@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import { authorizeBearer, envOf, noStoreJson } from '$lib/server/bff';
 
-const DEFAULT_FILES = ['https://yoro.gftd.ai/', 'https://yoro.gftd.ai/vibes', 'https://yoro.gftd.ai/search'];
+const DEFAULT_FILES = ['https://yoro.etzhayyim.com/', 'https://yoro.etzhayyim.com/vibes', 'https://yoro.etzhayyim.com/search'];
 
 export const POST: RequestHandler = async (event) => {
 	const env = envOf(event);

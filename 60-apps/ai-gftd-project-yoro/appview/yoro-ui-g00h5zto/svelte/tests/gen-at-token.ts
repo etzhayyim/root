@@ -16,7 +16,7 @@
  *   YORO_AT_TOKEN=$(cat /tmp/yoro-access.jwt) npx playwright test tests/pds-e2e.spec.ts
  *
  *   # Fallback: createSession
- *   AT_IDENTIFIER=yoro.gftd.ai AT_PASSWORD=<secret> npx tsx tests/gen-at-token.ts
+ *   AT_IDENTIFIER=yoro.etzhayyim.com AT_PASSWORD=<secret> npx tsx tests/gen-at-token.ts
  *   YORO_AT_TOKEN=$(AT_IDENTIFIER=... AT_PASSWORD=... npx tsx tests/gen-at-token.ts) npx playwright test tests/pds-e2e.spec.ts
  */
 

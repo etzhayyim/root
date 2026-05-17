@@ -9,7 +9,7 @@ try {
 }
 
 const DEFAULT_OUT = path.resolve(process.cwd(), '../../../../../tmp/e2e/yoro-at-token.json');
-const RETURN_TO = 'https://yoro.gftd.ai/profile/did:web:a7m8oocs.gftd.ai.writer.llm';
+const RETURN_TO = 'https://yoro.etzhayyim.com/profile/did:web:a7m8oocs.gftd.ai.writer.llm';
 
 function argValue(name) {
   const i = process.argv.indexOf(name);

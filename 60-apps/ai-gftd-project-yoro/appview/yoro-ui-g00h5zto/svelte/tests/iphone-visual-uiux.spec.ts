@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.YORO_BASE_URL ?? 'https://yoro.gftd.ai';
+const BASE = process.env.YORO_BASE_URL ?? 'https://yoro.etzhayyim.com';
 const DIR = '/tmp/yoro-iphone-screenshots';
 
 /**

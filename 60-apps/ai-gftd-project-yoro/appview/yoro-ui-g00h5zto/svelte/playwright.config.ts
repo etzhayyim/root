@@ -1,7 +1,7 @@
 import { defineConfig } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 
-const baseURL = process.env.YORO_BASE_URL || 'https://yoro.gftd.ai';
+const baseURL = process.env.YORO_BASE_URL || 'https://yoro.etzhayyim.com';
 
 const testDir = defineBddConfig({
 	features: './tests/bdd/features/**/*.feature',

@@ -16,7 +16,7 @@ test.describe('oEmbed endpoint integration', () => {
 	});
 
 	test('xml format returns 501 (not implemented)', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/test&format=xml`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/test&format=xml`);
 		expect(res.status()).toBe(501);
 	});
 
@@ -31,19 +31,19 @@ test.describe('oEmbed endpoint integration', () => {
 	});
 
 	test('nonexistent profile returns 404', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/nonexistent-user-xyz999abc`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/nonexistent-user-xyz999abc`);
 		expect(res.status()).toBe(404);
 	});
 
 	test('nonexistent post returns 404', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/testuser/post/nonexistent999`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/testuser/post/nonexistent999`);
 		expect(res.status()).toBe(404);
 	});
 
 	// ─── Valid responses ────────────────────────────────────────────────────
 
 	test('profile URL returns valid oEmbed link response', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/testuser&format=json`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/testuser&format=json`);
 		// 200 if user exists, 404 otherwise — both are acceptable
 		expect([200, 404]).toContain(res.status());
 
@@ -63,7 +63,7 @@ test.describe('oEmbed endpoint integration', () => {
 	});
 
 	test('post URL returns valid oEmbed rich response', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/testuser/post/abc123&format=json`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/testuser/post/abc123&format=json`);
 		expect([200, 404]).toContain(res.status());
 
 		if (res.status() === 200) {
@@ -81,7 +81,7 @@ test.describe('oEmbed endpoint integration', () => {
 	});
 
 	test('format=json is explicit and accepted', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/testuser&format=json`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/testuser&format=json`);
 		expect([200, 404]).toContain(res.status());
 		if (res.status() === 200) {
 			const ct = res.headers()['content-type'] || '';
@@ -90,7 +90,7 @@ test.describe('oEmbed endpoint integration', () => {
 	});
 
 	test('no format parameter defaults to JSON', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/testuser`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/testuser`);
 		expect([200, 400, 404]).toContain(res.status());
 		if (res.status() === 200) {
 			const ct = res.headers()['content-type'] || '';
@@ -101,12 +101,12 @@ test.describe('oEmbed endpoint integration', () => {
 	// ─── maxwidth / maxheight parameters ────────────────────────────────────
 
 	test('maxwidth parameter is accepted', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/testuser&maxwidth=400`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/testuser&maxwidth=400`);
 		expect([200, 404]).toContain(res.status());
 	});
 
 	test('maxheight parameter is accepted', async ({ request }) => {
-		const res = await request.get(`${BASE}/oembed?url=https://yoro.gftd.ai/profile/testuser&maxheight=300`);
+		const res = await request.get(`${BASE}/oembed?url=https://yoro.etzhayyim.com/profile/testuser&maxheight=300`);
 		expect([200, 404]).toContain(res.status());
 	});
 });

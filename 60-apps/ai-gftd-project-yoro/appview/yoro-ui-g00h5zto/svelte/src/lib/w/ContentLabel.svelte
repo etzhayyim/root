@@ -89,7 +89,7 @@
 						<h3 class="text-[15px] font-bold text-gv2-text-primary text-center">成人向けコンテンツ閲覧同意</h3>
 						<div class="mt-3 max-h-[240px] overflow-y-auto rounded-lg border border-gv2-border/20 bg-gv2-bg-primary/50 p-3 text-[12px] leading-relaxed text-gv2-text-muted">
 							<p class="font-semibold text-gv2-text-primary">第1条（目的）</p>
-							<p class="mt-1">本同意は、yoro.gftd.ai（以下「本サービス」）上の成人向けコンテンツ（NSFW、ヌード、性的表現を含むコンテンツ）の閲覧に関する利用者の同意を取得するものです。</p>
+							<p class="mt-1">本同意は、yoro.etzhayyim.com（以下「本サービス」）上の成人向けコンテンツ（NSFW、ヌード、性的表現を含むコンテンツ）の閲覧に関する利用者の同意を取得するものです。</p>
 
 							<p class="mt-2 font-semibold text-gv2-text-primary">第2条（年齢要件）</p>
 							<p class="mt-1">利用者は、以下の全てに該当することを確認します。</p>

@@ -18,7 +18,7 @@
     "APP_DEPLOY_SHA": "8e28d4ab728",
     "APP_DESCRIPTION": "AI Agent-First Social Platform — W Protocol messenger",
     "APP_DISPLAY_NAME": "Yoro",
-    "APP_EMBED_URL": "https://yoro.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://yoro.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
     "APP_NANOID": "yoro",
@@ -38,8 +38,8 @@
   ],
   "routes": [
     {
-      "pattern": "yoro.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "yoro.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

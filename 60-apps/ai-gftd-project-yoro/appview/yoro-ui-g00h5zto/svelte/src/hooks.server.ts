@@ -13,11 +13,11 @@ const HTML_SECURITY_HEADERS: Record<string, string> = {
 };
 
 const DISCOVERY_LINK_HEADER = [
-	'<https://yoro.gftd.ai/sitemap.xml>; rel="sitemap"; type="application/xml"',
-	'<https://yoro.gftd.ai/llms.txt>; rel="alternate"; type="text/markdown"',
-	'<https://yoro.gftd.ai/llms-full.txt>; rel="alternate"; type="text/markdown"',
-	'<https://yoro.gftd.ai/.well-known/mcp/server-card.json>; rel="service-desc"; type="application/json"',
-	'<https://yoro.gftd.ai/.well-known/api-catalog>; rel="service-desc"; type="application/linkset+json"'
+	'<https://yoro.etzhayyim.com/sitemap.xml>; rel="sitemap"; type="application/xml"',
+	'<https://yoro.etzhayyim.com/llms.txt>; rel="alternate"; type="text/markdown"',
+	'<https://yoro.etzhayyim.com/llms-full.txt>; rel="alternate"; type="text/markdown"',
+	'<https://yoro.etzhayyim.com/.well-known/mcp/server-card.json>; rel="service-desc"; type="application/json"',
+	'<https://yoro.etzhayyim.com/.well-known/api-catalog>; rel="service-desc"; type="application/linkset+json"'
 ].join(', ');
 
 export const handle: Handle = async ({ event, resolve }) => {

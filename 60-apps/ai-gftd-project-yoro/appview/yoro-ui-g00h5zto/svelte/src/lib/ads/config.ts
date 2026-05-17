@@ -17,7 +17,7 @@ export const UNPROVISIONED = 'UNPROVISIONED';
 
 /**
  * ExoClick publisher-side zone ids per placement.
- * Site: yoro.gftd.ai (ExoClick site id 1094566). Zones are banner (ad_type=2, media_type=2).
+ * Site: yoro.etzhayyim.com (ExoClick site id 1094566). Zones are banner (ad_type=2, media_type=2).
  * Provisioned 2026-04-20 via ExoClick API v2.
  */
 export const EXOCLICK_ZONES: Partial<Record<AdPlacement, string>> = {

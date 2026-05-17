@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 
-const baseURL = process.env.YORO_BASE_URL || 'https://yoro.gftd.ai';
+const baseURL = process.env.YORO_BASE_URL || 'https://yoro.etzhayyim.com';
 
 export default defineConfig({
 	testDir: './tests',
