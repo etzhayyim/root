@@ -24,6 +24,8 @@ These contracts live on the **internal** chain (geth-private at `50-infra/vultr/
 | `src/Phenotype.sol` | geth-private | Per-adherent multiplier (0.5×–2.0×) populated by cell-signed updates from `EligibilityCell` | **S2** |
 | `src/TreasuryMirror.sol` | geth-private | Oracle-signed 3-tier NAV mirror; 156-slot weekly ring buffer; κ-band envelope calc | **S3** |
 | `src/Governance.sol` | geth-private | Minimal in-house Governor; 1 SBT = 1 vote; quorum + 72h timelock + 14d grace | **S3** |
+| `src/CorpusRegistry.sol` | geth-private | Soulbound NFT registry for 本財 corpus assets; governance-gated mint / lock / dispose | **S4 (legal-review-contingent)** |
+| `src/HoldingAttestation.sol` | geth-private | Representative-officer signed commitment that they hold legal title in trust for the association | **S4 (legal-review-contingent)** |
 
 ## Design rules (inherited)
 
@@ -53,4 +55,4 @@ Deployment scripts will live under `script/` and target `etzhayyim_private` (RPC
 
 ## Status
 
-**S3 — Governance + Treasury mirror**. `Governance.sol` lands a minimal in-house Governor (no OZ import): 1 SBT = 1 vote, active-window-gated voters, snapshot-at-voteStart quorum, 72h timelock (governance-mutable), 14d execution grace period, low-level `call` dispatch. `TreasuryMirror.sol` lands oracle-signed NAV updates per tier (流動 / 準備 / 本財) with a 156-slot weekly ring buffer feeding the constitutional κ-band monthly envelope. Wiring at deploy time: `Constitution.bindGovernance(<governance>)` → governance proposals reach `setMutable`, `KishaStream.set*`, `Phenotype.registerCell`, `TreasuryMirror.registerOracle`.
+**S4 — Corpus tier (legal-review-contingent)**. `CorpusRegistry.sol` lands a soulbound NFT per 本財 asset (real property / IP / facility / RWA token reference), with governance-only `mint` / `updateMetadata` / `setLock` / `flagDisposed`. `HoldingAttestation.sol` lands a representative-officer signed commitment that they hold legal title in trust for the association, with EIP-191 signature verification, template-CID snapshot per attestation, and governance-only revoke. **These two contracts are structurally complete but legally contingent — production deployment requires Japan-jurisdiction lawfirm review of the attestation document template.** S3 surface (`Governance.sol` + `TreasuryMirror.sol`) is unchanged.
