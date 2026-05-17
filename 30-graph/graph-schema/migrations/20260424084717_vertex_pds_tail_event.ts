@@ -1,4 +1,4 @@
-// tier: C   // ADR-0040: no DID (observational log; owner_did=atproto.gftd.ai PDS Worker).
+// tier: C   // ADR-0040: no DID (observational log; owner_did=atproto.etzhayyim.com PDS Worker).
 //             Added to `30-graph/deps.toml [vertex_tier.tier_c.tables]`.
 import { Kysely, sql } from 'kysely';
 

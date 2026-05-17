@@ -39,7 +39,7 @@ this file should use the loader without re-scanning Keychain.
 
 The local `.env` fallback was last refreshed against the Linode host
 (172.236.132.11) which is dead per ADR-0048 (RisingWave moved to
-Vultr <vendor-rw-host>). Re-pull from 1Password to refresh:
+Vultr <vendor RW host>). Re-pull from 1Password to refresh:
 
 ```bash
 op item get yi7hc5wozgfhbaneb3ny46w6ua --fields label=credential \

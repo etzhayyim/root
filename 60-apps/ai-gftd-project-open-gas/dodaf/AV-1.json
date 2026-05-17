@@ -2,7 +2,7 @@
   "viewId": "open-gas.AV-1",
   "viewType": "AV-1",
   "title": "Overview and Summary Information",
-  "did": "did:web:open-gas.gftd.ai",
+  "did": "did:web:open-gas.etzhayyim.com",
   "format": "json",
   "content": {
     "purpose": "Provide a DID-addressed natural-gas distribution operations service (regulator/segment design + meter readings + leak/pressure reporting) as an auditable, open-source reference implementation.",

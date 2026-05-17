@@ -1,8 +1,8 @@
 /**
  * save-result.ts — client helper for ai.gftd.apps.ameno.saveResult.
  *
- * Posts to the same-origin ameno.gftd.ai Worker which forwards via
- * sdk.pds.xrpc() → atproto.gftd.ai → bpmn-dispatcher → ameno-langserver pod
+ * Posts to the same-origin ameno.etzhayyim.com Worker which forwards via
+ * sdk.pds.xrpc() → atproto.etzhayyim.com → bpmn-dispatcher → ameno-langserver pod
  * → INSERT vertex_ameno_inferenceresult (ADR-2605111200).
  */
 

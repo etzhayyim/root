@@ -14,7 +14,7 @@ contract GftdAgentRuntimeRegistriesTest is Test {
     address owner = address(0xA11CE);
     address controller = address(0xB0B);
     bytes32 rootDidHash = keccak256(bytes("did:erc725:gftd:260425:0xroot"));
-    bytes32 facadeDidHash = keccak256(bytes("did:web:yoro.gftd.ai"));
+    bytes32 facadeDidHash = keccak256(bytes("did:web:yoro.etzhayyim.com"));
 
     function setUp() public {
         rootRegistry = new GftdRootIdentityRegistry(owner);
@@ -36,7 +36,7 @@ contract GftdAgentRuntimeRegistriesTest is Test {
         assertEq(identity.getData(policyKey), policyCid);
 
         vm.prank(owner);
-        rootRegistry.linkFacade(rootDidHash, facadeDidHash, "did:web:yoro.gftd.ai");
+        rootRegistry.linkFacade(rootDidHash, facadeDidHash, "did:web:yoro.etzhayyim.com");
         assertEq(rootRegistry.resolveFacade(facadeDidHash), identityAddr);
     }
 

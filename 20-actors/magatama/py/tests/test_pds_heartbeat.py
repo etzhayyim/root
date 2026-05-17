@@ -77,7 +77,7 @@ def test_task_writes_heartbeat_tick(monkeypatch):
     assert out["ok"] is True
     assert out["heartbeatFail"] == 1
     row = factory.cursors[0].params[0]
-    assert row["repo"] == "did:web:atproto.gftd.ai"
+    assert row["repo"] == "did:web:atproto.etzhayyim.com"
     assert row["collection"] == "ai.gftd.apps.pds.heartbeatCron"
     value = json.loads(row["value_json"])
     assert value["appsTotal"] == 12

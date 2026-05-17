@@ -10,7 +10,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-APP_DID = "did:web:air-sched.gftd.ai"
+APP_DID = "did:web:air-sched.etzhayyim.com"
 ACTOR_SLUG = "air-sched"
 
 

@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gftdcojp/nats-jetstream-kv-resp/internal/resp"
-	"github.com/gftdcojp/nats-jetstream-kv-resp/internal/store"
-	"github.com/gftdcojp/nats-jetstream-kv-resp/internal/ttl"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp/internal/resp"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp/internal/store"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp/internal/ttl"
 )
 
 // Handler processes a single Redis command.

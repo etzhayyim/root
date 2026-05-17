@@ -1,5 +1,5 @@
 """
-lawfirm.gftd.ai marketing LangGraph (BCI Rule 36-aware).
+lawfirm.etzhayyim.com marketing LangGraph (BCI Rule 36-aware).
 
 Architecture: Supervisor + 6 specialist agents + compliance gate + audit.
 
@@ -31,14 +31,14 @@ from typing import Any, Literal, TypedDict
 
 LOG = logging.getLogger("lawfirm.marketing")
 
-_FIRM_DID  = "did:web:lawfirm.gftd.ai"
-_OWNER_DID = "did:web:bpmn.gftd.ai"
-_ETZ_DID   = "did:web:etz-hayim.gftd.ai"
+_FIRM_DID  = "did:web:lawfirm.etzhayyim.com"
+_OWNER_DID = "did:web:bpmn.etzhayyim.com"
+_ETZ_DID   = "did:web:etz-hayim.etzhayyim.com"
 
 # Compliance reviewer DIDs (CLO + COO authority for advocate-brand publish)
 _COMPLIANCE_REVIEWERS = {
-    "did:web:k-bakshi.gftd.ai",  # CLO + lead advocate (final say on BCI compliance)
-    "did:web:a-nakamura.gftd.ai",  # COO (operational concur)
+    "did:web:k-bakshi.etzhayyim.com",  # CLO + lead advocate (final say on BCI compliance)
+    "did:web:a-nakamura.etzhayyim.com",  # COO (operational concur)
 }
 
 TaskKind = Literal[
@@ -255,7 +255,7 @@ def supervisor(state: MarketingState) -> dict:
 
 # ── Node: content_agent (blog/article) ─────────────────────────────────────────
 
-_CONTENT_SYSTEM = """You are the content agent for lawfirm.gftd.ai.
+_CONTENT_SYSTEM = """You are the content agent for lawfirm.etzhayyim.com.
 Brand: ADVOCATE (k-bakshi personal practice) means BCI Rule 36 strict —
 information-only, no soliciting, no success rate claims, no testimonials.
 
@@ -293,7 +293,7 @@ def content_agent(state: MarketingState) -> dict:
 
 # ── Node: social_agent (LinkedIn) ──────────────────────────────────────────────
 
-_SOCIAL_SYSTEM = """You are the social agent for lawfirm.gftd.ai (advocate brand).
+_SOCIAL_SYSTEM = """You are the social agent for lawfirm.etzhayyim.com (advocate brand).
 Draft a LinkedIn post (k-bakshi personal account) on the given topic.
 
 Requirements:
@@ -301,7 +301,7 @@ Requirements:
 - Educational / observational tone
 - ZERO solicitation language ("hire me", "contact for representation" forbidden)
 - Optional 2-4 hashtags at the end
-- May include link to the lawfirm.gftd.ai/insights blog if relevant
+- May include link to the lawfirm.etzhayyim.com/insights blog if relevant
 - Sign off as "— Kunal"
 """
 
@@ -327,7 +327,7 @@ k-bakshi to send to a mid-tier Indian law firm partner.
 
 This is NOT a cold sales mail — it's a peer introduction with two angles:
 (1) Bakshi & Partners LLP (incorporation in progress) for referral collaboration,
-(2) lawfirm.gftd.ai SaaS pilot (3-month no-cost) — ONLY mention if asked.
+(2) lawfirm.etzhayyim.com SaaS pilot (3-month no-cost) — ONLY mention if asked.
 
 Requirements:
 - 200-350 words
@@ -359,7 +359,7 @@ def outreach_agent(state: MarketingState) -> dict:
 
 # ── Node: platform_agent (amanomibashira SaaS marketing) ───────────────────────────
 
-_PLATFORM_SYSTEM = """You are the platform marketing agent for lawfirm.gftd.ai
+_PLATFORM_SYSTEM = """You are the platform marketing agent for lawfirm.etzhayyim.com
 SaaS, operated by amanomibashira. Brand = PLATFORM, NOT advocate practice.
 Commercial marketing copy is OK (this is a tech operator product page, not
 advocate solicitation).
@@ -371,7 +371,7 @@ Requirements:
 - Word count: tweet 220 chars / landing section 200-400 words / one-pager 600-900 words
 - Highlight differentiation: multilingual intake, cross-border auto-route,
   BCI Rule 36 + DPDP Act 2023-grade encryption, BPMN audit trail
-- Include "amanomibashira is a platform operator. lawfirm.gftd.ai SaaS does not
+- Include "amanomibashira is a platform operator. lawfirm.etzhayyim.com SaaS does not
   provide legal advice; the customer firm's advocates retain all
   professional responsibility." disclaimer at the bottom
 - ZERO advocate-practice language (no "we represent clients", etc.)
@@ -460,7 +460,7 @@ def event_agent(state: MarketingState) -> dict:
 # ── Node: compliance_gate ─────────────────────────────────────────────────────
 
 _COMPLIANCE_SYSTEM = """You are the BCI Rule 36 compliance reviewer for
-lawfirm.gftd.ai advocate-brand marketing.
+lawfirm.etzhayyim.com advocate-brand marketing.
 
 CHECK the draft for these violations (any => REJECTED):
 - Direct solicitation ("hire me", "engage me", "contact for representation")
@@ -547,7 +547,7 @@ def emit_audit(state: MarketingState) -> dict:
         "compliance_check": compliance,
         "compliance_notes": notes[:2000],
         "compliance_score": score,
-        "reviewer_did":     "did:web:lawfirm.gftd.ai",
+        "reviewer_did":     "did:web:lawfirm.etzhayyim.com",
         "scheduled_at":     schedule,
         "published_at":     "",
         "published_url":    "",

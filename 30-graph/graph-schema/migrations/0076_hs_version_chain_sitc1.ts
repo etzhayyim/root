@@ -121,22 +121,22 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ───────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs2007', 'hs2007.gftd.ai', 6373, 'HS products', 'trade')
+    VALUES ('hs2007', 'hs2007.etzhayyim.com', 6373, 'HS products', 'trade')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs2002', 'hs2002.gftd.ai', 6569, 'HS products', 'trade')
+    VALUES ('hs2002', 'hs2002.etzhayyim.com', 6569, 'HS products', 'trade')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs1996', 'hs1996.gftd.ai', 6474, 'HS products', 'trade')
+    VALUES ('hs1996', 'hs1996.etzhayyim.com', 6474, 'HS products', 'trade')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('sitc1', 'sitc1.gftd.ai', 2784, 'products', 'trade')
+    VALUES ('sitc1', 'sitc1.etzhayyim.com', 2784, 'products', 'trade')
   `.execute(db);
 
   // ── HS version chain bridges + SITC chain (data-only, idempotent) ─────

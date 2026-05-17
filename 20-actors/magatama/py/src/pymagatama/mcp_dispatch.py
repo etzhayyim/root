@@ -3299,7 +3299,7 @@ async def handle_envelope(
       {"method": "tools/call", "params": {"name": "<nsid>", "arguments": {...}}}
 
     Other methods (initialize / tools/list / ping) are out of scope here —
-    the canonical MCP server (mcp.gftd.ai/xrpc/ai.gftd.mcp.message) owns
+    the canonical MCP server (mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message) owns
     those. This dispatcher is the per-actor delegate that only handles
     tools/call routed via vertex_mcp_tool_def.
     """

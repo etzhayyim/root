@@ -46,7 +46,7 @@ export const DERIVE_RULES: DeriveRule[] = [
             features: [
               {
                 $type: "app.bsky.richtext.facet#mention",
-                did: "did:web:mangaka.gftd.ai:character:{{item.slug}}",
+                did: "did:web:mangaka.etzhayyim.com:character:{{item.slug}}",
               },
             ],
           },
@@ -105,7 +105,7 @@ export const DERIVE_RULES: DeriveRule[] = [
             features: [
               {
                 $type: "app.bsky.richtext.facet#mention",
-                did: "did:web:mangaka.gftd.ai:character:{{item.slug}}",
+                did: "did:web:mangaka.etzhayyim.com:character:{{item.slug}}",
               },
             ],
           },

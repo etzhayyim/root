@@ -65,7 +65,7 @@ import (
 \t"strings"
 \t"time"
 
-\tmagatama "github.com/gftdcojp/magatama-go"
+\tmagatama "github.com/etzhayyim/root/20-actors/magatama-go"
 )
 
 const (
@@ -258,7 +258,7 @@ func handleGetPublicProfile(_ *magatama.AppContext, _ []byte) ([]byte, error) {
 \t\t"seed_slot":          seedSlot,
 \t\t"public_facts":       facts,
 \t\t"public_message_count": messageCount,
-\t\t"endpoint":           "https://" + componentNanoID + ".gftd.ai/xrpc",
+\t\t"endpoint":           "https://" + componentNanoID + ".etzhayyim.com/xrpc",
 \t})
 }
 
@@ -817,9 +817,9 @@ go 1.23.0
 
 toolchain go1.23.6
 
-require github.com/gftdcojp/magatama-go v0.0.0
+require github.com/etzhayyim/root/20-actors/magatama-go v0.0.0
 
-replace github.com/gftdcojp/magatama-go => ../../../../packages/rust/magatama/magatama-go
+replace github.com/etzhayyim/root/20-actors/magatama-go => ../../../../packages/rust/magatama/magatama-go
 `;
 }
 

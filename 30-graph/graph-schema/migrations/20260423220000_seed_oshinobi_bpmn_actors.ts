@@ -28,35 +28,35 @@ function readContract(relPath: string): string {
 }
 
 const createdAt = "2026-04-23T22:00:00Z";
-const ownerDid = "did:web:oshinobi.gftd.ai";
+const ownerDid = "did:web:oshinobi.etzhayyim.com";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1",
     bpmnProcessId: "oshinobi_subscribe",
     sourcePath: "00-contracts/bpmn/ai/gftd/oshinobi/subscribe.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-unsubscribe-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-unsubscribe-v1",
     bpmnProcessId: "oshinobi_unsubscribe",
     sourcePath: "00-contracts/bpmn/ai/gftd/oshinobi/unsubscribe.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-publish-post-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-publish-post-v1",
     bpmnProcessId: "oshinobi_publish_post",
     sourcePath: "00-contracts/bpmn/ai/gftd/oshinobi/publishPost.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1",
     bpmnProcessId: "oshinobi_tip_creator",
     sourcePath: "00-contracts/bpmn/ai/gftd/oshinobi/tipCreator.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-report-content-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-report-content-v1",
     bpmnProcessId: "oshinobi_report_content",
     sourcePath: "00-contracts/bpmn/ai/gftd/oshinobi/reportContent.bpmn",
     ownerDid,
@@ -65,35 +65,35 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-subscribe-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-subscribe-v1",
     nsid: "ai.gftd.apps.oshinobi.subscribe",
     bpmnProcessId: "oshinobi_subscribe",
     ownerDid,
     resultTimeoutMs: 15000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-cancelSubscription-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-cancelSubscription-v1",
     nsid: "ai.gftd.apps.oshinobi.cancelSubscription",
     bpmnProcessId: "oshinobi_unsubscribe",
     ownerDid,
     resultTimeoutMs: 5000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-publishPost-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-publishPost-v1",
     nsid: "ai.gftd.apps.oshinobi.publishPost",
     bpmnProcessId: "oshinobi_publish_post",
     ownerDid,
     resultTimeoutMs: 10000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-tipCreator-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-tipCreator-v1",
     nsid: "ai.gftd.apps.oshinobi.tipCreator",
     bpmnProcessId: "oshinobi_tip_creator",
     ownerDid,
     resultTimeoutMs: 15000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-reportContent-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-reportContent-v1",
     nsid: "ai.gftd.apps.oshinobi.reportContent",
     bpmnProcessId: "oshinobi_report_content",
     ownerDid,

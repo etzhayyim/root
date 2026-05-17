@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Idempotent bring-up for ipfs.gftd.ai (ADR-2604261936).
+# Idempotent bring-up for ipfs.etzhayyim.com (ADR-2604261936).
 #
 # Mirrors 50-infra/vultr/geth-private/manifests/apply.sh. Re-runnable; uses
 # server-side apply so ConfigMap / Secret updates propagate cleanly.
@@ -9,7 +9,7 @@
 #   - macOS Keychain entries:
 #       gftd.b2 / ACCESS_KEY_ID
 #       gftd.b2 / SECRET_ACCESS_KEY
-#       gftd.cloudflare / IPFS_ORIGIN_CERT_PEM   (10-year self-signed leaf for ipfs-origin.gftd.ai)
+#       gftd.cloudflare / IPFS_ORIGIN_CERT_PEM   (10-year self-signed leaf for ipfs-origin.etzhayyim.com)
 #       gftd.cloudflare / IPFS_ORIGIN_CERT_KEY   (matching private key)
 #   - B2 prefix `s3://ai-gftd-nats/ipfs/blocks/` (the existing `ai-gftd-nats`
 #     bucket from ADR-0048; the Keychain key is already scoped to it).
@@ -67,5 +67,5 @@ say "smoke read — gateway version"
 kubectl -n "$NS" exec statefulset/kubo -- ipfs version || true
 
 say "done"
-echo "Next: provision DNS for ipfs-origin.gftd.ai → Vultr LB external IP"
-echo "      then deploy CF Worker ai-gftd-ipfs-proxy with route ipfs.gftd.ai/*"
+echo "Next: provision DNS for ipfs-origin.etzhayyim.com → Vultr LB external IP"
+echo "      then deploy CF Worker ai-gftd-ipfs-proxy with route ipfs.etzhayyim.com/*"

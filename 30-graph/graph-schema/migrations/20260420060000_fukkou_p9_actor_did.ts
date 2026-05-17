@@ -7,9 +7,9 @@ import { Kysely, sql } from 'kysely';
  * ADR-0037 — 復興予算 Phase 9: Actor DID registry + LEI + person↔org.
  *
  * 公開記録にある org / person すべてを actor DID 空間に紐付ける:
- *   corp   : did:web:jpn-corp.gftd.ai:{slug}      + 任意 GLEIF LEI
- *   person : did:web:jpn-people.gftd.ai:{slug}
- *   state  : did:web:jpn-state.gftd.ai:{path}     (既存、登録のみ)
+ *   corp   : did:web:jpn-corp.etzhayyim.com:{slug}      + 任意 GLEIF LEI
+ *   person : did:web:jpn-people.etzhayyim.com:{slug}
+ *   state  : did:web:jpn-state.etzhayyim.com:{path}     (既存、登録のみ)
  *
  * + edge_fukkou_person_represents_org (閣僚ポスト / 次官 / 担当官)
  * + edge_fukkou_actor_succeeds        (次官後任 / 総理交代 / 役職継承)

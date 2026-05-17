@@ -12,18 +12,18 @@ A representative 1 MW class community microgrid:
 
 | Asset | Type | Capacity | open-denki record (config SSoT) |
 |---|---|---|---|
-| PV array A | rooftop solar string × 4 | 400 kW peak | `did:web:open-denki.gftd.ai:gen:pv-roof-a` |
-| PV array B | carport bifacial × 2 | 200 kW peak | `did:web:open-denki.gftd.ai:gen:pv-carport-b` |
-| BESS-1 | LFP battery + PCS | 500 kWh / 250 kW | `did:web:open-denki.gftd.ai:gen:bess-1` |
-| Diesel genset | backup, black-start | 300 kW | `did:web:open-denki.gftd.ai:gen:diesel-1` |
-| Substation | 6.6 kV / 400 V transformer | 1 MVA | `did:web:open-denki.gftd.ai:sub:main` |
-| Feeders | 4 × LV distribution | — | `did:web:open-denki.gftd.ai:feeder:f01..f04` |
-| Smart meters | AMI per delivery point | ~80 | `did:web:open-denki.gftd.ai:meter:m001..m080` |
-| Grid-tie | utility import/export | 800 kVA | `did:web:open-denki.gftd.ai:gen:grid-tie` |
+| PV array A | rooftop solar string × 4 | 400 kW peak | `did:web:open-denki.etzhayyim.com:gen:pv-roof-a` |
+| PV array B | carport bifacial × 2 | 200 kW peak | `did:web:open-denki.etzhayyim.com:gen:pv-carport-b` |
+| BESS-1 | LFP battery + PCS | 500 kWh / 250 kW | `did:web:open-denki.etzhayyim.com:gen:bess-1` |
+| Diesel genset | backup, black-start | 300 kW | `did:web:open-denki.etzhayyim.com:gen:diesel-1` |
+| Substation | 6.6 kV / 400 V transformer | 1 MVA | `did:web:open-denki.etzhayyim.com:sub:main` |
+| Feeders | 4 × LV distribution | — | `did:web:open-denki.etzhayyim.com:feeder:f01..f04` |
+| Smart meters | AMI per delivery point | ~80 | `did:web:open-denki.etzhayyim.com:meter:m001..m080` |
+| Grid-tie | utility import/export | 800 kVA | `did:web:open-denki.etzhayyim.com:gen:grid-tie` |
 
 ## 2. Loop catalogue
 
-7 loops total, mapping to ADR §R3. Loop DID format: `did:web:open-ot.gftd.ai:loop:<loopCode>`. Cell DID format: `did:web:open-ot.gftd.ai:cell:<cellCode>`. All cells use `pinModule` to bind to a content-addressed `.aot` artefact.
+7 loops total, mapping to ADR §R3. Loop DID format: `did:web:open-ot.etzhayyim.com:loop:<loopCode>`. Cell DID format: `did:web:open-ot.etzhayyim.com:cell:<cellCode>`. All cells use `pinModule` to bind to a content-addressed `.aot` artefact.
 
 ### 2.1 `:loop:pv-array-mppt-{id}` — PV inverter MPPT (field-only)
 
@@ -31,7 +31,7 @@ A representative 1 MW class community microgrid:
 |---|---|
 | Loop kind | `pid` |
 | Super-step rate | n/a (field-only inner loop, 100 Hz on Mimi) |
-| Cells | 1 per inverter — `did:web:open-ot.gftd.ai:cell:pv-mppt-{id}` |
+| Cells | 1 per inverter — `did:web:open-ot.etzhayyim.com:cell:pv-mppt-{id}` |
 | 4diac FBType | `MPPT_PERTURB_OBSERVE` (gftd-owned, future) |
 | Sourced from | open-denki `pv-roof-a`, `pv-carport-b` `recordRenewableOutput` polling |
 | LangGraph involvement | observation only — telemetry into checkpointer at 1 Hz |

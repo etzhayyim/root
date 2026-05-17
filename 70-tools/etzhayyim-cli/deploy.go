@@ -19,7 +19,7 @@ import (
 
 // Default base image for magatama-server Cloudflare Containers.
 // Update via --base-image flag or gftd.json "base_image" field.
-const defaultBaseImage = "ghcr.io/gftdcojp/magatama-server:20260318-223437"
+const defaultBaseImage = "ghcr.io/etzhayyim/magatama-server:20260318-223437"
 
 // Secrets Store ID shared by all magatama Workers.
 const secretsStoreID = "1824561668fe47cc9127d493961885af"
@@ -63,9 +63,9 @@ func runDeploy(args []string) error {
 type gftdJSON struct {
 	// Required: component name
 	Name string `json:"name"`
-	// Required: app identifier (subdomain: {project}.gftd.ai or {nanoid}.gftd.ai)
+	// Required: app identifier (subdomain: {project}.etzhayyim.com or {nanoid}.etzhayyim.com)
 	Nanoid string `json:"nanoid"`
-	// Optional: project folder suffix = subdomain (e.g. "lawfirm" → lawfirm.gftd.ai)
+	// Optional: project folder suffix = subdomain (e.g. "lawfirm" → lawfirm.etzhayyim.com)
 	Project string `json:"project,omitempty"`
 	// Optional: "native" for non-MagatamaApp containers
 	Type string `json:"type,omitempty"`
@@ -114,7 +114,7 @@ func readGFTDJSON(dir string) (*gftdJSON, error) {
 
 // ImageRef returns the container image reference (without tag).
 func (g *gftdJSON) ImageRef() string {
-	image := "ghcr.io/gftdcojp/" + g.Name
+	image := "ghcr.io/etzhayyim/" + g.Name
 	if g.Nanoid != "" {
 		image += "-" + g.Nanoid
 	}
@@ -433,7 +433,7 @@ func deployCFDirect(cfg *gftdJSON, compDir string, noSmoke, noCheck bool, smokeU
 		if cfg.HealthCheck != "" {
 			healthPath = cfg.HealthCheck
 		}
-		resolvedSmokeURL = "https://" + appID + ".gftd.ai" + healthPath
+		resolvedSmokeURL = "https://" + appID + ".etzhayyim.com" + healthPath
 	}
 	if !noSmoke && resolvedSmokeURL != "" {
 		if err := smokeTest(resolvedSmokeURL); err != nil {
@@ -444,8 +444,8 @@ func deployCFDirect(cfg *gftdJSON, compDir string, noSmoke, noCheck bool, smokeU
 	}
 
 	fmt.Fprintf(os.Stderr, "\n=== Done: %s ===\n", appID)
-	fmt.Fprintf(os.Stderr, "  https://%s.gftd.ai/health\n", appID)
-	fmt.Fprintf(os.Stderr, "  https://%s.gftd.ai/_worker/health (edge-only)\n", appID)
+	fmt.Fprintf(os.Stderr, "  https://%s.etzhayyim.com/health\n", appID)
+	fmt.Fprintf(os.Stderr, "  https://%s.etzhayyim.com/_worker/health (edge-only)\n", appID)
 	return nil
 }
 
@@ -903,8 +903,8 @@ func deployNativeCF(cfg *gftdJSON, compDir string, noSmoke bool, smokeURL string
   ],
   "routes": [
     {
-      "pattern": "%s.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "%s.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }
@@ -931,7 +931,7 @@ func deployNativeCF(cfg *gftdJSON, compDir string, noSmoke bool, smokeURL string
 		if cfg.HealthCheck != "" {
 			healthPath = cfg.HealthCheck
 		}
-		resolvedSmokeURL = "https://" + appID + ".gftd.ai" + healthPath
+		resolvedSmokeURL = "https://" + appID + ".etzhayyim.com" + healthPath
 	}
 	if !noSmoke && resolvedSmokeURL != "" {
 		if err := smokeTest(resolvedSmokeURL); err != nil {

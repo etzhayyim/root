@@ -1,4 +1,4 @@
-"""threads.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""threads.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -24,7 +24,7 @@ async def run_worker():
     async def task_create_thread(**kwargs):
         title = kwargs.get("title", "")
         body = kwargs.get("body", "")
-        author_did = kwargs.get("authorDid", "did:web:threads.gftd.ai")
+        author_did = kwargs.get("authorDid", "did:web:threads.etzhayyim.com")
 
         thread_id = str(uuid.uuid4())
         vertex_id = f"threads:thread:{thread_id}"
@@ -40,7 +40,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, author_did,
                 thread_id, title, author_did, "open",
-                "did:web:threads.gftd.ai", "did:web:threads.gftd.ai", now, now,
+                "did:web:threads.etzhayyim.com", "did:web:threads.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -69,7 +69,7 @@ async def run_worker():
     async def task_reply_thread(**kwargs):
         thread_id = kwargs.get("threadId", "")
         body = kwargs.get("body", "")
-        author_did = kwargs.get("authorDid", "did:web:threads.gftd.ai")
+        author_did = kwargs.get("authorDid", "did:web:threads.etzhayyim.com")
 
         reply_id = str(uuid.uuid4())
         vertex_id = f"threads:reply:{reply_id}"
@@ -85,7 +85,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)""",
                 vertex_id, 0, date.today(), 0, author_did,
                 reply_id, thread_id, author_did,
-                "did:web:threads.gftd.ai", "did:web:threads.gftd.ai", now, now,
+                "did:web:threads.etzhayyim.com", "did:web:threads.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

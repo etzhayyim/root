@@ -6,7 +6,7 @@ import { sql } from "kysely";
 
 /**
  * vertex_yoro_monitor_attestation + vertex_yoro_monitor_vote — triple-witness
- * autonomy monitoring for yoro.gftd.ai (ADR-0046).
+ * autonomy monitoring for yoro.etzhayyim.com (ADR-0046).
  *
  * Three independent monitor actors (Monitor-L on jacob / Monitor-K on judah /
  * Monitor-B on CF Worker) attest per-axis health of yoro and cross-attest

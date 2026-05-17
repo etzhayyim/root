@@ -135,7 +135,7 @@ def test_normalize_lei_record_lapsed_status() -> None:
 def test_normalize_lei_record_vertex_id_format() -> None:
     record = {"attributes": {"lei": "TESTLEI0001"}}
     result = OL.normalize_lei_record(record)
-    assert result["vertex_id"].startswith("at://did:web:open-lei.gftd.ai/")
+    assert result["vertex_id"].startswith("at://did:web:open-lei.etzhayyim.com/")
     assert "ai.gftd.apps.openLei.entity" in result["vertex_id"]
     assert "TESTLEI0001" in result["vertex_id"]
 
@@ -149,12 +149,12 @@ def test_normalize_lei_record_missing_fields_graceful() -> None:
 # ─── yoro_social: _display_actor ─────────────────────────────────────────────
 
 def test_display_actor_returns_handle_if_set() -> None:
-    assert YS._display_actor("did:web:foo.gftd.ai", "myhandle") == "myhandle"
+    assert YS._display_actor("did:web:foo.etzhayyim.com", "myhandle") == "myhandle"
 
 
 def test_display_actor_strips_did_web_prefix() -> None:
-    result = YS._display_actor("did:web:yoro.gftd.ai")
-    assert result == "yoro.gftd.ai"
+    result = YS._display_actor("did:web:yoro.etzhayyim.com")
+    assert result == "yoro.etzhayyim.com"
 
 
 def test_display_actor_empty_did_returns_friend() -> None:
@@ -168,7 +168,7 @@ def test_display_actor_non_web_did_passthrough() -> None:
 
 
 def test_display_actor_strips_whitespace_from_handle() -> None:
-    result = YS._display_actor("did:web:x.gftd.ai", "  handle  ")
+    result = YS._display_actor("did:web:x.etzhayyim.com", "  handle  ")
     assert result == "handle"
 
 
@@ -197,9 +197,9 @@ def test_build_social_post_record_explicit_rkey() -> None:
 
 
 def test_build_social_post_record_custom_repo() -> None:
-    result = YS.build_social_post_record(text="x", repo="did:web:custom.gftd.ai")
-    assert result["repo"] == "did:web:custom.gftd.ai"
-    assert "did:web:custom.gftd.ai" in result["uri"]
+    result = YS.build_social_post_record(text="x", repo="did:web:custom.etzhayyim.com")
+    assert result["repo"] == "did:web:custom.etzhayyim.com"
+    assert "did:web:custom.etzhayyim.com" in result["uri"]
 
 
 def test_build_social_post_record_extra_fields_merged() -> None:
@@ -215,21 +215,21 @@ def test_build_social_post_record_extra_fields_merged() -> None:
 def test_build_repo_record_shape() -> None:
     record = {"$type": "ai.gftd.apps.test.post", "text": "hello"}
     result = YS.build_repo_record(
-        repo="did:web:yoro.gftd.ai",
+        repo="did:web:yoro.etzhayyim.com",
         collection="ai.gftd.apps.test.post",
         record=record,
         rkey="my-rkey",
     )
-    assert result["uri"] == "at://did:web:yoro.gftd.ai/ai.gftd.apps.test.post/my-rkey"
+    assert result["uri"] == "at://did:web:yoro.etzhayyim.com/ai.gftd.apps.test.post/my-rkey"
     assert result["collection"] == "ai.gftd.apps.test.post"
-    assert result["repo"] == "did:web:yoro.gftd.ai"
+    assert result["repo"] == "did:web:yoro.etzhayyim.com"
 
 
 def test_build_repo_record_value_json_serialized() -> None:
     import json
     record = {"$type": "ai.gftd.test.rec", "count": 42}
     result = YS.build_repo_record(
-        repo="did:web:x.gftd.ai",
+        repo="did:web:x.etzhayyim.com",
         collection="ai.gftd.test.rec",
         record=record,
     )

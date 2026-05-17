@@ -21,8 +21,8 @@ from typing import Any
 
 NSID = "ai.gftd.apps.shosha.agentLoop"
 ASSISTANT_ID = "shosha_agent_loop"
-ACTOR_DID = "did:web:shosha.gftd.ai"
-USER_AGENT = "shosha-langgraph-smoke/1 (+https://shosha.gftd.ai)"
+ACTOR_DID = "did:web:shosha.etzhayyim.com"
+USER_AGENT = "shosha-langgraph-smoke/1 (+https://shosha.etzhayyim.com)"
 
 
 @dataclass(frozen=True)

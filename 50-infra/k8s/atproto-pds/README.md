@@ -1,6 +1,6 @@
 # 50-infra/k8s/atproto-pds
 
-K8s pod replacement for the `atproto.gftd.ai` PDS CF Worker (`ai-gftd-pds-2603241700`).
+K8s pod replacement for the `atproto.etzhayyim.com` PDS CF Worker (`ai-gftd-pds-2603241700`).
 
 **ADR**: [`90-docs/adr/2605111300-pds-to-pod-bun-container.md`](../../../90-docs/adr/2605111300-pds-to-pod-bun-container.md)
 
@@ -26,7 +26,7 @@ This pod replaces that runtime location while keeping the same TS codebase
 
 ## Not deployed yet
 
-Until P1 (Bun image build + canary deploy) completes, the live `atproto.gftd.ai`
+Until P1 (Bun image build + canary deploy) completes, the live `atproto.etzhayyim.com`
 endpoint continues to be served by the CF Worker. The hyperdrive binding in
 `50-infra/cloudflare/workers/atproto/wrangler.jsonc` was temporarily reverted
 in `70-tools/scripts/migrations/2605111300-revert-infra-hyperdrive-binding.mjs`

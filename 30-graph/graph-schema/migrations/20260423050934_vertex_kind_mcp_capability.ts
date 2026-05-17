@@ -3,7 +3,7 @@
 //
 // Two narrow tables:
 //   vertex_kind_mcp_binding — one row per kind (=170 today), points
-//     kagami.gftd.ai/{kind}/mcp to the real MCP endpoint. Walk-up lookup
+//     kagami.etzhayyim.com/{kind}/mcp to the real MCP endpoint. Walk-up lookup
 //     by the kagami-resolver Worker (50-infra/.../kagami-resolver).
 //   vertex_actor_capability — capability tag per actor (kind-inherited +
 //     explicit overrides). Fed by declare-only today; LLM implicit
@@ -28,7 +28,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     owner_did       VARCHAR,
 
     kind            VARCHAR NOT NULL,
-    mcp_url         VARCHAR NOT NULL,      -- https://{kind}.gftd.ai/mcp
+    mcp_url         VARCHAR NOT NULL,      -- https://{kind}.etzhayyim.com/mcp
     description     VARCHAR,
     tools_json      VARCHAR,               -- cached tools/list snapshot (JSON array)
     tools_fetched_at VARCHAR,

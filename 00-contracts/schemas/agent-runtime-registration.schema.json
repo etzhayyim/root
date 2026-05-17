@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/schemas/agent-runtime-registration/v1.json",
+  "$id": "https://etzhayyim.com/schemas/agent-runtime-registration/v1.json",
   "title": "GFTD ERC-8004 Agent Runtime Registration",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema", "erc8004", "identity", "runtime", "mcp", "registries"],
   "properties": {
     "schema": {
-      "const": "https://gftd.ai/schemas/agent-runtime-registration/v1.json"
+      "const": "https://etzhayyim.com/schemas/agent-runtime-registration/v1.json"
     },
     "erc8004": {
       "type": "object",

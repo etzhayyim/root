@@ -1,4 +1,4 @@
-"""po.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""po.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -22,7 +22,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.po.create.po")
     async def task_create_po(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:po.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:po.etzhayyim.com")
         supplier_id = kwargs.get("supplierId", "")
         items = kwargs.get("items", [])
         total_amount = float(kwargs.get("totalAmount", 0.0))
@@ -41,7 +41,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 po_id, supplier_id, total_amount, "draft",
-                "did:web:po.gftd.ai", "did:web:po.gftd.ai", now, now,
+                "did:web:po.etzhayyim.com", "did:web:po.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -103,7 +103,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.po.approve.po")
     async def task_approve_po(**kwargs):
         po_id = kwargs.get("poId", "")
-        approver_did = kwargs.get("approverDid", "did:web:po.gftd.ai")
+        approver_did = kwargs.get("approverDid", "did:web:po.etzhayyim.com")
 
         now = datetime.utcnow().isoformat()
 
@@ -143,7 +143,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.po.create.supplier")
     async def task_create_supplier(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:po.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:po.etzhayyim.com")
         name = kwargs.get("name", "")
         contact_email = kwargs.get("contactEmail", "")
         address = kwargs.get("address", "")
@@ -162,7 +162,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 supplier_id, name, contact_email, address, "active",
-                "did:web:po.gftd.ai", "did:web:po.gftd.ai", now, now,
+                "did:web:po.etzhayyim.com", "did:web:po.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -171,7 +171,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.po.record.receipt")
     async def task_record_receipt(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:po.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:po.etzhayyim.com")
         po_id = kwargs.get("poId", "")
         received_items = kwargs.get("receivedItems", [])
 

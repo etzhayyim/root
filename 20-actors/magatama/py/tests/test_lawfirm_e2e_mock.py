@@ -1,5 +1,5 @@
 """
-End-to-end mock test for lawfirm.gftd.ai full revenue lifecycle.
+End-to-end mock test for lawfirm.etzhayyim.com full revenue lifecycle.
 
 Verifies the integrated flow with stubbed DB + LLM:
   1. matter intake
@@ -78,7 +78,7 @@ class TestLawfirmE2EMock(unittest.TestCase):
             matter_uri="at://test/matter/nda-001",
             client_name="Nishith Desai Associates",
             matter_summary="SaaS pilot SOW review",
-            requested_by_did="did:web:k-bakshi.gftd.ai",
+            requested_by_did="did:web:k-bakshi.etzhayyim.com",
             sla_hours=72,
         ))
         self.assertTrue(clearance["ok"])
@@ -112,7 +112,7 @@ class TestLawfirmE2EMock(unittest.TestCase):
             lead_id="nishith-desai-2026",
             to_stage="meeting_set",
             reason="confirmed slot",
-            decided_by_did="did:web:k-bakshi.gftd.ai",
+            decided_by_did="did:web:k-bakshi.etzhayyim.com",
         ))
         self.assertTrue(transition["ok"])
 
@@ -143,7 +143,7 @@ class TestLawfirmE2EMock(unittest.TestCase):
                     "metadata": {
                         "matter_uri": "at://test/matter/nda-001",
                         "stream": "saas-pilot",
-                        "client_did": "did:web:nishith-desai-test.gftd.ai",
+                        "client_did": "did:web:nishith-desai-test.etzhayyim.com",
                     },
                     "total": 500000,
                     "hosted_invoice_url": "https://invoice.stripe.com/test",
@@ -159,7 +159,7 @@ class TestLawfirmE2EMock(unittest.TestCase):
         from pymagatama.primitives.lawfirm_esign_kpi import task_lawfirm_kpi_snapshot
         kpi = asyncio.run(task_lawfirm_kpi_snapshot(
             window_months=6, currency="USD",
-            requester_did="did:web:j-kawasaki.gftd.ai",
+            requester_did="did:web:j-kawasaki.etzhayyim.com",
         ))
         self.assertTrue(kpi["ok"])
         self.assertEqual(len(kpi["revenue_by_month"]), 1)

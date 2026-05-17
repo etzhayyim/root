@@ -1,6 +1,6 @@
 """JPN Government states actor primitives.
 
-This module moves the `did:web:jpn-state.gftd.ai` app actor off its
+This module moves the `did:web:jpn-state.etzhayyim.com` app actor off its
 dedicated Cloudflare Worker path. The public edge keeps only XRPC/MCP
 facade duties; these functions run as Zeebe jobs in Kubernetes and write
 the same graph-visible state the Worker previously wrote via host-sdk.
@@ -23,11 +23,11 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-PRIMARY_DID = "did:web:jpn-state.gftd.ai"
+PRIMARY_DID = "did:web:jpn-state.etzhayyim.com"
 DOMAIN_CODE = "jpn"
 SITE_NANOID = "w3bpg001"
-SITE_GOV_TOPIC_DID = "did:web:site.gftd.ai:topic:government"
-PDS_BASE = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
+SITE_GOV_TOPIC_DID = "did:web:site.etzhayyim.com:topic:government"
+PDS_BASE = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
 PDS_SERVICE_AUTH_TOKEN = os.environ.get("PDS_SERVICE_AUTH_TOKEN", "").strip()
 PDS_SERVICE_AUTH_MINT_URL = os.environ.get(
     "PDS_SERVICE_AUTH_MINT_URL",
@@ -59,7 +59,7 @@ _MINISTRY_NDJSON = """\
 {"path":"mof:nta:choushuu:sashiosae","name":"差押管理室","nameEn":"NTA Seizure Administration","website":"https://www.nta.go.jp/","contract":"国税徴収法","tags":["cofog:01.1","taxation","sashiosae"],"orgTier":"division"}
 {"path":"mof:nta:choushuu:kanka","name":"換価・公売室","nameEn":"NTA Public Auction Division","website":"https://www.koubai.nta.go.jp/","contract":"国税徴収法","tags":["cofog:01.1","taxation","kanka","public-auction"],"orgTier":"division"}
 {"path":"mof:nta:choushuu:haitou","name":"配当・充当室","nameEn":"NTA Allocation Division","website":"https://www.nta.go.jp/","contract":"国税徴収法","tags":["cofog:01.1","taxation","haitou"],"orgTier":"division"}
-{"path":"sashiosae","name":"差押 Aggregator","nameEn":"Seizure Intelligence Aggregator","website":"https://jpn-state.gftd.ai/sashiosae","contract":"国税徴収法・地方税法・民事執行法・刑事訴訟法","tags":["cofog:01.1","cofog:03","sashiosae","aggregator","cross-regime"],"orgTier":"executive"}
+{"path":"sashiosae","name":"差押 Aggregator","nameEn":"Seizure Intelligence Aggregator","website":"https://jpn-state.etzhayyim.com/sashiosae","contract":"国税徴収法・地方税法・民事執行法・刑事訴訟法","tags":["cofog:01.1","cofog:03","sashiosae","aggregator","cross-regime"],"orgTier":"executive"}
 {"path":"mext","name":"文部科学省","nameEn":"Ministry of Education, Culture, Sports, Science and Technology","website":"https://www.mext.go.jp/","contract":"文部科学省設置法","tags":["cofog:09","education","science","culture","sports"],"orgTier":"ministry"}
 {"path":"mhlw","name":"厚生労働省","nameEn":"Ministry of Health, Labour and Welfare","website":"https://www.mhlw.go.jp/","contract":"厚生労働省設置法","tags":["cofog:07","health","labour","social-welfare"],"orgTier":"ministry"}
 {"path":"maff","name":"農林水産省","nameEn":"Ministry of Agriculture, Forestry and Fisheries","website":"https://www.maff.go.jp/","contract":"農林水産省設置法","tags":["cofog:04.2","agriculture","forestry","fisheries"],"orgTier":"ministry"}
@@ -670,7 +670,7 @@ async def task_gov_jpn_follow_site_deps(limit: int = 15) -> dict[str, Any]:
     for r in rows:
         path = str(r[0] or "")
         slug = str(r[7] or "")
-        await _pds_xrpc("app.bsky.graph.follow", {"did": f"did:web:site.gftd.ai:{slug}"})
+        await _pds_xrpc("app.bsky.graph.follow", {"did": f"did:web:site.etzhayyim.com:{slug}"})
         row = {
             "path": path,
             "name": str(r[1] or ""),
@@ -697,7 +697,7 @@ async def task_gov_jpn_follow_site_deps(limit: int = 15) -> dict[str, Any]:
                 "path": path,
                 "siteNanoid": SITE_NANOID,
                 "siteTopicDid": SITE_GOV_TOPIC_DID,
-                "siteDid": f"did:web:site.gftd.ai:{slug}",
+                "siteDid": f"did:web:site.etzhayyim.com:{slug}",
                 "updated_at": _utc_now_iso(),
             },
         )

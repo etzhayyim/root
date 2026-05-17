@@ -2,7 +2,7 @@
   "viewId": "open-gas.SV-1",
   "viewType": "SV-1",
   "title": "Systems Interface Description",
-  "did": "did:web:open-gas.gftd.ai",
+  "did": "did:web:open-gas.etzhayyim.com",
   "format": "json",
   "content": {
     "systems": [
@@ -23,9 +23,9 @@
       },
       { "id": "sys.d1", "name": "Cloudflare D1 (SQLite)", "platform": "D1",
         "tables": ["nodes", "segments", "meter_readings", "leaks", "pressure_logs"] },
-      { "id": "sys.pds",  "name": "atproto.gftd.ai PDS", "platform": "Service binding",
+      { "id": "sys.pds",  "name": "atproto.etzhayyim.com PDS", "platform": "Service binding",
         "interfaces": [{ "id": "if.pds.post", "kind": "wRPC", "method": "app.bsky.feed.post" }] },
-      { "id": "sys.auth", "name": "auth.gftd.ai", "platform": "Service binding",
+      { "id": "sys.auth", "name": "auth.etzhayyim.com", "platform": "Service binding",
         "interfaces": [{ "id": "if.auth.resolveCaller", "kind": "wRPC", "method": "resolveCallerDid" }] }
     ],
     "connections": [

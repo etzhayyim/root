@@ -76,7 +76,7 @@ def test_task_writes_key_rotation_tick(monkeypatch):
     assert out["ok"] is True
     assert out["rotated"] == 5
     row = factory.cursors[0].params[0]
-    assert row["repo"] == "did:web:atproto.gftd.ai"
+    assert row["repo"] == "did:web:atproto.etzhayyim.com"
     assert row["collection"] == "ai.gftd.apps.pds.keyRotation"
     value = json.loads(row["value_json"])
     assert value["scanned"] == 5

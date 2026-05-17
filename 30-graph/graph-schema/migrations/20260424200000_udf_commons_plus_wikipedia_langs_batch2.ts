@@ -2,7 +2,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * UDF: route `did:web:maps.gftd.ai:commons` → 'commons'.
+ * UDF: route `did:web:maps.etzhayyim.com:commons` → 'commons'.
  * Seed: 1 Commons frontier + 13 more Wikipedia languages (ko/id/vi/tr/pl/
  * nl/sv/fi/no/da/cs/hu/el).
  *
@@ -25,24 +25,24 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     LANGUAGE sql
     AS $$
       SELECT CASE
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:gleif'       THEN 'gleif'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata'    THEN 'wikidata'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata:%'  THEN 'wikidata'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:%'           THEN 'registry_other'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikipedia'            THEN 'wikipedia'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikipedia:%'          THEN 'wikipedia'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:commons'              THEN 'commons'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:commons:%'            THEN 'commons'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite'            THEN 'stac'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite:%'          THEN 'stac'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic'              THEN 'seismic'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic:%'            THEN 'seismic'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:street_view'          THEN 'mapillary'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:infrastructure'       THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:geocode'              THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:weather'              THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:gtfs'                 THEN 'gtfs'
-        WHEN source_did LIKE 'did:web:site.gftd.ai'                      THEN 'web_crawl'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:gleif'       THEN 'gleif'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata'    THEN 'wikidata'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata:%'  THEN 'wikidata'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:%'           THEN 'registry_other'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikipedia'            THEN 'wikipedia'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikipedia:%'          THEN 'wikipedia'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:commons'              THEN 'commons'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:commons:%'            THEN 'commons'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite'            THEN 'stac'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite:%'          THEN 'stac'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic'              THEN 'seismic'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic:%'            THEN 'seismic'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:street_view'          THEN 'mapillary'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:infrastructure'       THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:geocode'              THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:weather'              THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gtfs'                 THEN 'gtfs'
+        WHEN source_did LIKE 'did:web:site.etzhayyim.com'                      THEN 'web_crawl'
         ELSE 'unsupported'
       END
     $$
@@ -51,25 +51,25 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
   const seed: Array<[string, string, number, number, number]> = [
     // Commons
-    ["did:web:maps.gftd.ai:commons", "Spot", 11_000_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:commons", "Spot", 11_000_000, 0.6, 168.0],
     // 13 more Wikipedia languages
-    ["did:web:maps.gftd.ai:wikipedia:ko", "Spot",   600_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:id", "Spot",   700_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:vi", "Spot", 1_300_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:tr", "Spot",   500_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:pl", "Spot", 1_500_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:nl", "Spot", 2_000_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:sv", "Spot", 2_500_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:fi", "Spot",   550_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:no", "Spot",   600_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:da", "Spot",   300_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:cs", "Spot",   500_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:hu", "Spot",   500_000, 0.6, 168.0],
-    ["did:web:maps.gftd.ai:wikipedia:el", "Spot",   220_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:ko", "Spot",   600_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:id", "Spot",   700_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:vi", "Spot", 1_300_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:tr", "Spot",   500_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:pl", "Spot", 1_500_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:nl", "Spot", 2_000_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:sv", "Spot", 2_500_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:fi", "Spot",   550_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:no", "Spot",   600_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:da", "Spot",   300_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:cs", "Spot",   500_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:hu", "Spot",   500_000, 0.6, 168.0],
+    ["did:web:maps.etzhayyim.com:wikipedia:el", "Spot",   220_000, 0.6, 168.0],
   ];
   for (const [sourceDid, label, worldTotal, priority, ttl] of seed) {
     const sourceSlug = sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || "primary";
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

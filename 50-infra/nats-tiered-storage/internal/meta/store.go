@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/types"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/types"
 	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 )

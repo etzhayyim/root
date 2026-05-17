@@ -2,14 +2,14 @@
   "viewId": "open-gas.OV-1",
   "viewType": "OV-1",
   "title": "High-Level Operational Concept Graphic",
-  "did": "did:web:open-gas.gftd.ai",
+  "did": "did:web:open-gas.etzhayyim.com",
   "format": "json",
   "content": {
     "operationalNodes": [
       { "id": "client",     "label": "Client (planner / utility console / agent)" },
-      { "id": "gas",        "label": "open-gas.gftd.ai (Worker)" },
+      { "id": "gas",        "label": "open-gas.etzhayyim.com (Worker)" },
       { "id": "store",      "label": "D1 (nodes/segments/readings/leaks/pressure SSoT)" },
-      { "id": "pds",        "label": "atproto.gftd.ai (PDS, public audit)" },
+      { "id": "pds",        "label": "atproto.etzhayyim.com (PDS, public audit)" },
       { "id": "regulator",  "label": "Gas Safety Regulator (DID)" },
       { "id": "meter",      "label": "Service-point Meter (DID)" }
     ],

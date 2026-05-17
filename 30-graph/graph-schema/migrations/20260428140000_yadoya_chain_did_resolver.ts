@@ -39,7 +39,7 @@ const CHAINS: ChainMatch[] = [
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const { slug, pattern } of CHAINS) {
-    const did = `did:web:hospitality.gftd.ai:actor:chain:${slug}`;
+    const did = `did:web:hospitality.etzhayyim.com:actor:chain:${slug}`;
     await sql`
       UPDATE vertex_yadoya_hotel
       SET chain_did = ${did}
@@ -57,7 +57,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
   await sql`
     UPDATE vertex_yadoya_hotel
     SET chain_did = NULL
-    WHERE chain_did LIKE 'did:web:hospitality.gftd.ai:actor:chain:%'
+    WHERE chain_did LIKE 'did:web:hospitality.etzhayyim.com:actor:chain:%'
   `.execute(db);
   await sql`FLUSH`.execute(db);
 }

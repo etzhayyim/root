@@ -5,7 +5,7 @@ import { sql } from "kysely";
 // recommendations + post log; no Tier-3 PII).
 
 /**
- * lifehack.gftd.ai Phase 1 — household life-hack actor (dust prevention,
+ * lifehack.etzhayyim.com Phase 1 — household life-hack actor (dust prevention,
  * humidity, cable management, storage, cleaning).
  *
  * Pattern: T2 BPMN-as-actor (ADR-0036 Worker-direct Hyperdrive +
@@ -15,8 +15,8 @@ import { sql } from "kysely";
  * Boundary (2026-05-08):
  *   - lifehack holds tip text / effectiveness / recommendation +
  *     social posts.
- *   - Manufacturing / CAD / DIY assembly belong to tsukuru.gftd.ai +
- *     cad.gftd.ai.  vertex_lifehack_product reserves cross-reference
+ *   - Manufacturing / CAD / DIY assembly belong to tsukuru.etzhayyim.com +
+ *     cad.etzhayyim.com.  vertex_lifehack_product reserves cross-reference
  *     fields (tsukuru_cad_model_did, tsukuru_factory_did,
  *     tsukuru_production_order_nsid) so a tip can later point at a
  *     buildable design without lifehack writing tsukuru tables.

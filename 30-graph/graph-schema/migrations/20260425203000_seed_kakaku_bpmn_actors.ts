@@ -21,7 +21,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-25T20:30:00Z";
-const ownerDid = "did:web:kakaku.gftd.ai";
+const ownerDid = "did:web:kakaku.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.kakaku";
 const writeTableAllowlist = [
   "vertex_kakaku_product",
@@ -33,17 +33,17 @@ const writeTableAllowlist = [
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-upsertOffer-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-upsertOffer-v1",
     bpmnProcessId: "kakaku_upsert_offer",
     sourcePath: "00-contracts/bpmn/ai/gftd/kakaku/upsertOffer.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1",
     bpmnProcessId: "kakaku_ingest_offer_from_url",
     sourcePath: "00-contracts/bpmn/ai/gftd/kakaku/ingestOfferFromUrl.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-compareOffers-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-compareOffers-v1",
     bpmnProcessId: "kakaku_compare_offers",
     sourcePath: "00-contracts/bpmn/ai/gftd/kakaku/compareOffers.bpmn",
   },
@@ -51,19 +51,19 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-upsertOffer-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-upsertOffer-v1",
     nsid: "ai.gftd.apps.kakaku.upsertOffer",
     bpmnProcessId: "kakaku_upsert_offer",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1",
     nsid: "ai.gftd.apps.kakaku.ingestOfferFromUrl",
     bpmnProcessId: "kakaku_ingest_offer_from_url",
     resultTimeoutMs: 120_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-compareOffers-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-compareOffers-v1",
     nsid: "ai.gftd.apps.kakaku.compareOffers",
     bpmnProcessId: "kakaku_compare_offers",
     resultTimeoutMs: 60_000,

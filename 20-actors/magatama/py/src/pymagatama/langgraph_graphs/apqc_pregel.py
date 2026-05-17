@@ -38,7 +38,7 @@ except ImportError:  # pragma: no cover
 
 # ─────────────────────────────────── catalog ────────────────────────────────
 
-PROJECTOR_DID = "did:web:kyber-projector.gftd.ai"
+PROJECTOR_DID = "did:web:kyber-projector.etzhayyim.com"
 ACTOR_ID = "sys.worker.apqc.pregel"
 
 APQC_L1: list[dict[str, Any]] = [

@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * adsk.gftd.ai BPMN-as-actor seeding (ADR-0056) + Phase 1 HF dataset
+ * adsk.etzhayyim.com BPMN-as-actor seeding (ADR-0056) + Phase 1 HF dataset
  * catalog seed.
  *
  * Single timer-start BPMN `adsk_ingest_dataset` (R/P30D) that calls
@@ -44,12 +44,12 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-05T22:00:00Z";
-const ownerDid = "did:web:adsk.gftd.ai";
+const ownerDid = "did:web:adsk.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.adsk-hf-ingest";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v1",
     bpmnProcessId: "adsk_ingest_dataset",
     sourcePath: "00-contracts/bpmn/ai/gftd/adsk/ingestAdskDataset.bpmn",
     ownerDid,

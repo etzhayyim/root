@@ -12,7 +12,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-APP_DID = "did:web:oshikatsu.gftd.ai"
+APP_DID = "did:web:oshikatsu.etzhayyim.com"
 APP_ID = "dyd3lr50"
 TIER_RANK = {"free": 0, "supporter": 1, "premium": 2, "vip": 3}
 DEFAULT_TIERS = [

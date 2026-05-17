@@ -1,4 +1,4 @@
-"""Dedicated Zeebe worker for site.gftd.ai Common Crawl ingest tasks."""
+"""Dedicated Zeebe worker for site.etzhayyim.com Common Crawl ingest tasks."""
 
 from __future__ import annotations
 

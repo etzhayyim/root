@@ -34,7 +34,7 @@ describe("Seed open-network BPMN actors migration", () => {
 
   it("uses open-network-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-network"');
-    expect(migrationSource).toContain("did:web:open-network.gftd.ai:core");
+    expect(migrationSource).toContain("did:web:open-network.etzhayyim.com:core");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

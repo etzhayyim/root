@@ -7,12 +7,12 @@
  */
 import { type Kysely, sql } from "kysely";
 
-const ownerDid = "did:web:bpmn.gftd.ai";
-const actorTag = "did:web:bpmn.gftd.ai";
+const ownerDid = "did:web:bpmn.etzhayyim.com";
+const actorTag = "did:web:bpmn.etzhayyim.com";
 const createdAt = "2026-05-08T09:30:00Z";
 
 const BINDING_VID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`

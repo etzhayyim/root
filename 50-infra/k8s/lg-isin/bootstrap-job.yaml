@@ -1,0 +1,55 @@
+---
+# One-shot bootstrap: triggers full US (~13k tickers) + JP (TSE 1000-9999) sweep.
+# Apply once: kubectl apply -f 50-infra/k8s/lg-isin/bootstrap-job.yaml
+# The Job exits immediately; ingest runs async in the lg-isin pod (~44 min total).
+# Monitor: kubectl exec -n mitama-udf deploy/lg-isin -- curl -s localhost:8080/cron/coverage
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: isin-bootstrap
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-bootstrap
+    app.kubernetes.io/component: bootstrap
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  ttlSecondsAfterFinished: 86400
+  activeDeadlineSeconds: 60
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: isin-bootstrap
+        app.kubernetes.io/component: bootstrap
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: trigger
+          image: curlimages/curl:8.7.1
+          command:
+            - sh
+            - -c
+            - |
+              set -e
+              echo "Triggering lg-isin bootstrap..."
+              curl -fsS \
+                -X POST \
+                -H "Content-Type: application/json" \
+                http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/bootstrap
+              echo ""
+              echo "Bootstrap started. Ingest running in background in the lg-isin pod."
+              echo "Monitor: curl http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/coverage"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 65534
+            capabilities:
+              drop: ["ALL"]

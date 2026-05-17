@@ -157,7 +157,7 @@ fn authorize<G: GraphQueryExecutor>(headers: &HeaderMap, state: &YataRestState<G
                 // pubkey_multibase is already uncompressed P-256 (65 bytes)
                 Some(pubkey_multibase)
             };
-            match crate::jwt::verify_es256_jwt(token, "did:web:pds.gftd.ai", resolve_key) {
+            match crate::jwt::verify_es256_jwt(token, "did:web:pds.etzhayyim.com", resolve_key) {
                 Ok(claims) => return Ok(AuthResult::Authenticated { did: claims.iss }),
                 Err(e) => {
                     tracing::warn!("JWT verification failed: {}", e);

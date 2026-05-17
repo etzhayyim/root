@@ -1,7 +1,7 @@
 """
 narou_worker_main.py — Narou Web Novel Platform LangServer worker.
 
-Handles 11 BPMN task types for narou.gftd.ai:
+Handles 11 BPMN task types for narou.etzhayyim.com:
   ai.gftd.apps.narou.createNovel
   ai.gftd.apps.narou.createChapter
   ai.gftd.apps.narou.generateChapter
@@ -46,10 +46,10 @@ logger = logging.getLogger(__name__)
 
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
-    "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 
-ACTOR_DID = "did:web:narou.gftd.ai"
+ACTOR_DID = "did:web:narou.etzhayyim.com"
 
 
 # ---------------------------------------------------------------------------

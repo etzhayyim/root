@@ -1,7 +1,7 @@
 ---
 id: adr-2605172300-etzhayyim-bi-asset-substrate
 title: "ADR-2605172300: etzhayyim Kisha-Stream / Goji-Treasury — two-chain (geth-private + Base L2) basic-income and asset substrate for an on-chain religious voluntary association"
-status: proposed
+status: accepted
 doc_type: adr
 topic: etzhayyim-bi-asset-substrate
 authoritative: true
@@ -25,6 +25,8 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
+  - 2605172700-membership-layering-shinto-adherent.md
+  - 2605172600-etzhayyim-membership-ritual.md
   - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md
   - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0095-simplified-3layer-identity-rw-vault.md
   - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091300-bonsai-cultivar-layer-above-myco-yeast.md
@@ -34,9 +36,35 @@ superseded_by: []
 
 # ADR-2605172300: etzhayyim Kisha-Stream / Goji-Treasury — two-chain (geth-private + Base L2) basic-income and asset substrate for an on-chain religious voluntary association
 
-**Status**: proposed
+**Status**: accepted (S0–S4 implemented + e2e verified on Anvil; production deploy pending operational readiness)
 **Date**: 2026-05-17
 **Deciders**: Jun Kawasaki
+
+## Implementation status (2026-05-17 session close)
+
+| Stage | Surface | Status |
+|---|---|---|
+| S0 | `Constitution.sol` + `AdherentRegistry.sol` | ✅ deployed locally, 16/16 forge tests |
+| S1 | `KishaStream.sol` + `AnchorBridge.sol` + `base/KishaPayout.sol` + `@etzhayyim/sdk` `bi.join` / `bi.attest` / `bi.status` / `bi.claim` | ✅ deployed + 21/21 forge tests + 29/29 vitest |
+| S2 | `Phenotype.sol` + `KishaStream` multiplier composition + `pymagatama.eligibility` (`scoring`, `cell`, `web3_ports`) + per-adherent `PhenotypeAgent` code-gen | ✅ 10/10 forge tests + 22/22 pytest; Python `EligibilityCell.step` produces a multiplier that lands on-chain and KishaStream accrual scales by it |
+| S3 | `Governance.sol` + `TreasuryMirror.sol` + `bi.propose` / `bi.vote` / `bi.proposalState` + ERC-4337 sponsored path (`paymaster.ts` + `EtzhayyimPaymaster.sol`) | ✅ 16/16 forge tests + 13/13 vitest; sponsored UserOp lands against real EntryPoint v0.7 + SimpleAccount |
+| S4 | `CorpusRegistry.sol` + `HoldingAttestation.sol` | ✅ 21/21 forge tests; deploy gated on Japan-jurisdiction lawfirm review of the attestation template (per the legal caveat in §4) |
+| S5 | `script/Deploy.s.sol` + `script/MockUsdc.sol` + `RUNBOOK-deploy.md` | ✅ deploy script runs cold-to-live on Anvil in <10s |
+
+**End-to-end smokes** (all passing):
+
+- `20-actors/etzhayyim-sdk/test/integration-full.mjs` — full SDK lifecycle (`join → attest → status → propose → vote → queue → execute → claim → fulfill`) against Anvil with deterministic addresses; daily accrual delta matches `baseRate × bps / 10_000`.
+- `20-actors/etzhayyim-sdk/test/integration-eligibility.mjs` — JS orchestrator + Python `run_eligibility_step.py` child process; Python cell reads `Attested` events from chain, scores, signs EIP-191, submits `Phenotype.setMultiplier`; verifies multiplier propagates to `KishaStream.accruedNow`.
+- `50-infra/etzhayyim-paymaster/test/PaymasterIntegration.t.sol` — real EntryPoint v0.7 + SimpleAccount stack (eth-infinitism/account-abstraction@v0.7.0); sponsored UserOps land for allowlisted targets; rejected for non-allowlisted; daily cap respected.
+- `20-actors/etzhayyim-sdk/test/integration-fake-pds.mjs` — `bi.join` Stage 2 + `bi.attest` PDS record writes hit an in-memory fake `AtpAgent`; canonical oath text + cross-chain refs (Base tx, github SHA) threaded into the record.
+
+**What is NOT yet done** (intentional out-of-scope):
+
+- Production deploy on Base mainnet + a real geth-private chain (operational readiness gate, not a code gate).
+- Lawfirm review of the `HoldingAttestation` template (S4 production deploy is gated on this).
+- Multi-adherent fleet test (current smokes drive a single adherent).
+- A real ERC-4337 bundler (Alto / Skandha) — local tests use direct `EntryPoint.handleOps` from a test EOA.
+- A real PDS — local tests use `test/fake-pds.mjs`.
 
 # Context
 
@@ -46,7 +74,7 @@ What is **still missing** is the economic body of the association: how members a
 
 Two structural pressures shape this layer:
 
-1. **Voluntary-association legal framing**. Without a 宗教法人 corporate shell, etzhayyim cannot hold a corporate bank account or employ members in the labor-law sense. Distributions must be framed as **voluntary gifts between the association and its constituent adherents (信徒)**, not as wages. Members declare receipts as 一時所得 / 雑所得 individually. The system therefore optimizes for **adherent-declarable, association-auditable, non-employer-employee** semantics.
+1. **Voluntary-association legal framing**. Without a 宗教法人 corporate shell, etzhayyim cannot hold a corporate bank account or employ members in the labor-law sense. Distributions must be framed as **voluntary gifts between the association and its constituent adherents (構成員 / Adherent — distinct from the broader 信者 commitment layer of [ADR-2605172600](2605172600-etzhayyim-membership-ritual.md); see [ADR-2605172700](2605172700-membership-layering-shinto-adherent.md))**, not as wages. Members declare receipts as 一時所得 / 雑所得 individually. The system therefore optimizes for **adherent-declarable, association-auditable, non-employer-employee** semantics.
 
 2. **Substrate-purity double bind**. ADR-2605172000 prohibits centralized off-chain DBs. ADR-2605172100 prohibits fiat processors and commits public payments to Base L2. But **internal constitutional state** (who is an adherent, what is each adherent's current kisha rate, what is the outcome of a doctrine-change vote) does not belong on a public, anyone-can-read L2 — both for PII reasons and for write-cost reasons. We need an **internal** programmable substrate that is *not* a centralized DB but also *not* a public chain.
 
@@ -60,12 +88,14 @@ This ADR composes those three building blocks into a single layer.
 
 | Term | Meaning | On-chain representation |
 |---|---|---|
-| 信徒 (shinto) | adherent / member of the association | ERC-5192 SBT on geth-private, DID-bound |
+| Adherent (構成員 / kōsei-in) [^vocab] | a 信者 who has additionally been enrolled in the economic body of the association | ERC-5192 SBT on geth-private, DID-bound |
 | 喜捨 (kisha) | religious voluntary gift; here = basic-income-style distribution | USDC flow on Base L2, ticketed from geth-private |
 | 護持 (goji) | maintenance / upkeep | treasury, asset registry, rebalance policy |
 | 護持金庫 (goji-kinko) | treasury | Gnosis Safe on Base (asset custody) + `TreasuryMirror.sol` on geth-private (accounting) |
 | 護持資産 (goji-shisan) | corp assets | 流動 (liquid) / 準備 (reserve) / 本財 (corpus) three-tier |
 | 役員 (yakuin) | officer | Safe signer + geth-private validator |
+
+[^vocab]: Earlier drafts of this ADR used "信徒 (shinto) / adherent" interchangeably for the SBT holder. [ADR-2605172700](2605172700-membership-layering-shinto-adherent.md) clarifies that the looser cultural label 信者 belongs to the [ADR-2605172600](2605172600-etzhayyim-membership-ritual.md) public-commitment layer on Base. The SBT holder used here is "Adherent / 構成員" — a 信者 who has additionally been enrolled in the economic body.
 
 # Decision
 

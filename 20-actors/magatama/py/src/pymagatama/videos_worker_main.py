@@ -1,4 +1,4 @@
-"""videos.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""videos.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -23,7 +23,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.videos.uploadVideo")
     async def task_upload_video(**kwargs):
         title = kwargs.get("title", "")
-        owner_did = kwargs.get("ownerDid", "did:web:videos.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:videos.etzhayyim.com")
         blob_key = kwargs.get("blobKey", "")
 
         video_id = str(uuid.uuid4())
@@ -40,7 +40,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 video_id, title, blob_key, "uploaded",
-                "did:web:videos.gftd.ai", "did:web:videos.gftd.ai", now, now,
+                "did:web:videos.etzhayyim.com", "did:web:videos.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

@@ -47,7 +47,7 @@ No metered per-row or per-API-call pricing. No "premier support" upcharge.
 
 ## TCO math (calculator seed values)
 
-The public calculator at `https://salesforce.opensaas.gftd.ai/pricing/calculator` uses these defaults:
+The public calculator at `https://salesforce.opensaas.etzhayyim.com/pricing/calculator` uses these defaults:
 
 - Salesforce Sales Cloud Enterprise list: **¥22,500 / seat / month** (JPN list as of FY26Q1).
 - Einstein GPT add-on: **¥6,000 / seat / month**.

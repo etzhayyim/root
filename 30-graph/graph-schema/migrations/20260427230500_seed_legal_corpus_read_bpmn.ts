@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-// Phase B — read paths for legal-corpus.gftd.ai (ADR-0049).
+// Phase B — read paths for legal-corpus.etzhayyim.com (ADR-0049).
 // searchDocument: bge-m3 query embed + IVF cosine SELECT
 // getDocument:    direct SELECT by vertex_id or canonical_uri
 // listJurisdictions: read from mv_legal_corpus_jurisdiction_coverage
@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-27T23:05:00Z";
-const ownerDid = "did:web:legal-corpus.gftd.ai";
+const ownerDid = "did:web:legal-corpus.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.legal-corpus-read";
 // bpmn-coverage gate marker: project: "legal-corpus"
 const project = "legal-corpus";
@@ -36,9 +36,9 @@ const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

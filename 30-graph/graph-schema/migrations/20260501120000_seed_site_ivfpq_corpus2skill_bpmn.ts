@@ -10,7 +10,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-05-01T10:00:00Z";
-const ownerDid = "did:web:site.gftd.ai";
+const ownerDid = "did:web:site.etzhayyim.com";
 const actorId = "sys.bpmn.seed.site";
 
 interface BpmnSeed {
@@ -24,16 +24,16 @@ interface BpmnSeed {
 
 const seeds: BpmnSeed[] = [
   {
-    processVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/site-ivfPqReindex-v1",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/site-ivfPqReindex-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1",
     processId: "site_ivf_pq_reindex",
     nsid: "ai.gftd.apps.site.ivfPqReindex",
     sourcePath: "00-contracts/bpmn/ai/gftd/site/ivfPqReindex.bpmn",
     resultTimeoutMs: 14_400_000,
   },
   {
-    processVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/site-corpus2skillDistill-v1",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/site-corpus2skillDistill-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1",
     processId: "site_corpus2skill_distill",
     nsid: "ai.gftd.apps.site.corpus2skillDistill",
     sourcePath: "00-contracts/bpmn/ai/gftd/site/corpus2skillDistill.bpmn",

@@ -1,0 +1,86 @@
+---
+# SES Phase 3 — 15-minute Outlook inbox pull CronJob.
+#
+# Calls POST /cron/outlook-pull on lg-ses.mitama-udf.svc.cluster.local:8000
+# every 15 minutes. lg-ses reads vertex_m365_sync_state for the differential
+# cursor, fetches new Inbox messages via Microsoft Graph API, and runs each
+# through the SES LangGraph pipeline with source_kind='email_cron'.
+#
+# ADR refs:
+#   * ADR-2605120000 (SES Phase 3: Outlook cron pull)
+#   * ADR-2605111200 (CF Worker = Edge-Only; K8s Pod handles all RW I/O)
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ses-outlook-pull
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: ses-outlook-pull
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: ses.etzhayyim.com
+spec:
+  schedule: "*/15 * * * *"
+  suspend: true
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 600
+      backoffLimit: 0
+      ttlSecondsAfterFinished: 1800
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: ses-outlook-pull
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          imagePullSecrets:
+            - name: ghcr-pull
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  API_KEY="${LG_SES_API_KEY:-}"
+                  if [ -n "$API_KEY" ]; then
+                    HEADER="-H x-api-key:${API_KEY}"
+                  else
+                    HEADER=""
+                  fi
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    $HEADER \
+                    http://lg-ses.mitama-udf.svc.cluster.local:8000/cron/outlook-pull \
+                    | jq .
+              env:
+                - name: LG_SES_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: lg-ses-secrets
+                      key: LG_SES_API_KEY
+                      optional: true
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]

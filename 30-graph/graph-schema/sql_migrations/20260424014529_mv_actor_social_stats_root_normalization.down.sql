@@ -63,11 +63,11 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_profile_core_stats AS
     social_counts AS (
       SELECT
         CASE
-          WHEN actor_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN actor_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN actor_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(actor_did, ':', 3), '/', 1))
@@ -82,11 +82,11 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_profile_core_stats AS
     governance_counts AS (
       SELECT
         CASE
-          WHEN actor_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN actor_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN actor_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(actor_did, ':', 3), '/', 1))
@@ -99,11 +99,11 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_profile_core_stats AS
     tool_counts AS (
       SELECT
         CASE
-          WHEN actor_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN actor_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN actor_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(actor_did, ':', 3), '/', 1))

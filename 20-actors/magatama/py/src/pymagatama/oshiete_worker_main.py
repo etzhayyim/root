@@ -1,4 +1,4 @@
-"""oshiete.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""oshiete.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -22,7 +22,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.oshiete.submit.question")
     async def task_submit_question(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:oshiete.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:oshiete.etzhayyim.com")
         title = kwargs.get("title", "")
         body = kwargs.get("body", "")
         topic = kwargs.get("topic", "")
@@ -41,7 +41,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 question_id, title, body, topic, "open",
-                "did:web:oshiete.gftd.ai", "did:web:oshiete.gftd.ai", now, now,
+                "did:web:oshiete.etzhayyim.com", "did:web:oshiete.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -102,7 +102,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.oshiete.submit.answer")
     async def task_submit_answer(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:oshiete.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:oshiete.etzhayyim.com")
         question_id = kwargs.get("questionId", "")
         body = kwargs.get("body", "")
 
@@ -120,7 +120,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 answer_id, question_id, body, 0,
-                "did:web:oshiete.gftd.ai", "did:web:oshiete.gftd.ai", now, now,
+                "did:web:oshiete.etzhayyim.com", "did:web:oshiete.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

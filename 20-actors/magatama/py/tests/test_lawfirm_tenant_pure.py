@@ -57,9 +57,9 @@ class TestBootstrapHappyPath(unittest.TestCase):
         ))
         self.assertTrue(out["ok"])
         self.assertEqual(out["status"], "created")
-        self.assertEqual(out["tenantDid"], "did:web:nishith-sandbox-lawfirm.gftd.ai")
-        self.assertEqual(out["pdsUrl"], "https://nishith-sandbox-lawfirm.gftd.ai")
-        self.assertEqual(out["kpiDashboardUrl"], "https://kpi-lawfirm.gftd.ai/nishith")
+        self.assertEqual(out["tenantDid"], "did:web:nishith-sandbox-lawfirm.etzhayyim.com")
+        self.assertEqual(out["pdsUrl"], "https://nishith-sandbox-lawfirm.etzhayyim.com")
+        self.assertEqual(out["kpiDashboardUrl"], "https://kpi-lawfirm.etzhayyim.com/nishith")
         # 3 INSERTs: tenant row, audit event, lead edge
         self.assertEqual(len(self.stub.executes), 3)
 
@@ -73,7 +73,7 @@ class TestBootstrapHappyPath(unittest.TestCase):
             tier="saas-prod",
         ))
         self.assertTrue(out["ok"])
-        self.assertEqual(out["tenantDid"], "did:web:acme-lawfirm.gftd.ai")
+        self.assertEqual(out["tenantDid"], "did:web:acme-lawfirm.etzhayyim.com")
         # 2 INSERTs: tenant row + audit (no lead edge for prod)
         self.assertEqual(len(self.stub.executes), 2)
 
@@ -150,7 +150,7 @@ class TestBootstrapIdempotency(unittest.TestCase):
     def test_already_exists_returns_existing(self):
         # First _query returns 1 existing row (slug+tier match)
         stub = _Stub(query_returns=[[
-            {"vertex_id": "at://did:web:lawfirm.gftd.ai/.../sandbox-nishith",
+            {"vertex_id": "at://did:web:lawfirm.etzhayyim.com/.../sandbox-nishith",
              "status": "active", "tier": "sandbox"}
         ]])
         stub.install()
@@ -254,7 +254,7 @@ class TestPromote(unittest.TestCase):
             self.assertTrue(out["ok"])
             self.assertEqual(out["status"], "promoted")
             self.assertEqual(out["sandbox_tenant_id"], "sandbox-xx")
-            self.assertEqual(out["prod_did"], "did:web:xx-lawfirm.gftd.ai")
+            self.assertEqual(out["prod_did"], "did:web:xx-lawfirm.etzhayyim.com")
             self.assertEqual(out["monthly_rate_usd"], 5000.0)
         finally:
             stub.uninstall()

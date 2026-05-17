@@ -523,7 +523,7 @@ def test_audit_emit_no_actor_returns_error() -> None:
 
 
 def test_audit_emit_no_action_returns_error() -> None:
-    result = asyncio.run(Z.task_generic_audit_emit(actor="did:web:test.gftd.ai"))
+    result = asyncio.run(Z.task_generic_audit_emit(actor="did:web:test.etzhayyim.com"))
     assert "error" in result
 
 
@@ -557,7 +557,7 @@ def test_audit_emit_accepts_bpmn_aliases(monkeypatch) -> None:
 
     result = asyncio.run(
         Z.task_generic_audit_emit(
-            actor_did="did:web:jp-corp-finance.gftd.ai",
+            actor_did="did:web:jp-corp-finance.etzhayyim.com",
             event_type="jpCorpFinance.dailyIngest.completed",
             attributes={"case_id": "run-1", "recordsWritten": 3},
         )
@@ -826,7 +826,7 @@ def test_generic_pds_dispatch_exposes_cid_and_uri(monkeypatch) -> None:
     monkeypatch.setattr(Z, "_PDS_LEGACY_INTERNAL_TRUST", True)
 
     async def _fake_to_thread(fn, *args, **kwargs):
-        return 200, {"cid": "bafy-pub", "uri": "at://did:web:pd-color.gftd.ai/app.record/1"}
+        return 200, {"cid": "bafy-pub", "uri": "at://did:web:pd-color.etzhayyim.com/app.record/1"}
 
     monkeypatch.setattr(Z.asyncio, "to_thread", _fake_to_thread)
     result = asyncio.run(Z.task_generic_pds_dispatch(
@@ -834,7 +834,7 @@ def test_generic_pds_dispatch_exposes_cid_and_uri(monkeypatch) -> None:
         payload={"workId": "pdcolor:work:gertie"},
     ))
     assert result["cid"] == "bafy-pub"
-    assert result["uri"] == "at://did:web:pd-color.gftd.ai/app.record/1"
+    assert result["uri"] == "at://did:web:pd-color.etzhayyim.com/app.record/1"
 
 
 # ─── task_open_patent_expired_drug_patent_screen — pure logic ────────────────

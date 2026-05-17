@@ -53,7 +53,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // Insert DMN into vertex_bpmn_process_def.
   // The dispatcher's _detect_resource_kind() reads the DMN namespace from the XML
   // to branch deploy logic; bpmn_process_id holds the decision ID for DMN rows.
-  const dmnVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${DMN_DECISION_ID}-v1`;
+  const dmnVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${DMN_DECISION_ID}-v1`;
   await sql`
     INSERT INTO vertex_bpmn_process_def (
       vertex_id,

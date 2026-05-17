@@ -2,7 +2,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * lawfirm.gftd.ai e-sign request mirror.
+ * lawfirm.etzhayyim.com e-sign request mirror.
  * Tracks DocuSign / AdobeSign / RazorpaySign envelopes per matter.
  *
  * Status lifecycle: draft → sent → delivered → completed | declined | expired.

@@ -43,7 +43,7 @@ async def test_open_unispsc_segment_is_own_business_boundary():
     assert result["ok"] is True
     assert [r["level"] for r in result["results"]] == ["segment"]
     segment = result["results"][0]
-    assert segment["did"] == "did:web:unispsc.gftd.ai:seg46"
+    assert segment["did"] == "did:web:unispsc.etzhayyim.com:seg46"
     assert segment["businessLogic"]["strategy"] == "controlled-safety-and-defense"
     assert "arms-or-security-review" in segment["businessLogic"]["riskTags"]
 
@@ -220,7 +220,7 @@ async def test_open_unispsc_sync_catalog_item_maps_to_okaimono_catalog_contract(
     result = await task_open_unispsc_sync_catalog_item(
         commodityCode="43211501",
         commodityName="Computer servers",
-        sourceRepo="did:web:unispsc.gftd.ai:seg43",
+        sourceRepo="did:web:unispsc.etzhayyim.com:seg43",
         rkey="43211501",
     )
 
@@ -238,7 +238,7 @@ async def test_open_unispsc_sync_catalog_item_maps_to_okaimono_catalog_contract(
         "unispsc_segment": "43",
         "unispsc_family": "4321",
         "unispsc_class": "432115",
-        "commodity_did": "did:web:unispsc.gftd.ai:seg43:commodity:c43211501",
+        "commodity_did": "did:web:unispsc.etzhayyim.com:seg43:commodity:c43211501",
         "active": True,
     }
     assert result["atprotoWritePlan"]["mode"] == "deterministic-upsert"
@@ -273,7 +273,7 @@ async def test_open_unispsc_plan_catalog_purchase_invokes_segment_item_spec():
     assert result["checkoutSaga"]["sagaId"] == "chk8uty2"
     assert result["procurementInvocation"] == {
         "step": "procurement-find-offers",
-        "targetActorDid": "did:web:unispsc.gftd.ai:seg43",
+        "targetActorDid": "did:web:unispsc.etzhayyim.com:seg43",
         "mcpTool": "ai.gftd.apps.openUnispsc.itemGetSpec",
         "arguments": {"commodityCode": "43211501"},
     }
@@ -309,7 +309,7 @@ async def test_open_unispsc_sync_all_commodity_dids_plans_segment_fanout():
     assert plan["commandsPerSegment"] == 3
     first = plan["segments"][0]
     assert first["segment"] == "44"
-    assert first["targetActorDid"] == "did:web:unispsc.gftd.ai:seg44"
+    assert first["targetActorDid"] == "did:web:unispsc.etzhayyim.com:seg44"
     assert [cmd["command"] for cmd in first["commands"]] == [
         "register-commodities-bulk",
         "register-commodity-profiles",
@@ -358,7 +358,7 @@ async def test_open_unispsc_supplier_matches_bpmn_lexicon_tool():
     assert result["ok"] is True
     assert result["riskTier"] == "blocked"
     assert result["bpmnProcessId"] == "open_unispsc_supplier"
-    assert result["vertexId"].startswith("at://did:web:unispsc.gftd.ai/ai.gftd.apps.openUnispsc.supplier/")
+    assert result["vertexId"].startswith("at://did:web:unispsc.etzhayyim.com/ai.gftd.apps.openUnispsc.supplier/")
     assert result["instanceKey"] > 0
     assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.supplier"
     assert result["status"] == "blocked"
@@ -403,7 +403,7 @@ async def test_open_unispsc_procurement_matches_bpmn_lexicon_tool():
     assert procurement_row["submitted_at"] == "2026-05-14T00:00:00Z"
     edge_row = write_plan["rows"][1]["record"]
     assert edge_row["src_vid"] == result["vertexId"]
-    assert edge_row["dst_vid"] == "did:web:unispsc.gftd.ai:seg25:commodity:c25172504"
+    assert edge_row["dst_vid"] == "did:web:unispsc.etzhayyim.com:seg25:commodity:c25172504"
 
 
 @pytest.mark.asyncio
@@ -415,14 +415,14 @@ async def test_open_unispsc_direct_flag_tools_match_bpmn_lexicons():
 
     arms = await task_open_unispsc_flag_arms_commodity(
         vertexId="v1",
-        commodityVid="did:web:unispsc.gftd.ai:seg46:commodity:c46101501",
+        commodityVid="did:web:unispsc.etzhayyim.com:seg46:commodity:c46101501",
         unspscCode="46101501",
         subFamily="Firearms",
         detectedAt="2026-05-14T00:00:00Z",
     )
     dual = await task_open_unispsc_flag_dual_use_commodity(
         vertexId="v2",
-        commodityVid="did:web:unispsc.gftd.ai:seg25:commodity:c25172504",
+        commodityVid="did:web:unispsc.etzhayyim.com:seg25:commodity:c25172504",
         unspscCode="25172504",
         dualUseCategory="battery-export-control",
         detectedAt="2026-05-14T00:00:00Z",
@@ -500,7 +500,7 @@ async def test_open_unispsc_apply_graph_write_plan_accepts_defence_event_flags()
 
     arms = await task_open_unispsc_flag_arms_commodity(
         vertexId="v1",
-        commodityVid="did:web:unispsc.gftd.ai:seg46:commodity:c46101501",
+        commodityVid="did:web:unispsc.etzhayyim.com:seg46:commodity:c46101501",
         unspscCode="46101501",
         subFamily="Firearms",
         detectedAt="2026-05-14T00:00:00Z",

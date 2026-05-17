@@ -9,7 +9,7 @@ type Seed = { slug: string; processId: string; nsid: string; sourcePath: string;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:briefing.gftd.ai";
+const ownerDid = "did:web:briefing.etzhayyim.com";
 const createdAt = "2026-04-29T20:30:00+09:00";
 const actorId = "sys.bpmn.seed.briefing";
 const project = "briefing";
@@ -23,8 +23,8 @@ const seeds: Seed[] = [
   { slug: "record-decision", processId: "briefing_record_decision", nsid: "ai.gftd.apps.briefing.recordDecision", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/recordDecision.bpmn", timeoutMs: 30000, writeTableAllowlist: "pds:ai.gftd.apps.briefing.briefingDecision" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

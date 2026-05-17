@@ -28,10 +28,10 @@ from pymagatama.primitives.yoro_social import (
     _rkey,
 )
 
-_COMFYUI_BASE = os.environ.get("COMFYUI_URL", "https://comfyui.gftd.ai")
+_COMFYUI_BASE = os.environ.get("COMFYUI_URL", "https://comfyui.etzhayyim.com")
 _COMFYUI_KEY = os.environ.get("COMFYUI_API_KEY", "")
-_PDS_BASE = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
-_SHINSHI_DID = "did:web:sh1n5h1x.gftd.ai"
+_PDS_BASE = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
+_SHINSHI_DID = "did:web:sh1n5h1x.etzhayyim.com"
 
 _VIDEO_RENDER_TIMEOUT_MS = 540_000  # 9 min
 _VIDEO_RENDER_TIMEOUT_SEC = 540.0

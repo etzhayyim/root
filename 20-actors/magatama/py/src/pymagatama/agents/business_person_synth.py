@@ -38,7 +38,7 @@ from pymagatama.primitives import langgraph_registry
 log = logging.getLogger(__name__)
 
 GLEIF_API = "https://api.gleif.org/api/v1/lei-records"
-_UA = "business-person-synth/1 (+https://gftd.ai)"
+_UA = "business-person-synth/1 (+https://etzhayyim.com)"
 
 
 # ── State ────────────────────────────────────────────────────────────────────
@@ -139,7 +139,7 @@ def did_mint(state: BPState) -> BPState:
         if not name:
             continue
         vertex_id = (
-            f"at://did:web:business-person.gftd.ai/"
+            f"at://did:web:business-person.etzhayyim.com/"
             f"ai.gftd.apps.businessPerson.person/{_stable_id(lei, name, role)}"
         )
         minted.append({

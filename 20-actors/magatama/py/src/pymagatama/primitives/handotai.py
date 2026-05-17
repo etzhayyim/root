@@ -1,6 +1,6 @@
 """handotai semiconductor intelligence primitives (ADR-0056 BPMN-as-actor).
 
-3 Zeebe task types for handotai.gftd.ai:
+3 Zeebe task types for handotai.etzhayyim.com:
   handotai.seed.writers    — idempotent upsert of 6 built-in RSS writer sources
   handotai.collect.rssAll  — fetch all enabled sources, parse items, write articles
   handotai.generate.digest — read today's articles, LLM-summarize, write digest
@@ -22,7 +22,7 @@ from pymagatama import llm as _llm
 from pymagatama.db_sync import sync_cursor
 
 
-_OWNER_DID = "did:web:handotai.gftd.ai"
+_OWNER_DID = "did:web:handotai.etzhayyim.com"
 _COL_SRC = "ai.gftd.apps.handotai.source"
 _COL_ART = "ai.gftd.apps.handotai.article"
 _COL_DIG = "ai.gftd.apps.handotai.digest"
@@ -224,7 +224,7 @@ async def task_handotai_collect_rss_all(maxPerSource: int = 20) -> dict:
     now = _utc_now()
 
     async with aiohttp.ClientSession(
-        headers={"User-Agent": "handotai.gftd.ai/1.0 contact@gftd.co.jp"},
+        headers={"User-Agent": "handotai.etzhayyim.com/1.0 contact@gftd.co.jp"},
         timeout=aiohttp.ClientTimeout(total=30),
     ) as session:
         for w in _WRITERS:

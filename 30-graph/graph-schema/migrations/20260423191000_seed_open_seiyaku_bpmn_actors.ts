@@ -31,45 +31,45 @@ const createdAt = "2026-04-23T19:10:00Z";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-register-batch-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-register-batch-v1",
     bpmnProcessId: "seiyaku_register_batch",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-seiyaku/registerBatch.bpmn",
-    ownerDid: "did:web:open-seiyaku.gftd.ai:manufacturing",
+    ownerDid: "did:web:open-seiyaku.etzhayyim.com:manufacturing",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-amend-batch-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-amend-batch-v1",
     bpmnProcessId: "seiyaku_amend_batch",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-seiyaku/amendBatch.bpmn",
-    ownerDid: "did:web:open-seiyaku.gftd.ai:manufacturing",
+    ownerDid: "did:web:open-seiyaku.etzhayyim.com:manufacturing",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-purge-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-purge-v1",
     bpmnProcessId: "seiyaku_purge",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-seiyaku/purge.bpmn",
-    ownerDid: "did:web:open-seiyaku.gftd.ai:manufacturing",
+    ownerDid: "did:web:open-seiyaku.etzhayyim.com:manufacturing",
   },
 ];
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1",
     nsid: "ai.gftd.apps.openSeiyaku.startBatchRecord",
     bpmnProcessId: "seiyaku_register_batch",
-    ownerDid: "did:web:open-seiyaku.gftd.ai:manufacturing",
+    ownerDid: "did:web:open-seiyaku.etzhayyim.com:manufacturing",
     resultTimeoutMs: 0,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1",
     nsid: "ai.gftd.apps.openSeiyaku.amendBatchRecord",
     bpmnProcessId: "seiyaku_amend_batch",
-    ownerDid: "did:web:open-seiyaku.gftd.ai:manufacturing",
+    ownerDid: "did:web:open-seiyaku.etzhayyim.com:manufacturing",
     resultTimeoutMs: 0,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-purge-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-purge-v1",
     nsid: "ai.gftd.apps.openSeiyaku.purge",
     bpmnProcessId: "seiyaku_purge",
-    ownerDid: "did:web:open-seiyaku.gftd.ai:manufacturing",
+    ownerDid: "did:web:open-seiyaku.etzhayyim.com:manufacturing",
     resultTimeoutMs: 120000,
   },
 ];

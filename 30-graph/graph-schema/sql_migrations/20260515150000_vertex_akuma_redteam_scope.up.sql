@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS vertex_akuma_probe (
 );
 
 -- vertex_akuma_finding: probe-derived finding metadata.
--- Raw payload lives in vault.gftd.ai under vault_ciphertext_cid.
+-- Raw payload lives in vault.etzhayyim.com under vault_ciphertext_cid.
 CREATE TABLE IF NOT EXISTS vertex_akuma_finding (
   vertex_id              VARCHAR PRIMARY KEY,
   _seq                   BIGINT,

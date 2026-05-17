@@ -1,7 +1,7 @@
 /**
  * XP & Gamification Store — Duolingo-inspired progression system.
  *
- * Data source: dojo.gftd.ai via PDS XRPC (authoritative).
+ * Data source: dojo.etzhayyim.com via PDS XRPC (authoritative).
  * localStorage = cache only (offline fallback).
  *
  * Graph labels (dojo app):
@@ -12,7 +12,7 @@
 import { getSessionToken } from '$lib/auth';
 
 const CACHE_KEY = 'yoroXpCache';
-const PDS = 'https://atproto.gftd.ai';
+const PDS = 'https://atproto.etzhayyim.com';
 const DOJO_NSID = 'ai.gftd.apps.dojo';
 
 async function authHeaders(): Promise<Record<string, string>> {

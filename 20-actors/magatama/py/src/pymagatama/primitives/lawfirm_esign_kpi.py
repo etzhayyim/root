@@ -23,13 +23,13 @@ from typing import Any
 
 LOG = logging.getLogger("lawfirm.esign_kpi")
 
-_FIRM_DID = "did:web:lawfirm.gftd.ai"
+_FIRM_DID = "did:web:lawfirm.etzhayyim.com"
 
 # RLS allowlist for KPI snapshot (CEO + COO + CLO)
 _KPI_READERS = {
-    "did:web:j-kawasaki.gftd.ai",
-    "did:web:a-nakamura.gftd.ai",
-    "did:web:k-bakshi.gftd.ai",
+    "did:web:j-kawasaki.etzhayyim.com",
+    "did:web:a-nakamura.etzhayyim.com",
+    "did:web:k-bakshi.etzhayyim.com",
 }
 
 
@@ -38,7 +38,7 @@ def _now_iso() -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 # ── Persistence helpers ───────────────────────────────────────────────────────

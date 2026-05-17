@@ -1,8 +1,13 @@
 # etzhayyim/root — deps.toml
 #
 # Machine-readable SSoT for the etzhayyim/root monorepo.
-# Updated 2026-05-17 after substrate scaffolding wave (ADR-2605170900
-# through ADR-2605172200, SDK + 4 infra modules + paymaster).
+# Updated 2026-05-17 after:
+#   1. Substrate scaffolding wave (ADR-2605170900 through ADR-2605172200,
+#      SDK + 4 infra modules + paymaster)
+#   2. ADR-2605152100 Step 8 functional completion (open scope migration
+#      from vendor → etzhayyim, ~60 dirs + ~2600 stub LoC removed from vendor)
+#   3. Mechanical gftd-→-etzhayyim sweep (1934 files rewritten, ADR-2605172900
+#      classifies what was preserved as historical vs deferred)
 #
 # Human-readable docs:
 #   - CLAUDE.md (this dir)            ← index, operating-entity boundary
@@ -80,24 +85,73 @@ entrypoint_v07 = "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
 [platform.l2.anchor_contract]
 # EtzhayyimAnchor — immutable append-only MST root anchor.
 # Source: 50-infra/l2-anchor-contract/src/EtzhayyimAnchor.sol
-# Status: scaffold v0.0.0, NOT yet deployed.
 source = "50-infra/l2-anchor-contract/"
 adr = "2605171800"
 address_mainnet = ""    # set after `forge script Deploy.s.sol`
 address_testnet = ""
-deploy_status = "pending"
+address_local_anvil = "0x5fbdb2315678afecb367f032d93f642f64180aa3"  # anvil chainId 260425, deployed 2026-05-17 for substrate smoke test (validated: rootCount=1)
+deploy_status = "local-anvil-validated"
 
 [platform.l2.paymaster]
 # EtzhayyimPaymaster — ERC-4337 paymaster, allowlist + per-sender daily cap.
 # Source: 50-infra/etzhayyim-paymaster/src/EtzhayyimPaymaster.sol
-# Status: scaffold v0.0.0, NOT yet deployed.
 source = "50-infra/etzhayyim-paymaster/"
 adr = "2605172100"
 address_mainnet = ""
 address_testnet = ""
+address_local_anvil = "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512"  # anvil chainId 260425, deployed 2026-05-17 (validated: setAllowedTarget × 2 OK)
 owner_safe = ""         # 2-of-3 Safe address (TBD)
 default_daily_cap_wei = "20000000000000000"  # 0.02 ETH ≈ $50
-deploy_status = "pending"
+deploy_status = "local-anvil-validated"
+
+[platform.l2.membership_contract]
+# EtzhayyimMembership — 信者 registry on Base L2 (anyone-callable join, 7-level commitment ladder).
+# Source: 50-infra/etzhayyim-membership-contract/src/EtzhayyimMembership.sol
+source = "50-infra/etzhayyim-membership-contract/"
+adr = "2605172600"
+address_mainnet = ""
+address_testnet = ""
+address_local_anvil = "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0"  # anvil chainId 260425, deployed 2026-05-17 (validated: join + advance L1→L7 OK)
+levels = ["1=誓 Oath", "2=修 Practice", "3=献 Dedication", "4=証 Witness", "5=護 Steward", "6=議 Council", "7=老 Elder"]
+deploy_status = "local-anvil-validated"
+
+# ─── Private chain ────────────────────────────────────────────────────
+# geth-private migration to etzhayyim.com per ADR-2605172800 (in progress).
+
+[platform.l2.private_chain]
+chain_id = 260425
+consensus = "Clique PoA (5s blocks)"
+canonical_domain = "geth.etzhayyim.com"        # ← new canonical (DNS placeholder created 2026-05-17 per ADR-2605172800)
+legacy_domain = "geth.gftd.ai"                 # ← vendor-controlled, retained 12 months during migration
+rpc_canonical = "https://geth.etzhayyim.com"
+rpc_legacy = "https://geth.gftd.ai"
+ws_canonical = "wss://geth.etzhayyim.com"
+sealer_address = "0xaFed0Cb7633EDBd26aA52658e71528309F562501"   # current single sealer (vendor-controlled); etzhayyim governance multisig TBD per ADR-2605172800 Stage 4
+native_currency_name = "neth"
+native_currency_symbol = "NETH"
+native_currency_decimals = 18
+contracts_repo = "50-infra/etzhayyim-chain-contracts/"            # 9 Solidity contracts per ADR-2605172300 (AdherentRegistry, AnchorBridge, Constitution, CorpusRegistry, Governance, HoldingAttestation, KishaStream, Phenotype, TreasuryMirror)
+governance_responsible = "etzhayyim (post-migration)"
+governance_legacy = "Gftd Japan株式会社 (operator until migration completes)"
+
+# ─── Validation ───────────────────────────────────────────────────────
+
+[[validation]]
+id = "anvil-substrate-smoke-2026-05-17"
+date = "2026-05-17"
+network = "local anvil (chainId 260425)"
+rpc = "http://localhost:8545"
+deployer = "0xf39Fd6e51aad88F6F4ce6aB8827279cfFFb92266 (anvil pre-funded acct[0])"
+forge_unit_tests = "Anchor 4 + Paymaster 5 + Membership 13 = 22 all PASS"
+smoke_txs = [
+  "Paymaster.setAllowedTarget(Anchor, true)        → status=1",
+  "Paymaster.setAllowedTarget(Membership, true)    → status=1",
+  "Anchor.anchor(rootHash, ipfsCid='bafyreidemo', batchSize=42)  → rootCount()=1",
+  "Membership.join(oathHash, 'junkawasaki')         → memberCount()=1, levelOf()=1, isActive=true",
+  "Membership.advance(2, evidence, 'Practice')      → levelOf()=2",
+  "Membership.advance(3..7, ...)                    → levelOf()=7 (full Oath→Elder ladder traversed)",
+]
+conclusion = "Substrate proof-of-life on private EVM. Same chainId 260425 as the deployed geth-private; tx sequence will replay against geth.etzhayyim.com once that DNS / proxy is live."
 
 # ─── DNS records on etzhayyim.com (managed via CF API) ──────────────
 
@@ -118,6 +172,84 @@ proxied = true
 purpose = "yoro AppView placeholder (ADR-2605171900) — Worker/Pages binding pending"
 cf_record_id = "5df2d02dd52796f169ecc04ec50d56ac"
 created_at = "2026-05-17T11:53:00Z"
+
+[[platform.dns]]
+type = "CNAME"
+name = "geth"
+content = "178e0a1b-dd7e-480e-bb01-eb100524a58e.cfargotunnel.com"
+proxied = true
+purpose = "geth.etzhayyim.com → CF tunnel → laptop anvil chainId 260425 (ADR-2605172800 Stage 2 LIVE)"
+cf_record_id = "d071e79b574bc84a9dfdb938fc06b694"
+tunnel_id = "178e0a1b-dd7e-480e-bb01-eb100524a58e"
+tunnel_name = "etzhayyim-anvil"
+created_at = "2026-05-17T11:56:00Z"
+
+[[platform.dns]]
+type = "CNAME"
+name = "pds"
+content = "178e0a1b-dd7e-480e-bb01-eb100524a58e.cfargotunnel.com"
+proxied = true
+purpose = "pds.etzhayyim.com → CF tunnel → simeon @atproto/pds 0.4.222 on port 2583 (Phase 1 PDS LIVE)"
+tunnel_id = "178e0a1b-dd7e-480e-bb01-eb100524a58e"
+created_at = "2026-05-17T12:09:00Z"
+
+# ─── PDS / IPFS / cell fleet (etzhayyim Mac-mini fleet, 2026-05-17) ──
+
+[platform.pds]
+canonical_url = "https://pds.etzhayyim.com"
+direct_lan_url = "http://simeonnomac-mini.local:2583"
+service_did = "did:web:pds.etzhayyim.com"
+package = "@atproto/pds"
+version = "0.4.222"
+runtime = "Node 22 LTS on macOS arm64 (simeon Mac mini)"
+location_host = "simeon"
+blobstore_provider = "disk"
+deploy_status = "live"
+deployed_at = "2026-05-17T12:09:00Z"
+health_endpoint = "https://pds.etzhayyim.com/xrpc/_health"
+persistence = "crontab @reboot on simeon"
+secrets_1password_item = "gftdcojp / etzhayyim/pds-simeon/secrets-2026-05-17"
+did_web_resolution = "https://pds.etzhayyim.com/.well-known/did.json"
+did_web_worker = "etzhayyim-pds-did-web (50-infra/etzhayyim-pds-did-web)"
+did_web_route = "pds.etzhayyim.com/.well-known/did.json (CF Worker, path-specific; other paths fall through to tunnel CNAME)"
+did_web_deployed_at = "2026-05-17T12:21:27Z"
+
+[platform.ipfs]
+node_id = "12D3KooWMjzJdChBp9HqorSvxkrfSFfSNanjR8tJmtmJwVmZif16"
+api_url = "http://simeonnomac-mini.local:5001"
+gateway_url = "http://simeonnomac-mini.local:8080"
+location_host = "simeon"
+kubo_version = "0.41.0"
+deploy_status = "live"
+
+[platform.cell_fleet]
+runtime = "Python 3 + web3.py + eth-account (uv-managed)"
+heartbeat_period_seconds = 60
+anchor_target = "https://geth.etzhayyim.com → EtzhayyimAnchor 0x5fbdb2315678afecb367f032d93f642f64180aa3"
+cells_live = ["naphtali", "simeon", "judah", "zebulun", "levi"]
+cells_pending = ["benjamin", "joseph", "issachar", "dan", "asher"]
+fleet_size_target = 12
+deploy_command = "./20-actors/first-breath/deploy.sh <hostname>nomac-mini.local <tribe-user>"
+monitor_command = "./20-actors/first-breath/monitor.sh"
+
+# WoL state for the 5 pending tribes (2026-05-17)
+#
+# Magic packets were sent to 5 candidate MACs on the .1/24 LAN segment
+# (1c:f6:4c:55:db:4b / 5a:34:d9 / 53:5b:d4 / 4e:b9:2b / 4f:46:5c) on
+# UDP ports 7 and 9, both via 255.255.255.255 and 192.168.1.255. None
+# of the 5 minis came back online within 25 s.
+#
+# Root cause is one of:
+#   (1) the minis are powered off (S5), not sleeping — WoL only wakes
+#       from S3/S4 sleep
+#   (2) `pmset womp` is 0 on those minis (Wake-for-network-access
+#       disabled in Settings → Battery → Options)
+#
+# Unblock path: physical button-press to bring each mini online once,
+# then per-mini `sudo pmset -a womp 1 && sudo pmset -a powernap 1` so
+# future sleeps respond to magic packets.
+wol_state = "not_woken_2026_05_17"
+wol_unblock = "physical wake + pmset -a womp 1 on each pending tribe"
 
 # ─── ADR registry (mirrors 90-docs/adr/README.md for machine discovery) ──
 
@@ -162,6 +294,55 @@ id = "2605172200"
 title = "Open Email — atproto MST-native mail with bidirectional SMTP bridge and on-chain postage"
 status = "proposed"
 path = "90-docs/adr/2605172200-openmail-atproto-mst-smtp-bridge.md"
+
+[[adrs]]
+id = "2605172300"
+title = "etzhayyim Kisha-Stream / Goji-Treasury — two-chain (geth-private + Base L2) basic-income and asset substrate"
+status = "accepted"
+status_note = "S0–S4 contracts deployed + 88/88 forge tests passing. Full SDK (bi.join/attest/status/claim/propose/vote/proposalState/setPhenotype) + Python EligibilityCell verified end-to-end on Anvil. Production deploy on Base + geth-private pending operational readiness."
+e2e_verified = [
+  "join + attest + status + propose + vote + queue + execute + claim + fulfill (test/integration-full.mjs)",
+  "Python EligibilityCell.step → Phenotype.setMultiplier → KishaStream.accruedNow respects multiplier (test/integration-eligibility.mjs)",
+  "ERC-4337 sponsored UserOperation via real EntryPoint v0.7 + SimpleAccount (test/PaymasterIntegration.t.sol)",
+  "bi.join Stage 2 + bi.attest PDS record writes against fake AtpAgent (test/integration-fake-pds.mjs)",
+]
+path = "90-docs/adr/2605172300-etzhayyim-bi-asset-substrate.md"
+
+[[adrs]]
+id = "2605172600"
+title = "etzhayyim Membership Ritual — dual-permanent record (Base L2 + Github) + signed oath"
+status = "proposed"
+path = "90-docs/adr/2605172600-etzhayyim-membership-ritual.md"
+
+[[adrs]]
+id = "2605172700"
+title = "Membership layering — 信者 (172600) and Adherent (172300 S0) as complementary tiers"
+status = "proposed"
+path = "90-docs/adr/2605172700-membership-layering-shinto-adherent.md"
+
+[[adrs]]
+id = "2605172800-geth"
+title = "geth-private migration to etzhayyim — DNS / sealer / governance handoff"
+status = "proposed"
+path = "90-docs/adr/2605172800-geth-private-migration-to-etzhayyim.md"
+
+[[adrs]]
+id = "2605172800-gftd-cli"
+title = "70-tools/gftd CLI migration strategy — git-subrepo unwind + open-scope fork"
+status = "proposed"
+path = "90-docs/adr/2605172800-gftd-cli-migration-strategy.md"
+
+[[adrs]]
+id = "2605172900"
+title = "gftd-→-etzhayyim follow-up cutover policy — what is rewritten, what is preserved as historical"
+status = "active"
+path = "90-docs/adr/2605172900-gftd-followup-cutover-policy.md"
+
+[[adrs]]
+id = "2605173000"
+title = "did:web:pds.etzhayyim.com resolution via path-specific Cloudflare Worker"
+status = "active"
+path = "90-docs/adr/2605173000-pds-did-web-resolution-worker.md"
 
 # ─── Module registry ────────────────────────────────────────────────
 
@@ -251,6 +432,106 @@ status = "migrated-from-vendor"
 description = "18,343 LangGraph Pregel agent files generated for UNSPSC commodity classification. Per ADR-2605171300. Loaded via importlib (RW-free)."
 adr = ["2605171300"]
 runtime_loader = "20-actors/magatama/py/src/pymagatama/langgraph_graphs/dynamic_runner.py"
+
+[[modules]]
+path = "50-infra/etzhayyim-membership-contract"
+kind = "solidity-foundry"
+version = "0.0.0"
+status = "local-anvil-validated"
+description = "EtzhayyimMembership 信者 registry on Base L2 — anyone-callable join + 7-level commitment ladder (Oath→Practice→Dedication→Witness→Steward→Council→Elder)."
+adr = ["2605172600", "2605172700"]
+solc_version = "0.8.27"
+
+[[modules]]
+path = "50-infra/etzhayyim-chain-contracts"
+kind = "solidity-foundry"
+version = "0.0.0"
+status = "scaffold"
+description = "9 Solidity contracts for the etzhayyim bi-asset substrate on geth-private (chainId 260425): AdherentRegistry, AnchorBridge, Constitution, CorpusRegistry, Governance, HoldingAttestation, KishaStream, Phenotype, TreasuryMirror."
+adr = ["2605172300"]
+solc_version = "0.8.27"
+
+[[modules]]
+path = "50-infra/openmail-postage"
+kind = "solidity-foundry"
+version = "0.0.0"
+status = "scaffold"
+description = "Postage.sol — USDC postage contract for app.openmail.message records. ~50 LoC, stateless event-only. Per ADR-2605172200 § 4."
+adr = ["2605172200"]
+solc_version = "0.8.27"
+
+[[modules]]
+path = "00-contracts/lexicons/app/openmail"
+kind = "atproto-lexicon"
+version = "0.0.0"
+status = "scaffold"
+description = "app.openmail.* lexicon family (message + postageReceipt + smtpAttestation + legacyHeaders + anchorRef). Per ADR-2605172200."
+adr = ["2605172200"]
+
+[[modules]]
+path = "70-tools/gftd"
+kind = "go-cli"
+version = "dev"
+status = "migrated-from-vendor-build-green"
+description = "Main developer CLI migrated from vendor 70-tools/gftd (was git-subrepo of gftdcojp/gftd-cli). 178 .go cmd files + 1779 collector configs (FDA NDC, ATC, character refs, etc.). vault commands + malak_* surveillance data stripped on copy. Per ADR-2605172800."
+adr = ["2605172800-gftd-cli", "2605172900"]
+inner_module = "github.com/etzhayyim/root/70-tools/gftd/gftd"
+outer_module = "github.com/etzhayyim/root/70-tools/gftd-pkg"
+
+[[modules]]
+path = "70-tools/gftd-py"
+kind = "python-cli"
+version = "0.1.0"
+status = "migrated-from-vendor"
+description = "Python port of gftd CLI (parallel operation per vendor ADR-2605151500). vault_cmd.py + 14 vault test functions stripped on copy."
+adr = ["2605172900"]
+
+# ─── ADR-2605152100 Step 8 — migration completion ───────────────────
+
+[platform.migration_step8]
+# "gftdcojp 側 open scope cleanup" — functionally complete 2026-05-17.
+# Vendor-side [MOVED] stubs leave a paper trail from old paths to new
+# canonical etzhayyim/root locations.
+status = "functionally-complete"
+completed_at = "2026-05-17"
+adr = "2605152100"   # vendor-side authoritative ADR
+cutover_policy_adr = "2605172900"   # what was rewritten vs preserved
+
+migrated_paths = [
+  "50-infra/k8s/murakumo-kubelet (virtual-kubelet for Murakumo GPU cloud)",
+  "60-apps/ai-gftd-project-comfyui (mac mini fleet, ComfyUI image-gen)",
+  "50-infra/k8s/{ameno-langserver,buildkit,claim-consumer-actor,comfyui-generation-actor,copyright-fulltext-fetch,domain-expansion-langgraph,gleif-lei-s3-ingester,gyosei-source-archiver,intel-dependency-worker,legal-corpus-langgraph,legal-entity-collector-actor,lg-gov,lg-gyosei,lg-isin,lg-jukyu,lg-open-unispsc,lg-ses,lg-yatabase,livecam-vision-actor,maps-coverage-langgraph,maps-osm-ingest,maps-read-langserver,maps-tilemaker-build,maps3d,media-gamers-guide-actor,medical-coverage-ingester,medical-coverage-mcp} (27 langservers)",
+  "50-infra/k8s/bpmn-timers (scope-split: 127 open / 14 vendor-business cronjobs dropped)",
+  "70-tools/{cost-analysis,maps-osm-ingest,mf-ingest-extension,templates,reports/yoro}",
+  "60-apps/ai-gftd-project-{open-*,public-*,ameno,atproto,yoro} (30 dirs [MOVED]-stubbed in vendor)",
+  "70-tools/gftd (main developer CLI, 1965 files, build green)",
+  "70-tools/gftd-py (Python port, 117 files)",
+  "50-infra/k8s/ingress-nginx-dispatcher-values.yaml",
+]
+parallel_copy = [
+  "70-tools/scripts (vendor build deps on ~30+ scripts in lint/, contract/, top-level — kept in both repos)",
+  "70-tools/config (bpmn-coverage-manifest.json consumed by vendor lint scripts — kept in both)",
+]
+mechanical_sweep_files = 1934
+mechanical_sweep_commits = ["8d90e691", "44a3d85d", "3b83b9f0", "dc45e314", "83cdda57", "1cafabb9", "c5617342", "bc726d2e"]
+stub_pattern = "Each migrated dir replaced in vendor with a single README.md [MOVED → etzhayyim/root/...] pointing at the canonical location + rewrite policy summary."
+
+deferred_cutovers = [
+  "D.1 @gftdcojp/ npm scope rename — requires npm org + republish + redirect",
+  "D.2 ai.gftd.apps.* NSID cutover — requires lexicon versioning + grace period",
+  "D.3 did:web:X.gftd.ai → did:web:X.etzhayyim.com — per-actor DID rotation (precedent: ADR-2605171900 yoro)",
+]
+preserved_as_historical = [
+  "00-contracts/lexicons/ai/gftd/*.json (~5434 NSID files — protocol identifiers)",
+  "00-contracts/bpmn/ai/gftd/*.bpmn (~4027 BPMN process IDs)",
+  "00-contracts/dmn/ai/gftd/*.dmn (DMN decision tables)",
+  "30-graph/graph-schema/alembic/versions/r_*_seed_*.py (525 migration history files)",
+  "60-apps/*/PROJECT.jsonld + magatama.jsonld (33 DID/handle identity files)",
+]
+preserved_as_grace_period = [
+  "geth.gftd.ai → geth.etzhayyim.com (12-month grace, see [platform.l2.private_chain])",
+  "did:web:gftd.co.jp (vendor company DID, stays vendor permanently — boundary marker)",
+]
 
 # ─── Pending content seed (legacy — kept for reference) ─────────────
 

@@ -3,10 +3,16 @@ pragma solidity 0.8.27;
 
 /**
  * @title AdherentRegistry
- * @notice ERC-5192-style soulbound token (SBT) representing membership
- *         (信徒 / shinto) in the etzhayyim religious voluntary association.
- *         One token per DID. Non-transferable. Tracks attestations
- *         (prayer / study / service / donation) for use by the off-chain
+ * @notice ERC-5192-style soulbound token (SBT) representing **Adherent
+ *         (構成員) enrollment in the economic body** of the etzhayyim
+ *         religious voluntary association — distinct from the broader
+ *         public 信者 (shinto / follower) commitment of ADR-2605172600.
+ *         Per ADR-2605172700, every Adherent is also a 信者, but most
+ *         信者 are not Adherents. This contract gates the kisha + voting
+ *         layer; the 信者 layer lives on Base via {EtzhayyimMembership}.
+ *
+ *         One SBT per DID. Non-transferable. Tracks attestations (prayer /
+ *         study / service / donation) for use by the off-chain
  *         EligibilityCell (ADR-2605172300 §3.1).
  *
  * @dev Per ADR-2605172300 §2. Apache-2.0.

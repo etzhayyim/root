@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T16:30:00Z";
-const ownerDid = "did:web:open-road.gftd.ai";
+const ownerDid = "did:web:open-road.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-road";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-road-define-road-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-road-define-road-v1",
     bpmnProcessId: "open_road_define_road",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-road/defineRoad.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-road-report-incident-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-road-report-incident-v1",
     bpmnProcessId: "open_road_report_incident",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-road/reportIncident.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-road-defineRoad-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-road-defineRoad-v1",
     nsid: "ai.gftd.apps.openRoad.defineRoad", bpmnProcessId: "open_road_define_road",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-road-reportIncident-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-road-reportIncident-v1",
     nsid: "ai.gftd.apps.openRoad.reportIncident", bpmnProcessId: "open_road_report_incident",
     ownerDid, resultTimeoutMs: 30000 },
 ];

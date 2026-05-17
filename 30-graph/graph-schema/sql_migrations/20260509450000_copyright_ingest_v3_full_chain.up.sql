@@ -32,7 +32,7 @@ VALUES
   ('copyright_ingest.v3', 0, 0, 'copyright_ingest.v3', 3, 'topology', NULL,
    '{"state_keys":["fetchOut","itemsOut","rowsOut","insertOut","dataciteItems","dataciteRows","auditOut","ok","error"],"entry":"crossref_fetch","edges":[{"from":"crossref_fetch","to":"crossref_extract"},{"from":"crossref_extract","to":"crossref_transform"},{"from":"crossref_transform","to":"crossref_insert"},{"from":"crossref_insert","to":"datacite_fetch"},{"from":"datacite_fetch","to":"datacite_insert"},{"from":"datacite_insert","to":"emit_audit"},{"from":"emit_audit","to":"END"}]}',
    'copyright ingest (topology v3, Crossref half full chain + DataCite grandfather)',
-   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.copyright.gftd.ai');
+   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.copyright.etzhayyim.com');
 
 INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
@@ -50,7 +50,7 @@ VALUES
   -- 3. transform each Crossref item → vertex_work row
   ('copyright_ingest.v3:crossref_transform', 0, 0, 'copyright_ingest.v3', 'crossref_transform',
    'mcp_tool', 'mcp://ai.gftd.tools.transform.map',
-   '{"input_keys":[],"input_paths":{"input":"itemsOut.result.value"},"result_key":"rowsOut","args":{"name":"ai.gftd.tools.transform.map","mapping":{"doi":"$.DOI","title":"$.title[0]","vertex_id":{"fmt":"at://did:web:copyright.gftd.ai:crossref/ai.gftd.apps.copyright.work/{DOI}"},"source_url":{"fmt":"https://doi.org/{DOI}"}},"defaults":{"owner_did":"did:web:copyright.gftd.ai:crossref","repo":"did:web:copyright.gftd.ai:crossref","did":"did:web:copyright.gftd.ai:crossref","status":"active","kind":"literary","registry":"crossref","berne_automatic":true,"sensitivity_ord":100}}}',
+   '{"input_keys":[],"input_paths":{"input":"itemsOut.result.value"},"result_key":"rowsOut","args":{"name":"ai.gftd.tools.transform.map","mapping":{"doi":"$.DOI","title":"$.title[0]","vertex_id":{"fmt":"at://did:web:copyright.etzhayyim.com:crossref/ai.gftd.apps.copyright.work/{DOI}"},"source_url":{"fmt":"https://doi.org/{DOI}"}},"defaults":{"owner_did":"did:web:copyright.etzhayyim.com:crossref","repo":"did:web:copyright.etzhayyim.com:crossref","did":"did:web:copyright.etzhayyim.com:crossref","status":"active","kind":"literary","registry":"crossref","berne_automatic":true,"sensitivity_ord":100}}}',
    '2026-05-09T00:00:00Z'),
   -- 4. bulk INSERT into vertex_work
   ('copyright_ingest.v3:crossref_insert', 0, 0, 'copyright_ingest.v3', 'crossref_insert',
@@ -64,7 +64,7 @@ VALUES
    'py_primitive', 'pymagatama.langgraph_graphs.copyright_ingest:insert_datacite', NULL, '2026-05-09T00:00:00Z'), -- lint-py-primitive-ok
   ('copyright_ingest.v3:emit_audit', 0, 0, 'copyright_ingest.v3', 'emit_audit',
    'mcp_tool', 'mcp://ai.gftd.tools.audit.emit',
-   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:copyright.gftd.ai","collection":"ai.gftd.apps.copyright.audit","action":"ingest_v3"}}',
+   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:copyright.etzhayyim.com","collection":"ai.gftd.apps.copyright.audit","action":"ingest_v3"}}',
    '2026-05-09T00:00:00Z');
 
 UPDATE vertex_langgraph_assistant SET superseded_by = 'copyright_ingest.v3'

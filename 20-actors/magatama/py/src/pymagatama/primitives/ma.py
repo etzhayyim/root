@@ -10,7 +10,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-MA_DID = "did:web:ma.gftd.ai"
+MA_DID = "did:web:ma.etzhayyim.com"
 
 
 def _now_iso() -> str:
@@ -265,7 +265,7 @@ def task_ma_outreach_compose_draft(
     if not buyer_name:
         missing_fields.append("buyerName")
     sender_local = _slug(mailboxLocal).replace("-", ".") or "ma"
-    sender_address = f"{sender_local}@gftd.ai"
+    sender_address = f"{sender_local}@etzhayyim.com"
     return {
         "dealId": deal_id,
         "status": "outreach-draft-ready",
@@ -274,7 +274,7 @@ def task_ma_outreach_compose_draft(
         "approvalRequired": bool(approvalRequired),
         "outreachDraft": {
             "draftId": draft_id,
-            "provider": "mailer.gftd.ai",
+            "provider": "mailer.etzhayyim.com",
             "outboundProvider": "resend",
             "inboundProvider": "cloudflare-email-routing",
             "sendNsid": "ai.gftd.apps.mailer.sendEmail",
@@ -333,8 +333,8 @@ def task_ma_outreach_prepare_mailer_send(
         "to": str(draft.get("recipientEmail") or ""),
         "subject": str(draft.get("subject") or ""),
         "text": str(draft.get("text") or ""),
-        "from": str(draft.get("from") or "ma@gftd.ai"),
-        "replyTo": str(draft.get("replyTo") or draft.get("from") or "ma@gftd.ai"),
+        "from": str(draft.get("from") or "ma@etzhayyim.com"),
+        "replyTo": str(draft.get("replyTo") or draft.get("from") or "ma@etzhayyim.com"),
     }
     missing_payload = [key for key in ("to", "subject", "text") if not payload[key]]
     if missing_payload:
@@ -363,7 +363,7 @@ def task_ma_outreach_send_approved(
     mailerSendPayload: dict[str, Any] | None = None,
     sendReady: bool = False,
     sendNsid: str = "ai.gftd.apps.mailer.sendEmail",
-    mailerUrl: str = "https://mailer.gftd.ai",
+    mailerUrl: str = "https://mailer.etzhayyim.com",
     mailerBearer: str = "",
     dryRun: bool = True,
     sendEnabled: bool = False,
@@ -399,7 +399,7 @@ def task_ma_outreach_send_approved(
             "dryRun": True,
             "sendNsid": sendNsid,
             "request": request,
-            "reason": "set dryRun=false and sendEnabled=true to call mailer.gftd.ai",
+            "reason": "set dryRun=false and sendEnabled=true to call mailer.etzhayyim.com",
         }
 
     headers = {"content-type": "application/json", "accept": "application/json"}

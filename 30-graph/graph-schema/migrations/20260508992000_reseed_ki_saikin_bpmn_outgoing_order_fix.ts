@@ -22,20 +22,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const CREATED_AT = "2026-05-08T10:30:00Z";
 const ACTOR_TAG = "sys.bpmn.reseed.outgoing-order-fix";
 
 const ENTRIES = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
     processId: "ki_vascular_synthesis_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/ki/vascular-synthesis-cycle.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
     processId: "saikin_horizontal_transfer_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn",
   },

@@ -22,7 +22,7 @@ export async function fetchActorProfileView(nanoid: string, appBaseUrl?: string)
 	const existing = _inflight.get(nanoid);
 	if (existing) return existing;
 
-	const p = _doFetch(nanoid, appBaseUrl ?? `https://${nanoid}.gftd.ai`);
+	const p = _doFetch(nanoid, appBaseUrl ?? `https://${nanoid}.etzhayyim.com`);
 	_inflight.set(nanoid, p);
 	try {
 		const profile = await p;
@@ -34,7 +34,7 @@ export async function fetchActorProfileView(nanoid: string, appBaseUrl?: string)
 }
 
 async function _doFetch(nanoid: string, _appBaseUrl: string): Promise<ActorProfileView> {
-	const did = `did:web:${nanoid}.gftd.ai`;
+	const did = `did:web:${nanoid}.etzhayyim.com`;
 
 	// Single path: PDS XRPC getAuthorProfile → graph SQL path → RisingWave
 	const profile = await getAuthorProfile(did);

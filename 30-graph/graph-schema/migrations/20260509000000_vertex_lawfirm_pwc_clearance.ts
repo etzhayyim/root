@@ -9,23 +9,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const seedCreatedAt = "2026-05-08T00:00:00Z";
-const seedOwnerDid = "did:web:lawfirm.gftd.ai";
+const seedOwnerDid = "did:web:lawfirm.etzhayyim.com";
 const seedActorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-pwc-clearance-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-pwc-clearance-v1",
   bpmnProcessId: "lawfirm_pwc_clearance",
   sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/pwcClearance.bpmn",
 };
 const BINDING = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-pwc-clearance-xrpc-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-pwc-clearance-xrpc-v1",
   nsid: "ai.gftd.apps.lawfirm.pwcClearanceRequest",
   bpmnProcessId: "lawfirm_pwc_clearance",
   resultTimeoutMs: 86_400_000,
 };
 
 /**
- * lawfirm.gftd.ai PwC conflict clearance audit table.
+ * lawfirm.etzhayyim.com PwC conflict clearance audit table.
  *
  * CEO decision D4 (2026-05-08): conflict screening uses formal PwC India
  * compliance escalation per matter (NOT auto-screen via hash list). This

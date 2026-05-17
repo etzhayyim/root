@@ -28,7 +28,7 @@ GRAPHS: dict[str, Any] = {"jukyu_global_equilibrium_v1": _GRAPH}
 
 app = FastAPI(
     title="lg-jukyu",
-    description="Resident LangGraph server for jukyu.gftd.ai global supply-demand equilibrium.",
+    description="Resident LangGraph server for jukyu.etzhayyim.com global supply-demand equilibrium.",
     version="0.1.0",
 )
 

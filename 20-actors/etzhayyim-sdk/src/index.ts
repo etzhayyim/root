@@ -234,7 +234,7 @@ export class Etzhayyim {
   // ─── Payment surface (ADR-2605172100) ────────────────────────────
 
   /** One-shot USDC payment on Base L2. See ./pay.ts for full opts. */
-  async pay(opts: import("./pay.js").PayOpts) {
+  async pay(opts: Parameters<typeof import("./pay.js").pay>[0]) {
     const { pay } = await import("./pay.js");
     return pay(opts);
   }
@@ -298,6 +298,32 @@ export class Etzhayyim {
     const { claim } = await import("./bi.js");
     return claim(opts, this.biConfig ?? {});
   }
+
+  /** Submit a cell-signed phenotype multiplier update (S2). Requires a
+   *  signer registered as a cell in Phenotype.sol. Normally invoked
+   *  from the Python EligibilityCell; exposed in TS for test rigs. */
+  async biSetPhenotype(input: import("./bi.js").PhenotypeUpdateInput) {
+    const { setPhenotype } = await import("./bi.js");
+    return setPhenotype(input, this.biConfig ?? {});
+  }
+
+  /** Submit a governance proposal that adjusts one constitutional mutable. */
+  async biPropose(opts: import("./bi.js").ProposeOpts) {
+    const { propose } = await import("./bi.js");
+    return propose(opts, this.biConfig ?? {});
+  }
+
+  /** Cast a vote on an active governance proposal. */
+  async biVote(proposalId: bigint, choice: "for" | "against" | "abstain") {
+    const { vote } = await import("./bi.js");
+    return vote(proposalId, choice, this.biConfig ?? {});
+  }
+
+  /** Read the current state of a governance proposal. */
+  async biProposalState(proposalId: bigint) {
+    const { proposalState } = await import("./bi.js");
+    return proposalState(proposalId, this.biConfig ?? {});
+  }
 }
 
 // ─── Re-exports ─────────────────────────────────────────────────────
@@ -307,8 +333,10 @@ export * as ipfs from "./ipfs.js";
 export * as l2 from "./l2.js";
 export * as pay from "./pay.js";
 export * as bi from "./bi.js";
+export * as paymaster from "./paymaster.js";
 export { parseUsdc, parseUsdcPerSecond, USDC_BASE } from "./pay.js";
 export {
   ETZHAYYIM_PRIVATE_CHAIN_ID,
   ETZHAYYIM_PRIVATE_RPC_DEFAULT,
 } from "./bi.js";
+export { sponsoredWriteContract, type SponsoredBundle } from "./paymaster.js";

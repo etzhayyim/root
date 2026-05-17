@@ -14,8 +14,8 @@ import { Kysely, sql } from 'kysely';
  *
  * RisingWave state after apply:
  *   - edge_classified_as system='sitc4' : 3,324 rows
- *     src_vid = at://did:web:cpc.gftd.ai/ai.gftd.apps.cpc.commodity_item/{cpc_code}
- *     dst_vid = at://did:web:sitc.gftd.ai/ai.gftd.apps.sitc.commodity/{sitc_code}
+ *     src_vid = at://did:web:cpc.etzhayyim.com/ai.gftd.apps.cpc.commodity_item/{cpc_code}
+ *     dst_vid = at://did:web:sitc.etzhayyim.com/ai.gftd.apps.sitc.commodity/{sitc_code}
  */
 export async function up(db: Kysely<any>): Promise<void> {
   // Data-only; pipeline is idempotent (DELETE + INSERT).

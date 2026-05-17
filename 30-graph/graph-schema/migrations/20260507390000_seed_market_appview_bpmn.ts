@@ -15,7 +15,7 @@ type Seed = {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:market.gftd.ai";
+const ownerDid = "did:web:market.etzhayyim.com";
 const createdAt = "2026-05-07T01:05:00Z";
 const actorId = "sys.bpmn.seed.market";
 
@@ -43,8 +43,8 @@ const seeds: Seed[] = [
 }));
 
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/market/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-${slug(s.proc)}-v1`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

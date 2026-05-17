@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/config"
-	"github.com/gftdcojp/nats-tiered-storage/internal/meta"
-	"github.com/gftdcojp/nats-tiered-storage/pkg/s3util"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/meta"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/pkg/s3util"
 	"github.com/nats-io/nats.go"
 )
 

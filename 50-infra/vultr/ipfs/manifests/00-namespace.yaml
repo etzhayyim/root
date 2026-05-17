@@ -4,5 +4,5 @@ metadata:
   name: ipfs
   labels:
     app.kubernetes.io/part-of: ipfs-self-hosted
-    gftd.ai/runtime: vultr-vke
-    gftd.ai/adr: "adr-2604261936"
+    etzhayyim.com/runtime: vultr-vke
+    etzhayyim.com/adr: "adr-2604261936"

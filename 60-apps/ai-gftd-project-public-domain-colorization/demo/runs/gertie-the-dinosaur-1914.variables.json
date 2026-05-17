@@ -4,7 +4,7 @@
   "workId": "pdcolor:work:gertie-the-dinosaur-1914",
   "sourceUrl": "",
   "sourceIpfsCid": "bafybeifeqsv57dnlfvhjhwm6aah6emxljva2tkbshd7x6tfubw7ow4opue",
-  "sourceIpfsUrl": "https://ipfs.gftd.ai/ipfs/bafybeifeqsv57dnlfvhjhwm6aah6emxljva2tkbshd7x6tfubw7ow4opue",
+  "sourceIpfsUrl": "https://ipfs.etzhayyim.com/ipfs/bafybeifeqsv57dnlfvhjhwm6aah6emxljva2tkbshd7x6tfubw7ow4opue",
   "sourceFilename": "gertie-the-dinosaur-1914.mp4",
   "sourceContentType": "video/mp4",
   "maxSourceBytes": 40894464,
@@ -23,6 +23,6 @@
   "voicePolicy": "narration-neutral",
   "voiceLipSync": false,
   "requestedLicense": "pd-mark",
-  "callerDid": "did:web:pd-color.gftd.ai",
+  "callerDid": "did:web:pd-color.etzhayyim.com",
   "dryRun": true
 }

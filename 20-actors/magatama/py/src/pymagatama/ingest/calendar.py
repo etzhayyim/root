@@ -14,7 +14,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR_DID = "did:web:calendar.gftd.ai"
+ACTOR_DID = "did:web:calendar.etzhayyim.com"
 GCAL_TOKEN_TABLE = "vertex_gcal_oauth_token"
 GWS_UNIFIED_SCOPES = " ".join([
     "openid",
@@ -304,7 +304,7 @@ def connect_account(accountDid: str = "did:anonymous", email: str = "", **_: Any
     client_id = os.environ.get("SS_GOOGLE_OAUTH_CLIENT_ID", "")
     if not client_id:
         return {"ok": False, "error": "SS_GOOGLE_OAUTH_CLIENT_ID not configured"}
-    redirect = os.environ.get("GOOGLE_CALENDAR_REDIRECT_URI", "https://calendar.gftd.ai/oauth/callback")
+    redirect = os.environ.get("GOOGLE_CALENDAR_REDIRECT_URI", "https://calendar.etzhayyim.com/oauth/callback")
     qs = urllib.parse.urlencode({
         "client_id": client_id,
         "redirect_uri": redirect,
@@ -334,7 +334,7 @@ def oauth_callback(code: str = "", error: str = "", state: str = "", **_: Any) -
         return {"ok": False, "html": "<h1>Missing code</h1>"}
     client_id = os.environ.get("SS_GOOGLE_OAUTH_CLIENT_ID", "")
     client_secret = os.environ.get("SS_GOOGLE_OAUTH_CLIENT_SECRET", "")
-    redirect = os.environ.get("GOOGLE_CALENDAR_REDIRECT_URI", "https://calendar.gftd.ai/oauth/callback")
+    redirect = os.environ.get("GOOGLE_CALENDAR_REDIRECT_URI", "https://calendar.etzhayyim.com/oauth/callback")
     if not client_id or not client_secret:
         return {"ok": False, "html": "<h1>Google OAuth credentials not configured</h1>"}
     body = urllib.parse.urlencode({"code": code, "client_id": client_id, "client_secret": client_secret, "redirect_uri": redirect, "grant_type": "authorization_code"}).encode()

@@ -19,7 +19,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger(__name__)
 
-ACTOR_DID = "did:web:bluesky.gftd.ai"
+ACTOR_DID = "did:web:bluesky.etzhayyim.com"
 DEFAULT_APPVIEW = "https://public.api.bsky.app"
 DEFAULT_NANOID = "bsky1ngs"
 BLOCKING_LABELS = {

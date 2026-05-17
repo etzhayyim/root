@@ -283,7 +283,7 @@ async function reportOutage(env: Env, input: any): Promise<Response> {
          klass, requireRegulatoryReport ? 1 : 0, description ?? null, reportedAt).run();
   if (requireRegulatoryReport && env.PDS) {
     try {
-      await env.PDS.fetch(`https://atproto.gftd.ai/xrpc/com.atproto.repo.createRecord`, {
+      await env.PDS.fetch(`https://atproto.etzhayyim.com/xrpc/com.atproto.repo.createRecord`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({

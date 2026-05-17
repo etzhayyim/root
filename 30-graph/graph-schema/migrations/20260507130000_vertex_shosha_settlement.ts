@@ -6,7 +6,7 @@ import { sql } from "kysely";
 //          full Tier-3 split deferred to a future PII tightening pass)
 
 /**
- * shosha.gftd.ai Phase 2c — settlement workflow.
+ * shosha.etzhayyim.com Phase 2c — settlement workflow.
  *
  * Restores the table that was deferred from Phase 1 (originally listed in
  * the Phase 1 ADR but cut for scope). Closes the trade lifecycle:

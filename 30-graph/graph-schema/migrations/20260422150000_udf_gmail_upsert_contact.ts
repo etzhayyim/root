@@ -17,7 +17,7 @@ import { sql } from "kysely";
  *   SELECT gmail_upsert_contact(
  *     '{"emailId":"email-abc123",
  *       "fromAddr":"\"Alice\" <alice@example.com>",
- *       "accountDid":"did:web:gmail.gftd.ai"}'
+ *       "accountDid":"did:web:gmail.etzhayyim.com"}'
  *   ) AS result;
  *
  * Handler: `20-actors/magatama/py/src/pymagatama/handlers/gmail_contact.py`.

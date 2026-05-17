@@ -8,12 +8,12 @@ def test_row_to_policy_maps_signed_delegated_authority() -> None:
         {
             "authority_ref": "capability://agent/email/outbound",
             "policy_ref": "policy://agent/email-v1",
-            "agent_did": "did:web:kami-agent.gftd.ai",
+            "agent_did": "did:web:kami-agent.etzhayyim.com",
             "channels_json": '["email"]',
             "effect_classes_json": '["private_send"]',
             "target_bindings_json": '["mailto:ops@example.com"]',
             "payload_constraints_json": (
-                '{"specificPredelegation": false, "allowedRecipientDomains": ["gftd.ai"]}'
+                '{"specificPredelegation": false, "allowedRecipientDomains": ["etzhayyim.com"]}'
             ),
             "rate_limit_json": '{"perHour": 4}',
             "expires_at": "2026-12-31T23:59:59Z",
@@ -26,6 +26,6 @@ def test_row_to_policy_maps_signed_delegated_authority() -> None:
     assert policy["allowedChannels"] == ["email"]
     assert policy["allowedEffectClasses"] == ["private_send"]
     assert policy["allowedTargetRefs"] == ["mailto:ops@example.com"]
-    assert policy["allowedRecipientDomains"] == ["gftd.ai"]
+    assert policy["allowedRecipientDomains"] == ["etzhayyim.com"]
     assert policy["rateLimit"] == {"perHour": 4}
     assert policy["signatureRef"] == "sig://authority/test"

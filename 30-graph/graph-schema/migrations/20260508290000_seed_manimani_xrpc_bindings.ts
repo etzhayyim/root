@@ -31,14 +31,14 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     { nsid: "ai.gftd.apps.manimani.coverage",      processId: "manimani_coverage",       timeoutMs: 5_000 },
   ];
   for (const r of rows) {
-    const vid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${r.nsid}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${r.nsid}`;
     await sql`
       INSERT INTO vertex_bpmn_lexicon_binding (
         vertex_id, sensitivity_ord, owner_did,
         nsid, bpmn_process_id, bpmn_version, result_timeout_ms,
         status, routing_target, langgraph_url, created_at)
       SELECT
-        ${vid}, 1, 'did:web:manimani.gftd.ai',
+        ${vid}, 1, 'did:web:manimani.etzhayyim.com',
         ${r.nsid}, ${r.processId}, 1, CAST(${r.timeoutMs} AS integer),
         'active', 'langgraph', ${url}, ${now}
       WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${vid})

@@ -1,4 +1,4 @@
-"""wvme.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""wvme.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -24,7 +24,7 @@ async def run_worker():
     async def task_create_scan(**kwargs):
         target = kwargs.get("target", "")
         scan_type = kwargs.get("scanType", "full")
-        initiator_did = kwargs.get("initiatorDid", "did:web:wvme.gftd.ai")
+        initiator_did = kwargs.get("initiatorDid", "did:web:wvme.etzhayyim.com")
 
         scan_id = str(uuid.uuid4())
         vertex_id = f"wvme:scan:{scan_id}"
@@ -40,7 +40,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, initiator_did,
                 scan_id, target, scan_type, "running",
-                "did:web:wvme.gftd.ai", "did:web:wvme.gftd.ai", now, now,
+                "did:web:wvme.etzhayyim.com", "did:web:wvme.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

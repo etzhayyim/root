@@ -46,16 +46,16 @@ CREATE VIEW IF NOT EXISTS view_bec_category AS
     WHERE collection = 'ai.gftd.apps.bec.category';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('sitc3', 'sitc3.gftd.ai', 5690, 'products', 'trade');
+    VALUES ('sitc3', 'sitc3.etzhayyim.com', 5690, 'products', 'trade');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('sitc2', 'sitc2.gftd.ai', 3723, 'products', 'trade');
+    VALUES ('sitc2', 'sitc2.etzhayyim.com', 3723, 'products', 'trade');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('isco', 'isco.gftd.ai', 393, 'occupations', 'labour');
+    VALUES ('isco', 'isco.etzhayyim.com', 393, 'occupations', 'labour');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('bec', 'bec.gftd.ai', 31, 'categories', 'trade');
+    VALUES ('bec', 'bec.etzhayyim.com', 31, 'categories', 'trade');
 
 DELETE FROM edge_classified_as WHERE system = 'sitc3_sitc4';
 

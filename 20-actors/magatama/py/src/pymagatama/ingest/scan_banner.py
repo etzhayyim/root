@@ -33,7 +33,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger(__name__)
 
-INGEST_ACTOR = "did:web:ingest.gftd.ai"
+INGEST_ACTOR = "did:web:ingest.etzhayyim.com"
 SOURCE_ID = "netintel-scan"
 _COMMON_PORTS = [21, 22, 25, 53, 80, 110, 143, 443, 465, 587, 993, 995,
                  3306, 5432, 6379, 8080, 8443, 27017]
@@ -75,7 +75,7 @@ def _insert_scan_result(ip: str, port: int, result: dict, run_id: str) -> bool:
     ts = now_iso()
     proto = result.get("protocol", "tcp")
     vertex_id = (
-        f"at://did:web:ingest.gftd.ai/ai.gftd.apps.collector.scanResult"
+        f"at://did:web:ingest.etzhayyim.com/ai.gftd.apps.collector.scanResult"
         f"/{ip}:{port}:{proto}"
     )
     sql = (

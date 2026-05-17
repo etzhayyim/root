@@ -181,8 +181,8 @@ def test_require_error_mentions_field_name():
 # ─── _caller ──────────────────────────────────────────────────────────────────
 
 def test_caller_returns_caller_did_when_present():
-    result = SEC._caller({"callerDid": "did:web:test.gftd.ai"})
-    assert result == "did:web:test.gftd.ai"
+    result = SEC._caller({"callerDid": "did:web:test.etzhayyim.com"})
+    assert result == "did:web:test.etzhayyim.com"
 
 
 def test_caller_returns_telecom_did_when_missing():
@@ -214,9 +214,9 @@ def test_audit_has_sensitivity_ord():
 
 
 def test_audit_uses_caller_did():
-    result = SEC._audit({"callerDid": "did:web:caller.gftd.ai"})
-    assert result["org_id"] == "did:web:caller.gftd.ai"
-    assert result["user_id"] == "did:web:caller.gftd.ai"
+    result = SEC._audit({"callerDid": "did:web:caller.etzhayyim.com"})
+    assert result["org_id"] == "did:web:caller.etzhayyim.com"
+    assert result["user_id"] == "did:web:caller.etzhayyim.com"
 
 
 def test_audit_has_actor_id():

@@ -1,4 +1,4 @@
-"""gov.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""gov.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -34,7 +34,7 @@ async def run_worker():
         website_uri = kwargs.get("websiteUri", "")
 
         agency_id = str(uuid.uuid4())
-        actor_did = f"did:web:gov.gftd.ai:{jurisdiction.lower()}:{cofog}:{agency_id[:8]}"
+        actor_did = f"did:web:gov.etzhayyim.com:{jurisdiction.lower()}:{cofog}:{agency_id[:8]}"
         vertex_id = f"gov:agency:{agency_id}"
         now = datetime.utcnow().isoformat()
 
@@ -50,7 +50,7 @@ async def run_worker():
                 vertex_id, 0, date.today(), 0, actor_did,
                 agency_id, name, name_local, jurisdiction, branch, level, cofog,
                 parent_agency_did, established_at, legal_basis, website_uri,
-                actor_did, "did:web:gov.gftd.ai", now, now,
+                actor_did, "did:web:gov.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -83,12 +83,12 @@ async def run_worker():
                 vertex_id, 0, date.today(), 0, person_did,
                 official_id, agency_did, person_did, role, appointed_at,
                 term_ends_at, appointed_by_did, confirmation_process,
-                "did:web:gov.gftd.ai", "did:web:gov.gftd.ai", now, now,
+                "did:web:gov.etzhayyim.com", "did:web:gov.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
 
-        return {"uri": f"at://did:web:gov.gftd.ai/ai.gftd.apps.gov.official/{official_id}"}
+        return {"uri": f"at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.official/{official_id}"}
 
     @worker.task(task_type="ai.gftd.apps.gov.submitConsult")
     async def task_submit_consult(**kwargs):
@@ -115,7 +115,7 @@ async def run_worker():
                 vertex_id, 0, date.today(), 2, requester_did,
                 consult_id, requester_did, domain, category, query,
                 municipality_code, priority, "open",
-                "did:web:gov.gftd.ai", "did:web:gov.gftd.ai", now, now,
+                "did:web:gov.etzhayyim.com", "did:web:gov.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

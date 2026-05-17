@@ -1,0 +1,18 @@
+{
+  "domain": "industry_standard",
+  "appHost": "industry-standard",
+  "repo": "did:web:industry-standard.etzhayyim.com",
+  "collection": "ai.gftd.apps.industry_standard.standard",
+  "source": {
+    "url": "https://en.wikipedia.org/w/api.php?action=query&list=categorymembers&cmtitle=Category%3AASTM_standards&cmlimit=500&format=json",
+    "format": "json",
+    "path": "query.categorymembers"
+  },
+  "rkey": "astmWiki-{{pageid}}",
+  "mapping": {
+    "title": "{{title}}",
+    "source": "enwiki-astm"
+  },
+  "chunkSize": 500,
+  "note": "Wikipedia Category: ASTM standards."
+}

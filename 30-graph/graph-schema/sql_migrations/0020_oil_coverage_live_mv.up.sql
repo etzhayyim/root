@@ -13,24 +13,24 @@ DELETE FROM dim_oil_coverage_target;
 INSERT INTO dim_oil_coverage_target (
     target_key, country_code, segment, actor_did, app, target_count, priority
   ) VALUES
-    ('SA:upstream', 'SA', 'upstream', 'did:web:oil-upstream.gftd.ai', 'oil-upstream.gftd.ai', 25, 1),
-    ('US:upstream', 'US', 'upstream', 'did:web:oil-upstream.gftd.ai', 'oil-upstream.gftd.ai', 40, 1),
-    ('RU:upstream', 'RU', 'upstream', 'did:web:oil-upstream.gftd.ai', 'oil-upstream.gftd.ai', 25, 1),
-    ('AE:upstream', 'AE', 'upstream', 'did:web:oil-upstream.gftd.ai', 'oil-upstream.gftd.ai', 15, 1),
-    ('US:midstream', 'US', 'midstream', 'did:web:oil-midstream.gftd.ai', 'oil-midstream.gftd.ai', 30, 1),
-    ('AE:midstream', 'AE', 'midstream', 'did:web:oil-midstream.gftd.ai', 'oil-midstream.gftd.ai', 12, 1),
-    ('SG:midstream', 'SG', 'midstream', 'did:web:oil-midstream.gftd.ai', 'oil-midstream.gftd.ai', 10, 1),
-    ('US:refining', 'US', 'refining', 'did:web:oil-refining.gftd.ai', 'oil-refining.gftd.ai', 25, 1),
-    ('CN:refining', 'CN', 'refining', 'did:web:oil-refining.gftd.ai', 'oil-refining.gftd.ai', 20, 1),
-    ('IN:refining', 'IN', 'refining', 'did:web:oil-refining.gftd.ai', 'oil-refining.gftd.ai', 12, 1),
-    ('CH:trading', 'CH', 'trading', 'did:web:oil-trading.gftd.ai', 'oil-trading.gftd.ai', 10, 1),
-    ('SG:trading', 'SG', 'trading', 'did:web:oil-trading.gftd.ai', 'oil-trading.gftd.ai', 10, 1),
-    ('GR:shipping', 'GR', 'shipping', 'did:web:oil-shipping.gftd.ai', 'oil-shipping.gftd.ai', 15, 1),
-    ('SG:shipping', 'SG', 'shipping', 'did:web:oil-shipping.gftd.ai', 'oil-shipping.gftd.ai', 12, 1),
-    ('AE:shipping', 'AE', 'shipping', 'did:web:oil-shipping.gftd.ai', 'oil-shipping.gftd.ai', 12, 1),
-    ('US:distribution', 'US', 'distribution', 'did:web:oil-distribution.gftd.ai', 'oil-distribution.gftd.ai', 20, 1),
-    ('CN:distribution', 'CN', 'distribution', 'did:web:oil-distribution.gftd.ai', 'oil-distribution.gftd.ai', 20, 1),
-    ('JP:distribution', 'JP', 'distribution', 'did:web:oil-distribution.gftd.ai', 'oil-distribution.gftd.ai', 10, 1);
+    ('SA:upstream', 'SA', 'upstream', 'did:web:oil-upstream.etzhayyim.com', 'oil-upstream.etzhayyim.com', 25, 1),
+    ('US:upstream', 'US', 'upstream', 'did:web:oil-upstream.etzhayyim.com', 'oil-upstream.etzhayyim.com', 40, 1),
+    ('RU:upstream', 'RU', 'upstream', 'did:web:oil-upstream.etzhayyim.com', 'oil-upstream.etzhayyim.com', 25, 1),
+    ('AE:upstream', 'AE', 'upstream', 'did:web:oil-upstream.etzhayyim.com', 'oil-upstream.etzhayyim.com', 15, 1),
+    ('US:midstream', 'US', 'midstream', 'did:web:oil-midstream.etzhayyim.com', 'oil-midstream.etzhayyim.com', 30, 1),
+    ('AE:midstream', 'AE', 'midstream', 'did:web:oil-midstream.etzhayyim.com', 'oil-midstream.etzhayyim.com', 12, 1),
+    ('SG:midstream', 'SG', 'midstream', 'did:web:oil-midstream.etzhayyim.com', 'oil-midstream.etzhayyim.com', 10, 1),
+    ('US:refining', 'US', 'refining', 'did:web:oil-refining.etzhayyim.com', 'oil-refining.etzhayyim.com', 25, 1),
+    ('CN:refining', 'CN', 'refining', 'did:web:oil-refining.etzhayyim.com', 'oil-refining.etzhayyim.com', 20, 1),
+    ('IN:refining', 'IN', 'refining', 'did:web:oil-refining.etzhayyim.com', 'oil-refining.etzhayyim.com', 12, 1),
+    ('CH:trading', 'CH', 'trading', 'did:web:oil-trading.etzhayyim.com', 'oil-trading.etzhayyim.com', 10, 1),
+    ('SG:trading', 'SG', 'trading', 'did:web:oil-trading.etzhayyim.com', 'oil-trading.etzhayyim.com', 10, 1),
+    ('GR:shipping', 'GR', 'shipping', 'did:web:oil-shipping.etzhayyim.com', 'oil-shipping.etzhayyim.com', 15, 1),
+    ('SG:shipping', 'SG', 'shipping', 'did:web:oil-shipping.etzhayyim.com', 'oil-shipping.etzhayyim.com', 12, 1),
+    ('AE:shipping', 'AE', 'shipping', 'did:web:oil-shipping.etzhayyim.com', 'oil-shipping.etzhayyim.com', 12, 1),
+    ('US:distribution', 'US', 'distribution', 'did:web:oil-distribution.etzhayyim.com', 'oil-distribution.etzhayyim.com', 20, 1),
+    ('CN:distribution', 'CN', 'distribution', 'did:web:oil-distribution.etzhayyim.com', 'oil-distribution.etzhayyim.com', 20, 1),
+    ('JP:distribution', 'JP', 'distribution', 'did:web:oil-distribution.etzhayyim.com', 'oil-distribution.etzhayyim.com', 10, 1);
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS mv_oil_backbone_count AS
     SELECT country_code, 'upstream'::text AS segment, COUNT(*)::bigint AS actual_count

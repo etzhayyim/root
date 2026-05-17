@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gftdcojp/nats-jetstream-objectstore-s3/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-objectstore-s3/internal/config"
 	"github.com/nats-io/nats.go"
 )
 

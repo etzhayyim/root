@@ -63,7 +63,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ───────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('atc', 'atc.gftd.ai', 6440, 'drug substances', 'pharma')
+    VALUES ('atc', 'atc.etzhayyim.com', 6440, 'drug substances', 'pharma')
   `.execute(db);
 }
 

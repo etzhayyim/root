@@ -2,14 +2,14 @@
   "viewId": "open-banking.OV-1",
   "viewType": "OV-1",
   "title": "High-Level Operational Concept Graphic",
-  "did": "did:web:open-banking.gftd.ai",
+  "did": "did:web:open-banking.etzhayyim.com",
   "format": "json",
   "content": {
     "operationalNodes": [
       { "id": "client",   "label": "Client (browser/agent/CLI)" },
-      { "id": "bank",     "label": "open-banking.gftd.ai (Worker)" },
+      { "id": "bank",     "label": "open-banking.etzhayyim.com (Worker)" },
       { "id": "ledger",   "label": "D1 ledger (SSoT)" },
-      { "id": "pds",      "label": "atproto.gftd.ai (PDS, public audit)" },
+      { "id": "pds",      "label": "atproto.etzhayyim.com (PDS, public audit)" },
       { "id": "counterparty", "label": "Counterparty DID" }
     ],
     "operationalFlows": [

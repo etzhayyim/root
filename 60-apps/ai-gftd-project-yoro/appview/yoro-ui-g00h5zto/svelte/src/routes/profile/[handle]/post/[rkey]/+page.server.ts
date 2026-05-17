@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ params, platform, url }) => {
 	const handle = decodeURIComponent(params.handle);
 	const rkey = decodeURIComponent(params.rkey);
 
-	// ADR-0013 Phase 3 grace: {nanoid}.gftd.ai → {handle}.gftd.ai (drops 2026-10-01).
+	// ADR-0013 Phase 3 grace: {nanoid}.etzhayyim.com → {handle}.etzhayyim.com (drops 2026-10-01).
 	const canonical = resolveLegacyHandle(handle);
 	if (canonical && canonical !== handle) {
 		throw redirect(301, `/profile/${encodeURIComponent(canonical)}/post/${encodeURIComponent(rkey)}${url.search}`);

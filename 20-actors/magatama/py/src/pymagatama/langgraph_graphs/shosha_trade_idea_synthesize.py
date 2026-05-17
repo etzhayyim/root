@@ -62,7 +62,7 @@ def emit_audit(state: ShoshaTradeIdeaState) -> dict:
                 """,
                 (
                     str(uuid.uuid4()),
-                    "did:web:shosha.gftd.ai",
+                    "did:web:shosha.etzhayyim.com",
                     "ai.gftd.apps.shosha.tradeIdeaSynthesize",
                     f"lg-{int(_time.time() * 1000)}",
                     "create",

@@ -48,8 +48,8 @@ from pymagatama.primitives import langgraph_registry
 
 # ── Constants ──────────────────────────────────────────────────────────
 
-ACTOR_GMAIL = "did:web:gmail.gftd.ai"
-ACTOR_YABAI = "did:web:yabai.gftd.ai"
+ACTOR_GMAIL = "did:web:gmail.etzhayyim.com"
+ACTOR_YABAI = "did:web:yabai.etzhayyim.com"
 
 # Score thresholds (ADR-0032 §Tier-1)
 SCORE_SPAM = 70   # >=70 → spam
@@ -67,7 +67,7 @@ PHISH_KEYWORDS_RE = re.compile(
 
 # Allowlist domains — score floor for known-safe senders
 ALLOWLIST_DOMAINS = frozenset({
-    "gftd.ai", "gftd.co.jp", "gftd.group",
+    "etzhayyim.com", "gftd.co.jp", "gftd.group",
     "google.com", "googlemail.com", "gmail.com",
     "apple.com", "icloud.com",
     "amazon.com", "amazon.co.jp",

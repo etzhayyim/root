@@ -15,7 +15,7 @@
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-const OWNER = "did:web:bpmn.gftd.ai";
+const OWNER = "did:web:bpmn.etzhayyim.com";
 const CREATED_AT = "2026-05-08T11:30:00Z";
 
 type Binding = {
@@ -27,13 +27,13 @@ type Binding = {
 const BINDINGS: Binding[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/ki-cycle-langgraph-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/ki-cycle-langgraph-v1",
     nsid: "ai.gftd.apps.ki.cycle",
     assistantId: "ki.cycle.v1",
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/saikin-cycle-langgraph-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/saikin-cycle-langgraph-v1",
     nsid: "ai.gftd.apps.saikin.cycle",
     assistantId: "saikin.cycle.v1",
   },
@@ -41,8 +41,8 @@ const BINDINGS: Binding[] = [
 
 // Old timer-start BPMN process_defs to mark inactive (LangGraph chain replaces them).
 const RETIRED_PROCESS_DEFS = [
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
 ];
 
 export async function up(db: Kysely<unknown>): Promise<void> {

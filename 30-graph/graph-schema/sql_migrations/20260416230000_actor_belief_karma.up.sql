@@ -63,9 +63,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:pmc:secular',
-    'did:web:pmc-ncbi-nlm-nih-gov.gftd.ai',
+    'did:web:pmc-ncbi-nlm-nih-gov.etzhayyim.com',
     'belief:secular',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.90,
     '1879-present',
     'institutional',
@@ -77,9 +77,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:pmc:dharma',
-    'did:web:pmc-ncbi-nlm-nih-gov.gftd.ai',
+    'did:web:pmc-ncbi-nlm-nih-gov.etzhayyim.com',
     'belief:dharma',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.25,
     '1990-present',
     'inferential',
@@ -93,9 +93,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:yhwh:yhwh',
-    'did:web:yhwh.gftd.ai',
+    'did:web:yhwh.etzhayyim.com',
     'belief:yhwh',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'soteriological', 1.0,
     'c.2000 BCE-present',
     'historical',
@@ -109,9 +109,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:gftd:secular',
-    'did:web:gftd.ai',
+    'did:web:etzhayyim.com',
     'belief:secular',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.65,
     '2023-present',
     'institutional',
@@ -123,9 +123,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:gftd:shinto',
-    'did:web:gftd.ai',
+    'did:web:etzhayyim.com',
     'belief:shinto',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.35,
     '2023-present',
     'cultural',
@@ -139,9 +139,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:news:secular',
-    'did:web:news.gftd.ai',
+    'did:web:news.etzhayyim.com',
     'belief:secular',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.70,
     '2023-present',
     'institutional',
@@ -155,9 +155,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:handotai:secular',
-    'did:web:handotai.gftd.ai',
+    'did:web:handotai.etzhayyim.com',
     'belief:secular',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.75,
     '1947-present',
     'institutional',
@@ -171,9 +171,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:society6:secular',
-    'did:web:society6.gftd.ai',
+    'did:web:society6.etzhayyim.com',
     'belief:secular',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.55,
     '1868-present',
     'cultural',
@@ -185,9 +185,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:society6:confucian',
-    'did:web:society6.gftd.ai',
+    'did:web:society6.etzhayyim.com',
     'belief:confucian',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.45,
     '600 CE-present',
     'cultural',
@@ -201,9 +201,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:iryo:secular',
-    'did:web:iryo.gftd.ai',
+    'did:web:iryo.etzhayyim.com',
     'belief:secular',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.80,
     '1850-present',
     'institutional',
@@ -215,9 +215,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:iryo:dharma',
-    'did:web:iryo.gftd.ai',
+    'did:web:iryo.etzhayyim.com',
     'belief:dharma',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.30,
     '700 CE-present',
     'cultural',
@@ -231,9 +231,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:dojo:dharma',
-    'did:web:dojo.gftd.ai',
+    'did:web:dojo.etzhayyim.com',
     'belief:dharma',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'soteriological', 0.65,
     '600 CE-present',
     'cultural',
@@ -245,9 +245,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:dojo:confucian',
-    'did:web:dojo.gftd.ai',
+    'did:web:dojo.etzhayyim.com',
     'belief:confucian',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.40,
     '1600-present',
     'cultural',
@@ -261,9 +261,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:shizen:shinto',
-    'did:web:shizen.gftd.ai',
+    'did:web:shizen.etzhayyim.com',
     'belief:shinto',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.80,
     'pre-700 CE-present',
     'cultural',
@@ -275,9 +275,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:shizen:dharma',
-    'did:web:shizen.gftd.ai',
+    'did:web:shizen.etzhayyim.com',
     'belief:dharma',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.45,
     '700 CE-present',
     'cultural',
@@ -291,9 +291,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:murakumo:secular',
-    'did:web:murakumo.gftd.ai',
+    'did:web:murakumo.etzhayyim.com',
     'belief:secular',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.60,
     '2023-present',
     'institutional',
@@ -305,9 +305,9 @@ INSERT INTO edge_constrained_by (
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
     'edge:belief:murakumo:shinto',
-    'did:web:murakumo.gftd.ai',
+    'did:web:murakumo.etzhayyim.com',
     'belief:shinto',
-    CURRENT_DATE, 0, 'did:web:gftd.ai',
+    CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.40,
     '2023-present',
     'cultural',

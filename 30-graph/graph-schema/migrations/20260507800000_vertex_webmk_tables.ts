@@ -65,7 +65,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`CREATE INDEX IF NOT EXISTS idx_vertex_webmk_proposal_status ON vertex_webmk_proposal (status)`.execute(db);
   await sql`CREATE INDEX IF NOT EXISTS idx_vertex_webmk_proposal_client ON vertex_webmk_proposal (client_vid)`.execute(db);
 
-  // Campaign link: proposal → ads.gftd.ai campaign
+  // Campaign link: proposal → ads.etzhayyim.com campaign
   await baseEdge(db, "edge_webmk_campaign_link");
   await sql`ALTER TABLE edge_webmk_campaign_link ADD COLUMN IF NOT EXISTS proposal_id VARCHAR`.execute(db);
   await sql`ALTER TABLE edge_webmk_campaign_link ADD COLUMN IF NOT EXISTS ads_campaign_id VARCHAR`.execute(db);

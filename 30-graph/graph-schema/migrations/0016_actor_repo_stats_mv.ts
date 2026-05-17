@@ -4,10 +4,10 @@ import { Kysely, sql } from 'kysely';
  * Actor repo tree stats for path-subDID hierarchies.
  *
  * Root DID normalization:
- *   did:web:app.gftd.ai
- *   did:web:app.gftd.ai:child
- *   did:web:app.gftd.ai:child:grandchild
- *     -> did:web:app.gftd.ai
+ *   did:web:app.etzhayyim.com
+ *   did:web:app.etzhayyim.com:child
+ *   did:web:app.etzhayyim.com:child:grandchild
+ *     -> did:web:app.etzhayyim.com
  *
  * This MV is intentionally tree-oriented and complements
  * `mv_actor_social_stats` (exact actor DID only).

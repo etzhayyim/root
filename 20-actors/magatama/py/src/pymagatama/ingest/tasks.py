@@ -14,7 +14,7 @@ from pymagatama.db_sync import sync_cursor
 TASKS_TOKEN_TABLE = "vertex_gtasks_oauth_token"
 TASKS_LIST_TABLE = "vertex_gtasks_list"
 TASKS_TASK_TABLE = "vertex_gtasks_task"
-ACTOR_DID = "did:web:tasks.gftd.ai"
+ACTOR_DID = "did:web:tasks.etzhayyim.com"
 
 
 def now_iso() -> str:

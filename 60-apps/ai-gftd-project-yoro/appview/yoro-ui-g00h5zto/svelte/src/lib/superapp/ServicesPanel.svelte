@@ -73,9 +73,9 @@
 		setTimeout(() => pressScale.set(1.06), 80);
 		setTimeout(() => pressScale.set(1), 260);
 
-		// Path-based actor DIDs (e.g. "smishing.gftd.ai:actor:kiyome") contain ".gftd.ai"
+		// Path-based actor DIDs (e.g. "smishing.etzhayyim.com:actor:kiyome") contain ".etzhayyim.com"
 		// but don't end with it — use includes() so they route correctly.
-		const host = app.name.includes('.gftd.ai') ? app.name : `${app.id}.gftd.ai`;
+		const host = app.name.includes('.etzhayyim.com') ? app.name : `${app.id}.etzhayyim.com`;
 		await goto(`/profile/did:web:${host}`);
 	}
 </script>

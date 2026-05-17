@@ -184,8 +184,8 @@ def demo() -> None:
     print("[microgrid-pregel] building :loop:freq-droop with 2 BESS assets")
     runner = build_freq_droop_loop(
         bess_assets=[
-            ("did:web:open-ot.gftd.ai:cell:droop-bess-1", 1000.0),  # 1 MW
-            ("did:web:open-ot.gftd.ai:cell:droop-bess-2", 500.0),   #  500 kW
+            ("did:web:open-ot.etzhayyim.com:cell:droop-bess-1", 1000.0),  # 1 MW
+            ("did:web:open-ot.etzhayyim.com:cell:droop-bess-2", 500.0),   #  500 kW
         ],
         cycle_period_ms=100,
     )
@@ -202,8 +202,8 @@ def demo() -> None:
         50.000,  # 7 — fully recovered
     ]
     current_p = {
-        "did:web:open-ot.gftd.ai:cell:droop-bess-1": 800.0,  # 800 kW current output
-        "did:web:open-ot.gftd.ai:cell:droop-bess-2": 400.0,  # 400 kW current output
+        "did:web:open-ot.etzhayyim.com:cell:droop-bess-1": 800.0,  # 800 kW current output
+        "did:web:open-ot.etzhayyim.com:cell:droop-bess-2": 400.0,  # 400 kW current output
     }
     for grid_freq in schedule:
         cp = step_freq_droop(runner, grid_freq, current_p)

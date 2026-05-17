@@ -38,7 +38,7 @@ class TestIntakeSubmit(unittest.TestCase):
         self.assertTrue(out["ok"])
         self.assertTrue(out["intake_id"])
         self.assertTrue(out["intake_uri"].startswith(
-            "at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.intake/"
+            "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.intake/"
         ))
         self.assertIn("Thank you", out["next_steps_message"])
 
@@ -101,7 +101,7 @@ class TestMatterCreate(unittest.TestCase):
         from pymagatama.primitives.lawfirm_intake import task_lawfirm_matter_create
         out = asyncio.run(task_lawfirm_matter_create(
             matter_type="advisory",
-            lead_advocate_did="did:web:k-bakshi.gftd.ai",
+            lead_advocate_did="did:web:k-bakshi.etzhayyim.com",
             subject="Cross-border M&A advisory for Indian acquirer",
             jurisdiction="IND",
             fee_structure="hourly",
@@ -111,7 +111,7 @@ class TestMatterCreate(unittest.TestCase):
         self.assertTrue(out["ok"])
         self.assertTrue(out["matter_id"])
         self.assertTrue(out["matter_uri"].startswith(
-            "at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.matter/"
+            "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.matter/"
         ))
         self.assertEqual(out["status"], "pending_pwc")
 
@@ -119,7 +119,7 @@ class TestMatterCreate(unittest.TestCase):
         from pymagatama.primitives.lawfirm_intake import task_lawfirm_matter_create
         out = asyncio.run(task_lawfirm_matter_create(
             matter_type="ip",
-            lead_advocate_did="did:web:k-bakshi.gftd.ai",
+            lead_advocate_did="did:web:k-bakshi.etzhayyim.com",
             subject="IP filing — out of PwC scope (k-bakshi attests)",
             skip_pwc_clearance=True,
         ))
@@ -130,7 +130,7 @@ class TestMatterCreate(unittest.TestCase):
         from pymagatama.primitives.lawfirm_intake import task_lawfirm_matter_create
         out = asyncio.run(task_lawfirm_matter_create(
             matter_type="advisory",
-            lead_advocate_did="did:web:k-bakshi.gftd.ai",
+            lead_advocate_did="did:web:k-bakshi.etzhayyim.com",
             subject="from intake",
             intake_uri="at://test/intake/abc-123",
         ))
@@ -149,9 +149,9 @@ class TestMatterCreate(unittest.TestCase):
         from pymagatama.primitives.lawfirm_intake import task_lawfirm_matter_create
         out = asyncio.run(task_lawfirm_matter_create(
             matter_type="litigation",
-            lead_advocate_did="did:web:k-bakshi.gftd.ai",
+            lead_advocate_did="did:web:k-bakshi.etzhayyim.com",
             subject="multi-counsel matter",
-            co_counsel_dids=["did:web:co1.gftd.ai", "did:web:co2.gftd.ai"],
+            co_counsel_dids=["did:web:co1.etzhayyim.com", "did:web:co2.etzhayyim.com"],
         ))
         self.assertTrue(out["ok"])
 
@@ -159,7 +159,7 @@ class TestMatterCreate(unittest.TestCase):
         from pymagatama.primitives.lawfirm_intake import task_lawfirm_matter_create
         out = asyncio.run(task_lawfirm_matter_create(
             matter_type="advisory",
-            lead_advocate_did="did:web:k-bakshi.gftd.ai",
+            lead_advocate_did="did:web:k-bakshi.etzhayyim.com",
             subject="Indian SMB engagement",
             fee_structure="fixed",
             fee_amount_minor=2_500_000,  # INR 25,000

@@ -24,7 +24,7 @@ def test_kakaku_resolve_ids_prefers_jan_and_domain() -> None:
     assert ids["productId"] == "jan_4901777300443"
     assert ids["merchantId"] == "yodobashi_com"
     assert ids["offerId"] == "yodobashi_com:4549995501234"
-    assert ids["productDid"] == "did:web:kakaku.gftd.ai:product:jan_4901777300443"
+    assert ids["productDid"] == "did:web:kakaku.etzhayyim.com:product:jan_4901777300443"
 
 
 def test_normalize_product_url_drops_tracking_params() -> None:

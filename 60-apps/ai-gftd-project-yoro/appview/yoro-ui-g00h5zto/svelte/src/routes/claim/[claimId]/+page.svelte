@@ -2,7 +2,7 @@
   /claim/[claimId] — staked-claim viewer + challenge action.
 
   ADR-2604261717 worker pipeline. Calls
-  `https://authz.gftd.ai/xrpc/ai.gftd.claim.getStakedAttestation?claimId=...`
+  `https://authz.etzhayyim.com/xrpc/ai.gftd.claim.getStakedAttestation?claimId=...`
   to read the on-chain Claim + (optional) Challenge struct from
   ClaimStakeEscrow. When state=pending and the window is open, surfaces
   a counter-bond + rebuttal form that POSTs to
@@ -37,7 +37,7 @@
 		escrowAddr: string;
 	}
 
-	const AUTHZ_BASE = 'https://authz.gftd.ai';
+	const AUTHZ_BASE = 'https://authz.etzhayyim.com';
 	const STAKE_OPTIONS = [1, 5, 10, 25] as const;
 
 	let claimId = $derived($page.params.claimId);

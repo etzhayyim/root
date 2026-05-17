@@ -13,7 +13,7 @@ import { sql } from "kysely";
  * (ai.gftd.projector.flow / .branch / .reflection) and lives in
  * RisingWave directly. Each app writes via
  *   createKyselyDb(env.HYPERDRIVE).insertInto("vertex_projector_flow_*")
- * from its own Worker; BPMN Projector (kyber-projector.gftd.ai) keeps
+ * from its own Worker; BPMN Projector (kyber-projector.etzhayyim.com) keeps
  * catalog + RACI gate + OCEL audit responsibility, not storage.
  *
  * Schema:

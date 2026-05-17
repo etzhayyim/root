@@ -30,8 +30,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       COUNT(*) FILTER (WHERE collection = 'ai.gftd.apps.shinshi.modelProfile') AS model_profile_count,
       COUNT(*) FILTER (WHERE collection = 'app.bsky.feed.post') AS post_count
     FROM vertex_repo_record
-    WHERE repo LIKE 'did:web:sh1n5h1x.gftd.ai:%'
-      AND repo != 'did:web:sh1n5h1x.gftd.ai'
+    WHERE repo LIKE 'did:web:sh1n5h1x.etzhayyim.com:%'
+      AND repo != 'did:web:sh1n5h1x.etzhayyim.com'
       AND collection IN ('ai.gftd.apps.shinshi.modelProfile', 'app.bsky.feed.post')
     GROUP BY repo
   `.execute(db);

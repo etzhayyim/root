@@ -1,4 +1,4 @@
-"""games.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""games.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -24,7 +24,7 @@ async def run_worker():
     async def task_create_title(**kwargs):
         name = kwargs.get("name", "")
         genre = kwargs.get("genre", "")
-        publisher_did = kwargs.get("publisherDid", "did:web:games.gftd.ai")
+        publisher_did = kwargs.get("publisherDid", "did:web:games.etzhayyim.com")
         platform = kwargs.get("platform", "")
 
         title_id = str(uuid.uuid4())
@@ -41,7 +41,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, publisher_did,
                 title_id, name, genre, publisher_did, platform,
-                "did:web:games.gftd.ai", "did:web:games.gftd.ai", now, now,
+                "did:web:games.etzhayyim.com", "did:web:games.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -85,7 +85,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.games.recordScore")
     async def task_record_score(**kwargs):
         title_id = kwargs.get("titleId", "")
-        player_did = kwargs.get("playerDid", "did:web:games.gftd.ai")
+        player_did = kwargs.get("playerDid", "did:web:games.etzhayyim.com")
         score = int(kwargs.get("score", 0))
         level = kwargs.get("level", "")
         mode = kwargs.get("mode", "")
@@ -104,7 +104,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)""",
                 vertex_id, 0, date.today(), 0, player_did,
                 score_id, title_id, player_did, score, level, mode,
-                "did:web:games.gftd.ai", "did:web:games.gftd.ai", now, now,
+                "did:web:games.etzhayyim.com", "did:web:games.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -189,7 +189,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.games.createSession")
     async def task_create_session(**kwargs):
         title_id = kwargs.get("titleId", "")
-        player_did = kwargs.get("playerDid", "did:web:games.gftd.ai")
+        player_did = kwargs.get("playerDid", "did:web:games.etzhayyim.com")
         mode = kwargs.get("mode", "")
 
         session_id = str(uuid.uuid4())

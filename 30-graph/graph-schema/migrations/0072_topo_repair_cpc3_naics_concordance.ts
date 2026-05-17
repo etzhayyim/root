@@ -59,7 +59,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ──────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('cpc3', 'cpc3.gftd.ai', 4594, 'products', 'commerce')
+    VALUES ('cpc3', 'cpc3.etzhayyim.com', 4594, 'products', 'commerce')
   `.execute(db);
 
   // ── topology repair: data-only, idempotent ────────────────────────────

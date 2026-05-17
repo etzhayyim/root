@@ -34,7 +34,7 @@ describe("Seed open-banking BPMN actors migration", () => {
 
   it("uses open-banking-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-banking"');
-    expect(migrationSource).toContain("did:web:open-banking.gftd.ai:core");
+    expect(migrationSource).toContain("did:web:open-banking.etzhayyim.com:core");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

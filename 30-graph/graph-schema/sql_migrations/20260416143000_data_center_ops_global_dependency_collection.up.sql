@@ -44,9 +44,9 @@ CREATE INDEX IF NOT EXISTS idx_edge_dc_dep_global_path ON edge_data_center_depen
 
 CREATE INDEX IF NOT EXISTS idx_edge_dc_dep_global_criticality ON edge_data_center_dependency_global (criticality, path_weight);
 
-DELETE FROM edge_data_center_dependency_global WHERE actor_did = 'did:web:data-center-ops.gftd.ai';
+DELETE FROM edge_data_center_dependency_global WHERE actor_did = 'did:web:data-center-ops.etzhayyim.com';
 
-DELETE FROM vertex_data_center_dependency_global WHERE actor_did = 'did:web:data-center-ops.gftd.ai';
+DELETE FROM vertex_data_center_dependency_global WHERE actor_did = 'did:web:data-center-ops.etzhayyim.com';
 
 INSERT INTO vertex_data_center_dependency_global (
       vertex_id,

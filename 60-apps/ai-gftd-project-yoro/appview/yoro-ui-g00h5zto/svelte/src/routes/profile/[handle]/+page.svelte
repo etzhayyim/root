@@ -128,28 +128,28 @@
 			}
 
 			// did:web: DIDs are App agents — show AgentProfile directly
-			// Sub-path DIDs (did:web:gamers.gftd.ai:elden-ring) are per-entity
+			// Sub-path DIDs (did:web:gamers.etzhayyim.com:elden-ring) are per-entity
 			// profiles within an app — resolved via PDS, not app manifest.
-			// Exception: atproto.gftd.ai:user: DIDs are human users, not agents.
-			// Normalize bare nanoid DIDs: did:web:abc123 → did:web:abc123.gftd.ai
+			// Exception: atproto.etzhayyim.com:user: DIDs are human users, not agents.
+			// Normalize bare nanoid DIDs: did:web:abc123 → did:web:abc123.etzhayyim.com
 			if (did.startsWith('did:web:')) {
 				const rest = did.slice(8);
 				const colonIdx = rest.indexOf(':');
 				const host = colonIdx >= 0 ? rest.slice(0, colonIdx) : rest;
 				if (!host.includes('.')) {
 					did = colonIdx >= 0
-						? `did:web:${host}.gftd.ai:${rest.slice(colonIdx + 1)}`
-						: `did:web:${host}.gftd.ai`;
+						? `did:web:${host}.etzhayyim.com:${rest.slice(colonIdx + 1)}`
+						: `did:web:${host}.etzhayyim.com`;
 				}
 			}
-			const isPdsUserDid = did.startsWith('did:web:atproto.gftd.ai:user:');
+			const isPdsUserDid = did.startsWith('did:web:atproto.etzhayyim.com:user:');
 			if (did.startsWith('did:web:') && !isPdsUserDid) {
 				isAgent = true;
 				// Parse DID:web — colons after host are sub-path segments
 				const didParts = did.replace('did:web:', '').split(':');
 				const appHost = didParts[0];
 				const subPath = didParts.slice(1).join('/');
-				const appSlug = appHost.replace('.gftd.ai', '');
+				const appSlug = appHost.replace('.etzhayyim.com', '');
 				const displaySlug = subPath || appSlug;
 				actorData = { name: displaySlug, did, nanoid: appSlug, subPath, description: `${appHost} — App` };
 				capabilitiesData = [];
@@ -199,8 +199,8 @@
 				if (!actorData.addresses && !actorData.procedures) {
 					try {
 						// Derive ISO-3 code from did path. 2 supported shapes:
-						//   did:web:states.gftd.ai:state:jpn  → repo=states.gftd.ai, rkey=jpn
-						//   did:web:jpn-state.gftd.ai         → repo=states.gftd.ai, rkey=jpn
+						//   did:web:states.etzhayyim.com:state:jpn  → repo=states.etzhayyim.com, rkey=jpn
+						//   did:web:jpn-state.etzhayyim.com         → repo=states.etzhayyim.com, rkey=jpn
 						let iso = '';
 						const subLast = subPath.split('/').filter(Boolean).pop() || '';
 						const hostFirst = appHost.split('.')[0] || '';
@@ -208,8 +208,8 @@
 						else if (/^[a-z]{3}$/i.test(hostFirst)) iso = hostFirst.toLowerCase();
 						if (iso) {
 							// Use public /api/kagami/query proxy (read-only, no auth needed)
-							const sql = `SELECT value_json FROM vertex_state_profile WHERE repo = 'states.gftd.ai' AND rkey = '${iso.replace(/[^a-z0-9]/g, '')}'`;
-							const kRes = await fetch('https://atproto.gftd.ai/api/kagami/query', {
+							const sql = `SELECT value_json FROM vertex_state_profile WHERE repo = 'states.etzhayyim.com' AND rkey = '${iso.replace(/[^a-z0-9]/g, '')}'`;
+							const kRes = await fetch('https://atproto.etzhayyim.com/api/kagami/query', {
 								method: 'POST', headers: { 'Content-Type': 'application/json' },
 								body: JSON.stringify({ sql }),
 							}).then(r => r.ok ? r.json() : null).catch(() => null);
@@ -437,7 +437,7 @@
 		gccSmartAccount = null;
 		try {
 			const res = await fetch(
-				`https://authz.gftd.ai/xrpc/ai.gftd.authz.getActorTokenBalance?did=${encodeURIComponent(actorDid)}`,
+				`https://authz.etzhayyim.com/xrpc/ai.gftd.authz.getActorTokenBalance?did=${encodeURIComponent(actorDid)}`,
 				{ signal: AbortSignal.timeout(5000) },
 			);
 			if (!res.ok) return;
@@ -1150,7 +1150,7 @@
 									type="button"
 									class="min-h-[48px] w-full max-w-[320px] rounded-full bg-[#635BFF] px-8 py-3 text-[15px] font-bold text-white tap-target-44 touch-manipulation active:scale-95 transition-transform"
 									style="box-shadow: 0 4px 20px rgba(99, 91, 255, 0.3)"
-									onclick={() => { playTap(); haptic('medium'); goto('/profile/did:web:cards.gftd.ai'); }}
+									onclick={() => { playTap(); haptic('medium'); goto('/profile/did:web:cards.etzhayyim.com'); }}
 								>
 									Cards agent に相談
 								</button>

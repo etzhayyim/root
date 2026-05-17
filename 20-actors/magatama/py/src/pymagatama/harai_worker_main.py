@@ -1,4 +1,4 @@
-"""harai.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""harai.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -26,7 +26,7 @@ async def run_worker():
         payee_did = kwargs.get("payeeDid", "")
         amount = float(kwargs.get("amount", 0.0))
         currency = kwargs.get("currency", "JPY")
-        owner_did = kwargs.get("ownerDid", "did:web:harai.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:harai.etzhayyim.com")
 
         payment_id = str(uuid.uuid4())
         vertex_id = f"harai:payment:{payment_id}"
@@ -42,7 +42,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 payment_id, payer_did, payee_did, amount, currency, "pending",
-                "did:web:harai.gftd.ai", "did:web:harai.gftd.ai", now, now,
+                "did:web:harai.etzhayyim.com", "did:web:harai.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -156,7 +156,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)""",
                 vertex_id, 0, date.today(), 0, from_did,
                 transfer_id, from_did, to_did, amount, currency, "settled",
-                "did:web:harai.gftd.ai", "did:web:harai.gftd.ai", now, now,
+                "did:web:harai.etzhayyim.com", "did:web:harai.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

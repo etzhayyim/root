@@ -58,7 +58,7 @@ def fetch_documents_json(
         f"{EDINET_API}?{params}",
         headers={
             "Accept": "application/json",
-            "User-Agent": "jp-corp-finance.gftd.ai/0.1 contact@gftd.co.jp",
+            "User-Agent": "jp-corp-finance.etzhayyim.com/0.1 contact@gftd.co.jp",
             **(
                 {"Ocp-Apim-Subscription-Key": subscription_key}
                 if subscription_key

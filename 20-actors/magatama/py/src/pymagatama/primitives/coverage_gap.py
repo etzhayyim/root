@@ -46,7 +46,7 @@ def _as_str(v: Any, maxlen: int = 500) -> str:
 def _fetch_url(url: str, timeout: int = 60) -> bytes:
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "coverage-gap-bridge/1 (+https://gftd.ai)"},
+        headers={"User-Agent": "coverage-gap-bridge/1 (+https://etzhayyim.com)"},
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read()
@@ -59,7 +59,7 @@ def _sparql_post(endpoint: str, query: str, timeout: int = 55) -> bytes:
         endpoint,
         data=data,
         headers={
-            "User-Agent": "coverage-gap-bridge/1 (+https://gftd.ai)",
+            "User-Agent": "coverage-gap-bridge/1 (+https://etzhayyim.com)",
             "Accept": "application/sparql-results+json",
             "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -176,7 +176,7 @@ def _ingest_crypto_asset_freeze(world_total: int) -> dict[str, Any]:
         program = _as_str(prog_el.text if prog_el is not None else "", 64)
         if not uid:
             continue
-        vertex_id = f"at://did:web:crypto-asset-freeze.gftd.ai/ai.gftd.apps.cryptoAssetFreeze.incident/ofac-{uid}"
+        vertex_id = f"at://did:web:crypto-asset-freeze.etzhayyim.com/ai.gftd.apps.cryptoAssetFreeze.incident/ofac-{uid}"
         rows.append((
             vertex_id, uid, name, sdn_type, program, "ofac_sdn", ts,
         ))
@@ -490,7 +490,7 @@ def _ingest_ofac_sdn(world_total: int) -> dict[str, Any]:
     if not entries:
         return {"ok": False, "rowsWritten": 0, "error": "no sdnEntry elements found"}
 
-    actor_did = "did:web:open-ofac-sanctions-sdn.gftd.ai"
+    actor_did = "did:web:open-ofac-sanctions-sdn.etzhayyim.com"
     ts = _utc_now()
     rows = []
     for entry in entries:
@@ -607,7 +607,7 @@ def _ingest_bengoshi_lawyers(world_total: int) -> dict[str, Any]:
         (54, "Okinawa", "Okinawa", 360),
     ]
 
-    actor_did = "did:web:bengoshi.gftd.ai"
+    actor_did = "did:web:bengoshi.etzhayyim.com"
     ts = _utc_now()
     rows: list[tuple] = []
     specialties = ["civil", "criminal", "corporate", "family", "tax", "labor",
@@ -622,7 +622,7 @@ def _ingest_bengoshi_lawyers(world_total: int) -> dict[str, Any]:
             vertex_id,
             "Lawyer",
             f"{kai_name} Bar Representative",
-            f"did:web:bengoshi.gftd.ai:jp:{roll.lower()}",
+            f"did:web:bengoshi.etzhayyim.com:jp:{roll.lower()}",
             roll,
             f"JFBA-{kai_name[:6].upper()}",
             "2000-04-01",   # representative enrollment date
@@ -674,7 +674,7 @@ def _ingest_adr_cases(world_total: int) -> dict[str, Any]:
         ("LCIA", "London", "English", "GBP", 400, range(2018, 2024)),
     ]
 
-    actor_did = "did:web:bengoshi.gftd.ai"
+    actor_did = "did:web:bengoshi.etzhayyim.com"
     ts = _utc_now()
     rows: list[tuple] = []
     for inst, seat, gov_law, currency, annual_count, years in INSTITUTIONS:
@@ -727,7 +727,7 @@ def _ingest_npo(world_total: int) -> dict[str, Any]:
     Populates representative offices covering JPY and USD jurisdictions.
     Source: 法テラス 2023 annual report (50 offices) + LSC public grantee list (~130 orgs).
     """
-    actor_did = "did:web:npo.gftd.ai"
+    actor_did = "did:web:npo.etzhayyim.com"
     ts = _utc_now()
 
     # (display_name, jurisdiction, office_type, locality, languages, specialties, intake_url)
@@ -766,7 +766,7 @@ def _ingest_npo(world_total: int) -> dict[str, Any]:
         for (display_name, jurisdiction, office_type, locality,
              languages, specialties, intake_url) in OFFICES:
             vertex_id = _stable_id("legal-aid-office", display_name, jurisdiction)
-            office_did = f"did:web:npo.gftd.ai:office:{vertex_id[-12:]}"
+            office_did = f"did:web:npo.etzhayyim.com:office:{vertex_id[-12:]}"
             cur.execute(
                 "INSERT INTO vertex_legal_aid_office "
                 "(vertex_id,office_did,display_name,jurisdiction,office_type,"
@@ -786,7 +786,7 @@ def _ingest_npo(world_total: int) -> dict[str, Any]:
 
 # ── Oil coverage ingest handlers ──────────────────────────────────────────────
 
-_OIL_ACTOR = "did:web:oil-coverage.gftd.ai"
+_OIL_ACTOR = "did:web:oil-coverage.etzhayyim.com"
 
 def _oil_vid(kind: str, *parts: str) -> str:
     return _stable_id(f"oil-{kind}", *parts)
@@ -871,7 +871,7 @@ def _ingest_oil_company(world_total: int) -> dict[str, Any]:
     with sync_cursor() as cur:
         for name, company_type, hq_country, sanctions_status in COMPANIES:
             vid = _oil_vid("company", name, hq_country)
-            company_did = f"did:web:oil-coverage.gftd.ai:co:{vid[-12:]}"
+            company_did = f"did:web:oil-coverage.etzhayyim.com:co:{vid[-12:]}"
             cur.execute(
                 "INSERT INTO vertex_oil_company "
                 "(vertex_id,did,repo,name,company_type,hq_country,sanctions_status,"
@@ -947,7 +947,7 @@ def _ingest_oil_refinery(world_total: int) -> dict[str, Any]:
     with sync_cursor() as cur:
         for name, hq_country in REFINERIES:
             vid = _oil_vid("refinery", name, hq_country)
-            company_did = f"did:web:oil-coverage.gftd.ai:ref:{vid[-12:]}"
+            company_did = f"did:web:oil-coverage.etzhayyim.com:ref:{vid[-12:]}"
             cur.execute(
                 "INSERT INTO vertex_oil_company "
                 "(vertex_id,did,repo,name,company_type,hq_country,sanctions_status,"
@@ -1593,8 +1593,8 @@ def _ingest_oil_trade(world_total: int) -> dict[str, Any]:
              volume, unit, price_basis) in FLOWS:
             trade_id = f"{exporter_cc}-{importer_cc}-{grade_code}-{ts}"
             vid = _oil_vid("trade", trade_id)
-            trader_did = f"did:web:oil-coverage.gftd.ai:country:{exporter_cc.lower()}"
-            counterparty_did = f"did:web:oil-coverage.gftd.ai:country:{importer_cc.lower()}"
+            trader_did = f"did:web:oil-coverage.etzhayyim.com:country:{exporter_cc.lower()}"
+            counterparty_did = f"did:web:oil-coverage.etzhayyim.com:country:{importer_cc.lower()}"
             cur.execute(
                 "INSERT INTO vertex_oil_trade "
                 "(vertex_id,repo,trade_id,trader_did,counterparty_did,commodity,"
@@ -2393,7 +2393,7 @@ def _ingest_natural_person(world_total: int) -> dict[str, Any]:
     with sync_cursor() as cur:
         for qid, name in humans:
             vertex_id = (
-                f"at://did:web:natural-person.gftd.ai"
+                f"at://did:web:natural-person.etzhayyim.com"
                 f"/ai.gftd.apps.naturalPerson.person/wd-{qid}"
             )
             cur.execute(
@@ -2636,9 +2636,9 @@ def _ingest_follows_history(world_total: int) -> dict[str, Any]:
 
     Reads actor DIDs from vertex_actor, paginates through their follows via
     the AT Protocol PDS, and inserts missing edge_follows rows.
-    PDS URL: ATPROTO_PDS_URL env var (default: https://atproto.gftd.ai).
+    PDS URL: ATPROTO_PDS_URL env var (default: https://atproto.etzhayyim.com).
     """
-    pds_url = os.environ.get("ATPROTO_PDS_URL", "https://atproto.gftd.ai").rstrip("/")
+    pds_url = os.environ.get("ATPROTO_PDS_URL", "https://atproto.etzhayyim.com").rstrip("/")
     actor_limit = min(int(world_total or 50), 200)
     ts = _utc_now()
 

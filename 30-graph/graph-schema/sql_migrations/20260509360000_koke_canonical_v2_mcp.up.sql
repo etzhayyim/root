@@ -17,29 +17,29 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:koke.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-scanRawSignals',
-   0, 0, 'ai.gftd.apps.koke.scanRawSignals', 'did:web:koke.gftd.ai', 'koke.gftd.ai', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-scanRawSignals',
+   0, 0, 'ai.gftd.apps.koke.scanRawSignals', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke scan raw signals (primary fixation layer).', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/scanRawSignals.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:koke.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-fixSignal',
-   0, 0, 'ai.gftd.apps.koke.fixSignal', 'did:web:koke.gftd.ai', 'koke.gftd.ai', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-fixSignal',
+   0, 0, 'ai.gftd.apps.koke.fixSignal', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke fix raw signal into a fixation.', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/fixSignal.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:koke.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-classifyFixation',
-   0, 0, 'ai.gftd.apps.koke.classifyFixation', 'did:web:koke.gftd.ai', 'koke.gftd.ai', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-classifyFixation',
+   0, 0, 'ai.gftd.apps.koke.classifyFixation', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke classify fixation kind / confidence.', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/classifyFixation.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:koke.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-handoffToHakkou',
-   0, 0, 'ai.gftd.apps.koke.handoffToHakkou', 'did:web:koke.gftd.ai', 'koke.gftd.ai', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-handoffToHakkou',
+   0, 0, 'ai.gftd.apps.koke.handoffToHakkou', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke handoff to hakkou (high-confidence fermentation layer).',
    '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/handoffToHakkou.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:koke.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-handoffToSaikin',
-   0, 0, 'ai.gftd.apps.koke.handoffToSaikin', 'did:web:koke.gftd.ai', 'koke.gftd.ai', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-handoffToSaikin',
+   0, 0, 'ai.gftd.apps.koke.handoffToSaikin', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke handoff to saikin (low-confidence horizontal-transfer layer).',
    '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/handoffToSaikin.json',
@@ -52,7 +52,7 @@ VALUES
   ('koke.cycle.v2', 0, 0, 'koke.cycle.v2', 2, 'topology', NULL,
    '{"state_keys":["scanOut","fixOut","classifyOut","hakkouOut","saikinOut","ok","error"],"entry":"scan","edges":[{"from":"fix","to":"classify"},{"from":"handoff_hakkou","to":"END"},{"from":"handoff_saikin","to":"END"}],"conditional_edges":[{"from":"scan","router":"pymagatama.langgraph_graphs.koke_cycle:_has_signals_gate","paths":{"fix":"fix","no_signals":"END"}},{"from":"classify","router":"pymagatama.langgraph_graphs.koke_cycle:_confidence_gate","paths":{"hakkou":"handoff_hakkou","saikin":"handoff_saikin"}}]}',
    'koke primary-fixation cycle (topology v2, mcp_tool nodes + conditional routers)',
-   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.koke.gftd.ai');
+   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.koke.etzhayyim.com');
 
 INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)

@@ -195,7 +195,7 @@ def make_mcp_tool_node(
     """Compile an MCP tool reference into an async node callable.
 
     ref = HTTP URL of the MCP endpoint (typically
-          https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message)
+          https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message)
           OR ``mcp://<nsid>`` for registry-resolved endpoints (ADR-2605082000 §2.6).
           When the ``mcp://`` prefix is used, ``pool_factory`` is required and
           ``config.args.name`` is auto-set to the nsid (override allowed).

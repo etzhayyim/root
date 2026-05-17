@@ -77,8 +77,8 @@ def test_summarize_status_reports_repairing_organism() -> None:
         email_outbound_rows=[{"status": "error", "provider": "resend"}],
         email_readiness={
             "ready": False,
-            "blockers": ["resend_dkim_missing:gftd.ai"],
-            "resendDomainStatuses": {"gftd.ai": "not_started"},
+            "blockers": ["resend_dkim_missing:etzhayyim.com"],
+            "resendDomainStatuses": {"etzhayyim.com": "not_started"},
         },
         development_memory={
             "available": True,

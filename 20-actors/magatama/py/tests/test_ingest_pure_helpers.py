@@ -85,14 +85,14 @@ def test_flight_offer_hash8_length() -> None:
 
 def test_flight_offer_vertex_id_shape() -> None:
     vid = FO._vertex_id("amadeus", "OFFER-123")
-    assert vid.startswith("at://did:web:flight-offer.gftd.ai/")
+    assert vid.startswith("at://did:web:flight-offer.etzhayyim.com/")
     assert "amadeus-OFFER-123" in vid
 
 
 def test_flight_offer_watch_vertex_id_shape() -> None:
     vid = FO._watch_vertex_id("TYO", "LAX", "2026-05-01", "USD")
     assert "TYO-LAX-2026-05-01-USD" in vid
-    assert vid.startswith("at://did:web:flight-offer.gftd.ai/")
+    assert vid.startswith("at://did:web:flight-offer.etzhayyim.com/")
 
 
 def test_parse_source_filter_empty_returns_all() -> None:

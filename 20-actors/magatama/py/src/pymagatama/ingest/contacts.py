@@ -13,7 +13,7 @@ from pymagatama.db_sync import sync_cursor
 
 CONTACTS_TOKEN_TABLE = "vertex_gcontacts_oauth_token"
 CONTACTS_TABLE = "vertex_gcontacts_contact"
-ACTOR_DID = "did:web:contacts.gftd.ai"
+ACTOR_DID = "did:web:contacts.etzhayyim.com"
 
 
 def now_iso() -> str:

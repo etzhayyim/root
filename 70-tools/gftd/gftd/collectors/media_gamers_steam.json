@@ -1,0 +1,19 @@
+{
+  "domain": "media_gamers",
+  "appHost": "media-gamers",
+  "repo": "did:web:media-gamers.etzhayyim.com",
+  "collection": "ai.gftd.apps.media_gamers.title",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3FsteamId%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ7889.%20%3Fitem%20wdt%3AP1733%20%3FsteamId.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%2010000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "steam-{{steamId.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "title": "{{itemLabel.value}}",
+    "steamAppId": "{{steamId.value}}"
+  },
+  "chunkSize": 200,
+  "note": "Wikidata Q7889 with Steam AppID (P1733) — high-quality subset, unique rkey via steam ID."
+}

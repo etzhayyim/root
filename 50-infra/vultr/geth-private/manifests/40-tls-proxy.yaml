@@ -12,7 +12,7 @@
 # plaintext to the in-cluster geth Service. CF zone SSL mode is "Full"
 # (not strict), so the self-signed cert is accepted.
 #
-# Companion CF state: Origin Rule on http.host == "geth-origin.gftd.ai"
+# Companion CF state: Origin Rule on http.host == "geth-origin.etzhayyim.com"
 # rewrites port to 30443.
 apiVersion: v1
 kind: ConfigMap
@@ -28,17 +28,17 @@ data:
     }
 
     # `tls internal` issues a cert for the listener hostname using caddy's
-    # local CA. Cloudflare's "Full" SSL mode (gftd.ai default) accepts any
+    # local CA. Cloudflare's "Full" SSL mode (etzhayyim.com default) accepts any
     # cert during the CF→origin handshake, so a self-signed local-CA cert
     # is enough to satisfy the TLS leg. Caddy serves the same site for any
     # SNI on port 8443 — the explicit hostname is only used to scope which
     # name the cert is issued for.
-    # `tls internal` refuses public hostnames (`geth-origin.gftd.ai` is
+    # `tls internal` refuses public hostnames (`geth-origin.etzhayyim.com` is
     # public-shaped). We sidestep that by mounting a pre-generated
     # self-signed cert from the `caddy-geth-cert` Secret (10y validity).
-    # Cloudflare's "Full" SSL mode (gftd.ai default) accepts any cert
+    # Cloudflare's "Full" SSL mode (etzhayyim.com default) accepts any cert
     # during the CF→origin handshake, so a self-signed leaf is enough.
-    https://geth-origin.gftd.ai:8443 {
+    https://geth-origin.etzhayyim.com:8443 {
       tls /tls/tls.crt /tls/tls.key
       reverse_proxy http://geth-private.geth-private.svc.cluster.local:8545 {
         # Strip any caller-supplied Worker auth header — it's enforced at

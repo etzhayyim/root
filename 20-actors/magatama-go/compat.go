@@ -521,7 +521,7 @@ const DefaultMurakumoModel = "qwen3-vl-8b"
 func CallMurakumo(cfg MurakumoConfig, messages []ChatMsg) (string, error) {
 	endpoint := cfg.Endpoint
 	if endpoint == "" {
-		endpoint = "https://murakumo.gftd.ai/api/openai/v1/chat/completions"
+		endpoint = "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions"
 	}
 	model := cfg.Model
 	if model == "" {

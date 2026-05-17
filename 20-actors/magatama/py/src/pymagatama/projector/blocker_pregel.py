@@ -22,7 +22,7 @@ _log = logging.getLogger(__name__)
 
 _DB_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 
 MAX_SUPERSTEPS = 2

@@ -15,7 +15,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-PDS_DID = "did:web:atproto.gftd.ai"
+PDS_DID = "did:web:atproto.etzhayyim.com"
 MITAMA_CRON_COLLECTION = "ai.gftd.apps.pds.mitamaCronResync"
 DEFAULT_TIMEOUT_SEC = 60.0
 
@@ -125,7 +125,7 @@ def task_pds_mitama_cron_triggers_resync(
     pdsUrl: str = "",
     flush: bool = True,
 ) -> dict[str, Any]:
-    url = pdsUrl or os.environ.get("PDS_URL") or "https://atproto.gftd.ai"
+    url = pdsUrl or os.environ.get("PDS_URL") or "https://atproto.etzhayyim.com"
     secret = os.environ.get("PDS_SERVICE_AUTH_MINT_SECRET") or os.environ.get("PDS_INTERNAL_HMAC_SECRET") or ""
     ts = _utc_now_iso()
     if not secret:

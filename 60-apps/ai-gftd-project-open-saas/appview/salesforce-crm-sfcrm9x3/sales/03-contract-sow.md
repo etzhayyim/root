@@ -11,13 +11,13 @@ Template is splittable into three instruments so procurement / legal can route i
 **Parties.** GFTD Co., Jp. ("Provider") and `<Customer legal name>` ("Customer").
 
 **1. Definitions**
-- **Tenant DID**: the `did:web:<slug>.opensaas.gftd.ai` identifier provisioned for Customer. Controls all Customer data written to `ai.gftd.apps.opensaas.salesforce.*` collections.
-- **Seat DID**: a path-based DID `did:web:<slug>.opensaas.gftd.ai:seat:<role>-<nn>`. One per named human user.
+- **Tenant DID**: the `did:web:<slug>.opensaas.etzhayyim.com` identifier provisioned for Customer. Controls all Customer data written to `ai.gftd.apps.opensaas.salesforce.*` collections.
+- **Seat DID**: a path-based DID `did:web:<slug>.opensaas.etzhayyim.com:seat:<role>-<nn>`. One per named human user.
 - **Tier-1 Data**: records under `ai.gftd.apps.opensaas.salesforce.{account,contact,lead,opportunity,case,activity}`. Public within the tenant, federation-ready.
 - **Tier-3 Data**: raw PII + exact financials stored in per-tenant Preferences vault (AES-KW + device-key-unwrapped). Never present in Tier-1 AT records.
 - **Content-addressed activity**: `activity` records emitted by the PDS commit pipeline `derive` rule. Each row is cryptographically tied to the `opportunity` / `case` / `lead` commit that caused it.
 
-**2. Grant.** Provider grants Customer a non-exclusive, non-transferable right to access `https://salesforce.opensaas.gftd.ai/` and the underlying XRPC methods (`createLead`, `convertLead`, `listPipeline`, all `com.atproto.repo.*` scoped to the Tenant DID) for Customer's internal business use.
+**2. Grant.** Provider grants Customer a non-exclusive, non-transferable right to access `https://salesforce.opensaas.etzhayyim.com/` and the underlying XRPC methods (`createLead`, `convertLead`, `listPipeline`, all `com.atproto.repo.*` scoped to the Tenant DID) for Customer's internal business use.
 
 **3. Data ownership.** Customer owns all content written under the Tenant DID. Provider owns the open-salesforce software, lexicons, and derive-rule engine. Export obligation: on termination, Provider delivers, within 30 days, a repo-archive dump of every record under the Tenant DID in AT Protocol JSON + Iceberg Parquet. No egress fee.
 
@@ -30,7 +30,7 @@ Template is splittable into three instruments so procurement / legal can route i
 - Secrets (Salesforce import credentials, SAP webhook tokens, Murakumo API keys): `gftd vault` zero-knowledge store, never in env vars.
 - Audit log: every XRPC call hits the append-only `ai.gftd.audit.*` stream, retention 7y, exportable as OCEL 2.0.
 
-**7. Uptime.** 99.5% monthly for `https://salesforce.opensaas.gftd.ai/`. Service credit: 5% of monthly fee per 1% miss, capped at 50%. Scheduled maintenance windows (Sun 02:00–04:00 local) excluded.
+**7. Uptime.** 99.5% monthly for `https://salesforce.opensaas.etzhayyim.com/`. Service credit: 5% of monthly fee per 1% miss, capped at 50%. Scheduled maintenance windows (Sun 02:00–04:00 local) excluded.
 
 **8. LLM use.** If Customer enables per-seat LLM, invocation targets the Murakumo fleet DID configured in the Order Form. Provider does not retain Customer prompt content. Customer may substitute its own LLM endpoint via `magatama.Invoke` at any time.
 
@@ -47,10 +47,10 @@ Template is splittable into three instruments so procurement / legal can route i
 | Field | Value |
 |---|---|
 | Customer legal name | `<to fill>` |
-| Tenant DID | `did:web:<slug>.opensaas.gftd.ai` |
+| Tenant DID | `did:web:<slug>.opensaas.etzhayyim.com` |
 | Region | `JPN` \| `EUR` |
 | Seats included | `unlimited` (flat plan) |
-| Murakumo LLM fleet | `did:web:murakumo.gftd.ai:fleet:<tier>` |
+| Murakumo LLM fleet | `did:web:murakumo.etzhayyim.com:fleet:<tier>` |
 | Platform Fee (annual, 3 yr) | ¥`<pricing node 08>` |
 | Start date | `<YYYY-MM-DD>` |
 | Co-marketing logo rights | ☐ opt-in (discount applies only if checked) |

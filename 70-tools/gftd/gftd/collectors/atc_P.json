@@ -1,0 +1,19 @@
+{
+  "domain": "atc",
+  "appHost": "atc.etzhayyim.com",
+  "repo": "did:web:atc.etzhayyim.com",
+  "collection": "ai.gftd.apps.atc.code",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3FatcCode%20WHERE%20%7B%20%3Fitem%20wdt%3AP267%20%3FatcCode.%20FILTER%28STRSTARTS%28%3FatcCode%2C%22P%22%29%20%26%26%20STRLEN%28%3FatcCode%29%20%3D%207%29%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%2010000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "atc-{{atcCode.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}",
+    "atcCode": "{{atcCode.value}}"
+  },
+  "chunkSize": 500,
+  "note": "WHO ATC codes letter P from Wikidata P267."
+}

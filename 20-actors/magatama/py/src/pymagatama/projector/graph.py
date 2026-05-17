@@ -33,9 +33,9 @@ _log = logging.getLogger(__name__)
 
 _DB_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
-_OWNER_DID = os.getenv("PROJECTOR_OWNER_DID", "did:web:projector.gftd.ai")
+_OWNER_DID = os.getenv("PROJECTOR_OWNER_DID", "did:web:projector.etzhayyim.com")
 
 
 # ── State ──────────────────────────────────────────────────────────────────────

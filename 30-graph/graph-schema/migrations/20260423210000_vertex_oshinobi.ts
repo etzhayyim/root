@@ -6,7 +6,7 @@ import { sql } from "kysely";
 // tier: C
 
 /**
- * oshinobi.gftd.ai — creator subscription platform schema (Phase 1).
+ * oshinobi.etzhayyim.com — creator subscription platform schema (Phase 1).
  *
  * Principles:
  *   - AT Repo carries Tier 1 metadata (creator handle, tier name, post slug).

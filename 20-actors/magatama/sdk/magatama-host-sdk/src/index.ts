@@ -147,12 +147,12 @@ async function resolveSigningPublicMultikey(env: Record<string, unknown>): Promi
 
 /** Create the host SDK singleton.
  *  selfRepo = canonical nanoid DID (AT Protocol compliant: repo = DID, never handle).
- *  Vanity domains (e.g. pachinko.gftd.ai) are handles, not DIDs — never used as repo. */
+ *  Vanity domains (e.g. pachinko.etzhayyim.com) are handles, not DIDs — never used as repo. */
 export function createHostSDK(config: HostSDKConfig): HostSDK {
   const nanoid = config.appDef.id || "";
   const selfRepo = (config.env["PERFORMER_DID"] as string)
     ?? (config.env["APP_DID"] as string)
-    ?? (nanoid ? `did:web:${nanoid}.gftd.ai` : "");
+    ?? (nanoid ? `did:web:${nanoid}.etzhayyim.com` : "");
   const appName = config.appDef.name || config.appDef.id || "";
 
   const pds = new XrpcClient({

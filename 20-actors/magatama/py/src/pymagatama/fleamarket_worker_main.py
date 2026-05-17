@@ -1,4 +1,4 @@
-"""fleamarket.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""fleamarket.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -23,7 +23,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.fleamarket.createListing")
     async def task_create_listing(**kwargs):
         title = kwargs.get("title", "")
-        seller_did = kwargs.get("sellerDid", "did:web:fleamarket.gftd.ai")
+        seller_did = kwargs.get("sellerDid", "did:web:fleamarket.etzhayyim.com")
         price = float(kwargs.get("price", 0))
         currency = kwargs.get("currency", "JPY")
         description = kwargs.get("description", "")
@@ -43,7 +43,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)""",
                 vertex_id, 0, date.today(), 0, seller_did,
                 listing_id, title, seller_did, price, currency, description, category, "active",
-                "did:web:fleamarket.gftd.ai", "did:web:fleamarket.gftd.ai", now, now,
+                "did:web:fleamarket.etzhayyim.com", "did:web:fleamarket.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -109,7 +109,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.fleamarket.createBid")
     async def task_create_bid(**kwargs):
         listing_id = kwargs.get("listingId", "")
-        bidder_did = kwargs.get("bidderDid", "did:web:fleamarket.gftd.ai")
+        bidder_did = kwargs.get("bidderDid", "did:web:fleamarket.etzhayyim.com")
         amount = float(kwargs.get("amount", 0))
 
         bid_id = str(uuid.uuid4())
@@ -151,8 +151,8 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.fleamarket.createTransaction")
     async def task_create_transaction(**kwargs):
         listing_id = kwargs.get("listingId", "")
-        buyer_did = kwargs.get("buyerDid", "did:web:fleamarket.gftd.ai")
-        seller_did = kwargs.get("sellerDid", "did:web:fleamarket.gftd.ai")
+        buyer_did = kwargs.get("buyerDid", "did:web:fleamarket.etzhayyim.com")
+        seller_did = kwargs.get("sellerDid", "did:web:fleamarket.etzhayyim.com")
         amount = float(kwargs.get("amount", 0))
         currency = kwargs.get("currency", "JPY")
 
@@ -170,7 +170,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)""",
                 vertex_id, 0, date.today(), 0, buyer_did,
                 tx_id, listing_id, buyer_did, seller_did, amount, currency, "pending",
-                "did:web:fleamarket.gftd.ai", "did:web:fleamarket.gftd.ai", now, now,
+                "did:web:fleamarket.etzhayyim.com", "did:web:fleamarket.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

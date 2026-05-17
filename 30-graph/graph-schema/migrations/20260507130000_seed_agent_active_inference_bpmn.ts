@@ -8,16 +8,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const CREATED_AT = "2026-05-07T13:00:00Z";
 const ACTOR_ID = "sys.bpmn.seed.agent-active-inference";
 
 const ENTRIES = [
   {
     processVid:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-active-inference-tick-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-active-inference-tick-v1",
     bindingVid:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1",
     bpmnProcessId: "agent_active_inference_tick",
     nsid: "ai.gftd.apps.agent.activeInferenceTick",
     sourcePath: "00-contracts/bpmn/ai/gftd/agent/activeInferenceTick.bpmn",
@@ -25,9 +25,9 @@ const ENTRIES = [
   },
   {
     processVid:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-homeostasis-watch-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-homeostasis-watch-v1",
     bindingVid:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1",
     bpmnProcessId: "agent_homeostasis_watch",
     nsid: "ai.gftd.apps.agent.recordHomeostasis",
     sourcePath: "00-contracts/bpmn/ai/gftd/agent/homeostasisWatch.bpmn",
@@ -35,9 +35,9 @@ const ENTRIES = [
   },
   {
     processVid:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1",
     bindingVid:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1",
     bpmnProcessId: "agent_realworld_effect_dispatch",
     nsid: "ai.gftd.apps.agent.classifyRealWorldEffect",
     sourcePath: "00-contracts/bpmn/ai/gftd/agent/realWorldEffectDispatch.bpmn",

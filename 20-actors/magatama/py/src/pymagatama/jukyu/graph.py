@@ -112,8 +112,8 @@ def _insert_run(state: JukyuState, status: str, summary: dict[str, Any] | None =
         (
             vertex_id,
             _now_iso()[:10],
-            "did:web:jukyu.gftd.ai",
-            "did:web:jukyu.gftd.ai",
+            "did:web:jukyu.etzhayyim.com",
+            "did:web:jukyu.etzhayyim.com",
             run_id,
             "jukyu_global_equilibrium_v1",
             state.get("domain"),
@@ -126,7 +126,7 @@ def _insert_run(state: JukyuState, status: str, summary: dict[str, Any] | None =
             status,
             json.dumps(summary or {}, ensure_ascii=False, sort_keys=True),
             "ai.gftd.apps.jukyu.pregelRun",
-            "did:web:jukyu.gftd.ai",
+            "did:web:jukyu.etzhayyim.com",
             "did:web:gftd.co.jp",
         ),
     )
@@ -432,7 +432,7 @@ def _upsert_company_exposures(exposures: list[dict[str, Any]], run_id: str) -> i
             """,
             (
                 vertex_id, _now_iso()[:10], 1,
-                "did:web:jukyu.gftd.ai", "did:web:jukyu.gftd.ai",
+                "did:web:jukyu.etzhayyim.com", "did:web:jukyu.etzhayyim.com",
                 exposure_id, pregel_run_id, company_did,
                 str(row.get("company_name") or company_did),
                 domain, country,
@@ -449,7 +449,7 @@ def _upsert_company_exposures(exposures: list[dict[str, Any]], run_id: str) -> i
                 "Review alternate supply routes, term coverage, and inventory buffer.",
                 "active",
                 "ai.gftd.apps.jukyu.companyExposure",
-                "did:web:jukyu.gftd.ai",
+                "did:web:jukyu.etzhayyim.com",
                 "did:web:gftd.co.jp",
             ),
         )
@@ -624,7 +624,7 @@ def write_signals(state: JukyuState) -> dict[str, Any]:
             """,
             (
                 vertex_id, _now_iso()[:10], 1,
-                "did:web:jukyu.gftd.ai", "did:web:jukyu.gftd.ai",
+                "did:web:jukyu.etzhayyim.com", "did:web:jukyu.etzhayyim.com",
                 signal_id, run_id,
                 company_did, "mcp",
                 domain, row.get("country_code"),
@@ -637,7 +637,7 @@ def write_signals(state: JukyuState) -> dict[str, Any]:
                 "pending",
                 _now_iso(),
                 "ai.gftd.apps.jukyu.notificationSignal",
-                "did:web:jukyu.gftd.ai",
+                "did:web:jukyu.etzhayyim.com",
                 "did:web:gftd.co.jp",
             ),
         )

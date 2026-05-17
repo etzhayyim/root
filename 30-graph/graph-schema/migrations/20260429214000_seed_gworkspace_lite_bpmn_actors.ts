@@ -111,10 +111,10 @@ seeds.push(
   },
 );
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${s.app}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${s.app}-${s.slug}-v1`;
 const bindingSlug = (s: Seed) => s.slug === "cron-tick" ? "cronTick" : s.slug;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${s.app}-${bindingSlug(s)}-v1`;
-const ownerDid = (app: string) => `did:web:${app}.gftd.ai`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${s.app}-${bindingSlug(s)}-v1`;
+const ownerDid = (app: string) => `did:web:${app}.etzhayyim.com`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

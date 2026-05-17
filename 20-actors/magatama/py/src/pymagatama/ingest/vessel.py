@@ -10,8 +10,8 @@ from uuid import uuid4
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:v3ss3l01.gftd.ai"
-PUBLIC_DID = "did:web:vessel.gftd.ai"
+OWNER_DID = "did:web:v3ss3l01.etzhayyim.com"
+PUBLIC_DID = "did:web:vessel.etzhayyim.com"
 NANOID = "v3ss3l01"
 
 LABEL_COLLECTION = {

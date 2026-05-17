@@ -251,7 +251,7 @@ class TestKpiSnapshotRlsAllowsAuthorizedDid(unittest.TestCase):
             )
             out = asyncio.run(task_lawfirm_kpi_snapshot(
                 window_months=6, currency="USD",
-                requester_did="did:web:j-kawasaki.gftd.ai",
+                requester_did="did:web:j-kawasaki.etzhayyim.com",
             ))
             self.assertTrue(out["ok"])
             self.assertEqual(len(out["revenue_by_month"]), 1)
@@ -304,7 +304,7 @@ class TestKpiSnapshotEmptyDataSafe(unittest.TestCase):
                 task_lawfirm_kpi_snapshot,
             )
             out = asyncio.run(task_lawfirm_kpi_snapshot(
-                requester_did="did:web:k-bakshi.gftd.ai",
+                requester_did="did:web:k-bakshi.etzhayyim.com",
             ))
             self.assertTrue(out["ok"])
             self.assertEqual(out["revenue_by_month"], [])

@@ -58,8 +58,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`CREATE INDEX IF NOT EXISTS idx_edge_dc_dep_global_path ON edge_data_center_dependency_global (from_node_key, to_node_key)`.execute(db);
   await sql`CREATE INDEX IF NOT EXISTS idx_edge_dc_dep_global_criticality ON edge_data_center_dependency_global (criticality, path_weight)`.execute(db);
 
-  await sql`DELETE FROM edge_data_center_dependency_global WHERE actor_did = 'did:web:data-center-ops.gftd.ai'`.execute(db);
-  await sql`DELETE FROM vertex_data_center_dependency_global WHERE actor_did = 'did:web:data-center-ops.gftd.ai'`.execute(db);
+  await sql`DELETE FROM edge_data_center_dependency_global WHERE actor_did = 'did:web:data-center-ops.etzhayyim.com'`.execute(db);
+  await sql`DELETE FROM vertex_data_center_dependency_global WHERE actor_did = 'did:web:data-center-ops.etzhayyim.com'`.execute(db);
 
   await sql`
     INSERT INTO vertex_data_center_dependency_global (

@@ -24,7 +24,7 @@ spec:
       terminationGracePeriodSeconds: 120
       containers:
         - name: tonbo
-          image: ghcr.io/gftdcojp/tonbo:latest
+          image: ghcr.io/etzhayyim/tonbo:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8084

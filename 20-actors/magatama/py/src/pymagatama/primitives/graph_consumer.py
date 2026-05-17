@@ -19,7 +19,7 @@ from pymagatama.db_sync import sync_cursor
 from pymagatama import rw_schema
 
 
-GRAPH_DID = "did:web:graph.gftd.ai"
+GRAPH_DID = "did:web:graph.etzhayyim.com"
 CONSUME_TICK_COLLECTION = "ai.gftd.apps.graph.consumeTick"
 DEFAULT_TIMEOUT_SEC = 30.0
 

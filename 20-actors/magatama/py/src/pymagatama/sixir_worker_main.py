@@ -1,4 +1,4 @@
-"""6ir.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""6ir.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -131,7 +131,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.sixir.submitAnalysis")
     async def task_submit_analysis(**kwargs):
         company_id = kwargs.get("companyId", "")
-        analyst_did = kwargs.get("analystDid", "did:web:6ir.gftd.ai")
+        analyst_did = kwargs.get("analystDid", "did:web:6ir.etzhayyim.com")
         rating = kwargs.get("rating", "neutral")
         target_price = float(kwargs.get("targetPrice", 0))
         notes = kwargs.get("notes", "")

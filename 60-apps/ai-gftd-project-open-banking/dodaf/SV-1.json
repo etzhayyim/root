@@ -2,7 +2,7 @@
   "viewId": "open-banking.SV-1",
   "viewType": "SV-1",
   "title": "Systems Interface Description",
-  "did": "did:web:open-banking.gftd.ai",
+  "did": "did:web:open-banking.etzhayyim.com",
   "format": "json",
   "content": {
     "systems": [
@@ -27,7 +27,7 @@
       },
       {
         "id": "sys.pds",
-        "name": "atproto.gftd.ai PDS",
+        "name": "atproto.etzhayyim.com PDS",
         "platform": "Service binding",
         "interfaces": [
           { "id": "if.pds.post", "kind": "wRPC", "method": "app.bsky.feed.post" }
@@ -35,7 +35,7 @@
       },
       {
         "id": "sys.auth",
-        "name": "auth.gftd.ai",
+        "name": "auth.etzhayyim.com",
         "platform": "Service binding",
         "interfaces": [
           { "id": "if.auth.resolveCaller", "kind": "wRPC", "method": "resolveCallerDid" }

@@ -1,6 +1,6 @@
 """NDL image-first ingest primitives.
 
-This path is intentionally separate from isbn.gftd.ai. NDL Digital
+This path is intentionally separate from isbn.etzhayyim.com. NDL Digital
 Collections and Online Publications are keyed by NDL pid/provider, and many
 records do not have ISBNs. The durable image body is WebP in B2; RisingWave
 stores catalog metadata, page image hashes, OCR text, and run/cursor state.
@@ -32,7 +32,7 @@ from PIL import Image
 
 from pymagatama.db_alchemy import sa_execute_one, sa_rowcount
 
-_ACTOR = "did:web:ndl.gftd.ai"
+_ACTOR = "did:web:ndl.etzhayyim.com"
 _B2_BUCKET = os.environ.get("B2_NDL_BUCKET", "ai-gftd-ndl").strip() or "ai-gftd-ndl"
 _B2_PREFIX = os.environ.get("B2_NDL_PREFIX", "ndl/").strip().strip("/") + "/"
 
@@ -87,7 +87,7 @@ def _sha256(data: bytes) -> str:
 def _http_get(url: str, *, timeout: float = 60.0, accept: str = "*/*") -> bytes:
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "ndl.gftd.ai/0.1", "Accept": accept},
+        headers={"User-Agent": "ndl.etzhayyim.com/0.1", "Accept": accept},
         method="GET",
     )
     try:
@@ -507,7 +507,7 @@ async def _ocr_webp(webp: bytes) -> dict[str, Any]:
             from pymagatama.primitives.ipfs_ingest import add_content
 
             cid = await add_content(webp, f"ndl-page-{_sha256(webp)[:16]}.webp")
-            image_url = f"https://ipfs.gftd.ai/ipfs/{cid}"
+            image_url = f"https://ipfs.etzhayyim.com/ipfs/{cid}"
         except Exception:
             image_url = ""
     if not image_url:
@@ -515,7 +515,7 @@ async def _ocr_webp(webp: bytes) -> dict[str, Any]:
         image_url = f"data:image/webp;base64,{b64}"
 
     model = os.environ.get("NDL_OCR_MODEL") or os.environ.get("JP_CORP_FINANCE_OCR_MODEL") or "gemma-4-e2b-it"
-    llm_url = os.environ.get("NDL_OCR_URL") or os.environ.get("LLM_CHAT_COMPLETIONS_URL") or os.environ.get("GFTD_LLM_URL") or "https://llm.gftd.ai/v1/chat/completions"
+    llm_url = os.environ.get("NDL_OCR_URL") or os.environ.get("LLM_CHAT_COMPLETIONS_URL") or os.environ.get("GFTD_LLM_URL") or "https://llm.etzhayyim.com/v1/chat/completions"
     headers = {"Content-Type": "application/json", "x-magatama-verified": "true"}
     token = os.environ.get("LLM_GFTD_BEARER") or os.environ.get("GFTD_LLM_API_KEY") or os.environ.get("LLM_API_KEY") or ""
     if token:

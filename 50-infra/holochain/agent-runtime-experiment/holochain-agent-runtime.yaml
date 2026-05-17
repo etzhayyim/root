@@ -6,8 +6,8 @@ metadata:
   labels:
     app.kubernetes.io/component: holochain-runtime
   annotations:
-    gftd.ai/runtime-kind: holochain
-    gftd.ai/runtime-task-types: actor-event,actor-head,capability-grant
+    etzhayyim.com/runtime-kind: holochain
+    etzhayyim.com/runtime-task-types: actor-event,actor-head,capability-grant
 spec:
   serviceName: holochain-agent-runtime
   replicas: 1
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: conductor
-          image: ghcr.io/gftdcojp/holochain-agent-runtime:experimental
+          image: ghcr.io/etzhayyim/holochain-agent-runtime:experimental
           ports:
             - name: app-ws
               containerPort: 8888

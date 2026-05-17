@@ -12,7 +12,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-OS_DID = "did:web:os.gftd.ai"
+OS_DID = "did:web:os.etzhayyim.com"
 APP_ID = "os"
 
 
@@ -201,7 +201,7 @@ def _filter(collection: str, pred: Any, *, limit: int = 100) -> list[dict[str, A
 
 def task_os_agent_spawn(appId: str = "", name: str = "", config: Any = None, **_: Any) -> dict[str, Any]:
     agent_id = _id("agent")
-    did = f"did:web:{appId}.gftd.ai" if appId else f"did:web:{agent_id}.gftd.ai"
+    did = f"did:web:{appId}.etzhayyim.com" if appId else f"did:web:{agent_id}.etzhayyim.com"
     ts = _now()
     _insert("ai.gftd.apps.os.agent", {
         "agentId": agent_id, "did": did, "appId": appId, "name": name, "status": "active",

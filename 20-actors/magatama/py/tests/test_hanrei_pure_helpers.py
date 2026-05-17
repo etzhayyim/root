@@ -12,7 +12,7 @@ if str(_py_src) not in sys.path:
 
 from pymagatama.primitives import hanrei as HR
 
-_OWNER_DID = "did:web:hanrei.gftd.ai"
+_OWNER_DID = "did:web:hanrei.etzhayyim.com"
 
 
 # ─── _job_vid ─────────────────────────────────────────────────────────────────

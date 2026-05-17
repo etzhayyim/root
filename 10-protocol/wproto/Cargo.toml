@@ -4,17 +4,17 @@ version = "0.1.0"
 edition = "2024"
 license = "Apache-2.0"
 description = "W Protocol: AT Protocol + Signal Protocol over wRPC/WIT, with MDAG content-addressed sync"
-repository = "https://github.com/gftdcojp/wproto"
-homepage = "https://github.com/gftdcojp/wproto"
+repository = "https://github.com/etzhayyim/root/10-protocol/wproto"
+homepage = "https://github.com/etzhayyim/root/10-protocol/wproto"
 
 [dependencies]
 # yata integration (MDAG, CAS, Signal, AT)
-yata-core = { git = "https://github.com/gftdcojp/yata.git" }
-yata-cas = { git = "https://github.com/gftdcojp/yata.git" }
-yata-cbor = { git = "https://github.com/gftdcojp/yata.git" }
-yata-mdag = { git = "https://github.com/gftdcojp/yata.git" }
-yata-at = { git = "https://github.com/gftdcojp/yata.git" }
-yata-signal = { git = "https://github.com/gftdcojp/yata.git" }
+yata-core = { git = "https://github.com/etzhayyim/root/50-infra/yata.git" }
+yata-cas = { git = "https://github.com/etzhayyim/root/50-infra/yata.git" }
+yata-cbor = { git = "https://github.com/etzhayyim/root/50-infra/yata.git" }
+yata-mdag = { git = "https://github.com/etzhayyim/root/50-infra/yata.git" }
+yata-at = { git = "https://github.com/etzhayyim/root/50-infra/yata.git" }
+yata-signal = { git = "https://github.com/etzhayyim/root/50-infra/yata.git" }
 
 # Serialization
 serde = { version = "1", features = ["derive"] }

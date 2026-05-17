@@ -53,7 +53,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       error_message    VARCHAR,
 
       -- ADR-0095 canonical columns
-      actor_did        VARCHAR DEFAULT 'did:web:ingest.gftd.ai',
+      actor_did        VARCHAR DEFAULT 'did:web:ingest.etzhayyim.com',
       org_did          VARCHAR,
       at_did           VARCHAR,
       created_at       TIMESTAMP NOT NULL
@@ -82,7 +82,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       features_json    VARCHAR,               -- column schema as JSON string
 
       -- ADR-0095
-      actor_did        VARCHAR DEFAULT 'did:web:ingest.gftd.ai',
+      actor_did        VARCHAR DEFAULT 'did:web:ingest.etzhayyim.com',
       org_did          VARCHAR,
       at_did           VARCHAR,
       created_at       TIMESTAMP NOT NULL
@@ -107,7 +107,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       blob_url         VARCHAR,               -- https://huggingface.co/datasets/{repo_id}/resolve/main/{path}
 
       -- ADR-0095
-      actor_did        VARCHAR DEFAULT 'did:web:ingest.gftd.ai',
+      actor_did        VARCHAR DEFAULT 'did:web:ingest.etzhayyim.com',
       org_did          VARCHAR,
       at_did           VARCHAR,
       created_at       TIMESTAMP NOT NULL
@@ -146,7 +146,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       match_count      INTEGER DEFAULT 0,
 
       -- ADR-0095
-      actor_did        VARCHAR DEFAULT 'did:web:ingest.gftd.ai',
+      actor_did        VARCHAR DEFAULT 'did:web:ingest.etzhayyim.com',
       org_did          VARCHAR,
       at_did           VARCHAR,
       created_at       TIMESTAMP NOT NULL

@@ -1,6 +1,6 @@
 """Arbitrage signal business logic for Zeebe workers.
 
-This module owns the logic formerly implemented in the ``arb.gftd.ai``
+This module owns the logic formerly implemented in the ``arb.etzhayyim.com``
 Cloudflare Worker. The Worker is now an edge facade that forwards XRPC to the
 BPMN dispatcher.
 """
@@ -19,7 +19,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:arb.gftd.ai"
+OWNER_DID = "did:web:arb.etzhayyim.com"
 DISCLAIMER = "Educational signal. Not advice. No execution."
 ASSET_CLASSES = {"eq", "fut", "fx", "com", "re", "cr"}
 STOOQ_SYMBOLS: dict[str, list[str]] = {
@@ -292,7 +292,7 @@ def score_proposal(proposal_id: str, model: str = "heuristic-v1") -> dict[str, A
     return {"ok": True, "score": score, "riskNotes": risk_notes, "model": model}
 
 
-def publish_proposal(proposal_id: str, mention_cohort: str = "trader.gftd.ai", disclaimer: str = DISCLAIMER) -> dict[str, Any]:
+def publish_proposal(proposal_id: str, mention_cohort: str = "trader.etzhayyim.com", disclaimer: str = DISCLAIMER) -> dict[str, Any]:
     if not proposal_id:
         return {"ok": False, "error": "InvalidRequest", "message": "proposalId required"}
     row = _fetch_one(

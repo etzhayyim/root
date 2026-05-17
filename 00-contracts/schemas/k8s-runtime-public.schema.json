@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/schemas/k8s-runtime-public/v1.json",
+  "$id": "https://etzhayyim.com/schemas/k8s-runtime-public/v1.json",
   "title": "GFTD Public k8s Runtime Projection",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema", "cluster", "namespace", "workload", "image", "runtime", "redactions"],
   "properties": {
     "schema": {
-      "const": "https://gftd.ai/schemas/k8s-runtime-public/v1.json"
+      "const": "https://etzhayyim.com/schemas/k8s-runtime-public/v1.json"
     },
     "cluster": { "type": "string", "minLength": 1 },
     "namespace": { "type": "string", "not": { "const": "default" } },

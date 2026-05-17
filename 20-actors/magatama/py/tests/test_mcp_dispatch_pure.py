@@ -615,12 +615,12 @@ async def test_sql_insert_row_derives_vertex_id_from_template(monkeypatch):
         table="vertex_hr_event",
         row={"name": "alice"},
         vertex_id_template="at://{owner_did}/{collection}/{stamp}-{nanoid8}",
-        owner_did="did:web:bpmn.gftd.ai",
+        owner_did="did:web:bpmn.etzhayyim.com",
         collection="ai.gftd.apps.hr.event",
     )
     assert out["ok"] is True
     vid = out["vertexId"]
-    # Shape: at://did:web:bpmn.gftd.ai/ai.gftd.apps.hr.event/<14digits>-<8hex>
+    # Shape: at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.hr.event/<14digits>-<8hex>
     assert _re.match(
         r"^at://did:web:bpmn\.gftd\.ai/ai\.gftd\.apps\.hr\.event/\d{14}-[0-9a-f]{8}$",
         vid,
@@ -922,7 +922,7 @@ async def test_task_audit_emit_requires_repo_collection_action():
     from pymagatama.tools_audit_worker_main import task_audit_emit
     out = await task_audit_emit()
     assert "error" in out
-    out2 = await task_audit_emit(repo="did:web:x.gftd.ai")
+    out2 = await task_audit_emit(repo="did:web:x.etzhayyim.com")
     assert "error" in out2
 
 
@@ -950,18 +950,18 @@ async def test_task_audit_emit_returns_vertex_id_and_rkey(monkeypatch):
     monkeypatch.setitem(sys.modules, "pymagatama.db_sync", fake_mod)
 
     out = await mod.task_audit_emit(
-        repo="did:web:shosha.gftd.ai",
+        repo="did:web:shosha.etzhayyim.com",
         collection="ai.gftd.apps.shosha.audit",
         rkey="r-123",
         action="ingest",
         recordJson={"foo": 1},
     )
 
-    assert out["vertexId"] == "did:web:shosha.gftd.ai:ai.gftd.apps.shosha.audit:r-123:ingest"
+    assert out["vertexId"] == "did:web:shosha.etzhayyim.com:ai.gftd.apps.shosha.audit:r-123:ingest"
     assert out["rkey"] == "r-123"
     assert "error" not in out
     # SQL params order: vertex_id, repo, collection, rkey, action, ts_ms, record_json
-    assert captured["params"][1] == "did:web:shosha.gftd.ai"
+    assert captured["params"][1] == "did:web:shosha.etzhayyim.com"
     assert captured["params"][2] == "ai.gftd.apps.shosha.audit"
     assert captured["params"][6] == '{"foo":1}'
 

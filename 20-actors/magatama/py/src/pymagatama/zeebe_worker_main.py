@@ -1279,7 +1279,7 @@ async def _maybe_record_runtime_receipt(
 import urllib.error as _u_err  # noqa: E402  (kept beside use site)
 import urllib.request as _u_req  # noqa: E402
 
-_PDS_BASE = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
+_PDS_BASE = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
 _PDS_SERVICE_AUTH_TOKEN = os.environ.get("PDS_SERVICE_AUTH_TOKEN", "").strip()
 _PDS_SERVICE_AUTH_MINT_URL = os.environ.get(
     "PDS_SERVICE_AUTH_MINT_URL",
@@ -1305,12 +1305,12 @@ _BPMN_DISPATCHER_INTERNAL_URL = os.environ.get(
 _BPMN_DISPATCHER_INTERNAL_SECRET = os.environ.get("BPMN_DISPATCHER_INTERNAL_SECRET", "").strip()
 _AT_SOCIAL_NSID_PREFIXES = ("app.bsky.", "chat.bsky.", "com.atproto.repo.")
 _GFTD_APP_NSID_PREFIX = "ai.gftd."
-_COMFYUI_BASE = os.environ.get("COMFYUI_URL", "https://comfyui.gftd.ai")
+_COMFYUI_BASE = os.environ.get("COMFYUI_URL", "https://comfyui.etzhayyim.com")
 _COMFYUI_KEY = os.environ.get("COMFYUI_API_KEY", "")
-_COMFYUI_BLOB_REPO = os.environ.get("COMFYUI_BLOB_REPO", "did:web:animeka.gftd.ai")
+_COMFYUI_BLOB_REPO = os.environ.get("COMFYUI_BLOB_REPO", "did:web:animeka.etzhayyim.com")
 # Phase Δ3 Task 1 — Serverless mode. Set to "serverless" to route
 # /v1/images/generations through RunPod Serverless /runsync instead of
-# the comfyui.gftd.ai passthrough. Auto-detected when COMFYUI_URL
+# the comfyui.etzhayyim.com passthrough. Auto-detected when COMFYUI_URL
 # contains "api.runpod.ai".
 _COMFYUI_SHAPE = os.environ.get(
     "COMFYUI_UPSTREAM_SHAPE",
@@ -1424,7 +1424,7 @@ async def _pds_dispatch_c_path(
     from pymagatama.primitives.yoro_social import build_repo_record, insert_social_post_record  # noqa: PLC0415
 
     if type == "app.bsky.feed.post":
-        repo = str(payload.get("repo") or callerDid or "did:web:yoro.gftd.ai")
+        repo = str(payload.get("repo") or callerDid or "did:web:yoro.etzhayyim.com")
         collection = "app.bsky.feed.post"
         record = {k: v for k, v in payload.items() if k != "repo"}
         record.setdefault("$type", collection)
@@ -1434,7 +1434,7 @@ async def _pds_dispatch_c_path(
                 _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
             )
     else:
-        repo = str(payload.get("repo") or callerDid or "did:web:yoro.gftd.ai")
+        repo = str(payload.get("repo") or callerDid or "did:web:yoro.etzhayyim.com")
         collection = str(payload.get("collection") or type)
         raw_record = payload.get("record")
         if raw_record is None and payload.get("recordJson"):
@@ -1758,7 +1758,7 @@ async def task_open_patent_expired_drug_patent_screen(payload: dict | None = Non
         "productId": p.get("productId"),
         "asOf": as_of,
     }
-    vertex_id = str(p.get("patentVertexId") or f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.expiredDrugPatentScreen/{_stable_vertex_suffix(seed)}")
+    vertex_id = str(p.get("patentVertexId") or f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.expiredDrugPatentScreen/{_stable_vertex_suffix(seed)}")
     return {
         "vertexId": vertex_id,
         "eligible": eligible,
@@ -1787,7 +1787,7 @@ async def task_open_patent_expired_drug_patent_collect(payload: dict | None = No
         "rows": scoped_rows,
     }
     return {
-        "runVertexId": f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.expiredDrugPatentBacklog/{_stable_vertex_suffix(run_seed)}",
+        "runVertexId": f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.expiredDrugPatentBacklog/{_stable_vertex_suffix(run_seed)}",
         "scannedCount": len(scoped_rows),
         "candidateCount": len(candidates),
         "insertedCount": 0 if p.get("dryRun", True) else len(candidates),
@@ -1806,7 +1806,7 @@ async def task_open_patent_generic_manufacturing_plan(payload: dict | None = Non
     }
     suffix = _stable_vertex_suffix(seed)
     return {
-        "vertexId": f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.genericManufacturingCandidate/{suffix}",
+        "vertexId": f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.genericManufacturingCandidate/{suffix}",
         "seiyakuProcessId": f"seiyaku_generic_manufacturing_{suffix}",
         "status": "planned",
     }
@@ -1825,7 +1825,7 @@ async def task_open_patent_generic_manufacturing_prepare_seiyaku_batch_draft(pay
     }
     vertex_id = str(
         p.get("vertexId")
-        or f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.seiyakuBatchDraft/{_stable_vertex_suffix(seed)}"
+        or f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.seiyakuBatchDraft/{_stable_vertex_suffix(seed)}"
     )
     seiyaku_process_id = str(p.get("seiyakuProcessId") or "seiyaku_register_batch")
     batch_payload = {
@@ -1870,7 +1870,7 @@ async def task_open_patent_generic_manufacturing_validate_seiyaku_batch_draft(pa
         "ok": True,
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.seiyakuBatchDraftValidation/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.seiyakuBatchDraftValidation/{_stable_vertex_suffix(seed)}"
         ),
         "passed": passed,
         "status": "validated" if passed else "validation_failed",
@@ -1889,7 +1889,7 @@ async def task_open_patent_generic_manufacturing_handoff_seiyaku(payload: dict |
     return {
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.seiyakuHandoff/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.seiyakuHandoff/{_stable_vertex_suffix(seed)}"
         ),
         "seiyakuProcessId": seiyaku_process_id,
         "status": "handoff_queued",
@@ -1908,7 +1908,7 @@ async def task_open_patent_generic_manufacturing_queue_seiyaku_batch_start(paylo
     return {
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.seiyakuBatchStartRequest/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.seiyakuBatchStartRequest/{_stable_vertex_suffix(seed)}"
         ),
         "startNsid": start_nsid,
         "bpmnProcessId": bpmn_process_id,
@@ -1928,7 +1928,7 @@ async def task_open_patent_generic_manufacturing_ack_seiyaku_batch_start(payload
     return {
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.seiyakuBatchStartAck/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.seiyakuBatchStartAck/{_stable_vertex_suffix(seed)}"
         ),
         "status": str(p.get("status") or "acknowledged"),
         "startRequestVid": str(p.get("startRequestVid") or ""),
@@ -1957,7 +1957,7 @@ async def task_open_patent_generic_manufacturing_summarize_seiyaku_start_progres
     return {
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.seiyakuStartProgress/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.seiyakuStartProgress/{_stable_vertex_suffix(seed)}"
         ),
         "progressStatus": progress_status,
         "startRequestVid": str(p.get("startRequestVid") or ""),
@@ -1981,7 +1981,7 @@ async def task_open_patent_expired_drug_patent_record_blocker(payload: dict | No
         "evidenceUri": p.get("evidenceUri"),
     }
     return {
-        "vertexId": f"at://did:web:open-patent.gftd.ai/ai.gftd.apps.openPatent.drugRegulatoryBlocker/{_stable_vertex_suffix(seed)}",
+        "vertexId": f"at://did:web:open-patent.etzhayyim.com/ai.gftd.apps.openPatent.drugRegulatoryBlocker/{_stable_vertex_suffix(seed)}",
         "active": active,
         "status": "active" if active else "expired_or_unbounded",
         "blockingUntil": blocking_until,
@@ -2031,7 +2031,7 @@ async def task_open_patent_expired_drug_patent_pipeline(payload: dict | None = N
     }
 
 
-_NEWS_XRPC_BASE = os.environ.get("NEWS_XRPC_BASE", "https://news.gftd.ai")
+_NEWS_XRPC_BASE = os.environ.get("NEWS_XRPC_BASE", "https://news.etzhayyim.com")
 
 
 async def task_news_udf_score_intel(
@@ -2093,7 +2093,7 @@ async def _news_xrpc(nsid: str, input: dict | None = None) -> dict:
 
 
 async def task_news_xrpc_analyze_intel(actor: str = "", input: dict | None = None) -> dict:
-    """Call news.gftd.ai analyzeIntel from Zeebe BPMN."""
+    """Call news.etzhayyim.com analyzeIntel from Zeebe BPMN."""
     payload = dict(input or {})
     # FEEL may materialise missing nested fields as non-JSON "unknown"
     # sentinel objects. The news Worker lexicon expects scalar strings.
@@ -2113,7 +2113,7 @@ async def task_news_xrpc_analyze_intel(actor: str = "", input: dict | None = Non
 
 
 async def task_news_xrpc_publish_intel(input: dict | None = None) -> dict:
-    """Call news.gftd.ai publishIntel from Zeebe BPMN."""
+    """Call news.etzhayyim.com publishIntel from Zeebe BPMN."""
     payload = dict(input or {})
     if "url" not in payload and "sourceUrl" in payload:
         payload["url"] = payload["sourceUrl"]
@@ -2399,9 +2399,9 @@ async def _pd_color_record_process_event(
         "duration_ms": duration_ms,
         "artifact_cid": artifact_cid or None,
         "detail_json": json.dumps(detail or {}, ensure_ascii=False, sort_keys=True, default=str),
-        "owner_did": "did:web:pd-color.gftd.ai",
-        "org_id": "did:web:pd-color.gftd.ai",
-        "user_id": "did:web:pd-color.gftd.ai",
+        "owner_did": "did:web:pd-color.etzhayyim.com",
+        "org_id": "did:web:pd-color.etzhayyim.com",
+        "user_id": "did:web:pd-color.etzhayyim.com",
         "actor_id": "sys.bpmn.pd-color",
     }
     try:
@@ -2468,13 +2468,13 @@ async def task_generic_comfyui_call(route: str = "",
                                     outputFormat: str = "auto",
                                     timeoutSec: float = 600.0,
                                     repo: str = "") -> dict:
-    """ComfyUI gateway passthrough. POSTs JSON to comfyui.gftd.ai{route}
+    """ComfyUI gateway passthrough. POSTs JSON to comfyui.etzhayyim.com{route}
     and returns either the JSON payload (for chat/completions) or a
     content-addressed blob ref (for image/video/audio endpoints).
 
     Two upstream modes (auto-detected from COMFYUI_URL):
 
-    - `gateway`: passthrough to a comfyui.gftd.ai-style OpenAI-compat
+    - `gateway`: passthrough to a comfyui.etzhayyim.com-style OpenAI-compat
       adapter. Body is forwarded as-is. Binary responses become PDS
       blobs. (legacy ADR-0050 path)
 
@@ -2499,7 +2499,7 @@ async def task_generic_comfyui_call(route: str = "",
     if route in _PD_COLOR_MEDIA_ROUTES and os.environ.get("PDCOLOR_LOCAL_MEDIA_MANIFESTS", "1").lower() in ("1", "true", "on", "yes"):
         return await _pd_color_local_media_call(route, body or {}, outputFormat)
 
-    # _COMFYUI_KEY can be empty when talking to comfyui.gftd.ai (gateway
+    # _COMFYUI_KEY can be empty when talking to comfyui.etzhayyim.com (gateway
     # accepts x-magatama-verified internal-trust). RunPod direct URLs
     # require a real Bearer key — the upstream returns 401 if missing,
     # which surfaces in the BPMN audit.
@@ -2516,13 +2516,13 @@ async def task_generic_comfyui_call(route: str = "",
         "Content-Type": "application/json",
         "Authorization": f"Bearer {_COMFYUI_KEY}",
         # Internal-trust shim — same pattern as shinshi_video._comfy_headers
-        # (lines 60-71). When _COMFYUI_BASE is comfyui.gftd.ai the gateway
+        # (lines 60-71). When _COMFYUI_BASE is comfyui.etzhayyim.com the gateway
         # requireAuth short-circuits on this header (kind: "internal");
         # direct RunPod proxy URLs ignore it. Safe in both topologies.
         "x-magatama-verified": "true",
         # proxy.runpod.net is behind Cloudflare and returns 1010 to
         # python/urllib's default UA. Standard browser UA is benign
-        # for comfyui.gftd.ai too (UA-indifferent).
+        # for comfyui.etzhayyim.com too (UA-indifferent).
         "User-Agent": (
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -2578,7 +2578,7 @@ async def task_generic_comfyui_call(route: str = "",
         "Content-Type": mime,
         "x-magatama-verified": "true",
         "x-magatama-repo": upload_repo,
-        # atproto.gftd.ai CF WAF rejects python/urllib's default UA
+        # atproto.etzhayyim.com CF WAF rejects python/urllib's default UA
         # ahead of the handler (visible as 403 on an otherwise valid
         # internal-trust request). Same browser UA shim already used
         # for proxy.runpod.net (see llm.py) + the primitive's outbound
@@ -2972,7 +2972,7 @@ async def task_generic_http_fetch(url: str = "", method: str = "GET",
     method = (method or "GET").upper()
     if not url.startswith(("http://", "https://")):
         return {"error": "url must include scheme"}
-    # Browser-UA shim — dispatcher.gftd.ai / atproto.gftd.ai / proxy.runpod.net
+    # Browser-UA shim — dispatcher.etzhayyim.com / atproto.etzhayyim.com / proxy.runpod.net
     # all sit behind Cloudflare, which returns error 1010 (WAF) to
     # python/urllib's default UA. Default to browser UA; callers can
     # override via the `headers` input.
@@ -3146,12 +3146,12 @@ async def task_ind_efiling_submit(
     now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     seq = int(time.time() * 1000)
     row_base = {
-        "vertex_id": "at://did:web:ind-union.gftd.ai/ai.gftd.apps.ind.efiling.submission/"
+        "vertex_id": "at://did:web:ind-union.etzhayyim.com/ai.gftd.apps.ind.efiling.submission/"
         + hashlib.sha256(idem.encode("utf-8")).hexdigest()[:32],
         "_seq": seq,
         "created_date": time.strftime("%Y-%m-%d", time.gmtime()),
         "sensitivity_ord": 2,
-        "owner_did": ownerDid or actorId or "did:web:ind-union.gftd.ai",
+        "owner_did": ownerDid or actorId or "did:web:ind-union.etzhayyim.com",
         "jurisdiction": jurisdiction_norm,
         "provider_key": provider_key,
         "provider_kind": provider_kind,
@@ -3519,7 +3519,7 @@ async def task_business_profit_settle_open_adnetwork(
         else f"open-adnetwork-profit-{publisher_filter}-{started_ms}-{finished_ms}"
     )
     vertex_id = (
-        "at://did:web:yoro.gftd.ai/ai.gftd.apps.business.profitSettlement/"
+        "at://did:web:yoro.etzhayyim.com/ai.gftd.apps.business.profitSettlement/"
         + hashlib.sha256(settlement_id.encode("utf-8")).hexdigest()[:32]
     )
 
@@ -3548,12 +3548,12 @@ async def task_business_profit_settle_open_adnetwork(
         output_hash = _sha256_json(output_payload)
         receipt = await _maybe_record_runtime_receipt(
             job_id=_bytes32_hex(settlement_id, field="settlementId"),
-            actor_did=_bytes32_hex("did:web:yoro.gftd.ai", field="actorDid"),
+            actor_did=_bytes32_hex("did:web:yoro.etzhayyim.com", field="actorDid"),
             artifact_id=_bytes32_hex("business.profit.settleOpenAdnetwork.v1", field="artifactId"),
             input_hash=input_hash,
             output_hash=output_hash,
             trace_hash=_sha256_json({"task": "business.profit.settleOpenAdnetwork", "createdAt": created_at}),
-            operator_did=_bytes32_hex("did:web:yoro.gftd.ai:actor:business", field="operatorDid"),
+            operator_did=_bytes32_hex("did:web:yoro.etzhayyim.com:actor:business", field="operatorDid"),
             started_at=started_ms,
             finished_at=finished_ms,
         )
@@ -3582,9 +3582,9 @@ async def task_business_profit_settle_open_adnetwork(
                   %s::bigint, %s::integer, %s::double precision, %s::double precision,
                   %s::double precision, %s::double precision, 'USD', 260425,
                   %s::boolean, %s::varchar, %s::varchar,
-                  %s::varchar, %s::varchar, 0, 'did:web:yoro.gftd.ai',
-                  'did:web:yoro.gftd.ai', 'sys.bpmn.business-profit',
-                  'did:web:yoro.gftd.ai', 'did:web:yoro.gftd.ai'
+                  %s::varchar, %s::varchar, 0, 'did:web:yoro.etzhayyim.com',
+                  'did:web:yoro.etzhayyim.com', 'sys.bpmn.business-profit',
+                  'did:web:yoro.etzhayyim.com', 'did:web:yoro.etzhayyim.com'
                 WHERE NOT EXISTS (
                   SELECT 1 FROM vertex_open_adnetwork_profit_settlement
                   WHERE settlement_id = %s::varchar
@@ -3850,13 +3850,13 @@ async def _briefing_persist(result: dict) -> dict:
         persisted.append(await task_generic_pds_dispatch(
             type="com.atproto.repo.createRecord",
             payload={"collection": collection, "recordJson": json.dumps(record, ensure_ascii=False)},
-            callerDid="did:web:briefing.gftd.ai",
+            callerDid="did:web:briefing.etzhayyim.com",
         ))
     for post in posts:
         persisted.append(await task_generic_pds_dispatch(
             type="app.bsky.feed.post",
             payload={"text": str(post.get("text") or "")},
-            callerDid="did:web:briefing.gftd.ai",
+            callerDid="did:web:briefing.etzhayyim.com",
         ))
     result["persisted"] = persisted
     return result
@@ -3944,7 +3944,7 @@ async def task_arb_score_proposal(proposalId: str = "", model: str = "heuristic-
 
 async def task_arb_publish_proposal(
     proposalId: str = "",
-    mentionCohort: str = "trader.gftd.ai",
+    mentionCohort: str = "trader.etzhayyim.com",
     disclaimer: str = "Educational signal. Not advice. No execution.",
 ) -> dict:
     try:
@@ -4728,7 +4728,7 @@ async def task_gyosei_source_link(
     if not normalized:
         return {"linked": 0, "caseId": caseId, "relation": relation, "sourceIds": []}
 
-    owner_did = "did:web:jpn-state.gftd.ai:gyosei"
+    owner_did = "did:web:jpn-state.etzhayyim.com:gyosei"
     use_precedent_edge = bool(memoId) or relation.startswith("precedent-")
     resolved_memo_id = memoId or f"memo:{caseId}"
     linked = 0
@@ -5282,7 +5282,7 @@ async def task_legal_corpus_fetch_body_text(
                 "Accept-Language": "en",
                 "User-Agent": (
                     "Mozilla/5.0 (compatible; gftd-legal-corpus/1.0; "
-                    "+https://legal-corpus.gftd.ai)"
+                    "+https://legal-corpus.etzhayyim.com)"
                 ),
             },
         )
@@ -5456,7 +5456,7 @@ async def main() -> None:
     worker = LangServerWorker(channel)
 
     if worker_profile in {"yata", "yatabase", "yata_storage", "yata-storage"}:
-        # yatabase.gftd.ai dedicated worker (ADR-2605080000 §D10/§D12-D24).
+        # yatabase.etzhayyim.com dedicated worker (ADR-2605080000 §D10/§D12-D24).
         # Subscribes to all `yata.*` task types: storage put/get/delete/presign/list,
         # multipart, metering rollup, embedding drain, tier migrate, multipart reap,
         # database provision, sparql.run, cypher.run, plus the shared
@@ -5794,7 +5794,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"shosha", "sogo_shosha", "sogo-shosha"}:
-        # Dedicated shosha.gftd.ai worker (T2 sogo-shosha actor, ADR-0056 +
+        # Dedicated shosha.etzhayyim.com worker (T2 sogo-shosha actor, ADR-0056 +
         # ADR-2604282300). Registers shosha.* primitives + the two generic
         # primitives shosha BPMN depends on (audit emit + pds.dispatch for
         # social derive in tradeIdeaSynthesize / dailyShoshaReport).
@@ -5839,7 +5839,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"iryo", "hospital", "iryo_hospital", "iryo-hospital"}:
-        # Dedicated iryo.gftd.ai worker (T2 hospital operations actor,
+        # Dedicated iryo.etzhayyim.com worker (T2 hospital operations actor,
         # ADR-2605080800 + ADR-0036 + ADR-0056 + ADR-2604282300, Phase 1).
         # Registers iryo.* primitives + the two generic primitives that
         # iryo BPMN depends on (audit emit + pds.dispatch).
@@ -5884,7 +5884,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"lifehack", "lifehack_actor", "mitama_lifehack", "mitama-lifehack"}:
-        # Dedicated lifehack.gftd.ai worker (T2 household life-hack actor,
+        # Dedicated lifehack.etzhayyim.com worker (T2 household life-hack actor,
         # ADR-0036 + ADR-0056 + ADR-2604282300, Phase 1 dust prevention).
         # Registers lifehack.* primitives + the two generic primitives
         # lifehack BPMN depends on (audit emit + pds.dispatch for the
@@ -5930,7 +5930,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"otakiage", "otakiage_actor", "mitama_otakiage", "mitama-otakiage"}:
-        # Dedicated otakiage.gftd.ai worker (T2 Reuse & Ritual Platform,
+        # Dedicated otakiage.etzhayyim.com worker (T2 Reuse & Ritual Platform,
         # ADR-2605081700 + ADR-0036 + ADR-0056 + ADR-2604282300).
         # Registers otakiage.* primitives + the two generic primitives
         # otakiage BPMN depends on (audit emit + pds.dispatch for
@@ -5976,7 +5976,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"training", "training_actor", "mitama_training", "mitama-training"}:
-        # Dedicated training.gftd.ai worker (T2 model training actor,
+        # Dedicated training.etzhayyim.com worker (T2 model training actor,
         # ADR-2605070700 + ADR-0056 + ADR-2604282300). Registers train.*
         # primitives + the one generic primitive training BPMNs depend
         # on (audit emit). Heavy GPU tasks (sft / lora / distill) lazy-
@@ -6022,7 +6022,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"chat", "chat_agent", "chat-agent"}:
-        # Dedicated gftd.ai chat maintenance worker (T2 chat actor,
+        # Dedicated etzhayyim.com chat maintenance worker (T2 chat actor,
         # ADR-2604282300 + ADR 260413 Path F + ADR-0049). Registers only
         # the cron-bound + side-effect primitives; the agent hot path runs
         # in `pymagatama.chat_server` (separate Deployment).
@@ -6067,7 +6067,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"animeka"}:
-        # Dedicated animeka.gftd.ai worker (T2 anime production actor,
+        # Dedicated animeka.etzhayyim.com worker (T2 anime production actor,
         # ADR-0056 + ADR-2604282300). Registers animeka.* CRUD task
         # types + the generic primitives the 12 generation BPMNs depend
         # on (script/storyboard/layout/keyframe/inbetween/colorModel/
@@ -6136,7 +6136,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"shinshi"}:
-        # Dedicated shinshi.gftd.ai worker (T2 sensitive-content cosplay
+        # Dedicated shinshi.etzhayyim.com worker (T2 sensitive-content cosplay
         # platform, ADR-0056 + ADR-2604282300). Registers shinshi.scene.*
         # + shinshi.video.* + shinshi.coverage.* task types + the small
         # set of generic primitives the 6 BPMNs depend on
@@ -6216,7 +6216,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"billing", "mitama_billing", "mitama-billing"}:
-        # Dedicated billing.gftd.ai worker (T2 retail cloud metering /
+        # Dedicated billing.etzhayyim.com worker (T2 retail cloud metering /
         # rollup / invoice / discount, ADR-2605080000 + ADR-0056 +
         # ADR-2604282300). Registers billing.{event,rollup,detect,
         # generate,discount,credit,usage,quota,invoice,coverage}.* task
@@ -6341,7 +6341,7 @@ async def main() -> None:
         return
 
     if worker_profile in {"webya"}:
-        # webya.gftd.ai — ホームページ生成 actor (T3, ADR-2605080600 LangGraph Server).
+        # webya.etzhayyim.com — ホームページ生成 actor (T3, ADR-2605080600 LangGraph Server).
         # LangGraph-routed: createSite / reviseSite は dispatcher が直接 POST /runs.
         # Zeebe-executed: domainSslMonitor (R/PT30M) + seoAudit (cron MON).
         # Isolation rationale: site generation holds a LangGraph run for up to 5 min
@@ -7424,7 +7424,7 @@ async def main() -> None:
         timeout_ms=SHINKA_TIMEOUT_MS,
     )(task_fund_verify_coverage)
     # JP corporate finance ingest (ADR-2604291500). PDF/image OCR path converts
-    # pages to WebP, pins them to ipfs.gftd.ai, then calls Gemma 4 via llm.gftd.ai.
+    # pages to WebP, pins them to ipfs.etzhayyim.com, then calls Gemma 4 via llm.etzhayyim.com.
     from pymagatama.ingest.jp_corp_finance.zeebe_tasks import (  # noqa: E402
         task_jp_corp_finance_create_run,
         task_jp_corp_finance_extract_financial_facts,
@@ -7542,103 +7542,103 @@ async def main() -> None:
         single_value=False,
         timeout_ms=SHINKA_TIMEOUT_MS,
     )(task_open_patent_generic_manufacturing_summarize_seiyaku_start_progress)
-    # patent.gftd.ai — USPTO PatentsView weekly TSV ingest + EPO + blob.convert.
+    # patent.etzhayyim.com — USPTO PatentsView weekly TSV ingest + EPO + blob.convert.
     # patent.blob.convert requires poppler-utils + webp on the worker pod.
     PATENT_TIMEOUT_MS = 21_600_000  # 6h — TSV full-load can take hours
     from pymagatama.primitives.patent import register as _patent_register  # noqa: E402
     _patent_register(worker, timeout_ms=PATENT_TIMEOUT_MS)
-    # isbn.gftd.ai — Open Library / Aozora / Gutenberg / NDL / HathiTrust
+    # isbn.etzhayyim.com — Open Library / Aozora / Gutenberg / NDL / HathiTrust
     # bulk catalog + PD fulltext ingest. Hathifile + Open Library full
     # dumps can run for hours; reuse the patent 6h timeout budget.
     from pymagatama.primitives.isbn import register as _isbn_register  # noqa: E402
     _isbn_register(worker, timeout_ms=PATENT_TIMEOUT_MS)
-    # sbom.gftd.ai — registerArtifact persistence (Phase B). CF Worker
+    # sbom.etzhayyim.com — registerArtifact persistence (Phase B). CF Worker
     # forwards via dispatcher; this handler does the psycopg2 INSERTs
     # into vertex_sbom_artifact + vertex_sbom_component (ADR-2604282300:
     # CF Worker stays facade-only; DB writes happen here).
     from pymagatama.primitives.sbom import register as _sbom_register  # noqa: E402
     _sbom_register(worker, timeout_ms=300_000)
-    # adsk.gftd.ai — HuggingFace dataset ingest (Phase 1: text/code only;
+    # adsk.etzhayyim.com — HuggingFace dataset ingest (Phase 1: text/code only;
     # 3D / voxel blobs deferred to Phase 2 with B2). Reuse 6h budget.
     from pymagatama.primitives.adsk import register as _adsk_register  # noqa: E402
     _adsk_register(worker, timeout_ms=PATENT_TIMEOUT_MS)
-    # shosha.gftd.ai — sogo-shosha (general trading company). Pure T2:
+    # shosha.etzhayyim.com — sogo-shosha (general trading company). Pure T2:
     # autonomous BPMN-as-actor (R/PT1H intel, R/PT4H recompute + idea
     # synth, daily report) + 4 XRPC bindings (submitTrade / proposeHedge
     # / complyCheck / agentLoop). 60s default budget covers LLM tier
     # `balanced`; longer ms set per-task in shosha.register.
     from pymagatama.primitives.shosha import register as _shosha_register  # noqa: E402
     _shosha_register(worker, timeout_ms=60_000)
-    # lifehack.gftd.ai — household life-hack (Phase 1 dust prevention).
+    # lifehack.etzhayyim.com — household life-hack (Phase 1 dust prevention).
     # Pure T2: autonomous research (R/PT24H) + daily dust post (cron 09 JST)
     # + static alert (R/PT6H) + 6 XRPC bindings. 60s default; longer ms
     # set per-task in lifehack.register for LLM-heavy synth/grade.
     from pymagatama.primitives.lifehack import register as _lifehack_register  # noqa: E402
     _lifehack_register(worker, timeout_ms=60_000)
-    # karma.gftd.ai — Edge-primary Spirit-in-Physic Karma Hegemon (Phase K0).
+    # karma.etzhayyim.com — Edge-primary Spirit-in-Physic Karma Hegemon (Phase K0).
     # Pure T2 BPMN-as-actor with 5-layer persistence pipeline (RW → AT
     # repo → IPFS self → IPFS external → blockchain anchor). Authoritative
     # axioms in 90-docs/proof/Karma.lean. 60s default; longer ms set
     # per-task for IPFS pin / Filecoin / blockchain submit.
     from pymagatama.primitives.karma import register as _karma_register  # noqa: E402
     _karma_register(worker, timeout_ms=60_000)
-    # karma.gftd.ai — evaluation agent (LangGraph + Pregel-style graph
+    # karma.etzhayyim.com — evaluation agent (LangGraph + Pregel-style graph
     # propagation + actor mailbox semantics). Single task type
     # `karma.agent.evaluate` runs internal multi-node state machine.
     # LLM refinement opt-in via KARMA_AGENT_LLM=1 env var.
     from pymagatama.primitives.karma_agent import register as _karma_agent_register  # noqa: E402
     _karma_agent_register(worker, timeout_ms=90_000)
-    # karma.gftd.ai — 覚者 DAO arbitration (Phase K1). 5 task types:
+    # karma.etzhayyim.com — 覚者 DAO arbitration (Phase K1). 5 task types:
     # findVoters / openArbitration / castVote / finalize / sweepExpired.
     # Triggered by karma.evaluate's 'escalate-dao' recommendation OR
     # any caller with elevated standing.
     from pymagatama.primitives.karma_dao import register as _karma_dao_register  # noqa: E402
     _karma_dao_register(worker, timeout_ms=60_000)
-    # karma.gftd.ai — witness invitation (Phase K1). 3 task types:
+    # karma.etzhayyim.com — witness invitation (Phase K1). 3 task types:
     # inviteFanOut / respondToInvitation / sweepExpired. Triggered by
     # karma.evaluate's 'require-witness' recommendation; invitees can
     # accept (→ vertex_karma_witness row) or decline.
     from pymagatama.primitives.karma_witness import register as _karma_witness_register  # noqa: E402
     _karma_witness_register(worker, timeout_ms=60_000)
-    # karma.gftd.ai — WBT (Well-Becoming Token) settlement (Phase K1).
+    # karma.etzhayyim.com — WBT (Well-Becoming Token) settlement (Phase K1).
     # 3 task types: balanceGet / transfer / forfeitToCommons. Backs
     # rebirth.forfeit (atomic debit + credit + log + commons pool bump).
     from pymagatama.primitives.karma_wbt import register as _karma_wbt_register  # noqa: E402
     _karma_wbt_register(worker, timeout_ms=30_000)
-    # karma.gftd.ai — resident organism agent (Phase K2 ecosystem
+    # karma.etzhayyim.com — resident organism agent (Phase K2 ecosystem
     # self-growth). 5 task types: spawn / tick / checkpoint / harvest /
     # dissolveRuntime. Long-running daemons that "live" in K8s pod /
     # RunPod / Ethereum substrates per vertex_organism_runtime row.
     from pymagatama.primitives.karma_resident import register as _karma_resident_register  # noqa: E402
     _karma_resident_register(worker, timeout_ms=60_000)
-    # karma.gftd.ai — zk-SNARK rebirth non-linkability proof (Phase K3).
+    # karma.etzhayyim.com — zk-SNARK rebirth non-linkability proof (Phase K3).
     # 2 task types: rebirthVerify / rebirthProofLookup. Verifies Groth16
     # proof + burns nullifier on RebirthVerifier contract. Stub verifier
     # in K3; real bundler call in K4.
     from pymagatama.primitives.karma_zk import register as _karma_zk_register  # noqa: E402
     _karma_zk_register(worker, timeout_ms=60_000)
-    # karma.gftd.ai — Filecoin storage deal automation (Phase K3).
+    # karma.etzhayyim.com — Filecoin storage deal automation (Phase K3).
     # 3 task types: proposeBatch / renewExpiring / statusGet. L4
     # long-term backup beyond ETH anchor. Estuary/Lighthouse stub in
     # K3; real provider HTTP call in K4.
     from pymagatama.primitives.karma_filecoin import register as _karma_filecoin_register  # noqa: E402
     _karma_filecoin_register(worker, timeout_ms=60_000)
-    # yatabase.gftd.ai — integrated storage autonomous workers
+    # yatabase.etzhayyim.com — integrated storage autonomous workers
     # (metering rollup / embedding queue / tier migration / multipart reap).
     from pymagatama.primitives.yata_storage import register as _yata_storage_register  # noqa: E402
     _yata_storage_register(worker, timeout_ms=60_000)
-    # domain.gftd.ai — TLD registration assistance (eligibilityCheck +
+    # domain.etzhayyim.com — TLD registration assistance (eligibilityCheck +
     # registerAssist + monthly catalog refresh). Pure T2 advisory: reads
     # vertex_domain_* + writes draft rows to vertex_domain_registration.
     # Lightweight (no external HTTP, no LLM in Phase 1) so the shared
     # mitama-udf pool is sufficient — no dedicated Helm release needed.
     from pymagatama.primitives.domain import register as _domain_register  # noqa: E402
     _domain_register(worker, timeout_ms=30_000)
-    # news.gftd.ai intel process tasks.
+    # news.etzhayyim.com intel process tasks.
     worker.task(task_type="news.udf.scoreIntel", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_news_udf_score_intel)
     worker.task(task_type="xrpc.ai.gftd.apps.news.analyzeIntel", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_news_xrpc_analyze_intel)
     worker.task(task_type="xrpc.ai.gftd.apps.news.publishIntel", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_news_xrpc_publish_intel)
-    # kakaku.gftd.ai price comparison actor. Source-specific logic lives in
+    # kakaku.etzhayyim.com price comparison actor. Source-specific logic lives in
     # pymagatama.ingest.kakaku; these task types are bound directly from the
     # ai.gftd.apps.kakaku.* XRPC BPMN processes.
     from pymagatama.ingest.kakaku import (  # noqa: E402
@@ -7831,78 +7831,78 @@ async def main() -> None:
     pds_domain_coverage.register(worker, timeout_ms=150_000)
     # Von Neumann coverage gap bridge. vertex_coverage_recipe stores program
     # memory that classifies each domain into ingest/infer/generate/defer.
-    # gftdcojp.gftd.ai company-ops LangGraph submitter (Supervisor + 6 domain
+    # gftdcojp.etzhayyim.com company-ops LangGraph submitter (Supervisor + 6 domain
     # agents: hr/finance/legal/sales/governance/personnel). T2 BPMN-as-actor
     # via gftdcojp.ops.submit task type.
     from pymagatama.primitives import gftdcojp_ops  # noqa: E402
     gftdcojp_ops.register(worker)
-    # gftdcojp.gftd.ai personnel decision pipeline (loadProfile + minimaxScore
+    # gftdcojp.etzhayyim.com personnel decision pipeline (loadProfile + minimaxScore
     # + notifyDeny + writeAssignment). Wires personnelAssignmentDecide.bpmn
     # HITL workflow with Tier 3 PII RLS gate (CEO/COO/CLO read only).
     from pymagatama.primitives import gftdcojp_personnel  # noqa: E402
     gftdcojp_personnel.register(worker, timeout_ms=120_000)
-    # lawfirm.gftd.ai marketing LangGraph submitter + Stripe webhook.
+    # lawfirm.etzhayyim.com marketing LangGraph submitter + Stripe webhook.
     # Routes to lawfirm-marketing-ops (Supervisor + 6 specialists +
     # BCI Rule 36 compliance gate). Stripe webhook persists invoice/payment.
     from pymagatama.primitives import lawfirm_marketing  # noqa: E402
     lawfirm_marketing.register(worker, timeout_ms=120_000)
-    # lawfirm.gftd.ai e-sign request + webhook + KPI snapshot.
+    # lawfirm.etzhayyim.com e-sign request + webhook + KPI snapshot.
     # eSign provider abstraction: docusign primary, adobesign + razorpaysign
     # fallback. KPI snapshot is RLS-gated (CEO/COO/CLO).
     from pymagatama.primitives import lawfirm_esign_kpi  # noqa: E402
     lawfirm_esign_kpi.register(worker, timeout_ms=60_000)
-    # lawfirm.gftd.ai PwC clearance workflow (CEO HITL per matter).
+    # lawfirm.etzhayyim.com PwC clearance workflow (CEO HITL per matter).
     # Implements CEO decision D4 (2026-05-08): per-matter PwC India
     # compliance escalation, NOT auto-screen via hash list.
     from pymagatama.primitives import lawfirm_pwc  # noqa: E402
     lawfirm_pwc.register(worker, timeout_ms=60_000)
-    # lawfirm.gftd.ai sales pipeline (mail reply webhook + stage transition).
+    # lawfirm.etzhayyim.com sales pipeline (mail reply webhook + stage transition).
     # Microsoft Graph subscription pushes inbound replies; we match by
     # sender domain + subject thread, advance stage, audit-log.
     from pymagatama.primitives import lawfirm_sales  # noqa: E402
     lawfirm_sales.register(worker, timeout_ms=60_000)
-    # lawfirm.gftd.ai Stripe Checkout session creation (US + INR account
+    # lawfirm.etzhayyim.com Stripe Checkout session creation (US + INR account
     # routing, dry_run when API keys absent — Day-0 default).
     from pymagatama.primitives import lawfirm_checkout  # noqa: E402
     lawfirm_checkout.register(worker, timeout_ms=30_000)
-    # lawfirm.gftd.ai MS Graph mail subscription lifecycle (ensure + R/PT24H renew).
+    # lawfirm.etzhayyim.com MS Graph mail subscription lifecycle (ensure + R/PT24H renew).
     from pymagatama.primitives import lawfirm_msgraph  # noqa: E402
     lawfirm_msgraph.register(worker, timeout_ms=60_000)
-    # kaisya.gftd.ai per-member chat (M365 / MCP / web channels). Routes to
+    # kaisya.etzhayyim.com per-member chat (M365 / MCP / web channels). Routes to
     # gftdcojp-company-ops or lawfirm-marketing-ops by RACI-aware supervisor.
     from pymagatama.primitives import kaisya_member  # noqa: E402
     kaisya_member.register(worker, timeout_ms=90_000)
-    # lawfirm.gftd.ai intake + matter creation (closes the missing entry-point
+    # lawfirm.etzhayyim.com intake + matter creation (closes the missing entry-point
     # gap; smoke test + engagementClose reference vertex_lawfirm_matter).
     from pymagatama.primitives import lawfirm_intake  # noqa: E402
     lawfirm_intake.register(worker, timeout_ms=60_000)
-    # lawfirm.gftd.ai tenant lifecycle — bootstrap / suspend / promote.
+    # lawfirm.etzhayyim.com tenant lifecycle — bootstrap / suspend / promote.
     # Backs ai.gftd.apps.lawfirm.tenantBootstrap lexicon → BPMN
     # lawfirm_tenant_bootstrap → vertex_lawfirm_tenant + audit + edge.
     from pymagatama.primitives import lawfirm_tenant  # noqa: E402
     lawfirm_tenant.register(worker, timeout_ms=60_000)
-    # lawfirm.gftd.ai billing — Mode A flat / Mode B rev-share Connect
+    # lawfirm.etzhayyim.com billing — Mode A flat / Mode B rev-share Connect
     # subscription + webhook invoice.paid handler. Backs the W11-W12
     # SOW-signed → first-invoice-paid critical path.
     from pymagatama.primitives import lawfirm_billing  # noqa: E402
     lawfirm_billing.register(worker, timeout_ms=60_000)
-    # lawfirm.gftd.ai cadence dispatch — walks vertex_lawfirm_lead.next_action_at
+    # lawfirm.etzhayyim.com cadence dispatch — walks vertex_lawfirm_lead.next_action_at
     # daily, fires Tier-2 warm-intro mails per cadence schedule, logs
     # outreach_event + bumps lead.stage='contacted'. Wired to existing
     # lawfirm_sales_cadence_tick BPMN (R/PT24H).
     from pymagatama.primitives import lawfirm_cadence_dispatch  # noqa: E402
     lawfirm_cadence_dispatch.register(worker, timeout_ms=90_000)
-    # lawfirm.gftd.ai reply detection — backs ai.gftd.apps.lawfirm.mailReplyWebhook.
+    # lawfirm.etzhayyim.com reply detection — backs ai.gftd.apps.lawfirm.mailReplyWebhook.
     # Inbound mail → match lead by from_email/subject → INSERT outreach_event
     # (event_kind='reply_received', direction='inbound') → suppress follow-up
     # drafts via NOT EXISTS gate in dispatchFollowUps + advance lead.stage.
     from pymagatama.primitives import lawfirm_reply_record  # noqa: E402
     lawfirm_reply_record.register(worker, timeout_ms=30_000)
-    # warehouse.gftd.ai WMS primitives — sku.register, putaway.{planBin,persist},
+    # warehouse.etzhayyim.com WMS primitives — sku.register, putaway.{planBin,persist},
     # pick.{allocate,persist}, inventory.read. ADR-0036 Hyperdrive direct.
     from pymagatama.primitives import warehouse as _warehouse  # noqa: E402
     _warehouse.register(worker, timeout_ms=60_000)
-    # yard-ops.gftd.ai primitives — slot.allocate, trailer.persist,
+    # yard-ops.etzhayyim.com primitives — slot.allocate, trailer.persist,
     # dockDoor.select, dockJob.{persist,complete}, dockSchedule.read +
     # loadingRobot.mission.dispatch (cross-actor edge to existing
     # loading-robot BPMN executeLoadingMission).
@@ -7945,19 +7945,19 @@ async def main() -> None:
     from pymagatama.primitives import gov_afg  # noqa: E402
     gov_afg.register(worker, timeout_ms=180_000)
     # South Africa government actor migration. Official gov.za sources are
-    # queued through site.gftd.ai before WET/WAT updates are reflected here.
+    # queued through site.etzhayyim.com before WET/WAT updates are reflected here.
     from pymagatama.primitives import gov_zaf  # noqa: E402
     gov_zaf.register(worker, timeout_ms=180_000)
     # Angola government actor migration. Official governo.gov.ao pages are
-    # queued through site.gftd.ai before WET/WAT updates are reflected here.
+    # queued through site.etzhayyim.com before WET/WAT updates are reflected here.
     from pymagatama.primitives import gov_ago  # noqa: E402
     gov_ago.register(worker, timeout_ms=180_000)
     # Russia government actor migration. Official government.ru/kremlin.ru pages
-    # are queued through site.gftd.ai before WET/WAT updates are reflected here.
+    # are queued through site.etzhayyim.com before WET/WAT updates are reflected here.
     from pymagatama.primitives import gov_rus  # noqa: E402
     gov_rus.register(worker, timeout_ms=180_000)
     # South Korea government actor migration. Official gov.kr pages are queued
-    # through site.gftd.ai before WET/WAT updates are reflected here.
+    # through site.etzhayyim.com before WET/WAT updates are reflected here.
     from pymagatama.primitives import gov_kor  # noqa: E402
     gov_kor.register(worker, timeout_ms=180_000)
     # North Korea (DPRK) government actor migration.
@@ -8316,7 +8316,7 @@ async def main() -> None:
     from pymagatama.primitives import science_knowledge  # noqa: E402
     science_knowledge.register(worker, timeout_ms=180_000)
     # IPFS content-addressed archival. Two task types:
-    #   ipfs.add      — upload bytes / fetch URL and add to ipfs.gftd.ai
+    #   ipfs.add      — upload bytes / fetch URL and add to ipfs.etzhayyim.com
     #   ipfs.pinByCid — pin a CID already reachable by the Kubo node
     from pymagatama.primitives import ipfs_ingest  # noqa: E402
     ipfs_ingest.register(worker)
@@ -8420,14 +8420,14 @@ async def main() -> None:
     from pymagatama.primitives import ir_scrape  # noqa: E402
     ir_scrape.register(worker, timeout_ms=300_000)
 
-    # site.gftd.ai IVF+PQ reindex pipeline (4 task types:
+    # site.etzhayyim.com IVF+PQ reindex pipeline (4 task types:
     # site.ivfPq.embedMarkdown, site.ivfPq.updateCentroids,
     # site.ivfPq.trainCodebook, site.ivfPq.encodeChunks).
     # Weekly batch via ivfPqReindex.bpmn R/P7D timer. faiss-cpu lazy-imported.
     from pymagatama.primitives import site_ivf_pq  # noqa: E402
     site_ivf_pq.register(worker, timeout_ms=3_600_000)
 
-    # site.gftd.ai Corpus2Skill distillation (1 task type:
+    # site.etzhayyim.com Corpus2Skill distillation (1 task type:
     # site.corpus2skill.distillDomain). Weekly batch via corpus2skillDistill.bpmn.
     from pymagatama.primitives import site_corpus_skill  # noqa: E402
     site_corpus_skill.register(worker, timeout_ms=7_200_000)

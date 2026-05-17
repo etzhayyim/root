@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * sbom.gftd.ai — Phase C feeder (cveIngestOsv) + Phase D query (recall).
+ * sbom.etzhayyim.com — Phase C feeder (cveIngestOsv) + Phase D query (recall).
  *
  *   sbom_cve_ingest_osv  ai.gftd.apps.sbom.cveIngestOsv
  *   sbom_recall          ai.gftd.apps.sbom.recall
@@ -28,19 +28,19 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-05-06T12:00:00Z";
-const ownerDid = "did:web:sbom.gftd.ai";
+const ownerDid = "did:web:sbom.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.sbom-phase-cd";
 
 const processSeeds: P[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-cve-ingest-osv-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-cve-ingest-osv-v1",
     bpmnProcessId: "sbom_cve_ingest_osv",
     sourcePath: "00-contracts/bpmn/ai/gftd/sbom/cveIngestOsv.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-recall-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-recall-v1",
     bpmnProcessId: "sbom_recall",
     sourcePath: "00-contracts/bpmn/ai/gftd/sbom/recall.bpmn",
     ownerDid,
@@ -49,7 +49,7 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-cveIngestOsv-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-cveIngestOsv-v1",
     nsid: "ai.gftd.apps.sbom.cveIngestOsv",
     bpmnProcessId: "sbom_cve_ingest_osv",
     ownerDid,
@@ -57,7 +57,7 @@ const bindingSeeds: B[] = [
     resultTimeoutMs: 3_600_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-recall-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-recall-v1",
     nsid: "ai.gftd.apps.sbom.recall",
     bpmnProcessId: "sbom_recall",
     ownerDid,

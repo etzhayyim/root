@@ -1,0 +1,26 @@
+{
+  "domain": "autorace",
+  "appHost": "autorace",
+  "repo": "did:web:autorace.etzhayyim.com",
+  "collection": "ai.gftd.apps.autorace.venue",
+  "source": {
+    "format": "inline",
+    "data": [
+      { "code": "funabashi",  "name_ja": "船橋オートレース場",  "pref": "千葉県",  "city": "船橋市",  "opened": "1950" },
+      { "code": "kawaguchi",  "name_ja": "川口オートレース場",  "pref": "埼玉県",  "city": "川口市",  "opened": "1952" },
+      { "code": "isesaki",    "name_ja": "伊勢崎オートレース場","pref": "群馬県",  "city": "伊勢崎市","opened": "1952" },
+      { "code": "hamamatsu",  "name_ja": "浜松オートレース場",  "pref": "静岡県",  "city": "浜松市",  "opened": "1950" },
+      { "code": "sanyo",      "name_ja": "山陽オートレース場",  "pref": "山口県",  "city": "山陽小野田市","opened": "1962" }
+    ]
+  },
+  "rkey": "{{code}}",
+  "mapping": {
+    "code": "{{code}}",
+    "nameJa": "{{name_ja}}",
+    "prefecture": "{{pref}}",
+    "city": "{{city}}",
+    "openedYear": "{{opened}}"
+  },
+  "chunkSize": 10,
+  "note": "5 JKA autorace venues (JP)"
+}

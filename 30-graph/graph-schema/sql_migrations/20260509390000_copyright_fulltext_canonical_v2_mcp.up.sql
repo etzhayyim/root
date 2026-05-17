@@ -18,9 +18,9 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-queryOaWorks',
+  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-queryOaWorks',
    0, 0, 'ai.gftd.apps.copyright.queryOaWorks',
-   'did:web:copyright.gftd.ai', 'copyright.gftd.ai', 'procedure',
+   'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright — find Berne-automatic Open Access works lacking blobs.',
    '{"type":"object","properties":{"batchSize":{"type":"integer"}}}',
    '{"type":"object","properties":{"rows":{"type":"array"},"rowCount":{"type":"integer"}}}',
@@ -35,7 +35,7 @@ VALUES
   ('copyright_fulltext.v2', 0, 0, 'copyright_fulltext.v2', 2, 'topology', NULL,
    '{"state_keys":["batchSize","queryOut","worksFetched","blobsStored","auditOut","ok","error"],"entry":"query_oa_works","edges":[{"from":"query_oa_works","to":"fetch_fulltext"},{"from":"fetch_fulltext","to":"store_blobs"},{"from":"store_blobs","to":"emit_audit"},{"from":"emit_audit","to":"END"}]}',
    'copyright fulltext (topology v2, 2/4 mcp_tool + 2 grandfather)',
-   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.copyright.gftd.ai');
+   '2026-05-09T00:00:00Z', 'rw_vertex', 'did:web:agent.copyright.etzhayyim.com');
 
 INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
@@ -52,7 +52,7 @@ VALUES
    'py_primitive', 'pymagatama.langgraph_graphs.copyright_fulltext:store_blobs', NULL, '2026-05-09T00:00:00Z'), -- lint-py-primitive-ok
   ('copyright_fulltext.v2:emit_audit', 0, 0, 'copyright_fulltext.v2', 'emit_audit',
    'mcp_tool', 'mcp://ai.gftd.tools.audit.emit',
-   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:copyright.gftd.ai","collection":"ai.gftd.apps.copyright.audit","action":"fulltext"}}',
+   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:copyright.etzhayyim.com","collection":"ai.gftd.apps.copyright.audit","action":"fulltext"}}',
    '2026-05-09T00:00:00Z');
 
 UPDATE vertex_langgraph_assistant SET superseded_by = 'copyright_fulltext.v2'

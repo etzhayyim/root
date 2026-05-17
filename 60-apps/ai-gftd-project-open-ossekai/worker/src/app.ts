@@ -35,7 +35,7 @@ function envOf(sdk: unknown): EnvLike {
 }
 
 function dispatcherUrl(sdk: unknown): string {
-  return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
 }
 
 async function internalTrustHeader(sdk: unknown): Promise<string> {

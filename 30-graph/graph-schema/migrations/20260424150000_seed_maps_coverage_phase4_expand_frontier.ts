@@ -21,16 +21,16 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
   const seed: Array<[string, string, number, number, number]> = [
     // source_did, label, world_total, priority_weight, ttl_hours
-    ["did:web:maps.gftd.ai:infrastructure", "Waterway",   5_000_000, 0.3, 720.0],
-    ["did:web:maps.gftd.ai:infrastructure", "River",         500_000, 0.3, 720.0],
-    ["did:web:maps.gftd.ai:infrastructure", "Mountain",    1_000_000, 0.3, 720.0],
-    ["did:web:maps.gftd.ai:infrastructure", "BusStop",     5_000_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:infrastructure", "Parking",    50_000_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:infrastructure", "Sensor",        100_000, 0.1, 168.0], // no dispatcher yet; harmless skip
+    ["did:web:maps.etzhayyim.com:infrastructure", "Waterway",   5_000_000, 0.3, 720.0],
+    ["did:web:maps.etzhayyim.com:infrastructure", "River",         500_000, 0.3, 720.0],
+    ["did:web:maps.etzhayyim.com:infrastructure", "Mountain",    1_000_000, 0.3, 720.0],
+    ["did:web:maps.etzhayyim.com:infrastructure", "BusStop",     5_000_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:infrastructure", "Parking",    50_000_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:infrastructure", "Sensor",        100_000, 0.1, 168.0], // no dispatcher yet; harmless skip
   ];
   for (const [sourceDid, label, worldTotal, priority, ttl] of seed) {
     const sourceSlug = sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || "primary";
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

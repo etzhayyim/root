@@ -97,7 +97,7 @@ def test_make_code_empty_string_treated_as_none() -> None:
 
 def test_make_vertex_id_format() -> None:
     vid = OU._make_vertex_id("LEI123", "DEPT-001")
-    assert vid.startswith("at://did:web:open-lei.gftd.ai/")
+    assert vid.startswith("at://did:web:open-lei.etzhayyim.com/")
     assert "LEI123-DEPT-001" in vid
 
 

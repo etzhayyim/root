@@ -198,7 +198,7 @@ def test_normalize_lei_record_basic() -> None:
 def test_normalize_lei_record_vertex_id_format() -> None:
     record = {"attributes": {"lei": "LEI001"}}
     result = OL.normalize_lei_record(record)
-    assert result["vertex_id"].startswith("at://did:web:open-lei.gftd.ai/")
+    assert result["vertex_id"].startswith("at://did:web:open-lei.etzhayyim.com/")
     assert "LEI001" in result["vertex_id"]
 
 

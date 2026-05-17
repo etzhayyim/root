@@ -309,7 +309,7 @@ def task_kinoko_check_flow_threshold(
                    participant_count, eta_min_used, block_status, status,
                    created_at, owner_did, sensitivity_ord)
                 SELECT %s, %s, %s, %s, %s, %s, 'finalized', 'active', %s,
-                       'did:web:kinoko.gftd.ai', 1
+                       'did:web:kinoko.etzhayyim.com', 1
                 WHERE NOT EXISTS (
                   SELECT 1 FROM vertex_kinoko_block WHERE vertex_id = %s
                 )

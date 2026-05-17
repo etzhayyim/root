@@ -116,7 +116,7 @@
 	let txHistory = $state<CreditTx[]>([]);
 	let txLoading = $state(true);
 
-	const PDS = 'https://atproto.gftd.ai';
+	const PDS = 'https://atproto.etzhayyim.com';
 
 	async function fetchCreditsLedger() {
 		try {
@@ -732,7 +732,7 @@ onMount(() => {
 				</div>
 			</div>
 
-			<!-- ── Browser Inference Section (murakumo.gftd.ai) ── -->
+			<!-- ── Browser Inference Section (murakumo.etzhayyim.com) ── -->
 			<div class="rounded-2xl border border-gv2-border/40 bg-gv2-bg-card p-4">
 				<div class="flex items-center justify-between gap-2">
 					<h2 class="text-[15px] font-bold text-gv2-text-primary">Browser Inference</h2>
@@ -1104,13 +1104,13 @@ onMount(() => {
 				{/each}
 			</div>
 
-			<!-- ── HC Jobs (hc.gftd.ai) ── -->
+			<!-- ── HC Jobs (hc.etzhayyim.com) ── -->
 			<div class="rounded-2xl border border-gv2-border/40 bg-gv2-bg-card p-4">
 				<div class="flex items-center justify-between gap-2">
 					<h2 class="text-[15px] font-bold text-gv2-text-primary">Available Jobs</h2>
-					<a href="https://hc.gftd.ai" target="_blank" rel="noopener noreferrer" class="text-[12px] font-semibold text-[#1185FE] no-underline active:opacity-60">View all</a>
+					<a href="https://hc.etzhayyim.com" target="_blank" rel="noopener noreferrer" class="text-[12px] font-semibold text-[#1185FE] no-underline active:opacity-60">View all</a>
 				</div>
-				<p class="mt-1 text-[13px] text-gv2-text-muted">Complete tasks on hc.gftd.ai to earn USDC/USDT + yoro credits.</p>
+				<p class="mt-1 text-[13px] text-gv2-text-muted">Complete tasks on hc.etzhayyim.com to earn USDC/USDT + yoro credits.</p>
 
 				{#if hcLoading}
 					<div class="mt-3 flex flex-col gap-2">
@@ -1127,13 +1127,13 @@ onMount(() => {
 				{:else if hcJobs.length === 0}
 					<div class="mt-3 rounded-xl border border-gv2-border/20 bg-gv2-bg-primary/50 p-4 text-center">
 						<p class="text-[13px] text-gv2-text-muted">No jobs available right now</p>
-						<a href="https://hc.gftd.ai" target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-[13px] font-semibold text-[#1185FE] no-underline active:opacity-60">Check hc.gftd.ai for updates</a>
+						<a href="https://hc.etzhayyim.com" target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-[13px] font-semibold text-[#1185FE] no-underline active:opacity-60">Check hc.etzhayyim.com for updates</a>
 					</div>
 				{:else}
 					<div class="mt-3 flex flex-col gap-2">
 						{#each hcJobs as job}
 							<a
-								href="https://hc.gftd.ai/task/{job.id}"
+								href="https://hc.etzhayyim.com/task/{job.id}"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="flex items-center gap-3 rounded-xl border border-gv2-border/20 bg-gv2-bg-primary/50 p-3 no-underline touch-manipulation active:bg-gv2-bg-hover"

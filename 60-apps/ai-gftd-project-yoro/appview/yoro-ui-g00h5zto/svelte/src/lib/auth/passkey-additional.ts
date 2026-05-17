@@ -11,7 +11,7 @@
 
 import { getSessionToken } from './passkey';
 
-const AUTHZ_BASE = 'https://authz.gftd.ai';
+const AUTHZ_BASE = 'https://authz.etzhayyim.com';
 
 export interface AdditionalPasskeyResult {
 	ok: boolean;

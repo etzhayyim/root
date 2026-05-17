@@ -96,8 +96,8 @@ async def run_concurrent_loops(
 async def _demo() -> None:
     print("[microgrid-async] building :loop:freq-droop with 2 BESS assets")
     bess = [
-        ("did:web:open-ot.gftd.ai:cell:droop-bess-1", 1000.0),
-        ("did:web:open-ot.gftd.ai:cell:droop-bess-2", 500.0),
+        ("did:web:open-ot.etzhayyim.com:cell:droop-bess-1", 1000.0),
+        ("did:web:open-ot.etzhayyim.com:cell:droop-bess-2", 500.0),
     ]
     app = build_freq_droop_graph(bess, cycle_period_ms=100)
     schedule = [50.000, 50.050, 50.300, 50.500, 50.300, 50.050, 50.000]

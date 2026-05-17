@@ -59,8 +59,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       sensitivity_ord, org_id, user_id, actor_id
     )
     SELECT
-      'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-mineral-seed-v1',
-      'did:web:bpmn.gftd.ai',
+      'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-mineral-seed-v1',
+      'did:web:bpmn.etzhayyim.com',
       'science_mineral_seed',
       1,
       ${IMA_MINERAL_SEED_BPMN},
@@ -69,9 +69,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'active',
       NOW()::VARCHAR,
       0,
-      'bpmn.gftd.ai',
+      'bpmn.etzhayyim.com',
       'system',
-      'did:web:bpmn.gftd.ai'
+      'did:web:bpmn.etzhayyim.com'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_process_def
       WHERE bpmn_process_id = 'science_mineral_seed'

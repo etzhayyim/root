@@ -9,7 +9,7 @@ type Seed = { slug: string; op: string; processId: string; timeoutMs: number; wr
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:stripe.gftd.ai";
+const ownerDid = "did:web:stripe.etzhayyim.com";
 const createdAt = "2026-04-29T22:20:00+09:00";
 const actorId = "sys.bpmn.seed.stripe";
 
@@ -35,8 +35,8 @@ const seeds: Seed[] = [
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/stripe/${s.op}.bpmn`;
-const processVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/stripe-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/stripe-${s.op}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/stripe-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/stripe-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

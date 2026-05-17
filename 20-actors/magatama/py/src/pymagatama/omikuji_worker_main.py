@@ -1,4 +1,4 @@
-"""omikuji.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""omikuji.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -10,9 +10,9 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
-ACTOR_DID = "did:web:omikuji.gftd.ai"
+ACTOR_DID = "did:web:omikuji.etzhayyim.com"
 
 FORTUNE_RESULTS = ["大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶"]
 

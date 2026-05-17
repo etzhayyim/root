@@ -5,11 +5,11 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * yatabase.gftd.ai BPMN-as-actor seeding (ADR-0056 + ADR-2605080000 §D10).
+ * yatabase.etzhayyim.com BPMN-as-actor seeding (ADR-0056 + ADR-2605080000 §D10).
  *
  * 10 BPMN process defs (4 timer-start + 6 XRPC-bound) + 6 XRPC bindings.
  * No CF Worker on the BPMN side (T2 tier: pymagatama + Zeebe only). The
- * CF Worker `yatabase.gftd.ai` is a separate edge proxy that talks to
+ * CF Worker `yatabase.etzhayyim.com` is a separate edge proxy that talks to
  * bpmn-dispatcher via internal HTTP for storage operations and to RW
  * directly for SPARQL/PG passthrough.
  *
@@ -41,59 +41,59 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T16:01:00Z";
-const ownerDid = "did:web:yatabase.gftd.ai";
+const ownerDid = "did:web:yatabase.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.yata";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-storage-metering-rollup-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-storage-metering-rollup-v1",
     bpmnProcessId: "yata_storage_metering_rollup",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/storageMeteringRollup.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-storage-embedding-drain-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-storage-embedding-drain-v1",
     bpmnProcessId: "yata_storage_embedding_drain",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/storageEmbeddingDrain.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-storage-tier-migrate-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-storage-tier-migrate-v1",
     bpmnProcessId: "yata_storage_tier_migrate",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/storageTierMigrate.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-multipart-reap-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-multipart-reap-v1",
     bpmnProcessId: "yata_multipart_reap",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/multipartReap.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-put-object-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-put-object-v1",
     bpmnProcessId: "yata_put_object",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/putObject.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-get-object-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-get-object-v1",
     bpmnProcessId: "yata_get_object",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/getObject.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-delete-object-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-delete-object-v1",
     bpmnProcessId: "yata_delete_object",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/deleteObject.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-presign-url-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-presign-url-v1",
     bpmnProcessId: "yata_presign_url",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/presignUrl.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-run-sparql-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-run-sparql-v1",
     bpmnProcessId: "yata_run_sparql",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/runSparql.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yata-provision-database-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-provision-database-v1",
     bpmnProcessId: "yata_provision_database",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/provisionDatabase.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yata-putObject-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-putObject-v1",
     nsid: "ai.gftd.apps.yata.putObject",
     bpmnProcessId: "yata_put_object", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yata-getObject-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-getObject-v1",
     nsid: "ai.gftd.apps.yata.getObject",
     bpmnProcessId: "yata_get_object", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yata-deleteObject-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-deleteObject-v1",
     nsid: "ai.gftd.apps.yata.deleteObject",
     bpmnProcessId: "yata_delete_object", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yata-presignUrl-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-presignUrl-v1",
     nsid: "ai.gftd.apps.yata.presignUrl",
     bpmnProcessId: "yata_presign_url", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yata-runSparql-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-runSparql-v1",
     nsid: "ai.gftd.apps.yata.runSparql",
     bpmnProcessId: "yata_run_sparql", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yata-provisionDatabase-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-provisionDatabase-v1",
     nsid: "ai.gftd.apps.yata.provisionDatabase",
     bpmnProcessId: "yata_provision_database", ownerDid, resultTimeoutMs: 60_000 },
 ];

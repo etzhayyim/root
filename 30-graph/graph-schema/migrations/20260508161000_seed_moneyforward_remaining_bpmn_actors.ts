@@ -16,7 +16,7 @@ type Seed = {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:bpmn.gftd.ai";
+const ownerDid = "did:web:bpmn.etzhayyim.com";
 const createdAt = "2026-05-08T16:10:00+09:00";
 const actorId = "sys.bpmn.seed.moneyforward-remaining";
 
@@ -45,8 +45,8 @@ const seeds: Seed[] = [
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${s.actor}/${s.op}.bpmn`;
-const processVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${s.actor}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${s.actor}-${s.op}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${s.actor}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${s.actor}-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const existingProcesses = new Set(
@@ -65,7 +65,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {
     const xml = readFileSync(path.resolve(repoRoot, sourcePath(s)), "utf8");
     const size = Buffer.byteLength(xml, "utf8");
-    const actorDid = `did:web:${s.actor}.gftd.ai`;
+    const actorDid = `did:web:${s.actor}.etzhayyim.com`;
 
     if (!existingProcesses.has(processVertexId(s))) {
       await sql`

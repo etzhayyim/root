@@ -35,7 +35,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Any, TypedDict
 
-YORO_DID_BASE = "did:web:yoro.gftd.ai"
+YORO_DID_BASE = "did:web:yoro.etzhayyim.com"
 DEFAULT_RETAILERS = ("amazon-jp", "rakuten", "ikea-jp", "flexispot-jp", "yodobashi", "kagu365")
 DEFAULT_MAX = 20
 
@@ -106,7 +106,7 @@ def write_offers(state: YoroProductIngestState) -> dict:
     """Forward each offer to kakaku.ingestOfferFromUrl XRPC (kakaku owns vertex_kakaku_offer)."""
     import httpx
 
-    pds_base = os.environ.get("PDS_BASE_URL", "https://atproto.gftd.ai")
+    pds_base = os.environ.get("PDS_BASE_URL", "https://atproto.etzhayyim.com")
     token = os.environ.get("INTERNAL_TRUST_TOKEN", "")
     headers = {"content-type": "application/json"}
     if token:

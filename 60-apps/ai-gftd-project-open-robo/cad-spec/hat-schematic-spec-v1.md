@@ -440,7 +440,7 @@ MCP1700: Microchip, SOT-23, 250mA, Iq=1.6μA, dropout 178mV@100mA
 1. KiCad ERC/DRC クリア → Gerber + Drill エクスポート
 2. P-Ban.com サイトに Gerber zip アップロード → 自動見積り
 3. BOM CSV (P-Ban.com 形式) 同時アップロード → 実装見積り
-4. tsukuru.gftd.ai `ai.gftd.apps.tsukuru.pcbProject.create` でプロジェクト登録
+4. tsukuru.etzhayyim.com `ai.gftd.apps.tsukuru.pcbProject.create` でプロジェクト登録
 5. `ai.gftd.apps.tsukuru.pban.requestQuote` → 見積り取得 → 発注承認 (48h human_review)
 6. 発注 → P-Ban.com 製造期間 5-7 営業日 → 納品
 7. RPi 5 に装着 → `firmware/test/home_pose.py` 実行 → 全軸動作確認

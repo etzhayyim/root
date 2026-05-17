@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gftdcojp/nats-jetstream-kv-resp/internal/store"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp/internal/store"
 	server "github.com/nats-io/nats-server/v2/server"
 	natsserver "github.com/nats-io/nats-server/v2/test"
 	"github.com/nats-io/nats.go"

@@ -298,6 +298,6 @@ python3 firmware/test/camera_test.py  # カメラ映像確認
 
 ## お問い合わせ
 
-- 製品サポート: https://armcrawler.gftd.ai/support
+- 製品サポート: https://armcrawler.etzhayyim.com/support
 - GitHub Issues: https://github.com/gftd-jp/otete-firmware
 - Email: j.kawasaki@gftd.co.jp

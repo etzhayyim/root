@@ -1,4 +1,4 @@
-"""worlds.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""worlds.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -24,7 +24,7 @@ async def run_worker():
     async def task_create_scene(**kwargs):
         name = kwargs.get("name", "")
         scene_type = kwargs.get("sceneType", "room")
-        author_did = kwargs.get("authorDid", "did:web:worlds.gftd.ai")
+        author_did = kwargs.get("authorDid", "did:web:worlds.etzhayyim.com")
 
         scene_id = str(uuid.uuid4())
         vertex_id = f"worlds:scene:{scene_id}"
@@ -40,7 +40,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, author_did,
                 scene_id, name, scene_type, "draft",
-                "did:web:worlds.gftd.ai", "did:web:worlds.gftd.ai", now, now,
+                "did:web:worlds.etzhayyim.com", "did:web:worlds.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -113,9 +113,9 @@ async def run_worker():
                     id, name, asset_type, scene_id, status,
                     actor_did, org_did, created_at, updated_at)
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
-                vertex_id, 0, date.today(), 0, "did:web:worlds.gftd.ai",
+                vertex_id, 0, date.today(), 0, "did:web:worlds.etzhayyim.com",
                 asset_id, name, asset_type, scene_id, "active",
-                "did:web:worlds.gftd.ai", "did:web:worlds.gftd.ai", now, now,
+                "did:web:worlds.etzhayyim.com", "did:web:worlds.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

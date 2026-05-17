@@ -47,4 +47,4 @@ The wasmCloud component is written in **TinyGo** and serves as the "host" for th
 - `adapter/src/index.ts`: The SvelteKit adapter logic.
 - `adapter/src/runtime/handler.js`: The JS entry point that imports `Server`.
 - `wasm/runtime/main.go`: The TinyGo host for QuickJS.
-- `PROJECT.jsonld`: Metadata for the gftd.ai ecosystem.
+- `PROJECT.jsonld`: Metadata for the etzhayyim.com ecosystem.

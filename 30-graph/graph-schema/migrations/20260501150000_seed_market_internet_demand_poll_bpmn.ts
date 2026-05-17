@@ -15,7 +15,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-05-01T14:30:00Z";
-const ownerDid = "did:web:market.gftd.ai";
+const ownerDid = "did:web:market.etzhayyim.com";
 const actorId = "sys.bpmn.seed.market";
 
 interface BpmnSeed {
@@ -30,8 +30,8 @@ interface BpmnSeed {
 
 const seeds: BpmnSeed[] = [
   {
-    processVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-internetDemandPoll-v1",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-internetDemandPoll-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1",
     processId: "market_internet_demand_poll",
     nsid: "ai.gftd.market.internetDemandPoll",
     sourcePath: "00-contracts/bpmn/ai/gftd/generic/internetDemandPoll.bpmn",

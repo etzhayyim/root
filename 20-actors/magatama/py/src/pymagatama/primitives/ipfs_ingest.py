@@ -5,7 +5,7 @@ Task types registered:
   ipfs.pinByCid — pin an already-reachable CID; output: pinned (bool)
 
 Required secrets (Keychain gftd.ipfs or env):
-  IPFS_URL   — https://ipfs.gftd.ai (default)
+  IPFS_URL   — https://ipfs.etzhayyim.com (default)
   IPFS_HMAC  — 32-byte hex HMAC key (same value stored in ai-gftd-ipfs-proxy Worker secret)
 
 Task input for ipfs.add:
@@ -15,7 +15,7 @@ Task input for ipfs.add:
 
 Task output for ipfs.add:
   cid         (str)  — CIDv1 hash returned by Kubo /api/v0/add
-  ipfs_url    (str)  — https://ipfs.gftd.ai/ipfs/{cid}
+  ipfs_url    (str)  — https://ipfs.etzhayyim.com/ipfs/{cid}
 """
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ from pymagatama.langserver_compat import LangServerWorker
 
 logger = logging.getLogger(__name__)
 
-_IPFS_URL_DEFAULT = "https://ipfs.gftd.ai"
+_IPFS_URL_DEFAULT = "https://ipfs.etzhayyim.com"
 _IPFS_API_URL_DEFAULT = "http://kubo.ipfs.svc.cluster.local:5001"
 _CHUNK_SIZE = 1024 * 1024
 
@@ -80,7 +80,7 @@ def _api_base_url() -> str:
 
 
 def _api_requires_hmac() -> bool:
-    return "ipfs.gftd.ai" in _api_base_url()
+    return "ipfs.etzhayyim.com" in _api_base_url()
 
 
 def _hmac_key() -> str:
@@ -199,7 +199,7 @@ async def ingest_movie(
     content_type: str = "",
     max_bytes: int = 0,
 ) -> dict:
-    """Ingest a movie source into ipfs.gftd.ai and return durable source metadata."""
+    """Ingest a movie source into ipfs.etzhayyim.com and return durable source metadata."""
     if source_ipfs_cid:
         pinned = await pin_by_cid(source_ipfs_cid)
         return {

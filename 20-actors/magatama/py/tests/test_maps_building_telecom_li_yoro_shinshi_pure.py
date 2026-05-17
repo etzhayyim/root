@@ -65,8 +65,8 @@ def test_mb_new_rkey_returns_string():
 # ─── maps_building_3d — _stable_rkey ─────────────────────────────────────────
 
 def test_mb_stable_rkey_is_deterministic():
-    a = MB._stable_rkey("at://did:web:maps.gftd.ai/building/001")
-    b = MB._stable_rkey("at://did:web:maps.gftd.ai/building/001")
+    a = MB._stable_rkey("at://did:web:maps.etzhayyim.com/building/001")
+    b = MB._stable_rkey("at://did:web:maps.etzhayyim.com/building/001")
     assert a == b
 
 
@@ -234,8 +234,8 @@ def test_li_require_none_value_raises():
 # ─── telecom_li — _caller ────────────────────────────────────────────────────
 
 def test_li_caller_uses_caller_did_when_set():
-    result = LI._caller({"callerDid": "did:web:regulator.gftd.ai"})
-    assert result == "did:web:regulator.gftd.ai"
+    result = LI._caller({"callerDid": "did:web:regulator.etzhayyim.com"})
+    assert result == "did:web:regulator.etzhayyim.com"
 
 
 def test_li_caller_falls_back_to_telecom_did():
@@ -298,12 +298,12 @@ def test_ys_utc_now_iso_contains_t():
 # ─── yoro_social — _display_actor ────────────────────────────────────────────
 
 def test_ys_display_actor_strips_did_web_prefix():
-    result = YS._display_actor("did:web:yoro.gftd.ai")
-    assert result == "yoro.gftd.ai"
+    result = YS._display_actor("did:web:yoro.etzhayyim.com")
+    assert result == "yoro.etzhayyim.com"
 
 
 def test_ys_display_actor_uses_handle_when_provided():
-    result = YS._display_actor("did:web:yoro.gftd.ai", "yoro-chan")
+    result = YS._display_actor("did:web:yoro.etzhayyim.com", "yoro-chan")
     assert result == "yoro-chan"
 
 
@@ -339,8 +339,8 @@ def test_ys_build_social_post_record_has_value_json():
 
 
 def test_ys_build_social_post_record_custom_repo():
-    result = YS.build_social_post_record(repo="did:web:custom.gftd.ai", text="t")
-    assert "did:web:custom.gftd.ai" in result["uri"]
+    result = YS.build_social_post_record(repo="did:web:custom.etzhayyim.com", text="t")
+    assert "did:web:custom.etzhayyim.com" in result["uri"]
 
 
 def test_ys_build_social_post_record_has_required_keys():

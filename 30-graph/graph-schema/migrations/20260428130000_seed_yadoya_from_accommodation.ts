@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 // yadoya Phase 4 — backfill vertex_yadoya_hotel from vertex_accommodation
 // (OSM ingest, 828K rows) and bridge into the hospitality cluster
-// (ADR-0028) by minting did:web:hospitality.gftd.ai:actor:property:{osm-id}
+// (ADR-0028) by minting did:web:hospitality.etzhayyim.com:actor:property:{osm-id}
 // profile rows + edge_yadoya_property_to_chain links.
 //
 // Scope (V1, MVP): 10 JP pilot cities × type ∈ {hotel, hostel, guest_house}
@@ -26,8 +26,8 @@ const PILOT_CITIES = [
 const PILOT_TYPES = ["hotel", "hostel", "guest_house"];
 const ROW_CAP = 200;
 const CREATED_AT = "2026-04-28T13:00:00Z";
-const OWNER_DID = "did:web:yadoya.gftd.ai";
-const HOSPITALITY_DID = "did:web:hospitality.gftd.ai";
+const OWNER_DID = "did:web:yadoya.etzhayyim.com";
+const HOSPITALITY_DID = "did:web:hospitality.etzhayyim.com";
 const ACTOR_TAG = "sys.seed.yadoya-from-accommodation";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
@@ -90,7 +90,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       1, ${HOSPITALITY_DID},
       y.property_did,
       y.property_did,
-      'property-' || y.osm_id || '.hospitality.gftd.ai',
+      'property-' || y.osm_id || '.hospitality.etzhayyim.com',
       y.name,
       'Hospitality property (OSM ' || y.osm_id || ', ' || y.city || ', ' || y.country || ')',
       'app.bsky.actor.profile',
@@ -132,6 +132,6 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 export async function down(db: Kysely<unknown>): Promise<void> {
   await sql`DELETE FROM edge_yadoya_property_to_chain WHERE actor_id = ${ACTOR_TAG}`.execute(db);
   // vertex_profile rows minted here are identified by owner_did + handle prefix
-  await sql`DELETE FROM vertex_profile WHERE owner_did = ${HOSPITALITY_DID} AND handle LIKE 'property-%.hospitality.gftd.ai'`.execute(db);
+  await sql`DELETE FROM vertex_profile WHERE owner_did = ${HOSPITALITY_DID} AND handle LIKE 'property-%.hospitality.etzhayyim.com'`.execute(db);
   await sql`DELETE FROM vertex_yadoya_hotel WHERE actor_id = ${ACTOR_TAG}`.execute(db);
 }

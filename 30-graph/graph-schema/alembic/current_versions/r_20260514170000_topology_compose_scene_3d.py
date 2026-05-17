@@ -53,7 +53,7 @@ _TOPOLOGY_YAML = (
 
 _ASSISTANT_ID = "ai.gftd.apps.mangaka.composeScene3d"
 _NSID = "ai.gftd.apps.mangaka.composeScene3d"
-_APP_DID = "did:web:mangaka.gftd.ai"
+_APP_DID = "did:web:mangaka.etzhayyim.com"
 _NOW_ISO = "2026-05-14T17:00:00Z"
 _NOW_DATE = "2026-05-14"
 

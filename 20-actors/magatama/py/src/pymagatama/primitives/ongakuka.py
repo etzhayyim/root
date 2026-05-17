@@ -1,5 +1,5 @@
 """
-ongakuka.gftd.ai — Zeebe primitive for AI music generation.
+ongakuka.etzhayyim.com — Zeebe primitive for AI music generation.
 
 Env vars:
   SS_MURAKUMO_API_KEY    Murakumo service API key
@@ -25,7 +25,7 @@ from pymagatama.db_sync import sync_cursor
 # Config
 # ---------------------------------------------------------------------------
 
-_MURAKUMO_BASE_URL = os.environ.get("MURAKUMO_BASE_URL", "https://murakumo-serve.gftd.ai").rstrip("/")
+_MURAKUMO_BASE_URL = os.environ.get("MURAKUMO_BASE_URL", "https://murakumo-serve.etzhayyim.com").rstrip("/")
 _MURAKUMO_API_KEY  = os.environ.get("SS_MURAKUMO_API_KEY", "").strip()
 _MURAKUMO_MODEL    = "musicgen-small"
 
@@ -35,8 +35,8 @@ _B2_KEY      = os.environ.get("B2_SECRET_ACCESS_KEY","").strip()
 _B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com").rstrip("/")
 _B2_REGION   = os.environ.get("B2_REGION",   "us-west-004")
 
-_OWNER_DID      = "did:web:ongakuka.gftd.ai"
-_COMPOSER_DID   = "did:web:ongakuka.gftd.ai:actor:composer"
+_OWNER_DID      = "did:web:ongakuka.etzhayyim.com"
+_COMPOSER_DID   = "did:web:ongakuka.etzhayyim.com:actor:composer"
 
 
 # ---------------------------------------------------------------------------
@@ -204,7 +204,7 @@ def task_ongakuka_music_generate(
         if not _b2_head(obj_key):
             _b2_put(obj_key, wav, "audio/wav")
 
-    audio_url = f"https://ongakuka.gftd.ai/blobs/{sha}.wav"
+    audio_url = f"https://ongakuka.etzhayyim.com/blobs/{sha}.wav"
     now_iso   = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     wall_ms   = int((time.time() - t0) * 1000)
 
@@ -290,7 +290,7 @@ def task_ongakuka_music_generate(
                 "external": {
                     "uri":         audio_url,
                     "title":       f"Track: {track_title}",
-                    "description": f"{duration_sec}s instrumental — {_MURAKUMO_MODEL} — ongakuka.gftd.ai",
+                    "description": f"{duration_sec}s instrumental — {_MURAKUMO_MODEL} — ongakuka.etzhayyim.com",
                 },
             },
         }),

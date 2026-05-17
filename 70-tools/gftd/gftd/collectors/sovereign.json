@@ -1,0 +1,23 @@
+{
+  "domain": "sovereign",
+  "appHost": "states",
+  "repo": "did:web:states.etzhayyim.com",
+  "collection": "ai.gftd.apps.sovereign.sovereign",
+  "source": {
+    "url": "https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.json",
+    "format": "json",
+    "path": "$"
+  },
+  "rkey": "{{alpha-3}}",
+  "mapping": {
+    "name": "{{name}}",
+    "iso3": "{{alpha-3}}",
+    "iso2": "{{alpha-2}}",
+    "numericCode": "{{country-code}}",
+    "region": "{{region}}",
+    "subRegion": "{{sub-region}}",
+    "intermediateRegion": "{{intermediate-region}}"
+  },
+  "chunkSize": 50,
+  "note": "ISO 3166-1 all-in-one list (249 entries incl. dependencies; UN member states = 193+2 observers = 195 target)"
+}

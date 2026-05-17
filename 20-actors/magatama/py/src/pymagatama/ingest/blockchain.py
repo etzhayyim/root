@@ -19,7 +19,7 @@ from pymagatama.db_sync import sync_cursor
 from pymagatama.ingest.core import now_iso, today, upsert_cursor
 
 
-OWNER_DID = "did:web:blockchain.gftd.ai"
+OWNER_DID = "did:web:blockchain.etzhayyim.com"
 _BLOCK_TABLES_AVAILABLE: bool | None = None
 
 
@@ -80,7 +80,7 @@ def _ethereum_rpc(method: str, params: list[Any] | None = None) -> Any:
 
 
 def _get_cursor_height(source_id: str) -> int | None:
-    vid = f"at://did:web:ingest.gftd.ai/ai.gftd.apps.ingest.cursor/blockchain-{source_id}-head"
+    vid = f"at://did:web:ingest.etzhayyim.com/ai.gftd.apps.ingest.cursor/blockchain-{source_id}-head"
     try:
         with sync_cursor() as cur:
             cur.execute("SELECT cursor_value FROM vertex_ingest_cursor WHERE vertex_id = %s", (vid,))
@@ -153,7 +153,7 @@ def _insert_actor_landing(row: dict[str, Any], *, kind: str) -> int:
                 row["vertex_id"][-64:],
                 OWNER_DID,
                 f"{kind}:{row.get('height', row.get('block_height', ''))}",
-                f"did:web:blockchain.gftd.ai:{kind}:{row['vertex_id'][-48:]}",
+                f"did:web:blockchain.etzhayyim.com:{kind}:{row['vertex_id'][-48:]}",
                 row["chain"],
                 address or "",
                 row["vertex_id"],

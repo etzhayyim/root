@@ -10,15 +10,15 @@
   "workers_dev": false,
   "routes": [
     {
-      "pattern": "open-airplane.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "open-airplane.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "vars": {
-    "APP_HANDLE": "open-airplane.gftd.ai",
-    "PRIMARY_DID": "did:web:open-airplane.gftd.ai",
+    "APP_HANDLE": "open-airplane.etzhayyim.com",
+    "PRIMARY_DID": "did:web:open-airplane.etzhayyim.com",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message"
   },
   "observability": {
     "enabled": true

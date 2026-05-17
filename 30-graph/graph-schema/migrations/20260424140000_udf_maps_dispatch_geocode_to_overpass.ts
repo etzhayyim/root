@@ -2,7 +2,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * Extend maps_source_dispatch_kind to route `did:web:maps.gftd.ai:geocode`
+ * Extend maps_source_dispatch_kind to route `did:web:maps.etzhayyim.com:geocode`
  * (Airport / Port / Station from the geocoder sub-DID) through the
  * 'overpass' path — the same handler covers both OSM infra and geocoded
  * POIs. Observed failure: phase-3 seed rows (geocode:Airport, geocode:Port)
@@ -21,17 +21,17 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     LANGUAGE sql
     AS $$
       SELECT CASE
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:gleif'    THEN 'gleif'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata' THEN 'wikidata'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:%'        THEN 'registry_other'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite'         THEN 'stac'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic'           THEN 'seismic'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:street_view'       THEN 'mapillary'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:infrastructure'    THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:geocode'           THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:weather'           THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:gtfs'              THEN 'gtfs'
-        WHEN source_did LIKE 'did:web:site.gftd.ai'                   THEN 'web_crawl'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:gleif'    THEN 'gleif'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata' THEN 'wikidata'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:%'        THEN 'registry_other'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite'         THEN 'stac'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic'           THEN 'seismic'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:street_view'       THEN 'mapillary'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:infrastructure'    THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:geocode'           THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:weather'           THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gtfs'              THEN 'gtfs'
+        WHEN source_did LIKE 'did:web:site.etzhayyim.com'                   THEN 'web_crawl'
         ELSE 'unsupported'
       END
     $$

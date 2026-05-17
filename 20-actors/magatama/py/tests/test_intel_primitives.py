@@ -17,7 +17,7 @@ from pymagatama.primitives import intel as IN  # noqa: E402
 
 def test_run_vid_format():
     vid = IN._run_vid("abc123")
-    assert vid.startswith("at://did:web:intel.gftd.ai/")
+    assert vid.startswith("at://did:web:intel.etzhayyim.com/")
     assert "abc123" in vid
 
 

@@ -14,15 +14,15 @@ const actorTag = "sys.bpmn.seed.open-cyber-fetch";
 type ProcessSeed = { vertexId: string; bpmnProcessId: string; sourcePath: string; ownerDid: string };
 
 const entries: Array<{ project: string; bpmnProcessId: string; proc: string; ownerDid: string }> = [
-  { project: "open-cyber-vuln",  bpmnProcessId: "open_cyber_vuln_fetch_nvd_delta",          proc: "fetchNvdDelta",         ownerDid: "did:web:open-cyber-vuln.gftd.ai:ops" },
-  { project: "open-kev-catalog", bpmnProcessId: "open_kev_catalog_fetch_kev_delta",          proc: "fetchKevDelta",         ownerDid: "did:web:open-kev-catalog.gftd.ai:ops" },
-  { project: "open-oss-vuln",    bpmnProcessId: "open_oss_vuln_fetch_ghsa_delta",            proc: "fetchGhsaDelta",        ownerDid: "did:web:open-oss-vuln.gftd.ai:ops" },
-  { project: "open-cyber-threat",bpmnProcessId: "open_cyber_threat_fetch_mitre_attack_delta",proc: "fetchMitreAttackDelta", ownerDid: "did:web:open-cyber-threat.gftd.ai:ops" },
-  { project: "open-cyber-soc",   bpmnProcessId: "open_cyber_soc_fetch_cisa_alert_delta",    proc: "fetchCisaAlertDelta",   ownerDid: "did:web:open-cyber-soc.gftd.ai:ops" },
+  { project: "open-cyber-vuln",  bpmnProcessId: "open_cyber_vuln_fetch_nvd_delta",          proc: "fetchNvdDelta",         ownerDid: "did:web:open-cyber-vuln.etzhayyim.com:ops" },
+  { project: "open-kev-catalog", bpmnProcessId: "open_kev_catalog_fetch_kev_delta",          proc: "fetchKevDelta",         ownerDid: "did:web:open-kev-catalog.etzhayyim.com:ops" },
+  { project: "open-oss-vuln",    bpmnProcessId: "open_oss_vuln_fetch_ghsa_delta",            proc: "fetchGhsaDelta",        ownerDid: "did:web:open-oss-vuln.etzhayyim.com:ops" },
+  { project: "open-cyber-threat",bpmnProcessId: "open_cyber_threat_fetch_mitre_attack_delta",proc: "fetchMitreAttackDelta", ownerDid: "did:web:open-cyber-threat.etzhayyim.com:ops" },
+  { project: "open-cyber-soc",   bpmnProcessId: "open_cyber_soc_fetch_cisa_alert_delta",    proc: "fetchCisaAlertDelta",   ownerDid: "did:web:open-cyber-soc.etzhayyim.com:ops" },
 ];
 
 const processSeeds: ProcessSeed[] = entries.map((e) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${e.project}-${e.proc}-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${e.project}-${e.proc}-v1`,
   bpmnProcessId: e.bpmnProcessId,
   sourcePath: `00-contracts/bpmn/ai/gftd/${e.project}/${e.proc}.bpmn`,
   ownerDid: e.ownerDid,

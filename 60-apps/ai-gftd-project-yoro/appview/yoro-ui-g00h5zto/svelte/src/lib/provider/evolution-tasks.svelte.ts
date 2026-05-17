@@ -61,7 +61,7 @@
 import { useLocalLLM, type ChatMessage } from './local-llm.svelte.js';
 import { getSessionToken } from '$lib/auth';
 
-const PDS = 'https://atproto.gftd.ai';
+const PDS = 'https://atproto.etzhayyim.com';
 const EVO_PROJECT_CONVO_KEY = 'yoro-evo-project-convo-id';
 const EVO_PROJECT_VERSION = 'v2';
 

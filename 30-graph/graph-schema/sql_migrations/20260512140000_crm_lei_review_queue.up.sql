@@ -75,7 +75,7 @@ INSERT INTO vertex_langgraph_assistant
   (vertex_id, _seq, created_date, sensitivity_ord, owner_did, assistant_id,
    version, kind, factory_path, description, checkpointer_mode, created_at)
 SELECT
-  'crm_lei_review_loop', 0, DATE '2026-05-12', 200, 'did:web:open-lei.gftd.ai',
+  'crm_lei_review_loop', 0, DATE '2026-05-12', 200, 'did:web:open-lei.etzhayyim.com',
   'crm_lei_review_loop', 1, 'py_factory',
   'pymagatama.langgraph_graphs.crm_lei_review_loop',
   'CRM LEI review queue loop: enrich unresolved records, autoreview safe matches, interrupt for manual evidence.',
@@ -91,7 +91,7 @@ INSERT INTO vertex_langgraph_deployment
    assistant_id, version, status, replicas, updated_at)
 SELECT
   'langgraph.builtin.crm_lei_review_loop', 0, DATE '2026-05-12', 200,
-  'did:web:open-lei.gftd.ai', 'langgraph.builtin.crm_lei_review_loop',
+  'did:web:open-lei.etzhayyim.com', 'langgraph.builtin.crm_lei_review_loop',
   'crm_lei_review_loop', 1, 'active', 1, '2026-05-12T14:00:00Z'
 WHERE NOT EXISTS (
   SELECT 1 FROM vertex_langgraph_deployment

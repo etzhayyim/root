@@ -1,4 +1,4 @@
-"""webpage.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""webpage.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -24,7 +24,7 @@ async def run_worker():
     async def task_create_page(**kwargs):
         title = kwargs.get("title", "")
         content = kwargs.get("content", "")
-        author_did = kwargs.get("authorDid", "did:web:webpage.gftd.ai")
+        author_did = kwargs.get("authorDid", "did:web:webpage.etzhayyim.com")
 
         page_id = str(uuid.uuid4())
         vertex_id = f"webpage:page:{page_id}"
@@ -40,7 +40,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)""",
                 vertex_id, 0, date.today(), 0, author_did,
                 page_id, title, "draft",
-                "did:web:webpage.gftd.ai", "did:web:webpage.gftd.ai", now, now,
+                "did:web:webpage.etzhayyim.com", "did:web:webpage.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -116,9 +116,9 @@ async def run_worker():
                     id, page_id, status,
                     actor_did, org_did, created_at, updated_at)
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)""",
-                vertex_id, 0, date.today(), 0, "did:web:webpage.gftd.ai",
+                vertex_id, 0, date.today(), 0, "did:web:webpage.etzhayyim.com",
                 publish_id, page_id, "published",
-                "did:web:webpage.gftd.ai", "did:web:webpage.gftd.ai", now, now,
+                "did:web:webpage.etzhayyim.com", "did:web:webpage.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

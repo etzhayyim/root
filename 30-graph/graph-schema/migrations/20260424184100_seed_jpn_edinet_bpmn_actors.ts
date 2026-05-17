@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T18:30:00Z";
-const ownerDid = "did:web:jpn-edinet.gftd.ai";
+const ownerDid = "did:web:jpn-edinet.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.jpn-edinet";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1",
     bpmnProcessId: "jpn_edinet_submit_securities_filing",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-edinet/submitSecuritiesFiling.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-edinet-record-material-event-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-edinet-record-material-event-v1",
     bpmnProcessId: "jpn_edinet_record_material_event",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-edinet/recordMaterialEvent.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1",
     nsid: "ai.gftd.apps.jpnEdinet.submitSecuritiesFiling", bpmnProcessId: "jpn_edinet_submit_securities_filing",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1",
     nsid: "ai.gftd.apps.jpnEdinet.recordMaterialEvent", bpmnProcessId: "jpn_edinet_record_material_event",
     ownerDid, resultTimeoutMs: 30000 },
 ];

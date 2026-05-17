@@ -1,4 +1,4 @@
-// Phase C of the live.gftd.ai L4 actor migration.
+// Phase C of the live.etzhayyim.com L4 actor migration.
 //
 // Bumps `live_post_chat` to BPMN version 2: same db.insert into
 // vertex_live_chat (Tier 2 Domain) followed by a generic.pds.dispatch
@@ -13,14 +13,14 @@
 //
 // Demo actors that already have actor_registry rows (signing keys
 // mintable via _mint_pds_service_auth):
-//   yorishiro  — did:web:yorishiro.gftd.ai
-//   shinkansen — did:web:shinkansen.gftd.ai
-//   oshikatsu  — did:web:oshikatsu.gftd.ai
-//   shinshi    — did:web:shinshi.gftd.ai
-//   yotei      — did:web:yotei.gftd.ai
+//   yorishiro  — did:web:yorishiro.etzhayyim.com
+//   shinkansen — did:web:shinkansen.etzhayyim.com
+//   oshikatsu  — did:web:oshikatsu.etzhayyim.com
+//   shinshi    — did:web:shinshi.etzhayyim.com
+//   yotei      — did:web:yotei.etzhayyim.com
 //
 // The "anime" demo handle should be remapped to
-//   did:web:media-anime.gftd.ai
+//   did:web:media-anime.etzhayyim.com
 // in the live demo roster (separate change in the live worker).
 //
 // Federation failure is non-fatal: the chat row already landed in
@@ -38,13 +38,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-29T02:00:00Z";
-const ownerDid = "did:web:live.gftd.ai";
+const ownerDid = "did:web:live.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.live.v2";
 
 const procVertexIdV2 =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2";
 const bindingVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1";
 const sourcePath = "00-contracts/bpmn/ai/gftd/apps/live/postChat.bpmn";
 
 export async function up(db: Kysely<unknown>): Promise<void> {

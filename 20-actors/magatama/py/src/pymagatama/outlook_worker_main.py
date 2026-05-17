@@ -1,4 +1,4 @@
-"""outlook.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""outlook.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -31,7 +31,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.outlook.start.auth")
     async def task_start_auth(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:outlook.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
         redirect_uri = kwargs.get("redirectUri", "")
 
         state = str(uuid.uuid4())
@@ -45,7 +45,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.outlook.exchange.code")
     async def task_exchange_code(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:outlook.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
         code = kwargs.get("code", "")
         state = kwargs.get("state", "")
 
@@ -63,7 +63,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 connection_id, "connected", "",
-                "did:web:outlook.gftd.ai", "did:web:outlook.gftd.ai", now, now,
+                "did:web:outlook.etzhayyim.com", "did:web:outlook.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -72,7 +72,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.outlook.get.auth.status")
     async def task_get_auth_status(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:outlook.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
 
         db = await get_db()
         try:
@@ -107,7 +107,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.outlook.sync.mailbox")
     async def task_sync_mailbox(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:outlook.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
         connection_id = kwargs.get("connectionId", "")
 
         mailbox_id = str(uuid.uuid4())
@@ -124,7 +124,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 mailbox_id, connection_id, now, 0,
-                "did:web:outlook.gftd.ai", "did:web:outlook.gftd.ai", now, now,
+                "did:web:outlook.etzhayyim.com", "did:web:outlook.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -133,7 +133,7 @@ async def run_worker():
 
     @worker.task(task_type="ai.gftd.apps.outlook.card.home")
     async def task_card_home(**kwargs):
-        actor_did = kwargs.get("actorDid", "did:web:outlook.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
 
         db = await get_db()
         try:

@@ -130,7 +130,7 @@ def test_post_publish_no_work_uri_returns_error():
 
 
 def test_post_publish_no_page_blobs_returns_error():
-    result = asyncio.run(MK.task_post_publish(workUri="at://mangaka.gftd.ai/work/rk1"))
+    result = asyncio.run(MK.task_post_publish(workUri="at://mangaka.etzhayyim.com/work/rk1"))
     assert result["status"] == "error"
 
 

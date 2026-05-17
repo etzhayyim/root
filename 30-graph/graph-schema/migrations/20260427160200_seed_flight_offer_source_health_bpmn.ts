@@ -11,9 +11,9 @@ const sourcePath = "00-contracts/bpmn/ai/gftd/flight-offer/sourceHealth.bpmn";
 const xml = () => readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
 
 const slug = "flight-offer-source-health-v1";
-const processVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${slug}`;
-const bindingVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${slug}`;
-const ownerDid = "did:web:flight-offer.gftd.ai";
+const processVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${slug}`;
+const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${slug}`;
+const ownerDid = "did:web:flight-offer.etzhayyim.com";
 const createdAt = "2026-04-27T16:02:00Z";
 const actorTag = "sys.bpmn.seed.flight-offer";
 

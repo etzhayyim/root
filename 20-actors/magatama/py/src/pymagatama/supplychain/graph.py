@@ -31,7 +31,7 @@ from pymagatama.db_sync import sync_cursor
 _MAX_ITER = 8
 _HALT_DELTA = 0.03
 _DAMPING = 0.70
-_ACTOR_DID = "did:web:supplychain.gftd.ai"
+_ACTOR_DID = "did:web:supplychain.etzhayyim.com"
 _GRAPH_NAME = "supplychain_cleaning_robot_v1"
 _DEFAULT_DOMAIN = "cleaning_robot"
 

@@ -22,11 +22,11 @@ CREATE FUNCTION normalize_actor_did(did varchar)
     LANGUAGE sql
     AS $$
       SELECT CASE
-        WHEN did LIKE 'did:web:site.gftd.ai:%'
+        WHEN did LIKE 'did:web:site.etzhayyim.com:%'
           THEN CONCAT(
             'did:web:',
-            SPLIT_PART(SPLIT_PART(did, 'did:web:site.gftd.ai:', 2), ':', 1),
-            '.gftd.ai'
+            SPLIT_PART(SPLIT_PART(did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+            '.etzhayyim.com'
           )
         WHEN did LIKE 'did:web:%'
           THEN CONCAT(

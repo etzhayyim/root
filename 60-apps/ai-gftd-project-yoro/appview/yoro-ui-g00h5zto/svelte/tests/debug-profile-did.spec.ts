@@ -1,13 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Debug: profile page error for did:web:atproto.gftd.ai:user:m9r4k8m0-gftd-ai
+ * Debug: profile page error for did:web:atproto.etzhayyim.com:user:m9r4k8m0-gftd-ai
  */
 
-const TARGET_URL = '/profile/did%3Aweb%3Aatproto.gftd.ai%3Auser%3Am9r4k8m0-gftd-ai';
-const DECODED_DID = 'did:web:atproto.gftd.ai:user:m9r4k8m0-gftd-ai';
+const TARGET_URL = '/profile/did%3Aweb%3Aatproto.etzhayyim.com%3Auser%3Am9r4k8m0-gftd-ai';
+const DECODED_DID = 'did:web:atproto.etzhayyim.com:user:m9r4k8m0-gftd-ai';
 
-test.describe('Debug: profile did:web:atproto.gftd.ai:user:*', () => {
+test.describe('Debug: profile did:web:atproto.etzhayyim.com:user:*', () => {
 	test('capture page errors and network failures', async ({ page }) => {
 		const errors: string[] = [];
 		const consoleMessages: string[] = [];
@@ -99,7 +99,7 @@ test.describe('Debug: profile did:web:atproto.gftd.ai:user:*', () => {
 
 	test('PDS profile resolution for this DID', async ({ request }) => {
 		// Test the PDS query that the profile page makes
-		const res = await request.post('https://atproto.gftd.ai/xrpc/app.bsky.actor.getProfile', {
+		const res = await request.post('https://atproto.etzhayyim.com/xrpc/app.bsky.actor.getProfile', {
 			headers: { 'Content-Type': 'application/json' },
 			data: { actor: DECODED_DID },
 		});
@@ -108,9 +108,9 @@ test.describe('Debug: profile did:web:atproto.gftd.ai:user:*', () => {
 		console.log(`PDS Response: ${body.slice(0, 2000)}`);
 	});
 
-	test('manifest fetch for atproto.gftd.ai', async ({ request }) => {
-		// This is what the profile page tries — atproto.gftd.ai is not an App
-		const res = await request.get('https://atproto.gftd.ai/_app/meta', {
+	test('manifest fetch for atproto.etzhayyim.com', async ({ request }) => {
+		// This is what the profile page tries — atproto.etzhayyim.com is not an App
+		const res = await request.get('https://atproto.etzhayyim.com/_app/meta', {
 			headers: { Accept: 'application/json' },
 			timeout: 5000,
 		}).catch((e) => ({ status: () => 0, text: async () => `FETCH_ERROR: ${e.message}` }));
@@ -121,7 +121,7 @@ test.describe('Debug: profile did:web:atproto.gftd.ai:user:*', () => {
 
 	test('resolveHandle for the DID', async ({ request }) => {
 		const res = await request.post(
-			'https://atproto.gftd.ai/xrpc/com.atproto.identity.resolveHandle',
+			'https://atproto.etzhayyim.com/xrpc/com.atproto.identity.resolveHandle',
 			{ headers: { 'Content-Type': 'application/json' }, data: { handle: DECODED_DID } },
 		);
 		console.log(`\n=== resolveHandle Status: ${res.status()} ===`);
@@ -132,7 +132,7 @@ test.describe('Debug: profile did:web:atproto.gftd.ai:user:*', () => {
 	test('getProfile SSR for the DID', async ({ request }) => {
 		// This is the server-side load call
 		const res = await request.post(
-			'https://atproto.gftd.ai/xrpc/app.bsky.actor.getProfile',
+			'https://atproto.etzhayyim.com/xrpc/app.bsky.actor.getProfile',
 			{ headers: { 'Content-Type': 'application/json' }, data: { actor: DECODED_DID } },
 		);
 		console.log(`\n=== getProfile Status: ${res.status()} ===`);

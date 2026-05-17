@@ -1,10 +1,10 @@
 [component]
 id = "ai-gftd-project-open-patent"
 name = "Open Patent IP Factory"
-domain = "open-patent.gftd.ai"
-did = "did:web:open-patent.gftd.ai"
+domain = "open-patent.etzhayyim.com"
+did = "did:web:open-patent.etzhayyim.com"
 runtime = "k8s-langserver"
-owner_did = "did:web:open-patent.gftd.ai"
+owner_did = "did:web:open-patent.etzhayyim.com"
 status = "active"
 
 [orchestration]
@@ -24,13 +24,13 @@ description = "LLM-driven invention seed generation + novelty assessment Pregel"
 cron = "0 3 * * 1"
 
 [[follows]]
-did = "did:web:patent.gftd.ai"
+did = "did:web:patent.etzhayyim.com"
 reason = "USPTO/EPO patent ingest feed"
 
 [[follows]]
-did = "did:web:patent.gftd.ai:jp"
+did = "did:web:patent.etzhayyim.com:jp"
 reason = "JPO patent ingest feed"
 
 [[follows]]
-did = "did:web:patent.gftd.ai:wo"
+did = "did:web:patent.etzhayyim.com:wo"
 reason = "WIPO patent ingest feed"

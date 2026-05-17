@@ -43,20 +43,20 @@ from typing_extensions import TypedDict
 _log = logging.getLogger(__name__)
 
 # ── LLM client (resolveModelId pattern — no hardcoded model names) ───────────
-_LLM_URL   = os.getenv("GFTD_LLM_URL", "https://gemma.gftd.ai/v1")
+_LLM_URL   = os.getenv("GFTD_LLM_URL", "https://gemma.etzhayyim.com/v1")
 _LLM_MODEL = os.getenv("GFTD_LLM_MODEL", "gemma-4-E2B-it")
 _LLM_KEY   = os.getenv("GFTD_LLM_API_KEY", "")
 
 _DB_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 
-_OWNER_DID = os.getenv("PREGEL_OWNER_DID", "did:web:pregel.gftd.ai")
+_OWNER_DID = os.getenv("PREGEL_OWNER_DID", "did:web:pregel.etzhayyim.com")
 
-# microsoft.gftd.ai XRPC endpoint for acknowledgment drafts
+# microsoft.etzhayyim.com XRPC endpoint for acknowledgment drafts
 _MICROSOFT_XRPC = os.getenv(
-    "MICROSOFT_XRPC_BASE", "https://microsoft.gftd.ai/xrpc"
+    "MICROSOFT_XRPC_BASE", "https://microsoft.etzhayyim.com/xrpc"
 )
 
 # Known pipeline tracks for dependency mapping
@@ -121,9 +121,9 @@ _PHISHING_SUBJECT_SIGNALS: tuple[str, ...] = (
     "your account has been suspended",
 )
 
-_ACTOR_YABAI = "did:web:yabai.gftd.ai"
-_ACTOR_MALAK = "did:web:malak.gftd.ai"
-_ACTOR_INTEL = "did:web:intel.gftd.ai"
+_ACTOR_YABAI = "did:web:yabai.etzhayyim.com"
+_ACTOR_MALAK = "did:web:malak.etzhayyim.com"
+_ACTOR_INTEL = "did:web:intel.etzhayyim.com"
 
 
 def _domain_of(addr: str) -> str:
@@ -751,7 +751,7 @@ async def handle_blocker(state: PregelState) -> dict[str, Any]:
                      detected_at, acknowledgment_sent, acknowledgment_draft_id,
                      follow_up_at, owner, actor, org_did, sensitivity_ord)
                 SELECT $1,$2,$3,$4,$5,$6,$7,$8,$9,
-                       'did:web:pregel.gftd.ai','did:web:gftd.ai',0
+                       'did:web:pregel.etzhayyim.com','did:web:etzhayyim.com',0
                 WHERE NOT EXISTS (
                     SELECT 1 FROM graphar.vertex_email_blocker WHERE blocker_id = $1
                 )
@@ -808,7 +808,7 @@ async def write_vertex(state: PregelState) -> dict[str, Any]:
                     (sender_id, address, display_name, org_domain, sender_type,
                      trust_level, first_seen, last_seen, org_did, sensitivity_ord)
                 SELECT $1::varchar,$2::varchar,$3::varchar,$4::varchar,$5::varchar,
-                       $6::integer,$7::timestamptz,$8::timestamptz,'did:web:gftd.ai',0
+                       $6::integer,$7::timestamptz,$8::timestamptz,'did:web:etzhayyim.com',0
                 WHERE NOT EXISTS (
                     SELECT 1 FROM graphar.vertex_email_sender WHERE sender_id = $1
                 )
@@ -846,7 +846,7 @@ async def write_vertex(state: PregelState) -> dict[str, Any]:
                     $9::varchar,$10::varchar,$11::integer,
                     $12::boolean,$13::varchar,$14::boolean,$15::varchar,$16::varchar,
                     'pending',$17::varchar,$18::varchar,
-                    $19::varchar,'did:web:pregel.gftd.ai','did:web:gftd.ai',0,
+                    $19::varchar,'did:web:pregel.etzhayyim.com','did:web:etzhayyim.com',0,
                     $20::timestamptz,$21::varchar
                 WHERE NOT EXISTS (
                     SELECT 1 FROM graphar.vertex_email_message WHERE message_id = $1
@@ -1080,12 +1080,12 @@ def build_graph():
 # Triggered by `triage` subcommand in __main__.py; also handles backfill.
 # ══════════════════════════════════════════════════════════════════════════════
 
-_TRIAGE_OWNER_DID = os.getenv("PREGEL_OWNER_DID", "did:web:pregel.gftd.ai")
-_TRIAGE_ORG_DID   = os.getenv("PREGEL_ORG_DID",   "did:web:gftd.ai")
+_TRIAGE_OWNER_DID = os.getenv("PREGEL_OWNER_DID", "did:web:pregel.etzhayyim.com")
+_TRIAGE_ORG_DID   = os.getenv("PREGEL_ORG_DID",   "did:web:etzhayyim.com")
 
 # Internal sender domains — always KEEP regardless of any signals
 _INTERNAL_DOMAINS: frozenset[str] = frozenset({
-    "gftd.co.jp", "gftd.ai", "gftd.works", "gftd.group",
+    "gftd.co.jp", "etzhayyim.com", "gftd.works", "gftd.group",
     "gftd.onmicrosoft.com",
 })
 

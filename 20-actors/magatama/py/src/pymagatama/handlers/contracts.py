@@ -1,9 +1,9 @@
 """
-ADR-0049 contracts pilot — contracts.gftd.ai on shared Python UDF pool.
+ADR-0049 contracts pilot — contracts.etzhayyim.com on shared Python UDF pool.
 
 Projects the existing `vertex_legal_entity` (123.5M rows, ingested by
-`legal-entity.gftd.ai`) into a DID-addressed view under
-`social-contract.gftd.ai:entity:*` per the 3-layer DID pattern in
+`legal-entity.etzhayyim.com`) into a DID-addressed view under
+`social-contract.etzhayyim.com:entity:*` per the 3-layer DID pattern in
 `60-apps/ai-gftd-project-social-contract/CLAUDE.md`.
 
 Phase 1 surface:
@@ -13,7 +13,7 @@ Phase 1 surface:
 - `ai.gftd.apps.contracts.resolveOrganization`       (query)
 
 Law full-text corpus (statute / article / treaty full-text) is scope of
-the `houbun.gftd.ai` actor, not this handler — see ADR-0052.
+the `houbun.etzhayyim.com` actor, not this handler — see ADR-0052.
 
 Write path: Hyperdrive-direct (ADR-0036). The UDF pod sits inside the
 same Vultr VKE cluster as RisingWave (ADR-0048) so we talk to the RW
@@ -32,8 +32,8 @@ from pymagatama import udf
 from pymagatama.context import Context
 
 ACTOR_NAME = "contracts"
-ACTOR_DID = f"did:web:{ACTOR_NAME}.gftd.ai"
-SC_DID_PREFIX = "did:web:social-contract.gftd.ai:entity"
+ACTOR_DID = f"did:web:{ACTOR_NAME}.etzhayyim.com"
+SC_DID_PREFIX = "did:web:social-contract.etzhayyim.com:entity"
 
 # ---------------------------------------------------------------------------
 # DID mint — deterministic BLAKE3-12 (ADR-0019 + social-contract CLAUDE.md)
@@ -450,7 +450,7 @@ async def _fetch_constitute_delta(since: str | None, limit: int) -> list[dict[st
     agent_tool=(
         "Fresh crawl of SocialContract records (constitutions / "
         "treaties). Writes vertex_contracts_social_contract directly. "
-        "Law full-text corpus is out of scope — see houbun.gftd.ai."
+        "Law full-text corpus is out of scope — see houbun.etzhayyim.com."
     ),
 )
 async def ingest_social_contract(params_json: str) -> str:

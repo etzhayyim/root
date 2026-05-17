@@ -16,7 +16,7 @@ DROP VIEW IF EXISTS mv_gov_record_dedup;
 
 DELETE FROM dim_world_domain WHERE domain = 'gov_admin_area';
 
-UPDATE dim_world_domain SET app_host = 'gov.gftd.ai', world_total = 500000, unit = 'government agencies (global)', sector = 'governance' WHERE domain = 'gov';
+UPDATE dim_world_domain SET app_host = 'gov.etzhayyim.com', world_total = 500000, unit = 'government agencies (global)', sector = 'governance' WHERE domain = 'gov';
 
 DELETE FROM dim_world_domain_collection
      WHERE domain IN ('gov', 'gov_admin_area')

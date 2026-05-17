@@ -21,11 +21,11 @@ async def test_fetch_jurisdictions():
     initial_state = GovFractalState(target_did="global", level="global", discovered_entities=[], signals=[], policy_changes=[])
     new_state = await fetch_jurisdictions(initial_state)
     assert len(new_state["discovered_entities"]) > 0
-    assert new_state["discovered_entities"][0]["did"] == "did:web:gov.gftd.ai:country:jpn"
+    assert new_state["discovered_entities"][0]["did"] == "did:web:gov.etzhayyim.com:country:jpn"
 
 @pytest.mark.asyncio
 async def test_fetch_agencies():
-    initial_state = GovFractalState(target_did="did:web:gov.gftd.ai:country:jpn", level="country", discovered_entities=[], signals=[], policy_changes=[])
+    initial_state = GovFractalState(target_did="did:web:gov.etzhayyim.com:country:jpn", level="country", discovered_entities=[], signals=[], policy_changes=[])
     new_state = await fetch_agencies(initial_state)
     assert len(new_state["discovered_entities"]) > 0
     assert "moj" in new_state["discovered_entities"][0]["did"]
@@ -33,7 +33,7 @@ async def test_fetch_agencies():
 @pytest.mark.asyncio
 async def test_extract_entities_and_bfs_expansion():
     initial_state = GovFractalState(
-        target_did="did:web:gov.gftd.ai:country:jpn:moj", 
+        target_did="did:web:gov.etzhayyim.com:country:jpn:moj", 
         level="agency", 
         discovered_entities=[], 
         signals=[{"type": "wet_diff", "content": "Civil affairs division updated."}], 
@@ -53,7 +53,7 @@ async def test_extract_entities_and_bfs_expansion():
 async def test_bfs_expansion_stop_at_sub_agency():
     # If we are already at the lowest allowed level, do not expand further
     initial_state = GovFractalState(
-        target_did="did:web:gov.gftd.ai:country:jpn:moj:civil_affairs", 
+        target_did="did:web:gov.etzhayyim.com:country:jpn:moj:civil_affairs", 
         level="sub_agency", 
         discovered_entities=[{"did": "some_further_entity"}], 
         signals=[], 
@@ -66,7 +66,7 @@ async def test_bfs_expansion_stop_at_sub_agency():
 @pytest.mark.asyncio
 async def test_analyze_policy():
     initial_state = GovFractalState(
-        target_did="did:web:gov.gftd.ai:country:jpn:moj", 
+        target_did="did:web:gov.etzhayyim.com:country:jpn:moj", 
         level="agency", 
         discovered_entities=[], 
         signals=[{"type": "wet_diff", "content": "Update"}], 

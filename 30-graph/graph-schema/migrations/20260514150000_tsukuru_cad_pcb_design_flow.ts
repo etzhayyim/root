@@ -7,7 +7,7 @@ import { Kysely, sql } from 'kysely';
  * tsukuru CAD/PCB design project schema + LangGraph design-flow topologies.
  *
  * Adds first-class schema for hardware design projects (open-robo and any
- * future kit product) so tsukuru.gftd.ai can manage the full loop:
+ * future kit product) so tsukuru.etzhayyim.com can manage the full loop:
  *   Fusion360 STEP → Meviy quote → production_order → delivery → fit check
  *   KiCad Gerber  → P-Ban.com quote → production_order → assembly → test
  *

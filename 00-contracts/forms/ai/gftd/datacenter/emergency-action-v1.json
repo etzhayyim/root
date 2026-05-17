@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/schemas/form/v1.json",
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
   "key": "datacenter-emergency-action-v1",
   "version": 1,
   "title": "データセンター緊急復旧対応",

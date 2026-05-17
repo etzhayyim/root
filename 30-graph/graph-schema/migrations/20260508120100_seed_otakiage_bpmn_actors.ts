@@ -5,11 +5,11 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * otakiage.gftd.ai BPMN-as-actor seeding (ADR-2605081700 + ADR-0056 + ADR-2604282300).
+ * otakiage.etzhayyim.com BPMN-as-actor seeding (ADR-2605081700 + ADR-0056 + ADR-2604282300).
  *
  * 4 BPMN process defs + 6 XRPC bindings.  T2 actor (pymagatama + Zeebe).
  * Lifecycle BPMN は autonomous (timer-start)、XRPC binding は bpmn-dispatcher
- * `http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.otakiage.*` から到達。
+ * `http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.otakiage.*` から到達。
  *
  *  Process / NSID                              Trigger
  *  -----------------------------------------------------------------------
@@ -38,20 +38,20 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T17:00:00Z";
-const ownerDid = "did:web:otakiage.gftd.ai";
+const ownerDid = "did:web:otakiage.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.otakiage";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/otakiage-reuse-match-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/otakiage-reuse-match-v1",
     bpmnProcessId: "otakiage_reuse_match",
     sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/reuseMatch.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/otakiage-reuse-expire-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/otakiage-reuse-expire-v1",
     bpmnProcessId: "otakiage_reuse_expire",
     sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/reuseExpire.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/otakiage-matsuri-schedule-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/otakiage-matsuri-schedule-v1",
     bpmnProcessId: "otakiage_matsuri_schedule",
     sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/matsuriSchedule.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/otakiage-social-announce-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/otakiage-social-announce-v1",
     bpmnProcessId: "otakiage_social_announce",
     sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/socialAnnounce.bpmn", ownerDid },
 ];

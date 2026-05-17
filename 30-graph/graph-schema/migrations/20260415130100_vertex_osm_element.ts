@@ -19,7 +19,7 @@ import { Kysely, sql } from 'kysely';
  *     memory-safety guardrail (§MV Memory Safety Guardrails) — only 5 columns,
  *     no GROUP BY, no MAX(varchar).
  *
- * Source provenance: `source_did = 'did:web:maps.gftd.ai:planet'`.
+ * Source provenance: `source_did = 'did:web:maps.etzhayyim.com:planet'`.
  * Spatial indexing: `s2_cell_id` (S2 level 16 ~150m) + `geohash` (12-char).
  * PostGIS is NOT available on RisingWave — geometry is stored as raw lat/lon
  * plus bbox_* for ways/relations.

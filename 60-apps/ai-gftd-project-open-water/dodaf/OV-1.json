@@ -2,14 +2,14 @@
   "viewId": "open-water.OV-1",
   "viewType": "OV-1",
   "title": "High-Level Operational Concept Graphic",
-  "did": "did:web:open-water.gftd.ai",
+  "did": "did:web:open-water.etzhayyim.com",
   "format": "json",
   "content": {
     "operationalNodes": [
       { "id": "client",     "label": "Client (planner / utility console / agent)" },
-      { "id": "water",      "label": "open-water.gftd.ai (Worker)" },
+      { "id": "water",      "label": "open-water.etzhayyim.com (Worker)" },
       { "id": "store",      "label": "D1 (nodes/mains/readings/leaks/samples SSoT)" },
-      { "id": "pds",        "label": "atproto.gftd.ai (PDS, public audit)" },
+      { "id": "pds",        "label": "atproto.etzhayyim.com (PDS, public audit)" },
       { "id": "regulator",  "label": "Public Health Regulator (DID)" },
       { "id": "meter",      "label": "Service-point Meter (DID)" }
     ],

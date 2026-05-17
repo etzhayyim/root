@@ -14,7 +14,7 @@ from pymagatama.db_sync import sync_cursor
 
 # ── Constants ──────────────────────────────────────────────────────────────
 
-_OWNER_DID = "did:web:news.gftd.ai"
+_OWNER_DID = "did:web:news.etzhayyim.com"
 _FETCH_TIMEOUT = 30
 _MAX_BODY_BYTES = 1_000_000
 _MAX_ARTICLES = 30
@@ -127,18 +127,18 @@ def _utc_now() -> str:
 
 def _company_vid(exchange: str, sec_code: str) -> str:
     h = hashlib.sha256(f"{exchange}:{sec_code}".encode()).hexdigest()[:16]
-    return f"at://did:web:news.gftd.ai/ai.gftd.apps.irScrape.company/{h}"
+    return f"at://did:web:news.etzhayyim.com/ai.gftd.apps.irScrape.company/{h}"
 
 
 def _run_vid(company_vid: str, ts: str) -> str:
     key = f"{company_vid}:{ts}"
     h = hashlib.sha256(key.encode()).hexdigest()[:16]
-    return f"at://did:web:news.gftd.ai/ai.gftd.apps.irScrape.run/{h}"
+    return f"at://did:web:news.etzhayyim.com/ai.gftd.apps.irScrape.run/{h}"
 
 
 def _pr_vid(url: str) -> str:
     h = hashlib.sha256(url.encode()).hexdigest()[:20]
-    return f"at://did:web:news.gftd.ai/ai.gftd.apps.irScrape.pressrelease/{h}"
+    return f"at://did:web:news.etzhayyim.com/ai.gftd.apps.irScrape.pressrelease/{h}"
 
 
 def _fetch(url: str, timeout: int = _FETCH_TIMEOUT) -> tuple[int, bytes]:

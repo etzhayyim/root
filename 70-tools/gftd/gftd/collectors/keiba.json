@@ -1,0 +1,48 @@
+{
+  "domain": "keiba",
+  "appHost": "keiba",
+  "repo": "did:web:keiba.etzhayyim.com",
+  "collection": "ai.gftd.apps.keiba.venue",
+  "source": {
+    "format": "inline",
+    "data": [
+      { "code": "01", "name_ja": "札幌",     "pref": "北海道", "kind": "JRA" },
+      { "code": "02", "name_ja": "函館",     "pref": "北海道", "kind": "JRA" },
+      { "code": "03", "name_ja": "福島",     "pref": "福島県", "kind": "JRA" },
+      { "code": "04", "name_ja": "新潟",     "pref": "新潟県", "kind": "JRA" },
+      { "code": "05", "name_ja": "東京",     "pref": "東京都", "kind": "JRA" },
+      { "code": "06", "name_ja": "中山",     "pref": "千葉県", "kind": "JRA" },
+      { "code": "07", "name_ja": "中京",     "pref": "愛知県", "kind": "JRA" },
+      { "code": "08", "name_ja": "京都",     "pref": "京都府", "kind": "JRA" },
+      { "code": "09", "name_ja": "阪神",     "pref": "兵庫県", "kind": "JRA" },
+      { "code": "10", "name_ja": "小倉",     "pref": "福岡県", "kind": "JRA" },
+      { "code": "30", "name_ja": "門別",     "pref": "北海道", "kind": "NAR" },
+      { "code": "31", "name_ja": "北見",     "pref": "北海道", "kind": "NAR" },
+      { "code": "32", "name_ja": "岩見沢",   "pref": "北海道", "kind": "NAR" },
+      { "code": "33", "name_ja": "帯広",     "pref": "北海道", "kind": "NAR" },
+      { "code": "34", "name_ja": "旭川",     "pref": "北海道", "kind": "NAR" },
+      { "code": "35", "name_ja": "盛岡",     "pref": "岩手県", "kind": "NAR" },
+      { "code": "36", "name_ja": "水沢",     "pref": "岩手県", "kind": "NAR" },
+      { "code": "42", "name_ja": "浦和",     "pref": "埼玉県", "kind": "NAR" },
+      { "code": "43", "name_ja": "船橋",     "pref": "千葉県", "kind": "NAR" },
+      { "code": "44", "name_ja": "大井",     "pref": "東京都", "kind": "NAR" },
+      { "code": "45", "name_ja": "川崎",     "pref": "神奈川県","kind": "NAR" },
+      { "code": "46", "name_ja": "金沢",     "pref": "石川県", "kind": "NAR" },
+      { "code": "47", "name_ja": "笠松",     "pref": "岐阜県", "kind": "NAR" },
+      { "code": "48", "name_ja": "名古屋",   "pref": "愛知県", "kind": "NAR" },
+      { "code": "50", "name_ja": "園田",     "pref": "兵庫県", "kind": "NAR" },
+      { "code": "51", "name_ja": "姫路",     "pref": "兵庫県", "kind": "NAR" },
+      { "code": "54", "name_ja": "高知",     "pref": "高知県", "kind": "NAR" },
+      { "code": "55", "name_ja": "佐賀",     "pref": "佐賀県", "kind": "NAR" }
+    ]
+  },
+  "rkey": "{{code}}",
+  "mapping": {
+    "code": "{{code}}",
+    "nameJa": "{{name_ja}}",
+    "prefecture": "{{pref}}",
+    "kind": "{{kind}}"
+  },
+  "chunkSize": 50,
+  "note": "10 JRA central + 18 NAR regional = 28 active racecourses (JP). world_total=25 uses approx."
+}

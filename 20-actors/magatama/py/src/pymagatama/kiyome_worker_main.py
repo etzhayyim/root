@@ -1,4 +1,4 @@
-"""kiyome.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""kiyome.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -25,7 +25,7 @@ async def run_worker():
         subject_did = kwargs.get("subjectDid", "")
         clearance_type = kwargs.get("clearanceType", "")
         description = kwargs.get("description", "")
-        owner_did = kwargs.get("ownerDid", "did:web:kiyome.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:kiyome.etzhayyim.com")
 
         clearance_id = str(uuid.uuid4())
         vertex_id = f"kiyome:clearance:{clearance_id}"
@@ -41,7 +41,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 clearance_id, subject_did, clearance_type, description, "pending",
-                "did:web:kiyome.gftd.ai", "did:web:kiyome.gftd.ai", now, now,
+                "did:web:kiyome.etzhayyim.com", "did:web:kiyome.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -121,7 +121,7 @@ async def run_worker():
         actor_did = kwargs.get("actorDid", "")
         action = kwargs.get("action", "")
         resource = kwargs.get("resource", "")
-        owner_did = kwargs.get("ownerDid", "did:web:kiyome.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:kiyome.etzhayyim.com")
 
         log_id = str(uuid.uuid4())
         vertex_id = f"kiyome:audit_log:{log_id}"
@@ -137,7 +137,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 log_id, actor_did, action, resource,
-                "did:web:kiyome.gftd.ai", "did:web:kiyome.gftd.ai", now, now,
+                "did:web:kiyome.etzhayyim.com", "did:web:kiyome.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

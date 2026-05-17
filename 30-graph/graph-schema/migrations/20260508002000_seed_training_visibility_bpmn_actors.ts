@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * training.gftd.ai visibility-layer BPMN-as-actor seeding (ADR-2605070700).
+ * training.etzhayyim.com visibility-layer BPMN-as-actor seeding (ADR-2605070700).
  *
  * Completes the read-only visibility set (alongside listRuns / listCheckpoints
  * / serving from migration 20260508001000):
@@ -24,23 +24,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:20:00Z";
-const ownerDid = "did:web:training.gftd.ai";
+const ownerDid = "did:web:training.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.training.visibility";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-list-snapshots-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-list-snapshots-v1",
     bpmnProcessId: "training_list_snapshots",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/listSnapshots.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-coverage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-coverage-v1",
     bpmnProcessId: "training_coverage",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/coverage.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-listSnapshots-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-listSnapshots-v1",
     nsid: "ai.gftd.apps.training.listSnapshots",
     bpmnProcessId: "training_list_snapshots", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-coverage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-coverage-v1",
     nsid: "ai.gftd.apps.training.coverage",
     bpmnProcessId: "training_coverage", ownerDid, resultTimeoutMs: 15_000 },
 ];

@@ -12,7 +12,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR_DID = "did:web:collector.gftd.ai"
+ACTOR_DID = "did:web:collector.etzhayyim.com"
 
 TABLE_COLUMNS: dict[str, set[str]] = {
     "vertex_collector_run": {

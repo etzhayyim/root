@@ -2,7 +2,7 @@
   "viewId": "open-power.AV-1",
   "viewType": "AV-1",
   "title": "Overview and Summary Information",
-  "did": "did:web:open-power.gftd.ai",
+  "did": "did:web:open-power.etzhayyim.com",
   "format": "json",
   "content": {
     "purpose": "Provide a DID-addressed electric distribution operations service (substation/feeder design + meter readings + outage reporting) as an auditable, open-source reference implementation.",

@@ -23,7 +23,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const CREATED_AT = "2026-05-08T09:50:00Z";
 const ACTOR_TAG = "sys.bpmn.reseed.phase4-fix";
 
@@ -37,28 +37,28 @@ interface Entry {
 const ENTRIES: Entry[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
     processId: "ki_vascular_synthesis_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/ki/vascular-synthesis-cycle.bpmn",
     version: 2,
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
     processId: "saikin_horizontal_transfer_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn",
     version: 2,
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1",
     processId: "webmk_create_proposal",
     bpmnPath: "00-contracts/bpmn/ai/gftd/webmk/createProposal.bpmn",
     version: 2,
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1",
     processId: "newsletter_weekly_send",
     bpmnPath: "00-contracts/bpmn/ai/gftd/newsletter/weeklySend.bpmn",
     version: 2,

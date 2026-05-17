@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.ai/ns/open-ot/cell/v1",
+  "@context": "https://etzhayyim.com/ns/open-ot/cell/v1",
   "name": "anti-islanding-rocof",
   "description": "IEC 61499 ANTI_ISLANDING_ROCOF BFB — grid-tie protection by ROCOF + voltage envelope + frequency envelope, latched trip with RESET event",
   "fb_kind": "BFB",

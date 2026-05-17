@@ -4,7 +4,7 @@ import { sql } from "kysely";
 // yadoya Phase 9 — resource-flow projection table + 2 aggregation MVs.
 // ADR-0028 emits flow as AT Records (legalEntityCurrencyFlow / Service /
 // Personnel). yadoya additionally projects each emission into a Tier-2
-// graph row so resource-flow.gftd.ai can sankey/lineage without re-deriving
+// graph row so resource-flow.etzhayyim.com can sankey/lineage without re-deriving
 // from the firehose.
 //
 // Tier-2 here is "aggregate, no PII" — bucketed amount + counterparty

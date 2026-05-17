@@ -1,4 +1,4 @@
-"""kareyanagi.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""kareyanagi.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -27,7 +27,7 @@ async def run_worker():
         price = float(kwargs.get("price", 0.0))
         currency = kwargs.get("currency", "JPY")
         quantity = int(kwargs.get("quantity", 0))
-        owner_did = kwargs.get("ownerDid", "did:web:kareyanagi.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:kareyanagi.etzhayyim.com")
 
         listing_id = str(uuid.uuid4())
         vertex_id = f"kareyanagi:listing:{listing_id}"
@@ -43,7 +43,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 listing_id, seller_did, product_name, price, currency, quantity, "active",
-                "did:web:kareyanagi.gftd.ai", "did:web:kareyanagi.gftd.ai", now, now,
+                "did:web:kareyanagi.etzhayyim.com", "did:web:kareyanagi.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -89,7 +89,7 @@ async def run_worker():
         buyer_did = kwargs.get("buyerDid", "")
         listing_id = kwargs.get("listingId", "")
         quantity = int(kwargs.get("quantity", 1))
-        owner_did = kwargs.get("ownerDid", "did:web:kareyanagi.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:kareyanagi.etzhayyim.com")
 
         order_id = str(uuid.uuid4())
         vertex_id = f"kareyanagi:order:{order_id}"
@@ -105,7 +105,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 order_id, buyer_did, listing_id, quantity, "pending",
-                "did:web:kareyanagi.gftd.ai", "did:web:kareyanagi.gftd.ai", now, now,
+                "did:web:kareyanagi.etzhayyim.com", "did:web:kareyanagi.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

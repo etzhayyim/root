@@ -33,7 +33,7 @@ from typing import Any
 
 LOG = logging.getLogger("lawfirm.cadence.reply")
 
-_FIRM_DID = "did:web:lawfirm.gftd.ai"
+_FIRM_DID = "did:web:lawfirm.etzhayyim.com"
 
 _POSITIVE_CUES = (
     "yes", "interested", "happy to", "let's", "sure", "sounds good",
@@ -170,7 +170,7 @@ async def task_lawfirm_record_reply(
     occurred_at = received_at or _now_iso()
 
     ev_uri = (
-        f"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.outreachEvent/"
+        f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.outreachEvent/"
         f"{lead_id}-reply-{_dt.datetime.now(tz=_dt.UTC).strftime('%Y%m%d%H%M%S')}"
     )
     asset_uri = f"graph:{graph_event_id}" if graph_event_id else (message_id or "")

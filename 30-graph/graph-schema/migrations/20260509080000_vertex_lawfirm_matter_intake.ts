@@ -9,30 +9,30 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const seedCreatedAt = "2026-05-08T00:00:00Z";
-const seedOwnerDid = "did:web:lawfirm.gftd.ai";
+const seedOwnerDid = "did:web:lawfirm.etzhayyim.com";
 const seedActorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESSES = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-intake-funnel-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-intake-funnel-v1",
     bpmnProcessId: "lawfirm_intake_funnel",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/intakeFunnel.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-matter-create-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-matter-create-v1",
     bpmnProcessId: "lawfirm_matter_create",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/matterCreate.bpmn",
   },
 ];
 const BINDINGS = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-intake-submit-xrpc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-intake-submit-xrpc-v1",
     nsid: "ai.gftd.apps.lawfirm.intakeSubmit",
     bpmnProcessId: "lawfirm_intake_funnel",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-matter-create-xrpc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-matter-create-xrpc-v1",
     nsid: "ai.gftd.apps.lawfirm.matterCreate",
     bpmnProcessId: "lawfirm_matter_create",
     resultTimeoutMs: 60_000,
@@ -40,7 +40,7 @@ const BINDINGS = [
 ];
 
 /**
- * lawfirm.gftd.ai matter + intake schema (CRITICAL — closes intake → matter
+ * lawfirm.etzhayyim.com matter + intake schema (CRITICAL — closes intake → matter
  * gap that smoke test + engagementClose BPMN reference).
  *
  * Tables:

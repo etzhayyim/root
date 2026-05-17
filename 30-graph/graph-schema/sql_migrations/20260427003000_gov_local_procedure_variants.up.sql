@@ -180,11 +180,11 @@ INSERT INTO vertex_gov_local_variation_gap (
       gap_kind, gap_status, reason, created_at, org_id, user_id, actor_id
     )
     SELECT
-      CONCAT('at://did:web:gov.gftd.ai/ai.gftd.apps.gov.localVariationGap/ind-', municipality_code),
+      CONCAT('at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.localVariationGap/ind-', municipality_code),
       20260427003200 + ROW_NUMBER() OVER (ORDER BY municipality_code),
       DATE '2026-04-27',
       1,
-      COALESCE("actorDid", 'did:web:gov.gftd.ai'),
+      COALESCE("actorDid", 'did:web:gov.etzhayyim.com'),
       'IND',
       prefecture,
       municipality_code,

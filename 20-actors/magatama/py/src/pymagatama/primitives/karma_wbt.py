@@ -27,8 +27,8 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("karma.wbt")
 
-KARMA_DID = "did:web:karma.gftd.ai"
-COMMONS_DID = "did:web:karma.gftd.ai:commons"
+KARMA_DID = "did:web:karma.etzhayyim.com"
+COMMONS_DID = "did:web:karma.etzhayyim.com:commons"
 COMMONS_VERTEX_ID = "commons-pool"
 
 VALID_REASONS = ("transfer", "forfeit", "tax", "tip", "settlement", "refund")

@@ -31,12 +31,12 @@ from .graph import app, triage_app, TriageState, _is_internal_addr, _is_recent_d
 
 # ── Cursor persistence ────────────────────────────────────────────────────────
 _CURSOR_FILE = Path(os.getenv("PREGEL_CURSOR_FILE", Path.home() / ".gftd" / "pregel-inbox-cursor.txt"))
-_MICROSOFT_XRPC = os.getenv("MICROSOFT_XRPC_BASE", "https://microsoft.gftd.ai/xrpc")
+_MICROSOFT_XRPC = os.getenv("MICROSOFT_XRPC_BASE", "https://microsoft.etzhayyim.com/xrpc")
 _FROM_UPN       = os.getenv("PREGEL_FROM_UPN", "j.kawasaki@gftd.co.jp")
 _POLL_INTERVAL  = int(os.getenv("PREGEL_POLL_INTERVAL", "60"))
 
 
-_MICROSOFT_AUD = "did:web:microsoft.gftd.ai"
+_MICROSOFT_AUD = "did:web:microsoft.etzhayyim.com"
 _TOKEN_TTL     = 300  # seconds; refresh before expiry
 
 

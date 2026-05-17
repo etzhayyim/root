@@ -1,7 +1,7 @@
 """vertex_maps_gsplat_asset — KAMI Gsplat preview asset registry.
 
 ADR 2605092800. Adds 1 vertex + 1 edge table backing the splat preview /
-QC path in maps.gftd.ai. The asset binary lives in B2 (`b2_key`); this
+QC path in maps.etzhayyim.com. The asset binary lives in B2 (`b2_key`); this
 row holds metadata only. Lineage to baked mesh tiles is captured by
 `edge_maps_gsplat_baked_to`.
 

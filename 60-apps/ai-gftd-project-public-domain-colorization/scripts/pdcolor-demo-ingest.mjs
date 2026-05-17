@@ -81,7 +81,7 @@ function buildVariables(work) {
     voicePolicy: work.voicePolicy,
     voiceLipSync: work.voiceLipSync,
     requestedLicense: "pd-mark",
-    callerDid: "did:web:pd-color.gftd.ai",
+    callerDid: "did:web:pd-color.etzhayyim.com",
     dryRun: true,
   };
 }
@@ -98,10 +98,10 @@ function multipartBody(fileBytes, filename) {
 }
 
 async function addToIpfs(filePath, filename) {
-  const ipfsUrl = (process.env.IPFS_URL || "https://ipfs.gftd.ai").replace(/\/+$/u, "");
+  const ipfsUrl = (process.env.IPFS_URL || "https://ipfs.etzhayyim.com").replace(/\/+$/u, "");
   const hmacKey = process.env.IPFS_HMAC || "";
   if (!hmacKey) {
-    throw new Error("IPFS_HMAC is not set; cannot write to ipfs.gftd.ai");
+    throw new Error("IPFS_HMAC is not set; cannot write to ipfs.etzhayyim.com");
   }
 
   const fileBytes = readFileSync(filePath);
@@ -123,7 +123,7 @@ async function addToIpfs(filePath, filename) {
 }
 
 async function ingestViaWorker(work) {
-  const ipfsUrl = (process.env.IPFS_URL || "https://ipfs.gftd.ai").replace(/\/+$/u, "");
+  const ipfsUrl = (process.env.IPFS_URL || "https://ipfs.etzhayyim.com").replace(/\/+$/u, "");
   const res = await fetch(`${ipfsUrl}/gftd/v1/demo/ingest-public-domain`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

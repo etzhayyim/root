@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shinshi.gftd.ai gap-fill autonomous backfill BPMN.
+ * shinshi.etzhayyim.com gap-fill autonomous backfill BPMN.
  *
  * Adds 1 timer-start (R/PT4H) BPMN that scans for shinshi models with
  * fewer than 5 image scenes and triggers `shinshi.scene.bulkSeed` to
@@ -28,12 +28,12 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-07T15:00:00Z";
-const ownerDid = "did:web:shinshi.gftd.ai";
+const ownerDid = "did:web:shinshi.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.shinshi.gap-fill";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1",
     bpmnProcessId: "shinshi_seed_gap_fill",
     sourcePath: "00-contracts/bpmn/ai/gftd/shinshi/seedGapFill.bpmn",
     ownerDid,

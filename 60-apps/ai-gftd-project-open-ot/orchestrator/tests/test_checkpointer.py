@@ -40,16 +40,16 @@ requires_wasm = pytest.mark.skipif(
 def test_schema_creates_in_memory():
     cw = OpenOtCheckpointer(dsn="sqlite:///:memory:")
     assert cw.count_checkpoints() == 0
-    assert cw.latest_checkpoint("did:web:open-ot.gftd.ai:loop:absent") is None
+    assert cw.latest_checkpoint("did:web:open-ot.etzhayyim.com:loop:absent") is None
 
 
 def test_signal_change_insert_returns_row_id():
     cw = OpenOtCheckpointer(dsn="sqlite:///:memory:")
     rid1 = cw.record_signal_change(
-        "did:web:open-ot.gftd.ai:signal:freq", 50_000_000, "good"
+        "did:web:open-ot.etzhayyim.com:signal:freq", 50_000_000, "good"
     )
     rid2 = cw.record_signal_change(
-        "did:web:open-ot.gftd.ai:signal:freq", 50_001_000, "good"
+        "did:web:open-ot.etzhayyim.com:signal:freq", 50_001_000, "good"
     )
     assert rid2 == rid1 + 1
 
@@ -64,7 +64,7 @@ def test_write_then_read_round_trip():
     runner = build_freq_droop_loop([("a", 1000.0)], cycle_period_ms=100)
     runner.initialize()
     cw = OpenOtCheckpointer()
-    loop_did = "did:web:open-ot.gftd.ai:loop:freq-droop-test"
+    loop_did = "did:web:open-ot.etzhayyim.com:loop:freq-droop-test"
 
     # Write the post-init snapshot then 3 super-steps.
     write_runner_checkpoint(cw, loop_did, runner, runner.checkpoints[0])
@@ -99,7 +99,7 @@ def test_resume_via_checkpointer_reproduces_outputs():
         return build_freq_droop_loop([("a", 1000.0)], cycle_period_ms=100)
 
     cw = OpenOtCheckpointer()
-    loop_did = "did:web:open-ot.gftd.ai:loop:resume-test"
+    loop_did = "did:web:open-ot.etzhayyim.com:loop:resume-test"
 
     # Run #1: write a checkpoint after every step.
     r1 = factory()
@@ -131,7 +131,7 @@ def test_resume_validates_params_rev_mismatch():
     schedule = [(50.0, 800.0), (50.3, 800.0)]
 
     cw = OpenOtCheckpointer()
-    loop_did = "did:web:open-ot.gftd.ai:loop:rev-test"
+    loop_did = "did:web:open-ot.etzhayyim.com:loop:rev-test"
 
     # Write with original params (1 MW asset).
     r1 = build_freq_droop_loop([("a", 1000.0)], cycle_period_ms=100)
@@ -152,8 +152,8 @@ def test_resume_validates_params_rev_mismatch():
 def test_multi_loop_independence():
     """Two loops in the same checkpointer must have independent histories."""
     cw = OpenOtCheckpointer()
-    loop_a = "did:web:open-ot.gftd.ai:loop:a"
-    loop_b = "did:web:open-ot.gftd.ai:loop:b"
+    loop_a = "did:web:open-ot.etzhayyim.com:loop:a"
+    loop_b = "did:web:open-ot.etzhayyim.com:loop:b"
 
     runner_a = build_freq_droop_loop([("x", 1000.0)], cycle_period_ms=100)
     runner_a.initialize()
@@ -179,12 +179,12 @@ def test_multi_loop_independence():
 def test_signal_change_records_loop_did_affected():
     cw = OpenOtCheckpointer()
     rid = cw.record_signal_change(
-        signal_did="did:web:open-ot.gftd.ai:signal:freq-50hz",
+        signal_did="did:web:open-ot.etzhayyim.com:signal:freq-50hz",
         value_micro_unit=50_500_000,
         quality="good",
         loop_dids_affected=[
-            "did:web:open-ot.gftd.ai:loop:freq-droop",
-            "did:web:open-ot.gftd.ai:loop:islanding-decision",
+            "did:web:open-ot.etzhayyim.com:loop:freq-droop",
+            "did:web:open-ot.etzhayyim.com:loop:islanding-decision",
         ],
     )
     assert rid >= 1

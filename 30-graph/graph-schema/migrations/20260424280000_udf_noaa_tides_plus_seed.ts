@@ -15,36 +15,36 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     LANGUAGE sql
     AS $$
       SELECT CASE
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:gleif'       THEN 'gleif'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata'    THEN 'wikidata'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata:%'  THEN 'wikidata'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:%'           THEN 'registry_other'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikipedia'            THEN 'wikipedia'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikipedia:%'          THEN 'wikipedia'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikivoyage'           THEN 'wikivoyage'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikivoyage:%'         THEN 'wikivoyage'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:commons'              THEN 'commons'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:commons:%'            THEN 'commons'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:inaturalist'          THEN 'inaturalist'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:inaturalist:%'        THEN 'inaturalist'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:gbif'                 THEN 'gbif'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:gbif:%'               THEN 'gbif'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:eonet'                THEN 'eonet'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:eonet:%'              THEN 'eonet'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:opensky'              THEN 'opensky'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:opensky:%'            THEN 'opensky'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:noaa_tides'           THEN 'noaa_tides'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:noaa_tides:%'         THEN 'noaa_tides'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite'            THEN 'stac'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite:%'          THEN 'stac'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic'              THEN 'seismic'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic:%'            THEN 'seismic'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:street_view'          THEN 'mapillary'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:infrastructure'       THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:geocode'              THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:weather'              THEN 'overpass'
-        WHEN source_did LIKE 'did:web:maps.gftd.ai:gtfs'                 THEN 'gtfs'
-        WHEN source_did LIKE 'did:web:site.gftd.ai'                      THEN 'web_crawl'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:gleif'       THEN 'gleif'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata'    THEN 'wikidata'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata:%'  THEN 'wikidata'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:%'           THEN 'registry_other'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikipedia'            THEN 'wikipedia'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikipedia:%'          THEN 'wikipedia'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikivoyage'           THEN 'wikivoyage'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikivoyage:%'         THEN 'wikivoyage'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:commons'              THEN 'commons'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:commons:%'            THEN 'commons'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:inaturalist'          THEN 'inaturalist'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:inaturalist:%'        THEN 'inaturalist'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gbif'                 THEN 'gbif'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gbif:%'               THEN 'gbif'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:eonet'                THEN 'eonet'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:eonet:%'              THEN 'eonet'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:opensky'              THEN 'opensky'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:opensky:%'            THEN 'opensky'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:noaa_tides'           THEN 'noaa_tides'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:noaa_tides:%'         THEN 'noaa_tides'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite'            THEN 'stac'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite:%'          THEN 'stac'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic'              THEN 'seismic'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic:%'            THEN 'seismic'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:street_view'          THEN 'mapillary'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:infrastructure'       THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:geocode'              THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:weather'              THEN 'overpass'
+        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gtfs'                 THEN 'gtfs'
+        WHEN source_did LIKE 'did:web:site.etzhayyim.com'                      THEN 'web_crawl'
         ELSE 'unsupported'
       END
     $$
@@ -56,9 +56,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       vertex_id, source_did, label, world_total, priority_weight,
       ttl_hours, org_id, user_id, actor_id, created_at
     ) VALUES (
-      'at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/noaa_tides:Station',
-      'did:web:maps.gftd.ai:noaa_tides', 'Station', 3000, 0.6, 168.0,
-      'anon', 'anon', 'did:web:maps.gftd.ai:noaa_tides', ${now}
+      'at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/noaa_tides:Station',
+      'did:web:maps.etzhayyim.com:noaa_tides', 'Station', 3000, 0.6, 168.0,
+      'anon', 'anon', 'did:web:maps.etzhayyim.com:noaa_tides', ${now}
     )
   `.execute(db);
   await sql`FLUSH`.execute(db);

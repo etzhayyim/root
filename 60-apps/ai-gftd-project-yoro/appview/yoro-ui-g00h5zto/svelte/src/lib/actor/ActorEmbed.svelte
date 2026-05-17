@@ -14,7 +14,7 @@
 
 	interface Props {
 		profile: ActorProfile;
-		/** Base URL for the actor app (e.g. https://handotai.gftd.ai). */
+		/** Base URL for the actor app (e.g. https://handotai.etzhayyim.com). */
 		appBaseUrl: string;
 	}
 
@@ -47,12 +47,12 @@
 			}
 
 			const did = await getCurrentDID().catch((_err) => '');
-			const _agent = new AtpAgent({ service: 'https://atproto.gftd.ai' });
+			const _agent = new AtpAgent({ service: 'https://atproto.etzhayyim.com' });
 			const buildHeaders = (): Record<string, string> => {
 				const h: Record<string, string> = { 'content-type': 'application/json' };
 				const session = getSession();
 				if (session?.accessJwt) h.authorization = `Bearer ${session.accessJwt}`;
-				h['atproto-proxy'] = `did:web:${profile.nanoid}.gftd.ai#atproto_labeler`;
+				h['atproto-proxy'] = `did:web:${profile.nanoid}.etzhayyim.com#atproto_labeler`;
 				return h;
 			};
 			const ctx: ActorContext = {

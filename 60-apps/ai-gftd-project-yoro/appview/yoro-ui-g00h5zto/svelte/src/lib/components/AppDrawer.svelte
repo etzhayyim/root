@@ -146,8 +146,8 @@
 			</div>
 			<p class="text-[12px] text-gv2-text-muted mb-2">タスクに参加して yoro 投稿クレジットを獲得</p>
 			<div class="flex gap-2">
-				<a href="https://murakumo.gftd.ai" class="flex-1 flex items-center justify-center rounded-xl bg-[#FFD700] py-2 text-[12px] font-bold text-gray-900 no-underline touch-manipulation active:opacity-80" onclick={() => { open = false; }}>Murakumo</a>
-				<a href="https://hc.gftd.ai" class="flex-1 flex items-center justify-center rounded-xl bg-[#58CC02] py-2 text-[12px] font-bold text-white no-underline touch-manipulation active:opacity-80" onclick={() => { open = false; }}>HC Tasks</a>
+				<a href="https://murakumo.etzhayyim.com" class="flex-1 flex items-center justify-center rounded-xl bg-[#FFD700] py-2 text-[12px] font-bold text-gray-900 no-underline touch-manipulation active:opacity-80" onclick={() => { open = false; }}>Murakumo</a>
+				<a href="https://hc.etzhayyim.com" class="flex-1 flex items-center justify-center rounded-xl bg-[#58CC02] py-2 text-[12px] font-bold text-white no-underline touch-manipulation active:opacity-80" onclick={() => { open = false; }}>HC Tasks</a>
 			</div>
 		</div>
 

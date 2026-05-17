@@ -2,7 +2,7 @@
   "viewId": "open-water.AV-1",
   "viewType": "AV-1",
   "title": "Overview and Summary Information",
-  "did": "did:web:open-water.gftd.ai",
+  "did": "did:web:open-water.etzhayyim.com",
   "format": "json",
   "content": {
     "purpose": "Provide a DID-addressed water utility operations service (reservoir/main design + meter readings + leak/quality reporting) as an auditable, open-source reference implementation.",

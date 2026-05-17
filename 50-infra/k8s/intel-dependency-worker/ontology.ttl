@@ -1,0 +1,29 @@
+@prefix intel: <https://etzhayyim.com/ontology/intel#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+intel:Building a sh:NodeShape ;
+  sh:targetClass intel:Building ;
+  sh:property [
+    sh:path intel:owned_by ;
+    sh:class intel:LegalEntity ;
+  ] ;
+  sh:property [
+    sh:path intel:operated_by ;
+    sh:class intel:LegalEntity ;
+  ] .
+
+intel:LegalEntity a sh:NodeShape ;
+  sh:targetClass intel:LegalEntity ;
+  sh:property [
+    sh:path intel:lei ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+  ] .
+
+intel:SupplierRelation a sh:NodeShape ;
+  sh:targetClass intel:Dependency ;
+  sh:property [
+    sh:path intel:evidence_count ;
+    sh:minInclusive 1 ;
+  ] .

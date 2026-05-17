@@ -14,11 +14,11 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-05-07T11:00:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.wellbecoming";
 
 const VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-trust-weight-update-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-trust-weight-update-v1";
 const SOURCE_PATH = "00-contracts/bpmn/ai/gftd/wellbecoming/trustWeightUpdate.bpmn";
 
 export async function up(db: Kysely<unknown>): Promise<void> {

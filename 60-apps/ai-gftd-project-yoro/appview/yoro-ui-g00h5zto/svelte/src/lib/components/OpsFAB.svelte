@@ -13,7 +13,7 @@
 	import { Avatar } from '@gftdcojp/design-system';
 	import { getSessionToken } from '$lib/auth';
 
-	const OPS_DID = 'did:web:ops.gftd.ai';
+	const OPS_DID = 'did:web:ops.etzhayyim.com';
 
 	const worker = useProviderWorker();
 	const fabScale = spring(1, { stiffness: 0.3, damping: 0.6 });
@@ -416,7 +416,7 @@
 					<div class="flex justify-between"><span>蒸留タスク</span><span class="font-bold text-[#58CC02]">+¥5</span></div>
 					<div class="flex justify-between"><span>GPU 提供 (1分)</span><span class="font-bold text-[#58CC02]">+¥0.3</span></div>
 				</div>
-				<p class="text-[13px] font-bold text-gv2-text-primary mt-3 mb-2">hc.gftd.ai (人間タスク):</p>
+				<p class="text-[13px] font-bold text-gv2-text-primary mt-3 mb-2">hc.etzhayyim.com (人間タスク):</p>
 				<div class="space-y-1 text-[12px] text-gv2-text-muted">
 					<div class="flex justify-between"><span>翻訳タスク</span><span class="font-bold text-[#58CC02]">+¥3</span></div>
 					<div class="flex justify-between"><span>コードレビュー</span><span class="font-bold text-[#58CC02]">+¥5</span></div>
@@ -425,8 +425,8 @@
 				</div>
 			</div>
 			<div class="flex w-full gap-2">
-				<a href="https://murakumo.gftd.ai" class="flex-1 rounded-2xl bg-[#FFD700] py-3 text-center text-[14px] font-black text-gray-900 no-underline shadow-[0_4px_0_#B8960F] touch-manipulation active:shadow-none active:translate-y-[4px] transition-all duration-75">Murakumo</a>
-				<a href="https://hc.gftd.ai" class="flex-1 rounded-2xl bg-[#58CC02] py-3 text-center text-[14px] font-black text-white no-underline shadow-[0_4px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[4px] transition-all duration-75">HC タスク</a>
+				<a href="https://murakumo.etzhayyim.com" class="flex-1 rounded-2xl bg-[#FFD700] py-3 text-center text-[14px] font-black text-gray-900 no-underline shadow-[0_4px_0_#B8960F] touch-manipulation active:shadow-none active:translate-y-[4px] transition-all duration-75">Murakumo</a>
+				<a href="https://hc.etzhayyim.com" class="flex-1 rounded-2xl bg-[#58CC02] py-3 text-center text-[14px] font-black text-white no-underline shadow-[0_4px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[4px] transition-all duration-75">HC タスク</a>
 			</div>
 			<button type="button" class="text-[14px] font-semibold text-gv2-text-muted" onclick={() => { showCreditGate = false; }}>閉じる</button>
 		</div>

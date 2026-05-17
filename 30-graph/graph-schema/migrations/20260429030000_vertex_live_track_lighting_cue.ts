@@ -1,12 +1,12 @@
 // tier: B
-// Phase D1 of the live.gftd.ai L4 migration.
+// Phase D1 of the live.etzhayyim.com L4 migration.
 //
 // Splits the JSON-blob fields of `vertex_live_room` (setlist_json /
 // lighting_json) into first-class vertex tables so each track and
 // each lighting cue resolves at the actor-resolver:
 //
-//   did:web:actor.gftd.ai:liveTrack:<rkey>          (per track)
-//   did:web:actor.gftd.ai:liveLightingCue:<rkey>    (per cue)
+//   did:web:actor.etzhayyim.com:liveTrack:<rkey>          (per track)
+//   did:web:actor.etzhayyim.com:liveLightingCue:<rkey>    (per cue)
 //
 // The blob columns on `vertex_live_room` stay for backwards-compat
 // (the L3 worker still mirrors writes there for the demo flow), but
@@ -105,7 +105,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // ── seed: project the demo room's three default tracks ───────────
   // Mirrors the canned setlist that lives in the live worker's
   // demoSet() so actor-resolver returns something coherent the moment
-  // routing-gateway 4c hits actor.gftd.ai/liveTrack/demo-1/did.json.
+  // routing-gateway 4c hits actor.etzhayyim.com/liveTrack/demo-1/did.json.
   const tracks = [
     {
       pos: 1,
@@ -138,7 +138,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     },
   ];
   for (const t of tracks) {
-    const vid = `at://did:web:live.gftd.ai/ai.gftd.apps.live.track/demo-${t.pos}`;
+    const vid = `at://did:web:live.etzhayyim.com/ai.gftd.apps.live.track/demo-${t.pos}`;
     await sql`
       INSERT INTO vertex_live_track (
         vertex_id, room_slug, position, title, bpm, length_beats,
@@ -150,7 +150,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         ${t.dance}, ${t.audio}, ${t.cuesJson},
         ${t.title + " (track #" + t.pos + ")"},
         ${"Live track " + t.pos + " of room demo — " + t.dance},
-        'did:web:live.gftd.ai', 'anon', 'did:web:live.gftd.ai',
+        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com',
         '2026-04-29T03:00:00Z'
       )
     `.execute(db);
@@ -160,12 +160,12 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         actor_did, org_did, at_did
       )
       VALUES (
-        ${"at://did:web:live.gftd.ai/ai.gftd.apps.live.roomTrack/demo-" + t.pos},
-        'at://did:web:live.gftd.ai/ai.gftd.apps.live.room/demo',
+        ${"at://did:web:live.etzhayyim.com/ai.gftd.apps.live.roomTrack/demo-" + t.pos},
+        'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',
         ${vid},
         ${t.pos},
         '2026-04-29T03:00:00Z',
-        'did:web:live.gftd.ai', 'anon', 'did:web:live.gftd.ai'
+        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com'
       )
     `.execute(db);
   }
@@ -177,7 +177,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     { idx: 3, fixture: "strobe", r: 1.0, g: 1.0, b: 1.0, intensity: 1.0, envelope: "strobe", param: 0.25, bars: 4, startBar: 2 },
   ];
   for (const c of cues) {
-    const vid = `at://did:web:live.gftd.ai/ai.gftd.apps.live.lightingCue/demo-${c.idx}`;
+    const vid = `at://did:web:live.etzhayyim.com/ai.gftd.apps.live.lightingCue/demo-${c.idx}`;
     await sql`
       INSERT INTO vertex_live_lighting_cue (
         vertex_id, room_slug, fixture, color_r, color_g, color_b,
@@ -189,7 +189,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         ${c.intensity}, ${c.envelope}, ${c.param}, ${c.bars}, ${c.startBar},
         ${c.fixture + " " + c.envelope + " #" + c.idx},
         ${"Lighting cue #" + c.idx + " for room demo — " + c.fixture + " " + c.envelope},
-        'did:web:live.gftd.ai', 'anon', 'did:web:live.gftd.ai',
+        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com',
         '2026-04-29T03:00:00Z'
       )
     `.execute(db);
@@ -199,12 +199,12 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         actor_did, org_did, at_did
       )
       VALUES (
-        ${"at://did:web:live.gftd.ai/ai.gftd.apps.live.roomLightingCue/demo-" + c.idx},
-        'at://did:web:live.gftd.ai/ai.gftd.apps.live.room/demo',
+        ${"at://did:web:live.etzhayyim.com/ai.gftd.apps.live.roomLightingCue/demo-" + c.idx},
+        'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',
         ${vid},
         ${c.startBar},
         '2026-04-29T03:00:00Z',
-        'did:web:live.gftd.ai', 'anon', 'did:web:live.gftd.ai'
+        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com'
       )
     `.execute(db);
   }

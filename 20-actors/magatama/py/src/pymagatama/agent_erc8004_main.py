@@ -23,10 +23,10 @@ from pymagatama.primitives.active_inference import stable_hash
 
 LOG = logging.getLogger("agent_erc8004")
 
-ERC8004_SCHEMA = "https://gftd.ai/schemas/erc8004-agent-registration/v1.json"
+ERC8004_SCHEMA = "https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json"
 DEFAULT_CHAIN_ID = 260425
 DEFAULT_AGENT_REGISTRY = "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865"
-DEFAULT_IPFS_BASE = "https://ipfs.gftd.ai"
+DEFAULT_IPFS_BASE = "https://ipfs.etzhayyim.com"
 DEFAULT_RPC_URL = "https://geth.gftd.ai"
 ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
 
@@ -89,8 +89,8 @@ def build_agent_registration(
         "protocols": [
             {
                 "kind": "atproto-xrpc",
-                "service": _env("AGENT_ATPROTO_SERVICE", "https://atproto.gftd.ai"),
-                "pdsDid": _env("AGENT_PDS_DID", "did:web:atproto.gftd.ai"),
+                "service": _env("AGENT_ATPROTO_SERVICE", "https://atproto.etzhayyim.com"),
+                "pdsDid": _env("AGENT_PDS_DID", "did:web:atproto.etzhayyim.com"),
                 "actorDid": agent_did,
                 "facadeFor": root,
                 "xrpc": {

@@ -1,4 +1,4 @@
-"""domain.gftd.ai (TLD registration assistance) primitives.
+"""domain.etzhayyim.com (TLD registration assistance) primitives.
 
 T2 actor (ADR-2604282300): pymagatama module + BPMN + Zeebe, no CF Worker.
 All graph reads/writes hit RisingWave directly via Hyperdrive (ADR-0036).
@@ -38,7 +38,7 @@ from pymagatama.db_sync import sync_cursor
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-_DOMAIN_ACTOR = "did:web:domain.gftd.ai"
+_DOMAIN_ACTOR = "did:web:domain.etzhayyim.com"
 
 # Open-policy fallback set when the requested TLD is restricted and the
 # (tld, jurisdiction, actorKind) combination is not eligible.

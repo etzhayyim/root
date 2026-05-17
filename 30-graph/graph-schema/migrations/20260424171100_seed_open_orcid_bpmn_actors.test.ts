@@ -30,7 +30,7 @@ describe("Seed open-orcid BPMN actors migration", () => {
   });
   it("uses open-orcid-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-orcid');
-    expect(migrationSource).toContain("did:web:open-orcid.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-orcid.etzhayyim.com");
   });
   it("BPMN processes target Zeebe generic.* primitives", () => {
     for (const xml of [bpmn1, bpmn2]) {

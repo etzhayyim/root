@@ -34,7 +34,7 @@ describe("Seed open-cofog BPMN actors migration", () => {
 
   it("uses open-cofog-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-cofog"');
-    expect(migrationSource).toContain("did:web:open-cofog.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-cofog.etzhayyim.com");
   });
 
   it("BPMN processes target the Zeebe generic.* primitive set", () => {

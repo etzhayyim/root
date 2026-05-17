@@ -42,7 +42,7 @@ def upgrade() -> None:
             '{"nodes": ["fetch_jurisdictions", "fan_out_countries", "fetch_agencies", "fan_out_agencies", "ingest_signals", "extract_entities", "bfs_expansion", "analyze_policy", "commit_state"], "entry": "fetch_jurisdictions"}',
             'Fractal LangGraph + Pregel Map-Reduce/BFS orchestrator for global government agency mapping and policy tracking.',
             'rw_vertex',
-            'did:web:gov.gftd.ai',
+            'did:web:gov.etzhayyim.com',
             NULL,
             NOW()::VARCHAR,
             NOW()::VARCHAR

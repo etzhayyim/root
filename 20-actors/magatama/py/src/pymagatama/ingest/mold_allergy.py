@@ -10,7 +10,7 @@ from uuid import uuid4
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:mold-allergy.gftd.ai"
+OWNER_DID = "did:web:mold-allergy.etzhayyim.com"
 
 IUIS_FUNGAL_ALLERGENS: list[dict[str, Any]] = [
     {"species": "Alternaria alternata", "allergen": "Alt a 1", "uniprot": "P79085", "mw_kda": 16.4, "function": "major allergen, unique fold"},

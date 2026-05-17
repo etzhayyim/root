@@ -27,7 +27,7 @@ describe("XrpcClient", () => {
   beforeEach(() => {
     const mock = createMockFetcher({ uri: "at://did:web:test/col/rkey1", cid: "cid1", rkey: "rkey1" });
     calls = mock.calls;
-    client = new XrpcClient({ pdsRpc: mock.fetcher, repo: "did:web:test.gftd.ai" });
+    client = new XrpcClient({ pdsRpc: mock.fetcher, repo: "did:web:test.etzhayyim.com" });
   });
 
   // ── Generic CRUD ──
@@ -37,7 +37,7 @@ describe("XrpcClient", () => {
     expect(calls).toHaveLength(1);
     expect(calls[0].url).toContain("/xrpc/com.atproto.repo.createRecord");
     const body = JSON.parse(calls[0].init?.body as string);
-    expect(body.repo).toBe("did:web:test.gftd.ai");
+    expect(body.repo).toBe("did:web:test.etzhayyim.com");
     expect(body.collection).toBe("ai.gftd.apps.test.article");
     expect(body.record).toEqual({ title: "Hello" });
   });

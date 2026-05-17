@@ -20,7 +20,7 @@ describe("App HTTP handling", () => {
     const sdk = createHostSDK({ appDef: createMockAppDef(), env: {} });
     const response = await sdk.handleRequest({
       method: "GET",
-      url: "https://test.gftd.ai/health",
+      url: "https://test.etzhayyim.com/health",
       headers: [],
       body: new Uint8Array(),
     });
@@ -33,7 +33,7 @@ describe("App HTTP handling", () => {
     const sdk = createHostSDK({ appDef: createMockAppDef(), env: {} });
     const response = await sdk.handleRequest({
       method: "GET",
-      url: "https://test.gftd.ai/healthz",
+      url: "https://test.etzhayyim.com/healthz",
       headers: [],
       body: new Uint8Array(),
     });
@@ -44,7 +44,7 @@ describe("App HTTP handling", () => {
     const sdk = createHostSDK({ appDef: createMockAppDef(), env: {} });
     const response = await sdk.handleRequest({
       method: "GET",
-      url: "https://test.gftd.ai/nonexistent",
+      url: "https://test.etzhayyim.com/nonexistent",
       headers: [],
       body: new Uint8Array(),
     });

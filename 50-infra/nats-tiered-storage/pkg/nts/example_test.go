@@ -7,7 +7,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/gftdcojp/nats-tiered-storage/pkg/nts"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/pkg/nts"
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/nats.go/jetstream"
 )

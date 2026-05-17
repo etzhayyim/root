@@ -14,15 +14,15 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-04-29T12:00:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const BPMN_PROCESS_ID = "contribution_source_register";
 const NSID = "ai.gftd.authz.registerContributionSource";
 const SOURCE_PATH = "00-contracts/bpmn/ai/gftd/contribution/contributionSourceRegister.bpmn";
 
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/contribution-source-register-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/contribution-source-register-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/contribution-registerSource-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/contribution-registerSource-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(path.resolve(repoRoot, SOURCE_PATH), "utf8");

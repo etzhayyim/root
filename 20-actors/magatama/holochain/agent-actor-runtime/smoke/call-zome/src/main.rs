@@ -115,7 +115,7 @@ async fn main() -> Result<()> {
         .context("install and enable smoke app")?;
     let zome = app.cells()[0].zome("actor_runtime");
 
-    let actor_did = "did:web:holochain-agent-runtime.gftd.ai".to_string();
+    let actor_did = "did:web:holochain-agent-runtime.etzhayyim.com".to_string();
     let assistant_id = "echo".to_string();
     let run_id = "call-zome-smoke-20260509".to_string();
 

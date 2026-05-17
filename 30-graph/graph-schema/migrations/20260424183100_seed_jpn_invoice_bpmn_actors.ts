@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T18:30:00Z";
-const ownerDid = "did:web:jpn-invoice.gftd.ai";
+const ownerDid = "did:web:jpn-invoice.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.jpn-invoice";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-invoice-register-issuer-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-invoice-register-issuer-v1",
     bpmnProcessId: "jpn_invoice_register_issuer",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-invoice/registerInvoiceIssuer.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1",
     bpmnProcessId: "jpn_invoice_record_corporate_tax_filing",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-invoice/recordCorporateTaxFiling.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1",
     nsid: "ai.gftd.apps.jpnInvoice.registerInvoiceIssuer", bpmnProcessId: "jpn_invoice_register_issuer",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1",
     nsid: "ai.gftd.apps.jpnInvoice.recordCorporateTaxFiling", bpmnProcessId: "jpn_invoice_record_corporate_tax_filing",
     ownerDid, resultTimeoutMs: 30000 },
 ];

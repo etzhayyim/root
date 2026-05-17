@@ -1,5 +1,5 @@
 /**
- * browser-agent.ts — Browser inference agent for murakumo.gftd.ai gateway.
+ * browser-agent.ts — Browser inference agent for murakumo.etzhayyim.com gateway.
  *
  * 1. Probes GPU/memory/battery capabilities
  * 2. Connects to murakumo browser-gateway via WebSocket
@@ -53,7 +53,7 @@ export interface AgentStats {
 
 type OnUpdate = (stats: AgentStats) => void;
 
-const MURAKUMO_GATEWAY_URL = 'wss://murakumo.gftd.ai/browser-gateway/ws';
+const MURAKUMO_GATEWAY_URL = 'wss://murakumo.etzhayyim.com/browser-gateway/ws';
 
 export class BrowserInferenceAgent {
 	private stats: AgentStats = {

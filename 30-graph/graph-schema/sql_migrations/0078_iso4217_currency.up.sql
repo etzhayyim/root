@@ -10,4 +10,4 @@ CREATE VIEW IF NOT EXISTS view_iso4217_currency AS
     WHERE collection = 'ai.gftd.apps.iso4217.currency';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('iso4217', 'iso4217.gftd.ai', 178, 'currencies', 'finance');
+    VALUES ('iso4217', 'iso4217.etzhayyim.com', 178, 'currencies', 'finance');

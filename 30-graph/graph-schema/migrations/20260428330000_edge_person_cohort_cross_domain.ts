@@ -50,19 +50,19 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   // ── 2. Seed belief-system edges for world cohorts ─────────────────────
   // vertex_belief_system DIDs from migration 20260416210000_belief_system_emotion_graph.ts:
-  //   did:web:natural-person.gftd.ai:belief:yhwh         (Abrahamic)
-  //   did:web:natural-person.gftd.ai:belief:dharma        (Dharmic)
-  //   did:web:natural-person.gftd.ai:belief:secular       (Secular)
-  //   did:web:natural-person.gftd.ai:belief:dialectical   (Dialectical Materialism)
-  //   did:web:natural-person.gftd.ai:belief:confucian     (Confucian)
-  //   did:web:natural-person.gftd.ai:belief:orthodox      (Orthodox Christianity)
-  //   did:web:natural-person.gftd.ai:belief:shinto        (Shinto)
+  //   did:web:natural-person.etzhayyim.com:belief:yhwh         (Abrahamic)
+  //   did:web:natural-person.etzhayyim.com:belief:dharma        (Dharmic)
+  //   did:web:natural-person.etzhayyim.com:belief:secular       (Secular)
+  //   did:web:natural-person.etzhayyim.com:belief:dialectical   (Dialectical Materialism)
+  //   did:web:natural-person.etzhayyim.com:belief:confucian     (Confucian)
+  //   did:web:natural-person.etzhayyim.com:belief:orthodox      (Orthodox Christianity)
+  //   did:web:natural-person.etzhayyim.com:belief:shinto        (Shinto)
   //
   // Map: era_label → [{belief_vertex_id, fraction, rank}]
   // Fractions are rough historical estimates (not summing to 1 — multiple systems coexist).
 
-  const REPO = 'at://did:web:natural-person.gftd.ai';
-  const NP_DID = 'did:web:natural-person.gftd.ai';
+  const REPO = 'at://did:web:natural-person.etzhayyim.com';
+  const NP_DID = 'did:web:natural-person.etzhayyim.com';
   const NOW = '2026-04-28T00:00:00Z';
 
   // Belief vertex IDs from vertex_belief_system
@@ -242,12 +242,12 @@ export async function up(db: Kysely<any>): Promise<void> {
       generation_offset, temporal_gap_years, confidence, lineage_type,
       actor_did, org_did, at_did, created_at
     ) VALUES (
-      'at://did:web:natural-person.gftd.ai/ai.gftd.apps.naturalPerson.cohortAncestorOf/pop-to-cohort-coordinator',
-      'at://did:web:natural-person.gftd.ai/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-      'did:web:natural-person.gftd.ai',
-      1, '2026-04-28', 0, 'did:web:natural-person.gftd.ai',
+      'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/pop-to-cohort-coordinator',
+      'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
+      'did:web:natural-person.etzhayyim.com',
+      1, '2026-04-28', 0, 'did:web:natural-person.etzhayyim.com',
       1, 0, 0.95, 'direct',
-      'did:web:natural-person.gftd.ai', 'did:web:natural-person.gftd.ai', null,
+      'did:web:natural-person.etzhayyim.com', 'did:web:natural-person.etzhayyim.com', null,
       '2026-04-28T00:00:00Z'
     )
   `.execute(db);

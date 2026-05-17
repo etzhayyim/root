@@ -38,8 +38,8 @@ from pymagatama.db_sync import sync_cursor  # noqa: F401  (re-exported for mock 
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-DEFAULT_REPO = "did:web:maps.gftd.ai"
-ACTOR_DID = "did:web:maps.gftd.ai:n2yo"
+DEFAULT_REPO = "did:web:maps.etzhayyim.com"
+ACTOR_DID = "did:web:maps.etzhayyim.com:n2yo"
 
 CELESTRAK_GP_URL = "https://celestrak.org/NORAD/elements/gp.php"
 

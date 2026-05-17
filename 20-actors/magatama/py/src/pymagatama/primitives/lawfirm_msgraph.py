@@ -6,9 +6,9 @@ Task types:
   lawfirm.msGraph.subscriptionRenew   PATCH expiration on all known subs (R/PT24H BPMN)
 
 MS Graph mail subscriptions max ~70hr TTL; we extend to 4,200 min on each tick.
-Token: app-only (Mail.Read tenant scope) via existing microsoft.gftd.ai
+Token: app-only (Mail.Read tenant scope) via existing microsoft.etzhayyim.com
 identity. Token cache via env MS_GRAPH_APP_TOKEN (refreshed by separate
-microsoft.gftd.ai cron primitive).
+microsoft.etzhayyim.com cron primitive).
 
 Persists into vertex_lawfirm_msgraph_subscription so renewal worker can find
 all live subs.
@@ -29,7 +29,7 @@ from typing import Any
 
 LOG = logging.getLogger("lawfirm.msgraph")
 
-_FIRM_DID = "did:web:lawfirm.gftd.ai"
+_FIRM_DID = "did:web:lawfirm.etzhayyim.com"
 _RENEW_MINUTES = 4200          # MS Graph max for mail subscriptions
 _RENEW_AHEAD_MINUTES = 60 * 24  # renew if expiring within 24h
 
@@ -43,7 +43,7 @@ def _now_plus_minutes(minutes: int) -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _execute(sql_str: str, params: dict) -> bool:
@@ -91,7 +91,7 @@ def _ms_post(url: str, body_json: dict, method: str = "POST") -> dict:
 async def task_lawfirm_msgraph_subscription_ensure(
     user_upn: str = "k.bakshi@gftd.co",
     folder: str = "Inbox",
-    notification_url: str = "https://lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawfirm.mailReplyWebhook",
+    notification_url: str = "https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.mailReplyWebhook",
     client_state: str = "",
 ) -> dict:
     """Ensure a live MS Graph mail subscription exists for the given UPN."""
@@ -210,7 +210,7 @@ def register(app: Any, timeout_ms: int = 60_000) -> None:
               timeout_ms=timeout_ms, max_jobs_to_activate=2)
     async def _ensure(user_upn: str = "k.bakshi@gftd.co",
                       folder: str = "Inbox",
-                      notification_url: str = "https://lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawfirm.mailReplyWebhook",
+                      notification_url: str = "https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.mailReplyWebhook",
                       client_state: str = "") -> dict:
         return await task_lawfirm_msgraph_subscription_ensure(
             user_upn=user_upn, folder=folder,

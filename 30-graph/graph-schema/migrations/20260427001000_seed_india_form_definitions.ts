@@ -14,18 +14,18 @@ const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../../..");
 
 const seeds: FormSeed[] = [
-  { key: "itr1-form-v1", path: "00-contracts/forms/ai/gftd/itr1/itr1-form-v1.json", actorDid: "did:web:ind-union.gftd.ai:cbdt:itr1" },
-  { key: "itr1-self-review-v1", path: "00-contracts/forms/ai/gftd/itr1/itr1-self-review-v1.json", actorDid: "did:web:ind-union.gftd.ai:cbdt:itr1" },
-  { key: "itr1-amend-v1", path: "00-contracts/forms/ai/gftd/itr1/itr1-amend-v1.json", actorDid: "did:web:ind-union.gftd.ai:cbdt:itr1" },
-  { key: "gstr3b-form-v1", path: "00-contracts/forms/ai/gftd/gstr3b/gstr3b-form-v1.json", actorDid: "did:web:ind-union.gftd.ai:cbic:gstr3b" },
-  { key: "gstr3b-review-v1", path: "00-contracts/forms/ai/gftd/gstr3b/gstr3b-review-v1.json", actorDid: "did:web:ind-union.gftd.ai:cbic:gstr3b" },
-  { key: "gstr3b-amend-v1", path: "00-contracts/forms/ai/gftd/gstr3b/gstr3b-amend-v1.json", actorDid: "did:web:ind-union.gftd.ai:cbic:gstr3b" },
-  { key: "epfo-ecr-form-v1", path: "00-contracts/forms/ai/gftd/epfo/ecr-form-v1.json", actorDid: "did:web:ind-payroll.gftd.ai:epfo" },
-  { key: "epfo-review-v1", path: "00-contracts/forms/ai/gftd/epfo/review-v1.json", actorDid: "did:web:ind-payroll.gftd.ai:epfo" },
-  { key: "epfo-amend-v1", path: "00-contracts/forms/ai/gftd/epfo/amend-v1.json", actorDid: "did:web:ind-payroll.gftd.ai:epfo" },
-  { key: "esic-monthly-form-v1", path: "00-contracts/forms/ai/gftd/esic/monthly-form-v1.json", actorDid: "did:web:ind-payroll.gftd.ai:esic" },
-  { key: "esic-review-v1", path: "00-contracts/forms/ai/gftd/esic/review-v1.json", actorDid: "did:web:ind-payroll.gftd.ai:esic" },
-  { key: "esic-amend-v1", path: "00-contracts/forms/ai/gftd/esic/amend-v1.json", actorDid: "did:web:ind-payroll.gftd.ai:esic" },
+  { key: "itr1-form-v1", path: "00-contracts/forms/ai/gftd/itr1/itr1-form-v1.json", actorDid: "did:web:ind-union.etzhayyim.com:cbdt:itr1" },
+  { key: "itr1-self-review-v1", path: "00-contracts/forms/ai/gftd/itr1/itr1-self-review-v1.json", actorDid: "did:web:ind-union.etzhayyim.com:cbdt:itr1" },
+  { key: "itr1-amend-v1", path: "00-contracts/forms/ai/gftd/itr1/itr1-amend-v1.json", actorDid: "did:web:ind-union.etzhayyim.com:cbdt:itr1" },
+  { key: "gstr3b-form-v1", path: "00-contracts/forms/ai/gftd/gstr3b/gstr3b-form-v1.json", actorDid: "did:web:ind-union.etzhayyim.com:cbic:gstr3b" },
+  { key: "gstr3b-review-v1", path: "00-contracts/forms/ai/gftd/gstr3b/gstr3b-review-v1.json", actorDid: "did:web:ind-union.etzhayyim.com:cbic:gstr3b" },
+  { key: "gstr3b-amend-v1", path: "00-contracts/forms/ai/gftd/gstr3b/gstr3b-amend-v1.json", actorDid: "did:web:ind-union.etzhayyim.com:cbic:gstr3b" },
+  { key: "epfo-ecr-form-v1", path: "00-contracts/forms/ai/gftd/epfo/ecr-form-v1.json", actorDid: "did:web:ind-payroll.etzhayyim.com:epfo" },
+  { key: "epfo-review-v1", path: "00-contracts/forms/ai/gftd/epfo/review-v1.json", actorDid: "did:web:ind-payroll.etzhayyim.com:epfo" },
+  { key: "epfo-amend-v1", path: "00-contracts/forms/ai/gftd/epfo/amend-v1.json", actorDid: "did:web:ind-payroll.etzhayyim.com:epfo" },
+  { key: "esic-monthly-form-v1", path: "00-contracts/forms/ai/gftd/esic/monthly-form-v1.json", actorDid: "did:web:ind-payroll.etzhayyim.com:esic" },
+  { key: "esic-review-v1", path: "00-contracts/forms/ai/gftd/esic/review-v1.json", actorDid: "did:web:ind-payroll.etzhayyim.com:esic" },
+  { key: "esic-amend-v1", path: "00-contracts/forms/ai/gftd/esic/amend-v1.json", actorDid: "did:web:ind-payroll.etzhayyim.com:esic" },
 ];
 
 function formRow(seed: FormSeed, seq: number) {

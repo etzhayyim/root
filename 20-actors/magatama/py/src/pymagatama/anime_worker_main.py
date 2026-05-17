@@ -61,7 +61,7 @@ def _now() -> str:
 
 
 def _vid(collection: str, rkey: str) -> str:
-    return f"at://did:web:anime.gftd.ai/{collection}/{rkey}"
+    return f"at://did:web:anime.etzhayyim.com/{collection}/{rkey}"
 
 
 # ─── Mutation tasks ───────────────────────────────────────────────────────
@@ -95,11 +95,11 @@ async def task_create_title(
             """,
             _vid("ai.gftd.apps.anime.title", id_),
             int(time.time() * 1000), now[:10], 0,
-            "did:web:anime.gftd.ai", id_,
-            "did:web:anime.gftd.ai", "did:web:anime.gftd.ai",
+            "did:web:anime.etzhayyim.com", id_,
+            "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
             "ai.gftd.apps.anime.title", status,
             id_, title, title_ja, genre, tags, synopsis, studio, source_type,
-            org_id, user_id, "did:web:anime.gftd.ai", now, now,
+            org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
     finally:
         await db.close()
@@ -132,11 +132,11 @@ async def task_create_season(
             """,
             _vid("ai.gftd.apps.anime.season", id_),
             int(time.time() * 1000), now[:10], 0,
-            "did:web:anime.gftd.ai", id_,
-            "did:web:anime.gftd.ai", "did:web:anime.gftd.ai",
+            "did:web:anime.etzhayyim.com", id_,
+            "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
             "ai.gftd.apps.anime.season", "active",
             id_, title_id, season_num, year, cour, episode_count,
-            org_id, user_id, "did:web:anime.gftd.ai", now, now,
+            org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
     finally:
         await db.close()
@@ -169,11 +169,11 @@ async def task_create_episode(
             """,
             _vid("ai.gftd.apps.anime.episode", id_),
             int(time.time() * 1000), now[:10], 0,
-            "did:web:anime.gftd.ai", id_,
-            "did:web:anime.gftd.ai", "did:web:anime.gftd.ai",
+            "did:web:anime.etzhayyim.com", id_,
+            "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
             "ai.gftd.apps.anime.episode", "aired",
             id_, season_id, episode_num, title, air_date, duration_sec,
-            org_id, user_id, "did:web:anime.gftd.ai", now, now,
+            org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
     finally:
         await db.close()
@@ -209,12 +209,12 @@ async def task_create_schedule(
             """,
             _vid("ai.gftd.apps.anime.schedule", id_),
             int(time.time() * 1000), now[:10], 0,
-            "did:web:anime.gftd.ai", id_,
-            "did:web:anime.gftd.ai", "did:web:anime.gftd.ai",
+            "did:web:anime.etzhayyim.com", id_,
+            "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
             "ai.gftd.apps.anime.schedule", "active",
             id_, title_id, season_id or "", channel, day_of_week,
             time_slot, start_date, end_date,
-            org_id, user_id, "did:web:anime.gftd.ai", now, now,
+            org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
     finally:
         await db.close()
@@ -246,11 +246,11 @@ async def task_submit_review(
             """,
             _vid("ai.gftd.apps.anime.review", id_),
             int(time.time() * 1000), now[:10], 0,
-            reviewer_did or "did:web:anime.gftd.ai", id_,
-            "did:web:anime.gftd.ai", reviewer_did or "did:web:anime.gftd.ai",
+            reviewer_did or "did:web:anime.etzhayyim.com", id_,
+            "did:web:anime.etzhayyim.com", reviewer_did or "did:web:anime.etzhayyim.com",
             "ai.gftd.apps.anime.review", "published",
             id_, title_id, reviewer_did, max(0, min(10, rating)), body,
-            org_id, user_id, "did:web:anime.gftd.ai", now, now,
+            org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
     finally:
         await db.close()

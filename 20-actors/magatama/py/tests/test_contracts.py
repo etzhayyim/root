@@ -4,7 +4,7 @@ Unit tests for pymagatama.handlers.contracts (ADR-0049 contracts pilot).
 Pure-function coverage:
 - Name normalization strips legal suffixes and folds whitespace.
 - Entity hash is deterministic (same input → same 12 hex chars).
-- DID format matches `did:web:social-contract.gftd.ai:entity:{alpha3}:{hash}`.
+- DID format matches `did:web:social-contract.etzhayyim.com:entity:{alpha3}:{hash}`.
 - _rkey_for_org_did extracts the hash suffix.
 
 Handler coverage (async):
@@ -82,18 +82,18 @@ def test_entity_hash_varies_with_input():
 
 def test_mint_did_shape():
     did = C._mint_did("JPN", "1234567890123", "Toyota Motor Corp", "1937-08-28")
-    assert did.startswith("did:web:social-contract.gftd.ai:entity:jpn:")
+    assert did.startswith("did:web:social-contract.etzhayyim.com:entity:jpn:")
     parts = did.rsplit(":", 1)
     assert len(parts[-1]) == 12
 
 
 def test_mint_did_fallback_when_country_empty():
     did = C._mint_did("", "x", "Acme", "2020-01-01")
-    assert did.startswith("did:web:social-contract.gftd.ai:entity:unk:")
+    assert did.startswith("did:web:social-contract.etzhayyim.com:entity:unk:")
 
 
 def test_rkey_for_org_did_extracts_hash():
-    did = "did:web:social-contract.gftd.ai:entity:jpn:abcdef012345"
+    did = "did:web:social-contract.etzhayyim.com:entity:jpn:abcdef012345"
     assert C._rkey_for_org_did(did) == "abcdef012345"
 
 
@@ -120,7 +120,7 @@ def test_row_to_projection_maps_fields():
     assert out["legal_entity_ref"] == "at://le/vid1"
     assert out["country"] == "jpn"
     assert out["lei"] == "LEI123"
-    assert out["did"].startswith("did:web:social-contract.gftd.ai:entity:jpn:")
+    assert out["did"].startswith("did:web:social-contract.etzhayyim.com:entity:jpn:")
 
 
 # ---------------------------------------------------------------------------
@@ -198,7 +198,7 @@ def test_mintOrganizationDid_projects_row(stub_pool: _StubPool):
     # Pre-load legal_entity row for the fetchrow query (first line as key).
     stub_pool.rows["SELECT vertex_id, country, lei, national_id, name, legal_name, entity_type, isic,"] = [
         {
-            "vertex_id": "at://did:web:legal-entity.gftd.ai/ai.gftd.apps.legalEntity.legalEntity/r1",
+            "vertex_id": "at://did:web:legal-entity.etzhayyim.com/ai.gftd.apps.legalEntity.legalEntity/r1",
             "country": "jpn",
             "lei": "LEI-ABC",
             "national_id": "1234567890123",
@@ -217,12 +217,12 @@ def test_mintOrganizationDid_projects_row(stub_pool: _StubPool):
         }
     ]
     # Simulate "row inserted" by the INSERT ... RETURNING.
-    stub_pool.insert_returns.append("at://did:web:social-contract.gftd.ai:entity:jpn:xxx/...")
+    stub_pool.insert_returns.append("at://did:web:social-contract.etzhayyim.com:entity:jpn:xxx/...")
 
-    body = json.dumps({"legalEntityVertexId": "at://did:web:legal-entity.gftd.ai/ai.gftd.apps.legalEntity.legalEntity/r1"})
+    body = json.dumps({"legalEntityVertexId": "at://did:web:legal-entity.etzhayyim.com/ai.gftd.apps.legalEntity.legalEntity/r1"})
     out = json.loads(asyncio.run(C.mint_organization_did.__wrapped__(body)))  # type: ignore[attr-defined]
     assert out["ok"] is True
-    assert out["did"].startswith("did:web:social-contract.gftd.ai:entity:jpn:")
+    assert out["did"].startswith("did:web:social-contract.etzhayyim.com:entity:jpn:")
     assert out["inserted"] is True
 
 
@@ -261,7 +261,7 @@ def test_projectFromLegalEntity_single_by_lei(stub_pool: _StubPool):
     assert out["scanned"] == 1
     assert out["inserted"] == 1
     assert len(out["dids"]) == 1
-    assert out["dids"][0].startswith("did:web:social-contract.gftd.ai:entity:usa:")
+    assert out["dids"][0].startswith("did:web:social-contract.etzhayyim.com:entity:usa:")
 
 
 def test_projectFromLegalEntity_rejects_missing_lei_row(stub_pool: _StubPool):
@@ -315,7 +315,7 @@ def test_resolveOrganization_requires_a_filter(stub_pool: _StubPool):
 
 def test_resolveOrganization_by_did(stub_pool: _StubPool):
     import asyncio
-    did = "did:web:social-contract.gftd.ai:entity:jpn:abcdef012345"
+    did = "did:web:social-contract.etzhayyim.com:entity:jpn:abcdef012345"
     stub_pool.rows["SELECT vertex_id, did, legal_entity_ref, country, lei, national_id, name,"] = [
         {
             "vertex_id": f"at://{did}/ai.gftd.apps.contracts.organization/abcdef012345",

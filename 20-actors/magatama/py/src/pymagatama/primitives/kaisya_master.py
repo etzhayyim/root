@@ -47,8 +47,8 @@ from pymagatama.primitives import langgraph_registry
 
 LOG = logging.getLogger("kaisya.master")
 
-OWNER_DID  = "did:web:bpmn.gftd.ai"
-ORG_DID    = "did:web:kaisya.gftd.ai"
+OWNER_DID  = "did:web:bpmn.etzhayyim.com"
+ORG_DID    = "did:web:kaisya.etzhayyim.com"
 
 # ADR-2605010000: RunPod 6000 Ada is LLM SSoT. Murakumo removed from LLM path.
 # llm.call_tier() routes via _GFTD_LLM_URL → murakumo/RunPod per env config.

@@ -5,7 +5,7 @@ import { sql } from "kysely";
 // tier: C
 
 /**
- * adsk.gftd.ai — HuggingFace dataset ingest schema (Phase 1: text/code).
+ * adsk.etzhayyim.com — HuggingFace dataset ingest schema (Phase 1: text/code).
  *
  * Generic catalog so any HF org's text/code datasets can land in the
  * same two tables; ADSKAILab is the seed customer (CAD code +

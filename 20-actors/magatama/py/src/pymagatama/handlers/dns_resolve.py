@@ -66,7 +66,7 @@ log = logging.getLogger(__name__)
 
 _DOH_URL = "https://cloudflare-dns.com/dns-query"
 _TIMEOUT_SEC = 8
-_UA = "gftd-dns-udf/1.0 (ops@gftd.ai)"
+_UA = "gftd-dns-udf/1.0 (ops@etzhayyim.com)"
 _ALLOWED_RTYPES = frozenset({
     "A", "AAAA", "MX", "NS", "TXT", "CNAME", "SOA", "PTR", "SRV", "CAA",
 })
@@ -123,7 +123,7 @@ def _answer_strings(body: dict[str, Any] | None) -> list[str]:
 def resolve(domain: str, rtype: str) -> str:
     """Comma-joined RR values for one (domain, rtype). Empty on any failure.
 
-    Example: resolve('gftd.ai', 'A') → '104.21.25.30,172.67.222.17'
+    Example: resolve('etzhayyim.com', 'A') → '104.21.25.30,172.67.222.17'
     """
     if not domain:
         return ""

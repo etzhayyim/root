@@ -14,7 +14,7 @@ import { Kysely, sql } from 'kysely';
  * via collection NSIDs ai.gftd.apps.shiharai.{bill,payment,biller,recurring,
  * job,jobResult}.
  *
- * Credential material is NEVER stored server-side. vault.gftd.ai wraps
+ * Credential material is NEVER stored server-side. vault.etzhayyim.com wraps
  * credentials with an ephemeral key (ADR-0029 injectWorkerSecret pattern)
  * and hands them to a local Playwright daemon; the Worker sees plaintext
  * creds only transiently in memory during a single job dispatch window

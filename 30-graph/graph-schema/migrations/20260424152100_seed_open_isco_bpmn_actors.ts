@@ -12,22 +12,22 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T15:30:00Z";
-const ownerDid = "did:web:open-isco.gftd.ai";
+const ownerDid = "did:web:open-isco.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-isco";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-isco-classify-worker-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-isco-classify-worker-v1",
     bpmnProcessId: "open_isco_classify_worker",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-isco/classifyWorker.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-isco-record-concordance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-isco-record-concordance-v1",
     bpmnProcessId: "open_isco_record_concordance",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-isco/recordConcordance.bpmn", ownerDid },
 ];
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-isco-classifyWorker-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-isco-classifyWorker-v1",
     nsid: "ai.gftd.apps.openIsco.classifyWorker", bpmnProcessId: "open_isco_classify_worker",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-isco-recordConcordance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-isco-recordConcordance-v1",
     nsid: "ai.gftd.apps.openIsco.recordConcordance", bpmnProcessId: "open_isco_record_concordance",
     ownerDid, resultTimeoutMs: 15000 },
 ];

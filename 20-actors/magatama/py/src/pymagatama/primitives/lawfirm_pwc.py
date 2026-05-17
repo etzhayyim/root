@@ -23,15 +23,15 @@ from typing import Any
 
 LOG = logging.getLogger("lawfirm.pwc")
 
-_FIRM_DID = "did:web:lawfirm.gftd.ai"
-_CEO_DID  = "did:web:j-kawasaki.gftd.ai"
+_FIRM_DID = "did:web:lawfirm.etzhayyim.com"
+_CEO_DID  = "did:web:j-kawasaki.etzhayyim.com"
 
 # Microsoft Teams channel email (Mail.Send app-only) — see kaisya CLAUDE.md
 # `teams_send_method="channel_email_via_mail_send"`. Default points to a
 # private CEO-only channel; override via env.
 _TEAMS_CHANNEL_EMAIL = os.environ.get(
     "PWC_CLEARANCE_TEAMS_EMAIL",
-    "ceo-pwc-clearance.gftdcojp.gftd.ai@channels.gftd.co",
+    "ceo-pwc-clearance.gftdcojp.etzhayyim.com@channels.gftd.co",
 )
 
 
@@ -40,7 +40,7 @@ def _now_iso() -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _execute(sql_str: str, params: dict) -> bool:
@@ -120,7 +120,7 @@ async def task_lawfirm_pwc_notify_ceo(
         f"このメッセージは pwcClearance.bpmn から自動送信されています。"
     )
 
-    # Best-effort: invoke microsoft.gftd.ai sendDraft via dispatcher.
+    # Best-effort: invoke microsoft.etzhayyim.com sendDraft via dispatcher.
     # If the dispatcher is unreachable, we still mark as "notified-fallback"
     # and rely on the SLA-deadline cronjob to nag the CEO.
     notified_via = "log_only"

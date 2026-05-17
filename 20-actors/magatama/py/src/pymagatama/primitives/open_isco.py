@@ -8,8 +8,8 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-OPEN_ISCO_DID = "did:web:open-isco.gftd.ai"
-ISCO_DID = "did:web:isco.gftd.ai"
+OPEN_ISCO_DID = "did:web:open-isco.etzhayyim.com"
+ISCO_DID = "did:web:isco.etzhayyim.com"
 ACTOR_ID = "sys.worker.open-isco"
 VALID_RELATIONS = {"exactMatch", "broader", "narrower", "relatedTo"}
 

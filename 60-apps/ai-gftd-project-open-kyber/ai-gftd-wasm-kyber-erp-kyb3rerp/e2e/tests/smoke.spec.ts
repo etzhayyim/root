@@ -24,10 +24,10 @@ async function selectApp(page: Page, label: string) {
   await page.getByRole('button', { name: label, exact: false }).first().click();
 }
 
-test.describe('kyber.gftd.ai — smoke', () => {
+test.describe('kyber.etzhayyim.com — smoke', () => {
   test('shell loads with health metadata', async ({ page }) => {
     await gotoShell(page);
-    await expect(page.locator('header')).toContainText('kyber.gftd.ai');
+    await expect(page.locator('header')).toContainText('kyber.etzhayyim.com');
   });
 
   test('left rail exposes all 7 apps', async ({ page }) => {

@@ -9,20 +9,20 @@ import { sql } from "kysely";
 export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
   const seed: Array<[string, string, number, number, number]> = [
-    ["did:web:maps.gftd.ai:wikivoyage:es", "Spot",  8_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:wikivoyage:it", "Spot",  7_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:wikivoyage:pt", "Spot",  5_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:wikivoyage:nl", "Spot",  6_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:wikivoyage:ru", "Spot", 10_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:wikivoyage:zh", "Spot",  5_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:wikivoyage:ja", "Spot",  5_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:wikivoyage:pl", "Spot",  6_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:wikivoyage:sv", "Spot",  4_000, 0.3, 168.0],
-    ["did:web:maps.gftd.ai:wikivoyage:uk", "Spot",  3_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:es", "Spot",  8_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:it", "Spot",  7_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:pt", "Spot",  5_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:nl", "Spot",  6_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:ru", "Spot", 10_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:zh", "Spot",  5_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:ja", "Spot",  5_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:pl", "Spot",  6_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:sv", "Spot",  4_000, 0.3, 168.0],
+    ["did:web:maps.etzhayyim.com:wikivoyage:uk", "Spot",  3_000, 0.3, 168.0],
   ];
   for (const [sourceDid, label, worldTotal, priority, ttl] of seed) {
     const sourceSlug = sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || "primary";
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

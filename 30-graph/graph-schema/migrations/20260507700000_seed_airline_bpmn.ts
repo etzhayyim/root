@@ -27,19 +27,19 @@ function readBpmn(relPath: string): string {
   if (existsSync(abs)) return readFileSync(abs, "utf8");
   // Minimal stub — F5 watcher skips Zeebe deploy when status='stub'
   const processId = path.basename(relPath, ".bpmn");
-  return `<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="${processId}" targetNamespace="http://gftd.ai"><bpmn:process id="${processId}" isExecutable="false"/></bpmn:definitions>`;
+  return `<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="${processId}" targetNamespace="http://etzhayyim.com"><bpmn:process id="${processId}" isExecutable="false"/></bpmn:definitions>`;
 }
 
 type ActorEntry = {
   actor: string;          // e.g. "air-sched"
-  actorDid: string;       // e.g. "did:web:air-sched.gftd.ai"
+  actorDid: string;       // e.g. "did:web:air-sched.etzhayyim.com"
   procs: string[];        // camelCase method names
 };
 
 const ACTORS: ActorEntry[] = [
   {
     actor: "air-sched",
-    actorDid: "did:web:air-sched.gftd.ai",
+    actorDid: "did:web:air-sched.etzhayyim.com",
     procs: [
       "registerSchedule", "requestSlot", "allocateSlot", "assignFleet",
       "publishSchedule", "assignGate", "changeFrequency", "registerCodeshare",
@@ -47,7 +47,7 @@ const ACTORS: ActorEntry[] = [
   },
   {
     actor: "air-book",
-    actorDid: "did:web:air-book.gftd.ai",
+    actorDid: "did:web:air-book.etzhayyim.com",
     procs: [
       "createPnr", "confirmBooking", "issueTicket", "assignSeat",
       "addAncillary", "cancelBooking", "reprotectPassenger", "settleBsp",
@@ -55,7 +55,7 @@ const ACTORS: ActorEntry[] = [
   },
   {
     actor: "air-yield",
-    actorDid: "did:web:air-yield.gftd.ai",
+    actorDid: "did:web:air-yield.etzhayyim.com",
     procs: [
       "publishFareClass", "adjustInventory", "fileFare", "setOverbooking",
       "processGroupBooking", "applyDynamicPrice", "generateRevenueReport", "forecastDemand",
@@ -63,7 +63,7 @@ const ACTORS: ActorEntry[] = [
   },
   {
     actor: "air-dcs",
-    actorDid: "did:web:air-dcs.gftd.ai",
+    actorDid: "did:web:air-dcs.etzhayyim.com",
     procs: [
       "processCheckIn", "processBoardingPass", "acceptBaggage", "reconcileBaggage",
       "computeLoadSheet", "transmitApis", "trackTurnaround", "issueDepartureControl",
@@ -71,7 +71,7 @@ const ACTORS: ActorEntry[] = [
   },
   {
     actor: "air-ops",
-    actorDid: "did:web:air-ops.gftd.ai",
+    actorDid: "did:web:air-ops.etzhayyim.com",
     procs: [
       "fileFlightPlan", "createDispatchBrief", "fetchNotam", "fetchWeatherBrief",
       "recordTechLog", "orderFuel", "submitPirep", "monitorFlight",
@@ -79,7 +79,7 @@ const ACTORS: ActorEntry[] = [
   },
   {
     actor: "air-crew",
-    actorDid: "did:web:air-crew.gftd.ai",
+    actorDid: "did:web:air-crew.etzhayyim.com",
     procs: [
       "publishRoster", "buildPairing", "trackQualification", "assessFatigue",
       "assignCrew", "bookCrewTravel", "recordDutyTime", "notifyCrew",
@@ -87,7 +87,7 @@ const ACTORS: ActorEntry[] = [
   },
   {
     actor: "air-mro",
-    actorDid: "did:web:air-mro.gftd.ai",
+    actorDid: "did:web:air-mro.etzhayyim.com",
     procs: [
       "createWorkOrder", "trackComponent", "checkAirworthiness", "reportTechOccurrence",
       "scheduleMaintenance", "reportReliability", "orderSparePart", "recordGroundEquipment",
@@ -95,7 +95,7 @@ const ACTORS: ActorEntry[] = [
   },
   {
     actor: "air-sms",
-    actorDid: "did:web:air-sms.gftd.ai",
+    actorDid: "did:web:air-sms.etzhayyim.com",
     procs: [
       "submitSafetyReport", "assessRisk", "recordIosaFinding", "fileRegulatoryReport",
       "reportOccurrence", "distributeSafetyBulletin", "screenDangerousGoods", "handleSecurityAlert",
@@ -103,7 +103,7 @@ const ACTORS: ActorEntry[] = [
   },
   {
     actor: "air-cargo",
-    actorDid: "did:web:air-cargo.gftd.ai",
+    actorDid: "did:web:air-cargo.etzhayyim.com",
     procs: [
       "createCargoBooking", "issueAirWaybill", "acceptCargo", "assignUld",
       "trackShipment", "processClaim", "settleCargoAccount", "reportCargoSecurity",
@@ -111,7 +111,7 @@ const ACTORS: ActorEntry[] = [
   },
   {
     actor: "air-ffp",
-    actorDid: "did:web:air-ffp.gftd.ai",
+    actorDid: "did:web:air-ffp.etzhayyim.com",
     procs: [
       "enrollMember", "accruePoints", "redeemReward", "updateTier",
       "transferMiles", "processPurchase", "expireMiles", "reconcilePartner",
@@ -135,8 +135,8 @@ function buildRows(): Row[] {
       const bpmnProcessId = `${a.actor.replace(/-/g, "_")}_${snake(proc)}`;
       const procSlug = `${a.actor}-${slug(proc)}`;
       rows.push({
-        processVid: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${procSlug}-v1`,
-        bindingVid: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${procSlug}-v1`,
+        processVid: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${procSlug}-v1`,
+        bindingVid: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${procSlug}-v1`,
         bpmnProcessId,
         nsid: `ai.gftd.apps.${a.actor.replace(/-([a-z])/g, (_, c) => c.toUpperCase())}.${proc}`,
         sourcePath: `00-contracts/bpmn/ai/gftd/${a.actor}/${proc}.bpmn`,

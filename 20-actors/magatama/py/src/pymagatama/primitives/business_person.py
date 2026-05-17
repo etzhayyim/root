@@ -12,8 +12,8 @@ from urllib.parse import parse_qsl, quote_plus, urlencode, urlparse, urlunparse
 from pymagatama.db_sync import sync_cursor
 
 
-BUSINESS_PERSON_DID = "did:web:business-person.gftd.ai"
-FETCH_USER_AGENT = "business-person.gftd.ai/0.1 (+https://gftd.ai)"
+BUSINESS_PERSON_DID = "did:web:business-person.etzhayyim.com"
+FETCH_USER_AGENT = "business-person.etzhayyim.com/0.1 (+https://etzhayyim.com)"
 PUBLIC_SOURCES = {
     "edinet",
     "gbizinfo",
@@ -1435,7 +1435,7 @@ def task_business_person_compute_influence_scores(
         person_vertex_id = str(p.get("person_id") or "")
         vertex_id = _stable_id("vis", person_vertex_id, today)
         scores.append({
-            "vertex_id": f"at://did:web:business-person.gftd.ai/ai.gftd.apps.businessPerson.influenceScore/{vertex_id}",
+            "vertex_id": f"at://did:web:business-person.etzhayyim.com/ai.gftd.apps.businessPerson.influenceScore/{vertex_id}",
             "_seq": None,
             "created_date": today,
             "sensitivity_ord": 200,
@@ -1631,7 +1631,7 @@ def task_business_person_extract_career_llm(
                 continue
             vertex_id_raw = _stable_id("bpce-llm", person_vertex_id, ev_org, ev_title, today)
             extractions.append({
-                "vertex_id": f"at://did:web:business-person.gftd.ai/ai.gftd.apps.businessPerson.careerEvent/{vertex_id_raw}",
+                "vertex_id": f"at://did:web:business-person.etzhayyim.com/ai.gftd.apps.businessPerson.careerEvent/{vertex_id_raw}",
                 "created_date": today,
                 "sensitivity_ord": 200,
                 "owner_did": BUSINESS_PERSON_DID,
@@ -2075,7 +2075,7 @@ def task_business_person_write_lei_entities(
             if not lei:
                 continue
 
-            vertex_id = f"at://did:web:business-person.gftd.ai/ai.gftd.apps.businessPerson.leiEntity/{lei}"
+            vertex_id = f"at://did:web:business-person.etzhayyim.com/ai.gftd.apps.businessPerson.leiEntity/{lei}"
 
             cur.execute("SELECT 1 FROM vertex_lei_entity WHERE vertex_id = %s", (vertex_id,))
             if not cur.fetchone():

@@ -41,9 +41,9 @@ from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("koke_worker")
 
-KOKE_DID = "did:web:koke.gftd.ai"
-HAKKOU_DID = "did:web:hakkou.gftd.ai"
-SAIKIN_DID = "did:web:saikin.gftd.ai"
+KOKE_DID = "did:web:koke.etzhayyim.com"
+HAKKOU_DID = "did:web:hakkou.etzhayyim.com"
+SAIKIN_DID = "did:web:saikin.etzhayyim.com"
 
 CONFIDENCE_THRESHOLD = float(os.environ.get("KOKE_CONFIDENCE_THRESHOLD", "0.7"))
 SCAN_BATCH_SIZE = int(os.environ.get("KOKE_SCAN_BATCH_SIZE", "10"))

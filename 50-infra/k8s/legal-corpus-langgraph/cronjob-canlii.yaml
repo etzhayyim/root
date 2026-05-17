@@ -1,0 +1,85 @@
+---
+# fetchCanLiiDelta — daily CanLII Supreme Court of Canada delta ingest
+# Replaces: fetchCanLiiDelta.bpmn timer-start R/PT24H
+# ADR-0049, ADR-2605080600
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: legal-corpus-canlii
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: legal-corpus-canlii
+    app.kubernetes.io/component: langgraph-cronjob
+    app.kubernetes.io/part-of: legal-corpus
+spec:
+  schedule: "0 6 * * *"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 300
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 900
+      ttlSecondsAfterFinished: 1800
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: legal-corpus-canlii
+            app.kubernetes.io/component: langgraph-cronjob
+        spec:
+          restartPolicy: Never
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          imagePullSecrets:
+            - name: ghcr-creds
+          containers:
+            - name: run
+              image: ghcr.io/etzhayyim/legal-corpus-langgraph:latest-amd64
+              imagePullPolicy: Always
+              env:
+                - name: RW_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: mitama-udf-pool-rw
+                      key: RW_URL
+                - name: CANLII_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: lg-legal-corpus-secrets
+                      key: CANLII_API_KEY
+                      optional: true
+              resources:
+                requests:
+                  cpu: "200m"
+                  memory: "512Mi"
+                limits:
+                  cpu: "1000m"
+                  memory: "2Gi"
+              command: ["python", "-c"]
+              args:
+                - |
+                  import asyncio, json, sys
+                  sys.path.insert(0, '/app')
+                  from legal_corpus_langgraph import fetch_canlii_graph
+
+                  async def main():
+                      result = await fetch_canlii_graph.ainvoke({
+                          "canlii_key": "",
+                          "items": [],
+                          "ingest_results": [],
+                          "error": None,
+                      })
+                      count = len(result.get("ingest_results") or [])
+                      print(json.dumps({
+                          "source": "canlii",
+                          "ingestedCount": count,
+                          "error": result.get("error"),
+                      }))
+                      if result.get("error"):
+                          sys.exit(1)
+
+                  asyncio.run(main())

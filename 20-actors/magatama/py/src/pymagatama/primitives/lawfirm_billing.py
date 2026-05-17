@@ -28,7 +28,7 @@ from typing import Any
 
 LOG = logging.getLogger("lawfirm.billing")
 
-_FIRM_DID = "did:web:lawfirm.gftd.ai"
+_FIRM_DID = "did:web:lawfirm.etzhayyim.com"
 _STRIPE_API_BASE = "https://api.stripe.com/v1"
 
 
@@ -38,7 +38,7 @@ def _now_iso() -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _execute(sql_str: str, params: dict) -> bool:
@@ -135,7 +135,7 @@ async def task_billing_mode_a_start_subscription(
     customer_id = customer.get("id", "")
 
     product = _stripe_post(api_key, "products", {
-        "name": f"lawfirm.gftd.ai SaaS — {legal_name}",
+        "name": f"lawfirm.etzhayyim.com SaaS — {legal_name}",
         "metadata": {"product_kind": "lawfirm-saas-flat", "tenant_id": tenant_id},
     })
     product_id = product.get("id", "")
@@ -207,7 +207,7 @@ async def task_billing_mode_b_onboard_connect(
     })
     account_id = account.get("id", "")
 
-    return_origin = return_origin or f"https://{tenant_id}.lawfirm.gftd.ai"
+    return_origin = return_origin or f"https://{tenant_id}.lawfirm.etzhayyim.com"
     link = _stripe_post(api_key, "account_links", {
         "account": account_id,
         "refresh_url": f"{return_origin}/stripe-refresh",
@@ -281,7 +281,7 @@ async def task_billing_mode_b_start_subscription(
     customer_id = customer.get("id", "")
 
     product = _stripe_post(api_key, "products", {
-        "name": f"lawfirm.gftd.ai sub-tenant — {sub_tenant_name}",
+        "name": f"lawfirm.etzhayyim.com sub-tenant — {sub_tenant_name}",
         "metadata": {"product_kind": "lawfirm-subtenant", "advisor": advisor_slug},
     })
     product_id = product.get("id", "")

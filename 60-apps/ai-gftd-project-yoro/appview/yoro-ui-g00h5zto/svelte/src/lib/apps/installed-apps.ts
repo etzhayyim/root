@@ -4,7 +4,7 @@ import { getSessionToken } from '../auth/passkey.js';
 import type { GfAppLink } from './types.js';
 import { findAppById, resolveAppHref } from './apps.js';
 
-const APPSTORE_ENDPOINT = 'https://apps.gftd.ai/xrpc';
+const APPSTORE_ENDPOINT = 'https://apps.etzhayyim.com/xrpc';
 
 /** OAuth scope that apps can request. */
 export interface AppScope {

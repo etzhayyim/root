@@ -17,7 +17,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-OPEN_ISIC_DID = "did:web:open-isic.gftd.ai"
+OPEN_ISIC_DID = "did:web:open-isic.etzhayyim.com"
 ACTOR_ID = "sys.worker.open-isic"
 VALID_RELATIONS = {"exactMatch", "broader", "narrower", "relatedTo"}
 

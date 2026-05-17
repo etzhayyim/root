@@ -10,19 +10,19 @@
 --
 -- This migration:
 --   1. Inserts the vertex_mcp_tool_def row for ai.gftd.apps.adsk.datasetIngestAll
---      (actor_host=adsk.gftd.ai)
+--      (actor_host=adsk.etzhayyim.com)
 --   2. Inserts assistant adsk_ingest_dataset.v2 (kind=topology, mcp_tool node)
 --   3. Marks v1 (the bulk-51 row) as superseded
 --
 -- Pin flip is a separate migration with the operator gate.
 --
--- RUNTIME CAVEAT: adsk.gftd.ai Worker does NOT exist yet. The MCP envelope
--- POST to https://adsk.gftd.ai/xrpc/ai.gftd.mcp.message will fail at edge.
+-- RUNTIME CAVEAT: adsk.etzhayyim.com Worker does NOT exist yet. The MCP envelope
+-- POST to https://adsk.etzhayyim.com/xrpc/ai.gftd.mcp.message will fail at edge.
 -- This migration is **data-only** — the lexicon, seed, and topology rows
 -- describe the intended target. Before the pin flip is applicable, either:
 --   (a) Create 60-apps/ai-gftd-project-adsk/src/app.ts following the
 --       saikin/ki Worker template (NSID_PREFIX + MCP_NSID branches), OR
---   (b) UPDATE vertex_mcp_tool_def SET actor_host='saikin.gftd.ai' WHERE
+--   (b) UPDATE vertex_mcp_tool_def SET actor_host='saikin.etzhayyim.com' WHERE
 --       nsid='ai.gftd.apps.adsk.datasetIngestAll'  -- route via existing
 --       proxy until adsk Worker is deployed.
 
@@ -33,9 +33,9 @@ INSERT INTO vertex_mcp_tool_def
    visibility, version, enabled, source_path,
    org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:adsk.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-adsk-datasetIngestAll',
+  ('at://did:web:adsk.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-adsk-datasetIngestAll',
    0, 0,
-   'ai.gftd.apps.adsk.datasetIngestAll', 'did:web:adsk.gftd.ai', 'adsk.gftd.ai', 'procedure',
+   'ai.gftd.apps.adsk.datasetIngestAll', 'did:web:adsk.etzhayyim.com', 'adsk.etzhayyim.com', 'procedure',
    'Re-ingest stale rows from vertex_hf_dataset (R/P30D autopilot).',
    '{"type":"object","properties":{"staleSeconds":{"type":"integer"},"perDatasetLimit":{"type":"integer"}}}',
    '{"type":"object","properties":{"summary":{"type":"array"},"error":{"type":"string"}}}',
@@ -54,7 +54,7 @@ VALUES (
   'adsk dataset re-ingest autopilot (topology v2, mcp_tool node)',
   '2026-05-09T00:00:00Z',
   'rw_vertex',
-  'did:web:agent.adsk.gftd.ai'
+  'did:web:agent.adsk.etzhayyim.com'
 );
 
 INSERT INTO vertex_langgraph_assistant_node

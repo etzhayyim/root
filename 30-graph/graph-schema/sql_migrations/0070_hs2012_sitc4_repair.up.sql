@@ -12,7 +12,7 @@ CREATE VIEW IF NOT EXISTS view_hs2012_commodity AS
     WHERE collection = 'ai.gftd.apps.hs.commodity2012';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs2012', 'hs2012.gftd.ai', 6529, 'products', 'trade');
+    VALUES ('hs2012', 'hs2012.etzhayyim.com', 6529, 'products', 'trade');
 
 DELETE FROM edge_classified_as WHERE system = 'sitc4' AND code IN ('I','II');
 

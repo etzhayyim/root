@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/schemas/tsukuru-cnt-process-catalog.schema.json",
+  "$id": "https://etzhayyim.com/schemas/tsukuru-cnt-process-catalog.schema.json",
   "title": "Tsukuru CNT Process Catalog",
   "type": "object",
   "required": ["schema", "processId", "productFamilies", "equipment", "steps", "dataRecords", "plcTags", "mesEntities", "qmsArtifacts"],

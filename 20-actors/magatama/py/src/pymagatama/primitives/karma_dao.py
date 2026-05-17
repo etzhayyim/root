@@ -31,7 +31,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("karma.dao")
 
-KARMA_DID = "did:web:karma.gftd.ai"
+KARMA_DID = "did:web:karma.etzhayyim.com"
 
 VOTE_POSITIONS = ("admit", "floor", "dismiss", "abstain")
 SUPERMAJORITY_PCT = 2.0 / 3.0

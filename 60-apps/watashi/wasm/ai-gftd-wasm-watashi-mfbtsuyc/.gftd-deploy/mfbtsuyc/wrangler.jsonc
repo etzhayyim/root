@@ -13,7 +13,7 @@
     "APP_CAPABILITIES": "[\"peer-discovery\",\"screen-config\",\"clipboard-relay\"]",
     "APP_DESCRIPTION": "Cross-platform mouse/keyboard sharing coordinator",
     "APP_DISPLAY_NAME": "ShareMouse",
-    "APP_EMBED_URL": "https://mfbtsuyc.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://mfbtsuyc.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "ts-native",
     "APP_NANOID": "mfbtsuyc",
     "APP_PERFORMER_TYPE": "",
@@ -50,6 +50,6 @@
     { "type": "CompiledWasm", "globs": ["**/*.wasm"] }
   ],
   "routes": [
-    { "pattern": "mfbtsuyc.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "mfbtsuyc.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

@@ -7,7 +7,7 @@ LangGraph intra-job personalization loop:
 
 LangServer job types:
   contentengine.run_content_agent   — LangGraph loop (180s)
-  contentengine.create_sponsor_slot — XRPC to ads.gftd.ai createCampaign (30s)
+  contentengine.create_sponsor_slot — XRPC to ads.etzhayyim.com createCampaign (30s)
 
 Cohort-first personalization — no individual PII stored (ADR-0018, sensitivity_ord=0).
 Sources: vertex_news_article + vertex_narou_chapter (existing graph data).
@@ -19,7 +19,7 @@ Env:
   AGENTGATEWAY_MCP_URL      — LangServer AgentGateway URL (default 127.0.0.1:8080)
   RW_URL             — RisingWave postgres URL
   ANTHROPIC_API_KEY
-  ADS_XRPC_URL       — ads.gftd.ai base (default https://adsm4d5c.gftd.ai)
+  ADS_XRPC_URL       — ads.etzhayyim.com base (default https://adsm4d5c.etzhayyim.com)
   CONTENT_QUALITY_THRESHOLD — min quality score (default 0.65)
 """
 
@@ -45,8 +45,8 @@ from pymagatama.llm import resolve_model_id
 
 LOG = logging.getLogger("contentengine_worker")
 
-CONTENTENGINE_DID = "did:web:contentengine.gftd.ai"
-ADS_XRPC_URL = os.environ.get("ADS_XRPC_URL", "https://adsm4d5c.gftd.ai")
+CONTENTENGINE_DID = "did:web:contentengine.etzhayyim.com"
+ADS_XRPC_URL = os.environ.get("ADS_XRPC_URL", "https://adsm4d5c.etzhayyim.com")
 QUALITY_THRESHOLD = float(os.environ.get("CONTENT_QUALITY_THRESHOLD", "0.65"))
 
 
@@ -373,7 +373,7 @@ async def task_create_sponsor_slot(
     topic: str = "",
     **_: Any,
 ) -> dict[str, Any]:
-    """Optional XRPC call to ads.gftd.ai createCampaign."""
+    """Optional XRPC call to ads.etzhayyim.com createCampaign."""
     ad_campaign_id = ""
     try:
         async with httpx.AsyncClient(timeout=20) as client:

@@ -9,7 +9,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR = "did:web:credits.gftd.ai"
+ACTOR = "did:web:credits.etzhayyim.com"
 
 SPEND_COST = {
     "post": 100,

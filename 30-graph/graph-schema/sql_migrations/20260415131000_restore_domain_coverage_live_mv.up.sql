@@ -22,17 +22,17 @@ INSERT INTO dim_domain_coverage_target (
     authority_seed, rule_seed, scope_seed, total_seed,
     authority_table, authority_kind
   ) VALUES
-    ('sovereign', 'did:web:states.gftd.ai', 'states.gftd.ai', 195, 195000, 195, 195390, 195, 390, 195, 780, 'vertex_authority_sovereign', 'sovereign'),
-    ('treaty', 'did:web:treaty.gftd.ai', 'treaty.gftd.ai', 500, 5000, 50, 5550, 48, 85, 18, 151, 'vertex_authority_treaty', 'treaty'),
-    ('religious', 'did:web:religious.gftd.ai', 'religious.gftd.ai', 30, 3000, 10, 3040, 25, 60, 10, 95, 'vertex_authority_religious', 'religious'),
-    ('community', 'did:web:communities.gftd.ai', 'communities.gftd.ai', 100, 1000, 20, 1120, 69, 35, 8, 112, 'vertex_authority_community', 'community'),
-    ('customary', 'did:web:customary.gftd.ai', 'customary.gftd.ai', 100, 500, 50, 650, 28, 40, 12, 80, 'vertex_authority_customary', 'customary'),
-    ('family', 'did:web:tradition.gftd.ai', 'tradition.gftd.ai', 500, 2000, 100, 2600, 25, 30, 12, 67, 'vertex_authority_customary', 'customary'),
-    ('cultural', 'did:web:tradition.gftd.ai', 'tradition.gftd.ai', 200, 1000, 50, 1250, 30, 24, 12, 66, 'vertex_authority_customary', 'customary'),
-    ('professional', 'did:web:ethics.gftd.ai', 'ethics.gftd.ai', 100, 500, 30, 630, 24, 48, 12, 84, 'vertex_authority_professional', 'professional'),
-    ('academic', 'did:web:ethics.gftd.ai', 'ethics.gftd.ai', 50, 200, 10, 260, 10, 18, 5, 33, 'vertex_authority_professional', 'professional'),
-    ('industry', 'did:web:industry-standard.gftd.ai', 'industry-standard.gftd.ai', 200, 3000, 50, 3250, 42, 60, 15, 117, 'vertex_authority_industry', 'industry'),
-    ('blockchain', 'did:web:blockchain.gftd.ai', 'blockchain.gftd.ai', 100, 5000, 200, 5300, 30, 65, 20, 115, 'vertex_authority_blockchain', 'blockchain');
+    ('sovereign', 'did:web:states.etzhayyim.com', 'states.etzhayyim.com', 195, 195000, 195, 195390, 195, 390, 195, 780, 'vertex_authority_sovereign', 'sovereign'),
+    ('treaty', 'did:web:treaty.etzhayyim.com', 'treaty.etzhayyim.com', 500, 5000, 50, 5550, 48, 85, 18, 151, 'vertex_authority_treaty', 'treaty'),
+    ('religious', 'did:web:religious.etzhayyim.com', 'religious.etzhayyim.com', 30, 3000, 10, 3040, 25, 60, 10, 95, 'vertex_authority_religious', 'religious'),
+    ('community', 'did:web:communities.etzhayyim.com', 'communities.etzhayyim.com', 100, 1000, 20, 1120, 69, 35, 8, 112, 'vertex_authority_community', 'community'),
+    ('customary', 'did:web:customary.etzhayyim.com', 'customary.etzhayyim.com', 100, 500, 50, 650, 28, 40, 12, 80, 'vertex_authority_customary', 'customary'),
+    ('family', 'did:web:tradition.etzhayyim.com', 'tradition.etzhayyim.com', 500, 2000, 100, 2600, 25, 30, 12, 67, 'vertex_authority_customary', 'customary'),
+    ('cultural', 'did:web:tradition.etzhayyim.com', 'tradition.etzhayyim.com', 200, 1000, 50, 1250, 30, 24, 12, 66, 'vertex_authority_customary', 'customary'),
+    ('professional', 'did:web:ethics.etzhayyim.com', 'ethics.etzhayyim.com', 100, 500, 30, 630, 24, 48, 12, 84, 'vertex_authority_professional', 'professional'),
+    ('academic', 'did:web:ethics.etzhayyim.com', 'ethics.etzhayyim.com', 50, 200, 10, 260, 10, 18, 5, 33, 'vertex_authority_professional', 'professional'),
+    ('industry', 'did:web:industry-standard.etzhayyim.com', 'industry-standard.etzhayyim.com', 200, 3000, 50, 3250, 42, 60, 15, 117, 'vertex_authority_industry', 'industry'),
+    ('blockchain', 'did:web:blockchain.etzhayyim.com', 'blockchain.etzhayyim.com', 100, 5000, 200, 5300, 30, 65, 20, 115, 'vertex_authority_blockchain', 'blockchain');
 
 DROP MATERIALIZED VIEW IF EXISTS mv_domain_coverage_live;
 

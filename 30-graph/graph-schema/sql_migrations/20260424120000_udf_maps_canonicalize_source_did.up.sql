@@ -5,14 +5,14 @@ CREATE FUNCTION maps_canonicalize_source_did(source_did varchar)
       LANGUAGE sql
     AS $$
       SELECT CASE
-        WHEN source_did LIKE 'did:web:uqpel6i6.gftd.ai:%'
-          THEN 'did:web:maps.gftd.ai' || SUBSTRING(source_did FROM 25)
+        WHEN source_did LIKE 'did:web:uqpel6i6.etzhayyim.com:%'
+          THEN 'did:web:maps.etzhayyim.com' || SUBSTRING(source_did FROM 25)
         WHEN source_did LIKE 'did:web:uqpel6i6:%'
-          THEN 'did:web:maps.gftd.ai' || SUBSTRING(source_did FROM 17)
-        WHEN source_did = 'did:web:uqpel6i6.gftd.ai'
-          THEN 'did:web:maps.gftd.ai'
+          THEN 'did:web:maps.etzhayyim.com' || SUBSTRING(source_did FROM 17)
+        WHEN source_did = 'did:web:uqpel6i6.etzhayyim.com'
+          THEN 'did:web:maps.etzhayyim.com'
         WHEN source_did = 'did:web:uqpel6i6'
-          THEN 'did:web:maps.gftd.ai'
+          THEN 'did:web:maps.etzhayyim.com'
         ELSE source_did
       END
     $$;

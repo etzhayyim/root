@@ -1,0 +1,19 @@
+{
+  "domain": "character_anime",
+  "appHost": "character",
+  "repo": "did:web:character.etzhayyim.com",
+  "collection": "ai.gftd.apps.character.anime",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3FacdbId%20WHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP4206%20%3FacdbId.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%20LIMIT%205000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "acdb-{{acdbId.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}",
+    "acdbId": "{{acdbId.value}}"
+  },
+  "chunkSize": 500,
+  "note": "Anime Characters Database IDs from Wikidata P4206"
+}

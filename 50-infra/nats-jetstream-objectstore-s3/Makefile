@@ -1,5 +1,5 @@
 VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
-GHCR_IMAGE ?= ghcr.io/gftdcojp/nats-jetstream-objectstore-s3
+GHCR_IMAGE ?= ghcr.io/etzhayyim/nats-jetstream-objectstore-s3
 LDFLAGS := -ldflags "-X main.version=$(VERSION)"
 
 .PHONY: all build test lint clean

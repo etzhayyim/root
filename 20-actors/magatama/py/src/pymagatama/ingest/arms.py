@@ -10,8 +10,8 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-APP_HANDLE = "arms.gftd.ai"
-PRIMARY_DID = "did:web:arms.gftd.ai"
+APP_HANDLE = "arms.etzhayyim.com"
+PRIMARY_DID = "did:web:arms.etzhayyim.com"
 
 VALID_CATEGORIES = {
     "pistol", "revolver", "rifle", "carbine", "shotgun", "smg", "hmg", "lmg",
@@ -292,7 +292,7 @@ def report_incident(**args: Any) -> dict[str, Any]:
     event_type = "reported_stolen" if incident == "theft" else "reported_lost" if incident == "loss" else "check_out"
     occurred = now_iso()
     event_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.custodyEvent/{nanoid(10)}"
-    defence_vid = f"at://did:web:arms.gftd.ai/ai.gftd.apps.arms.incident/{nanoid(12)}"
+    defence_vid = f"at://did:web:arms.etzhayyim.com/ai.gftd.apps.arms.incident/{nanoid(12)}"
     _custody_event(event_vid, caller, firearm_vid, event_type, caller, None, None, None, args.get("locationCode"), args.get("description"), occurred, caller, 3)
     _execute(
         """

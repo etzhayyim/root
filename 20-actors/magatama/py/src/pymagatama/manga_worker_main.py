@@ -1,4 +1,4 @@
-"""manga.gftd.ai — LangServer worker (BPMN service task handlers).
+"""manga.etzhayyim.com — LangServer worker (BPMN service task handlers).
 
 12 methods: createTitle / createChapter / publishChapter / updateChapterStatus /
             recordReadingProgress / submitFromNarou / addTag / getTitle /
@@ -16,10 +16,10 @@ from pymagatama.langserver_compat import LangServerWorker, create_langserver_cha
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
 DB_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev",
+    "REDACTED_USE_DATABASE_URL_ENV",
 )
 
-ACTOR_DID = "did:web:manga.gftd.ai"
+ACTOR_DID = "did:web:manga.etzhayyim.com"
 
 
 async def get_db():

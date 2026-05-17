@@ -26,35 +26,35 @@ const actorTag = "sys.bpmn.seed.legal-logical-actors";
 // bpmn-coverage gate marker: project: "judge,bengoshi,adr,legal-aid"
 
 const seeds: Seed[] = [
-  // judge.gftd.ai (200K judges, path-based DID)
-  { project: "judge", ownerDid: "did:web:judge.gftd.ai",
+  // judge.etzhayyim.com (200K judges, path-based DID)
+  { project: "judge", ownerDid: "did:web:judge.etzhayyim.com",
     proc: "registerJudge", bpmnProcessId: "judge_register_judge",
     nsid: "ai.gftd.apps.judge.registerJudge", resultTimeoutMs: 15000 },
-  { project: "judge", ownerDid: "did:web:judge.gftd.ai",
+  { project: "judge", ownerDid: "did:web:judge.etzhayyim.com",
     proc: "listJudges", bpmnProcessId: "judge_list_judges",
     nsid: "ai.gftd.apps.judge.listJudges", resultTimeoutMs: 15000 },
 
-  // bengoshi.gftd.ai (2.5M lawyers, path-based DID)
-  { project: "bengoshi", ownerDid: "did:web:bengoshi.gftd.ai",
+  // bengoshi.etzhayyim.com (2.5M lawyers, path-based DID)
+  { project: "bengoshi", ownerDid: "did:web:bengoshi.etzhayyim.com",
     proc: "registerLawyer", bpmnProcessId: "bengoshi_register_lawyer",
     nsid: "ai.gftd.apps.bengoshi.registerLawyer", resultTimeoutMs: 15000 },
-  { project: "bengoshi", ownerDid: "did:web:bengoshi.gftd.ai",
+  { project: "bengoshi", ownerDid: "did:web:bengoshi.etzhayyim.com",
     proc: "searchLawyers", bpmnProcessId: "bengoshi_search_lawyers",
     nsid: "ai.gftd.apps.bengoshi.searchLawyers", resultTimeoutMs: 15000 },
 
-  // adr.gftd.ai (1M cases/yr, ICC/JCAA/AAA)
-  { project: "adr", ownerDid: "did:web:adr.gftd.ai",
+  // adr.etzhayyim.com (1M cases/yr, ICC/JCAA/AAA)
+  { project: "adr", ownerDid: "did:web:adr.etzhayyim.com",
     proc: "registerArbitrator", bpmnProcessId: "adr_register_arbitrator",
     nsid: "ai.gftd.apps.adr.registerArbitrator", resultTimeoutMs: 15000 },
-  { project: "adr", ownerDid: "did:web:adr.gftd.ai",
+  { project: "adr", ownerDid: "did:web:adr.etzhayyim.com",
     proc: "createCase", bpmnProcessId: "adr_create_case",
     nsid: "ai.gftd.apps.adr.createCase", resultTimeoutMs: 15000 },
 
-  // legal-aid.gftd.ai (10M cases/yr, public defender)
-  { project: "legal-aid", ownerDid: "did:web:legal-aid.gftd.ai",
+  // legal-aid.etzhayyim.com (10M cases/yr, public defender)
+  { project: "legal-aid", ownerDid: "did:web:legal-aid.etzhayyim.com",
     proc: "registerOffice", bpmnProcessId: "legal_aid_register_office",
     nsid: "ai.gftd.apps.legal-aid.registerOffice", resultTimeoutMs: 15000 },
-  { project: "legal-aid", ownerDid: "did:web:legal-aid.gftd.ai",
+  { project: "legal-aid", ownerDid: "did:web:legal-aid.etzhayyim.com",
     proc: "openCase", bpmnProcessId: "legal_aid_open_case",
     nsid: "ai.gftd.apps.legal-aid.openCase", resultTimeoutMs: 15000 },
 ];
@@ -63,9 +63,9 @@ const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${s.project}/${s.proc
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${s.project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${s.project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${s.project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${s.project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

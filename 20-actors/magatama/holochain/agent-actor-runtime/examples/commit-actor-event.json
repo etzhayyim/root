@@ -1,5 +1,5 @@
 {
-  "actor_did": "did:web:kami-agent.gftd.ai",
+  "actor_did": "did:web:kami-agent.etzhayyim.com",
   "assistant_id": "echo.v1",
   "run_id": "run_260509_holochain_echo_001",
   "command_id": "cmd_260509_echo_001",

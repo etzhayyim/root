@@ -646,11 +646,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       SUM(raw.did_count) AS did_count
     FROM (
       SELECT
-        SPLIT_PART(SPLIT_PART(did, '.gftd.ai', 1), 'did:web:', 2) AS app_host,
+        SPLIT_PART(SPLIT_PART(did, '.etzhayyim.com', 1), 'did:web:', 2) AS app_host,
         COUNT(DISTINCT did) AS did_count
       FROM vertex_profile
-      WHERE did IS NOT NULL AND did LIKE 'did:web:%.gftd.ai%'
-      GROUP BY SPLIT_PART(SPLIT_PART(did, '.gftd.ai', 1), 'did:web:', 2)
+      WHERE did IS NOT NULL AND did LIKE 'did:web:%.etzhayyim.com%'
+      GROUP BY SPLIT_PART(SPLIT_PART(did, '.etzhayyim.com', 1), 'did:web:', 2)
     ) raw
     LEFT JOIN dim_app_host_alias a ON a.alias_host = raw.app_host
     GROUP BY COALESCE(a.canonical_host, raw.app_host)`.execute(db);
@@ -662,11 +662,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       SUM(raw.record_count) AS record_count
     FROM (
       SELECT
-        SPLIT_PART(SPLIT_PART(repo, '.gftd.ai', 1), 'did:web:', 2) AS app_host,
+        SPLIT_PART(SPLIT_PART(repo, '.etzhayyim.com', 1), 'did:web:', 2) AS app_host,
         COUNT(*) AS record_count
       FROM vertex_repo_record
-      WHERE repo IS NOT NULL AND repo LIKE 'did:web:%.gftd.ai%'
-      GROUP BY SPLIT_PART(SPLIT_PART(repo, '.gftd.ai', 1), 'did:web:', 2)
+      WHERE repo IS NOT NULL AND repo LIKE 'did:web:%.etzhayyim.com%'
+      GROUP BY SPLIT_PART(SPLIT_PART(repo, '.etzhayyim.com', 1), 'did:web:', 2)
     ) raw
     LEFT JOIN dim_app_host_alias a ON a.alias_host = raw.app_host
     GROUP BY COALESCE(a.canonical_host, raw.app_host)`.execute(db);

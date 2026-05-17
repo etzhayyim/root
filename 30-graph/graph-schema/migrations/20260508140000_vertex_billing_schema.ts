@@ -7,11 +7,11 @@ import { sql } from "kysely";
 //          and resource names; visible to org owner + billing admin.)
 
 /**
- * billing.gftd.ai — retail cloud billing v2 schema (ADR-2605080000).
+ * billing.etzhayyim.com — retail cloud billing v2 schema (ADR-2605080000).
  *
  * Foundation for two retail products:
- *   - yatabase.gftd.ai  (RisingWave-backed graph database)
- *   - obj.gftd.ai       (B2-backed S3-compatible object storage)
+ *   - yatabase.etzhayyim.com  (RisingWave-backed graph database)
+ *   - obj.etzhayyim.com       (B2-backed S3-compatible object storage)
  *
  * Pattern: T2 BPMN-as-actor (ADR-0036 Worker-direct Hyperdrive +
  * ADR-0056 BPMN-as-actor + ADR-2604282300 pymagatama + Zeebe, no CF

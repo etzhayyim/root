@@ -27,7 +27,7 @@ This monorepo is the **principal-owned half** of the source-control boundary est
 | 5. Scaffold (LICENSE/README/CLAUDE.md/deps.toml/.gitignore/lefthook.yml) | ✅ |
 | 6. Content seed (Tranches A-E + Wave 2) | ✅ |
 | 7. 既存 gftdcojp open repos archive + [MOVED] prefix | ✅ 26 repos archived |
-| 8. gftdcojp 側 open scope cleanup | ⏳ pending |
+| 8. gftdcojp 側 open scope cleanup | ✅ 2026-05-17 (60 dirs [MOVED]-stubbed + 1934-file mechanical sweep; deferred cutovers tracked in ADR-2605172900) |
 | 9. CI / wrangler / package.json `repository` field sed | ✅ etzhayyim/root 側 done (11 pkg.json + 2 wrangler.jsonc) |
 | 10. did:web publish (DNS + wrangler deploy) | ✅ 2026-05-17T03:25Z (verified via curl + dev.uniresolver.io) |
 | 11. 220-file `amanomibashira` → `etzhayyim` cutover | ⏳ 登記変更後 |
@@ -45,18 +45,21 @@ etzhayyim/root/
 │                        # etzhayyim-bpmn-sdk, etzhayyim-sdk (RW-free substrate per ADR-2605172000+2605172100)
 ├── 30-graph/            # graph-schema, kagami, risingwave-udf, vectorization
 ├── 50-infra/            # SEEDED: geth-private, holochain, ipfs, blockscout,
-│                        #   k8s/atproto-pds, lancedb-wasm, yata, tonbo,
+│                        #   k8s/atproto-pds, k8s/murakumo-kubelet (migrated 2026-05-17),
+│                        #   lancedb-wasm, yata, tonbo,
 │                        #   nats-tiered-storage, nats-jetstream-{objectstore-s3, kv-resp},
 │                        #   sveltejs-adapter-wasm, spin-tinygo-flight
-│                        # SUBSTRATE (ADR-2605171800 + 2605172100):
+│                        # SUBSTRATE (ADR-2605171800 + 2605172100 + 2605172200):
 │                        #   etzhayyim-did-web/ (CF Worker, LIVE 2026-05-17T03:25Z)
 │                        #   mst-projector/   (Stage 3, scaffold)
 │                        #   ipfs-pinner/     (Stage 4, scaffold)
 │                        #   l2-anchor-contract/ (Stage 5a, Foundry Solidity)
 │                        #   anchor-cron/     (Stage 5b, K8s CronJob)
 │                        #   etzhayyim-paymaster/ (ERC-4337, Foundry Solidity)
-├── 60-apps/             # ai-gftd-project-{open-*, public-*, atproto, ameno, yoro}, watashi
+│                        #   openmail-postage/ (Postage.sol, Foundry, Phase 1 scaffold)
+├── 60-apps/             # ai-gftd-project-{open-*, public-*, atproto, ameno, yoro, comfyui}, watashi
 │                        # FIRST RW-FREE REFERENCE IMPL: ai-gftd-project-open-isco/rw-free/
+│                        # MAC MINI FLEET: ai-gftd-project-comfyui/ (migrated 2026-05-17)
 ├── 70-tools/            # etzhayyim-cli (renamed from gftd-cli), cdn
 ├── 90-docs/             # CLAUDE.md (docs rules), adr/, baien/
 ├── CLAUDE.md            # this file

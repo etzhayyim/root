@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T18:30:00Z";
-const ownerDid = "did:web:jpn-mlit-road.gftd.ai";
+const ownerDid = "did:web:jpn-mlit-road.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.jpn-mlit-road";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-register-construction-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-register-construction-v1",
     bpmnProcessId: "jpn_mlit_road_register_construction",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-mlit-road/registerConstruction.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-issue-traffic-restriction-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-issue-traffic-restriction-v1",
     bpmnProcessId: "jpn_mlit_road_issue_traffic_restriction",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-mlit-road/issueTrafficRestriction.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-mlit-road-registerConstruction-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-mlit-road-registerConstruction-v1",
     nsid: "ai.gftd.apps.jpnMlitRoad.registerConstruction", bpmnProcessId: "jpn_mlit_road_register_construction",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-mlit-road-issueTrafficRestriction-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-mlit-road-issueTrafficRestriction-v1",
     nsid: "ai.gftd.apps.jpnMlitRoad.issueTrafficRestriction", bpmnProcessId: "jpn_mlit_road_issue_traffic_restriction",
     ownerDid, resultTimeoutMs: 30000 },
 ];

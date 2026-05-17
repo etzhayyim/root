@@ -69,7 +69,7 @@ INSERT INTO vertex_langgraph_assistant
   (vertex_id, _seq, created_date, sensitivity_ord, owner_did, assistant_id,
    version, kind, factory_path, description, checkpointer_mode, created_at)
 SELECT
-  'global_product_ingest_resident', 0, DATE '2026-05-09', 0, 'did:web:gtin.gftd.ai',
+  'global_product_ingest_resident', 0, DATE '2026-05-09', 0, 'did:web:gtin.etzhayyim.com',
   'global_product_ingest_resident', 1, 'py_factory',
   'pymagatama.langgraph_graphs.global_product_ingest_resident',
   'Resident bounded dispatcher for global product frontier ingest into global_product_enrich_one.',
@@ -85,7 +85,7 @@ INSERT INTO vertex_langgraph_deployment
    assistant_id, version, status, replicas, updated_at)
 SELECT
   'langgraph.builtin.global_product_ingest_resident', 0, DATE '2026-05-09', 0,
-  'did:web:gtin.gftd.ai', 'langgraph.builtin.global_product_ingest_resident',
+  'did:web:gtin.etzhayyim.com', 'langgraph.builtin.global_product_ingest_resident',
   'global_product_ingest_resident', 1, 'active', 1, '2026-05-09T23:30:00Z'
 WHERE NOT EXISTS (
   SELECT 1 FROM vertex_langgraph_deployment

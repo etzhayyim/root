@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/config"
-	"github.com/gftdcojp/nats-tiered-storage/internal/metrics"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/metrics"
 	"github.com/nats-io/nats.go/jetstream"
 	"go.uber.org/zap"
 )

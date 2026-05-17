@@ -67,11 +67,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // 2. Refresh process_def rows in place (delete-then-insert per RW write semantics)
   //    Reading regenerated XML from disk; bumps version to 2, clears deployed_at so F5 redeploys.
   for (const e of entries) {
-    const vertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${kebabToSlug(e.project, e.proc)}`;
+    const vertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${kebabToSlug(e.project, e.proc)}`;
     const sourcePath = `00-contracts/bpmn/ai/gftd/${e.project}/${e.proc}.bpmn`;
     const xml = readContract(sourcePath);
     const size = Buffer.byteLength(xml, "utf8");
-    const ownerDid = `did:web:${e.project}.gftd.ai:ops`;
+    const ownerDid = `did:web:${e.project}.etzhayyim.com:ops`;
 
     await sql`DELETE FROM vertex_bpmn_process_def WHERE vertex_id = ${vertexId}`.execute(db);
     await sql`

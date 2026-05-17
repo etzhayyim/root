@@ -13,7 +13,7 @@ from pymagatama import llm
 from pymagatama.db_sync import sync_cursor
 
 
-APP_DID = "did:web:handotai.gftd.ai"
+APP_DID = "did:web:handotai.etzhayyim.com"
 APP_ID = "dtyy44cr"
 WRITE_TABLES = {
     "alert": "vertex_handotai_alert",

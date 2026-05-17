@@ -6,7 +6,7 @@ import { sql } from "kysely";
 //          commits. Rationale text + confidence; no Tier-3 PII.)
 
 /**
- * shosha.gftd.ai Phase 2a — cross-actor reactive layer.
+ * shosha.etzhayyim.com Phase 2a — cross-actor reactive layer.
  *
  * Lets shosha react to upstream actor commits (oil-trading, cargo, port,
  * etc.) via polling BPMN. Pull-based, AT-Protocol-friendly, no upstream

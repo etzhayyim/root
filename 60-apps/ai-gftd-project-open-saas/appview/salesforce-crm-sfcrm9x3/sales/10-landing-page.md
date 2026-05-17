@@ -1,6 +1,6 @@
 # Landing page copy — open-salesforce
 
-> Reverse-topo node 10 / 13. Back-solves 09 (demo): the page hands Security, RevOps, and the VP the next-click they each need so the demo is a formality, not a convince-step. Single URL `https://salesforce.opensaas.gftd.ai/`. Above-the-fold must load in <1s on 4G; three primary CTAs serve three primary personas; one secondary URL (`democo.opensaas.gftd.ai`) lets anyone self-serve the demo.
+> Reverse-topo node 10 / 13. Back-solves 09 (demo): the page hands Security, RevOps, and the VP the next-click they each need so the demo is a formality, not a convince-step. Single URL `https://salesforce.opensaas.etzhayyim.com/`. Above-the-fold must load in <1s on 4G; three primary CTAs serve three primary personas; one secondary URL (`democo.opensaas.etzhayyim.com`) lets anyone self-serve the demo.
 
 ## H1 + subhead (above the fold, 6 seconds of attention)
 
@@ -9,18 +9,18 @@
 **Subhead**: open-salesforce is a CRM on AT / W Protocol. Tenant = DID. PII split between a Tier-1 federation-ready record and a Tier-3 residency-pinned vault. Seat = agent. Flat price, no per-seat, no Einstein GPT line item.
 
 **Primary CTA (×3, side by side)**:
-- **See a real record** → `/at/democo.opensaas.gftd.ai/ai.gftd.apps.opensaas.salesforce.opportunity/opp-demo-q3`
+- **See a real record** → `/at/democo.opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.opportunity/opp-demo-q3`
 - **Download posture packet (APPI + GDPR, PDF 14pp)** → `/docs/posture-appi-gdpr.pdf`
 - **Run the TCO calculator** → `/pricing/calculator`
 
-**Secondary CTA line**: "Or just log in to the public demo: [democo.opensaas.gftd.ai](https://democo.opensaas.gftd.ai/) — passkey-less guest mode, pre-seeded pipeline, auto-rolls back nightly."
+**Secondary CTA line**: "Or just log in to the public demo: [democo.opensaas.etzhayyim.com](https://democo.opensaas.etzhayyim.com/) — passkey-less guest mode, pre-seeded pipeline, auto-rolls back nightly."
 
 ## Section 1 — The three claims, each with a one-click proof
 
 ### Claim A: Convert a lead atomically, auto-log the activity
 One click writes `account` + `contact` + `opportunity` + updated `lead` + derived `activity(kind=conversion)` in a single commit pipeline pass. Zero app-layer orchestration. No Flow, no Apex.
 
-- **Proof link**: live record `/at/democo.opensaas.gftd.ai/ai.gftd.apps.opensaas.salesforce.activity/act-demo-conv-001`
+- **Proof link**: live record `/at/democo.opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.activity/act-demo-conv-001`
 - **Micro-copy**: "Paste that URI into any AT Protocol client. The CRM isn't the only thing that can read it."
 
 ### Claim B: Your CRM data is where you say it is, and you can prove it
@@ -30,7 +30,7 @@ Run `gftd opensaas attest --tenant <your-did> --region JPN` (or EUR) → signed 
 - **Micro-copy**: "If the attestation ever shows a region outside your Order Form, we owe you a credit."
 
 ### Claim C: LLM is a seat capability, not an add-on SKU
-The seat DID (`did:web:<tenant>.opensaas.gftd.ai:seat:<role>-<nn>`) is itself the agent identity. `magatama.Invoke(murakumoFleetDid, ...)` runs under that identity. Swap Murakumo for your own LLM (Azure OpenAI, Anthropic, in-house GPU) with one `ConfigPut`.
+The seat DID (`did:web:<tenant>.opensaas.etzhayyim.com:seat:<role>-<nn>`) is itself the agent identity. `magatama.Invoke(murakumoFleetDid, ...)` runs under that identity. Swap Murakumo for your own LLM (Azure OpenAI, Anthropic, in-house GPU) with one `ConfigPut`.
 
 - **Proof link**: Pillar 2 deep-dive `/docs/per-seat-llm-murakumo`
 - **Micro-copy**: "Your Einstein GPT line item is ¥6,000 / seat / month. Our LLM line item is ¥0."
@@ -84,7 +84,7 @@ Tight, honest inventory. No "we're better at everything" bravado.
 
 - Link to the lexicon repo: `https://github.com/gftdcojp/open-saas/tree/main/00-contracts/lexicons/ai/gftd/apps/opensaas/salesforce`.
 - Link to the Cloudflare Worker source and `magatama.jsonld`.
-- Link to the atproto.gftd.ai public firehose — anyone can verify our own dogfooding (we run open-salesforce internally).
+- Link to the atproto.etzhayyim.com public firehose — anyone can verify our own dogfooding (we run open-salesforce internally).
 - Link to the `listPipeline` spec JSON.
 - Sub-processor list, uptime history, most recent incident post-mortem.
 

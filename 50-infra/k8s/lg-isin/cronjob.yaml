@@ -1,0 +1,571 @@
+---
+# US securities sweep — advances rolling cursor through SEC EDGAR tickers list,
+# batches of 500 with OpenFIGI enrichment. Full 13k-ticker sweep takes ~26 days
+# at one run/day; duplicates skipped via UniqueViolationError.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-sweep-us
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-sweep-us
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "3 2 * * 1-5"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      activeDeadlineSeconds: 600
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-sweep-us
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    --data '{"batchSize":500}' \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/sweep-us
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]
+---
+# JP securities sweep — advances rolling cursor through TSE ticker range
+# 1000-9999 via OpenFIGI, batches of 50. Full sweep ~180 runs → ~36 weeks.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-sweep-jp
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-sweep-jp
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "3 1 * * 1-5"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      activeDeadlineSeconds: 300
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-sweep-jp
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    --data '{"batchSize":50}' \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/sweep-jp
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]
+---
+# CIK enrichment — enriches exchange_mic + SIC fields for US securities
+# that were ingested without that data. Runs 20 companies/week (EDGAR rate-safe).
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-enrich-cik
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-enrich-cik
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "7 3 * * 0"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      activeDeadlineSeconds: 300
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-enrich-cik
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    --data '{"limit":20}' \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/enrich-cik
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]
+---
+# LEI-ISIN linkage — cross-references vertex_isin_security ↔ vertex_open_lei_entity
+# by company name ILIKE. Runs weekly after US+JP sweeps have accumulated data.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-link-lei
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-link-lei
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "7 4 * * 0"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      activeDeadlineSeconds: 300
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-link-lei
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    --data '{"limit":200}' \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/link-lei
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]
+---
+# HK securities sweep — OpenFIGI HKEX main-board numeric range 0001-3999.
+# Same pattern as JP TSE, 50/run, rolling cursor.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-sweep-hk
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-sweep-hk
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "33 1 * * 1-5"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      activeDeadlineSeconds: 300
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-sweep-hk
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    --data '{"batchSize":50}' \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/sweep-hk
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]
+---
+# AU securities sweep — ASX listed companies CSV + OpenFIGI enrichment.
+# Weekly on Monday; full ASX ~2200 stocks, 200/run.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-sweep-au
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-sweep-au
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "33 3 * * 1"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      activeDeadlineSeconds: 600
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-sweep-au
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    --data '{"batchSize":200}' \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/sweep-au
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]
+---
+# EU securities sweep — OpenFIGI /v3/filter, cycles through GY/FP/NA/BB/IM/LN.
+# Mon-Fri; advances exchCode cursor each run (one exchCode per day).
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-sweep-eu
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-sweep-eu
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "33 2 * * 1-5"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      activeDeadlineSeconds: 600
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-sweep-eu
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    --data '{"batchSize":200}' \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/sweep-eu
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]
+---
+# Security-filing linkage — inserts edge_isin_security_filing by ticker match.
+# Runs after isin-link-lei so edges are consistent with LEI links.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-link-filing
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-link-filing
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "37 4 * * 0"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      activeDeadlineSeconds: 300
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-link-filing
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    --data '{"limit":200}' \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/link-filing
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]
+---
+# EDINET sweep — fetches filing metadata (有価証券報告書 etc.) for JP securities,
+# then downloads PDFs if EDINET_SUBSCRIPTION_KEY is set. 10 companies/run,
+# ~44 min to sweep all ~9000 JP securities at this pace (runs weekly).
+# activeDeadlineSeconds=1800 covers PDF downloads for 10 companies.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-edinet-sweep
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-edinet-sweep
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "7 2 * * 6"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 7200
+      activeDeadlineSeconds: 1800
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-edinet-sweep
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    --data '{"limit":10}' \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/edinet-sweep
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]
+---
+# Coverage tick — daily snapshot of row counts for monitoring.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: isin-coverage-tick
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: isin-coverage-tick
+    app.kubernetes.io/component: cron
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  schedule: "7 0 * * *"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 60
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 1800
+      activeDeadlineSeconds: 60
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: isin-coverage-tick
+            app.kubernetes.io/component: cron
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.7.1
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  curl -fsS \
+                    -X POST \
+                    -H "Content-Type: application/json" \
+                    http://lg-isin.mitama-udf.svc.cluster.local:8080/cron/coverage
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop: ["ALL"]

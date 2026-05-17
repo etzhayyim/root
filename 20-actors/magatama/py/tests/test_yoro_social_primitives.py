@@ -29,20 +29,20 @@ def _stub_db():
 
 def test_build_social_post_record_uri_pattern():
     row = YS.build_social_post_record(
-        repo="did:web:yoro.gftd.ai",
+        repo="did:web:yoro.etzhayyim.com",
         text="Hello world",
         created_at="2026-04-29T10:00:00Z",
         rkey="my-rkey-001",
     )
-    assert row["uri"] == "at://did:web:yoro.gftd.ai/app.bsky.feed.post/my-rkey-001"
+    assert row["uri"] == "at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/my-rkey-001"
     assert row["rkey"] == "my-rkey-001"
-    assert row["repo"] == "did:web:yoro.gftd.ai"
+    assert row["repo"] == "did:web:yoro.etzhayyim.com"
     assert row["text"] == "Hello world"
 
 
 def test_build_social_post_record_defaults():
     row = YS.build_social_post_record()
-    assert row["uri"].startswith("at://did:web:yoro.gftd.ai/app.bsky.feed.post/")
+    assert row["uri"].startswith("at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/")
     assert row["collection"] == "app.bsky.feed.post"
     assert "Karmada hub" in row["text"] or "Murakumo" in row["text"]
 
@@ -102,18 +102,18 @@ def test_utf8_facet_uses_byte_offsets_for_japanese_tag():
 
 def test_build_repo_record_uri_and_collection():
     row = YS.build_repo_record(
-        repo="did:web:yoro.gftd.ai",
+        repo="did:web:yoro.etzhayyim.com",
         collection="app.bsky.graph.follow",
-        record={"$type": "app.bsky.graph.follow", "subject": "did:web:someone.gftd.ai"},
+        record={"$type": "app.bsky.graph.follow", "subject": "did:web:someone.etzhayyim.com"},
         rkey="follow-rk1",
     )
-    assert row["uri"] == "at://did:web:yoro.gftd.ai/app.bsky.graph.follow/follow-rk1"
+    assert row["uri"] == "at://did:web:yoro.etzhayyim.com/app.bsky.graph.follow/follow-rk1"
     assert row["collection"] == "app.bsky.graph.follow"
 
 
 def test_build_repo_record_text_from_record():
     row = YS.build_repo_record(
-        repo="did:web:yoro.gftd.ai",
+        repo="did:web:yoro.etzhayyim.com",
         collection="app.bsky.feed.post",
         record={"$type": "app.bsky.feed.post", "text": "Hello from record"},
         rkey="rk2",
@@ -124,11 +124,11 @@ def test_build_repo_record_text_from_record():
 # ─── _display_actor (pure) ───────────────────────────────────────────────
 
 def test_display_actor_strips_did_web_prefix():
-    assert YS._display_actor("did:web:yoro.gftd.ai") == "yoro.gftd.ai"
+    assert YS._display_actor("did:web:yoro.etzhayyim.com") == "yoro.etzhayyim.com"
 
 
 def test_display_actor_prefers_handle():
-    assert YS._display_actor("did:web:yoro.gftd.ai", "yoro.gftd.ai") == "yoro.gftd.ai"
+    assert YS._display_actor("did:web:yoro.etzhayyim.com", "yoro.etzhayyim.com") == "yoro.etzhayyim.com"
 
 
 def test_display_actor_empty_falls_back_to_friend():
@@ -139,20 +139,20 @@ def test_display_actor_empty_falls_back_to_friend():
 
 def test_post_graph_fallback_returns_ok():
     out = asyncio.run(YS.task_yoro_social_post_graph_fallback(
-        postRepo="did:web:yoro.gftd.ai",
+        postRepo="did:web:yoro.etzhayyim.com",
         text="Test pulse",
         rkey="rk-test-001",
         flush=False,
     ))
     assert out["ok"] is True
-    assert out["uri"].startswith("at://did:web:yoro.gftd.ai/app.bsky.feed.post/")
+    assert out["uri"].startswith("at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/")
     assert out["text"] == "Test pulse"
 
 
 def test_post_graph_fallback_default_repo():
     out = asyncio.run(YS.task_yoro_social_post_graph_fallback(flush=False))
     assert out["ok"] is True
-    assert "yoro.gftd.ai" in out["repo"]
+    assert "yoro.etzhayyim.com" in out["repo"]
 
 
 # ─── task_yoro_social_respond_to_mention_graph_fallback ──────────────────
@@ -167,7 +167,7 @@ def test_respond_to_mention_returns_error_without_author_did():
 
 def test_respond_to_mention_returns_error_without_post_uri():
     out = asyncio.run(YS.task_yoro_social_respond_to_mention_graph_fallback(
-        authorDid="did:web:user.gftd.ai",
+        authorDid="did:web:user.etzhayyim.com",
     ))
     assert out["ok"] is False
     assert "postUri" in out["error"]
@@ -175,14 +175,14 @@ def test_respond_to_mention_returns_error_without_post_uri():
 
 def test_respond_to_mention_returns_ok():
     out = asyncio.run(YS.task_yoro_social_respond_to_mention_graph_fallback(
-        authorDid="did:web:user.gftd.ai",
-        authorHandle="user.gftd.ai",
-        postUri="at://did:web:user.gftd.ai/app.bsky.feed.post/abc123",
+        authorDid="did:web:user.etzhayyim.com",
+        authorHandle="user.etzhayyim.com",
+        postUri="at://did:web:user.etzhayyim.com/app.bsky.feed.post/abc123",
         postText="Hey @yoro!",
         flush=False,
     ))
     assert out["ok"] is True
-    assert out["authorDid"] == "did:web:user.gftd.ai"
+    assert out["authorDid"] == "did:web:user.etzhayyim.com"
     assert "postUri" in out
 
 
@@ -196,15 +196,15 @@ def test_respond_to_follow_returns_error_without_follower_did():
 
 def test_respond_to_follow_returns_ok():
     out = asyncio.run(YS.task_yoro_social_respond_to_follow_graph_fallback(
-        followerDid="did:web:friend.gftd.ai",
-        followerHandle="friend.gftd.ai",
+        followerDid="did:web:friend.etzhayyim.com",
+        followerHandle="friend.etzhayyim.com",
         followRkey="follow-rk-001",
         flush=False,
     ))
     assert out["ok"] is True
     assert "followBackUri" in out
     assert "welcomeUri" in out
-    assert out["followerDid"] == "did:web:friend.gftd.ai"
+    assert out["followerDid"] == "did:web:friend.etzhayyim.com"
 
 
 def test_project_diet_speeches_dry_run_returns_posts(_stub_db):
@@ -243,16 +243,16 @@ def test_project_diet_speeches_dry_run_returns_posts(_stub_db):
 
 def test_build_translation_link_record_shape():
     row = YS.build_translation_link_record(
-        repo="did:web:yoro.gftd.ai",
-        source_uri="at://did:web:yoro.gftd.ai/app.bsky.feed.post/src",
+        repo="did:web:yoro.etzhayyim.com",
+        source_uri="at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/src",
         source_lang="ja",
-        translated_uri="at://did:web:yoro.gftd.ai/app.bsky.feed.post/en",
+        translated_uri="at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/en",
         target_lang="en",
         created_at="2026-05-14T00:00:00Z",
         rkey="translation-link-en",
     )
     assert row["vertex_id"] == (
-        "at://did:web:yoro.gftd.ai/"
+        "at://did:web:yoro.etzhayyim.com/"
         "ai.gftd.apps.media_gamers.record.translationLink/translation-link-en"
     )
     assert row["source_uri"].endswith("/src")
@@ -263,7 +263,7 @@ def test_build_translation_link_record_shape():
 
 def test_translate_post_dry_run_uses_gemma_translation_path():
     with patch("pymagatama.primitives.yoro_social._fetch_source_post", return_value={
-        "repo": "did:web:yoro.gftd.ai",
+        "repo": "did:web:yoro.etzhayyim.com",
         "rkey": "src",
         "record": {"text": "こんにちは", "langs": ["ja"]},
         "text": "こんにちは",
@@ -276,7 +276,7 @@ def test_translate_post_dry_run_uses_gemma_translation_path():
         "latencyMs": 12,
     }):
         out = asyncio.run(YS.task_yoro_social_translate_post(
-            postUri="at://did:web:yoro.gftd.ai/app.bsky.feed.post/src",
+            postUri="at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/src",
             targetLang="en",
             dryRun=True,
         ))
@@ -287,7 +287,7 @@ def test_translate_post_dry_run_uses_gemma_translation_path():
     assert out["translatedText"] == "Hello"
     assert out["model"] == "gemma-4-e4b-it"
     assert out["translationLinkUri"].startswith(
-        "at://did:web:yoro.gftd.ai/ai.gftd.apps.media_gamers.record.translationLink/",
+        "at://did:web:yoro.etzhayyim.com/ai.gftd.apps.media_gamers.record.translationLink/",
     )
 
 
@@ -301,7 +301,7 @@ def test_translate_post_batch_uses_requested_languages():
             }
         m.side_effect = fake_translate
         out = asyncio.run(YS.task_yoro_social_translate_post_batch(
-            postUri="at://did:web:yoro.gftd.ai/app.bsky.feed.post/src",
+            postUri="at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/src",
             targetLangs=["en", "fr"],
             dryRun=True,
         ))

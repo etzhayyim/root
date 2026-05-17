@@ -39,7 +39,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ──────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('nace', 'nace.gftd.ai', 997, 'industries', 'governance')
+    VALUES ('nace', 'nace.etzhayyim.com', 997, 'industries', 'governance')
   `.execute(db);
 
   // ── NACE↔ISIC4 concordance edges (data-only, idempotent) ─────────────

@@ -263,7 +263,7 @@
 		(async () => {
 			try {
 				// @ts-ignore — CDN module, resolved at runtime (static assets served by yoro)
-				const kami: any = await import(/* @vite-ignore */ 'https://cdn.gftd.ai/kami/kami-web.js');
+				const kami: any = await import(/* @vite-ignore */ 'https://cdn.etzhayyim.com/kami/kami-web.js');
 				await kami.default(); // init WASM
 
 				// 1. Try loading scene from PDS (baminiku stream data)

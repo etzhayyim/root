@@ -5,7 +5,7 @@ import { sql } from "kysely";
 // tier: C
 
 /**
- * isbn.gftd.ai Phase 1 — global library digital ingest schema
+ * isbn.etzhayyim.com Phase 1 — global library digital ingest schema
  * (ADR-0056 BPMN-as-actor, ISBN registry + PD fulltext).
  *
  * Tables:

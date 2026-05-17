@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const TARGET_PROFILE = '/profile/uqpel6i6.gftd.ai';
+const TARGET_PROFILE = '/profile/uqpel6i6.etzhayyim.com';
 
 test.describe('Guest projector chat', () => {
 	test.use({ storageState: { cookies: [], origins: [] } });

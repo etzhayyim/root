@@ -4,7 +4,7 @@ import { sql } from "kysely";
 // ADR-0040 vertex tier: tier B  (curated runtime state).
 
 /**
- * karma.gftd.ai — artificial organism ecosystem runtime schema (Phase K2).
+ * karma.etzhayyim.com — artificial organism ecosystem runtime schema (Phase K2).
  *
  * Backs the resident LangGraph organism agents — long-running daemons
  * that "live" inside one of three substrates:

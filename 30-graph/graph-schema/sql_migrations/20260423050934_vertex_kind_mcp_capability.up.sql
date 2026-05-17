@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS vertex_kind_mcp_binding (
     owner_did       VARCHAR,
 
     kind            VARCHAR NOT NULL,
-    mcp_url         VARCHAR NOT NULL,      -- https://{kind}.gftd.ai/mcp
+    mcp_url         VARCHAR NOT NULL,      -- https://{kind}.etzhayyim.com/mcp
     description     VARCHAR,
     tools_json      VARCHAR,               -- cached tools/list snapshot (JSON array)
     tools_fetched_at VARCHAR,

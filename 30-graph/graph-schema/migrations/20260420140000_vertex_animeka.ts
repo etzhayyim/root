@@ -2,7 +2,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * vertex_animeka — graph-native landing table for animeka.gftd.ai (team-based
+ * vertex_animeka — graph-native landing table for animeka.etzhayyim.com (team-based
  * anime creation appview).
  *
  * Parallel to vertex_mangaka (mangaka) but with cut (ショット) as the production

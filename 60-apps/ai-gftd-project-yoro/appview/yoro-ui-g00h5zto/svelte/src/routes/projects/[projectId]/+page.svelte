@@ -596,7 +596,7 @@
 		const question = knowledgeQuestion(text);
 		if (!question) return false;
 		loadingLabel = 'Domain knowledge を検索中...';
-		const res = await fetch('https://llm.gftd.ai/xrpc/ai.gftd.apps.llm.answerWithKnowledge?stream=1&timeoutMs=240000', {
+		const res = await fetch('https://llm.etzhayyim.com/xrpc/ai.gftd.apps.llm.answerWithKnowledge?stream=1&timeoutMs=240000', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream' },
 			body: JSON.stringify(knowledgePayload(question)),
@@ -624,7 +624,7 @@
 		}
 		if (!completed) throw new Error('knowledge response ended without complete event');
 		messages = messages.map((m) => (m.id === msgId ? { ...m, status: 'sent' as const } : m));
-		messages = [...messages, { id: `knowledge-${Date.now()}`, role: 'assistant', body: extractKnowledgeAnswer(completed), timestamp: new Date().toISOString(), sender: 'llm.gftd.ai' }];
+		messages = [...messages, { id: `knowledge-${Date.now()}`, role: 'assistant', body: extractKnowledgeAnswer(completed), timestamp: new Date().toISOString(), sender: 'llm.etzhayyim.com' }];
 		return true;
 	}
 

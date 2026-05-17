@@ -31,7 +31,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-FLIGHT_OFFER_DID = "did:web:flight-offer.gftd.ai"
+FLIGHT_OFFER_DID = "did:web:flight-offer.etzhayyim.com"
 OFFER_TABLE = "vertex_flight_offer"
 ALERT_TABLE = "vertex_flight_offer_alert"
 WATCH_TABLE = "vertex_flight_offer_watch"
@@ -334,9 +334,9 @@ def _stub_search(
             "taxes": float(40 + idx * 3),
             "totalPrice": float(base + idx * 27 + 40 + idx * 3),
             "currency": currency or "USD",
-            "bookingUrl": f"https://flight-offer.gftd.ai/stub/book/{seed}-{idx}",
+            "bookingUrl": f"https://flight-offer.etzhayyim.com/stub/book/{seed}-{idx}",
             "deeplinkUrl": "",
-            "sourceUrl": "https://flight-offer.gftd.ai/stub",
+            "sourceUrl": "https://flight-offer.etzhayyim.com/stub",
             "props": json.dumps({"stub": True}),
         }
         for idx in range(3)

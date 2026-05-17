@@ -44,7 +44,7 @@ async def gather_evidence(state: GyoseiProcedureState) -> GyoseiProcedureState:
     logger.info(f"[gyosei_pregel] Gathering evidence for case {state.get('current_case_id')}")
     # Use contact info from vertex_gov_org to map out the submission route
     state["evidence"] = {
-        "applicant_did": "did:web:natural-person.gftd.ai",
+        "applicant_did": "did:web:natural-person.etzhayyim.com",
         "target_address": "Tokyo, Chiyoda-ku..."
     }
     return state

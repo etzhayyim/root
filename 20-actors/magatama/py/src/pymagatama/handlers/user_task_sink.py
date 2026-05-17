@@ -19,7 +19,7 @@ Rollout (kaisya BPMN-as-actor, ADR-0056):
         kubectl -n mitama-udf logs deploy/bpmn-dispatcher --tail 50 \\
           | grep user_task_sink
      and after a kaisya process start, confirm a row shows up in
-     `vertex_human_task WHERE owner_did = 'did:web:bpmn.gftd.ai'`.
+     `vertex_human_task WHERE owner_did = 'did:web:bpmn.etzhayyim.com'`.
 """
 
 from __future__ import annotations
@@ -238,7 +238,7 @@ def _upsert_human_task(job: ActivatedUserTask) -> None:
     execute(_INSERT_HUMAN_TASK, {
         "vertex_id": f"htask:zeebe:{job.job_key}",
         "seq": job.job_key,
-        "owner_did": "did:web:bpmn.gftd.ai",
+        "owner_did": "did:web:bpmn.etzhayyim.com",
         "task_code": f"zeebe:{job.job_key}",
         "title": job.element_name or job.element_id,
         "description": description,
@@ -351,6 +351,6 @@ def register_routes(app: Any) -> None:
 def inbox_count() -> int:
     row = fetch_one(
         "SELECT COUNT(*) FROM vertex_human_task "
-        "WHERE owner_did = 'did:web:bpmn.gftd.ai' AND status = 'pending'"
+        "WHERE owner_did = 'did:web:bpmn.etzhayyim.com' AND status = 'pending'"
     )
     return int(row[0]) if row else 0

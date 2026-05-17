@@ -44,7 +44,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("karma.resident")
 
-KARMA_DID = "did:web:karma.gftd.ai"
+KARMA_DID = "did:web:karma.etzhayyim.com"
 
 VALID_SUBSTRATES = ("k8s", "runpod", "ethereum")
 VALID_STATUSES = ("alive", "paused", "dissolved", "fissioning")
@@ -485,7 +485,7 @@ async def task_karma_organism_harvest(**kwargs: Any) -> dict[str, Any]:
         spawned_cohort_id = ""
         if should_spawn:
             cohort_id = f"cohort-{hashlib.sha256(f'gen-{now_ms}'.encode()).hexdigest()[:24]}"
-            cohort_did = f"did:web:karma.gftd.ai:cohort:{cohort_id[:16]}"
+            cohort_did = f"did:web:karma.etzhayyim.com:cohort:{cohort_id[:16]}"
             generation = active_cohorts + 1
             vertex_id = _cohort_vertex_id(cohort_id)
             today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
@@ -601,7 +601,7 @@ async def task_karma_cohort_fission(**kwargs: Any) -> dict[str, Any]:
         child_dids: list[str] = []
         for i, part in enumerate(partitions):
             ch_id = f"cohort-{hashlib.sha256(f'{cohort_id}|child{i}|{now_ms}'.encode()).hexdigest()[:24]}"
-            ch_did = f"did:web:karma.gftd.ai:cohort:{ch_id[:16]}"
+            ch_did = f"did:web:karma.etzhayyim.com:cohort:{ch_id[:16]}"
             ch_vertex = _cohort_vertex_id(ch_id)
             cur.execute(
                 """

@@ -32,7 +32,7 @@ from pymagatama.handlers import gmail_contact  # noqa: F401
 # ADR-0049 Phase B4 — news translation via Vultr Serverless.
 from pymagatama.handlers import news_translate  # noqa: F401
 
-# news.gftd.ai intel source/priority scoring.
+# news.etzhayyim.com intel source/priority scoring.
 from pymagatama.handlers import news_intel  # noqa: F401
 
 # ADR-0049 Phase B5 — mangaka storyboard generation from prompt.

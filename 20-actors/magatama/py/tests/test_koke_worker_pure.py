@@ -47,8 +47,8 @@ def test_scan_empty():
 
 def test_scan_returns_pending():
     rows = [
-        ("at://koke.gftd.ai/rec/1", "text", "raw content A", "aabbcc"),
-        ("at://koke.gftd.ai/rec/2", "url", "https://example.com", "ddeeff"),
+        ("at://koke.etzhayyim.com/rec/1", "text", "raw content A", "aabbcc"),
+        ("at://koke.etzhayyim.com/rec/2", "url", "https://example.com", "ddeeff"),
     ]
     with patch("pymagatama.koke_worker_main.fetch_all", return_value=rows):
         from pymagatama.koke_worker_main import task_scan_raw_signals
@@ -94,7 +94,7 @@ def test_fix_signal_from_scan_batch():
 
     signals = [
         {
-            "vertexId": "at://koke.gftd.ai/ai.gftd.apps.koke.fixation/kox-abc",
+            "vertexId": "at://koke.etzhayyim.com/ai.gftd.apps.koke.fixation/kox-abc",
             "inputKind": "text",
             "rawRef": "some raw content",
             "signalHash": "",
@@ -231,7 +231,7 @@ def test_handoff_success():
     mock_cm.__enter__ = MagicMock(return_value=MagicMock())
     mock_cm.__exit__ = MagicMock(return_value=False)
 
-    fixation_row = ("at://koke.gftd.ai/ai.gftd.apps.koke.fixation/kox-abc",)
+    fixation_row = ("at://koke.etzhayyim.com/ai.gftd.apps.koke.fixation/kox-abc",)
 
     with (
         patch("pymagatama.koke_worker_main.fetch_one", return_value=fixation_row),
@@ -276,7 +276,7 @@ def test_handoff_to_saikin_success():
     mock_cm.__exit__ = MagicMock(return_value=False)
 
     fixation_row = (
-        "at://koke.gftd.ai/ai.gftd.apps.koke.fixation/kox-abc",
+        "at://koke.etzhayyim.com/ai.gftd.apps.koke.fixation/kox-abc",
         "text",
         "raw signal content",
         "aabbcc112233",
@@ -296,7 +296,7 @@ def test_handoff_to_saikin_success():
         ))
 
     assert result["saikinSignalId"].startswith("s41k-")
-    assert result["saikinSignalVertexId"].startswith("at://did:web:saikin.gftd.ai/")
+    assert result["saikinSignalVertexId"].startswith("at://did:web:saikin.etzhayyim.com/")
     assert result["edgeId"].startswith("kflo-")
     assert result["fixationId"] == "kox-abc"
     assert result["handedOffAt"]
@@ -318,7 +318,7 @@ def test_handoff_to_saikin_uses_fixation_fields():
     mock_cm.__enter__ = MagicMock(return_value=mock_cursor)
 
     fixation_row = (
-        "at://koke.gftd.ai/ai.gftd.apps.koke.fixation/kox-xyz",
+        "at://koke.etzhayyim.com/ai.gftd.apps.koke.fixation/kox-xyz",
         "url",
         "https://example.com/signal",
         "deadbeef1234",

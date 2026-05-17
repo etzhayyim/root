@@ -316,7 +316,7 @@
 	}
 
 	async function handleSignIn() {
-		await initClerk({ publishableKey: '', accountsBaseUrl: 'https://auth.gftd.ai' }).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/superapp/ProfilePanel.svelte: suppressed async error", error); });
+		await initClerk({ publishableKey: '', accountsBaseUrl: 'https://auth.etzhayyim.com' }).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/superapp/ProfilePanel.svelte: suppressed async error", error); });
 		await signIn();
 	}
 

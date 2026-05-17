@@ -17,7 +17,7 @@ import { Kysely, sql } from 'kysely';
  *
  * NOTE: hs2002_cpc3 = 0 (not buildable). The succession chain
  * hs2002_hs2012 ∘ hs2012_cpc3 gives 0 pairs because hs2012_cpc3 uses
- * generic hs.gftd.ai node domain while hs2002_hs2012 dst uses hs2012.gftd.ai
+ * generic hs.etzhayyim.com node domain while hs2002_hs2012 dst uses hs2012.etzhayyim.com
  * (domain mismatch). CPC21-mediated bridge (99K) would be too coarse.
  * Same limitation applies to hs2007_cpc3 and hs1996_cpc3.
  *

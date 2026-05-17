@@ -3,6 +3,6 @@
 </script>
 
 <YoroAuthGate
-	signInUrl="https://authn.gftd.ai/sign-in"
-	signUpUrl="https://authn.gftd.ai/sign-up"
+	signInUrl="https://authn.etzhayyim.com/sign-in"
+	signUpUrl="https://authn.etzhayyim.com/sign-up"
 />

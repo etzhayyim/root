@@ -1,6 +1,6 @@
 {
   "name": "@etzhayyim/sdk",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha",
   "description": "RW-free substrate SDK for etzhayyim open religious-corp apps: AT Protocol MST + IPFS + Base L2 anchor. Per ADR-2605172000.",
   "license": "Apache-2.0",
   "private": false,
@@ -32,6 +32,10 @@
     "./bi": {
       "import": "./dist/bi.js",
       "types": "./dist/bi.d.ts"
+    },
+    "./paymaster": {
+      "import": "./dist/paymaster.js",
+      "types": "./dist/paymaster.d.ts"
     }
   },
   "files": ["dist", "src", "README.md"],

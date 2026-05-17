@@ -3,18 +3,18 @@ import { test } from "../../../../tests/bdd/steps/fixtures.ts";
 
 test.describe("Homepage", () => {
 
-  test("gftd.ai health endpoint is reachable", async ({ When, Then }) => {
-    await When("I fetch \"https://gftd.ai/health\"");
+  test("etzhayyim.com health endpoint is reachable", async ({ When, Then }) => {
+    await When("I fetch \"https://etzhayyim.com/health\"");
     await Then("the fetch status should be 200");
   });
 
-  test("yoro.gftd.ai health endpoint is reachable", async ({ When, Then }) => {
-    await When("I fetch \"https://yoro.gftd.ai/health\"");
+  test("yoro.etzhayyim.com health endpoint is reachable", async ({ When, Then }) => {
+    await When("I fetch \"https://yoro.etzhayyim.com/health\"");
     await Then("the fetch status should be 200");
   });
 
-  test("www.gftd.ai redirects to yoro.gftd.ai", async ({ When, Then }) => {
-    await When("I fetch \"https://www.gftd.ai/\" without following redirects");
+  test("www.etzhayyim.com redirects to yoro.etzhayyim.com", async ({ When, Then }) => {
+    await When("I fetch \"https://www.etzhayyim.com/\" without following redirects");
     await Then("the fetch status should be 301");
   });
 
@@ -29,7 +29,7 @@ test.use({
 });
 
 const bddFileMeta = {
-  "gftd.ai health endpoint is reachable": {"pickleLocation":"6:3"},
-  "yoro.gftd.ai health endpoint is reachable": {"pickleLocation":"10:3"},
-  "www.gftd.ai redirects to yoro.gftd.ai": {"pickleLocation":"14:3"},
+  "etzhayyim.com health endpoint is reachable": {"pickleLocation":"6:3"},
+  "yoro.etzhayyim.com health endpoint is reachable": {"pickleLocation":"10:3"},
+  "www.etzhayyim.com redirects to yoro.etzhayyim.com": {"pickleLocation":"14:3"},
 };

@@ -28,7 +28,7 @@ const procs = ["cleanupRuns", "pollWatchlist"] as const;
 
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (proc: string) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-${slug(proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-${slug(proc)}-v1`;
 const nsid = (proc: string) => `ai.gftd.apps.flightOffer.${proc}`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {

@@ -1,4 +1,4 @@
-"""videos-legacy.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""videos-legacy.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -9,7 +9,7 @@ import asyncpg
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
 AGENTGATEWAY_MCP_URL = os.getenv("AGENTGATEWAY_MCP_URL", "localhost:8080")
-DB_URL = os.getenv("DATABASE_URL", "postgresql://root:REDACTED@<vendor-rw-host>:4566/dev")
+DB_URL = os.getenv("DATABASE_URL", "REDACTED_USE_DATABASE_URL_ENV")
 
 
 async def get_db():
@@ -75,9 +75,9 @@ async def run_worker():
                     id, channel_id, title, status,
                     actor_did, org_did, created_at, updated_at)
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
-                vertex_id, 0, date.today(), 0, "did:web:videos-legacy.gftd.ai",
+                vertex_id, 0, date.today(), 0, "did:web:videos-legacy.etzhayyim.com",
                 video_id, channel_id, title, "migrated",
-                "did:web:videos-legacy.gftd.ai", "did:web:videos-legacy.gftd.ai", now, now,
+                "did:web:videos-legacy.etzhayyim.com", "did:web:videos-legacy.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

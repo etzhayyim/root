@@ -10,7 +10,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-04-25T19:30:00+09:00";
-const ownerDid = "did:web:intel.gftd.ai";
+const ownerDid = "did:web:intel.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.intel";
 
 type ProcessSeed = {
@@ -22,37 +22,37 @@ type ProcessSeed = {
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1",
     bpmnProcessId: "intel_infer_dependencies",
     sourcePath: "00-contracts/bpmn/ai/gftd/intel/inferDependencies.bpmn",
     resultTimeoutMs: 180000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1",
     bpmnProcessId: "intel_resolve_entity",
     sourcePath: "00-contracts/bpmn/ai/gftd/intel/resolveEntity.bpmn",
     resultTimeoutMs: 60000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1",
     bpmnProcessId: "intel_explain_dependency",
     sourcePath: "00-contracts/bpmn/ai/gftd/intel/explainDependency.bpmn",
     resultTimeoutMs: 15000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1",
     bpmnProcessId: "intel_list_dependency_candidates",
     sourcePath: "00-contracts/bpmn/ai/gftd/intel/listDependencyCandidates.bpmn",
     resultTimeoutMs: 15000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1",
     bpmnProcessId: "intel_get_building_ownership_graph",
     sourcePath: "00-contracts/bpmn/ai/gftd/intel/getBuildingOwnershipGraph.bpmn",
     resultTimeoutMs: 20000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1",
     bpmnProcessId: "intel_get_counterparty_graph",
     sourcePath: "00-contracts/bpmn/ai/gftd/intel/getCounterpartyGraph.bpmn",
     resultTimeoutMs: 20000
@@ -61,37 +61,37 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1",
     nsid: "ai.gftd.apps.intel.inferDependencies",
     bpmnProcessId: "intel_infer_dependencies",
     resultTimeoutMs: 180000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1",
     nsid: "ai.gftd.apps.intel.resolveEntity",
     bpmnProcessId: "intel_resolve_entity",
     resultTimeoutMs: 60000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1",
     nsid: "ai.gftd.apps.intel.explainDependency",
     bpmnProcessId: "intel_explain_dependency",
     resultTimeoutMs: 15000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1",
     nsid: "ai.gftd.apps.intel.listDependencyCandidates",
     bpmnProcessId: "intel_list_dependency_candidates",
     resultTimeoutMs: 15000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1",
     nsid: "ai.gftd.apps.intel.getBuildingOwnershipGraph",
     bpmnProcessId: "intel_get_building_ownership_graph",
     resultTimeoutMs: 20000
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1",
     nsid: "ai.gftd.apps.intel.getCounterpartyGraph",
     bpmnProcessId: "intel_get_counterparty_graph",
     resultTimeoutMs: 20000

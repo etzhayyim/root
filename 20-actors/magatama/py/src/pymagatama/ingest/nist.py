@@ -9,7 +9,7 @@ from uuid import uuid4
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:nist.gftd.ai"
+OWNER_DID = "did:web:nist.etzhayyim.com"
 NANOID = "n1st0csf"
 
 

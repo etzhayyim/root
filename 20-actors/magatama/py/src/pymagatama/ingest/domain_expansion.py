@@ -7,13 +7,13 @@ after ADR-2605111200 removed env.HYPERDRIVE from CF Workers.
 One domain per invocation:
   1. Gap query: mv_cc_domain_coverage LEFT JOIN vertex_app → next unregistered domain
   2. Fallback: static candidate list
-  3. Context: CC CDX → WAT range → site.gftd.ai crawlPage → gyotaku.gftd.ai snapshots
+  3. Context: CC CDX → WAT range → site.etzhayyim.com crawlPage → gyotaku.etzhayyim.com snapshots
   4. LLM classify: description + sector + knowledge_edges (call_tier "structured")
   5. PDS writes: profile, app, knowledgeEdge (putRecord); feed post (createRecord)
 
 Env:
   RW_URL              — RisingWave psycopg DSN (from mitama-udf-pool-rw secret)
-  ATPROTO_BASE_URL    — PDS gateway (default: https://atproto.gftd.ai)
+  ATPROTO_BASE_URL    — PDS gateway (default: https://atproto.etzhayyim.com)
   PDS_INTERNAL_TOKEN  — x-magatama-verified header value (default: "true")
 """
 
@@ -37,7 +37,7 @@ from pymagatama.rw_async_pool import ensure_rw_async_pool
 
 LOG = logging.getLogger("domain_expansion")
 
-ATPROTO_BASE = os.environ.get("ATPROTO_BASE_URL", "https://atproto.gftd.ai")
+ATPROTO_BASE = os.environ.get("ATPROTO_BASE_URL", "https://atproto.etzhayyim.com")
 # PDS_INTERNAL_TOKEN is the HMAC secret (from pds-service-auth-mint k8s secret)
 # used to sign x-gftd-internal-hmac alongside x-magatama-verified: true.
 # ADR-0022 Amendment A2: HMAC-SHA256(METHOD:pathname:minute_epoch, secret).
@@ -90,7 +90,7 @@ async def _gap_query() -> str:
                 SELECT c.domain
                 FROM mv_cc_domain_coverage c
                 LEFT JOIN vertex_app a
-                  ON a.did = 'did:web:' || REPLACE(c.domain, '.', '-') || '.gftd.ai'
+                  ON a.did = 'did:web:' || REPLACE(c.domain, '.', '-') || '.etzhayyim.com'
                 WHERE c.domain IS NOT NULL AND c.domain != '' AND a.did IS NULL
                 LIMIT 1
                 """
@@ -145,10 +145,10 @@ async def _fetch_cc_context(session: aiohttp.ClientSession, domain: str) -> str:
 
 
 async def _fetch_site_context(session: aiohttp.ClientSession, domain: str, slug: str) -> str:
-    """Layer 2: site.gftd.ai crawlPage fallback."""
+    """Layer 2: site.etzhayyim.com crawlPage fallback."""
     try:
         async with session.post(
-            "https://site.gftd.ai/xrpc/ai.gftd.apps.site.crawlPage",
+            "https://site.etzhayyim.com/xrpc/ai.gftd.apps.site.crawlPage",
             json={"url": f"https://{domain}", "topics": [slug]},
             headers={"Content-Type": "application/json", "x-magatama-verified": "true"},
             timeout=aiohttp.ClientTimeout(total=8),
@@ -162,10 +162,10 @@ async def _fetch_site_context(session: aiohttp.ClientSession, domain: str, slug:
 
 
 async def _fetch_gyotaku_context(session: aiohttp.ClientSession, domain: str) -> str:
-    """Layer 3: gyotaku.gftd.ai searchSnapshots fallback."""
+    """Layer 3: gyotaku.etzhayyim.com searchSnapshots fallback."""
     try:
         async with session.post(
-            "https://gyotaku.gftd.ai/xrpc/ai.gftd.apps.gyotaku.searchSnapshots",
+            "https://gyotaku.etzhayyim.com/xrpc/ai.gftd.apps.gyotaku.searchSnapshots",
             json={"domain": domain, "limit": 3},
             headers={"Content-Type": "application/json", "x-magatama-verified": "true"},
             timeout=aiohttp.ClientTimeout(total=5),
@@ -181,7 +181,7 @@ async def _fetch_gyotaku_context(session: aiohttp.ClientSession, domain: str) ->
 
 def _llm_classify(domain: str, nanoid: str, ctx: str) -> tuple[str, list[dict]]:
     """Sync LLM call — wrapped in asyncio.to_thread at call site."""
-    ctx_block = f"\nData from Common Crawl / site.gftd.ai:\n{ctx[:400]}" if ctx else ""
+    ctx_block = f"\nData from Common Crawl / site.etzhayyim.com:\n{ctx[:400]}" if ctx else ""
     system = "You are a domain knowledge architect. Output ONLY valid JSON."
     user = (
         f'Classify and describe domain "{domain}".'
@@ -275,7 +275,7 @@ async def expand_one_domain() -> dict[str, Any]:
         if not target_domain:
             registered = await _registered_dids()
             candidate = next(
-                (c for c in _STATIC_CANDIDATES if f"did:web:{c['domain']}.gftd.ai" not in registered),
+                (c for c in _STATIC_CANDIDATES if f"did:web:{c['domain']}.etzhayyim.com" not in registered),
                 None,
             )
             if not candidate:
@@ -288,7 +288,7 @@ async def expand_one_domain() -> dict[str, Any]:
             (c["nanoid"] for c in _STATIC_CANDIDATES if c["domain"] == target_domain), None
         )
         nanoid = nanoid_candidate or (slug.replace("-", "")[:8] or slug[:8])
-        app_did = f"did:web:{slug}.gftd.ai"
+        app_did = f"did:web:{slug}.etzhayyim.com"
         now_ms = int(time.time() * 1000)
         now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 

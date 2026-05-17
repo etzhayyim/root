@@ -1,4 +1,4 @@
-module github.com/gftdcojp/nats-tiered-storage
+module github.com/etzhayyim/root/50-infra/nats-tiered-storage
 
 go 1.25.7
 

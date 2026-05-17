@@ -21,7 +21,7 @@ CREATE VIEW IF NOT EXISTS view_sdg_indicator AS
     WHERE collection = 'ai.gftd.apps.sdg.indicator';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('who_gho', 'gho.gftd.ai', 3057, 'health indicators', 'healthcare');
+    VALUES ('who_gho', 'gho.etzhayyim.com', 3057, 'health indicators', 'healthcare');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('sdg', 'sdg.gftd.ai', 251, 'SDG indicators', 'governance');
+    VALUES ('sdg', 'sdg.etzhayyim.com', 251, 'SDG indicators', 'governance');
