@@ -8,7 +8,7 @@ from graph_schema.db import execute_bound_statements
 
 
 revision = "r_20260428170000_seed_hospitality_chain_profiles"
-down_revision = 'r_20260428170000_mv_malak_dashboard_counts_v2'
+down_revision = None  # parent removed: vendor malak dashboard MV
 branch_labels = None
 depends_on = None
 

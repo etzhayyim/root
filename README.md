@@ -50,7 +50,7 @@ etzhayyim/root/
 | **atproto** | PDS reference impl + AT clients | `10-protocol/atproto`, `60-apps/ai-gftd-project-atproto`, `50-infra/k8s/atproto-pds` |
 | **ameno** | Browser inference platform | `60-apps/ai-gftd-project-ameno` |
 | **open data** | 22 public-data wrappers (airplane, banking, isco, isic, jpn-gov, ...) | `60-apps/ai-gftd-project-open-*` |
-| **public governance** | Cyber crime tracking (malak) + global resource flow | `60-apps/ai-gftd-project-public-*` |
+| **public governance** | Global resource flow intelligence (open subset) | `60-apps/ai-gftd-project-public-*` |
 
 ## Boundary
 

@@ -4594,7 +4594,6 @@ export interface Database {
   edge_lifehack_topic_relates_to: EdgeLifehackTopicRelatesToRow;
   edge_live_room_lighting_cue: EdgeLiveRoomLightingCueRow;
   edge_live_room_track: EdgeLiveRoomTrackRow;
-  edge_malak_controls_wallet: EdgeMalakControlsWalletRow;
   edge_material_element: EdgeMaterialElementRow;
   edge_mineral_crystal: EdgeMineralCrystalRow;
   edge_mineral_element: EdgeMineralElementRow;
@@ -4707,7 +4706,6 @@ export interface Database {
   vertex_live_lighting_cue: VertexLiveLightingCueRow;
   vertex_live_room: VertexLiveRoomRow;
   vertex_live_track: VertexLiveTrackRow;
-  vertex_malak_wallet_address: VertexMalakWalletAddressRow;
   vertex_maps_building_3d: VertexMapsBuilding3dRow;
   vertex_maps_building_coverage: VertexMapsBuildingCoverageRow;
   vertex_marine_observation: VertexMarineObservationRow;
