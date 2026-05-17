@@ -1,0 +1,24 @@
+{
+  "domain": "character",
+  "appHost": "character",
+  "repo": "did:web:character.etzhayyim.com",
+  "collection": "app.bsky.actor.profile",
+  "source": {
+    "format": "inline",
+    "data": [
+      {
+        "rkey": "self",
+        "displayName": "Character Registry",
+        "description": "Fictional character registry — anime, manga, game, movie, TV, book characters globally.",
+        "app": "character"
+      }
+    ]
+  },
+  "rkey": "{{rkey}}",
+  "mapping": {
+    "displayName": "{{displayName}}",
+    "description": "{{description}}"
+  },
+  "chunkSize": 10,
+  "note": "Profile registration for character.etzhayyim.com"
+}

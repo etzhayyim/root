@@ -1,0 +1,19 @@
+{
+  "domain": "isco",
+  "appHost": "isco.etzhayyim.com",
+  "repo": "did:web:isco.etzhayyim.com",
+  "collection": "ai.gftd.apps.isco.occupation",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Fcode%20WHERE%20%7B%20%3Fitem%20wdt%3AP1048%20%3Fcode.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%201000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "{{code.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}",
+    "iscoCode": "{{code.value}}"
+  },
+  "chunkSize": 500,
+  "note": "Wikidata P1048 (ISCO-08 occupation code). Fills missing unit groups to reach 436 total."
+}

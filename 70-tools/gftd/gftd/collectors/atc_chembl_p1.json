@@ -1,0 +1,23 @@
+{
+  "domain": "atc",
+  "appHost": "atc.etzhayyim.com",
+  "repo": "did:web:atc.etzhayyim.com",
+  "collection": "ai.gftd.apps.atc.code",
+  "source": {
+    "url": "https://www.ebi.ac.uk/chembl/api/data/atc_class/?format=json&limit=1000&offset=1000",
+    "format": "json",
+    "path": "atc"
+  },
+  "rkey": "atc-{{level5}}",
+  "mapping": {
+    "code": "{{level5}}",
+    "name": "{{who_name}}",
+    "level1": "{{level1}}",
+    "level2": "{{level2}}",
+    "level3": "{{level3}}",
+    "level4": "{{level4}}",
+    "level1Description": "{{level1_description}}"
+  },
+  "chunkSize": 500,
+  "note": "ChEMBL ATC codes page 1 (offset 1000)."
+}

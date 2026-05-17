@@ -1,0 +1,19 @@
+{
+  "domain": "religious",
+  "appHost": "religious",
+  "repo": "did:web:religious.etzhayyim.com",
+  "collection": "ai.gftd.apps.religious.system",
+  "source": {
+    "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3FfounderLabel%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%2Fwdt%3AP279%2A%20wd%3AQ9174.%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP112%20%3Ffounder.%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20LIMIT%205000",
+    "format": "json",
+    "path": "results.bindings"
+  },
+  "rkey": "{{item.value}}",
+  "mapping": {
+    "wikidataUri": "{{item.value}}",
+    "name": "{{itemLabel.value}}",
+    "founder": "{{founderLabel.value}}"
+  },
+  "chunkSize": 200,
+  "note": "Wikidata Q9174 (religion) + subclasses. World_total=4300, expect >3K from Wikidata."
+}
