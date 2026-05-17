@@ -14,15 +14,16 @@ These contracts live on the **internal** chain (geth-private at `50-infra/vultr/
 
 ## Contract set (per ADR-2605172300 §2)
 
-| File | Role | Stage |
-|---|---|---|
-| `src/Constitution.sol` | Immutable + governance-mutable constitutional parameters | **S0 (this PR)** |
-| `src/AdherentRegistry.sol` | ERC-5192 SBT, DID-bound, with attestation tracking | **S0 (this PR)** |
-| `src/KishaStream.sol` | Per-adherent rate, accrual, claim ticket issuance | S1 |
-| `src/Phenotype.sol` | Per-adherent multiplier (0.5×–2.0×) populated by `EligibilityCell` | S2 |
-| `src/TreasuryMirror.sol` | NAV oracle mirror, envelope computation | S3 |
-| `src/Governance.sol` | OZ Governor derivative, 1 SBT = 1 vote, 72h timelock | S3 |
-| `src/AnchorBridge.sol` | State-root commit to Base; claim-fulfillment receipt ingest | S1 |
+| File | Chain | Role | Stage |
+|---|---|---|---|
+| `src/Constitution.sol` | geth-private | Immutable + governance-mutable constitutional parameters | **S0** |
+| `src/AdherentRegistry.sol` | geth-private | ERC-5192 SBT, DID-bound, with attestation tracking | **S0** |
+| `src/KishaStream.sol` | geth-private | Per-adherent rate, accrual, claim ticket issuance | **S1** |
+| `src/AnchorBridge.sol` | geth-private | Permissionless state-root commit (relayer → Base anchor) | **S1** |
+| `src/base/KishaPayout.sol` | Base L2 | M-of-N relayer-signed claim fulfillment; pulls USDC from Treasury Safe | **S1** |
+| `src/Phenotype.sol` | geth-private | Per-adherent multiplier (0.5×–2.0×) populated by `EligibilityCell` | S2 |
+| `src/TreasuryMirror.sol` | geth-private | NAV oracle mirror, envelope computation | S3 |
+| `src/Governance.sol` | geth-private | OZ Governor derivative, 1 SBT = 1 vote, 72h timelock | S3 |
 
 ## Design rules (inherited)
 
@@ -47,4 +48,4 @@ Deployment scripts will live under `script/` and target `etzhayyim_private` (RPC
 
 ## Status
 
-S0 — **scaffold**. `Constitution.sol` + `AdherentRegistry.sol` only. Other contracts are stubbed in the ADR and will land in S1/S2/S3.
+**S1 — flat-rate kisha**. `KishaStream` issues fixed-rate accrual tickets on geth-private; `KishaPayout` on Base settles them against the Treasury Safe with M-of-N officer signatures. `AnchorBridge` exposes permissionless state-root commits for the Base anchor relayer. Pregel `EligibilityCell` + per-adherent `PhenotypeAgent` still ship in S2; Governance + Treasury 3-tier ship in S3.

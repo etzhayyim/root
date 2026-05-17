@@ -268,6 +268,36 @@ export class Etzhayyim {
     const { splitDistribute } = await import("./pay.js");
     return splitDistribute(opts);
   }
+
+  // ─── Basic-income / adherent surface (ADR-2605172300) ─────────────
+
+  /** Optional BI module config. Set per-instance when BI is in use. */
+  biConfig?: import("./bi.js").BIConfig;
+
+  /** Mint adherent SBT on geth-private. */
+  async biJoin(opts: import("./bi.js").JoinOpts) {
+    const { join } = await import("./bi.js");
+    return join(opts, this.biConfig ?? {});
+  }
+
+  /** Record a participation event. */
+  async biAttest(opts: import("./bi.js").AttestOpts) {
+    const { attest } = await import("./bi.js");
+    return attest(opts, this.biConfig ?? {});
+  }
+
+  /** Read accrual + status snapshot for an adherent. */
+  async biStatus(tokenId: bigint) {
+    const { status } = await import("./bi.js");
+    return status(tokenId, this.biConfig ?? {});
+  }
+
+  /** Claim accrued kisha. Returns immediately on geth-private issue;
+   *  the returned `fulfilled` promise resolves once Base settlement lands. */
+  async biClaim(opts: import("./bi.js").ClaimOpts) {
+    const { claim } = await import("./bi.js");
+    return claim(opts, this.biConfig ?? {});
+  }
 }
 
 // ─── Re-exports ─────────────────────────────────────────────────────
@@ -276,4 +306,9 @@ export * as pds from "./pds.js";
 export * as ipfs from "./ipfs.js";
 export * as l2 from "./l2.js";
 export * as pay from "./pay.js";
+export * as bi from "./bi.js";
 export { parseUsdc, parseUsdcPerSecond, USDC_BASE } from "./pay.js";
+export {
+  ETZHAYYIM_PRIVATE_CHAIN_ID,
+  ETZHAYYIM_PRIVATE_RPC_DEFAULT,
+} from "./bi.js";
