@@ -13,7 +13,7 @@ Sources
 
 Sink
 ----
-  RisingWave vertex_repo_record (psycopg2 → 172.236.132.11:4566)
+  RisingWave vertex_repo_record (psycopg2 → <vendor-rw-host-deprecated>:4566)
 
 State
 -----
@@ -45,7 +45,7 @@ import psycopg2.extras
 
 STATE_FILE     = "/tmp/hourly-collection-state.json"
 
-RW_HOST     = "172.236.132.11"
+RW_HOST     = "<vendor-rw-host-deprecated>"
 RW_PORT     = 4566
 RW_USER     = "root"
 RW_DB       = "dev"

@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0116: ISCO-08 ↔ ISIC-4 + COFOG ↔ ISIC-4 concordance bridges.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-15
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-15
  * (reverse-topological-sort pass, iteration 38).
  *
  * ## ISCO-08 ↔ ISIC-4 (140 edges each direction)

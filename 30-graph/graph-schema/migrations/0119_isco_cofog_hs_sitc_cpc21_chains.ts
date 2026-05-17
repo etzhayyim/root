@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0119: ISCO/COFOG → HS2017 / SITC4 / CPC21 extended chains.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-15
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-15
  * (reverse-topological-sort pass, iteration 41).
  *
  * ## Strategy

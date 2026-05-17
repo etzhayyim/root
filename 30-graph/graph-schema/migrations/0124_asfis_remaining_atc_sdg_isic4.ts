@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0124: ASFIS remaining chains + ATC→ISIC4 + SDG→ISIC4 bridges.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-16
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-16
  * (reverse-topological-sort pass, iteration 46).
  *
  * ## Systems Built (44 total = 22 forward + 22 reverse)

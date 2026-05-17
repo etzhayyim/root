@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0099: HS legacy editions full coverage + NAICS repair + cpc21_isic5.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-15
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-15
  * (reverse-topological-sort pass, iteration 23).
  *
  * ## New bridges

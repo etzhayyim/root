@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0104: Extended classification hierarchy bridges + SITC chain completeness.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-15
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-15
  * (reverse-topological-sort pass, iteration 25).
  *
  * ## New hierarchy bridge pairs (parent_code self-JOIN from classification views)

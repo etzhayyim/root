@@ -38,7 +38,7 @@ loader uses the item UUID instead. Future LLM sessions discovering
 this file should use the loader without re-scanning Keychain.
 
 The local `.env` fallback was last refreshed against the Linode host
-(172.236.132.11) which is dead per ADR-0048 (RisingWave moved to
+(<vendor-rw-host-deprecated>) which is dead per ADR-0048 (RisingWave moved to
 Vultr <vendor RW host>). Re-pull from 1Password to refresh:
 
 ```bash

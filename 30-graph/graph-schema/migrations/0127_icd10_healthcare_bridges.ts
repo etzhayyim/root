@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0127: ICD-10 → ISIC4 healthcare + ATC drug class + ISCO/COFOG bridges.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-16
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-16
  * (reverse-topological-sort pass, iteration 49).
  *
  * ## Systems Built (10 total = 5 forward + 5 reverse)

@@ -34,7 +34,7 @@ UMBRELLA_CACHE = "/tmp/umbrella-top1m.csv"
 UMBRELLA_ZIP   = "/tmp/umbrella-top1m.zip"
 
 DB_CONFIG = {
-    "host":    "172.236.132.11",
+    "host":    "<vendor-rw-host-deprecated>",
     "port":    4566,
     "dbname":  "dev",
     "user":    "root",

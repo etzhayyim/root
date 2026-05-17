@@ -14,7 +14,7 @@ import { Kysely, sql } from 'kysely';
  * ── Implementation note (2026-04-17) ──────────────────────────────────
  * These are plain VIEWs, not MATERIALIZED VIEWs. Both were initially
  * authored as streaming MVs, but applying them to the live cluster
- * (172.236.132.11:4566) triggered repeated compute pod recovery loops
+ * (<vendor-rw-host-deprecated>:4566) triggered repeated compute pod recovery loops
  * ("failed to collect barrier", "database 1 unavailable cluster is under
  * recovering") even with `enable_locality_backfill = true` + `background_ddl
  * = true`. Given that `vertex_gftd_identity` is empty at Phase D time

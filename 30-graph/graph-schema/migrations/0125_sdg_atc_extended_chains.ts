@@ -4,7 +4,7 @@ import { Kysely, sql } from 'kysely';
  * Migration 0125: SDG extended chains (all HS/SITC/BEC/CPC/COFOG/ISCO)
  *                 + ATC extended chains (HS/ISIC5/NACE/CPC21/SITC4/BEC).
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-16
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-16
  * (reverse-topological-sort pass, iteration 47).
  *
  * ## Systems Built (60 total = 30 forward + 30 reverse)

@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0126: NDC (National Drug Code) → ISIC4 pharmaceutical bridge.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-16
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-16
  * (reverse-topological-sort pass, iteration 48).
  *
  * ## Systems Built (2 total)

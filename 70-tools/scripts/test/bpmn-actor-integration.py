@@ -17,7 +17,7 @@ What this covers:
 
 Env:
   BPMN_DISPATCHER_URL  default http://bpmn.etzhayyim.com:8080
-                       pass a direct IP (http://45.77.121.69:8080) to
+                       pass a direct IP (http://<vendor-bpmn-dispatcher>:8080) to
                        bypass a stale local DNS cache.
   RW_URL               default: fetched from macOS Keychain
                        (service=gftd.rw, account=ROOT_URL)
@@ -27,7 +27,7 @@ Usage:
     70-tools/scripts/test/bpmn-actor-integration.py --skip-dynamic
     70-tools/scripts/test/bpmn-actor-integration.py --skip-rw
     70-tools/scripts/test/bpmn-actor-integration.py --include-datacenter
-    BPMN_DISPATCHER_URL=http://45.77.121.69:8080 \
+    BPMN_DISPATCHER_URL=http://<vendor-bpmn-dispatcher>:8080 \
         70-tools/scripts/test/bpmn-actor-integration.py
 """
 

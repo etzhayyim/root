@@ -21,7 +21,7 @@ from pathlib import Path
 
 import psycopg2
 
-RW_HOST = os.environ.get("RW_HOST", "172.236.132.11")
+RW_HOST = os.environ.get("RW_HOST", "<vendor-rw-host-deprecated>")
 RW_PORT = int(os.environ.get("RW_PORT", "4566"))
 MIGRATIONS_DIR = Path(__file__).parent.parent / "migrations"
 

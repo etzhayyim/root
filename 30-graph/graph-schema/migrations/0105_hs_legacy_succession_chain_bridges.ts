@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0105: HS 2007/2002/1996 full coverage via succession chain + completeness fixes.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-15
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-15
  * (reverse-topological-sort pass, iteration 26).
  *
  * ## HS succession chain approach (NOT ISIC4 mediation)

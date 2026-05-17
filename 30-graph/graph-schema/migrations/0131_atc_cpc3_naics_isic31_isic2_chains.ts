@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0131: icd10_sdg repair + ATC completeness + NAICS/ISIC3.1/ISIC2 remaining chains.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-16
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-16
  * (reverse-topological-sort pass, iteration 53).
  *
  * ## Systems Built (TBD total)

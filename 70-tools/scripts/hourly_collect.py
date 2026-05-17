@@ -57,7 +57,7 @@ DOH_URLS         = [
 DOH_URL          = DOH_URLS[0]
 DNS_RTYPES       = ["A", "AAAA", "MX", "NS", "TXT"]
 
-RW_HOST     = "172.236.132.11"
+RW_HOST     = "<vendor-rw-host-deprecated>"
 RW_PORT     = 4566
 RW_USER     = "root"
 RW_DATABASE = "dev"

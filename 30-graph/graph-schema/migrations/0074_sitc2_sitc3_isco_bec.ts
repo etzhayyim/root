@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0074: SITC Rev.2, SITC Rev.3, ISCO-08, BEC Rev.5 + inter-SITC bridges.
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-15
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-15
  * (reverse-topological-sort pass, iteration 4).
  *
  * ## New taxonomy masters

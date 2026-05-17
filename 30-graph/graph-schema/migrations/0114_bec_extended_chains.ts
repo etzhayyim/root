@@ -4,7 +4,7 @@ import { Kysely, sql } from 'kysely';
  * Migration 0114: BEC extended chains — connect BEC to ISIC4, NACE, CPC21, CPC3, NAICS
  * via HS2017 pivot (after 0112 direct BEC↔HS/SITC bridges and 0113 CPC21 repair).
  *
- * Bootstrapped via direct psql against 172.236.132.11:4566 on 2026-04-15
+ * Bootstrapped via direct psql against <vendor-rw-host-deprecated>:4566 on 2026-04-15
  * (reverse-topological-sort pass, iteration 36).
  *
  * ## Strategy
