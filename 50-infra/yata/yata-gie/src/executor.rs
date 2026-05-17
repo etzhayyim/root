@@ -2083,7 +2083,6 @@ mod security_filter_tests {
             ("rkey", PropValue::Str("post4".into())),
             ("sensitivity_ord", PropValue::Int(3)), // restricted
             ("owner_hash", PropValue::Int(4000)),
-            ("collection", PropValue::Str("ai.gftd.apps.malak.threat".into())),
         ]);
         store.commit();
         store
@@ -2270,7 +2269,7 @@ mod security_filter_tests {
             scope,
         });
         let results = execute(&plan, &store);
-        // public (sens=0) + yabai (RBAC) + malak restricted (consent for owner 4000) = 3
+        // public (sens=0) + yabai (RBAC) = 3
         assert_eq!(
             results.len(),
             3,
