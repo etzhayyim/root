@@ -32,6 +32,10 @@
     "./bi": {
       "import": "./dist/bi.js",
       "types": "./dist/bi.d.ts"
+    },
+    "./paymaster": {
+      "import": "./dist/paymaster.js",
+      "types": "./dist/paymaster.d.ts"
     }
   },
   "files": ["dist", "src", "README.md"],
