@@ -19,24 +19,24 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
   const seed: Array<[string, string, number, number, number]> = [
     // source_did, label, world_total, priority_weight, ttl_hours
-    ["did:web:maps.gftd.ai:street_view",             "StreetChunk",     50_000_000, 0.6,  720.0],   // Mapillary
-    ["did:web:maps.gftd.ai:satellite",               "SatelliteScene",  10_000_000, 0.6,  720.0],   // Sentinel-1 SAR
-    ["did:web:maps.gftd.ai:satellite",               "TerrainPatch",    14_000_000, 0.6,  720.0],   // Copernicus DEM 30m
-    ["did:web:maps.gftd.ai:registry:uk-ch",          "LegalEntity",      5_500_000, 1.0,  168.0],   // UK Companies House
-    ["did:web:maps.gftd.ai:registry:us-edgar",       "LegalEntity",        700_000, 1.0,  168.0],   // SEC EDGAR
-    ["did:web:maps.gftd.ai:registry:eu-br",          "LegalEntity",     15_000_000, 1.0,  720.0],   // EU Business Registries
-    ["did:web:maps.gftd.ai:registry:jp-moj",         "LandRegistry",   200_000_000, 1.0,  720.0],   // 登記情報
-    ["did:web:maps.gftd.ai:infrastructure",          "Port",                 5_000, 1.0,  168.0],
-    ["did:web:maps.gftd.ai:infrastructure",          "Road",                20_000, 0.6,  168.0],
-    ["did:web:maps.gftd.ai:infrastructure",          "Railway",              5_000, 0.6,  168.0],
-    ["did:web:maps.gftd.ai:infrastructure",          "EvCharger",          100_000, 0.3,  168.0],   // OpenChargeMap tail
-    ["did:web:maps.gftd.ai:seismic",                 "SpatialEvent",       100_000, 0.3,    1.0],   // 15min TTL → always "stale"
-    ["did:web:site.gftd.ai",                         "WebCrawlGeoEntity", 1_000_000, 0.3,  168.0],  // CommonCrawl WET/WAT
+    ["did:web:maps.etzhayyim.com:street_view",             "StreetChunk",     50_000_000, 0.6,  720.0],   // Mapillary
+    ["did:web:maps.etzhayyim.com:satellite",               "SatelliteScene",  10_000_000, 0.6,  720.0],   // Sentinel-1 SAR
+    ["did:web:maps.etzhayyim.com:satellite",               "TerrainPatch",    14_000_000, 0.6,  720.0],   // Copernicus DEM 30m
+    ["did:web:maps.etzhayyim.com:registry:uk-ch",          "LegalEntity",      5_500_000, 1.0,  168.0],   // UK Companies House
+    ["did:web:maps.etzhayyim.com:registry:us-edgar",       "LegalEntity",        700_000, 1.0,  168.0],   // SEC EDGAR
+    ["did:web:maps.etzhayyim.com:registry:eu-br",          "LegalEntity",     15_000_000, 1.0,  720.0],   // EU Business Registries
+    ["did:web:maps.etzhayyim.com:registry:jp-moj",         "LandRegistry",   200_000_000, 1.0,  720.0],   // 登記情報
+    ["did:web:maps.etzhayyim.com:infrastructure",          "Port",                 5_000, 1.0,  168.0],
+    ["did:web:maps.etzhayyim.com:infrastructure",          "Road",                20_000, 0.6,  168.0],
+    ["did:web:maps.etzhayyim.com:infrastructure",          "Railway",              5_000, 0.6,  168.0],
+    ["did:web:maps.etzhayyim.com:infrastructure",          "EvCharger",          100_000, 0.3,  168.0],   // OpenChargeMap tail
+    ["did:web:maps.etzhayyim.com:seismic",                 "SpatialEvent",       100_000, 0.3,    1.0],   // 15min TTL → always "stale"
+    ["did:web:site.etzhayyim.com",                         "WebCrawlGeoEntity", 1_000_000, 0.3,  168.0],  // CommonCrawl WET/WAT
   ];
 
   for (const [sourceDid, label, worldTotal, priority, ttl] of seed) {
     const sourceSlug = sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || sourceDid.replace(/^did:web:/, "");
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

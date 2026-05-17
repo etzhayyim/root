@@ -15,7 +15,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     )
     SELECT
       CONCAT('at://', r.actor_did, '/ai.gftd.actor.govOrgRuntime/', r.gov_org_key),
-      'did:web:gov.gftd.ai',
+      'did:web:gov.etzhayyim.com',
       r.actor_did,
       r.gov_org_key,
       CONCAT('gov-org-', r.gov_org_key),
@@ -24,7 +24,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'active',
       'ai.gftd.actor.govOrgRuntime',
       r.gov_org_key,
-      'did:web:gov.gftd.ai',
+      'did:web:gov.etzhayyim.com',
       ${createdAt},
       CONCAT('gov-org-', r.gov_org_key),
       'gov',
@@ -55,7 +55,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       CONCAT(
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" ',
-        'id="defs_', r.bpmn_process_id, '" targetNamespace="https://gov.gftd.ai/bpmn">',
+        'id="defs_', r.bpmn_process_id, '" targetNamespace="https://gov.etzhayyim.com/bpmn">',
         '<bpmn:process id="', r.bpmn_process_id, '" isExecutable="true">',
         '<bpmn:startEvent id="start"/>',
         '<bpmn:task id="refresh_coverage" name="Refresh gov organization coverage"/>',
@@ -66,7 +66,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       CAST(LENGTH(CONCAT(
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" ',
-        'id="defs_', r.bpmn_process_id, '" targetNamespace="https://gov.gftd.ai/bpmn">',
+        'id="defs_', r.bpmn_process_id, '" targetNamespace="https://gov.etzhayyim.com/bpmn">',
         '<bpmn:process id="', r.bpmn_process_id, '" isExecutable="true">',
         '<bpmn:startEvent id="start"/>',
         '<bpmn:task id="refresh_coverage" name="Refresh gov organization coverage"/>',
@@ -78,8 +78,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'active',
       ${createdAt},
       1,
-      'did:web:gov.gftd.ai',
-      'did:web:gov.gftd.ai',
+      'did:web:gov.etzhayyim.com',
+      'did:web:gov.etzhayyim.com',
       ${actorTag}
     FROM mv_gov_org_runtime r
     WHERE NOT EXISTS (
@@ -94,7 +94,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       actor_id, write_table_allowlist
     )
     SELECT
-      CONCAT('at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/gov-org-', r.gov_org_key, '-coverage-refresh-v1'),
+      CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gov-org-', r.gov_org_key, '-coverage-refresh-v1'),
       r.actor_did,
       CONCAT('ai.gftd.apps.govOrgRuntime.coverageRefresh', REPLACE(REPLACE(r.gov_org_key, ':', '-'), '.', '-')),
       r.bpmn_process_id,
@@ -103,14 +103,14 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'active',
       ${createdAt},
       1,
-      'did:web:gov.gftd.ai',
-      'did:web:gov.gftd.ai',
+      'did:web:gov.etzhayyim.com',
+      'did:web:gov.etzhayyim.com',
       ${actorTag},
       'edge_gov_org_site_dependency,vertex_gov_org,mv_gov_coverage_dedup,mv_gov_org_runtime'
     FROM mv_gov_org_runtime r
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding b
-      WHERE b.vertex_id = CONCAT('at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/gov-org-', r.gov_org_key, '-coverage-refresh-v1')
+      WHERE b.vertex_id = CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gov-org-', r.gov_org_key, '-coverage-refresh-v1')
     )
   `.execute(db);
 
@@ -125,7 +125,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       CONCAT('at://', t.actor_did, '/ai.gftd.mcp.toolDef/', REPLACE(t.nsid, '.', '-')),
       t.nsid,
       t.actor_did,
-      'gov.gftd.ai',
+      'gov.etzhayyim.com',
       t.lexicon_type,
       t.description,
       t.input_schema,
@@ -136,10 +136,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       TRUE,
       CONCAT('runtime://gov/org/', t.gov_org_key, '/mcp/', REPLACE(t.nsid, '.', '/'), '.json'),
       NULL,
-      'did:web:gov.gftd.ai',
+      'did:web:gov.etzhayyim.com',
       1,
-      'did:web:gov.gftd.ai',
-      'did:web:gov.gftd.ai',
+      'did:web:gov.etzhayyim.com',
+      'did:web:gov.etzhayyim.com',
       ${actorTag},
       ${createdAt}
     FROM (

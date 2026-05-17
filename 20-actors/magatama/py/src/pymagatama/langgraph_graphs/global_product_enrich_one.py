@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 from typing import Any, TypedDict
 
 
-OWNER_DID = "did:web:gtin.gftd.ai"
+OWNER_DID = "did:web:gtin.etzhayyim.com"
 ACTOR_ID = "sys.langgraph.global-product-enrich-one"
 PROMPT_VERSION = "global-product-enrich-one-v1"
 DEFAULT_TIMEOUT = 30.0
@@ -225,7 +225,7 @@ def discover_candidates(state: GlobalProductEnrichState) -> dict[str, Any]:
 def _crawl_page(url: str, source_kind: str) -> dict[str, Any]:
     import httpx
 
-    pds_base = os.environ.get("PDS_BASE_URL", "https://atproto.gftd.ai")
+    pds_base = os.environ.get("PDS_BASE_URL", "https://atproto.etzhayyim.com")
     token = os.environ.get("INTERNAL_TRUST_TOKEN", "")
     headers = {"content-type": "application/json", "x-magatama-verified": "true"}
     if token:
@@ -372,8 +372,8 @@ def resolve_canonical_product(state: GlobalProductEnrichState) -> dict[str, Any]
     product_key = str(facts.get("productKey") or "")
     gtin = str(facts.get("gtin") or "")
     product_did = (
-        f"did:web:gtin.gftd.ai:product:gtin_{gtin}" if gtin else
-        f"did:web:gtin.gftd.ai:product:{product_key}"
+        f"did:web:gtin.etzhayyim.com:product:gtin_{gtin}" if gtin else
+        f"did:web:gtin.etzhayyim.com:product:{product_key}"
     )
     return {
         "canonicalProduct": {
@@ -400,7 +400,7 @@ def quality_gate(state: GlobalProductEnrichState) -> dict[str, Any]:
 def _post_xrpc(method: str, body: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
     import httpx
 
-    pds_base = os.environ.get("PDS_BASE_URL", "https://atproto.gftd.ai")
+    pds_base = os.environ.get("PDS_BASE_URL", "https://atproto.etzhayyim.com")
     token = os.environ.get("INTERNAL_TRUST_TOKEN", "")
     headers = {"content-type": "application/json"}
     if token:
@@ -664,7 +664,7 @@ def _write_evidence_rows(state: GlobalProductEnrichState) -> dict[str, Any]:
         if not product_vid or not (domain or brand_name):
             continue
         owner_key = domain or f"brand:{brand_name.lower()}"
-        dst_vid = f"did:web:{domain}" if domain else f"did:web:gtin.gftd.ai:brand:{_sha256(brand_name.lower())[:16]}"
+        dst_vid = f"did:web:{domain}" if domain else f"did:web:gtin.etzhayyim.com:brand:{_sha256(brand_name.lower())[:16]}"
         edge_id = f"edge:product-brand-owner:{_sha256(product_vid + '|' + owner_key)[:32]}"
         brand_owner_edge_rows.append(
             {

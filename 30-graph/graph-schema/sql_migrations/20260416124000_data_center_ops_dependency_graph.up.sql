@@ -51,17 +51,17 @@ INSERT INTO vertex_data_center_dependency (
       updated_at,
       props
     ) VALUES
-      ('dcdep:dc-operations', 'did:web:data-center-ops.gftd.ai', 'dc-operations', 'Data Center Operations', 'operations', 0, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:apqc-operations-framework', 'did:web:data-center-ops.gftd.ai', 'apqc-operations-framework', 'APQC Operations Process', 'apqc', 1, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:isco-workforce', 'did:web:data-center-ops.gftd.ai', 'isco-workforce', 'ISCO Workforce', 'isco', 1, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:sla-governance', 'did:web:data-center-ops.gftd.ai', 'sla-governance', 'SLA Governance', 'governance', 1, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:license-compliance', 'did:web:data-center-ops.gftd.ai', 'license-compliance', 'License and Compliance', 'license', 2, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:server-fleet', 'did:web:data-center-ops.gftd.ai', 'server-fleet', 'Server Fleet', 'server', 2, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:rack-capacity', 'did:web:data-center-ops.gftd.ai', 'rack-capacity', 'Rack Capacity', 'rack', 3, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:power-grid', 'did:web:data-center-ops.gftd.ai', 'power-grid', 'Power Distribution', 'power', 3, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:facility-site', 'did:web:data-center-ops.gftd.ai', 'facility-site', 'Facility Site', 'facility', 4, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:permit-approval', 'did:web:data-center-ops.gftd.ai', 'permit-approval', 'Permits and Approvals', 'permit', 5, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep:land-plot', 'did:web:data-center-ops.gftd.ai', 'land-plot', 'Land Plot', 'land', 6, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}');
+      ('dcdep:dc-operations', 'did:web:data-center-ops.etzhayyim.com', 'dc-operations', 'Data Center Operations', 'operations', 0, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:apqc-operations-framework', 'did:web:data-center-ops.etzhayyim.com', 'apqc-operations-framework', 'APQC Operations Process', 'apqc', 1, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:isco-workforce', 'did:web:data-center-ops.etzhayyim.com', 'isco-workforce', 'ISCO Workforce', 'isco', 1, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:sla-governance', 'did:web:data-center-ops.etzhayyim.com', 'sla-governance', 'SLA Governance', 'governance', 1, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:license-compliance', 'did:web:data-center-ops.etzhayyim.com', 'license-compliance', 'License and Compliance', 'license', 2, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:server-fleet', 'did:web:data-center-ops.etzhayyim.com', 'server-fleet', 'Server Fleet', 'server', 2, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:rack-capacity', 'did:web:data-center-ops.etzhayyim.com', 'rack-capacity', 'Rack Capacity', 'rack', 3, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:power-grid', 'did:web:data-center-ops.etzhayyim.com', 'power-grid', 'Power Distribution', 'power', 3, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:facility-site', 'did:web:data-center-ops.etzhayyim.com', 'facility-site', 'Facility Site', 'facility', 4, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:permit-approval', 'did:web:data-center-ops.etzhayyim.com', 'permit-approval', 'Permits and Approvals', 'permit', 5, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep:land-plot', 'did:web:data-center-ops.etzhayyim.com', 'land-plot', 'Land Plot', 'land', 6, 'migration:20260416124000', 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}');
 
 INSERT INTO edge_data_center_dependency (
       edge_id,
@@ -76,20 +76,20 @@ INSERT INTO edge_data_center_dependency (
       updated_at,
       props
     ) VALUES
-      ('dcdep-edge:dc-operations->apqc-operations-framework', 'dcdep:dc-operations', 'dcdep:apqc-operations-framework', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:dc-operations->isco-workforce', 'dcdep:dc-operations', 'dcdep:isco-workforce', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:dc-operations->sla-governance', 'dcdep:dc-operations', 'dcdep:sla-governance', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:apqc-operations-framework->license-compliance', 'dcdep:apqc-operations-framework', 'dcdep:license-compliance', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:apqc-operations-framework->server-fleet', 'dcdep:apqc-operations-framework', 'dcdep:server-fleet', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:isco-workforce->server-fleet', 'dcdep:isco-workforce', 'dcdep:server-fleet', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'medium', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:sla-governance->license-compliance', 'dcdep:sla-governance', 'dcdep:license-compliance', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'medium', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:server-fleet->rack-capacity', 'dcdep:server-fleet', 'dcdep:rack-capacity', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:rack-capacity->power-grid', 'dcdep:rack-capacity', 'dcdep:power-grid', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:rack-capacity->facility-site', 'dcdep:rack-capacity', 'dcdep:facility-site', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:power-grid->facility-site', 'dcdep:power-grid', 'dcdep:facility-site', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:license-compliance->permit-approval', 'dcdep:license-compliance', 'dcdep:permit-approval', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:facility-site->permit-approval', 'dcdep:facility-site', 'dcdep:permit-approval', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
-      ('dcdep-edge:permit-approval->land-plot', 'dcdep:permit-approval', 'dcdep:land-plot', 'did:web:data-center-ops.gftd.ai', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}');
+      ('dcdep-edge:dc-operations->apqc-operations-framework', 'dcdep:dc-operations', 'dcdep:apqc-operations-framework', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:dc-operations->isco-workforce', 'dcdep:dc-operations', 'dcdep:isco-workforce', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:dc-operations->sla-governance', 'dcdep:dc-operations', 'dcdep:sla-governance', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:apqc-operations-framework->license-compliance', 'dcdep:apqc-operations-framework', 'dcdep:license-compliance', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:apqc-operations-framework->server-fleet', 'dcdep:apqc-operations-framework', 'dcdep:server-fleet', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:isco-workforce->server-fleet', 'dcdep:isco-workforce', 'dcdep:server-fleet', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'medium', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:sla-governance->license-compliance', 'dcdep:sla-governance', 'dcdep:license-compliance', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'medium', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:server-fleet->rack-capacity', 'dcdep:server-fleet', 'dcdep:rack-capacity', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:rack-capacity->power-grid', 'dcdep:rack-capacity', 'dcdep:power-grid', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:rack-capacity->facility-site', 'dcdep:rack-capacity', 'dcdep:facility-site', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:power-grid->facility-site', 'dcdep:power-grid', 'dcdep:facility-site', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:license-compliance->permit-approval', 'dcdep:license-compliance', 'dcdep:permit-approval', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:facility-site->permit-approval', 'dcdep:facility-site', 'dcdep:permit-approval', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}'),
+      ('dcdep-edge:permit-approval->land-plot', 'dcdep:permit-approval', 'dcdep:land-plot', 'did:web:data-center-ops.etzhayyim.com', 'depends_on', 'high', 1, 'active', CAST(NOW() AS VARCHAR), CAST(NOW() AS VARCHAR), '{}');
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS mv_data_center_dependency_reverse_topology AS
     WITH in_deg AS (

@@ -16,10 +16,10 @@ import { sql } from "kysely";
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   const bumps: Array<[string, number]> = [
-    ["did:web:maps.gftd.ai:eonet:volcanoes",                     1500],
-    ["did:web:maps.gftd.ai:eonet:seaLakeIce",                    200],
-    ["did:web:maps.gftd.ai:eonet:wildfires",                     1500],
-    ["did:web:maps.gftd.ai:registry:wikidata:museumShip",        500],
+    ["did:web:maps.etzhayyim.com:eonet:volcanoes",                     1500],
+    ["did:web:maps.etzhayyim.com:eonet:seaLakeIce",                    200],
+    ["did:web:maps.etzhayyim.com:eonet:wildfires",                     1500],
+    ["did:web:maps.etzhayyim.com:registry:wikidata:museumShip",        500],
   ];
   for (const [sd, wt] of bumps) {
     await sql`UPDATE vertex_maps_coverage_target SET world_total = ${wt} WHERE source_did = ${sd}`.execute(db);

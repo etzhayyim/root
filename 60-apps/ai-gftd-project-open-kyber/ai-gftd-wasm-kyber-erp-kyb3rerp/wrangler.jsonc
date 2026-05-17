@@ -17,13 +17,13 @@
     "APP_CAPABILITIES": "[\"erp-intelligence\",\"accounting\"]",
     "APP_DESCRIPTION": "Corporate ERP intelligence — AI-driven accounting (GL/AP/AR), HR/payroll, procurement, inventory, sales order management. Multi-DID per department.",
     "APP_DISPLAY_NAME": "Kyber ERP",
-    "APP_EMBED_URL": "https://kyb3rerp.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://kyb3rerp.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "kyb3rerp",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message"
   },
   "rules": [
     {
@@ -35,12 +35,12 @@
   ],
   "routes": [
     {
-      "pattern": "kyb3rerp.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "kyb3rerp.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "kyber.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "kyber.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

@@ -9,7 +9,7 @@ Pure-function coverage (no live network):
 - `_doh_fetch` rejects empty domain / disallowed rtype.
 - `resolve` / `resolve_json` reject empty input early (no HTTP call).
 
-Live-network behaviour (resolve('gftd.ai','A') against Cloudflare DoH)
+Live-network behaviour (resolve('etzhayyim.com','A') against Cloudflare DoH)
 is covered by the integration suite so this file stays offline-safe.
 """
 
@@ -51,8 +51,8 @@ _spec.loader.exec_module(D)  # type: ignore[union-attr]
 
 def test_answer_strings_happy():
     body = {"Status": 0, "Answer": [
-        {"name": "gftd.ai", "type": 1, "TTL": 60, "data": "104.21.25.30"},
-        {"name": "gftd.ai", "type": 1, "TTL": 60, "data": "172.67.222.17"},
+        {"name": "etzhayyim.com", "type": 1, "TTL": 60, "data": "104.21.25.30"},
+        {"name": "etzhayyim.com", "type": 1, "TTL": 60, "data": "172.67.222.17"},
     ]}
     assert D._answer_strings(body) == ["104.21.25.30", "172.67.222.17"]
 
@@ -85,8 +85,8 @@ def test_doh_fetch_rejects_empty_domain():
 
 
 def test_doh_fetch_rejects_unknown_rtype():
-    assert D._doh_fetch("gftd.ai", "XYZ") is None
-    assert D._doh_fetch("gftd.ai", "") is None
+    assert D._doh_fetch("etzhayyim.com", "XYZ") is None
+    assert D._doh_fetch("etzhayyim.com", "") is None
 
 
 # ─── resolve / resolve_json early-return shape ─────────────────────────
@@ -105,7 +105,7 @@ def test_resolve_bad_rtype(monkeypatch):
     monkeypatch.setattr(D, "_doh_fetch", lambda *a, **kw: called.append(a) or None)
     # Unknown rtype causes _doh_fetch to short-circuit (returns None) and
     # the result is an empty string.
-    assert D.resolve("gftd.ai", "XYZ") == ""
+    assert D.resolve("etzhayyim.com", "XYZ") == ""
 
 
 def test_resolve_joins_answers(monkeypatch):
@@ -125,18 +125,18 @@ def test_resolve_json_empty_domain(monkeypatch):
 
 
 def test_resolve_json_bad_rtype():
-    out = json.loads(D.resolve_json("gftd.ai", "XYZ"))
+    out = json.loads(D.resolve_json("etzhayyim.com", "XYZ"))
     assert out["error"].startswith("rtype not allowed")
 
 
 def test_resolve_json_fetch_failure(monkeypatch):
     monkeypatch.setattr(D, "_doh_fetch", lambda d, r: None)
-    out = json.loads(D.resolve_json("gftd.ai", "A"))
-    assert out == {"error": "fetch failed", "domain": "gftd.ai", "rtype": "A"}
+    out = json.loads(D.resolve_json("etzhayyim.com", "A"))
+    assert out == {"error": "fetch failed", "domain": "etzhayyim.com", "rtype": "A"}
 
 
 def test_resolve_json_roundtrip(monkeypatch):
     body = {"Status": 0, "Answer": [{"data": "1.2.3.4", "TTL": 60}]}
     monkeypatch.setattr(D, "_doh_fetch", lambda d, r: body)
-    out = json.loads(D.resolve_json("gftd.ai", "A"))
+    out = json.loads(D.resolve_json("etzhayyim.com", "A"))
     assert out == body

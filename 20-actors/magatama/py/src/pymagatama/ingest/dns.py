@@ -10,9 +10,9 @@ from uuid import uuid4
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:scndu0rf.gftd.ai"
-CF_REGISTRAR_DID = "did:web:scndu0rf.gftd.ai:actor:cfRegistrar"
-SQ_EXPORTER_DID = "did:web:sqddf3sp.gftd.ai:actor:sqExporter"
+OWNER_DID = "did:web:scndu0rf.etzhayyim.com"
+CF_REGISTRAR_DID = "did:web:scndu0rf.etzhayyim.com:actor:cfRegistrar"
+SQ_EXPORTER_DID = "did:web:sqddf3sp.etzhayyim.com:actor:sqExporter"
 DOMAIN_RE = re.compile(r"^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$")
 
 
@@ -62,7 +62,7 @@ def ensure_cf_registrar_actor() -> None:
         (vertex_id, sensitivity_ord, owner_did, did, handle, display_name, name, execution_tier, performer_type, status, category, classification, operator, agent_type, runtime_type, ui_type, country, created_at)
         VALUES (%s,0,%s,%s,%s,%s,%s,'T1','service','active','infra','dns-registrar','gftd.co.jp','autonomous','worker','appview','jp',%s)
         ON CONFLICT (vertex_id) DO NOTHING""",
-        (CF_REGISTRAR_DID, OWNER_DID, CF_REGISTRAR_DID, "cf-registrar-scndu0rf.gftd.ai", "Cloudflare Registrar Receiver", "Cloudflare Registrar Receiver", today()),
+        (CF_REGISTRAR_DID, OWNER_DID, CF_REGISTRAR_DID, "cf-registrar-scndu0rf.etzhayyim.com", "Cloudflare Registrar Receiver", "Cloudflare Registrar Receiver", today()),
     )
     profile = {
         "displayName": "Cloudflare Registrar Receiver",
@@ -130,7 +130,7 @@ def transfer_outcome(**kwargs: Any) -> dict[str, Any]:
         return {"error": "result must be success, failure, or aborted"}
     rkey = str(kwargs.get("rkey") or _id("outcome"))
     completed_at = str(kwargs.get("completedAt") or now_iso())
-    zone_did = str(kwargs.get("zoneDid") or f"did:web:dns.gftd.ai:zone:{_domain_slug(domain)}")
+    zone_did = str(kwargs.get("zoneDid") or f"did:web:dns.etzhayyim.com:zone:{_domain_slug(domain)}")
     record = {
         "transferRequestUri": kwargs.get("transferRequestUri") or "",
         "domain": domain,
@@ -155,7 +155,7 @@ def transfer_outcome(**kwargs: Any) -> dict[str, Any]:
         (vertex_id, sensitivity_ord, owner_did, did, handle, display_name, name, execution_tier, performer_type, status, category, classification, operator, agent_type, runtime_type, ui_type, country, created_at)
         VALUES (%s,0,%s,%s,%s,%s,%s,'T1','service','active','dns-zone','cloudflare-zone','gftd.co.jp','logical','db-only','metadata-only','jp',%s)
         ON CONFLICT (vertex_id) DO NOTHING""",
-        (zone_did, OWNER_DID, zone_did, f"{_domain_slug(domain)}.dns.gftd.ai", domain, domain, today()),
+        (zone_did, OWNER_DID, zone_did, f"{_domain_slug(domain)}.dns.etzhayyim.com", domain, domain, today()),
     )
     ownership_id = f"at://{CF_REGISTRAR_DID}/ai.gftd.apps.dns.ownershipTransfer/{_id('own')}"
     ownership = {

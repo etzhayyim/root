@@ -5,7 +5,7 @@ from pymagatama import agent_email_smoke
 
 def test_build_autonomous_email_plan_derives_sender() -> None:
     plan = agent_email_smoke.build_autonomous_email_plan(
-        agent_did="did:web:kami-agent.gftd.ai",
+        agent_did="did:web:kami-agent.etzhayyim.com",
         to="ops@example.com",
         subject="Ping",
         text="hello",
@@ -15,7 +15,7 @@ def test_build_autonomous_email_plan_derives_sender() -> None:
 
     assert plan["dispatchAllowed"] is True
     assert plan["taskType"] == "mailer.sendEmail"
-    assert plan["channelPayload"]["fromAddress"] == "kami-agent@gftd.ai"
+    assert plan["channelPayload"]["fromAddress"] == "kami-agent@etzhayyim.com"
 
 
 def test_send_if_requested_does_not_send_without_live(monkeypatch) -> None:

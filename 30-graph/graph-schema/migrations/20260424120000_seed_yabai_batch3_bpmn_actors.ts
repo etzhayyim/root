@@ -9,7 +9,7 @@ import { sql } from "kysely";
  *
  * Seeds 3 BPMN process definitions + 3 NSID bindings so the
  * bpmn-dispatcher F5 watcher ships them to Zeebe and the per-actor
- * XRPC endpoints (`POST dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.yabai.*`)
+ * XRPC endpoints (`POST dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.yabai.*`)
  * go live within ~30 s of apply.
  *
  * 3 pivots driven by `70-tools/scripts/yabai/expand-coverage.mjs`:
@@ -39,7 +39,7 @@ type BindingSeed = {
   resultTimeoutMs: number;
 };
 
-const OWNER_DID = "did:web:yabai.gftd.ai";
+const OWNER_DID = "did:web:yabai.etzhayyim.com";
 const createdAt = "2026-04-24T12:00:00Z";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -67,13 +67,13 @@ const pivots: Array<{
 ];
 
 const processSeeds: ProcessSeed[] = pivots.map((p) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${p.slug}`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${p.slug}`,
   bpmnProcessId: p.bpmnProcessId,
   sourcePath: `00-contracts/bpmn/ai/gftd/yabai/${p.file}`,
 }));
 
 const bindingSeeds: BindingSeed[] = pivots.map((p) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${p.bindingSlug}`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${p.bindingSlug}`,
   nsid: p.nsid,
   bpmnProcessId: p.bpmnProcessId,
   resultTimeoutMs: p.resultTimeoutMs,

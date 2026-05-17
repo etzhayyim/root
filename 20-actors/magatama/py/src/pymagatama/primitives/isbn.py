@@ -51,7 +51,7 @@ from pymagatama.db_sync import sync_cursor
 # Constants / env
 # ──────────────────────────────────────────────────────────────────────
 
-_ISBN_ACTOR = "did:web:isbn.gftd.ai"
+_ISBN_ACTOR = "did:web:isbn.etzhayyim.com"
 
 _B2_KEY_ID = os.environ.get("B2_ACCESS_KEY_ID", "").strip()
 _B2_KEY = os.environ.get("B2_SECRET_ACCESS_KEY", "").strip()
@@ -87,7 +87,7 @@ def _rw_executemany(sql: str, rows: list[tuple[Any, ...]]) -> None:
 
 
 def _http_get(url: str, headers: dict[str, str] | None = None, timeout: float = 120.0) -> bytes:
-    req = urllib.request.Request(url, headers=headers or {"User-Agent": "isbn.gftd.ai/1.0"}, method="GET")
+    req = urllib.request.Request(url, headers=headers or {"User-Agent": "isbn.etzhayyim.com/1.0"}, method="GET")
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             return resp.read()
@@ -953,7 +953,7 @@ async def task_isbn_ndl_ingest(
     })
     url = f"{base}?{params}"
 
-    raw = _http_get(url, timeout=60.0, headers={"Accept": "application/xml", "User-Agent": "isbn.gftd.ai/1.0"})
+    raw = _http_get(url, timeout=60.0, headers={"Accept": "application/xml", "User-Agent": "isbn.etzhayyim.com/1.0"})
     root = ET.fromstring(raw)
 
     book_batch: list[tuple[Any, ...]] = []

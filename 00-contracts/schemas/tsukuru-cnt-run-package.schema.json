@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/schemas/tsukuru-cnt-run-package.schema.json",
+  "$id": "https://etzhayyim.com/schemas/tsukuru-cnt-run-package.schema.json",
   "title": "Tsukuru CNT Run Package",
   "type": "object",
   "required": ["schema", "runId", "productionOrderId", "processId", "recipeRevision", "productFamily", "recipe", "equipmentBinding", "telemetryBinding", "releasePlan", "ehsInterlocks", "approvals"],

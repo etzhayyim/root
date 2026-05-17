@@ -2,7 +2,7 @@
   "viewId": "open-ports.AV-1",
   "viewType": "AV-1",
   "title": "Overview and Summary Information",
-  "did": "did:web:open-ports.gftd.ai",
+  "did": "did:web:open-ports.etzhayyim.com",
   "format": "json",
   "content": {
     "purpose": "Provide a DID-addressed maritime port operations service (port + vessel + call + container + incident) as an auditable, open-source reference implementation.",

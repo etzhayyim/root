@@ -31,7 +31,7 @@ from typing import Any
 
 LOG = logging.getLogger("lawfirm.cadence")
 
-_FIRM_DID = "did:web:lawfirm.gftd.ai"
+_FIRM_DID = "did:web:lawfirm.etzhayyim.com"
 _OUTBOX_DIR = os.environ.get(
     "LAWFIRM_OUTBOX_DIR",
     "/etc/gftdcojp/outbox",  # ConfigMap mount path in mitama-udf pod
@@ -118,7 +118,7 @@ def _read_eml(rel_path: str) -> dict | None:
     except FileNotFoundError:
         # Fallback: also try repo-relative path during local dev
         repo_path = Path(
-            "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/_working/gftdcojp-revenue"
+            "/Users/junkawasaki/github/etzhayyim/root/_working/gftdcojp-revenue"
         ) / rel_path
         try:
             return _parse_eml(repo_path.read_text(encoding="utf-8"))
@@ -134,7 +134,7 @@ def _read_eml(rel_path: str) -> dict | None:
 
 def _dispatch_send_draft(parsed: dict, send_now: bool = False) -> dict:
     """
-    POST to bpmn-dispatcher → microsoft.gftd.ai sendDraft (default) or sendMail.
+    POST to bpmn-dispatcher → microsoft.etzhayyim.com sendDraft (default) or sendMail.
     gftdcojp_agent rule: external mail defaults to send_now=False (draft only).
     """
     nsid = "ai.gftd.apps.microsoft.sendMail" if send_now else "ai.gftd.apps.microsoft.sendDraft"
@@ -217,7 +217,7 @@ async def task_cadence_dispatch_due_mails(
         result = _dispatch_send_draft(parsed, send_now=send_now)
 
         ev_uri = (
-            f"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.outreachEvent/"
+            f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.outreachEvent/"
             f"{lead_id}-warm-intro-{_dt.datetime.now(tz=_dt.UTC).strftime('%Y%m%d%H%M%S')}"
         )
         _execute(
@@ -374,7 +374,7 @@ async def task_cadence_dispatch_follow_ups(
             result = _dispatch_send_draft(substituted, send_now=send_now)
 
             ev_uri = (
-                f"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.outreachEvent/"
+                f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.outreachEvent/"
                 f"{lead_id}-{cfg['next_kind']}-"
                 f"{_dt.datetime.now(tz=_dt.UTC).strftime('%Y%m%d%H%M%S')}"
             )

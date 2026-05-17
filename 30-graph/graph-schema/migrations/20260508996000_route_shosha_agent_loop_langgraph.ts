@@ -11,11 +11,11 @@
  */
 import { type Kysely, sql } from "kysely";
 
-const ownerDid = "did:web:shosha.gftd.ai";
+const ownerDid = "did:web:shosha.etzhayyim.com";
 const actorTag = "sys.bpmn.route.shosha.langgraph";
 const createdAt = "2026-05-08T09:56:00Z";
 const bindingVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-agentLoop-langgraph-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-agentLoop-langgraph-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`

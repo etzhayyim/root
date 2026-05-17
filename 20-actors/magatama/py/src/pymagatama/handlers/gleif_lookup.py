@@ -10,7 +10,7 @@ SQL usage
 
     INSERT INTO vertex_legal_entity (vertex_id, lei, name, country, jurisdiction, ...)
     SELECT
-      'at://did:web:legal-entity.gftd.ai/ai.gftd.apps.legalEntity.legalEntity/' || lower(m.lei) AS vertex_id,
+      'at://did:web:legal-entity.etzhayyim.com/ai.gftd.apps.legalEntity.legalEntity/' || lower(m.lei) AS vertex_id,
       m.lei,
       m.legal_name,
       m.country,
@@ -73,7 +73,7 @@ log = logging.getLogger(__name__)
 
 _GLEIF_URL = "https://api.gleif.org/api/v1/lei-records"
 _TIMEOUT_SEC = 12
-_UA = "gftd-gleif-udf/1.0 (ops@gftd.ai)"
+_UA = "gftd-gleif-udf/1.0 (ops@etzhayyim.com)"
 _PAGE_SIZE = 5  # match the legacy script; 5 is enough for country disambiguation
 
 

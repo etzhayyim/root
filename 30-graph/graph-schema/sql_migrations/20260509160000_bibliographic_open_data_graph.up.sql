@@ -212,7 +212,7 @@ INSERT INTO vertex_langgraph_assistant
   (vertex_id, _seq, created_date, sensitivity_ord, owner_did, assistant_id,
    version, kind, factory_path, description, created_at)
 VALUES
-  ('biblio_open_data_ingest', 0, DATE '2026-05-09', 2, 'did:web:biblio.gftd.ai',
+  ('biblio_open_data_ingest', 0, DATE '2026-05-09', 2, 'did:web:biblio.etzhayyim.com',
    'biblio_open_data_ingest', 1, 'py_factory',
    'pymagatama.langgraph_graphs.biblio_open_data_ingest',
    'Global national-library/open bibliographic source ingest graph',
@@ -223,5 +223,5 @@ INSERT INTO vertex_langgraph_deployment
    assistant_id, version, status, replicas, updated_at)
 VALUES
   ('langgraph.builtin.biblio_open_data_ingest', 0, DATE '2026-05-09', 2,
-   'did:web:biblio.gftd.ai', 'langgraph.builtin.biblio_open_data_ingest',
+   'did:web:biblio.etzhayyim.com', 'langgraph.builtin.biblio_open_data_ingest',
    'biblio_open_data_ingest', 1, 'active', 1, '2026-05-09T16:00:00Z');

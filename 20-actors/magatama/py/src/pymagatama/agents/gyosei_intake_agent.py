@@ -22,7 +22,7 @@ class GyoseiIntakeState(TypedDict):
 
 async def listen_yoro_messages(state: GyoseiIntakeState) -> GyoseiIntakeState:
     logger.info(f"[gyosei_intake] Listening to messages from {state.get('user_did')}")
-    # Triggered by webhook/poll on yoro.gftd.ai chat/mention
+    # Triggered by webhook/poll on yoro.etzhayyim.com chat/mention
     return state
 
 async def classify_intent(state: GyoseiIntakeState) -> str:

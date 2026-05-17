@@ -20,7 +20,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-ACTOR_DID = "did:web:bpmn.gftd.ai"
+ACTOR_DID = "did:web:bpmn.etzhayyim.com"
 ORG_DID = "anon"
 CHAIN_ID = int(os.environ.get("AGENT_ECONOMY_CHAIN_ID", "260425"))
 ESCROW_ADDR = os.environ.get("AGENT_RUNTIME_LEASE_ESCROW_ADDR", "").strip()
@@ -61,7 +61,7 @@ def _id(prefix: str, *parts: Any) -> str:
 
 
 def _vid(collection: str, ident: str) -> str:
-    return f"at://did:web:agent.gftd.ai/ai.gftd.agent.{collection}/{ident}"
+    return f"at://did:web:agent.etzhayyim.com/ai.gftd.agent.{collection}/{ident}"
 
 
 def _canonical_hash(payload: dict[str, Any]) -> str:

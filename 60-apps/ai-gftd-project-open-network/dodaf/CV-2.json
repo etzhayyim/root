@@ -2,7 +2,7 @@
   "viewId": "open-network.CV-2",
   "viewType": "CV-2",
   "title": "Capability Taxonomy",
-  "did": "did:web:open-network.gftd.ai",
+  "did": "did:web:open-network.etzhayyim.com",
   "format": "json",
   "content": {
     "capabilities": [

@@ -61,12 +61,12 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ──────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs2022', 'hs2022.gftd.ai', 6939, 'products', 'trade')
+    VALUES ('hs2022', 'hs2022.etzhayyim.com', 6939, 'products', 'trade')
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('sitc', 'sitc.gftd.ai', 5484, 'products', 'trade')
+    VALUES ('sitc', 'sitc.etzhayyim.com', 5484, 'products', 'trade')
   `.execute(db);
 }
 

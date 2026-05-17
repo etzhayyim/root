@@ -106,7 +106,7 @@ class TestCheckoutCreate(unittest.TestCase):
             amount_minor=500000,
             currency="USD",
             matter_uri="at://test/m/3",
-            client_did="did:web:nishith-test.gftd.ai",
+            client_did="did:web:nishith-test.etzhayyim.com",
             stream="saas-pilot",
             metadata='{"campaign":"y1-pilot","logo":"nishith"}',
         ))

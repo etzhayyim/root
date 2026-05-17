@@ -111,7 +111,7 @@ def test_sync_due_connections_delegates_to_kouza_core(monkeypatch):
     connection_did = "at://did:web:owner/ai.gftd.apps.kouza.institutionConnection/conn-a"
     factory = _SyncCursorFactory([(connection_did, "did:web:owner", "mock-provider")])
     monkeypatch.setattr(K, "sync_cursor", factory)
-    monkeypatch.setenv("KOUZA_CORE_URL", "https://kouza.gftd.ai")
+    monkeypatch.setenv("KOUZA_CORE_URL", "https://kouza.etzhayyim.com")
 
     calls = []
 
@@ -139,7 +139,7 @@ def test_sync_due_connections_delegates_to_kouza_core(monkeypatch):
     assert out["adapterMode"] == "kouza-core"
     assert out["syncRunsCreated"] == 1
     assert out["syncRunDids"] == ["at://did:web:owner/ai.gftd.apps.kouza.syncRun/sync-core"]
-    assert calls[0][0] == "https://kouza.gftd.ai/xrpc/ai.gftd.apps.kouza.syncConnection"
+    assert calls[0][0] == "https://kouza.etzhayyim.com/xrpc/ai.gftd.apps.kouza.syncConnection"
     assert b'"connectionDid":"at://did:web:owner/ai.gftd.apps.kouza.institutionConnection/conn-a"' in calls[0][1]
     assert len(factory.cursors) == 1
 

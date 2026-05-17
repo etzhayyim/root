@@ -156,9 +156,9 @@ async function syncFlows(db: Kysely<unknown>, budgetBookVertexId: string, rows: 
         source_url, published_date, data_source, derivation_stage,
         confidence, created_at
       ) VALUES (
-        ${edgeId}, ${createdDate}, 1, 'did:web:gov-jpn.gftd.ai:mof',
+        ${edgeId}, ${createdDate}, 1, 'did:web:gov-jpn.etzhayyim.com:mof',
         ${budgetBookVertexId}, ${row.vertex_id}, 'appropriation', 'ai.gftd.apps.jpFiscal.appropriation',
-        'did:web:gov-jpn.gftd.ai:treasury', ${row.ministry_did}, ${row.amount_jpy}, ${row.fiscal_year},
+        'did:web:gov-jpn.etzhayyim.com:treasury', ${row.ministry_did}, ${row.amount_jpy}, ${row.fiscal_year},
         ${row.program_code}, NULL, NULL, NULL,
         ${row.ministry_did}, ${row.program_name}, 'government_ministry', NULL,
         ${row.source_url}, NULL, ${row.source_id}, 'L7_TO_L5_APPROPRIATION',

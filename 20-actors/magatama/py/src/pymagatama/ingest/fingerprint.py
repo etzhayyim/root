@@ -31,7 +31,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger(__name__)
 
-INGEST_ACTOR = "did:web:ingest.gftd.ai"
+INGEST_ACTOR = "did:web:ingest.etzhayyim.com"
 SOURCE_ID = "netintel-fingerprint"
 _HTTPS_PORT = 443
 _HTTP_PORT = 80
@@ -73,7 +73,7 @@ def _insert_fingerprint(host: str, port: int, fp: dict, run_id: str) -> bool:
     ts = now_iso()
     proto = "tls" if port == _HTTPS_PORT else "tcp"
     vertex_id = (
-        f"at://did:web:ingest.gftd.ai/ai.gftd.apps.collector.scanResult"
+        f"at://did:web:ingest.etzhayyim.com/ai.gftd.apps.collector.scanResult"
         f"/{host}:{port}:fp"
     )
     sql = (

@@ -11,10 +11,10 @@ const sourcePath = "00-contracts/bpmn/ai/gftd/flight-offer/searchOffers.bpmn";
 const xml = () => readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
 
 const processVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-search-offers-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-search-offers-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-search-offers-v1";
-const ownerDid = "did:web:flight-offer.gftd.ai";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-search-offers-v1";
+const ownerDid = "did:web:flight-offer.etzhayyim.com";
 const createdAt = "2026-04-27T12:00:00Z";
 const actorTag = "sys.bpmn.seed.flight-offer";
 

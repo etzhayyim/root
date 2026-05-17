@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 // Phase 10 — cluster-wide resource-flow projection (ADR-0028).
 //
-// resource-flow.gftd.ai consumes the firehose for the 3 private-sector
+// resource-flow.etzhayyim.com consumes the firehose for the 3 private-sector
 // flow NSIDs and materializes them into 3 vertex tables + 3 sankey-ready
 // MVs. Tables are intentionally cluster-wide (not yadoya-specific) so
 // future emitters (mangaka revenue, ohsi service, kaisya personnel etc.)

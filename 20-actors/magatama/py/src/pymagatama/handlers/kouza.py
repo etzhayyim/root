@@ -1,4 +1,4 @@
-"""kouza.gftd.ai resident scheduler and MCP-facing control handlers."""
+"""kouza.etzhayyim.com resident scheduler and MCP-facing control handlers."""
 
 from __future__ import annotations
 

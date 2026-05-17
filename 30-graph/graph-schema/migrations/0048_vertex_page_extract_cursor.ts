@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0048: per-domain extraction cursor columns on vertex_page (2026-04-14).
  *
- * Supports the commoncrawl.gftd.ai CF Worker entity-extraction pipeline
+ * Supports the commoncrawl.etzhayyim.com CF Worker entity-extraction pipeline
  * (`60-apps/ai-gftd-project-common-crawl/appview/.../src/app.ts`).
  *
  * Each `extracted_for_<domain>` column records when the Worker processed

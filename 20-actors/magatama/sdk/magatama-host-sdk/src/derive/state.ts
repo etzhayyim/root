@@ -24,7 +24,7 @@ import type { SelfRef } from "./template.js";
 
 const CAP = 10_000;
 
-/** sourceUri (e.g. at://mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.chapter/<rkey>) → derived post strongRef */
+/** sourceUri (e.g. at://mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.chapter/<rkey>) → derived post strongRef */
 const derivedLinks = new Map<string, SelfRef>();
 
 /** Insertion-order eviction when over CAP (simple LRU-ish bound). */

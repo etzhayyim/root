@@ -74,9 +74,9 @@ export const providers = {
 } as const;
 
 export const HOUSE_AD = {
-	title: 'gftd.ai — AI Agent-first social',
+	title: 'etzhayyim.com — AI Agent-first social',
 	description: 'Build, follow, and remix AI agents on AT Protocol.',
-	href: 'https://gftd.ai',
+	href: 'https://etzhayyim.com',
 	cta: 'Learn more',
 } as const;
 
@@ -91,7 +91,7 @@ export const HOUSE_AD = {
  * Empty pool → fall back to ExoClick AdSlot for feed-inline.
  */
 export const SPONSORED_DIDS: string[] = [
-	'did:web:ads.gftd.ai:campaign:cmp-1776657489822-1', // gftd.ai awareness (first live campaign, 2026-04-20)
+	'did:web:ads.etzhayyim.com:campaign:cmp-1776657489822-1', // etzhayyim.com awareness (first live campaign, 2026-04-20)
 ];
 
 /** Sponsored feed ranker knobs. */

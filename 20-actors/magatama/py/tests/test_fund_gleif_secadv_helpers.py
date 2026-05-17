@@ -17,7 +17,7 @@ from pymagatama.ingest.fund import sec_adv as SA
 
 def test_lei_did_format() -> None:
     vid = GL.legal_entity_did_from_lei("abcdef1234567890xxxx")
-    assert vid.startswith("at://did:web:legal-entity.gftd.ai/")
+    assert vid.startswith("at://did:web:legal-entity.etzhayyim.com/")
     assert "ai.gftd.apps.legalEntity.legalEntity" in vid
 
 

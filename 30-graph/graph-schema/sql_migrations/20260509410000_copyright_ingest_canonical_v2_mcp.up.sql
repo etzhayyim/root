@@ -17,26 +17,26 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-fetchCrossref',
-   0, 0, 'ai.gftd.apps.copyright.fetchCrossref', 'did:web:copyright.gftd.ai', 'copyright.gftd.ai', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-fetchCrossref',
+   0, 0, 'ai.gftd.apps.copyright.fetchCrossref', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright fetch Crossref (shelf-stocked, py_primitive grandfather in v2).',
    '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/copyright/fetchCrossref.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-insertCrossref',
-   0, 0, 'ai.gftd.apps.copyright.insertCrossref', 'did:web:copyright.gftd.ai', 'copyright.gftd.ai', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-insertCrossref',
+   0, 0, 'ai.gftd.apps.copyright.insertCrossref', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright insert Crossref rows (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/copyright/insertCrossref.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-fetchDatacite',
-   0, 0, 'ai.gftd.apps.copyright.fetchDatacite', 'did:web:copyright.gftd.ai', 'copyright.gftd.ai', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-fetchDatacite',
+   0, 0, 'ai.gftd.apps.copyright.fetchDatacite', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright fetch DataCite (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/copyright/fetchDatacite.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-insertDatacite',
-   0, 0, 'ai.gftd.apps.copyright.insertDatacite', 'did:web:copyright.gftd.ai', 'copyright.gftd.ai', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-insertDatacite',
+   0, 0, 'ai.gftd.apps.copyright.insertDatacite', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright insert DataCite rows (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/copyright/insertDatacite.json',
@@ -49,7 +49,7 @@ VALUES
   ('copyright_ingest.v2', 0, 0, 'copyright_ingest.v2', 2, 'topology', NULL,
    '{"state_keys":["crossrefItems","dataciteItems","crossrefRows","dataciteRows","auditOut","crossrefError","dataciteError","ok","error"],"entry":"fetch_crossref","edges":[{"from":"fetch_crossref","to":"insert_crossref"},{"from":"insert_crossref","to":"fetch_datacite"},{"from":"fetch_datacite","to":"insert_datacite"},{"from":"insert_datacite","to":"emit_audit"},{"from":"emit_audit","to":"END"}]}',
    'copyright ingest (topology v2, 1/5 mcp_tool + 4 grandfather)', '2026-05-09T00:00:00Z',
-   'rw_vertex', 'did:web:agent.copyright.gftd.ai');
+   'rw_vertex', 'did:web:agent.copyright.etzhayyim.com');
 
 INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
@@ -64,7 +64,7 @@ VALUES
    'py_primitive', 'pymagatama.langgraph_graphs.copyright_ingest:insert_datacite', NULL, '2026-05-09T00:00:00Z'), -- lint-py-primitive-ok
   ('copyright_ingest.v2:emit_audit', 0, 0, 'copyright_ingest.v2', 'emit_audit',
    'mcp_tool', 'mcp://ai.gftd.tools.audit.emit',
-   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:copyright.gftd.ai","collection":"ai.gftd.apps.copyright.audit","action":"ingest"}}',
+   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:copyright.etzhayyim.com","collection":"ai.gftd.apps.copyright.audit","action":"ingest"}}',
    '2026-05-09T00:00:00Z');
 
 UPDATE vertex_langgraph_assistant SET superseded_by = 'copyright_ingest.v2'

@@ -5,7 +5,7 @@ import { sql } from "kysely";
 // tier: B
 
 /**
- * vertex_hc_* — hc.gftd.ai Human Computing Platform typed tables
+ * vertex_hc_* — hc.etzhayyim.com Human Computing Platform typed tables
  *
  * Replaces `catch_all_vertex` + `props::jsonb` JSON-scan reads with typed projections.
  * Graph-worker convention fallback (`nsidToConventionTable` in

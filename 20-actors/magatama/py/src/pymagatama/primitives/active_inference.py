@@ -144,7 +144,7 @@ def _parse_iso(value: str) -> datetime | None:
         return None
 
 
-def sender_email_for_agent(agent_did: str, domain: str = "gftd.ai") -> str:
+def sender_email_for_agent(agent_did: str, domain: str = "etzhayyim.com") -> str:
     value = _str(agent_did).strip().lower()
     if value.startswith("did:web:"):
         host = value.removeprefix("did:web:").split(":")[0]
@@ -991,7 +991,7 @@ def build_dispatch_receipt_observation(
 def inbound_email_to_observation(email: dict[str, Any], agent_did: str = "") -> dict[str, Any]:
     now = _now_iso()
     to_local = _str(email.get("toLocal") or email.get("to_local"))
-    resolved_agent = agent_did or (f"did:web:{to_local}.gftd.ai" if to_local else "")
+    resolved_agent = agent_did or (f"did:web:{to_local}.etzhayyim.com" if to_local else "")
     payload = {
         "uri": email.get("uri") or email.get("vertex_id") or "",
         "messageId": email.get("messageId") or email.get("message_id") or "",

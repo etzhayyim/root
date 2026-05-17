@@ -7,7 +7,7 @@ if (!connectionString) {
 }
 
 const timeoutMs = Number(process.env.GOV_AGO_VERIFY_TIMEOUT_MS || 15000);
-const owner = "did:web:ago-state.gftd.ai";
+const owner = "did:web:ago-state.etzhayyim.com";
 const rkeys = [
   "ago-ministro-8c8c8b4d31-11400000",
   "ago-governador-e495bf67e7-11400000",

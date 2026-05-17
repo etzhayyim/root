@@ -6,8 +6,8 @@
 package streams
 
 import (
-	ioerror "github.com/gftdcojp/spin-tinygo-flight/grpc/internal/gen/wasi/io/error"
-	"github.com/gftdcojp/spin-tinygo-flight/grpc/internal/gen/wasi/io/poll"
+	ioerror "github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc/internal/gen/wasi/io/error"
+	"github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc/internal/gen/wasi/io/poll"
 	"go.bytecodealliance.org/cm"
 )
 

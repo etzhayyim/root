@@ -1,6 +1,6 @@
 """Intel dependency-graph inference primitives (ADR-0056 BPMN-as-actor).
 
-Implements 10 Zeebe task types for the intel.gftd.ai actor:
+Implements 10 Zeebe task types for the intel.etzhayyim.com actor:
   intel.run.create           — create vertex_intel_inference_run row
   intel.candidate.scan       — scan vertex_intel_subject for infer candidates
   intel.owl.validate         — ontology consistency check on candidates
@@ -27,7 +27,7 @@ from pymagatama.db_sync import sync_cursor
 from pymagatama import llm as _llm
 
 
-_OWNER_DID = "did:web:intel.gftd.ai"
+_OWNER_DID = "did:web:intel.etzhayyim.com"
 _COLLECTION_RUN = "ai.gftd.apps.intel.inferenceRun"
 _COLLECTION_EDGE = "ai.gftd.apps.intel.dependency"
 

@@ -168,10 +168,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         iteration, lineage_parent, model_id,
         created_at
       ) VALUES (
-        ${`at://did:web:gameka.gftd.ai/ai.gftd.apps.gameka.gameSpec/${s.specId}`},
-        ${"did:web:gameka.gftd.ai"},
+        ${`at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameSpec/${s.specId}`},
+        ${"did:web:gameka.etzhayyim.com"},
         ${s.specId},
-        ${"did:web:gameka.gftd.ai"},
+        ${"did:web:gameka.etzhayyim.com"},
         ${s.specId},
         ${s.brief},
         ${s.title},

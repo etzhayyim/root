@@ -66,7 +66,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       last_modified_hf     VARCHAR,               -- HF lastModified ISO string
 
       -- ADR-0095 canonical columns
-      actor_did            VARCHAR DEFAULT 'did:web:ingest.gftd.ai',
+      actor_did            VARCHAR DEFAULT 'did:web:ingest.etzhayyim.com',
       org_did              VARCHAR,
       at_did               VARCHAR,
       created_at           TIMESTAMP NOT NULL

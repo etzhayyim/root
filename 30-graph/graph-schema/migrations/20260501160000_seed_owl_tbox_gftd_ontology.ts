@@ -19,12 +19,12 @@ import { Kysely, sql } from "kysely";
 //   edge_owl_property_domain.from_vertex_id = v_rdf_triple.predicate
 // so full-URI vertex IDs would produce zero matches.
 //
-// IRI convention:  https://schema.gftd.ai/owl#{LocalName}
+// IRI convention:  https://schema.etzhayyim.com/owl#{LocalName}
 // Profile:         gftd_core_v1
 // Applied via:     psql (ADR-2604241342 out-of-band pattern)
 
 const PROFILE = "gftd_core_v1";
-const NS = "https://schema.gftd.ai/owl#";
+const NS = "https://schema.etzhayyim.com/owl#";
 const XSD = "http://www.w3.org/2001/XMLSchema#";
 const RDFS_NS = "http://www.w3.org/2000/01/rdf-schema#";
 const SOURCE = "ai.gftd.apps.owl.seedTbox";

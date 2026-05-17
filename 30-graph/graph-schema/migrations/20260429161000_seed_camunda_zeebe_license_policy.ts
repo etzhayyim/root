@@ -6,11 +6,11 @@ import { sql } from "kysely";
 // Seed software-compliance knowledge for LLM RAG. This records the current
 // Camunda/Zeebe licensing posture used by the BPMN-as-actor runtime.
 
-const ownerDid = "did:web:llm.gftd.ai";
-const actorDid = "did:web:bpmn.gftd.ai";
+const ownerDid = "did:web:llm.etzhayyim.com";
+const actorDid = "did:web:bpmn.etzhayyim.com";
 const createdAt = "2026-04-29T16:10:00+09:00";
 const docVid =
-  "at://did:web:llm.gftd.ai/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429";
+  "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429";
 
 const body = [
   "Camunda/Zeebe runtime policy as of 2026-04-29: GFTD pins the self-managed Zeebe broker to camunda/zeebe:8.5.23 as a short-term Zeebe-only compatibility track.",
@@ -30,7 +30,7 @@ const chunks = [
 
 const sources = [
   {
-    vid: "at://did:web:llm.gftd.ai/ai.gftd.apps.llm.knowledgeSource/camunda-pricing-self-managed",
+    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-pricing-self-managed",
     url: "https://camunda.com/pricing/",
     title: "Camunda pricing: Self-Managed Free and Enterprise",
     kind: "vendor-pricing",
@@ -38,7 +38,7 @@ const sources = [
     confidence: "high",
   },
   {
-    vid: "at://did:web:llm.gftd.ai/ai.gftd.apps.llm.knowledgeSource/camunda-license-reference",
+    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-license-reference",
     url: "https://docs.camunda.io/docs/reference/licenses/",
     title: "Camunda 8 license reference",
     kind: "vendor-license-doc",
@@ -46,7 +46,7 @@ const sources = [
     confidence: "high",
   },
   {
-    vid: "at://did:web:llm.gftd.ai/ai.gftd.apps.llm.knowledgeSource/camunda-8-5-release-notes",
+    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-8-5-release-notes",
     url: "https://docs.camunda.io/docs/8.5/reference/release-notes/850/",
     title: "Camunda 8.5 release notes and maintenance window",
     kind: "vendor-release-notes",
@@ -54,7 +54,7 @@ const sources = [
     confidence: "high",
   },
   {
-    vid: "at://did:web:llm.gftd.ai/ai.gftd.apps.llm.knowledgeSource/camunda-2024-license-update",
+    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-2024-license-update",
     url: "https://camunda.com/blog/2024/04/licensing-update-camunda-8-self-managed/",
     title: "Camunda 8 Self-Managed licensing update",
     kind: "vendor-license-blog",

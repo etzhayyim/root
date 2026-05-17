@@ -235,12 +235,12 @@ def load_resend_domain_statuses() -> dict[str, str]:
 
 def diagnose_email_live_channel(
     *,
-    domains: tuple[str, ...] = ("gftd.ai", "mailer.gftd.ai"),
+    domains: tuple[str, ...] = ("etzhayyim.com", "mailer.etzhayyim.com"),
 ) -> dict[str, Any]:
     dns: dict[str, dict[str, Any]] = {}
     blockers: list[str] = []
     resend_domain_statuses = load_resend_domain_statuses()
-    active_domain = "gftd.ai"
+    active_domain = "etzhayyim.com"
     for domain in domains:
         txt = _dig_short("TXT", domain)
         send_txt = _dig_short("TXT", f"send.{domain}")

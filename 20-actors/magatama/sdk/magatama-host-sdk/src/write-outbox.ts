@@ -53,7 +53,7 @@ export async function archiveToOutbox(
       error_message: e.error,
       retry_count: e.retryCount,
       created_date: new Date().toISOString().slice(0, 10),
-      owner_did: `did:web:${e.appNanoid}.gftd.ai`,
+      owner_did: `did:web:${e.appNanoid}.etzhayyim.com`,
     }));
     await db.insertInto("vertex_write_outbox").values(rows).execute();
     console.info(`[write-outbox] archived ${entries.length} failed writes`);

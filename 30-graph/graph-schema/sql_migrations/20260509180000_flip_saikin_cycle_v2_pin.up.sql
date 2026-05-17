@@ -2,7 +2,7 @@
 --
 -- Pre-conditions (operator must verify before applying):
 --   1. r_20260509160000_seed_saikin_mcp_tools applied — vertex_mcp_tool_def
---      has 5 enabled rows for ai.gftd.apps.saikin.* with actor_host=saikin.gftd.ai.
+--      has 5 enabled rows for ai.gftd.apps.saikin.* with actor_host=saikin.etzhayyim.com.
 --      Verify:
 --        SELECT nsid, actor_host, enabled FROM vertex_mcp_tool_def
 --         WHERE nsid LIKE 'ai.gftd.apps.saikin.%';
@@ -14,10 +14,10 @@
 --   3. dispatcher (pymagatama/dispatcher_main.py) is deployed with the
 --      `/xrpc/ai.gftd.mcp.message` route registered (commit that touches
 --      `pymagatama/mcp_dispatch.py` is live).
---   4. saikin.gftd.ai Worker (`60-apps/ai-gftd-project-saikin/src/app.ts`) is
+--   4. saikin.etzhayyim.com Worker (`60-apps/ai-gftd-project-saikin/src/app.ts`) is
 --      deployed with the MCP_NSID branch in fetch().
 --   5. End-to-end smoke test passed:
---        curl -X POST https://saikin.gftd.ai/xrpc/ai.gftd.mcp.message \
+--        curl -X POST https://saikin.etzhayyim.com/xrpc/ai.gftd.mcp.message \
 --          -H 'Content-Type: application/json' \
 --          -d '{"method":"tools/call","params":{"name":"ai.gftd.apps.saikin.probeEnvironment","arguments":{}}}'
 --      → 200 OK with `{"result":{"signalCount":...,"signals":[...]}}`.

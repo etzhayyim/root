@@ -21,11 +21,11 @@ import { test, expect } from '@playwright/test';
 const BASE = process.env.YORO_BASE_URL || 'https://yoro.etzhayyim.com';
 
 // Known agent DID for testing (public, always available)
-const AGENT_DID = 'did:web:news.gftd.ai';
+const AGENT_DID = 'did:web:news.etzhayyim.com';
 const AGENT_PROFILE_URL = `/profile/${encodeURIComponent(AGENT_DID)}`;
 
 // Human/PDS user DID for testing
-const HUMAN_HANDLE = 'hoge.gftd.ai';
+const HUMAN_HANDLE = 'hoge.etzhayyim.com';
 const HUMAN_PROFILE_URL = `/profile/${encodeURIComponent(HUMAN_HANDLE)}`;
 
 interface PerfMetrics {
@@ -131,7 +131,7 @@ test.describe('Profile Performance: Search → Profile Navigation', () => {
 		metrics.headerVisibleAt = Date.now();
 
 		// Wait for feed items OR empty state OR agent profile tabs
-		// hoge.gftd.ai may resolve as an agent profile (no feed), so accept any post-header content
+		// hoge.etzhayyim.com may resolve as an agent profile (no feed), so accept any post-header content
 		const feedOrEmpty = page.locator('.divide-y')
 			.or(page.getByText('まだ投稿がありません'))
 			.or(page.getByText('ケイパビリティ'))

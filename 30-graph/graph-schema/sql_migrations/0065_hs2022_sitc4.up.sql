@@ -25,7 +25,7 @@ CREATE VIEW IF NOT EXISTS view_sitc_commodity AS
     WHERE collection = 'ai.gftd.apps.sitc.commodity';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs2022', 'hs2022.gftd.ai', 6939, 'products', 'trade');
+    VALUES ('hs2022', 'hs2022.etzhayyim.com', 6939, 'products', 'trade');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('sitc', 'sitc.gftd.ai', 5484, 'products', 'trade');
+    VALUES ('sitc', 'sitc.etzhayyim.com', 5484, 'products', 'trade');

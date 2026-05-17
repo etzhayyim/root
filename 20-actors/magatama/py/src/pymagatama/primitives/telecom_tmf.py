@@ -27,7 +27,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-TELECOM_DID = "did:web:telecom.gftd.ai"
+TELECOM_DID = "did:web:telecom.etzhayyim.com"
 ACTOR_TAG = "sys.worker.telecom.tmf"
 
 LIFECYCLE_STATUS_PRODUCT_OFFERING = {

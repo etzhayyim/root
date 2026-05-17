@@ -127,7 +127,7 @@ describe("Recruit real job ingest", () => {
     expect(deploymentManifest).toContain("readinessProbe");
     expect(deploymentManifest).toContain("livenessProbe");
     expect(deploymentManifest).toContain("INTERNAL_TRUST");
-    expect(deploymentManifest).toContain("gftd.ai/agent-invoke-command: recruitIngestJobPostings");
+    expect(deploymentManifest).toContain("etzhayyim.com/agent-invoke-command: recruitIngestJobPostings");
   });
 
   it("defines a scheduled public job ingest CronJob that triggers the worker", () => {

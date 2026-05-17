@@ -30,7 +30,7 @@ from typing import Any, Iterable
 
 from pydantic import BaseModel, Field, HttpUrl
 
-USER_AGENT = "gftd-yoro-product-ingest/1.0 (+https://yoro.gftd.ai/bot)"
+USER_AGENT = "gftd-yoro-product-ingest/1.0 (+https://yoro.etzhayyim.com/bot)"
 DEFAULT_TIMEOUT = 15
 DEFAULT_MAX_ITEMS = 20
 

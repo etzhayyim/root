@@ -1,7 +1,7 @@
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-const ownerDid = "did:web:flight-offer.gftd.ai";
+const ownerDid = "did:web:flight-offer.etzhayyim.com";
 const createdAt = "2026-04-27T15:01:00Z";
 const actorTag = "sys.bpmn.seed.flight-offer";
 

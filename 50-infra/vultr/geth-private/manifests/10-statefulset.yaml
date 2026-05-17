@@ -23,7 +23,7 @@ metadata:
   namespace: geth-private
   labels:
     app.kubernetes.io/name: geth-private
-    gftd.ai/chain: "260425"
+    etzhayyim.com/chain: "260425"
 spec:
   serviceName: geth-private
   replicas: 1
@@ -34,7 +34,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: geth-private
-        gftd.ai/chain: "260425"
+        etzhayyim.com/chain: "260425"
     spec:
       terminationGracePeriodSeconds: 60
       securityContext:

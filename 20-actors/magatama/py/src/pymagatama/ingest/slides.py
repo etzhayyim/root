@@ -14,7 +14,7 @@ from pymagatama.db_sync import sync_cursor
 SLIDES_TOKEN_TABLE = "vertex_gslides_oauth_token"
 SLIDES_PRESENTATION_TABLE = "vertex_gslides_presentation"
 SLIDES_SLIDE_TABLE = "vertex_gslides_slide"
-ACTOR_DID = "did:web:slides.gftd.ai"
+ACTOR_DID = "did:web:slides.etzhayyim.com"
 GSLIDES_MIME = "application/vnd.google-apps.presentation"
 
 

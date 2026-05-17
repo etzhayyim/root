@@ -62,7 +62,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('iso639', 'iso639.gftd.ai', 184, 'languages', 'culture')
+    VALUES ('iso639', 'iso639.etzhayyim.com', 184, 'languages', 'culture')
   `.execute(db);
 
   await sql`DELETE FROM edge_classified_as WHERE system = 'iso3166_m49'`.execute(db);

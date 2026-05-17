@@ -43,7 +43,7 @@ INSERT INTO vertex_live_room (
       name, description, actor_did, org_did, at_did, created_at
     )
     VALUES (
-      'at://did:web:live.gftd.ai/ai.gftd.apps.live.room/demo',
+      'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',
       'demo',
       128.0,
       1777380000.0,
@@ -55,8 +55,8 @@ INSERT INTO vertex_live_room (
       600,
       'live demo room',
       'Open virtual concert room — mitama actors join, dance, converse via the BPMN show flow at apps/live/showFlow.bpmn.',
-      'did:web:live.gftd.ai',
+      'did:web:live.etzhayyim.com',
       'anon',
-      'did:web:live.gftd.ai',
+      'did:web:live.etzhayyim.com',
       '2026-04-29T00:00:00Z'
     );

@@ -11,8 +11,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/gftdcojp/nats-jetstream-objectstore-s3/internal/auth"
-	"github.com/gftdcojp/nats-jetstream-objectstore-s3/internal/backend"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-objectstore-s3/internal/auth"
+	"github.com/etzhayyim/root/50-infra/nats-jetstream-objectstore-s3/internal/backend"
 	"go.uber.org/zap"
 )
 

@@ -76,7 +76,7 @@ def build_app() -> Any:
         return bool(req.headers.get("x-internal-trust"))
 
     def _resolve_caller(req: Request) -> tuple[str, str]:
-        actor = req.headers.get("x-gftd-actor-did") or os.environ.get("GFTD_DEV_ACTOR_DID", "did:web:voxelforge.gftd.ai")
+        actor = req.headers.get("x-gftd-actor-did") or os.environ.get("GFTD_DEV_ACTOR_DID", "did:web:voxelforge.etzhayyim.com")
         org = req.headers.get("x-gftd-org-did") or os.environ.get("GFTD_DEV_ORG_DID", "did:erc725:gftd:260425:dev")
         return actor, org
 
@@ -88,7 +88,7 @@ def build_app() -> Any:
     async def meta() -> dict[str, Any]:
         return {
             "app": "voxelforge-langgraph",
-            "did": "did:web:voxelforge.gftd.ai",
+            "did": "did:web:voxelforge.etzhayyim.com",
             "layer": "L3-execution",
             "runtime": "langgraph-server+granian",
             "graph_nodes": [

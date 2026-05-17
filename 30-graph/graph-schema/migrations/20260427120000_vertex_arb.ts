@@ -4,7 +4,7 @@ import { sql } from "kysely";
 // ADR-0040 vertex tier: tier B (public market data + educational proposals;
 // no PII, no execution). All sources are public delayed/EOD feeds.
 //
-// arbitrage cluster (arb.gftd.ai) — proposes cross-venue / cross-asset
+// arbitrage cluster (arb.etzhayyim.com) — proposes cross-venue / cross-asset
 // arbitrage signals across stocks, real estate, futures, commodities, FX,
 // crypto. EDUCATIONAL ONLY — no broker bindings, no execution paths.
 //

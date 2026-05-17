@@ -168,12 +168,12 @@ type State = {
   activities: Activity[];
 };
 
-const TENANT_DID = "did:web:demo-opensaas.gftd.ai";
-const OWNER_DID = "did:web:demo-opensaas.gftd.ai:seat:ae-01";
+const TENANT_DID = "did:web:demo-opensaas.etzhayyim.com";
+const OWNER_DID = "did:web:demo-opensaas.etzhayyim.com:seat:ae-01";
 
 function seed(): State {
   const acctA: Account = {
-    uri: "at://demo-opensaas.gftd.ai/ai.gftd.apps.opensaas.salesforce.account/acct-acme",
+    uri: "at://demo-opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.account/acct-acme",
     tenantDid: TENANT_DID,
     ownerDid: OWNER_DID,
     name: "Acme Robotics K.K.",
@@ -185,7 +185,7 @@ function seed(): State {
     createdAt: iso(-72),
   };
   const contactA: Contact = {
-    uri: "at://demo-opensaas.gftd.ai/ai.gftd.apps.opensaas.salesforce.contact/ctc-acme-cto",
+    uri: "at://demo-opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.contact/ctc-acme-cto",
     tenantDid: TENANT_DID,
     accountDid: acctA.uri,
     emailHash: "sha256:demo-cto-hash",
@@ -196,7 +196,7 @@ function seed(): State {
     createdAt: iso(-72),
   };
   const oppA: Opportunity = {
-    uri: "at://demo-opensaas.gftd.ai/ai.gftd.apps.opensaas.salesforce.opportunity/opp-acme-q2",
+    uri: "at://demo-opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.opportunity/opp-acme-q2",
     tenantDid: TENANT_DID,
     accountDid: acctA.uri,
     primaryContactDid: contactA.uri,
@@ -212,7 +212,7 @@ function seed(): State {
     lastStageChangeAt: iso(-3 * 24),
   };
   const leadA: Lead = {
-    uri: "at://demo-opensaas.gftd.ai/ai.gftd.apps.opensaas.salesforce.lead/lead-inbound-001",
+    uri: "at://demo-opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.lead/lead-inbound-001",
     tenantDid: TENANT_DID,
     ownerDid: OWNER_DID,
     companyLabel: "Nihon MegaMaker Inc.",
@@ -225,7 +225,7 @@ function seed(): State {
     createdAt: iso(-5 * 24),
   };
   const caseA: Case = {
-    uri: "at://demo-opensaas.gftd.ai/ai.gftd.apps.opensaas.salesforce.case/case-acme-0001",
+    uri: "at://demo-opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.case/case-acme-0001",
     tenantDid: TENANT_DID,
     accountDid: acctA.uri,
     contactDid: contactA.uri,
@@ -255,8 +255,8 @@ export function getBlueprint() {
     app: "salesforce-crm-sfcrm9x3",
     tenancy: {
       model: "actor-did-per-tenant",
-      tenantDidFormat: "did:web:<slug>.opensaas.gftd.ai",
-      seatDidFormat: "did:web:<slug>.opensaas.gftd.ai:seat:<role>-<nn>",
+      tenantDidFormat: "did:web:<slug>.opensaas.etzhayyim.com",
+      seatDidFormat: "did:web:<slug>.opensaas.etzhayyim.com:seat:<role>-<nn>",
     },
     lexicons: [
       "ai.gftd.apps.opensaas.salesforce.account",

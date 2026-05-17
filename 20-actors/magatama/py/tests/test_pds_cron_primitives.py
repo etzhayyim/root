@@ -50,7 +50,7 @@ class TestPdsHeartbeat:
 
     def test_task_no_secret_returns_error(self, _stub_db):
         result = asyncio.run(PH.task_pds_heartbeat_run(
-            pdsUrl="https://atproto.gftd.ai", flush=False
+            pdsUrl="https://atproto.etzhayyim.com", flush=False
         ))
         assert result["ok"] is False
         assert "error" in result
@@ -88,7 +88,7 @@ class TestPdsDomainCoverage:
 
     def test_task_no_secret_returns_error(self, _stub_db):
         result = asyncio.run(PDC.task_pds_domain_coverage_expand(
-            pdsUrl="https://atproto.gftd.ai", flush=False
+            pdsUrl="https://atproto.etzhayyim.com", flush=False
         ))
         assert result["ok"] is False
         assert result["auditUri"].startswith("at://")
@@ -125,7 +125,7 @@ class TestPdsDiscoverCache:
 
     def test_task_no_secret_returns_error(self, _stub_db):
         result = asyncio.run(PDSC.task_pds_discover_cache_warm(
-            pdsUrl="https://atproto.gftd.ai", flush=False
+            pdsUrl="https://atproto.etzhayyim.com", flush=False
         ))
         assert result["ok"] is False
         assert result["auditUri"].startswith("at://")
@@ -162,7 +162,7 @@ class TestPdsKeyRotation:
 
     def test_task_no_secret_returns_error(self, _stub_db):
         result = asyncio.run(PKR.task_pds_signing_keys_rotate_stale(
-            pdsUrl="https://atproto.gftd.ai", flush=False
+            pdsUrl="https://atproto.etzhayyim.com", flush=False
         ))
         assert result["ok"] is False
         assert result["auditUri"].startswith("at://")
@@ -199,7 +199,7 @@ class TestPdsMitamaCron:
 
     def test_task_no_secret_returns_error(self, _stub_db):
         result = asyncio.run(PMC.task_pds_mitama_cron_triggers_resync(
-            pdsUrl="https://atproto.gftd.ai", flush=False
+            pdsUrl="https://atproto.etzhayyim.com", flush=False
         ))
         assert result["ok"] is False
         assert result["auditUri"].startswith("at://")
@@ -236,7 +236,7 @@ class TestPdsOutbox:
 
     def test_task_no_secret_returns_error(self, _stub_db):
         result = asyncio.run(PO.task_pds_write_outbox_sync(
-            pdsUrl="https://atproto.gftd.ai", flush=False
+            pdsUrl="https://atproto.etzhayyim.com", flush=False
         ))
         assert result["ok"] is False
         assert result["auditUri"].startswith("at://")

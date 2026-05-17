@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * otakiage.gftd.ai Phase 2b1 — ERC725 anchor BPMN seeding.
+ * otakiage.etzhayyim.com Phase 2b1 — ERC725 anchor BPMN seeding.
  *
  * Adds 2 BPMN process_def + 1 lexicon binding for the
  * `ai.gftd.apps.otakiage.anchorCertificate` XRPC entry plus the
@@ -25,20 +25,20 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T19:00:00Z";
-const ownerDid = "did:web:otakiage.gftd.ai";
+const ownerDid = "did:web:otakiage.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.otakiage";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/otakiage-anchor-certificate-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/otakiage-anchor-certificate-v1",
     bpmnProcessId: "otakiage_anchor_certificate",
     sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/anchorCertificate.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/otakiage-certificate-anchor-sweep-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/otakiage-certificate-anchor-sweep-v1",
     bpmnProcessId: "otakiage_certificate_anchor_sweep",
     sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/certificateAnchorSweep.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/otakiage-anchorCertificate-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/otakiage-anchorCertificate-v1",
     nsid: "ai.gftd.apps.otakiage.anchorCertificate",
     bpmnProcessId: "otakiage_anchor_certificate", ownerDid, resultTimeoutMs: 60_000 },
 ];

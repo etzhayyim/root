@@ -5,12 +5,12 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shosha.gftd.ai BPMN-as-actor seeding (ADR-0056 + ADR-2604282300).
+ * shosha.etzhayyim.com BPMN-as-actor seeding (ADR-0056 + ADR-2604282300).
  *
  * 8 BPMN process defs + 4 XRPC bindings.  No CF Worker (T2 tier:
  * pymagatama + Zeebe only).  4 timer-start BPMNs are autonomous;
  * 4 XRPC bindings are reachable via bpmn-dispatcher
- * `http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.shosha.*`.
+ * `http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.shosha.*`.
  *
  *  Process / NSID                                   Trigger
  *  ---------------------------------------------------------------------
@@ -32,47 +32,47 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-06T10:00:00Z";
-const ownerDid = "did:web:shosha.gftd.ai";
+const ownerDid = "did:web:shosha.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.shosha";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1",
     bpmnProcessId: "shosha_market_intelligence_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/marketIntelligenceIngest.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1",
     bpmnProcessId: "shosha_trade_book_recompute",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/tradeBookRecompute.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1",
     bpmnProcessId: "shosha_trade_idea_synthesize",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/tradeIdeaSynthesize.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1",
     bpmnProcessId: "shosha_daily_report",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/dailyShoshaReport.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1",
     bpmnProcessId: "shosha_submit_trade",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/submitTrade.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1",
     bpmnProcessId: "shosha_propose_hedge",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/proposeHedge.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1",
     bpmnProcessId: "shosha_comply_check",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/complyCheck.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1",
     bpmnProcessId: "shosha_agent_loop",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/agentLoop.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-submitTrade-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-submitTrade-v1",
     nsid: "ai.gftd.apps.shosha.submitTrade",
     bpmnProcessId: "shosha_submit_trade", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-proposeHedge-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-proposeHedge-v1",
     nsid: "ai.gftd.apps.shosha.proposeHedge",
     bpmnProcessId: "shosha_propose_hedge", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-complyCheck-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-complyCheck-v1",
     nsid: "ai.gftd.apps.shosha.complyCheck",
     bpmnProcessId: "shosha_comply_check", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-agentLoop-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-agentLoop-v1",
     nsid: "ai.gftd.apps.shosha.agentLoop",
     bpmnProcessId: "shosha_agent_loop", ownerDid, resultTimeoutMs: 60_000 },
 ];

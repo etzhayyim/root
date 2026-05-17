@@ -14,7 +14,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     "no", "pl", "ro", "sk", "tr", "uk",
   ];
   for (const lang of deadLangs) {
-    await sql`DELETE FROM vertex_maps_coverage_target WHERE source_did = ${`did:web:maps.gftd.ai:wikivoyage:${lang}`}`.execute(db);
+    await sql`DELETE FROM vertex_maps_coverage_target WHERE source_did = ${`did:web:maps.etzhayyim.com:wikivoyage:${lang}`}`.execute(db);
   }
   await sql`FLUSH`.execute(db);
 }

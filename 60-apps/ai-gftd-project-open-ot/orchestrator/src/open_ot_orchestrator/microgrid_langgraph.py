@@ -179,8 +179,8 @@ def step(
 def demo() -> None:
     print("[microgrid-langgraph] building :loop:freq-droop with 2 BESS assets")
     bess = [
-        ("did:web:open-ot.gftd.ai:cell:droop-bess-1", 1000.0),
-        ("did:web:open-ot.gftd.ai:cell:droop-bess-2", 500.0),
+        ("did:web:open-ot.etzhayyim.com:cell:droop-bess-1", 1000.0),
+        ("did:web:open-ot.etzhayyim.com:cell:droop-bess-2", 500.0),
     ]
     app = build_freq_droop_graph(bess, cycle_period_ms=100)
     config = {"configurable": {"thread_id": "microgrid-demo-1"}}

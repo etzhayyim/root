@@ -24,7 +24,7 @@ from typing import Any
 
 LOG = logging.getLogger("warehouse.primitive")
 
-_WAREHOUSE_DID = "did:web:warehouse.gftd.ai"
+_WAREHOUSE_DID = "did:web:warehouse.etzhayyim.com"
 
 
 def _now_iso() -> str:

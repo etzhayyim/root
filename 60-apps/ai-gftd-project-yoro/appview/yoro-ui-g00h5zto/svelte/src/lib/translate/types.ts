@@ -2,7 +2,7 @@ import type { LanguageCode } from '../language/types.js';
 
 /** Configuration for the translation client */
 export interface TranslateConfig {
-	/** Base URL for the i18n service (default: https://i18n.gftd.ai) */
+	/** Base URL for the i18n service (default: https://i18n.etzhayyim.com) */
 	baseUrl?: string;
 }
 

@@ -3,18 +3,18 @@ MODEL (
   name dev.mv_page_count_by_owner_canonical_did,
   kind FULL,
   dialect postgres,
-  description 'Per canonical_actor_did: page count, with site.gftd.ai sub-DID and did:web normalization.',
+  description 'Per canonical_actor_did: page count, with site.etzhayyim.com sub-DID and did:web normalization.',
   grain [canonical_actor_did],
   tags [page, owner, canonical_did]
 );
 
 SELECT
   CASE
-    WHEN owner_did LIKE 'did:web:site.gftd.ai:%'
+    WHEN owner_did LIKE 'did:web:site.etzhayyim.com:%'
       THEN CONCAT(
         'did:web:',
-        SPLIT_PART(SPLIT_PART(owner_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-        '.gftd.ai'
+        SPLIT_PART(SPLIT_PART(owner_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+        '.etzhayyim.com'
       )
     WHEN owner_did LIKE 'did:web:%'
       THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(owner_did, ':', 3), '/', 1))

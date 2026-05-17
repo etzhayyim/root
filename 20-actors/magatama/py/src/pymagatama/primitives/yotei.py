@@ -12,7 +12,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-YOTEI_DID = "did:web:yotei.gftd.ai"
+YOTEI_DID = "did:web:yotei.etzhayyim.com"
 
 COLLECTION_TABLE = {
     "calendar": "vertex_yotei_calendar",

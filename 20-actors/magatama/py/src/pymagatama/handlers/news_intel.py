@@ -1,5 +1,5 @@
 """
-news.gftd.ai intel scoring UDFs.
+news.etzhayyim.com intel scoring UDFs.
 
 These functions are deliberately deterministic and side-effect free. The
 Worker can call the same scoring model through RisingWave when available,

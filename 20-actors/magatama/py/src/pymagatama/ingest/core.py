@@ -19,7 +19,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 from pymagatama.db_sync import _validate_sql_guard
 
-INGEST_ACTOR_DID = "did:web:ingest.gftd.ai"
+INGEST_ACTOR_DID = "did:web:ingest.etzhayyim.com"
 
 
 def now_iso() -> str:

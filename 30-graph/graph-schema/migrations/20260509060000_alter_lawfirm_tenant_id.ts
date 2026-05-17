@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 /**
  * Add tenant_id column to all lawfirm tables for D3 demo-tenant scoping
- * (sandbox path: lawfirm.gftd.ai/?tenant=nishith → tenant_id='demo-nishith').
+ * (sandbox path: lawfirm.etzhayyim.com/?tenant=nishith → tenant_id='demo-nishith').
  *
  * Production rows default to 'production'. Demo tenants use 'demo-{slug}'.
  * Single-Worker, single-RW-namespace, query-time filter.

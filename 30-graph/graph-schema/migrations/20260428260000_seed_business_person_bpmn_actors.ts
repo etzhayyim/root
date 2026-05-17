@@ -10,7 +10,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-28T26:00:00Z";
 const actorTag = "sys.bpmn.seed.business-person";
-const ownerDid = "did:web:business-person.gftd.ai";
+const ownerDid = "did:web:business-person.etzhayyim.com";
 const project = "business-person";
 
 const entries = [
@@ -30,9 +30,9 @@ const entries = [
 
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVid = (proc: string) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-${slug(proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(proc)}-v1`;
 const bindingVid = (proc: string) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${proc}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const e of entries) {

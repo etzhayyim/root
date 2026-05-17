@@ -39,7 +39,7 @@ def test_domain_of_with_angle_brackets():
 
 
 def test_domain_of_bare_address():
-    assert _domain_of("bob@gftd.ai") == "gftd.ai"
+    assert _domain_of("bob@etzhayyim.com") == "etzhayyim.com"
 
 
 def test_domain_of_empty():
@@ -82,7 +82,7 @@ def test_has_label_empty():
 
 
 def test_phish_score_clean():
-    score, reasons = _phish_score("pass", "pass", "pass", "", "user@gftd.ai", "Welcome", "")
+    score, reasons = _phish_score("pass", "pass", "pass", "", "user@etzhayyim.com", "Welcome", "")
     assert score == 0
     assert reasons == []
 
@@ -201,7 +201,7 @@ def test_evidence_meta_clean():
 
 def _row(**overrides) -> dict:
     base = {
-        "vertex_id": "at://did:web:gmail.gftd.ai/ai.gftd.apps.gmail.email/email-x",
+        "vertex_id": "at://did:web:gmail.etzhayyim.com/ai.gftd.apps.gmail.email/email-x",
         "email_id": "email-x",
         "from_addr": "x@y.tld",
         "reply_to": "",

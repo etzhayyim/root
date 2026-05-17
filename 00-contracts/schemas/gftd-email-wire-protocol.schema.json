@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://spec.gftd.ai/gewp/v1/schema.json",
+  "$id": "https://spec.etzhayyim.com/gewp/v1/schema.json",
   "title": "GFTD Email Wire Protocol (GEWP) v1.0 — Core Schema",
-  "description": "Open standard (Apache-2.0) for structured agent/human email message passing over SMTP/MIME. Spec: https://spec.gftd.ai/gewp/v1/. MIME type: application/vnd.gewp+json.",
+  "description": "Open standard (Apache-2.0) for structured agent/human email message passing over SMTP/MIME. Spec: https://spec.etzhayyim.com/gewp/v1/. MIME type: application/vnd.gewp+json.",
   "type": "object",
   "required": ["gewp", "type", "thread", "sender", "to"],
   "additionalProperties": false,

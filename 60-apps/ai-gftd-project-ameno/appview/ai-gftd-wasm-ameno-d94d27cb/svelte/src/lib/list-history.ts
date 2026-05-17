@@ -2,8 +2,8 @@
  * list-history.ts — client helper for ai.gftd.apps.ameno.listHistory.
  *
  * AT Protocol query: GET /xrpc/{nsid}?actorDid=...&modelId=...&limit=...&offset=...
- * Same-origin to ameno.gftd.ai; the worker forwards via sdk.pds.xrpc()
- * to atproto.gftd.ai → bpmn-dispatcher → ameno-langserver SELECT.
+ * Same-origin to ameno.etzhayyim.com; the worker forwards via sdk.pds.xrpc()
+ * to atproto.etzhayyim.com → bpmn-dispatcher → ameno-langserver SELECT.
  */
 
 export interface HistoryItem {

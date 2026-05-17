@@ -9,35 +9,35 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const seedCreatedAt = "2026-05-08T00:00:00Z";
-const seedOwnerDid = "did:web:lawfirm.gftd.ai";
+const seedOwnerDid = "did:web:lawfirm.etzhayyim.com";
 const seedActorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESSES = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-payment-intake-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-payment-intake-v1",
     bpmnProcessId: "lawfirm_payment_intake",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/paymentIntake.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-marketing-tick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-marketing-tick-v1",
     bpmnProcessId: "lawfirm_marketing_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/marketingTick.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-marketing-ad-hoc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-marketing-ad-hoc-v1",
     bpmnProcessId: "lawfirm_marketing_ad_hoc",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/marketingAdHoc.bpmn",
   },
 ];
 const BINDINGS = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-stripe-webhook-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-stripe-webhook-v1",
     nsid: "ai.gftd.apps.lawfirm.stripeWebhook",
     bpmnProcessId: "lawfirm_payment_intake",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-marketing-ad-hoc-xrpc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-marketing-ad-hoc-xrpc-v1",
     nsid: "ai.gftd.apps.lawfirm.marketingDispatch",
     bpmnProcessId: "lawfirm_marketing_ad_hoc",
     resultTimeoutMs: 180_000,
@@ -45,7 +45,7 @@ const BINDINGS = [
 ];
 
 /**
- * lawfirm.gftd.ai payment + marketing schema (Day-0 individual practice).
+ * lawfirm.etzhayyim.com payment + marketing schema (Day-0 individual practice).
  *
  * Tables:
  *   vertex_lawfirm_invoice         Stripe invoice mirror (matter-linked)

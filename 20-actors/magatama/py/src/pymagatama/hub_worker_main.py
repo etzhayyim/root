@@ -1,4 +1,4 @@
-"""hub.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""hub.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -25,7 +25,7 @@ async def run_worker():
         name = kwargs.get("name", "")
         url = kwargs.get("url", "")
         method = kwargs.get("method", "POST")
-        owner_did = kwargs.get("ownerDid", "did:web:hub.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:hub.etzhayyim.com")
 
         endpoint_id = str(uuid.uuid4())
         vertex_id = f"hub:endpoint:{endpoint_id}"
@@ -41,7 +41,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 endpoint_id, name, url, method, "active",
-                "did:web:hub.gftd.ai", "did:web:hub.gftd.ai", now, now,
+                "did:web:hub.etzhayyim.com", "did:web:hub.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -102,7 +102,7 @@ async def run_worker():
         endpoint_id = kwargs.get("endpointId", "")
         target_url = kwargs.get("targetUrl", "")
         events = kwargs.get("events", [])
-        owner_did = kwargs.get("ownerDid", "did:web:hub.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:hub.etzhayyim.com")
 
         webhook_id = str(uuid.uuid4())
         vertex_id = f"hub:webhook:{webhook_id}"
@@ -118,7 +118,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 webhook_id, endpoint_id, target_url, "active",
-                "did:web:hub.gftd.ai", "did:web:hub.gftd.ai", now, now,
+                "did:web:hub.etzhayyim.com", "did:web:hub.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

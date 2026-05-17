@@ -44,7 +44,7 @@ func (d *DIDDocument) PDSEndpoint() string {
 	return ""
 }
 
-// Handle returns the AT Protocol handle from alsoKnownAs, e.g. "at://user.gftd.ai".
+// Handle returns the AT Protocol handle from alsoKnownAs, e.g. "at://user.etzhayyim.com".
 func (d *DIDDocument) Handle() string {
 	for _, aka := range d.AlsoKnownAs {
 		if strings.HasPrefix(aka, "at://") {

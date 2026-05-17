@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * otakiage.gftd.ai Phase 2 — agentChat BPMN seeding (ADR-2605072000 LangGraph).
+ * otakiage.etzhayyim.com Phase 2 — agentChat BPMN seeding (ADR-2605072000 LangGraph).
  *
  * Adds 1 BPMN process_def + 1 lexicon binding for the conversational
  * XRPC entry `ai.gftd.apps.otakiage.agentChat`. Backed by LangGraph
@@ -25,17 +25,17 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T18:00:00Z";
-const ownerDid = "did:web:otakiage.gftd.ai";
+const ownerDid = "did:web:otakiage.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.otakiage";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/otakiage-agent-chat-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/otakiage-agent-chat-v1",
     bpmnProcessId: "otakiage_agent_chat",
     sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/agentChat.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/otakiage-agentChat-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/otakiage-agentChat-v1",
     nsid: "ai.gftd.apps.otakiage.agentChat",
     bpmnProcessId: "otakiage_agent_chat", ownerDid, resultTimeoutMs: 90_000 },
 ];

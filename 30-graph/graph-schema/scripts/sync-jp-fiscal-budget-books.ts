@@ -222,7 +222,7 @@ async function syncBudgetBook(db: Kysely<unknown>, record: BudgetBookRecord): Pr
       fiscal_year, doc_type, account_type, special_account_code,
       total_jpy, source_url, pdf_cid, xbrl_cid, source_id, document_id, created_at
     ) VALUES (
-      ${vertexId}, ${createdDate}, 1, 'did:web:gov-jpn.gftd.ai:mof',
+      ${vertexId}, ${createdDate}, 1, 'did:web:gov-jpn.etzhayyim.com:mof',
       ${record.fiscalYear}, ${record.docType}, ${record.accountType}, NULL,
       ${record.totalJpy.toString()}, ${record.sourceUrl}, NULL, NULL,
       ${record.source.source_id}, ${documentId}, ${now}

@@ -9,7 +9,7 @@ import { sql } from "kysely";
 // yadoya Phase 1 — hotel catalog + reservation lifecycle (ADR-0036
 // Worker-direct Hyperdrive write). Bridges to hospitality cluster
 // (ADR-0028) via edge_yadoya_property_to_chain → vertex_profile of
-// did:web:hospitality.gftd.ai:actor:chain:* and :actor:property:*.
+// did:web:hospitality.etzhayyim.com:actor:chain:* and :actor:property:*.
 //
 // 4 tables + 2 edges + 1 MV. No external dependencies on PDS commit
 // stream — domain rows are inserted by yadoya Worker via Hyperdrive

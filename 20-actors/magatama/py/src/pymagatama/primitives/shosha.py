@@ -1,4 +1,4 @@
-"""shosha.gftd.ai (商社 / sogo-shosha) primitives.
+"""shosha.etzhayyim.com (商社 / sogo-shosha) primitives.
 
 T2 actor (ADR-2604282300): pymagatama module + BPMN + Zeebe, no CF Worker.
 All domain writes hit RisingWave directly via Hyperdrive (ADR-0036). Social
@@ -55,7 +55,7 @@ from pymagatama.db_sync import sync_cursor
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-_SHOSHA_ACTOR = "did:web:shosha.gftd.ai"
+_SHOSHA_ACTOR = "did:web:shosha.etzhayyim.com"
 
 # Yahoo Finance v8 chart symbols → (commodity slug, unit, category).
 # Free, unauthenticated, used by many open-source quote tools. Rate
@@ -140,7 +140,7 @@ def _hash12(s: str) -> str:
 def _http_get_json(url: str, *, timeout: float = 10.0) -> dict[str, Any]:
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "shosha.gftd.ai/1.0 (autonomous trading agent)"},
+        headers={"User-Agent": "shosha.etzhayyim.com/1.0 (autonomous trading agent)"},
     )
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read().decode("utf-8"))
@@ -466,7 +466,7 @@ async def task_shosha_sanctions_refresh_ofac(**kwargs: Any) -> dict[str, Any]:
     try:
         req = urllib.request.Request(
             _OFAC_SDN_CSV_URL,
-            headers={"User-Agent": "shosha.gftd.ai/1.0 (sanctions compliance refresh)"},
+            headers={"User-Agent": "shosha.etzhayyim.com/1.0 (sanctions compliance refresh)"},
         )
         with urllib.request.urlopen(req, timeout=timeout) as r:
             body = r.read()
@@ -567,7 +567,7 @@ async def task_shosha_sanctions_refresh_un(**kwargs: Any) -> dict[str, Any]:
     try:
         req = urllib.request.Request(
             _UN_1267_XML_URL,
-            headers={"User-Agent": "shosha.gftd.ai/1.0 (sanctions compliance refresh)"},
+            headers={"User-Agent": "shosha.etzhayyim.com/1.0 (sanctions compliance refresh)"},
         )
         with urllib.request.urlopen(req, timeout=timeout) as r:
             body = r.read()
@@ -1647,7 +1647,7 @@ async def task_shosha_daily_report_compose(**kwargs: Any) -> dict[str, Any]:
 # ──────────────────────────────────────────────────────────────────────
 
 _AGENT_SYSTEM = (
-    "You are 商社 (shosha.gftd.ai), an autonomous AI sogo-shosha agent. "
+    "You are 商社 (shosha.etzhayyim.com), an autonomous AI sogo-shosha agent. "
     "You have read access to recent market intel, market views, and open "
     "exposure. Be concise, factual, and acknowledge uncertainty. Default "
     "to Japanese unless the user writes English. Keep replies under 600 "
@@ -1729,9 +1729,9 @@ async def task_shosha_agent_chat(**kwargs: Any) -> dict[str, Any]:
 # a `vertex_shosha_upstream_subscription` table for runtime reconfig.
 _REACTIVE_SUBSCRIPTIONS: list[tuple[str, str, str | None]] = [
     # (consumer_id,                upstream_did,                      collection_prefix)
-    ("shosha:reactive:oil-trading", "did:web:oil-trading.gftd.ai",    None),
-    ("shosha:reactive:cargo",       "did:web:cargo.gftd.ai",          None),
-    ("shosha:reactive:port",        "did:web:port.gftd.ai",           None),
+    ("shosha:reactive:oil-trading", "did:web:oil-trading.etzhayyim.com",    None),
+    ("shosha:reactive:cargo",       "did:web:cargo.etzhayyim.com",          None),
+    ("shosha:reactive:port",        "did:web:port.etzhayyim.com",           None),
 ]
 
 _INSERT_CURSOR = (

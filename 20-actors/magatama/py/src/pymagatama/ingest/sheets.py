@@ -14,7 +14,7 @@ from pymagatama.db_sync import sync_cursor
 SHEETS_TOKEN_TABLE = "vertex_gsheets_oauth_token"
 SHEETS_SPREADSHEET_TABLE = "vertex_gsheets_spreadsheet"
 SHEETS_SHEET_TABLE = "vertex_gsheets_sheet"
-ACTOR_DID = "did:web:sheets.gftd.ai"
+ACTOR_DID = "did:web:sheets.etzhayyim.com"
 GSHEETS_MIME = "application/vnd.google-apps.spreadsheet"
 
 

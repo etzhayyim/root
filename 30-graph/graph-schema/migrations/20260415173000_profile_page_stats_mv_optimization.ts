@@ -20,11 +20,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     social_counts AS (
       SELECT
         CASE
-          WHEN actor_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN actor_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN actor_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(actor_did, ':', 3), '/', 1))
@@ -39,11 +39,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     governance_counts AS (
       SELECT
         CASE
-          WHEN actor_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN actor_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN actor_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(actor_did, ':', 3), '/', 1))
@@ -56,11 +56,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     tool_counts AS (
       SELECT
         CASE
-          WHEN actor_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN actor_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN actor_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(actor_did, ':', 3), '/', 1))
@@ -73,11 +73,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     page_counts AS (
       SELECT
         CASE
-          WHEN owner_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN owner_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(owner_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(owner_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN owner_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(owner_did, ':', 3), '/', 1))
@@ -134,11 +134,11 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     social_counts AS (
       SELECT
         CASE
-          WHEN actor_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN actor_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN actor_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(actor_did, ':', 3), '/', 1))
@@ -153,11 +153,11 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     page_counts AS (
       SELECT
         CASE
-          WHEN owner_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN owner_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(owner_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(owner_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN owner_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(owner_did, ':', 3), '/', 1))
@@ -171,11 +171,11 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     governance_counts AS (
       SELECT
         CASE
-          WHEN actor_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN actor_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN actor_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(actor_did, ':', 3), '/', 1))
@@ -188,11 +188,11 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     tool_counts AS (
       SELECT
         CASE
-          WHEN actor_did LIKE 'did:web:site.gftd.ai:%'
+          WHEN actor_did LIKE 'did:web:site.etzhayyim.com:%'
             THEN CONCAT(
               'did:web:',
-              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.gftd.ai:', 2), ':', 1),
-              '.gftd.ai'
+              SPLIT_PART(SPLIT_PART(actor_did, 'did:web:site.etzhayyim.com:', 2), ':', 1),
+              '.etzhayyim.com'
             )
           WHEN actor_did LIKE 'did:web:%'
             THEN CONCAT('did:web:', SPLIT_PART(SPLIT_PART(actor_did, ':', 3), '/', 1))

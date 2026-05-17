@@ -66,7 +66,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        langgraph_id, world_total, notes, created_at)
     VALUES (
       'follows_history', 'world', 'ingest',
-      'https://atproto.gftd.ai/xrpc/app.bsky.graph.getFollows',
+      'https://atproto.etzhayyim.com/xrpc/app.bsky.graph.getFollows',
       '',
       '',
       1000000,

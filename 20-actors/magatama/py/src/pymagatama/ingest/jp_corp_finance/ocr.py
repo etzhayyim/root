@@ -14,7 +14,7 @@ from typing import Any
 
 import httpx
 
-DEFAULT_LLM_URL = "https://llm.gftd.ai/v1/chat/completions"
+DEFAULT_LLM_URL = "https://llm.etzhayyim.com/v1/chat/completions"
 DEFAULT_MODEL = "gemma-4-e2b-it"
 OCR_PROMPT = """\
 OCR this Japanese corporate financial disclosure page.
@@ -182,7 +182,7 @@ async def upload_webp_pages_to_ipfs(pages: list[WebpPage], *, filename_prefix: s
                 sha256=page.sha256,
                 byte_size=page.byte_size,
                 cid=cid,
-                ipfs_url=f"https://ipfs.gftd.ai/ipfs/{cid}",
+                ipfs_url=f"https://ipfs.etzhayyim.com/ipfs/{cid}",
             )
         )
     return uploaded

@@ -20,23 +20,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:00:00Z";
-const ownerDid = "did:web:lawfirm.gftd.ai";
+const ownerDid = "did:web:lawfirm.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-engagement-close-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-engagement-close-v1",
   bpmnProcessId: "lawfirm_engagement_close",
   sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/engagementClose.bpmn",
 };
 const BINDINGS = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-engagement-close-xrpc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-engagement-close-xrpc-v1",
     nsid: "ai.gftd.apps.lawfirm.engagementClose",
     bpmnProcessId: "lawfirm_engagement_close",
     resultTimeoutMs: 600_000,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-mail-reply-webhook-xrpc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-mail-reply-webhook-xrpc-v1",
     nsid: "ai.gftd.apps.lawfirm.mailReplyWebhook",
     bpmnProcessId: "lawfirm_payment_intake",
     resultTimeoutMs: 60_000,

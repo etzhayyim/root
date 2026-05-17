@@ -26,7 +26,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR_DID = "did:web:pregel.gftd.ai"
+ACTOR_DID = "did:web:pregel.etzhayyim.com"
 
 
 # ── Internal helpers ───────────────────────────────────────────────────

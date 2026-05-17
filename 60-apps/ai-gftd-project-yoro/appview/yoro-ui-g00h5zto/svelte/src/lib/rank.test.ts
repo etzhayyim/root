@@ -30,7 +30,7 @@ const basePrior = {
 
 function makeViewer(overrides: Partial<ViewerContext> = {}): ViewerContext {
   return {
-    did: "did:web:alice.gftd.ai",
+    did: "did:web:alice.etzhayyim.com",
     cohortSize: 100,
     consentIndividualScope: false,
     jouchoState: null,
@@ -42,8 +42,8 @@ function makeViewer(overrides: Partial<ViewerContext> = {}): ViewerContext {
 
 function makeCandidate(overrides: Partial<RankCandidate> = {}): RankCandidate {
   return {
-    uri: "at://did:web:author.gftd.ai/app.bsky.feed.post/3xyz",
-    repo: "did:web:author.gftd.ai",
+    uri: "at://did:web:author.etzhayyim.com/app.bsky.feed.post/3xyz",
+    repo: "did:web:author.etzhayyim.com",
     createdAt: "2026-04-17T00:00:00Z",
     topic: null, emotion: null,
     signalEncrypted: false, audienceDid: null,
@@ -57,7 +57,7 @@ const zeroPpr: PprLookup = () => 0;
 describe("PII hard gate (ζ invariant)", () => {
   it("drops signal-encrypted posts not addressed to the viewer", () => {
     const viewer = makeViewer();
-    const c = makeCandidate({ signalEncrypted: true, audienceDid: "did:web:bob.gftd.ai" });
+    const c = makeCandidate({ signalEncrypted: true, audienceDid: "did:web:bob.etzhayyim.com" });
     const score = scoreCandidate(c, viewer, unitPosterior, zeroPpr, deriveGuardrails(viewer));
     expect(score.piiLeakRisk).toBe(1.0);
     const gated = applyHardGate([score]);

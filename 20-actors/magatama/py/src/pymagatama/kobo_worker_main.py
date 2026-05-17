@@ -36,8 +36,8 @@ from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("kobo_worker")
 
-KOBO_DID = "did:web:kobo.gftd.ai"
-HOUSHI_DID = "did:web:houshi.gftd.ai"
+KOBO_DID = "did:web:kobo.etzhayyim.com"
+HOUSHI_DID = "did:web:houshi.etzhayyim.com"
 
 
 def _now() -> str:

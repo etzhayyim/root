@@ -28,7 +28,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("karma.filecoin")
 
-KARMA_DID = "did:web:karma.gftd.ai"
+KARMA_DID = "did:web:karma.etzhayyim.com"
 
 # Phase K3: SP list is a static curated list. Phase K4 reads from a
 # self-managed SP registry table populated from on-chain Storage

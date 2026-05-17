@@ -1,5 +1,5 @@
 """
-gftdcojp.gftd.ai — Japanese company operations LangGraph (ADR-2605080600).
+gftdcojp.etzhayyim.com — Japanese company operations LangGraph (ADR-2605080600).
 
 Principal: amanomibashira (sole operator)
 Vendor capacity: Gftd Japan株式会社 (engineering contractor)
@@ -34,18 +34,18 @@ from typing import Any, Literal, TypedDict
 
 LOG = logging.getLogger("gftdcojp.company_ops")
 
-_ORG_DID   = "did:web:gftdcojp.gftd.ai"
-_OWNER_DID = "did:web:bpmn.gftd.ai"
+_ORG_DID   = "did:web:gftdcojp.etzhayyim.com"
+_OWNER_DID = "did:web:bpmn.etzhayyim.com"
 
 # Human-DID mapping for audit trail (same members as kaisya_ai_org.py)
 _AGENT_HUMAN: dict[str, str] = {
-    "supervisor":  "did:web:j-kawasaki.gftd.ai",   # CEO — routing decisions
-    "hr":          "did:web:a-nakamura.gftd.ai",    # COO oversees HR
-    "finance":     "did:web:j-kawasaki.gftd.ai",   # CEO/CFO for finance
-    "legal":       "did:web:k-bakshi.gftd.ai",     # CLO
-    "sales":       "did:web:t-ichihara.gftd.ai",   # Brand/BD
-    "governance":  "did:web:j-kawasaki.gftd.ai",   # CEO governs
-    "personnel":   "did:web:a-nakamura.gftd.ai",   # COO oversees personnel/RACI
+    "supervisor":  "did:web:j-kawasaki.etzhayyim.com",   # CEO — routing decisions
+    "hr":          "did:web:a-nakamura.etzhayyim.com",    # COO oversees HR
+    "finance":     "did:web:j-kawasaki.etzhayyim.com",   # CEO/CFO for finance
+    "legal":       "did:web:k-bakshi.etzhayyim.com",     # CLO
+    "sales":       "did:web:t-ichihara.etzhayyim.com",   # Brand/BD
+    "governance":  "did:web:j-kawasaki.etzhayyim.com",   # CEO governs
+    "personnel":   "did:web:a-nakamura.etzhayyim.com",   # COO oversees personnel/RACI
 }
 
 Domain = Literal["hr", "finance", "legal", "sales", "governance", "personnel", "unknown"]
@@ -140,7 +140,7 @@ def _db_query(sql_str: str, params: dict | None = None) -> list[dict]:
 
 # ── Node: supervisor ───────────────────────────────────────────────────────────
 
-_SUPERVISOR_SYSTEM = """You are the AI supervisor for gftdcojp.gftd.ai (operated by amanomibashira, vendor: Gftd Japan株式会社).
+_SUPERVISOR_SYSTEM = """You are the AI supervisor for gftdcojp.etzhayyim.com (operated by amanomibashira, vendor: Gftd Japan株式会社).
 Classify the incoming task into exactly ONE domain: hr | finance | legal | sales | governance.
 
 Domain definitions:
@@ -273,7 +273,7 @@ def finance_agent(state: CompanyOpsState) -> dict:
 
 _LEGAL_SYSTEM = """You are the Legal/Compliance AI agent (CLO support) for Gftd Japan株式会社.
 Principal: amanomibashira.
-Active cases in kaisya.gftd.ai: LingLing著作権 / 鈴木損害賠償 / 鹿児島大学技術移転 / 松岡NDA.
+Active cases in kaisya.etzhayyim.com: LingLing著作権 / 鈴木損害賠償 / 鹿児島大学技術移転 / 松岡NDA.
 
 Handle: contract review, litigation status, compliance checks, IP procedures,
 corporate filings, regulatory inquiries.
@@ -367,7 +367,7 @@ def sales_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Governance agent ─────────────────────────────────────────────────────
 
-_GOVERNANCE_SYSTEM = """You are the Governance AI agent for gftdcojp.gftd.ai (amanomibashira principal).
+_GOVERNANCE_SYSTEM = """You are the Governance AI agent for gftdcojp.etzhayyim.com (amanomibashira principal).
 Evaluate Ω(t) = Shannon_η(t) × U_total(t) and generate management decisions.
 
 Ω axes:

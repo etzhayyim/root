@@ -58,9 +58,9 @@ class _ConciseSummary(AnthropicStructuredOutput):
 
 def test_from_job_parses_variables():
     job = MagicMock()
-    job.variables = {"actor_did": "did:web:test.gftd.ai", "eta_score": 0.8}
+    job.variables = {"actor_did": "did:web:test.etzhayyim.com", "eta_score": 0.8}
     inp = _GrowthInput.from_job(job)
-    assert inp.actor_did == "did:web:test.gftd.ai"
+    assert inp.actor_did == "did:web:test.etzhayyim.com"
     assert inp.eta_score == 0.8
     assert inp.trigger == "timer"  # default
 
@@ -74,20 +74,20 @@ def test_from_job_none_variables_uses_empty():
 
 def test_from_job_extra_fields_ignored():
     job = MagicMock()
-    job.variables = {"actor_did": "did:web:x.gftd.ai", "eta_score": 0.5, "garbage": 999}
+    job.variables = {"actor_did": "did:web:x.etzhayyim.com", "eta_score": 0.5, "garbage": 999}
     inp = _GrowthInput.from_job(job)
-    assert inp.actor_did == "did:web:x.gftd.ai"
+    assert inp.actor_did == "did:web:x.etzhayyim.com"
     assert not hasattr(inp, "garbage")
 
 
 def test_from_dict_parses_correctly():
-    inp = _GrowthInput.from_dict({"actor_did": "did:web:y.gftd.ai", "eta_score": 1.0})
+    inp = _GrowthInput.from_dict({"actor_did": "did:web:y.etzhayyim.com", "eta_score": 1.0})
     assert inp.eta_score == 1.0
 
 
 def test_from_dict_type_coercion():
     # strict=False: string "0.5" should coerce to float
-    inp = _GrowthInput.from_dict({"actor_did": "did:web:y.gftd.ai", "eta_score": "0.5"})
+    inp = _GrowthInput.from_dict({"actor_did": "did:web:y.etzhayyim.com", "eta_score": "0.5"})
     assert inp.eta_score == 0.5
 
 
@@ -99,15 +99,15 @@ def test_from_dict_validation_error_on_missing_required():
 # ─────────────────────────────────────────────── ZeebeJobOutput ──
 
 def test_to_variables_returns_dict():
-    out = _GrowthOutput(proposed_did="did:web:new.gftd.ai", eta_score=0.91)
+    out = _GrowthOutput(proposed_did="did:web:new.etzhayyim.com", eta_score=0.91)
     v = out.to_variables()
     assert isinstance(v, dict)
-    assert v["proposed_did"] == "did:web:new.gftd.ai"
+    assert v["proposed_did"] == "did:web:new.etzhayyim.com"
     assert v["eta_score"] == 0.91
 
 
 def test_to_variables_none_fields_included():
-    out = _GrowthOutput(proposed_did="did:web:new.gftd.ai", eta_score=0.5, error=None)
+    out = _GrowthOutput(proposed_did="did:web:new.etzhayyim.com", eta_score=0.5, error=None)
     v = out.to_variables()
     assert "error" in v
     assert v["error"] is None
@@ -115,7 +115,7 @@ def test_to_variables_none_fields_included():
 
 def test_to_variables_mode_json():
     # model_dump(mode="json") must serialise floats as JSON-safe values
-    out = _GrowthOutput(proposed_did="did:web:x.gftd.ai", eta_score=0.123456789)
+    out = _GrowthOutput(proposed_did="did:web:x.etzhayyim.com", eta_score=0.123456789)
     v = out.to_variables()
     assert isinstance(v["eta_score"], float)
 
@@ -123,7 +123,7 @@ def test_to_variables_mode_json():
 # ─────────────────────────────────────────────── BaseModelState ──
 
 def test_merge_returns_new_instance():
-    state = _ProposeState(actor_did="did:web:a.gftd.ai", step=0)
+    state = _ProposeState(actor_did="did:web:a.etzhayyim.com", step=0)
     updated = state.merge({"step": 1, "done": True})
     assert updated.step == 1
     assert updated.done is True
@@ -132,17 +132,17 @@ def test_merge_returns_new_instance():
 
 
 def test_merge_preserves_unmentioned_fields():
-    state = _ProposeState(actor_did="did:web:b.gftd.ai", step=3)
+    state = _ProposeState(actor_did="did:web:b.etzhayyim.com", step=3)
     updated = state.merge({"done": True})
-    assert updated.actor_did == "did:web:b.gftd.ai"
+    assert updated.actor_did == "did:web:b.etzhayyim.com"
     assert updated.step == 3
 
 
 def test_extra_keys_allowed_for_langgraph():
     state = _ProposeState.model_validate(
-        {"actor_did": "did:web:c.gftd.ai", "langgraph_injected": "value"}
+        {"actor_did": "did:web:c.etzhayyim.com", "langgraph_injected": "value"}
     )
-    assert state.actor_did == "did:web:c.gftd.ai"
+    assert state.actor_did == "did:web:c.etzhayyim.com"
 
 
 # ─────────────────────────────────────────────── AnthropicStructuredOutput ──

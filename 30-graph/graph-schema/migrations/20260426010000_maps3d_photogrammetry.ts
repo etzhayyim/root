@@ -24,7 +24,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-04-26T01:00:00+09:00";
-const ownerDid = "did:web:bpmn.gftd.ai";
+const ownerDid = "did:web:bpmn.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.maps3d";
 
 interface ProcessSeed {
@@ -36,7 +36,7 @@ interface ProcessSeed {
 const processSeeds: ProcessSeed[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1",
     bpmnProcessId: "maps3d_process_tile",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn",
   },
@@ -52,7 +52,7 @@ interface BindingSeed {
 const bindingSeeds: BindingSeed[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps3d-process-tile-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps3d-process-tile-v1",
     nsid: "ai.gftd.apps.maps3d.processTile",
     bpmnProcessId: "maps3d_process_tile",
     // 90 min — covers the 60 min COLMAP boundary plus all surrounding

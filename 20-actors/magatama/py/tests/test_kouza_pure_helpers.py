@@ -107,8 +107,8 @@ def test_hash_works_on_list():
     assert len(KZ._hash([1, 2, 3])) == 24
 
 def test_record_did_format():
-    result = KZ._record_did("did:web:kouza.gftd.ai", "ai.gftd.apps.kouza.connection", "rkey123")
-    assert result == "at://did:web:kouza.gftd.ai/ai.gftd.apps.kouza.connection/rkey123"
+    result = KZ._record_did("did:web:kouza.etzhayyim.com", "ai.gftd.apps.kouza.connection", "rkey123")
+    assert result == "at://did:web:kouza.etzhayyim.com/ai.gftd.apps.kouza.connection/rkey123"
 
 def test_record_did_starts_with_at():
     assert KZ._record_did("owner", "collection", "rkey").startswith("at://")

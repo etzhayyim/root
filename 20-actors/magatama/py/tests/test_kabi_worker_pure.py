@@ -46,7 +46,7 @@ def test_anastomosis_probe_only_one_did():
     """Only one DID → compatible=False."""
     from pymagatama.kabi_worker_main import task_anastomosis_probe
 
-    result = _run(task_anastomosis_probe(networkADid="did:web:kabi.gftd.ai:a"))
+    result = _run(task_anastomosis_probe(networkADid="did:web:kabi.etzhayyim.com:a"))
     assert result["probeResult"]["compatible"] is False
 
 
@@ -63,8 +63,8 @@ def test_anastomosis_probe_no_actor_rows():
         from pymagatama.kabi_worker_main import task_anastomosis_probe
 
         result = _run(task_anastomosis_probe(
-            networkADid="did:web:kabi.gftd.ai:a",
-            networkBDid="did:web:kabi.gftd.ai:b",
+            networkADid="did:web:kabi.etzhayyim.com:a",
+            networkBDid="did:web:kabi.etzhayyim.com:b",
             edgeId="anast-test",
         ))
 
@@ -89,8 +89,8 @@ def test_anastomosis_probe_high_eta_diff():
         from pymagatama.kabi_worker_main import task_anastomosis_probe
 
         result = _run(task_anastomosis_probe(
-            networkADid="did:web:kabi.gftd.ai:a",
-            networkBDid="did:web:kabi.gftd.ai:b",
+            networkADid="did:web:kabi.etzhayyim.com:a",
+            networkBDid="did:web:kabi.etzhayyim.com:b",
         ))
 
     probe = result["probeResult"]
@@ -103,7 +103,7 @@ def test_anastomosis_probe_prion_conflict():
     import json
 
     def _mock_fetch(q, p):
-        if "kabi.gftd.ai:a" in p[0]:
+        if "kabi.etzhayyim.com:a" in p[0]:
             return (json.dumps({"eta": 0.8, "prions": ["bad-prion"]}),)
         return (json.dumps({"eta": 0.82, "prions": ["bad-prion"]}),)
 
@@ -111,8 +111,8 @@ def test_anastomosis_probe_prion_conflict():
         from pymagatama.kabi_worker_main import task_anastomosis_probe
 
         result = _run(task_anastomosis_probe(
-            networkADid="did:web:kabi.gftd.ai:a",
-            networkBDid="did:web:kabi.gftd.ai:b",
+            networkADid="did:web:kabi.etzhayyim.com:a",
+            networkBDid="did:web:kabi.etzhayyim.com:b",
         ))
 
     probe = result["probeResult"]
@@ -139,8 +139,8 @@ def test_anastomosis_probe_accept_inserts_edge():
         from pymagatama.kabi_worker_main import task_anastomosis_probe
 
         result = _run(task_anastomosis_probe(
-            networkADid="did:web:kabi.gftd.ai:a",
-            networkBDid="did:web:kabi.gftd.ai:b",
+            networkADid="did:web:kabi.etzhayyim.com:a",
+            networkBDid="did:web:kabi.etzhayyim.com:b",
             edgeId="anast-explicit-id",
         ))
 

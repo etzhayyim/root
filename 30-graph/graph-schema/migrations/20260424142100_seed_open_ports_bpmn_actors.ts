@@ -12,23 +12,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-04-24T14:30:00Z";
-const ownerDid = "did:web:open-ports.gftd.ai:ops";
+const ownerDid = "did:web:open-ports.etzhayyim.com:ops";
 const actorTag = "sys.bpmn.seed.open-ports";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-ports-schedule-vessel-call-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ports-schedule-vessel-call-v1",
     bpmnProcessId: "open_ports_schedule_vessel_call",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-ports/scheduleVesselCall.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-ports-report-incident-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ports-report-incident-v1",
     bpmnProcessId: "open_ports_report_incident",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-ports/reportIncident.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-ports-scheduleVesselCall-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-ports-scheduleVesselCall-v1",
     nsid: "ai.gftd.apps.openPorts.scheduleVesselCall", bpmnProcessId: "open_ports_schedule_vessel_call",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-ports-reportIncident-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-ports-reportIncident-v1",
     nsid: "ai.gftd.apps.openPorts.reportIncident", bpmnProcessId: "open_ports_report_incident",
     ownerDid, resultTimeoutMs: 30000 },
 ];

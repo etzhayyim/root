@@ -22,7 +22,7 @@ type Seed = {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:yoro.gftd.ai";
+const ownerDid = "did:web:yoro.etzhayyim.com";
 const actorId = "sys.bpmn.seed.yoro.translation";
 const createdAt = "2026-05-14T01:30:00Z";
 
@@ -44,9 +44,9 @@ const seeds: Seed[] = [
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/yoro/${s.proc}.bpmn`;
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVid = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yoro-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yoro-${slug(s.proc)}-v1`;
 const bindingVid = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yoro-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yoro-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

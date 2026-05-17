@@ -1,7 +1,7 @@
 {
   "formatKey": "ind.esic.monthlyContribution.portal",
   "jurisdiction": "esic",
-  "actorDid": "did:web:ind-payroll.gftd.ai:esic",
+  "actorDid": "did:web:ind-payroll.etzhayyim.com:esic",
   "formatKind": "official_portal_or_integrator_payload",
   "officialSourceUrl": "https://www.esic.gov.in/",
   "lastVerified": "2026-04-26",

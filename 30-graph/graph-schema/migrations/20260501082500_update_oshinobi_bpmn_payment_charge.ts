@@ -17,17 +17,17 @@ function readContract(relPath: string): string {
 // - Removes dependence on paymentProviderChargeUrl process variable
 
 export async function up(db: Kysely<unknown>): Promise<void> {
-  const ownerDid = "did:web:oshinobi.gftd.ai";
+  const ownerDid = "did:web:oshinobi.etzhayyim.com";
   const updatedAt = "2026-05-01T08:25:00Z";
 
   const updates = [
     {
-      vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1",
+      vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1",
       bpmnProcessId: "oshinobi_subscribe",
       sourcePath: "00-contracts/bpmn/ai/gftd/oshinobi/subscribe.bpmn",
     },
     {
-      vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1",
+      vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1",
       bpmnProcessId: "oshinobi_tip_creator",
       sourcePath: "00-contracts/bpmn/ai/gftd/oshinobi/tipCreator.bpmn",
     },

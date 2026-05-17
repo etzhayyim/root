@@ -54,17 +54,17 @@ describe("createHostSDK", () => {
   it("reads PERFORMER_DID from env for selfRepo", () => {
     const sdk = createHostSDK({
       appDef: createMockAppDef(),
-      env: { PERFORMER_DID: "did:web:test.gftd.ai" },
+      env: { PERFORMER_DID: "did:web:test.etzhayyim.com" },
     });
     // PERFORMER_DID is in env, so configGet returns it as a string
-    expect(sdk.hostImports.configGet("PERFORMER_DID")).toBe("did:web:test.gftd.ai");
+    expect(sdk.hostImports.configGet("PERFORMER_DID")).toBe("did:web:test.etzhayyim.com");
     expect(sdk).toBeDefined();
   });
 
   it("reads APP_DID from env as fallback for selfRepo", () => {
     const sdk = createHostSDK({
       appDef: createMockAppDef(),
-      env: { APP_DID: "did:web:fallback.gftd.ai" },
+      env: { APP_DID: "did:web:fallback.etzhayyim.com" },
     });
     expect(sdk).toBeDefined();
   });

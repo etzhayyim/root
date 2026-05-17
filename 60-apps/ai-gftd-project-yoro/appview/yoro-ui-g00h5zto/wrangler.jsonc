@@ -20,7 +20,7 @@
     "APP_DISPLAY_NAME": "Yoro",
     "APP_EMBED_URL": "https://yoro.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message",
     "APP_NANOID": "yoro",
     "APP_PERFORMER_TYPE": "system",
     "APP_SOURCE": "custom",

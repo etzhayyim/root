@@ -5,7 +5,7 @@
 	 * For any actor DID, query edge_gftd_fiscal_flow + edge_gftd_ownership and
 	 * render: incoming flows (受け取り) / outgoing flows (支払) / UBO chain (実質的支配者).
 	 *
-	 * Data path: graphSql → atproto.gftd.ai/xrpc/ai.gftd.kagami.graph.query
+	 * Data path: graphSql → atproto.etzhayyim.com/xrpc/ai.gftd.kagami.graph.query
 	 * → Hyperdrive → RisingWave (ADR-0002 / ADR-0035 §schema).
 	 *
 	 * Empty state shows ADR-0035 explanation so non-fiscal actors still get

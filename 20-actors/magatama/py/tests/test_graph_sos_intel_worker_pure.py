@@ -219,4 +219,4 @@ def test_write_finding_persists():
 
     assert result["written"] is True
     assert result["findingId"].startswith("fnd-")
-    assert "graph-sos-intel.gftd.ai" in result["vertexId"]
+    assert "graph-sos-intel.etzhayyim.com" in result["vertexId"]

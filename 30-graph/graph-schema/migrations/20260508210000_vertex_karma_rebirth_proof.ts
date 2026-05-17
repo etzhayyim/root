@@ -4,7 +4,7 @@ import { sql } from "kysely";
 // ADR-0040 vertex tier: tier B  (curated zk-proof submission log).
 
 /**
- * karma.gftd.ai — zk-SNARK rebirth non-linkability proof schema (K3).
+ * karma.etzhayyim.com — zk-SNARK rebirth non-linkability proof schema (K3).
  *
  * Backs the RebirthVerifier.sol contract on Base L2. One row per
  * submitted proof; the verifier_contract column captures which

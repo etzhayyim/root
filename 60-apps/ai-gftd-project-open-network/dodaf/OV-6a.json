@@ -2,7 +2,7 @@
   "viewId": "open-network.OV-6a",
   "viewType": "OV-6a",
   "title": "Operational Rules Model",
-  "did": "did:web:open-network.gftd.ai",
+  "did": "did:web:open-network.etzhayyim.com",
   "format": "json",
   "content": {
     "businessRules": [

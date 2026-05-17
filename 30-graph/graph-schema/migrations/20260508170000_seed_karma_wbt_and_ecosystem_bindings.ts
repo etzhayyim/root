@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * karma.gftd.ai — additive BPMN seed for WBT settlement + ecosystem
+ * karma.etzhayyim.com — additive BPMN seed for WBT settlement + ecosystem
  * resident agents (Phase K1 follow-on).
  *
  * Why a separate migration: keeps the original
@@ -29,56 +29,56 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T17:00:00Z";
-const ownerDid = "did:web:karma.gftd.ai";
+const ownerDid = "did:web:karma.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.karma.wbt";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-wbt-transfer-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-wbt-transfer-v1",
     bpmnProcessId: "karma_wbt_transfer",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/wbtTransfer.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-wbt-balance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-wbt-balance-v1",
     bpmnProcessId: "karma_wbt_balance",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/wbtBalance.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-cohort-genesis-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-cohort-genesis-v1",
     bpmnProcessId: "karma_cohort_genesis",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/cohortGenesis.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-organism-resident-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-organism-resident-v1",
     bpmnProcessId: "karma_organism_resident",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/organismResident.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-organism-resume-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-organism-resume-v1",
     bpmnProcessId: "karma_organism_resume",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/organismResume.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-cohort-fission-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-cohort-fission-v1",
     bpmnProcessId: "karma_cohort_fission",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/cohortFission.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-cohort-fission-sweep-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-cohort-fission-sweep-v1",
     bpmnProcessId: "karma_cohort_fission_sweep",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/cohortFissionSweep.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-submit-rebirth-proof-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-submit-rebirth-proof-v1",
     bpmnProcessId: "karma_submit_rebirth_proof",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/submitRebirthProof.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-filecoin-propose-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-filecoin-propose-v1",
     bpmnProcessId: "karma_filecoin_propose",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/filecoinPropose.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/karma-filecoin-renew-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/karma-filecoin-renew-v1",
     bpmnProcessId: "karma_filecoin_renew",
     sourcePath: "00-contracts/bpmn/ai/gftd/karma/filecoinRenew.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/karma-wbtTransfer-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/karma-wbtTransfer-v1",
     nsid: "ai.gftd.apps.karma.wbtTransfer",
     bpmnProcessId: "karma_wbt_transfer", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/karma-wbtBalance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/karma-wbtBalance-v1",
     nsid: "ai.gftd.apps.karma.wbtBalance",
     bpmnProcessId: "karma_wbt_balance", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/karma-organismResume-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/karma-organismResume-v1",
     nsid: "ai.gftd.apps.karma.organismResume",
     bpmnProcessId: "karma_organism_resume", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/karma-fissionCohort-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/karma-fissionCohort-v1",
     nsid: "ai.gftd.apps.karma.fissionCohort",
     bpmnProcessId: "karma_cohort_fission", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/karma-submitRebirthProof-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/karma-submitRebirthProof-v1",
     nsid: "ai.gftd.apps.karma.submitRebirthProof",
     bpmnProcessId: "karma_submit_rebirth_proof", ownerDid, resultTimeoutMs: 60_000 },
 ];

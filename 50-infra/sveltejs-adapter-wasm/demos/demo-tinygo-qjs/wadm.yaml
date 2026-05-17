@@ -13,7 +13,7 @@ spec:
       type: component
       properties:
         # Local dev: file reference to wash build output
-        # Production: ghcr.io/gftdcojp/svelte-performer:<tag>
+        # Production: ghcr.io/etzhayyim/svelte-performer:<tag>
         image: file://../../projects/sveltejs-adapter-wasm/wasm/runtime/build/svelte-wasm-demo_s.wasm
       traits:
         - type: spreadscaler
@@ -33,7 +33,7 @@ spec:
       type: component
       properties:
         # Local dev: file://../../projects/sveltejs-adapter-wasm/wasm/quickjs-engine/target/wasm32-wasip1/release/quickjs_engine.wasm
-        # Production: ghcr.io/gftdcojp/quickjs-engine:<tag>
+        # Production: ghcr.io/etzhayyim/quickjs-engine:<tag>
         image: file://../../projects/sveltejs-adapter-wasm/wasm/quickjs-engine/target/wasm32-wasip1/release/quickjs_engine.wasm
       traits:
         - type: spreadscaler

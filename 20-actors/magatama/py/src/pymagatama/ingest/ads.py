@@ -11,8 +11,8 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-ACTOR = "did:web:ads.gftd.ai"
-PDS_ORIGIN = os.environ.get("PDS_ORIGIN", "https://atproto.gftd.ai")
+ACTOR = "did:web:ads.etzhayyim.com"
+PDS_ORIGIN = os.environ.get("PDS_ORIGIN", "https://atproto.etzhayyim.com")
 
 
 def now_iso() -> str:

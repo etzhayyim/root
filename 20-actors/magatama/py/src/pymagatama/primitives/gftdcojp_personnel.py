@@ -25,14 +25,14 @@ from typing import Any
 
 LOG = logging.getLogger("gftdcojp.personnel")
 
-_ORG_DID   = "did:web:gftdcojp.gftd.ai"
-_OWNER_DID = "did:web:bpmn.gftd.ai"
+_ORG_DID   = "did:web:gftdcojp.etzhayyim.com"
+_OWNER_DID = "did:web:bpmn.etzhayyim.com"
 
 # Tier 3 RLS allowlist (CEO + COO + CLO only)
 _TIER3_READERS = {
-    "did:web:j-kawasaki.gftd.ai",
-    "did:web:a-nakamura.gftd.ai",
-    "did:web:k-bakshi.gftd.ai",
+    "did:web:j-kawasaki.etzhayyim.com",
+    "did:web:a-nakamura.etzhayyim.com",
+    "did:web:k-bakshi.etzhayyim.com",
 }
 
 
@@ -185,7 +185,7 @@ async def task_gftdcojp_personnel_load_profile(
 
 # ── Task: minimaxScore (worst-case + Ω-axis evaluation) ────────────────────────
 
-_MINIMAX_SYSTEM = """You are the minimax scorer for gftdcojp.gftd.ai personnel
+_MINIMAX_SYSTEM = """You are the minimax scorer for gftdcojp.etzhayyim.com personnel
 decisions. Principal: amanomibashira. Vendor: Gftd Japan株式会社.
 
 Inputs: person profile bundle (skill/bio/career/profile) + candidate target
@@ -265,7 +265,7 @@ async def task_gftdcojp_personnel_minimax_score(
         "recommendation":         str(scored.get("recommendation") or "needs_human_review"),
         "rationale":              str(scored.get("rationale") or "")[:1000],
         "assessed_at":            _now_iso(),
-        "assessor_did":           "did:web:gftdcojp.gftd.ai",
+        "assessor_did":           "did:web:gftdcojp.etzhayyim.com",
         "llm_model":              "structured",
         "created_at":             _now_iso(),
         "owner_did":              _ORG_DID,
@@ -299,11 +299,11 @@ async def task_gftdcojp_personnel_notify_deny(
     """Notify CEO/CLO when minimax gate blocks an assignment.
 
     Currently emits OCEL row only; integrate Teams/email send via
-    microsoft.gftd.ai sendDraft from the consuming agent if needed.
+    microsoft.etzhayyim.com sendDraft from the consuming agent if needed.
     """
     recipients = recipient_dids or [
-        "did:web:j-kawasaki.gftd.ai",
-        "did:web:k-bakshi.gftd.ai",
+        "did:web:j-kawasaki.etzhayyim.com",
+        "did:web:k-bakshi.etzhayyim.com",
     ]
     LOG.info(
         "personnel deny notified — recipients=%s regret=%s ip_leak_risk=%s",

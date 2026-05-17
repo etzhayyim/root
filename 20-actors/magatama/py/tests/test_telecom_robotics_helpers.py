@@ -137,7 +137,7 @@ def test_require_raises_on_empty_string() -> None:
 
 def test_vid_subscriber_shape() -> None:
     vid = TC._vid_subscriber("sub-001")
-    assert "at://did:web:telecom.gftd.ai" in vid
+    assert "at://did:web:telecom.etzhayyim.com" in vid
     assert "ai.gftd.apps.telecom.subscriber" in vid
     assert "sub-001" in vid
 
@@ -155,8 +155,8 @@ def test_vid_service_shape() -> None:
 # ─── telecom: _caller and _audit ─────────────────────────────────────────────
 
 def test_caller_uses_caller_did() -> None:
-    result = TC._caller({"callerDid": "did:web:test.gftd.ai"})
-    assert result == "did:web:test.gftd.ai"
+    result = TC._caller({"callerDid": "did:web:test.etzhayyim.com"})
+    assert result == "did:web:test.etzhayyim.com"
 
 
 def test_caller_default_when_missing() -> None:
@@ -165,7 +165,7 @@ def test_caller_default_when_missing() -> None:
 
 
 def test_audit_has_required_fields() -> None:
-    result = TC._audit({"callerDid": "did:web:test.gftd.ai"})
+    result = TC._audit({"callerDid": "did:web:test.etzhayyim.com"})
     assert "created_at" in result
     assert "sensitivity_ord" in result
     assert "org_id" in result

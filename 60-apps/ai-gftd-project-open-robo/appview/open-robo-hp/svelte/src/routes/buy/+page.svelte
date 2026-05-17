@@ -43,15 +43,15 @@
       availableNote: 'キャンペーン準備中',
     },
     {
-      name: 'tsukuru.gftd.ai',
+      name: 'tsukuru.etzhayyim.com',
       badge: 'B2B 直販',
       badgeColor: '#58a6ff',
       icon: '🏢',
       price: 'お見積もり',
       priceNote: '法人・教育機関',
       desc: '企業・大学向け。納品書・領収書・見積書発行対応。Education 3-pack 割引あり。',
-      cta: 'tsukuru.gftd.ai を開く',
-      ctaHref: 'https://tsukuru.gftd.ai',
+      cta: 'tsukuru.etzhayyim.com を開く',
+      ctaHref: 'https://tsukuru.etzhayyim.com',
       ctaStyle: 'bg-[#58a6ff] hover:bg-[#79c0ff] text-black',
       available: true,
       availableNote: '受付中',
@@ -61,7 +61,7 @@
   const faq = [
     {
       q: '送料はかかりますか？',
-      a: 'Amazon JP は Prime 対象（Prime 会員は無料）。Makuake/Kickstarter は送料別途表示。tsukuru.gftd.ai は法人向け見積時に確認。',
+      a: 'Amazon JP は Prime 対象（Prime 会員は無料）。Makuake/Kickstarter は送料別途表示。tsukuru.etzhayyim.com は法人向け見積時に確認。',
     },
     {
       q: 'Raspberry Pi 5 は付属しますか？',
@@ -86,7 +86,7 @@
 
 <svelte:head>
   <title>購入 | Giemon Otete</title>
-  <meta name="description" content="Giemon Otete の購入チャンネル。Amazon JP、Makuake、Kickstarter、tsukuru.gftd.ai (B2B 直販)。" />
+  <meta name="description" content="Giemon Otete の購入チャンネル。Amazon JP、Makuake、Kickstarter、tsukuru.etzhayyim.com (B2B 直販)。" />
 </svelte:head>
 
 <!-- ─── Nav ─── -->

@@ -19,7 +19,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, TypedDict
 
 
-OWNER_DID = "did:web:gtin.gftd.ai"
+OWNER_DID = "did:web:gtin.etzhayyim.com"
 ACTOR_ID = "sys.langgraph.global-product-ingest-resident"
 ENRICH_ASSISTANT_ID = "global_product_enrich_one"
 DEFAULT_LANGGRAPH_URL = "http://langgraph-server.mitama-udf.svc.cluster.local:8000"

@@ -37,8 +37,8 @@ from typing import TypedDict
 # ---------------------------------------------------------------------------
 
 _CHARACTER_DESC = "misaki: high-school girl, navy blazer, dark long hair, introspective"
-_ACTOR_DID = "did:web:animeka.gftd.ai"
-_REPO = "did:web:an1m3k4x.gftd.ai"
+_ACTOR_DID = "did:web:animeka.etzhayyim.com"
+_REPO = "did:web:an1m3k4x.etzhayyim.com"
 # Match the working shinshi ckpt name. ComfyUI rejects bare "animagine-xl-4"
 # (no .safetensors suffix); the OpenAI-compat shim path `/v1/images/generations`
 # does not exist on this pod, so we render via native `/prompt` workflow.

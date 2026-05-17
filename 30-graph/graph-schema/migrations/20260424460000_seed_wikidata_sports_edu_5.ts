@@ -16,8 +16,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     ["cricketGround",   15_000, 0.7],
   ];
   for (const [key, worldTotal, priority] of seed) {
-    const sourceDid = `did:web:maps.gftd.ai:registry:wikidata:${key}`;
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-${key}:Spot`;
+    const sourceDid = `did:web:maps.etzhayyim.com:registry:wikidata:${key}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-${key}:Spot`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

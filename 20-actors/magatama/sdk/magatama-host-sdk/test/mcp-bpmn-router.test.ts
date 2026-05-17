@@ -110,7 +110,7 @@ describe("lookupBpmnRoute", () => {
 describe("dispatchToBpmn", () => {
 	it("forwards to {bpmnUrl}/xrpc/{nsid} with content-type and body", async () => {
 		fetchMock.mockResolvedValueOnce(
-			new Response(JSON.stringify({ ok: true, variables: { caseDid: "did:web:lawfirm.gftd.ai:case:1" } }), {
+			new Response(JSON.stringify({ ok: true, variables: { caseDid: "did:web:lawfirm.etzhayyim.com:case:1" } }), {
 				status: 200,
 				headers: { "content-type": "application/json" },
 			}),
@@ -126,7 +126,7 @@ describe("dispatchToBpmn", () => {
 		expect(result?.status).toBe(200);
 		const text = new TextDecoder().decode(result!.body);
 		// Zeebe `{ok, variables}` shape unwrapped to flat handler shape
-		expect(JSON.parse(text)).toEqual({ caseDid: "did:web:lawfirm.gftd.ai:case:1" });
+		expect(JSON.parse(text)).toEqual({ caseDid: "did:web:lawfirm.etzhayyim.com:case:1" });
 
 		const [url, init] = fetchMock.mock.calls[0];
 		expect(url).toBe("https://dispatcher.test/xrpc/" + NSID);
@@ -172,7 +172,7 @@ describe("dispatchToBpmn", () => {
 				["x-gftd-org-id", "org1"],
 				["atproto-proxy", "did:web:appview"],
 				["cookie", "gftd_session=should-not-leak"],
-				["host", "lf1rm8k0.gftd.ai"],
+				["host", "lf1rm8k0.etzhayyim.com"],
 			],
 		});
 		const fwd = fetchMock.mock.calls[0][1].headers as Record<string, string>;

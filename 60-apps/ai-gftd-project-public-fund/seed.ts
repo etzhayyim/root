@@ -10,8 +10,8 @@ declare const process: {
   exitCode?: number;
 };
 
-const PDS = 'https://atproto.gftd.ai';
-const ROOT_DID = 'did:web:public-fund.gftd.ai';
+const PDS = 'https://atproto.etzhayyim.com';
+const ROOT_DID = 'did:web:public-fund.etzhayyim.com';
 const PROJECT_ID = 'public-fund';
 
 const GFTD_TOKEN = process.env.GFTD_TOKEN;
@@ -132,9 +132,9 @@ const FUND_CAMPAIGNS = [
 ];
 
 const PLEDGES = [
-  { pledgeId: 'plg-001', campaignId: 'pfc-school-meals-2026', supporterDid: 'did:web:user-alice.gftd.ai', amountCredits: 25000, ledgerTxId: 'credits-tx-pledge-001' },
-  { pledgeId: 'plg-002', campaignId: 'pfc-rural-clinics-2026', supporterDid: 'did:web:user-bob.gftd.ai', amountCredits: 40000, ledgerTxId: 'credits-tx-pledge-002' },
-  { pledgeId: 'plg-003', campaignId: 'pfc-heat-shelters-2026', supporterDid: 'did:web:user-caro.gftd.ai', amountCredits: 30000, ledgerTxId: 'credits-tx-pledge-003' },
+  { pledgeId: 'plg-001', campaignId: 'pfc-school-meals-2026', supporterDid: 'did:web:user-alice.etzhayyim.com', amountCredits: 25000, ledgerTxId: 'credits-tx-pledge-001' },
+  { pledgeId: 'plg-002', campaignId: 'pfc-rural-clinics-2026', supporterDid: 'did:web:user-bob.etzhayyim.com', amountCredits: 40000, ledgerTxId: 'credits-tx-pledge-002' },
+  { pledgeId: 'plg-003', campaignId: 'pfc-heat-shelters-2026', supporterDid: 'did:web:user-caro.etzhayyim.com', amountCredits: 30000, ledgerTxId: 'credits-tx-pledge-003' },
 ];
 
 const ROUTED_ALLOCATIONS = [
@@ -175,7 +175,7 @@ const APPLICATIONS = [
   {
     applicationId: 'app-edu-001',
     programId: 'pf-education-family',
-    applicantDid: 'did:web:npo-learning-hub.gftd.ai',
+    applicantDid: 'did:web:npo-learning-hub.etzhayyim.com',
     applicantName: 'Learning Hub NPO',
     requestedCredits: 90000,
     status: 'submitted',
@@ -183,7 +183,7 @@ const APPLICATIONS = [
   {
     applicationId: 'app-health-001',
     programId: 'pf-health-access',
-    applicantDid: 'did:web:rural-clinic-net.gftd.ai',
+    applicantDid: 'did:web:rural-clinic-net.etzhayyim.com',
     applicantName: 'Rural Clinic Network',
     requestedCredits: 120000,
     status: 'approved',
@@ -191,7 +191,7 @@ const APPLICATIONS = [
   {
     applicationId: 'app-climate-001',
     programId: 'pf-climate-resilience',
-    applicantDid: 'did:web:cool-roof-lab.gftd.ai',
+    applicantDid: 'did:web:cool-roof-lab.etzhayyim.com',
     applicantName: 'Cool Roof Lab',
     requestedCredits: 150000,
     status: 'under_review',
@@ -202,14 +202,14 @@ const DECISIONS = [
   {
     decisionId: 'dec-health-001',
     applicationId: 'app-health-001',
-    reviewerDid: 'did:web:public-fund.gftd.ai:reviewer:health',
+    reviewerDid: 'did:web:public-fund.etzhayyim.com:reviewer:health',
     result: 'approve',
     reason: 'Clinic network meets underserved-area and continuity criteria.',
   },
   {
     decisionId: 'dec-edu-001',
     applicationId: 'app-edu-001',
-    reviewerDid: 'did:web:public-fund.gftd.ai:reviewer:education',
+    reviewerDid: 'did:web:public-fund.etzhayyim.com:reviewer:education',
     result: 'hold',
     reason: 'Awaiting latest beneficiary roster and school-partner verification.',
   },

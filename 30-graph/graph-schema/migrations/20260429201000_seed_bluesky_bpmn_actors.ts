@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
-const ownerDid = "did:web:bluesky.gftd.ai";
+const ownerDid = "did:web:bluesky.etzhayyim.com";
 const createdAt = "2026-04-29T20:10:00+09:00";
 const actorId = "sys.bpmn.seed.bluesky";
 const writeTableAllowlist = [
@@ -36,11 +36,11 @@ const seeds = [
 ] as const;
 
 function processVertexId(seed: (typeof seeds)[number]): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${seed.slug}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${seed.slug}-v1`;
 }
 
 function bindingVertexId(seed: (typeof seeds)[number]): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${seed.slug}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${seed.slug}-v1`;
 }
 
 export async function up(db: Kysely<unknown>): Promise<void> {

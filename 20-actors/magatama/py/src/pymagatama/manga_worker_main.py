@@ -1,4 +1,4 @@
-"""manga.gftd.ai — LangServer worker (BPMN service task handlers).
+"""manga.etzhayyim.com — LangServer worker (BPMN service task handlers).
 
 12 methods: createTitle / createChapter / publishChapter / updateChapterStatus /
             recordReadingProgress / submitFromNarou / addTag / getTitle /
@@ -19,7 +19,7 @@ DB_URL = os.getenv(
     "postgresql://root:rw_66a4db7736799bf888c50a817b4c6a65@45.32.79.245:4566/dev",
 )
 
-ACTOR_DID = "did:web:manga.gftd.ai"
+ACTOR_DID = "did:web:manga.etzhayyim.com"
 
 
 async def get_db():

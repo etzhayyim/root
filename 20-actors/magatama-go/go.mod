@@ -9,7 +9,7 @@
 //	func init() { spincompat.Handle(myHandler) }
 //
 //	// After (one line change):
-//	import magatama "github.com/gftdcojp/magatama-go"
+//	import magatama "github.com/etzhayyim/root/20-actors/magatama-go"
 //	func init() { magatama.Handle(myHandler) }
 //
 // Build pipeline (replaces spin build):
@@ -26,7 +26,7 @@
 // wasi_preview1_component_adapter.wasm is from:
 //   https://github.com/bytecodealliance/wasmtime/releases/latest
 //   (wasi_snapshot_preview1.reactor.wasm for library components)
-module github.com/gftdcojp/magatama-go
+module github.com/etzhayyim/root/20-actors/magatama-go
 
 go 1.23.0
 

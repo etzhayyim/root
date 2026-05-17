@@ -72,7 +72,7 @@
     "CNT.EHS.LOCAL_EXHAUST_ACTIVE"
   ],
   "approvals": [
-    { "role": "manufacturing-owner", "required": true, "did": "did:web:tsukuru.gftd.ai:operator-example" },
+    { "role": "manufacturing-owner", "required": true, "did": "did:web:tsukuru.etzhayyim.com:operator-example" },
     { "role": "ehs-owner", "required": true, "did": "" },
     { "role": "quality-owner", "required": true, "did": "" }
   ]

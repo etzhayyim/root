@@ -42,4 +42,4 @@ def classification_vertex_id(entity_did: str, isic_class_code: str, classified_a
     digest = hashlib.sha256(
         f"{entity_did}|{isic_class_code}|{classified_at}".encode("utf-8")
     ).hexdigest()[:24]
-    return f"at://did:web:open-isic.gftd.ai/ai.gftd.apps.openIsic.classification/{digest}"
+    return f"at://did:web:open-isic.etzhayyim.com/ai.gftd.apps.openIsic.classification/{digest}"

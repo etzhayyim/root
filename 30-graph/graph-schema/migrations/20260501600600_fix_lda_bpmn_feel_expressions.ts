@@ -23,7 +23,7 @@ const processes = [
 ] as const;
 
 const processVertexId = (proc: string) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-${proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${proc}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const p of processes) {

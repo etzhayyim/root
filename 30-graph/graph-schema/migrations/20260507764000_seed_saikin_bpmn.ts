@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-05-07T19:30:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 interface BpmnEntry {
   processId: string;
@@ -23,8 +23,8 @@ const ENTRIES: BpmnEntry[] = [
   {
     processId: "saikin_horizontal_transfer_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/saikin-horizontal-transfer-cycle-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/saikin-horizontal-transfer-cycle-v1",
     nsid: "ai.gftd.apps.saikin.probeEnvironment",
   },
 ];

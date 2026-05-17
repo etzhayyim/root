@@ -115,7 +115,7 @@ async def verify() -> dict[str, Any]:
         {
             "commodityCode": "43211501",
             "commodityName": "Computer servers",
-            "sourceRepo": "did:web:unispsc.gftd.ai:seg43",
+            "sourceRepo": "did:web:unispsc.etzhayyim.com:seg43",
             "rkey": "43211501",
         },
     )

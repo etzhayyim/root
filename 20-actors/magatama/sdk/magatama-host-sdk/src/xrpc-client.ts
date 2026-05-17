@@ -1,4 +1,4 @@
-// xrpc-client.ts — Typed XRPC client for atproto.gftd.ai.
+// xrpc-client.ts — Typed XRPC client for atproto.etzhayyim.com.
 // NSID utilities delegated to @gftd/xrpc.
 
 import {
@@ -82,7 +82,7 @@ export class XrpcClient {
 
   // ── Host SDK helpers ──
 
-  /** Canonical nanoid DID (e.g. "did:web:dtyy44cr.gftd.ai"). */
+  /** Canonical nanoid DID (e.g. "did:web:dtyy44cr.etzhayyim.com"). */
   get selfRepo(): string {
     return this.repo;
   }
@@ -108,7 +108,7 @@ export class XrpcClient {
     try {
       const headers = await this.auth.resolve();
       if (this.repo) headers["x-active-did"] = this.repo;
-      resp = await this.transport.fetcher.fetch(`https://atproto.gftd.ai/xrpc/${nsid}`, {
+      resp = await this.transport.fetcher.fetch(`https://atproto.etzhayyim.com/xrpc/${nsid}`, {
         method: "POST",
         headers,
         body: JSON.stringify(body),
@@ -251,7 +251,7 @@ export class XrpcClient {
 
   async appBskyGraphFollow(targetNanoid: string): Promise<void> {
     await this.rpc("app.bsky.graph.follow", {
-      did: `did:web:${targetNanoid}.gftd.ai`,
+      did: `did:web:${targetNanoid}.etzhayyim.com`,
     });
   }
 
@@ -453,7 +453,7 @@ export class XrpcClient {
   // ── SSE Firehose ──
 
   subscribeRepos(opts?: { cursor?: string }): ReadableStream<string> {
-    const url = `https://atproto.gftd.ai/xrpc/com.atproto.sync.subscribeRepos${
+    const url = `https://atproto.etzhayyim.com/xrpc/com.atproto.sync.subscribeRepos${
       opts?.cursor ? `?cursor=${opts.cursor}` : ""
     }`;
     const { readable, writable } = new TransformStream<string, string>();

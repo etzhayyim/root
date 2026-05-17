@@ -1,5 +1,5 @@
 """
-webya.gftd.ai — Zeebe task handlers (ADR-0056 + ADR-2605080200).
+webya.etzhayyim.com — Zeebe task handlers (ADR-0056 + ADR-2605080200).
 
 Task types registered under ZEEBE_WORKER_PROFILE=webya:
   webya.domain.provision          CF for SaaS Custom Hostname 発行
@@ -36,9 +36,9 @@ LOG = logging.getLogger(__name__)
 # CF API settings (from env / K8s Secret)
 _CF_API_TOKEN   = os.environ.get("CF_API_TOKEN", "")
 _CF_ZONE_ID     = os.environ.get("WEBYA_CF_ZONE_ID", "")
-_CF_PROXY_ORIGIN = "proxy-webya.gftd.ai"
+_CF_PROXY_ORIGIN = "proxy-webya.etzhayyim.com"
 
-ACTOR_DID = "did:web:webya.gftd.ai"
+ACTOR_DID = "did:web:webya.etzhayyim.com"
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────

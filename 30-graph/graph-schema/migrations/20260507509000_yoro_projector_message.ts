@@ -47,7 +47,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       2
     FROM vertex_repo_record
     WHERE collection = 'ai.gftd.convo.message'
-      AND repo = 'did:web:ops.gftd.ai'
+      AND repo = 'did:web:ops.etzhayyim.com'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 

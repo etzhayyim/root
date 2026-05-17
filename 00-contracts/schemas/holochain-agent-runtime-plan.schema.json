@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/schemas/holochain-agent-runtime-plan/v1.json",
+  "$id": "https://etzhayyim.com/schemas/holochain-agent-runtime-plan/v1.json",
   "title": "GFTD Holochain Agent Actor Runtime Plan",
   "type": "object",
   "additionalProperties": true,
   "required": ["schema", "runtimeKind", "status", "agentDid", "conductor", "happ", "bindings", "verification", "registration"],
   "properties": {
     "schema": {
-      "const": "https://gftd.ai/schemas/holochain-agent-runtime-plan/v1.json"
+      "const": "https://etzhayyim.com/schemas/holochain-agent-runtime-plan/v1.json"
     },
     "runtimeKind": { "const": "holochain" },
     "status": { "const": "experimental" },

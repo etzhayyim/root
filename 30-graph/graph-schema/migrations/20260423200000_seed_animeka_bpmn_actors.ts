@@ -9,7 +9,7 @@ import { sql } from "kysely";
  *
  * Seeds 13 BPMN process definitions + 13 NSID bindings so the
  * bpmn-dispatcher F5 watcher ships them to Zeebe and the per-stage
- * XRPC endpoints (`POST dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.animeka.*`)
+ * XRPC endpoints (`POST dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.animeka.*`)
  * go live within ~30 s of apply.
  *
  * 12 stages (1-12 of the production pipeline) + 1 companion (chat):
@@ -41,7 +41,7 @@ type BindingSeed = {
   bpmnProcessId: string;
 };
 
-const OWNER_DID = "did:web:animeka.gftd.ai";
+const OWNER_DID = "did:web:animeka.etzhayyim.com";
 const createdAt = "2026-04-23T20:00:00Z";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -78,13 +78,13 @@ const stages: Array<{
 ];
 
 const processSeeds: ProcessSeed[] = stages.map((s) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${s.slug}`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${s.slug}`,
   bpmnProcessId: s.bpmnProcessId,
   sourcePath: `00-contracts/bpmn/ai/gftd/animeka/${s.file}`,
 }));
 
 const bindingSeeds: BindingSeed[] = stages.map((s) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${s.bindingSlug}`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${s.bindingSlug}`,
   nsid: s.nsid,
   bpmnProcessId: s.bpmnProcessId,
 }));

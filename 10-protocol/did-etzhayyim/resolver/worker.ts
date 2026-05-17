@@ -1,5 +1,5 @@
 /**
- * did:gftd Resolver Worker — `did.gftd.ai` HTTP surface.
+ * did:gftd Resolver Worker — `did.etzhayyim.com` HTTP surface.
  *
  * Implements W3C DID Resolution v0.3 for the did:gftd method (ADR-0029).
  *

@@ -21,12 +21,12 @@ VERSION = "curpus2skill-langserver-v0.1.0"
 SOURCES: dict[str, dict[str, str]] = {
     "legal-corpus": {
         "table": "vertex_legal_corpus_document",
-        "actor_did": "did:web:legal-corpus.gftd.ai",
+        "actor_did": "did:web:legal-corpus.etzhayyim.com",
         "sql": """
             SELECT vertex_id, 'vertex_legal_corpus_document' AS corpus_table,
                    title, COALESCE(body_text, '') AS body,
                    COALESCE(topic_tags_csv, '') AS tags,
-                   COALESCE(owner_did, 'did:web:legal-corpus.gftd.ai') AS owner_did,
+                   COALESCE(owner_did, 'did:web:legal-corpus.etzhayyim.com') AS owner_did,
                    COALESCE(source_id, 'unknown') AS source_license
             FROM vertex_legal_corpus_document
             WHERE body_text IS NOT NULL
@@ -36,12 +36,12 @@ SOURCES: dict[str, dict[str, str]] = {
     },
     "houbun-article": {
         "table": "vertex_houbun_article",
-        "actor_did": "did:web:houbun.gftd.ai",
+        "actor_did": "did:web:houbun.etzhayyim.com",
         "sql": """
             SELECT vertex_id, 'vertex_houbun_article' AS corpus_table,
                    title, COALESCE(text, '') AS body,
                    COALESCE(article_no, '') AS tags,
-                   COALESCE(owner_did, 'did:web:houbun.gftd.ai') AS owner_did,
+                   COALESCE(owner_did, 'did:web:houbun.etzhayyim.com') AS owner_did,
                    COALESCE(source_url, 'unknown') AS source_license
             FROM vertex_houbun_article
             WHERE text IS NOT NULL
@@ -51,12 +51,12 @@ SOURCES: dict[str, dict[str, str]] = {
     },
     "domain-knowledge": {
         "table": "vertex_domain_knowledge_chunk",
-        "actor_did": "did:web:llm.gftd.ai",
+        "actor_did": "did:web:llm.etzhayyim.com",
         "sql": """
             SELECT c.vertex_id, 'vertex_domain_knowledge_chunk' AS corpus_table,
                    d.title, COALESCE(c.chunk_text, '') AS body,
                    COALESCE(c.keywords, '') AS tags,
-                   COALESCE(d.owner_did, 'did:web:llm.gftd.ai') AS owner_did,
+                   COALESCE(d.owner_did, 'did:web:llm.etzhayyim.com') AS owner_did,
                    COALESCE(c.keywords, 'unknown') AS source_license
             FROM vertex_domain_knowledge_chunk c
             LEFT JOIN vertex_domain_knowledge_document d ON d.vertex_id = c.document_vid
@@ -214,8 +214,8 @@ def insert_run(run: dict[str, Any]) -> None:
             )
             """,
             (
-                run["vertex_id"], 1, "did:web:recruit.gftd.ai", run["rkey"],
-                "did:web:recruit.gftd.ai", run["label"], run["source_table"],
+                run["vertex_id"], 1, "did:web:recruit.etzhayyim.com", run["rkey"],
+                "did:web:recruit.etzhayyim.com", run["label"], run["source_table"],
                 run["source_actor_did"], VERSION, "lexical-v0",
                 json.dumps(run["params"], ensure_ascii=False), run["corpus_limit"],
                 run["skill_limit"], run["min_score"], run["matched_documents"],

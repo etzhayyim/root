@@ -2,12 +2,12 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * lawfirm.gftd.ai Y1 KPI views.
+ * lawfirm.etzhayyim.com Y1 KPI views.
  *
  * Plain VIEWs only — query-time evaluation since aggregations reference
  * now() (forbidden in MVs, see ADR-0004 amendment in 010000 migration).
  *
- * Powers `kpi-lawfirm.gftd.ai` CEO dashboard. All views read-only,
+ * Powers `kpi-lawfirm.etzhayyim.com` CEO dashboard. All views read-only,
  * cohort-bounded so cardinality stays small (top-3 + tier-2 = ~10 rows).
  */
 export async function up(db: Kysely<unknown>): Promise<void> {

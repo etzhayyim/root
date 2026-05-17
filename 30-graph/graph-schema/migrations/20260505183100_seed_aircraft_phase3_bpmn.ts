@@ -13,12 +13,12 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-05-05T18:31:00Z";
-const ownerDid = "did:web:maps.gftd.ai";
+const ownerDid = "did:web:maps.etzhayyim.com";
 const actorId = "sys.bpmn.seed.maps-aircraft-phase3";
 
 const seed = {
-  processVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1",
-  bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1",
+  processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1",
+  bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1",
   processId: "maps_backfill_aircraft_registry",
   nsid: "ai.gftd.apps.maps.backfillAircraftRegistry",
   sourcePath: "00-contracts/bpmn/ai/gftd/maps/backfillAircraftRegistry.bpmn",

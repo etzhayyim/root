@@ -12,7 +12,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 
-APP_DID = "did:web:omise.gftd.ai"
+APP_DID = "did:web:omise.etzhayyim.com"
 
 A = {
     "platformAdmin": f"{APP_DID}:actor:platformAdmin",

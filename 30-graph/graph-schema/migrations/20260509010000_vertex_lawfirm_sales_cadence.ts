@@ -9,30 +9,30 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const seedCreatedAt = "2026-05-08T00:00:00Z";
-const seedOwnerDid = "did:web:lawfirm.gftd.ai";
+const seedOwnerDid = "did:web:lawfirm.etzhayyim.com";
 const seedActorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESSES = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v1",
     bpmnProcessId: "lawfirm_sales_cadence_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/salesCadenceTick.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawfirm-pipeline-stage-transition-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-pipeline-stage-transition-v1",
     bpmnProcessId: "lawfirm_pipeline_stage_transition",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/pipelineStageTransition.bpmn",
   },
 ];
 const BINDING = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawfirm-pipeline-stage-transition-xrpc-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-pipeline-stage-transition-xrpc-v1",
   nsid: "ai.gftd.apps.lawfirm.pipelineTransition",
   bpmnProcessId: "lawfirm_pipeline_stage_transition",
   resultTimeoutMs: 30_000,
 };
 
 /**
- * lawfirm.gftd.ai sales cadence + lead tracking schema.
+ * lawfirm.etzhayyim.com sales cadence + lead tracking schema.
  *
  * Tables:
  *   vertex_lawfirm_lead            One row per target firm/individual
@@ -163,31 +163,31 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, owner_did)
     VALUES
       (
-        'at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.lead/nishith-desai-2026',
+        'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/nishith-desai-2026',
         'nishith-desai-2026', 'saas_pilot', 'Nishith Desai Associates',
         'TBD@nishithdesai.com', 'IN', 'Mumbai', '90+', 'tech-funds-PE',
-        'k-bakshi-warm-intro', 'did:web:k-bakshi.gftd.ai',
+        'k-bakshi-warm-intro', 'did:web:k-bakshi.etzhayyim.com',
         'contacted', 'send warm intro mail', now()::varchar, 60000.0,
         'Pilot 1 of 3, k-bakshi 1-hop intro to Vyapak Desai / Gowree Gokhale / Vivek Kathpalia',
-        now()::varchar, 'did:web:lawfirm.gftd.ai'
+        now()::varchar, 'did:web:lawfirm.etzhayyim.com'
       ),
       (
-        'at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.lead/trilegal-2026',
+        'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/trilegal-2026',
         'trilegal-2026', 'saas_pilot', 'Trilegal',
         'TBD@trilegal.com', 'IN', 'Bangalore', '600', 'mid-market-deal',
-        'k-bakshi-linkedin', 'did:web:k-bakshi.gftd.ai',
+        'k-bakshi-linkedin', 'did:web:k-bakshi.etzhayyim.com',
         'lead', 'send warm intro mail Week 2', '2026-05-12', 60000.0,
         'Pilot 2 of 3, target Sridhar Gorthi / Yogesh Singh / Karthik Mahalingam',
-        now()::varchar, 'did:web:lawfirm.gftd.ai'
+        now()::varchar, 'did:web:lawfirm.etzhayyim.com'
       ),
       (
-        'at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.lead/induslaw-2026',
+        'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/induslaw-2026',
         'induslaw-2026', 'saas_pilot', 'IndusLaw',
         'TBD@induslaw.com', 'IN', 'Bangalore', '250', 'startup-advisory',
-        'k-bakshi-event', 'did:web:k-bakshi.gftd.ai',
+        'k-bakshi-event', 'did:web:k-bakshi.etzhayyim.com',
         'lead', 'send warm intro mail Week 3', '2026-05-19', 60000.0,
         'Pilot 3 of 3, target Avimukt Dar / Suneeth Katarki / Gaurav Dani',
-        now()::varchar, 'did:web:lawfirm.gftd.ai'
+        now()::varchar, 'did:web:lawfirm.etzhayyim.com'
       )
   `.execute(db);
 }

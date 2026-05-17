@@ -5,7 +5,7 @@ import { sql } from "kysely";
 // tier: C
 
 /**
- * isbn.gftd.ai Phase 2 — image + body extension.
+ * isbn.etzhayyim.com Phase 2 — image + body extension.
  *
  *  vertex_isbn_book_image     表紙 + 各ページのスキャン画像 (B2 content-addressed by CIDv1)
  *  edge_isbn_book_image       book → image (role: cover / page / figure / illustration)

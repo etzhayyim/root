@@ -49,7 +49,7 @@ def test_call_pds_domain_coverage_expand_parses_response(monkeypatch):
         "body": {
             "ok": True,
             "domain": "example.com",
-            "appDid": "did:web:example-com.gftd.ai",
+            "appDid": "did:web:example-com.etzhayyim.com",
             "knowledgeEdges": 3,
             "postWritten": True,
         },
@@ -59,7 +59,7 @@ def test_call_pds_domain_coverage_expand_parses_response(monkeypatch):
 
     assert out["ok"] is True
     assert out["domain"] == "example.com"
-    assert out["appDid"] == "did:web:example-com.gftd.ai"
+    assert out["appDid"] == "did:web:example-com.etzhayyim.com"
     assert out["knowledgeEdges"] == 3
     assert out["postWritten"] is True
 
@@ -72,7 +72,7 @@ def test_task_writes_domain_coverage_tick(monkeypatch):
         "ok": True,
         "httpStatus": 200,
         "domain": "example.com",
-        "appDid": "did:web:example-com.gftd.ai",
+        "appDid": "did:web:example-com.etzhayyim.com",
         "knowledgeEdges": 2,
         "postWritten": True,
         "error": "",
@@ -83,9 +83,9 @@ def test_task_writes_domain_coverage_tick(monkeypatch):
     assert out["ok"] is True
     assert out["domain"] == "example.com"
     row = factory.cursors[0].params[0]
-    assert row["repo"] == "did:web:atproto.gftd.ai"
+    assert row["repo"] == "did:web:atproto.etzhayyim.com"
     assert row["collection"] == "ai.gftd.apps.pds.domainCoverageExpansion"
     value = json.loads(row["value_json"])
-    assert value["appDid"] == "did:web:example-com.gftd.ai"
+    assert value["appDid"] == "did:web:example-com.etzhayyim.com"
     assert value["postWritten"] is True
     assert factory.cursors[0].sqls[-1] == "FLUSH"

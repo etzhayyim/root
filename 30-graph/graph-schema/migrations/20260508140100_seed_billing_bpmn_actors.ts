@@ -5,12 +5,12 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * billing.gftd.ai BPMN-as-actor seeding (ADR-0056 + ADR-2605080000).
+ * billing.etzhayyim.com BPMN-as-actor seeding (ADR-0056 + ADR-2605080000).
  *
  * 5 BPMN process defs + 1 XRPC binding (setDiscount).  No CF Worker
  * (T2 tier: pymagatama + Zeebe only).  4 timer-start BPMNs are
  * autonomous; 1 XRPC binding is reachable via bpmn-dispatcher
- * `http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.billing.setDiscount`.
+ * `http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.billing.setDiscount`.
  *
  *  Process / NSID                                    Trigger
  *  ----------------------------------------------------------------------
@@ -37,29 +37,29 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T14:01:00Z";
-const ownerDid = "did:web:billing.gftd.ai";
+const ownerDid = "did:web:billing.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.billing";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/billing-rollup-daily-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/billing-rollup-daily-v1",
     bpmnProcessId: "billing_rollup_daily",
     sourcePath: "00-contracts/bpmn/ai/gftd/billing/rollupDaily.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/billing-rollup-monthly-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/billing-rollup-monthly-v1",
     bpmnProcessId: "billing_rollup_monthly",
     sourcePath: "00-contracts/bpmn/ai/gftd/billing/rollupMonthly.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/billing-detect-overage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/billing-detect-overage-v1",
     bpmnProcessId: "billing_detect_overage",
     sourcePath: "00-contracts/bpmn/ai/gftd/billing/detectOverage.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/billing-generate-invoice-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/billing-generate-invoice-v1",
     bpmnProcessId: "billing_generate_invoice",
     sourcePath: "00-contracts/bpmn/ai/gftd/billing/generateInvoice.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/billing-apply-discount-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/billing-apply-discount-v1",
     bpmnProcessId: "billing_apply_discount",
     sourcePath: "00-contracts/bpmn/ai/gftd/billing/applyDiscount.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/billing-setDiscount-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/billing-setDiscount-v1",
     nsid: "ai.gftd.apps.billing.setDiscount",
     bpmnProcessId: "billing_apply_discount", ownerDid, resultTimeoutMs: 30_000 },
 ];

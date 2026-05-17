@@ -492,7 +492,7 @@ class TestCopyrightFulltextGraph:
         vid1 = _work_blob_vertex_id("10.1234/test")
         vid2 = _work_blob_vertex_id("10.1234/test")
         assert vid1 == vid2
-        assert vid1.startswith("at://did:web:copyright.gftd.ai/")
+        assert vid1.startswith("at://did:web:copyright.etzhayyim.com/")
 
     def test_work_blob_vertex_id_differs_per_doi(self):
         from pymagatama.langgraph_graphs.copyright_fulltext import _work_blob_vertex_id

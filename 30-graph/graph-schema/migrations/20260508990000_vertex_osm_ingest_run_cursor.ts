@@ -32,8 +32,8 @@ import { Kysely, sql } from 'kysely';
  *   - No ON CONFLICT; idempotent upsert = delete-then-insert pattern.
  *   - No db.transaction() (RW write-TX not supported).
  *
- * Source provenance: `source_did` = e.g. 'did:web:maps.gftd.ai:planet'
- * or a region-scoped sub-DID such as 'did:web:maps.gftd.ai:planet:jp'.
+ * Source provenance: `source_did` = e.g. 'did:web:maps.etzhayyim.com:planet'
+ * or a region-scoped sub-DID such as 'did:web:maps.etzhayyim.com:planet:jp'.
  *
  * Streaming MV: `mv_osm_ingest_recent` surfaces the last N runs ordered
  * by started_at DESC for the `/coverage` XRPC and the Zeebe audit handler.

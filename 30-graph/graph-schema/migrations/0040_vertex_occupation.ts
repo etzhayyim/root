@@ -4,7 +4,7 @@ import { Kysely, sql } from 'kysely';
 // tier: C
 
 /**
- * Migration 0040: vertex_occupation table for recruit.gftd.ai taxonomy ingest.
+ * Migration 0040: vertex_occupation table for recruit.etzhayyim.com taxonomy ingest.
  *
  * Stores ILO ISCO-08 / EU ESCO v1.1.1 / US O*NET occupation records.
  * Each record carries `source_license` (CC-BY-3.0-IGO / CC-BY-4.0 / public-domain)

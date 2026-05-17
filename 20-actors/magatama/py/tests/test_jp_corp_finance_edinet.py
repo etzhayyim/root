@@ -88,7 +88,7 @@ def test_disclosure_vid_is_deterministic() -> None:
     a = disclosure_vid("edinet-v2", "S100TEST")
     b = disclosure_vid("edinet-v2", "S100TEST")
     assert a == b
-    assert a.startswith("at://did:web:jp-corp-finance.gftd.ai/")
+    assert a.startswith("at://did:web:jp-corp-finance.etzhayyim.com/")
 
 
 def test_fact_vid_changes_by_location() -> None:

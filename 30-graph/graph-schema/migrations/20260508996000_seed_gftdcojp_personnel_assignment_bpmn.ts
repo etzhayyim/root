@@ -16,16 +16,16 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:00:00Z";
-const ownerDid = "did:web:gftdcojp.gftd.ai";
+const ownerDid = "did:web:gftdcojp.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.gftdcojp";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gftdcojp-personnel-assignment-decide-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gftdcojp-personnel-assignment-decide-v1",
   bpmnProcessId: "gftdcojp_personnel_assignment_decide",
   sourcePath: "00-contracts/bpmn/ai/gftd/gftdcojp/personnelAssignmentDecide.bpmn",
 };
 const BINDING = {
-  vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/gftdcojp-personnel-assignment-decide-xrpc-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gftdcojp-personnel-assignment-decide-xrpc-v1",
   nsid: "ai.gftd.apps.gftdcojp.personnelAssignmentDecide",
   bpmnProcessId: "gftdcojp_personnel_assignment_decide",
   resultTimeoutMs: 600_000,

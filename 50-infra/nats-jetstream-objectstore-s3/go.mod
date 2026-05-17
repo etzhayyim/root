@@ -1,4 +1,4 @@
-module github.com/gftdcojp/nats-jetstream-objectstore-s3
+module github.com/etzhayyim/root/50-infra/nats-jetstream-objectstore-s3
 
 go 1.25.0
 

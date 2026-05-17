@@ -35,7 +35,7 @@ from typing import Any, TypedDict
 import httpx
 
 _UNPAYWALL_URL = "https://api.unpaywall.org/v2/{doi}?email=jun%40gftd.group"
-_COPYRIGHT_DID = "did:web:copyright.gftd.ai"
+_COPYRIGHT_DID = "did:web:copyright.etzhayyim.com"
 _TIMEOUT = 30.0
 _OA_LICENSES = {
     "cc-by", "cc-by-sa", "cc-by-nc", "cc-by-nc-sa",

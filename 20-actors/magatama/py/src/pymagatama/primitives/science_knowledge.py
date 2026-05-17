@@ -34,7 +34,7 @@ from pymagatama.db_sync import sync_cursor
 # Constants
 # ──────────────────────────────────────────────────────────────────────
 
-_OWNER_DID = "did:web:science.gftd.ai"
+_OWNER_DID = "did:web:science.etzhayyim.com"
 _NOW = lambda: (
     _dt.datetime.now(tz=_dt.UTC)
     .replace(microsecond=0)
@@ -267,7 +267,7 @@ _VEGETATION_RENDER_PROFILES: list[dict[str, Any]] = [
 # ──────────────────────────────────────────────────────────────────────
 
 def _vid(actor: str, collection: str, rkey: str) -> str:
-    return f"at://did:web:{actor}.gftd.ai/ai.gftd.apps.{actor}.{collection}/{rkey}"
+    return f"at://did:web:{actor}.etzhayyim.com/ai.gftd.apps.{actor}.{collection}/{rkey}"
 
 
 def _edge_id(*parts: str) -> str:
@@ -457,7 +457,7 @@ async def ingest_arxiv_batch(
 
 async def embed_paper_batch(
     batch_size: int = 50,
-    murakumo_url: str = "https://murakumo-serve.gftd.ai/v1/embeddings",
+    murakumo_url: str = "https://murakumo-serve.etzhayyim.com/v1/embeddings",
     murakumo_api_key: str = "",
 ) -> dict[str, Any]:
     """Fetch raw papers, embed abstracts, store embedding_norm + ivf_cluster_id."""
@@ -576,7 +576,7 @@ class _KGState(TypedDict):
 def _save_checkpoint(state: _KGState, node: str, latency_ms: int) -> None:
     """Append a checkpoint row to vertex_langgraph_state."""
     now = _NOW()
-    vid = f"at://did:web:science.gftd.ai/ai.gftd.apps.science.lgState/{state['run_id']}-{node}"
+    vid = f"at://did:web:science.etzhayyim.com/ai.gftd.apps.science.lgState/{state['run_id']}-{node}"
     with sync_cursor() as cur:
         cur.execute(
             """
@@ -1816,8 +1816,8 @@ def seed_kami_element_instances(
             world_z = -(lat - anchor_lat) * M_LAT
 
             rkey = hashlib.sha256(f"element-instance-{symbol}".encode()).hexdigest()[:16]
-            vertex_id = f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.kamiModelInstance/{rkey}"
-            taxonomy_did = f"at://did:web:chemistry.gftd.ai/ai.gftd.apps.chemistry.element/{symbol}"
+            vertex_id = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.kamiModelInstance/{rkey}"
+            taxonomy_did = f"at://did:web:chemistry.etzhayyim.com/ai.gftd.apps.chemistry.element/{symbol}"
 
             # Check existing
             cur.execute(
@@ -1894,7 +1894,7 @@ def seed_kami_vegetation_instances(
 
             slug = model_def_id.split("/")[-1]
             rkey = hashlib.sha256(f"veg-instance-{slug}".encode()).hexdigest()[:16]
-            vertex_id = f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.kamiModelInstance/{rkey}"
+            vertex_id = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.kamiModelInstance/{rkey}"
 
             if taxonomy_did:
                 cur.execute(

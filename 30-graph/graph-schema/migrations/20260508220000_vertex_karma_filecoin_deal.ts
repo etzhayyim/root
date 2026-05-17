@@ -4,7 +4,7 @@ import { sql } from "kysely";
 // ADR-0040 vertex tier: tier B  (curated Filecoin deal log).
 
 /**
- * karma.gftd.ai — Filecoin storage deal log (Phase K3).
+ * karma.etzhayyim.com — Filecoin storage deal log (Phase K3).
  *
  * L4 long-term backup beyond ETH anchor. Each pinned IPFS CID is
  * proposed to N=5 storage providers via Estuary / Lighthouse /

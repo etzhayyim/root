@@ -36,7 +36,7 @@ from pymagatama import llm as _llm
 from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives.yoro_social import insert_social_post_record
 
-_ACTOR_DID = os.getenv("MEDIA_GAMERS_ACTOR_DID", "did:web:media-gamers.gftd.ai")
+_ACTOR_DID = os.getenv("MEDIA_GAMERS_ACTOR_DID", "did:web:media-gamers.etzhayyim.com")
 _COLLECTION_SNAPSHOT = "ai.gftd.apps.media_gamers.chartSnapshot"
 _COLLECTION_ANALYSIS = "ai.gftd.apps.media_gamers.chartAnalysis"
 
@@ -371,7 +371,7 @@ def _persist_rawg_source(api_key: str, week: _dt.date, prev_week: _dt.date, crea
 # ── Task 2: mediaGamers.chart.analyze ────────────────────────────────────────
 
 _ANALYSIS_SYSTEM = (
-    "You are a game industry analyst writing for media-gamers.gftd.ai.\n"
+    "You are a game industry analyst writing for media-gamers.etzhayyim.com.\n"
     "Output ONLY valid JSON, no prose, no code fences.\n"
     "Schema: {\n"
     '  "analysis_ja": string (≤280 chars, Japanese, for AT Protocol social post),\n'

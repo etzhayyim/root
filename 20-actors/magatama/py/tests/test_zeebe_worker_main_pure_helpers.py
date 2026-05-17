@@ -201,8 +201,8 @@ def test_sha256_json_sorted_keys_for_determinism() -> None:
 # ─── _xrpc_base_from_actor ────────────────────────────────────────────────────
 
 def test_xrpc_base_from_actor_did_web() -> None:
-    result = ZWM._xrpc_base_from_actor("did:web:myapp.gftd.ai")
-    assert result == "https://myapp.gftd.ai"
+    result = ZWM._xrpc_base_from_actor("did:web:myapp.etzhayyim.com")
+    assert result == "https://myapp.etzhayyim.com"
 
 
 def test_xrpc_base_from_actor_non_did_web_returns_empty() -> None:

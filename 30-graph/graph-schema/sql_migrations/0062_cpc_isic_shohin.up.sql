@@ -47,5 +47,5 @@ UPDATE dim_world_domain SET world_total = 4596 WHERE domain = 'cpc';
 UPDATE dim_world_domain SET world_total = 766  WHERE domain = 'isic';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs', 'hs.gftd.ai', 5300, 'products', 'trade')
+    VALUES ('hs', 'hs.etzhayyim.com', 5300, 'products', 'trade')
     ON CONFLICT DO NOTHING;

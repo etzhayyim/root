@@ -27,7 +27,7 @@ import { sql } from "kysely";
 
 const NOW = "2026-05-11T00:00:00Z";
 const OWNER = "did:web:gftd.co.jp";
-const RESPONSIBLE = "did:web:j-kawasaki.gftd.ai";
+const RESPONSIBLE = "did:web:j-kawasaki.etzhayyim.com";
 
 const ACTION_CODE = "GJ-CA-2026-001";
 const ACTION_VID = `at://did:web:gftd.co.jp/ai.gftd.apps.kaisya.corporateAction/${ACTION_CODE}`;

@@ -75,7 +75,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── dim_world_domain ───────────────────────────────────────────────────
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('icd10', 'icd10.gftd.ai', 90168, 'ICD-10-CM disease codes', 'healthcare')
+    VALUES ('icd10', 'icd10.etzhayyim.com', 90168, 'ICD-10-CM disease codes', 'healthcare')
   `.execute(db);
 
   // ── iso4217_iso3166 bridge (data-only, idempotent) ────────────────────

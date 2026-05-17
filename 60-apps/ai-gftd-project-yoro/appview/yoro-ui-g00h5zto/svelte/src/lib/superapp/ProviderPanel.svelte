@@ -118,7 +118,7 @@
 		{/snippet}
 	</Card>
 
-	<!-- Browser Inference Section (murakumo.gftd.ai) -->
+	<!-- Browser Inference Section (murakumo.etzhayyim.com) -->
 	<Card aspect="auto" class="!bg-gftd-card !rounded-2xl !border !border-gftd-border">
 		{#snippet children()}
 			<div class="flex flex-col gap-3 p-4">
@@ -126,7 +126,7 @@
 					<h2 class="text-[16px] font-bold text-gftd-text">Browser Inference</h2>
 					<Badge value={inference.stats.state} variant={inferenceVariant} />
 				</div>
-				<p class="text-[13px] text-gftd-secondary">Contribute your browser's compute to murakumo.gftd.ai distributed inference network.</p>
+				<p class="text-[13px] text-gftd-secondary">Contribute your browser's compute to murakumo.etzhayyim.com distributed inference network.</p>
 
 				{#if !inference.isJoined}
 					<div class="flex flex-col gap-3">
@@ -201,7 +201,7 @@
 					<h2 class="text-[16px] font-bold text-gftd-text">Expert Provider</h2>
 					<Badge value={worker.workerStats.state} variant={stateVariant} />
 				</div>
-				<p class="text-[13px] text-gftd-secondary">Serve distributed MoE expert inference jobs on web4.gftd.ai. Earn GCC.</p>
+				<p class="text-[13px] text-gftd-secondary">Serve distributed MoE expert inference jobs on web4.etzhayyim.com. Earn GCC.</p>
 
 				{#if !worker.isJoined}
 					<div class="flex flex-col gap-3">
@@ -308,14 +308,14 @@
 		{#snippet children()}
 			<div class="flex flex-col gap-2 p-4">
 				<h3 class="text-[13px] font-bold uppercase text-gftd-muted">Quick Links</h3>
-				<a href="https://web4.gftd.ai/provider" class="flex items-center gap-3 rounded-xl p-3 active:opacity-80" target="_blank" rel="noopener noreferrer">
+				<a href="https://web4.etzhayyim.com/provider" class="flex items-center gap-3 rounded-xl p-3 active:opacity-80" target="_blank" rel="noopener noreferrer">
 					<div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gftd-hover text-[13px] font-semibold text-gftd-accent">W4</div>
 					<div class="min-w-0">
 						<p class="text-[13px] font-semibold text-gftd-text">Web4 Provider Dashboard</p>
-						<p class="text-[12px] text-gftd-secondary">Full provider workspace on web4.gftd.ai</p>
+						<p class="text-[12px] text-gftd-secondary">Full provider workspace on web4.etzhayyim.com</p>
 					</div>
 				</a>
-				<a href="https://murakumo.gftd.ai" class="flex items-center gap-3 rounded-xl p-3 active:opacity-80" target="_blank" rel="noopener noreferrer">
+				<a href="https://murakumo.etzhayyim.com" class="flex items-center gap-3 rounded-xl p-3 active:opacity-80" target="_blank" rel="noopener noreferrer">
 					<div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gftd-hover text-[13px] font-semibold text-gftd-accent">MK</div>
 					<div class="min-w-0">
 						<p class="text-[13px] font-semibold text-gftd-text">Murakumo Compute Network</p>

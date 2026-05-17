@@ -9,7 +9,7 @@ from uuid import NAMESPACE_URL, uuid4, uuid5
 
 from pymagatama.db_sync import sync_cursor
 
-OWNER_DID = "did:web:eng-kami.gftd.ai"
+OWNER_DID = "did:web:eng-kami.etzhayyim.com"
 COLLECTION_TABLES = {
     "ai.gftd.apps.kami.eda.schematic": "vertex_kami_eng_eda_schematic",
     "ai.gftd.apps.kami.cad.model": "vertex_kami_eng_cad_model",

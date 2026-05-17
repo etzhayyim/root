@@ -88,7 +88,7 @@ def _decode_jwt_payload(jwt: str) -> dict[str, Any]:
 
 
 def _redirect_uri(app: str) -> str:
-    return os.environ.get(f"{app.upper()}_GOOGLE_REDIRECT_URI", f"https://{app}.gftd.ai/oauth/callback")
+    return os.environ.get(f"{app.upper()}_GOOGLE_REDIRECT_URI", f"https://{app}.etzhayyim.com/oauth/callback")
 
 
 def connect_account(app: str, accountDid: str = "did:anonymous", email: str = "", **_: Any) -> dict[str, Any]:
@@ -133,7 +133,7 @@ def oauth_callback(app: str, code: str = "", error: str = "", state: str = "", *
     table = TOKEN_TABLES[app]
     now = now_iso()
     vid = f"{state or 'did:anonymous'}|{email}"
-    actor = f"did:web:{app}.gftd.ai"
+    actor = f"did:web:{app}.etzhayyim.com"
     _execute(f"DELETE FROM {table} WHERE vertex_id = %s", (vid,))
     _execute(
         f"""INSERT INTO {table}
@@ -155,7 +155,7 @@ def _write_account(app: str, account_did: str, email: str, display_name: str, sc
         "docs": "vertex_gdocs_account",
         "slides": "vertex_gslides_account",
     }[app]
-    actor = f"did:web:{app}.gftd.ai"
+    actor = f"did:web:{app}.etzhayyim.com"
     now = now_iso()
     vid = f"at://{actor}/ai.gftd.apps.{app}.account/{email}"
     _execute(f"DELETE FROM {table} WHERE vertex_id = %s", (vid,))

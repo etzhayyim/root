@@ -82,7 +82,7 @@ def test_task_writes_organizer_run(monkeypatch):
     assert out["ok"] is True
     assert out["runsTotal24h"] == 8
     row = factory.cursors[0].params[0]
-    assert row["repo"] == "did:web:magatama.gftd.ai"
+    assert row["repo"] == "did:web:magatama.etzhayyim.com"
     assert row["collection"] == "ai.gftd.apps.magatama.organizerRun"
     value = json.loads(row["value_json"])
     assert value["summary"]["normal"] == 7

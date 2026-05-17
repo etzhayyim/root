@@ -6,7 +6,7 @@ import (
 	"io"
 	"time"
 
-	flight "github.com/gftdcojp/spin-tinygo-flight/grpc/flight"
+	flight "github.com/etzhayyim/root/50-infra/spin-tinygo-flight/grpc/flight"
 )
 
 // Options configures a high-level Flight SQL query.

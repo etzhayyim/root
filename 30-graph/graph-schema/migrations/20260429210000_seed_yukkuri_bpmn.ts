@@ -18,12 +18,12 @@ function readContract(relPath: string): string {
 }
 
 const createdAt = "2026-04-29T20:00:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/yukkuri-compose-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/yukkuri-compose-v1";
 const BPMN_PROCESS_ID = "yukkuri_compose";
 const SOURCE_PATH = "00-contracts/bpmn/ai/gftd/yukkuri/yukkuriCompose.bpmn";
 const NSID = "ai.gftd.apps.yukkuri.composeVideo";

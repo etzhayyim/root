@@ -3,9 +3,9 @@
  *
  * Resolution order (fastest first):
  *   1. Workers RPC (env.PDS_SERVICE) — <1ms if same-account
- *   2. HTTP fetch (atproto.gftd.ai) — 50-5000ms
+ *   2. HTTP fetch (atproto.etzhayyim.com) — 50-5000ms
  *
- * Calls atproto.gftd.ai XRPC endpoints (AT Protocol native, no auth required for public data).
+ * Calls atproto.etzhayyim.com XRPC endpoints (AT Protocol native, no auth required for public data).
  */
 
 // Direct XRPC fetch over Worker binding (fast path) or HTTPS (fallback).
@@ -65,7 +65,7 @@ export interface PdsThreadResponse {
 
 // --- Direct XRPC fetch (Worker binding fast path + HTTP fallback) ---
 
-const PDS_BASE = 'https://atproto.gftd.ai';
+const PDS_BASE = 'https://atproto.etzhayyim.com';
 const PDS_TIMEOUT_MS = 3000;
 
 function withHardTimeout<T>(promise: Promise<T>, timeoutMs = PDS_TIMEOUT_MS): Promise<T> {

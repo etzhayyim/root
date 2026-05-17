@@ -7,7 +7,7 @@ import { sql } from "kysely";
 // Extend yukkuriCompose.bpmn with a social post step (Task_SocialPost,
 // task type: yukkuri.social.post) inserted between Task_Audit and End_Published.
 // The new pyzeebe handler writes a app.bsky.feed.post record to vertex_repo_record
-// as did:web:yukkuri.gftd.ai, making the published video visible on yoro.gftd.ai.
+// as did:web:yukkuri.etzhayyim.com, making the published video visible on yoro.etzhayyim.com.
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

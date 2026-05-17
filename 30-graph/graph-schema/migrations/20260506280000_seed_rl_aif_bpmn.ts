@@ -13,21 +13,21 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-05-06T23:00:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 // ─── Belief Update (R/PT1H) ──────────────────────────────────────────────────
 
 const BELIEF_PROCESS_VID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/rl-aif-belief-update-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-aif-belief-update-v1";
 const BELIEF_BINDING_VID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/rl-aif-belief-update-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-aif-belief-update-v1";
 
 // ─── Learn Model (R/P1D) ─────────────────────────────────────────────────────
 
 const LEARN_PROCESS_VID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/rl-aif-learn-model-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-aif-learn-model-v1";
 const LEARN_BINDING_VID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/rl-aif-learn-model-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-aif-learn-model-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── belief update BPMN ──────────────────────────────────────────────────────

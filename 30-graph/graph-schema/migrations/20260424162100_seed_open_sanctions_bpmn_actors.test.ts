@@ -32,7 +32,7 @@ describe("Seed open-sanctions BPMN actors migration", () => {
   });
   it("uses open-sanctions-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-sanctions"');
-    expect(migrationSource).toContain("did:web:open-sanctions.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-sanctions.etzhayyim.com");
   });
   it("BPMN processes target the Zeebe generic.* primitive set", () => {
     for (const xml of [bpmn1, bpmn2]) {

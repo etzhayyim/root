@@ -10,7 +10,7 @@ import { sql } from "kysely";
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── Human approval tasklist ─────────────────────────────────────────────
   // Populated by BPMN workers when a decision requires human gate.
-  // kaisya.gftd.ai/tasks UI reads this; humans approve/reject via XRPC.
+  // kaisya.etzhayyim.com/tasks UI reads this; humans approve/reject via XRPC.
   await sql`
     CREATE TABLE IF NOT EXISTS vertex_kaisya_task (
       vertex_id        VARCHAR PRIMARY KEY,
@@ -86,7 +86,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Pending task count MV (8 distinct human_did values — safe for streaming MV) ─
   // Refreshed automatically by RisingWave streaming (<100ms freshness).
-  // Used by kaisya.gftd.ai/tasks badge + Teams push notification threshold.
+  // Used by kaisya.etzhayyim.com/tasks badge + Teams push notification threshold.
   await sql`
     CREATE MATERIALIZED VIEW IF NOT EXISTS mv_kaisya_pending_count AS
     SELECT

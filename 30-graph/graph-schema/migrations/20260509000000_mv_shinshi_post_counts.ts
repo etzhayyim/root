@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 /**
  * Streaming MV `mv_shinshi_post_counts` — pre-aggregated post count
- * per shinshi sub-DID (did:web:sh1n5h1x.gftd.ai:{slug}).
+ * per shinshi sub-DID (did:web:sh1n5h1x.etzhayyim.com:{slug}).
  *
  * Replaces the cold-path of the `lg_shinshi/graphs/coverage.py` graph,
  * which was hitting the live `vertex_repo_record` LEFT JOIN at 8-21s
@@ -12,7 +12,7 @@ import { sql } from "kysely";
  *
  * RW MV memory safety pre-flight (per `30-graph/graph-schema/CLAUDE.md`):
  *   - Cardinality: COUNT(DISTINCT repo) WHERE collection='app.bsky.feed.post'
- *     AND repo LIKE 'did:web:sh1n5h1x.gftd.ai:%' = 1,952 rows.
+ *     AND repo LIKE 'did:web:sh1n5h1x.etzhayyim.com:%' = 1,952 rows.
  *     Well below the 500k high-cardinality forbidden threshold.
  *   - Source scan: 9,191 rows. Small enough that BACKGROUND_DDL is
  *     unnecessary.
@@ -36,7 +36,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       COUNT(*) AS post_count
     FROM vertex_repo_record
     WHERE collection = 'app.bsky.feed.post'
-      AND repo LIKE 'did:web:sh1n5h1x.gftd.ai:%'
+      AND repo LIKE 'did:web:sh1n5h1x.etzhayyim.com:%'
     GROUP BY repo
   `.execute(db);
 }

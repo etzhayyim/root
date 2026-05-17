@@ -115,11 +115,11 @@ def test_gov_register_exposes_tasks(country: str):
 
 @pytest.mark.parametrize("country", _GOV_COUNTRIES)
 def test_gov_primary_did_format(country: str):
-    """Each gov_* module must set PRIMARY_DID in did:web:*-state.gftd.ai format."""
+    """Each gov_* module must set PRIMARY_DID in did:web:*-state.etzhayyim.com format."""
     mod = importlib.import_module(f"pymagatama.primitives.gov_{country}")
     did = getattr(mod, "PRIMARY_DID", "")
     assert did.startswith("did:web:"), f"{country}: PRIMARY_DID={did!r} doesn't start with did:web:"
-    assert "gftd.ai" in did, f"{country}: PRIMARY_DID={did!r} doesn't contain gftd.ai"
+    assert "etzhayyim.com" in did, f"{country}: PRIMARY_DID={did!r} doesn't contain etzhayyim.com"
 
 
 @pytest.mark.parametrize("country", ["jpn", "usa", "deu", "gbr", "fra"])

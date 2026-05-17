@@ -18,8 +18,8 @@ import { sql } from "kysely";
  * sensitivity_ord=300 (Tier 3 PII).
  */
 const NOW = "2026-05-08T00:00:00Z";
-const OWNER = "did:web:etz-hayim.gftd.ai";
-const HOUREI_OWNER = "did:web:hourei.gftd.ai";
+const OWNER = "did:web:etz-hayim.etzhayyim.com";
+const HOUREI_OWNER = "did:web:hourei.etzhayyim.com";
 const CONTRACT_ID = "kbakshi-employment-2025-06-01-amended-1y";
 
 type Clause = {
@@ -62,7 +62,7 @@ const CLAUSES: Clause[] = [
     summaryEn: "All work product = work-for-hire to amanomibashira. Moral rights non-exercise covenant.",
     summaryJa: "業務上作成成果物は職務著作として amanomibashira 帰属。著作者人格権不行使特約。",
     severity: "critical",
-    ipAssignedTo: "did:web:etz-hayim.gftd.ai" },
+    ipAssignedTo: "did:web:etz-hayim.etzhayyim.com" },
   { cid: "kbakshi-1y-confidentiality", kind: "confidentiality",
     summaryEn: "Trade secret + business confidentials, scope = amanomibashira platform internals + roadmap + customer info, term = 60mo post-term.",
     summaryJa: "営業秘密 + 業務上知り得た一切の機密。範囲: amanomibashira platform 内部 + roadmap + 顧客情報。退職後 60ヶ月。",
@@ -125,7 +125,7 @@ const CITES: Cite[] = [
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── clause inserts ──────────────────────────────────────────────────────────
   for (const c of CLAUSES) {
-    const vid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.gftdcojp.contractClause/${c.cid}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${c.cid}`;
     await sql`
       INSERT INTO vertex_gftdcojp_contract_clause
         (vertex_id, contract_id, clause_kind, ip_assigned_to, nda_scope,
@@ -142,8 +142,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── clause→hourei.jobun cite edges via existing edge_cites ────────────────
   for (const cite of CITES) {
-    const srcVid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.gftdcojp.contractClause/${cite.clauseCid}`;
-    const dstVid = `at://did:web:hourei.gftd.ai/ai.gftd.apps.hourei.article/${cite.hourei}--${cite.art}`;
+    const srcVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${cite.clauseCid}`;
+    const dstVid = `at://did:web:hourei.etzhayyim.com/ai.gftd.apps.hourei.article/${cite.hourei}--${cite.art}`;
     const edgeId = `edge:${cite.clauseCid}:cites:${cite.hourei}--${cite.art}`;
     const label = `${cite.hourei} 第${cite.art}条 — ${cite.paragraph}`;
     await sql`
@@ -168,7 +168,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       ARRAY_AGG(DISTINCT e.dst_vid) AS cited_jobun
     FROM vertex_gftdcojp_contract_clause cc
     LEFT JOIN edge_cites e ON e.src_vid = cc.vertex_id
-    WHERE e.dst_vid LIKE 'at://did:web:hourei.gftd.ai/%'
+    WHERE e.dst_vid LIKE 'at://did:web:hourei.etzhayyim.com/%'
        OR e.dst_vid IS NULL
     GROUP BY cc.contract_id, cc.clause_kind, cc.severity
   `.execute(db);
@@ -181,7 +181,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     await sql`DELETE FROM edge_cites WHERE edge_id = ${edgeId}`.execute(db);
   }
   for (const c of CLAUSES) {
-    const vid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.gftdcojp.contractClause/${c.cid}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${c.cid}`;
     await sql`DELETE FROM vertex_gftdcojp_contract_clause WHERE vertex_id = ${vid}`.execute(db);
   }
 }

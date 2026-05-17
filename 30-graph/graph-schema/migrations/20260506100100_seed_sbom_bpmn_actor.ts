@@ -5,10 +5,10 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * sbom.gftd.ai — Phase B BPMN-as-actor seed (ADR-0056).
+ * sbom.etzhayyim.com — Phase B BPMN-as-actor seed (ADR-0056).
  *
  * 1 process_def + 1 binding so the F5 watcher deploys the BPMN to
- * Zeebe within 30s and `dispatcher.gftd.ai/xrpc/ai.gftd.apps.sbom.registerArtifact`
+ * Zeebe within 30s and `dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.sbom.registerArtifact`
  * starts routing to the pyzeebe handler.
  */
 
@@ -27,12 +27,12 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-05-06T10:01:00Z";
-const ownerDid = "did:web:sbom.gftd.ai";
+const ownerDid = "did:web:sbom.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.sbom-register-artifact";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1",
     bpmnProcessId: "sbom_register_artifact",
     sourcePath: "00-contracts/bpmn/ai/gftd/sbom/registerArtifact.bpmn",
     ownerDid,
@@ -41,7 +41,7 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1",
     nsid: "ai.gftd.apps.sbom.registerArtifact",
     bpmnProcessId: "sbom_register_artifact",
     ownerDid,

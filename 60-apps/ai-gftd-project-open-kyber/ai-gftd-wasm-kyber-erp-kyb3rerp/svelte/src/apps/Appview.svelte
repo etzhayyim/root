@@ -270,7 +270,7 @@
             </div>
           </div>
           <p class="text-xs text-gftd-muted">
-            Projector: <code>did:web:kyber-projector.gftd.ai</code> · 13 L1 path DIDs · 183 sub-processes · 28 BPMN bindings
+            Projector: <code>did:web:kyber-projector.etzhayyim.com</code> · 13 L1 path DIDs · 183 sub-processes · 28 BPMN bindings
           </p>
         </div>
       </Card>

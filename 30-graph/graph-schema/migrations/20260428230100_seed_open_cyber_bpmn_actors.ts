@@ -59,17 +59,17 @@ const entries: Entry[] = [
 
 const kebabToSlug = (kebab: string, proc: string): string =>
   `${kebab}-${proc.replace(/([A-Z])/g, "-$1").toLowerCase()}-v1`;
-const ownerDidOf = (project: string) => `did:web:${project}.gftd.ai:ops`;
+const ownerDidOf = (project: string) => `did:web:${project}.etzhayyim.com:ops`;
 
 const processSeeds: ProcessSeed[] = entries.map((e) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${kebabToSlug(e.project, e.proc)}`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${kebabToSlug(e.project, e.proc)}`,
   bpmnProcessId: e.bpmnProcessId,
   sourcePath: `00-contracts/bpmn/ai/gftd/${e.project}/${e.proc}.bpmn`,
   ownerDid: ownerDidOf(e.project),
 }));
 
 const bindingSeeds: BindingSeed[] = entries.map((e) => ({
-  vertexId: `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${e.project}-${e.proc}-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${e.project}-${e.proc}-v1`,
   nsid: `ai.gftd.apps.${e.nsidNs}.${e.proc}`,
   bpmnProcessId: e.bpmnProcessId,
   ownerDid: ownerDidOf(e.project),

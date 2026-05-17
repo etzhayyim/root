@@ -19,7 +19,7 @@
 
 ## IPFS Path
 
-The public `https://ipfs.gftd.ai/api/v0` path returned Cloudflare `HTTP 403:
+The public `https://ipfs.etzhayyim.com/api/v0` path returned Cloudflare `HTTP 403:
 error code 1010` from local automation. The successful run used:
 
 ```bash

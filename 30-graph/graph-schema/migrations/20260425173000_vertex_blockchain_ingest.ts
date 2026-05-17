@@ -7,21 +7,21 @@ import { sql } from "kysely";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:blockchain.gftd.ai";
-const ingestDid = "did:web:ingest.gftd.ai";
+const ownerDid = "did:web:blockchain.etzhayyim.com";
+const ingestDid = "did:web:ingest.etzhayyim.com";
 const createdAt = "2026-04-25T17:30:00Z";
 const actorTag = "sys.bpmn.seed.blockchain-ingest";
 
 const seeds = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1",
-    bindingId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1",
+    bindingId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1",
     processId: "blockchain_bitcoin_head_delta",
     sourcePath: "00-contracts/bpmn/ai/gftd/ingest/blockchainBitcoinHeadDelta.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1",
-    bindingId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1",
+    bindingId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1",
     processId: "blockchain_ethereum_head_delta",
     sourcePath: "00-contracts/bpmn/ai/gftd/ingest/blockchainEthereumHeadDelta.bpmn",
   },

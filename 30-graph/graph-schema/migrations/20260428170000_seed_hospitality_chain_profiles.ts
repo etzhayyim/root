@@ -4,7 +4,7 @@ import { sql } from "kysely";
 // Phase 10'' — mint app.bsky.actor.profile rows for the chain DIDs
 // referenced by mv_yadoya_chain_coverage. This closes the loop on the
 // sankey: the chain side of every (yadoya → chain) edge is now
-// discoverable in vertex_profile, so resource-flow.gftd.ai can render
+// discoverable in vertex_profile, so resource-flow.etzhayyim.com can render
 // readable counterparty labels instead of raw DIDs.
 //
 // We resolve display_name + description from the canonical roster
@@ -17,7 +17,7 @@ import { sql } from "kysely";
 
 type ChainSeed = { slug: string; displayName: string; description: string };
 
-const HOSPITALITY = "did:web:hospitality.gftd.ai";
+const HOSPITALITY = "did:web:hospitality.etzhayyim.com";
 const CREATED_AT = "2026-04-28T17:00:00Z";
 const ACTOR_TAG = "sys.seed.hospitality-chain-profile";
 
@@ -40,7 +40,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   for (const c of CHAINS) {
     const did = `${HOSPITALITY}:actor:chain:${c.slug}`;
     const vid = `at://${did}/app.bsky.actor.profile/self`;
-    const handle = `chain-${c.slug}.hospitality.gftd.ai`;
+    const handle = `chain-${c.slug}.hospitality.etzhayyim.com`;
     await sql`
       INSERT INTO vertex_profile (
         vertex_id, sensitivity_ord, owner_did,
@@ -62,7 +62,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
   await sql`
     DELETE FROM vertex_profile
     WHERE owner_did = ${HOSPITALITY}
-      AND handle LIKE 'chain-%.hospitality.gftd.ai'
+      AND handle LIKE 'chain-%.hospitality.etzhayyim.com'
       AND created_at = ${CREATED_AT}
   `.execute(db);
 }

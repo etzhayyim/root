@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-30T20:20:00Z";
-const ownerDid = "did:web:natural-person.gftd.ai";
+const ownerDid = "did:web:natural-person.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.natural-person";
 const project = "natural-person";
 
@@ -20,8 +20,8 @@ const seed = {
   resultTimeoutMs: 300000,
 };
 
-const processVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-seed-latent-entities-v1`;
-const bindingVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${seed.proc}-v1`;
+const processVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-seed-latent-entities-v1`;
+const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${seed.proc}-v1`;
 
 function readContract(relPath: string): string {
   return readFileSync(path.resolve(repoRoot, relPath), "utf8");

@@ -40,10 +40,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       removed_at           VARCHAR,
       source_url           VARCHAR,
       source_license       VARCHAR,
-      actor_did            VARCHAR DEFAULT 'did:web:maps.gftd.ai:flightradar',
+      actor_did            VARCHAR DEFAULT 'did:web:maps.etzhayyim.com:flightradar',
       org_did              VARCHAR DEFAULT 'anon',
       sensitivity_ord      INTEGER DEFAULT 1,
-      owner_did            VARCHAR DEFAULT 'did:web:maps.gftd.ai',
+      owner_did            VARCHAR DEFAULT 'did:web:maps.etzhayyim.com',
       created_at           VARCHAR
     )
   `.execute(db);
@@ -99,10 +99,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       label_ja             VARCHAR,
       description          VARCHAR,
       regulated_under      VARCHAR,
-      actor_did            VARCHAR DEFAULT 'did:web:maps.gftd.ai:flightradar',
+      actor_did            VARCHAR DEFAULT 'did:web:maps.etzhayyim.com:flightradar',
       org_did              VARCHAR DEFAULT 'anon',
       sensitivity_ord      INTEGER DEFAULT 1,
-      owner_did            VARCHAR DEFAULT 'did:web:maps.gftd.ai',
+      owner_did            VARCHAR DEFAULT 'did:web:maps.etzhayyim.com',
       created_at           VARCHAR
     )
   `.execute(db);
@@ -139,7 +139,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       _seq             BIGINT,
       created_date     VARCHAR,
       sensitivity_ord  INTEGER DEFAULT 1,
-      owner_did        VARCHAR DEFAULT 'did:web:maps.gftd.ai',
+      owner_did        VARCHAR DEFAULT 'did:web:maps.etzhayyim.com',
       ts_ms            BIGINT
     )
   `.execute(db);
@@ -161,7 +161,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   const createdAt = "2026-05-05T18:30:00Z";
   for (const [code, en, ja, desc] of purposes) {
-    const vid = `at://did:web:maps.gftd.ai/ai.gftd.apps.maps.flightPurpose/${code}`;
+    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.flightPurpose/${code}`;
     await sql`
       INSERT INTO vertex_flight_purpose (
         vertex_id, purpose_code, label_en, label_ja, description, regulated_under, created_at

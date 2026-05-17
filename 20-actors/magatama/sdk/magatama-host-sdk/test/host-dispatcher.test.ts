@@ -132,13 +132,13 @@ describe("F-Plan Phase 1: Lexicon-as-Contract POC", () => {
 		it("identity.resolve returns { did } when found, {} when null", async () => {
 			const hostImports = createMockHostImports({
 				identityResolve: (nanoid: string) =>
-					nanoid === "abc123" ? "did:web:abc123.gftd.ai" : null,
+					nanoid === "abc123" ? "did:web:abc123.etzhayyim.com" : null,
 			});
 			const dispatcher = createHostDispatcher(hostImports);
 
 			expect(
 				await dispatcher.dispatch(HOST_NSID.identityResolve, { nanoid: "abc123" }),
-			).toEqual({ did: "did:web:abc123.gftd.ai" });
+			).toEqual({ did: "did:web:abc123.etzhayyim.com" });
 			expect(
 				await dispatcher.dispatch(HOST_NSID.identityResolve, { nanoid: "missing" }),
 			).toEqual({});

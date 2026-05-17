@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * shosha.gftd.ai Phase 2c — register `shosha_settle_trade` BPMN +
+ * shosha.etzhayyim.com Phase 2c — register `shosha_settle_trade` BPMN +
  * `ai.gftd.apps.shosha.settleTrade` XRPC binding.
  *
  * 1 process_def + 1 lexicon binding (XRPC-only, no autonomous timer).
@@ -19,12 +19,12 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-07T13:00:00Z";
-const ownerDid = "did:web:shosha.gftd.ai";
+const ownerDid = "did:web:shosha.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.shosha.phase2c";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-settle-trade-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-settle-trade-v1",
     bpmnProcessId: "shosha_settle_trade",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/settleTrade.bpmn",
     ownerDid,
@@ -33,7 +33,7 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-settleTrade-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-settleTrade-v1",
     nsid: "ai.gftd.apps.shosha.settleTrade",
     bpmnProcessId: "shosha_settle_trade",
     ownerDid,

@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-27T23:08:00Z";
-const ownerDid = "did:web:lawfirm.gftd.ai";
+const ownerDid = "did:web:lawfirm.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.lawfirm-search-precedent";
 // bpmn-coverage gate marker: project: "lawfirm"
 const project = "lawfirm";
@@ -34,9 +34,9 @@ const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v${s.version}`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v${s.version}`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v${s.version}`;
+  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v${s.version}`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);
@@ -52,7 +52,7 @@ async function insertBinding(db: Kysely<unknown>, s: Seed): Promise<void> {
   // For runConflictCheck v2, also retire v1 binding so the dispatcher routes
   // to the new version. searchPrecedent is brand new — no prior binding.
   if (s.proc === "runConflictCheck") {
-    const v1Vid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+    const v1Vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
     await sql`UPDATE vertex_bpmn_lexicon_binding SET status = 'superseded' WHERE vertex_id = ${v1Vid}`.execute(db);
   }
   await sql`
@@ -70,6 +70,6 @@ export async function down(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) await sql`DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${bindingVertexId(s)}`.execute(db);
   for (const s of seeds) await sql`DELETE FROM vertex_bpmn_process_def WHERE vertex_id = ${processVertexId(s)}`.execute(db);
   // Restore v1 runConflictCheck binding
-  const v1Vid = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${project}-runConflictCheck-v1`;
+  const v1Vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-runConflictCheck-v1`;
   await sql`UPDATE vertex_bpmn_lexicon_binding SET status = 'active' WHERE vertex_id = ${v1Vid}`.execute(db);
 }

@@ -2,7 +2,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * billing.gftd.ai — Stripe wiring + 適格請求書 PDF schema (ADR-2605080000
+ * billing.etzhayyim.com — Stripe wiring + 適格請求書 PDF schema (ADR-2605080000
  * §D7 + Roadmap P7).  Builds on `billing-foundation-p1`.
  *
  * Adds:
@@ -14,7 +14,7 @@ import { sql } from "kysely";
  *     + stripe_invoice_id (already present on the row, no-op)
  *
  * Stripe webhook flow:
- *   POST https://atproto.gftd.ai/xrpc/ai.gftd.apps.billing.stripeWebhook
+ *   POST https://atproto.etzhayyim.com/xrpc/ai.gftd.apps.billing.stripeWebhook
  *     headers: stripe-signature: ...
  *     body: full Stripe event JSON
  *   →  PDS verifies signature against vertex_billing_stripe_customer

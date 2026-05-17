@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gftdcojp/nats-tiered-storage/internal/block"
-	"github.com/gftdcojp/nats-tiered-storage/internal/config"
-	"github.com/gftdcojp/nats-tiered-storage/internal/meta"
-	"github.com/gftdcojp/nats-tiered-storage/internal/metrics"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/block"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/config"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/meta"
+	"github.com/etzhayyim/root/50-infra/nats-tiered-storage/internal/metrics"
 	"go.uber.org/zap"
 )
 

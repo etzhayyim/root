@@ -142,25 +142,25 @@ const LINK_GRAPH_P2_BPMN = `<?xml version="1.0" encoding="UTF-8"?>
 export async function up(db: Kysely<unknown>): Promise<void> {
   const processes = [
     {
-      id: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-compound-seed-v1",
+      id: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-compound-seed-v1",
       bpmn_process_id: "science_compound_seed",
       xml: COMPOUND_SEED_BPMN,
       source_path: "30-graph/graph-schema/migrations/20260429110000_seed_compound_crystal_protein_bpmn.ts",
     },
     {
-      id: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-crystal-seed-v1",
+      id: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-crystal-seed-v1",
       bpmn_process_id: "science_crystal_seed",
       xml: CRYSTAL_SEED_BPMN,
       source_path: "30-graph/graph-schema/migrations/20260429110000_seed_compound_crystal_protein_bpmn.ts",
     },
     {
-      id: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-protein-seed-v1",
+      id: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-protein-seed-v1",
       bpmn_process_id: "science_protein_seed",
       xml: PROTEIN_SEED_BPMN,
       source_path: "30-graph/graph-schema/migrations/20260429110000_seed_compound_crystal_protein_bpmn.ts",
     },
     {
-      id: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-link-graph-phase2-v1",
+      id: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-link-graph-phase2-v1",
       bpmn_process_id: "science_link_graph_phase2",
       xml: LINK_GRAPH_P2_BPMN,
       source_path: "30-graph/graph-schema/migrations/20260429110000_seed_compound_crystal_protein_bpmn.ts",
@@ -176,7 +176,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       )
       SELECT
         ${p.id},
-        'did:web:bpmn.gftd.ai',
+        'did:web:bpmn.etzhayyim.com',
         ${p.bpmn_process_id},
         1,
         ${p.xml},
@@ -185,9 +185,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         'active',
         NOW()::VARCHAR,
         0,
-        'bpmn.gftd.ai',
+        'bpmn.etzhayyim.com',
         'system',
-        'did:web:bpmn.gftd.ai'
+        'did:web:bpmn.etzhayyim.com'
       WHERE NOT EXISTS (
         SELECT 1 FROM vertex_bpmn_process_def
         WHERE bpmn_process_id = ${p.bpmn_process_id}

@@ -24,15 +24,15 @@ const readBpmn = (file: string) =>
   );
 
 const CREATED_AT = "2026-04-30T16:00:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.media-gamers-chart";
 
 const FETCH_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1";
 const ANALYZE_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1";
 const ANALYZE_BINDING_VERTEX_ID =
-  "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1";
+  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1";
 const ANALYZE_NSID = "ai.gftd.apps.media_gamers.analyzeChart";
 
 export async function up(db: Kysely<unknown>): Promise<void> {

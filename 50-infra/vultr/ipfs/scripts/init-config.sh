@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
-# init-config.sh — first-boot Kubo setup for ipfs.gftd.ai (ADR-2604261936).
+# init-config.sh — first-boot Kubo setup for ipfs.etzhayyim.com (ADR-2604261936).
 #
 # Phase 1 ships with the **default flatfs+levelds** layout `ipfs init`
 # generates on a fresh repo — the official `ipfs/kubo` image does NOT
 # bundle the `s3ds` (`go-ds-s3`) plugin, so swapping in a B2-backed
 # datastore would crash the daemon with `unknown datastore type: s3ds`.
 # Phase 1.5 will introduce a custom Kubo image
-# (`ghcr.io/gftdcojp/kubo-s3ds:0.31.x`) compiled with go-ds-s3 baked in,
+# (`ghcr.io/etzhayyim/kubo-s3ds:0.31.x`) compiled with go-ds-s3 baked in,
 # and at that point this script reapplies `Datastore.Spec` from the
 # rendered B2 spec. The reference B2 spec lives at
 # `config/datastore_spec_b2.json`.
@@ -33,7 +33,7 @@ fi
 
 # Public gateway: no listing, no writable, CORS open for read GETs.
 ipfs config --json Gateway.NoFetch false
-ipfs config --json Gateway.PublicGateways '{"ipfs.gftd.ai":{"Paths":["/ipfs","/ipns"],"UseSubdomains":false,"NoDNSLink":false}}'
+ipfs config --json Gateway.PublicGateways '{"ipfs.etzhayyim.com":{"Paths":["/ipfs","/ipns"],"UseSubdomains":false,"NoDNSLink":false}}'
 ipfs config --json Gateway.HTTPHeaders.Access-Control-Allow-Methods '["GET","HEAD","OPTIONS"]'
 ipfs config --json Gateway.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
 

@@ -9,7 +9,7 @@ type Entry = { proc: string; bpmnProcessId: string; timeoutMs: number };
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:real-estate.gftd.ai:ops";
+const ownerDid = "did:web:real-estate.etzhayyim.com:ops";
 const createdAt = "2026-04-30T21:20:00+09:00";
 const actorTag = "sys.bpmn.seed.real-estate-read";
 const entries: Entry[] = [
@@ -24,8 +24,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   for (const e of entries) {
     const sourcePath = `00-contracts/bpmn/ai/gftd/real-estate/${e.proc}.bpmn`;
     const xml = readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
-    const processVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`;
-    const bindingVertexId = `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`;
+    const processVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`;
+    const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`;
     await sql`
       INSERT INTO vertex_bpmn_process_def (
         vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,
@@ -55,7 +55,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
 export async function down(db: Kysely<unknown>): Promise<void> {
   for (const e of entries) {
-    await sql`DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${`at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
-    await sql`DELETE FROM vertex_bpmn_process_def WHERE vertex_id = ${`at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
+    await sql`DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
+    await sql`DELETE FROM vertex_bpmn_process_def WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
   }
 }

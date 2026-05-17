@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.YORO_BASE_URL || 'https://g00h5zto.gftd.ai';
+const BASE = process.env.YORO_BASE_URL || 'https://g00h5zto.etzhayyim.com';
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -263,7 +263,7 @@ test.describe('SSR OG tags', () => {
 	});
 
 	test('did:web profile includes complete SEO metadata', async ({ request }) => {
-		const did = encodeURIComponent('did:web:a7m8oocs.gftd.ai:gta-vi');
+		const did = encodeURIComponent('did:web:a7m8oocs.etzhayyim.com:gta-vi');
 		const res = await request.get(`${BASE}/profile/${did}`);
 		if (res.status() === 200) {
 			const html = await res.text();

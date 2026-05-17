@@ -18,49 +18,49 @@ const readBpmn = (file: string) =>
   );
 
 const CREATED_AT = "2026-04-29T23:25:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.kaisya";
 
 // Timer-start BPMN processes (no lexicon binding needed — Zeebe fires them)
 const TIMER_ENTRIES = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1",
     bpmnProcessId: "kaisya_ceo_daily_briefing",
     sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/ceoDailyBriefing.bpmn",
     file: "ceoDailyBriefing.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1",
     bpmnProcessId: "kaisya_coo_ops_monitor",
     sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/cooOpsMonitor.bpmn",
     file: "cooOpsMonitor.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-clo-case-sweep-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-clo-case-sweep-v1",
     bpmnProcessId: "kaisya_clo_case_sweep",
     sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/cloCaseSweep.bpmn",
     file: "cloCaseSweep.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1",
     bpmnProcessId: "kaisya_eng_deploy_health_check",
     sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/engDeployHealthCheck.bpmn",
     file: "engDeployHealthCheck.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1",
     bpmnProcessId: "kaisya_eng_infra_monitor",
     sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/engInfraMonitor.bpmn",
     file: "engInfraMonitor.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-brand-content-briefing-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-brand-content-briefing-v1",
     bpmnProcessId: "kaisya_brand_content_briefing",
     sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/brandContentBriefing.bpmn",
     file: "brandContentBriefing.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1",
     bpmnProcessId: "kaisya_creative_asset_pipeline",
     sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/creativeAssetPipeline.bpmn",
     file: "creativeAssetPipeline.bpmn",
@@ -70,32 +70,32 @@ const TIMER_ENTRIES = [
 // XRPC-triggered procedures (none-start) — need lexicon bindings
 const XRPC_ENTRIES = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-approve-task-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-approve-task-v1",
     bpmnProcessId: "kaisya_approve_task",
     sourcePath: "",  // inline-only, no BPMN file (direct DB update via pymagatama primitive)
     nsid: "ai.gftd.apps.kaisya.approveTask",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-reject-task-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-reject-task-v1",
     bpmnProcessId: "kaisya_reject_task",
     sourcePath: "",
     nsid: "ai.gftd.apps.kaisya.rejectTask",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-list-tasks-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-list-tasks-v1",
     bpmnProcessId: "kaisya_list_tasks",
     sourcePath: "",
     nsid: "ai.gftd.apps.kaisya.listTasks",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1",
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kaisya-get-agent-log-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-get-agent-log-v1",
     bpmnProcessId: "kaisya_get_agent_log",
     sourcePath: "",
     nsid: "ai.gftd.apps.kaisya.getAgentLog",
-    bindingVertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1",
   },
 ];
 

@@ -54,7 +54,7 @@ def test_simulation_telemetry_and_approval_chain():
     approval = robotics.robotics_approval_record(
         request_id="req-1",
         decision="approve",
-        approver_did="did:web:ops.gftd.ai",
+        approver_did="did:web:ops.etzhayyim.com",
     )["roboticsApprovalRecord"]
     assert sim["status"] == "pass"
     assert "robotics.safety.event" in [topic["topic"] for topic in telemetry["topics"]]

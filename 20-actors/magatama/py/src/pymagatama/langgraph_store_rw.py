@@ -3,8 +3,8 @@ RisingWave-native LangGraph BaseStore (ADR-2605080600).
 
 cross-thread long-term memory store.
 namespace = tuple[str, ...] — actor_did を先頭に含める規約:
-  ("did:web:shosha.gftd.ai", "market_views")
-  ("did:web:yoro.gftd.ai", "user_prefs", "did:plc:abc123")
+  ("did:web:shosha.etzhayyim.com", "market_views")
+  ("did:web:yoro.etzhayyim.com", "user_prefs", "did:plc:abc123")
 
 Table: vertex_langgraph_store (migration 20260507600000)
   vertex_id  VARCHAR PK  — "{'/'.join(namespace)}:{key}"

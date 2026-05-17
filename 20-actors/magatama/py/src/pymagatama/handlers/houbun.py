@@ -1,5 +1,5 @@
 """
-ADR-0052 houbun.gftd.ai — statute / regulation / treaty ingest on the
+ADR-0052 houbun.etzhayyim.com — statute / regulation / treaty ingest on the
 shared UDF pool.
 
 Handlers:
@@ -41,7 +41,7 @@ except ImportError:  # pragma: no cover — aiohttp is a runtime dep
     aiohttp = None  # type: ignore[assignment]
 
 ACTOR_NAME = "houbun"
-ACTOR_DID = f"did:web:{ACTOR_NAME}.gftd.ai"
+ACTOR_DID = f"did:web:{ACTOR_NAME}.etzhayyim.com"
 JPN_PATH_DID = f"{ACTOR_DID}:jpn:e-gov"
 
 EGOV_V2_BASE = "https://laws.e-gov.go.jp/api/2"
@@ -491,7 +491,7 @@ async def ingest_statute_jpn(params_json: str) -> str:
     }
 
     async with aiohttp.ClientSession(
-        headers={"User-Agent": "houbun.gftd.ai/0.1 (+https://houbun.gftd.ai)"},
+        headers={"User-Agent": "houbun.etzhayyim.com/0.1 (+https://houbun.etzhayyim.com)"},
     ) as session:
         if law_id:
             try:
@@ -633,7 +633,7 @@ async def ingest_statute_usa(params_json: str) -> str:
         index_url = f"{index_url}/{suffix}"
 
     async with aiohttp.ClientSession(
-        headers={"User-Agent": "houbun.gftd.ai/0.1 (+https://houbun.gftd.ai)"},
+        headers={"User-Agent": "houbun.etzhayyim.com/0.1 (+https://houbun.etzhayyim.com)"},
     ) as session:
         try:
             data = await _fetch_govinfo_index(session, index_url)
@@ -812,7 +812,7 @@ async def ingest_eur_lex(params_json: str) -> str:
     query = _eurlex_query_single(celex) if celex else _eurlex_query_delta(since, act_type, limit)
 
     async with aiohttp.ClientSession(
-        headers={"User-Agent": "houbun.gftd.ai/0.1 (+https://houbun.gftd.ai)"},
+        headers={"User-Agent": "houbun.etzhayyim.com/0.1 (+https://houbun.etzhayyim.com)"},
     ) as session:
         try:
             bindings = await _run_sparql(session, query)
@@ -933,7 +933,7 @@ async def ingest_treaty_un(params_json: str) -> str:
     agg = {"treatiesFetched": 0, "treatiesInserted": 0, "errors": 0}
 
     async with aiohttp.ClientSession(
-        headers={"User-Agent": "houbun.gftd.ai/0.1 (+https://houbun.gftd.ai)"},
+        headers={"User-Agent": "houbun.etzhayyim.com/0.1 (+https://houbun.etzhayyim.com)"},
     ) as session:
         records = await _fetch_un_treaty_records(session, un_reg_no, since, limit)
         agg["treatiesFetched"] = len(records)

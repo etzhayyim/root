@@ -2,7 +2,7 @@
   "viewId": "open-rail.AV-1",
   "viewType": "AV-1",
   "title": "Overview and Summary Information",
-  "did": "did:web:open-rail.gftd.ai",
+  "did": "did:web:open-rail.etzhayyim.com",
   "format": "json",
   "content": {
     "purpose": "Provide a DID-addressed railway operations service (line/station design + train scheduling + incident reporting) as an auditable, open-source reference implementation.",

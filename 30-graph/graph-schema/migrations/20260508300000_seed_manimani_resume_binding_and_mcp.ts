@@ -18,7 +18,7 @@ import { sql } from "kysely";
  * one rev folds in cleanly.
  *
  * MCP exposure: rows in `vertex_mcp_tool_def` are read at runtime by
- * the canonical `mcp.gftd.ai/xrpc/ai.gftd.mcp.message` `tools/list`
+ * the canonical `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` `tools/list`
  * handler (ADR-0087 + ADR-2604261000) — no per-actor deploy needed.
  * Auth path: `tools/call` requires AT Protocol session JWT or ES256
  * Service Auth with `lxm` claim equal to the NSID.
@@ -42,8 +42,8 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const createdAt = "2026-05-08T15:30:00Z";
-const ownerDid = "did:web:manimani.gftd.ai";
-const actorHost = "manimani.gftd.ai";
+const ownerDid = "did:web:manimani.etzhayyim.com";
+const actorHost = "manimani.etzhayyim.com";
 const actorTag = "sys.manimani.seed.p4";
 const langgraphUrl = "http://manimani-langgraph.mitama-udf.svc.cluster.local:8000";
 
@@ -69,7 +69,7 @@ function mcpVertexId(nsid: string): string {
 }
 
 function bindingVertexId(nsid: string): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${nsid}`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${nsid}`;
 }
 
 function stableStringify(value: unknown): string {

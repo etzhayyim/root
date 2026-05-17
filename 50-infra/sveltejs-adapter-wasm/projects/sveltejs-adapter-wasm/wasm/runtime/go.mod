@@ -1,4 +1,4 @@
-module github.com/gftdcojp/sveltejs-adapter-wasm/wasm/runtime
+module github.com/etzhayyim/root/50-infra/sveltejs-adapter-wasm/wasm/runtime
 
 go 1.25.7
 
@@ -12,4 +12,4 @@ require (
 	golang.org/x/text v0.18.0 // indirect
 )
 
-replace github.com/gftdcojp/sveltejs-adapter-wasm/wasm/runtime/gen => ./gen
+replace github.com/etzhayyim/root/50-infra/sveltejs-adapter-wasm/wasm/runtime/gen => ./gen

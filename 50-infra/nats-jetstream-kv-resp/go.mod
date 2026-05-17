@@ -1,4 +1,4 @@
-module github.com/gftdcojp/nats-jetstream-kv-resp
+module github.com/etzhayyim/root/50-infra/nats-jetstream-kv-resp
 
 go 1.25.0
 

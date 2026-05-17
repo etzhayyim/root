@@ -20,7 +20,7 @@ export interface McpFacadeConfig {
 	appName: string;
 	routes: readonly RouteConfig[];
 	mcpTools: readonly McpManifest["mcpTools"][number][];
-	/** Override server URL published in the OpenAPI spec (e.g. "https://lawfirm.gftd.ai"). */
+	/** Override server URL published in the OpenAPI spec (e.g. "https://lawfirm.etzhayyim.com"). */
 	serverUrl?: string;
 }
 
@@ -68,7 +68,7 @@ interface HostWitExports {
 
 /**
  * Extract the `gftd_session` cookie from request headers.
- * Used to inject session JWT as Authorization header for cross-subdomain SSO on *.gftd.ai.
+ * Used to inject session JWT as Authorization header for cross-subdomain SSO on *.etzhayyim.com.
  */
 function extractSessionCookie(headers: Headers): string {
   const cookie = headers.get("cookie");
@@ -80,7 +80,7 @@ function extractSessionCookie(headers: Headers): string {
 /**
  * Collect request headers as [key, value] pairs for XRPC forwarding.
  * When no Authorization header is present but a `gftd_session` cookie exists,
- * injects `Authorization: Bearer <jwt>` for cross-subdomain SSO on *.gftd.ai.
+ * injects `Authorization: Bearer <jwt>` for cross-subdomain SSO on *.etzhayyim.com.
  */
 function collectHeadersWithCookieAuth(raw: Headers): [string, string][] {
   const pairs: [string, string][] = [];
@@ -143,7 +143,7 @@ export function createHostWebRouter(args: {
 
   router.get("/.well-known/did.json", async (c) => {
     const appNanoid = ev("APP_NANOID") || appDef.id;
-    const appDID = ev("APP_DID") || ev("PERFORMER_DID") || `did:web:${appNanoid}.gftd.ai`;
+    const appDID = ev("APP_DID") || ev("PERFORMER_DID") || `did:web:${appNanoid}.etzhayyim.com`;
     // ADR-2604231839: serviceEndpoint for this actor's own XRPC surface.
     // Matches the request origin (what the resolver fetched) so spec-compliant
     // clients can route Atproto-Proxy:<did>#gftd_actor back to the same host.
@@ -168,7 +168,7 @@ export function createHostWebRouter(args: {
       service: [
         {
           id: `${appDID}#atproto-pds`, type: "AtprotoPersonalDataServer",
-          serviceEndpoint: "https://atproto.gftd.ai",
+          serviceEndpoint: "https://atproto.etzhayyim.com",
           ...(caps.length > 0 ? { capabilities: caps } : {}),
           ...(appVersion ? { version: appVersion } : {}),
         },
@@ -182,7 +182,7 @@ export function createHostWebRouter(args: {
 
   router.get("/.well-known/atproto-did", (c) => {
     const appNanoid = ev("APP_NANOID") || appDef.id;
-    const appDID = ev("APP_DID") || ev("PERFORMER_DID") || `did:web:${appNanoid}.gftd.ai`;
+    const appDID = ev("APP_DID") || ev("PERFORMER_DID") || `did:web:${appNanoid}.etzhayyim.com`;
     return c.text(`${appDID}\n`, 200, {
       "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=300",
     });
@@ -317,7 +317,7 @@ export function createHostWebRouter(args: {
       || mcpFacade?.appName
       || "actor";
     // ADR-2604261000 §F1: prefer APP_ACTOR_HANDLE over APP_NANOID so the
-    // default did:web:{handle}.gftd.ai matches sync-mcp-registry.py keying
+    // default did:web:{handle}.etzhayyim.com matches sync-mcp-registry.py keying
     // (NSID 4th segment, e.g. "lawfirm"). gftd deploy injects
     // APP_ACTOR_HANDLE from magatama.jsonld profile.handle or component dir
     // slug ai-gftd-wasm-{slug}-{nanoid}.
@@ -325,8 +325,8 @@ export function createHostWebRouter(args: {
       || ev("APP_DID")
       || ev("PERFORMER_DID")
       || (ev("APP_ACTOR_HANDLE")
-          ? `did:web:${ev("APP_ACTOR_HANDLE")}.gftd.ai`
-          : `did:web:${ev("APP_NANOID") || appDef.id}.gftd.ai`);
+          ? `did:web:${ev("APP_ACTOR_HANDLE")}.etzhayyim.com`
+          : `did:web:${ev("APP_NANOID") || appDef.id}.etzhayyim.com`);
     const facadeAppName = mcpFacade?.appName ?? registryAppName;
 
     router.use("/mcp", cors({ origin: "*", allowHeaders: ["authorization", "content-type"], allowMethods: ["GET", "POST", "OPTIONS"] }));
@@ -545,7 +545,7 @@ canvas{width:100%;height:100%;display:block}
 <div id="ver" style="position:fixed;bottom:8px;left:0;right:0;text-align:center;font-size:18px;font-weight:bold;color:#f472b6;z-index:20;pointer-events:none;text-shadow:0 1px 4px rgba(0,0,0,0.8)"></div>
 <script type="module">
 const WASM_VER='a59ae469';
-const K='https://cdn.gftd.ai/kami-web/'+WASM_VER;
+const K='https://cdn.etzhayyim.com/kami-web/'+WASM_VER;
 document.getElementById('ver').textContent='KAMI '+WASM_VER+' | ${nanoid} | '+new Date().toISOString().slice(0,19);
 const O=location.origin;
 

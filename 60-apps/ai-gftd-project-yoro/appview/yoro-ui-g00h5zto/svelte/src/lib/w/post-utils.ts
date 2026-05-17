@@ -17,7 +17,7 @@ type RecordImage = {
 };
 
 function blobUrl(cid: string): string {
-	return `https://cdn.gftd.ai/blobs/anonymous/${encodeURIComponent(cid)}`;
+	return `https://cdn.etzhayyim.com/blobs/anonymous/${encodeURIComponent(cid)}`;
 }
 
 export function postRkey(postOrUri: AnyPost | string | null | undefined): string {

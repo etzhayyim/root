@@ -19,7 +19,7 @@ const (
 	defaultAgentPublicationProof = "90-docs/proof/kami-agent-erc8004-publish-attempt.local.json"
 	defaultAgentRuntimeArtifact  = "90-docs/proof/kami-agent-runtime-artifact.local.json"
 	defaultAgentRuntimeReceipt   = "90-docs/proof/kami-agent-runtime-receipt.local.json"
-	defaultAgentVerifyRPC        = "https://geth.etzhayyim.com"
+	defaultAgentVerifyRPC        = "https://geth.gftd.ai"
 	defaultAgentRegistry         = "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865"
 	defaultRuntimeRegistry       = "0x9C730960e9BF7A403E610Dca0C8a565CF655b6a1"
 )

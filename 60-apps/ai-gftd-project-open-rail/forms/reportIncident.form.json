@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/schemas/camunda-form/v1",
+  "$schema": "https://etzhayyim.com/schemas/camunda-form/v1",
   "formKey": "openRail.reportIncident.v1",
   "name": "Report Incident",
   "version": 1,

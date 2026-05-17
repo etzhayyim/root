@@ -12,7 +12,7 @@ Public API surface for the voxelforge actor:
                                      graph invocation).
 
 Deployment: `pymagatama.voxelforge.server:app` is the canonical Granian
-ASGI target. Image: `ghcr.io/gftdcojp/pymagatama:<tag>-amd64` (same
+ASGI target. Image: `ghcr.io/etzhayyim/pymagatama:<tag>-amd64` (same
 image as the Zeebe worker; profile-branched in `__main__.py` and via
 `VOXELFORGE_RUNTIME=langgraph` env var).
 """

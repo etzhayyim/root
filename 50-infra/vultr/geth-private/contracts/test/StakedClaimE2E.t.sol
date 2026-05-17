@@ -38,8 +38,8 @@ contract StakedClaimE2ETest is Test {
     address internal challenger;
 
     bytes32 constant CLAIM_ID         = keccak256("e2e-claim-1");
-    bytes32 constant CLAIMANT_DID     = keccak256("did:web:claimant.gftd.ai");
-    bytes32 constant CHALLENGER_DID   = keccak256("did:web:challenger.gftd.ai");
+    bytes32 constant CLAIMANT_DID     = keccak256("did:web:claimant.etzhayyim.com");
+    bytes32 constant CHALLENGER_DID   = keccak256("did:web:challenger.etzhayyim.com");
     bytes32 constant AT_RECORD_CID    = keccak256("at://record/1");
     uint256 constant BOND             = 1 ether;
     uint256 constant COUNTER_BOND     = 1 ether; // 100% of bond — well above 50% min

@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * iryo.gftd.ai Phase 1.1 — query BPMN seeding (ADR-2605080800).
+ * iryo.etzhayyim.com Phase 1.1 — query BPMN seeding (ADR-2605080800).
  *
  * 4 read-only XRPC bindings backed by 4 minimal one-task BPMNs that
  * delegate to the iryo.coverage.snapshot / iryo.bed.occupancySnapshot /
@@ -28,35 +28,35 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T12:00:00Z";
-const ownerDid = "did:web:iryo.gftd.ai:hospital";
+const ownerDid = "did:web:iryo.etzhayyim.com:hospital";
 const actorTag = "sys.bpmn.seed.iryo.query";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/iryo-coverage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/iryo-coverage-v1",
     bpmnProcessId: "iryo_coverage",
     sourcePath: "00-contracts/bpmn/ai/gftd/iryo/coverage.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/iryo-get-bed-occupancy-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/iryo-get-bed-occupancy-v1",
     bpmnProcessId: "iryo_get_bed_occupancy",
     sourcePath: "00-contracts/bpmn/ai/gftd/iryo/getBedOccupancy.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/iryo-list-encounters-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/iryo-list-encounters-v1",
     bpmnProcessId: "iryo_list_encounters",
     sourcePath: "00-contracts/bpmn/ai/gftd/iryo/listEncounters.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/iryo-get-drg-claim-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/iryo-get-drg-claim-v1",
     bpmnProcessId: "iryo_get_drg_claim",
     sourcePath: "00-contracts/bpmn/ai/gftd/iryo/getDrgClaim.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/iryo-coverage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/iryo-coverage-v1",
     nsid: "ai.gftd.apps.iryo.coverage",
     bpmnProcessId: "iryo_coverage", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/iryo-getBedOccupancy-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/iryo-getBedOccupancy-v1",
     nsid: "ai.gftd.apps.iryo.getBedOccupancy",
     bpmnProcessId: "iryo_get_bed_occupancy", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/iryo-listEncounters-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/iryo-listEncounters-v1",
     nsid: "ai.gftd.apps.iryo.listEncounters",
     bpmnProcessId: "iryo_list_encounters", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/iryo-getDrgClaim-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/iryo-getDrgClaim-v1",
     nsid: "ai.gftd.apps.iryo.getDrgClaim",
     bpmnProcessId: "iryo_get_drg_claim", ownerDid, resultTimeoutMs: 15_000 },
 ];

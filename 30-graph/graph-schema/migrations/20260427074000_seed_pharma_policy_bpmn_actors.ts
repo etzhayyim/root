@@ -25,7 +25,7 @@ const seeds: Seed[] = [
     proc: "recordRound",
     bpmnProcessId: "open_drug_price_negotiation_record_round",
     nsid: "ai.gftd.apps.drugPriceNegotiation.recordRound",
-    ownerDid: "did:web:open-drug-price-negotiation.gftd.ai",
+    ownerDid: "did:web:open-drug-price-negotiation.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -33,7 +33,7 @@ const seeds: Seed[] = [
     proc: "flagAccessGap",
     bpmnProcessId: "open_drug_price_negotiation_flag_access_gap",
     nsid: "ai.gftd.apps.drugPriceNegotiation.flagAccessGap",
-    ownerDid: "did:web:open-drug-price-negotiation.gftd.ai",
+    ownerDid: "did:web:open-drug-price-negotiation.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
@@ -41,7 +41,7 @@ const seeds: Seed[] = [
     proc: "recordAction",
     bpmnProcessId: "open_jp_mhlw_record_action",
     nsid: "ai.gftd.apps.jpMhlw.recordAction",
-    ownerDid: "did:web:open-jp-mhlw.gftd.ai",
+    ownerDid: "did:web:open-jp-mhlw.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -49,7 +49,7 @@ const seeds: Seed[] = [
     proc: "flagPolicyConcern",
     bpmnProcessId: "open_jp_mhlw_flag_policy_concern",
     nsid: "ai.gftd.apps.jpMhlw.flagPolicyConcern",
-    ownerDid: "did:web:open-jp-mhlw.gftd.ai",
+    ownerDid: "did:web:open-jp-mhlw.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
@@ -57,7 +57,7 @@ const seeds: Seed[] = [
     proc: "regulateNarcotics",
     bpmnProcessId: "open_jp_mhlw_regulate_narcotics",
     nsid: "ai.gftd.apps.jpMhlw.regulateNarcotics",
-    ownerDid: "did:web:open-jp-mhlw.gftd.ai",
+    ownerDid: "did:web:open-jp-mhlw.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
   {
@@ -65,7 +65,7 @@ const seeds: Seed[] = [
     proc: "administerInfluenzaVaccine",
     bpmnProcessId: "open_jp_mhlw_administer_influenza_vaccine",
     nsid: "ai.gftd.apps.jpMhlw.administerInfluenzaVaccine",
-    ownerDid: "did:web:open-jp-mhlw.gftd.ai",
+    ownerDid: "did:web:open-jp-mhlw.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
 ];
@@ -79,11 +79,11 @@ function sourcePath(seed: Seed): string {
 }
 
 function processVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${seed.project}-${seed.proc}-v1`;
 }
 
 function bindingVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
 }
 
 async function createPharmaPolicyTables(db: Kysely<unknown>): Promise<void> {

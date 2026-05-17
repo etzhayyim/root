@@ -59,10 +59,10 @@
       body: 'Event: Monthly Close Review\nWhen: 2026-04-30 17:00 → 18:00 (Asia/Tokyo)\nRRULE: FREQ=MONTHLY;BYMONTHDAY=-1\nAttendees: dept:accounting, dept:hr'
     },
     {
-      id: 't4', from: 'AI Sec — Mailer', fromInitial: '⚠', subject: '⚠ Possible BEC: ceo@kybеr.gftd.ai',
+      id: 't4', from: 'AI Sec — Mailer', fromInitial: '⚠', subject: '⚠ Possible BEC: ceo@kybеr.etzhayyim.com',
       snippet: 'Domain spoof detected (Cyrillic "е"). Wire transfer request flagged.',
       time: 'Mon', unread: true, labels: ['security', 'bec'], folder: 'alerts',
-      body: 'Sender: ceo@kybеr.gftd.ai (note Cyrillic "е" U+0435 vs ASCII "e" U+0065).\nSubject: Urgent wire transfer.\nClassification: BEC (high confidence). Action: quarantine + alert finance.'
+      body: 'Sender: ceo@kybеr.etzhayyim.com (note Cyrillic "е" U+0435 vs ASCII "e" U+0065).\nSubject: Urgent wire transfer.\nClassification: BEC (high confidence). Action: quarantine + alert finance.'
     },
     {
       id: 't5', from: 'Procurement Bot', fromInitial: 'PR', subject: 'PO PO-0099 acknowledged by vendor',

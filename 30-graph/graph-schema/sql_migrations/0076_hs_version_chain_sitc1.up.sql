@@ -47,16 +47,16 @@ CREATE VIEW IF NOT EXISTS view_sitc1_commodity AS
     WHERE collection = 'ai.gftd.apps.sitc.commodity_rev1';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs2007', 'hs2007.gftd.ai', 6373, 'HS products', 'trade');
+    VALUES ('hs2007', 'hs2007.etzhayyim.com', 6373, 'HS products', 'trade');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs2002', 'hs2002.gftd.ai', 6569, 'HS products', 'trade');
+    VALUES ('hs2002', 'hs2002.etzhayyim.com', 6569, 'HS products', 'trade');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs1996', 'hs1996.gftd.ai', 6474, 'HS products', 'trade');
+    VALUES ('hs1996', 'hs1996.etzhayyim.com', 6474, 'HS products', 'trade');
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('sitc1', 'sitc1.gftd.ai', 2784, 'products', 'trade');
+    VALUES ('sitc1', 'sitc1.etzhayyim.com', 2784, 'products', 'trade');
 
 DELETE FROM edge_classified_as WHERE system = 'hs07_hs12';
 

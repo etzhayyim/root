@@ -5,7 +5,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * domain.gftd.ai Phase 1 seed (ADR-0036 + ADR-0056 + ADR-2604282300).
+ * domain.etzhayyim.com Phase 1 seed (ADR-0036 + ADR-0056 + ADR-2604282300).
  *
  * Seeds:
  *   • 4 TLD catalog rows (.law / .lawyer / .legal / .attorney)
@@ -33,7 +33,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-07T23:00:00Z";
-const ownerDid = "did:web:domain.gftd.ai";
+const ownerDid = "did:web:domain.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.domain";
 
 // ── Catalog rows ─────────────────────────────────────────────────────
@@ -400,21 +400,21 @@ const acceptEdges: AcceptEdge[] = [
 const processSeeds: P[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-eligibility-check-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-eligibility-check-v1",
     bpmnProcessId: "domain_eligibility_check",
     sourcePath: "00-contracts/bpmn/ai/gftd/domain/eligibilityCheck.bpmn",
     ownerDid,
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-register-assist-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-register-assist-v1",
     bpmnProcessId: "domain_register_assist",
     sourcePath: "00-contracts/bpmn/ai/gftd/domain/registerAssist.bpmn",
     ownerDid,
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-refresh-tld-catalog-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-refresh-tld-catalog-v1",
     bpmnProcessId: "domain_refresh_tld_catalog",
     sourcePath: "00-contracts/bpmn/ai/gftd/domain/refreshTldCatalog.bpmn",
     ownerDid,
@@ -424,7 +424,7 @@ const processSeeds: P[] = [
 const bindingSeeds: B[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/domain-eligibilityCheck-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/domain-eligibilityCheck-v1",
     nsid: "ai.gftd.apps.domain.eligibilityCheck",
     bpmnProcessId: "domain_eligibility_check",
     ownerDid,
@@ -432,7 +432,7 @@ const bindingSeeds: B[] = [
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/domain-registerAssist-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/domain-registerAssist-v1",
     nsid: "ai.gftd.apps.domain.registerAssist",
     bpmnProcessId: "domain_register_assist",
     ownerDid,

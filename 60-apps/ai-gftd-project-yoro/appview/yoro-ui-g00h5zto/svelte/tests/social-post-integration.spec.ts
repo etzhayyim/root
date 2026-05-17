@@ -1,7 +1,7 @@
 import { expect, test, type APIRequestContext } from '@playwright/test';
 
 const BASE = process.env.YORO_BASE_URL || '/';
-const PDS = process.env.PDS_BASE_URL || 'https://atproto.gftd.ai';
+const PDS = process.env.PDS_BASE_URL || 'https://atproto.etzhayyim.com';
 
 type FeedPost = {
 	uri: string;
@@ -124,14 +124,14 @@ test.describe('social post integration', () => {
 	});
 
 	test('keiba actor profile renders record-backed posts and social controls', async ({ page, request }) => {
-		const profileRes = await request.get(`${PDS}/xrpc/app.bsky.actor.getProfile?actor=did%3Aweb%3Akeiba.gftd.ai`);
+		const profileRes = await request.get(`${PDS}/xrpc/app.bsky.actor.getProfile?actor=did%3Aweb%3Akeiba.etzhayyim.com`);
 		expect(profileRes.ok()).toBe(true);
-		const feedRes = await request.get(`${PDS}/xrpc/app.bsky.feed.getAuthorFeed?actor=did%3Aweb%3Akeiba.gftd.ai&limit=5`);
+		const feedRes = await request.get(`${PDS}/xrpc/app.bsky.feed.getAuthorFeed?actor=did%3Aweb%3Akeiba.etzhayyim.com&limit=5`);
 		expect(feedRes.ok()).toBe(true);
 		const feedBody = await feedRes.json() as { feed?: Array<{ post?: FeedPost }> };
 		expect(feedBody.feed?.some((item) => item.post?.record?.text?.includes('keiba domain registered'))).toBe(true);
 
-		await page.goto(route('/profile/did%3Aweb%3Akeiba.gftd.ai'), { waitUntil: 'domcontentloaded' });
+		await page.goto(route('/profile/did%3Aweb%3Akeiba.etzhayyim.com'), { waitUntil: 'domcontentloaded' });
 		await page.getByRole('button', { name: 'Accept' }).click({ timeout: 3000 }).catch((error) => {
 			console.warn('cookie banner accept skipped:', error);
 		});

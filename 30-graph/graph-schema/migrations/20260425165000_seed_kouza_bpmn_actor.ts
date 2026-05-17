@@ -23,12 +23,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-25T16:50:00Z";
-const ownerDid = "did:web:kouza.gftd.ai";
+const ownerDid = "did:web:kouza.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.kouza";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1",
     bpmnProcessId: "kouza_sync_due_connections",
     sourcePath: "00-contracts/bpmn/ai/gftd/kouza/syncDueConnections.bpmn",
     ownerDid,
@@ -37,7 +37,7 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1",
     nsid: "ai.gftd.apps.kouza.syncDueConnections",
     bpmnProcessId: "kouza_sync_due_connections",
     ownerDid,

@@ -85,7 +85,7 @@ def posterior_update(prior: float, likelihood: float) -> float:
 
 @udf(input_types=["VARCHAR", "BOOLEAN", "BOOLEAN"], result_type="FLOAT64", io_threads=1)
 def news_source_credibility(source_type: str | None, primary: bool | None, official: bool | None) -> float:
-    """Deterministic provenance score for news.gftd.ai intel briefs.
+    """Deterministic provenance score for news.etzhayyim.com intel briefs.
 
     This is intentionally model-free so scoring remains stable inside
     materialized views and Zeebe process gates.
@@ -191,7 +191,7 @@ def segment_hash(features_json) -> str:
 # IO-bound UDFs — io_threads mandatory per ADR-0044 D3
 # ─────────────────────────────────────────────────────────
 
-_LLM_URL = os.environ.get("LLM_URL", "http://ollama.gftd.ai/v1/chat/completions")
+_LLM_URL = os.environ.get("LLM_URL", "http://ollama.etzhayyim.com/v1/chat/completions")
 _LLM_MODEL = os.environ.get("LLM_MODEL", "gemma4:e4b")
 _LLM_TIMEOUT_SEC = float(os.environ.get("LLM_TIMEOUT_SEC", "8"))
 _T3_IO_THREADS = int(os.environ.get("T3_IO_THREADS", "50"))

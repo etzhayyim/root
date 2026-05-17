@@ -168,7 +168,7 @@ async function syncRecordEvidence(db: Kysely<unknown>, records: SupportedRecord[
         edge_id, created_date, sensitivity_ord, owner_did,
         src_vid, dst_vid, evidence_kind, source_url, confidence, created_at
       ) VALUES (
-        ${edgeId}, ${createdDate}, 1, 'did:web:gov-jpn.gftd.ai:mof',
+        ${edgeId}, ${createdDate}, 1, 'did:web:gov-jpn.etzhayyim.com:mof',
         ${record.document_id}, ${record.vertex_id}, 'DOCUMENT_SUPPORTS_RECORD',
         ${record.source_url}, 1.0, ${now}
       )

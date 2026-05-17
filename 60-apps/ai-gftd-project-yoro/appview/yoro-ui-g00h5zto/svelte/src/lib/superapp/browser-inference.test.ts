@@ -314,7 +314,7 @@ describe('browser-gateway-client', () => {
 				onHeartbeatAck: vi.fn(),
 				onError: vi.fn(),
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			expect(conn.connected).toBe(false);
 			expect(conn.currentSessionId).toBeNull();
 			expect(conn.transportType).toBe('websocket');
@@ -343,7 +343,7 @@ describe('browser-gateway-client', () => {
 				'userAgent': 'test',
 			};
 
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 
 			expect(states).toContain('connecting');
@@ -374,7 +374,7 @@ describe('browser-gateway-client', () => {
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
 
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -408,7 +408,7 @@ describe('browser-gateway-client', () => {
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
 
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -443,7 +443,7 @@ describe('browser-gateway-client', () => {
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
 
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -472,7 +472,7 @@ describe('browser-gateway-client', () => {
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
 
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -507,7 +507,7 @@ describe('browser-gateway-client', () => {
 				gpu: { available: false, adapter: 'unknown', features: [], 'maxStorageBufferBindingSize': 0, 'maxComputeWorkgroupStorageSize': 0 },
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -533,7 +533,7 @@ describe('browser-gateway-client', () => {
 				gpu: { available: false, adapter: 'unknown', features: [], 'maxStorageBufferBindingSize': 0, 'maxComputeWorkgroupStorageSize': 0 },
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -559,7 +559,7 @@ describe('browser-gateway-client', () => {
 				gpu: { available: false, adapter: 'unknown', features: [], 'maxStorageBufferBindingSize': 0, 'maxComputeWorkgroupStorageSize': 0 },
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -585,7 +585,7 @@ describe('browser-gateway-client', () => {
 				gpu: { available: false, adapter: 'unknown', features: [], 'maxStorageBufferBindingSize': 0, 'maxComputeWorkgroupStorageSize': 0 },
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -609,7 +609,7 @@ describe('browser-gateway-client', () => {
 				onHeartbeatAck: vi.fn(),
 				onError: vi.fn(),
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.setWarmShards(['shardA', 'shardB']);
 			// No error thrown
 			expect(conn.transportType).toBe('websocket');
@@ -630,7 +630,7 @@ describe('browser-gateway-client', () => {
 				gpu: { available: false, adapter: 'unknown', features: [], 'maxStorageBufferBindingSize': 0, 'maxComputeWorkgroupStorageSize': 0 },
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -670,7 +670,7 @@ describe('browser-gateway-client', () => {
 				gpu: { available: false, adapter: 'unknown', features: [], 'maxStorageBufferBindingSize': 0, 'maxComputeWorkgroupStorageSize': 0 },
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -697,7 +697,7 @@ describe('browser-gateway-client', () => {
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
 
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -726,7 +726,7 @@ describe('browser-gateway-client', () => {
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
 
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			const firstWs = lastWs();
 			firstWs.onopen();
@@ -775,7 +775,7 @@ describe('browser-gateway-client', () => {
 				gpu: { available: false, adapter: 'unknown', features: [], 'maxStorageBufferBindingSize': 0, 'maxComputeWorkgroupStorageSize': 0 },
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -826,7 +826,7 @@ describe('browser-gateway-client', () => {
 				gpu: { available: false, adapter: 'unknown', features: [], 'maxStorageBufferBindingSize': 0, 'maxComputeWorkgroupStorageSize': 0 },
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			lastWs().onopen();
 
@@ -866,7 +866,7 @@ describe('browser-gateway-client', () => {
 				gpu: { available: false, adapter: 'unknown', features: [], 'maxStorageBufferBindingSize': 0, 'maxComputeWorkgroupStorageSize': 0 },
 				'memClass': 'mid', 'netClass': 'ok', 'powerClass': 'desktop', 'gpuTier': 'g0', cores: 4, 'userAgent': 'test',
 			};
-			const conn = new BrowserGatewayConnection('wss://test.gftd.ai/ws', callbacks);
+			const conn = new BrowserGatewayConnection('wss://test.etzhayyim.com/ws', callbacks);
 			conn.connect(cap);
 			// Change readyState to CLOSED before onopen fires
 			lastWs().readyState = 3;
@@ -927,7 +927,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('probes capabilities and connects on start', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		const states = updates.map((u) => u.state);
@@ -939,7 +939,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('transitions to offline on stop', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 		await agent.stop();
 
@@ -949,7 +949,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('dispatches task to executor worker on taskPush', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -981,7 +981,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('sends result back to gateway on worker completion', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -1023,7 +1023,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('increments jobsFailed on worker error', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -1056,7 +1056,7 @@ describe('BrowserInferenceAgent', () => {
 	});
 
 	it('rejects task when already executing', async () => {
-		const agent = new BrowserInferenceAgent(vi.fn(), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent(vi.fn(), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -1094,7 +1094,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('handles task cancel from gateway', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -1133,7 +1133,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('prevents double start', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		const countBefore = updates.length;
@@ -1145,7 +1145,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('tracks heartbeatAck timestamp', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -1167,7 +1167,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('sets capabilities on start', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		const lastUpdate = updates[updates.length - 1];
@@ -1189,7 +1189,7 @@ describe('BrowserInferenceAgent', () => {
 		};
 		(globalThis as any).document = { addEventListener: vi.fn(), removeEventListener: vi.fn() };
 
-		const agent = new BrowserInferenceAgent(vi.fn(), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent(vi.fn(), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -1214,7 +1214,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('transitions to offline on gateway disconnected when not stopped', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -1241,7 +1241,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('transitions to reconnecting on gateway disconnect', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -1260,7 +1260,7 @@ describe('BrowserInferenceAgent', () => {
 
 	it('updates progress from worker messages', async () => {
 		const updates: any[] = [];
-		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.gftd.ai/ws');
+		const agent = new BrowserInferenceAgent((s) => updates.push({ ...s }), 'wss://test.etzhayyim.com/ws');
 		await agent.start();
 
 		lastWs().onopen();
@@ -1328,7 +1328,7 @@ describe('useBrowserInference', () => {
 
 	it('join sets isJoined to true', async () => {
 		const bi = useBrowserInference();
-		await bi.join('wss://test.gftd.ai/ws');
+		await bi.join('wss://test.etzhayyim.com/ws');
 		expect(bi.isJoined).toBe(true);
 		await bi.leave();
 		expect(bi.isJoined).toBe(false);

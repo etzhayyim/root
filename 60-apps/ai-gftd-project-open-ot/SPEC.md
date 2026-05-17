@@ -4,15 +4,15 @@
 
 ## 1. Identity topology
 
-Path-based DIDs under `did:web:open-ot.gftd.ai`:
+Path-based DIDs under `did:web:open-ot.etzhayyim.com`:
 
 | DID prefix | Entity | Example |
 |---|---|---|
-| `:device:` | Physical controller / RTU / edge gateway | `did:web:open-ot.gftd.ai:device:rtu-east-01` |
-| `:cell:` | WASM module instance (one control loop / FB network) | `did:web:open-ot.gftd.ai:cell:pid-tank3-level` |
-| `:signal:` | Signal point (analog / digital / string) | `did:web:open-ot.gftd.ai:signal:tank3-level-pv` |
-| `:loop:` | Logical control loop (≥ 1 cell + signals) | `did:web:open-ot.gftd.ai:loop:tank3-level-control` |
-| `:fault:` | Fault record | `did:web:open-ot.gftd.ai:fault:2026-05-15-001` |
+| `:device:` | Physical controller / RTU / edge gateway | `did:web:open-ot.etzhayyim.com:device:rtu-east-01` |
+| `:cell:` | WASM module instance (one control loop / FB network) | `did:web:open-ot.etzhayyim.com:cell:pid-tank3-level` |
+| `:signal:` | Signal point (analog / digital / string) | `did:web:open-ot.etzhayyim.com:signal:tank3-level-pv` |
+| `:loop:` | Logical control loop (≥ 1 cell + signals) | `did:web:open-ot.etzhayyim.com:loop:tank3-level-control` |
+| `:fault:` | Fault record | `did:web:open-ot.etzhayyim.com:fault:2026-05-15-001` |
 
 Devices, cells, signals, and loops are AT records under `ai.gftd.apps.openOt.*`. Fault records carry a DMN-evaluated severity.
 
@@ -102,9 +102,9 @@ Manifest (per-cell, analogue of `magatama.jsonld`):
 
 ```jsonc
 {
-  "@context": "https://gftd.ai/ns/open-ot/cell/v1",
-  "@id": "did:web:open-ot.gftd.ai:cell:pid-tank3-level",
-  "module": { "cid": "bafy…", "signedBy": "did:web:builder.gftd.ai" },
+  "@context": "https://etzhayyim.com/ns/open-ot/cell/v1",
+  "@id": "did:web:open-ot.etzhayyim.com:cell:pid-tank3-level",
+  "module": { "cid": "bafy…", "signedBy": "did:web:builder.etzhayyim.com" },
   "fb_kind": "BFB",
   "iec61499_fbtype": "PID_LIMITED",
   "ecc": {
@@ -121,13 +121,13 @@ Manifest (per-cell, analogue of `magatama.jsonld`):
   "events_in":  [{ "name": "REQ", "with": ["pv", "sp"] }],
   "events_out": [{ "name": "CNF", "with": ["cv"] }, { "name": "ALM", "with": [] }],
   "data_in":  [
-    { "name": "pv", "signal": "did:web:open-ot.gftd.ai:signal:tank3-level-pv" },
-    { "name": "sp", "signal": "did:web:open-ot.gftd.ai:signal:tank3-level-sp" }
+    { "name": "pv", "signal": "did:web:open-ot.etzhayyim.com:signal:tank3-level-pv" },
+    { "name": "sp", "signal": "did:web:open-ot.etzhayyim.com:signal:tank3-level-sp" }
   ],
-  "data_out": [{ "name": "cv", "signal": "did:web:open-ot.gftd.ai:signal:tank3-level-cv" }],
+  "data_out": [{ "name": "cv", "signal": "did:web:open-ot.etzhayyim.com:signal:tank3-level-cv" }],
   "params":  { "kp": 1.2, "ki": 0.05, "kd": 0.0, "out_min": 0.0, "out_max": 100.0 },
   "capabilities": ["io:tank3-level-pv:read", "io:tank3-level-sp:read", "io:tank3-level-cv:write"],
-  "cohort": ["did:web:open-ot.gftd.ai:loop:tank3-level-control"]
+  "cohort": ["did:web:open-ot.etzhayyim.com:loop:tank3-level-control"]
 }
 ```
 

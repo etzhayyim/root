@@ -9,7 +9,7 @@ type Seed = { slug: string; op: string; processId: string; sourcePath: string; t
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const ownerDid = "did:web:outlook.gftd.ai";
+const ownerDid = "did:web:outlook.etzhayyim.com";
 const createdAt = "2026-04-29T21:51:00+09:00";
 const actorId = "sys.bpmn.seed.outlook";
 
@@ -26,8 +26,8 @@ const seeds: Seed[] = [
   { slug: "card-action", op: "cardAction", processId: "outlook_card_action", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/cardAction.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/outlook-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/outlook-${s.op}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

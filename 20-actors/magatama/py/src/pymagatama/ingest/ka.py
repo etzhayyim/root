@@ -7,7 +7,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 NS = "ai.gftd.apps.ka"
-ACTOR = "did:web:ka.gftd.ai"
+ACTOR = "did:web:ka.etzhayyim.com"
 
 QUERIES = {
     "entities": "SELECT entity_code, legal_name, status, notes FROM vertex_business_entity ORDER BY entity_code",

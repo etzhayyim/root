@@ -1,4 +1,4 @@
-"""robot.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""robot.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -41,7 +41,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)""",
                 vertex_id, 0, date.today(), 0, robot_did,
                 instance_id, process_id, robot_did, mission_id, "running",
-                "did:web:robot.gftd.ai", "did:web:robot.gftd.ai", now, now,
+                "did:web:robot.etzhayyim.com", "did:web:robot.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -84,7 +84,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, robot_did,
                 mission_id, robot_did, goal, "planned",
-                "did:web:robot.gftd.ai", "did:web:robot.gftd.ai", now, now,
+                "did:web:robot.etzhayyim.com", "did:web:robot.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -148,7 +148,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)""",
                 vertex_id, 0, date.today(), 0, robot_did,
                 telemetry_id, robot_did, topic, timestamp,
-                "did:web:robot.gftd.ai", "did:web:robot.gftd.ai", now, now,
+                "did:web:robot.etzhayyim.com", "did:web:robot.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

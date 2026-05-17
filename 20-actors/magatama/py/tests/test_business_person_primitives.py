@@ -32,7 +32,7 @@ def test_normalize_public_roles_creates_stable_vertex() -> None:
     assert out["publicOnly"] is True
     assert out["recordsPrepared"] == 1
     row = out["roles"][0]
-    assert row["vertex_id"].startswith("at://did:web:business-person.gftd.ai/")
+    assert row["vertex_id"].startswith("at://did:web:business-person.etzhayyim.com/")
     assert row["display_name"] == "Jane Doe"
     assert row["org_name"] == "Acme Inc."
     assert row["source"] == "sec-edgar"
@@ -155,7 +155,7 @@ def test_schedule_next_page_builds_collection_job_payload() -> None:
             pagesFetched=1,
             maxPages=3,
             companyNumber="00000006",
-            operatorDid="did:web:operator.gftd.ai",
+            operatorDid="did:web:operator.etzhayyim.com",
         )
     )
 

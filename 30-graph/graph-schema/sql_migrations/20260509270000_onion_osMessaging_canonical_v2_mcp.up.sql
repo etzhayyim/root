@@ -13,23 +13,23 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:onion.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-onion-queueSeeds',
-   0, 0, 'ai.gftd.apps.onion.queueSeeds', 'did:web:onion.gftd.ai', 'onion.gftd.ai', 'procedure',
+  ('at://did:web:onion.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-onion-queueSeeds',
+   0, 0, 'ai.gftd.apps.onion.queueSeeds', 'did:web:onion.etzhayyim.com', 'onion.etzhayyim.com', 'procedure',
    'Queue Tor / onion seeds for crawling.', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/onion/queueSeeds.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:onion.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-onion-processQueue',
-   0, 0, 'ai.gftd.apps.onion.processQueue', 'did:web:onion.gftd.ai', 'onion.gftd.ai', 'procedure',
+  ('at://did:web:onion.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-onion-processQueue',
+   0, 0, 'ai.gftd.apps.onion.processQueue', 'did:web:onion.etzhayyim.com', 'onion.etzhayyim.com', 'procedure',
    'Process the onion crawl queue.', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/onion/processQueue.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:os-messaging.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-osMessaging-queueSeedRuns',
-   0, 0, 'ai.gftd.apps.osMessaging.queueSeedRuns', 'did:web:os-messaging.gftd.ai', 'os-messaging.gftd.ai', 'procedure',
+  ('at://did:web:os-messaging.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-osMessaging-queueSeedRuns',
+   0, 0, 'ai.gftd.apps.osMessaging.queueSeedRuns', 'did:web:os-messaging.etzhayyim.com', 'os-messaging.etzhayyim.com', 'procedure',
    'Queue OS messaging seed runs.', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/osMessaging/queueSeedRuns.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:os-messaging.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-osMessaging-processQueue',
-   0, 0, 'ai.gftd.apps.osMessaging.processQueue', 'did:web:os-messaging.gftd.ai', 'os-messaging.gftd.ai', 'procedure',
+  ('at://did:web:os-messaging.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-osMessaging-processQueue',
+   0, 0, 'ai.gftd.apps.osMessaging.processQueue', 'did:web:os-messaging.etzhayyim.com', 'os-messaging.etzhayyim.com', 'procedure',
    'Process the OS messaging open-channels queue.', '{"type":"object"}', '{"type":"object"}',
    'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/osMessaging/processQueue.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z');
@@ -41,11 +41,11 @@ VALUES
   ('onion_crawl_seeds.v2', 0, 0, 'onion_crawl_seeds.v2', 2, 'topology', NULL,
    '{"state_keys":["queueOut","processOut","ok","error"],"entry":"queue_seeds","edges":[{"from":"queue_seeds","to":"process_queue"},{"from":"process_queue","to":"END"}]}',
    'onion crawl seeds (topology v2, mcp_tool)', '2026-05-09T00:00:00Z',
-   'rw_vertex', 'did:web:agent.onion.gftd.ai'),
+   'rw_vertex', 'did:web:agent.onion.etzhayyim.com'),
   ('os_messaging_crawl_open_channels.v2', 0, 0, 'os_messaging_crawl_open_channels.v2', 2, 'topology', NULL,
    '{"state_keys":["queueOut","processOut","ok","error"],"entry":"queue_seed_runs","edges":[{"from":"queue_seed_runs","to":"process_queue"},{"from":"process_queue","to":"END"}]}',
    'os messaging crawl open channels (topology v2, mcp_tool)', '2026-05-09T00:00:00Z',
-   'rw_vertex', 'did:web:agent.os-messaging.gftd.ai');
+   'rw_vertex', 'did:web:agent.os-messaging.etzhayyim.com');
 
 INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)

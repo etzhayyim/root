@@ -1,7 +1,7 @@
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-// ADR-0049 — Global legal corpus ingest + embedding (legal-corpus.gftd.ai)
+// ADR-0049 — Global legal corpus ingest + embedding (legal-corpus.etzhayyim.com)
 //
 // Tier (ADR-0040):
 //   - vertex_legal_corpus_source: tier B (operational metadata)

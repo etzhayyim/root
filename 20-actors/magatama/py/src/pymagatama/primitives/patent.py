@@ -50,7 +50,7 @@ _B2_KEY_ID = os.environ.get("B2_ACCESS_KEY_ID", "").strip()
 _B2_KEY = os.environ.get("B2_SECRET_ACCESS_KEY", "").strip()
 _B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com").rstrip("/")
 
-_PATENT_ACTOR = "did:web:patent.gftd.ai"
+_PATENT_ACTOR = "did:web:patent.etzhayyim.com"
 
 # ──────────────────────────────────────────────────────────────────────
 # Helpers

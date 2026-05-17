@@ -2,7 +2,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * otakiage.gftd.ai Phase 2b1 — ERC725 certificate anchor schema
+ * otakiage.etzhayyim.com Phase 2b1 — ERC725 certificate anchor schema
  * (ADR-2605081700 + ADR-0074 ERC725 root identity + ADR-2604261830).
  *
  * ALTER vertex_otakiage_certificate to add anchor tracking columns.

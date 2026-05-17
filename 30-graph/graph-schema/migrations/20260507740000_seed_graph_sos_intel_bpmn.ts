@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const CREATED_AT = "2026-05-07T09:00:00Z";
-const OWNER_DID = "did:web:bpmn.gftd.ai";
+const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 interface BpmnEntry {
   processId: string;
@@ -23,15 +23,15 @@ const ENTRIES: BpmnEntry[] = [
   {
     processId: "graphSosIntel_inventoryTick",
     bpmnPath: "00-contracts/bpmn/ai/gftd/graph-sos-intel/inventory-tick.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1",
     nsid: "ai.gftd.apps.graphSosIntel.inventoryTick",
   },
   {
     processId: "graphSosIntel_briefingTick",
     bpmnPath: "00-contracts/bpmn/ai/gftd/graph-sos-intel/briefing-tick.bpmn",
-    processVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1",
-    bindingVid: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1",
+    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1",
     nsid: "ai.gftd.apps.graphSosIntel.briefingTick",
   },
 ];

@@ -15,7 +15,7 @@
 // one-at-a-time by PR (one per 10-min iteration), mirroring open-isic.
 //
 // DID pattern:
-//   did:web:open-cofog.gftd.ai:{division|group|class}:{code}
+//   did:web:open-cofog.etzhayyim.com:{division|group|class}:{code}
 
 import {
   DIVISIONS, GROUPS,

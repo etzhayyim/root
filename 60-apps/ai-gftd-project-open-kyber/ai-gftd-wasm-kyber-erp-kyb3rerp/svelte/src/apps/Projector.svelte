@@ -1,4 +1,4 @@
-<!-- Convo-PM projector (projector.gftd.ai) — distinct from kyber APQC/BPMN projector (kyber-projector.gftd.ai, ADR-0025).
+<!-- Convo-PM projector (projector.etzhayyim.com) — distinct from kyber APQC/BPMN projector (kyber-projector.etzhayyim.com, ADR-0025).
      APQC/BPMN/OCEL UI lives in the `apqc` section of Appview.svelte. -->
 <script lang="ts">
   import { Button, Input, Textarea, Badge, Avatar, Chip } from '@gftdcojp/design-system';

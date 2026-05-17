@@ -8,7 +8,7 @@ import { Kysely, sql } from 'kysely';
  *
  * Design decision: ADR-0018 Tier 3 — NOT written via AT Repo createRecord
  * (those are public + federable). Instead, PDS OCEL middleware inserts
- * directly via Hyperdrive on every XRPC call. ipaddress.gftd.ai actor owns
+ * directly via Hyperdrive on every XRPC call. ipaddress.etzhayyim.com actor owns
  * the rows logically but they never become AT Records.
  *
  * Written by: 50-infra/cloudflare/workers/atproto/src/middleware/index.ts

@@ -8,7 +8,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 NS = "ai.gftd.apps.kaikei"
-ACTOR = "did:web:kaikei.gftd.ai"
+ACTOR = "did:web:kaikei.etzhayyim.com"
 
 OWNER_MAP = {
     "works": "did:plc:gftd-works",
@@ -17,16 +17,16 @@ OWNER_MAP = {
 }
 
 SENTINEL = {
-    "pfExpense": "did:web:kaikei.gftd.ai:account:in-pf-expense",
-    "pfPayable": "did:web:kaikei.gftd.ai:account:in-pf-payable-epfo",
-    "esiExpense": "did:web:kaikei.gftd.ai:account:in-esi-expense",
-    "esiPayable": "did:web:kaikei.gftd.ai:account:in-esi-payable-esic",
-    "gstReceivable": "did:web:kaikei.gftd.ai:account:in-gst-itc-receivable",
-    "gstPayable": "did:web:kaikei.gftd.ai:account:in-gst-net-payable",
-    "taxExpense": "did:web:kaikei.gftd.ai:account:in-income-tax-expense",
-    "taxPayable": "did:web:kaikei.gftd.ai:account:in-income-tax-payable",
-    "whExpense": "did:web:kaikei.gftd.ai:account:jp-withholding-expense",
-    "whPayable": "did:web:kaikei.gftd.ai:account:jp-withholding-payable",
+    "pfExpense": "did:web:kaikei.etzhayyim.com:account:in-pf-expense",
+    "pfPayable": "did:web:kaikei.etzhayyim.com:account:in-pf-payable-epfo",
+    "esiExpense": "did:web:kaikei.etzhayyim.com:account:in-esi-expense",
+    "esiPayable": "did:web:kaikei.etzhayyim.com:account:in-esi-payable-esic",
+    "gstReceivable": "did:web:kaikei.etzhayyim.com:account:in-gst-itc-receivable",
+    "gstPayable": "did:web:kaikei.etzhayyim.com:account:in-gst-net-payable",
+    "taxExpense": "did:web:kaikei.etzhayyim.com:account:in-income-tax-expense",
+    "taxPayable": "did:web:kaikei.etzhayyim.com:account:in-income-tax-payable",
+    "whExpense": "did:web:kaikei.etzhayyim.com:account:jp-withholding-expense",
+    "whPayable": "did:web:kaikei.etzhayyim.com:account:jp-withholding-payable",
 }
 
 
@@ -87,7 +87,7 @@ def _rkey(text: str) -> str:
 
 
 def _resolve_account_did(owner_did: str, account_did: str) -> str:
-    if not account_did.startswith("did:web:kaikei.gftd.ai:account:"):
+    if not account_did.startswith("did:web:kaikei.etzhayyim.com:account:"):
         return account_did
     row = _fetch_one(
         """SELECT vertex_id FROM vertex_atrecord_kaikei_account
@@ -253,7 +253,7 @@ def record_esi_payable(employerOrgId: str = "", wageMonth: str = "", totalEmploy
 def record_gst_payable(gstinHash: str = "", taxPeriod: str = "", totalNetTaxInrPaise: Any = 0, deltaTaxInrPaise: Any = 0, arn: str = "", amendmentReason: str = "", triggerSource: str = "", triggerVertexId: str = "", **_: Any) -> dict[str, Any]:
     if not taxPeriod:
         return {"error": "taxPeriod required"}
-    owner = resolve_owner(gstinHash) or f"did:web:kaikei.gftd.ai:taxpayer:{_str(gstinHash or 'unknown')[:16]}"
+    owner = resolve_owner(gstinHash) or f"did:web:kaikei.etzhayyim.com:taxpayer:{_str(gstinHash or 'unknown')[:16]}"
     total = _int(totalNetTaxInrPaise) or _int(deltaTaxInrPaise)
     memo = f"GSTR-3B net tax (ARN {arn or '-'}{('/ amend:' + amendmentReason) if amendmentReason else ''})"
     r = _post_one_entry(owner, f"gst-{taxPeriod}-{int(time.time() * 1000)}", taxPeriod, SENTINEL["gstReceivable"], SENTINEL["gstPayable"], total, "INR", memo, triggerSource or "ai.gftd.apps.gstr3b.fileReturn", triggerVertexId)
@@ -263,7 +263,7 @@ def record_gst_payable(gstinHash: str = "", taxPeriod: str = "", totalNetTaxInrP
 def record_advance_tax(taxpayerPanHash: str = "", assessmentYear: str = "", totalTaxPaidInrPaise: Any = 0, advanceTaxPaidInrPaise: Any = 0, selfAssessmentTaxInrPaise: Any = 0, ackNumber: str = "", triggerSource: str = "", triggerVertexId: str = "", **_: Any) -> dict[str, Any]:
     if not assessmentYear:
         return {"error": "assessmentYear required"}
-    owner = f"did:web:kaikei.gftd.ai:taxpayer:{_str(taxpayerPanHash or 'unknown')[:16]}"
+    owner = f"did:web:kaikei.etzhayyim.com:taxpayer:{_str(taxpayerPanHash or 'unknown')[:16]}"
     total = _int(totalTaxPaidInrPaise) or _int(advanceTaxPaidInrPaise) or _int(selfAssessmentTaxInrPaise)
     r = _post_one_entry(owner, f"itr1-{assessmentYear}-{int(time.time() * 1000)}", assessmentYear, SENTINEL["taxExpense"], SENTINEL["taxPayable"], total, "INR", f"ITR-1 advance/self-assessment tax (ack {ackNumber or '-'})", triggerSource or "ai.gftd.apps.itr1.fileReturn", triggerVertexId)
     return {"ok": True, "vertexId": r["vertexId"], "totalAmountInrPaise": r["amount"] * 100}
@@ -282,7 +282,7 @@ def map_account(ownerOrgId: str = "", sentinelDid: str = "", customerAccountCode
     owner = resolve_owner(ownerOrgId)
     if not owner:
         return {"error": "ownerOrgId required"}
-    if not sentinelDid.startswith("did:web:kaikei.gftd.ai:account:"):
+    if not sentinelDid.startswith("did:web:kaikei.etzhayyim.com:account:"):
         return {"error": "sentinelDid must be a kaikei sentinel account DID"}
     if not customerAccountCode or not customerAccountName or not customerAccountType:
         return {"error": "customerAccountCode, customerAccountName, customerAccountType required"}

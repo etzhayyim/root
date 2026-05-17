@@ -1,18 +1,18 @@
 // tier: B
-// live.gftd.ai — virtual concert room state + actor chat log.
+// live.etzhayyim.com — virtual concert room state + actor chat log.
 //
 // Two new vertex_* tables that fold into `view_actor_universal` so the
-// actor-resolver Worker (actor.gftd.ai/{kind}/{rkey}) returns DID docs
+// actor-resolver Worker (actor.etzhayyim.com/{kind}/{rkey}) returns DID docs
 // for every live room and chat utterance. Replaces the in-memory
 // RoomLiveDO + recentChat ring buffer as the federation source of truth;
 // the DO continues to own the WebSocket fan-out path but mirrors writes
 // here for durability + AT Protocol federation.
 //
 // Naming alignment:
-//   vertex_live_room              → did:web:actor.gftd.ai:liveRoom:<slug>
-//                                  → actor.gftd.ai/liveRoom/<slug>/did.json
-//   vertex_live_chat              → did:web:actor.gftd.ai:liveChat:<rkey>
-//                                  → actor.gftd.ai/liveChat/<rkey>/did.json
+//   vertex_live_room              → did:web:actor.etzhayyim.com:liveRoom:<slug>
+//                                  → actor.etzhayyim.com/liveRoom/<slug>/did.json
+//   vertex_live_chat              → did:web:actor.etzhayyim.com:liveChat:<rkey>
+//                                  → actor.etzhayyim.com/liveChat/<rkey>/did.json
 //
 // RLS shape: ADR-0095 canonical 4-column scheme
 //   actor_did  — issuer (= performer / speaker DID)
@@ -83,9 +83,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   // Seed the demo room so the actor-resolver returns something the
-  // moment routing-gateway sends an `actor.gftd.ai/liveRoom/demo` hit.
+  // moment routing-gateway sends an `actor.etzhayyim.com/liveRoom/demo` hit.
   // RLS: actor_did = the performer DID (here = the room itself, since
-  // demo is anchored at live.gftd.ai); org_did stays "anon" until a
+  // demo is anchored at live.etzhayyim.com); org_did stays "anon" until a
   // performer wallet binds to the room.
   await sql`
     INSERT INTO vertex_live_room (
@@ -94,7 +94,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       name, description, actor_did, org_did, at_did, created_at
     )
     VALUES (
-      'at://did:web:live.gftd.ai/ai.gftd.apps.live.room/demo',
+      'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',
       'demo',
       128.0,
       1777380000.0,
@@ -106,9 +106,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       600,
       'live demo room',
       'Open virtual concert room — mitama actors join, dance, converse via the BPMN show flow at apps/live/showFlow.bpmn.',
-      'did:web:live.gftd.ai',
+      'did:web:live.etzhayyim.com',
       'anon',
-      'did:web:live.gftd.ai',
+      'did:web:live.etzhayyim.com',
       '2026-04-29T00:00:00Z'
     )
   `.execute(db);

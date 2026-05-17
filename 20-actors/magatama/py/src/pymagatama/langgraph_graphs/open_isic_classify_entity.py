@@ -108,7 +108,7 @@ async def emit_audit_review(state: OpenIsicClassifyState) -> dict:
     from pymagatama.primitives.active_inference import _emit_audit_internal
 
     _emit_audit_internal(
-        actor="did:web:open-isic.gftd.ai",
+        actor="did:web:open-isic.etzhayyim.com",
         action="openIsic.classify.reviewPending",
         payload={
             "vertexId": state.get("vertexId"),
@@ -126,7 +126,7 @@ async def emit_audit_accept(state: OpenIsicClassifyState) -> dict:
     from pymagatama.primitives.active_inference import _emit_audit_internal
 
     _emit_audit_internal(
-        actor="did:web:open-isic.gftd.ai",
+        actor="did:web:open-isic.etzhayyim.com",
         action="openIsic.classify.accept",
         payload={
             "vertexId": state.get("vertexId"),

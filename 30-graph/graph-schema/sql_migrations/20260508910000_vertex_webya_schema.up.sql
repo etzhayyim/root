@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS vertex_webya_domain (
       cf_hostname_id         VARCHAR,
       ssl_status             VARCHAR NOT NULL DEFAULT 'pending',
       ownership_verified     BOOLEAN NOT NULL DEFAULT FALSE,
-      dns_cname_target       VARCHAR NOT NULL DEFAULT 'proxy.webya.gftd.ai',
+      dns_cname_target       VARCHAR NOT NULL DEFAULT 'proxy.webya.etzhayyim.com',
       verification_txt_name  VARCHAR,
       verification_txt_value VARCHAR,
       provisioned_at         VARCHAR

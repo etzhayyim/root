@@ -16,10 +16,10 @@ def test_task_mailer_send_email_delegates_to_mailer(monkeypatch) -> None:
             to="ops@example.com",
             subject="Ping",
             text="hello",
-            fromAddress="agent@gftd.ai",
+            fromAddress="agent@etzhayyim.com",
         )
     )
 
     assert result["messageId"] == "msg_test"
     assert result["to"] == "ops@example.com"
-    assert result["fromAddress"] == "agent@gftd.ai"
+    assert result["fromAddress"] == "agent@etzhayyim.com"

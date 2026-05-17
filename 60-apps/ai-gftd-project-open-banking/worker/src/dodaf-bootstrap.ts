@@ -33,7 +33,7 @@ const FORMS = [openAccountForm, transferForm];
 const DODAF_VIEWS = [AV1, OV1, OV5b, OV6a, CV2, SV1];
 
 async function xrpc(pds: Fetcher, nsid: string, body: unknown): Promise<Response> {
-  return pds.fetch(`https://atproto.gftd.ai/xrpc/${nsid}`, {
+  return pds.fetch(`https://atproto.etzhayyim.com/xrpc/${nsid}`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),

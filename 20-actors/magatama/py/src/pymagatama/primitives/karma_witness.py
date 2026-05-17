@@ -24,7 +24,7 @@ from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("karma.witness")
 
-KARMA_DID = "did:web:karma.gftd.ai"
+KARMA_DID = "did:web:karma.etzhayyim.com"
 
 VALID_RESPONSES = ("accept", "decline")
 VALID_ATTESTATION_KINDS = ("confirms", "disputes", "contextualizes", "addsEvidence")

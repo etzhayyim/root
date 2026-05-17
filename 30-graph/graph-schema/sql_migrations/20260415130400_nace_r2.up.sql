@@ -11,6 +11,6 @@ CREATE VIEW IF NOT EXISTS view_nace_activity AS
     WHERE collection = 'ai.gftd.apps.nace.activity';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('nace', 'nace.gftd.ai', 997, 'industries', 'governance');
+    VALUES ('nace', 'nace.etzhayyim.com', 997, 'industries', 'governance');
 
 DELETE FROM edge_classified_as WHERE system = 'nace_r2';

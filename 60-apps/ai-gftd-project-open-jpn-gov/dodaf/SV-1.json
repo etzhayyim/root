@@ -2,7 +2,7 @@
   "viewId": "open-jpn-gov.SV-1",
   "viewType": "SV-1",
   "title": "Systems Interface Description",
-  "did": "did:web:open-jpn-gov.gftd.ai",
+  "did": "did:web:open-jpn-gov.etzhayyim.com",
   "format": "json",
   "content": {
     "systems": [

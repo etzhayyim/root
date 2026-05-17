@@ -79,7 +79,7 @@ def test_centroid_of_cell_roundtrip_approximate():
 # ─── _stable_rkey (pure) ─────────────────────────────────────────────────────
 
 def test_stable_rkey_deterministic():
-    vid = "at://did:web:maps.gftd.ai/vertex_spatial/building-001"
+    vid = "at://did:web:maps.etzhayyim.com/vertex_spatial/building-001"
     r1 = MB._stable_rkey(vid)
     r2 = MB._stable_rkey(vid)
     assert r1 == r2

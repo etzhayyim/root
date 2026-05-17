@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/schemas/camunda-form/v1",
+  "$schema": "https://etzhayyim.com/schemas/camunda-form/v1",
   "formKey": "openWater.defineMain.v1",
   "name": "Define Main",
   "version": 1,

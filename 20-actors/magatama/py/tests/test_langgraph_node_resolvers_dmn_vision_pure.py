@@ -541,13 +541,13 @@ async def test_mcp_nsid_override_does_not_match_prefix_substring(monkeypatch):
     _MCP_REGISTRY_CACHE.clear()
     monkeypatch.setenv("MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka", "http://nope:80")
 
-    pool, conn = _pool_returning(("real-host.gftd.ai",))
+    pool, conn = _pool_returning(("real-host.etzhayyim.com",))
     url = await _resolve_mcp_nsid(
         "ai.gftd.apps.mangakatv.something",  # `mangakatv` ≠ `mangaka` segment
         lambda: _async_return(pool)(),
     )
     # Override should NOT match (prefix segment mismatch) → DB path used.
-    assert "real-host.gftd.ai" in url
+    assert "real-host.etzhayyim.com" in url
     assert conn.execute.await_count == 1
 
 
@@ -565,11 +565,11 @@ async def test_mcp_nsid_no_override_falls_back_to_db(monkeypatch):
         if k.startswith("MCP_NSID_OVERRIDE_"):
             monkeypatch.delenv(k, raising=False)
 
-    pool, conn = _pool_returning(("foo.gftd.ai",))
+    pool, conn = _pool_returning(("foo.etzhayyim.com",))
     url = await _resolve_mcp_nsid(
         "ai.gftd.apps.someApp.tools.do", lambda: _async_return(pool)(),
     )
-    assert url == "https://foo.gftd.ai/xrpc/ai.gftd.mcp.message"
+    assert url == "https://foo.etzhayyim.com/xrpc/ai.gftd.mcp.message"
     assert conn.execute.await_count == 1
 
 

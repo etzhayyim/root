@@ -30,7 +30,7 @@ describe("Seed open-naics BPMN actors migration", () => {
   });
   it("uses open-naics-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-naics');
-    expect(migrationSource).toContain("did:web:open-naics.gftd.ai");
+    expect(migrationSource).toContain("did:web:open-naics.etzhayyim.com");
   });
   it("BPMN processes target Zeebe generic.* primitives", () => {
     for (const xml of [bpmn1, bpmn2]) {

@@ -2,7 +2,7 @@
 //!
 //! Two modes:
 //!   Local:  YataHayate(data_dir) — in-process, zero-copy
-//!   Remote: YataHayate(remote="https://yata-query.gftd.ai") — network, Arrow Flight-like
+//!   Remote: YataHayate(remote="https://yata-query.etzhayyim.com") — network, Arrow Flight-like
 //!
 //! ALL data lives as graph nodes. Zero file I/O.
 
@@ -81,7 +81,7 @@ struct YataHayate {
 impl YataHayate {
     /// Create YataHayate.
     /// Local:  YataHayate("/Volumes/251220/yata")
-    /// Remote: YataHayate(remote="https://yata-query.gftd.ai", token="...")
+    /// Remote: YataHayate(remote="https://yata-query.etzhayyim.com", token="...")
     #[new]
     #[pyo3(signature = (data_dir=None, dim=1024, remote=None, token=None))]
     fn new(data_dir: Option<String>, dim: usize, remote: Option<String>, token: Option<String>) -> Self {

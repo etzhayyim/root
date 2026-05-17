@@ -25,63 +25,63 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-09T07:00:00Z";
 
-const warehouseDid = "did:web:warehouse.gftd.ai";
-const yardOpsDid = "did:web:yard-ops.gftd.ai";
+const warehouseDid = "did:web:warehouse.etzhayyim.com";
+const yardOpsDid = "did:web:yard-ops.etzhayyim.com";
 const warehouseTag = "sys.bpmn.seed.warehouse";
 const yardOpsTag = "sys.bpmn.seed.yard-ops";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/warehouse-register-sku-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/warehouse-register-sku-v1",
     bpmnProcessId: "warehouse_register_sku",
     sourcePath: "00-contracts/bpmn/ai/gftd/warehouse/registerSku.bpmn",
     ownerDid: warehouseDid,
     actorTag: warehouseTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/warehouse-putaway-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/warehouse-putaway-v1",
     bpmnProcessId: "warehouse_putaway",
     sourcePath: "00-contracts/bpmn/ai/gftd/warehouse/putaway.bpmn",
     ownerDid: warehouseDid,
     actorTag: warehouseTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/warehouse-pick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/warehouse-pick-v1",
     bpmnProcessId: "warehouse_pick",
     sourcePath: "00-contracts/bpmn/ai/gftd/warehouse/pick.bpmn",
     ownerDid: warehouseDid,
     actorTag: warehouseTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/warehouse-get-inventory-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/warehouse-get-inventory-v1",
     bpmnProcessId: "warehouse_get_inventory",
     sourcePath: "00-contracts/bpmn/ai/gftd/warehouse/getInventory.bpmn",
     ownerDid: warehouseDid,
     actorTag: warehouseTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yard-ops-check-in-trailer-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yard-ops-check-in-trailer-v1",
     bpmnProcessId: "yard_ops_check_in_trailer",
     sourcePath: "00-contracts/bpmn/ai/gftd/yard-ops/checkInTrailer.bpmn",
     ownerDid: yardOpsDid,
     actorTag: yardOpsTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yard-ops-assign-door-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yard-ops-assign-door-v1",
     bpmnProcessId: "yard_ops_assign_door",
     sourcePath: "00-contracts/bpmn/ai/gftd/yard-ops/assignDoor.bpmn",
     ownerDid: yardOpsDid,
     actorTag: yardOpsTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yard-ops-complete-dock-job-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yard-ops-complete-dock-job-v1",
     bpmnProcessId: "yard_ops_complete_dock_job",
     sourcePath: "00-contracts/bpmn/ai/gftd/yard-ops/completeDockJob.bpmn",
     ownerDid: yardOpsDid,
     actorTag: yardOpsTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yard-ops-get-dock-schedule-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yard-ops-get-dock-schedule-v1",
     bpmnProcessId: "yard_ops_get_dock_schedule",
     sourcePath: "00-contracts/bpmn/ai/gftd/yard-ops/getDockSchedule.bpmn",
     ownerDid: yardOpsDid,
@@ -91,56 +91,56 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/warehouse-registerSku-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/warehouse-registerSku-v1",
     nsid: "ai.gftd.apps.warehouse.registerSku",
     bpmnProcessId: "warehouse_register_sku",
     ownerDid: warehouseDid,
     actorTag: warehouseTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/warehouse-putaway-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/warehouse-putaway-v1",
     nsid: "ai.gftd.apps.warehouse.putaway",
     bpmnProcessId: "warehouse_putaway",
     ownerDid: warehouseDid,
     actorTag: warehouseTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/warehouse-pick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/warehouse-pick-v1",
     nsid: "ai.gftd.apps.warehouse.pick",
     bpmnProcessId: "warehouse_pick",
     ownerDid: warehouseDid,
     actorTag: warehouseTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/warehouse-getInventory-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/warehouse-getInventory-v1",
     nsid: "ai.gftd.apps.warehouse.getInventory",
     bpmnProcessId: "warehouse_get_inventory",
     ownerDid: warehouseDid,
     actorTag: warehouseTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yardOps-checkInTrailer-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yardOps-checkInTrailer-v1",
     nsid: "ai.gftd.apps.yardOps.checkInTrailer",
     bpmnProcessId: "yard_ops_check_in_trailer",
     ownerDid: yardOpsDid,
     actorTag: yardOpsTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yardOps-assignDoor-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yardOps-assignDoor-v1",
     nsid: "ai.gftd.apps.yardOps.assignDoor",
     bpmnProcessId: "yard_ops_assign_door",
     ownerDid: yardOpsDid,
     actorTag: yardOpsTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yardOps-completeDockJob-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yardOps-completeDockJob-v1",
     nsid: "ai.gftd.apps.yardOps.completeDockJob",
     bpmnProcessId: "yard_ops_complete_dock_job",
     ownerDid: yardOpsDid,
     actorTag: yardOpsTag,
   },
   {
-    vertexId: "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yardOps-getDockSchedule-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yardOps-getDockSchedule-v1",
     nsid: "ai.gftd.apps.yardOps.getDockSchedule",
     bpmnProcessId: "yard_ops_get_dock_schedule",
     ownerDid: yardOpsDid,

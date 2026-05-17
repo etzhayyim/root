@@ -8,7 +8,7 @@ import { sql } from "kysely";
  * Article body text = short Japanese summary (full statutory text loaded
  * later via e-Gov 法令 API ingest worker — out of migration scope).
  *
- * Identifiers follow at://did:web:hourei.gftd.ai/... convention so
+ * Identifiers follow at://did:web:hourei.etzhayyim.com/... convention so
  * edge_cites (existing) can reference them as dst_vid.
  *
  * Cite linkage to vertex_gftdcojp_contract_clause lands in a follow-up
@@ -16,7 +16,7 @@ import { sql } from "kysely";
  * row-by-row (legal interpretation).
  */
 const NOW = "2026-05-08T00:00:00Z";
-const OWNER = "did:web:hourei.gftd.ai";
+const OWNER = "did:web:hourei.etzhayyim.com";
 
 const HOUREI = [
   { hid: "labor-standards-act",          short: "労働基準法",                   en: "Labor Standards Act",                 cat: "labor",          enacted: "1947-04-07", lawNo: "昭和22年法律第49号" },
@@ -115,7 +115,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   for (const h of HOUREI) {
-    const vid = `at://did:web:hourei.gftd.ai/ai.gftd.apps.hourei.law/${h.hid}`;
+    const vid = `at://did:web:hourei.etzhayyim.com/ai.gftd.apps.hourei.law/${h.hid}`;
     const sourceUri = `https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/?lawId=${encodeURIComponent(h.lawNo)}`;
     await sql`
       INSERT INTO vertex_hourei
@@ -129,7 +129,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   }
 
   for (const j of JOBUN) {
-    const vid = `at://did:web:hourei.gftd.ai/ai.gftd.apps.hourei.article/${j.hid}--${j.art}`;
+    const vid = `at://did:web:hourei.etzhayyim.com/ai.gftd.apps.hourei.article/${j.hid}--${j.art}`;
     const size = Buffer.byteLength(j.summary, "utf8");
     await sql`
       INSERT INTO vertex_hourei_jobun

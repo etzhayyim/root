@@ -90,7 +90,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   await sql`UPDATE dim_world_domain SET world_total = 766  WHERE domain = 'isic'`.execute(db);
   await sql`
     INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
-    VALUES ('hs', 'hs.gftd.ai', 5300, 'products', 'trade')
+    VALUES ('hs', 'hs.etzhayyim.com', 5300, 'products', 'trade')
     ON CONFLICT DO NOTHING
   `.execute(db);
 }

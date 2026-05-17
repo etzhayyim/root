@@ -102,10 +102,10 @@ def test_clean_text_collapses_newlines() -> None:
 # ─── vector_embedding: _actor_text ───────────────────────────────────────────
 
 def test_actor_text_combines_fields() -> None:
-    row = {"display_name": "Alice", "handle": "alice.gftd.ai", "description": "A bot"}
+    row = {"display_name": "Alice", "handle": "alice.etzhayyim.com", "description": "A bot"}
     result = VE._actor_text(row)
     assert "Alice" in result
-    assert "alice.gftd.ai" in result
+    assert "alice.etzhayyim.com" in result
     assert "A bot" in result
 
 
@@ -124,10 +124,10 @@ def test_actor_text_none_fields_not_in_output() -> None:
 # ─── vector_embedding: _post_text ────────────────────────────────────────────
 
 def test_post_text_combines_text_fields() -> None:
-    row = {"text": "Hello world", "handle": "user.gftd.ai"}
+    row = {"text": "Hello world", "handle": "user.etzhayyim.com"}
     result = VE._post_text(row)
     assert "Hello world" in result
-    assert "user.gftd.ai" in result
+    assert "user.etzhayyim.com" in result
 
 
 def test_post_text_empty_row() -> None:

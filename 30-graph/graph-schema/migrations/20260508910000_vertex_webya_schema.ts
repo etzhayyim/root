@@ -1,7 +1,7 @@
 import { Kysely, sql } from "kysely";
 
 /**
- * webya.gftd.ai — ホームページ生成 actor スキーマ (ADR-0036 Hyperdrive direct)
+ * webya.etzhayyim.com — ホームページ生成 actor スキーマ (ADR-0036 Hyperdrive direct)
  *
  * Tables:
  *   vertex_webya_client           — 外部顧客 (企業/士業)
@@ -124,7 +124,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       cf_hostname_id         VARCHAR,
       ssl_status             VARCHAR NOT NULL DEFAULT 'pending',
       ownership_verified     BOOLEAN NOT NULL DEFAULT FALSE,
-      dns_cname_target       VARCHAR NOT NULL DEFAULT 'proxy-webya.gftd.ai',
+      dns_cname_target       VARCHAR NOT NULL DEFAULT 'proxy-webya.etzhayyim.com',
       verification_txt_name  VARCHAR,
       verification_txt_value VARCHAR,
       provisioned_at         VARCHAR

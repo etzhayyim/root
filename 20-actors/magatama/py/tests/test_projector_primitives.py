@@ -237,7 +237,7 @@ def test_persist_message_direct_insert(_stub_db):
     with patch.dict(os.environ, {"PROJECTOR_PERSIST_VIA_PDS": "0"}):
         result = asyncio.run(PR.task_projector_persist_message(
             convoId="convo-001",
-            callerDid="did:web:user.gftd.ai",
+            callerDid="did:web:user.etzhayyim.com",
             reply="Project is on track",
         ))
     assert result["ok"] is True

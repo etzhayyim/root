@@ -19,7 +19,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 
 const createdAt = "2026-04-28T22:00:00+09:00";
-const ownerDid = "did:web:bpmn.gftd.ai";
+const ownerDid = "did:web:bpmn.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.maps";
 
 interface ProcessSeed {
@@ -31,19 +31,19 @@ interface ProcessSeed {
 const processSeeds: ProcessSeed[] = [
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-paper-ingest-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-paper-ingest-v1",
     bpmnProcessId: "science_paper_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/sciencePaperIngest.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-element-seed-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-element-seed-v1",
     bpmnProcessId: "science_element_seed",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/scienceElementSeed.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-taxon-sync-v1",
+      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-taxon-sync-v1",
     bpmnProcessId: "science_taxon_sync",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/scienceTaxonSync.bpmn",
   },

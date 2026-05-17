@@ -1,4 +1,4 @@
-"""analytics.gftd.ai — LangServer worker (BPMN service task handlers)."""
+"""analytics.etzhayyim.com — LangServer worker (BPMN service task handlers)."""
 
 import asyncio
 import os
@@ -23,7 +23,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.analytics.createDashboard")
     async def task_create_dashboard(**kwargs):
         name = kwargs.get("name", "")
-        owner_did = kwargs.get("ownerDid", "did:web:analytics.gftd.ai")
+        owner_did = kwargs.get("ownerDid", "did:web:analytics.etzhayyim.com")
         description = kwargs.get("description", "")
 
         dashboard_id = str(uuid.uuid4())
@@ -39,7 +39,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)""",
                 vertex_id, 0, date.today(), 0, owner_did,
                 dashboard_id, name, description,
-                "did:web:analytics.gftd.ai", "did:web:analytics.gftd.ai", now, now,
+                "did:web:analytics.etzhayyim.com", "did:web:analytics.etzhayyim.com", now, now,
             )
         finally:
             await db.close()
@@ -49,7 +49,7 @@ async def run_worker():
     @worker.task(task_type="ai.gftd.apps.analytics.recordEvent")
     async def task_record_event(**kwargs):
         event_name = kwargs.get("eventName", "")
-        actor_did = kwargs.get("actorDid", "did:web:analytics.gftd.ai")
+        actor_did = kwargs.get("actorDid", "did:web:analytics.etzhayyim.com")
         properties = kwargs.get("properties", {})
 
         event_id = str(uuid.uuid4())
@@ -65,7 +65,7 @@ async def run_worker():
                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)""",
                 vertex_id, 0, date.today(), 0, actor_did,
                 event_id, event_name,
-                "did:web:analytics.gftd.ai", "did:web:analytics.gftd.ai", now, now,
+                "did:web:analytics.etzhayyim.com", "did:web:analytics.etzhayyim.com", now, now,
             )
         finally:
             await db.close()

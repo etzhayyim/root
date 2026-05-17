@@ -102,7 +102,7 @@ describe("did:gftd genesis", () => {
     const g = await createGenesis({
       type: "root",
       vm: SAMPLE_VM,
-      alsoKnownAs: ["at://example.gftd.ai", "did:web:example.gftd.ai"],
+      alsoKnownAs: ["at://example.etzhayyim.com", "did:web:example.etzhayyim.com"],
       createdAt: "2026-04-17T00:00:00Z",
     });
     const doc = buildDidDocumentFromGenesis(g);

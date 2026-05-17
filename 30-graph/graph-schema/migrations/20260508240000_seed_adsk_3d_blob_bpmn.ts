@@ -16,14 +16,14 @@ import { sql } from "kysely";
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
-  const vid = 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/adsk-ingest-3d-blob-v1';
+  const vid = 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-3d-blob-v1';
   await sql`
     INSERT INTO vertex_bpmn_process_def (
       vertex_id, sensitivity_ord, owner_did,
       bpmn_process_id, version, source_path, xml,
       status, created_at)
     SELECT
-      ${vid}, 1, 'did:web:adsk.gftd.ai',
+      ${vid}, 1, 'did:web:adsk.etzhayyim.com',
       'adsk_ingest_3d_blob', 1,
       '00-contracts/bpmn/ai/gftd/adsk/ingest3DBlob.bpmn',
       '',

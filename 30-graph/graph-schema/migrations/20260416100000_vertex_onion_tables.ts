@@ -6,7 +6,7 @@ import { Kysely, sql } from 'kysely';
 
 /**
  * 2026-04-16
- * onion.gftd.ai (0n10n001) — Dark Web Page Intelligence Platform
+ * onion.etzhayyim.com (0n10n001) — Dark Web Page Intelligence Platform
  * Three tables: vertex_onion_site, vertex_onion_page, vertex_onion_crawl
  * + edge_onion_hosted_on (page → site)
  * + edge_onion_links_to  (page → page, intra-site links)
@@ -15,7 +15,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // -- vertex_onion_site -------------------------------------------------------
   // One row per .onion hidden service host.
-  // site_did = did:web:onion.gftd.ai:{slug}
+  // site_did = did:web:onion.etzhayyim.com:{slug}
   await sql`
     CREATE TABLE IF NOT EXISTS vertex_onion_site (
       vertex_id     VARCHAR PRIMARY KEY,

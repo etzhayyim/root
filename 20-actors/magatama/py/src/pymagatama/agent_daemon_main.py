@@ -1254,7 +1254,7 @@ def _dns_short(record_type: str, name: str) -> list[str]:
     return [line.strip().strip('"') for line in result.stdout.splitlines() if line.strip()]
 
 
-def resend_dns_ready(domain: str = "gftd.ai") -> bool:
+def resend_dns_ready(domain: str = "etzhayyim.com") -> bool:
     dkim = _dns_short("TXT", f"resend._domainkey.{domain}") or _dns_short(
         "CNAME", f"resend._domainkey.{domain}"
     )
@@ -1265,7 +1265,7 @@ def resend_dns_ready(domain: str = "gftd.ai") -> bool:
     return bool(dkim and spf_ready and mx_ready)
 
 
-def resend_domain_verified(domain: str = "gftd.ai") -> bool:
+def resend_domain_verified(domain: str = "etzhayyim.com") -> bool:
     api_key = os.environ.get("RESEND_API_KEY") or load_keychain_secret(
         service="gftd.resend", account="API_KEY"
     )
@@ -1338,9 +1338,9 @@ def load_email_live_channel_blockers_direct() -> list[str]:
         blockers.append("resend_rate_limited")
     error = str((row or ["", ""])[1] or "").lower()
     if "domain is not verified" in error:
-        if resend_domain_verified("gftd.ai"):
+        if resend_domain_verified("etzhayyim.com"):
             return sorted(set(blockers))
-        if resend_dns_ready("gftd.ai"):
+        if resend_dns_ready("etzhayyim.com"):
             blockers.extend(["resend_account_domain_verification_pending", "email_live_channel_not_ready"])
             return sorted(set(blockers))
         blockers.extend(["resend_domain_or_sender_unverified", "email_live_channel_not_ready"])
@@ -1394,7 +1394,7 @@ def build_autonomous_heartbeat_effect_proposals(
         return []
     if str(viability.get("viabilityState") or "normal") != "normal":
         return []
-    target = os.environ.get("AGENT_AUTONOMOUS_HEARTBEAT_EMAIL_TO", "kami-agent@gftd.ai").strip()
+    target = os.environ.get("AGENT_AUTONOMOUS_HEARTBEAT_EMAIL_TO", "kami-agent@etzhayyim.com").strip()
     if not target or "@" not in target:
         return []
     blockers = load_email_live_channel_blockers_direct()
