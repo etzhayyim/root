@@ -173,6 +173,61 @@ purpose = "yoro AppView placeholder (ADR-2605171900) — Worker/Pages binding pe
 cf_record_id = "5df2d02dd52796f169ecc04ec50d56ac"
 created_at = "2026-05-17T11:53:00Z"
 
+[[platform.dns]]
+type = "CNAME"
+name = "geth"
+content = "178e0a1b-dd7e-480e-bb01-eb100524a58e.cfargotunnel.com"
+proxied = true
+purpose = "geth.etzhayyim.com → CF tunnel → laptop anvil chainId 260425 (ADR-2605172800 Stage 2 LIVE)"
+cf_record_id = "d071e79b574bc84a9dfdb938fc06b694"
+tunnel_id = "178e0a1b-dd7e-480e-bb01-eb100524a58e"
+tunnel_name = "etzhayyim-anvil"
+created_at = "2026-05-17T11:56:00Z"
+
+[[platform.dns]]
+type = "CNAME"
+name = "pds"
+content = "178e0a1b-dd7e-480e-bb01-eb100524a58e.cfargotunnel.com"
+proxied = true
+purpose = "pds.etzhayyim.com → CF tunnel → simeon @atproto/pds 0.4.222 on port 2583 (Phase 1 PDS LIVE)"
+tunnel_id = "178e0a1b-dd7e-480e-bb01-eb100524a58e"
+created_at = "2026-05-17T12:09:00Z"
+
+# ─── PDS / IPFS / cell fleet (etzhayyim Mac-mini fleet, 2026-05-17) ──
+
+[platform.pds]
+canonical_url = "https://pds.etzhayyim.com"
+direct_lan_url = "http://simeonnomac-mini.local:2583"
+service_did = "did:web:pds.etzhayyim.com"
+package = "@atproto/pds"
+version = "0.4.222"
+runtime = "Node 22 LTS on macOS arm64 (simeon Mac mini)"
+location_host = "simeon"
+blobstore_provider = "disk"
+deploy_status = "live"
+deployed_at = "2026-05-17T12:09:00Z"
+health_endpoint = "https://pds.etzhayyim.com/xrpc/_health"
+persistence = "crontab @reboot on simeon"
+secrets_1password_item = "gftdcojp / etzhayyim/pds-simeon/secrets-2026-05-17"
+
+[platform.ipfs]
+node_id = "12D3KooWMjzJdChBp9HqorSvxkrfSFfSNanjR8tJmtmJwVmZif16"
+api_url = "http://simeonnomac-mini.local:5001"
+gateway_url = "http://simeonnomac-mini.local:8080"
+location_host = "simeon"
+kubo_version = "0.41.0"
+deploy_status = "live"
+
+[platform.cell_fleet]
+runtime = "Python 3 + web3.py + eth-account (uv-managed)"
+heartbeat_period_seconds = 60
+anchor_target = "https://geth.etzhayyim.com → EtzhayyimAnchor 0x5fbdb2315678afecb367f032d93f642f64180aa3"
+cells_live = ["naphtali", "simeon", "judah", "zebulun", "levi"]
+cells_pending = ["benjamin", "joseph", "issachar", "dan", "asher"]
+fleet_size_target = 12
+deploy_command = "./20-actors/first-breath/deploy.sh <hostname>nomac-mini.local <tribe-user>"
+monitor_command = "./20-actors/first-breath/monitor.sh"
+
 # ─── ADR registry (mirrors 90-docs/adr/README.md for machine discovery) ──
 
 [[adrs]]
