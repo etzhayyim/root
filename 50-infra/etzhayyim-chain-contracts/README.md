@@ -18,10 +18,10 @@ These contracts live on the **internal** chain (geth-private at `50-infra/vultr/
 |---|---|---|---|
 | `src/Constitution.sol` | geth-private | Immutable + governance-mutable constitutional parameters | **S0** |
 | `src/AdherentRegistry.sol` | geth-private | ERC-5192 SBT, DID-bound, with attestation tracking | **S0** |
-| `src/KishaStream.sol` | geth-private | Per-adherent rate, accrual, claim ticket issuance | **S1** |
+| `src/KishaStream.sol` | geth-private | Per-adherent rate, accrual, claim ticket issuance (S2: Phenotype-aware) | **S1+S2** |
 | `src/AnchorBridge.sol` | geth-private | Permissionless state-root commit (relayer → Base anchor) | **S1** |
 | `src/base/KishaPayout.sol` | Base L2 | M-of-N relayer-signed claim fulfillment; pulls USDC from Treasury Safe | **S1** |
-| `src/Phenotype.sol` | geth-private | Per-adherent multiplier (0.5×–2.0×) populated by `EligibilityCell` | S2 |
+| `src/Phenotype.sol` | geth-private | Per-adherent multiplier (0.5×–2.0×) populated by cell-signed updates from `EligibilityCell` | **S2** |
 | `src/TreasuryMirror.sol` | geth-private | NAV oracle mirror, envelope computation | S3 |
 | `src/Governance.sol` | geth-private | OZ Governor derivative, 1 SBT = 1 vote, 72h timelock | S3 |
 
@@ -48,4 +48,4 @@ Deployment scripts will live under `script/` and target `etzhayyim_private` (RPC
 
 ## Status
 
-**S1 — flat-rate kisha**. `KishaStream` issues fixed-rate accrual tickets on geth-private; `KishaPayout` on Base settles them against the Treasury Safe with M-of-N officer signatures. `AnchorBridge` exposes permissionless state-root commits for the Base anchor relayer. Pregel `EligibilityCell` + per-adherent `PhenotypeAgent` still ship in S2; Governance + Treasury 3-tier ship in S3.
+**S2 — Phenotype-modulated kisha**. `Phenotype.sol` accepts cell-signed multiplier updates (EIP-191, bounded by `Constitution` floor/ceiling) and is composed at read time by `KishaStream.previewAccrued`. The Python `EligibilityCell` at `20-actors/magatama/py/src/pymagatama/eligibility/` runs the BSP super-step over MST attestation events and submits updates via the cell key. Per-adherent `PhenotypeAgent` files are emitted by `scripts/gen_phenotype_agent.py` mirroring ADR-2605171300's unispsc_agents pattern. Governance + Treasury 3-tier ship in S3.
