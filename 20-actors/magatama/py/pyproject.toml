@@ -111,6 +111,11 @@ eligibility = [
   # the lowest-friction option that ships wheels for all maintained
   # interpreters.
   "pycryptodome>=3.20.0",
+  # web3.py — chain RPC + transaction signing for the EligibilityCell
+  # production ports (submit_phenotype against Phenotype.setMultiplier
+  # on geth-private).
+  "web3>=7.0.0",
+  "eth-account>=0.13.0",
 ]
 db-tools = [
   # ADR-2605080400: Alembic — Python-owned table migrations only.

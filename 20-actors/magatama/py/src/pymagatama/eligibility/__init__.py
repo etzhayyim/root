@@ -34,6 +34,8 @@ from pymagatama.eligibility.scoring import (
 )
 from pymagatama.eligibility.cell import (
     EligibilityCell,
+    EligibilityCellConfig,
+    CellPorts,
     build_eligibility_graph,
 )
 
@@ -44,5 +46,7 @@ __all__ = [
     "score_participation",
     "multiplier_from_score",
     "EligibilityCell",
+    "EligibilityCellConfig",
+    "CellPorts",
     "build_eligibility_graph",
 ]
