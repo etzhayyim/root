@@ -1,7 +1,7 @@
 ---
 id: adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 title: "ADR-2605180900: UNSPSC + ISIC LangGraph Pregel fleet — langserver-resident, exposed as Actor / Lexicon / XRPC / MCP, Haiku-routed bulk"
-status: proposed
+status: in-progress
 doc_type: adr
 topic: unispsc-isic-langserver
 authoritative: true
@@ -27,9 +27,27 @@ superseded_by: []
 
 # ADR-2605180900: UNSPSC + ISIC LangGraph Pregel fleet — langserver-resident, four call surfaces, Haiku-routed
 
-**Status**: proposed
+**Status**: in-progress (7 of 9 phases complete; 1 gated, 1 pending)
 **Date**: 2026-05-18
 **Deciders**: Jun Kawasaki
+
+## Implementation status (2026-05-18 session close)
+
+| Phase | Title                                    | Status                | PR  | Notes |
+|-------|------------------------------------------|-----------------------|-----|-------|
+| P1    | Lexicon contract                          | ✅ complete           | #17 | 4 UNSPSC + 5 ISIC JSON lexicons under `00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/` |
+| P2    | ISIC fleet generation script              | ✅ complete           | #17 | `70-tools/scripts/gen-isic/gen_isic_agents.py` — Haiku Batch runner; `ast.parse` + top-level `graph` validation gate; `--dry-run` / `--execute` / `--resume` modes |
+| P3    | ISIC fleet first generation run           | ⏸ gated               | —   | Requires `ANTHROPIC_API_KEY` + explicit operator approval (~$0.30 Anthropic Batch spend) |
+| P4    | UNSPSC langserver pod                     | ✅ manifests-ready    | #19 | `50-infra/k8s/lg-open-unispsc/` Deployment + Service + HPA + Dockerfile; 18,342 agents lazy-loaded; smoke against `c10101501` PASS in 11 ms |
+| P5    | ISIC langserver pod                       | ✅ manifests-ready    | #19 | `50-infra/k8s/lg-open-isic/` same shape; empty registry is a valid steady state until P3 |
+| P6    | Magatama actor wrapper                    | ✅ complete           | #21 | `@gftd/magatama-host-sdk/langserver-actor`; `UnispscActor` + `IsicActor` + `LangserverActorError`; 12/12 vitest |
+| P7    | XRPC handler + AppView                    | ✅ complete           | #27 | `@gftd/magatama-host-sdk/langserver-xrpc-handler` (Hono); 2 CF Workers bound to `unispsc.etzhayyim.com` + `isic.etzhayyim.com`; 10/10 vitest |
+| P8    | MCP server                                | ✅ complete           | #22 | `@etzhayyim/unispsc-isic-mcp` v0.1.0; 9 MCP tools (zod 4 schemas); stdio + programmatic HTTP transports; 25/25 vitest |
+| P9    | Real Anthropic-SDK-backed classifier      | ⏳ pending            | —   | Replaces `stub_classifier` in `pymagatama.langserver.router`; requires `ANTHROPIC_API_KEY` at runtime |
+
+**Four-surface architecture is functionally complete** (HTTP / Actor / XRPC / MCP).
+Remaining work: spend gate (P3) and runtime LLM wiring (P9). Both are
+independent of each other and of the merged manifests.
 
 # Context
 

@@ -339,6 +339,13 @@ status = "active"
 path = "90-docs/adr/2605173100-gitguardian-incident-response.md"
 
 [[adrs]]
+id = "2605180900"
+title = "UNSPSC + ISIC LangGraph Pregel fleet — langserver-resident, exposed as Actor / Lexicon / XRPC / MCP, Haiku-routed bulk"
+status = "in-progress"
+status_note = "Session 2026-05-18: Phases 1+2 (lexicons + ISIC gen script) PR #17 merged; Phases 4+5 (langserver pods) PR #19 open; Phase 6 (Magatama actor) PR #21 open; Phase 7 (XRPC AppView) PR #27 open; Phase 8 (MCP server) PR #22 open. Phase 3 (ISIC fleet generation, ~$0.30 Haiku Batch spend) gated. Phase 9 (real Anthropic-SDK classifier) pending."
+path = "90-docs/adr/2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md"
+
+[[adrs]]
 id = "2605181000"
 title = "uhl-right-neural project charter — 先天性右側感音難聴 (neural軸) 治療研究 Pregel"
 status = "in-progress"
@@ -521,6 +528,125 @@ version = "0.0.0"
 status = "scaffold"
 description = "app.openmail.* lexicon family (message + postageReceipt + smtpAttestation + legacyHeaders + anchorRef). Per ADR-2605172200."
 adr = ["2605172200"]
+
+# ─── ADR-2605180900: UNSPSC + ISIC langserver / actor / xrpc / mcp stack ──
+
+[[modules]]
+path = "00-contracts/lexicons/ai/gftd/apps/unispsc"
+kind = "atproto-lexicon"
+version = "0.0.0"
+status = "active"
+description = "UNSPSC lexicons (classify + invokeAgent + listAgents + health). Phase 1."
+adr = ["2605180900"]
+
+[[modules]]
+path = "00-contracts/lexicons/ai/gftd/apps/isic"
+kind = "atproto-lexicon"
+version = "0.0.0"
+status = "active"
+description = "ISIC Rev. 4 lexicons (classify + hierarchicalClassify + invokeAgent + listAgents + health). Phase 1."
+adr = ["2605180900"]
+
+[[modules]]
+path = "70-tools/scripts/gen-isic/gen_isic_agents.py"
+kind = "python-script"
+version = "0.1.0"
+status = "ready"
+description = "Anthropic Batch API generator for the 428-class ISIC LangGraph Pregel fleet. --dry-run / --execute / --resume modes; ast.parse() + top-level `graph` validation gate. ~$0.30 per full pass. Phase 2."
+adr = ["2605180900"]
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/langserver"
+kind = "python-package"
+version = "0.1.0"
+status = "active"
+description = "Shared FastAPI + lazy importlib registry + Haiku-default router. Powers both UNSPSC and ISIC langservers. 11/11 pytest. Phase 4+5."
+adr = ["2605180900"]
+loader = "pymagatama.langserver:create_app"
+
+[[modules]]
+path = "50-infra/k8s/lg-open-unispsc"
+kind = "k8s-manifests"
+version = "0.1.0"
+status = "manifests-ready"
+description = "UNSPSC langserver pod (2-8 replicas, LRU 1k). Lazy-imports 18,342 commodity agents. Phase 4."
+adr = ["2605180900"]
+docker_image = "ghcr.io/etzhayyim/lg-open-unispsc"
+service_dns = "lg-open-unispsc.lg-open-unispsc.svc"
+
+[[modules]]
+path = "50-infra/k8s/lg-open-isic"
+kind = "k8s-manifests"
+version = "0.1.0"
+status = "manifests-ready"
+description = "ISIC langserver pod (2-4 replicas, LRU 200). Empty registry until Phase 3 fills isic_agents/. Phase 5."
+adr = ["2605180900"]
+docker_image = "ghcr.io/etzhayyim/lg-open-isic"
+service_dns = "lg-open-isic.lg-open-isic.svc"
+
+[[modules]]
+path = "20-actors/magatama/sdk/magatama-host-sdk/src/langserver-actor.ts"
+kind = "ts-host-sdk-helper"
+version = "0.1.0"
+status = "active"
+description = "Magatama actor wrapper (UnispscActor + IsicActor + LangserverActorError + createLangserverActor). 12/12 vitest. Phase 6."
+adr = ["2605180900"]
+exports_subpath = "./langserver-actor"
+
+[[modules]]
+path = "20-actors/magatama/sdk/magatama-host-sdk/src/langserver-xrpc-handler.ts"
+kind = "ts-host-sdk-helper"
+version = "0.1.0"
+status = "active"
+description = "Hono XRPC handler exposing one taxonomy as /xrpc/ai.gftd.apps.{taxonomy}.*. Delegates to the actor wrapper. 10/10 vitest. Phase 7."
+adr = ["2605180900"]
+exports_subpath = "./langserver-xrpc-handler"
+
+[[modules]]
+path = "60-apps/ai-gftd-project-open-unispsc/appview/worker"
+kind = "cf-worker"
+version = "0.1.0"
+status = "manifests-ready"
+description = "AppView Worker hosting the XRPC handler at unispsc.etzhayyim.com. Reads LG_UNISPSC_ENDPOINT or service binding. Phase 7."
+adr = ["2605180900"]
+custom_domain = "unispsc.etzhayyim.com"
+
+[[modules]]
+path = "60-apps/ai-gftd-project-open-isic/appview/worker"
+kind = "cf-worker"
+version = "0.1.0"
+status = "manifests-ready"
+description = "AppView Worker hosting the XRPC handler at isic.etzhayyim.com. Reads LG_ISIC_ENDPOINT or service binding. Phase 7."
+adr = ["2605180900"]
+custom_domain = "isic.etzhayyim.com"
+
+[[modules]]
+path = "20-actors/magatama/mcp/unispsc-isic-mcp"
+kind = "mcp-server"
+version = "0.1.0"
+status = "active"
+description = "MCP server with 9 tools (classify / invokeAgent / listAgents / health × 2 taxonomies + isic.hierarchicalClassify). Stdio (`unispsc-isic-mcp` bin) + programmatic HTTP transports. 25/25 vitest. Phase 8."
+adr = ["2605180900"]
+package = "@etzhayyim/unispsc-isic-mcp"
+
+[platform.adr_2605180900]
+# Implementation status snapshot. Each entry corresponds to a phase in
+# the ADR's 9-phase ordering.
+phases = [
+  { id = "P1", title = "Lexicon contract", status = "complete", pr = 17, note = "9 lexicons under ai.gftd.apps.{unispsc,isic}.*" },
+  { id = "P2", title = "ISIC fleet generation script", status = "complete", pr = 17, note = "Haiku Batch API runner; ast.parse + top-level graph validation gate" },
+  { id = "P3", title = "ISIC fleet first generation run", status = "gated", pr = 0, note = "~$0.30 Anthropic Batch spend; explicit operator approval required" },
+  { id = "P4", title = "UNSPSC langserver pod", status = "manifests-ready", pr = 19, note = "K8s Deployment + Service + HPA + Dockerfile; 18,342 agents lazy-loaded" },
+  { id = "P5", title = "ISIC langserver pod", status = "manifests-ready", pr = 19, note = "Same shape; empty registry valid until P3 fills agents" },
+  { id = "P6", title = "Magatama actor wrapper", status = "complete", pr = 21, note = "@gftd/magatama-host-sdk/langserver-actor; 12/12 vitest" },
+  { id = "P7", title = "XRPC handler + AppView", status = "complete", pr = 27, note = "Shared Hono handler + 2 CF Worker entries; 10/10 vitest; bound to unispsc.etzhayyim.com + isic.etzhayyim.com" },
+  { id = "P8", title = "MCP server", status = "complete", pr = 22, note = "@etzhayyim/unispsc-isic-mcp; 25/25 vitest; stdio + HTTP" },
+  { id = "P9", title = "Anthropic-SDK-backed real classifier", status = "pending", pr = 0, note = "Replaces stub_classifier in router.py; requires ANTHROPIC_API_KEY at runtime" },
+]
+session_close_date = "2026-05-18"
+default_model = "claude-haiku-4-5-20251001"
+escalation_model = "claude-sonnet-4-6"
+confidence_threshold = 0.7
 
 [[modules]]
 path = "70-tools/gftd"
