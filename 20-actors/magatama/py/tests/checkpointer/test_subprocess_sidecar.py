@@ -203,3 +203,121 @@ def test_real_sidecar_put_then_get_round_trip(real_sidecar):
         assert tup is None or tup.checkpoint["id"] == "1ckp001"
     finally:
         saver.close()
+
+
+# ── Encrypted-cell variant (ADR-2605181100 hard rule) ────────────────────────
+
+
+@pytest.fixture
+def real_encrypted_sidecar() -> Iterator[tuple[str, str]]:
+    """Spawn the real sidecar with ETZ_CHECKPOINTER_ENCRYPT_CELLS set.
+
+    Yields (socket_path, state_dir) — the test inspects state_dir to verify
+    the spooled payload is ciphertext and the per-cell key file lives where
+    we expect.
+    """
+    tmp_dir = tempfile.mkdtemp(prefix="etz-cp-enc-sidecar-")
+    socket_path = os.path.join(tmp_dir, "checkpointer.sock")
+    state_dir = os.path.join(tmp_dir, "state")
+    os.makedirs(state_dir, exist_ok=True)
+
+    env = {
+        **os.environ,
+        "ETZ_CHECKPOINTER_SOCKET": socket_path,
+        "ETZ_CHECKPOINTER_STATE_DIR": state_dir,
+        "ETZ_CHECKPOINTER_ALLOWED_DIDS": "did:test:integration",
+        "ETZ_CHECKPOINTER_ENCRYPT_CELLS": "did:test:integration",
+    }
+    proc = subprocess.Popen(
+        [NODE_BIN, str(SIDECAR_BIN)],
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=False,
+    )
+
+    deadline = time.monotonic() + 5.0
+    while time.monotonic() < deadline:
+        if os.path.exists(socket_path):
+            break
+        if proc.poll() is not None:
+            err_out = proc.stderr.read().decode(errors="replace") if proc.stderr else ""
+            raise RuntimeError(f"encrypted sidecar exited early: {err_out}")
+        time.sleep(0.05)
+    else:
+        proc.kill()
+        raise RuntimeError("encrypted sidecar did not bind socket within 5s")
+
+    try:
+        yield socket_path, state_dir
+    finally:
+        try:
+            proc.terminate()
+            proc.wait(timeout=5.0)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait(timeout=5.0)
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
+def test_encrypted_sidecar_round_trip_recovers_plaintext(real_encrypted_sidecar):
+    """Encrypted-at-rest mode: put/get_tuple round-trips transparently."""
+    socket_path, _state_dir = real_encrypted_sidecar
+    saver = MstCheckpointSaver(
+        cell_did="did:test:integration",
+        socket_path=socket_path,
+    )
+    try:
+        saver.put(
+            _config("t-enc-1"),
+            _checkpoint("1ckp001", "alpha", 42),
+            {"step": 1, "source": "loop"},
+            {"alpha": "1"},
+        )
+        tup = saver.get_tuple(_config("t-enc-1"))
+        assert tup is not None
+        assert tup.checkpoint["id"] == "1ckp001"
+        # Plaintext recovered through the encrypt → MST → decrypt cycle.
+        assert tup.checkpoint["channel_values"] == {"alpha": 42}
+        assert tup.metadata.get("step") == 1
+    finally:
+        saver.close()
+
+
+def test_encrypted_sidecar_spooled_payload_is_ciphertext(real_encrypted_sidecar):
+    """The on-disk spool MUST NOT contain the plaintext channel values."""
+    import urllib.parse
+
+    socket_path, state_dir = real_encrypted_sidecar
+    saver = MstCheckpointSaver(
+        cell_did="did:test:integration",
+        socket_path=socket_path,
+    )
+    try:
+        saver.put(
+            _config("t-enc-2"),
+            _checkpoint("1ckp001", "alpha", "VERY-DISTINCTIVE-SECRET-STRING"),
+            {"step": 1, "source": "loop"},
+            {"alpha": "1"},
+        )
+    finally:
+        saver.close()
+
+    encoded_did = urllib.parse.quote("did:test:integration", safe="")
+    payload_path = os.path.join(
+        state_dir, "queue", encoded_did, "1ckp001.payload"
+    )
+    assert os.path.exists(payload_path)
+    with open(payload_path, "rb") as f:
+        spooled = f.read()
+    # ADR-2605181100 hard rule: ciphertext-at-rest. The distinctive plaintext
+    # marker must not be readable from the spool.
+    assert b"VERY-DISTINCTIVE-SECRET-STRING" not in spooled
+    # The encrypted wrapper marker `_etz_encrypted` should be present (it's
+    # the msgpack-level field key, written in clear).
+    assert b"_etz_encrypted" in spooled
+
+    # Per-cell key persisted (mode 0o600 enforced inside the sidecar).
+    key_path = os.path.join(state_dir, "keys", f"{encoded_did}.key")
+    assert os.path.exists(key_path)
+    assert os.stat(key_path).st_size == 32
