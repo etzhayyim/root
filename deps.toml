@@ -482,9 +482,9 @@ solc_version = "0.8.27"
 [[modules]]
 path = "50-infra/anchor-cron"
 kind = "ts-cronjob"
-version = "0.1.0"
-status = "implemented-local-anvil-validated"
-description = "Stage 5b of ADR-2605171800. K8s CronJob that walks the checkpointer sidecar's pending-anchor list via Unix-socket IPC (msgpack wire protocol), submits each MST root to EtzhayyimAnchor on Base L2 via viem walletClient.writeContract, and writes the receipts back through anchor_commit. Idempotency probe via anchors[rootHash] readContract before each tx so a re-presented batch never wastes gas on AlreadyAnchored reverts. Dockerfile multi-stage, runs as uid 65532 to match the sidecar. CronJob co-locates on the lg-uhl-right-neural Pod's node via podAffinity + hostPath socket mount."
+version = "0.2.0"
+status = "implemented-vitest-covered-local-anvil-validated"
+description = "Stage 5b of ADR-2605171800. K8s CronJob that walks the checkpointer sidecar's pending-anchor list via Unix-socket IPC (msgpack wire protocol), submits each MST root to EtzhayyimAnchor on Base L2 via viem walletClient.writeContract, and writes the receipts back through anchor_commit. Idempotency probe via anchors[rootHash] readContract before each tx so a re-presented batch never wastes gas on AlreadyAnchored reverts. Dockerfile multi-stage, runs as uid 65532 to match the sidecar. CronJob co-locates on the lg-uhl-right-neural Pod's node via podAffinity + hostPath socket mount. 17 vitest tests (sidecarClient round-trip vs in-process Unix-socket mock, pending rootHash sha256 contract, submit viem mock with idempotency probe + ABI shape)."
 adr = ["2605171800", "2605181100"]
 image = "ghcr.io/etzhayyim/anchor-cron:main"
 deploy_target_pending = "EtzhayyimAnchor on Base sepolia; cron defaults to local-anvil address until then"
