@@ -35,6 +35,13 @@ import {
 } from "@atproto/repo";
 
 import {pinBlob} from "./ipfs.js";
+import {
+  decrypt as aeadDecrypt,
+  encrypt as aeadEncrypt,
+  generateKey,
+  KEY_BYTES,
+  type SymmetricKey,
+} from "./crypto.js";
 
 // ─── Wire protocol (ADR-2605171800 § Stage 1) ───────────────────────
 
@@ -102,6 +109,17 @@ export interface SidecarConfig {
   ipfsApiUrl?: string;
   anchorChainId?: number;
   blobInlineThreshold?: number;
+  /**
+   * Cell DIDs whose payloads MUST be encrypted at rest before MST projection
+   * (per ADR-2605181100 hard rule on confidentiality). For each listed
+   * cell_did, a per-cell symmetric key is lazy-generated and persisted to
+   * `<stateDir>/keys/<encodeURIComponent(cell_did)>.key`. Payloads are then
+   * XChaCha20-Poly1305-AEAD'd before they hit the MST / CAR / IPFS pipeline.
+   *
+   * Cells not in this set continue to write plaintext to MST — appropriate
+   * for the open-* public substrate, prohibited for any private data.
+   */
+  encryptCells?: ReadonlySet<string>;
 }
 
 const DEFAULTS = {
@@ -111,14 +129,31 @@ const DEFAULTS = {
   blobInlineThreshold: 16 * 1024,
 } as const;
 
-type ResolvedConfig = Required<Omit<SidecarConfig, "ipfsApiUrl">> &
-  Pick<SidecarConfig, "ipfsApiUrl">;
+type ResolvedConfig = Required<
+  Omit<SidecarConfig, "ipfsApiUrl" | "encryptCells">
+> &
+  Pick<SidecarConfig, "ipfsApiUrl"> & {
+    encryptCells: ReadonlySet<string>;
+  };
+
+const ENCRYPTED_WRAPPER_MARKER = "_etz_encrypted" as const;
+
+interface EncryptedWrapper {
+  [ENCRYPTED_WRAPPER_MARKER]: 1;
+  nonce: Uint8Array;
+  ciphertext: Uint8Array;
+  keyId: string;
+  sender: string;
+  createdAt: string;
+}
 
 export class CheckpointerSidecar {
   readonly cfg: ResolvedConfig;
   #server?: Server;
   #indexCache = new Map<string, SaverIndexRow>();
   #indexLoaded = false;
+
+  #keyCache = new Map<string, SymmetricKey>();
 
   constructor(cfg: SidecarConfig) {
     this.cfg = {
@@ -129,6 +164,7 @@ export class CheckpointerSidecar {
       anchorChainId: cfg.anchorChainId ?? DEFAULTS.anchorChainId,
       blobInlineThreshold:
         cfg.blobInlineThreshold ?? DEFAULTS.blobInlineThreshold,
+      encryptCells: cfg.encryptCells ?? new Set<string>(),
     };
   }
 
@@ -220,12 +256,21 @@ export class CheckpointerSidecar {
     if (!req.payload || !req.checkpoint_id) {
       return err("put requires payload + checkpoint_id");
     }
-    const {rootCid, carBytes, blobCount} = await this.#commitMst(req);
+    const checkpointId: string = req.checkpoint_id;
+    // ADR-2605181100 hard rule: encrypted-at-rest cells get their payload
+    // sealed BEFORE MST projection, so the CID + CAR + future IPFS pin /
+    // L2 anchor only ever address ciphertext.
+    let effectivePayload: Uint8Array = req.payload;
+    if (this.cfg.encryptCells.has(req.cell_did)) {
+      effectivePayload = await this.#encryptPayload(req.cell_did, req.payload);
+    }
+    const effectiveReq: Request = {...req, payload: effectivePayload};
+    const {rootCid, carBytes, blobCount} = await this.#commitMst(effectiveReq);
     const row: SaverIndexRow = {
       cell_did: req.cell_did,
       thread_id: req.thread_id,
       checkpoint_ns: req.checkpoint_ns,
-      checkpoint_id: req.checkpoint_id,
+      checkpoint_id: checkpointId,
       mst_root_cid: rootCid,
       car_size_bytes: carBytes.length,
       car_blob_count: blobCount,
@@ -240,7 +285,7 @@ export class CheckpointerSidecar {
       anchored_at: null,
     };
     await this.#spoolCar(row, carBytes);
-    await this.#spoolPayload(row, req.payload);
+    await this.#spoolPayload(row, effectivePayload);
     this.#indexCache.set(indexKey(row), row);
     await this.#persistIndex();
     void this.#pinSoon(row, carBytes);
@@ -259,7 +304,10 @@ export class CheckpointerSidecar {
         )
       : this.#latestFor(req.cell_did, req.thread_id, req.checkpoint_ns);
     if (!row) return ok({data: null});
-    const payload = await this.#loadPayload(row);
+    let payload = await this.#loadPayload(row);
+    if (this.cfg.encryptCells.has(req.cell_did)) {
+      payload = await this.#decryptPayload(req.cell_did, payload);
+    }
     return ok({mst_root_cid: row.mst_root_cid, data: payload});
   }
 
@@ -461,6 +509,90 @@ export class CheckpointerSidecar {
     );
     await rename(`${path}.tmp`, path);
   }
+
+  // ─── Encryption (per-cell symmetric key, ADR-2605181100) ──────────
+
+  async #getOrCreateCellKey(cellDid: string): Promise<SymmetricKey> {
+    const cached = this.#keyCache.get(cellDid);
+    if (cached) return cached;
+    const dir = join(this.cfg.stateDir, "keys");
+    await mkdir(dir, {recursive: true, mode: 0o700});
+    const path = join(dir, `${encodeURIComponent(cellDid)}.key`);
+    if (existsSync(path)) {
+      const k = new Uint8Array(await readFile(path)) as SymmetricKey;
+      if (k.length !== KEY_BYTES) {
+        throw new Error(
+          `[checkpointer] cell key for ${cellDid} has wrong length: ${k.length}`
+        );
+      }
+      this.#keyCache.set(cellDid, k);
+      return k;
+    }
+    const fresh = generateKey();
+    await writeFile(`${path}.tmp`, fresh, {mode: 0o600});
+    await rename(`${path}.tmp`, path);
+    this.#keyCache.set(cellDid, fresh);
+    return fresh;
+  }
+
+  async #encryptPayload(
+    cellDid: string,
+    plaintextBytes: Uint8Array
+  ): Promise<Uint8Array> {
+    const key = await this.#getOrCreateCellKey(cellDid);
+    // Sealing the raw msgpack bytes (not the decoded value) keeps decrypt
+    // trivial: Python gets the same bytes back, no schema awareness needed.
+    const envelope = aeadEncrypt({
+      key,
+      sender: cellDid,
+      plaintext: plaintextBytes,
+    });
+    const wrapper: EncryptedWrapper = {
+      [ENCRYPTED_WRAPPER_MARKER]: 1,
+      nonce: envelope.nonce,
+      ciphertext: envelope.ciphertext,
+      keyId: envelope.keyId,
+      sender: envelope.sender,
+      createdAt: envelope.createdAt,
+    };
+    return encode(wrapper);
+  }
+
+  async #decryptPayload(
+    cellDid: string,
+    blob: Uint8Array
+  ): Promise<Uint8Array> {
+    const decoded = decode(blob);
+    if (!isEncryptedWrapper(decoded)) {
+      // Backwards-compat: cell was added to encryptCells AFTER some plaintext
+      // checkpoints already landed. Surface them as-is rather than crash.
+      return blob;
+    }
+    const key = await this.#getOrCreateCellKey(cellDid);
+    return aeadDecrypt<Uint8Array>({
+      key,
+      envelope: {
+        v: 1,
+        alg: "xchacha20poly1305",
+        nonce: decoded.nonce,
+        ciphertext: decoded.ciphertext,
+        keyId: decoded.keyId,
+        sender: decoded.sender,
+        createdAt: decoded.createdAt,
+      },
+    });
+  }
+}
+
+function isEncryptedWrapper(v: unknown): v is EncryptedWrapper {
+  return (
+    typeof v === "object" &&
+    v !== null &&
+    (v as {[ENCRYPTED_WRAPPER_MARKER]?: unknown})[ENCRYPTED_WRAPPER_MARKER] ===
+      1 &&
+    (v as {nonce?: unknown}).nonce instanceof Uint8Array &&
+    (v as {ciphertext?: unknown}).ciphertext instanceof Uint8Array
+  );
 }
 
 // ─── msgpack codec ──────────────────────────────────────────────────
@@ -509,6 +641,20 @@ export async function runFromEnv(): Promise<CheckpointerSidecar> {
       "ETZ_CHECKPOINTER_ALLOWED_DIDS must list at least one DID"
     );
   }
+  const encryptCells = new Set(
+    (process.env.ETZ_CHECKPOINTER_ENCRYPT_CELLS ?? "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean)
+  );
+  for (const did of encryptCells) {
+    if (!allowed.includes(did)) {
+      throw new Error(
+        `ETZ_CHECKPOINTER_ENCRYPT_CELLS lists ${did} not in ` +
+          `ETZ_CHECKPOINTER_ALLOWED_DIDS`
+      );
+    }
+  }
   const sidecar = new CheckpointerSidecar({
     socketPath: process.env.ETZ_CHECKPOINTER_SOCKET,
     stateDir: process.env.ETZ_CHECKPOINTER_STATE_DIR,
@@ -517,6 +663,7 @@ export async function runFromEnv(): Promise<CheckpointerSidecar> {
     anchorChainId: process.env.ETZ_ANCHOR_CHAIN_ID
       ? Number(process.env.ETZ_ANCHOR_CHAIN_ID)
       : undefined,
+    encryptCells,
   });
   await sidecar.start();
   return sidecar;
