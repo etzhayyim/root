@@ -396,12 +396,13 @@ prs = ["#23", "#25", "#29"]
 [[modules]]
 path = "50-infra/k8s/lg-uhl-right-neural"
 kind = "k8s-manifests"
-version = "0.3.0"
-status = "stages-1-3-live-aead-on"
-description = "LangServer pod manifest for the uhl_right_neural Pregel. 2-container topology per ADR-2605171800: Python server + TS @etzhayyim/sdk checkpointer sidecar sharing /run/etzhayyim/ emptyDir socket volume and /var/etzhayyim/checkpointer-state state volume. Both containers run as uid 65532 with fsGroup=65532. Substrate stages 1 (saver), 2 (MST), 2.5 (AEAD per ADR-2605181100), and 3 (IPFS pin to simeonnomac-mini.local:5001) are live; payload is ciphertext from MST projection onward. Stage 4 (Base L2 anchor) pending EtzhayyimAnchor deploy to Base sepolia."
+version = "0.4.0"
+status = "stages-1-3-live-aead-on-pvc"
+description = "LangServer pod manifest for the uhl_right_neural Pregel. 2-container topology per ADR-2605171800: Python server + TS @etzhayyim/sdk checkpointer sidecar sharing /run/etzhayyim/ emptyDir socket volume and PVC-backed /var/etzhayyim/checkpointer-state (lg-uhl-right-neural-checkpointer-state, ReadWriteOnce, 8Gi, requires Retain reclaim policy on the underlying PV). Both containers run as uid 65532 with fsGroup=65532. Substrate stages 1 (saver), 2 (MST), 2.5 (AEAD per ADR-2605181100), and 3 (IPFS pin to simeonnomac-mini.local:5001) are live; payload is ciphertext from MST projection onward. Stage 4 (Base L2 anchor) pending EtzhayyimAnchor deploy to Base sepolia."
 adr = ["2605181000", "2605180900", "2605171800", "2605172000", "2605181100"]
 image = "ghcr.io/etzhayyim/lg-uhl-right-neural:main"
 sidecar_image = "ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer:main"
+pvc = "lg-uhl-right-neural-checkpointer-state"
 
 [[modules]]
 path = "50-infra/etzhayyim-sdk-checkpointer"

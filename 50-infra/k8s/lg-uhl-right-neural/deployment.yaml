@@ -29,7 +29,7 @@
 #   │                                                       │        │
 #   │                              /var/etzhayyim/          │        │
 #   │                              checkpointer-state ◄─────┘        │
-#   │                              (emptyDir; PVC in prod)           │
+#   │                              (PVC, ReadWriteOnce, Retain)      │
 #   └─────────────────────────────────────────────────────────────────┘
 #
 # Both containers run as uid 65532. The sidecar accepts Unix-domain
@@ -39,6 +39,43 @@ kind: ServiceAccount
 metadata:
   name: lg-uhl-right-neural
   namespace: mitama-udf
+---
+# PVC for the checkpointer sidecar state directory.
+#
+# Holds:
+#   - keys/<encodeURIComponent(cell_did)>.key  per-cell XChaCha20-Poly1305 key
+#   - queue/<encodeURIComponent(cell_did)>/    spooled CARs + raw payload blobs
+#   - index.json                               saver index (CID → row)
+#
+# Sized for ~1 year of uhl-right-neural cell state at conservative
+# checkpoint cadence. Increase via `kubectl edit pvc` when usage
+# crosses 70%. Reclaim policy on the underlying PV MUST be Retain
+# (configure via the StorageClass) so a `kubectl delete deployment`
+# can NEVER cascade into a key wipe — see ADR-2605181100 §SDK seam.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lg-uhl-right-neural-checkpointer-state
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-uhl-right-neural
+    app.kubernetes.io/component: checkpointer-state
+    app.kubernetes.io/part-of: uhl-right-neural.etzhayyim.com
+  annotations:
+    # Documenting intent at the resource level — clusters may also set
+    # PersistentVolumeReclaimPolicy=Retain on the underlying PV.
+    etzhayyim.com/key-loss-is-irreversible: "true"
+    etzhayyim.com/adr: "2605171800,2605181100"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  # storageClassName omitted on purpose — picks up the cluster default.
+  # In environments where the default class is Delete (e.g. some
+  # cloud-managed clusters) override here with a Retain class:
+  #   storageClassName: standard-retain
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -228,12 +265,14 @@ spec:
           emptyDir:
             sizeLimit: 1Mi
         - name: checkpointer-state
-          # Sidecar's persistent index + staged CARs. emptyDir survives
-          # container restarts within the same Pod lifetime, but NOT pod
-          # rescheduling. Production: replace with a PVC tied to the
-          # cell DID for full ADR-2605171800 durability guarantees.
-          emptyDir:
-            sizeLimit: 1Gi
+          # PVC durability. The sidecar's per-cell symmetric keys live
+          # here (<stateDir>/keys/<cell_did>.key). Losing this volume
+          # = losing the keys = every prior ciphertext on IPFS becomes
+          # unrecoverable. Bound to a named claim with Retain reclaim
+          # policy so accidental Deployment delete does not nuke the
+          # keys. ADR-2605171800 + ADR-2605181100.
+          persistentVolumeClaim:
+            claimName: lg-uhl-right-neural-checkpointer-state
 ---
 apiVersion: v1
 kind: Service
