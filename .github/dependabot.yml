@@ -1,0 +1,838 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/10-protocol/did-etzhayyim"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/10-protocol/did-etzhayyim/resolver"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/10-protocol/lexicons-bundle"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/10-protocol/signal"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/10-protocol/xrpc"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/effect-cypher"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/dmn-js-minimal"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/e2e-integration"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/e2e-minimal"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/form-js-minimal"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/order-processing"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/compiler"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/core"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/dmn"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/dsl"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/form"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/human"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/importer"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/internal/testkit"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/ops"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/runtime"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/testing"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/validation"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-pregel"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/etzhayyim-sdk"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/kami-engine-sdk"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/magatama/mcp/unispsc-isic-mcp"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/20-actors/magatama/sdk/magatama-host-sdk"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/30-graph/graph-schema"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/anchor-cron"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-chain-contracts/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-did-web"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-membership-contract/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-paymaster/lib/account-abstraction"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-paymaster/lib/account-abstraction/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-paymaster/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts/scripts/solhint-custom"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/etzhayyim-pds-did-web"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/ipfs-pinner"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/l2-anchor-contract/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/mst-projector"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/sveltejs-adapter-wasm"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/sveltejs-adapter-wasm/demos/demo-javy"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/sveltejs-adapter-wasm/demos/demo-ssg"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/sveltejs-adapter-wasm/demos/demo-tinygo-qjs"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/sveltejs-adapter-wasm/demos/demo1"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/sveltejs-adapter-wasm/projects/sveltejs-adapter-wasm/adapter"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/openzeppelin-contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/openzeppelin-contracts-v4"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/openzeppelin-contracts-v4/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/openzeppelin-contracts-v4/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/openzeppelin-contracts-v4/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/openzeppelin-contracts/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/openzeppelin-contracts/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/openzeppelin-contracts/scripts/solhint-custom"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/account-abstraction"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/account-abstraction/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/openzeppelin-contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/openzeppelin-contracts/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/openzeppelin-contracts/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/openzeppelin-contracts/scripts/solhint-custom"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/p256-verifier/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/p256-verifier/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/p256-verifier/lib/openzeppelin-contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/p256-verifier/lib/openzeppelin-contracts/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/p256-verifier/lib/openzeppelin-contracts/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/p256-verifier/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/p256-verifier/lib/openzeppelin-contracts/scripts/solhint-custom"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/p256-verifier/test-vectors"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/p256-verifier/website"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/safe-singleton-deployer-sol/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/solady"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/FreshCryptoLib/solidity/tests/WebAuthn_forge/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/FreshCryptoLib/solidity/tests/WebAuthn_forge/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/FreshCryptoLib/solidity/tests/WebAuthn_forge/lib/openzeppelin-contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/FreshCryptoLib/solidity/tests/WebAuthn_forge/lib/openzeppelin-contracts/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/FreshCryptoLib/solidity/tests/WebAuthn_forge/lib/openzeppelin-contracts/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/FreshCryptoLib/solidity/tests/WebAuthn_forge/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/FreshCryptoLib/solidity/tests/hardhat"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/openzeppelin-contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/openzeppelin-contracts/contracts"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/openzeppelin-contracts/lib/forge-std"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/openzeppelin-contracts/scripts/solhint-custom"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/smart-wallet/lib/webauthn-sol/lib/solady"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/50-infra/vultr/geth-private/contracts/lib/solady"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-airplane/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-banking/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-cofog/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-denki/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-gas/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-isco/rw-free"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-isic/appview/worker"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-jpn-gov/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/e2e"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-network/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-ossekai/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-ports/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-power/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-rail/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-robo/appview/open-robo-hp"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-robo/appview/open-robo-hp/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-swift/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-unispsc/appview/worker"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-open-water/worker/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-public-kafun-bokumetsu/appview/ai-gftd-wasm-kafun-bokumetsu-n97ik10n/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/60-apps/open-otology-uhl-r/worker"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/10-protocol/wproto"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/20-actors/magatama"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/20-actors/magatama/config/magatama-config"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/20-actors/magatama/holochain/agent-actor-runtime"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/20-actors/magatama/holochain/agent-actor-runtime/dnas/agent_actor_runtime/zomes/coordinator/actor_runtime"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/20-actors/magatama/holochain/agent-actor-runtime/dnas/agent_actor_runtime/zomes/integrity/actor_runtime"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/20-actors/magatama/holochain/agent-actor-runtime/smoke/call-zome"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/20-actors/magatama/hosts/magatama-desktop-host"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/20-actors/magatama/hosts/magatama-kami-host"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/20-actors/magatama/inference/magatama-inference"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/java/core/lance-jni"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/python"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-arrow"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-core"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-datafusion"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-datagen"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-encoding"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-encoding-datafusion"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-encoding/src/compression_algo/fsst"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-file"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-index"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-io"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-linalg"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-table"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-test-macros"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/lance-testing"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/yata-wasm"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/lancedb-wasm/rust/yata-wasm/yata-wasm"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/sveltejs-adapter-wasm/projects/sveltejs-adapter-wasm/wasm/quickjs-engine"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/tonbo/server"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-bench"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-core"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-cypher"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-engine"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-gie"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-grin"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-hayate"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-lance"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-server"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/java/core/lance-jni"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/python"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-arrow"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-core"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-datafusion"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-datagen"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-encoding"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-encoding-datafusion"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-encoding/src/compression_algo/fsst"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-file"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-index"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-io"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-linalg"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-table"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-test-macros"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/lance-testing"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/rust/yata-wasm"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/60-apps/ai-gftd-project-open-ot/cells"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/60-apps/ai-gftd-project-open-ot/cells/anti-islanding-rocof"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/60-apps/ai-gftd-project-open-ot/cells/droop-p-f"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/60-apps/ai-gftd-project-open-ot/cells/openot-bfb-rs"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/60-apps/ai-gftd-project-open-ot/cells/pid-limited"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/60-apps/ai-gftd-project-open-ot/cells/pid-stack-100"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/60-apps/ai-gftd-project-open-ot/risk1"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/60-apps/ai-gftd-project-open-ot/risk1/gate-a-rig"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/60-apps/watashi/native/watashi-host"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/70-tools/maps-osm-ingest"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/20-actors/first-breath"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/20-actors/magatama/py"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/30-graph/graph-schema"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/50-infra/lancedb-wasm/python"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/50-infra/yata/yata-wasm/lance-fork/python"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/60-apps/ai-gftd-project-comfyui/adapter"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/60-apps/ai-gftd-project-open-isic/lg"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/60-apps/ai-gftd-project-open-jpn-mynumber/lg"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/60-apps/ai-gftd-project-open-ot/orchestrator"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/60-apps/ai-gftd-project-open-patent/lg"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/60-apps/ai-gftd-project-open-robo/firmware"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/60-apps/ai-gftd-project-public-domain-colorization/lg"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/70-tools/gftd-py"
+    schedule:
+      interval: "weekly"
