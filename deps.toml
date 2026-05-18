@@ -578,7 +578,12 @@ seed_method_actual = "rsync (per user direction 'filter-repo は不要、関連�
 [platform.tranche_f]
 # Phase 2 scaffolding for open-scope items eligible for etzhayyim/root
 # per the 3-axis decision rule (Liability / Custody / Settlement).
-status = "phase-2-scaffolding"
+status = "phase-3-content-copy"
+phase_3_wave_1 = """DONE 2026-05-18 — first content-copy wave from vendor monorepo:
+- 60-apps/ai-gftd-project-open-wellbecoming/: PROJECT.jsonld + child-capability-agents-design.md from vendor 60-apps/ai-gftd-project-well-becoming/
+- 00-contracts/lexicons/ai/gftd/apqc/: 4 lexicons (coverageSnapshot, emitEvent, materializeSubprocessDid, materializeSubprocesses) with NSID rename ai.gftd.apps.apqc.* → ai.gftd.apqc.*
+- 00-contracts/lexicons/ai/gftd/sanctions/: 2 of 3 lexicons (getEntry, listUpdates) with NSID rename ai.gftd.apps.sanctions.* → ai.gftd.sanctions.*; screenEntity stays vendor per SPLIT (operator-side AML liability)
+Vendor sources NOT yet deleted (Phase 5 task). Vendor consumers still reference old NSID — Phase 4c will migrate."""
 decision_rule = "3-axis OR-test (Liability / Custody / Settlement). All 3 clean → etzhayyim. Any 1 hit → out of scope."
 phase_2_initial_wave = [
   "20-actors/etzhayyim-pregel",
