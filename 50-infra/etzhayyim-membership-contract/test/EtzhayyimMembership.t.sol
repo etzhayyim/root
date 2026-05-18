@@ -21,7 +21,7 @@ contract EtzhayyimMembershipTest is Test {
         reg.join(oath, "alice-github");
 
         assertEq(reg.memberCount(), 1);
-        (bytes32 storedOath, string memory gh, uint64 joined, uint64 revoked) = reg.members(alice);
+        (bytes32 storedOath, string memory gh, uint64 joined, uint64 revoked, ) = reg.members(alice);
         assertEq(storedOath, oath);
         assertEq(gh, "alice-github");
         assertGt(joined, 0);
@@ -50,7 +50,7 @@ contract EtzhayyimMembershipTest is Test {
         vm.prank(alice);
         reg.revoke();
 
-        (, , uint64 joined, uint64 revoked) = reg.members(alice);
+        (, , uint64 joined, uint64 revoked, ) = reg.members(alice);
         assertGt(joined, 0);
         assertGt(revoked, 0);
         assertFalse(reg.isActiveMember(alice));
