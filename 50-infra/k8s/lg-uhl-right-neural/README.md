@@ -110,11 +110,12 @@ and `institution_match` containing ABI-capable institutions with
   - **Stage 3 (IPFS pin)** — live. CAR files pinned to the fleet kubo
     at `simeonnomac-mini.local:5001` via `ETZ_IPFS_API_URL`. Pinned
     content is ciphertext only (Stage 2.5).
-  - **Stage 4 (Base L2 anchor)** — pending. Waiting on
-    `EtzhayyimAnchor.sol` deploy to Base sepolia / mainnet (currently
-    only `address_local_anvil`). Uncomment `ETZ_ANCHOR_CHAIN_ID=84532`
-    on the sidecar container + add an `anchor-cron` CronJob once the
-    contract address lands in `deps.toml [platform.l2.anchor_contract]`.
+  - **Stage 4 (Base L2 anchor)** — implementation ready
+    ([anchor-cron](../../anchor-cron/), local-anvil-validated), deploy
+    pending. To go live: deploy `EtzhayyimAnchor.sol` to Base sepolia,
+    fill `deps.toml [platform.l2.anchor_contract].address_testnet`,
+    `kubectl apply -f 50-infra/anchor-cron/k8s/cronjob.yaml`, then
+    uncomment `ETZ_ANCHOR_CHAIN_ID=84532` on this sidecar.
 - **Sidecar state durability**: `/var/etzhayyim/checkpointer-state` is
   bound to the `lg-uhl-right-neural-checkpointer-state` PVC
   (ReadWriteOnce, 8Gi). The per-cell symmetric keys live here
