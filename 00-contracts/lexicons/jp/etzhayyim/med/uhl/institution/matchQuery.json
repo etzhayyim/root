@@ -1,0 +1,132 @@
+{
+  "lexicon": 1,
+  "id": "jp.etzhayyim.med.uhl.institution.matchQuery",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Rank UHL-R medical institutions by substrate class × patient locale. Output is decision support only — requiresHumanReview is always true (ADR-2605181040/1050/1060).",
+      "parameters": {
+        "type": "params",
+        "required": ["substrateClass", "localeCountry"],
+        "properties": {
+          "substrateClass": {
+            "type": "ref",
+            "ref": "jp.etzhayyim.med.uhl.institution.defs#substrateClass"
+          },
+          "localeCountry": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 patient locale country."
+          },
+          "dfnb9Confirmed": {
+            "type": "boolean",
+            "default": false,
+            "description": "True when V02 confirmed biallelic OTOF ACMG class 4-5. Gates GENE_TX_OTOF capability per ADR-2605181060."
+          },
+          "topN": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 5
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "substrateClass",
+            "candidates",
+            "requiresHumanReview",
+            "burdenSummaryUrl",
+            "ethicsCommitteeRequired",
+            "dataExportRequiresReview"
+          ],
+          "properties": {
+            "substrateClass": {
+              "type": "ref",
+              "ref": "jp.etzhayyim.med.uhl.institution.defs#substrateClass"
+            },
+            "candidates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "institutionId",
+                  "nameJa",
+                  "nameEn",
+                  "country",
+                  "matchedCapabilities",
+                  "score",
+                  "scoreBreakdown",
+                  "isStale"
+                ],
+                "properties": {
+                  "institutionId": {"type": "string"},
+                  "nameJa": {"type": "string"},
+                  "nameEn": {"type": "string"},
+                  "country": {"type": "string"},
+                  "matchedCapabilities": {
+                    "type": "array",
+                    "items": {
+                      "type": "ref",
+                      "ref": "jp.etzhayyim.med.uhl.institution.defs#capabilityKind"
+                    }
+                  },
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "scoreBreakdown": {
+                    "type": "unknown",
+                    "description": "Map of partial scores (capability_match, locale_affinity, staleness, evidence_quality)."
+                  },
+                  "referralPathIds": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "isStale": {
+                    "type": "boolean",
+                    "description": "True when last_verified_at > 180 days ago."
+                  },
+                  "notes": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  }
+                }
+              }
+            },
+            "requiresHumanReview": {
+              "type": "boolean",
+              "const": true,
+              "description": "Immutable: every match result requires human review per charter ethical guardrails."
+            },
+            "burdenSummaryUrl": {
+              "type": "string",
+              "description": "Pointer to ADR-2605181050 for overseas referral burden disclosure."
+            },
+            "ethicsCommitteeRequired": {
+              "type": "boolean",
+              "const": true
+            },
+            "dataExportRequiresReview": {
+              "type": "boolean",
+              "const": true
+            }
+          }
+        }
+      },
+      "errors": [
+        {
+          "name": "InvalidSubstrateClass",
+          "description": "substrateClass not in defs#substrateClass knownValues."
+        },
+        {
+          "name": "RegistryUnavailable",
+          "description": "Institution registry seed could not be loaded."
+        }
+      ]
+    }
+  }
+}
