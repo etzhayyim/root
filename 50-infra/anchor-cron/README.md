@@ -57,6 +57,7 @@ anchor-cron/
 | `ETZ_ANCHOR_CELL_DIDS` | (required) | CSV of cell DIDs to anchor |
 | `ETZ_ANCHOR_CONFIRMATIONS` | `3` | block confirmations before commit |
 | `ETZ_ANCHOR_BATCH_MAX` | `10` | max pending roots per tick |
+| `ETZ_ANCHOR_WARN_BALANCE_WEI` | `0` (off) | signer-balance floor (wei). Each tick reads the signer's balance and emits a single-line stderr warning (`[anchor-cron] solvency: signer=0x.. balanceWei=.. warnBelowWei=.. action=top-up-required`) when the balance dips below this floor. Anchoring continues — the warning is so operators top up BEFORE the EOA runs dry. |
 
 ## Deploy to Base sepolia
 

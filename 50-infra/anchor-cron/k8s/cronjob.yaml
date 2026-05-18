@@ -100,6 +100,12 @@ spec:
                   value: "3"
                 - name: ETZ_ANCHOR_BATCH_MAX
                   value: "10"
+                - name: ETZ_ANCHOR_WARN_BALANCE_WEI
+                  # ~7 days of operation gas headroom on Base. Tune per
+                  # environment after observing actual per-tick gas
+                  # spend. 0 disables the check.
+                  # 0.01 ETH = 10000000000000000 wei.
+                  value: "10000000000000000"
                 - name: ETZ_ANCHOR_SIGNER_KEY
                   valueFrom:
                     secretKeyRef:
