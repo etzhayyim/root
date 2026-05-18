@@ -397,10 +397,23 @@ prs = ["#23", "#25", "#29"]
 path = "50-infra/k8s/lg-uhl-right-neural"
 kind = "k8s-manifests"
 version = "0.0.1"
-status = "scaffold-P0"
-description = "LangServer pod manifest for the uhl_right_neural Pregel. Serves pymagatama.projects.uhl_right_neural.pregel:app over LangGraph CLI HTTP runtime. No DATABASE_URL (RW-free per ADR-2605172000); no checkpointer in P0 (P1 plugs @etzhayyim/sdk MST writer)."
-adr = ["2605181000", "2605180900"]
+status = "checkpointer-wired-no-sidecar"
+description = "LangServer pod manifest for the uhl_right_neural Pregel. Serves pymagatama.projects.uhl_right_neural.pregel:app over LangGraph CLI HTTP runtime. No DATABASE_URL (RW-free per ADR-2605172000). Pregel auto-attaches MstCheckpointSaver when MST_CHECKPOINT_SOCKET env var is set (C-1 PR). C-2 PR will add the @etzhayyim/sdk TS sidecar container + emptyDir socket volume."
+adr = ["2605181000", "2605180900", "2605171800"]
 image = "ghcr.io/etzhayyim/lg-uhl-right-neural:main"
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/checkpointer"
+kind = "python-langgraph-checkpoint-saver"
+version = "0.1.0"
+status = "C1-implemented"
+description = "MstCheckpointSaver — LangGraph BaseCheckpointSaver subclass that proxies every checkpoint op (put/get_tuple/list/put_writes/health) over a Unix socket (or tcp://host:port) to the @etzhayyim/sdk TS sidecar (CheckpointerSidecar). 4-byte big-endian length prefix + msgpack envelope per ADR-2605171800 §Stage 1. Zero substrate logic Python-side per ADR-2605172100 — MST/IPFS/L2 stays in TS. Sync + async API parity. 16 tests against an in-memory mock sidecar (tests/checkpointer/conftest.py)."
+adr = ["2605171800", "2605172000", "2605172100"]
+sibling_modules = [
+  "20-actors/etzhayyim-sdk",
+]
+wire_protocol_version = 1
+prs = []
 
 [[modules]]
 path = "60-apps/open-otology-uhl-r"

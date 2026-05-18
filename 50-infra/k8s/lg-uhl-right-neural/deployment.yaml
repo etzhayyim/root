@@ -60,6 +60,18 @@ spec:
             # P0 MVP: V13 outcome / V12 plasticity stubs do not need a model.
             # When V13 PyMC + V14 trial-design come online, add ANTHROPIC_API_KEY
             # (or local LLM endpoint) here.
+            #
+            # Checkpointer wiring (ADR-2605171800, RW-free per ADR-2605172000):
+            # The Pregel module auto-attaches MstCheckpointSaver when
+            # MST_CHECKPOINT_SOCKET is set. Default cell DID per the project's
+            # web-hosted resolver target. C-2 PR will add the actual sidecar
+            # container + emptyDir socket volume; until then both env vars are
+            # commented out so the langserver compiles without persistence
+            # (matches P0 behaviour).
+            # - name: MST_CHECKPOINT_SOCKET
+            #   value: "/run/etzhayyim/checkpointer.sock"
+            # - name: MST_CHECKPOINT_CELL_DID
+            #   value: "did:web:uhl-right-neural.etzhayyim.com"
           ports:
             - name: http
               containerPort: 8080
