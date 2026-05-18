@@ -435,6 +435,10 @@ export type {
   HealthOutput,
 } from "./langserver-actor.js";
 
+// AppView XRPC handler (ADR-2605180900 Phase 7).
+export { createLangserverXrpcHandler } from "./langserver-xrpc-handler.js";
+export type { LangserverXrpcHandlerConfig } from "./langserver-xrpc-handler.js";
+
 export { validateKamiScene, assertValidKamiScene } from "./kami-scene-validator.js";
 export type { SceneValidationError } from "./kami-scene-validator.js";
 
