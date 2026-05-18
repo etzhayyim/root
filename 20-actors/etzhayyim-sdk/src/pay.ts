@@ -154,12 +154,14 @@ export interface PaymentReceipt {
   blockNumber: bigint;
   /** AT URI of the payment.sent record on the sender's PDS. (Empty if no PDS supplied.) */
   recordUri: string;
-  /** Sender's on-chain address. */
-  from: Address;
-  /** Recipient. */
-  to: Address;
-  /** Amount in USDC base units. */
-  amount: bigint;
+  /** Sender's on-chain address. Optional — relayed bi.claim fulfillments don't carry it. */
+  from?: Address;
+  /** Recipient. Optional for the same reason as `from`. */
+  to?: Address;
+  /** Amount in USDC base units. Optional for the same reason. */
+  amount?: bigint;
+  /** True iff the tx was bundled atomically (paymaster ERC-4337 batch). */
+  atomicBatch?: boolean;
 }
 
 export class PayClient {
