@@ -366,9 +366,9 @@ path = "90-docs/adr/2605181060-otarmeni-access-path.md"
 [[modules]]
 path = "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural"
 kind = "langgraph-pregel-project"
-version = "0.2.0"
-status = "P0-P1-complete"
-description = "uhl-right-neural — 先天性右側感音難聴 (neural軸) 治療研究 Pregel. 16-vertex StateGraph (V01-V16). P0 (charter Phase 0) + P1 (Phase 1) complete: V01 phenotype / V02 genetic_screen / V03 imaging / V04 electrophys / V05 cmv_torch / V06 substrate_classifier / V07 otof_tx (P1, ADR-2605181060) / V10 conventional_device (eCI fitting) / V11 abi (P1, ADR-2605181050) / V12 plasticity / V13 outcome (Beta-Binomial conjugate) / V15 regulatory (P1, PMDA/FDA classifier) / V16 institution_matcher. V14 = P1-P2 stub (trial design), V08 = P2 stub, V09/V10b = P3 stubs. 15-institution registry seed (CC-BY-4.0). Decision support only — every output enforces requires_human_review=true."
+version = "0.3.0"
+status = "all-treatment-arms-implemented"
+description = "uhl-right-neural — 先天性右側感音難聴 (neural軸) 治療研究 Pregel. 16-vertex StateGraph (V01-V16). Every substrate-routed treatment-arm vertex is now a real actor: V07 otof_tx (P1, DFNB9 / CHORD-JP), V08 neurotrophin (P2, BDNF/NT-3 research-track), V09 reprogramming (P3, Ascl1+Pou4f1+Myt1l research-track), V10 conventional_device (eCI fitting), V11 abi (P1, Manchester/GSTT pediatric pathway). Cross-cutting V01-V06 + V12 plasticity + V13 outcome (Beta-Binomial) + V15 regulatory (PMDA/FDA classifier) + V16 institution_matcher. V08 and V09 are honest preclinical/research-track classifiers — register research-pipeline contact, no current human treatment recommendation. Remaining stubs: V14 trial_design (P1-P2, parallel branch), V10b optoCI sub-variant (P3, when trial opens). 15-institution registry seed (CC-BY-4.0). Decision support only — every output enforces requires_human_review=true."
 adr = ["2605181000", "2605181040", "2605181050", "2605181060"]
 sibling_modules = [
   "50-infra/k8s/lg-uhl-right-neural",
@@ -381,6 +381,8 @@ dmn = [
   "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/otof_eligibility.md",
   "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/abi_candidacy.md",
   "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/regulatory_pathway.md",
+  "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/neurotrophin_eligibility.md",
+  "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/reprogramming_eligibility.md",
 ]
 prs = ["#23", "#25", "#29"]
 
