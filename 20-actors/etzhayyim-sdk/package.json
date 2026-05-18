@@ -40,6 +40,18 @@
     "./checkpointer": {
       "import": "./dist/checkpointer.js",
       "types": "./dist/checkpointer.d.ts"
+    },
+    "./crypto": {
+      "import": "./dist/crypto.js",
+      "types": "./dist/crypto.d.ts"
+    },
+    "./signal": {
+      "import": "./dist/signal.js",
+      "types": "./dist/signal.d.ts"
+    },
+    "./did-signal": {
+      "import": "./dist/did-signal.js",
+      "types": "./dist/did-signal.d.ts"
     }
   },
   "bin": {
@@ -67,8 +79,14 @@
     "@ipld/car": "^5.4.6",
     "@ipld/dag-cbor": "^10.0.1",
     "@msgpack/msgpack": "^3.1.3",
+    "@noble/ciphers": "^1.0.0",
+    "@noble/curves": "^1.6.0",
+    "@noble/hashes": "^1.5.0",
     "multiformats": "^14.0.0",
     "viem": "^2.21.0"
+  },
+  "optionalDependencies": {
+    "@signalapp/libsignal-client": "^0.55.0"
   },
   "devDependencies": {
     "@types/node": "^25.8.0",

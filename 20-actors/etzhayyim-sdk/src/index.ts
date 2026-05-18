@@ -324,6 +324,38 @@ export class Etzhayyim {
     const { proposalState } = await import("./bi.js");
     return proposalState(proposalId, this.biConfig ?? {});
   }
+
+  // ─── Encrypted records (ADR-2605181100, Tahoe-pattern) ───────────
+
+  /**
+   * Write an encrypted record + per-recipient key-wraps in one call.
+   *
+   * Plaintext is CBOR-encoded and sealed under XChaCha20-Poly1305 with a
+   * fresh per-record symmetric key. The key is wrapped to each recipient
+   * via the established Signal session (DID-bound per ADR-2605181100). The
+   * envelope is stored as `app.etzhayyim.encrypted.record`; one
+   * `app.etzhayyim.encrypted.keyWrap` is written per recipient.
+   */
+  async encryptedWrite<T extends Record<string, unknown>>(
+    opts: import("./encrypted.js").EncryptedWriteOpts<T>
+  ): Promise<import("./encrypted.js").EncryptedWriteReceipt> {
+    const { encryptedWrite } = await import("./encrypted.js");
+    return encryptedWrite(this, opts);
+  }
+
+  /**
+   * Read and decrypt encrypted records the caller has a read-cap for.
+   *
+   * Enumerates `app.etzhayyim.encrypted.keyWrap` in the caller's own PDS,
+   * unwraps each key via the matching Signal session, and decrypts the
+   * referenced `app.etzhayyim.encrypted.record` envelopes.
+   */
+  async encryptedRead<T>(
+    opts: import("./encrypted.js").EncryptedReadOpts
+  ): Promise<import("./encrypted.js").EncryptedReadResponse<T>> {
+    const { encryptedRead } = await import("./encrypted.js");
+    return encryptedRead<T>(this, opts);
+  }
 }
 
 // ─── Re-exports ─────────────────────────────────────────────────────
@@ -334,6 +366,9 @@ export * as l2 from "./l2.js";
 export * as pay from "./pay.js";
 export * as bi from "./bi.js";
 export * as paymaster from "./paymaster.js";
+export * as crypto from "./crypto.js";
+export * as signal from "./signal.js";
+export * as didSignal from "./did-signal.js";
 export { parseUsdc, parseUsdcPerSecond, USDC_BASE } from "./pay.js";
 export {
   ETZHAYYIM_PRIVATE_CHAIN_ID,
