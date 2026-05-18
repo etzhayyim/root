@@ -584,6 +584,11 @@ phase_3_wave_1 = """DONE 2026-05-18 — first content-copy wave from vendor mono
 - 00-contracts/lexicons/ai/gftd/apqc/: 4 lexicons (coverageSnapshot, emitEvent, materializeSubprocessDid, materializeSubprocesses) with NSID rename ai.gftd.apps.apqc.* → ai.gftd.apqc.*
 - 00-contracts/lexicons/ai/gftd/sanctions/: 2 of 3 lexicons (getEntry, listUpdates) with NSID rename ai.gftd.apps.sanctions.* → ai.gftd.sanctions.*; screenEntity stays vendor per SPLIT (operator-side AML liability)
 Vendor sources NOT yet deleted (Phase 5 task). Vendor consumers still reference old NSID — Phase 4c will migrate."""
+phase_3_wave_2_3 = """DONE 2026-05-18 — bulk content-copy wave 2+3 from vendor monorepo:
+388 lexicon files copied across 30 target dirs; 4 skipped per 3-axis (kyber Stripe + operator-side tenant: provisionTenant, getTenantPlan, recordUsage, reportUsageToStripe).
+All NSIDs renamed: ai.gftd.apps.<X>.* → ai.gftd.<X>.*
+Counts by dir: mangaka=60, animeka=44, legalEntity=38, ipAddress=37 (subdir flattening), hanrei=31, yoro=23, kyber=15, bpmn=13, manga=12, anime=10, narou=11, otakiage=11, kiyo=12, gameka=9, houbun=8, dns=7, hakkou=2, joucho=2, yorishiro=2, ki=4, koke=4, gtin=4, isbn=4, sbom=4, commonCrawl=3, houshi=3, legalAid=3, rareEarthCoverage=3, isin=2, ndc=1.
+Vendor sources NOT deleted (Phase 5). Vendor consumers reference old NSID (apps.<X>) — Phase 4c migration TBD per app."""
 decision_rule = "3-axis OR-test (Liability / Custody / Settlement). All 3 clean → etzhayyim. Any 1 hit → out of scope."
 phase_2_initial_wave = [
   "20-actors/etzhayyim-pregel",
