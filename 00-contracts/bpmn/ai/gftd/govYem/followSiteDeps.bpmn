@@ -13,10 +13,7 @@
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Follow"/>
     <bpmn:serviceTask id="Task_Follow" name="follow site deps">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="generic.langgraph.run"/>
-        <zeebe:ioMapping>
-          <zeebe:input source="=\"gov-fractal-pregel\"" target="assistant_id"/>
-        </zeebe:ioMapping>
+        <zeebe:taskDefinition type="xrpc.ai.gftd.govYem.followSiteDeps"/>
         <zeebe:ioMapping>
           <zeebe:output source="=ok" target="ok"/>
           <zeebe:output source="=followed" target="followed"/>

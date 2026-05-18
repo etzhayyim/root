@@ -13,10 +13,7 @@
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_List"/>
     <bpmn:serviceTask id="Task_List" name="list orgs">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="generic.langgraph.run"/>
-        <zeebe:ioMapping>
-          <zeebe:input source="=\"gov-fractal-pregel\"" target="assistant_id"/>
-        </zeebe:ioMapping>
+        <zeebe:taskDefinition type="xrpc.ai.gftd.govTjk.listOrgs"/>
         <zeebe:ioMapping>
           <zeebe:output source="=orgs" target="orgs"/>
           <zeebe:output source="=total" target="total"/>

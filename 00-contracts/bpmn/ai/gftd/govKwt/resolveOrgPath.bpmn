@@ -13,10 +13,7 @@
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Resolve"/>
     <bpmn:serviceTask id="Task_Resolve" name="resolve org path">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="generic.langgraph.run"/>
-        <zeebe:ioMapping>
-          <zeebe:input source="=\"gov-fractal-pregel\"" target="assistant_id"/>
-        </zeebe:ioMapping>
+        <zeebe:taskDefinition type="xrpc.ai.gftd.govKwt.resolveOrgPath"/>
         <zeebe:ioMapping>
           <zeebe:output source="=did" target="did"/>
           <zeebe:output source="=name" target="name"/>

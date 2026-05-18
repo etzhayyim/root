@@ -44,6 +44,12 @@
             "minLength": 8,
             "maxLength": 64
           },
+          "pad": {
+            "type": "string",
+            "description": "Padding scheme applied to plaintext before AEAD. Omitted = no padding. Per ADR-2605181200.",
+            "knownValues": ["iso7816-4"],
+            "maxLength": 32
+          },
           "sender": {
             "type": "string",
             "format": "did",
