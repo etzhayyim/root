@@ -1,7 +1,7 @@
 // Static Validation Integration Tests
 
-import { validateProcess } from '@etzhayyim/bpmn-sdk/validation';
-import { flow } from '@etzhayyim/bpmn-sdk/dsl';
+import { validateProcess } from '@etzhayyim/bpmn-sdk-validation';
+import { flow } from '@etzhayyim/bpmn-sdk-dsl';
 
 describe.skip('Static Validation Integration', () => {
   test('should validate correct process', async () => {

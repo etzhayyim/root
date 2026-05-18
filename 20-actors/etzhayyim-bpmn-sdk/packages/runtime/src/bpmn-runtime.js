@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BpmnRuntime = void 0;
 exports.deployAndStart = deployAndStart;
 const bpmn_engine_1 = require("bpmn-engine");
-const compiler_1 = require("@etzhayyim/bpmn-sdk/compiler");
+const compiler_1 = require("@etzhayyim/bpmn-sdk-compiler");
 // BPMN Runtime Engine
 class BpmnRuntime {
     engines = new Map();

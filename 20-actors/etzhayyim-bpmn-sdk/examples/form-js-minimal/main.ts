@@ -1,4 +1,4 @@
-import { createForm } from "@etzhayyim/bpmn-sdk/form";
+import { createForm } from "@etzhayyim/bpmn-sdk-form";
 
 const container = document.getElementById("app")!;
 

@@ -15,7 +15,7 @@ import type {
   SubProcessIR,
   SequenceFlowIR,
   EventDefinitionIR,
-} from '@etzhayyim/bpmn-sdk/core';
+} from '@etzhayyim/bpmn-sdk-core';
 
 // BPMN Compiler - Converts IR to BPMN 2.0 XML
 export class BpmnCompiler {

@@ -1,7 +1,7 @@
 // Merkle DAG: dsl_event_builders
 // DSL Event Builders - Start/End/Intermediate/Boundary Events
 
-import type { EventIR, EventDefinitionIR } from '@etzhayyim/bpmn-sdk/core';
+import type { EventIR, EventDefinitionIR } from '@etzhayyim/bpmn-sdk-core';
 import type { DslContext, MutableEventIR } from '../bpmn-dsl';
 
 // Base Event Builder

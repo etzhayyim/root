@@ -1,8 +1,8 @@
 // Property-based Testing Integration Tests
 
-import { BpmnRuntime } from '@etzhayyim/bpmn-sdk/runtime';
-import { bpmnPropertyTest, bpmnScenarioTest } from '@etzhayyim/bpmn-sdk/testing';
-import { flow } from '@etzhayyim/bpmn-sdk/dsl';
+import { BpmnRuntime } from '@etzhayyim/bpmn-sdk-runtime';
+import { bpmnPropertyTest, bpmnScenarioTest } from '@etzhayyim/bpmn-sdk-testing';
+import { flow } from '@etzhayyim/bpmn-sdk-dsl';
 
 describe.skip('Property-based Testing Integration', () => {
   let runtime: BpmnRuntime;

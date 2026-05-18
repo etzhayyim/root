@@ -2,8 +2,8 @@
 // BPMN Runtime using bpmn-engine
 
 import { Engine } from 'bpmn-engine';
-import type { BpmnIR } from '@etzhayyim/bpmn-sdk/core';
-import { compileToXml } from '@etzhayyim/bpmn-sdk/compiler';
+import type { BpmnIR } from '@etzhayyim/bpmn-sdk-core';
+import { compileToXml } from '@etzhayyim/bpmn-sdk-compiler';
 
 // Runtime execution context
 export interface ExecutionContext {

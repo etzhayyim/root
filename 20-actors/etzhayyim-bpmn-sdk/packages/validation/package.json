@@ -1,5 +1,5 @@
 {
-  "name": "@etzhayyim/bpmn-sdk/validation",
+  "name": "@etzhayyim/bpmn-sdk-validation",
   "version": "0.1.0",
   "description": "Static validation for BPMN processes - reachability analysis and structural verification",
   "license": "Apache-2.0",
@@ -26,9 +26,18 @@
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "@etzhayyim/bpmn-sdk/core": "workspace:*"
+    "@etzhayyim/bpmn-sdk-core": "workspace:*"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etzhayyim/root.git",
+    "directory": "20-actors/etzhayyim-bpmn-sdk/packages/validation"
+  }
 }

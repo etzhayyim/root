@@ -1,13 +1,13 @@
 // Merkle DAG: e2e_integration_test
 // Complete E2E Integration Test - All Components Working Together
 
-import { flow } from '@etzhayyim/bpmn-sdk/dsl';
-import { compileToXml } from '@etzhayyim/bpmn-sdk/compiler';
-import { BpmnRuntime } from '@etzhayyim/bpmn-sdk/runtime';
-import { validateProcess } from '@etzhayyim/bpmn-sdk/validation';
-import { HumanTaskManager } from '@etzhayyim/bpmn-sdk/human';
-import { BpmnMonitor } from '@etzhayyim/bpmn-sdk/ops';
-import { bpmnPropertyTest, bpmnScenarioTest } from '@etzhayyim/bpmn-sdk/testing';
+import { flow } from '@etzhayyim/bpmn-sdk-dsl';
+import { compileToXml } from '@etzhayyim/bpmn-sdk-compiler';
+import { BpmnRuntime } from '@etzhayyim/bpmn-sdk-runtime';
+import { validateProcess } from '@etzhayyim/bpmn-sdk-validation';
+import { HumanTaskManager } from '@etzhayyim/bpmn-sdk-human';
+import { BpmnMonitor } from '@etzhayyim/bpmn-sdk-ops';
+import { bpmnPropertyTest, bpmnScenarioTest } from '@etzhayyim/bpmn-sdk-testing';
 
 /**
  * Complete BPMN Process: Invoice Approval Workflow

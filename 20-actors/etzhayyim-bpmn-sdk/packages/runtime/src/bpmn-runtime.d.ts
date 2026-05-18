@@ -1,4 +1,4 @@
-import type { BpmnIR } from '@etzhayyim/bpmn-sdk/core';
+import type { BpmnIR } from '@etzhayyim/bpmn-sdk-core';
 export interface ExecutionContext {
     processId: string;
     instanceId: string;

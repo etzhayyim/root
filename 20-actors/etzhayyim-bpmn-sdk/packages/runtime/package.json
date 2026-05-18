@@ -1,5 +1,5 @@
 {
-  "name": "@etzhayyim/bpmn-sdk/runtime",
+  "name": "@etzhayyim/bpmn-sdk-runtime",
   "version": "0.1.0",
   "description": "BPMN runtime integration with bpmn-engine",
   "license": "Apache-2.0",
@@ -28,10 +28,19 @@
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "@etzhayyim/bpmn-sdk/core": "workspace:*",
-    "@etzhayyim/bpmn-sdk/compiler": "workspace:*"
+    "@etzhayyim/bpmn-sdk-core": "workspace:*",
+    "@etzhayyim/bpmn-sdk-compiler": "workspace:*"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etzhayyim/root.git",
+    "directory": "20-actors/etzhayyim-bpmn-sdk/packages/runtime"
+  }
 }

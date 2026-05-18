@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { BpmnRuntime, ExecutionContext } from './bpmn-runtime';
 
-describe('@etzhayyim/bpmn-sdk/runtime', () => {
+describe('@etzhayyim/bpmn-sdk-runtime', () => {
   let runtime: BpmnRuntime;
   let mockEngine: any;
 

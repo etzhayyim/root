@@ -1,7 +1,7 @@
 // Merkle DAG: dsl_subprocess_builders
 // DSL SubProcess Builders - Embedded/Event/Transaction/AdHoc
 
-import type { SubProcessIR, LaneSetIR } from '@etzhayyim/bpmn-sdk/core';
+import type { SubProcessIR, LaneSetIR } from '@etzhayyim/bpmn-sdk-core';
 import { ProcessBuilder } from '../bpmn-dsl';
 import type { DslContext, MutableSubProcessIR } from '../bpmn-dsl';
 

@@ -1,7 +1,7 @@
 // Merkle DAG: human_task_manager
 // Human Task Manager - ユーザー割り当てとタスク管理
 
-import type { BpmnRuntime, ExecutionContext, RuntimeEvent } from '@etzhayyim/bpmn-sdk/runtime';
+import type { BpmnRuntime, ExecutionContext, RuntimeEvent } from '@etzhayyim/bpmn-sdk-runtime';
 import type {
   HumanTask,
   TaskStatus,

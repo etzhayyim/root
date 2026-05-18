@@ -1,7 +1,7 @@
 // Merkle DAG: dsl_gateway_builders
 // DSL Gateway Builders - Exclusive/Inclusive/Parallel/EventBased/Complex
 
-import type { GatewayIR, SequenceFlowIR } from '@etzhayyim/bpmn-sdk/core';
+import type { GatewayIR, SequenceFlowIR } from '@etzhayyim/bpmn-sdk-core';
 import type { DslContext, MutableGatewayIR, MutableSequenceFlowIR } from '../bpmn-dsl';
 
 // Base Gateway Builder

@@ -1,5 +1,5 @@
 // Merkle DAG: validation_package_index
-// @etzhayyim/bpmn-sdk/validation のメインエクスポート
+// @etzhayyim/bpmn-sdk-validation のメインエクスポート
 
 export { BpmnValidator, validateProcess } from './bpmn-validator';
 export type {

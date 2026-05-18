@@ -1,8 +1,8 @@
 // Monitoring & Observability Integration Tests
 
-import { BpmnRuntime } from '@etzhayyim/bpmn-sdk/runtime';
-import { BpmnMonitor } from '@etzhayyim/bpmn-sdk/ops';
-import { flow } from '@etzhayyim/bpmn-sdk/dsl';
+import { BpmnRuntime } from '@etzhayyim/bpmn-sdk-runtime';
+import { BpmnMonitor } from '@etzhayyim/bpmn-sdk-ops';
+import { flow } from '@etzhayyim/bpmn-sdk-dsl';
 
 describe.skip('Monitoring Integration', () => {
   let runtime: BpmnRuntime;

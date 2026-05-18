@@ -1,5 +1,5 @@
 // Merkle DAG: ops_package_index
-// @etzhayyim/bpmn-sdk/ops のメインエクスポート
+// @etzhayyim/bpmn-sdk-ops のメインエクスポート
 
 export { BpmnMonitor } from './bpmn-monitor';
 export type {
