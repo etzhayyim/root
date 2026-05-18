@@ -19,6 +19,8 @@ from typing import Any, Optional
 from langgraph.graph import END, StateGraph
 from typing_extensions import TypedDict
 
+from .actors.electrophys import ElectrophysActor
+from .actors.genetic_screen import GeneticScreenActor
 from .actors.institution_matcher import InstitutionMatcherActor
 from .actors.phenotype import PhenotypeActor
 from .actors.substrate_classifier import SubstrateClass, SubstrateClassifierActor
@@ -36,11 +38,13 @@ class UhlState(TypedDict, total=False):
     # V01 output
     phenotype: dict[str, Any]
 
-    # V02-V05 evidence fan-in (P0 MVP: caller may supply directly)
+    # V02-V05 evidence fan-in
     substrate_evidence: dict[str, Any]
-    genetic_result: dict[str, Any]      # V02 (stub)
+    genetic_input: dict[str, Any]       # V02 input
+    electrophys_input: dict[str, Any]   # V04 input
+    genetic_result: dict[str, Any]      # V02 output
     imaging_result: dict[str, Any]      # V03 (stub)
-    electrophys_result: dict[str, Any]  # V04 (stub)
+    electrophys_result: dict[str, Any]  # V04 output
     cmv_torch_result: dict[str, Any]    # V05 (stub)
 
     # V06 output
@@ -70,12 +74,22 @@ class UhlState(TypedDict, total=False):
 # ── Vertex implementations ───────────────────────────────────────────────────
 
 _phenotype = PhenotypeActor()
+_genetic = GeneticScreenActor()
+_electrophys = ElectrophysActor()
 _substrate = SubstrateClassifierActor()
 _institutions = InstitutionMatcherActor()
 
 
 def _v01_phenotype(state: UhlState) -> dict[str, Any]:
     return _phenotype.compute(state)
+
+
+def _v02_genetic(state: UhlState) -> dict[str, Any]:
+    return _genetic.compute(state)
+
+
+def _v04_electrophys(state: UhlState) -> dict[str, Any]:
+    return _electrophys.compute(state)
 
 
 def _v06_substrate(state: UhlState) -> dict[str, Any]:
@@ -96,12 +110,8 @@ def _make_stub(vertex_id: str, output_key: str) -> Any:
     return _stub
 
 
-# Stubs for V02-V05 evidence collectors. They emit empty results; the real
-# evidence is expected to come from caller-supplied `substrate_evidence`
-# during P0 MVP.
-_v02_stub = _make_stub("V02_genetic_screen", "genetic_result")
+# Stubs for V03 + V05. V02 + V04 are real actors (see imports above).
 _v03_stub = _make_stub("V03_imaging", "imaging_result")
-_v04_stub = _make_stub("V04_electrophys", "electrophys_result")
 _v05_stub = _make_stub("V05_cmv_torch", "cmv_torch_result")
 
 # Stubs for treatment-arm vertices (V07-V11). Selected based on V06 decision.
@@ -155,9 +165,9 @@ def _build() -> StateGraph:
 
     # Vertices
     g.add_node("V01_phenotype", _v01_phenotype)
-    g.add_node("V02_genetic_screen", _v02_stub)
+    g.add_node("V02_genetic_screen", _v02_genetic)
     g.add_node("V03_imaging", _v03_stub)
-    g.add_node("V04_electrophys", _v04_stub)
+    g.add_node("V04_electrophys", _v04_electrophys)
     g.add_node("V05_cmv_torch", _v05_stub)
     g.add_node("V06_substrate_classifier", _v06_substrate)
     g.add_node("V07_otof_tx", _v07_stub)

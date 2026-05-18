@@ -9,11 +9,15 @@ Remaining vertices (V02-V05, V07-V15) are declared as no-op stubs in pregel.py
 and will be implemented in subsequent PRs per the ADR-2605181000 phasing.
 """
 
+from .electrophys import ElectrophysActor
+from .genetic_screen import GeneticScreenActor
 from .institution_matcher import InstitutionMatcherActor
 from .phenotype import PhenotypeActor
 from .substrate_classifier import SubstrateClassifierActor, SubstrateClass
 
 __all__ = [
+    "ElectrophysActor",
+    "GeneticScreenActor",
     "InstitutionMatcherActor",
     "PhenotypeActor",
     "SubstrateClass",
