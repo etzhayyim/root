@@ -112,3 +112,63 @@ def test_phenotype_out_of_scope_left_side() -> None:
     assert final["phenotype"]["in_project_scope"] is False
     # Pipeline still runs (we don't hard-block out-of-scope), but flag is False
     assert "institution_match" in final
+
+
+def test_p0_full_pipeline_emits_v10_v12_v13_outputs() -> None:
+    """SGN_PRESENT_HC_LOSS pediatric case exercises V10 + V12 + V13 actors."""
+    final = app.invoke(
+        {
+            "phenotype_input": {
+                "patient_ref": "test-hash-p0fullxx",
+                "side": "right",
+                "age_years": 2.0,
+                "onset": "congenital",
+                "progressive": False,
+                "locale_country": "JP",
+            },
+            "substrate_evidence": {
+                "cn_fiber_count": 4,
+                "eabr_present": True,
+                "eabr_latency_prolonged": False,
+                "dpoae_present": False,
+            },
+            "outcome_input": {
+                "localization": {"trials": 20, "successes": 14},
+                "sin": {"trials": 20, "successes": 15},
+                "pedsql": {"trials": 20, "successes": 16},
+            },
+        }
+    )
+    # V10 — eCI fitting plan with pediatric seed
+    assert final["device_plan"]["recommendation"] == "electrical_ci"
+    assert final["device_plan"]["t_level_initial_cl"] == 100
+    # V12 — optimal phase gate at age 2
+    assert final["plasticity_plan"]["phase_gate"] == "optimal"
+    assert final["plasticity_plan"]["phase_gate_passed"] is True
+    # V13 — three Beta-Binomial posteriors with credible intervals in [0,1]
+    posterior = final["outcome_posterior"]
+    for axis in ("localization", "sin", "pedsql"):
+        a = posterior[axis]
+        assert 0.0 <= a["credible_interval_low"] <= a["credible_interval_high"] <= 1.0
+
+
+def test_nerve_aplasia_defers_device_to_abi() -> None:
+    """NERVE_APLASIA routes V10 → DEFER_PENDING_V11 (V11 ABI is P1 stub)."""
+    final = app.invoke(
+        {
+            "phenotype_input": {
+                "patient_ref": "test-hash-aplasia0",
+                "side": "right",
+                "age_years": 3.0,
+                "onset": "congenital",
+                "progressive": False,
+                "locale_country": "JP",
+            },
+            "substrate_evidence": {"cn_fiber_count": 0},
+        }
+    )
+    # Routed via V11 path so V10 not visited (no device_plan in state).
+    assert final["substrate_decision"]["substrate_class"] == "nerve_aplasia"
+    assert final["plasticity_plan"]["phase_gate"] == "optimal"
+    assert "outcome_posterior" in final
+    assert "institution_match" in final
