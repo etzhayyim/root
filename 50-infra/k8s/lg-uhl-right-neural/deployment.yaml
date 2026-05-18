@@ -1,0 +1,118 @@
+# lg-uhl-right-neural — LangServer pod for the uhl_right_neural Pregel.
+#
+# Serves the 16-vertex StateGraph defined at
+#   pymagatama.projects.uhl_right_neural.pregel:app
+# over the standard LangGraph CLI HTTP runtime (/invoke /batch /stream).
+#
+# Authoritative:
+#   ADR-2605181000 — uhl-right-neural project charter
+#   ADR-2605180900 — langserver four-call-surface pattern
+#
+# Pre-requisites:
+#   - ghcr.io/etzhayyim/pymagatama image built with the
+#     pymagatama.projects.uhl_right_neural package
+#   - langgraph.json present in the image at the working dir
+#   - no DATABASE_URL needed — V16 institution registry is in-package YAML;
+#     no PDS / RW reads in P0 MVP scope.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: lg-uhl-right-neural
+  namespace: mitama-udf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lg-uhl-right-neural
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-uhl-right-neural
+    app.kubernetes.io/component: langgraph-server
+    app.kubernetes.io/part-of: uhl-right-neural.etzhayyim.com
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lg-uhl-right-neural
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lg-uhl-right-neural
+    spec:
+      serviceAccountName: lg-uhl-right-neural
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: server
+          # Production: pin a digest. Use `kubectl set image` to update.
+          image: ghcr.io/etzhayyim/lg-uhl-right-neural:main
+          imagePullPolicy: Always
+          env:
+            - name: PORT
+              value: "8080"
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            # P0 MVP: V13 outcome / V12 plasticity stubs do not need a model.
+            # When V13 PyMC + V14 trial-design come online, add ANTHROPIC_API_KEY
+            # (or local LLM endpoint) here.
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ok
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /ok
+              port: http
+            initialDelaySeconds: 8
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lg-uhl-right-neural
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-uhl-right-neural
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: lg-uhl-right-neural
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP
