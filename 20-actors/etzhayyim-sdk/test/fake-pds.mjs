@@ -90,7 +90,24 @@ export async function startFakePds({port = 0, sessionDid = "did:web:fake.etzhayy
         if (!r.uri.startsWith(`at://${repo}/${collection}/`)) continue;
         out.push({uri: r.uri, cid: r.cid, value: r.value});
       }
-      return {records: out};
+      // reverse=true → newest first (insertion order is creation order).
+      if (query.reverse === "true") out.reverse();
+      const limit = query.limit ? Number(query.limit) : 50;
+      return {records: out.slice(0, limit)};
+    },
+
+    "GET /xrpc/com.atproto.repo.getRecord": (_req, _body, query) => {
+      const repo = query.repo;
+      const collection = query.collection;
+      const rkey = query.rkey;
+      const uri = `at://${repo}/${collection}/${rkey}`;
+      const r = records.get(uri);
+      if (!r) {
+        const err = new Error("Record not found");
+        err.statusCode = 404;
+        throw err;
+      }
+      return {uri: r.uri, cid: r.cid, value: r.value};
     },
   };
 
