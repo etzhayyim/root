@@ -204,12 +204,13 @@ spec:
             # so the pinned bytes are ciphertext per ADR-2605181100.
             - name: ETZ_IPFS_API_URL
               value: "http://simeonnomac-mini.local:5001"
-            # Stage 4 (Base L2 anchor) — deferred. Awaiting the
-            # EtzhayyimAnchor contract deploy to Base sepolia / mainnet
-            # (currently only at deps.toml address_local_anvil). Once an
-            # address lands in platform.l2.anchor_contract.address_testnet
-            # uncomment the env below + add an anchor-cron CronJob per
-            # ADR-2605171800 §Stage 5b.
+            # Stage 4 (Base L2 anchor) — implementation ready, deploy
+            # pending. The anchor-cron CronJob at
+            # 50-infra/anchor-cron/k8s/cronjob.yaml drives submission via
+            # msgpack IPC to this sidecar's anchor_pending / anchor_commit
+            # ops. Once EtzhayyimAnchor lands at
+            # deps.toml [platform.l2.anchor_contract].address_testnet,
+            # kubectl apply that CronJob and uncomment the chain id below.
             # - name: ETZ_ANCHOR_CHAIN_ID
             #   value: "84532"  # Base sepolia
           # No HTTP port — listens on the Unix socket in the shared volume.
