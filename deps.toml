@@ -361,6 +361,13 @@ status = "proposed"
 status_note = "DFNB9 biallelic ACMG class 4-5 = hard inclusion gate. V02 GeneticScreenActor (PR #29) emits biallelic_otof_pathogenic flag → V16 filters GENE_TX_OTOF capability when unconfirmed. CHORD JP site name still public TBD by Regeneron (watch list). PMDA approval estimated 2027-2028."
 path = "90-docs/adr/2605181060-otarmeni-access-path.md"
 
+[[adrs]]
+id = "2605190900"
+title = "Knowledge Graph as Lexicon — app.etzhayyim.kg.{node,edge} + IPLD payload + ephemeral OxiGraph AppView"
+status = "proposed"
+status_note = "Substrate-native KG layer over deps.toml / ADR / module / lexicon / capability relations. Reuses ADR-2605171800 MST→IPFS→L2 spine for persistence; OxiGraph AppView holds no durable state (RW-free). MVP = Lexicons + projector (this PR + next PR); AppView is K2 follow-up."
+path = "90-docs/adr/2605190900-kg-as-lexicon-ipld-oxigraph-appview.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
