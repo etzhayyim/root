@@ -1,6 +1,6 @@
 "use strict";
 // Merkle DAG: validation_package_index
-// @gftd/bpmn-sdk/validation のメインエクスポート
+// @etzhayyim/bpmn-sdk/validation のメインエクスポート
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateProcess = exports.BpmnValidator = void 0;
 var bpmn_validator_1 = require("./bpmn-validator");

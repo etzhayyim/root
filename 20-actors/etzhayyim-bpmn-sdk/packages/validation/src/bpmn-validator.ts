@@ -1,7 +1,7 @@
 // Merkle DAG: bpmn_validator
 // BPMN Static Validator - 到達性分析とプロセス検証
 
-import type { BpmnIR, ProcessIR, FlowElementIR } from '@gftd/bpmn-sdk/core';
+import type { BpmnIR, ProcessIR, FlowElementIR } from '@etzhayyim/bpmn-sdk/core';
 import type {
   ValidationResult,
   ValidationError,

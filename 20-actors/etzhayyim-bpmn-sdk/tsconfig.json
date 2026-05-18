@@ -27,7 +27,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@gftd/bpmn-sdk/*": ["packages/*/src"]
+      "@etzhayyim/bpmn-sdk/*": ["packages/*/src"]
     }
   },
   "include": [

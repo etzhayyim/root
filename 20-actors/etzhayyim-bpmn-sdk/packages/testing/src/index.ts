@@ -1,5 +1,5 @@
 // Merkle DAG: testing_package_index
-// @gftd/bpmn-sdk/testing のメインエクスポート
+// @etzhayyim/bpmn-sdk/testing のメインエクスポート
 
 export { BpmnPropertyTester, bpmnPropertyTest, bpmnScenarioTest } from './bpmn-property-test';
 export type {

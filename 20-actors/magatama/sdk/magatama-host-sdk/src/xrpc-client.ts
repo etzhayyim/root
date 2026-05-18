@@ -1,16 +1,16 @@
 // xrpc-client.ts — Typed XRPC client for atproto.etzhayyim.com.
-// NSID utilities delegated to @gftd/xrpc.
+// NSID utilities delegated to @etzhayyim/xrpc.
 
 import {
   collectionToLabel,
   expandCollection,
   witToCollection,
   nsidToMethod,
-} from "@gftd/xrpc/nsid";
-import type { Fetcher } from "@gftd/xrpc/transport";
-import { BindingTransport } from "@gftd/xrpc/transport";
-import { ServiceAuth } from "@gftd/xrpc/auth";
-import { throwOnError } from "@gftd/xrpc/error";
+} from "@etzhayyim/xrpc/nsid";
+import type { Fetcher } from "@etzhayyim/xrpc/transport";
+import { BindingTransport } from "@etzhayyim/xrpc/transport";
+import { ServiceAuth } from "@etzhayyim/xrpc/auth";
+import { throwOnError } from "@etzhayyim/xrpc/error";
 import type { WriteBufferEntry } from "./types.js";
 import { dispatchWriteEntry } from "./write-dispatch.generated.js";
 import {

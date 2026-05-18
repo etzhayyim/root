@@ -7,7 +7,7 @@ import { NodeSDK } from '@opentelemetry/sdk-node';
 import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
 import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
 
-import type { BpmnRuntime } from '@gftd/bpmn-sdk/runtime';
+import type { BpmnRuntime } from '@etzhayyim/bpmn-sdk/runtime';
 import type {
   MonitoringConfig,
   ProcessMetrics,

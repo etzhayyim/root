@@ -1,5 +1,5 @@
 // Merkle DAG: dsl_package_index
-// @gftd/bpmn-sdk/dsl のメインエクスポート
+// @etzhayyim/bpmn-sdk/dsl のメインエクスポート
 
 export { flow } from './bpmn-dsl';
 export type { FlowBuilderResult } from './bpmn-dsl';

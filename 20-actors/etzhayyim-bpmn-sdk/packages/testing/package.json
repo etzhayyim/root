@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/bpmn-sdk/testing",
+  "name": "@etzhayyim/bpmn-sdk/testing",
   "version": "0.1.0",
   "description": "Property-based testing framework for BPMN processes",
   "type": "module",
@@ -30,9 +30,9 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@gftd/bpmn-sdk/core": "workspace:*",
-    "@gftd/bpmn-sdk/runtime": "workspace:*",
-    "@gftd/bpmn-sdk/validation": "workspace:*"
+    "@etzhayyim/bpmn-sdk/core": "workspace:*",
+    "@etzhayyim/bpmn-sdk/runtime": "workspace:*",
+    "@etzhayyim/bpmn-sdk/validation": "workspace:*"
   },
   "files": [
     "dist"

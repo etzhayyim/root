@@ -1,12 +1,12 @@
 {
-  "name": "@gftd/bpmn-sdk-example/dmn-js-minimal",
+  "name": "@etzhayyim/bpmn-sdk-example/dmn-js-minimal",
   "private": true,
   "type": "module",
   "scripts": {
     "start": "vite"
   },
   "dependencies": {
-    "@gftd/bpmn-sdk/dmn": "workspace:*"
+    "@etzhayyim/bpmn-sdk/dmn": "workspace:*"
   },
   "devDependencies": {
     "vite": "^5.2.0"

@@ -5,7 +5,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { BpmnValidator } from './bpmn-validator';
 import type { ValidationOptions } from './types';
 
-describe('@gftd/bpmn-sdk/validation', () => {
+describe('@etzhayyim/bpmn-sdk/validation', () => {
   let validator: BpmnValidator;
   let defaultOptions: ValidationOptions;
 

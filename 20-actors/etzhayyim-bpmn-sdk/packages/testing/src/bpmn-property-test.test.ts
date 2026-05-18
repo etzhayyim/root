@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { BpmnPropertyTester, bpmnPropertyTest, bpmnScenarioTest } from './bpmn-property-test';
-import { BpmnRuntime } from '@gftd/bpmn-sdk/runtime';
+import { BpmnRuntime } from '@etzhayyim/bpmn-sdk/runtime';
 
-describe('@gftd/bpmn-sdk/testing', () => {
+describe('@etzhayyim/bpmn-sdk/testing', () => {
   let runtime: BpmnRuntime;
   let tester: BpmnPropertyTester;
 

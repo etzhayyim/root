@@ -1,5 +1,5 @@
 import { AtpAgent, type AppBskyActorDefs, type AppBskyFeedDefs, type AppBskyRichtextFacet } from '@atproto/api';
-import { setSignalTransport } from '@gftd/signal';
+import { setSignalTransport } from '@etzhayyim/signal';
 
 export type Did = string;
 export type ConvoId = string;

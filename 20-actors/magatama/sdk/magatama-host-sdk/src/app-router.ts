@@ -1,4 +1,4 @@
-import { isWellFormedNsid, resolveXrpcMethod } from "@gftd/xrpc/dispatch";
+import { isWellFormedNsid, resolveXrpcMethod } from "@etzhayyim/xrpc/dispatch";
 import { parseUrl, respondJson } from "./helpers.js";
 
 export type HeaderPair = [string, string];

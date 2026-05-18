@@ -1,4 +1,4 @@
-// @gftd/xrpc — Unified XRPC client for W Protocol / AT Protocol.
+// @etzhayyim/xrpc — Unified XRPC client for W Protocol / AT Protocol.
 //
 // Single Source of Truth for NSID utilities, transport, auth, and error handling.
 // Consumers: magatama-host-sdk (`xrpc-client.ts`, `app.ts`, `app-router.ts`),

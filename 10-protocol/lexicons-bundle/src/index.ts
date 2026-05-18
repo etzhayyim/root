@@ -1,5 +1,5 @@
 /**
- * @gftd/lexicons-bundle — runtime @atproto/lexicon Lexicons instance built
+ * @etzhayyim/lexicons-bundle — runtime @atproto/lexicon Lexicons instance built
  * from 00-contracts/lexicons (SSoT). Used for XRPC client/server validation
  * so that yoro extension fields (performerType, viewerFollowing, nanoid, ...)
  * pass strict validation instead of triggering a fallback path that hides bugs.

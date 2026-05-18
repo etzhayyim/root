@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/bpmn-sdk/runtime",
+  "name": "@etzhayyim/bpmn-sdk/runtime",
   "version": "0.1.0",
   "description": "BPMN runtime integration with bpmn-engine",
   "license": "Apache-2.0",
@@ -28,8 +28,8 @@
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "@gftd/bpmn-sdk/core": "workspace:*",
-    "@gftd/bpmn-sdk/compiler": "workspace:*"
+    "@etzhayyim/bpmn-sdk/core": "workspace:*",
+    "@etzhayyim/bpmn-sdk/compiler": "workspace:*"
   },
   "files": [
     "dist"
