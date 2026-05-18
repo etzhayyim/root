@@ -378,15 +378,19 @@ path = "90-docs/adr/2605181060-otarmeni-access-path.md"
 [[modules]]
 path = "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural"
 kind = "langgraph-pregel-project"
-version = "0.0.1"
-status = "scaffold-P0"
-description = "uhl-right-neural — 先天性右側感音難聴 (neural軸) 治療研究 Pregel. 16-vertex StateGraph (V01-V16), V01/V02/V04/V06/V16 implemented, V03/V05/V07-V15 stubs. 15-institution registry seed (CC-BY-4.0). Decision support only — every output enforces requires_human_review=true."
+version = "0.1.0"
+status = "P0-complete"
+description = "uhl-right-neural — 先天性右側感音難聴 (neural軸) 治療研究 Pregel. 16-vertex StateGraph (V01-V16). P0 complete (charter Phase 0): V01 phenotype / V02 genetic_screen / V03 imaging / V04 electrophys / V05 cmv_torch / V06 substrate_classifier / V10 conventional_device (eCI fitting) / V12 plasticity / V13 outcome (Beta-Binomial conjugate) / V16 institution_matcher. V07/V11/V14/V15 = P1 stubs, V08 = P2 stub, V09/V10b = P3 stubs. 15-institution registry seed (CC-BY-4.0). Decision support only — every output enforces requires_human_review=true."
 adr = ["2605181000", "2605181040", "2605181050", "2605181060"]
 sibling_modules = [
   "50-infra/k8s/lg-uhl-right-neural",
   "60-apps/open-otology-uhl-r",
 ]
 lexicons = "00-contracts/lexicons/jp/etzhayyim/med/uhl/institution"
+dmn = [
+  "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/substrate_classifier.md",
+  "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/plasticity_gate.md",
+]
 prs = ["#23", "#25", "#29"]
 
 [[modules]]
