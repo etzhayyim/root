@@ -794,7 +794,43 @@ seed_method_actual = "rsync (per user direction 'filter-repo は不要、関連�
 [platform.tranche_f]
 # Phase 2 scaffolding for open-scope items eligible for etzhayyim/root
 # per the 3-axis decision rule (Liability / Custody / Settlement).
-status = "phase-3-done-phase-4a-wave-2-in-progress"
+status = "mechanical-complete-2026-05-18"
+closure_summary = """Tranche F mechanical migration COMPLETE 2026-05-18.
+27 PRs landed (17 vendor + 10 etzhayyim/root). ~520 items NSID-migrated,
+~3,500 files touched, 17 npm packages published. Vendor side closure
+canonical: gftdcojp/ai-gftd-apps-gftdcojp deps.toml [[migrations]]
+id=tranche-f-closure-summary-2026-05-18 (PR #1306).
+ADR closure: 90-docs/adr/2605172400 # Closure section (PR #1307).
+
+## Phase summary
+
+- Phase 1 catalog freeze        ✓ vendor PR #1286
+- Phase 2 scaffolding           ✓ etzhayyim PRs #16 + #18 (8 + 72 dirs)
+- Phase 3 content copy          ✓ etzhayyim PRs #24 + #26 (395 files)
+- Phase 4a npm publish          ✓ 17 packages to npm.pkg.github.com
+- Phase 4b consumer pipe        ✓ vendor PR #1287 smoke test
+- Phase 4c vendor NSID          ✓ 10 waves, vendor PRs #1290..#1300 + #1303 + #1304
+- Phase 5 vendor deletion       ✓ 4 waves (stub-ready items) + runbook (live items)
+
+## Published @etzhayyim/* (17)
+
+- @etzhayyim/sdk@0.1.0-alpha
+- @etzhayyim/pregel@0.0.0
+- @etzhayyim/did-etzhayyim@0.1.0
+- @etzhayyim/xrpc@1.0.0
+- @etzhayyim/signal@0.1.0
+- @etzhayyim/lexicons-bundle@1.0.0
+- @etzhayyim/bpmn-sdk-{compiler,core,dmn,dsl,form,human,importer,ops,runtime,testing,validation}
+
+## Remaining (deferred, not mechanical)
+
+- Live-deploy vendor deletion (yoro/public-malak/watashi) = operator runbook
+- Vendor business-app consumer switch to @etzhayyim/lexicons-bundle = use-case driven
+- ADR-2605171900 stages 3-5 operator-runbook tracking on vendor PR #1305
+
+## Re-judgment quarterly
+
+2026-08-17 / 2026-11-17 / 2027-02-17 (per ADR-2605172400 closure rules)."""
 phase_4a_publish_state = """GH Packages npm.pkg.github.com publish state (2026-05-18):
 - @etzhayyim/sdk@0.1.0-alpha (tag: alpha) ✓
 - @etzhayyim/pregel@0.0.0 (tag: preview) ✓
