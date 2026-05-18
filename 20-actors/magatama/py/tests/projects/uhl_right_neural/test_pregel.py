@@ -298,3 +298,69 @@ def test_p1_non_dfnb9_routes_to_device_classification() -> None:
     reg = final["regulatory_path"]
     assert reg["treatment_category"] == "electrical_cochlear_implant"
     assert reg["fda_pathway"] == "premarket_approval"
+
+
+def test_p2_sgn_degenerating_routes_to_neurotrophin() -> None:
+    """SGN_DEGENERATING_NERVE_PRESENT routes V08 neurotrophin research track."""
+    final = app.invoke(
+        {
+            "phenotype_input": {
+                "patient_ref": "test-hash-sgndegen",
+                "side": "right",
+                "age_years": 3.0,
+                "onset": "congenital",
+                "progressive": False,
+                "locale_country": "JP",
+            },
+            "substrate_evidence": {
+                "cn_fiber_count": 3,
+                "eabr_present": True,
+                "eabr_latency_prolonged": True,
+            },
+        }
+    )
+    assert (
+        final["substrate_decision"]["substrate_class"]
+        == "sgn_degenerating_nerve_present"
+    )
+    nt = final["neurotrophin_plan"]
+    assert "_stub" not in nt
+    assert nt["recommendation"] == "research_track_eligible"
+    assert nt["parallel_eci_track"] is True
+    assert nt["research_path_id"] == "sgn-regen-uk-research"
+    # V15 should classify as AAV-neurotrophin (IND path).
+    reg = final["regulatory_path"]
+    assert reg["treatment_category"] == "aav_neurotrophin_preservation"
+    assert reg["fda_pathway"] == "investigational_new_drug"
+
+
+def test_p3_sgn_absent_nerve_present_routes_to_reprogramming() -> None:
+    """SGN_ABSENT_NERVE_PRESENT routes V09 reprog → optoCI bridge."""
+    final = app.invoke(
+        {
+            "phenotype_input": {
+                "patient_ref": "test-hash-sgnabsent",
+                "side": "right",
+                "age_years": 25.0,
+                "onset": "congenital",
+                "progressive": False,
+                "locale_country": "JP",
+            },
+            "substrate_evidence": {
+                "cn_fiber_count": 2,
+                "eabr_present": False,
+            },
+        }
+    )
+    assert (
+        final["substrate_decision"]["substrate_class"]
+        == "sgn_absent_nerve_present"
+    )
+    rp = final["reprogramming_plan"]
+    assert "_stub" not in rp
+    assert rp["recommendation"] == "research_track_eligible"
+    assert rp["bridge_track"] == "opto_ci_de_trial"
+    # V15 should classify as in-situ reprog → IND path.
+    reg = final["regulatory_path"]
+    assert reg["treatment_category"] == "in_situ_genetic_reprogramming"
+    assert reg["fda_pathway"] == "investigational_new_drug"

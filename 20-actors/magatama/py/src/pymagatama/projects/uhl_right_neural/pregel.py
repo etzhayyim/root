@@ -2,7 +2,10 @@
 
 Authoritative per ADR-2605181000 §16-vertex Pregel topology.
 
-P0 + P1 (charter Phases 0-1 — V01-V07 + V10a + V11-V13 + V15-V16):
+P0-P3 charter implementation status — every treatment-arm vertex is
+now a real actor; only V14 trial_design + V10b optoCI sub-variant
+remain stubs.
+
   - V01 phenotype             — implemented (actors/phenotype.py)
   - V02 genetic_screen        — implemented (actors/genetic_screen.py)
   - V03 imaging               — implemented (actors/imaging.py)
@@ -10,6 +13,8 @@ P0 + P1 (charter Phases 0-1 — V01-V07 + V10a + V11-V13 + V15-V16):
   - V05 cmv_torch             — implemented (actors/cmv_torch.py)
   - V06 substrate_classifier  — implemented (actors/substrate_classifier.py)
   - V07 otof_tx               — implemented (actors/otof_tx.py)          P1
+  - V08 neurotrophin          — implemented (actors/neurotrophin.py)     P2
+  - V09 reprogramming         — implemented (actors/reprogramming.py)   P3
   - V10 conventional_device   — implemented (actors/conventional_device.py)
                                 (V10a eCI fitting; V10b optoCI is P3)
   - V11 abi                   — implemented (actors/abi.py)              P1
@@ -18,10 +23,13 @@ P0 + P1 (charter Phases 0-1 — V01-V07 + V10a + V11-V13 + V15-V16):
   - V15 regulatory            — implemented (actors/regulatory.py)       P1
   - V16 institution_match     — implemented (actors/institution_matcher.py)
 
-Stubs awaiting later phases:
-  - V08 BDNF/NT-3                          → P2
-  - V09 reprogramming, V10b optoCI         → P3
-  - V14 trial_design                       → P1-P2 (next)
+Remaining stubs:
+  - V14 trial_design                       → P1-P2 (in-progress, parallel branch)
+  - V10b optoCI sub-variant of V10        → P3 (when optoCI trial opens)
+
+V08 and V09 are honest "research-track classification" actors —
+preclinical, no current human treatment, but the patient is
+registered as eligible for the relevant research pipeline.
 """
 from __future__ import annotations
 
@@ -38,11 +46,13 @@ from .actors.electrophys import ElectrophysActor
 from .actors.genetic_screen import GeneticScreenActor
 from .actors.imaging import ImagingActor
 from .actors.institution_matcher import InstitutionMatcherActor
+from .actors.neurotrophin import NeurotrophinActor
 from .actors.otof_tx import OtofTxActor
 from .actors.outcome import OutcomeActor
 from .actors.phenotype import PhenotypeActor
 from .actors.plasticity import PlasticityActor
 from .actors.regulatory import RegulatoryActor
+from .actors.reprogramming import ReprogrammingActor
 from .actors.substrate_classifier import SubstrateClass, SubstrateClassifierActor
 
 
@@ -105,6 +115,8 @@ _electrophys = ElectrophysActor()
 _cmv_torch = CmvTorchActor()
 _substrate = SubstrateClassifierActor()
 _otof = OtofTxActor()
+_neurotrophin = NeurotrophinActor()
+_reprogramming = ReprogrammingActor()
 _device = ConventionalDeviceActor()
 _abi = AbiActor()
 _plasticity = PlasticityActor()
@@ -139,6 +151,14 @@ def _v06_substrate(state: UhlState) -> dict[str, Any]:
 
 def _v07_otof_tx(state: UhlState) -> dict[str, Any]:
     return _otof.compute(state)
+
+
+def _v08_neurotrophin(state: UhlState) -> dict[str, Any]:
+    return _neurotrophin.compute(state)
+
+
+def _v09_reprogramming(state: UhlState) -> dict[str, Any]:
+    return _reprogramming.compute(state)
 
 
 def _v10_device_fitting(state: UhlState) -> dict[str, Any]:
@@ -176,8 +196,8 @@ def _make_stub(vertex_id: str, output_key: str) -> Any:
 
 
 # Stubs for treatment-arm vertices not yet implemented (charter P2/P3).
-_v08_stub = _make_stub("V08_neurotrophin", "neurotrophin_plan")  # P2
-_v09_stub = _make_stub("V09_reprogramming", "reprogramming_plan")  # P3
+# V08 (P2 BDNF/NT-3) and V09 (P3 reprog) are now real actors — see
+# above. No remaining treatment-arm stubs.
 
 # V14 trial design is the next P1 vertex (currently stub).
 _v14_stub = _make_stub("V14_trial_design", "trial_protocol")
@@ -226,8 +246,8 @@ def _build() -> StateGraph:
     g.add_node("V05_cmv_torch", _v05_cmv_torch)
     g.add_node("V06_substrate_classifier", _v06_substrate)
     g.add_node("V07_otof_tx", _v07_otof_tx)
-    g.add_node("V08_neurotrophin", _v08_stub)
-    g.add_node("V09_reprogramming", _v09_stub)
+    g.add_node("V08_neurotrophin", _v08_neurotrophin)
+    g.add_node("V09_reprogramming", _v09_reprogramming)
     g.add_node("V10_device_fitting", _v10_device_fitting)
     g.add_node("V11_abi", _v11_abi)
     g.add_node("V12_plasticity", _v12_plasticity)
