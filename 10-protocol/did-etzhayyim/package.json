@@ -18,6 +18,30 @@
   "scripts": {
     "test": "vitest run"
   },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etzhayyim/root.git",
+    "directory": "10-protocol/did-etzhayyim"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "did",
+    "did-method",
+    "did-gftd",
+    "did-etzhayyim",
+    "w3c-did",
+    "cidv1",
+    "dag-cbor",
+    "atproto"
+  ],
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.10.0",
