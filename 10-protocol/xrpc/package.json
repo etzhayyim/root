@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/xrpc",
+  "name": "@etzhayyim/xrpc",
   "version": "1.0.0",
   "description": "Unified XRPC client — NSID utilities, transport abstraction, auth resolution, error handling",
   "type": "module",
@@ -27,5 +27,14 @@
   "files": [
     "src"
   ],
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etzhayyim/root.git",
+    "directory": "10-protocol/xrpc"
+  }
 }

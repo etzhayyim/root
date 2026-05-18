@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/lexicons-bundle",
+  "name": "@etzhayyim/lexicons-bundle",
   "version": "1.0.0",
   "description": "Compiled bundle of 00-contracts/lexicons/*.json as a runtime @atproto/lexicon Lexicons instance. SSoT for client+server XRPC validation.",
   "type": "module",
@@ -22,5 +22,14 @@
   "files": [
     "src"
   ],
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etzhayyim/root.git",
+    "directory": "10-protocol/lexicons-bundle"
+  }
 }

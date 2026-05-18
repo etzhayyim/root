@@ -1,6 +1,6 @@
 "use strict";
 // Merkle DAG: dsl_package_index
-// @gftd/bpmn-sdk/dsl のメインエクスポート
+// @etzhayyim/bpmn-sdk/dsl のメインエクスポート
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);

@@ -1,4 +1,4 @@
-import type { BpmnIR, ProcessIR, EventIR, TaskIR, GatewayIR, SubProcessIR, SequenceFlowIR, EventDefinitionIR } from '@gftd/bpmn-sdk/core';
+import type { BpmnIR, ProcessIR, EventIR, TaskIR, GatewayIR, SubProcessIR, SequenceFlowIR, EventDefinitionIR } from '@etzhayyim/bpmn-sdk/core';
 export interface MutableEventIR extends Omit<EventIR, 'eventDefinitions'> {
     eventDefinitions?: EventDefinitionIR[];
 }

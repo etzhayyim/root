@@ -1,7 +1,7 @@
 // Merkle DAG: dsl_task_builders
 // DSL Task Builders - Service/User/Manual/Script/BusinessRule/Send/Receive/CallActivity
 
-import type { TaskIR } from '@gftd/bpmn-sdk/core';
+import type { TaskIR } from '@etzhayyim/bpmn-sdk/core';
 import type { DslContext, MutableTaskIR } from '../bpmn-dsl';
 
 // Base Task Builder

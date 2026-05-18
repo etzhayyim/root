@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import * as Core from './index';
 
 // Test core exports
-describe('@gftd/bpmn-sdk/core', () => {
+describe('@etzhayyim/bpmn-sdk/core', () => {
   it('should export core utilities', () => {
     expect(Core.BpmnIRUtils).toBeDefined();
     expect(typeof Core.BpmnIRUtils.generateId).toBe('function');

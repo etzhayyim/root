@@ -1,5 +1,5 @@
 /**
- * @gftd/signal — Signal Protocol E2E primitives.
+ * @etzhayyim/signal — Signal Protocol E2E primitives.
  *
  * X3DH key agreement, Double Ratchet (1:1), Sender Keys (group) for human
  * clients. All crypto runs in the browser; server never sees plaintext. Key

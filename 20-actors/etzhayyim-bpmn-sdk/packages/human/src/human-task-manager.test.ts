@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { HumanTaskManager } from './human-task-manager';
-import { BpmnRuntime } from '@gftd/bpmn-sdk/runtime';
+import { BpmnRuntime } from '@etzhayyim/bpmn-sdk/runtime';
 
-describe('@gftd/bpmn-sdk/human', () => {
+describe('@etzhayyim/bpmn-sdk/human', () => {
   let runtime: BpmnRuntime;
   let taskManager: HumanTaskManager;
 

@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/bpmn-sdk/compiler",
+  "name": "@etzhayyim/bpmn-sdk/compiler",
   "version": "0.1.0",
   "description": "BPMN 2.0 IR to XML compiler using bpmn-moddle",
   "license": "Apache-2.0",
@@ -22,7 +22,7 @@
     "doc": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "@gftd/bpmn-sdk/core": "workspace:*",
+    "@etzhayyim/bpmn-sdk/core": "workspace:*",
     "bpmn-moddle": "^8.1.0",
     "moddle-xml": "^9.0.5"
   },
@@ -31,7 +31,7 @@
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "@gftd/bpmn-sdk/core": "workspace:*"
+    "@etzhayyim/bpmn-sdk/core": "workspace:*"
   },
   "files": [
     "dist"

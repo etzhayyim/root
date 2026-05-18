@@ -22,9 +22,9 @@ import { conversationSecureDecrypt, reply, say } from "./conversation.js";
 import { agentConverseAsync } from "./llm.js";
 import { agentReact, type AgentTool } from "./react.js";
 import type { XrpcClient } from "./xrpc-client.js";
-import { resolveAutoCrudConvention } from "@gftd/xrpc/app-convention";
-import { registerCommand, registerQuery } from "@gftd/xrpc/command-dsl";
-import { resolveXrpcMethod } from "@gftd/xrpc/dispatch";
+import { resolveAutoCrudConvention } from "@etzhayyim/xrpc/app-convention";
+import { registerCommand, registerQuery } from "@etzhayyim/xrpc/command-dsl";
+import { resolveXrpcMethod } from "@etzhayyim/xrpc/dispatch";
 import {
   createCommandEntry,
   asAgentTool,

@@ -1,8 +1,8 @@
 // Human Task Manager Integration Tests
 
-import { BpmnRuntime } from '@gftd/bpmn-sdk/runtime';
-import { HumanTaskManager } from '@gftd/bpmn-sdk/human';
-import { flow } from '@gftd/bpmn-sdk/dsl';
+import { BpmnRuntime } from '@etzhayyim/bpmn-sdk/runtime';
+import { HumanTaskManager } from '@etzhayyim/bpmn-sdk/human';
+import { flow } from '@etzhayyim/bpmn-sdk/dsl';
 
 describe.skip('HumanTaskManager Integration', () => {
   let runtime: BpmnRuntime;

@@ -1,4 +1,4 @@
-import type { SubProcessIR, LaneSetIR } from '@gftd/bpmn-sdk/core';
+import type { SubProcessIR, LaneSetIR } from '@etzhayyim/bpmn-sdk/core';
 import { ProcessBuilder } from '../bpmn-dsl';
 import type { DslContext, MutableSubProcessIR } from '../bpmn-dsl';
 export declare class BaseSubprocessBuilder {

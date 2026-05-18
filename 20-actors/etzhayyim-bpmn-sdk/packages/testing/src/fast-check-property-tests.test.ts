@@ -2,8 +2,8 @@
 // Fast-check based property testing for BPMN SDK
 
 import { describe, it, expect } from 'vitest';
-import { bpmnIrArb, BpmnPropertyTest } from '@gftd/bpmn-sdk/testkit';
-import { BpmnIRUtils } from '@gftd/bpmn-sdk/core';
+import { bpmnIrArb, BpmnPropertyTest } from '@etzhayyim/bpmn-sdk/testkit';
+import { BpmnIRUtils } from '@etzhayyim/bpmn-sdk/core';
 
 describe.skip('Fast-check Property Tests', () => {
   describe('BpmnIR Structure Properties', () => {

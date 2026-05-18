@@ -14,7 +14,7 @@
     ,"packages/dmn/src/index.ts"
   ],
   "out": "docs/api",
-  "name": "@gftd/bpmn-sdk API Documentation",
+  "name": "@etzhayyim/bpmn-sdk API Documentation",
   "includeVersion": true,
   "excludePrivate": true,
   "excludeProtected": true,

@@ -1,6 +1,6 @@
 import type { CommandHandler, RACIAssignee, ApprovalRequirement, AssigneeRef } from "./types.js";
 import { RACIRole, AssigneeKind, DecisionClass } from "./types.js";
-import { withWLexicon as withWLexiconCore, type CommandOption as CoreCommandOption } from "@gftd/xrpc/command-dsl";
+import { withWLexicon as withWLexiconCore, type CommandOption as CoreCommandOption } from "@etzhayyim/xrpc/command-dsl";
 
 export interface CommandEntry {
   name: string;

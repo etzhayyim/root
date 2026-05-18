@@ -1,7 +1,7 @@
 {
-  "name": "@gftd/bpmn-sdk/core",
+  "name": "@etzhayyim/bpmn-sdk/core",
   "version": "0.1.0",
-  "description": "Core BPMN 2.0 types and IR for @gftd/bpmn-sdk",
+  "description": "Core BPMN 2.0 types and IR for @etzhayyim/bpmn-sdk",
   "license": "Apache-2.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

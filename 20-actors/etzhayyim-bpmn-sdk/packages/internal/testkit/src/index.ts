@@ -11,7 +11,7 @@ import type {
   TaskIR,
   GatewayIR,
   SequenceFlowIR,
-} from '@gftd/bpmn-sdk/core';
+} from '@etzhayyim/bpmn-sdk/core';
 import type { Parameters } from 'fast-check';
 
 // Custom arbitraries for BPMN elements

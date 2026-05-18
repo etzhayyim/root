@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/bpmn-sdk/testkit",
+  "name": "@etzhayyim/bpmn-sdk/testkit",
   "version": "0.1.0",
   "description": "Property-based testing utilities for BPMN SDK",
   "license": "Apache-2.0",

@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/bpmn-sdk/human",
+  "name": "@etzhayyim/bpmn-sdk/human",
   "version": "0.1.0",
   "description": "Human task management for BPMN processes",
   "type": "module",
@@ -27,8 +27,8 @@
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "@gftd/bpmn-sdk/core": "workspace:*",
-    "@gftd/bpmn-sdk/runtime": "workspace:*"
+    "@etzhayyim/bpmn-sdk/core": "workspace:*",
+    "@etzhayyim/bpmn-sdk/runtime": "workspace:*"
   },
   "files": [
     "dist"

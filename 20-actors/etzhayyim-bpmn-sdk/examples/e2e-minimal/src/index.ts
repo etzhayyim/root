@@ -1,10 +1,10 @@
 // Merkle DAG: e2e_minimal_test
 // Minimal E2E test: DSL → IR → XML → Runtime execution
 
-import { flow } from '@gftd/bpmn-sdk/dsl';
-import { compileToXml } from '@gftd/bpmn-sdk/compiler';
-import { deployAndStart } from '@gftd/bpmn-sdk/runtime';
-// import { importFromXml } from '@gftd/bpmn-sdk/importer'; // TODO: Enable when ready
+import { flow } from '@etzhayyim/bpmn-sdk/dsl';
+import { compileToXml } from '@etzhayyim/bpmn-sdk/compiler';
+import { deployAndStart } from '@etzhayyim/bpmn-sdk/runtime';
+// import { importFromXml } from '@etzhayyim/bpmn-sdk/importer'; // TODO: Enable when ready
 
 // Define a minimal BPMN process using DSL
 // Process: Start → User Task → Service Task → XOR Gateway → End

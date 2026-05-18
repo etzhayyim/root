@@ -1,5 +1,5 @@
 /**
- * Transport injection for @gftd/signal.
+ * Transport injection for @etzhayyim/signal.
  *
  * Per ADR-2604261110, this package does not depend on @gftd/wproto. The caller
  * wires an XRPC dispatcher (typically a thin wrapper over `@atproto/api`'s
@@ -28,7 +28,7 @@ export function setSignalTransport(transport: SignalTransport | null): void {
 export function getSignalTransport(): SignalTransport {
   if (!_transport) {
     throw new Error(
-      '@gftd/signal: transport not configured. Call setSignalTransport(...) at app startup.',
+      '@etzhayyim/signal: transport not configured. Call setSignalTransport(...) at app startup.',
     );
   }
   return _transport;
@@ -40,7 +40,7 @@ export function getSignalTransport(): SignalTransport {
  *
  * Usage:
  *   import { AtpAgent } from '@atproto/api';
- *   import { setSignalTransport, atpAgentTransport } from '@gftd/signal';
+ *   import { setSignalTransport, atpAgentTransport } from '@etzhayyim/signal';
  *   const agent = new AtpAgent({ service: '...' });
  *   setSignalTransport(atpAgentTransport(() => agent));
  */

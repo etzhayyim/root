@@ -9,7 +9,7 @@
  */
 
 // Direct XRPC fetch over Worker binding (fast path) or HTTPS (fallback).
-// No @gftd/xrpc dependency: public reads only, no session auth required.
+// No @etzhayyim/xrpc dependency: public reads only, no session auth required.
 
 export interface Profile {
 	did: string;

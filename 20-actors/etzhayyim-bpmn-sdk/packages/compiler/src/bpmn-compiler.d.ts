@@ -1,4 +1,4 @@
-import type { BpmnIR } from '@gftd/bpmn-sdk/core';
+import type { BpmnIR } from '@etzhayyim/bpmn-sdk/core';
 export declare class BpmnCompiler {
     constructor();
     /**
