@@ -116,10 +116,15 @@ and `institution_match` containing ABI-capable institutions with
     on the sidecar container + add an `anchor-cron` CronJob once the
     contract address lands in `deps.toml [platform.l2.anchor_contract]`.
 - **Sidecar state durability**: `/var/etzhayyim/checkpointer-state` is
-  an emptyDir today. For production, swap to a PVC keyed on the cell
-  DID so the per-cell symKey + spool survive pod rescheduling. Without
-  the PVC, a pod restart re-generates the symKey and prior ciphertext
-  becomes unrecoverable.
+  bound to the `lg-uhl-right-neural-checkpointer-state` PVC
+  (ReadWriteOnce, 8Gi). The per-cell symmetric keys live here
+  (`keys/<encodeURIComponent(cell_did)>.key`); losing them = losing
+  the ability to decrypt every prior ciphertext pinned to IPFS.
+  Set the underlying StorageClass to `Retain` reclaim policy in the
+  cluster so a `kubectl delete deployment` cannot cascade into a key
+  wipe. The PVC carries
+  `etzhayyim.com/key-loss-is-irreversible: "true"` as a marker for
+  operators + GitOps tooling.
 - **Resource requests** are conservative (server: 100m CPU / 256Mi,
   sidecar: 50m CPU / 128Mi). Increase `limits.memory` when V09
   reprogramming / V13 PyMC models load larger parameter sets.
