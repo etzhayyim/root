@@ -590,10 +590,9 @@ phase_2_initial_wave = [
   "60-apps/ai-gftd-project-open-sanctions",
   "60-apps/ai-gftd-project-open-wellbecoming",
 ]
+phase_2_wave_2 = "DONE 2026-05-18 — 72 lexicon dirs scaffolded under 00-contracts/lexicons/ai/gftd/ (A-group 26 + B-group 22 + C-group 24; bpmn / ocel / editor already present). Each dir has README placeholder citing ADR-2605172400 + lexicon contract rules. Stub JSON populated in Phase 3 content copy."
 phase_2_deferred_waves = [
-  "A-group open standards (28 items: blockchain, bpmn, gtin, isbn, issn, isin, ndc, ocel, sbom, scap, ipaddress, ipfs, dns, arxiv, common-crawl, distill, rare-earth, rare-earth-coverage, legal-corpus, hanrei, houbun, houki, treaty, customary, legal-aid, legal-entity, industry-standard, unispec)",
-  "B-group religious/cultural (23 items: religious, yorishiro, omikuji, otakiage, kiyome, omatsuri, ki, kareyanagi, koke, kiyo, ijin, ethics, social-contract, ohanashi, narou, syosetsu, tradition, hakkou, houshi, joucho, kagami, sense)",
-  "C-group creative Lexicons (25 items: anime, animeka, anima, manga, mangaka, drama, gameka, dougaka, douga, music, ongakuka, color-by-number, voxelforge, canvas, editor, comfyui, image2metahuman, image2vrm, images, gazo, img2pptx, photos, gyotaku, isekai, obebe)",
+  "60-apps app-skeleton scaffolding for A/B/C groups (only spec lexicons exist after wave 2; downstream app placeholders deferred)",
 ]
 already_present_at_freeze = [
   "60-apps/ai-gftd-project-open-kyber (Tranche E)",
