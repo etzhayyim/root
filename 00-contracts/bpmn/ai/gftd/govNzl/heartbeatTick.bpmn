@@ -21,10 +21,7 @@
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Tick"/>
     <bpmn:serviceTask id="Task_Tick" name="heartbeat tick">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="generic.langgraph.run"/>
-        <zeebe:ioMapping>
-          <zeebe:input source="=\"gov-fractal-pregel\"" target="assistant_id"/>
-        </zeebe:ioMapping>
+        <zeebe:taskDefinition type="xrpc.ai.gftd.govNzl.heartbeatTick"/>
         <zeebe:ioMapping>
           <zeebe:output source="=ok" target="ok"/>
           <zeebe:output source="=seeded" target="seeded"/>
