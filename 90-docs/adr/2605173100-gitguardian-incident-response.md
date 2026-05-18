@@ -14,15 +14,14 @@ authoritative_for:
   - GitGuardian 2026-05-17 incident response narrative
   - RisingWave network exposure decision (ClusterIP, no public LB)
   - RisingWave root user authentication enforcement
-  - CF Tunnel + Hyperdrive private-origin pattern for vendor DBs
-  - 1Password vault custody for the rotated RW root password
-  - lefthook secret-scan hook regex (etzhayyim + vendor parity)
-  - filter-repo policy (etzhayyim done, vendor skipped per user direction)
+  - CF Tunnel + Hyperdrive private-origin pattern for upstream DBs
+  - 1Password custody for the rotated RW root password
+  - lefthook secret-scan hook regex
+  - filter-repo policy
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172900-gftd-followup-cutover-policy
-related:
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605151500-gftd-py-cli-parallel-operation.md
+related: []
 supersedes: []
 superseded_by: []
 ---
@@ -42,8 +41,7 @@ public `etzhayyim/root` repository:
 postgresql://root:rw_66a4db7736799bf888c50a817b4c6a65@45.32.79.245:4566/dev
 ```
 
-The leak originated in the magatama Python framework (vendor-authored)
-that was seeded into the open monorepo during Tranche B. ~50 worker
+The leak originated in seeded magatama Python framework content. ~50 worker
 `*_worker_main.py` files contained the URI as the **fallback** in
 `os.getenv("DATABASE_URL", "<full-DSN>")` — meaning the URI was always
 the runtime value unless an env var overrode it.
@@ -81,32 +79,32 @@ expected:
 
 Layered defense, executed during the incident:
 
-## Layer 1 — HEAD scrub (both repos)
+## Layer 1 — HEAD scrub
 
-| Action | etzhayyim | vendor |
-|---|---|---|
-| sed-replace DSN + password literal | ✅ commit `23e499b5` | ✅ commit `f7e53eba2aa` |
-| Strip leaked host IP `45.32.79.245` | ✅ | ✅ |
-| Remove compiled binary embedding the credential | ✅ | ✅ (`70-tools/gftd/gftd/gftd-cli`) |
-| Files affected | 76 | 177 |
+| Action | etzhayyim |
+|---|---|
+| sed-replace DSN + password literal | ✅ commit `23e499b5` |
+| Strip leaked host IP `45.32.79.245` | ✅ |
+| Remove compiled binary embedding the credential | ✅ |
+| Files affected | 76 |
 
 ## Layer 2 — Git history rewrite (`git filter-repo`)
 
-| Action | etzhayyim | vendor |
-|---|---|---|
-| `git filter-repo --replace-text` | ✅ 67 commits | ⏭️ skipped per user direction "vendor 側は private repo なので filter repo は不要" |
-| Force-push to `origin` | ✅ all 3 branches | n/a |
-| Backup tag | `backup/pre-filter-repo-20260517-211628` | `backup/pre-filter-repo-20260517-212018` (local only) |
+| Action | etzhayyim |
+|---|---|
+| `git filter-repo --replace-text` | ✅ 67 commits |
+| Force-push to `origin` | ✅ all 3 branches |
+| Backup tag | `backup/pre-filter-repo-20260517-211628` |
 
 Replacements applied:
 
 ```
 rw_66a4db7736799bf888c50a817b4c6a65 → REDACTED
-45.32.79.245                         → <vendor-rw-host>
+45.32.79.245                         → <rw-host>
 regex:postgres(ql)?://USER:PW@HOST/(dev|prod) → REDACTED_USE_DATABASE_URL_ENV
 ```
 
-## Layer 3 — Pre-commit secret-scan (both repos)
+## Layer 3 — Pre-commit secret-scan
 
 Added `lefthook.yml` `secret-scan` hook with regex covering:
 
@@ -121,14 +119,11 @@ ghp_/ghs_/gho_/ghr_                          — GitHub PAT short prefixes
 ```
 
 Exclusions (whitelist tokens for documented examples):
-`REDACTED`, `<vendor-rw-host>`, `example`, `fixture`, `placeholder`,
+`REDACTED`, `<rw-host>`, `example`, `fixture`, `placeholder`,
 `EXAMPLE_`, `DUMMY_`, `XXXX`, `<your-`, `<insert-`, `/test/`, `_test.`,
 `.test.`, `/tests/`, `.example`, `.sample`.
 
-| Commit | Repo |
-|---|---|
-| `da059d91` | etzhayyim |
-| `47996c2c27a` | vendor |
+Commit: `da059d91`.
 
 ## Layer 4 — Network exposure removal
 
@@ -152,8 +147,8 @@ frontend's auth check; it's just a default placeholder.
 Action: ran `ALTER USER root WITH PASSWORD '<32-char-from-op>'`
 in-cluster via a one-shot Job, with the password sourced from a
 staging Secret that was deleted at the end of the Job. The 32-char
-password lives in 1Password vault `gftdcojp`, item
-`RisingWave root (rotated 2026-05-17)` (id `kudkk66526jk3ft4iasbezf6uy`).
+password lives in 1Password (item `RisingWave root (rotated 2026-05-17)`,
+id `kudkk66526jk3ft4iasbezf6uy`).
 
 Post-ALTER verification:
 
@@ -183,14 +178,14 @@ CF Worker → Hyperdrive → CF Tunnel `risingwave-private` (id a17cdf9d-…)
 Artifacts:
 
 - CF Tunnel `risingwave-private` (id `a17cdf9d-7b9d-4cf4-a482-66129bc2a43d`)
-- CF DNS CNAME `risingwave-private.gftd.ai`
+- CF DNS CNAME `risingwave-private` (private origin)
 - K8s Secret `risingwave/cloudflared-risingwave-private-credentials`
 - K8s ConfigMap `risingwave/cloudflared-risingwave-private-config`
 - K8s Deployment `risingwave/cloudflared-risingwave-private` (2 replicas, image `cloudflare/cloudflared:2025.4.0`)
 - IaC committed at `50-infra/vultr/risingwave/private-tunnel/` (commit `684edcc9`)
 
 Hyperdrive binding update (final step) is **pending user action in CF
-Dashboard** — the CF API token in Keychain (`gftd.cloudflare:API_TOKEN`)
+Dashboard** — the CF API token in Keychain (`cloudflare:API_TOKEN`)
 lacks Hyperdrive scope. README in `private-tunnel/` documents both
 the dashboard path and the API-token-with-Hyperdrive-scope alternative.
 
@@ -200,7 +195,7 @@ the dashboard path and the API-token-with-Hyperdrive-scope alternative.
 amended at `684edcc9` to reference the 1Password "compromised" item):
 
 - Pre-flight: `op` auth check, `VULTR_API_KEY` from Keychain, kubeconfig from Vultr API
-- Step 1: `op item create --generate-password='letters,digits,symbols,32'` → vault `gftdcojp`
+- Step 1: `op item create --generate-password='letters,digits,symbols,32'` → 1Password
 - Step 2: K8s Secret update (currently a placeholder — see Layer 5 note about helm)
 - Step 3: Rolling restart (when applicable for future helm-wired auth)
 - Step 4: in-cluster smoke test Job
@@ -241,14 +236,9 @@ Kept as a template for similar lockdowns of other infrastructure.
   configured with that exact IP gets directed to whoever Vultr assigns
   it to. Documentation referencing the old IP needs to clarify the
   IP is **historical only** and must not be redialed.
-- **Existing clones of either repo retain the credential** (even after
-  filter-repo on `origin/etzhayyim`). The rotation-then-IP-restriction
+- **Existing clones of the repo retain the credential** (even after
+  filter-repo on `origin`). The rotation-then-IP-restriction
   combination is what makes the leak useless, not the history rewrite.
-- **Vendor history retains the credential.** Per user direction (vendor
-  is private). Acceptable risk profile because:
-    1. Vendor monorepo is private (limited GitHub-side audience),
-    2. The credential is now ROTATED (the literal string opens no door),
-    3. The IP is now ClusterIP (network reachability blocked).
 - **Helm chart upgrades** could trigger reconcile of the `risingwave`
   Secret to empty `root-password` again. The actual auth state lives
   in RW metastore (Postgres), but a chart upgrade with explicit
@@ -256,14 +246,12 @@ Kept as a template for similar lockdowns of other infrastructure.
   long-term correctness (TODO).
 - **Hyperdrive setup requires manual dashboard action.** API token
   scope expansion would let us automate; tracked.
-- **`@gftdcojp/` npm scope, `ai.gftd.apps.*` NSIDs, `did:web:X.gftd.ai`
-  DIDs unchanged.** Those are Class D items in ADR-2605172900 (deferred
-  cutover); they reference *vendor identity*, not secrets. No
-  remediation needed for this incident.
+- **Legacy-prefix npm scopes, NSIDs, and DIDs unchanged.** Those are
+  Class D items in ADR-2605172900 (deferred cutover); they don't
+  reference secrets. No remediation needed for this incident.
 
 ## Out of scope
 
-- Vendor `git filter-repo` (private repo, deferred per user direction)
 - Other secret patterns not in our regex (e.g., specific cloud-provider
   formats we haven't seen yet)
 - RW user audit (`kaisya_app`, `postgres`, `rw_admin`, `rwadmin` —
@@ -271,7 +259,7 @@ Kept as a template for similar lockdowns of other infrastructure.
   manages `root`)
 - Migration of magatama Python framework off RW per ADR-2605172000
   (etzhayyim is RW-free; the ~50 worker `*_main.py` files referencing
-  RW should arguably live in vendor — separate audit)
+  RW need a substrate-rule audit)
 
 ## Timeline (2026-05-17, JST)
 
@@ -279,17 +267,16 @@ Kept as a template for similar lockdowns of other infrastructure.
 |---|---|
 | ~20:30 | GitGuardian alert reaches user |
 | ~20:50 | etzhayyim HEAD sed-scrub committed (`23e499b5`) |
-| ~21:00 | Vendor HEAD sed-scrub committed (`f7e53eba2aa`) |
 | 21:16 | etzhayyim `git filter-repo` backup tag created |
 | ~21:18 | etzhayyim filter-repo + force-push complete |
-| 21:35 | Lefthook secret-scan hooks committed both repos |
+| 21:35 | Lefthook secret-scan hook committed |
 | 21:45 | First `op` password generation (initial PW, later archived) |
 | 21:50 | Second `op` password generation (canonical, `kudkk66526jk3ft4iasbezf6uy`) |
 | 21:51 | Discovery: RW root has no auth enforcement |
 | 21:55 | K8s Service patched LoadBalancer → ClusterIP |
 | 21:57 | `ALTER USER root WITH PASSWORD` run; empty PW now rejected |
 | 22:00 | CF Tunnel `risingwave-private` created; cloudflared deployed (2/2) |
-| 22:01 | DNS CNAME `risingwave-private.gftd.ai` published |
+| 22:01 | Private CNAME for `risingwave-private` published |
 | 22:05 | IaC manifests + ADR committed |
 
 ## Lessons learned
@@ -299,7 +286,7 @@ Kept as a template for similar lockdowns of other infrastructure.
    such defaults as committed credentials.
 2. **Chart default Secrets are not auth wiring.** Empty `root-password`
    meant "no auth", not "set this externally". Audit before relying.
-3. **Vendor-managed cloud LBs may ignore K8s firewall directives.**
+3. **Some cloud LBs ignore K8s firewall directives.**
    `loadBalancerSourceRanges` works on AWS / GCP / Azure but not on
    some smaller providers including Vultr VKE. Verify per-provider.
 4. **Defense in depth is not over-engineering.** This incident had
@@ -373,13 +360,11 @@ deferring it has no upside.
 - 1Password CLI item-create:
   https://developer.1password.com/docs/cli/item-create/
 - Pre-incident state references:
-  - `50-infra/vultr/risingwave/deploy.sh` (vendor) — original deploy with `HYPERDRIVE_VULTR` mention
+  - `50-infra/vultr/risingwave/deploy.sh` — original deploy with `HYPERDRIVE_VULTR` mention
   - `20-actors/magatama/py/src/pymagatama/llm.py` — one of ~50 worker files with the leaked default
 - Post-incident commit chain:
-  - `23e499b5` etzhayyim HEAD scrub
-  - `f7e53eba2aa` vendor HEAD scrub
-  - `da059d91` etzhayyim secret-scan hook
-  - `47996c2c27a` vendor secret-scan hook
+  - `23e499b5` HEAD scrub
+  - `da059d91` secret-scan hook
   - `143421d5` Vultr firewall script (not applied; template)
   - `a523b012` 1Password rotation runbook
   - `684edcc9` CF Tunnel IaC + Hyperdrive runbook

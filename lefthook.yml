@@ -1,10 +1,8 @@
 # lefthook config — etzhayyim/root
 #
 # Scaffolding stub. Real hooks (adr-validate, docs-registry, bpmn-contract-gates,
-# lint-dangerous-query, llm-model-ssot, etc.) will be added in ADR 2605152100
-# Step 6 (content seed) when the corresponding source paths land in this repo.
-#
-# Reference for full hook set: gftdcojp/ai-gftd-apps-gftdcojp/lefthook.yml
+# lint-dangerous-query, llm-model-ssot, etc.) will be added when the
+# corresponding source paths land in this repo.
 
 pre-commit:
   parallel: true
@@ -12,8 +10,8 @@ pre-commit:
     secret-scan:
       # Block obvious credentials before they hit git history.
       # Per the GitGuardian incident (2026-05-17): the RisingWave
-      # PostgreSQL credential `rw_66a4db…` landed in HEAD via vendor
-      # framework seed and required cross-repo remediation.
+      # PostgreSQL credential `rw_66a4db…` landed in HEAD via seeded
+      # framework content and required remediation.
       #
       # Detection regex covers:
       #   - postgres://USER:PASSWORD@HOST/DB                     (DSN with embedded password)
@@ -31,7 +29,7 @@ pre-commit:
         leaks=$(grep -nE \
           'postgres(ql)?://[^@[:space:]]*:[^@[:space:]]+@|sk_(live|test)_[A-Za-z0-9]{16,}|rw_[a-f0-9]{32}|AWS_SECRET_ACCESS_KEY=[A-Za-z0-9/+]{16,}|github_pat_[A-Za-z0-9_]{20,}|ghp_[A-Za-z0-9]{20,}|ghs_[A-Za-z0-9]{20,}|gho_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----' \
           {staged_files} 2>/dev/null | \
-          grep -vE '(REDACTED|<vendor-rw-host>|example|fixture|placeholder|EXAMPLE_|DUMMY_|XXXX|<your-|<insert-|/test/|_test\.|\.test\.|/tests/|\.example|\.sample)' || true)
+          grep -vE '(REDACTED|<rw-host>|example|fixture|placeholder|EXAMPLE_|DUMMY_|XXXX|<your-|<insert-|/test/|_test\.|\.test\.|/tests/|\.example|\.sample)' || true)
         if [ -n "$leaks" ]; then
           echo "✘ secret-scan detected potential credential leak:"
           echo "$leaks"

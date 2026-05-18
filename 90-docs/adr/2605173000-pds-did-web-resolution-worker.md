@@ -88,7 +88,7 @@ Rationale for each field:
 
 - **`id`** — fixed by the route + did:web spec.
 - **`alsoKnownAs`** — the canonical HTTPS URL, so resolvers can dereference the host as well as the DID.
-- **`verificationMethod: []`** — empty in v1. The PDS asserts identity via TLS terminated by Cloudflare; we have no signed service-level assertions yet. When PDS-to-PDS federation messages or relay handshakes need signatures, we'll add a Multikey entry derived from `PDS_PLC_ROTATION_KEY_K256` (stored in 1Password `gftdcojp / etzhayyim/pds-simeon/secrets-2026-05-17`). Spec note: AT Protocol clients do not currently require this field to be populated.
+- **`verificationMethod: []`** — empty in v1. The PDS asserts identity via TLS terminated by Cloudflare; we have no signed service-level assertions yet. When PDS-to-PDS federation messages or relay handshakes need signatures, we'll add a Multikey entry derived from `PDS_PLC_ROTATION_KEY_K256` (stored in 1Password `etzhayyim/pds-simeon/secrets-2026-05-17`). Spec note: AT Protocol clients do not currently require this field to be populated.
 - **`service[#atproto_pds]`** — the AT Protocol mandatory service descriptor. Type and `id` fragment are spec-fixed.
 
 ### Fall-through guarantee

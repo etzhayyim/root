@@ -21,7 +21,7 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md
+  - 
 supersedes: []
 superseded_by: []
 ---
@@ -216,5 +216,5 @@ Hierarchy of roles encoded in the contract. Rejected for v0 — adds governance 
 - ADR-2605172000 — RW-free substrate
 - ADR-2605172100 — on-chain payments (Paymaster sponsors `join()`)
 - ADR-2605171800 — MST → IPFS → L2 anchor pipeline (where the AT Record lands)
-- Vendor ADR-0074 — Ethereum Identity Bridge (CACAO + WebAuthn binding)
-- Vendor ADR-0095 — Simplified 3-Layer Identity (ERC-725 + Coinbase Smart Wallet)
+- ADR-0074 — Ethereum Identity Bridge (CACAO + WebAuthn binding)
+- ADR-0095 — Simplified 3-Layer Identity (ERC-725 + Coinbase Smart Wallet)

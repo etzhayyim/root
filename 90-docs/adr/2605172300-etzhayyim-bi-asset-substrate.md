@@ -27,9 +27,6 @@ depends_on:
 related:
   - 2605172700-membership-layering-shinto-adherent.md
   - 2605172600-etzhayyim-membership-ritual.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0095-simplified-3layer-identity-rw-vault.md
-  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091300-bonsai-cultivar-layer-above-myco-yeast.md
 supersedes: []
 superseded_by: []
 ---
@@ -429,8 +426,5 @@ A future zk upgrade (RISC Zero or SP1 zkVM) can move per-adherent rate proofs to
 - ADR-2605171800: `90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md` (anchor pipeline)
 - ADR-2605172000: `90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md` (RW-free hard rule)
 - ADR-2605172100: `90-docs/adr/2605172100-etzhayyim-payments-on-chain-only.md` (on-chain only payments)
-- Vendor: [ADR-0074 Ethereum Identity Bridge (CACAO + WebAuthn)](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md)
-- Vendor: [ADR-0095 Simplified 3-Layer Identity (RW-vault)](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0095-simplified-3layer-identity-rw-vault.md)
-- Vendor: [ADR-2605091300 Bonsai Cultivar Layer Above Myco-Yeast](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605091300-bonsai-cultivar-layer-above-myco-yeast.md)
 - Existing infrastructure: `50-infra/vultr/geth-private/`, `50-infra/l2-anchor-contract/`
 - SDK package: `20-actors/etzhayyim-sdk/` (target host for `src/bi.ts`)
