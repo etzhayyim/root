@@ -29,6 +29,7 @@ __pycache__/
 *$py.class
 *.egg-info/
 .venv/
+.venv-*/
 venv/
 .pytest_cache/
 .mypy_cache/
@@ -81,3 +82,6 @@ tmp/
 
 # Foundry transient lockfile (held during `forge` invocations; persists if forge crashes)
 foundry.lock
+
+# npm auth (NEVER commit — GH Packages token)
+.npmrc
