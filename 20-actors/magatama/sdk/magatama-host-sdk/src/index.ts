@@ -406,6 +406,35 @@ export type {
 export { ActorRegistry, flattenActorDefs } from "./actor-registry.js";
 export type { ActorDef, ActorRegistryConfig, ActorRow, SeedResult, RegisterResult, IngestDelta, KyumeiResult, LLMFn, LLMJsonFn } from "./actor-registry.js";
 
+// Per-taxonomy langserver actor wrappers (ADR-2605180900 Phase 6).
+export {
+  LangserverActor,
+  UnispscActor,
+  IsicActor,
+  LangserverActorError,
+  createUnispscActor,
+  createIsicActor,
+  createLangserverActor,
+} from "./langserver-actor.js";
+export type {
+  Taxonomy,
+  ModelHint,
+  LangserverActorConfig,
+  ClassifyInput,
+  ClassifyOutput,
+  CandidateOut,
+  IsicClassifyOutput,
+  IsicCandidateOut,
+  IsicHierarchicalInput,
+  IsicHierarchicalOutput,
+  InvokeAgentInput,
+  InvokeAgentOutput,
+  ListAgentsInput,
+  ListAgentsOutput,
+  ListedAgent,
+  HealthOutput,
+} from "./langserver-actor.js";
+
 export { validateKamiScene, assertValidKamiScene } from "./kami-scene-validator.js";
 export type { SceneValidationError } from "./kami-scene-validator.js";
 
