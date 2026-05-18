@@ -54,6 +54,7 @@ from .actors.plasticity import PlasticityActor
 from .actors.regulatory import RegulatoryActor
 from .actors.reprogramming import ReprogrammingActor
 from .actors.substrate_classifier import SubstrateClass, SubstrateClassifierActor
+from .actors.trial_design import TrialDesignActor
 
 
 # ── State ────────────────────────────────────────────────────────────────────
@@ -121,6 +122,7 @@ _device = ConventionalDeviceActor()
 _abi = AbiActor()
 _plasticity = PlasticityActor()
 _outcome = OutcomeActor()
+_trial_design = TrialDesignActor()
 _regulatory = RegulatoryActor()
 _institutions = InstitutionMatcherActor()
 
@@ -177,6 +179,10 @@ def _v13_outcome(state: UhlState) -> dict[str, Any]:
     return _outcome.compute(state)
 
 
+def _v14_trial_design(state: UhlState) -> dict[str, Any]:
+    return _trial_design.compute(state)
+
+
 def _v15_regulatory(state: UhlState) -> dict[str, Any]:
     return _regulatory.compute(state)
 
@@ -198,9 +204,6 @@ def _make_stub(vertex_id: str, output_key: str) -> Any:
 # Stubs for treatment-arm vertices not yet implemented (charter P2/P3).
 # V08 (P2 BDNF/NT-3) and V09 (P3 reprog) are now real actors — see
 # above. No remaining treatment-arm stubs.
-
-# V14 trial design is the next P1 vertex (currently stub).
-_v14_stub = _make_stub("V14_trial_design", "trial_protocol")
 
 
 # ── Routing ──────────────────────────────────────────────────────────────────
@@ -252,7 +255,7 @@ def _build() -> StateGraph:
     g.add_node("V11_abi", _v11_abi)
     g.add_node("V12_plasticity", _v12_plasticity)
     g.add_node("V13_outcome", _v13_outcome)
-    g.add_node("V14_trial_design", _v14_stub)
+    g.add_node("V14_trial_design", _v14_trial_design)
     g.add_node("V15_regulatory", _v15_regulatory)
     g.add_node("V16_institution_matcher", _v16_institution_match)
 
