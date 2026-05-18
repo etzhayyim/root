@@ -428,11 +428,12 @@ prs = []
 [[modules]]
 path = "60-apps/open-otology-uhl-r"
 kind = "cf-worker-appview"
-version = "0.0.1"
-status = "scaffold-P0"
-description = "RW-free AppView for uhl-right-neural. Single XRPC method jp.etzhayyim.med.uhl.institution.matchQuery proxies langserver, validates substrateClass against Lexicon knownValues, enforces requiresHumanReview/ethicsCommitteeRequired/dataExportRequiresReview=true on output."
+version = "0.1.0"
+status = "tested-handler-extracted"
+description = "RW-free AppView for uhl-right-neural. Single XRPC method jp.etzhayyim.med.uhl.institution.matchQuery proxies langserver, validates substrateClass against Lexicon knownValues, enforces requiresHumanReview/ethicsCommitteeRequired/dataExportRequiresReview=true on output. Audit lexicon jp.etzhayyim.med.uhl.institution.matchAudit declared (PII-zero, ADR-2605181040). Handler logic extracted to src/handler.ts so unit tests cover input validation, snake↔camel mapping, fetch error paths, and end-to-end round-trip without pulling in the CF Worker runtime (16 vitest tests, all green)."
 adr = ["2605181000", "2605181040", "2605172000"]
 did = "did:web:open-otology-uhl-r.etzhayyim.com"
+lexicons = "00-contracts/lexicons/jp/etzhayyim/med/uhl/institution"
 
 [[modules]]
 path = "20-actors/etzhayyim-sdk"

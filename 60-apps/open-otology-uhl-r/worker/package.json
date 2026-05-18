@@ -8,13 +8,16 @@
   "main": "src/app.ts",
   "scripts": {
     "build": "echo 'use gftd build per 20-actors/magatama/CLAUDE.md'",
-    "deploy": "echo 'use gftd deploy per 20-actors/magatama/CLAUDE.md'"
+    "deploy": "echo 'use gftd deploy per 20-actors/magatama/CLAUDE.md'",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@gftd/magatama-host-sdk": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250420.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0"
   }
 }
