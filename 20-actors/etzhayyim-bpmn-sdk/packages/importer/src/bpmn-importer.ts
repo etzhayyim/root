@@ -14,7 +14,7 @@ import type {
   GatewayIR,
   SequenceFlowIR,
   EventDefinitionIR,
-} from '@etzhayyim/bpmn-sdk/core';
+} from '@etzhayyim/bpmn-sdk-core';
 
 // Use type assertions for building (similar to DSL approach)
 

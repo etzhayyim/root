@@ -1,5 +1,5 @@
 // Merkle DAG: human_package_index
-// @etzhayyim/bpmn-sdk/human のメインエクスポート
+// @etzhayyim/bpmn-sdk-human のメインエクスポート
 
 export { HumanTaskManager } from './human-task-manager';
 export type {

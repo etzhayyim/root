@@ -54,7 +54,7 @@ vi.mock('moddle-xml', () => ({
   })),
 }));
 
-describe('@etzhayyim/bpmn-sdk/importer', () => {
+describe('@etzhayyim/bpmn-sdk-importer', () => {
   let importer: BpmnImporter;
 
   beforeEach(() => {

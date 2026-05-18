@@ -1,4 +1,4 @@
-import type { BpmnIR } from '@etzhayyim/bpmn-sdk/core';
+import type { BpmnIR } from '@etzhayyim/bpmn-sdk-core';
 import type { ValidationResult, ValidationOptions } from './types';
 export declare class BpmnValidator {
     private options;

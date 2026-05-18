@@ -1,4 +1,4 @@
-import { createDmnViewer } from "@etzhayyim/bpmn-sdk/dmn";
+import { createDmnViewer } from "@etzhayyim/bpmn-sdk-dmn";
 
 const container = document.getElementById("app")!;
 

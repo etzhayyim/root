@@ -1,5 +1,5 @@
 {
-  "name": "@etzhayyim/bpmn-sdk/testing",
+  "name": "@etzhayyim/bpmn-sdk-testing",
   "version": "0.1.0",
   "description": "Property-based testing framework for BPMN processes",
   "type": "module",
@@ -30,11 +30,20 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@etzhayyim/bpmn-sdk/core": "workspace:*",
-    "@etzhayyim/bpmn-sdk/runtime": "workspace:*",
-    "@etzhayyim/bpmn-sdk/validation": "workspace:*"
+    "@etzhayyim/bpmn-sdk-core": "workspace:*",
+    "@etzhayyim/bpmn-sdk-runtime": "workspace:*",
+    "@etzhayyim/bpmn-sdk-validation": "workspace:*"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etzhayyim/root.git",
+    "directory": "20-actors/etzhayyim-bpmn-sdk/packages/testing"
+  }
 }

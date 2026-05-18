@@ -1,5 +1,5 @@
 {
-  "name": "@etzhayyim/bpmn-sdk/ops",
+  "name": "@etzhayyim/bpmn-sdk-ops",
   "version": "0.1.0",
   "description": "Operations and monitoring for BPMN processes with OpenTelemetry integration",
   "type": "module",
@@ -34,10 +34,19 @@
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "@etzhayyim/bpmn-sdk/core": "workspace:*",
-    "@etzhayyim/bpmn-sdk/runtime": "workspace:*"
+    "@etzhayyim/bpmn-sdk-core": "workspace:*",
+    "@etzhayyim/bpmn-sdk-runtime": "workspace:*"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etzhayyim/root.git",
+    "directory": "20-actors/etzhayyim-bpmn-sdk/packages/ops"
+  }
 }

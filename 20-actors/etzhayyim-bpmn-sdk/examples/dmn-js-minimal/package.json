@@ -6,7 +6,7 @@
     "start": "vite"
   },
   "dependencies": {
-    "@etzhayyim/bpmn-sdk/dmn": "workspace:*"
+    "@etzhayyim/bpmn-sdk-dmn": "workspace:*"
   },
   "devDependencies": {
     "vite": "^5.2.0"

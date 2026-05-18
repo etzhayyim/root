@@ -12,7 +12,7 @@ import type {
   SequenceFlowIR,
   EventDefinitionIR,
   LaneSetIR,
-} from '@etzhayyim/bpmn-sdk/core';
+} from '@etzhayyim/bpmn-sdk-core';
 
 // Mutable versions for building
 export interface MutableEventIR extends Omit<EventIR, 'eventDefinitions' | 'name'> {

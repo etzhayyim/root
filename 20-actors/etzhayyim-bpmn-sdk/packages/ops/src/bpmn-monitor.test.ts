@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { BpmnMonitor } from './bpmn-monitor';
-import { BpmnRuntime } from '@etzhayyim/bpmn-sdk/runtime';
+import { BpmnRuntime } from '@etzhayyim/bpmn-sdk-runtime';
 
-describe('@etzhayyim/bpmn-sdk/ops', () => {
+describe('@etzhayyim/bpmn-sdk-ops', () => {
   let monitor: BpmnMonitor;
   let runtime: BpmnRuntime;
 

@@ -15,9 +15,9 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@etzhayyim/bpmn-sdk/dsl": "workspace:*",
-    "@etzhayyim/bpmn-sdk/compiler": "workspace:*",
-    "@etzhayyim/bpmn-sdk/runtime": "workspace:*"
+    "@etzhayyim/bpmn-sdk-dsl": "workspace:*",
+    "@etzhayyim/bpmn-sdk-compiler": "workspace:*",
+    "@etzhayyim/bpmn-sdk-runtime": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

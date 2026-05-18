@@ -1,9 +1,9 @@
 // Merkle DAG: bpmn_property_test
 // Property-based Testing Framework for BPMN Processes
 
-import type { BpmnIR } from '@etzhayyim/bpmn-sdk/core';
-import type { BpmnRuntime } from '@etzhayyim/bpmn-sdk/runtime';
-import { validateProcess } from '@etzhayyim/bpmn-sdk/validation';
+import type { BpmnIR } from '@etzhayyim/bpmn-sdk-core';
+import type { BpmnRuntime } from '@etzhayyim/bpmn-sdk-runtime';
+import { validateProcess } from '@etzhayyim/bpmn-sdk-validation';
 import type {
   TestResult,
   TestError,

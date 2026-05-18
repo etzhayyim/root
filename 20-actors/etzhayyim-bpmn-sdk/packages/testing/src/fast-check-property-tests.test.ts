@@ -3,7 +3,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { bpmnIrArb, BpmnPropertyTest } from '@etzhayyim/bpmn-sdk/testkit';
-import { BpmnIRUtils } from '@etzhayyim/bpmn-sdk/core';
+import { BpmnIRUtils } from '@etzhayyim/bpmn-sdk-core';
 
 describe.skip('Fast-check Property Tests', () => {
   describe('BpmnIR Structure Properties', () => {
