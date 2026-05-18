@@ -12,33 +12,31 @@
 // Wraps the langserver at lg-uhl-right-neural.mitama-udf.svc:8080.
 // Lexicon contract: 00-contracts/lexicons/jp/etzhayyim/med/uhl/institution/matchQuery.json
 //
-// P0 MVP: this Worker only exposes the matchQuery surface. P1 will add the
-// auditable at:// record emission for every match request (no PII, per
-// ADR-2605181040 §PII zero). The audit lexicon
 // `jp.etzhayyim.med.uhl.institution.matchAudit` is already declared.
 
 import {
   createWorkerExport,
   nsid,
   parseLexiconInput,
-  type LexiconOutput,
 } from "@gftd/magatama-host-sdk";
+import { getAgent, createRecord } from "@etzhayyim/sdk/pds";
 
 import {
   InvalidInputError,
   NSID_MATCH,
+  NSID_AUDIT,
   RegistryUnavailableError,
   handleMatchQuery,
   type MatchInput,
 } from "./handler.js";
 
 export default createWorkerExport((sdk) => {
-  sdk.app.query(nsid(NSID_MATCH), async (_ctx, body) => {
+  sdk.app.query(nsid(NSID_MATCH), async (ctx, body) => {
     const input = parseLexiconInput(NSID_MATCH, body) as unknown as MatchInput;
+
+    let result;
     try {
-      const output = await handleMatchQuery(input);
-      return JSON.stringify(output) satisfies string &
-        LexiconOutput<typeof NSID_MATCH>;
+      result = await handleMatchQuery(input);
     } catch (err) {
       if (
         err instanceof InvalidInputError ||
@@ -50,5 +48,26 @@ export default createWorkerExport((sdk) => {
         `${(err as Error).message ?? "unknown langserver error"}`,
       );
     }
+
+    // P1: Emit audit record (no PII)
+    const pdsHandle = ctx.env.ETZ_PDS_HANDLE as string | undefined;
+    const pdsPassword = ctx.env.ETZ_PDS_PASSWORD as string | undefined;
+    const pdsDid = ctx.env.ETZ_PDS_DID as string | undefined;
+    if (pdsHandle && pdsPassword && pdsDid) {
+      try {
+        const agent = await getAgent({ handle: pdsHandle, password: pdsPassword });
+        await createRecord(agent, pdsDid, NSID_AUDIT, {
+          substrateClass: input.substrateClass,
+          localeCountry: input.localeCountry,
+          dfnb9Confirmed: input.dfnb9Confirmed ?? false,
+          candidateCount: result.candidates.length,
+          timestamp: new Date().toISOString()
+        });
+      } catch (e) {
+        console.error("Failed to emit audit record:", e);
+      }
+    }
+
+    return JSON.stringify(result);
   });
 });
