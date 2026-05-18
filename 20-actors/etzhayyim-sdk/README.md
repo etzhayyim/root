@@ -112,8 +112,28 @@ const { records } = await e.encryptedRead<ProposalBody>({
 Direct app imports of `@noble/ciphers` / `@signalapp/libsignal-client` are **prohibited** — same hard-rule seam as `@atproto/api` and `viem`. Use:
 
 - `@etzhayyim/sdk/crypto` — XChaCha20-Poly1305 envelope (real impl)
-- `@etzhayyim/sdk/signal` — Signal session, key-wrap/unwrap (scaffold; lights up with libsignal)
+- `@etzhayyim/sdk/signal` — Signal session, key-wrap/unwrap (real libsignal-backed impl)
 - `@etzhayyim/sdk/did-signal` — DID ↔ Signal IdentityKey binding (real impl, Ed25519 over CBOR)
+
+### Reference impl — council deliberation
+
+`test/council-flow.test.ts` is the canonical E2E example: two council members each generate Ed25519 DID keys + libsignal identities, publish DID-signed `signalIdentity` records, then exchange encrypted proposal/vote records over the substrate. Copy-paste template for new private flows (uhl-right-neural council, medical referral cohort, ethics committee, etc.).
+
+### Metadata-leak mitigations (ADR-2605181200)
+
+Two opt-in mitigations on `encryptedWrite{,Standalone}`:
+
+```typescript
+await encryptedWriteStandalone(deps, {
+  innerType: "...",
+  record: {...},
+  recipients: [...],
+  pad: "bucket",     // ciphertext rounds up to {1, 4, 16, 64} KiB → blob fallback
+  blindRkey: true,   // rkey = base32(BLAKE2b-128(symKey || seq)) — hides write time
+});
+```
+
+Both default off in v0.1.x to give the council-flow reference impl a clean rollout; v0.2.0 will flip them on. Sealed Sender + PDS-side timing/decoy mitigations are tracked in follow-up ADRs.
 
 ## Dependencies
 

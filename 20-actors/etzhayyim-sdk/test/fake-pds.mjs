@@ -45,18 +45,37 @@ function fakeCid(_record) {
   return FAKE_CID;
 }
 
-export async function startFakePds({port = 0, sessionDid = "did:web:fake.etzhayyim.test", sessionHandle = "fake.etzhayyim.test"} = {}) {
+export async function startFakePds({
+  port = 0,
+  sessionDid = "did:web:fake.etzhayyim.test",
+  sessionHandle = "fake.etzhayyim.test",
+  // Optional: multi-session mode. Map<accessJwt, {did, handle}>. When set,
+  // getSession looks up the session by the Authorization bearer token so
+  // multiple actors can share one fake-pds instance.
+  sessions = null,
+} = {}) {
   /** @type {Map<string, {uri: string, cid: string, value: any}>} */
   const records = new Map();
 
+  function lookupSession(headers) {
+    if (!sessions) return {did: sessionDid, handle: sessionHandle};
+    const auth = headers["authorization"] ?? headers["Authorization"] ?? "";
+    const token = auth.replace(/^Bearer\s+/i, "").trim();
+    const s = sessions.get(token);
+    if (s) return s;
+    return {did: sessionDid, handle: sessionHandle};
+  }
+
   const handlers = {
-    "GET /xrpc/com.atproto.server.getSession": (_req, _body, _query, _headers) => {
+    "GET /xrpc/com.atproto.server.getSession": (_req, _body, _query, headers) => {
       // AtpAgent.resumeSession calls this to verify the session it was
-      // handed; it expects the response DID to equal session.did.
-      // Caller pre-declares the DID at startFakePds() time.
+      // handed; it expects the response DID to equal session.did. In
+      // multi-session mode the DID is dispatched by the Authorization
+      // bearer token.
+      const s = lookupSession(headers);
       return {
-        did: sessionDid,
-        handle: sessionHandle,
+        did: s.did,
+        handle: s.handle,
         email: "fake@etzhayyim.test",
         emailConfirmed: true,
         active: true,
