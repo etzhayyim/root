@@ -153,7 +153,7 @@ def test_p0_full_pipeline_emits_v10_v12_v13_outputs() -> None:
 
 
 def test_nerve_aplasia_defers_device_to_abi() -> None:
-    """NERVE_APLASIA routes V10 → DEFER_PENDING_V11 (V11 ABI is P1 stub)."""
+    """NERVE_APLASIA routes V10 → V11 ABI candidacy → V15 reg → V16."""
     final = app.invoke(
         {
             "phenotype_input": {
@@ -172,3 +172,129 @@ def test_nerve_aplasia_defers_device_to_abi() -> None:
     assert final["plasticity_plan"]["phase_gate"] == "optimal"
     assert "outcome_posterior" in final
     assert "institution_match" in final
+    # P1: V11 ABI plan should be real, not a stub marker.
+    abi = final["abi_plan"]
+    assert "_stub" not in abi
+    assert abi["candidacy"] == "optimal"
+    assert abi["surgical_center_preference"] == "manchester_university_nhs"
+    # P1: V15 regulatory should classify ABI as PMA / Class 4 device.
+    reg = final["regulatory_path"]
+    assert "_stub" not in reg
+    assert reg["treatment_category"] == "auditory_brainstem_implant"
+    assert reg["fda_pathway"] == "premarket_approval"
+
+
+def test_p1_dfnb9_pediatric_bilateral_chord_path() -> None:
+    """SGN_PRESENT_HC_LOSS pediatric + DFNB9 confirmed bilateral → V07 CHORD trial path."""
+    final = app.invoke(
+        {
+            "phenotype_input": {
+                "patient_ref": "test-hash-dfnb9bil",
+                "side": "bilateral",
+                "age_years": 2.5,
+                "onset": "congenital",
+                "progressive": False,
+                "locale_country": "JP",
+            },
+            "genetic_input": {
+                "panel_run_id": "panel-test-001",
+                "variants": [
+                    {
+                        "gene": "OTOF",
+                        "hgvs_c": "c.5098G>C",
+                        "zygosity": "homozygous",
+                        "acmg_class": 5,
+                    },
+                ],
+            },
+            "substrate_evidence": {
+                "cn_fiber_count": 4,
+                "eabr_present": True,
+                "eabr_latency_prolonged": False,
+                "dpoae_present": False,
+            },
+        }
+    )
+    assert (
+        final["substrate_decision"]["substrate_class"] == "sgn_present_hc_loss"
+    )
+    # V02 → V07 OTOF triage.
+    otof = final["otof_tx_plan"]
+    assert otof["dfnb9_gate_passed"] is True
+    assert otof["recommendation"] == "dfnb9_trial_eligible"
+    assert otof["access_tier"] == "chord_jp_trial"
+    assert otof["unilateral_exception"] is False
+    # V15 reg should pick up the OTOF gene-therapy classification.
+    reg = final["regulatory_path"]
+    assert reg["treatment_category"] == "otof_gene_therapy_otarmeni"
+    assert reg["fda_pathway"] == "accelerated_approval"
+
+
+def test_p1_dfnb9_unilateral_right_side_exception() -> None:
+    """SGN_PRESENT_HC_LOSS pediatric + DFNB9 + unilateral right → exception path."""
+    final = app.invoke(
+        {
+            "phenotype_input": {
+                "patient_ref": "test-hash-dfnb9rht",
+                "side": "right",
+                "age_years": 3.0,
+                "onset": "congenital",
+                "progressive": False,
+                "locale_country": "JP",
+            },
+            "genetic_input": {
+                "panel_run_id": "panel-test-002",
+                "variants": [
+                    {
+                        "gene": "OTOF",
+                        "hgvs_c": "c.5098G>C",
+                        "zygosity": "homozygous",
+                        "acmg_class": 5,
+                    },
+                ],
+            },
+            "substrate_evidence": {
+                "cn_fiber_count": 4,
+                "eabr_present": True,
+                "eabr_latency_prolonged": False,
+                "dpoae_present": False,
+            },
+        }
+    )
+    otof = final["otof_tx_plan"]
+    assert (
+        otof["recommendation"] == "dfnb9_trial_unilateral_exception"
+    )
+    assert otof["unilateral_exception"] is True
+    assert otof["requires_sponsor_inquiry"] is True
+
+
+def test_p1_non_dfnb9_routes_to_device_classification() -> None:
+    """No OTOF variant → V07 returns NOT_DFNB9, V15 falls through to device."""
+    final = app.invoke(
+        {
+            "phenotype_input": {
+                "patient_ref": "test-hash-nodfnb9",
+                "side": "right",
+                "age_years": 2.0,
+                "onset": "congenital",
+                "progressive": False,
+                "locale_country": "JP",
+            },
+            "substrate_evidence": {
+                "cn_fiber_count": 4,
+                "eabr_present": True,
+                "eabr_latency_prolonged": False,
+                "dpoae_present": False,
+            },
+        }
+    )
+    # V02 emitted an empty result (no genetic_input), so V07 sees
+    # had_genetic_panel=True (the empty verdicts[] key) + no OTOF flag,
+    # which is the NOT_DFNB9 branch (run-but-negative), not NOT_TESTED.
+    otof = final["otof_tx_plan"]
+    assert otof["recommendation"] == "not_dfnb9"
+    # V15 should fall back to the eCI device classification.
+    reg = final["regulatory_path"]
+    assert reg["treatment_category"] == "electrical_cochlear_implant"
+    assert reg["fda_pathway"] == "premarket_approval"

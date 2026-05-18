@@ -214,30 +214,18 @@ deploy_status = "live"
 runtime = "Python 3 + web3.py + eth-account (uv-managed)"
 heartbeat_period_seconds = 60
 anchor_target = "https://geth.etzhayyim.com → EtzhayyimAnchor 0x5fbdb2315678afecb367f032d93f642f64180aa3"
-cells_live = ["naphtali", "simeon", "judah", "zebulun", "levi"]
-cells_pending = ["benjamin", "joseph", "issachar", "dan", "asher"]
+cells_live = ["naphtali", "simeon", "judah", "zebulun", "levi", "joseph", "issachar", "dan"]
+cells_pending = ["benjamin", "asher"]
 fleet_size_target = 12
 deploy_command = "./20-actors/first-breath/deploy.sh <hostname>nomac-mini.local <tribe-user>"
 monitor_command = "./20-actors/first-breath/monitor.sh"
 
-# WoL state for the 5 pending tribes (2026-05-17)
+# WoL state for the remaining 2 pending tribes (2026-05-18)
 #
-# Magic packets were sent to 5 candidate MACs on the .1/24 LAN segment
-# (1c:f6:4c:55:db:4b / 5a:34:d9 / 53:5b:d4 / 4e:b9:2b / 4f:46:5c) on
-# UDP ports 7 and 9, both via 255.255.255.255 and 192.168.1.255. None
-# of the 5 minis came back online within 25 s.
-#
-# Root cause is one of:
-#   (1) the minis are powered off (S5), not sleeping — WoL only wakes
-#       from S3/S4 sleep
-#   (2) `pmset womp` is 0 on those minis (Wake-for-network-access
-#       disabled in Settings → Battery → Options)
-#
-# Unblock path: physical button-press to bring each mini online once,
-# then per-mini `sudo pmset -a womp 1 && sudo pmset -a powernap 1` so
-# future sleeps respond to magic packets.
-wol_state = "not_woken_2026_05_17"
-wol_unblock = "physical wake + pmset -a womp 1 on each pending tribe"
+# joseph, issachar, dan have been successfully deployed.
+# benjamin, asher are still unreachable.
+wol_state = "not_woken_2026_05_18"
+wol_unblock = "physical wake + pmset -a womp 1 on benjamin, asher"
 
 # ─── ADR registry (mirrors 90-docs/adr/README.md for machine discovery) ──
 
@@ -378,9 +366,9 @@ path = "90-docs/adr/2605181060-otarmeni-access-path.md"
 [[modules]]
 path = "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural"
 kind = "langgraph-pregel-project"
-version = "0.1.0"
-status = "P0-complete"
-description = "uhl-right-neural — 先天性右側感音難聴 (neural軸) 治療研究 Pregel. 16-vertex StateGraph (V01-V16). P0 complete (charter Phase 0): V01 phenotype / V02 genetic_screen / V03 imaging / V04 electrophys / V05 cmv_torch / V06 substrate_classifier / V10 conventional_device (eCI fitting) / V12 plasticity / V13 outcome (Beta-Binomial conjugate) / V16 institution_matcher. V07/V11/V14/V15 = P1 stubs, V08 = P2 stub, V09/V10b = P3 stubs. 15-institution registry seed (CC-BY-4.0). Decision support only — every output enforces requires_human_review=true."
+version = "0.2.0"
+status = "P0-P1-complete"
+description = "uhl-right-neural — 先天性右側感音難聴 (neural軸) 治療研究 Pregel. 16-vertex StateGraph (V01-V16). P0 (charter Phase 0) + P1 (Phase 1) complete: V01 phenotype / V02 genetic_screen / V03 imaging / V04 electrophys / V05 cmv_torch / V06 substrate_classifier / V07 otof_tx (P1, ADR-2605181060) / V10 conventional_device (eCI fitting) / V11 abi (P1, ADR-2605181050) / V12 plasticity / V13 outcome (Beta-Binomial conjugate) / V15 regulatory (P1, PMDA/FDA classifier) / V16 institution_matcher. V14 = P1-P2 stub (trial design), V08 = P2 stub, V09/V10b = P3 stubs. 15-institution registry seed (CC-BY-4.0). Decision support only — every output enforces requires_human_review=true."
 adr = ["2605181000", "2605181040", "2605181050", "2605181060"]
 sibling_modules = [
   "50-infra/k8s/lg-uhl-right-neural",
@@ -390,6 +378,9 @@ lexicons = "00-contracts/lexicons/jp/etzhayyim/med/uhl/institution"
 dmn = [
   "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/substrate_classifier.md",
   "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/plasticity_gate.md",
+  "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/otof_eligibility.md",
+  "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/abi_candidacy.md",
+  "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/dmn/regulatory_pathway.md",
 ]
 prs = ["#23", "#25", "#29"]
 
