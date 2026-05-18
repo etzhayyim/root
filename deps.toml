@@ -473,9 +473,9 @@ adr = ["2605171800"]
 [[modules]]
 path = "50-infra/l2-anchor-contract"
 kind = "solidity-foundry"
-version = "0.0.0"
-status = "scaffold"
-description = "EtzhayyimAnchor immutable append-only MST root log on Base L2. Stage 5a of ADR-2605171800. NO admin, NO pause, NO proxy."
+version = "0.1.0"
+status = "forge-covered"
+description = "EtzhayyimAnchor immutable append-only MST root log on Base L2. Stage 5a of ADR-2605171800. NO admin, NO pause, NO proxy. 14 forge tests (happy path + event indexing + entry shape + duplicate revert state preservation + listRoots boundary cases incl. offset==total / offset>total / partial last page / insertion order / limit=0 / rootCount monotonic + 1 fuzz over any non-empty cid). The duplicate-revert-no-state-change property is what makes anchor-cron's idempotency probe correct."
 adr = ["2605171800"]
 solc_version = "0.8.27"
 
