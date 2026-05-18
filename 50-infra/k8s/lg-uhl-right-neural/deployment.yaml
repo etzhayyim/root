@@ -159,14 +159,22 @@ spec:
               # <stateDir>/keys/) before MST projection. Stages 3-4 only
               # ever address ciphertext.
               value: "did:web:uhl-right-neural.etzhayyim.com"
-            # Stage 3/4 (IPFS pin + L2 anchor) are pluggable; leaving them
-            # unset means the sidecar persists locally only. Wire them up
-            # once an IPFS endpoint and an Anchor contract address are
-            # registered in deps.toml platform.l2.anchor_contract.
-            # - name: ETZ_IPFS_API_URL
-            #   value: "http://kubo-cluster.ipfs.svc:5001"
+            # Stage 3 (IPFS pin) — enabled. Every CAR file produced by
+            # #commitMst is pinned via kubo HTTP API. The endpoint points
+            # at the fleet kubo node registered in deps.toml [platform.ipfs]
+            # (simeonnomac-mini.local:5001, kubo 0.41.0, status: live).
+            # Safe because F encrypts every payload before MST projection,
+            # so the pinned bytes are ciphertext per ADR-2605181100.
+            - name: ETZ_IPFS_API_URL
+              value: "http://simeonnomac-mini.local:5001"
+            # Stage 4 (Base L2 anchor) — deferred. Awaiting the
+            # EtzhayyimAnchor contract deploy to Base sepolia / mainnet
+            # (currently only at deps.toml address_local_anvil). Once an
+            # address lands in platform.l2.anchor_contract.address_testnet
+            # uncomment the env below + add an anchor-cron CronJob per
+            # ADR-2605171800 §Stage 5b.
             # - name: ETZ_ANCHOR_CHAIN_ID
-            #   value: "8453"
+            #   value: "84532"  # Base sepolia
           # No HTTP port — listens on the Unix socket in the shared volume.
           livenessProbe:
             exec:

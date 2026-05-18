@@ -99,14 +99,27 @@ and `institution_match` containing ABI-capable institutions with
 - **No LLM key** — V12 plasticity / V13 outcome / V14 trial-design are stubs
   in P0. When P1 implements V13 (PyMC) and V14 (LLM-drafted protocol prose),
   add `ANTHROPIC_API_KEY` (or local model endpoint) to the deployment env.
-- **Checkpointer wired** — `MstCheckpointSaver` (Python, RW-free per
-  ADR-2605172000) auto-attaches when `MST_CHECKPOINT_SOCKET` is set.
-  The sidecar container (`@etzhayyim/sdk` / Stage 2-4 of ADR-2605171800)
-  is now part of the Pod. IPFS pin + L2 anchor (Stages 3-4) remain
-  opt-in via `ETZ_IPFS_API_URL` / `ETZ_ANCHOR_CHAIN_ID` on the sidecar
-  container — leaving them unset keeps state local to
-  `/var/etzhayyim/checkpointer-state` (emptyDir; swap to a PVC keyed on
-  the cell DID for production durability).
+- **Substrate pipeline status (ADR-2605171800)**:
+  - **Stage 1 (saver)** — Python `MstCheckpointSaver` attaches via
+    `MST_CHECKPOINT_SOCKET`. Live.
+  - **Stage 2 (MST projection)** — TS sidecar in the same Pod. Live.
+  - **Stage 2.5 (AEAD encryption, ADR-2605181100)** — per-cell symKey
+    XChaCha20-Poly1305 sealing enabled via
+    `ETZ_CHECKPOINTER_ENCRYPT_CELLS`. Every payload is ciphertext
+    before it hits MST. Live.
+  - **Stage 3 (IPFS pin)** — live. CAR files pinned to the fleet kubo
+    at `simeonnomac-mini.local:5001` via `ETZ_IPFS_API_URL`. Pinned
+    content is ciphertext only (Stage 2.5).
+  - **Stage 4 (Base L2 anchor)** — pending. Waiting on
+    `EtzhayyimAnchor.sol` deploy to Base sepolia / mainnet (currently
+    only `address_local_anvil`). Uncomment `ETZ_ANCHOR_CHAIN_ID=84532`
+    on the sidecar container + add an `anchor-cron` CronJob once the
+    contract address lands in `deps.toml [platform.l2.anchor_contract]`.
+- **Sidecar state durability**: `/var/etzhayyim/checkpointer-state` is
+  an emptyDir today. For production, swap to a PVC keyed on the cell
+  DID so the per-cell symKey + spool survive pod rescheduling. Without
+  the PVC, a pod restart re-generates the symKey and prior ciphertext
+  becomes unrecoverable.
 - **Resource requests** are conservative (server: 100m CPU / 256Mi,
   sidecar: 50m CPU / 128Mi). Increase `limits.memory` when V09
   reprogramming / V13 PyMC models load larger parameter sets.
