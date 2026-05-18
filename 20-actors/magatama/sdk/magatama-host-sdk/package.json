@@ -24,6 +24,7 @@
     "./agent-lifecycle": "./src/agent-lifecycle.ts",
     "./audit-query-builder": "./src/audit-query-builder.ts",
     "./langserver-actor": "./src/langserver-actor.ts",
+    "./langserver-xrpc-handler": "./src/langserver-xrpc-handler.ts",
     "./write-outbox": "./src/write-outbox.ts",
     "./write-dispatch.generated": "./src/write-dispatch.generated.ts",
     "./b2": "./src/b2.ts",
