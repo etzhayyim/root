@@ -7,13 +7,33 @@
 # Authoritative:
 #   ADR-2605181000 — uhl-right-neural project charter
 #   ADR-2605180900 — langserver four-call-surface pattern
+#   ADR-2605171800 — LangGraph → MstCheckpointSaver → MST → IPFS → L2 anchor
 #
 # Pre-requisites:
-#   - ghcr.io/etzhayyim/pymagatama image built with the
+#   - ghcr.io/etzhayyim/lg-uhl-right-neural image built with the
 #     pymagatama.projects.uhl_right_neural package
+#   - ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer image (TS sidecar)
 #   - langgraph.json present in the image at the working dir
-#   - no DATABASE_URL needed — V16 institution registry is in-package YAML;
-#     no PDS / RW reads in P0 MVP scope.
+#   - no DATABASE_URL needed — V16 institution registry is in-package YAML
+#
+# Pod topology (two-container sidecar, ADR-2605171800 §Stage 1-2):
+#
+#   ┌─────────────────────────────────────────────────────────────────┐
+#   │  Pod                                                            │
+#   │                                                                 │
+#   │  ┌─────────────────────┐    /run/etzhayyim/    ┌──────────────┐ │
+#   │  │  server (Python)    │◄──── checkpointer ─►│  checkpointer│ │
+#   │  │  lg-uhl-right-neural│        .sock         │  (TS, Node)  │ │
+#   │  │  MstCheckpointSaver │     (emptyDir)       │  @etz/sdk    │ │
+#   │  └─────────────────────┘                      └──────────────┘ │
+#   │                                                       │        │
+#   │                              /var/etzhayyim/          │        │
+#   │                              checkpointer-state ◄─────┘        │
+#   │                              (emptyDir; PVC in prod)           │
+#   └─────────────────────────────────────────────────────────────────┘
+#
+# Both containers run as uid 65532. The sidecar accepts Unix-domain
+# connections from the langserver only — no TCP port exposed.
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -47,6 +67,17 @@ spec:
       serviceAccountName: lg-uhl-right-neural
       imagePullSecrets:
         - name: ghcr-pull
+      securityContext:
+        # Both containers run as uid 65532 — non-root, matches the
+        # langserver Dockerfile's USER directive. fsGroup 65532 makes
+        # the shared emptyDir volumes group-rw for both processes so
+        # the Unix socket is mutually accessible without acrobatics.
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: server
           # Production: pin a digest. Use `kubectl set image` to update.
@@ -62,16 +93,13 @@ spec:
             # (or local LLM endpoint) here.
             #
             # Checkpointer wiring (ADR-2605171800, RW-free per ADR-2605172000):
-            # The Pregel module auto-attaches MstCheckpointSaver when
-            # MST_CHECKPOINT_SOCKET is set. Default cell DID per the project's
-            # web-hosted resolver target. C-2 PR will add the actual sidecar
-            # container + emptyDir socket volume; until then both env vars are
-            # commented out so the langserver compiles without persistence
-            # (matches P0 behaviour).
-            # - name: MST_CHECKPOINT_SOCKET
-            #   value: "/run/etzhayyim/checkpointer.sock"
-            # - name: MST_CHECKPOINT_CELL_DID
-            #   value: "did:web:uhl-right-neural.etzhayyim.com"
+            # The Pregel module auto-attaches MstCheckpointSaver via the
+            # env vars below. The TS sidecar in the second container reads
+            # the matching ETZ_CHECKPOINTER_* vars.
+            - name: MST_CHECKPOINT_SOCKET
+              value: "/run/etzhayyim/checkpointer.sock"
+            - name: MST_CHECKPOINT_CELL_DID
+              value: "did:web:uhl-right-neural.etzhayyim.com"
           ports:
             - name: http
               containerPort: 8080
@@ -107,10 +135,89 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
+            - name: checkpointer-socket
+              mountPath: /run/etzhayyim
+        - name: checkpointer
+          # TS sidecar — ADR-2605171800 Stage 2. Owns MST/IPFS/L2.
+          # Image source: 50-infra/etzhayyim-sdk-checkpointer/Dockerfile
+          image: ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer:main
+          imagePullPolicy: Always
+          env:
+            - name: ETZ_CHECKPOINTER_SOCKET
+              value: "/run/etzhayyim/checkpointer.sock"
+            - name: ETZ_CHECKPOINTER_STATE_DIR
+              value: "/var/etzhayyim/checkpointer-state"
+            - name: ETZ_CHECKPOINTER_ALLOWED_DIDS
+              # Comma-separated DID allowlist. Requests with a non-listed
+              # cell_did are rejected by the sidecar.
+              value: "did:web:uhl-right-neural.etzhayyim.com"
+            # Stage 3/4 (IPFS pin + L2 anchor) are pluggable; leaving them
+            # unset means the sidecar persists locally only. Wire them up
+            # once an IPFS endpoint and an Anchor contract address are
+            # registered in deps.toml platform.l2.anchor_contract.
+            # - name: ETZ_IPFS_API_URL
+            #   value: "http://kubo-cluster.ipfs.svc:5001"
+            # - name: ETZ_ANCHOR_CHAIN_ID
+            #   value: "8453"
+          # No HTTP port — listens on the Unix socket in the shared volume.
+          livenessProbe:
+            exec:
+              command:
+                - node
+                - -e
+                - "require('fs').statSync(process.env.ETZ_CHECKPOINTER_SOCKET)"
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            exec:
+              command:
+                - node
+                - -e
+                - "require('fs').statSync(process.env.ETZ_CHECKPOINTER_SOCKET)"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: "500m"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: checkpointer-socket
+              mountPath: /run/etzhayyim
+            - name: checkpointer-state
+              mountPath: /var/etzhayyim/checkpointer-state
+            - name: tmp-sidecar
+              mountPath: /tmp
       volumes:
         - name: tmp
           emptyDir:
             sizeLimit: 64Mi
+        - name: tmp-sidecar
+          emptyDir:
+            sizeLimit: 64Mi
+        - name: checkpointer-socket
+          # Tiny — only holds the Unix domain socket node. fsGroup makes
+          # it group-rw between server and checkpointer.
+          emptyDir:
+            sizeLimit: 1Mi
+        - name: checkpointer-state
+          # Sidecar's persistent index + staged CARs. emptyDir survives
+          # container restarts within the same Pod lifetime, but NOT pod
+          # rescheduling. Production: replace with a PVC tied to the
+          # cell DID for full ADR-2605171800 durability guarantees.
+          emptyDir:
+            sizeLimit: 1Gi
 ---
 apiVersion: v1
 kind: Service
