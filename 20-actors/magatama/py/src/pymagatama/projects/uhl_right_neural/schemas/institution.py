@@ -88,6 +88,7 @@ class Capability(BaseModel):
 
     kind: CapabilityKind
     procedure_record: ProcedureRecord
+    notes_ja: Optional[str] = Field(default=None, max_length=2000)
 
 
 class ReferralPathRef(BaseModel):

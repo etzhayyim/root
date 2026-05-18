@@ -6,6 +6,6 @@
   },
   "env": ".env",
   "python_version": "3.11",
-  "$checkpointer_comment": "No checkpointer in P0. RW-free per ADR-2605172000; persistence will go to AT MST + IPFS via @etzhayyim/sdk in P1.",
+  "$checkpointer_comment": "RW-free per ADR-2605172000. The Pregel module (pymagatama.projects.uhl_right_neural.pregel) auto-attaches an MstCheckpointSaver when env MST_CHECKPOINT_SOCKET is set (Unix socket or tcp://host:port). With the env unset the graph compiles without persistence — P0 behaviour preserved. Sidecar contract: ADR-2605171800. C-2 PR adds the TS sidecar container to deployment.yaml.",
   "crons": []
 }

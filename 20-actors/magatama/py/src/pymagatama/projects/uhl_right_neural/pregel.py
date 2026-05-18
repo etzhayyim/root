@@ -14,6 +14,7 @@ a real actor without changing the topology.
 """
 from __future__ import annotations
 
+import os
 from typing import Any, Optional
 
 from langgraph.graph import END, StateGraph
@@ -225,12 +226,40 @@ def _build() -> StateGraph:
     return g
 
 
-app = _build().compile()
+def _maybe_checkpointer() -> Any:
+    """Build an MstCheckpointSaver iff MST_CHECKPOINT_SOCKET is set.
+
+    Per ADR-2605171800 + ADR-2605172000 (RW-free substrate). The saver
+    proxies to the @etzhayyim/sdk TS sidecar over a Unix socket (or TCP
+    for out-of-host test rigs). When the env var is unset the Pregel
+    compiles without a checkpointer — same behaviour as P0 MVP.
+    """
+    socket_path = os.environ.get("MST_CHECKPOINT_SOCKET")
+    if not socket_path:
+        return None
+    cell_did = os.environ.get(
+        "MST_CHECKPOINT_CELL_DID", "did:web:uhl-right-neural.etzhayyim.com"
+    )
+    # Lazy import — pymagatama.checkpointer pulls msgpack, which is an
+    # optional dep for hosts that don't enable the substrate pipeline.
+    from pymagatama.checkpointer import MstCheckpointSaver
+
+    return MstCheckpointSaver(cell_did=cell_did, socket_path=socket_path)
+
+
+def _compile() -> Any:
+    checkpointer = _maybe_checkpointer()
+    if checkpointer is not None:
+        return _build().compile(checkpointer=checkpointer)
+    return _build().compile()
+
+
+app = _compile()
 
 
 def build_graph() -> Any:
     """Factory entry point for langgraph_loader (py_factory kind)."""
-    return _build().compile()
+    return _compile()
 
 
 __all__ = ["UhlState", "app", "build_graph"]
