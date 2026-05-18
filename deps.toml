@@ -338,7 +338,67 @@ title = "GitGuardian RisingWave credential-leak incident response — full remed
 status = "active"
 path = "90-docs/adr/2605173100-gitguardian-incident-response.md"
 
+[[adrs]]
+id = "2605181000"
+title = "uhl-right-neural project charter — 先天性右側感音難聴 (neural軸) 治療研究 Pregel"
+status = "in-progress"
+status_note = "Session 2026-05-18: P0 MVP scaffolded across PR #23 (charter + 3 sibling ADRs + 15-institution seed), PR #25 (Pydantic schemas + 3 actors V01/V06/V16 + 16-vertex Pregel skeleton + Lexicons), PR #29 (4 pytest files + V02/V04 actors + langserver pod + RW-free AppView skeleton). Stack: #23 → #25 → #29. P1 deliverables (V03/V05/V07-V15 real actors, AppView audit-record emission, Svelte UI, langserver → @etzhayyim/sdk MST checkpointer) gated."
+path = "90-docs/adr/2605181000-uhl-right-neural-project.md"
+
+[[adrs]]
+id = "2605181040"
+title = "UHL-R 医療機関レジストリ — data schema + 公開ポリシー (公的情報のみ・PII無し)"
+status = "proposed"
+status_note = "Authoritative for jp.etzhayyim.med.uhl.institution.* schema. 15-institution seed (8 JP + 7 intl) shipped in PR #23; Pydantic v2 strict implementation in PR #25; runtime enforcement (180-day staleness, DFNB9 gate, requires_human_review=true) in PR #25 V16 InstitutionMatcherActor."
+path = "90-docs/adr/2605181040-uhl-medical-institution-registry.md"
+
+[[adrs]]
+id = "2605181050"
+title = "UHL-R 海外 referral path — ABI (Manchester/GSTT) / optoCI (Göttingen) / SGN regen (Sheffield)"
+status = "proposed"
+status_note = "3 named paths: abi-uk-nhs-paediatric, optoci-de-trial (watch-list, no recruiting yet), sgn-regen-uk-research (research participation only). Wired via Institution.referral_paths in PR #23 seed; V16 surfaces path_ids in candidate output (PR #25)."
+path = "90-docs/adr/2605181050-uhl-overseas-referral-paths.md"
+
+[[adrs]]
+id = "2605181060"
+title = "Otarmeni (lunsotogene parvec-cwha) access path — CHORD JP trial → PMDA → 個人輸入 (deprecated)"
+status = "proposed"
+status_note = "DFNB9 biallelic ACMG class 4-5 = hard inclusion gate. V02 GeneticScreenActor (PR #29) emits biallelic_otof_pathogenic flag → V16 filters GENE_TX_OTOF capability when unconfirmed. CHORD JP site name still public TBD by Regeneron (watch list). PMDA approval estimated 2027-2028."
+path = "90-docs/adr/2605181060-otarmeni-access-path.md"
+
 # ─── Module registry ────────────────────────────────────────────────
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural"
+kind = "langgraph-pregel-project"
+version = "0.0.1"
+status = "scaffold-P0"
+description = "uhl-right-neural — 先天性右側感音難聴 (neural軸) 治療研究 Pregel. 16-vertex StateGraph (V01-V16), V01/V02/V04/V06/V16 implemented, V03/V05/V07-V15 stubs. 15-institution registry seed (CC-BY-4.0). Decision support only — every output enforces requires_human_review=true."
+adr = ["2605181000", "2605181040", "2605181050", "2605181060"]
+sibling_modules = [
+  "50-infra/k8s/lg-uhl-right-neural",
+  "60-apps/open-otology-uhl-r",
+]
+lexicons = "00-contracts/lexicons/jp/etzhayyim/med/uhl/institution"
+prs = ["#23", "#25", "#29"]
+
+[[modules]]
+path = "50-infra/k8s/lg-uhl-right-neural"
+kind = "k8s-manifests"
+version = "0.0.1"
+status = "scaffold-P0"
+description = "LangServer pod manifest for the uhl_right_neural Pregel. Serves pymagatama.projects.uhl_right_neural.pregel:app over LangGraph CLI HTTP runtime. No DATABASE_URL (RW-free per ADR-2605172000); no checkpointer in P0 (P1 plugs @etzhayyim/sdk MST writer)."
+adr = ["2605181000", "2605180900"]
+image = "ghcr.io/etzhayyim/lg-uhl-right-neural:main"
+
+[[modules]]
+path = "60-apps/open-otology-uhl-r"
+kind = "cf-worker-appview"
+version = "0.0.1"
+status = "scaffold-P0"
+description = "RW-free AppView for uhl-right-neural. Single XRPC method jp.etzhayyim.med.uhl.institution.matchQuery proxies langserver, validates substrateClass against Lexicon knownValues, enforces requiresHumanReview/ethicsCommitteeRequired/dataExportRequiresReview=true on output."
+adr = ["2605181000", "2605181040", "2605172000"]
+did = "did:web:open-otology-uhl-r.etzhayyim.com"
 
 [[modules]]
 path = "20-actors/etzhayyim-sdk"
