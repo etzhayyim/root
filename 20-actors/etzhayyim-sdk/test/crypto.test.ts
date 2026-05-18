@@ -9,14 +9,20 @@
 import {describe, it, expect} from "vitest";
 import {
   AEAD_ALG,
+  AEAD_TAG_BYTES,
   ENVELOPE_VERSION,
   KEY_BYTES,
   NONCE_BYTES,
+  PAD_BUCKETS,
+  PAD_SCHEME_ISO7816,
   decrypt,
   encrypt,
   generateKey,
   generateNonce,
   keyIdOf,
+  padIso7816,
+  pickBucket,
+  unpadIso7816,
 } from "../src/crypto.js";
 
 const SENDER = "did:web:alice.example";
@@ -129,5 +135,89 @@ describe("crypto invariants", () => {
 
   it("generateKey returns 32 bytes", () => {
     expect(generateKey()).toHaveLength(KEY_BYTES);
+  });
+});
+
+describe("crypto padding (ADR-2605181200)", () => {
+  it("padIso7816 appends 0x80 then 0x00s; unpad recovers original", () => {
+    const plain = new Uint8Array([1, 2, 3, 4, 5]);
+    const padded = padIso7816(plain, 16);
+    expect(padded.length).toBe(16);
+    expect(padded[5]).toBe(0x80);
+    for (let i = 6; i < 16; i++) expect(padded[i]).toBe(0);
+    expect(Array.from(unpadIso7816(padded))).toEqual(Array.from(plain));
+  });
+
+  it("padIso7816 rejects target too small", () => {
+    expect(() => padIso7816(new Uint8Array(10), 10)).toThrow(/too small/);
+  });
+
+  it("unpadIso7816 rejects missing delimiter", () => {
+    expect(() => unpadIso7816(new Uint8Array(16))).toThrow(/invalid/);
+  });
+
+  it("pickBucket picks the smallest bucket that fits plaintext + delimiter + tag", () => {
+    // 1 byte plaintext + 1 delimiter + 16 tag = 18 → bucket 1024
+    expect(pickBucket(1)).toBe(1024);
+    // 1007 + 1 + 16 = 1024 → fits
+    expect(pickBucket(1024 - 1 - AEAD_TAG_BYTES)).toBe(1024);
+    // 1008 + 1 + 16 = 1025 → next bucket
+    expect(pickBucket(1024 - AEAD_TAG_BYTES)).toBe(4096);
+    // largest bucket
+    expect(pickBucket(60000)).toBe(65536);
+  });
+
+  it("pickBucket throws when plaintext exceeds largest bucket", () => {
+    expect(() => pickBucket(100000)).toThrow(/exceeds/);
+  });
+
+  it("encrypt(pad: 'bucket') yields ciphertext exactly equal to the bucket size", () => {
+    const key = generateKey();
+    const env = encrypt({key, sender: "did:test:a", plaintext: {x: 1}, pad: "bucket"});
+    expect(env.pad).toBe(PAD_SCHEME_ISO7816);
+    expect(env.ciphertext.length).toBe(PAD_BUCKETS[0]); // 1024 — tiny plaintext
+    const back = decrypt({key, envelope: env});
+    expect(back).toEqual({x: 1});
+  });
+
+  it("encrypt(pad: {bucket: 4096}) forces the explicit bucket", () => {
+    const key = generateKey();
+    const env = encrypt({
+      key,
+      sender: "did:test:a",
+      plaintext: {x: 1},
+      pad: {bucket: 4096},
+    });
+    expect(env.ciphertext.length).toBe(4096);
+    const back = decrypt({key, envelope: env});
+    expect(back).toEqual({x: 1});
+  });
+
+  it("differently-sized plaintexts encrypt to the same bucket length", () => {
+    const key = generateKey();
+    const small = encrypt({key, sender: "did:test:a", plaintext: {x: 1}, pad: "bucket"});
+    const bigger = encrypt({
+      key,
+      sender: "did:test:a",
+      plaintext: {body: "x".repeat(500), tag: "fill"},
+      pad: "bucket",
+    });
+    expect(small.ciphertext.length).toBe(bigger.ciphertext.length);
+    expect(small.ciphertext.length).toBe(PAD_BUCKETS[0]);
+  });
+
+  it("pad: 'none' (default) leaves ciphertext at native CBOR size + tag", () => {
+    const key = generateKey();
+    const env = encrypt({key, sender: "did:test:a", plaintext: {x: 1}});
+    expect(env.pad).toBeUndefined();
+    // Native CBOR of {x: 1} is 4 bytes; AEAD adds 16-byte tag → 20.
+    expect(env.ciphertext.length).toBeLessThan(64);
+  });
+
+  it("envelope with pad set decrypts back to plaintext (no caller-side unpad arg)", () => {
+    const key = generateKey();
+    const obj = {body: "hi", n: 7};
+    const env = encrypt({key, sender: "did:test:a", plaintext: obj, pad: "bucket"});
+    expect(decrypt({key, envelope: env})).toEqual(obj);
   });
 });

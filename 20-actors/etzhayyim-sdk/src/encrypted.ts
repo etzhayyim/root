@@ -16,11 +16,15 @@
 
 import type {AtpAgent} from "@atproto/api";
 
+import {blake2b} from "@noble/hashes/blake2b";
+
 import {
   decrypt,
   encrypt,
   generateKey,
   type EncryptedEnvelope,
+  type PadOption,
+  type PadScheme,
   type SymmetricKey,
 } from "./crypto.js";
 import {
@@ -83,6 +87,19 @@ export interface EncryptedWriteOpts<T extends Record<string, unknown>> {
 
   /** Optional override rkey for the envelope record. Default: SDK-generated. */
   rkey?: string;
+
+  /**
+   * Pad ciphertext to a fixed bucket size before AEAD. Off by default in
+   * v0.1.x; will flip to "bucket" in v0.2.0. Per ADR-2605181200.
+   */
+  pad?: PadOption;
+
+  /**
+   * Replace the timestamp-based TID rkey with a blinded rkey derived from
+   * the per-envelope symmetric key. Off by default in v0.1.x; will flip on
+   * in v0.2.0. Per ADR-2605181200.
+   */
+  blindRkey?: boolean;
 }
 
 export interface EncryptedWriteReceipt {
@@ -140,7 +157,47 @@ interface EncryptedRecordLex {
   keyId: string;
   sender: string;
   innerType?: string;
+  pad?: PadScheme;
   createdAt: string;
+}
+
+// ── rkey blinding (ADR-2605181200) ───────────────────────────────────────────
+
+/** AT Proto TID alphabet (base32-sortable, lowercase). */
+const TID_ALPHABET = "234567abcdefghijklmnopqrstuvwxyz";
+
+/**
+ * Derive a TID-shaped (13-char base32-sortable) rkey from `symKey || seq`.
+ *
+ * The first character is fixed to `"2"` so the result satisfies the AT Proto
+ * TID validator (real TIDs in the post-2010 epoch start with `"2"` or `"3"`;
+ * forcing `"2"` is indistinguishable from a real TID with high timestamp
+ * entropy in the upper bits). The remaining 12 chars carry 60 bits of
+ * keyed entropy from BLAKE2b-128(symKey || seq).
+ */
+export function blindRkey(symKey: Uint8Array, seq: number): string {
+  if (seq < 0 || seq > 0xffffffff || !Number.isInteger(seq)) {
+    throw new Error("[etzhayyim-sdk/encrypted] blindRkey seq must be u32");
+  }
+  const seqBytes = new Uint8Array(4);
+  new DataView(seqBytes.buffer).setUint32(0, seq, false);
+  const buf = new Uint8Array(symKey.length + 4);
+  buf.set(symKey, 0);
+  buf.set(seqBytes, symKey.length);
+  const h = blake2b(buf, {dkLen: 16});
+
+  let out = "2";
+  let bits = 0;
+  let value = 0;
+  for (let i = 0; i < h.length && out.length < 13; i++) {
+    value = ((value << 8) | h[i]) >>> 0;
+    bits += 8;
+    while (bits >= 5 && out.length < 13) {
+      bits -= 5;
+      out += TID_ALPHABET[(value >>> bits) & 0x1f];
+    }
+  }
+  return out;
 }
 
 interface KeyWrapLex {
@@ -183,6 +240,7 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
     sender: deps.senderDid,
     plaintext: opts.record,
     innerType: opts.innerType,
+    pad: opts.pad,
   });
 
   // 2. Write the envelope record to the sender's PDS.
@@ -194,14 +252,20 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
     keyId: envelope.keyId,
     sender: envelope.sender,
     innerType: envelope.innerType,
+    pad: envelope.pad,
     createdAt: envelope.createdAt,
   };
+  // Per ADR-2605181200: when blindRkey is set, seq=0 for the envelope and
+  // seq=1+ for keyWraps under the same symKey. With one symKey per envelope
+  // (current SDK design) seq never exceeds (1 + recipients.length).
+  const envelopeRkey =
+    opts.rkey ?? (opts.blindRkey ? blindRkey(symKey, 0) : undefined);
   const envelopeReceipt = await pds.createRecord(
     deps.agent,
     deps.senderDid,
     collection,
     envelopeLex,
-    opts.rkey
+    envelopeRkey
   );
 
   // 3. For each recipient (incl. self when wrapToSelf): establish Signal
@@ -213,6 +277,9 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
   const keyWraps: Array<{recipient: string; uri: string; cid: string}> = [];
   const skipped: Array<{recipient: string; reason: string}> = [];
 
+  // keyWrap rkey sequence starts at 1 (envelope used seq=0). Skipped
+  // recipients don't consume a seq, so we increment only on successful write.
+  let kwSeq = 1;
   for (const recipientDid of recipientSet) {
     let resolved: ResolvedRecipientIdentity | null;
     try {
@@ -276,13 +343,16 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
       recordUri: envelopeReceipt.uri,
       createdAt: envelope.createdAt,
     };
+    const kwRkey = opts.blindRkey ? blindRkey(symKey, kwSeq) : undefined;
     const kwReceipt = await pds.createRecord(
       deps.agent,
       deps.senderDid,
       COLLECTION_KEYWRAP,
-      keyWrapLex
+      keyWrapLex,
+      kwRkey
     );
     keyWraps.push({recipient: recipientDid, uri: kwReceipt.uri, cid: kwReceipt.cid});
+    if (opts.blindRkey) kwSeq++;
   }
 
   return {
