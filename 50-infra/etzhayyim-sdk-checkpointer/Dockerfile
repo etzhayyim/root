@@ -12,7 +12,7 @@
 # This is an infra-side image. It contains only the @etzhayyim/sdk runtime
 # (the checkpointer entrypoint + its prod deps). No app code lives here.
 #
-# Runtime env (see 20-actors/etzhayyim-sdk/dist/checkpointer.js#runFromEnv):
+# Runtime env (see 20-actors/etzhayyim-sdk/src/checkpointer.ts#runFromEnv):
 #   ETZ_CHECKPOINTER_SOCKET           default /run/etzhayyim/checkpointer.sock
 #   ETZ_CHECKPOINTER_STATE_DIR        default <node-cwd>/state
 #   ETZ_CHECKPOINTER_ALLOWED_DIDS     required, comma-separated DID allowlist
@@ -20,6 +20,8 @@
 #   ETZ_ANCHOR_CHAIN_ID               optional, enables Stage 4 anchor
 
 # ── Build stage ───────────────────────────────────────────────────────────────
+# Compiles src/checkpointer.ts → dist/checkpointer.js inside the image so
+# fresh clones (CI, etc.) don't depend on a pre-built local dist/.
 
 FROM node:22-alpine AS builder
 
@@ -28,11 +30,17 @@ WORKDIR /build
 # pnpm via corepack — matches the SDK's lockfile (pnpm-lock.yaml v9).
 RUN corepack enable && corepack prepare pnpm@9 --activate
 
-# Install prod deps only. We intentionally do not copy .npmrc — the
-# SDK has only public registry dependencies (atproto, ipld, viem,
-# msgpack, multiformats). Any future @etzhayyim/* dep would need an
-# explicit build-time mount.
+# Stage 1: install ALL deps (incl. devDeps) so tsc is available.
 COPY 20-actors/etzhayyim-sdk/package.json 20-actors/etzhayyim-sdk/pnpm-lock.yaml ./
+RUN --mount=type=cache,target=/root/.pnpm-store \
+    pnpm install --frozen-lockfile --ignore-scripts
+
+# Stage 2: copy source and build dist/.
+COPY 20-actors/etzhayyim-sdk/tsconfig.json ./
+COPY 20-actors/etzhayyim-sdk/src ./src
+RUN pnpm build
+
+# Stage 3: drop devDeps so only prod node_modules carries forward.
 RUN --mount=type=cache,target=/root/.pnpm-store \
     pnpm install --prod --frozen-lockfile --ignore-scripts
 
@@ -45,11 +53,8 @@ RUN apk add --no-cache tini
 
 WORKDIR /sidecar
 
-# Drop in the prebuilt JS + prod node_modules. dist/ is already built;
-# the langgraph repo's CI builds it via `pnpm --filter @etzhayyim/sdk build`
-# before the docker context is assembled.
 COPY --from=builder /build/node_modules ./node_modules
-COPY 20-actors/etzhayyim-sdk/dist ./dist
+COPY --from=builder /build/dist ./dist
 COPY 20-actors/etzhayyim-sdk/package.json ./
 
 # Pod runs all containers as uid 65532 (set via K8s securityContext);
