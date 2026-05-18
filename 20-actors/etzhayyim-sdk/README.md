@@ -93,10 +93,34 @@ Payment substrate (ADR-2605172100):
 - **All payments through SDK pay/payStream/escrow/split methods.** Direct `viem.writeContract` for USDC transfer from app code is prohibited — `src/pay.ts` is the only seam.
 - **All payment events recorded as AT Records** (in addition to on-chain tx) so MST traversal can reconstruct payment history without a chain indexer.
 
+## Encrypted records (Tahoe-pattern, ADR-2605181100)
+
+Private state on the substrate. AEAD envelope (`app.etzhayyim.encrypted.record`) + per-recipient Signal-wrapped symmetric key (`app.etzhayyim.encrypted.keyWrap`). The CID over the envelope inherits MST verify-cap + L2 anchor finality from ADR-2605172000.
+
+```typescript
+await e.encryptedWrite({
+  innerType:  "app.etzhayyim.governance.proposal",
+  record:     { title: "Council motion 42", body: "..." },
+  recipients: ["did:web:alice.example", "did:web:bob.example"],
+});
+
+const { records } = await e.encryptedRead<ProposalBody>({
+  innerType: "app.etzhayyim.governance.proposal",
+});
+```
+
+Direct app imports of `@noble/ciphers` / `@signalapp/libsignal-client` are **prohibited** — same hard-rule seam as `@atproto/api` and `viem`. Use:
+
+- `@etzhayyim/sdk/crypto` — XChaCha20-Poly1305 envelope (real impl)
+- `@etzhayyim/sdk/signal` — Signal session, key-wrap/unwrap (scaffold; lights up with libsignal)
+- `@etzhayyim/sdk/did-signal` — DID ↔ Signal IdentityKey binding (real impl, Ed25519 over CBOR)
+
 ## Dependencies
 
 - `@atproto/api` — PDS write/read, firehose subscribe
 - `viem` — Base L2 RPC + contract interaction
+- `@noble/ciphers` + `@noble/hashes` + `@noble/curves` — AEAD, hash, Ed25519 (pure TS)
+- `@signalapp/libsignal-client` (optional) — Signal Protocol for key-wrap delivery
 - IPFS HTTP API client TBD (`ipfs-http-client` or `helia`; chosen during reference impl)
 
 ## Versioning

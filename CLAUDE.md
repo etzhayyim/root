@@ -96,7 +96,8 @@ This repo is **blockchain-self-contained**. Hard rules enforced by ADRs and (fut
 | State | AT Protocol MST + IPFS + Base L2 anchor | RisingWave / Postgres / Kysely / centralized DB |
 | Payment | USDC on Base L2 + ERC-4337 Smart Account | Stripe / PayPal / Square / fiat processors |
 | Identity | did:web:etzhayyim.com + did:plc + WebAuthn passkey | server-issued JWTs without DID binding |
-| Substrate client imports | Only via `@etzhayyim/sdk` | Direct `@atproto/api` / `viem` / IPFS client from app code |
+| Confidentiality (ADR-2605181100) | `app.etzhayyim.encrypted.*` (XChaCha20-Poly1305 envelope + Signal-wrapped per-recipient keys, DID-bound) | Plaintext private records on MST / app-side libsignal / noble-ciphers imports |
+| Substrate client imports | Only via `@etzhayyim/sdk` | Direct `@atproto/api` / `viem` / IPFS client / `@noble/ciphers` / `@signalapp/libsignal-client` from app code |
 
 Apps that need fiat / paid features call an external backend via XRPC consent-capability (progressive enhancement). Open app remains operational without it.
 
