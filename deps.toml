@@ -578,7 +578,32 @@ seed_method_actual = "rsync (per user direction 'filter-repo は不要、関連�
 [platform.tranche_f]
 # Phase 2 scaffolding for open-scope items eligible for etzhayyim/root
 # per the 3-axis decision rule (Liability / Custody / Settlement).
-status = "phase-3-content-copy"
+status = "phase-3-done-phase-4a-wave-2-in-progress"
+phase_4a_publish_state = """GH Packages npm.pkg.github.com publish state (2026-05-18):
+- @etzhayyim/sdk@0.1.0-alpha (tag: alpha) ✓
+- @etzhayyim/pregel@0.0.0 (tag: preview) ✓
+- @etzhayyim/did-etzhayyim@0.1.0 (tag: preview) ✓
+- @etzhayyim/anchor-cron: private=true (operator infra, no publish)
+- @etzhayyim/mst-projector: private=true (operator infra, no publish)
+- @etzhayyim/ipfs-pinner: private=true (operator infra, no publish)
+- @gftd/{xrpc,bpmn-sdk,signal,lexicons-bundle}: BLOCKED on scope-rename decision (gftd npm scope ≠ etzhayyim GH org; need CEO ruling: rename to @etzhayyim/* OR publish to npm public OR separate gftd GH org)"""
+phase_4c_roadmap = """Phase 4c (vendor business-app dep switch) is use-case driven and
+NOT a single-session task. Per-app vendor refactor breakdown:
+
+Vendor apps consuming open-scope (per audit 2026-05-18):
+- ai-gftd-project-open-kyber (active code in vendor uses ai.gftd.apps.apqc.*)
+- 20-actors/magatama/py/ (10+ Python files reference wellBecoming primitives)
+- 20-actors/magatama/sdk/magatama-host-sdk/ (generated lexicon-nsid-types.ts)
+- 10-protocol/lexicons-bundle (generated lexicons.gen.json)
+- 10-protocol/xrpc (lexicon-types.gen.ts)
+- 70-tools/config/bpmn-coverage-manifest.json
+- 30-graph/graph-schema/migrations/*_seed_apqc_*.ts
+
+For each consumer: (a) update NSID references ai.gftd.apps.<X>.* → ai.gftd.<X>.*,
+(b) switch lexicon import from local file path to @etzhayyim/<pkg> npm dep,
+(c) regenerate generated files, (d) run app build + test, (e) deploy to staging.
+Estimated: 1-2 PRs per app, multi-week effort. Start with highest-priority/
+lowest-risk app once a real use case lands."""
 phase_3_wave_1 = """DONE 2026-05-18 — first content-copy wave from vendor monorepo:
 - 60-apps/ai-gftd-project-open-wellbecoming/: PROJECT.jsonld + child-capability-agents-design.md from vendor 60-apps/ai-gftd-project-well-becoming/
 - 00-contracts/lexicons/ai/gftd/apqc/: 4 lexicons (coverageSnapshot, emitEvent, materializeSubprocessDid, materializeSubprocesses) with NSID rename ai.gftd.apps.apqc.* → ai.gftd.apqc.*
