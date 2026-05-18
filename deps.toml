@@ -214,30 +214,18 @@ deploy_status = "live"
 runtime = "Python 3 + web3.py + eth-account (uv-managed)"
 heartbeat_period_seconds = 60
 anchor_target = "https://geth.etzhayyim.com → EtzhayyimAnchor 0x5fbdb2315678afecb367f032d93f642f64180aa3"
-cells_live = ["naphtali", "simeon", "judah", "zebulun", "levi"]
-cells_pending = ["benjamin", "joseph", "issachar", "dan", "asher"]
+cells_live = ["naphtali", "simeon", "judah", "zebulun", "levi", "joseph", "issachar", "dan"]
+cells_pending = ["benjamin", "asher"]
 fleet_size_target = 12
 deploy_command = "./20-actors/first-breath/deploy.sh <hostname>nomac-mini.local <tribe-user>"
 monitor_command = "./20-actors/first-breath/monitor.sh"
 
-# WoL state for the 5 pending tribes (2026-05-17)
+# WoL state for the remaining 2 pending tribes (2026-05-18)
 #
-# Magic packets were sent to 5 candidate MACs on the .1/24 LAN segment
-# (1c:f6:4c:55:db:4b / 5a:34:d9 / 53:5b:d4 / 4e:b9:2b / 4f:46:5c) on
-# UDP ports 7 and 9, both via 255.255.255.255 and 192.168.1.255. None
-# of the 5 minis came back online within 25 s.
-#
-# Root cause is one of:
-#   (1) the minis are powered off (S5), not sleeping — WoL only wakes
-#       from S3/S4 sleep
-#   (2) `pmset womp` is 0 on those minis (Wake-for-network-access
-#       disabled in Settings → Battery → Options)
-#
-# Unblock path: physical button-press to bring each mini online once,
-# then per-mini `sudo pmset -a womp 1 && sudo pmset -a powernap 1` so
-# future sleeps respond to magic packets.
-wol_state = "not_woken_2026_05_17"
-wol_unblock = "physical wake + pmset -a womp 1 on each pending tribe"
+# joseph, issachar, dan have been successfully deployed.
+# benjamin, asher are still unreachable.
+wol_state = "not_woken_2026_05_18"
+wol_unblock = "physical wake + pmset -a womp 1 on benjamin, asher"
 
 # ─── ADR registry (mirrors 90-docs/adr/README.md for machine discovery) ──
 

@@ -2,24 +2,26 @@
 
 Authoritative per ADR-2605181000 §16-vertex Pregel topology.
 
-P0 (charter Phase 0 — V01-V06 + V10a + V12 + V13 + V16):
+P0 + P1 (charter Phases 0-1 — V01-V07 + V10a + V11-V13 + V15-V16):
   - V01 phenotype             — implemented (actors/phenotype.py)
   - V02 genetic_screen        — implemented (actors/genetic_screen.py)
   - V03 imaging               — implemented (actors/imaging.py)
   - V04 electrophys           — implemented (actors/electrophys.py)
   - V05 cmv_torch             — implemented (actors/cmv_torch.py)
   - V06 substrate_classifier  — implemented (actors/substrate_classifier.py)
+  - V07 otof_tx               — implemented (actors/otof_tx.py)          P1
   - V10 conventional_device   — implemented (actors/conventional_device.py)
                                 (V10a eCI fitting; V10b optoCI is P3)
+  - V11 abi                   — implemented (actors/abi.py)              P1
   - V12 plasticity            — implemented (actors/plasticity.py)
   - V13 outcome (Bayesian)    — implemented (actors/outcome.py)
+  - V15 regulatory            — implemented (actors/regulatory.py)       P1
   - V16 institution_match     — implemented (actors/institution_matcher.py)
 
 Stubs awaiting later phases:
-  - V07 OTOF-tx, V11 ABI, V15 reg          → P1
   - V08 BDNF/NT-3                          → P2
   - V09 reprogramming, V10b optoCI         → P3
-  - V14 trial_design                       → P1-P2
+  - V14 trial_design                       → P1-P2 (next)
 """
 from __future__ import annotations
 
@@ -29,15 +31,18 @@ from typing import Any, Optional
 from langgraph.graph import END, StateGraph
 from typing_extensions import TypedDict
 
+from .actors.abi import AbiActor
 from .actors.cmv_torch import CmvTorchActor
 from .actors.conventional_device import ConventionalDeviceActor
 from .actors.electrophys import ElectrophysActor
 from .actors.genetic_screen import GeneticScreenActor
 from .actors.imaging import ImagingActor
 from .actors.institution_matcher import InstitutionMatcherActor
+from .actors.otof_tx import OtofTxActor
 from .actors.outcome import OutcomeActor
 from .actors.phenotype import PhenotypeActor
 from .actors.plasticity import PlasticityActor
+from .actors.regulatory import RegulatoryActor
 from .actors.substrate_classifier import SubstrateClass, SubstrateClassifierActor
 
 
@@ -99,9 +104,12 @@ _imaging = ImagingActor()
 _electrophys = ElectrophysActor()
 _cmv_torch = CmvTorchActor()
 _substrate = SubstrateClassifierActor()
+_otof = OtofTxActor()
 _device = ConventionalDeviceActor()
+_abi = AbiActor()
 _plasticity = PlasticityActor()
 _outcome = OutcomeActor()
+_regulatory = RegulatoryActor()
 _institutions = InstitutionMatcherActor()
 
 
@@ -129,8 +137,16 @@ def _v06_substrate(state: UhlState) -> dict[str, Any]:
     return _substrate.compute(state)
 
 
+def _v07_otof_tx(state: UhlState) -> dict[str, Any]:
+    return _otof.compute(state)
+
+
 def _v10_device_fitting(state: UhlState) -> dict[str, Any]:
     return _device.compute(state)
+
+
+def _v11_abi(state: UhlState) -> dict[str, Any]:
+    return _abi.compute(state)
 
 
 def _v12_plasticity(state: UhlState) -> dict[str, Any]:
@@ -139,6 +155,10 @@ def _v12_plasticity(state: UhlState) -> dict[str, Any]:
 
 def _v13_outcome(state: UhlState) -> dict[str, Any]:
     return _outcome.compute(state)
+
+
+def _v15_regulatory(state: UhlState) -> dict[str, Any]:
+    return _regulatory.compute(state)
 
 
 def _v16_institution_match(state: UhlState) -> dict[str, Any]:
@@ -155,15 +175,12 @@ def _make_stub(vertex_id: str, output_key: str) -> Any:
     return _stub
 
 
-# Stubs for treatment-arm vertices not in P0 (charter P1-P3).
-_v07_stub = _make_stub("V07_otof_tx", "otof_tx_plan")          # P1
+# Stubs for treatment-arm vertices not yet implemented (charter P2/P3).
 _v08_stub = _make_stub("V08_neurotrophin", "neurotrophin_plan")  # P2
 _v09_stub = _make_stub("V09_reprogramming", "reprogramming_plan")  # P3
-_v11_stub = _make_stub("V11_abi", "abi_plan")                   # P1
 
-# Trial design + regulatory (P1-P2).
+# V14 trial design is the next P1 vertex (currently stub).
 _v14_stub = _make_stub("V14_trial_design", "trial_protocol")
-_v15_stub = _make_stub("V15_regulatory", "regulatory_path")
 
 
 # ── Routing ──────────────────────────────────────────────────────────────────
@@ -208,15 +225,15 @@ def _build() -> StateGraph:
     g.add_node("V04_electrophys", _v04_electrophys)
     g.add_node("V05_cmv_torch", _v05_cmv_torch)
     g.add_node("V06_substrate_classifier", _v06_substrate)
-    g.add_node("V07_otof_tx", _v07_stub)
+    g.add_node("V07_otof_tx", _v07_otof_tx)
     g.add_node("V08_neurotrophin", _v08_stub)
     g.add_node("V09_reprogramming", _v09_stub)
     g.add_node("V10_device_fitting", _v10_device_fitting)
-    g.add_node("V11_abi", _v11_stub)
+    g.add_node("V11_abi", _v11_abi)
     g.add_node("V12_plasticity", _v12_plasticity)
     g.add_node("V13_outcome", _v13_outcome)
     g.add_node("V14_trial_design", _v14_stub)
-    g.add_node("V15_regulatory", _v15_stub)
+    g.add_node("V15_regulatory", _v15_regulatory)
     g.add_node("V16_institution_matcher", _v16_institution_match)
 
     # S0-S1: V01 → V02-V05 fan-out → V06 fan-in
