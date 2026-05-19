@@ -12,6 +12,12 @@
     type InferenceState,
     type GenerationStats,
   } from "./lib/inference";
+  import {
+    MEDIAPIPE_MODELS,
+    loadMediapipeModel,
+    mediapipeGenerate,
+  } from "./lib/mediapipe-runtime";
+  import { invokeAmeno, type GraphChunk, type GraphPhase } from "./lib/graph";
   import { openBriefStream, type Brief } from "./lib/brief-stream";
   import { saveResult } from "./lib/save-result";
   import { encryptText, decryptText, isEncrypted } from "./lib/private-vault";
@@ -22,11 +28,20 @@
   /** When true, outputs are AES-GCM encrypted client-side before saveResult. */
   let privateMode = $state(false);
 
-  /** Engine model ids selectable by the user. SSoT: @gftd/ameno MODELS. */
-  const MODEL_OPTIONS = Object.keys(MODELS);
+  /** Engine model ids selectable by the user. MediaPipe LiteRT models are
+   *  listed first because transformers.js v3 does not yet recognise
+   *  `gemma4` as a model type, so those entries error on Load until the
+   *  ONNX side catches up. ADR-2605190824. */
+  const MODEL_OPTIONS = [
+    ...Object.keys(MEDIAPIPE_MODELS),
+    ...Object.keys(MODELS),
+  ];
   /** Models that prefer WASM ternary kernels over WebGPU. */
   const WASM_PREFERRED = new Set(["baien-bitnet-2b"]);
-  let selectedModelId = $state(MODEL_OPTIONS[0] ?? "gemma-4-e2b-it");
+  /** Models that route through the MediaPipe LLM Inference Web runtime. */
+  const MEDIAPIPE_PREFERRED = new Set(Object.keys(MEDIAPIPE_MODELS));
+  /** Default to the smallest ungated MediaPipe-Web bundle (Gemma 4 E2B). */
+  let selectedModelId = $state("gemma-4-e2b-mediapipe");
   /** Device override for the next loadModel() call. null = engine default. */
   let selectedDevice = $state<InferenceDevice | null>(null);
   import type { AdapterCandidate } from "./lib/rag-lora";
@@ -45,6 +60,12 @@
   let inputText = $state("");
   let streamingText = $state("");
   let lastStats: GenerationStats | null = $state(null);
+  /** Reflection budget: 0 = disable critic, 1 = one revise pass (default), 2 = two passes. */
+  let maxReflections = $state(1);
+  /** Current LangGraph phase. */
+  let graphPhase = $state<GraphPhase | null>(null);
+  /** Last critic verdict shown next to the assistant message. */
+  let lastCritique = $state<{ score: number; feedback: string; iteration: number } | null>(null);
   let gpuInfo = $state("");
   let chatContainer: HTMLElement | undefined = $state();
 
@@ -76,20 +97,29 @@
     }
   }
 
-  /** Load the selected model (Gemma 4 E2B/E4B on WebGPU; Baien on WASM ternary). */
+  /** Load the selected model. Dispatches by kernel (ADR-2605190824):
+   *    Gemma 4 E2B/E4B → transformers.js WebGPU
+   *    Gemma 3n E2B/E4B → MediaPipe LiteRT (WebGPU `.task` bundle)
+   *    Baien BitNet → WASM ternary
+   */
   async function handleLoadModel() {
     state.status = "loading";
     state.error = null;
     state.progress = 0;
 
-    const device =
-      selectedDevice ??
-      (WASM_PREFERRED.has(selectedModelId) ? "wasm" : "webgpu");
-
     try {
-      await loadModel((p) => {
-        state.progress = p;
-      }, selectedModelId, device);
+      if (MEDIAPIPE_PREFERRED.has(selectedModelId)) {
+        await loadMediapipeModel((p) => {
+          state.progress = p;
+        }, selectedModelId);
+      } else {
+        const device =
+          selectedDevice ??
+          (WASM_PREFERRED.has(selectedModelId) ? "wasm" : "webgpu");
+        await loadModel((p) => {
+          state.progress = p;
+        }, selectedModelId, device);
+      }
       state.status = "ready";
       state.loadedModel = selectedModelId;
     } catch (e) {
@@ -158,7 +188,12 @@
     state.activeAdapters = [...selectedAdapterIds];
   }
 
-  /** Send a message and generate a response. */
+  /**
+   * Send a message and run the ameno LangGraph (Pregel) — generate → critique
+   * → revise → finalize. ADR-2605191000. Tokens stream in via the graph's
+   * `streamMode: "custom"` chunks; we re-bucket them into `streamingText`
+   * by phase so the UI shows only the user-facing draft, not the critic JSON.
+   */
   async function handleSend() {
     const text = inputText.trim();
     if (!text || state.status !== "ready") return;
@@ -168,6 +203,8 @@
     streamingText = "";
     state.status = "generating";
     lastStats = null;
+    lastCritique = null;
+    graphPhase = null;
 
     setTimeout(scrollToBottom, 0);
 
@@ -182,22 +219,61 @@
         ...messages,
       ];
 
-      const stats = await generate(chatMessages, (token) => {
-        streamingText += token;
-        setTimeout(scrollToBottom, 0);
+      const kernel =
+        state.loadedModel && MEDIAPIPE_PREFERRED.has(state.loadedModel)
+          ? "mediapipe"
+          : "transformers";
+
+      const finalDraft = await invokeAmeno({
+        messages: chatMessages,
+        maxIterations: maxReflections,
+        kernel,
+        onChunk: (chunk: GraphChunk) => {
+          if (chunk.type === "phase") {
+            graphPhase = chunk.phase;
+            // Reset the visible buffer at the start of generate and each
+            // revise pass — those are user-facing. critique is not shown
+            // verbatim (it's JSON), but we still keep streaming so the
+            // tokens/sec counter ticks.
+            if (chunk.phase === "generate" || chunk.phase === "revise") {
+              streamingText = "";
+            }
+            return;
+          }
+          if (chunk.type === "token") {
+            if (chunk.phase === "generate" || chunk.phase === "revise") {
+              streamingText += chunk.token;
+              setTimeout(scrollToBottom, 0);
+            }
+            return;
+          }
+          if (chunk.type === "critique") {
+            lastCritique = {
+              score: chunk.score,
+              feedback: chunk.feedback,
+              iteration: chunk.iteration,
+            };
+            return;
+          }
+          if (chunk.type === "stats") {
+            lastStats = chunk.stats;
+          }
+        },
       });
 
+      const finalText = finalDraft || streamingText;
       messages = [
         ...messages,
-        { role: "assistant", content: streamingText },
+        { role: "assistant", content: finalText },
       ];
       streamingText = "";
-      lastStats = stats;
+      graphPhase = null;
       state.status = "ready";
       state.activeAdapters = getActiveAdapterIds();
     } catch (e) {
       state.status = "error";
       state.error = e instanceof Error ? e.message : String(e);
+      graphPhase = null;
       console.error("Generation failed:", e);
     }
   }
@@ -236,7 +312,11 @@
         },
         { role: "user", content: brief.text },
       ];
-      const stats = await generate(chat, (token) => {
+      const runtimeGenerate =
+        state.loadedModel && MEDIAPIPE_PREFERRED.has(state.loadedModel)
+          ? mediapipeGenerate
+          : generate;
+      const stats = await runtimeGenerate(chat, (token) => {
         output += token;
       });
       const persistedOutput = privateMode ? await encryptText(output) : output;
@@ -445,7 +525,9 @@
                 {/each}
               </select>
               <span class="device-pill">
-                {selectedDevice ?? (WASM_PREFERRED.has(selectedModelId) ? "wasm" : "webgpu")}
+                {MEDIAPIPE_PREFERRED.has(selectedModelId)
+                  ? "mediapipe-gpu"
+                  : (selectedDevice ?? (WASM_PREFERRED.has(selectedModelId) ? "wasm" : "webgpu"))}
               </span>
             </div>
             <button class="btn-primary" onclick={handleLoadModel}>
@@ -463,7 +545,10 @@
           <div class="progress-bar">
             <div class="progress-fill" style="width: {state.progress}%"></div>
           </div>
-          <p class="progress-text">{state.progress}% — Downloading ONNX weights</p>
+          <p class="progress-text">
+            {state.progress}% — Downloading
+            {MEDIAPIPE_PREFERRED.has(selectedModelId) ? "LiteRT .task bundle" : "ONNX weights"}
+          </p>
         </div>
       </div>
 
@@ -516,11 +601,33 @@
           </div>
         {/each}
 
-        {#if streamingText}
+        {#if streamingText || graphPhase}
           <div class="message assistant">
-            <div class="message-label">Murakumo</div>
+            <div class="message-label">
+              Murakumo
+              {#if graphPhase}
+                <span class="phase-pill phase-{graphPhase}">{graphPhase}</span>
+              {/if}
+            </div>
             <div class="message-content">{streamingText}<span class="cursor">|</span></div>
           </div>
+        {/if}
+      </div>
+
+      <!-- Reflection controls + last critique -->
+      <div class="reflection-bar">
+        <label>
+          Reflection:
+          <select bind:value={maxReflections} disabled={state.status === "generating"}>
+            <option value={0}>off</option>
+            <option value={1}>1 pass</option>
+            <option value={2}>2 passes</option>
+          </select>
+        </label>
+        {#if lastCritique}
+          <span class="critique-chip" title={lastCritique.feedback}>
+            critic {lastCritique.score}/10 (iter {lastCritique.iteration})
+          </span>
         {/if}
       </div>
 
@@ -950,6 +1057,45 @@
     background: #0a0a0a;
     border-top: 1px solid #1a1a1a;
   }
+
+  .reflection-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: #a3a3a3;
+    padding: 6px 12px;
+    background: #0a0a0a;
+    border-top: 1px solid #1a1a1a;
+  }
+  .reflection-bar select {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+  .critique-chip {
+    background: #1a2a3a;
+    color: #93c5fd;
+    border-radius: 3px;
+    padding: 2px 8px;
+    cursor: help;
+  }
+
+  .phase-pill {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    margin-left: 6px;
+    border-radius: 10px;
+    text-transform: lowercase;
+  }
+  .phase-generate { background: #1e3a2e; color: #6ee7b7; }
+  .phase-critique { background: #3a2a1e; color: #fbbf24; }
+  .phase-revise { background: #1e2a3a; color: #93c5fd; }
+  .phase-finalize { background: #2a1e3a; color: #c4b5fd; }
 
   .input-area {
     position: sticky;

@@ -50,6 +50,34 @@ const MODEL_CATALOG: ReadonlyArray<ModelEntry> = [
     available: true,
     kernel: "wasm-ternary",
   },
+  {
+    // ADR-2605190824. MediaPipe LLM Inference Web reads the LiteRT `.task`
+    // bundle directly (no ONNX hop). Uses the ungated litert-community
+    // mirror of Gemma 4 E2B; the original google/* preview repos are
+    // HF-gated and require a token proxy (follow-up).
+    id: "gemma-4-e2b-mediapipe",
+    displayName: "Gemma 4 E2B (MediaPipe LiteRT)",
+    huggingfaceModel: "litert-community/gemma-4-E2B-it-litert-lm",
+    params: "2B effective",
+    context: 32000,
+    modalities: ["text"],
+    minVramMb: 2048,
+    quantization: "q4",
+    available: true,
+    kernel: "mediapipe-gpu",
+  },
+  {
+    id: "gemma-4-e4b-mediapipe",
+    displayName: "Gemma 4 E4B (MediaPipe LiteRT)",
+    huggingfaceModel: "litert-community/gemma-4-E4B-it-litert-lm",
+    params: "4B effective",
+    context: 32000,
+    modalities: ["text"],
+    minVramMb: 4096,
+    quantization: "q4",
+    available: true,
+    kernel: "mediapipe-gpu",
+  },
 ];
 
 function listModelsHandler(): LexiconOutput<"ai.gftd.apps.ameno.listModels"> {
@@ -65,7 +93,8 @@ function cardHomeHandler(): LexiconOutput<"ai.gftd.apps.ameno.cardHome"> {
     defaultModelId: "gemma-4-e2b-it",
     availableModels: MODEL_CATALOG.filter((m) => m.available).map((m) => m.id),
     webgpuRequired: false,
-    tagline: "Per-actor LoRA + RAG. WebGPU for Gemma, WASM ternary for Baien.",
+    tagline:
+      "Per-actor LoRA + RAG. WebGPU (transformers.js) for Gemma 4, MediaPipe LiteRT for Gemma 3n, WASM ternary for Baien.",
   };
 }
 

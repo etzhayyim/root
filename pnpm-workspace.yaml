@@ -1,0 +1,9 @@
+# pnpm workspace — scoped intentionally narrow.
+#
+# Only includes packages that participate in the ameno browser-WebGPU appview
+# (ADR-2605190824). Other packages under 10-protocol / 20-actors / 50-infra /
+# 60-apps remain independent installs to avoid cross-coupling their lockfiles
+# until each one is explicitly opted in.
+packages:
+  - "20-actors/ameno"
+  - "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte"

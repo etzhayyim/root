@@ -26,7 +26,7 @@
                   "minVramMb": { "type": "integer" },
                   "quantization": { "type": "string", "description": "q4f16 / q4 / bf16 / ternary" },
                   "available": { "type": "boolean" },
-                  "kernel": { "type": "string", "description": "webgpu / wasm-ternary" }
+                  "kernel": { "type": "string", "description": "webgpu / wasm-ternary / mediapipe-gpu" }
                 }
               }
             }

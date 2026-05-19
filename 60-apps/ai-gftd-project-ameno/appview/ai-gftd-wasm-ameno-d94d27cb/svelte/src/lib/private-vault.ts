@@ -34,7 +34,7 @@ function base64ToBytes(b64: string): Uint8Array {
 
 async function importKey(rawB64: string): Promise<CryptoKey> {
   const raw = base64ToBytes(rawB64);
-  return crypto.subtle.importKey("raw", raw, { name: "AES-GCM" }, false, [
+  return crypto.subtle.importKey("raw", raw as BufferSource, { name: "AES-GCM" }, false, [
     "encrypt",
     "decrypt",
   ]);
@@ -101,6 +101,10 @@ export async function decryptText(ciphered: string): Promise<string> {
   const wrapped = base64ToBytes(ciphered.slice(FIELD_PREFIX.length));
   const iv = wrapped.subarray(0, IV_BYTES);
   const ct = wrapped.subarray(IV_BYTES);
-  const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, ct);
+  const pt = await crypto.subtle.decrypt(
+    { name: "AES-GCM", iv: iv as BufferSource },
+    key,
+    ct as BufferSource,
+  );
   return new TextDecoder().decode(pt);
 }
