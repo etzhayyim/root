@@ -478,6 +478,14 @@ description = "SSoT → app.etzhayyim.kg.{node,edge} projector. Stage K1 of ADR-
 adr = ["2605190900"]
 
 [[modules]]
+path = "30-graph/kg-appview"
+kind = "rust-service"
+version = "0.0.0"
+status = "scaffold"
+description = "Ephemeral in-memory SPARQL 1.1 AppView for the etzhayyim KG. Stage K2.a of ADR-2605190900. Loads kg-projector out/ into an OxiGraph MemoryStore on startup and serves GET|POST /sparql (read-only; SPARQL UPDATE rejected). No durable state. K2.b adds XRPC facade; K2.c adds Jetstream firehose subscription; K3 adds cold-start IPFS replay."
+adr = ["2605190900"]
+
+[[modules]]
 path = "50-infra/ipfs-pinner"
 kind = "ts-service"
 version = "0.0.0"
