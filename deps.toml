@@ -1207,3 +1207,35 @@ deletion). No file content is moved in Phase 2; Phase 3 (content copy via
 date = "2026-05-18"
 adr = "ADR-2605182312"
 description = "Local bring-up of Artificial Organism ecosystem on Murakumo Mac mini fleet using gemma4:e4b"
+
+# ─── Session summaries ──────────────────────────────────────────────
+
+[session_summaries.ameno-wave-2026-05-19]
+date = "2026-05-19"
+chronicle = "90-docs/ameno-wave-session-2026-05-19.md"
+adrs_added = 19
+prs_merged = ["#62", "#64", "#66", "#68"]
+description = """Ameno browser-daemon ecosystem wave: 17 ADRs land the
+Tier-2 browser appview (MediaPipe Gemma 4 + reflection + active
+inference + ReAct tools + long-term memory vault + multi-tab swarm
++ viewer mode), Path A (Bun/Node) + Path B (Python pymagatama)
+headless daemons, full K3s Mac-mini-fleet deploy (lima-k3s dry-run +
+lg-ameno + ollama-fleet + ameno-ingress + anchor-cron-ameno),
+substrate pipeline activation (MstCheckpointSaver Stage 2 + IPFS
+Stage 3 + L2 anchor Stage 4 manifests), `app.etzhayyim.swarm.lease`
+lex schema, did:key Ed25519 challenge-response auth with allowlist,
+browser ↔ daemon checkpoint pull-sync, swarm leader election, and
+ADR-2605172000/172100 substrate-boundary enforcement at both
+lefthook pre-commit and CI levels."""
+follow_up = [
+  "substrate swarm lease MST write impl (lex shape committed)",
+  "bi-directional checkpoint sync (push from browser + LWW)",
+  "HTTP Message Signatures (RFC 9421) full body signing",
+  "Signal Protocol did:key binding (ADR-2605181100 integration)",
+  "anchor-cron monitoring + alerting",
+  "native macOS Ollama ansible (DaemonSet alternative)",
+  "browser CryptoKey HSM (replace localStorage JWK)",
+  "memory vault inspector UI",
+  "CF exit ADR (long-term self-host)",
+  "end-to-end automated smoke test runner",
+]
