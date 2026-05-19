@@ -1,0 +1,153 @@
+# ollama-fleet — one Ollama instance per Murakumo Mac-mini node.
+#
+# Targets `etzhayyim.com/role=murakumo-host` nodes (the virtual-kubelet
+# bridge from ADR-2605182312 + ADR-2605191346). One DaemonSet pod per
+# fleet member, fronted by a single ClusterIP Service so any in-cluster
+# workload (notably lg-ameno) can reach the local Ollama via a stable
+# DNS name regardless of which node it lands on.
+#
+# Authoritative:
+#   ADR-2605191257  (Path B daemon; needs Ollama on cluster)
+#   ADR-2605191346  (etzhayyim is Vultr-free, Mac-mini fleet only)
+#   ADR-2605182312  (Murakumo Tier-1 bring-up)
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: etzhayyim-langserver
+  labels:
+    etzhayyim.com/tier: "1"
+    etzhayyim.com/target: "murakumo-fleet"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ollama
+  namespace: etzhayyim-langserver
+---
+# Per-node model cache. Sized to host two ~4 GB Gemma 3/4 instruct
+# quantizations + small embedding model + scratch. Increase via the
+# StorageClass when you co-locate larger models. Reclaim policy MUST be
+# Retain so a `kubectl delete daemonset` cannot wipe weights — Ollama's
+# /api/show response is the source of truth for "what's installed".
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ollama-models
+  namespace: etzhayyim-langserver
+  labels:
+    app.kubernetes.io/name: ollama
+    app.kubernetes.io/component: model-cache
+  annotations:
+    etzhayyim.com/adr: "2605191257,2605191346"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ollama
+  namespace: etzhayyim-langserver
+  labels:
+    app.kubernetes.io/name: ollama
+    app.kubernetes.io/component: llm-inference
+    app.kubernetes.io/part-of: ameno.etzhayyim.com
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ollama
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ollama
+    spec:
+      serviceAccountName: ollama
+      # Land on every Murakumo node. virtual-kubelet shim nodes
+      # (Mac-native) carry the same label; the murakumo-agent translates
+      # the DaemonSet spec into a native Ollama process on macOS.
+      nodeSelector:
+        etzhayyim.com/role: "murakumo-host"
+      tolerations:
+        - key: "murakumo.etzhayyim.com/virtual-kubelet"
+          operator: "Exists"
+          effect: "NoSchedule"
+      containers:
+        - name: ollama
+          # Ollama publishes its own image; pin to a recent tag and bump
+          # in a follow-up when validated. Multi-arch (amd64 + arm64).
+          image: ollama/ollama:0.5.4
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: OLLAMA_HOST
+              value: "0.0.0.0:11434"
+            - name: OLLAMA_MODELS
+              value: "/var/lib/ollama"
+            # Larger keepalive — model load is expensive (~30s for a 4B);
+            # we want Ollama to keep it resident while the daemon idles.
+            - name: OLLAMA_KEEP_ALIVE
+              value: "30m"
+            - name: OLLAMA_MAX_LOADED_MODELS
+              value: "2"
+          ports:
+            - name: http
+              containerPort: 11434
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 60
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            # Ollama itself is light; the LLM decode is what eats RAM.
+            # On Mac-mini fleet nodes the murakumo-agent constrains
+            # actual process limits per host, not these K8s requests.
+            requests:
+              cpu: 200m
+              memory: 1Gi
+            limits:
+              cpu: "4"
+              memory: 12Gi
+          volumeMounts:
+            - name: ollama-models
+              mountPath: /var/lib/ollama
+      volumes:
+        - name: ollama-models
+          persistentVolumeClaim:
+            claimName: ollama-models
+---
+# Headless-friendly ClusterIP service. lg-ameno's
+#   LOCAL_LLM_ENDPOINT=http://ollama.etzhayyim-langserver.svc.cluster.local:11434/api/chat
+# routes to the nearest Ollama pod (kube-proxy round-robins). With one
+# pod per node and proper node-affinity on lg-ameno, this is effectively
+# always-local.
+apiVersion: v1
+kind: Service
+metadata:
+  name: ollama
+  namespace: etzhayyim-langserver
+  labels:
+    app.kubernetes.io/name: ollama
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: ollama
+  ports:
+    - name: http
+      port: 11434
+      targetPort: http
+      protocol: TCP
