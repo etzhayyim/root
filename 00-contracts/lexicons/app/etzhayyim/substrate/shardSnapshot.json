@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "app.etzhayyim.substrate.shardSnapshot",
-  "description": "Periodic snapshot emitted by mst-projector for one shard (typically one collection NSID). Phase 1 carries `snapshotHash` (sha-256 of the canonical-JSON record list) and `snapshotCid` (IPFS CID of the JSON manifest blob). Phase 2 replaces both with a true MST root CID. Per ADR-2605191358 step 5.",
+  "description": "Periodic snapshot emitted by mst-projector for one shard (typically one collection NSID). Forward-compatible across Phase 1 (counter-derived snapshotHash + JSON manifest) and Phase 2 (AT-Protocol MST rootCid + CAR file). Readers MUST treat absent `phase` as 1 and prefer `rootCid` over `snapshotHash` when both are present. Per ADR-2605191358 step 5 and ADR-2605191655.",
   "defs": {
     "main": {
       "type": "record",
@@ -11,7 +11,6 @@
         "required": [
           "shardKey",
           "recordCount",
-          "snapshotHash",
           "byteSize",
           "flushedAt"
         ],
@@ -23,18 +22,22 @@
           "phase": {
             "type": "integer",
             "default": 1,
-            "description": "Snapshot scheme version. 1 = JSON manifest + sha-256 root. 2 = CAR + true MST root (planned)."
+            "description": "Snapshot scheme version. 1 = JSON manifest + sha-256 hash. 2 = CAR + true MST root CID. Absent ↔ 1 (back-compat)."
           },
           "firstSeq": { "type": "string" },
           "lastSeq": { "type": "string" },
           "recordCount": { "type": "integer" },
           "snapshotHash": {
             "type": "string",
-            "description": "Phase 1: sha256 of canonical-JSON record list (`sha256-<hex>`). Phase 2: dropped in favour of `rootCid`."
+            "description": "Phase 1 root identifier: `sha256-<hex>` of canonical-JSON record list. Deprecated when phase=2 emits; dropped in a future cleanup ADR after ≥4 week grace (per ADR-2605191655)."
+          },
+          "rootCid": {
+            "type": "string",
+            "description": "Phase 2 authoritative root identifier: AT-Protocol MST root CID (v1, dag-cbor). Absent in Phase 1 emissions. Readers SHOULD prefer this when present."
           },
           "snapshotCid": {
             "type": "string",
-            "description": "IPFS CID (v1) of the manifest blob. Optional in Phase 1 if the daemon could not reach the IPFS pin endpoint; required in Phase 2."
+            "description": "IPFS CID (v1) of the snapshot blob. Phase 1: JSON manifest. Phase 2: CAR v1 file (root + leaf blocks). Optional in Phase 1 emissions if the daemon could not reach the IPFS pin endpoint; required in Phase 2 (per ADR-2605191655)."
           },
           "byteSize": { "type": "integer" },
           "flushedAt": { "type": "string", "format": "datetime" }
