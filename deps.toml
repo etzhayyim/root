@@ -198,6 +198,69 @@ purpose = "pds.etzhayyim.com → CF tunnel → simeon @atproto/pds 0.4.222 on po
 tunnel_id = "178e0a1b-dd7e-480e-bb01-eb100524a58e"
 created_at = "2026-05-17T12:09:00Z"
 
+# ─── Email Routing (interim, pre-openmail per ADR-2605172200) ─────────
+# Forward *@etzhayyim.com → jun@gftd.group via Cloudflare Email Routing.
+# This is a temporary forward-only bridge until the MST-native openmail
+# protocol (ADR-2605172200) ships its own SMTP bridge daemon.
+
+[platform.email_routing]
+status = "live"
+enabled_at = "2026-05-19T13:30:25Z"
+zone_id = "54dece4ac787807d4c3410243916a1e6"
+account_id = "4da88288dc30d9ee257f319d3c33ecf0"
+account_name = "ai-gftd-cloud"
+provider = "Cloudflare Email Routing"
+mode = "forward-only"
+destination = "jun@gftd.group"
+destination_id = "bf3fc6a848ae481496096a36a57055d1"
+destination_verified_at = "2026-05-19T13:33:59Z"
+catch_all_rule_id = "3cabde84c7574cd581c1ad13db8bb277"
+catch_all_enabled = true
+note = "Interim forward-only mailbox. To be superseded once ADR-2605172200 openmail bridge daemon (did:web:bridge.openmail.etzhayyim.com) is deployed."
+
+[[platform.dns]]
+type = "MX"
+name = "@"
+content = "route1.mx.cloudflare.net"
+priority = 94
+proxied = false
+purpose = "Email Routing MX (auto-added by CF Email Routing, 2026-05-19)"
+created_at = "2026-05-19T13:30:26Z"
+
+[[platform.dns]]
+type = "MX"
+name = "@"
+content = "route2.mx.cloudflare.net"
+priority = 87
+proxied = false
+purpose = "Email Routing MX (auto-added by CF Email Routing, 2026-05-19)"
+created_at = "2026-05-19T13:30:26Z"
+
+[[platform.dns]]
+type = "MX"
+name = "@"
+content = "route3.mx.cloudflare.net"
+priority = 92
+proxied = false
+purpose = "Email Routing MX (auto-added by CF Email Routing, 2026-05-19)"
+created_at = "2026-05-19T13:30:26Z"
+
+[[platform.dns]]
+type = "TXT"
+name = "@"
+content = "v=spf1 include:_spf.mx.cloudflare.net ~all"
+proxied = false
+purpose = "Email Routing SPF (auto-added by CF Email Routing, 2026-05-19)"
+created_at = "2026-05-19T13:30:26Z"
+
+[[platform.dns]]
+type = "TXT"
+name = "cf2024-1._domainkey"
+content = "v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiweykoi+o48IOGuP7GR3X0MOExCUDY/BCRHoWBnh3rChl7WhdyCxW3jgq1daEjPPqoi7sJvdg5hEQVsgVRQP4DcnQDVjGMbASQtrY4WmB1VebF+RPJB2ECPsEDTpeiI5ZyUAwJaVX7r6bznU67g7LvFq35yIo4sdlmtZGV+i0H4cpYH9+3JJ78km4KXwaf9xUJCWF6nxeD+qG6Fyruw1Qlbds2r85U9dkNDVAS3gioCvELryh1TxKGiVTkg4wqHTyHfWsp7KD3WQHYJn0RyfJJu6YEmL77zonn7p2SRMvTMP3ZEXibnC9gz3nnhR6wcYL8Q7zXypKTMD58bTixDSJwIDAQAB"
+proxied = false
+purpose = "Email Routing DKIM cf2024-1 (auto-added by CF Email Routing, 2026-05-19)"
+created_at = "2026-05-19T13:30:26Z"
+
 # ─── PDS / IPFS / cell fleet (etzhayyim Mac-mini fleet, 2026-05-17) ──
 
 [platform.pds]
