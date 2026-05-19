@@ -8,6 +8,11 @@
     "robot-kit-bom",
     "robot-kit-cad-spec",
     "robot-kit-assembly-manual",
+    "urban-mining-robotics-automation",
+    "urban-mining-cad-spec",
+    "urban-mining-usd-world-model",
+    "urban-mining-business-model",
+    "urban-mining-ros2-sorter",
     "crowdfunding-makuake",
     "crowdfunding-kickstarter",
     "amazon-jp-listing",
@@ -29,6 +34,12 @@
       "name": "open-robo-firmware",
       "deliveryMethod": "github-release",
       "description": "Raspberry Pi 5 firmware: servo bus driver (KONDO ICS / Futaba RS485), crawler DC motor driver, inverse kinematics, ROS2 node"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "urban-mining-automation-cell",
+      "deliveryMethod": "github-release",
+      "description": "ROS2 classifier/sorter nodes, CAD spec, USD world model, and public business model for robotic e-waste recovery cells"
     }
   ],
   "isPartOf": {
@@ -52,6 +63,14 @@
       "description": "LangGraph topology: KiCad Gerber → P-Ban.com quote → order → assembly → test",
       "url": "https://tsukuru.gftd.ai",
       "linkRelationship": "tsukuru_pcb_design_flow.v1",
+      "additionalType": "productRef=ai-gftd-project-open-robo"
+    },
+    {
+      "@type": "LinkRole",
+      "name": "toshiKozan material stream contract",
+      "description": "Urban mining e-waste stream records used by robotic sort audit events",
+      "url": "https://github.com/gftdcojp/etzhayyim-root/tree/main/00-contracts/lexicons/ai/gftd/apps/toshiKozan",
+      "linkRelationship": "toshi_kozan_ewaste_stream.v1",
       "additionalType": "productRef=ai-gftd-project-open-robo"
     }
   ],

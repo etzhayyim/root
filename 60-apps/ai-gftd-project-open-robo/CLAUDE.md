@@ -19,6 +19,11 @@
 | クローラードライバー | `firmware/armcrawler/crawler/motor_driver.py` | ✅ 作成済 |
 | ROS2 ノード群 | `firmware/armcrawler/ros2/` | ✅ 作成済 |
 | tsukuru CAD/PCB 設計フロースキーマ | `30-graph/graph-schema/sql_migrations/20260514150000_*` | ✅ 作成済 |
+| 都市鉱山ロボティクス自動化設計 | `docs/urban-mining-automation-v1.md` | ✅ 作成済 |
+| 都市鉱山 CAD セル仕様 | `cad-spec/urban-mining-cell-cad-v1.md` | ✅ 作成済 |
+| 都市鉱山 USD world model | `worlds/urban_mining_cell_v1.usda` | ✅ 作成済 |
+| 都市鉱山 business model | `docs/urban-mining-business-model-v1.md` | ✅ 作成済 |
+| 都市鉱山 ROS2 classifier/sorter | `firmware/armcrawler/ros2/armcrawler_ros2/urban_mining_*_node.py` | ✅ 作成済 |
 
 ## Key Design Decisions
 
@@ -28,7 +33,10 @@
 - 構造体: ミスミアルミ押出し + Meviyカスタム切削部品
 - 制御基板: ローム / 東芝ドライバIC使用、国内基板メーカー製造
 - 電源: パナソニック18650セル
+- 都市鉱山セル: e-waste 受入、RGB-D/XRF 検査、低信頼度レビュー、Li-ion 隔離、混合 PCB / 銅アルミ / 希土類磁石の自動選別
+- 都市鉱山監査: `ai.gftd.apps.toshiKozan.registerEwasteStream` に接続する ROS2 audit event を公開
 
 ## SSoT
 
 全テーブルデータ・製造パートナーリストは `bom/BOM-v1.md`。
+都市鉱山セル設計は `docs/urban-mining-automation-v1.md`。

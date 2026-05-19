@@ -27,6 +27,8 @@ setup(
             'crawler        = armcrawler_ros2.crawler_node:main',
             'camera         = armcrawler_ros2.camera_node:main',
             'imu            = armcrawler_ros2.imu_node:main',
+            'urban_mining_classifier = armcrawler_ros2.urban_mining_classifier_node:main',
+            'urban_mining_sorter     = armcrawler_ros2.urban_mining_sorter_node:main',
         ],
     },
 )
