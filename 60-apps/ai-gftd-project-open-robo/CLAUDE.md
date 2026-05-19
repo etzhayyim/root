@@ -20,10 +20,11 @@
 | ROS2 ノード群 | `firmware/armcrawler/ros2/` | ✅ 作成済 |
 | tsukuru CAD/PCB 設計フロースキーマ | `30-graph/graph-schema/sql_migrations/20260514150000_*` | ✅ 作成済 |
 | 都市鉱山ロボティクス自動化設計 | `docs/urban-mining-automation-v1.md` | ✅ 作成済 |
-| 都市鉱山 CAD セル仕様 | `cad-spec/urban-mining-cell-cad-v1.md` | ✅ 作成済 |
+| 都市鉱山 CAD セル仕様 | `cad-spec/urban-mining-cell-cad-v1.md`, `cad/urban_mining_cell_v1.scad` | ✅ 作成済 |
 | 都市鉱山 USD world model | `worlds/urban_mining_cell_v1.usda` | ✅ 作成済 |
 | 都市鉱山 business model | `docs/urban-mining-business-model-v1.md` | ✅ 作成済 |
 | 都市鉱山 ROS2 classifier/sorter | `firmware/armcrawler/ros2/armcrawler_ros2/urban_mining_*_node.py` | ✅ 作成済 |
+| 都市鉱山公開マニフェスト | `PUBLICATION.md` | ✅ 作成済 |
 
 ## Key Design Decisions
 
