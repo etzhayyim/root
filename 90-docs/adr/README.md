@@ -49,6 +49,19 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 | [2605181100](./2605181100-mst-encrypted-records-signal-keywrap.md) | MST encrypted records + Signal key-wrap (Tahoe-pattern confidentiality on AT Protocol substrate) | proposed | 2026-05-18 |
 | [2605181200](./2605181200-mst-encrypted-metadata-leak-reduction.md) | Encrypted-record metadata-leak reduction — ciphertext padding + rkey blinding (Sealed Sender deferred) | proposed | 2026-05-18 |
 | [2605182312](./2605182312-local-bring-up-murakumo-gemma4.md) | Local Bring-up of Artificial Organism on Murakumo Fleet | active | 2026-05-18 |
+| [2605192100](./2605192100-etzhayyim-mission-charter.md) | etzhayyim Mission Charter — 人類の労働解放を最終目的とする宗教法人の上位憲章 (多世代 / 反個人主義 / Wellbecoming 三柱を含む) | proposed | 2026-05-19 |
+| [2605192115](./2605192115-etzhayyim-non-profit-donation-only-no-ads.md) | etzhayyim Non-profit / Donation-only / No-ads — 営利・広告・購買モデルの構造的排除 | proposed | 2026-05-19 |
+| [2605192130](./2605192130-etzhayyim-tithe-redistribution.md) | etzhayyim 10% Tithe — donation / kisha 受領時の Public Fund 自動再分配 (constitutional constant) | proposed | 2026-05-19 |
+| [2605192145](./2605192145-etzhayyim-public-fund-architecture.md) | etzhayyim Public Fund Architecture — 10% tithe の受け皿としての grant 評議・配布機構 | proposed | 2026-05-19 |
+| [2605192200](./2605192200-etzhayyim-ip-free-release-charter-rider.md) | etzhayyim IP-Free-Release with Charter Compliance Rider v2.0 — Apache 2.0 + 多世代 + 反個人主義 + Wellbecoming license addendum (von Neumann minimax 解) | proposed | 2026-05-19 |
+| [2605192230](./2605192230-etzhayyim-three-tier-enforcement-implementation.md) | etzhayyim Three-Tier Enforcement Implementation — Phenotype / KishaStream / PublicFund / TitheRouter への Charter Compliance Gate 実装 + Council attestation flow + Rehabilitation (Teshuvah) | proposed | 2026-05-19 |
+| [2605192245](./2605192245-etzhayyim-global-land-sovereignty.md) | etzhayyim Global Land Sovereignty — 地球上の土地を国家ではなく religious-corp chain が分散合意で担保する (dual-recognition with state cadastre + Lv5 護 Steward + 4-layer substrate) | proposed | 2026-05-19 |
+| [2605192300](./2605192300-etzhayyim-bootstrap-council-five.md) | etzhayyim Bootstrap Council 5名 — initial Lv6+ ロスター + 5軸 expertise + 30日 public objection + Phase 2 移行 | proposed | 2026-05-19 |
+| [2605192315](./2605192315-etzhayyim-transparent-force-rd.md) | etzhayyim Transparent Religious Force — open-source R&D registry + 1 SBT = 1 vote 承認 + on-chain force log Lexicon | proposed | 2026-05-19 |
+| [2605192330](./2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit.md) | etzhayyim Extended Land Sovereignty — 海洋 / 河川 / 大気 / 軌道への寄付受付拡張 | proposed | 2026-05-19 |
+| [2605192345](./2605192345-etzhayyim-steward-succession.md) | etzhayyim Steward Succession — donor 死亡時の steward 継承手続き + 多世代 stewardship continuity | proposed | 2026-05-19 |
+| [2605192400](./2605192400-etzhayyim-eros-gore-council-judging.md) | etzhayyim Eros / Gore Boundary — Council Lv6+ judging framework + LLM-assisted classification + precedent registry | proposed | 2026-05-19 |
+| [2605192415](./2605192415-etzhayyim-religious-corp-daemon-architecture.md) | etzhayyim Religious-Corp Daemon Architecture — Pregel cell catalog (15 cells) + 3階層 actor hierarchy + Murakumo 常駐化 + LangGraph 実行 roadmap (S0-S11) | proposed | 2026-05-19 |
 
 (Future ADRs added here as they're authored.)
 

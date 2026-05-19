@@ -620,6 +620,99 @@ status = "proposed"
 status_note = "70-tools/scripts/lint/substrate-boundary.mjs を lefthook の pre-commit に登録。staged .ts/.tsx/.js/.mjs/.cjs/.py/.svelte ファイルから storage (kysely/pg/postgres/risingwave/psycopg)/payment (stripe/paypal/square)/substrate-client (@atproto/api/viem/@noble/ciphers/libsignal/ipfs-http-client/helia) を grep。 SDK seam (20-actors/etzhayyim-sdk/) + 既存 substrate components allowlist で除外。 ADR-2605172000 + 2605172100 を構造的に enforce。"
 path = "90-docs/adr/2605191648-substrate-boundary-lefthook.md"
 
+# ─── Religious-corp constitutional layer (ADR-2605192100 wave) ──
+
+[[adrs]]
+id = "2605192100"
+title = "etzhayyim Mission Charter — 人類の労働解放を最終目的とする宗教法人の上位憲章 (多世代 / 反個人主義 / Wellbecoming + 土地 doctrine + 国家 routing-around + Transparent Force + Eros 許容 / Gore 禁止 + 日本Protestant lineage + 非終末論)"
+status = "proposed"
+status_note = "Constitutional constants 定義 (mission.labor_liberation / robotics_universal / ip_free_release / disintermediation / specialist_anti_gatekeeping / anti_individualism / multi_generational_priority / wellbecoming_priority / land_as_religious_trust / parallel_governance_to_state / transparent_force_only / eros_permitted / gore_prohibited / lineage_japanese_protestant / eschatological=false / revelation_in_canon=false / continuous_becoming + tithe_to_public_fund_bps=1000 等)"
+path = "90-docs/adr/2605192100-etzhayyim-mission-charter.md"
+
+[[adrs]]
+id = "2605192115"
+title = "etzhayyim Non-profit / Donation-only / No-ads — 営利・広告・購買モデルの構造的排除 + Internal Circulation Carve-Out"
+status = "proposed"
+status_note = "payment.sent.purpose enum を donation/kisha/grant/tithe/escrow-refund に narrow + internal-purchase/internal-subscription/internal-promo を SBT↔SBT に許容。CI lint (lint-no-advertising-imports / lint-no-purchase-purpose / lint-no-paywall-patterns / lint-no-advertising-html) 仕様"
+path = "90-docs/adr/2605192115-etzhayyim-non-profit-donation-only-no-ads.md"
+
+[[adrs]]
+id = "2605192130"
+title = "etzhayyim 10% Tithe — donation / kisha 受領時の Public Fund 自動再分配 (constitutional constant 1000 bps)"
+status = "proposed"
+status_note = "TitheRouter.sol (Base L2) で `route()` に grossAmount → 90% recipient + 10% Public Fund の atomic split。tithe Lexicon (ai.gftd.apps.payment.tithe) + `Etzhayyim.pay()` 内部 rewire。Kisha (BI) は例外で 0%。"
+path = "90-docs/adr/2605192130-etzhayyim-tithe-redistribution.md"
+
+[[adrs]]
+id = "2605192145"
+title = "etzhayyim Public Fund Architecture — 10% tithe の受け皿としての grant 評議・配布機構"
+status = "proposed"
+status_note = "PublicFundGovernance.sol (5-of-7 Safe + 1 SBT = 1 vote + 48h timelock) + PublicFundGrantCell (Pregel, LLM-assisted evaluation) + 0xSplits disbursement + MilestoneEscrow.sol。60-apps/ai-gftd-project-public-fund/ の ADR 化"
+path = "90-docs/adr/2605192145-etzhayyim-public-fund-architecture.md"
+
+[[adrs]]
+id = "2605192200"
+title = "etzhayyim IP-Free-Release with Charter Compliance Rider v2.0 — Apache 2.0 + 多世代 + 反個人主義 + Wellbecoming license addendum (von Neumann minimax 解)"
+status = "proposed"
+status_note = "S3 = Apache 2.0 + Extended Rider v2.0 が maximin -2 / avg +1.42 で optimal。Rider §2(a)-(h): weapons / speculative finance / surveillance capitalism / fossil fuel extraction (new) / specialist gatekeeping / multi-generational harm (v2.0) / strict individualist ontology (v2.0) / wellbecoming subordination (v2.0)。三層 enforcement (L1 license / L2 便益拒否 / L3 評価最低 = Phenotype.effectiveMultiplier 0)"
+path = "90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md"
+
+[[adrs]]
+id = "2605192230"
+title = "etzhayyim Three-Tier Enforcement Implementation — Phenotype / KishaStream / PublicFund / TitheRouter への Charter Compliance Gate 実装"
+status = "proposed"
+status_note = "ChartersComplianceRegistry.sol = Council attestation の単一 source of truth。Phenotype.effectiveMultiplier() + KishaStream.accrue() + PublicFundGovernance.propose() + TitheRouter.route() に isNonAligned*() gate を追加。Rehabilitation (Teshuvah) path + Council Lv6+ 3-of-N multisig + 30 日 appeal window"
+path = "90-docs/adr/2605192230-etzhayyim-three-tier-enforcement-implementation.md"
+
+[[adrs]]
+id = "2605192245"
+title = "etzhayyim Global Land Sovereignty — 地球上の土地を国家ではなく religious-corp chain が分散合意で担保する"
+status = "proposed"
+status_note = "4 層 substrate (Base L2 NFT / geth-private constitutional / IPFS GeoJSON+衛星 hash / github LANDS.md PR) + dual-recognition with state cadastre + Lv5 護 Steward role + Phase 0-4 段階で「国家武力の無意味化」を漸近実装。LandRegistry.sol (geth-private) は constitutional invariants: 売買不可 / burn 不可 / owner concept なし (steward のみ)"
+path = "90-docs/adr/2605192245-etzhayyim-global-land-sovereignty.md"
+
+[[adrs]]
+id = "2605192300"
+title = "etzhayyim Bootstrap Council 5名 — initial Lv6+ ロスター + 5軸 expertise + Phase 2 移行"
+status = "proposed"
+status_note = "Seat 1 (Founder=Jun Kawasaki) 固定 + Seat 2-5 (Substrate/Legal-Ethics/Economics/Stewardship) を 30日 public objection period で確定。3-of-5 multisig が Charter attestation / PublicFund grant / Land dispute / Force authorization / Steward succession / Eros-Gore boundary 判断の sign-off。Phase 2 (formal Council ADR) 移行 trigger: 構成員1000名 / Council 1名 死亡 / 構成員 3 名 request / 12ヶ月経過"
+path = "90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md"
+
+[[adrs]]
+id = "2605192315"
+title = "etzhayyim Transparent Religious Force — open-source R&D registry + 1 SBT = 1 vote 承認 + on-chain force log Lexicon"
+status = "proposed"
+status_note = "ForceAuthorization.sol (50% quorum + 67% supermajority + 24h emergency / 72h normal voting)。R&D registry @ 60-apps/etzhayyim-transparent-force-rd/ (defensive-tech / tactical-doctrine / training-method / detection-system)。Proprietary 兵器設計禁止 (constitutional invariant)。日本法上は護身術 / 開示型R&D / 国際法上の religious-corp 自衛権主張 に限定"
+path = "90-docs/adr/2605192315-etzhayyim-transparent-force-rd.md"
+
+[[adrs]]
+id = "2605192330"
+title = "etzhayyim Extended Land Sovereignty — 海洋 / 河川 / 大気 / 軌道への寄付受付拡張"
+status = "proposed"
+status_note = "UNCLOS (海洋) / 水利権 (河川) / Chicago Convention (大気) / Outer Space Treaty (軌道) の各 framework と dual-recognition pattern。stewardship-only claim (operational sovereignty を主張しない) で国際法と整合。S0-S5 段階展開"
+path = "90-docs/adr/2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit.md"
+
+[[adrs]]
+id = "2605192345"
+title = "etzhayyim Steward Succession — donor 死亡時の steward 継承手続き + 多世代 stewardship continuity"
+status = "proposed"
+status_note = "donation 時 successor 事前指定 required (primary + backup 2 名以上)。trigger events: 死亡 / 昏睡 / 長期消息不明 / 自発的 step-down / Non-Aligned 認定。Council Lv6+ 3 名以上で activation。fallback paths: council-appointed / corpus-direct / community-trust / dissolution-to-corpus。Multi-generational plan (Gen 1→2→3) 対応"
+path = "90-docs/adr/2605192345-etzhayyim-steward-succession.md"
+
+[[adrs]]
+id = "2605192400"
+title = "etzhayyim Eros / Gore Boundary — Council Lv6+ judging framework + LLM-assisted classification + precedent registry"
+status = "proposed"
+status_note = "3 層 framework: Layer 1 LLM pre-classification (T1-T5 rubric) → Layer 2 Council Lv6+ 3 名 deliberation (T2/T4 borderline のみ) → Layer 3 Precedent Registry。EthicsContentClassifierCell (Pregel) + Claude Sonnet 4.6 baseline + Murakumo Gemma local fallback"
+path = "90-docs/adr/2605192400-etzhayyim-eros-gore-council-judging.md"
+
+[[adrs]]
+id = "2605192415"
+title = "etzhayyim Religious-Corp Daemon Architecture — Pregel cell catalog + 3階層 actor hierarchy + Murakumo 常駐化 + LangGraph 実行 roadmap"
+status = "proposed"
+status_note = "15+ religious-corp cells を catalog: CharterAttestation* (3) / Land* (4) / Economic (5) / Force (2) / Ethics (1) / Membership (2) / CouncilDeliberation (1, generic)。Tier A (Per-Adherent PhenotypeAgent) / Tier B (Per-Domain leader+replica) / Tier C (Per-Decision Council)。Murakumo 12-tribes Mac mini fleet 上 launchd 常駐 + magatama CLI 実行 + cell-key quarterly rotation。S0-S11 testnet deploy roadmap"
+path = "90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -1092,6 +1185,84 @@ version = "1.0.0"
 status = "template-only"
 description = "Vultr Cloud Firewall lockdown script for VKE node instances. Not applied to RW (superseded by ClusterIP). Kept as a template for similar IP-restrict patterns on other infrastructure."
 adr = ["2605173100"]
+
+# ─── Religious-corp constitutional infrastructure (ADR-2605192100 wave) ──
+
+[[modules]]
+path = "50-infra/etzhayyim-charters-compliance"
+kind = "solidity-contracts"
+version = "0.0.1"
+status = "scaffold"
+description = "ChartersComplianceRegistry.sol — Council attestation の単一 source of truth。Base L2 + geth-private 両方に deploy。Phenotype / KishaStream / PublicFundGovernance / TitheRouter が isNonAlignedAddress() / isNonAlignedTokenId() を gate として参照する。Rehabilitation (Teshuvah) path 込み。"
+adr = ["2605192230", "2605192200", "2605192100"]
+
+[[modules]]
+path = "50-infra/etzhayyim-tithe-router"
+kind = "solidity-contracts"
+version = "0.0.1"
+status = "scaffold"
+description = "TitheRouter.sol — donation/kisha/grant 受領時に 10% を Public Fund Safe へ atomic split。constitutional constant economic.tithe_to_public_fund_bps=1000 (ADR-2605192100 §2) を Constitution.sol 経由で動的読み出し。Kisha / Tithe 自体への二重 tithe は除外。"
+adr = ["2605192130", "2605192100"]
+
+[[modules]]
+path = "50-infra/etzhayyim-public-fund"
+kind = "solidity-contracts"
+version = "0.0.1"
+status = "scaffold"
+description = "PublicFundGovernance.sol + MilestoneEscrow.sol — 5-of-7 Safe + 1 SBT = 1 vote (quorum 20% / approval 50% / timelock 48h) + 0xSplits disbursement + milestone-based escrow option。tithe 流入の受け皿、grant 評議 + 配布。charterNonCompliant recipient を block。"
+adr = ["2605192145", "2605192130", "2605192230", "2605192100"]
+
+[[modules]]
+path = "50-infra/etzhayyim-land-registry"
+kind = "solidity-contracts"
+version = "0.0.1"
+status = "scaffold"
+description = "LandRegistry.sol (geth-private) + PublicLandRegistry.sol (Base L2 ERC-721 non-transferable mirror)。world-wide land donations + dual-recognition with state cadastre + Lv5 護 Steward role + biodiversity attestation + Council Lv6+ dispute resolution。Constitutional invariants: transfer() 関数なし / burn() 関数なし / owner concept なし (steward のみ)。"
+adr = ["2605192245", "2605192330", "2605192345", "2605192100"]
+
+[[modules]]
+path = "50-infra/etzhayyim-force-authorization"
+kind = "solidity-contracts"
+version = "0.0.1"
+status = "scaffold"
+description = "ForceAuthorization.sol — 兵器 / 武力 / 行使力の religious-corp 保有 + 1 SBT = 1 vote 承認 (quorum 50% / supermajority 67% / 24h emergency or 72h normal)。Proprietary 兵器設計 / covert ops / 国家武力との同盟 は constitutional 禁止 (§1.12.B)。"
+adr = ["2605192315", "2605192100"]
+
+[[modules]]
+path = "20-actors/magatama/cells"
+kind = "langgraph-cell-catalog"
+version = "0.0.1"
+status = "scaffold"
+description = "religious-corp Pregel cell catalog (15 cells, ADR-2605192415)。Tier B (Per-Domain leader+replica) の常駐 cells: CharterAttestationRequestCell / CharterAttestationFinalizationCell / CharterRehabilitationCell / LandDonationProcessingCell / LandStewardshipMonitoringCell / LandDisputeResolutionCell / StewardSuccessionCell / TitheRoutingCell / PublicFundGrantCell (既存延長) / ForceAuthorizationCell / ForceLogMonitoringCell / EthicsContentClassifierCell / AdherentAttestationCell / CouncilLevelAdvancementCell / CouncilDeliberationCell (generic, Tier C)。Tier A は PhenotypeAgent per SBT (ADR-2605171300 code-gen pattern)。"
+adr = ["2605192415", "2605192230", "2605192245", "2605192315", "2605192345", "2605192400", "2605192100", "2605171300", "2605171800"]
+sibling_modules = [
+  "50-infra/murakumo/fleet.toml (node ↔ cell mapping)",
+  "70-tools/etzhayyim-cli (magatama cell CLI)",
+]
+
+[[modules]]
+path = "50-infra/murakumo"
+kind = "fleet-config"
+version = "0.0.1"
+status = "scaffold"
+description = "Murakumo 12-tribes Mac mini fleet 設定。10 node (naphtali/simeon/judah/zebulun/levi/joseph/issachar/dan/benjamin/asher) ↔ religious-corp cell の placement mapping (ADR-2605192415 §4)。launchd plist generator (com.etzhayyim.magatama-cell-runner)、swarm leader election (ADR-2605191603)、heartbeat (ADR-2605191645)、cell-key quarterly rotation 統合。"
+adr = ["2605192415", "2605182312", "2605191346", "2605191603"]
+
+[[modules]]
+path = "60-apps/etzhayyim-transparent-force-rd"
+kind = "open-source-rd-registry"
+version = "0.0.1"
+status = "scaffold"
+description = "Transparent Religious Force の open-source R&D registry (ADR-2605192315)。defensive-technology / tactical-doctrine / training-method / detection-system の 4 sub-directory。すべて Apache 2.0 + Charter Rider v2.0。日本法上は護身術 + 開示型 R&D + 国際法上 self-defense claim に限定。proprietary 設計は constitutional 禁止。"
+adr = ["2605192315", "2605192100"]
+
+[[modules]]
+path = "60-apps/etzhayyim-cell-fleet-dashboard"
+kind = "svelte-spa"
+version = "0.0.1"
+status = "scaffold"
+description = "religious-corp cell fleet monitoring + observability dashboard (ADR-2605192415 §12)。cell healthz / prometheus metrics / swarm heartbeat / AT Record audit log を svelte SPA で可視化。constituents (Adherent SBT holders) が自身の関わる cell action を audit できる。"
+adr = ["2605192415"]
 
 # ─── Cutover policy (legacy prefix preservation rules) ──────────────
 
