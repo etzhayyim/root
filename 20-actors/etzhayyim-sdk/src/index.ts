@@ -9,7 +9,9 @@
  * Status: scaffold v0.0.0. All implementations are TODO stubs.
  */
 
-import type { AtpAgent } from "@atproto/api";
+import { AtpAgent } from "@atproto/api";
+import * as pdsModule from "./pds.js";
+import * as ipfsModule from "./ipfs.js";
 
 // ─── Configuration ──────────────────────────────────────────────────
 
@@ -34,6 +36,27 @@ export interface EtzhayyimConfig {
 
   /** Signer for both PDS writes and L2 anchor txns. Pre-bound to `did`. */
   signer?: Signer;
+
+  /**
+   * Resumable PDS session. If supplied, write/read use this without
+   * re-authenticating. Mutually exclusive with `auth`.
+   */
+  session?: {
+    did: string;
+    handle: string;
+    accessJwt: string;
+    refreshJwt: string;
+  };
+
+  /**
+   * Password-based PDS login. The SDK calls `agent.login()` on first
+   * `pds()` resolution. Use only in trusted environments (servers,
+   * CLI seeders); browsers should use OAuth + session.
+   */
+  auth?: {
+    handle: string;
+    password: string;
+  };
 }
 
 export interface Signer {
@@ -161,11 +184,24 @@ export interface SubscribeEvent<T> {
 
 export class Etzhayyim {
   readonly config: Required<
-    Omit<EtzhayyimConfig, "signer" | "pdsUrl" | "ipfsApiUrl" | "anchorContract">
+    Omit<
+      EtzhayyimConfig,
+      | "signer"
+      | "pdsUrl"
+      | "ipfsApiUrl"
+      | "anchorContract"
+      | "session"
+      | "auth"
+    >
   > &
     Pick<
       EtzhayyimConfig,
-      "signer" | "pdsUrl" | "ipfsApiUrl" | "anchorContract"
+      | "signer"
+      | "pdsUrl"
+      | "ipfsApiUrl"
+      | "anchorContract"
+      | "session"
+      | "auth"
     >;
 
   #pds?: AtpAgent;
@@ -179,38 +215,163 @@ export class Etzhayyim {
       l2RpcUrl: config.l2RpcUrl ?? "https://mainnet.base.org",
       anchorContract: config.anchorContract,
       signer: config.signer,
+      session: config.session,
+      auth: config.auth,
     };
   }
 
-  /** Resolve DID → PDS URL if not set in config. Lazy initialization. */
+  /**
+   * Lazy-resolve DID → PDS URL, instantiate AtpAgent, attach session/login.
+   * Anonymous reads work without `session` or `auth`; writes require one.
+   */
   async pds(): Promise<AtpAgent> {
     if (this.#pds) return this.#pds;
-    throw new Error(
-      "[etzhayyim-sdk] pds() not yet implemented. " +
-        "TODO: lazy-resolve DID document, instantiate AtpAgent with " +
-        "service=AtprotoPersonalDataServer endpoint, attach DID-bound signer."
-    );
+
+    const service =
+      this.config.pdsUrl ?? (await pdsModule.resolvePds(this.config.did));
+    const agent = new AtpAgent({ service });
+
+    if (this.config.session) {
+      const s = this.config.session;
+      await agent.resumeSession({
+        did: s.did,
+        handle: s.handle,
+        accessJwt: s.accessJwt,
+        refreshJwt: s.refreshJwt,
+        active: true,
+      });
+    } else if (this.config.auth) {
+      await agent.login({
+        identifier: this.config.auth.handle,
+        password: this.config.auth.password,
+      });
+    }
+
+    this.#pds = agent;
+    return agent;
   }
 
   async write<T extends Record<string, unknown>>(
-    _opts: WriteOpts<T>
+    opts: WriteOpts<T>
   ): Promise<WriteReceipt> {
-    throw new Error(
-      "[etzhayyim-sdk] write() not yet implemented. " +
-        "TODO: (1) pin blobs to IPFS via ipfsApiUrl, (2) substitute blob " +
-        "fields in record body with CID refs per lexicon $type=blob shape, " +
-        "(3) call pds.com.atproto.repo.createRecord, (4) enqueue MST root " +
-        "for next L2 anchor batch unless anchorNow:true."
+    const agent = await this.pds();
+
+    const recordBody: Record<string, unknown> = { ...opts.record };
+    const blobCids: Record<string, string> = {};
+
+    if (opts.blobs && opts.blobs.size > 0) {
+      if (!this.config.ipfsApiUrl) {
+        throw new Error(
+          "[etzhayyim-sdk] write(): blobs supplied but ipfsApiUrl not configured"
+        );
+      }
+      for (const [field, blob] of opts.blobs.entries()) {
+        const pinned = await ipfsModule.pinBlob(this.config.ipfsApiUrl, blob);
+        blobCids[field] = pinned.cid;
+        recordBody[field] = {
+          $type: "blob",
+          ref: { $link: pinned.cid },
+          mimeType: blob.type || "application/octet-stream",
+          size: pinned.size,
+        };
+      }
+    }
+
+    const { uri, cid } = await pdsModule.createRecord(
+      agent,
+      this.config.did,
+      opts.collection,
+      recordBody,
+      opts.rkey
     );
+
+    // Anchoring is async, done by 50-infra/anchor-cron in batches. We
+    // surface 0n as "deferred to next batch". `anchorNow: true` would
+    // submit synchronously via l2.AnchorClient — TODO when the synchronous
+    // path is wired (requires a signer + sequencing the MST root for this
+    // single record, which is non-trivial; the cron handles it correctly).
+    return {
+      uri,
+      cid,
+      blobCids,
+      pendingAnchor: 0n,
+    };
   }
 
-  async read<T>(_opts: ReadOpts): Promise<ReadResponse<T>> {
-    throw new Error(
-      "[etzhayyim-sdk] read() not yet implemented. " +
-        "TODO: (1) resolve PDS, (2) call pds.com.atproto.repo.listRecords " +
-        "with collection/cursor/limit, (3) optionally MST-prefix-filter, " +
-        "(4) if fetchBlobs, GET each blob CID from ipfsGateway."
+  async read<T>(opts: ReadOpts): Promise<ReadResponse<T>> {
+    const agent = await this.pds();
+    const fetchBlobs = opts.fetchBlobs !== false;
+
+    if (opts.rkey) {
+      const rec = await pdsModule.getRecord(
+        agent,
+        this.config.did,
+        opts.collection,
+        opts.rkey
+      );
+      if (!rec) return { records: [] };
+      return {
+        records: [await this.#materializeBlobs<T>(rec, fetchBlobs)],
+      };
+    }
+
+    const limit = Math.min(opts.limit ?? 50, 100);
+    const { records: raw, cursor } = await pdsModule.listRecords(
+      agent,
+      this.config.did,
+      opts.collection,
+      { limit, cursor: opts.cursor }
     );
+
+    // Prefix filter: client-side over the fetched page. listRecords paginates
+    // by cursor in TID order; callers wanting comprehensive prefix scans must
+    // continue paging. mst-projector emits indexed snapshots for large
+    // collections where O(N) prefix scan is impractical.
+    const filtered = opts.prefix
+      ? raw.filter((r) => (r.uri.split("/").pop() ?? "").startsWith(opts.prefix!))
+      : raw;
+
+    const records = await Promise.all(
+      filtered.map((r) => this.#materializeBlobs<T>(r, fetchBlobs))
+    );
+    return { records, cursor };
+  }
+
+  async #materializeBlobs<T>(
+    rec: { uri: string; cid: string; value: unknown },
+    fetchBlobs: boolean
+  ): Promise<{
+    uri: string;
+    cid: string;
+    value: T;
+    blobs?: Record<string, Blob>;
+  }> {
+    if (!fetchBlobs) {
+      return { uri: rec.uri, cid: rec.cid, value: rec.value as T };
+    }
+    const value = rec.value as Record<string, unknown> | null;
+    if (!value || typeof value !== "object") {
+      return { uri: rec.uri, cid: rec.cid, value: rec.value as T };
+    }
+    const blobs: Record<string, Blob> = {};
+    for (const [k, v] of Object.entries(value)) {
+      if (
+        v &&
+        typeof v === "object" &&
+        (v as { $type?: unknown }).$type === "blob"
+      ) {
+        const cid = (v as { ref?: { $link?: string } }).ref?.$link;
+        if (cid) {
+          blobs[k] = await ipfsModule.fetchBlob(this.config.ipfsGateway, cid);
+        }
+      }
+    }
+    return {
+      uri: rec.uri,
+      cid: rec.cid,
+      value: rec.value as T,
+      blobs: Object.keys(blobs).length > 0 ? blobs : undefined,
+    };
   }
 
   async verify(_recordUri: string): Promise<VerifyResult> {
