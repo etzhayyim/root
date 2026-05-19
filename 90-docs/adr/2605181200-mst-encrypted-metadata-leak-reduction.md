@@ -11,10 +11,10 @@ axis: architecture
 weight: 0.65
 priority_note: "Closes the two cheapest metadata leaks in ADR-2605181100 (ciphertext size, rkey path). Sealed Sender and timing/fan-out mitigations are larger and tracked separately."
 authoritative_for:
-  - hard rule: encrypted record ciphertexts MUST be padded to a fixed bucket size when stored on PDS
-  - bucket schedule: 1 KiB / 4 KiB / 16 KiB / 64 KiB → blob fallback at 256 KiB
-  - hard rule: rkey blinding uses base32(BLAKE2b-128(symKey || seq))
-  - SDK API: `pad` option on crypto.encrypt(), `blindRkey: true` on encryptedWriteStandalone
+  - "hard rule: encrypted record ciphertexts MUST be padded to a fixed bucket size when stored on PDS"
+  - "bucket schedule: 1 KiB / 4 KiB / 16 KiB / 64 KiB → blob fallback at 256 KiB"
+  - "hard rule: rkey blinding uses base32(BLAKE2b-128(symKey || seq))"
+  - "SDK API: `pad` option on crypto.encrypt(), `blindRkey: true` on encryptedWriteStandalone"
 depends_on:
   - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
