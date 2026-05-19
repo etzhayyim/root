@@ -105,6 +105,32 @@ _nonces: dict[str, _NonceEntry] = {}
 _nonces_lock = threading.Lock()
 
 
+def _load_allowlist() -> frozenset[str]:
+    """Parse AMENO_ALLOWED_DIDS env (comma-separated did:key list).
+
+    Empty / unset → empty set → no allowlist enforced (any well-formed
+    did:key accepted). Set → only listed DIDs may auth via DIDSig.
+    ADR-2605191641.
+    """
+    import os as _os
+
+    raw = _os.environ.get("AMENO_ALLOWED_DIDS", "")
+    return frozenset(
+        s.strip() for s in raw.split(",") if s.strip().startswith("did:key:z")
+    )
+
+
+_ALLOWED_DIDS = _load_allowlist()
+
+
+def is_did_allowed(did: str) -> bool:
+    return len(_ALLOWED_DIDS) == 0 or did in _ALLOWED_DIDS
+
+
+def get_allowed_dids() -> list[str]:
+    return list(_ALLOWED_DIDS)
+
+
 def issue_nonce() -> dict[str, Any]:
     nonce_id = _b64url_encode(secrets.token_bytes(8))
     nonce = _b64url_encode(secrets.token_bytes(16))
@@ -147,6 +173,9 @@ def verify_did_sig(auth_header: str | None) -> VerificationResult:
     did = body[:id_idx]
     nonce_id = body[id_idx + 1 : sig_idx]
     sig_b64 = body[sig_idx + 1 :]
+
+    if not is_did_allowed(did):
+        return VerificationResult(ok=False, error="did not in allowlist")
 
     with _nonces_lock:
         _sweep_locked()

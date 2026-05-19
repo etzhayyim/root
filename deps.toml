@@ -543,6 +543,13 @@ status = "proposed"
 status_note = "/auth/nonce で single-use 60s TTL nonce 発行 → Authorization: DIDSig <did:key>:<nonce_id>:<sig_b64url>。Ed25519 多重コード prefix 0xed01 + base58btc + multibase z。@noble/curves で Browser + TS daemon、cryptography で Python daemon。 Bearer token (ADR-2605191407) は legacy 維持、両方 accept。 v0.2 で RFC 9421 / allowlist / did:web に拡張。"
 path = "90-docs/adr/2605191657-ameno-daemon-did-auth.md"
 
+[[adrs]]
+id = "2605191641"
+title = "Ameno daemon — DID auth allowlist (AMENO_ALLOWED_DIDS)"
+status = "proposed"
+status_note = "AMENO_ALLOWED_DIDS env (comma 区切り did:key) で whitelist。空/未設定 = 制限なし (loopback dev)、設定あり = 厳格 whitelist。verifyDidSig() に check 1 行追加で実装、 nonce 消費前に拒否。 viewer-mode.ts で 401 + 'did not in allowlist' を専用エラー表示。production multi-actor daemon の前提を確立。"
+path = "90-docs/adr/2605191641-ameno-daemon-did-allowlist.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]

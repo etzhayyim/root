@@ -14,6 +14,26 @@ import { randomBytes } from "node:crypto";
 
 const NONCE_TTL_MS = 60_000;
 
+/** Allowed did:key list from `AMENO_ALLOWED_DIDS` env (comma-separated).
+ *  Empty / unset → no allowlist (any well-formed did:key is accepted).
+ *  Set        → only the listed DIDs may authenticate via DIDSig.
+ *  ADR-2605191641. */
+const ALLOWED_DIDS: ReadonlySet<string> = new Set(
+  (process.env.AMENO_ALLOWED_DIDS ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s.startsWith("did:key:z")),
+);
+
+export function isDidAllowed(did: string): boolean {
+  if (ALLOWED_DIDS.size === 0) return true;
+  return ALLOWED_DIDS.has(did);
+}
+
+export function getAllowedDids(): readonly string[] {
+  return [...ALLOWED_DIDS];
+}
+
 interface NonceEntry {
   nonce: string;
   expiresAtMs: number;
@@ -95,6 +115,10 @@ export function verifyDidSig(authHeader: string | undefined): VerificationResult
   const did = body.slice(0, idIdx);
   const nonceId = body.slice(idIdx + 1, sigIdx);
   const sigB64 = body.slice(sigIdx + 1);
+
+  if (!isDidAllowed(did)) {
+    return { ok: false, error: "did not in allowlist" };
+  }
 
   const entry = nonces.get(nonceId);
   if (!entry) return { ok: false, error: "nonce unknown or already consumed" };
