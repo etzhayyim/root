@@ -18,6 +18,29 @@
     mediapipeGenerate,
   } from "./lib/mediapipe-runtime";
   import { invokeAmeno, type GraphChunk, type GraphPhase } from "./lib/graph";
+  import {
+    ensureEmbeddingLoaded,
+    isEmbeddingReady as isEmbedReady,
+  } from "./lib/embedding";
+  import {
+    formatUptime,
+    getDaemonSnapshot,
+    getWorkerDid,
+    noteBriefProcessed,
+    noteError,
+    setFirehoseConnected,
+    shortDid,
+  } from "./lib/daemon";
+  import { countMemories } from "./lib/memory-vault";
+  import { openSwarm, type SwarmPeer } from "./lib/swarm";
+  import {
+    fetchWorkerInfo,
+    invokeAmenoRemote,
+    pingDaemon,
+    pullThreadMessages,
+    type DaemonWorkerInfo,
+  } from "./lib/viewer-mode";
+  import { shortDidKey } from "./lib/did-auth";
   import { openBriefStream, type Brief } from "./lib/brief-stream";
   import { saveResult } from "./lib/save-result";
   import { encryptText, decryptText, isEncrypted } from "./lib/private-vault";
@@ -66,6 +89,74 @@
   let graphPhase = $state<GraphPhase | null>(null);
   /** Last critic verdict shown next to the assistant message. */
   let lastCritique = $state<{ score: number; feedback: string; iteration: number } | null>(null);
+  /** Browser-local tool use toggle. ADR-2605191129. */
+  let toolsEnabled = $state(false);
+  /** Daemon state snapshot, refreshed by a 1s interval. ADR-2605191135. */
+  let daemonSnapshot = $state(getDaemonSnapshot());
+  /** Whether the daemon details panel is expanded. */
+  let daemonPanelOpen = $state(false);
+  /** Long-term encrypted memory count. ADR-2605191206. */
+  let memoryCount = $state(0);
+  /** Other ameno tabs in this browser (ADR-2605191524 swarm). */
+  let swarmPeers = $state<SwarmPeer[]>([]);
+  /** True when this tab is the swarm leader (ADR-2605191603).
+   *  In a single-tab session this is always true. */
+  let swarmIsLeader = $state(true);
+  /** Briefs received while this tab was a follower — skipped, but counted
+   *  so UI shows "passive observer" honestly. */
+  let briefsSkippedAsFollower = $state(0);
+  /** State of the "Pull from daemon" button (ADR-2605191645). */
+  let pullingFromDaemon = $state(false);
+  let pullError = $state<string | null>(null);
+
+  /** Replace local messages with the daemon's `viewer` thread state. */
+  async function handlePullFromDaemon() {
+    const url = resolveDaemonUrl();
+    if (!url || pullingFromDaemon) return;
+    pullingFromDaemon = true;
+    pullError = null;
+    try {
+      const pulled = await pullThreadMessages(url, "viewer", undefined, resolveAuthToken());
+      if (pulled.length === 0) {
+        pullError = "daemon thread 'viewer' is empty";
+        return;
+      }
+      messages = pulled;
+      streamingText = "";
+    } catch (e) {
+      pullError = e instanceof Error ? e.message : String(e);
+    } finally {
+      pullingFromDaemon = false;
+    }
+  }
+  /** Compute mode — local browser graph vs remote daemon SSE. ADR-2605191407. */
+  let computeMode = $state<"local" | "daemon-a" | "daemon-b" | "custom">("local");
+  /** Custom daemon URL (used when computeMode==="custom"). */
+  let customDaemonUrl = $state("http://127.0.0.1:12480");
+  /** Bearer token sent to remote daemons running with AMENO_AUTH_TOKEN.
+   *  Stored only in component state — never persisted to localStorage —
+   *  so refreshing the tab forces a re-paste. */
+  let customAuthToken = $state("");
+  /** Latest probed daemon info, refreshed by a background poll. */
+  let daemonInfo = $state<DaemonWorkerInfo | null>(null);
+  /** True while a daemon ping/info fetch is in flight. */
+  let daemonProbing = $state(false);
+  /** Last daemon connection error. */
+  let daemonError = $state<string | null>(null);
+  /** Tool call/result chip log for the current turn. */
+  let toolLog = $state<Array<{ name: string; argStr: string; result?: string; error?: boolean; iteration: number }>>([]);
+  /** Active inference toggle (Stage 3, ADR-2605191113). */
+  let activeInference = $state(false);
+  /** Surprise distance flavour. ADR-2605191120. */
+  let surpriseMode = $state<"lexical" | "embedding">("lexical");
+  /** MiniLM lazy-load progress (0..100). */
+  let embedProgress = $state(0);
+  let embedLoading = $state(false);
+  let embedError = $state<string | null>(null);
+  /** Most recent prediction the agent has committed for the next user turn. */
+  let pendingPrediction = $state("");
+  /** Per-user-message surprise score (and mode). Maps message index → row. */
+  let surpriseByIndex = $state<Record<number, { score: number; mode: "lexical" | "embedding" }>>({});
   let gpuInfo = $state("");
   let chatContainer: HTMLElement | undefined = $state();
 
@@ -75,6 +166,99 @@
   let availableAdapters: AdapterCandidate[] = $state([]);
   /** Whether LoRA panel is expanded. */
   let loraPanelOpen = $state(false);
+
+  /** Materialise the worker DID at startup so subsequent reads are stable. */
+  getWorkerDid();
+
+  /** Open the multi-tab swarm channel and keep `swarmPeers` + `swarmIsLeader`
+   *  in sync. ADR-2605191524 (presence) + ADR-2605191603 (leader election). */
+  $effect(() => {
+    const handle = openSwarm({
+      did: getWorkerDid(),
+      role: "browser",
+      computeMode,
+      loadedModel: state.loadedModel,
+    });
+    const poll = setInterval(() => {
+      swarmPeers = handle.getPeers();
+      swarmIsLeader = handle.isLeader();
+    }, 1000);
+    return () => {
+      clearInterval(poll);
+      handle.close();
+    };
+  });
+
+  /** Push compute-mode / model changes to swarm peers immediately. */
+  $effect(() => {
+    // Re-tracked by Svelte 5 on each computeMode / state.loadedModel change.
+    void computeMode;
+    void state.loadedModel;
+  });
+
+  /** 1Hz daemon snapshot poll. Cheap (object literal copy, no IO). */
+  $effect(() => {
+    const id = setInterval(() => {
+      daemonSnapshot = getDaemonSnapshot();
+    }, 1000);
+    return () => clearInterval(id);
+  });
+
+  /** Refresh memory count when the daemon panel opens (avoids an IDB op every
+   *  second when the panel is closed). */
+  $effect(() => {
+    if (daemonPanelOpen) {
+      void countMemories().then((n) => { memoryCount = n; }).catch(() => { memoryCount = 0; });
+    }
+  });
+
+  /** Resolve the compute target URL or null for local. ADR-2605191407. */
+  function resolveDaemonUrl(): string | null {
+    if (computeMode === "local") return null;
+    if (computeMode === "daemon-a") return "http://127.0.0.1:12480";
+    if (computeMode === "daemon-b") return "http://127.0.0.1:12481";
+    return customDaemonUrl.trim() || null;
+  }
+
+  /** Auth token to use when probing or invoking the remote daemon. Only
+   *  applies to the `custom` mode for now — localhost daemons run without
+   *  AMENO_AUTH_TOKEN by default. */
+  function resolveAuthToken(): string | undefined {
+    return computeMode === "custom" && customAuthToken ? customAuthToken : undefined;
+  }
+
+  /** Poll the selected daemon's /workerInfo every 5s while in viewer mode. */
+  $effect(() => {
+    const url = resolveDaemonUrl();
+    const token = resolveAuthToken();
+    if (!url) {
+      daemonInfo = null;
+      daemonError = null;
+      return;
+    }
+    let aborted = false;
+    const ctrl = new AbortController();
+    daemonProbing = true;
+    const tick = async () => {
+      if (aborted) return;
+      const info = await fetchWorkerInfo(url, ctrl.signal, token);
+      if (aborted) return;
+      if (info) {
+        daemonInfo = info;
+        daemonError = null;
+      } else {
+        daemonInfo = null;
+        daemonError = `cannot reach ${url}`;
+      }
+    };
+    void tick().finally(() => { daemonProbing = false; });
+    const id = setInterval(() => { void tick(); }, 5000);
+    return () => {
+      aborted = true;
+      ctrl.abort();
+      clearInterval(id);
+    };
+  });
 
   /** Check WebGPU on mount; if absent and Baien is available, default to it on WASM. */
   $effect(() => {
@@ -188,6 +372,29 @@
     state.activeAdapters = [...selectedAdapterIds];
   }
 
+  /** Lazy-load the MiniLM embedding pipeline. Idempotent. ADR-2605191120. */
+  async function loadEmbedding() {
+    if (isEmbedReady() || embedLoading) return;
+    embedLoading = true;
+    embedError = null;
+    embedProgress = 0;
+    try {
+      await ensureEmbeddingLoaded((pct) => { embedProgress = pct; });
+      embedProgress = 100;
+    } catch (e) {
+      embedError = e instanceof Error ? e.message : String(e);
+    } finally {
+      embedLoading = false;
+    }
+  }
+
+  /** Kick off the embedding load the moment the user picks "embedding". */
+  $effect(() => {
+    if (surpriseMode === "embedding" && !isEmbedReady() && !embedLoading) {
+      void loadEmbedding();
+    }
+  });
+
   /**
    * Send a message and run the ameno LangGraph (Pregel) — generate → critique
    * → revise → finalize. ADR-2605191000. Tokens stream in via the graph's
@@ -205,6 +412,7 @@
     lastStats = null;
     lastCritique = null;
     graphPhase = null;
+    toolLog = [];
 
     setTimeout(scrollToBottom, 0);
 
@@ -224,17 +432,43 @@
           ? "mediapipe"
           : "transformers";
 
-      const finalDraft = await invokeAmeno({
-        messages: chatMessages,
-        maxIterations: maxReflections,
-        kernel,
-        onChunk: (chunk: GraphChunk) => {
+      // Record surprise against this turn's user message (the one we just
+      // pushed). Index = messages.length - 1 after the push above.
+      const newUserIndex = messages.length - 1;
+
+      // Dispatch: local graph vs remote daemon SSE. Chunk handler is
+      // identical between the two (ADR-2605191407 §State 分離).
+      const daemonUrl = resolveDaemonUrl();
+      const runInvoke = daemonUrl
+        ? (onChunk: (c: GraphChunk) => void) =>
+            invokeAmenoRemote({
+              baseUrl: daemonUrl,
+              threadId: "viewer",
+              messages: chatMessages,
+              maxIterations: maxReflections,
+              activeInference,
+              toolsEnabled,
+              authToken: resolveAuthToken(),
+              onChunk,
+            })
+        : (onChunk: (c: GraphChunk) => void) =>
+            invokeAmeno({
+              messages: chatMessages,
+              maxIterations: maxReflections,
+              kernel,
+              activeInference,
+              surpriseMode,
+              toolsEnabled,
+              onChunk,
+            });
+
+      const finalDraft = await runInvoke((chunk: GraphChunk) => {
           if (chunk.type === "phase") {
             graphPhase = chunk.phase;
             // Reset the visible buffer at the start of generate and each
-            // revise pass — those are user-facing. critique is not shown
-            // verbatim (it's JSON), but we still keep streaming so the
-            // tokens/sec counter ticks.
+            // revise pass — those are user-facing. critique / surprise_eval
+            // / predict_next are not shown verbatim, but we still let the
+            // tokens/sec counter tick through their stream chunks.
             if (chunk.phase === "generate" || chunk.phase === "revise") {
               streamingText = "";
             }
@@ -255,11 +489,49 @@
             };
             return;
           }
+          if (chunk.type === "surprise") {
+            surpriseByIndex = {
+              ...surpriseByIndex,
+              [newUserIndex]: { score: chunk.surprise, mode: chunk.mode },
+            };
+            return;
+          }
+          if (chunk.type === "prediction") {
+            pendingPrediction = chunk.prediction;
+            return;
+          }
+          if (chunk.type === "tool_call") {
+            toolLog = [
+              ...toolLog,
+              {
+                name: chunk.name,
+                argStr: JSON.stringify(chunk.args ?? {}),
+                iteration: chunk.iteration,
+              },
+            ];
+            return;
+          }
+          if (chunk.type === "tool_result") {
+            // Attach result to the most recent matching call (same name + iteration).
+            const idx = [...toolLog].reverse().findIndex(
+              (e) => e.name === chunk.name && e.iteration === chunk.iteration && e.result === undefined,
+            );
+            if (idx >= 0) {
+              const realIdx = toolLog.length - 1 - idx;
+              const next = [...toolLog];
+              next[realIdx] = {
+                ...next[realIdx],
+                result: chunk.result,
+                error: chunk.error,
+              };
+              toolLog = next;
+            }
+            return;
+          }
           if (chunk.type === "stats") {
             lastStats = chunk.stats;
           }
-        },
-      });
+        });
 
       const finalText = finalDraft || streamingText;
       messages = [
@@ -299,8 +571,22 @@
   /** Drop briefs while a generation is in flight to avoid queue blow-up. */
   let autoRespondInFlight = false;
 
+  /**
+   * Process one brief through the full agent graph (ADR-2605191135 Tier-2
+   * daemon integration). Reflection / active inference default OFF for
+   * throughput; tools default ON so wikipedia / now / recall stay useful
+   * when a brief mentions a known topic. Each brief shares the same
+   * `firehose:<collection>` thread_id so LocalCheckpointer accumulates
+   * memory across briefs in the same firehose run.
+   */
   async function processBrief(brief: Brief) {
     if (autoRespondInFlight || state.status !== "ready") return;
+    // ADR-2605191603 — follower tabs see briefs but don't process them.
+    // Count them so the UI can show "passive observer" honestly.
+    if (!swarmIsLeader) {
+      briefsSkippedAsFollower++;
+      return;
+    }
     autoRespondInFlight = true;
     let output = "";
     try {
@@ -308,36 +594,68 @@
         {
           role: "system",
           content:
-            "You are Ameno, a browser-local LLM serving the gftd platform. Reply briefly to the post below. Output ONE concise sentence in the same language as the input.",
+            "You are Ameno, a browser-local LLM (Tier 2 organism worker) " +
+            "serving the etzhayyim platform. Reply briefly to the post " +
+            "below. Output ONE concise sentence in the same language as the input.",
         },
         { role: "user", content: brief.text },
       ];
-      const runtimeGenerate =
+      const kernel =
         state.loadedModel && MEDIAPIPE_PREFERRED.has(state.loadedModel)
-          ? mediapipeGenerate
-          : generate;
-      const stats = await runtimeGenerate(chat, (token) => {
-        output += token;
+          ? "mediapipe"
+          : "transformers";
+      let elapsedStart = performance.now();
+      let totalTokens = 0;
+      let tokensPerSecond = 0;
+      const finalDraft = await invokeAmeno({
+        messages: chat,
+        kernel,
+        maxIterations: 0,
+        activeInference: false,
+        toolsEnabled,
+        threadId: `firehose:app.bsky.feed.post`,
+        onChunk: (chunk) => {
+          if (chunk.type === "token" && (chunk.phase === "generate" || chunk.phase === "revise")) {
+            output += chunk.token;
+          } else if (chunk.type === "stats" && chunk.phase === "generate") {
+            totalTokens = chunk.stats.totalTokens;
+            tokensPerSecond = chunk.stats.tokensPerSecond;
+          }
+        },
       });
-      const persistedOutput = privateMode ? await encryptText(output) : output;
-      const res = await saveResult({
-        modelId: state.loadedModel ?? "",
-        prompt: brief.text,
-        output: persistedOutput,
-        actorDid: state.actorDid ?? "",
-        loraAdapters: selectedAdapterIds.length > 0 ? selectedAdapterIds : undefined,
-        elapsedMs: stats.durationMs,
-        tokensPerSec: Math.round(stats.tokensPerSecond * 1000),
-        outputTokens: stats.totalTokens,
-        ragContextUsed: stats.ragActive,
-      });
+      const visible = finalDraft || output;
+      const persistedOutput = privateMode ? await encryptText(visible) : visible;
+      noteBriefProcessed(totalTokens);
+      try {
+        const res = await saveResult({
+          modelId: state.loadedModel ?? "",
+          prompt: brief.text,
+          output: persistedOutput,
+          actorDid: state.actorDid ?? "",
+          loraAdapters: selectedAdapterIds.length > 0 ? selectedAdapterIds : undefined,
+          elapsedMs: performance.now() - elapsedStart,
+          tokensPerSec: Math.round(tokensPerSecond * 1000),
+          outputTokens: totalTokens,
+          ragContextUsed: false,
+        });
+        autoRespondHistory = [
+          { prompt: brief.text, output: visible, uri: res.uri ?? brief.uri },
+          ...autoRespondHistory,
+        ].slice(0, 5);
+      } catch (e) {
+        // saveResult failure is non-fatal — the daemon is still doing work
+        // locally. Record but keep going.
+        noteError(e instanceof Error ? e.message : String(e));
+        autoRespondHistory = [
+          { prompt: brief.text, output: visible, uri: brief.uri },
+          ...autoRespondHistory,
+        ].slice(0, 5);
+      }
       autoRespondCount++;
-      autoRespondHistory = [
-        { prompt: brief.text, output, uri: res.uri ?? brief.uri },
-        ...autoRespondHistory,
-      ].slice(0, 5);
     } catch (e) {
-      autoRespondError = e instanceof Error ? e.message : String(e);
+      const msg = e instanceof Error ? e.message : String(e);
+      autoRespondError = msg;
+      noteError(msg);
     } finally {
       autoRespondInFlight = false;
     }
@@ -347,13 +665,18 @@
     if (autoRespondActive || state.status !== "ready") return;
     autoRespondError = null;
     autoRespondActive = true;
+    setFirehoseConnected(true);
     autoRespondCloser = openBriefStream({
       collection: "app.bsky.feed.post",
       maxEvents: 1000,
       idleTimeoutSec: 300,
       onBrief: (brief) => { void processBrief(brief); },
       onDone: () => { stopAutoRespond(); },
-      onError: (e) => { autoRespondError = e.message; },
+      onError: (e) => {
+        autoRespondError = e.message;
+        noteError(e.message);
+        setFirehoseConnected(false);
+      },
     });
   }
 
@@ -361,6 +684,7 @@
     autoRespondActive = false;
     autoRespondCloser?.();
     autoRespondCloser = null;
+    setFirehoseConnected(false);
   }
 
   // ── History panel ──
@@ -431,12 +755,99 @@
           {state.actorDid.slice(0, 20)}...
         </span>
       {/if}
+      <button
+        class="daemon-chip {daemonSnapshot.firehoseConnected ? 'daemon-online' : 'daemon-offline'}"
+        title="Click for daemon details"
+        onclick={() => (daemonPanelOpen = !daemonPanelOpen)}
+      >
+        <span class="daemon-dot"></span>
+        {shortDid(daemonSnapshot.did)} · {formatUptime(daemonSnapshot.uptimeMs)}
+        {#if swarmPeers.length > 0}
+          {#if swarmIsLeader}
+            <span class="daemon-leader" title="swarm leader">★</span>
+          {:else}
+            <span class="daemon-follower" title="swarm follower">·</span>
+          {/if}
+        {/if}
+        {#if daemonSnapshot.briefsPerMinute > 0}
+          · {daemonSnapshot.briefsPerMinute}/min
+        {/if}
+      </button>
     </div>
+    {#if daemonPanelOpen}
+      <div class="daemon-panel">
+        <div><b>DID</b>: {daemonSnapshot.did}</div>
+        <div><b>Uptime</b>: {formatUptime(daemonSnapshot.uptimeMs)}</div>
+        <div><b>Model</b>: {state.loadedModel ?? "(not loaded)"}</div>
+        <div><b>Firehose</b>: {daemonSnapshot.firehoseConnected ? "connected" : "offline"}</div>
+        <div><b>Briefs processed</b>: {daemonSnapshot.totalBriefs} (last 60s: {daemonSnapshot.briefsPerMinute})</div>
+        <div><b>Total tokens decoded</b>: {daemonSnapshot.totalTokensDecoded}</div>
+        <div><b>Memories</b>: {memoryCount} stored (AES-GCM encrypted)</div>
+        <div>
+          <b>Swarm</b>: {swarmPeers.length} peer{swarmPeers.length === 1 ? "" : "s"}
+          {#if swarmIsLeader}
+            <span class="leader-badge" title="ADR-2605191603 — lex-smallest DID processes briefs">★ leader</span>
+          {:else}
+            <span class="follower-badge" title="Another tab is the swarm leader; this tab is a passive observer">· follower</span>
+          {/if}
+          {#if swarmPeers.length > 0}
+            <ul class="swarm-list">
+              {#each swarmPeers as p}
+                <li title={p.did}>
+                  <span class="swarm-role">{p.role}</span>
+                  · {p.computeMode}
+                  · {p.loadedModel ?? "(no model)"}
+                  · <code>{p.did.slice("did:web:browser:".length, "did:web:browser:".length + 6)}…</code>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+          {#if briefsSkippedAsFollower > 0}
+            <div class="swarm-foot">briefs skipped as follower: {briefsSkippedAsFollower}</div>
+          {/if}
+        </div>
+        {#if daemonSnapshot.lastBriefAt}
+          <div><b>Last brief</b>: {formatUptime(Date.now() - daemonSnapshot.lastBriefAt)} ago</div>
+        {/if}
+        {#if daemonSnapshot.lastError}
+          <div class="daemon-err"><b>Last error</b>: {daemonSnapshot.lastError}</div>
+        {/if}
+        <div class="daemon-foot">
+          ADR-2605191135 · LocalCheckpointer persisted to localStorage
+        </div>
+      </div>
+    {/if}
   </header>
 
   <!-- Main content -->
   <main class="main">
-    {#if state.status === "idle"}
+    {#if state.status === "idle" && computeMode !== "local"}
+      <!-- Daemon viewer mode — no local model needed (ADR-2605191407) -->
+      <div class="landing">
+        <div class="landing-card">
+          <h2>Viewer mode</h2>
+          <p class="model-desc">
+            Inference is delegated to the ameno daemon over HTTP SSE. No
+            local model load is required. Switch back to <em>Compute:
+            local</em> to use MediaPipe Gemma in this tab.
+          </p>
+          {#if daemonInfo}
+            <p class="gpu-info">
+              connected · {daemonInfo.did}<br />
+              model: {daemonInfo.model ?? '?'} · ollama:
+              {daemonInfo.ollamaReachable ? 'up' : 'down'}
+            </p>
+          {:else if daemonError}
+            <div class="warning">{daemonError}</div>
+          {:else}
+            <p class="gpu-info">probing daemon…</p>
+          {/if}
+          <button class="btn-primary" onclick={() => { state.status = "ready"; }}>
+            Open chat
+          </button>
+        </div>
+      </div>
+    {:else if state.status === "idle"}
       <!-- Landing: load model -->
       <div class="landing">
         <div class="landing-card">
@@ -594,12 +1005,41 @@
           </div>
         {/if}
 
-        {#each messages as msg}
+        {#each messages as msg, i}
           <div class="message {msg.role}">
-            <div class="message-label">{msg.role === "user" ? "You" : "Murakumo"}</div>
+            <div class="message-label">
+              {msg.role === "user" ? "You" : "Murakumo"}
+              {#if msg.role === "user" && surpriseByIndex[i] !== undefined}
+                <span
+                  class="surprise-badge surprise-{surpriseByIndex[i].score >= 7 ? 'hi' : surpriseByIndex[i].score >= 3 ? 'mid' : 'lo'}"
+                  title="{surpriseByIndex[i].mode === 'embedding' ? 'MiniLM cosine' : 'Lexical Jaccard'} surprise vs previous prediction"
+                >
+                  surprise {surpriseByIndex[i].score}/10 · {surpriseByIndex[i].mode}
+                </span>
+              {/if}
+            </div>
             <div class="message-content">{typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)}</div>
           </div>
         {/each}
+
+        {#if toolLog.length > 0}
+          <div class="tool-log">
+            {#each toolLog as entry}
+              <div class="tool-row {entry.error ? 'tool-error' : ''}">
+                <span class="tool-name">tool: {entry.name}</span>
+                <span class="tool-args">{entry.argStr}</span>
+                {#if entry.result !== undefined}
+                  <span class="tool-arrow">→</span>
+                  <span class="tool-result" title={entry.result}>
+                    {entry.result.length > 80 ? entry.result.slice(0, 80) + "…" : entry.result}
+                  </span>
+                {:else}
+                  <span class="tool-arrow">…</span>
+                {/if}
+              </div>
+            {/each}
+          </div>
+        {/if}
 
         {#if streamingText || graphPhase}
           <div class="message assistant">
@@ -614,7 +1054,62 @@
         {/if}
       </div>
 
-      <!-- Reflection controls + last critique -->
+      <!-- Compute mode selector (ADR-2605191407) -->
+      <div class="reflection-bar">
+        <label title="Where the LangGraph runs: in this browser tab, or a daemon over HTTP SSE">
+          Compute:
+          <select bind:value={computeMode} disabled={state.status === "generating"}>
+            <option value="local">local (this tab, MediaPipe)</option>
+            <option value="daemon-a">daemon @12480 (Path A, TS)</option>
+            <option value="daemon-b">daemon @12481 (Path B, Python)</option>
+            <option value="custom">custom URL…</option>
+          </select>
+        </label>
+        {#if computeMode === "custom"}
+          <input
+            class="daemon-url"
+            type="url"
+            placeholder="https://ameno-daemon.etzhayyim.com"
+            bind:value={customDaemonUrl}
+            disabled={state.status === "generating"}
+          />
+          <input
+            class="daemon-url"
+            type="password"
+            placeholder="Bearer token (AMENO_AUTH_TOKEN)"
+            bind:value={customAuthToken}
+            disabled={state.status === "generating"}
+          />
+        {/if}
+        {#if computeMode !== "local"}
+          {#if daemonInfo}
+            <span class="embed-pill embed-ready" title={`${daemonInfo.did}  model=${daemonInfo.model ?? '?'}  ollama=${daemonInfo.ollamaReachable ? 'up' : 'down'}`}>
+              daemon ✓ {daemonInfo.model ?? '?'}{daemonInfo.kind === 'path-b-python' ? ' · Py' : ' · TS'}
+            </span>
+          {:else if daemonProbing}
+            <span class="embed-pill" title="probing daemon">daemon probing…</span>
+          {:else if daemonError}
+            <span class="embed-pill embed-error" title={daemonError}>daemon unreachable</span>
+          {/if}
+          <button
+            class="btn-small"
+            title="Replace this tab's chat history with the daemon's saved thread state (viewer thread). ADR-2605191645."
+            onclick={handlePullFromDaemon}
+            disabled={pullingFromDaemon || state.status === "generating" || !daemonInfo}
+          >
+            {pullingFromDaemon ? "pulling…" : "Pull from daemon"}
+          </button>
+          {#if pullError}
+            <span class="embed-pill embed-error" title={pullError}>pull failed</span>
+          {/if}
+          <span
+            class="embed-pill"
+            title={customAuthToken ? "Bearer token mode (ADR-2605191407)" : "DIDSig Ed25519 mode (ADR-2605191657)"}
+          >
+            auth: {customAuthToken ? "Bearer" : shortDidKey()}
+          </span>
+        {/if}
+      </div>
       <div class="reflection-bar">
         <label>
           Reflection:
@@ -624,12 +1119,62 @@
             <option value={2}>2 passes</option>
           </select>
         </label>
+        <label class="ai-toggle">
+          <input
+            type="checkbox"
+            bind:checked={activeInference}
+            disabled={state.status === "generating"}
+          />
+          Active inference
+        </label>
+        <label class="ai-toggle" title="Browser-local tools: now / recall / wikipedia">
+          <input
+            type="checkbox"
+            bind:checked={toolsEnabled}
+            disabled={state.status === "generating"}
+          />
+          Tools
+        </label>
+        {#if activeInference}
+          <label class="ai-toggle" title="MiniLM 22 MB lazy DL, WASM device">
+            Surprise:
+            <select bind:value={surpriseMode} disabled={state.status === "generating"}>
+              <option value="lexical">lexical</option>
+              <option value="embedding">embedding</option>
+            </select>
+          </label>
+          {#if surpriseMode === "embedding" && embedLoading}
+            <span class="embed-pill" title="Loading Xenova/all-MiniLM-L6-v2">
+              loading MiniLM… {embedProgress}%
+            </span>
+          {:else if surpriseMode === "embedding" && embedError}
+            <span class="embed-pill embed-error" title={embedError}>
+              MiniLM load failed
+            </span>
+          {:else if surpriseMode === "embedding" && isEmbedReady()}
+            <span class="embed-pill embed-ready" title="MiniLM ready">
+              embed ready
+            </span>
+          {/if}
+        {/if}
         {#if lastCritique}
           <span class="critique-chip" title={lastCritique.feedback}>
             critic {lastCritique.score}/10 (iter {lastCritique.iteration})
           </span>
         {/if}
       </div>
+      {#if activeInference && pendingPrediction}
+        <div
+          class="prediction-chip"
+          title="Click to copy into input — predicted user reply for next turn"
+          onclick={() => { inputText = pendingPrediction; }}
+          role="button"
+          tabindex="0"
+          onkeydown={(e) => { if (e.key === "Enter") inputText = pendingPrediction; }}
+        >
+          predicted next: {pendingPrediction}
+        </div>
+      {/if}
 
       <!-- Stats bar -->
       {#if lastStats}
@@ -1096,6 +1641,168 @@
   .phase-critique { background: #3a2a1e; color: #fbbf24; }
   .phase-revise { background: #1e2a3a; color: #93c5fd; }
   .phase-finalize { background: #2a1e3a; color: #c4b5fd; }
+  .phase-surprise_eval { background: #3a1e2a; color: #f9a8d4; }
+  .phase-predict_next { background: #2a3a1e; color: #bef264; }
+
+  .ai-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .ai-toggle input[type="checkbox"] {
+    accent-color: #bef264;
+  }
+
+  .surprise-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    margin-left: 6px;
+    border-radius: 10px;
+    cursor: help;
+  }
+  .surprise-lo  { background: #1e3a2e; color: #6ee7b7; }
+  .surprise-mid { background: #3a2a1e; color: #fbbf24; }
+  .surprise-hi  { background: #3a1e1e; color: #fca5a5; }
+
+  .prediction-chip {
+    margin: 6px 12px 0;
+    padding: 6px 10px;
+    background: #1a2a1a;
+    color: #bef264;
+    border: 1px dashed #2a4a2a;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    user-select: text;
+  }
+  .prediction-chip:hover { background: #1a3a1a; }
+
+  .embed-pill {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    background: #1a2a3a;
+    color: #93c5fd;
+    cursor: help;
+  }
+  .embed-pill.embed-ready { background: #1e3a2e; color: #6ee7b7; }
+  .embed-pill.embed-error { background: #3a1e1e; color: #fca5a5; }
+
+  .tool-log {
+    margin: 8px 12px;
+    padding: 6px 10px;
+    background: #1a1a1a;
+    border-left: 2px solid #fbbf24;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 11px;
+  }
+  .tool-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px;
+    padding: 2px 0;
+    color: #a3a3a3;
+  }
+  .tool-row.tool-error { color: #fca5a5; }
+  .tool-name {
+    color: #fbbf24;
+    font-weight: 600;
+  }
+  .tool-args { color: #cbd5e1; }
+  .tool-arrow { color: #525252; }
+  .tool-result { color: #e5e5e5; cursor: help; }
+  .tool-row.tool-error .tool-result { color: #fca5a5; }
+  .phase-execute_tool { background: #3a2e1e; color: #fcd34d; }
+
+  .daemon-chip {
+    margin-left: auto;
+    background: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    color: #a3a3a3;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .daemon-chip:hover { border-color: #3a3a3a; color: #e5e5e5; }
+  .daemon-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #525252;
+    display: inline-block;
+  }
+  .daemon-online .daemon-dot { background: #6ee7b7; box-shadow: 0 0 4px #6ee7b7; }
+  .daemon-offline .daemon-dot { background: #fbbf24; }
+
+  .daemon-panel {
+    position: absolute;
+    top: 48px;
+    right: 8px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    color: #e5e5e5;
+    font-size: 11px;
+    padding: 12px;
+    border-radius: 4px;
+    z-index: 20;
+    min-width: 280px;
+    line-height: 1.6;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+  }
+  .daemon-panel b { color: #a3a3a3; }
+  .daemon-err { color: #fca5a5; }
+  .daemon-foot {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid #2a2a2a;
+    color: #525252;
+    font-size: 10px;
+  }
+
+  .swarm-list {
+    margin: 4px 0 0 0;
+    padding-left: 14px;
+    color: #cbd5e1;
+    font-size: 10px;
+    list-style: disc;
+  }
+  .swarm-list li { margin-top: 2px; }
+  .swarm-role { color: #6ee7b7; }
+  .swarm-foot {
+    margin-top: 4px;
+    color: #fbbf24;
+    font-size: 10px;
+  }
+
+  .leader-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    background: #2a1e3a;
+    color: #c4b5fd;
+    font-size: 10px;
+    cursor: help;
+  }
+  .follower-badge {
+    display: inline-block;
+    margin-left: 6px;
+    color: #525252;
+    font-size: 10px;
+    cursor: help;
+  }
+  .daemon-leader { color: #c4b5fd; font-weight: 700; }
+  .daemon-follower { color: #525252; }
 
   .input-area {
     position: sticky;

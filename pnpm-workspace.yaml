@@ -7,3 +7,4 @@
 packages:
   - "20-actors/ameno"
   - "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte"
+  - "60-apps/ai-gftd-project-ameno/daemon"

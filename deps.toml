@@ -48,6 +48,23 @@ github_org_open_monorepo = "etzhayyim/root"
 
 # ─── Substrate rules (CRITICAL — enforced by ADRs 2605172000 + 2605172100) ──
 
+[platform.deployment]
+# etzhayyim/* の deployment target は Murakumo Mac-mini fleet のみ。
+# gftd.ai legacy は Vultr 残置(本 monorepo 範囲外)。
+# ADR-2605191346 で hard rule 化。
+tier_0_edge = "Cloudflare Workers / Pages (CDN as thin layer; persistent state in MST/IPFS/L2)"
+tier_1_compute = "Murakumo Mac-mini fleet (10 nodes, ADR-2605182312)"
+tier_2_host = "user macOS/Linux box (launchd / systemd; ameno-daemon Path A/B)"
+tier_3_browser = "user browser (WebGPU MediaPipe Gemma, svelte appview)"
+control_plane_native = "systemd / launchd for stateless agents"
+control_plane_k3s_ha = "K3s on 3 Mac minis via Lima/OrbStack Linux VM (HA stateful only)"
+prohibited = [
+  "Vultr VKE / VPS / Object Storage",
+  "EKS / GKE / AKS / DigitalOcean Kubernetes",
+  "any commercial K8s control plane",
+]
+vultr_status = "gftd.ai legacy only; etzhayyim/* completely separated per ADR-2605191346"
+
 [platform.substrate]
 # Hard rules for any module under etzhayyim/root.
 state_substrate = ["AT Protocol MST", "IPFS", "Base L2 anchor"]
@@ -368,6 +385,164 @@ status = "proposed"
 status_note = "Substrate-native KG layer over deps.toml / ADR / module / lexicon / capability relations. Reuses ADR-2605171800 MST→IPFS→L2 spine for persistence; OxiGraph AppView holds no durable state (RW-free). MVP = Lexicons + projector (this PR + next PR); AppView is K2 follow-up."
 path = "90-docs/adr/2605190900-kg-as-lexicon-ipld-oxigraph-appview.md"
 
+# ── MST encrypted records + metadata leak mitigation ──
+
+[[adrs]]
+id = "2605181100"
+title = "MST encrypted records — XChaCha20-Poly1305 envelope + Signal key-wrap per-recipient"
+status = "proposed"
+path = "90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md"
+
+[[adrs]]
+id = "2605181200"
+title = "MST encrypted records — metadata leak reduction (ciphertext padding + blinded rkey)"
+status = "proposed"
+path = "90-docs/adr/2605181200-mst-encrypted-metadata-leak-reduction.md"
+
+# ── Murakumo Tier 1 bring-up ──
+
+[[adrs]]
+id = "2605182312"
+title = "Local bring-up of Artificial Organism Ecosystem on Murakumo Fleet"
+status = "active"
+status_note = "Murakumo Tier 1 (Mac mini fleet 10 nodes, native MLX, pymagatama.agent_daemon_main) is the always-on substrate. Tier 2 ameno (browser) is opt-in tab-resident — see ADR-2605191135."
+path = "90-docs/adr/2605182312-local-bring-up-murakumo-gemma4.md"
+
+# ── Ameno (Tier 2 browser inference) wave ──
+
+[[adrs]]
+id = "2605190824"
+title = "Ameno MediaPipe LLM Inference Web — third browser kernel"
+status = "proposed"
+status_note = "Adds 'mediapipe-gpu' kernel alongside transformers.js (webgpu) and Baien (wasm-ternary). Default ungated Gemma 4 E2B/E4B '-web.task' bundles from litert-community."
+path = "90-docs/adr/2605190824-ameno-mediapipe-llm-browser-runtime.md"
+
+[[adrs]]
+id = "2605191000"
+title = "Ameno browser-side Pregel (LangGraph) with reflection loop"
+status = "proposed"
+status_note = "@langchain/langgraph v1.x embedded in ameno svelte. StateGraph: generate → critique → revise → finalize. MemorySaver checkpointer (graduated to LocalCheckpointer in ADR-2605191135). Browser-side complement to ADR-2605171800."
+path = "90-docs/adr/2605191000-ameno-browser-pregel-reflection.md"
+
+[[adrs]]
+id = "2605191113"
+title = "Ameno active inference loop — Tier A lexical surprise + predict-next"
+status = "proposed"
+status_note = "predict_next at tail + surprise_eval at head. Lexical Jaccard distance × 10, no extra dep. +1 LLM call/turn when active inference is on."
+path = "90-docs/adr/2605191113-ameno-active-inference-lexical-surprise.md"
+
+[[adrs]]
+id = "2605191120"
+title = "Ameno active inference — Tier C embedding-based surprise (MiniLM)"
+status = "proposed"
+status_note = "Replaces lexical Jaccard with cosine over Xenova/all-MiniLM-L6-v2 (22.7 MB, Apache 2.0, ungated). Lazy-loaded on WASM device, MediaPipe owns WebGPU."
+path = "90-docs/adr/2605191120-ameno-embedding-surprise-tier-c.md"
+
+[[adrs]]
+id = "2605191129"
+title = "Ameno browser-local tool use — ReAct over JSON-tagged calls"
+status = "proposed"
+status_note = "<tool>{...}</tool> ReAct format. Built-in tools: now, recall (MiniLM), wikipedia (CORS-open REST). Tool-loop integrated with reflection + active inference. Long-term memory tools added in ADR-2605191206."
+path = "90-docs/adr/2605191129-ameno-browser-tool-use-react.md"
+
+[[adrs]]
+id = "2605191135"
+title = "Ameno as resident Tier-2 daemon in the artificial-organism ecosystem"
+status = "proposed"
+status_note = "Scope = tab-residency (worker alive while tab is open). True 常駐化 belongs to Murakumo Tier 1. Adds did:web:browser:<uuid>, LocalCheckpointer (localStorage), heartbeat UI, auto-respond → invokeAmeno integration."
+path = "90-docs/adr/2605191135-ameno-tier2-daemon-residency.md"
+
+[[adrs]]
+id = "2605191206"
+title = "Ameno long-term encrypted memory vault — IndexedDB + AES-GCM + MiniLM index"
+status = "proposed"
+status_note = "Plaintext { content, tags } AES-GCM-encrypted, MiniLM embedding stored alongside for O(N) cosine recall. Tools: remember, recall_long_term. Record shape mirrors app.etzhayyim.encrypted.record (ADR-2605181100) for future MST graduation."
+path = "90-docs/adr/2605191206-ameno-long-term-memory-vault.md"
+
+[[adrs]]
+id = "2605191229"
+title = "Ameno headless daemon (Path A) — Bun/Node + Hono + LangGraph + Ollama"
+status = "proposed"
+status_note = "真の 常駐化 path A. @gftd/ameno-daemon under 60-apps/.../daemon. Same graph as svelte appview (reflection + active inference lexical + ReAct tools without memory vault) driven by Ollama instead of MediaPipe. FileCheckpointer persists state to ~/.ameno/checkpointer.json. launchd plist for macOS auto-start, systemd unit follow-up. Python pymagatama port = Path B (separate ADR)."
+path = "90-docs/adr/2605191229-ameno-daemon-path-a-bun-langgraph.md"
+
+[[adrs]]
+id = "2605191257"
+title = "Ameno headless daemon (Path B) — pymagatama Python port"
+status = "proposed"
+status_note = "真の 常駐化 path B. pymagatama.projects.ameno に Python LangGraph 同形ポート。FastAPI + uvicorn + Ollama via existing pymagatama.local_llm。FileCheckpointer = MemorySaver+JSON snapshot。HTTP API は Path A と完全同一(port 12481、Path A は 12480)。Tier-1 統合の正本、K8s lg-ameno pod の base。Path A は dev 向け、Path B は production / fleet 向けの併存。"
+path = "90-docs/adr/2605191257-ameno-daemon-path-b-pymagatama-python.md"
+
+[[adrs]]
+id = "2605191346"
+title = "etzhayyim is Vultr-free — Murakumo Mac-mini fleet as the only Tier-1 substrate"
+status = "proposed"
+status_note = "Hard architectural boundary: etzhayyim/* は Vultr / 他 commercial K8s 一切非依存。gftd.ai legacy は Vultr 残置(本 ADR 範囲外)。Tier 1 = Murakumo Mac-mini fleet only。Control plane primary = native systemd/launchd(軽量 stateless)、secondary = K3s HA on 3 Mac minis(HA stateful only)。geth-private migration ADR-2605172800 §Option C を本 ADR で確定。Cloudflare edge は retain(別 ADR で離脱検討)。Deadlines: M1 K3s bring-up 2026-06-15, M5 geth production switch 2026-08-15, M6 Vultr decommission 2026-09-01, M7 50-infra/vultr/* 別 repo 物理分離 2026-09-15。"
+path = "90-docs/adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md"
+
+[[adrs]]
+id = "2605191407"
+title = "Ameno browser viewer mode — svelte appview as thin client over daemon SSE"
+status = "proposed"
+status_note = "svelte appview に Compute mode セレクタ(local / daemon-a / daemon-b / custom)追加。daemon mode 時は invokeAmenoRemote() が fetch + ReadableStream で daemon の /threads/:tid/stream に POST、行ごとに JSON parse → GraphChunk として既存 onChunk に流す。意図的に同 chunk shape を保ってきた設計の借金回収。CORS は daemon 側で *、COEP credentialless と両立。v0.1 は localhost のみ。custom URL 公開 = future ingress ADR(CF Tunnel + DID auth)で扱う。"
+path = "90-docs/adr/2605191407-ameno-browser-viewer-mode.md"
+
+[[adrs]]
+id = "2605191524"
+title = "Ameno multi-tab swarm via BroadcastChannel"
+status = "proposed"
+status_note = "v0.1 はピア presence のみ — 5s 間隔 hello / 15s TTL / tab close で bye broadcast。Daemon panel に Swarm: N peers + DID 一覧表示。同 origin / 同 browser 限定。Lease-based brief distribution + leader election は follow-up。"
+path = "90-docs/adr/2605191524-ameno-multi-tab-swarm-broadcast.md"
+
+[[adrs]]
+id = "2605191559"
+title = "Ameno → MstCheckpointSaver Stage 2 activation (substrate persistence)"
+status = "proposed"
+status_note = "pymagatama.projects.ameno.pregel が MST_CHECKPOINT_SOCKET env で MstCheckpointSaver を auto-attach(uhl-right-neural と同形)。lg-ameno deployment.yaml に env 追加で K8s 配下では sidecar 経由 MST + AEAD + 将来 IPFS/L2 anchor 永続化、laptop dev では FileCheckpointer フォールバック維持。/workerInfo に checkpointer={mst,file} 露出。ADR-2605172000 RW-free 維持 (Python は import 0、sidecar が seam)、ADR-2605181100 encrypted records 自動適用。"
+path = "90-docs/adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md"
+
+[[adrs]]
+id = "2605191603"
+title = "Ameno swarm — deterministic leader election + auto-respond gating"
+status = "proposed"
+status_note = "ADR-2605191524 follow-up。lex-smallest DID = leader、投票なし O(1)。swarm.ts に isLeader() / selfDid() / computeLeader() 追加。App.svelte で processBrief を leader 限定にゲート、follower タブで brief を received-but-skip 計数。Header chip + daemon panel に ★ leader / · follower バッジ。multi-tab で auto-respond を安全に同時 ON できる(LLM decode 重複なし)。substrate-level lease は別 ADR follow-up。"
+path = "90-docs/adr/2605191603-ameno-swarm-leader-election.md"
+
+[[adrs]]
+id = "2605191608"
+title = "Ameno Stage 3 — IPFS pin activation"
+status = "proposed"
+status_note = "lg-ameno checkpointer sidecar の ETZ_IPFS_API_URL コメント解除 → CAR を simeonnomac-mini.local:5001 (kubo) に pin。AEAD seal (ADR-2605181100) で ciphertext のみ pin される。Stage 1-2 fallback で kubo 到達不能時の continuity も担保。"
+path = "90-docs/adr/2605191608-ameno-stage-3-ipfs-pin-activation.md"
+
+[[adrs]]
+id = "2605191625"
+title = "Ameno Stage 4 — Base L2 anchor CronJob"
+status = "proposed"
+status_note = "anchor-cron-ameno を 50-infra/anchor-cron/k8s/cronjob-ameno.yaml に追加 (uhl 版 mirror)。15 分間隔で sidecar socket 経由 pending root CID を Base L2 EtzhayyimAnchor に提出。podAffinity で lg-ameno と同ノード schedule。testnet 検証 → mainnet は別 ADR。"
+path = "90-docs/adr/2605191625-ameno-stage-4-l2-anchor.md"
+
+[[adrs]]
+id = "2605191638"
+title = "Ameno substrate-level swarm lease — app.etzhayyim.swarm.lease lex"
+status = "proposed"
+status_note = "00-contracts/lexicons/.../swarmLease.json で cross-device lease record 定義。scope / holderDid / generation / issuedAt / expiresAt / renewedAt フィールド。本 ADR は lex + 設計のみ、 implementation (MST write + takeover algorithm) は別 PR。 ADR-2605191603 (browser-local leader) と独立、両層で coordinate。"
+path = "90-docs/adr/2605191638-ameno-substrate-swarm-lease-lex.md"
+
+[[adrs]]
+id = "2605191645"
+title = "Ameno browser ↔ daemon checkpoint sync (v0.1 pull-from-daemon)"
+status = "proposed"
+status_note = "/threads/:tid/state を parsed graph values に upgrade (Path A + B)。viewer-mode.ts に pullThreadMessages() helper、App.svelte に Pull from daemon ボタン (daemon mode 時のみ)。viewer thread の messages を browser ローカルに replace。 v0.1 = 片方向 pull のみ。 bi-directional sync + CRDT は別 ADR。"
+path = "90-docs/adr/2605191645-ameno-browser-daemon-checkpoint-sync.md"
+
+[[adrs]]
+id = "2605191657"
+title = "Ameno daemon — did:key Ed25519 challenge-response auth"
+status = "proposed"
+status_note = "/auth/nonce で single-use 60s TTL nonce 発行 → Authorization: DIDSig <did:key>:<nonce_id>:<sig_b64url>。Ed25519 多重コード prefix 0xed01 + base58btc + multibase z。@noble/curves で Browser + TS daemon、cryptography で Python daemon。 Bearer token (ADR-2605191407) は legacy 維持、両方 accept。 v0.2 で RFC 9421 / allowlist / did:web に拡張。"
+path = "90-docs/adr/2605191657-ameno-daemon-did-auth.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -681,6 +856,102 @@ status = "active"
 description = "MCP server with 9 tools (classify / invokeAgent / listAgents / health × 2 taxonomies + isic.hierarchicalClassify). Stdio (`unispsc-isic-mcp` bin) + programmatic HTTP transports. 25/25 vitest. Phase 8."
 adr = ["2605180900"]
 package = "@etzhayyim/unispsc-isic-mcp"
+
+# ── Ameno (Tier 2 browser inference) — engine + appview ──
+
+[[modules]]
+path = "20-actors/ameno"
+kind = "ts-engine-package"
+version = "0.1.0"
+status = "active"
+package = "@gftd/ameno"
+description = "Browser WebGPU inference engine. transformers.js Gemma/Baien ONNX wrapper + LoRA stub + RAG-LoRA facade. Re-exported by the svelte appview's lib/inference.ts. MediaPipe LiteRT lives separately in the appview (see ADR-2605190824) to keep this package free of the @mediapipe dep."
+adr = ["2605190824"]
+exports = ["./inference", "./lora-runtime", "./rag-lora"]
+dependencies = ["@huggingface/transformers@^3.8.1"]
+
+[[modules]]
+path = "50-infra/k8s/ollama-fleet"
+kind = "k8s-manifests"
+version = "0.1.0"
+status = "ready"
+description = "Ollama DaemonSet + ClusterIP Service in the etzhayyim-langserver namespace. One Ollama instance per murakumo-host node, exposed at http://ollama.etzhayyim-langserver.svc.cluster.local:11434. Required dependency for lg-ameno. ADR-2605191257 + 2605191346."
+adr = ["2605191257", "2605191346"]
+default_model_pull = "gemma3:4b"
+namespace = "etzhayyim-langserver"
+
+[[modules]]
+path = "50-infra/k8s/ameno-ingress"
+kind = "k8s-manifests"
+version = "0.1.0"
+status = "ready"
+description = "Cloudflare Tunnel + bearer-token auth for ameno-daemon.etzhayyim.com. cloudflared sidecar Deployment (atproto-pds pattern) + Secret manifests for tunnel token + AMENO_AUTH_TOKEN. Path A (Hono) and Path B (FastAPI) both enforce Bearer auth via env-driven middleware. viewer-mode.ts attaches the same token via authToken option. v0.1 = single shared token; future DID auth ADR follows. ADR-2605191407."
+adr = ["2605191407"]
+namespace = "etzhayyim-langserver"
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/projects/ameno"
+kind = "tier-1-langserver-project"
+version = "0.1.0"
+status = "active"
+package = "pymagatama.projects.ameno"
+description = "Python LangGraph port of the ameno agent loop — Path B of ADR-2605191229 / Path B ADR 2605191257. Same StateGraph as the TS daemon and the svelte appview (reflection + active inference lexical + ReAct tools without memory vault) but built on the existing pymagatama LangGraph stack (langgraph >= 0.2, async). FileCheckpointer subclass = MemorySaver + JSON snapshot at ~/.ameno/checkpointer.json. FastAPI server with SSE endpoints identical to the TS daemon's Hono API (/healthz, /workerInfo, /threads/:tid/{invoke,stream,state}); default port 12481 (TS daemon uses 12480, so both can coexist on one host). Worker identity = did:web:host:<hostname>-<uuid>. systemd unit template for Linux Tier-1 deploys; future K8s pod = lg-ameno (mirrors lg-uhl-right-neural shape per ADR-2605181000)."
+adr = ["2605191257", "2605191229", "2605191135", "2605191000", "2605191113", "2605191129"]
+default_port = 12481
+ollama_required = true
+ollama_default_model_recommended = "gemma3:4b"
+fastapi = true
+runtime = "python>=3.11"
+sibling_modules = [
+  "60-apps/ai-gftd-project-ameno/daemon",
+  "20-actors/magatama/py/src/pymagatama/ameno_handlers (PDS XRPC saveResult/listHistory, independent)",
+]
+
+[[modules]]
+path = "60-apps/ai-gftd-project-ameno/daemon"
+kind = "tier-2-host-daemon"
+version = "0.1.0"
+status = "active"
+package = "@gftd/ameno-daemon"
+description = "Headless system-resident daemon (Bun/Node + Hono + LangGraph + Ollama). Same StateGraph as the svelte appview (reflection + active inference lexical + ReAct tools without memory vault) but server-side. FileCheckpointer to ~/.ameno/checkpointer.json. launchd plist for macOS auto-start. HTTP endpoints: /healthz, /workerInfo, /threads/:tid/{invoke,stream,state}. Runs alongside (not replaces) the tab-resident svelte appview — same DID namespace, different instance kind (did:web:host:* vs did:web:browser:*). Path A of ADR-2605191229; Path B is the Python pymagatama port."
+adr = ["2605191229", "2605191135"]
+default_port = 12480
+ollama_required = true
+ollama_default_model = "gemma3:4b"
+dependencies = [
+  "hono@^4.6.0",
+  "@hono/node-server@^1.13.0",
+  "@langchain/core@^1.1.47",
+  "@langchain/langgraph@^1.3.1",
+  "@langchain/langgraph-checkpoint@^1.0.2",
+]
+
+[[modules]]
+path = "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb"
+kind = "tier-2-browser-daemon"
+version = "0.2.0"
+status = "active"
+description = "ameno.etzhayyim.com — Tier-2 browser worker daemon (artificial-organism ecosystem). Cloudflare Worker + SvelteKit-ish vite app. Capabilities (per-feature ADR):\n  - MediaPipe LLM (Gemma 4 E2B/E4B '-web.task') via Cache API-backed bundle\n  - LangGraph Pregel + reflection (StateGraph: generate → critic → revise → finalize)\n  - Active inference (predict_next + surprise_eval) — lexical (Tier A) or MiniLM cosine (Tier C)\n  - ReAct tool use: now / recall / wikipedia / remember / recall_long_term\n  - LocalCheckpointer (localStorage-backed BaseCheckpointSaver subclass)\n  - Long-term encrypted memory vault (IndexedDB + AES-GCM + MiniLM index)\n  - Worker identity did:web:browser:<uuid> + heartbeat panel\n  - COOP/COEP: same-origin / credentialless (vite dev + CF Workers Assets _headers)\nResidency scope = tab-residency: worker alive while the tab is open. State (graph checkpoints, DID, memory vault, model bundle cache) survives reload. True system-resident daemon belongs to Murakumo Tier 1 (ADR-2605182312)."
+adr = [
+  "2605190824",
+  "2605191000",
+  "2605191113",
+  "2605191120",
+  "2605191129",
+  "2605191135",
+  "2605191206",
+]
+domains = ["ameno.etzhayyim.com", "d94d27cb.etzhayyim.com"]
+ui = "vite + svelte 5"
+worker = "Cloudflare Workers (assets binding)"
+dependencies = [
+  "@gftd/ameno (workspace)",
+  "@huggingface/transformers@^3.8.1",
+  "@mediapipe/tasks-genai@^0.10.27",
+  "@langchain/core@^1.1.47",
+  "@langchain/langgraph@^1.3.1",
+  "@langchain/langgraph-checkpoint@^1.0.2",
+]
 
 [platform.adr_2605180900]
 # Implementation status snapshot. Each entry corresponds to a phase in
