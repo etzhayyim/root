@@ -179,6 +179,17 @@ export async function invokeAmenoRemote(opts: InvokeAmenoRemoteOptions): Promise
   });
   if (!resp.ok || !resp.body) {
     const text = await safeReadText(resp);
+    if (resp.status === 401) {
+      // Distinguish "did not in allowlist" so the UI can surface a
+      // useful next-step ("ask the operator to add your did:key").
+      // ADR-2605191641.
+      if (text.includes("did not in allowlist")) {
+        throw new Error(
+          "daemon rejected DIDSig: this browser's did:key is not in the daemon's AMENO_ALLOWED_DIDS allowlist",
+        );
+      }
+      throw new Error(`daemon auth failed: ${text.slice(0, 200)}`);
+    }
     throw new Error(`daemon stream HTTP ${resp.status}: ${text.slice(0, 200)}`);
   }
 
