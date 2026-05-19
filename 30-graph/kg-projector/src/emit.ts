@@ -14,6 +14,8 @@ export interface Manifest {
   edge_count: number;
   source_counts: Record<string, number>;
   content_hash: string;
+  /** Path (relative to out/) of the JSONL bundle: one record per line, sorted by rkey path. */
+  bundle_path: string;
   generated_at: string;
 }
 
@@ -85,6 +87,15 @@ export function buildManifest(proj: KgProjection): {
   lines.sort();
   const content_hash = sha256Hex(lines.join("\n"));
 
+  // bundle.jsonl — every record on one line, sorted by rkey path so the
+  // bundle bytes are deterministic and content_hash above stays meaningful
+  // (the bundle is just a different framing of the same records).
+  const bundleLines = [...files.entries()]
+    .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+    .map(([, body]) => JSON.stringify(JSON.parse(body)));
+  const bundle = bundleLines.join("\n") + "\n";
+  files.set("bundle.jsonl", bundle);
+
   const source_counts: Record<string, number> = {};
   for (const n of proj.nodes) {
     source_counts[n.source] = (source_counts[n.source] ?? 0) + 1;
@@ -96,6 +107,7 @@ export function buildManifest(proj: KgProjection): {
     edge_count: proj.edges.length,
     source_counts,
     content_hash,
+    bundle_path: "bundle.jsonl",
     generated_at: FROZEN_TIMESTAMP,
   };
 
