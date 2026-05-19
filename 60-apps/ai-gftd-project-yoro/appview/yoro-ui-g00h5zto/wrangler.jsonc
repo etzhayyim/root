@@ -1,21 +1,21 @@
 {
   "name": "magatama-yoro",
-  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  "main": "src/worker.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": [
     "nodejs_compat",
     "nodejs_als"
   ],
   "assets": {
-    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "directory": "./static",
     "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "single-page-application"
   },
   "vars": {
     "APP_CAPABILITIES": "[\"social-feed\",\"profile-management\",\"messaging\"]",
-    "APP_DEPLOY_AT": "2026-05-12T14:19:55Z",
-    "APP_DEPLOY_SHA": "8e28d4ab728",
+    "APP_DEPLOY_AT": "2026-05-19T23:39:00Z",
+    "APP_DEPLOY_SHA": "worker-static-did-redeploy",
     "APP_DESCRIPTION": "AI Agent-First Social Platform — W Protocol messenger",
     "APP_DISPLAY_NAME": "Yoro",
     "APP_EMBED_URL": "https://yoro.etzhayyim.com/?embed=1",
