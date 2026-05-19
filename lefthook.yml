@@ -58,3 +58,17 @@ pre-commit:
           fi
         done
       stage_fixed: false
+
+    substrate-boundary:
+      # Enforce ADR-2605172000 (RW-free state substrate) and
+      # ADR-2605172100 (no fiat payment processors) at commit time.
+      # Blocks direct imports of kysely / pg / postgres / mysql /
+      # mongodb / risingwave (storage), stripe / paypal / square / …
+      # (payment), and @atproto/api / viem / @noble/ciphers /
+      # @signalapp/libsignal-client / ipfs-http-client / helia
+      # (substrate clients that must route through @etzhayyim/sdk).
+      # See 70-tools/scripts/lint/substrate-boundary.mjs §allowedPrefixes
+      # for the SDK-seam carve-outs. ADR-2605191648.
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs,py,svelte}"
+      run: node 70-tools/scripts/lint/substrate-boundary.mjs {staged_files}
+      stage_fixed: false

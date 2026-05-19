@@ -550,6 +550,13 @@ status = "proposed"
 status_note = "AMENO_ALLOWED_DIDS env (comma 区切り did:key) で whitelist。空/未設定 = 制限なし (loopback dev)、設定あり = 厳格 whitelist。verifyDidSig() に check 1 行追加で実装、 nonce 消費前に拒否。 viewer-mode.ts で 401 + 'did not in allowlist' を専用エラー表示。production multi-actor daemon の前提を確立。"
 path = "90-docs/adr/2605191641-ameno-daemon-did-allowlist.md"
 
+[[adrs]]
+id = "2605191648"
+title = "Substrate boundary enforcement via lefthook pre-commit"
+status = "proposed"
+status_note = "70-tools/scripts/lint/substrate-boundary.mjs を lefthook の pre-commit に登録。staged .ts/.tsx/.js/.mjs/.cjs/.py/.svelte ファイルから storage (kysely/pg/postgres/risingwave/psycopg)/payment (stripe/paypal/square)/substrate-client (@atproto/api/viem/@noble/ciphers/libsignal/ipfs-http-client/helia) を grep。 SDK seam (20-actors/etzhayyim-sdk/) + 既存 substrate components allowlist で除外。 ADR-2605172000 + 2605172100 を構造的に enforce。"
+path = "90-docs/adr/2605191648-substrate-boundary-lefthook.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
