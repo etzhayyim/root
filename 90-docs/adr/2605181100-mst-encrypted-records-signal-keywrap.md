@@ -11,12 +11,12 @@ axis: architecture
 weight: 0.75
 priority_note: "Adds the confidentiality layer to the RW-free substrate. ADR-2605172000 defined the verifiability/decentralization properties of MST + IPFS + L2 but left every record public. This ADR makes private records and private messaging possible without breaking the substrate's verifier-from-outside property."
 authoritative_for:
-  - hard rule: private records on MST are XChaCha20-Poly1305 AEAD ciphertext, CID over ciphertext
-  - hard rule: per-record symmetric keys are wrapped per-recipient via Signal session
-  - hard rule: DID ↔ Signal identity binding is a signed assertion in the actor's PDS repo
-  - lexicon namespace: app.etzhayyim.encrypted.*
-  - SDK seam: @etzhayyim/sdk crypto + signal modules; apps MUST NOT import @noble/ciphers or @signalapp/libsignal-client directly
-  - rejection of MLS for v1 (revisit when libsignal scale ceiling hits)
+  - "hard rule: private records on MST are XChaCha20-Poly1305 AEAD ciphertext, CID over ciphertext"
+  - "hard rule: per-record symmetric keys are wrapped per-recipient via Signal session"
+  - "hard rule: DID ↔ Signal identity binding is a signed assertion in the actor's PDS repo"
+  - "lexicon namespace: app.etzhayyim.encrypted.*"
+  - "SDK seam: @etzhayyim/sdk crypto + signal modules; apps MUST NOT import @noble/ciphers or @signalapp/libsignal-client directly"
+  - "rejection of MLS for v1 (revisit when libsignal scale ceiling hits)"
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605173000-pds-did-web-resolution-worker

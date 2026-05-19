@@ -470,6 +470,14 @@ description = "PDS firehose → MST shard projector. Stage 3 of ADR-2605171800."
 adr = ["2605171800"]
 
 [[modules]]
+path = "30-graph/kg-projector"
+kind = "ts-tool"
+version = "0.0.0"
+status = "active"
+description = "SSoT → app.etzhayyim.kg.{node,edge} projector. Stage K1 of ADR-2605190900. Reads deps.toml + 90-docs/adr/*.md front-matter + 00-contracts/lexicons/**/*.json; emits idempotent JSON record files with deterministic rkeys (sha256-derived) and a manifest.json content-hash for CI --check."
+adr = ["2605190900"]
+
+[[modules]]
 path = "50-infra/ipfs-pinner"
 kind = "ts-service"
 version = "0.0.0"
