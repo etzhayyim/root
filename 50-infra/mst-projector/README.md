@@ -25,7 +25,9 @@ The projection is **append-only deterministic**: the same firehose replay yields
 
 ## Status
 
-**Scaffold v0.0.0**. Implementation stubs. See [ADR-2605171800 § "Stage 3"](../../90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md).
+**Phase 1 (v0.1.0, ADR-2605191358 step 5)** — working firehose consumer + per-shard JSON manifest emit + IPFS pin (best-effort) + `app.etzhayyim.substrate.shardSnapshot` AT record publish. Counter-derived snapshotHash (sha-256 of canonical-JSON record list) stands in for the true MST root.
+
+**Phase 2** — swap JSON manifest for CAR; swap counter-derived hash for true MST root CID via `@atproto/repo`. Lexicon already reserves the `snapshotCid` slot.
 
 ## Layout
 
@@ -37,9 +39,9 @@ mst-projector/
 ├── src/
 │   ├── index.ts       # CLI entry — runs the firehose consumer
 │   ├── firehose.ts    # subscribeRepos client
-│   ├── mst.ts         # MST insert / update / delete / root
-│   ├── shard.ts       # shard partitioning (per-collection) + flush policy
-│   └── emit.ts        # writes { shardKey, rootCid, … } to PDS as ai.gftd.apps.substrate.mstRoot records
+│   ├── mst.ts         # Phase 1: per-shard record list + sha-256 root (Phase 2: true MST)
+│   ├── shard.ts       # shard partitioning (per-collection) + flush policy + JSON manifest writer
+│   └── emit.ts        # IPFS pin + writes app.etzhayyim.substrate.shardSnapshot records via @atproto/api
 └── Dockerfile          # K8s deployment image
 ```
 
@@ -48,11 +50,15 @@ mst-projector/
 | env | default | purpose |
 |---|---|---|
 | `ETZ_PDS_FIREHOSE_URL` | `wss://pds.etzhayyim.com/xrpc/com.atproto.sync.subscribeRepos` | upstream firehose |
-| `ETZ_PROJECTOR_DID` | `did:web:projector.etzhayyim.com` | own DID for emitted mstRoot records |
-| `ETZ_PROJECTOR_DATA_DIR` | `/data/mst-projector` | local CAR snapshot storage |
+| `ETZ_PROJECTOR_DID` | `did:web:projector.etzhayyim.com` | own DID for emitted snapshot records |
+| `ETZ_PROJECTOR_PDS_URL` | `https://pds.etzhayyim.com` | PDS where snapshot records are written |
+| `ETZ_PROJECTOR_PDS_SESSION` | — | JSON `{did,handle,accessJwt,refreshJwt}` (preferred) |
+| `ETZ_PROJECTOR_PDS_AUTH` | — | JSON `{handle,password}` (fallback when session missing) |
+| `ETZ_PROJECTOR_DATA_DIR` | `/data/mst-projector` | local snapshot manifest storage |
 | `ETZ_PROJECTOR_FLUSH_RECORDS` | `1000` | flush threshold by record count |
 | `ETZ_PROJECTOR_FLUSH_SECONDS` | `60` | flush threshold by wall-clock seconds |
-| `ETZ_PROJECTOR_COLLECTIONS` | `ai.gftd.apps.*` | NSID prefix filter |
+| `ETZ_PROJECTOR_COLLECTIONS` | `app.etzhayyim.,ai.gftd.apps.` | NSID prefix filter (comma list) |
+| `ETZ_PROJECTOR_IPFS_API_URL` | — | optional Kubo HTTP API, e.g. `http://localhost:5001`. If unset, snapshotCid is omitted from emitted records. |
 
 ## Operational guarantees
 

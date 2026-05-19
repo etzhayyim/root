@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.substrate.shardSnapshot",
+  "description": "Periodic snapshot emitted by mst-projector for one shard (typically one collection NSID). Phase 1 carries `snapshotHash` (sha-256 of the canonical-JSON record list) and `snapshotCid` (IPFS CID of the JSON manifest blob). Phase 2 replaces both with a true MST root CID. Per ADR-2605191358 step 5.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": [
+          "shardKey",
+          "recordCount",
+          "snapshotHash",
+          "byteSize",
+          "flushedAt"
+        ],
+        "properties": {
+          "shardKey": {
+            "type": "string",
+            "description": "Collection NSID this snapshot covers. e.g. `app.etzhayyim.murakumo.inferenceJobEvent`."
+          },
+          "phase": {
+            "type": "integer",
+            "default": 1,
+            "description": "Snapshot scheme version. 1 = JSON manifest + sha-256 root. 2 = CAR + true MST root (planned)."
+          },
+          "firstSeq": { "type": "string" },
+          "lastSeq": { "type": "string" },
+          "recordCount": { "type": "integer" },
+          "snapshotHash": {
+            "type": "string",
+            "description": "Phase 1: sha256 of canonical-JSON record list (`sha256-<hex>`). Phase 2: dropped in favour of `rootCid`."
+          },
+          "snapshotCid": {
+            "type": "string",
+            "description": "IPFS CID (v1) of the manifest blob. Optional in Phase 1 if the daemon could not reach the IPFS pin endpoint; required in Phase 2."
+          },
+          "byteSize": { "type": "integer" },
+          "flushedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}
