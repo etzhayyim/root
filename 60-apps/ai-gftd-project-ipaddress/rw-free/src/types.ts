@@ -209,3 +209,79 @@ export interface GetIpOutput {
   ip?: IpView;
   error?: string;
 }
+
+// ─── Scan tier (slice 4) ────────────────────────────────────────────
+
+export type ScanKind =
+  | "port"
+  | "whois"
+  | "geoip"
+  | "vuln"
+  | "rdns"
+  | "abuse-contact"
+  | "rir-delegation";
+
+export type ScanStatus = "ok" | "partial" | "failed" | "rate-limited";
+
+export interface ScanRecord {
+  did: string;
+  scanId: string;
+  /** Target reference — IP address, CIDR, ASN, or composite did. */
+  target: string;
+  kind: ScanKind;
+  status: ScanStatus;
+  scannedAt: string;
+  durationMs?: number;
+  findings?: string[];
+  rawResult?: string;
+  sourceUrl?: string;
+  createdAt: string;
+}
+
+export interface ScanView extends ScanRecord {
+  scanUri: string;
+}
+
+export interface RegisterScanInput {
+  scanId: string;
+  target: string;
+  kind: ScanKind;
+  status?: ScanStatus;
+  scannedAt?: string;
+  durationMs?: number;
+  findings?: string[];
+  rawResult?: string;
+  sourceUrl?: string;
+}
+
+export interface RegisterScanOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  scanUri?: string;
+  did?: string;
+  scanId?: string;
+  error?: string;
+}
+
+export interface GetScanInput {
+  scanId?: string;
+}
+
+export interface GetScanOutput {
+  scan?: ScanView;
+  error?: string;
+}
+
+export interface ListScansInput {
+  target?: string;
+  kind?: ScanKind;
+  status?: ScanStatus;
+  since?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListScansOutput {
+  items: ScanView[];
+  cursor?: string;
+  total: number;
+}
