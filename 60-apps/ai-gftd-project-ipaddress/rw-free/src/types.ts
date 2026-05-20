@@ -26,6 +26,11 @@ export interface AsnRecord {
   country?: string;
   rir?: Rir;
   prefixes?: string[];
+  /** Abuse contact fields populated by collectWhois / slice 7. */
+  abuseEmail?: string;
+  abuseTel?: string;
+  abuseSource?: string;
+  abuseCollectedAt?: string;
   createdAt: string;
 }
 
@@ -176,6 +181,13 @@ export interface IpRecord {
   providerSlug?: string;
   countryIso3?: string;
   reverse?: string;
+  /** Geo fields populated by collectGeoip / slice 7. */
+  geoCity?: string;
+  geoRegion?: string;
+  geoLatPermille?: number;
+  geoLonPermille?: number;
+  geoSource?: string;
+  geoCollectedAt?: string;
   createdAt: string;
 }
 
@@ -384,5 +396,50 @@ export interface GetPeeringOutput {
   asnNumber?: number;
   peers?: PeeringView[];
   cursor?: string;
+  error?: string;
+}
+
+// ─── Geo + Abuse tier (slice 7) ─────────────────────────────────────
+
+export interface GetGeolocationInput {
+  address?: string;
+}
+
+export interface Geolocation {
+  address: string;
+  countryIso3?: string;
+  geoCity?: string;
+  geoRegion?: string;
+  /** Latitude × 1000 (AT Lexicon no-float restriction). */
+  geoLatPermille?: number;
+  /** Longitude × 1000 (AT Lexicon no-float restriction). */
+  geoLonPermille?: number;
+  source?: string;
+  collectedAt?: string;
+}
+
+export interface GetGeolocationOutput {
+  geolocation?: Geolocation;
+  error?: string;
+}
+
+export interface GetAbuseContactInput {
+  /** Either ASN number or IP address. ASN takes precedence if both provided. */
+  asnNumber?: number;
+  address?: string;
+}
+
+export interface AbuseContact {
+  /** Resolved target this contact applies to. */
+  target: string;
+  asnNumber?: number;
+  abuseEmail?: string;
+  abuseTel?: string;
+  source?: string;
+  collectedAt?: string;
+}
+
+export interface GetAbuseContactOutput {
+  abuseContact?: AbuseContact;
   error?: string;
 }

@@ -34,3 +34,4 @@ export {
   getIpTopology,
   getPeering,
 } from "./topology.js";
+export { getGeolocation, getAbuseContact } from "./geoAbuse.js";
