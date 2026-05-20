@@ -237,16 +237,49 @@ Phase 2 chair sample (`sample-001-chair`):
 - Florence-2 — https://huggingface.co/microsoft/Florence-2-large-ft (MIT)
 - moderngl — https://github.com/moderngl/moderngl (MIT)
 
-## Empirical grounding (Phase 2)
+## Empirical grounding (Phase 2 — 2026-05-20)
 
 - Sample dir (off-repo, Mac): `~/Downloads/triposr-vs-hunyuan3d/output/baien-graft/sample-001-chair/`
 - Source image sha1:    `94ab566c14615fdc39902a20dcf416b844dc2afd`
 - Hunyuan3D mesh sha1:  `add1c662a451630b8641b5481e3bcaf38515052e` (322,226 verts / 1,088,516 faces, watertight=False)
 - TripoSR mesh sha1:    `5e6b6971cc30a457e561b198beb4c9a125e85b9f` (54,919 verts / 109,850 faces, watertight=True)
 - Sample created:       2026-05-20T12:13:36Z
-- Reproducer scripts:   `render_mv_moderngl.py`, `florence2_caption.py`, `assemble_sample.py`
 
-**Migration plan** (separate PR, not blocking this ADR):
-- 再現スクリプトは `70-tools/baien-graft-pipeline/` 配下に格納予定 (Apache 2.0 + Charter Rider)
-- Sample アセット (mesh / renders) は IPFS pin (CID は本 ADR 採用後に PR で本文に追記)
-- `caption_3d_augmented` 列のみが `vertex_training_dataset_snapshot` に格納されるため、巨大 binary は IPFS に退避し repo は spec + 1 reference sample のみを保持
+## Phase 3b validation (2026-05-20)
+
+10 サンプル一括投入で本 ADR の schema + pipeline + acceptance gate を再現性検証:
+
+| metric                                | value  |
+| ------------------------------------- | ------ |
+| input images                          | 10     |
+| accepted (4/4 gate + sanity)          | **10** |
+| ComfyUI gen total (sequential)        | 665 s  |
+| Mac render + caption + assemble total | 149 s  |
+| end-to-end per sample                 | ~81 s  |
+
+Florence-2 が時に species を一般化 (e.g. flamingo → "bird / crane / ostrich") しても、4-view noun jaccard 0.27-0.33 で **共通する 3D essence** (長首・長足・二体構図) を捉えれば D4 gate は通過。10/10 採用は acceptance gate が genuine pass を生んでいる根拠。
+
+Extrapolation (EVO-X2 単独 sequential):
+- 100 sample → ~2.25 hr / ~2.1 GB artifacts
+- 1k sample → ~22.5 hr / ~21 GB artifacts
+- 10k sample → ~9.4 day / ~210 GB artifacts
+
+1k 規模を越えると Murakumo fleet 並列化 (ADR-2605202345 D1 `[[inference_backends]]` 配列拡張) が必須。
+
+## Reproducer
+
+- Package: [`70-tools/baien-graft-pipeline/`](../../70-tools/baien-graft-pipeline/) — PR #88 で導入、ADR-2605202115 reference impl
+- CLIs:
+  - `bgp-submit` — ComfyUI `/prompt` への batch 投入 + `/history` poll
+  - `bgp-collect` — `scp` pull + moderngl 4-view render + Florence-2 caption + sample.json assemble
+- Modules: `workflow.py` / `submit.py` / `render.py` / `caption.py` / `gate.py` / `pipeline.py`
+- Registered in `deps.toml` `[[modules]]` (`path = "70-tools/baien-graft-pipeline"`, `kind = "python-cli"`)
+- License: Apache 2.0 + Charter Compliance Rider v2.0 (NOTICE + symlink は `charter-rider-applicator` follow-up PR で適用予定)
+
+## Open items (post-merge follow-up)
+
+- batch-001 (10 sample, 212 MB) を IPFS pin → CID を本 ADR の "Empirical grounding" に追記
+- `vertex_training_dataset_snapshot` への `variant: "3d-augmented"` flag 実装 (pymagatama 側、cross-repo)
+- `pymagatama/primitives/training_run.py::_train_baien_graft_image()` 実装 (Move 1 本体、H100 1 セッション)
+- 1k / 10k 規模 batch run と Murakumo fleet 並列化 (`fleet.toml` `[[inference_backends]]` 拡張)
+- Hunyuan3D paint model 採用判断 (RGB texture view で caption richness 向上 vs +6GB DL / +30s gen)
