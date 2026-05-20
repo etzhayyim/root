@@ -1,0 +1,27 @@
+[
+  {
+    "rite_id": "shmita-5786",
+    "debtor_did": "did:web:etzhayyim.com:debtor-community-ok",
+    "eligibility_proof": "council-sbt-Lv2 + community-member-since-5782 + dues-current"
+  },
+  {
+    "rite_id": "shmita-5786",
+    "debtor_did": "did:web:no-sbt.example:debtor-no-sbt",
+    "eligibility_proof": "(no proof — no SBT issued)"
+  },
+  {
+    "rite_id": "shmita-5786",
+    "debtor_did": "did:web:secular.example:debtor-foreigner",
+    "eligibility_proof": "secular-creditor-relationship-only — no community membership"
+  },
+  {
+    "rite_id": "shmita-5786",
+    "debtor_did": "did:web:etzhayyim.com:debtor-post-cycle",
+    "eligibility_proof": "council-sbt-Lv1 + community-member-since-5785"
+  },
+  {
+    "rite_id": "shmita-5786",
+    "debtor_did": "did:web:etzhayyim.com:debtor-instrument-exposed",
+    "eligibility_proof": "council-sbt-Lv2 + community-member-since-5780 — debt portfolio contains §2(b) prohibited instrument"
+  }
+]

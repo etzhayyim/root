@@ -153,14 +153,27 @@ def verify_debtor_sbt(state, council_sbt_port, charter_compliance_port):
 
 
 def cross_check_creditor_enrollments(state, creditor_enrollment_port):
-    """Find creditor enrollments matching this debtor for the rite."""
+    """Find creditor enrollments matching this debtor for the rite. Coerce DebtRow → dict for downstream DMN."""
     if creditor_enrollment_port is None:
         return {"matched_debts": []}
     matched = creditor_enrollment_port.find_debts_for_debtor(
         rite_id=state["rite_id"],
         debtor_did=state["debtor_did"],
     )
-    return {"matched_debts": matched}
+    normalized = [
+        {
+            "debt_id": d.debt_id,
+            "debtor_did": d.debtor_did,
+            "principal_micro_usdc": d.principal_micro_usdc,
+            "accrued_micro_usdc": d.accrued_micro_usdc,
+            "origination_date": d.origination_date,
+            "instrument": d.instrument,
+        }
+        if hasattr(d, "debt_id")
+        else d
+        for d in matched
+    ]
+    return {"matched_debts": normalized}
 
 
 def run_eligibility_dmn(state):
