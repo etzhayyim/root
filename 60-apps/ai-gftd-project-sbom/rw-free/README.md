@@ -4,16 +4,16 @@ Phase E Option B reference implementation of sbom on the etzhayyim substrate.
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), sbom migrates from vendor's `createKyselyDb` pattern (RW direct write) to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **4** initial commands across the SbomArtifact + SbomComponent tiers.
+Coverage: **7** commands across SbomArtifact + SbomComponent + CVE + VulnMatch tiers.
 
 | Tier | Commands | Slice |
 |---|---|---|
 | Artifact | registerArtifact, getArtifact | 1 |
 | Component | registerComponent, listComponents | 1 |
+| CVE + VulnMatch | cveIngestOsv, registerVulnMatch, listVulnMatches | **2** |
 
-Follow-up slices: VulnMatch / PatchPolicy / PatchAction tiers + the CVE
-blast-radius pipeline (`cveIngestOsv / runVulnMatch / getBlastRadius /
-createPatchAction`).
+Follow-up slices: PatchPolicy / PatchAction tiers + analyze (blast radius,
+SLA timer) + recall (artifact recall flow).
 
 ## Authority-chain DIDs (per sbom CLAUDE.md)
 
@@ -21,7 +21,8 @@ createPatchAction`).
 did:web:sbom.etzhayyim.com                                — controller
 did:web:sbom.etzhayyim.com:artifact:{sha256-short}        — this slice (SbomArtifact)
 did:web:sbom.etzhayyim.com:component:{purl-slug}          — this slice (SbomComponent)
-did:web:sbom.etzhayyim.com:vulnmatch:{cve-id}-{purl-slug} — VulnMatch (future slice)
+did:web:sbom.etzhayyim.com:cve:{cve-id}                   — this slice (CveEntry)
+did:web:sbom.etzhayyim.com:vulnmatch:{cve-id}-{purl-slug} — this slice (VulnMatch)
 did:web:sbom.etzhayyim.com:patchpolicy:{policy-id}        — PatchPolicy (future slice)
 did:web:sbom.etzhayyim.com:patchaction:{action-id}        — PatchAction (future slice)
 ```
