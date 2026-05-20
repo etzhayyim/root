@@ -37,7 +37,17 @@
           },
           "purpose": {
             "type": "string",
-            "enum": ["donation", "tip", "subscription", "purchase", "refund", "grant", "offering", "split"]
+            "enum": [
+              "donation",
+              "kisha",
+              "grant",
+              "tithe",
+              "escrow-refund",
+              "internal-purchase",
+              "internal-subscription",
+              "internal-promo"
+            ],
+            "description": "Per ADR-2605192115 (Non-profit/Donation-only/No-ads) + ADR-2605192130 (10% Tithe). External flows: donation/kisha/grant/tithe/escrow-refund only. SBT↔SBT internal carve-out flows: also internal-purchase / internal-subscription / internal-promo (per §3). Tip/subscription/purchase/refund/offering/split from the original v0 enum REMOVED (breaking change v0→v1; SDK rewires via TitheRouter)."
           },
           "forUri": {
             "type": "string",
