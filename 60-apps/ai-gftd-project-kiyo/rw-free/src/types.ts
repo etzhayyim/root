@@ -158,3 +158,88 @@ export function paperDid(paperId: string): string {
 export function paperRkey(paperId: string): string {
   return `paper-${paperSlug(paperId)}`;
 }
+
+// ─── Review + Endorsement tier (slice 2) ────────────────────────────
+
+export type ReviewRecommendation =
+  | "accept"
+  | "minor-revision"
+  | "major-revision"
+  | "reject";
+
+export interface ReviewRecord {
+  did: string;
+  paperId: string;
+  seq: number;
+  reviewerDid: string;
+  body: string;
+  bodyLocal?: string;
+  /** 0-1000 (permille — no float per AT Lexicon). */
+  scorePermille?: number;
+  recommendation?: ReviewRecommendation;
+  language?: string;
+  submittedAt: string;
+  createdAt: string;
+}
+
+export interface ReviewView extends ReviewRecord {
+  reviewUri: string;
+}
+
+export interface AddReviewInput {
+  paperId: string;
+  seq: number;
+  reviewerDid: string;
+  body: string;
+  bodyLocal?: string;
+  scorePermille?: number;
+  recommendation?: ReviewRecommendation;
+  language?: string;
+}
+
+export interface AddReviewOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  reviewUri?: string;
+  did?: string;
+  paperId?: string;
+  seq?: number;
+  error?: string;
+}
+
+export interface EndorsementRecord {
+  did: string;
+  paperId: string;
+  endorserDid: string;
+  endorsementBody?: string;
+  endorsedAt: string;
+  createdAt: string;
+}
+
+export interface EndorsePaperInput {
+  paperId: string;
+  endorserDid: string;
+  endorsementBody?: string;
+}
+
+export interface EndorsePaperOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  endorsementUri?: string;
+  did?: string;
+  paperId?: string;
+  endorserDid?: string;
+  error?: string;
+}
+
+export interface ListReviewsInput {
+  paperId: string;
+  recommendation?: ReviewRecommendation;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListReviewsOutput {
+  items: ReviewView[];
+  cursor?: string;
+  total: number;
+  error?: string;
+}
