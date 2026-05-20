@@ -44,6 +44,11 @@ export interface RegisterAsnInput {
   country?: string;
   rir?: Rir;
   prefixes?: string[];
+  /** Abuse contact fields (slice 7+). */
+  abuseEmail?: string;
+  abuseTel?: string;
+  abuseSource?: string;
+  abuseCollectedAt?: string;
 }
 
 export interface RegisterAsnOutput {
@@ -203,6 +208,13 @@ export interface RegisterIpInput {
   providerSlug?: string;
   countryIso3?: string;
   reverse?: string;
+  /** Geo fields (slice 7+). */
+  geoCity?: string;
+  geoRegion?: string;
+  geoLatPermille?: number;
+  geoLonPermille?: number;
+  geoSource?: string;
+  geoCollectedAt?: string;
 }
 
 export interface RegisterIpOutput {
@@ -441,5 +453,81 @@ export interface AbuseContact {
 
 export interface GetAbuseContactOutput {
   abuseContact?: AbuseContact;
+  error?: string;
+}
+
+// ─── Extended Register Inputs (slice 7 + 8) ─────────────────────────
+
+// Re-export of registerIp / registerAsn input shapes is handled via
+// the registries that own them — collect.ts directly uses Parameters<>.
+
+// ─── Collect tier (slice 8) ─────────────────────────────────────────
+
+export interface GeoipPayload {
+  countryIso3?: string;
+  geoCity?: string;
+  geoRegion?: string;
+  geoLatPermille?: number;
+  geoLonPermille?: number;
+}
+
+export interface CollectGeoipInput {
+  address: string;
+  payload: GeoipPayload;
+  source?: string;
+  rawResult?: string;
+  scanId?: string;
+}
+
+export interface CollectGeoipOutput {
+  address?: string;
+  ipUri?: string;
+  scanUri?: string;
+  status?: "registered" | "alreadyExists" | "rejected";
+  error?: string;
+}
+
+export interface WhoisPayload {
+  name?: string;
+  country?: string;
+  rir?: Rir;
+  prefixes?: string[];
+  abuseEmail?: string;
+  abuseTel?: string;
+}
+
+export interface CollectWhoisInput {
+  asnNumber: number;
+  payload: WhoisPayload;
+  source?: string;
+  rawResult?: string;
+  scanId?: string;
+}
+
+export interface CollectWhoisOutput {
+  asnNumber?: number;
+  asnUri?: string;
+  scanUri?: string;
+  status?: "registered" | "alreadyExists" | "rejected";
+  error?: string;
+}
+
+export interface RirEntry {
+  kind: "asn" | "prefix";
+  asnNumber?: number;
+  cidr?: string;
+  country?: string;
+}
+
+export interface BatchIngestRirInput {
+  rir: Rir;
+  entries: RirEntry[];
+}
+
+export interface BatchIngestRirOutput {
+  rir?: Rir;
+  asnInserted?: number;
+  prefixInserted?: number;
+  failed?: { kind: string; key: string; reason: string }[];
   error?: string;
 }

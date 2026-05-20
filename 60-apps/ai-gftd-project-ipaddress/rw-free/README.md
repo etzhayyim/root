@@ -4,7 +4,7 @@ Phase E reference implementation of ipaddress on the etzhayyim substrate.
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), ipaddress migrates from vendor's `createKyselyDb` pattern (RW direct write) to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **19 of 37** ipaddress XRPC commands ported.
+Coverage: **22 of 37** ipaddress XRPC commands ported.
 
 | Tier | Commands | Slice |
 |---|---|---|
@@ -15,9 +15,10 @@ Coverage: **19 of 37** ipaddress XRPC commands ported.
 | Scan | registerScan, getScan, listScans | 4 |
 | Search | searchProviders, listProviders, listPrefixes | 5 |
 | Topology | getDelegationChain, getIpTopology, getPeering | 6 |
-| Geo + Abuse | getGeolocation, getAbuseContact | **7** |
+| Geo + Abuse | getGeolocation, getAbuseContact | 7 |
+| Collect | collectGeoip, collectWhois, batchIngestRir | **8** |
 
-Remaining 18 commands (`collectGeoip / collectWhois / batchIngestRir / analyzeIp / etc.`) follow the same Option B pattern and ship in follow-up slices.
+Remaining 15 commands (`analyzeIp / etc.`) follow the same Option B pattern and ship in follow-up slices.
 
 ## Pattern translation (Option B)
 

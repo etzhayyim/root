@@ -62,6 +62,12 @@ export async function registerIp(
     providerSlug: input.providerSlug,
     countryIso3: input.countryIso3,
     reverse: input.reverse,
+    geoCity: input.geoCity,
+    geoRegion: input.geoRegion,
+    geoLatPermille: input.geoLatPermille,
+    geoLonPermille: input.geoLonPermille,
+    geoSource: input.geoSource,
+    geoCollectedAt: input.geoCollectedAt,
     createdAt: new Date().toISOString(),
   };
   const receipt = await e.write({

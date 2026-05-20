@@ -35,3 +35,4 @@ export {
   getPeering,
 } from "./topology.js";
 export { getGeolocation, getAbuseContact } from "./geoAbuse.js";
+export { collectGeoip, collectWhois, batchIngestRir } from "./collect.js";
