@@ -531,3 +531,44 @@ export interface BatchIngestRirOutput {
   failed?: { kind: string; key: string; reason: string }[];
   error?: string;
 }
+
+// ─── List tier (slice 9) ────────────────────────────────────────────
+
+export interface ListAsnsInput {
+  country?: string;
+  rir?: Rir;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListAsnsOutput {
+  items: AsnView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface ListIpsInput {
+  family?: IpFamily;
+  prefixCidr?: string;
+  asnNumber?: number;
+  providerSlug?: string;
+  countryIso3?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListIpsOutput {
+  items: IpView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface BatchRegisterIpInput {
+  ips: RegisterIpInput[];
+}
+
+export interface BatchRegisterIpOutput {
+  registered?: { address: string; ipUri: string }[];
+  skipped?: { address: string; reason: string }[];
+  error?: string;
+}
