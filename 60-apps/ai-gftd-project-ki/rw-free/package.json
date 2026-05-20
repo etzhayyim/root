@@ -1,0 +1,11 @@
+{
+  "name": "@etzhayyim/ki-rw-free",
+  "version": "0.1.0",
+  "description": "Phase E Option B reference impl of ki (vascular system) on the etzhayyim substrate",
+  "type": "module",
+  "main": "src/index.ts",
+  "private": true,
+  "dependencies": {
+    "@etzhayyim/sdk": "workspace:*"
+  }
+}
