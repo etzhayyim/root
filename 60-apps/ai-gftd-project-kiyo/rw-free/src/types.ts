@@ -46,6 +46,8 @@ export interface PaperRecord {
   withdrawalReason?: string;
   /** Previous revision paperId (chain). */
   prevRevisionPaperId?: string;
+  /** Cited paperIds (citation graph edges from THIS paper). */
+  citedPaperIds?: string[];
   tags?: string[];
   field?: string;
   doi?: string;
@@ -243,3 +245,61 @@ export interface ListReviewsOutput {
   total: number;
   error?: string;
 }
+
+// ─── Final tier (slice 3) ───────────────────────────────────────────
+
+export interface GetPaperFileInput {
+  paperId?: string;
+}
+
+export interface GetPaperFileOutput {
+  paperId?: string;
+  ipfsCid?: string;
+  url?: string;
+  error?: string;
+}
+
+export interface CitationEdge {
+  src: string;
+  dst: string;
+}
+
+export interface GetCitationGraphInput {
+  paperId?: string;
+  depth?: number;
+  maxScan?: number;
+}
+
+export interface GetCitationGraphOutput {
+  paperId?: string;
+  depth?: number;
+  nodeCount?: number;
+  edges?: CitationEdge[];
+  truncated?: boolean;
+  error?: string;
+}
+
+export interface GetStatsInput {
+  maxScan?: number;
+}
+
+export interface GetStatsOutput {
+  paperCount?: number;
+  reviewCount?: number;
+  endorsementCount?: number;
+  byStatus?: Record<PaperStatus, number>;
+  byLanguage?: Record<string, number>;
+  byField?: Record<string, number>;
+  truncated?: boolean;
+  error?: string;
+}
+
+export interface SearchPapersInput {
+  query: string;
+  status?: PaperStatus;
+  field?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export type SearchPapersOutput = ListPapersOutput;
