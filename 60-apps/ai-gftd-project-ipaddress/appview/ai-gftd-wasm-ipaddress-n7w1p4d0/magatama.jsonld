@@ -1,0 +1,115 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:ipaddress.etzhayyim.com",
+  "component": {
+    "path": "/wasm/component.wasm"
+  },
+  "convoSystemPrompt": "You are ai-gftd-wasm-ipaddress agent. IP/ASN/WHOIS/GeoIP authoritative data collection — Role-based DID governance (ITU/ICANN/RIR/NIR/ASN/IP). Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "ipaddress-policy"
+    ]
+  },
+  "interfaces": {
+    "provides": [
+      "gftd:ipaddress/ip-registry@1.0.0",
+      "gftd:ipaddress/network-topology@1.0.0",
+      "gftd:ipaddress/delegation-chain@1.0.0"
+    ],
+    "requires": []
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-wasm-ipaddress",
+  "nanoid": "n7w1p4d0",
+  "performerType": "system",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "ip-intelligence",
+      "asn-lookup"
+    ],
+    "description": "IP/ASN/WHOIS/GeoIP authoritative data collection — Role-based DID governance (ITU/ICANN/RIR/NIR/ASN/IP)",
+    "displayName": "IP Address Intelligence",
+    "isBot": true,
+    "operator": "etzhayyim"
+  },
+  "project": "ipaddress",
+  "routes": [
+    {
+      "host": "ipaddress.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    },
+    {
+      "host": "n7w1p4d0.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "IP/ASN/prefix change notifications",
+        "kind": "public",
+        "name": "ipaddress-feed"
+      },
+      {
+        "description": "Delegation changes, WHOIS anomalies, governance updates",
+        "kind": "public",
+        "name": "ipaddress-alerts"
+      },
+      {
+        "description": "Data ingestion audit trail",
+        "kind": "public",
+        "name": "ipaddress-audit"
+      },
+      {
+        "description": "Social evolution reports",
+        "kind": "public",
+        "name": "ipaddress-evolution"
+      }
+    ],
+    "description": "IP/ASN/WHOIS/GeoIP intelligence — 1次ソース collection + Role-based DID governance",
+    "historyVisibility": "shared",
+    "joinRule": "invite",
+    "name": "IP Address Intelligence"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.ipaddress.ipAddress",
+        "ai.gftd.apps.ipaddress.ipRange",
+        "ai.gftd.apps.ipaddress.asn",
+        "ai.gftd.apps.ipaddress.whoisSnapshot",
+        "ai.gftd.apps.ipaddress.geolocation",
+        "ai.gftd.apps.ipaddress.reverseDns",
+        "ai.gftd.apps.ipaddress.hostingProvider",
+        "ai.gftd.apps.ipaddress.abuseContact",
+        "ai.gftd.apps.ipaddress.delegationEvent",
+        "ai.gftd.apps.ipaddress.governanceRule",
+        "ai.gftd.apps.ipaddress.ipAnalysis",
+        "ai.gftd.apps.ipaddress.scanResult",
+        "ai.gftd.yoro.browsingHistory",
+        "ai.gftd.yoro.searchHistory"
+      ]
+    }
+  },
+  "uiType": "yoro"
+}
