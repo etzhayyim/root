@@ -25,6 +25,11 @@ while IFS= read -r manifest; do
     continue
   fi
 
+  # Skip 3rd-party vendored packages (must match apply.sh exclusion list)
+  if [[ "$pkg_dir" =~ /lib/|/vendor/|-fork/|-fork$ ]]; then
+    continue
+  fi
+
   if ! grep -q "Apache-2.0" "$manifest" 2>/dev/null; then
     continue
   fi

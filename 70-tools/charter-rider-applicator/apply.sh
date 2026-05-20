@@ -30,6 +30,13 @@ while IFS= read -r manifest; do
     continue
   fi
 
+  # Skip 3rd-party vendored packages (Foundry lib/, Rust vendor/, our forks)
+  # Apache 2.0 §4 requires preserving original NOTICE files of 3rd-party works;
+  # we must NOT add our Charter Rider to forge-std / openzeppelin / etc.
+  if [[ "$pkg_dir" =~ /lib/|/vendor/|-fork/|-fork$ ]]; then
+    continue
+  fi
+
   # Only proceed if the manifest declares Apache-2.0
   if ! grep -q "Apache-2.0" "$manifest" 2>/dev/null; then
     continue
