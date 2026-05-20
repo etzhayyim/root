@@ -361,3 +361,78 @@ export interface ListSourcesOutput {
   cursor?: string;
   total: number;
 }
+
+// ─── Gazette tier (slice 6) ─────────────────────────────────────────
+
+export type GazetteCategory =
+  | "court-order"
+  | "ministerial-notice"
+  | "legislation"
+  | "commercial-registration"
+  | "bankruptcy"
+  | "other";
+
+export interface GazetteEntryRecord {
+  did: string;
+  entryId: string;
+  title: string;
+  titleLocal?: string;
+  jurisdiction?: string;
+  issuedAt?: string;
+  issueNumber?: string;
+  category?: GazetteCategory;
+  sourceDid?: string;
+  sourceUrl?: string;
+  summary?: string;
+  createdAt: string;
+}
+
+export interface GazetteEntryView extends GazetteEntryRecord {
+  gazetteUri: string;
+}
+
+export interface RegisterGazetteEntryInput {
+  entryId: string;
+  title: string;
+  titleLocal?: string;
+  jurisdiction?: string;
+  issuedAt?: string;
+  issueNumber?: string;
+  category?: GazetteCategory;
+  sourceDid?: string;
+  sourceUrl?: string;
+  summary?: string;
+}
+
+export interface RegisterGazetteEntryOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  gazetteUri?: string;
+  did?: string;
+  entryId?: string;
+  error?: string;
+}
+
+export interface GetGazetteEntryInput {
+  entryId?: string;
+}
+
+export interface GetGazetteEntryOutput {
+  gazetteEntry?: GazetteEntryView;
+  error?: string;
+}
+
+export interface ListGazetteEntriesInput {
+  jurisdiction?: string;
+  category?: GazetteCategory;
+  sourceDid?: string;
+  issuedAfter?: string;
+  issuedBefore?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListGazetteEntriesOutput {
+  items: GazetteEntryView[];
+  cursor?: string;
+  total: number;
+}
