@@ -20,3 +20,10 @@ export {
   cancelProductionOrder,
 } from "./productionOrder.js";
 export { submitInspection, getInspections } from "./qualityInspection.js";
+export {
+  registerManufacturer,
+  getManufacturer,
+  listManufacturers,
+  searchManufacturers,
+  getManufacturerStats,
+} from "./manufacturerRegistry.js";

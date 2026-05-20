@@ -4,54 +4,80 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-      "x-bootstrap": true,
+      "description": "Register a manufacturer in the tsukuru registry. Mints a path-based DID (did:web:tsukuru.etzhayyim.com:manufacturer:{slug}) and writes the manufacturer record. Initial onboardingStatus='pending-review' until an arbiter (or auto-policy) flips to 'active'. Per ADR-2605202800 Phase 2.",
       "input": {
         "encoding": "application/json",
         "schema": {
           "type": "object",
+          "required": ["slug", "legalName", "countryIso3"],
           "properties": {
             "slug": {
-              "type": "string"
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "description": "URL-safe identifier (lowercase, hyphens). Becomes the DID path: did:web:tsukuru.etzhayyim.com:manufacturer:{slug}."
             },
-            "legal_name": {
-              "type": "string"
+            "legalName": {
+              "type": "string",
+              "maxLength": 256,
+              "description": "Registered legal entity name."
             },
-            "country_iso3": {
-              "type": "string"
+            "tradeName": {
+              "type": "string",
+              "maxLength": 256,
+              "description": "Public trade name (if different from legalName)."
             },
-            "trade_name": {
-              "type": "string"
+            "countryIso3": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 3,
+              "description": "ISO 3166-1 alpha-3 country code (JPN / USA / DEU / KOR / TWN / ...)."
+            },
+            "isicCodes": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "ISIC Rev. 4 industry codes (e.g. ['C2811', 'C2829'])."
             },
             "category": {
-              "type": "string"
+              "type": "string",
+              "description": "Coarse category (precision-machining / additive / semiconductor / textiles / electronics / etc.)."
             },
-            "factory_type": {
-              "type": "string"
+            "factoryType": {
+              "type": "string",
+              "enum": ["oem", "odm", "contract", "in-house"],
+              "default": "oem"
             },
-            "contact_email": {
-              "type": "string"
-            },
-            "website": {
-              "type": "string"
-            },
+            "contactEmail": { "type": "string" },
+            "website": { "type": "string" },
             "lei": {
-              "type": "string"
+              "type": "string",
+              "description": "20-character Legal Entity Identifier (ISO 17442)."
+            },
+            "walletAddress": {
+              "type": "string",
+              "description": "ERC-4337 smart-wallet address on Base L2 (0x-prefixed). Required for receiving USDC settlement at delivery."
             }
-          },
-          "required": [
-            "slug",
-            "legal_name",
-            "country_iso3"
-          ]
+          }
         }
       },
       "output": {
         "encoding": "application/json",
         "schema": {
           "type": "object",
-          "properties": {},
-          "required": []
+          "required": ["status"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["registered", "alreadyExists", "rejected"]
+            },
+            "manufacturerUri": { "type": "string", "format": "at-uri" },
+            "did": { "type": "string", "format": "did" },
+            "onboardingStatus": {
+              "type": "string",
+              "enum": ["pending-review", "active", "suspended", "off-boarded"]
+            },
+            "error": { "type": "string" }
+          }
         }
       }
     }
