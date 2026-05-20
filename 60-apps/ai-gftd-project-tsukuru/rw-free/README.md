@@ -4,7 +4,7 @@ Phase 2 reference implementation of tsukuru on the etzhayyim substrate.
 
 Per [ADR-2605202800](../../../90-docs/adr/2605202800-tsukuru-etzhayyim-business-model-change.md), tsukuru migrates from vendor's `createKyselyDb` + Stripe Issuing pattern to the etzhayyim RW-free + on-chain-only substrate ([ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) + [ADR-2605172100](../../../90-docs/adr/2605172100-etzhayyim-payments-on-chain-only.md)).
 
-This package implements **34 of 46** tsukuru XRPC commands as reference (~74%).
+This package implements **46 of 46** tsukuru XRPC commands as reference — **Phase 2 COMPLETE (100%)**.
 
 | Module | Commands | Slice |
 |---|---|---|
@@ -17,11 +17,18 @@ This package implements **34 of 46** tsukuru XRPC commands as reference (~74%).
 | supplierExchange | normalizePackage, validatePackage | 6 |
 | euv | × 3 | 7 |
 | cnt | × 7 | 8 |
-| **planning batch** | designCell, planDeviceOutput, designStack, planRoute, planOperation | **9** |
+| planning batch | designCell, planDeviceOutput, designStack, planRoute, planOperation | 9 |
+| **closure batch** | exportControl × 2, hsClassification, industryActor × 2, industryProfile × 2, processRegistry, verification × 2, stats, wave | **10** |
 
-**productionOrder fully ported (6/6).** Full order-flow loop (create → progress → inspect → settle → cancel/refund) + 4 manufacturing/logistics planning subsystems demonstrated.
+**Phase 2 COMPLETE.** All 46 tsukuru XRPC commands have Option B PDS XRPC reference implementations.
 
-The remaining 12 commands are vendor-only commands that don't have lexicon JSONs in the original tsukuru lexicon tree — they're either deprecated, dual-namespaced (`ai.gftd.apps.tsukuru-api.*` historical), or were never fully specced. Ship follow-up Phase 2 closure PR.
+## Phase 3-6 ahead
+
+Per ADR-2605202800:
+- **Phase 3**: `tsukuru.etzhayyim.com` Worker deploy + DNS (operator action)
+- **Phase 4**: 460+ factory DID migration (6-month rolling, factory consent + ERC-4337 onboarding)
+- **Phase 5**: DNS cutover (routing-gateway 301 yoro-pattern) + vendor stub + Stripe Issuing wind-down
+- **Phase 6**: long-tail cleanup + lexicon dual-schema retire
 
 ## Pattern translation
 

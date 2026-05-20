@@ -839,3 +839,178 @@ export interface PlanOperationOutput {
   estimatedDurationSec: number;
   humanOversightRequired: boolean;
 }
+
+// ─── Closure batch (slice 10, final 12 commands) ────────────────────
+
+export interface ScreenDeniedPartiesInput {
+  targetDid?: string;
+  targetLegalName?: string;
+  countryIso3?: string;
+}
+export interface ScreenDeniedPartiesOutput {
+  status: "ok";
+  schema: string;
+  targetDid?: string;
+  targetLegalName?: string;
+  countryIso3?: string;
+  providersChecked: string[];
+  hits: string[];
+  verdict: "clear" | "hit" | "review";
+  screenedAt: string;
+}
+
+export interface ScreenExportControlInput {
+  eccn?: string;
+  destinationCountryIso3?: string;
+  endUseClassification?: "civil" | "dual-use" | "military";
+}
+export interface ScreenExportControlOutput {
+  status: "ok";
+  schema: string;
+  eccn: string;
+  licenseRequirement: string;
+  licenseExceptions: string[];
+  destinationCountryIso3?: string;
+  endUseClassification: string;
+  verdict: "permitted" | "license-required" | "denied";
+  screenedAt: string;
+}
+
+export interface ClassifyProductInput {
+  productDescription: string;
+  countryIso3?: string;
+}
+export interface ClassifyProductOutput {
+  status: "ok";
+  schema: string;
+  productDescription: string;
+  candidateHsCodes: { hsCode: string; confidencePermille: number; label: string }[];
+  chapter: string;
+  chapterTitle: string;
+  classifiedAt: string;
+}
+
+export interface IndustryActorView {
+  actorId: string;
+  did: string;
+  isicCode: string;
+  displayName: string;
+}
+export interface GetIndustryActorInput {
+  actorId?: string;
+}
+export interface GetIndustryActorOutput {
+  actor?: IndustryActorView;
+  error?: string;
+}
+export interface ListIndustryActorsInput {
+  limit?: number;
+}
+export interface ListIndustryActorsOutput {
+  items: IndustryActorView[];
+  total: number;
+}
+
+export interface IndustryProfileView {
+  industryCode: string;
+  category?: string;
+  requiredCertifications: string[];
+  qualityCheckpoints: string[];
+  complianceFlags: string[];
+  costMultiplier: number; // permille — 100 = 1.00× baseline
+}
+export interface GetIndustryProfileInput {
+  industryCode?: string;
+  category?: string;
+}
+export interface GetIndustryProfileOutput {
+  profile?: IndustryProfileView;
+  error?: string;
+}
+export interface ListIndustryProfilesInput {
+  limit?: number;
+}
+export interface ListIndustryProfilesOutput {
+  items: IndustryProfileView[];
+  total: number;
+}
+
+export interface ResolveProcessInput {
+  cpcCode?: string;
+  processName?: string;
+}
+export interface ResolveProcessOutput {
+  status: "ok";
+  schema: string;
+  cpcCode?: string;
+  processName: string;
+  isicCodes: string[];
+  typicalLeadDays: number;
+}
+
+export interface CertificationRecord {
+  holderDid: string;
+  certificationType: string;
+  certifyingBody?: string;
+  certificateId?: string;
+  issuedAt: string;
+  expiresAt?: string;
+  evidenceCids?: string[];
+  createdAt: string;
+}
+export interface CertificationView extends CertificationRecord {
+  certificationUri: string;
+}
+export interface RecordCertificationInput {
+  holderDid?: string;
+  certificationType?: string;
+  certifyingBody?: string;
+  certificateId?: string;
+  issuedAt?: string;
+  expiresAt?: string;
+  evidenceCids?: string[];
+}
+export interface RecordCertificationOutput {
+  status: "recorded" | "rejected";
+  certificationUri?: string;
+  error?: string;
+}
+export interface ListCertificationsInput {
+  holderDid?: string;
+  limit?: number;
+  cursor?: string;
+}
+export interface ListCertificationsOutput {
+  items: CertificationView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface StatsInput {
+  unused?: never;
+}
+export interface ModuleCoverage {
+  commands: number;
+  ported: number;
+}
+export interface StatsOutput {
+  status: "ok";
+  schema: string;
+  moduleCoverage: Record<string, ModuleCoverage>;
+  totalCommands: number;
+  portedCommands: number;
+  portedPercent: number;
+  computedAt: string;
+}
+
+export interface WaveInput {
+  unused?: never;
+}
+export interface WaveOutput {
+  status: "ok";
+  schema: string;
+  wave: number;
+  phase: number;
+  status_label: string;
+  completedAt: string;
+}
