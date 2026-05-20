@@ -4,35 +4,38 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-      "x-bootstrap": true,
+      "description": "List productionOrder records with optional filters. Phase 2 post-fetches with cursor pagination; Phase 3 will index via mst-projector.",
       "parameters": {
         "type": "params",
         "properties": {
-          "customer_id": {
-            "type": "string"
-          },
+          "manufacturerDid": { "type": "string", "format": "did" },
+          "customerDid": { "type": "string", "format": "did" },
+          "status": { "type": "string" },
           "limit": {
-            "type": "number"
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
           },
-          "manufacturer_did": {
-            "type": "string"
-          },
-          "offset": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": []
+          "cursor": { "type": "string" }
+        }
       },
       "output": {
         "encoding": "application/json",
         "schema": {
           "type": "object",
-          "properties": {},
-          "required": []
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "ref",
+                "ref": "ai.gftd.apps.tsukuru.productionOrder.getProductionOrder#productionOrderView"
+              }
+            },
+            "cursor": { "type": "string" },
+            "total": { "type": "integer" }
+          }
         }
       }
     }

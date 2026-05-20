@@ -4,19 +4,16 @@ Phase 2 reference implementation of tsukuru on the etzhayyim substrate.
 
 Per [ADR-2605202800](../../../90-docs/adr/2605202800-tsukuru-etzhayyim-business-model-change.md), tsukuru migrates from vendor's `createKyselyDb` + Stripe Issuing pattern to the etzhayyim RW-free + on-chain-only substrate ([ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) + [ADR-2605172100](../../../90-docs/adr/2605172100-etzhayyim-payments-on-chain-only.md)).
 
-This package implements **9 of 46** tsukuru XRPC commands as reference:
+This package implements **13 of 46** tsukuru XRPC commands as reference. **productionOrder is now fully ported** (6/6 commands).
 
-- `productionOrder.createProductionOrder` (slice 1)
-- `productionOrder.cancelProductionOrder` (slice 1)
-- `qualityInspection.submitInspection` (slice 2)
-- `qualityInspection.getInspections` (slice 2)
-- `manufacturerRegistry.registerManufacturer` (slice 3)
-- `manufacturerRegistry.getManufacturer` (slice 3)
-- `manufacturerRegistry.listManufacturers` (slice 3)
-- `manufacturerRegistry.searchManufacturers` (slice 3)
-- `manufacturerRegistry.getManufacturerStats` (slice 3)
+| Module | Commands | Slice |
+|---|---|---|
+| productionOrder | createProductionOrder, cancelProductionOrder | 1 |
+| productionOrder | getProductionOrder, listProductionOrders, updateOrderStatus, estimateLeadTime | 4 |
+| qualityInspection | submitInspection, getInspections | 2 |
+| manufacturerRegistry | registerManufacturer, getManufacturer, listManufacturers, searchManufacturers, getManufacturerStats | 3 |
 
-The remaining 37 commands (`factoryRegistry.*`, `productionProgress.*`, `productionOrder.{get,list,updateStatus,estimateLeadTime}`, `manufacturingCell.*`, `manufacturingOutput.*`, `softwareIntegration.*`, `logisticsRoute.*`, `autonomyOperation.*`, `supplierExchange.*`, `euv.*`, `cnt.*`) follow the same pattern and are deferred to follow-up Phase 2 sub-PRs.
+The remaining 33 commands (`factoryRegistry.*`, `productionProgress.*`, `manufacturingCell.*`, `manufacturingOutput.*`, `softwareIntegration.*`, `logisticsRoute.*`, `autonomyOperation.*`, `supplierExchange.*`, `euv.*`, `cnt.*`) follow the same pattern and are deferred to follow-up Phase 2 sub-PRs.
 
 ## Pattern translation
 

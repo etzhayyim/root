@@ -131,6 +131,83 @@ export interface CancelOrderOutput {
   error?: string;
 }
 
+export interface ProductionOrderView extends ProductionOrderRecord {
+  productionOrderUri: string;
+  updatedAt?: string;
+  note?: string;
+  updatedByDid?: string;
+}
+
+export interface GetOrderInput {
+  productionOrderUri: string;
+}
+
+export interface GetOrderOutput {
+  productionOrder?: ProductionOrderView;
+  error?: string;
+}
+
+export interface ListOrdersInput {
+  manufacturerDid?: string;
+  customerDid?: string;
+  status?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListOrdersOutput {
+  items: ProductionOrderView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface UpdateStatusInput {
+  productionOrderUri: string;
+  status: ProductionOrderStatus;
+  note?: string;
+  updatedByDid: string;
+}
+
+export interface UpdateStatusOutput {
+  status: "updated" | "invalidTransition" | "notFound";
+  productionOrderUri: string;
+  previousStatus?: string;
+  newStatus?: string;
+  error?: string;
+}
+
+/** Allowed forward transitions. cancelled / rejected are terminal. */
+export const STATUS_TRANSITIONS: Record<
+  ProductionOrderStatus,
+  readonly ProductionOrderStatus[]
+> = {
+  pending: ["accepted", "rejected", "cancelled"],
+  accepted: ["material-procurement", "cancelled"],
+  "material-procurement": ["in-production", "cancelled"],
+  "in-production": ["quality-inspection"],
+  "quality-inspection": ["shipped", "in-production"],
+  shipped: ["delivered"],
+  delivered: [],
+  cancelled: [],
+  rejected: [],
+};
+
+export interface EstimateLeadTimeInput {
+  manufacturerDid: string;
+  productSpec?: Record<string, unknown>;
+  quantity?: number;
+  priority?: OrderPriority;
+  industryCode?: string;
+}
+
+export interface EstimateLeadTimeOutput {
+  estimatedDays: number;
+  earliestDate: string;
+  estimatedCostUsdcMicros?: number;
+  industryCode?: string;
+  requiredCertifications?: string[];
+}
+
 // ─── Quality Inspection ──────────────────────────────────────────────
 
 export type InspectionType = "incoming" | "in-process" | "final" | "audit";
