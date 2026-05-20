@@ -130,3 +130,70 @@ export interface CancelOrderOutput {
   cancellableStatuses?: string[];
   error?: string;
 }
+
+// ─── Quality Inspection ──────────────────────────────────────────────
+
+export type InspectionType = "incoming" | "in-process" | "final" | "audit";
+export type InspectionResult =
+  | "pass"
+  | "conditional_pass"
+  | "fail"
+  | "rework_required";
+
+/** Results that trigger settlement (escrow_intent → payment.sent). */
+export const SETTLEMENT_TRIGGERING_RESULTS = [
+  "pass",
+  "conditional_pass",
+] as const satisfies readonly InspectionResult[];
+
+/** Record body for `ai.gftd.apps.tsukuru.qualityInspection`. */
+export interface QualityInspectionRecord {
+  productionOrderUri: string;
+  inspectorDid: string;
+  inspectionType: InspectionType;
+  result: InspectionResult;
+  defectRatePpm?: number;
+  findings?: string[];
+  certificationsVerified?: string[];
+  lotNumber?: string;
+  serialNumbers?: string[];
+  paymentSentUri?: string;
+  createdAt: string;
+}
+
+export interface SubmitInspectionInput {
+  productionOrderUri: string;
+  inspectorDid: string;
+  result: InspectionResult;
+  inspectionType?: InspectionType;
+  defectRatePpm?: number;
+  findings?: string[];
+  certificationsVerified?: string[];
+  lotNumber?: string;
+  serialNumbers?: string[];
+}
+
+export interface SubmitInspectionOutput {
+  status: "recorded" | "settled" | "settlementFailed";
+  inspectionUri: string;
+  result: InspectionResult;
+  paymentSentUri?: string;
+  txHash?: string;
+  error?: string;
+}
+
+export interface GetInspectionsInput {
+  productionOrderUri: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface InspectionView extends QualityInspectionRecord {
+  inspectionUri: string;
+}
+
+export interface GetInspectionsOutput {
+  items: InspectionView[];
+  cursor?: string;
+  total: number;
+}

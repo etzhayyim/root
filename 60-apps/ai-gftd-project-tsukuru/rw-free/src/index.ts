@@ -13,7 +13,10 @@
 export * from "./types.js";
 export { openIntent, refundIntent } from "./escrow.js";
 export type { OpenIntentOpts, RefundIntentOpts } from "./escrow.js";
+export { settleEscrow } from "./settle.js";
+export type { SettleEscrowOpts } from "./settle.js";
 export {
   createProductionOrder,
   cancelProductionOrder,
 } from "./productionOrder.js";
+export { submitInspection, getInspections } from "./qualityInspection.js";

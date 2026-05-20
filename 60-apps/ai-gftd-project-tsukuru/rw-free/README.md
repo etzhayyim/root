@@ -4,12 +4,14 @@ Phase 2 reference implementation of tsukuru on the etzhayyim substrate.
 
 Per [ADR-2605202800](../../../90-docs/adr/2605202800-tsukuru-etzhayyim-business-model-change.md), tsukuru migrates from vendor's `createKyselyDb` + Stripe Issuing pattern to the etzhayyim RW-free + on-chain-only substrate ([ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) + [ADR-2605172100](../../../90-docs/adr/2605172100-etzhayyim-payments-on-chain-only.md)).
 
-This package implements **2 of 46** tsukuru XRPC commands as reference:
+This package implements **4 of 46** tsukuru XRPC commands as reference:
 
-- `ai.gftd.apps.tsukuru.productionOrder.createProductionOrder`
-- `ai.gftd.apps.tsukuru.productionOrder.cancelProductionOrder`
+- `ai.gftd.apps.tsukuru.productionOrder.createProductionOrder` (slice 1)
+- `ai.gftd.apps.tsukuru.productionOrder.cancelProductionOrder` (slice 1)
+- `ai.gftd.apps.tsukuru.qualityInspection.submitInspection` (slice 2)
+- `ai.gftd.apps.tsukuru.qualityInspection.getInspections` (slice 2)
 
-The remaining 44 commands (`manufacturerRegistry.*`, `factoryRegistry.*`, `productionProgress.*`, `qualityInspection.*`, `manufacturingCell.*`, `manufacturingOutput.*`, `softwareIntegration.*`, `logisticsRoute.*`, `autonomyOperation.*`, `supplierExchange.*`, `euv.*`, `cnt.*`) follow the same pattern and are deferred to follow-up Phase 2 sub-PRs.
+The remaining 42 commands (`manufacturerRegistry.*`, `factoryRegistry.*`, `productionProgress.*`, `productionOrder.{get,list,updateStatus,estimateLeadTime}`, `manufacturingCell.*`, `manufacturingOutput.*`, `softwareIntegration.*`, `logisticsRoute.*`, `autonomyOperation.*`, `supplierExchange.*`, `euv.*`, `cnt.*`) follow the same pattern and are deferred to follow-up Phase 2 sub-PRs.
 
 ## Pattern translation
 
@@ -21,7 +23,7 @@ The remaining 44 commands (`manufacturerRegistry.*`, `factoryRegistry.*`, `produ
 | `invoke(sdk, "did:web:stripe.gftd.ai", "cancelCard", {...})` | `escrow.refundIntent(e, {...})` (no on-chain tx) |
 | `payment.method === "stripe_issuing"` + `stripeCardId` | `payment.method === "escrow_intent"` + escrow record URI |
 
-## Escrow flow (deferred-payment intent)
+## Escrow flow (deferred-payment intent — full loop)
 
 ```
    create order (escrow_intent)
@@ -34,14 +36,22 @@ The remaining 44 commands (`manufacturerRegistry.*`, `factoryRegistry.*`, `produ
            │
            └─► createProductionOrder() binds escrowIntentUri to record
 
-   delivery confirmed (out-of-scope this PR — qualityInspection module)
+   delivery confirmed (slice 2 — qualityInspection)
      │
-     └─► e.pay()  (SDK v0.1 working path)
-           USDC.transfer to manufacturer wallet
-           writes ai.gftd.apps.payment.sent
-           returns paymentSentUri
+     └─► submitInspection(result="pass")
+           writes ai.gftd.apps.tsukuru.qualityInspection
+           │
+           └─► settleEscrow()  →  SDK pay()
+                 USDC.transfer to manufacturer wallet on Base L2
+                 writes ai.gftd.apps.payment.sent (auto by SDK)
+                 returns paymentSentUri + txHash
+                 │
+                 └─► markOrderPassed()
+                       productionOrder.status = "delivered"
+                       productionOrder.paymentSentUri = ...
+                       inspection.paymentSentUri = ...
 
-   cancel before delivery
+   cancel before delivery (slice 1)
      │
      └─► refundIntent()
            writes ai.gftd.apps.payment.escrowRefunded
@@ -61,6 +71,8 @@ import { Etzhayyim } from "@etzhayyim/sdk";
 import {
   createProductionOrder,
   cancelProductionOrder,
+  submitInspection,
+  getInspections,
 } from "@etzhayyim/tsukuru-rw-free";
 
 const e = new Etzhayyim({
@@ -70,7 +82,7 @@ const e = new Etzhayyim({
   // ... session or auth
 });
 
-// Create
+// 1. Create
 const out = await createProductionOrder(
   e,
   {
@@ -88,13 +100,38 @@ const out = await createProductionOrder(
 );
 // → { productionOrderUri, status: "pending", escrowIntentUri, ... }
 
-// Cancel
+// 2a. Cancel before delivery (record-only refund)
 const cancel = await cancelProductionOrder(e, {
   productionOrderUri: out.productionOrderUri,
   reason: "spec change requested by buyer",
   cancelledByDid: "did:web:customer.etzhayyim.com",
 });
 // → { status: "cancelled", escrowRefundUri }
+
+// 2b. OR — submit passing inspection at delivery (triggers settlement)
+const inspect = await submitInspection(
+  e,
+  {
+    productionOrderUri: out.productionOrderUri,
+    inspectorDid: "did:web:qa-agent.etzhayyim.com",
+    inspectionType: "final",
+    result: "pass",
+    defectRatePpm: 50,
+    findings: ["all units within spec"],
+    lotNumber: "L20260520-A",
+  },
+  {
+    manufacturerWallet: "0xACME...DEAD",
+    buyerPrivateKey: "0x..." as `0x${string}`, // Phase 2b+ replaces with smart-wallet signer
+  }
+);
+// → { status: "settled", inspectionUri, paymentSentUri, txHash, ... }
+
+// 3. List inspections
+const list = await getInspections(e, {
+  productionOrderUri: out.productionOrderUri,
+});
+// → { items: [InspectionView], total }
 ```
 
 ## What this package IS / ISN'T
