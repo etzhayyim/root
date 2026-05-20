@@ -24,3 +24,8 @@ export {
 } from "./prefixRegistry.js";
 export { registerIp, getIp } from "./ipRegistry.js";
 export { registerScan, getScan, listScans } from "./scanRegistry.js";
+export {
+  searchProviders,
+  listProviders,
+  listPrefixes,
+} from "./search.js";

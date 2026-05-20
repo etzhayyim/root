@@ -285,3 +285,47 @@ export interface ListScansOutput {
   cursor?: string;
   total: number;
 }
+
+// ─── Search tier (slice 5) ──────────────────────────────────────────
+
+export interface SearchProvidersInput {
+  query: string;
+  kind?: ProviderKind;
+  countryIso3?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface SearchProvidersOutput {
+  items: ProviderView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface ListProvidersInput {
+  kind?: ProviderKind;
+  countryIso3?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListProvidersOutput {
+  items: ProviderView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface ListPrefixesInput {
+  asnNumber?: number;
+  providerSlug?: string;
+  countryIso3?: string;
+  rir?: Rir;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListPrefixesOutput {
+  items: PrefixView[];
+  cursor?: string;
+  total: number;
+}
