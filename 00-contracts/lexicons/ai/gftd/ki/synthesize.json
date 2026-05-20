@@ -22,7 +22,7 @@
           "properties": {
             "artifactId": { "type": "string" },
             "synthesis": { "type": "string", "description": "Synthesized knowledge artifact content" },
-            "confidence": { "type": "number", "description": "LLM confidence score 0.0–1.0" },
+            "confidence": { "type": "integer", "description": "LLM confidence score 0.0–1.0" },
             "error": { "type": "string" }
           },
           "required": ["artifactId", "synthesis", "confidence"]

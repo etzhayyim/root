@@ -26,7 +26,7 @@
                 "properties": {
                   "srcPaperId":    { "type": "string" },
                   "refLabel":      { "type": "string" },
-                  "confidence":    { "type": "number" }
+                  "confidence":    { "type": "integer" }
                 }
               }
             },
@@ -38,7 +38,7 @@
                   "dstPaperId":   { "type": "string" },
                   "resolvedDoi":  { "type": "string" },
                   "refLabel":     { "type": "string" },
-                  "confidence":   { "type": "number" }
+                  "confidence":   { "type": "integer" }
                 }
               }
             }

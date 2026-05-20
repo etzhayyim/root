@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Submit a new preprint to kiyo.gftd.ai. The PDF (and optionally LaTeX source) must be supplied as base64. A CIDv1 is assigned via ipfs.gftd.ai and stored in vertex_kiyo_paper. Triggers submitPaper.bpmn.",
+      "description": "Submit a new preprint to kiyo.etzhayyim.com. The PDF (and optionally LaTeX source) must be supplied as base64. A CIDv1 is assigned via ipfs.etzhayyim.com and stored in vertex_kiyo_paper. Triggers submitPaper.bpmn.",
       "input": {
         "encoding": "application/json",
         "schema": {
