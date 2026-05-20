@@ -383,18 +383,6 @@ status = "proposed"
 path = "90-docs/adr/2605172800-geth-private-migration-to-etzhayyim.md"
 
 [[adrs]]
-id = "2605172800-gftd-cli"
-title = "70-tools/gftd CLI migration strategy — git-subrepo unwind + open-scope fork"
-status = "proposed"
-path = "90-docs/adr/2605172800-gftd-cli-migration-strategy.md"
-
-[[adrs]]
-id = "2605172900"
-title = "gftd-→-etzhayyim follow-up cutover policy — what is rewritten, what is preserved as historical"
-status = "active"
-path = "90-docs/adr/2605172900-gftd-followup-cutover-policy.md"
-
-[[adrs]]
 id = "2605173000"
 title = "did:web:pds.etzhayyim.com resolution via path-specific Cloudflare Worker"
 status = "active"
@@ -747,6 +735,20 @@ title = "kuni-umi S4 — multi-site fleet (≥5 archetype concurrent sites, flee
 status = "proposed"
 status_note = "Religious-corp が point organization から fleet of sites への qualitative scaling milestone。5 archetype: A university (継続) / B rural (山中湖 expansion) / C religious community (神社・寺・教会 partnership) / D workers' cooperative (生協・漁協・農協) / E disaster recovery (能登・東日本 復興地)。FleetRebalanceCell (新規 cell on naphtali) が weekly Hungarian-method assignment を実行、Constitutional filter で witness invariant + Council inter-prefecture gate enforce。Cross-site BoM consolidation (3 ヶ月 horizon batch quotes + shared-logistics MIP, ≥20% savings target)。Edge orchestration: per-site Atama (NixOS RT + LangGraph + Wasmtime) + NATS JetStream over CF Tunnel; constitutional invariant 'no site→site direct mesh, Murakumo Tier 1 as single root of trust' を新規導入 (federation refusal)。Council Lv6+ supermajority on fleet portfolio composition の新規 constitutional gate。Council 5 seat に per-archetype primary responsibility 割当。Quad v1 (4-leg, 4 units) 初投入、open-robo 別 ADR 発注 critical-path。Fleet: 20 Otete + 6 Hitogata + 24 Mimi + 4 Quad = 54 robots。Budget +USDC 6.3-8.8M (cumulative USDC 10.1-14.0M)。15 acceptance criteria + 11 risk/mitigation + 6 open questions。Constitutional alignment 10 article 全 pass。"
 path = "90-docs/adr/2605201800-etzhayyim-kuni-umi-s4-multi-site-fleet.md"
+
+[[adrs]]
+id = "2605201900"
+title = "kuni-umi S5 — extended sovereignty deployment (S5a river / S5b ocean / S5c atmosphere / S5d orbit, stewardship-only invariant, 4 new robot classes, final roadmap phase)"
+status = "proposed"
+status_note = "kuni-umi roadmap 最終 phase。Religious-corp が ADR-2605192330 extended sovereignty doctrine を physical deployment で初めて exercise する definitional moment。4 sub-stage 段階展開 (international complexity ascending): S5a river (河川法 + 水利使用許可) → S5b ocean (UNCLOS coastal + 漁協 partnership) → S5c atmosphere (Chicago Conv. + ICAO HAPS) → S5d orbit (OST + 宇宙活動法 + ITU + JAXA launching state)。Stewardship-only operational invariant: religious-corp は ownership field 持たず、sovereign state authority と dual-recognition pattern で coexist; international conflict 時は state authority に最終 deferral (mission.parallel_governance_to_state ↔ §1.12.A 解釈)。4 new robot class: Suii (water/amphibious crawler) / Tairyou (marine surface + ROV) / Sora (HAPS install) / Hoshi (cleanroom satellite integration, NOT in-space)。Witness invariant adapted for remote domains (S5b 3-witness surface+ROV+onshore; S5d satellite onboard + 2 ground stations)。Budget: USDC 12.7-28.4M (orbital launch dominate)、religious-corp Treasury sensitivity 極限値、S5d defer option を constitutional に許容。Cumulative S1-S5: USDC 22.8-42.4M capex + ongoing 1.85-3.55M USDC/yr。Constitutional alignment 10 article 全 pass、§parallel_governance の definitional moment。"
+path = "90-docs/adr/2605201900-etzhayyim-kuni-umi-s5-extended-sovereignty.md"
+
+[[adrs]]
+id = "2605202100"
+title = "magatama-cell-runner launchd LaunchAgent — operationalising Tier 1 常駐稼働 on the Murakumo fleet"
+status = "proposed"
+status_note = "ADR-2605192415 §7.1 + ADR-2605201400-1900 (kuni-umi S0-S5) で spec 完成済みの religious-corp + kuni-umi daemon を Murakumo Mac mini fleet で 常駐起動するための OS-level boot path を closure。3 artefact: (1) 20-actors/magatama/py/pyproject.toml に `[project.scripts] magatama-cell-runner = pymagatama.cell_runner_main:main` 追加で CLI を PATH-resolvable に、(2) 50-infra/cluster/murakumo/cell-runner/com.etzhayyim.magatama-cell-runner.plist を @@PLACEHOLDER@@ 形式 template として固定 (litellm/ameno-daemon plist と同 pattern、no personal paths in git per GitGuardian lesson)、(3) install.sh が --node 12-tribe allowlist 検証 + uv sync + --health pre-flight check + bash parameter expansion 経由 placeholder substitution + sanity gate (@@-marker residue check) + idempotent launchctl reload。`start_cell` の subprocess spawn / MstCheckpointSaver / MST listener / healthz / swarm heartbeat は引き続き staged TODO — 本 ADR scope は OS-level boot path のみ。Plutil syntax + bash substitution + magatama-cell-runner --health smoke 全 PASS 検証済 (2026-05-20 dev laptop)."
+path = "90-docs/adr/2605202100-etzhayyim-magatama-cell-runner-launchd.md"
 
 # ─── Module registry ────────────────────────────────────────────────
 
@@ -1178,22 +1180,18 @@ escalation_model = "claude-sonnet-4-6"
 confidence_threshold = 0.7
 
 [[modules]]
-path = "70-tools/gftd"
-kind = "go-cli"
-version = "dev"
-status = "seeded-build-green"
-description = "Main developer CLI. 178 .go cmd files + 1779 collector configs (FDA NDC, ATC, character refs, etc.). vault commands + malak_* surveillance data stripped on copy. Per ADR-2605172800."
-adr = ["2605172800-gftd-cli", "2605172900"]
-inner_module = "github.com/etzhayyim/root/70-tools/gftd/gftd"
-outer_module = "github.com/etzhayyim/root/70-tools/gftd-pkg"
-
-[[modules]]
 path = "70-tools/gftd-py"
 kind = "python-cli"
 version = "0.1.0"
 status = "seeded"
-description = "Python port of gftd CLI (parallel operation). vault_cmd.py + 14 vault test functions stripped on copy."
-adr = ["2605172900"]
+description = "Python port of legacy gftd CLI (parallel operation, retained pending separate cutover ADR). vault_cmd.py + 14 vault test functions stripped on copy. Go CLI sibling removed 2026-05-20."
+
+[[modules]]
+path = "70-tools/e7m-cli"
+kind = "ts-cli"
+version = "0.2.0"
+status = "active"
+description = "Etzhayyim Monorepo Unified CLI (binary `e7m`). Wraps tinygo / wasm-tools / wrangler / langgraph-cli / docker / charter-rider-applicator. Replaces the removed Go gftd CLI for monorepo-internal workflows. See 70-tools/e7m-cli/README.md."
 
 [[modules]]
 path = "50-infra/vultr/risingwave/private-tunnel"
