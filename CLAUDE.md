@@ -39,10 +39,13 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | 11. Charter Rider applied to 39 first-party Apache-2.0 packages | ✅ 2026-05-20 (78 NOTICE + symlink entries) |
 | 12. Solidity contracts scaffold (charters-compliance / tithe-router / land-registry / public-fund / force-authorization) | ✅ 2026-05-19 (3 working .sol skeletons + 5 specs) |
 | 13. Pregel cell catalog (15 cells) + cell-runner CLI + Murakumo fleet.toml | ✅ 2026-05-19 |
-| 14. Bootstrap Council Seat 2-5 (30-day public objection period) | ⏳ awaiting public RFP |
-| 15. Lexicon registration (charter-* / land-* / force-* / eros-gore-* / steward-*) | ⏳ post-Council |
-| 16. Constitution.sol deploy (constitutional constants on-chain) | ⏳ post-Council |
-| 17. Testnet S0-S11 deploy roadmap (per ADR-2605192415 §10) | ⏳ post-Constitution |
+| 14. Lexicon registration (charter-* / land-* / force-* / eros-gore-* / steward-* / public-fund + tithe + payment narrow) | ✅ 2026-05-20 (28 Lexicons + 1 modified) |
+| 15. Constitution.sol religious-corp constants wiring (38 const + 16 mutable) + ConstitutionKeys library | ✅ 2026-05-20 (110/110 tests) |
+| 16. lefthook lint hooks (no-advertising / no-purchase-purpose / paywall-warn / charter-rider-notice) | ✅ 2026-05-20 (4 hooks) |
+| 17. Religious-corp wave Foundry consolidation + DeployReligiousCorp.s.sol + Anvil smoke ✓ | ✅ 2026-05-20 (chainId 31337 verified) |
+| 18. Bootstrap Council Seat 2-5 (30-day public objection period 2026-05-20 → 2026-06-19) | 🟡 RFP OPEN — see [`COUNCIL.md`](COUNCIL.md) + [`COUNCIL-BOOTSTRAP-RFP.md`](COUNCIL-BOOTSTRAP-RFP.md) |
+| 19. Base Sepolia testnet deploy (funded private key + RPC required) | ⏳ post-Council |
+| 20. Mainnet deploy + Phase 2 governance reference wiring | ⏳ post-testnet |
 
 ## Repo Layout (Shannon-Optimal 8-Layer, ADR-2604251830)
 
@@ -85,6 +88,8 @@ etzhayyim/root/
 │                        #   charter-rider-applicator/      (retro-active Rider applier, ADR-2605192200)
 ├── 90-docs/             # CLAUDE.md (docs rules), adr/, baien/
 ├── CHARTER-RIDER.md     # Apache 2.0 + Charter Compliance Rider v2.0 (per ADR-2605192200)
+├── COUNCIL.md           # 5-seat Bootstrap Council roster (per ADR-2605192300)
+├── COUNCIL-BOOTSTRAP-RFP.md  # 30-day public RFP for Seats 2-5 (2026-05-20 → 2026-06-19)
 ├── LANDS.md             # 4-layer permanent land record roster (per ADR-2605192245)
 ├── CLAUDE.md            # this file
 ├── deps.toml            # SSoT for [platform.operating_entity] + monorepo state
