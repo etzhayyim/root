@@ -4,14 +4,17 @@ Phase E Option B reference implementation of otakiage (reuse + ritual platform) 
 
 Per [ADR-2605081700](../../../90-docs/adr/2605081700-otakiage-reuse-ritual-platform.md) + [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), otakiage migrates from vendor's `createKyselyDb` pattern (RW direct write) to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **8 of 10** canonical otakiage lexicons ported.
+Coverage: **10 of 10 (100%) canonical** + 3 transition helpers = **13 total commands**.
 
 | Tier | Commands | Slice |
 |---|---|---|
 | Item | submitItem, getItem, listItems | 1 |
-| State transitions | requestReuse, handover, expire, requestRitual, ritualize | **2** |
+| State transitions | requestReuse, handover, expire, requestRitual, ritualize | 2 |
+| Certificate + Matsuri + Coverage + AgentChat | issueCertificate, anchorCertificate, scheduleMatsuri, coverage, agentChat | **3** |
 
-Remaining 2 canonical lexicons (`anchorCertificate / issueCertificate / scheduleMatsuri / coverage / agentChat`) follow same Option B pattern; subsequent slices.
+All 10 canonical otakiage lexicons now have rw-free reference impl. Wire-up
+to a Worker / LangServer pod XRPC handler is the next operator task per
+ADR-2605203000.
 
 ## Item state machine (per ADR-2605081700)
 

@@ -24,3 +24,10 @@ export {
   requestRitual,
   ritualize,
 } from "./transitions.js";
+export {
+  issueCertificate,
+  anchorCertificate,
+  scheduleMatsuri,
+  coverage,
+  agentChat,
+} from "./final.js";

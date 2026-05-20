@@ -214,3 +214,142 @@ export interface RitualizeOutput {
   certificateUri?: string;
   error?: string;
 }
+
+// ─── Certificate tier (slice 3) ─────────────────────────────────────
+
+export interface CertificateRecord {
+  did: string;
+  certId: string;
+  itemId: string;
+  issuerDid: string;
+  matsuriDid?: string;
+  title?: string;
+  body?: string;
+  languages?: string[];
+  pdfCid?: string;
+  qrCid?: string;
+  issuedAt: string;
+  anchorTxHash?: string;
+  anchorChain?: "base" | "ethereum" | "polygon" | "btc";
+  anchoredAt?: string;
+  createdAt: string;
+}
+
+export interface IssueCertificateInput {
+  certId: string;
+  itemId: string;
+  issuerDid: string;
+  matsuriDid?: string;
+  title?: string;
+  body?: string;
+  languages?: string[];
+  pdfCid?: string;
+  qrCid?: string;
+  autoRitualize?: boolean;
+}
+
+export interface IssueCertificateOutput {
+  status: "issued" | "alreadyExists" | "rejected";
+  certificateUri?: string;
+  certId?: string;
+  did?: string;
+  error?: string;
+}
+
+export interface AnchorCertificateInput {
+  certId: string;
+  anchorTxHash: string;
+  anchorChain: "base" | "ethereum" | "polygon" | "btc";
+}
+
+export interface AnchorCertificateOutput {
+  status: "anchored" | "alreadyAnchored" | "rejected";
+  certificateUri?: string;
+  certId?: string;
+  anchorTxHash?: string;
+  anchorChain?: string;
+  error?: string;
+}
+
+// ─── Matsuri tier (slice 3) ─────────────────────────────────────────
+
+export interface MatsuriRecord {
+  did: string;
+  matsuriId: string;
+  name?: string;
+  nameLocal?: string;
+  scheduledAt: string;
+  locationHint?: string;
+  capacityItems?: number;
+  description?: string;
+  organizerDid?: string;
+  createdAt: string;
+}
+
+export interface ScheduleMatsuriInput {
+  matsuriId: string;
+  name?: string;
+  nameLocal?: string;
+  scheduledAt: string;
+  locationHint?: string;
+  capacityItems?: number;
+  description?: string;
+  organizerDid?: string;
+}
+
+export interface ScheduleMatsuriOutput {
+  status: "scheduled" | "alreadyExists" | "rejected";
+  matsuriUri?: string;
+  matsuriId?: string;
+  did?: string;
+  error?: string;
+}
+
+// ─── Coverage report (slice 3) ──────────────────────────────────────
+
+export interface CoverageInput {
+  ownerDid?: string;
+  maxScan?: number;
+}
+
+export interface CoverageOutput {
+  total?: number;
+  byStatus?: Record<ItemStatus, number>;
+  byMode?: Record<ItemMode, number>;
+  byMonth?: Record<string, number>;
+  truncated?: boolean;
+  error?: string;
+}
+
+// ─── Agent chat (slice 3) ───────────────────────────────────────────
+
+export interface AgentChatRecord {
+  chatId: string;
+  userDid: string;
+  userMessage: string;
+  assistantReply?: string;
+  intent?: string;
+  suggestedAction?: string;
+  referencedItemIds?: string[];
+  model?: string;
+  occurredAt: string;
+  createdAt: string;
+}
+
+export interface AgentChatInput {
+  chatId: string;
+  userDid: string;
+  userMessage: string;
+  assistantReply?: string;
+  intent?: string;
+  suggestedAction?: string;
+  referencedItemIds?: string[];
+  model?: string;
+}
+
+export interface AgentChatOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  chatUri?: string;
+  chatId?: string;
+  error?: string;
+}
