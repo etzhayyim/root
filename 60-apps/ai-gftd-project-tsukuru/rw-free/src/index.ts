@@ -55,3 +55,17 @@ export {
   planRoute,
   planOperation,
 } from "./planning.js";
+export {
+  screenDeniedParties,
+  screenExportControl,
+  classifyProduct,
+  getIndustryActor,
+  listIndustryActors,
+  getIndustryProfile,
+  listIndustryProfiles,
+  resolveProcess,
+  recordCertification,
+  listCertifications,
+  tsukuruStats,
+  tsukuruWave,
+} from "./closure.js";
