@@ -151,3 +151,122 @@ export function componentDid(purl: Purl): string {
 export function componentRkey(purl: Purl): string {
   return `component-${purlSlug(purl)}`;
 }
+
+// ─── CVE / VulnMatch tier (slice 2) ─────────────────────────────────
+
+export type VulnSeverity = "critical" | "high" | "medium" | "low" | "none";
+export type VulnMatchStatus =
+  | "open"
+  | "triaged"
+  | "patched"
+  | "wontfix"
+  | "false-positive";
+
+export interface OsvPayload {
+  summary?: string;
+  details?: string;
+  severity?: VulnSeverity;
+  /** CVSS × 10 (no float, 0-100 maps to 0.0-10.0). */
+  cvssPermille?: number;
+  publishedAt?: string;
+  modifiedAt?: string;
+  affectedEcosystems?: string[];
+  affectedPurlPrefixes?: string[];
+  references?: string[];
+  aliases?: string[];
+}
+
+export interface CveEntryRecord {
+  did: string;
+  cveId: string;
+  summary?: string;
+  details?: string;
+  severity?: VulnSeverity;
+  cvssPermille?: number;
+  publishedAt?: string;
+  modifiedAt?: string;
+  affectedEcosystems?: string[];
+  affectedPurlPrefixes?: string[];
+  references?: string[];
+  aliases?: string[];
+  sourceUrl?: string;
+  osvSchemaVersion?: string;
+  createdAt: string;
+}
+
+export interface CveEntryView extends CveEntryRecord {
+  cveUri: string;
+}
+
+export interface CveIngestOsvInput {
+  cveId: string;
+  osvPayload: OsvPayload;
+  sourceUrl?: string;
+  osvSchemaVersion?: string;
+}
+
+export interface CveIngestOsvOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  cveUri?: string;
+  did?: string;
+  cveId?: string;
+  error?: string;
+}
+
+export interface VulnMatchRecord {
+  did: string;
+  cveId: string;
+  componentPurl: Purl;
+  artifactDid?: string;
+  affectedAppDid?: string;
+  /** 0-1000 (permille — no float per AT Lexicon). */
+  matchConfidencePermille?: number;
+  severity?: VulnSeverity;
+  cvssPermille?: number;
+  fixedVersion?: string;
+  status: VulnMatchStatus;
+  discoveredAt: string;
+  createdAt: string;
+}
+
+export interface VulnMatchView extends VulnMatchRecord {
+  vulnMatchUri: string;
+}
+
+export interface RegisterVulnMatchInput {
+  cveId: string;
+  componentPurl: Purl;
+  artifactDid?: string;
+  affectedAppDid?: string;
+  matchConfidencePermille?: number;
+  severity?: VulnSeverity;
+  cvssPermille?: number;
+  fixedVersion?: string;
+  status?: VulnMatchStatus;
+}
+
+export interface RegisterVulnMatchOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  vulnMatchUri?: string;
+  did?: string;
+  cveId?: string;
+  componentPurl?: Purl;
+  error?: string;
+}
+
+export interface ListVulnMatchesInput {
+  cveId?: string;
+  componentPurl?: Purl;
+  artifactDid?: string;
+  affectedAppDid?: string;
+  severity?: VulnSeverity;
+  status?: VulnMatchStatus;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListVulnMatchesOutput {
+  items: VulnMatchView[];
+  cursor?: string;
+  total: number;
+}

@@ -20,3 +20,8 @@ export {
   registerComponent,
   listComponents,
 } from "./artifactRegistry.js";
+export {
+  cveIngestOsv,
+  registerVulnMatch,
+  listVulnMatches,
+} from "./vulnRegistry.js";
