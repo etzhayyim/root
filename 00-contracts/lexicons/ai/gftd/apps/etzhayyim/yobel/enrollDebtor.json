@@ -4,14 +4,15 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "債務者が rite に opt-in し、eligibility proof を提出する。rite type 別の eligibility 条件 (shmita = 共同体員、tokusei = jurisdictionMatch 等) は verifyEligibility で評価。",
+      "description": "債務者が rite に opt-in し、eligibility proof を提出する。**Debtor MUST be a natural person (自然人) — legal-person debt is out of scope.** rite type 別の eligibility 条件 (shmita = 共同体員、tokusei = jurisdictionMatch 等) は verifyEligibility で評価。",
       "input": {
         "encoding": "application/json",
         "schema": {
           "type": "object",
           "required": [
             "riteId",
-            "debtorDid"
+            "debtorDid",
+            "debtorEntityType"
           ],
           "properties": {
             "riteId": {
@@ -19,6 +20,13 @@
             },
             "debtorDid": {
               "type": "string"
+            },
+            "debtorEntityType": {
+              "type": "string",
+              "enum": [
+                "natural_person"
+              ],
+              "description": "MUST be 'natural_person'. yobel releases debt for individuals only — legal-person debt (sovereign / corporate restructuring) is out of scope. Single-value enum makes the natural-person-only invariant schema-enforced. Verified against the debtor's CouncilSBT entityType claim by debtor_enrollment cell DMN R14 short-circuit."
             },
             "eligibilityProof": {
               "type": "string",

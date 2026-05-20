@@ -71,9 +71,13 @@ class FakeCreditorEnrollment:
 @dataclass
 class FakeCouncilSbt:
     levels: dict[str, int] = field(default_factory=dict)
+    entity_types: dict[str, str] = field(default_factory=dict)  # DID → 'natural_person' / 'legal_person'
 
     def balance_of_level(self, did: str) -> int:
         return self.levels.get(did, 0)
+
+    def entity_type_of(self, did: str) -> str:
+        return self.entity_types.get(did, "unknown")
 
 
 @dataclass

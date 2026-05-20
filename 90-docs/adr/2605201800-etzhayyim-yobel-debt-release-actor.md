@@ -54,6 +54,7 @@ etzhayyim Mission Charter (ADR-2605192100) は **構造的労働解放** を最�
 1. **voluntary opt-in** — 強制力なし、creditor 同意必須
 2. **教義的権威に基づく宣言** — etzhayyim religious-corp doctrinal act (Charter §1 mission の直接実装)
 3. **集合的契機** — 周期 (shmita / yobel) or 政治的判断 (tokusei / amnesty)
+4. **自然人 (natural person) のみ対象** — yobel は個人債務者の救済のみ扱う。法人 (sovereign / corporate) 債務のリストラ・恩赦は scope 外
 
 これらは vendor の domain ではなく **etzhayyim の core function** — Charter Rider v2 §2(b) で禁止する "speculative finance + predatory lending" の **antithesis** であり、§1.5 "free release of new technology to charter-aligned others" の中核に位置する。
 
@@ -84,7 +85,42 @@ etzhayyim Mission Charter (ADR-2605192100) は **構造的労働解放** を最�
 | `yobel_50yr` | יובל Jubilee | 49/50 年毎 | Lev 25:8-13 | debt + land tenure + bondage |
 | `tokusei_rei` | 徳政令 | 政治契機 | 室町/鎌倉幕府慣行 | 借券無効化 |
 | `religious_jubilee` | Catholic Holy Year | 25 年毎 | Boniface VIII 1300 + Paul VI 1967 | spiritual / temporal punishment |
-| `political_amnesty` | Modern Amnesty | ad-hoc | 主権者宣言 / 多国間合意 | sovereign / institutional |
+| `political_amnesty` | Modern Amnesty | ad-hoc | 主権者宣言 / 議会決議 | **mass amnesty for natural-person debtors** (e.g. national tax delinquency pardon, post-conflict veteran debt cancellation, individual loan amnesty). NOT sovereign/corporate debt restructuring — that is out of scope (potentially a future `amnesty.etzhayyim.com` for institutional flows). |
+
+## Invariants (NON-NEGOTIABLE)
+
+### Natural-person-only (debtor side) — CRITICAL
+
+yobel releases debt for **natural persons (自然人) only**. Legal-person debt (sovereign / corporate restructuring, partnerships, government entities) is **out of scope**. Creditors may be either natural or legal persons — a corporation voluntarily forgiving an individual's debt is a legitimate creditor enrollment; what is gated is the **identity of the recipient of relief**.
+
+Enforcement is **schema- and runtime-defense-in-depth**:
+
+| Layer | Mechanism |
+|---|---|
+| Lexicon schema | `enrollDebtor.debtorEntityType` is a single-value enum `["natural_person"]` — caller cannot encode any other value |
+| Lexicon schema (creditor side) | `enrollCreditor.debts[].instrument` enum excludes `sovereign_bond` + `corporate_bond` — legal-person debt instruments unrepresentable |
+| Cell DMN R14 | `debtor_enrollment` cell short-circuits to ineligible if either declared `debtorEntityType` or resolved CouncilSBT `entityType` claim is not `natural_person`. Highest-priority rule, fires before R12 (SBT) or R13 (instrument) |
+| Cell DMN R13 | extended to reject `sovereign_bond` / `corporate_bond` as legal-person-only instruments (in addition to Charter Rider §2(b) `liquidation` / `margin_call` / `seizure`) |
+| Solidity contracts | no `entityType` field on-chain — invariant lives at cell-level governance for amendability via ADR rather than redeploy. EVM-level `OneWayViolation` revert remains the §2(b) hard gate |
+
+### `political_amnesty` rite scope (clarified per this amendment)
+
+Political amnesty rites under yobel handle **mass amnesty for individual debtors under sovereign decree**. Examples in scope:
+
+- National tax delinquency pardon programs (e.g. periodic tax amnesty laws for individual taxpayers)
+- Post-conflict / post-civil-unrest debt cancellation for affected individuals
+- Veteran debt cancellation acts
+- Individual loan amnesty under sovereign decree
+
+Examples **out of scope** (handle elsewhere):
+
+- HIPC / Paris Club sovereign debt restructuring (state-to-state)
+- Corporate Chapter 11 amnesty (legal person)
+- Brady Bond restructuring (sovereign + commercial creditor renegotiation)
+- Sovereign debt jubilee movements at the institutional level (Jubilee 2000 etc. — at the level of debt CLAIM ownership, individuals were the ultimate beneficiaries; but the YOBEL release is recorded against the natural-person debtor, not the sovereign issuer)
+
+Where the line gets fuzzy (e.g. a sole-proprietor's business debt where the proprietor IS the legal entity), default to natural-person treatment if the debtor's CouncilSBT `entityType=natural_person` claim holds.
+
 
 ## Lexicon (8 methods)
 

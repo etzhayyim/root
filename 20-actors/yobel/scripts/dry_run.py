@@ -62,7 +62,9 @@ class FakeCreditorEnrollment:
 @dataclass
 class FakeCouncilSbt:
     levels: dict[str, int] = field(default_factory=dict)
+    entity_types: dict[str, str] = field(default_factory=dict)
     def balance_of_level(self, did): return self.levels.get(did, 0)
+    def entity_type_of(self, did): return self.entity_types.get(did, "unknown")
 
 
 @dataclass
@@ -227,16 +229,23 @@ def wire_ports(rite_input: dict, creditor_inputs: list[dict]) -> YobelPorts:
         doctrinal_basis=rite_input["doctrinal_basis"],
     )
 
-    # Steward + creditors + community debtors get SBT Lv1+
+    # Steward + creditors + community debtors get SBT Lv1+ AND entity_type='natural_person'
+    # (legal-person entityType would trigger DMN R14 short-circuit per ADR-2605201800)
     ports.council_sbt.levels[rite_input["issuer_did"]] = 9
+    ports.council_sbt.entity_types[rite_input["issuer_did"]] = "natural_person"
     for cred in creditor_inputs:
         ports.council_sbt.levels[cred["creditor_did"]] = 2
+        ports.council_sbt.entity_types[cred["creditor_did"]] = "natural_person"
         ports.erc725.valid_signers.add((cred["creditor_did"], cred["signed_consent"]))
         for d in cred["debts"]:
             debtor = d["debtor_did"]
             if debtor.startswith("did:web:etzhayyim.com"):
                 # Set SBT for community debtors; one debtor is intentionally not set (debtor-no-sbt)
                 ports.council_sbt.levels.setdefault(debtor, 2)
+                ports.council_sbt.entity_types.setdefault(debtor, "natural_person")
+            elif debtor.startswith("did:web:secular.example"):
+                # secular foreigner: no SBT but still a natural person; R3 (community) will reject
+                ports.council_sbt.entity_types.setdefault(debtor, "natural_person")
             # Populate creditor-side ledger so cross-check finds them
             row = DebtRow(
                 debt_id=d["debt_id"],

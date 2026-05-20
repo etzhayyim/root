@@ -8,6 +8,77 @@ from yobel.cells.debtor_enrollment.cell import build_graph, run_eligibility_dmn
 from yobel.ports import DebtRow, Rite
 
 
+# ─── DMN R14: natural-person-only gate (highest-priority short-circuit) ──
+
+
+def test_dmn_r14_legal_person_sbt_rejects_all_rite_types():
+    """Even if SBT level is high and instruments are clean, legal_person entityType → R14 reject."""
+    for rite_type in ("shmita_7yr", "yobel_50yr", "tokusei_rei", "religious_jubilee", "political_amnesty"):
+        out = run_eligibility_dmn(
+            {
+                "debtor_sbt_level": 5,
+                "debtor_entity_type": "natural_person",        # declared OK
+                "debtor_sbt_entity_type": "legal_person",      # but SBT says legal_person
+                "debtor_community_member": True,
+                "rite_type": rite_type,
+                "rite_effective_date": "2026-09-26T00:00:00Z",
+                "rite_jurisdiction_scope": ["ALL"],
+                "debtor_jurisdiction_iso3": "JPN",
+                "matched_debts": [{"instrument": "loan", "origination_date": "2024-01-01T00:00:00Z"}],
+            }
+        )
+        assert out["eligible"] is False, f"R14 (legal_person SBT) failed for {rite_type}"
+        assert out["dmn_rule_fired"] == "R14"
+
+
+def test_dmn_r14_declared_legal_person_rejects():
+    """Declared debtorEntityType=legal_person → R14 reject (caller cannot lie)."""
+    out = run_eligibility_dmn(
+        {
+            "debtor_sbt_level": 5,
+            "debtor_entity_type": "legal_person",
+            "debtor_sbt_entity_type": "natural_person",
+            "debtor_community_member": True,
+            "rite_type": "shmita_7yr",
+            "rite_effective_date": "2026-09-26T00:00:00Z",
+            "rite_jurisdiction_scope": ["ALL"],
+            "matched_debts": [],
+        }
+    )
+    assert out["eligible"] is False
+    assert out["dmn_rule_fired"] == "R14"
+
+
+def test_dmn_r14_unset_entity_type_rejects():
+    """Missing entity_type (neither declared nor SBT) → R14 reject."""
+    out = run_eligibility_dmn(
+        {
+            "debtor_sbt_level": 5,
+            "debtor_community_member": True,
+            "rite_type": "shmita_7yr",
+            "rite_effective_date": "2026-09-26T00:00:00Z",
+            "rite_jurisdiction_scope": ["ALL"],
+            "matched_debts": [],
+        }
+    )
+    assert out["eligible"] is False
+    assert out["dmn_rule_fired"] == "R14"
+
+
+def test_dmn_r14_takes_priority_over_r12():
+    """Even with NO SBT, legal_person entityType → R14 fires first (not R12)."""
+    out = run_eligibility_dmn(
+        {
+            "debtor_sbt_level": 0,
+            "debtor_entity_type": "legal_person",
+            "debtor_sbt_entity_type": "legal_person",
+            "rite_type": "shmita_7yr",
+            "matched_debts": [],
+        }
+    )
+    assert out["dmn_rule_fired"] == "R14"
+
+
 # ─── DMN R12: SBT gate (short-circuit) ───────────────────────────────
 
 
@@ -16,6 +87,8 @@ def test_dmn_r12_no_sbt_rejects_all_rite_types():
         out = run_eligibility_dmn(
             {
                 "debtor_sbt_level": 0,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
                 "debtor_community_member": True,
                 "rite_type": rite_type,
                 "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -35,7 +108,9 @@ def test_dmn_r12_no_sbt_rejects_all_rite_types():
 def test_dmn_r13_prohibited_instrument_rejects(bad_instrument):
     out = run_eligibility_dmn(
         {
-            "debtor_sbt_level": 5,  # SBT OK
+            "debtor_sbt_level": 5,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",  # SBT OK
             "debtor_community_member": True,
             "rite_type": "shmita_7yr",
             "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -59,6 +134,8 @@ def test_dmn_r1_shmita_happy_path():
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": True,
             "rite_type": "shmita_7yr",
             "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -75,6 +152,8 @@ def test_dmn_r2_shmita_post_cycle_debt_rejects():
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": True,
             "rite_type": "shmita_7yr",
             "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -91,6 +170,8 @@ def test_dmn_r3_shmita_non_community_rejects():
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": False,  # Deut 15:3 foreigner exclusion
             "rite_type": "shmita_7yr",
             "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -110,6 +191,8 @@ def test_dmn_r4_yobel_happy_path():
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": True,
             "rite_type": "yobel_50yr",
             "rite_effective_date": "2074-01-01T00:00:00Z",
@@ -129,6 +212,8 @@ def test_dmn_r6_tokusei_in_jurisdiction_accepts():
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": False,  # tokusei doesn't require community
             "rite_type": "tokusei_rei",
             "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -145,6 +230,8 @@ def test_dmn_r7_tokusei_out_of_jurisdiction_rejects():
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": False,
             "rite_type": "tokusei_rei",
             "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -164,6 +251,8 @@ def test_dmn_r8_religious_jubilee_tithe_accepts():
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": True,
             "rite_type": "religious_jubilee",
             "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -180,6 +269,8 @@ def test_dmn_r9_religious_jubilee_monetary_debt_rejects():
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": True,
             "rite_type": "religious_jubilee",
             "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -195,16 +286,24 @@ def test_dmn_r9_religious_jubilee_monetary_debt_rejects():
 # ─── DMN R10-R11: political_amnesty ──────────────────────────────────
 
 
-def test_dmn_r10_political_amnesty_accepts():
+def test_dmn_r10_political_amnesty_accepts_individual_tax_amnesty():
+    """political_amnesty scope (post-natural-person-only amendment): mass amnesty for
+    individual debtors under sovereign decree (e.g. national tax delinquency pardon).
+    Sovereign / corporate debt restructuring is OUT of scope for yobel."""
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": False,
             "rite_type": "political_amnesty",
             "rite_effective_date": "2026-09-26T00:00:00Z",
             "rite_jurisdiction_scope": ["AFG"],
             "debtor_jurisdiction_iso3": "AFG",
-            "matched_debts": [{"instrument": "sovereign_bond", "origination_date": "2010-01-01T00:00:00Z"}],
+            "matched_debts": [
+                {"instrument": "tax_obligation", "origination_date": "2010-01-01T00:00:00Z"},
+                {"instrument": "loan", "origination_date": "2015-01-01T00:00:00Z"},
+            ],
         }
     )
     assert out["eligible"] is True
@@ -215,6 +314,8 @@ def test_dmn_r11_political_amnesty_out_of_scope_rejects():
     out = run_eligibility_dmn(
         {
             "debtor_sbt_level": 1,
+                "debtor_entity_type": "natural_person",
+                "debtor_sbt_entity_type": "natural_person",
             "debtor_community_member": False,
             "rite_type": "political_amnesty",
             "rite_effective_date": "2026-09-26T00:00:00Z",
@@ -240,6 +341,7 @@ def test_e2e_eligible_debtor_anchors_with_base_l2(
         issuer_did="did:web:etzhayyim.com", doctrinal_basis="Lev 25",
     )
     council_sbt.levels["did:web:etzhayyim.com:debtor1"] = 1
+    council_sbt.entity_types["did:web:etzhayyim.com:debtor1"] = "natural_person"
     creditor_enrollment_port.debts_by_debtor[
         ("shmita-5786", "did:web:etzhayyim.com:debtor1")
     ] = [
@@ -262,6 +364,7 @@ def test_e2e_eligible_debtor_anchors_with_base_l2(
         {
             "rite_id": "shmita-5786",
             "debtor_did": "did:web:etzhayyim.com:debtor1",
+            "debtor_entity_type": "natural_person",
             "eligibility_proof": "community-member-card-x123",
         },
         {"configurable": {"thread_id": "test-debtor-happy"}},

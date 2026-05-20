@@ -37,6 +37,7 @@ class DebtorEnrollmentState(TypedDict, total=False):
     # Input — from enrollDebtor lexicon
     rite_id: str
     debtor_did: str
+    debtor_entity_type: str  # MUST be "natural_person" — schema-enforced + R14 DMN gate
     eligibility_proof: str
 
     # Loaded rite + creditor context
@@ -49,6 +50,7 @@ class DebtorEnrollmentState(TypedDict, total=False):
     # Validation results
     input_valid: bool
     debtor_sbt_level: int
+    debtor_sbt_entity_type: str  # resolved from CouncilSBT entityType claim
     debtor_community_member: bool
     debtor_jurisdiction_iso3: str
 
@@ -138,6 +140,12 @@ def load_rite_context(state, rite_registry_port):
 def verify_debtor_sbt(state, council_sbt_port, charter_compliance_port):
     debtor = state.get("debtor_did", "")
     sbt = council_sbt_port.balance_of_level(debtor) if council_sbt_port else 0
+    # Resolve entityType claim from CouncilSBT (default 'unknown' so R14 rejects gracefully)
+    sbt_entity_type = (
+        council_sbt_port.entity_type_of(debtor)
+        if council_sbt_port and hasattr(council_sbt_port, "entity_type_of")
+        else "unknown"
+    )
     community = (
         debtor.startswith("did:web:etzhayyim.com")
         or (charter_compliance_port and charter_compliance_port.is_aligned(debtor))
@@ -147,6 +155,7 @@ def verify_debtor_sbt(state, council_sbt_port, charter_compliance_port):
     )
     return {
         "debtor_sbt_level": sbt,
+        "debtor_sbt_entity_type": sbt_entity_type,
         "debtor_community_member": community,
         "debtor_jurisdiction_iso3": jurisdiction,
     }
@@ -177,8 +186,10 @@ def cross_check_creditor_enrollments(state, creditor_enrollment_port):
 
 
 def run_eligibility_dmn(state):
-    """FIRST-hit DMN per dmn/eligibility-by-rite-type.md. R12+R13 short-circuit."""
+    """FIRST-hit DMN per dmn/eligibility-by-rite-type.md. R14+R12+R13 short-circuit."""
     sbt = state.get("debtor_sbt_level", 0)
+    sbt_entity_type = state.get("debtor_sbt_entity_type", "unknown")
+    declared_entity_type = state.get("debtor_entity_type", "")
     community = state.get("debtor_community_member", False)
     rite_type = state.get("rite_type")
     effective = state.get("rite_effective_date", "")
@@ -186,6 +197,20 @@ def run_eligibility_dmn(state):
     jurisdiction = state.get("debtor_jurisdiction_iso3", "")
     in_scope = ("ALL" in scope) or (jurisdiction in scope)
     debts = state.get("matched_debts", [])
+
+    # R14 — global natural-person-only gate (short-circuit; highest priority).
+    # yobel releases debt for individuals only (自然人). Legal-person debt is out of scope.
+    # Both the declared entity type (from lexicon input) and the resolved CouncilSBT
+    # entityType claim MUST be 'natural_person'.
+    if declared_entity_type != "natural_person" or sbt_entity_type != "natural_person":
+        return {
+            "eligible": False,
+            "dmn_rule_fired": "R14",
+            "dmn_reasons": [
+                f"debtor is not a natural person (declared={declared_entity_type or 'unset'}, "
+                f"sbt_claim={sbt_entity_type}). yobel releases debt for individuals only; legal-person debt is out of scope."
+            ],
+        }
 
     # R12 — global SBT gate (short-circuit)
     if sbt < 1:
@@ -213,9 +238,7 @@ def run_eligibility_dmn(state):
         pre_cycle = all(d.get("origination_date", "") < effective for d in debts) if debts else True
         if not pre_cycle:
             return {"eligible": False, "dmn_rule_fired": "R2", "dmn_reasons": ["shmita: debt originated after cycle start — not within sabbatical horizon"]}
-        non_sovereign = all(d.get("instrument") not in ("sovereign_bond", "tithe_obligation") for d in debts) if debts else True
-        if not non_sovereign:
-            return {"eligible": False, "dmn_rule_fired": "R1-instrument", "dmn_reasons": ["shmita: sovereign / tithe obligations excluded"]}
+        # Note: sovereign_bond / corporate_bond can no longer appear here (lexicon enum dropped them + R13/R14 short-circuit upstream)
         return {"eligible": True, "dmn_rule_fired": "R1", "dmn_reasons": ["shmita: community member + pre-cycle debt"]}
 
     if rite_type == "yobel_50yr":
@@ -228,10 +251,8 @@ def run_eligibility_dmn(state):
     if rite_type == "tokusei_rei":
         if not in_scope:
             return {"eligible": False, "dmn_rule_fired": "R7", "dmn_reasons": ["tokusei: outside declared jurisdiction scope"]}
-        non_sovereign = all(d.get("instrument") not in ("sovereign_bond", "corporate_bond") for d in debts) if debts else True
-        if non_sovereign:
-            return {"eligible": True, "dmn_rule_fired": "R6", "dmn_reasons": ["tokusei: jurisdiction match + non-sovereign debt"]}
-        return {"eligible": False, "dmn_rule_fired": "R6-instrument", "dmn_reasons": ["tokusei: sovereign / corporate bonds excluded"]}
+        # sovereign_bond / corporate_bond filter removed — lexicon enum already excludes them
+        return {"eligible": True, "dmn_rule_fired": "R6", "dmn_reasons": ["tokusei: jurisdiction match (natural-person debt only per ADR-2605201800)"]}
 
     if rite_type == "religious_jubilee":
         if not community:
@@ -243,8 +264,12 @@ def run_eligibility_dmn(state):
 
     if rite_type == "political_amnesty":
         if not in_scope:
-            return {"eligible": False, "dmn_rule_fired": "R11", "dmn_reasons": ["political amnesty: outside declared sovereign scope"]}
-        return {"eligible": True, "dmn_rule_fired": "R10", "dmn_reasons": ["political amnesty: sovereign decree referenced + jurisdiction match"]}
+            return {"eligible": False, "dmn_rule_fired": "R11", "dmn_reasons": [
+                "political amnesty: outside declared sovereign scope. Note: yobel political_amnesty handles MASS AMNESTY FOR INDIVIDUAL DEBTORS only — sovereign/corporate debt restructuring is out of scope (ADR-2605201800)"
+            ]}
+        return {"eligible": True, "dmn_rule_fired": "R10", "dmn_reasons": [
+            "political amnesty: sovereign decree referenced + jurisdiction match (mass amnesty for natural-person debtors — e.g. tax delinquency pardon)"
+        ]}
 
     return {"eligible": False, "dmn_rule_fired": "fallthrough", "dmn_reasons": [f"unknown riteType: {rite_type}"]}
 

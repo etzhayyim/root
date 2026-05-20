@@ -128,6 +128,13 @@ class CreditorEnrollmentPort(Protocol):
 @runtime_checkable
 class CouncilSbtPort(Protocol):
     def balance_of_level(self, did: str) -> int: ...
+    def entity_type_of(self, did: str) -> str:
+        """Return the SBT entityType claim: 'natural_person' / 'legal_person' / 'unknown'.
+
+        Per ADR-2605201800: yobel debtor_enrollment DMN R14 short-circuits to ineligible if this
+        is not 'natural_person'. Implementations resolve from on-chain CouncilSBT metadata.
+        """
+        ...
 
 
 @runtime_checkable

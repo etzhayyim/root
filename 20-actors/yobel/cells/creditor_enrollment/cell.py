@@ -27,9 +27,6 @@ from langgraph.checkpoint.base import BaseCheckpointSaver
 Instrument = Literal[
     "loan",
     "promissory_note",
-    "sovereign_bond",
-    "corporate_bond",
-    "margin_call",
     "mortgage",
     "trade_receivable",
     "tax_obligation",
@@ -37,7 +34,10 @@ Instrument = Literal[
     "other",
 ]
 
-PROHIBITED_INSTRUMENTS = frozenset({"margin_call"})  # liquidation / seizure also prohibited via schema enum
+# Both lists are schema-excluded too; cell-level set is defense-in-depth.
+PROHIBITED_INSTRUMENTS = frozenset({"margin_call", "liquidation", "seizure"})
+# Legal-person-only debt classes (yobel is natural-person-only — see ADR-2605201800).
+LEGAL_PERSON_ONLY_INSTRUMENTS = frozenset({"sovereign_bond", "corporate_bond"})
 
 
 class DebtItem(TypedDict, total=False):
@@ -201,12 +201,19 @@ def historical_record_gate(state):
 
 
 def instrument_safety_gate(state):
-    """Reject Charter Rider §2(b) prohibited instruments (defense in depth, lexicon already excludes)."""
+    """Reject (a) Charter Rider §2(b) prohibited instruments and (b) legal-person-only
+    instruments (yobel is natural-person-only — see ADR-2605201800). Defense in depth,
+    lexicon already excludes both classes from its enum."""
     violations: list[str] = []
     for i, d in enumerate(state.get("debts", [])):
         inst = d.get("instrument", "")
         if inst in PROHIBITED_INSTRUMENTS:
             violations.append(f"debts[{i}].instrument={inst} prohibited by Charter Rider §2(b)")
+        if inst in LEGAL_PERSON_ONLY_INSTRUMENTS:
+            violations.append(
+                f"debts[{i}].instrument={inst} is a legal-person-only instrument; "
+                "yobel is natural-person-only (ADR-2605201800)"
+            )
     return {
         "instrument_safety_compliant": len(violations) == 0,
         "instrument_violations": violations,

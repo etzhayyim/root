@@ -96,15 +96,13 @@
           "enum": [
             "loan",
             "promissory_note",
-            "sovereign_bond",
-            "corporate_bond",
-            "margin_call",
             "mortgage",
             "trade_receivable",
             "tax_obligation",
             "tithe_obligation",
             "other"
-          ]
+          ],
+          "description": "Debt instrument the natural-person debtor owes. **sovereign_bond and corporate_bond intentionally excluded** — those are legal-person obligations and yobel is natural-person-only. margin_call also excluded (Charter Rider §2(b))."
         }
       }
     }

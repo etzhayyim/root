@@ -45,6 +45,14 @@ import {YobelRiteRegistry} from "./YobelRiteRegistry.sol";
  *      (XChaCha20-Poly1305 envelope per ADR-2605181100). On-chain witnesses
  *      can verify the hash given the plaintext from authorized decryption.
  *
+ *      **Natural-person-only invariant**: yobel releases debt for individuals
+ *      (自然人) only. Legal-person debt (sovereign / corporate restructuring)
+ *      is out of scope. This invariant is enforced off-chain by the
+ *      debtor_enrollment cell DMN R14 short-circuit. The contract does NOT
+ *      hold an entityType field — keeping it off-chain reduces gas + storage
+ *      cost and keeps the invariant under cell-level governance where it can
+ *      be amended via ADR rather than redeploying contracts.
+ *
  *      Cross-link to bankruptcy.gftd.ai (vendor): off-chain pipeline can
  *      attach this {YobelReleaseRegistry} contract address + releaseId hash
  *      to a `bankruptcyCase.parallelReleases[]` field on vendor side to
