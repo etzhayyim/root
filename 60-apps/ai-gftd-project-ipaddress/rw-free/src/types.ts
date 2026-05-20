@@ -329,3 +329,60 @@ export interface ListPrefixesOutput {
   cursor?: string;
   total: number;
 }
+
+// ─── Topology tier (slice 6) ────────────────────────────────────────
+
+export interface GetDelegationChainInput {
+  asnNumber: number;
+}
+
+export interface DelegationChainOutput {
+  chain?: {
+    rir?: Rir;
+    provider?: ProviderRecord;
+    asn: AsnRecord;
+  };
+  error?: string;
+}
+
+export interface GetIpTopologyInput {
+  address?: string;
+}
+
+export interface GetIpTopologyOutput {
+  topology?: {
+    ip: IpRecord;
+    prefix?: PrefixRecord;
+    asn?: AsnRecord;
+    provider?: ProviderRecord;
+    rir?: Rir;
+  };
+  error?: string;
+}
+
+export interface PeeringRecord {
+  /** Lower-numbered ASN (canonical ordering). */
+  fromAsn: number;
+  /** Higher-numbered ASN. */
+  toAsn: number;
+  relationship?: "peer" | "provider" | "customer";
+  observedAt?: string;
+}
+
+export interface GetPeeringInput {
+  asnNumber: number;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface PeeringView extends PeeringRecord {
+  peeringUri: string;
+  neighborAsn: number;
+}
+
+export interface GetPeeringOutput {
+  asnNumber?: number;
+  peers?: PeeringView[];
+  cursor?: string;
+  error?: string;
+}

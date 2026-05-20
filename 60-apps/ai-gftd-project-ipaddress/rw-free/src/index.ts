@@ -29,3 +29,8 @@ export {
   listProviders,
   listPrefixes,
 } from "./search.js";
+export {
+  getDelegationChain,
+  getIpTopology,
+  getPeering,
+} from "./topology.js";
