@@ -25,3 +25,9 @@ export {
   registerVulnMatch,
   listVulnMatches,
 } from "./vulnRegistry.js";
+export {
+  registerPatchPolicy,
+  registerPatchAction,
+  getBlastRadius,
+  DEFAULT_SLA_HOURS,
+} from "./patchRegistry.js";

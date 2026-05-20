@@ -270,3 +270,98 @@ export interface ListVulnMatchesOutput {
   cursor?: string;
   total: number;
 }
+
+// ─── Patch tier (slice 3) ───────────────────────────────────────────
+
+export interface PatchPolicyRecord {
+  did: string;
+  policyId: string;
+  name: string;
+  appDid?: string;
+  slaHoursCritical: number;
+  slaHoursHigh: number;
+  slaHoursMedium: number;
+  slaHoursLow: number;
+  autoDecide: boolean;
+  notes?: string;
+  createdAt: string;
+}
+
+export interface RegisterPatchPolicyInput {
+  policyId: string;
+  name: string;
+  appDid?: string;
+  slaHoursCritical?: number;
+  slaHoursHigh?: number;
+  slaHoursMedium?: number;
+  slaHoursLow?: number;
+  autoDecide?: boolean;
+  notes?: string;
+}
+
+export interface RegisterPatchPolicyOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  patchPolicyUri?: string;
+  did?: string;
+  policyId?: string;
+  error?: string;
+}
+
+export type PatchDecision =
+  | "proposed"
+  | "approved"
+  | "rejected"
+  | "applied"
+  | "rolled-back";
+
+export interface PatchActionRecord {
+  did: string;
+  actionId: string;
+  vulnMatchDid: string;
+  policyDid?: string;
+  proposedVersion: string;
+  decision: PatchDecision;
+  decisionAt?: string;
+  decisionBy?: string;
+  appliedAt?: string;
+  /** 0-1000 (permille) — rollout percentage at time of apply. */
+  rolloutPercent?: number;
+  notes?: string;
+  createdAt: string;
+}
+
+export interface RegisterPatchActionInput {
+  actionId: string;
+  vulnMatchDid: string;
+  policyDid?: string;
+  proposedVersion: string;
+  decision?: PatchDecision;
+  decisionAt?: string;
+  decisionBy?: string;
+  appliedAt?: string;
+  rolloutPercent?: number;
+  notes?: string;
+}
+
+export interface RegisterPatchActionOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  patchActionUri?: string;
+  did?: string;
+  actionId?: string;
+  error?: string;
+}
+
+export interface GetBlastRadiusInput {
+  cveId: string;
+  maxScan?: number;
+}
+
+export interface BlastRadiusOutput {
+  cveId?: string;
+  matchCount?: number;
+  affectedArtifactDids?: string[];
+  affectedAppDids?: string[];
+  affectedPurls?: Purl[];
+  truncated?: boolean;
+  error?: string;
+}
