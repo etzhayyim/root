@@ -135,6 +135,10 @@ db-tools = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[project.scripts]
+# magatama-cell-runner — Murakumo fleet cell daemon entrypoint (ADR-2605192415 §7.1)
+magatama-cell-runner = "pymagatama.cell_runner_main:main"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/pymagatama"]
 

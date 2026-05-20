@@ -70,8 +70,8 @@ The Worker enforces these as `const: true` from the Lexicon schema.
 
 ```bash
 cd 60-apps/open-otology-uhl-r/worker
-gftd build
-gftd deploy
+e7m actor build .
+e7m actor deploy .
 ```
 
 ## Test

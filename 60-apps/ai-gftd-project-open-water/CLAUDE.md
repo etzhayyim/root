@@ -42,5 +42,5 @@ operations (meter readings, leak reports, water quality samples). Apache-2.0.
 ```bash
 cd 60-apps/ai-gftd-project-open-water/worker
 wrangler d1 create ai-gftd-open-water
-gftd deploy
+e7m actor deploy .
 ```

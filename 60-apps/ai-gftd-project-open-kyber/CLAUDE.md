@@ -135,12 +135,12 @@ ERP write (createJournalEntry etc.)
 # ERP
 cd 60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp
 pnpm install
-gftd deploy
+e7m actor deploy .
 
 # Projector
 cd 60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-projector-kyb3proj
 pnpm install
-gftd deploy
+e7m actor deploy .
 ```
 
 ## Svelte SPA

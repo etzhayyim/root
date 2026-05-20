@@ -234,13 +234,7 @@ async function getAuthToken() {
   // 1. Env var
   if (process.env.BEARER_TOKEN) return process.env.BEARER_TOKEN;
 
-  // 2. gftd auth token
-  try {
-    const token = execSync("gftd auth token 2>/dev/null", { encoding: "utf8" }).trim();
-    if (token && token.length > 20) return token;
-  } catch { /* ignore */ }
-
-  // 3. createSession
+  // 2. createSession
   if (process.env.PDS_HANDLE && process.env.PDS_PASSWORD) {
     const resp = await fetch(`${PDS_URL}/xrpc/com.atproto.server.createSession`, {
       method: "POST",

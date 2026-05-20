@@ -91,20 +91,12 @@ holds chaindata across rollouts.
     `SEALER_ADDRESS`, `SEALER_PASSWORD`, `SEALER_KEYSTORE`. iCloud
     Keychain syncs across the user's Apple devices.
     Read back: `security find-generic-password -s "gftd.private-chain" -a "SEALER_PRIV" -w`
-  - **Team backup (manual followup)**: after `gftd authn signin`, run
-    ```bash
-    cd 50-infra/vultr/geth-private
-    gftd vault create gftd-private-chain --description "gftd 260425 sealer key + keystore"
-    VAULT_ID=$(gftd vault list | awk '/gftd-private-chain/ {print $1}' | head -1)
-    gftd vault add "$VAULT_ID" sealer.priv          --file .local-secrets/sealer.priv
-    gftd vault add "$VAULT_ID" sealer.address       --file .local-secrets/sealer.address
-    gftd vault add "$VAULT_ID" sealer.password      --file .local-secrets/sealer.password
-    gftd vault add "$VAULT_ID" sealer-keystore.json --file .local-secrets/sealer-keystore.json
-    gftd vault share "$VAULT_ID" --member-did <co-owner-did> --role admin
-    ```
-    The Vault store is zero-knowledge (server holds only ciphertext) so
-    losing the local keychain + the working copy still leaves the team
-    backup. Loss of all three = unrecoverable chain.
+  - **Team backup (manual followup)**: the previous `gftd vault` workflow
+    was removed along with the gftd CLI (2026-05-20). Until a replacement
+    lands, mirror the sealer secrets to 1Password manually (per repo-root
+    `CLAUDE.md` "Do not commit secrets" rule). macOS Keychain + 1Password
+    mirror is the canonical local + team backup pair. Loss of both =
+    unrecoverable chain.
 - **Sealer balance**: pre-funded to `0x2 * 10^60` wu (~ 10^41 NETH-equiv).
   More than enough for gas across deploys + contract bootstraps. The sealer
   also receives priority fees but `--miner.tipthreshold` is at default (no
@@ -148,9 +140,11 @@ kubectl -n geth-private exec -it geth-private-0 -- geth attach /data/geth.ipc
 - **authz Worker** (`60-apps/ai-gftd-project-auth/worker-authz/`) — chainId
   `ETH_PRIVATE_CHAIN_ID=260425`, RPC `ETH_PRIVATE_RPC_URL=https://geth.gftd.ai`.
   `getActorAccount` XRPC reads `GftdActorRegistry.actorByDid` via eth_call.
-- **gftd CLI** (`70-tools/gftd/gftd/eth_deploy_receipt.go`) — emits
+- **gftd CLI** (removed 2026-05-20) — previously emitted
   `DeployRegistry.recordDeploy` per `gftd deploy` via `cast send` against
-  `https://geth.gftd.ai`, signed with the SEALER_PRIV held in macOS Keychain.
+  `https://geth.gftd.ai`, signed with SEALER_PRIV from macOS Keychain. Until
+  a replacement lands (e.g. `e7m chain deploy-receipt`), the recordDeploy
+  side-effect must be issued manually with `cast send`.
 - **Phase 2 contracts** are deployed via the Foundry project at
   `50-infra/vultr/geth-private/contracts/`. Local development uses
   `kubectl -n geth-private port-forward svc/geth-private 18545:8545` and

@@ -12,7 +12,6 @@ depends_on:
   - 2605172800-geth-private-migration-to-etzhayyim.md
   - 2605182312-local-bring-up-murakumo-gemma4.md
 related:
-  - 2605172900-gftd-followup-cutover-policy.md
   - 2605191229-ameno-daemon-path-a-bun-langgraph.md
   - 2605191257-ameno-daemon-path-b-pymagatama-python.md
 supersedes:
@@ -73,7 +72,7 @@ User mandate(2026-05-19):
 | `60-apps/ai-gftd-project-*` | etzhayyim app(legacy 名前は移行中) | ❌ |
 | `20-actors/*` | etzhayyim Python/TS package | ❌ |
 
-`50-infra/vultr/` ディレクトリは **将来別 repo(`gftd-co-jp/legacy-vultr-manifests` 等)に物理分離**することを follow-up タスクとして登録(本 ADR 内では rename しない、cutover policy ADR-2605172900 の延長で実施)。
+`50-infra/vultr/` ディレクトリは **将来別 repo(`gftd-co-jp/legacy-vultr-manifests` 等)に物理分離**することを follow-up タスクとして登録(本 ADR 内では rename しない、repo-root `CLAUDE.md` Step 8 cutover の一部として実施)。
 
 ### 3. Control plane choice — primary / secondary
 
@@ -193,7 +192,6 @@ deadline 不達時は対応 ADR 起草で説明責任。
 - ADR-2605172000(RW-free substrate — 本 ADR が "K8s-cloud-free" を追加)
 - ADR-2605172800-geth-private-migration-to-etzhayyim(Option C を本 ADR で確定)
 - ADR-2605182312(Murakumo Mac-mini bring-up)
-- ADR-2605172900(gftd → etzhayyim cutover policy)
 - ADR-2605191229 / 2605191257(ameno daemon Path A/B — K8s-free reference impl)
 - ADR-2605191135(Tier-2 daemon residency)
 - K3s docs: <https://docs.k3s.io>

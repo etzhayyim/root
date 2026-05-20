@@ -69,6 +69,7 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 | [2605202000](./2605202000-etzhayyim-energy-substrate.md) | etzhayyim Energy Substrate — solar + storage + microgrid first; SMR deferred; open-hardware mandatory; 3-phase scale (§1.3 mission implementation) | proposed | 2026-05-20 |
 | [2605202015](./2605202015-etzhayyim-robotics-first-industry-agriculture.md) | etzhayyim Robotics First-Industry — Agriculture selected over logistics/construction/care/manufacturing (§1.4 mission, FarmBot fork, Land trust integration) | proposed | 2026-05-20 |
 | [2605202030](./2605202030-etzhayyim-tithe-router-v1-create2.md) | TitheRouter v1 — CREATE2 sequencing で Constitution.getMutable 経由 publicFund 読み出しを実現 (post-mainnet migration) | proposed | 2026-05-20 |
+| [2605202100](./2605202100-etzhayyim-magatama-cell-runner-launchd.md) | magatama-cell-runner launchd LaunchAgent (operationalising Tier 1 常駐稼働 on Murakumo fleet; pyproject `[project.scripts]` entry + plist template + idempotent installer + per-node `--health` smoke; closes spec → OS-level boot path gap) | proposed | 2026-05-20 |
 
 (Future ADRs added here as they're authored.)
 

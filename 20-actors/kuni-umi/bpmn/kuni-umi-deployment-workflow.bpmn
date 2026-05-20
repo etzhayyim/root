@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  kuni-umi 4-phase deployment workflow.
+  Per ADR-2605201400 §3.
+  Scaffold only — full BPMN 2.0 XML semantics to be authored once cell.py
+  entrypoints exist (S1+).
+-->
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  targetNamespace="https://etzhayyim.com/bpmn/kuni-umi"
+                  id="kuniUmiDeployment">
+
+  <bpmn:process id="kuniUmiDeploymentProcess" isExecutable="false" name="kuni-umi 4-phase deployment">
+
+    <!-- Phase 0 — gate (synchronous DMN at defineDeploymentSite) -->
+    <bpmn:startEvent id="evtDefineSite" name="defineDeploymentSite (Lexicon)">
+      <bpmn:outgoing>flow1</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:businessRuleTask id="dmnJurisdictionEligibility"
+                           name="DMN: jurisdiction-eligibility"
+                           implementation="../dmn/jurisdiction-eligibility.md">
+      <bpmn:incoming>flow1</bpmn:incoming>
+      <bpmn:outgoing>flow2</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+
+    <bpmn:exclusiveGateway id="gwGate" name="accepted?" default="flowReject">
+      <bpmn:incoming>flow2</bpmn:incoming>
+      <bpmn:outgoing>flowAccept</bpmn:outgoing>
+      <bpmn:outgoing>flowReject</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:endEvent id="evtRejected" name="site rejected">
+      <bpmn:incoming>flowReject</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- Phase 1 — Survey -->
+    <bpmn:serviceTask id="cellSurvey" name="SiteSurveyCell (Phase 1, leader=naphtali)">
+      <bpmn:incoming>flowAccept</bpmn:incoming>
+      <bpmn:outgoing>flow3</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:intermediateThrowEvent id="evtSubmitSurvey" name="submitSiteSurvey (Lexicon)">
+      <bpmn:incoming>flow3</bpmn:incoming>
+      <bpmn:outgoing>flow4</bpmn:outgoing>
+    </bpmn:intermediateThrowEvent>
+
+    <!-- Phase 2 — Plan -->
+    <bpmn:serviceTask id="cellPlan" name="DeploymentPlanningCell (Phase 2, leader=zebulun)">
+      <bpmn:incoming>flow4</bpmn:incoming>
+      <bpmn:outgoing>flow5</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:businessRuleTask id="dmnProportionality" name="DMN: proportionality-check">
+      <bpmn:incoming>flow5</bpmn:incoming>
+      <bpmn:outgoing>flow6</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+
+    <bpmn:exclusiveGateway id="gwGov" name="requires governance?">
+      <bpmn:incoming>flow6</bpmn:incoming>
+      <bpmn:outgoing>flowGovYes</bpmn:outgoing>
+      <bpmn:outgoing>flowGovNo</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:userTask id="govVote" name="1 SBT = 1 vote (or Extended Sovereignty / Force Authorization)">
+      <bpmn:incoming>flowGovYes</bpmn:incoming>
+      <bpmn:outgoing>flowGovDone</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:exclusiveGateway id="gwJoinAfterVote">
+      <bpmn:incoming>flowGovDone</bpmn:incoming>
+      <bpmn:incoming>flowGovNo</bpmn:incoming>
+      <bpmn:outgoing>flow7</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:intermediateThrowEvent id="evtProposePlan" name="proposeDeploymentPlan (Lexicon)">
+      <bpmn:incoming>flow7</bpmn:incoming>
+      <bpmn:outgoing>flow8</bpmn:outgoing>
+    </bpmn:intermediateThrowEvent>
+
+    <!-- Phase 3 — Construct (loop, with witness boundary at each super-step) -->
+    <bpmn:serviceTask id="cellConstruct" name="ConstructionOrchestrationCell (Phase 3, leader=joseph)">
+      <bpmn:incoming>flow8</bpmn:incoming>
+      <bpmn:outgoing>flow9</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- AuditWitnessCell is continuous; here shown as a boundary observer -->
+    <bpmn:serviceTask id="cellWitness" name="AuditWitnessCell (continuous, leader=levi)">
+      <bpmn:incoming>flow8</bpmn:incoming>
+    </bpmn:serviceTask>
+
+    <bpmn:intermediateThrowEvent id="evtConstructionProgress" name="recordConstructionProgress (Lexicon, streamed)">
+      <bpmn:incoming>flow9</bpmn:incoming>
+      <bpmn:outgoing>flow10</bpmn:outgoing>
+    </bpmn:intermediateThrowEvent>
+
+    <!-- Phase 4 — Commission -->
+    <bpmn:serviceTask id="cellCommission" name="CommissioningCell (Phase 4, leader=simeon)">
+      <bpmn:incoming>flow10</bpmn:incoming>
+      <bpmn:outgoing>flow11</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="evtCommissioned" name="commissionDeployment (Lexicon)  → open-ot takes over">
+      <bpmn:incoming>flow11</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- Sequence flows -->
+    <bpmn:sequenceFlow id="flow1" sourceRef="evtDefineSite" targetRef="dmnJurisdictionEligibility"/>
+    <bpmn:sequenceFlow id="flow2" sourceRef="dmnJurisdictionEligibility" targetRef="gwGate"/>
+    <bpmn:sequenceFlow id="flowAccept" sourceRef="gwGate" targetRef="cellSurvey">
+      <bpmn:conditionExpression>accepted=true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="flowReject" sourceRef="gwGate" targetRef="evtRejected"/>
+    <bpmn:sequenceFlow id="flow3" sourceRef="cellSurvey" targetRef="evtSubmitSurvey"/>
+    <bpmn:sequenceFlow id="flow4" sourceRef="evtSubmitSurvey" targetRef="cellPlan"/>
+    <bpmn:sequenceFlow id="flow5" sourceRef="cellPlan" targetRef="dmnProportionality"/>
+    <bpmn:sequenceFlow id="flow6" sourceRef="dmnProportionality" targetRef="gwGov"/>
+    <bpmn:sequenceFlow id="flowGovYes" sourceRef="gwGov" targetRef="govVote">
+      <bpmn:conditionExpression>requiresGovernance=true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="flowGovNo" sourceRef="gwGov" targetRef="gwJoinAfterVote">
+      <bpmn:conditionExpression>requiresGovernance=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="flowGovDone" sourceRef="govVote" targetRef="gwJoinAfterVote"/>
+    <bpmn:sequenceFlow id="flow7" sourceRef="gwJoinAfterVote" targetRef="evtProposePlan"/>
+    <bpmn:sequenceFlow id="flow8" sourceRef="evtProposePlan" targetRef="cellConstruct"/>
+    <bpmn:sequenceFlow id="flow9" sourceRef="cellConstruct" targetRef="evtConstructionProgress"/>
+    <bpmn:sequenceFlow id="flow10" sourceRef="evtConstructionProgress" targetRef="cellCommission"/>
+    <bpmn:sequenceFlow id="flow11" sourceRef="cellCommission" targetRef="evtCommissioned"/>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -227,7 +227,7 @@ Every BigQuery-backed ingest must use dry-run/query validation,
 available, TTL'd staging tables, and `allowed_for_train=false` until license and
 PII policy gates pass.
 
-gftd world-coverage mapping (2026-05-10 review):
+world-coverage mapping (formerly driven by `gftd world-coverage`, CLI removed 2026-05-20; 2026-05-10 review):
 
 - BigQuery public-data covers ~17 `dim_world_domain` app_hosts: `patent`,
   `blockchain`, `weather`, `iryo` (subset), `iryo-genomics`, `maps`, `gov` (US

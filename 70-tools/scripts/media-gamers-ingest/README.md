@@ -21,7 +21,7 @@ KUBECONFIG=50-infra/linode/risingwave-iceberg/kubeconfig.yaml \
   kubectl top pod risingwave-compute-0 -n risingwave
 
 # Run importer
-GFTD_TOKEN=$(gftd agent-token --lxm ai.gftd.apps.media_gamers.knowledge.publishPokemon) \
+BEARER_TOKEN=<your-pds-jwt> \
   node 70-tools/scripts/media-gamers-ingest/pokedex.mjs \
   --game pokemon-legends-z-a \
   --start 1 --end 50

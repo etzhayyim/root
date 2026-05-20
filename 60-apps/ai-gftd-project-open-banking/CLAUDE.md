@@ -50,7 +50,7 @@ wrangler dev --local
 ```bash
 cd 60-apps/ai-gftd-project-open-banking/worker
 # ensure AUTH_SERVICE + PDS service bindings exist, D1 id set
-gftd deploy     # standard monorepo deploy
+e7m actor deploy .   # standard monorepo deploy
 # or: wrangler deploy (standalone OSS mode)
 ```
 

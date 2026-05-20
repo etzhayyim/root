@@ -22,20 +22,22 @@ cell_key_rotation_period_days = 90
 [[nodes]]
 name = "naphtali"
 hostname = "naphtalinomac-mini.local"
-role = "charter-compliance-leader"
+role = "charter-compliance-leader + kuni-umi-survey-leader"
 cells = [
   "CharterAttestationRequestCell",
   "CharterAttestationFinalizationCell",
   "CharterRehabilitationCell",
+  "SiteSurveyCell",  # kuni-umi Phase 1 (ADR-2605201400)
 ]
 replicas_of = []
 
 [[nodes]]
 name = "simeon"
 hostname = "simeonnomac-mini.local"
-role = "ipfs-pinner + stewardship-leader"
+role = "ipfs-pinner + stewardship-leader + kuni-umi-commission-leader"
 cells = [
   "LandStewardshipMonitoringCell",
+  "CommissioningCell",  # kuni-umi Phase 4 (ADR-2605201400)
 ]
 infrastructure = ["ipfs-pinner (existing, ADR-2605171800)"]
 replicas_of = []
@@ -54,32 +56,35 @@ replicas_of = []
 [[nodes]]
 name = "zebulun"
 hostname = "zebulunnomac-mini.local"
-role = "economic-leader"
+role = "economic-leader + kuni-umi-planning-leader"
 cells = [
   "EligibilityCell",
   "TreasuryRebalanceCell",
   "PublicFundGrantCell",
   "TitheRoutingCell",
+  "DeploymentPlanningCell",  # kuni-umi Phase 2 (ADR-2605201400) — treasury-adjacent for BoM cost
 ]
 replicas_of = []
 
 [[nodes]]
 name = "levi"
 hostname = "levinomac-mini.local"
-role = "membership + council orchestration"
+role = "membership + council orchestration + kuni-umi-audit-leader"
 cells = [
   "AdherentAttestationCell",
   "CouncilLevelAdvancementCell",
   "CouncilDeliberationCell",  # generic, multi-instance per attestation
+  "AuditWitnessCell",  # kuni-umi continuous robot-witness audit (ADR-2605201400 §9)
 ]
 replicas_of = []
 
 [[nodes]]
 name = "joseph"
 hostname = "josephnomac-mini.local"
-role = "phenotype-agent-shard-0"
+role = "phenotype-agent-shard-0 + kuni-umi-construction-leader"
 cells = [
   "PhenotypeAgent",  # SBT tokenId range 0 to N/3
+  "ConstructionOrchestrationCell",  # kuni-umi Phase 3 (ADR-2605201400)
 ]
 shard_index = 0
 total_shards = 3
@@ -99,9 +104,10 @@ replicas_of = []
 [[nodes]]
 name = "dan"
 hostname = "dannomac-mini.local"
-role = "phenotype-agent-shard-2"
+role = "phenotype-agent-shard-2 + kuni-umi-decommission-leader"
 cells = [
   "PhenotypeAgent",  # SBT tokenId range 2N/3 to N
+  "DecommissionCell",  # kuni-umi end-of-life (ADR-2605201400)
 ]
 shard_index = 2
 total_shards = 3
@@ -246,6 +252,53 @@ adr = ["2605172600", "2605192300"]
 healthz_port_base = 15000  # per-instance, dynamic
 trigger = "mst-listener + escalation from other cells"
 adr = ["2605192230", "2605192300"]
+
+# ─── kuni-umi cells (ADR-2605201400) ────────────────────────────────
+
+[cells.SiteSurveyCell]
+healthz_port = 13017
+trigger = "mst-listener"
+listens_to = ["ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite"]
+adr = ["2605201400", "2605192245", "2605192330", "2605192200", "2605192230"]
+witness_min = 2  # constitutional invariant (ADR-2605201400 §9)
+
+[cells.DeploymentPlanningCell]
+healthz_port = 13018
+trigger = "mst-listener"
+listens_to = ["ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey"]
+adr = ["2605201400", "2605171300", "2605172100", "2605192130", "2605192200", "2605192230"]
+unispsc_fleet_adr = "2605171300"  # invoked as specialist sub-graph
+
+[cells.ConstructionOrchestrationCell]
+healthz_port = 13019
+trigger = "mst-listener"
+listens_to = ["ai.gftd.apps.etzhayyim.kuniUmi.proposeDeploymentPlan"]
+adr = ["2605201400", "2605151200"]
+cadence_hz_max = 10  # NEVER drive hard-RT motion; firmware owns that (ADR-2605201400 §3 Phase 3 + §10)
+witness_min = 2  # per super-step boundary
+
+[cells.CommissioningCell]
+healthz_port = 13020
+trigger = "mst-listener"
+listens_to = ["ai.gftd.apps.etzhayyim.kuniUmi.recordConstructionProgress"]
+listens_to_phase = "handoff-ready"
+adr = ["2605201400", "2605151200"]
+hands_off_to = "open-ot WASM PLC (defineLoop)"
+
+[cells.AuditWitnessCell]
+healthz_port = 13021
+trigger = "continuous + super-step boundary + event-driven"
+listens_to = ["ai.gftd.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent"]
+adr = ["2605201400", "2605192230", "2605192315", "2605191657"]
+witness_min = 2  # constitutional invariant — NEVER reduce
+phenotype_feedback = true  # writes Phenotype.effectiveMultiplier delta (ADR-2605192230)
+
+[cells.DecommissionCell]
+healthz_port = 13022
+trigger = "cron + governance-vote + lifespan-expiry-monitor"
+cron = "0 0 1 * *"  # monthly check for lifespanYears expiry
+adr = ["2605201400", "2605192345"]
+urban_mining_handoff = "60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md"
 
 # ─── Bootstrap deployment plan (ADR-2605192415 §10) ─────────────────
 

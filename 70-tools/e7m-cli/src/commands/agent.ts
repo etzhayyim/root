@@ -1,63 +1,36 @@
 import { Command } from 'commander';
 import { execa } from 'execa';
-import path from 'path';
+import { resolveApp } from '../lib/root.js';
 
-export const agentCmd = new Command('agent')
-  .description('Manage LangGraph AI Agents');
+async function targetDirFor(project?: string): Promise<string> {
+  if (!project) return process.cwd();
+  return resolveApp(project);
+}
+
+async function runLangGraph(sub: 'dev' | 'build' | 'up', project: string | undefined, emoji: string, label: string): Promise<void> {
+  const cwd = await targetDirFor(project);
+  console.log(`${emoji} LangGraph ${label} (${project ?? cwd})`);
+  try {
+    await execa('npx', ['@langchain/langgraph-cli', sub], { cwd, stdio: 'inherit' });
+  } catch (err) {
+    console.error(`LangGraph ${sub} failed.`, err);
+    process.exit(1);
+  }
+}
+
+export const agentCmd = new Command('agent').description('Manage LangGraph AI Agents');
 
 agentCmd
   .command('dev [project]')
   .description('Start LangGraph development server and LangGraph Studio')
-  .action(async (project?: string) => {
-    const targetDir = project ? path.resolve(process.cwd(), `../../60-apps/${project}`) : process.cwd();
-    
-    console.log(`🚀 Starting LangGraph dev server for ${project || 'current directory'}...`);
-    
-    try {
-      await execa('npx', ['@langchain/langgraph-cli', 'dev'], {
-        cwd: targetDir,
-        stdio: 'inherit',
-      });
-    } catch (error) {
-      console.error('❌ LangGraph dev server exited with error.', error);
-      process.exit(1);
-    }
-  });
+  .action((project?: string) => runLangGraph('dev', project, '>>', 'dev'));
 
 agentCmd
   .command('build [project]')
   .description('Build LangGraph application')
-  .action(async (project?: string) => {
-    const targetDir = project ? path.resolve(process.cwd(), `../../60-apps/${project}`) : process.cwd();
-    
-    console.log(`📦 Building LangGraph app for ${project || 'current directory'}...`);
-    
-    try {
-      await execa('npx', ['@langchain/langgraph-cli', 'build'], {
-        cwd: targetDir,
-        stdio: 'inherit',
-      });
-    } catch (error) {
-      console.error('❌ LangGraph build exited with error.', error);
-      process.exit(1);
-    }
-  });
+  .action((project?: string) => runLangGraph('build', project, '>>', 'build'));
 
 agentCmd
   .command('up [project]')
   .description('Deploy LangGraph application to local Docker')
-  .action(async (project?: string) => {
-    const targetDir = project ? path.resolve(process.cwd(), `../../60-apps/${project}`) : process.cwd();
-    
-    console.log(`🐳 Starting LangGraph app for ${project || 'current directory'} in Docker...`);
-    
-    try {
-      await execa('npx', ['@langchain/langgraph-cli', 'up'], {
-        cwd: targetDir,
-        stdio: 'inherit',
-      });
-    } catch (error) {
-      console.error('❌ LangGraph up exited with error.', error);
-      process.exit(1);
-    }
-  });
+  .action((project?: string) => runLangGraph('up', project, '>>', 'up'));
