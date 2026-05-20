@@ -228,3 +228,69 @@ export interface SearchCasesInput {
 }
 
 export type SearchCasesOutput = ListCasesOutput;
+
+// ─── Law tier (slice 4) ─────────────────────────────────────────────
+
+export type LawStatus = "in-force" | "amended" | "repealed" | "proposed";
+
+export interface LawRecord {
+  did: string;
+  lawId: string;
+  title: string;
+  titleLocal?: string;
+  jurisdiction?: string;
+  enactedAt?: string;
+  effectiveAt?: string;
+  repealedAt?: string;
+  status?: LawStatus;
+  sourceUrl?: string;
+  tags?: string[];
+  createdAt: string;
+}
+
+export interface LawView extends LawRecord {
+  lawUri: string;
+}
+
+export interface RegisterLawInput {
+  lawId: string;
+  title: string;
+  titleLocal?: string;
+  jurisdiction?: string;
+  enactedAt?: string;
+  effectiveAt?: string;
+  repealedAt?: string;
+  status?: LawStatus;
+  sourceUrl?: string;
+  tags?: string[];
+}
+
+export interface RegisterLawOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  lawUri?: string;
+  did?: string;
+  lawId?: string;
+  error?: string;
+}
+
+export interface GetLawInput {
+  lawId?: string;
+}
+
+export interface GetLawOutput {
+  law?: LawView;
+  error?: string;
+}
+
+export interface ListLawsInput {
+  jurisdiction?: string;
+  status?: LawStatus;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListLawsOutput {
+  items: LawView[];
+  cursor?: string;
+  total: number;
+}

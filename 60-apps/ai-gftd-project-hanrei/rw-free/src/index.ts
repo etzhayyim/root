@@ -28,3 +28,4 @@ export {
   listCases,
   searchCases,
 } from "./case.js";
+export { registerLaw, getLaw, listLaws } from "./law.js";
