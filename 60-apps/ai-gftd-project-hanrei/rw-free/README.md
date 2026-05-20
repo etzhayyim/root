@@ -4,13 +4,14 @@ Phase E wave 3 Option B reference implementation of hanrei on the etzhayyim subs
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), hanrei was deferred during today's wave 1+2 because vendor src/app.ts uses `createKyselyDb()` (forbidden on etzhayyim per ADR-2605172000). Option B (PDS XRPC) is the per-actor decision.
 
-Initial slice: **3 of 31** hanrei XRPC commands ported.
+Coverage: **6 of 31** hanrei XRPC commands ported.
 
-- `ai.gftd.hanrei.registerJurisdictions` → `registerJurisdiction` (singular, idempotent rkey)
-- `ai.gftd.hanrei.getJurisdiction`
-- `ai.gftd.hanrei.listJurisdictions`
+| Tier | Commands | Slice |
+|---|---|---|
+| jurisdiction | registerJurisdiction, getJurisdiction, listJurisdictions | 1 |
+| court | registerCourtProfiles (bulk), listCourts, collectWikidataCourts | **2** |
 
-Remaining 28 commands (`registerCourtProfiles / collectCases / collectCaseDetail / collectEgovLaws / collectGazette / collectLegislation / searchCases / searchDecisions / extractCasePersons / createInformationHunt / coverageStats / ...`) follow same Option B pattern; wave 3+ follow-up.
+Remaining 25 commands (`collectCases / collectCaseDetail / collectEgovLaws / collectGazette / collectLegislation / searchCases / searchDecisions / extractCasePersons / createInformationHunt / coverageStats / huntCoverageStats / getCase / getDigest / listLaws / listGazetteEntries / compareJurisdictions / etc.`) follow same Option B pattern; subsequent slices.
 
 ## Pattern translation (Option B)
 
