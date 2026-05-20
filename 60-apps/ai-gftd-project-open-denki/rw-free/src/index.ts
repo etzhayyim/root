@@ -30,3 +30,4 @@ export {
   recordDemandResponse,
   recordRenewableOutput,
 } from "./events.js";
+export { listFeeders, listFaults, listReadings } from "./queries.js";
