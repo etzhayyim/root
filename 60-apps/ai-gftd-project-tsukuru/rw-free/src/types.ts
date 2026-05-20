@@ -509,3 +509,45 @@ export interface GetProgressOutput {
   cursor?: string;
   total: number;
 }
+
+// ─── Supplier Exchange ───────────────────────────────────────────────
+
+export interface NormalizePackageInput {
+  packageId?: string;
+  productionOrderId?: string;
+  supplierDid?: string;
+  exchangeFormat?: string;
+  artifacts?: unknown[];
+  requirements?: unknown;
+  channels?: string[];
+}
+
+export interface NormalizePackageOutput {
+  status: "ok" | "rejected";
+  schema: string;
+  packageId?: string;
+  productionOrderId?: string;
+  supplierDid?: string;
+  exchangeFormat?: string;
+  channels?: string[];
+  designFormats?: string[];
+  artifacts?: unknown[];
+  requirements?: unknown;
+  compatibility?: unknown;
+  riskControls?: string[];
+  error?: string;
+}
+
+export interface ValidatePackageInput {
+  packageId?: string;
+  supplierDid?: string;
+  exchangeFormat?: string;
+  artifacts?: unknown[];
+}
+
+export interface ValidatePackageOutput {
+  status: "valid" | "invalid";
+  packageId?: string;
+  issues: string[];
+  schema: string;
+}

@@ -4,7 +4,7 @@ Phase 2 reference implementation of tsukuru on the etzhayyim substrate.
 
 Per [ADR-2605202800](../../../90-docs/adr/2605202800-tsukuru-etzhayyim-business-model-change.md), tsukuru migrates from vendor's `createKyselyDb` + Stripe Issuing pattern to the etzhayyim RW-free + on-chain-only substrate ([ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) + [ADR-2605172100](../../../90-docs/adr/2605172100-etzhayyim-payments-on-chain-only.md)).
 
-This package implements **17 of 46** tsukuru XRPC commands as reference.
+This package implements **19 of 46** tsukuru XRPC commands as reference.
 
 | Module | Commands | Slice |
 |---|---|---|
@@ -12,12 +12,13 @@ This package implements **17 of 46** tsukuru XRPC commands as reference.
 | productionOrder | getProductionOrder, listProductionOrders, updateOrderStatus, estimateLeadTime | 4 |
 | qualityInspection | submitInspection, getInspections | 2 |
 | manufacturerRegistry | registerManufacturer, getManufacturer, listManufacturers, searchManufacturers, getManufacturerStats | 3 |
-| factoryRegistry | registerFactory, listFactories | **5** |
-| productionProgress | reportMilestone, getProgress | **5** |
+| factoryRegistry | registerFactory, listFactories | 5 |
+| productionProgress | reportMilestone, getProgress | 5 |
+| supplierExchange | normalizePackage, validatePackage | **6** |
 
 **productionOrder is fully ported (6/6).** Order-flow loop (create → progress → inspect → settle → cancel/refund) is end-to-end demonstrated.
 
-The remaining 29 commands (`manufacturingCell.*`, `manufacturingOutput.*`, `softwareIntegration.*`, `logisticsRoute.*`, `autonomyOperation.*`, `supplierExchange.*`, `euv.*`, `cnt.*`) follow the same pattern and ship in follow-up Phase 2 sub-PRs.
+The remaining 27 commands (`manufacturingCell.*`, `manufacturingOutput.*`, `softwareIntegration.*`, `logisticsRoute.*`, `autonomyOperation.*`, `euv.*`, `cnt.*`) follow the same pattern and ship in follow-up Phase 2 sub-PRs.
 
 ## Pattern translation
 
