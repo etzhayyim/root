@@ -21,6 +21,8 @@ export type SbomFormat = "cyclonedx-1.5" | "spdx-3.0";
 
 // ─── Artifact tier (slice 1) ────────────────────────────────────────
 
+export type SbomKind = "software" | "vehicle";
+
 export interface ArtifactRecord {
   did: string;
   /** Content-addressed identifier — full SHA-256 of the SBOM file. */
@@ -32,6 +34,8 @@ export interface ArtifactRecord {
   generator?: string;
   /** Total component count parsed from the SBOM. */
   componentCount?: number;
+  /** software (default for app SBOMs) | vehicle (hardware BOM). */
+  kind?: SbomKind;
   sourceUrl?: string;
   createdAt: string;
 }
@@ -86,6 +90,11 @@ export interface ComponentRecord {
   artifactDid?: string;
   /** Direct dependency parent purls (graph relationship). */
   dependsOn?: Purl[];
+  /** Supplier (vendor / manufacturer) — populated by updateComponentSupplier. */
+  supplierName?: string;
+  supplierMpn?: string;
+  supplierCountry?: string;
+  supplierUpdatedAt?: string;
   createdAt: string;
 }
 
@@ -422,4 +431,56 @@ export interface AnalyzeAppOutput {
   overdueBy?: Record<VulnSeverity, number>;
   truncated?: boolean;
   error?: string;
+}
+
+// ─── Recall + Health tier (slice 5) ─────────────────────────────────
+
+export interface RecallInput {
+  supplier: string;
+  mpn?: string;
+  kind?: SbomKind;
+  limit?: number;
+  offset?: number;
+  maxScan?: number;
+}
+
+export interface RecallMatch {
+  artifactUri: string;
+  artifactDid: string;
+  kind?: SbomKind;
+  componentBomRef: Purl;
+  supplier: string;
+  mpn?: string;
+  name?: string;
+  version?: string;
+}
+
+export interface RecallOutput {
+  matches?: RecallMatch[];
+  total?: number;
+  limit?: number;
+  offset?: number;
+  truncated?: boolean;
+  error?: string;
+}
+
+export interface UpdateComponentSupplierInput {
+  purl: Purl;
+  supplierName: string;
+  supplierMpn?: string;
+  supplierCountry?: string;
+}
+
+export interface UpdateComponentSupplierOutput {
+  status: "updated" | "rejected";
+  componentUri?: string;
+  purl?: Purl;
+  error?: string;
+}
+
+export interface HealthOutput {
+  status: "ok" | "degraded" | "down";
+  actor: string;
+  substrate: string;
+  timestamp: string;
 }
