@@ -36,3 +36,8 @@ export {
   listGazetteEntries,
 } from "./gazette.js";
 export { registerDigest, getDigest } from "./digest.js";
+export {
+  createInformationHunt,
+  receiveHuntResult,
+  listHuntResults,
+} from "./hunt.js";

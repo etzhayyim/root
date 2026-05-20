@@ -490,3 +490,92 @@ export interface GetDigestOutput {
   digest?: DigestView;
   error?: string;
 }
+
+// ─── Hunt tier (slice 8) ────────────────────────────────────────────
+
+export type HuntStatus = "open" | "active" | "completed" | "abandoned";
+
+export type HuntResultKind = "case" | "law" | "gazette" | "court" | "other";
+
+export interface HuntRecord {
+  did: string;
+  huntId: string;
+  query: string;
+  jurisdiction?: string;
+  operatorDid?: string;
+  sourceDids?: string[];
+  deadline?: string;
+  status: HuntStatus;
+  openedAt: string;
+  createdAt: string;
+}
+
+export interface HuntView extends HuntRecord {
+  huntUri: string;
+}
+
+export interface CreateInformationHuntInput {
+  huntId: string;
+  query: string;
+  jurisdiction?: string;
+  operatorDid?: string;
+  sourceDids?: string[];
+  deadline?: string;
+}
+
+export interface CreateInformationHuntOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  huntUri?: string;
+  did?: string;
+  huntId?: string;
+  error?: string;
+}
+
+export interface HuntResultRecord {
+  huntId: string;
+  seq: number;
+  kind: HuntResultKind;
+  /** at-URI or DID pointing to the discovered record (case / law / gazette / court). */
+  targetDid: string;
+  sourceDid?: string;
+  /** 0-1000 (per AT Lexicon no-float restriction → permille). */
+  confidencePermille?: number;
+  note?: string;
+  receivedAt: string;
+}
+
+export interface HuntResultView extends HuntResultRecord {
+  resultUri: string;
+}
+
+export interface ReceiveHuntResultInput {
+  huntId: string;
+  seq: number;
+  kind: HuntResultKind;
+  targetDid: string;
+  sourceDid?: string;
+  confidencePermille?: number;
+  note?: string;
+}
+
+export interface ReceiveHuntResultOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  resultUri?: string;
+  huntId?: string;
+  seq?: number;
+  error?: string;
+}
+
+export interface ListHuntResultsInput {
+  huntId: string;
+  kind?: HuntResultKind;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListHuntResultsOutput {
+  items: HuntResultView[];
+  cursor?: string;
+  total: number;
+  error?: string;
+}
