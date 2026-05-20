@@ -365,3 +365,61 @@ export interface BlastRadiusOutput {
   truncated?: boolean;
   error?: string;
 }
+
+// ─── Analyze + SLA tier (slice 4) ───────────────────────────────────
+
+export interface GetSlaTimerInput {
+  vulnMatchDid: string;
+  policyDid?: string;
+  maxScan?: number;
+}
+
+export interface GetSlaTimerOutput {
+  vulnMatchDid?: string;
+  severity?: VulnSeverity;
+  slaHours?: number;
+  discoveredAt?: string;
+  deadlineAt?: string;
+  remainingMs?: number;
+  overdue?: boolean;
+  error?: string;
+}
+
+export interface ListOverdueVulnMatchesInput {
+  affectedAppDid?: string;
+  maxScan?: number;
+}
+
+export interface ListOverdueVulnMatchesOutput {
+  items?: VulnMatchView[];
+  total?: number;
+  truncated?: boolean;
+  error?: string;
+}
+
+export interface GetArtifactDependentsInput {
+  purl: Purl;
+  maxScan?: number;
+}
+
+export interface GetArtifactDependentsOutput {
+  purl?: Purl;
+  directDependents?: Purl[];
+  transitiveDependents?: Purl[];
+  truncated?: boolean;
+  error?: string;
+}
+
+export interface AnalyzeAppInput {
+  appDid: string;
+  maxScan?: number;
+}
+
+export interface AnalyzeAppOutput {
+  appDid?: string;
+  openTotal?: number;
+  openBy?: Record<VulnSeverity, number>;
+  overdueBy?: Record<VulnSeverity, number>;
+  truncated?: boolean;
+  error?: string;
+}
