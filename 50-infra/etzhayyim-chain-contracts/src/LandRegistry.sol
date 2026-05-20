@@ -4,18 +4,17 @@
 // Per ADR-2605192245 (Global Land Sovereignty).
 // Deployed on geth-private (chainId 2605) — constitutional layer.
 
-pragma solidity ^0.8.24;
+pragma solidity 0.8.27;
 
 interface IAdherentRegistry {
-    function isActive(uint256 tokenId, uint64 windowSec) external view returns (bool);
-    function ownerOf(uint256 tokenId) external view returns (address);
+    function isActive(uint256 tokenId, uint64 windowSecs) external view returns (bool);
+    function ownerOfToken(uint256 tokenId) external view returns (address);
 }
 
-interface ICouncil {
-    function isCouncil(address signer) external view returns (bool);
-}
-
+/// @notice ChartersComplianceRegistry is the canonical Council Lv6+ membership
+/// + non-aligned attestation source (per ADR-2605192230 + ADR-2605192300).
 interface IChartersComplianceRegistry {
+    function isCouncilMember(address) external view returns (bool);
     function isNonAlignedAddress(address subject) external view returns (bool);
 }
 
@@ -41,7 +40,6 @@ contract LandRegistry {
     uint256 public nextLandId = 1;
 
     IAdherentRegistry public immutable adherentRegistry;
-    ICouncil public immutable council;
     IChartersComplianceRegistry public immutable charters;
 
     uint8 public constant MIN_COUNCIL_SIGNERS = 3;
@@ -68,9 +66,8 @@ contract LandRegistry {
     //   - setOwner() — only steward role exists
     //   - mint() — only via donate() ritual
 
-    constructor(IAdherentRegistry _registry, ICouncil _council, IChartersComplianceRegistry _charters) {
+    constructor(IAdherentRegistry _registry, IChartersComplianceRegistry _charters) {
         adherentRegistry = _registry;
-        council = _council;
         charters = _charters;
     }
 
@@ -147,7 +144,7 @@ contract LandRegistry {
             revert InsufficientCouncilSigners();
         }
         for (uint256 i = 0; i < signers.length; i++) {
-            if (!council.isCouncil(signers[i])) revert NotCouncilMember(signers[i]);
+            if (!charters.isCouncilMember(signers[i])) revert NotCouncilMember(signers[i]);
         }
         // TODO: EIP-712 sig recovery in production
     }

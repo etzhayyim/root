@@ -1,8 +1,14 @@
 # etzhayyim-charters-compliance
 
+> **NOTE (2026-05-20)**: `ChartersComplianceRegistry.sol` was moved to
+> [`../etzhayyim-chain-contracts/src/ChartersComplianceRegistry.sol`](../etzhayyim-chain-contracts/src/ChartersComplianceRegistry.sol)
+> for unified Foundry project / deploy script integration. Tests, build,
+> and deploy live there. This directory is retained as the canonical
+> design reference + future AppView home.
+
 `ChartersComplianceRegistry.sol` — Council attestation の単一 source of truth。
 
-**Per [ADR-2605192230](../../90-docs/adr/2605192230-etzhayyim-three-tier-enforcement-implementation.md)** (Three-Tier Enforcement Implementation) + [ADR-2605192200](../../90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md) (Charter Rider v2.0).
+**Per [ADR-2605192230](../../90-docs/adr/2605192230-etzhayyim-three-tier-enforcement-implementation.md)** (Three-Tier Enforcement Implementation) + [ADR-2605192200](../../90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md) (Charter Rider v2.0) + [ADR-2605192300](../../90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md) (Bootstrap Council 5名).
 
 ## Architecture
 
@@ -12,13 +18,18 @@ ChartersComplianceRegistry (Base L2 + geth-private)
   ├── attestationsByAddress[address] → Attestation
   ├── attestationsByTokenId[uint256] → Attestation
   │
-  ├── attestNonAligned()         ← Council Lv6+ ≥3 multisig
-  ├── appeal()                   ← subject entity, 30 day window
-  ├── rehabilitate()             ← Council Lv6+ ≥3 (teshuvah)
-  ├── finalize()                 ← anyone, after appeal window expires
+  ├── isCouncilMember[address]      ← bootstrap from 5 founder-proposed seats
+  ├── councilMemberCount             ← 5 at bootstrap; mutable via setCouncilMember (Phase 2)
+  ├── bindGovernance(addr)           ← one-shot binding for Phase 2 mutations
   │
-  ├── isNonAlignedAddress(addr)  ← public view (read by other contracts)
-  └── isNonAlignedTokenId(id)    ← public view
+  ├── attestNonAlignedAddress()      ← Council ≥3 multisig
+  ├── attestNonAlignedTokenId()      ← Council ≥3 multisig
+  ├── acceptAppeal()                 ← Council ≥3 multisig
+  ├── rehabilitate()                 ← Council ≥3 (teshuvah, ADR-2605192230 §7)
+  ├── finalize()                     ← anyone, after 30-day appeal window
+  │
+  ├── isNonAlignedAddress(addr)      ← public view (read by other contracts)
+  └── isNonAlignedTokenId(id)        ← public view
 ```
 
 ## Status
@@ -29,47 +40,41 @@ ChartersComplianceRegistry (Base L2 + geth-private)
 | L2 便益拒否 | Kisha + Public Fund 受給不可 | `Phenotype.effectiveMultiplier() → 0` + `PublicFundGovernance.propose() require !nonAligned` + `TitheRouter.route() require !nonAligned` |
 | L3 評価最低 | Phenotype multiplier = 0 | constitutional override in `Phenotype.sol` |
 
-## Contracts to amend (per ADR-2605192230)
+## Build + Test + Deploy
 
-| Contract | File | Amendment |
-|---|---|---|
-| Phenotype.sol | `50-infra/etzhayyim-chain-contracts/src/Phenotype.sol` | Add `effectiveMultiplier()`, override `multiplier()` reads |
-| KishaStream.sol | `50-infra/etzhayyim-chain-contracts/src/KishaStream.sol` | Read `effectiveMultiplier()` instead of `multiplier()` |
-| PublicFundGovernance.sol | `50-infra/etzhayyim-public-fund/contracts/PublicFundGovernance.sol` | Add recipient + voter gate |
-| TitheRouter.sol | `50-infra/etzhayyim-tithe-router/src/TitheRouter.sol` | Add recipient + payer gate |
+All under [`../etzhayyim-chain-contracts/`](../etzhayyim-chain-contracts/):
 
-## Lexicons (new — `00-contracts/lexicons/ai/gftd/apps/etzhayyim/`)
+```bash
+cd ../etzhayyim-chain-contracts
+forge build
+forge test --match-contract ChartersComplianceRegistry   # 12 tests
+forge script script/DeployReligiousCorp.s.sol:DeployReligiousCorp \
+  --sig "runLocal()" --rpc-url http://localhost:8545 --broadcast --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+```
 
-- `charter-attestation-request.json` — third-party non-aligned 認定要請
-- `charter-attestation.json` — Council Lv6+ による non-aligned 認定 (3 sigs)
-- `charter-appeal.json` — subject entity の反論 (30 day window)
-- `charter-rehabilitation.json` — 復帰 (teshuvah) 宣言
-- `charter-counsel-vote.json` — Council 内部 deliberation 記録
+See [`RUNBOOK-deploy.md`](../etzhayyim-chain-contracts/RUNBOOK-deploy.md) §"Religious-Corp Wave Deploy" for the full Base Sepolia + mainnet sequence.
+
+## Bootstrap Council mechanics
+
+Constitutional constraint: exactly 5 council members at deploy time (per ADR-2605192300). Constructor reverts with `BootstrapSizeMismatch` if `bootstrapCouncil.length != 5` or `DuplicateBootstrapMember` if any address appears twice.
+
+Phase 2 (post 1000-member or 12-month trigger per ADR-2605192300 §4) graduates to formal Council via:
+
+1. `Constitution.bindGovernance(governance)` (already done from original wave)
+2. `ChartersComplianceRegistry.bindGovernance(governance)` (one-shot)
+3. Governance proposal → `setCouncilMember(newAddr, true)` per added member
+4. Deprecated members: `setCouncilMember(oldAddr, false)`
 
 ## Pregel cells (Tier B per [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md))
 
-- `20-actors/magatama/cells/charter_attestation_request/` — MST listener → LLM analysis → Council dispatch
+- [`20-actors/magatama/cells/charter_attestation_request/`](../../20-actors/magatama/cells/charter_attestation_request/) — MST listener → LLM analysis → Council dispatch
 - `20-actors/magatama/cells/charter_attestation_finalization/` — timer + appeal window
 - `20-actors/magatama/cells/charter_rehabilitation/` — teshuvah path
 
-## Foundry layout (TODO)
+## Lexicons
 
-```
-src/
-├── ChartersComplianceRegistry.sol
-└── interfaces/
-    ├── IAdherentRegistry.sol  (re-exports from 50-infra/etzhayyim-chain-contracts/)
-    └── ICouncil.sol
-test/
-├── ChartersComplianceRegistry.t.sol
-└── integration/
-    └── ThreeTierEnforcement.t.sol  (Phenotype + KishaStream + PublicFund + TitheRouter)
-script/
-└── Deploy.s.sol
-```
-
-## Deploy targets
-
-- Base L2 testnet (Sepolia, chainId 84532) — first
-- geth-private (chainId 2605) — for constitutional layer
-- Base L2 mainnet (chainId 8453) — after S0-S11 of ADR-2605192415
+- [`00-contracts/lexicons/ai/gftd/apps/etzhayyim/charter-attestation-request.json`](../../00-contracts/lexicons/ai/gftd/apps/etzhayyim/charter-attestation-request.json)
+- `charter-attestation.json`
+- `charter-appeal.json`
+- `charter-rehabilitation.json`
+- `charter-counsel-vote.json`

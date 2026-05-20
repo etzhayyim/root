@@ -3,17 +3,17 @@
 //
 // Per ADR-2605192230 (Three-Tier Enforcement Implementation).
 // Single source of truth for Council Lv6+ attestations under Charter Rider §2.
+//
+// Council membership is bootstrapped per ADR-2605192300 (5 founder-proposed
+// + 30-day public objection seats). Phase 2 expansion to formal 1 SBT = 1
+// vote election is handled via Governance proposal that calls
+// `setCouncilMember(addr, true/false)`.
 
-pragma solidity ^0.8.24;
+pragma solidity 0.8.27;
 
 interface IAdherentRegistry {
-    function isActive(uint256 tokenId, uint64 windowSec) external view returns (bool);
-    function ownerOf(uint256 tokenId) external view returns (address);
-}
-
-interface ICouncil {
-    /// @notice Returns true if signer is a Council Lv6+ member (per ADR-2605192300)
-    function isCouncil(address signer) external view returns (bool);
+    function isActive(uint256 tokenId, uint64 windowSecs) external view returns (bool);
+    function ownerOfToken(uint256 tokenId) external view returns (address);
 }
 
 contract ChartersComplianceRegistry {
@@ -32,11 +32,22 @@ contract ChartersComplianceRegistry {
     mapping(address => Attestation) public attestationsByAddress;
     mapping(uint256 => Attestation) public attestationsByTokenId;
 
-    ICouncil public immutable council;
+    /// @notice Council Lv6+ membership. Bootstrapped from constructor list
+    ///         (5 seats per ADR-2605192300). Mutable only via {governance}
+    ///         after Phase 2 formal-council transition.
+    mapping(address => bool) public isCouncilMember;
+    uint256 public councilMemberCount;
+
     IAdherentRegistry public immutable adherentRegistry;
+
+    /// @notice Governance contract authorized to call {setCouncilMember}.
+    ///         Bound once via {bindGovernance}. Until bound, only the
+    ///         constructor-seeded bootstrap set is recognised.
+    address public governance;
 
     uint64 public constant APPEAL_WINDOW = 30 days;
     uint8 public constant MIN_COUNCIL_SIGNERS = 3;
+    uint8 public constant BOOTSTRAP_COUNCIL_SIZE = 5;
 
     event AttestationCreated(
         bytes32 indexed subjectHash,
@@ -53,16 +64,48 @@ contract ChartersComplianceRegistry {
     event AppealAccepted(bytes32 indexed subjectHash, bytes32 newEvidenceCid);
     event Rehabilitated(bytes32 indexed subjectHash, uint64 effectiveAt);
     event Finalized(bytes32 indexed subjectHash);
+    event GovernanceBound(address indexed governance);
+    event CouncilMemberSet(address indexed member, bool isMember);
 
     error NotCouncil(address signer);
     error InsufficientSigners(uint8 got, uint8 need);
     error AlreadyFinalized();
     error AppealWindowOpen();
-    error InvalidSignature();
+    error NotGovernance();
+    error GovernanceAlreadyBound();
+    error BootstrapSizeMismatch();
+    error DuplicateBootstrapMember();
 
-    constructor(ICouncil _council, IAdherentRegistry _adherentRegistry) {
-        council = _council;
+    constructor(IAdherentRegistry _adherentRegistry, address[] memory _bootstrapCouncil) {
         adherentRegistry = _adherentRegistry;
+        if (_bootstrapCouncil.length != BOOTSTRAP_COUNCIL_SIZE) revert BootstrapSizeMismatch();
+        for (uint256 i = 0; i < BOOTSTRAP_COUNCIL_SIZE; i++) {
+            address m = _bootstrapCouncil[i];
+            if (isCouncilMember[m]) revert DuplicateBootstrapMember();
+            isCouncilMember[m] = true;
+            emit CouncilMemberSet(m, true);
+        }
+        councilMemberCount = BOOTSTRAP_COUNCIL_SIZE;
+    }
+
+    function bindGovernance(address governance_) external {
+        if (governance != address(0)) revert GovernanceAlreadyBound();
+        governance = governance_;
+        emit GovernanceBound(governance_);
+    }
+
+    /// @notice Phase 2 Council membership mutation. Governance-gated.
+    function setCouncilMember(address member, bool isMember) external {
+        if (msg.sender != governance) revert NotGovernance();
+        bool was = isCouncilMember[member];
+        if (was == isMember) return;
+        isCouncilMember[member] = isMember;
+        if (isMember) {
+            councilMemberCount++;
+        } else {
+            councilMemberCount--;
+        }
+        emit CouncilMemberSet(member, isMember);
     }
 
     function attestNonAlignedAddress(
@@ -115,7 +158,6 @@ contract ChartersComplianceRegistry {
         );
     }
 
-    /// @notice Accept appeal (Council determines counter-evidence is sufficient)
     function acceptAppeal(
         bytes32 subjectHash,
         bool isAddress,
@@ -178,9 +220,11 @@ contract ChartersComplianceRegistry {
             revert InsufficientSigners(uint8(sigs.length), MIN_COUNCIL_SIGNERS);
         }
         for (uint256 i = 0; i < signers.length; i++) {
-            if (!council.isCouncil(signers[i])) revert NotCouncil(signers[i]);
+            if (!isCouncilMember[signers[i]]) revert NotCouncil(signers[i]);
         }
-        // TODO: cryptographic verification of sigs against a canonical message digest
-        //       (current scaffold trusts caller; production deploy adds EIP-712 sig recovery)
+        // TODO: EIP-712 sig recovery against canonical message digest in production.
+        //       v0 scaffold trusts the multisig submission (Council members
+        //       coordinate off-chain attestation Lexicons + the Pregel
+        //       CouncilDeliberationCell collects ≥3 signed votes).
     }
 }

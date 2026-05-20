@@ -248,3 +248,149 @@ After Step 9:
 ## Rollback
 
 The contracts are immutable. There is no upgrade path or pause. To "roll back", deploy a fresh stack with corrected constants, point external tooling (anchor relayer, eligibility cell, oracle, SDK config) at the new addresses. Old contracts remain as historical record; no funds are at risk on the geth-private side, and on the Base side the Treasury Safe's USDC allowance is the only money exposure (revoke via Safe to fully neuter the old KishaPayout).
+
+---
+
+# Religious-Corp Wave Deploy (ADRs 2605192100..2605192415)
+
+S2 of [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) §10 roadmap. Deploys the religious-corp constitutional wave on top of the kisha + goji substrate above.
+
+**Adds to the deploy**:
+
+- **Constitution** loaded with 38 constants + 16 mutables (vs original 8 + 8) including all Mission Charter doctrine
+- **ChartersComplianceRegistry**: 5-member bootstrap Council (per ADR-2605192300) + 3-tier enforcement
+- **TitheRouter**: 10% atomic split of donations → Public Fund Safe
+- **LandRegistry**: 4-layer Land Trust with constitutional inalienability (transfer/burn-disabled)
+
+(Stubs forthcoming: PublicFundGovernance, ForceAuthorization — scheduled for S4–S7.)
+
+## Step R1 — Identify deploy inputs
+
+You need:
+
+```
+USDC                 = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913   # Base mainnet USDC
+                                                                    # (testnet: deploy MockUsdc)
+initialOfficers      = [0xfounder, ...]                              # founder + co-founders
+bootstrapCouncil[5]  = [seat1_founder, seat2_substrate, seat3_legal, seat4_economics, seat5_steward]
+publicFundSafe       = 0x...                                         # 5-of-7 Gnosis Safe on Base
+                                                                    # (deploy via Safe app first)
+```
+
+`bootstrapCouncil` ordering is significant — record it in the deploy log + LANDS-style PR.
+
+## Step R2 — Deploy via script
+
+```bash
+cd 50-infra/etzhayyim-chain-contracts
+
+# Base Sepolia (testnet)
+forge script script/DeployReligiousCorp.s.sol:DeployReligiousCorp \
+  --sig "run(address,address[],address[],address)" \
+  $USDC \
+  "[$OFFICER1,$OFFICER2]" \
+  "[$C1,$C2,$C3,$C4,$C5]" \
+  $PUBLIC_FUND_SAFE \
+  --rpc-url base_sepolia \
+  --broadcast \
+  --verify
+
+# Base mainnet (production)
+forge script script/DeployReligiousCorp.s.sol:DeployReligiousCorp \
+  --sig "run(address,address[],address[],address)" \
+  ... \
+  --rpc-url base \
+  --broadcast \
+  --verify
+```
+
+Record the 5 deployed addresses + publicFundSafe in `deps.toml [platform.l2.religious_corp_wave]`.
+
+## Step R3 — Local Anvil smoke test
+
+For PR validation before any testnet expenditure:
+
+```bash
+anvil --silent &
+forge script script/DeployReligiousCorp.s.sol:DeployReligiousCorp \
+  --sig "runLocal()" \
+  --rpc-url http://localhost:8545 \
+  --broadcast \
+  --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+```
+
+**Anvil deterministic deployment** produces fixed addresses (chainId 31337, deployer = Anvil account 0):
+
+```
+Constitution                  0x5FbDB2315678afecb367f032d93F642f64180aa3
+AdherentRegistry              0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+ChartersComplianceRegistry    0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+TitheRouter                   0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+LandRegistry                  0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9
+PublicFundSafe                0x976EA74026E726554dB657fA54763abd0C3a0aa9   (Anvil account 6)
+```
+
+## Step R4 — Verification
+
+After deploy (any environment), verify the constitutional constants landed correctly:
+
+```bash
+# Constitutional constant: 10% tithe to Public Fund
+cast call $CONSTITUTION \
+  "getConstant(bytes32)(bytes32)" \
+  $(cast keccak "economic.tithe_to_public_fund_bps") \
+  --rpc-url <rpc>
+# expect: 0x...03e8 (= uint256 1000)
+
+# Non-eschatological religion: revelation NOT in canon
+cast call $CONSTITUTION \
+  "getConstant(bytes32)(bytes32)" \
+  $(cast keccak "mission.revelation_in_canon") \
+  --rpc-url <rpc>
+# expect: 0x...0 (false)
+
+# Religious ontology: anti_individualism
+cast call $CONSTITUTION \
+  "getConstant(bytes32)(bytes32)" \
+  $(cast keccak "mission.anti_individualism") \
+  --rpc-url <rpc>
+# expect: 0x...1 (true)
+
+# Rider version
+cast call $CONSTITUTION \
+  "getConstant(bytes32)(bytes32)" \
+  $(cast keccak "license.charter_rider_version") \
+  --rpc-url <rpc>
+# expect: 0x76322e30... (ascii "v2.0" padded)
+
+# Council bootstrap
+cast call $CHARTERS_COMPLIANCE \
+  "councilMemberCount()(uint256)" \
+  --rpc-url <rpc>
+# expect: 5
+```
+
+All four constants verified ✓ on local Anvil 2026-05-20.
+
+## Step R5 — Phase 2 governance wiring (post-deploy)
+
+The deployed Constitution has the following mutables initialized to address(0):
+
+- `charters_compliance.registry_address`
+- `tithe_router.address`
+- `land_registry.address`
+- `force_authorization.address`
+- `public_fund.governance_address`
+
+These are intentionally left zero at deploy time. Phase 2 wiring is via Governance proposal + timelock:
+
+1. After Step 3 (`Constitution.bindGovernance` already complete from the original wave)
+2. Submit a multi-call proposal that calls `Constitution.setMutable(key, address)` for each of the 5 references above
+3. Vote → wait 48h+ timelock → execute
+4. Verify each address now resolves correctly
+
+`public_fund.safe_address` is wired AT CONSTITUTION CONSTRUCTION (Phase 1) since TitheRouter takes it as immutable constructor arg. This pattern resolves the deploy-time circular dependency between Constitution and TitheRouter.
+
+## Religious-corp wave rollback
+
+Same immutability + redeploy policy as the original wave. Charter Compliance attestations would need to be re-attested on the new ChartersComplianceRegistry; this is a heavy operation but possible because the AT Record evidence (per ADR-2605192230 Lexicons) is preserved on MST + IPFS.

@@ -4,7 +4,7 @@
 // Per ADR-2605192130 (10% Tithe Redistribution).
 // Routes donation/grant tx: 90% recipient + 10% Public Fund Safe, atomic split.
 
-pragma solidity ^0.8.24;
+pragma solidity 0.8.27;
 
 interface IERC20 {
     function transferFrom(address from, address to, uint256 amount) external returns (bool);
@@ -23,6 +23,13 @@ contract TitheRouter {
     IERC20 public immutable usdc;
     IConstitution public immutable constitution;
     IChartersComplianceRegistry public immutable charters;
+    /// @notice Public Fund Safe address. Bootstrap-immutable for v0 deploy
+    ///         (avoids the circular dependency: Constitution mutables can
+    ///         only be set after Governance is bound, which deploys after
+    ///         TitheRouter). v1 will read from Constitution.getMutable
+    ///         ("public_fund.safe_address") once the deployment sequence
+    ///         is reorganised via CREATE2 prediction.
+    address public immutable publicFund;
 
     /// @notice ADR-2605192100 §2 constitutional constant (immutable, = 1000 bps).
     bytes32 public constant TITHE_BPS_KEY = keccak256("economic.tithe_to_public_fund_bps");
@@ -44,10 +51,17 @@ contract TitheRouter {
     error PayerCharterNonCompliant(address payer);
     error RecipientCharterNonCompliant(address recipient);
 
-    constructor(IERC20 _usdc, IConstitution _constitution, IChartersComplianceRegistry _charters) {
+    constructor(
+        IERC20 _usdc,
+        IConstitution _constitution,
+        IChartersComplianceRegistry _charters,
+        address _publicFund
+    ) {
+        require(_publicFund != address(0), "TitheRouter: publicFund=0");
         usdc = _usdc;
         constitution = _constitution;
         charters = _charters;
+        publicFund = _publicFund;
     }
 
     function route(address recipient, uint256 grossAmount, bytes32 purpose)
@@ -59,10 +73,11 @@ contract TitheRouter {
         if (charters.isNonAlignedAddress(msg.sender)) revert PayerCharterNonCompliant(msg.sender);
         if (charters.isNonAlignedAddress(recipient)) revert RecipientCharterNonCompliant(recipient);
 
-        // Constitution returns bytes32; cast to uint256/address per ADR-2605172300 idiom.
+        // Constitution returns bytes32; cast to uint256 per ADR-2605172300 idiom.
+        // TODO(v1): read publicFund from constitution.getMutable(PUBLIC_FUND_ADDRESS_KEY)
+        //          once CREATE2-based deploy sequencing wires the address before
+        //          TitheRouter construction.
         uint256 titheBps = uint256(constitution.getConstant(TITHE_BPS_KEY));
-        address publicFund = address(uint160(uint256(constitution.getMutable(PUBLIC_FUND_ADDRESS_KEY))));
-        require(publicFund != address(0), "TitheRouter: public_fund.safe_address not wired");
 
         titheAmount = (grossAmount * titheBps) / BPS_DENOMINATOR;
         netAmount = grossAmount - titheAmount;

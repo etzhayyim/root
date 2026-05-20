@@ -1,12 +1,18 @@
 # etzhayyim-tithe-router
 
-`TitheRouter.sol` — donation / kisha / grant 受領時に **10% を Public Fund Safe へ atomic split**。
+> **NOTE (2026-05-20)**: `TitheRouter.sol` was moved to
+> [`../etzhayyim-chain-contracts/src/TitheRouter.sol`](../etzhayyim-chain-contracts/src/TitheRouter.sol)
+> for unified Foundry project / deploy script integration. Build / test /
+> deploy live there. This directory retained as design reference + future
+> SDK-binding home.
+
+`TitheRouter.sol` — donation 受領時に **10% を Public Fund Safe へ atomic split**.
 
 **Per [ADR-2605192130](../../90-docs/adr/2605192130-etzhayyim-tithe-redistribution.md)** (10% Tithe Redistribution).
 
 ## Constitutional constant
 
-`economic.tithe_to_public_fund_bps = 1000` (= 10.00%, ADR-2605192100 §2 改定不可)
+`economic.tithe_to_public_fund_bps = 1000` (= 10.00%, ADR-2605192100 §2 — never amendable).
 
 ## Flow
 
@@ -20,56 +26,37 @@
   → SDK: MST: emit ai.gftd.apps.payment.sent + ai.gftd.apps.payment.tithe records
 ```
 
+## v0 deploy quirk
+
+The Public Fund Safe address is passed as a TitheRouter constructor immutable in v0 (rather than read from `Constitution.getMutable("public_fund.safe_address")`) to resolve a deploy-time circular dependency. The Constitution still stores the address as a mutable for downstream reads; v1 will switch TitheRouter to the Constitution lookup once CREATE2-based sequencing wires the address before construction.
+
 ## Exceptions (NOT titheable)
 
-- `purpose = "kisha"` — Treasury → adherent BI flow (ADR-2605172300)
-- `purpose = "tithe"` — tithe 自体 (二重課税防止)
-- `purpose = "escrow-refund"` — refund preserves original purpose
-- `purpose = "grant"` — already Public Fund 由来 (ADR-2605192145)
-- `purpose = "internal-purchase"` / `"internal-subscription"` / `"internal-promo"` — internal carve-out (ADR-2605192115 §3)
+The Solidity `_isTitheablePurpose()` accepts only `keccak256("donation")`. All other purposes — `kisha` / `tithe` / `escrow-refund` / `grant` / `internal-purchase` / `internal-subscription` / `internal-promo` — are explicitly rejected. SDK never calls `route()` for them.
 
-Only `purpose = "donation"` triggers tithe routing (initial scope; future ADRs may expand).
+## Charter Compliance gate (per [ADR-2605192230](../../90-docs/adr/2605192230-etzhayyim-three-tier-enforcement-implementation.md))
 
-## Charter Compliance gate (per ADR-2605192230)
-
-`route()` requires:
-- `!charters.isNonAlignedAddress(recipient)`
-- `!charters.isNonAlignedAddress(msg.sender)`  // payer
+`route()` reverts if:
+- `charters.isNonAlignedAddress(msg.sender)` (Non-Aligned payer)
+- `charters.isNonAlignedAddress(recipient)` (Non-Aligned recipient)
 
 A Non-Aligned address cannot pay through nor receive through TitheRouter.
 
-## Foundry layout
+## Build + Test + Deploy
 
-```
-src/
-├── TitheRouter.sol
-└── interfaces/
-    ├── IConstitution.sol  (re-exports from 50-infra/etzhayyim-chain-contracts/)
-    └── IChartersComplianceRegistry.sol
-test/
-└── TitheRouter.t.sol
-script/
-└── Deploy.s.sol
-```
+All under [`../etzhayyim-chain-contracts/`](../etzhayyim-chain-contracts/):
 
-## Deploy targets
-
-- Base L2 (mainnet `8453` + sepolia `84532`)
-
-## SDK integration
-
-`20-actors/etzhayyim-sdk/src/pay.ts` is rewired in [ADR-2605192130](../../90-docs/adr/2605192130-etzhayyim-tithe-redistribution.md) §3:
-
-```ts
-async pay(args: PayArgs): Promise<PayReceipt> {
-  if (isTitheablePurpose(args.reason.purpose)) {
-    await this.usdc.approve(TITHE_ROUTER_ADDRESS, args.amount);
-    const tx = await this.titheRouter.route(recipient, args.amount, keccak256(purposeStr));
-    // ... emit MST records
-  }
-}
+```bash
+cd ../etzhayyim-chain-contracts
+forge build   # includes TitheRouter
+forge script script/DeployReligiousCorp.s.sol:DeployReligiousCorp \
+  --sig "runLocal()" --rpc-url http://localhost:8545 --broadcast --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 ```
 
 ## Pregel cell
 
-`20-actors/magatama/cells/tithe_routing/` — MST listener on `ai.gftd.apps.payment.sent` records, pre-flight validation (charter compliance + amount + purpose enum).
+[`20-actors/magatama/cells/tithe_routing/`](../../20-actors/magatama/cells/tithe_routing/) — MST listener on `ai.gftd.apps.payment.sent` records, validates `route()` was invoked correctly + alerts on SDK bypass.
+
+## Lexicon
+
+[`00-contracts/lexicons/ai/gftd/apps/payment/tithe.json`](../../00-contracts/lexicons/ai/gftd/apps/payment/tithe.json) — counterpart record emitted alongside payment.sent.
