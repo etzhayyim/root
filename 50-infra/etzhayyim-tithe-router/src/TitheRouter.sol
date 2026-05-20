@@ -11,7 +11,8 @@ interface IERC20 {
 }
 
 interface IConstitution {
-    function getConstant(bytes32 key) external view returns (uint256);
+    function getConstant(bytes32 key) external view returns (bytes32);
+    function getMutable(bytes32 key) external view returns (bytes32);
 }
 
 interface IChartersComplianceRegistry {
@@ -23,7 +24,9 @@ contract TitheRouter {
     IConstitution public immutable constitution;
     IChartersComplianceRegistry public immutable charters;
 
+    /// @notice ADR-2605192100 §2 constitutional constant (immutable, = 1000 bps).
     bytes32 public constant TITHE_BPS_KEY = keccak256("economic.tithe_to_public_fund_bps");
+    /// @notice ADR-2605192100 §2 mutable (governance-set at deploy + timelock).
     bytes32 public constant PUBLIC_FUND_ADDRESS_KEY = keccak256("public_fund.safe_address");
     uint256 public constant BPS_DENOMINATOR = 10_000;
 
@@ -56,8 +59,10 @@ contract TitheRouter {
         if (charters.isNonAlignedAddress(msg.sender)) revert PayerCharterNonCompliant(msg.sender);
         if (charters.isNonAlignedAddress(recipient)) revert RecipientCharterNonCompliant(recipient);
 
-        uint256 titheBps = constitution.getConstant(TITHE_BPS_KEY);
-        address publicFund = address(uint160(constitution.getConstant(PUBLIC_FUND_ADDRESS_KEY)));
+        // Constitution returns bytes32; cast to uint256/address per ADR-2605172300 idiom.
+        uint256 titheBps = uint256(constitution.getConstant(TITHE_BPS_KEY));
+        address publicFund = address(uint160(uint256(constitution.getMutable(PUBLIC_FUND_ADDRESS_KEY))));
+        require(publicFund != address(0), "TitheRouter: public_fund.safe_address not wired");
 
         titheAmount = (grossAmount * titheBps) / BPS_DENOMINATOR;
         netAmount = grossAmount - titheAmount;

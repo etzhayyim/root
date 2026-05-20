@@ -3,6 +3,7 @@ pragma solidity 0.8.27;
 
 import "forge-std/Script.sol";
 import {Constitution}      from "../src/Constitution.sol";
+import {ConstitutionKeys}  from "../src/ConstitutionKeys.sol";
 import {AdherentRegistry}  from "../src/AdherentRegistry.sol";
 import {KishaStream}       from "../src/KishaStream.sol";
 import {Phenotype}         from "../src/Phenotype.sol";
@@ -156,29 +157,95 @@ contract Deploy is Script {
     // -------------------------------------------------------------------
 
     function _constants() internal pure returns (bytes32[] memory keys, bytes32[] memory vals) {
-        keys = new bytes32[](8);
-        vals = new bytes32[](8);
-        keys[0] = K_ONE_SBT_ONE_VOTE;   vals[0] = bytes32(uint256(1));
-        keys[1] = K_NO_TRANSFER_SHARE;  vals[1] = bytes32(uint256(1));
-        keys[2] = K_LICENSE;             vals[2] = bytes32("Apache-2.0");
-        keys[3] = K_PHENOTYPE_MIN;       vals[3] = bytes32(uint256(5_000));   // 0.50x
-        keys[4] = K_PHENOTYPE_MAX;       vals[4] = bytes32(uint256(20_000));  // 2.00x
-        keys[5] = K_KAPPA_FLOOR;         vals[5] = bytes32(uint256(100));     // 1.00%
-        keys[6] = K_KAPPA_CEILING;       vals[6] = bytes32(uint256(500));     // 5.00%
-        keys[7] = K_QUORUM_FLOOR;        vals[7] = bytes32(uint256(2_000));   // 20.00%
+        // 8 original (ADR-2605172300) + 30 religious-corp wave (ADR-2605192100 §2)
+        keys = new bytes32[](38);
+        vals = new bytes32[](38);
+
+        // ─── Original ADR-2605172300 (8) ─────────────────────────────
+        keys[0] = ConstitutionKeys.ONE_SBT_ONE_VOTE;          vals[0] = bytes32(uint256(1));
+        keys[1] = ConstitutionKeys.NO_TRANSFERABLE_SHARE;     vals[1] = bytes32(uint256(1));
+        keys[2] = ConstitutionKeys.LICENSE;                    vals[2] = bytes32("Apache-2.0");
+        keys[3] = ConstitutionKeys.PHENOTYPE_MIN_BPS;          vals[3] = bytes32(uint256(5_000));    // 0.50x
+        keys[4] = ConstitutionKeys.PHENOTYPE_MAX_BPS;          vals[4] = bytes32(uint256(20_000));   // 2.00x
+        keys[5] = ConstitutionKeys.KAPPA_FLOOR_BPS;            vals[5] = bytes32(uint256(100));      // 1.00%
+        keys[6] = ConstitutionKeys.KAPPA_CEILING_BPS;          vals[6] = bytes32(uint256(500));      // 5.00%
+        keys[7] = ConstitutionKeys.QUORUM_FLOOR_BPS;           vals[7] = bytes32(uint256(2_000));    // 20.00%
+
+        // ─── Mission Charter §1.1-§1.7 (5) ───────────────────────────
+        keys[8]  = ConstitutionKeys.MISSION_LABOR_LIBERATION;          vals[8]  = bytes32(uint256(1));
+        keys[9]  = ConstitutionKeys.MISSION_ROBOTICS_UNIVERSAL;        vals[9]  = bytes32(uint256(1));
+        keys[10] = ConstitutionKeys.MISSION_IP_FREE_RELEASE;           vals[10] = bytes32(uint256(1));
+        keys[11] = ConstitutionKeys.MISSION_DISINTERMEDIATION;         vals[11] = bytes32(uint256(1));
+        keys[12] = ConstitutionKeys.MISSION_SPECIALIST_ANTI_GATEKEEPING; vals[12] = bytes32(uint256(1));
+
+        // ─── Religious ontology §1.8-§1.10 (4) ───────────────────────
+        keys[13] = ConstitutionKeys.MISSION_ANTI_INDIVIDUALISM;        vals[13] = bytes32(uint256(1));
+        keys[14] = ConstitutionKeys.MISSION_MULTI_GENERATIONAL_PRIORITY; vals[14] = bytes32(uint256(1));
+        keys[15] = ConstitutionKeys.MISSION_MULTI_GENERATIONAL_HORIZON_YEARS; vals[15] = bytes32(uint256(50));
+        keys[16] = ConstitutionKeys.MISSION_WELLBECOMING_PRIORITY;     vals[16] = bytes32(uint256(1));
+
+        // ─── Land + State + Force §1.11-§1.12 (6) ────────────────────
+        keys[17] = ConstitutionKeys.MISSION_LAND_AS_RELIGIOUS_TRUST;   vals[17] = bytes32(uint256(1));
+        keys[18] = ConstitutionKeys.MISSION_PARALLEL_GOVERNANCE_TO_STATE; vals[18] = bytes32(uint256(1));
+        keys[19] = ConstitutionKeys.MISSION_TRANSPARENT_FORCE_ONLY;    vals[19] = bytes32(uint256(1));
+        keys[20] = ConstitutionKeys.MISSION_PROPRIETARY_FORCE_DESIGN_PROHIBITED; vals[20] = bytes32(uint256(1));
+        keys[21] = ConstitutionKeys.MISSION_FORCE_REQUIRES_SBT_VOTE;   vals[21] = bytes32(uint256(1));
+        keys[22] = ConstitutionKeys.MISSION_NO_STATE_MILITARY_ALLIANCE; vals[22] = bytes32(uint256(1));
+
+        // ─── Eros / Gore §1.13 (2) ────────────────────────────────────
+        keys[23] = ConstitutionKeys.MISSION_EROS_PERMITTED;            vals[23] = bytes32(uint256(1));
+        keys[24] = ConstitutionKeys.MISSION_GORE_PROHIBITED;           vals[24] = bytes32(uint256(1));
+
+        // ─── Lineage + Canon §1.14-§1.15 (4) ─────────────────────────
+        keys[25] = ConstitutionKeys.MISSION_LINEAGE_JAPANESE_PROTESTANT; vals[25] = bytes32(uint256(1));
+        keys[26] = ConstitutionKeys.MISSION_ESCHATOLOGICAL;             vals[26] = bytes32(uint256(0));  // false
+        keys[27] = ConstitutionKeys.MISSION_REVELATION_IN_CANON;        vals[27] = bytes32(uint256(0));  // false
+        keys[28] = ConstitutionKeys.MISSION_CONTINUOUS_BECOMING;        vals[28] = bytes32(uint256(1));
+
+        // ─── Governance + Economic + License + Enforcement (9) ───────
+        keys[29] = ConstitutionKeys.GOVERNANCE_FUTURE_GENERATIONS_THIRD_PARTY_BENEFICIARY; vals[29] = bytes32(uint256(1));
+        keys[30] = ConstitutionKeys.ECONOMIC_NON_PROFIT_ONLY;          vals[30] = bytes32(uint256(1));
+        keys[31] = ConstitutionKeys.ECONOMIC_DONATION_ONLY;            vals[31] = bytes32(uint256(1));
+        keys[32] = ConstitutionKeys.ECONOMIC_NO_ADVERTISING;           vals[32] = bytes32(uint256(1));
+        keys[33] = ConstitutionKeys.ECONOMIC_TITHE_TO_PUBLIC_FUND_BPS; vals[33] = bytes32(uint256(1_000));   // 10.00%
+        keys[34] = ConstitutionKeys.LICENSE_BASE;                       vals[34] = bytes32("Apache-2.0");
+        keys[35] = ConstitutionKeys.LICENSE_CHARTER_RIDER_REQUIRED;    vals[35] = bytes32(uint256(1));
+        keys[36] = ConstitutionKeys.LICENSE_CHARTER_RIDER_VERSION;     vals[36] = bytes32("v2.0");
+        keys[37] = ConstitutionKeys.ENFORCEMENT_THREE_TIER;            vals[37] = bytes32(uint256(1));
     }
 
     function _mutables() internal pure returns (bytes32[] memory keys, bytes32[] memory vals) {
-        keys = new bytes32[](8);
-        vals = new bytes32[](8);
-        keys[0] = K_KISHA_BASE;     vals[0] = bytes32(uint256(1_000_000));   // 1 USDC/day base
-        keys[1] = K_KAPPA;           vals[1] = bytes32(uint256(300));         // 3.00% κ
-        keys[2] = K_TIER_LIQUID;     vals[2] = bytes32(uint256(1_000));       // 10%
-        keys[3] = K_TIER_RESERVE;    vals[3] = bytes32(uint256(6_000));       // 60%
-        keys[4] = K_TIER_CORPUS;     vals[4] = bytes32(uint256(3_000));       // 30%
-        keys[5] = K_QUORUM;          vals[5] = bytes32(uint256(3_300));       // 33.00%
-        keys[6] = K_ACTIVE_WINDOW;   vals[6] = bytes32(uint256(30 days));
-        keys[7] = K_TIMELOCK;        vals[7] = bytes32(uint256(72 hours));
+        // 8 original (ADR-2605172300) + 7 reference addresses (initial = 0, set via governance post-deploy)
+        // + 1 phenotype.non_compliant_multiplier = 0 (mutable to allow ratcheting if Council rules require)
+        keys = new bytes32[](16);
+        vals = new bytes32[](16);
+
+        // ─── Original ADR-2605172300 mutables (8) ────────────────────
+        keys[0] = ConstitutionKeys.KISHA_BASE_RATE;       vals[0] = bytes32(uint256(1_000_000));  // 1 USDC/day base
+        keys[1] = ConstitutionKeys.KAPPA_BPS;              vals[1] = bytes32(uint256(300));        // 3.00% κ
+        keys[2] = ConstitutionKeys.TIER_LIQUID_BPS;        vals[2] = bytes32(uint256(1_000));      // 10%
+        keys[3] = ConstitutionKeys.TIER_RESERVE_BPS;       vals[3] = bytes32(uint256(6_000));      // 60%
+        keys[4] = ConstitutionKeys.TIER_CORPUS_BPS;        vals[4] = bytes32(uint256(3_000));      // 30%
+        keys[5] = ConstitutionKeys.QUORUM_BPS;             vals[5] = bytes32(uint256(3_300));      // 33.00%
+        keys[6] = ConstitutionKeys.ACTIVE_WINDOW_SECS;     vals[6] = bytes32(uint256(30 days));
+        keys[7] = ConstitutionKeys.TIMELOCK_SECS;          vals[7] = bytes32(uint256(72 hours));
+
+        // ─── Religious-corp wave (1) ─────────────────────────────────
+        keys[8] = ConstitutionKeys.PHENOTYPE_NON_COMPLIANT_MULTIPLIER; vals[8] = bytes32(uint256(0));
+
+        // ─── Reference addresses (7) — initial = address(0)        ───
+        // Wired post-deploy via Governance proposal + 48h+ timelock.
+        // See RUNBOOK-deploy.md step "Wire references" for the
+        // canonical bootstrap proposal payload.
+        keys[9]  = ConstitutionKeys.PUBLIC_FUND_SAFE_ADDRESS;            vals[9]  = bytes32(0);
+        keys[10] = ConstitutionKeys.CHARTERS_COMPLIANCE_REGISTRY_ADDRESS; vals[10] = bytes32(0);
+        keys[11] = ConstitutionKeys.TITHE_ROUTER_ADDRESS;                 vals[11] = bytes32(0);
+        keys[12] = ConstitutionKeys.LAND_REGISTRY_ADDRESS;                vals[12] = bytes32(0);
+        keys[13] = ConstitutionKeys.FORCE_AUTHORIZATION_ADDRESS;          vals[13] = bytes32(0);
+        keys[14] = ConstitutionKeys.PUBLIC_FUND_GOVERNANCE_ADDRESS;       vals[14] = bytes32(0);
+
+        // ─── Buffer slot for future religious-corp parameters ─────────
+        keys[15] = bytes32(0); vals[15] = bytes32(0);
     }
 
     function _emitInternal(Internal memory o) internal pure {

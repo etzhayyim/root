@@ -70,27 +70,72 @@ contract Constitution {
     // Canonical key labels
     // -------------------------------------------------------------------
     // Keep these documented near the contract — they are the constitutional
-    // vocabulary. Off-chain code SHOULD use the same labels via keccak256.
-
-    // CONSTANTS (set once):
-    //   "one_sbt_one_vote"        => bytes32(uint256(1))
-    //   "no_transferable_share"   => bytes32(uint256(1))
-    //   "license"                 => bytes32("Apache-2.0")
-    //   "kappa_floor_bps"         => bytes32(uint256(100))   // 1.00%
-    //   "kappa_ceiling_bps"       => bytes32(uint256(500))   // 5.00%
-    //   "phenotype_min_bps"       => bytes32(uint256(5000))  // 0.50x
-    //   "phenotype_max_bps"       => bytes32(uint256(20000)) // 2.00x
-    //   "quorum_floor_bps"        => bytes32(uint256(2000))  // 20.00%
+    // vocabulary. Off-chain code MUST use {ConstitutionKeys} library for
+    // bytes32 keys to avoid drift. See ConstitutionKeys.sol for the full
+    // SSoT. Summary of vocabulary by ADR:
     //
-    // MUTABLES (Governance-changeable):
-    //   "kisha_base_rate"         => USDC base units per adherent per day
-    //   "kappa_bps"               => current κ in basis points (init 300 = 3%)
-    //   "tier_liquid_bps"         => target liquid tier ratio (init 1000)
-    //   "tier_reserve_bps"        => target reserve tier ratio (init 6000)
-    //   "tier_corpus_bps"         => target corpus tier ratio (init 3000)
-    //   "quorum_bps"              => current quorum (init 3300)
-    //   "active_window_secs"      => "active adherent" window (init 30 days)
-    //   "timelock_secs"           => governance timelock (init 72h)
+    // CONSTANTS (set once at deploy; change = founding new religion):
+    //
+    //   ADR-2605172300 §8 (original 8):
+    //     one_sbt_one_vote, no_transferable_share, license,
+    //     phenotype_min_bps, phenotype_max_bps,
+    //     kappa_floor_bps, kappa_ceiling_bps, quorum_floor_bps
+    //
+    //   ADR-2605192100 §1.1-§1.7 (Mission, 5):
+    //     mission.labor_liberation, mission.robotics_universal,
+    //     mission.ip_free_release, mission.disintermediation,
+    //     mission.specialist_anti_gatekeeping
+    //
+    //   ADR-2605192100 §1.8-§1.10 (Religious ontology, 4):
+    //     mission.anti_individualism,
+    //     mission.multi_generational_priority,
+    //     mission.multi_generational_horizon_years (= 50),
+    //     mission.wellbecoming_priority
+    //
+    //   ADR-2605192100 §1.11-§1.12 (Land + State + Force, 6):
+    //     mission.land_as_religious_trust,
+    //     mission.parallel_governance_to_state,
+    //     mission.transparent_force_only,
+    //     mission.proprietary_force_design_prohibited,
+    //     mission.force_requires_sbt_vote,
+    //     mission.no_state_military_alliance
+    //
+    //   ADR-2605192100 §1.13 (Eros/Gore, 2):
+    //     mission.eros_permitted, mission.gore_prohibited
+    //
+    //   ADR-2605192100 §1.14-§1.15 (Lineage + Canon, 4):
+    //     mission.lineage_japanese_protestant,
+    //     mission.eschatological (= false),
+    //     mission.revelation_in_canon (= false),
+    //     mission.continuous_becoming
+    //
+    //   ADR-2605192100 §2 + ADRs 2605192115/2605192130/2605192200/2605192230 (9):
+    //     governance.future_generations_third_party_beneficiary,
+    //     economic.non_profit_only, economic.donation_only,
+    //     economic.no_advertising, economic.tithe_to_public_fund_bps (=1000),
+    //     license.base (= "Apache-2.0"),
+    //     license.charter_rider_required,
+    //     license.charter_rider_version (= "v2.0"),
+    //     enforcement.three_tier
+    //
+    // MUTABLES (Governance-changeable within constant bounds):
+    //
+    //   ADR-2605172300 §8 (original 8):
+    //     kisha_base_rate (USDC base units / adherent / day),
+    //     kappa_bps (init 300 = 3%),
+    //     tier_liquid_bps / tier_reserve_bps / tier_corpus_bps (10:60:30),
+    //     quorum_bps (init 3300), active_window_secs (init 30d),
+    //     timelock_secs (init 72h)
+    //
+    //   ADR-2605192230 (1):
+    //     phenotype.non_compliant_multiplier (= 0; ratcheting allowed)
+    //
+    //   ADR-2605192100 + 2605192230 + 2605192245 (reference addresses, 6):
+    //     public_fund.safe_address, charters_compliance.registry_address,
+    //     tithe_router.address, land_registry.address,
+    //     force_authorization.address, public_fund.governance_address
+    //     (all initial = address(0); wired post-deploy via governance
+    //     proposal + 48h+ timelock per RUNBOOK)
 
     // -------------------------------------------------------------------
     // Construction
