@@ -70,6 +70,7 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 | [2605202015](./2605202015-etzhayyim-robotics-first-industry-agriculture.md) | etzhayyim Robotics First-Industry — Agriculture selected over logistics/construction/care/manufacturing (§1.4 mission, FarmBot fork, Land trust integration) | proposed | 2026-05-20 |
 | [2605202030](./2605202030-etzhayyim-tithe-router-v1-create2.md) | TitheRouter v1 — CREATE2 sequencing で Constitution.getMutable 経由 publicFund 読み出しを実現 (post-mainnet migration) | proposed | 2026-05-20 |
 | [2605202100](./2605202100-etzhayyim-magatama-cell-runner-launchd.md) | magatama-cell-runner launchd LaunchAgent (operationalising Tier 1 常駐稼働 on Murakumo fleet; pyproject `[project.scripts]` entry + plist template + idempotent installer + per-node `--health` smoke; closes spec → OS-level boot path gap) | proposed | 2026-05-20 |
+| [2605202115](./2605202115-baien-graft-3d-augmented-dataset.md) | Baien graft 3D-augmented dataset — TripoSR + Hunyuan3D-2 image→3D, moderngl 4-view render, Florence-2 multi-view caption; baien Move 1 supervision を 3D-aware text で強化 (input 2D 据置) | proposed | 2026-05-20 |
 
 (Future ADRs added here as they're authored.)
 

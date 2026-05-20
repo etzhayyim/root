@@ -1,0 +1,252 @@
+---
+id: adr-2605202115-baien-graft-3d-augmented-dataset
+title: "ADR-2605202115: Baien graft 3D-augmented dataset (image, multi-view, caption)"
+status: proposed
+doc_type: adr
+topic: baien-graft-3d-augmented-dataset
+authoritative: true
+last_verified: 2026-05-20
+priority: 5.5
+axis: machine-learning
+weight: 0.50
+priority_note: "Adds 3D inductive bias to baien Move 1 supervision without changing input modality"
+authoritative_for:
+  - "baien graft dataset schema (3D-augmented variant)"
+  - "TripoSR vs Hunyuan3D-2 selection for image→3D dataset generation"
+  - "Role separation: evo-x2 (generation) / Mac M4 (render + caption)"
+depends_on:
+  - "2605092350"
+  - "2605091400"
+  - "2605202345"
+related:
+  - "2605091300"
+  - "2605091600"
+  - "2604262359"
+  - "2605192100"
+  - "2605192200"
+supersedes: []
+superseded_by: []
+---
+
+# ADR-2605202115: Baien graft 3D-augmented dataset (image, multi-view, caption)
+
+**Status**: proposed
+**Date**: 2026-05-20
+**Deciders**: Jun Kawasaki
+
+# Context
+
+ADR-2605092350 で **baien** = BitNet b1.58 2B 4T trunk + 1.58-bit projector + frozen SigLIP encoder の image graft 構成を確定。`90-docs/baien/multimodal-reasoning-roadmap.md` Move 1 では `task: "image-grounded-text"` の paired image-text snapshot (LAION-COCO 或いは LLaVA-1.5) を H100 で ~10k-50k step 学習する計画を defined している。
+
+ただし Move 1 の supervision text は **2D image caption** のみで、生成された 3D 構造を text 化した signal を含まない。2B trunk の reasoning 限界 (roadmap §1.1) を踏まえると、projector が学ぶ表現の **inductive bias** をどう仕込むかが重要で、特に 3D 形状を 2D 画像から復元する subtask は projector の語彙拡張に直結する。
+
+2026-05-20 に EVO-X2 (ADR-2605202345) で TripoSR + Hunyuan3D-2 + Florence-2 の end-to-end pipeline を実証 (Phase 2、本 ADR の empirical grounding)。具体:
+
+| 項目 | 確認内容 |
+|---|---|
+| TripoSR (Flowty) | 1.68 GB weight、33 s/sample、品質 GOAL 下回り (chair 入力で椅子認識率 1/4) |
+| Hunyuan3D-2 (kijai wrapper) | DiT 4.93 GB + VAE 428 MB、67.7 s/sample、品質 GOOD (chair 入力で椅子認識率 4/4) |
+| Multi-view render | macOS Apple M4 + moderngl 5.12 standalone CGL/Metal、4 view × 512² の 1 秒/サンプル |
+| Florence-2 caption | `microsoft/Florence-2-large-ft` @ `<MORE_DETAILED_CAPTION>`、Mac MPS、~2.5 s/caption |
+| 役割分離 | EVO-X2 = 3D 生成 (ROCm 7.2)、Mac M4 = render + caption (CGL/MPS) |
+| Charter Rider §2 | 全行程 OSS、SaaS API 不使用 |
+
+実証で得た 1 サンプル (`sample-001-chair`、provenance + mesh stats + 10 captions + supervision pair JSON, sha1 94ab566...) が本決定の根拠。
+
+技術的 dead-end と回避策:
+
+| 試行 | 結果 |
+|---|---|
+| ComfyUI core `Hy3DRenderMultiView` | `custom_rasterizer` が CUDA-only、ROCm 機で DLL load 不能 |
+| pyrender on Windows | EGL/OSMesa 不在で `Unsupported PyOpenGL platform` |
+| pyrender on macOS | 同上 (Filament EGL Headless 非対応 on Apple Silicon) |
+| trimesh+pyglet hidden window on Windows SSH | session 0 isolation で実描画されず blank PNG |
+| trimesh+pyglet 1.5 on macOS | `CocoaAlternateEventLoop.platform_event_loop` 欠落で fail |
+| open3d on Windows | Jupyter long-path で install 失敗 |
+| open3d on macOS Apple Silicon | Filament EGL non-supported |
+| **moderngl standalone CGL** | macOS Apple M4 で動作 ← 採用 |
+
+# Decision
+
+`dataset.baien-graft.3d-augmented` schema を定義し、baien Move 1 の supervision を以下の構成で拡張する。
+
+## D1. Schema (v0)
+
+```yaml
+sample:
+  schema:
+    id:       "dataset.baien-graft.3d-augmented"
+    version:  "v0"
+    task:     "image-grounded-text"
+    variant:  "3d-augmented"
+  sample_id:  <slug>
+  created_at: <ISO 8601 UTC>
+  compute_provenance:
+    generation_host:     {alias: "evo", soc, gpu, vram_unified_gb, rocm, pytorch}
+    render_caption_host: {alias: "mac", soc, gl, renderer}
+    ip_substrate_compliance: "Charter Rider v2.0 — all OSS"
+  source:
+    image_path:                <relpath>
+    url_original:              <url>
+    image_sha1:                <sha1>
+    image_caption_2d_only:     <Florence-2 caption>
+    captioner:                 "microsoft/Florence-2-large-ft @ <MORE_DETAILED_CAPTION>"
+  candidates:
+    <tool_name>:
+      tool:              <generator + version>
+      weight:            <weight path + sha>
+      params:            <hyperparams>
+      wall_clock_sec:    <float>
+      mesh_path:         <relpath>
+      mesh_sha1:         <sha1>
+      mesh_stats:        {vertex_count, face_count, bbox_extents, surface_area, volume, is_watertight, is_volume}
+      renders:           {front, right, back, left, tile_2x2}
+      captions:          {tile, view_front, view_right, view_back, view_left}
+      quality_assessment: <free-text>
+  baien_supervision_pair_v0:
+    x_image_2d_path:        <relpath>     # same as source.image_path
+    y_caption_3d_augmented: <concatenated text ~700 chars>
+    rationale:              <why this is the supervision target>
+    preferred_candidate:    <tool_name>
+    rejected_candidate:     <tool_name or null>
+    rejection_reason:       <free-text or null>
+```
+
+## D2. Pipeline
+
+1. **Generate** (`evo`, Ryzen AI Strix Halo + ROCm 7.2)
+   - Hunyuan3D-2 を **primary** (品質 acceptance gate 通過)
+   - TripoSR を **tertiary fallback** (高速だが本 ADR 時点で椅子認識率 1/4 = 下回り)
+   - Tool 切替は `quality_assessment` で post-hoc 評価、acceptance gate 不満なら sample を `rejected_candidate` に降格
+2. **Render** (`mac`, M4 CGL/Metal、moderngl standalone)
+   - 4 view: azimuth 0/90/180/270°, elevation 0°, perspective fovy 40°, distance 2.2 unit-sphere
+   - 出力 512² PNG × 4 + 2×2 tile (1024²)
+3. **Caption** (`mac`, MPS、`transformers==4.45.2` pin)
+   - Florence-2-large-ft で source 画像 + 各 view + tile を caption 化
+   - `<MORE_DETAILED_CAPTION>` task 採用
+4. **Assemble**
+   - JSON schema v0 でアセットを `output/baien-graft/<sample-id>/` 配下に flatten
+   - `y_caption_3d_augmented` = `image_caption_2d_only` + `[3D-augmented from <tool>, viewed from 4 cardinal angles]` + 4-view caption 連結
+
+## D3. baien Move 1 統合
+
+- `vertex_training_dataset_snapshot` に `variant: "3d-augmented"` flag を追加し、既存 2D-only snapshot と並列保存
+- `pymagatama/primitives/training_run.py` の `_train_baien_graft_image()` (まだ未実装) は両 variant をサポート、`y_caption_3d_augmented` を text token target として使用
+- 3D mesh は snapshot に格納せず (storage 節約)、`caption_3d_augmented` 文字列のみが学習 signal
+
+## D4. Acceptance gate
+
+Sample が baien supervision に採用される条件 (順序付き、主信号 → 補助 sanity):
+
+1. **Primary**: Florence-2 が **4/4 views で source 画像の主物体カテゴリと一致する caption** を生成すること (語彙一致は noun stem の Jaccard ≥ 0.5)
+2. **Sanity**: mesh_stats が以下を満たす
+   - `vertex_count ∈ [10k, 1.5M]`
+   - `face_count > 1000` (degenerate mesh 排除)
+   - `bbox_extents` 最大 / 最小比 < 10 (極端なアスペクト排除)
+
+注意: **`is_watertight=true` は要求しない**。Phase 2 で Hunyuan3D-2 の高品質 mesh が `is_watertight=False` だった一方、TripoSR の低品質 mesh が `is_watertight=True` だった。Watertight 性は visual quality と相関せず、acceptance signal として誤誘導する。
+
+Phase 2 chair sample (`sample-001-chair`):
+- Hunyuan3D-2 candidate: Primary 4/4 通過 (chair noun all-view) + Sanity 全 pass → **採用**
+- TripoSR candidate: Primary 1/4 通過 (right view のみ "chair" 言及、他 3 view は "hand/glove/silhouette") + Sanity pass だが Primary 不通過 → **降格 (rejected_candidate)**
+
+## D5. Substrate compliance
+
+- 入力 corpus は public-domain / 既存 baien snapshot を継承 (LAION-COCO subset 想定)
+- 生成・描画・caption の全 tool は OSS、SaaS 不使用 (Charter Rider §2 - h 抵触なし)
+- Sample 単位の provenance を必ず JSON に記録 (`compute_provenance` 必須フィールド)
+- 大規模 batch 時は MST + IPFS pin (ADR-2605172000 RW-free substrate に整合)
+
+# Consequences
+
+## Positive
+
+- baien projector が **3D 形状を 2D 画像から復元する補助タスク** を text 経由で学習する inductive bias を得る (input modality 変更不要)
+- Mac M4 + EVO-X2 の役割分離が確立、religious-corp infrastructure (ADR-2605202345 fleet) に **dataset-gen pod** が加わる
+- 全 OSS で構成、Charter Rider v2.0 三層 enforcement (L1 license / L2 便益 / L3 評価) 全て pass
+- TripoSR/Hunyuan3D-2 の品質比較が言語化された signal で post-hoc に判定可能 (Florence-2 caption の主物体一致率)
+
+## Negative
+
+- Per-sample 生成コスト = ~80 s (Hunyuan3D 67.7 s + render 1 s + caption 10 s) → 1k sample で ~22 h、10k sample で ~9 days (EVO-X2 シングル)
+- Florence-2 caption は時折幻覚 (本 Phase 2 では source caption に "black background" 誤認、実画像は白背景)
+- Hunyuan3D-2 paint model (texture, ~6 GB) は未導入のため、view caption は灰色 lit shading の幾何情報に依存 (RGB texture 情報なし)
+- moderngl 自前 GLSL renderer は単純 Phong shading、material/texture を反映しない (将来 paint model 追加で改善余地)
+- TripoSR は本 ADR で primary から外れるが、wheel ・モデルは EVO-X2 上に残置 (後年の高速プレビュー用途として retain)
+
+## Open issues (not blocking this ADR)
+
+- Batch scaling pipeline (Phase 3b) はまだ未着手 — 100/1k sample run でメモリ・スループットを再検証する必要
+- baien graft 自体の H100 学習 (Phase 3c) は本 ADR の supervision spec 確定後に着手
+- Hunyuan3D paint model 採用判断は別 ADR (texture pipeline) で扱う
+
+# Alternatives Considered
+
+## A. Status quo — 2D-only image-text snapshot
+
+棄却。Move 1 roadmap は 2B trunk の reasoning 限界を承知の上で「routing + summarizer + grounded responder」役割を baien に与える設計。3D 形状の言語化された signal が無いと projector は **物体表面の外観** のみを学び、**裏側・側面** の存在を知らないままになる。少ない追加コストで inductive bias を強化できる本 ADR を採用。
+
+## B. 3D mesh を baien の入力に追加 (encoder 多モーダル化)
+
+棄却。baien は frozen SigLIP + frozen BitNet trunk + 1.58-bit projector の **edge-deployable footprint** が constitutional invariant (ADR-2605092350)。3D encoder を入力に加えると inference 時に mesh も必要となり、edge / browser 配備の前提が崩れる。供給される情報は **教師信号 (text) 側** に閉じ込めるのが筋。
+
+## C. Multi-image-input VLM (Qwen2-VL / InternVL 2.5)
+
+部分採用候補。Qwen2-VL-7B は 4-view を 1 prompt で処理でき、Florence-2 より整合性高い caption が出る可能性がある。但し:
+- 重み 14-30 GB、Mac M4 MPS で快適には動かない (vRAM 16 GB)
+- transformers との互換性 break が頻発
+- 本 ADR は Florence-2 で acceptance gate を validate 済み、置換は **後続 ADR** で扱う
+
+## D. Hunyuan3D paint model で RGB texture view を生成
+
+部分採用候補。`hunyuan3d-paint-v2-0` (~6 GB) + `hunyuan3d-delight-v2-0` を追加 DL すれば、各 view が RGB textured image となり Florence-2 caption の richness が向上する見込み。但し:
+- 追加 DL コスト、生成時間 30 s/sample 増
+- 本 ADR の幾何 caption だけで acceptance gate を通過する sample があれば paint は optional
+- 後続 ADR (texture pipeline) で意思決定
+
+## E. TripoSR を primary に retain
+
+棄却。Phase 2 で chair (clean, single object, white background) という TripoSR が得意とすべき input でさえ椅子認識率 1/4。複雑な input ではさらに悪化する見込み。33 s vs 67.7 s の速度差は 1k sample で ~10 h の差だが、品質差を埋め合わせない。TripoSR は tertiary fallback (高速プレビュー / 廃棄 sample の sanity check) に降格。
+
+## F. Render + caption を EVO-X2 上で完結
+
+棄却 (試行済み、Phase 2 で失敗)。SSH 越しの Windows session 0 isolation により hidden GL window が描画されず blank PNG を生成。RDP 介入 or interactive Scheduled Task の選択肢はあるが、`mac` 側 (CGL/Metal/MPS の OS-native stack) の方が一貫して動作する。役割分離を維持。
+
+# References
+
+## Local (this repo)
+
+- `90-docs/baien/multimodal-reasoning-roadmap.md` — Move 1 image graft 設計 (本 ADR の親 spec)
+- `90-docs/adr/2605202345-evo-x2-gpu-pod-fleet-integration.md` — EVO-X2 ハードウェア統合
+- `90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md` — Substrate compliance 規約
+- `90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md` — Charter Rider v2.0
+
+## Cross-repo (legacy)
+
+- ADR-2605092350 — Baien 1-bit multimodal edge/browser/CPU design
+- ADR-2605091400 — MCP as cell-membrane / Lexicon XRPC demotion
+- ADR-2605091300 — Cultivar layer
+- ADR-2605091600 — Plasmid graft / horizontal tool acquisition
+- ADR-2604262359 — RisingWave vector substrate (vertex_vector_embedding_768)
+
+## External
+
+- TripoSR — https://github.com/VAST-AI-Research/TripoSR (Apache 2.0)
+- Hunyuan3D-2 — https://huggingface.co/tencent/Hunyuan3D-2 (Tencent License)
+- Hunyuan3DWrapper — https://github.com/kijai/ComfyUI-Hunyuan3DWrapper (MIT)
+- Florence-2 — https://huggingface.co/microsoft/Florence-2-large-ft (MIT)
+- moderngl — https://github.com/moderngl/moderngl (MIT)
+
+## Empirical grounding (Phase 2)
+
+- Sample dir (off-repo, Mac): `~/Downloads/triposr-vs-hunyuan3d/output/baien-graft/sample-001-chair/`
+- Source image sha1:    `94ab566c14615fdc39902a20dcf416b844dc2afd`
+- Hunyuan3D mesh sha1:  `add1c662a451630b8641b5481e3bcaf38515052e` (322,226 verts / 1,088,516 faces, watertight=False)
+- TripoSR mesh sha1:    `5e6b6971cc30a457e561b198beb4c9a125e85b9f` (54,919 verts / 109,850 faces, watertight=True)
+- Sample created:       2026-05-20T12:13:36Z
+- Reproducer scripts:   `render_mv_moderngl.py`, `florence2_caption.py`, `assemble_sample.py`
+
+**Migration plan** (separate PR, not blocking this ADR):
+- 再現スクリプトは `70-tools/baien-graft-pipeline/` 配下に格納予定 (Apache 2.0 + Charter Rider)
+- Sample アセット (mesh / renders) は IPFS pin (CID は本 ADR 採用後に PR で本文に追記)
+- `caption_3d_augmented` 列のみが `vertex_training_dataset_snapshot` に格納されるため、巨大 binary は IPFS に退避し repo は spec + 1 reference sample のみを保持
