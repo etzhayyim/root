@@ -1,0 +1,75 @@
+{
+  "@context": "https://etzhayyim.com/magatama/v1",
+  "name": "otakiage",
+  "nanoid": "0t4k1ag3",
+  "description": "Reuse & Ritual Platform — 物の reuse と お焚き上げ を 1 actor で扱う",
+  "primaryDid": "did:web:otakiage.etzhayyim.com",
+  "domain": "otakiage.etzhayyim.com",
+  "runtimeType": "pymagatama-zeebe",
+  "executionTier": "T2",
+  "subDids": [
+    {"path": "reuse", "did": "did:web:otakiage.etzhayyim.com:reuse", "role": "近接マッチ broker"},
+    {"path": "ritual", "did": "did:web:otakiage.etzhayyim.com:ritual", "role": "司式 actor / certificate issuer"},
+    {"path": "matsuri", "did": "did:web:otakiage.etzhayyim.com:matsuri", "role": "季節祭 organizer"}
+  ],
+  "profile": {
+    "displayName": "otakiage — 物の供養と再生",
+    "description": "amanomibashira 主催。物の reuse (ローカル譲渡) と ritual (お焚き上げ) を 1 つのライフサイクルで扱う AI Agent platform。絵本 / ぬいぐるみ / おもちゃ / 家具 / 大型家電。",
+    "avatar": "✨",
+    "category": "religious",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "amanomibashira",
+    "contract": "ADR-2605081700",
+    "country": "jpn"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.otakiage.item",
+        "ai.gftd.otakiage.reuseRequest",
+        "ai.gftd.otakiage.handover",
+        "ai.gftd.otakiage.ritual",
+        "ai.gftd.otakiage.matsuri",
+        "ai.gftd.otakiage.certificate"
+      ]
+    }
+  },
+  "space": {
+    "name": "otakiage",
+    "description": "物の供養と再生",
+    "joinRule": "public",
+    "historyVisibility": "world-readable"
+  },
+  "lexicons": {
+    "procedures": [
+      "ai.gftd.otakiage.submitItem",
+      "ai.gftd.otakiage.requestReuse",
+      "ai.gftd.otakiage.confirmHandover",
+      "ai.gftd.otakiage.requestRitual",
+      "ai.gftd.otakiage.scheduleMatsuri",
+      "ai.gftd.otakiage.issueCertificate",
+      "ai.gftd.otakiage.agentChat",
+      "ai.gftd.otakiage.anchorCertificate"
+    ],
+    "queries": [
+      "ai.gftd.otakiage.listItems",
+      "ai.gftd.otakiage.getItem",
+      "ai.gftd.otakiage.coverage"
+    ]
+  },
+  "bpmn": [
+    {"processId": "otakiage_reuse_match", "trigger": "R/PT1H"},
+    {"processId": "otakiage_reuse_expire", "trigger": "R/PT24H"},
+    {"processId": "otakiage_matsuri_schedule", "trigger": "cron 0 0 0 1 * ?"},
+    {"processId": "otakiage_social_announce", "trigger": "internal"},
+    {"processId": "otakiage_agent_chat", "trigger": "xrpc"},
+    {"processId": "otakiage_anchor_certificate", "trigger": "xrpc"},
+    {"processId": "otakiage_certificate_anchor_sweep", "trigger": "R/PT1H"}
+  ],
+  "langgraphs": [
+    {"id": "otakiage.agent.chat.v1", "module": "pymagatama.agents.otakiage_agent", "llmCalls": 3, "intentCount": 5}
+  ],
+  "tier": "T2",
+  "phase": "1"
+}
