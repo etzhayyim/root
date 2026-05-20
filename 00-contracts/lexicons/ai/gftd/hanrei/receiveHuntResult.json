@@ -51,7 +51,7 @@
               }
             },
             "pageCount": {
-              "type": "number"
+              "type": "integer"
             },
             "blobKeys": {
               "type": "array",

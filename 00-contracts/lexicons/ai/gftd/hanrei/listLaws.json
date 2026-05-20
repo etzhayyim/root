@@ -10,10 +10,10 @@
         "type": "params",
         "properties": {
           "limit": {
-            "type": "number"
+            "type": "integer"
           },
           "offset": {
-            "type": "number"
+            "type": "integer"
           }
         },
         "required": []

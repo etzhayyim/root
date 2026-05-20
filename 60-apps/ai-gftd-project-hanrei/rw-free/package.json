@@ -1,0 +1,16 @@
+{
+  "name": "@etzhayyim/hanrei-rw-free",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "hanrei rw-free reference implementation per ADR-2605203000 Option B. Japanese case-law corpus on PDS XRPC.",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@etzhayyim/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

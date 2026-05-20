@@ -16,10 +16,10 @@
             "type": "string"
           },
           "limit": {
-            "type": "number"
+            "type": "integer"
           },
           "offset": {
-            "type": "number"
+            "type": "integer"
           }
         },
         "required": []
