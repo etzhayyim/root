@@ -26,11 +26,22 @@ import type { Etzhayyim } from "@etzhayyim/sdk";
 import { openIntent, refundIntent } from "./escrow.js";
 import {
   CANCELLABLE_STATUSES,
+  STATUS_TRANSITIONS,
   type CancelOrderInput,
   type CancelOrderOutput,
   type CreateOrderInput,
   type CreateOrderOutput,
+  type EstimateLeadTimeInput,
+  type EstimateLeadTimeOutput,
+  type GetOrderInput,
+  type GetOrderOutput,
+  type ListOrdersInput,
+  type ListOrdersOutput,
   type ProductionOrderRecord,
+  type ProductionOrderStatus,
+  type ProductionOrderView,
+  type UpdateStatusInput,
+  type UpdateStatusOutput,
 } from "./types.js";
 
 const MS_PER_DAY = 86_400_000;
@@ -253,4 +264,186 @@ function parseAtUri(s: string): {
   const rkey = parts[parts.length - 1];
   const collection = parts.slice(1, -1).join("/");
   return { uri: { did, collection, rkey } };
+}
+
+// ─── Slice 4: remaining productionOrder commands ─────────────────────
+
+const ORDER_COLLECTION = "ai.gftd.apps.tsukuru.productionOrder";
+
+/** Read a single productionOrder by AT URI. */
+export async function getProductionOrder(
+  e: Etzhayyim,
+  input: GetOrderInput
+): Promise<GetOrderOutput> {
+  const { uri } = parseAtUri(input.productionOrderUri);
+  if (!uri.rkey) return { error: "invalidAtUri" };
+
+  const resp = await e
+    .read<ProductionOrderRecord>({
+      collection: ORDER_COLLECTION,
+      rkey: uri.rkey,
+    })
+    .catch(() => ({ records: [] }));
+  const r = resp.records[0];
+  if (!r) return { error: "notFound" };
+  return {
+    productionOrder: { ...r.value, productionOrderUri: r.uri },
+  };
+}
+
+/**
+ * List productionOrders with cursor pagination + post-fetch filter.
+ * Phase 3 will move to mst-projector indexed view (filter by
+ * manufacturerDid / customerDid / status).
+ */
+export async function listProductionOrders(
+  e: Etzhayyim,
+  input: ListOrdersInput = {}
+): Promise<ListOrdersOutput> {
+  const limit = Math.min(input.limit ?? 50, 100);
+  const resp = await e.read<ProductionOrderRecord>({
+    collection: ORDER_COLLECTION,
+    cursor: input.cursor,
+    limit,
+  });
+
+  const items: ProductionOrderView[] = resp.records
+    .filter((r) => matchesOrderFilter(r.value, input))
+    .map((r) => ({ ...r.value, productionOrderUri: r.uri }));
+
+  return {
+    items,
+    cursor: resp.cursor,
+    total: items.length,
+  };
+}
+
+/**
+ * Update the status of a productionOrder. Validates the transition
+ * against STATUS_TRANSITIONS. Typically called by the manufacturer
+ * as work progresses, but the lexicon doesn't enforce that — the
+ * arbiter / customer can also call (e.g., for dispute).
+ *
+ * Settlement is NOT triggered here — only submitInspection
+ * (qualityInspection.ts) calls pay() at result=pass. Status changes
+ * here are pure record edits.
+ */
+export async function updateOrderStatus(
+  e: Etzhayyim,
+  input: UpdateStatusInput
+): Promise<UpdateStatusOutput> {
+  if (!input.productionOrderUri || !input.status || !input.updatedByDid) {
+    return {
+      status: "invalidTransition",
+      productionOrderUri: input.productionOrderUri,
+      error: "missingRequiredFields",
+    };
+  }
+
+  const { uri } = parseAtUri(input.productionOrderUri);
+  if (!uri.rkey) {
+    return {
+      status: "invalidTransition",
+      productionOrderUri: input.productionOrderUri,
+      error: "invalidAtUri",
+    };
+  }
+
+  const resp = await e
+    .read<ProductionOrderRecord>({
+      collection: ORDER_COLLECTION,
+      rkey: uri.rkey,
+    })
+    .catch(() => ({ records: [] }));
+  const order = resp.records[0]?.value;
+  if (!order) {
+    return {
+      status: "notFound",
+      productionOrderUri: input.productionOrderUri,
+    };
+  }
+
+  // Validate forward transition.
+  const allowed = STATUS_TRANSITIONS[order.status as ProductionOrderStatus] ?? [];
+  if (!allowed.includes(input.status)) {
+    return {
+      status: "invalidTransition",
+      productionOrderUri: input.productionOrderUri,
+      previousStatus: order.status,
+      newStatus: input.status,
+    };
+  }
+
+  const updated: ProductionOrderRecord = {
+    ...order,
+    status: input.status,
+  };
+  const fields: Record<string, unknown> = {
+    ...updated,
+    note: input.note,
+    updatedByDid: input.updatedByDid,
+    updatedAt: new Date().toISOString(),
+  };
+  await e.write({
+    collection: ORDER_COLLECTION,
+    record: fields,
+    rkey: uri.rkey,
+  });
+
+  return {
+    status: "updated",
+    productionOrderUri: input.productionOrderUri,
+    previousStatus: order.status,
+    newStatus: input.status,
+  };
+}
+
+/**
+ * Pure-compute estimate. No records written, no SDK calls. Phase 2
+ * uses default priority-based estimates; Phase 3 will look up
+ * industry-profile records from mst-projector.
+ */
+export function estimateLeadTime(
+  input: EstimateLeadTimeInput
+): EstimateLeadTimeOutput {
+  const priority = input.priority ?? "normal";
+  const quantity = Math.max(1, input.quantity ?? 1);
+  const days = defaultLeadTimeDays(priority);
+
+  // Phase 2 USDC cost estimate: base $50/unit × quantity × priority multiplier.
+  // Phase 3 will replace with industry-profile-driven pricing.
+  const BASE_UNIT_COST_USDC_MICROS = 50_000_000; // 50 USDC = 50_000_000 micros
+  const priorityMultiplier = priority === "urgent"
+    ? 150
+    : priority === "high"
+      ? 120
+      : priority === "low"
+        ? 80
+        : 100;
+  const estimatedCostUsdcMicros = Math.round(
+    (BASE_UNIT_COST_USDC_MICROS * quantity * priorityMultiplier) / 100
+  );
+
+  const earliestDate = new Date(
+    Date.now() + days * MS_PER_DAY
+  ).toISOString();
+
+  return {
+    estimatedDays: days,
+    earliestDate,
+    estimatedCostUsdcMicros,
+    industryCode: input.industryCode,
+    requiredCertifications: [],
+  };
+}
+
+function matchesOrderFilter(
+  v: ProductionOrderRecord,
+  filter: ListOrdersInput
+): boolean {
+  if (filter.manufacturerDid && v.manufacturerDid !== filter.manufacturerDid)
+    return false;
+  if (filter.customerDid && v.customerDid !== filter.customerDid) return false;
+  if (filter.status && v.status !== filter.status) return false;
+  return true;
 }

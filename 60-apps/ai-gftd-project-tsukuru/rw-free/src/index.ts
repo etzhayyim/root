@@ -18,6 +18,10 @@ export type { SettleEscrowOpts } from "./settle.js";
 export {
   createProductionOrder,
   cancelProductionOrder,
+  getProductionOrder,
+  listProductionOrders,
+  updateOrderStatus,
+  estimateLeadTime,
 } from "./productionOrder.js";
 export { submitInspection, getInspections } from "./qualityInspection.js";
 export {
