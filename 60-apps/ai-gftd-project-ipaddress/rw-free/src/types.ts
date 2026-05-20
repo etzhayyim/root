@@ -616,3 +616,98 @@ export interface AnalyzePrefixOutput {
   recentScans?: ScanView[];
   error?: string;
 }
+
+// ─── Peering + RIR/NIR tier (slice 11) ──────────────────────────────
+
+export interface RegisterPeeringInput {
+  fromAsn: number;
+  toAsn: number;
+  relationship?: "peer" | "provider" | "customer";
+  observedAt?: string;
+}
+
+export interface RegisterPeeringOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  peeringUri?: string;
+  fromAsn?: number;
+  toAsn?: number;
+  error?: string;
+}
+
+export interface ListPeeringInput {
+  aroundAsn?: number;
+  relationship?: "peer" | "provider" | "customer";
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListPeeringOutput {
+  items: PeeringView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface RirRecord {
+  did: string;
+  rir: Rir;
+  name: string;
+  region?: string;
+  homepage?: string;
+  rdapBase?: string;
+  createdAt: string;
+}
+
+export interface RirView extends RirRecord {
+  rirUri: string;
+}
+
+export interface RegisterRirInput {
+  rir: Rir;
+  name: string;
+  region?: string;
+  homepage?: string;
+  rdapBase?: string;
+}
+
+export interface RegisterRirOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  rirUri?: string;
+  did?: string;
+  rir?: Rir;
+  error?: string;
+}
+
+export interface NirRecord {
+  did: string;
+  slug: string;
+  name: string;
+  parentRir: Rir;
+  countryIso3?: string;
+  homepage?: string;
+  createdAt: string;
+}
+
+export interface RegisterNirInput {
+  slug: string;
+  name: string;
+  parentRir: Rir;
+  countryIso3?: string;
+  homepage?: string;
+}
+
+export interface RegisterNirOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  nirUri?: string;
+  did?: string;
+  slug?: string;
+  error?: string;
+}
+
+export interface GetRirInput {
+  rir?: Rir;
+}
+
+export interface GetRirOutput {
+  rirRecord?: RirView;
+  error?: string;
+}
