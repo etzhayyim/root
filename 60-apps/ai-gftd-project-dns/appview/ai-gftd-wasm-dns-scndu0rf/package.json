@@ -1,0 +1,11 @@
+{
+  "name": "ai-gftd-wasm-dns-scndu0rf",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.2"
+  }
+}
