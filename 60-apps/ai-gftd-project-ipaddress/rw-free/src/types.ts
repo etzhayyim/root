@@ -162,3 +162,50 @@ export interface GetProviderOutput {
   provider?: ProviderView;
   error?: string;
 }
+
+// ─── IP tier (slice 3) ──────────────────────────────────────────────
+
+export type IpFamily = "ipv4" | "ipv6";
+
+export interface IpRecord {
+  did: string;
+  address: string;
+  family: IpFamily;
+  prefixCidr?: string;
+  asnNumber?: number;
+  providerSlug?: string;
+  countryIso3?: string;
+  reverse?: string;
+  createdAt: string;
+}
+
+export interface IpView extends IpRecord {
+  ipUri: string;
+}
+
+export interface RegisterIpInput {
+  address: string;
+  family?: IpFamily;
+  prefixCidr?: string;
+  asnNumber?: number;
+  providerSlug?: string;
+  countryIso3?: string;
+  reverse?: string;
+}
+
+export interface RegisterIpOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  ipUri?: string;
+  did?: string;
+  address?: string;
+  error?: string;
+}
+
+export interface GetIpInput {
+  address?: string;
+}
+
+export interface GetIpOutput {
+  ip?: IpView;
+  error?: string;
+}

@@ -22,3 +22,4 @@ export {
   registerProvider,
   getProvider,
 } from "./prefixRegistry.js";
+export { registerIp, getIp } from "./ipRegistry.js";
