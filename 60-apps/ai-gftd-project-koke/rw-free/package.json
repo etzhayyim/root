@@ -1,0 +1,11 @@
+{
+  "name": "@etzhayyim/koke-rw-free",
+  "version": "0.1.0",
+  "description": "Phase E Option B reference impl of koke (fixation) on the etzhayyim substrate",
+  "type": "module",
+  "main": "src/index.ts",
+  "private": true,
+  "dependencies": {
+    "@etzhayyim/sdk": "workspace:*"
+  }
+}
