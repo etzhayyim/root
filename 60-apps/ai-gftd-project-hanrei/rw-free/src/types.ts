@@ -294,3 +294,70 @@ export interface ListLawsOutput {
   cursor?: string;
   total: number;
 }
+
+// ─── Source tier (slice 5) ──────────────────────────────────────────
+
+export type SourceKind =
+  | "court-website"
+  | "egov-portal"
+  | "official-gazette"
+  | "scholarly"
+  | "commercial"
+  | "wikidata"
+  | "other";
+
+export interface SourceRecord {
+  did: string;
+  sourceId: string;
+  name: string;
+  kind?: SourceKind;
+  jurisdiction?: string;
+  homepage?: string;
+  apiBase?: string;
+  license?: string;
+  createdAt: string;
+}
+
+export interface SourceView extends SourceRecord {
+  sourceUri: string;
+}
+
+export interface RegisterSourceInput {
+  sourceId: string;
+  name: string;
+  kind?: SourceKind;
+  jurisdiction?: string;
+  homepage?: string;
+  apiBase?: string;
+  license?: string;
+}
+
+export interface RegisterSourceOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  sourceUri?: string;
+  did?: string;
+  sourceId?: string;
+  error?: string;
+}
+
+export interface GetSourceInput {
+  sourceId?: string;
+}
+
+export interface GetSourceOutput {
+  source?: SourceView;
+  error?: string;
+}
+
+export interface ListSourcesInput {
+  kind?: SourceKind;
+  jurisdiction?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListSourcesOutput {
+  items: SourceView[];
+  cursor?: string;
+  total: number;
+}
