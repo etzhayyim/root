@@ -4,13 +4,14 @@ Phase E Option B reference implementation of open-denki (Smart-Grid Operations +
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), open-denki migrates from vendor's `D1 (SQLite)` pattern to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **5 of 12** canonical open-denki commands ported (topology tier).
+Coverage: **9 of 12** canonical open-denki commands ported (topology + events).
 
 | Tier | Commands | Slice |
 |---|---|---|
-| Topology | defineGenerationNode, defineSubstation, defineFeeder, registerSmartMeter, getNode | **1** |
+| Topology | defineGenerationNode, defineSubstation, defineFeeder, registerSmartMeter, getNode | 1 |
+| Events | recordMeterReading, reportFault, recordDemandResponse, recordRenewableOutput | **2** |
 
-Remaining 7 canonical commands (`recordMeterReading / reportFault / recordDemandResponse / recordRenewableOutput / listFeeders / listFaults / listReadings`) ship in follow-up slices.
+Remaining 3 canonical commands (`listFeeders / listFaults / listReadings`) ship in slice 3.
 
 ## Topology hierarchy (IEC 61968/61970 CIM aligned)
 
