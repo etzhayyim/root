@@ -42,6 +42,6 @@ Browser → bpmn.gftd.ai (static delivery)
 cd 60-apps/ai-gftd-project-bpmn/wasm/ai-gftd-wasm-bpmn-bx7qm9p4/svelte
 pnpm install && pnpm build
 cd ..
-gftd build
-gftd deploy --smoke-url https://bx7qm9p4.gftd.ai/health
+e7m actor build .
+e7m actor deploy .
 ```

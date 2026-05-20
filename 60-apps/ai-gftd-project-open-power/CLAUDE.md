@@ -41,5 +41,5 @@ distribution network design (substations / feeders) and operations
 ```bash
 cd 60-apps/ai-gftd-project-open-power/worker
 wrangler d1 create ai-gftd-open-power
-gftd deploy
+e7m actor deploy .
 ```

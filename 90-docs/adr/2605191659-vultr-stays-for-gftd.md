@@ -17,8 +17,7 @@ depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605191346-etzhayyim-vultr-free-murakumo-control-plane
   - adr-2605191358-yoro-murakumo-rw-free-rewrite-map
-related:
-  - adr-2605172900-gftd-followup-cutover-policy
+related: []
 supersedes:
   - "(strengthens, does not delete) 2605191358-yoro-murakumo-rw-free-rewrite-map §step 6"
 superseded_by: []
@@ -52,7 +51,7 @@ This ADR records the correction.
 3. **Step 6 of ADR-2605191358 is superseded** by this ADR. The follow-ups it implied (move multicluster, move yoro-actors-raw Postgres) are dropped. The underlying substrate fixes for those workloads are addressed by:
    - The rewrite map (ADR-2605191358 steps 1-5) for any etzhayyim-branded surface
    - gftd.ai operator's discretion for anything Vultr-hosted that is NOT etzhayyim-branded
-4. **Physical separation to a different repo** (e.g. `gftd-co-jp/legacy-vultr-manifests`) remains a follow-up task tracked in ADR-2605172900 (cutover policy), at the operator's pace. This ADR does not schedule it.
+4. **Physical separation to a different repo** (e.g. `gftd-co-jp/legacy-vultr-manifests`) remains a follow-up task tracked alongside repo-root `CLAUDE.md` Step 8 cutover, at the operator's pace. This ADR does not schedule it.
 
 ## Hard rule recap (no change)
 
@@ -89,7 +88,7 @@ This ADR records the correction.
 Rejected. Contradicts the operator directive and ADR-2605191346 §2. Would also break gftd.ai's running deployment path.
 
 **B. Move 50-infra/vultr/ to a separate repo immediately.**
-Rejected for this ADR. Operator decision per ADR-2605172900; not scheduled here. Cross-cutting concern (deployment scripts, CI references, docs) requires its own cutover ADR.
+Rejected for this ADR. Operator decision deferred to repo-root `CLAUDE.md` Step 8 cutover; not scheduled here. Cross-cutting concern (deployment scripts, CI references, docs) requires its own cutover ADR.
 
 **C. Hide 50-infra/vultr/ from CI gate via path-level allowlist only, no policy ADR.**
 Rejected. The policy needs to be discoverable as an ADR, not buried in a lint script.
@@ -100,5 +99,4 @@ Rejected. The policy needs to be discoverable as an ADR, not buried in a lint sc
 - ADR-2605191346 (Vultr-free + Murakumo Mac-mini Tier-1 — this ADR reinforces §2)
 - ADR-2605191358 (yoro/murakumo RW-free rewrite map — this ADR supersedes §step 6)
 - ADR-2605191648 (substrate-boundary lefthook — allowlist gate verifier)
-- ADR-2605172900 (gftd follow-up cutover policy — where physical-separation work is scheduled)
 - Operator directive: 2026-05-19 conversation logs

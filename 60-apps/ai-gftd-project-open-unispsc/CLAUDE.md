@@ -2,10 +2,6 @@
 
 Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) で UNSPSC (United Nations Standard Products and Services Code) 製品・サービス調達分類をモデル化。
 
-## CRITICAL: Architecture — Segment APP + Commodity Entity (ISCO pattern)
-
-→ `gftd dodaf tv1 query --id ai-gftd-project-open-unispsc-architecture-segment-app-+-commodity` / MCP `gftd.dodaf.tv1.query`
-
 ## UNSPSC Hierarchy → Entity Model
 
 ```

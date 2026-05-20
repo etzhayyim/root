@@ -329,7 +329,7 @@ magatama cell state --cell EligibilityCell --thread-id <id>
 magatama cell rotate-key --cell-all --council-sigs <sig1>,<sig2>,<sig3>
 ```
 
-`70-tools/etzhayyim-cli/` 配下に integrated。既存 etzhayyim-cli (ADR-2605172800-gftd) を拡張。
+`70-tools/etzhayyim-cli/` 配下に integrated。既存 etzhayyim-cli (Go scaffold) を拡張。
 
 ## 9. Cell Rotation Key + Governance Integration
 

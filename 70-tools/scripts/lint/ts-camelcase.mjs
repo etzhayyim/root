@@ -248,7 +248,7 @@ if (added.length > 0) {
   console.error('New snake_case identifiers detected in TS (should be camelCase):');
   for (const entry of added.slice(0, 200)) console.error(`  ${entry}`);
   if (added.length > 200) console.error(`  ...and ${added.length - 200} more`);
-  console.error('\nIf intentional, run: gftd lint ts-camel-update');
+  console.error('\nIf intentional, update the allow-list file directly.');
   process.exit(1);
 }
 

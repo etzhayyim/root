@@ -20,7 +20,6 @@ authoritative_for:
   - filter-repo policy
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605172900-gftd-followup-cutover-policy
 related: []
 supersedes: []
 superseded_by: []
@@ -247,8 +246,9 @@ Kept as a template for similar lockdowns of other infrastructure.
 - **Hyperdrive setup requires manual dashboard action.** API token
   scope expansion would let us automate; tracked.
 - **Legacy-prefix npm scopes, NSIDs, and DIDs unchanged.** Those are
-  Class D items in ADR-2605172900 (deferred cutover); they don't
-  reference secrets. No remediation needed for this incident.
+  Class D items (deferred cutover, scheduled with Step 8 in repo-root
+  `CLAUDE.md`); they don't reference secrets. No remediation needed for
+  this incident.
 
 ## Out of scope
 
@@ -351,8 +351,6 @@ deferring it has no upside.
 
 - ADR-2605172000 — etzhayyim/root RW-free substrate (the workers
   containing the leak should arguably not live in etzhayyim/root)
-- ADR-2605172900 — gftd follow-up cutover policy (Class A historical
-  preservation includes seed data; the leak was in non-Class-A code)
 - Cloudflare Hyperdrive over Tunnel:
   https://developers.cloudflare.com/hyperdrive/configuration/connect-to-private-database/
 - RisingWave user management:

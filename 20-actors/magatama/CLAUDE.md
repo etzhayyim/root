@@ -228,7 +228,7 @@ async function invokeRemote(_sdk: HostSDK, did: string, method: string, params: 
 - T3 TS Native (DEFAULT) で `wit/world.wit` を新規作成しない (Shannon 冗長度が上がる)
 - 既存 app の `wit/world.wit` は build を壊さない限り archived in-place で OK (削除任意)
 - T3 Container (wasmtime, ~5 apps のみ) は引き続き WIT を使用 — Lexicon 側を後追いで揃える義務なし
-- `gftd build` の `validateMagatamaGovernanceImport` は `wit/world.wit` 不存在時に silent skip するので、新規 TS Native app は wit ディレクトリを作らないのが正解
+- `e7m actor build` の `validateMagatamaGovernanceImport` は `wit/world.wit` 不存在時に silent skip するので、新規 TS Native app は wit ディレクトリを作らないのが正解
 
 ## App Command Contract (F2, Lexicon SSoT, 2026-04-13)
 
@@ -490,7 +490,7 @@ const rows = await db.selectFrom("vertex_employee").selectAll().limit(50).execut
 
 ### CRITICAL: SDK Singleton (app.ts direct export)
 
-**app.ts が `export default createWorkerExport()` で CF Worker を直接 export。** entry 生成なし — `gftd deploy` は `src/app.ts` を wrangler entrypoint (`"main": "src/app.ts"`) として直接使用。SDK singleton は `createWorkerExport` 内部でキャッシュ (毎リクエスト再生成禁止)。
+**app.ts が `export default createWorkerExport()` で CF Worker を直接 export。** entry 生成なし — `e7m actor deploy` は `src/app.ts` を wrangler entrypoint (`"main": "src/app.ts"`) として直接使用。SDK singleton は `createWorkerExport` 内部でキャッシュ (毎リクエスト再生成禁止)。
 
 ```typescript
 // app.ts 末尾 (全 App 標準パターン)
@@ -499,11 +499,11 @@ export default createWorkerExport();
 
 **AppDef 解決 (Shannon Single Source of Truth)**:
 - `magatama.jsonld` が nanoid/name/description の唯一の SSoT
-- `gftd deploy` が jsonld → `APP_NANOID`, `APP_DISPLAY_NAME`, `APP_DESCRIPTION` env vars として注入
+- `e7m actor deploy` が jsonld → `APP_NANOID`, `APP_DISPLAY_NAME`, `APP_DESCRIPTION` env vars として注入
 - `createDefaultHostSDK(env)` が env vars → `appDef` を自動構築
 - `createWorkerExport()` (引数なし) が `createDefaultHostSDK` を使用
 
-**禁止 (Shannon 冗長 = entropy 0, `gftd code-quality` で検出)**:
+**禁止 (Shannon 冗長 = entropy 0)**:
 - `const appId = "xxx"` — `hardcoded-appid` violation
 - `const actorDID = ...` — `hardcoded-actor-did` violation
 - `function createComponentHostSDK(env) { ... }` — `legacy-create-component-host-sdk` violation
@@ -516,14 +516,14 @@ export default createWorkerExport();
 | 経路 | 方式 | エラー処理 | 状態 |
 |---|---|---|---|
 | **`serveAsync()` (DEFAULT)** | `await pds.governanceRegisterManifest()` → XRPC `ai.gftd.governance.registerManifest` | `catch → console.error` (Worker logs に出力) | **必須** |
-| ~~`serve()`~~ | `host-imports.dispatch()` → `void rpc()` | **silent fail** (Promise 破棄) | **禁止** (`gftd code-quality` `sync-serve-call` で検出) |
+| ~~`serve()`~~ | `host-imports.dispatch()` → `void rpc()` | **silent fail** (Promise 破棄) | **禁止** |
 
 **禁止**: `sdk.app.serve()` を app.ts 内で呼ぶこと。`createWorkerExport()` が `serveAsync()` を自動呼出し、`_served` flag で二重登録を防止。
 
 **Canonical internal path**:
 - PDS write/query は `https://atproto.gftd.ai/xrpc/*` を使用
 - legacy internal HTTP paths と legacy registration NSID (`ai.gftd.identity.register`, `ai.gftd.capability.declare`, `ai.gftd.agent.registerTools`) は使用禁止
-- `gftd lint nsid-regression` / `lint-legacy-pds-nsid` で旧 NSID・旧呼び出しの再導入を防止
+- 旧 NSID・旧呼び出し (legacy PDS NSID) の再導入は manual review で防止 (gftd lint nsid-regression は CLI ごと撤去 2026-05-20)
 
 ### CRITICAL: XRPC Handler Hard Timeout (2026-04-17)
 
@@ -568,9 +568,9 @@ export default createWorkerExport();
 
 ## Component Build Pipeline (Multi-Language)
 
-**推奨: `gftd build`** (`70-tools/gftd/`) — 言語自動検出。
+**推奨: `e7m actor build`** (`70-tools/e7m-cli/`) — tinygo + wasm-tools。
 
-`gftd build` はコンポーネントディレクトリのファイルから言語を自動検出:
+`e7m actor build` はコンポーネントディレクトリのファイルから言語を自動検出:
 
 | 検出ファイル | 言語 | ツールチェーン | 出力サイズ目安 |
 |---|---|---|---|
@@ -578,7 +578,7 @@ export default createWorkerExport();
 
 ```bash
 cd <component-dir>
-gftd build    # TS native build → deploy 可能な worker entry を生成
+e7m actor build .    # TS native build → deploy 可能な worker entry を生成
 ```
 
 ### TypeScript/Deno パイプライン
@@ -700,7 +700,7 @@ const registry = new ActorRegistry(sdk.pds, {
 
 ## Config (`magatama.jsonld`)
 
-Source of truth は `magatama.jsonld` (JSON-LD)。`gftd build` が generated TOML を出力し、Container runtime が内部で読む。
+Source of truth は `magatama.jsonld` (JSON-LD)。`e7m actor build` が generated TOML を出力し、Container runtime が内部で読む。
 
 ```toml
 # generated TOML (from magatama.jsonld) — Container runtime internal format
@@ -727,7 +727,7 @@ size = 1  # per-app container: 1 WASM instance sufficient
 
 ### CRITICAL: generated TOML に書いてはいけないセクション
 
-以下のセクションは magatama-server が内部処理するか廃止済み。**generated TOML に含めると起動失敗する**（`missing field` parse error）。`gftd deploy` が strip するが、`magatama.jsonld` に対応キーを書かないのが正解。
+以下のセクションは magatama-server が内部処理するか廃止済み。**generated TOML に含めると起動失敗する**（`missing field` parse error）。`e7m actor deploy` が strip するが、`magatama.jsonld` に対応キーを書かないのが正解。
 
 | 禁止セクション | 理由 |
 |---|---|
@@ -742,12 +742,12 @@ size = 1  # per-app container: 1 WASM instance sufficient
 
 ```bash
 cd <project-dir>
-gftd build                          # esbuild: src/app.ts + host-sdk → bundle.js
-gftd deploy                         # Single Worker deploy (bundle.js + assets)
+e7m actor build .                   # tinygo + wasm-tools (or esbuild for TS native)
+e7m actor deploy .                  # wraps `wrangler deploy`
 ```
 
 Single Worker mode では:
-- `gftd deploy` が `src/app.ts` (business logic) + `@gftd/magatama-host-sdk` を esbuild で 1 Worker に bundle する
+- `e7m actor deploy` が `src/app.ts` (business logic) + `@gftd/magatama-host-sdk` を esbuild で 1 Worker に bundle する
 - WASM instantiation なし。business logic = TS native (async/await 直接)
 - Hono router (host-sdk) + TS business logic + OTEL が atomic deploy
 - SQL read は `db.selectFrom(...)` (Kysely + Hyperdrive 直接、async、pre-fetch 不要) or `await G().query()` (SQL builder wrapper)
@@ -786,16 +786,11 @@ brew install sccache
 # export RUSTC_WRAPPER=sccache
 # export SCCACHE_CACHE_SIZE=10G
 
-# 標準ビルド (推奨 — timestamped tag, sccache auto-enabled)
-gftd build-server --push
-# → ghcr.io/gftdcojp/magatama-server:20260316-153000
-
-# WIT 0.1.0 互換ビルド (既存 components 用 — WIT は自動復元される)
-gftd build-server --wit-version 0.1.0 --tag rls-v3 --push
-# → WIT を 0.1.0 に一時変更 → build → push → WIT を 0.2.0 に復元
-
-# docker モード (cargo-chef + BuildKit cache — CI / amd64 ランナー向け)
-gftd build-server --mode docker --push
+# magatama-server image build — previously driven by `gftd build-server`.
+# The gftd CLI was removed 2026-05-20; until a replacement lands, build via
+# the underlying cargo + docker invocations directly.
+cargo build --release -p magatama-server
+docker buildx build --push -t ghcr.io/etzhayyim/magatama-server:$(date -u +%Y%m%d-%H%M%S) .
 ```
 
 **前提**: `brew install sccache`。sccache がコンパイルキャッシュとして動作。
@@ -809,7 +804,7 @@ gftd build-server --mode docker --push
 
 ```bash
 cd <component-dir>
-gftd deploy                         # TS native (default) or Container (--runtime container)
+e7m actor deploy .                  # wraps `wrangler deploy` (TS native default)
 ```
 
 ### CRITICAL: WIT interface 変更時の全 component rebuild
@@ -819,18 +814,19 @@ gftd deploy                         # TS native (default) or Container (--runtim
 
 ```bash
 # WIT 変更後の全 component rebuild (必須)
-gftd rebuild-all   # 全 component の image を rebuild & push
-# or 手動:
-# 1. 各 component dir で gftd build → docker push (新 tag)
-# 2. kubectl patch mga <nanoid> -n magatama-runtime --type merge -p '{"spec":{"image":"ghcr.io/gftdcojp/<image>:<new-tag>"}}'
+# Previously driven by `gftd rebuild-all`; gftd CLI was removed 2026-05-20.
+# Drive manually for now:
+# 1. 各 component dir で `e7m actor build .` → docker push (新 tag)
+# 2. kubectl patch mga <nanoid> -n magatama-runtime --type merge -p '{"spec":{"image":"ghcr.io/etzhayyim/<image>:<new-tag>"}}'
 ```
 
 **診断**: Container logs で `pre-link failed` を grep して WIT 不一致 component を特定。
 
 ```bash
-# gftd CLI install
-cd 70-tools/cmd/gftd
-go install .   # installs to $GOPATH/bin/gftd
+# e7m-cli install (replaces the removed gftd CLI for monorepo-internal workflows)
+cd 70-tools/e7m-cli
+npm install && npm run build
+npm link   # installs binary `e7m` on PATH
 ```
 
 ## Host-provided Interfaces (magatama:runtime additions)
@@ -865,7 +861,7 @@ go install .   # installs to $GOPATH/bin/gftd
 | `cloudflare/durable-object-state` | `worker-host.ts` → `DurableObjectState.{blockConcurrencyWhile,id}` + `ctx.waitUntil` | DO context required |
 | `browser/scraper` | `host.ts` → `_syncFetch` + `_extractText/Table/Links/Attr` (sync string parsing) | none |
 | `browser/analyzer` | `host.ts` → stub (async not yet wired) | none |
-| `browser/automation` | `@gftd/magatama-host-sdk` → `@cloudflare/puppeteer` (async direct)。`gftd deploy` が `HEADLESS_BROWSER` binding を自動追加 | `env.HEADLESS_BROWSER` (auto-detected) |
+| `browser/automation` | `@gftd/magatama-host-sdk` → `@cloudflare/puppeteer` (async direct)。`e7m actor deploy` が `HEADLESS_BROWSER` binding を自動追加 | `env.HEADLESS_BROWSER` (auto-detected) |
 | `browser/pipeline` | `host.ts` → stub (async not yet wired) | none |
 
 - Complex return values (authn): JSON-encoded `list<u8>` (same pattern as `signal`)

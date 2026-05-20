@@ -41,12 +41,15 @@ digest: sha256:29a1f2f037a31a8ae0518272706368714610b3eba845667e9690834b31a031b0
 platform: linux/amd64
 ```
 
-The scaffold is intentionally not the production runtime. The current verified path is the CLI contract smoke:
+The scaffold is intentionally not the production runtime. The CLI contract
+smoke previously lived in `70-tools/gftd/gftd/`; that tree was removed
+2026-05-20 along with the gftd CLI. Until the Holochain plan is re-ported
+(target: `e7m agent holochain-plan` or similar), the smoke is unavailable:
 
 ```sh
-cd 70-tools/gftd/gftd
-go test . -run Holochain
-go run . agent-runtime holochain-plan \
+# (former) cd 70-tools/gftd/gftd
+# (former) go test . -run Holochain
+# (former) go run . agent-runtime holochain-plan \
   --agent-did did:web:kami-agent.gftd.ai \
   --happ-uri ipfs://bafy-happ \
   --dna-hash uhC0kagentactorruntime

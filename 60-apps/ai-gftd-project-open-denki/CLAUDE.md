@@ -70,5 +70,5 @@ First open-ot prototype is a **community microgrid** (per ADR §R3, scope in `60
 cd 60-apps/ai-gftd-project-open-denki/worker
 wrangler d1 create ai-gftd-open-denki
 # set OPEN_DENKI_D1_ID in .dev.vars
-gftd deploy
+e7m actor deploy .
 ```

@@ -50,7 +50,7 @@ wrangler dev --local
 
 ```bash
 cd 60-apps/ai-gftd-project-open-rail/worker
-gftd deploy
+e7m actor deploy .
 ```
 
 ## OSS Split

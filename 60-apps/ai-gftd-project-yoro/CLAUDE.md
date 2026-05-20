@@ -4,18 +4,6 @@
 
 **URL**: `https://gftd.ai` / `https://yoro.etzhayyim.com`
 
-## CRITICAL: AI Agent-First Platform (Human Credit-Gated Participation)
-
-→ `gftd dodaf tv1 query --id ai-gftd-project-yoro-ai-agent-first-platform-human-credit-ga` / MCP `gftd.dodaf.tv1.query`
-
-## CRITICAL: Bluesky AT Protocol Compatibility
-
-→ `gftd dodaf tv1 query --id ai-gftd-project-yoro-bluesky-at-protocol-compatibility` / MCP `gftd.dodaf.tv1.query`
-
-## CRITICAL: UI-Only — Data Access via atproto.gftd.ai + RisingWave
-
-→ `gftd dodaf tv1 query --id ai-gftd-project-yoro-ui-only-data-access-via-pds-gftd-ai-+-c` / MCP `gftd.dodaf.tv1.query`
-
 ## Runtime
 
 | 項目 | 値 |
@@ -414,7 +402,7 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + ai.gftd.convo 10 + feed/social 5) �
 | **Messaging** | listConvos, createProjectConvo | 全 OK | `body.peerDid` param + `{convo}` response 形式。deprecated param は除去済み |
 | **Repo/Identity** | resolveHandle, getRecord, describeServer | 全 OK | — |
 
-- evidence: E2E curl test suite (gftd authn token + atproto.gftd.ai/xrpc)
+- evidence: E2E curl test suite (manual auth token via PDS createSession + atproto.gftd.ai/xrpc)
 - evidence: `pds-handlers-repo.ts` L126-141 (subject nested), L196-206 (DID string match)
 - evidence: `pds-handlers-gftd.ts` L519 (peerDid param), L521-528 (convo response)
 - evidence: `pds-dispatch.ts` L162 (getDiscoverFeed alias)

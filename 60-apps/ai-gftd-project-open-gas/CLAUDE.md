@@ -40,5 +40,5 @@ operations (meter readings, leak reports, pressure logs). Apache-2.0.
 ```bash
 cd 60-apps/ai-gftd-project-open-gas/worker
 wrangler d1 create ai-gftd-open-gas
-gftd deploy
+e7m actor deploy .
 ```

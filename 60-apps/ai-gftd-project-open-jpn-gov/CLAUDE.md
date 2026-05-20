@@ -39,7 +39,7 @@ This app is a **public directory + law proxy**, not a sovereign actor. Existing 
 
 ```bash
 cd 60-apps/ai-gftd-project-open-jpn-gov/worker
-gftd deploy     # or: wrangler deploy
+e7m actor deploy .   # or: wrangler deploy
 ```
 
 No DB. No auth. Pure read-only public service.

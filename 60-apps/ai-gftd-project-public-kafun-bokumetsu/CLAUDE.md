@@ -82,8 +82,8 @@ GCC 取引手数料 10% → Public Fund → ユーザーに均等分配 (Public 
 ```bash
 cd 60-apps/ai-gftd-project-public-kafun-bokumetsu/wasm/ai-gftd-wasm-kafun-bokumetsu-n97ik10n
 cd svelte && pnpm install && pnpm build && cd ..
-gftd build
-gftd deploy --smoke-url https://n97ik10n.gftd.ai/health
+e7m actor build .
+e7m actor deploy .
 kubectl apply -f k8s/cronjob.yaml
 # performer-framework の magatama process 再起動が必要な場合:
 # kubectl port-forward -n magatama-runtime performer-framework-0 8082:8080

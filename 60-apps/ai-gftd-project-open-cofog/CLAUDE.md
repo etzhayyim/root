@@ -90,5 +90,5 @@ worker/wrangler.jsonc            CF Worker config (no D1)
 ```bash
 cd 60-apps/ai-gftd-project-open-cofog/worker
 wrangler dev --local                  # static, no D1 binding
-gftd deploy                           # standard monorepo deploy
+e7m actor deploy .   # standard monorepo deploy
 ```

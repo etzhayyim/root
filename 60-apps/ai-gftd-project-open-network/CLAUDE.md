@@ -43,5 +43,5 @@ workflow. Apache-2.0.
 ```bash
 cd 60-apps/ai-gftd-project-open-network/worker
 wrangler d1 create ai-gftd-open-network
-gftd deploy
+e7m actor deploy .
 ```

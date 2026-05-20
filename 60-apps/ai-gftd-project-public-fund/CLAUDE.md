@@ -30,10 +30,6 @@
 | `public-fund-orchestrator-component` | 旧 orchestrator (Adapter 方式) |
 | `ai-gftd-wasm-pb-p8bl1cfn` | 標準 App (Command/Query/UI) |
 
-## CRITICAL: Cross-Project Matrix Conversation (with well-becoming)
-
-→ `gftd dodaf tv1 query --id ai-gftd-project-public-fund-cross-project-matrix-conversatio` / MCP `gftd.dodaf.tv1.query`
-
 ## Nested Reference
 
 - Daily Evolution: daily evolution multi-agent design

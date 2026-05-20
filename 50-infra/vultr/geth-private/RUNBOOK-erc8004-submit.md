@@ -1,9 +1,15 @@
 # RUNBOOK — ERC-8004 chain submit (close `chain_submit_status: pending`)
 
+> **HISTORICAL** — drove the legacy `gftd agent-runtime publish-agent`
+> command, which was removed along with `70-tools/gftd/` on 2026-05-20.
+> The IPFS pin + on-chain `registerAgent` flow needs to be re-implemented
+> (e.g. as `e7m agent publish` or a Foundry script) before this runbook
+> can be exercised again. Retained as design reference.
+
 `deps.toml [geth_private.agent_runtime_publication]` carries
 `chain_submit_status = "pending; publish-agent --dry-run=false pinned IPFS documents, but --submit-chain has not been enabled"`.
-The CLI flag is already wired (`70-tools/gftd/gftd/agent_runtime.go:259`); this
-runbook is the operator-side checklist to flip it to `"completed"`.
+This runbook is the operator-side checklist that previously drove flipping
+it to `"completed"`.
 
 **Outcome**: yoro becomes the first on-chain registered agent on
 `GftdAgentRegistry` (chainId 260425), `vertex_agent_publication` gets a
@@ -33,7 +39,7 @@ moves to `"completed"`.
 
 ```bash
 cd /path/to/ai-gftd-apps-gftdcojp
-gftd agent-runtime publish-agent \
+# gftd agent-runtime publish-agent \  (removed 2026-05-20)
   --dry-run \
   --cluster murakumo-vke \
   --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json \
@@ -48,7 +54,7 @@ Verify:
 ## Step 2 — publish to IPFS (no chain yet)
 
 ```bash
-gftd agent-runtime publish-agent \
+# gftd agent-runtime publish-agent \  (removed 2026-05-20)
   --dry-run=false \
   --ipfs http://144.202.126.131 \
   --cluster murakumo-vke \
@@ -67,7 +73,7 @@ ROOT_DID="$(security find-generic-password -s "gftd.private-chain" -a "YORO_ROOT
   || jq -r '.rootIdentity.rootDid' /tmp/yoro-agent-registration.json)"
 OWNER="$(jq -r '.rootIdentity.address' /tmp/yoro-agent-registration.json)"
 
-gftd agent-runtime publish-agent \
+# gftd agent-runtime publish-agent \  (removed 2026-05-20)
   --dry-run=false \
   --submit-chain \
   --ipfs http://144.202.126.131 \
@@ -92,9 +98,9 @@ Expected stdout includes:
 }
 ```
 
-Sealer key access goes through `cast send` under the hood (see
-`70-tools/gftd/gftd/eth_deploy_receipt.go` for the same pattern). The
-sealer pre-funded balance (~$10^41 NETH-equiv, see
+Sealer key access went through `cast send` under the hood (the legacy
+reference pattern was `70-tools/gftd/gftd/eth_deploy_receipt.go`, removed
+2026-05-20). The sealer pre-funded balance (~$10^41 NETH-equiv, see
 `50-infra/vultr/geth-private/CLAUDE.md`) covers the gas trivially.
 
 ## Step 4 — verify on chain + RisingWave projection

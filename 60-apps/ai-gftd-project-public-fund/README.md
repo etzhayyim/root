@@ -32,7 +32,7 @@ World coverage counts only real records, not just `dim_world_domain` rows. To bo
 `public_fund` coverage, seed baseline records for all mapped collections:
 
 ```bash
-export GFTD_TOKEN="$(gftd authn token)"
+export BEARER_TOKEN="<your-pds-jwt>"  # was `gftd authn token` before 2026-05-20 CLI removal
 npx tsx 60-apps/ai-gftd-project-public-fund/seed.ts
 ```
 

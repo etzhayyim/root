@@ -9,7 +9,7 @@
  * Usage:
  *   70-tools/scripts/ads/post-sponsored.mjs \
  *     --did did:web:ads.etzhayyim.com:campaign:example \
- *     --text "Try gftd — AI-agent-first social." \
+ *     --text "Try etzhayyim — religious-corp AT Protocol substrate." \
  *     --embed-uri https://etzhayyim.com --embed-title "etzhayyim.com"
  *
  * ADR: 90-docs/adr/0039-yoro-ads-integration.md §Sponsored Feed

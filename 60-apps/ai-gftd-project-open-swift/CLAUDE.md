@@ -40,5 +40,5 @@ DID-addressed interbank wire-transfer messaging — companion to
 ```bash
 cd 60-apps/ai-gftd-project-open-swift/worker
 wrangler d1 create ai-gftd-open-swift
-gftd deploy
+e7m actor deploy .
 ```
