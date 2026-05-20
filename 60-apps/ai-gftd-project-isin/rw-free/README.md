@@ -4,14 +4,17 @@ Phase E Option B reference implementation of isin (ISO 6166 security registry) o
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), isin migrates from vendor's `createKyselyDb` pattern to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **8 of 11 canonical** commands ported (slice 1: core registry + validation + dashboard). 7 collect/enrich/register-profile orchestration wrappers ship in slice 2.
+Coverage: **11 of 11 (100%) canonical** isin commands ported.
 
 | Tier | Commands | Slice |
 |---|---|---|
-| Security | registerSecurity, getSecurity, searchSecurities, listSecurities, listByCountry | **1** |
-| Entity (LEI) | registerEntity | **1** |
-| Validation | validateIsin | **1** |
-| Dashboard | getDashboard | **1** |
+| Security | registerSecurity, getSecurity, searchSecurities, listSecurities, listByCountry | 1 |
+| Entity (LEI) | registerEntity | 1 |
+| Validation | validateIsin | 1 |
+| Dashboard | getDashboard | 1 |
+| Collect | collectSecurities, collectEntityIR, enrichISIN | **2** |
+
+isin rw-free Option B reference impl is now complete at canonical surface.
 
 ## Authority-chain DIDs
 
