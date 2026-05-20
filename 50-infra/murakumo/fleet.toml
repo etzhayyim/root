@@ -232,9 +232,11 @@ adr = ["2605192315"]
 healthz_port = 13014
 trigger = "synchronous API"
 api_port = 13114
-adr = ["2605192400"]
+adr = ["2605192400", "2605202345"]
 llm_primary = "claude-sonnet-4-6"
-llm_fallback_local = "gemma3:4b (Murakumo Ollama)"
+llm_fallback_local = "llama3.2:3b @ evo-x2 (per ADR-2605202345, 83 tok/s)"
+llm_fallback_local_secondary = "gemma3:4b (own-node Ollama, on evo-x2 unreachable)"
+llm_heavy_review = "llama3.3:70b @ evo-x2 (batch-only, 1.18 tok/s)"
 
 [cells.AdherentAttestationCell]
 healthz_port = 13015
@@ -299,6 +301,63 @@ trigger = "cron + governance-vote + lifespan-expiry-monitor"
 cron = "0 0 1 * *"  # monthly check for lifespanYears expiry
 adr = ["2605201400", "2605192345"]
 urban_mining_handoff = "60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md"
+
+# ─── External inference backends (non-cell, GPU pods) ───────────────
+# Per ADR-2605202345. Windows / non-launchd machines that provide LLM
+# and image/video inference for cells. Do NOT run magatama cells here
+# (launchd-only per ADR-2605202100).
+
+[[inference_backends]]
+name = "evo-x2"
+host_lan = "192.168.1.70"
+role = "gpu-inference-pod"
+adr = "2605202345"
+
+[inference_backends.evo-x2.hardware]
+chip = "AMD Ryzen AI Max+ 395"
+igpu = "Radeon 8060S (gfx1151, RDNA 3.5)"
+npu = "AMD XDNA"  # 50 TOPS, status pending (ADR-2605202345 Open Questions)
+vram_gib = 32  # BIOS UMA carve-out from 128 GB unified memory
+sys_ram_gb = 96
+os = "Windows 11 Pro 24H2"
+
+[inference_backends.evo-x2.endpoints.ollama]
+url = "http://192.168.1.70:11434"
+api = "openai-compatible"
+auth = "lan-only"
+models = ["llama3.2:3b", "llama3.3:70b"]
+backend = "ROCm gfx1151"
+verified_perf = { llama32_3b = "83 tok/s", llama33_70b = "1.18 tok/s" }
+
+[inference_backends.evo-x2.endpoints.litellm]
+url = "http://192.168.1.70:4000"
+api = "openai-compatible"
+auth = "bearer master_key"
+master_key_env = "EVO_X2_LITELLM_KEY"  # rotate per security policy
+
+[inference_backends.evo-x2.endpoints.comfyui]
+url = "http://192.168.1.70:8188"
+api = "comfyui-native"
+auth = "lan-only"
+models = ["animagine-xl-4.0", "waiIllustriousSDXL_v160", "wan2.2_ti2v_5B_fp16"]
+verified_perf = { animagine_xl4_1024 = "21 s/25steps", wai_v160_1024 = "25 s/30steps", wan22_5B_1280x704_41f = "502 s" }
+
+[inference_backends.evo-x2.persistence]
+ollama_task = "OllamaServer (Scheduled Task, AtStartup, gad/S4U, Highest)"
+litellm_task = "LiteLLMProxy (Scheduled Task, AtStartup, gad/S4U, Highest)"
+comfyui_task = "ComfyUI (Scheduled Task, AtLogOn, gad, Highest)"
+
+[inference_backends.evo-x2.healthcheck]
+endpoints = [
+  "GET http://192.168.1.70:11434/v1/models",
+  "GET http://192.168.1.70:4000/v1/models (with bearer)",
+  "GET http://192.168.1.70:8188/system_stats",
+]
+prometheus_scrape = true  # pending: add to murakumo prometheus config
+
+[inference_backends.evo-x2.failover]
+on_unreachable = "cells fall back to own-node local Ollama gemma3:4b"
+replica_recommended = "future M3/M4 Ultra Mac mini with 128 GB unified, or 2nd EVO-X2 class"
 
 # ─── Bootstrap deployment plan (ADR-2605192415 §10) ─────────────────
 
