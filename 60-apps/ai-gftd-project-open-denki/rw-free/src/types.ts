@@ -381,6 +381,50 @@ export interface RecordRenewableOutputOutput {
   error?: string;
 }
 
+// ─── Query tier (slice 3) ───────────────────────────────────────────
+
+export interface ListFeedersInput {
+  substationDid?: string;
+  status?: FeederStatus;
+  voltageLevel?: VoltageLevel;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListFeedersOutput {
+  items: FeederView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface ListFaultsInput {
+  feederDid?: string;
+  since?: string;
+  minSeverity?: FaultSeverity;
+  publicNoticeOnly?: boolean;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListFaultsOutput {
+  items: FaultView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface ListReadingsInput {
+  meterDid?: string;
+  since?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListReadingsOutput {
+  items: MeterReadingView[];
+  cursor?: string;
+  total: number;
+}
+
 // ─── Slug helpers ───────────────────────────────────────────────────
 
 export function idSlug(id: string): string {
