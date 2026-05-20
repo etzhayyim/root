@@ -551,3 +551,74 @@ export interface ValidatePackageOutput {
   issues: string[];
   schema: string;
 }
+
+// ─── EUV (slice 7) ──────────────────────────────────────────────────
+
+export interface EuvDesignFlowInput {
+  flowId?: string;
+  productionOrderId?: string;
+  technologyNodeNm?: number;
+  waferDiameterMm?: number;
+  /** AT Lexicon has no float — store as permille (NA * 1000). */
+  numericalAperturePermille?: number;
+  sourcePowerW?: number;
+  designFormats?: string[];
+  supplierExchangeFormat?: string;
+  supplierDid?: string;
+  artifacts?: unknown[];
+  requirements?: unknown;
+}
+
+export interface EuvDesignFlowOutput {
+  status: "ok" | "rejected";
+  schema: string;
+  flowId: string;
+  productionOrderId?: string;
+  technologyNodeNm: number;
+  waferDiameterMm: number;
+  numericalAperturePermille: number;
+  sourcePowerW: number;
+  designFormats: string[];
+  supplierExchangeFormat: string;
+  phases: string[];
+  handoffGates: string[];
+  artifacts: unknown[];
+  requirements?: unknown;
+}
+
+export interface EuvPrepareOrderInput {
+  packageId?: string;
+  productionOrderId?: string;
+  flowId?: string;
+  supplierDid?: string;
+  artifacts?: unknown[];
+}
+
+export interface EuvPrepareOrderOutput {
+  status: "ok" | "rejected";
+  schema: string;
+  packageId: string;
+  productionOrderId?: string;
+  flowId?: string;
+  supplierDid?: string;
+  artifacts: unknown[];
+  deliveryFormats: string[];
+  riskControls: string[];
+}
+
+export interface EuvImplementationCoverageInput {
+  productionOrderId?: string;
+}
+
+export interface EuvPhaseCoverage {
+  phase: string;
+  count: number;
+}
+
+export interface EuvImplementationCoverageOutput {
+  status: "ok";
+  schema: string;
+  totalFlows: number;
+  phaseCoverage: EuvPhaseCoverage[];
+  computedAt: string;
+}
