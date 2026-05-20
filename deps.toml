@@ -1608,3 +1608,52 @@ follow_up = [
   "CF exit ADR (long-term self-host)",
   "end-to-end automated smoke test runner",
 ]
+
+[session_summaries.yobel-amnesty-debt-release-wave-2026-05-20]
+date = "2026-05-20"
+adrs_added = 2
+prs_merged = []
+prs_open = ["#73 (yobel)", "#75 (amnesty)", "gftdcojp#1312 (vendor cross-actor wire)"]
+description = """Religious-corp doctrinal runtime for monetary debt release.
+Two symmetric sibling actors fill the Charter §1 (構造的労働解放)
+monetary-debt dimension under voluntary opt-in + Council ratification +
+3-axis split governance.
+
+  yobel.etzhayyim.com   (ADR-2605201800) — natural-person (自然人) only
+    shmita 7yr / yobel 50yr / 徳政令 / Catholic Jubilee /
+    political_amnesty (= mass amnesty for individual debtors).
+    8 lexicons + 5 LangGraph cells (judah/gad/issachar/asher/reuben) +
+    YobelOrchestrator + 2 Solidity contracts + 3 web3 ports + EIP-712
+    signed-consent verifier. 72 pytest unit + 4 anvil integration +
+    28 forge tests + 1024-run fuzz of one-way invariant + shmita 5786
+    fixture dry-run golden check.
+
+  amnesty.etzhayyim.com (ADR-2605202000) — legal-person counterpart
+    sovereign_multilateral (HIPC / Paris Club) / sovereign_bilateral /
+    corporate_chapter_11 (≥ 2/3 each impaired class per §1126(c)) /
+    corporate_workout / debt_for_nature_swap.
+    8 lexicons + project marker (Phase 1 ADR + lexicons only; cells +
+    Solidity + governance deferred to follow-up PRs).
+
+Defense-in-depth: lexicon schema enum (single-value 'natural_person' for
+yobel debtorEntityType, excludes natural_person for amnesty) → cell DMN
+R14/A14 short-circuit gates → Solidity revert for §2(b) one-way
+violation (1024-run fuzz). Symmetric mutual deferral: yobel returns
+deferToAmnesty=true for legal-person debtors; amnesty returns
+deferToYobel=true for natural-person debtors.
+
+Cross-repo: vendor gftdcojp#1312 adds the consumer-side
+recordYobelRiteReference lexicon + yobel-bridge CLI utility + 12 anvil
+integration tests + vendor:bankruptcy CLAUDE.md cross-actor doc.
+Amnesty counterpart (recordAmnestyRestructuringReference) follows in
+later vendor PR."""
+follow_up = [
+  "amnesty Phase 2-7 (BPMN + cells + tests + Solidity + web3 + governance)",
+  "vendor:bankruptcy recordAmnestyRestructuringReference lexicon",
+  "Council Lv6+ × 3 + Lv9 chair ratification of ADR-2605201800",
+  "Council Lv9 × 3 + Five-Bootstrap ratification of ADR-2605202000",
+  "Base Sepolia deploy + verify YobelRiteRegistry + YobelReleaseRegistry",
+  "vendor:bankruptcy CF Worker scaffold (S0 → S1 graduation)",
+  "yoro UI Card for rite browsing (debtor + creditor self-service)",
+  "Charter Rider §2 compliance scanner (automated regression防御)",
+]
