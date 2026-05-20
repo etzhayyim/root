@@ -38,3 +38,10 @@ export { getGeolocation, getAbuseContact } from "./geoAbuse.js";
 export { collectGeoip, collectWhois, batchIngestRir } from "./collect.js";
 export { listAsns, listIps, batchRegisterIp } from "./list.js";
 export { analyzeIp, analyzeAsn, analyzePrefix } from "./analyze.js";
+export {
+  registerPeering,
+  listPeering,
+  registerRir,
+  registerNir,
+  getRir,
+} from "./peeringRirRegistry.js";
