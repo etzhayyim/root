@@ -31,3 +31,9 @@ export {
   getBlastRadius,
   DEFAULT_SLA_HOURS,
 } from "./patchRegistry.js";
+export {
+  getSlaTimer,
+  listOverdueVulnMatches,
+  getArtifactDependents,
+  analyzeApp,
+} from "./analyze.js";

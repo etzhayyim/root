@@ -4,16 +4,17 @@ Phase E Option B reference implementation of sbom on the etzhayyim substrate.
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), sbom migrates from vendor's `createKyselyDb` pattern (RW direct write) to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **10** commands across 5 tiers.
+Coverage: **14** commands across 6 tiers.
 
 | Tier | Commands | Slice |
 |---|---|---|
 | Artifact | registerArtifact, getArtifact | 1 |
 | Component | registerComponent, listComponents | 1 |
 | CVE + VulnMatch | cveIngestOsv, registerVulnMatch, listVulnMatches | 2 |
-| Patch | registerPatchPolicy, registerPatchAction, getBlastRadius | **3** |
+| Patch | registerPatchPolicy, registerPatchAction, getBlastRadius | 3 |
+| Analyze + SLA | getSlaTimer, listOverdueVulnMatches, getArtifactDependents, analyzeApp | **4** |
 
-Follow-up slices: analyze (SLA timer scans) + recall (artifact recall flow).
+Follow-up slices: recall (artifact recall flow) + health endpoint.
 
 ## Authority-chain DIDs (per sbom CLAUDE.md)
 
