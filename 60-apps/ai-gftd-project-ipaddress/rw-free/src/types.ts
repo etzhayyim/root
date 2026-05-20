@@ -70,3 +70,95 @@ export function asnDid(number: number): string {
 export function asnRkey(number: number): string {
   return `asn-${number}`;
 }
+
+// ─── Prefix tier (slice 2) ──────────────────────────────────────────
+
+export interface PrefixRecord {
+  did: string;
+  cidr: string;
+  asnNumber?: number;
+  providerSlug?: string;
+  countryIso3?: string;
+  rir?: Rir;
+  allocatedAt?: string;
+  createdAt: string;
+}
+
+export interface PrefixView extends PrefixRecord {
+  prefixUri: string;
+}
+
+export interface RegisterPrefixInput {
+  cidr: string;
+  asnNumber?: number;
+  providerSlug?: string;
+  countryIso3?: string;
+  rir?: Rir;
+  allocatedAt?: string;
+}
+
+export interface RegisterPrefixOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  prefixUri?: string;
+  did?: string;
+  cidr?: string;
+  error?: string;
+}
+
+export interface GetPrefixInput {
+  cidr?: string;
+}
+
+export interface GetPrefixOutput {
+  prefix?: PrefixView;
+  error?: string;
+}
+
+// ─── Provider tier (slice 2) ────────────────────────────────────────
+
+export type ProviderKind =
+  | "isp"
+  | "cloud"
+  | "transit"
+  | "cdn"
+  | "vpn"
+  | "satellite";
+
+export interface ProviderRecord {
+  did: string;
+  slug: string;
+  name: string;
+  kind?: ProviderKind;
+  homepage?: string;
+  countryIso3?: string;
+  createdAt: string;
+}
+
+export interface ProviderView extends ProviderRecord {
+  providerUri: string;
+}
+
+export interface RegisterProviderInput {
+  slug: string;
+  name: string;
+  kind?: ProviderKind;
+  homepage?: string;
+  countryIso3?: string;
+}
+
+export interface RegisterProviderOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  providerUri?: string;
+  did?: string;
+  slug?: string;
+  error?: string;
+}
+
+export interface GetProviderInput {
+  slug?: string;
+}
+
+export interface GetProviderOutput {
+  provider?: ProviderView;
+  error?: string;
+}

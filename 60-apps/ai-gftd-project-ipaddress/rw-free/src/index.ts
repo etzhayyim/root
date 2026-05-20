@@ -16,3 +16,9 @@
 
 export * from "./types.js";
 export { registerAsn, getAsn } from "./asnRegistry.js";
+export {
+  registerPrefix,
+  getPrefix,
+  registerProvider,
+  getProvider,
+} from "./prefixRegistry.js";
