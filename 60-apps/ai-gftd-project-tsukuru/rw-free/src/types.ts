@@ -197,3 +197,124 @@ export interface GetInspectionsOutput {
   cursor?: string;
   total: number;
 }
+
+// ─── Manufacturer Registry ───────────────────────────────────────────
+
+export type FactoryType = "oem" | "odm" | "contract" | "in-house";
+export type OnboardingStatus =
+  | "pending-review"
+  | "active"
+  | "suspended"
+  | "off-boarded";
+export type VerificationTier = "basic" | "verified" | "audited";
+
+/** Record body for `ai.gftd.apps.tsukuru.manufacturer`. */
+export interface ManufacturerRecord {
+  did: string;
+  slug: string;
+  legalName: string;
+  tradeName?: string;
+  countryIso3: string;
+  isicCodes?: string[];
+  category?: string;
+  factoryType: FactoryType;
+  contactEmail?: string;
+  website?: string;
+  lei?: string;
+  walletAddress?: string;
+  verificationTier: VerificationTier;
+  onboardingStatus: OnboardingStatus;
+  createdAt: string;
+}
+
+export interface ManufacturerView extends ManufacturerRecord {
+  manufacturerUri: string;
+}
+
+export interface RegisterManufacturerInput {
+  slug: string;
+  legalName: string;
+  countryIso3: string;
+  tradeName?: string;
+  isicCodes?: string[];
+  category?: string;
+  factoryType?: FactoryType;
+  contactEmail?: string;
+  website?: string;
+  lei?: string;
+  walletAddress?: string;
+}
+
+export interface RegisterManufacturerOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  manufacturerUri?: string;
+  did?: string;
+  onboardingStatus?: OnboardingStatus;
+  error?: string;
+}
+
+export interface GetManufacturerInput {
+  did?: string;
+  slug?: string;
+}
+
+export interface GetManufacturerOutput {
+  manufacturer?: ManufacturerView;
+  error?: string;
+}
+
+export interface ListManufacturersInput {
+  category?: string;
+  countryIso3?: string;
+  onboardingStatus?: OnboardingStatus;
+  factoryType?: FactoryType;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListManufacturersOutput {
+  items: ManufacturerView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface SearchManufacturersInput {
+  query: string;
+  minTier?: VerificationTier;
+  isicCode?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export type SearchManufacturersOutput = ListManufacturersOutput;
+
+export type StatsGroupBy =
+  | "countryIso3"
+  | "category"
+  | "factoryType"
+  | "verificationTier"
+  | "onboardingStatus";
+
+export interface GetManufacturerStatsInput {
+  groupBy?: StatsGroupBy;
+}
+
+export interface StatsBucket {
+  key: string;
+  count: number;
+}
+
+export interface GetManufacturerStatsOutput {
+  total: number;
+  buckets: StatsBucket[];
+  groupBy: StatsGroupBy;
+  computedAt: string;
+}
+
+export const TSUKURU_DID_PREFIX =
+  "did:web:tsukuru.etzhayyim.com:manufacturer:" as const;
+
+/** Build a manufacturer DID from a slug. */
+export function manufacturerDid(slug: string): string {
+  return `${TSUKURU_DID_PREFIX}${slug}`;
+}

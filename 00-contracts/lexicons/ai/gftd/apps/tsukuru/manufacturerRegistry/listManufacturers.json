@@ -4,35 +4,45 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-      "x-bootstrap": true,
+      "description": "List manufacturers with cursor pagination. Filters by category, countryIso3, onboardingStatus, factoryType. Phase 2 implementation post-filters MST traversal; Phase 3 will move to mst-projector view for indexed queries.",
       "parameters": {
         "type": "params",
         "properties": {
-          "category": {
-            "type": "string"
+          "category": { "type": "string" },
+          "countryIso3": { "type": "string" },
+          "onboardingStatus": {
+            "type": "string",
+            "enum": ["pending-review", "active", "suspended", "off-boarded"]
           },
-          "country_iso3": {
-            "type": "string"
+          "factoryType": {
+            "type": "string",
+            "enum": ["oem", "odm", "contract", "in-house"]
           },
           "limit": {
-            "type": "number"
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
           },
-          "offset": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": []
+          "cursor": { "type": "string" }
+        }
       },
       "output": {
         "encoding": "application/json",
         "schema": {
           "type": "object",
-          "properties": {},
-          "required": []
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "ref",
+                "ref": "ai.gftd.apps.tsukuru.manufacturerRegistry.getManufacturer#manufacturerView"
+              }
+            },
+            "cursor": { "type": "string" },
+            "total": { "type": "integer" }
+          }
         }
       }
     }
