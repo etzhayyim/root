@@ -572,3 +572,47 @@ export interface BatchRegisterIpOutput {
   skipped?: { address: string; reason: string }[];
   error?: string;
 }
+
+// ─── Analyze tier (slice 10) ────────────────────────────────────────
+
+export interface AnalyzeIpInput {
+  address: string;
+  recentScans?: number;
+}
+
+export interface AnalyzeIpOutput {
+  address?: string;
+  topology?: GetIpTopologyOutput["topology"];
+  geolocation?: Geolocation;
+  abuseContact?: AbuseContact;
+  recentScans?: ScanView[];
+  error?: string;
+}
+
+export interface AnalyzeAsnInput {
+  asnNumber: number;
+  recentScans?: number;
+}
+
+export interface AnalyzeAsnOutput {
+  asnNumber?: number;
+  asn?: AsnRecord;
+  prefixDetails?: PrefixRecord[];
+  delegationChain?: DelegationChainOutput["chain"];
+  recentScans?: ScanView[];
+  error?: string;
+}
+
+export interface AnalyzePrefixInput {
+  cidr: string;
+  recentScans?: number;
+}
+
+export interface AnalyzePrefixOutput {
+  cidr?: string;
+  prefix?: PrefixRecord;
+  asn?: AsnRecord;
+  provider?: ProviderRecord;
+  recentScans?: ScanView[];
+  error?: string;
+}
