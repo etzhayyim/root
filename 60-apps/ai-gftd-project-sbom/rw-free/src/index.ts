@@ -37,3 +37,4 @@ export {
   getArtifactDependents,
   analyzeApp,
 } from "./analyze.js";
+export { recall, updateComponentSupplier, health } from "./recall.js";

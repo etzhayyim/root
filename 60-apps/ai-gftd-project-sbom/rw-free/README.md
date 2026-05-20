@@ -4,7 +4,7 @@ Phase E Option B reference implementation of sbom on the etzhayyim substrate.
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), sbom migrates from vendor's `createKyselyDb` pattern (RW direct write) to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **14** commands across 6 tiers.
+Coverage: **17** commands across 7 tiers (canonical vendor lexicon surface complete).
 
 | Tier | Commands | Slice |
 |---|---|---|
@@ -12,9 +12,12 @@ Coverage: **14** commands across 6 tiers.
 | Component | registerComponent, listComponents | 1 |
 | CVE + VulnMatch | cveIngestOsv, registerVulnMatch, listVulnMatches | 2 |
 | Patch | registerPatchPolicy, registerPatchAction, getBlastRadius | 3 |
-| Analyze + SLA | getSlaTimer, listOverdueVulnMatches, getArtifactDependents, analyzeApp | **4** |
+| Analyze + SLA | getSlaTimer, listOverdueVulnMatches, getArtifactDependents, analyzeApp | 4 |
+| Recall + Health | recall, updateComponentSupplier, health | **5** |
 
-Follow-up slices: recall (artifact recall flow) + health endpoint.
+Vendor canonical lexicons (`registerArtifact / cveIngestOsv / recall /
+health`) are all covered + the extended graph (Component / VulnMatch /
+PatchPolicy / PatchAction / analytics).
 
 ## Authority-chain DIDs (per sbom CLAUDE.md)
 
