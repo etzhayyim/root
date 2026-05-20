@@ -45,3 +45,9 @@ export {
   registerNir,
   getRir,
 } from "./peeringRirRegistry.js";
+export {
+  listRirs,
+  listNirs,
+  getNir,
+  getPrefixContainingIp,
+} from "./final.js";

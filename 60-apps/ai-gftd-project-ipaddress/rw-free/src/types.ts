@@ -711,3 +711,53 @@ export interface GetRirOutput {
   rirRecord?: RirView;
   error?: string;
 }
+
+// ─── Final tier (slice 12) ──────────────────────────────────────────
+
+export interface ListRirsInput {
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListRirsOutput {
+  items: RirView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface NirView extends NirRecord {
+  nirUri: string;
+}
+
+export interface ListNirsInput {
+  parentRir?: Rir;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListNirsOutput {
+  items: NirView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface GetNirInput {
+  slug?: string;
+}
+
+export interface GetNirOutput {
+  nirRecord?: NirView;
+  error?: string;
+}
+
+export interface GetPrefixContainingIpInput {
+  address: string;
+  maxScan?: number;
+}
+
+export interface GetPrefixContainingIpOutput {
+  address?: string;
+  prefix?: PrefixView;
+  truncated?: boolean;
+  error?: string;
+}
