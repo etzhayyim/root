@@ -73,6 +73,10 @@ export async function registerAsn(
     country: input.country,
     rir: input.rir,
     prefixes: input.prefixes,
+    abuseEmail: input.abuseEmail,
+    abuseTel: input.abuseTel,
+    abuseSource: input.abuseSource,
+    abuseCollectedAt: input.abuseCollectedAt,
     createdAt: new Date().toISOString(),
   };
 
