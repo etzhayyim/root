@@ -302,6 +302,111 @@ export function amendmentRkey(amendmentId: string): string {
  * production and pass it via the `blake3Hash` field directly when
  * available, falling back to this helper only for scaffold tests.
  */
+// ─── Ingest tier (slice 2) ──────────────────────────────────────────
+
+export interface ArticleIngest {
+  articleNo: string;
+  text: string;
+  section?: string;
+  title?: string;
+  language?: string;
+  amendedAt?: string;
+  sourceUrl?: string;
+  /** Pre-computed blake3 hash from LangServer pod. */
+  blake3Hash?: string;
+  props?: string;
+}
+
+export interface IngestRunRecord {
+  did: string;
+  runId: string;
+  source: "e-gov" | "govinfo-cfr" | "govinfo-usc" | "eur-lex" | "un-treaty";
+  jurisdiction: string;
+  statuteIds: string[];
+  articleCount: number;
+  status: "completed" | "partial" | "failed";
+  completedAt: string;
+  createdAt: string;
+}
+
+export interface IngestStatuteJpnInput {
+  runId: string;
+  statuteId: string;
+  title: string;
+  titleNative?: string;
+  statuteType?: StatuteType;
+  enactedDate?: string;
+  effectiveDate?: string;
+  repealedDate?: string;
+  sourceUrl: string;
+  articles?: ArticleIngest[];
+}
+
+export interface IngestStatuteJpnOutput {
+  runId?: string;
+  runUri?: string;
+  statuteUri?: string;
+  statuteDid?: string;
+  articleDids?: string[];
+  insertedArticles?: number;
+  skippedArticles?: number;
+  alreadyExists?: boolean;
+  error?: string;
+}
+
+export interface IngestStatuteUsaInput {
+  runId: string;
+  statuteId: string;
+  title: string;
+  statuteType?: StatuteType;
+  enactedDate?: string;
+  effectiveDate?: string;
+  source: "govinfo-cfr" | "govinfo-usc";
+  sourceUrl: string;
+  articles?: ArticleIngest[];
+}
+
+export type IngestStatuteUsaOutput = IngestStatuteJpnOutput;
+
+export interface IngestEurLexInput {
+  runId: string;
+  /** CELEX number — EU statute identifier. */
+  celexNumber: string;
+  title: string;
+  titleNative?: string;
+  statuteType?: StatuteType;
+  enactedDate?: string;
+  effectiveDate?: string;
+  sourceUrl: string;
+  license?: string;
+  language?: string;
+  articles?: ArticleIngest[];
+}
+
+export type IngestEurLexOutput = IngestStatuteJpnOutput;
+
+export interface IngestTreatyUnInput {
+  runId: string;
+  treatyId: string;
+  title: string;
+  titleNative?: string;
+  parties: string[];
+  signedDate?: string;
+  effectiveDate?: string;
+  registryRef?: string;
+  sourceUrl: string;
+  language?: string;
+}
+
+export interface IngestTreatyUnOutput {
+  runId?: string;
+  runUri?: string;
+  treatyUri?: string;
+  treatyDid?: string;
+  alreadyExists?: boolean;
+  error?: string;
+}
+
 export function blake3Prefix12Fallback(
   jurisdiction: string,
   statuteId: string,

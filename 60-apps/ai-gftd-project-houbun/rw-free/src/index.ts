@@ -30,3 +30,9 @@ export {
   getTreaty,
   recordAmendment,
 } from "./corpus.js";
+export {
+  ingestStatuteJpn,
+  ingestStatuteUsa,
+  ingestEurLex,
+  ingestTreatyUn,
+} from "./ingest.js";

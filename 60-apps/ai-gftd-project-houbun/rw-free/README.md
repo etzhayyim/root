@@ -4,16 +4,17 @@ Phase E Option B reference implementation of houbun (global statute / regulation
 
 Per [ADR-0052](../../../90-docs/adr/0052-houbun-global-statute-corpus.md) + [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), houbun migrates from vendor's `createKyselyDb` pattern to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **8 of 8** canonical record commands ported (4 ingest procedures ship in slice 2).
+Coverage: **12 of 12 (100%) canonical** houbun lexicons ported (8 records + 4 ingest procs).
 
 | Tier | Commands | Slice |
 |---|---|---|
-| Statute | registerStatute, getStatute, listStatutes | **1** |
-| Article | registerArticle, getArticle | **1** |
-| Treaty | registerTreaty, getTreaty | **1** |
-| Amendment | recordAmendment | **1** |
+| Statute | registerStatute, getStatute, listStatutes | 1 |
+| Article | registerArticle, getArticle | 1 |
+| Treaty | registerTreaty, getTreaty | 1 |
+| Amendment | recordAmendment | 1 |
+| Ingest | ingestStatuteJpn, ingestStatuteUsa, ingestEurLex, ingestTreatyUn | **2** |
 
-Follow-up slice 2: `ingestEurLex / ingestStatuteJpn / ingestStatuteUsa / ingestTreatyUn` orchestration wrappers.
+houbun rw-free Option B reference impl is now complete at canonical surface.
 
 ## 3-Layer DID topology (per ADR-0052)
 
