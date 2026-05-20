@@ -1,7 +1,7 @@
 {
   "name": "@etzhayyim/e7m-cli",
-  "version": "0.1.0",
-  "description": "Etzhayyim Monorepo Unified CLI",
+  "version": "0.2.0",
+  "description": "Etzhayyim Monorepo Unified CLI (binary alias of etzhayyim)",
   "type": "module",
   "bin": {
     "e7m": "./bin/e7m.js"
