@@ -23,3 +23,9 @@ export {
   submitRevision,
 } from "./paperRegistry.js";
 export { addReview, endorsePaper, listReviews } from "./reviewRegistry.js";
+export {
+  getPaperFile,
+  getCitationGraph,
+  getStats,
+  searchPapers,
+} from "./final.js";

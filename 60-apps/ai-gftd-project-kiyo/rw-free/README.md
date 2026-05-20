@@ -4,14 +4,17 @@ Phase E Option B reference implementation of kiyo (紀要 / research archive) on
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md) and [ADR-2604300000](../../../90-docs/adr/2604300000-kiyo-research-archive.md), kiyo migrates from vendor's `createKyselyDb` pattern (RW direct write) to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **9 of 12** kiyo XRPC commands ported.
+Coverage: **12 of 12 (100%)** kiyo canonical XRPC commands ported. Plus 1 helper (`listReviews`).
 
 | Tier | Commands | Slice |
 |---|---|---|
 | Paper | submitPaper, getPaper, listPapers, listByAuthor, withdrawPaper, submitRevision | 1 |
-| Review + Endorsement | addReview, endorsePaper, listReviews | **2** |
+| Review + Endorsement | addReview, endorsePaper, listReviews | 2 |
+| Citation + Stats + Search | getCitationGraph, getPaperFile, getStats, searchPapers | **3** |
 
-Remaining 3 commands (`getCitationGraph / getStats / getPaperFile / searchPapers / ...`) follow same Option B pattern; subsequent slices.
+All 12 canonical kiyo lexicons now have rw-free reference impl. Wire-up
+to a Worker / LangServer pod XRPC handler is the next operator task per
+ADR-2605203000.
 
 ## Authority-chain DIDs (per kiyo CLAUDE.md)
 
