@@ -4,7 +4,7 @@ Phase E wave 3 Option B reference implementation of hanrei on the etzhayyim subs
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), hanrei was deferred during today's wave 1+2 because vendor src/app.ts uses `createKyselyDb()` (forbidden on etzhayyim per ADR-2605172000). Option B (PDS XRPC) is the per-actor decision.
 
-Coverage: **27 of 31** hanrei XRPC commands ported.
+Coverage: **31 of 31 (100%)** hanrei XRPC commands ported.
 
 | Tier | Commands | Slice |
 |---|---|---|
@@ -16,9 +16,11 @@ Coverage: **27 of 31** hanrei XRPC commands ported.
 | gazette | registerGazetteEntry, getGazetteEntry, listGazetteEntries | 6 |
 | digest | registerDigest, getDigest | 7 |
 | hunt | createInformationHunt, receiveHuntResult, listHuntResults | 8 |
-| stats | coverageStats, huntCoverageStats, compareJurisdictions | **9** |
+| stats | coverageStats, huntCoverageStats, compareJurisdictions | 9 |
+| collect | searchDecisions, extractCasePersons, collectCases, collectCaseDetail | **10** |
 
-Remaining 4 commands (`collectCases / collectCaseDetail / collectEgovLaws / collectGazette / collectLegislation / searchDecisions / extractCasePersons / etc.`) follow same Option B pattern; subsequent slices.
+All 31 commands now have rw-free reference impl. Wire-up to a Worker /
+LangServer pod XRPC handler is the next operator task per ADR-2605203000.
 
 ## Pattern translation (Option B)
 

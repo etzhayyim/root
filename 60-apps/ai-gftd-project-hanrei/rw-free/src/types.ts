@@ -622,3 +622,81 @@ export interface CompareJurisdictionsOutput {
   coverages?: JurisdictionCoverage[];
   error?: string;
 }
+
+// ─── Collect tier (slice 10, final) ─────────────────────────────────
+
+export interface SearchDecisionsInput {
+  query: string;
+  courtDid?: string;
+  jurisdiction?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export type SearchDecisionsOutput = ListCasesOutput;
+
+export interface ExtractedPerson {
+  name: string;
+  role: string;
+  nameLocal?: string;
+}
+
+export interface ExtractCasePersonsInput {
+  caseId: string;
+  persons: ExtractedPerson[];
+  model?: string;
+  language?: string;
+}
+
+export interface ExtractCasePersonsOutput {
+  caseId?: string;
+  extracted?: number;
+  digestUri?: string;
+  summary?: string;
+  error?: string;
+}
+
+export interface CollectRunRecord {
+  did: string;
+  runId: string;
+  kind: "cases" | "case-detail" | "laws" | "gazette" | "courts";
+  jurisdiction?: string;
+  sourceDid?: string;
+  itemsCount: number;
+  status: "completed" | "partial" | "failed";
+  completedAt: string;
+  createdAt: string;
+}
+
+export interface CollectCasesInput {
+  runId: string;
+  cases: CaseSeedInput[];
+  jurisdiction?: string;
+  sourceDid?: string;
+}
+
+export interface CollectCasesOutput {
+  runId?: string;
+  runUri?: string;
+  inserted?: { caseId: string; caseUri: string }[];
+  skipped?: { caseId: string; reason: string }[];
+  alreadyExists?: boolean;
+  error?: string;
+}
+
+export interface CollectCaseDetailInput extends CaseSeedInput {
+  digestModel?: string;
+  digestSummary?: string;
+  digestKeypoints?: string[];
+  digestHoldings?: string[];
+  digestCitedLaws?: string[];
+  digestLanguage?: string;
+}
+
+export interface CollectCaseDetailOutput {
+  caseId?: string;
+  caseUri?: string;
+  digestUri?: string;
+  skipped?: boolean;
+  error?: string;
+}
