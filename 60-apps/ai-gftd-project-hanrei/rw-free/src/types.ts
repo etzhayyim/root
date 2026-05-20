@@ -579,3 +579,46 @@ export interface ListHuntResultsOutput {
   total: number;
   error?: string;
 }
+
+// ─── Stats tier (slice 9) ───────────────────────────────────────────
+
+export interface JurisdictionCoverage {
+  jurisdiction: string;
+  caseCount: number;
+  lawCount: number;
+  gazetteCount: number;
+  truncated: boolean;
+}
+
+export interface CoverageStatsInput {
+  jurisdiction?: string;
+  maxScan?: number;
+}
+
+export interface CoverageStatsOutput {
+  coverage?: JurisdictionCoverage;
+  error?: string;
+}
+
+export interface HuntCoverageStatsInput {
+  huntId?: string;
+  maxScan?: number;
+}
+
+export interface HuntCoverageStatsOutput {
+  huntId?: string;
+  total?: number;
+  byKind?: Record<string, number>;
+  truncated?: boolean;
+  error?: string;
+}
+
+export interface CompareJurisdictionsInput {
+  jurisdictions: string[];
+  maxScan?: number;
+}
+
+export interface CompareJurisdictionsOutput {
+  coverages?: JurisdictionCoverage[];
+  error?: string;
+}

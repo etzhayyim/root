@@ -41,3 +41,8 @@ export {
   receiveHuntResult,
   listHuntResults,
 } from "./hunt.js";
+export {
+  coverageStats,
+  huntCoverageStats,
+  compareJurisdictions,
+} from "./stats.js";
