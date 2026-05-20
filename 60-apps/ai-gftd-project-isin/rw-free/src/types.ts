@@ -253,3 +253,65 @@ export function entityDid(lei: string): string {
 export function entityRkey(lei: string): string {
   return `entity-${lei}`;
 }
+
+// ─── Collect tier (slice 2) ─────────────────────────────────────────
+
+export interface CollectRunRecord {
+  did: string;
+  runId: string;
+  kind: "securities" | "entities" | "enrich";
+  jurisdiction?: string;
+  itemsCount: number;
+  status: "completed" | "partial" | "failed";
+  completedAt: string;
+  createdAt: string;
+}
+
+export interface CollectSecuritiesInput {
+  runId: string;
+  securities: RegisterSecurityInput[];
+  jurisdiction?: string;
+}
+
+export interface CollectSecuritiesOutput {
+  runId?: string;
+  runUri?: string;
+  inserted?: { isin: string; securityUri: string; did: string }[];
+  skipped?: { isin: string; reason: string }[];
+  alreadyExists?: boolean;
+  error?: string;
+}
+
+export interface CollectEntityIRInput {
+  runId: string;
+  entities: RegisterEntityInput[];
+  jurisdiction?: string;
+}
+
+export interface CollectEntityIROutput {
+  runId?: string;
+  runUri?: string;
+  inserted?: { lei: string; entityUri: string; did: string }[];
+  skipped?: { lei: string; reason: string }[];
+  alreadyExists?: boolean;
+  error?: string;
+}
+
+export interface EnrichIsinInput {
+  isin: string;
+  name?: string;
+  issuerLei?: string;
+  assetClass?: AssetClass;
+  cfi?: string;
+  currency?: string;
+  country?: string;
+  exchangeMic?: string;
+}
+
+export interface EnrichIsinOutput {
+  isin?: string;
+  status?: "registered" | "alreadyExists" | "rejected" | "invalidIsin";
+  securityUri?: string;
+  did?: string;
+  error?: string;
+}

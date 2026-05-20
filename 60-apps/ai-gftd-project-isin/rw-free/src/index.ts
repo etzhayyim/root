@@ -27,3 +27,8 @@ export {
   validateIsin,
   getDashboard,
 } from "./registry.js";
+export {
+  collectSecurities,
+  collectEntityIR,
+  enrichISIN,
+} from "./collect.js";
