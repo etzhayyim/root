@@ -22,3 +22,4 @@ export {
   withdrawPaper,
   submitRevision,
 } from "./paperRegistry.js";
+export { addReview, endorsePaper, listReviews } from "./reviewRegistry.js";
