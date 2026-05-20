@@ -137,3 +137,137 @@ export function documentDid(docId: string): string {
 export function documentRkey(docId: string): string {
   return `document-${idSlug(docId)}`;
 }
+
+// ─── Rule + Bundle tier (slice 2) ───────────────────────────────────
+
+export type RuleCategory =
+  | "data-collection"
+  | "data-sharing"
+  | "data-retention"
+  | "user-rights"
+  | "termination"
+  | "liability"
+  | "indemnification"
+  | "governing-law"
+  | "dispute-resolution"
+  | "ip-rights"
+  | "consent"
+  | "minors"
+  | "third-party"
+  | "other";
+
+export type RuleSeverity = "critical" | "high" | "medium" | "low" | "info";
+
+export type ObligationDirection =
+  | "user-obligation"
+  | "publisher-obligation"
+  | "mutual"
+  | "neither";
+
+export type PartyRole = "user" | "publisher" | "third-party" | "regulator";
+
+export interface ExtractedRuleRecord {
+  did: string;
+  docId: string;
+  ruleSeq: number;
+  category: RuleCategory;
+  severity?: RuleSeverity;
+  summary: string;
+  body?: string;
+  excerpt?: string;
+  excerptOffsetStart?: number;
+  excerptOffsetEnd?: number;
+  obligationDirection?: ObligationDirection;
+  partyRole?: PartyRole;
+  extractionModel?: string;
+  extractionRunId?: string;
+  extractedAt: string;
+  createdAt: string;
+}
+
+export interface ExtractedRuleView extends ExtractedRuleRecord {
+  ruleUri: string;
+}
+
+export interface ExtractRuleInput {
+  ruleSeq: number;
+  category: RuleCategory;
+  severity?: RuleSeverity;
+  summary: string;
+  body?: string;
+  excerpt?: string;
+  excerptOffsetStart?: number;
+  excerptOffsetEnd?: number;
+  obligationDirection?: ObligationDirection;
+  partyRole?: PartyRole;
+}
+
+export interface ExtractRulesInput {
+  docId: string;
+  rules: ExtractRuleInput[];
+  model?: string;
+  runId?: string;
+}
+
+export interface ExtractRulesOutput {
+  status: "ok" | "rejected";
+  docId?: string;
+  runId?: string;
+  inserted?: { ruleSeq: number; ruleUri: string; did: string }[];
+  skipped?: { ruleSeq: number; reason: string }[];
+  error?: string;
+}
+
+export interface ListRulesInput {
+  docId?: string;
+  category?: RuleCategory;
+  severity?: RuleSeverity;
+  obligationDirection?: ObligationDirection;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListRulesOutput {
+  items: ExtractedRuleView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface RuleBundleRecord {
+  did: string;
+  bundleId: string;
+  name: string;
+  description?: string;
+  categories: string[];
+  ruleDids: string[];
+  publisherDid?: string;
+  publisherName?: string;
+  issuedAt: string;
+  createdAt: string;
+}
+
+export interface RuleBundleView extends RuleBundleRecord {
+  bundleUri: string;
+}
+
+export interface GetRuleBundleInput {
+  bundleId?: string;
+}
+
+export interface GetRuleBundleOutput {
+  bundle?: RuleBundleView;
+  error?: string;
+}
+
+export interface ListRuleBundlesInput {
+  publisherDid?: string;
+  category?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListRuleBundlesOutput {
+  items: RuleBundleView[];
+  cursor?: string;
+  total: number;
+}
