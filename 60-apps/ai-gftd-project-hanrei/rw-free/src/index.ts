@@ -46,3 +46,9 @@ export {
   huntCoverageStats,
   compareJurisdictions,
 } from "./stats.js";
+export {
+  searchDecisions,
+  extractCasePersons,
+  collectCases,
+  collectCaseDetail,
+} from "./collect.js";
