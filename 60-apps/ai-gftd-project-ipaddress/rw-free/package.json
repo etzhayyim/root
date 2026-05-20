@@ -1,0 +1,16 @@
+{
+  "name": "@etzhayyim/ipaddress-rw-free",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ipaddress rw-free reference implementation per ADR-2605203000 Option B (PDS XRPC). Replaces vendor's createKyselyDb pattern with @etzhayyim/sdk e.write/e.read.",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@etzhayyim/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

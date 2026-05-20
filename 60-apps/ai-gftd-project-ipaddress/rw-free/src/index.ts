@@ -1,0 +1,18 @@
+/**
+ * ipaddress rw-free — barrel.
+ *
+ * Per ADR-2605203000 Option B Phase E reference implementation.
+ * NOT a Worker. Pure TS module to be wired into an XRPC handler
+ * (see open-isco rw-free seed.ts/query.ts CLI pattern + tsukuru
+ * rw-free for a more complete shape).
+ *
+ * Initial slice: 2 of 37 ipaddress XRPC commands ported.
+ *   registerAsn + getAsn  — ASN tier of the RIR/NIR/Provider/ASN/
+ *                            Prefix/IP authority chain
+ *
+ * Remaining 35 commands follow the same Option B pattern and ship
+ * in follow-up slices.
+ */
+
+export * from "./types.js";
+export { registerAsn, getAsn } from "./asnRegistry.js";
