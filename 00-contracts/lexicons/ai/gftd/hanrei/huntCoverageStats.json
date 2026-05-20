@@ -26,13 +26,13 @@
               "type": "string"
             },
             "totalHuntBudgetUsd": {
-              "type": "number"
+              "type": "integer"
             },
             "totalVerifyBudgetUsd": {
-              "type": "number"
+              "type": "integer"
             },
             "totalBudgetUsd": {
-              "type": "number"
+              "type": "integer"
             }
           },
           "required": []

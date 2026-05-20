@@ -26,7 +26,7 @@
               "type": "string"
             },
             "totalCases": {
-              "type": "number"
+              "type": "integer"
             },
             "registeredCourts": {
               "type": "string"
