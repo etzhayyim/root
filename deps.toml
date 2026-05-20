@@ -1329,6 +1329,14 @@ description = "Retro-active Charter Compliance Rider v2.0 applicator + verifier.
 adr = ["2605192200"]
 
 [[modules]]
+path = "70-tools/baien-graft-pipeline"
+kind = "python-cli"
+version = "0.1.0"
+status = "seeded"
+description = "baien graft 3D-augmented dataset reference impl (ADR-2605202115). 2 CLIs: bgp-submit (ComfyUI Hunyuan3D-2 batch /prompt + /history poll) and bgp-collect (scp pull GLB + moderngl 4-view render + Florence-2 caption + sample.json assemble). Role separation: EVO-X2 ROCm 7.2 (gen) / Mac M4 CGL+MPS (post). Phase 3b 2026-05-20 validated 10/10 accept @ ~81 s/sample end-to-end. NOTICE + CHARTER-RIDER symlink を charter-rider-applicator follow-up PR で適用予定."
+adr = ["2605202115", "2605202345"]
+
+[[modules]]
 path = "70-tools/scripts/lint"
 kind = "lefthook-pre-commit-lints"
 version = "0.1.0"
