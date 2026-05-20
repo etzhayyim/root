@@ -9,6 +9,8 @@ import {AdherentRegistry} from "../src/AdherentRegistry.sol";
 import {ChartersComplianceRegistry, IAdherentRegistry as CCRRegIA} from "../src/ChartersComplianceRegistry.sol";
 import {TitheRouter, IERC20, IConstitution as TRConst, IChartersComplianceRegistry as TRCharters} from "../src/TitheRouter.sol";
 import {LandRegistry, IAdherentRegistry as LandIA, IChartersComplianceRegistry as LandCharters} from "../src/LandRegistry.sol";
+import {PublicFundGovernance, IAdherentRegistry as PFIA, IChartersComplianceRegistry as PFCharters} from "../src/PublicFundGovernance.sol";
+import {ForceAuthorization, IAdherentRegistry as FAIA, IChartersComplianceRegistry as FACharters} from "../src/ForceAuthorization.sol";
 
 /**
  * @title DeployReligiousCorp
@@ -42,6 +44,8 @@ contract DeployReligiousCorp is Script {
         address chartersComplianceRegistry;
         address titheRouter;
         address landRegistry;
+        address publicFundGovernance;
+        address forceAuthorization;
         address publicFundSafe;
     }
 
@@ -151,6 +155,19 @@ contract DeployReligiousCorp is Script {
             LandCharters(address(charters))
         );
 
+        // 6. PublicFundGovernance
+        PublicFundGovernance publicFundGov = new PublicFundGovernance(
+            PFIA(address(adherent)),
+            PFCharters(address(charters)),
+            publicFundSafe
+        );
+
+        // 7. ForceAuthorization
+        ForceAuthorization forceAuth = new ForceAuthorization(
+            FAIA(address(adherent)),
+            FACharters(address(charters))
+        );
+
         vm.stopBroadcast();
 
         out = ReligiousCorpDeployment({
@@ -159,6 +176,8 @@ contract DeployReligiousCorp is Script {
             chartersComplianceRegistry: address(charters),
             titheRouter: address(tithe),
             landRegistry: address(land),
+            publicFundGovernance: address(publicFundGov),
+            forceAuthorization: address(forceAuth),
             publicFundSafe: publicFundSafe
         });
 
@@ -195,6 +214,8 @@ contract DeployReligiousCorp is Script {
         console.log("ChartersComplianceRegistry   ", o.chartersComplianceRegistry);
         console.log("TitheRouter                  ", o.titheRouter);
         console.log("LandRegistry                 ", o.landRegistry);
+        console.log("PublicFundGovernance         ", o.publicFundGovernance);
+        console.log("ForceAuthorization           ", o.forceAuthorization);
         console.log("PublicFundSafe               ", o.publicFundSafe);
     }
 }
