@@ -1,0 +1,11 @@
+{
+  "name": "@etzhayyim/gtin-rw-free",
+  "version": "0.1.0",
+  "description": "Phase E Option B reference impl of gtin (GS1 Global Trade Item Number registry) on the etzhayyim substrate",
+  "type": "module",
+  "main": "src/index.ts",
+  "private": true,
+  "dependencies": {
+    "@etzhayyim/sdk": "workspace:*"
+  }
+}
