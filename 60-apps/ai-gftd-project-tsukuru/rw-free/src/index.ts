@@ -31,3 +31,5 @@ export {
   searchManufacturers,
   getManufacturerStats,
 } from "./manufacturerRegistry.js";
+export { registerFactory, listFactories } from "./factoryRegistry.js";
+export { reportMilestone, getProgress } from "./productionProgress.js";

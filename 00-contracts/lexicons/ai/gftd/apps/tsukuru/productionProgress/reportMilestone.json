@@ -4,38 +4,64 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-      "x-bootstrap": true,
+      "description": "Report a production milestone (factory-side updates as work progresses). Each milestone is an append-only AT record per ADR-2605202800 (record-log semantics, no MST mutation). Milestones do NOT change productionOrder.status — that requires updateStatus per slice 4 with state-machine validation.",
       "input": {
         "encoding": "application/json",
         "schema": {
           "type": "object",
+          "required": ["productionOrderUri", "milestone", "factoryDid"],
           "properties": {
-            "production_order_id": {
-              "type": "integer"
+            "productionOrderUri": {
+              "type": "string",
+              "format": "at-uri"
             },
             "milestone": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "material-received",
+                "first-piece",
+                "production-50-percent",
+                "production-100-percent",
+                "inspection-started",
+                "inspection-passed",
+                "packed-for-shipping",
+                "carrier-handoff"
+              ]
+            },
+            "factoryDid": {
+              "type": "string",
+              "format": "did"
             },
             "note": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 1000
             },
-            "factory_did": {
-              "type": "integer"
+            "completedPercent": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidenceCids": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "IPFS CIDs of supporting evidence (photos, QC reports, etc.)."
             }
-          },
-          "required": [
-            "production_order_id",
-            "milestone"
-          ]
+          }
         }
       },
       "output": {
         "encoding": "application/json",
         "schema": {
           "type": "object",
-          "properties": {},
-          "required": []
+          "required": ["status", "milestoneUri"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["recorded", "rejected"]
+            },
+            "milestoneUri": { "type": "string", "format": "at-uri" },
+            "error": { "type": "string" }
+          }
         }
       }
     }
