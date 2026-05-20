@@ -7,6 +7,14 @@ Each fixture is independent; tests compose them as needed.
 
 from __future__ import annotations
 
+
+def pytest_configure(config):
+    config.addinivalue_line(
+        "markers",
+        "integration: integration tests requiring anvil + web3.py (deselect with -m 'not integration')",
+    )
+
+
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
