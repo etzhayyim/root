@@ -17,3 +17,8 @@ export {
   getJurisdiction,
   listJurisdictions,
 } from "./jurisdiction.js";
+export {
+  registerCourtProfiles,
+  listCourts,
+  collectWikidataCourts,
+} from "./court.js";

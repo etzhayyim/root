@@ -77,3 +77,80 @@ export function jurisdictionDid(iso3: string): string {
 export function jurisdictionRkey(iso3: string): string {
   return `jurisdiction-${iso3.toLowerCase()}`;
 }
+
+// ─── Court tier (slice 2) ───────────────────────────────────────────
+
+export type CourtTier =
+  | "supreme"
+  | "high"
+  | "ip-high"
+  | "district"
+  | "family"
+  | "summary";
+
+export interface CourtRecord {
+  did: string;
+  jurisdiction: string;
+  courtId: string;
+  name: string;
+  nameLocal?: string;
+  tier?: CourtTier;
+  role?: string;
+  searchPath?: string;
+  createdAt: string;
+}
+
+export interface CourtView extends CourtRecord {
+  courtUri: string;
+}
+
+export interface CourtProfileInput {
+  courtId: string;
+  name: string;
+  nameLocal?: string;
+  tier?: CourtTier;
+  role?: string;
+  searchPath?: string;
+}
+
+export interface RegisterCourtProfilesInput {
+  jurisdiction: string;
+  courts: CourtProfileInput[];
+}
+
+export interface RegisterCourtProfilesOutput {
+  status: "ok" | "rejected";
+  jurisdiction?: string;
+  registered?: { courtId: string; courtUri: string; did: string }[];
+  skipped?: { courtId: string; reason: string }[];
+  error?: string;
+}
+
+export interface ListCourtsInput {
+  jurisdiction?: string;
+  tier?: CourtTier;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListCourtsOutput {
+  items: CourtView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface CollectWikidataCourtsInput {
+  jurisdiction?: string;
+}
+
+export interface CollectWikidataCourtsOutput {
+  status: "ok";
+  schema: string;
+  source: string;
+  sparqlEndpoint: string;
+  jurisdiction?: string;
+  collected: number;
+  inserted: number;
+  skipped: number;
+  collectedAt: string;
+}
