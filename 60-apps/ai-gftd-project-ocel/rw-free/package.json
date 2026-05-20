@@ -1,0 +1,11 @@
+{
+  "name": "@etzhayyim/ocel-rw-free",
+  "version": "0.1.0",
+  "description": "Phase E Option B reference impl of ocel (Object-Centric Event Log) on the etzhayyim substrate",
+  "type": "module",
+  "main": "src/index.ts",
+  "private": true,
+  "dependencies": {
+    "@etzhayyim/sdk": "workspace:*"
+  }
+}
