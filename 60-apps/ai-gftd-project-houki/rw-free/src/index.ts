@@ -20,3 +20,10 @@ export {
   getDocument,
   listDocuments,
 } from "./documentRegistry.js";
+export {
+  extractRules,
+  listRules,
+  getRuleBundle,
+  listRuleBundles,
+  registerRuleBundle,
+} from "./rules.js";

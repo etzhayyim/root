@@ -4,13 +4,15 @@ Phase E Option B reference implementation of houki (法規 / private authority i
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md), houki migrates from vendor's `createKyselyDb` pattern (RW direct write) to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
-Coverage: **4 of 8** canonical houki commands ported (initial bootstrap).
+Coverage: **8 of 8 (100%) canonical** houki commands ported + 1 helper (registerRuleBundle) = **9 total**.
 
 | Tier | Commands | Slice |
 |---|---|---|
-| Document | ingestDocument, ingestText, getDocument, listDocuments | **1** |
+| Document | ingestDocument, ingestText, getDocument, listDocuments | 1 |
+| Rules + Bundle | extractRules, listRules, getRuleBundle, listRuleBundles, registerRuleBundle | **2** |
 
-Remaining 4 commands (`extractRules / listRules / getRuleBundle / listRuleBundles`) ship in follow-up slices.
+All 8 canonical houki commands now have rw-free reference impl. Wire-up
+to a Worker / LangServer pod XRPC handler is the next operator task.
 
 ## What houki does
 
