@@ -747,3 +747,95 @@ export interface CntProcessCatalogOutput {
   processes: { processId: string; name: string; typicalLengthMicrons: number }[];
   computedAt: string;
 }
+
+// ─── Planning batch (slice 9) ────────────────────────────────────────
+
+export interface DesignCellInput {
+  productionOrderId?: string;
+  cellId?: string;
+  part?: unknown;
+  devices?: unknown[];
+}
+export interface DesignCellOutput {
+  status: "ok";
+  schema: string;
+  cellId: string;
+  productionOrderId?: string;
+  sceneUnits: string;
+  partEnvelope: unknown;
+  devices: unknown[];
+}
+
+export interface PlanDeviceOutputInput {
+  productionOrderId?: string;
+  planId?: string;
+  deviceKind?: string;
+  targetQuantity?: number;
+}
+export interface PlanDeviceOutputResult {
+  status: "ok";
+  schema: string;
+  planId: string;
+  productionOrderId?: string;
+  deviceKind: string;
+  targetQuantity: number;
+  estimatedCycleSec: number;
+  requirements: string[];
+}
+
+export interface DesignStackInput {
+  productionOrderId?: string;
+  stackId?: string;
+  domain?: "plc" | "mes" | "scada" | "erp";
+  vendors?: string[];
+}
+export interface DesignStackOutput {
+  status: "ok";
+  schema: string;
+  stackId: string;
+  productionOrderId?: string;
+  domain: string;
+  vendors: string[];
+  integrationPoints: string[];
+  protocols: string[];
+}
+
+export interface PlanRouteInput {
+  productionOrderId?: string;
+  routeId?: string;
+  originIso3?: string;
+  destinationIso3?: string;
+  modality?: "sea" | "air" | "land" | "multimodal";
+  waypoints?: unknown[];
+}
+export interface PlanRouteOutput {
+  status: "ok";
+  schema: string;
+  routeId: string;
+  productionOrderId?: string;
+  originIso3: string;
+  destinationIso3: string;
+  modality: string;
+  waypoints: unknown[];
+  estimatedTransitDays: number;
+  estimatedCostUsdcMicros: number;
+}
+
+export interface PlanOperationInput {
+  productionOrderId?: string;
+  operationId?: string;
+  robotDids?: string[];
+  objective?: string;
+  safetyEnvelope?: unknown;
+}
+export interface PlanOperationOutput {
+  status: "ok";
+  schema: string;
+  operationId: string;
+  productionOrderId?: string;
+  robotDids: string[];
+  objective: string;
+  safetyEnvelope: unknown;
+  estimatedDurationSec: number;
+  humanOversightRequired: boolean;
+}

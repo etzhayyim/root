@@ -4,23 +4,24 @@ Phase 2 reference implementation of tsukuru on the etzhayyim substrate.
 
 Per [ADR-2605202800](../../../90-docs/adr/2605202800-tsukuru-etzhayyim-business-model-change.md), tsukuru migrates from vendor's `createKyselyDb` + Stripe Issuing pattern to the etzhayyim RW-free + on-chain-only substrate ([ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) + [ADR-2605172100](../../../90-docs/adr/2605172100-etzhayyim-payments-on-chain-only.md)).
 
-This package implements **29 of 46** tsukuru XRPC commands as reference.
+This package implements **34 of 46** tsukuru XRPC commands as reference (~74%).
 
 | Module | Commands | Slice |
 |---|---|---|
 | productionOrder | createProductionOrder, cancelProductionOrder | 1 |
 | productionOrder | getProductionOrder, listProductionOrders, updateOrderStatus, estimateLeadTime | 4 |
 | qualityInspection | submitInspection, getInspections | 2 |
-| manufacturerRegistry | × 5 (register/get/list/search/stats) | 3 |
+| manufacturerRegistry | × 5 | 3 |
 | factoryRegistry | registerFactory, listFactories | 5 |
 | productionProgress | reportMilestone, getProgress | 5 |
 | supplierExchange | normalizePackage, validatePackage | 6 |
-| euv | × 3 (designManufacturingFlow, prepareOrderPackage, getImplementationCoverage) | 7 |
-| cnt | × 7 (designManufacturingFlow, planAutomation, getAutomationCoverage, prepareOrderPackage, prepareRunPackage, validateRunPackage, getProcessCatalog) | **8** |
+| euv | × 3 | 7 |
+| cnt | × 7 | 8 |
+| **planning batch** | designCell, planDeviceOutput, designStack, planRoute, planOperation | **9** |
 
-**productionOrder is fully ported (6/6).** Order-flow loop (create → progress → inspect → settle → cancel/refund) is end-to-end demonstrated.
+**productionOrder fully ported (6/6).** Full order-flow loop (create → progress → inspect → settle → cancel/refund) + 4 manufacturing/logistics planning subsystems demonstrated.
 
-The remaining 17 commands (`manufacturingCell.*`, `manufacturingOutput.*`, `softwareIntegration.*`, `logisticsRoute.*`, `autonomyOperation.*` + any not-yet-counted) follow the same pattern and ship in follow-up Phase 2 sub-PRs.
+The remaining 12 commands are vendor-only commands that don't have lexicon JSONs in the original tsukuru lexicon tree — they're either deprecated, dual-namespaced (`ai.gftd.apps.tsukuru-api.*` historical), or were never fully specced. Ship follow-up Phase 2 closure PR.
 
 ## Pattern translation
 
