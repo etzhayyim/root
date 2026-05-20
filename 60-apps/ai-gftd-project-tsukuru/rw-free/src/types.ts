@@ -395,3 +395,117 @@ export const TSUKURU_DID_PREFIX =
 export function manufacturerDid(slug: string): string {
   return `${TSUKURU_DID_PREFIX}${slug}`;
 }
+
+// ─── Factory Registry ────────────────────────────────────────────────
+
+export type CapacityLevel = "small" | "medium" | "large";
+
+export interface FactoryRecord {
+  did: string;
+  slug: string;
+  manufacturerDid: string;
+  factoryName: string;
+  countryIso3: string;
+  city?: string;
+  addressLine?: string;
+  postalCode?: string;
+  capacityLevel?: CapacityLevel;
+  certifications?: string[];
+  createdAt: string;
+}
+
+export interface FactoryView extends FactoryRecord {
+  factoryUri: string;
+}
+
+export interface RegisterFactoryInput {
+  manufacturerDid: string;
+  slug: string;
+  factoryName: string;
+  countryIso3: string;
+  city?: string;
+  addressLine?: string;
+  postalCode?: string;
+  capacityLevel?: CapacityLevel;
+  certifications?: string[];
+}
+
+export interface RegisterFactoryOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  factoryUri?: string;
+  did?: string;
+  error?: string;
+}
+
+export interface ListFactoriesInput {
+  manufacturerDid?: string;
+  countryIso3?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListFactoriesOutput {
+  items: FactoryView[];
+  cursor?: string;
+  total: number;
+}
+
+export const FACTORY_DID_PREFIX =
+  "did:web:tsukuru.etzhayyim.com:factory:" as const;
+
+export function factoryDid(slug: string): string {
+  return `${FACTORY_DID_PREFIX}${slug}`;
+}
+
+// ─── Production Progress ─────────────────────────────────────────────
+
+export type Milestone =
+  | "material-received"
+  | "first-piece"
+  | "production-50-percent"
+  | "production-100-percent"
+  | "inspection-started"
+  | "inspection-passed"
+  | "packed-for-shipping"
+  | "carrier-handoff";
+
+export interface MilestoneRecord {
+  productionOrderUri: string;
+  milestone: Milestone;
+  factoryDid: string;
+  note?: string;
+  completedPercent?: number;
+  evidenceCids?: string[];
+  createdAt: string;
+}
+
+export interface MilestoneView extends MilestoneRecord {
+  milestoneUri: string;
+}
+
+export interface ReportMilestoneInput {
+  productionOrderUri: string;
+  milestone: Milestone;
+  factoryDid: string;
+  note?: string;
+  completedPercent?: number;
+  evidenceCids?: string[];
+}
+
+export interface ReportMilestoneOutput {
+  status: "recorded" | "rejected";
+  milestoneUri?: string;
+  error?: string;
+}
+
+export interface GetProgressInput {
+  productionOrderUri: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface GetProgressOutput {
+  items: MilestoneView[];
+  cursor?: string;
+  total: number;
+}
