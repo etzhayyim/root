@@ -217,6 +217,170 @@ export interface GetNodeOutput {
   error?: string;
 }
 
+// ─── Operation events tier (slice 2) ────────────────────────────────
+
+export interface MeterReadingRecord {
+  did: string;
+  meterDid: string;
+  meterId: string;
+  readingSeq: number;
+  /** Cumulative energy in kWh (integer — Wh / 1000). */
+  kwhCumulative: number;
+  /** Instantaneous demand in kW. */
+  kwDemand?: number;
+  /** Voltage in volts. */
+  voltageV?: number;
+  readAt: string;
+  createdAt: string;
+}
+
+export interface MeterReadingView extends MeterReadingRecord {
+  readingUri: string;
+}
+
+export interface RecordMeterReadingInput {
+  meterId: string;
+  readingSeq: number;
+  kwhCumulative: number;
+  kwDemand?: number;
+  voltageV?: number;
+  readAt: string;
+}
+
+export interface RecordMeterReadingOutput {
+  status:
+    | "recorded"
+    | "alreadyExists"
+    | "rejected"
+    | "nonMonotonic";
+  readingUri?: string;
+  did?: string;
+  meterId?: string;
+  readingSeq?: number;
+  error?: string;
+}
+
+export type FaultKind =
+  | "earth_fault"
+  | "short_circuit"
+  | "outage"
+  | "voltage_deviation"
+  | "overload";
+
+export type FaultSeverity = "critical" | "major" | "moderate" | "minor";
+
+export interface FaultRecord {
+  did: string;
+  faultId: string;
+  faultKind: FaultKind;
+  feederDid: string;
+  severity: FaultSeverity;
+  publicNotice: boolean;
+  affectedCustomers?: number;
+  /** voltage deviation × 10 (no float), e.g. 20.0% → 200. */
+  deviationPercentPermille?: number;
+  detectedAt: string;
+  resolvedAt?: string;
+  description?: string;
+  createdAt: string;
+}
+
+export interface FaultView extends FaultRecord {
+  faultUri: string;
+}
+
+export interface ReportFaultInput {
+  faultId: string;
+  faultKind: FaultKind;
+  feederId: string;
+  affectedCustomers?: number;
+  deviationPercentPermille?: number;
+  detectedAt: string;
+  resolvedAt?: string;
+  description?: string;
+}
+
+export interface ReportFaultOutput {
+  status: "reported" | "alreadyExists" | "rejected";
+  faultUri?: string;
+  did?: string;
+  faultId?: string;
+  severity?: FaultSeverity;
+  publicNotice?: boolean;
+  error?: string;
+}
+
+export type DemandResponseKind = "voluntary" | "mandatory" | "emergency";
+
+export interface DemandResponseRecord {
+  did: string;
+  drId: string;
+  drKind: DemandResponseKind;
+  targetFeederDids: string[];
+  /** Target load reduction in kW (whole). */
+  targetReductionKw: number;
+  /** Actual achieved reduction in kW. */
+  actualReductionKw?: number;
+  startsAt: string;
+  endsAt: string;
+  triggerReason?: string;
+  createdAt: string;
+}
+
+export interface RecordDemandResponseInput {
+  drId: string;
+  drKind: DemandResponseKind;
+  targetFeederDids: string[];
+  targetReductionKw: number;
+  actualReductionKw?: number;
+  startsAt: string;
+  endsAt: string;
+  triggerReason?: string;
+}
+
+export interface RecordDemandResponseOutput {
+  status: "recorded" | "alreadyExists" | "rejected";
+  drUri?: string;
+  did?: string;
+  drId?: string;
+  error?: string;
+}
+
+export interface RenewableOutputRecord {
+  did: string;
+  nodeId: string;
+  nodeDid: string;
+  nodeKind: "solar" | "wind" | "hydro" | "storage";
+  outputSeq: number;
+  /** Output in kW. */
+  outputKw: number;
+  /** capacity factor × 1000 (0-1000) for renewables. */
+  capacityFactorPermille?: number;
+  observedAt: string;
+  createdAt: string;
+}
+
+export interface RecordRenewableOutputInput {
+  nodeId: string;
+  outputSeq: number;
+  outputKw: number;
+  capacityFactorPermille?: number;
+  observedAt: string;
+}
+
+export interface RecordRenewableOutputOutput {
+  status:
+    | "recorded"
+    | "alreadyExists"
+    | "rejected"
+    | "notRenewable";
+  outputUri?: string;
+  did?: string;
+  nodeId?: string;
+  outputSeq?: number;
+  error?: string;
+}
+
 // ─── Slug helpers ───────────────────────────────────────────────────
 
 export function idSlug(id: string): string {

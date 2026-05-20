@@ -24,3 +24,9 @@ export {
   registerSmartMeter,
   getNode,
 } from "./topology.js";
+export {
+  recordMeterReading,
+  reportFault,
+  recordDemandResponse,
+  recordRenewableOutput,
+} from "./events.js";
