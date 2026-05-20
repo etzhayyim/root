@@ -35,3 +35,4 @@ export {
   getGazetteEntry,
   listGazetteEntries,
 } from "./gazette.js";
+export { registerDigest, getDigest } from "./digest.js";
