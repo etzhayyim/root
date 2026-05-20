@@ -2,12 +2,26 @@ name = "etzhayyim-did-web"
 main = "src/worker.ts"
 compatibility_date = "2026-05-17"
 
-# Route the spec-required did:web resolution path through this Worker.
+# Catch-all routes. Worker handles:
+#   - /.well-known/did.json  → DID Document (local)
+#   - /*                     → reverse-proxy to yoro.gftd.ai
 # zone_name binds to the etzhayyim.com zone in the Cloudflare account that
 # registered etzhayyim.com via Cloudflare Registrar (2026-05-15).
 [[routes]]
-pattern = "etzhayyim.com/.well-known/did.json"
+pattern = "etzhayyim.com/*"
 zone_name = "etzhayyim.com"
+
+# Also catch www.etzhayyim.com so visitors who type the full hostname land
+# on the proxied app instead of an unanswered DNS.
+[[routes]]
+pattern = "www.etzhayyim.com/*"
+zone_name = "etzhayyim.com"
+
+# Service binding — direct Worker→Worker call to magatama-yoro avoids the
+# CF Bot Management block that public-HTTP fetch hits inside the same zone.
+[[services]]
+binding = "YORO"
+service = "magatama-yoro"
 
 # Observability — capture failed resolution attempts in CF Logs.
 [observability]
