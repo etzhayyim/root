@@ -1,0 +1,237 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Project",
+  "name": "Autonomous Video Platform (ai-gftd-project-douga)",
+  "status": "In Progress",
+  "identifier": "ai-gftd-project-douga",
+  "description": "An end-to-end autonomous video production and distribution platform where AGI handles screenwriting, cinematography, video synthesis, and global delivery.",
+  "hasPart": [
+    {
+      "@type": "CreativeWork",
+      "name": "Strategy",
+      "url": "STRATEGY.jsonld"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Capabilities",
+      "url": "capabilities.jsonld"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Activities",
+      "url": "activities.jsonld"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Architecture",
+      "url": "ARCHITECTURE.jsonld"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Videos Portal",
+      "url": "ui/PROJECT.jsonld"
+    }
+  ],
+  "tasks": [
+    {
+      "status": "completed",
+      "task": "Design multi-modal AGI video production pipeline."
+    },
+    {
+      "status": "completed",
+      "task": "Develop streaming infrastructure for AI-generated videos."
+    },
+    {
+      "status": "completed",
+      "task": "Implement global multi-lingual dubbing/subtitling actor."
+    },
+    {
+      "status": "completed",
+      "task": "Build and deploy Videos Portal to Kubernetes."
+    }
+  ],
+  "rdfUnifiedDocuments": {
+    "@type": "Dataset",
+    "name": "Unified top-level RDF/JSON-LD documents",
+    "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
+    "documents": [
+      {
+        "fileName": "ARCHITECTURE.jsonld",
+        "content": {
+          "@context": {
+            "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
+            "dct": "http://purl.org/dc/terms/",
+            "gftd": "https://etzhayyim.com/schemas/"
+          },
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-douga/architecture",
+          "type": "dodaf:SystemView",
+          "dct:title": "Video Platform System Architecture (SV-1)",
+          "gftd:components": [
+            {
+              "name": "Cinema Frontend",
+              "technology": "Svelte 5 / SvelteKit 2 / HLS.js",
+              "description": "Global streaming portal for autonomous movies."
+            },
+            {
+              "name": "Production AGI Orchestrator",
+              "technology": "Go / Temporal / ConnectRPC",
+              "description": "Workflow engine for long-running movie production tasks."
+            },
+            {
+              "name": "Video Generation Cluster",
+              "technology": "NVIDIA H100 / Sora-compatible pipeline",
+              "description": "Compute-intensive video synthesis layer."
+            },
+            {
+              "name": "Localization Engine",
+              "technology": "ElevenLabs / OpenAI-Whisper",
+              "description": "Real-time dubbing and subtitling service."
+            }
+          ]
+        }
+      },
+      {
+        "fileName": "STRATEGY.jsonld",
+        "content": {
+          "@context": "https://schema.org/",
+          "@type": "Strategy",
+          "name": "Autonomous Video Strategy",
+          "identifier": "strategy-videos",
+          "description": "Revolutionizing the film industry by eliminating traditional production overhead through AGI synthesis and global direct-to-consumer streaming.",
+          "goals": [
+            "Release one AGI-produced feature film per week.",
+            "Achieve day-and-date global release in 100+ languages.",
+            "Minimize production cost to < 1% of Hollywood standards."
+          ]
+        }
+      },
+      {
+        "fileName": "activities.jsonld",
+        "content": {
+          "@context": {
+            "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
+            "dct": "http://purl.org/dc/terms/",
+            "gftd": "https://etzhayyim.com/schemas/"
+          },
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-douga/activities",
+          "type": "dodaf:OperationalActivity",
+          "dct:title": "Video Platform Operational Process (OV-5b)",
+          "gftd:processes": [
+            {
+              "name": "AGI Movie Production Pipeline",
+              "steps": [
+                {
+                  "activity": "Screenwriting & Logic Flow",
+                  "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2641-scenario-writer",
+                  "action": "AGI generates narrative structure, character arcs, and dialogue scripts.",
+                  "input": "Concept",
+                  "output": "Screenplay"
+                },
+                {
+                  "activity": "Visual Storyboarding",
+                  "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2651-illustrator",
+                  "action": "Generation of visual keys and camera blocking instructions.",
+                  "input": "Screenplay",
+                  "output": "Storyboard"
+                },
+                {
+                  "activity": "Video Synthesis & Rendering",
+                  "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-entity-video-generator",
+                  "action": "Autonomous generation of video frames and temporal interpolation.",
+                  "input": "Storyboard",
+                  "output": "Raw Video Clamps"
+                },
+                {
+                  "activity": "Editing & Sound Integration",
+                  "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-media-editing",
+                  "action": "Automated assembly, foley, and score generation.",
+                  "input": "Raw Video Clamps",
+                  "output": "Master Copy"
+                }
+              ]
+            },
+            {
+              "name": "Global Distribution Flow",
+              "steps": [
+                {
+                  "activity": "Multi-lingual Localization",
+                  "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2643-translator",
+                  "action": "AI-powered dubbing and subtitle generation for target regions.",
+                  "input": "Master Copy",
+                  "output": "Localized Variants"
+                },
+                {
+                  "activity": "Release & Monetization",
+                  "performer": "ai-gftd-performer-sys-gftd-procs-movie-release",
+                  "action": "Publishing to the platform with adaptive bitrate streaming.",
+                  "input": "Localized Variants",
+                  "output": "Streaming Stream"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "fileName": "capabilities.jsonld",
+        "content": {
+          "@context": {
+            "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
+            "dct": "http://purl.org/dc/terms/"
+          },
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-douga/capabilities",
+          "type": "dodaf:Capability",
+          "dct:title": "Video Platform Capability Catalog (CV-2)",
+          "capabilities": [
+            {
+              "name": "End-to-End AGI Production (C1)",
+              "description": "Fully autonomous creation of cinematic content from script to final edit."
+            },
+            {
+              "name": "Multi-modal Video Synthesis (C2)",
+              "description": "State-of-the-art video generation (e.g., Sora-like) with temporal consistency."
+            },
+            {
+              "name": "Global Localization (C3)",
+              "description": "Real-time AI dubbing and subtitling into 100+ languages."
+            },
+            {
+              "name": "Dynamic Streaming & Monetization (C4)",
+              "description": "Scalable video distribution with personalized viewing experiences."
+            }
+          ]
+        }
+      },
+      {
+        "fileName": "scheduler.jsonld",
+        "content": {
+          "@context": [
+            "https://schema.org/",
+            {
+              "gftd": "https://etzhayyim.com/schemas/",
+              "capabilities": "gftd:capabilities",
+              "survivalIndicators": "gftd:survivalIndicators",
+              "scheduler": "gftd:scheduler",
+              "milestones": "gftd:milestones",
+              "blockers": "gftd:blockers",
+              "dependsOn": {
+                "@id": "gftd:dependsOn",
+                "@type": "@id"
+              },
+              "ingestKey": "gftd:ingestKey",
+              "window": "gftd:window",
+              "valueUpdatedAt": "gftd:valueUpdatedAt"
+            }
+          ],
+          "@type": "CreativeWork",
+          "name": "Autonomous Video Platform (ai-gftd-project-douga) Scheduler",
+          "identifier": "ai-gftd-project-douga/scheduler",
+          "description": "Project schedule (milestones) and blockers.",
+          "dateCreated": "2026-02-15T04:25:26+00:00",
+          "milestones": [],
+          "blockers": []
+        }
+      }
+    ]
+  }
+}
