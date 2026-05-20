@@ -28,7 +28,7 @@
                   "paperId":   { "type": "string" },
                   "title":     { "type": "string" },
                   "abstract":  { "type": "string" },
-                  "score":     { "type": "number" },
+                  "score":     { "type": "integer" },
                   "ipfsCid":   { "type": "string" }
                 }
               }

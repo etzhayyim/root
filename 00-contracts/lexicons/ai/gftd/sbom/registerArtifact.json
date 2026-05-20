@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a CycloneDX or SPDX SBOM artifact with sbom.gftd.ai. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact graph and CVE / recall pipeline (60-apps/ai-gftd-project-sbom/CLAUDE.md). For vehicle BOMs the optional vehicle* fields capture the part-graph metadata needed for Takata-style supplier recall queries.",
+      "description": "Register a CycloneDX or SPDX SBOM artifact with sbom.etzhayyim.com. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact graph and CVE / recall pipeline (60-apps/ai-gftd-project-sbom/CLAUDE.md). For vehicle BOMs the optional vehicle* fields capture the part-graph metadata needed for Takata-style supplier recall queries.",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -36,7 +36,7 @@
               "description": "Vehicle revision tag (e.g. 0.1.0, 2026-MY-1)."
             },
             "totalMassKg": {
-              "type": "number",
+              "type": "integer",
               "description": "Vehicle BOMs only — sum of effective_mass_kg across parts."
             },
             "partCount": {
@@ -70,7 +70,7 @@
           "properties": {
             "artifactUri": {
               "type": "string",
-              "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.gftd.ai/ai.gftd.apps.sbom.artifact/<rkey>)."
+              "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.etzhayyim.com/ai.gftd.sbom.artifact/<rkey>)."
             },
             "componentCount": {
               "type": "integer",
