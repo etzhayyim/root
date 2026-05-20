@@ -713,6 +713,41 @@ status = "proposed"
 status_note = "15+ religious-corp cells を catalog: CharterAttestation* (3) / Land* (4) / Economic (5) / Force (2) / Ethics (1) / Membership (2) / CouncilDeliberation (1, generic)。Tier A (Per-Adherent PhenotypeAgent) / Tier B (Per-Domain leader+replica) / Tier C (Per-Decision Council)。Murakumo 12-tribes Mac mini fleet 上 launchd 常駐 + magatama CLI 実行 + cell-key quarterly rotation。S0-S11 testnet deploy roadmap"
 path = "90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md"
 
+[[adrs]]
+id = "2605201400"
+title = "etzhayyim kuni-umi (国生み) — planetary-scale infrastructure robotics fleet actor"
+status = "proposed"
+status_note = "labor_liberation pillar の最大 throughput path。20-actors/kuni-umi/ (Tier B per-domain leader) + 6 cells (site_survey / deployment_planning / construction_orchestration / commissioning / audit_witness / decommission) + 6 lexicons (ai.gftd.apps.etzhayyim.kuniUmi.*) + 3 DMN (jurisdiction-eligibility / counterparty-classification / proportionality-check) + BPMN scaffold。open-* utility lexicons (denki/gas/water/network/power/rail/airplane/ports) × open-robo (Giemon Otete/Mimi/Te/Atama) × open-ot (WASM PLC IEC 61499) × UNSPSC 18,345 agent fleet を貫通する施工 workflow を 4 phase Pregel super-step で orchestrate。Land sovereignty (terrestrial + ocean + river + atmosphere + orbit) + Charter Rider §2 + 三層 enforcement + Witness N>=2 invariant を constitutional gate として実装。S0 (本 ADR) → S1 solo survey → S2 single-utility prototype (community microgrid) → S3 multi-utility → S4 multi-site fleet → S5 extended sovereignty"
+path = "90-docs/adr/2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md"
+
+[[adrs]]
+id = "2605201500"
+title = "kuni-umi S1 — solo survey (1 Giemon Otete + 1 Mimi stationary witness base-station + SiteSurveyCell live)"
+status = "proposed"
+status_note = "kuni-umi S0 spec の最小 viable 実物検証。Single Otete (mobile RGB-D/LIDAR) + Mimi tripod base-station (chem/multispectral/camera) で N=2 witness invariant を最小コストで満たす。Target plot: 山中湖 LandRegistry donation (LandDonationProcessingCell も同時 validate)、寒冷期は Tokyo workshop garden 代替。SiteSurveyCell cell.py reference + 8 acceptance criteria + 7 risks/mitigations + hardware/DID provisioning checklist。S1 PASS → S2 (community microgrid single-utility prototype) へ。施工なし — survey のみ。"
+path = "90-docs/adr/2605201500-etzhayyim-kuni-umi-s1-solo-survey.md"
+
+[[adrs]]
+id = "2605201600"
+title = "kuni-umi S2 — community microgrid (1 MW class single-utility electric prototype, kuni-umi Phase 2–4 × open-ot 7 loops end-to-end)"
+status = "proposed"
+status_note = "kuni-umi が初の real-capital deployment を実行する milestone。University campus 1 MW microgrid を target topology に、open-ot PROTOTYPE-MICROGRID.md §1 (asset inventory 9 種) + §2 (7 loops) + §3 (8 FBType, 3 implemented) を end-to-end commission。Giemon fleet: 6 Otete + 8 Mimi + 2 Hitogata (humanoid 別 ADR 発注 critical-path)。BoM USDC 1.5-2M + fleet CAPEX USDC 200k + 20% contingency = total USDC 2.3-3.1M。Phase 2 で governance vote (population > 100) + Public Fund grant evaluation の 2 escalation 必須。Construction: 8 sub-phase × 10-12 weeks。Commissioning: 7 open-ot loops 順次起動 + 90-day pilot acceptance。10 acceptance criteria + 9 risk/mitigation + donation-only 制約下での energy-cost-recovery path (Public Fund operating grant default)。Constitutional alignment 9 article 全て pass。"
+path = "90-docs/adr/2605201600-etzhayyim-kuni-umi-s2-community-microgrid.md"
+
+[[adrs]]
+id = "2605201700"
+title = "kuni-umi S3 — multi-utility integrated (electric + water + network on S2 site, BoM consolidation algorithm + cross-utility witness coordination + multi-target commissioning)"
+status = "proposed"
+status_note = "S2 site 上に water (open-water reservoir + mains + AMI 80) + network (open-network PoP + 8 distribution + Wi-Fi 7 mesh) を overlay、religious-corp の utility trinity を同一 community に提供する pattern を確立。BoM consolidation algorithm (OR-Tools CP-SAT MIP solver + 4 shared-op rules: trench/conduit/building-entry/scaffold; Charter Rider + counterparty + 国内 supply preference constraints; 15% savings target) で ADR-2605201400 Open Question 3 解消。Cross-utility witness: 12 cluster simultaneous (electric 4 + water 3 + network 5 + shared-op 2)、shared-op で per-utility independent signature invariant。Multi-target commissioning: open-ot continuation × open-water steward handover × open-network NMS handover の 3 destination 並行。Fleet: 12 Otete + 12 Mimi + 4 Hitogata (humanoid +2 別 ADR 追加発注)。Construction: 8 sub-phase × 7-9 weeks (shared trench で工期短縮)。Budget: +USDC 1.5-2.1M (cumulative USDC 3.8-5.2M)。13 acceptance criteria + 9 risk + 6 open questions。Constitutional alignment 9 article 全 pass。"
+path = "90-docs/adr/2605201700-etzhayyim-kuni-umi-s3-multi-utility.md"
+
+[[adrs]]
+id = "2605201800"
+title = "kuni-umi S4 — multi-site fleet (≥5 archetype concurrent sites, fleet rebalance algorithm, cross-site BoM consolidation, Pregel-native edge orchestration, Quad introduction)"
+status = "proposed"
+status_note = "Religious-corp が point organization から fleet of sites への qualitative scaling milestone。5 archetype: A university (継続) / B rural (山中湖 expansion) / C religious community (神社・寺・教会 partnership) / D workers' cooperative (生協・漁協・農協) / E disaster recovery (能登・東日本 復興地)。FleetRebalanceCell (新規 cell on naphtali) が weekly Hungarian-method assignment を実行、Constitutional filter で witness invariant + Council inter-prefecture gate enforce。Cross-site BoM consolidation (3 ヶ月 horizon batch quotes + shared-logistics MIP, ≥20% savings target)。Edge orchestration: per-site Atama (NixOS RT + LangGraph + Wasmtime) + NATS JetStream over CF Tunnel; constitutional invariant 'no site→site direct mesh, Murakumo Tier 1 as single root of trust' を新規導入 (federation refusal)。Council Lv6+ supermajority on fleet portfolio composition の新規 constitutional gate。Council 5 seat に per-archetype primary responsibility 割当。Quad v1 (4-leg, 4 units) 初投入、open-robo 別 ADR 発注 critical-path。Fleet: 20 Otete + 6 Hitogata + 24 Mimi + 4 Quad = 54 robots。Budget +USDC 6.3-8.8M (cumulative USDC 10.1-14.0M)。15 acceptance criteria + 11 risk/mitigation + 6 open questions。Constitutional alignment 10 article 全 pass。"
+path = "90-docs/adr/2605201800-etzhayyim-kuni-umi-s4-multi-site-fleet.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -1241,6 +1276,29 @@ sibling_modules = [
 ]
 
 [[modules]]
+path = "20-actors/kuni-umi"
+kind = "langgraph-cell-catalog"
+version = "0.0.1"
+status = "S0-scaffold"
+description = "kuni-umi (国生み) — planetary infrastructure robotics fleet actor (ADR-2605201400)。Tier B per-domain leader。6 cells: site_survey (naphtali) / deployment_planning (zebulun) / construction_orchestration (joseph) / commissioning (simeon) / audit_witness (levi, continuous) / decommission (dan)。6 lexicons under ai.gftd.apps.etzhayyim.kuniUmi.*。3 DMN: jurisdiction-eligibility / counterparty-classification / proportionality-check。BPMN: kuni-umi-deployment-workflow.bpmn (Survey → Plan → Construct → Commission)。Witness N>=2 constitutional invariant。S1+ は別 ADR。"
+adr = ["2605201400", "2605192415", "2605171800", "2605172000", "2605172100", "2605172300", "2605192100", "2605192200", "2605192230", "2605192245", "2605192315", "2605192330", "2605171300"]
+lexicons = "00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi"
+sibling_modules = [
+  "60-apps/ai-gftd-project-open-denki",
+  "60-apps/ai-gftd-project-open-gas",
+  "60-apps/ai-gftd-project-open-water",
+  "60-apps/ai-gftd-project-open-network",
+  "60-apps/ai-gftd-project-open-power",
+  "60-apps/ai-gftd-project-open-rail",
+  "60-apps/ai-gftd-project-open-airplane",
+  "60-apps/ai-gftd-project-open-ports",
+  "60-apps/ai-gftd-project-open-robo",
+  "60-apps/ai-gftd-project-open-ot",
+  "20-actors/magatama/cells (sibling Tier B catalog)",
+  "50-infra/murakumo/fleet.toml",
+]
+
+[[modules]]
 path = "50-infra/murakumo"
 kind = "fleet-config"
 version = "0.0.1"
@@ -1263,6 +1321,83 @@ version = "0.0.1"
 status = "scaffold"
 description = "religious-corp cell fleet monitoring + observability dashboard (ADR-2605192415 §12)。cell healthz / prometheus metrics / swarm heartbeat / AT Record audit log を svelte SPA で可視化。constituents (Adherent SBT holders) が自身の関わる cell action を audit できる。"
 adr = ["2605192415"]
+
+[[modules]]
+path = "70-tools/charter-rider-applicator"
+kind = "shell-script"
+version = "1.0.0"
+status = "active"
+description = "Retro-active Charter Compliance Rider v2.0 applicator + verifier. apply.sh adds NOTICE + CHARTER-RIDER.md symlink to every first-party Apache-2.0 package (3rd-party /lib/ /vendor/ *-fork/ skipped). verify.sh detects drift between local NOTICE / symlink and root canonical /CHARTER-RIDER.md. Initial run 2026-05-20 applied to 39 first-party packages (78 NOTICE + symlink entries). Lefthook charter-rider-notice hook calls into the same logic at commit-time."
+adr = ["2605192200"]
+
+[[modules]]
+path = "70-tools/scripts/lint"
+kind = "lefthook-pre-commit-lints"
+version = "0.1.0"
+status = "active"
+description = "Religious-corp wave lefthook pre-commit lints (per ADR-2605192115 + ADR-2605192200 + ADR-2605191648). 4 new scripts added 2026-05-20: no-advertising.mjs (BLOCK: ad network / affiliate / ad-tracker imports + adsbygoogle/googlesyndication/facebook.net DOM), no-purchase-purpose.mjs (BLOCK: v0 payment.sent.purpose enum subscription/purchase/tip/refund/offering/split — v1 narrow per ADR-2605192115 §1.3), paywall-warn.mjs (WARN: paywall/premium_only patterns — Council Lv6+ review per §2.3), charter-rider-notice.mjs (BLOCK: Apache-2.0 manifest without NOTICE + CHARTER-RIDER.md symlink). Existing substrate-boundary.mjs unchanged. All pre-commit parallel."
+adr = ["2605192115", "2605192130", "2605192200", "2605191648"]
+
+[[modules]]
+path = "50-infra/etzhayyim-chain-contracts/script/DeployReligiousCorp.s.sol"
+kind = "foundry-deploy-script"
+version = "0.1.0"
+status = "anvil-verified"
+description = "Religious-corp wave deploy script per ADR-2605192415 §10 S2 roadmap. Deploys Constitution (38 const + 16 mut) + AdherentRegistry + ChartersComplianceRegistry (5-seat bootstrap council) + TitheRouter (publicFund immutable v0) + LandRegistry (charters.isCouncilMember single SoT). runLocal() entry uses Anvil deterministic accounts 0-6 for testnet-style smoke. run() entry takes (USDC, officers[], council[5], publicFundSafe) for Base Sepolia / mainnet. Anvil deploy 2026-05-20 verified: 4 constitutional constants + council bootstrap state read back correctly via cast call."
+adr = ["2605192415", "2605192100", "2605192115", "2605192130", "2605192200", "2605192230", "2605192245", "2605192300", "2605192315"]
+
+# ─── Religious-Corp Wave Status (ADRs 2605192100..2605192415 cumulative) ──
+
+[platform.religious_corp_wave]
+status = "constitutional-layer-complete-bootstrap-rfp-open"
+adr_count = 13
+wave_start = "2026-05-19"
+constitutional_layer_complete = "2026-05-20"
+bootstrap_rfp_open = "2026-05-20"
+bootstrap_rfp_close = "2026-06-19"
+testnet_deploy_target = "2026-06-20"
+mainnet_deploy_target = "TBD post-testnet"
+
+constants_count = 38
+mutables_count = 16
+lexicons_count_new = 30      # 28 in D + 2 in H (council-candidate-application, council-objection)
+lexicons_count_modified = 1   # payment/sent.json purpose enum v0→v1
+solidity_contracts_added = 3  # ChartersComplianceRegistry, TitheRouter, LandRegistry
+solidity_tests_added = 22     # 10 ConstitutionReligiousCorpWave + 12 ChartersComplianceRegistry
+pregel_cells_scaffolded = 5   # charter_attestation_request, land_donation_processing, ethics_content_classifier, tithe_routing, council_deliberation
+lint_hooks_added = 4
+charter_rider_applied_packages = 39
+charter_rider_files_added = 78  # NOTICE + symlink per package
+
+anvil_smoke_chain_id = 31337
+anvil_smoke_addresses = { Constitution = "0x5FbDB2315678afecb367f032d93F642f64180aa3", AdherentRegistry = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", ChartersComplianceRegistry = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", TitheRouter = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", LandRegistry = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9" }
+
+bootstrap_council_seat1_founder = "Jun Kawasaki (confirmed 2026-05-19)"
+bootstrap_council_seats_2_to_5_status = "RFP open — github.com/etzhayyim/root/discussions + AT Records via ai.gftd.apps.etzhayyim.council-candidate-application"
+
+repo_root_docs_added = ["CHARTER-RIDER.md", "LANDS.md", "COUNCIL.md", "COUNCIL-BOOTSTRAP-RFP.md"]
+github_issue_templates_added = [".github/ISSUE_TEMPLATE/council-bootstrap-candidate.yml", ".github/ISSUE_TEMPLATE/council-bootstrap-objection.yml"]
+
+session_close_commits = [
+  "98079b3e — adr: religious-corp constitutional layer (13 ADRs)",
+  "0abebca3 — rider/lands: CHARTER-RIDER.md v2.0 + LANDS.md + applicator",
+  "8d16bdae — infra: religious-corp Solidity contracts scaffold (separate dirs)",
+  "8fe7a0c1 — actors: religious-corp Pregel cell catalog + cell-runner + Murakumo fleet",
+  "b804dd2d — rider: apply Charter Rider v2.0 to 39 first-party Apache-2.0 packages",
+  "b85504d8 — claude-md: capture religious-corp constitutional wave in repo memory",
+  "8a8cc0a7 — constitution: wire religious-corp wave constants (38 const + 16 mut)",
+  "54a90abe — lexicons: 28 AT Protocol records",
+  "cb27ea60 — lefthook: 4 lint hooks for religious-corp wave CI enforcement",
+  "1a219a72 — chain-contracts: consolidate religious-corp wave into unified Foundry project + Anvil deploy verified",
+  "ceda210e — council: open Bootstrap Council Seats 2-5 RFP (2026-05-20 → 2026-06-19)",
+]
+
+# Documents the deploy-time circular-dependency v0 workaround (TitheRouter
+# publicFund is constructor-immutable rather than Constitution.getMutable).
+# v1 plan: CREATE2-based sequencing to predict Constitution address before
+# TitheRouter construction. Not currently scoped — defer to post-mainnet.
+tithe_router_v0_publicfund_workaround = true
+tithe_router_v1_create2_sequencing_scoped = false
 
 # ─── Cutover policy (legacy prefix preservation rules) ──────────────
 
