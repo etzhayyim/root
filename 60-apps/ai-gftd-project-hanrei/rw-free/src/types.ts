@@ -436,3 +436,57 @@ export interface ListGazetteEntriesOutput {
   cursor?: string;
   total: number;
 }
+
+// ─── Digest tier (slice 7) ──────────────────────────────────────────
+
+export interface DigestRecord {
+  did: string;
+  caseId: string;
+  caseDid?: string;
+  /** Model identifier (e.g. claude-opus-4-7, gpt-5, llama-4-scout-17b). */
+  model: string;
+  summary: string;
+  keypoints?: string[];
+  holdings?: string[];
+  citedLaws?: string[];
+  language?: string;
+  tokenCount?: number;
+  generatedAt: string;
+  createdAt: string;
+}
+
+export interface DigestView extends DigestRecord {
+  digestUri: string;
+}
+
+export interface RegisterDigestInput {
+  caseId: string;
+  caseDid?: string;
+  model: string;
+  summary: string;
+  keypoints?: string[];
+  holdings?: string[];
+  citedLaws?: string[];
+  language?: string;
+  tokenCount?: number;
+  generatedAt?: string;
+}
+
+export interface RegisterDigestOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  digestUri?: string;
+  did?: string;
+  caseId?: string;
+  model?: string;
+  error?: string;
+}
+
+export interface GetDigestInput {
+  caseId?: string;
+  model?: string;
+}
+
+export interface GetDigestOutput {
+  digest?: DigestView;
+  error?: string;
+}
