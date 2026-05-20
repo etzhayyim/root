@@ -130,3 +130,87 @@ export function itemRkey(itemId: string): string {
 
 /** Default 30-day reuse window from ADR-2605081700. */
 export const REUSE_DEFAULT_TTL_MS = 30 * 24 * 3_600_000;
+
+// ─── State transition records + inputs (slice 2) ────────────────────
+
+export interface ReuseRequestRecord {
+  itemId: string;
+  requesterDid: string;
+  message?: string;
+  requestedAt: string;
+  createdAt: string;
+}
+
+export interface RequestReuseInput {
+  itemId: string;
+  requesterDid: string;
+  message?: string;
+}
+
+export interface RequestReuseOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  reuseRequestUri?: string;
+  itemId?: string;
+  requesterDid?: string;
+  error?: string;
+}
+
+export interface HandoverInput {
+  itemId: string;
+  recipientDid: string;
+}
+
+export interface HandoverOutput {
+  status: "handed_over" | "rejected";
+  itemUri?: string;
+  itemId?: string;
+  recipientDid?: string;
+  error?: string;
+}
+
+export interface ExpireInput {
+  itemId: string;
+}
+
+export interface ExpireOutput {
+  status: "reuse_expired" | "ritual_pending" | "rejected";
+  itemUri?: string;
+  itemId?: string;
+  error?: string;
+}
+
+export interface RitualRequestRecord {
+  itemId: string;
+  requesterDid: string;
+  matsuriDid?: string;
+  notes?: string;
+  requestedAt: string;
+  createdAt: string;
+}
+
+export interface RequestRitualInput {
+  itemId: string;
+  requesterDid?: string;
+  matsuriDid?: string;
+  notes?: string;
+}
+
+export interface RequestRitualOutput {
+  status: "registered" | "alreadyExists" | "rejected";
+  ritualRequestUri?: string;
+  itemId?: string;
+  error?: string;
+}
+
+export interface RitualizeInput {
+  itemId: string;
+  certificateUri: string;
+}
+
+export interface RitualizeOutput {
+  status: "ritualized" | "rejected";
+  itemUri?: string;
+  itemId?: string;
+  certificateUri?: string;
+  error?: string;
+}

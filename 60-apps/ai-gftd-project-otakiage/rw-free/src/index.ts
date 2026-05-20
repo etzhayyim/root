@@ -17,3 +17,10 @@
 
 export * from "./types.js";
 export { submitItem, getItem, listItems } from "./itemRegistry.js";
+export {
+  requestReuse,
+  handover,
+  expire,
+  requestRitual,
+  ritualize,
+} from "./transitions.js";
