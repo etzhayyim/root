@@ -622,3 +622,128 @@ export interface EuvImplementationCoverageOutput {
   phaseCoverage: EuvPhaseCoverage[];
   computedAt: string;
 }
+
+// ─── CNT (slice 8) ──────────────────────────────────────────────────
+
+export interface CntDesignFlowInput {
+  flowId?: string;
+  productionOrderId?: string;
+  processId?: "cvd" | "pecvd" | "arc-discharge" | "laser-ablation" | "hipco";
+  targetDiameterNm?: number;
+  targetLengthMm?: number;
+  targetPurityPermille?: number;
+  catalystMaterial?: string;
+  substrateMaterial?: string;
+  artifacts?: unknown[];
+  requirements?: unknown;
+}
+
+export interface CntDesignFlowOutput {
+  status: "ok" | "rejected";
+  schema: string;
+  flowId: string;
+  productionOrderId?: string;
+  processId: string;
+  targetDiameterNm?: number;
+  targetLengthMm?: number;
+  targetPurityPermille: number;
+  catalystMaterial: string;
+  substrateMaterial: string;
+  phases: string[];
+  handoffGates: string[];
+  artifacts: unknown[];
+  requirements?: unknown;
+}
+
+export interface CntPlanAutomationInput {
+  planId?: string;
+  flowId?: string;
+  equipmentDids?: string[];
+  cycleTimeSec?: number;
+}
+
+export interface CntPlanAutomationOutput {
+  status: "ok";
+  schema: string;
+  planId: string;
+  flowId?: string;
+  automatedSteps: string[];
+  manualSteps: string[];
+  equipmentDids: string[];
+  cycleTimeSec: number;
+}
+
+export interface CntAutomationCoverageInput {
+  productionOrderId?: string;
+}
+
+export interface CntAutomationCoverageOutput {
+  status: "ok";
+  schema: string;
+  totalPlans: number;
+  phaseCoverage: { phase: string; count: number }[];
+  computedAt: string;
+}
+
+export interface CntPrepareOrderInput {
+  packageId?: string;
+  productionOrderId?: string;
+  flowId?: string;
+  supplierDid?: string;
+  artifacts?: unknown[];
+}
+
+export interface CntPrepareOrderOutput {
+  status: "ok";
+  schema: string;
+  packageId: string;
+  productionOrderId?: string;
+  flowId?: string;
+  supplierDid?: string;
+  artifacts: unknown[];
+  deliveryFormats: string[];
+  riskControls: string[];
+}
+
+export interface CntRunPackageInput {
+  runId?: string;
+  flowId?: string;
+  batchSize?: number;
+  recipeId?: string;
+  expectedYieldPermille?: number;
+  artifacts?: unknown[];
+}
+
+export interface CntRunPackageOutput {
+  status: "ok";
+  schema: string;
+  runId: string;
+  flowId?: string;
+  batchSize: number;
+  recipeId?: string;
+  expectedYieldPermille: number;
+  artifacts: unknown[];
+}
+
+export interface CntValidateRunInput {
+  runId?: string;
+  recipeId?: string;
+}
+
+export interface CntValidateRunOutput {
+  status: "valid" | "invalid";
+  runId?: string;
+  issues: string[];
+  schema: string;
+}
+
+export interface CntProcessCatalogInput {
+  unused?: never;
+}
+
+export interface CntProcessCatalogOutput {
+  status: "ok";
+  schema: string;
+  processes: { processId: string; name: string; typicalLengthMicrons: number }[];
+  computedAt: string;
+}
