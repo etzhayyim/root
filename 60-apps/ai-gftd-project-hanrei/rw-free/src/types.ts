@@ -154,3 +154,77 @@ export interface CollectWikidataCourtsOutput {
   skipped: number;
   collectedAt: string;
 }
+
+// ─── Case tier (slice 3) ────────────────────────────────────────────
+
+export interface CaseRecord {
+  did: string;
+  caseId: string;
+  title: string;
+  courtDid?: string;
+  jurisdiction?: string;
+  decidedAt?: string;
+  caseNumber?: string;
+  summary?: string;
+  tags?: string[];
+  sourceUrl?: string;
+  createdAt: string;
+}
+
+export interface CaseView extends CaseRecord {
+  caseUri: string;
+}
+
+export interface CaseSeedInput {
+  caseId: string;
+  title: string;
+  courtDid?: string;
+  jurisdiction?: string;
+  decidedAt?: string;
+  caseNumber?: string;
+  summary?: string;
+  tags?: string[];
+  sourceUrl?: string;
+}
+
+export interface SeedCasesInput {
+  cases: CaseSeedInput[];
+}
+
+export interface SeedCasesOutput {
+  status: "ok" | "rejected";
+  inserted?: { caseId: string; caseUri: string }[];
+  skipped?: { caseId: string; reason: string }[];
+  error?: string;
+}
+
+export interface GetCaseInput {
+  caseId?: string;
+}
+
+export interface GetCaseOutput {
+  case?: CaseView;
+  error?: string;
+}
+
+export interface ListCasesInput {
+  courtDid?: string;
+  jurisdiction?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export interface ListCasesOutput {
+  items: CaseView[];
+  cursor?: string;
+  total: number;
+}
+
+export interface SearchCasesInput {
+  query: string;
+  courtDid?: string;
+  limit?: number;
+  cursor?: string;
+}
+
+export type SearchCasesOutput = ListCasesOutput;

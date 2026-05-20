@@ -22,3 +22,9 @@ export {
   listCourts,
   collectWikidataCourts,
 } from "./court.js";
+export {
+  seedCases,
+  getCase,
+  listCases,
+  searchCases,
+} from "./case.js";
