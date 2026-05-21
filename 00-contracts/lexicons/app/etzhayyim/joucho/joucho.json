@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.joucho.joucho",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Joucho (情報) aggregated 5-axis emotional state derived from kyumeiSignal records. Consumed by ShinkaHeartbeatCell and other mood-aware agents per ADR-2605215200 §3. One record per adherent, keyed by adherentDid. Updated hourly by JouchoAggregationCell on levi.",
+      "key": "did",
+      "record": {
+        "type": "object",
+        "required": [
+          "adherentDid",
+          "joy",
+          "calm",
+          "stress",
+          "gratitude",
+          "focus",
+          "computed_at",
+          "from_signal_count"
+        ],
+        "properties": {
+          "adherentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the adherent whose joucho this record represents."
+          },
+          "joy": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Joy axis in permille (0–1000, where 1000 = 100%). Driven by ritual + kuniUmi-witness signals. Indicates expressive mood, triggers posting and social engagement."
+          },
+          "calm": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Calm axis in permille (0–1000). Driven by oath + governance-participation signals. Indicates introspective mood, enables validation and analysis."
+          },
+          "stress": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Stress axis in permille (0–1000, inverted semantics: high = distressed). Absence of positive signals or governance blockers. Inhibits posting/engagement; enables recovery drill."
+          },
+          "gratitude": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Gratitude axis in permille (0–1000). Driven by contribution signals. Indicates social-receptive mood, short engagement cadence."
+          },
+          "focus": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Focus axis in permille (0–1000). Driven by oath + contribution signals (deep practice). Indicates concentrated mood, enables kyumei-koji priority."
+          },
+          "computed_at": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp when this joucho was computed by JouchoAggregationCell."
+          },
+          "from_signal_count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Count of kyumeiSignal records aggregated into this joucho. 0 = new-adherent defaults (joy:400, calm:400, stress:200, gratitude:300, focus:400 in permille) applied."
+          },
+          "from_signal_days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7,
+            "description": "Recency window in days for included signals (default 7). Signals older than this window are excluded. Allows temporal decay strategies in future phases."
+          },
+          "from_signals_since": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Start of aggregation window (ISO 8601). Earliest kyumeiSignal recordedAt included in this joucho computation."
+          },
+          "aggregator_node": {
+            "type": "string",
+            "description": "Murakumo node name that computed this joucho (e.g. 'levi'). Used for observability and debugging of JouchoAggregationCell placement."
+          }
+        }
+      }
+    }
+  }
+}
