@@ -2,14 +2,14 @@
 
 Apache-2.0 ERP built on AT Protocol + APQC PCF + BPMN 2.0 + OCEL 2.0.
 
-Source-of-truth for the Kyber ERP product (`kyber.gftd.ai`). Fork this repo to run your own instance; the deployed SaaS at `kyber.gftd.ai` is a managed tenancy of this codebase.
+Source-of-truth for the Kyber ERP product. The etzhayyim tenancy runs at `kyber.etzhayyim.com` (this monorepo); the original gftd tenancy at `kyber.gftd.ai` remains a separate managed deployment of the same codebase. Fork this repo to run your own instance.
 
 ## What's inside
 
 - **ERP Worker** (`ai-gftd-wasm-kyber-erp-kyb3rerp/`) — 24 XRPC commands across accounting (double-entry GL, IFRS/JP-GAAP CoA), AP/AR, HR, procurement, inventory, sales, fixed asset depreciation, and governance/risk controls. Hono + Svelte SPA included.
 - **APQC/BPMN Projector** (`ai-gftd-wasm-kyber-projector-kyb3proj/`) — reactive onCommit consumer that maps ERP records to APQC PCF 13 L1 + BPMN 2.0 task catalog (28 tasks) and emits OCEL 2.0 events to RisingWave.
   Includes compatibility XRPCs for `process group` / `process` / `activity` callers.
-- **Multi-DID** — 7 department writers (`did:web:kyber.gftd.ai:dept:*`) + 13 APQC L1 path DIDs on the projector.
+- **Multi-DID** — 7 department writers (`did:web:kyber.etzhayyim.com:dept:*` — accounting, hr, procurement, inventory, sales, asset, governance) + 13 APQC L1 path DIDs on the projector.
 
 ## Architecture
 

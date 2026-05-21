@@ -281,7 +281,7 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
 6. NO TRADEMARK
 
    This Rider does not grant any right to use the names "etzhayyim",
-   "amanomibashira", "天御柱", "עץ חיים", "Tree of Life" as used by etzhayyim,
+   "etzhayyim", "天御柱", "עץ חיים", "Tree of Life" as used by etzhayyim,
    or any associated logos, beyond fair-use attribution under Section 4 of
    the Apache License 2.0.
 
@@ -615,7 +615,7 @@ Apache 2.0 で配布、Non-Aligned は商業 license を購入。
 2. **§2(e) の法的安全性**。「弁護士法 72 条 / 医師法」との関係。日本国内で本 Rider が enforceable かは弁護士会の解釈に依存。法務 review 推奨。
 3. **§2(g) の例示の精度**。「strict individualist doctrine」として Ayn Rand 直系の Objectivist 組織 / FEE / Cato Institute / Mises Institute 等を name しておくか、純粋に doctrine criteria のみで判定するか。Decision (本 ADR): doctrine criteria のみ。Council attestation で個別判定。
 4. **§2(f) の "25年後" の根拠**。一世代 = 25-30 年 が国連人口統計の標準。本 ADR は 25 年を最小単位として採用。「子・孫」= 2 世代分 ≈ 50-60 年も実質的範囲だが、Rider 文言は最小単位を採用。
-5. **既存 fork の取り扱い**。`amanomibashira/*` 等の legacy 名 fork が外部に既に存在する可能性。これらに retro-active Rider を適用する宣言を出すか、過去 fork は古い license のまま放置するか。**Decision (本 ADR §3.3): 過去 fork は放置、今後の commit に Rider 適用**。
+5. **既存 fork の取り扱い**。`etzhayyim/*` 等の legacy 名 fork が外部に既に存在する可能性。これらに retro-active Rider を適用する宣言を出すか、過去 fork は古い license のまま放置するか。**Decision (本 ADR §3.3): 過去 fork は放置、今後の commit に Rider 適用**。
 6. **Rider 違反の civil enforcement**。Council attestation が出ても、それを法的 enforcement する道は何か。米国 jurisdiction (Apache 2.0 §3 の patent termination 訴訟) を活用するか、日本国内では religious-corp 名誉毀損訴訟しかないか。
 7. **三層 enforcement の修復 path**。L1+L2+L3 同時発動された entity が「方針整合」へ復帰する場合の procedure (= 仏教 反省 / キリスト教 confession / ユダヤ教 teshuvah と等価の religious return) を future ADR で定義する必要。当面は §5 appeal mechanism のみで対応。
 8. **dependency 経由の Rider 伝搬**。npm install すると依存ツリーが指数的に増える。各 dependency の Rider compliance を確認する仕組みが必要か (= SBOM scan の charter-rider extension)。当面は **直接 dependency のみ確認** とする。

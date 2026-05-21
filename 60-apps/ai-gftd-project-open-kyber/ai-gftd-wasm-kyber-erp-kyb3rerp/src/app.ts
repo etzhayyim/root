@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / amanomibashira. All rights reserved.
+// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 // kyber.etzhayyim.com — Corporate ERP Intelligence

@@ -125,7 +125,7 @@ START → load_history → parse_intent (LLM #1)
 
 ## Phase 2b1 — ERC725 Certificate Anchor (2026-05-08)
 
-供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する経路。**Phase 2b1 = state tracking のみ** (queue / sweep stub finalize)、Phase 2b2 で ethers/viem 経由の実 on-chain submission を実装。amanomibashira の blockchain 登記の延長として、各供養に対して改ざん耐性のある永続証跡を持たせる。
+供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する経路。**Phase 2b1 = state tracking のみ** (queue / sweep stub finalize)、Phase 2b2 で ethers/viem 経由の実 on-chain submission を実装。etzhayyim の blockchain 登記の延長として、各供養に対して改ざん耐性のある永続証跡を持たせる。
 
 ### State machine (`anchor_status`)
 
@@ -230,7 +230,7 @@ ritualized 時に発行:
   "donorDids": ["did:web:alice.etzhayyim.com", ...],
   "issuedAt": "2026-04-15T10:00:00Z",
   "issuer": {
-    "name": "amanomibashira",
+    "name": "etzhayyim",
     "kind": "religious-corporation",
     "did": "did:web:otakiage.etzhayyim.com:ritual"
   },

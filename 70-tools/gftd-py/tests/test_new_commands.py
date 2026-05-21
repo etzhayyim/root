@@ -742,7 +742,7 @@ def test_migrate_manifest_dry_run_basic(tmp_path):
         "name": "test-app",
         "nanoid": "t3st4pp",
         "project": "test",
-        "org": "amanomibashira",
+        "org": "etzhayyim",
         "routes": [{"host": "test.etzhayyim.com"}],
     }
     (tmp_path / "gftd.json").write_text(json.dumps(gftd_json))
@@ -1461,7 +1461,7 @@ def test_coverage_governance_json(tmp_path):
     actor_dir.mkdir(parents=True)
     (actor_dir / "magatama.jsonld").write_text(json.dumps({
         "nanoid": "abc12345", "name": "myactor",
-        "operator": "amanomibashira",
+        "operator": "etzhayyim",
     }))
     runner = CliRunner()
     result = runner.invoke(main, ["coverage", "governance",
