@@ -1,28 +1,26 @@
 #!/usr/bin/env python3
 """extract-click.py — Python AST walker that emits a yorishiro kami manifest
-from a Click-based source repo.
+from a Click or argparse-based source repo.
 
 Usage:
     python3 extract-click.py <source-path> --kami-id bin:<name> --binary <bin>
-                             [--module <pkg.cli>] [--entry <cli_attr>]
+                             [--framework click|argparse|auto]
 
 Output: a kami manifest JSON (same shape as 00-contracts/kami/*.kami.json,
 consumed by the binary-cli generator path) on stdout.
 
-What it looks for:
-  - functions decorated with @click.command(), @<group>.command(),
-    or @click.group()
-  - each function's @click.option(...) and @click.argument(...) decorators
-  - option flag literals (--flag), types (int/bool/str/float), defaults,
-    required-ness, help strings
+Frameworks (Phase 2.5 / 2.5.1):
+  - click   : @click.command / @click.group / @click.option / @click.argument
+  - argparse: argparse.ArgumentParser + .add_argument(...) (single-parser
+              scripts only — multi-parser / subparser apps degrade to the
+              first parser found)
+  - auto    : detect by AST imports / decorator names (default)
 
-What it skips (Phase 2.5 v0):
-  - dynamic decorators (anything not statically introspectable)
-  - argparse / cobra / clap (Phase 2.5.1+)
-  - multi-value / nargs / callback options (degraded to plain string)
-
-The output is fed into the same binary-cli emitter (since the wrapped
-binary, once the source repo is installed, is just a normal executable).
+What it skips:
+  - dynamic decorators / metaprogrammed CLIs
+  - cobra (Go) / clap (Rust) — separate walkers
+  - argparse subparsers
+  - Click multi-value / nargs / callback options (degraded to plain string)
 """
 
 from __future__ import annotations
@@ -42,6 +40,12 @@ def main() -> int:
     ap.add_argument("--binary", required=True, help="kami.binary (entry-point command name)")
     ap.add_argument("--description", default="", help="Optional kami description")
     ap.add_argument("--version-flag", default="--version", help="Liveness probe flag")
+    ap.add_argument(
+        "--framework",
+        choices=["click", "argparse", "auto"],
+        default="auto",
+        help="CLI framework to detect (default: auto — heuristic on imports / decorators)",
+    )
     args = ap.parse_args()
 
     src = Path(args.source).resolve()
@@ -57,12 +61,18 @@ def main() -> int:
         except SyntaxError as exc:
             print(f"extract-click: skipping {path}: {exc}", file=sys.stderr)
             continue
-        ops.extend(extract_commands_from(tree, path))
+        framework = args.framework
+        if framework == "auto":
+            framework = _detect_framework(tree)
+        if framework == "click":
+            ops.extend(extract_click_commands_from(tree, path))
+        elif framework == "argparse":
+            ops.extend(extract_argparse_commands_from(tree, path))
 
     if not ops:
         print(
-            f"extract-click: no @click.command / @click.group functions found under {src}. "
-            "Phase 2.5 v0 supports Click only; argparse / cobra / clap land in 2.5.1.",
+            f"extract-click: no Click @command / argparse ArgumentParser found under {src}. "
+            "cobra / clap walkers land in a separate Phase 2.5.x.",
             file=sys.stderr,
         )
         return 2
@@ -96,7 +106,133 @@ def collect_py_files(p: Path) -> list[Path]:
     return []
 
 
-def extract_commands_from(tree: ast.AST, _path: Path) -> list[dict[str, Any]]:
+def _detect_framework(tree: ast.AST) -> str:
+    """Heuristic: click imports → click; argparse imports → argparse;
+    decorator names containing 'command'/'group' → click; bare
+    ArgumentParser usage → argparse. Defaults to click if ambiguous.
+    """
+    saw_click = False
+    saw_argparse = False
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom):
+            if node.module == "click":
+                saw_click = True
+            if node.module == "argparse":
+                saw_argparse = True
+        elif isinstance(node, ast.Import):
+            for n in node.names:
+                if n.name == "click":
+                    saw_click = True
+                if n.name == "argparse":
+                    saw_argparse = True
+    if saw_click and not saw_argparse:
+        return "click"
+    if saw_argparse and not saw_click:
+        return "argparse"
+    return "click"  # tie → click (more common in modern CLIs)
+
+
+def extract_argparse_commands_from(tree: ast.AST, _path: Path) -> list[dict[str, Any]]:
+    """Walk a module for `argparse.ArgumentParser()` + `.add_argument(...)`.
+
+    Phase 2.5.1 scope: single-parser scripts. The walker finds the first
+    ArgumentParser assignment and collects every add_argument call on
+    its variable name. Subparsers are not chased — multi-parser apps
+    degrade to the top-level parser only.
+    """
+    parser_var: str | None = None
+    parser_desc: str = ""
+    add_calls: list[ast.Call] = []
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign) and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name):
+            if isinstance(node.value, ast.Call) and _attr_tail(node.value.func) == "ArgumentParser":
+                if parser_var is None:
+                    parser_var = node.targets[0].id
+                    for kw in node.value.keywords:
+                        if kw.arg in ("description", "prog") and isinstance(kw.value, ast.Constant):
+                            parser_desc = str(kw.value.value) or parser_desc
+        elif (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr == "add_argument"
+            and isinstance(node.func.value, ast.Name)
+            and parser_var is not None
+            and node.func.value.id == parser_var
+        ):
+            add_calls.append(node)
+
+    if parser_var is None or not add_calls:
+        return []
+
+    positional_index = 0
+    argv: list[dict[str, Any]] = []
+    for call in add_calls:
+        a = _argparse_argument_to_arg(call, positional_index)
+        if a is None:
+            continue
+        argv.append(a)
+        if a["kind"] == "positional":
+            positional_index += 1
+
+    return [
+        {
+            "name": "main",
+            "summary": parser_desc or "argparse-extracted main command",
+            "description": parser_desc or "Auto-extracted from a single argparse.ArgumentParser.",
+            "argv": argv,
+            "stdout_capture": True,
+            "stderr_capture": True,
+            "exit_code_ok": [0],
+            "timeout_seconds": 300,
+        }
+    ]
+
+
+def _argparse_argument_to_arg(call: ast.Call, position: int) -> dict[str, Any] | None:
+    flags: list[str] = []
+    for a in call.args:
+        if isinstance(a, ast.Constant) and isinstance(a.value, str):
+            flags.append(a.value)
+    if not flags:
+        return None
+    is_positional = not flags[0].startswith("-")
+    if is_positional:
+        name = flags[0]
+        out: dict[str, Any] = {
+            "kind": "positional",
+            "name": name.replace("-", "_"),
+            "position": position,
+            "required": True,
+            "type": "string",
+        }
+    else:
+        long_flag = next((f for f in flags if f.startswith("--")), flags[0])
+        name = long_flag.lstrip("-").replace("-", "_")
+        out = {"kind": "flag", "name": name, "flag": long_flag, "type": "string"}
+    for kw in call.keywords:
+        if kw.arg == "type":
+            if isinstance(kw.value, ast.Name):
+                out["type"] = _python_type_to_json_type(kw.value.id)
+            elif isinstance(kw.value, ast.Attribute):
+                out["type"] = _python_type_to_json_type(kw.value.attr)
+        elif kw.arg == "default" and isinstance(kw.value, ast.Constant) and not isinstance(kw.value.value, (list, tuple, dict)):
+            out["default"] = kw.value.value
+        elif kw.arg == "required" and isinstance(kw.value, ast.Constant):
+            out["required"] = bool(kw.value.value)
+        elif kw.arg == "nargs" and isinstance(kw.value, ast.Constant):
+            # argparse nargs="?" / "*" make positionals optional; "+" keeps
+            # them required (≥1).
+            if out["kind"] == "positional" and kw.value.value in ("?", "*"):
+                out["required"] = False
+        elif kw.arg == "action" and isinstance(kw.value, ast.Constant) and kw.value.value in ("store_true", "store_false"):
+            out["type"] = "boolean"
+        elif kw.arg == "help" and isinstance(kw.value, ast.Constant) and isinstance(kw.value.value, str):
+            out["description"] = kw.value.value
+    return out
+
+
+def extract_click_commands_from(tree: ast.AST, _path: Path) -> list[dict[str, Any]]:
     ops: list[dict[str, Any]] = []
     for node in ast.walk(tree):
         if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
