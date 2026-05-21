@@ -4,10 +4,13 @@
  * Subscribes to PDS firehose, maintains LanceDB (text indexes) + DuckDB (aggregates),
  * and serves O(log N) / O(1) queries instead of O(N) collection scans.
  *
- * Phase 3 implementation pending — see ADR-2605212000.
+ * Per ADR-2605212000.
  */
 
 export * from "./types.js";
+export * from "./inmemory.js";
+export * from "./orchestrator.js";
+export { kiyoProjector } from "./kiyo-config.js";
 
 import type {
   ProjectorConfig,
