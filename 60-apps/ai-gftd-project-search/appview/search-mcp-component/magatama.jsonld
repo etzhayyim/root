@@ -1,0 +1,88 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:search.gftd.ai",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are search agent. Search — AI Agent for search intelligence and analytics. Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "search-policy"
+    ]
+  },
+  "interfaces": {
+    "package": "gftd:search@1.0.0",
+    "requires": [
+      "gftd:crawler/crawl-engine@1.0.0"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "search",
+  "nanoid": "search-mcp",
+  "performerType": "system",
+  "pool": {},
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Search — AI Agent for search intelligence and analytics",
+    "displayName": "Search",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "search",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "search-mcp-feed"
+      }
+    ],
+    "joinRule": "invite",
+    "name": "Search"
+  },
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "routes": [
+        "/api/grpc/...",
+        "/health",
+        "/healthz",
+        "/readyz",
+        "/..."
+      ],
+      "spa": true,
+      "staticDir": "/wasm/svelte/dist"
+    },
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.like",
+        "app.bsky.feed.post",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.search.searchEntity",
+        "ai.gftd.apps.search.searchEvent",
+        "ai.gftd.apps.search.searchReport"
+      ]
+    }
+  },
+  "ui": {
+    "accent": "#2563eb",
+    "icon": "🔎"
+  },
+  "uiType": "appview",
+  "yata": {
+    "dataDir": "/data/yata"
+  }
+}
