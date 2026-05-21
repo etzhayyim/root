@@ -13,13 +13,19 @@
  * Single-file principle: all routing and handler logic here.
  */
 
-import { Etzhayyim } from "@etzhayyim/sdk";
+import {
+  createAuthedEtzhayyim,
+  extractBearerToken,
+  type Etzhayyim,
+} from "@etzhayyim/sdk-auth";
 import * as houkirwFree from "@etzhayyim/houki-rw-free";
 
 interface Env {
   ACTOR_DID: string;
   PDS_URL: string;
   L2_RPC_URL: string;
+  PDS_ACCESS_JWT?: string;
+  PDS_REFRESH_JWT?: string;
 }
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
@@ -120,11 +126,13 @@ export default {
       return jsonResponse({ error: "MethodNotAllowed" }, 405);
     }
 
-    // Instantiate Etzhayyim SDK
-    const e = new Etzhayyim({
-      did: env.ACTOR_DID,
-      pdsUrl: env.PDS_URL,
-      l2RpcUrl: env.L2_RPC_URL,
+    // Instantiate Etzhayyim SDK with PDS session attached
+    const bearerToken = extractBearerToken(req);
+    const e = createAuthedEtzhayyim({
+      env: {
+      ACTOR_DID: env.ACTOR_DID,
+      PDS_URL: env.PDS_URL,
+      L2_RPC_URL: env.L2_RPC_URL,
     });
 
     // Parse input based on method
