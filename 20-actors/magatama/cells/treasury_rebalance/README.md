@@ -79,9 +79,27 @@ geth-private RPC + a PDS client:
 | `governance_port` | `propose(targets, calldatas, desc_cid)` → `(proposalId, txHash)` | web3.py + `Governance.sol` ABI |
 | `pds_port` | `create_record(collection, record)` → `at://…` | `@etzhayyim/sdk` PDS RPC |
 
-A production wiring will live alongside
-`pymagatama.eligibility.web3_ports` once the cron runner is stood up;
-the cell is unit-testable today via fake ports (see `tests/`).
+A production wiring is provided by [`web3_ports.py`](web3_ports.py) —
+mirror of `pymagatama.eligibility.web3_ports`:
+
+- `Web3Config` + `PdsConfig` dataclasses for connection + addresses + auth
+- `build_production_ports(web3_cfg, pds_cfg)` returns the 4 ports wired
+  against geth-private RPC + an `atproto`-Python PDS client
+- ABI fragments (`TREASURY_MIRROR_ABI` / `CONSTITUTION_ABI` /
+  `GOVERNANCE_ABI`) match the on-chain signatures in
+  `50-infra/etzhayyim-chain-contracts/src/{TreasuryMirror,Constitution,Governance}.sol`
+- `_keccak_key(name)` mirrors the on-chain `keccak256(text)` hashing
+  used by `ConstitutionKeys.sol` so reads find the right slot
+
+`web3` / `eth-account` / `atproto` imports are lazy so the module
+stays test-environment-friendly. Install via:
+
+```bash
+uv pip install -e '20-actors/magatama/py[eligibility,atproto]'
+```
+
+The cell is also still unit-testable today via the fake ports under
+`tests/test_cell.py`.
 
 ## Running
 
