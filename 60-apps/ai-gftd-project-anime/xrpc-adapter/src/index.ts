@@ -3,13 +3,16 @@
  * Per ADR-2605210000 first execution-layer demonstration.
  */
 
-import { Etzhayyim } from "@etzhayyim/sdk";
+import type { Etzhayyim } from "@etzhayyim/sdk";
+import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
 import * as animeRwFree from "@etzhayyim/anime-rw-free";
 
 interface Env {
   ACTOR_DID: string;
   PDS_URL: string;
   L2_RPC_URL: string;
+  PDS_ACCESS_JWT?: string;
+  PDS_REFRESH_JWT?: string;
 }
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
@@ -59,11 +62,8 @@ export default {
     if (!route) return jsonResponse({ error: "MethodNotFound", nsid }, 404);
     if (req.method !== route.method) return jsonResponse({ error: "MethodNotAllowed" }, 405);
 
-    const e = new Etzhayyim({
-      did: env.ACTOR_DID,
-      pdsUrl: env.PDS_URL,
-      l2RpcUrl: env.L2_RPC_URL,
-    });
+    const bearerToken = extractBearerToken(req);
+    const e = createAuthedEtzhayyim({ env, bearerToken });
 
     let input: unknown;
     try {
