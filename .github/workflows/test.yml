@@ -47,7 +47,7 @@ jobs:
         with:
           node-version: "22"
       - name: Install pnpm
-        run: npm install -g pnpm@9
+        run: npm install -g pnpm@10
       - name: Install deps
         run: pnpm install --frozen-lockfile || pnpm install
       - name: Run vitest
@@ -71,7 +71,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npm install -g pnpm@9
+      - run: npm install -g pnpm@10
       - name: Install deps
         run: pnpm install --frozen-lockfile || pnpm install
       - name: tsc --noEmit
@@ -86,7 +86,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npm install -g pnpm@9
+      - run: npm install -g pnpm@10
       - name: Install deps
         run: pnpm install --frozen-lockfile || pnpm install
       - name: Run Phase H suite

@@ -12,7 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@etzhayyim/sdk": "*"
+    "@etzhayyim/sdk": "workspace:*"
   },
   "devDependencies": {
     "@etzhayyim/sdk-mock": "workspace:*",
