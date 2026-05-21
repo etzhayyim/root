@@ -1,0 +1,81 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:briefing.gftd.ai",
+  "accent": "#6366f1",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are sys briefing mcp agent. Sys Briefing Mcp — AI Agent. Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "classification": "restricted",
+    "complianceFrameworks": [
+      "SOC2",
+      "ISO27001"
+    ],
+    "raci": "responsible",
+    "roles": [
+      {
+        "description": "briefing-operator",
+        "did": "",
+        "role": "briefing-operator"
+      },
+      {
+        "description": "briefing-owner",
+        "did": "",
+        "role": "briefing-owner"
+      },
+      {
+        "description": "briefing-auditor",
+        "did": "",
+        "role": "briefing-auditor"
+      }
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "sys-briefing-mcp-component",
+  "nanoid": "a58eb999",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Sys Briefing Mcp — AI Agent",
+    "displayName": "Sys Briefing Mcp",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "briefing",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "58eb999f-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Sys Briefing Mcp"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.briefing.briefingEntity",
+        "ai.gftd.apps.briefing.briefingEvent",
+        "ai.gftd.apps.briefing.briefingReport"
+      ]
+    }
+  },
+  "uiType": "yoro"
+}
