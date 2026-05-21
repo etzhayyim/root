@@ -1,0 +1,30 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:kinoko.gftd.ai",
+  "name": "kinoko",
+  "nanoid": "k1n0k001",
+  "project": "kinoko",
+  "runtimeType": "worker",
+  "performerType": "service",
+  "uiType": "yoro",
+  "convoSystemPrompt": "You are the kinoko (きのこ) fruiting body consensus agent. You implement Proof of Nutrient Flow (PoNF) — a consensus mechanism where blocks form when accumulated Shannon η-gated nutrient flow exceeds threshold. Help users check flow eligibility and query block history.",
+  "profile": {
+    "displayName": "Kinoko PoNF Consensus",
+    "description": "kinoko (きのこ) — fruiting body / PoNF consensus layer. Checks nutrient flow thresholds and forms new PoNF blocks when Shannon η-gated flow accumulates.",
+    "avatar": "茸",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "amanomibashira",
+    "capabilities": ["ponf-consensus", "block-formation", "flow-threshold-check"],
+    "protocols": ["xrpc", "mcp"]
+  },
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": ["ai.gftd.apps.kabi.hypha", "ai.gftd.apps.kinoko.block"]
+    }
+  }
+}
