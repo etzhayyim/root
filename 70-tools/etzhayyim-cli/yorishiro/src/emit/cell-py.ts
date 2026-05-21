@@ -40,11 +40,14 @@ export function emitCell(args: EmitCellArgs): EmittedCell {
   const readmePath = join(cellDir, "README.md");
   writeFileSync(readmePath, renderCellReadme(args), "utf-8");
 
-  // cells.toml fragment — appended to
-  //   50-infra/cluster/murakumo/cell-runner/cells.toml
-  // once the cell-runner discovers cells/yorishiro_*/cell.py.
+  // cells.toml fragment — picked up by cell_runner's load_cell_registry()
+  // auto-discovery (no manual merge into the central cells.toml needed).
   const fragmentPath = join(cellDir, "cells.toml.fragment");
   writeFileSync(fragmentPath, renderCellsTomlFragment(args), "utf-8");
+
+  // Empty __init__.py so `importlib.import_module("yorishiro_<name>.cell")`
+  // resolves (cell_runner prepends 20-actors/magatama/cells/ to sys.path).
+  writeFileSync(join(cellDir, "__init__.py"), "", "utf-8");
 
   return { path: cellPath, readmePath };
 }

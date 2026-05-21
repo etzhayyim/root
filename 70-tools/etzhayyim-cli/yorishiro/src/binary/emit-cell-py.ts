@@ -21,6 +21,9 @@ export function emitBinaryCell(args: EmitArgs): { path: string; readmePath: stri
   writeFileSync(readmePath, renderReadme(args), "utf-8");
   const fragPath = join(cellDir, "cells.toml.fragment");
   writeFileSync(fragPath, renderFragment(args), "utf-8");
+  // Empty __init__.py so importlib can resolve `yorishiro_<name>.cell`
+  // once cell_runner prepends 20-actors/magatama/cells/ to sys.path.
+  writeFileSync(join(cellDir, "__init__.py"), "", "utf-8");
   return { path: cellPath, readmePath };
 }
 
