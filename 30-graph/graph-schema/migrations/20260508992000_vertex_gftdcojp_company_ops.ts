@@ -6,7 +6,7 @@ import { sql } from "kysely";
 
 /**
  * gftdcojp.etzhayyim.com Company Ops schema
- * Principal: amanomibashira. Vendor: Gftd Japan株式会社.
+ * Principal: etzhayyim. Vendor: Gftd Japan株式会社.
  *
  * Tables (5 domain event tables + 1 streaming MV):
  *   vertex_gftdcojp_hr_event          HR domain events

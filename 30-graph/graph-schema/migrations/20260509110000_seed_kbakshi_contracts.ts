@@ -14,8 +14,8 @@ import { sql } from "kysely";
  *     ←─ supersedes ── employment-2025-06-01
  *                          ←─ amendment ── employment-2025-06-01-amended-1y
  *
- * Tier 3 PII (sensitivity_ord=300). owner_did = amanomibashira (operating entity).
- * principal_did = amanomibashira. counterparty_did = k-bakshi.
+ * Tier 3 PII (sensitivity_ord=300). owner_did = etzhayyim (operating entity).
+ * principal_did = etzhayyim. counterparty_did = k-bakshi.
  *
  * NOTE: Day-1 audit row with source URI only. Clause extraction (Step 2 of
  * contract-clause-statute-mapping-plan.md) lands in a follow-up migration.

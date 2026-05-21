@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 /**
  * gftdcojp.etzhayyim.com Personnel Management schema
- * Principal: amanomibashira. Vendor: Gftd Japan株式会社.
+ * Principal: etzhayyim. Vendor: Gftd Japan株式会社.
  *
  * Tables:
  *   vertex_gftdcojp_person       People registry (contractors + employees)

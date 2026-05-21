@@ -1,5 +1,5 @@
 // tier: C
-// Backfill: vertex_actor.operator legacy "gftd.co.jp" / "gftd" → "amanomibashira".
+// Backfill: vertex_actor.operator legacy "gftd.co.jp" / "gftd" → "etzhayyim".
 //
 // Companion to the CLI-default rebrand (build.go / coverage_actors.go /
 // coverage_infer.go shipped 2026-04-27). After this migration, the live
@@ -18,11 +18,11 @@
 //
 // Empty `operator` rows are intentionally left alone: those were never
 // explicitly attributed to gftd, and rewriting 784K unrelated rows to
-// `amanomibashira` would be a much larger blast radius than the rebrand
+// `etzhayyim` would be a much larger blast radius than the rebrand
 // requires. `gftd coverage actors heal` will fill them in over time
 // using the new default.
 //
-// Operating entity = amanomibashira (עץ חיים), a religious voluntary
+// Operating entity = etzhayyim (עץ חיים), a religious voluntary
 // association (宗教法人・任意団体). Constitution and member roster are
 // recorded on a public blockchain. Not an incorporated 宗教法人 under
 // the Japanese 宗教法人法 — no 所轄庁 registration, no associated tax
@@ -30,24 +30,24 @@
 //
 // Idempotent: second apply matches 0 rows. Forward-only — `down()` is a
 // no-op because the reverse mapping after the rewrite is ambiguous
-// (a row reading `amanomibashira` could have been any of three legacy values).
+// (a row reading `etzhayyim` could have been any of three legacy values).
 //
 // Apply via:
 //   bash 30-graph/graph-schema/scripts/apply-pending.sh \
-//     20260427150000_backfill_operator_amanomibashira
+//     20260427150000_backfill_operator_etzhayyim
 //
 // Verify:
 //   psql ... -c "SELECT operator, COUNT(*) FROM vertex_actor GROUP BY operator ORDER BY 2 DESC;"
-//   Expect: 'amanomibashira' ≥ 23,127 ; 'gftd' and 'gftd.co.jp' rows absent.
+//   Expect: 'etzhayyim' ≥ 23,127 ; 'gftd' and 'gftd.co.jp' rows absent.
 import { Kysely, sql } from "kysely";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
-  await sql`UPDATE vertex_actor SET operator = 'amanomibashira' WHERE operator IN ('gftd.co.jp', 'gftd')`.execute(db);
+  await sql`UPDATE vertex_actor SET operator = 'etzhayyim' WHERE operator IN ('gftd.co.jp', 'gftd')`.execute(db);
   await sql`FLUSH`.execute(db);
 }
 
 export async function down(_db: Kysely<unknown>): Promise<void> {
-  // Forward-only. The reverse mapping is ambiguous — amanomibashira rows after
-  // this migration include rows that were already amanomibashira before it
+  // Forward-only. The reverse mapping is ambiguous — etzhayyim rows after
+  // this migration include rows that were already etzhayyim before it
   // and rows that were 'gftd' or 'gftd.co.jp' before it.
 }

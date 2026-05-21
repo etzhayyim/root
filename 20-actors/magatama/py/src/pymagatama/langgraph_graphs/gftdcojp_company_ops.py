@@ -1,7 +1,7 @@
 """
 gftdcojp.etzhayyim.com — Japanese company operations LangGraph (ADR-2605080600).
 
-Principal: amanomibashira (sole operator)
+Principal: etzhayyim (sole operator)
 Vendor capacity: Gftd Japan株式会社 (engineering contractor)
 
 Architecture: Supervisor + 5 domain-specialist nodes
@@ -140,7 +140,7 @@ def _db_query(sql_str: str, params: dict | None = None) -> list[dict]:
 
 # ── Node: supervisor ───────────────────────────────────────────────────────────
 
-_SUPERVISOR_SYSTEM = """You are the AI supervisor for gftdcojp.etzhayyim.com (operated by amanomibashira, vendor: Gftd Japan株式会社).
+_SUPERVISOR_SYSTEM = """You are the AI supervisor for gftdcojp.etzhayyim.com (operated by etzhayyim, vendor: Gftd Japan株式会社).
 Classify the incoming task into exactly ONE domain: hr | finance | legal | sales | governance.
 
 Domain definitions:
@@ -189,7 +189,7 @@ def supervisor(state: CompanyOpsState) -> dict:
 
 # ── Node: HR agent ─────────────────────────────────────────────────────────────
 
-_HR_SYSTEM = """You are the HR AI agent for Gftd Japan株式会社 (principal: amanomibashira).
+_HR_SYSTEM = """You are the HR AI agent for Gftd Japan株式会社 (principal: etzhayyim).
 Handle: onboarding, offboarding, attendance records, payroll calculation,
 social insurance procedures, performance reviews, hiring decisions.
 
@@ -230,7 +230,7 @@ def hr_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Finance agent ────────────────────────────────────────────────────────
 
-_FINANCE_SYSTEM = """You are the Finance/Accounting AI agent for Gftd Japan株式会社 (principal: amanomibashira).
+_FINANCE_SYSTEM = """You are the Finance/Accounting AI agent for Gftd Japan株式会社 (principal: etzhayyim).
 Handle: journal entries (仕訳), invoices (請求書), expense approval (経費承認),
 tax filings, cash flow forecasts, accounts payable/receivable.
 
@@ -272,7 +272,7 @@ def finance_agent(state: CompanyOpsState) -> dict:
 # ── Node: Legal agent ──────────────────────────────────────────────────────────
 
 _LEGAL_SYSTEM = """You are the Legal/Compliance AI agent (CLO support) for Gftd Japan株式会社.
-Principal: amanomibashira.
+Principal: etzhayyim.
 Active cases in kaisya.etzhayyim.com: LingLing著作権 / 鈴木損害賠償 / 鹿児島大学技術移転 / 松岡NDA.
 
 Handle: contract review, litigation status, compliance checks, IP procedures,
@@ -326,7 +326,7 @@ def legal_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Sales agent ──────────────────────────────────────────────────────────
 
-_SALES_SYSTEM = """You are the Sales/BD AI agent for Gftd Japan株式会社 (principal: amanomibashira).
+_SALES_SYSTEM = """You are the Sales/BD AI agent for Gftd Japan株式会社 (principal: etzhayyim).
 Handle: CRM records, proposal generation (提案書), order management (受注),
 BD pipeline tracking, customer relationship notes.
 
@@ -367,7 +367,7 @@ def sales_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Governance agent ─────────────────────────────────────────────────────
 
-_GOVERNANCE_SYSTEM = """You are the Governance AI agent for gftdcojp.etzhayyim.com (amanomibashira principal).
+_GOVERNANCE_SYSTEM = """You are the Governance AI agent for gftdcojp.etzhayyim.com (etzhayyim principal).
 Evaluate Ω(t) = Shannon_η(t) × U_total(t) and generate management decisions.
 
 Ω axes:
@@ -436,7 +436,7 @@ def governance_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Personnel agent ──────────────────────────────────────────────────────
 
-_PERSONNEL_SYSTEM = """You are the Personnel/HR-Ops AI agent for Gftd Japan株式会社 (principal: amanomibashira).
+_PERSONNEL_SYSTEM = """You are the Personnel/HR-Ops AI agent for Gftd Japan株式会社 (principal: etzhayyim).
 Manage contracted person records, role definitions, project assignments, and RACI matrices.
 
 Tables:

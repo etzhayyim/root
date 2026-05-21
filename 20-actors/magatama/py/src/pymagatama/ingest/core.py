@@ -62,7 +62,14 @@ def artifact_vertex_id(run_id: str, artifact_kind: str, uri: str) -> str:
 
 
 def _psql_enabled() -> bool:
-    return bool(os.environ.get("RW_URL") and shutil.which("psql"))
+    """Religious-corp port: always False — RW path disabled per ADR-2605172000.
+
+    Per gate (a) §1 P4 of `/90-docs/2605211949-gate-a-execution-checklist.md`,
+    the psql/_psql_exec fallback is removed. All ingest persistence falls back
+    to the non-psql code paths (BeliefStore + local SQLite via ingest spine).
+    Vendor pymagatama keeps the RW branch on its repo.
+    """
+    return False
 
 
 def _sql_string(value: str) -> str:

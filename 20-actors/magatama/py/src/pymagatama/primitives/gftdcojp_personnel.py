@@ -186,7 +186,7 @@ async def task_gftdcojp_personnel_load_profile(
 # ── Task: minimaxScore (worst-case + Ω-axis evaluation) ────────────────────────
 
 _MINIMAX_SYSTEM = """You are the minimax scorer for gftdcojp.etzhayyim.com personnel
-decisions. Principal: amanomibashira. Vendor: Gftd Japan株式会社.
+decisions. Principal: etzhayyim. Vendor: Gftd Japan株式会社.
 
 Inputs: person profile bundle (skill/bio/career/profile) + candidate target
 (role/project/contract path) + decision_kind.
