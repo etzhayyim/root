@@ -1,0 +1,51 @@
+{
+  "@context": "https://gftd.ai/ld/magatama/v1",
+  "name": "ai-gftd-project-manimani",
+  "nanoid": "m4n1m4n1",
+  "displayName": "Manimani",
+  "description": "Personal knowledge router. Drop a fragment (text / link / file) and it lands in the right project automatically. LLM-driven classification + project-typed processing pipeline (knowledge / task / memo / unsorted) on LangGraph Server.",
+  "did": "did:web:manimani.gftd.ai",
+  "tier": "T3",
+  "uiType": "appview",
+  "embedUrl": "https://manimani.gftd.ai/embed",
+  "routes": [
+    {
+      "host": "manimani.gftd.ai",
+      "paths": ["/"],
+      "tls": true
+    }
+  ],
+  "layer": "edge-dispatcher",
+  "atStandard": false,
+  "nsidPrefixes": ["ai.gftd.apps.manimani"],
+  "backendDependencies": {
+    "atproto": "https://atproto.gftd.ai",
+    "authn": "https://authn.gftd.ai",
+    "bpmnDispatcher": "https://dispatcher.gftd.ai",
+    "langgraphServer": "in-cluster: manimani-langgraph.mitama-udf.svc.cluster.local:8000",
+    "rwHyperdrive": "configured via env.HYPERDRIVE binding"
+  },
+  "profile": {
+    "displayName": "Manimani",
+    "description": "Manimani / 随に — drop your scattered fragments and let them settle into the right project on their own. Personal knowledge router.",
+    "avatar": "MM",
+    "category": "infrastructure",
+    "country": "jpn",
+    "operator": "amanomibashira",
+    "isBot": true,
+    "agentType": "reactive"
+  },
+  "adr": [
+    "2605080800",
+    "2605080600",
+    "2605080000",
+    "2605080200",
+    "2605080300",
+    "0036",
+    "0041",
+    "0095",
+    "0018",
+    "2604282300",
+    "2604251830"
+  ]
+}
