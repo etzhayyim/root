@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*",
+    "@etzhayyim/sdk-auth": "workspace:*",
     "@etzhayyim/yoro-rw-free": "workspace:*"
   },
   "devDependencies": {
