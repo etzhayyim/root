@@ -44,7 +44,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npm install -g pnpm@9 wrangler@latest
+      - run: npm install -g pnpm@10 wrangler@latest
       - name: Install deps
         run: pnpm install --frozen-lockfile || pnpm install
       - name: wrangler deploy --dry-run
