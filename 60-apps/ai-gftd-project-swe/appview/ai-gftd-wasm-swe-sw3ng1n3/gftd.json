@@ -1,0 +1,7 @@
+{
+  "name": "swe",
+  "nanoid": "sw3ng1n3",
+  "project": "swe",
+  "type": "web",
+  "runtime": "worker"
+}
