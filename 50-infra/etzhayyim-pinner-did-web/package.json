@@ -1,0 +1,17 @@
+{
+  "name": "etzhayyim-pinner-did-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker serving did:web:pinner.etzhayyim.com DID Document at /.well-known/did.json. Identity for the ipfs-pinner actor (ADR-2605171800 Stage 4).",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "tail": "wrangler tail",
+    "types": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260501.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.0.0"
+  }
+}
