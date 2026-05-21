@@ -1,0 +1,47 @@
+{
+  "name": "ai-gftd-auth",
+  "main": "src-ts/index.ts",
+  "compatibility_date": "2025-03-17",
+  "assets": {
+    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  },
+  "vars": {
+    "GOOGLE_OAUTH_CLIENT_ID": "",
+    "GOOGLE_OAUTH_CLIENT_SECRET": "",
+    "MICROSOFT_OAUTH_CLIENT_ID": "",
+    "MICROSOFT_OAUTH_CLIENT_SECRET": "",
+    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+  },
+  "services": [
+    {
+      "binding": "PDS_SERVICE",
+      "service": "ai-gftd-pds-2603241700"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "AUTH_DB",
+      "database_name": "ai-gftd-auth-passkey",
+      "database_id": "d70191cf-9799-48c8-8208-289bcb14593f"
+    },
+    {
+      "binding": "KEYS_DB",
+      "database_name": "ai-gftd-keys",
+      "database_id": "3b3c7e8a-ad90-4065-a18c-18cfc8e77223"
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "auth.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    },
+    {
+      "pattern": "authn.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    }
+  ]
+}
