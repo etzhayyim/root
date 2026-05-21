@@ -1,0 +1,122 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://app-reviewer.gftd.ai/ontology#",
+    "id": "@id",
+    "type": "@type",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "prefLabel": "skos:prefLabel",
+    "definition": "skos:definition",
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id"
+    },
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    }
+  },
+  "@id": "https://app-reviewer.gftd.ai/capabilities/taxonomy",
+  "@type": "skos:ConceptScheme",
+  "prefLabel": "App Reviewer Capability Taxonomy",
+  "definition": "Taxonomy for app publication review capabilities",
+  "@graph": [
+    {
+      "@id": "https://app-reviewer.gftd.ai/capabilities/submission-intake",
+      "@type": "skos:Concept",
+      "prefLabel": "Submission Intake",
+      "definition": "Capture and normalize submission metadata and artifacts",
+      "topConceptOf": {
+        "@id": "https://app-reviewer.gftd.ai/capabilities/taxonomy"
+      },
+      "narrower": [
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/identity-validation"
+        },
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/artifact-registration"
+        }
+      ]
+    },
+    {
+      "@id": "https://app-reviewer.gftd.ai/capabilities/automated-policy-gate",
+      "@type": "skos:Concept",
+      "prefLabel": "Automated Policy Gate",
+      "definition": "Automated checks for security, runtime stability, and policy conformance",
+      "topConceptOf": {
+        "@id": "https://app-reviewer.gftd.ai/capabilities/taxonomy"
+      },
+      "narrower": [
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/signature-verification"
+        },
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/runtime-sandbox-check"
+        },
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/capability-drift-detection"
+        }
+      ]
+    },
+    {
+      "@id": "https://app-reviewer.gftd.ai/capabilities/human-review",
+      "@type": "skos:Concept",
+      "prefLabel": "Human Review",
+      "definition": "Reviewer-led validation for functional behavior, abuse risk, and policy",
+      "topConceptOf": {
+        "@id": "https://app-reviewer.gftd.ai/capabilities/taxonomy"
+      },
+      "narrower": [
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/functional-review"
+        },
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/security-review"
+        },
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/policy-review"
+        }
+      ]
+    },
+    {
+      "@id": "https://app-reviewer.gftd.ai/capabilities/decisioning",
+      "@type": "skos:Concept",
+      "prefLabel": "Decisioning",
+      "definition": "Consistent final decision and status transition management",
+      "topConceptOf": {
+        "@id": "https://app-reviewer.gftd.ai/capabilities/taxonomy"
+      },
+      "narrower": [
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/approve"
+        },
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/request-changes"
+        },
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/reject"
+        },
+        {
+          "@id": "https://app-reviewer.gftd.ai/capabilities/emergency-revoke"
+        }
+      ]
+    },
+    {
+      "@id": "https://app-reviewer.gftd.ai/capabilities/post-release-monitoring",
+      "@type": "skos:Concept",
+      "prefLabel": "Post-release Monitoring",
+      "definition": "Observe published app signals and trigger incident response",
+      "topConceptOf": {
+        "@id": "https://app-reviewer.gftd.ai/capabilities/taxonomy"
+      }
+    }
+  ]
+}

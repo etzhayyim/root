@@ -1,0 +1,305 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://app-reviewer.gftd.ai/ontology#",
+    "id": "@id",
+    "type": "@type",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "targetClass": {
+      "@id": "sh:targetClass",
+      "@type": "@id"
+    },
+    "property": {
+      "@id": "sh:property",
+      "@container": "@set"
+    },
+    "path": {
+      "@id": "sh:path",
+      "@type": "@id"
+    },
+    "datatype": {
+      "@id": "sh:datatype",
+      "@type": "@id"
+    },
+    "minCount": "sh:minCount",
+    "maxCount": "sh:maxCount",
+    "in": {
+      "@id": "sh:in",
+      "@container": "@set"
+    },
+    "pattern": "sh:pattern",
+    "name": "sh:name"
+  },
+  "@id": "https://app-reviewer.gftd.ai/capabilities/shape",
+  "@type": "sh:Shape",
+  "name": "App Reviewer Validation Shapes",
+  "@graph": [
+    {
+      "@id": "https://app-reviewer.gftd.ai/shapes/ReviewSubmissionShape",
+      "@type": "sh:NodeShape",
+      "targetClass": {
+        "@id": "https://app-reviewer.gftd.ai/ontology#ReviewSubmission"
+      },
+      "name": "Review Submission Shape",
+      "property": [
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#submissionId"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "name": "submissionId"
+        },
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#developerId"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "name": "developerId"
+        },
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#orgId"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "name": "orgId"
+        },
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#status"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "in": [
+            {
+              "@value": "submitted"
+            },
+            {
+              "@value": "auto_checking"
+            },
+            {
+              "@value": "auto_failed"
+            },
+            {
+              "@value": "auto_passed"
+            },
+            {
+              "@value": "in_review"
+            },
+            {
+              "@value": "request_changes"
+            },
+            {
+              "@value": "rejected"
+            },
+            {
+              "@value": "approved"
+            },
+            {
+              "@value": "published"
+            },
+            {
+              "@value": "revoked"
+            }
+          ],
+          "name": "status"
+        }
+      ]
+    },
+    {
+      "@id": "https://app-reviewer.gftd.ai/shapes/AutomatedCheckShape",
+      "@type": "sh:NodeShape",
+      "targetClass": {
+        "@id": "https://app-reviewer.gftd.ai/ontology#AutomatedCheck"
+      },
+      "name": "Automated Check Shape",
+      "property": [
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#checkName"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "name": "checkName"
+        },
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#checkStatus"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "in": [
+            {
+              "@value": "pass"
+            },
+            {
+              "@value": "fail"
+            },
+            {
+              "@value": "error"
+            }
+          ],
+          "name": "checkStatus"
+        },
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#severity"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "in": [
+            {
+              "@value": "critical"
+            },
+            {
+              "@value": "high"
+            },
+            {
+              "@value": "medium"
+            },
+            {
+              "@value": "low"
+            }
+          ],
+          "name": "severity"
+        }
+      ]
+    },
+    {
+      "@id": "https://app-reviewer.gftd.ai/shapes/ReviewFindingShape",
+      "@type": "sh:NodeShape",
+      "targetClass": {
+        "@id": "https://app-reviewer.gftd.ai/ontology#ReviewFinding"
+      },
+      "name": "Review Finding Shape",
+      "property": [
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#findingCategory"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "in": [
+            {
+              "@value": "bug"
+            },
+            {
+              "@value": "error"
+            },
+            {
+              "@value": "security"
+            },
+            {
+              "@value": "fraud"
+            },
+            {
+              "@value": "policy"
+            },
+            {
+              "@value": "privacy"
+            }
+          ],
+          "name": "findingCategory"
+        },
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#severity"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "in": [
+            {
+              "@value": "critical"
+            },
+            {
+              "@value": "high"
+            },
+            {
+              "@value": "medium"
+            },
+            {
+              "@value": "low"
+            }
+          ],
+          "name": "severity"
+        }
+      ]
+    },
+    {
+      "@id": "https://app-reviewer.gftd.ai/shapes/ReviewDecisionShape",
+      "@type": "sh:NodeShape",
+      "targetClass": {
+        "@id": "https://app-reviewer.gftd.ai/ontology#ReviewDecision"
+      },
+      "name": "Review Decision Shape",
+      "property": [
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#decision"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "in": [
+            {
+              "@value": "approve"
+            },
+            {
+              "@value": "request_changes"
+            },
+            {
+              "@value": "reject"
+            },
+            {
+              "@value": "emergency_revoke"
+            }
+          ],
+          "name": "decision"
+        },
+        {
+          "path": {
+            "@id": "https://app-reviewer.gftd.ai/ontology#reviewerId"
+          },
+          "datatype": {
+            "@id": "xsd:string"
+          },
+          "minCount": 1,
+          "maxCount": 1,
+          "name": "reviewerId"
+        }
+      ]
+    }
+  ]
+}
