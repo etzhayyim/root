@@ -1716,3 +1716,72 @@ follow_up = [
   "Phase 4 vendor sunset (gftdcojp git rm of 60-apps/ai-gftd-project-public-malak/ + publicMalak/ lexicons)",
   "Worker XRPC adapter wiring per ADR-2605211000 (when rw-free lands; public-malak slots into Tier 1 or Tier 2 depending on user-session exposure)",
 ]
+
+[session_summaries.open-jpn-mynumber-carve-out-2026-05-21]
+date = "2026-05-21"
+prs_open = []
+description = """open-jpn-mynumber.etzhayyim.com — Tranche F classification +
+corpus residency Option A recorded.
+
+Vendor (gftdcojp/ai-gftd-apps-gftdcojp) deps.toml
+`tranche-f-open-jpn-mynumber-classification-2026-05-20` judged this
+project an etzhayyim move target (3-axis OR-test all clean: PUBLIC
+gov-published policy docs, no fiduciary, no citizen PII, no commerce).
+The vendor classification entry also recommended Option A (vendor RW
+mirror) for the 923-file ~177 MB corpus.
+
+## Cross-repo state at this commit
+
+| Artifact | Vendor | etzhayyim |
+|---|---|---|
+| Spec / CLAUDE.md | absent | present (pre-existing 2026-04-26) |
+| Worker / BPMN / DMN / forms / lg / ingest | absent | present (full project dir) |
+| Lexicons (openJpnMynumber/health.json) | present → mirrored | present (this commit) |
+| Corpus blobs (~177 MB) | present (data/ingest/) | absent (read-fresh) |
+| corpus.sqlite3 / corpus.jsonl / manifest.json | present | absent |
+
+## What this commit lands
+
+- `00-contracts/lexicons/ai/gftd/apps/openJpnMynumber/health.json` —
+  the single health lexicon mirrored from vendor (vendor has only 1
+  lexicon for this project; not 14 like publicMalak).
+- `60-apps/ai-gftd-project-open-jpn-mynumber/CLAUDE.md` — adds Tranche F
+  status section + cross-repo state table + substrate-boundary notes.
+  Domain reference flipped from `*.gftd.ai` → `*.etzhayyim.com`.
+- This session_summary entry.
+
+## Corpus residency Option A — activated, not migrated
+
+Per ADR-2605172000 (etzhayyim RW-free substrate), large blob corpora
+do not belong in etzhayyim-root git. Vendor classification entry
+recommended Option A: vendor corpus stays as historical mirror;
+etzhayyim worker reads fresh from gov sources (data.go.jp + 自治体
+公開 PDF/Excel/HTML). Same shape as ADR-2605202400 GTFS-RT carve-out
+and public-malak Phase 3.
+
+No worker code change in this PR. The existing etz worker already
+ingests fresh from gov sources; the activation is purely the policy
+decision to leave vendor `data/ingest/` in place rather than mirror
+into IPFS pinner (deferred Option B).
+
+## Deferred
+
+- IPFS pinner (Option B) — Tier 2 follow-up if 50-infra/ipfs-pinner
+  matures; no current need.
+- Worker rw-free audit — per user direction 2026-05-21, rw-free
+  quality fixes are post-migration.
+- Vendor sunset of `60-apps/ai-gftd-project-open-jpn-mynumber/data/` —
+  retained per Option A; not slated for deletion.
+
+## Cross-repo
+
+- vendor: `tranche-f-open-jpn-mynumber-classification-2026-05-20`
+  (judgment-recorded; this PR triggers a follow-up amend to add
+  `code_side_complete = true` + `corpus_residency = "vendor-mirror-option-a"`)
+- ADR refs: 2605172000 (RW-free substrate) / 2605172400 (3-axis split
+  rule) / 2605202400 (GTFS-RT carve-out, same pattern)"""
+follow_up = [
+  "Phase 2 worker rw-free audit (deferred — post-migration per user direction)",
+  "Vendor amend: add code_side_complete=true to tranche-f-open-jpn-mynumber-classification-2026-05-20",
+  "Phase 3 corpus residency Option B (IPFS pinner) — Tier 2 follow-up only if 50-infra/ipfs-pinner matures",
+]

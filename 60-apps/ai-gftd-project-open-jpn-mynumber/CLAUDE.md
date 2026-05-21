@@ -1,8 +1,27 @@
-# open-jpn-mynumber.gftd.ai — public-spec My Number reference architecture
+# open-jpn-mynumber.etzhayyim.com — public-spec My Number reference architecture
 
-**Status**: design scaffold (2026-04-26). This is not a government production
-system and does not contain private J-LIS, Digital PMO, GCAS, or agency-only
-interface material.
+**Status**: Tranche F move target — judged etzhayyim per `gftdcojp/ai-gftd-apps-gftdcojp` deps `tranche-f-open-jpn-mynumber-classification-2026-05-20` (3-axis OR-test all clean: PUBLIC gov-published policy docs, no fiduciary, no citizen PII, no commerce). Project scaffold landed pre-Tranche F (2026-04-26); this entry records the Tranche F classification + corpus residency.
+
+This is not a government production system and does not contain private J-LIS, Digital PMO, GCAS, or agency-only interface material.
+
+## Tranche F cross-repo state (2026-05-21)
+
+| Artifact | Vendor (`gftdcojp/ai-gftd-apps-gftdcojp`) | etzhayyim (this repo) |
+|---|---|---|
+| Spec (`CLAUDE.md`, project dir) | absent | **present** (this dir) |
+| Worker / BPMN / DMN / forms / lg / ingest pipeline | absent | **present** (`bpmn/`, `dmn/`, `forms/`, `lg/`, `worker/`, `ingest/`) |
+| Lexicons (`openJpnMynumber/health.json`) | present (1 file) → mirrored | **present** (`00-contracts/lexicons/ai/gftd/apps/openJpnMynumber/`) |
+| Corpus blobs (923 files, ~177 MB on disk; ~280 MB before pruning) | **present** (`data/ingest/`) — kept per Option A | absent (read-fresh from gov sources) |
+| `corpus.sqlite3` / `corpus.jsonl` / `manifest.json` | present | absent |
+
+**Corpus residency = Option A (vendor RW mirror, etzhayyim worker reads fresh from gov sources).** Same architectural shape as ADR-2605202400 GTFS-RT carve-out and `public-malak-scaffold-2026-05-21`. Vendor `60-apps/ai-gftd-project-open-jpn-mynumber/data/ingest/` stays vendor-side as historical artifact.
+
+## Substrate-boundary notes
+
+Per `etzhayyim/root/CLAUDE.md` §"Substrate boundary":
+- This project is RW-free. No `createKyselyDb` / `env.HYPERDRIVE` in any deploy from this directory.
+- Public-source ingest pulls fresh from `data.go.jp` + 自治体公開 PDF/Excel/HTML on each cycle. Vendor `data/ingest/` is historical-only; not consumed by this repo's worker.
+- No commerce. No PII. No `did:web:openJpnMynumber.etzhayyim.com` payments wiring.
 
 ## Scope
 
