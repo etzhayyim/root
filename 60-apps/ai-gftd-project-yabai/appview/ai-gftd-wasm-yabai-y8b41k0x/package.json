@@ -1,0 +1,11 @@
+{
+  "name": "magatama-y8b41k0x",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*",
+    "@gftd/graph-schema": "workspace:*",
+    "kysely": "^0.27.4"
+  }
+}
