@@ -1583,6 +1583,30 @@ date = "2026-05-18"
 adr = "ADR-2605182312"
 description = "Local bring-up of Artificial Organism ecosystem on Murakumo Mac mini fleet using gemma4:e4b"
 
+# ─── Migrations (Step 8 cutover) ─────────────────────────────────────
+
+[[migrations]]
+id = "murakumo-cluster-runtime-step8-rename"
+status = "pending"
+blocked_on = "Step 8 master gate (legal registration) per repo-root CLAUDE.md §Status row 8"
+authoritative_doc = "50-infra/cluster/murakumo/MIGRATION-NOTES.md"
+authoritative_adr = "2605214000"
+target_count = 40
+scope = "50-infra/cluster/murakumo/ (Rust runtime — Cargo.toml, src/*.rs, deploy-mesh.sh)"
+description = "Atomic rename of cluster runtime identifiers: GFTD_* env vars → ETZHAYYIM_*, ~/.gftd/ → ~/.etzhayyim/, binary gftd-murakumo → etzhayyim-murakumo, DNS .mesh.gftd.ai → .mesh.etzhayyim.com, launchd label ai.gftd.murakumo-mesh → com.etzhayyim.murakumo-mesh, cargo crate name. Dry-run verified cargo check PASSES with all renames applied. Intentional remainders: MESH_KEY_CTX (DH crypto context tag, fleet protocol bump needed) + gftd.murakumo.v1.* XRPC namespace (separate CF Worker + Lexicon update)."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "pymagatama-runpod-free-step8-cutover"
+status = "pending"
+blocked_on = "Step 8 master gate (legal registration) per repo-root CLAUDE.md §Status row 8"
+authoritative_doc = "20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md"
+authoritative_adr = "2605215000"
+target_count = 76
+scope = "20-actors/magatama/py/** (pymagatama + magatama-host-sdk model registry) — REDIRECT 30 / VENDOR-ONLY 25 / REIMPLEMENT 15"
+description = "Strip all RunPod coupling from religious-corp pymagatama paths. Inference SSoT becomes Murakumo fleet only (LiteLLM gateway 127.0.0.1:4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b fallback). REIMPLEMENT targets include maps_sentinel L7/L8 (Sentinel-1/2 satellite analysis — needs successor MLX/ROCm impl per follow-up ADR), training_run.py (CPU client + GPU Serverless handler split), zeebe_worker_main.py ComfyUI dispatch (RunPod /runsync wrapper vs native /prompt+/history protocol diverge). VENDOR-ONLY paths stay operational for vendor gftd.co.jp — religious-corp callers must avoid via consent capability boundary."
+last_verified = "2026-05-21"
+
 # ─── Session summaries ──────────────────────────────────────────────
 
 [session_summaries.ameno-wave-2026-05-19]
@@ -1843,4 +1867,106 @@ contract checks) import them from
   rule, C-group SPLIT pattern)"""
 follow_up = [
   "No follow-up — SPLIT is the steady state. Re-check on quarterly Tranche F re-judgment cycle (2026-08-17 / 2026-11-17 / 2027-02-17 per ADR-2605172400).",
+]
+
+[session_summaries.ransomwatch-scaffold-2026-05-21]
+date = "2026-05-21"
+prs_open = []
+description = """ransomwatch.etzhayyim.com — Phase 1 scaffold mirror landed.
+
+Vendor `gftdcojp/ai-gftd-apps-gftdcojp` deps.toml
+`tranche-f-post-freeze-7-actors-audit-2026-05-21` (vendor PR #1339,
+audit-recorded) classified ransomwatch as MOVE TARGET: 3-axis OR-test
+all clean (TLP:WHITE public OSINT, no victim PII, no commerce), and
+the vendor `magatama.jsonld` already declared `profile.operator =
+"etzhayyim"`. This commit formalizes the existing intent.
+
+## What this commit lands
+
+- `60-apps/ai-gftd-project-ransomwatch/{CLAUDE.md, OWNERS,
+  PROJECT.jsonld, magatama.jsonld}` — scaffold mirror sed-transformed
+  for etzhayyim domain (`did:web:ransomwatch.etzhayyim.com`)
+- `00-contracts/lexicons/ai/gftd/apps/ransomwatch/` — 4 lexicons
+  (seedGroup procedure + listGroups/listPosts/getStats queries)
+  mirrored from vendor
+- This session_summary entry
+
+## Cross-repo state at this commit
+
+| Artifact | Vendor (gftdcojp) | etzhayyim (this repo) |
+|---|---|---|
+| Spec / CLAUDE.md | absent (only magatama.jsonld + wrangler.jsonc at appview path) | present (this commit) |
+| Lexicons (apps/ransomwatch/) | present (4 JSON) | present (this commit, mirrored) |
+| Worker / appview | present (vendor wasm/ai-gftd-wasm-ransomwatch-r4ns0w4t01/) | absent (Phase 2 follow-up) |
+| LangGraph pod | present (in-cluster ransomwatch-langgraph.mitama-udf) | absent (Phase 3 follow-up — rehome to etzhayyim Murakumo) |
+
+## Deferred (per user direction 2026-05-21)
+
+- Phase 2 rw-free implementation — post-migration per user direction
+- Phase 3 LangGraph pod rehome to Murakumo — per ADR-2605215000
+- Phase 4 vendor sunset — after 7-day soak
+
+## Pattern reference
+
+Same shape as Lane B (public-malak scaffold mirror, etz PR #226). Both
+are sibling sanitized public security feeds in Tranche F A-group.
+
+## Cross-repo
+
+- vendor: `tranche-f-post-freeze-7-actors-audit-2026-05-21` (audit-
+  recorded; follow-up vendor PR amends to add `code_side_complete = true`
+  + `move_status = "scaffold-landed-etz-PR-XXX"`)
+- ADR refs: 2605172000 (RW-free substrate) / 2605172400 (3-axis split
+  rule) / 2605211000 (worker XRPC deploy runbook, when Phase 2 lands) /
+  2605215000 (Murakumo-fleet-only inference, for Phase 3)"""
+follow_up = [
+  "Phase 2 worker rw-free implementation (PDS XRPC + LangGraph pod stub on etz)",
+  "Phase 3 LangGraph pod rehome from vendor mitama-udf cluster to etzhayyim Murakumo",
+  "Phase 4 vendor sunset after 7-day soak",
+  "Vendor amend: add code_side_complete=true entry for ransomwatch move",
+]
+
+[session_summaries.deai-council-referral-2026-05-21]
+date = "2026-05-21"
+prs_open = []
+description = """deai.gftd.ai — Council Lv6+ ruling referral filed.
+
+Vendor post-freeze 3-axis audit (gftdcojp PR #1339) flagged deai for
+charter-compatibility ruling: magatama.jsonld declares
+`operator: etzhayyim` but the 3-axis OR-test default verdict is
+vendor (2 of 3 HIT: Liability + Custody, Settlement clean).
+
+This commit lands the Council referral as a `proposed` ADR. No
+scaffold mirror, no lexicon copy, no project dir created until
+Council rules disposition (A: full move / B: SPLIT / C: vendor
+confirmed).
+
+## What this commit lands
+
+- `90-docs/adr/2605211400-deai-disposition-council-ruling-required.md`
+  — proposed ADR with 3 dispositions + 5 ruling questions for Council
+- This session_summary entry
+
+## Default if no ruling within 30 days
+
+If Council does not rule by 2026-06-20 (= Bootstrap Council Seat 2-5
+RFP close + 1 day), default to Disposition C (vendor confirmed,
+correct magatama operator field). Preserves vendor liability
+shielding; matches default 3-axis verdict. Can later upgrade to A or
+B if charter clarification arrives.
+
+## Cross-repo
+
+- vendor `tranche-f-post-freeze-7-actors-audit-2026-05-21` (vendor PR
+  #1339) — original 3-axis judgment
+- ADR-2605211335 (this session Tranche F closure) — references this
+  ADR as the deai hanging-question pointer
+- ADR-2605192100 — Mission Charter §1.4 / §1.13 / §2(g) (decision
+  rule basis)"""
+follow_up = [
+  "Council Lv6+ ruling on deai disposition (A/B/C)",
+  "If A: etzhayyim scaffold mirror following public-malak (etz PR #226) / ransomwatch (etz PR #233) pattern + vendor sunset",
+  "If B: lexicon copy only + vendor magatama operator field correction (no runtime move)",
+  "If C: vendor magatama operator correction + add deai to next vendor bulk closure entry",
+  "Default disposition C activates 2026-06-20 if no Council ruling",
 ]
