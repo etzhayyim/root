@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-697b6f2322bc",
+  "entityId": "ent-697b6f2322bc",
+  "canonicalName": "niref",
+  "aliases": [
+    "niref"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-67587de1fb3d",
+  "entityId": "ent-67587de1fb3d",
+  "canonicalName": "vafa",
+  "aliases": [
+    "vafa"
+  ]
+}
