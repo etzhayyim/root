@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "gftd:YabaiEvidence",
+  "@id": "https://yabai.gftd.ai/content/evidence/evidence-e294f933f6b027b4",
+  "evidenceId": "evidence-e294f933f6b027b4",
+  "entityId": "ent-6e191ba33ee3",
+  "category": "SanctionHit",
+  "source": "ofac/sdn",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.98,
+  "severity": 5,
+  "probability": 0.002,
+  "jurisdiction": "US",
+  "summary": "Watchlist signal"
+}
