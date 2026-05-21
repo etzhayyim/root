@@ -28,7 +28,9 @@ anchor-cron CronJob (every 15 minutes):
 
 ## Status
 
-**v0.1.0 implemented**. sidecarClient.ts + pending.ts + submit.ts + index.ts all real. Local-anvil-validated against `0x5fbdb2315678afecb367f032d93f642f64180aa3`. Base sepolia / mainnet pending an `EtzhayyimAnchor` deploy to those chains.
+- **Sidecar mode (v0.1.0)**: sidecarClient.ts + pending.ts + submit.ts + cron.ts + index.ts all real. Local-anvil-validated against `0x5fbdb2315678afecb367f032d93f642f64180aa3`. Base sepolia / mainnet pending an `EtzhayyimAnchor` deploy to those chains.
+- **Substrate mode (Phase 1)**: pendingFromPds.ts + commitToPds.ts + cron-substrate.ts + index-substrate.ts + `app.etzhayyim.substrate.l2Anchor` lexicon. End-to-end mocked-PDS coverage in tests; production deploy gated on the same `EtzhayyimAnchor` deploy + an ipfs-pinner producing real `ipfsPin` records.
+- **Tests**: 45/45 (vitest, sidecar 30 + substrate 15).
 
 ## Layout
 
@@ -40,11 +42,33 @@ anchor-cron/
 ├── Dockerfile             # K8s CronJob image (multi-stage build)
 ├── k8s/cronjob.yaml       # CronJob + ServiceAccount manifest
 └── src/
-    ├── index.ts           # cron entry — runs one tick
-    ├── sidecarClient.ts   # msgpack + Unix-socket framing for the checkpointer wire protocol
-    ├── pending.ts         # anchor_pending → PendingRoot[] with rootHash computed
-    └── submit.ts          # viem walletClient.writeContract → EtzhayyimAnchor.anchor()
+    ├── index.ts             # sidecar-mode cron entry (cell-checkpoint anchors)
+    ├── index-substrate.ts   # substrate-mode cron entry (firehose-driven anchors)
+    ├── cron.ts              # sidecar runTick orchestrator
+    ├── cron-substrate.ts    # substrate runTickSubstrate orchestrator
+    ├── sidecarClient.ts     # msgpack + Unix-socket framing for the checkpointer wire protocol
+    ├── pending.ts           # sidecar mode — anchor_pending → PendingRoot[] with rootHash computed
+    ├── pendingFromPds.ts    # substrate mode — list ipfsPin records, filter unanchored
+    ├── commitToPds.ts       # substrate mode — emit app.etzhayyim.substrate.l2Anchor receipts
+    └── submit.ts            # viem walletClient.writeContract → EtzhayyimAnchor.anchor() (shared)
 ```
+
+## Substrate mode (firehose-driven, Phase 1)
+
+Closes the substrate pipeline `mst-projector → ipfs-pinner → anchor-cron`. Reads
+`app.etzhayyim.substrate.ipfsPin` records from a PDS, anchors each unique
+`rootCid` to EtzhayyimAnchor, and writes `app.etzhayyim.substrate.l2Anchor`
+receipts back. Sidecar mode (cell-checkpoint anchors) is unaffected.
+
+| substrate-mode env | default | purpose |
+|---|---|---|
+| `ETZ_ANCHOR_PDS_URL` | `https://pds.etzhayyim.com` | PDS for reads + writes |
+| `ETZ_ANCHOR_PDS_SESSION` / `ETZ_ANCHOR_PDS_AUTH` | — | resumable session OR handle+password |
+| `ETZ_ANCHOR_PINNER_REPO` | (required) | DID hosting `ipfsPin` records |
+| `ETZ_ANCHOR_ANCHORER_REPO` | (required) | DID under which `l2Anchor` records are written |
+| `ETZ_ANCHOR_CHAIN_ID` | `8453` | EIP-155 chain id (Base mainnet / 84532 sepolia) |
+
+Entry: `tsx src/index-substrate.ts` (or build + run `dist/index-substrate.js`).
 
 ## Configuration
 
