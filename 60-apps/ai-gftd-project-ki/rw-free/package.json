@@ -5,7 +5,14 @@
   "type": "module",
   "main": "src/index.ts",
   "private": true,
+  "scripts": {
+    "test": "vitest run"
+  },
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "@etzhayyim/sdk-mock": "workspace:*",
+    "vitest": "^2.0.0"
   }
 }
