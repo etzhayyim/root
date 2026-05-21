@@ -1,7 +1,13 @@
-import { Etzhayyim } from "@etzhayyim/sdk";
+import {
+  createAuthedEtzhayyim,
+  extractBearerToken,
+  type Etzhayyim,
+} from "@etzhayyim/sdk-auth";
 import * as hakkouRwFree from "@etzhayyim/hakkou-rw-free";
 
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; }
+  PDS_ACCESS_JWT?: string;
+  PDS_REFRESH_JWT?: string;
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 const NSID_BASE = "ai.gftd.hakkou";
 interface RouteConfig { method: "POST" | "GET"; handler: Handler; }
