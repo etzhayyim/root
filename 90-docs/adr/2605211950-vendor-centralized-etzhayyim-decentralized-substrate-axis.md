@@ -148,11 +148,22 @@ The **centralization axis** is now the constitutional split between vendor and e
 
 ## Open Items (migration debt)
 
-These are tracked as future work, not part of this ADR's cutover:
+These are tracked as future work, not part of this ADR's cutover. Updated 2026-05-21:
 
-1. Relocate ERC725 root identity issuance from `gftdcojp/ai-gftd-apps-gftdcojp` authz to an etzhayyim service.
-2. Relocate K2 on-chain components (`KarmaAnchor.sol`, ERC-4337 bundler, RebirthGate, Filecoin pin) to `etzhayyim/root/50-infra/`.
-3. Move `00-contracts/lexicons/ai/gftd/authz/linkEthereum*.json` to etzhayyim or deprecate.
-4. Split Stripe Issuing → ERC-4337 bridge into vendor (Stripe side) + etzhayyim (ERC-4337 side) connected via XRPC.
-5. Update `60-apps/ai-gftd-project-murakumo/CLAUDE.md` (vendor side) project topology to drop references to vendor-side chain anchoring.
-6. Vendor ADR supersession PRs for ADR-0074, ADR-0095, ADR-2604261830, ADR-2604262100 — author once the migration lands, mark this ADR as `superseded_by` in those vendor ADRs.
+1. **Relocate ERC725 root identity issuance** from `gftdcojp/ai-gftd-apps-gftdcojp` authz to an etzhayyim service.
+   - Design: **ADR-2605212030** — Base L2 mainnet + hybrid did:web/did:erc725 + 5-phase opt-in cutover + `org.etzhayyim.authz.*` namespace.
+   - Scaffold: `50-infra/etzhayyim-authz/README.md`.
+   - Code: pending.
+2. **Relocate K2 on-chain components** (`KarmaAnchor.sol`, ERC-4337 bundler, RebirthGate, Filecoin pin) to `etzhayyim/root/50-infra/`.
+   - Design: **ADR-2605212040** — Base L2 + own rundler bundler + Noir/Honk PLONK + web3.storage with redundant ipfs-pinner + yobel-as-K2-consumer.
+   - Scaffold: `50-infra/etzhayyim-k2/README.md`.
+   - Code: pending (Phase α contracts → Phase β bundler → Phase γ Filecoin).
+3. **Move `00-contracts/lexicons/ai/gftd/authz/linkEthereum*.json`** to etzhayyim or deprecate.
+   - **Done (2026-05-21)**: deprecation marker landed in vendor lexicons; new etzhayyim namespace `org.etzhayyim.authz.*` defined in ADR-2605212030 §D4.
+4. **Split Stripe Issuing → ERC-4337 bridge** into vendor (Stripe side) + etzhayyim (ERC-4337 side) connected via XRPC.
+   - Design: **ADR-2605212050** — vendor approves Stripe authorization → XRPC `org.etzhayyim.payment.creditFromFiat` → etzhayyim mints USDC from Council-multisig reserve + tithe-router atomic split + Council-multisig daily cap.
+   - Code: pending.
+5. **Update `60-apps/ai-gftd-project-murakumo/CLAUDE.md`** (vendor side) project topology to drop references to vendor-side chain anchoring.
+   - **N/A (2026-05-21)**: investigation found the murakumo CLAUDE.md does not contain chain-anchoring references; it documents LLM inference only. No edit needed. Will revisit if vendor-side Stripe-bridge or K2 docs surface here.
+6. **Vendor ADR supersession PRs** for ADR-0074, ADR-0095, ADR-2604261830, ADR-2604262100.
+   - **Partial (2026-05-21)**: migration-note callouts + cross-reference to ADR-2605211950 landed in vendor branch `260521-substrate-axis-vendor-side`. Formal `superseded_by` will be authored once the etzhayyim code migrations (Items 1 + 2) land.
