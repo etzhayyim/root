@@ -1,0 +1,13 @@
+{
+  "name": "gameya-play-canvas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "quality:gate": "node scripts/quality-gate.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.2"
+  }
+}
