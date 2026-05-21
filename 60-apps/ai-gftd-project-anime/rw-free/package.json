@@ -9,10 +9,15 @@
   "files": [
     "src"
   ],
+  "scripts": {
+    "test": "vitest run"
+  },
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5.3.3"
+    "@etzhayyim/sdk-mock": "workspace:*",
+    "typescript": "^5.3.3",
+    "vitest": "^2.0.0"
   }
 }

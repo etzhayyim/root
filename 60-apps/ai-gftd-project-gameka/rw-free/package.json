@@ -8,10 +8,15 @@
       "import": "./src/index.ts"
     }
   },
+  "scripts": {
+    "test": "vitest run"
+  },
   "dependencies": {
     "@etzhayyim/sdk": "*"
   },
   "devDependencies": {
-    "typescript": "^5.3"
+    "@etzhayyim/sdk-mock": "workspace:*",
+    "typescript": "^5.3",
+    "vitest": "^2.0.0"
   }
 }

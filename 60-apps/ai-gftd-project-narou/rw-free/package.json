@@ -13,13 +13,16 @@
   },
   "scripts": {
     "build": "tsc",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "test": "vitest run"
   },
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*"
   },
   "devDependencies": {
+    "@etzhayyim/sdk-mock": "workspace:*",
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vitest": "^2.0.0"
   }
 }
