@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-37e98a372d8d",
+  "entityId": "ent-37e98a372d8d",
+  "canonicalName": "товариство з обмеженою відповідальністю \"зелінський групп\"",
+  "aliases": [
+    "товариство з обмеженою відповідальністю \"зелінський групп\""
+  ]
+}
