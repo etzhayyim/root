@@ -6,6 +6,11 @@ members = [
     "droop-p-f",
     "anti-islanding-rocof",
     "pid-stack-100",
+    "vv-curve",
+    "ltc-tap-fsm",
+    "mppt-perturb-observe",
+    "black-start-seq",
+    "soc-kalman",
 ]
 
 [workspace.package]
@@ -18,6 +23,13 @@ authors = ["gftd.co.jp"]
 [workspace.dependencies]
 heapless = { version = "0.8", default-features = false }
 openot-bfb-rs = { path = "openot-bfb-rs", default-features = false }
+
+[workspace.lints.rust]
+# `cfg(kani)` is set by the kani-verifier toolchain when running
+# `cargo kani`; mark it as a known cfg to suppress the standard
+# unexpected_cfgs warning. See cells/*/src/lib.rs `#[cfg(kani)] mod proofs`
+# and .github/workflows/openot-gate-c.yml `kani` job.
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
 
 [profile.release]
 opt-level = 3

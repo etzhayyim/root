@@ -319,6 +319,86 @@ pub unsafe extern "C" fn droop_p_f_tick(
 }
 
 // ---------------------------------------------------------------------------
+// kani harnesses (Gate C §2.3 follow-up).
+// ---------------------------------------------------------------------------
+
+#[cfg(kani)]
+mod proofs {
+    use super::*;
+
+    fn arbitrary_signal_quality() -> SignalQuality {
+        match kani::any::<u8>() & 0b11 {
+            0 => SignalQuality::Good,
+            1 => SignalQuality::Uncertain,
+            2 => SignalQuality::Bad,
+            _ => SignalQuality::Stale,
+        }
+    }
+
+    fn arbitrary_ecc_state() -> EccState {
+        match kani::any::<u8>() % 5 {
+            0 => EccState::Idle,
+            1 => EccState::WithinDeadband,
+            2 => EccState::Responding,
+            3 => EccState::Saturated,
+            _ => EccState::Alarm,
+        }
+    }
+
+    fn arbitrary_data_in() -> DataIn {
+        DataIn {
+            grid_freq_micro_hz: kani::any(),
+            freq_nominal_micro_hz: kani::any(),
+            current_p_micro_kw: kani::any(),
+            freq_quality: arbitrary_signal_quality(),
+            enable: kani::any(),
+        }
+    }
+
+    fn arbitrary_internal() -> Internal {
+        Internal {
+            last_setpoint_micro_kw: kani::any(),
+            initialized: kani::any(),
+        }
+    }
+
+    fn arbitrary_params() -> Params {
+        Params {
+            p_rated_micro_kw: kani::any(),
+            p_min_micro_kw: kani::any(),
+            p_max_micro_kw: kani::any(),
+            droop_permille: kani::any(),
+            dead_band_micro_hz: kani::any(),
+            cycle_period_ms: kani::any(),
+        }
+    }
+
+    /// `tick` is total: saturating arithmetic + i128 intermediate ensure no
+    /// arithmetic overflow, and the early-return gates (quality, droop=0,
+    /// freq_nominal=0) prevent division by zero in the deadband branch.
+    #[kani::proof]
+    fn tick_never_panics() {
+        let data_in = arbitrary_data_in();
+        let mut internal = arbitrary_internal();
+        let params = arbitrary_params();
+        let super_step: u64 = kani::any();
+        let _ = DroopPF::tick(
+            EventIn::Req,
+            &data_in,
+            arbitrary_ecc_state(),
+            &mut internal,
+            &params,
+            super_step,
+        );
+    }
+
+    #[kani::proof]
+    fn init_never_panics() {
+        let _ = DroopPF::init(&arbitrary_params());
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Tests.
 // ---------------------------------------------------------------------------
 

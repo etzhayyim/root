@@ -296,6 +296,88 @@ pub unsafe extern "C" fn pid_limited_tick(
 }
 
 // ---------------------------------------------------------------------------
+// kani harnesses (Gate C §2.3 follow-up — symbolic verification of the
+// tick path's panic / UB freedom under arbitrary inputs).
+// ---------------------------------------------------------------------------
+
+#[cfg(kani)]
+mod proofs {
+    use super::*;
+
+    fn arbitrary_signal_quality() -> SignalQuality {
+        match kani::any::<u8>() & 0b11 {
+            0 => SignalQuality::Good,
+            1 => SignalQuality::Uncertain,
+            2 => SignalQuality::Bad,
+            _ => SignalQuality::Stale,
+        }
+    }
+
+    fn arbitrary_ecc_state() -> EccState {
+        match kani::any::<u8>() & 0b11 {
+            0 => EccState::Idle,
+            1 => EccState::Running,
+            2 => EccState::Saturated,
+            _ => EccState::Alarm,
+        }
+    }
+
+    fn arbitrary_data_in() -> DataIn {
+        DataIn {
+            pv_micro: kani::any(),
+            sp_micro: kani::any(),
+            pv_quality: arbitrary_signal_quality(),
+            enable: kani::any(),
+        }
+    }
+
+    fn arbitrary_internal() -> Internal {
+        Internal {
+            integral_micro: kani::any(),
+            last_pv_micro: kani::any(),
+            initialized: kani::any(),
+        }
+    }
+
+    fn arbitrary_params() -> Params {
+        Params {
+            kp_micro: kani::any(),
+            ki_micro: kani::any(),
+            out_min_micro: kani::any(),
+            out_max_micro: kani::any(),
+            cycle_period_ms: kani::any(),
+        }
+    }
+
+    /// Verifies `tick` never panics under arbitrary input. Per SPEC §3 and
+    /// docs/openot-bfb-rs-memory-safety.md, the tick path is total: every
+    /// branch must terminate without `unreachable!` / `panic!` / arithmetic
+    /// overflow. The cell uses saturating arithmetic throughout, so this
+    /// proof should succeed without `kani::assume`-style preconditions.
+    #[kani::proof]
+    fn tick_never_panics() {
+        let data_in = arbitrary_data_in();
+        let mut internal = arbitrary_internal();
+        let params = arbitrary_params();
+        let super_step: u64 = kani::any();
+        let _ = PidLimited::tick(
+            EventIn::Req,
+            &data_in,
+            arbitrary_ecc_state(),
+            &mut internal,
+            &params,
+            super_step,
+        );
+    }
+
+    /// Verifies `init` is a total function.
+    #[kani::proof]
+    fn init_never_panics() {
+        let _ = PidLimited::init(&arbitrary_params());
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Tests (host-side, std).
 // ---------------------------------------------------------------------------
 
