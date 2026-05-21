@@ -44,3 +44,7 @@ packages:
 
   # Phase F worker XRPC adapters (25 actors)
   - "60-apps/ai-gftd-project-*/xrpc-adapter"
+
+  # yorishiro generator + emitted MCP servers (ADR-2605211900)
+  - "70-tools/etzhayyim-cli/yorishiro"
+  - "20-actors/magatama/mcp/yorishiro-*-mcp"

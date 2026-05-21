@@ -40,6 +40,12 @@ export function emitCell(args: EmitCellArgs): EmittedCell {
   const readmePath = join(cellDir, "README.md");
   writeFileSync(readmePath, renderCellReadme(args), "utf-8");
 
+  // cells.toml fragment — appended to
+  //   50-infra/cluster/murakumo/cell-runner/cells.toml
+  // once the cell-runner discovers cells/yorishiro_*/cell.py.
+  const fragmentPath = join(cellDir, "cells.toml.fragment");
+  writeFileSync(fragmentPath, renderCellsTomlFragment(args), "utf-8");
+
   return { path: cellPath, readmePath };
 }
 
@@ -262,6 +268,62 @@ yorishiro regen ${args.name}
 
 Hand edits to \`cell.py\` are overwritten on regen — extend the kami
 OpenAPI spec at \`00-contracts/openapi/kami/${args.name}.openapi.json\` instead.
+
+## Cell-runner registration
+
+The cells.toml fragment \`cells.toml.fragment\` in this directory is the
+authoritative entry for the Murakumo cell-runner. Append it to
+\`50-infra/cluster/murakumo/cell-runner/cells.toml\` once the cell-runner
+supports \`20-actors/magatama/cells/yorishiro_*/cell.py\` discovery
+(ADR-2605202200 wiring).
+
+## Claude Desktop / Codex CLI
+
+\`\`\`json
+{
+  "mcpServers": {
+    "etzhayyim-yorishiro-${args.name}": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/repo/20-actors/magatama/mcp/yorishiro-${args.name}-mcp/src/cli.ts"],
+      "env": { "YORISHIRO_${args.name.toUpperCase()}_BASE_URL": "${args.baseUrl}" }
+    }
+  }
+}
+\`\`\`
+
+Use \`tsx\` rather than \`node\` if the host does not auto-resolve \`.ts\`.
+`;
+}
+
+function renderCellsTomlFragment(args: EmitCellArgs): string {
+  // Pick the first op's NSID as the default XRPC trigger. Multi-op yorishiri
+  // can fan out via the cell's internal router (state["op"]).
+  const firstOp = args.ops[0]?.opName ?? "noop";
+  const nsid = `ai.etzhayyim.yorishiro.${args.name}.${firstOp}`;
+  const cellName = pascal(args.name);
+  // Deterministic healthz port from a hash of the yorishiro name to avoid
+  // collisions across yorishiri (range 13030-13999 per fleet.toml convention).
+  let h = 0;
+  for (let i = 0; i < args.name.length; i++) h = (h * 31 + args.name.charCodeAt(i)) >>> 0;
+  const port = 13030 + (h % 970);
+  return `# cells.toml fragment for the Yorishiro${cellName}Cell.
+#
+# Append to 50-infra/cluster/murakumo/cell-runner/cells.toml when the
+# cell-runner is wired to discover yorishiri cells under
+# 20-actors/magatama/cells/yorishiro_*/cell.py (ADR-2605202200 + 2605211900).
+#
+# Until then, this fragment lives alongside the cell so that the wiring
+# intent is part of the cell's source of truth, not lost to a future
+# scavenger hunt.
+
+[[cell]]
+name = "Yorishiro${cellName}Cell"
+module = "yorishiro_${args.name}.cell"
+entry = "build_graph"
+node = "*"
+trigger = { kind = "xrpc", nsid = "${nsid}" }
+healthz_port = ${port}
+adr = ["2605211900", "2605202200"]
 `;
 }
 
