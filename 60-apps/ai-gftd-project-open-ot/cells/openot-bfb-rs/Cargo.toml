@@ -18,3 +18,6 @@ heapless.workspace = true
 # Embedded builds opt out: `cargo build --release --no-default-features --target wasm32-wasi`.
 default = ["std"]
 std = []
+
+[lints]
+workspace = true

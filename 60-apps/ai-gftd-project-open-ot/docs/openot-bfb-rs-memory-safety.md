@@ -43,9 +43,9 @@ The host (WAMR on Mimi/Te; Wasmtime in `risk1/gate-a-rig`) is responsible for th
 | Risk-1 Gate A heap delta = 0 | PASS (4 cells, host run with `--deadline-ns 200000`); see `risk1/gate-a-*-report.md` |
 | Reproducibility (Gate C §2.1) | PASS (4 cells byte-identical across two clean builds); see `repro-build-rs/repro-build-report.md` |
 | Replay tests (determinism contract) | TODO — `cells/<cell>/tests/replay_*.rs`. Required for SPEC §3 by-construction claim. |
-| kani (formal verification on tick path) | TODO — harness skeleton planned per cell, runs against host `tick(...)` not embedded |
+| kani (formal verification on tick path) | LANDED — 2 harnesses per cell (`proofs::tick_never_panics` + `proofs::init_never_panics`) covering all 4 BFB cells. Runs in CI via `.github/workflows/openot-gate-c.yml` `kani` matrix job on Linux. |
 
-The TODO items are not blocking the Gate C paper PASS; they are the remaining 1.0 PM under §2.3.
+The replay tests TODO is the remaining work under §2.3 (~0.5 PM); kani symbolic verification of the tick / init panic-freedom landed in PR #237 follow-up.
 
 ## What this argument is NOT
 
@@ -53,36 +53,40 @@ The TODO items are not blocking the Gate C paper PASS; they are the remaining 1.
 - It is **not** a claim about the WASM runtime or LLVM codegen. Bugs in `wamrc` or WAMR could still produce unsafe native code at runtime. Mitigation: pin LLVM 18.x (§2.2), reproducibility check (§2.1), Risk-1 Gate A on embedded HW.
 - It is **not** a claim about the host that loads the WASM. WAMR's sandboxing primitives (linear memory bounds, no host-FFI escape) are upstream's responsibility.
 
-## kani roadmap (TODO, ≤ 0.5 PM of the 1.0 PM §2.3 estimate)
+## kani verification (landed)
+
+Each BFB cell carries a `#[cfg(kani)] mod proofs` block in `src/lib.rs` with two proof harnesses:
 
 ```rust
-// cells/droop-p-f/proofs/no_panic.rs (future)
+// cells/<cell>/src/lib.rs (real code, abbreviated)
 #[cfg(kani)]
-#[kani::proof]
-fn tick_never_panics() {
-    let event_in = kani::any::<u8>();
-    let data_in: DataIn = kani::any();
-    let ecc_state = kani::any::<u8>();
-    let mut internal: Internal = kani::any();
-    let params: Params = kani::any();
-    let super_step = kani::any::<u64>();
-    let _ = unsafe {
-        droop_p_f_tick(
-            event_in,
-            &data_in,
-            ecc_state,
-            &mut internal,
-            &params,
-            (super_step & 0xFFFF_FFFF) as u32,
-            (super_step >> 32) as u32,
-            &mut DataOut::default(),
-            &mut 0u8,
-        )
-    };
+mod proofs {
+    use super::*;
+
+    fn arbitrary_signal_quality() -> SignalQuality { /* match kani::any() */ }
+    fn arbitrary_ecc_state() -> EccState { /* match kani::any() */ }
+    fn arbitrary_data_in() -> DataIn { /* field-wise kani::any */ }
+    fn arbitrary_internal() -> Internal { /* field-wise kani::any */ }
+    fn arbitrary_params() -> Params { /* field-wise kani::any */ }
+
+    /// Verifies tick(...) is panic-free + UB-free under arbitrary symbolic
+    /// inputs. The cells use saturating arithmetic + i128 intermediates so
+    /// no `kani::assume` preconditions are needed.
+    #[kani::proof]
+    fn tick_never_panics() { /* ... */ }
+
+    #[kani::proof]
+    fn init_never_panics() { /* ... */ }
 }
 ```
 
-`kani` exhaustively verifies the tick path is panic-free under arbitrary inputs. Running this in CI is a future deliverable.
+CI runs `cargo kani --harness proofs::init_never_panics` and `cargo kani --harness proofs::tick_never_panics` per cell on every PR (`.github/workflows/openot-gate-c.yml` `kani` matrix job, Linux runners).
+
+`pid-stack-100` uses `#[kani::unwind(101)]` to cover the 100-instance inner loop. The other three cells have no loops in their tick path.
+
+### Local macOS caveat
+
+`kani-verifier 0.67.0` on macOS has a known issue where the bundled `kani-driver` reports `failed to start cargo metadata` even with the matching nightly toolchain (`nightly-2025-11-21`) installed. Local development on macOS can use the harness syntax via `#[cfg(kani)]` (which is opt-in), but verification must run on Linux. Tracked upstream in the kani-verifier issue tracker; the CI job is the authoritative gate.
 
 ## References
 

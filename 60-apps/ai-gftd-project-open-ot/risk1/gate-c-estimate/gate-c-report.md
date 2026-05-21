@@ -16,13 +16,13 @@ Paper → code follow-up under `risk1/gate-c-estimate/` and `60-apps/ai-gftd-pro
 |---|---|---|
 | §2.1 WAMR AOT determinism (cargo half) | `repro-build-rs/` Rust harness | `repro-build` PASS — 4 cells byte-identical across two clean builds; CI-gated |
 | §2.2 LLVM 18 pin policy | `docs/llvm-version-policy.md` | pin locations + update procedure + CVE policy |
-| §2.3 Rust FB memory-safety | `docs/openot-bfb-rs-memory-safety.md` + `cargo geiger` CI | by-construction argument + Risk-1 Gate A heap-delta = 0 evidence |
+| §2.3 Rust FB memory-safety | `docs/openot-bfb-rs-memory-safety.md` + `cargo geiger` CI + `#[cfg(kani)] mod proofs` × 4 cells | by-construction argument + Risk-1 Gate A heap-delta = 0 + kani symbolic verification of `tick` / `init` panic-freedom (CI matrix) |
 | §2.4 Zephyr LTS supply chain | `docs/zephyr-lts-supply-chain.md` | module list + support SLAs + safety status |
 | §2.5 Signing / pinning CLI | `builder-sign-rs/` Rust crate (CLI + library) | 11 unit tests + smoke test signing a real `droop_p_f.wasm` + verify roundtrip |
 | §2.6 IEC 62443-3-3 SL-2 mapping | `docs/iec-62443-3-3-sl2-mapping.md` | 52 SRs traced; 31 ✅ / 12 🟡 / 2 ⏳ / 7 N/A |
-| CI gate | `.github/workflows/openot-gate-c.yml` | 6 jobs: geiger / repro-build / builder-sign / gate-a × 4 cells / gate-b / cells-tests |
+| CI gate | `.github/workflows/openot-gate-c.yml` | 7 jobs: geiger / repro-build / builder-sign / gate-a × 4 cells / gate-b / cells-tests / kani × 4 cells |
 
-The remaining 🟡 and ⏳ items (Mimi firmware integration, Zenoh-TLS mTLS profile, SBT↔role audit verifier, kani harnesses) stay within the 1.5 PM §2.6 + 0.5 PM §2.3 residuals.
+The remaining 🟡 and ⏳ items (Mimi firmware integration, Zenoh-TLS mTLS profile, SBT↔role audit verifier, cell replay tests) stay within the 1.5 PM §2.6 + ~0.5 PM §2.3 residuals.
 
 ---
 
