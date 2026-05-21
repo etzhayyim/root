@@ -1,10 +1,18 @@
 /**
  * mst-projector materialization tests.
+ *
+ * Verifies that Materializer writes records with expected rkeys
+ * via a mock Etzhayyim SDK instance.
  */
 
 import { describe, it, expect } from "vitest";
 import { Materializer } from "../src/materialize.js";
 
+/**
+ * Mock Etzhayyim implementation for testing.
+ *
+ * Stores records in memory and supports basic read/write operations.
+ */
 class MockEtzhayyim {
   private collections = new Map<string, Map<string, Record<string, unknown>>>();
 
@@ -24,6 +32,7 @@ class MockEtzhayyim {
     return { uri };
   }
 
+  /** Helper: dump all records in a collection for assertion. */
   dump(collection: string): Array<[string, Record<string, unknown>]> {
     const col = this.collections.get(collection);
     return col ? Array.from(col.entries()) : [];
@@ -118,6 +127,7 @@ describe("Materializer", () => {
 
     const records = e.dump("ai.gftd.projector.aggregate");
     expect(records.length).toBe(2);
+    // Both have same groupBy "status", but different collection slugs
     expect(records[0][0]).toBe("agg-ai-gftd-kiyo-paper-status");
     expect(records[1][0]).toBe("agg-ai-gftd-kiyo-review-status");
   });
