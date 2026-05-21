@@ -1,24 +1,27 @@
 /**
- * Shard partitioning + flush policy + manifest serializer (Phase 1).
+ * Shard partitioning + flush policy + CAR serializer (Phase 2).
  *
  * Default = one shard per collection NSID. Flush when records-since-flush ≥ N
  * OR wall-clock since-last-flush ≥ T.
  *
- * Phase 1 serializes the shard as a JSON manifest:
- *   { shardKey, firstSeq, lastSeq, recordCount, snapshotHash, records[] }
- * written to `<dataDir>/<shardKey>/<snapshotHash>.json`.
+ * Phase 2 serializes the shard as a CAR file (root + unstored MST blocks)
+ * named by the AT-Protocol MST root CID, written to
+ * `<dataDir>/<shardKey>/<rootCid>.car`. The deterministic filename means
+ * idempotent flushes never overwrite distinct content — same root → same
+ * file.
  *
- * Phase 2 replaces this with a CAR file containing the true MST root +
- * leaf blocks, identified by a CID v1 (dag-cbor).
+ * Phase 1's JSON manifest path is retired; downstream readers were
+ * already advised to prefer `rootCid` over `snapshotHash` when both are
+ * present (lexicon comment + ADR-2605191655).
  */
 
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import {
-  currentRoot,
+  flushShardToCar,
   recordCount,
   resetShard,
-  shardSnapshot,
+  shardSequenceRange,
 } from "./mst.js";
 
 export type ShardKey = string;
@@ -43,7 +46,7 @@ export function notePending(shardKey: ShardKey): void {
 export function shouldFlush(
   shardKey: ShardKey,
   recordsThreshold: number,
-  secondsThreshold: number
+  secondsThreshold: number,
 ): boolean {
   const c = counters.get(shardKey);
   if (!c) return false;
@@ -55,41 +58,40 @@ export function shouldFlush(
 }
 
 export interface FlushResult {
-  manifestPath: string;
-  snapshotHash: string;
+  carPath: string;
+  rootCid: string;
   recordCount: number;
   byteSize: number;
+  blockCount: number;
+  firstSeq?: string;
+  lastSeq?: string;
 }
 
 export async function flushShard(
   shardKey: ShardKey,
-  dataDir: string
-): Promise<FlushResult> {
-  const snap = shardSnapshot(shardKey);
-  const snapshotHash = currentRoot(shardKey);
-  const manifest = {
-    version: 1,
-    shardKey,
-    firstSeq: snap.firstSeq,
-    lastSeq: snap.lastSeq,
-    recordCount: snap.records.length,
-    snapshotHash,
-    flushedAt: new Date().toISOString(),
-    records: snap.records,
-  };
-  const json = JSON.stringify(manifest);
+  dataDir: string,
+): Promise<FlushResult | null> {
+  const car = await flushShardToCar(shardKey);
+  if (!car) return null;
+  const { firstSeq, lastSeq } = shardSequenceRange(shardKey);
+  const count = recordCount(shardKey);
+
   const shardDir = join(dataDir, encodeURIComponent(shardKey));
   await mkdir(shardDir, { recursive: true });
-  const manifestPath = join(shardDir, `${snapshotHash}.json`);
-  await writeFile(manifestPath, json, "utf8");
+  const rootCidStr = car.rootCid.toString();
+  const carPath = join(shardDir, `${rootCidStr}.car`);
+  await writeFile(carPath, car.carBytes);
 
   counters.set(shardKey, { lastFlushTsMs: Date.now(), recordsSinceFlush: 0 });
   resetShard(shardKey);
 
   return {
-    manifestPath,
-    snapshotHash,
-    recordCount: manifest.recordCount,
-    byteSize: Buffer.byteLength(json, "utf8"),
+    carPath,
+    rootCid: rootCidStr,
+    recordCount: count,
+    byteSize: car.carBytes.byteLength,
+    blockCount: car.blockCount,
+    firstSeq,
+    lastSeq,
   };
 }

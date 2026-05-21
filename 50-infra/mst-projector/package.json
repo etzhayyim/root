@@ -13,12 +13,14 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test src/*.test.ts"
   },
   "dependencies": {
     "@atproto/api": "^0.13.0",
     "@atproto/repo": "^0.5.0",
     "cborg": "^4.2.0",
+    "multiformats": "^14.0.0",
     "ws": "^8.18.0"
   },
   "devDependencies": {
