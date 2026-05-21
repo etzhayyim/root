@@ -11,7 +11,7 @@
     "build:miniapp": "vite build --config vite.miniapp.config.ts"
   },
   "dependencies": {
-    "@gftdcojp/kami-engine-sdk": "workspace:*"
+    "@etzhayyim/kami-engine-sdk": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.1.1",

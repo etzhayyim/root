@@ -1,7 +1,7 @@
 # Houbun Ingest: BPMN + Zeebe + Python Worker Design
 
 **Status**: proposed implementation design — 2026-04-25
-**Scope**: `houbun.gftd.ai` / `contracts.gftd.ai` law, ordinance, constitution, treaty ingest.
+**Scope**: `houbun.etzhayyim.com` / `contracts.etzhayyim.com` law, ordinance, constitution, treaty ingest.
 
 ## Goal
 
@@ -176,7 +176,7 @@ The source-neutral skeleton should look like:
   xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
   xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
   id="defs_houbun_source_delta"
-  targetNamespace="https://gftd.ai/bpmn/houbun">
+  targetNamespace="https://etzhayyim.com/bpmn/houbun">
 
   <bpmn:process id="houbun_source_delta" name="Houbun Source Delta" isExecutable="true">
     <bpmn:startEvent id="start" name="Start">
@@ -383,7 +383,7 @@ spec:
     spec:
       containers:
         - name: worker
-          image: ghcr.io/gftdcojp/pymagatama:<tag>
+          image: ghcr.io/etzhayyim/pymagatama:<tag>
           command: ["python", "-m", "pymagatama.ingest.houbun_worker_main"]
           env:
             - name: ZEEBE_GATEWAY
@@ -423,7 +423,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: start
-              image: ghcr.io/gftdcojp/pymagatama:<tag>
+              image: ghcr.io/etzhayyim/pymagatama:<tag>
               command:
                 - python
                 - -m
@@ -470,13 +470,13 @@ JP e-Gov:
 
 - shard key: `law_id`
 - cursor: last verified `revision_info.updated_at` or source content hash
-- destination id: `at://did:web:houbun.gftd.ai:jpn:e-gov/ai.gftd.houbun.statute/{law_id}`
+- destination id: `at://did:web:houbun.etzhayyim.com:jpn:e-gov/ai.gftd.houbun.statute/{law_id}`
 
 Constitute:
 
 - shard key: `constitution_id`
 - cursor: metadata hash
-- destination id: `at://did:web:contracts.gftd.ai/ai.gftd.apps.contracts.socialContract/{source_rkey}`
+- destination id: `at://did:web:contracts.etzhayyim.com/ai.gftd.apps.contracts.socialContract/{source_rkey}`
 
 UNTC/Wikidata:
 

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:repository.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:repository.etzhayyim.com",
   "name": "repository",
   "nanoid": "r3p0s1t0",
   "performerType": "service",
@@ -40,7 +40,7 @@
   "kpi": ["credits の獲得", "ref-update-success-rate", "signature-verify-rate"],
   "deploy": {},
   "routes": [
-    { "host": "repository.gftd.ai", "paths": ["/"], "tls": true }
+    { "host": "repository.etzhayyim.com", "paths": ["/"], "tls": true }
   ],
   "space": {
     "name": "Repository Graph",

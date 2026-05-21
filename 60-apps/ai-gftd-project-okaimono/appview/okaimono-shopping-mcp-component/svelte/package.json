@@ -38,7 +38,7 @@
     "@bufbuild/protobuf": "^1.10.1",
     "@connectrpc/connect": "^1.7.0",
     "@connectrpc/connect-web": "^1.7.0",
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
     "lucide-svelte": "^0.300.0",
     "svelte": "^5.55.3"
   }

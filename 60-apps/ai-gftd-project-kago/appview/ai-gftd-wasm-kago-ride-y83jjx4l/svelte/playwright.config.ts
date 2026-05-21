@@ -14,7 +14,7 @@ export default defineConfig({
   retries: 1,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: process.env.BASE_URL || "https://kago.gftd.ai",
+    baseURL: process.env.BASE_URL || "https://kago.etzhayyim.com",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },

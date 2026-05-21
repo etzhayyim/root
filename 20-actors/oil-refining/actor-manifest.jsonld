@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:oil-refining.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:oil-refining.etzhayyim.com",
   "actors": [
     {
       "description": "Global refinery asset coverage.",

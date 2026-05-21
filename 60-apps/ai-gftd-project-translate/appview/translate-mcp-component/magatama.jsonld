@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:translate.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:translate.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -37,7 +37,7 @@
   "project": "translate",
   "routes": [
     {
-      "host": "translate.gftd.ai",
+      "host": "translate.etzhayyim.com",
       "paths": [
         "/"
       ],

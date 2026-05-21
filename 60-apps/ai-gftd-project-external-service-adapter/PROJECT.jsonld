@@ -1,11 +1,11 @@
 {
   "@context": {
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/"
+    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/"
   },
   "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-external-service-adapter/id/Project/ai-gftd-project-external-service-adapter",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-external-service-adapter/id/Project/ai-gftd-project-external-service-adapter",
   "schema:name": "ai-gftd-project-external-service-adapter",
   "schema:description": "External service adapters for Microsoft 365 (Outlook, OneDrive, Calendar, Contacts) and Google Workspace (Gmail, Google Drive, Google Calendar, People) via OAuth2-authenticated MCP components",
   "dodaf:capability": [

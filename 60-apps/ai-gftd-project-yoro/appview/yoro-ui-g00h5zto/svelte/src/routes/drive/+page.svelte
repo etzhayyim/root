@@ -5,7 +5,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { isSignedIn } from '$lib/auth';
-	import { Button } from '@gftdcojp/design-system';
+	import { Button } from '@etzhayyim/design-system';
 	import { fade } from 'svelte/transition';
 	import { driveStore, type DriveItem } from '$lib/drive-store.svelte.js';
 	import DriveFileList from '$lib/components/DriveFileList.svelte';

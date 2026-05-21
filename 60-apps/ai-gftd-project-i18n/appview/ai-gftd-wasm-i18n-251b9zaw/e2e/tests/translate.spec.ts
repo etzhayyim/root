@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.I18N_BASE_URL ?? 'https://i18n.gftd.ai';
+const BASE = process.env.I18N_BASE_URL ?? 'https://i18n.etzhayyim.com';
 const CMD = `${BASE}/xrpc/gftd.i18n.v1.I18nCommandService`;
 const QUERY = `${BASE}/xrpc/gftd.i18n.v1.I18nQueryService`;
 

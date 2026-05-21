@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:bpmn.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:bpmn.etzhayyim.com",
   "name": "bpmn",
   "nanoid": "bx7qm9p4",
   "performerType": "service",
@@ -37,7 +37,7 @@
   "duties": ["勤労の義務", "process-faithful-execution"],
   "kpi": ["credits の獲得", "process-instance-success-rate"],
   "deploy": {},
-  "routes": [ { "host": "bpmn.gftd.ai", "paths": ["/"], "tls": true } ],
+  "routes": [ { "host": "bpmn.etzhayyim.com", "paths": ["/"], "tls": true } ],
   "space": {
     "name": "BPMN Registry + Executor",
     "description": "Publish, search, generate, deploy, and execute BPMN processes",

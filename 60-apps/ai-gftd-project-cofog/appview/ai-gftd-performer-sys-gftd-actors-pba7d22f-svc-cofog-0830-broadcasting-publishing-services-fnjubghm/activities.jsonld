@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/08/3/0/broadcasting-publishing-services/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/08/3/0/broadcasting-publishing-services/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Media Licensing and Content Standards Lifecycle",
       "description": "The administrative process of coordinating media licenses, monitoring content standards, and maintaining broadcasting infrastructure.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/08/3/0/broadcasting-publishing-services"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/3/0/broadcasting-publishing-services"
     }
   ]
 }

@@ -49,20 +49,20 @@ const SKIP_DIRS = new Set([
 // Hosts that are part of the etzhayyim substrate and explicitly NOT
 // yorishiri targets — they are internal infrastructure.
 const SUBSTRATE_HOSTS = new Set([
-  "atproto.gftd.ai",
+  "atproto.etzhayyim.com",
   "atproto.etzhayyim.com",
   "etzhayyim.com",
-  "auth.gftd.ai",
-  "authn.gftd.ai",
+  "auth.etzhayyim.com",
+  "authn.etzhayyim.com",
   "authz.etzhayyim.com",
   "mcp.etzhayyim.com",
   "llm.etzhayyim.com",
-  "gftd.ai",
+  "etzhayyim.com",
   "api.cloudflare.com", // CF management; not user-facing
 ]);
 
 // Suffix match: anything under *.etzhayyim.com is substrate by default.
-const SUBSTRATE_SUFFIXES = [".etzhayyim.com", ".gftd.ai"];
+const SUBSTRATE_SUFFIXES = [".etzhayyim.com", ".etzhayyim.com"];
 
 // Hosts that are clearly noise (test fixtures, localhost, OAuth issuers
 // that are infrastructure not data sources). Reported but not flagged.

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:vnm-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:vnm-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Vietnam AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -93,7 +93,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "vnm-state.gftd.ai",
+      "host": "vnm-state.etzhayyim.com",
       "paths": [
         "/"
       ],

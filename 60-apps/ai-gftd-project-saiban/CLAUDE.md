@@ -1,12 +1,12 @@
 # ai-gftd-project-saiban
 
-裁判 intelligence platform (`saiban.gftd.ai`).
+裁判 intelligence platform (`saiban.etzhayyim.com`).
 
 ## App Identity
 
 | Key | Value |
 |---|---|
-| **AT bot DID** | `did:web:saiban.gftd.ai` |
+| **AT bot DID** | `did:web:saiban.etzhayyim.com` |
 | **nanoid** | `sb4n0j1c` |
 | **Runtime** | **TS Native** (`src/app.ts` + `@gftd/magatama-host-sdk`) |
 | **Data store** | W Protocol Event Stream |
@@ -25,8 +25,8 @@
 ### DID Pattern
 
 ```
-did:web:saiban.gftd.ai:court:{level}           # JP generic
-did:web:saiban.gftd.ai:court:{iso3}:{court-id}  # Global (US/UK/DE/FR)
+did:web:saiban.etzhayyim.com:court:{level}           # JP generic
+did:web:saiban.etzhayyim.com:court:{iso3}:{court-id}  # Global (US/UK/DE/FR)
 ```
 
 ## Writer DIDs (12 categories)
@@ -50,11 +50,11 @@ did:web:saiban.gftd.ai:court:{iso3}:{court-id}  # Global (US/UK/DE/FR)
 
 | Actor | Relation | Description |
 |---|---|---|
-| `hanrei.gftd.ai` | jiken → 判例 citation | 事件 DID から判例・判決 DID への citation graph |
-| `lawfirm.gftd.ai` | jiken ← case-management | lawfirm の legal-case が saiban の jiken を参照 |
-| `legal-entity.gftd.ai` | court → 法人登記 | 裁判所の法人情報 |
-| `natural-person.gftd.ai` | judge → 人物 | 裁判官の人物情報 (restricted) |
-| `bankruptcy.gftd.ai` | jiken:bankruptcy → 破産手続 | 破産事件の手続種別連携 |
+| `hanrei.etzhayyim.com` | jiken → 判例 citation | 事件 DID から判例・判決 DID への citation graph |
+| `lawfirm.etzhayyim.com` | jiken ← case-management | lawfirm の legal-case が saiban の jiken を参照 |
+| `legal-entity.etzhayyim.com` | court → 法人登記 | 裁判所の法人情報 |
+| `natural-person.etzhayyim.com` | judge → 人物 | 裁判官の人物情報 (restricted) |
+| `bankruptcy.etzhayyim.com` | jiken:bankruptcy → 破産手続 | 破産事件の手続種別連携 |
 
 ## Graph Labels
 

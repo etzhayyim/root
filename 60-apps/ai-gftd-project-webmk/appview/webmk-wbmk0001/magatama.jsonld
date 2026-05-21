@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:webmk.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:webmk.etzhayyim.com",
   "name": "webmk",
   "nanoid": "wbmk0001",
   "runtimeType": "worker",

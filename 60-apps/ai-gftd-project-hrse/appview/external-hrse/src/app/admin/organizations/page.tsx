@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#AdminOrganizationsConnect
+ * @etzhayyim/ai-gftd-hrse#AdminOrganizationsConnect
  * 組織管理ページ（Connect-Web版）
  */
 

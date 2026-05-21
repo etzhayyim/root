@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kogu-daily-pulse-v1',
-                 'did:web:kogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-daily-pulse-v1',
+                 'did:web:kogu.etzhayyim.com',
                  'kogu_daily_pulse',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
                  '  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '  id="Definitions_kogu_daily_pulse"\n'
-                 '  targetNamespace="https://gftd.ai/bpmn/kogu"\n'
+                 '  targetNamespace="https://etzhayyim.com/bpmn/kogu"\n'
                  '  exporter="hand-written"\n'
                  '  exporterVersion="1.0">\n'
                  '  <bpmn:process id="kogu_daily_pulse" name="kogu Daily Pulse" '
@@ -100,7 +100,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;dailyPulse&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ statusRows: statusRows, overdueCalibCount: '
@@ -134,7 +134,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;calibrationOverdueAlert&quot;" '
                  'target="action"/>\n'
@@ -158,10 +158,10 @@ UP = [{'sql': '\n'
                  5405,
                  '00-contracts/bpmn/ai/gftd/kogu/dailyPulse.bpmn',
                  '2026-04-28T22:04:00Z',
-                 'did:web:kogu.gftd.ai',
-                 'did:web:kogu.gftd.ai',
+                 'did:web:kogu.etzhayyim.com',
+                 'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kogu-daily-pulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-daily-pulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -175,8 +175,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kogu-schedule-calibration-v1',
-                 'did:web:kogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-schedule-calibration-v1',
+                 'did:web:kogu.etzhayyim.com',
                  'kogu_schedule_calibration',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -194,7 +194,7 @@ UP = [{'sql': '\n'
                  '  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '  id="Definitions_kogu_schedule_calibration"\n'
-                 '  targetNamespace="https://gftd.ai/bpmn/kogu"\n'
+                 '  targetNamespace="https://etzhayyim.com/bpmn/kogu"\n'
                  '  exporter="hand-written"\n'
                  '  exporterVersion="1.0">\n'
                  '  <bpmn:process id="kogu_schedule_calibration" name="kogu Schedule Calibration" '
@@ -261,7 +261,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;calibrationScheduled&quot;" '
                  'target="action"/>\n'
@@ -279,7 +279,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;calibrationScheduleError&quot;" '
                  'target="action"/>\n'
@@ -303,10 +303,10 @@ UP = [{'sql': '\n'
                  4939,
                  '00-contracts/bpmn/ai/gftd/kogu/scheduleCalibration.bpmn',
                  '2026-04-28T22:04:00Z',
-                 'did:web:kogu.gftd.ai',
-                 'did:web:kogu.gftd.ai',
+                 'did:web:kogu.etzhayyim.com',
+                 'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kogu-schedule-calibration-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-schedule-calibration-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -320,8 +320,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kogu-checkout-tool-v1',
-                 'did:web:kogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-checkout-tool-v1',
+                 'did:web:kogu.etzhayyim.com',
                  'kogu_checkout_tool',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -344,7 +344,7 @@ UP = [{'sql': '\n'
                  '  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '  id="Definitions_kogu_checkout_tool"\n'
-                 '  targetNamespace="https://gftd.ai/bpmn/kogu"\n'
+                 '  targetNamespace="https://etzhayyim.com/bpmn/kogu"\n'
                  '  exporter="hand-written"\n'
                  '  exporterVersion="1.0">\n'
                  '  <bpmn:process id="kogu_checkout_tool" name="kogu Checkout Tool" '
@@ -429,7 +429,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=if(action = &quot;checkout&quot;, '
                  '&quot;toolCheckedOut&quot;, &quot;toolReturned&quot;)" target="action"/>\n'
@@ -465,7 +465,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_kogu_inspection&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={ tool_id: toolId, inspected_at: returnedAt, '
-                 'inspector_did: &quot;did:web:kogu.gftd.ai&quot;, inspection_type: '
+                 'inspector_did: &quot;did:web:kogu.etzhayyim.com&quot;, inspection_type: '
                  '&quot;post-use&quot;, result: &quot;fail&quot;, repair_required: true, notes: '
                  '&quot;Auto-created: damaged on return&quot; }" target="row"/>\n'
                  '        </zeebe:ioMapping>\n'
@@ -480,7 +480,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;checkoutBlocked&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ toolId: toolId, borrowerDid: borrowerDid, '
@@ -504,10 +504,10 @@ UP = [{'sql': '\n'
                  7612,
                  '00-contracts/bpmn/ai/gftd/kogu/checkoutTool.bpmn',
                  '2026-04-28T22:04:00Z',
-                 'did:web:kogu.gftd.ai',
-                 'did:web:kogu.gftd.ai',
+                 'did:web:kogu.etzhayyim.com',
+                 'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kogu-checkout-tool-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-checkout-tool-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -521,16 +521,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kogu-dailyPulse-v1',
-                 'did:web:kogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-dailyPulse-v1',
+                 'did:web:kogu.etzhayyim.com',
                  'ai.gftd.apps.kogu.dailyPulse',
                  'kogu_daily_pulse',
                  30000,
                  '2026-04-28T22:04:00Z',
-                 'did:web:kogu.gftd.ai',
-                 'did:web:kogu.gftd.ai',
+                 'did:web:kogu.etzhayyim.com',
+                 'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kogu-dailyPulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-dailyPulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -544,16 +544,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kogu-scheduleCalibration-v1',
-                 'did:web:kogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-scheduleCalibration-v1',
+                 'did:web:kogu.etzhayyim.com',
                  'ai.gftd.apps.kogu.scheduleCalibration',
                  'kogu_schedule_calibration',
                  30000,
                  '2026-04-28T22:04:00Z',
-                 'did:web:kogu.gftd.ai',
-                 'did:web:kogu.gftd.ai',
+                 'did:web:kogu.etzhayyim.com',
+                 'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kogu-scheduleCalibration-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-scheduleCalibration-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -567,29 +567,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kogu-checkoutTool-v1',
-                 'did:web:kogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-checkoutTool-v1',
+                 'did:web:kogu.etzhayyim.com',
                  'ai.gftd.apps.kogu.checkoutTool',
                  'kogu_checkout_tool',
                  30000,
                  '2026-04-28T22:04:00Z',
-                 'did:web:kogu.gftd.ai',
-                 'did:web:kogu.gftd.ai',
+                 'did:web:kogu.etzhayyim.com',
+                 'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kogu-checkoutTool-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-checkoutTool-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kogu-dailyPulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-dailyPulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kogu-scheduleCalibration-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-scheduleCalibration-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kogu-checkoutTool-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-checkoutTool-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kogu-daily-pulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-daily-pulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kogu-schedule-calibration-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-schedule-calibration-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kogu-checkout-tool-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-checkout-tool-v1']}]
 
 
 def upgrade() -> None:

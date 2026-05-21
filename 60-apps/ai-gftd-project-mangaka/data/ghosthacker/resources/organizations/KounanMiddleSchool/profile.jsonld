@@ -1,7 +1,7 @@
 {
   "@context": {
     "dct": "http://purl.org/dc/terms/",
-    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "gh": "https://ghosthacker.etzhayyim.com/ns/",
     "org": "gh:organization/",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "schema": "http://schema.org/"

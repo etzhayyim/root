@@ -1,6 +1,6 @@
 {
   "@context": "https://gftd.co.jp/ns/magatama",
-  "@id": "did:web:im2mh8n1.gftd.ai",
+  "@id": "did:web:im2mh8n1.etzhayyim.com",
   "nanoid": "im2mh8n1",
   "name": "image2metahuman",
   "description": "Photo to MetaHuman 3D Avatar (FACS + LOD + DNA calibration)",
@@ -23,10 +23,10 @@
   },
   "routes": [
     {
-      "pattern": "image2metahuman.gftd.ai/*"
+      "pattern": "image2metahuman.etzhayyim.com/*"
     },
     {
-      "pattern": "im2mh8n1.gftd.ai/*"
+      "pattern": "im2mh8n1.etzhayyim.com/*"
     }
   ],
   "governance": {
@@ -43,11 +43,11 @@
       ],
       "accountable": "avatar-platform-owner",
       "consulted": [
-        "kami.gftd.ai",
+        "kami.etzhayyim.com",
         "privacy-reviewer"
       ],
       "informed": [
-        "yoro.gftd.ai",
+        "yoro.etzhayyim.com",
         "support-ops"
       ]
     }

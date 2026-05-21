@@ -15,9 +15,9 @@
 
 ## Per-Component Design (Common)
 
-- gRPC endpoint: `https://{nanoid}.gftd.ai/api/grpc`
+- gRPC endpoint: `https://{nanoid}.etzhayyim.com/api/grpc`
 - MCP protocol: JSON-RPC 2.0 over `/api/grpc`
-- messaging endpoint: `https://{nanoid}.gftd.ai/api/messages/send`
+- messaging endpoint: `https://{nanoid}.etzhayyim.com/api/messages/send`
 - agent manifest endpoint: `/.well-known/agent.json`
 - KV store: magatama key-value store `default`
   - seed key: `division:default`

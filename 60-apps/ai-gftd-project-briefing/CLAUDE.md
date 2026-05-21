@@ -2,7 +2,7 @@
 
 > **T2 Logical Actor**: Manifest-driven (`20-actors/briefing/actor-manifest.jsonld`). **PII Tier 3** (recordings).
 
-`briefing.gftd.ai` (nanoid: `w3olw1pf`) — WebRTC meeting with multi-actor convo project: transcriber + translator + recorder + summarizer.
+`briefing.etzhayyim.com` (nanoid: `w3olw1pf`) — WebRTC meeting with multi-actor convo project: transcriber + translator + recorder + summarizer.
 
 ## Lexicons
 `briefing/` (3 files): meeting, transcript, summary, recording.
@@ -10,10 +10,10 @@
 ## Multi-actor composition
 ```
 Project: "Briefing: daily-standup" (convoId)
-├── did:web:briefing.gftd.ai:actor:transcriber  (Whisper STT)
-├── did:web:briefing.gftd.ai:actor:translator   (LLM)
-├── did:web:briefing.gftd.ai:actor:recorder     (R2)
-└── did:web:briefing.gftd.ai:actor:summarizer   (LLM)
+├── did:web:briefing.etzhayyim.com:actor:transcriber  (Whisper STT)
+├── did:web:briefing.etzhayyim.com:actor:translator   (LLM)
+├── did:web:briefing.etzhayyim.com:actor:recorder     (R2)
+└── did:web:briefing.etzhayyim.com:actor:summarizer   (LLM)
 ```
 
 ## cross-actor

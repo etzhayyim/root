@@ -41,7 +41,7 @@ Claude never sees the actual token; it runs `curl -H "Authorization: Bearer $GFT
 
 ```bash
 AT_TOKEN=$(gftd agent-token --lxm ai.gftd.apps.gmail.syncInbox --ttl 60)
-curl -H "Authorization: Bearer $AT_TOKEN" https://gmail.gftd.ai/xrpc/ai.gftd.apps.gmail.syncInbox -d '…'
+curl -H "Authorization: Bearer $AT_TOKEN" https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.syncInbox -d '…'
 ```
 
 One NSID per token. One minute lifetime. Caller DID in `iss` — audit trail intact.
@@ -63,7 +63,7 @@ If Claude is driving: Claude runs the command, but the value is piped through st
 # 1. Revoke at source
 gcloud auth application-default revoke   # or Google Cloud Console OAuth Client → reset secret
 # 2. Update 1Password
-op item edit google-oauth-gmail.gftd.ai "client-secret=$(pbpaste)"
+op item edit google-oauth-gmail.etzhayyim.com "client-secret=$(pbpaste)"
 # 3. Re-provision downstream
 op read 'op://Dev/google-oauth-gmail/secret' | \
   wrangler secrets-store secret update <STORE_ID> --name google_oauth_client_secret --value -
@@ -78,7 +78,7 @@ Timebox: if a T1 value appears in any chat transcript, rotate within 24h.
 | Pasting client_secret into chat so Claude can `wrangler … put` | Value persists in transcript + local telemetry | `op read` pipe + Claude executes the piped command |
 | Using Secrets Store binding (`SecretBinding`) directly as a string | serializes as `[object Fetcher]` in runtime (silent corruption, authz fails opaquely) | `const val = await resolveSecret(env.SS_FOO);` at point of use — see `60-apps/ai-gftd-project-gmail/.../src/app.ts` |
 | Sharing `sk_live_*` API key to "let Claude test for me" | Unscoped, long-lived | Issue a separate API key per agent via `gftd authz create-api-key --name claude-<purpose>` → revocable independently |
-| Loading refresh_token as `TEXT` column in an AT Record | AT Repo is always federable — all subscribers see it | KEK envelope in a private D1 or `vault.gftd.ai` ciphertext |
+| Loading refresh_token as `TEXT` column in an AT Record | AT Repo is always federable — all subscribers see it | KEK envelope in a private D1 or `vault.etzhayyim.com` ciphertext |
 
 ## Claude Code Chrome extension setup conflict (2026-04-17)
 

@@ -43,7 +43,7 @@ async function ivfSearchChunks(
   // 1. Embed the query text via murakumo cross-actor invoke
   let queryVec: number[] | null = null;
   try {
-    const embedResult = await sdk.pds.invoke("did:web:murakumo.gftd.ai", "embed-text", {
+    const embedResult = await sdk.pds.invoke("did:web:murakumo.etzhayyim.com", "embed-text", {
       text: queryText, model: resolveModelId("qwen3-vl-8b"),
     }) as Record<string, unknown>;
     const vec = embedResult?.embedding ?? embedResult?.vector;
@@ -177,28 +177,28 @@ const topicCoordinators: TopicCoordinator[] = [
     slug: "jpClassics",
     name: "Japanese Classical Texts",
     description: "Public domain Japanese literature from Aozora Bunko and NDL digitized collections",
-    did: `did:web:${appId}.gftd.ai:topic:jpClassics`,
+    did: `did:web:${appId}.etzhayyim.com:topic:jpClassics`,
     sources: ["aozora", "ndl", "wikisourceJa"],
   },
   {
     slug: "intlLiterature",
     name: "International Literature",
     description: "Public domain international literature from Project Gutenberg and Wikisource",
-    did: `did:web:${appId}.gftd.ai:topic:intlLiterature`,
+    did: `did:web:${appId}.etzhayyim.com:topic:intlLiterature`,
     sources: ["gutenberg", "wikisourceEn"],
   },
   {
     slug: "academic",
     name: "Academic & Reference Texts",
     description: "Academic texts, encyclopedic content, and reference material from open repositories",
-    did: `did:web:${appId}.gftd.ai:topic:academic`,
+    did: `did:web:${appId}.etzhayyim.com:topic:academic`,
     sources: ["wikisourceJa", "wikisourceEn", "ndl"],
   },
   {
     slug: "images",
     name: "Historical & Cultural Images",
     description: "Public domain images from ColBase, CODH, and NDL IIIF collections",
-    did: `did:web:${appId}.gftd.ai:topic:images`,
+    did: `did:web:${appId}.etzhayyim.com:topic:images`,
     sources: ["colbase", "codh", "ndlIiif"],
   },
 ];
@@ -516,16 +516,16 @@ function isUrlAllowed(rules: RobotsTxtRules, path: string): boolean {
 // --- Topic Classification (general web categories) ---
 
 const webTopicCoordinators: TopicCoordinator[] = [
-  { slug: "technology", name: "Technology", description: "Software, hardware, and tech industry", did: `did:web:${appId}.gftd.ai:topic:technology`, sources: [] },
-  { slug: "science", name: "Science & Research", description: "Scientific publications and research", did: `did:web:${appId}.gftd.ai:topic:science`, sources: [] },
-  { slug: "business", name: "Business & Finance", description: "Business news, finance, and economics", did: `did:web:${appId}.gftd.ai:topic:business`, sources: [] },
-  { slug: "government", name: "Government", description: "Government services and policy", did: `did:web:${appId}.gftd.ai:topic:government`, sources: [] },
-  { slug: "education", name: "Education", description: "Educational institutions and learning", did: `did:web:${appId}.gftd.ai:topic:education`, sources: [] },
-  { slug: "newsMedia", name: "News & Media", description: "News outlets and journalism", did: `did:web:${appId}.gftd.ai:topic:newsMedia`, sources: [] },
-  { slug: "health", name: "Health & Medicine", description: "Healthcare and medical information", did: `did:web:${appId}.gftd.ai:topic:health`, sources: [] },
-  { slug: "legal", name: "Legal & Regulatory", description: "Laws, regulations, and legal information", did: `did:web:${appId}.gftd.ai:topic:legal`, sources: [] },
-  { slug: "culture", name: "Culture & Arts", description: "Art, music, literature, and cultural heritage", did: `did:web:${appId}.gftd.ai:topic:culture`, sources: [] },
-  { slug: "commerce", name: "E-Commerce", description: "Online retail and product information", did: `did:web:${appId}.gftd.ai:topic:commerce`, sources: [] },
+  { slug: "technology", name: "Technology", description: "Software, hardware, and tech industry", did: `did:web:${appId}.etzhayyim.com:topic:technology`, sources: [] },
+  { slug: "science", name: "Science & Research", description: "Scientific publications and research", did: `did:web:${appId}.etzhayyim.com:topic:science`, sources: [] },
+  { slug: "business", name: "Business & Finance", description: "Business news, finance, and economics", did: `did:web:${appId}.etzhayyim.com:topic:business`, sources: [] },
+  { slug: "government", name: "Government", description: "Government services and policy", did: `did:web:${appId}.etzhayyim.com:topic:government`, sources: [] },
+  { slug: "education", name: "Education", description: "Educational institutions and learning", did: `did:web:${appId}.etzhayyim.com:topic:education`, sources: [] },
+  { slug: "newsMedia", name: "News & Media", description: "News outlets and journalism", did: `did:web:${appId}.etzhayyim.com:topic:newsMedia`, sources: [] },
+  { slug: "health", name: "Health & Medicine", description: "Healthcare and medical information", did: `did:web:${appId}.etzhayyim.com:topic:health`, sources: [] },
+  { slug: "legal", name: "Legal & Regulatory", description: "Laws, regulations, and legal information", did: `did:web:${appId}.etzhayyim.com:topic:legal`, sources: [] },
+  { slug: "culture", name: "Culture & Arts", description: "Art, music, literature, and cultural heritage", did: `did:web:${appId}.etzhayyim.com:topic:culture`, sources: [] },
+  { slug: "commerce", name: "E-Commerce", description: "Online retail and product information", did: `did:web:${appId}.etzhayyim.com:topic:commerce`, sources: [] },
 ];
 
 const allTopicCoordinators = [...topicCoordinators, ...webTopicCoordinators];
@@ -852,7 +852,7 @@ async function cmdSearchSemantic(sdk: HostSDK, payload: Uint8Array): Promise<Uin
   // 1. Embed query text via murakumo
   let queryVec: number[] | null = null;
   try {
-    const embedResult = await sdk.pds.invoke("did:web:murakumo.gftd.ai", "embed-text", {
+    const embedResult = await sdk.pds.invoke("did:web:murakumo.etzhayyim.com", "embed-text", {
       text: q, model: resolveModelId("qwen3-vl-8b"),
     }) as Record<string, unknown>;
     const vec = embedResult?.embedding ?? embedResult?.vector;
@@ -886,7 +886,7 @@ async function cmdSearchSemantic(sdk: HostSDK, payload: Uint8Array): Promise<Uin
 
   if (!skipNav) {
     try {
-      const nav = await sdk.pds.invoke("did:web:site.gftd.ai", "corpus2skill.navigate", {
+      const nav = await sdk.pds.invoke("did:web:site.etzhayyim.com", "corpus2skill.navigate", {
         queryText: q, domain, maxHops,
       }) as Record<string, unknown>;
       if (nav && Array.isArray(nav.cluster_ids) && (nav.cluster_ids as number[]).length > 0) {
@@ -1100,7 +1100,7 @@ async function cmdRegisterDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uin
       vertex_id: `at://${appId}/ai.gftd.apps.site.domain/${slug}`,
       domain: req.domain,
       slug,
-      did: did || `did:web:${appId}.gftd.ai:${slug}`,
+      did: did || `did:web:${appId}.etzhayyim.com:${slug}`,
       topics: JSON.stringify(topics),
       page_count: 0,
       sensitivity_ord: 2,
@@ -1167,7 +1167,7 @@ async function cmdCrawlDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
       vertex_id: `at://${appId}/ai.gftd.apps.site.domain/${slug}`,
       domain: req.domain,
       slug,
-      did: did || `did:web:${appId}.gftd.ai:${slug}`,
+      did: did || `did:web:${appId}.etzhayyim.com:${slug}`,
       topics: JSON.stringify(topics),
       page_count: 0,
       sensitivity_ord: 2,
@@ -1489,7 +1489,7 @@ async function cmdBulkIngestAozora(sdk: HostSDK, payload: Uint8Array): Promise<U
     created_date: nowISO().slice(0, 10),
   } as any).execute();
 
-  const topicDID = `did:web:${appId}.gftd.ai:topic:jpClassics`;
+  const topicDID = `did:web:${appId}.etzhayyim.com:topic:jpClassics`;
   await postAs(sdk, topicDID, `Aozora Bunko bulk ingest started: ${limit} works from offset ${offset}${author ? ` (author: ${author})` : ""}`);
 
   return new TextEncoder().encode(JSON.stringify({
@@ -1529,7 +1529,7 @@ async function cmdBulkIngestGutenberg(sdk: HostSDK, payload: Uint8Array): Promis
     created_date: nowISO().slice(0, 10),
   } as any).execute();
 
-  const topicDID = `did:web:${appId}.gftd.ai:topic:intlLiterature`;
+  const topicDID = `did:web:${appId}.etzhayyim.com:topic:intlLiterature`;
   await postAs(sdk, topicDID, `Gutenberg bulk ingest started: ${limit} works (${language})${subject ? ` subject: ${subject}` : ""}`);
 
   return new TextEncoder().encode(JSON.stringify({
@@ -1588,7 +1588,7 @@ async function cmdBulkIngestNDL(sdk: HostSDK, payload: Uint8Array): Promise<Uint
     created_date: nowISO().slice(0, 10),
   } as any).execute();
 
-  const topicDID = `did:web:${appId}.gftd.ai:topic:jpClassics`;
+  const topicDID = `did:web:${appId}.etzhayyim.com:topic:jpClassics`;
   await postAs(sdk, topicDID, `NDL Digital Collection bulk ingest started: ${limit} works${collection ? ` (collection: ${collection})` : ""}`);
 
   return encodeJson({
@@ -1633,7 +1633,7 @@ async function cmdFetchNdlManifest(sdk: HostSDK, payload: Uint8Array): Promise<U
     created_date: nowISO().slice(0, 10),
   } as any).execute();
 
-  const topicDID = `did:web:${appId}.gftd.ai:topic:jpClassics`;
+  const topicDID = `did:web:${appId}.etzhayyim.com:topic:jpClassics`;
   await postAs(sdk, topicDID, `NDL IIIF Manifest fetch: ${bibId}\nhttps://dl.ndl.go.jp/pid/${bibId}`);
 
   return encodeJson({ status: "jobCreated", 'jobId': jobId, bibId, 'manifestUrl': manifestUrl });
@@ -1784,7 +1784,7 @@ async function processCollectionJobResult(sdk: HostSDK, recordJson: string): Pro
   const title = str(record.title ?? "");
   const hostname = sourceUrl ? (() => { try { return new URL(sourceUrl).hostname; } catch { return ""; } })() : "";
   const slug = hostname.replace(/[^a-z0-9]/g, "-");
-  const pageDid = `did:web:${appId}.gftd.ai:${slug}`;
+  const pageDid = `did:web:${appId}.etzhayyim.com:${slug}`;
   const domainDid = pageDid;
 
   // General crawl (html format from frontier) → WET + WAT + Screenshot pipeline
@@ -2268,7 +2268,7 @@ async function processPdfResult(
 
   const hostname = (() => { try { return new URL(sourceUrl).hostname; } catch { return "pdf"; } })();
   const slug = hostname.replace(/[^a-z0-9]/g, "-");
-  const pageDid = `did:web:${appId}.gftd.ai:${slug}`;
+  const pageDid = `did:web:${appId}.etzhayyim.com:${slug}`;
   const domainDid = pageDid;
 
   // --- 1. WebP page rendering: schedule browser screenshot for each PDF page ---
@@ -2361,7 +2361,7 @@ async function processPdfResult(
  * - Per-page IIIF Image → WebP screenshot job (R2 CDN)
  * - OCR text (if present in seeAlso/rendering) → WET records
  * - Bibliographic metadata → WAT record
- * - cross-actor notify isbn.gftd.ai with book metadata
+ * - cross-actor notify isbn.etzhayyim.com with book metadata
  *
  * NDL IIIF Manifest: https://dl.ndl.go.jp/api/iiif/{bibId}/manifest
  * NDL IIIF Image:    https://dl.ndl.go.jp/api/iiif/{bibId}/R{page}/full/!1280,1656/0/default.jpg
@@ -2395,8 +2395,8 @@ async function processIiifManifestResult(
 
   const hostname = "dl.ndl.go.jp";
   const slug = `dl-ndl-go-jp${bibId ? `-${bibId}` : ""}`;
-  const pageDid = `did:web:${appId}.gftd.ai:${slug}`;
-  const domainDid = `did:web:${appId}.gftd.ai:dl-ndl-go-jp`;
+  const pageDid = `did:web:${appId}.etzhayyim.com:${slug}`;
+  const domainDid = `did:web:${appId}.etzhayyim.com:dl-ndl-go-jp`;
 
   // --- 1. Extract canvases from IIIF Manifest ---
   const sequences = (manifest.sequences ?? manifest.items ?? []) as Record<string, unknown>[];
@@ -2509,7 +2509,7 @@ async function processIiifManifestResult(
     if (topicDID) postAs(sdk, topicDID, truncateText(snippet, 280));
   }
 
-  // --- 6. Notify isbn.gftd.ai with book metadata (cross-actor) ---
+  // --- 6. Notify isbn.etzhayyim.com with book metadata (cross-actor) ---
   const isbn = metadataObj["ISBN"] ?? metadataObj["isbn"] ?? "";
   if (isbn || label) {
     const iiifPgRkey = genID("pg");
@@ -2728,8 +2728,8 @@ function cmdGenerateWET(sdk: HostSDK, payload: Uint8Array): Uint8Array {
     title: req.title ?? extractHtmlMeta(req.html).title,
     language,
     topics,
-    pageDid: `did:web:${appId}.gftd.ai:${slug}`,
-    domainDid: `did:web:${appId}.gftd.ai:${slug}`,
+    pageDid: `did:web:${appId}.etzhayyim.com:${slug}`,
+    domainDid: `did:web:${appId}.etzhayyim.com:${slug}`,
   });
 
   return encodeJson({ status: "ok", url: req.url, 'wetChunks': chunkCount, topics });
@@ -2746,8 +2746,8 @@ function cmdGenerateWAT(sdk: HostSDK, payload: Uint8Array): Uint8Array {
     statusCode: req.statusCode ?? 200,
     mimeType: req.mimeType ?? "text/html",
     httpHeaders: req.httpHeaders ?? "{}",
-    pageDid: `did:web:${appId}.gftd.ai:${slug}`,
-    domainDid: `did:web:${appId}.gftd.ai:${slug}`,
+    pageDid: `did:web:${appId}.etzhayyim.com:${slug}`,
+    domainDid: `did:web:${appId}.etzhayyim.com:${slug}`,
     wetChunkCount: 0,
   });
 
@@ -2805,7 +2805,7 @@ async function cmdSeedFromCommonCrawl(sdk: HostSDK, payload: Uint8Array): Promis
 
 /**
  * Emit a geoRecord AT record (ai.gftd.apps.site.geoRecord) for a single geo entity.
- * Received by subscriber apps (e.g. maps.gftd.ai) via handleComAtprotoSyncSubscribeReposCommit.
+ * Received by subscriber apps (e.g. maps.etzhayyim.com) via handleComAtprotoSyncSubscribeReposCommit.
  */
 async function emitGeoRecord(sdk: HostSDK, fields: {
   project: string; format: string; entityType: string; entityId: string;
@@ -3251,7 +3251,7 @@ async function cmdSeedForProject(sdk: HostSDK, payload: Uint8Array): Promise<Uin
         vertex_id: `at://${appId}/ai.gftd.apps.site.domain/${slug}`,
         domain,
         slug,
-        did: did || `did:web:${appId}.gftd.ai:${slug}`,
+        did: did || `did:web:${appId}.etzhayyim.com:${slug}`,
         topics: JSON.stringify(topics),
         page_count: 0,
         sensitivity_ord: 2,
@@ -3298,7 +3298,7 @@ async function cmdSeedForProject(sdk: HostSDK, payload: Uint8Array): Promise<Uin
   const existing = results.filter(r => r.action === "existing").length;
 
   await postAs(sdk, topicBySlug.get("technology")?.did ?? "",
-    `[SeedForProject] ${req.project}: ${seeded} domains seeded, ${existing} already crawled\ncc @${req.project}.gftd.ai`);
+    `[SeedForProject] ${req.project}: ${seeded} domains seeded, ${existing} already crawled\ncc @${req.project}.etzhayyim.com`);
 
   return encodeJson({ status: "ok", project: req.project, results, seeded, existing, 'ccIndex': ccIndex });
 }
@@ -3372,7 +3372,7 @@ async function cmdSeedGovPdfs(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
           vertex_id: `at://${appId}/ai.gftd.apps.site.domain/${slug}`,
           domain,
           slug,
-          did: `did:web:${appId}.gftd.ai:${slug}`,
+          did: `did:web:${appId}.etzhayyim.com:${slug}`,
           topics: JSON.stringify(["government", "legal"]),
           page_count: 0,
           sensitivity_ord: 2,
@@ -3420,7 +3420,7 @@ async function cmdTriggerTextEmbedding(sdk: HostSDK, payload: Uint8Array): Promi
       sdk.pds.dispatch({
         type: "invoke",
         payload: {
-          did: "did:web:murakumo.gftd.ai",
+          did: "did:web:murakumo.etzhayyim.com",
           method: "embed-text",
           params: JSON.stringify({ text: str(row.markdown), model: resolveModelId("qwen3-vl-8b"), 'wetId': str(row.id) }),
         },
@@ -3433,7 +3433,7 @@ async function cmdTriggerTextEmbedding(sdk: HostSDK, payload: Uint8Array): Promi
     sdk.pds.dispatch({
       type: "invoke",
       payload: {
-        did: "did:web:murakumo.gftd.ai",
+        did: "did:web:murakumo.etzhayyim.com",
         method: "embed-text",
         params: JSON.stringify({
           text: str(row.markdown),
@@ -3461,7 +3461,7 @@ async function cmdTriggerVisualEmbedding(sdk: HostSDK, payload: Uint8Array): Pro
     sdk.pds.dispatch({
       type: "invoke",
       payload: {
-        did: "did:web:murakumo.gftd.ai",  // Invoke target
+        did: "did:web:murakumo.etzhayyim.com",  // Invoke target
         method: "embed-visual",
         params: JSON.stringify({ 'blobRef': str(row.blobRef), 'screenshotId': str(row.id) }),
       },
@@ -3486,7 +3486,7 @@ async function cmdRegisterWebTopic(sdk: HostSDK, payload: Uint8Array): Promise<U
       vertex_id: `at://${appId}/ai.gftd.apps.site.topic/${req.slug}`,
       topic: req.slug,
       slug: req.slug,
-      did: did || `did:web:${appId}.gftd.ai:topic:${req.slug}`,
+      did: did || `did:web:${appId}.etzhayyim.com:topic:${req.slug}`,
       name: req.name,
       description: req.description ?? "",
       source_count: 0,
@@ -3850,6 +3850,7 @@ let prioritySeedsEnqueued = false;
  *  These are high-value technical documentation sites for GraphRAG knowledge base. */
 const PRIORITY_SEED_DOMAINS: { domain: string; urls: string[]; topics: string[]; priority: number }[] = [
   {
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
     domain: "docs.risingwave.com",
     urls: [
       "https://docs.risingwave.com/iceberg/internal-iceberg-tables",
@@ -3871,7 +3872,7 @@ const shinkaEnabled = true; // domain: site
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:w3bpg001.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:w3bpg001.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   // --- Priority seed: auto-enqueue high-value domains on first heartbeat ---
@@ -3904,7 +3905,7 @@ export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions
           vertex_id: `at://${appId}/ai.gftd.apps.site.domain/${slug}`,
           domain: seed.domain,
           slug,
-          did: `did:web:${appId}.gftd.ai:${slug}`,
+          did: `did:web:${appId}.etzhayyim.com:${slug}`,
           topics: JSON.stringify(seed.topics),
           page_count: 0,
           sensitivity_ord: 2,
@@ -4276,7 +4277,7 @@ async function cmdFetchSync(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arr
   try {
     const resp = await fetch(req.url, {
       headers: {
-        "User-Agent": "gftd-bot/1.0 (+https://gftd.ai/bot)",
+        "User-Agent": "gftd-bot/1.0 (+https://etzhayyim.com/bot)",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
       },
       signal: AbortSignal.timeout(10000),

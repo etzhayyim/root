@@ -1,4 +1,4 @@
-# ai-gftd-project-animeka — animeka.gftd.ai
+# ai-gftd-project-animeka — animeka.etzhayyim.com
 
 **Team-based anime creation appview** — KAMI Engine canvas + X-sheet timeline で、原作 → 脚本 → 絵コンテ → レイアウト → 原画 → 動画 → 色指定 → 仕上げ(色トレス) → 背景 → 撮影 → 編集 → 音響 の 12 工程を 1 project で並走させる。`mangaka` (manga) の anime 版 — atom は `page/panel` ではなく **`cut` (ショット)**。
 
@@ -6,7 +6,7 @@
 
 | 項目 | 値 |
 |---|---|
-| Domain | `animeka.gftd.ai` |
+| Domain | `animeka.etzhayyim.com` |
 | Runtime | **Single Worker** (TS Native) |
 | nanoid | `an1m3k4x` |
 | performerType | `service` (default sensitivity: `public`) |
@@ -19,27 +19,27 @@ Project Actor Composition (1 project = 1 convoId + N member DIDs, `60-apps/CLAUD
 
 | DID | 用途 |
 |---|---|
-| `did:web:animeka.gftd.ai` | Controller (app 本体) |
-| `did:web:animeka.gftd.ai:work:{nanoid}` | 作品 (シリーズ単位) |
-| `did:web:animeka.gftd.ai:episode:{nanoid}` | 話 (= project 単位, convoId = roomId) |
-| `did:web:animeka.gftd.ai:cut:{nanoid}` | カット (ショット単位) |
-| `did:web:animeka.gftd.ai:character:{nanoid}` | キャラクターデザイン/色モデル |
-| `did:web:animeka.gftd.ai:actor:director` | 監督 AI |
-| `did:web:animeka.gftd.ai:actor:screenwriter` | 脚本 AI |
-| `did:web:animeka.gftd.ai:actor:storyboarder` | 絵コンテ AI |
-| `did:web:animeka.gftd.ai:actor:layout` | レイアウト AI |
-| `did:web:animeka.gftd.ai:actor:keyAnimator` | 原画 AI (genga) |
-| `did:web:animeka.gftd.ai:actor:inbetweener` | 動画 AI (douga, interp) |
-| `did:web:animeka.gftd.ai:actor:colorDesigner` | 色彩設計 AI |
-| `did:web:animeka.gftd.ai:actor:finisher` | 仕上げ/色トレス AI |
-| `did:web:animeka.gftd.ai:actor:bgArtist` | 美術/背景 AI |
-| `did:web:animeka.gftd.ai:actor:compositor` | 撮影 AI (FX + camera) |
-| `did:web:animeka.gftd.ai:actor:soundDesigner` | 音響 AI |
-| `did:web:animeka.gftd.ai:actor:editor` | 編集 AI |
+| `did:web:animeka.etzhayyim.com` | Controller (app 本体) |
+| `did:web:animeka.etzhayyim.com:work:{nanoid}` | 作品 (シリーズ単位) |
+| `did:web:animeka.etzhayyim.com:episode:{nanoid}` | 話 (= project 単位, convoId = roomId) |
+| `did:web:animeka.etzhayyim.com:cut:{nanoid}` | カット (ショット単位) |
+| `did:web:animeka.etzhayyim.com:character:{nanoid}` | キャラクターデザイン/色モデル |
+| `did:web:animeka.etzhayyim.com:actor:director` | 監督 AI |
+| `did:web:animeka.etzhayyim.com:actor:screenwriter` | 脚本 AI |
+| `did:web:animeka.etzhayyim.com:actor:storyboarder` | 絵コンテ AI |
+| `did:web:animeka.etzhayyim.com:actor:layout` | レイアウト AI |
+| `did:web:animeka.etzhayyim.com:actor:keyAnimator` | 原画 AI (genga) |
+| `did:web:animeka.etzhayyim.com:actor:inbetweener` | 動画 AI (douga, interp) |
+| `did:web:animeka.etzhayyim.com:actor:colorDesigner` | 色彩設計 AI |
+| `did:web:animeka.etzhayyim.com:actor:finisher` | 仕上げ/色トレス AI |
+| `did:web:animeka.etzhayyim.com:actor:bgArtist` | 美術/背景 AI |
+| `did:web:animeka.etzhayyim.com:actor:compositor` | 撮影 AI (FX + camera) |
+| `did:web:animeka.etzhayyim.com:actor:soundDesigner` | 音響 AI |
+| `did:web:animeka.etzhayyim.com:actor:editor` | 編集 AI |
 
 全 12 actor DID は起動時に `ensureActorDids(sdk)` で一括登録 (`sdk.hostImports.comAtprotoIdentityCreate`)。AI 成果物の author DID として `actor:inbetweener` / `actor:finisher` / `actor:compositor` が record.author に設定される (`src/app.ts`)。
 
-人間参加者は自己 DID (`did:web:alice.gftd.ai` 等) で member 参加。
+人間参加者は自己 DID (`did:web:alice.etzhayyim.com` 等) で member 参加。
 
 ## Design E 3-Tier Write
 
@@ -153,15 +153,15 @@ cp kami-app-animeka-timeline/pkg/* $APP/svelte/static/timeline-v1/
 ## AT URI Deep-Link
 
 ```
-https://animeka.gftd.ai/at/an1m3k4x.gftd.ai/ai.gftd.animeka.cut/cut-ep01-003
-  ↔ at://an1m3k4x.gftd.ai/ai.gftd.animeka.cut/cut-ep01-003
+https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.cut/cut-ep01-003
+  ↔ at://an1m3k4x.etzhayyim.com/ai.gftd.animeka.cut/cut-ep01-003
 ```
 
 | Collection | Deep-link 例 |
 |---|---|
-| episode | `animeka.gftd.ai/at/an1m3k4x.gftd.ai/ai.gftd.animeka.episode/ep-s01e01` |
-| cut | `animeka.gftd.ai/at/an1m3k4x.gftd.ai/ai.gftd.animeka.cut/cut-ep01-003` |
-| retake | `animeka.gftd.ai/at/an1m3k4x.gftd.ai/ai.gftd.animeka.retake/rt-ep01-003-a#t=120f` |
+| episode | `animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.episode/ep-s01e01` |
+| cut | `animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.cut/cut-ep01-003` |
+| retake | `animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.retake/rt-ep01-003-a#t=120f` |
 
 retake comment は `#t={frame}f` fragment で frame pin。
 

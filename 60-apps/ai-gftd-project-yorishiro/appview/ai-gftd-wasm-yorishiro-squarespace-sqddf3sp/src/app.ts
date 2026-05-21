@@ -18,8 +18,8 @@ const NSID = {
 } as const;
 
 const SQ_EXPORTER_PATH = "actor:sqExporter";
-const SQ_EXPORTER_DID = "did:web:sqddf3sp.gftd.ai:actor:sqExporter";
-const CF_REGISTRAR_DID = "did:web:scndu0rf.gftd.ai:actor:cfRegistrar";
+const SQ_EXPORTER_DID = "did:web:sqddf3sp.etzhayyim.com:actor:sqExporter";
+const CF_REGISTRAR_DID = "did:web:scndu0rf.etzhayyim.com:actor:cfRegistrar";
 
 const TRANSFER_STEPS = ["disableAutoRenew", "unlock", "authCode", "dnsExport", "cfTransfer"] as const;
 type StepName = (typeof TRANSFER_STEPS)[number];
@@ -127,7 +127,7 @@ async function emitOutcome(
   cloudflareZoneId = "",
 ): Promise<void> {
   const slug = domain.replace(/\./g, "_");
-  const zoneDid = result === "success" ? `did:web:dns.gftd.ai:zone:${slug}` : undefined;
+  const zoneDid = result === "success" ? `did:web:dns.etzhayyim.com:zone:${slug}` : undefined;
   const outcomeRkey = `outcome-${Date.now().toString(36)}`;
   await sdk.pds.xrpc(NSID.putTransferOutcome, {
     rkey: outcomeRkey,

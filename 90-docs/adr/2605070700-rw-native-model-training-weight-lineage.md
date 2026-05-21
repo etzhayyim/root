@@ -49,7 +49,7 @@ In:
 
 Out:
 - 既に live な corpus export 経路 (`v_training_text` / `v_training_triple`
-  → B2 shard → HF Hub `gftdcojp/gftd-corpus`) — このまま train run の
+  → B2 shard → HF Hub `etzhayyim/gftd-corpus`) — このまま train run の
   入力として使う。再設計しない
 - Hume distillation artifact (ADR-2604300135) — `vertex_ingest_artifact`
   に既に永続化されている。本 ADR はそれを **train run の入力と teacher
@@ -89,7 +89,7 @@ RW には reference だけを持たせる (Hume と同型、ADR-2604300135 の
 | edge | semantics |
 |---|---|
 | `edge_training_consumed_dataset` | `run_id → dataset_snapshot_id` (input corpus) |
-| `edge_training_distilled_from` | `student_run_id → teacher_did_or_run_id` (LLM teacher = `did:web:llm.gftd.ai` Murakumo の logits、Hume teacher = `vertex_ingest_artifact.run_id`) |
+| `edge_training_distilled_from` | `student_run_id → teacher_did_or_run_id` (LLM teacher = `did:web:llm.etzhayyim.com` Murakumo の logits、Hume teacher = `vertex_ingest_artifact.run_id`) |
 | `edge_training_promoted_to` | `checkpoint_id → serving_alias` (`alias` = `murakumo:gemma4-e4b-it@20260507`, `runpod:9z9l2nzwugnqyu` 等)。alias 1 つに対して **active な edge は最大 1 本** (UNIQUE は RW 非対応、app-layer で enforce) |
 
 ### MV (2 streaming, < 100ms freshness)
@@ -142,7 +142,7 @@ GPU が要る handler は **`mitama-training-pool` Helm release** (新設、ADR-
 
 ## 5. Serving 側との接続 (read-only)
 
-- Murakumo (`murakumo.gftd.ai`, ADR-2604292130) と RunPod fleet は
+- Murakumo (`murakumo.etzhayyim.com`, ADR-2604292130) と RunPod fleet は
   `mv_training_active_serving WHERE alias = ?` で現役 weight URI を取得
 - `train.promote.checkpoint` の edge insert が serving alias 切替の唯一の操作
 - 旧 alias の checkpoint は B2 上に残す (rollback 可能、retention は別ポリシー)
@@ -150,7 +150,7 @@ GPU が要る handler は **`mitama-training-pool` Helm release** (新設、ADR-
 ## 6. CLI / XRPC entry
 
 - `gftd training run --kind sft --base gemma-4-e4b-it --dataset gftd-corpus@latest`
-  → bpmn-dispatcher ClusterIP `http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.training.runSft`
+  → bpmn-dispatcher ClusterIP `http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.training.runSft`
 - `gftd training promote <checkpoint_id> --alias murakumo:gemma4-e4b-it`
 - `gftd training list-runs` / `list-checkpoints` / `eval <checkpoint_id>`
 - 全 XRPC は ADR-2604282300 に従い T2 (BPMN-as-actor) で CF Worker を持たない
@@ -228,7 +228,7 @@ poll する形に変更する。
 | 項目 | 値 |
 |---|---|
 | Endpoint id | `RUNPOD_TRAINING_ENDPOINT_ID` (Secret `training-runpod-creds`) |
-| Handler image | `ghcr.io/gftdcojp/pymagatama-runpod-trainer:{tag}` (`90-docs/adr/2605010000-runpod-6000ada-unified-pod.md` の image 系統に合流可能) |
+| Handler image | `ghcr.io/etzhayyim/pymagatama-runpod-trainer:{tag}` (`90-docs/adr/2605010000-runpod-6000ada-unified-pod.md` の image 系統に合流可能) |
 | Handler entry | `runpod.serverless.start({"handler": handler})` — `handler(event)` が `event["input"]` (kind / runId / baseModel / datasetSnapshotId / hyperparams / teacherLabelArtifactRunId) を受けて training を実行 |
 | 重みアップロード | handler 内で B2 PUT (`B2_*` Secret 同じものを RunPod env に注入) |
 | RW write | handler 内で psycopg + Hyperdrive 経由で `vertex_training_checkpoint` INSERT (RW_URL を Secret から RunPod env に注入) |
@@ -241,7 +241,7 @@ poll する形に変更する。
 
 ```
 gftd training run --kind sft ...
-  ↓ atproto.gftd.ai PDS
+  ↓ atproto.etzhayyim.com PDS
   ↓ bpmn-dispatcher (K8s ClusterIP)
   ↓ Zeebe service task → mitama-training-pool worker
 [CPU pod]
@@ -270,7 +270,7 @@ gftd training run --kind sft ...
 
 ## Follow-up
 
-1. `ghcr.io/gftdcojp/pymagatama-runpod-trainer` image を別 Dockerfile で build
+1. `ghcr.io/etzhayyim/pymagatama-runpod-trainer` image を別 Dockerfile で build
    (handler.py + runpod-python + transformers + peft + trl + accelerate +
    torch CUDA wheel)。CPU pool image (`pymagatama:0.3.78+`) からは peft /
    accelerate を削除して image を軽くする

@@ -1,12 +1,12 @@
 # ai-gftd-project-kaigo — 介護 Well-Becoming
 
-**kaigo.gftd.ai** — 公的介護保険に依存しない相互ケア Well-Becoming プラットフォーム。
+**kaigo.etzhayyim.com** — 公的介護保険に依存しない相互ケア Well-Becoming プラットフォーム。
 
 ## Architecture
 
 - **nanoid**: `kg8r2m5n`
 - **performerType**: `service`
-- **DID**: `did:web:kg8r2m5n.gftd.ai` (yata App + Profile 登録済み)
+- **DID**: `did:web:kg8r2m5n.etzhayyim.com` (yata App + Profile 登録済み)
 - **uiType**: `redirect` (zero frontend, Protocol Canvas card)
 - **LLM**: Murakumo Opus 4.6 (`claude-opus-4-6`)
 - **Pattern**: Single Worker + multi-DID + W Protocol Event Stream + Social Evolution heartbeat
@@ -26,13 +26,13 @@ kaigo WB = 「できること・なりたいこと」を育てる (能動)。
 
 | Agent | DID path | 役割 |
 |---|---|---|
-| capability | `did:web:kaigo.gftd.ai:capability` | 能力マップ (できること・教えられること) |
-| mutual_care | `did:web:kaigo.gftd.ai:mutual_care` | 双方向ケア交換記録 |
-| time_bank | `did:web:kaigo.gftd.ai:time_bank` | 時間銀行 (非貨幣経済) |
-| circle | `did:web:kaigo.gftd.ai:circle` | ケアサークル (近隣互助 5-8人) |
-| vitality | `did:web:kaigo.gftd.ai:vitality` | バイタリティ 3軸 (身体/認知/社会) |
-| mentorship | `did:web:kaigo.gftd.ai:mentorship` | 知恵伝承 + Opus 4.6 アーカイブ |
-| journey | `did:web:kaigo.gftd.ai:journey` | ライフジャーニー (成長物語) |
+| capability | `did:web:kaigo.etzhayyim.com:capability` | 能力マップ (できること・教えられること) |
+| mutual_care | `did:web:kaigo.etzhayyim.com:mutual_care` | 双方向ケア交換記録 |
+| time_bank | `did:web:kaigo.etzhayyim.com:time_bank` | 時間銀行 (非貨幣経済) |
+| circle | `did:web:kaigo.etzhayyim.com:circle` | ケアサークル (近隣互助 5-8人) |
+| vitality | `did:web:kaigo.etzhayyim.com:vitality` | バイタリティ 3軸 (身体/認知/社会) |
+| mentorship | `did:web:kaigo.etzhayyim.com:mentorship` | 知恵伝承 + Opus 4.6 アーカイブ |
+| journey | `did:web:kaigo.etzhayyim.com:journey` | ライフジャーニー (成長物語) |
 
 ## Credit System
 
@@ -53,8 +53,8 @@ joucho 情緒 cadence heartbeat (`resolveHeartbeatCadence`)。joucho 5 軸 mood-
 
 | Source | DID | License | Description |
 |---|---|---|---|
-| WAM NET | `did:web:kaigo.gftd.ai:source:wam` | public | Ministry of Health, Labour and Welfare care service information |
-| OpenStreetMap | `did:web:kaigo.gftd.ai:source:osm` | ODbL | `amenity=nursing_home` care facility data |
+| WAM NET | `did:web:kaigo.etzhayyim.com:source:wam` | public | Ministry of Health, Labour and Welfare care service information |
+| OpenStreetMap | `did:web:kaigo.etzhayyim.com:source:osm` | ODbL | `amenity=nursing_home` care facility data |
 
 ## Data Model: `care_facility`
 

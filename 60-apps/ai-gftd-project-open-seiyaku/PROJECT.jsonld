@@ -8,7 +8,7 @@
   "applicationCategory": "BusinessApplication",
   "description": "Open-source BPMN-as-actor platform for pharmaceutical manufacturing batch workflows. Models confidential batch records, QA release, deviation/amendment handling, and retention purge using shared graph + LangServer primitives.",
   "license": "https://www.apache.org/licenses/LICENSE-2.0",
-  "codeRepository": "https://github.com/gftdcojp/ai-gftd-project-open-seiyaku",
+  "codeRepository": "https://github.com/etzhayyim/ai-gftd-project-open-seiyaku",
   "isBasedOn": [
     "https://www.omg.org/spec/BPMN/2.0/",
     "https://atproto.com/"

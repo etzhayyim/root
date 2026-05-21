@@ -1,15 +1,15 @@
 {
-  "@context": "https://gftd.ai/ld/magatama/v1",
+  "@context": "https://etzhayyim.com/ld/magatama/v1",
   "name": "ai-gftd-project-ses",
   "nanoid": "s3s4nk3n",
   "displayName": "SES案件",
   "description": "SES (システムエンジニアリングサービス) の案件・状況を email / 手動 ingest → LLM 抽出 → graph 化する業務 pipeline。",
-  "did": "did:web:ses.gftd.ai",
+  "did": "did:web:ses.etzhayyim.com",
   "tier": "T3",
   "uiType": "none",
   "routes": [
     {
-      "host": "ses.gftd.ai",
+      "host": "ses.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }
@@ -18,9 +18,9 @@
   "atStandard": false,
   "nsidPrefixes": ["ai.gftd.apps.ses"],
   "backendDependencies": {
-    "atproto": "https://atproto.gftd.ai",
-    "authn": "https://authn.gftd.ai",
-    "bpmnDispatcher": "https://dispatcher.gftd.ai",
+    "atproto": "https://atproto.etzhayyim.com",
+    "authn": "https://authn.etzhayyim.com",
+    "bpmnDispatcher": "https://dispatcher.etzhayyim.com",
     "langgraphServer": "in-cluster: ses-langgraph.mitama-udf.svc.cluster.local:8000"
   },
   "profile": {

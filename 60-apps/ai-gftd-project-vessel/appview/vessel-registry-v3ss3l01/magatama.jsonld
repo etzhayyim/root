@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:v3ss3l01.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:v3ss3l01.etzhayyim.com",
   "component": {
     "path": "/wasm/component.wasm"
   },
@@ -34,7 +34,7 @@
       "maritime-intelligence"
     ],
     "description": "Vessel Registry & AIS Tracking — ship registry, real-time position tracking, voyage management, owner-vessel-port-satellite chain intelligence",
-    "displayName": "Vessel Registry (vessel.gftd.ai)",
+    "displayName": "Vessel Registry (vessel.etzhayyim.com)",
     "isBot": true,
     "operator": "gftd.co.jp"
   },
@@ -47,7 +47,7 @@
   },
   "routes": [
     {
-      "host": "v3ss3l01.gftd.ai",
+      "host": "v3ss3l01.etzhayyim.com",
       "paths": [
         "/"
       ],

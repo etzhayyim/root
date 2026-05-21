@@ -279,4 +279,4 @@ anatman (one cannot deny what was recorded).
 - `60-apps/ai-gftd-project-karma/contracts/karma-anchor/src/RebirthVerifier.sol`
 - `60-apps/ai-gftd-project-karma/circuits/rebirth-non-linkability/circuit.circom`
 - `deps.toml [[migrations]] karma-edge-primary-bringup-phase-k0`
-- `CLAUDE.md` Recent Completion: karma.gftd.ai (Phase K0 / K2 / K3)
+- `CLAUDE.md` Recent Completion: karma.etzhayyim.com (Phase K0 / K2 / K3)

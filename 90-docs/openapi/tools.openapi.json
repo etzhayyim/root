@@ -443,7 +443,7 @@
                 "properties": {
                   "repo": {
                     "type": "string",
-                    "description": "Repo DID (e.g. did:web:shosha.gftd.ai)"
+                    "description": "Repo DID (e.g. did:web:shosha.etzhayyim.com)"
                   },
                   "collection": {
                     "type": "string",

@@ -3,7 +3,7 @@
 **Status**: `[DESIGN]`
 **Date**: 2026-03-27
 **Author**: AI Agent
-**Domain**: celler.gftd.ai
+**Domain**: celler.etzhayyim.com
 
 ## 1. Problem Statement
 
@@ -160,7 +160,7 @@ Encryption (2 layers):
 
 #### Layer 4: Telephony
 
-DID-based identity: `did:web:celler.gftd.ai:{user_path}` (電話番号不要)。
+DID-based identity: `did:web:celler.etzhayyim.com:{user_path}` (電話番号不要)。
 
 Call routing priority:
 1. Local mesh (WiFi Direct range) — direct P2P, zero server
@@ -186,7 +186,7 @@ Telnyx API が国別の番号体系の違いを吸収。
 
 User registration flow:
 ```
-1. Sign up → DID: did:web:celler.gftd.ai:{user}
+1. Sign up → DID: did:web:celler.etzhayyim.com:{user}
 2. Country detect (IP/GPS/manual)
 3. Telnyx API: provision local number
 4. Bind: DID ↔ E.164
@@ -309,7 +309,7 @@ Package: `gftd:celler@1.0.0`
 
 ## 7. AI Agent Integration
 
-Each `:Cell` gets a path-based DID with AI agent: `did:web:celler.gftd.ai:cell:{name}`
+Each `:Cell` gets a path-based DID with AI agent: `did:web:celler.etzhayyim.com:cell:{name}`
 
 | capability | method | latency |
 |---|---|---|
@@ -405,7 +405,7 @@ Signal Protocol E2E のためサーバー側でのコンテンツ復号は不可
 - Per-cell AI agent (Murakumo integration)
 - Real-time translation (STT → LLM → TTS)
 - Voicemail-to-text, spam detection
-- Network health dashboard (maps.gftd.ai integration)
+- Network health dashboard (maps.etzhayyim.com integration)
 - Multi-cell handoff
 - 080 番号 (MVNE 契約 + 電気通信事業登録)
 - iOS companion (WebRTC only mode)

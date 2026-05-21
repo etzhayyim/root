@@ -32,12 +32,12 @@ Per ADR-2605202800:
 
 ## Pattern translation
 
-| Vendor (`tsukuru.gftd.ai`) | etzhayyim (`tsukuru.etzhayyim.com`) |
+| Vendor (`tsukuru.etzhayyim.com`) | etzhayyim (`tsukuru.etzhayyim.com`) |
 |---|---|
 | `createKyselyDb().insertInto("vertex_tsukuru_*").values({...})` | `e.write({ collection, record })` |
 | `recordWrite(sdk, "ai.gftd.apps.tsukuru.*", {...})` | `e.write({ collection, record })` |
-| `invoke(sdk, "did:web:stripe.gftd.ai", "chargeCustomer", {...})` | `escrow.openIntent(e, {...})` (no on-chain tx) |
-| `invoke(sdk, "did:web:stripe.gftd.ai", "cancelCard", {...})` | `escrow.refundIntent(e, {...})` (no on-chain tx) |
+| `invoke(sdk, "did:web:stripe.etzhayyim.com", "chargeCustomer", {...})` | `escrow.openIntent(e, {...})` (no on-chain tx) |
+| `invoke(sdk, "did:web:stripe.etzhayyim.com", "cancelCard", {...})` | `escrow.refundIntent(e, {...})` (no on-chain tx) |
 | `payment.method === "stripe_issuing"` + `stripeCardId` | `payment.method === "escrow_intent"` + escrow record URI |
 
 ## Escrow flow (deferred-payment intent — full loop)
@@ -161,7 +161,7 @@ const list = await getInspections(e, {
 
 **ISN'T**:
 - A deployed Worker — there's no XRPC handler glue yet. Wiring lands when the etzhayyim Worker framework matures (see open-isco/rw-free for the seed.ts / query.ts CLI pattern as the current usage model).
-- A production replacement for `tsukuru.gftd.ai` — vendor production runs with Stripe + RW until Phase 5 cutover (per ADR-2605202800 timeline 6-9 months).
+- A production replacement for `tsukuru.etzhayyim.com` — vendor production runs with Stripe + RW until Phase 5 cutover (per ADR-2605202800 timeline 6-9 months).
 - The full 46-command parity — 44 commands remain to be ported (Phase 2 follow-ups).
 - On-chain escrow — Phase 2 is record-only intent; migration to Safe 2-of-3 lands when SDK v0.2 ships `escrowOpen()` / `escrowRelease()`.
 

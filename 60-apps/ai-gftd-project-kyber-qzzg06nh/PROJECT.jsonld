@@ -2,18 +2,18 @@
   "@context": {
     "prov": "http://www.w3.org/ns/prov#",
     "dct": "http://purl.org/dc/terms/",
-    "gftd": "https://gftd.ai/schema#",
+    "gftd": "https://etzhayyim.com/schema#",
     "name": "dct:title",
     "description": "dct:description",
     "status": "gftd:status"
   },
-  "@id": "https://gftd.ai/projects/ai-gftd-project-kyber-qzzg06nh",
+  "@id": "https://etzhayyim.com/projects/ai-gftd-project-kyber-qzzg06nh",
   "@type": "prov:Entity",
   "name": "Kyber — gftd.co.jp Business Portal",
-  "description": "Enterprise portal integrating 34 specialized actors via ConnectRPC and legacy runtime. Accessible at kyber.gftd.ai.",
+  "description": "Enterprise portal integrating 34 specialized actors via ConnectRPC and legacy runtime. Accessible at kyber.etzhayyim.com.",
   "gftd:category": "ai-gftd-project-www",
   "gftd:appId": "kyber",
-  "gftd:domain": "kyber.gftd.ai",
+  "gftd:domain": "kyber.etzhayyim.com",
   "status": "In Progress",
   "prov:wasGeneratedBy": {
     "@type": "prov:Activity",
@@ -64,7 +64,7 @@
     {
       "name": "Design System Actor Registration",
       "status": "Completed",
-      "description": "Registered ai-gftd-performer-sys-design-system-nfv0g01u as a private repository under gftdcojp organization."
+      "description": "Registered ai-gftd-performer-sys-design-system-nfv0g01u as a private repository under etzhayyim organization."
     },
     {
       "name": "Design System Svelte Refactor",
@@ -159,12 +159,12 @@
     {
       "name": "SES HRSE Integration (Bridge)",
       "status": "Completed",
-      "description": "Integrated SES (System Engineering Service) capabilities from ai-gftd-hrse into gftdcojp SvelteKit app. Generated ConnectRPC TS clients for all HRSE services, implemented client-side bridge, and created Svelte 5 UI components for SES Dashboard, BP Management, and Engineer Inventory."
+      "description": "Integrated SES (System Engineering Service) capabilities from ai-gftd-hrse into etzhayyim SvelteKit app. Generated ConnectRPC TS clients for all HRSE services, implemented client-side bridge, and created Svelte 5 UI components for SES Dashboard, BP Management, and Engineer Inventory."
     },
     {
       "name": "SES Email Automation & Deployment",
       "status": "Completed",
-      "description": "Implemented end-to-end SES email automation via Resend and OpenAI. Deployed Go backend to [slug].gftd.ai with Temporal Schedules for periodic synchronization. Integrated Person/Party Entity Services for cross-platform data consistency."
+      "description": "Implemented end-to-end SES email automation via Resend and OpenAI. Deployed Go backend to [slug].etzhayyim.com with Temporal Schedules for periodic synchronization. Integrated Person/Party Entity Services for cross-platform data consistency."
     },
     {
       "name": "Target Lead Registration & Sales Process Template",
@@ -203,11 +203,11 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/",
+            "gftd": "https://etzhayyim.com/schemas/",
             "id": "@id",
             "type": "@type"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-apps-gftdcojp/activities/kyber-settlement",
+          "id": "https://etzhayyim.com/projects/etzhayyim-root/activities/kyber-settlement",
           "type": "dodaf:OperationalActivity",
           "dct:title": "Autonomous ERP Settlement Activities (O2C & P2P)",
           "dct:description": "Fully automated settlement and payment cycles for the 1 Trillion JPY Autonomous ERP system.",
@@ -266,11 +266,11 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/",
+            "gftd": "https://etzhayyim.com/schemas/",
             "id": "@id",
             "type": "@type"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-apps-gftdcojp/strategy/kyber-settlement",
+          "id": "https://etzhayyim.com/projects/etzhayyim-root/strategy/kyber-settlement",
           "type": "dodaf:Strategy",
           "dct:title": "Project Kyber: Autonomous Settlement & Payment Plan",
           "dct:description": "Strategic plan to automate 100% of financial settlement, invoicing, and payments globally to achieve 1 Trillion JPY revenue with zero backoffice.",
@@ -319,220 +319,220 @@
           },
           "@graph": [
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/recruitment-planning-sourcing",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/recruitment-planning-sourcing",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Plan for and Source Workforce (APQC 7.1.1)",
               "dct:description": "Define workforce requirements, post jobs, and source candidates through internal and external channels.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-apqc-7-1-1-plan-source"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-apqc-7-1-1-plan-source"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/recruitment-screening-selection",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/recruitment-screening-selection",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Screen and Select Employees (APQC 7.1.2)",
               "dct:description": "Review resumes, conduct interviews, and manage psychometric assessments.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-apqc-7-1-2-screen-select"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-apqc-7-1-2-screen-select"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/recruitment-selection-process",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/recruitment-selection-process",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Recruitment Selection Process (APQC 7.1)",
               "dct:description": "Overall recruitment selection flow managed by granular performers.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-apqc-7-1-1-plan-source",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-apqc-7-1-2-screen-select"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-apqc-7-1-1-plan-source",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-apqc-7-1-2-screen-select"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/employment-contract-management",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/employment-contract-management",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Employment Contract Management (APQC 11.0)",
               "dct:description": "Generation and signing of employment contracts, NDAs, and pledges. Managed by APQC 11.0 legal performer.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-apqc-11-0-legal"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-apqc-11-0-legal"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/social-protection-onboarding",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/social-protection-onboarding",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Social Protection Onboarding (COFOG 10)",
               "dct:description": "Government-related onboarding procedures including social insurance, labor insurance, and foreign labor documentation. Managed by COFOG 10 performer.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-cofog-10-social-protection"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-cofog-10-social-protection"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/system-development-qa-process",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/system-development-qa-process",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "System Development QA Process",
               "dct:description": "The standardized process for quality assurance. Testers use the Systems Toolbar to capture issues and link them to GitHub.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-org-gftd-sys-toolbar"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-org-gftd-sys-toolbar"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/reconcile-business-loop",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/reconcile-business-loop",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Continuous Business State Reconciliation (APQC 1.3.2)",
               "dct:description": "1分間隔でビジネス目標、リソース状態、Actorの可用性を監視し、スケジューリングまたは不足Actorの実装を自律的に実行する。",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-apqc-1-3-2-reconcile-business"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-apqc-1-3-2-reconcile-business"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/market-expansion-workflow",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/market-expansion-workflow",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Global Market Expansion Workflow",
               "dct:description": "市場分析から事業計画策定、資料生成、整合性確認までを統合したワークフロー。",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-psn-isco-2422-intelligence-analyst",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-apqc-1-1-intent-intelligence-v2-3rs79cvd",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-apqc-1-1-business-plan-reporting",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-cpc-842-openrouter-actor",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-cpc-842-runwayml-actor"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-psn-isco-2422-intelligence-analyst",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-apqc-1-1-intent-intelligence-v2-3rs79cvd",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-apqc-1-1-business-plan-reporting",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-cpc-842-openrouter-actor",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-cpc-842-runwayml-actor"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/corporate-governance-orchestration",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/corporate-governance-orchestration",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Corporate Governance & Orchestration",
               "dct:description": "Orchestrates legal review, director approval, and contract execution. (APQC 12.1)",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-corporate-governance-cg6v7w8x"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-corporate-governance-cg6v7w8x"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/it-governance-framework-management",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/it-governance-framework-management",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "IT Governance Framework Management",
               "dct:description": "Manage COBIT maturity, policies, risks, and controls. (EDM/APO/MEA)",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-org-governance-79qmuevw"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-org-governance-79qmuevw"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/it-security-compliance-monitoring",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/it-security-compliance-monitoring",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "IT Security Compliance Monitoring",
               "dct:description": "Log aggregation and device control policy enforcement. (APQC 8.2)",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-8-2-it-security-governance-mdte6fsu"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-8-2-it-security-governance-mdte6fsu"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/marketing-automation",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/marketing-automation",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Marketing Automation (APQC 3.5)",
               "dct:description": "Newsletter distribution, social media posting (X), and advertising campaign management.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-2-0-sales-marketing-core-hvj99nsz",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-2-0-external-business-platforms"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-2-0-sales-marketing-core-hvj99nsz",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-2-0-external-business-platforms"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/hr-attendance-expense-management",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/hr-attendance-expense-management",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "HR Attendance & Expense Management (APQC 7.4.2 / 9.3.2)",
               "dct:description": "Monitoring attendance errors, adjusting schedules, and verifying expense claims.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-7-0-labor-affairs-s32ftef3",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-svc-accounting-3-expense-smgqjr8s",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-7-4-social-insurance-consultant-qm42rxy3"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-7-0-labor-affairs-s32ftef3",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-svc-accounting-3-expense-smgqjr8s",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-7-4-social-insurance-consultant-qm42rxy3"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/customer-procedure-automation",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/customer-procedure-automation",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Customer Procedure Automation (APQC 6.0)",
               "dct:description": "Automating crypto victim support, surveys, contract procedures, and novelty distribution.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-4-2-activity-threads-nexus-j4fcnqbj",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-6-0-customer-service-tjcr9py9",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-6-2-customer-survey-m5fb69qj"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-4-2-activity-threads-nexus-j4fcnqbj",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-6-0-customer-service-tjcr9py9",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-6-2-customer-survey-m5fb69qj"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/foreign-lawyer-application-assistance",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/foreign-lawyer-application-assistance",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Assistance for Registered Foreign Lawyer Application",
               "dct:description": "Reviewing application summaries, identifying required documents for internal stakeholders, and verifying applicant materials.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-11-0-foreign-legal-specialist"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-11-0-foreign-legal-specialist"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/hrse-ses-operations",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/hrse-ses-operations",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "HRSE (SES) Operations",
               "dct:description": "Managing communication with SES companies, talent matching, interviewing, and proposal creation.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-7-1-ses-operations-mgmt"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-7-1-ses-operations-mgmt"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/certification-ipa-application",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/certification-ipa-application",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Certification & IPA Application Management",
               "dct:description": "Managing communication with certification bodies and preparing documentation for IPA filings.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-certification-ipa-compliance"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-1-certification-ipa-compliance"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/insurance-management",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/insurance-management",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Insurance Management & Contracting",
               "dct:description": "Quoting and contracting for product-attached insurance and other corporate insurance needs.",
               "performedBy": []
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/crypto-victim-consultation-billing",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/crypto-victim-consultation-billing",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Crypto Victim Consultation & Billing",
               "dct:description": "Sending required documents to victims, creating invoices, and managing the billing process.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-11-0-legal-bmde7ez5",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-svc-accounting-financial-account-hpwgt3hk"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-11-0-legal-bmde7ez5",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-svc-accounting-financial-account-hpwgt3hk"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/cs-accounting-reporting",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/cs-accounting-reporting",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "CS Accounting Reporting & Evidence Storage",
               "dct:description": "Reporting CS department invoices to accounting and storing evidence in the designated repository.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-svc-accounting-financial-account-hpwgt3hk"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-svc-accounting-financial-account-hpwgt3hk"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/representative-expense-claim",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/representative-expense-claim",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Representative's Out-of-pocket Expense Claim",
               "dct:description": "Processing expense claims for the company representative, including verification and reimbursement.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-svc-accounting-3-expense-smgqjr8s"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gftd-svc-accounting-3-expense-smgqjr8s"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/legal-bpo-orchestration",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/legal-bpo-orchestration",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Legal BPO Orchestration",
               "dct:description": "Autonomous management of contract review, compliance monitoring, and legal risk response via Temporal.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-11-0-legal-bmde7ez5",
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-lf-temporal"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-11-0-legal-bmde7ez5",
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-lf-temporal"
               ]
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/activities/stripe-payment-subscription-management",
+              "@id": "https://etzhayyim.etzhayyim.com/activities/stripe-payment-subscription-management",
               "@type": "dodaf:OperationalActivity",
               "dct:title": "Stripe Payments & Subscription Management (APQC 4.1.4)",
               "dct:description": "Integration of Stripe for products, checkout, transactions, and customer management, mapped to application resource entities.",
               "performedBy": [
-                "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-sys-gftd-app-gftdcojp-qzzg06nh"
+                "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-sys-gftd-app-etzhayyim-qzzg06nh"
               ]
             }
           ]
@@ -545,7 +545,7 @@
             "@version": 1.1,
             "dct": "http://purl.org/dc/terms/",
             "dodaf": "http://purl.org/dodaf#",
-            "gftd": "https://gftd.ai/schema#",
+            "gftd": "https://etzhayyim.com/schema#",
             "id": "@id",
             "type": "@type",
             "alias": "gftd:alias",
@@ -562,7 +562,7 @@
           },
           "@graph": [
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/finance-accounting",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/finance-accounting",
               "@type": "dodaf:Capability",
               "alias": "cap:finance",
               "dct:title": "Financial Accounting Capability",
@@ -571,7 +571,7 @@
               "activity": "apqc:12.1"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/finance-voucher",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/finance-voucher",
               "@type": "dodaf:Capability",
               "alias": "cap:finance:voucher",
               "dct:title": "Voucher & Journal Entry Capability",
@@ -580,7 +580,7 @@
               "activity": "apqc:9.2.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/finance-payable",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/finance-payable",
               "@type": "dodaf:Capability",
               "alias": "cap:finance:payable",
               "dct:title": "Accounts Payable & Invoice Capability",
@@ -589,7 +589,7 @@
               "activity": "apqc:9.3.1"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/finance-budget-hierarchy",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/finance-budget-hierarchy",
               "@type": "dodaf:Capability",
               "alias": "cap:finance:budget",
               "dct:title": "Budget Management Hierarchy Capability",
@@ -598,7 +598,7 @@
               "activity": "apqc:9.1"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/finance-fixed-asset",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/finance-fixed-asset",
               "@type": "dodaf:Capability",
               "alias": "cap:finance:fixed-asset",
               "dct:title": "Fixed Asset Accounting Capability",
@@ -607,7 +607,7 @@
               "activity": "apqc:9.4.4"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/finance-cash-management",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/finance-cash-management",
               "@type": "dodaf:Capability",
               "alias": "cap:finance:cash",
               "dct:title": "Cash & Treasury Management Capability",
@@ -616,7 +616,7 @@
               "activity": "apqc:9.5"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/finance-stripe-payment",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/finance-stripe-payment",
               "@type": "dodaf:Capability",
               "alias": "cap:finance:global_payment",
               "dct:title": "Stripe Global Payment Gateway Capability",
@@ -625,7 +625,7 @@
               "activity": "apqc:9.4.1"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/talent-acquisition-labor",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/talent-acquisition-labor",
               "@type": "dodaf:Capability",
               "alias": "cap:talent",
               "dct:title": "Talent Acquisition and Labor Affairs Capability",
@@ -634,7 +634,7 @@
               "activity": "apqc:7.0"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/legal-compliance",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/legal-compliance",
               "@type": "dodaf:Capability",
               "alias": "cap:legal",
               "dct:title": "Legal Compliance and Contract Management Capability",
@@ -643,7 +643,7 @@
               "activity": "apqc:11.0"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/legal-judgement-discovery",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/legal-judgement-discovery",
               "@type": "dodaf:Capability",
               "alias": "cap:legal:discovery",
               "dct:title": "Judgement Execution & Discovery Capability",
@@ -652,7 +652,7 @@
               "activity": "apqc:11.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/ops-production-storyboard",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/ops-production-storyboard",
               "@type": "dodaf:Capability",
               "alias": "cap:ops",
               "dct:title": "Production Operations and Storyboard Capability",
@@ -661,7 +661,7 @@
               "activity": "apqc:4.0"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/tech-web-analytics",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/tech-web-analytics",
               "@type": "dodaf:Capability",
               "alias": "cap:tech:analytics",
               "dct:title": "Web Analytics & Traffic Visualization Capability",
@@ -670,7 +670,7 @@
               "activity": "apqc:8.2.1"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/tech-iam-security",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/tech-iam-security",
               "@type": "dodaf:Capability",
               "alias": "cap:tech",
               "dct:title": "IT Governance and IAM Security Capability",
@@ -679,7 +679,7 @@
               "activity": "apqc:8.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/agent-collaboration-threads",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/agent-collaboration-threads",
               "@type": "dodaf:Capability",
               "alias": "cap:agent",
               "dct:title": "AI Agent Collaboration and Threads Capability",
@@ -688,7 +688,7 @@
               "activity": "apqc:4.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/business-reconciliation",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/business-reconciliation",
               "@type": "dodaf:Capability",
               "alias": "cap:reconcile",
               "dct:title": "Business Reconciliation & Autonomous Scaling Capability",
@@ -698,7 +698,7 @@
               "activity": "apqc:1.3.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/gov-project-management",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/gov-project-management",
               "@type": "dodaf:Capability",
               "alias": "cap:gov",
               "dct:title": "Project Governance and PRINCE2 Capability",
@@ -707,7 +707,7 @@
               "activity": "apqc:12.6.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/gov-it-cobit",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/gov-it-cobit",
               "@type": "dodaf:Capability",
               "alias": "cap:gov:it",
               "dct:title": "IT Governance and COBIT Framework Capability",
@@ -716,7 +716,7 @@
               "activity": "apqc:12.3"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/gov-security-apqc82",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/gov-security-apqc82",
               "@type": "dodaf:Capability",
               "alias": "cap:gov:security",
               "dct:title": "IT Security Governance Capability (APQC 8.2)",
@@ -725,7 +725,7 @@
               "activity": "apqc:8.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/gov-corporate-apqc121",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/gov-corporate-apqc121",
               "@type": "dodaf:Capability",
               "alias": "cap:gov:corporate",
               "dct:title": "Corporate Governance & Orchestration Capability (APQC 12.1)",
@@ -734,7 +734,7 @@
               "activity": "apqc:12.1"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/gov-sprint-planner",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/gov-sprint-planner",
               "@type": "dodaf:Capability",
               "alias": "cap:gov:sprint",
               "dct:title": "Agile Sprint Planning Capability",
@@ -743,7 +743,7 @@
               "activity": "apqc:10.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/resources-fixtures",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/resources-fixtures",
               "@type": "dodaf:Capability",
               "alias": "cap:resources:fixtures",
               "dct:title": "Fixture Management Capability",
@@ -752,7 +752,7 @@
               "activity": "apqc:9.4.4"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/gov-agency-integration",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/gov-agency-integration",
               "@type": "dodaf:Capability",
               "alias": "cap:gov:agency",
               "dct:title": "Government Agency Procedure Integration Capability",
@@ -761,7 +761,7 @@
               "activity": "cofog:10.0"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/sales-crm",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/sales-crm",
               "@type": "dodaf:Capability",
               "alias": "cap:sales",
               "dct:title": "Sales and CRM Capability",
@@ -770,7 +770,7 @@
               "activity": "apqc:3.0"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/sales-material-insight",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/sales-material-insight",
               "@type": "dodaf:Capability",
               "alias": "cap:sales:material",
               "dct:title": "Sales Material Insight & Lead Capture Capability",
@@ -779,7 +779,7 @@
               "activity": "apqc:3.7.1"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/marketing-automation",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/marketing-automation",
               "@type": "dodaf:Capability",
               "alias": "cap:marketing",
               "dct:title": "Marketing Automation Capability",
@@ -788,7 +788,7 @@
               "activity": "apqc:3.5"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/hr-operations-automation",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/hr-operations-automation",
               "@type": "dodaf:Capability",
               "alias": "cap:hr:ops",
               "dct:title": "HR Operations & Attendance Automation Capability",
@@ -797,7 +797,7 @@
               "activity": "apqc:7.4.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/customer-service-automation",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/customer-service-automation",
               "@type": "dodaf:Capability",
               "alias": "cap:customer:ops",
               "dct:title": "Customer Service & Procedure Automation Capability",
@@ -806,7 +806,7 @@
               "activity": "apqc:6.0"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/admin-secretary-automation",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/admin-secretary-automation",
               "@type": "dodaf:Capability",
               "alias": "cap:admin:ops",
               "dct:title": "Administrative & Secretarial Automation Capability",
@@ -815,7 +815,7 @@
               "activity": "apqc:12.1"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/legal-foreign-lawyer-assistance",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/legal-foreign-lawyer-assistance",
               "@type": "dodaf:Capability",
               "alias": "cap:legal:foreign",
               "dct:title": "Foreign Lawyer Application Assistance Capability",
@@ -824,7 +824,7 @@
               "activity": "apqc:11.0"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/legal-crypto-fraud-billing",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/legal-crypto-fraud-billing",
               "@type": "dodaf:Capability",
               "alias": "cap:legal:crypto:billing",
               "dct:title": "Crypto Victim Support Billing Capability",
@@ -833,7 +833,7 @@
               "activity": "apqc:9.2.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/hr-ses-operations",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/hr-ses-operations",
               "@type": "dodaf:Capability",
               "alias": "cap:hr:ses",
               "dct:title": "HRSE (SES) Operations Capability",
@@ -842,7 +842,7 @@
               "activity": "apqc:7.0"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/cs-accounting-reporting",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/cs-accounting-reporting",
               "@type": "dodaf:Capability",
               "alias": "cap:cs:accounting",
               "dct:title": "CS Accounting Reporting Capability",
@@ -851,7 +851,7 @@
               "activity": "apqc:9.2.2"
             },
             {
-              "@id": "https://gftdcojp.gftd.ai/capabilities/representative-expense-claim",
+              "@id": "https://etzhayyim.etzhayyim.com/capabilities/representative-expense-claim",
               "@type": "dodaf:Capability",
               "alias": "cap:expense:representative",
               "dct:title": "Representative Expense Claim Capability",
@@ -866,14 +866,14 @@
                   "targetType": "route",
                   "targetId": "/",
                   "capabilities": [
-                    "https://gftdcojp.gftd.ai/capabilities/agent-collaboration-threads"
+                    "https://etzhayyim.etzhayyim.com/capabilities/agent-collaboration-threads"
                   ]
                 },
                 {
                   "targetType": "route",
                   "targetId": "/threads",
                   "capabilities": [
-                    "https://gftdcojp.gftd.ai/capabilities/agent-collaboration-threads"
+                    "https://etzhayyim.etzhayyim.com/capabilities/agent-collaboration-threads"
                   ]
                 },
                 {
@@ -3201,27 +3201,27 @@
             "id": "@id",
             "type": "@type",
             "dodaf": "http://purl.org/dodaf#",
-            "kyber": "https://kyber-systems.gftd.ai/schema#"
+            "kyber": "https://kyber-systems.etzhayyim.com/schema#"
           },
-          "id": "https://kyber.gftd.ai/performers/ai-gftd-project-kyber-qzzg06nh",
+          "id": "https://kyber.etzhayyim.com/performers/ai-gftd-project-kyber-qzzg06nh",
           "type": "dodaf:Performer",
           "name": "Kyber App",
-          "description": "gftd.ai corporate management application. Accessible at kyber.gftd.ai. Includes finance, governance, legal, and operations.",
+          "description": "etzhayyim.com corporate management application. Accessible at kyber.etzhayyim.com. Includes finance, governance, legal, and operations.",
           "status": "development",
           "capabilities": [
-            "https://gftdcojp.gftd.ai/capabilities/recruitment-onboarding-capability",
-            "https://gftdcojp.gftd.ai/capabilities/system-development-qa-capability",
-            "https://gftdcojp.gftd.ai/capabilities/business-reconciliation"
+            "https://etzhayyim.etzhayyim.com/capabilities/recruitment-onboarding-capability",
+            "https://etzhayyim.etzhayyim.com/capabilities/system-development-qa-capability",
+            "https://etzhayyim.etzhayyim.com/capabilities/business-reconciliation"
           ],
           "performs": [
-            "https://gftdcojp.gftd.ai/activities/recruitment-selection-process",
-            "https://gftdcojp.gftd.ai/activities/employment-contract-management",
-            "https://gftdcojp.gftd.ai/activities/social-protection-onboarding",
-            "https://gftdcojp.gftd.ai/activities/system-development-qa-process",
-            "https://gftdcojp.gftd.ai/activities/reconcile-business-loop"
+            "https://etzhayyim.etzhayyim.com/activities/recruitment-selection-process",
+            "https://etzhayyim.etzhayyim.com/activities/employment-contract-management",
+            "https://etzhayyim.etzhayyim.com/activities/social-protection-onboarding",
+            "https://etzhayyim.etzhayyim.com/activities/system-development-qa-process",
+            "https://etzhayyim.etzhayyim.com/activities/reconcile-business-loop"
           ],
           "integrates": [
-            "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-org-gftd-sys-toolbar"
+            "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-org-gftd-sys-toolbar"
           ],
           "technology": {
             "frontend": "SvelteKit",
@@ -3236,7 +3236,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

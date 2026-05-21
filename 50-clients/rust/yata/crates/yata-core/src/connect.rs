@@ -86,9 +86,9 @@ mod tests {
 
     #[test]
     fn parses_canonical_dsn() {
-        let d = Dsn::parse("yatabase://sk_live_yata_abc@yatabase.gftd.ai/yata_xxx").unwrap();
+        let d = Dsn::parse("yatabase://sk_live_yata_abc@yatabase.etzhayyim.com/yata_xxx").unwrap();
         assert_eq!(d.token, "sk_live_yata_abc");
-        assert_eq!(d.host, "yatabase.gftd.ai");
+        assert_eq!(d.host, "yatabase.etzhayyim.com");
         assert_eq!(d.port, 5432);
         assert_eq!(d.database, "yata_xxx");
         assert_eq!(d.query, "");

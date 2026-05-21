@@ -9,7 +9,7 @@
   "@id": "gftd:project/isekai",
   "schema:name": "isekai",
   "schema:description": "Open 3D game world — Minecraft voxel sandbox × Pokoa creature collection × Brainrot meme chaos. KAMI Engine WebGPU, Guest Mode, procedural isekai overworld.",
-  "gftd:domains": ["isekai.gftd.ai"],
+  "gftd:domains": ["isekai.etzhayyim.com"],
   "gftd:nanoid": "is3k41w0",
   "gftd:isicSection": "isic:J",
   "gftd:isicClass": "isic:J/5820",

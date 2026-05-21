@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-check-spend-allowed-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-check-spend-allowed-v1',
+                 'did:web:credits.etzhayyim.com',
                  'credits_check_spend_allowed',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_credits_check_spend_allowed" '
-                 'targetNamespace="https://gftd.ai/bpmn/credits" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/credits" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="credits_check_spend_allowed" '
                  'name="credits checkSpendAllowed" isExecutable="true"><bpmn:documentation>{ '
                  '"nsid": "ai.gftd.apps.credits.checkSpendAllowed", "version": 1, '
@@ -49,11 +49,11 @@ UP = [{'sql': '\n'
                  1127,
                  '00-contracts/bpmn/ai/gftd/credits/checkSpendAllowed.bpmn',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-check-spend-allowed-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-check-spend-allowed-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -68,18 +68,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-checkSpendAllowed-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-checkSpendAllowed-v1',
+                 'did:web:credits.etzhayyim.com',
                  'ai.gftd.apps.credits.checkSpendAllowed',
                  'credits_check_spend_allowed',
                  30000,
                  '',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-checkSpendAllowed-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-checkSpendAllowed-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -95,14 +95,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-spend-credits-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-spend-credits-v1',
+                 'did:web:credits.etzhayyim.com',
                  'credits_spend_credits',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_credits_spend_credits" '
-                 'targetNamespace="https://gftd.ai/bpmn/credits" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/credits" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="credits_spend_credits" name="credits '
                  'spendCredits" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.credits.spendCredits", "version": 1, "resultTimeoutMs": 30000 '
@@ -116,11 +116,11 @@ UP = [{'sql': '\n'
                  1094,
                  '00-contracts/bpmn/ai/gftd/credits/spendCredits.bpmn',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-spend-credits-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-spend-credits-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -135,18 +135,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-spendCredits-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-spendCredits-v1',
+                 'did:web:credits.etzhayyim.com',
                  'ai.gftd.apps.credits.spendCredits',
                  'credits_spend_credits',
                  30000,
                  'vertex_credit_wallet,vertex_credit_transaction,vertex_credits_af_event,vertex_credits_public_fund_allocation,vertex_credits_spend_failure',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-spendCredits-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-spendCredits-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -162,14 +162,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-reward-from-compute-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-reward-from-compute-v1',
+                 'did:web:credits.etzhayyim.com',
                  'credits_reward_from_compute',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_credits_reward_from_compute" '
-                 'targetNamespace="https://gftd.ai/bpmn/credits" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/credits" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="credits_reward_from_compute" '
                  'name="credits rewardFromCompute" isExecutable="true"><bpmn:documentation>{ '
                  '"nsid": "ai.gftd.apps.credits.rewardFromCompute", "version": 1, '
@@ -184,11 +184,11 @@ UP = [{'sql': '\n'
                  1127,
                  '00-contracts/bpmn/ai/gftd/credits/rewardFromCompute.bpmn',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-reward-from-compute-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-reward-from-compute-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -203,18 +203,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-rewardFromCompute-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-rewardFromCompute-v1',
+                 'did:web:credits.etzhayyim.com',
                  'ai.gftd.apps.credits.rewardFromCompute',
                  'credits_reward_from_compute',
                  30000,
                  'vertex_credit_wallet,vertex_credit_transaction,vertex_credits_af_event',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-rewardFromCompute-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-rewardFromCompute-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -230,14 +230,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-reward-from-hc-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-reward-from-hc-v1',
+                 'did:web:credits.etzhayyim.com',
                  'credits_reward_from_hc',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_credits_reward_from_hc" '
-                 'targetNamespace="https://gftd.ai/bpmn/credits" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/credits" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="credits_reward_from_hc" name="credits '
                  'rewardFromHC" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.credits.rewardFromHC", "version": 1, "resultTimeoutMs": 30000 '
@@ -252,11 +252,11 @@ UP = [{'sql': '\n'
                  1097,
                  '00-contracts/bpmn/ai/gftd/credits/rewardFromHC.bpmn',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-reward-from-hc-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-reward-from-hc-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -271,18 +271,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-rewardFromHC-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-rewardFromHC-v1',
+                 'did:web:credits.etzhayyim.com',
                  'ai.gftd.apps.credits.rewardFromHC',
                  'credits_reward_from_hc',
                  30000,
                  'vertex_credit_wallet,vertex_credit_transaction,vertex_credits_af_event',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-rewardFromHC-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-rewardFromHC-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -298,14 +298,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-process-commit-spend-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-process-commit-spend-v1',
+                 'did:web:credits.etzhayyim.com',
                  'credits_process_commit_spend',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_credits_process_commit_spend" '
-                 'targetNamespace="https://gftd.ai/bpmn/credits" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/credits" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="credits_process_commit_spend" '
                  'name="credits processCommitSpend" isExecutable="true"><bpmn:documentation>{ '
                  '"nsid": "ai.gftd.apps.credits.processCommitSpend", "version": 1, '
@@ -320,11 +320,11 @@ UP = [{'sql': '\n'
                  1133,
                  '00-contracts/bpmn/ai/gftd/credits/processCommitSpend.bpmn',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-process-commit-spend-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-process-commit-spend-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -339,18 +339,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-processCommitSpend-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-processCommitSpend-v1',
+                 'did:web:credits.etzhayyim.com',
                  'ai.gftd.apps.credits.processCommitSpend',
                  'credits_process_commit_spend',
                  30000,
                  'vertex_credit_wallet,vertex_credit_transaction,vertex_credits_af_event,vertex_credits_public_fund_allocation,vertex_credits_spend_failure',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-processCommitSpend-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-processCommitSpend-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -366,14 +366,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-heartbeat-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-heartbeat-v1',
+                 'did:web:credits.etzhayyim.com',
                  'credits_heartbeat',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_credits_heartbeat" '
-                 'targetNamespace="https://gftd.ai/bpmn/credits" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/credits" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="credits_heartbeat" name="credits '
                  'heartbeat" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.credits.heartbeat", "version": 1, "resultTimeoutMs": 30000 '
@@ -387,11 +387,11 @@ UP = [{'sql': '\n'
                  1073,
                  '00-contracts/bpmn/ai/gftd/credits/heartbeat.bpmn',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-heartbeat-v1']},
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-heartbeat-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -406,43 +406,43 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-heartbeat-v1',
-                 'did:web:credits.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-heartbeat-v1',
+                 'did:web:credits.etzhayyim.com',
                  'ai.gftd.apps.credits.heartbeat',
                  'credits_heartbeat',
                  30000,
                  '',
                  '2026-04-29T22:01:00+09:00',
-                 'did:web:credits.gftd.ai',
-                 'did:web:credits.gftd.ai',
+                 'did:web:credits.etzhayyim.com',
+                 'did:web:credits.etzhayyim.com',
                  'sys.bpmn.seed.credits',
-                 'did:web:credits.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-heartbeat-v1']}]
+                 'did:web:credits.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-heartbeat-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-checkSpendAllowed-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-checkSpendAllowed-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-check-spend-allowed-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-check-spend-allowed-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-spendCredits-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-spendCredits-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-spend-credits-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-spend-credits-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-rewardFromCompute-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-rewardFromCompute-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-reward-from-compute-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-reward-from-compute-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-rewardFromHC-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-rewardFromHC-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-reward-from-hc-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-reward-from-hc-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-processCommitSpend-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-processCommitSpend-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-process-commit-spend-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-process-commit-spend-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/credits-heartbeat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/credits-heartbeat-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/credits-heartbeat-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/credits-heartbeat-v1']}]
 
 
 def upgrade() -> None:

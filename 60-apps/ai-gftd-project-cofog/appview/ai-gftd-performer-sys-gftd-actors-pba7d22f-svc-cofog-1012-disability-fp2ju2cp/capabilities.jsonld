@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/10/1/2/disability",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/1/2/disability",
       "type": "dodaf:Capability",
       "name": "Disability Support and Accessibility Capability",
       "description": "Functional capability for managing disability status verification, support service coordination, and community accessibility monitoring. Classification: COFOG Division 10, Group 1, Class 2.",

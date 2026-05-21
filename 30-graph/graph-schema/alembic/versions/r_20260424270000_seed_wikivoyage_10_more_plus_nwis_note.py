@@ -21,13 +21,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-ro:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:ro',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-ro:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:ro',
                  'Spot',
                  2000,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:ro',
+                 'did:web:maps.etzhayyim.com:wikivoyage:ro',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -38,13 +38,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-he:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:he',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-he:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:he',
                  'Spot',
                  2000,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:he',
+                 'did:web:maps.etzhayyim.com:wikivoyage:he',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -55,13 +55,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-ar:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:ar',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-ar:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:ar',
                  'Spot',
                  1500,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:ar',
+                 'did:web:maps.etzhayyim.com:wikivoyage:ar',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -72,13 +72,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-tr:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:tr',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-tr:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:tr',
                  'Spot',
                  2000,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:tr',
+                 'did:web:maps.etzhayyim.com:wikivoyage:tr',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -89,13 +89,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-uk:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:uk',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-uk:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:uk',
                  'Spot',
                  2500,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:uk',
+                 'did:web:maps.etzhayyim.com:wikivoyage:uk',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -106,13 +106,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-cs:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:cs',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-cs:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:cs',
                  'Spot',
                  2000,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:cs',
+                 'did:web:maps.etzhayyim.com:wikivoyage:cs',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -123,13 +123,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-sk:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:sk',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-sk:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:sk',
                  'Spot',
                  800,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:sk',
+                 'did:web:maps.etzhayyim.com:wikivoyage:sk',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -140,13 +140,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-fi:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:fi',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-fi:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:fi',
                  'Spot',
                  1500,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:fi',
+                 'did:web:maps.etzhayyim.com:wikivoyage:fi',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -157,13 +157,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-no:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:no',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-no:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:no',
                  'Spot',
                  1500,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:no',
+                 'did:web:maps.etzhayyim.com:wikivoyage:no',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -174,13 +174,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-da:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:da',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-da:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:da',
                  'Spot',
                  1200,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:da',
+                 'did:web:maps.etzhayyim.com:wikivoyage:da',
                  '2026-05-08T00:19:15.171Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

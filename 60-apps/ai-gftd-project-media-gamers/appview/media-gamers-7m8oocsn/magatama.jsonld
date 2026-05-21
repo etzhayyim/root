@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:gamers.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:gamers.etzhayyim.com",
   "component": {
     "path": "/wasm/component.wasm"
   },
@@ -90,7 +90,7 @@
     "accent": "#6c5ce7",
     "icon": "🎮"
   },
-  "embedUrl": "https://a7m8oocs.gftd.ai/embed",
+  "embedUrl": "https://a7m8oocs.etzhayyim.com/embed",
   "uiType": "appview",
   "yata": {
     "dataDir": "/data/yata",

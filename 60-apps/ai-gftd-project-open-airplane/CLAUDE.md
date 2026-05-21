@@ -1,4 +1,4 @@
-# open-airplane.gftd.ai — Aviation Operations & Airport Network (OSS)
+# open-airplane.etzhayyim.com — Aviation Operations & Airport Network (OSS)
 
 **Status**: MVP scaffold (2026-04-20). Reference implementation for
 DID-addressed aviation operations — airport / aircraft / flight / incident.

@@ -984,7 +984,7 @@
                 "properties": {
                   "charSlug": {
                     "type": "string",
-                    "description": "Character slug (kebab-case, e.g. rei-ayanami-evangelion). Maps to did:web:sh1n5h1x.gftd.ai:{slug} as protagonist DID."
+                    "description": "Character slug (kebab-case, e.g. rei-ayanami-evangelion). Maps to did:web:sh1n5h1x.etzhayyim.com:{slug} as protagonist DID."
                   },
                   "charName": {
                     "type": "string",
@@ -2438,7 +2438,7 @@
                   },
                   "workDid": {
                     "type": "string",
-                    "description": "Path-based work DID, e.g. 'did:web:mangaka.gftd.ai:work:{rkey}'. Defaults to controller did:web:mangaka.gftd.ai."
+                    "description": "Path-based work DID, e.g. 'did:web:mangaka.etzhayyim.com:work:{rkey}'. Defaults to controller did:web:mangaka.etzhayyim.com."
                   },
                   "announcementText": {
                     "type": "string",
@@ -3079,7 +3079,7 @@
           },
           "readerUri": {
             "type": "string",
-            "description": "Full-screen reader URL (e.g. https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post.",
+            "description": "Full-screen reader URL (e.g. https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post.",
             "format": "uri"
           },
           "status": {
@@ -3182,7 +3182,7 @@
           },
           "protagonistDid": {
             "type": "string",
-            "description": "Character path-DID (did:web:sh1n5h1x.gftd.ai:{slug})."
+            "description": "Character path-DID (did:web:sh1n5h1x.etzhayyim.com:{slug})."
           },
           "setting": {
             "type": "string"

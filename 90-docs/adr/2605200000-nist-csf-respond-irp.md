@@ -67,7 +67,7 @@ Gftd Japan (vendor) は IC になれない (Operating Entity Boundary — CLAUDE
 | **Technical Lead** | 技術調査・修正実行 | IC 指名で確定 |
 | **Communications Lead** | ステークホルダー通知 | IC が兼任可 |
 
-**ローテーション**: 週単位 on-call。`deps.toml [gftdcojp_agent.oncall]` に当番記録。
+**ローテーション**: 週単位 on-call。`deps.toml [etzhayyim_agent.oncall]` に当番記録。
 
 ### 3. エスカレーション・タイムライン
 
@@ -106,7 +106,7 @@ T+72h  PIR 完了 + deps.toml [[migrations]] に follow-on items 登録
 
 #### ステータスページ
 
-`status.gftd.ai` (将来実装) — 現在は `90-docs/irp/status-log.md` で代替。
+`status.etzhayyim.com` (将来実装) — 現在は `90-docs/irp/status-log.md` で代替。
 P0/P1 では T+15m 以内に更新必須。
 
 ### 5. NIST CSF 2.0 RESPOND カテゴリ マッピング
@@ -148,5 +148,5 @@ P0/P1 では T+15m 以内に更新必須。
 - `90-docs/260425-vultr-cache-refill-drift-postmortem.md` — PIR テンプレート原型
 - `00-contracts/policies/gftd/defense/clearance/policy.rego` — clearance 制御 SSoT
 - `20-actors/defense/py/src/pydefense/metrics.py` — Prometheus metrics (DETECT 基盤)
-- `deps.toml [gftdcojp_agent.oncall]` — on-call ローテーション記録先
+- `deps.toml [etzhayyim_agent.oncall]` — on-call ローテーション記録先
 - NIST CSF 2.0: https://doi.org/10.6028/NIST.CSWP.29

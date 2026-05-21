@@ -11,10 +11,10 @@
 //! ```
 //!
 //! - `sk_live_yata_*` is the same Bearer token used by the
-//!   `yatabase.gftd.ai` HTTP surfaces (P3.1).  The client passes it
+//!   `yatabase.etzhayyim.com` HTTP surfaces (P3.1).  The client passes it
 //!   over PG protocol as the password and the server resolves the
 //!   `org_did` + `product_scope` via `vertex_api_key` (P2 / P3.2).
-//! - `host` defaults to `yatabase.gftd.ai`.
+//! - `host` defaults to `yatabase.etzhayyim.com`.
 //! - `port` defaults to `5432`.
 //! - `database` is `yata_<sha256(orgDid)[:16]>` provisioned via
 //!   `ai.gftd.apps.yata.provisionDatabase` (P3 BPMN).
@@ -57,7 +57,7 @@ impl Yata {
     /// Connect to a yatabase instance and return a client handle.
     ///
     /// ```ignore
-    /// let y = yata::Yata::connect("yatabase://sk_live_yata_xxx@yatabase.gftd.ai/my-db").await?;
+    /// let y = yata::Yata::connect("yatabase://sk_live_yata_xxx@yatabase.etzhayyim.com/my-db").await?;
     /// ```
     pub async fn connect(dsn: impl AsRef<str>) -> Result<Self> {
         let parsed = Dsn::parse(dsn.as_ref())?;

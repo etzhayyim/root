@@ -9,8 +9,8 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "workspace:*",
-    "@gftdcojp/kyber-calendar-frontend": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
+    "@etzhayyim/kyber-calendar-frontend": "workspace:*",
     "svelte": "^5.55.3"
   },
   "devDependencies": {

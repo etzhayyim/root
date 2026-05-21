@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-d021c3f81df2",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d021c3f81df2",
   "entityId": "ent-d021c3f81df2",
   "canonicalName": "cimex iberica",
   "aliases": [

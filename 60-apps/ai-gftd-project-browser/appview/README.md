@@ -11,15 +11,15 @@
 ## App 実装方針
 
 - `projects/*/wasm/*-component` を正式実装として運用。
-- nanoid path (`/{nanoid}/...`) を API/MCP 向けに維持し、`crawler.gftd.ai` は UI 入口として扱う。
+- nanoid path (`/{nanoid}/...`) を API/MCP 向けに維持し、`crawler.etzhayyim.com` は UI 入口として扱う。
 - 追加の jobs/status 系は App 側で拡張し、legacy runtime 側には依存しない。
 - crawler runtime は `crawler-mcp-component/` を唯一の実装として運用する。
 - `crawler-provider-legacy/` は廃止済みポインタのみを保持する。
 
 ### エンドポイント方針（運用）
 
-- UI: `https://crawler.gftd.ai/`（ルート）
-- API/MCP: `https://1.gftd.ai/` 配下（API のみ。UI は `https://crawler.gftd.ai/` のみ）
+- UI: `https://crawler.etzhayyim.com/`（ルート）
+- API/MCP: `https://1.etzhayyim.com/` 配下（API のみ。UI は `https://crawler.etzhayyim.com/` のみ）
 
 
 ## 外部 curl での稼働評価

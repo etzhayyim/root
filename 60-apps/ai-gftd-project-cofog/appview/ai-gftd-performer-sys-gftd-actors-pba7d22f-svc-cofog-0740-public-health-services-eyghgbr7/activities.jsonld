@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/07/4/0/public-health-services/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/07/4/0/public-health-services/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Public Health and Prevention Lifecycle",
       "description": "The administrative process of analyzing health risks, coordinating vaccination prevention, and monitoring health policy impact.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/07/4/0/public-health-services"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/4/0/public-health-services"
     }
   ]
 }

@@ -41,7 +41,7 @@ import pyarrow.parquet as pq
 
 SRC_DIR = Path(os.environ.get("CC_PARQUET_DIR", "/Volumes/251220/CC/2603/parquet-rs"))
 DST_DIR = Path(os.environ.get("CC_PARQUET_V2", "/Volumes/251220/CC/2603/parquet-rs-v2"))
-DID_PREFIX = "did:web:site.gftd.ai:"
+DID_PREFIX = "did:web:site.etzhayyim.com:"
 PAGE_DID_MAX_LEN = 2048
 SAFE_CHARS = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._")
 

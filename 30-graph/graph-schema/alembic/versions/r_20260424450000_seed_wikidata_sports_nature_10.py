@@ -21,12 +21,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-footballStadium:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:footballStadium',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-footballStadium:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:footballStadium',
                  'Spot',
                  20000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:footballStadium',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:footballStadium',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -37,12 +37,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-canyon:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:canyon',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-canyon:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:canyon',
                  'Spot',
                  5000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:canyon',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:canyon',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -53,12 +53,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-orchard:Farmland',
-                 'did:web:maps.gftd.ai:registry:wikidata:orchard',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-orchard:Farmland',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:orchard',
                  'Farmland',
                  20000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:orchard',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:orchard',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -69,12 +69,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-wetland:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:wetland',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-wetland:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:wetland',
                  'Spot',
                  20000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:wetland',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:wetland',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -85,12 +85,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-atoll:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:atoll',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-atoll:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:atoll',
                  'Spot',
                  2000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:atoll',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:atoll',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -101,12 +101,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-themePark:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:themePark',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-themePark:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:themePark',
                  'Spot',
                  1000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:themePark',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:themePark',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -117,12 +117,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-hotSpringWd:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:hotSpringWd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-hotSpringWd:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:hotSpringWd',
                  'Spot',
                  5000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:hotSpringWd',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:hotSpringWd',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -133,12 +133,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-waterpark:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:waterpark',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-waterpark:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:waterpark',
                  'Spot',
                  2000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:waterpark',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:waterpark',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -149,12 +149,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-fortress:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:fortress',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-fortress:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:fortress',
                  'Spot',
                  10000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:fortress',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:fortress',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -165,12 +165,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-iceberg:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:iceberg',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-iceberg:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:iceberg',
                  'Spot',
                  1500,
                  0.5,
-                 'did:web:maps.gftd.ai:registry:wikidata:iceberg',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:iceberg',
                  '2026-05-08T00:20:23.987Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

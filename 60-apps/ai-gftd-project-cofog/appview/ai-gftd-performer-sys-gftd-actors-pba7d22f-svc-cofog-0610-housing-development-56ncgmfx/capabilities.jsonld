@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/06/1/0/housing-development",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/1/0/housing-development",
       "type": "dodaf:Capability",
       "name": "Housing Development and Urban Zoning Capability",
       "description": "Functional capability for managing housing projects, urban zoning, and residential subsidies. Classification: COFOG Division 06, Group 1, Class 0.",

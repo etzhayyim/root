@@ -33,7 +33,7 @@ Current constraints:
 import (
     "context"
 
-    flightsql "github.com/gftdcojp/spin-tinygo-flight/grpc/flightsql"
+    flightsql "github.com/etzhayyim/spin-tinygo-flight/grpc/flightsql"
 )
 
 func query(ctx context.Context, endpoint, username, password string) ([]map[string]any, error) {

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:phl-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:phl-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of the Philippines AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -93,7 +93,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "phl-state.gftd.ai",
+      "host": "phl-state.etzhayyim.com",
       "paths": [
         "/"
       ],

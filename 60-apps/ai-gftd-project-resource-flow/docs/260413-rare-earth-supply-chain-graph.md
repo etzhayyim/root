@@ -1,7 +1,7 @@
 # Rare Earth Supply Chain Graph
 
 - as of: `2026-04-13`
-- data file: [rare-earth-supply-chain-2026-04-13.graph.json](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-resource-flow/data/rare-earth-supply-chain-2026-04-13.graph.json)
+- data file: [rare-earth-supply-chain-2026-04-13.graph.json](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-resource-flow/data/rare-earth-supply-chain-2026-04-13.graph.json)
 - shape: `vertices[]` + `edges[]`
 - vertex identity: every vertex has a `did`
 - dependency encoding: every vertex has `deps[]` and the graph also has explicit `policy/resource_flow/capital_flow/offtake` edges

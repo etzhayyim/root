@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:contracts.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:contracts.etzhayyim.com",
   "name": "contracts",
   "nanoid": "c0ntr4ct",
   "performerType": "service",
@@ -8,7 +8,7 @@
   "convoSystemPrompt": "You are the Global Contracts knowledge agent. Help users resolve organizations, explore contract types, and navigate social contracts (constitutions, treaties). Respond in the user's language.",
   "profile": {
     "displayName": "Global Contracts Knowledge Base",
-    "description": "Organization registry (projection over legal-entity.gftd.ai 123.5M rows) + SocialContract corpus (treaties, constitutions). Law full-text corpus is at houbun.gftd.ai [AI Agent — unofficial, not affiliated with the real organization]",
+    "description": "Organization registry (projection over legal-entity.etzhayyim.com 123.5M rows) + SocialContract corpus (treaties, constitutions). Law full-text corpus is at houbun.etzhayyim.com [AI Agent — unofficial, not affiliated with the real organization]",
     "isBot": true,
     "agentType": "autonomous",
     "operator": "gftd.co.jp",

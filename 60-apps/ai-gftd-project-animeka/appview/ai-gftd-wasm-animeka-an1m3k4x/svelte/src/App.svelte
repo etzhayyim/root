@@ -96,7 +96,7 @@
       <button class:active={view === 'review'} onclick={() => go('/episodes/latest/review')}>⏳ Reviews</button>
     </nav>
     <div class="spacer"></div>
-    <div class="foot">did:web:animeka.gftd.ai</div>
+    <div class="foot">did:web:animeka.etzhayyim.com</div>
   </aside>
   <main>
     {#if view === 'dashboard'}

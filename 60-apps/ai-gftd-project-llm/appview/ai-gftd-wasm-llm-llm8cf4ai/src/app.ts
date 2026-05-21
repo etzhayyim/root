@@ -55,7 +55,7 @@ const CREDIT_COST: Record<string, number> = {
 async function deductCredits(callerDid: string, modelId: string): Promise<string | null> {
   const cost = CREDIT_COST[modelId] ?? 1;
   try {
-    const resp = await fetch("https://credits.gftd.ai/xrpc/ai.gftd.apps.credits.checkSpendAllowed", {
+    const resp = await fetch("https://credits.etzhayyim.com/xrpc/ai.gftd.apps.credits.checkSpendAllowed", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify({ userId: callerDid, action: "llm_inference", amount: cost }),
@@ -125,7 +125,7 @@ function canonicalizeModelHint(model?: string): string | undefined {
 }
 
 /**
- * Inference via llm.gftd.ai routing backends.
+ * Inference via llm.etzhayyim.com routing backends.
  *
  * Default tiers stay on Murakumo. Explicit RunPod models are still routed
  * through LiteLLM, because LiteLLM is the backend registry and policy point.
@@ -149,7 +149,7 @@ async function runInference(req: InferenceRequest): Promise<InferenceResult> {
   // gemma4-e4b + qwen3.5-9b have thinking mode enabled — they produce empty content.
   const litellmModel = RUNPOD_MODELS.has(modelId) ? modelId : "gemma3-1b";
 
-  const litellmUrl = ((_env as any).LITELLM_URL as string | undefined) ?? "https://murakumo-serve.gftd.ai";
+  const litellmUrl = ((_env as any).LITELLM_URL as string | undefined) ?? "https://murakumo-serve.etzhayyim.com";
   const litellmKey = ((_env as any).LITELLM_KEY as string | undefined) ?? "sk-gftd-litellm-local";
 
   try {
@@ -268,7 +268,7 @@ async function cmdChatCompletions(sdk: HostSDK, body: Uint8Array): Promise<unkno
 
 async function cmdAnswerWithKnowledge(_sdk: HostSDK, body: Uint8Array, env: Record<string, unknown>): Promise<unknown> {
   const resp = await proxyAnswerWithKnowledge(
-    new Request(`https://llm.gftd.ai/xrpc/${ANSWER_WITH_KNOWLEDGE_NSID}?stream=0&timeoutMs=240000`, {
+    new Request(`https://llm.etzhayyim.com/xrpc/${ANSWER_WITH_KNOWLEDGE_NSID}?stream=0&timeoutMs=240000`, {
       method: "POST",
       headers: { "content-type": "application/json", "accept": "application/json" },
       body,
@@ -285,7 +285,7 @@ async function cmdAnswerWithKnowledge(_sdk: HostSDK, body: Uint8Array, env: Reco
 
 async function proxyAnswerWithKnowledge(request: Request, env: Record<string, unknown>): Promise<globalThis.Response> {
   const incomingUrl = new URL(request.url);
-  const upstreamUrl = new URL(`https://atproto.gftd.ai/xrpc/${ANSWER_WITH_KNOWLEDGE_NSID}`);
+  const upstreamUrl = new URL(`https://atproto.etzhayyim.com/xrpc/${ANSWER_WITH_KNOWLEDGE_NSID}`);
   incomingUrl.searchParams.forEach((value, key) => upstreamUrl.searchParams.set(key, value));
   if (!upstreamUrl.searchParams.has("stream")) upstreamUrl.searchParams.set("stream", "1");
   if (!upstreamUrl.searchParams.has("timeoutMs")) upstreamUrl.searchParams.set("timeoutMs", "240000");
@@ -513,7 +513,7 @@ const shinkaEnabled = true;
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:llm8cf4ai.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:llm8cf4ai.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   if (actions.length === 1) actions.push({ action: "noop", mood: cadence.mood, ts });

@@ -107,10 +107,10 @@ The runbooks live here; the executions live elsewhere:
    provides the row-by-row acceptance criteria for the next attempt.
 2. **DNS cutover Wave A → D** — Cloudflare zone + Mac mini fleet (live infra,
    operator-side).
-3. **Vendor `git rm`** — `ai-gftd-apps-gftdcojp` repo, atomic per-category
+3. **Vendor `git rm`** — `etzhayyim-root` repo, atomic per-category
    commits (vendor side).
-4. **Phase 6 archive-marker stubs + `gh repo archive`** — `ai-gftd-apps-gftdcojp`
-   subtrees + gftdcojp-org repos.
+4. **Phase 6 archive-marker stubs + `gh repo archive`** — `etzhayyim-root`
+   subtrees + etzhayyim-org repos.
 
 When each is done, fill the corresponding timestamp field in the gftd-side
 `deps.toml [[migrations]]` entry (see Phase 4-5 runbook §F + Phase 6 runbook §4).

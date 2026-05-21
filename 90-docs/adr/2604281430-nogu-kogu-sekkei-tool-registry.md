@@ -40,7 +40,7 @@ All three require periodic monitoring (dailyPulse), event-driven workflows (chec
 
 ### Option B: 3 independent T1 actors with own domains
 
-Each actor gets a dedicated `{name}.gftd.ai` domain, `did:web:{name}.gftd.ai` AT facade, and `erc725_root_pending = true` pending `provision-root-identity` (ADR-0074).
+Each actor gets a dedicated `{name}.etzhayyim.com` domain, `did:web:{name}.etzhayyim.com` AT facade, and `erc725_root_pending = true` pending `provision-root-identity` (ADR-0074).
 
 Option A (sub-actor under tsukuru) was rejected: lifecycle concerns (inspection scheduling, lease tracking) are orthogonal to manufacturing; coupling would inflate tsukuru's BPMN surface.
 
@@ -96,19 +96,19 @@ FLUSH added between each `CREATE INDEX` to avoid RisingWave streaming job schedu
 
 ```toml
 # deps.toml [[mitama_actors]]
-did = "did:web:{name}.gftd.ai"   # AT facade (federation + XRPC)
+did = "did:web:{name}.etzhayyim.com"   # AT facade (federation + XRPC)
 erc725_root_pending = true        # provision-root-identity not yet called
 ```
 
-ERC725 root identity (ADR-0074) must be provisioned via `POST /internal/provision-root-identity` to `authz.gftd.ai` with `stableId: "actor:{name}"`. Tracked as `[[migrations]] id="erc725-provision-nogu-kogu-sekkei"`.
+ERC725 root identity (ADR-0074) must be provisioned via `POST /internal/provision-root-identity` to `authz.etzhayyim.com` with `stableId: "actor:{name}"`. Tracked as `[[migrations]] id="erc725-provision-nogu-kogu-sekkei"`.
 
 ## Consequences
 
 - **dailyPulse BPMNs** (timer-start R/P1D) activate automatically in Zeebe. First fires expected at next midnight UTC after deploy.
-- **XRPC calls** to `ai.gftd.apps.{nogu,kogu,sekkei}.*` route via `dispatcher.gftd.ai:8080/xrpc/{nsid}` per ADR-0056.
+- **XRPC calls** to `ai.gftd.apps.{nogu,kogu,sekkei}.*` route via `dispatcher.etzhayyim.com:8080/xrpc/{nsid}` per ADR-0056.
 - **Writes** go directly to RisingWave via `generic.db.insert` primitives in pymagatama.
 - **`write_table_allowlist`** in `vertex_bpmn_lexicon_binding` is NULL (unrestricted) for all 9 bindings — tighten per-table when domain writes are stabilized.
-- **ERC725** not yet provisioned — DID doc serves `did:web:{name}.gftd.ai` AT facade only. Upgrade path: call `provision-root-identity` + update deps.toml `erc725_root_pending = false` + add `erc725_did`.
+- **ERC725** not yet provisioned — DID doc serves `did:web:{name}.etzhayyim.com` AT facade only. Upgrade path: call `provision-root-identity` + update deps.toml `erc725_root_pending = false` + add `erc725_did`.
 
 ## Cross-actor dependencies
 

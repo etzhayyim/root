@@ -673,7 +673,7 @@
                     },
                     "rpId": {
                       "type": "string",
-                      "description": "Relying party ID (gftd.ai)"
+                      "description": "Relying party ID (etzhayyim.com)"
                     },
                     "allowCredentials": {
                       "type": "array"

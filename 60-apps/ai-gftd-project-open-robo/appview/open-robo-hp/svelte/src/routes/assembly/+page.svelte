@@ -199,7 +199,7 @@
     <a href="/firmware" class="px-5 py-2.5 bg-[#e85d04] hover:bg-[#f48c06] text-white text-sm font-semibold rounded-full transition-colors">
       ファームウェアを書き込む →
     </a>
-    <a href="https://github.com/gftdcojp/otete" target="_blank" rel="noopener"
+    <a href="https://github.com/etzhayyim/otete" target="_blank" rel="noopener"
       class="px-5 py-2.5 border border-[#30363d] hover:border-slate-500 text-slate-300 hover:text-white text-sm rounded-full transition-colors">
       GitHub でソースを見る
     </a>

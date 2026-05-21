@@ -1,5 +1,5 @@
 import plugin from 'tailwindcss/plugin';
-import { gftdUIKit } from '@gftdcojp/design-system/plugin';
+import { gftdUIKit } from '@etzhayyim/design-system/plugin';
 
 export default {
   content: [

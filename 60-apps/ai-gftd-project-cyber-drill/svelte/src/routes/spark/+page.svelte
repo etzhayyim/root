@@ -9,7 +9,7 @@
     dynoNodeLibrary,
     makeGalaxyCloud,
     type SparkSampleHandle,
-  } from '@gftdcojp/kami-engine-sdk/spark';
+  } from '@etzhayyim/kami-engine-sdk/spark';
 
   type DemoId = 'splat' | 'ellipsoid' | 'temporal' | 'dyno';
 
@@ -102,7 +102,7 @@
 
 <svelte:head>
   <title>Spark Samples — kami-engine-sdk</title>
-  <meta name="description" content="3D Gaussian splat, anisotropic ellipsoid, temporal 4D, and Dyno shader graph samples for @gftdcojp/kami-engine-sdk." />
+  <meta name="description" content="3D Gaussian splat, anisotropic ellipsoid, temporal 4D, and Dyno shader graph samples for @etzhayyim/kami-engine-sdk." />
 </svelte:head>
 
 <div class="page">
@@ -112,7 +112,7 @@
     <h1>kami-engine-sdk · spark samples</h1>
     <p class="sub">
       Spark 2.0-style web-3DGS demos. Source:
-      <code>@gftdcojp/kami-engine-sdk/spark</code>.
+      <code>@etzhayyim/kami-engine-sdk/spark</code>.
     </p>
   </header>
 

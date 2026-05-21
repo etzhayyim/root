@@ -2,7 +2,7 @@
 
 > **T2 Logical Actor**: Manifest-driven (`20-actors/os-messaging/actor-manifest.jsonld`). Path F Phase 3.
 
-`os-messaging.gftd.ai` (nanoid: `0sm3sg01`) — 9 platform bridges (Discord/Telegram/Slack/LINE/WhatsApp/Matrix/MS Teams/WeChat/KakaoTalk → GFTD agent network via W Protocol convo).
+`os-messaging.etzhayyim.com` (nanoid: `0sm3sg01`) — 9 platform bridges (Discord/Telegram/Slack/LINE/WhatsApp/Matrix/MS Teams/WeChat/KakaoTalk → GFTD agent network via W Protocol convo).
 
 ## Open-channel collection
 

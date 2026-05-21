@@ -1,6 +1,6 @@
 {
   "@context": {
-    "@vocab": "https://gftdcojp.github.io/cyber-freelance#",
+    "@vocab": "https://etzhayyim.github.io/cyber-freelance#",
     "owl": "http://www.w3.org/2002/07/owl#",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -936,7 +936,7 @@
         "vercel.json",
         ".vercel/project.json"
       ],
-      "note": "1. Project linked to ai-gftd-hrse (prj_NZBO2dx4MrpnGb6VDnWGxV2eiUaT). 2. Production deployment successful (dpl_5Rk3WbxeNK1n6rg7Q4RMMBSPc6sk). 3. Status: Ready. 4. URLs: https://ai-gftd-hrse-gftdcojp.vercel.app, https://hrse.gftd.ai, https://ai-gftd-agent.vercel.app. 5. vercel.json updated with Next.js framework configuration."
+      "note": "1. Project linked to ai-gftd-hrse (prj_NZBO2dx4MrpnGb6VDnWGxV2eiUaT). 2. Production deployment successful (dpl_5Rk3WbxeNK1n6rg7Q4RMMBSPc6sk). 3. Status: Ready. 4. URLs: https://ai-gftd-hrse-etzhayyim.vercel.app, https://hrse.etzhayyim.com, https://ai-gftd-agent.vercel.app. 5. vercel.json updated with Next.js framework configuration."
     },
     {
       "@id": "node:freelancer-dark-mode-fix",
@@ -1133,7 +1133,7 @@
         "node:tdd-resend-webhook-integration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-sys-gftd-app-gftdcojp-qzzg06nh/src/lib/features/ses-hrse/components/MailboxManager.svelte",
+        "performers/ai-gftd-performer-sys-gftd-app-etzhayyim-qzzg06nh/src/lib/features/ses-hrse/components/MailboxManager.svelte",
         "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
         "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/service/entity_client.go"
       ],
@@ -1312,7 +1312,7 @@
         "infra/k8s/deployment.yaml",
         "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/k8s/deployment.yaml"
       ],
-      "note": "1. アプリイメージビルド・プッシュ: ghcr.io/gftdcojp/ai-gftd-hrse@sha256:c8889a83e3d4e3e9864c20db2eefe88230d94d508adfd29e2d792a8d37247dab。2. バックエンドイメージビルド・プッシュ: ghcr.io/gftdcojp/hrse-svc@sha256:ee0a2cea6c06577e3fcb761fd4e454872adffe83e6ef123b4da283664766f196。3. K8sマニフェストのイメージ指定をタグからダイジェストに変更（不変性の確保）。"
+      "note": "1. アプリイメージビルド・プッシュ: ghcr.io/etzhayyim/ai-gftd-hrse@sha256:c8889a83e3d4e3e9864c20db2eefe88230d94d508adfd29e2d792a8d37247dab。2. バックエンドイメージビルド・プッシュ: ghcr.io/etzhayyim/hrse-svc@sha256:ee0a2cea6c06577e3fcb761fd4e454872adffe83e6ef123b4da283664766f196。3. K8sマニフェストのイメージ指定をタグからダイジェストに変更（不変性の確保）。"
     },
     {
       "@id": "node:e2e-bdd-tdd-implementation",
@@ -1351,7 +1351,7 @@
         "fileName": "ARCHITECTURE.jsonld",
         "content": {
           "@context": {
-            "@vocab": "https://gftdcojp.github.io/cyber-freelance#",
+            "@vocab": "https://etzhayyim.github.io/cyber-freelance#",
             "owl": "http://www.w3.org/2002/07/owl#",
             "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -1387,7 +1387,7 @@
               "@id": "infra:dns",
               "@type": "Service",
               "dcterms:title": "Linode DNS",
-              "domain": "cshr.gftd.ai"
+              "domain": "cshr.etzhayyim.com"
             }
           ]
         }
@@ -1396,7 +1396,7 @@
         "fileName": "RESOURCES.jsonld",
         "content": {
           "@context": {
-            "@vocab": "https://gftdcojp.github.io/cyber-freelance#",
+            "@vocab": "https://etzhayyim.github.io/cyber-freelance#",
             "owl": "http://www.w3.org/2002/07/owl#",
             "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -4321,7 +4321,7 @@
         "fileName": "activities.jsonld",
         "content": {
           "@context": {
-            "@vocab": "https://gftdcojp.github.io/cyber-freelance#",
+            "@vocab": "https://etzhayyim.github.io/cyber-freelance#",
             "owl": "http://www.w3.org/2002/07/owl#",
             "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -4978,7 +4978,7 @@
         "fileName": "capabilities.jsonld",
         "content": {
           "@context": {
-            "@vocab": "https://gftdcojp.github.io/cyber-freelance#",
+            "@vocab": "https://etzhayyim.github.io/cyber-freelance#",
             "owl": "http://www.w3.org/2002/07/owl#",
             "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -5490,7 +5490,7 @@
               "prov:wasGeneratedBy": "AutomateSESEmailProcessingActivity",
               "implementation": [
                 "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts",
-                "performers/ai-gftd-performer-sys-gftd-app-gftdcojp-qzzg06nh/src/lib/features/ses-hrse/components/MailboxManager.svelte"
+                "performers/ai-gftd-performer-sys-gftd-app-etzhayyim-qzzg06nh/src/lib/features/ses-hrse/components/MailboxManager.svelte"
               ]
             }
           ]
@@ -5502,7 +5502,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

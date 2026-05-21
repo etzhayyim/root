@@ -1,4 +1,4 @@
-// drive.gftd.ai thin edge facade. OAuth/sync/cron run in AgentGateway MCP + pod-side LangServer.
+// drive.etzhayyim.com thin edge facade. OAuth/sync/cron run in AgentGateway MCP + pod-side LangServer.
 
 interface SecretBinding { get(): Promise<string>; }
 interface Fetcher { fetch(req: Request): Promise<Response>; }
@@ -12,7 +12,7 @@ export default {
     const url = new URL(req.url);
     if (url.pathname === "/health" || url.pathname === "/_app/meta") return json({
       ok: true,
-      actor: "did:web:drive.gftd.ai",
+      actor: "did:web:drive.etzhayyim.com",
       nanoid: env.APP_NANOID ?? "dr1v3st0",
       execution: "edge-proxy+agentgateway-mcp+langserver",
       businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/gworkspace_lite.py",
@@ -37,6 +37,6 @@ export default {
 
 async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unknown>> { let body: Record<string, unknown> = {}; if (req.method === "POST") { const text = await req.text(); try { body = text ? JSON.parse(text) : {}; } catch { return { __invalidJson: true }; } } for (const [k, v] of url.searchParams) if (!(k in body)) body[k] = v; return body; }
 async function htmlFromDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> { const r = await proxyToDispatcher(env, nsid, body); const text = await r.text(); let html = text; try { html = (JSON.parse(text) as { html?: string }).html ?? text; } catch {} return new Response(html, { status: r.status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } }); }
-async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> { const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, ""); const headers: Record<string, string> = { "content-type": "application/json" }; const trust = await internalTrustSecret(env); if (trust) headers["x-internal-trust"] = trust; const resp = await fetch(`${base}/xrpc/${nsid}`, { method: "POST", headers, body: JSON.stringify(body) }); const text = await resp.text(); return new Response(text, { status: resp.status, headers: { "content-type": resp.headers.get("content-type") ?? "application/json", "cache-control": "no-store" } }); }
+async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> { const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, ""); const headers: Record<string, string> = { "content-type": "application/json" }; const trust = await internalTrustSecret(env); if (trust) headers["x-internal-trust"] = trust; const resp = await fetch(`${base}/xrpc/${nsid}`, { method: "POST", headers, body: JSON.stringify(body) }); const text = await resp.text(); return new Response(text, { status: resp.status, headers: { "content-type": resp.headers.get("content-type") ?? "application/json", "cache-control": "no-store" } }); }
 async function internalTrustSecret(env: Env): Promise<string> { const binding = env.DISPATCHER_INTERNAL_SECRET; if (!binding) return ""; try { return typeof binding === "string" ? binding : await binding.get(); } catch { return ""; } }
 function json(body: unknown, status = 200): Response { return new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } }); }

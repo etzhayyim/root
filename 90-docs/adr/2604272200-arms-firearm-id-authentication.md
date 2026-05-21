@@ -7,7 +7,7 @@ topic: arms-firearm-id-authentication
 authoritative: true
 last_verified: 2026-04-28
 authoritative_for:
-  - arms.gftd.ai DID challenge-response holder authentication
+  - arms.etzhayyim.com DID challenge-response holder authentication
   - firearms chain-of-custody tracking (vertex_arms_*)
   - Tier 3 PII split for serial/permit numbers (ADR-0018)
   - defence cluster incident integration (vertex_open_defence_event)
@@ -26,7 +26,7 @@ superseded_by: []
 **Date**: 2026-04-27  
 **Status**: Active  
 **Layer**: L3 CF Worker Dispatcher + L4 RisingWave registry  
-**Actor DID**: `did:web:arms.gftd.ai`  
+**Actor DID**: `did:web:arms.etzhayyim.com`  
 **Complies with**: ADR-0036 (Worker-direct Hyperdrive), ADR-0018 (Tier 3 PII), ADR-0004 (Write-only Derived)
 
 ## Goal
@@ -35,7 +35,7 @@ Enable physical firearm ID authentication and immutable chain-of-custody trackin
 
 ## Scope
 
-- `arms.gftd.ai` CF Worker — 12 XRPC methods under `ai.gftd.apps.arms.*`
+- `arms.etzhayyim.com` CF Worker — 12 XRPC methods under `ai.gftd.apps.arms.*`
 - RisingWave schema: 5 vertex tables + 2 PII tables + 2 edge tables + 1 MV
 - Rego AuthZ policy: `00-contracts/policies/gftd/xrpc/arms/`
 - Defence cluster integration: `vertex_open_defence_event`
@@ -135,7 +135,7 @@ Key rules:
 
 ## Deployment
 
-- Worker: `arms.gftd.ai` (CF Worker, `did:web:arms.gftd.ai`)
+- Worker: `arms.etzhayyim.com` (CF Worker, `did:web:arms.etzhayyim.com`)
 - nanoid: `arms`
 - magatama.jsonld: `60-apps/ai-gftd-project-arms/worker/magatama.jsonld`
 - Migration: `30-graph/graph-schema/migrations/20260427*_arms_*.ts` (9 tables applied)

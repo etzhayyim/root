@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a physical oil trade (cargo / offtake / swap). Path-based DID: did:web:oil-trading.gftd.ai:trade:{tradeId}. Counterparty intelligence for benchmark exposure tracking.",
+      "description": "Register a physical oil trade (cargo / offtake / swap). Path-based DID: did:web:oil-trading.etzhayyim.com:trade:{tradeId}. Counterparty intelligence for benchmark exposure tracking.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

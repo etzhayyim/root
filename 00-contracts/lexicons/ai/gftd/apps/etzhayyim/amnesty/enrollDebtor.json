@@ -38,7 +38,7 @@
             },
             "legalRepresentationDid": {
               "type": "string",
-              "description": "DID of the law firm / counsel representing the debtor (typically vendor:lawfirm.gftd.ai or equivalent). Required for corporate_chapter_11 + corporate_workout rite types."
+              "description": "DID of the law firm / counsel representing the debtor (typically vendor:lawfirm.etzhayyim.com or equivalent). Required for corporate_chapter_11 + corporate_workout rite types."
             },
             "totalLiabilitiesMicroUsdc": {
               "type": "integer",

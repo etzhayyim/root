@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/2/4/paramedical-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/2/4/paramedical-services",
       "type": "dodaf:Capability",
       "name": "Paramedical and Allied Health Oversight Capability",
       "description": "Functional capability for managing allied health services, paramedical provider audits, and rehabilitation coordination. Classification: COFOG Division 07, Group 2, Class 4.",

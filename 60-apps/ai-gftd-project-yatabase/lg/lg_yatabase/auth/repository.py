@@ -59,7 +59,7 @@ def generate_org_did(ts_ms: int | None = None) -> tuple[str, str]:
     rand_a = format(random.SystemRandom().randint(0, 10**9), "x")
     rand_b = format(random.SystemRandom().randint(0, 10**9), "x")
     suffix = (rand_a + rand_b)[:16]
-    return f"did:web:t-{suffix}.yata-tenant.gftd.ai", f"yata-tenant-{ts}"
+    return f"did:web:t-{suffix}.yata-tenant.etzhayyim.com", f"yata-tenant-{ts}"
 
 
 async def insert_api_key(

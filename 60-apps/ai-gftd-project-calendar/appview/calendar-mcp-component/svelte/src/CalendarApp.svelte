@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Input, Textarea, Badge } from '@gftdcojp/design-system';
+  import { Button, Input, Textarea, Badge } from '@etzhayyim/design-system';
   import { callXrpc, type XrpcResult } from './lib/xrpc';
 
   interface Props {

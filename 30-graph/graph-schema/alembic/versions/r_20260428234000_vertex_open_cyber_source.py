@@ -45,8 +45,8 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.gftd.ai/ai.gftd.apps.openCyberVuln.source/nvd',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/ai.gftd.apps.openCyberVuln.source/nvd',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'nvd',
                  'NVD CVE 2.0 API',
                  'https://services.nvd.nist.gov/rest/json/cves/2.0',
@@ -56,8 +56,8 @@ UP = [{'sql': '\n'
                  'public-domain',
                  '2024-01-01T00:00:00.000',
                  '2026-04-28T23:40:00Z',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'nvd']},
  {'sql': '\n'
          '      INSERT INTO vertex_open_cyber_source\n'
@@ -68,8 +68,8 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.gftd.ai/ai.gftd.apps.openCyberVuln.source/cisa-kev',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/ai.gftd.apps.openCyberVuln.source/cisa-kev',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'cisa-kev',
                  'CISA Known Exploited Vulnerabilities',
                  'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json',
@@ -79,8 +79,8 @@ UP = [{'sql': '\n'
                  'public-domain',
                  None,
                  '2026-04-28T23:40:00Z',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'cisa-kev']},
  {'sql': '\n'
          '      INSERT INTO vertex_open_cyber_source\n'
@@ -91,8 +91,8 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.gftd.ai/ai.gftd.apps.openCyberVuln.source/ghsa',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/ai.gftd.apps.openCyberVuln.source/ghsa',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'ghsa',
                  'GitHub Security Advisories (GHSA)',
                  'https://api.github.com/advisories',
@@ -102,8 +102,8 @@ UP = [{'sql': '\n'
                  'cc-by-4.0',
                  '2024-01-01T00:00:00Z',
                  '2026-04-28T23:40:00Z',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'ghsa']},
  {'sql': '\n'
          '      INSERT INTO vertex_open_cyber_source\n'
@@ -114,8 +114,8 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.gftd.ai/ai.gftd.apps.openCyberVuln.source/mitre-attack',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/ai.gftd.apps.openCyberVuln.source/mitre-attack',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'mitre-attack',
                  'MITRE ATT&CK TAXII 2.1',
                  'https://cti-taxii.mitre.org/stix/collections/95ecc380-afe9-11e4-9b6c-751b66dd541e/objects/',
@@ -125,8 +125,8 @@ UP = [{'sql': '\n'
                  'cc-by-4.0',
                  None,
                  '2026-04-28T23:40:00Z',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'mitre-attack']},
  {'sql': '\n'
          '      INSERT INTO vertex_open_cyber_source\n'
@@ -137,8 +137,8 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.gftd.ai/ai.gftd.apps.openCyberVuln.source/cisa-alerts',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/ai.gftd.apps.openCyberVuln.source/cisa-alerts',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'cisa-alerts',
                  'CISA US-CERT Alerts Atom Feed',
                  'https://www.cisa.gov/uscert/ncas/alerts.xml',
@@ -148,8 +148,8 @@ UP = [{'sql': '\n'
                  'public-domain',
                  None,
                  '2026-04-28T23:40:00Z',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'cisa-alerts']}]
 
 DOWN = [{'sql': 'DROP TABLE IF EXISTS vertex_open_cyber_source', 'parameters': []}]

@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/09/5/0/education-not-definable-level/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/09/5/0/education-not-definable-level/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Lifelong Learning Management Lifecycle",
       "description": "The administrative process of auditing adult education facilities, coordinating special programs, and monitoring skill competency.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/09/5/0/education-not-definable-level"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/5/0/education-not-definable-level"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "gftd:YabaiRiskScore",
-  "@id": "https://yabai.gftd.ai/content/risk/ent-d19b1cabb28e",
+  "@id": "https://yabai.etzhayyim.com/content/risk/ent-d19b1cabb28e",
   "entityId": "ent-d19b1cabb28e",
   "wellBecomingScore": 61.7,
   "penaltyScore": 37.1,

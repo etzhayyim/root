@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-43be214b119f",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-43be214b119f",
   "entityId": "ent-43be214b119f",
   "canonicalName": "0x539A57AeFF3ab7937a095Fad7060b29576B7eb34",
   "aliases": [

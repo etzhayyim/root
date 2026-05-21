@@ -1,4 +1,4 @@
-// collector.gftd.ai thin edge facade (ADR-2604282300).
+// collector.etzhayyim.com thin edge facade (ADR-2604282300).
 //
 // RDAP/DNS/CDX/blockchain lookup, scan ingestion, dashboard queries, and graph
 // writes run in BPMN + Python LangServer. This Worker only serves health/meta and
@@ -23,7 +23,7 @@ export default {
     if (url.pathname === "/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:collector.gftd.ai",
+        actor: "did:web:collector.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "c0ll3ct1",
         execution: "thin-edge+bpmn+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/collector.py",
@@ -54,7 +54,7 @@ export default {
 } satisfies ExportedHandler<Env>;
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

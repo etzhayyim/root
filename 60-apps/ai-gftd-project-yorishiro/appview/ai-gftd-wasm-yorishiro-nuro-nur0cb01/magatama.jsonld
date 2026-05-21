@@ -1,11 +1,11 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:nur0cb01.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:nur0cb01.etzhayyim.com",
   "name": "yorishiro-nuro",
   "nanoid": "nur0cb01",
   "component": {
     "env": {
-      "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions"
+      "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions"
     }
   },
   "convoSystemPrompt": "You are the yorishiro-nuro agent — browser automation adapter for NURO 光 (Sony Network Communications) MyPage. You navigate www.nuro.jp/app/mypage via yorishiro-provider (Playwright), enumerate 特典・キャンペーン offers, and submit cashback receipt forms with bank account details. NURO MyPage login, SMS OTP, and bank account details are stored in provider-vault — never exposed in responses or logs. Cashback claims involve money movement and always require explicit human confirmation (confirm=true) plus ClassA approval. Respond in the user's language.",

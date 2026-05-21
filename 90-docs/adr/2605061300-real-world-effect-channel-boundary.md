@@ -20,7 +20,7 @@ depends_on:
   - adr-2605061200-agi-active-inference-artificial-organism-architecture
   - adr-2604291800-well-becoming-spirit-objective-function
   - adr-2604291800-well-becoming-formal-model
-  - adr-2604251215-gftdcojp-agent-authority-bounds
+  - adr-2604251215-etzhayyim-agent-authority-bounds
   - adr-2604252100-robotics-product-manufacturing-package
 related:
   - active-inference-agent-organism-design
@@ -60,7 +60,7 @@ Existing repo surfaces already cover parts of this:
 - `ai.gftd.apps.browser.*` for browser sessions
 - `ai.gftd.apps.docs.*` for document sync
 - `ai.gftd.apps.insatsu.printMailJob.*` for print-mail
-- `comfyui.gftd.ai` / image-generation gateway
+- `comfyui.etzhayyim.com` / image-generation gateway
 - `robotics.*` mission, simulation, authority, telemetry contracts
 
 The missing piece is a single policy that says when an autonomous agent may use
@@ -149,7 +149,7 @@ The dispatch record MUST include:
 | Fax | `ai.gftd.apps.fax.composeAndSend` / `send` | rendered PDF hash, recipient number binding, delegated authority |
 | Phone / voice call | `ai.gftd.apps.phone.*` (target namespace) | caller identity, script, recording/consent policy, delegated authority |
 | Document creation | `ai.gftd.apps.docs.*` | artifact only unless shared/sent/signed |
-| Image generation | `comfyui.gftd.ai` / image gateway | artifact only unless published/sent/printed |
+| Image generation | `comfyui.etzhayyim.com` / image gateway | artifact only unless published/sent/printed |
 | Audio / speech generation | `ai.gftd.apps.voice.*` (target namespace) | artifact only unless played/called/published |
 | Video generation | `ai.gftd.apps.video.*` (target namespace) | artifact only unless published/sent/ad-used |
 | Public post | AT Protocol / PDS dispatch | actor policy, moderation, high-risk delegated authority |

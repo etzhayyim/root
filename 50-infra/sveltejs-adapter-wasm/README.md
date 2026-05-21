@@ -4,7 +4,7 @@ SvelteKit adapter for WebAssembly (WASI 0.2) targeting wasmCloud.
 
 ## Architecture
 
-Two wasmCloud components communicate via a custom WIT interface (`gftdcojp:svelte-adapter/js-runtime`) over wRPC:
+Two wasmCloud components communicate via a custom WIT interface (`etzhayyim:svelte-adapter/js-runtime`) over wRPC:
 
 ```
 Browser
@@ -20,7 +20,7 @@ Browser
 ### WIT Interface
 
 ```wit
-package gftdcojp:svelte-adapter;
+package etzhayyim:svelte-adapter;
 
 interface js-runtime {
     evaluate: func(code: string, request-json: string) -> string;
@@ -94,7 +94,7 @@ curl http://localhost:8080/about     # Prerendered SSG
 Add to your `svelte.config.js`:
 
 ```javascript
-import adapter from '@gftdcojp/sveltejs-adapter-wasm';
+import adapter from '@etzhayyim/sveltejs-adapter-wasm';
 
 export default {
     kit: {

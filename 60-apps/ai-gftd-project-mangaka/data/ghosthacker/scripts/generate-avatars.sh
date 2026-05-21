@@ -51,7 +51,7 @@ EOF
     local response=$(curl -s -X POST "$API_URL" \
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer $OPENROUTER_API_KEY" \
-        -H "HTTP-Referer: https://ghosthacker.gftd.ai" \
+        -H "HTTP-Referer: https://ghosthacker.etzhayyim.com" \
         -H "X-Title: ghosthacker-avatar-generator" \
         -d "$request_body")
     

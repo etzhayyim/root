@@ -7,12 +7,12 @@ metadata:
     app: resource-collector-component
 spec:
   parentRefs:
-    - name: ai-gftd-org-gftdcojp-gateway
+    - name: ai-gftd-org-etzhayyim-gateway
       namespace: ai-gftd-org-performers-z8k2m9n5
       sectionName: https-actors
   hostnames:
-    - "actors.gftd.ai"
-    - "*.actors.gftd.ai"
+    - "actors.etzhayyim.com"
+    - "*.actors.etzhayyim.com"
   rules:
     - matches:
         - path:

@@ -33,8 +33,8 @@ from lg_jukyu.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.gftd.ai")
-_LLM_URL = os.environ.get("JUKYU_LLM_URL", "http://llm.gftd.ai")
+_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.etzhayyim.com")
+_LLM_URL = os.environ.get("JUKYU_LLM_URL", "http://llm.etzhayyim.com")
 _LLM_API_KEY = os.environ.get("JUKYU_LLM_API_KEY", "")
 _EXTRACTION_MODEL = os.environ.get("JUKYU_LLM_EXTRACTION_MODEL", "qwen3-30b")
 _NARRATIVE_MODEL = os.environ.get("JUKYU_LLM_NARRATIVE_MODEL", "gemma-4-e4b-it")
@@ -422,7 +422,7 @@ async def _node_write_signals(state: _State) -> dict[str, Any]:
                     continue
                 severity = "critical" if risk >= 0.8 else "high" if risk >= 0.6 else "medium" if risk >= 0.4 else "low"
                 signal_id = f"jukyu-signal:{time.strftime('%Y%m%d')}:{ce.get('companyDid','?')[:30]}:{run_id[-8:]}"
-                vertex_id = f"at://jukyu001.gftd.ai/ai.gftd.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
+                vertex_id = f"at://jukyu001.etzhayyim.com/ai.gftd.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
 
                 # Delete then insert (RW no ON CONFLICT)
                 await cur.execute(
@@ -448,7 +448,7 @@ async def _node_write_signals(state: _State) -> dict[str, Any]:
                 )
 
                 # Also upsert company exposure record
-                ce_vertex_id = f"at://jukyu001.gftd.ai/ai.gftd.apps.jukyu.companyExposure/{uuid.uuid4().hex[:12]}"
+                ce_vertex_id = f"at://jukyu001.etzhayyim.com/ai.gftd.apps.jukyu.companyExposure/{uuid.uuid4().hex[:12]}"
                 await cur.execute(
                     "DELETE FROM vertex_jukyu_company_exposure WHERE company_did = %s AND run_id = %s",
                     (ce.get("companyDid"), run_id),

@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
   "name": "graph-sos-intel",
   "nanoid": "gs0s1nt7",
   "profile": {

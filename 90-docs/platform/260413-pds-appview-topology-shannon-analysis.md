@@ -62,7 +62,7 @@ PDS (bsky.social) — 唯一の gateway
 ### Candidate A: Current (yoro gateway + NSID rewrite)
 
 ```
-Client → yoro.gftd.ai (gateway + AppView + SPA)
+Client → yoro.etzhayyim.com (gateway + AppView + SPA)
   ├─ ai.gftd.yoro.*     → local handler (5 implemented) or PDS fallback
   ├─ ai.gftd.atproto.*  → rewrite → com.atproto.* → PDS proxy
   ├─ ai.gftd.convo.*    → transparent proxy → PDS
@@ -84,7 +84,7 @@ Client → yoro.gftd.ai (gateway + AppView + SPA)
 ### Candidate B: AT Protocol 準拠 (PDS gateway + atproto-proxy)
 
 ```
-Client → atproto.gftd.ai (PDS = gateway)
+Client → atproto.etzhayyim.com (PDS = gateway)
   ├─ com.atproto.*       → PDS direct
   ├─ app.bsky.* (read)   → atproto-proxy → yoro AppView
   ├─ app.bsky.* (write)  → PDS direct (createRecord)
@@ -101,15 +101,15 @@ Client → atproto.gftd.ai (PDS = gateway)
 | Handler duplication | 0 (PDS pipethrough, AppView is sole handler) | 0 |
 | Namespace overhead | 0 (app.bsky.* / com.atproto.* そのまま) | 0 |
 | Federation compat | Full (AT Protocol standard) | 0 |
-| SPA 配信 | yoro.gftd.ai は SPA のみ。XRPC は PDS origin | 0.5 |
-| CORS overhead | Client (yoro.gftd.ai) → PDS (atproto.gftd.ai) cross-origin | 0.5 |
+| SPA 配信 | yoro.etzhayyim.com は SPA のみ。XRPC は PDS origin | 0.5 |
+| CORS overhead | Client (yoro.etzhayyim.com) → PDS (atproto.etzhayyim.com) cross-origin | 0.5 |
 | **η** | | **0.93** |
 
 ### Candidate C: Hybrid (yoro SPA + PDS gateway + AppView service binding)
 
 ```
-yoro.gftd.ai — SPA 配信のみ (static assets)
-Client JS → atproto.gftd.ai (PDS = gateway, cross-origin)
+yoro.etzhayyim.com — SPA 配信のみ (static assets)
+Client JS → atproto.etzhayyim.com (PDS = gateway, cross-origin)
   ├─ com.atproto.* → PDS direct
   ├─ app.bsky.*    → PDS pipethrough → yoro AppView Worker (service binding)
   └─ ai.gftd.*     → PDS direct or proxy
@@ -131,14 +131,14 @@ Client JS → atproto.gftd.ai (PDS = gateway, cross-origin)
 ### Candidate D: yoro 統合 (SPA + PDS proxy + AppView, 同一オリジン)
 
 ```
-yoro.gftd.ai — SPA + XRPC endpoint
+yoro.etzhayyim.com — SPA + XRPC endpoint
   ├─ /* (static)     → Workers Assets (SPA)
   ├─ /xrpc/app.bsky.* (read)  → yoro AppView local (HYPERDRIVE)
   ├─ /xrpc/app.bsky.* (write) → PDS proxy (service binding)
   ├─ /xrpc/com.atproto.*      → PDS proxy (service binding)
   ├─ /xrpc/chat.bsky.*        → PDS proxy → Convo handler
   └─ /xrpc/ai.gftd.*          → PDS proxy
-atproto.gftd.ai — PDS (federation endpoint, external clients)
+atproto.etzhayyim.com — PDS (federation endpoint, external clients)
 ```
 
 | Factor | Value | Bits |
@@ -158,13 +158,13 @@ atproto.gftd.ai — PDS (federation endpoint, external clients)
 ### Candidate E: PDS 統合 (SPA + PDS + AppView 全統合)
 
 ```
-atproto.gftd.ai — PDS + AppView + SPA 全統合
+atproto.etzhayyim.com — PDS + AppView + SPA 全統合
   ├─ /* (static)           → Workers Assets (SPA)
   ├─ /xrpc/com.atproto.*   → PDS direct
   ├─ /xrpc/app.bsky.*      → AppView direct (HYPERDRIVE)
   ├─ /xrpc/chat.bsky.*     → Convo handler direct
   └─ /xrpc/ai.gftd.*       → Platform handlers direct
-yoro.gftd.ai → 301 redirect → atproto.gftd.ai
+yoro.etzhayyim.com → 301 redirect → atproto.etzhayyim.com
 ```
 
 | Factor | Value | Bits |
@@ -201,7 +201,7 @@ yoro.gftd.ai → 301 redirect → atproto.gftd.ai
 2. **Handler 重複ゼロ** — PDS は pipethrough、AppView が sole handler
 3. **NSID rewrite ゼロ** — app.bsky.* / com.atproto.* をそのまま使用
 4. **Federation 対応** — 外部 AT Protocol client が PDS に直接接続可能
-5. **SPA/API 分離** — yoro.gftd.ai は static assets のみ、API は PDS origin
+5. **SPA/API 分離** — yoro.etzhayyim.com は static assets のみ、API は PDS origin
 6. **CORS は 1 箇所** — Client → PDS の cross-origin のみ (CF Workers で容易)
 7. **Service binding** — PDS → yoro AppView は same-account Workers RPC (<1ms)
 
@@ -216,7 +216,7 @@ Migration A → C 完了。
 | Step | Status | File |
 |---|---|---|
 | `@gftd/wproto` NSID を `app.bsky.*` / `com.atproto.*` に戻す | ✅ | `10-protocol/wproto/src/service.ts` |
-| `@gftd/wproto` 接続先を `atproto.gftd.ai` (PDS direct) | ✅ | `10-protocol/wproto/src/client.ts` |
+| `@gftd/wproto` 接続先を `atproto.etzhayyim.com` (PDS direct) | ✅ | `10-protocol/wproto/src/client.ts` |
 | PDS に `pipethroughAppView()` 実装 | ✅ | `50-infra/cloudflare/workers/atproto/src/dispatch.ts` |
 | PDS に `APPVIEW_SERVICE` binding 追加 | ✅ | `50-infra/cloudflare/workers/atproto/wrangler.jsonc` |
 | yoro から XRPC gateway/proxy/rewrite 全削除 | ✅ | `60-apps/.../yoro-ui-g00h5zto/src/app.ts` |
@@ -250,11 +250,11 @@ Migration A → C 完了。
 ### Topology Diagram
 
 ```
-Browser (yoro.gftd.ai SPA)
-  │ @gftd/wproto AtpAgent(service: atproto.gftd.ai)
+Browser (yoro.etzhayyim.com SPA)
+  │ @gftd/wproto AtpAgent(service: atproto.etzhayyim.com)
   │ app.bsky.* / com.atproto.* (AT Protocol 標準)
   ▼
-atproto.gftd.ai (PDS — sole gateway)
+atproto.etzhayyim.com (PDS — sole gateway)
   ├─ com.atproto.repo.* → PDS direct (repo write)
   ├─ app.bsky.feed.like/follow → PDS direct (= createRecord)
   ├─ app.bsky.feed.getTimeline (read, layer=appview)

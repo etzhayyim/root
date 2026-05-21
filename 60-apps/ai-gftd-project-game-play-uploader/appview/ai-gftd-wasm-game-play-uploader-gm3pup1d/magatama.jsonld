@@ -1,18 +1,18 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:game-play-uploader.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:game-play-uploader.etzhayyim.com",
   "component": {
     "build": {
       "command": "pnpm typecheck",
       "entrypoint": "src/app.ts"
     },
     "env": {
-      "DISPATCHER_URL": "https://dispatcher.gftd.ai"
+      "DISPATCHER_URL": "https://dispatcher.etzhayyim.com"
     },
     "framework": "ts-thin-edge",
     "path": "src/app.ts"
   },
-  "convoSystemPrompt": "You are the Game Play Uploader agent. Recruit players to upload gameplay videos in exchange for Amazon gift cards (¥100/hour) via hc.gftd.ai. Respond helpfully in the user's language.",
+  "convoSystemPrompt": "You are the Game Play Uploader agent. Recruit players to upload gameplay videos in exchange for Amazon gift cards (¥100/hour) via hc.etzhayyim.com. Respond helpfully in the user's language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -39,7 +39,7 @@
       "reward-estimation",
       "domain-query"
     ],
-    "description": "Game Play Uploader — recruits players to upload gameplay videos (domain coverage dataset) in exchange for Amazon gift cards at ¥100/hour, via hc.gftd.ai",
+    "description": "Game Play Uploader — recruits players to upload gameplay videos (domain coverage dataset) in exchange for Amazon gift cards at ¥100/hour, via hc.etzhayyim.com",
     "displayName": "Game Play Uploader",
     "isBot": true,
     "operator": "gftd.co.jp"
@@ -47,7 +47,7 @@
   "project": "game-play-uploader",
   "routes": [
     {
-      "host": "game-play-uploader.gftd.ai",
+      "host": "game-play-uploader.etzhayyim.com",
       "paths": [
         "/"
       ],

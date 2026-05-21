@@ -1,7 +1,7 @@
 # @gftd/playwright-daemon
 
 Local daemon for `ai.gftd.apps.playwright` target=local. Long-polls
-`playwright.gftd.ai` for pending actions, executes via Playwright Chromium,
+`playwright.etzhayyim.com` for pending actions, executes via Playwright Chromium,
 resolves `valueRef` (Keychain / 1Password / env / literal), reports results.
 
 **Credentials never leave the Mac.**
@@ -37,7 +37,7 @@ security add-generic-password \
 ## Run
 
 ```bash
-PLAYWRIGHT_ENDPOINT=https://playwright.gftd.ai \
+PLAYWRIGHT_ENDPOINT=https://playwright.etzhayyim.com \
 PLAYWRIGHT_DAEMON_TOKEN="$(gftd agent-token --lxm ai.gftd.apps.playwright.dequeueAction)" \
 npm run dev
 ```
@@ -46,7 +46,7 @@ Env vars:
 
 | Var | Default | Description |
 |---|---|---|
-| `PLAYWRIGHT_ENDPOINT` | `https://playwright.gftd.ai` | Worker base URL |
+| `PLAYWRIGHT_ENDPOINT` | `https://playwright.etzhayyim.com` | Worker base URL |
 | `PLAYWRIGHT_DAEMON_TOKEN` | — | Bearer token |
 | `PLAYWRIGHT_DAEMON_ID` | `daemon-{hostname}-{uuid8}` | Unique id |
 | `PLAYWRIGHT_POLL_INTERVAL_MS` | `1000` | Idle poll interval |
@@ -70,7 +70,7 @@ cat > ~/Library/LaunchAgents/ai.gftd.playwright.daemon.plist <<'PLIST'
   </array>
   <key>EnvironmentVariables</key>
   <dict>
-    <key>PLAYWRIGHT_ENDPOINT</key><string>https://playwright.gftd.ai</string>
+    <key>PLAYWRIGHT_ENDPOINT</key><string>https://playwright.etzhayyim.com</string>
     <key>PLAYWRIGHT_DAEMON_TOKEN</key><string>sk_live_…</string>
   </dict>
   <key>RunAtLoad</key><true/>

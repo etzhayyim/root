@@ -65,7 +65,7 @@
         <tr><th>実装受託 (vendor)</th><td>Gftd Japan株式会社</td></tr>
         <tr><th>個情法上の取扱事業者</th><td>amanomibashira</td></tr>
         <tr><th>顔特徴量管理責任者</th><td>amanomibashira CLO</td></tr>
-        <tr><th>インシデント窓口</th><td>privacy@gftd.ai (24h 受付)</td></tr>
+        <tr><th>インシデント窓口</th><td>privacy@etzhayyim.com (24h 受付)</td></tr>
         <tr><th>外部弁護士監修</th><td>Phase 0 期間中、警察庁 / 個情委 practice 経験を持つ事務所と契約 (常時 monitoring 体制)</td></tr>
       </tbody>
     </table>

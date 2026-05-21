@@ -61,11 +61,11 @@ Tier C escalation は generic
 ## Invariants (NON-NEGOTIABLE)
 
 - **One-way debt forgiveness only.** 新規貸付・利息計算・margin・liquidation・arbitrage は不実装 (Charter Rider §2(b) compliance — schema レベル invariant、`enrollCreditor` の入力 `debts[]` は readonly historical record として扱われる)
-- **Voluntary opt-in only.** creditor `signedConsent` 必須 (ERC725 EIP-712 or DPoP)。secular creditor 無視時は vendor:bankruptcy.gftd.ai fallback
+- **Voluntary opt-in only.** creditor `signedConsent` 必須 (ERC725 EIP-712 or DPoP)。secular creditor 無視時は vendor:bankruptcy.etzhayyim.com fallback
 - **Doctrinal authority のみ.** secular law を override する主張は出さない。`declareRite.doctrinalBasis` 必須 field で根拠を強制
 - **No fiat, no RW.** USDC on Base L2 only (ERC725 Smart Wallet); state は AT MST + IPFS + Base L2 anchor のみ
 - **Council Lv6+ ratification.** rite declaration は Three-Tier Enforcement tier 3 同等の重要性 (ADR-2605192230)
-- **Tax warning, not tax advice.** `verifyEligibility.warnings[]` で per-jurisdiction COD income warning。税務 advice は vendor:lawfirm.gftd.ai に delegate
+- **Tax warning, not tax advice.** `verifyEligibility.warnings[]` で per-jurisdiction COD income warning。税務 advice は vendor:lawfirm.etzhayyim.com に delegate
 
 ## See also
 
@@ -73,6 +73,6 @@ Tier C escalation は generic
 - [ADR-2605192100](../../90-docs/adr/2605192100-etzhayyim-mission-charter.md) — Charter §1 mission alignment
 - [ADR-2605192230](../../90-docs/adr/2605192230-etzhayyim-three-tier-enforcement-implementation.md) — Council ratification framework
 - [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) — cell hierarchy
-- Twin design ADR (vendor): `gftdcojp:90-docs/adr/2605201700-yobel-jubilee-shmita-debt-release-actor.md`
-- vendor:bankruptcy.gftd.ai — mandatory legal procedure fallback (84 jurisdictions)
-- vendor:lawfirm.gftd.ai — creditor consent letters, court filings, tax advice delegate
+- Twin design ADR (vendor): `etzhayyim:90-docs/adr/2605201700-yobel-jubilee-shmita-debt-release-actor.md`
+- vendor:bankruptcy.etzhayyim.com — mandatory legal procedure fallback (84 jurisdictions)
+- vendor:lawfirm.etzhayyim.com — creditor consent letters, court filings, tax advice delegate

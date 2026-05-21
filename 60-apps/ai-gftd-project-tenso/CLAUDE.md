@@ -4,8 +4,8 @@
 
 Zero-knowledge file transfer. Signal Protocol (X3DH + Double Ratchet) wraps per-transfer AES-256-GCM file keys. Chunked encrypted blobs on B2. Server stores ciphertext only.
 
-- **URL**: https://tenso.gftd.ai
-- **API**: https://t3ns0f1l.gftd.ai/xrpc
+- **URL**: https://tenso.etzhayyim.com
+- **API**: https://t3ns0f1l.etzhayyim.com/xrpc
 - **Nanoid**: `t3ns0f1l`
 - **Execution Tier**: T3 (TS Native)
 - **Actor Manifest**: `20-actors/tenso/actor-manifest.jsonld`
@@ -14,5 +14,5 @@ Zero-knowledge file transfer. Signal Protocol (X3DH + Double Ratchet) wraps per-
 
 ```bash
 cd wasm/ai-gftd-wasm-tenso-t3ns0f1l
-gftd deploy --smoke-url https://t3ns0f1l.gftd.ai/health
+gftd deploy --smoke-url https://t3ns0f1l.etzhayyim.com/health
 ```

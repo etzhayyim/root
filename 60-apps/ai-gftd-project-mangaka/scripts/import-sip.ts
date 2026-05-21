@@ -3,7 +3,7 @@
  * Spirit in Physics graphic novel ingest.
  *
  * Pushes the source graphic novel (/Users/junkawasaki/github/260208-spirit-in-physics)
- * into mangaka.gftd.ai as Tier 2 domain records. The derive rules in
+ * into mangaka.etzhayyim.com as Tier 2 domain records. The derive rules in
  * magatama.jsonld (chapter-published-social / page-published-social) then emit
  * the Tier 1 app.bsky.feed.post automatically with recordWithMedia embed + facets.
  *
@@ -18,8 +18,8 @@
  *
  * Env:
  *   SIP_SOURCE_DIR   default: /Users/junkawasaki/github/260208-spirit-in-physics
- *   MANGAKA_BASE     default: https://mangaka.gftd.ai/xrpc
- *   PDS_BASE         default: https://atproto.gftd.ai/xrpc
+ *   MANGAKA_BASE     default: https://mangaka.etzhayyim.com/xrpc
+ *   PDS_BASE         default: https://atproto.etzhayyim.com/xrpc
  *   GFTD_TOKEN       Service Auth JWT or sk_live_* API key (ADR-0022).
  *                    Mint via: gftd agent-token --lxm ai.gftd.mangaka.addChapter
  *
@@ -30,8 +30,8 @@
  */
 
 const SOURCE_DIR    = Deno.env.get("SIP_SOURCE_DIR") ?? "/Users/junkawasaki/github/260208-spirit-in-physics";
-const MANGAKA_BASE  = Deno.env.get("MANGAKA_BASE")   ?? "https://mangaka.gftd.ai/xrpc";
-const PDS_BASE      = Deno.env.get("PDS_BASE")       ?? "https://atproto.gftd.ai/xrpc";
+const MANGAKA_BASE  = Deno.env.get("MANGAKA_BASE")   ?? "https://mangaka.etzhayyim.com/xrpc";
+const PDS_BASE      = Deno.env.get("PDS_BASE")       ?? "https://atproto.etzhayyim.com/xrpc";
 const TOKEN         = Deno.env.get("GFTD_TOKEN")     ?? "";
 const DRY_RUN       = Deno.args.includes("--dry-run");
 const STAGE         = (Deno.args.find((a) => a.startsWith("--stage=")) ?? "--stage=all").split("=")[1];
@@ -39,8 +39,8 @@ const LIMIT         = parseInt((Deno.args.find((a) => a.startsWith("--limit=")) 
 const ONLY          = (Deno.args.find((a) => a.startsWith("--only=")) ?? "--only=").split("=")[1];  // e.g. "vol01-loneliness/chapter02"
 
 const WORK_RKEY     = "spirit-in-physics";
-const WORK_AT_URI   = `at://mng4k4x1.gftd.ai/ai.gftd.mangaka.work/${WORK_RKEY}`;
-const READER_BASE   = "https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.chapter";
+const WORK_AT_URI   = `at://mng4k4x1.etzhayyim.com/ai.gftd.mangaka.work/${WORK_RKEY}`;
+const READER_BASE   = "https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.chapter";
 
 /** Canonical display names for all 42 character slugs observed in source. Drives derive-rule facet#mention. */
 const VOLUME_META: Record<string, { label: string; themeJP: string; tag: string; volNumber: number }> = {
@@ -403,7 +403,7 @@ async function stagePages(): Promise<void> {
       // (passing a custom id triggers a cmdAddPage code path that hangs the
       // Worker; isolated curl without id completes in <500ms).
       const payload: Record<string, unknown> = {
-        chapterId: `at://mng4k4x1.gftd.ai/ai.gftd.mangaka.chapter/${chapterRkey}`,
+        chapterId: `at://mng4k4x1.etzhayyim.com/ai.gftd.mangaka.chapter/${chapterRkey}`,
         pageNum: pg.pageNum,
         altText: pg.altText.slice(0, 500),
         panels: pg.panels,

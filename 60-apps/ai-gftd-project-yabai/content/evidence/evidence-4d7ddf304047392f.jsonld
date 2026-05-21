@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "gftd:YabaiEvidence",
-  "@id": "https://yabai.gftd.ai/content/evidence/evidence-4d7ddf304047392f",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-4d7ddf304047392f",
   "evidenceId": "evidence-4d7ddf304047392f",
   "entityId": "ent-d8597e92f152",
   "category": "SanctionHit",

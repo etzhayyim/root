@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#EmailAnalyzer
+// @etzhayyim/cyber-freelance#EmailAnalyzer
 // メール分析サービス
 
 import { LLMService, type EmailContent, type EntityType } from "@/lib/llm/openai";

@@ -288,14 +288,14 @@ ${tableRows}
 </ul>
 
 <p style="font-size:14px;color:#475569;margin-top:32px">
-  Have a comparison we got wrong? Email <a href="mailto:sales@gftd.ai">sales@gftd.ai</a> with the
+  Have a comparison we got wrong? Email <a href="mailto:sales@etzhayyim.com">sales@etzhayyim.com</a> with the
   vendor page link and we'll fix it in the next deploy.
 </p>
 
 </main>
 
 <footer>
-  <p>© 2026 etz hayim · <a href="/">yatabase.gftd.ai</a> · <a href="/docs">/docs</a> · <a href="/changelog">/changelog</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
+  <p>© 2026 etz hayim · <a href="/">yatabase.etzhayyim.com</a> · <a href="/docs">/docs</a> · <a href="/changelog">/changelog</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
 </footer>
 
 </body></html>`;

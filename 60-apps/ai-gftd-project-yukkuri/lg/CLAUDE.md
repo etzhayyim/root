@@ -1,4 +1,4 @@
-# lg-yukkuri — LangGraph Server actor for yukkuri.gftd.ai
+# lg-yukkuri — LangGraph Server actor for yukkuri.etzhayyim.com
 
 AI ゆっくり動画生成パイプライン。OSS LangGraph FastAPI pattern (mirrors lg-animeka).
 
@@ -48,7 +48,7 @@ compose (status: queued)
 | **P1** LangGraph scaffold | 10 graphs + server + Dockerfile + Helm chart | ✅ 2026-05-12 |
 | **P1** DB migration | `20260512130000_lg_yukkuri_shorthand_cols` — video_id / scene_id / scene_index etc. | ✅ 2026-05-12 |
 | **P1** Helm chart | `50-infra/vultr/lg-yukkuri-pool/` (mirrors lg-animeka-pool) | ✅ 2026-05-12 |
-| **P1** build + push amd64 | `docker buildx … ghcr.io/gftdcojp/lg-yukkuri:0.1.0-amd64` | ⏳ |
+| **P1** build + push amd64 | `docker buildx … ghcr.io/etzhayyim/lg-yukkuri:0.1.0-amd64` | ⏳ |
 | **P1** Helm install | `helm upgrade --install lg-yukkuri 50-infra/vultr/lg-yukkuri-pool/` | ⏳ |
 | **P1** CF tunnel route | cloudflared-bpmn-dispatcher ConfigMap に yukkuri NSID 追加 | ⏳ |
 | **P2** Mac render pool | `yukkuri-renderer` service (serve_plain.py + kami-engine CLI) | ⏳ |

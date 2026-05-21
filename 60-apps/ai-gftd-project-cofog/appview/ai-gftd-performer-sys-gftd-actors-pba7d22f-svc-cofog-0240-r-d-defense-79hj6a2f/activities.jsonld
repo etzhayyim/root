@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/02/4/0/r-d-defense/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/02/4/0/r-d-defense/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Advanced Military Technology Innovation Process",
       "description": "The lifecycle process of defense innovation, spanning from conceptual research and experimental prototyping to rigorous system testing and evaluation.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/02/4/0/r-d-defense"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/02/4/0/r-d-defense"
     }
   ]
 }

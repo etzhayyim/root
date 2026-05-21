@@ -25,7 +25,7 @@ from lg_mangaka.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_DEFAULT_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_DEFAULT_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 
 
 class _HealthState(TypedDict, total=False):

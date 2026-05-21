@@ -1,4 +1,4 @@
-// webya.gftd.ai — homepage generation for 士業 + 一般企業 (ウェブ屋)
+// webya.etzhayyim.com — homepage generation for 士業 + 一般企業 (ウェブ屋)
 // T3 CF Worker: edge XRPC dispatcher + custom-domain HTML page serving.
 // Business logic: LangGraph Server (createSite/reviseSite) + LangServer
 // (domain.provision, domain.checkAllPending, seo.auditAllSites, query helpers).
@@ -17,8 +17,8 @@ interface Env {
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const NSID_PREFIX = "ai.gftd.apps.webya.";
-const ACTOR_DID = "did:web:webya.gftd.ai";
-const WEBYA_HOST = "webya.gftd.ai";
+const ACTOR_DID = "did:web:webya.etzhayyim.com";
+const WEBYA_HOST = "webya.etzhayyim.com";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -59,13 +59,13 @@ export default {
         return proxyToDispatcher(env, nsid, body);
       }
 
-      // Subdomain page serving: {slug}.webya.gftd.ai
+      // Subdomain page serving: {slug}.webya.etzhayyim.com
       // (handled via wildcard CF for SaaS fallback hostname — not this Worker's route)
       return json({ error: "NotFound" }, 404);
     }
 
     // Custom-domain page serving:
-    // - {slug}.webya.gftd.ai subdomains routed here via CF for SaaS
+    // - {slug}.webya.etzhayyim.com subdomains routed here via CF for SaaS
     // - client custom domains (e.g. example.com) via CF for SaaS CNAME
     if (env.HYPERDRIVE) {
       return serveSitePage(env, host, url.pathname);
@@ -78,7 +78,7 @@ export default {
 // Resolve site + page HTML from RisingWave, serve as text/html.
 // Lookup priority:
 //   1. exact custom_domain match (e.g. example.com)
-//   2. subdomain slug match (e.g. tokyolaw-webya.gftd.ai → slug=tokyolaw)
+//   2. subdomain slug match (e.g. tokyolaw-webya.etzhayyim.com → slug=tokyolaw)
 async function serveSitePage(env: Env, host: string, pathname: string): Promise<Response> {
   try {
     const db = createKyselyDb((env as any).HYPERDRIVE);
@@ -98,7 +98,7 @@ async function serveSitePage(env: Env, host: string, pathname: string): Promise<
     if (domainRow) {
       siteId = domainRow.site_id;
     } else {
-      // Try subdomain slug: {slug}.webya.gftd.ai
+      // Try subdomain slug: {slug}.webya.etzhayyim.com
       const subdomain = host.endsWith(`.${WEBYA_HOST}`)
         ? host.slice(0, -(`.${WEBYA_HOST}`.length))
         : null;
@@ -168,7 +168,7 @@ async function proxyToDispatcher(
   nsid: string,
   body: Record<string, unknown>,
 ): Promise<Response> {
-  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const secret = typeof env.DISPATCHER_INTERNAL_SECRET === "object"
     ? await env.DISPATCHER_INTERNAL_SECRET.get()
     : (env.DISPATCHER_INTERNAL_SECRET ?? "");

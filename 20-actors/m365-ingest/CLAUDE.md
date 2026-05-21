@@ -7,7 +7,7 @@ Microsoft Graph API → `ai.gftd.apps.kyber.inbox.emailSignal` pipeline. **No UI
 | Actor | Responsible | Reads | Writes |
 |---|---|---|---|
 | **m365-ingest** (this) | Graph API raw fetch | `vertex_m365_user`, Graph API | `vertex_m365_sync_state`, `ai.gftd.apps.kyber.inbox.emailSignal` |
-| `email-service-adapter` (outlook.gftd.ai) | OAuth UI + per-user consent | PDS `oauth_connection` | `oauth_connection` |
+| `email-service-adapter` (outlook.etzhayyim.com) | OAuth UI + per-user consent | PDS `oauth_connection` | `oauth_connection` |
 | `kyber-inbox` (`inb0x4k2`) | signal/noise + dept routing | `emailSignal` (subscribeRepos) | `vertex_email_message` |
 | `yabai` (`y8b41k0x`) | threat scoring | `emailSignal` where `signalClass='yabai'` (subscribeRepos) | `yabai.entity/evidence/risk` |
 
@@ -71,7 +71,7 @@ Refresh `vertex_m365_user` from Graph `/users?$filter=endsWith(upn,'@gftd.co.jp'
 
 ## Sender Kind Classification
 
-- `internal`: `@gftd.co.jp` or `@gftd.ai`
+- `internal`: `@gftd.co.jp` or `@etzhayyim.com`
 - `noreply`: `no-reply@*`, `noreply@*`, `donotreply@*`
 - `ses_vendor`: `@sendgrid|mailchimp|amazonses|mailgun|postmark`
 - `external`: everything else
@@ -134,7 +134,7 @@ Current: `~/.gftd/ingest/m365_mail_ingest.py` (one-off, local)
 
 ## Related
 
-- `email-service-adapter` (outlook.gftd.ai) — OAuth per-user (unchanged)
+- `email-service-adapter` (outlook.etzhayyim.com) — OAuth per-user (unchanged)
 - `kyber-inbox` (`inb0x4k2`) — downstream signal/noise routing
 - `yabai` (`y8b41k0x`) — downstream threat scoring
 - `gmail` — peer ingest actor for Google Workspace (separate Graph API)

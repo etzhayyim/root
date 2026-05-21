@@ -35,7 +35,7 @@ inside a single Workspace tenant). Therefore:
   consent per account works if all scopes requested together).
 - Refresh tokens stored with **KEK envelope encryption** in each app's
   D1 `vertex_*_oauth_token` table (same ADR-0010 Stage 1 pattern the
-  gmail worker uses). Future: migrate to `vault.gftd.ai`
+  gmail worker uses). Future: migrate to `vault.etzhayyim.com`
   (`ai.gftd.vault.*`) per CLAUDE.md Vault Zero-Knowledge Invariant.
 
 ### Consent scopes (unified per account)
@@ -65,15 +65,15 @@ Google Cloud Console → single OAuth2 Web client (same `client_id` /
 
 Add each app's redirect URI in Console:
 ```
-https://gmail.gftd.ai/oauth/callback
-https://calendar.gftd.ai/oauth/callback
-https://drive.gftd.ai/oauth/callback
-https://contacts.gftd.ai/oauth/callback
-https://tasks.gftd.ai/oauth/callback
-https://docs.gftd.ai/oauth/callback
-https://sheets.gftd.ai/oauth/callback
-https://slides.gftd.ai/oauth/callback
-https://meet.gftd.ai/oauth/callback
+https://gmail.etzhayyim.com/oauth/callback
+https://calendar.etzhayyim.com/oauth/callback
+https://drive.etzhayyim.com/oauth/callback
+https://contacts.etzhayyim.com/oauth/callback
+https://tasks.etzhayyim.com/oauth/callback
+https://docs.etzhayyim.com/oauth/callback
+https://sheets.etzhayyim.com/oauth/callback
+https://slides.etzhayyim.com/oauth/callback
+https://meet.etzhayyim.com/oauth/callback
 ```
 
 ## Continuous sync strategy
@@ -94,7 +94,7 @@ https://meet.gftd.ai/oauth/callback
 `renew_at < now + 1h` → `channels.stop` + `events.watch`/`files.watch`
 again.
 
-**Webhook endpoint**: `https://{app}.gftd.ai/webhook/google` receives
+**Webhook endpoint**: `https://{app}.etzhayyim.com/webhook/google` receives
 `X-Goog-Channel-ID`/`X-Goog-Resource-ID` headers → push syncToken-based
 delta to B2 → cron processes.
 
@@ -172,7 +172,7 @@ done
 
 # 4. Per-account OAuth
 #    For each account from 70-tools/scripts/google-accounts-from-1p.sh:
-#    open https://gmail.gftd.ai/xrpc/ai.gftd.apps.gmail.connectAccount?email=...
+#    open https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.connectAccount?email=...
 #    → redirects to Google consent → sets tokens in every app's D1 table.
 ```
 
@@ -182,7 +182,7 @@ done
 1. Operator runs: ./70-tools/scripts/google-accounts-from-1p.sh
      → prints JSON: [{ "email": "jun@gftd.group", "label": "…" }, …]
 2. For each email:
-     a. Open https://gmail.gftd.ai in browser signed in as gftd user.
+     a. Open https://gmail.etzhayyim.com in browser signed in as gftd user.
      b. Call ai.gftd.apps.gmail.connectAccount { email }
      c. Google consent screen → grants all 12 scopes.
      d. /oauth/callback stores refresh_token in vertex_gmail_oauth_token.
@@ -208,7 +208,7 @@ identical shape.
 ## Known gaps / Phase 1+
 
 - **Vault migration**: refresh tokens currently in per-app D1 KEK
-  envelope. Move to `vault.gftd.ai` (`ai.gftd.vault.putItem` with
+  envelope. Move to `vault.etzhayyim.com` (`ai.gftd.vault.putItem` with
   `kind=google_refresh_token`) when the vault app stabilises. CLAUDE.md
   "Vault Zero-Knowledge Invariant".
 - **Pub/Sub (Gmail)**: current gmail app uses cron `history.list`.
@@ -241,12 +241,12 @@ identical shape.
 
 ## Phase 0 completion checklist
 
-- [x] Google Cloud Console OAuth client created + APIs enabled (client_id `96227025012-…`, verified live via gmail.gftd.ai)
+- [x] Google Cloud Console OAuth client created + APIs enabled (client_id `96227025012-…`, verified live via gmail.etzhayyim.com)
 - [x] CF secrets stored (`google_oauth_client_id`, `google_oauth_client_secret`, `gworkspace_token_kek`) — store id `1824561668fe47cc9127d493961885af`
 - [x] **Schema migration `20260417140000_vertex_google_workspace_tables` applied 2026-04-17** — 41 tables (33 vertex + 8 edge). Applied out-of-band via `30-graph/graph-schema/scripts/run-one-migration.mjs` (kysely migrator blocked by pre-existing drift). `kysely_migration` row inserted + `FLUSH`. Migration file fix: JSDoc `vertex_*/edge_*` → `vertex_ / edge_` (the `*/` was terminating the block comment early, causing TS1109)
 - [ ] 7 D1 dbs created (`calendar/drive/contacts/tasks/docs/sheets/slides-tokens`) + IDs pasted into 7 `wrangler.jsonc` files (gmail = `gm4il0x1` done)
-- [ ] Remaining redirect URIs added to GCP Console (only `gmail.gftd.ai` registered; `calendar/drive/…/meet.gftd.ai` TODO)
-- [ ] Drive worker initial `gftd deploy` / `wrangler deploy` (currently `drive.gftd.ai` returns `UnknownActor`)
+- [ ] Remaining redirect URIs added to GCP Console (only `gmail.etzhayyim.com` registered; `calendar/drive/…/meet.etzhayyim.com` TODO)
+- [ ] Drive worker initial `gftd deploy` / `wrangler deploy` (currently `drive.etzhayyim.com` returns `UnknownActor`)
 - [ ] `pnpm db:gen` + `pnpm db:drift` clean (regenerate `database.ts` now that 41 new tables exist)
 - [ ] All 9 apps deploy clean (`gftd deploy` per dir)
 - [ ] First account OAuth round-trip verified end-to-end (in progress — `jun@gftd.group` Gmail consent pending)

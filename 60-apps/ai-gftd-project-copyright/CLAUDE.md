@@ -2,7 +2,7 @@
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/copyright/actor-manifest.jsonld`). No Worker deploy — PDS Shared Executor runs 6 pipelines (resolve/list/license.inspect/coverage/orphanWorks.detect/cron) against `vertex_work` + `edge_authored_by` + `edge_owned_by` (migration 0037). Berne-aware: `berne_automatic=true` default when no registry specified.
 
-`copyright.gftd.ai` (nanoid: `c0pyr1g7`) — 著作権 coverage actor。US Copyright Office / JASRAC / CISAC / Crossref (DOI) / ISBN / ORCID を 2 次ソースとして統合。
+`copyright.etzhayyim.com` (nanoid: `c0pyr1g7`) — 著作権 coverage actor。US Copyright Office / JASRAC / CISAC / Crossref (DOI) / ISBN / ORCID を 2 次ソースとして統合。
 
 ## Role
 
@@ -14,8 +14,8 @@ copyright = **著作物 (literary, musical, visual, software, audiovisual) persp
 
 | Level | DID | 用途 |
 |---|---|---|
-| Primary | `did:web:copyright.gftd.ai` | Coordinator |
-| Registry | `did:web:copyright.gftd.ai:us-copyright` / `:jasrac` / `:crossref` / `:isbn` | registry 別 coverage |
+| Primary | `did:web:copyright.etzhayyim.com` | Coordinator |
+| Registry | `did:web:copyright.etzhayyim.com:us-copyright` / `:jasrac` / `:crossref` / `:isbn` | registry 別 coverage |
 
 ## Lexicon (`ai.gftd.apps.copyright.*`)
 

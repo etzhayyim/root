@@ -8,12 +8,12 @@
   },
   "@graph": [
     {
-      "@id": "https://kyber-systems.gftd.ai/activities/social-insurance-enrollment-process",
+      "@id": "https://kyber-systems.etzhayyim.com/activities/social-insurance-enrollment-process",
       "@type": "dodaf:OperationalActivity",
       "dct:title": "Social Insurance Enrollment Process",
       "dct:description": "The operational activity of enrolling new employees into social and health insurance schemes.",
       "performedBy": [
-        "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-cofog-10-social-protection"
+        "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-cofog-10-social-protection"
       ]
     }
   ]

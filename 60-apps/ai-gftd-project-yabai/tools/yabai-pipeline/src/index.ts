@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
-const DEFAULT_ENDPOINT = "https://yabai.gftd.ai";
+const DEFAULT_ENDPOINT = "https://yabai.etzhayyim.com";
 const SERVICE_PATH = "/xrpc/gftd.yabai.v1.YabaiService";
 const BATCH_SIZE = 5;
 

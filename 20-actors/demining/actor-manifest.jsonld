@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:demining.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:demining.etzhayyim.com",
   "name": "demining",
   "nanoid": "TBD",
   "displayName": "Demining — Humanitarian Mine Action",

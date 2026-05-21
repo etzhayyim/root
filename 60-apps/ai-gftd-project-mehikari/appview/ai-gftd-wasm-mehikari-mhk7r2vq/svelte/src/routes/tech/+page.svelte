@@ -13,7 +13,7 @@
   <section>
     <h2>1. アーキテクチャ概要</h2>
     <pre>
-警察 LAN / VPN  ─ mTLS ─▶  CF Worker (mehikari.gftd.ai) [edge, 状態なし]
+警察 LAN / VPN  ─ mTLS ─▶  CF Worker (mehikari.etzhayyim.com) [edge, 状態なし]
                               │
                               ▼ XRPC dispatch
                           bpmn-dispatcher (k8s, JP)

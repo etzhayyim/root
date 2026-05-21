@@ -25,7 +25,7 @@ porting D1-backed passkey storage and stateless HMAC OAuth code handling.
 
 ## Cross-origin session handoff
 
-Successful passkey flows redirect to `yoro.gftd.ai#auth=<encoded JSON session>` so
+Successful passkey flows redirect to `yoro.etzhayyim.com#auth=<encoded JSON session>` so
 that consumer subdomains can hydrate auth state from the URL fragment.
 </content>
 </invoke>

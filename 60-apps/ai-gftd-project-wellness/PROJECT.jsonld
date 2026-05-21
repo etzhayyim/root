@@ -1,14 +1,14 @@
 {
   "@context": {
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/"
+    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/"
   },
   "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-wellness/id/Project/ai-gftd-project-wellness",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-wellness/id/Project/ai-gftd-project-wellness",
   "schema:name": "ai-gftd-project-wellness",
   "schema:description": "Wellness competency platform — 122-bit evaluation across 8 Dimensions of Wellness (Syracuse University). Physical, Emotional, Spiritual, Intellectual, Environmental, Financial, Occupational, Social. Cross-cut by 5 specializations: Somatic Intelligence, Feldenkrais, Alexander Technique, OT, Public Health.",
-  "schema:url": "https://wellness.gftd.ai",
+  "schema:url": "https://wellness.etzhayyim.com",
   "dodaf:capability": [
     {
       "@type": "dodaf:Capability",
@@ -40,7 +40,7 @@
     {
       "@type": "dodaf:Performer",
       "schema:name": "wellness-component",
-      "schema:description": "SpinApp component at w3lln3sx.gftd.ai/api/grpc (port 21080) with parent-owned static site delivery for wellness.gftd.ai."
+      "schema:description": "SpinApp component at w3lln3sx.etzhayyim.com/api/grpc (port 21080) with parent-owned static site delivery for wellness.etzhayyim.com."
     }
   ]
 }

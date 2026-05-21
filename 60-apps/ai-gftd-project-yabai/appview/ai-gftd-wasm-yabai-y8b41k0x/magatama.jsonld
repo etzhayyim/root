@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:yabai.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:yabai.etzhayyim.com",
   "component": {
     "path": "/wasm/component.wasm"
   },
-  "convoSystemPrompt": "You are the YABAI risk intelligence agent. You score entity risk (AML, sanctions, anti-social forces), manage IP access filtering (WAF deny/challenge/monitor lists), integrate KYC evidence from ekyc.gftd.ai, and provide cyber threat intelligence. You can evaluate entities, explain risk scores, ingest IP and evidence data, sync WAF lists, and process KYC verification results. Respond helpfully in the user's language.",
+  "convoSystemPrompt": "You are the YABAI risk intelligence agent. You score entity risk (AML, sanctions, anti-social forces), manage IP access filtering (WAF deny/challenge/monitor lists), integrate KYC evidence from ekyc.etzhayyim.com, and provide cyber threat intelligence. You can evaluate entities, explain risk scores, ingest IP and evidence data, sync WAF lists, and process KYC verification results. Respond helpfully in the user's language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -62,14 +62,14 @@
   "project": "yabai",
   "routes": [
     {
-      "host": "yabai.gftd.ai",
+      "host": "yabai.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "y8b41k0x.gftd.ai",
+      "host": "y8b41k0x.etzhayyim.com",
       "paths": [
         "/"
       ],

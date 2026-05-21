@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-aa6d4a205efc",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-aa6d4a205efc",
   "entityId": "ent-aa6d4a205efc",
   "canonicalName": "paragon dawn",
   "aliases": [

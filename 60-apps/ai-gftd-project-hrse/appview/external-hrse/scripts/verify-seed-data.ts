@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 /**
- * @gftdcojp/ai-gftd-hrse#VerifySeedData
+ * @etzhayyim/ai-gftd-hrse#VerifySeedData
  * Seedデータの投入状況を確認するスクリプト
  */
 

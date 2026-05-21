@@ -34,7 +34,7 @@ vi.mock("@gftd/magatama-host-sdk", () => ({
         },
       },
       hostImports: {
-        comAtprotoIdentityCreate: (slug: string) => `did:web:shinkansen.gftd.ai:${slug}`,
+        comAtprotoIdentityCreate: (slug: string) => `did:web:shinkansen.etzhayyim.com:${slug}`,
       },
     };
     setup(mockSdk);

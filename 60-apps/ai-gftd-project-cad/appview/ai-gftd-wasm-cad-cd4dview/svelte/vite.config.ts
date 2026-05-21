@@ -42,7 +42,7 @@ export default defineConfig({
 		}
 	},
 	ssr: {
-		noExternal: ['@gftdcojp/design-system', '@gftdcojp/design-system']
+		noExternal: ['@etzhayyim/design-system', '@etzhayyim/design-system']
 	},
 	server: {
 		allowedHosts: true

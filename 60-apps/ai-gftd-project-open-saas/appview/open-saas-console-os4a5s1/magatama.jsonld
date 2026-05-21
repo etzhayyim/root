@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-saas.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-saas.etzhayyim.com",
   "name": "open-saas-console-os4a5s1",
   "nanoid": "open-saas-console",
   "project": "open-saas",
@@ -33,7 +33,7 @@
   },
   "routes": [
     {
-      "host": "open-saas.gftd.ai",
+      "host": "open-saas.etzhayyim.com",
       "paths": [
         "/"
       ],

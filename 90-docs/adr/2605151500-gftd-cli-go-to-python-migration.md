@@ -75,7 +75,7 @@ hardcoded strings.
 ## Porting order (suggested)
 
 1. `xrpc` — thin HTTP wrapper, no Go-specific logic. ✓
-2. `projector` — pure XRPC calls to `mcp.gftd.ai`. ✓
+2. `projector` — pure XRPC calls to `mcp.etzhayyim.com`. ✓
 3. `agent-token` — single JWT mint via `com.atproto.server.getServiceAuth`. ✓
 4. `shannon` / `mokuteki` — analytics read commands. ✓
 5. `deploy` / `build` — heavier; port after lighter commands stabilise. ✓
@@ -144,7 +144,7 @@ hardcoded strings.
 - `identity migrate-paths` — legacy-nanoid → did:gftd path migration: reads `[[legacy_nanoids]]` from deps.toml, computes SHA-256-based path DID, submits via XRPC `ai.gftd.identity.submitOp`; `--apply` gate; `--json`. ✓
 - `migrate-manifest run` — pure file transformation (gftd.json → magatama.jsonld); reads routes/runtime/build/deploy fields from gftd.json; optionally parses `magatama.toml` (sections: component, component.env, component.compose, triggers.http, triggers.w_commit, ui, ui.ssr_routes, game, space, [[space.channels]], evolver, pool, [[extensions]], interfaces); `--batch` scans subdirs; `--dry-run` prints to stdout; zero DB dependencies. ✓
 - `docs-gen schema` — factual schema auto-generation: reads `magatama.jsonld` (app/nanoid/DID/collections/performerType), `wrangler.jsonc` (service bindings via `"binding":` regex), `src/*.ts` (G("Label") graph patterns); `--all` scans all `60-apps/ai-gftd-project-*/wasm/*/`; `--format json|md`; `--out` file sink; fully portable local file analysis. ✓
-- `deps score` — HTTP-based: fetches `deps.gftd.ai/api/deps/graph`, extracts link coverage summary (totalLinks/resolvedLinks/linkCoverageRate/isolatedCount/workerDeployCoverage/governanceCoverage/wprotoIntegrationScore); `--format text|json`; `--timeout-sec`. ✓
+- `deps score` — HTTP-based: fetches `deps.etzhayyim.com/api/deps/graph`, extracts link coverage summary (totalLinks/resolvedLinks/linkCoverageRate/isolatedCount/workerDeployCoverage/governanceCoverage/wprotoIntegrationScore); `--format text|json`; `--timeout-sec`. ✓
 - `deps audit` — HTTP-based: optionally POSTs to `/api/hooks/component` (manual_refresh), waits `--wait-sec`, then runs `deps score`; `--full-audit/--no-full-audit`; `--format text|json`. ✓
 - `coverage-test` alias — top-level alias registered in cli.py: `gftd coverage-test` = `gftd coverage` group (mirrors Go's `coverage-test = coverage test` alias). ✓
 - `plugin list/install/upgrade` — GitHub-release downloader: fetches latest version via `api.github.com/repos/bytecodealliance/wasm-tools/releases/latest`, downloads tar.gz, extracts binary to `~/.cache/gftd/plugins/<name>/`; also shows `tinygo`/`docker` from PATH; no DB access. ✓
@@ -163,7 +163,7 @@ hardcoded strings.
 - `agent-runtime holochain-plan` — pure data transformation: builds Holochain conductor k8s plan JSON with `agentDid`, `hApp` (name/uri/sha256/roleName/zomeName/dnaHash), `k8s` (namespace/workload/conductorImage/env); validates `--namespace != default`; `--out` file sink. ✓
 - `mitama schema-status` — `SHOW ALTER TABLE COLUMN FROM graphar` via `ai.gftd.kagami.sql` XRPC; `--table` filter, `--all`, `--state` (RUNNING/FINISHED/CANCELLED); `--json`. ✓
 - `training run` — full port of Go's `training run --kind sft|lora|distill`: routes to `ai.gftd.apps.training.runSft`/`runLora`/`runDistill` XRPC; validates `--base` (sft/lora), `--student-base` + `--teacher-kind` (distill); supports `--dataset`, `--label`, `--run-id`, `--gpu`, `--seed`, `--hyperparams` JSON, `--eval-benches`, `--rationale`, `--distill-method`; `--json` output. ✓
-- `deps export` — exports deps score/audit/apps JSON files for the frontend visualizer: fetches `deps.gftd.ai/api/deps/graph`, computes `_summarize_deps_graph`, writes `deps-score.json`/`deps-audit.json`/`deps-apps.json` to `--out-dir`; `--no-refresh` skips HTTP; `--top` controls top-N unresolved nodes; `--score-name`/`--audit-name`/`--apps-name` overrides. ✓
+- `deps export` — exports deps score/audit/apps JSON files for the frontend visualizer: fetches `deps.etzhayyim.com/api/deps/graph`, computes `_summarize_deps_graph`, writes `deps-score.json`/`deps-audit.json`/`deps-apps.json` to `--out-dir`; `--no-refresh` skips HTTP; `--top` controls top-N unresolved nodes; `--score-name`/`--audit-name`/`--apps-name` overrides. ✓
 - `deps sql` — Go-only stub (queries `mv_deps_component_live` via pgxpool); raises ClickException directing to `gftd deps sql`. ✓
 - `code exec` — non-interactive one-shot terminal-agent mode: resolves `OPENROUTER_API_KEY` from `--api-key` arg → `OPENROUTER_API_KEY` env → macOS Keychain (`security find-generic-password -s gftd.openrouter -w`); delegates to `uv run agent --local --message <msg> --dir <path>`; `--dry-run` prints command without executing; `--model` and `--uv-bin` overrides. ✓
 - `murakumo kubelet-deploy` — Mac Mini fleet Virtual Kubelet deployment: dry-run prints start command (`cd .../50-infra/k8s/murakumo-kubelet && python3 start_kubelets.py`); live mode requires `MURAKUMO_FLEET_SSH_PASS` env (otherwise ClickException); `--nodes all|<csv>`, `--concurrency`, `--repo-root` flags. ✓

@@ -1,6 +1,6 @@
-# natural-person.gftd.ai
+# natural-person.etzhayyim.com
 
-**nanoid**: `np02priv9` | **DID**: `did:web:natural-person.gftd.ai` | **sensitivity**: `restricted` (admin-only, T0 hidden)
+**nanoid**: `np02priv9` | **DID**: `did:web:natural-person.etzhayyim.com` | **sensitivity**: `restricted` (admin-only, T0 hidden)
 
 ## Architecture: Statistics-First -> Identity-Later
 
@@ -24,15 +24,15 @@
 | コマンド | 内容 |
 |---|---|
 | `identifyPersonsBatch` | 他 app (hanrei 等) から受信した人物を DJB2 dedup で DID 登録 |
-| `enrichPerson` | site.gftd.ai 経由で人物の web 情報を収集 (kyumei-koji pattern) |
+| `enrichPerson` | site.etzhayyim.com 経由で人物の web 情報を収集 (kyumei-koji pattern) |
 | `enrichBatch` | 未 enrichment の identified persons を batch で web 調査 |
 | `searchPersonGraph` | 人物 entity graph 検索 (IdentifiedPerson + PersonEnrichment 結合) |
 
-**Data flow**: hanrei (判例人物抽出) → `identifyPersonsBatch` (DJB2 dedup → IdentifiedPerson record) → `enrichPerson` (site.gftd.ai crawl → LLM extract → PersonEnrichment record)
+**Data flow**: hanrei (判例人物抽出) → `identifyPersonsBatch` (DJB2 dedup → IdentifiedPerson record) → `enrichPerson` (site.etzhayyim.com crawl → LLM extract → PersonEnrichment record)
 
 **Dedup**: `DJB2(name|country|role|organization)` で同一人物を同定。path-based DID `person_{hash}` で MERGE。
 
-**Web enrichment (kyumei-koji)**: discover (search URLs 生成) → site.gftd.ai crawl_page → gather (WET/WAT 受信) → validate (LLM confidence check) → integrate (PersonEnrichment record)
+**Web enrichment (kyumei-koji)**: discover (search URLs 生成) → site.etzhayyim.com crawl_page → gather (WET/WAT 受信) → validate (LLM confidence check) → integrate (PersonEnrichment record)
 
 **Graph labels**: `IdentifiedPerson`, `PersonEnrichment`, `EnrichmentJob`
 
@@ -62,9 +62,9 @@ death_cause_icd10, era (modern/industrial/medieval/ancient/prehistoric)
 ### DID Structure
 
 ```
-did:web:natural-person.gftd.ai                                    # primary DID (coordinator)
-did:web:natural-person.gftd.ai:{cohort-hash}                      # cohort person (DJB2 hash of 26 dimensions)
-did:web:natural-person.gftd.ai:evt_{event-slug}_{name-hash}       # event attendee (DJB2 hash of name+company+event)
+did:web:natural-person.etzhayyim.com                                    # primary DID (coordinator)
+did:web:natural-person.etzhayyim.com:{cohort-hash}                      # cohort person (DJB2 hash of 26 dimensions)
+did:web:natural-person.etzhayyim.com:evt_{event-slug}_{name-hash}       # event attendee (DJB2 hash of name+company+event)
 ```
 
 cohort-hash = DJB2(canonical string of all 26 dimensions)。同一 dimension の cohort は同一 hash -> MERGE で dedup。

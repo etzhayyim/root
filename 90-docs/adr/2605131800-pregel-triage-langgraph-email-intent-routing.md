@@ -42,7 +42,7 @@ outlook_triage で `clean` と判定された Outlook/M365 メールを受け取
 2. **vertex 書込** — `vertex_email_message` + `vertex_email_sender` + `edge_email_sent_by` への INSERT
 3. **project routing** — `task_email_route` 呼び出し → `edge_email_routes_to_project` + `vertex_projector_message` 追加
 
-を行う独立 LangGraph Server (`pregel.gftd.ai`) を確立する。
+を行う独立 LangGraph Server (`pregel.etzhayyim.com`) を確立する。
 
 ## Context
 
@@ -70,9 +70,9 @@ outlook_triage (5 min cron)
 
 | 項目 | 値 |
 |---|---|
-| host | `pregel.gftd.ai` |
-| DID | `did:web:pregel.gftd.ai` |
-| image | `ghcr.io/gftdcojp/lg-pregel` |
+| host | `pregel.etzhayyim.com` |
+| DID | `did:web:pregel.etzhayyim.com` |
+| image | `ghcr.io/etzhayyim/lg-pregel` |
 | K8s | `50-infra/k8s/pregel/deployment.yaml` (namespace: mitama-udf) |
 | memory limit | 2Gi (1Gi が OOMKill — LangGraph + asyncpg の同時ロードで倍増) |
 | secret | `lg-pregel-secrets` (K8s Secret、旧: `lg-pegel-secrets` → 手動再作成要) |
@@ -129,7 +129,7 @@ MV:
 
 ### Routing rules (task_email_route)
 
-`primitives/email_route.py` (`ACTOR_PREGEL = "did:web:pregel.gftd.ai"`) が処理:
+`primitives/email_route.py` (`ACTOR_PREGEL = "did:web:pregel.etzhayyim.com"`) が処理:
 
 1. `mv_email_pending_action` から未 routed を取得
 2. intent / from_domain / account_did で project を特定 (`edge_email_routes_to_project`)
@@ -162,7 +162,7 @@ MV:
 | BEC 復号パス | pregel がメッセージキーを取得して subject/body を復号し LLM に渡す |
 | routing rules 拡張 | TMI, Bakshi, 外部パートナー向けルール追加 |
 | K8s secret 手動再作成 | `kubectl -n mitama-udf create secret generic lg-pregel-secrets` (値は旧 `lg-pegel-secrets` からコピー) |
-| Docker image rename | `ghcr.io/gftdcojp/lg-pregel` (旧: `lg-pegel`) でビルド・プッシュ |
+| Docker image rename | `ghcr.io/etzhayyim/lg-pregel` (旧: `lg-pegel`) でビルド・プッシュ |
 
 ## Forbidden patterns
 

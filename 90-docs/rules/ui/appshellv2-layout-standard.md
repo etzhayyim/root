@@ -2,7 +2,7 @@
 
 ## Scope
 
-- 対象: `@gftdcojp/appshellv2` を利用する全 UI (`projects/*/svelte`, `projects/*/wasm/*/svelte`)
+- 対象: `@etzhayyim/appshellv2` を利用する全 UI (`projects/*/svelte`, `projects/*/wasm/*/svelte`)
 
 ## Hard Rules
 

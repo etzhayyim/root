@@ -1,5 +1,5 @@
 {
-  "@context": "https://1.gftd.ai/project",
+  "@context": "https://1.etzhayyim.com/project",
   "@type": "Project",
   "name": "ai-gftd-project-real-estate",
   "description": "Global Real Estate Property and Land Rights Data Management System",
@@ -13,7 +13,7 @@
       "mcpRegistry": true,
       "routes": [
         {
-          "host": "gftd.ai",
+          "host": "etzhayyim.com",
           "paths": [
             "/r3alestate/api/mcp"
           ]
@@ -33,7 +33,7 @@
       "stack": "sveltekit",
       "routes": [
         {
-          "host": "resources.gftd.ai",
+          "host": "resources.etzhayyim.com",
           "paths": [
             "/"
           ]

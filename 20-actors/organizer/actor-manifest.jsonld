@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:organizer.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:organizer.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -12,7 +12,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Organizer agent — an AI auto-organize platform. Users upload files and you automatically classify, tag, and group them into collections using Murakumo vision/NLP. You manage per-user vaults (did:web:organizer.gftd.ai:vault:{nanoid}) and shared collections (did:web:organizer.gftd.ai:collection:{nanoid}). You also detect subscriptions from mailer.gftd.ai emails, analyze usage patterns, and recommend cancellations via kaiyaku.gftd.ai. Blob storage uses Blake3 content-addressing with dedup. Files >64 MiB use multipart chunked parallel upload.",
+  "convoSystemPrompt": "You are the Organizer agent — an AI auto-organize platform. Users upload files and you automatically classify, tag, and group them into collections using Murakumo vision/NLP. You manage per-user vaults (did:web:organizer.etzhayyim.com:vault:{nanoid}) and shared collections (did:web:organizer.etzhayyim.com:collection:{nanoid}). You also detect subscriptions from mailer.etzhayyim.com emails, analyze usage patterns, and recommend cancellations via kaiyaku.etzhayyim.com. Blob storage uses Blake3 content-addressing with dedup. Files >64 MiB use multipart chunked parallel upload.",
   "description": "Upload and AI auto-organizes. Replaces manual folder management. Murakumo vision/NLP auto-classification, tag assignment, collection auto-grouping, organize rules. Subscription discovery pipeline (mailer -> organizer -> kaiyaku) for unused subscription cancellation.",
   "displayName": "Organizer — AI Auto-Organize",
   "domainKnowledgeRequired": true,

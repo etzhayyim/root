@@ -6,7 +6,7 @@
 
 | Key | Value |
 |---|---|
-| **AT bot DID** | `did:web:hanrei.gftd.ai` |
+| **AT bot DID** | `did:web:hanrei.etzhayyim.com` |
 | **Runtime** | **TS Native** (`src/app.ts` + `@gftd/magatama-host-sdk` → esbuild bundle) |
 | **Data store** | **W Protocol Event Stream** — Write: `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })`, Read: `createKyselyDb(env.HYPERDRIVE).selectFrom(...)` |
 | **UI mode** | `appview` (Protocol Canvas card, zero frontend) |
@@ -20,8 +20,8 @@
 | **Legal systems** | 4 | civil_law (47), common_law (15), islamic_law (1), mixed (12) |
 | **Japan court DIDs** | 6 | supreme, ip_high, high, district, family, summary_court |
 | **Japan source DIDs** | 3 | kanpo (gazette), egov (legislation), wikidata (courts) |
-| **判例DID** | N | `did:web:hanrei.gftd.ai:hanrei:{rkey}` — 事件番号・裁判年月日・裁判所で一意識別 |
-| **判決DID** | N | `did:web:hanrei.gftd.ai:hanketsu:{rkey}` — 判例に紐づく判決全文 (1判例:N判決) |
+| **判例DID** | N | `did:web:hanrei.etzhayyim.com:hanrei:{rkey}` — 事件番号・裁判年月日・裁判所で一意識別 |
+| **判決DID** | N | `did:web:hanrei.etzhayyim.com:hanketsu:{rkey}` — 判例に紐づく判決全文 (1判例:N判決) |
 | **Citation graph** | edges | `ai.gftd.hanrei.citationEdge` — 判例間引用関係 |
 | **Total** | 83 jurisdictions + 6 JP courts + 3 JP sources + 判例/判決 DID |
 
@@ -31,18 +31,18 @@
 
 | Source | URL | Method | Writer DID |
 |---|---|---|---|
-| **最高裁判所** | `courts.go.jp/app/hanrei_jp/search2` | Collection Job (browser_automation) | `did:web:hanrei.gftd.ai:court:supreme` |
-| **知的財産高等裁判所** | `courts.go.jp/app/hanrei_jp/search5` | Collection Job (browser_automation) | `did:web:hanrei.gftd.ai:court:ip_high` |
-| **高等裁判所** | `courts.go.jp/app/hanrei_jp/search3` | Collection Job (browser_automation) | `did:web:hanrei.gftd.ai:court:high` |
-| **地方裁判所** | `courts.go.jp/app/hanrei_jp/search4` | Collection Job (browser_automation) | `did:web:hanrei.gftd.ai:court:district` |
-| **家庭裁判所** | `courts.go.jp/app/hanrei_jp/search6` | Collection Job (browser_automation) | `did:web:hanrei.gftd.ai:court:family` |
-| **簡易裁判所** | `courts.go.jp/app/hanrei_jp/search7` | Collection Job (browser_automation) | `did:web:hanrei.gftd.ai:court:summary_court` |
-| **官報** | `kanpou.npb.go.jp` | Collection Job (browser_automation) | `did:web:hanrei.gftd.ai:source:kanpo` |
-| **e-Gov法令検索** | `elaws.e-gov.go.jp/api/1/lawdata` | Collection Job (api) | `did:web:hanrei.gftd.ai:source:egov` |
-| **e-Gov法令API** | `laws.e-gov.go.jp/api/1/` | Collection Job (api, CC BY 4.0) | `did:web:hanrei.gftd.ai:source:egov` |
-| **Wikidata SPARQL** | `query.wikidata.org/sparql` | Collection Job (sparql, CC0) | `did:web:hanrei.gftd.ai:source:wikidata` |
+| **最高裁判所** | `courts.go.jp/app/hanrei_jp/search2` | Collection Job (browser_automation) | `did:web:hanrei.etzhayyim.com:court:supreme` |
+| **知的財産高等裁判所** | `courts.go.jp/app/hanrei_jp/search5` | Collection Job (browser_automation) | `did:web:hanrei.etzhayyim.com:court:ip_high` |
+| **高等裁判所** | `courts.go.jp/app/hanrei_jp/search3` | Collection Job (browser_automation) | `did:web:hanrei.etzhayyim.com:court:high` |
+| **地方裁判所** | `courts.go.jp/app/hanrei_jp/search4` | Collection Job (browser_automation) | `did:web:hanrei.etzhayyim.com:court:district` |
+| **家庭裁判所** | `courts.go.jp/app/hanrei_jp/search6` | Collection Job (browser_automation) | `did:web:hanrei.etzhayyim.com:court:family` |
+| **簡易裁判所** | `courts.go.jp/app/hanrei_jp/search7` | Collection Job (browser_automation) | `did:web:hanrei.etzhayyim.com:court:summary_court` |
+| **官報** | `kanpou.npb.go.jp` | Collection Job (browser_automation) | `did:web:hanrei.etzhayyim.com:source:kanpo` |
+| **e-Gov法令検索** | `elaws.e-gov.go.jp/api/1/lawdata` | Collection Job (api) | `did:web:hanrei.etzhayyim.com:source:egov` |
+| **e-Gov法令API** | `laws.e-gov.go.jp/api/1/` | Collection Job (api, CC BY 4.0) | `did:web:hanrei.etzhayyim.com:source:egov` |
+| **Wikidata SPARQL** | `query.wikidata.org/sparql` | Collection Job (sparql, CC0) | `did:web:hanrei.etzhayyim.com:source:wikidata` |
 
-### Global Jurisdictions (per-jurisdiction DID: `did:web:hanrei.gftd.ai:jurisdiction:{iso3}`)
+### Global Jurisdictions (per-jurisdiction DID: `did:web:hanrei.etzhayyim.com:jurisdiction:{iso3}`)
 
 Each jurisdiction has 3 data sources: case database, legislation database, official gazette. All use Collection Job pattern. Jurisdiction metadata (court levels, legal system, primary law, source URLs) is in-memory authoritative (`jurisdictions[]` array in `app.ts`). Graph records are written via `register_jurisdictions` command.
 
@@ -70,9 +70,9 @@ Social posts: `writeBuffer.push({ type: "app.bsky.feed.post", payload: { text, o
 
 | Actor | Relation | Description |
 |---|---|---|
-| `saiban.gftd.ai` | hanrei → jiken link | 判例から事件DIDへの紐づけ (saiban が jiken を管理) |
-| `lawfirm.gftd.ai` | hanrei → case-law search | lawfirm の search-case-law が hanrei を cross-actor invoke |
-| `natural-person.gftd.ai` | hanrei → person extraction | CaseRecord から人物抽出 → natural-person に Invoke |
+| `saiban.etzhayyim.com` | hanrei → jiken link | 判例から事件DIDへの紐づけ (saiban が jiken を管理) |
+| `lawfirm.etzhayyim.com` | hanrei → case-law search | lawfirm の search-case-law が hanrei を cross-actor invoke |
+| `natural-person.etzhayyim.com` | hanrei → person extraction | CaseRecord から人物抽出 → natural-person に Invoke |
 
 ## Commands (XRPC)
 

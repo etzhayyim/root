@@ -42,7 +42,7 @@ notes: |
 
 ## Current state (2026-05-14)
 
-mangaka.gftd.ai panel generation runs entirely on **2D diffusion**:
+mangaka.etzhayyim.com panel generation runs entirely on **2D diffusion**:
 
 | Stage | Location | Tech |
 |---|---|---|

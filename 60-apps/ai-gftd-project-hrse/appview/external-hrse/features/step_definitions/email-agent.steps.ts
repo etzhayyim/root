@@ -1,4 +1,4 @@
-// @gftdcojp/ai-gftd-hrse#EmailAgentSteps
+// @etzhayyim/ai-gftd-hrse#EmailAgentSteps
 // Email Agent関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

@@ -6,7 +6,7 @@ Gftd Japan の AI agent が user 代理で Microsoft Teams / Google Meet / Zoom 
 
 | 領域 | 状態 |
 |---|---|
-| Actor 登録 (did:web:meeting-recorder.gftd.ai, nanoid m33tr3c0) | ✅ `deps.toml` |
+| Actor 登録 (did:web:meeting-recorder.etzhayyim.com, nanoid m33tr3c0) | ✅ `deps.toml` |
 | Lexicon (7 本) | ✅ `00-contracts/lexicons/ai/gftd/apps/meetingRecorder/*.json` |
 | Graph migration (5 tables) | ✅ `30-graph/graph-schema/migrations/20260422090000_vertex_meeting_recorder_tables.ts` |
 | Control-plane CF Worker | ✅ `60-apps/ai-gftd-project-meeting-recorder/appview/ai-gftd-wasm-meeting-recorder-m33tr3c0/` |
@@ -45,7 +45,7 @@ Gftd Japan の AI agent が user 代理で Microsoft Teams / Google Meet / Zoom 
 |---|---|---|---|
 | did:web | ✅ | ✅ (Phase 4) | `/.well-known/did.json` or `/<path>/did.json` |
 | did:plc | ✅ | — | `https://plc.directory/{did}` (override: `DID_PLC_RESOLVER`) |
-| did:gftd (ADR-0029) | ✅ | ✅ | `https://did.gftd.ai/1.0/identifiers/{did}` (override: `DID_GFTD_RESOLVER`) |
+| did:gftd (ADR-0029) | ✅ | ✅ | `https://did.etzhayyim.com/1.0/identifiers/{did}` (override: `DID_GFTD_RESOLVER`) |
 
 ### Worker ↔ Container auth (ADR-0022 準拠)
 
@@ -80,7 +80,7 @@ a2d58dd364b feat: add contracts actor wiring and meeting recorder updates
 | No session | `session required (Authorization: Bearer <session JWT>)` |
 | session ≠ onBehalfOfDid | `caller session did ≠ onBehalfOfDid` |
 | Expired consent | `consent rejected: consent expired` |
-| aud mismatch | `consent rejected: aud mismatch: got did:web:wrong.gftd.ai` |
+| aud mismatch | `consent rejected: aud mismatch: got did:web:wrong.etzhayyim.com` |
 | ES256 JWT + secp256k1 DID key | `JWT alg=ES256 ≠ DID key alg=ES256K` (substitution reject) |
 | ES256K JWT + secp256k1 DID + fake sig | noble-curves verify reached, `compact sig expected 64 bytes` reject |
 | did:plc resolution (`did:plc:ewvi7nxzyoun6zhxrhs64oiz`) | plc.directory 200 fetch OK |
@@ -201,8 +201,8 @@ RECORDER_ENABLE_MOCK=1 \
 
 # terminal 3 — drive
 curl -X POST http://localhost:50052/v1/join -H "content-type: application/json" -d '{
-  "sessionId":"ses_smoke_003", "sessionDid":"did:web:meeting-recorder.gftd.ai:session:mock:smoke003",
-  "provider":"mock", "joinTarget":{}, "onBehalfOfDid":"did:web:jun.gftd.ai",
+  "sessionId":"ses_smoke_003", "sessionDid":"did:web:meeting-recorder.etzhayyim.com:session:mock:smoke003",
+  "provider":"mock", "joinTarget":{}, "onBehalfOfDid":"did:web:jun.etzhayyim.com",
   "recordAudio":true, "recordVideo":true, "transcribe":true, "chunkSeconds":1,
   "pdsBearerMint": {"url":"http://localhost:9100/_internal/mint-pds-bearer","secret":"fake-tunnel-secret"}
 }'

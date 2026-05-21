@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1',
-                 'did:web:kouza.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1',
+                 'did:web:kouza.etzhayyim.com',
                  'kouza_sync_due_connections',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -42,7 +42,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_kouza_sync_due_connections"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/kouza"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/kouza"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="kouza_sync_due_connections" name="kouza sync due '
@@ -87,7 +87,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kouza.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kouza.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;kouza.syncDueConnections&quot;" '
                  'target="action"/>\n'
@@ -108,10 +108,10 @@ UP = [{'sql': '\n'
                  3253,
                  '00-contracts/bpmn/ai/gftd/kouza/syncDueConnections.bpmn',
                  '2026-04-25T16:50:00Z',
-                 'did:web:kouza.gftd.ai',
-                 'did:web:kouza.gftd.ai',
+                 'did:web:kouza.etzhayyim.com',
+                 'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -125,21 +125,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1',
-                 'did:web:kouza.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1',
+                 'did:web:kouza.etzhayyim.com',
                  'ai.gftd.apps.kouza.syncDueConnections',
                  'kouza_sync_due_connections',
                  120000,
                  '2026-04-25T16:50:00Z',
-                 'did:web:kouza.gftd.ai',
-                 'did:web:kouza.gftd.ai',
+                 'did:web:kouza.etzhayyim.com',
+                 'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1']}]
 
 
 def upgrade() -> None:

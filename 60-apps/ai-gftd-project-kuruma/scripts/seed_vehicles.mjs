@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * Seed initial vehicle data for kuruma.gftd.ai Phase 1.
+ * Seed initial vehicle data for kuruma.etzhayyim.com Phase 1.
  * Uses real-world specs for high-demand Japanese models.
  */
 
-const API = 'https://kuruma.gftd.ai/xrpc/gftd.kuruma.v1.KurumaCommandService/CreateVehicle';
+const API = 'https://kuruma.etzhayyim.com/xrpc/gftd.kuruma.v1.KurumaCommandService/CreateVehicle';
 
 const vehicles = [
   // Toyota

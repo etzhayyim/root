@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/06/3/0/water-supply",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/3/0/water-supply",
       "type": "dodaf:Capability",
       "name": "Potable Water Supply and Quality Management Capability",
       "description": "Functional capability for managing potable water collection, treatment, and distribution networks. Classification: COFOG Division 06, Group 3, Class 0.",

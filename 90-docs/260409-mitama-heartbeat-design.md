@@ -80,7 +80,7 @@ PDS comAtprotoRepoCreateRecord("ai.gftd.apps.bunken.bunken", record)
 
 ```
 POST /xrpc/ai.gftd.actor.executePipeline
-  { did: "did:web:kenkyusha.gftd.ai", pipelineIndex: 7, input: {...} }
+  { did: "did:web:kenkyusha.etzhayyim.com", pipelineIndex: 7, input: {...} }
   → handleActorExecutor(NSID_EXECUTOR_EXECUTE, ...)
     → getManifest(did)
     → T1: executePipeline(manifest, pipelineIndex, input, primCtx)
@@ -206,9 +206,9 @@ async function resyncCronTriggers(env: Env): Promise<void> {
 ```
 
 → 3 DO instances が作成される:
-- `did:web:kenkyusha.gftd.ai:cron:0` → alarm every 6h (offset 0)
-- `did:web:kenkyusha.gftd.ai:cron:1` → alarm every 6h (offset 3)
-- `did:web:kenkyusha.gftd.ai:cron:2` → alarm every 6h (offset 1)
+- `did:web:kenkyusha.etzhayyim.com:cron:0` → alarm every 6h (offset 0)
+- `did:web:kenkyusha.etzhayyim.com:cron:1` → alarm every 6h (offset 3)
+- `did:web:kenkyusha.etzhayyim.com:cron:2` → alarm every 6h (offset 1)
 
 → subscribeRepos pipeline は cron 不要 (commit 時に即発火)
 
@@ -226,13 +226,13 @@ async function resyncCronTriggers(env: Env): Promise<void> {
 
 ### Joucho 情緒 × Mitama
 
-T1 actor は joucho 5-axis を直接持たないが、`agent.chat` primitive 経由で joucho.gftd.ai の scoring を invoke できる:
+T1 actor は joucho 5-axis を直接持たないが、`agent.chat` primitive 経由で joucho.etzhayyim.com の scoring を invoke できる:
 
 ```json
 {
   "fn": "agent.invoke",
   "args": {
-    "targetDid": "did:web:joucho.gftd.ai",
+    "targetDid": "did:web:joucho.etzhayyim.com",
     "method": "getActorMood",
     "args": { "actorDid": "$did" }
   }
@@ -262,7 +262,7 @@ T1 actor は joucho 5-axis を直接持たないが、`agent.chat` primitive 経
 | `step:error` | `logStepExecution()` (with error) |
 | `pipeline:end` | `logPipelineEnd()` |
 
-→ `ocel.gftd.ai` が subscribe → process discovery, conformance, KPI
+→ `ocel.etzhayyim.com` が subscribe → process discovery, conformance, KPI
 
 ## Coverage η
 

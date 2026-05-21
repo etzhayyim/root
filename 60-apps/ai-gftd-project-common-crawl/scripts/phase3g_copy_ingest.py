@@ -265,7 +265,7 @@ def ingest_table(main_conn, table_key: str, sleep_ms: int, state: dict,
 def populate_domains(conn):
     """Populate vertex_domain from vertex_page.domain DISTINCT.
 
-    Domain is its own DID actor — `did = owner_did = did:web:site.gftd.ai:{slug}`.
+    Domain is its own DID actor — `did = owner_did = did:web:site.etzhayyim.com:{slug}`.
     Mirrors the per-page DID convention (vertex_page.owner_did = page DID).
     """
     log.info("=== vertex_domain: populate from vertex_page.domain DISTINCT ===")
@@ -280,11 +280,11 @@ def populate_domains(conn):
                 )
                 SELECT
                     p.domain, p.domain,
-                    'did:web:site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
-                    'site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
+                    'did:web:site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
+                    'site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
                     p.domain, NULL::VARCHAR, 'service', 'active',
                     0::BIGINT, 0::BIGINT, NULL::DATE,
-                    'did:web:site.gftd.ai:' || REPLACE(p.domain, '.', '-')  -- owner_did = self
+                    'did:web:site.etzhayyim.com:' || REPLACE(p.domain, '.', '-')  -- owner_did = self
                 FROM (SELECT DISTINCT domain FROM vertex_page
                       WHERE domain IS NOT NULL AND domain != '') p
             """)

@@ -57,7 +57,7 @@
             "id": "@id",
             "type": "@type"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-apps-gftdcojp/activities/legal-bpo",
+          "id": "https://etzhayyim.com/projects/etzhayyim-root/activities/legal-bpo",
           "type": "dodaf:OperationalActivity",
           "dct:title": "Legal BPO Operational Flows (OV-5b)",
           "dct:description": "Fully automated legal and compliance business processes.",
@@ -406,9 +406,9 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-law-firm/strategy/legal-process-automation",
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-law-firm/strategy/legal-process-automation",
           "type": "dodaf:StrategicPlan",
           "dct:title": "Legal Process Automation Strategy",
           "dct:description": "Strategic plan to automate routine legal tasks and enhance case management efficiency.",
@@ -438,9 +438,9 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-law-firm/activities/legal-operations",
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-law-firm/activities/legal-operations",
           "type": "dodaf:OperationalActivity",
           "dct:title": "Legal Case Management Process (OV-5b)",
           "dct:description": "Management of legal cases from intake to strategy formulation.",
@@ -474,7 +474,7 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
           "@type": "dodaf:Capability",
           "name": "Legal Case Management",
@@ -527,7 +527,7 @@
               "name": "Bankruptcy Counsel (清水 律)",
               "type": "Person",
               "isco": "2611",
-              "matrixUser": "@bankruptcy-bkzibt0j:gftd.ai",
+              "matrixUser": "@bankruptcy-bkzibt0j:etzhayyim.com",
               "description": "Bankruptcy law specialist handling self-bankruptcy, individual rehabilitation, voluntary arrangements, and corporate bankruptcy procedures via Matrix protocol."
             }
           ],
@@ -547,7 +547,7 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
           "@type": "dodaf:Measure",
           "name": "Legal Service Performance Measures",
@@ -589,7 +589,7 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
           "@type": "dodaf:Rule",
           "name": "Legal Operations Rules",
@@ -628,7 +628,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

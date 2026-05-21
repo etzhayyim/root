@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:gmb-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:gmb-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Republic of The Gambia AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "gmb-state.gftd.ai",
+      "host": "gmb-state.etzhayyim.com",
       "paths": [
         "/"
       ],

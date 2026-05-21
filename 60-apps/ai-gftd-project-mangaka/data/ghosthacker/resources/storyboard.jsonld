@@ -6,7 +6,7 @@
     "dct": "http://purl.org/dc/terms/",
     "env": "gh:environment/",
     "family": "gh:family/",
-    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "gh": "https://ghosthacker.etzhayyim.com/ns/",
     "prov": "http://www.w3.org/ns/prov#",
     "schema": "http://schema.org/"
   },

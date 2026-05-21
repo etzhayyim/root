@@ -1,7 +1,7 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:studio.gftd.ai",
-  "convoSystemPrompt": "studio.gftd.ai — minimal LangGraph Studio replacement for lg-mangaka. Self-hosted (no LangSmith dependency). Lists registered graphs, renders the Pregel DAG via Mermaid, invokes graphs with arbitrary input, streams run state via SSE.",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:studio.etzhayyim.com",
+  "convoSystemPrompt": "studio.etzhayyim.com — minimal LangGraph Studio replacement for lg-mangaka. Self-hosted (no LangSmith dependency). Lists registered graphs, renders the Pregel DAG via Mermaid, invokes graphs with arbitrary input, streams run state via SSE.",
   "deploy": {},
   "duties": ["勤労の義務"],
   "governance": {
@@ -23,7 +23,7 @@
   "project": "studio",
   "routes": [
     {
-      "host": "studio.gftd.ai",
+      "host": "studio.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }

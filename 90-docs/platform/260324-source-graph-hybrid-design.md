@@ -146,11 +146,11 @@ Go / Rust / TS / WIT 共通。
 ```go
 // @gftd:authority sovereign/jpn, treaty/wto
 // @gftd:sensitivity confidential
-// @gftd:owner did:web:news.gftd.ai
+// @gftd:owner did:web:news.etzhayyim.com
 // @gftd:ref 90-docs/260324-news-wrpc-stream-reactive-design.md
 
 func (app *App) handleArticle(commit wCommit) {
-    // @gftd:calls did:web:i18n.gftd.ai#translate
+    // @gftd:calls did:web:i18n.etzhayyim.com#translate
     magatama.ATPost(did, text, opts)
 }
 ```

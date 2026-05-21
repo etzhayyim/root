@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/5/5/pipeline-and-other-transport",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/5/5/pipeline-and-other-transport",
       "type": "dodaf:Capability",
       "name": "Pipeline and Miscellaneous Transport Management Capability",
       "description": "Functional capability for managing pipeline infrastructure, multi-modal transport links, and transport safety. Classification: COFOG Division 04, Group 5, Class 5.",

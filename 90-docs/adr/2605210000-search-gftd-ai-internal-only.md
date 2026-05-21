@@ -1,6 +1,6 @@
 ---
 id: adr-2605210000-search-gftd-ai-internal-only
-title: "search.gftd.ai = internal-only; 外部 DNS ルート削除"
+title: "search.etzhayyim.com = internal-only; 外部 DNS ルート削除"
 status: active
 doc_type: adr
 topic: search-worker-internal-only
@@ -10,7 +10,7 @@ phase_status: "Done 2026-05-21 — wrangler.toml workers_dev=false + routes 削�
 priority: 6.0
 axis: architecture
 weight: 0.70
-priority_note: "search.gftd.ai は CF Service Binding / MCP facade 経由の internal アクセスのみ許可。外部 HTTP 公開禁止。"
+priority_note: "search.etzhayyim.com は CF Service Binding / MCP facade 経由の internal アクセスのみ許可。外部 HTTP 公開禁止。"
 authoritative_for:
   - search-worker-public-access-prohibition
   - search-gftd-ai-internal-only
@@ -26,25 +26,25 @@ amended_by: []
 
 # Goal
 
-`search.gftd.ai` CF Worker を **外部非公開 (internal-only)** にする。
+`search.etzhayyim.com` CF Worker を **外部非公開 (internal-only)** にする。
 公開 DNS ルートと `workers.dev` URL を削除し、同 Worker は CF Service Binding および
-`mcp.gftd.ai/mcp` MCP facade 経由の内部呼び出しのみ受け付ける。
+`mcp.etzhayyim.com/mcp` MCP facade 経由の内部呼び出しのみ受け付ける。
 
 # Context
 
 `magatama.jsonld` の `governance.classification` はすでに `"internal"` であったが、
-`wrangler.toml` に `workers_dev = true` と `routes = [{ pattern = "search.gftd.ai/*" }]` が
+`wrangler.toml` に `workers_dev = true` と `routes = [{ pattern = "search.etzhayyim.com/*" }]` が
 存在し、実際には外部から HTTP で直接到達可能な状態だった。
 
 2026-05-09 の `chat-search-risingwave-only` 変更で `tool_web_search` を RisingWave 内部検索に
-一本化したことで、`search.gftd.ai` への外部 HTTP アクセスを必要とするクライアントは存在しなくなった。
-また MCP as Cell Membrane (ADR-2605091400) により、外部向け API は `mcp.gftd.ai/mcp` MCP facade に
+一本化したことで、`search.etzhayyim.com` への外部 HTTP アクセスを必要とするクライアントは存在しなくなった。
+また MCP as Cell Membrane (ADR-2605091400) により、外部向け API は `mcp.etzhayyim.com/mcp` MCP facade に
 集約する方針が確定している。
 
 # Decision
 
 1. **`workers_dev = false`** — `*.workers.dev` URL を無効化する。
-2. **`routes` 削除** — `search.gftd.ai/*` の CF DNS ルートを削除する。Worker は CF ダッシュボード上に
+2. **`routes` 削除** — `search.etzhayyim.com/*` の CF DNS ルートを削除する。Worker は CF ダッシュボード上に
    存在するが外部 HTTP エンドポイントを持たない。
 3. **`space.joinRule = "invite"`** — Space への参加を招待制に変更し、公開ディスカバリーを遮断する。
 
@@ -54,8 +54,8 @@ amended_by: []
 |---|---|---|
 | 内部 CF Worker (PDS / dispatcher) | CF Service Binding | ✅ |
 | K8s pod / LangServer | XRPC `ai.gftd.apps.search.*` via dispatcher | ✅ |
-| 外部クライアント | `mcp.gftd.ai/mcp` MCP tool 経由 | ✅ (MCP facade が auth gate) |
-| 外部クライアント | `search.gftd.ai` 直接 HTTP | ❌ 禁止 |
+| 外部クライアント | `mcp.etzhayyim.com/mcp` MCP tool 経由 | ✅ (MCP facade が auth gate) |
+| 外部クライアント | `search.etzhayyim.com` 直接 HTTP | ❌ 禁止 |
 | `*.workers.dev` URL | — | ❌ 無効化 |
 
 # Files Changed
@@ -63,7 +63,7 @@ amended_by: []
 ```
 60-apps/ai-gftd-project-search/appview/search-mcp-component/wrangler.toml
   workers_dev: true → false
-  routes: [{ pattern = "search.gftd.ai/*", zone_name = "gftd.ai" }] → 削除
+  routes: [{ pattern = "search.etzhayyim.com/*", zone_name = "etzhayyim.com" }] → 削除
 
 60-apps/ai-gftd-project-search/appview/search-mcp-component/magatama.jsonld
   space.joinRule: "public" → "invite"
@@ -71,10 +71,10 @@ amended_by: []
 
 # Consequences
 
-- `gftd deploy` 後に CF DNS の `search.gftd.ai` A/CNAME レコードは自動削除される。
-- 既存の `atproto.gftd.ai` gateway に `WORKER_SEARCH` binding が未登録のため、
+- `gftd deploy` 後に CF DNS の `search.etzhayyim.com` A/CNAME レコードは自動削除される。
+- 既存の `atproto.etzhayyim.com` gateway に `WORKER_SEARCH` binding が未登録のため、
   `atproto` 経由での search XRPC ルートも存在せず、機能影響はない。
 - search 機能は `chat-agent` pod の `tool_web_search` が RisingWave 経由で提供しており、
   外部公開 Worker がなくても検索品質に影響しない。
-- 将来 search を外部公開する場合は `mcp.gftd.ai/mcp` MCP tool として公開し、
+- 将来 search を外部公開する場合は `mcp.etzhayyim.com/mcp` MCP tool として公開し、
   Worker への直接 HTTP ルートは設けない (ADR-2605091400)。

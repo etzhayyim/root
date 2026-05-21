@@ -4,7 +4,7 @@
  * Detects Svelte 4 patterns (<slot />, export let) in component shims
  * that silently break Svelte 5 snippet rendering.
  *
- * Bug prevented: ops.gftd.ai shims used <slot /> instead of {@render},
+ * Bug prevented: ops.etzhayyim.com shims used <slot /> instead of {@render},
  * causing header/sidebar/footer snippets to not render at all.
  */
 
@@ -35,7 +35,7 @@ function findShimDirs(config: ResolvedConfig): string[] {
 	if (Array.isArray(aliases)) {
 		for (const alias of aliases) {
 			const find = typeof alias.find === 'string' ? alias.find : alias.find.source;
-			if (find.includes('@gftdcojp/component') && typeof alias.replacement === 'string') {
+			if (find.includes('@etzhayyim/component') && typeof alias.replacement === 'string') {
 				const resolved = path.isAbsolute(alias.replacement)
 					? alias.replacement
 					: path.resolve(config.root, alias.replacement);
@@ -44,7 +44,7 @@ function findShimDirs(config: ResolvedConfig): string[] {
 		}
 	} else if (aliases && typeof aliases === 'object') {
 		for (const [key, value] of Object.entries(aliases)) {
-			if (key.includes('@gftdcojp/component') && typeof value === 'string') {
+			if (key.includes('@etzhayyim/component') && typeof value === 'string') {
 				const resolved = path.isAbsolute(value)
 					? value
 					: path.resolve(config.root, value);

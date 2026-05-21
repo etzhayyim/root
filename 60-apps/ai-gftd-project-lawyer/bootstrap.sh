@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# bootstrap.sh — lawyer.gftd.ai × gftdcojp × Kagoshima University case MVP
+# bootstrap.sh — lawyer.etzhayyim.com × etzhayyim × Kagoshima University case MVP
 #
 # 前提:
 #   1. gftd auth login (j.kawasaki) 済み  → `gftd auth whoami` で did:gftd:* 確認
@@ -52,24 +52,24 @@ phase1() {
   echo "=== Phase 1: mint did:gftd roots + k.bakshi child ==="
 
   # (1) Gftd Japan (client) root
-  local gftdcojp_user="gftdcojp-${RANDOM}"
-  local gftdcojp_pw
-  gftdcojp_pw=$(openssl rand -hex 16)
-  echo "→ createGuestAccount gftdcojp root (username=${gftdcojp_user})"
-  local gftdcojp_resp
-  gftdcojp_resp=$(gftd xrpc ai.gftd.auth.createGuestAccount \
-    -d "$(jq -n --arg u "${gftdcojp_user}" --arg p "${gftdcojp_pw}" '{username:$u,password:$p}')" \
+  local etzhayyim_user="etzhayyim-${RANDOM}"
+  local etzhayyim_pw
+  etzhayyim_pw=$(openssl rand -hex 16)
+  echo "→ createGuestAccount etzhayyim root (username=${etzhayyim_user})"
+  local etzhayyim_resp
+  etzhayyim_resp=$(gftd xrpc ai.gftd.auth.createGuestAccount \
+    -d "$(jq -n --arg u "${etzhayyim_user}" --arg p "${etzhayyim_pw}" '{username:$u,password:$p}')" \
     --json)
-  local gftdcojp_did
-  gftdcojp_did=$(echo "${gftdcojp_resp}" | jq -r .did)
-  [ -n "${gftdcojp_did}" ] && [ "${gftdcojp_did}" != "null" ] || die "gftdcojp did mint failed: ${gftdcojp_resp}"
-  save_kv "gftdcojp_did_gftd" "${gftdcojp_did}"
-  save_kv "gftdcojp_bootstrap_username" "${gftdcojp_user}"
+  local etzhayyim_did
+  etzhayyim_did=$(echo "${etzhayyim_resp}" | jq -r .did)
+  [ -n "${etzhayyim_did}" ] && [ "${etzhayyim_did}" != "null" ] || die "etzhayyim did mint failed: ${etzhayyim_resp}"
+  save_kv "etzhayyim_did_gftd" "${etzhayyim_did}"
+  save_kv "etzhayyim_bootstrap_username" "${etzhayyim_user}"
   # password は 1Password / Keychain に転送、ここには残さない
-  security add-generic-password -s "gftd.lawyer.bootstrap" -a "${gftdcojp_user}" -w "${gftdcojp_pw}" -U 2>/dev/null || true
-  echo "  ✓ ${gftdcojp_did}"
+  security add-generic-password -s "gftd.lawyer.bootstrap" -a "${etzhayyim_user}" -w "${etzhayyim_pw}" -U 2>/dev/null || true
+  echo "  ✓ ${etzhayyim_did}"
 
-  # (2) lawyer.gftd.ai firm root
+  # (2) lawyer.etzhayyim.com firm root
   local lawyer_user="gftd-lawyer-${RANDOM}"
   local lawyer_pw
   lawyer_pw=$(openssl rand -hex 16)
@@ -98,7 +98,7 @@ phase1() {
 
   echo "→ mintChildDid k.bakshi under ${lawyer_did}"
   local bakshi_resp
-  bakshi_resp=$(curl -sf -X POST "https://atproto.gftd.ai/xrpc/ai.gftd.auth.mintChildDid" \
+  bakshi_resp=$(curl -sf -X POST "https://atproto.etzhayyim.com/xrpc/ai.gftd.auth.mintChildDid" \
     -H "Authorization: Bearer ${lawyer_access}" \
     -H "Content-Type: application/json" \
     -d "$(jq -n --arg parent "${lawyer_did}" '{parentDid:$parent,materialKind:"pubkey",material:{roleName:"CLO",holderDid:"did:web:gftd.co.jp:user:k.bakshi"},handle:"k.bakshi",performerType:"person"}')")
@@ -119,37 +119,37 @@ phase3() {
   require_gftd; require_jq; require_auth
   [ -s "${OUT_FILE}" ] || die "${OUT_FILE} empty — run phase1 first"
 
-  local lawyer_did gftdcojp_did bakshi_did lawyer_access
+  local lawyer_did etzhayyim_did bakshi_did lawyer_access
   lawyer_did=$(load_kv lawyer_did_gftd)
-  gftdcojp_did=$(load_kv gftdcojp_did_gftd)
+  etzhayyim_did=$(load_kv etzhayyim_did_gftd)
   bakshi_did=$(load_kv bakshi_did_gftd)
   lawyer_access=$(load_kv lawyer_access_jwt)
   [ -n "${lawyer_did}" ]   || die "lawyer_did_gftd missing"
-  [ -n "${gftdcojp_did}" ] || die "gftdcojp_did_gftd missing"
+  [ -n "${etzhayyim_did}" ] || die "etzhayyim_did_gftd missing"
   [ -n "${bakshi_did}" ]   || die "bakshi_did_gftd missing"
   [ -n "${lawyer_access}" ] || die "lawyer_access_jwt missing (re-run phase1 or refresh)"
 
   echo "=== Phase 3: register lawfirmProfile + engagement + matter ==="
 
-  # (1) lawfirmProfile for lawyer.gftd.ai
-  echo "→ registerLawfirm (lawyer.gftd.ai)"
+  # (1) lawfirmProfile for lawyer.etzhayyim.com
+  echo "→ registerLawfirm (lawyer.etzhayyim.com)"
   local lf_resp
-  lf_resp=$(curl -sf -X POST "https://lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawfirm.registerLawfirm" \
+  lf_resp=$(curl -sf -X POST "https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.registerLawfirm" \
     -H "Authorization: Bearer ${lawyer_access}" \
     -H "Content-Type: application/json" \
-    -d "$(jq -n --arg did "${lawyer_did}" '{firmDid:$did,name:"Gftd Lawyer",displayName:"Gftd Lawyer",jurisdictions:["JPN"],barAssociation:"JFBA",websiteUrl:"https://lawyer.gftd.ai",contactEmail:"legal@gftd.co.jp"}')")
+    -d "$(jq -n --arg did "${lawyer_did}" '{firmDid:$did,name:"Gftd Lawyer",displayName:"Gftd Lawyer",jurisdictions:["JPN"],barAssociation:"JFBA",websiteUrl:"https://lawyer.etzhayyim.com",contactEmail:"legal@gftd.co.jp"}')")
   local lf_uri
   lf_uri=$(echo "${lf_resp}" | jq -r .uri)
   save_kv "lawfirm_profile_uri" "${lf_uri}"
   echo "  ✓ ${lf_uri}"
 
-  # (2) engagement: gftdcojp → lawyer
-  echo "→ createEngagement (client=${gftdcojp_did}, firm=${lawyer_did})"
+  # (2) engagement: etzhayyim → lawyer
+  echo "→ createEngagement (client=${etzhayyim_did}, firm=${lawyer_did})"
   local eng_resp
-  eng_resp=$(curl -sf -X POST "https://lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawfirm.createEngagement" \
+  eng_resp=$(curl -sf -X POST "https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.createEngagement" \
     -H "Authorization: Bearer ${lawyer_access}" \
     -H "Content-Type: application/json" \
-    -d "$(jq -n --arg firm "${lawyer_did}" --arg client "${gftdcojp_did}" '{firmDid:$firm,clientDid:$client,scope:"pre-litigation representation — Kagoshima University dispute",status:"active"}')")
+    -d "$(jq -n --arg firm "${lawyer_did}" --arg client "${etzhayyim_did}" '{firmDid:$firm,clientDid:$client,scope:"pre-litigation representation — Kagoshima University dispute",status:"active"}')")
   local eng_uri
   eng_uri=$(echo "${eng_resp}" | jq -r .uri)
   save_kv "engagement_uri" "${eng_uri}"
@@ -162,12 +162,12 @@ phase3() {
   opened_at=$(date -u +%Y-%m-%dT00:00:00Z)
   echo "→ createMatter (Kagoshima University)"
   local mat_resp
-  mat_resp=$(curl -sf -X POST "https://lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawfirm.createMatter" \
+  mat_resp=$(curl -sf -X POST "https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.createMatter" \
     -H "Authorization: Bearer ${lawyer_access}" \
     -H "Content-Type: application/json" \
     -d "$(jq -n \
       --arg firm "${lawyer_did}" \
-      --arg client "${gftdcojp_did}" \
+      --arg client "${etzhayyim_did}" \
       --arg lead "${bakshi_did}" \
       --arg opened "${opened_at}" \
       '{firmDid:$firm,matterType:"litigation",clientDid:$client,leadBengoshiDid:$lead,openedAt:$opened,jurisdiction:"JPN",subjectMatter:"鹿児島大学との紛争 (pre-litigation)",feeStructure:"hourly",currency:"JPY",matterNumber:"KAGOSHIMA-2504"}')")
@@ -185,7 +185,7 @@ phase3() {
   jq . "${OUT_FILE}"
   echo
   echo "Next: update 60-apps/ai-gftd-project-kaisya/cases/kagoshima-univ.md"
-  echo "      front-matter placeholders ({h_lawyer}, {h_bakshi}, {h_gftdcojp}, matter_uri, engagement_uri)"
+  echo "      front-matter placeholders ({h_lawyer}, {h_bakshi}, {h_etzhayyim}, matter_uri, engagement_uri)"
 }
 
 case "${1:-}" in
@@ -194,8 +194,8 @@ case "${1:-}" in
   *)
     cat <<USAGE
 Usage: $0 <phase1|phase3>
-  phase1  — mint 3 did:gftd (gftdcojp root / lawyer root / k.bakshi pubkey child)
-  phase3  — register lawfirmProfile + engagement + matter on lawfirm.gftd.ai Worker
+  phase1  — mint 3 did:gftd (etzhayyim root / lawyer root / k.bakshi pubkey child)
+  phase3  — register lawfirmProfile + engagement + matter on lawfirm.etzhayyim.com Worker
 
 Ledger output: ${OUT_FILE}
 USAGE

@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#AuthenticationSteps
+// @etzhayyim/cyber-freelance#AuthenticationSteps
 // 認証関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

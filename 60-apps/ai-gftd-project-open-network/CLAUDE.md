@@ -1,4 +1,4 @@
-# open-network.gftd.ai — Telecom Network Operations & Design (OSS)
+# open-network.etzhayyim.com — Telecom Network Operations & Design (OSS)
 
 **Status**: MVP scaffold (2026-04-20). Reference NMS — site/link topology
 design, link utilization ingest, incident reporting, change request

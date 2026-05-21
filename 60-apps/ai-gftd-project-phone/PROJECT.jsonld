@@ -1,20 +1,20 @@
 {
   "@context": {
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/",
+    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/",
     "dependsOn": {
       "@id": "gftd:dependsOn",
       "@type": "@id"
     }
   },
   "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-phone/id/Project/ai-gftd-project-phone",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-phone/id/Project/ai-gftd-project-phone",
   "schema:name": "ai-gftd-project-phone",
-  "schema:description": "Browser-based phone calling platform powered by AWS Connect. Provides WebRTC softphone, call control (dial/answer/hold/transfer/DTMF), call history, and contact management via phone.gftd.ai.",
-  "schema:url": "https://phone.gftd.ai",
+  "schema:description": "Browser-based phone calling platform powered by AWS Connect. Provides WebRTC softphone, call control (dial/answer/hold/transfer/DTMF), call history, and contact management via phone.etzhayyim.com.",
+  "schema:url": "https://phone.etzhayyim.com",
   "dependsOn": [
-    "https://resources.gftd.ai/ai-gftd-project-communicator/id/Project/ai-gftd-project-communicator"
+    "https://resources.etzhayyim.com/ai-gftd-project-communicator/id/Project/ai-gftd-project-communicator"
   ],
   "dodaf:capability": [
     {
@@ -52,7 +52,7 @@
     {
       "@type": "dodaf:Performer",
       "schema:name": "phone-component",
-      "schema:description": "TinyGo wasm component at phone.gftd.ai. Handles call history CRUD, contact management, and Connect gRPC API for Svelte frontend. Imports gftd:phone/phone for call control delegation to the native provider."
+      "schema:description": "TinyGo wasm component at phone.etzhayyim.com. Handles call history CRUD, contact management, and Connect gRPC API for Svelte frontend. Imports gftd:phone/phone for call control delegation to the native provider."
     },
     {
       "@type": "dodaf:Performer",
@@ -71,7 +71,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "milestones": "gftd:milestones",
               "blockers": "gftd:blockers"
             }
@@ -94,7 +94,7 @@
             },
             {
               "name": "M3: Svelte UI + CCP Integration",
-              "description": "phone.gftd.ai Svelte UI with hidden CCP iframe, dial pad, call history, and contact list.",
+              "description": "phone.etzhayyim.com Svelte UI with hidden CCP iframe, dial pad, call history, and contact list.",
               "dueDate": "2026-04-07"
             },
             {

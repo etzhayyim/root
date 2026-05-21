@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:shinka.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:shinka.etzhayyim.com",
   "nanoid": "sh1nk4ev",
   "name": "shinka",
   "description": "Actor Shinka Scheduler — joucho cadence + kyumei-koji + social evolution for all logical actors",

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:itonami.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:itonami.etzhayyim.com",
   "name": "itonami",
   "nanoid": "it0n4m1x",
   "performerType": "service",
@@ -27,7 +27,7 @@
     "operator": "gftd.co.jp"
   },
   "routes": [
-    { "host": "itonami.gftd.ai", "paths": ["/"], "tls": true }
+    { "host": "itonami.etzhayyim.com", "paths": ["/"], "tls": true }
   ],
   "space": {
     "name": "Itonami",

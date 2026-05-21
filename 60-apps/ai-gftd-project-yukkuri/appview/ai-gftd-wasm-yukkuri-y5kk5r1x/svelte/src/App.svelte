@@ -56,7 +56,7 @@
       <button class:active={view === 'compose'} onclick={() => go('/compose')}>✏️ 新規作成</button>
     </nav>
     <div class="spacer"></div>
-    <div class="foot">did:web:yukkuri.gftd.ai</div>
+    <div class="foot">did:web:yukkuri.etzhayyim.com</div>
   </aside>
   <main>
     {#if view === 'gallery'}

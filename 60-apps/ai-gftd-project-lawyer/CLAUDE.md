@@ -1,14 +1,14 @@
 # ai-gftd-project-lawyer
 
-`lawyer.gftd.ai` — attorney-facing portal for bengoshi working on matters connected to `lawfirm.gftd.ai`. ADR-0029 recursive did:gftd + ADR-0016 legal cluster + ADR-2605180600 attorney portal design.
+`lawyer.etzhayyim.com` — attorney-facing portal for bengoshi working on matters connected to `lawfirm.etzhayyim.com`. ADR-0029 recursive did:gftd + ADR-0016 legal cluster + ADR-2605180600 attorney portal design.
 
 ## Identity
 
 | Layer | Value |
 |---|---|
-| Handle | `lawyer.gftd.ai` |
-| did:web | `did:web:lawyer.gftd.ai` |
-| FIRM_DID | `did:web:lawyer.gftd.ai` |
+| Handle | `lawyer.etzhayyim.com` |
+| did:web | `did:web:lawyer.etzhayyim.com` |
+| FIRM_DID | `did:web:lawyer.etzhayyim.com` |
 | did:gftd (root) | `did:gftd:{h_lawyer}` ← `bootstrap.sh` で mint、`deps.toml` `[[mitama_actors]]` と対応 |
 | nanoid | `334bbd5f` |
 | Runtime tier | T2 TS Native (Cloudflare Worker + Hono) |
@@ -26,17 +26,17 @@
 
 | Case | Matter DID | Status | Client |
 |---|---|---|---|
-| 鹿児島大学 | `did:gftd:{h_lawyer}:{h_kagoshima_matter}` | engaged (pre-litigation) | Gftd Japan (`did:gftd:{h_gftdcojp}`) |
+| 鹿児島大学 | `did:gftd:{h_lawyer}:{h_kagoshima_matter}` | engaged (pre-litigation) | Gftd Japan (`did:gftd:{h_etzhayyim}`) |
 
 詳細: [cases/kagoshima-univ.md](../ai-gftd-project-kaisya/cases/kagoshima-univ.md)
 
-## Relationship to lawfirm.gftd.ai
+## Relationship to lawfirm.etzhayyim.com
 
-`lawfirm.gftd.ai` は client-facing (intake, matter management, billing)。`lawyer.gftd.ai` は attorney-facing (workspace, grant acceptance, AI drafting, time logging, hearing prep)。両者は `ai.gftd.apps.lawfirm.*` 共有 lexicon を `firmDid` でスコープして協調する。
+`lawfirm.etzhayyim.com` は client-facing (intake, matter management, billing)。`lawyer.etzhayyim.com` は attorney-facing (workspace, grant acceptance, AI drafting, time logging, hearing prep)。両者は `ai.gftd.apps.lawfirm.*` 共有 lexicon を `firmDid` でスコープして協調する。
 
 - Shared data: `vertex_lawfirm_matter`, `vertex_lawfirm_grant`, `vertex_lawfirm_hearing`, `vertex_lawfirm_time_entry`
 - Lawyer-own data: `vertex_lawyer_work_note`, `vertex_lawyer_document_draft`
-- Time entries は `ai.gftd.apps.lawfirm.recordTimeEntry` (firmDid=`did:web:lawyer.gftd.ai`) で lawfirm 側に記録
+- Time entries は `ai.gftd.apps.lawfirm.recordTimeEntry` (firmDid=`did:web:lawyer.etzhayyim.com`) で lawfirm 側に記録
 
 ## Lawyer Portal Service Design
 
@@ -63,7 +63,7 @@ lawfirm.createCase (India マーカー検知 または 手動 invite)
   → 弁護士が ai.gftd.apps.lawyer.acceptGrant を呼出
   → grant status=accepted, acceptedAt=now()
   → listAssignedMatters / logWorkNote / submitDocumentDraft が使用可能に
-  → 時間記録は ai.gftd.apps.lawfirm.recordTimeEntry (firmDid=did:web:lawyer.gftd.ai) で法律事務所側に還流
+  → 時間記録は ai.gftd.apps.lawfirm.recordTimeEntry (firmDid=did:web:lawyer.etzhayyim.com) で法律事務所側に還流
 ```
 
 Grant record の `capabilities[]` (`read`, `comment`, `uploadDocument`, `propose`, `sign`, `scheduleHearing`) が matter workspace 内の権限を制御する。
@@ -94,7 +94,7 @@ approved  または  rejected
 | `/grants` | Grants | `listPendingGrants` — 承認 / 辞退カード |
 | `/drafts` | Drafts | `submitDocumentDraft` フォーム + draft ステータストラッカー |
 
-全ルートは AT Protocol session JWT で保護。Svelte は `/xrpc/ai.gftd.apps.lawyer.*` を `lawyer.gftd.ai` Worker BFF に向けて呼出す。
+全ルートは AT Protocol session JWT で保護。Svelte は `/xrpc/ai.gftd.apps.lawyer.*` を `lawyer.etzhayyim.com` Worker BFF に向けて呼出す。
 
 ### LangGraph Graphs (LangServer, Vultr k8s)
 
@@ -131,7 +131,7 @@ Checkpointer: PostgreSQL (RisingWave :4566) `AsyncPostgresSaver`。Thread ID = `
 
 ## Governance
 
-- RACI: `responsible` (gftdcojp が owner)
+- RACI: `responsible` (etzhayyim が owner)
 - Classification: `confidential` (attorney-client privilege)
 - Compliance: `attorney-client-privilege` / `appi` / `iso-2611`
 - AI draft は ISCO-2611 lawyer 承認必須 (ADR-2605180600)
@@ -142,8 +142,8 @@ Checkpointer: PostgreSQL (RisingWave :4566) `AsyncPostgresSaver`。Thread ID = `
 ```bash
 cd 60-apps/ai-gftd-project-lawyer/appview/ai-gftd-wasm-lawyer-334bbd5f
 gftd deploy
-curl -sI https://lawyer.gftd.ai/_app/meta         # 200 確認
-curl -s "https://lawyer.gftd.ai/xrpc/ai.gftd.apps.lawyer.getDashboard?lawyerDid=did:web:lawyer.gftd.ai"
+curl -sI https://lawyer.etzhayyim.com/_app/meta         # 200 確認
+curl -s "https://lawyer.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.getDashboard?lawyerDid=did:web:lawyer.etzhayyim.com"
 ```
 
 ## Bootstrap Runbook

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:kenkyusha.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:kenkyusha.etzhayyim.com",
   "actors": [
     {
       "description": "ISCED-F 0511 discipline actor",
@@ -414,7 +414,7 @@
         },
         {
           "args": {
-            "message": "Generate the UNESCO ISCED-F 2013 Fields of Education and Training taxonomy as SQL MERGE statements. Include all ~80 detailed fields (4-digit codes) with: isced4, iscedBroad (2-digit), iscedNarrow (3-digit), nameEn, nameJa. Format as a single SQL query with multiple MERGE clauses. Each node label: KenkyushaDiscipline. Include properties: paradigm='mixed', maturity='nascent', interdisciplinarity='mono', did='did:web:kenkyusha.gftd.ai:discipline:{isced4}'. Existing count: $seedCheck.rows"
+            "message": "Generate the UNESCO ISCED-F 2013 Fields of Education and Training taxonomy as SQL MERGE statements. Include all ~80 detailed fields (4-digit codes) with: isced4, iscedBroad (2-digit), iscedNarrow (3-digit), nameEn, nameJa. Format as a single SQL query with multiple MERGE clauses. Each node label: KenkyushaDiscipline. Include properties: paradigm='mixed', maturity='nascent', interdisciplinarity='mono', did='did:web:kenkyusha.etzhayyim.com:discipline:{isced4}'. Existing count: $seedCheck.rows"
           },
           "fn": "agent.chat",
           "id": "seed"

@@ -5,7 +5,7 @@ Time: 2026-04-16 16:01 JST
 
 ## Scope
 
-- Repository: `ai-gftd-apps-gftdcojp`
+- Repository: `etzhayyim-root`
 - Method:
   - static review of tracked secrets, auth/session code, edge worker CORS, and public operational endpoints
   - live verification against selected public surfaces on 2026-04-16
@@ -21,7 +21,7 @@ Time: 2026-04-16 16:01 JST
    - The same session is also transferred through a URL fragment handoff before being copied into storage.
 
 3. Cross-origin/API layer
-   - `atproto.gftd.ai` reflects arbitrary origins in CORS and allows credentials.
+   - `atproto.etzhayyim.com` reflects arbitrary origins in CORS and allows credentials.
    - Browser-held bearer material from the previous layer amplifies this exposure.
 
 4. Public maintenance surface
@@ -86,7 +86,7 @@ Why it survives pruning:
 - This is active runtime code, not dormant SSR debt.
 - It is the main credential-exposure node for the browser-facing apps.
 
-### P1: Reflective credentialed CORS on `atproto.gftd.ai`
+### P1: Reflective credentialed CORS on `atproto.etzhayyim.com`
 
 Evidence in source:
 
@@ -95,7 +95,7 @@ Evidence in source:
 
 Live verification on 2026-04-16 16:01 JST:
 
-- `OPTIONS https://atproto.gftd.ai/xrpc/com.atproto.server.refreshSession`
+- `OPTIONS https://atproto.etzhayyim.com/xrpc/com.atproto.server.refreshSession`
 - Request headers:
   - `Origin: https://evil.example`
   - `Access-Control-Request-Method: POST`
@@ -117,9 +117,9 @@ Evidence:
 - Existing focused analysis already flagged this path:
   - `80-data/reports/260416-yoro-security-topology-analysis.md`
 - Live verification on 2026-04-16 16:01 JST:
-  - `POST https://yoro.gftd.ai/api/internal/cache/purge`
+  - `POST https://yoro.etzhayyim.com/api/internal/cache/purge`
   - unauthenticated response: `500 CachePurgeSecretMissing`
-- Live headers on `https://yoro.gftd.ai/` still do not include CSP/HSTS/XFO hardening headers
+- Live headers on `https://yoro.etzhayyim.com/` still do not include CSP/HSTS/XFO hardening headers
 
 Why it survives pruning:
 

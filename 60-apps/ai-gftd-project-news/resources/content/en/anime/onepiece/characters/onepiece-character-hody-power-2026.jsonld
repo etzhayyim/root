@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "TVSeries",
@@ -28,5 +28,5 @@
       "name": "Hody Jones"
     }
   },
-  "url": "https://news.gftd.ai/en/articles/onepiece-character-hody-power-2026"
+  "url": "https://news.etzhayyim.com/en/articles/onepiece-character-hody-power-2026"
 }

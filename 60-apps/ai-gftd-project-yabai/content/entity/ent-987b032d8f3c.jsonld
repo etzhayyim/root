@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-987b032d8f3c",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-987b032d8f3c",
   "entityId": "ent-987b032d8f3c",
   "canonicalName": "iran charak",
   "aliases": [

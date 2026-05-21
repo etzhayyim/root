@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kenkyusha.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kenkyusha.etzhayyim.com",
   "name": "kenkyusha",
   "nanoid": "kk8r3n5v",
   "runtimeType": "worker",

@@ -1,4 +1,4 @@
-# dispute.gftd.ai — 紛争・恫喝対策 Intelligence
+# dispute.etzhayyim.com — 紛争・恫喝対策 Intelligence
 
 業務委託紛争における虚偽請求・恫喝の証拠保全、支払証憑管理、法的対応支援。
 
@@ -10,15 +10,15 @@
 | **UI** | yoro (zero frontend) |
 | **Data** | SQL graph (kagami) |
 | **Classification** | `restricted` (当事者 + 法務のみ) |
-| **Domain** | `dispute.gftd.ai` / `d1sp7t3x.gftd.ai` |
+| **Domain** | `dispute.etzhayyim.com` / `d1sp7t3x.etzhayyim.com` |
 
 ## Path-Based DIDs
 
 ```
-did:web:dispute.gftd.ai                          # controller
-did:web:dispute.gftd.ai:case:{case_id}           # 紛争ケース
-did:web:dispute.gftd.ai:counterparty:{hash}      # 相手方 (FNV-1a hash)
-did:web:dispute.gftd.ai:counsel:{counsel_id}     # 顧問弁護士
+did:web:dispute.etzhayyim.com                          # controller
+did:web:dispute.etzhayyim.com:case:{case_id}           # 紛争ケース
+did:web:dispute.etzhayyim.com:counterparty:{hash}      # 相手方 (FNV-1a hash)
+did:web:dispute.etzhayyim.com:counsel:{counsel_id}     # 顧問弁護士
 ```
 
 ## Collections (W Protocol Event Stream)

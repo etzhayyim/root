@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1',
-                 'did:web:open-airplane.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'open_airplane_flag_airspace_violation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_airplane_flag_airspace_violation"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-airplane"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-airplane"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_airplane_flag_airspace_violation" name="領空侵犯 フラグ" '
@@ -76,7 +76,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-airplane.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-airplane.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openAirplane.airspace.flagViolation&quot;" '
                  'target="action"/>\n'
@@ -96,10 +96,10 @@ UP = [{'sql': '\n'
                  2997,
                  '00-contracts/bpmn/ai/gftd/open-airplane/flagAirspaceViolation.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-airplane.gftd.ai:ops',
-                 'did:web:open-airplane.gftd.ai:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -107,8 +107,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1',
-                 'did:web:open-airplane.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'open_airplane_notify_no_fly_zone',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -116,7 +116,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_airplane_notify_no_fly_zone"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-airplane"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-airplane"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_airplane_notify_no_fly_zone" name="制限空域 通知" '
@@ -163,7 +163,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-airplane.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-airplane.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openAirplane.airspace.notifyNoFlyZone&quot;" target="action"/>\n'
@@ -183,10 +183,10 @@ UP = [{'sql': '\n'
                  2969,
                  '00-contracts/bpmn/ai/gftd/open-airplane/notifyNoFlyZone.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-airplane.gftd.ai:ops',
-                 'did:web:open-airplane.gftd.ai:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -194,8 +194,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1',
-                 'did:web:open-ports.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1',
+                 'did:web:open-ports.etzhayyim.com:ops',
                  'open_ports_screen_vessel_sanctions',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -203,7 +203,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_ports_screen_vessel_sanctions"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-ports"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-ports"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_ports_screen_vessel_sanctions" name="船舶 制裁スクリーニング" '
@@ -250,7 +250,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-ports.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-ports.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openPorts.vessel.screenSanctions&quot;" '
                  'target="action"/>\n'
@@ -270,10 +270,10 @@ UP = [{'sql': '\n'
                  2976,
                  '00-contracts/bpmn/ai/gftd/open-ports/screenVesselSanctions.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-ports.gftd.ai:ops',
-                 'did:web:open-ports.gftd.ai:ops',
+                 'did:web:open-ports.etzhayyim.com:ops',
+                 'did:web:open-ports.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -281,8 +281,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1',
-                 'did:web:open-ports.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1',
+                 'did:web:open-ports.etzhayyim.com:ops',
                  'open_ports_flag_dark_fleet',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -290,7 +290,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_ports_flag_dark_fleet"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-ports"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-ports"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_ports_flag_dark_fleet" name="ダークフリート フラグ" '
@@ -337,7 +337,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-ports.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-ports.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openPorts.vessel.flagDarkFleet&quot;" '
                  'target="action"/>\n'
@@ -357,10 +357,10 @@ UP = [{'sql': '\n'
                  2937,
                  '00-contracts/bpmn/ai/gftd/open-ports/flagDarkFleet.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-ports.gftd.ai:ops',
-                 'did:web:open-ports.gftd.ai:ops',
+                 'did:web:open-ports.etzhayyim.com:ops',
+                 'did:web:open-ports.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -368,8 +368,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1',
-                 'did:web:open-rail.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1',
+                 'did:web:open-rail.etzhayyim.com:ops',
                  'open_rail_flag_critical_asset_incident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -377,7 +377,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_rail_flag_critical_asset_incident"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-rail"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-rail"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_rail_flag_critical_asset_incident" name="重要インフラ事案 フラグ" '
@@ -424,7 +424,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-rail.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-rail.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openRail.asset.flagIncident&quot;" '
                  'target="action"/>\n'
@@ -444,10 +444,10 @@ UP = [{'sql': '\n'
                  2985,
                  '00-contracts/bpmn/ai/gftd/open-rail/flagCriticalAssetIncident.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-rail.gftd.ai:ops',
-                 'did:web:open-rail.gftd.ai:ops',
+                 'did:web:open-rail.etzhayyim.com:ops',
+                 'did:web:open-rail.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -455,8 +455,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-network-report-cyber-incident-v1',
-                 'did:web:open-network.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-network-report-cyber-incident-v1',
+                 'did:web:open-network.etzhayyim.com:ops',
                  'open_network_report_cyber_incident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -464,7 +464,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_network_report_cyber_incident"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-network"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-network"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_network_report_cyber_incident" name="サイバー事案 報告" '
@@ -511,7 +511,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-network.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-network.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openNetwork.cyber.reportIncident&quot;" '
                  'target="action"/>\n'
@@ -531,10 +531,10 @@ UP = [{'sql': '\n'
                  2969,
                  '00-contracts/bpmn/ai/gftd/open-network/reportCyberIncident.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-network.gftd.ai:ops',
-                 'did:web:open-network.gftd.ai:ops',
+                 'did:web:open-network.etzhayyim.com:ops',
+                 'did:web:open-network.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-network-report-cyber-incident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-network-report-cyber-incident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -542,8 +542,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-network-escalate-ddos-v1',
-                 'did:web:open-network.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-network-escalate-ddos-v1',
+                 'did:web:open-network.etzhayyim.com:ops',
                  'open_network_escalate_ddos',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -551,7 +551,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_network_escalate_ddos"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-network"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-network"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_network_escalate_ddos" name="DDoS 緊急報告" '
@@ -598,7 +598,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-network.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-network.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openNetwork.cyber.escalateDdos&quot;" '
                  'target="action"/>\n'
@@ -618,10 +618,10 @@ UP = [{'sql': '\n'
                  2930,
                  '00-contracts/bpmn/ai/gftd/open-network/escalateDdos.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-network.gftd.ai:ops',
-                 'did:web:open-network.gftd.ai:ops',
+                 'did:web:open-network.etzhayyim.com:ops',
+                 'did:web:open-network.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-network-escalate-ddos-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-network-escalate-ddos-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -629,8 +629,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-report-grid-attack-v1',
-                 'did:web:open-power.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-report-grid-attack-v1',
+                 'did:web:open-power.etzhayyim.com:ops',
                  'open_power_report_grid_attack',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -638,7 +638,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_power_report_grid_attack"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-power"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-power"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_power_report_grid_attack" name="送電網攻撃 報告" '
@@ -684,7 +684,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-power.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-power.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openPower.grid.reportAttack&quot;" '
                  'target="action"/>\n'
@@ -704,10 +704,10 @@ UP = [{'sql': '\n'
                  2937,
                  '00-contracts/bpmn/ai/gftd/open-power/reportGridAttack.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-power.gftd.ai:ops',
-                 'did:web:open-power.gftd.ai:ops',
+                 'did:web:open-power.etzhayyim.com:ops',
+                 'did:web:open-power.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-report-grid-attack-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-report-grid-attack-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -715,8 +715,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1',
-                 'did:web:open-gas.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1',
+                 'did:web:open-gas.etzhayyim.com:ops',
                  'open_gas_report_pipeline_sabotage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -724,7 +724,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_gas_report_pipeline_sabotage"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-gas"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-gas"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_gas_report_pipeline_sabotage" name="ガス管破壊 報告" '
@@ -771,7 +771,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-gas.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-gas.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openGas.pipeline.reportSabotage&quot;" '
                  'target="action"/>\n'
@@ -791,10 +791,10 @@ UP = [{'sql': '\n'
                  2963,
                  '00-contracts/bpmn/ai/gftd/open-gas/reportPipelineSabotage.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-gas.gftd.ai:ops',
-                 'did:web:open-gas.gftd.ai:ops',
+                 'did:web:open-gas.etzhayyim.com:ops',
+                 'did:web:open-gas.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -802,8 +802,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-report-infra-sabotage-v1',
-                 'did:web:open-water.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-infra-sabotage-v1',
+                 'did:web:open-water.etzhayyim.com:ops',
                  'open_water_report_infra_sabotage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -811,7 +811,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_water_report_infra_sabotage"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-water"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-water"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_water_report_infra_sabotage" name="水道施設破壊 報告" '
@@ -858,7 +858,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-water.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-water.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openWater.main.reportSabotage&quot;" '
                  'target="action"/>\n'
@@ -878,10 +878,10 @@ UP = [{'sql': '\n'
                  2955,
                  '00-contracts/bpmn/ai/gftd/open-water/reportInfraSabotage.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-water.gftd.ai:ops',
-                 'did:web:open-water.gftd.ai:ops',
+                 'did:web:open-water.etzhayyim.com:ops',
+                 'did:web:open-water.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-report-infra-sabotage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-infra-sabotage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -889,8 +889,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-swift-screen-sanctions-v1',
-                 'did:web:open-swift.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-swift-screen-sanctions-v1',
+                 'did:web:open-swift.etzhayyim.com:ops',
                  'open_swift_screen_sanctions',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -898,7 +898,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_swift_screen_sanctions"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-swift"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-swift"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_swift_screen_sanctions" name="SWIFT 制裁スクリーニング" '
@@ -945,7 +945,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-swift.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-swift.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSwift.payment.screenSanctions&quot;" '
                  'target="action"/>\n'
@@ -965,10 +965,10 @@ UP = [{'sql': '\n'
                  2947,
                  '00-contracts/bpmn/ai/gftd/open-swift/screenSanctions.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-swift.gftd.ai:ops',
-                 'did:web:open-swift.gftd.ai:ops',
+                 'did:web:open-swift.etzhayyim.com:ops',
+                 'did:web:open-swift.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-swift-screen-sanctions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-swift-screen-sanctions-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -976,8 +976,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1',
-                 'did:web:open-banking.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1',
+                 'did:web:open-banking.etzhayyim.com:ops',
                  'open_banking_flag_suspicious_transaction',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -985,7 +985,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_banking_flag_suspicious_transaction"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-banking"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-banking"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_banking_flag_suspicious_transaction" name="疑わしい取引 STR" '
@@ -1033,7 +1033,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-banking.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-banking.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openBanking.transaction.flagSuspicious&quot;" target="action"/>\n'
@@ -1053,10 +1053,10 @@ UP = [{'sql': '\n'
                  3007,
                  '00-contracts/bpmn/ai/gftd/open-banking/flagSuspiciousTransaction.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-banking.gftd.ai:ops',
-                 'did:web:open-banking.gftd.ai:ops',
+                 'did:web:open-banking.etzhayyim.com:ops',
+                 'did:web:open-banking.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1064,8 +1064,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'open_jpn_gov_resolve_boei_sho_procurement',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -1073,7 +1073,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_jpn_gov_resolve_boei_sho_procurement"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-jpn-gov"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-jpn-gov"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_jpn_gov_resolve_boei_sho_procurement" name="防衛省 調達解決" '
@@ -1121,7 +1121,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-jpn-gov.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-jpn-gov.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openJpnGov.boeiSho.resolveProcurement&quot;" target="action"/>\n'
@@ -1141,10 +1141,10 @@ UP = [{'sql': '\n'
                  3007,
                  '00-contracts/bpmn/ai/gftd/open-jpn-gov/resolveBoeiShoProcurement.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1152,8 +1152,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'open_jpn_gov_check_tokutei_himitsu',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -1161,7 +1161,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_jpn_gov_check_tokutei_himitsu"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-jpn-gov"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-jpn-gov"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_jpn_gov_check_tokutei_himitsu" name="特定秘密保護法 照会" '
@@ -1208,7 +1208,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-jpn-gov.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-jpn-gov.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openJpnGov.tokuteiHimitsu.check&quot;" '
                  'target="action"/>\n'
@@ -1228,10 +1228,10 @@ UP = [{'sql': '\n'
                  2981,
                  '00-contracts/bpmn/ai/gftd/open-jpn-gov/checkTokuteiHimitsu.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1239,8 +1239,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cofog-classify-defence-function-v1',
-                 'did:web:open-cofog.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cofog-classify-defence-function-v1',
+                 'did:web:open-cofog.etzhayyim.com:ops',
                  'open_cofog_classify_defence_function',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -1248,7 +1248,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_cofog_classify_defence_function"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-cofog"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-cofog"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_cofog_classify_defence_function" name="COFOG 02 防衛分類" '
@@ -1296,7 +1296,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-cofog.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-cofog.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openCofog.budget.classifyDefence&quot;" '
                  'target="action"/>\n'
@@ -1316,10 +1316,10 @@ UP = [{'sql': '\n'
                  2968,
                  '00-contracts/bpmn/ai/gftd/open-cofog/classifyDefenceFunction.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-cofog.gftd.ai:ops',
-                 'did:web:open-cofog.gftd.ai:ops',
+                 'did:web:open-cofog.etzhayyim.com:ops',
+                 'did:web:open-cofog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cofog-classify-defence-function-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cofog-classify-defence-function-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1327,8 +1327,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1',
-                 'did:web:open-isic.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1',
+                 'did:web:open-isic.etzhayyim.com:ops',
                  'open_isic_flag_dual_use_industry',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -1336,7 +1336,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_isic_flag_dual_use_industry"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-isic"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-isic"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_isic_flag_dual_use_industry" name="軍民両用産業 フラグ" '
@@ -1362,7 +1362,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-isic.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-isic.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openIsic.industry.flagDualUse&quot;" '
                  'target="action"/>\n'
@@ -1383,10 +1383,10 @@ UP = [{'sql': '\n'
                  2007,
                  '00-contracts/bpmn/ai/gftd/open-isic/flagDualUseIndustry.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-isic.gftd.ai:ops',
-                 'did:web:open-isic.gftd.ai:ops',
+                 'did:web:open-isic.etzhayyim.com:ops',
+                 'did:web:open-isic.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1394,8 +1394,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1',
-                 'did:web:open-seiyaku.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1',
+                 'did:web:open-seiyaku.etzhayyim.com:ops',
                  'open_seiyaku_screen_export_control',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -1403,7 +1403,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_seiyaku_screen_export_control"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-seiyaku"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-seiyaku"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_seiyaku_screen_export_control" name="輸出管理スクリーニング" '
@@ -1450,7 +1450,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-seiyaku.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-seiyaku.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSeiyaku.export.screenControl&quot;" '
                  'target="action"/>\n'
@@ -1471,10 +1471,10 @@ UP = [{'sql': '\n'
                  3025,
                  '00-contracts/bpmn/ai/gftd/open-seiyaku/screenExportControl.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-seiyaku.gftd.ai:ops',
-                 'did:web:open-seiyaku.gftd.ai:ops',
+                 'did:web:open-seiyaku.etzhayyim.com:ops',
+                 'did:web:open-seiyaku.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1482,8 +1482,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1',
-                 'did:web:open-unispsc.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1',
+                 'did:web:open-unispsc.etzhayyim.com:ops',
                  'open_unispsc_flag_dual_use_commodity',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -1491,7 +1491,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_unispsc_flag_dual_use_commodity"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-unispsc"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-unispsc"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_unispsc_flag_dual_use_commodity" name="軍民両用物資 フラグ" '
@@ -1539,7 +1539,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-unispsc.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-unispsc.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openUnispsc.commodity.flagDualUse&quot;" '
                  'target="action"/>\n'
@@ -1559,10 +1559,10 @@ UP = [{'sql': '\n'
                  2992,
                  '00-contracts/bpmn/ai/gftd/open-unispsc/flagDualUseCommodity.bpmn',
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-unispsc.gftd.ai:ops',
-                 'did:web:open-unispsc.gftd.ai:ops',
+                 'did:web:open-unispsc.etzhayyim.com:ops',
+                 'did:web:open-unispsc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1570,16 +1570,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1',
-                 'did:web:open-airplane.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'ai.gftd.apps.openAirplane.flagAirspaceViolation',
                  'open_airplane_flag_airspace_violation',
                  15000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-airplane.gftd.ai:ops',
-                 'did:web:open-airplane.gftd.ai:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1587,16 +1587,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1',
-                 'did:web:open-airplane.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'ai.gftd.apps.openAirplane.notifyNoFlyZone',
                  'open_airplane_notify_no_fly_zone',
                  15000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-airplane.gftd.ai:ops',
-                 'did:web:open-airplane.gftd.ai:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1604,16 +1604,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-ports-screenVesselSanctions-v1',
-                 'did:web:open-ports.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-ports-screenVesselSanctions-v1',
+                 'did:web:open-ports.etzhayyim.com:ops',
                  'ai.gftd.apps.openPorts.screenVesselSanctions',
                  'open_ports_screen_vessel_sanctions',
                  20000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-ports.gftd.ai:ops',
-                 'did:web:open-ports.gftd.ai:ops',
+                 'did:web:open-ports.etzhayyim.com:ops',
+                 'did:web:open-ports.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-ports-screenVesselSanctions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-ports-screenVesselSanctions-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1621,16 +1621,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-ports-flagDarkFleet-v1',
-                 'did:web:open-ports.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-ports-flagDarkFleet-v1',
+                 'did:web:open-ports.etzhayyim.com:ops',
                  'ai.gftd.apps.openPorts.flagDarkFleet',
                  'open_ports_flag_dark_fleet',
                  15000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-ports.gftd.ai:ops',
-                 'did:web:open-ports.gftd.ai:ops',
+                 'did:web:open-ports.etzhayyim.com:ops',
+                 'did:web:open-ports.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-ports-flagDarkFleet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-ports-flagDarkFleet-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1638,16 +1638,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1',
-                 'did:web:open-rail.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1',
+                 'did:web:open-rail.etzhayyim.com:ops',
                  'ai.gftd.apps.openRail.flagCriticalAssetIncident',
                  'open_rail_flag_critical_asset_incident',
                  15000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-rail.gftd.ai:ops',
-                 'did:web:open-rail.gftd.ai:ops',
+                 'did:web:open-rail.etzhayyim.com:ops',
+                 'did:web:open-rail.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1655,16 +1655,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-network-reportCyberIncident-v1',
-                 'did:web:open-network.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-network-reportCyberIncident-v1',
+                 'did:web:open-network.etzhayyim.com:ops',
                  'ai.gftd.apps.openNetwork.reportCyberIncident',
                  'open_network_report_cyber_incident',
                  30000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-network.gftd.ai:ops',
-                 'did:web:open-network.gftd.ai:ops',
+                 'did:web:open-network.etzhayyim.com:ops',
+                 'did:web:open-network.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-network-reportCyberIncident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-network-reportCyberIncident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1672,16 +1672,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-network-escalateDdos-v1',
-                 'did:web:open-network.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-network-escalateDdos-v1',
+                 'did:web:open-network.etzhayyim.com:ops',
                  'ai.gftd.apps.openNetwork.escalateDdos',
                  'open_network_escalate_ddos',
                  15000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-network.gftd.ai:ops',
-                 'did:web:open-network.gftd.ai:ops',
+                 'did:web:open-network.etzhayyim.com:ops',
+                 'did:web:open-network.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-network-escalateDdos-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-network-escalateDdos-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1689,16 +1689,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-reportGridAttack-v1',
-                 'did:web:open-power.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-reportGridAttack-v1',
+                 'did:web:open-power.etzhayyim.com:ops',
                  'ai.gftd.apps.openPower.reportGridAttack',
                  'open_power_report_grid_attack',
                  30000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-power.gftd.ai:ops',
-                 'did:web:open-power.gftd.ai:ops',
+                 'did:web:open-power.etzhayyim.com:ops',
+                 'did:web:open-power.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-reportGridAttack-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-reportGridAttack-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1706,16 +1706,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1',
-                 'did:web:open-gas.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1',
+                 'did:web:open-gas.etzhayyim.com:ops',
                  'ai.gftd.apps.openGas.reportPipelineSabotage',
                  'open_gas_report_pipeline_sabotage',
                  30000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-gas.gftd.ai:ops',
-                 'did:web:open-gas.gftd.ai:ops',
+                 'did:web:open-gas.etzhayyim.com:ops',
+                 'did:web:open-gas.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1723,16 +1723,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-reportInfraSabotage-v1',
-                 'did:web:open-water.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportInfraSabotage-v1',
+                 'did:web:open-water.etzhayyim.com:ops',
                  'ai.gftd.apps.openWater.reportInfraSabotage',
                  'open_water_report_infra_sabotage',
                  30000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-water.gftd.ai:ops',
-                 'did:web:open-water.gftd.ai:ops',
+                 'did:web:open-water.etzhayyim.com:ops',
+                 'did:web:open-water.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-reportInfraSabotage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportInfraSabotage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1740,16 +1740,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-swift-screenSanctions-v1',
-                 'did:web:open-swift.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-swift-screenSanctions-v1',
+                 'did:web:open-swift.etzhayyim.com:ops',
                  'ai.gftd.apps.openSwift.screenSanctions',
                  'open_swift_screen_sanctions',
                  20000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-swift.gftd.ai:ops',
-                 'did:web:open-swift.gftd.ai:ops',
+                 'did:web:open-swift.etzhayyim.com:ops',
+                 'did:web:open-swift.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-swift-screenSanctions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-swift-screenSanctions-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1757,16 +1757,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1',
-                 'did:web:open-banking.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1',
+                 'did:web:open-banking.etzhayyim.com:ops',
                  'ai.gftd.apps.openBanking.flagSuspiciousTransaction',
                  'open_banking_flag_suspicious_transaction',
                  20000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-banking.gftd.ai:ops',
-                 'did:web:open-banking.gftd.ai:ops',
+                 'did:web:open-banking.etzhayyim.com:ops',
+                 'did:web:open-banking.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1774,16 +1774,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'ai.gftd.apps.openJpnGov.resolveBoeiShoProcurement',
                  'open_jpn_gov_resolve_boei_sho_procurement',
                  20000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1791,16 +1791,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'ai.gftd.apps.openJpnGov.checkTokuteiHimitsu',
                  'open_jpn_gov_check_tokutei_himitsu',
                  15000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
-                 'did:web:open-jpn-gov.gftd.ai:ops',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
+                 'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1808,16 +1808,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1',
-                 'did:web:open-cofog.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1',
+                 'did:web:open-cofog.etzhayyim.com:ops',
                  'ai.gftd.apps.openCofog.classifyDefenceFunction',
                  'open_cofog_classify_defence_function',
                  15000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-cofog.gftd.ai:ops',
-                 'did:web:open-cofog.gftd.ai:ops',
+                 'did:web:open-cofog.etzhayyim.com:ops',
+                 'did:web:open-cofog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1825,16 +1825,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1',
-                 'did:web:open-isic.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1',
+                 'did:web:open-isic.etzhayyim.com:ops',
                  'ai.gftd.apps.openIsic.flagDualUseIndustry',
                  'open_isic_flag_dual_use_industry',
                  15000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-isic.gftd.ai:ops',
-                 'did:web:open-isic.gftd.ai:ops',
+                 'did:web:open-isic.etzhayyim.com:ops',
+                 'did:web:open-isic.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1842,16 +1842,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-screenExportControl-v1',
-                 'did:web:open-seiyaku.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-screenExportControl-v1',
+                 'did:web:open-seiyaku.etzhayyim.com:ops',
                  'ai.gftd.apps.openSeiyaku.screenExportControl',
                  'open_seiyaku_screen_export_control',
                  20000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-seiyaku.gftd.ai:ops',
-                 'did:web:open-seiyaku.gftd.ai:ops',
+                 'did:web:open-seiyaku.etzhayyim.com:ops',
+                 'did:web:open-seiyaku.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-screenExportControl-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-screenExportControl-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1859,89 +1859,89 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1',
-                 'did:web:open-unispsc.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1',
+                 'did:web:open-unispsc.etzhayyim.com:ops',
                  'ai.gftd.apps.openUnispsc.flagDualUseCommodity',
                  'open_unispsc_flag_dual_use_commodity',
                  15000,
                  '2026-04-25T09:00:00Z',
-                 'did:web:open-unispsc.gftd.ai:ops',
-                 'did:web:open-unispsc.gftd.ai:ops',
+                 'did:web:open-unispsc.etzhayyim.com:ops',
+                 'did:web:open-unispsc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-ports-screenVesselSanctions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-ports-screenVesselSanctions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-ports-flagDarkFleet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-ports-flagDarkFleet-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-network-reportCyberIncident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-network-reportCyberIncident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-network-escalateDdos-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-network-escalateDdos-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-reportGridAttack-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-reportGridAttack-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-reportInfraSabotage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportInfraSabotage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-swift-screenSanctions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-swift-screenSanctions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-screenExportControl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-screenExportControl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-network-report-cyber-incident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-network-report-cyber-incident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-network-escalate-ddos-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-network-escalate-ddos-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-report-grid-attack-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-report-grid-attack-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-report-infra-sabotage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-infra-sabotage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-swift-screen-sanctions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-swift-screen-sanctions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cofog-classify-defence-function-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cofog-classify-defence-function-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1']}]
 
 
 def upgrade() -> None:

@@ -4,8 +4,8 @@
  * Priority: spec + review articles for high-demand models.
  */
 
-const CMD = 'https://kuruma.gftd.ai/xrpc/gftd.kuruma.v1.KurumaCommandService/GenerateArticle';
-const QRY = 'https://kuruma.gftd.ai/xrpc/gftd.kuruma.v1.KurumaQueryService/ListVehicles';
+const CMD = 'https://kuruma.etzhayyim.com/xrpc/gftd.kuruma.v1.KurumaCommandService/GenerateArticle';
+const QRY = 'https://kuruma.etzhayyim.com/xrpc/gftd.kuruma.v1.KurumaQueryService/ListVehicles';
 
 async function listVehicles() {
   const res = await fetch(QRY, {

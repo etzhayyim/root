@@ -2,7 +2,7 @@
 
 ## Goal
 
-`runpod.gftd.ai` を、公開取得可能な動画ソースを対象にしたマルチモーダル抽出基盤へ拡張し、動画・音声・字幕から evidence-first で knowledge graph を生成する。
+`runpod.etzhayyim.com` を、公開取得可能な動画ソースを対象にしたマルチモーダル抽出基盤へ拡張し、動画・音声・字幕から evidence-first で knowledge graph を生成する。
 
 前提:
 
@@ -354,7 +354,7 @@ RunPod に渡す job input 例:
 
 ## Concrete Next Steps
 
-1. `youtube.gftd.ai` の public crawl を Phase 0 対象として固定
+1. `youtube.etzhayyim.com` の public crawl を Phase 0 対象として固定
 2. `runpod-video-preprocess` と `runpod-audio-asr` を新 endpoint として分離
 3. `video-kg-v1` JSON schema を定義
 4. `collector_evidence_current` に動画 evidence ingest 口を追加

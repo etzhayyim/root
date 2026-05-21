@@ -45,7 +45,7 @@ did:web:gameka.etzhayyim.com:game:{title-slug}        — Per-game sub-DID (mint
 
 ## Pattern translation (Option B)
 
-| Vendor (`gameka.gftd.ai`) | etzhayyim (this PR) |
+| Vendor (`gameka.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
 | `db.insertInto("vertex_gameka_spec").values({...}).execute()` | `e.write({ collection: "ai.gftd.gameka.spec", record, rkey })` |

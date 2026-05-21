@@ -7,7 +7,7 @@ topic: vault-zero-knowledge
 authoritative: true
 last_verified: 2026-04-25
 authoritative_for:
-  - vault.gftd.ai server-side data classification
+  - vault.etzhayyim.com server-side data classification
   - vaultKey / memberDeviceKey custody boundary
   - MCP response redaction contract
 related:
@@ -19,7 +19,7 @@ superseded_by: []
 
 # Context
 
-`vault.gftd.ai` は Layer 12 Secret Vault (ADR-2604231811) として、メンバー間で
+`vault.etzhayyim.com` は Layer 12 Secret Vault (ADR-2604231811) として、メンバー間で
 共有する API key / credential を保持する。AT Protocol federable repo に PII /
 credential を書く規約違反 (ADR-0018 / Root-Only "AT Protocol Faithful") を
 避けつつ、CF Worker / Browser / `gftd` CLI から透過的に key 取得を可能にする
@@ -31,7 +31,7 @@ Knowledge Invariant" を ADR 化し、不変条件と禁止事項を確定する
 
 ## D1. Server-side data classification
 
-`vault.gftd.ai` server (CF Worker + D1) が保持できるのは以下のみ:
+`vault.etzhayyim.com` server (CF Worker + D1) が保持できるのは以下のみ:
 - `vault_items.ciphertext` (BLOB, AES-GCM, ≤ 900 KB per item)
 - wrapped vaultKey (AES-KW, member 単位で多重 wrap)
 - wrapped item key (ECIES X25519 + HKDF + AES-KW share)

@@ -1,13 +1,13 @@
 {
-  "@context": "https://magatama.gftd.ai/ns/actor-manifest/v1",
+  "@context": "https://magatama.etzhayyim.com/ns/actor-manifest/v1",
   "@type": "ActorManifest",
-  "did": "did:web:outreach.gftd.ai",
+  "did": "did:web:outreach.etzhayyim.com",
   "nanoid": "otch0001",
   "name": "outreach",
   "displayName": "GFTD Sales Outreach",
   "description": "Sales Outreach Automation — LangGraph research→draft loop + DNC gate + Resend multi-step sequence.",
   "performerType": "service",
-  "domain": "outreach.gftd.ai",
+  "domain": "outreach.etzhayyim.com",
   "capabilities": [
     "ai.gftd.apps.outreach.createSequence",
     "ai.gftd.apps.outreach.getSequence",

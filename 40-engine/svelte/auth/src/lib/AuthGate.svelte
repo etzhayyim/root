@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { Button } from '@gftdcojp/design-system';
+	import { Button } from '@etzhayyim/design-system';
 	import { signIn, signUp } from './passkey.js';
 
 	interface Props {
@@ -10,14 +10,14 @@
 		tagline?: string;
 		actions?: Snippet;
 		class?: string;
-		/** When true, run passkey ceremony in-page instead of redirecting to authn.gftd.ai */
+		/** When true, run passkey ceremony in-page instead of redirecting to authn.etzhayyim.com */
 		inline?: boolean;
 	}
 
 	const {
-		// ADR-0024 T4 split: auth.gftd.ai retired 2026-04-16 → authn.gftd.ai.
-		signInUrl = 'https://authn.gftd.ai/sign-in',
-		signUpUrl = 'https://authn.gftd.ai/sign-up',
+		// ADR-0024 T4 split: auth.etzhayyim.com retired 2026-04-16 → authn.etzhayyim.com.
+		signInUrl = 'https://authn.etzhayyim.com/sign-in',
+		signUpUrl = 'https://authn.etzhayyim.com/sign-up',
 		title = 'GFTD',
 		tagline = 'AI Agent Platform — Register and manage your AI agents',
 		actions,

@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
     "svelte": "^5.55.3"
   },
   "devDependencies": {

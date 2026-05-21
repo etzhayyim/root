@@ -69,7 +69,7 @@ Phase 2-B (Rego decision registry + auto-settler):
     workers_dev=false; cron + service-binding only
     AUTHZ_RPC=ai-gftd-authz
     SS_MURAKUMO_API_KEY=Secrets Store 1824561668fe47cc9127d493961885af/murakumo_api_key
-    MURAKUMO_URL=https://murakumo.gftd.ai/api/openai/v1/chat/completions
+    MURAKUMO_URL=https://murakumo.etzhayyim.com/api/openai/v1/chat/completions
     MURAKUMO_MODEL=qwen3-30b-a3b
     ops endpoints (/tick,/judge,/settler) HMAC-gated when reachable
   RisingWave:

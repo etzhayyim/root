@@ -4,7 +4,7 @@
  * Registers the OpenMapTiles-schema → kami layer set on a KamiMapBridge.
  *
  * Source: one vector tileset served by maps-tile-server-t1l3srv0
- *   (https://tiles-maps.gftd.ai/v1/{z}/{x}/{y}.pbf)
+ *   (https://tiles-maps.etzhayyim.com/v1/{z}/{x}/{y}.pbf)
  *
  * kami-bridge.realizeVectorLayer() fetches tiles from `src.tiles[]` and
  * dispatches to kami-map WASM's decode_mvt_layer(z, x, y, source-layer, pbf)
@@ -119,7 +119,7 @@ const OMT_LAYERS: OMTLayer[] = [
  *
  * @param map           KamiMapBridge instance
  * @param tileTemplate  tile URL template, e.g.
- *                      "https://tiles-maps.gftd.ai/v1/{z}/{x}/{y}.pbf"
+ *                      "https://tiles-maps.etzhayyim.com/v1/{z}/{x}/{y}.pbf"
  */
 export function applyOpenMapTilesStyle(
   map: KamiMapBridge,

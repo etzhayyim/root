@@ -3,7 +3,7 @@
  * CLI for SSG build output validation.
  *
  * Usage:
- *   npx @gftdcojp/vite-plugin-safe-builder ssg-validate
+ *   npx @etzhayyim/vite-plugin-safe-builder ssg-validate
  *   npx ssg-validate                              # auto-detect from cwd
  *   npx ssg-validate --build-dir build             # explicit build dir
  *   npx ssg-validate --strict                      # treat warnings as errors

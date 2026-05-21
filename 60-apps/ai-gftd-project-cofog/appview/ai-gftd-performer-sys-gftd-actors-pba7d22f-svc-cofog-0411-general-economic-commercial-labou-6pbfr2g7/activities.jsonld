@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/1/1/general-economic-commercial-labour-affairs/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/1/1/general-economic-commercial-labour-affairs/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Economic Policy and Labour Management Process",
       "description": "The administrative process of analyzing economic data, drafting commercial regulations, and implementing development programs.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/1/1/general-economic-commercial-labour-affairs"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/1/1/general-economic-commercial-labour-affairs"
     }
   ]
 }

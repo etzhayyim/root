@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:k4m1r0nt.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:k4m1r0nt.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -36,7 +36,7 @@
   "project": "kami-rt",
   "routes": [
     {
-      "host": "k4m1r0nt.gftd.ai",
+      "host": "k4m1r0nt.etzhayyim.com",
       "paths": [
         "/"
       ],

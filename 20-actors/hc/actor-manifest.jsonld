@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:hc.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:hc.etzhayyim.com",
   "actors": [
     {
       "description": "ギグ/タスクワーカー利用規約 (13 locale)",
@@ -213,7 +213,7 @@
               "source": "hcPipeline"
             },
             "method": "registerManufacturer",
-            "targetDid": "did:web:tsukuru.gftd.ai"
+            "targetDid": "did:web:tsukuru.etzhayyim.com"
           },
           "depends_on": [],
           "fn": "agent.invoke",

@@ -44,7 +44,7 @@ import {
 type InternalSecret = string | { get(): Promise<string> };
 type EnvLike = { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: InternalSecret };
 function envOf(sdk: unknown): EnvLike { return ((sdk as { env?: EnvLike }).env ?? {}) as EnvLike; }
-function dispatcherUrl(sdk: unknown): string { return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.gftd.ai"; }
+function dispatcherUrl(sdk: unknown): string { return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com"; }
 async function internalTrustHeader(sdk: unknown): Promise<string> {
   const binding = envOf(sdk).DISPATCHER_INTERNAL_SECRET;
   if (!binding) return "";
@@ -565,7 +565,7 @@ async function llmCall(prompt: string, maxTokens = 256): Promise<string> {
   if (!murakumo) throw new Error("llmCall: MURAKUMO_SERVICE binding not available");
 
   // Step 1: fast health check via /_app/meta (reads R2 cache, no fleet probe)
-  const metaResp = await murakumo.fetch(new Request("https://murakumo.gftd.ai/_app/meta")).catch((e) => {
+  const metaResp = await murakumo.fetch(new Request("https://murakumo.etzhayyim.com/_app/meta")).catch((e) => {
     throw new Error(`llmCall: health check failed: ${e instanceof Error ? e.message : String(e)}`);
   });
   const meta = await metaResp.json() as { fleet?: { healthPct?: number } };
@@ -588,7 +588,7 @@ async function llmCall(prompt: string, maxTokens = 256): Promise<string> {
   });
   try {
     const resp = await Promise.race([
-      murakumo.fetch(new Request("https://murakumo.gftd.ai/api/openai/v1/chat/completions", { method: "POST", headers, body })),
+      murakumo.fetch(new Request("https://murakumo.etzhayyim.com/api/openai/v1/chat/completions", { method: "POST", headers, body })),
       timeoutProm,
     ]);
     clearTimeout(timeoutId);
@@ -712,7 +712,7 @@ function buildPropagationPrompt(event: PropagationEventRow): string {
 // ── Graph Job Queue (Hybrid Scheduler) ──
 
 /** Default Worker DID for claiming jobs. */
-const WORKER_DID = "did:web:shinka.gftd.ai";
+const WORKER_DID = "did:web:shinka.etzhayyim.com";
 /** Claim TTL in milliseconds (5 min). */
 const CLAIM_TTL_MS = 5 * 60 * 1000;
 /** Max jobs to claim per batch. */
@@ -1143,7 +1143,7 @@ async function handleIncomingPost(
   const postUri = `at://${commit.repo}/${commit.collection}/${commit.rkey}`;
   const postCid = commit.cid ?? "";
 
-  // Match @handle patterns that look like gftd.ai actor handles
+  // Match @handle patterns that look like etzhayyim.com actor handles
   const mentionMatches = [...postText.matchAll(/@([\w-]+\.gftd\.ai(?::[\w:-]+)*)/g)]
     .map((m) => m[1])
     .slice(0, 3);
@@ -1546,7 +1546,7 @@ Respond with JSON only — no markdown, no explanation:
         );
         const parsed = decodeJson<{ name: string; displayName: string; description: string }>(raw);
         if (parsed?.name && parsed.displayName && parsed.description) {
-          const did = `did:web:${parsed.name}.gftd.ai`;
+          const did = `did:web:${parsed.name}.etzhayyim.com`;
           if (!registeredDids.has(did)) {
             // Generate short nanoid from random UUID
             const nanoid = crypto.randomUUID().replace(/-/g, "").slice(0, 8);
@@ -1575,22 +1575,22 @@ Respond with JSON only — no markdown, no explanation:
  * Shinka cron registers 1 per tick until all are covered.
  */
 const DOMAIN_EXPANSION_CANDIDATES: { did: string; nanoid: string; displayName: string; description: string }[] = [
-  { did: "did:web:states.gftd.ai", nanoid: "st4t3s01", displayName: "sovereign", description: "195 UN member states — authority-chain sovereign domain" },
-  { did: "did:web:treaty.gftd.ai", nanoid: "tr3aty01", displayName: "treaty", description: "International treaties and conventions" },
-  { did: "did:web:blockchain.gftd.ai", nanoid: "bl0ckch1", displayName: "blockchain", description: "Blockchain protocols and DAOs" },
-  { did: "did:web:religious.gftd.ai", nanoid: "r3lgus01", displayName: "religious", description: "Religious traditions and canon law" },
-  { did: "did:web:customary.gftd.ai", nanoid: "cst0m4ry", displayName: "customary", description: "Customary law and indigenous norms" },
-  { did: "did:web:communities.gftd.ai", nanoid: "2tqvrutp", displayName: "communities", description: "Open source and civic communities" },
-  { did: "did:web:ethics.gftd.ai", nanoid: "eth1cs01", displayName: "ethics", description: "Professional and academic ethics codes" },
-  { did: "did:web:industry-standard.gftd.ai", nanoid: "indstd01", displayName: "industry-standard", description: "ISO, PCI DSS, SOC2 industry standards" },
-  { did: "did:web:tradition.gftd.ai", nanoid: "trdtn001", displayName: "tradition", description: "Cultural traditions and family customs" },
-  { did: "did:web:autorace.gftd.ai", nanoid: "4ut0r4c3", displayName: "autorace", description: "Auto racing circuits and results" },
-  { did: "did:web:keirin.gftd.ai", nanoid: "k31r1njp", displayName: "keirin", description: "Keirin velodrome racing" },
-  { did: "did:web:kyotei.gftd.ai", nanoid: "qv8yed1k", displayName: "kyotei", description: "Boat racing venues and results" },
-  { did: "did:web:keiba.gftd.ai", nanoid: "k31b4jp0", displayName: "keiba", description: "Horse racing tracks and results" },
-  { did: "did:web:hanrei.gftd.ai", nanoid: "h4nr31jp", displayName: "hanrei", description: "Court cases and legal precedents" },
-  { did: "did:web:isco.gftd.ai", nanoid: "pba7d22f", displayName: "isco", description: "ISCO-08 occupation codes" },
-  { did: "did:web:isic.gftd.ai", nanoid: "is1c4rv4", displayName: "isic", description: "ISIC Rev.4 industry sections" },
+  { did: "did:web:states.etzhayyim.com", nanoid: "st4t3s01", displayName: "sovereign", description: "195 UN member states — authority-chain sovereign domain" },
+  { did: "did:web:treaty.etzhayyim.com", nanoid: "tr3aty01", displayName: "treaty", description: "International treaties and conventions" },
+  { did: "did:web:blockchain.etzhayyim.com", nanoid: "bl0ckch1", displayName: "blockchain", description: "Blockchain protocols and DAOs" },
+  { did: "did:web:religious.etzhayyim.com", nanoid: "r3lgus01", displayName: "religious", description: "Religious traditions and canon law" },
+  { did: "did:web:customary.etzhayyim.com", nanoid: "cst0m4ry", displayName: "customary", description: "Customary law and indigenous norms" },
+  { did: "did:web:communities.etzhayyim.com", nanoid: "2tqvrutp", displayName: "communities", description: "Open source and civic communities" },
+  { did: "did:web:ethics.etzhayyim.com", nanoid: "eth1cs01", displayName: "ethics", description: "Professional and academic ethics codes" },
+  { did: "did:web:industry-standard.etzhayyim.com", nanoid: "indstd01", displayName: "industry-standard", description: "ISO, PCI DSS, SOC2 industry standards" },
+  { did: "did:web:tradition.etzhayyim.com", nanoid: "trdtn001", displayName: "tradition", description: "Cultural traditions and family customs" },
+  { did: "did:web:autorace.etzhayyim.com", nanoid: "4ut0r4c3", displayName: "autorace", description: "Auto racing circuits and results" },
+  { did: "did:web:keirin.etzhayyim.com", nanoid: "k31r1njp", displayName: "keirin", description: "Keirin velodrome racing" },
+  { did: "did:web:kyotei.etzhayyim.com", nanoid: "qv8yed1k", displayName: "kyotei", description: "Boat racing venues and results" },
+  { did: "did:web:keiba.etzhayyim.com", nanoid: "k31b4jp0", displayName: "keiba", description: "Horse racing tracks and results" },
+  { did: "did:web:hanrei.etzhayyim.com", nanoid: "h4nr31jp", displayName: "hanrei", description: "Court cases and legal precedents" },
+  { did: "did:web:isco.etzhayyim.com", nanoid: "pba7d22f", displayName: "isco", description: "ISCO-08 occupation codes" },
+  { did: "did:web:isic.etzhayyim.com", nanoid: "is1c4rv4", displayName: "isic", description: "ISIC Rev.4 industry sections" },
 ];
 
 /** List pending shinka tasks ordered by coverage (lowest first). */
@@ -1827,9 +1827,9 @@ async function cmdSeedPropagation(sdk: HostSDK, body: unknown): Promise<unknown>
 // ── App setup ──
 
 /** Path-based DID handles for shinka capability sub-actors. */
-const ACTOR_PROJECT = "did:web:sh1nk4ev.gftd.ai:actor:project";
-const ACTOR_INFERENCE = "did:web:sh1nk4ev.gftd.ai:actor:inference";
-const ACTOR_CHAIN_OF_THOUGHT = "did:web:sh1nk4ev.gftd.ai:actor:chain-of-thought";
+const ACTOR_PROJECT = "did:web:sh1nk4ev.etzhayyim.com:actor:project";
+const ACTOR_INFERENCE = "did:web:sh1nk4ev.etzhayyim.com:actor:inference";
+const ACTOR_CHAIN_OF_THOUGHT = "did:web:sh1nk4ev.etzhayyim.com:actor:chain-of-thought";
 
 export function setup(sdk: HostSDK): void {
   // Store SDK reference for llmCall (PDS_SERVICE binding, no external egress)
@@ -1838,7 +1838,7 @@ export function setup(sdk: HostSDK): void {
 
   // Register shinka capability sub-actors as path-based DIDs (idempotent, best-effort)
   // sdk.did is not yet in HostSDK; use sdk.pds identity methods when available.
-  // DIDs are pre-registered via gftd CLI: did:web:sh1nk4ev.gftd.ai:actor:{project,inference,chain-of-thought}
+  // DIDs are pre-registered via gftd CLI: did:web:sh1nk4ev.etzhayyim.com:actor:{project,inference,chain-of-thought}
   const pdsAny = sdk.pds as any;
   if (typeof pdsAny?.identityCreate === "function") {
     Promise.resolve()

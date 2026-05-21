@@ -1,1 +1,1 @@
-"""lg-media-gamers — OSS LangGraph server for media-gamers.gftd.ai."""
+"""lg-media-gamers — OSS LangGraph server for media-gamers.etzhayyim.com."""

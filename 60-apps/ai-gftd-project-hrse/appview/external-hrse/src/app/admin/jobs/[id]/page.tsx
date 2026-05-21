@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#AdminJobDetailConnect
+ * @etzhayyim/ai-gftd-hrse#AdminJobDetailConnect
  * 管理画面向け案件詳細ページ（Connect-Web版）
  */
 

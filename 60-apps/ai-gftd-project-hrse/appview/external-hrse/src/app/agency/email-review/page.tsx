@@ -1,6 +1,6 @@
 "use client";
 
-// @gftdcojp/ai-gftd-hrse#EmailReviewPage
+// @etzhayyim/ai-gftd-hrse#EmailReviewPage
 // Email Review Queue Page
 
 import { useUser } from "@clerk/nextjs";

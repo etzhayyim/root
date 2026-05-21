@@ -248,7 +248,7 @@ async def task_sql_insert_row(
         # same table reuse the SQLAlchemy Table object instead of erroring.
         t = Table(table, sa_metadata(), *cols, extend_existing=True)
         # Coerce all values to str — RisingWave column types vary per actor
-        # but accept string coercion at INSERT (matches gftdcojp_company_ops
+        # but accept string coercion at INSERT (matches etzhayyim_company_ops
         # `_db_insert` pattern this primitive replaces).
         bound = {k: (str(v) if v is not None else None) for k, v in work.items()}
         sa_rowcount(t.insert(), bound)

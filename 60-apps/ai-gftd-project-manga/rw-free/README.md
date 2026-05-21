@@ -50,7 +50,7 @@ Valid transitions enforced in `updateChapterStatus` and `publishChapter`.
 
 ## Pattern translation (Option B)
 
-| Vendor (`manga.gftd.ai`) | etzhayyim (this PR) |
+| Vendor (`manga.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
 | `db.insertInto("vertex_manga_title").values({...}).execute()` | `e.write({ collection: "ai.gftd.manga.title", record, rkey })` |

@@ -357,7 +357,7 @@ async function handleMultipartComplete(
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
     `<CompleteMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">\n` +
-    `  <Location>https://yatabase.gftd.ai/s3/${escapeXml(result.data.bucketName ?? "")}/${escapeXml(result.data.objectKey ?? "")}</Location>\n` +
+    `  <Location>https://yatabase.etzhayyim.com/s3/${escapeXml(result.data.bucketName ?? "")}/${escapeXml(result.data.objectKey ?? "")}</Location>\n` +
     `  <Bucket>${escapeXml(result.data.bucketName ?? "")}</Bucket>\n` +
     `  <Key>${escapeXml(result.data.objectKey ?? "")}</Key>\n` +
     `  <ETag>"${escapeXml(result.data.etag ?? "")}"</ETag>\n` +

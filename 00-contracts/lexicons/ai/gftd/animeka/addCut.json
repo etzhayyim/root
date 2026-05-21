@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.gftd.ai:cut:{rkey}. Sequential addCut calls on the same scene auto-increment cutNum if omitted.",
+      "description": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.etzhayyim.com:cut:{rkey}. Sequential addCut calls on the same scene auto-increment cutNum if omitted.",
       "input": {
         "encoding": "application/json",
         "schema": {

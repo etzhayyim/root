@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:fax.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:fax.etzhayyim.com",
   "name": "fax",
   "nanoid": "f4x5end1",
   "project": "fax",
@@ -20,13 +20,13 @@
     "agentType": "semi-autonomous",
     "operator": "gftd.co.jp",
     "country": "jpn",
-    "website": "https://fax.gftd.ai/",
+    "website": "https://fax.etzhayyim.com/",
     "sourceUrl": "https://app.hellofax.com/"
   },
   "entities": [
     {
       "category": "provider",
-      "did": "did:web:fax.gftd.ai:source:hellofax",
+      "did": "did:web:fax.etzhayyim.com:source:hellofax",
       "name": "Dropbox Fax (HelloFax UI)",
       "sourceId": "src-hellofax",
       "url": "https://app.hellofax.com/",
@@ -35,7 +35,7 @@
     },
     {
       "category": "provider",
-      "did": "did:web:fax.gftd.ai:source:phaxio",
+      "did": "did:web:fax.etzhayyim.com:source:phaxio",
       "name": "Phaxio (Sinch Fax API) — DEAD PATH",
       "sourceId": "src-phaxio",
       "url": "https://www.phaxio.com/",
@@ -45,22 +45,22 @@
     },
     {
       "category": "notifier",
-      "did": "did:web:mailer.gftd.ai",
+      "did": "did:web:mailer.etzhayyim.com",
       "sourceId": "src-mailer",
       "name": "Mailer actor (cross-actor invoke)",
-      "url": "https://mailer.gftd.ai/",
+      "url": "https://mailer.etzhayyim.com/",
       "role": "operator-notification",
       "note": "Used by composeAndSend (manual provider) to email operator + Teams channel with PDF link + send instructions."
     },
     {
       "category": "regulator-target",
-      "did": "did:web:roukisho.gftd.ai:tokyo:chuo",
+      "did": "did:web:roukisho.etzhayyim.com:tokyo:chuo",
       "name": "中央労働基準監督署 (external — roukisho actor)",
       "sourceId": "ext-roukisho-chuo",
       "url": "https://jsite.mhlw.go.jp/tokyo-roudoukyoku/",
       "faxE164": "+81338188411",
       "role": "regulatory-target",
-      "note": "External DID owned by did:web:roukisho.gftd.ai. fax actor dispatches and records communications via roukisho.recordCommunication."
+      "note": "External DID owned by did:web:roukisho.etzhayyim.com. fax actor dispatches and records communications via roukisho.recordCommunication."
     }
   ],
   "governance": {
@@ -103,7 +103,7 @@
     "env": {
       "FAX_PROVIDER": "manual",
       "DROPBOX_FAX_UI_URL": "https://app.hellofax.com/",
-      "CDN_PUBLIC_BASE_URL": "https://fax.gftd.ai/api/blob"
+      "CDN_PUBLIC_BASE_URL": "https://fax.etzhayyim.com/api/blob"
     }
   }
 }

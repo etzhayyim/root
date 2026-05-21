@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-6a418b369991",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6a418b369991",
   "entityId": "ent-6a418b369991",
   "canonicalName": "mohammad mahdi maghfoori",
   "aliases": [

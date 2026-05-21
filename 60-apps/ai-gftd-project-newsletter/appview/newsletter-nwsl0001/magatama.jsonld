@@ -1,12 +1,12 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:newsletter.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:newsletter.etzhayyim.com",
   "name": "newsletter",
   "nanoid": "nwsl0001",
   "runtimeType": "worker",
   "profile": {
     "displayName": "GFTD Newsletter",
-    "description": "AI newsletter factory. Curates content from news.gftd.ai and narou.gftd.ai, personalizes per cohort, and delivers via Resend every Tuesday.",
+    "description": "AI newsletter factory. Curates content from news.etzhayyim.com and narou.etzhayyim.com, personalizes per cohort, and delivers via Resend every Tuesday.",
     "avatar": "NL",
     "category": "marketing",
     "isBot": true,

@@ -8,11 +8,11 @@ importers:
 
   .:
     dependencies:
-      '@gftdcojp/design-system':
+      '@etzhayyim/design-system':
         specifier: file:../../../design-system
         version: file:../../../design-system(svelte@5.55.4)
     devDependencies:
-      '@gftdcojp/vite-plugin-safe-builder':
+      '@etzhayyim/vite-plugin-safe-builder':
         specifier: file:../..
         version: file:../..(vite@6.4.2(jiti@1.21.7))
       '@sveltejs/adapter-cloudflare':
@@ -416,13 +416,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@gftdcojp/design-system@file:../../../design-system':
+  '@etzhayyim/design-system@file:../../../design-system':
     resolution: {directory: ../../../design-system, type: directory}
     engines: {node: '>=20'}
     peerDependencies:
       svelte: ^5.0.0
 
-  '@gftdcojp/vite-plugin-safe-builder@file:../..':
+  '@etzhayyim/vite-plugin-safe-builder@file:../..':
     resolution: {directory: ../.., type: directory}
     hasBin: true
     peerDependencies:
@@ -1544,7 +1544,7 @@ snapshots:
   '@esbuild/win32-x64@0.27.3':
     optional: true
 
-  '@gftdcojp/design-system@file:../../../design-system(svelte@5.55.4)':
+  '@etzhayyim/design-system@file:../../../design-system(svelte@5.55.4)':
     dependencies:
       '@digital-go-jp/design-tokens': 1.1.9
       '@digital-go-jp/tailwind-theme-plugin': 0.3.4(tailwindcss@3.4.19)
@@ -1555,7 +1555,7 @@ snapshots:
       - tsx
       - yaml
 
-  '@gftdcojp/vite-plugin-safe-builder@file:../..(vite@6.4.2(jiti@1.21.7))':
+  '@etzhayyim/vite-plugin-safe-builder@file:../..(vite@6.4.2(jiti@1.21.7))':
     optionalDependencies:
       vite: 6.4.2(jiti@1.21.7)
 

@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/cyber-freelance#DataMigration
+ * @etzhayyim/cyber-freelance#DataMigration
  * データ移行スクリプト
  * 
  * freelancers → jobSeekers

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#CorporateRecruiterJobs
+ * @etzhayyim/ai-gftd-hrse#CorporateRecruiterJobs
  * 企業担当リクルーター向け案件管理ページ
  */
 

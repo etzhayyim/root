@@ -1,28 +1,28 @@
 # 40-engine/svelte — Shared UI Packages (Svelte 5)
 
-全 `*.gftd.ai` アプリで共通の UI コンポーネント・レイアウト・認証・MCP 接続を提供する。
+全 `*.etzhayyim.com` アプリで共通の UI コンポーネント・レイアウト・認証・MCP 接続を提供する。
 
 ## Packages
 
 | Package | npm name | 説明 |
 |---|---|---|
-| `design-system/` | `@gftdcojp/design-system` | **UIKit** (50+ components)。フォーム/テーブル + モバイル UI + TikTok Feed + headless builders + motion utilities + Tailwind plugin |
-| `vite-plugin-safe-builder/` | `@gftdcojp/vite-plugin-safe-builder` | **全 Svelte client アプリ推奨** — 直接 import |
+| `design-system/` | `@etzhayyim/design-system` | **UIKit** (50+ components)。フォーム/テーブル + モバイル UI + TikTok Feed + headless builders + motion utilities + Tailwind plugin |
+| `vite-plugin-safe-builder/` | `@etzhayyim/vite-plugin-safe-builder` | **全 Svelte client アプリ推奨** — 直接 import |
 
 ## CRITICAL: SuperApp Mobile-First Architecture
 
 → `gftd dodaf tv1 query --id svelte-superapp-mobile-first-architecture` / MCP `gftd.dodaf.tv1.query`
 
-## authn.gftd.ai 認証 (Passkey + AT Protocol JWT, ADR-0024 T4 split)
+## authn.etzhayyim.com 認証 (Passkey + AT Protocol JWT, ADR-0024 T4 split)
 
-- `initPasskey()` は `authn.gftd.ai` を認証基盤として使用 — 全 `*.gftd.ai` アプリで AT Protocol session が自動有効化される
-- 旧 `auth.gftd.ai` は 2026-04-16 に retired (HTTP 410 Gone)。AuthN = `authn.gftd.ai`、identity lifecycle = `authz.gftd.ai` (`= accounts.gftd.ai`)
+- `initPasskey()` は `authn.etzhayyim.com` を認証基盤として使用 — 全 `*.etzhayyim.com` アプリで AT Protocol session が自動有効化される
+- 旧 `auth.etzhayyim.com` は 2026-04-16 に retired (HTTP 410 Gone)。AuthN = `authn.etzhayyim.com`、identity lifecycle = `authz.etzhayyim.com` (`= accounts.etzhayyim.com`)
 - 各アプリで個別の認証設定は不要 — `initPasskey()` のみで認証が動作する
 - AT Protocol JWT (did:web) による session 管理
 
 ### CRITICAL: Auth State Detection 必須 — skipAuth は auth 検知を skip しない
 
-**`SuperAppLayout` は `skipAuth` の値に関わらず常に `initPasskey()` を実行し auth state を検知する。** `skipAuth` は authn.gftd.ai UI chrome (sign-in モーダル等) の制御のみ。
+**`SuperAppLayout` は `skipAuth` の値に関わらず常に `initPasskey()` を実行し auth state を検知する。** `skipAuth` は authn.etzhayyim.com UI chrome (sign-in モーダル等) の制御のみ。
 
 - **UI layout 分岐は `$isSignedIn` store のみ**で判定する。route が public か否かで分岐しない
 - Public route でもログイン済みなら authenticated UI を表示する
@@ -52,11 +52,11 @@
 
 ## Rules
 
-- **UI コンポーネントは `@gftdcojp/design-system` を使用する**。各アプリでの独自実装禁止
-- `@gftdcojp/appshellv2` が design-system を re-export するため、どちらからでもインポート可能
-- 新規アプリは `@gftdcojp/appshellv2` を使用する（`appshellv2-*` の直接利用は非推奨）
+- **UI コンポーネントは `@etzhayyim/design-system` を使用する**。各アプリでの独自実装禁止
+- `@etzhayyim/appshellv2` が design-system を re-export するため、どちらからでもインポート可能
+- 新規アプリは `@etzhayyim/appshellv2` を使用する（`appshellv2-*` の直接利用は非推奨）
 - 各パッケージは Svelte 5 snippet API を使用（slot 非推奨）
-- **全 Svelte client アプリは safe-builder を推奨** (`@gftdcojp/vite-plugin-safe-builder`)
+- **全 Svelte client アプリは safe-builder を推奨** (`@etzhayyim/vite-plugin-safe-builder`)
 - `mcpOrgGuard`, `routeCanonical`, `ssgValidate` は全て safe-builder から re-export（旧パッケージは削除済み）
 
 ### スタイリングルール (Tailwind-Only)
@@ -74,10 +74,10 @@
 ```json
 {
   "dependencies": {
-    "@gftdcojp/design-system": "file:../../../../40-engine/svelte/design-system"
+    "@etzhayyim/design-system": "file:../../../../40-engine/svelte/design-system"
   },
   "devDependencies": {
-    "@gftdcojp/vite-plugin-safe-builder": "file:../../../../40-engine/svelte/vite-plugin-safe-builder"
+    "@etzhayyim/vite-plugin-safe-builder": "file:../../../../40-engine/svelte/vite-plugin-safe-builder"
   }
 }
 ```
@@ -85,7 +85,7 @@
 **Layout** (`+layout.svelte`):
 ```svelte
 <script>
-  import { AppShell, Header, Sidebar, Footer, ThemeToggle } from '@gftdcojp/appshellv2';
+  import { AppShell, Header, Sidebar, Footer, ThemeToggle } from '@etzhayyim/appshellv2';
 </script>
 <AppShell>
   {#snippet header()}
@@ -121,8 +121,8 @@ AppShell はゼロ設定で HIG 準拠のレイアウトを提供する。消費
 ```svelte
 <Header
   appName="MyApp"
-  signInHref="https://accounts.gftd.ai/sign-in"
-  signUpHref="https://accounts.gftd.ai/sign-up"
+  signInHref="https://accounts.etzhayyim.com/sign-in"
+  signUpHref="https://accounts.etzhayyim.com/sign-up"
 />
 <Footer privacyHref="/privacy" termsHref="/terms" helpHref="/support" />
 ```
@@ -132,7 +132,7 @@ AppShell はゼロ設定で HIG 準拠のレイアウトを提供する。消費
 **Components** (`+page.svelte`):
 ```svelte
 <script>
-  import { Button, Input, Label, NotificationBanner } from '@gftdcojp/appshellv2';
+  import { Button, Input, Label, NotificationBanner } from '@etzhayyim/appshellv2';
 </script>
 <Label>名前</Label>
 <Input placeholder="入力してください" />
@@ -141,12 +141,12 @@ AppShell はゼロ設定で HIG 準拠のレイアウトを提供する。消費
 
 **Integrated Subpaths**:
 ```ts
-import { AuthGate } from '@gftdcojp/appshellv2/auth';
-import { AppLauncher } from '@gftdcojp/appshellv2/apps';
-import { LanguageSwitcher } from '@gftdcojp/appshellv2/language';
-import { McpClient } from '@gftdcojp/appshellv2/mcp';
-import { WalletIndicator } from '@gftdcojp/appshellv2/wallet';
-import { safeBuilder } from '@gftdcojp/vite-plugin-safe-builder';
+import { AuthGate } from '@etzhayyim/appshellv2/auth';
+import { AppLauncher } from '@etzhayyim/appshellv2/apps';
+import { LanguageSwitcher } from '@etzhayyim/appshellv2/language';
+import { McpClient } from '@etzhayyim/appshellv2/mcp';
+import { WalletIndicator } from '@etzhayyim/appshellv2/wallet';
+import { safeBuilder } from '@etzhayyim/vite-plugin-safe-builder';
 ```
 
 **Theme**: CSS custom properties (`--gv2-*`)。`[data-theme="dark"|"light"]`。dark がデフォルト。
@@ -156,13 +156,13 @@ import { safeBuilder } from '@gftdcojp/vite-plugin-safe-builder';
 ### Export Paths
 
 ```ts
-import { Avatar, BottomNav, SnapFeed, Toast, ... } from '@gftdcojp/design-system';      // components
-import { createBottomSheet, createTabs, createToast, createSwipe } from '@gftdcojp/design-system/builders'; // headless builders
-import { staggerFly, snapSpring, smoothSpring } from '@gftdcojp/design-system/motion';   // motion utilities
-import { gftdUIKit } from '@gftdcojp/design-system/plugin';                              // Tailwind plugin
+import { Avatar, BottomNav, SnapFeed, Toast, ... } from '@etzhayyim/design-system';      // components
+import { createBottomSheet, createTabs, createToast, createSwipe } from '@etzhayyim/design-system/builders'; // headless builders
+import { staggerFly, snapSpring, smoothSpring } from '@etzhayyim/design-system/motion';   // motion utilities
+import { gftdUIKit } from '@etzhayyim/design-system/plugin';                              // Tailwind plugin
 ```
 
-appshellv2 が design-system を re-export するため、`'@gftdcojp/appshellv2'` からも全コンポーネントを import 可能。
+appshellv2 が design-system を re-export するため、`'@etzhayyim/appshellv2'` からも全コンポーネントを import 可能。
 
 ### Component Categories
 
@@ -197,7 +197,7 @@ appshellv2 が design-system を re-export するため、`'@gftdcojp/appshellv2
 
 ```ts
 import { spring } from 'svelte/motion';
-import { duoPress, liquidMorph, rubberBand } from '@gftdcojp/design-system/motion';
+import { duoPress, liquidMorph, rubberBand } from '@etzhayyim/design-system/motion';
 const scale = spring(1, duoPress);
 ```
 
@@ -219,7 +219,7 @@ const scale = spring(1, duoPress);
 全インタラクティブコンポーネントは対応する audio feedback を持つ:
 
 ```ts
-import { playTap, playSelect, playBack, playHover, playScrollTick, playNavForward, playNavBack, playNotification, haptic, tactile } from '@gftdcojp/design-system/audio';
+import { playTap, playSelect, playBack, playHover, playScrollTick, playNavForward, playNavBack, playNotification, haptic, tactile } from '@etzhayyim/design-system/audio';
 ```
 
 | Sound | Duration | 用途 |
@@ -260,15 +260,15 @@ import { playTap, playSelect, playBack, playHover, playScrollTick, playNavForwar
 
 ```ts
 // Switch 2 card tilt action
-import { tilt, parallax } from '@gftdcojp/design-system/builders';
+import { tilt, parallax } from '@etzhayyim/design-system/builders';
 // <div use:tilt={{ maxDeg: 8, liftPx: 12, sound: true }}>Card</div>
 // <div use:parallax={{ factor: 0.1 }}>Parallax element</div>
 
 // Switch 2 depth transitions
-import { depthEnter, depthExit, depthBackEnter, tabSlide } from '@gftdcojp/design-system/motion';
+import { depthEnter, depthExit, depthBackEnter, tabSlide } from '@etzhayyim/design-system/motion';
 
 // Ambient background (auto mood-reactive)
-import { AmbientBackground } from '@gftdcojp/appshellv2/superapp';
+import { AmbientBackground } from '@etzhayyim/appshellv2/superapp';
 ```
 
 #### Tailwind Plugin — Duolingo 3D + Apple Glass + Switch 2
@@ -314,7 +314,7 @@ import { AmbientBackground } from '@gftdcojp/appshellv2/superapp';
 
 ```js
 // tailwind.config.js
-import { gftdUIKit } from '@gftdcojp/design-system/plugin';
+import { gftdUIKit } from '@etzhayyim/design-system/plugin';
 
 export default {
   content: [
@@ -336,7 +336,7 @@ export default {
 ## UI/UX 設計指針: Apple HIG + iPad 最適化
 
 全 CDN アプリは **Apple Human Interface Guidelines (HIG)** に基づき、**iPad をプライマリターゲット**として設計する。
-`@gftdcojp/appshellv2` + `@gftdcojp/design-system` を基盤コンポーネントとして利用しつつ、HIG でレイアウト・インタラクション・レスポンシブを統一する。
+`@etzhayyim/appshellv2` + `@etzhayyim/design-system` を基盤コンポーネントとして利用しつつ、HIG でレイアウト・インタラクション・レスポンシブを統一する。
 
 ### HIG デザイン原則
 

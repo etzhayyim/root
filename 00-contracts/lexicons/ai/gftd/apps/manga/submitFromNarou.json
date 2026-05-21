@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Import title and chapter from narou.gftd.ai",
+      "description": "Import title and chapter from narou.etzhayyim.com",
       "input": {
         "encoding": "application/json",
         "schema": {

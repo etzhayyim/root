@@ -1,7 +1,7 @@
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-// ADR-2604291800 Artificial Organism — gftdcojp AI agent org P1
+// ADR-2604291800 Artificial Organism — etzhayyim AI agent org P1
 // tier: C
 // vertex_kaisya_task: human approval tasklist (sole human-facing interface)
 // vertex_kaisya_agent_run: agent execution log (audit trail per timer-start)

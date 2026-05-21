@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/10/3/0/survivors",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/3/0/survivors",
       "type": "dodaf:Capability",
       "name": "Survivors' Benefit and Stability Capability",
       "description": "Functional capability for managing survivors' benefit verification, coordination of support, and family stability monitoring. Classification: COFOG Division 10, Group 3, Class 0.",

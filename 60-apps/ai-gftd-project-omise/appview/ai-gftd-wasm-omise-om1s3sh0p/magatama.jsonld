@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:omise.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:omise.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -37,7 +37,7 @@
   "project": "omise",
   "routes": [
     {
-      "host": "omise.gftd.ai",
+      "host": "omise.etzhayyim.com",
       "paths": [
         "/"
       ],

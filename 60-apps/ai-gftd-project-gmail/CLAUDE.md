@@ -5,8 +5,8 @@
 | Key | Value |
 |---|---|
 | **nanoid** | `gm4il0x1` |
-| **domain** | `gmail.gftd.ai` |
-| **AT bot DID** | `did:web:gmail.gftd.ai` |
+| **domain** | `gmail.etzhayyim.com` |
+| **AT bot DID** | `did:web:gmail.etzhayyim.com` |
 | **Runtime** | **Single Worker** (TS Native, appview mode) |
 | **Data store** | **Design E 3-Tier Write** — T2 Domain (`sdk.pds.createRecord`, collection `ai.gftd.apps.gmail.{email,thread,contact,syncJob,outboundEmail,accountBinding,account,phishingAlert}`) → RisingWave `vertex_gmail_*`. T1 Social (`app.bsky.feed.post`) for sync/connect events |
 | **OAuth token custody** | **D1 `GMAIL_DB` + KEK envelope** (ADR-0010 Stage 1 pattern) — `vertex_gmail_oauth_token` (refresh_token AES-256-GCM with per-row data key, data key AES-256-GCM wrap by `SS_GMAIL_TOKEN_KEK`). Server-side only, never leaves worker |
@@ -27,7 +27,7 @@
 | Cron scheduled handler `*/15 * * * *` — `users.history.list` delta sync per active account, `historyId` cursor in `vertex_gmail_oauth_token.history_id` | ✅ Live |
 | `listThreads` / `searchEmails` read path against RisingWave | ⏳ Stub — returns `[]` until Kysely wired against `vertex_gmail_thread`/`vertex_gmail_email` |
 | `triage` — phishing score for already-ingested rows | ⏳ Stub — inline scoring happens in `syncInbox`; this XRPC returns `[]` pending graph-read wiring |
-| Contact path DID creation per sender (`did:web:gmail.gftd.ai:contact:*`) | ✅ Live (2026-04-22, ADR-0049 Phase B1) — `upsertContactViaUdf()` after every `vertex_gmail_email` insert delegates to `gmail_upsert_contact` external Python UDF on the mitama-udf pool. Materializes `vertex_gmail_contact` + `edge_gmail_email_from_contact` with `WHERE NOT EXISTS` idempotency. PDS `did.create` registration deferred to a promotion job that filters by activity threshold |
+| Contact path DID creation per sender (`did:web:gmail.etzhayyim.com:contact:*`) | ✅ Live (2026-04-22, ADR-0049 Phase B1) — `upsertContactViaUdf()` after every `vertex_gmail_email` insert delegates to `gmail_upsert_contact` external Python UDF on the mitama-udf pool. Materializes `vertex_gmail_contact` + `edge_gmail_email_from_contact` with `WHERE NOT EXISTS` idempotency. PDS `did.create` registration deferred to a promotion job that filters by activity threshold |
 | `send_message` cross-actor handler (yoro messenger bridge) | ⏳ Not yet — `sendEmail` is the direct path for now |
 | Appview UI (`/embed`) | ⏳ Zero-UI, uses Protocol Canvas card via `appview` mode |
 
@@ -49,7 +49,7 @@ All 3 resolved via `resolveSecret(v)` helper at use time (Secrets Store bindings
 
 **Gmail account sync → DID per email contact → yoro messenger bridge.**
 
-### mailer.gftd.ai との違い
+### mailer.etzhayyim.com との違い
 
 | | mailer | gmail |
 |---|---|---|
@@ -94,10 +94,10 @@ All 3 resolved via `resolveSecret(v)` helper at use time (Secrets Store bindings
 ### Multi-DID Architecture
 
 ```
-did:web:gmail.gftd.ai                           ← primary (controller)
-  ├─ did:web:gmail.gftd.ai:contact:john_at_example_com  ← contact DID
-  ├─ did:web:gmail.gftd.ai:contact:alice_at_corp_co     ← contact DID
-  └─ did:web:gmail.gftd.ai:contact:...                   ← N contacts
+did:web:gmail.etzhayyim.com                           ← primary (controller)
+  ├─ did:web:gmail.etzhayyim.com:contact:john_at_example_com  ← contact DID
+  ├─ did:web:gmail.etzhayyim.com:contact:alice_at_corp_co     ← contact DID
+  └─ did:web:gmail.etzhayyim.com:contact:...                   ← N contacts
 ```
 
 Each email sender = path-based DID → appears as actor in yoro → messageable.
@@ -108,7 +108,7 @@ Each email sender = path-based DID → appears as actor in yoro → messageable.
 - `processFollow`: welcome post with connect instructions on follow
 - `app.Handle("", "send_message", ..., RequireCallerRole("member"))`: only followers can send
 
-## UX Flow (yoro.gftd.ai/profile/did:web:gmail.gftd.ai?app=1)
+## UX Flow (yoro.etzhayyim.com/profile/did:web:gmail.etzhayyim.com?app=1)
 
 ```
 Step 1: フォロー
@@ -181,7 +181,7 @@ openssl rand -base64 32 | tr '+/' '-_' | tr -d '=' | \
 
 # 3. Google OAuth client (Google Cloud Console)
 #    - project: ai-gftd-ws-ingest (owner jun@gftd.group)
-#    - Web application, Authorized redirect URI: https://gmail.gftd.ai/oauth/callback
+#    - Web application, Authorized redirect URI: https://gmail.etzhayyim.com/oauth/callback
 #    - Gmail API enabled
 #    - OAuth consent screen → add Test users until sensitive-scope verification clears
 wrangler secrets-store secret create <STORE_ID> --name google_oauth_client_id --scopes workers --remote
@@ -195,21 +195,21 @@ DATABASE_URL=postgresql://root@172.236.132.11:4566/dev pnpm -w run db:migrate
 ### Smoke test (after deploy)
 
 ```bash
-curl -sS https://gmail.gftd.ai/health
+curl -sS https://gmail.etzhayyim.com/health
 # → {"status":"ok","app":"gm4il0x1"}
 
-curl -sS -X POST https://gmail.gftd.ai/xrpc/ai.gftd.apps.gmail.connectAccount \
+curl -sS -X POST https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.connectAccount \
   -H 'content-type: application/json' \
   -d '{"email":"jun@gftd.group","accountDid":"did:web:gftd.group"}'
 # → {"status":"pending_oauth","oauthUrl":"https://accounts.google.com/o/oauth2/v2/auth?..."}
 
 # Open oauthUrl in browser → sign in → consent → redirect to /oauth/callback
 # After callback success:
-curl -sS https://gmail.gftd.ai/xrpc/ai.gftd.apps.gmail.listAccounts
+curl -sS https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.listAccounts
 # → {"accounts":[{"email":"jun@gftd.group",...,"status":"active",...}],"total":1}
 
 # Manual sync trigger (or wait for cron)
-curl -sS -X POST https://gmail.gftd.ai/xrpc/ai.gftd.apps.gmail.syncInbox \
+curl -sS -X POST https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.syncInbox \
   -H 'content-type: application/json' -d '{"email":"jun@gftd.group","maxResults":25}'
 
 # Verify rows landed in RisingWave

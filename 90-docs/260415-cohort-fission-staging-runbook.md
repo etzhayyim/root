@@ -22,7 +22,7 @@ ADR-0026 cohort lifecycle (Phase A→B→C) を staging 環境で end-to-end 動
 - Migrations 0052/0053/0054/0056 が staging RisingWave に apply 済
 - PDS deploy 済 (handlers/gftd/cohort.ts + agent/cohort-watchdog.ts)
 - `gftd authn signin` で session token 取得済
-- staging PDS URL: 通常 `https://atproto.gftd.ai` (本番と分離する場合は `--pds` flag)
+- staging PDS URL: 通常 `https://atproto.etzhayyim.com` (本番と分離する場合は `--pds` flag)
 
 # Procedure
 
@@ -42,7 +42,7 @@ AT_TOKEN=$(gftd agent-token --lxm ai.gftd.cohort.seed --ttl 600)
 GFTD_TOKEN=$AT_TOKEN gftd cohort gen \
   --pcfL1 3-market-sell --role salesRep --locale jp --k 50
 
-# Output: gen ok: did=did:plc:pending-X1Y2Z3W4 handle=cohort-X1Y2Z3W4.gftd.ai
+# Output: gen ok: did=did:plc:pending-X1Y2Z3W4 handle=cohort-X1Y2Z3W4.etzhayyim.com
 ```
 
 verify:
@@ -91,14 +91,14 @@ AT_TOKEN=$(gftd agent-token --lxm ai.gftd.cohort.fission --ttl 60)
 GFTD_TOKEN=$AT_TOKEN gftd cohort fission \
   --cohort "$COHORT" \
   --posterior 0.97 --judge=true \
-  --evidence "at://cohort-X1Y2Z3W4.gftd.ai/ai.gftd.cohort.evidence/<rkey>"
+  --evidence "at://cohort-X1Y2Z3W4.etzhayyim.com/ai.gftd.cohort.evidence/<rkey>"
 
 # Expected response:
 # {
 #   "individualDid": "did:plc:pending-AABBCCDD",
-#   "individualHandle": "agent-AABBCCDD.gftd.ai",
+#   "individualHandle": "agent-AABBCCDD.etzhayyim.com",
 #   "derivedFrom": "did:plc:pending-X1Y2Z3W4",
-#   "lineageArchiveUri": "at://agent-AABBCCDD.gftd.ai/ai.gftd.cohort.fissionLineage/self",
+#   "lineageArchiveUri": "at://agent-AABBCCDD.etzhayyim.com/ai.gftd.cohort.fissionLineage/self",
 #   "fissionAt": "2026-04-15T..."
 # }
 ```
@@ -123,7 +123,7 @@ gftd cohort forest --pcfL1 3-market-sell
 ```bash
 # Should be 0 drift after a clean E2E run
 curl -H "Authorization: Bearer $GFTD_TOKEN" \
-  "https://atproto.gftd.ai/xrpc/ai.gftd.pds.getOcel?index=ai.gftd.cohort.lineageDrift" \
+  "https://atproto.etzhayyim.com/xrpc/ai.gftd.pds.getOcel?index=ai.gftd.cohort.lineageDrift" \
   | jq '.data[].doubles[0]'   # edgeMissing count
 ```
 

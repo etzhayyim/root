@@ -3,7 +3,7 @@
 **Date**: 2026-04-08
 **Status**: `[IMPLEMENTED]` `[PRODUCTION]`
 **Evidence**: `50-infra/cloudflare/workers/atproto/src/actor-executor-*.ts`, `50-infra/cloudflare/workers/atproto/src/bpmn-pipeline-compiler.ts`, `00-contracts/wit/deps/magatama-actor-executor/package.wit`
-**Deploy**: PDS Worker `ai-gftd-pds-2603241700` (atproto.gftd.ai)
+**Deploy**: PDS Worker `ai-gftd-pds-2603241700` (atproto.etzhayyim.com)
 **Graph**: RisingWave `graphar.vertex_actor` (1,732 rows), `graphar.vertex_actor_manifest`
 
 ## Problem
@@ -28,7 +28,7 @@ Shannon 最適パターン P5 (MCP-Compose, η=0.667) をデフォルトとし�
 ## Architecture
 
 ```
-yoro.gftd.ai Actor Designer (BPMN/DMN/Forms)
+yoro.etzhayyim.com Actor Designer (BPMN/DMN/Forms)
   ↓ compileBpmn / deployProcess
 actor-manifest.jsonld (統一メタデータ)
   ├── executionTier: T1 → PDS Shared Executor (host-imports direct)
@@ -48,7 +48,7 @@ kagami graph DB + OCEL 2.0 event log
 
 ```typescript
 interface ActorManifest {
-  '@context': 'https://gftd.ai/ns/actor/v1';
+  '@context': 'https://etzhayyim.com/ns/actor/v1';
   '@id': string;           // Actor DID
   name: string;            // Slug
   nanoid: string;          // Nanoid

@@ -1,4 +1,4 @@
-// itonami.gftd.ai — Aircraft engine lifecycle simulation SPA.
+// itonami.etzhayyim.com — Aircraft engine lifecycle simulation SPA.
 // Pure static SPA: all simulation logic is client-side (Svelte stores).
 // This Worker serves ASSETS and exposes health + meta endpoints.
 //
@@ -263,7 +263,7 @@ export default createWorkerExport((sdk) => {
   sdk.app
     .command(
       nsid("ai.gftd.apps.itonami.health"),
-      async () => ({ ok: true, actor: "did:web:itonami.gftd.ai", ts: nowISO() }),
+      async () => ({ ok: true, actor: "did:web:itonami.etzhayyim.com", ts: nowISO() }),
       asAgentTool("Health check for itonami — aircraft engine lifecycle simulation actor"),
       withCapabilityTags("health", "itonami", "aircraft", "simulation"),
     )

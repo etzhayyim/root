@@ -1,16 +1,16 @@
 {
-  "@context": "https://gftd.ai/ld/magatama/v1",
+  "@context": "https://etzhayyim.com/ld/magatama/v1",
   "name": "ai-gftd-project-manimani",
   "nanoid": "m4n1m4n1",
   "displayName": "Manimani",
   "description": "Personal knowledge router. Drop a fragment (text / link / file) and it lands in the right project automatically. LLM-driven classification + project-typed processing pipeline (knowledge / task / memo / unsorted) on LangGraph Server.",
-  "did": "did:web:manimani.gftd.ai",
+  "did": "did:web:manimani.etzhayyim.com",
   "tier": "T3",
   "uiType": "appview",
-  "embedUrl": "https://manimani.gftd.ai/embed",
+  "embedUrl": "https://manimani.etzhayyim.com/embed",
   "routes": [
     {
-      "host": "manimani.gftd.ai",
+      "host": "manimani.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }
@@ -19,9 +19,9 @@
   "atStandard": false,
   "nsidPrefixes": ["ai.gftd.apps.manimani"],
   "backendDependencies": {
-    "atproto": "https://atproto.gftd.ai",
-    "authn": "https://authn.gftd.ai",
-    "bpmnDispatcher": "https://dispatcher.gftd.ai",
+    "atproto": "https://atproto.etzhayyim.com",
+    "authn": "https://authn.etzhayyim.com",
+    "bpmnDispatcher": "https://dispatcher.etzhayyim.com",
     "langgraphServer": "in-cluster: manimani-langgraph.mitama-udf.svc.cluster.local:8000",
     "rwHyperdrive": "configured via env.HYPERDRIVE binding"
   },

@@ -1,7 +1,7 @@
 {
   "name": "ai-gftd-wasm-bunken-bk7n2d8x",
   "version": "1.0.0",
-  "description": "bunken.gftd.ai — 文献書誌 intelligence (NDL/LCCN/OCLC/VIAF/NCID/DOI/ARK 統合、Common Crawl CDX 収集、DID 登録)",
+  "description": "bunken.etzhayyim.com — 文献書誌 intelligence (NDL/LCCN/OCLC/VIAF/NCID/DOI/ARK 統合、Common Crawl CDX 収集、DID 登録)",
   "main": "src/app.ts",
   "type": "module",
   "dependencies": {

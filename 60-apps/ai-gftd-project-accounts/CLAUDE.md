@@ -1,31 +1,31 @@
-# accounts.gftd.ai — Account Lifecycle Management (Scaffold)
+# accounts.etzhayyim.com — Account Lifecycle Management (Scaffold)
 
 **Status**: SCAFFOLD ONLY (2026-04-14). 本 Worker は ADR-0024 Step 3 の物理分離先として
 ディレクトリと skeleton のみ用意した。**まだ deploy しない**。route は wrangler に
-登録していない (auth Worker の現行 route が `accounts.gftd.ai/*` を serve し続ける)。
+登録していない (auth Worker の現行 route が `accounts.etzhayyim.com/*` を serve し続ける)。
 
 ## 目的
 
-ADR-0024 "Auth / Accounts Worker Topology" に基づき、`accounts.gftd.ai` を
+ADR-0024 "Auth / Accounts Worker Topology" に基づき、`accounts.etzhayyim.com` を
 `60-apps/ai-gftd-project-auth` から物理分離する。
 
 | Worker | ドメイン | 責務 |
 | --- | --- | --- |
-| `ai-gftd-auth` (既存) | `authn.gftd.ai` | Passkey / OAuth PKCE / Session 発行 / DID / Service Auth |
-| `ai-gftd-accounts` (本 Worker) | `accounts.gftd.ai` | Linked auth methods / actor.score / provider link-unlink / `/manage` UI |
+| `ai-gftd-auth` (既存) | `authn.etzhayyim.com` | Passkey / OAuth PKCE / Session 発行 / DID / Service Auth |
+| `ai-gftd-accounts` (本 Worker) | `accounts.etzhayyim.com` | Linked auth methods / actor.score / provider link-unlink / `/manage` UI |
 
 ## Migration 前提
 
 1. ADR-0022 Step 7 本番 deploy 完了 (Cookie / AUTH_SERVICE delegation session 昇格
    path の live 削除、`[auth][deprecated]` zero-traffic 確認)
-2. ADR-0024 Step 2 完了 (auth Worker の `authn.gftd.ai` route pattern 絞り込み、
+2. ADR-0024 Step 2 完了 (auth Worker の `authn.etzhayyim.com` route pattern 絞り込み、
    外部 `com.atproto.*` zero-traffic 確認)
 
 上記 2 点が未了の間、本 Worker は **scaffold のみ**。実装の移設は別 PR で行う。
 
 ## 移設対象 (auth Worker から剥がす route)
 
-`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts` のうち `accounts.gftd.ai`
+`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts` のうち `accounts.etzhayyim.com`
 でのみ serve されるべき path:
 
 - `GET  /manage` — account management UI (Svelte SPA)

@@ -16,7 +16,7 @@ maps-bulk-ingest pod. ADR-2605011500 §Addendum 2026-05-05.
 Reconnection: exponential backoff [1, 2, 4, 8, 16, 30, 30, …] seconds.
 
 ENV:
-  AIS_STREAM_API_KEY                   — required (gftd.aisstream/API_KEY)
+  AIS_STREAM_API_KEY                   — required (etzhayyim.comsstream/API_KEY)
   DATABASE_URL                          — required (RisingWave PG via maps-bulk-ingest-credentials)
   AISMARINE_BATCH_MAX_AGE_S             — default 5
   AISMARINE_BATCH_MAX_MSGS              — default 500

@@ -1,5 +1,5 @@
 {
-  "name": "@gftdcojp/vite-plugin-safe-builder",
+  "name": "@etzhayyim/vite-plugin-safe-builder",
   "version": "0.1.0",
   "private": true,
   "type": "module",

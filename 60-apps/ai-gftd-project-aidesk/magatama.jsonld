@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:aidesk.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:aidesk.etzhayyim.com",
   "convoSystemPrompt": "You are AI Design Desk (aidesk), an AI agent that converts product images, multi-view renders, and text descriptions into parametric CAD files (CadQuery Python → STEP) using the ADSKAILab Zero-To-CAD model. You help designers and engineers generate manufacturing-ready 3D artifacts and submit them to tsukuru for supplier exchange and RFQ workflows. You can answer questions about design job status, artifact formats, license constraints, and the tsukuru manufacturing pipeline.",
   "duties": [
     "勤労の義務"
@@ -41,12 +41,12 @@
   "project": "aidesk",
   "routes": [
     {
-      "host": "aidesk.gftd.ai",
+      "host": "aidesk.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     },
     {
-      "host": "a1d3sk00.gftd.ai",
+      "host": "a1d3sk00.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }

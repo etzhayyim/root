@@ -344,14 +344,14 @@ function json(body: unknown, status = 200, headers?: HeadersInit): Response {
   });
 }
 
-/** Build Set-Cookie header value for cross-subdomain session sharing on *.gftd.ai. */
+/** Build Set-Cookie header value for cross-subdomain session sharing on *.etzhayyim.com. */
 function sessionCookie(accessJwt: string): string {
-  return `gftd_session=${accessJwt}; Domain=.gftd.ai; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=604800`;
+  return `gftd_session=${accessJwt}; Domain=.etzhayyim.com; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=604800`;
 }
 
-/** Build Set-Cookie header that clears the session cookie across *.gftd.ai. */
+/** Build Set-Cookie header that clears the session cookie across *.etzhayyim.com. */
 function clearSessionCookie(): string {
-  return "gftd_session=; Domain=.gftd.ai; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0";
+  return "gftd_session=; Domain=.etzhayyim.com; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0";
 }
 
 /** Return JSON response with session cookie set for cross-subdomain auth. */
@@ -399,11 +399,11 @@ function getMicrosoftOauthClientSecret(env: Env): string {
 
 function accountHandleFromPath(path: string): string {
   const nanoid = path.replace(/^user:/, "");
-  return `${nanoid}.gftd.ai`;
+  return `${nanoid}.etzhayyim.com`;
 }
 
 function deriveDefaultHumanDid(accountDid: string): string {
-  return accountDid.startsWith("did:web:authn.gftd.ai:")
+  return accountDid.startsWith("did:web:authn.etzhayyim.com:")
     ? `${accountDid}:person:default`
     : accountDid;
 }
@@ -814,7 +814,7 @@ async function handleRevokeToken(request: Request, env: Env): Promise<Response> 
     // One row keyed on jti (unchanged) — carries the family `sid` too so the
     // RS check can match either column without a second INSERT.
     if (jti) {
-      const vertexId = `at://did:web:authn.gftd.ai/ai.gftd.auth.revokedSession/${jti}`;
+      const vertexId = `at://did:web:authn.etzhayyim.com/ai.gftd.auth.revokedSession/${jti}`;
       await env.KEYS_DB.prepare(
         "INSERT OR IGNORE INTO vertex_gftd_key_revoked_session (vertex_id, sensitivity_ord, owner_did, jti, did, revoked_at, sid) VALUES (?, 3, ?, ?, ?, ?, ?)",
       ).bind(vertexId, did, jti, did, revokedAt, sid || null).run();
@@ -823,7 +823,7 @@ async function handleRevokeToken(request: Request, env: Env): Promise<Response> 
     // caught on lookup even when the revoked_at request only carried one
     // jti. RFC 7009 §2.1 SHOULD cascade.
     if (sid) {
-      const sidVertexId = `at://did:web:authn.gftd.ai/ai.gftd.auth.revokedFamily/${sid}`;
+      const sidVertexId = `at://did:web:authn.etzhayyim.com/ai.gftd.auth.revokedFamily/${sid}`;
       await env.KEYS_DB.prepare(
         "INSERT OR IGNORE INTO vertex_gftd_key_revoked_session (vertex_id, sensitivity_ord, owner_did, jti, did, revoked_at, sid) VALUES (?, 3, ?, ?, ?, ?, ?)",
       ).bind(sidVertexId, did, jti || `family:${sid}`, did, revokedAt, sid).run();
@@ -951,7 +951,7 @@ async function handleCreateAgentSession(request: Request, env: Env): Promise<Res
       "INSERT OR REPLACE INTO did_keys (did, private_key_b64, performer_type, public_key_multibase, created_at) VALUES (?, ?, ?, ?, ?)"
     ).bind(didDocument.did, privateKeyB64url, performerType, didDocument.publicKeyMultibase, didDocument.createdAt).run();
   }
-  const handle = `${appNanoid}.gftd.ai`;
+  const handle = `${appNanoid}.etzhayyim.com`;
   return json({
     did: didDocument.did,
     didDocument,
@@ -1046,7 +1046,7 @@ async function handleOAuthToken(request: Request, env: Env): Promise<Response> {
       'expires_in': 900,
       'id_token': tokens.accessJwt,
       'refresh_token': tokens.refreshJwt,
-      'iss': "https://authn.gftd.ai",
+      'iss': "https://authn.etzhayyim.com",
       ...(apiKey ? { 'api_key': apiKey } : {}),
     },
     tokens.accessJwt,
@@ -1113,8 +1113,8 @@ async function buildPdsApiKeyProxyHeaders(
   if (useEs256 && privateKeyB64) {
     const jwt = await signServiceAuth(
       privateKeyB64,
-      "did:web:authn.gftd.ai",
-      "did:web:atproto.gftd.ai",
+      "did:web:authn.etzhayyim.com",
+      "did:web:atproto.etzhayyim.com",
       lxm,
       accountDid,
     );
@@ -1178,7 +1178,7 @@ async function proxyApiKeyManagement(
     const session = await requireSessionAccount(request, env);
     const body = await request.text();
     const headers = await buildPdsApiKeyProxyHeaders(env, session.accountDid, nsid);
-    const resp = await env.PDS_SERVICE.fetch(`https://atproto.gftd.ai/xrpc/${nsid}`, {
+    const resp = await env.PDS_SERVICE.fetch(`https://atproto.etzhayyim.com/xrpc/${nsid}`, {
       method: "POST",
       headers,
       body: body || "{}",
@@ -1393,7 +1393,7 @@ async function queryIdentityGraphRow(env: Env, did: string): Promise<Record<stri
   if (!env.PDS_SERVICE) return null;
   try {
     const resp = await env.PDS_SERVICE.fetch(
-      `https://atproto.gftd.ai/xrpc/ai.gftd.graph.query?table=vertex_gftd_identity&did=${encodeURIComponent(did)}`,
+      `https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.query?table=vertex_gftd_identity&did=${encodeURIComponent(did)}`,
       { headers: { "x-magatama-verified": "true" } },
     );
     if (!resp.ok) return null;
@@ -1508,7 +1508,7 @@ async function handleResolveGftdDid(request: Request, env: Env): Promise<Respons
 
   const entityType = (graphRow?.entity_type as string) ?? (verifyPerformer === "organization" ? "Organization" : "Person");
   const doc: Record<string, unknown> = {
-    "@context": ["https://www.w3.org/ns/did/v1", "https://did.gftd.ai/context/v1"],
+    "@context": ["https://www.w3.org/ns/did/v1", "https://did.etzhayyim.com/context/v1"],
     id: did,
     type: [entityType, verifyPerformer === "organization" ? "DoDAFPerformer" : "DoDAFSystem"],
     controller: authAccount?.controller_did ?? (graphRow?.controller_did as string) ?? did,
@@ -1749,7 +1749,7 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
         created_at: now,
       }],
     };
-    env.PDS_SERVICE.fetch("https://atproto.gftd.ai/xrpc/ai.gftd.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -1820,7 +1820,7 @@ async function syncAuthMethodToGftdIdentity(env: Env, accountDid: string, provid
         linked_at: now,
       }],
     };
-    env.PDS_SERVICE.fetch("https://atproto.gftd.ai/xrpc/ai.gftd.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -1857,18 +1857,18 @@ async function postJson(url: string, body: unknown, headers?: Record<string, str
 // Service-binding callers (PDS, email-relay, plc-directory, browser-host) are
 // network-isolated by Cloudflare — no HMAC required for them.
 const _SVC_AUTH_ISS_ALLOWLIST = new Set([
-  "did:web:magatama.gftd.ai",
-  "did:web:authn.gftd.ai",
-  "did:web:atproto.gftd.ai",
-  "did:web:ml1nb0nd.gftd.ai",           // email-relay (ai-gftd-email-relay)
-  "did:web:plc.gftd.ai",                 // plc-directory
-  "did:web:authn.gftd.ai:svc:browser-host", // browser-host
+  "did:web:magatama.etzhayyim.com",
+  "did:web:authn.etzhayyim.com",
+  "did:web:atproto.etzhayyim.com",
+  "did:web:ml1nb0nd.etzhayyim.com",           // email-relay (ai-gftd-email-relay)
+  "did:web:plc.etzhayyim.com",                 // plc-directory
+  "did:web:authn.etzhayyim.com:svc:browser-host", // browser-host
 ]);
 
 // HMAC gate — only for magatama (public-facing caller, not a service binding).
 // All other allowlisted callers come in via CF service bindings.
 const _SVC_AUTH_HMAC_ISS = new Set([
-  "did:web:magatama.gftd.ai",
+  "did:web:magatama.etzhayyim.com",
 ]);
 
 async function handleGetServiceAuth(request: Request, env: Env): Promise<Response> {
@@ -1914,7 +1914,7 @@ async function handleGetServiceAuth(request: Request, env: Env): Promise<Respons
       }
     }
 
-    // Fallback: auth Worker's own signing key (did:web:authn.gftd.ai)
+    // Fallback: auth Worker's own signing key (did:web:authn.etzhayyim.com)
     const privateKey = getVar(env, "SS_SERVICE_AUTH_PRIVATE_KEY");
     if (!privateKey) return jsonErr(503, "ServiceUnavailable", "service auth private key missing");
     return json({ token: await signServiceAuth(privateKey, body.iss, body.aud, body.lxm, sub) });
@@ -1932,7 +1932,7 @@ async function handleJwks(env: Env): Promise<Response> {
 }
 
 // ADR-0023 P4: did:web resolution endpoint. PDS resolveDIDSigningKey (verify.ts)
-// fetches `https://authn.gftd.ai/.well-known/did.json` to verify ES256 JWTs
+// fetches `https://authn.etzhayyim.com/.well-known/did.json` to verify ES256 JWTs
 // issued by auth Worker itself (e.g. bootstrap createApiKey calls).
 async function handleWellKnownDidJson(env: Env): Promise<Response> {
   // ADR-0023 P4: multi-key did:web document supports key rotation grace.
@@ -1949,7 +1949,7 @@ async function handleWellKnownDidJson(env: Env): Promise<Response> {
   const prev = getVar(env, "SS_AUTH_PUBLIC_KEY_B64_PREV");
   if (!cur) return jsonErr(503, "ConfigError", "SS_AUTH_PUBLIC_KEY_B64 not set");
 
-  const did = "did:web:authn.gftd.ai";
+  const did = "did:web:authn.etzhayyim.com";
   const vms: Array<{ id: string; type: string; controller: string; publicKeyMultibase: string }> = [];
   const idSuffix = (label: string) => label === "current" ? "#atproto" : `#atproto-${label}`;
 
@@ -1987,20 +1987,20 @@ async function handleWellKnownDidJson(env: Env): Promise<Response> {
   });
 }
 
-// Phase 3B: DID document for did:web:authn.gftd.ai:svc:browser-host.
+// Phase 3B: DID document for did:web:authn.etzhayyim.com:svc:browser-host.
 // Served at /svc/browser-host/did.json. Uses the same signing key as the
 // auth Worker since the auth Worker signs JWTs on behalf of browser-host.
 async function handleSvcBrowserHostDidJson(env: Env): Promise<Response> {
   const cur = getVar(env, "SS_AUTH_PUBLIC_KEY_B64");
   if (!cur) return jsonErr(503, "ConfigError", "SS_AUTH_PUBLIC_KEY_B64 not set");
-  const did = "did:web:authn.gftd.ai:svc:browser-host";
+  const did = "did:web:authn.etzhayyim.com:svc:browser-host";
   let publicKeyMultibase: string;
   try { publicKeyMultibase = uncompressedPubkeyB64UrlToMultibase(cur); }
   catch { return jsonErr(503, "ConfigError", "invalid SS_AUTH_PUBLIC_KEY_B64"); }
   return json({
     "@context": ["https://www.w3.org/ns/did/v1", "https://w3id.org/security/multikey/v1"],
     id: did,
-    controller: "did:web:authn.gftd.ai",
+    controller: "did:web:authn.etzhayyim.com",
     verificationMethod: [{ id: `${did}#atproto`, type: "EcdsaSecp256r1VerificationKey2019",
       controller: did, publicKeyMultibase }],
     assertionMethod: [`${did}#atproto`],
@@ -2061,7 +2061,7 @@ async function handleSmsOtpVerify(request: Request, env: Env): Promise<Response>
   const accountPath = phoneToDidPath(phone);
   const { didDocument } = await createDid(accountPath, "organization");
   const { didDocument: activeDidDocument } = await createDid(`${accountPath}:person:default`, "person");
-  const handle = `${phone.replace(/\D/g, "")}.gftd.ai`;
+  const handle = `${phone.replace(/\D/g, "")}.etzhayyim.com`;
   const sessionTokens = await issueSession(getSessionSecret(env), {
     accountDid: didDocument.did,
     activeDid: activeDidDocument.did,
@@ -2099,7 +2099,7 @@ async function handleEsimProvision(request: Request, env: Env): Promise<Response
   const accountPath = phoneToDidPath(msisdn || "");
   const { didDocument } = await createDid(accountPath, "organization");
   const { didDocument: activeDidDocument } = await createDid(`${accountPath}:person:default`, "person");
-  const handle = `${(msisdn || "").replace(/\D/g, "")}.gftd.ai`;
+  const handle = `${(msisdn || "").replace(/\D/g, "")}.etzhayyim.com`;
   const sessionTokens = await issueSession(getSessionSecret(env), {
     accountDid: didDocument.did,
     activeDid: activeDidDocument.did,
@@ -2173,8 +2173,8 @@ async function handleCreateGuestAccount(request: Request, env: Env): Promise<Res
   if (username.length < 3 || username.length > 30) return jsonErr(400, "InvalidUsername", "Username must be 3-30 characters");
   if (!/^[a-z0-9_-]+$/.test(username)) return jsonErr(400, "InvalidUsername", "Username: letters, numbers, _ and - only");
   if (password.length < 8) return jsonErr(400, "WeakPassword", "Password must be at least 8 characters");
-  const handle = `${username}.gftd.ai`;
-  const legacyDid = `did:web:authn.gftd.ai:user:${username}`;
+  const handle = `${username}.etzhayyim.com`;
+  const legacyDid = `did:web:authn.etzhayyim.com:user:${username}`;
 
   // ADR-0074 — mint an ERC725 root identity contract for the new account.
   // Sealer pays for the deploy; ~5-10s synchronous on chain 260425.
@@ -2229,7 +2229,7 @@ async function provisionErc725Identity(
   if (!hmacKey) throw new Error("CLAIM_SETTLER_HMAC not configured");
   const body = JSON.stringify({ stableId: req.stableId, label: req.label, facadeDids: req.facadeDids });
   const sig = await provisionHmacSha256Hex(hmacKey, new TextEncoder().encode(body));
-  const resp = await env.AUTHZ_RPC.fetch(new Request("https://accounts.gftd.ai/internal/provision-root-identity", {
+  const resp = await env.AUTHZ_RPC.fetch(new Request("https://accounts.etzhayyim.com/internal/provision-root-identity", {
     method: "POST",
     headers: { "content-type": "application/json", "x-claim-settler-auth": sig },
     body,
@@ -2457,7 +2457,7 @@ async function createPasskeyAccount(env: Env): Promise<{
       ],
     };
     // Fire-and-forget: graph write is async projection, not auth-critical
-    env.PDS_SERVICE.fetch("https://atproto.gftd.ai/xrpc/ai.gftd.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -2595,11 +2595,11 @@ function html(body: string): Response {
   });
 }
 
-// Session-aware UI routing for authn.gftd.ai (host-gated).
+// Session-aware UI routing for authn.etzhayyim.com (host-gated).
 // Returns Response to short-circuit, or null to let the router continue.
 async function sessionAwareUiRoute(request: Request, env: Env): Promise<Response | null> {
   const url = new URL(request.url);
-  if (url.hostname !== "authn.gftd.ai" && url.hostname !== "auth.gftd.ai") return null;
+  if (url.hostname !== "authn.etzhayyim.com" && url.hostname !== "auth.etzhayyim.com") return null;
   const pathname = url.pathname;
 
   const sessionToken = parseCookieHeader(request.headers.get("Cookie") || "").gftd_session;
@@ -2621,7 +2621,7 @@ async function sessionAwareUiRoute(request: Request, env: Env): Promise<Response
   }
 
   if (sessionValid && (pathname === "/" || pathname === "/sign-in" || pathname === "/sign-in/" || pathname === "/sign-up" || pathname === "/sign-up/")) {
-    return Response.redirect("https://accounts.gftd.ai/manage", 302);
+    return Response.redirect("https://accounts.etzhayyim.com/manage", 302);
   }
   if (pathname === "/" || pathname === "/oauth/authorize" || pathname === "/oauth" || pathname === "/oauth/") {
     const target = new URL("/sign-in", url.origin);
@@ -2629,7 +2629,7 @@ async function sessionAwareUiRoute(request: Request, env: Env): Promise<Response
     return Response.redirect(target.toString(), 302);
   }
   if (pathname === "/manage") {
-    return Response.redirect("https://accounts.gftd.ai/manage", 302);
+    return Response.redirect("https://accounts.etzhayyim.com/manage", 302);
   }
   if (pathname === "/xrpc/ai.gftd.auth.getSession" || pathname === "/xrpc/ai.gftd.authz.getSession") {
     if (sessionValid && sessionAccount) {
@@ -2645,7 +2645,7 @@ async function sessionAwareUiRoute(request: Request, env: Env): Promise<Response
   }
   if (pathname === "/sign-in" || pathname === "/sign-in/" || pathname === "/sign-up" || pathname === "/sign-up/" || pathname === "/manage" || pathname === "/manage/") {
     if (pathname.startsWith("/manage") && !sessionValid) {
-      return Response.redirect("https://auth.gftd.ai/sign-in?redirectUrl=https://accounts.gftd.ai/manage", 302);
+      return Response.redirect("https://auth.etzhayyim.com/sign-in?redirectUrl=https://accounts.etzhayyim.com/manage", 302);
     }
     if (env.ASSETS) {
       try {
@@ -2665,18 +2665,18 @@ async function sessionAwareUiRoute(request: Request, env: Env): Promise<Response
 // only the dispatch layer moves from if-else chain to Hono route declarations.
 const app = new Hono<{ Bindings: Env }>();
 
-// ADR-2605152100: auth.gftd.ai is canonical. Redirect authn.gftd.ai → auth.gftd.ai (301).
+// ADR-2605152100: auth.etzhayyim.com is canonical. Redirect authn.etzhayyim.com → auth.etzhayyim.com (301).
 // Exempt: /.well-known/* and /users/*/did.json — PDS service-binding resolution fetches
 // these directly (CF Worker-to-Worker doesn't follow 301s), so both hostnames must serve
 // the same content without redirect.
 app.use("*", (c, next) => {
   const url = new URL(c.req.url);
   if (
-    url.hostname === "authn.gftd.ai" &&
+    url.hostname === "authn.etzhayyim.com" &&
     !url.pathname.startsWith("/.well-known/") &&
     !/^\/users\/[^/]+\/did\.json$/.test(url.pathname)
   ) {
-    url.hostname = "auth.gftd.ai";
+    url.hostname = "auth.etzhayyim.com";
     return Response.redirect(url.toString(), 301);
   }
   return next();
@@ -2698,13 +2698,13 @@ app.get("/.well-known/did.json", (c) => handleWellKnownDidJson(c.env));
 // Phase 3B: service sub-DID documents for path-based service DIDs
 app.get("/svc/browser-host/did.json", (c) => handleSvcBrowserHostDidJson(c.env));
 
-// ADR-2605152100 §4: /users/:id/did.json — resolve did:web:authn.gftd.ai:user:{id}
-// Served on both auth.gftd.ai and authn.gftd.ai (no redirect) so PDS ROUTING_GATEWAY
+// ADR-2605152100 §4: /users/:id/did.json — resolve did:web:authn.etzhayyim.com:user:{id}
+// Served on both auth.etzhayyim.com and authn.etzhayyim.com (no redirect) so PDS ROUTING_GATEWAY
 // and AUTH_SERVICE service bindings can fetch it without following 301s.
 app.get("/users/:id/did.json", async (c) => {
   const id = c.req.param("id");
   if (!id || !/^[a-zA-Z0-9._:-]+$/.test(id)) return jsonErr(400, "InvalidId", "invalid user id");
-  const did = `did:web:authn.gftd.ai:user:${id}`;
+  const did = `did:web:authn.etzhayyim.com:user:${id}`;
   if (!c.env.KEYS_DB) return jsonErr(503, "ConfigError", "KEYS_DB unavailable");
   const keyRow = await c.env.KEYS_DB.prepare(
     "SELECT public_key_multibase, performer_type FROM vertex_gftd_key_signing WHERE vertex_id = ? LIMIT 1"
@@ -2736,7 +2736,7 @@ app.get("/xrpc/ai.gftd.auth.getConfig", async (c) =>
   }),
 );
 
-// Session-aware UI paths (authn.gftd.ai host).
+// Session-aware UI paths (authn.etzhayyim.com host).
 const sessionAwarePaths = [
   "/",
   "/sign-in", "/sign-in/",
@@ -2852,16 +2852,16 @@ const authzRedirectMap: Record<string, string> = {
 for (const [oldPath, newPath] of Object.entries(authzRedirectMap)) {
   app.post(oldPath, (c) => {
     const url = new URL(c.req.url);
-    return Response.redirect(`https://accounts.gftd.ai${newPath}${url.search}`, 307);
+    return Response.redirect(`https://accounts.etzhayyim.com${newPath}${url.search}`, 307);
   });
 }
 app.get("/oauth/link/google/callback", (c) => {
   const url = new URL(c.req.url);
-  return Response.redirect(`https://accounts.gftd.ai${url.pathname}${url.search}`, 302);
+  return Response.redirect(`https://accounts.etzhayyim.com${url.pathname}${url.search}`, 302);
 });
 app.get("/oauth/link/microsoft/callback", (c) => {
   const url = new URL(c.req.url);
-  return Response.redirect(`https://accounts.gftd.ai${url.pathname}${url.search}`, 302);
+  return Response.redirect(`https://accounts.etzhayyim.com${url.pathname}${url.search}`, 302);
 });
 
 app.post("/oauth/issue-code", (c) => handleOAuthIssueCode(c.req.raw, c.env));

@@ -91,7 +91,7 @@ Non-safety only at MVP. IEC 62443 SL-2 from day one (signed `.aot` modules + cap
 
 ## Issues / contributions
 
-This project currently lives in the [`gftdcojp/ai-gftd-apps-gftdcojp`](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp) monorepo. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the split-repo plan and the contribution flow.
+This project currently lives in the [`etzhayyim/etzhayyim-root`](https://github.com/etzhayyim/etzhayyim-root) monorepo. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the split-repo plan and the contribution flow.
 
 ## License
 

@@ -154,7 +154,7 @@ def _build_airport_rows(airports_rows: list[list[str]]) -> tuple[list[dict], dic
       6 lat, 7 lng, 8 alt_ft, 9 tz, 10 dst, 11 tz_olson,
       12 type, 13 source
     """
-    repo_did = "did:web:maps.gftd.ai"
+    repo_did = "did:web:maps.etzhayyim.com"
     rows: list[dict] = []
     by_id: dict[str, dict] = {}
     for r in airports_rows:
@@ -202,7 +202,7 @@ def _build_airport_rows(airports_rows: list[list[str]]) -> tuple[list[dict], dic
             "display_name": name,
             "lat": lat,
             "lng": lng,
-            "source_did": "did:web:maps.gftd.ai:registry:openflights",
+            "source_did": "did:web:maps.etzhayyim.com:registry:openflights",
             "source": "openflights",
             "category": "airport",
             "description": (f"{iata or icao} {city}, {country}")[:500],
@@ -223,7 +223,7 @@ def _build_airroute_rows(routes_rows: list[list[str]],
       0 airline, 1 airline_id, 2 src_iata, 3 src_id, 4 dst_iata, 5 dst_id,
       6 codeshare, 7 stops, 8 equipment
     """
-    repo_did = "did:web:maps.gftd.ai"
+    repo_did = "did:web:maps.etzhayyim.com"
     rows: list[dict] = []
     for r in routes_rows:
         if len(r) < 9:
@@ -269,7 +269,7 @@ def _build_airroute_rows(routes_rows: list[list[str]],
             "display_name": f"{airline} {src}→{dst}",
             "lat": mid_lat,
             "lng": mid_lng,
-            "source_did": "did:web:maps.gftd.ai:registry:openflights",
+            "source_did": "did:web:maps.etzhayyim.com:registry:openflights",
             "source": "openflights",
             "category": "airRoute",
             "description": (f"{airline_meta.get('name', airline)} {sa.get('name','')} → {da.get('name','')}")[:500],

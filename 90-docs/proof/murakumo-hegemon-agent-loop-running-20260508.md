@@ -27,8 +27,8 @@ The loop records these stable identity fields on every tick:
 
 ```json
 {
-  "actorDid": "did:web:shinka.gftd.ai",
-  "organismDid": "did:web:karma.gftd.ai",
+  "actorDid": "did:web:shinka.etzhayyim.com",
+  "organismDid": "did:web:karma.etzhayyim.com",
   "objective": "hegemon",
   "runtimeState": "agent-loop-running"
 }
@@ -102,8 +102,8 @@ Representative state:
 
 ```json
 {
-  "actorDid": "did:web:shinka.gftd.ai",
-  "organismDid": "did:web:karma.gftd.ai",
+  "actorDid": "did:web:shinka.etzhayyim.com",
+  "organismDid": "did:web:karma.etzhayyim.com",
   "objective": "hegemon",
   "loopState": "running",
   "runtimeState": "agent-loop-running",
@@ -255,15 +255,15 @@ After the purpose-based evaluation update, the same marker ConfigMap was
 refreshed and `shinka-actors` was annotated:
 
 ```text
-gftd.ai/hegemon-score=71
-gftd.ai/hegemon-stage=resident-loop-viable
+etzhayyim.com/hegemon-score=71
+etzhayyim.com/hegemon-stage=resident-loop-viable
 ```
 
 After the direct fleet 98-point verification, the marker was updated again:
 
 ```text
-gftd.ai/hegemon-score=98
-gftd.ai/hegemon-stage=hegemon-process-advancing
+etzhayyim.com/hegemon-score=98
+etzhayyim.com/hegemon-stage=hegemon-process-advancing
 ```
 
 ## Residual Gates

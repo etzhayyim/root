@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:pol-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:pol-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Poland AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -92,7 +92,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "pol-state.gftd.ai",
+      "host": "pol-state.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-dc51bf520002",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-dc51bf520002",
   "entityId": "ent-dc51bf520002",
   "canonicalName": "松岡義明",
   "aliases": [

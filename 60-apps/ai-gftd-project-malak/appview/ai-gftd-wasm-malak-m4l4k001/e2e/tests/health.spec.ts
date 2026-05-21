@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.gftd.ai';
+const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.etzhayyim.com';
 
-test.describe('malak.gftd.ai — Worker Health', () => {
+test.describe('malak.etzhayyim.com — Worker Health', () => {
 	test('GET /_worker/health returns ok', async ({ request }) => {
 		const r = await request.get(`${BASE}/_worker/health`);
 		expect(r.ok()).toBeTruthy();
@@ -25,7 +25,7 @@ test.describe('malak.gftd.ai — Worker Health', () => {
 	});
 });
 
-test.describe('malak.gftd.ai — App Meta', () => {
+test.describe('malak.etzhayyim.com — App Meta', () => {
 	test('manifest returns fullapp mode with correct metadata', async ({ request }) => {
 		const r = await request.get(`${BASE}/_app/meta`);
 		expect(r.ok()).toBeTruthy();

@@ -7,7 +7,7 @@ topic: anime-production-pipeline
 authoritative: true
 last_verified: 2026-04-24
 authoritative_for:
-  - animeka.gftd.ai 12-stage production orchestration
+  - animeka.etzhayyim.com 12-stage production orchestration
   - LLM / image / video / audio primitive routing for anime production
   - BPMN process identity for each of the 12 stages
 related:
@@ -52,7 +52,7 @@ ADR-0056; animeka's compute backend remains ADR-0050 Pattern 1.
 
 | Layer | SSoT | Applies |
 |---|---|---|
-| Compute — image / video / audio | `comfyui.gftd.ai` CF Worker → **RunPod Serverless Endpoint** (`v9si0sflsm0gh0`, `runpod/worker-comfyui:latest`, RTX 4090 EUR-IS-1, scale-to-zero) attached to Network Volume `43k3uq9ldn` with Animagine XL cached; Pod Pattern 1 retained as hot-replay fallback | ADR-0050 Pattern 1 + 2026-04-23/24 addenda below |
+| Compute — image / video / audio | `comfyui.etzhayyim.com` CF Worker → **RunPod Serverless Endpoint** (`v9si0sflsm0gh0`, `runpod/worker-comfyui:latest`, RTX 4090 EUR-IS-1, scale-to-zero) attached to Network Volume `43k3uq9ldn` with Animagine XL cached; Pod Pattern 1 retained as hot-replay fallback | ADR-0050 Pattern 1 + 2026-04-23/24 addenda below |
 | Compute — LLM | 3-tier: fast=Murakumo / mid=L40S Qwen 2.5 7B / deep=Claude Sonnet 4.5 | ADR-0050 §3 |
 | Orchestration | Zeebe 8.6 LTS on mitama-udf K8s + bpmn-dispatcher | ADR-0056 |
 | Storage | Hyperdrive + Kysely → RisingWave `vertex_animeka_*` | ADR-0081 |
@@ -66,11 +66,11 @@ ADR-0056 publishes seven generic primitives. Animeka needs exactly one more:
 
 | Primitive | Signature | Behavior |
 |---|---|---|
-| `generic.comfyui.call` | `(route, body, outputFormat, timeoutSec)` → `{status, blobCid, meta, latencyMs}` | POSTs JSON to `comfyui.gftd.ai{route}` (`/v1/images/generations`, `/v1/images/edits`, `/v1/videos/generations`, `/v1/audio/speech`, `/v1/audio/music`, `/v1/chat/completions`). Binary responses are SHA-256 hashed + uploaded to `blobs/anonymous/{sha256}` via the PDS `uploadBlob` path (ADR-0081 blob convention). JSON responses are returned verbatim. Auth header `Authorization: Bearer ${COMFYUI_API_KEY}` injected by the worker, not BPMN-authored. |
+| `generic.comfyui.call` | `(route, body, outputFormat, timeoutSec)` → `{status, blobCid, meta, latencyMs}` | POSTs JSON to `comfyui.etzhayyim.com{route}` (`/v1/images/generations`, `/v1/images/edits`, `/v1/videos/generations`, `/v1/audio/speech`, `/v1/audio/music`, `/v1/chat/completions`). Binary responses are SHA-256 hashed + uploaded to `blobs/anonymous/{sha256}` via the PDS `uploadBlob` path (ADR-0081 blob convention). JSON responses are returned verbatim. Auth header `Authorization: Bearer ${COMFYUI_API_KEY}` injected by the worker, not BPMN-authored. |
 
 ### Video backend catalog (`/v1/videos/generations`)
 
-The comfyui.gftd.ai upstream on the L40S exposes the following video models via the `model` body field. Default is **Seedance 2** as of 2026-04-23 — ByteDance's Seedance 2 gives the best character-identity retention across long interpolations and the most faithful camera-move rendering for the compositing step.
+The comfyui.etzhayyim.com upstream on the L40S exposes the following video models via the `model` body field. Default is **Seedance 2** as of 2026-04-23 — ByteDance's Seedance 2 gives the best character-identity retention across long interpolations and the most faithful camera-move rendering for the compositing step.
 
 | Model id | Source | Use | Notes |
 |---|---|---|---|
@@ -160,7 +160,7 @@ Vultr L40S on-demand ($1.671/hr) and 36mo prepaid ($0.848/hr = $611/mo) are both
 > window for serial BPMN stages, and animeka production work was
 > blocked. Reverted to Pattern 2 (24/7 pod `n911oglid03v5n` with
 > launchd watchdog) + co-located text-gen on the same pod. All
-> downstream callers (`comfyui.gftd.ai` CF Worker, pyzeebe
+> downstream callers (`comfyui.etzhayyim.com` CF Worker, pyzeebe
 > `generic.comfyui.call`) no longer target `api.runpod.ai/v2/...`
 > — they hit `n911oglid03v5n-8000.proxy.runpod.net` via the pod
 > adapter. Serverless template + endpoint IDs below are retained
@@ -189,7 +189,7 @@ The pod-based Pattern 1 Lite proved workable ($34/mo for 40 h/mo RunPod Communit
 - Endpoint URL: `https://api.runpod.ai/v2/v9si0sflsm0gh0/{runsync,run,status/<id>,health}`
 
 **Adapter fan-out**:
-- `comfyui.gftd.ai` CF Worker (`50-infra/cloudflare/workers/comfyui/src/index.ts`): `/v1/images/generations` translates OpenAI → ComfyUI workflow → Serverless `/runsync`. Returns `{data:[{b64_json}]}`. Retains OpenAI-compat for LiteLLM / openai-python.
+- `comfyui.etzhayyim.com` CF Worker (`50-infra/cloudflare/workers/comfyui/src/index.ts`): `/v1/images/generations` translates OpenAI → ComfyUI workflow → Serverless `/runsync`. Returns `{data:[{b64_json}]}`. Retains OpenAI-compat for LiteLLM / openai-python.
 - pyzeebe `generic.comfyui.call` (`20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`): detects Serverless mode when `COMFYUI_URL` contains `api.runpod.ai`, runs the same workflow builder + `/runsync` + `/status` poll + base64 decode + PDS uploadBlob, returns `{blobCid, meta, latencyMs, executionTimeMs, delayTimeMs}`.
 
 **Cost projection (anime-production burst)**:
@@ -263,7 +263,7 @@ Two subtle landmines were addressed in the same commit:
 **End-to-end verified 2026-04-24T06:39Z**:
 
 ```
-POST https://dispatcher.gftd.ai/xrpc/ai.gftd.animeka.generateScript
+POST https://dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.generateScript
 { episodeId, episodeTitle, synopsis, targetSceneCount: 8 }
 
 → ok=true, instanceKey=…, latencyMs=12969
@@ -277,7 +277,7 @@ POST https://dispatcher.gftd.ai/xrpc/ai.gftd.animeka.generateScript
   variables.emitted        = true (audit row written)
 
 SELECT * FROM vertex_animeka
-WHERE vertex_id = 'at://did:web:animeka.gftd.ai/
+WHERE vertex_id = 'at://did:web:animeka.etzhayyim.com/
                     ai.gftd.animeka.script/ep-1776928323916-1-v1'
 → 1 row, title "春、始発駅で待つ彼女", stage "script", desc_len 696
 ```
@@ -308,7 +308,7 @@ rejects python/urllib's default User-Agent with an HTML error page
 we hit on Ollama and the ComfyUI adapter). A standard Chrome UA in
 `task_generic_pds_dispatch` + `task_generic_comfyui_call`'s uploadBlob
 path clears the WAF; no Service Auth mint needed (internal-trust via
-atproto.gftd.ai already resolves the caller correctly from the
+atproto.etzhayyim.com already resolves the caller correctly from the
 header).
 
 Second `generic.pds.dispatch` bug: `Task_Announce` was dispatching to
@@ -328,12 +328,12 @@ payload: {
 **BPMN publishEpisode live 2026-04-24T07:38Z**:
 
 ```
-POST dispatcher.gftd.ai/xrpc/ai.gftd.animeka.publishEpisode
+POST dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.publishEpisode
 → announceStatus = 200
-  announceBody.uri = at://did:web:animeka.gftd.ai/
+  announceBody.uri = at://did:web:animeka.etzhayyim.com/
                     app.bsky.feed.post/3mk7zhexkls24
   body text = "🎬 #1 春、始発駅で待つ彼女 公開
-               watch → https://animeka.gftd.ai/at/an1m3k4x.gftd.ai/
+               watch → https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/
                        ai.gftd.animeka.episode/ep-1776928323916-1"
 ```
 
@@ -344,7 +344,7 @@ is now dispatcher → BPMN → Zeebe → pds primitive → PDS.
 **Image-stage blob persistence (Stage 3 / generateStoryboard, 2026-04-24T07:19Z)**:
 
 ```
-POST dispatcher.gftd.ai/xrpc/ai.gftd.animeka.generateStoryboard
+POST dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.generateStoryboard
   in:  cutId, cutSummary, candidateNum, characters
   out: blobCid      = bafkreidbdd2a…ueguelqx6y (PDS content-addressed)
        blobMeta     = { mimeType: image/png, size: 254482 }
@@ -358,7 +358,7 @@ POST dispatcher.gftd.ai/xrpc/ai.gftd.animeka.generateStoryboard
 
 Row confirmed in `vertex_animeka` with `image_cid =
 bafkreidbdd2a…ueguelqx6y` — the UI can render this via
-`https://cdn.gftd.ai/b/{cid}` once `/cuts` timeline is updated.
+`https://cdn.etzhayyim.com/b/{cid}` once `/cuts` timeline is updated.
 
 BPMN XMLs patched 2026-04-24 to map Task_Render's `blobCid` output
 into the DB's stage-appropriate column:
@@ -375,13 +375,13 @@ into the DB's stage-appropriate column:
 | generateInbetween       | master_cid  |
 | generateSoundCue        | master_cid  |
 
-Worker image: `ghcr.io/gftdcojp/pymagatama:c3d9fc3d830-pds-ua`. Env
+Worker image: `ghcr.io/etzhayyim/pymagatama:c3d9fc3d830-pds-ua`. Env
 on `zeebe-worker` Deployment (namespace `mitama-udf`):
 
 ```
 COMFYUI_URL=https://n911oglid03v5n-8000.proxy.runpod.net
 COMFYUI_API_KEY=pod-inline      # adapter is unauth; primitive requires non-empty
-COMFYUI_BLOB_REPO=did:web:an1m3k4x.gftd.ai
+COMFYUI_BLOB_REPO=did:web:an1m3k4x.etzhayyim.com
 ```
 
 Pod-side adapter: `50-infra/runpod/comfyui-l40s/adapter/openai-comfyui-adapter.py`,
@@ -393,19 +393,19 @@ hooks.
 
 ## 7. Registration mechanics (renumbered from §7)
 
-Exactly 24 INSERTs land in one migration (`20260423160000_animeka_bpmn_registrations.ts`): 12 `vertex_bpmn_process_def` + 12 `vertex_bpmn_lexicon_binding` rows. The F5 watcher in `bpmn-dispatcher` ships the XML to Zeebe within 30 s of commit. After that, `POST https://dispatcher.gftd.ai:8080/xrpc/ai.gftd.animeka.<stage>` is live.
+Exactly 24 INSERTs land in one migration (`20260423160000_animeka_bpmn_registrations.ts`): 12 `vertex_bpmn_process_def` + 12 `vertex_bpmn_lexicon_binding` rows. The F5 watcher in `bpmn-dispatcher` ships the XML to Zeebe within 30 s of commit. After that, `POST https://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.animeka.<stage>` is live.
 
 ## 8. /cuts UI alignment
 
 - Each of the 12 stage cards renders a **Generate** button that XRPC-POSTs the stage NSID for the current cut.
 - A 12-segment **progress strip** reads `vertex_repo_commit` where `collection='ai.gftd.bpmn.audit'` and actor matches the stage invocation; the strip shows `{queued / running / done / failed}` per stage.
-- Preview thumbs read `blob_cid` from the corresponding `vertex_animeka_*` row and render `https://cdn.gftd.ai/b/{cid}`.
+- Preview thumbs read `blob_cid` from the corresponding `vertex_animeka_*` row and render `https://cdn.etzhayyim.com/b/{cid}`.
 - The current broken in-Worker chat UI is replaced with a thin XRPC call to `ai.gftd.animeka.chat`, which is itself a BPMN process wrapping `generic.llm.chat` (mid tier default, `?tier=deep` for director critique).
 
 ## 9. animeka Worker scope
 
 The animeka CF Worker retains:
-- XRPC surface for the 12 NSIDs (thin proxies forwarding to `dispatcher.gftd.ai`)
+- XRPC surface for the 12 NSIDs (thin proxies forwarding to `dispatcher.etzhayyim.com`)
 - Hono router + Svelte CSR host (`/cuts`, `/episodes/*`, `/works/*`)
 - ATRecord writer for CRUD (addCut / updateCutStage / submitRetake / etc.)
 - `onCommit` reactive intake for the subscribeRepos collections already registered

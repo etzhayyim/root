@@ -6,7 +6,7 @@ Pregel-style 2-step:
   2. write_row — INSERT vertex_mangaka kind=opLog + INSERT edge_mangaka_emits_op
 
 opLog row shape:
-  vertex_id     at://did:web:mangaka.gftd.ai/ai.gftd.mangaka.opLog/{rkey}
+  vertex_id     at://did:web:mangaka.etzhayyim.com/ai.gftd.mangaka.opLog/{rkey}
   rkey          op-{docRkey}-{tsMs}-{nidShort}
   parent_rkey   docRkey
   kind          opLog
@@ -40,7 +40,7 @@ from langgraph.types import RetryPolicy
 
 _log = logging.getLogger(__name__)
 _RW_URL = os.environ.get("RW_URL", "")
-_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _DEFAULT_ORG_DID = os.environ.get("MANGAKA_DEFAULT_ORG_DID", "did:erc725:gftd:260425:gftd-japan")
 
 

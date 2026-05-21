@@ -27,7 +27,7 @@ python handler.py
 # → {"summary": "(stub) land cover: 75% forest, …", "confidence": 0.93, …}
 
 # Build + push
-IMAGE=ghcr.io/gftdcojp/maps-runpod-sentinel:phase1-$(date -u +%Y%m%d%H%M%S)
+IMAGE=ghcr.io/etzhayyim/maps-runpod-sentinel:phase1-$(date -u +%Y%m%d%H%M%S)
 docker build --platform linux/amd64 -t "$IMAGE" .
 docker push "$IMAGE"
 ```

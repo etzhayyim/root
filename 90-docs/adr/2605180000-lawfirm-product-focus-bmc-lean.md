@@ -1,15 +1,15 @@
 ---
 id: adr-2605180000-lawfirm-product-focus-bmc-lean
-title: "ADR-2605180000: lawfirm.gftd.ai 選択と集中 — Business Model Canvas + Lean Canvas"
+title: "ADR-2605180000: lawfirm.etzhayyim.com 選択と集中 — Business Model Canvas + Lean Canvas"
 status: active
 doc_type: adr
 topic: lawfirm-product-focus
 authoritative: true
 last_verified: 2026-05-18
 authoritative_for:
-  - gftdcojp プロダクトポートフォリオの選択と集中方針 (2026-05〜)
-  - lawfirm.gftd.ai のビジネスモデル定義 (BMC + Lean Canvas)
-  - shinshi.gftd.ai / animeka.gftd.ai のリソース配分方針
+  - etzhayyim プロダクトポートフォリオの選択と集中方針 (2026-05〜)
+  - lawfirm.etzhayyim.com のビジネスモデル定義 (BMC + Lean Canvas)
+  - shinshi.etzhayyim.com / animeka.etzhayyim.com のリソース配分方針
   - lawfirm 収益化ロードマップと KPI
   - Sprint 1 技術ゲート状況 (バックエンド接続完了 2026-05-18)
 related:
@@ -23,7 +23,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605180000: lawfirm.gftd.ai 選択と集中 — Business Model Canvas + Lean Canvas
+# ADR-2605180000: lawfirm.etzhayyim.com 選択と集中 — Business Model Canvas + Lean Canvas
 
 **Status**: accepted
 **Date**: 2026-05-18
@@ -31,13 +31,13 @@ superseded_by: []
 
 ## Context
 
-gftdcojp は現在 3 プロダクトを並行開発している:
+etzhayyim は現在 3 プロダクトを並行開発している:
 
 | プロダクト | モデル | 状態 |
 |---|---|---|
-| lawfirm.gftd.ai | B2B SaaS (法律事務所向け AI case management) | D-Day チェックリスト実行中、CEO D1-D9 全承認済 |
-| shinshi.gftd.ai | B2C トークン課金 (AI キャラクターハブ 18+) | v2 開発中、未出荷 |
-| animeka.gftd.ai | B2B2C クリエイターツール (AI アニメ制作) | ep-1 公開済、収益モデル未確定 |
+| lawfirm.etzhayyim.com | B2B SaaS (法律事務所向け AI case management) | D-Day チェックリスト実行中、CEO D1-D9 全承認済 |
+| shinshi.etzhayyim.com | B2C トークン課金 (AI キャラクターハブ 18+) | v2 開発中、未出荷 |
+| animeka.etzhayyim.com | B2B2C クリエイターツール (AI アニメ制作) | ep-1 公開済、収益モデル未確定 |
 
 リソース分散が進み、いずれも「着火点」に達していない。
 選択と集中の基準として「**キャッシュポイントの速さ × 成長可能性**」を採用し、
@@ -48,9 +48,9 @@ gftdcojp は現在 3 プロダクトを並行開発している:
 ### 1. プロダクト優先順位
 
 ```
-Priority 1 (主軸)   : lawfirm.gftd.ai  ── 全エンジニアリングリソースの 70%
-Priority 2 (維持)   : shinshi.gftd.ai   ── 20% (v2 最小出荷後に評価)
-Priority 3 (自動運転): animeka.gftd.ai  ── 10% (CronJob + NATS 自動運転、収益モデル確定まで保留)
+Priority 1 (主軸)   : lawfirm.etzhayyim.com  ── 全エンジニアリングリソースの 70%
+Priority 2 (維持)   : shinshi.etzhayyim.com   ── 20% (v2 最小出荷後に評価)
+Priority 3 (自動運転): animeka.etzhayyim.com  ── 10% (CronJob + NATS 自動運転、収益モデル確定まで保留)
 ```
 
 **判断根拠 (5 軸)**
@@ -65,14 +65,14 @@ Priority 3 (自動運転): animeka.gftd.ai  ── 10% (CronJob + NATS 自動運
 
 ---
 
-### 2. Business Model Canvas — lawfirm.gftd.ai
+### 2. Business Model Canvas — lawfirm.etzhayyim.com
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────┐
 │ KEY PARTNERS          │ KEY ACTIVITIES        │ VALUE PROPOSITIONS  │ CUSTOMER REL  │ CUSTOMER SEGMENTS    │
 │                       │                       │                     │               │                      │
 │ • Kunal Bakshi /      │ • AI 案件管理 (intake  │ 【JP 法律事務所】     │ • SaaS セルフ  │ 【Primary】           │
-│   lawyer.gftd.ai      │   →conflict→engaged   │ • AI で事務負担 80%  │   サービス     │ JP 中小法律事務所     │
+│   lawyer.etzhayyim.com      │   →conflict→engaged   │ • AI で事務負担 80%  │   サービス     │ JP 中小法律事務所     │
 │   (India peer firm)   │   →filed→hearing)     │   削減              │ • CSM (年払い  │ (弁護士 2〜20名規模)  │
 │ • 日弁連 / 各単位     │ • India 22言語自動     │ • conflict check    │   テナント)    │                      │
 │   弁護士会            │   ルーティング         │   自動化            │               │ 【Secondary】         │
@@ -88,7 +88,7 @@ Priority 3 (自動運転): animeka.gftd.ai  ── 10% (CronJob + NATS 自動運
 │ KEY RESOURCES         │ CHANNELS                                                                            │
 │                       │                                                                                     │
 │ • AT Protocol PDS     │ • 直接営業 (chikada / tanaka / a-nakamura contact 経由)                             │
-│ • 22言語 LLM pipeline  │ • LinkedIn / Bluesky (gftdcojp actor 発信)                                        │
+│ • 22言語 LLM pipeline  │ • LinkedIn / Bluesky (etzhayyim actor 発信)                                        │
 │ • lawfirm actor 170   │ • India: Kunal Bakshi 紹介ネットワーク                                              │
 │   成果物 (MVP完成)    │ • 法律事務所向け SaaS 比較サイト (弁護士ドットコム / Legal Cloud Japan)              │
 │ • Vault Zero-Knowledge │ • 無料 pilot (3ヶ月) → 有償転換                                                   │
@@ -113,7 +113,7 @@ Priority 3 (自動運転): animeka.gftd.ai  ── 10% (CronJob + NATS 自動運
 
 ---
 
-### 3. Lean Canvas — lawfirm.gftd.ai
+### 3. Lean Canvas — lawfirm.etzhayyim.com
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────────┐
@@ -161,7 +161,7 @@ Priority 3 (自動運転): animeka.gftd.ai  ── 10% (CronJob + NATS 自動運
 
 | 項目 | 状態 | 詳細 |
 |---|---|---|
-| 4 NSID (requestConsult / createCase / translateToLang / translateFromLang) 404 解消 | ✅ DONE | `dispatcher_main.py` `lawfirm_direct_handler()` inline handler。lf1rm8k0.gftd.ai LIVE |
+| 4 NSID (requestConsult / createCase / translateToLang / translateFromLang) 404 解消 | ✅ DONE | `dispatcher_main.py` `lawfirm_direct_handler()` inline handler。lf1rm8k0.etzhayyim.com LIVE |
 | NRI booking form → requestConsult XRPC wiring | ✅ DONE | `/services/nri/book` が consultDid を booking ref として返す |
 | India auto-route fail-loud (NotConfigured) | ✅ DONE | createCase は案件 record を作成 + autoRouteError=NotConfigured を返す |
 | LAWYER_FIRM_DID_HINT + KUNAL_LEAD_DID_HINT 設定 | ⏳ PENDING | migration `lawfirm-india-auto-route-secrets` 参照 |
@@ -212,7 +212,7 @@ ADR: `90-docs/adr/2605181200-lawfirm-nri-backend-connection-dispatcher-inline.md
 
 ### 5. shinshi / animeka のリソース配分方針
 
-#### shinshi.gftd.ai (Priority 2)
+#### shinshi.etzhayyim.com (Priority 2)
 
 v2 の **must-have のみ** でファーストリリースする:
 - キャラクター 247 体のプロフィール閲覧 (read-only は完成済)
@@ -222,7 +222,7 @@ v2 の **must-have のみ** でファーストリリースする:
 NSFW 規制リスクは各 geo の age verification 法制 (英 AVSA 2023 / 仏 LCEN 改正 / 米 KOSA) が確定するまでは
 marketing push を抑制し、organic discovery のみ。
 
-#### animeka.gftd.ai (Priority 3)
+#### animeka.etzhayyim.com (Priority 3)
 
 自動運転モード:
 - animeka-autopilot CronJob + NATS JetStream で ep 継続発行 (人的介入なし)
@@ -280,7 +280,7 @@ KPI は `projector.update_status` (ADR-2605130000) で毎スプリント末に�
 
 ## References
 
-- `deps.toml [gftdcojp_agent.project_management]` — projector MCP
+- `deps.toml [etzhayyim_agent.project_management]` — projector MCP
 - `90-docs/adr/0079-lawfirm-india-intake-auto-route.md` — India routing 実装
 - `90-docs/adr/0016-legal-cluster-topology.md` — 法務クラスター設計
 - `90-docs/adr/2605072300-open-source-cloud-business-model.md` — OSS収益モデル (参考)

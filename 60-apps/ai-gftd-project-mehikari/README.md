@@ -21,6 +21,6 @@ Phase 0 (法務 / プロトタイプ)。本 Worker は法務クリア前は depl
 
 | Subdomain | Role |
 |---|---|
-| `mehikari.gftd.ai` | XRPC + Svelte appview (operator UI, opt-in form, unsubscribe) |
-| `mhk7r2vq.gftd.ai` | direct route (development) |
-| `reply.mehikari.gftd.ai` | inbound email worker (replies → handleInboundReply) |
+| `mehikari.etzhayyim.com` | XRPC + Svelte appview (operator UI, opt-in form, unsubscribe) |
+| `mhk7r2vq.etzhayyim.com` | direct route (development) |
+| `reply.mehikari.etzhayyim.com` | inbound email worker (replies → handleInboundReply) |

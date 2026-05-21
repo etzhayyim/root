@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:som-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:som-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Federal Republic of Somalia AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "som-state.gftd.ai",
+      "host": "som-state.etzhayyim.com",
       "paths": [
         "/"
       ],

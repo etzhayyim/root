@@ -64,7 +64,7 @@ UP = [{'sql': '\n'
          '      last_modified_hf     VARCHAR,               -- HF lastModified ISO string\n'
          '\n'
          '      -- ADR-0095 canonical columns\n'
-         "      actor_did            VARCHAR DEFAULT 'did:web:ingest.gftd.ai',\n"
+         "      actor_did            VARCHAR DEFAULT 'did:web:ingest.etzhayyim.com',\n"
          '      org_did              VARCHAR,\n'
          '      at_did               VARCHAR,\n'
          '      created_at           TIMESTAMP NOT NULL\n'

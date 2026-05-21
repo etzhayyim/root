@@ -20,8 +20,8 @@ UP = [{'sql': '\n'
          "'active', $11, $12, $13, $14\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_tld WHERE vertex_id = $15)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law',
+                 'did:web:domain.etzhayyim.com',
                  '.law',
                  'GoDaddy Registry (Registry Services, LLC)',
                  True,
@@ -38,10 +38,10 @@ UP = [{'sql': '\n'
                  'all qualify. Continuing-eligibility rule §1.1: contact registrar within 14 days '
                  'if license lapses.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_tld (vertex_id, owner_did, sensitivity_ord, tld, operator, '
          'restricted, eligibility_summary, eligibility_policy_url, verification_required, '
@@ -50,8 +50,8 @@ UP = [{'sql': '\n'
          "'active', $11, $12, $13, $14\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_tld WHERE vertex_id = $15)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/lawyer',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/lawyer',
+                 'did:web:domain.etzhayyim.com',
                  '.lawyer',
                  'Identity Digital (formerly Donuts/Afilias)',
                  False,
@@ -63,10 +63,10 @@ UP = [{'sql': '\n'
                  'Despite the suggestive name, registry policy is open. Use case is closer to .com '
                  'than to .law.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/lawyer']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/lawyer']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_tld (vertex_id, owner_did, sensitivity_ord, tld, operator, '
          'restricted, eligibility_summary, eligibility_policy_url, verification_required, '
@@ -75,8 +75,8 @@ UP = [{'sql': '\n'
          "'active', $11, $12, $13, $14\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_tld WHERE vertex_id = $15)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/legal',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/legal',
+                 'did:web:domain.etzhayyim.com',
                  '.legal',
                  'Identity Digital',
                  False,
@@ -86,10 +86,10 @@ UP = [{'sql': '\n'
                  'law-firm marketing, legal information site, citizens-advice service',
                  'Companion to .lawyer; same operator and policy regime.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/legal']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/legal']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_tld (vertex_id, owner_did, sensitivity_ord, tld, operator, '
          'restricted, eligibility_summary, eligibility_policy_url, verification_required, '
@@ -98,8 +98,8 @@ UP = [{'sql': '\n'
          "'active', $11, $12, $13, $14\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_tld WHERE vertex_id = $15)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/attorney',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/attorney',
+                 'did:web:domain.etzhayyim.com',
                  '.attorney',
                  'Identity Digital',
                  False,
@@ -109,10 +109,10 @@ UP = [{'sql': '\n'
                  'US-style attorney marketing site',
                  'Companion to .lawyer/.legal; same operator and policy regime.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/attorney']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/attorney']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -121,8 +121,8 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/cloudflare',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/cloudflare',
+                 'did:web:domain.etzhayyim.com',
                  'cloudflare',
                  'Cloudflare Registrar',
                  'https://domains.cloudflare.com/',
@@ -131,10 +131,10 @@ UP = [{'sql': '\n'
                  'TLD). Open-policy .lawyer/.legal/.attorney also not on the supported list as of '
                  '2026-05. NS / DNS / proxy can still front a domain registered elsewhere.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/cloudflare']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/cloudflare']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -143,8 +143,8 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/namecheap',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/namecheap',
+                 'did:web:domain.etzhayyim.com',
                  'namecheap',
                  'Namecheap',
                  'https://www.namecheap.com/domains/registration/gtld/law/',
@@ -153,10 +153,10 @@ UP = [{'sql': '\n'
                  'needed). Standard registrar for .lawyer/.legal/.attorney. JP customers '
                  'supported.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/namecheap']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/namecheap']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -165,8 +165,8 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/godaddy',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/godaddy',
+                 'did:web:domain.etzhayyim.com',
                  'godaddy',
                  'GoDaddy',
                  'https://www.godaddy.com/tlds/law-domain',
@@ -174,10 +174,10 @@ UP = [{'sql': '\n'
                  'Owns the .law registry (Registry Services LLC) and is the default reseller. JP '
                  'localization available.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/godaddy']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/godaddy']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -186,8 +186,8 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/eurodns',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/eurodns',
+                 'did:web:domain.etzhayyim.com',
                  'eurodns',
                  'EuroDNS',
                  'https://www.eurodns.com/domain-extensions/law-domain-registration',
@@ -195,10 +195,10 @@ UP = [{'sql': '\n'
                  'EU-based; carries .law and the open-policy legal TLDs. Useful for EU registrant '
                  'compliance.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/eurodns']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/eurodns']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -207,18 +207,18 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/dynadot',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/dynadot',
+                 'did:web:domain.etzhayyim.com',
                  'dynadot',
                  'Dynadot',
                  'https://www.dynadot.com/domain/law',
                  True,
                  'Carries .law plus open-policy legal TLDs.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/dynadot']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/dynadot']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -227,8 +227,8 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/join-law',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/join-law',
+                 'did:web:domain.etzhayyim.com',
                  'join-law',
                  'Join.Law',
                  'https://www.join.law/',
@@ -237,10 +237,10 @@ UP = [{'sql': '\n'
                  'signup. Geared toward US/UK bar admissions; JP credential acceptance requires '
                  'direct conversation.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/join-law']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/join-law']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -249,8 +249,8 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/squarespace',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/squarespace',
+                 'did:web:domain.etzhayyim.com',
                  'squarespace',
                  'Squarespace Domains (formerly Google Domains)',
                  'https://domains.squarespace.com/',
@@ -258,10 +258,10 @@ UP = [{'sql': '\n'
                  'Generalist registrar; carries .lawyer/.legal/.attorney but not .law verified '
                  'TLD.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/squarespace']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/squarespace']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_legal_regulator (vertex_id, owner_did, sensitivity_ord, '
          'regulator_slug, name, jurisdiction, kind, public_register_url, notes, status, '
@@ -270,8 +270,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_legal_regulator WHERE vertex_id = '
          '$13)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/jfba',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/jfba',
+                 'did:web:domain.etzhayyim.com',
                  'jfba',
                  'Japan Federation of Bar Associations (日本弁護士連合会 / 日弁連)',
                  'JP',
@@ -282,10 +282,10 @@ UP = [{'sql': '\n'
                  '(弁護士法人), and supervises local bar associations. Independent of government '
                  'supervision.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/jfba']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/jfba']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_legal_regulator (vertex_id, owner_did, sensitivity_ord, '
          'regulator_slug, name, jurisdiction, kind, public_register_url, notes, status, '
@@ -294,8 +294,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_legal_regulator WHERE vertex_id = '
          '$13)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/aba-state-bars',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/aba-state-bars',
+                 'did:web:domain.etzhayyim.com',
                  'aba-state-bars',
                  'US State Bar Associations (admitted via state supreme courts; ABA accreditation)',
                  'US',
@@ -304,10 +304,10 @@ UP = [{'sql': '\n'
                  'US lawyer licensure is per-state. Each state bar is the Legal Regulator. ABA '
                  'itself accredits law schools but does not license lawyers.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/aba-state-bars']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/aba-state-bars']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_legal_regulator (vertex_id, owner_did, sensitivity_ord, '
          'regulator_slug, name, jurisdiction, kind, public_register_url, notes, status, '
@@ -316,8 +316,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_legal_regulator WHERE vertex_id = '
          '$13)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/sra-england-wales',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/sra-england-wales',
+                 'did:web:domain.etzhayyim.com',
                  'sra-england-wales',
                  'Solicitors Regulation Authority (SRA, England & Wales)',
                  'GB-EAW',
@@ -325,10 +325,10 @@ UP = [{'sql': '\n'
                  'https://www.sra.org.uk/consumers/register/',
                  'Statutory regulator of solicitors in England & Wales.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/sra-england-wales']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/sra-england-wales']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_legal_regulator (vertex_id, owner_did, sensitivity_ord, '
          'regulator_slug, name, jurisdiction, kind, public_register_url, notes, status, '
@@ -337,8 +337,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_legal_regulator WHERE vertex_id = '
          '$13)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/iba',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/iba',
+                 'did:web:domain.etzhayyim.com',
                  'iba',
                  'International Bar Association (IBA)',
                  'INTL',
@@ -347,10 +347,10 @@ UP = [{'sql': '\n'
                  'Not a Legal Regulator in the .law policy sense, but referenced by some '
                  'registrars as a corroborating source for cross-border verification.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/iba']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/iba']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -360,8 +360,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-jp-bengoshi',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-jp-bengoshi',
+                 'did:web:domain.etzhayyim.com',
                  '.law',
                  'JP',
                  'jfba',
@@ -377,10 +377,10 @@ UP = [{'sql': '\n'
                  'https://domains.registry.godaddy/policiespdf/LAW-POL-001-Eligibility_Policy-1.0.pdf',
                  '2022-01-01',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-jp-bengoshi']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-jp-bengoshi']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -390,8 +390,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-jp-gaikokuho-jimu-bengoshi',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-jp-gaikokuho-jimu-bengoshi',
+                 'did:web:domain.etzhayyim.com',
                  '.law',
                  'JP',
                  'jfba',
@@ -405,10 +405,10 @@ UP = [{'sql': '\n'
                  'https://www.toben.or.jp/english/f-lawyer/flra.html',
                  '2022-01-01',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-jp-gaikokuho-jimu-bengoshi']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-jp-gaikokuho-jimu-bengoshi']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -418,8 +418,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-jp-bengoshi-houjin',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-jp-bengoshi-houjin',
+                 'did:web:domain.etzhayyim.com',
                  '.law',
                  'JP',
                  'jfba',
@@ -432,10 +432,10 @@ UP = [{'sql': '\n'
                  'https://domains.registry.godaddy/policiespdf/LAW-POL-001-Eligibility_Policy-1.0.pdf',
                  '2022-01-01',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-jp-bengoshi-houjin']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-jp-bengoshi-houjin']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -445,8 +445,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-uk-solicitor',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-uk-solicitor',
+                 'did:web:domain.etzhayyim.com',
                  '.law',
                  'GB-EAW',
                  'sra-england-wales',
@@ -459,10 +459,10 @@ UP = [{'sql': '\n'
                  'https://www.sra.org.uk/consumers/register/',
                  '2022-01-01',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-uk-solicitor']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-uk-solicitor']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -472,8 +472,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-us-bar',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-us-bar',
+                 'did:web:domain.etzhayyim.com',
                  '.law',
                  'US',
                  'aba-state-bars',
@@ -487,10 +487,10 @@ UP = [{'sql': '\n'
                  'https://domains.registry.godaddy/policiespdf/LAW-POL-001-Eligibility_Policy-1.0.pdf',
                  '2022-01-01',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-us-bar']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-us-bar']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -500,8 +500,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-non-practicing-corp',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-non-practicing-corp',
+                 'did:web:domain.etzhayyim.com',
                  '.law',
                  'JP',
                  None,
@@ -516,10 +516,10 @@ UP = [{'sql': '\n'
                  'https://domains.registry.godaddy/policiespdf/LAW-POL-001-Eligibility_Policy-1.0.pdf',
                  '2022-01-01',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/law-non-practicing-corp']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/law-non-practicing-corp']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -529,8 +529,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/lawyer-jp-open',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/lawyer-jp-open',
+                 'did:web:domain.etzhayyim.com',
                  '.lawyer',
                  'JP',
                  None,
@@ -542,10 +542,10 @@ UP = [{'sql': '\n'
                  'https://www.identity.digital/policies',
                  '2014-04-01',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/lawyer-jp-open']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/lawyer-jp-open']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -555,8 +555,8 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/legal-jp-open',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/legal-jp-open',
+                 'did:web:domain.etzhayyim.com',
                  '.legal',
                  'JP',
                  None,
@@ -567,10 +567,10 @@ UP = [{'sql': '\n'
                  'https://www.identity.digital/policies',
                  '2014-04-01',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.eligibilityAdvice/legal-jp-open']},
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.eligibilityAdvice/legal-jp-open']},
  {'sql': '\n'
          '    INSERT INTO edge_domain_registrar_supports_tld (edge_id, owner_did, sensitivity_ord, '
          'src_vid, dst_vid, registrar_slug, tld, verified_at, handles_verification, notes, '
@@ -580,17 +580,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:namecheap:law',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/namecheap',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/namecheap',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law',
                  'namecheap',
                  '.law',
                  '2026-05-07T23:00:00Z',
                  True,
                  'Handles registry verification flow.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:namecheap:law']},
  {'sql': '\n'
@@ -602,17 +602,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:godaddy:law',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/godaddy',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/godaddy',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law',
                  'godaddy',
                  '.law',
                  '2026-05-07T23:00:00Z',
                  True,
                  'Default reseller (operator-aligned).',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:godaddy:law']},
  {'sql': '\n'
@@ -624,17 +624,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:eurodns:law',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/eurodns',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/eurodns',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law',
                  'eurodns',
                  '.law',
                  '2026-05-07T23:00:00Z',
                  True,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:eurodns:law']},
  {'sql': '\n'
@@ -646,17 +646,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:dynadot:law',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/dynadot',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/dynadot',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law',
                  'dynadot',
                  '.law',
                  '2026-05-07T23:00:00Z',
                  True,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:dynadot:law']},
  {'sql': '\n'
@@ -668,17 +668,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:join-law:law',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/join-law',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/join-law',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law',
                  'join-law',
                  '.law',
                  '2026-05-07T23:00:00Z',
                  True,
                  'Specialty .law registrar.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:join-law:law']},
  {'sql': '\n'
@@ -690,17 +690,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:namecheap:lawyer',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/namecheap',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/lawyer',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/namecheap',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/lawyer',
                  'namecheap',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:namecheap:lawyer']},
  {'sql': '\n'
@@ -712,17 +712,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:godaddy:lawyer',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/godaddy',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/lawyer',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/godaddy',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/lawyer',
                  'godaddy',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:godaddy:lawyer']},
  {'sql': '\n'
@@ -734,17 +734,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:eurodns:lawyer',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/eurodns',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/lawyer',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/eurodns',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/lawyer',
                  'eurodns',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:eurodns:lawyer']},
  {'sql': '\n'
@@ -756,17 +756,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:dynadot:lawyer',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/dynadot',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/lawyer',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/dynadot',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/lawyer',
                  'dynadot',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:dynadot:lawyer']},
  {'sql': '\n'
@@ -778,17 +778,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:squarespace:lawyer',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/squarespace',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/lawyer',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/squarespace',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/lawyer',
                  'squarespace',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:squarespace:lawyer']},
  {'sql': '\n'
@@ -800,17 +800,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:namecheap:legal',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/namecheap',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/legal',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/namecheap',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/legal',
                  'namecheap',
                  '.legal',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:namecheap:legal']},
  {'sql': '\n'
@@ -822,17 +822,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:godaddy:legal',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/godaddy',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/legal',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/godaddy',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/legal',
                  'godaddy',
                  '.legal',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:godaddy:legal']},
  {'sql': '\n'
@@ -844,17 +844,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:eurodns:legal',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/eurodns',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/legal',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/eurodns',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/legal',
                  'eurodns',
                  '.legal',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:eurodns:legal']},
  {'sql': '\n'
@@ -866,17 +866,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:squarespace:legal',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/squarespace',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/legal',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/squarespace',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/legal',
                  'squarespace',
                  '.legal',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:squarespace:legal']},
  {'sql': '\n'
@@ -888,17 +888,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:namecheap:attorney',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/namecheap',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/attorney',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/namecheap',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/attorney',
                  'namecheap',
                  '.attorney',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:namecheap:attorney']},
  {'sql': '\n'
@@ -910,17 +910,17 @@ UP = [{'sql': '\n'
          '$14)\n'
          '  ',
   'parameters': ['edge:domain:supports:godaddy:attorney',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.registrar/godaddy',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/attorney',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.registrar/godaddy',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/attorney',
                  'godaddy',
                  '.attorney',
                  '2026-05-07T23:00:00Z',
                  False,
                  None,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:supports:godaddy:attorney']},
  {'sql': '\n'
@@ -931,16 +931,16 @@ UP = [{'sql': '\n'
          '$12)\n'
          '  ',
   'parameters': ['edge:domain:accepts:law:jfba',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/jfba',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/jfba',
                  '.law',
                  'jfba',
                  "Policy §1.1 jurisdiction-neutral 'recognized accredited body' wording covers "
                  'JFBA (弁護士法に基づく自治団体).',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:accepts:law:jfba']},
  {'sql': '\n'
@@ -951,16 +951,16 @@ UP = [{'sql': '\n'
          '$12)\n'
          '  ',
   'parameters': ['edge:domain:accepts:law:aba-state-bars',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/aba-state-bars',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/aba-state-bars',
                  '.law',
                  'aba-state-bars',
                  'Policy §1.1 covers US state bars (each is an authorized government authority via '
                  'state supreme court).',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:accepts:law:aba-state-bars']},
  {'sql': '\n'
@@ -971,15 +971,15 @@ UP = [{'sql': '\n'
          '$12)\n'
          '  ',
   'parameters': ['edge:domain:accepts:law:sra-england-wales',
-                 'did:web:domain.gftd.ai',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.tld/law',
-                 'at://did:web:domain.gftd.ai/ai.gftd.apps.domain.legalRegulator/sra-england-wales',
+                 'did:web:domain.etzhayyim.com',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/ai.gftd.apps.domain.legalRegulator/sra-england-wales',
                  '.law',
                  'sra-england-wales',
                  'Policy §1.1 covers SRA as statutory Legal Regulator.',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
                  'edge:domain:accepts:law:sra-england-wales']},
  {'sql': '\n'
@@ -989,12 +989,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-eligibility-check-v1',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-eligibility-check-v1',
+                 'did:web:domain.etzhayyim.com',
                  'domain_eligibility_check',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  domain.gftd.ai eligibilityCheck (XRPC ai.gftd.apps.domain.eligibilityCheck).\n'
+                 '  domain.etzhayyim.com eligibilityCheck (XRPC ai.gftd.apps.domain.eligibilityCheck).\n'
                  '\n'
                  '  Resolves (tld, jurisdiction, actorKind) against '
                  'vertex_domain_eligibility_advice\n'
@@ -1005,7 +1005,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_domain_eligibility_check"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/domain"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/domain"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="domain_eligibility_check" name="domain eligibility check" '
@@ -1051,7 +1051,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:domain.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:domain.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;ai.gftd.apps.domain.eligibilityCheck&quot;" target="eventType"/>\n'
@@ -1075,10 +1075,10 @@ UP = [{'sql': '\n'
                  3389,
                  '00-contracts/bpmn/ai/gftd/domain/eligibilityCheck.bpmn',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-eligibility-check-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-eligibility-check-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1086,12 +1086,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-register-assist-v1',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-register-assist-v1',
+                 'did:web:domain.etzhayyim.com',
                  'domain_register_assist',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  domain.gftd.ai registerAssist (XRPC ai.gftd.apps.domain.registerAssist).\n'
+                 '  domain.etzhayyim.com registerAssist (XRPC ai.gftd.apps.domain.registerAssist).\n'
                  '\n'
                  '  Single-task BPMN: domain.register.assist runs eligibility check + registrar\n'
                  '  recommendation + draft ledger INSERT in one primitive (the ledger write\n'
@@ -1102,7 +1102,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_domain_register_assist"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/domain"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/domain"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="domain_register_assist" name="domain register assist" '
@@ -1157,7 +1157,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:domain.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:domain.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.domain.registerAssist&quot;" '
                  'target="eventType"/>\n'
@@ -1182,10 +1182,10 @@ UP = [{'sql': '\n'
                  3992,
                  '00-contracts/bpmn/ai/gftd/domain/registerAssist.bpmn',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-register-assist-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-register-assist-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1193,12 +1193,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-refresh-tld-catalog-v1',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-refresh-tld-catalog-v1',
+                 'did:web:domain.etzhayyim.com',
                  'domain_refresh_tld_catalog',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  domain.gftd.ai refreshTldCatalog (timer-start, autonomous).\n'
+                 '  domain.etzhayyim.com refreshTldCatalog (timer-start, autonomous).\n'
                  '\n'
                  "  Phase 1: stub primitive (no-op). Phase 2 will fetch each TLD's\n"
                  '  eligibility policy URL, diff against the stored excerpt, and bump\n'
@@ -1211,7 +1211,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_domain_refresh_tld_catalog"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/domain"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/domain"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="domain_refresh_tld_catalog" name="domain refresh TLD '
@@ -1248,7 +1248,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:domain.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:domain.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;ai.gftd.apps.domain.refreshTldCatalog&quot;" '
@@ -1272,10 +1272,10 @@ UP = [{'sql': '\n'
                  2894,
                  '00-contracts/bpmn/ai/gftd/domain/refreshTldCatalog.bpmn',
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-refresh-tld-catalog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-refresh-tld-catalog-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1283,16 +1283,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/domain-eligibilityCheck-v1',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/domain-eligibilityCheck-v1',
+                 'did:web:domain.etzhayyim.com',
                  'ai.gftd.apps.domain.eligibilityCheck',
                  'domain_eligibility_check',
                  30000,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/domain-eligibilityCheck-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/domain-eligibilityCheck-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1300,39 +1300,39 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/domain-registerAssist-v1',
-                 'did:web:domain.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/domain-registerAssist-v1',
+                 'did:web:domain.etzhayyim.com',
                  'ai.gftd.apps.domain.registerAssist',
                  'domain_register_assist',
                  30000,
                  '2026-05-07T23:00:00Z',
-                 'did:web:domain.gftd.ai',
-                 'did:web:domain.gftd.ai',
+                 'did:web:domain.etzhayyim.com',
+                 'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/domain-registerAssist-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/domain-registerAssist-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/domain-eligibilityCheck-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/domain-eligibilityCheck-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/domain-registerAssist-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/domain-registerAssist-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-eligibility-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-eligibility-check-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-register-assist-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-register-assist-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/domain-refresh-tld-catalog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/domain-refresh-tld-catalog-v1']},
  {'sql': 'DELETE FROM edge_domain_tld_accepts_regulator WHERE owner_did = $1',
-  'parameters': ['did:web:domain.gftd.ai']},
+  'parameters': ['did:web:domain.etzhayyim.com']},
  {'sql': 'DELETE FROM edge_domain_registrar_supports_tld WHERE owner_did = $1',
-  'parameters': ['did:web:domain.gftd.ai']},
+  'parameters': ['did:web:domain.etzhayyim.com']},
  {'sql': 'DELETE FROM vertex_domain_eligibility_advice WHERE owner_did = $1',
-  'parameters': ['did:web:domain.gftd.ai']},
+  'parameters': ['did:web:domain.etzhayyim.com']},
  {'sql': 'DELETE FROM vertex_domain_legal_regulator WHERE owner_did = $1',
-  'parameters': ['did:web:domain.gftd.ai']},
+  'parameters': ['did:web:domain.etzhayyim.com']},
  {'sql': 'DELETE FROM vertex_domain_registrar WHERE owner_did = $1',
-  'parameters': ['did:web:domain.gftd.ai']},
+  'parameters': ['did:web:domain.etzhayyim.com']},
  {'sql': 'DELETE FROM vertex_domain_tld WHERE owner_did = $1',
-  'parameters': ['did:web:domain.gftd.ai']}]
+  'parameters': ['did:web:domain.etzhayyim.com']}]
 
 
 def upgrade() -> None:

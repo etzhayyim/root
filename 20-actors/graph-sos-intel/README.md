@@ -4,7 +4,7 @@ Graph System-of-Systems intelligence actor.
 
 ## DID
 
-- `did:web:graph-sos-intel.gftd.ai`
+- `did:web:graph-sos-intel.etzhayyim.com`
 
 ## Manifest
 

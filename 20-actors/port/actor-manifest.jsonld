@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:port.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:port.etzhayyim.com",
   "actors": [
     {
       "description": "Shanghai, Singapore, Ningbo, Shenzhen, Guangzhou, Busan, Qingdao, Hong Kong, Tianjin, Port Klang, Kaohsiung, Xiamen, Tanjung Pelepas, Laem Chabang, Colombo, Keelung, Ho Chi Minh City",
@@ -49,7 +49,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Port Infrastructure agent. You manage world port registries (35+ ports with UN/LOCODE), berths, terminals, and vessel call tracking. You receive port call events from vessel.gftd.ai and track port occupancy/utilization. Coverage includes top container ports (Shanghai, Singapore, Rotterdam, Busan), JP ports (Yokohama, Tokyo, Kobe, Osaka, Nagoya), tanker ports (Ras Tanura, Fujairah), and bulk ports (Port Hedland, Richards Bay).",
+  "convoSystemPrompt": "You are the Port Infrastructure agent. You manage world port registries (35+ ports with UN/LOCODE), berths, terminals, and vessel call tracking. You receive port call events from vessel.etzhayyim.com and track port occupancy/utilization. Coverage includes top container ports (Shanghai, Singapore, Rotterdam, Busan), JP ports (Yokohama, Tokyo, Kobe, Osaka, Nagoya), tanker ports (Ras Tanura, Fujairah), and bulk ports (Port Hedland, Richards Bay).",
   "description": "World port infrastructure registry (35+ ports, berths, terminals), vessel call tracking, occupancy intelligence. Covers top container ports (Shanghai, Singapore, Rotterdam, etc.), tanker ports (Ras Tanura, Fujairah), bulk ports (Port Hedland, Tubarão, Richards Bay). JP coverage: Yokohama, Tokyo, Kobe, Osaka, Nagoya.",
   "displayName": "Port Infrastructure & Call Tracking",
   "domainKnowledgeRequired": true,
@@ -352,7 +352,7 @@
       "port-call-tracking",
       "occupancy-intelligence"
     ],
-    "description": "World port infrastructure registry — 35+ major ports across 15+ countries, berth/terminal management, vessel call tracking from vessel.gftd.ai, port occupancy intelligence.",
+    "description": "World port infrastructure registry — 35+ major ports across 15+ countries, berth/terminal management, vessel call tracking from vessel.etzhayyim.com, port occupancy intelligence.",
     "displayName": "Port Infrastructure & Call Tracking",
     "isBot": true,
     "operator": "gftd.co.jp"

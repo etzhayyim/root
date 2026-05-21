@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#MatchingE2E
+// @etzhayyim/cyber-freelance#MatchingE2E
 // マッチング機能のE2Eテスト
 
 import { test, expect } from "@playwright/test";

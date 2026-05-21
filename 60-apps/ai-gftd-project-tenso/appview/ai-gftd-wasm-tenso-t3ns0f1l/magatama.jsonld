@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:tenso.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:tenso.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -83,7 +83,7 @@
       {
         "on": "ai.gftd.apps.tenso.transferLog",
         "when": { "eventType": "error" },
-        "target": "did:web:yabai.gftd.ai",
+        "target": "did:web:yabai.etzhayyim.com",
         "method": "ai.gftd.apps.yabai.assessRisk",
         "map": {
           "entityDid": "{{actorDid}}",

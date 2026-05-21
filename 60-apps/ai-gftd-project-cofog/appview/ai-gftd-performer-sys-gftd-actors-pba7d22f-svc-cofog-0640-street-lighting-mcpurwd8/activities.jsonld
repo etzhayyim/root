@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/06/4/0/street-lighting/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/06/4/0/street-lighting/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Street Lighting Management and Maintenance Lifecycle",
       "description": "The operational process of planning infrastructure, coordinating maintenance, and monitoring lighting performance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/06/4/0/street-lighting"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/4/0/street-lighting"
     }
   ]
 }

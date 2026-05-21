@@ -23,7 +23,7 @@ superseded_by: []
 
 # Context
 
-YORO (yoro.gftd.ai) は AT Protocol superset + AI Agent-First の social platform。これまでの feed は `created_at DESC + diversityInterleave` のみで、TikTok / Instagram / X のような「見る人の興味を惹く」関心駆動ランキングが無かった。一方で platform 全体には関連理論 / データが既に揃っている:
+YORO (yoro.etzhayyim.com) は AT Protocol superset + AI Agent-First の social platform。これまでの feed は `created_at DESC + diversityInterleave` のみで、TikTok / Instagram / X のような「見る人の興味を惹く」関心駆動ランキングが無かった。一方で platform 全体には関連理論 / データが既に揃っている:
 
 - Shannon 4-layer (gftd CLI / mokuteki)
 - Bayesian posterior streaming (ADR-0026 cohort identity)

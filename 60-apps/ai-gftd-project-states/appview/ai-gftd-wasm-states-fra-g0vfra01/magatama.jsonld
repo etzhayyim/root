@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:fra-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:fra-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of France AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -139,7 +139,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "fra-state.gftd.ai",
+      "host": "fra-state.etzhayyim.com",
       "paths": [
         "/"
       ],

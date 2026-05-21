@@ -1,10 +1,10 @@
-# ninso.gftd.ai
+# ninso.etzhayyim.com
 
 人相 (Physiognomy) analysis — classifying personality, age, profile, fashion style from face photos and clothing. Statistics-first cohort assignment, no raw biometrics stored.
 
 ## Architecture
 
-- **Ingest**: Follow photos.gftd.ai → on `ai.gftd.apps.photos.photo` create → analyze
+- **Ingest**: Follow photos.etzhayyim.com → on `ai.gftd.apps.photos.photo` create → analyze
 - **Face Analysis**: Murakumo VL (qwen3-vl-8b) for apparent age, gender, facial structure, skin condition, expression
 - **Personality Inference**: Big Five traits (openness, conscientiousness, extraversion, agreeableness, neuroticism) from facial features + clothing style
 - **Fashion Classification**: clothing style, color palette, silhouette, era/trend via Murakumo VL
@@ -25,10 +25,10 @@
 
 | DID Pattern | Purpose |
 |---|---|
-| `did:web:ninso.gftd.ai` | Primary controller |
-| `did:web:ninso.gftd.ai:face:{cohort_hash}` | Face analysis cohort |
-| `did:web:ninso.gftd.ai:style:{cohort_hash}` | Fashion/style cohort |
-| `did:web:ninso.gftd.ai:profile:{cohort_hash}` | Combined profile cohort |
+| `did:web:ninso.etzhayyim.com` | Primary controller |
+| `did:web:ninso.etzhayyim.com:face:{cohort_hash}` | Face analysis cohort |
+| `did:web:ninso.etzhayyim.com:style:{cohort_hash}` | Fashion/style cohort |
+| `did:web:ninso.etzhayyim.com:profile:{cohort_hash}` | Combined profile cohort |
 
 ## Face Cohort Dimensions (14)
 
@@ -79,7 +79,7 @@ Cohort hash: DJB2 → `"s" + hex(h) + hex(len)` (13 chars, alpha-start).
 | `formality_level` | enum | (from style) |
 | `color_palette` | enum | (from style) |
 | `impression` | enum | professional, creative, casual, authoritative, approachable, mysterious, energetic, serene, unknown |
-| `natural_person_cohort_hash` | option | Link to natural-person.gftd.ai |
+| `natural_person_cohort_hash` | option | Link to natural-person.etzhayyim.com |
 
 Cohort hash: DJB2 → `"n" + hex(h) + hex(len)` (13 chars, alpha-start).
 
@@ -126,7 +126,7 @@ Cross-link: `MATCH (nc:NinsoProfileCohort)-[:MAPS_TO]->(np:NaturalPersonCohort)`
 - No raw facial biometrics stored — only derived categorical classifications
 - No face recognition — no embedding vectors, no re-identification
 - Statistics-first: cohort = statistical aggregate, not individual identification
-- Photo ref only: ninso stores blob URI from photos.gftd.ai, not image data
+- Photo ref only: ninso stores blob URI from photos.etzhayyim.com, not image data
 - Governance: `classification: restricted`, GDPR Art.9, APPI
 - Consent: analysis only on photos explicitly submitted to ninso pipeline
 - Personality disclaimer: "Statistical inference only. Not a psychological assessment."

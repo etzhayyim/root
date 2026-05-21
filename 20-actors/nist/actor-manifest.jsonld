@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:nist.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:nist.etzhayyim.com",
   "actors": [
     {
       "description": "GV.OC/RM/RR/PO/OV/SC — 31 subcategories",

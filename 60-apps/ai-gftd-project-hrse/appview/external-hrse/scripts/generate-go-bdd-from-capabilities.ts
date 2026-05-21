@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/ai-gftd-hrse#GenerateGoBDD
+ * @etzhayyim/ai-gftd-hrse#GenerateGoBDD
  * Generate Go BDD feature files from capabilities.jsonld
  */
 
@@ -23,7 +23,7 @@ function generateGoBDDFeature(capability: Capability): string {
   const label = capability["rdfs:label"]?.find(l => l["@language"] === "en")?.["@value"] || capabilityID;
   const description = capability["dcterms:description"]?.find(d => d["@language"] === "en")?.["@value"] || "";
 
-  return `# @gftdcojp/ai-gftd-hrse#${capabilityID}BDD
+  return `# @etzhayyim/ai-gftd-hrse#${capabilityID}BDD
 # BDD Feature: ${label}
 # ${description}
 

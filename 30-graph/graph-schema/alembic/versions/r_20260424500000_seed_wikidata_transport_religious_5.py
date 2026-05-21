@@ -21,12 +21,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-tramStop:Station',
-                 'did:web:maps.gftd.ai:registry:wikidata:tramStop',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-tramStop:Station',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:tramStop',
                  'Station',
                  50000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:tramStop',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:tramStop',
                  '2026-05-08T00:20:44.976Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -37,12 +37,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-monasteryWd:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:monasteryWd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-monasteryWd:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:monasteryWd',
                  'Spot',
                  15000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:monasteryWd',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:monasteryWd',
                  '2026-05-08T00:20:44.976Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -53,12 +53,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-funeralHomeWd:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:funeralHomeWd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-funeralHomeWd:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:funeralHomeWd',
                  'Spot',
                  30000,
                  0.5,
-                 'did:web:maps.gftd.ai:registry:wikidata:funeralHomeWd',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:funeralHomeWd',
                  '2026-05-08T00:20:44.976Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -69,12 +69,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-crematoriumWd:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:crematoriumWd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-crematoriumWd:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:crematoriumWd',
                  'Spot',
                  5000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:crematoriumWd',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:crematoriumWd',
                  '2026-05-08T00:20:44.976Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -85,12 +85,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-ferryRouteWd:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:ferryRouteWd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-ferryRouteWd:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:ferryRouteWd',
                  'Spot',
                  3000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:ferryRouteWd',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:ferryRouteWd',
                  '2026-05-08T00:20:44.976Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

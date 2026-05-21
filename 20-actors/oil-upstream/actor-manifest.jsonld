@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:oil-upstream.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:oil-upstream.etzhayyim.com",
   "actors": [
     {
       "description": "Major producing basin coverage.",

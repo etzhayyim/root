@@ -1,11 +1,11 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net
 /**
- * Import 260123-jump (Ghost Hacker) project data into mangaka.gftd.ai graph.
+ * Import 260123-jump (Ghost Hacker) project data into mangaka.etzhayyim.com graph.
  * Usage: deno run --allow-read --allow-net import-jump.ts [--dry-run]
  */
 
 const JUMP_DIR = "/Users/junkawasaki/github/ghosthacker/260123-jump/resources";
-const XRPC_BASE = "https://mangaka.gftd.ai/xrpc/";
+const XRPC_BASE = "https://mangaka.etzhayyim.com/xrpc/";
 const DRY_RUN = Deno.args.includes("--dry-run");
 
 let created = 0;

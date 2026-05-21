@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/05/6/0/environmental-protection-nec",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/05/6/0/environmental-protection-nec",
       "type": "dodaf:Capability",
       "name": "Miscellaneous Environmental Protection Capability",
       "description": "Functional capability for managing unclassified environmental protection services, multi-agency coordination, and regulatory oversight. Classification: COFOG Division 05, Group 6, Class 0.",

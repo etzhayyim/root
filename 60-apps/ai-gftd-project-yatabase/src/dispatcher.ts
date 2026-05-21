@@ -1,7 +1,7 @@
 // dispatcher.ts — bpmn-dispatcher internal-trust caller for yatabase Worker.
 //
 // Forwards a yatabase XRPC / storage REST call to the K8s LangServer pool
-// via dispatcher.gftd.ai. Auth: literal shared secret in `x-internal-trust`
+// via dispatcher.etzhayyim.com. Auth: literal shared secret in `x-internal-trust`
 // header (`hmac.compare_digest` literal comparison in dispatcher_main.py
 // strict mode). All sibling Workers (atproto / kaisya / lawfirm /
 // natural-person / kouza / outlook-mcp) follow the same convention.
@@ -11,7 +11,7 @@ export interface DispatcherEnv {
   DISPATCHER_INTERNAL_SECRET?: string;
 }
 
-const DEFAULT_DISPATCHER_URL = "https://dispatcher.gftd.ai";
+const DEFAULT_DISPATCHER_URL = "https://dispatcher.etzhayyim.com";
 
 export interface DispatcherCallerContext {
   orgDid: string;

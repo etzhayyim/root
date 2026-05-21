@@ -1,7 +1,7 @@
 //! `yata-sparql` — SPARQL 1.1 HTTP client.
 //!
 //! Forwards `SELECT` / `CONSTRUCT` / `ASK` queries to
-//! `https://yatabase.gftd.ai/sparql` over plain HTTPS POST.  v0.1
+//! `https://yatabase.etzhayyim.com/sparql` over plain HTTPS POST.  v0.1
 //! supports the JSON response format only; XML / TSV are deferred to
 //! v0.2.
 //!

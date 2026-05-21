@@ -2,7 +2,7 @@
 
 ## 目的
 
-`ai-gftd-project-umu` で `ops.gftd.ai` 系 WIT（現行は `gftd:platform/gftd-mcp@0.1.0`）を基準に、
+`ai-gftd-project-umu` で `ops.etzhayyim.com` 系 WIT（現行は `gftd:platform/gftd-mcp@0.1.0`）を基準に、
 以下の一連フローを標準化する。
 
 1. UMU でプロジェクト作成
@@ -11,16 +11,16 @@
 
 ## スコープ
 
-- `umu.gftd.ai`: 企画/作成/開発のハブ
-- `ops.gftd.ai`: MCP/WIT 契約でのオーケストレーション境界
-- `games.gftd.ai` (`ai-gftd-project-games`): 公開配信面
+- `umu.etzhayyim.com`: 企画/作成/開発のハブ
+- `ops.etzhayyim.com`: MCP/WIT 契約でのオーケストレーション境界
+- `games.etzhayyim.com` (`ai-gftd-project-games`): 公開配信面
 
 ## 依存ルール
 
 - WADM `Application` namespace は `magatama-runtime`（`default` 禁止）
 - App system 資源は `magatama-system`
 - HTTPRoute は `ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4`
-- 画像 push は `ghcr.io/gftdcojp/*`
+- 画像 push は `ghcr.io/etzhayyim/*`
 - deploy は `mage Deploy` を利用
 
 ## WIT 契約設計
@@ -45,7 +45,7 @@ OPS 連携は次の logical contract として扱う（段階導入）。
 
 ### 1) Project 作成（UMU）
 
-- 入口: `umu.gftd.ai` の project 作成 UI/API
+- 入口: `umu.etzhayyim.com` の project 作成 UI/API
 - UMU が生成する最小情報:
   - `project_id` (`umu-<nanoid>`)
   - `game_slug`
@@ -114,4 +114,4 @@ OPS 連携は次の logical contract として扱う（段階導入）。
 - OPS は「配信オーケストレーション」を担当
 - GAMES は「公開面」と「公開用カタログ」を担当
 
-この分割で `ops.gftd.ai` 側 WIT を拡張しても UMU/GAMES の責務を崩さずに運用できる。
+この分割で `ops.etzhayyim.com` 側 WIT を拡張しても UMU/GAMES の責務を崩さずに運用できる。

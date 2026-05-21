@@ -179,9 +179,9 @@ microsoft miniapp UI (Matrix widget)
   "tenantId": "tenant-guid",
   "domain": "teams",
   "workspaceId": "team-or-mailbox-id",
-  "roomId": "!room:matrix.gftd.ai",
+  "roomId": "!room:matrix.etzhayyim.com",
   "actorId": "user_or_agent",
-  "requestedBy": "@user:matrix.gftd.ai",
+  "requestedBy": "@user:matrix.etzhayyim.com",
   "payload": {}
 }
 ```

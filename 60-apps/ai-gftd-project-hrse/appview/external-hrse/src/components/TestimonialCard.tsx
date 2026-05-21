@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 /**
- * @gftdcojp/cyber-freelance#TestimonialCard
+ * @etzhayyim/cyber-freelance#TestimonialCard
  * テスティモニアルカード
  * Toptalスタイルのクライアントの声表示
  */

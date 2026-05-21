@@ -3,6 +3,7 @@
 // K8s pod (Bun/Node) では Hyperdrive adapter を通じた実接続を許可 (ADR-2605111300)。
 // DB I/O は AgentGateway MCP 経由で K8s pod-side LangServer に dispatch すること。
 
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
 import type { StrictDatabase } from "@gftd/graph-schema";
 import { HyperdriveDialect, type Hyperdrive } from "./hyperdrive-dialect.js";

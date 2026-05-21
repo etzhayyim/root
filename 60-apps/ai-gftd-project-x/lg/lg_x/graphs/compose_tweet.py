@@ -1,4 +1,4 @@
-"""x.gftd.ai `compose_tweet` graph — draft tweet/thread copy (no posting).
+"""x.etzhayyim.com `compose_tweet` graph — draft tweet/thread copy (no posting).
 
 Pure LLM compose path. Does NOT call X API — that's a future `post`
 graph that requires OAuth setup. This graph is the safest first
@@ -31,7 +31,7 @@ _log = logging.getLogger(__name__)
 _VLLM_URL = os.environ.get("VLLM_URL", "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1").rstrip("/")
 _VLLM_MODEL = os.environ.get("VLLM_MODEL", "tier0-general")
 _VLLM_TIMEOUT = float(os.environ.get("VLLM_TIMEOUT_SEC", "60"))
-_DEFAULT_APP_DID = os.environ.get("X_APP_DID", "did:web:x.gftd.ai")
+_DEFAULT_APP_DID = os.environ.get("X_APP_DID", "did:web:x.etzhayyim.com")
 
 
 class _ComposeState(TypedDict, total=False):

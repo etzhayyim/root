@@ -91,7 +91,7 @@ async function cmdBuildingCreate(sdk: HostSDK, body: Uint8Array): Promise<unknow
     description: `3D model reconstructed from sensor scan ${sessionId}`,
   });
 
-  return { buildingDid: `did:web:sense.gftd.ai:building:${sessionId}` };
+  return { buildingDid: `did:web:sense.etzhayyim.com:building:${sessionId}` };
 }
 
 async function cmdBuildingGet(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
@@ -213,7 +213,7 @@ async function cmdSensorRegister(sdk: HostSDK, body: Uint8Array): Promise<unknow
     description: `Registered ${deviceType} sensor device`,
   });
 
-  return { sensorDid: `did:web:sense.gftd.ai:sensor:${deviceId}` };
+  return { sensorDid: `did:web:sense.etzhayyim.com:sensor:${deviceId}` };
 }
 
 async function cmdSensorCalibrate(sdk: HostSDK, body: Uint8Array): Promise<unknown> {

@@ -4,7 +4,7 @@
 	 * AT Protocol feed items (FeedItem) with like/repost actions.
 	 */
 	import { onMount } from 'svelte';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
 	import { getAuthorFeed, likePost, unlikePost, repost, unrepost, sendInteractions } from '$lib/atproto-agent';
 	import type { FeedItem, Did } from '$lib/atproto-agent';
 

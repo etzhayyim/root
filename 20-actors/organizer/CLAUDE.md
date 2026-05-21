@@ -1,4 +1,4 @@
-# ai-gftd-project-organizer — organizer.gftd.ai
+# ai-gftd-project-organizer — organizer.etzhayyim.com
 
 **Upload → AI Auto-Organize** — アップロードすれば AI が自動で整理。フォルダ手動整理不要。
 
@@ -17,9 +17,9 @@
 
 | DID | 用途 |
 |---|---|
-| `did:web:organizer.gftd.ai` | Controller (app 本体) |
-| `did:web:organizer.gftd.ai:vault:{nanoid}` | ユーザー個人 vault |
-| `did:web:organizer.gftd.ai:collection:{nanoid}` | 共有コレクション |
+| `did:web:organizer.etzhayyim.com` | Controller (app 本体) |
+| `did:web:organizer.etzhayyim.com:vault:{nanoid}` | ユーザー個人 vault |
+| `did:web:organizer.etzhayyim.com:collection:{nanoid}` | 共有コレクション |
 
 ## Design E 3-Tier Write
 
@@ -47,7 +47,7 @@
 ### Data Flow
 
 ```
-mailer.gftd.ai (inboundEmail record, Follow-based input)
+mailer.etzhayyim.com (inboundEmail record, Follow-based input)
   → organizer handleComAtprotoSyncSubscribeReposCommit
     → Murakumo LLM 分類: "subscriptionBilling" 検出
     → ComAtprotoRepoCreateRecord("subscriptionItem", {...})
@@ -56,7 +56,7 @@ mailer.gftd.ai (inboundEmail record, Follow-based input)
     → AppBskyFeedPost("3件の未使用サブスクを検出")
     → WprotoConvoCreateDm(userDID, "subscription-review", recommendations)
       → User 承認 (yoro convo chat)
-        → Invoke("did:web:kaiyaku.gftd.ai", "start-cancellation", params)
+        → Invoke("did:web:kaiyaku.etzhayyim.com", "start-cancellation", params)
           → kaiyaku browser automation → 解約完了
 ```
 
@@ -123,9 +123,9 @@ interface subscription-discovery {
 | From | To | Interface | 用途 |
 |---|---|---|---|
 | organizer | mailer | `Follow` (Design E) | inboundEmail commit を reactive 受信 |
-| organizer | kaiyaku | `Invoke("did:web:kaiyaku.gftd.ai", "start-cancellation", params)` | ユーザー承認後に解約ジョブ投入 |
+| organizer | kaiyaku | `Invoke("did:web:kaiyaku.etzhayyim.com", "start-cancellation", params)` | ユーザー承認後に解約ジョブ投入 |
 | kaiyaku | organizer | `AppBskyFeedPost` (agent mention) | 解約完了通知 → subscriptionItem を archived に更新 |
-| organizer | stripe | `Invoke("did:web:stripe.gftd.ai", "list-transactions", params)` | カード明細取得 (Stripe Issuing 利用者のみ) |
+| organizer | stripe | `Invoke("did:web:stripe.etzhayyim.com", "list-transactions", params)` | カード明細取得 (Stripe Issuing 利用者のみ) |
 
 ### Subscription Sensitivity & Consent
 

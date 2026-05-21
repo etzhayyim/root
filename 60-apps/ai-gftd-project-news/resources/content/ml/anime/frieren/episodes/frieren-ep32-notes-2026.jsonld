@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "TVEpisode",
@@ -29,5 +29,5 @@
       "name": "Frieren: Beyond Journey's End"
     }
   },
-  "url": "https://news.gftd.ai/ml/articles/frieren-ep32-notes-2026"
+  "url": "https://news.etzhayyim.com/ml/articles/frieren-ep32-notes-2026"
 }

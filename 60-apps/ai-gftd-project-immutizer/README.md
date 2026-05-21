@@ -1,11 +1,11 @@
 # ai-gftd-project-immutizer
 
-`ai-gftd-project-immutizer` は、GFTD OS 向けの **クラウド連携型アンチウイルス設計** です。ローカル検査は `ai-gftd-project-os` 内の `gftd-system` が担当し、`immutizer.gftd.ai` が脅威インテリジェンスで結果を補強します。
+`ai-gftd-project-immutizer` は、GFTD OS 向けの **クラウド連携型アンチウイルス設計** です。ローカル検査は `ai-gftd-project-os` 内の `gftd-system` が担当し、`immutizer.etzhayyim.com` が脅威インテリジェンスで結果を補強します。
 
 ## 設計方針
 
 - **ローカル優先**: まず端末内でスキャン（Quick/Full/Path）を実施。
-- **クラウド補強**: ローカル結果を `immutizer.gftd.ai` に送信し、追加判定・既知脅威照合を行う。
+- **クラウド補強**: ローカル結果を `immutizer.etzhayyim.com` に送信し、追加判定・既知脅威照合を行う。
 - **フェイルセーフ**: クラウド障害時でもローカル結果は必ず返却。
 - **Tauri 統合**: デスクトップ UI から `run_immutizer_scan` コマンドで一括実行。
 
@@ -26,7 +26,7 @@
 ## 環境変数
 
 - `IMMUTIZER_BASE_URL`
-  - デフォルト: `https://immutizer.gftd.ai`
+  - デフォルト: `https://immutizer.etzhayyim.com`
   - ステージング切替時に上書き可能
 
 ## 返却モデル（概要）
@@ -47,7 +47,7 @@
 - **スキャン型 anti virus (on-demand scan)**
   - `quick` / `full` / `path` の明示実行。
 - **クラウド補強 (cloud intelligence)**
-  - `immutizer.gftd.ai` 側の既知脅威情報で判定を強化。
+  - `immutizer.etzhayyim.com` 側の既知脅威情報で判定を強化。
 - **迷惑メールブロック (spam/phishing blocking)**
   - スパム・フィッシングの分類/遮断判定に利用可能な capability。
 

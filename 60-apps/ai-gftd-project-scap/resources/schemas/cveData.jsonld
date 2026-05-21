@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -38,7 +38,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/resources/schemas/cveData",
+  "@id": "https://scap.etzhayyim.com/resources/schemas/cveData",
   "@type": [
     "dodaf:Resource",
     "dodaf:DataType"
@@ -50,12 +50,12 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "primaryKey": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/cveId"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/cveId"
     }
   ],
   "column": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/cveId",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/cveId",
       "name": "cveId",
       "description": "CVE identifier (e.g., CVE-2024-0001)",
       "dataType": {
@@ -65,7 +65,7 @@
       "pattern": "^CVE-\\d{4}-\\d{4,}$"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/description",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/description",
       "name": "description",
       "description": "Description of the vulnerability",
       "dataType": {
@@ -74,7 +74,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/publishedDate",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/publishedDate",
       "name": "publishedDate",
       "description": "Date when the CVE was published",
       "dataType": {
@@ -83,7 +83,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/lastModifiedDate",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/lastModifiedDate",
       "name": "lastModifiedDate",
       "description": "Date when the CVE was last modified",
       "dataType": {
@@ -92,7 +92,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/cvssScore",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/cvssScore",
       "name": "cvssScore",
       "description": "CVSS score (0.0 to 10.0)",
       "dataType": {
@@ -101,7 +101,7 @@
       "required": false
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/cvssVector",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/cvssVector",
       "name": "cvssVector",
       "description": "CVSS vector string",
       "dataType": {
@@ -110,7 +110,7 @@
       "required": false
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/severity",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/severity",
       "name": "severity",
       "description": "Severity level (low, medium, high, critical)",
       "dataType": {
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/cweIds",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/cweIds",
       "name": "cweIds",
       "description": "Array of CWE (Common Weakness Enumeration) identifiers",
       "dataType": {
@@ -134,7 +134,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/references",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/references",
       "name": "references",
       "description": "Array of reference objects with url, source, and tags",
       "dataType": {
@@ -143,7 +143,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/affectedProducts",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/affectedProducts",
       "name": "affectedProducts",
       "description": "Array of affected product objects with vendor, product, and versions",
       "dataType": {
@@ -152,7 +152,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/status",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/status",
       "name": "status",
       "description": "CVE status (published, modified, rejected)",
       "dataType": {
@@ -167,7 +167,7 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/createdAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/createdAt",
       "name": "createdAt",
       "description": "Timestamp when the record was created",
       "dataType": {
@@ -177,7 +177,7 @@
       "default": "now()"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/updatedAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/updatedAt",
       "name": "updatedAt",
       "description": "Timestamp when the record was last updated",
       "dataType": {
@@ -189,28 +189,28 @@
   ],
   "index": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/severityIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/severityIdx",
       "name": "cve_data_severity_idx",
       "columns": [
         "severity"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/statusIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/statusIdx",
       "name": "cve_data_status_idx",
       "columns": [
         "status"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/publishedDateIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/publishedDateIdx",
       "name": "cve_data_published_date_idx",
       "columns": [
         "publishedDate"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData/cvssScoreIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData/cvssScoreIdx",
       "name": "cve_data_cvss_score_idx",
       "columns": [
         "cvssScore"
@@ -218,7 +218,7 @@
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/zod/cveData.ts"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/zod/cveData.ts"
   ]
 }

@@ -5,9 +5,9 @@
 ## Architecture
 
 - **Runtime**: TS Native + Lexicon Contract (Cloudflare Worker)
-- **Domain**: `mold-allergy.gftd.ai`
+- **Domain**: `mold-allergy.etzhayyim.com`
 - **nanoid**: `m0ldalg1`
-- **DID**: `did:web:mold-allergy.gftd.ai` (ADR-0019 did:plc 移行候補)
+- **DID**: `did:web:mold-allergy.etzhayyim.com` (ADR-0019 did:plc 移行候補)
 - **NSID stem**: `ai.gftd.apps.moldAllergy.*`
 
 ## Research Scope

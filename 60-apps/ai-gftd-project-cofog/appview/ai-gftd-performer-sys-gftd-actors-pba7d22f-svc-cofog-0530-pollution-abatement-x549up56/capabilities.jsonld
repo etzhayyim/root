@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/05/3/0/pollution-abatement",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/05/3/0/pollution-abatement",
       "type": "dodaf:Capability",
       "name": "Pollution Abatement and Environmental Monitoring Capability",
       "description": "Functional capability for managing pollution monitoring, abatement technology, and emission standards enforcement. Classification: COFOG Division 05, Group 3, Class 0.",

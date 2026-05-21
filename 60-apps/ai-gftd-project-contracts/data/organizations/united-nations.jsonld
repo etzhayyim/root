@@ -1,7 +1,7 @@
 {
   "@context": "../schema/context.jsonld",
   "@type": "Organization",
-  "@id": "https://gftd.ai/data/organizations/united-nations",
+  "@id": "https://etzhayyim.com/data/organizations/united-nations",
   "name": "United Nations",
   "alternateName": "UN",
   "legalName": "United Nations",

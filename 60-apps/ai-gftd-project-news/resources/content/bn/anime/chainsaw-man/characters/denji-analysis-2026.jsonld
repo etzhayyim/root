@@ -17,7 +17,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "TVSeries",
@@ -27,5 +27,5 @@
       "name": "デンジ"
     }
   },
-  "url": "https://news.gftd.ai/bn/articles/denji-analysis-2026"
+  "url": "https://news.etzhayyim.com/bn/articles/denji-analysis-2026"
 }

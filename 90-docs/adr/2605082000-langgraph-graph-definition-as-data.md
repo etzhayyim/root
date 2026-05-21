@@ -138,7 +138,7 @@ commit は primitive tool / UDF / model 追加の時だけ要る (低頻度)。
 
 `mcp_tool` kind の `ref` は次のいずれか:
 
-- HTTP URL (legacy / 後方互換) — `https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message`
+- HTTP URL (legacy / 後方互換) — `https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`
 - `mcp://<tool_id>` — `vertex_mcp_tool_def.tool_id` を引いて endpoint を解決
 
 新規は後者を使う。`make_mcp_tool_node` (`langgraph_node_resolvers.py`) が
@@ -240,7 +240,7 @@ node を 1:1 で mcp_tool 化するには、ノード本体内で頻出する **
 
 **foreach は resolver kind として実装 (案 b 採用)**: 残ノード精査で
 `for write in result.get("db_writes")` 系の LLM 出力配列 fan-out が
-supervisor 系 (`gftdcojp_company_ops` / `lawfirm_marketing_ops` /
+supervisor 系 (`etzhayyim_company_ops` / `lawfirm_marketing_ops` /
 `kaisya_member_assistant`) に共通することを確認。foreach は
 
 - ❌ MCP primitive (registry-resolved `mcp://...flow.foreach`) — module-level
@@ -301,7 +301,7 @@ supervisor 系 (`gftdcojp_company_ops` / `lawfirm_marketing_ops` /
 これで supervisor / classifier 系の Python router を 1 行 INSERT で
 field 形式に置換できる。同じ topology 行の UPDATE もしくは新 v2
 assistant への upsert で deploy。inner node が data-only なら supervisor
-全体が code-free になる (例: gftdcojp_company_ops 8 ノードを
+全体が code-free になる (例: etzhayyim_company_ops 8 ノードを
 mcp_tool 化 + supervisor の `router` を `field: "domain"` に切替で
 完全 data-only 化)。
 
@@ -318,7 +318,7 @@ Phase D2 完了時点で live `py_primitive` 61 ノード残存。内訳精査�
 | Assistant                            | Live nodes | Pattern                                                  |
 |--------------------------------------|------------|----------------------------------------------------------|
 | `lawfirm_marketing_ops`              | 9          | supervisor LLM + 5 domain agents + compliance + audit    |
-| `gftdcojp_company_ops`               | 8          | supervisor LLM + 6 domain agents + audit                 |
+| `etzhayyim_company_ops`               | 8          | supervisor LLM + 6 domain agents + audit                 |
 | `kaisya_member_assistant`            | 8          | resolve + load_context + supervisor + 3 dispatch + audit |
 | `animeka_autopilot`                  | 8          | LLM scene + 4 ComfyUI gen + compose_post + audit         |
 | `webmk_proposal`                     | 6          | research + competitors + strategy + copy + quality + store |
@@ -423,7 +423,7 @@ generic primitives は 10 → 11 に拡大予定。
    (Phase E0)
 2. **小規模パイロット**: `yoro_product_ingest` (5 node) または
    `coverage_gap_bridge` (5 node) — chain template 検証 + e2e_smoke 拡張 (Phase E1)
-3. **中規模**: `webmk_proposal` (6) → `gftdcojp_company_ops` (8) →
+3. **中規模**: `webmk_proposal` (6) → `etzhayyim_company_ops` (8) →
    `kaisya_member_assistant` (8) (Phase E2)
 4. **大規模**: `lawfirm_marketing_ops` (9) → `animeka_autopilot` (8、
    ComfyUI ノード除外で実質 4-5) (Phase E3)

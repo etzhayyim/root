@@ -5,7 +5,7 @@ import json, time, urllib.parse, urllib.request
 from pathlib import Path
 
 COMFY = "http://192.168.1.70:8188"
-ROOT = Path("/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-mangaka/data/ghosthacker")
+ROOT = Path("/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-mangaka/data/ghosthacker")
 EPISODE = ROOT / "resources/episodes/arc0-1-origin"
 CHARS = ROOT / "resources/characters"
 PAGE = 3

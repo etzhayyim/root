@@ -19,7 +19,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-const AUTHN_BASE = process.env.AUTH_BASE_URL ?? "https://authn.gftd.ai";
+const AUTHN_BASE = process.env.AUTH_BASE_URL ?? "https://authn.etzhayyim.com";
 const AUTH_FILE = process.env.GFTD_AUTH_FILE ?? join(homedir(), ".gftd", "auth.json");
 
 function b64url(buf: Buffer): string {
@@ -48,14 +48,14 @@ async function attachVA(page: Page) {
 test("mint auth.json via headless WebAuthn → OAuth PKCE → apiKey", async ({ page, request }) => {
   await attachVA(page);
   // Navigate to bind navigator.credentials to the auth origin.
-  // authn.gftd.ai 301-redirects to auth.gftd.ai; capture the final origin for
+  // authn.etzhayyim.com 301-redirects to auth.etzhayyim.com; capture the final origin for
   // Node-side request.post calls (301 would convert POST → GET via fetch).
   await page.goto(`${AUTHN_BASE}/sign-up`, { waitUntil: "domcontentloaded" });
-  const AUTH_ORIGIN = new URL(page.url()).origin; // https://auth.gftd.ai after redirect
+  const AUTH_ORIGIN = new URL(page.url()).origin; // https://auth.etzhayyim.com after redirect
 
   // 1. passkeyBeginRegister — Node.js side (avoids SvelteKit patched window.fetch)
   const userId = randomBytes(16).toString("hex");
-  const userName = `cli-${randomBytes(4).toString("hex")}@gftd.ai`;
+  const userName = `cli-${randomBytes(4).toString("hex")}@etzhayyim.com`;
   const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/ai.gftd.auth.passkeyBeginRegister`, {
     data: { userId, userName },
   });

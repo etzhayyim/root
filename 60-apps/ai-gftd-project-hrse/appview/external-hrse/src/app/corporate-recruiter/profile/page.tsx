@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#CorporateRecruiterProfile
+ * @etzhayyim/ai-gftd-hrse#CorporateRecruiterProfile
  * 企業担当リクルーター向けプロファイルページ
  * DBに保存する機能を実装
  */

@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { searchHotels, type YadoyaHotel } from '../lib/yadoya-xrpc';
 
-  let { data = { title: 'yadoya.gftd.ai' } } = $props();
+  let { data = { title: 'yadoya.etzhayyim.com' } } = $props();
 
   let region = $state('asia');
   let city = $state('');
@@ -37,10 +37,10 @@
 
 <main class="mx-auto max-w-4xl space-y-6 p-6">
   <header class="space-y-1">
-    <h1 class="text-2xl font-bold">yadoya.gftd.ai</h1>
+    <h1 class="text-2xl font-bold">yadoya.etzhayyim.com</h1>
     <p class="text-sm text-gray-600">
       Hotel search & reservation — ISIC I5510 catalog, ADR-0036 Worker-direct,
-      bridged to <code>did:web:hospitality.gftd.ai</code>.
+      bridged to <code>did:web:hospitality.etzhayyim.com</code>.
     </p>
   </header>
 

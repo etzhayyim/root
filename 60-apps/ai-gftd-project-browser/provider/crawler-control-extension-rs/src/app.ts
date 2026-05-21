@@ -31,7 +31,7 @@ const shinkaEnabled = true;
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:crwlext1.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:crwlext1.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   if (cadence.shouldPost && cadence.contentSource.type !== "none") {

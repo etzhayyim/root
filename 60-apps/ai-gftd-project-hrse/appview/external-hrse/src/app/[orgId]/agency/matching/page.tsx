@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#OrgAgencyMatchingConnect
+ * @etzhayyim/ai-gftd-hrse#OrgAgencyMatchingConnect
  * Organization Agency向けマッチング結果ページ（Connect-Web版）
  */
 

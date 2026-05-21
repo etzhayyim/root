@@ -145,16 +145,16 @@ Fund 連携審査 (in !case-{application-id} — cross-project)
 
 | Room | 用途 |
 |---|---|
-| `!team-becoming-child-{nanoid}:gftd.ai` | capability agent チーム対話 + evolution |
-| `!evo-becoming-child-{nanoid}:gftd.ai` | capability agent evolution room |
+| `!team-becoming-child-{nanoid}:etzhayyim.com` | capability agent チーム対話 + evolution |
+| `!evo-becoming-child-{nanoid}:etzhayyim.com` | capability agent evolution room |
 
 ### Cross-Project Shared Rooms (with public-fund)
 
 | Room | Members | 用途 |
 |---|---|---|
-| `!xp-edu-child-{nanoid}:gftd.ai` | 学,芽,守,育,遊 | 教育 × 子ども成長 協議 |
-| `!xp-fam-child-{nanoid}:gftd.ai` | 結,心,盾,和,守 | 家庭支援 × 子ども保護 協議 |
-| `!xp-safeguard-{nanoid}:gftd.ai` | 心,盾,守,和 | セーフガード緊急協議 |
+| `!xp-edu-child-{nanoid}:etzhayyim.com` | 学,芽,守,育,遊 | 教育 × 子ども成長 協議 |
+| `!xp-fam-child-{nanoid}:etzhayyim.com` | 結,心,盾,和,守 | 家庭支援 × 子ども保護 協議 |
+| `!xp-safeguard-{nanoid}:etzhayyim.com` | 心,盾,守,和 | セーフガード緊急協議 |
 | `!case-{application-id}` | 動的 | Fund 申請ケース別審査 (cross-project invite) |
 
 ## 6. App Components

@@ -168,7 +168,7 @@ export async function fetchHnLeads(opts: HnScrapeOpts = {}): Promise<HnScrapeRep
     let resp: Response;
     try {
       resp = await fetcher(url.toString(), {
-        headers: { "user-agent": "yatabase-lead-scraper/0.1 (+https://yatabase.gftd.ai)" },
+        headers: { "user-agent": "yatabase-lead-scraper/0.1 (+https://yatabase.etzhayyim.com)" },
       });
     } catch (e) {
       report.errors.push(`${tag}: fetch threw — ${e instanceof Error ? e.message : "unknown"}`);

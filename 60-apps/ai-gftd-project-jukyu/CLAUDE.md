@@ -2,14 +2,14 @@
 
 > **Runtime**: K8s pod-side LangServer / MCP / LangGraph Pregel. Cloudflare edge is only UI and proxy.
 
-`jukyu.gftd.ai` analyzes supply-demand imbalance and supply-chain stress across commodities, products, companies and countries. It is a System-of-Systems actor: domain actors remain source-of-truth, while Jukyu normalizes their outputs, runs global Pregel propagation, ranks company exposure, and emits target-company signals.
+`jukyu.etzhayyim.com` analyzes supply-demand imbalance and supply-chain stress across commodities, products, companies and countries. It is a System-of-Systems actor: domain actors remain source-of-truth, while Jukyu normalizes their outputs, runs global Pregel propagation, ranks company exposure, and emits target-company signals.
 
 ## App Identity
 
 | Key | Value |
 |---|---|
 | **nanoid** | `jukyu001` |
-| **DID** | `did:web:jukyu.gftd.ai` |
+| **DID** | `did:web:jukyu.etzhayyim.com` |
 | **Runtime** | `k8s-langserver` |
 | **Manifest** | `20-actors/jukyu/actor-manifest.jsonld` |
 | **Design** | `60-apps/ai-gftd-project-jukyu/JUKYU_DESIGN.md` |
@@ -54,7 +54,7 @@ No DB I/O runs in the edge UI. UI calls the MCP surface, which dispatches to pod
 
 ## LLM Integration
 
-Models route through `llm.gftd.ai` (LiteLLM gateway → murakumo-serve fleet).
+Models route through `llm.etzhayyim.com` (LiteLLM gateway → murakumo-serve fleet).
 
 | Role | Model | Trigger |
 |---|---|---|

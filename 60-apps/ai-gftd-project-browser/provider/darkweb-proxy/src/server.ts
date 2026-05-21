@@ -1,5 +1,5 @@
 /**
- * darkweb-proxy — Tor + Playwright HTTP fetch proxy for onion.gftd.ai
+ * darkweb-proxy — Tor + Playwright HTTP fetch proxy for onion.etzhayyim.com
  *
  * POST /fetch   { url: string, timeout?: number }
  *   → { statusCode, html, title, outboundLinks[], screenshotBase64?, error?, reachable }

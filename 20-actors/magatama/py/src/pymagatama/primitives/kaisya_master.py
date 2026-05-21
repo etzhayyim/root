@@ -1,4 +1,4 @@
-"""gftdcojp Artificial Organism — 30-minute master routine.
+"""etzhayyim Artificial Organism — 30-minute master routine.
 
 Maximizes: Ω(t) = Shannon_η(t) × U_total(t)
 

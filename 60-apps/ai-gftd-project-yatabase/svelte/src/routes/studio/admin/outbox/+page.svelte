@@ -8,7 +8,7 @@
 		EmptyState,
 		NotificationBanner,
 		Skeleton,
-	} from '@gftdcojp/design-system';
+	} from '@etzhayyim/design-system';
 	import { adminKey } from '$lib/stores';
 	import { outbox, ApiError, type OutboxRow } from '$lib/api';
 

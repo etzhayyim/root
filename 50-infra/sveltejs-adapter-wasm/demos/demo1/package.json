@@ -12,7 +12,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.18.2",
   "devDependencies": {
-    "@gftdcojp/sveltejs-adapter-wasm": "link:../../projects/sveltejs-adapter-wasm/adapter",
+    "@etzhayyim/sveltejs-adapter-wasm": "link:../../projects/sveltejs-adapter-wasm/adapter",
     "@sveltejs/adapter-auto": "^7.0.1",
     "@sveltejs/kit": "^2.52.2",
     "svelte": "^5.53.0",

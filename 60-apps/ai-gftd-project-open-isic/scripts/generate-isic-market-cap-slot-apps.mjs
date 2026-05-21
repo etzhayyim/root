@@ -30,7 +30,7 @@ function packageName(section, rank) {
 }
 
 function goModuleName(section, rank) {
-  return `github.com/gftdcojp/ai-gftd-legacy-public-company-isic-${section.toLowerCase()}-top-${pad2(rank)}`;
+  return `github.com/etzhayyim/ai-gftd-legacy-public-company-isic-${section.toLowerCase()}-top-${pad2(rank)}`;
 }
 
 function toGoString(value) {

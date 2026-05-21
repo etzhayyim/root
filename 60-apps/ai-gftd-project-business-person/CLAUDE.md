@@ -2,14 +2,14 @@
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/business-person/actor-manifest.jsonld`). Worker 不要.
 
-`business-person.gftd.ai` — Public business person registry (corporate officers + executives + board members). 100M public profiles globally. Sources: corporate registries + XBRL filings + Wikipedia + official disclosures.
+`business-person.etzhayyim.com` — Public business person registry (corporate officers + executives + board members). 100M public profiles globally. Sources: corporate registries + XBRL filings + Wikipedia + official disclosures.
 
 ## App Identity
 
 | Key | Value |
 |---|---|
 | **nanoid** | `bp3r5n0x` |
-| **DID** | `did:web:business-person.gftd.ai` |
+| **DID** | `did:web:business-person.etzhayyim.com` |
 | **Tier** | T1 |
 | **Lexicons** | `businessPerson/` (registerPerson, listPersons) |
 
@@ -17,7 +17,7 @@
 
 11 primaryRole: ceo / cfo / coo / cto / chairman / president / vice-president / director / founder / secretary / treasurer
 
-Path-based DID: `did:web:business-person.gftd.ai:bp:{slug}`
+Path-based DID: `did:web:business-person.etzhayyim.com:bp:{slug}`
 
 ## cross-actor
 
@@ -29,7 +29,7 @@ Path-based DID: `did:web:business-person.gftd.ai:bp:{slug}`
 ## PII handling (per ADR-0014)
 
 - public role / appointment data: Tier 1 (AT Repo, federable)
-- private contact info / non-public history: **Tier 3 (Preferences only)** via natural-person.gftd.ai DID link
+- private contact info / non-public history: **Tier 3 (Preferences only)** via natural-person.etzhayyim.com DID link
 - Wikipedia/XBRL データは public source なので Tier 1 OK
 
 ## Design

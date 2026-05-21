@@ -2,7 +2,7 @@
 
 **Status**: design  
 **Date**: 2026-04-17  
-**Context**: maps.gftd.ai は現在 OSM raster PNG tiles (`tile.openstreetmap.org/{z}/{x}/{y}.png`) を KAMI `upload_tile` で basemap として使用。ベクタ (`tileGeoJson`) と 3D 建物 (`addExtrudeLayer`) は RisingWave-native だが、**basemap 自体は XYZ pyramid pre-rendered raster** に依存している。  
+**Context**: maps.etzhayyim.com は現在 OSM raster PNG tiles (`tile.openstreetmap.org/{z}/{x}/{y}.png`) を KAMI `upload_tile` で basemap として使用。ベクタ (`tileGeoJson`) と 3D 建物 (`addExtrudeLayer`) は RisingWave-native だが、**basemap 自体は XYZ pyramid pre-rendered raster** に依存している。  
 **Goal**: OSM / Mapraly / Mapillary / Satellite の **raw 一次データ** から、**XYZ pyramid を介さず**、realtime に WebGPU で 3D レンダリングする forward topology を確立する。
 
 ## 用語

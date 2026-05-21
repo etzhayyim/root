@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-36ed2c48911a",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-36ed2c48911a",
   "entityId": "ent-36ed2c48911a",
   "canonicalName": "sinotech industry co., ltd.",
   "aliases": [

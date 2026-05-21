@@ -22,7 +22,7 @@ import { Kysely } from "kysely";
 //   - Graph app-only token: KEK envelope encrypt → GRAPH_D1 (SS_GRAPH_TOKEN_KEK)
 //   - Graph delegated (Teams 送信): 本 Worker 外で device code flow を実行
 //   - RisingWave write: rwQuery() が DDL/DML を正規表現で全拒否 (read-only)
-//   - メール送信: draft_only (gftdcojp_agent ルール準拠、実送信しない)
+//   - メール送信: draft_only (etzhayyim_agent ルール準拠、実送信しない)
 //   - MCP tool アクセス: PDS mcp-adapter の ToolGrant (CAN_USE) でゲート
 //
 // Secret 管理: macOS Keychain (gftd.m365/CLIENT_SECRET) → CF Secrets Store
@@ -33,7 +33,7 @@ import { Kysely } from "kysely";
 //   magatama.jsonld の derive rule で PDS commit pipeline が自動導出。
 // ────────────────────────────────────────────────────────────────────────────
 
-const ACTOR_DID = "did:web:cowork-graph.gftd.ai";
+const ACTOR_DID = "did:web:cowork-graph.etzhayyim.com";
 const NSID_NS   = "ai.gftd.apps.coworkGraph";
 const GRAPH_BASE = "https://graph.microsoft.com/v1.0";
 
@@ -326,7 +326,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     withCapabilityTags("msgraph", "mail", "read"),
   );
 
-  // メール送信は draft_only (gftdcojp_agent ルール準拠)
+  // メール送信は draft_only (etzhayyim_agent ルール準拠)
   sdk.app.command(
     nsid(`${NSID_NS}.mailDraft`),
     async (_ctx, params: {
@@ -693,8 +693,8 @@ export default createWorkerExport((sdk: HostSDK) => {
     }) => {
       const { teamId, channelId, processInstanceId = genID(), projectName = "新規案件" } = params;
 
-      const KAISYA_URL = "https://kaisya.gftd.ai";
-      const COWORK_URL = "https://cowork.gftd.ai";
+      const KAISYA_URL = "https://kaisya.etzhayyim.com";
+      const COWORK_URL = "https://cowork.etzhayyim.com";
 
       const memberGuide: Array<{ handle: string; role: string; tasks: string; formPath: string; step: string }> = [
         {
@@ -769,7 +769,7 @@ export default createWorkerExport((sdk: HostSDK) => {
         .join("\n");
 
       const html = `
-<h2>🤖 gftdcojp 業務フロー — BPMN 開始案内</h2>
+<h2>🤖 etzhayyim 業務フロー — BPMN 開始案内</h2>
 <p><b>案件:</b> ${projectName} &nbsp;|&nbsp; <b>プロセスID:</b> <code>${processInstanceId}</code></p>
 <p>
   契約メンバーの皆さんへ。以下の BPMN 業務フローが開始されました。<br>
@@ -827,14 +827,14 @@ ${memberRows}
 
 <hr>
 <p><i>このメッセージは kaisya-gftd-bot (総合 artificial organism) が自動送信しました。<br>
-プロセスID: <code>${processInstanceId}</code> — kaisya.gftd.ai で進捗確認できます。</i></p>
+プロセスID: <code>${processInstanceId}</code> — kaisya.etzhayyim.com で進捗確認できます。</i></p>
       `.trim();
 
       const result = await graphPost<{ id: string; webUrl: string }>(
         env,
         `/teams/${encodeURIComponent(teamId)}/channels/${encodeURIComponent(channelId)}/messages`,
         {
-          subject: `🤖 gftdcojp BPMN 業務フロー開始: ${projectName}`,
+          subject: `🤖 etzhayyim BPMN 業務フロー開始: ${projectName}`,
           body: { contentType: "html", content: html },
         },
       );
@@ -867,7 +867,7 @@ ${memberRows}
         note: "BPMN 案内を GJ/CE/General に投稿しました",
       };
     },
-    asAgentTool("gftdcojp BPMN 業務フロー案内を Teams GJ/CE/General に投稿する (kaisya-gftd-bot)"),
+    asAgentTool("etzhayyim BPMN 業務フロー案内を Teams GJ/CE/General に投稿する (kaisya-gftd-bot)"),
     withCapabilityTags("msgraph", "teams", "bpmn", "guidance"),
   );
 

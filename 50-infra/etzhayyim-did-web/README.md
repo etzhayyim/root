@@ -78,6 +78,6 @@ To add more `.well-known/` artifacts, expand `wrangler.toml` routes to a wildcar
 
 ## Related
 
-- **ADR** (vendor monorepo): `gftdcojp/ai-gftd-apps-gftdcojp` → `90-docs/adr/2605152100-etzhayyim-github-org-boundary.md` § "did:web publish"
-- **Operating entity SSoT**: `gftdcojp/ai-gftd-apps-gftdcojp` → `deps.toml [platform.operating_entity]`
+- **ADR** (vendor monorepo): `etzhayyim/etzhayyim-root` → `90-docs/adr/2605152100-etzhayyim-github-org-boundary.md` § "did:web publish"
+- **Operating entity SSoT**: `etzhayyim/etzhayyim-root` → `deps.toml [platform.operating_entity]`
 - **Cloudflare Registrar registration**: 2026-05-15T12:08:36Z, NS `everton/vivienne.ns.cloudflare.com`

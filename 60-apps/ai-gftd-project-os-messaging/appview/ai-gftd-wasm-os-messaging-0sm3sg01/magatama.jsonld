@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:os-messaging.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:os-messaging.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -38,7 +38,7 @@
   "project": "os-messaging",
   "routes": [
     {
-      "host": "os-messaging.gftd.ai",
+      "host": "os-messaging.etzhayyim.com",
       "paths": [
         "/"
       ],

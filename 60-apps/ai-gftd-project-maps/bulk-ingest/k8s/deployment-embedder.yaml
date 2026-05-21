@@ -6,7 +6,7 @@
 # `POST /embed { texts: [...] }`. Two callers:
 #   1. CronJobs maps-search-ivf-{incremental,retrain} → cluster-internal
 #      DNS http://bulk-ingest-embedder.maps-bulk-ingest.svc:8080
-#   2. maps Worker (CF) → public cf-tunnel https://embedder.gftd.ai/embed
+#   2. maps Worker (CF) → public cf-tunnel https://embedder.etzhayyim.com/embed
 #      (see embedder-tunnel.yaml in 50-infra/vultr/cloudflared/)
 #
 # Required Secret keys in maps-bulk-ingest-credentials:
@@ -43,7 +43,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: embedder
-          image: ghcr.io/gftdcojp/maps-bulk-ingest:1.5.1
+          image: ghcr.io/etzhayyim/maps-bulk-ingest:1.5.1
           imagePullPolicy: IfNotPresent
           command: ["python", "/app/workers/embedder_serve.py"]
           ports:

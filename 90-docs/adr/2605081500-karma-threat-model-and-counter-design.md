@@ -50,7 +50,7 @@ deployable.
 floor (K=50) never crossed → ecosystem never starts.
 
 **Counter**:
-- B-path commercial primer: `shosha.gftd.ai` + `lawfirm.gftd.ai` +
+- B-path commercial primer: `shosha.etzhayyim.com` + `lawfirm.etzhayyim.com` +
   `kaisya` (B2B revenue actors) seed initial cohort with paying
   organisms.
 - Bootstrap incentive: first 100 organisms get a one-time
@@ -109,11 +109,11 @@ stability` axiom must be Lean-formalized before mainnet K5.
 
 ## A4. Nation-state attack (regulatory / takedown)
 
-**Attack**: a state actor declares karma.gftd.ai a "systemic risk"
+**Attack**: a state actor declares karma.etzhayyim.com a "systemic risk"
 and demands shutdown / data handover.
 
 **Counter**:
-- 5-layer persistence: even with 100% gftd.ai infrastructure
+- 5-layer persistence: even with 100% etzhayyim.com infrastructure
   seizure, IPFS-ext (Pinata + Filebase + Web3.Storage) +
   Filecoin + Ethereum anchor survive. Karma cannot be "pulled
   down" by single jurisdiction.

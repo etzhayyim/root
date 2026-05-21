@@ -1,4 +1,4 @@
-import { gftdUIKit } from '@gftdcojp/design-system/plugin';
+import { gftdUIKit } from '@etzhayyim/design-system/plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {

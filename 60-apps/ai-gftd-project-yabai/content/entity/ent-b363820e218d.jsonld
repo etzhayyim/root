@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-b363820e218d",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b363820e218d",
   "entityId": "ent-b363820e218d",
   "canonicalName": "товариство з обмеженою відповідальністю «дж.т.і. росія»",
   "aliases": [

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  const FIRM_DID = 'did:web:lawyer.gftd.ai';
-  const LAWYER_DID = 'did:web:k-bakshi.gftd.ai';
+  const FIRM_DID = 'did:web:lawyer.etzhayyim.com';
+  const LAWYER_DID = 'did:web:k-bakshi.etzhayyim.com';
 
   const DOCUMENT_TYPES = [
     { value: 'vakalatnama', label: 'Vakalatnama' },

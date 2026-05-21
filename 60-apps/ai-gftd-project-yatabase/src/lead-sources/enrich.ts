@@ -22,7 +22,7 @@
 const RFC2606_SKIPPABLE = new Set(["example", "test", "invalid", "localhost"]);
 
 const USER_AGENT =
-  "yatabase-enrich-bot/0.1 (+https://yatabase.gftd.ai/.well-known/agent.json)";
+  "yatabase-enrich-bot/0.1 (+https://yatabase.etzhayyim.com/.well-known/agent.json)";
 
 const ROLE_PATTERNS = [
   "hello",

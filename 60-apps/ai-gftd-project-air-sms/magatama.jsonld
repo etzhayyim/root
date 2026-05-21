@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:air-sms.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:air-sms.etzhayyim.com",
   "name": "air-sms",
   "nanoid": "a1rsms01",
   "project": "air-sms",

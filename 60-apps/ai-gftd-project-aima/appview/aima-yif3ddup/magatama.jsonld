@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:aima.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:aima.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -69,7 +69,7 @@
   "project": "aima",
   "routes": [
     {
-      "host": "aima.gftd.ai",
+      "host": "aima.etzhayyim.com",
       "paths": [
         "/"
       ],

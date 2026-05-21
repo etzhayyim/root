@@ -1,4 +1,4 @@
-# akuma.gftd.ai — Authorized Red Team Probing
+# akuma.etzhayyim.com — Authorized Red Team Probing
 
 スコープ契約で縛った authorized red team / vulnerability probing actor。
 ADR-2605151400 が SSoT。
@@ -12,9 +12,9 @@ ADR-2605151400 が SSoT。
 | **Probe execution** | K8s namespace `akuma-probe` with egress NetworkPolicy reconciled from active scopes |
 | **External surface** | magatama MCP facade only (ADR-2605091400 cytoplasmic demotion) |
 | **Persistence** | `vertex_akuma_scope`, `vertex_akuma_probe`, `vertex_akuma_finding`, `vertex_akuma_audit` (append-only; no soft delete) |
-| **Vault** | finding raw payloads ciphertext-stored in `vault.gftd.ai` (zero-knowledge invariant) |
+| **Vault** | finding raw payloads ciphertext-stored in `vault.etzhayyim.com` (zero-knowledge invariant) |
 | **Operating entity** | etzhayyim (Gftd Japan = vendor only) |
-| **Domain** | `akuma.gftd.ai` / `ak0m4r3d.gftd.ai` |
+| **Domain** | `akuma.etzhayyim.com` / `ak0m4r3d.etzhayyim.com` |
 
 ## XRPC surface (`ai.gftd.apps.akuma.*`)
 
@@ -86,7 +86,7 @@ until the human-driven steps below are executed:
 1. **Authority key**: `70-tools/scripts/akuma/provision-authority-key.sh` (writes
    Ed25519 keypair to macOS Keychain `gftd.akuma`; mirror to 1Password
    `Gftd Japan株式会社`); publish `AUTHORITY_SIGNING_KEY_PUBLIC` at
-   `https://akuma.gftd.ai/.well-known/did.json` `verificationMethod`.
+   `https://akuma.etzhayyim.com/.well-known/did.json` `verificationMethod`.
 2. **K8s apply**: `rw-health-gate.sh` then `kubectl apply -k 50-infra/k8s/akuma-langserver/`.
    Implement `pymagatama.akuma.scope_egress_reconciler` per pseudo-code in
    `50-infra/k8s/akuma-langserver/README.md` before reconciler image is built.

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-64f14664f135",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-64f14664f135",
   "entityId": "ent-64f14664f135",
   "canonicalName": "pescabrava, s.a.",
   "aliases": [

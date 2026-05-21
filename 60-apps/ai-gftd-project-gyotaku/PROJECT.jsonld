@@ -1,5 +1,5 @@
 {
-  "@context": "https://1.gftd.ai/project",
+  "@context": "https://1.etzhayyim.com/project",
   "@type": "Project",
   "name": "ai-gftd-project-gyotaku",
   "description": "Time-series web archive project integrated with crawler and Common Crawl range retrieval",
@@ -12,13 +12,13 @@
       "keda": false,
       "routes": [
         {
-          "host": "gftd.ai",
+          "host": "etzhayyim.com",
           "paths": [
             "/gy0taku1/api/grpc"
           ]
         },
         {
-          "host": "gyotaku.gftd.ai",
+          "host": "gyotaku.etzhayyim.com",
           "paths": [
             "/api/grpc"
           ]

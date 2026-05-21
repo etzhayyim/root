@@ -24,7 +24,7 @@
     "get-leaderboard",
     "submit-score"
   ],
-  "guestDIDPrefix": "did:web:kami.gftd.ai:guest:",
+  "guestDIDPrefix": "did:web:kami.etzhayyim.com:guest:",
   "heroPreference": "iframe",
   "kpi": [
     "credits の獲得"
@@ -57,14 +57,14 @@
   },
   "routes": [
     {
-      "host": "gorigori-ketsu-dasshu.gftd.ai",
+      "host": "gorigori-ketsu-dasshu.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "ketsu-gorilla-kami.gftd.ai",
+      "host": "ketsu-gorilla-kami.etzhayyim.com",
       "paths": [
         "/"
       ],

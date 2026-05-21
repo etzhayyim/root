@@ -18,10 +18,10 @@
   onMount(() => { load(); });
 
   function convoUrl(m: Matter): string {
-    return `https://yoro.gftd.ai/convo/${encodeURIComponent(m.matterRkey)}?firm=${encodeURIComponent(m.firmDid)}`;
+    return `https://yoro.etzhayyim.com/convo/${encodeURIComponent(m.matterRkey)}?firm=${encodeURIComponent(m.firmDid)}`;
   }
   function dmUrl(peerDid: string): string {
-    return `https://yoro.gftd.ai/dm/${encodeURIComponent(peerDid)}`;
+    return `https://yoro.etzhayyim.com/dm/${encodeURIComponent(peerDid)}`;
   }
 </script>
 
@@ -38,7 +38,7 @@
 
 <p class="text-xs text-neutral-500 mb-4">
   Each active matter spawns an AT Protocol convo (matter-scoped DM). Opening a thread
-  delegates to <span class="font-mono">yoro.gftd.ai</span> — lawfirm only controls the index and
+  delegates to <span class="font-mono">yoro.etzhayyim.com</span> — lawfirm only controls the index and
   reads convoId from the matter record. Client + lead + co-counsel + accepted external counsel
   are auto-members; privileged tag is applied to every message.
 </p>

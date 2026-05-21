@@ -97,7 +97,7 @@ const EMBED_HTML = String.raw`<!doctype html>
   </section>
 </main>
 <script>
-const BASE = "https://atproto.gftd.ai/xrpc";
+const BASE = "https://atproto.etzhayyim.com/xrpc";
 function nonEmpty(o){const r={};for(const[k,v] of Object.entries(o))if(v!==""&&v!=null&&!Number.isNaN(v))r[k]=v;return r}
 async function call(nsid, body){
   const res = await fetch(BASE+"/"+nsid,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body||{})});

@@ -12,8 +12,8 @@ Public-feed-only corporate-linked 求人 aggregator. T1 MCP-Compose (Logical Act
 ## DID Path Convention
 
 ```
-did:web:recruit.gftd.ai:posting:{sourceCode}:{sourceId}
-did:web:recruit.gftd.ai:source:{sourceCode}
+did:web:recruit.etzhayyim.com:posting:{sourceCode}:{sourceId}
+did:web:recruit.etzhayyim.com:source:{sourceCode}
 ```
 
 `sourceCode` = `esco` / `onet` / `eures` / `hellowork` / `usajobs` / `jobbank`
@@ -82,5 +82,5 @@ Operational notes:
 
 ## cross-actor
 
-- Upstream: `isco.gftd.ai` (occupation taxonomy)、`legal-entity.gftd.ai` (employer authenticity)
-- Downstream: `talent.gftd.ai` (matching delegate、PII 分離)、`business-person.gftd.ai`
+- Upstream: `isco.etzhayyim.com` (occupation taxonomy)、`legal-entity.etzhayyim.com` (employer authenticity)
+- Downstream: `talent.etzhayyim.com` (matching delegate、PII 分離)、`business-person.etzhayyim.com`

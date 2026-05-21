@@ -1,4 +1,4 @@
-// yuubin.gftd.ai — 日本郵便 Web ゆうびん 自動化 actor (T3 TS Native, MCP-callable)
+// yuubin.etzhayyim.com — 日本郵便 Web ゆうびん 自動化 actor (T3 TS Native, MCP-callable)
 //
 // MCP topology (3 tiers):
 //   Tier 1 (high-level orchestration):
@@ -148,7 +148,7 @@ function formatAddressOneLine(a: PostalAddress): string {
 
 async function uploadToCdn(env: Record<string, unknown>, bytes: Uint8Array, contentType: string): Promise<{ blobKey: string; deduped: boolean; publicUrl: string }> {
   const blobKey = await sha256Hex(bytes);
-  const baseUrl = str(env.CDN_PUBLIC_BASE_URL ?? "https://yuubin.gftd.ai/api/blob");
+  const baseUrl = str(env.CDN_PUBLIC_BASE_URL ?? "https://yuubin.etzhayyim.com/api/blob");
   const existing = await cdnHead(env as Record<string, string>, blobKey).catch(() => null);
   let deduped = false;
   if (existing) {
@@ -572,7 +572,7 @@ async function cmdComposeAndPost(sdk: HostSDK, body: Uint8Array) {
   }
 
   // ── manual handoff ──
-  const cdnBase = str(sdk.env.CDN_PUBLIC_BASE_URL ?? "https://yuubin.gftd.ai/api/blob");
+  const cdnBase = str(sdk.env.CDN_PUBLIC_BASE_URL ?? "https://yuubin.etzhayyim.com/api/blob");
   const docUrl = url || `${cdnBase}/${blobKey}`;
   const webyubinUrl = str(sdk.env.WEBYUBIN_LOGIN_URL ?? "https://webyubin.jpi.post.japanpost.jp/");
 
@@ -580,7 +580,7 @@ async function cmdComposeAndPost(sdk: HostSDK, body: Uint8Array) {
   if (teamsChannelEmail || operatorEmail) {
     try {
       const recipients = [teamsChannelEmail, operatorEmail].filter(Boolean);
-      const r = await fetch("https://mailer.gftd.ai/xrpc/ai.gftd.apps.mailer.send", {
+      const r = await fetch("https://mailer.etzhayyim.com/xrpc/ai.gftd.apps.mailer.send", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({

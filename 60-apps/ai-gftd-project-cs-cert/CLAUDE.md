@@ -5,10 +5,10 @@
 GFTD CS Certified — サイバーセキュリティ診断済みサイトに認証ロゴ (バッジ) を発行・表示するサービス。
 SSL trust seal のように、セキュリティ診断完了サイトが信頼性を証明するバッジを埋め込める。
 
-- **公開ドメイン**: `certs.gftd.ai`
-- **API**: `certs.gftd.ai/xrpc` (XRPC-Web)
-- **バッジ配信**: `certs.gftd.ai/badge/{certId}.svg` / `.js`
-- **検証ページ**: `certs.gftd.ai/verify/{certId}`
+- **公開ドメイン**: `certs.etzhayyim.com`
+- **API**: `certs.etzhayyim.com/xrpc` (XRPC-Web)
+- **バッジ配信**: `certs.etzhayyim.com/badge/{certId}.svg` / `.js`
+- **検証ページ**: `certs.etzhayyim.com/verify/{certId}`
 
 ## Certification Levels
 
@@ -50,5 +50,5 @@ ai-gftd-project-cs-cert/
 - **XRPC**: component 間通信は XRPC (HTTP/2)
 - **App namespace**: `magatama-runtime`
 - **Performer framework**: `70-tools/performer` を使用
-- **Static assets**: App 内の static delivery (`certs.gftd.ai`) で配信
+- **Static assets**: App 内の static delivery (`certs.etzhayyim.com`) で配信
 - **API-Only component**: wasm component は API + バッジ SVG のみ処理

@@ -11,7 +11,7 @@
           "country":     { "type": "string", "description": "ISO-3166-1 alpha-2" },
           "region":      { "type": "string", "description": "free-form region slug (asia / europe / mena / americas / africa / oceania)" },
           "city":        { "type": "string" },
-          "chainDid":    { "type": "string", "format": "did", "description": "did:web:hospitality.gftd.ai:actor:chain:* filter" },
+          "chainDid":    { "type": "string", "format": "did", "description": "did:web:hospitality.etzhayyim.com:actor:chain:* filter" },
           "isicCode":    { "type": "string", "enum": ["I5510","I5520","N7911"], "default": "I5510" },
           "checkin":     { "type": "string", "description": "YYYY-MM-DD" },
           "checkout":    { "type": "string", "description": "YYYY-MM-DD" },

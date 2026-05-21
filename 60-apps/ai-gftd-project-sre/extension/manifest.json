@@ -1,8 +1,8 @@
 {
   "manifestVersion": 3,
-  "name": "gftd.ai SRE Toolbar",
+  "name": "etzhayyim.com SRE Toolbar",
   "version": "1.0.0",
-  "description": "SRE toolbar for gftd.ai - system status, feedback, and operational monitoring.",
+  "description": "SRE toolbar for etzhayyim.com - system status, feedback, and operational monitoring.",
   "icons": {
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",
@@ -14,7 +14,7 @@
     "scripting"
   ],
   "hostPermissions": [
-    "https://*.gftd.ai/*"
+    "https://*.etzhayyim.com/*"
   ],
   "action": {
     "defaultPopup": "popup.html"
@@ -26,7 +26,7 @@
   "contentScripts": [
     {
       "matches": [
-        "https://*.gftd.ai/*"
+        "https://*.etzhayyim.com/*"
       ],
       "js": [
         "content/toolbar.js"
@@ -44,7 +44,7 @@
         "content/inject.js"
       ],
       "matches": [
-        "https://*.gftd.ai/*"
+        "https://*.etzhayyim.com/*"
       ]
     }
   ]

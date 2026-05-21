@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -60,7 +60,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/activities/scap-data-search",
+  "@id": "https://scap.etzhayyim.com/activities/scap-data-search",
   "@type": [
     "dodaf:Activity",
     "prov:Activity"
@@ -71,64 +71,64 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "performedBy": [
     {
-      "@id": "https://scap.gftd.ai/performers/services/graphql"
+      "@id": "https://scap.etzhayyim.com/performers/services/graphql"
     }
   ],
   "produces": [
     {
-      "@id": "https://scap.gftd.ai/resources/search-results",
+      "@id": "https://scap.etzhayyim.com/resources/search-results",
       "name": "Search Results",
       "description": "Filtered and paginated SCAP data search results"
     }
   ],
   "consumes": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions"
     }
   ],
   "requires": [
     {
-      "@id": "https://scap.gftd.ai/capabilities/data-integration"
+      "@id": "https://scap.etzhayyim.com/capabilities/data-integration"
     }
   ],
   "enables": [
     {
-      "@id": "https://scap.gftd.ai/effect/unified-scap-platform"
+      "@id": "https://scap.etzhayyim.com/effect/unified-scap-platform"
     }
   ],
   "realizes": [
     {
-      "@id": "https://scap.gftd.ai/goal/search-scap-data"
+      "@id": "https://scap.etzhayyim.com/goal/search-scap-data"
     }
   ],
   "step": [
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-search/parse-query",
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-search/parse-query",
       "name": "Parse Query",
       "description": "Parse search query parameters and filters",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/queries.rs"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/queries.rs"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-search/query-database",
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-search/query-database",
       "name": "Query Database",
       "description": "Query PostgreSQL database using Diesel ORM via Rust GraphQL service with filters",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/queries.rs"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/queries.rs"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-search/format-results",
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-search/format-results",
       "name": "Format Results",
       "description": "Format search results with statistics and pagination",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/queries.rs"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/queries.rs"
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/queries.rs",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/app/search/page.tsx"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/queries.rs",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/app/search/page.tsx"
   ]
 }

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-215d184c830b",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-215d184c830b",
   "entityId": "ent-215d184c830b",
   "canonicalName": "rodriguez orejuela, miguel angel",
   "aliases": [

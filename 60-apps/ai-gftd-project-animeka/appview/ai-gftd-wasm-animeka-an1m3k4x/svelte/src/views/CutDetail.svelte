@@ -118,7 +118,7 @@
   <header>
     <div class="title-block">
       <h1>Cut <code>{rkey}</code></h1>
-      <span class="meta muted">{authority ?? 'an1m3k4x.gftd.ai'} · {createdAt()}</span>
+      <span class="meta muted">{authority ?? 'an1m3k4x.etzhayyim.com'} · {createdAt()}</span>
     </div>
     <nav class="tabs">
       <button class:active={tab === 'storyboard'} onclick={() => tab = 'storyboard'}>

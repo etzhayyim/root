@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:nist.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:nist.etzhayyim.com",
   "name": "nist",
   "nanoid": "n1st0csf",
   "performerType": "service",
@@ -11,7 +11,7 @@
       "entrypoint": "src/app.ts"
     },
     "env": {
-      "DISPATCHER_URL": "https://dispatcher.gftd.ai"
+      "DISPATCHER_URL": "https://dispatcher.etzhayyim.com"
     },
     "framework": "ts-thin-edge-fallback",
     "path": "src/app.ts"

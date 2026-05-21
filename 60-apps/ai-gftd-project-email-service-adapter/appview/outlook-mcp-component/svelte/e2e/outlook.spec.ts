@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = 'https://outlook.gftd.ai';
+const BASE = 'https://outlook.etzhayyim.com';
 
-test.describe('outlook.gftd.ai — Worker Health', () => {
+test.describe('outlook.etzhayyim.com — Worker Health', () => {
   test('worker health returns ok', async ({ request }) => {
     const res = await request.get(`${BASE}/_worker/health`);
     expect(res.ok()).toBeTruthy();
@@ -29,7 +29,7 @@ test.describe('outlook.gftd.ai — Worker Health', () => {
   });
 });
 
-test.describe('outlook.gftd.ai — API Endpoints', () => {
+test.describe('outlook.etzhayyim.com — API Endpoints', () => {
   test('GetOAuthConfig returns clientId and tenantId', async ({ request }) => {
     const res = await request.post(`${BASE}/xrpc/gftd.outlook.v1.OutlookService/GetOAuthConfig`, {
       headers: { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-test' },
@@ -97,7 +97,7 @@ test.describe('outlook.gftd.ai — API Endpoints', () => {
   });
 });
 
-test.describe('outlook.gftd.ai — Browser Render', () => {
+test.describe('outlook.etzhayyim.com — Browser Render', () => {
   test('page loads with Outlook heading', async ({ page }) => {
     await page.goto(BASE, { waitUntil: 'networkidle' });
     await expect(page.locator('h1')).toContainText('Outlook', { timeout: 15_000 });

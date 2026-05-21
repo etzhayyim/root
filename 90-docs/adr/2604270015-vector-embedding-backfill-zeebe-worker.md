@@ -137,13 +137,13 @@ Default model settings:
 Verified on 2026-04-27:
 
 - worker image:
-  `ghcr.io/gftdcojp/pymagatama:yoro-vector-embedding-20260427-search768d-amd64`
+  `ghcr.io/etzhayyim/pymagatama:yoro-vector-embedding-20260427-search768d-amd64`
 - AppView version:
   `3f5dd746-87e0-4da1-9a88-e5f91ec2a009`
 - yoro actor root:
   `did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`
 - yoro facade:
-  `did:web:yoro.gftd.ai`
+  `did:web:yoro.etzhayyim.com`
 - live counters after the first ERC725 actor backfill:
   `view_root_erc725=1`, `edge_actual_yoro=1`,
   `embedding_erc725_actor=1`

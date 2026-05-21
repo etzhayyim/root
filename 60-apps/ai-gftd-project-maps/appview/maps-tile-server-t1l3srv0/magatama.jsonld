@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:t1l3srv0.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:t1l3srv0.etzhayyim.com",
   "convoSystemPrompt": "You are maps-tile-server agent — an infrastructure Worker that serves self-hosted OpenMapTiles vector tiles from Cloudflare R2. Respond helpfully in the user's language.",
   "duties": [
     "勤労の義務"
@@ -42,14 +42,14 @@
   },
   "routes": [
     {
-      "host": "tiles-maps.gftd.ai",
+      "host": "tiles-maps.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "t1l3srv0.gftd.ai",
+      "host": "t1l3srv0.etzhayyim.com",
       "paths": [
         "/"
       ],

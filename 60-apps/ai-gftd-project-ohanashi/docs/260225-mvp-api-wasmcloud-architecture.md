@@ -8,7 +8,7 @@
 : セッション状態管理、対話制御、ガードレール、エスカレーション。
 - `ohanashi-summary-worker`
 : 通話終了後の要約生成と通知投入。
-- `ohanashi-family-portal` (`ohanashi.gftd.ai`)
+- `ohanashi-family-portal` (`ohanashi.etzhayyim.com`)
 : 同意・通知先設定・履歴閲覧。
 
 ## 2. API Contract (MVP)
@@ -92,13 +92,13 @@ mage Deploy
 Post deploy checks:
 ```bash
 kubectl get mga ohanashi-voice-orchestrator -n magatama-runtime
-curl -fsS https://ohanashi.gftd.ai/_app/version.json
+curl -fsS https://ohanashi.etzhayyim.com/_app/version.json
 ```
 
 ## 5. Routing
 
-- Primary host: `ohanashi.gftd.ai`
-- MCP endpoint: `https://ohanashi.gftd.ai/api/mcp`
+- Primary host: `ohanashi.etzhayyim.com`
+- MCP endpoint: `https://ohanashi.etzhayyim.com/api/mcp`
 - Legacy path-based routing は追加しない
 
 ## 6. Safety Guardrails

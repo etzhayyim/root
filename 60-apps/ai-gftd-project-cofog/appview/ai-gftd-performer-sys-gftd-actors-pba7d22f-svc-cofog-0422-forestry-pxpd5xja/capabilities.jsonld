@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/2/2/forestry",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/2/2/forestry",
       "type": "dodaf:Capability",
       "name": "Sustainable Forestry and Resource Management Capability",
       "description": "Functional capability for managing forest resources, reforestation, and sustainable logging oversight. Classification: COFOG Division 04, Group 2, Class 2.",

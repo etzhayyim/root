@@ -208,7 +208,7 @@ http://llama-vulkan-fleet.murakumo-system.svc.cluster.local:8080/v1
 When LangGraph Server remains on `vke-primary`, cross-cluster Service DNS is not
 assumed. The endpoint must be an explicit WireGuard, Cloudflare Tunnel, or other
 declared gateway URL per ADR-2604251821. Do not silently fall back to public
-`llm.gftd.ai` for resident organism loops; a missing Murakumo route is a
+`llm.etzhayyim.com` for resident organism loops; a missing Murakumo route is a
 degraded organism capability and should be observable.
 
 ### RisingWave custom storage 実装

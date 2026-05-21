@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { createVrmEngine, type VrmEngine } from '@gftdcojp/kami-engine-sdk/builders';
+  import { createVrmEngine, type VrmEngine } from '@etzhayyim/kami-engine-sdk/builders';
 
   type Role = 'user' | 'assistant';
   type Provider = 'projector' | 'openai';
@@ -22,7 +22,7 @@
   ];
 
   let vrmUrl = localStorage.getItem('baminiku:vrm-url') ?? DEFAULT_VRM_URL;
-  let agentDid = localStorage.getItem('baminiku:agent-did') ?? 'did:web:baminiku.gftd.ai';
+  let agentDid = localStorage.getItem('baminiku:agent-did') ?? 'did:web:baminiku.etzhayyim.com';
   let bearer = localStorage.getItem('baminiku:access-jwt') ?? '';
 
   let openaiBase = localStorage.getItem('baminiku:openai-base') ?? 'https://api.openai.com/v1';
@@ -39,7 +39,7 @@
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), opts.timeout ?? 30_000);
     try {
-      const res = await fetch(`https://atproto.gftd.ai/xrpc/${nsid}`, {
+      const res = await fetch(`https://atproto.etzhayyim.com/xrpc/${nsid}`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',

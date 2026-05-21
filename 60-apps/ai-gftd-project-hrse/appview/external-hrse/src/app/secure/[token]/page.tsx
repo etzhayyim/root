@@ -1,6 +1,6 @@
 "use client";
 
-// @gftdcojp/ai-gftd-hrse#SecureLinkPage
+// @etzhayyim/ai-gftd-hrse#SecureLinkPage
 // Secure Link Access Page
 
 import { useParams, useRouter } from "next/navigation";

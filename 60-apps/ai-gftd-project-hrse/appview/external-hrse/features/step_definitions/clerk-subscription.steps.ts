@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#ClerkSubscriptionSteps
+// @etzhayyim/cyber-freelance#ClerkSubscriptionSteps
 // Clerk Subscription関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

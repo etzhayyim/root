@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/08/1/0/recreational-sporting-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/1/0/recreational-sporting-services",
       "type": "dodaf:Capability",
       "name": "Recreational and Sporting Infrastructure Capability",
       "description": "Functional capability for managing sporting facilities, athletic grants, and public recreation events. Classification: COFOG Division 08, Group 1, Class 0.",

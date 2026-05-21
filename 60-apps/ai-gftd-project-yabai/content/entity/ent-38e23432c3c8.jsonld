@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-38e23432c3c8",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-38e23432c3c8",
   "entityId": "ent-38e23432c3c8",
   "canonicalName": "amezcua contreras, jose de jesus",
   "aliases": [

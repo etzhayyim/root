@@ -9,7 +9,7 @@ use crate::worker::detect_gpu;
 pub async fn cmd_install(cfg: &mut NodeConfig) {
     println!("═══════════════════════════════════════════════════");
     println!("  gftd-murakumo -- Native Compute Worker");
-    println!("  HTTP/3 direct to murakumo.gftd.ai CF Worker");
+    println!("  HTTP/3 direct to murakumo.etzhayyim.com CF Worker");
     println!("═══════════════════════════════════════════════════");
     println!();
     println!("Endpoint:  {}", cfg.endpoint);
@@ -36,7 +36,7 @@ pub async fn cmd_install(cfg: &mut NodeConfig) {
     logf(&format!("  capabilities: {:?}", capabilities));
 
     // 3. Register
-    logf("-> Registering with murakumo.gftd.ai/join...");
+    logf("-> Registering with murakumo.etzhayyim.com/join...");
     let hostname = hostname::get()
         .map(|h| h.to_string_lossy().to_string())
         .unwrap_or_default();
@@ -173,7 +173,7 @@ fn install_magatama_inference() {
     let os = std::env::consts::OS;
     let arch = std::env::consts::ARCH;
     let binary_name = format!("magatama-inference-{}-{}", os, arch);
-    let url = format!("https://cdn.gftd.ai/bin/magatama-inference/latest/{}", binary_name);
+    let url = format!("https://cdn.etzhayyim.com/bin/magatama-inference/latest/{}", binary_name);
 
     logf(&format!("  downloading {} from {}", binary_name, url));
     let tmp_file = "/tmp/magatama-inference-download";

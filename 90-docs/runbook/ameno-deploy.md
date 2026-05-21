@@ -6,8 +6,8 @@ phase already landed on `260512-agent-loop-main`; nothing here is
 green-field. The runbook makes the chain reproducible and surfaces the
 known operational gotchas before they bite during a live rollout.
 
-- Actor: `did:web:ameno.gftd.ai` (nanoid `d94d27cb`)
-- Edge: CF Worker `ameno.gftd.ai` (XRPC dispatcher; ADR-2605111200 — no DB)
+- Actor: `did:web:ameno.etzhayyim.com` (nanoid `d94d27cb`)
+- Edge: CF Worker `ameno.etzhayyim.com` (XRPC dispatcher; ADR-2605111200 — no DB)
 - Pod: `ameno-langserver` in namespace `mitama-udf` (pymagatama image)
 - Persist: `vertex_ameno_inferenceresult` on RisingWave (Vultr VKE)
 - Firehose: NATS JetStream `pds.repo.commit.app_bsky_feed_post`
@@ -91,7 +91,7 @@ none of them are in the current production image
 # Remote BuildKit only (50-infra/CLAUDE.md — no local docker for VKE
 # images; OrbStack/Rosetta is not a fallback).
 70-tools/scripts/buildkit/remote-build.sh \
-  --image ghcr.io/gftdcojp/pymagatama \
+  --image ghcr.io/etzhayyim/pymagatama \
   --tag ameno-phase5c-$(date -u +%Y%m%d%H%M)-amd64 \
   --context 20-actors/magatama/py
 ```
@@ -140,17 +140,17 @@ in-process.
 ```bash
 helm -n mitama-udf upgrade --reuse-values bpmn-dispatcher \
   50-infra/vultr/mitama-udf-pool \
-  --set dispatcher.imageFullRef="ghcr.io/gftdcojp/pymagatama:${IMAGE_TAG}"
+  --set dispatcher.imageFullRef="ghcr.io/etzhayyim/pymagatama:${IMAGE_TAG}"
 
 kubectl -n mitama-udf rollout status deploy/bpmn-dispatcher --timeout=120s
 
 # Sanity: dispatcher must route ameno saveResult to the langserver.
-curl -sS https://dispatcher.gftd.ai/xrpc/ai.gftd.apps.ameno.listHistory \
-  --get --data-urlencode 'actorDid=did:web:ameno-smoke.gftd.ai' \
+curl -sS https://dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.ameno.listHistory \
+  --get --data-urlencode 'actorDid=did:web:ameno-smoke.etzhayyim.com' \
   --data-urlencode 'limit=1' | head -200
 ```
 
-## 5. Rebuild + redeploy the atproto.gftd.ai PDS Worker
+## 5. Rebuild + redeploy the atproto.etzhayyim.com PDS Worker
 
 `50-infra/cloudflare/workers/atproto/src/routing-table.ts` got 4 ameno
 entries across Phase 2 / 4a / 5g (`saveResult`, `listHistory`,
@@ -166,7 +166,7 @@ cd -
 
 # Confirm one routed NSID is live before continuing.
 curl -sS -o /dev/null -w '%{http_code}\n' \
-  https://atproto.gftd.ai/xrpc/ai.gftd.apps.ameno.cardHome
+  https://atproto.etzhayyim.com/xrpc/ai.gftd.apps.ameno.cardHome
 ```
 
 `cardHome` is local-only on the ameno worker, so it should return 200
@@ -178,23 +178,23 @@ even before step 6; the smoke just confirms the PDS itself is healthy.
 cd 60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb
 pnpm install
 pnpm --filter ./svelte build       # produces svelte/.svelte-kit/cloudflare/
-gftd deploy --smoke-url https://d94d27cb.gftd.ai/health
+gftd deploy --smoke-url https://d94d27cb.etzhayyim.com/health
 cd -
 ```
 
 `gftd deploy` reads `magatama.jsonld` for the embed URL (Phase 1) and
-publishes the `ameno.gftd.ai` route. The smoke-url flag fails the
+publishes the `ameno.etzhayyim.com` route. The smoke-url flag fails the
 deploy if `/health` is not 200 within ~30s.
 
 ## 7. End-to-end smoke test
 
 ```bash
-# Default = atproto.gftd.ai (PDS, public edge). -v for raw responses.
+# Default = atproto.etzhayyim.com (PDS, public edge). -v for raw responses.
 70-tools/scripts/ameno/smoke-test.sh
 
 # Run it again pointed at the worker directly to exercise the
-# ameno.gftd.ai → sdk.pds.xrpc() → atproto.gftd.ai forward path.
-AMENO_BASE_URL=https://ameno.gftd.ai 70-tools/scripts/ameno/smoke-test.sh
+# ameno.etzhayyim.com → sdk.pds.xrpc() → atproto.etzhayyim.com forward path.
+AMENO_BASE_URL=https://ameno.etzhayyim.com 70-tools/scripts/ameno/smoke-test.sh
 ```
 
 All three checks must pass:
@@ -215,7 +215,7 @@ source 30-graph/graph-schema/scripts/load-database-url.sh
 psql "$DATABASE_URL" -c "
   SELECT created_at, model_id, output_tokens, tokens_per_sec
   FROM vertex_ameno_inferenceresult
-  WHERE actor_did = 'did:web:ameno-smoke.gftd.ai'
+  WHERE actor_did = 'did:web:ameno-smoke.etzhayyim.com'
   ORDER BY created_at DESC
   LIMIT 5;
 "
@@ -224,7 +224,7 @@ psql "$DATABASE_URL" -c "
 psql "$DATABASE_URL" -c "
   SELECT created_at, event_type, amount
   FROM vertex_credits_af_event
-  WHERE user_id = 'did:web:ameno-smoke.gftd.ai'
+  WHERE user_id = 'did:web:ameno-smoke.etzhayyim.com'
     AND event_type = 'ameno_browser_inference'
   ORDER BY created_at DESC
   LIMIT 5;
@@ -232,7 +232,7 @@ psql "$DATABASE_URL" -c "
 ```
 
 A passing smoke run ⇒ one row in each. The credit row's `vertex_id`
-should be `af://credits/did:web:ameno-smoke.gftd.ai/{resultId}`.
+should be `af://credits/did:web:ameno-smoke.etzhayyim.com/{resultId}`.
 
 ## Rollback
 
@@ -242,8 +242,8 @@ that covers the regression.
 | Symptom | Roll back |
 |---|---|
 | `subscribeBriefs` returns 5xx | `kubectl -n mitama-udf rollout undo deploy/ameno-langserver` |
-| `saveResult` 404 from `atproto.gftd.ai` | re-deploy the previous PDS Worker bundle (`wrangler rollback`) |
-| `ameno.gftd.ai` HTML / chat broken | `gftd deploy` the previous tag from `60-apps/.../wrangler.jsonc` (or `wrangler rollback`) |
+| `saveResult` 404 from `atproto.etzhayyim.com` | re-deploy the previous PDS Worker bundle (`wrangler rollback`) |
+| `ameno.etzhayyim.com` HTML / chat broken | `gftd deploy` the previous tag from `60-apps/.../wrangler.jsonc` (or `wrangler rollback`) |
 | Schema regret | `DROP TABLE vertex_ameno_inferenceresult;` (no streaming MV depends on it as of Phase 5c, so the drop is safe) |
 
 The credit AF events are append-only and best-effort; nothing rolls
@@ -256,8 +256,8 @@ ameno-langserver Deployment env and `kubectl rollout restart`.
   applied** — selected adapters are recorded in
   `saveResult.loraAdapters` but `transformers.js` weights are
   unmodified. Per-actor inference quality matches base.
-- `ameno.gftd.ai` CORS for cross-origin EventSource against
-  `atproto.gftd.ai` is **assumed** healthy (PDS standard). Verify with
+- `ameno.etzhayyim.com` CORS for cross-origin EventSource against
+  `atproto.etzhayyim.com` is **assumed** healthy (PDS standard). Verify with
   the browser console once the chat page is open.
 - Generated lexicon bundle files (`lexicon-registry.gen.ts` etc.) are
   intentionally never staged in Phase 1–5c commits because they

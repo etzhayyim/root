@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = 'https://yabai.gftd.ai';
+const BASE = 'https://yabai.etzhayyim.com';
 const SVC = `${BASE}/xrpc/gftd.yabai.v1.YabaiService`;
 
-test.describe('yabai.gftd.ai — Health', () => {
+test.describe('yabai.etzhayyim.com — Health', () => {
   test('worker health', async ({ request }) => {
     const r = await request.get(`${BASE}/_worker/health`);
     expect(r.ok()).toBeTruthy();
@@ -24,7 +24,7 @@ test.describe('yabai.gftd.ai — Health', () => {
   });
 });
 
-test.describe('yabai.gftd.ai — Card API', () => {
+test.describe('yabai.etzhayyim.com — Card API', () => {
   const hdr = { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e' };
 
   test('card.home returns list with 5 items', async ({ request }) => {
@@ -81,7 +81,7 @@ test.describe('yabai.gftd.ai — Card API', () => {
   });
 });
 
-test.describe('yabai.gftd.ai — Visual', () => {
+test.describe('yabai.etzhayyim.com — Visual', () => {
   test('page renders with YABAI branding', async ({ page }) => {
     await page.goto(BASE, { waitUntil: 'networkidle' });
     await page.waitForTimeout(3000);

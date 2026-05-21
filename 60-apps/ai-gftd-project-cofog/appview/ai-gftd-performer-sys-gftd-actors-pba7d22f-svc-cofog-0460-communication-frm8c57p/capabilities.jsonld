@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/6/0/communication",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/6/0/communication",
       "type": "dodaf:Capability",
       "name": "Communication Infrastructure and Spectrum Management Capability",
       "description": "Functional capability for managing telecommunication infrastructure, spectrum allocation, and service standards. Classification: COFOG Division 04, Group 6, Class 0.",

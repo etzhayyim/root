@@ -264,10 +264,10 @@
 
 		<div class="mt-3.5 text-[10px] leading-relaxed {isDark ? 'text-[#444]' : 'text-gray-400'}">
 			By continuing, you agree to our
-			<a href="https://yoro.gftd.ai/terms" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">Terms</a>,
-			<a href="https://yoro.gftd.ai/privacy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">Privacy</a>,
-			<a href="https://yoro.gftd.ai/support/kyc-policy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">KYC</a> &amp;
-			<a href="https://yoro.gftd.ai/support/aml-policy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">AML/CTF</a> policies.
+			<a href="https://yoro.etzhayyim.com/terms" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">Terms</a>,
+			<a href="https://yoro.etzhayyim.com/privacy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">Privacy</a>,
+			<a href="https://yoro.etzhayyim.com/support/kyc-policy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">KYC</a> &amp;
+			<a href="https://yoro.etzhayyim.com/support/aml-policy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">AML/CTF</a> policies.
 		</div>
 	</div>
 </div>

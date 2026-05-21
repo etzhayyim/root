@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -38,7 +38,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/resources/schemas/integrations",
+  "@id": "https://scap.etzhayyim.com/resources/schemas/integrations",
   "@type": [
     "dodaf:Resource",
     "dodaf:DataType"
@@ -50,12 +50,12 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "primaryKey": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/id"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/id"
     }
   ],
   "column": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/id",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/id",
       "name": "id",
       "description": "Primary key identifier",
       "dataType": {
@@ -64,7 +64,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/type",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/type",
       "name": "type",
       "description": "Integration type (aws, gcp, azure, github, gitlab)",
       "dataType": {
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/name",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/name",
       "name": "name",
       "description": "Integration name",
       "dataType": {
@@ -89,7 +89,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/status",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/status",
       "name": "status",
       "description": "Integration status (active, inactive)",
       "dataType": {
@@ -103,7 +103,7 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/config",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/config",
       "name": "config",
       "description": "JSON configuration object containing integration-specific settings",
       "dataType": {
@@ -112,7 +112,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/createdAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/createdAt",
       "name": "createdAt",
       "description": "Timestamp when the record was created",
       "dataType": {
@@ -122,7 +122,7 @@
       "default": "now()"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/updatedAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/updatedAt",
       "name": "updatedAt",
       "description": "Timestamp when the record was last updated",
       "dataType": {
@@ -134,14 +134,14 @@
   ],
   "index": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/typeIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/typeIdx",
       "name": "integrations_type_idx",
       "columns": [
         "type"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations/statusIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations/statusIdx",
       "name": "integrations_status_idx",
       "columns": [
         "status"
@@ -149,7 +149,7 @@
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/zod/integration.ts"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/zod/integration.ts"
   ]
 }

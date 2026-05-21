@@ -41,7 +41,7 @@ NSID prefix ごとの pipethrough branch を直接持っている:
 | NSID prefix | pipethrough 先 | 現状の位置 |
 |---|---|---|
 | `ai.gftd.vault.*` | `VAULT_SERVICE` (binding) | `dispatch.ts:447-468` |
-| `ai.gftd.apps.yabai.*` (8 NSID) | `dispatcher.gftd.ai:8080` (BPMN) | `dispatch.ts:376-440` |
+| `ai.gftd.apps.yabai.*` (8 NSID) | `dispatcher.etzhayyim.com:8080` (BPMN) | `dispatch.ts:376-440` |
 | `app.bsky.*` | `APPVIEW_URL` (public HTTP, disabled binding) | `dispatch.ts:330-402` |
 | `com.atproto.*` | 自前 handler (PDS local) | `handlers/pds/*` |
 | その他 | ??? (inline if / switch) | 散在 |
@@ -55,20 +55,20 @@ NSID prefix ごとの pipethrough branch を直接持っている:
 ADR-2604231828 A2 で剥離したが (今日 commit `62798063cde`)、依然として:
 
 - `app.all("/xrpc/*", ...)` route が残り `ai.gftd.convo.* / ai.gftd.signal.* /
-  chat.bsky.convo.*` を `atproto.gftd.ai` にプロキシしている
-- `yoro.gftd.ai` host が public に XRPC endpoint を持っている状態
+  chat.bsky.convo.*` を `atproto.etzhayyim.com` にプロキシしている
+- `yoro.etzhayyim.com` host が public に XRPC endpoint を持っている状態
 - ブラウザ側 code (`svelte/src/lib/graph/feed.ts`) は
-  `@gftd/wproto` 経由で `atproto.gftd.ai` に話しているが、**一部古い code
-  は `yoro.gftd.ai/xrpc/*` を直接叩いている可能性**がある (grep 残存)
+  `@gftd/wproto` 経由で `atproto.etzhayyim.com` に話しているが、**一部古い code
+  は `yoro.etzhayyim.com/xrpc/*` を直接叩いている可能性**がある (grep 残存)
 
-### C. bsky.gftd.ai は暫定 proxy、まだ自立していない
+### C. bsky.etzhayyim.com は暫定 proxy、まだ自立していない
 
 `67b922f5242` で AppView handlers を新 Worker に migrate したが、**pnpm
 install / wrangler deploy / DNS route まだ未実行**。現状:
 
-- `bsky.gftd.ai` DNS route は wrangler.jsonc に書いてあるが live にはなって
+- `bsky.etzhayyim.com` DNS route は wrangler.jsonc に書いてあるが live にはなって
   いない
-- PDS `pipethroughAppView` は `APPVIEW_URL=https://bsky.gftd.ai` を向いて
+- PDS `pipethroughAppView` は `APPVIEW_URL=https://bsky.etzhayyim.com` を向いて
   いるが、その URL が 404 を返すので全 request が PDS local handler に
   fall through = AppView 分離は実質未稼働
 
@@ -79,7 +79,7 @@ install / wrangler deploy / DNS route まだ未実行**。現状:
 
 | Worker | 検証方法 | 出典 |
 |---|---|---|
-| yoro (旧 AppView) | hostname が `yoro.gftd.ai` なら **drop** | `app.ts:172-183` (削除済) |
+| yoro (旧 AppView) | hostname が `yoro.etzhayyim.com` なら **drop** | `app.ts:172-183` (削除済) |
 | bsky (新 AppView) | `x-gftd-internal-trust` shared secret 一致時のみ受理 | `handlers/appview.ts:35-52` |
 | PDS 内部 (service binding) | `x-magatama-verified=true` かつ binding 存在 | `auth/verify.ts:472-493` |
 | BPMN dispatcher | `x-internal-trust` (別 header!) | `dispatch.ts:408-411` |
@@ -92,11 +92,11 @@ install / wrangler deploy / DNS route まだ未実行**。現状:
 
 ```
 ユーザ post:
-  at://did:web:sh1n5h1x.gftd.ai:shigeo-kageyama-mob-psycho-100/
+  at://did:web:sh1n5h1x.etzhayyim.com:shigeo-kageyama-mob-psycho-100/
       app.bsky.feed.post/3mk7ebsxqdg2x  (path-DID author)
 
 getPostThread  → 返る (rkey-only fallback)
-getAuthorFeed  → 返る (repo LIKE 'did:web:sh1n5h1x.gftd.ai:%' fallback)
+getAuthorFeed  → 返る (repo LIKE 'did:web:sh1n5h1x.etzhayyim.com:%' fallback)
 getProfile     → postsCount: 0  ← 集計 MV が stale
 yoro 表示      → 0              ← ?? 演算子で 0 が最終表示
 ```
@@ -111,13 +111,13 @@ root 集約、yoro frontend の `postsCountDisplay = actor.postsCount ?? feedIte
 
 yoro browser code:
 
-- `@gftd/wproto` AtpAgent は `atproto.gftd.ai` に固定で話す
+- `@gftd/wproto` AtpAgent は `atproto.etzhayyim.com` に固定で話す
 - SSR load() は `PDS_SERVICE` binding 経由で PDS に話す (internal)
 - Bot snapshot renderer は `PDS_SERVICE` binding 経由で PDS に話す (internal)
-- gftd CLI は `atproto.gftd.ai` に public HTTP で話す
-- Claude Code chat agent は `atproto.gftd.ai` に public HTTP で話す (+ `gftd agent-token`)
+- gftd CLI は `atproto.etzhayyim.com` に public HTTP で話す
+- Claude Code chat agent は `atproto.etzhayyim.com` に public HTTP で話す (+ `gftd agent-token`)
 
-路線自体は統一できているが、**atproto.gftd.ai に全部押しつけ**ており、PDS
+路線自体は統一できているが、**atproto.etzhayyim.com に全部押しつけ**ており、PDS
 過負荷 (C) + PDS ロジック肥大 (A) を加速する構造。
 
 # Decision
@@ -152,7 +152,7 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
    ▼                                        ▼                                ▼
 ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
 │atproto   │ │ bsky     │ │ chat     │ │ signal   │ │ vault    │ │ plc /did │ │murakumo  │
-│.gftd.ai  │ │.gftd.ai  │ │.gftd.ai  │ │.gftd.ai  │ │.gftd.ai  │ │.gftd.ai  │ │.gftd.ai  │
+│.etzhayyim.com  │ │.etzhayyim.com  │ │.etzhayyim.com  │ │.etzhayyim.com  │ │.etzhayyim.com  │ │.etzhayyim.com  │ │.etzhayyim.com  │
 │L1 PDS    │ │L2 AppView│ │L7 Chat   │ │L11 Key   │ │L12 Vault │ │L14 DID   │ │L13 Infer │
 │+L4 Entry │ │          │ │          │ │ Dir      │ │          │ │ Dir      │ │ Fleet    │
 └─────┬────┘ └─────┬────┘ └─────┬────┘ └─────┬────┘ └─────┬────┘ └─────┬────┘ └─────┬────┘
@@ -172,7 +172,7 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
         ┌────────────────────────────────────────────────────────────┐
         │ Client App layer (Layer 9, separate from PDS)              │
         │                                                            │
-        │   yoro.gftd.ai       Svelte SPA + SEO snapshot only        │
+        │   yoro.etzhayyim.com       Svelte SPA + SEO snapshot only        │
         │   (any 3rd-party)    Alternate client talks to atproto.*    │
         └────────────────────────────────────────────────────────────┘
 
@@ -189,24 +189,24 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
 
 | Worker | Domain | Layer | 公開 XRPC | Write 対象 | Read 対象 |
 |---|---|---|---|---|---|
-| **atproto.gftd.ai** | PDS + Entryway | 1 + 4 | `com.atproto.*` (local) + `/oauth/*` + `/.well-known/oauth-*` | repo commit / session / identity | commit log (`vertex_repo_commit`) + repo MST |
-| **bsky.gftd.ai** | AppView | 2 | `app.bsky.{actor,feed,graph,notification}.*` | ❌ (read-only) | `vertex_repo_record` + feed/engagement MVs |
-| **chat.gftd.ai** | Chat Service | 7 | `chat.bsky.convo.*` + `ai.gftd.convo.*` | `vertex_message` / `vertex_convo` | 同左 |
-| **signal.gftd.ai** | Key Directory | 11 | `ai.gftd.signal.*` | `vertex_signal_prekey` | 同左 |
-| **vault.gftd.ai** | Secret Vault | 12 | `ai.gftd.vault.*` | D1 ciphertext only | 同左 |
-| **plc.gftd.ai** | DID Directory (plc) | 14 | `com.atproto.identity.resolveDid` (plc) + `ai.gftd.plc.*` | D1 plc operation log | 同左 |
-| **did.gftd.ai** | DID Directory (gftd) | 14 | `ai.gftd.identity.*` (gftd method) | `vertex_gftd_identity` | 同左 |
-| **authn.gftd.ai** | Entryway AuthN | 4 | `/oauth/token` / `/sign-in` / `ai.gftd.auth.*` | session JWT / passkey / did doc | `AUTH_DB` D1 |
-| **authz.gftd.ai** | Entryway AuthZ | 4 | `/manage` / `ai.gftd.authz.*` | api_key / linked method / org | `AUTH_DB` D1 + graph org tables |
-| **murakumo.gftd.ai** | Inference Fleet | 13 | `ai.gftd.apps.murakumo.*` | inference log | cluster meta |
-| **dispatcher.gftd.ai** | Process Orchestrator | 15 | BPMN-declared NSIDs (ADR-0056) | BPMN process state | 同左 |
-| **yoro.gftd.ai** | Client App | 9 | **なし (SPA only)** — XRPC route 完全撤去 | ❌ | ❌ |
-| **{actor}.gftd.ai** | Actor Worker × N | 10 | `ai.gftd.apps.{actor}.*` (内部 pipethrough 経由) | per-actor vertex/edge | 同左 |
+| **atproto.etzhayyim.com** | PDS + Entryway | 1 + 4 | `com.atproto.*` (local) + `/oauth/*` + `/.well-known/oauth-*` | repo commit / session / identity | commit log (`vertex_repo_commit`) + repo MST |
+| **bsky.etzhayyim.com** | AppView | 2 | `app.bsky.{actor,feed,graph,notification}.*` | ❌ (read-only) | `vertex_repo_record` + feed/engagement MVs |
+| **chat.etzhayyim.com** | Chat Service | 7 | `chat.bsky.convo.*` + `ai.gftd.convo.*` | `vertex_message` / `vertex_convo` | 同左 |
+| **signal.etzhayyim.com** | Key Directory | 11 | `ai.gftd.signal.*` | `vertex_signal_prekey` | 同左 |
+| **vault.etzhayyim.com** | Secret Vault | 12 | `ai.gftd.vault.*` | D1 ciphertext only | 同左 |
+| **plc.etzhayyim.com** | DID Directory (plc) | 14 | `com.atproto.identity.resolveDid` (plc) + `ai.gftd.plc.*` | D1 plc operation log | 同左 |
+| **did.etzhayyim.com** | DID Directory (gftd) | 14 | `ai.gftd.identity.*` (gftd method) | `vertex_gftd_identity` | 同左 |
+| **authn.etzhayyim.com** | Entryway AuthN | 4 | `/oauth/token` / `/sign-in` / `ai.gftd.auth.*` | session JWT / passkey / did doc | `AUTH_DB` D1 |
+| **authz.etzhayyim.com** | Entryway AuthZ | 4 | `/manage` / `ai.gftd.authz.*` | api_key / linked method / org | `AUTH_DB` D1 + graph org tables |
+| **murakumo.etzhayyim.com** | Inference Fleet | 13 | `ai.gftd.apps.murakumo.*` | inference log | cluster meta |
+| **dispatcher.etzhayyim.com** | Process Orchestrator | 15 | BPMN-declared NSIDs (ADR-0056) | BPMN process state | 同左 |
+| **yoro.etzhayyim.com** | Client App | 9 | **なし (SPA only)** — XRPC route 完全撤去 | ❌ | ❌ |
+| **{actor}.etzhayyim.com** | Actor Worker × N | 10 | `ai.gftd.apps.{actor}.*` (内部 pipethrough 経由) | per-actor vertex/edge | 同左 |
 
 **禁止**:
 - 1 Worker が複数 layer を兼業する (ADR-2604231828 で yoro が違反していた型)
 - Actor Worker が公開 XRPC route を直接持つ (PDS pipethrough 経由のみ)
-- yoro.gftd.ai が `/xrpc/*` を serve する (Layer 9 違反)
+- yoro.etzhayyim.com が `/xrpc/*` を serve する (Layer 9 違反)
 
 ## Contract 2 — NSID prefix routing (PDS dispatch の単一 SSoT)
 
@@ -242,7 +242,7 @@ export const NSID_ROUTING_TABLE: Array<{
   // Layer 10 Actor Workers — longest-prefix match last.
   { prefix: "ai.gftd.apps.",           target: { kind: "http", env: "__ACTOR_URL__" }, trust: "internal" },
   //   __ACTOR_URL__ is resolved from the NSID itself: the 3rd segment
-  //   (ai.gftd.apps.shinshi.*) maps to `https://shinshi.gftd.ai`.
+  //   (ai.gftd.apps.shinshi.*) maps to `https://shinshi.etzhayyim.com`.
 ];
 ```
 
@@ -273,7 +273,7 @@ viewer DID の Worker 間 forwarding は **1 方式に統一**:
 PDS が downstream に出す 3 header:
 
 ```
-x-gftd-viewer-did:       did:web:alice.gftd.ai
+x-gftd-viewer-did:       did:web:alice.etzhayyim.com
 x-gftd-viewer-issued-at: 1745712345
 x-gftd-viewer-signature: <HMAC-SHA256(APPVIEW_INTERNAL_SECRET, "did|issued-at")>
 ```
@@ -315,26 +315,26 @@ entry 1 つ)。key rotation は Secrets Store の update + Worker 再 deploy で
   (現在 raw `repo` で GROUP BY → path-DID が見えない)
 - `mv_profile_page_stats` は既に `normalize_actor_did()` 経由だが、
   上流 MV が raw だと合わない → 上流を直せば連動
-- feed handler は **変更不要** (`repo LIKE 'did:web:x.gftd.ai:%'` で既に
+- feed handler は **変更不要** (`repo LIKE 'did:web:x.etzhayyim.com:%'` で既に
   sub-actor を集約)
 - yoro `AgentProfile.svelte:460` の `??` 演算子を `actor.postsCount > 0 ?
   actor.postsCount : feedItems.length` に修正
 
 ## Contract 5 — Client → server endpoint 単一化
 
-**yoro + 3rd-party client の XRPC 到達点は `atproto.gftd.ai` 1 つだけ**に
+**yoro + 3rd-party client の XRPC 到達点は `atproto.etzhayyim.com` 1 つだけ**に
 する。以下を禁止:
 
-- `yoro.gftd.ai/xrpc/*` への直接アクセス (yoro は Layer 9 Client App、
+- `yoro.etzhayyim.com/xrpc/*` への直接アクセス (yoro は Layer 9 Client App、
   `/xrpc/*` route を持たない)
-- `{actor}.gftd.ai/xrpc/*` への直接アクセス (actor Worker は internal のみ、
+- `{actor}.etzhayyim.com/xrpc/*` への直接アクセス (actor Worker は internal のみ、
   PDS pipethrough 経由で叩く)
-- browser code から `bsky.gftd.ai/xrpc/*` を直接呼ぶ (PDS の
+- browser code から `bsky.etzhayyim.com/xrpc/*` を直接呼ぶ (PDS の
   pipethroughAppView を介する)
 
 **例外**: Client App が viewer identity を提示せず (anonymous) read-only で
-叩く場合、`bsky.gftd.ai` に直接アクセスしてよい (federation-ready の布石)。
-ただし yoro frontend はこのパスを **使わない** (atproto.gftd.ai 経由で統一)。
+叩く場合、`bsky.etzhayyim.com` に直接アクセスしてよい (federation-ready の布石)。
+ただし yoro frontend はこのパスを **使わない** (atproto.etzhayyim.com 経由で統一)。
 
 ### DID Document `service[]` (ADR-2604231839 の補強)
 
@@ -343,9 +343,9 @@ entry 1 つ)。key rotation は Secrets Store の update + Worker 再 deploy で
 ```json
 {
   "service": [
-    {"id":"#atproto_pds",  "type":"AtprotoPersonalDataServer", "serviceEndpoint":"https://atproto.gftd.ai"},
-    {"id":"#bsky_appview", "type":"BskyAppView",               "serviceEndpoint":"https://bsky.gftd.ai"},
-    {"id":"#bsky_chat",    "type":"BskyChatService",           "serviceEndpoint":"https://chat.gftd.ai"}
+    {"id":"#atproto_pds",  "type":"AtprotoPersonalDataServer", "serviceEndpoint":"https://atproto.etzhayyim.com"},
+    {"id":"#bsky_appview", "type":"BskyAppView",               "serviceEndpoint":"https://bsky.etzhayyim.com"},
+    {"id":"#bsky_chat",    "type":"BskyChatService",           "serviceEndpoint":"https://chat.etzhayyim.com"}
   ]
 }
 ```
@@ -359,21 +359,21 @@ entry 1 つ)。key rotation は Secrets Store の update + Worker 再 deploy で
 
 | Step | Contract | 依存 ADR | 現状 |
 |---|---|---|---|
-| 1 | Contract 1 — bsky.gftd.ai 自立 | 2604231828 Phase 1-3 | ⏳ deploy 未実行 (コード ready) |
+| 1 | Contract 1 — bsky.etzhayyim.com 自立 | 2604231828 Phase 1-3 | ⏳ deploy 未実行 (コード ready) |
 | 2 | Contract 2 — NSID routing table 抽出 | 本 ADR 新規 | ❌ 未実装 (`dispatch.ts` にベタ書き) |
 | 3 | Contract 3 — HMAC trust header 統一 | 本 ADR 新規 | ❌ 4 通りの方式が並存 |
 | 4 | Contract 4 — MV root 集約 | 本 ADR 新規 | ❌ 上流 MV は raw repo で GROUP BY |
 | 5 | Contract 5 — yoro `/xrpc/*` 完全撤去 | 2604231828 A2 | ⚠️ app.bsky.* は外したが convo/signal/chat proxy 残存 |
-| 6 | chat.gftd.ai 新設 (Layer 7 専用 Worker) | 本 ADR 新規 | ❌ 現在は PDS に内包 |
-| 7 | signal.gftd.ai public route 化 | ADR-2604231811 Layer 11 | ⏳ Worker 存在、PDS 内で handling |
+| 6 | chat.etzhayyim.com 新設 (Layer 7 専用 Worker) | 本 ADR 新規 | ❌ 現在は PDS に内包 |
+| 7 | signal.etzhayyim.com public route 化 | ADR-2604231811 Layer 11 | ⏳ Worker 存在、PDS 内で handling |
 | 8 | DID Doc `service[]` 全 entry 更新 | ADR-2604231839 / 2604231828 | ⏳ 一部 |
 
 ## Phase 配列 (実施順)
 
 ### Phase α — Stop the bleeding (即時、operational) ✅ landed 2026-04-24/25
 
-- α1: **bsky.gftd.ai 実デプロイ** (`wrangler deploy` on `ai-gftd-appview`)
-  ✅ live at version `d085c7bf`. smoke `sh1n5h1x.gftd.ai postsCount=1476`.
+- α1: **bsky.etzhayyim.com 実デプロイ** (`wrangler deploy` on `ai-gftd-appview`)
+  ✅ live at version `d085c7bf`. smoke `sh1n5h1x.etzhayyim.com postsCount=1476`.
   Initial deploy `132f93d5` exposed the RW parameterized-LIMIT incompat
   → second-stage fix `4c059628` (β2 lesson, see below).
 - α2: yoro `postsCountDisplay` の `??` bug 修正 ✅ shipped via PR #1115.
@@ -436,9 +436,9 @@ reminder.
 
 ### Phase δ — Chat / Signal / Murakumo を public worker に分離
 
-- δ1: `chat.gftd.ai` new Worker (Layer 7) — PDS から convo 関連を move out
-- δ2: `signal.gftd.ai` を public XRPC route (現在 internal のみ)
-- δ3: `murakumo.gftd.ai` を public route (Layer 13 正式化)
+- δ1: `chat.etzhayyim.com` new Worker (Layer 7) — PDS から convo 関連を move out
+- δ2: `signal.etzhayyim.com` を public XRPC route (現在 internal のみ)
+- δ3: `murakumo.etzhayyim.com` を public route (Layer 13 正式化)
 
 ### β2 lesson (2026-04-24, appview initial rollout)
 
@@ -461,7 +461,7 @@ shipped in two passes on 2026-04-24:
 2. **Fix + redeploy** (version `4c059628` → `ffdfd6f2`) — swap
    Kysely's `.executeTakeFirst()` / `.limit(1)` for a `sql`
    template that inlines `LIMIT 1`. postsCount went 0 → 1425 on
-   sh1n5h1x.gftd.ai. feed.ts:263 had the same latent bug for
+   sh1n5h1x.etzhayyim.com. feed.ts:263 had the same latent bug for
    viewer-context reads; patched in the same session.
 
 Generalization: **any MV query in a new Worker needs an inline
@@ -484,7 +484,7 @@ grep for this pattern before declaring the Phase green.
 ### Phase ε — yoro 最終浄化
 
 - ε1: yoro `/xrpc/*` route を完全削除 (convo/signal/chat proxy も撤去 — 各
-  client は atproto.gftd.ai 経由で本家を叩く)
+  client は atproto.etzhayyim.com 経由で本家を叩く)
 - ε2: yoro の `PDS_SERVICE` binding を read-only pattern に閉じ込め (SSR +
   SEO snapshot 専用、XRPC 本番パスにしない)
 - ε3: yoro package.json から `@gftd/graph-schema` を remove (AppView 依存
@@ -514,15 +514,15 @@ grep for this pattern before declaring the Phase green.
 ## Negative
 
 - **Phase β-ζ は全部合計で 5 deploy 程度** — タイミング調整が必要
-- **chat.gftd.ai 新設は PDS の convo handler を外科的に切り出し**。既存
-  client 全て atproto.gftd.ai 経由で叩いている前提が壊れないように
+- **chat.etzhayyim.com 新設は PDS の convo handler を外科的に切り出し**。既存
+  client 全て atproto.etzhayyim.com 経由で叩いている前提が壊れないように
   pipethrough で吸収
 - **DID Doc 一斉更新 (Phase ζ) は署名鍵を持つ authn Worker を経由** — 一度
   にやると rate limit リスク。段階配布 (100 DID/hour) 推奨
 
 ## Neutral
 
-- `atproto.gftd.ai` 単一入口の原則は維持 (external client には単純)
+- `atproto.etzhayyim.com` 単一入口の原則は維持 (external client には単純)
 - Actor Worker 群 (Layer 10、189 instance) は本 ADR で一切触らない — 既に
   Layer 10 として正しく動いている
 - BPMN dispatcher (ADR-0056) は Layer 15 として本 ADR の外 — table に 1 行
@@ -532,7 +532,7 @@ grep for this pattern before declaring the Phase green.
 
 - Worker 数の最小化 (Shannon 最小 η を追求しない — responsibility 分離優先)
 - RisingWave graph schema 変更 (別 ADR、別 topology)
-- gftd CLI の `atproto.gftd.ai` 以外への直結化 (client simplification 優先)
+- gftd CLI の `atproto.etzhayyim.com` 以外への直結化 (client simplification 優先)
 - DPoP nonce の RS 側以外への拡大 (ADR-2604240914 が locus)
 - Actor Worker の public route 化 (internal のまま、PDS pipethrough 維持)
 
@@ -550,7 +550,7 @@ grep for this pattern before declaring the Phase green.
 - cons: ADR-2604231811 / 2604231828 が明示的に却下した設計。AT Protocol
   self-hosting guide 非準拠、federation 不能、scaling ボトルネック。**却下**
 
-## A3. Actor Worker も public route 化 (`{actor}.gftd.ai/xrpc/*` を公開)
+## A3. Actor Worker も public route 化 (`{actor}.etzhayyim.com/xrpc/*` を公開)
 
 - pros: yoro などが actor に直接話せる
 - cons: 189 Worker × 公開 endpoint = auth / rate limit / audit が 189 面。
@@ -559,7 +559,7 @@ grep for this pattern before declaring the Phase green.
 ## A4. 全部 AT Protocol service endpoint resolver で解決 (DID Doc service[] 経由で client が直接各 Worker に接続)
 
 - pros: federation 的に最もクリーン
-- cons: 現 yoro client は `atproto.gftd.ai` 固定前提。client code 大幅書き
+- cons: 現 yoro client は `atproto.etzhayyim.com` 固定前提。client code 大幅書き
   換え + DID Doc publish 完全稼働が前提 → ε/ζ Phase の後にならないと
   無理。**将来方向として採用、本 ADR の end state が整ってから次 ADR で
   実装**
@@ -591,4 +591,4 @@ grep for this pattern before declaring the Phase green.
 - `50-infra/cloudflare/workers/atproto/src/auth/verify.ts:472-493` — D の根拠
 - `30-graph/graph-schema/migrations/0015_actor_social_stats_mv.ts:36` — E の根拠 (raw repo GROUP BY)
 - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/routes/profile/[handle]/AgentProfile.svelte:460` — E の user-facing 表面
-- 2026-04-24 観測 post: `at://did:web:sh1n5h1x.gftd.ai:shigeo-kageyama-mob-psycho-100/app.bsky.feed.post/3mk7ebsxqdg2x`
+- 2026-04-24 観測 post: `at://did:web:sh1n5h1x.etzhayyim.com:shigeo-kageyama-mob-psycho-100/app.bsky.feed.post/3mk7ebsxqdg2x`

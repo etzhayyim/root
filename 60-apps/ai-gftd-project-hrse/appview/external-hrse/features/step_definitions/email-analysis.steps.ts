@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#EmailAnalysisSteps
+// @etzhayyim/cyber-freelance#EmailAnalysisSteps
 // Email Analysis関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

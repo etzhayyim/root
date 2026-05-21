@@ -1,5 +1,5 @@
 /**
- * Tiny JSON-RPC client for the gftd private chain (`https://geth.gftd.ai`).
+ * Tiny JSON-RPC client for the gftd private chain (`https://geth.etzhayyim.com`).
  *
  * Read-only paths (eth_call, eth_chainId, etc.) are public on the proxy.
  * Privileged paths (eth_sendRawTransaction, etc.) require an HMAC-SHA256

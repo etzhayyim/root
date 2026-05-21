@@ -1,4 +1,4 @@
-# ai-gftd-project-pptx — pptx.gftd.ai
+# ai-gftd-project-pptx — pptx.etzhayyim.com
 
 **PowerPoint editor + image conversion + content extraction** — PPTX upload, Canvas 2D + KAMI Engine wgpu (WebGPU/WebGL2) editing, kagami graph persistence, OOXML export. Figma-like UX. Consolidates img2pptx + mime-pptx.
 
@@ -6,8 +6,8 @@
 
 | Item | Value |
 |---|---|
-| Domain | `pptx.gftd.ai` |
-| Endpoint | `https://t53br1o0.gftd.ai/editor` |
+| Domain | `pptx.etzhayyim.com` |
+| Endpoint | `https://t53br1o0.etzhayyim.com/editor` |
 | Runtime | **Single Worker** (TS Native) |
 | nanoid | `t53br1o0` |
 | performerType | `service` (default sensitivity: `internal`) |
@@ -21,17 +21,17 @@
 
 ## Consolidated Apps
 
-**pptx.gftd.ai は 3 アプリの統合版。** img2pptx と mime-pptx の機能を XRPC command として一本化。旧 Worker は Logical Actor 化。
+**pptx.etzhayyim.com は 3 アプリの統合版。** img2pptx と mime-pptx の機能を XRPC command として一本化。旧 Worker は Logical Actor 化。
 
 | 旧 App | 旧 nanoid | 統合先 NSID | 機能 |
 |---|---|---|---|
-| img2pptx.gftd.ai | `im92pp7x` | `ai.gftd.apps.pptx.convertImage` | 画像 → slide shape |
-| img2pptx.gftd.ai | `im92pp7x` | `ai.gftd.apps.pptx.convertSvg` | SVG → DrawingML shapes |
-| img2pptx.gftd.ai | `im92pp7x` | `ai.gftd.apps.pptx.createFromImages` | 複数画像 → multi-slide |
-| mime-pptx.gftd.ai | `lcryu45x` | `ai.gftd.apps.pptx.extractAllText` | 全テキスト抽出 |
-| mime-pptx.gftd.ai | `lcryu45x` | `ai.gftd.apps.pptx.searchText` | 全文検索 |
-| mime-pptx.gftd.ai | `lcryu45x` | `ai.gftd.apps.pptx.getMetadata` | メタデータ |
-| mime-pptx.gftd.ai | `lcryu45x` | `ai.gftd.apps.pptx.getSlide` | slide + text + image refs |
+| img2pptx.etzhayyim.com | `im92pp7x` | `ai.gftd.apps.pptx.convertImage` | 画像 → slide shape |
+| img2pptx.etzhayyim.com | `im92pp7x` | `ai.gftd.apps.pptx.convertSvg` | SVG → DrawingML shapes |
+| img2pptx.etzhayyim.com | `im92pp7x` | `ai.gftd.apps.pptx.createFromImages` | 複数画像 → multi-slide |
+| mime-pptx.etzhayyim.com | `lcryu45x` | `ai.gftd.apps.pptx.extractAllText` | 全テキスト抽出 |
+| mime-pptx.etzhayyim.com | `lcryu45x` | `ai.gftd.apps.pptx.searchText` | 全文検索 |
+| mime-pptx.etzhayyim.com | `lcryu45x` | `ai.gftd.apps.pptx.getMetadata` | メタデータ |
+| mime-pptx.etzhayyim.com | `lcryu45x` | `ai.gftd.apps.pptx.getSlide` | slide + text + image refs |
 
 ## Data Pipeline
 
@@ -62,7 +62,7 @@ Content extraction:
 
 ```bash
 cd svelte && pnpm build    # vite build → _svelte/ → inline-build.mjs patches src/app.ts
-cd .. && gftd deploy --no-check --smoke-url https://t53br1o0.gftd.ai/health
+cd .. && gftd deploy --no-check --smoke-url https://t53br1o0.etzhayyim.com/health
 ```
 
 ## Rendering Architecture
@@ -220,9 +220,9 @@ Toggle: toolbar badge "wgpu" / "Canvas2D" (click to switch when KAMI loaded)
 
 | DID | Purpose |
 |---|---|
-| `did:web:pptx.gftd.ai` | Controller (app) |
-| `did:web:pptx.gftd.ai:presentation:{nanoid}` | Individual presentation |
-| `did:web:pptx.gftd.ai:template:{nanoid}` | Reusable slide template |
+| `did:web:pptx.etzhayyim.com` | Controller (app) |
+| `did:web:pptx.etzhayyim.com:presentation:{nanoid}` | Individual presentation |
+| `did:web:pptx.etzhayyim.com:template:{nanoid}` | Reusable slide template |
 
 ## Design E 3-Tier Write
 
@@ -273,7 +273,7 @@ Keynote/PowerPoint 互換:
 
 ## kami-engine-sdk Integration
 
-`@gftdcojp/kami-engine-sdk/document` module に汎用ドキュメントモデル + KAMI scene bridge を追加済み。
+`@etzhayyim/kami-engine-sdk/document` module に汎用ドキュメントモデル + KAMI scene bridge を追加済み。
 
 KAMI wgpu WASM (`kami-web/src/document.rs`):
 - `render_document_frame(canvas_id, slide_json)` — wgpu instanced SDF rect rendering

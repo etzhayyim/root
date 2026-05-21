@@ -261,13 +261,13 @@ async fn main() {
         env::var("STATE_PATH").unwrap_or_else(|_| "/data/crawler-v2-state.json".to_string()),
     ));
     let graph_exec_url = env::var("YATA_SQL_EXEC_URL").unwrap_or_else(|_| {
-        "https://yata.gftd.ai/gftd.sql.v1.SqlQueryService/Execute".to_string()
+        "https://yata.etzhayyim.com/gftd.sql.v1.SqlQueryService/Execute".to_string()
     });
     let graph_internal_token = String::new(); // legacy MAGATAMA_INTERNAL_TOKEN removed
     let graph_app_id = env::var("YATA_GRAPH_APP_ID").unwrap_or_else(|_| "search".to_string());
     let graph_org_id = env::var("YATA_GRAPH_ORG_ID").unwrap_or_else(|_| "search".to_string());
     let search_index_url = env::var("SEARCH_INDEX_URL").unwrap_or_else(|_| {
-        "https://search.gftd.ai/xrpc/gftd.search.v1.SearchService/IndexDocument".to_string()
+        "https://search.etzhayyim.com/xrpc/gftd.search.v1.SearchService/IndexDocument".to_string()
     });
     let app = app(AppState {
         data: Arc::new(Mutex::new(load_state(&state_path))),

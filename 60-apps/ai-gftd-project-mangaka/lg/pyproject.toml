@@ -1,7 +1,7 @@
 [project]
 name = "lg-mangaka"
 version = "0.1.0"
-description = "mangaka.gftd.ai OSS LangGraph FastAPI server (P4 scaffold, 2026-05-08)"
+description = "mangaka.etzhayyim.com OSS LangGraph FastAPI server (P4 scaffold, 2026-05-08)"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",

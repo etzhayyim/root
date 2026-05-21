@@ -2,8 +2,8 @@ import * as crypto from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
-const YABAI_CONTEXT = "https://yabai.gftd.ai/ontology/context.jsonld";
-const YABAI_BASE_ID = "https://yabai.gftd.ai/content";
+const YABAI_CONTEXT = "https://yabai.etzhayyim.com/ontology/context.jsonld";
+const YABAI_BASE_ID = "https://yabai.etzhayyim.com/content";
 const EMAIL_RE = /[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}/gi;
 
 // ── Types ──

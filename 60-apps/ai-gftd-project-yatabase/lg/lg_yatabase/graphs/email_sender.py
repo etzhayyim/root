@@ -5,7 +5,7 @@ Fetches up to 20 status='queued' rows from vertex_email_outbox,
 sends each via Resend, then marks sent/failed.
 
 Env: RESEND_API_KEY — Resend v1 key (re_...).
-     RESEND_FROM    — sender address (default: yatabase@gftd.ai)
+     RESEND_FROM    — sender address (default: yatabase@etzhayyim.com)
 
 Pipeline: fetch_queued → send_batch → report
 """
@@ -25,7 +25,7 @@ from lg_yatabase.bmc.db import execute, fetch
 _log = logging.getLogger(__name__)
 
 _RESEND_URL = "https://api.resend.com/emails"
-_FROM_DEFAULT = "yatabase <yatabase@gftd.ai>"
+_FROM_DEFAULT = "yatabase <yatabase@etzhayyim.com>"
 _BATCH_LIMIT = 20
 
 

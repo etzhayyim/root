@@ -21,10 +21,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-tt:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:tt',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-tt:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:tt',
                  300000,
-                 'did:web:maps.gftd.ai:wikipedia:tt',
+                 'did:web:maps.etzhayyim.com:wikipedia:tt',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -35,10 +35,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-min:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:min',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-min:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:min',
                  250000,
-                 'did:web:maps.gftd.ai:wikipedia:min',
+                 'did:web:maps.etzhayyim.com:wikipedia:min',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -49,10 +49,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-tg:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:tg',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-tg:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:tg',
                  250000,
-                 'did:web:maps.gftd.ai:wikipedia:tg',
+                 'did:web:maps.etzhayyim.com:wikipedia:tg',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -63,10 +63,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-ast:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:ast',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-ast:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:ast',
                  100000,
-                 'did:web:maps.gftd.ai:wikipedia:ast',
+                 'did:web:maps.etzhayyim.com:wikipedia:ast',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -77,10 +77,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-mg:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:mg',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-mg:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:mg',
                  95000,
-                 'did:web:maps.gftd.ai:wikipedia:mg',
+                 'did:web:maps.etzhayyim.com:wikipedia:mg',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -91,10 +91,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-ky:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:ky',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-ky:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:ky',
                  80000,
-                 'did:web:maps.gftd.ai:wikipedia:ky',
+                 'did:web:maps.etzhayyim.com:wikipedia:ky',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -105,10 +105,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-lmo:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:lmo',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-lmo:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:lmo',
                  70000,
-                 'did:web:maps.gftd.ai:wikipedia:lmo',
+                 'did:web:maps.etzhayyim.com:wikipedia:lmo',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -119,10 +119,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-pms:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:pms',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-pms:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:pms',
                  65000,
-                 'did:web:maps.gftd.ai:wikipedia:pms',
+                 'did:web:maps.etzhayyim.com:wikipedia:pms',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -133,10 +133,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-ba:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:ba',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-ba:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:ba',
                  60000,
-                 'did:web:maps.gftd.ai:wikipedia:ba',
+                 'did:web:maps.etzhayyim.com:wikipedia:ba',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -147,10 +147,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-fy:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:fy',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-fy:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:fy',
                  50000,
-                 'did:web:maps.gftd.ai:wikipedia:fy',
+                 'did:web:maps.etzhayyim.com:wikipedia:fy',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -161,10 +161,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-an:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:an',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-an:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:an',
                  40000,
-                 'did:web:maps.gftd.ai:wikipedia:an',
+                 'did:web:maps.etzhayyim.com:wikipedia:an',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -175,10 +175,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-ckb:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:ckb',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-ckb:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:ckb',
                  40000,
-                 'did:web:maps.gftd.ai:wikipedia:ckb',
+                 'did:web:maps.etzhayyim.com:wikipedia:ckb',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -189,10 +189,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-bar:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:bar',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-bar:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:bar',
                  35000,
-                 'did:web:maps.gftd.ai:wikipedia:bar',
+                 'did:web:maps.etzhayyim.com:wikipedia:bar',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -203,10 +203,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-scn:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:scn',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-scn:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:scn',
                  25000,
-                 'did:web:maps.gftd.ai:wikipedia:scn',
+                 'did:web:maps.etzhayyim.com:wikipedia:scn',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -217,10 +217,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-gd:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:gd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-gd:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:gd',
                  15000,
-                 'did:web:maps.gftd.ai:wikipedia:gd',
+                 'did:web:maps.etzhayyim.com:wikipedia:gd',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -231,10 +231,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-yi:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:yi',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-yi:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:yi',
                  15000,
-                 'did:web:maps.gftd.ai:wikipedia:yi',
+                 'did:web:maps.etzhayyim.com:wikipedia:yi',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -245,10 +245,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-wa:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:wa',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-wa:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:wa',
                  15000,
-                 'did:web:maps.gftd.ai:wikipedia:wa',
+                 'did:web:maps.etzhayyim.com:wikipedia:wa',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -259,10 +259,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-ha:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:ha',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-ha:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:ha',
                  10000,
-                 'did:web:maps.gftd.ai:wikipedia:ha',
+                 'did:web:maps.etzhayyim.com:wikipedia:ha',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -273,10 +273,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-mi:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:mi',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-mi:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:mi',
                  10000,
-                 'did:web:maps.gftd.ai:wikipedia:mi',
+                 'did:web:maps.etzhayyim.com:wikipedia:mi',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -287,10 +287,10 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $4, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-mt:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:mt',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-mt:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:mt',
                  5000,
-                 'did:web:maps.gftd.ai:wikipedia:mt',
+                 'did:web:maps.etzhayyim.com:wikipedia:mt',
                  '2026-05-08T00:20:04.258Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

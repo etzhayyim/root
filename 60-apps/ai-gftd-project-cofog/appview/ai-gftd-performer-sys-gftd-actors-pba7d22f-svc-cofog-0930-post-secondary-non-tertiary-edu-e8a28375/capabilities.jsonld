@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/09/3/0/post-secondary-non-tertiary-education",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/3/0/post-secondary-non-tertiary-education",
       "type": "dodaf:Capability",
       "name": "Post-Secondary Vocational and Technical Training Capability",
       "description": "Functional capability for managing post-secondary non-tertiary vocational services, training facility audits, and skill attainment. Classification: COFOG Division 09, Group 3, Class 0.",

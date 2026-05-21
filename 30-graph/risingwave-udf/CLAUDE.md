@@ -9,8 +9,8 @@ gRPC on :8815. Deployed as LKE sidecar next to RW compute (namespace `risingwave
 | ------------------------- | ------------------------------------------ | ---------: | ----------------------------------------------------- |
 | `cosine_similarity`       | `(double[], double[]) → double`            |          1 | feature vector cosine (pure CPU)                      |
 | `posterior_update`        | `(double, double) → double`                |          1 | Bayesian single-step posterior                        |
-| `news_source_credibility` | `(varchar, boolean, boolean) → double`     |          1 | news.gftd.ai primary/official-source provenance score |
-| `news_intel_priority`     | `(int, int, int, double, double) → double` |          1 | news.gftd.ai intel dispatch priority score            |
+| `news_source_credibility` | `(varchar, boolean, boolean) → double`     |          1 | news.etzhayyim.com primary/official-source provenance score |
+| `news_intel_priority`     | `(int, int, int, double, double) → double` |          1 | news.etzhayyim.com intel dispatch priority score            |
 | `segment_hash`            | `(jsonb) → varchar`                        |          1 | sha256 k-anonymity grouping key                       |
 | `gmm_fit`                 | `(double[], int) → jsonb`                  |          1 | GMM single-row assignment                             |
 | `classify_t3`             | `(varchar, varchar, varchar) → varchar`    |     **50** | yabai T3 LLM gray-zone phishing classifier (ADR-0032) |
@@ -24,7 +24,7 @@ silently caps throughput at SDK gRPC pool ≈7.5 parallel).
 - `udf_server.py` — arrow_udf 0.3.1 server, all 5 functions.
 - `requirements.txt` — arrow-udf, pyarrow, numpy, sklearn.
 - `Dockerfile` — python:3.12-slim with env knobs (`LLM_URL`, `T3_IO_THREADS`).
-- `deploy.sh` — build → push ghcr.io/gftdcojp/risingwave-python-udf → kubectl apply.
+- `deploy.sh` — build → push ghcr.io/etzhayyim/risingwave-python-udf → kubectl apply.
 
 ## Register with RisingWave
 

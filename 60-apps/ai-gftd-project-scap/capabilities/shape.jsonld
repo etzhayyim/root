@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "sh": "http://www.w3.org/ns/shacl#",
@@ -54,23 +54,23 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/capabilities/shape",
+  "@id": "https://scap.etzhayyim.com/capabilities/shape",
   "@type": "sh:Shape",
   "name": "SCAP Platform Data Validation Shapes",
   "description": "SHACL shapes defining validation constraints for SCAP platform data",
   "@graph": [
     {
-      "@id": "https://scap.gftd.ai/shapes/SCAPContentShape",
+      "@id": "https://scap.etzhayyim.com/shapes/SCAPContentShape",
       "@type": "sh:NodeShape",
       "targetClass": {
-        "@id": "https://scap.gftd.ai/ontology#SCAPContent"
+        "@id": "https://scap.etzhayyim.com/ontology#SCAPContent"
       },
       "name": "SCAP Content Shape",
       "description": "Validation constraints for SCAP Content entities",
       "property": [
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#id"
+            "@id": "https://scap.etzhayyim.com/ontology#id"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -82,7 +82,7 @@
         },
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#title"
+            "@id": "https://scap.etzhayyim.com/ontology#title"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -94,7 +94,7 @@
         },
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#type"
+            "@id": "https://scap.etzhayyim.com/ontology#type"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -128,7 +128,7 @@
         },
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#status"
+            "@id": "https://scap.etzhayyim.com/ontology#status"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -151,17 +151,17 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/shapes/CVEDataShape",
+      "@id": "https://scap.etzhayyim.com/shapes/CVEDataShape",
       "@type": "sh:NodeShape",
       "targetClass": {
-        "@id": "https://scap.gftd.ai/ontology#CVEData"
+        "@id": "https://scap.etzhayyim.com/ontology#CVEData"
       },
       "name": "CVE Data Shape",
       "description": "Validation constraints for CVE Data entities",
       "property": [
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#cveId"
+            "@id": "https://scap.etzhayyim.com/ontology#cveId"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -173,7 +173,7 @@
         },
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#severity"
+            "@id": "https://scap.etzhayyim.com/ontology#severity"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -198,7 +198,7 @@
         },
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#cvssScore"
+            "@id": "https://scap.etzhayyim.com/ontology#cvssScore"
           },
           "datatype": {
             "@id": "xsd:double"
@@ -206,14 +206,14 @@
           "minCount": 0,
           "maxCount": 1,
           "node": {
-            "@id": "https://scap.gftd.ai/shapes/CVSSCoreRange"
+            "@id": "https://scap.etzhayyim.com/shapes/CVSSCoreRange"
           },
           "name": "cvssScore"
         }
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/shapes/CVSSCoreRange",
+      "@id": "https://scap.etzhayyim.com/shapes/CVSSCoreRange",
       "@type": "sh:NodeShape",
       "name": "CVSS Score Range",
       "description": "CVSS score must be between 0.0 and 10.0",
@@ -222,17 +222,17 @@
       }
     },
     {
-      "@id": "https://scap.gftd.ai/shapes/SCAPScanResultShape",
+      "@id": "https://scap.etzhayyim.com/shapes/SCAPScanResultShape",
       "@type": "sh:NodeShape",
       "targetClass": {
-        "@id": "https://scap.gftd.ai/ontology#SCAPScanResult"
+        "@id": "https://scap.etzhayyim.com/ontology#SCAPScanResult"
       },
       "name": "SCAP Scan Result Shape",
       "description": "Validation constraints for SCAP Scan Result entities",
       "property": [
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#status"
+            "@id": "https://scap.etzhayyim.com/ontology#status"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -257,7 +257,7 @@
         },
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#compliancePercentage"
+            "@id": "https://scap.etzhayyim.com/ontology#compliancePercentage"
           },
           "datatype": {
             "@id": "xsd:double"
@@ -265,14 +265,14 @@
           "minCount": 1,
           "maxCount": 1,
           "node": {
-            "@id": "https://scap.gftd.ai/shapes/PercentageRange"
+            "@id": "https://scap.etzhayyim.com/shapes/PercentageRange"
           },
           "name": "compliancePercentage"
         }
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/shapes/PercentageRange",
+      "@id": "https://scap.etzhayyim.com/shapes/PercentageRange",
       "@type": "sh:NodeShape",
       "name": "Percentage Range",
       "description": "Percentage value must be between 0.0 and 100.0",
@@ -281,17 +281,17 @@
       }
     },
     {
-      "@id": "https://scap.gftd.ai/shapes/SCAPDataSourceShape",
+      "@id": "https://scap.etzhayyim.com/shapes/SCAPDataSourceShape",
       "@type": "sh:NodeShape",
       "targetClass": {
-        "@id": "https://scap.gftd.ai/ontology#SCAPDataSource"
+        "@id": "https://scap.etzhayyim.com/ontology#SCAPDataSource"
       },
       "name": "SCAP Data Source Shape",
       "description": "Validation constraints for SCAP Data Source entities",
       "property": [
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#url"
+            "@id": "https://scap.etzhayyim.com/ontology#url"
           },
           "datatype": {
             "@id": "xsd:anyURI"
@@ -302,7 +302,7 @@
         },
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#updateFrequency"
+            "@id": "https://scap.etzhayyim.com/ontology#updateFrequency"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -327,7 +327,7 @@
         },
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#status"
+            "@id": "https://scap.etzhayyim.com/ontology#status"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -347,17 +347,17 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/shapes/IntegrationShape",
+      "@id": "https://scap.etzhayyim.com/shapes/IntegrationShape",
       "@type": "sh:NodeShape",
       "targetClass": {
-        "@id": "https://scap.gftd.ai/ontology#Integration"
+        "@id": "https://scap.etzhayyim.com/ontology#Integration"
       },
       "name": "Integration Shape",
       "description": "Validation constraints for Integration entities",
       "property": [
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#type"
+            "@id": "https://scap.etzhayyim.com/ontology#type"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -385,7 +385,7 @@
         },
         {
           "path": {
-            "@id": "https://scap.gftd.ai/ontology#status"
+            "@id": "https://scap.etzhayyim.com/ontology#status"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -406,7 +406,7 @@
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/zod/index.ts"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/zod/index.ts"
   ]
 }

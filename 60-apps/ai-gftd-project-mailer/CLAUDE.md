@@ -1,6 +1,6 @@
 # ai-gftd-project-mailer
 
-mailer.gftd.ai — DID-based email platform。`performerType: system`。
+mailer.etzhayyim.com — DID-based email platform。`performerType: system`。
 
 ## Architecture
 
@@ -15,12 +15,12 @@ mailer.gftd.ai — DID-based email platform。`performerType: system`。
 
 ```
 External SMTP sender
-  → CF Email Routing (MX: route{1,2,3}.mx.cloudflare.net, catch-all *@gftd.ai)
+  → CF Email Routing (MX: route{1,2,3}.mx.cloudflare.net, catch-all *@etzhayyim.com)
   → ai-gftd-email-relay Worker (account-level, email() handler)
   → worker.ts:
     1. Read raw MIME stream, parse headers/body
     2. PDS createRecord("inboundEmail", {from, to_local, subject, body_text, ...})
-    3. Resolve DID: {handle}@gftd.ai → did:web:{handle}.gftd.ai
+    3. Resolve DID: {handle}@etzhayyim.com → did:web:{handle}.etzhayyim.com
     4. PDS ai.gftd.projector.createProjectConvo({participantDids, kind, name}) → convoId
     5. PDS ai.gftd.projector.sendProjectMessage({convoId, text: formatted email})
     6. PDS createRecord("inboundEmailStatus", {status: "delivered", convo_id})
@@ -42,7 +42,7 @@ mailer-inbound commands (cmdSendEmail / cmdReplyToEmail / cmdForwardEmail)
 ## DID Resolution
 
 ```
-{handle}@gftd.ai  →  did:web:{handle}.gftd.ai
+{handle}@etzhayyim.com  →  did:web:{handle}.etzhayyim.com
 ```
 
 Convention-based。Alpha-start rule enforced (a-z 始まり)。

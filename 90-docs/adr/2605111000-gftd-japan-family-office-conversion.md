@@ -116,7 +116,7 @@ WHERE action_code = 'GJ-CA-2026-001';
 ### deps.toml
 
 ```toml
-[gftdcojp_agent.identity]
+[etzhayyim_agent.identity]
 business_type = "single-family-private-office"
 corporate_action_code = "GJ-CA-2026-001"
 corporate_action_status = "draft"  # draft → approved → filed → registered
@@ -131,8 +131,8 @@ business_purpose_registered = false  # 登記完了後 true へ
 2. **司法書士依頼**: 変更登記申請書 + 議事録を法務局に提出（決議日から2週間以内）
 3. **登記完了確認**: 履歴事項全部証明書（法務局窓口 or オンライン ¥600）取得
 4. **更新**:
-   - `deps.toml [gftdcojp_agent.identity].business_purpose_registered = true`
-   - `deps.toml [gftdcojp_agent.identity].corporate_action_status = "registered"`
+   - `deps.toml [etzhayyim_agent.identity].business_purpose_registered = true`
+   - `deps.toml [etzhayyim_agent.identity].corporate_action_status = "registered"`
    - 本ADR status を `registered` に更新
    - `vertex_corporate_action` の `status`, `registration_date` を更新
    - 取引金融機関へ会社概要届出書を更新
@@ -146,6 +146,6 @@ business_purpose_registered = false  # 登記完了後 true へ
 ## Related
 
 - `_working/family-office-registration/` — 全書類 SSoT
-- `deps.toml [gftdcojp_agent.identity]` — 法人設定 SSoT
-- `ADR-2604251215` — gftdcojp agent authority bounds
+- `deps.toml [etzhayyim_agent.identity]` — 法人設定 SSoT
+- `ADR-2604251215` — etzhayyim agent authority bounds
 - `vertex_corporate_action` — RW ガバナンス記録 SSoT

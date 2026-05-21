@@ -4,11 +4,11 @@
  * POSTs to lg-mangaka enrichment / import graphs (which write to vertex_mangaka).
  *
  * Set MANGAKA_BASE=http://127.0.0.1:18001/xrpc/ (port-forward) when running locally.
- * Production: MANGAKA_BASE=https://mangaka.gftd.ai/xrpc/ (goes through bpmn-dispatcher).
+ * Production: MANGAKA_BASE=https://mangaka.etzhayyim.com/xrpc/ (goes through bpmn-dispatcher).
  */
 
 const JUMP_DIR = "/Users/junkawasaki/github/ghosthacker/260123-jump/resources";
-const MANGAKA_BASE = Deno.env.get("MANGAKA_BASE") || "https://mangaka.gftd.ai/xrpc/";
+const MANGAKA_BASE = Deno.env.get("MANGAKA_BASE") || "https://mangaka.etzhayyim.com/xrpc/";
 
 async function xrpc(method: string, body: Record<string, unknown>): Promise<any> {
   const resp = await fetch(MANGAKA_BASE + method, {

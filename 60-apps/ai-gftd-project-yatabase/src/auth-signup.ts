@@ -2,7 +2,7 @@
 //
 // Flow:
 //   POST /auth/v1/signup (no auth)
-//     → generate a fresh tenant org_did (`did:web:t-<rand>.yata-tenant.gftd.ai`)
+//     → generate a fresh tenant org_did (`did:web:t-<rand>.yata-tenant.etzhayyim.com`)
 //     → generate a `sk_live_yata_*` raw key (32 chars) + sha256 hash
 //     → INSERT vertex_api_key row directly via Hyperdrive — schema matches
 //       the canonical createApiKey handler (atproto/handlers/register.ts).
@@ -257,7 +257,7 @@ export async function handleSignup(env: SignupEnv, req?: Request): Promise<Respo
   const ts = Date.now();
   const randSuffix = Math.floor(Math.random() * 1e9).toString(36) +
                      Math.floor(Math.random() * 1e9).toString(36);
-  const orgDid = `did:web:t-${randSuffix.slice(0, 16)}.yata-tenant.gftd.ai`;
+  const orgDid = `did:web:t-${randSuffix.slice(0, 16)}.yata-tenant.etzhayyim.com`;
   const tenantName = `yata-tenant-${ts}`;
 
   const rawKey = generateApiKey();

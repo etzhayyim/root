@@ -215,7 +215,7 @@ planning → active → blocked → active (ループ可) → done
 }
 ```
 
-戻り値: `{ "projectDid": "did:web:pregel.gftd.ai#proj-xxxx", "lifecycleState": "planning" }`
+戻り値: `{ "projectDid": "did:web:pregel.etzhayyim.com#proj-xxxx", "lifecycleState": "planning" }`
 
 #### `projector.get_status`
 
@@ -225,7 +225,7 @@ planning → active → blocked → active (ループ可) → done
 {
   "tool": "projector.get_status",
   "arguments": {
-    "projectDid": "did:web:pregel.gftd.ai#proj-xxxx",
+    "projectDid": "did:web:pregel.etzhayyim.com#proj-xxxx",
     "summarize": false
   }
 }
@@ -243,7 +243,7 @@ planning → active → blocked → active (ループ可) → done
 {
   "tool": "projector.update_status",
   "arguments": {
-    "projectDid": "did:web:pregel.gftd.ai#proj-xxxx",
+    "projectDid": "did:web:pregel.etzhayyim.com#proj-xxxx",
     "progressPermille": 700,
     "lifecycleState": "active"
   }
@@ -256,7 +256,7 @@ planning → active → blocked → active (ループ可) → done
 {
   "tool": "projector.update_status",
   "arguments": {
-    "projectDid": "did:web:pregel.gftd.ai#proj-xxxx",
+    "projectDid": "did:web:pregel.etzhayyim.com#proj-xxxx",
     "progressPermille": 1000,
     "lifecycleState": "done"
   }
@@ -271,7 +271,7 @@ planning → active → blocked → active (ループ可) → done
 {
   "tool": "projector.add_blocker",
   "arguments": {
-    "projectDid": "did:web:pregel.gftd.ai#proj-xxxx",
+    "projectDid": "did:web:pregel.etzhayyim.com#proj-xxxx",
     "type": "external_dep",
     "severity": "high",
     "description": "PDS deploy 権限承認待ち (j.kawasaki@gftd.co.jp に確認中)"
@@ -282,7 +282,7 @@ planning → active → blocked → active (ループ可) → done
 `type` の値: `external_dep` / `internal` / `review_wait`
 `severity` の値: `critical` / `high` / `medium` / `low`
 
-戻り値: `{ "blockerDid": "did:web:pregel.gftd.ai#blocker-yyyy", "propagated": 2 }`
+戻り値: `{ "blockerDid": "did:web:pregel.etzhayyim.com#blocker-yyyy", "propagated": 2 }`
 (`propagated` = Pregel で blocked に遷移した依存プロジェクト数)
 
 #### `projector.resolve_blocker`
@@ -293,7 +293,7 @@ blocker が解消されたら**即時**呼ぶ。
 {
   "tool": "projector.resolve_blocker",
   "arguments": {
-    "blockerDid": "did:web:pregel.gftd.ai#blocker-yyyy"
+    "blockerDid": "did:web:pregel.etzhayyim.com#blocker-yyyy"
   }
 }
 ```

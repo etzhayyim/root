@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "table_uuid": "mokuteki-local-001",
-  "location": "/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/data/mokuteki",
+  "location": "/Users/junkawasaki/github/etzhayyim-root/data/mokuteki",
   "schema": {
     "type": "struct",
     "fields": [

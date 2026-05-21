@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:crew.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:crew.etzhayyim.com",
   "actors": [
     {
       "description": "Master, Chief/2nd/3rd Officers — navigation, cargo operations",
@@ -39,8 +39,8 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Crew Management agent. You manage seafarer registries, STCW certificates, crew manifests, and crew change schedules. Track certificate expiry dates, ensure safe manning compliance, and coordinate crew changes at ports. Link to vessel.gftd.ai for vessel assignments and port.gftd.ai for crew change logistics.",
-  "description": "Seafarer registry, STCW certificate tracking, crew manifest management, crew change scheduling. Links to vessel.gftd.ai and port.gftd.ai for operational coordination.",
+  "convoSystemPrompt": "You are the Crew Management agent. You manage seafarer registries, STCW certificates, crew manifests, and crew change schedules. Track certificate expiry dates, ensure safe manning compliance, and coordinate crew changes at ports. Link to vessel.etzhayyim.com for vessel assignments and port.etzhayyim.com for crew change logistics.",
+  "description": "Seafarer registry, STCW certificate tracking, crew manifest management, crew change scheduling. Links to vessel.etzhayyim.com and port.etzhayyim.com for operational coordination.",
   "displayName": "Crew Management & STCW Compliance",
   "domainKnowledgeRequired": true,
   "runtime": "k8s-langserver",
@@ -305,7 +305,7 @@
       "crew-manifest",
       "crew-change-scheduling"
     ],
-    "description": "Maritime crew management — seafarer registry with rank/nationality/experience, STCW certificate lifecycle (issue→expiry alerts), crew manifests with safe manning compliance, crew change scheduling at ports. Links to vessel.gftd.ai for vessel assignment and port.gftd.ai for crew change logistics.",
+    "description": "Maritime crew management — seafarer registry with rank/nationality/experience, STCW certificate lifecycle (issue→expiry alerts), crew manifests with safe manning compliance, crew change scheduling at ports. Links to vessel.etzhayyim.com for vessel assignment and port.etzhayyim.com for crew change logistics.",
     "displayName": "Crew Management & STCW Compliance",
     "isBot": true,
     "operator": "gftd.co.jp"

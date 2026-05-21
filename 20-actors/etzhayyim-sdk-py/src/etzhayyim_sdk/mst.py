@@ -8,7 +8,7 @@ MST-backed queries via the AT Protocol PDS + mst-projector.
 
 Configuration:
   ETZHAYYIM_PDS_URL — base URL of the AT Protocol PDS
-                      (default: http://atproto.gftd.ai)
+                      (default: http://atproto.etzhayyim.com)
 
 Usage::
 
@@ -53,7 +53,7 @@ class MstServerError(MstError):
 
 
 def _pds_url() -> str:
-    return os.environ.get("ETZHAYYIM_PDS_URL", "http://atproto.gftd.ai").rstrip("/")
+    return os.environ.get("ETZHAYYIM_PDS_URL", "http://atproto.etzhayyim.com").rstrip("/")
 
 
 # ── Singleton client ──────────────────────────────────────────────────────────

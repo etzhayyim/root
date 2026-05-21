@@ -26,7 +26,7 @@ commit 単位で CAR file を生成し firehose で federation する。gftd PDS
 RisingWave を primary storage に採用しており (ADR-0048)、RisingWave は OLTP
 契約を提供しない (`ON CONFLICT` / write transaction / read-your-writes /
 UNIQUE 列制約 / `START TRANSACTION` write すべて非対応または degraded)。
-加えて plc.gftd.ai は self-hosted (ADR-0014) で Bluesky Relay は gftd の
+加えて plc.etzhayyim.com は self-hosted (ADR-0014) で Bluesky Relay は gftd の
 DID を discover しないため、外部 federation 需要が事実上 0。
 
 本 ADR は CLAUDE.md Root-Only Rule "Record-log semantics, not MST" を ADR

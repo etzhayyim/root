@@ -1,7 +1,7 @@
 [project]
 name = "lg-media-gamers"
 version = "0.1.0"
-description = "media-gamers.gftd.ai OSS LangGraph FastAPI server (2026-05-13)"
+description = "media-gamers.etzhayyim.com OSS LangGraph FastAPI server (2026-05-13)"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",

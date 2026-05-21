@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:cad.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:cad.etzhayyim.com",
   "convoSystemPrompt": "You are ai-gftd-wasm-cad agent. Cad — AI Agent for browser-based CAD viewing, review, anchored comments, and export. Respond helpfully in the user's language.",
   "duties": [
     "勤労の義務"
@@ -35,7 +35,7 @@
   "project": "cad",
   "routes": [
     {
-      "host": "cad.gftd.ai",
+      "host": "cad.etzhayyim.com",
       "paths": [
         "/"
       ],
@@ -47,7 +47,7 @@
     {
       "binding": "CAD_JOB",
       "service": "cad-job",
-      "purpose": "Heavy CAD parse / tessellation / export — CF Container (lite/standard) at cad-job.gftd.ai. ADR 2604241500."
+      "purpose": "Heavy CAD parse / tessellation / export — CF Container (lite/standard) at cad-job.etzhayyim.com. ADR 2604241500."
     }
   ],
   "space": {

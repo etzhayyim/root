@@ -19,7 +19,7 @@ go test ./...
 # legacy-runtime run --app-id ti-collector --app-port 8080 --legacy-runtime-http-port 3500 -- go run ./cmd/server
 ```
 
-### Resources JSON-LD Output (resources.gftd.ai)
+### Resources JSON-LD Output (resources.etzhayyim.com)
 
 On ingest, the collector writes JSON-LD entity files into:
 

@@ -19,8 +19,8 @@ from lg_jukyu.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.gftd.ai")
-_LLM_URL = os.environ.get("JUKYU_LLM_URL", "http://llm.gftd.ai")
+_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.etzhayyim.com")
+_LLM_URL = os.environ.get("JUKYU_LLM_URL", "http://llm.etzhayyim.com")
 _LLM_API_KEY = os.environ.get("JUKYU_LLM_API_KEY", "")
 _EXTRACTION_MODEL = os.environ.get("JUKYU_LLM_EXTRACTION_MODEL", "qwen3-30b")
 _LLM_TIMEOUT = float(os.environ.get("JUKYU_LLM_TIMEOUT", "30"))

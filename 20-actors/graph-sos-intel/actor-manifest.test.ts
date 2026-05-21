@@ -25,8 +25,8 @@ const VALID_PRIMITIVES = new Set([
 
 describe("Graph SoS Intel Actor Manifest", () => {
   it("declares the canonical actor identity", () => {
-    expect(manifest["@context"]).toBe("https://gftd.ai/ns/actor/v1");
-    expect(manifest["@id"]).toBe("did:web:graph-sos-intel.gftd.ai");
+    expect(manifest["@context"]).toBe("https://etzhayyim.com/ns/actor/v1");
+    expect(manifest["@id"]).toBe("did:web:graph-sos-intel.etzhayyim.com");
     expect(manifest.name).toBe("graph-sos-intel");
     expect(manifest.nanoid).toBe("gs0s1nt7");
     expect(manifest.runtime).toBe("k8s-langserver");

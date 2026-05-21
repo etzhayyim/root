@@ -10,7 +10,7 @@ import {
 import { TouchOptimizedButton } from "@/components/TouchOptimizedButton";
 
 /**
- * @gftdcojp/ai-gftd-hrse#ComposeMessage
+ * @etzhayyim/ai-gftd-hrse#ComposeMessage
  * Message composer component for mailbox
  */
 interface ComposeMessageProps {

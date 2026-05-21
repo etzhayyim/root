@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#IntegrationSetup
+// @etzhayyim/cyber-freelance#IntegrationSetup
 // BDD統合テスト用のセットアップ
 
 import { BeforeAll, AfterAll } from "@cucumber/cucumber";

@@ -4,7 +4,7 @@ Vendor `60-apps/ai-gftd-project-tsukuru/appview/tsukuru-tsukr8u0/src/app.ts`
 is the current production B2B factory-direct ordering platform. It uses:
 
 - `createKyselyDb()` — RisingWave Hyperdrive direct write (T2 Domain path)
-- `did:web:stripe.gftd.ai cancelCard` invoke — Stripe Issuing virtual cards
+- `did:web:stripe.etzhayyim.com cancelCard` invoke — Stripe Issuing virtual cards
 - `payment.method = "stripe_issuing"` — fiat USD card-based factory payment
 
 Per **ADR-2605172000** (etzhayyim RW-free substrate) and **ADR-2605172100**
@@ -14,7 +14,7 @@ Per **ADR-2605172000** (etzhayyim RW-free substrate) and **ADR-2605172100**
    etzhayyim PDS (collection `ai.etzhayyim.apps.tsukuru.*`).
 2. Replace `stripe_issuing` payment with ERC-4337 + USDC on Base L2 via
    `@etzhayyim/sdk` `pay()` (ADR-2605172100 reference impl).
-3. Replace `did:web:stripe.gftd.ai` invokes with on-chain equivalents
+3. Replace `did:web:stripe.etzhayyim.com` invokes with on-chain equivalents
    (USDC transfer + ERC-4337 Paymaster `etzhayyim-paymaster`).
 
 This rewrite is Phase 2 of the tsukuru full-move plan recorded in:

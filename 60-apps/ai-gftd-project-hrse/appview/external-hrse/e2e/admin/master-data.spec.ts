@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#MasterDataManagementE2E
+// @etzhayyim/cyber-freelance#MasterDataManagementE2E
 // マスターデータ管理CapabilityのE2Eテスト（TDDアプローチ）
 
 import { test, expect } from "@playwright/test";

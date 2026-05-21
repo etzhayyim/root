@@ -32,7 +32,7 @@ The existing infrastructure relied on static BPMN task definitions (`xrpc.ai.gft
    - Allows dynamic, recursive discovery of sub-agencies and dependencies mapped back to RisingWave (`vertex_gov_org`, `govOrgSiteDep`).
 
 2. **Conversational Intake & Internal Processing (`gyosei-procedure-pregel`)**
-   - **Yoro Integration**: Designed an intake agent (`gyosei-intake-agent`) to process user messages/mentions from the `yoro.gftd.ai` social feed, identify intents, and draft procedures (`ai.gftd.apps.gyosei.startProcedure`, `submitDraft`).
+   - **Yoro Integration**: Designed an intake agent (`gyosei-intake-agent`) to process user messages/mentions from the `yoro.etzhayyim.com` social feed, identify intents, and draft procedures (`ai.gftd.apps.gyosei.startProcedure`, `submitDraft`).
    - **Back-office Workflow**: Designed an internal agent (`gyosei-internal-processing`) to validate submitted schemas against `governanceContract`, route for Human-in-the-loop (HAR) or automated review, and notify the user via Yoro DM.
    - Enhanced `vertex_gov_org` to include `address`, `phone`, and `email` to route procedures correctly.
 
@@ -48,7 +48,7 @@ The existing infrastructure relied on static BPMN task definitions (`xrpc.ai.gft
    - Alembic seeds: `20260515_0001` (gov-fractal-pregel), `20260515_0002` (gyosei-procedure-pregel), `20260515_0003` (gyosei-intake-agent + gyosei-internal-processing), `20260515_0004` (gyosei-procedure-kaizen-pregel).
 
 5. **Deployment Infrastructure (`Dockerfile.lg`, Helm unpark)**
-   - `20-actors/magatama/py/Dockerfile.lg` created as the canonical lightweight build target for both `ghcr.io/gftdcojp/lg-gov:latest` and `ghcr.io/gftdcojp/lg-gyosei:latest` (python:3.11-slim-bookworm, libpq5, uv install, uv stripped post-install).
+   - `20-actors/magatama/py/Dockerfile.lg` created as the canonical lightweight build target for both `ghcr.io/etzhayyim/lg-gov:latest` and `ghcr.io/etzhayyim/lg-gyosei:latest` (python:3.11-slim-bookworm, libpq5, uv install, uv stripped post-install).
    - `langgraph_server_app.py` `/health` alias added (stacked above `/healthz`) to satisfy Helm liveness/readiness probes which target `/health`.
    - `lg-gov-raw` and `lg-gyosei-raw` Helm deployments unparked: `replicas: 0 → 1`, `state: parked` label removed from helmfile.yaml.
    - **Operator steps pending**: `docker buildx build --builder gftd-vke` for both images → `helmfile sync -l pool=gov` → `helmfile sync -l pool=gyosei` → `alembic upgrade head` against prod RisingWave.

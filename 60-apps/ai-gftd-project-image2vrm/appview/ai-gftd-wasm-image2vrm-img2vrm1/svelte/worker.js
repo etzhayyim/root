@@ -7,7 +7,7 @@ export default {
       return j({ status: "ok", app: "img2vrm1" });
 
     if (u.pathname === "/_app/meta")
-      return j({ nanoid: "img2vrm1", name: "image2vrm", uiMode: "iframe", embedUrl: "https://image2vrm.gftd.ai/?embed=1" }, { "Access-Control-Allow-Origin": "*" });
+      return j({ nanoid: "img2vrm1", name: "image2vrm", uiMode: "iframe", embedUrl: "https://image2vrm.etzhayyim.com/?embed=1" }, { "Access-Control-Allow-Origin": "*" });
 
     if (u.pathname.startsWith("/api/r2/")) {
       const key = u.pathname.slice(8);

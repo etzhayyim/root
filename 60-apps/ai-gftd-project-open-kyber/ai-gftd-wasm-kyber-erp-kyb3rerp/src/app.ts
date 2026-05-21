@@ -615,14 +615,14 @@ function planLimits(planId: string): { maxUsers: number; maxMonthlyTxns: number 
 // Charter Rider §1.3 + ADR-2605192115 + ADR-2605211900 §"Constitutional
 // invariants" (no fiat payment processors / no `subscription` purpose
 // on external substrate calls). Downstream commercial forks (e.g.
-// kyber.gftd.ai) that operate as for-profit ERP tenancies are expected
+// kyber.etzhayyim.com) that operate as for-profit ERP tenancies are expected
 // to patch in their own stripePost implementation locally.
 //
 // This stub keeps the call sites in cmdProvisionTenant + cmdReportUsage
 // type-correct without re-introducing the api.stripe.com URL into the
 // canonical source tree. Calls degrade silently: provision continues
 // without a customer id, usage reporting reports zero. The deployed
-// kyber.gftd.ai instance ships a separate billing-non-religious-corp
+// kyber.etzhayyim.com instance ships a separate billing-non-religious-corp
 // module that re-exports a real stripePost. See
 // 90-docs/adr/2605212100-stripe-removed-from-religious-corp-canonical.md.
 async function stripePost(

@@ -4,7 +4,7 @@ Inngest event-driven resource planner. user_id/org_id スコープでリソー�
 
 ## Architecture: API-Only Component + Magatama Static Delivery
 
-- 静的アセット (`svelte/build/`) → App fileserver `rp.gftd.ai`
+- 静的アセット (`svelte/build/`) → App fileserver `rp.etzhayyim.com`
 - App → API only (XRPC-Web)
 - No `go:embed static` (static delivery 同梱配信)
 
@@ -15,7 +15,7 @@ Inngest event-driven resource planner. user_id/org_id スコープでリソー�
 | 項目 | 値 |
 |---|---|
 | Port | 21072 |
-| Domain | `rp.gftd.ai` (UI) / `1.gftd.ai/xrpc` (API) |
+| Domain | `rp.etzhayyim.com` (UI) / `1.etzhayyim.com/xrpc` (API) |
 | Framework | performer (`gftd.resourceplanner.v1.ResourcePlannerService`) |
 | KV Bucket | `resource-planner-store` |
 | nanoid | `rp7n3st2` |

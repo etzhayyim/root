@@ -4,7 +4,7 @@
 
 ## Overview
 
-gas.gftd.ai — basic.gftd.ai のガス領域。受給者への都市ガス/LPG 供給管理、使用量追跡、プラン管理。
+gas.etzhayyim.com — basic.etzhayyim.com のガス領域。受給者への都市ガス/LPG 供給管理、使用量追跡、プラン管理。
 
 ## Domain Model
 

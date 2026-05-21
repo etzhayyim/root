@@ -5,8 +5,8 @@
 | Key | Value |
 |---|---|
 | **nanoid** | `fb0k0x01` |
-| **domain** | `facebook.gftd.ai` |
-| **AT bot DID** | `did:web:facebook-fb0k0x01.gftd.ai` |
+| **domain** | `facebook.etzhayyim.com` |
+| **AT bot DID** | `did:web:facebook-fb0k0x01.etzhayyim.com` |
 | **Runtime** | **Single Worker** (TS Native, appview mode) |
 | **Data store** | **W Protocol Event Stream** — Write: `ComAtprotoRepoCreateRecord()` + `DIDCreate()` + `DIDWrite()`. Read: `G()` SQL |
 | **UI mode** | `appview` (Protocol Canvas card, zero frontend) |
@@ -52,12 +52,12 @@
 ### Multi-DID Architecture
 
 ```
-did:web:facebook.gftd.ai                                <- primary (controller)
-  +- did:web:facebook.gftd.ai:friend:123456789           <- friend DID
-  +- did:web:facebook.gftd.ai:friend:987654321           <- friend DID
-  +- did:web:facebook.gftd.ai:page:cocacola              <- page DID
-  +- did:web:facebook.gftd.ai:group:developers           <- group DID
-  +- did:web:facebook.gftd.ai:profile:me                 <- user's own profile DID
+did:web:facebook.etzhayyim.com                                <- primary (controller)
+  +- did:web:facebook.etzhayyim.com:friend:123456789           <- friend DID
+  +- did:web:facebook.etzhayyim.com:friend:987654321           <- friend DID
+  +- did:web:facebook.etzhayyim.com:page:cocacola              <- page DID
+  +- did:web:facebook.etzhayyim.com:group:developers           <- group DID
+  +- did:web:facebook.etzhayyim.com:profile:me                 <- user's own profile DID
 ```
 
 Each Facebook friend/page = path-based DID -> appears as actor in yoro -> messageable.
@@ -68,7 +68,7 @@ Each Facebook friend/page = path-based DID -> appears as actor in yoro -> messag
 - `processFollow`: welcome post with connect instructions on follow
 - `app.Handle("", "send_message", ..., RequireCallerRole("member"))`: only followers can send
 
-## UX Flow (yoro.gftd.ai/profile/did:web:facebook.gftd.ai?app=1)
+## UX Flow (yoro.etzhayyim.com/profile/did:web:facebook.etzhayyim.com?app=1)
 
 ```
 Step 1: Follow

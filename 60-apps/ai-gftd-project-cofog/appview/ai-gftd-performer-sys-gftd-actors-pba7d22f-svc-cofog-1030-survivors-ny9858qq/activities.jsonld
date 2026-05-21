@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/10/3/0/survivors/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/10/3/0/survivors/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Survivors' Benefit and Family Support Lifecycle",
       "description": "The administrative process of verifying survivor eligibility, coordinating financial benefits, and monitoring family stability outcomes.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/10/3/0/survivors"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/3/0/survivors"
     }
   ]
 }

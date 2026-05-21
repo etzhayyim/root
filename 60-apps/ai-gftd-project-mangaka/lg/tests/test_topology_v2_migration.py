@@ -65,7 +65,7 @@ def test_revision_chain(revision_module):
 def test_assistant_id_constants(revision_module):
     assert revision_module._ASSISTANT_ID == "ai.gftd.mangaka.composeScene3d"
     assert revision_module._NSID == revision_module._ASSISTANT_ID
-    assert revision_module._APP_DID == "did:web:mangaka.gftd.ai"
+    assert revision_module._APP_DID == "did:web:mangaka.etzhayyim.com"
 
 
 # ── _load_topology / _spec_json ───────────────────────────────────────────

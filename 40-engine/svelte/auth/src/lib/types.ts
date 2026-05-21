@@ -61,7 +61,7 @@ export interface TrustSummary {
 export interface AuthConfig {
 	/** Legacy Clerk publishable key (unused post-Clerk removal; kept for backward compat). */
 	publishableKey: string;
-	/** Base URL for authz.gftd.ai identity management UI (ADR-0024). */
+	/** Base URL for authz.etzhayyim.com identity management UI (ADR-0024). */
 	accountsBaseUrl?: string;
 }
 

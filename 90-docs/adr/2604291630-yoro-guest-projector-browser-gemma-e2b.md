@@ -18,7 +18,7 @@ related:
 # Context
 
 YORO actor profile pages need to let unauthenticated visitors send a message to
-actors such as `uqpel6i6.gftd.ai`. The existing authenticated flow uses
+actors such as `uqpel6i6.etzhayyim.com`. The existing authenticated flow uses
 `ai.gftd.projector.newProjectConvo` and `ai.gftd.projector.sendProjectMessage`,
 but the public PDS handler intentionally rejects projector write methods
 without a session.
@@ -51,7 +51,7 @@ Unauthenticated users use the local path:
 
 The LiveStage hero includes this behavior directly. Non-LiveStage profile
 heroes render a compact projector chat panel below the hero so service/iframe
-actors such as `uqpel6i6.gftd.ai` are also covered.
+actors such as `uqpel6i6.etzhayyim.com` are also covered.
 
 # Consequences
 
@@ -62,7 +62,7 @@ actors such as `uqpel6i6.gftd.ai` are also covered.
 - Browsers without compatible Web inference show the local model error in the
   chat panel instead of silently failing.
 - Integration coverage asserts that a logged-out profile page exposes the Gemma
-  E2B chat input for the `uqpel6i6.gftd.ai` actor path.
+  E2B chat input for the `uqpel6i6.etzhayyim.com` actor path.
 
 # References
 

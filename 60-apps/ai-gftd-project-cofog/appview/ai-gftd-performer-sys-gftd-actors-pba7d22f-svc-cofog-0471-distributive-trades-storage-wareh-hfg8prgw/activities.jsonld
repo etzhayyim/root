@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/7/1/distributive-trades-storage-warehousing/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/7/1/distributive-trades-storage-warehousing/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Trade and Supply Chain Management Lifecycle",
       "description": "The administrative process of analyzing trade flows, coordinating supply chain logistics, and monitoring trade regulations.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/7/1/distributive-trades-storage-warehousing"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/7/1/distributive-trades-storage-warehousing"
     }
   ]
 }

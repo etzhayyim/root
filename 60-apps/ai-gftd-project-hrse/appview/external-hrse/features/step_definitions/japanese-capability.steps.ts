@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#JapaneseCapabilitySteps
+// @etzhayyim/cyber-freelance#JapaneseCapabilitySteps
 // 日本語Capability関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

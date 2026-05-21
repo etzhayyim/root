@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kinoko.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kinoko.etzhayyim.com",
   "name": "kinoko",
   "nanoid": "k1n0k001",
   "project": "kinoko",

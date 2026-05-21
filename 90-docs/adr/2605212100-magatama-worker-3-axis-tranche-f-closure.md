@@ -136,7 +136,7 @@ replaced with the BeliefStore put_row equivalent.
 > `from pymagatama.db_sync import sync_cursor` becomes `import sqlite3`
 > + per-actor `_connect()` helper + smoke test in tmp $ORGANISM_SQLITE_DIR.
 
-(b) **DNS cutover** of the 29 actor DIDs from `<actor>.gftd.ai` to
+(b) **DNS cutover** of the 29 actor DIDs from `<actor>.etzhayyim.com` to
 `<actor>.etzhayyim.com`, gated on (a). Drift today is purely DID web
 domain + NSID prefix (`ai.gftd.<actor>` → `ai.gftd.apps.<actor>`) +
 secret redaction — etzhayyim already holds the canonical version of

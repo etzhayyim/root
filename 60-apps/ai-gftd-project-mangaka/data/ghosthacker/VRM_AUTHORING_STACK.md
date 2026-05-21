@@ -121,7 +121,7 @@ still works: hand-author the VRM in VRoid Studio / Blender, drop
 
 We deliberately **avoid Wonder3D and other AGPL/CC-BY-NC tools** —
 ghost-hacker is destined for commercial publication via
-mangaka.gftd.ai. AGPL would force the entire pod stack to be open-
+mangaka.etzhayyim.com. AGPL would force the entire pod stack to be open-
 sourced. The recommended stack above is 100% permissive (MIT / Apache-
 2.0 / GPL tool use).
 
@@ -133,11 +133,11 @@ its own ghcr.io image. Build invocations live in
 
 | Image | Base | Approx size | External calls? |
 |---|---|---|---|
-| `ghcr.io/gftdcojp/character-gen:0.1` | nvidia/cuda:12.4 + CharacterGen weights (mirrored at `b2://gftd-models/character-gen-v1/`) | ~6 GB | none |
-| `ghcr.io/gftdcojp/hunyuan3d-2:0.2` | nvidia/cuda:12.4 + Hunyuan3D-2 weights (B2 mirror) | ~12 GB | none |
-| `ghcr.io/gftdcojp/mediapipe-face:1` | python:3.11-slim + mediapipe wheel (bundled blendshape model) | ~600 MB | none |
-| `ghcr.io/gftdcojp/blender-rigify-rignet:0.1` | blender:4.1 + Rigify addon + saturday06/VRM_Addon + in-house RigNet checkpoint | ~3.5 GB | none |
-| `ghcr.io/gftdcojp/blender-vrm:4.1` | blender:4.1 + saturday06/VRM_Addon | ~3 GB | none |
+| `ghcr.io/etzhayyim/character-gen:0.1` | nvidia/cuda:12.4 + CharacterGen weights (mirrored at `b2://gftd-models/character-gen-v1/`) | ~6 GB | none |
+| `ghcr.io/etzhayyim/hunyuan3d-2:0.2` | nvidia/cuda:12.4 + Hunyuan3D-2 weights (B2 mirror) | ~12 GB | none |
+| `ghcr.io/etzhayyim/mediapipe-face:1` | python:3.11-slim + mediapipe wheel (bundled blendshape model) | ~600 MB | none |
+| `ghcr.io/etzhayyim/blender-rigify-rignet:0.1` | blender:4.1 + Rigify addon + saturday06/VRM_Addon + in-house RigNet checkpoint | ~3.5 GB | none |
+| `ghcr.io/etzhayyim/blender-vrm:4.1` | blender:4.1 + saturday06/VRM_Addon | ~3 GB | none |
 
 Each image exposes a single XRPC endpoint matching its lexicon NSID.
 The `vke-render-pool` is the GPU-bearing node selector; the CPU-only

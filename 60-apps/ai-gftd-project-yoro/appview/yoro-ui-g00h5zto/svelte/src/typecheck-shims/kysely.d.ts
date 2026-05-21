@@ -1,3 +1,4 @@
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 declare module 'kysely' {
   export const sql: any;
 

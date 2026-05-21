@@ -1,11 +1,11 @@
 # ai-gftd-project-vehicle
 
-Vehicle ownership registry for vehicle.gftd.ai — vehicle registration, ownership transfer, inspection records. SQL graph: `(:VehicleOwner)-[:OWNS]->(:Vehicle)`, `(:InspectionRecord)-[:INSPECTS]->(:Vehicle)`.
+Vehicle ownership registry for vehicle.etzhayyim.com — vehicle registration, ownership transfer, inspection records. SQL graph: `(:VehicleOwner)-[:OWNS]->(:Vehicle)`, `(:InspectionRecord)-[:INSPECTS]->(:Vehicle)`.
 
 ## Architecture
 
 ```
-Browser → vehicle.gftd.ai (appview mode)
+Browser → vehicle.etzhayyim.com (appview mode)
        → API → /gftd.vehicle.v1.VehicleCommandService/... + /gftd.vehicle.v1.VehicleQueryService/...
                   ↓
            App: ai-gftd-wasm-vehicle-vh1cl3rk
@@ -41,14 +41,14 @@ Browser → vehicle.gftd.ai (appview mode)
 
 | DID | Purpose |
 |---|---|
-| `did:web:vehicle.gftd.ai` | Primary (controller) |
-| `did:web:vehicle.gftd.ai:vehicle:{vin}` | Per-vehicle DID |
-| `did:web:vehicle.gftd.ai:owner:{owner_id}` | Per-owner DID |
+| `did:web:vehicle.etzhayyim.com` | Primary (controller) |
+| `did:web:vehicle.etzhayyim.com:vehicle:{vin}` | Per-vehicle DID |
+| `did:web:vehicle.etzhayyim.com:owner:{owner_id}` | Per-owner DID |
 
 ## Build & Deploy
 
 ```bash
 cd 60-apps/ai-gftd-project-vehicle/wasm/ai-gftd-wasm-vehicle-vh1cl3rk
 gftd build
-gftd deploy --smoke-url https://vh1cl3rk.gftd.ai/health
+gftd deploy --smoke-url https://vh1cl3rk.etzhayyim.com/health
 ```

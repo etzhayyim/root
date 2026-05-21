@@ -8,12 +8,12 @@
  *   4. OAuth link → auth_methods_summary update + actor_score recalc
  *   5. Org creation + invite + accept (when endpoints are live)
  *
- * Runs against live auth.gftd.ai (production or staging).
+ * Runs against live auth.etzhayyim.com (production or staging).
  */
 
 import { test, expect, type Page, type CDPSession } from "@playwright/test";
 
-const AUTH_BASE = process.env.AUTH_BASE_URL ?? "https://authn.gftd.ai";
+const AUTH_BASE = process.env.AUTH_BASE_URL ?? "https://authn.etzhayyim.com";
 
 async function attachVirtualAuthenticator(page: Page): Promise<CDPSession> {
   const cdp = await page.context().newCDPSession(page);
@@ -57,7 +57,7 @@ test.describe("did:gftd identity lifecycle", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: crypto.randomUUID(),
-          userName: `e2e-gftd-${crypto.randomUUID().slice(0, 8)}@gftd.ai`,
+          userName: `e2e-gftd-${crypto.randomUUID().slice(0, 8)}@etzhayyim.com`,
         }),
       }).then((r) => r.json());
 
@@ -142,7 +142,7 @@ test.describe("did:gftd identity lifecycle", () => {
     // DID Document structure assertions
     expect(doc.id).toBe(accountDid);
     expect(doc["@context"]).toContain("https://www.w3.org/ns/did/v1");
-    expect(doc["@context"]).toContain("https://did.gftd.ai/context/v1");
+    expect(doc["@context"]).toContain("https://did.etzhayyim.com/context/v1");
 
     // verificationMethod (signing key from KEYS_DB)
     expect(doc.verificationMethod).toHaveLength(1);
@@ -186,10 +186,10 @@ test.describe("did:gftd identity lifecycle", () => {
       const resp = await fetch(`${AUTH}/xrpc/com.atproto.server.getServiceAuth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ iss, aud: aud ?? "did:web:atproto.gftd.ai", lxm: "ai.gftd.apps.test.query" }),
+        body: JSON.stringify({ iss, aud: aud ?? "did:web:atproto.etzhayyim.com", lxm: "ai.gftd.apps.test.query" }),
       });
       return { ok: resp.ok, status: resp.status, body: await resp.json().catch(() => ({})) };
-    }, { iss: accountDid, aud: "did:web:atproto.gftd.ai" });
+    }, { iss: accountDid, aud: "did:web:atproto.etzhayyim.com" });
 
     expect(serviceAuth.ok, `getServiceAuth failed: ${JSON.stringify(serviceAuth)}`).toBe(true);
     expect(serviceAuth.body.token).toBeTruthy();
@@ -203,7 +203,7 @@ test.describe("did:gftd identity lifecycle", () => {
     // Decode payload to verify did:gftd iss
     const payload = JSON.parse(atob(jwtParts[1].replace(/-/g, "+").replace(/_/g, "/")));
     expect(payload.iss).toBe(accountDid);
-    expect(payload.aud).toBe("did:web:atproto.gftd.ai");
+    expect(payload.aud).toBe("did:web:atproto.etzhayyim.com");
     expect(payload.lxm).toBe("ai.gftd.apps.test.query");
     expect(payload.exp).toBeGreaterThan(Math.floor(Date.now() / 1000));
 

@@ -1,22 +1,22 @@
 {
   "@context": {
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/",
+    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/",
     "dependsOn": {
       "@id": "gftd:dependsOn",
       "@type": "@id"
     }
   },
   "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-communicator/id/Project/ai-gftd-project-communicator",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-communicator/id/Project/ai-gftd-project-communicator",
   "schema:name": "ai-gftd-project-communicator",
   "schema:description": "External communication orchestration project. It composes, reviews, sends, and tracks conversation actions across Gmail/Outlook via existing mailer and external adapters while adapting message strategy using emotional analytics.",
-  "schema:url": "https://communicator.gftd.ai",
+  "schema:url": "https://communicator.etzhayyim.com",
   "dependsOn": [
-    "https://resources.gftd.ai/ai-gftd-project-mailer/id/Project/ai-gftd-project-mailer",
-    "https://resources.gftd.ai/ai-gftd-project-external-service-adapter/id/Project/ai-gftd-project-external-service-adapter",
-    "https://resources.gftd.ai/ai-gftd-project-emotional-analytics/id/Project/ai-gftd-project-emotional-analytics"
+    "https://resources.etzhayyim.com/ai-gftd-project-mailer/id/Project/ai-gftd-project-mailer",
+    "https://resources.etzhayyim.com/ai-gftd-project-external-service-adapter/id/Project/ai-gftd-project-external-service-adapter",
+    "https://resources.etzhayyim.com/ai-gftd-project-emotional-analytics/id/Project/ai-gftd-project-emotional-analytics"
   ],
   "dodaf:capability": [
     {
@@ -73,7 +73,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

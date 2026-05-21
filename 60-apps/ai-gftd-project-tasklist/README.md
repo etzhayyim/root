@@ -2,8 +2,8 @@
 
 Human-in-the-loop task approval UI for scheduler-generated tasks.
 
-- Frontend host: `https://tasklist.gftd.ai`
-- Approval backend (MCP): `https://q2m4f8kd.gftd.ai/api/mcp`
+- Frontend host: `https://tasklist.etzhayyim.com`
+- Approval backend (MCP): `https://q2m4f8kd.etzhayyim.com/api/mcp`
 - Primary flow:
   1. Scheduler creates/updates automation with `human_in_loop.enabled=true`.
   2. When a task is due, scheduler creates an approval request in `ai-gftd-project-approvals`.

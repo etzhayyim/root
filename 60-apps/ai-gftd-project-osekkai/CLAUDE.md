@@ -4,14 +4,14 @@
 
 ## Overview
 
-osekkai.gftd.ai — Follow 関係にある他 actor / agent の commit stream を reactive に観測し、consent-gated で丁寧な提案・リマインド・気遣いを返す。押し付けを避けるため well-becoming gate + 即撤回 + 学習を必須とする。
+osekkai.etzhayyim.com — Follow 関係にある他 actor / agent の commit stream を reactive に観測し、consent-gated で丁寧な提案・リマインド・気遣いを返す。押し付けを避けるため well-becoming gate + 即撤回 + 学習を必須とする。
 
 ## Identifier (ADR-0019 atproto-native)
 
 | 層 | 値 |
 |---|---|
-| Primary DID | `did:plc:osekkai` (Phase 5 `plc.gftd.ai` で genesis) |
-| Handle | `osekkai.gftd.ai` |
+| Primary DID | `did:plc:osekkai` (Phase 5 `plc.etzhayyim.com` で genesis) |
+| Handle | `osekkai.etzhayyim.com` |
 | Legacy nanoid | `os3kk41x` (grandfathered, deprecate 2026-10-01) |
 | NSID | `ai.gftd.apps.osekkai.*` |
 
@@ -19,11 +19,11 @@ osekkai.gftd.ai — Follow 関係にある他 actor / agent の commit stream �
 
 | Path DID | 役割 |
 |---|---|
-| `did:web:osekkai.gftd.ai` | controller |
-| `did:web:osekkai.gftd.ai:actor:scout` | commit stream 観測 (`com-atproto:sync/subscribe-repos` reactive, Follow-filtered) |
-| `did:web:osekkai.gftd.ai:actor:nudger` | `AppBskyFeedPost` で mention 提案 (Tier 1 social) |
-| `did:web:osekkai.gftd.ai:actor:retractor` | dissent 検知 → 即 delete + learning record |
-| `did:web:osekkai.gftd.ai:actor:apologizer` | well-becoming 低下検知 → DM で謝罪 (convo DM、非公開) |
+| `did:web:osekkai.etzhayyim.com` | controller |
+| `did:web:osekkai.etzhayyim.com:actor:scout` | commit stream 観測 (`com-atproto:sync/subscribe-repos` reactive, Follow-filtered) |
+| `did:web:osekkai.etzhayyim.com:actor:nudger` | `AppBskyFeedPost` で mention 提案 (Tier 1 social) |
+| `did:web:osekkai.etzhayyim.com:actor:retractor` | dissent 検知 → 即 delete + learning record |
+| `did:web:osekkai.etzhayyim.com:actor:apologizer` | well-becoming 低下検知 → DM で謝罪 (convo DM、非公開) |
 
 ## Domain Model
 

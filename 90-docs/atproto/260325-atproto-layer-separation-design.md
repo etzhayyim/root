@@ -46,7 +46,7 @@ AT Protocol spec に忠実に準拠する機能。外部 AT Protocol client は�
 ### [PRODUCTION] DID
 
 - `did:web` method (W3C DID v1.0 準拠)
-- Path-based sub-DID (`did:web:app.gftd.ai:entity:path`) — W3C DID v1.0 §5.1.2 controller relationship
+- Path-based sub-DID (`did:web:app.etzhayyim.com:entity:path`) — W3C DID v1.0 §5.1.2 controller relationship
 - Evidence: `50-infra/cloudflare/workers/atproto/src/index.ts` (DID resolution)
 
 ### [PRODUCTION] XRPC Sole API

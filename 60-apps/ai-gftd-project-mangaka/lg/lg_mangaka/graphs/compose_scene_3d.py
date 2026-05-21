@@ -56,7 +56,7 @@ from lg_mangaka import tools as _tools
 
 _log = logging.getLogger(__name__)
 
-_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _RW_URL = os.environ.get("RW_URL", "")
 _B2_BUCKET = os.environ.get("B2_BUCKET", "gftd-pds-prod")
 _MAX_ITER_CAP = 5

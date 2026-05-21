@@ -2,17 +2,17 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://gftd.ai/ns/",
+      "gftd": "https://etzhayyim.com/ns/",
       "isic": "https://unstats.un.org/unsd/classifications/Econ/ISIC/",
       "isco": "https://www.ilo.org/public/english/bureau/stat/isco/",
-      "adr": "https://gftd.ai/ns/adr/"
+      "adr": "https://etzhayyim.com/ns/adr/"
     }
   ],
   "@type": "Project",
   "name": "Hospitality — Hotel / OTA Actor Roster & Resource-Flow Emitter",
   "identifier": "ai-gftd-project-hospitality",
-  "url": "https://hospitality.gftd.ai",
-  "description": "Hospitality umbrella project. ADR-0028 Phase 1 pilot. Path-based actor DIDs (chain / OTA / property) emit ai.gftd.apps.resourceFlow.legalEntity{Currency,Personnel,Service}Flow to resource-flow.gftd.ai. Responsibility split: yadoya = booking, minpaku = OSM collection, hospitality = actor roster + flow emission.",
+  "url": "https://hospitality.etzhayyim.com",
+  "description": "Hospitality umbrella project. ADR-0028 Phase 1 pilot. Path-based actor DIDs (chain / OTA / property) emit ai.gftd.apps.resourceFlow.legalEntity{Currency,Personnel,Service}Flow to resource-flow.etzhayyim.com. Responsibility split: yadoya = booking, minpaku = OSM collection, hospitality = actor roster + flow emission.",
   "status": "Scaffold",
   "dateCreated": "2026-04-15",
   "gftd:authoritativeAdr": "adr:0028-resource-flow-private-sector-extension",

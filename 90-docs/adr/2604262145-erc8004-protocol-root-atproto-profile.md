@@ -38,7 +38,7 @@ anchored in Ethereum identity:
   and revocation pointers.
 - ERC-8004-style agent registries publish agent identity, validation, and
   reputation records.
-- `agentURI` documents are pinned to IPFS and served through `ipfs.gftd.ai`.
+- `agentURI` documents are pinned to IPFS and served through `ipfs.etzhayyim.com`.
 - Runtime execution remains offchain in Zeebe, Python/k8s workers, MCP
   adapters, Cloudflare Workers, RisingWave, B2, and AT Protocol PDS surfaces.
 
@@ -99,7 +99,7 @@ Every public actor/agent MUST have one registration envelope:
 
 ```json
 {
-  "schema": "https://gftd.ai/schemas/erc8004-agent-registration/v1.json",
+  "schema": "https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json",
   "agent": {
     "agentRegistry": "eip155:260425:0x...",
     "agentId": "123",
@@ -110,7 +110,7 @@ Every public actor/agent MUST have one registration envelope:
     "chainId": 260425,
     "address": "0x...",
     "rootDid": "did:erc725:gftd:260425:0x...",
-    "facadeDids": ["did:web:yoro.gftd.ai"],
+    "facadeDids": ["did:web:yoro.etzhayyim.com"],
     "policyCid": "ipfs://bafy..."
   },
   "protocols": []
@@ -129,9 +129,9 @@ AT Protocol is represented as a profile inside `protocols`:
 ```json
 {
   "kind": "atproto-xrpc",
-  "service": "https://atproto.gftd.ai",
-  "pdsDid": "did:web:atproto.gftd.ai",
-  "actorDid": "did:web:yoro.gftd.ai",
+  "service": "https://atproto.etzhayyim.com",
+  "pdsDid": "did:web:atproto.etzhayyim.com",
+  "actorDid": "did:web:yoro.etzhayyim.com",
   "facadeFor": "did:erc725:gftd:260425:0x...",
   "xrpc": {
     "repoMethods": [
@@ -164,7 +164,7 @@ AT Protocol is represented as a profile inside `protocols`:
   "blob": {
     "uploadBlobStore": "b2",
     "ipfsMirror": "planned",
-    "gateway": "https://ipfs.gftd.ai"
+    "gateway": "https://ipfs.etzhayyim.com"
   }
 }
 ```
@@ -189,12 +189,12 @@ MCP is represented independently from atproto:
 ```json
 {
   "kind": "mcp",
-  "endpoint": "https://yoro.gftd.ai/mcp",
+  "endpoint": "https://yoro.etzhayyim.com/mcp",
   "transport": "streamable-http",
   "auth": {
     "method": "oauth2-dpop",
-    "issuer": "https://authn.gftd.ai",
-    "resource": "https://yoro.gftd.ai/mcp",
+    "issuer": "https://authn.etzhayyim.com",
+    "resource": "https://yoro.etzhayyim.com/mcp",
     "scopes": ["ai.gftd.agent.invoke"]
   },
   "toolsCid": "ipfs://bafy..."
@@ -219,7 +219,7 @@ k8s is an execution placement profile:
     "kind": "Deployment",
     "name": "yoro-actor-zeebe-worker"
   },
-  "image": "ghcr.io/gftdcojp/pymagatama@sha256:...",
+  "image": "ghcr.io/etzhayyim/pymagatama@sha256:...",
   "entrypoint": ["python", "-m", "pymagatama.zeebe_worker_main"],
   "runtimeKind": "bpmn-zeebe-worker",
   "publicManifestCid": "ipfs://bafy..."
@@ -279,7 +279,7 @@ the ERC725/ERC-8004 protocol root vocabulary.
   AT Protocol service categories.
 - The agent registration document becomes the single public map of all
   protocol surfaces for one actor/agent.
-- `ipfs.gftd.ai` has a clear role: publication and evidence, not replacement
+- `ipfs.etzhayyim.com` has a clear role: publication and evidence, not replacement
   PDS authority.
 
 ## Negative
@@ -314,7 +314,7 @@ the ERC725/ERC-8004 protocol root vocabulary.
    `atproto-xrpc`, `mcp`, `k8s-runtime`, `ipfs-publication`, and
    `evm-runtime-receipt` profiles.
 3. Done for `yoro`: pin agent registration JSON and redacted runtime manifests
-   through `ipfs.gftd.ai`.
+   through `ipfs.etzhayyim.com`.
 4. Pending chain submit: store the registration CID in ERC-8004 `agentURI`.
 5. Store facade DID hashes, policy CID, and ERC-8004 agent token id in ERC725Y.
 6. Add `gftd agent verify` to resolve:
@@ -352,4 +352,4 @@ or PDS repo write semantics.
 - ADR-2604262100: ERC725/ERC-8004 public agent runtime registry
 - ADR-2604251220: GFTD PDS uses append-only record log, not AT Protocol MST CAR
 - ADR-2604241121: Repo commit stays on PDS
-- ADR-2604261936: ipfs.gftd.ai self-hosted Kubo on Vultr VKE with B2
+- ADR-2604261936: ipfs.etzhayyim.com self-hosted Kubo on Vultr VKE with B2

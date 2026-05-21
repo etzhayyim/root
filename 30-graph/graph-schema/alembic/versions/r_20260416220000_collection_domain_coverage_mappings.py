@@ -149,7 +149,7 @@ UP = [{'sql': 'INSERT INTO dim_world_domain_collection (domain, app_host, collec
   'parameters': []},
  {'sql': 'INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, '
          'unit, sector)\n'
-         "    VALUES ('icd10', 'icd10.gftd.ai', 'ai.gftd.apps.icd10.disease', 90168, 'ICD-10-CM "
+         "    VALUES ('icd10', 'icd10.etzhayyim.com', 'ai.gftd.apps.icd10.disease', 90168, 'ICD-10-CM "
          "disease codes', 'healthcare')",
   'parameters': []},
  {'sql': 'INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, '
@@ -376,7 +376,7 @@ UP = [{'sql': 'INSERT INTO dim_world_domain_collection (domain, app_host, collec
   'parameters': []},
  {'sql': 'INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, '
          'unit, sector)\n'
-         "    VALUES ('locode', 'locode.gftd.ai', 'ai.gftd.apps.locode.location', 116067, 'UN "
+         "    VALUES ('locode', 'locode.etzhayyim.com', 'ai.gftd.apps.locode.location', 116067, 'UN "
          "LOCODE locations', 'transport')",
   'parameters': []},
  {'sql': 'INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, '

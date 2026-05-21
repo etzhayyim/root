@@ -23,7 +23,7 @@
     "@sveltejs/adapter-cloudflare": "^7.2.8"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
     "svelte": "^5.55.3"
   }
 }

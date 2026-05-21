@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-04-27
 authoritative_for:
   - Murakumo Mac mini k3s fleet placement for Zeebe workers
-  - yoro.gftd.ai persistent AT Protocol actor loop on Murakumo
+  - yoro.etzhayyim.com persistent AT Protocol actor loop on Murakumo
   - LangGraph agent worker and MCP tool boundary for yoro social actions
   - llama.cpp Vulkan inference tier for actor workers
 related:
@@ -32,14 +32,14 @@ cluster has one control-plane node (`jacob`) and ten workers (`dan`,
 `zebulun`, `asher`) on the `10.77.0.0/24` WireGuard overlay.
 
 The same fleet is now expected to host more than stateless inference. The
-target is a persistent `yoro.gftd.ai` AT Protocol actor loop that can post,
+target is a persistent `yoro.etzhayyim.com` AT Protocol actor loop that can post,
 reply, like, comment, repost, follow, and self-improve as an actor, while
 remaining compatible with the existing BPMN-as-actor and LangGraph-as-Zeebe
 decisions.
 
 Existing constraints still hold:
 
-- `yoro.gftd.ai` is an AT Protocol actor surface. Public social writes must
+- `yoro.etzhayyim.com` is an AT Protocol actor surface. Public social writes must
   commit through the PDS path, not by inventing a private social store.
 - BPMN remains the orchestration SSoT for outer-loop autonomy.
 - LangGraph runs as Zeebe ServiceTask compute, not inside the Cloudflare
@@ -51,7 +51,7 @@ Existing constraints still hold:
 # Decision
 
 Use the Murakumo k3s fleet as a **persistent actor-worker substrate** for
-`yoro.gftd.ai`, with four namespaces and one social write boundary:
+`yoro.etzhayyim.com`, with four namespaces and one social write boundary:
 
 | Namespace | Responsibility |
 |---|---|
@@ -73,7 +73,7 @@ virtio-gpu/Venus and has been verified with GPU layer offload.
 AT Protocol client / scheduler event
   |
   v
-atproto.gftd.ai PDS Worker
+atproto.etzhayyim.com PDS Worker
   |  XRPC / service auth / governance / social write gate
   v
 bpmn-dispatcher
@@ -126,7 +126,7 @@ Required tools:
 
 The MCP server is therefore an adapter, not a source of authority. It can be
 implemented as `yoro-actors/yoro-mcp-adapter` or through the existing
-`mcp.gftd.ai/xrpc/ai.gftd.mcp.message` registry, but it must not write
+`mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` registry, but it must not write
 social records directly.
 
 ## Persistent Actor Loop
@@ -156,7 +156,7 @@ The loop stores state in three places:
   `gftd.murakumo.k3s`, account `MURAKUMO_K3S_TOKEN`.
 - Inference DaemonSet: `murakumo-system/llama-vulkan-fleet` reports
   `11 desired / 11 updated / 11 ready / 11 available`.
-- Inference image: `ghcr.io/gftdcojp/murakumo-llama-vulkan:20260427-fleet-arm64`
+- Inference image: `ghcr.io/etzhayyim/murakumo-llama-vulkan:20260427-fleet-arm64`
   pushed to GHCR with digest
   `sha256:7fa023b6213fb798e19138503270e3b2982c372146909e8f86e25a5c13ac7123`.
 - Services:
@@ -169,15 +169,15 @@ The loop stores state in three places:
 - Actor verification: `yoro-actor-zeebe-worker` and `shinka-actor-zeebe-worker`
   are Ready and use
   `http://llama-vulkan-fleet.murakumo-system.svc.cluster.local:8080/v1`.
-- Social smoke post: `at://did:web:yoro.gftd.ai/app.bsky.feed.post/murakumo20260425100500409`
-  was written and read back through `atproto.gftd.ai` `getRecord` and
+- Social smoke post: `at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/murakumo20260425100500409`
+  was written and read back through `atproto.etzhayyim.com` `getRecord` and
   `getAuthorFeed`. This verifies the current graph-visible yoro post path.
 - Cron placement: `yoro-actors/yoro-social-post` is defined as a
   resource-minimal Kubernetes CronJob that runs every four hours and writes the
   same `vertex_repo_record` fallback used by `platformPulse`. It calls `FLUSH`
   and allows a 600s deadline because RisingWave visibility can lag during
   compaction or Hummock pressure. Live CronJob sanity check created
-  `at://did:web:yoro.gftd.ai/app.bsky.feed.post/murakumo-cron-20260425102724-1`
+  `at://did:web:yoro.etzhayyim.com/app.bsky.feed.post/murakumo-cron-20260425102724-1`
   and it was read back through `com.atproto.repo.getRecord`.
 
 ## Knowledge Worker Integration
@@ -190,7 +190,7 @@ actor memory and intel inference:
 | `yoro-common-crawl-frontier` | 2h | Discover Common Crawl CDX/WAT/WET candidates and queue URLs |
 | `yoro-web-fetch` | 1h | Fetch queued pages, extract text, metadata, links, and evidence |
 | `yoro-image-webp-ocr` | 3h | Fetch images, convert to WebP, OCR, and persist blob metadata |
-| `yoro-intel-fusion` | 2h | Call / integrate `intel.gftd.ai` inference over new evidence |
+| `yoro-intel-fusion` | 2h | Call / integrate `intel.etzhayyim.com` inference over new evidence |
 | `yoro-mcp-adapter` | always-on | Expose social, knowledge, and intel tools to LangGraph via MCP |
 | `yoro-actor-zeebe-worker` | always-on | Execute BPMN service tasks through pyzeebe |
 | `yoro-langgraph-agent-worker` | always-on | Plan posts/replies and tool use with Murakumo inference |

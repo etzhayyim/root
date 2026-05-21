@@ -1,8 +1,8 @@
-// studio.gftd.ai — CF Worker for the LangGraph Studio replacement + MCP server.
+// studio.etzhayyim.com — CF Worker for the LangGraph Studio replacement + MCP server.
 //
 // Routes:
 //   GET  /_app/meta, /health           — sanity
-//   GET  /api/*                         — proxy to studio-api.gftd.ai (langgraph dev)
+//   GET  /api/*                         — proxy to studio-api.etzhayyim.com (langgraph dev)
 //   POST /api/*                         — same
 //   POST /mcp                           — JSON-RPC 2.0 MCP server (5 tools)
 //   *                                   — Svelte SPA via ASSETS binding
@@ -15,7 +15,7 @@
 //   restartStudio — kill self → k8s replicaSet respawns (graceful reload)
 //
 // Auth: CF Access (Zero Trust SSO, @gftd.co.jp / Microsoft Entra) gates the
-// entire studio.gftd.ai hostname. By the time we see a request, CF has
+// entire studio.etzhayyim.com hostname. By the time we see a request, CF has
 // validated the user. We read Cf-Access-Authenticated-User-Email to attribute
 // MCP tool calls (passed into mintApiKey for owner_did derivation).
 
@@ -40,9 +40,9 @@ export default {
     if (url.pathname === "/_app/meta" || url.pathname === "/health") {
       return json({
         ok: true,
-        actor: "did:web:studio.gftd.ai",
+        actor: "did:web:studio.etzhayyim.com",
         nanoid: "stdk2024",
-        backend: env.STUDIO_BACKEND_URL ?? "https://studio-api.gftd.ai",
+        backend: env.STUDIO_BACKEND_URL ?? "https://studio-api.etzhayyim.com",
         userEmail: req.headers.get("Cf-Access-Authenticated-User-Email") ?? null,
         mcp: "/mcp (JSON-RPC 2.0, 5 tools)",
       });
@@ -158,7 +158,7 @@ async function handleMcp(req: Request, env: Env): Promise<Response> {
       return jsonRpcResult(body.id, {
         protocolVersion: "2024-11-05",
         capabilities: { tools: { listChanged: false } },
-        serverInfo: { name: "studio.gftd.ai", version: "0.1.0" },
+        serverInfo: { name: "studio.etzhayyim.com", version: "0.1.0" },
       });
     }
     if (body.method === "tools/list") {
@@ -334,7 +334,7 @@ async function backendFetch(
   path: string,
   body?: unknown,
 ): Promise<Response> {
-  const base = (env.STUDIO_BACKEND_URL ?? "https://studio-api.gftd.ai").replace(/\/+$/, "");
+  const base = (env.STUDIO_BACKEND_URL ?? "https://studio-api.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const id = await secret(env.SS_CF_ACCESS_CLIENT_ID);
   const sec = await secret(env.SS_CF_ACCESS_CLIENT_SECRET);
@@ -348,7 +348,7 @@ async function backendFetch(
 }
 
 async function proxyToBackend(req: Request, env: Env, url: URL): Promise<Response> {
-  const base = (env.STUDIO_BACKEND_URL ?? "https://studio-api.gftd.ai").replace(/\/+$/, "");
+  const base = (env.STUDIO_BACKEND_URL ?? "https://studio-api.etzhayyim.com").replace(/\/+$/, "");
   const upstream = `${base}${url.pathname.slice("/api".length)}${url.search}`;
   const headers = new Headers(req.headers);
   headers.delete("host");

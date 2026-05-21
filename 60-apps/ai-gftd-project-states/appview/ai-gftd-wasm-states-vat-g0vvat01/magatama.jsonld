@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:vat-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:vat-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Vatican City State / Holy See AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -81,7 +81,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "vat-state.gftd.ai",
+      "host": "vat-state.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -2,7 +2,7 @@
 
 Date: 2026-05-14
 
-This design turns Japan's naphtha pressure into a graph-backed LangServer/Pregel workflow for `did:web:naphtha-supply.gftd.ai`.
+This design turns Japan's naphtha pressure into a graph-backed LangServer/Pregel workflow for `did:web:naphtha-supply.etzhayyim.com`.
 
 ## Current Assessment
 

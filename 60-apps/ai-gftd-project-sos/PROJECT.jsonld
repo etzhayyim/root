@@ -3,13 +3,13 @@
   "@type": "Project",
   "name": "System of System Resource Intelligence (ai-gftd-project-sos)",
   "identifier": "ai-gftd-project-sos",
-  "description": "A Threlte-driven system thinking app for sos.gftd.ai that maps resource stocks, causal loops, leverage points, and cross-domain dependencies as a system-of-systems.",
-  "url": "https://sos.gftd.ai",
+  "description": "A Threlte-driven system thinking app for sos.etzhayyim.com that maps resource stocks, causal loops, leverage points, and cross-domain dependencies as a system-of-systems.",
+  "url": "https://sos.etzhayyim.com",
   "hasPart": [
     {
       "@type": "WebApplication",
       "name": "systemofsystem",
-      "url": "https://sos.gftd.ai",
+      "url": "https://sos.etzhayyim.com",
       "applicationCategory": "Systems Intelligence"
     },
     {
@@ -20,7 +20,7 @@
         "TypeScript"
       ],
       "runtimePlatform": "SpinKube + SvelteKit",
-      "codeRepository": "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp",
+      "codeRepository": "https://github.com/etzhayyim/etzhayyim-root",
       "path": "wasm/ai-gftd-wasm-systemofsystem-s0s5ys0s"
     }
   ],
@@ -35,7 +35,7 @@
   "tasks": [
     {
       "status": "completed",
-      "task": "Create sos.gftd.ai project scaffold for systemofsystem."
+      "task": "Create sos.etzhayyim.com project scaffold for systemofsystem."
     },
     {
       "status": "completed",

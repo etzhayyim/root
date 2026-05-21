@@ -7831,16 +7831,16 @@ async def main() -> None:
     pds_domain_coverage.register(worker, timeout_ms=150_000)
     # Von Neumann coverage gap bridge. vertex_coverage_recipe stores program
     # memory that classifies each domain into ingest/infer/generate/defer.
-    # gftdcojp.etzhayyim.com company-ops LangGraph submitter (Supervisor + 6 domain
+    # etzhayyim.etzhayyim.com company-ops LangGraph submitter (Supervisor + 6 domain
     # agents: hr/finance/legal/sales/governance/personnel). T2 BPMN-as-actor
-    # via gftdcojp.ops.submit task type.
-    from pymagatama.primitives import gftdcojp_ops  # noqa: E402
-    gftdcojp_ops.register(worker)
-    # gftdcojp.etzhayyim.com personnel decision pipeline (loadProfile + minimaxScore
+    # via etzhayyim.ops.submit task type.
+    from pymagatama.primitives import etzhayyim_ops  # noqa: E402
+    etzhayyim_ops.register(worker)
+    # etzhayyim.etzhayyim.com personnel decision pipeline (loadProfile + minimaxScore
     # + notifyDeny + writeAssignment). Wires personnelAssignmentDecide.bpmn
     # HITL workflow with Tier 3 PII RLS gate (CEO/COO/CLO read only).
-    from pymagatama.primitives import gftdcojp_personnel  # noqa: E402
-    gftdcojp_personnel.register(worker, timeout_ms=120_000)
+    from pymagatama.primitives import etzhayyim_personnel  # noqa: E402
+    etzhayyim_personnel.register(worker, timeout_ms=120_000)
     # lawfirm.etzhayyim.com marketing LangGraph submitter + Stripe webhook.
     # Routes to lawfirm-marketing-ops (Supervisor + 6 specialists +
     # BCI Rule 36 compliance gate). Stripe webhook persists invoice/payment.
@@ -7869,7 +7869,7 @@ async def main() -> None:
     from pymagatama.primitives import lawfirm_msgraph  # noqa: E402
     lawfirm_msgraph.register(worker, timeout_ms=60_000)
     # kaisya.etzhayyim.com per-member chat (M365 / MCP / web channels). Routes to
-    # gftdcojp-company-ops or lawfirm-marketing-ops by RACI-aware supervisor.
+    # etzhayyim-company-ops or lawfirm-marketing-ops by RACI-aware supervisor.
     from pymagatama.primitives import kaisya_member  # noqa: E402
     kaisya_member.register(worker, timeout_ms=90_000)
     # lawfirm.etzhayyim.com intake + matter creation (closes the missing entry-point

@@ -86,7 +86,7 @@ The ~96 mitama actor roots and N org roots in vendor are not deleted; they are *
 | Phase | Action | Reversible? |
 |---|---|---|
 | **P0** | Deploy etzhayyim authz on Base L2 (Foundry contracts under `50-infra/etzhayyim-authz/contracts/`, deploy script alongside `DeployReligiousCorp.s.sol`) | Yes — contracts can be redeployed |
-| **P1** | Vendor `authz.gftd.ai` stops issuing **new** ERC725 roots. `linkEthereumBegin/Verify` return `Gone: 410` for new caller DIDs; existing DIDs still verify | Yes — vendor can resume issuing if rollback needed |
+| **P1** | Vendor `authz.etzhayyim.com` stops issuing **new** ERC725 roots. `linkEthereumBegin/Verify` return `Gone: 410` for new caller DIDs; existing DIDs still verify | Yes — vendor can resume issuing if rollback needed |
 | **P2** | Existing vendor roots opt-in to etzhayyim mirror: actor signs a continuity proof `sig_vendor(did:erc725:base:<new>)` with their old vendor-issued key; etzhayyim authz mints the Base L2 root referencing the vendor root as `predecessor` | Yes — opt-in, no forced migration |
 | **P3** | All new etzhayyim-scope writes (Council attestations, land donations, SBT mints) use the Base L2 root only. Vendor RisingWave reads continue to resolve old vendor roots for historical queries | Partial — new writes can't easily be undone |
 | **P4** | After 6 months of P3 (target: 2026-11), vendor `linkEthereum*` lexicons get `status: deprecated` at the lexicon level (not just description prefix). Vendor `sign-up.ts` Ethereum branch removed. Vendor contracts become read-only | No — vendor-side removal |

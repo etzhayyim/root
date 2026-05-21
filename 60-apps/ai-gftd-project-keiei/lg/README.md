@@ -35,7 +35,7 @@ clients can retry against the lease holder.
 | `KEIEI_LEADER_TTL_SEC` | `15` | lease duration |
 | `KEIEI_LEADER_RENEW_SEC` | `5` | renew interval |
 | `KEIEI_HTTP_BEARER` | `""` | when set, `/jsonrpc` requires this token |
-| `GFTD_LLM_URL` | gemma-e2b.gftd.ai | LLM endpoint for deliberation |
+| `GFTD_LLM_URL` | gemma-e2b.etzhayyim.com | LLM endpoint for deliberation |
 | `GFTD_LLM_API_KEY` | `""` | LLM bearer (Keychain-injected) |
 
 ## Build
@@ -48,9 +48,9 @@ cd 60-apps/ai-gftd-project-keiei/lg
 docker buildx build \
   --builder gftd-vke --platform linux/amd64 \
   --build-context py=../../../20-actors/magatama/py \
-  --cache-from type=registry,ref=ghcr.io/gftdcojp/build-cache:keiei-lsp \
-  --cache-to   type=registry,ref=ghcr.io/gftdcojp/build-cache:keiei-lsp,mode=max \
-  -t ghcr.io/gftdcojp/keiei-lsp:0.2.0-amd64 --push .
+  --cache-from type=registry,ref=ghcr.io/etzhayyim/build-cache:keiei-lsp \
+  --cache-to   type=registry,ref=ghcr.io/etzhayyim/build-cache:keiei-lsp,mode=max \
+  -t ghcr.io/etzhayyim/keiei-lsp:0.2.0-amd64 --push .
 ```
 
 Deploy: see [`50-infra/k8s/keiei/RUNBOOK.md`](../../../50-infra/k8s/keiei/RUNBOOK.md).

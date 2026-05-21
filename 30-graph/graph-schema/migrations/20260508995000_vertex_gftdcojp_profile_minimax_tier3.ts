@@ -2,7 +2,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * gftdcojp.etzhayyim.com Profile + Minimax Score (Tier 3 PII)
+ * etzhayyim.etzhayyim.com Profile + Minimax Score (Tier 3 PII)
  * Principal: etzhayyim. Vendor: Gftd Japan株式会社.
  *
  * Tier 3 PII (ADR-0018): sensitivity_ord=300, NOT in AT Repo, NOT federable.
@@ -10,20 +10,20 @@ import { sql } from "kysely";
  * Personal text columns SHOULD be signal:v1: encrypted at app layer (ADR §Field-level encrypt).
  *
  * Tables:
- *   vertex_gftdcojp_person_bio        Biographical: birth/gender/birthplace/family
- *   vertex_gftdcojp_person_education  School history (per-degree row)
- *   vertex_gftdcojp_person_career     Career history (per-position row)
- *   vertex_gftdcojp_person_dependent  Family/dependents (spouse/child/parent)
- *   vertex_gftdcojp_person_utterance  Statement/utterance log (Slack/PR/email)
+ *   vertex_etzhayyim_person_bio        Biographical: birth/gender/birthplace/family
+ *   vertex_etzhayyim_person_education  School history (per-degree row)
+ *   vertex_etzhayyim_person_career     Career history (per-position row)
+ *   vertex_etzhayyim_person_dependent  Family/dependents (spouse/child/parent)
+ *   vertex_etzhayyim_person_utterance  Statement/utterance log (Slack/PR/email)
  *                                     — drives behavioral profile via LLM
- *   vertex_gftdcojp_person_profile    Derived: Big5 + 保身 + risk tolerance
+ *   vertex_etzhayyim_person_profile    Derived: Big5 + 保身 + risk tolerance
  *                                     + conflict style + learning velocity
- *   vertex_gftdcojp_person_minimax    Per-(person × task) minimax score:
+ *   vertex_etzhayyim_person_minimax    Per-(person × task) minimax score:
  *                                     worst-case regret + expected value
  *
  * Streaming MVs:
- *   mv_gftdcojp_minimax_top_assignments  best person per task (lowest regret)
- *   mv_gftdcojp_profile_risk_summary     org-level Big5 / risk distribution
+ *   mv_etzhayyim_minimax_top_assignments  best person per task (lowest regret)
+ *   mv_etzhayyim_profile_risk_summary     org-level Big5 / risk distribution
  *
  * ADR-0036: Worker-direct Hyperdrive.
  * ADR-0018: Tier 3 PII — RLS-gated, full PII allowed in non-Repo storage.
@@ -32,7 +32,7 @@ import { sql } from "kysely";
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── Biographical (birth / gender / birthplace / family environment) ────────
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_person_bio (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_person_bio (
       vertex_id          varchar PRIMARY KEY,
       person_did         varchar NOT NULL,
       legal_name_ja      varchar,
@@ -58,7 +58,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Education history (per degree / school / certification) ────────────────
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_person_education (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_person_education (
       vertex_id        varchar PRIMARY KEY,
       person_did       varchar NOT NULL,
       level            varchar,
@@ -80,7 +80,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Career history (per company / position) ─────────────────────────────────
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_person_career (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_person_career (
       vertex_id        varchar PRIMARY KEY,
       person_did       varchar NOT NULL,
       employer         varchar NOT NULL,
@@ -102,7 +102,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Dependents / family relationships ───────────────────────────────────────
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_person_dependent (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_person_dependent (
       vertex_id        varchar PRIMARY KEY,
       person_did       varchar NOT NULL,
       relation         varchar NOT NULL,
@@ -119,7 +119,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Utterance log (Slack/PR comment/email — feeds behavioral profile) ──────
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_person_utterance (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_person_utterance (
       vertex_id        varchar PRIMARY KEY,
       person_did       varchar NOT NULL,
       source           varchar NOT NULL,
@@ -140,7 +140,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Derived profile (Big5 + 保身 + risk + conflict + learning) ─────────────
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_person_profile (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_person_profile (
       vertex_id              varchar PRIMARY KEY,
       person_did             varchar NOT NULL,
       assessed_at            varchar,
@@ -168,7 +168,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Minimax score (per person × candidate task/role/contract path) ─────────
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_person_minimax (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_person_minimax (
       vertex_id              varchar PRIMARY KEY,
       person_did             varchar NOT NULL,
       decision_kind          varchar NOT NULL,
@@ -197,7 +197,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Streaming MVs ───────────────────────────────────────────────────────────
   await sql`
-    CREATE MATERIALIZED VIEW IF NOT EXISTS mv_gftdcojp_minimax_top_assignments AS
+    CREATE MATERIALIZED VIEW IF NOT EXISTS mv_etzhayyim_minimax_top_assignments AS
     SELECT
       decision_kind,
       candidate_target,
@@ -209,12 +209,12 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       ip_leak_risk,
       recommendation,
       assessed_at
-    FROM vertex_gftdcojp_person_minimax
+    FROM vertex_etzhayyim_person_minimax
     WHERE spirit_floor_violated = false
   `.execute(db);
 
   await sql`
-    CREATE MATERIALIZED VIEW IF NOT EXISTS mv_gftdcojp_profile_risk_summary AS
+    CREATE MATERIALIZED VIEW IF NOT EXISTS mv_etzhayyim_profile_risk_summary AS
     SELECT
       COUNT(DISTINCT person_did) AS person_count,
       AVG(big5_openness)         AS avg_openness,
@@ -225,18 +225,18 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       AVG(self_preservation)     AS avg_self_preservation,
       AVG(risk_tolerance)        AS avg_risk_tolerance,
       AVG(autonomy_level)        AS avg_autonomy
-    FROM vertex_gftdcojp_person_profile
+    FROM vertex_etzhayyim_person_profile
   `.execute(db);
 }
 
 export async function down(db: Kysely<unknown>): Promise<void> {
-  await sql`DROP MATERIALIZED VIEW IF EXISTS mv_gftdcojp_profile_risk_summary`.execute(db);
-  await sql`DROP MATERIALIZED VIEW IF EXISTS mv_gftdcojp_minimax_top_assignments`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_person_minimax`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_person_profile`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_person_utterance`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_person_dependent`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_person_career`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_person_education`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_person_bio`.execute(db);
+  await sql`DROP MATERIALIZED VIEW IF EXISTS mv_etzhayyim_profile_risk_summary`.execute(db);
+  await sql`DROP MATERIALIZED VIEW IF EXISTS mv_etzhayyim_minimax_top_assignments`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_person_minimax`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_person_profile`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_person_utterance`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_person_dependent`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_person_career`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_person_education`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_person_bio`.execute(db);
 }

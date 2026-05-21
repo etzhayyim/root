@@ -26,7 +26,7 @@ Two governance contexts share the monorepo today:
 
 | brand | governance | substrate | Vultr policy |
 |---|---|---|---|
-| **gftd.ai** (legacy commercial) | gftd Co., Ltd. | Vultr VKE + Cloudflare | **keep** (out of scope for this ADR — operator's choice) |
+| **etzhayyim.com** (legacy commercial) | gftd Co., Ltd. | Vultr VKE + Cloudflare | **keep** (out of scope for this ADR — operator's choice) |
 | **etzhayyim** (open religious-corp, this repo) | 宗教法人 任意団体 (on-chain) | Murakumo Mac-mini fleet + Cloudflare edge | **fully exit** (this ADR) |
 
 ADR-2605172000 already declared "RW-free / no centralized DB" but did NOT explicitly state "no commercial K8s control plane". ADR-2605172800-geth ("geth-private migration") left the cluster question staged ("can stay on Vultr ... until natural infra-refresh time") with three migration Options A/B/C.
@@ -40,7 +40,7 @@ Grep evidence(2026-05-19 時点)で残る Vultr 依存:
 
 User mandate(2026-05-19):
 
-> "vulter は gftd.ai 用に残します。etzhayyim は完全に分離"
+> "vulter は etzhayyim.com 用に残します。etzhayyim は完全に分離"
 
 これを **architectural hard rule** に昇格させる。
 
@@ -66,7 +66,7 @@ User mandate(2026-05-19):
 
 | パス | 帰属 | Vultr OK? |
 |---|---|---|
-| `50-infra/vultr/*` | **gftd.ai legacy** | ✅(本 ADR 範囲外) |
+| `50-infra/vultr/*` | **etzhayyim.com legacy** | ✅(本 ADR 範囲外) |
 | `50-infra/k8s/*` | **etzhayyim Murakumo target** | ❌ Murakumo のみ |
 | `50-infra/etzhayyim-*` | etzhayyim 専用 | ❌ Murakumo / Cloudflare のみ |
 | `60-apps/ai-gftd-project-*` | etzhayyim app(legacy 名前は移行中) | ❌ |
@@ -168,7 +168,7 @@ deadline 不達時は対応 ADR 起草で説明責任。
 ## Consequences
 
 - **architectural sovereignty**: etzhayyim は単一の commercial cloud に支配されない構造を確立。Tier 1 Mac-mini fleet 障害以外で全停止しない
-- **gftd.ai / etzhayyim の構造的境界が確定**: 同 monorepo 内でも directory レベルで分かれ、deploy target が混在しない
+- **etzhayyim.com / etzhayyim の構造的境界が確定**: 同 monorepo 内でも directory レベルで分かれ、deploy target が混在しない
 - **K3s on Mac-mini 学習コスト**: Lima/OrbStack の Linux VM、embedded etcd、local-path-provisioner、cloudflared sidecar の運用 know-how を新規習得必要
 - **geth-private migration risk**: chain state を Vultr から Mac-mini に移す operation はリスクが高い。十分な runbook + dry-run 後にのみ実施
 - **Cloudflare 依存は残る**(本 ADR 範囲外)— "decentralized" としては不完全だが、step-wise なので明示
@@ -180,7 +180,7 @@ deadline 不達時は対応 ADR 起草で説明責任。
 
 ## Alternatives Considered
 
-1. **Status quo(Vultr 残置)** — gftd.ai と inseparable な状態が固定。governance / sovereignty 主張が空文化。reject(user の明示判断)
+1. **Status quo(Vultr 残置)** — etzhayyim.com と inseparable な状態が固定。governance / sovereignty 主張が空文化。reject(user の明示判断)
 2. **EKS / GKE / DigitalOcean K8s に rehome** — Vultr 離脱だけど commercial K8s 依存は維持。"decentralized" の意味が薄まる。reject
 3. **K8s を完全に捨てて native systemd / launchd only** — 既存 manifest 投資を失う。geth-private のような HA stateful service の運用が手作業に。**K3s on Mac-mini を採用するが、軽い service は native** という hybrid を選択
 4. **Self-host K3s on rented bare metal**(Hetzner / OVH 等) — Vultr 同等の commercial 依存度。reject

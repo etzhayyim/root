@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kna-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kna-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Federation of Saint Kitts and Nevis AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -81,7 +81,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "kna-state.gftd.ai",
+      "host": "kna-state.etzhayyim.com",
       "paths": [
         "/"
       ],

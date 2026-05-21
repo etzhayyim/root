@@ -36,7 +36,7 @@ for build B?", "which regions are missing required age-rating boards for
 listing L?") become one SQL statement, not four manual checks across
 vendor portals.
 
-The existing `gameka` (`gameka.gftd.ai`) actor already covers in-house
+The existing `gameka` (`gameka.etzhayyim.com`) actor already covers in-house
 browser game ideation → generation → playtest → publish for the kami-engine
 substrate. It owns the cross-platform title identity row
 (`vertex_games_title`). It does **not** model partner accounts, devkit
@@ -62,10 +62,10 @@ Three design pressures shape the new actor:
 
 # Decision
 
-Stand up a new actor `hatsubai.gftd.ai` (発売 = "release / put on sale")
+Stand up a new actor `hatsubai.etzhayyim.com` (発売 = "release / put on sale")
 under the BPMN-as-actor pattern (ADR-0056), mirroring `gameka`'s topology.
 **No CF Worker.** The actor is one set of XRPC + Lexicon contracts plus a
-graph schema, executed by `bpmn.gftd.ai` (SpiffWorkflow + pyzeebe shim per
+graph schema, executed by `bpmn.etzhayyim.com` (SpiffWorkflow + pyzeebe shim per
 ADR-2605081200).
 
 ## Topology
@@ -73,10 +73,10 @@ ADR-2605081200).
 | Aspect | Value |
 |---|---|
 | Layer (ADR-2604231811) | Actor Worker (Layer 10 GFTD ext.) |
-| Worker host | `bpmn.gftd.ai` (no dedicated CF Worker) |
-| Primary DID | `did:web:hatsubai.gftd.ai` |
-| Sub-DID per platform | `did:web:hatsubai.gftd.ai:platform:{nsw2,ps5,xbsx,steam}` |
-| Sub-DID per shipped title (P3) | `did:web:hatsubai.gftd.ai:title:{platform}-{slug}` |
+| Worker host | `bpmn.etzhayyim.com` (no dedicated CF Worker) |
+| Primary DID | `did:web:hatsubai.etzhayyim.com` |
+| Sub-DID per platform | `did:web:hatsubai.etzhayyim.com:platform:{nsw2,ps5,xbsx,steam}` |
+| Sub-DID per shipped title (P3) | `did:web:hatsubai.etzhayyim.com:title:{platform}-{slug}` |
 | NSID prefix | `ai.gftd.apps.hatsubai.*` |
 | Persistence (ADR-0036) | domain → Worker-direct Hyperdrive (Kysely); social → `sdk.pds.dispatch` |
 
@@ -203,7 +203,7 @@ manually to unblock.
   with no per-platform projection, or the projection's
   `master_status` lags the cross-platform parent). A reconciliation
   view is deferred to Phase 2.
-- BPMN-as-actor implies `bpmn.gftd.ai` is in the critical path for cert
+- BPMN-as-actor implies `bpmn.etzhayyim.com` is in the critical path for cert
   submissions. SpiffWorkflow scaling and the pyzeebe shim are addressed
   in ADR-2605081200 but increase blast radius compared to a CF Worker.
 - TRC fail evidence (screenshots, repro logs) lives behind `evidence_uri`
@@ -229,7 +229,7 @@ manually to unblock.
 
 # Alternatives Considered
 
-## A. Per-platform separate actors (`switch2.gftd.ai`, `ps5.gftd.ai`, ...)
+## A. Per-platform separate actors (`switch2.etzhayyim.com`, `ps5.etzhayyim.com`, ...)
 
 Rejected. Cross-platform reporting becomes UNION ALL across four
 schemas; release-calendar / blocker-rollup queries fan-out to four DIDs;

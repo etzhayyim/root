@@ -45,7 +45,7 @@ export interface Contract {
 const WORKER_AGREEMENT_JA = `
 # ワーカー利用規約（Worker Agreement）
 
-${OPERATOR}が運営する Human Computing Platform（hc.gftd.ai, 以下「本サービス」）の
+${OPERATOR}が運営する Human Computing Platform（hc.etzhayyim.com, 以下「本サービス」）の
 ワーカーとして役務を提供する個人（以下「ワーカー」）は、本規約に同意するものとします。
 
 ## 第1条（本規約の適用）
@@ -211,7 +211,7 @@ const SHIFT_TERMS_JA = `
  * ======================================================================== */
 
 const NANOID = "hc0mp7ng";
-const didOf = (type: ContractType) => `did:web:${NANOID}.gftd.ai:legal:${type}`;
+const didOf = (type: ContractType) => `did:web:${NANOID}.etzhayyim.com:legal:${type}`;
 
 const contracts: Record<ContractType, Record<Locale, Contract>> = {} as any;
 

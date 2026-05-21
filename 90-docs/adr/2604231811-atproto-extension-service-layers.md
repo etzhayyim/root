@@ -41,16 +41,16 @@ CLAUDE.md / deps.toml / ADR ごとに場当たり的な呼称 (〜server, 〜ser
 
 | Worker | 本質 | 従来の呼び方 (drift 有) |
 |---|---|---|
-| `signal.gftd.ai` | X3DH prekey bundle server | "signal service" / "E2E helper" |
-| `vault.gftd.ai` | zero-knowledge secret storage | "vault worker" / "1Password 相当" |
-| `murakumo.gftd.ai` | LLM inference fleet gateway | "murakumo fleet" / "inference gateway" |
-| `plc.gftd.ai` | did:plc directory (self-hosted) | "plc worker" / "did directory" |
-| `authn.gftd.ai` / `authz.gftd.ai` | OAuth AS / authorization mgmt UI | "auth worker" / "T4 split" |
-| `shinshi.gftd.ai`, `animeka.gftd.ai`, `yabai.gftd.ai`, `lawfirm.gftd.ai`, ... | server-side actor (no human UI) | "actor worker" / "domain worker" / "MCP capability" / "app worker" |
-| `dispatcher.gftd.ai` | BPMN process dispatcher (ADR-0056) | "bpmn-dispatcher" |
-| `yoro.gftd.ai` | Svelte SPA + SEO snapshot | "frontend" / "client" / "ui" |
+| `signal.etzhayyim.com` | X3DH prekey bundle server | "signal service" / "E2E helper" |
+| `vault.etzhayyim.com` | zero-knowledge secret storage | "vault worker" / "1Password 相当" |
+| `murakumo.etzhayyim.com` | LLM inference fleet gateway | "murakumo fleet" / "inference gateway" |
+| `plc.etzhayyim.com` | did:plc directory (self-hosted) | "plc worker" / "did directory" |
+| `authn.etzhayyim.com` / `authz.etzhayyim.com` | OAuth AS / authorization mgmt UI | "auth worker" / "T4 split" |
+| `shinshi.etzhayyim.com`, `animeka.etzhayyim.com`, `yabai.etzhayyim.com`, `lawfirm.etzhayyim.com`, ... | server-side actor (no human UI) | "actor worker" / "domain worker" / "MCP capability" / "app worker" |
+| `dispatcher.etzhayyim.com` | BPMN process dispatcher (ADR-0056) | "bpmn-dispatcher" |
+| `yoro.etzhayyim.com` | Svelte SPA + SEO snapshot | "frontend" / "client" / "ui" |
 | `routing-gateway` | did:web sub-actor path resolver (ADR-0023) | "routing-gateway" |
-| `atproto.gftd.ai` | PDS pipethrough + OAuth AS 兼務 | "atproto worker" / "PDS" |
+| `atproto.etzhayyim.com` | PDS pipethrough + OAuth AS 兼務 | "atproto worker" / "PDS" |
 
 この drift が起きる理由は単純で、**AT Protocol の公式 9 分類の外側**に必然的に
 現れる役割を記述する語彙が定まっていないからである。既に ADR-0056 (BPMN-as-actor),
@@ -74,15 +74,15 @@ repo 全体で正規語彙とし、`deps.toml [[conventions]]` と Worker 起票
 
 | # | Layer | 責務 | 本 repo の実体 |
 |---|---|---|---|
-| 1 | **PDS** (Personal Data Server) | repo commit + blob + identity | `atproto.gftd.ai` の PDS 部 (pipethrough 先の `ai-gftd-pds`) |
+| 1 | **PDS** (Personal Data Server) | repo commit + blob + identity | `atproto.etzhayyim.com` の PDS 部 (pipethrough 先の `ai-gftd-pds`) |
 | 2 | **AppView** | indexed view for an app lexicon | yoro AppView (`app.bsky.*` indexed view、graph Worker + RisingWave) |
 | 3 | **Relay** (BGS) | firehose 集約 | (未運用、Bluesky 公式依存) |
-| 4 | **Entryway** (Authorization Server) | OAuth / DPoP / PAR / PKCE | `atproto.gftd.ai` の OAuth handler 部 (ADR-2604231800) |
+| 4 | **Entryway** (Authorization Server) | OAuth / DPoP / PAR / PKCE | `atproto.etzhayyim.com` の OAuth handler 部 (ADR-2604231800) |
 | 5 | **Feed Generator** | `app.bsky.feed.getFeedSkeleton` | 未運用 |
 | 6 | **Labeler** | label emit | 未運用 |
 | 7 | **Chat Service** | `chat.bsky.convo.*` / `wproto.convo.*` | PDS pipethrough 内の convo handler |
 | 8 | **Ozone** | moderation dashboard | 未運用 |
-| 9 | **Client App** | end-user UI consumer | `yoro.gftd.ai` (Svelte 5 SPA + SEO) |
+| 9 | **Client App** | end-user UI consumer | `yoro.etzhayyim.com` (Svelte 5 SPA + SEO) |
 
 ### W Protocol 拡張 (6 層, 本 ADR が正名)
 
@@ -97,11 +97,11 @@ repo 全体で正規語彙とし、`deps.toml [[conventions]]` と Worker 起票
 
 ### AuthN / AuthZ の扱い
 
-ADR-0024 で split した `authn.gftd.ai` / `authz.gftd.ai` は **Layer 4 (Entryway)
+ADR-0024 で split した `authn.etzhayyim.com` / `authz.etzhayyim.com` は **Layer 4 (Entryway)
 の 2 subcomponents** として扱う:
 
-- `authn.gftd.ai` = Entryway AS の front (sign-in / passkey / OAuth / DID doc serve)
-- `authz.gftd.ai` = Entryway AS の back (linked method mgmt / `/manage` UI / api-key CRUD)
+- `authn.etzhayyim.com` = Entryway AS の front (sign-in / passkey / OAuth / DID doc serve)
+- `authz.etzhayyim.com` = Entryway AS の back (linked method mgmt / `/manage` UI / api-key CRUD)
 
 独立レイヤにはしない。AT Protocol OAuth spec 的にはどちらも "Authorization Server"
 の面。
@@ -171,29 +171,29 @@ Q8: BPMN / workflow dispatch か?
 
 | Worker host | Layer |
 |---|---|
-| `atproto.gftd.ai` | **1 PDS + 4 Entryway** (両面、分離は将来課題) |
-| `authn.gftd.ai` | 4 Entryway (AS front) |
-| `authz.gftd.ai`, `accounts.gftd.ai` | 4 Entryway (AS back) |
-| `yoro.gftd.ai` | 9 Client App |
-| `shinshi.gftd.ai` | 10 Actor Worker |
-| `animeka.gftd.ai` | 10 Actor Worker |
-| `mangaka.gftd.ai` | 10 Actor Worker |
-| `news.gftd.ai` | 10 Actor Worker |
-| `yabai.gftd.ai` | 10 Actor Worker |
-| `lawfirm.gftd.ai` | 10 Actor Worker |
-| `dns.gftd.ai` | 10 Actor Worker |
-| `kaikei.gftd.ai` | 10 Actor Worker |
-| `microsoft.gftd.ai` | 10 Actor Worker |
-| `lawyer.gftd.ai` | 10 Actor Worker |
-| `sashiosae.gftd.ai`, `jpn.state.gftd.ai` (path DIDs) | 10 Actor Worker |
-| `kyber-projector.gftd.ai` | 10 Actor Worker (path-DID L1 × 13) |
-| `signal.gftd.ai` | 11 Key Directory |
-| `vault.gftd.ai` | 12 Secret Vault |
-| `murakumo.gftd.ai` | 13 Inference Fleet |
+| `atproto.etzhayyim.com` | **1 PDS + 4 Entryway** (両面、分離は将来課題) |
+| `authn.etzhayyim.com` | 4 Entryway (AS front) |
+| `authz.etzhayyim.com`, `accounts.etzhayyim.com` | 4 Entryway (AS back) |
+| `yoro.etzhayyim.com` | 9 Client App |
+| `shinshi.etzhayyim.com` | 10 Actor Worker |
+| `animeka.etzhayyim.com` | 10 Actor Worker |
+| `mangaka.etzhayyim.com` | 10 Actor Worker |
+| `news.etzhayyim.com` | 10 Actor Worker |
+| `yabai.etzhayyim.com` | 10 Actor Worker |
+| `lawfirm.etzhayyim.com` | 10 Actor Worker |
+| `dns.etzhayyim.com` | 10 Actor Worker |
+| `kaikei.etzhayyim.com` | 10 Actor Worker |
+| `microsoft.etzhayyim.com` | 10 Actor Worker |
+| `lawyer.etzhayyim.com` | 10 Actor Worker |
+| `sashiosae.etzhayyim.com`, `jpn.state.etzhayyim.com` (path DIDs) | 10 Actor Worker |
+| `kyber-projector.etzhayyim.com` | 10 Actor Worker (path-DID L1 × 13) |
+| `signal.etzhayyim.com` | 11 Key Directory |
+| `vault.etzhayyim.com` | 12 Secret Vault |
+| `murakumo.etzhayyim.com` | 13 Inference Fleet |
 | `ameno.*` (browser-side) | 13 Inference Fleet (client compute variant) |
-| `plc.gftd.ai` | 14 DID Directory |
-| `did.gftd.ai` | 14 DID Directory (did:gftd, ADR-0029) |
-| `dispatcher.gftd.ai` | 15 Process Orchestrator |
+| `plc.etzhayyim.com` | 14 DID Directory |
+| `did.etzhayyim.com` | 14 DID Directory (did:gftd, ADR-0029) |
+| `dispatcher.etzhayyim.com` | 15 Process Orchestrator |
 | `routing-gateway` | (glue, not a layer) |
 
 # Consequences
@@ -208,7 +208,7 @@ Q8: BPMN / workflow dispatch か?
 
 **Cons / 注意点:**
 
-- `atproto.gftd.ai` が Layer 1 + Layer 4 両面で動いている事実は変わらない。
+- `atproto.etzhayyim.com` が Layer 1 + Layer 4 両面で動いている事実は変わらない。
   将来分離するか、両面 Worker を許容するかは別 ADR で扱う
 - 新レイヤの追加提案 (例: Relay 自ホスト、Ozone 自ホスト) は本 ADR の改訂ではなく
   **続編 ADR** で行う (1 ADR = 1 decision 原則)

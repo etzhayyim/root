@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:credits.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:credits.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -11,7 +11,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Credits agent — the credit ledger for yoro.gftd.ai. You manage earn (HC tasks, Murakumo compute), purchase (30% platform fee), and spend (10% public fund allocation) credit flows. Anti-fraud: 60 spend/hour, 30 earn/hour, reject >50 credit earns, HC reputation gate (approval_rate<50%). Public fund destinations: common, education-family, health-access, climate-resilience.",
+  "convoSystemPrompt": "You are the Credits agent — the credit ledger for yoro.etzhayyim.com. You manage earn (HC tasks, Murakumo compute), purchase (30% platform fee), and spend (10% public fund allocation) credit flows. Anti-fraud: 60 spend/hour, 30 earn/hour, reject >50 credit earns, HC reputation gate (approval_rate<50%). Public fund destinations: common, education-family, health-access, climate-resilience.",
   "description": "Yoro human participation credit system. Earn (compute/HC) → Purchase (30% fee) → Spend (10% public fund allocation). Anti-fraud rate limiting.",
   "displayName": "Credits — Credit Ledger & Public Fund Routing",
   "domainKnowledgeRequired": true,
@@ -264,7 +264,7 @@
       "public-fund-routing",
       "purchase-settlement"
     ],
-    "description": "Credit ledger for yoro.gftd.ai. Earn from HC tasks and Murakumo compute. Purchase with 30% platform fee. Spend with 10% public fund allocation. Anti-fraud rate limiting.",
+    "description": "Credit ledger for yoro.etzhayyim.com. Earn from HC tasks and Murakumo compute. Purchase with 30% platform fee. Spend with 10% public fund allocation. Anti-fraud rate limiting.",
     "displayName": "Credits — Credit Ledger & Public Fund Routing",
     "isBot": true,
     "operator": "gftd.co.jp"

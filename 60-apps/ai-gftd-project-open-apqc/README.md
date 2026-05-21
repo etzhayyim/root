@@ -3,7 +3,7 @@
 Tranche F scaffolding placeholder. Open spec + catalog data for the APQC PCF
 (Process Classification Framework). Consolidates the open-source portion of
 the Kyber APQC/BPMN Projector (ADR-0025) — vendor-side customer mapping
-stays in `gftdcojp/ai-gftd-apps-gftdcojp`.
+stays in `etzhayyim/etzhayyim-root`.
 
 ## Status
 
@@ -28,4 +28,4 @@ the catalog data + projector spec from vendor.
 - [`60-apps/ai-gftd-project-open-kyber/`](../ai-gftd-project-open-kyber) — Tranche E open-source ERP that consumes this catalog
 - [`00-contracts/lexicons/ai/gftd/apqc/`](../../00-contracts/lexicons/ai/gftd/apqc) — Tranche F lexicons
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
-- [ADR-0025 Kyber APQC/BPMN Projector Consolidation](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md) (foundational)
+- [ADR-0025 Kyber APQC/BPMN Projector Consolidation](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md) (foundational)

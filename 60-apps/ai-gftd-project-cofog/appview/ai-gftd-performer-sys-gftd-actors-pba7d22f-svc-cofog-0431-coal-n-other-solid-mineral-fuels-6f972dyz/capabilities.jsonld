@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/1/coal-and-other-solid-mineral-fuels",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/1/coal-and-other-solid-mineral-fuels",
       "type": "dodaf:Capability",
       "name": "Solid Fuel Resource Management Capability",
       "description": "Functional capability for managing coal and solid mineral fuel resources, extraction permits, and mining compliance. Classification: COFOG Division 04, Group 3, Class 1.",

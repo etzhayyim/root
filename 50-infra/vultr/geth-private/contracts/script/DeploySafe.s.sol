@@ -113,7 +113,7 @@ contract DeploySafe is Script {
         console2.log("Update 50-infra/vultr/geth-private/contracts/ADDRESSES.md");
         console2.log("with the four addresses above, then run:");
         console2.log("");
-        console2.log("  forge script script/MigrateOwnersToSafe.s.sol --rpc-url https://geth.gftd.ai \\");
+        console2.log("  forge script script/MigrateOwnersToSafe.s.sol --rpc-url https://geth.etzhayyim.com \\");
         console2.log("    --sig 'simulate(address)' ", safe);
     }
 

@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/10/4/0/family-and-children/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/10/4/0/family-and-children/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Family Benefit and Child Welfare Lifecycle",
       "description": "The administrative process of verifying family eligibility, coordinating child care benefits, and monitoring welfare outcomes.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/10/4/0/family-and-children"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/4/0/family-and-children"
     }
   ]
 }

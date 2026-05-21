@@ -23,7 +23,7 @@ ADR-2604241038 Contract 3 unifies the Worker-to-Worker viewer-DID trust
 plane on an HMAC-signed 3-header envelope:
 
 ```
-x-gftd-viewer-did:        did:web:alice.gftd.ai
+x-gftd-viewer-did:        did:web:alice.etzhayyim.com
 x-gftd-viewer-issued-at:  <unix seconds>
 x-gftd-viewer-signature:  HMAC-SHA256(APPVIEW_INTERNAL_SECRET, "did|issued-at")
 ```
@@ -150,17 +150,17 @@ cd ../chat && wrangler deploy --env staging
 cd ../signal && wrangler deploy --env staging
 
 # Smoke
-ORIGIN=https://staging.atproto.gftd.ai bash 50-infra/cloudflare/workers/atproto/scripts/oauth-smoke.sh
+ORIGIN=https://staging.atproto.etzhayyim.com bash 50-infra/cloudflare/workers/atproto/scripts/oauth-smoke.sh
 # Per-Worker health
-curl -sS https://staging.bsky.gftd.ai/_worker/health
-curl -sS https://staging.chat.gftd.ai/_worker/health
-curl -sS https://staging.signal.gftd.ai/_worker/health
+curl -sS https://staging.bsky.etzhayyim.com/_worker/health
+curl -sS https://staging.chat.etzhayyim.com/_worker/health
+curl -sS https://staging.signal.etzhayyim.com/_worker/health
 
 # E2E: a logged-in call that hits AppView via PDS pipethrough
 # (getAuthorFeed, getProfile). The viewer DID should round-trip even
 # with no legacy headers on the wire.
 gftd authn signin
-curl -sS "https://staging.atproto.gftd.ai/xrpc/app.bsky.feed.getAuthorFeed?actor=did:web:yoro.gftd.ai" \
+curl -sS "https://staging.atproto.etzhayyim.com/xrpc/app.bsky.feed.getAuthorFeed?actor=did:web:yoro.etzhayyim.com" \
   -H "Authorization: Bearer $(gftd authn token)"
 ```
 

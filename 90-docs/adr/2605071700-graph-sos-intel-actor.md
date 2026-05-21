@@ -26,7 +26,7 @@ superseded_by: []
 
 **Date**: 2026-05-07
 **Status**: Accepted
-**Decision Owner**: `did:web:graph-sos-intel.gftd.ai`
+**Decision Owner**: `did:web:graph-sos-intel.etzhayyim.com`
 
 ## Context
 

@@ -1,4 +1,4 @@
-# lg-webmk — LangGraph Server actor for webmk.gftd.ai
+# lg-webmk — LangGraph Server actor for webmk.etzhayyim.com
 
 Web Marketing Proposal Agent. OSS LangGraph FastAPI pattern (mirrors lg-yukkuri).
 
@@ -48,15 +48,15 @@ DAG: `validate_input → generate_content → store_proposal → notify_delivery
 |---|---|---|
 | Proposal generation | `gemma-4-e4b-it` | `createProposal` with content generation enabled |
 
-Routes through `llm.gftd.ai` (LiteLLM gateway → murakumo-serve fleet).
+Routes through `llm.etzhayyim.com` (LiteLLM gateway → murakumo-serve fleet).
 
 ## Env Vars
 
 | Var | Default | Purpose |
 |---|---|---|
 | `RW_URL` / `LG_CHECKPOINTER_URL` | (required) | RisingWave PG :4566 |
-| `WEBMK_APP_DID` | `did:web:webmk.gftd.ai` | Actor DID for audit |
-| `WEBMK_LLM_URL` | `http://llm.gftd.ai` | LiteLLM gateway |
+| `WEBMK_APP_DID` | `did:web:webmk.etzhayyim.com` | Actor DID for audit |
+| `WEBMK_LLM_URL` | `http://llm.etzhayyim.com` | LiteLLM gateway |
 | `WEBMK_LLM_API_KEY` | `""` | Bearer token |
 | `WEBMK_LLM_MODEL` | `gemma-4-e4b-it` | Proposal generation model |
 | `WEBMK_LLM_TIMEOUT` | `30` | LLM request timeout (sec) |

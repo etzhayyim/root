@@ -1,7 +1,7 @@
 /**
  * maps-tile-server — self-hosted MVT tile server.
  *
- * Route surface (tiles-maps.gftd.ai):
+ * Route surface (tiles-maps.etzhayyim.com):
  *   GET /v1/{z}/{x}/{y}.pbf   → MVT tile bytes (OpenMapTiles schema)
  *   GET /v1/manifest.json     → current PMTiles version + build metadata
  *   GET /v1/style.json        → MapLibre-compatible style (kami ignores it)

@@ -23,7 +23,7 @@ related:
 - **Status**: active
 - **Date**: 2026-04-27
 - **Deployed**: 2026-04-28
-- **Owner**: maps actor (`did:web:maps.gftd.ai`)
+- **Owner**: maps actor (`did:web:maps.etzhayyim.com`)
 - **Supersedes**: maps `satellite_*` command stubs (declared 2026-04-17, never wired)
 - **Relates to**: ADR-0056 (BPMN-as-actor), ADR-2604271600 (projector L7 LangChain),
   ADR-2604251830 (Shannon-Optimal 8-Layer), ADR-0036 (Worker-direct Hyperdrive),
@@ -31,8 +31,8 @@ related:
 
 ## Context
 
-`maps.gftd.ai` is the gftd geospatial actor. Its `actor-manifest.jsonld`
-declares `did:web:maps.gftd.ai:satellite` as a STAC source covering
+`maps.etzhayyim.com` is the gftd geospatial actor. Its `actor-manifest.jsonld`
+declares `did:web:maps.etzhayyim.com:satellite` as a STAC source covering
 Sentinel-1 / Sentinel-2 / Landsat / HLS / Cop-DEM / NAIP, plus the
 commands `satellite_ingest` / `satellite_import_scene` /
 `satellite_analyze` / `list_satellite_scenes`. The commands have never
@@ -43,7 +43,7 @@ coverage / OSM / Wikipedia / Wikidata refresh jobs — none touch Sentinel.
 
 Yoro proved the BPMN + pyzeebe + LangChain + RunPod stack
 (ADR-2604271600 projector L7, ADR-2604240946 platformPulse R/PT4H).
-maps does not yet share that L7 path. The user request 「maps.gftd.ai で
+maps does not yet share that L7 path. The user request 「maps.etzhayyim.com で
 sentinel からの情報収集、分析は bpmn, pyzeebe, langchain, runpod でできて
 いる？」 confirmed: not built. This ADR commits to building it as a
 yoro-symmetric L7 pipeline.
@@ -190,7 +190,7 @@ cluster footprint is back inside RW license caps.
 | `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py` | ✅ `maps.sentinel.stac.search` + `maps.sentinel.runpod.analyze` |
 | `20-actors/magatama/py/tests/test_maps_sentinel_primitives.py` | ✅ 36/36 passing |
 | `70-tools/scripts/contract/lint-sentinel-drift.py` | ✅ 5-check CI guard |
-| `ghcr.io/gftdcojp/pymagatama:0.2.37` | ✅ built + pushed linux/amd64 |
+| `ghcr.io/etzhayyim/pymagatama:0.2.37` | ✅ built + pushed linux/amd64 |
 | `zeebe-worker` (mitama-udf) | ✅ rolled to 0.2.37, polling `maps.sentinel.*` |
 | PR #1151 | ✅ `safe-deploy-and-fix-settler-ws` → `main` |
 

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:air-sched.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:air-sched.etzhayyim.com",
   "name": "air-sched",
   "nanoid": "a1rsch3d",
   "project": "air-sched",

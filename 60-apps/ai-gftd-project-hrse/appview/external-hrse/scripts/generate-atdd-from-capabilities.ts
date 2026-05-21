@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#ATDDGenerator
+// @etzhayyim/cyber-freelance#ATDDGenerator
 // capabilities.jsonldからATDDテストを生成
 
 import { readFileSync, writeFileSync, mkdirSync } from "fs";
@@ -39,7 +39,7 @@ function generateATDDTest(capability: Capability): string {
 	// Capability IDからテストファイル名を生成
 	const testFileName = id.replace(/Capability$/, "").replace(/([A-Z])/g, "-$1").toLowerCase().slice(1);
 
-	return `// @gftdcojp/cyber-freelance#${id}
+	return `// @etzhayyim/cyber-freelance#${id}
 // ATDD Test: ${label}
 // Generated from capabilities.jsonld
 

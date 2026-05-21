@@ -29,7 +29,7 @@ BPMN metadata is stored on PDS. Process XML may be archived to B2. Instance stat
 
 ## Pattern translation (Option B)
 
-| Vendor (`bpmn.gftd.ai`) | etzhayyim (this PR) |
+| Vendor (`bpmn.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
 | `db.insertInto("vertex_bpmn_process").values({...}).execute()` | `e.write({ collection: "ai.gftd.bpmn.process", record, rkey })` |

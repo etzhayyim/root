@@ -237,7 +237,7 @@ def extract_domain(url: str) -> str:
 
 
 def domain_to_did(domain: str) -> str:
-    return f"did:web:site.gftd.ai:{domain.replace('.', '-')}"
+    return f"did:web:site.etzhayyim.com:{domain.replace('.', '-')}"
 
 
 def url_hash(url: str) -> str:

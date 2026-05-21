@@ -484,10 +484,10 @@
 <footer class="border-t border-gftd-border px-6 py-8">
 	<div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
 		<span class="text-sm font-semibold text-gftd-text">yatabase</span>
-		<span class="text-xs text-gftd-muted">© 2026 Gftd Japan株式会社 · <a href="https://yatabase.gftd.ai/.well-known/mcp.json" class="hover:text-gftd-text transition-colors">MCP discovery</a></span>
+		<span class="text-xs text-gftd-muted">© 2026 Gftd Japan株式会社 · <a href="https://yatabase.etzhayyim.com/.well-known/mcp.json" class="hover:text-gftd-text transition-colors">MCP discovery</a></span>
 		<div class="flex gap-4">
 			<a href="/studio" class="text-xs text-gftd-muted hover:text-gftd-text transition-colors">Studio</a>
-			<a href="https://mcp.gftd.ai/mcp" class="text-xs text-gftd-muted hover:text-gftd-text transition-colors">MCP</a>
+			<a href="https://mcp.etzhayyim.com/mcp" class="text-xs text-gftd-muted hover:text-gftd-text transition-colors">MCP</a>
 		</div>
 	</div>
 </footer>

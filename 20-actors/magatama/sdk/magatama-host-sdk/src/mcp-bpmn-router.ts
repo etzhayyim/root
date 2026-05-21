@@ -21,6 +21,7 @@
 // On 5xx from dispatcher: returns null so the caller falls through to
 // in-process handleXRPC. 4xx and timeouts surface verbatim.
 
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import type { Kysely } from "kysely";
 import { createKyselyDb } from "./kysely.js";
 

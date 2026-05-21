@@ -166,8 +166,8 @@ def populate_domains(conn):
                                        _seq, sensitivity_ord, created_date, owner_did)
             SELECT
                 p.domain, p.domain,
-                'did:web:site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
-                'site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
+                'did:web:site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
+                'site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
                 p.domain, NULL::VARCHAR, 'service', 'active',
                 0::BIGINT, 0::BIGINT, NULL::DATE, NULL::VARCHAR
             FROM (SELECT DISTINCT domain FROM vertex_page

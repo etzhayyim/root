@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/03/2/0/fire-protection-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/03/2/0/fire-protection-services",
       "type": "dodaf:Capability",
       "name": "Fire Protection and Emergency Response Capability",
       "description": "Functional capability for fire suppression, technical rescue, and fire prevention services. Classification: COFOG Division 03, Group 2, Class 0.",

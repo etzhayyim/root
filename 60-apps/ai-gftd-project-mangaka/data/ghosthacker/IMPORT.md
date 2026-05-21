@@ -1,6 +1,6 @@
 # Ghost Hacker Import — Migration Notes
 
-Imported from `~/github/ghosthacker/260123-jump/` on **2026-05-12** so the series can be continued at `mangaka.gftd.ai`.
+Imported from `~/github/ghosthacker/260123-jump/` on **2026-05-12** so the series can be continued at `mangaka.etzhayyim.com`.
 
 ## Layout
 
@@ -55,17 +55,17 @@ All symlinks point back to `~/github/ghosthacker/260123-jump/...` — the origin
 - **Episodes available**: 19 (arc0-1-origin, arc0-2-private-account, arc0-3-digital-footprint, 13× 260125-jump-arc{A,B,C,D}-{1,2,3}, 260123-cschool-*, 260125-parent-smartphone-safety)
 - **Only arc0-1-origin has been rendered to PDF/PNG.** The rest exist as `episode.jsonld` only.
 
-## Continuing the series in mangaka.gftd.ai
+## Continuing the series in mangaka.etzhayyim.com
 
 Two complementary paths:
 
-### Path A — Direct manga authoring on mangaka.gftd.ai (Genko canvas)
+### Path A — Direct manga authoring on mangaka.etzhayyim.com (Genko canvas)
 
 The mangaka appview already has import scripts at
 `60-apps/ai-gftd-project-mangaka/scripts/import-jump-all.ts` that ingest these
-episodes into the live `mangaka.gftd.ai` PDS as `ai.gftd.mangaka.document`
+episodes into the live `mangaka.etzhayyim.com` PDS as `ai.gftd.mangaka.document`
 records. Each episode becomes 1 document with deep-link
-`https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.document/doc-gh-<slug>`.
+`https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/doc-gh-<slug>`.
 Run with `deno run scripts/import-jump-all.ts` after updating the `JUMP_DIR`
 constant if needed (currently points at the original `~/github/...` path).
 

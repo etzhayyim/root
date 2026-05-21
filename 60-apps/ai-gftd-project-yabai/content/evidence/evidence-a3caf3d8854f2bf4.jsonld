@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "gftd:YabaiEvidence",
-  "@id": "https://yabai.gftd.ai/content/evidence/evidence-a3caf3d8854f2bf4",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-a3caf3d8854f2bf4",
   "evidenceId": "evidence-a3caf3d8854f2bf4",
   "entityId": "ent-f32a29c7b9b4",
   "category": "CriminalEvidence",

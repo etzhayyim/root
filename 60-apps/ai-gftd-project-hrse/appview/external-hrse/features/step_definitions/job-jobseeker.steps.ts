@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#JobJobSeekerSteps
+// @etzhayyim/cyber-freelance#JobJobSeekerSteps
 // Job and JobSeeker関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

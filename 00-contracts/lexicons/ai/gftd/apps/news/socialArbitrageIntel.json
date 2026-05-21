@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Start the LangServer social-arbitrage intel pipeline for news.gftd.ai.",
+      "description": "Start the LangServer social-arbitrage intel pipeline for news.etzhayyim.com.",
       "input": {
         "encoding": "application/json",
         "schema": {

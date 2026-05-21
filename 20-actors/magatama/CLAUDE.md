@@ -64,7 +64,7 @@ Full Tranche F closure index: `90-docs/TRANCHE-F-INDEX.md`
 
 **改善**: async/await 直接使用可、jco/canonical-abi/wasm-tools 不要、Build <1s、Bridge 層 7→3、Guest LOC 4x 削減。
 
-名称対応は [90-docs/260319-magatama-runtime-naming-map.md](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/90-docs/260319-magatama-runtime-naming-map.md) を正とする。
+名称対応は [90-docs/260319-magatama-runtime-naming-map.md](/Users/junkawasaki/etzhayyim/etzhayyim-root/90-docs/260319-magatama-runtime-naming-map.md) を正とする。
 
 ## Architecture
 
@@ -96,7 +96,7 @@ CF Single Worker
 │   ├─ PdsClient (sdk.pds)              → direct async PDS RPC (write)
 │   └─ createKyselyDb(sql, env.HYPERDRIVE) → Kysely type-safe graph queries (read/write)
 ├─ OTEL access logging                  → R2 NDJSON
-└─ PDS_SERVICE                         → atproto.gftd.ai (read + write, XRPC)
+└─ PDS_SERVICE                         → atproto.etzhayyim.com (read + write, XRPC)
 ```
 
 **CRITICAL**:
@@ -522,7 +522,7 @@ const rows = await db.selectFrom("vertex_employee").selectAll().limit(50).execut
 - `sqlQueryAsync()` / `sqlQueryMap()` → `createKyselyDb().selectFrom()` を使用
 - `G("Label").Query()` / `G("Label").Exec()` → `createKyselyDb()` の query builder を使用
 - ローカル `writeRecord()` / `postSocial()` 関数定義 → SDK import + Hyperdrive + Kysely を使用
-- `globalThis.fetch("atproto.gftd.ai/...")` → `sdk.pds.*` (social only) を使用
+- `globalThis.fetch("atproto.etzhayyim.com/...")` → `sdk.pds.*` (social only) を使用
 
 **Exception (PDS pipethrough 維持)**: `ai.gftd.vault.*` (D1 zero-knowledge)、`ai.gftd.signal.*` (E2E prekey)、`app.bsky.*` / `com.atproto.*` (federable)、`chat.bsky.convo.*` / `wproto.convo.*` (messaging)。
 
@@ -559,7 +559,7 @@ export default createWorkerExport();
 **禁止**: `sdk.app.serve()` を app.ts 内で呼ぶこと。`createWorkerExport()` が `serveAsync()` を自動呼出し、`_served` flag で二重登録を防止。
 
 **Canonical internal path**:
-- PDS write/query は `https://atproto.gftd.ai/xrpc/*` を使用
+- PDS write/query は `https://atproto.etzhayyim.com/xrpc/*` を使用
 - legacy internal HTTP paths と legacy registration NSID (`ai.gftd.identity.register`, `ai.gftd.capability.declare`, `ai.gftd.agent.registerTools`) は使用禁止
 - 旧 NSID・旧呼び出し (legacy PDS NSID) の再導入は manual review で防止 (gftd lint nsid-regression は CLI ごと撤去 2026-05-20)
 
@@ -595,7 +595,7 @@ export default createWorkerExport();
 - **Default runtime (CRITICAL)**: TS Native + Lexicon Contract (F-Plan 2026-04-13)。`src/app.ts` + `@gftd/magatama-host-sdk` + esbuild。Host capability は `00-contracts/lexicons/ai/gftd/host/*.json` (SSoT) → `gen-host-client-from-lexicon.mjs` → `magatama-host-sdk/src/generated/host-client.ts` → `host-dispatcher.ts` (BindingTransport) → in-process 実装。WIT は T3 Container 経路のみ
 - **wRPC Stream-Native Reactive Pipeline (CRITICAL, DEFAULT)**: 詳細 → `60-apps/CLAUDE.md` §wRPC Stream-Native Reactive Pipeline。新規 app は `resolveHeartbeatCadence` を使用。Batch polling 禁止
 - **Single Worker 統合 (CRITICAL)**: TS native + host-sdk (Hono) を 1 Worker に統合。Shannon 冗長度 0%
-- **Appview Embed Route (CRITICAL)**: `uiType: "appview"` apps MUST add `sdk.router.get("/embed", ...)` in `src/app.ts` and set `"embedUrl": "https://{nanoid}.gftd.ai/embed"` in `magatama.jsonld`. `?embed=1` is handled by the app's `/embed` Hono route. Embed HTML must send `window.parent?.postMessage({type:'gftd:embed:ready',nanoid:'{nanoid}'},'*')`
+- **Appview Embed Route (CRITICAL)**: `uiType: "appview"` apps MUST add `sdk.router.get("/embed", ...)` in `src/app.ts` and set `"embedUrl": "https://{nanoid}.etzhayyim.com/embed"` in `magatama.jsonld`. `?embed=1` is handled by the app's `/embed` Hono route. Embed HTML must send `window.parent?.postMessage({type:'gftd:embed:ready',nanoid:'{nanoid}'},'*')`
 - **DoDAF DM2 Topology (CRITICAL)**: `magatama:dm2@1.0.0` が canonical topology
 - **Shinka WIT 禁止 (CRITICAL)**: standard WIT のみ使用。Shinka-specific WIT 追加禁止
 - **Component Composition (CRITICAL)**: `Invoke(did, method, params)` / `app.Handle()` で cross-app RPC
@@ -673,7 +673,7 @@ SDK 関数一覧:
 | AT record | `magatama.ATCreateRecord(repo, collection, rkey, record)` | AT Protocol |
 | AT provisioning | `magatama.ATProvisionEnsureChannel(appID, orgID, type)` | channel 作成 |
 | Config | `magatama.ConfigGet(key)` | `SPIN_VARIABLE_*` 読み取り |
-| Auth | `magatama.Authorize(header, orgID, perm)` | AT Protocol JWT 検証 (authn.gftd.ai) |
+| Auth | `magatama.Authorize(header, orgID, perm)` | AT Protocol JWT 検証 (authn.etzhayyim.com) |
 | LLM | `magatama.AgentChat(message, context)` | murakumo |
 | LLM converse | `magatama.AgentConverse(messages, options)` | multi-turn structured I/O |
 | LLM route | `magatama.AgentRoute(input)` | intent→tool classification (実行なし) |
@@ -728,7 +728,7 @@ const registry = new ActorRegistry(sdk.pds, {
 
 **Heartbeat フロー (seed 完了後)**:
 1. `registerDids(10)` — chunked DID 登録 (CPU timeout 回避)
-2. `nextStaleForIngestion()` → site.gftd.ai crawl → LLM 分析 → `recordIngest()` (content hash delta)
+2. `nextStaleForIngestion()` → site.etzhayyim.com crawl → LLM 分析 → `recordIngest()` (content hash delta)
 3. `nextStaleForKyumei()` → LLM 組織調査 → facts 記録 → social post as actor DID (shouldDrill)
 4. `nextForShinka()` → LLM 生成投稿 as actor DID → `recordShinka()` (shouldPost)
 
@@ -872,7 +872,7 @@ npm link   # installs binary `e7m` on PATH
 | Interface | Host impl | Config env vars |
 |---|---|---|
 | `sql` | `magatama-host-sdk` → PDS RPC delegate | none (PDS RPC) |
-| `authn` | `magatama-host-sdk` → PDS RPC delegate | AT Protocol JWT (authn.gftd.ai, did:web + ES256) |
+| `authn` | `magatama-host-sdk` → PDS RPC delegate | AT Protocol JWT (authn.etzhayyim.com, did:web + ES256) |
 | `authz` | `magatama-host-sdk` → PDS RPC delegate | none (pure in-process RBAC) |
 | `ipfs` | `magatama-host-sdk` → PDS RPC delegate | `SPIN_VARIABLE_IPFS_S3_*` |
 | `storage` | `magatama-host-sdk` → PDS RPC delegate | `SPIN_VARIABLE_STORAGE_SATELLITE_URL` |
@@ -904,11 +904,11 @@ npm link   # installs binary `e7m` on PATH
 
 - Complex return values (authn): JSON-encoded `list<u8>` (same pattern as `signal`)
 - `authz.enforce` is pure RBAC: no external API calls
-- `authn` auto-initialized from PDS RPC delegate (authn.gftd.ai AT Protocol session)
+- `authn` auto-initialized from PDS RPC delegate (authn.etzhayyim.com AT Protocol session)
 - `cdn`/`ipfs`/`storage` auto-initialized from `SPIN_VARIABLE_*` env
 - **DO internal API (CRITICAL)**: `durable-object-{storage,alarm,websocket,sql,state}` は DO class 内部でのみ有効。`createDurableObjectStateProviders(state, env)` で `DurableObjectState` を渡して provider 生成。TS host が `ctx.storage.*` に橋渡し。Guest は CF DO API を直接触らない
 - `ipfs`: CIDv1 (raw codec 0x55, sha2-256, multibase base32 lower) computed in-host; uploads to S3 (B2/B2) keyed by CID
-- `storage`: calls storage.gftd.ai satellite HTTP API; RS encode (reed-solomon-erasure) before uploading pieces to nodes
+- `storage`: calls storage.etzhayyim.com satellite HTTP API; RS encode (reed-solomon-erasure) before uploading pieces to nodes
 
 ## Entity Agent Registry (CRITICAL)
 
@@ -941,14 +941,14 @@ export default createWorkerExport((sdk) => {
 });
 // createWorkerExport auto-generates:
 //   1. ActorCard {nanoid, tools:[translate], protocols:[xrpc,w-protocol]}
-//   2. Profile {displayName, description, avatar, isBot:true, disclaimer:"AI Agent — unofficial"} → atproto.gftd.ai
+//   2. Profile {displayName, description, avatar, isBot:true, disclaimer:"AI Agent — unofficial"} → atproto.etzhayyim.com
 //   3. ActorCapability {id:"sh1n5h1x.translate", tags:["nlp","i18n","translation","governed","approval-required","bpmn","ocel"]}
 //   4. GovernanceManifest {policies:[{command:"translate", raci:[R:translator,A:i18n-lead], approval:{class:C,min:1}}]}
 ```
 
 | CommandOption | Auto-Generated Target | Graph/WIT |
 |---|---|---|
-| `AsAgentTool(desc)` | `ActorCard.tools[]` + `ActorCapability.description` + **MCP tool** | `:ActorCard` node + `:ActorCapability` node → canonical `mcp.gftd.ai/xrpc/ai.gftd.mcp.message` (compat: `mcp.gftd.ai/mcp`) の `tools/list` で自動公開 |
+| `AsAgentTool(desc)` | `ActorCard.tools[]` + `ActorCapability.description` + **MCP tool** | `:ActorCard` node + `:ActorCapability` node → canonical `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) の `tools/list` で自動公開 |
 | `WithCapabilityTags(tags...)` | `ActorCapability.tags[]` | discovery key for `Invoke("", method, params)` |
 | `WithCapabilityPhase(phase)` | `ActorCapability.phase` | CV-1 timeline |
 | `Responsible/Accountable/...` | `GovernanceManifest.RACI` + auto-tag `"governed"` | governance WIT host |

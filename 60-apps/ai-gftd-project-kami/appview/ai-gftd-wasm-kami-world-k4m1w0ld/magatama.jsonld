@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:worlds.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:worlds.etzhayyim.com",
   "auth": {
     "guestAccess": true,
     "guestCommands": [
@@ -9,7 +9,7 @@
       "list-portals",
       "hub-stats"
     ],
-    "guestDIDPrefix": "did:web:kami.gftd.ai:guest:"
+    "guestDIDPrefix": "did:web:kami.etzhayyim.com:guest:"
   },
   "component": {
     "path": "component.wasm"
@@ -46,14 +46,14 @@
   "project": "worlds",
   "routes": [
     {
-      "host": "worlds.gftd.ai",
+      "host": "worlds.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "k4m1w0ld.gftd.ai",
+      "host": "k4m1w0ld.etzhayyim.com",
       "paths": [
         "/"
       ],

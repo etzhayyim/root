@@ -4,7 +4,7 @@
 
 ## Overview
 
-denki.gftd.ai — basic.gftd.ai の電気領域。受給者への電力供給管理、使用量追跡、プラン管理。
+denki.etzhayyim.com — basic.etzhayyim.com の電気領域。受給者への電力供給管理、使用量追跡、プラン管理。
 
 ## Domain Model
 

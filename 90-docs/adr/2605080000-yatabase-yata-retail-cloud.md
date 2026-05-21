@@ -43,17 +43,17 @@ In:
 - 課金軸 5 種 (storage / egress / LLM / GPU / API request) の単価 list 価格
 - Plan 階層 6 種 (Free / Starter / Developer / Team / Business / Enterprise)
 - Sales discount 原資階層 (年契約 / multi-year / 学生 / startup / channel partner / volume / migration / floor)
-- 製品 1: **yatabase.gftd.ai** — RisingWave-backed graph database (PG / SPARQL / Cypher / MCP)
-- 製品 2: **obj.gftd.ai** — B2-backed S3-compatible object storage with auto-tiering / LLM tagging / vector embedding / Vault E2E
+- 製品 1: **yatabase.etzhayyim.com** — RisingWave-backed graph database (PG / SPARQL / Cypher / MCP)
+- 製品 2: **obj.etzhayyim.com** — B2-backed S3-compatible object storage with auto-tiering / LLM tagging / vector embedding / Vault E2E
 - 製品 3: **yata** Rust crate — canonical client SDK for yatabase
 - 課金 metering schema (`vertex_billing_event` + 5 streaming MV)
 - Tenant isolation 規約 (per-org RW database / B2 bucket / role / API key prefix)
 - 段階導入 roadmap P1-P10 (M1-M9+)
 
 Out:
-- 既存 96 mitama actor / 内部利用 (`*.gftd.ai` で公開済の domain) の課金化 — internal-only として継続無料
+- 既存 96 mitama actor / 内部利用 (`*.etzhayyim.com` で公開済の domain) の課金化 — internal-only として継続無料
 - gftd OLTP (Neon-style separated compute/storage Postgres) — 当面開発しない (RW を graph として売る方針に集約)
-- LLM Gateway product (`llm.gftd.ai` の retail 化) — 別 ADR とする (RunPod cost / inference SLA は独立決定軸)
+- LLM Gateway product (`llm.etzhayyim.com` の retail 化) — 別 ADR とする (RunPod cost / inference SLA は独立決定軸)
 - 暗号資産 / token-gated 決済 — 当面 fiat (JPY / USD) のみ
 - 多 region 展開 — LAX 1 拠点で start、加入数 trigger (P9) に従う
 
@@ -101,7 +101,7 @@ Out:
 
 各 Plan の含有量は製品 (D3 / D4) ごとに別表で定める。
 
-## D3. 製品 1: yatabase.gftd.ai (graph database)
+## D3. 製品 1: yatabase.etzhayyim.com (graph database)
 
 **Position**: "Real-time graph database with streaming projections, OWL reasoning,
 and AT Protocol federation. PG-compatible. Drop-in for BI tools, ORMs (read-only),
@@ -112,7 +112,7 @@ embedding stores."
 ```
 Customer (psql / Cypher / SPARQL / XRPC / MCP / Bolt)
    ↓
-yatabase.gftd.ai (CF Worker, edge)
+yatabase.etzhayyim.com (CF Worker, edge)
    ├─ Auth: sk_live_yata_* → org_did
    ├─ Per-tenant DB routing: yata_<sha256(did)[:16]>
    ├─ Query language adapter
@@ -155,7 +155,7 @@ yatabase.gftd.ai (CF Worker, edge)
 
 **MVP query language**: SQL/PGQ + SPARQL + XRPC + MCP (Cypher は Phase 2)。
 
-## D4. 製品 2: obj.gftd.ai (object storage)
+## D4. 製品 2: obj.etzhayyim.com (object storage)
 
 **Position**: "S3-compatible object storage with free egress (Bandwidth Alliance),
 auto-tiering, built-in LLM tagging, vector embedding, and Vault zero-knowledge encryption."
@@ -165,7 +165,7 @@ auto-tiering, built-in LLM tagging, vector embedding, and Vault zero-knowledge e
 ```
 Customer (boto3 / aws-sdk-js / mc / curl)
    ↓ S3 API (HTTPS, AWS SigV4 or sk_live_obj_*)
-obj.gftd.ai (CF Worker, edge)
+obj.etzhayyim.com (CF Worker, edge)
    ├─ Auth: SigV4 verify or sk_live_obj_* → org_did
    ├─ Rate limit (token bucket per org)
    ├─ Metering → vertex_billing_event
@@ -178,7 +178,7 @@ obj.gftd.ai (CF Worker, edge)
 Side rails:
    ├─ Embedding worker: PUT → generate vec → vertex_obj_embedding
    ├─ Auto-tag worker: LLM classify image/doc → vertex_obj_tag
-   └─ Federation: bucket DID = did:web:obj.gftd.ai:b:<bucket-id>
+   └─ Federation: bucket DID = did:web:obj.etzhayyim.com:b:<bucket-id>
 ```
 
 **Plan limits**:
@@ -197,7 +197,7 @@ Side rails:
 - Class A: ¥10/1M req / Class B: ¥1/1M req
 
 **API surface**:
-- S3-compat REST: `https://<bucket>.obj.gftd.ai/<key>` (subdomain) + `https://obj.gftd.ai/<bucket>/<key>` (path)
+- S3-compat REST: `https://<bucket>.obj.etzhayyim.com/<key>` (subdomain) + `https://obj.etzhayyim.com/<bucket>/<key>` (path)
 - Native XRPC: `ai.gftd.apps.obj.{createBucket, putObject, getObject, listObjects, presignUrl, searchByEmbedding, listByTag, shareBucket, ...}`
 - AWS SigV4 mapping: access key id = `gftd_<key_id>`, secret = `sk_obj_<...>`
 
@@ -247,7 +247,7 @@ struct Person {
 #[yata(type = "knows", from = Person, to = Person)]
 struct Knows { #[yata(pk)] id: String, since: DateTime<Utc>, weight: f32 }
 
-let y = Yata::connect("yatabase://sk_live_yata_xxx@yatabase.gftd.ai/my-db").await?;
+let y = Yata::connect("yatabase://sk_live_yata_xxx@yatabase.etzhayyim.com/my-db").await?;
 y.migrate::<(Person, Knows)>().await?;
 y.insert(Person { /* ... */ }).await?;
 let friends: Vec<Person> = y.from::<Person>().eq("id", "alice")
@@ -263,7 +263,7 @@ y.reason(OwlProfile::Rl).await?;
 
 **MSRV**: Rust 1.78 (stable, 2024 edition)
 **License**: Apache-2.0 OR MIT (Rust 慣例 dual-license)
-**Publish**: crates.io (`yata = "0.1"`) + monorepo subtree push to `github.com/gftdcojp/yata`
+**Publish**: crates.io (`yata = "0.1"`) + monorepo subtree push to `github.com/etzhayyim/yata`
 
 **他言語 SDK 派生** (Phase 2+):
 - `yata-py` (PyO3 bindings)
@@ -330,9 +330,9 @@ floor 抵触 org 数」を監視する。
 
 ## D9. Brand / 命名
 
-- **yatabase.gftd.ai** = product host (graph DB **+** integrated S3-compatible object storage, per D10)
+- **yatabase.etzhayyim.com** = product host (graph DB **+** integrated S3-compatible object storage, per D10)
 - **yata** = top-level Rust crate name (crates.io)
-- **pay.gftd.ai** = billing / invoice / sales console
+- **pay.etzhayyim.com** = billing / invoice / sales console
 - **gftd Cloud** = umbrella retail product line name
 
 Marketing tagline 候補:
@@ -342,7 +342,7 @@ Marketing tagline 候補:
 
 ## D10. Storage は yatabase に統合 (Supabase 型) — supersedes D4 (2026-05-08)
 
-**転換**: `obj.gftd.ai` を独立製品として持たず、object storage を **yatabase の一級機能** として
+**転換**: `obj.etzhayyim.com` を独立製品として持たず、object storage を **yatabase の一級機能** として
 統合する (Supabase の Postgres + Storage 統合パターン)。
 
 理由:
@@ -357,7 +357,7 @@ Marketing tagline 候補:
 ```
 Customer
   ↓ psql / SPARQL / S3 SigV4 / Supabase-shape REST / XRPC / MCP
-yatabase.gftd.ai (CF Worker, edge)
+yatabase.etzhayyim.com (CF Worker, edge)
   ├─ /pg                          → :5432 (RW PG protocol pass-through)
   ├─ /sparql                      → SPARQL translator
   ├─ /storage/v1/object/{b}/{k}   → Supabase-compat REST
@@ -460,16 +460,16 @@ CF Worker R2 cache layer (24h TTL, LRU):
 
 ### Migration plan
 
-- Phase 3 (this commit): yatabase 統合 storage で MVP 出荷。`obj.gftd.ai` host は
+- Phase 3 (this commit): yatabase 統合 storage で MVP 出荷。`obj.etzhayyim.com` host は
   プロビジョンしない
 - Phase 9+: もし enterprise 顧客が「pure object storage 製品」を要求した場合のみ、
-  `obj.gftd.ai` を別 plan で復活。yatabase の storage namespace は同 schema を共有
+  `obj.etzhayyim.com` を別 plan で復活。yatabase の storage namespace は同 schema を共有
 
 ## D11. Future Work — Storage operator-side hardening (planned)
 
 P3 MVP 出荷後の強化項目 (別 ADR / migration entry で順次):
 
-1. **Vault E2E** option per bucket (`encryption='vault-e2e'`) — `vault.gftd.ai` の
+1. **Vault E2E** option per bucket (`encryption='vault-e2e'`) — `vault.etzhayyim.com` の
    member device key で client-side encrypt、yatabase 側は ciphertext のみ保管
 2. **CDN edge cache** layer for public buckets (CF Cache API + custom origin)
 3. **Lifecycle automation** — versioning / 自動 tier migration / TTL purge
@@ -484,7 +484,7 @@ P3 MVP 出荷後の強化項目 (別 ADR / migration entry で順次):
 yatabase = 八咫 + database)。
 
 D1-D11 の **billing 軸 / Plan 階層 / tenant 分離 / 価格 / 原価優位 / yata crate
-名 / host = `yatabase.gftd.ai` / 3-Tier Write / ADR-0036 Hyperdrive 直接書込 /
+名 / host = `yatabase.etzhayyim.com` / 3-Tier Write / ADR-0036 Hyperdrive 直接書込 /
 RW OLTP 制約開示 (ON CONFLICT / tx / UNIQUE 不可) は不変条件として継承**。
 この章 (D12-D24) は **surface (wire format / endpoint 形状) を増やすだけで、
 backend / billing / tenant 境界 / brand は分離しない**。
@@ -499,7 +499,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
   PostgREST / GraphQL は **既存ツール救済の compatibility envelope** で、内部は
   XRPC + Hyperdrive に正規化される
 - "io-yatabase" は work-stream codename。folder = `60-apps/ai-gftd-project-yatabase/`、
-  host = `yatabase.gftd.ai`、crate = `yata` を rebrand しない (CAC / brand
+  host = `yatabase.etzhayyim.com`、crate = `yata` を rebrand しない (CAC / brand
   分散コスト回避)
 
 ### Surface map (io-yatabase 完成形)
@@ -512,14 +512,14 @@ backend / billing / tenant 境界 / brand は分離しない**。
 | S4 | `/xrpc/ai.gftd.apps.yata.*` | native XRPC (cytoplasmic) | 同 S1 | dispatcher → pyzeebe / Hyperdrive | P4 ✅ |
 | S5 | `/pg` (PG protocol :5432) | psql / ORM read-only | role-mapped session | Vultr LB → PgBouncer → RW :4566 | P4 |
 | S6 | **`/cypher`** (openCypher HTTP) | Neo4j-style graph query | 同 S1 | `kagami-cypher-compiler` → SQL/PGQ → RW | **P3.5 (new)** |
-| S7 | **`bolt.yatabase.gftd.ai:7687`** (Bolt v4) | Neo4j driver / cypher-shell 互換 | Bolt HELLO + `sk_live_yata_*` | `yata-bolt` pool (Vultr VKE LAX, K8s LB L4) | **P3.6 (new)** |
+| S7 | **`bolt.yatabase.etzhayyim.com:7687`** (Bolt v4) | Neo4j driver / cypher-shell 互換 | Bolt HELLO + `sk_live_yata_*` | `yata-bolt` pool (Vultr VKE LAX, K8s LB L4) | **P3.6 (new)** |
 | S8 | **`/realtime/v1/websocket`** (Phoenix channel wire) | Supabase Realtime 互換 streaming MV CDC | 同 S1 | RW MV change source → WS multiplexer (CF Worker DO) | **P3.7 (new)** |
 | S9 | **`/rest/v1/{table}`** (PostgREST 互換) | auto-generated REST CRUD | 同 S1 | Hyperdrive + per-tenant role + SQL builder | **P3.8 (new)** |
 | S10 | **`/graphql/v1`** | GraphQL query/mutation/subscription | 同 S1 | `pg_graphql` 風 schema introspection (RW VIEW based) | **P3.8 (new)** |
 | S11 | **`/auth/v1/*`** (GoTrue 互換) | sign-up / token / OAuth callback | atproto OAuth canonical | atproto OAuth bridge → `sk_live_yata_*` mint | **P3.6 (new)** |
 | S12 | **`/functions/v1/{name}`** | Edge Function invoke | 同 S1 | magatama Invoke (L3/L7/L8) pass-through | **P3.9 (new)** |
 | S13 | **`/mcp`** (Streamable HTTP, JSON-RPC 2.0) | AI agent / external principal sole surface | atproto JWT or `sk_live_yata_*` | MCP facade → tool registry (RW L4) | **P3.5 (new)** |
-| S14 | **`studio.yatabase.gftd.ai`** | tenant operator UI | atproto OAuth (browser) | Svelte CSR + S1-S13 を fetch | **P3.10 (new)** |
+| S14 | **`studio.yatabase.etzhayyim.com`** | tenant operator UI | atproto OAuth (browser) | Svelte CSR + S1-S13 を fetch | **P3.10 (new)** |
 | S15 | `/health`, `/_app/meta` | edge probe | public | CF Worker | P0 ✅ |
 
 ### 不変条件 (D12 全 surface 共通)
@@ -545,7 +545,7 @@ HTTP endpoint」。kagami-cypher-compiler (in-tree, `30-graph/kagami-cypher-comp
 
 ```
 POST /cypher HTTP/1.1
-Host: yatabase.gftd.ai
+Host: yatabase.etzhayyim.com
 Authorization: Bearer sk_live_yata_xxx
 Content-Type: application/json
 
@@ -583,7 +583,7 @@ Sql-Constraint-Mode: rw-eventual
 ### Forwarding
 
 ```
-CF Worker (yatabase.gftd.ai) /cypher
+CF Worker (yatabase.etzhayyim.com) /cypher
   ├─ verify auth → org_did + dbName
   ├─ call kagami-cypher-compiler WASM (vendored to Worker bundle, ~280KB)
   │     openCypher AST → SQL/PGQ AST → RW SQL string
@@ -617,7 +617,7 @@ CF Worker (yatabase.gftd.ai) /cypher
 | pgvector hybrid (`vector_cosine`) | ✓ (`MATCH (n) WHERE vector_cosine(n.emb, $q) > 0.8`) | ✗ |
 | Auth | Bearer / atproto JWT | Basic / Bearer |
 
-## D14. S7 — Bolt v4 (`bolt.yatabase.gftd.ai:7687`)
+## D14. S7 — Bolt v4 (`bolt.yatabase.etzhayyim.com:7687`)
 
 **Position**: 「**cypher-shell / Neo4j Browser / neo4j-driver-{js,python,go,java}
 が無改修で動く** binary protocol」。yata Rust crate の `yata-bolt` で server を
@@ -628,7 +628,7 @@ CF Worker (yatabase.gftd.ai) /cypher
 ```
 Customer
   ↓ TCP :7687 (Bolt v4 / v5 wire, BoltSchemeV1 = HELLO/RUN/PULL/COMMIT/...)
-DNS: bolt.yatabase.gftd.ai → Vultr LB (LAX, L4 TCP)
+DNS: bolt.yatabase.etzhayyim.com → Vultr LB (LAX, L4 TCP)
   ↓ load balance with consistent hashing on (db_name)
 yata-bolt-pool (3 replica, 2 vCPU / 4 GB each, ~$30/月/replica)
   ├─ HELLO → verify { auth: { scheme: "bearer", credentials: "sk_live_yata_xxx" }}
@@ -649,12 +649,12 @@ yata-bolt-pool (3 replica, 2 vCPU / 4 GB each, ~$30/月/replica)
   限定、複数 RUN は最後の COMMIT で全 RUN 結果を返す)。RW tx 不可制約 (D3) を
   HELLO の `server_meta.advertised_capabilities = ["read_only_tx", "single_stmt_tx"]`
   で client に通知
-- `ROUTE` は固定 `routing_table = { servers: [{ addresses: ["bolt.yatabase.gftd.ai:7687"], role: "WRITE" }, ...], ttl: 300 }`
+- `ROUTE` は固定 `routing_table = { servers: [{ addresses: ["bolt.yatabase.etzhayyim.com:7687"], role: "WRITE" }, ...], ttl: 300 }`
 
 ### TLS / cert
 
 - `bolt+s://` (TLS 1.3) のみ。plaintext `bolt://` は 426 Upgrade Required で reject
-- cert は CF Origin CA (yatabase.gftd.ai と同根) → LB SNI で `bolt.yatabase.gftd.ai`
+- cert は CF Origin CA (yatabase.etzhayyim.com と同根) → LB SNI で `bolt.yatabase.etzhayyim.com`
 
 ### Pool sizing (M3 baseline)
 
@@ -850,7 +850,7 @@ Content-Type: application/json
 GoTrue は `{ access_token, token_type, expires_in, refresh_token, user }`
 shape を返すが、`access_token` は **ES256 atproto session JWT** (canonical)。
 `sub` claim は `did:erc725:gftd:260425:{contract}` (ADR-0095)、`aud` は
-`yatabase.gftd.ai`。
+`yatabase.etzhayyim.com`。
 
 ### `sk_live_yata_*` mint flow
 
@@ -879,7 +879,7 @@ POST /functions/v1/{name} HTTP/1.1
   { "body": ... }
 
 CF Worker → magatama.Invoke(targetDid, method, params)
-  ├─ name → `did:web:yatabase.gftd.ai:fn:{name}` に解決
+  ├─ name → `did:web:yatabase.etzhayyim.com:fn:{name}` に解決
   ├─ governance gate (`RequireApproval` / `WithBPMNTask` / etc.)
   ├─ L3 dispatcher (~30s/128MB) → response 即時
   ├─ L7 BPMN long-running → 202 Accepted + correlation key
@@ -948,8 +948,8 @@ Accept: text/event-stream, application/json
 
 ### Discovery
 
-- `https://yatabase.gftd.ai/.well-known/mcp.json`
-- `https://yatabase.gftd.ai/.well-known/agent.json` (a2a / agent card)
+- `https://yatabase.etzhayyim.com/.well-known/mcp.json`
+- `https://yatabase.etzhayyim.com/.well-known/agent.json` (a2a / agent card)
 
 ### Internal-only XRPC ban (cell-membrane 適用)
 
@@ -962,7 +962,7 @@ ADR-2605091400 に従い、**外部 AI agent は XRPC `/xrpc/ai.gftd.apps.yata.*
   + `Link: </mcp>; rel="successor-version"` を必ず付ける
 - 2026-12-31 以降は `sk_live_yata_*` の XRPC direct access は **403 Forbidden**
 
-## D21. S14 — `studio.yatabase.gftd.ai` (tenant operator UI)
+## D21. S14 — `studio.yatabase.etzhayyim.com` (tenant operator UI)
 
 **Position**: 「Supabase Studio 相当の Web UI。tenant operator (org admin) が
 Browser で table / query / storage / auth / functions / realtime を運用」。
@@ -970,7 +970,7 @@ Browser で table / query / storage / auth / functions / realtime を運用」�
 ### Topology
 
 ```
-studio.yatabase.gftd.ai (CF Pages, Svelte CSR)
+studio.yatabase.etzhayyim.com (CF Pages, Svelte CSR)
   ├─ atproto OAuth login (browser PKCE flow)
   ├─ session JWT を localStorage 保管 (XSS 対策で SubtleCrypto wrap)
   └─ S1-S13 を fetch
@@ -1015,7 +1015,7 @@ D12 で増えた surface も新 metric を持たない。既存軸への正規�
 | S14 Studio | `api_request` (内部 fetch を S1-S13 で計測済) | — |
 
 `vertex_billing_event.product` は依然として `yata` 一本に集約。`ref_resource_did`
-で surface を区別する場合は `did:web:yatabase.gftd.ai:surface:{S6...S13}` を入れる。
+で surface を区別する場合は `did:web:yatabase.etzhayyim.com:surface:{S6...S13}` を入れる。
 
 ## D23. Roadmap update (Implementation Roadmap §amend)
 
@@ -1026,11 +1026,11 @@ surface が先に入っていなくてはならない)。
 | Phase | 期間 | 成果物 (delta) |
 |---|---|---|
 | **P4a: MCP `/mcp` (S13) + Cypher `/cypher` MVP (S6)** | M3 | MCP facade Worker + kagami-cypher-compiler を CF Worker に WASM bundle、READ-ONLY Cypher 動作確認、`/.well-known/mcp.json` |
-| **P4b: Bolt :7687 (S7) + Auth `/auth/v1/*` (S11)** | M3-M4 | yata-bolt server crate + Vultr K8s LB → bolt.yatabase.gftd.ai TLS 終端、cypher-shell smoke test、GoTrue 互換 shim、atproto OAuth bridge |
+| **P4b: Bolt :7687 (S7) + Auth `/auth/v1/*` (S11)** | M3-M4 | yata-bolt server crate + Vultr K8s LB → bolt.yatabase.etzhayyim.com TLS 終端、cypher-shell smoke test、GoTrue 互換 shim、atproto OAuth bridge |
 | **P4c: Realtime `/realtime/v1/*` (S8)** | M4 | DO `RealtimeMux` + RW MV poller BPMN、supabase-js `realtime.channel().on('postgres_changes', ...)` smoke |
 | **P4d: PostgREST `/rest/v1/*` (S9) + GraphQL `/graphql/v1` (S10)** | M4-M5 | postgrest-client smoke、yata-graphql crate (RW schema introspection)、Apollo client smoke |
 | **P4e: Edge Functions `/functions/v1/*` (S12)** | M5 | magatama.Invoke pass-through、`/functions/v1/admin/deploy` で zip upload、5 example fn |
-| **P4f: Studio UI `studio.yatabase.gftd.ai` (S14)** | M5 | Svelte CSR + 10 sidebar pane + atproto OAuth login |
+| **P4f: Studio UI `studio.yatabase.etzhayyim.com` (S14)** | M5 | Svelte CSR + 10 sidebar pane + atproto OAuth login |
 | (existing P5-P12 は M3-M9+ のまま、P4a-P4f を blocker としない) | — | — |
 
 P7 (Cypher translator) は P4a で MVP 投入したため、**Phase 7 の scope を WRITE
@@ -1059,7 +1059,7 @@ P11 (Bolt) は P4b で前倒し済 → Phase 11 は **Bolt v5 binary protocol Ph
 ```rust
 use yata::prelude::*;
 
-let y = Yata::connect("yatabase://sk_live_yata_xxx@yatabase.gftd.ai/my-db").await?;
+let y = Yata::connect("yatabase://sk_live_yata_xxx@yatabase.etzhayyim.com/my-db").await?;
 
 // S3 SPARQL
 let rows = y.sparql("SELECT ?p WHERE { ?p :knows :alice }").await?;
@@ -1069,7 +1069,7 @@ let rows = y.cypher("MATCH (p:Person)-[:KNOWS]->(f) RETURN f.name LIMIT 10")
             .param("id", "alice").fetch().await?;
 
 // S7 Bolt (NEW, alternative wire)
-let bolt = y.bolt().await?;  // bolt+s://bolt.yatabase.gftd.ai:7687
+let bolt = y.bolt().await?;  // bolt+s://bolt.yatabase.etzhayyim.com:7687
 let rows = bolt.run("MATCH (n) RETURN n LIMIT 1").await?;
 
 // S8 Realtime (NEW)
@@ -1224,8 +1224,8 @@ yatabase の MV / SQL query で十分カバー。分離は粗利を稀釈する�
 |---|---|---|
 | **P1: Billing 基盤** | M1-M2 | `vertex_billing_event` + 5 MV + 8 lexicons (`ai.gftd.apps.billing.*`) + 5 BPMN actors + `mitama-billing-pool` helm |
 | **P2: API key 製品別 prefix** | M2 | authn/authz Worker 拡張で `sk_live_yata_*` / `sk_live_obj_*` / 汎用 `sk_live_*` を分離、ROLE binding |
-| **P3: obj.gftd.ai MVP** | M2-M3 | `obj.gftd.ai` Worker (S3-compat REST + XRPC) + B2 backend + per-org bucket provisioning + tier policy + metering |
-| **P4: yatabase.gftd.ai MVP** | M3 | `yatabase.gftd.ai` Worker + multi-tenant DB provisioning + SQL/PGQ pass-through + SPARQL translator + XRPC + MCP |
+| **P3: obj.etzhayyim.com MVP** | M2-M3 | `obj.etzhayyim.com` Worker (S3-compat REST + XRPC) + B2 backend + per-org bucket provisioning + tier policy + metering |
+| **P4: yatabase.etzhayyim.com MVP** | M3 | `yatabase.etzhayyim.com` Worker + multi-tenant DB provisioning + SQL/PGQ pass-through + SPARQL translator + XRPC + MCP |
 | **P5: yata crate 0.1 公開** | M3-M4 | `50-clients/rust/yata/` workspace + `yata-core` + `yata-schema` + `yata-derive` + `yata-query` + `yata-sparql` + `yata-cli` + 5 example、crates.io publish |
 | **P6: obj 強化** | M4 | LLM auto-tag worker + embedding worker (BPMN actor)、Vault E2E option、CDN R2 cache layer |
 | **P7: yatabase Cypher translator** | M4-M6 | openCypher parser + AST → SQL/PGQ translator (~8K LoC)、`yata-cypher` sub-crate |
@@ -1250,7 +1250,7 @@ yatabase の MV / SQL query で十分カバー。分離は粗利を稀釈する�
 | 9 | 通貨 | JPY base、enterprise のみ USD/JPY 選択 | P8 |
 | 10 | yata crate license | Apache-2.0 OR MIT (Rust 慣例 dual-license) | P5 |
 | 11 | yata crate MSRV | Rust 1.78 (stable, 2024 edition) | P5 |
-| 12 | yata 公開 repo | monorepo subtree push to `github.com/gftdcojp/yata` | P5 |
+| 12 | yata 公開 repo | monorepo subtree push to `github.com/etzhayyim/yata` | P5 |
 | 13 | 商標 | "yatabase" / "yata" / "gftd Cloud" の TM 出願 (J/US/EU) | P9 (enterprise 直前) |
 | 14 | DPA template | ISO 27001 + GDPR + 改正個人情報保護法準拠 | P10 |
 
@@ -1292,8 +1292,8 @@ version      = "0.1.0"
 edition      = "2024"
 rust-version = "1.78"
 license      = "Apache-2.0 OR MIT"
-repository   = "https://github.com/gftdcojp/yata"
-homepage     = "https://yatabase.gftd.ai"
+repository   = "https://github.com/etzhayyim/yata"
+homepage     = "https://yatabase.etzhayyim.com"
 authors      = ["etzhayyim <jun@gftd.group>"]
 
 [workspace.dependencies]
@@ -1383,7 +1383,7 @@ end-to-end customer journey at
 `70-tools/scripts/yatabase-customer-journey.mjs`. From 2026-05-13
 onward the service is considered "established" iff this journey is
 **32 PASS · 0 SOFT · 0 FAIL · journey=GREEN** against live
-`https://yatabase.gftd.ai`.
+`https://yatabase.etzhayyim.com`.
 
 Every cycle that ships a new customer-facing surface must add an
 assertion to this script and turn it from `n` PASS to `n+1` PASS

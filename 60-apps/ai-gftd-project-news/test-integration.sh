@@ -1,12 +1,12 @@
 #!/bin/bash
-# Integration test: news.gftd.ai — heartbeat, murakumo API, social evolution
-# Tests against the live deployment at news.gftd.ai / atproto.gftd.ai / murakumo.gftd.ai
+# Integration test: news.etzhayyim.com — heartbeat, murakumo API, social evolution
+# Tests against the live deployment at news.etzhayyim.com / atproto.etzhayyim.com / murakumo.etzhayyim.com
 
 set -euo pipefail
 
-BASE="https://atproto.gftd.ai"
-NEWS_DID="did:web:news.gftd.ai"
-MURAKUMO="https://murakumo.gftd.ai"
+BASE="https://atproto.etzhayyim.com"
+NEWS_DID="did:web:news.etzhayyim.com"
+MURAKUMO="https://murakumo.etzhayyim.com"
 PASS=0
 FAIL=0
 TOTAL=0
@@ -27,7 +27,7 @@ run_test() {
 }
 
 echo "═══════════════════════════════════════════════════════════"
-echo "  news.gftd.ai Integration Test Suite"
+echo "  news.etzhayyim.com Integration Test Suite"
 echo "  Heartbeat / Murakumo API / Social Evolution"
 echo "═══════════════════════════════════════════════════════════"
 echo ""
@@ -35,13 +35,13 @@ echo ""
 # ── 1. Health Check ──────────────────────────────────────────
 echo "── 1. Health & Connectivity ──"
 
-run_test "news.gftd.ai worker health" \
-  'curl -sf "https://news.gftd.ai/_worker/health" -o /dev/null'
+run_test "news.etzhayyim.com worker health" \
+  'curl -sf "https://news.etzhayyim.com/_worker/health" -o /dev/null'
 
-run_test "news.gftd.ai app meta" \
-  'RESP=$(curl -sf "https://news.gftd.ai/_app/meta"); echo "$RESP" | jq -e ".nanoid" > /dev/null 2>&1'
+run_test "news.etzhayyim.com app meta" \
+  'RESP=$(curl -sf "https://news.etzhayyim.com/_app/meta"); echo "$RESP" | jq -e ".nanoid" > /dev/null 2>&1'
 
-run_test "atproto.gftd.ai XRPC health" \
+run_test "atproto.etzhayyim.com XRPC health" \
   'curl -sf "$BASE/xrpc/com.atproto.server.describeServer" -o /dev/null'
 
 # ── 2. Murakumo API ──────────────────────────────────────────
@@ -61,11 +61,11 @@ run_test "murakumo chat completion (qwen3-vl-8b)" \
 echo ""
 echo "── 3. Actor Profile & DID Resolution ──"
 
-run_test "news.gftd.ai actor profile exists" \
+run_test "news.etzhayyim.com actor profile exists" \
   'RESP=$(curl -sf "$BASE/xrpc/app.bsky.actor.getProfile?actor=$NEWS_DID"); echo "$RESP" | jq -e ".did" > /dev/null 2>&1'
 
-run_test "news.gftd.ai DID resolves" \
-  'RESP=$(curl -sf "$BASE/xrpc/com.atproto.identity.resolveHandle?handle=news.gftd.ai" 2>/dev/null || echo "{}"); echo "$RESP" | jq -e ".did" > /dev/null 2>&1'
+run_test "news.etzhayyim.com DID resolves" \
+  'RESP=$(curl -sf "$BASE/xrpc/com.atproto.identity.resolveHandle?handle=news.etzhayyim.com" 2>/dev/null || echo "{}"); echo "$RESP" | jq -e ".did" > /dev/null 2>&1'
 
 # ── 4. Social Evolution (Heartbeat + Engagement) ─────────────
 echo ""
@@ -74,18 +74,18 @@ echo "── 4. Social Evolution & Heartbeat ──"
 run_test "news App node exists in graph" \
   'RESP=$(curl -sf "$BASE/xrpc/app.bsky.actor.getProfile?actor=$NEWS_DID"); [ -n "$RESP" ] && echo "$RESP" | jq -e ".did" > /dev/null 2>&1'
 
-run_test "news.gftd.ai feed endpoint accessible (social evolution wired)" \
+run_test "news.etzhayyim.com feed endpoint accessible (social evolution wired)" \
   'RESP=$(curl -sf "$BASE/xrpc/app.bsky.feed.getAuthorFeed?actor=$NEWS_DID&limit=5"); echo "$RESP" | jq -e ".feed" > /dev/null 2>&1'
 
 run_test "social evolution: writer DIDs active (path-based DID)" \
-  'RESP=$(curl -sf "$BASE/xrpc/app.bsky.feed.getAuthorFeed?actor=did:web:news.gftd.ai:writer:llm&limit=1" 2>/dev/null || echo "{\"feed\":[]}"); [ -n "$RESP" ]'
+  'RESP=$(curl -sf "$BASE/xrpc/app.bsky.feed.getAuthorFeed?actor=did:web:news.etzhayyim.com:writer:llm&limit=1" 2>/dev/null || echo "{\"feed\":[]}"); [ -n "$RESP" ]'
 
 # ── 5. News Domain Data (Cypher graph) ───────────────────────
 echo ""
 echo "── 5. Domain Data & Articles ──"
 
 run_test "news articles exist in graph (ListArticles query)" \
-  'RESP=$(curl -sf "https://news.gftd.ai/api/query?method=ListArticles" \
+  'RESP=$(curl -sf "https://news.etzhayyim.com/api/query?method=ListArticles" \
     -H "Content-Type: application/json" \
     -d "{\"limit\":5}" 2>/dev/null || echo "{}"); [ -n "$RESP" ]'
 
@@ -97,17 +97,17 @@ echo ""
 echo "── 6. Heartbeat Handler (10-min Cycle) ──"
 
 run_test "heartbeat handler registered (app meta shows service performerType)" \
-  'RESP=$(curl -sf "https://news.gftd.ai/_app/meta"); echo "$RESP" | jq -e ".performerType == \"service\"" > /dev/null 2>&1'
+  'RESP=$(curl -sf "https://news.etzhayyim.com/_app/meta"); echo "$RESP" | jq -e ".performerType == \"service\"" > /dev/null 2>&1'
 
 run_test "news follow-handler WIT export wired (heartbeat-capable)" \
-  'RESP=$(curl -sf "https://news.gftd.ai/_app/meta"); [ -n "$RESP" ]'
+  'RESP=$(curl -sf "https://news.etzhayyim.com/_app/meta"); [ -n "$RESP" ]'
 
 # ── 7. Writer Entity System ──────────────────────────────────
 echo ""
 echo "── 7. Writer Entity System ──"
 
 run_test "ListWriters query returns writers" \
-  'RESP=$(curl -sf "https://news.gftd.ai/api/query?method=ListWriters" \
+  'RESP=$(curl -sf "https://news.etzhayyim.com/api/query?method=ListWriters" \
     -H "Content-Type: application/json" \
     -d "{}" 2>/dev/null || echo "{\"writers\":[]}"); [ -n "$RESP" ]'
 
@@ -116,7 +116,7 @@ echo ""
 echo "── 8. wRPC Stream (Layer 2) ──"
 
 run_test "stream-articles endpoint registered (HandleStream wired)" \
-  'RESP=$(curl -sf "https://news.gftd.ai/_app/meta"); [ -n "$RESP" ]'
+  'RESP=$(curl -sf "https://news.etzhayyim.com/_app/meta"); [ -n "$RESP" ]'
 
 # ── Summary ──────────────────────────────────────────────────
 echo ""

@@ -81,8 +81,8 @@ gftd hinshitsu validate <did>
 
 ```jsonld
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:shinka.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:shinka.etzhayyim.com",
   "executionTier": "T2",
   "pipelines": [{
     "trigger": { "type": "cron", "cron": "*/5 * * * *" },

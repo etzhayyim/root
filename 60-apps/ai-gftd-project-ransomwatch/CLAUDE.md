@@ -9,7 +9,7 @@ publishes a sanitized ad-transparency feed).
 
 ## Tranche F migration status
 
-Per vendor `gftdcojp/ai-gftd-apps-gftdcojp` deps.toml
+Per vendor `etzhayyim/etzhayyim-root` deps.toml
 `tranche-f-post-freeze-7-actors-audit-2026-05-21`: 3-axis OR-test all
 clean (TLP:WHITE public OSINT, no victim PII, no commerce) → confirmed
 etzhayyim MOVE TARGET. The vendor `magatama.jsonld` already declared
@@ -77,7 +77,7 @@ Per `etzhayyim/root/CLAUDE.md` §"Substrate boundary":
 
 ## References
 
-- vendor parent: `gftdcojp/ai-gftd-apps-gftdcojp`
+- vendor parent: `etzhayyim/etzhayyim-root`
   `60-apps/ai-gftd-project-ransomwatch/wasm/ai-gftd-wasm-ransomwatch-r4ns0w4t01/`
 - vendor classification: `tranche-f-post-freeze-7-actors-audit-2026-05-21`
 - sibling public feed: `60-apps/ai-gftd-project-public-malak/` (etz PR #226)

@@ -5,7 +5,7 @@ export default defineConfig({
   timeout: 30_000,
   retries: 1,
   use: {
-    baseURL: 'https://yabai.gftd.ai',
+    baseURL: 'https://yabai.etzhayyim.com',
     headless: true,
   },
   expect: {

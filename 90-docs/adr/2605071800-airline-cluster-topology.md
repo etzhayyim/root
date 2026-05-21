@@ -40,20 +40,20 @@ superseded_by: []
 telecom のモノリシック設計 (1 DID × 18 フェーズ) と異なり、航空は **事業者が異なるベンダーシステムを使用** (Amadeus/Sabre/Navitaire for DCS, Jeppesen for crew, AMOS for MRO 等)。maritime-energy ADR-0017 と同様に **クラスタ型** (独立 DID × クロスアクター配線) が最適。
 
 既存との関係:
-- `flight-offer` (fl1ghts1.gftd.ai) — 消費者向け運賃集約。航空会社内部システムとは独立。
+- `flight-offer` (fl1ghts1.etzhayyim.com) — 消費者向け運賃集約。航空会社内部システムとは独立。
 - `vertex_airline` table — 42 IATA 航空会社レジストリ。本クラスタは FK 参照のみ、重複なし。
 - Maps transit pipeline (OpenFlights/GTFS-JP) — 外部スケジュールデータ取込。`air-sched` の SSIM/AIDX は航空会社内部スケジュール SSoT。
 
 # Decision
 
-10 actor をクラスタ型トポロジーで構成する。各 actor は独立した DID (`did:web:{name}.gftd.ai`) を持ち、BPMN-as-actor (ADR-0056) パターンで実装する。
+10 actor をクラスタ型トポロジーで構成する。各 actor は独立した DID (`did:web:{name}.etzhayyim.com`) を持ち、BPMN-as-actor (ADR-0056) パターンで実装する。
 
 ## アーキテクチャ図
 
 ```
                     ┌──────────────────────────────┐
                     │   air-sched                  │  ← スケジュール基盤
-                    │   did:web:air-sched.gftd.ai  │    IATA SSIM / Level 2/3 Slot
+                    │   did:web:air-sched.etzhayyim.com  │    IATA SSIM / Level 2/3 Slot
                     │   8 BPMNs                    │
                     └────────────┬─────────────────┘
                                  │ schedule drives
@@ -102,16 +102,16 @@ telecom のモノリシック設計 (1 DID × 18 フェーズ) と異なり、�
 
 | actor | domain | nanoid | BPMNs | 主要標準 | pyzeebe module |
 |---|---|---|---|---|---|
-| air-sched | air-sched.gftd.ai | a1rsch3d | 8 | SSIM / AIDX / Slot | airline_sched |
-| air-book | air-book.gftd.ai | a1rb00k1 | 8 | NDC / ONE Order / BSP | airline_book |
-| air-yield | air-yield.gftd.ai | a1ry13ld | 8 | ATPCO / RBD / O&D | airline_yield |
-| air-dcs | air-dcs.gftd.ai | a1rd3cs0 | 8 | AHM / RP1745 / CUTE | airline_dcs |
-| air-ops | air-ops.gftd.ai | a1r0ps01 | 8 | ICAO 4444 / IFPS / ACARS | airline_ops |
-| air-crew | air-crew.gftd.ai | a1rcr3w0 | 8 | FTL / FRMS / Part-FCL | airline_crew |
-| air-mro | air-mro.gftd.ai | a1rmr001 | 8 | Part-145 / CAMO / MPD | airline_mro |
-| air-sms | air-sms.gftd.ai | a1rsms01 | 8 | Annex 19 / IOSA / DGR | airline_sms |
-| air-cargo | air-cargo.gftd.ai | a1rcarg0 | 8 | e-AWB / CASS / DGR | airline_cargo |
-| air-ffp | air-ffp.gftd.ai | a1rffp01 | 8 | FFP / Tier / Partner | airline_ffp |
+| air-sched | air-sched.etzhayyim.com | a1rsch3d | 8 | SSIM / AIDX / Slot | airline_sched |
+| air-book | air-book.etzhayyim.com | a1rb00k1 | 8 | NDC / ONE Order / BSP | airline_book |
+| air-yield | air-yield.etzhayyim.com | a1ry13ld | 8 | ATPCO / RBD / O&D | airline_yield |
+| air-dcs | air-dcs.etzhayyim.com | a1rd3cs0 | 8 | AHM / RP1745 / CUTE | airline_dcs |
+| air-ops | air-ops.etzhayyim.com | a1r0ps01 | 8 | ICAO 4444 / IFPS / ACARS | airline_ops |
+| air-crew | air-crew.etzhayyim.com | a1rcr3w0 | 8 | FTL / FRMS / Part-FCL | airline_crew |
+| air-mro | air-mro.etzhayyim.com | a1rmr001 | 8 | Part-145 / CAMO / MPD | airline_mro |
+| air-sms | air-sms.etzhayyim.com | a1rsms01 | 8 | Annex 19 / IOSA / DGR | airline_sms |
+| air-cargo | air-cargo.etzhayyim.com | a1rcarg0 | 8 | e-AWB / CASS / DGR | airline_cargo |
+| air-ffp | air-ffp.etzhayyim.com | a1rffp01 | 8 | FFP / Tier / Partner | airline_ffp |
 
 ## NSID 構造
 

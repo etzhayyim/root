@@ -1,14 +1,14 @@
 {
   "@context": {
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/"
+    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/"
   },
   "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-hikyaku/id/Project/ai-gftd-project-hikyaku",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-hikyaku/id/Project/ai-gftd-project-hikyaku",
   "schema:name": "ai-gftd-project-hikyaku",
-  "schema:description": "Transport agent platform — AI agents create delivery orders, hc.gftd.ai gig workers (runners) execute physical delivery. Matrix protocol for all command/notification, Connect gRPC for queries.",
-  "schema:url": "https://hikyaku.gftd.ai",
+  "schema:description": "Transport agent platform — AI agents create delivery orders, hc.etzhayyim.com gig workers (runners) execute physical delivery. Matrix protocol for all command/notification, Connect gRPC for queries.",
+  "schema:url": "https://hikyaku.etzhayyim.com",
   "dodaf:capability": [
     {
       "@type": "dodaf:Capability",
@@ -18,7 +18,7 @@
     {
       "@type": "dodaf:Capability",
       "schema:name": "HC Runner Dispatch",
-      "schema:description": "Automatic HC shift creation on hc.gftd.ai for runner recruitment. HC workers book shifts to become delivery runners. BookShift/CheckIn/CheckOut map to Hikyaku order lifecycle."
+      "schema:description": "Automatic HC shift creation on hc.etzhayyim.com for runner recruitment. HC workers book shifts to become delivery runners. BookShift/CheckIn/CheckOut map to Hikyaku order lifecycle."
     },
     {
       "@type": "dodaf:Capability",
@@ -50,14 +50,14 @@
     {
       "@type": "dodaf:Performer",
       "schema:name": "hikyaku-static",
-      "schema:description": "Static SvelteKit site at hikyaku.gftd.ai (spin-fileserver). Order creation, tracking timeline, runner dashboard, delivery zone management."
+      "schema:description": "Static SvelteKit site at hikyaku.etzhayyim.com (spin-fileserver). Order creation, tracking timeline, runner dashboard, delivery zone management."
     }
   ],
   "dodaf:activity": [
     {
       "@type": "dodaf:Activity",
       "schema:name": "Create Order",
-      "schema:description": "Sender creates delivery order → HC shift auto-generated → runner recruitment via hc.gftd.ai."
+      "schema:description": "Sender creates delivery order → HC shift auto-generated → runner recruitment via hc.etzhayyim.com."
     },
     {
       "@type": "dodaf:Activity",

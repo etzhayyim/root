@@ -4,7 +4,7 @@
 
 ## Overview
 
-basic.gftd.ai — Society6 に conversion したユーザーに対する生活保証 (Basic Life Guarantee) コーディネーター。電気・水道・ガス・食料の 4 領域を統合管理し、受給者 (recipient) の well-becoming と growth を義務として追跡する。
+basic.etzhayyim.com — Society6 に conversion したユーザーに対する生活保証 (Basic Life Guarantee) コーディネーター。電気・水道・ガス・食料の 4 領域を統合管理し、受給者 (recipient) の well-becoming と growth を義務として追跡する。
 
 ## Domain Model
 

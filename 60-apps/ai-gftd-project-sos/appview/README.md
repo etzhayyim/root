@@ -1,6 +1,6 @@
 # ai-gftd-project-sos
 
-`sos.gftd.ai` hosts `systemofsystem`, a mobile-first systems-thinking app for exploring resource dependencies, causal loops, and leverage points across energy, water, food, labor, capital, logistics, compute, governance, and resilience.
+`sos.etzhayyim.com` hosts `systemofsystem`, a mobile-first systems-thinking app for exploring resource dependencies, causal loops, and leverage points across energy, water, food, labor, capital, logistics, compute, governance, and resilience.
 
 Runtime split:
 

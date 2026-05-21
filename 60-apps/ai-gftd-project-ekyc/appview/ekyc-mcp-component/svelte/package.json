@@ -21,6 +21,6 @@
   "dependencies": {
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1",
-    "@gftdcojp/design-system": "workspace:*"
+    "@etzhayyim/design-system": "workspace:*"
   }
 }

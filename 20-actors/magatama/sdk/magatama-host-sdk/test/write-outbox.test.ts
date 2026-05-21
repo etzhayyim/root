@@ -7,6 +7,7 @@ import {
   generateWriteId,
   type OutboxEntry,
 } from "../src/write-outbox.js";
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import type { Kysely } from "kysely";
 import type { Database } from "@gftd/graph-schema";
 

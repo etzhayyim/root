@@ -3,7 +3,7 @@
 - **Date**: 2026-04-27
 - **ADR**: [ADR-2604271800](adr/2604271800-maps-l8-sentinel-pipeline.md)
 - **Status**: ready (pending operator action)
-- **Owner**: maps actor (`did:web:maps.gftd.ai`)
+- **Owner**: maps actor (`did:web:maps.etzhayyim.com`)
 
 ## What this deploys
 
@@ -165,7 +165,7 @@ kubectl -n mitama-udf logs -l app.kubernetes.io/name=zeebe-worker --tail=50 \
 ```bash
 # Manual one-shot kick of the timer process (don't wait 24 h).
 TOKEN=$(gftd agent-token --lxm ai.gftd.apps.maps.sentinelIngest)
-curl -sS -X POST "https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.sentinelIngest" \
+curl -sS -X POST "https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.sentinelIngest" \
   -H "authorization: Bearer $TOKEN" \
   -H "content-type: application/json" \
   -d '{"timeRangeDays":1,"maxScenesPerAoi":2,"platforms":["sentinel-2-l2a"]}' \
@@ -194,12 +194,12 @@ SCENE_URI=$(psql "$DATABASE_URL" -tAc "
   WHERE collection='ai.gftd.apps.maps.satelliteScene'
   ORDER BY ts_ms DESC LIMIT 1")
 TOKEN=$(gftd agent-token --lxm ai.gftd.apps.maps.sentinelAnalyze)
-curl -sS -X POST "https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.sentinelAnalyze" \
+curl -sS -X POST "https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.sentinelAnalyze" \
   -H "authorization: Bearer $TOKEN" \
   -H "content-type: application/json" \
   -d "{\"sceneUri\":\"$SCENE_URI\",\"analysisType\":\"landUse\"}" \
   | python3 -m json.tool
-# Expect: {"analysisUri":"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.satelliteAnalysis/…",
+# Expect: {"analysisUri":"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteAnalysis/…",
 #          "summary":"…","confidence":0.78,"modelVersion":"sentinel2_landuse_unet","runtimeMs":12345}
 ```
 

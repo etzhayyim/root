@@ -343,7 +343,7 @@ function buildDefaultThemeXml(): string {
 function buildAppXml(): string {
   return `${xmlHeader()}
 <Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
-  <Application>pptx.gftd.ai</Application>
+  <Application>pptx.etzhayyim.com</Application>
   <Slides>1</Slides>
   <ScaleCrop>false</ScaleCrop>
   <LinksUpToDate>false</LinksUpToDate>
@@ -361,7 +361,7 @@ function buildCoreXml(title: string): string {
   xmlns:dcterms="http://purl.org/dc/terms/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <dc:title>${escXml(title)}</dc:title>
-  <dc:creator>pptx.gftd.ai</dc:creator>
+  <dc:creator>pptx.etzhayyim.com</dc:creator>
   <dcterms:created xsi:type="dcterms:W3CDTF">${now}</dcterms:created>
   <dcterms:modified xsi:type="dcterms:W3CDTF">${now}</dcterms:modified>
 </cp:coreProperties>`;

@@ -21,11 +21,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-waterTreatment:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:waterTreatment',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-waterTreatment:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:waterTreatment',
                  10000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:waterTreatment',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:waterTreatment',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -36,11 +36,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-sewageTreatment:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:sewageTreatment',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-sewageTreatment:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:sewageTreatment',
                  10000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:sewageTreatment',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:sewageTreatment',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -51,11 +51,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-navalBase:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:navalBase',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-navalBase:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:navalBase',
                  500,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:navalBase',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:navalBase',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -66,11 +66,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-operaHouse:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:operaHouse',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-operaHouse:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:operaHouse',
                  1500,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:operaHouse',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:operaHouse',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -81,11 +81,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-concertHall:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:concertHall',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-concertHall:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:concertHall',
                  5000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:concertHall',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:concertHall',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -96,11 +96,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-restAreaWd:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:restAreaWd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-restAreaWd:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:restAreaWd',
                  20000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:restAreaWd',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:restAreaWd',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -111,11 +111,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-tollPlaza:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:tollPlaza',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-tollPlaza:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:tollPlaza',
                  10000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:tollPlaza',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:tollPlaza',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -126,11 +126,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-lighthouseWd2:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:lighthouseWd2',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-lighthouseWd2:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:lighthouseWd2',
                  5000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:lighthouseWd2',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:lighthouseWd2',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -141,11 +141,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-miningSite:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:miningSite',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-miningSite:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:miningSite',
                  30000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:miningSite',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:miningSite',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -156,11 +156,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-museumShip:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:museumShip',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-museumShip:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:museumShip',
                  300,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:museumShip',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:museumShip',
                  '2026-05-08T00:20:13.075Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

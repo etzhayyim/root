@@ -308,4 +308,4 @@ AI agents alive across rebirth. Rejected:
 - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/components/IndraNet.svelte` —
   Indra's-net visualization
 - `deps.toml [[migrations]] karma-edge-primary-bringup-phase-k0`
-- `CLAUDE.md` Recent Completion: karma.gftd.ai (Phase K0 / K1 / K2 / K3)
+- `CLAUDE.md` Recent Completion: karma.etzhayyim.com (Phase K0 / K1 / K2 / K3)

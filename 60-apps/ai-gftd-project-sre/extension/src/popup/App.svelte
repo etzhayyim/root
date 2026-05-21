@@ -34,7 +34,7 @@
   </ul>
 
   <footer>
-    <a href="https://sre.gftd.ai" target="_blank">sre.gftd.ai</a>
+    <a href="https://sre.etzhayyim.com" target="_blank">sre.etzhayyim.com</a>
   </footer>
 </div>
 

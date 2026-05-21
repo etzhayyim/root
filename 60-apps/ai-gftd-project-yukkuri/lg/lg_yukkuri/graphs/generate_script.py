@@ -2,7 +2,7 @@
 
 NSID: ai.gftd.apps.yukkuri.generateScript
 
-Actor: did:web:yukkuri.gftd.ai:actor:scriptwriter
+Actor: did:web:yukkuri.etzhayyim.com:actor:scriptwriter
 
 Input: video_id (既存 queued video)
 Output: scenes[] + lines[] を vertex_yukkuri_scene / vertex_yukkuri_line に INSERT。
@@ -31,11 +31,11 @@ _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _VLLM_URL = os.environ.get("VLLM_URL", "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1").rstrip("/")
 _VLLM_MODEL = os.environ.get("VLLM_MODEL", "tier0-general")
 _VLLM_TIMEOUT = float(os.environ.get("VLLM_TIMEOUT_SEC", "90"))
-_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.gftd.ai")
+_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
 _SCRIPTWRITER_DID = os.environ.get(
-    "YUKKURI_SCRIPTWRITER_DID", "did:web:yukkuri.gftd.ai:actor:scriptwriter"
+    "YUKKURI_SCRIPTWRITER_DID", "did:web:yukkuri.etzhayyim.com:actor:scriptwriter"
 )
-_REPO = os.environ.get("YUKKURI_REPO_DID", "did:web:y5kk5r1x.gftd.ai")
+_REPO = os.environ.get("YUKKURI_REPO_DID", "did:web:y5kk5r1x.etzhayyim.com")
 
 _SYSTEM_PROMPT = """\
 You are a Japanese "yukkuri" video scriptwriter. Given a topic, write a two-character

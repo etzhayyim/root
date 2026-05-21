@@ -3,7 +3,7 @@
 ## 1. 背景と目的
 
 `ai-gftd-project-ohanashi` は、電話でおじいちゃんおばあちゃんが AI に相談できるサービスを提供する。
-主な公開ドメインは `https://ohanashi.gftd.ai`。
+主な公開ドメインは `https://ohanashi.etzhayyim.com`。
 
 MVP のゴール:
 - スマホ操作が苦手でも電話だけで利用できる

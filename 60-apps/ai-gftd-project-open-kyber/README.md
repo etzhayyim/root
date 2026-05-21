@@ -2,7 +2,7 @@
 
 Apache-2.0 ERP built on AT Protocol + APQC PCF + BPMN 2.0 + OCEL 2.0.
 
-Source-of-truth for the Kyber ERP product. The etzhayyim tenancy runs at `kyber.etzhayyim.com` (this monorepo); the original gftd tenancy at `kyber.gftd.ai` remains a separate managed deployment of the same codebase. Fork this repo to run your own instance.
+Source-of-truth for the Kyber ERP product. The etzhayyim tenancy runs at `kyber.etzhayyim.com` (this monorepo); the original gftd tenancy at `kyber.etzhayyim.com` remains a separate managed deployment of the same codebase. Fork this repo to run your own instance.
 
 ## What's inside
 

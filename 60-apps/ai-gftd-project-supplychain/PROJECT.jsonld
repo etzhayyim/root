@@ -2,7 +2,7 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://gftd.ai/schemas/",
+      "gftd": "https://etzhayyim.com/schemas/",
       "capabilities": "gftd:capabilities",
       "survivalIndicators": "gftd:survivalIndicators",
       "scheduler": "gftd:scheduler"
@@ -13,7 +13,7 @@
   "name": "ai gftd project supplychain",
   "status": "DesignComplete",
   "description": "Supply chain intelligence and visualization SpinApp for curated resources graphs, starting with cleaning robot manufacturing and upstream material dependencies.",
-  "schema:url": "https://supplychain.gftd.ai",
+  "schema:url": "https://supplychain.etzhayyim.com",
   "capabilities": {
     "@type": "DefinedTermSet",
     "name": "Capabilities",

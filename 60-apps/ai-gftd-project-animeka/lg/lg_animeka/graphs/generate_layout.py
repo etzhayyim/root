@@ -27,8 +27,8 @@ _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _VLLM_URL = os.environ.get("VLLM_URL", "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1").rstrip("/")
 _VLLM_MODEL = os.environ.get("VLLM_MODEL", "tier0-general")
 _VLLM_TIMEOUT = float(os.environ.get("VLLM_TIMEOUT_SEC", "60"))
-_DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.gftd.ai")
-_REPO = os.environ.get("ANIMEKA_REPO_DID", "did:web:an1m3k4x.gftd.ai")
+_DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.etzhayyim.com")
+_REPO = os.environ.get("ANIMEKA_REPO_DID", "did:web:an1m3k4x.etzhayyim.com")
 _CKPT = "animagine-xl-4.0.safetensors"
 _CHARACTER_DESC = "high-school girl, navy blazer, dark long hair, introspective"
 

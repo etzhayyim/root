@@ -23,11 +23,11 @@ describe("Port Actor Manifest", () => {
   // --- Required fields ---
 
   it("has valid @context", () => {
-    expect(manifest["@context"]).toBe("https://gftd.ai/ns/actor/v1");
+    expect(manifest["@context"]).toBe("https://etzhayyim.com/ns/actor/v1");
   });
 
   it("has valid DID @id", () => {
-    expect(manifest["@id"]).toBe("did:web:port.gftd.ai");
+    expect(manifest["@id"]).toBe("did:web:port.etzhayyim.com");
   });
 
   it("has name and nanoid", () => {

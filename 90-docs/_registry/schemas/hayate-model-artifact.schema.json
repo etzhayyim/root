@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/schemas/hayate-model-artifact.schema.json",
+  "$id": "https://etzhayyim.com/schemas/hayate-model-artifact.schema.json",
   "title": "Hayate Model Artifact Manifest",
   "description": "Canonical deploy artifact for Hayate models. Sharded safetensors plus manifest metadata for Murakumo, Magatama, and YATA.",
   "type": "object",

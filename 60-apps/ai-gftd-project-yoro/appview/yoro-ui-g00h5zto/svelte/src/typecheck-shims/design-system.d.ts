@@ -1,4 +1,4 @@
-declare module '@gftdcojp/design-system' {
+declare module '@etzhayyim/design-system' {
   export const ActionSheet: any;
   export const Avatar: any;
   export const Badge: any;

@@ -56,7 +56,7 @@ All implemented inline in `src/app.ts` per single-file principle.
 
 ```bash
 cd 60-apps/ai-gftd-project-jp-fiscal/appview/ai-gftd-wasm-jpfiscal-jpf15c4l
-gftd deploy --smoke-url https://jpf15c4l.gftd.ai/health
+gftd deploy --smoke-url https://jpf15c4l.etzhayyim.com/health
 ```
 
 ## Related

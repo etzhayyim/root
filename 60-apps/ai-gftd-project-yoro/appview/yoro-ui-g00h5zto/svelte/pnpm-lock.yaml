@@ -17,7 +17,7 @@ importers:
       '@connectrpc/connect-web':
         specifier: ^2.1.0
         version: 2.1.1(@bufbuild/protobuf@2.11.0)(@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.11.0))
-      '@gftdcojp/appshellv2':
+      '@etzhayyim/appshellv2':
         specifier: file:../../../../packages/ts/appshellv2
         version: file:../../../../packages/ts/appshellv2
       '@inlang/paraglide-js':
@@ -260,7 +260,7 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@gftdcojp/appshellv2@file:../../../../packages/ts/appshellv2':
+  '@etzhayyim/appshellv2@file:../../../../packages/ts/appshellv2':
     resolution: {directory: ../../../../packages/ts/appshellv2, type: directory}
 
   '@inlang/paraglide-js@2.12.0':
@@ -1339,7 +1339,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.12':
     optional: true
 
-  '@gftdcojp/appshellv2@file:../../../../packages/ts/appshellv2': {}
+  '@etzhayyim/appshellv2@file:../../../../packages/ts/appshellv2': {}
 
   '@inlang/paraglide-js@2.12.0':
     dependencies:

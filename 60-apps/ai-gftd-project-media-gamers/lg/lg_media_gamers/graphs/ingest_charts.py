@@ -29,7 +29,7 @@ from lg_media_gamers.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_APP_DID = os.environ.get("MEDIA_GAMERS_APP_DID", "did:web:media-gamers.gftd.ai")
+_APP_DID = os.environ.get("MEDIA_GAMERS_APP_DID", "did:web:media-gamers.etzhayyim.com")
 _MURAKUMO_URL = os.environ.get("MURAKUMO_OPENAI_URL", "").rstrip("/")
 _MURAKUMO_KEY = os.environ.get("MURAKUMO_API_KEY", "")
 _RUNPOD_URL = os.environ.get("RUNPOD_OPENAI_URL", "").rstrip("/")

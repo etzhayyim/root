@@ -1,11 +1,11 @@
-# news.gftd.ai Social Arbitrage Intel Actor
+# news.etzhayyim.com Social Arbitrage Intel Actor
 
 Date: 2026-04-28
 
 ## Goal
 
 Design a LangServer LangGraph actor that turns public information into
-`news.gftd.ai` intel and social posts. The actor is not a generic news
+`news.etzhayyim.com` intel and social posts. The actor is not a generic news
 summarizer. It searches for arbitrage where one public signal can reduce social
 inequality, loneliness, or separation by connecting people to resources,
 rights, communities, or underused capacity.
@@ -20,8 +20,8 @@ rights, communities, or underused capacity.
 - Thin edge publish path: `ai.gftd.apps.news.analyzeIntel` then
   `ai.gftd.apps.news.publishIntel`
 - Thin RSS write path: `ai.gftd.apps.news.commitArticle`
-- Public actor: `did:web:news.gftd.ai`
-- Writer DID: `did:web:news.gftd.ai:writer:social-arbitrage`
+- Public actor: `did:web:news.etzhayyim.com`
+- Writer DID: `did:web:news.etzhayyim.com:writer:social-arbitrage`
 
 ## Actor Shape
 
@@ -139,6 +139,6 @@ https://example.gov/open-data
 
 The deployment is intentionally independent from the Cloudflare news app. LangServer
 controls orchestration, the Python pod handles public-source fetch, extraction,
-scoring, and socialpost drafting, and `news.gftd.ai` handles only edge
+scoring, and socialpost drafting, and `news.etzhayyim.com` handles only edge
 persistence/posting. This keeps public publishing behind the existing news
 governance gates while moving the pipeline runtime out of the edge worker.

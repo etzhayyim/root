@@ -1,6 +1,6 @@
 # ai-gftd-project-news
 
-News media platform (`news.gftd.ai`)。**wRPC stream-native reactive pipeline (Design E)**。Follow-based upstream RSS worker から AT commit を受信 → 品質評価 → 翻訳 → ATPost。Batch command 0、Transport 1 種 (AT commit stream on wRPC)。
+News media platform (`news.etzhayyim.com`)。**wRPC stream-native reactive pipeline (Design E)**。Follow-based upstream RSS worker から AT commit を受信 → 品質評価 → 翻訳 → ATPost。Batch command 0、Transport 1 種 (AT commit stream on wRPC)。
 
 設計: `90-docs/260324-news-wrpc-stream-reactive-design.md`
 
@@ -73,7 +73,7 @@ app.HandleStream("", "stream-articles", streamArticles,
 )
 ```
 
-Subscribers connect via `InvokeStream("did:web:news.gftd.ai", "stream-articles", {category, language})`. wRPC LEB128 framing, credit-based backpressure, GovernanceGate enforced, WrpcStreamAuditBlock on close.
+Subscribers connect via `InvokeStream("did:web:news.etzhayyim.com", "stream-articles", {category, language})`. wRPC LEB128 framing, credit-based backpressure, GovernanceGate enforced, WrpcStreamAuditBlock on close.
 
 ## MCP Tools (auto-registered)
 
@@ -92,8 +92,8 @@ Subscribers connect via `InvokeStream("did:web:news.gftd.ai", "stream-articles",
 | `news-core.ai.gftd.apps.news.publishIntel`     | Publish prepared intel as a writer-DID post             |
 | `news-core.ai.gftd.apps.news.liveAudioIngest`  | Start public live-news/radio/HLS audio capture + STT → intel |
 
-Discovery: `POST mcp.gftd.ai/mcp` → `{"method":"tools/list","params":{"app":"news-core"}}`。
-Invocation: `POST mcp.gftd.ai/mcp` → `{"method":"tools/call","params":{"name":"news-core.GenerateDigest","arguments":{...}}}`。
+Discovery: `POST mcp.etzhayyim.com/mcp` → `{"method":"tools/list","params":{"app":"news-core"}}`。
+Invocation: `POST mcp.etzhayyim.com/mcp` → `{"method":"tools/call","params":{"name":"news-core.GenerateDigest","arguments":{...}}}`。
 
 ## Writer Entity System (DID per Information Source)
 
@@ -102,7 +102,7 @@ Invocation: `POST mcp.gftd.ai/mcp` → `{"method":"tools/call","params":{"name":
 ### DID Pattern
 
 ```
-did:web:news.gftd.ai:writer:{source-id}
+did:web:news.etzhayyim.com:writer:{source-id}
 ```
 
 ### Source Type Classification
@@ -128,19 +128,19 @@ did:web:news.gftd.ai:writer:{source-id}
 
 | Category          | Writers                                                                                     | DID 例                                   |
 | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| tech (8)          | GIGAZINE, ITmedia, PC Watch, Publickey, TechCrunch JP, Ars Technica, The Verge, Hacker News | `did:web:news.gftd.ai:writer:gigazine`   |
-| ai (4)            | AI 新聞, MIT Tech Review JP, The Batch, AI News                                             | `did:web:news.gftd.ai:writer:aishinbun`  |
-| anime (4)         | Anime!Anime!, コミックナタリー, アニメイトタイムズ, Crunchyroll                             | `did:web:news.gftd.ai:writer:animeanime` |
-| game (5)          | 4Gamer, デンファミニコゲーマー, インサイド, AUTOMATON, Kotaku                               | `did:web:news.gftd.ai:writer:4gamer`     |
-| car (4)           | くるまのニュース, clicccar, Motor-Fan, Electrek                                             | `did:web:news.gftd.ai:writer:kurumanews` |
-| business (5)      | 東洋経済, ダイヤモンド, 日経ビジネス, Reuters, Bloomberg                                    | `did:web:news.gftd.ai:writer:reuters`    |
-| semiconductor (4) | EE Times JP, TECH+, Semiconductor Engineering, SemiAnalysis                                 | `did:web:news.gftd.ai:writer:semie`      |
-| politics (3)      | NHK 政治, 朝日新聞 政治, Politico                                                           | `did:web:news.gftd.ai:writer:nhkpol`     |
-| science (3)       | ナゾロジー, Nature News, Science Daily                                                      | `did:web:news.gftd.ai:writer:nature`     |
-| entertainment (3) | 音楽ナタリー, 映画ナタリー, Variety                                                         | `did:web:news.gftd.ai:writer:variety`    |
-| sports (2)        | スポーツ報知, ESPN                                                                          | `did:web:news.gftd.ai:writer:espn`       |
-| world (3)         | NHK 国際, BBC World, Al Jazeera                                                             | `did:web:news.gftd.ai:writer:bbc`        |
-| llm (1)           | GFTD AI Writer                                                                              | `did:web:news.gftd.ai:writer:llm`        |
+| tech (8)          | GIGAZINE, ITmedia, PC Watch, Publickey, TechCrunch JP, Ars Technica, The Verge, Hacker News | `did:web:news.etzhayyim.com:writer:gigazine`   |
+| ai (4)            | AI 新聞, MIT Tech Review JP, The Batch, AI News                                             | `did:web:news.etzhayyim.com:writer:aishinbun`  |
+| anime (4)         | Anime!Anime!, コミックナタリー, アニメイトタイムズ, Crunchyroll                             | `did:web:news.etzhayyim.com:writer:animeanime` |
+| game (5)          | 4Gamer, デンファミニコゲーマー, インサイド, AUTOMATON, Kotaku                               | `did:web:news.etzhayyim.com:writer:4gamer`     |
+| car (4)           | くるまのニュース, clicccar, Motor-Fan, Electrek                                             | `did:web:news.etzhayyim.com:writer:kurumanews` |
+| business (5)      | 東洋経済, ダイヤモンド, 日経ビジネス, Reuters, Bloomberg                                    | `did:web:news.etzhayyim.com:writer:reuters`    |
+| semiconductor (4) | EE Times JP, TECH+, Semiconductor Engineering, SemiAnalysis                                 | `did:web:news.etzhayyim.com:writer:semie`      |
+| politics (3)      | NHK 政治, 朝日新聞 政治, Politico                                                           | `did:web:news.etzhayyim.com:writer:nhkpol`     |
+| science (3)       | ナゾロジー, Nature News, Science Daily                                                      | `did:web:news.etzhayyim.com:writer:nature`     |
+| entertainment (3) | 音楽ナタリー, 映画ナタリー, Variety                                                         | `did:web:news.etzhayyim.com:writer:variety`    |
+| sports (2)        | スポーツ報知, ESPN                                                                          | `did:web:news.etzhayyim.com:writer:espn`       |
+| world (3)         | NHK 国際, BBC World, Al Jazeera                                                             | `did:web:news.etzhayyim.com:writer:bbc`        |
+| llm (1)           | GFTD AI Writer                                                                              | `did:web:news.etzhayyim.com:writer:llm`        |
 
 ### Adding a New Source (Follow-based)
 

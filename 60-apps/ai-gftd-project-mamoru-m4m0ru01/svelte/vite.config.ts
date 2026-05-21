@@ -6,8 +6,8 @@ export default defineConfig({
   build: { outDir: "build" },
   server: {
     proxy: {
-      "/xrpc": "https://mamoru.gftd.ai",
-      "/health": "https://mamoru.gftd.ai",
+      "/xrpc": "https://mamoru.etzhayyim.com",
+      "/health": "https://mamoru.etzhayyim.com",
     },
   },
 });

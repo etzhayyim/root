@@ -19,8 +19,8 @@ ISCO-08 scoped candidate/workforce registry. T1 MCP-Compose (Logical Actor). **A
 ## DID Path Convention
 
 ```
-did:web:talent.gftd.ai:cohort:{iscoCode}:{country}
-did:web:talent.gftd.ai:profile:{subjectDid-hash}     # self-sovereign のみ
+did:web:talent.etzhayyim.com:cohort:{iscoCode}:{country}
+did:web:talent.etzhayyim.com:profile:{subjectDid-hash}     # self-sovereign のみ
 ```
 
 ## Commands
@@ -35,9 +35,9 @@ did:web:talent.gftd.ai:profile:{subjectDid-hash}     # self-sovereign のみ
 
 ## cross-actor
 
-- Upstream: `isco.gftd.ai` (occupation taxonomy)
-- Peer: `natural-person.gftd.ai` (cohort-first 原則は共通、ADR-0018)
-- Downstream: `recruit.gftd.ai` (matching delegate、only cohort stats を提供)
+- Upstream: `isco.etzhayyim.com` (occupation taxonomy)
+- Peer: `natural-person.etzhayyim.com` (cohort-first 原則は共通、ADR-0018)
+- Downstream: `recruit.etzhayyim.com` (matching delegate、only cohort stats を提供)
 
 ## Prohibited Writes (gate 実装必須)
 

@@ -9,7 +9,7 @@
     {
       "@type": "WebAPI",
       "name": "Microsoft Graph API Service",
-      "url": "https://microsoft-graph.gftd.ai"
+      "url": "https://microsoft-graph.etzhayyim.com"
     }
   ],
   "rdfUnifiedDocuments": {
@@ -23,7 +23,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

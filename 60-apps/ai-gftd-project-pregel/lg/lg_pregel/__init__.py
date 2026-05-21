@@ -1,1 +1,1 @@
-"""lg-pregel — LangGraph Server package for pregel.gftd.ai Outlook triage."""
+"""lg-pregel — LangGraph Server package for pregel.etzhayyim.com Outlook triage."""

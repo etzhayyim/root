@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-d3c136583564",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d3c136583564",
   "entityId": "ent-d3c136583564",
   "canonicalName": "корсакова тетяна володимирівна",
   "aliases": [

@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#CapabilityBDDCoverageChecker
+// @etzhayyim/cyber-freelance#CapabilityBDDCoverageChecker
 // capabilityからBDDへの対応状況をカバレッジで確認
 
 import { readFileSync, existsSync } from "fs";
@@ -43,7 +43,7 @@ function loadCapabilities(filePath: string): CapabilitiesJSONLD {
  */
 function parseFeatureFile(filePath: string): FeatureFile {
 	const content = readFileSync(filePath, "utf-8");
-	const capabilityId = content.match(/# @gftdcojp\/cyber-freelance#(\w+)/)?.[1] || "";
+	const capabilityId = content.match(/# @etzhayyim\/cyber-freelance#(\w+)/)?.[1] || "";
 	const scenarios = (content.match(/Scenario:/g) || []).length;
 	const steps = (content.match(/(Given|When|Then|And)/g) || []).length;
 

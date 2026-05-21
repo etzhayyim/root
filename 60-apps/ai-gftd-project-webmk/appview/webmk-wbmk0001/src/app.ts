@@ -1,7 +1,7 @@
-// webmk.gftd.ai — Web Marketing Proposal Agent (thin edge facade).
+// webmk.etzhayyim.com — Web Marketing Proposal Agent (thin edge facade).
 // Business logic: 20-actors/magatama/py/src/pymagatama/webmk_worker_main.py
 // LangGraph loop: research → competitors → strategy → copy → quality_gate → store
-// Delivery: Resend email + optional ads.gftd.ai createCampaign
+// Delivery: Resend email + optional ads.etzhayyim.com createCampaign
 
 interface SecretBinding { get(): Promise<string>; }
 interface Env {
@@ -20,13 +20,13 @@ export default {
     if (url.pathname === "/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:webmk.gftd.ai",
+        actor: "did:web:webmk.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "wbmk0001",
         execution: "edge-bpmn+langgraph-langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/webmk_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/webmk",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
-        integrations: ["ads.gftd.ai", "resend"],
+        integrations: ["ads.etzhayyim.com", "resend"],
       });
     }
 
@@ -55,7 +55,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

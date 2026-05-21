@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:okaimono.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:okaimono.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are okaimono D2C store agent. Okaimono is a D2C (Direct-to-Consumer) OEM-only EC store. All products are self-branded and manufactured via OEM factories through tsukuru.gftd.ai. No resale or third-party marketplace products. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are okaimono D2C store agent. Okaimono is a D2C (Direct-to-Consumer) OEM-only EC store. All products are self-branded and manufactured via OEM factories through tsukuru.etzhayyim.com. No resale or third-party marketplace products. Respond helpfully in the users language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -31,7 +31,7 @@
       "unispsc-catalog-import"
     ],
     "category": "commerce",
-    "description": "Okaimono — D2C OEM-only AI-operated EC store. Self-branded OEM products manufactured via tsukuru.gftd.ai. Catalog, orders, inventory, dynamic pricing, reviews, recommendations, fulfillment, customer support, analytics, and BTO/MTO/CTO manufacturing.",
+    "description": "Okaimono — D2C OEM-only AI-operated EC store. Self-branded OEM products manufactured via tsukuru.etzhayyim.com. Catalog, orders, inventory, dynamic pricing, reviews, recommendations, fulfillment, customer support, analytics, and BTO/MTO/CTO manufacturing.",
     "displayName": "Okaimono D2C Store",
     "isBot": true,
     "operator": "gftd.co.jp"
@@ -39,14 +39,14 @@
   "project": "okaimono",
   "routes": [
     {
-      "host": "okaimono.gftd.ai",
+      "host": "okaimono.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "ok4imn1o.gftd.ai",
+      "host": "ok4imn1o.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -22,7 +22,7 @@ superseded_by: []
 
 CEO 河崎 directive 2026-05-18「bpmn は etzhayyim-root に移動」。BPMN
 ownership を religious-corp substrate (etzhayyim-root) に集約し、
-ai-gftd-apps-gftdcojp は AT Protocol app surface 専念に絞る。
+etzhayyim-root は AT Protocol app surface 専念に絞る。
 
 背景:
 - ADR-2605172000 で `@etzhayyim/sdk` を RW-free substrate (AT Protocol
@@ -40,7 +40,7 @@ ai-gftd-apps-gftdcojp は AT Protocol app surface 専念に絞る。
 # Decision
 
 1. **BPMN file ownership = etzhayyim-root** に集約。
-2. ai-gftd-apps-gftdcojp branch `iter144-bpmn-extract` で以下を `git rm`:
+2. etzhayyim-root branch `iter144-bpmn-extract` で以下を `git rm`:
    - `00-contracts/bpmn/ai/gftd/*` (4,443 files; AT-Protocol-app process defs)
    - `60-apps/ai-gftd-project-bpmn/` (28 files; BPMN appview)
    - `60-apps/*/bpmn/` (53 per-project subdirs, 3,370 files)
@@ -67,7 +67,7 @@ ai-gftd-apps-gftdcojp は AT Protocol app surface 専念に絞る。
 - BPMN drift 排除: 同名 process def が 2 repo に併存しなくなる。
 - etzhayyim-root が religious-corp substrate として self-contained に
   近づく (membership + sacrament + BPMN engine 全てが 1 repo)。
-- ai-gftd-apps-gftdcojp は AT Protocol app surface に集中、
+- etzhayyim-root は AT Protocol app surface に集中、
   「選択と集中」原則 (iter143 Stream A) と整合。
 
 **Negative / リスク**
@@ -84,7 +84,7 @@ ai-gftd-apps-gftdcojp は AT Protocol app surface 専念に絞る。
 **Pending operator actions** (deps.toml `[[migrations]]
 bpmn-extract-to-etzhayyim-root-2026-05-18` で追跡):
 
-1. ai-gftd-apps-gftdcojp iter145+ で `00-contracts/bpmn/` 参照 873 件を
+1. etzhayyim-root iter145+ で `00-contracts/bpmn/` 参照 873 件を
    `@etzhayyim/bpmn-*` package 参照 or pnpm workspace path に sed。
 2. magatama actor の `magatama.jsonld` `derive` rule が参照する BPMN path
    を package import 経由に書き換え。
@@ -94,7 +94,7 @@ bpmn-extract-to-etzhayyim-root-2026-05-18` で追跡):
    の cross-repo path resolution 対応。
 5. `90-docs/CLAUDE.md` Key Conventions の BPMN 関連 pointer を
    etzhayyim-root 側 path に更新。
-6. ai-gftd-apps-gftdcojp `deps.toml [directory_index]` から bpmn entry
+6. etzhayyim-root `deps.toml [directory_index]` から bpmn entry
    削除 + etzhayyim-root 側 deps.toml に追記。
 
 # Decisions (resolved in iter144, 2026-05-18 follow-up)
@@ -122,14 +122,14 @@ bpmn-extract-to-etzhayyim-root-2026-05-18` で追跡):
 
 bpmn-dispatcher の source は `20-actors/magatama/py/src/pymagatama/
 dispatcher_main.py` (74KB Python, pymagatama package の一部) で、
-pymagatama は ai-gftd-apps-gftdcojp 側にある (etzhayyim-root に
+pymagatama は etzhayyim-root 側にある (etzhayyim-root に
 移してない)。判断:
 
 - dispatcher を etzhayyim-root へ移すには pymagatama 全体 (or
   dispatcher subset) を切り出す必要があり、Stream A critical path
   (lawfirm 集客) と関係薄い。
 - BPMN file の所有権は etzhayyim-root、dispatcher の所有権は
-  ai-gftd-apps-gftdcojp で OK。dispatcher は起動時に
+  etzhayyim-root で OK。dispatcher は起動時に
   `${ETZHAYYIM_ROOT:-../etzhayyim-root}/00-contracts/bpmn/` を読み
   込む形 (env var で sibling path 解決)。
 - K8s 配置: `bpmn-dispatcher` Deployment は ai-gftd 側 cluster
@@ -197,10 +197,10 @@ iter144 sed で path prefix は自動更新済 (`CLAUDE.md` は sed 対象)。
 # References
 
 - CEO 河崎 directive 2026-05-18「bpmn は etzhayyim-root に移動」
-- `_working/gftdcojp-revenue/DECISION-LOG.md` iter144 (本 iter)
-- etzhayyim-root commit `Import BPMN from ai-gftd-apps-gftdcojp`
+- `_working/etzhayyim-revenue/DECISION-LOG.md` iter144 (本 iter)
+- etzhayyim-root commit `Import BPMN from etzhayyim-root`
   (branch `import-bpmn-from-ai-gftd`)
-- ai-gftd-apps-gftdcojp branch `iter144-bpmn-extract`
+- etzhayyim-root branch `iter144-bpmn-extract`
 - ADR-2605172000 (etzhayyim RW-free substrate SDK)
 - ADR-2605091400 (MCP-as-cell-membrane; XRPC demotion)
 - ADR-2605081200 (SpiffWorkflow BPMN engine)

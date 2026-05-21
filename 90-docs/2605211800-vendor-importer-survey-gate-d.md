@@ -25,7 +25,7 @@ superseded_by: []
 # Vendor importer survey — Phase 3 gate (d) closure scope
 
 **Date**: 2026-05-21
-**Scope**: gftd repo (`/Users/junkawasaki/github/ai-gftd-apps-gftdcojp`), excluding `_archive/`, `20-actors/magatama/py/src/pymagatama/` (internal), and `**/tests/`.
+**Scope**: gftd repo (`/Users/junkawasaki/github/etzhayyim-root`), excluding `_archive/`, `20-actors/magatama/py/src/pymagatama/` (internal), and `**/tests/`.
 
 ## Headline
 
@@ -94,7 +94,7 @@ Doing gate (d) before gate (b) (DNS cutover) creates a window where vendor build
 - Grep command (reproduce this survey):
 
   ```bash
-  cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp
+  cd /Users/junkawasaki/github/etzhayyim-root
   grep -rln "from pymagatama" --include="*.py" \
     | grep -v _archive \
     | grep -v "20-actors/magatama/py/src/pymagatama/" \

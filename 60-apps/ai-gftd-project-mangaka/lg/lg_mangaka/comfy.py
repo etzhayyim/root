@@ -1,6 +1,6 @@
 """ComfyUI client for the diffusionPass stage of kami-cine.
 
-PRIMARY target: the production CF Worker gateway at `comfyui.gftd.ai`,
+PRIMARY target: the production CF Worker gateway at `comfyui.etzhayyim.com`,
 which exposes an **OpenAI-compatible** /v1/images/generations endpoint
 (Bearer `sk_live_*` API key required). The Worker translates the OpenAI
 shape into raw ComfyUI workflows and dispatches to the Mac mini fleet
@@ -15,7 +15,7 @@ timeout) returns a base64 SVG placeholder so the Studio UI still has
 something to render and the dev loop never hard-fails.
 
 Environment:
-    COMFYUI_URL       gateway base, default "https://comfyui.gftd.ai"
+    COMFYUI_URL       gateway base, default "https://comfyui.etzhayyim.com"
     COMFYUI_API_KEY   sk_live_* Bearer (required for the gateway path)
     COMFY_POD_URL     legacy raw-ComfyUI pod (alternative to the gateway)
     COMFY_DEFAULT_CKPT  override the model (default leaves gateway choice)
@@ -43,7 +43,7 @@ import httpx
 _log = logging.getLogger(__name__)
 
 # Primary: CF Worker OpenAI gateway. Empty → skip gateway, try pod path.
-_GATEWAY_URL = (os.environ.get("COMFYUI_URL") or "https://comfyui.gftd.ai").rstrip("/")
+_GATEWAY_URL = (os.environ.get("COMFYUI_URL") or "https://comfyui.etzhayyim.com").rstrip("/")
 _API_KEY = (
     os.environ.get("COMFYUI_API_KEY")
     or os.environ.get("SS_COMFYUI_API_KEY")
@@ -55,7 +55,7 @@ _POD_URL = (os.environ.get("COMFY_POD_URL") or os.environ.get("COMFYUI_POD_URL")
 
 _DEFAULT_CKPT = os.environ.get("COMFY_DEFAULT_CKPT", "animagine-xl-4.0.safetensors")
 _TIMEOUT = float(os.environ.get("COMFY_TIMEOUT_SEC", "300"))
-_UA = "lg-mangaka/0.1 (+studio.gftd.ai)"
+_UA = "lg-mangaka/0.1 (+studio.etzhayyim.com)"
 _POLL_INTERVAL = 2.0
 _POLL_MAX = 150  # × 2s = 300s ceiling
 
@@ -105,7 +105,7 @@ async def refine(
 # ── gateway (OpenAI-compatible) ───────────────────────────────────────────
 
 async def _via_gateway(*, prompt: str, seed: int, size: str) -> dict[str, Any]:
-    """POST /v1/images/generations on comfyui.gftd.ai."""
+    """POST /v1/images/generations on comfyui.etzhayyim.com."""
     body: dict[str, Any] = {
         "prompt": prompt,
         "n": 1,
@@ -249,7 +249,7 @@ def _stub(prompt: str, seed: int, why: str, started: float) -> dict[str, Any]:
         f'<text x="40" y="220" font-size="16">seed: {seed}</text>'
         f'<text x="40" y="250" font-size="16">why stub: {safe_why}</text>'
         f'<text x="40" y="1180" font-size="14" fill="#6b7280">'
-        f'set COMFYUI_API_KEY (sk_live_*) to use comfyui.gftd.ai gateway</text>'
+        f'set COMFYUI_API_KEY (sk_live_*) to use comfyui.etzhayyim.com gateway</text>'
         '</g></svg>'
     )
     body = svg.encode("utf-8")

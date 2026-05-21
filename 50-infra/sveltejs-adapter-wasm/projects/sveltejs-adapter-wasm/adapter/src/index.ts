@@ -15,7 +15,7 @@ export default function (options: AdapterOptions = {}): Adapter {
 	const { runtime = 'javy', out = 'build' } = options;
 
 	return {
-		name: '@gftdcojp/sveltejs-adapter-wasm',
+		name: '@etzhayyim/sveltejs-adapter-wasm',
 		async adapt(builder) {
 			const tmp = builder.getBuildDirectory('wasm');
 

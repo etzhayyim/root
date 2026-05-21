@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:yotei.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:yotei.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -9,7 +9,7 @@
   "duties": [
     "勤労の義務"
   ],
-  "embedUrl": "https://unyrsfan.gftd.ai/embed",
+  "embedUrl": "https://unyrsfan.etzhayyim.com/embed",
   "governance": {
     "raci": "responsible",
     "classification": "internal",
@@ -40,7 +40,7 @@
   "project": "yotei",
   "routes": [
     {
-      "host": "yotei.gftd.ai",
+      "host": "yotei.etzhayyim.com",
       "paths": [
         "/"
       ],

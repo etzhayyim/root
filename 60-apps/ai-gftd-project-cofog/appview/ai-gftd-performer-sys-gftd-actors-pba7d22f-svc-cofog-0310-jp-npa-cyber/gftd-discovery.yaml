@@ -1,4 +1,4 @@
-apiVersion: metadata.gftd.ai/v1
+apiVersion: metadata.etzhayyim.com/v1
 kind: AppDiscovery
 metadata:
   name: ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0310-jp-npa-cyber

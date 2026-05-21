@@ -1,9 +1,9 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Dataset",
-  "@id": "https://yabai.gftd.ai/content/index",
+  "@id": "https://yabai.etzhayyim.com/content/index",
   "generatedAt": "2026-03-16T12:15:44Z",
-  "resourceRoot": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/projects/ai-gftd-project-resources/content",
+  "resourceRoot": "/Users/junkawasaki/etzhayyim/etzhayyim-root/projects/ai-gftd-project-resources/content",
   "entityCount": 469,
   "evidenceCount": 464,
   "riskCount": 469,

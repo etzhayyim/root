@@ -1,6 +1,6 @@
 # ai-gftd-project-okaimono
 
-okaimono.gftd.ai — Amazon-grade AI-operated EC marketplace.
+okaimono.etzhayyim.com — Amazon-grade AI-operated EC marketplace.
 
 ## Components
 
@@ -22,5 +22,5 @@ cd wasm/okaimono-shopping-mcp-component && gftd build && gftd deploy
 cd wasm/okaimono-checkout-agent-component && gftd build && gftd deploy
 ```
 
-- `okaimono.gftd.ai` — marketplace UI + API
-- `chk8uty2.gftd.ai` — checkout agent
+- `okaimono.etzhayyim.com` — marketplace UI + API
+- `chk8uty2.etzhayyim.com` — checkout agent

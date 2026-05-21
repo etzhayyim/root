@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "CreativeWork",
-  "@id": "https://yabai.gftd.ai/content/public/criteria",
+  "@id": "https://yabai.etzhayyim.com/content/public/criteria",
   "name": "YABAI Evaluation Criteria",
   "wellBecomingAxes": [
     "Social trust maintenance (transparency, accountability, remediation)",

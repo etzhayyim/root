@@ -8,7 +8,7 @@ const execFileP = promisify(execFile);
  * Never log the returned value. Caller is responsible for scrubbing.
  *
  * Supported schemes:
- *   vault://<path>               — vault.gftd.ai (Phase 4 wiring)
+ *   vault://<path>               — vault.etzhayyim.com (Phase 4 wiring)
  *   keychain:<service>/<account>[.<jsonKey>]
  *                                — macOS Keychain `security find-generic-password`
  *                                  If value is JSON and `.jsonKey` supplied,

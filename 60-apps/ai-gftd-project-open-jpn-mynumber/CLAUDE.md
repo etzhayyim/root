@@ -1,12 +1,12 @@
 # open-jpn-mynumber.etzhayyim.com — public-spec My Number reference architecture
 
-**Status**: Tranche F move target — judged etzhayyim per `gftdcojp/ai-gftd-apps-gftdcojp` deps `tranche-f-open-jpn-mynumber-classification-2026-05-20` (3-axis OR-test all clean: PUBLIC gov-published policy docs, no fiduciary, no citizen PII, no commerce). Project scaffold landed pre-Tranche F (2026-04-26); this entry records the Tranche F classification + corpus residency.
+**Status**: Tranche F move target — judged etzhayyim per `etzhayyim/etzhayyim-root` deps `tranche-f-open-jpn-mynumber-classification-2026-05-20` (3-axis OR-test all clean: PUBLIC gov-published policy docs, no fiduciary, no citizen PII, no commerce). Project scaffold landed pre-Tranche F (2026-04-26); this entry records the Tranche F classification + corpus residency.
 
 This is not a government production system and does not contain private J-LIS, Digital PMO, GCAS, or agency-only interface material.
 
 ## Tranche F cross-repo state (2026-05-21)
 
-| Artifact | Vendor (`gftdcojp/ai-gftd-apps-gftdcojp`) | etzhayyim (this repo) |
+| Artifact | Vendor (`etzhayyim/etzhayyim-root`) | etzhayyim (this repo) |
 |---|---|---|
 | Spec (`CLAUDE.md`, project dir) | absent | **present** (this dir) |
 | Worker / BPMN / DMN / forms / lg / ingest pipeline | absent | **present** (`bpmn/`, `dmn/`, `forms/`, `lg/`, `worker/`, `ingest/`) |

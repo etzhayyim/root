@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#OrgRecruiterProfileConnect
+ * @etzhayyim/ai-gftd-hrse#OrgRecruiterProfileConnect
  * Organization リクルータープロファイル作成/編集ページ（Connect-Web版）
  */
 

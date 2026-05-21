@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  const SIGNAL_URL = 'wss://briefing-signal.gftd.ai';
-  const SIGNAL_HTTP = 'https://briefing-signal.gftd.ai';
+  const SIGNAL_URL = 'wss://briefing-signal.etzhayyim.com';
+  const SIGNAL_HTTP = 'https://briefing-signal.etzhayyim.com';
   const ICE_SERVERS: RTCIceServer[] = [
     { urls: 'stun:stun.l.google.com:19302' },
     { urls: 'stun:stun1.l.google.com:19302' },
@@ -11,10 +11,10 @@
 
   /** Multi-DID Actor members for briefing projects. */
   const PROJECT_ACTORS = [
-    { did: 'did:web:briefing.gftd.ai:actor:transcriber', role: 'Transcription', description: 'Speech-to-text via Whisper' },
-    { did: 'did:web:briefing.gftd.ai:actor:translator', role: 'Translation', description: 'Auto-translate via LLM' },
-    { did: 'did:web:briefing.gftd.ai:actor:recorder', role: 'Recording', description: 'Audio recording + R2 storage' },
-    { did: 'did:web:briefing.gftd.ai:actor:summarizer', role: 'Summarizer', description: 'Meeting summary generation' },
+    { did: 'did:web:briefing.etzhayyim.com:actor:transcriber', role: 'Transcription', description: 'Speech-to-text via Whisper' },
+    { did: 'did:web:briefing.etzhayyim.com:actor:translator', role: 'Translation', description: 'Auto-translate via LLM' },
+    { did: 'did:web:briefing.etzhayyim.com:actor:recorder', role: 'Recording', description: 'Audio recording + R2 storage' },
+    { did: 'did:web:briefing.etzhayyim.com:actor:summarizer', role: 'Summarizer', description: 'Meeting summary generation' },
   ];
 
   let roomId = $state('');

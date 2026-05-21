@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-c995d6914c8c",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c995d6914c8c",
   "entityId": "ent-c995d6914c8c",
   "canonicalName": "corporacion cimex, s.a.",
   "aliases": [

@@ -13,7 +13,7 @@ branch_labels = None
 depends_on = None
 
 UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-crtsh-fuzzy-search-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-crtsh-fuzzy-search-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -23,7 +23,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-crtsh-fuzzy-search-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-crtsh-fuzzy-search-v1',
                  'yabai_crtsh_fuzzy_search',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -53,7 +53,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_yabai_crtsh_fuzzy_search"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/yabai"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/yabai"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="yabai_crtsh_fuzzy_search" name="yabai crtshFuzzySearch" '
@@ -140,7 +140,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:yabai.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:yabai.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;yabai.coverage.crtsh&quot;" '
                  'target="action"/>\n'
@@ -162,11 +162,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 'did:web:yabai.gftd.ai',
+                 'did:web:yabai.etzhayyim.com',
                  '00-contracts/bpmn/ai/gftd/yabai/crtshFuzzySearch.bpmn',
                  '2026-04-24T12:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-reverse-ip-lookup-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-reverse-ip-lookup-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -176,7 +176,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-reverse-ip-lookup-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-reverse-ip-lookup-v1',
                  'yabai_reverse_ip_lookup',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -206,7 +206,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_yabai_reverse_ip_lookup"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/yabai"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/yabai"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="yabai_reverse_ip_lookup" name="yabai reverseIpLookup" '
@@ -305,7 +305,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:yabai.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:yabai.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;yabai.coverage.revIp&quot;" '
                  'target="action"/>\n'
@@ -328,11 +328,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 'did:web:yabai.gftd.ai',
+                 'did:web:yabai.etzhayyim.com',
                  '00-contracts/bpmn/ai/gftd/yabai/reverseIpLookup.bpmn',
                  '2026-04-24T12:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-enrich-legal-entity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-enrich-legal-entity-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -342,7 +342,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-enrich-legal-entity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-enrich-legal-entity-v1',
                  'yabai_enrich_legal_entity',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -374,14 +374,14 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '    path = 00-contracts/bpmn/ai/gftd/yabai/enrichLegalEntity.bpmn\n'
                  '    NSID = ai.gftd.apps.yabai.enrichLegalEntity\n'
                  '    vid  = '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-enrich-legal-entity-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-enrich-legal-entity-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_yabai_enrich_legal_entity"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/yabai"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/yabai"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="yabai_enrich_legal_entity" name="yabai enrichLegalEntity" '
@@ -509,11 +509,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  'target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:           string '
-                 'join([&quot;at://did:web:legal-entity.gftd.ai/ai.gftd.apps.legalEntity.legalEntity/&quot;, '
+                 'join([&quot;at://did:web:legal-entity.etzhayyim.com/ai.gftd.apps.legalEntity.legalEntity/&quot;, '
                  'derived.rkey], &quot;&quot;),\n'
                  '              rkey:                derived.rkey,\n'
-                 '              repo:                &quot;did:web:legal-entity.gftd.ai&quot;,\n'
-                 '              did:                 &quot;did:web:legal-entity.gftd.ai&quot;,\n'
+                 '              repo:                &quot;did:web:legal-entity.etzhayyim.com&quot;,\n'
+                 '              did:                 &quot;did:web:legal-entity.etzhayyim.com&quot;,\n'
                  '              collection:          '
                  '&quot;ai.gftd.apps.legalEntity.legalEntity&quot;,\n'
                  '              name:                derived.name,\n'
@@ -530,7 +530,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '              lei:                 derived.lei,\n'
                  '              source:              &quot;gleif+yabai+bpmn&quot;,\n'
                  '              sensitivity_ord:     1,\n'
-                 '              owner_did:           &quot;did:web:legal-entity.gftd.ai&quot;,\n'
+                 '              owner_did:           &quot;did:web:legal-entity.etzhayyim.com&quot;,\n'
                  '              created_date:        substring(string(now()), 1, 10),\n'
                  '              source_record_id:    string join([&quot;yabai:&quot;, '
                  'yabaiEntityId], &quot;&quot;)\n'
@@ -554,10 +554,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  'target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:       string '
-                 'join([&quot;at://did:web:yabai.gftd.ai/ai.gftd.apps.yabai.entity/&quot;, '
+                 'join([&quot;at://did:web:yabai.etzhayyim.com/ai.gftd.apps.yabai.entity/&quot;, '
                  'yabaiEntityId], &quot;&quot;),\n'
                  '              rkey:            yabaiEntityId,\n'
-                 '              repo:            &quot;did:web:yabai.gftd.ai&quot;,\n'
+                 '              repo:            &quot;did:web:yabai.etzhayyim.com&quot;,\n'
                  '              entity_id:       yabaiEntityId,\n'
                  '              entity_type:     if kind = &quot;hosting&quot; then '
                  '&quot;hosting_provider&quot; else &quot;registrar&quot;,\n'
@@ -567,10 +567,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '              canonical_name:  derived.name,\n'
                  '              source:          &quot;yabai.bpmn.enrich-legal-entity&quot;,\n'
                  '              sensitivity_ord: 100,\n'
-                 '              owner_did:       &quot;did:web:yabai.gftd.ai&quot;,\n'
+                 '              owner_did:       &quot;did:web:yabai.etzhayyim.com&quot;,\n'
                  '              created_at:      string(now()),\n'
-                 '              org_id:          &quot;did:web:yabai.gftd.ai&quot;,\n'
-                 '              user_id:         &quot;did:web:yabai.gftd.ai&quot;,\n'
+                 '              org_id:          &quot;did:web:yabai.etzhayyim.com&quot;,\n'
+                 '              user_id:         &quot;did:web:yabai.etzhayyim.com&quot;,\n'
                  '              actor_id:        &quot;sys.bpmn.yabai.enrich&quot;\n'
                  '          }" target="values"/>\n'
                  '          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>\n'
@@ -612,13 +612,13 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '              edge_id:         string join([&quot;edge-operated-by-&quot;, '
                  'yabaiEntityId, &quot;-&quot;, derived.rkey], &quot;&quot;),\n'
                  '              src_vid:         string '
-                 'join([&quot;at://did:web:yabai.gftd.ai/ai.gftd.apps.yabai.entity/&quot;, '
+                 'join([&quot;at://did:web:yabai.etzhayyim.com/ai.gftd.apps.yabai.entity/&quot;, '
                  'yabaiEntityId], &quot;&quot;),\n'
                  '              dst_vid:         string '
-                 'join([&quot;at://did:web:legal-entity.gftd.ai/ai.gftd.apps.legalEntity.legalEntity/&quot;, '
+                 'join([&quot;at://did:web:legal-entity.etzhayyim.com/ai.gftd.apps.legalEntity.legalEntity/&quot;, '
                  'derived.rkey], &quot;&quot;),\n'
                  '              sensitivity_ord: 100,\n'
-                 '              owner_did:       &quot;did:web:yabai.gftd.ai&quot;,\n'
+                 '              owner_did:       &quot;did:web:yabai.etzhayyim.com&quot;,\n'
                  '              created_at:      string(now()),\n'
                  '              created_date:    substring(string(now()), 1, 10)\n'
                  '          }" target="values"/>\n'
@@ -637,7 +637,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:yabai.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:yabai.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;yabai.enrich.legalEntity&quot;" '
                  'target="action"/>\n'
@@ -663,13 +663,13 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 'did:web:yabai.gftd.ai',
+                 'did:web:yabai.etzhayyim.com',
                  '00-contracts/bpmn/ai/gftd/yabai/enrichLegalEntity.bpmn',
                  '2026-04-24T12:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yabai-crtshFuzzySearch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yabai-crtshFuzzySearch-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -679,16 +679,16 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yabai-crtshFuzzySearch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yabai-crtshFuzzySearch-v1',
                  'ai.gftd.apps.yabai.crtshFuzzySearch',
                  'yabai_crtsh_fuzzy_search',
-                 'did:web:yabai.gftd.ai',
+                 'did:web:yabai.etzhayyim.com',
                  20000,
                  '2026-04-24T12:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yabai-reverseIpLookup-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yabai-reverseIpLookup-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -698,16 +698,16 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yabai-reverseIpLookup-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yabai-reverseIpLookup-v1',
                  'ai.gftd.apps.yabai.reverseIpLookup',
                  'yabai_reverse_ip_lookup',
-                 'did:web:yabai.gftd.ai',
+                 'did:web:yabai.etzhayyim.com',
                  20000,
                  '2026-04-24T12:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yabai-enrichLegalEntity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yabai-enrichLegalEntity-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -717,25 +717,25 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yabai-enrichLegalEntity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yabai-enrichLegalEntity-v1',
                  'ai.gftd.apps.yabai.enrichLegalEntity',
                  'yabai_enrich_legal_entity',
-                 'did:web:yabai.gftd.ai',
+                 'did:web:yabai.etzhayyim.com',
                  30000,
                  '2026-04-24T12:00:00Z']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yabai-crtshFuzzySearch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yabai-crtshFuzzySearch-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yabai-reverseIpLookup-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yabai-reverseIpLookup-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yabai-enrichLegalEntity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yabai-enrichLegalEntity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-crtsh-fuzzy-search-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-crtsh-fuzzy-search-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-reverse-ip-lookup-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-reverse-ip-lookup-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yabai-enrich-legal-entity-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yabai-enrich-legal-entity-v1']}]
 
 
 def upgrade() -> None:

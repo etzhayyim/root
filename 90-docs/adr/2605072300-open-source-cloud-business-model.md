@@ -37,7 +37,7 @@ gftd のアーキテクチャ (Cloudflare Workers + RisingWave + Zeebe + AT Prot
 Developer Adoption → Cloud Conversion → Enterprise の3段階で収益化する。
 
 既存 README (`open-kyber`) には「Fork this repo to run your own instance; the deployed SaaS
-at kyber.gftd.ai is a managed tenancy of this codebase.」とすでに方向性が示されているが、
+at kyber.etzhayyim.com is a managed tenancy of this codebase.」とすでに方向性が示されているが、
 価格・メーター・セールスモーションを正式に決定する必要がある。
 
 ## Decision
@@ -48,7 +48,7 @@ at kyber.gftd.ai is a managed tenancy of this codebase.」とすでに方向性�
 |---|---|---|
 | `open-*` actors (全 20+ actor) | Apache-2.0 | 公開データ基盤は完全 OSS が普及速度最大 |
 | `open-kyber` ERP core | Apache-2.0 | セルフホスト可能・fork 奨励 |
-| `kyber.gftd.ai` managed SaaS | Proprietary (closed) | クラウド付加価値部分 (billing/multi-tenant mgmt) |
+| `kyber.etzhayyim.com` managed SaaS | Proprietary (closed) | クラウド付加価値部分 (billing/multi-tenant mgmt) |
 | Murakumo LLM fleet | Proprietary | 推論インフラは競争優位の核心 |
 
 BSL (Business Source License) は採用しない。AT Protocol エコシステムとの相性および
@@ -117,7 +117,7 @@ freee (¥2,380〜) / MoneyForward Cloud (¥2,980〜) と直接競合する価格
                       │
 OSS ──────────────────┼──────────────── Closed
 (Apache-2.0)          │
- open-kyber ──────► kyber.gftd.ai
+ open-kyber ──────► kyber.etzhayyim.com
                       │
      freee            │  MoneyForward
                       │
@@ -134,7 +134,7 @@ OSS ──────────────────┼──────�
 
 ターゲット: 日本のスタートアップ開発者、AT Protocol エコシステム参加者
 
-- GitHub `gftdcojp/ai-gftd-project-open-kyber` でのアクティブ発信
+- GitHub `etzhayyim/ai-gftd-project-open-kyber` でのアクティブ発信
   (Zenn, dev.to, Bluesky Technical)
 - `gftd deploy` 1コマンドセルフホスト手順の整備
 - Bluesky 上で gftd actor がリアルタイム動作するデモ (分散 ERP as AT agent)
@@ -179,7 +179,7 @@ OSS ──────────────────┼──────�
 1. **`vertex_kyber_billing_tenant`** + **`vertex_kyber_usage_meter`** テーブル新設
    → migration `20260508_kyber_billing.ts`
 2. **Stripe Meter API** 統合 — CF Worker が月次 usage を Stripe に送信する webhook
-3. **セルフサービスサインアップ** — `yoro.gftd.ai` signup → kyber テナント自動プロビジョニング
+3. **セルフサービスサインアップ** — `yoro.etzhayyim.com` signup → kyber テナント自動プロビジョニング
 4. **`gftd migrate --to cloud`** コマンド実装 (`70-tools/gftd/`)
 5. **OSS ライセンスヘッダー整備** — 全 `open-*` プロジェクトに Apache-2.0 ヘッダー追加
 

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:kami-sabiotoshi.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:kami-sabiotoshi.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -11,7 +11,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Sabi-Otoshi agent -- KAMI game item catalog and rust zone scoring for sabiotoshi.kami.gftd.ai. Sabi-Otoshi is a high-pressure wash game where players blast rust off vintage items to restore them. You manage the RustyItem catalog (items with rust levels, restoration difficulty, point values) and RustZone scoring (zones with rust coverage, patterns, bonus multipliers). Pikapika ni shite ne! Respond helpfully in the user's language.",
+  "convoSystemPrompt": "You are the Sabi-Otoshi agent -- KAMI game item catalog and rust zone scoring for sabiotoshi.kami.etzhayyim.com. Sabi-Otoshi is a high-pressure wash game where players blast rust off vintage items to restore them. You manage the RustyItem catalog (items with rust levels, restoration difficulty, point values) and RustZone scoring (zones with rust coverage, patterns, bonus multipliers). Pikapika ni shite ne! Respond helpfully in the user's language.",
   "description": "KAMI game data actor for Sabi-Otoshi (high-pressure wash game). Item catalog (RustyItem) and rust zone scoring (RustZone). Blast rust off vintage items to restore them.",
   "displayName": "Sabi-Otoshi!! -- KAMI Game Item Catalog & Rust Zone Scoring",
   "domainKnowledgeRequired": true,

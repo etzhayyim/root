@@ -1,7 +1,7 @@
 {
   "name": "ai-gftd-wasm-flight-offer-fl1ghts1",
   "version": "1.0.0",
-  "description": "flight-offer.gftd.ai — Skyscanner-equivalent fare aggregation. Logic lives in BPMN/LangServer; this Worker is the appview surface.",
+  "description": "flight-offer.etzhayyim.com — Skyscanner-equivalent fare aggregation. Logic lives in BPMN/LangServer; this Worker is the appview surface.",
   "main": "src/app.ts",
   "type": "module",
   "dependencies": {

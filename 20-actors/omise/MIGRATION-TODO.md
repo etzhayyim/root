@@ -6,7 +6,7 @@
 
 ## Substrate-boundary checks
 
-This actor SDK was copied verbatim from `ai-gftd-apps-gftdcojp/20-actors/omise`.
+This actor SDK was copied verbatim from `etzhayyim-root/20-actors/omise`.
 Following must be remediated:
 
 - [ ] Replace direct `@atproto/api` / `viem` / IPFS / Signal client imports with `@etzhayyim/sdk`.

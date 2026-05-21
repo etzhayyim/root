@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#ResendWebhookSteps
+// @etzhayyim/cyber-freelance#ResendWebhookSteps
 // Resend Webhook関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

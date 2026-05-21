@@ -1,6 +1,6 @@
 # ai-gftd-project-kago
 
-Uber-like ride-hailing platform (kago.gftd.ai). Integrated with maps.gftd.ai for spatial routing.
+Uber-like ride-hailing platform (kago.etzhayyim.com). Integrated with maps.etzhayyim.com for spatial routing.
 
 ## Components
 
@@ -14,7 +14,7 @@ Uber-like ride-hailing platform (kago.gftd.ai). Integrated with maps.gftd.ai for
 |---|---|---|
 | `kago-ride-state` | ai-gftd-wasm-kago-ride-y83jjx4l | `default` |
 
-## maps.gftd.ai Integration
+## maps.etzhayyim.com Integration
 
 | 機能 | maps API | 用途 |
 |---|---|---|
@@ -33,11 +33,11 @@ Uber-like ride-hailing platform (kago.gftd.ai). Integrated with maps.gftd.ai for
 - `kago_ride.driver_accept_ride` — ドライバーが配車を受諾
 - `kago_ride.driver_complete_ride` — 乗車完了
 - `kago_ride.estimate_fare` — 運賃見積もり
-- `kago_ride.search_location` — 場所検索 (maps.gftd.ai proxy)
+- `kago_ride.search_location` — 場所検索 (maps.etzhayyim.com proxy)
 
 ## API Endpoints
 
-- kago-ride: `https://y83jjx4l.gftd.ai/xrpc`
+- kago-ride: `https://y83jjx4l.etzhayyim.com/xrpc`
 
 ## Ride States
 
@@ -50,8 +50,8 @@ requested → matched → driver_arriving → in_progress → completed
 ## Smoke Test
 
 ```bash
-curl https://y83jjx4l.gftd.ai/health
-curl -X POST https://y83jjx4l.gftd.ai/xrpc/gftd.kago.v1.KagoRideService/EstimateFare \
+curl https://y83jjx4l.etzhayyim.com/health
+curl -X POST https://y83jjx4l.etzhayyim.com/xrpc/gftd.kago.v1.KagoRideService/EstimateFare \
   -H "Content-Type: application/json" \
   -d '{"pickup_lat":35.6812,"pickup_lng":139.7671,"dropoff_lat":35.6585,"dropoff_lng":139.7454}'
 ```

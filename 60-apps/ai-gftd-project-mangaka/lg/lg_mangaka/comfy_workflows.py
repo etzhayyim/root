@@ -1,4 +1,4 @@
-"""API-format ComfyUI workflow builders for mangaka.gftd.ai domain records.
+"""API-format ComfyUI workflow builders for mangaka.etzhayyim.com domain records.
 
 Each builder returns a {node_id: {class_type, inputs}} dict that comfy_runner
 POSTs to ComfyUI's /prompt endpoint. The same shape ComfyUI's

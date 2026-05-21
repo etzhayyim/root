@@ -1,23 +1,23 @@
 # ai-gftd-project-kuruma
 
-Car information site for kuruma.gftd.ai — vehicle specs, reviews, comparisons, maker catalogs. Multi-DID actor graph (7 actor types). Multi-language (i18n.gftd.ai integration). Ad revenue target: 10M JPY/month.
+Car information site for kuruma.etzhayyim.com — vehicle specs, reviews, comparisons, maker catalogs. Multi-DID actor graph (7 actor types). Multi-language (i18n.etzhayyim.com integration). Ad revenue target: 10M JPY/month.
 
 ## Architecture
 
 ```
-Browser → kuruma.gftd.ai → XRPC /xrpc/{NSID}
+Browser → kuruma.etzhayyim.com → XRPC /xrpc/{NSID}
                               ↓
            App: ai-gftd-wasm-kuruma-qewr7sl0 (performerType: service)
              ├─ Vehicle CRUD + Collection (NHTSA, Wikidata, Web Crawl)
              ├─ Multi-DID Actor Sync (44 entity DIDs: 30 makers + 4 dealers + 8 categories + 2 sources)
              ├─ Graph: Vehicle→Maker/Parts/Seller/Maintainer/Insurance/Registration
-             ├─ Shinka: LLM social evolution (llm.gftd.ai, llama-3.1-8b)
-             ├─ Kyumei-Koji: LLM fact gathering/validation (llm.gftd.ai, qwen2.5-coder-32b / deepseek-r1-distill)
+             ├─ Shinka: LLM social evolution (llm.etzhayyim.com, llama-3.1-8b)
+             ├─ Kyumei-Koji: LLM fact gathering/validation (llm.etzhayyim.com, qwen2.5-coder-32b / deepseek-r1-distill)
              ├─ Web Crawl: CF Browser Rendering via Collection Job pipeline
              └─ Reactive pipeline: vehicle auto-validation on ingest
 ```
 
-## LLM Integration (llm.gftd.ai)
+## LLM Integration (llm.etzhayyim.com)
 
 | Feature | use_case | CF Workers AI Model | Interval |
 |---|---|---|---|
@@ -85,5 +85,5 @@ Browser → kuruma.gftd.ai → XRPC /xrpc/{NSID}
 
 ```bash
 cd 60-apps/ai-gftd-project-kuruma/wasm/ai-gftd-wasm-kuruma-qewr7sl0
-gftd deploy --smoke-url https://qewr7sl0.gftd.ai/health
+gftd deploy --smoke-url https://qewr7sl0.etzhayyim.com/health
 ```

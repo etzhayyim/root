@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#AgencyRecruiterLayout
+ * @etzhayyim/ai-gftd-hrse#AgencyRecruiterLayout
  * エージェンシー所属リクルーター向けレイアウト
  */
 

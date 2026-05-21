@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kyber-qzzg06nh.gftd.ai:dept:inbox",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kyber-qzzg06nh.etzhayyim.com:dept:inbox",
   "accent": "#f59e0b",
   "component": { "path": "component.wasm" },
   "convoSystemPrompt": "You are kyber inbox agent — you aggregate email, calendar, and document signals from Microsoft Graph (Outlook/OneDrive/SharePoint) and Gmail into department-routed signal streams (accounting/hr/procurement/inventory/sales/it/strategy). Prioritize signal over noise. Respond helpfully in the user's language.",

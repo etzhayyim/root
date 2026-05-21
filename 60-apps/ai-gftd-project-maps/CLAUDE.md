@@ -2,11 +2,11 @@
 
 # ai-gftd-project-maps
 
-Spatial Intelligence + Digital Twin Platform (maps.gftd.ai). Graph-first architecture — 自前グラフを育て、データがない時だけ外部ソースから取得・永続化。全外部ソースは path-based DID で identity 管理。
+Spatial Intelligence + Digital Twin Platform (maps.etzhayyim.com). Graph-first architecture — 自前グラフを育て、データがない時だけ外部ソースから取得・永続化。全外部ソースは path-based DID で identity 管理。
 
 ## Rendering (2026-04-17, RisingWave-native + KAMI 3D)
 
-**外部 MVT タイル依存は廃止。** ベクタレイヤは `ai.gftd.apps.maps.tileGeoJson` XRPC が `vertex_spatial` から bbox + labels で GeoJSON を返し、KAMI の GeoJSON layer path が描画する。旧 `tiles.maps.gftd.ai` MVT 経路は `kami-bridge.ts` が明示的にブロックリスト。
+**外部 MVT タイル依存は廃止。** ベクタレイヤは `ai.gftd.apps.maps.tileGeoJson` XRPC が `vertex_spatial` から bbox + labels で GeoJSON を返し、KAMI の GeoJSON layer path が描画する。旧 `tiles.maps.etzhayyim.com` MVT 経路は `kami-bridge.ts` が明示的にブロックリスト。
 
 | 層 | 実装 |
 |---|---|
@@ -62,7 +62,7 @@ landmark / 局所再構成の preview / QC 用途のみ。
 | WASM bind | `kami-app-maps3d::set_gsplat_asset / remove_gsplat_asset` | shipped |
 | Schema | `vertex_maps_gsplat_asset` + `edge_maps_gsplat_baked_to` (Alembic `r_20260509220000_vertex_maps_gsplat_asset`) | shipped |
 | XRPC | `ai.gftd.apps.maps.{getGsplatAsset,listGsplatAssets,bakeGsplatAsset,trainGsplatFromMapillary}` | shipped |
-| SDK | `@gftdcojp/kami-engine-sdk/gsplat` (`loadGsplatAsset` / `pushToWasm` / `bakeGsplatAsset`) | shipped |
+| SDK | `@etzhayyim/kami-engine-sdk/gsplat` (`loadGsplatAsset` / `pushToWasm` / `bakeGsplatAsset`) | shipped |
 | HTML toggle | `svelte/static/maps-3d.htm?gsplat=1` + 「📷 Train splat here」 button | shipped — 1-ring H3 res-12 prefetch, negative-cache on 404 |
 | Trainer endpoint (RunPod) | `runpod-endpoint-gsplat/{handler.py,Dockerfile,Dockerfile.phase2,requirements.txt,requirements-phase2.txt}` | **shipped Phase 1 stub + Phase 2 real trainer + bake mode**. Phase 2 train = Mapillary download + COLMAP SfM (`pycolmap.extract_features` + `match_exhaustive` + `incremental_mapping`) + gsplat training (`gsplat==1.4.0`, **`DefaultStrategy` densification (clone+split+prune)**, **`shDegree ∈ [0,3]`**, opacity-cull at half-step, 50k splat cap). PLY in our renderer's `f_dc/scale/rot` schema; optional `f_rest_*` (`exportRest=true`) for SuperSplat / Inria viewer compat. Phase 2 bake = TSDF fusion (Open3D `ScalableTSDFVolume.integrate` over 24 fibonacci-sphere `RGB+D` views from gsplat) → `simplify_quadric_decimation(5000)` → trimesh GLB. Toggle via `RUNPOD_PHASE=2` + GPU `Dockerfile.phase2`. Mode dispatch via payload `mode: "train" \| "bake"` (default train) |
 | Bake mesh registry | `vertex_maps_gsplat_mesh` + `edge_maps_gsplat_baked_to` (Alembic `r_20260510120000_vertex_maps_gsplat_mesh`) | shipped — append-only, lineage edge from splat asset → baked mesh |
@@ -113,7 +113,7 @@ Phase 2 (real COLMAP + gsplat) への昇格 (2026-05-09 shipped):
 
 ```bash
 cd 60-apps/ai-gftd-project-maps/runpod-endpoint-gsplat
-IMAGE=ghcr.io/gftdcojp/maps-runpod-gsplat:phase2-$(date -u +%Y%m%d%H%M%S)
+IMAGE=ghcr.io/etzhayyim/maps-runpod-gsplat:phase2-$(date -u +%Y%m%d%H%M%S)
 docker build --platform linux/amd64 -f Dockerfile.phase2 -t "$IMAGE" .
 docker push "$IMAGE"
 # RunPod template: image=$IMAGE, GPU=L40S 48GiB, Container Disk=30GB,
@@ -146,8 +146,8 @@ densification / opacity-cull at half-step / 50k splat cap で preview 品質。
 |---|---|
 | **nanoid (UI)** | `uqpel6i6` |
 | **nanoid (collection)** | `v1m9k2q8` |
-| **domain** | `maps.gftd.ai` |
-| **AT bot DID** | `did:web:maps.gftd.ai` |
+| **domain** | `maps.etzhayyim.com` |
+| **AT bot DID** | `did:web:maps.etzhayyim.com` |
 | **Runtime** | **TS Native** (`src/app.ts` + `@gftd/magatama-host-sdk` → esbuild bundle) |
 | **Data store** | **RisingWave via Hyperdrive (ADR-0036, direct)** — Write: `createKyselyDb(env.HYPERDRIVE).insertInto("vertex_spatial").values(row).onConflict(...).execute()`、PDS + graph-worker bypass。Read: `createKyselyDb(env.HYPERDRIVE).selectFrom("vertex_spatial").where("label", "in", [...]).execute()` — Hyperdrive 1 RTT |
 | **UI mode** | `iframe` (SvelteKit-Primary, MapLibre + KAMI engine) |
@@ -170,32 +170,32 @@ Client Request
 
 | DID | 外部 API 置換 | TTL | 実装状態 |
 |---|---|---|---|
-| `did:web:maps.gftd.ai:geocode` | Nominatim (OSM) | 無期限 | 実装済 |
-| `did:web:maps.gftd.ai:weather` | Open-Meteo | 1h | 実装済 |
-| `did:web:maps.gftd.ai:ip_geolocation` | ip-api | 24h | 実装済 |
-| `did:web:maps.gftd.ai:infrastructure` | Overpass API (OSM) | 7d | 実装済 (heartbeat dispatch) |
-| `did:web:maps.gftd.ai:tile` | OpenFreeMap | 30d | 実装済 |
-| `did:web:maps.gftd.ai:street_view` | Mapillary | 30d | 実装済 |
-| `did:web:maps.gftd.ai:planet` | OSM Planet | 週次 | 実装済 |
-| `did:web:maps.gftd.ai:user_post` | User post EXIF geolocation | 無期限 | 実装済 |
-| `did:web:maps.gftd.ai:mapraly` | Mapraly POI/route | 7d | 実装済 |
-| `did:web:maps.gftd.ai:vision` | Murakumo Vision analysis | 無期限 | 実装済 |
-| `did:web:maps.gftd.ai:satellite` | Sentinel-2 / Landsat (STAC) | 30d | 実装済 (heartbeat dispatch) |
-| `did:web:maps.gftd.ai:seismic` | USGS Earthquake Hazards API | 15m | **実装済 (heartbeat dispatch)** |
-| `did:web:maps.gftd.ai:gtfs` | MLIT GTFS-JP (全国公共交通, bus + train + 時刻表 summary) | 1d | **実装済 (heartbeat dispatch + bulk-ingest pod, BPMN bulkRefreshGtfsJp R/PT24H)** |
-| `did:web:maps.gftd.ai:registry:openflights` | OpenFlights routes (空路, ODbL) | 7d | **実装済 (bulk-ingest pod, BPMN bulkRefreshOpenflights R/P7D)** |
-| `did:web:maps.gftd.ai:registry:osm:ferry` | OSM relation[route=ferry] (海路, ODbL) | 7d | **実装済 (bulk-ingest pod, BPMN bulkRefreshFerryRoutes R/P7D)** |
-| `did:web:site.gftd.ai` | site.gftd.ai Web Crawl (WET/WAT geo extraction) | 7d | 実装済 |
-| `did:web:maps.gftd.ai:registry:gleif` | GLEIF (Global LEI Foundation) | 30d | **実装済** |
-| `did:web:maps.gftd.ai:registry:opencorporates` | OpenCorporates | 7d | **実装済** |
-| `did:web:maps.gftd.ai:registry:wikidata` | Wikidata corporations/properties | 7d | **実装済** |
-| `did:web:maps.gftd.ai:registry:osm` | OSM operator/owner tags | 7d | **実装済** |
-| `did:web:maps.gftd.ai:registry:jp-moj` | Japan MOJ 登記情報 | 30d | **実装済** |
-| `did:web:maps.gftd.ai:registry:jp-nta` | Japan NTA 法人番号 | 1d | **実装済** |
-| `did:web:maps.gftd.ai:registry:uk-ch` | UK Companies House | 7d | **実装済** |
-| `did:web:maps.gftd.ai:registry:us-edgar` | US SEC EDGAR | 7d | **実装済** |
-| `did:web:maps.gftd.ai:registry:eu-br` | EU Business Registries | 30d | **実装済** |
-| `did:web:maps.gftd.ai:registry:openaddresses` | OpenAddresses global | 30d | **実装済** |
+| `did:web:maps.etzhayyim.com:geocode` | Nominatim (OSM) | 無期限 | 実装済 |
+| `did:web:maps.etzhayyim.com:weather` | Open-Meteo | 1h | 実装済 |
+| `did:web:maps.etzhayyim.com:ip_geolocation` | ip-api | 24h | 実装済 |
+| `did:web:maps.etzhayyim.com:infrastructure` | Overpass API (OSM) | 7d | 実装済 (heartbeat dispatch) |
+| `did:web:maps.etzhayyim.com:tile` | OpenFreeMap | 30d | 実装済 |
+| `did:web:maps.etzhayyim.com:street_view` | Mapillary | 30d | 実装済 |
+| `did:web:maps.etzhayyim.com:planet` | OSM Planet | 週次 | 実装済 |
+| `did:web:maps.etzhayyim.com:user_post` | User post EXIF geolocation | 無期限 | 実装済 |
+| `did:web:maps.etzhayyim.com:mapraly` | Mapraly POI/route | 7d | 実装済 |
+| `did:web:maps.etzhayyim.com:vision` | Murakumo Vision analysis | 無期限 | 実装済 |
+| `did:web:maps.etzhayyim.com:satellite` | Sentinel-2 / Landsat (STAC) | 30d | 実装済 (heartbeat dispatch) |
+| `did:web:maps.etzhayyim.com:seismic` | USGS Earthquake Hazards API | 15m | **実装済 (heartbeat dispatch)** |
+| `did:web:maps.etzhayyim.com:gtfs` | MLIT GTFS-JP (全国公共交通, bus + train + 時刻表 summary) | 1d | **実装済 (heartbeat dispatch + bulk-ingest pod, BPMN bulkRefreshGtfsJp R/PT24H)** |
+| `did:web:maps.etzhayyim.com:registry:openflights` | OpenFlights routes (空路, ODbL) | 7d | **実装済 (bulk-ingest pod, BPMN bulkRefreshOpenflights R/P7D)** |
+| `did:web:maps.etzhayyim.com:registry:osm:ferry` | OSM relation[route=ferry] (海路, ODbL) | 7d | **実装済 (bulk-ingest pod, BPMN bulkRefreshFerryRoutes R/P7D)** |
+| `did:web:site.etzhayyim.com` | site.etzhayyim.com Web Crawl (WET/WAT geo extraction) | 7d | 実装済 |
+| `did:web:maps.etzhayyim.com:registry:gleif` | GLEIF (Global LEI Foundation) | 30d | **実装済** |
+| `did:web:maps.etzhayyim.com:registry:opencorporates` | OpenCorporates | 7d | **実装済** |
+| `did:web:maps.etzhayyim.com:registry:wikidata` | Wikidata corporations/properties | 7d | **実装済** |
+| `did:web:maps.etzhayyim.com:registry:osm` | OSM operator/owner tags | 7d | **実装済** |
+| `did:web:maps.etzhayyim.com:registry:jp-moj` | Japan MOJ 登記情報 | 30d | **実装済** |
+| `did:web:maps.etzhayyim.com:registry:jp-nta` | Japan NTA 法人番号 | 1d | **実装済** |
+| `did:web:maps.etzhayyim.com:registry:uk-ch` | UK Companies House | 7d | **実装済** |
+| `did:web:maps.etzhayyim.com:registry:us-edgar` | US SEC EDGAR | 7d | **実装済** |
+| `did:web:maps.etzhayyim.com:registry:eu-br` | EU Business Registries | 30d | **実装済** |
+| `did:web:maps.etzhayyim.com:registry:openaddresses` | OpenAddresses global | 30d | **実装済** |
 
 ## Transit Architecture — bus / train / 海路 / 空路 (2026-04-27)
 
@@ -213,7 +213,7 @@ Client Request
 Lexicon: `00-contracts/lexicons/ai/gftd/apps/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.json`。
 BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.bpmn`。
 K8s manifest: `60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-{gtfs-jp,openflights,ferry-routes}.yaml`。
-Image: `ghcr.io/gftdcojp/maps-bulk-ingest:1.1.0` (1 image / N command, CMD で worker を切替)。
+Image: `ghcr.io/etzhayyim/maps-bulk-ingest:1.1.0` (1 image / N command, CMD で worker を切替)。
 
 **運行予定の粒度** (2026-04-27 update, Phase 2 shipped):
 
@@ -254,7 +254,7 @@ python3 60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py \
 | Static path | `cmdNextDeparturesAtStop` | **不変** — RT feed が落ちても静的 timetable は返り続ける (advisor invariant) |
 | Tables | `vertex_maps_vehicle_position` PK `(feed_id, vehicle_id, ts)` / `vertex_maps_trip_update` PK `(feed_id, trip_id, stop_sequence, ts)` / `vertex_maps_service_alert` PK `(feed_id, alert_id, ts)` | append-only |
 | Streaming MV (window-pruned) | `mv_maps_recent_vehicle_position` (5m DISTINCT ON) / `mv_maps_recent_trip_update` (30m DISTINCT ON) / `mv_maps_active_alerts` (active_until > now AND ts > now-24h DISTINCT ON) | window 内 latest per key |
-| Image | `ghcr.io/gftdcojp/maps-bulk-ingest:1.2.0` (`gtfs-realtime-bindings==1.0.0` 追加) | requires rebuild + push |
+| Image | `ghcr.io/etzhayyim/maps-bulk-ingest:1.2.0` (`gtfs-realtime-bindings==1.0.0` 追加) | requires rebuild + push |
 
 **End-to-end smoke is NOT performed** — schema migration not yet applied, dumper never connected to a real feed, RT MV not exercised. これは設計上の状態 (operator が ODPT key + ODPT 規約同意なしに RT 通信を開始しないため)。Bring-up:
 
@@ -276,7 +276,7 @@ kubectl -n maps-bulk-ingest set env deploy/bulk-ingest-gtfs-rt \
 kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-gtfs-rt --replicas=1
 # 6. Verify cycle
 kubectl -n maps-bulk-ingest logs -f deploy/bulk-ingest-gtfs-rt
-curl https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.realtimeDelaysAtStop?stopId=gtfsjp-...
+curl https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.realtimeDelaysAtStop?stopId=gtfsjp-...
 ```
 
 **Schedule realtime (GTFS-RT, 遅延 / 運休)**: 未実装。GTFS-RT VehiclePosition / TripUpdate
@@ -332,12 +332,12 @@ register/list: LegalEntity, Operator, PropertyOwner, LandRegistry, PropertyRegis
 
 ### Layer 1: Visual Layer DIDs (11, KAMI rendering layers)
 
-`did:web:{appId}.gftd.ai:layer:{slug}` — tile, poi, route, infra, building, weather, sensor, transport, geography, satellite, event
+`did:web:{appId}.etzhayyim.com:layer:{slug}` — tile, poi, route, infra, building, weather, sensor, transport, geography, satellite, event
 
 ### Layer 2: Region DIDs (canonical nanoid + scheme alias DIDs)
 
-`did:web:{appId}.gftd.ai:region:{nanoid}` — canonical AdminArea DID (stable, scheme-agnostic)
-`did:web:{appId}.gftd.ai:geo:{scheme}:{code}` — scheme alias DIDs (ISO 3166, JIS, H3, S2, MGRS, etc.)
+`did:web:{appId}.etzhayyim.com:region:{nanoid}` — canonical AdminArea DID (stable, scheme-agnostic)
+`did:web:{appId}.etzhayyim.com:geo:{scheme}:{code}` — scheme alias DIDs (ISO 3166, JIS, H3, S2, MGRS, etc.)
 
 **Bootstrap**: JP country (1) + 47 prefectures. Each gets canonical DID + 2 alias DIDs (iso3166-2 + jis-x0401).
 
@@ -345,8 +345,8 @@ register/list: LegalEntity, Operator, PropertyOwner, LandRegistry, PropertyRegis
 
 ### Layer 3: Zone DIDs (vertical + natural)
 
-`did:web:{appId}.gftd.ai:vzone:{slug}` — VerticalZone (atmosphere 5 + underground 4 + ocean 5 = 14)
-`did:web:{appId}.gftd.ai:nzone:{slug}` — NaturalZone (Köppen 5 + biome 14 + tectonic 15 = 34)
+`did:web:{appId}.etzhayyim.com:vzone:{slug}` — VerticalZone (atmosphere 5 + underground 4 + ocean 5 = 14)
+`did:web:{appId}.etzhayyim.com:nzone:{slug}` — NaturalZone (Köppen 5 + biome 14 + tectonic 15 = 34)
 
 ### Graph Nodes
 
@@ -381,7 +381,7 @@ register/list: LegalEntity, Operator, PropertyOwner, LandRegistry, PropertyRegis
 |---|---|---|---|---|---|
 | maps-ui | `maps-ui-uqpel6i6` | uqpel6i6 | TS Native | 全 15 WIT ドメイン + source/job/dataset/POI 統合 | 172 |
 
-**Consolidated 2026-04-22**: 旧 `maps-collection-control-plane-v1m9k2q8` (nanoid v1m9k2q8) は maps-ui に統合 (Worker 1 本化)。16 commands (registerSource/listSources/createCollectionJob/advanceJob/listJobs/getJobStatus/storeDataset/getDataset/listDatasets/getPipelineStats/importOsmPois/importWikidataPois/searchPoi/getPoi/listPoiTypes/registerWriterProfiles) は `src/collection-commands.ts` に移植。`v1m9k2q8.gftd.ai` route は削除。
+**Consolidated 2026-04-22**: 旧 `maps-collection-control-plane-v1m9k2q8` (nanoid v1m9k2q8) は maps-ui に統合 (Worker 1 本化)。16 commands (registerSource/listSources/createCollectionJob/advanceJob/listJobs/getJobStatus/storeDataset/getDataset/listDatasets/getPipelineStats/importOsmPois/importWikidataPois/searchPoi/getPoi/listPoiTypes/registerWriterProfiles) は `src/collection-commands.ts` に移植。`v1m9k2q8.etzhayyim.com` route は削除。
 
 ## Commands — maps-ui (uqpel6i6)
 
@@ -486,11 +486,11 @@ Design: `world_belief_update` applies a single Bayesian posterior update for a s
 
 | Command | Description |
 |---|---|
-| `seed_geo_domains` | Seed geo domain crawls via site.gftd.ai + CommonCrawl fallback (36 target domains) |
+| `seed_geo_domains` | Seed geo domain crawls via site.etzhayyim.com + CommonCrawl fallback (36 target domains) |
 | `list_geo_domains` | List geo domain crawl targets (filter: category, country) |
 | `list_web_crawl_geo_entities` | List geo entities extracted from WET/WAT (filter: domain, entityType) |
 
-**Pipeline**: `seedGeoDomains` → cross-actor invoke `site.gftd.ai:seedForProject` → site crawls domains + CC fallback → WET/WAT records → maps `handleComAtprotoSyncSubscribeReposCommit` subscribes → WET: Murakumo NER geo entity extraction → WAT: outlink graph + geo sub-page discovery → `WebCrawlGeoEntity` graph nodes
+**Pipeline**: `seedGeoDomains` → cross-actor invoke `site.etzhayyim.com:seedForProject` → site crawls domains + CC fallback → WET/WAT records → maps `handleComAtprotoSyncSubscribeReposCommit` subscribes → WET: Murakumo NER geo entity extraction → WAT: outlink graph + geo sub-page discovery → `WebCrawlGeoEntity` graph nodes
 
 **Target domains (56)**: JP GIS (nlftp.mlit.go.jp, gsi.go.jp, maps.gsi.go.jp, stat.go.jp), JP Transport (JR East/West/Central, Tokyo Metro, Navitime, ekitan), JP Hazard (disaportal.gsi.go.jp, jma.go.jp, j-shis.bosai.go.jp, river.go.jp), JP Municipal GIS (Tokyo/Osaka/Nagoya city), JP Real Estate (reinfolib, land.mlit.go.jp), JP Airport/Port (NRT, KIX, Tokyo Port), Global GIS (OSM, Natural Earth, GADM, Wikidata, Wikipedia, geofabrik, humdata, data.europa.eu), Global Transport (OpenRailwayMap, FlightRadar24, MarineTraffic, OurAirports), Hazard (USGS earthquake, EMSC, tsunami.gov, GDACS, FIRMS wildfire, flood.firetoc.eu), Satellite (Copernicus, USGS earthexplorer), Tourism (JNTO, japan.travel), Infrastructure (TEPCO, Tokyo Waterworks)
 
@@ -507,7 +507,7 @@ Design: `world_belief_update` applies a single Bayesian posterior update for a s
 ### maps-ui — Hono + Svelte CSR (Single Worker)
 
 ```
-maps.gftd.ai / uqpel6i6.gftd.ai
+maps.etzhayyim.com / uqpel6i6.etzhayyim.com
   → Single Worker (magatama-uqpel6i6, src/app.ts)
     ├─ /_app/meta     → host-sdk auto route
     ├─ static assets  → Workers Assets (svelte/build/)
@@ -526,7 +526,7 @@ Domain (`ai.gftd.apps.maps.*`): `createKyselyDb(env.HYPERDRIVE).insertInto("vert
 
 Social posts: `sdk.pds.dispatch({ type: "app.bsky.feed.post", text, ... })` (PDS 経由、federates)。ローカル `post()` 経路は既存の `vertex_repo_record` direct write を維持。
 
-Cross-actor invoke (Murakumo / site.gftd.ai): `sdk.pds.dispatch({ type: "invoke", payload: { did, method, params } })` — storage ではなく agent RPC なので PDS 維持。
+Cross-actor invoke (Murakumo / site.etzhayyim.com): `sdk.pds.dispatch({ type: "invoke", payload: { did, method, params } })` — storage ではなく agent RPC なので PDS 維持。
 
 ## Graph Schema
 

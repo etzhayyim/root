@@ -1,15 +1,15 @@
 # KAMI — Game Creation Workbench + Shared World Platform
 
-`kami.gftd.ai` — Godot + Actor Model ベースのゲーム制作ワークベンチ。ユーザーが対話的にゲームを設計・制作し `games.gftd.ai` に投稿する。共通世界 "KAMI World" 上で Minecraft/Fortnite/Roblox のようにユーザー制作ゲームが共存する。
+`kami.etzhayyim.com` — Godot + Actor Model ベースのゲーム制作ワークベンチ。ユーザーが対話的にゲームを設計・制作し `games.etzhayyim.com` に投稿する。共通世界 "KAMI World" 上で Minecraft/Fortnite/Roblox のようにユーザー制作ゲームが共存する。
 
 ## 概要
 
 | 要素 | 定義 |
 |---|---|
-| **KAMI Workbench** | kami.gftd.ai — 対話的ゲーム制作ツール (canvas mode) |
+| **KAMI Workbench** | kami.etzhayyim.com — 対話的ゲーム制作ツール (canvas mode) |
 | **KAMI World** | 共有永続世界。ユーザー制作ゲームが "Island" として接続される |
-| **games.gftd.ai** | 公開配信面。KAMI から publish されたゲームのアーケード |
-| **assethub.gftd.ai** | 3D/2D/Audio/Live2D アセット。KAMI Workbench から直接参照・配置 |
+| **games.etzhayyim.com** | 公開配信面。KAMI から publish されたゲームのアーケード |
+| **assethub.etzhayyim.com** | 3D/2D/Audio/Live2D アセット。KAMI Workbench から直接参照・配置 |
 
 ## Architecture: Godot + Actor Model
 
@@ -18,12 +18,12 @@
 Godot 4.x Web Export が全ゲームの実行基盤。
 
 ```
-KAMI Workbench (kami.gftd.ai)
+KAMI Workbench (kami.etzhayyim.com)
   ├─ Scene Editor ← Godot scene tree (.tscn) を対話的に構築
   ├─ Script Editor ← GDScript / Visual Script (node-based)
-  ├─ Asset Browser ← assethub.gftd.ai cross-actor 連携
+  ├─ Asset Browser ← assethub.etzhayyim.com cross-actor 連携
   ├─ World Preview ← Godot Web Export (iframe sandbox)
-  └─ Publish Pipeline ← games.gftd.ai へ投稿
+  └─ Publish Pipeline ← games.etzhayyim.com へ投稿
 ```
 
 ### Actor Model (magatama:actor WIT)
@@ -81,7 +81,7 @@ Island {
   world_seed:  u64
   scene_tree:  CAS CID (Godot .tscn → MDAG)
   scripts:     list<CAS CID> (GDScript → MDAG)
-  assets:      list<AssetRef> (assethub.gftd.ai 参照)
+  assets:      list<AssetRef> (assethub.etzhayyim.com 参照)
   state:       enum { draft, testing, published, archived }
   portal_pos:  Vec3 (Hub Island 上の Portal 位置)
 }
@@ -113,7 +113,7 @@ Island {
 |---|---|---|
 | **HOT** | プレイ中の Actor state | W Protocol Event Stream (`WRecord` + `G()`) |
 | **WARM** | Island scene tree, scripts | MDAG CAS (B2 Arrow IPC) |
-| **COLD** | Analytics, leaderboard history | Cypher graph (yata.gftd.ai) |
+| **COLD** | Analytics, leaderboard history | Cypher graph (yata.etzhayyim.com) |
 
 ## KAMI Workbench — 対話的制作フロー
 
@@ -156,7 +156,7 @@ icon = "⛩️"
 
 2. Scene Edit
    → Node tree 編集 (2D: Sprite, TileMap / 3D: MeshInstance, Area)
-   → assethub.gftd.ai からアセットドラッグ配置
+   → assethub.etzhayyim.com からアセットドラッグ配置
    → Transform (position, rotation, scale) をインスペクタで調整
 
 3. Script
@@ -169,10 +169,10 @@ icon = "⛩️"
    → マルチプレイテスト (W Protocol channel で招待)
    → cross-actor: QA agent (ISCO 2519) 自動テスト
 
-5. Publish → games.gftd.ai
+5. Publish → games.etzhayyim.com
    → scene_tree + scripts を MDAG CAS commit
    → asset 参照を assethub CID で固定
-   → games.gftd.ai の Island カタログに登録
+   → games.etzhayyim.com の Island カタログに登録
    → Hub Island に Portal 自動生成
 ```
 
@@ -181,7 +181,7 @@ icon = "⛩️"
 ### Cross-actor Integration
 
 ```go
-// KAMI → assethub.gftd.ai cross-actor 呼び出し
+// KAMI → assethub.etzhayyim.com cross-actor 呼び出し
 app.Command("", "browse-assets", cmdBrowseAssets,
     magatama.AsAgentTool("Browse game assets from AssetHub"),
     magatama.WithCapabilityTags("asset", "game-creation"),
@@ -280,7 +280,7 @@ func init() {
         magatama.WithCapabilityTags("game", "build"),
     )
     app.Command("", "publish-island", cmdPublishIsland,
-        magatama.AsAgentTool("Publish island to games.gftd.ai"),
+        magatama.AsAgentTool("Publish island to games.etzhayyim.com"),
         magatama.WithCapabilityTags("game", "publishing"),
     )
     app.Command("", "test-island", cmdTestIsland,
@@ -414,7 +414,7 @@ kami-world (k4m1w0ld)
 - Island 間移動は Portal → kami-world matchmaker → 新 DO instance に接続
 - `magatama:cloudflare/durable-object-websocket` で低遅延リアルタイム通信
 
-### Godot Addons (games.gftd.ai 既存 + KAMI 追加)
+### Godot Addons (games.etzhayyim.com 既存 + KAMI 追加)
 
 | Addon | ID | 用途 | 出典 |
 |---|---|---|---|
@@ -431,7 +431,7 @@ kami-world (k4m1w0ld)
 | **`gftd_actor`** | **C14** | **Actor binding (server-authoritative entities)** | **KAMI 新規** |
 | **`gftd_assethub`** | **C15** | **AssetHub runtime loader (CDN fetch + cache)** | **KAMI 新規** |
 
-## Publish Pipeline: KAMI → games.gftd.ai
+## Publish Pipeline: KAMI → games.etzhayyim.com
 
 ```
 1. save-scene / save-script
@@ -444,14 +444,14 @@ kami-world (k4m1w0ld)
    → WRecord: island_versions
 
 3. publish-island
-   → cross-actor: games.gftd.ai "register-game" tool
+   → cross-actor: games.etzhayyim.com "register-game" tool
      → WRecord: game catalog
      → Hub Island: Portal 自動配置 (portal_x/y/z)
    → W Protocol WSend: "creations" channel
      → card type: application/vnd.gftd.card.island-published
    → island.state = "published"
 
-4. games.gftd.ai 上で
+4. games.etzhayyim.com 上で
    → Island カタログに表示
    → Player が Portal から直接 join
    → Leaderboard / Achievements 自動連携 (magatama:game WIT)
@@ -523,8 +523,8 @@ interface asset-bridge {
 
 1. `ai-gftd-project-umu` の docs, games, wasm を `ai-gftd-project-kami` に統合
 2. 既存 kami actor-naming は `kami-workbench` の内部機能として吸収 (Island/Actor 命名)
-3. ドメイン: `umu.gftd.ai` → `kami.gftd.ai`
-4. games.gftd.ai は公開配信面として維持 (変更なし)
+3. ドメイン: `umu.etzhayyim.com` → `kami.etzhayyim.com`
+4. games.etzhayyim.com は公開配信面として維持 (変更なし)
 
 ## 差別化: Minecraft / Fortnite / Roblox との比較
 
@@ -533,7 +533,7 @@ interface asset-bridge {
 | Engine | Custom Java | Unreal | Luau/Custom | **Godot (OSS)** |
 | Script | Java mods | Verse | Luau | **GDScript + Visual Script** |
 | Actor model | なし | なし | 簡易 | **magatama:actor WIT (full)** |
-| Asset market | なし | Store | Creator Store | **assethub.gftd.ai (open)** |
+| Asset market | なし | Store | Creator Store | **assethub.etzhayyim.com (open)** |
 | Identity | Microsoft | Epic | Roblox | **AT Protocol DID** |
 | Messaging | In-game | In-game | In-game | **W Protocol (E2E encrypted)** |
 | Monetization | Marketplace | V-Bucks | Robux | **magatama:game/economy (Gems)** |

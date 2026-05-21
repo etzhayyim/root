@@ -30,7 +30,7 @@ ADR-0049 D5 で legal-corpus + 4 logical actors の lexicon を method-agnostic
 | method | 例 | 用途 |
 |---|---|---|
 | `did:erc725` | `did:erc725:gftd:260425:0xAbC...` | platform primary identity (ADR-0074) |
-| `did:web` | `did:web:lawfirm.gftd.ai`, `did:web:judge.gftd.ai:JPN:tanaka-001` | AT Protocol facade / external entity catalogue |
+| `did:web` | `did:web:lawfirm.etzhayyim.com`, `did:web:judge.etzhayyim.com:JPN:tanaka-001` | AT Protocol facade / external entity catalogue |
 | `did:plc` | `did:plc:abcd1234...` | legacy AT primary (Bluesky compatibility) |
 | `did:pkh` | `did:pkh:eip155:1:0xAbC...` | wallet alias (CAIP-10) |
 | `did:gftd` | `did:gftd:lf1rm8k0:abc:def` | legacy / migration 期間中のみ受理 |

@@ -70,7 +70,7 @@ log "Phase 2: rotating — cur=new, prev=old, sign with new"
 # Since wrangler doesn't expose a 'secret get' cleanly, we re-publish the OLD pub
 # as _PREV via a helper: the dev must have kept a copy. Here we assume the
 # previous public key is available via the currently-served did.json.
-OLD_PUB_MB=$(curl -s "https://auth.gftd.ai/.well-known/did.json?t=$(date +%s)" -H "Cache-Control: no-cache" | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')); const vm=d.verificationMethod.find(v=>v.id.endsWith('#atproto')); console.log(vm.publicKeyMultibase);")
+OLD_PUB_MB=$(curl -s "https://auth.etzhayyim.com/.well-known/did.json?t=$(date +%s)" -H "Cache-Control: no-cache" | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')); const vm=d.verificationMethod.find(v=>v.id.endsWith('#atproto')); console.log(vm.publicKeyMultibase);")
 log "Phase 2: observed old publicKeyMultibase = $OLD_PUB_MB"
 log "Phase 2: NOTE: SS_AUTH_PUBLIC_KEY_B64_PREV must be set manually with the OLD b64url pubkey (only multibase is observable from did.json — the raw 65B form is recoverable but requires multibase decode + uncompressed re-encode; out of scope for this script)."
 log "Phase 2: proceeding with flip priv + cur"
@@ -89,7 +89,7 @@ log "  run manually: npx wrangler secret delete SS_AUTH_PUBLIC_KEY_B64_PREV --fo
 
 # Verify
 log "Post-rotation did.json:"
-curl -s "https://auth.gftd.ai/.well-known/did.json?t=$(date +%s)" -H "Cache-Control: no-cache" | head -c 500
+curl -s "https://auth.etzhayyim.com/.well-known/did.json?t=$(date +%s)" -H "Cache-Control: no-cache" | head -c 500
 echo
 
 log "✓ rotation procedure complete"

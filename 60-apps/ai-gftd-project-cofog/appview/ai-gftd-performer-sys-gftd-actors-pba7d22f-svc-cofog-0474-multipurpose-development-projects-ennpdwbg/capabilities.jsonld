@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/7/4/multipurpose-development-projects",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/7/4/multipurpose-development-projects",
       "type": "dodaf:Capability",
       "name": "Multipurpose Development Project Orchestration Capability",
       "description": "Functional capability for managing large-scale, multi-sector development projects and multi-agency coordination. Classification: COFOG Division 04, Group 7, Class 4.",

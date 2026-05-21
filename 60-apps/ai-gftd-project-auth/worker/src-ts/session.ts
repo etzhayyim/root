@@ -71,7 +71,7 @@ export async function issueSession(
   // other. Inherited across refresh rotation; freshly minted on sign-in.
   const sid = opts.sid || uuid();
   const accessPayloadB64 = encodeJsonBase64Url({
-    iss: "https://authn.gftd.ai",
+    iss: "https://authn.etzhayyim.com",
     aud: "atproto",
     sub: did,
     did,
@@ -88,7 +88,7 @@ export async function issueSession(
     ...(identity.cnfJkt ? { cnf: { jkt: identity.cnfJkt } } : {}),
   });
   const refreshPayloadB64 = encodeJsonBase64Url({
-    iss: "https://authn.gftd.ai",
+    iss: "https://authn.etzhayyim.com",
     aud: "atproto",
     sub: did,
     did,
@@ -132,7 +132,7 @@ export async function verifySession(secret: string, token: string, expectedScope
   const normalizedExpected = expectedScope === "atproto" ? "com.atproto.access" : expectedScope;
   if (normalizedScope !== normalizedExpected) throw new Error("scope mismatch");
 
-  if (payload.iss !== "https://authn.gftd.ai") throw new Error("issuer mismatch");
+  if (payload.iss !== "https://authn.etzhayyim.com") throw new Error("issuer mismatch");
   return payload;
 }
 

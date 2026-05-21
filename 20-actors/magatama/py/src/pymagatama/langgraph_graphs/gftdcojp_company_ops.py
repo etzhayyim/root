@@ -1,5 +1,5 @@
 """
-gftdcojp.etzhayyim.com — Japanese company operations LangGraph (ADR-2605080600).
+etzhayyim.etzhayyim.com — Japanese company operations LangGraph (ADR-2605080600).
 
 Principal: etzhayyim (sole operator)
 Vendor capacity: Gftd Japan株式会社 (engineering contractor)
@@ -21,7 +21,7 @@ State flow:
 LLM: llm.call_tier("structured", ...) via _GFTD_LLM_URL → murakumo/RunPod
   (ADR-2605010000: RunPod 6000 Ada is LLM SSoT)
 
-Registered as assistant_id="gftdcojp-company-ops" in langgraph_server_app.
+Registered as assistant_id="etzhayyim-company-ops" in langgraph_server_app.
 """
 
 from __future__ import annotations
@@ -32,9 +32,9 @@ import time as _time
 import uuid
 from typing import Any, Literal, TypedDict
 
-LOG = logging.getLogger("gftdcojp.company_ops")
+LOG = logging.getLogger("etzhayyim.company_ops")
 
-_ORG_DID   = "did:web:gftdcojp.etzhayyim.com"
+_ORG_DID   = "did:web:etzhayyim.etzhayyim.com"
 _OWNER_DID = "did:web:bpmn.etzhayyim.com"
 
 # Human-DID mapping for audit trail (same members as kaisya_ai_org.py)
@@ -86,7 +86,7 @@ def _now_iso() -> str:
 def _vid(kind: str) -> str:
     import datetime as _dt
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{_OWNER_DID}/ai.gftd.apps.gftdcojp.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{_OWNER_DID}/ai.gftd.apps.etzhayyim.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _llm_structured(system: str, user: str, max_tokens: int = 800) -> dict:
@@ -140,7 +140,7 @@ def _db_query(sql_str: str, params: dict | None = None) -> list[dict]:
 
 # ── Node: supervisor ───────────────────────────────────────────────────────────
 
-_SUPERVISOR_SYSTEM = """You are the AI supervisor for gftdcojp.etzhayyim.com (operated by etzhayyim, vendor: Gftd Japan株式会社).
+_SUPERVISOR_SYSTEM = """You are the AI supervisor for etzhayyim.etzhayyim.com (operated by etzhayyim, vendor: Gftd Japan株式会社).
 Classify the incoming task into exactly ONE domain: hr | finance | legal | sales | governance.
 
 Domain definitions:
@@ -213,7 +213,7 @@ def hr_agent(state: CompanyOpsState) -> dict:
 
     # Persist DB writes requested by LLM
     for write in result.get("db_writes") or []:
-        table = write.get("table", "vertex_gftdcojp_hr_event")
+        table = write.get("table", "vertex_etzhayyim_hr_event")
         row   = write.get("row", {})
         if row and not row.get("vertex_id"):
             row["vertex_id"] = _vid("hr." + task_type.split(".")[-1])
@@ -254,7 +254,7 @@ def finance_agent(state: CompanyOpsState) -> dict:
     ok = bool(result.get("ok", True))
 
     for write in result.get("db_writes") or []:
-        table = write.get("table", "vertex_gftdcojp_finance_event")
+        table = write.get("table", "vertex_etzhayyim_finance_event")
         row   = write.get("row", {})
         if row and not row.get("vertex_id"):
             row["vertex_id"] = _vid("finance." + task_type.split(".")[-1])
@@ -309,7 +309,7 @@ def legal_agent(state: CompanyOpsState) -> dict:
     ok = bool(result.get("ok", True))
 
     for write in result.get("db_writes") or []:
-        table = write.get("table", "vertex_gftdcojp_legal_event")
+        table = write.get("table", "vertex_etzhayyim_legal_event")
         row   = write.get("row", {})
         if row and not row.get("vertex_id"):
             row["vertex_id"] = _vid("legal." + task_type.split(".")[-1])
@@ -350,7 +350,7 @@ def sales_agent(state: CompanyOpsState) -> dict:
     ok = bool(result.get("ok", True))
 
     for write in result.get("db_writes") or []:
-        table = write.get("table", "vertex_gftdcojp_sales_event")
+        table = write.get("table", "vertex_etzhayyim_sales_event")
         row   = write.get("row", {})
         if row and not row.get("vertex_id"):
             row["vertex_id"] = _vid("sales." + task_type.split(".")[-1])
@@ -367,7 +367,7 @@ def sales_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Governance agent ─────────────────────────────────────────────────────
 
-_GOVERNANCE_SYSTEM = """You are the Governance AI agent for gftdcojp.etzhayyim.com (etzhayyim principal).
+_GOVERNANCE_SYSTEM = """You are the Governance AI agent for etzhayyim.etzhayyim.com (etzhayyim principal).
 Evaluate Ω(t) = Shannon_η(t) × U_total(t) and generate management decisions.
 
 Ω axes:
@@ -422,7 +422,7 @@ def governance_agent(state: CompanyOpsState) -> dict:
         "summary": result.get("summary", ""),
         "created_at": _now_iso(),
     }
-    _db_insert("vertex_gftdcojp_governance_event", gov_row)
+    _db_insert("vertex_etzhayyim_governance_event", gov_row)
 
     return {
         "result": result,
@@ -440,11 +440,11 @@ _PERSONNEL_SYSTEM = """You are the Personnel/HR-Ops AI agent for Gftd Japan株�
 Manage contracted person records, role definitions, project assignments, and RACI matrices.
 
 Tables:
-  vertex_gftdcojp_person      (person_did, display_name, employment_type, department, title, status)
-  vertex_gftdcojp_role        (role_id, role_name, department, level, is_leadership)
-  vertex_gftdcojp_assignment  (person_did, role_id, project_id, allocation_pct, start_date, end_date, status)
-  vertex_gftdcojp_raci        (task_nsid, person_did, raci_role ∈ {R,A,C,I}, context, effective_date)
-  vertex_gftdcojp_okr         (person_did, team, period, objective, key_result, progress_pct)
+  vertex_etzhayyim_person      (person_did, display_name, employment_type, department, title, status)
+  vertex_etzhayyim_role        (role_id, role_name, department, level, is_leadership)
+  vertex_etzhayyim_assignment  (person_did, role_id, project_id, allocation_pct, start_date, end_date, status)
+  vertex_etzhayyim_raci        (task_nsid, person_did, raci_role ∈ {R,A,C,I}, context, effective_date)
+  vertex_etzhayyim_okr         (person_did, team, period, objective, key_result, progress_pct)
 
 Tasks:
 - personnel.list / personnel.get / personnel.update — person CRUD
@@ -472,7 +472,7 @@ def personnel_agent(state: CompanyOpsState) -> dict:
     if task_type.startswith(("personnel.list", "role.list", "assignment.list", "raci.list")):
         rows = _db_query(
             "SELECT person_did, display_name, department, title, status "
-            "FROM vertex_gftdcojp_person WHERE status='active' LIMIT 50"
+            "FROM vertex_etzhayyim_person WHERE status='active' LIMIT 50"
         )
         if rows:
             snapshot_ctx = "\nActive personnel: " + json.dumps(rows, ensure_ascii=False)
@@ -483,7 +483,7 @@ def personnel_agent(state: CompanyOpsState) -> dict:
 
     # Persist DB writes (assignment / raci updates)
     for write in result.get("db_writes") or []:
-        table = write.get("table", "vertex_gftdcojp_assignment")
+        table = write.get("table", "vertex_etzhayyim_assignment")
         row   = write.get("row", {})
         if row and not row.get("vertex_id"):
             row["vertex_id"] = _vid("personnel." + task_type.split(".")[-1])
@@ -520,7 +520,7 @@ def emit_audit(state: CompanyOpsState) -> dict:
             {
                 "vid":  str(uuid.uuid4()),
                 "repo": _ORG_DID,
-                "col":  "ai.gftd.apps.gftdcojp.ops",
+                "col":  "ai.gftd.apps.etzhayyim.ops",
                 "rkey": f"ops-{ts_ms}",
                 "act":  "create",
                 "ts":   ts_ms,
@@ -627,15 +627,15 @@ def _persist_domain(
 
 
 def hr_persist(state: CompanyOpsState) -> dict:
-    return _persist_domain(state, "hrLlmOut", "vertex_gftdcojp_hr_event", "hr", "hr_audit_record")
+    return _persist_domain(state, "hrLlmOut", "vertex_etzhayyim_hr_event", "hr", "hr_audit_record")
 
 
 def finance_persist(state: CompanyOpsState) -> dict:
-    return _persist_domain(state, "financeLlmOut", "vertex_gftdcojp_finance_event", "finance", "finance_audit_record")
+    return _persist_domain(state, "financeLlmOut", "vertex_etzhayyim_finance_event", "finance", "finance_audit_record")
 
 
 def sales_persist(state: CompanyOpsState) -> dict:
-    return _persist_domain(state, "salesLlmOut", "vertex_gftdcojp_sales_event", "sales", "sales_audit_record")
+    return _persist_domain(state, "salesLlmOut", "vertex_etzhayyim_sales_event", "sales", "sales_audit_record")
 
 
 def legal_fetch_ctx(state: CompanyOpsState) -> dict:
@@ -652,7 +652,7 @@ def legal_fetch_ctx(state: CompanyOpsState) -> dict:
 
 
 def legal_persist(state: CompanyOpsState) -> dict:
-    return _persist_domain(state, "legalLlmOut", "vertex_gftdcojp_legal_event", "legal", "legal_audit_record")
+    return _persist_domain(state, "legalLlmOut", "vertex_etzhayyim_legal_event", "legal", "legal_audit_record")
 
 
 def governance_fetch_ctx(state: CompanyOpsState) -> dict:
@@ -668,7 +668,7 @@ def governance_fetch_ctx(state: CompanyOpsState) -> dict:
 
 def governance_persist(state: CompanyOpsState) -> dict:
     """Governance has extra fields: omega_score / floor_violated + a dedicated
-    INSERT into vertex_gftdcojp_governance_event."""
+    INSERT into vertex_etzhayyim_governance_event."""
     content = _envelope_content(state, "governanceLlmOut")
     result = _parse_llm_json(content) if content else {}
     task_type = state.get("task_type", "")
@@ -685,7 +685,7 @@ def governance_persist(state: CompanyOpsState) -> dict:
         "summary": result.get("summary", "") if isinstance(result, dict) else "",
         "created_at": _now_iso(),
     }
-    _db_insert("vertex_gftdcojp_governance_event", gov_row)
+    _db_insert("vertex_etzhayyim_governance_event", gov_row)
 
     return {
         "result": result,
@@ -715,7 +715,7 @@ def personnel_fetch_ctx(state: CompanyOpsState) -> dict:
     if task_type.startswith(("personnel.list", "role.list", "assignment.list", "raci.list")):
         rows = _db_query(
             "SELECT person_did, display_name, department, title, status "
-            "FROM vertex_gftdcojp_person WHERE status='active' LIMIT 50"
+            "FROM vertex_etzhayyim_person WHERE status='active' LIMIT 50"
         )
         if rows:
             return {"personnelContext": "Active personnel: " + json.dumps(rows, ensure_ascii=False)}
@@ -723,7 +723,7 @@ def personnel_fetch_ctx(state: CompanyOpsState) -> dict:
 
 
 def personnel_persist(state: CompanyOpsState) -> dict:
-    return _persist_domain(state, "personnelLlmOut", "vertex_gftdcojp_assignment", "personnel", "personnel_audit_record")
+    return _persist_domain(state, "personnelLlmOut", "vertex_etzhayyim_assignment", "personnel", "personnel_audit_record")
 
 
 # ── Router ─────────────────────────────────────────────────────────────────────
@@ -737,7 +737,7 @@ def _route_domain(state: CompanyOpsState) -> str:
 
 def build_graph():
     """
-    Compile the gftdcojp Company Ops StateGraph.
+    Compile the etzhayyim Company Ops StateGraph.
 
     Flow:
       supervisor → (domain router) → {hr|finance|legal|sales|governance}

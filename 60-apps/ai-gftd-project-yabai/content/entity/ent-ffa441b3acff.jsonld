@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-ffa441b3acff",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ffa441b3acff",
   "entityId": "ent-ffa441b3acff",
   "canonicalName": "black shield company for general trading llc",
   "aliases": [

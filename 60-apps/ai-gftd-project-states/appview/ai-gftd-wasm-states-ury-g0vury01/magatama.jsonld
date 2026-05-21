@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:ury-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:ury-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Uruguay (República Oriental del Uruguay) AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -109,7 +109,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "ury-state.gftd.ai",
+      "host": "ury-state.etzhayyim.com",
       "paths": [
         "/"
       ],

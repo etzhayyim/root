@@ -1,6 +1,6 @@
 {
   "meta": {
-    "id": "did:web:resource-flow.gftd.ai:dataset:rare-earth-supply-chain:2026-04-13",
+    "id": "did:web:resource-flow.etzhayyim.com:dataset:rare-earth-supply-chain:2026-04-13",
     "title": "Rare Earth Supply Chain Actor and Resource Flow Graph",
     "asOf": "2026-04-13",
     "generatedBy": "Codex",
@@ -111,7 +111,7 @@
   ],
   "vertices": [
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-state-council",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-state-council",
       "label": "State Council of China",
       "kind": "regulator",
       "actorClass": "government",
@@ -123,31 +123,31 @@
       "sourceRefs": ["china-state-council-2024-regulations", "mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:mofcom",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mofcom",
       "label": "MOFCOM",
       "kind": "regulator",
       "actorClass": "government-agency",
       "stage": "regulation",
       "jurisdiction": "CN",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:china-state-council"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-state-council"],
       "tags": ["licensing", "export-control"],
       "sourceRefs": ["mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:gac-china",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:gac-china",
       "label": "General Administration of Customs of China",
       "kind": "regulator",
       "actorClass": "government-agency",
       "stage": "regulation",
       "jurisdiction": "CN",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:china-state-council"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-state-council"],
       "tags": ["customs", "enforcement", "export-control"],
       "sourceRefs": ["mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:baogang-group",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:baogang-group",
       "label": "Baogang Group",
       "kind": "actor",
       "actorClass": "state-owned-enterprise",
@@ -155,26 +155,26 @@
       "jurisdiction": "CN",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:china-state-council",
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:bayan-obo"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-state-council",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:bayan-obo"
       ],
       "tags": ["upstream", "china", "light-rare-earth"],
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:asset:bayan-obo",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:bayan-obo",
       "label": "Bayan Obo Mine",
       "kind": "asset",
       "actorClass": "mine",
       "stage": "extraction",
       "jurisdiction": "CN",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:baogang-group"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:baogang-group"],
       "tags": ["mine", "light-rare-earth", "china"],
       "sourceRefs": ["iea-rare-earth-2026", "usgs-mcs-2026-rare-earths"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-northern-rare-earth",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-northern-rare-earth",
       "label": "China Northern Rare Earth Group",
       "kind": "actor",
       "actorClass": "processor",
@@ -182,39 +182,39 @@
       "jurisdiction": "CN",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:bayan-obo",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:mofcom",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:gac-china"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:bayan-obo",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mofcom",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:gac-china"
       ],
       "tags": ["separation", "refining", "china"],
       "sourceRefs": ["iea-rare-earth-2026", "mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:asset:southern-ion-adsorption-clays",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:southern-ion-adsorption-clays",
       "label": "Southern China Ion-Adsorption Clay Sector",
       "kind": "sector",
       "actorClass": "resource-cluster",
       "stage": "extraction",
       "jurisdiction": "CN",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:china-state-council"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-state-council"],
       "tags": ["heavy-rare-earth", "resource-cluster", "china"],
       "sourceRefs": ["iea-rare-earth-2026", "china-state-council-2024-regulations"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:sector:myanmar-ion-clays",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:myanmar-ion-clays",
       "label": "Myanmar Ion-Adsorption Clay Sector",
       "kind": "sector",
       "actorClass": "resource-cluster",
       "stage": "extraction",
       "jurisdiction": "MM",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:china-rare-earth-group"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-rare-earth-group"],
       "tags": ["heavy-rare-earth", "feedstock", "myanmar"],
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-rare-earth-group",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-rare-earth-group",
       "label": "China Rare Earth Group",
       "kind": "actor",
       "actorClass": "processor",
@@ -222,16 +222,16 @@
       "jurisdiction": "CN",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:southern-ion-adsorption-clays",
-        "did:web:resource-flow.gftd.ai:rare-earth:sector:myanmar-ion-clays",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:mofcom",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:gac-china"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:southern-ion-adsorption-clays",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:sector:myanmar-ion-clays",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mofcom",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:gac-china"
       ],
       "tags": ["heavy-rare-earth", "separation", "china"],
       "sourceRefs": ["iea-rare-earth-2026", "mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:shenghe-resources",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:shenghe-resources",
       "label": "Shenghe Resources",
       "kind": "actor",
       "actorClass": "processor-trader",
@@ -239,14 +239,14 @@
       "jurisdiction": "CN",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:mofcom",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:gac-china"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mofcom",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:gac-china"
       ],
       "tags": ["processing", "trading", "china"],
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
       "label": "China Permanent Magnet Sector",
       "kind": "sector",
       "actorClass": "manufacturing-cluster",
@@ -254,15 +254,15 @@
       "jurisdiction": "CN",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:china-northern-rare-earth",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:china-rare-earth-group",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:shenghe-resources"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-northern-rare-earth",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-rare-earth-group",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:shenghe-resources"
       ],
       "tags": ["ndfeb", "magnet", "dominant-downstream"],
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:white-house",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:white-house",
       "label": "The White House",
       "kind": "regulator",
       "actorClass": "government",
@@ -274,31 +274,31 @@
       "sourceRefs": ["white-house-2025-mineral-production"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:us-dod-osc",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:us-dod-osc",
       "label": "U.S. Department of Defense / Office of Strategic Capital",
       "kind": "actor",
       "actorClass": "government-financer",
       "stage": "finance",
       "jurisdiction": "US",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:white-house"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:white-house"],
       "tags": ["defense", "capital", "offtake"],
       "sourceRefs": ["mp-dod-partnership-2025", "white-house-2025-mineral-production"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:us-doe",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:us-doe",
       "label": "U.S. Department of Energy",
       "kind": "regulator",
       "actorClass": "government-agency",
       "stage": "policy",
       "jurisdiction": "US",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:white-house"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:white-house"],
       "tags": ["energy-policy", "processing-support"],
       "sourceRefs": ["white-house-2025-mineral-production"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:usgs",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:usgs",
       "label": "U.S. Geological Survey",
       "kind": "actor",
       "actorClass": "government-data",
@@ -310,19 +310,19 @@
       "sourceRefs": ["usgs-mcs-2026-rare-earths"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:asset:mountain-pass",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mountain-pass",
       "label": "Mountain Pass Mine and Processing Site",
       "kind": "asset",
       "actorClass": "mine-processing-site",
       "stage": "extraction",
       "jurisdiction": "US",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:mp-materials"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:mp-materials"],
       "tags": ["mine", "light-rare-earth", "integrated-site"],
       "sourceRefs": ["mp-mountain-pass", "usgs-mcs-2026-rare-earths"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:mp-materials",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mp-materials",
       "label": "MP Materials",
       "kind": "actor",
       "actorClass": "integrated-producer",
@@ -330,38 +330,38 @@
       "jurisdiction": "US",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:mountain-pass",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:us-dod-osc"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mountain-pass",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:us-dod-osc"
       ],
       "tags": ["mining", "separation", "metallization", "magnets"],
       "sourceRefs": ["mp-mountain-pass", "mp-dod-partnership-2025"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:asset:mp-independence-texas",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mp-independence-texas",
       "label": "MP Independence Magnetics Facility",
       "kind": "asset",
       "actorClass": "magnet-plant",
       "stage": "magnet-manufacturing",
       "jurisdiction": "US",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:mp-materials"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:mp-materials"],
       "tags": ["metal", "alloy", "ndfeb", "texas"],
       "sourceRefs": ["mp-dod-partnership-2025", "mp-magnetics-gm"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:general-motors",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:general-motors",
       "label": "General Motors",
       "kind": "actor",
       "actorClass": "oem",
       "stage": "demand",
       "jurisdiction": "US",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:asset:mp-independence-texas"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:asset:mp-independence-texas"],
       "tags": ["ev", "automotive", "offtake"],
       "sourceRefs": ["mp-magnetics-gm"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:lynas-rare-earths",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:lynas-rare-earths",
       "label": "Lynas Rare Earths",
       "kind": "actor",
       "actorClass": "integrated-producer",
@@ -369,38 +369,38 @@
       "jurisdiction": "AU",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:mt-weld",
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:lynas-malaysia"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mt-weld",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:lynas-malaysia"
       ],
       "tags": ["mining", "separation", "non-china"],
       "sourceRefs": ["lynas-about", "usgs-mcs-2026-rare-earths"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:asset:mt-weld",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mt-weld",
       "label": "Mt Weld Mine",
       "kind": "asset",
       "actorClass": "mine",
       "stage": "extraction",
       "jurisdiction": "AU",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:lynas-rare-earths"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:lynas-rare-earths"],
       "tags": ["mine", "australia", "light-rare-earth"],
       "sourceRefs": ["lynas-about", "usgs-mcs-2026-rare-earths"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:asset:lynas-malaysia",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:lynas-malaysia",
       "label": "Lynas Malaysia",
       "kind": "asset",
       "actorClass": "separation-plant",
       "stage": "separation",
       "jurisdiction": "MY",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:lynas-rare-earths"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:lynas-rare-earths"],
       "tags": ["processing", "separation", "malaysia"],
       "sourceRefs": ["lynas-about"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:australia-disr",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:australia-disr",
       "label": "Australian Department of Industry, Science and Resources",
       "kind": "regulator",
       "actorClass": "government-agency",
@@ -412,19 +412,19 @@
       "sourceRefs": ["australia-cmsr"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:export-finance-australia",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:export-finance-australia",
       "label": "Export Finance Australia",
       "kind": "actor",
       "actorClass": "government-financer",
       "stage": "finance",
       "jurisdiction": "AU",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:australia-disr"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:australia-disr"],
       "tags": ["finance", "strategic-reserve"],
       "sourceRefs": ["australia-cmsr"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:iluka-resources",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:iluka-resources",
       "label": "Iluka Resources",
       "kind": "actor",
       "actorClass": "producer-project-developer",
@@ -432,26 +432,26 @@
       "jurisdiction": "AU",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:eneabba-refinery",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:export-finance-australia"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:eneabba-refinery",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:export-finance-australia"
       ],
       "tags": ["refinery", "non-china", "strategic-project"],
       "sourceRefs": ["iluka-eneabba-fid", "australia-cmsr"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:asset:eneabba-refinery",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:eneabba-refinery",
       "label": "Eneabba Rare Earths Refinery",
       "kind": "asset",
       "actorClass": "refinery",
       "stage": "separation",
       "jurisdiction": "AU",
       "status": "planned",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:iluka-resources"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:iluka-resources"],
       "tags": ["refinery", "australia", "planned"],
       "sourceRefs": ["iluka-eneabba-fid"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-council",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-council",
       "label": "Council of the European Union",
       "kind": "regulator",
       "actorClass": "intergovernmental-body",
@@ -463,31 +463,31 @@
       "sourceRefs": ["eu-council-2026-crma"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-commission",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-commission",
       "label": "European Commission",
       "kind": "regulator",
       "actorClass": "supranational-executive",
       "stage": "policy",
       "jurisdiction": "EU",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:eu-council"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-council"],
       "tags": ["crma", "diversification", "industrial-policy"],
       "sourceRefs": ["eu-council-2026-crma", "eu-crma-board"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-crm-board",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-crm-board",
       "label": "European Critical Raw Materials Board",
       "kind": "actor",
       "actorClass": "policy-board",
       "stage": "policy",
       "jurisdiction": "EU",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:eu-commission"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-commission"],
       "tags": ["crma", "strategic-projects", "governance"],
       "sourceRefs": ["eu-crma-board"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:meti",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:meti",
       "label": "METI",
       "kind": "regulator",
       "actorClass": "government-agency",
@@ -499,19 +499,19 @@
       "sourceRefs": ["jogmec-caremag-2025"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:jogmec",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:jogmec",
       "label": "JOGMEC",
       "kind": "actor",
       "actorClass": "government-financer",
       "stage": "finance",
       "jurisdiction": "JP",
       "status": "active",
-      "deps": ["did:web:resource-flow.gftd.ai:rare-earth:actor:meti"],
+      "deps": ["did:web:resource-flow.etzhayyim.com:rare-earth:actor:meti"],
       "tags": ["finance", "offtake", "diversification"],
       "sourceRefs": ["jogmec-caremag-2025"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:actor:caremag",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:caremag",
       "label": "Caremag SAS",
       "kind": "actor",
       "actorClass": "refinery-project",
@@ -519,14 +519,14 @@
       "jurisdiction": "FR",
       "status": "planned",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:jogmec",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-commission"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:jogmec",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-commission"
       ],
       "tags": ["heavy-rare-earth", "refining", "france", "planned"],
       "sourceRefs": ["jogmec-caremag-2025", "eu-crma-board"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-ev-oem",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-ev-oem",
       "label": "Global EV OEM Cluster",
       "kind": "sector",
       "actorClass": "demand-cluster",
@@ -534,15 +534,15 @@
       "jurisdiction": "GLOBAL",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:mp-independence-texas",
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:lynas-malaysia"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mp-independence-texas",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:lynas-malaysia"
       ],
       "tags": ["ev", "demand", "magnets"],
       "sourceRefs": ["iea-rare-earth-2026", "mp-magnetics-gm"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-wind-oem",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-wind-oem",
       "label": "Global Wind Turbine OEM Cluster",
       "kind": "sector",
       "actorClass": "demand-cluster",
@@ -550,14 +550,14 @@
       "jurisdiction": "GLOBAL",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
-        "did:web:resource-flow.gftd.ai:rare-earth:asset:lynas-malaysia"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:asset:lynas-malaysia"
       ],
       "tags": ["wind", "demand", "magnets"],
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-defense-oem",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-defense-oem",
       "label": "Global Defense OEM Cluster",
       "kind": "sector",
       "actorClass": "demand-cluster",
@@ -565,9 +565,9 @@
       "jurisdiction": "GLOBAL",
       "status": "active",
       "deps": [
-        "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:mp-materials",
-        "did:web:resource-flow.gftd.ai:rare-earth:actor:caremag"
+        "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mp-materials",
+        "did:web:resource-flow.etzhayyim.com:rare-earth:actor:caremag"
       ],
       "tags": ["defense", "demand", "heavy-rare-earth"],
       "sourceRefs": ["iea-rare-earth-2026", "mp-dod-partnership-2025", "jogmec-caremag-2025"]
@@ -575,10 +575,10 @@
   ],
   "edges": [
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:state-council-to-mofcom",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:state-council-to-mofcom",
       "kind": "policy",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-state-council",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:mofcom",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-state-council",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mofcom",
       "relation": "authorizes",
       "label": "State Council-backed export control authority",
       "status": "active",
@@ -586,10 +586,10 @@
       "sourceRefs": ["mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:state-council-to-gac",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:state-council-to-gac",
       "kind": "policy",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-state-council",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:gac-china",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-state-council",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:gac-china",
       "relation": "authorizes",
       "label": "State Council-backed customs enforcement",
       "status": "active",
@@ -597,10 +597,10 @@
       "sourceRefs": ["mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:state-council-to-china-industry",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:state-council-to-china-industry",
       "kind": "regulation",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-state-council",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-northern-rare-earth",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-state-council",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-northern-rare-earth",
       "relation": "regulates",
       "label": "Rare earth administration regulations",
       "status": "active",
@@ -608,10 +608,10 @@
       "sourceRefs": ["china-state-council-2024-regulations"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:state-council-to-china-reg-2",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:state-council-to-china-reg-2",
       "kind": "regulation",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-state-council",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-rare-earth-group",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-state-council",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-rare-earth-group",
       "relation": "regulates",
       "label": "Rare earth administration regulations",
       "status": "active",
@@ -619,10 +619,10 @@
       "sourceRefs": ["china-state-council-2024-regulations"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:bayan-obo-to-northern",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:bayan-obo-to-northern",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:asset:bayan-obo",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-northern-rare-earth",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:bayan-obo",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-northern-rare-earth",
       "relation": "supplies",
       "resource": "light-rare-earth concentrate",
       "label": "Bayan Obo concentrate to separation system",
@@ -631,10 +631,10 @@
       "sourceRefs": ["iea-rare-earth-2026", "usgs-mcs-2026-rare-earths"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:baogang-to-bayan-obo",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:baogang-to-bayan-obo",
       "kind": "ownership",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:baogang-group",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:asset:bayan-obo",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:baogang-group",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:bayan-obo",
       "relation": "controls",
       "label": "Baogang-linked control of Bayan Obo resource base",
       "status": "active",
@@ -642,10 +642,10 @@
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:southern-clays-to-cerg",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:southern-clays-to-cerg",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:asset:southern-ion-adsorption-clays",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-rare-earth-group",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:southern-ion-adsorption-clays",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-rare-earth-group",
       "relation": "supplies",
       "resource": "heavy-rare-earth feedstock",
       "label": "Domestic ionic clay feed to heavy RE separation",
@@ -654,10 +654,10 @@
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:myanmar-to-cerg",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:myanmar-to-cerg",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:sector:myanmar-ion-clays",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-rare-earth-group",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:myanmar-ion-clays",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-rare-earth-group",
       "relation": "supplies",
       "resource": "heavy-rare-earth feedstock",
       "label": "Myanmar feedstock into Chinese heavy RE chain",
@@ -666,10 +666,10 @@
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:northern-to-magnets",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:northern-to-magnets",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-northern-rare-earth",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-northern-rare-earth",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
       "relation": "supplies",
       "resource": "NdPr oxide / metals / alloys",
       "label": "Light RE inputs to magnet manufacturing",
@@ -678,10 +678,10 @@
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:cerg-to-magnets",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:cerg-to-magnets",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-rare-earth-group",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-rare-earth-group",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
       "relation": "supplies",
       "resource": "Dy / Tb / heavy rare earth oxides",
       "label": "Heavy RE inputs to high-performance magnets",
@@ -690,10 +690,10 @@
       "sourceRefs": ["iea-rare-earth-2026", "mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:shenghe-to-magnets",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:shenghe-to-magnets",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:shenghe-resources",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:shenghe-resources",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
       "relation": "supplies",
       "resource": "processed rare earth materials",
       "label": "Trading and processing support into magnet chain",
@@ -702,10 +702,10 @@
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:mofcom-to-northern",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:mofcom-to-northern",
       "kind": "regulation",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:mofcom",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-northern-rare-earth",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mofcom",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-northern-rare-earth",
       "relation": "licenses",
       "label": "Export licensing authority over rare earth items",
       "status": "active",
@@ -713,10 +713,10 @@
       "sourceRefs": ["mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:mofcom-to-cerg",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:mofcom-to-cerg",
       "kind": "regulation",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:mofcom",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-rare-earth-group",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mofcom",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-rare-earth-group",
       "relation": "licenses",
       "label": "Export licensing authority over heavy RE items",
       "status": "active",
@@ -724,10 +724,10 @@
       "sourceRefs": ["mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:gac-to-northern",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:gac-to-northern",
       "kind": "regulation",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:gac-china",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-northern-rare-earth",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:gac-china",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-northern-rare-earth",
       "relation": "enforces",
       "label": "Customs enforcement over rare earth exports",
       "status": "active",
@@ -735,10 +735,10 @@
       "sourceRefs": ["mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:gac-to-cerg",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:gac-to-cerg",
       "kind": "regulation",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:gac-china",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:china-rare-earth-group",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:gac-china",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:china-rare-earth-group",
       "relation": "enforces",
       "label": "Customs enforcement over heavy RE exports",
       "status": "active",
@@ -746,10 +746,10 @@
       "sourceRefs": ["mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:white-house-to-dod",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:white-house-to-dod",
       "kind": "policy",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:white-house",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:us-dod-osc",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:white-house",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:us-dod-osc",
       "relation": "directs",
       "label": "Critical minerals and supply chain policy direction",
       "status": "active",
@@ -757,10 +757,10 @@
       "sourceRefs": ["white-house-2025-mineral-production"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:white-house-to-doe",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:white-house-to-doe",
       "kind": "policy",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:white-house",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:us-doe",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:white-house",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:us-doe",
       "relation": "directs",
       "label": "Federal support priority for mineral processing",
       "status": "active",
@@ -768,10 +768,10 @@
       "sourceRefs": ["white-house-2025-mineral-production"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:dod-to-mp",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:dod-to-mp",
       "kind": "capital_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:us-dod-osc",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:mp-materials",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:us-dod-osc",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mp-materials",
       "relation": "finances",
       "label": "Capital, price floor, and offtake support",
       "status": "active",
@@ -779,10 +779,10 @@
       "sourceRefs": ["mp-dod-partnership-2025"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:mountain-pass-to-mp",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:mountain-pass-to-mp",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:asset:mountain-pass",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:mp-materials",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mountain-pass",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mp-materials",
       "relation": "supplies",
       "resource": "rare earth ore / concentrate / separated oxide",
       "label": "Mountain Pass feed into MP integrated chain",
@@ -791,10 +791,10 @@
       "sourceRefs": ["mp-mountain-pass", "usgs-mcs-2026-rare-earths"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:mp-to-independence",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:mp-to-independence",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:mp-materials",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:asset:mp-independence-texas",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mp-materials",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mp-independence-texas",
       "relation": "supplies",
       "resource": "metal / alloy feedstock",
       "label": "MP integrated feed into Texas magnetics",
@@ -803,10 +803,10 @@
       "sourceRefs": ["mp-dod-partnership-2025", "mp-magnetics-gm"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:independence-to-gm",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:independence-to-gm",
       "kind": "offtake",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:asset:mp-independence-texas",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:general-motors",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mp-independence-texas",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:general-motors",
       "relation": "supplies",
       "resource": "NdFeB magnets",
       "label": "Long-term automotive magnet supply",
@@ -815,10 +815,10 @@
       "sourceRefs": ["mp-magnetics-gm"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:mt-weld-to-lynas-malaysia",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:mt-weld-to-lynas-malaysia",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:asset:mt-weld",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:asset:lynas-malaysia",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:mt-weld",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:lynas-malaysia",
       "relation": "supplies",
       "resource": "concentrate",
       "label": "Mt Weld concentrate to Malaysian separation",
@@ -827,10 +827,10 @@
       "sourceRefs": ["lynas-about"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:lynas-malaysia-to-ev",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:lynas-malaysia-to-ev",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:asset:lynas-malaysia",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-ev-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:lynas-malaysia",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-ev-oem",
       "relation": "supplies",
       "resource": "NdPr-rich separated products",
       "label": "Non-China oxide supply into EV chain",
@@ -839,10 +839,10 @@
       "sourceRefs": ["lynas-about", "iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:lynas-malaysia-to-wind",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:lynas-malaysia-to-wind",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:asset:lynas-malaysia",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-wind-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:lynas-malaysia",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-wind-oem",
       "relation": "supplies",
       "resource": "NdPr-rich separated products",
       "label": "Non-China oxide supply into wind chain",
@@ -851,10 +851,10 @@
       "sourceRefs": ["lynas-about", "iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:australia-disr-to-efa",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:australia-disr-to-efa",
       "kind": "policy",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:australia-disr",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:export-finance-australia",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:australia-disr",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:export-finance-australia",
       "relation": "empowers",
       "label": "Critical Minerals Strategic Reserve delivery authority",
       "status": "active",
@@ -862,10 +862,10 @@
       "sourceRefs": ["australia-cmsr"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:efa-to-iluka",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:efa-to-iluka",
       "kind": "capital_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:export-finance-australia",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:iluka-resources",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:export-finance-australia",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:iluka-resources",
       "relation": "supports",
       "label": "Strategic reserve / financing ecosystem support",
       "status": "active",
@@ -873,10 +873,10 @@
       "sourceRefs": ["australia-cmsr", "iluka-eneabba-fid"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:iluka-to-eneabba",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:iluka-to-eneabba",
       "kind": "project",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:iluka-resources",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:asset:eneabba-refinery",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:iluka-resources",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:eneabba-refinery",
       "relation": "develops",
       "label": "Iluka developing Australian refinery node",
       "status": "planned",
@@ -884,10 +884,10 @@
       "sourceRefs": ["iluka-eneabba-fid"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:eneabba-to-defense",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:eneabba-to-defense",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:asset:eneabba-refinery",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-defense-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:asset:eneabba-refinery",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-defense-oem",
       "relation": "intended-to-supply",
       "resource": "separated rare earth products",
       "label": "Future diversified non-China supply",
@@ -896,10 +896,10 @@
       "sourceRefs": ["iluka-eneabba-fid", "iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:eu-council-to-commission",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:eu-council-to-commission",
       "kind": "policy",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-council",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-commission",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-council",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-commission",
       "relation": "mandates",
       "label": "CRMA implementation and reinforcement",
       "status": "active",
@@ -907,10 +907,10 @@
       "sourceRefs": ["eu-council-2026-crma"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:commission-to-board",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:commission-to-board",
       "kind": "governance",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-commission",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-crm-board",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-commission",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-crm-board",
       "relation": "chairs",
       "label": "Commission chairs the CRM Board",
       "status": "active",
@@ -918,10 +918,10 @@
       "sourceRefs": ["eu-crma-board"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:commission-to-caremag",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:commission-to-caremag",
       "kind": "policy",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-commission",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:caremag",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-commission",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:caremag",
       "relation": "enables",
       "label": "EU diversification and strategic project environment",
       "status": "active",
@@ -929,10 +929,10 @@
       "sourceRefs": ["eu-crma-board", "eu-council-2026-crma"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:meti-to-jogmec",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:meti-to-jogmec",
       "kind": "policy",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:meti",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:jogmec",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:meti",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:jogmec",
       "relation": "directs",
       "label": "Japan resource security implementation channel",
       "status": "active",
@@ -940,10 +940,10 @@
       "sourceRefs": ["jogmec-caremag-2025"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:jogmec-to-caremag",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:jogmec-to-caremag",
       "kind": "capital_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:jogmec",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:caremag",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:jogmec",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:caremag",
       "relation": "finances",
       "label": "Equity/debt support for heavy rare earth refining",
       "status": "active",
@@ -951,10 +951,10 @@
       "sourceRefs": ["jogmec-caremag-2025"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:caremag-to-defense",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:caremag-to-defense",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:caremag",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-defense-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:caremag",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-defense-oem",
       "relation": "intended-to-supply",
       "resource": "heavy rare earth refined products",
       "label": "Future heavy RE diversification flow",
@@ -963,10 +963,10 @@
       "sourceRefs": ["jogmec-caremag-2025"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:caremag-to-ev",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:caremag-to-ev",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:caremag",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-ev-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:caremag",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-ev-oem",
       "relation": "intended-to-supply",
       "resource": "heavy rare earth refined products",
       "label": "Future heavy RE diversification flow for high-temp magnets",
@@ -975,10 +975,10 @@
       "sourceRefs": ["jogmec-caremag-2025"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:china-magnets-to-ev",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:china-magnets-to-ev",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-ev-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-ev-oem",
       "relation": "supplies",
       "resource": "NdFeB magnets",
       "label": "Dominant global EV magnet supply flow",
@@ -987,10 +987,10 @@
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:china-magnets-to-wind",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:china-magnets-to-wind",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-wind-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-wind-oem",
       "relation": "supplies",
       "resource": "NdFeB magnets",
       "label": "Dominant global wind magnet supply flow",
@@ -999,10 +999,10 @@
       "sourceRefs": ["iea-rare-earth-2026"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:china-magnets-to-defense",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:china-magnets-to-defense",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:sector:china-magnet-sector",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-defense-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:china-magnet-sector",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-defense-oem",
       "relation": "supplies",
       "resource": "specialty permanent magnets",
       "label": "Dominant but sensitive defense-adjacent magnet supply dependence",
@@ -1011,10 +1011,10 @@
       "sourceRefs": ["iea-rare-earth-2026", "mofcom-2025-announcement-18"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:mp-to-defense",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:mp-to-defense",
       "kind": "resource_flow",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:mp-materials",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-defense-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mp-materials",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-defense-oem",
       "relation": "supplies",
       "resource": "integrated rare earth materials and magnets",
       "label": "US strategic supply diversification",
@@ -1023,10 +1023,10 @@
       "sourceRefs": ["mp-dod-partnership-2025"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:usgs-to-mp",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:usgs-to-mp",
       "kind": "intelligence",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:usgs",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:actor:mp-materials",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:usgs",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:mp-materials",
       "relation": "tracks",
       "label": "US production and market intelligence coverage",
       "status": "active",
@@ -1034,10 +1034,10 @@
       "sourceRefs": ["usgs-mcs-2026-rare-earths"]
     },
     {
-      "did": "did:web:resource-flow.gftd.ai:rare-earth:edge:iea-to-global-flow",
+      "did": "did:web:resource-flow.etzhayyim.com:rare-earth:edge:iea-to-global-flow",
       "kind": "intelligence",
-      "source": "did:web:resource-flow.gftd.ai:rare-earth:actor:eu-commission",
-      "target": "did:web:resource-flow.gftd.ai:rare-earth:sector:global-ev-oem",
+      "source": "did:web:resource-flow.etzhayyim.com:rare-earth:actor:eu-commission",
+      "target": "did:web:resource-flow.etzhayyim.com:rare-earth:sector:global-ev-oem",
       "relation": "assesses-risk",
       "label": "EU policy attention to magnet supply risk",
       "status": "active",

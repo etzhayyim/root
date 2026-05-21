@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "ItemList",
-  "@id": "https://yabai.gftd.ai/content/public/sources",
+  "@id": "https://yabai.etzhayyim.com/content/public/sources",
   "name": "YABAI Crypto Risk Sources",
   "itemListElement": [
     {
@@ -57,7 +57,7 @@
       "@type": "Dataset",
       "identifier": "yabai-watchlist",
       "name": "operator watchlist",
-      "url": "https://yabai.gftd.ai/content/source/watchlist.jsonld",
+      "url": "https://yabai.etzhayyim.com/content/source/watchlist.jsonld",
       "description": "Operator-maintained crypto fraud watchlist normalized into YABAI entities, evidence, and risk scores."
     }
   ]

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/3/1/hospital-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/3/1/hospital-services",
       "type": "dodaf:Capability",
       "name": "General Hospital Services Management",
       "description": "Functional capability for managing general hospital services, medical care, and healthcare governance. Classification: COFOG Division 07, Group 3, Class 1.",

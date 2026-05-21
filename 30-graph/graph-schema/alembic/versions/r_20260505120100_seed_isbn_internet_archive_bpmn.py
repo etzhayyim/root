@@ -19,12 +19,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-internet-archive-v1',
-                 'did:web:isbn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-internet-archive-v1',
+                 'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_internet_archive',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  isbn.gftd.ai — Internet Archive (archive.org) daily.\n'
+                 '  isbn.etzhayyim.com — Internet Archive (archive.org) daily.\n'
                  '\n'
                  '  Timer-start: every 24h. Pulls 50 PD texts items per run with:\n'
                  '    - cover image  (services/img)\n'
@@ -41,7 +41,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_isbn_ingest_internet_archive"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/isbn"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/isbn"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="isbn_ingest_internet_archive" name="isbn ingest Internet '
@@ -77,7 +77,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;isbn.ingest.internetArchive&quot;" '
                  'target="action"/>\n'
@@ -98,13 +98,13 @@ UP = [{'sql': '\n'
                  2935,
                  '00-contracts/bpmn/ai/gftd/isbn/ingestInternetArchive.bpmn',
                  '2026-05-05T12:01:00Z',
-                 'did:web:isbn.gftd.ai',
-                 'did:web:isbn.gftd.ai',
+                 'did:web:isbn.etzhayyim.com',
+                 'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-internet-archive',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-internet-archive-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-internet-archive-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-internet-archive-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-internet-archive-v1']}]
 
 
 def upgrade() -> None:

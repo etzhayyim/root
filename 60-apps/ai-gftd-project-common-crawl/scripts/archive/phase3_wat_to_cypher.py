@@ -350,7 +350,7 @@ def generate_cypher_batch(pages: list[dict], batch_id: int, domain_topics: dict[
 
         domain = page["domain"]
         slug = domain_to_slug(domain)
-        did = f"did:web:site.gftd.ai:{slug}"
+        did = f"did:web:site.etzhayyim.com:{slug}"
         rkey = url_hash(page["url"])
 
         # DomainDID
@@ -398,7 +398,7 @@ def generate_cypher_batch(pages: list[dict], batch_id: int, domain_topics: dict[
             if out_domain and out_domain != domain:
                 out_rkey = url_hash(outlink)
                 out_slug = domain_to_slug(out_domain)
-                out_did = f"did:web:site.gftd.ai:{out_slug}"
+                out_did = f"did:web:site.etzhayyim.com:{out_slug}"
                 stmts.append(
                     f'MERGE (tp:PageRecord {{rkey: "{out_rkey}"}}) '
                     f'ON CREATE SET tp.url = "{esc(outlink[:2000])}", '

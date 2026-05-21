@@ -1,8 +1,8 @@
-// yadoya XRPC client — talks to atproto.gftd.ai pipethrough → yadoya Worker.
+// yadoya XRPC client — talks to atproto.etzhayyim.com pipethrough → yadoya Worker.
 // AT Protocol semantics: query = GET with URLSearchParams, procedure = POST
 // with JSON body. No legacy wproto / nanoid host calls.
 
-const DEFAULT_SERVICE = 'https://atproto.gftd.ai';
+const DEFAULT_SERVICE = 'https://atproto.etzhayyim.com';
 
 function service(): string {
   if (typeof window !== 'undefined') {
@@ -11,7 +11,7 @@ function service(): string {
     const isLocalhost =
       window.location.hostname === 'localhost' ||
       window.location.hostname === '127.0.0.1';
-    if (!isLocalhost && window.location.origin.endsWith('gftd.ai')) {
+    if (!isLocalhost && window.location.origin.endsWith('etzhayyim.com')) {
       return window.location.origin;
     }
   }

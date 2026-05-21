@@ -19,7 +19,7 @@ Contract with the LangServer primitive (`maps.sentinel.runpod.analyze`):
       "input": {
         "model":         "sentinel2_change_siamese" | "sentinel2_landuse_unet" | "sentinel1_flood_unet",
         "analysisType":  "changeDetection" | "landUse" | "sarFlood",
-        "sceneUri":      "at://did:web:maps.gftd.ai/ai.gftd.apps.maps.satelliteScene/…",
+        "sceneUri":      "at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/…",
         "platform":      "sentinel-2-l2a" | "sentinel-1-grd",
         "cogUrl":        "https://…/B04.tif" | "https://…/iw_grd_vv.tif",
         "datetime":      "2026-04-26T01:23:45Z",
@@ -240,7 +240,7 @@ if __name__ == "__main__":
         sample = {
             "input": {
                 "analysisType": "landUse",
-                "sceneUri": "at://did:web:maps.gftd.ai/ai.gftd.apps.maps.satelliteScene/scn-s-20260427-deadbeef",
+                "sceneUri": "at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/scn-s-20260427-deadbeef",
                 "platform": "sentinel-2-l2a",
                 "cogUrl": "https://example.com/dummy.tif",
                 "bbox": [139.5, 35.3, 139.95, 35.7],

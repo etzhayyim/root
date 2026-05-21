@@ -1,6 +1,6 @@
 # ai-gftd-project-malak — Cybercrime Intelligence Platform
 
-**malak.gftd.ai** — サイバー犯罪者追跡・捜査機関情報提供プラットフォーム (sensitivity: confidential)
+**malak.etzhayyim.com** — サイバー犯罪者追跡・捜査機関情報提供プラットフォーム (sensitivity: confidential)
 
 ## Capability Clusters
 
@@ -39,7 +39,7 @@ malak は以下 2 つの capability cluster で構成される:
 | 項目 | 値 |
 |---|---|
 | nanoid | `m4l4k001` |
-| URL | `https://malak.gftd.ai` / `https://m4l4k001.gftd.ai` |
+| URL | `https://malak.etzhayyim.com` / `https://m4l4k001.etzhayyim.com` |
 | Runtime | Worker WASM (default) |
 | UI mode | appview |
 | Sensitivity | **confidential** — TLP:AMBER default, auth required |
@@ -99,10 +99,10 @@ malak は以下 2 つの capability cluster で構成される:
 Malak currently has an owned email-only trap path for defensive CTI:
 
 ```
-trap-email-malak-spamtrap-primary@gftd.ai
+trap-email-malak-spamtrap-primary@etzhayyim.com
   → Cloudflare Email Routing catch-all
   → ai-gftd-email-relay Worker
-  → PDS did:web:ml1nb0nd.gftd.ai / ai.gftd.apps.mailer.inboundEmail
+  → PDS did:web:ml1nb0nd.etzhayyim.com / ai.gftd.apps.mailer.inboundEmail
   → launchd sync every 5 min
   → vertex_malak_trap_message
 ```
@@ -135,13 +135,13 @@ coverage is email only.
 
 Threat actors and organizations as path-based DIDs:
 ```
-did:web:malak.gftd.ai:org:lazarus_group         — Lazarus Group (DPRK APT)
-did:web:malak.gftd.ai:org:conti                 — Conti Ransomware Group
-did:web:malak.gftd.ai:org:lockbit               — LockBit RaaS
-did:web:malak.gftd.ai:org:revil                 — REvil/Sodinokibi
-did:web:malak.gftd.ai:org:apt28                 — APT28/Fancy Bear
-did:web:malak.gftd.ai:org:apt29                 — APT29/Cozy Bear
-did:web:malak.gftd.ai:actor:{slug}              — Individual threat actors
+did:web:malak.etzhayyim.com:org:lazarus_group         — Lazarus Group (DPRK APT)
+did:web:malak.etzhayyim.com:org:conti                 — Conti Ransomware Group
+did:web:malak.etzhayyim.com:org:lockbit               — LockBit RaaS
+did:web:malak.etzhayyim.com:org:revil                 — REvil/Sodinokibi
+did:web:malak.etzhayyim.com:org:apt28                 — APT28/Fancy Bear
+did:web:malak.etzhayyim.com:org:apt29                 — APT29/Cozy Bear
+did:web:malak.etzhayyim.com:actor:{slug}              — Individual threat actors
 ```
 
 ## Entity DID Collection Design
@@ -156,13 +156,13 @@ did:web:malak.gftd.ai:actor:{slug}              — Individual threat actors
 | Telegram/フォーラム名 | — (ActorAlias record) | `register_actor_alias` — platform: forum/marketplace/social_media/chat/email | `malak_actor_alias` |
 | サーバー/IP/ドメイン | — (ActorInfrastructure record) | `record_actor_infrastructure` — infra_type: domain/ip/server/vpn/proxy/c2 | `malak_actor_infrastructure` |
 | 暗号通貨ウォレット | — (WalletAddress record) | `link_wallet_to_actor` → blockchain forensics | `malak_wallet_address` |
-| ダークウェブ情報 | — (OsintFinding record) | Follow onion.gftd.ai (`0n10n001`) → `onOnionIntel()` | `malak_onion_intel` |
+| ダークウェブ情報 | — (OsintFinding record) | Follow onion.etzhayyim.com (`0n10n001`) → `onOnionIntel()` | `malak_onion_intel` |
 
 **DID vs Record の使い分け**: path-based DID (`DIDCreate`) は「独立した identity を持つ entity」(組織、監視対象法人) に使用。個別の indicator (メールアドレス、IP、alias) は ThreatActor/Organization に紐づく Record として graph edge で管理。
 
 **ダークウェブ収集フロー**:
 ```
-onion.gftd.ai (0n10n001) → .onion crawl → page/site/crawl record
+onion.etzhayyim.com (0n10n001) → .onion crawl → page/site/crawl record
   → ComAtprotoSyncSubscribeRepos → malak handleComAtprotoSyncSubscribeReposCommit
   → onOnionIntel() → malak_onion_intel record 作成
   → onEntityRelatedOsint() → monitored entities と自動 cross-correlation
@@ -179,21 +179,21 @@ onion.gftd.ai (0n10n001) → .onion crawl → page/site/crawl record
 
 | 連携先 | Interface | 用途 |
 |---|---|---|
-| crypto-asset-freeze.gftd.ai (`qjp7mjyb`) | `incident-management` | インシデント作成 |
-| crypto-asset-freeze.gftd.ai (`qjp7mjyb`) | `freeze-management` | 取引所凍結要請 |
-| crypto-asset-freeze.gftd.ai (`qjp7mjyb`) | `forensic` | ブロックチェーン追跡 |
-| lawfirm.gftd.ai | `case-management` | 法的案件作成 (agency referral 時自動) |
-| sanctions.gftd.ai (`sn4c8t1x`) | `ScreenEntity` | OFAC/EU/UN/JP-MOF 制裁リスト照会 |
+| crypto-asset-freeze.etzhayyim.com (`qjp7mjyb`) | `incident-management` | インシデント作成 |
+| crypto-asset-freeze.etzhayyim.com (`qjp7mjyb`) | `freeze-management` | 取引所凍結要請 |
+| crypto-asset-freeze.etzhayyim.com (`qjp7mjyb`) | `forensic` | ブロックチェーン追跡 |
+| lawfirm.etzhayyim.com | `case-management` | 法的案件作成 (agency referral 時自動) |
+| sanctions.etzhayyim.com (`sn4c8t1x`) | `ScreenEntity` | OFAC/EU/UN/JP-MOF 制裁リスト照会 |
 | interpol entity (`001a6802`) | `execute_task` | INTERPOL notice 提出 |
 
 ## Follow-Based Input (reactive pipeline)
 
 | Source | nanoid | Collections | 用途 |
 |---|---|---|---|
-| yabai.gftd.ai | `y8b41k0x` | `entity`, `alert` | Risk intelligence enrichment |
-| ipaddress.gftd.ai | `n7w1p4d0` | `ip_address`, `ip_analysis` | IP/ASN intelligence |
-| sanctions.gftd.ai | `sn4c8t1x` | `entry`, `match` | 制裁リスト更新 + match alert |
-| onion.gftd.ai | `0n10n001` | `page`, `crawl`, `site` | Dark web .onion intelligence |
+| yabai.etzhayyim.com | `y8b41k0x` | `entity`, `alert` | Risk intelligence enrichment |
+| ipaddress.etzhayyim.com | `n7w1p4d0` | `ip_address`, `ip_analysis` | IP/ASN intelligence |
+| sanctions.etzhayyim.com | `sn4c8t1x` | `entry`, `match` | 制裁リスト更新 + match alert |
+| onion.etzhayyim.com | `0n10n001` | `page`, `crawl`, `site` | Dark web .onion intelligence |
 | INTERPOL entity | `001a6802` | `interpol.intelligence.sharing` | INTERPOL intelligence updates |
 | C2ISR OSINT | `atdcxtvm` | `defense.c2isr` | AlienVault/VirusTotal/Shodan IOC |
 
@@ -246,7 +246,7 @@ KR: 경찰청 사이버수사국
 | live | `malak.dashboard` | App canvas UI (メトリクスダッシュボード + cards) |
 | talk | AppShell v2 shared | W Protocol chat (全 app 共通、app 固有 handler 不要) |
 | vibes | Space public channels | Threat Intel, OSINT Feed, Tips (公開 channel) |
-| provider | murakumo | LLM (AppShell v2 shared murakumo.gftd.ai) |
+| provider | murakumo | LLM (AppShell v2 shared murakumo.etzhayyim.com) |
 | apps | `malak.tools` | ツール・連携アプリ一覧 |
 
 **Note**: `talk` と `provider` は AppShell v2 共通基盤。conversation は `Invoke/Handle (conversation dispatch removed)` で受信。

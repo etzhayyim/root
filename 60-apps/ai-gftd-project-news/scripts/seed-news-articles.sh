@@ -3,16 +3,16 @@ set -euo pipefail
 
 # Seed JSON-LD articles into PDS via AT Protocol XRPC.
 # Usage:
-#   ATPROTO_IDENTIFIER=atproto.gftd.ai ATPROTO_PASSWORD=... ./scripts/seed-news-articles.sh [PDS_BASE]
+#   ATPROTO_IDENTIFIER=atproto.etzhayyim.com ATPROTO_PASSWORD=... ./scripts/seed-news-articles.sh [PDS_BASE]
 #
-# Defaults to https://atproto.gftd.ai if PDS_BASE is not provided.
+# Defaults to https://atproto.etzhayyim.com if PDS_BASE is not provided.
 # Non-internal writes must target the authenticated repo DID returned by createSession.
 # Articles are read from resources/content/ja/**/*.jsonld
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 CONTENT_DIR="$PROJECT_DIR/resources/content/ja"
-PDS_BASE="${1:-https://atproto.gftd.ai}"
+PDS_BASE="${1:-https://atproto.etzhayyim.com}"
 XRPC_BASE="$PDS_BASE/xrpc"
 SESSION_URL="$XRPC_BASE/com.atproto.server.createSession"
 CREATE_URL="$XRPC_BASE/com.atproto.repo.createRecord"
@@ -138,7 +138,7 @@ if isinstance(author, dict):
     author_name = author.get('name', '')
 elif isinstance(author, list) and author and isinstance(author[0], dict):
     author_name = author[0].get('name', '')
-writer_did = raw.get('writer_did') or 'did:web:news.gftd.ai:writer:llm'
+writer_did = raw.get('writer_did') or 'did:web:news.etzhayyim.com:writer:llm'
 source = raw.get('source') or author_name or 'resource-seed'
 record = {
     '$type': collection,

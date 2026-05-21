@@ -1,7 +1,7 @@
 """mangaka `cine_generate_video` — N-frame batch through ComfyUI + ffmpeg encode.
 
 Lightweight video generator that exercises the full image-gen path against
-the LAN ComfyUI (or comfyui.gftd.ai gateway) for the diffusion stage, then
+the LAN ComfyUI (or comfyui.etzhayyim.com gateway) for the diffusion stage, then
 muxes the resulting frames into an MP4 via ffmpeg. Designed for Studio UI
 inspection — the output `videoInlineB64` lets the <video> tag play the clip
 inline without a /blob proxy.

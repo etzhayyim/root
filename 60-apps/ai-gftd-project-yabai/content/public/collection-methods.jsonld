@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "HowTo",
-  "@id": "https://yabai.gftd.ai/content/public/collection-methods",
+  "@id": "https://yabai.etzhayyim.com/content/public/collection-methods",
   "name": "YABAI Collection and Analysis Methods",
   "steps": [
     "Ingest sanctions/PEP/regulatory/watchlist/crawl/legal datasets",

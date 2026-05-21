@@ -1,4 +1,4 @@
-# Zeebe Simple Monitor — https://monitor.gftd.ai
+# Zeebe Simple Monitor — https://monitor.etzhayyim.com
 #
 # Connects to:
 #   - Zeebe gRPC gateway: zeebe-gateway.mitama-udf.svc.cluster.local:26500
@@ -12,7 +12,7 @@
 # TODO: Switch to persistent storage once Vultr block storage limit is raised.
 #   (hit account max subscriptions as of 2026-05-05; contact Vultr support)
 #
-# monitor.gftd.ai routes via CF Zero Trust tunnel to this Service on :8082.
+# monitor.etzhayyim.com routes via CF Zero Trust tunnel to this Service on :8082.
 ---
 apiVersion: apps/v1
 kind: Deployment

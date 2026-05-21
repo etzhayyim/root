@@ -6,7 +6,7 @@
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-email-service-adapter`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-email-service-adapter`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 
@@ -48,3 +48,15 @@ Detected violations:
   RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-email-service-adapter/appview/outlook-mcp-component/static-ui/_app/immutable/chunks/By41dYui.js:794
   GA4/gtag: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-email-service-adapter/appview/outlook-mcp-component/static-ui/_app/immutable/chunks/By41dYui.js:2
 ```
+
+---
+
+## Post-verification gap patch (2026-05-21)
+
+Additional violations detected in re-scan:
+
+```
+  - 60-apps/ai-gftd-project-email-service-adapter/appview/outlook-mcp-component/static-ui/_app/immutable/chunks/By41dYui.js
+```
+
+Lines annotated with `CHARTER-VIOLATION §substrate` comments.

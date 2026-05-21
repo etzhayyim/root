@@ -31,17 +31,17 @@ function generateLocalTid(): string {
 const DEFAULT_TARGET_SEC = 120;
 const COMPOSE_NSID = "ai.gftd.apps.yukkuri.compose";
 
-const PRIMARY_PATH = "did:web:yukkuri.gftd.ai";
-const PATH_SCRIPTWRITER = "did:web:yukkuri.gftd.ai:actor:scriptwriter";
-const PATH_VOICE_LEFT = "did:web:yukkuri.gftd.ai:actor:voiceLeft";
-const PATH_VOICE_RIGHT = "did:web:yukkuri.gftd.ai:actor:voiceRight";
-const PATH_CHARACTER = "did:web:yukkuri.gftd.ai:actor:character";
-const PATH_ILLUSTRATOR = "did:web:yukkuri.gftd.ai:actor:illustrator";
-const PATH_SFX = "did:web:yukkuri.gftd.ai:actor:sfx";
-const PATH_COMPOSER = "did:web:yukkuri.gftd.ai:actor:composer";
-const PATH_EDITOR = "did:web:yukkuri.gftd.ai:actor:editor";
-const PATH_RENDERER = "did:web:yukkuri.gftd.ai:actor:renderer";
-const PATH_CRITIC = "did:web:yukkuri.gftd.ai:actor:critic";
+const PRIMARY_PATH = "did:web:yukkuri.etzhayyim.com";
+const PATH_SCRIPTWRITER = "did:web:yukkuri.etzhayyim.com:actor:scriptwriter";
+const PATH_VOICE_LEFT = "did:web:yukkuri.etzhayyim.com:actor:voiceLeft";
+const PATH_VOICE_RIGHT = "did:web:yukkuri.etzhayyim.com:actor:voiceRight";
+const PATH_CHARACTER = "did:web:yukkuri.etzhayyim.com:actor:character";
+const PATH_ILLUSTRATOR = "did:web:yukkuri.etzhayyim.com:actor:illustrator";
+const PATH_SFX = "did:web:yukkuri.etzhayyim.com:actor:sfx";
+const PATH_COMPOSER = "did:web:yukkuri.etzhayyim.com:actor:composer";
+const PATH_EDITOR = "did:web:yukkuri.etzhayyim.com:actor:editor";
+const PATH_RENDERER = "did:web:yukkuri.etzhayyim.com:actor:renderer";
+const PATH_CRITIC = "did:web:yukkuri.etzhayyim.com:actor:critic";
 
 const ALL_PATHS: Array<[string, string, string]> = [
   ["", "Yukkuri", "AI yukkuri video generator (controller)"],
@@ -84,7 +84,7 @@ type ComposeInput = {
   autoRender?: boolean;
 };
 
-// CF Workers intercepts fetch() to same-zone hostnames (dispatcher.gftd.ai → 1003/1033).
+// CF Workers intercepts fetch() to same-zone hostnames (dispatcher.etzhayyim.com → 1003/1033).
 // Use bpmn-dispatcher Vultr LB IP directly (DISPATCHER_URL env override takes precedence).
 const DISPATCHER_ORIGINS = [
   "http://66.42.104.29",
@@ -171,7 +171,7 @@ async function cmdCompose(sdk: HostSDK, env: Record<string, unknown>, body: Uint
   const projectId = `proj-${genID("yk")}`;
 
   const videoRkey = generateLocalTid();
-  const videoRepo = (sdk.pds as any).selfRepo as string || "did:web:y5kk5r1x.gftd.ai";
+  const videoRepo = (sdk.pds as any).selfRepo as string || "did:web:y5kk5r1x.etzhayyim.com";
   const videoUri = `at://${videoRepo}/ai.gftd.apps.yukkuri.video/${videoRkey}`;
 
   // Ensure path DIDs are registered (fire-and-forget).
@@ -233,7 +233,7 @@ async function cmdRegenerate(sdk: HostSDK, body: Uint8Array): Promise<string> {
     actor_id: "y5kk5r1x",
   }).execute();
   return JSON.stringify({
-    generationUri: `at://yukkuri.gftd.ai/ai.gftd.apps.yukkuri.generation/${genRkey}`,
+    generationUri: `at://yukkuri.etzhayyim.com/ai.gftd.apps.yukkuri.generation/${genRkey}`,
     status: "queued",
     note: "Phase 0 stub — regeneration executed on next reactive tick",
   });
@@ -310,7 +310,7 @@ function videoUriToRkey(videoUri: string): string {
 
 function normalizeVideoUri(rkeyOrUri: string): string {
   const rkey = videoUriToRkey(rkeyOrUri);
-  return `at://yukkuri.gftd.ai/ai.gftd.apps.yukkuri.video/${rkey}`;
+  return `at://yukkuri.etzhayyim.com/ai.gftd.apps.yukkuri.video/${rkey}`;
 }
 
 async function pgQuery(env: Record<string, unknown>, sql: string, params: unknown[]): Promise<VideoRow[]> {
@@ -463,14 +463,14 @@ async function cmdGetVideo(_sdk: HostSDK, env: Record<string, unknown>, body: Ui
       scenes,
       lines,
       assets: assetRows.map((r) => ({
-        assetUri: `at://yukkuri.gftd.ai/ai.gftd.apps.yukkuri.asset/${r.vertex_id}`,
+        assetUri: `at://yukkuri.etzhayyim.com/ai.gftd.apps.yukkuri.asset/${r.vertex_id}`,
         kind: r.kind ?? "",
         blobKey: r.blob_key ?? "",
         mimeType: r.mime_type ?? "",
         actorDid: r.actor_did ?? "",
       })),
       lastGeneration: genRow ? {
-        generationUri: `at://yukkuri.gftd.ai/ai.gftd.apps.yukkuri.generation/${genRow.vertex_id}`,
+        generationUri: `at://yukkuri.etzhayyim.com/ai.gftd.apps.yukkuri.generation/${genRow.vertex_id}`,
         stage: genRow.stage ?? "",
         status: genRow.status ?? "",
         createdAt: genRow.created_at ?? "",
@@ -504,7 +504,7 @@ function renderVideoHtml(
       ${linesHtml}
     </div>`;
   }).join("");
-  const canonicalUrl = `https://yukkuri.gftd.ai/video/${rkey}`;
+  const canonicalUrl = `https://yukkuri.etzhayyim.com/video/${rkey}`;
   return `<!doctype html>
 <html lang="ja">
 <head>
@@ -550,7 +550,7 @@ a{color:#90caf9;text-decoration:none}
     ${scenesHtml}
   </div>` : `<p style="color:#555;font-size:0.9rem">台本はまだ生成されていません。</p>`}
   <div class="footer">
-    <a href="https://yukkuri.gftd.ai">yukkuri.gftd.ai</a> &mdash; AI ゆっくり実況ジェネレーター
+    <a href="https://yukkuri.etzhayyim.com">yukkuri.etzhayyim.com</a> &mdash; AI ゆっくり実況ジェネレーター
   </div>
 </div>
 </body>
@@ -600,7 +600,7 @@ async function cmdHealth(): Promise<string> {
 export default createWorkerExport((sdk) => {
   const env = (sdk as unknown as { env?: Record<string, unknown> }).env ?? {};
 
-  // Web page: https://yukkuri.gftd.ai/video/:rkey — renders script/scenes as HTML.
+  // Web page: https://yukkuri.etzhayyim.com/video/:rkey — renders script/scenes as HTML.
   (sdk as unknown as { router?: { get: (path: string, handler: (c: { req: { param: (k: string) => string } }) => Promise<Response>) => void } }).router?.get(
     "/video/:rkey",
     async (c) => handleVideoPage(env, c.req.param("rkey")),

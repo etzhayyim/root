@@ -46,7 +46,7 @@
 		if (!blobKey) return;
 		ensureAudioCtx();
 		try {
-			const resp = await fetch(`https://atproto.gftd.ai/xrpc/ai.gftd.files.getBlob?nanoid=${ctx.nanoid}&key=${blobKey}`);
+			const resp = await fetch(`https://atproto.etzhayyim.com/xrpc/ai.gftd.files.getBlob?nanoid=${ctx.nanoid}&key=${blobKey}`);
 			const buf = await resp.arrayBuffer();
 			const decoded = await audioCtx!.decodeAudioData(buf);
 			const source = audioCtx!.createBufferSource();

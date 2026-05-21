@@ -16,8 +16,8 @@ APQC deployment evidence:
 |---|---:|
 | Worker | `magatama-kyb3proj` |
 | Version | `bc9113f2-0322-43db-a9e8-0f67786b17e4` |
-| Route | `kyber-projector.gftd.ai/*` |
-| DID document | `did:web:kyber-projector.gftd.ai` |
+| Route | `kyber-projector.etzhayyim.com/*` |
+| DID document | `did:web:kyber-projector.etzhayyim.com` |
 | APQC L1 actors | 13/13 active |
 | APQC sub-processes | 183/183 registered |
 | Kyber BPMN catalog tasks | 28 bound |

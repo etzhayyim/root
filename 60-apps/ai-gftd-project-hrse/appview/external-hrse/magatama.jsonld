@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:hrse.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:hrse.etzhayyim.com",
   "convoSystemPrompt": "You are ai-gftd-hrse agent. . Respond helpfully in the user's language.",
   "duties": [
     "勤労の義務"
@@ -33,10 +33,10 @@
   "project": "hrse",
   "routes": [
     {
-      "host": "hrse.gftd.ai"
+      "host": "hrse.etzhayyim.com"
     },
     {
-      "host": "cshr.gftd.ai"
+      "host": "cshr.etzhayyim.com"
     }
   ],
   "runtimeType": "worker",

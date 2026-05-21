@@ -14,7 +14,7 @@ cd "$(dirname "$0")"
 CARGO_TARGET=$(cargo metadata --format-version 1 2>/dev/null | python3 -c "import sys,json; print(json.load(sys.stdin).get('target_directory','target'))" 2>/dev/null || echo "target")
 BINARY="${CARGO_TARGET}/release/gftd-murakumo"
 MESH_IDENTITY_DIR="$HOME/.gftd/mesh"
-CONTROL_PLANE="https://murakumo.gftd.ai"
+CONTROL_PLANE="https://murakumo.etzhayyim.com"
 
 # Default mesh nodes
 declare -A NODES=(

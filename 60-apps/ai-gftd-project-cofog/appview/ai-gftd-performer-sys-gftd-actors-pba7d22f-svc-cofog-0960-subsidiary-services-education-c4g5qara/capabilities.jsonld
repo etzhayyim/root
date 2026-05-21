@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/09/6/0/subsidiary-services-education",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/6/0/subsidiary-services-education",
       "type": "dodaf:Capability",
       "name": "Ancillary Education Support and Subsidiary Services Capability",
       "description": "Functional capability for managing school transport, medical, and meal services and quality monitoring. Classification: COFOG Division 09, Group 6, Class 0.",

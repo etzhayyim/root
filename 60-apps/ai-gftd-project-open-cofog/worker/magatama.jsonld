@@ -1,8 +1,8 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-cofog.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-cofog.etzhayyim.com",
   "name": "open-cofog",
-  "handle": "open-cofog.gftd.ai",
+  "handle": "open-cofog.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-cofog",

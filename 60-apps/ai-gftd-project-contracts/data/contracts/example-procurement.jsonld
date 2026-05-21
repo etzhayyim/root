@@ -1,13 +1,13 @@
 {
   "@context": "../schema/context.jsonld",
   "@type": "Contract",
-  "@id": "https://gftd.ai/data/contracts/example-procurement-001",
+  "@id": "https://etzhayyim.com/data/contracts/example-procurement-001",
   "name": "Example Government Procurement Contract",
   "identifier": "PROC-2026-001",
   "contractType": "procurement",
   "parties": [
-    "https://gftd.ai/data/organizations/government-of-japan",
-    "https://gftd.ai/data/organizations/apple-inc"
+    "https://etzhayyim.com/data/organizations/government-of-japan",
+    "https://etzhayyim.com/data/organizations/apple-inc"
   ],
   "description": "Example procurement contract for IT infrastructure",
   "effectiveDate": "2026-01-01",

@@ -15,10 +15,10 @@ Env vars:
   B2_ENDPOINT_URL         https://s3.us-west-004.backblazeb2.com
   B2_BUCKET_MEDIA         ai-gftd-nats
   B2_KEY_ID / B2_APPLICATION_KEY
-  BLOB_REPO               defaults to yukkuri.gftd.ai
+  BLOB_REPO               defaults to yukkuri.etzhayyim.com
   RW_URL                  psycopg DSN for RisingWave
   RENDER_TIMEOUT_SEC      defaults to 600
-  DOUGAKA_APP_DID         defaults to did:web:dougaka.gftd.ai
+  DOUGAKA_APP_DID         defaults to did:web:dougaka.etzhayyim.com
 """
 
 from __future__ import annotations
@@ -50,10 +50,10 @@ _B2_ENDPOINT_URL = os.environ.get("B2_ENDPOINT_URL", "https://s3.us-west-004.bac
 _B2_BUCKET = os.environ.get("B2_BUCKET_MEDIA", "ai-gftd-nats")
 _B2_KEY_ID = os.environ.get("B2_KEY_ID", "")
 _B2_APP_KEY = os.environ.get("B2_APPLICATION_KEY", "")
-_BLOB_REPO = os.environ.get("BLOB_REPO", "yukkuri.gftd.ai")
+_BLOB_REPO = os.environ.get("BLOB_REPO", "yukkuri.etzhayyim.com")
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _RENDER_TIMEOUT = float(os.environ.get("RENDER_TIMEOUT_SEC", "600"))
-_APP_DID = os.environ.get("DOUGAKA_APP_DID", "did:web:dougaka.gftd.ai")
+_APP_DID = os.environ.get("DOUGAKA_APP_DID", "did:web:dougaka.etzhayyim.com")
 
 
 class _State(TypedDict, total=False):
@@ -198,7 +198,7 @@ async def _node_write_record(state: _State) -> dict[str, Any]:
     status = "error" if state.get("error") else "done"
     error_msg = state.get("error") or ""
     created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    vertex_id = f"at://dougaka.gftd.ai/ai.gftd.apps.dougaka.render/{video_id}"
+    vertex_id = f"at://dougaka.etzhayyim.com/ai.gftd.apps.dougaka.render/{video_id}"
 
     try:
         import psycopg
@@ -208,7 +208,7 @@ async def _node_write_record(state: _State) -> dict[str, Any]:
                 CREATE TABLE IF NOT EXISTS vertex_dougaka_render (
                     vertex_id VARCHAR PRIMARY KEY,
                     video_id VARCHAR NOT NULL,
-                    actor_did VARCHAR NOT NULL DEFAULT 'did:web:dougaka.gftd.ai',
+                    actor_did VARCHAR NOT NULL DEFAULT 'did:web:dougaka.etzhayyim.com',
                     org_did VARCHAR NOT NULL DEFAULT 'anon',
                     at_did VARCHAR,
                     blob_key VARCHAR,

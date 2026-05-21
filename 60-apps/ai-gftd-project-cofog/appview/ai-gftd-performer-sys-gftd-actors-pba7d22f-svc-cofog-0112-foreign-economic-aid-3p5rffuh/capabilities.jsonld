@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/01/1/2/foreign-economic-aid",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/1/2/foreign-economic-aid",
       "type": "dodaf:Capability",
       "name": "Foreign Economic Aid Management",
       "description": "Functional capability for managing international development cooperation, including grant allocation and fiscal coordination with foreign bodies. Classification: COFOG Division 01, Group 1, Class 2.",

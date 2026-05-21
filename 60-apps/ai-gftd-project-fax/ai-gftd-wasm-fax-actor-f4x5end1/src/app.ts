@@ -1,4 +1,4 @@
-// fax.gftd.ai — FAX send/receive AI agent (T3 TS Native, MCP-callable)
+// fax.etzhayyim.com — FAX send/receive AI agent (T3 TS Native, MCP-callable)
 //
 // MCP topology (3 tiers):
 //   Tier 1 (high-level orchestration):
@@ -47,7 +47,7 @@ import {
 let appId = "";
 
 const ROUKISHO_NANOID = "r0uk15h0";
-const ROUKISHO_DID = "did:web:roukisho.gftd.ai";
+const ROUKISHO_DID = "did:web:roukisho.etzhayyim.com";
 
 // ───────────────────────── env / secrets ─────────────────────────
 
@@ -113,7 +113,7 @@ async function cmdSend(sdk: HostSDK, body: Uint8Array) {
   let contentUrl = url;
   if (!contentUrl && blobKey) {
     // CDN_R2 public URL (content-addressed). blobKey = SHA-256 hex.
-    const cdnBase = str(sdk.env.CDN_PUBLIC_BASE_URL ?? "https://cdn.gftd.ai");
+    const cdnBase = str(sdk.env.CDN_PUBLIC_BASE_URL ?? "https://cdn.etzhayyim.com");
     contentUrl = `${cdnBase}/${blobKey}`;
   }
 
@@ -398,7 +398,7 @@ async function renderHtmlToPdf(env: Record<string, unknown>, html: string, pageS
 
 async function uploadToCdn(env: Record<string, unknown>, bytes: Uint8Array, contentType: string): Promise<{ blobKey: string; deduped: boolean; publicUrl: string }> {
   const blobKey = await sha256Hex(bytes);
-  const baseUrl = str(env.CDN_PUBLIC_BASE_URL ?? "https://fax.gftd.ai/api/blob");
+  const baseUrl = str(env.CDN_PUBLIC_BASE_URL ?? "https://fax.etzhayyim.com/api/blob");
   const existing = await cdnHead(env as Record<string, string>, blobKey).catch(() => null);
   let deduped = false;
   if (existing) {
@@ -517,7 +517,7 @@ async function cmdComposeAndSend(sdk: HostSDK, body: Uint8Array) {
     });
 
     // Optional notification handoff via mailer actor (cross-actor invoke).
-    // mailer actor (did:web:mailer.gftd.ai, nanoid nt4g5h6i) wraps Mail.Send for app-only
+    // mailer actor (did:web:mailer.etzhayyim.com, nanoid nt4g5h6i) wraps Mail.Send for app-only
     // tenants. We delegate Teams-channel + operator notification to it so this actor stays
     // single-purpose. If mailer is not deployed yet, the call is best-effort and we still
     // return humanInstructions for fallback.
@@ -526,7 +526,7 @@ async function cmdComposeAndSend(sdk: HostSDK, body: Uint8Array) {
       try {
         const recipients = [teamsChannelEmail, operatorEmail].filter(Boolean);
         // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invokeRemote to
-        // mailer.gftd.ai/send for Teams-channel + operator notification.
+        // mailer.etzhayyim.com/send for Teams-channel + operator notification.
         // Best-effort only; humanInstructions fallback remains below.
         // TODO: emit ai.gftd.apps.fax.notificationRequest record and let
         // mailer consume it via onCommit (ADR-0004 write-only derived).
@@ -649,7 +649,7 @@ async function cmdConfirmManualSend(sdk: HostSDK, body: Uint8Array) {
       // Cross-actor invoke is currently blocked by CF same-zone Worker→Worker fetch
       // (HTTP 522) and PDS does not auto-dispatch custom NSIDs. Return a follow-up payload
       // so the calling agent (or human) can complete the audit chain by POSTing directly:
-      //   curl -X POST https://r0uk15h0.gftd.ai/xrpc/ai.gftd.apps.roukisho.recordCommunication
+      //   curl -X POST https://r0uk15h0.etzhayyim.com/xrpc/ai.gftd.apps.roukisho.recordCommunication
       //        -H 'content-type: application/json' -d '<payload>'
       roukishoFollowup = {
         hint: "Cross-actor invoke failed (CF 522 same-zone). Call roukisho directly to close audit chain.",

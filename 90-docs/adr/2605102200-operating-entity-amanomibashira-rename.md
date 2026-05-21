@@ -19,7 +19,7 @@ superseded_by: []
 `deps.toml [platform.operating_entity]` の SSoT で運営法人を `etz hayim`
 (Hebrew "tree of life" のローマ字綴り) として固定していた。Footer / legal
 doc / `vertex_actor.operator` / JSON-LD publisher / contact email
-(`office@etzhayim.gftd.ai`) / CF Worker route (`etzhayim.gftd.ai/*`) など
+(`office@etzhayim.etzhayyim.com`) / CF Worker route (`etzhayim.etzhayyim.com/*`) など
 repo 内 251 ファイル + DNS / Cloudflare DNS / M365 メール経路まで
 波及していた。
 
@@ -42,13 +42,13 @@ Hebrew 表記 (`עץ חיים`) と romanized form (`etz hayim`) は legacy alia
    `name_hebrew = "עץ חיים"`、`name_hebrew_romanized = "etz hayim"`。
    AT Profile / vertex / 既存契約 PDF からの逆引きは alias 経由で許容。
 3. **DNS / 公開 surface 切替** (ADR 適用後の operator action):
-   - `etzhayim.gftd.ai` → `etzhayyim.gftd.ai` の CF DNS レコード
+   - `etzhayim.etzhayyim.com` → `etzhayyim.etzhayyim.com` の CF DNS レコード
      新設 + organism-status Worker の route pattern と内部 URL を更新
      (`50-infra/cloudflare/workers/organism-status/wrangler.jsonc:13`,
      `src/index.ts:43,330,1153`)。
-   - 旧 `etzhayim.gftd.ai/*` route は 12 ヶ月並走 (301 redirect) で
+   - 旧 `etzhayim.etzhayyim.com/*` route は 12 ヶ月並走 (301 redirect) で
      legacy bookmark / 過去メール本文の link を回復可能に保つ。
-   - `office@etzhayim.gftd.ai` → `office@etzhayyim.gftd.ai` の
+   - `office@etzhayim.etzhayyim.com` → `office@etzhayyim.etzhayyim.com` の
      M365 / CF Email Routing 切替。旧 address は forward で 12 ヶ月並走。
 4. **graph backfill**: 既存 backfill migration
    `30-graph/graph-schema/migrations/20260427150000_backfill_operator_etz_hayim.ts`
@@ -76,7 +76,7 @@ Hebrew 表記 (`עץ חיים`) と romanized form (`etz hayim`) は legacy alia
   将来 rebrand は ADR 1 本で完結する (on-chain change は別 ADR 必須)。
 
 **Negative / リスク**
-- DNS 切替期間中は `etzhayim.gftd.ai` の public link を含む過去メール /
+- DNS 切替期間中は `etzhayim.etzhayyim.com` の public link を含む過去メール /
   ブックマークが redirect 経由になる。
 - 過去 ADR / commit message / DECISION-LOG iter22-130 内の `etz hayim`
   参照は alias として読み替え必要 (検索性は alias 一覧でカバー)。
@@ -86,9 +86,9 @@ Hebrew 表記 (`עץ חיים`) と romanized form (`etz hayim`) は legacy alia
 
 **Pending operator actions** (deps.toml `[[migrations]]
 operating-entity-etzhayyim-rename-2026-05-10` で追跡):
-1. CF DNS `etzhayyim.gftd.ai` 作成 + organism-status Worker route
+1. CF DNS `etzhayyim.etzhayyim.com` 作成 + organism-status Worker route
    bind
-2. CF Email Routing `office@etzhayyim.gftd.ai` 設定 + 旧 address
+2. CF Email Routing `office@etzhayyim.etzhayyim.com` 設定 + 旧 address
    forward
 3. `vertex_actor.operator` rebackfill (旧値があれば; 4,821 row scan)
 4. yoro / hc / lawfirm Footer の SSR キャッシュ purge
@@ -113,6 +113,6 @@ operating-entity-etzhayyim-rename-2026-05-10` で追跡):
 - `deps.toml [[migrations]] operating-entity-etzhayyim-rename-2026-05-10`
 - `90-docs/adr/0019-atproto-native-identifier-topology.md` (path-based
   DID; on-chain identity vs display layer separation)
-- `_working/gftdcojp-revenue/DECISION-LOG.md iter131`
+- `_working/etzhayyim-revenue/DECISION-LOG.md iter131`
 - `_working/keiei/CXO-LEDGER.md seq 10` (Class A — operating entity
   rename, executed per CEO 河崎 directive)

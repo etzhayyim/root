@@ -109,8 +109,8 @@ CF Worker proxy が既に CF 依存なので、Tunnel への置換は CF 依存�
 cloudflared tunnel create geth-rpc
 # → ~/.cloudflared/{TUNNEL_ID}.json
 TUNNEL_ID=$(cloudflared tunnel list --output json | jq -r '.[] | select(.name=="geth-rpc") | .id')
-cloudflared tunnel route dns geth-rpc geth.gftd.ai  # 既存 CNAME を上書き
-# 注意: 既存 CNAME は CF Worker geth-rpc-proxy の route。route dns コマンドで CNAME を {TUNNEL_ID}.cfargotunnel.com に書き換える前に既存 Worker route を unbind するか、別 hostname (例: geth-rpc.gftd.ai) でテストすること
+cloudflared tunnel route dns geth-rpc geth.etzhayyim.com  # 既存 CNAME を上書き
+# 注意: 既存 CNAME は CF Worker geth-rpc-proxy の route。route dns コマンドで CNAME を {TUNNEL_ID}.cfargotunnel.com に書き換える前に既存 Worker route を unbind するか、別 hostname (例: geth-rpc.etzhayyim.com) でテストすること
 ```
 
 ### Stage B: tunnel manifest 作成 + 適用
@@ -120,7 +120,7 @@ cloudflared tunnel route dns geth-rpc geth.gftd.ai  # 既存 CNAME を上書き
 ```yaml
 # (略 — blockscout-tunnel.yaml と同形、namespace=geth-private、ingress 1 本)
 ingress:
-  - hostname: geth.gftd.ai
+  - hostname: geth.etzhayyim.com
     service: http://geth-private.geth-private.svc.cluster.local:8545
     originRequest:
       connectTimeout: 10s
@@ -137,13 +137,13 @@ kubectl -n geth-private rollout status deploy/cloudflared-geth-rpc
 
 ```bash
 # 直接 tunnel 経由 (DNS 切替前なら別 hostname で)
-curl -sS https://geth.gftd.ai \
+curl -sS https://geth.etzhayyim.com \
   -H 'Content-Type: application/json' \
   -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
 # 期待: {"jsonrpc":"2.0","id":1,"result":"0x3f9a9"}  (260425 hex)
 
 # Smart Wallet add-chain flow (yoro UI から手動)
-# yoro.gftd.ai の Smart account add-chain で chainId 260425 を追加し、
+# yoro.etzhayyim.com の Smart account add-chain で chainId 260425 を追加し、
 # eth_blockNumber / eth_getBalance が成功することを確認
 ```
 
@@ -190,7 +190,7 @@ ADR-2605010000 の Decision = **1 pod に ComfyUI :8188 + vLLM :8000 + LiteLLM :
 
 しかし root deps.toml L1089 (`runpod-comfyui-pod-active`) に明記:
 
-> Image: `runpod/comfyui:latest` (public, **ComfyUI :8188 only — no co-located vLLM/LiteLLM in this revision**; LLM path needs separate pod or Murakumo fallback). Predecessor `58pvflvw9w6nt3` (terminated 2026-05-05) hosted unified pod with `ghcr.io/gftdcojp/runpod-vllm-gemma:latest`...
+> Image: `runpod/comfyui:latest` (public, **ComfyUI :8188 only — no co-located vLLM/LiteLLM in this revision**; LLM path needs separate pod or Murakumo fallback). Predecessor `58pvflvw9w6nt3` (terminated 2026-05-05) hosted unified pod with `ghcr.io/etzhayyim/runpod-vllm-gemma:latest`...
 
 つまり **2026-05-05 の pod 再作成時に unified image を使わず public ComfyUI image で起動** → LLM スロットを silent regression。**価格は据え置き $554/mo、価値だけ消えた**。
 
@@ -220,9 +220,9 @@ TS=$(date +%Y%m%d-%H%M)
 docker buildx build \
   --platform linux/amd64 \
   --builder gftd-vke \
-  --tag ghcr.io/gftdcojp/runpod-vllm-gemma:${TS}-amd64 \
-  --tag ghcr.io/gftdcojp/runpod-vllm-gemma:v1 \
-  --tag ghcr.io/gftdcojp/runpod-vllm-gemma:latest \
+  --tag ghcr.io/etzhayyim/runpod-vllm-gemma:${TS}-amd64 \
+  --tag ghcr.io/etzhayyim/runpod-vllm-gemma:v1 \
+  --tag ghcr.io/etzhayyim/runpod-vllm-gemma:latest \
   --push \
   --progress=plain \
   50-infra/runpod/vllm-gemma-image
@@ -231,7 +231,7 @@ docker buildx build \
 **verify**:
 
 ```bash
-docker manifest inspect ghcr.io/gftdcojp/runpod-vllm-gemma:latest \
+docker manifest inspect ghcr.io/etzhayyim/runpod-vllm-gemma:latest \
   | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['config']['digest'], 'layers:', len(d['layers']), 'size:', sum(l['size'] for l in d['layers']))"
 # 期待: sha256:... layers: 19 size: ~10.58 GB
 ```
@@ -257,7 +257,7 @@ curl -sS https://api.runpod.io/graphql \
 curl -sS https://api.runpod.io/graphql \
   -H "Authorization: Bearer $RUNPOD_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"query":"mutation { podEditJob(input:{podId:\"vyp99t9px7h4dl\",imageName:\"ghcr.io/gftdcojp/runpod-vllm-gemma:latest\"}) { id } }"}'
+  -d '{"query":"mutation { podEditJob(input:{podId:\"vyp99t9px7h4dl\",imageName:\"ghcr.io/etzhayyim/runpod-vllm-gemma:latest\"}) { id } }"}'
 ```
 
 ### Stage C: 検証

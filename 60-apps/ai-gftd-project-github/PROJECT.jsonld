@@ -14,9 +14,9 @@
   "author": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://gftd.ai"
+    "url": "https://etzhayyim.com"
   },
-  "codeRepository": "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp",
+  "codeRepository": "https://github.com/etzhayyim/etzhayyim-root",
   "programmingLanguage": "Go",
   "rdfUnifiedDocuments": {
     "@type": "Dataset",
@@ -29,7 +29,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

@@ -166,7 +166,7 @@ export async function handlePublicAcl(
 
   // Cache hit?
   const cache = (caches as { default?: Cache }).default;
-  const cacheKey = new Request(`https://yatabase.gftd.ai/__cache/public/${bucket}/${encodeURIComponent(key)}`);
+  const cacheKey = new Request(`https://yatabase.etzhayyim.com/__cache/public/${bucket}/${encodeURIComponent(key)}`);
   if (cache) {
     const cached = await cache.match(cacheKey);
     if (cached) return cached.clone();

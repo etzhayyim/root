@@ -13,13 +13,13 @@ related:
   - adr-0018-pii-tier3-cohort-first
 ---
 
-# Sales Outreach Automation (`outreach.gftd.ai`)
+# Sales Outreach Automation (`outreach.etzhayyim.com`)
 
 ADR-2605072000 business model ③ of 5.
 
 ## Actor
 
-- DID: `did:web:outreach.gftd.ai`
+- DID: `did:web:outreach.etzhayyim.com`
 - Nanoid: `otch0001`
 - CF Worker: `60-apps/ai-gftd-project-outreach/appview/outreach-otch0001/`
 - Python worker: `20-actors/magatama/py/src/pymagatama/outreach_worker_main.py`
@@ -37,7 +37,7 @@ createSequence XRPC
   → ReplyGateway:
       replied=true  → RepliedEnd (mark sequence replied, stop)
       replied=false → outreach.send_via_resend (step 2 follow-up)
-                    → outreach.create_sponsor_slot (optional ads.gftd.ai)
+                    → outreach.create_sponsor_slot (optional ads.etzhayyim.com)
 ```
 
 Reply detection: `subscribeRepos` on `ai.gftd.apps.gmail.message` +
@@ -66,8 +66,8 @@ AGENTGATEWAY_MCP_URL       gRPC address (default 127.0.0.1:26500)
 RW_URL              RisingWave postgres URL
 ANTHROPIC_API_KEY
 RESEND_API_KEY
-RESEND_FROM         sender (default outreach@gftd.ai)
-ADS_XRPC_URL        ads.gftd.ai base (default https://adsm4d5c.gftd.ai)
+RESEND_FROM         sender (default outreach@etzhayyim.com)
+ADS_XRPC_URL        ads.etzhayyim.com base (default https://adsm4d5c.etzhayyim.com)
 ```
 
 ## Start worker

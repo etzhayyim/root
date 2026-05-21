@@ -8,8 +8,8 @@
 | 属性 | 値 |
 |---|---|
 | nanoid | `it0n4m1x` |
-| handle | `itonami.gftd.ai` |
-| DID | `did:web:itonami.gftd.ai` |
+| handle | `itonami.etzhayyim.com` |
+| DID | `did:web:itonami.etzhayyim.com` |
 | NSID prefix | `ai.gftd.apps.itonami.*` |
 | runtimeType | `worker` |
 | complianceFramework | `aerospace-safety` |
@@ -122,7 +122,7 @@ EngineDesign
 ```bash
 cd 60-apps/ai-gftd-project-itonami/appview/itonami-it0n4m1x
 gftd deploy
-curl https://it0n4m1x.gftd.ai/health
+curl https://it0n4m1x.etzhayyim.com/health
 ```
 
 ## Migration Backlog

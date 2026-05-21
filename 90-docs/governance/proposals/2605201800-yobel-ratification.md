@@ -73,7 +73,7 @@ Upon approval:
 
 - Any individual rite declaration (requires its own per-rite ratification)
 - Pre-deployment changes to the contract source (requires a new ADR amendment)
-- Tax advice from the yobel actor (delegated to vendor:lawfirm.gftd.ai per 3-axis split)
+- Tax advice from the yobel actor (delegated to vendor:lawfirm.etzhayyim.com per 3-axis split)
 - Vendor (Gftd Japan) write access to `YobelRiteRegistry` (consumer-only per ADR-2605172400)
 
 ## Risk surface + mitigations
@@ -82,8 +82,8 @@ Upon approval:
 |---|---|
 | Steward authority abuse — issuer declares unauthorized rites | Council Lv6+ × N + Lv9 chair ratification gate; multi-issuer permitted (other religious-corps may declare under their own DIDs); all declarations public on AT MST |
 | §2(b) violation via instrument expansion | Schema-level enforcement: lexicon has no loan/interest/margin methods. Cannot be added without a new ADR amendment. Defense-in-depth in cell + DMN + Solidity revert |
-| Tax surprise to debtors | `verifyEligibility.warnings[]` carries per-jurisdiction COD income warnings (USA/JPN/DEU/GBR/FRA/ISR). Actor delegates tax advice to vendor:lawfirm.gftd.ai |
-| Secular creditor refuses voluntary release | yobel is voluntary opt-in; mandatory binding via vendor:bankruptcy.gftd.ai (Chapter 7 etc.) — both actors interoperate via `recordYobelRiteReference` |
+| Tax surprise to debtors | `verifyEligibility.warnings[]` carries per-jurisdiction COD income warnings (USA/JPN/DEU/GBR/FRA/ISR). Actor delegates tax advice to vendor:lawfirm.etzhayyim.com |
+| Secular creditor refuses voluntary release | yobel is voluntary opt-in; mandatory binding via vendor:bankruptcy.etzhayyim.com (Chapter 7 etc.) — both actors interoperate via `recordYobelRiteReference` |
 | Audit tampering | `audit_witness` cell uses 2-node consensus + rotating witness keys + Public Fund grant auto-emit on confirmed tampering |
 | Cross-chain (Base L2) reorg / outage | Anchor records are append-only; idempotent revert on duplicate; vendor side `riteResolvedStatus="unresolved"` warning surfaced when RPC unreachable |
 
@@ -140,7 +140,7 @@ ratifier_count: 6
 
 - **Subject ADR**: [`90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md`](../../adr/2605201800-etzhayyim-yobel-debt-release-actor.md)
 - **Reference implementation**: [etzhayyim/root PR #73](https://github.com/etzhayyim/root/pull/73) — 71 files / +9037 lines / 6 commits (lexicons + cells + orchestrator + Solidity + web3 ports + integration tests)
-- **Vendor twin ADR**: [gftdcojp PR #1312](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1312) — 18 files / +2472 / 3 commits (lexicon + bridge utility + docs)
+- **Vendor twin ADR**: [etzhayyim PR #1312](https://github.com/etzhayyim/etzhayyim-root/pull/1312) — 18 files / +2472 / 3 commits (lexicon + bridge utility + docs)
 - **Charter**: [ADR-2605192100](../../adr/2605192100-etzhayyim-mission-charter.md)
 - **Charter Rider v2.0**: [`/CHARTER-RIDER.md`](../../../CHARTER-RIDER.md)
 - **Three-Tier Enforcement**: [ADR-2605192230](../../adr/2605192230-etzhayyim-three-tier-enforcement-implementation.md)

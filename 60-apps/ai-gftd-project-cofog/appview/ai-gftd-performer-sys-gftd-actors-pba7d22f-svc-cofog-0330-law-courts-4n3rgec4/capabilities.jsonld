@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/03/3/0/law-courts",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/03/3/0/law-courts",
       "type": "dodaf:Capability",
       "name": "Judicial Administration and Adjudication Capability",
       "description": "Functional capability for managing the court system, legal proceedings, and the issuance of judicial rulings. Classification: COFOG Division 03, Group 3, Class 0.",

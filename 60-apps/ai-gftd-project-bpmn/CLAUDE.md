@@ -1,16 +1,16 @@
 # ai-gftd-project-bpmn
 
-BPMN repository for bpmn.gftd.ai — publish, search, and generate BPMN diagrams from resources, tsukuru, isco, and apqc domains.
+BPMN repository for bpmn.etzhayyim.com — publish, search, and generate BPMN diagrams from resources, tsukuru, isco, and apqc domains.
 
 ## Architecture
 
 ```
-Browser → bpmn.gftd.ai (static delivery)
+Browser → bpmn.etzhayyim.com (static delivery)
        → API → /gftd.bpmn.v1.BpmnCommandService/... + /gftd.bpmn.v1.BpmnQueryService/...
                   ↓
            App: ai-gftd-wasm-bpmn-bx7qm9p4
              ├─ publish_bpmn / update_bpmn / archive_bpmn
-             ├─ generate_bpmn (murakumo.gftd.ai LLM)
+             ├─ generate_bpmn (murakumo.etzhayyim.com LLM)
              ├─ list_bpmns / search_bpmns / get_bpmn
              └─ SQL graph → bpmn_definitions_current
 ```
@@ -25,8 +25,8 @@ Browser → bpmn.gftd.ai (static delivery)
 
 | Domain | 意味 |
 |---|---|
-| `resources` | resources.gftd.ai の entity/resource BPMN |
-| `tsukuru` | tsukuru.gftd.ai の製造・RFQ プロセス BPMN |
+| `resources` | resources.etzhayyim.com の entity/resource BPMN |
+| `tsukuru` | tsukuru.etzhayyim.com の製造・RFQ プロセス BPMN |
 | `isco` | isco の職業・業務フロー BPMN |
 | `apqc` | APQC Process Classification Framework BPMN |
 

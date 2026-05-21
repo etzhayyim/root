@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/01/4/1/public-debt-transactions/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/01/4/1/public-debt-transactions/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Sovereign Debt Lifecycle Management",
       "description": "The administrative process of managing the lifecycle of public debt, from strategic issuance to final redemption and solvency assessment.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/01/4/1/public-debt-transactions"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/4/1/public-debt-transactions"
     }
   ]
 }

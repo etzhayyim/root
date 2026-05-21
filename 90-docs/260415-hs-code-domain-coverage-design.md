@@ -38,7 +38,7 @@ HS はこの repo において次の位置に置く。
 - `states` / customs / tariff / sanctions / export-control の entrypoint
 - `cpc` や `gtin.classification` の主要な concordance 先
 
-要するに、`hs.gftd.ai` は「何のモノが国境を越えるか」を表す SSoT とする。
+要するに、`hs.etzhayyim.com` は「何のモノが国境を越えるか」を表す SSoT とする。
 
 ## Architecture
 
@@ -46,7 +46,7 @@ HS はこの repo において次の位置に置く。
 
 `ai-gftd-project-code-hs` は **1 app × multi-DID** を基本とする。
 
-- primary DID: `did:web:hs.gftd.ai`
+- primary DID: `did:web:hs.etzhayyim.com`
 - NSID prefix: `ai.gftd.apps.hs.*`
 - performerType: `service`
 - execution tier: `T1`
@@ -62,13 +62,13 @@ HS はこの repo において次の位置に置く。
 ### Canonical DID convention
 
 ```text
-did:web:hs.gftd.ai
-did:web:hs.gftd.ai:section:{section_slug}
-did:web:hs.gftd.ai:chapter:{chapter2}
-did:web:hs.gftd.ai:heading:{heading4}
-did:web:hs.gftd.ai:subheading:{subheading6}
-did:web:hs.gftd.ai:revision:{edition}
-did:web:hs.gftd.ai:country:{iso3}
+did:web:hs.etzhayyim.com
+did:web:hs.etzhayyim.com:section:{section_slug}
+did:web:hs.etzhayyim.com:chapter:{chapter2}
+did:web:hs.etzhayyim.com:heading:{heading4}
+did:web:hs.etzhayyim.com:subheading:{subheading6}
+did:web:hs.etzhayyim.com:revision:{edition}
+did:web:hs.etzhayyim.com:country:{iso3}
 ```
 
 ### Why this split
@@ -223,8 +223,8 @@ HS は改訂があるため、global core と edition overlay を分離する。
 
 ### Chosen
 
-- domain: `hs.gftd.ai`
-- primary DID: `did:web:hs.gftd.ai`
+- domain: `hs.etzhayyim.com`
+- primary DID: `did:web:hs.etzhayyim.com`
 - architecture: 1 coordinator app × multi-DID
 - canonical depth: section / chapter / heading / subheading
 - country and revision are overlays, not replacements

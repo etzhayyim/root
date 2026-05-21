@@ -327,7 +327,7 @@ def test_batch_driver_targets_topology_nsid(spec: dict) -> None:
 
 def test_mediapipe_face_pod_image_present(spec: dict) -> None:
     """P16-c/1 — the `extract_blendshapes` node declares
-    `pod_image: ghcr.io/gftdcojp/mediapipe-face:1`. That image MUST
+    `pod_image: ghcr.io/etzhayyim/mediapipe-face:1`. That image MUST
     have a real build context under `50-infra/k8s/mangaka-mediapipe-face/`
     so the BuildKit remote-build script can push it without surprises."""
     repo_root = _LG_DIR.parents[2]
@@ -346,7 +346,7 @@ def test_mediapipe_face_pod_image_present(spec: dict) -> None:
     # YAML and Dockerfile can roll forward together).
     by_id = {n["id"]: n for n in spec["nodes"]}
     pod_image = by_id["extract_blendshapes"]["config"]["pod_image"]
-    assert pod_image.startswith("ghcr.io/gftdcojp/mediapipe-face:"), pod_image
+    assert pod_image.startswith("ghcr.io/etzhayyim/mediapipe-face:"), pod_image
 
 
 def test_mediapipe_pod_has_no_runtime_external_api(spec: dict) -> None:
@@ -377,7 +377,7 @@ def test_mediapipe_pod_has_no_runtime_external_api(spec: dict) -> None:
 
 def test_character_gen_pod_image_present(spec: dict) -> None:
     """P16-c/2 — the `generate_multiview` node declares
-    `pod_image: ghcr.io/gftdcojp/character-gen:0.1`. Build context must
+    `pod_image: ghcr.io/etzhayyim/character-gen:0.1`. Build context must
     exist under `50-infra/k8s/mangaka-character-gen/` with the standard
     4-file layout."""
     repo_root = _LG_DIR.parents[2]
@@ -392,7 +392,7 @@ def test_character_gen_pod_image_present(spec: dict) -> None:
 
     by_id = {n["id"]: n for n in spec["nodes"]}
     pod_image = by_id["generate_multiview"]["config"]["pod_image"]
-    assert pod_image.startswith("ghcr.io/gftdcojp/character-gen:"), pod_image
+    assert pod_image.startswith("ghcr.io/etzhayyim/character-gen:"), pod_image
 
     # GPU is required at this step. Lock that into the Dockerfile too —
     # the nvidia/cuda base layer is the structural signal.
@@ -427,7 +427,7 @@ def test_character_gen_pod_has_no_runtime_external_api() -> None:
 
 def test_hunyuan3d_pod_image_present(spec: dict) -> None:
     """P16-c/3 — `reconstruct_mesh` node declares
-    `pod_image: ghcr.io/gftdcojp/hunyuan3d-2:0.2`. Build context must
+    `pod_image: ghcr.io/etzhayyim/hunyuan3d-2:0.2`. Build context must
     exist under `50-infra/k8s/mangaka-hunyuan3d-2/`."""
     repo_root = _LG_DIR.parents[2]
     pod_dir = repo_root / "50-infra" / "k8s" / "mangaka-hunyuan3d-2"
@@ -441,7 +441,7 @@ def test_hunyuan3d_pod_image_present(spec: dict) -> None:
 
     by_id = {n["id"]: n for n in spec["nodes"]}
     pod_image = by_id["reconstruct_mesh"]["config"]["pod_image"]
-    assert pod_image.startswith("ghcr.io/gftdcojp/hunyuan3d-2:"), pod_image
+    assert pod_image.startswith("ghcr.io/etzhayyim/hunyuan3d-2:"), pod_image
 
     # GPU is required — CUDA base layer is the structural signal.
     dockerfile = (pod_dir / "Dockerfile").read_text(encoding="utf-8")
@@ -473,7 +473,7 @@ def test_hunyuan3d_pod_has_no_runtime_external_api() -> None:
 
 def test_blender_rigify_pod_image_present(spec: dict) -> None:
     """P16-c/4 — `auto_rig` node declares
-    `pod_image: ghcr.io/gftdcojp/blender-rigify-rignet:0.1`. Pod dir
+    `pod_image: ghcr.io/etzhayyim/blender-rigify-rignet:0.1`. Pod dir
     must hold the 6-file layout (Dockerfile, requirements, README,
     server.py, rigify_fit.py, rignet_inference.py)."""
     repo_root = _LG_DIR.parents[2]
@@ -495,7 +495,7 @@ def test_blender_rigify_pod_image_present(spec: dict) -> None:
 
     by_id = {n["id"]: n for n in spec["nodes"]}
     pod_image = by_id["auto_rig"]["config"]["pod_image"]
-    assert pod_image.startswith("ghcr.io/gftdcojp/blender-rigify-rignet:"), pod_image
+    assert pod_image.startswith("ghcr.io/etzhayyim/blender-rigify-rignet:"), pod_image
 
     # GPU NOT required here (Rigify is CPU-only, RigNet fallback is
     # CPU-only). Dockerfile MUST NOT use the CUDA base layer — locking
@@ -536,7 +536,7 @@ def test_blender_rigify_pod_has_no_runtime_external_api() -> None:
 
 def test_blender_vrm_pod_image_present(spec: dict) -> None:
     """P16-c/5 — `bind_vrm` node declares
-    `pod_image: ghcr.io/gftdcojp/blender-vrm:4.1`. Pod dir must hold
+    `pod_image: ghcr.io/etzhayyim/blender-vrm:4.1`. Pod dir must hold
     the 5-file layout (Dockerfile, requirements, README, server.py,
     bind_vrm.py)."""
     repo_root = _LG_DIR.parents[2]
@@ -551,7 +551,7 @@ def test_blender_vrm_pod_image_present(spec: dict) -> None:
 
     by_id = {n["id"]: n for n in spec["nodes"]}
     pod_image = by_id["bind_vrm"]["config"]["pod_image"]
-    assert pod_image.startswith("ghcr.io/gftdcojp/blender-vrm:"), pod_image
+    assert pod_image.startswith("ghcr.io/etzhayyim/blender-vrm:"), pod_image
 
     # CPU-only invariant — must NOT use a CUDA base layer.
     dockerfile = (pod_dir / "Dockerfile").read_text(encoding="utf-8")
@@ -597,12 +597,12 @@ def test_all_p16c_pod_images_scaffolded(spec: dict) -> None:
         cfg = n.get("config") or {}
         if n.get("kind") != "mcp_tool" or "pod_image" not in cfg:
             continue
-        # Image tag format: ghcr.io/gftdcojp/<name>:<ver>
+        # Image tag format: ghcr.io/etzhayyim/<name>:<ver>
         tag = cfg["pod_image"]
-        if not tag.startswith("ghcr.io/gftdcojp/"):
-            missing.append(f"{n['id']}: {tag!r} not under ghcr.io/gftdcojp/")
+        if not tag.startswith("ghcr.io/etzhayyim/"):
+            missing.append(f"{n['id']}: {tag!r} not under ghcr.io/etzhayyim/")
             continue
-        slug = tag[len("ghcr.io/gftdcojp/"):].split(":", 1)[0]
+        slug = tag[len("ghcr.io/etzhayyim/"):].split(":", 1)[0]
         pod_dir = repo_root / "50-infra" / "k8s" / f"mangaka-{slug}"
         if not pod_dir.is_dir():
             missing.append(f"{n['id']}: no build context at {pod_dir}")

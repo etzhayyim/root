@@ -6,7 +6,7 @@
 
 | Key | Value |
 |---|---|
-| **AT bot DID** | `did:web:i18n-251b9zaw.gftd.ai` |
+| **AT bot DID** | `did:web:i18n-251b9zaw.etzhayyim.com` |
 | **World** | `gftd-actor-agent` (LLM agent for translation) |
 
 ## Purpose
@@ -16,7 +16,7 @@
 1. **Batch Translation** — 73+ プロジェクトの `messages/{lang}.json` を 200+ 言語に自動翻訳 (CronJob)
 2. **Real-time Translation** — 開いているページの自動翻訳 (Google Translate-like) + AT/Signal メッセージ翻訳
 3. **Widget Editor** — inlang-like な用語検索・提案・承認 (inline 翻訳エディタ)
-4. **Yoro Post Auto-Translation** — yoro.gftd.ai の投稿を Murakumo qwen3.5-4b で Tier 1+2 (50言語) に自動翻訳
+4. **Yoro Post Auto-Translation** — yoro.etzhayyim.com の投稿を Murakumo qwen3.5-4b で Tier 1+2 (50言語) に自動翻訳
 
 ## Architecture
 
@@ -149,7 +149,7 @@ Signal Encrypted Message
 inlang のように開いているページの翻訳キーを検索・編集・承認できる Widget。
 
 ```
-Developer opens any *.gftd.ai page
+Developer opens any *.etzhayyim.com page
   → Widget overlay activated (keyboard shortcut / SuperApp App)
     → WidgetLookup: search term across all target languages
     → WidgetSuggest: get 3 alternative translations from LLM
@@ -159,16 +159,16 @@ Developer opens any *.gftd.ai page
 
 ## Inference Model
 
-**Murakumo qwen3.5-4b (on-prem MLX fleet, zero cost)。** CF Workers AI (llm.gftd.ai) は使用しない。
+**Murakumo qwen3.5-4b (on-prem MLX fleet, zero cost)。** CF Workers AI (llm.etzhayyim.com) は使用しない。
 
 | 用途 | Model | Endpoint | Cost |
 |---|---|---|---|
-| **Translation (全モード)** | `qwen3.5-4b` | `murakumo.gftd.ai/api/openai/v1/chat/completions` (direct fetch) | **Zero** |
+| **Translation (全モード)** | `qwen3.5-4b` | `murakumo.etzhayyim.com/api/openai/v1/chat/completions` (direct fetch) | **Zero** |
 | Language detection (LLM refinement) | host-sdk `llmJson()` → PDS gateway | PDS route | — |
 
 ## Yoro Post Auto-Translation (Design E Reactive)
 
-**yoro.gftd.ai の `app.bsky.feed.post` commit を `handleComAtprotoSyncSubscribeReposCommit` で受信し、Murakumo qwen3.5-4b で Tier 1+2 全言語に自動翻訳。**
+**yoro.etzhayyim.com の `app.bsky.feed.post` commit を `handleComAtprotoSyncSubscribeReposCommit` で受信し、Murakumo qwen3.5-4b で Tier 1+2 全言語に自動翻訳。**
 
 ```
 yoro post create → PDS commit → i18n subscribeRepos (Follow-based)

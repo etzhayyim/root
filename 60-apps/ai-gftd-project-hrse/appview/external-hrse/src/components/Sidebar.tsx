@@ -8,7 +8,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { getUserMetadata } from "@/lib/clerk-metadata-client";
 
 /**
- * @gftdcojp/cyber-freelance#Sidebar
+ * @etzhayyim/cyber-freelance#Sidebar
  * 左サイドバーナビゲーション
  * Apple HIG準拠：タッチターゲット44px、Safe Area対応
  */

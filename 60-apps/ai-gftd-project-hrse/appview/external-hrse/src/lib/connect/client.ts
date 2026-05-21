@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/ai-gftd-hrse#ConnectClient
+ * @etzhayyim/ai-gftd-hrse#ConnectClient
  * Connect-Web クライアント設定
  * 
  * Connect-RPC プロトコルを使用してバックエンドと通信
@@ -35,7 +35,7 @@ function createAuthInterceptor(
 export function createTransport(getToken?: () => Promise<string | null>) {
   const authInterceptor = createAuthInterceptor(getToken);
   return createConnectTransport({
-    baseUrl: CONNECT_API_URL || "https://atproto.gftd.ai",
+    baseUrl: CONNECT_API_URL || "https://atproto.etzhayyim.com",
     ...(authInterceptor ? { interceptors: [authInterceptor] } : {}),
   });
 }
@@ -48,7 +48,7 @@ export function createServerTransport() {
   const serverUrl = process.env.CONNECT_API_URL || "http://localhost:8083";
 
   return createConnectTransport({
-    baseUrl: serverUrl || "https://atproto.gftd.ai",
+    baseUrl: serverUrl || "https://atproto.etzhayyim.com",
   });
 }
 

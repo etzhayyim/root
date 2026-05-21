@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:mangaka.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:mangaka.etzhayyim.com",
   "component": {
     "env": {
       "APP_EMBED_MODE": "draw",
@@ -43,7 +43,7 @@
   "project": "mangaka",
   "routes": [
     {
-      "host": "mangaka.gftd.ai",
+      "host": "mangaka.etzhayyim.com",
       "paths": [
         "/"
       ],

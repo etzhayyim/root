@@ -14,7 +14,7 @@ The CF Worker in `appview/` is a thin presentation layer.
 | **Fan-out** | `checkPriceDrop.bpmn` exclusiveGateway → `generic.pds.dispatch(app.bsky.feed.post)` when `alerted=true` |
 | **Providers** | registry-driven: `amadeus` / `duffel` / `kiwi-tequila` / `travelpayouts-aviasales` / `stub` (env-gated) |
 | **Registry** | 42 IATA airlines (`vertex_airline`) · 8 sources (`vertex_flight_offer_source`) · N:M coverage (`edge_flight_offer_source_covers_airline`) |
-| **Identity** | `did:web:flight-offer.gftd.ai`, nanoid `fl1ghts1` |
+| **Identity** | `did:web:flight-offer.etzhayyim.com`, nanoid `fl1ghts1` |
 
 ## XRPC surface (`ai.gftd.apps.flightOffer.*`)
 
@@ -39,7 +39,7 @@ The CF Worker in `appview/` is a thin presentation layer.
 |---|---|
 | 13 graph migrations | ✅ applied to RisingWave |
 | database.ts regenerated | ✅ |
-| CF Worker build | ✅ (template literal fix + flight-offer.gftd.ai route) |
+| CF Worker build | ✅ (template literal fix + flight-offer.etzhayyim.com route) |
 | CF Worker deploy | ❌ pending `wrangler login` (CF auth expired) |
 | LangServer task activation | ❌ pending `kubectl rollout restart deployment/langserver-worker -n zeebe` |
 | Amadeus/Duffel credentials | ❌ pending provisioning |

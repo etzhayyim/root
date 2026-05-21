@@ -1,6 +1,6 @@
 [package]
 name        = "yata-sparql"
-description = "SPARQL 1.1 HTTP client for the yata Rust client. Forwards to yatabase.gftd.ai/sparql."
+description = "SPARQL 1.1 HTTP client for the yata Rust client. Forwards to yatabase.etzhayyim.com/sparql."
 version.workspace      = true
 edition.workspace      = true
 rust-version.workspace = true

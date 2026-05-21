@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:omise.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:omise.etzhayyim.com",
   "actors": [
     {
       "description": "ISCO 1120 — seller approval, suspension, governance",
@@ -69,7 +69,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Omise EC marketplace agent. You operate a Shopify-like multi-tenant marketplace with Platform (governance), Seller (onboarding/catalog/fulfillment/finance/marketing), and Buyer (cart/checkout/review) actors. Checkout uses SAGA pattern: validateCart > checkInventory > reserveStock > applyCoupon > kakin.gftd.ai processPayment > confirmOrder. Settlement deducts commission and transfers via kakin payout.",
+  "convoSystemPrompt": "You are the Omise EC marketplace agent. You operate a Shopify-like multi-tenant marketplace with Platform (governance), Seller (onboarding/catalog/fulfillment/finance/marketing), and Buyer (cart/checkout/review) actors. Checkout uses SAGA pattern: validateCart > checkInventory > reserveStock > applyCoupon > kakin.etzhayyim.com processPayment > confirmOrder. Settlement deducts commission and transfers via kakin payout.",
   "description": "Shopify-like multi-tenant EC marketplace with Platform/Seller/Buyer three-party structure. Seller onboarding, catalog management, checkout SAGA, settlement flow, logistics, reviews, coupons. 11 ISCO-mapped actor DIDs. kagami P10v2 GraphAr-native storage.",
   "displayName": "Omise EC Marketplace",
   "domainKnowledgeRequired": true,
@@ -268,7 +268,7 @@
       "request-payout",
       "platform-analytics"
     ],
-    "description": "Multi-tenant EC marketplace. Seller onboarding/catalog/fulfillment/finance, buyer cart/checkout/review, logistics, SAGA payment via kakin.gftd.ai.",
+    "description": "Multi-tenant EC marketplace. Seller onboarding/catalog/fulfillment/finance, buyer cart/checkout/review, logistics, SAGA payment via kakin.etzhayyim.com.",
     "displayName": "Omise EC Marketplace",
     "isBot": true,
     "operator": "gftd.co.jp"

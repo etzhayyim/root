@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/2/3/dental-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/2/3/dental-services",
       "type": "dodaf:Capability",
       "name": "Outpatient Dental Service Oversight Capability",
       "description": "Functional capability for managing outpatient dental services, dental facility hygiene audits, and oral health coordination. Classification: COFOG Division 07, Group 2, Class 3.",

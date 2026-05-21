@@ -34,7 +34,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_flight_offer_cleanup_runs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/flight-offer"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/flight-offer"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="flight_offer_cleanup_runs" name="cleanupRuns" '
@@ -90,7 +90,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:flight-offer.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:flight-offer.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;flight.offer.cleanupRuns&quot;" '
                  'target="action"/>\n'
@@ -109,7 +109,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  3520,
                  '00-contracts/bpmn/ai/gftd/flight-offer/cleanupRuns.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-cleanup-runs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-cleanup-runs-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET result_timeout_ms = 300000\n'
@@ -143,14 +143,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.flightOffer.pollWatchlist\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_flight_offer_poll_watchlist"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/flight-offer"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/flight-offer"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="flight_offer_poll_watchlist" name="pollWatchlist" '
@@ -210,7 +210,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:flight-offer.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:flight-offer.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;flight.offer.pollWatchlist&quot;" '
                  'target="action"/>\n'
@@ -229,7 +229,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  4304,
                  '00-contracts/bpmn/ai/gftd/flight-offer/pollWatchlist.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET result_timeout_ms = 300000\n'
@@ -244,7 +244,7 @@ DOWN = [{'sql': '\n'
          '          deployed_zeebe_key = NULL\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-cleanup-runs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-cleanup-runs-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET result_timeout_ms = 10000\n'
@@ -258,7 +258,7 @@ DOWN = [{'sql': '\n'
          '          deployed_zeebe_key = NULL\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET result_timeout_ms = 10000\n'

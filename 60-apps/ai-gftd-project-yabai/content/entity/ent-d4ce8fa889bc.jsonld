@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-d4ce8fa889bc",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d4ce8fa889bc",
   "entityId": "ent-d4ce8fa889bc",
   "canonicalName": "xingbiao shen",
   "aliases": [

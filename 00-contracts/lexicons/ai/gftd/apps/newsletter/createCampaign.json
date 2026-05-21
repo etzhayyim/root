@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Create a newsletter campaign. LangGraph curation loop ingests news.gftd.ai + narou.gftd.ai signals, ranks content, drafts and personalizes per cohort, then delivers via Resend.",
+      "description": "Create a newsletter campaign. LangGraph curation loop ingests news.etzhayyim.com + narou.etzhayyim.com signals, ranks content, drafts and personalizes per cohort, then delivers via Resend.",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -15,7 +15,7 @@
             "topic":         { "type": "string", "maxLength": 500, "description": "Content topic / theme for this campaign." },
             "cohortName":    { "type": "string", "maxLength": 120, "description": "Target cohort from cohort-apqc-3-market-sell-* table. Empty = all subscribers." },
             "scheduleIso":   { "type": "string", "description": "ISO 8601 send time. Empty = send immediately." },
-            "includeAdSlot": { "type": "boolean", "description": "If true, creates an ads.gftd.ai sponsor slot in the newsletter." },
+            "includeAdSlot": { "type": "boolean", "description": "If true, creates an ads.etzhayyim.com sponsor slot in the newsletter." },
             "subjectLine":   { "type": "string", "maxLength": 200, "description": "Override subject line. Empty = LangGraph generates." }
           }
         }

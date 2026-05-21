@@ -1,6 +1,6 @@
 # ai-gftd-project-awai
 
-**URL**: https://awai.gftd.ai
+**URL**: https://awai.etzhayyim.com
 **Performer ID**: `ku9ndz8y`
 **Port**: 21090
 
@@ -11,9 +11,9 @@ Earth-scale 3D Gaussian Splatting viewer. WebP images → SfM → 3DGS training 
 ## Architecture
 
 ```
-Browser (awai.gftd.ai)
-  ├─ HTML/JS/CSS → awai.gftd.ai (static delivery)
-  └─ API → 1.gftd.ai/xrpc → Envoy Gateway
+Browser (awai.etzhayyim.com)
+  ├─ HTML/JS/CSS → awai.etzhayyim.com (static delivery)
+  └─ API → 1.etzhayyim.com/xrpc → Envoy Gateway
               ↓
        App: awai-component (TS Native)
               ├─ performer/rdbms (ClickHouse RDBMS) → awai-splat-meta (splat/job/placement metadata)
@@ -25,7 +25,7 @@ Browser (awai.gftd.ai)
 
 | Component | nanoid | World | Port | Image |
 |---|---|---|---|---|
-| awai-component | ku9ndz8y | gftd-gaussian-splat-provider | 21090 | ghcr.io/gftdcojp/awai-component |
+| awai-component | ku9ndz8y | gftd-gaussian-splat-provider | 21090 | ghcr.io/etzhayyim/awai-component |
 
 ## WIT Interface
 
@@ -118,11 +118,11 @@ pnpm install && pnpm build
 # Build + Push + Deploy
 cd ..
 gftd build
-gftd deploy --smoke-url https://awai.gftd.ai/health
+gftd deploy --smoke-url https://awai.etzhayyim.com/health
 ```
 
 ## Prohibitions
 
 - XRPC for inter-component calls
 - `go:embed static` — use static delivery bundled static delivery
-- Independent CSS — use Tailwind + @gftdcojp/design-system only
+- Independent CSS — use Tailwind + @etzhayyim/design-system only

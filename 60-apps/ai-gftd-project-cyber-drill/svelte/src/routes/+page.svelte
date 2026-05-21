@@ -5,14 +5,14 @@
     createCineBridge,
     createMockCineBridge,
     type IncidentVrEngine,
-  } from '@gftdcojp/kami-engine-sdk/webvr';
+  } from '@etzhayyim/kami-engine-sdk/webvr';
   import { SEMI_PLANT_INCIDENT } from '$scenarios/semiconductor-chem-plant';
 
   let canvas: HTMLCanvasElement;
   let engine: IncidentVrEngine | undefined = $state();
   let narrateOn = $state(true);
 
-  // CINE bridge — when a `studio.gftd.ai` endpoint + token are present
+  // CINE bridge — when a `studio.etzhayyim.com` endpoint + token are present
   // in window.__cyberDrillEnv (set by the Worker shell in prod), use the
   // live LangGraph pod for Stage 1-4. Otherwise fall back to the
   // deterministic mock so the dev / demo flow keeps working offline.
@@ -51,7 +51,7 @@
 </script>
 
 <svelte:head>
-  <title>半導体・電子材料プラント サイバー攻撃 初動演習 — cyber-drill.gftd.ai</title>
+  <title>半導体・電子材料プラント サイバー攻撃 初動演習 — cyber-drill.etzhayyim.com</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 </svelte:head>
 

@@ -1,19 +1,19 @@
 {
-  "@context": "https://magatama.gftd.ai/ns/v1",
+  "@context": "https://magatama.etzhayyim.com/ns/v1",
   "@type": "MagatamaApp",
   "nanoid": "cpti0001",
   "name": "compintel",
   "displayName": "GFTD Competitive Intel",
   "description": "Competitive Intelligence Dashboard — LangGraph multi-dimension research loop. Weekly refresh Monday 08:00 JST. Threat scoring + alert digest via Resend.",
-  "did": "did:web:compintel.gftd.ai",
-  "domain": "compintel.gftd.ai",
+  "did": "did:web:compintel.etzhayyim.com",
+  "domain": "compintel.etzhayyim.com",
   "performerType": "service",
   "uiType": "appview",
   "runtimeType": "ts-thin-edge",
   "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/compintel",
   "routes": [
-    { "pattern": "cpti0001.gftd.ai/*", "zone_name": "gftd.ai" },
-    { "pattern": "compintel.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "cpti0001.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "compintel.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ],
   "subscribeRepos": [
     {

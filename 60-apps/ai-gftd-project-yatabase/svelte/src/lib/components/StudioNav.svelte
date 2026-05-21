@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { Badge } from '@gftdcojp/design-system';
+	import { Badge } from '@etzhayyim/design-system';
 	import { tenantLabel, plan, theme, signOut, adminKey } from '$lib/stores';
 
 	const NAV = [

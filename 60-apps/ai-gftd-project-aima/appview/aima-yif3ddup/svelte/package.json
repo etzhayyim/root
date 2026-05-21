@@ -45,7 +45,7 @@
     "@capacitor/status-bar": "^8.0.2",
     "@connectrpc/connect": "^1.7.0",
     "@connectrpc/connect-web": "^1.7.0",
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
     "clsx": "^2.1.1",
     "lucide-svelte": "^0.400.0",
     "tailwind-merge": "^2.6.1"

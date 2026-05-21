@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 
 const XRPC_BASE = '/xrpc';
-const UPSTREAM = 'https://uqpel6i6.gftd.ai';
+const UPSTREAM = 'https://uqpel6i6.etzhayyim.com';
 
 export async function GET() {
   return json({

@@ -1,4 +1,4 @@
-# open-rail.gftd.ai — Railway Operations & Network Design (OSS)
+# open-rail.etzhayyim.com — Railway Operations & Network Design (OSS)
 
 **Status**: MVP scaffold (2026-04-20). Reference implementation for railway
 operations management (timetable / train running / incidents) and network
@@ -21,7 +21,7 @@ design (line / station topology). Apache-2.0.
 - **Runtime**: Single CF Worker (`src/app.ts`, single-file principle)
 - **Storage**: D1 (SQLite). Tables: `lines`, `stations`, `train_runs`, `incidents`
 - **Identity**: line / station / train run = path-based DIDs
-  `did:web:open-rail.gftd.ai:line:{id}`, `:station:{id}`, `:run:{id}`
+  `did:web:open-rail.etzhayyim.com:line:{id}`, `:station:{id}`, `:run:{id}`
 - **Network = ordered station list per line** (km post + dwell time). MVP =
   single-track linear graph; double-track + branching deferred
 - **Incident severity** is computed by DMN (`openRail.incidentSeverity`):
@@ -55,4 +55,4 @@ e7m actor deploy .
 
 ## OSS Split
 
-Mirror to `gftdcojp/ai-gftd-project-open-rail` (Apache-2.0) via subtree.
+Mirror to `etzhayyim/ai-gftd-project-open-rail` (Apache-2.0) via subtree.

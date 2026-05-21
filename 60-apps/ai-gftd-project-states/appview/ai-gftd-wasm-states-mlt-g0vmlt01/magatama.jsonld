@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:mlt-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:mlt-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Malta AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -88,7 +88,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "mlt-state.gftd.ai",
+      "host": "mlt-state.etzhayyim.com",
       "paths": [
         "/"
       ],

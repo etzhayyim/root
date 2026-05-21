@@ -1,6 +1,6 @@
 # 260327 Design ESTS Migration Pattern
 
-対象: `news.gftd.ai` の今回の編集パターンを再利用可能な手順として定義する。
+対象: `news.etzhayyim.com` の今回の編集パターンを再利用可能な手順として定義する。
 
 ## Design ESTS
 
@@ -58,12 +58,12 @@ gftd deploy --dir .
 
 4. Debug
 ```bash
-curl -sS -X POST https://news.gftd.ai/_heartbeat | jq
-curl -sS -X POST https://news.gftd.ai/_commit -H 'content-type: application/json' -d '{"action":"create","collection":"ai.gftd.apps.news.article","rkey":"test","repo":"did:web:test","seq":1,"cid":null,"rev":null,"time":"2026-03-27T00:00:00Z"}' | jq
-curl -sS -X POST https://news.gftd.ai/xrpc/ai.gftd.apps.news.news.list -H 'content-type: application/json' -d '{"limit":5}' | jq
+curl -sS -X POST https://news.etzhayyim.com/_heartbeat | jq
+curl -sS -X POST https://news.etzhayyim.com/_commit -H 'content-type: application/json' -d '{"action":"create","collection":"ai.gftd.apps.news.article","rkey":"test","repo":"did:web:test","seq":1,"cid":null,"rev":null,"time":"2026-03-27T00:00:00Z"}' | jq
+curl -sS -X POST https://news.etzhayyim.com/xrpc/ai.gftd.apps.news.news.list -H 'content-type: application/json' -d '{"limit":5}' | jq
 ```
 
-## 2026-03-27 実測 (news.gftd.ai)
+## 2026-03-27 実測 (news.etzhayyim.com)
 
 - Deploy: `gftd deploy --dir 60-apps/ai-gftd-project-news/wasm/news-core-component` 成功
 - `GET /health`: `ok`

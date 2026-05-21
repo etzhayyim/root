@@ -23,8 +23,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:agent.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1',
-                 'did:web:agent.gftd.ai',
+  'parameters': ['at://did:web:agent.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1',
+                 'did:web:agent.etzhayyim.com',
                  'agent_runtime_lease_autopilot',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -43,7 +43,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_agent_runtime_lease_autopilot"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/agent"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/agent"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process\n'
@@ -107,7 +107,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:agent.gftd.ai:runtime&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:agent.etzhayyim.com:runtime&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;agent.runtime.autopilot.tick&quot;" '
                  'target="action"/>\n'
@@ -135,13 +135,13 @@ UP = [{'sql': '\n'
                  4549,
                  '00-contracts/bpmn/ai/gftd/agent/runtimeLeaseAutopilot.bpmn',
                  '2026-04-30T12:45:00Z',
-                 'did:web:agent.gftd.ai',
-                 'did:web:agent.gftd.ai',
+                 'did:web:agent.etzhayyim.com',
+                 'did:web:agent.etzhayyim.com',
                  'sys.bpmn.seed.agent.runtime.autopilot',
-                 'at://did:web:agent.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1']}]
+                 'at://did:web:agent.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:agent.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1']}]
+  'parameters': ['at://did:web:agent.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1']}]
 
 
 def upgrade() -> None:

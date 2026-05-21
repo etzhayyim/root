@@ -18,9 +18,9 @@ magatama runtime 上で稼働する LMS (Learning Management System) です。�
 
 環境変数で外部連携先を指定します。
 
-- `GAKKO_ISCO_ENDPOINT` (例: `https://<nanoid>.gftd.ai/xrpc`)
-- `GAKKO_CPC_ENDPOINT` (例: `https://<nanoid>.gftd.ai/xrpc`)
-- `GAKKO_APQC_ENDPOINT` (例: `https://<nanoid>.gftd.ai/xrpc`)
+- `GAKKO_ISCO_ENDPOINT` (例: `https://<nanoid>.etzhayyim.com/xrpc`)
+- `GAKKO_CPC_ENDPOINT` (例: `https://<nanoid>.etzhayyim.com/xrpc`)
+- `GAKKO_APQC_ENDPOINT` (例: `https://<nanoid>.etzhayyim.com/xrpc`)
 - `GAKKO_TAXONOMY_TIMEOUT_MS` (default: `5000`)
 
 `lms.taxonomy.lookup` は framework (`isco|cpc|apqc`) と code/query を受け取り、指定 endpoint へ連携します。
@@ -34,4 +34,4 @@ kubectl apply -f 60-apps/ai-gftd-project-gakko/wasm/gakko-lms-mcp-component/k8s/
 
 ## コンテナイメージ
 
-- `ghcr.io/gftdcojp/gakko-lms-mcp-component:magatama-runtime-0.1.0`
+- `ghcr.io/etzhayyim/gakko-lms-mcp-component:magatama-runtime-0.1.0`

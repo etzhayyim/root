@@ -1,6 +1,6 @@
 ---
 id: adr-2605092800-kami-gsplat-preview-bake-pipeline
-title: KAMI Gsplat Preview Renderer + Splat→Mesh Bake Pipeline for maps.gftd.ai
+title: KAMI Gsplat Preview Renderer + Splat→Mesh Bake Pipeline for maps.etzhayyim.com
 status: active
 doc_type: adr
 topic: kami-gsplat-preview-bake
@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-10
 authoritative_for:
   - kami-engine 3D Gaussian Splatting policy
-  - maps.gftd.ai splat asset preview path
+  - maps.etzhayyim.com splat asset preview path
   - splat-to-mesh bake pipeline contract
   - mapillary-to-3dgs trainer + idempotency rules
   - per-tile spend cap + per-job cost telemetry
@@ -24,7 +24,7 @@ superseded_by: []
 
 # Goal
 
-`maps.gftd.ai` の street-level / landmark 再構成パイプラインに、
+`maps.etzhayyim.com` の street-level / landmark 再構成パイプラインに、
 PlayCanvas が browser で実用化している 3D Gaussian Splatting (3DGS) を
 **preview / QC ツール** として導入する。Runtime 配信形式は引き続き
 static mesh を採用する (260416-maps-kami-street-asset-pipeline-design 維持)。
@@ -106,7 +106,7 @@ PDS bypass。`ON CONFLICT` 不使用 (RW append-only / ADR-0048 / record-log)。
 
 ## D5. SDK
 
-`@gftdcojp/kami-engine-sdk` に `./gsplat` サブモジュールを追加する。
+`@etzhayyim/kami-engine-sdk` に `./gsplat` サブモジュールを追加する。
 
 - `loadGsplatAsset(endpoint, tileH3)` → `{ bytes: Uint8Array, format, meta }`
 - `pushToWasm(wasm, tileH3, asset)` — `set_gsplat_asset` を呼ぶ薄い wrapper
@@ -118,7 +118,7 @@ binary を保持しない (即 wasm 投入)。
 
 ## D6a. Mapillary → 3DGS trainer (RunPod L40S, 2026-05-09)
 
-`maps.gftd.ai` の `did:web:maps.gftd.ai:street_view` (Mapillary) を入力に、
+`maps.etzhayyim.com` の `did:web:maps.etzhayyim.com:street_view` (Mapillary) を入力に、
 preview 用の 3DGS PLY を生成する pipeline を加える。SuperSplat は editor /
 viewer 専用 (生成不可) なので trainer は別系統で持つ。
 
@@ -332,7 +332,7 @@ wrangler secret put MAPS_GSPLAT_LIFETIME_CAP_USD --env=production
 kubectl -n maps-bulk-ingest rollout restart deploy/bulk-ingest-gsplat-train
 
 # Verify cap
-curl -X POST https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.trainGsplatFromMapillary \
+curl -X POST https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.trainGsplatFromMapillary \
   -H 'content-type: application/json' \
   -d '{"lat":35.6812,"lng":139.7671}'
 # After spending $10+ on the same tile:
@@ -407,7 +407,7 @@ cd ../../bulk-ingest
 kubectl -n maps-bulk-ingest rollout restart deploy/bulk-ingest-gsplat-train
 
 # Verify
-curl https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.getGsplatCostSummary | jq
+curl https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.getGsplatCostSummary | jq
 # → {"today":{"totalUsd":0.42,"count":1,"byKind":[{"kind":"train","totalUsd":0.42,"count":1}]},...}
 ```
 

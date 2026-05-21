@@ -1,6 +1,6 @@
-# yatabase Studio (SvelteKit + @gftdcojp/design-system)
+# yatabase Studio (SvelteKit + @etzhayyim/design-system)
 
-UI for `https://yatabase.gftd.ai/studio/*`. Static-prerendered SvelteKit
+UI for `https://yatabase.etzhayyim.com/studio/*`. Static-prerendered SvelteKit
 CSR (`adapter-static`, `fallback: index.html`), served by the yatabase
 CF Worker's Workers Assets binding (`wrangler.jsonc → assets.directory =
 ./svelte/build`).
@@ -9,9 +9,9 @@ CF Worker's Workers Assets binding (`wrangler.jsonc → assets.directory =
 
 - **Svelte 5** runes (`$state` / `$derived` / `$props`)
 - **SvelteKit** (`adapter-static` + `single-page-application` fallback)
-- **Tailwind 3** + `@gftdcojp/design-system/plugin` (gftdUIKit) + the
+- **Tailwind 3** + `@etzhayyim/design-system/plugin` (gftdUIKit) + the
   AppShell v2 token set (`--gv2-*` CSS custom properties)
-- **`@gftdcojp/design-system`** components only — no custom UI primitives
+- **`@etzhayyim/design-system`** components only — no custom UI primitives
   (per `40-engine/svelte/CLAUDE.md` §"UIKit (design-system) 必須")
 
 ## Routes
@@ -39,8 +39,8 @@ user is a developer who already has an API key from `/auth/v1/signup`.
 ```bash
 cd 60-apps/ai-gftd-project-yatabase/svelte
 pnpm install
-# Option 1: dev against the live yatabase.gftd.ai (fastest):
-VITE_YATABASE_ORIGIN=https://yatabase.gftd.ai pnpm dev
+# Option 1: dev against the live yatabase.etzhayyim.com (fastest):
+VITE_YATABASE_ORIGIN=https://yatabase.etzhayyim.com pnpm dev
 # Option 2: dev against a local Worker (`wrangler dev` in the parent):
 pnpm dev
 ```
@@ -73,6 +73,6 @@ Worker (the Worker's `assets.directory` is already pointed at
   switch on `html[data-theme=…]`.
 - **No SSR** (`ssr = false`, `prerender = true`). The Studio is fully
   client-rendered against the edge Worker.
-- **Components imported from `@gftdcojp/design-system`** only:
+- **Components imported from `@etzhayyim/design-system`** only:
   `Button`, `Input`, `Textarea`, `Card`, `Badge`, `NotificationBanner`,
   `EmptyState`, `ErrorText`, `Label`, `SupportText`, `Skeleton`.

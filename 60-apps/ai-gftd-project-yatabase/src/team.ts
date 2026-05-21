@@ -125,7 +125,7 @@ export async function teamResponse(env: TeamEnv): Promise<Response> {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Team — Yatabase</title>
-<meta name="description" content="The four resident AI actors that operate yatabase.gftd.ai: chikada (dev), tanaka (qa), nishino (sales), sakamoto (cs). Path-based DIDs, public audit trail." />
+<meta name="description" content="The four resident AI actors that operate yatabase.etzhayyim.com: chikada (dev), tanaka (qa), nishino (sales), sakamoto (cs). Path-based DIDs, public audit trail." />
 <style>
   body{margin:0;font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0f172a;background:#fafafa}
   header,main,footer{max-width:980px;margin:0 auto;padding:0 24px}
@@ -182,7 +182,7 @@ export async function teamResponse(env: TeamEnv): Promise<Response> {
 <section>
   <h2>How the team works</h2>
   <p>Trigger any agent manually with the operator key:</p>
-  <pre>curl -X POST https://yatabase.gftd.ai/_agents/{name}/run \\
+  <pre>curl -X POST https://yatabase.etzhayyim.com/_agents/{name}/run \\
   -H "x-yata-admin-key: \${YATA_AGENT_ADMIN_KEY}" \\
   -d '{"dryRun": true}'</pre>
   <p style="margin-top:14px">
@@ -196,8 +196,8 @@ export async function teamResponse(env: TeamEnv): Promise<Response> {
   <p>
     <strong>etz hayim</strong> (運営法人) operates the service. <strong>Gftd Japan株式会社</strong>
     (T9007028460042 — 適格請求書登録番号) is the vendor. Path-based DIDs under
-    <code>did:web:yatabase.gftd.ai:actor:*</code> represent the AI roles, all controlled
-    by the platform DID <code>did:web:yatabase.gftd.ai</code>.
+    <code>did:web:yatabase.etzhayyim.com:actor:*</code> represent the AI roles, all controlled
+    by the platform DID <code>did:web:yatabase.etzhayyim.com</code>.
   </p>
   <p>
     The team is unofficial &mdash; agents do not represent any third-party organization
@@ -209,7 +209,7 @@ export async function teamResponse(env: TeamEnv): Promise<Response> {
 </main>
 
 <footer>
-  <p>© 2026 etz hayim · <a href="/">yatabase.gftd.ai</a> · <a href="/status">/status</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
+  <p>© 2026 etz hayim · <a href="/">yatabase.etzhayyim.com</a> · <a href="/status">/status</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
 </footer>
 
 </body></html>`;

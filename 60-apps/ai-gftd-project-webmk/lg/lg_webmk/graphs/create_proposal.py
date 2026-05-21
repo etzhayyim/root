@@ -21,7 +21,7 @@ from lg_webmk.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_APP_DID = os.environ.get("WEBMK_APP_DID", "did:web:webmk.gftd.ai")
+_APP_DID = os.environ.get("WEBMK_APP_DID", "did:web:webmk.etzhayyim.com")
 _RW_URL = os.environ.get("RW_URL", "")
 _QUALITY_THRESHOLD = float(os.environ.get("WEBMK_QUALITY_THRESHOLD", "0.7"))
 
@@ -158,7 +158,7 @@ async def _store_proposal(state: ProposalState) -> dict[str, Any]:
         return {"ok": True, "stored": False}
     try:
         import psycopg
-        vertex_id = f"at://did:web:webmk.gftd.ai/ai.gftd.apps.webmk.proposal/{proposal_id}"
+        vertex_id = f"at://did:web:webmk.etzhayyim.com/ai.gftd.apps.webmk.proposal/{proposal_id}"
         async with await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True) as conn:
             await conn.execute(
                 """

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-db6c74b6deb3",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-db6c74b6deb3",
   "entityId": "ent-db6c74b6deb3",
   "canonicalName": "ricardo jose moron hernandez",
   "aliases": [

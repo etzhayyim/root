@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/smishing-analyzeMessage-v1',
-                 'did:web:smishing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/smishing-analyzeMessage-v1',
+                 'did:web:smishing.etzhayyim.com',
                  'smishing_analyze_message',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_smishing_analyze_message"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/smishing"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/smishing"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="smishing_analyze_message" name="smishing analyze message" '
@@ -81,7 +81,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:smishing.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:smishing.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;smishing.analyzeMessage&quot;" '
                  'target="action"/>\n'
@@ -102,10 +102,10 @@ UP = [{'sql': '\n'
                  3282,
                  '00-contracts/bpmn/ai/gftd/smishing/analyzeMessage.bpmn',
                  '2026-04-29T09:04:00Z',
-                 'did:web:smishing.gftd.ai',
-                 'did:web:smishing.gftd.ai',
+                 'did:web:smishing.etzhayyim.com',
+                 'did:web:smishing.etzhayyim.com',
                  'sys.bpmn.seed.smishing',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/smishing-analyzeMessage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/smishing-analyzeMessage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -119,20 +119,20 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/smishing-analyzeMessage-v1',
-                 'did:web:smishing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/smishing-analyzeMessage-v1',
+                 'did:web:smishing.etzhayyim.com',
                  'ai.gftd.apps.smishing.analyzeMessageProcess',
                  'smishing_analyze_message',
                  '2026-04-29T09:04:00Z',
-                 'did:web:smishing.gftd.ai',
-                 'did:web:smishing.gftd.ai',
+                 'did:web:smishing.etzhayyim.com',
+                 'did:web:smishing.etzhayyim.com',
                  'sys.bpmn.seed.smishing',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/smishing-analyzeMessage-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/smishing-analyzeMessage-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/smishing-analyzeMessage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/smishing-analyzeMessage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/smishing-analyzeMessage-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/smishing-analyzeMessage-v1']}]
 
 
 def upgrade() -> None:

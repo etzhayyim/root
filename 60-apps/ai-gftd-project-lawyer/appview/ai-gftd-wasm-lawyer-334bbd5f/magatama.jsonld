@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:lawyer.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:lawyer.etzhayyim.com",
   "name": "lawyer-334bbd5f",
   "nanoid": "l334bbd5f",
   "performerType": "service",
@@ -12,13 +12,13 @@
       "entrypoint": "src/app.ts"
     },
     "env": {
-      "DISPATCHER_URL": "https://dispatcher.gftd.ai",
-      "FIRM_DID_HINT": "did:web:lawyer.gftd.ai"
+      "DISPATCHER_URL": "https://dispatcher.etzhayyim.com",
+      "FIRM_DID_HINT": "did:web:lawyer.etzhayyim.com"
     },
     "framework": "ts-thin-edge",
     "path": "src/app.ts"
   },
-  "convoSystemPrompt": "You are the Gftd Lawyer attorney portal agent for firmDid=did:web:lawyer.gftd.ai. You help bengoshi (attorneys) manage their assigned matters, review and accept co-counsel grants, log work notes, and generate AI document drafts. Available commands: ai.gftd.apps.lawyer.getDashboard (dashboard snapshot), ai.gftd.apps.lawyer.listAssignedMatters (filter by status/role), ai.gftd.apps.lawyer.listPendingGrants (co-counsel invitations), ai.gftd.apps.lawyer.acceptGrant (accept a grant with optional note), ai.gftd.apps.lawyer.logWorkNote (time + encrypted note on a matter), ai.gftd.apps.lawyer.submitDocumentDraft (AI-generate vakalatnama/notice/reply/petition/affidavit/brief — ISCO-2611 review gate required before use). Shared lawfirm commands: ai.gftd.apps.lawfirm.recordTimeEntry, ai.gftd.apps.lawfirm.listInvoices. Every matter, hearing, document, and consent grant is a recursive did:gftd child of firmDid=did:gftd:{h_lawyer} (ADR-0029). Ethical walls enforced via hash prefix; grants scoped to matter X cryptographically cannot be replayed on matter Y. ISCO-2611 lawyer approval required before filing AI-generated drafts. Cite matterDid/grantDid when discussing cases.",
+  "convoSystemPrompt": "You are the Gftd Lawyer attorney portal agent for firmDid=did:web:lawyer.etzhayyim.com. You help bengoshi (attorneys) manage their assigned matters, review and accept co-counsel grants, log work notes, and generate AI document drafts. Available commands: ai.gftd.apps.lawyer.getDashboard (dashboard snapshot), ai.gftd.apps.lawyer.listAssignedMatters (filter by status/role), ai.gftd.apps.lawyer.listPendingGrants (co-counsel invitations), ai.gftd.apps.lawyer.acceptGrant (accept a grant with optional note), ai.gftd.apps.lawyer.logWorkNote (time + encrypted note on a matter), ai.gftd.apps.lawyer.submitDocumentDraft (AI-generate vakalatnama/notice/reply/petition/affidavit/brief — ISCO-2611 review gate required before use). Shared lawfirm commands: ai.gftd.apps.lawfirm.recordTimeEntry, ai.gftd.apps.lawfirm.listInvoices. Every matter, hearing, document, and consent grant is a recursive did:gftd child of firmDid=did:gftd:{h_lawyer} (ADR-0029). Ethical walls enforced via hash prefix; grants scoped to matter X cryptographically cannot be replayed on matter Y. ISCO-2611 lawyer approval required before filing AI-generated drafts. Cite matterDid/grantDid when discussing cases.",
   "governance": {
     "raci": "responsible",
     "classification": "confidential",
@@ -26,7 +26,7 @@
   },
   "profile": {
     "displayName": "Gftd Lawyer",
-    "description": "Gftd Japan 専属 law firm — ADR-0029 recursive did:gftd identity、lawfirm.gftd.ai lexicon 共有、JP jurisdiction focus。",
+    "description": "Gftd Japan 専属 law firm — ADR-0029 recursive did:gftd identity、lawfirm.etzhayyim.com lexicon 共有、JP jurisdiction focus。",
     "avatar": "⚖️",
     "category": "legal",
     "country": "jpn",
@@ -117,7 +117,7 @@
   },
   "space": {
     "name": "Gftd Lawyer",
-    "description": "gftdcojp 専属 firm の matter/hearing/document collaboration space",
+    "description": "etzhayyim 専属 firm の matter/hearing/document collaboration space",
     "joinRule": "invite",
     "historyVisibility": "firm-only",
     "convos": [

@@ -1,11 +1,11 @@
 /**
- * authz.gftd.ai — Authorization Worker (T4 split, ADR-0024)
+ * authz.etzhayyim.com — Authorization Worker (T4 split, ADR-0024)
  *
  * Responsibility: linked auth methods, actor score, org management, /manage UI.
  * Session verification: inline HS256 verify using shared SS_AT_SESSION_SECRET.
- * AuthN (passkey/session issuance/DID): → authn.gftd.ai (AUTHN_SERVICE binding).
+ * AuthN (passkey/session issuance/DID): → authn.etzhayyim.com (AUTHN_SERVICE binding).
  *
- * Routes: authz.gftd.ai/*, accounts.gftd.ai/* (absorbed, 301 not needed — same Worker)
+ * Routes: authz.etzhayyim.com/*, accounts.etzhayyim.com/* (absorbed, 301 not needed — same Worker)
  * XRPC NSIDs: ai.gftd.authz.*
  */
 
@@ -55,7 +55,7 @@ interface Env {
   // chainId for the private EVM chain that wallet signatures must reference;
   // SIWE messages with a different Chain ID line are rejected with InvalidChainId.
   ETH_PRIVATE_CHAIN_ID?: string;
-  // ADR-0074 Phase 2-A — geth-private RPC (https://geth.gftd.ai), the
+  // ADR-0074 Phase 2-A — geth-private RPC (https://geth.etzhayyim.com), the
   // Phase 2-A contract addresses on chain 260425, and the HMAC secret used
   // when this Worker submits privileged JSON-RPC calls (eth_sendRaw…) to
   // the proxy. SIWE link continues to work without any of these — the
@@ -348,7 +348,7 @@ async function resolveResendApiKey(env: Env): Promise<string> {
  */
 async function sendEmail(env: Env, to: string, subject: string, text: string, html?: string): Promise<{ sent: boolean; messageId?: string; reason?: string }> {
   const apiKey = await resolveResendApiKey(env);
-  const from = env.EMAIL_FROM || "accounts@gftd.ai";
+  const from = env.EMAIL_FROM || "accounts@etzhayyim.com";
   if (!apiKey) return { sent: false, reason: "RESEND_API_KEY not configured" };
   const payload: Record<string, unknown> = { from, to: [to], subject, text };
   if (html) payload.html = html;
@@ -404,7 +404,7 @@ async function verifySession(secret: string, token: string, expectedScope: strin
   const normalizedScope = scope === "atproto" ? "com.atproto.access" : scope;
   const normalizedExpected = expectedScope === "atproto" ? "com.atproto.access" : expectedScope;
   if (normalizedScope !== normalizedExpected) throw new Error("scope mismatch");
-  if (payload.iss !== "https://authn.gftd.ai") throw new Error("issuer mismatch");
+  if (payload.iss !== "https://authn.etzhayyim.com") throw new Error("issuer mismatch");
   return payload;
 }
 
@@ -424,7 +424,7 @@ function getAccessTokenFromRequest(request: Request): string {
 }
 
 function deriveDefaultHumanDid(accountDid: string): string {
-  return accountDid.startsWith("did:web:authn.gftd.ai:")
+  return accountDid.startsWith("did:web:authn.etzhayyim.com:")
     ? `${accountDid}:person:default`
     : accountDid;
 }
@@ -641,7 +641,7 @@ async function syncAuthMethodToGraph(env: Env, accountDid: string, provider: str
     // is intentionally zero-npm and has no HYPERDRIVE binding. The call is
     // non-fatal (see .catch below) so sync failures never block auth.
     const now = nowIso();
-    env.PDS_SERVICE.fetch("https://atproto.gftd.ai/xrpc/ai.gftd.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify({
@@ -1367,7 +1367,7 @@ async function handleActivateActorAccount(request: Request, env: Env): Promise<R
  * Body: { activeDid }
  * Proxies to authn (AUTHN_SERVICE) which re-issues the session JWT with the
  * new activeDid. Set-Cookie header is forwarded back so the browser picks up
- * the new session cookie on .gftd.ai.
+ * the new session cookie on .etzhayyim.com.
  */
 async function handleSwitchActiveDidProxy(request: Request, env: Env): Promise<Response> {
   if (!env.AUTHN_SERVICE) return jsonErr(503, "ConfigError", "AUTHN_SERVICE binding required");
@@ -1376,7 +1376,7 @@ async function handleSwitchActiveDidProxy(request: Request, env: Env): Promise<R
   catch (error) { return jsonErr(401, "AuthRequired", error instanceof Error ? error.message : "auth required"); }
 
   const bodyText = await request.text();
-  const upstream = await env.AUTHN_SERVICE.fetch("https://authn.gftd.ai/xrpc/ai.gftd.auth.switchActiveDid", {
+  const upstream = await env.AUTHN_SERVICE.fetch("https://authn.etzhayyim.com/xrpc/ai.gftd.auth.switchActiveDid", {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -1625,7 +1625,7 @@ async function handleOrgInvite(request: Request, env: Env): Promise<Response> {
     `).bind(inviteId, inviterDid, orgDid, email, role, token, expiresAt, inviterDid, now, now).run();
 
     // Prefer the short /invite/<token> public route — it survives sign-in.
-    const acceptUrl = `https://accounts.gftd.ai/invite/${encodeURIComponent(token)}`;
+    const acceptUrl = `https://accounts.etzhayyim.com/invite/${encodeURIComponent(token)}`;
     const subject = `GFTD — invited to ${orgDid}`;
     const text = `You have been invited to join ${orgDid} on GFTD as ${role}.\n\nAccept the invitation: ${acceptUrl}\n\nThis link expires in 7 days.`;
     const delivery = await sendEmail(env, email, subject, text);
@@ -2561,10 +2561,10 @@ app.options("*", () => new Response(null, {
 
 app.get("/health", () => new Response("ok"));
 
-// accounts.gftd.ai host redirects (absorbed into authz Worker).
+// accounts.etzhayyim.com host redirects (absorbed into authz Worker).
 app.get("/", (c) => {
   const url = new URL(c.req.url);
-  if (url.hostname === "accounts.gftd.ai") {
+  if (url.hostname === "accounts.etzhayyim.com") {
     return Response.redirect(`${url.origin}/manage`, 302);
   }
   if (c.env.ASSETS) return c.env.ASSETS.fetch(c.req.raw);
@@ -2572,16 +2572,16 @@ app.get("/", (c) => {
 });
 app.get("/sign-in", (c) => {
   const url = new URL(c.req.url);
-  if (url.hostname === "accounts.gftd.ai") {
-    return Response.redirect(`https://authn.gftd.ai/sign-in${url.search}`, 302);
+  if (url.hostname === "accounts.etzhayyim.com") {
+    return Response.redirect(`https://authn.etzhayyim.com/sign-in${url.search}`, 302);
   }
   if (c.env.ASSETS) return c.env.ASSETS.fetch(c.req.raw);
   return new Response("Not Found", { status: 404 });
 });
 app.get("/sign-up", (c) => {
   const url = new URL(c.req.url);
-  if (url.hostname === "accounts.gftd.ai") {
-    return Response.redirect(`https://authn.gftd.ai/sign-up${url.search}`, 302);
+  if (url.hostname === "accounts.etzhayyim.com") {
+    return Response.redirect(`https://authn.etzhayyim.com/sign-up${url.search}`, 302);
   }
   if (c.env.ASSETS) return c.env.ASSETS.fetch(c.req.raw);
   return new Response("Not Found", { status: 404 });
@@ -2595,7 +2595,7 @@ async function manageHandler(request: Request, env: Env): Promise<Response> {
   const managePath = `/manage${url.search}`;
   if (!sessionToken) {
     const redirectUrl = encodeURIComponent(`https://${url.hostname}${managePath}`);
-    return Response.redirect(`https://authn.gftd.ai/sign-in?redirectUrl=${redirectUrl}`, 302);
+    return Response.redirect(`https://authn.etzhayyim.com/sign-in?redirectUrl=${redirectUrl}`, 302);
   }
   try {
     await verifySession(getSessionSecret(env), sessionToken, "com.atproto.access");
@@ -2603,7 +2603,7 @@ async function manageHandler(request: Request, env: Env): Promise<Response> {
     return htmlResp("<!doctype html><html><body><script>location.replace('/manage')</script></body></html>");
   } catch {
     const redirectUrl = encodeURIComponent(`https://${url.hostname}${managePath}`);
-    return Response.redirect(`https://authn.gftd.ai/sign-in?redirectUrl=${redirectUrl}`, 302);
+    return Response.redirect(`https://authn.etzhayyim.com/sign-in?redirectUrl=${redirectUrl}`, 302);
   }
 }
 app.get("/manage", (c) => manageHandler(c.req.raw, c.env));

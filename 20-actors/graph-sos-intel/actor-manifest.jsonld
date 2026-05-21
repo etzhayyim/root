@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:graph-sos-intel.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:graph-sos-intel.etzhayyim.com",
   "name": "graph-sos-intel",
   "nanoid": "gs0s1nt7",
   "displayName": "Graph SoS Intel — Vertex Edge MV IDX Intelligence",

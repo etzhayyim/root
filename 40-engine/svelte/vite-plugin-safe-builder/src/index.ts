@@ -1,7 +1,7 @@
 /**
- * @gftdcojp/vite-plugin-safe-builder
+ * @etzhayyim/vite-plugin-safe-builder
  *
- * Unified build safety plugin for all SvelteKit apps in the gftd.ai monorepo.
+ * Unified build safety plugin for all SvelteKit apps in the etzhayyim.com monorepo.
  * Returns a Plugin[] that integrates:
  *
  *   1. svelte5-compat-check  — Detect Svelte 4 <slot> / export let in shims
@@ -12,7 +12,7 @@
  * Usage in vite.config.ts:
  *
  * ```ts
- * import { safeBuilder } from '@gftdcojp/vite-plugin-safe-builder';
+ * import { safeBuilder } from '@etzhayyim/vite-plugin-safe-builder';
  *
  * export default defineConfig({
  *   plugins: [

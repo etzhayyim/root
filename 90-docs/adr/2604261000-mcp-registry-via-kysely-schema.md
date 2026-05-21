@@ -71,14 +71,14 @@ ADR-0087 §D1 (per-actor `/mcp` endpoint)・§D2 (`/.well-known/openapi.json`)
 
 ```sql
 CREATE TABLE vertex_mcp_tool_def (
-  vertex_id        VARCHAR PRIMARY KEY,    -- at://did:web:{host}.gftd.ai/ai.gftd.mcp.toolDef/{slug}
+  vertex_id        VARCHAR PRIMARY KEY,    -- at://did:web:{host}.etzhayyim.com/ai.gftd.mcp.toolDef/{slug}
   _seq             BIGINT,
   created_date     DATE,
   sensitivity_ord  BIGINT,
   owner_did        VARCHAR,                -- = actor_did
 
   nsid             VARCHAR NOT NULL,       -- 'ai.gftd.apps.lawfirm.createCase'
-  actor_did        VARCHAR NOT NULL,       -- 'did:web:lawfirm.gftd.ai'
+  actor_did        VARCHAR NOT NULL,       -- 'did:web:lawfirm.etzhayyim.com'
   actor_host       VARCHAR,
   lexicon_type     VARCHAR,                -- 'procedure' | 'query'
   description      VARCHAR,                -- asAgentTool() 文字列
@@ -124,8 +124,8 @@ vertex_mcp_tool_def                            (runtime registry)
 
 - walk lexicons under `00-contracts/lexicons/ai/gftd/apps/**/*.json`
 - procedure / query 以外は skip
-- `vertex_id` 規約 = `at://did:web:{actor}.gftd.ai/ai.gftd.mcp.toolDef/{nsid.replace('.','-')}`
-- `actor_did` = `did:web:{actor}.gftd.ai` (NSID 第 4 segment から導出)
+- `vertex_id` 規約 = `at://did:web:{actor}.etzhayyim.com/ai.gftd.mcp.toolDef/{nsid.replace('.','-')}`
+- `actor_did` = `did:web:{actor}.etzhayyim.com` (NSID 第 4 segment から導出)
 - `schema_hash` で drift 検出 → INSERT or UPDATE
 - DELETE 操作なし (`enabled=false` で論理削除、手動 / 別 ADR で物理削除)
 
@@ -231,7 +231,7 @@ migration 完了時に注入)。`mcpFacade` (codegen) と併用された場合�
 | 1 | `vertex_mcp_tool_def` migration apply (`apply-pending.sh`) | `pnpm db:drift` 0 件 | ✓ done |
 | 2 | `sync-mcp-registry.py --apply` で全 lexicon を ingest | row count == lexicon count | ✓ done (1,738 rows / 178 actors) |
 | 3 | host-sdk PR (mcp-registry-loader.ts + host-web-router.ts mcpRegistry path) merge | host-sdk tests green | ✓ done (21/21 vitest) |
-| 4 | pilot 1 actor が `mcpRegistry` で deploy、`/mcp tools/list` が DB 由来になる | curl で nsid 列挙確認 | ✓ done (lawfirm.gftd.ai, 26 tools) |
+| 4 | pilot 1 actor が `mcpRegistry` で deploy、`/mcp tools/list` が DB 由来になる | curl で nsid 列挙確認 | ✓ done (lawfirm.etzhayyim.com, 26 tools) |
 | 5 | `gftd deploy` で `APP_ACTOR_HANDLE` env auto-inject + loader fallback 追加 | actor 単位 explicit override 不要 | ✓ done (commit `448e6a6e685`) |
 | **G4** | **MCP `tools/call` を `vertex_bpmn_lexicon_binding` 経由で bpmn-dispatcher にルート** | 1M actor scale で actor=data, compute=shared FaaS | **✓ done (commit `9acfffacb6b`, 33/33 vitest)** |
 | 6 | CI gate: `sync-mcp-registry.py --strict --only-drift` を pre-merge check に追加 | drift 0 件 | pending (scheduled `trig_014EHSaLranGL4oqVjx8g3FW` 2026-05-09) |
@@ -256,7 +256,7 @@ MCP `tools/call` の dispatch logic を 2 段にする:
 
 ```
 1. vertex_bpmn_lexicon_binding に row があるか? (60s cache)
-   ├─ YES → POST dispatcher.gftd.ai/xrpc/{nsid} (Zeebe gRPC 経由 pyzeebe pool)
+   ├─ YES → POST dispatcher.etzhayyim.com/xrpc/{nsid} (Zeebe gRPC 経由 pyzeebe pool)
    │           ├─ 2xx/4xx → response 返却 (Zeebe `{ok, variables}` を flat unwrap)
    │           └─ 5xx/timeout/error → fall through ↓
    └─ NO → app.handleXRPC (in-isolate, 既存)
@@ -304,7 +304,7 @@ strict mode 準備)。
 INSERT INTO vertex_bpmn_lexicon_binding
   (vertex_id, nsid, bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at)
 VALUES
-  ('at://did:web:bpmn.gftd.ai/ai.gftd.bpmn.binding/{ns-action}-v1',
+  ('at://did:web:bpmn.etzhayyim.com/ai.gftd.bpmn.binding/{ns-action}-v1',
    '{nsid}', '{bpmn_process_id}', 1, 30000, 'active',
    to_char(now() AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS"Z"'));
 ```
@@ -317,25 +317,25 @@ VALUES
 - BPMN process 自体の作成 (ADR-0056 sync-bpmn-actors.py で別途管理)
 - per-tool timeout の細分化 (現状は `result_timeout_ms` 単純使用)
 
-## Pilot findings (2026-04-25, lawfirm.gftd.ai)
+## Pilot findings (2026-04-25, lawfirm.etzhayyim.com)
 
 ### F1. Default `actorDid` resolution mismatches sync-script keying
 
 `mcpRegistry: {}` の default `actorDid` 解決順は (host-web-router.ts):
 
 ```
-mcpRegistry.actorDid → APP_DID → PERFORMER_DID → did:web:{APP_NANOID}.gftd.ai
+mcpRegistry.actorDid → APP_DID → PERFORMER_DID → did:web:{APP_NANOID}.etzhayyim.com
 ```
 
 一方 `sync-mcp-registry.py` は NSID 4th segment (`ai.gftd.apps.{actorSlug}.*`)
-から `did:web:{actorSlug}.gftd.ai` を生成する。lawfirm の場合:
+から `did:web:{actorSlug}.etzhayyim.com` を生成する。lawfirm の場合:
 
 | Source | Value |
 |---|---|
-| Default (APP_NANOID) | `did:web:lf1rm8k0.gftd.ai` |
-| Sync script (NSID slug) | `did:web:lawfirm.gftd.ai` |
+| Default (APP_NANOID) | `did:web:lf1rm8k0.etzhayyim.com` |
+| Sync script (NSID slug) | `did:web:lawfirm.etzhayyim.com` |
 
-→ 不一致で 0 行。`mcpRegistry: { actorDid: "did:web:lawfirm.gftd.ai" }`
+→ 不一致で 0 行。`mcpRegistry: { actorDid: "did:web:lawfirm.etzhayyim.com" }`
 の明示が必要。
 
 **Mitigation (本 ADR 範囲内で実装済)**:
@@ -344,7 +344,7 @@ mcpRegistry.actorDid → APP_DID → PERFORMER_DID → did:web:{APP_NANOID}.gftd
 - ADR ↑ `mcpRegistry: { actorDid }` を pilot 例として明示。
 
 **Step 5 で恒久化予定**: `gftd deploy` が `APP_ACTOR_HANDLE` env を inject
-し、loader の default を `did:web:{APP_ACTOR_HANDLE}.gftd.ai` に切替。
+し、loader の default を `did:web:{APP_ACTOR_HANDLE}.etzhayyim.com` に切替。
 APP_ACTOR_HANDLE は `magatama.jsonld` の `profile.handle` か、なければ
 component dir 名 (`ai-gftd-wasm-{slug}-*`) から派生。
 
@@ -356,7 +356,7 @@ OpenAPI 3.0 publishing は依然 `mcpFacade.routes` 経由 (codegen)。本 ADR
 
 ```ts
 }, {
-  mcpRegistry: { actorDid: "did:web:lawfirm.gftd.ai" },  // /mcp ← DB
+  mcpRegistry: { actorDid: "did:web:lawfirm.etzhayyim.com" },  // /mcp ← DB
   mcpFacade: { ...lawfirmManifest },                      // /.well-known/openapi.json ← codegen
 });
 ```

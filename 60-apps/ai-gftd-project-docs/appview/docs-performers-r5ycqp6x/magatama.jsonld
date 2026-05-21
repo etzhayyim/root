@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:docs.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:docs.etzhayyim.com",
   "name": "docs-performers",
   "nanoid": "r5ycqp6x",
   "performerType": "system",
@@ -24,7 +24,7 @@
   },
   "routes": [
     {
-      "host": "docs.gftd.ai",
+      "host": "docs.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }

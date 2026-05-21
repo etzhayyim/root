@@ -34,7 +34,7 @@ priority_note: |
 
 ## Goal
 
-shinshi.gftd.ai の model DID から、**TikTok / Reels / YouTube Shorts に直接転用できる縦短尺動画 (9:16, 15-25s)** を `scene_bulk_seed` と同じ LangGraph フローで自動生成する。1 clip = 5 shot + voice + BGM + SFX + caption の mux 済 H.264 mp4 を PDS blob として post する。
+shinshi.etzhayyim.com の model DID から、**TikTok / Reels / YouTube Shorts に直接転用できる縦短尺動画 (9:16, 15-25s)** を `scene_bulk_seed` と同じ LangGraph フローで自動生成する。1 clip = 5 shot + voice + BGM + SFX + caption の mux 済 H.264 mp4 を PDS blob として post する。
 
 ## Scope
 

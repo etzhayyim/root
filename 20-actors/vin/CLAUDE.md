@@ -1,4 +1,4 @@
-# vin.gftd.ai — VIN / Vehicle Registration Intelligence
+# vin.etzhayyim.com — VIN / Vehicle Registration Intelligence
 
 全世界の車両識別番号 (VIN) とナンバープレートの収集・正規化・cohort DID 登録。
 
@@ -11,7 +11,7 @@
 | **UI** | appview (Protocol Canvas card UI) |
 | **Data** | SQL graph (yata Workers RPC) — Role-based DID hierarchy (Shannon 最適) |
 | **WIT export** | `gftd:vin/vehicle-registry@1.0.0`, `vin-decoder@1.0.0`, `plate-resolver@1.0.0` |
-| **Domain** | `vin.gftd.ai` |
+| **Domain** | `vin.etzhayyim.com` |
 | **Source type** | **1次ソース** (NHTSA API, 国交省リコール, EU RAPEX, WMI DB) + **2次ソース** (livecam OCR) |
 
 ## DID Structure (Role-based, Option C)
@@ -22,15 +22,15 @@ Shannon 最適: 全 agent を vin 内に集約。
 
 | Role | DID Path | 概数 | 生成 |
 |---|---|---|---|
-| **Standard** | `did:web:vin.gftd.ai:standard:iso3779` | ~5 | 静的 |
-| **Authority** | `did:web:vin.gftd.ai:authority:unece` | ~3 | 静的 |
-| **Allocator** | `did:web:vin.gftd.ai:allocator:sae` | ~10 | 静的 |
-| **Jurisdiction** | `did:web:vin.gftd.ai:jurisdiction:jpn` | ~200 | 静的 |
-| **Manufacturer** | `did:web:vin.gftd.ai:manufacturer:toyota` | ~数千 | 動的 (WMI feed) |
-| **WMI** | `did:web:vin.gftd.ai:wmi:jtd` | ~40,000 | 動的 |
-| **Vehicle** | `did:web:vin.gftd.ai:vehicle:vin{hex}` | on-demand | on-demand (観測時) |
-| **Plate** | `did:web:vin.gftd.ai:plate:{jurisdiction}:{encoded}` | on-demand | on-demand (OCR/登録時) |
-| **Cohort** | `did:web:vin.gftd.ai:cohort:{cohortId}` | on-demand | 動的 (fleet/camera group) |
+| **Standard** | `did:web:vin.etzhayyim.com:standard:iso3779` | ~5 | 静的 |
+| **Authority** | `did:web:vin.etzhayyim.com:authority:unece` | ~3 | 静的 |
+| **Allocator** | `did:web:vin.etzhayyim.com:allocator:sae` | ~10 | 静的 |
+| **Jurisdiction** | `did:web:vin.etzhayyim.com:jurisdiction:jpn` | ~200 | 静的 |
+| **Manufacturer** | `did:web:vin.etzhayyim.com:manufacturer:toyota` | ~数千 | 動的 (WMI feed) |
+| **WMI** | `did:web:vin.etzhayyim.com:wmi:jtd` | ~40,000 | 動的 |
+| **Vehicle** | `did:web:vin.etzhayyim.com:vehicle:vin{hex}` | on-demand | on-demand (観測時) |
+| **Plate** | `did:web:vin.etzhayyim.com:plate:{jurisdiction}:{encoded}` | on-demand | on-demand (OCR/登録時) |
+| **Cohort** | `did:web:vin.etzhayyim.com:cohort:{cohortId}` | on-demand | 動的 (fleet/camera group) |
 
 ### VIN Encoding (alpha-start 準拠)
 
@@ -135,7 +135,7 @@ Phase L3+:  on-demand     (VIN decode / plate OCR 発火)
 
 全ノードが以下を満たす:
 1. **下位 Layer の全依存先が存在** (dangling edge なし)
-2. **DID が発行済み** (`did:web:vin.gftd.ai:{role}:{id}`)
+2. **DID が発行済み** (`did:web:vin.etzhayyim.com:{role}:{id}`)
 3. **repo + collection フィールドが設定済み** (ActorCoverageSnapshot で検証)
 
 ```sql
@@ -178,9 +178,9 @@ RETURN p.plate AS orphan_vin, 'missing JurisdictionRegistry' AS gap
 livecam (YOLO車両検出 + OCR) → VIN actor へ cohort 登録リクエスト。
 
 ```
-cohort DID: did:web:vin.gftd.ai:cohort:fleet_gftd_tokyo
-  └─ member: did:web:vin.gftd.ai:vehicle:vinJTDKN3DU5A0123456
-  └─ member: did:web:vin.gftd.ai:vehicle:vinWBAJA5C51KB123456
+cohort DID: did:web:vin.etzhayyim.com:cohort:fleet_gftd_tokyo
+  └─ member: did:web:vin.etzhayyim.com:vehicle:vinJTDKN3DU5A0123456
+  └─ member: did:web:vin.etzhayyim.com:vehicle:vinWBAJA5C51KB123456
 ```
 
 用途:
@@ -223,13 +223,13 @@ ai.gftd.apps.vin.jurisdictionRegistry  # jurisdiction registry metadata
 
 | Direction | Target | Method | Purpose |
 |---|---|---|---|
-| <- Receives | livecam.gftd.ai | `cohortRegistration` | カメラ OCR → plate → cohort DID 登録 |
-| -> Followed by | maps.gftd.ai | `ComAtprotoSyncSubscribeRepos` | vehicle/plate geolocation |
-| -> Followed by | yabai.gftd.ai | `ComAtprotoSyncSubscribeRepos` | 盗難車/不審車両アラート |
-| <- Invokes | livecam.gftd.ai | `decode_vin` / `lookup_plate` | plate OCR 後の vehicle resolve |
-| <- Invokes | maps.gftd.ai | `get_vehicle` | spatial vehicle query |
-| <-> Bidirectional | tsukuru.gftd.ai | `graph.query` cross-app edge | 製造 → 車両 traceability |
-| -> Publishes | resource-flow.gftd.ai | `shipmentVolume` | 出荷台数 → flow 可視化 |
+| <- Receives | livecam.etzhayyim.com | `cohortRegistration` | カメラ OCR → plate → cohort DID 登録 |
+| -> Followed by | maps.etzhayyim.com | `ComAtprotoSyncSubscribeRepos` | vehicle/plate geolocation |
+| -> Followed by | yabai.etzhayyim.com | `ComAtprotoSyncSubscribeRepos` | 盗難車/不審車両アラート |
+| <- Invokes | livecam.etzhayyim.com | `decode_vin` / `lookup_plate` | plate OCR 後の vehicle resolve |
+| <- Invokes | maps.etzhayyim.com | `get_vehicle` | spatial vehicle query |
+| <-> Bidirectional | tsukuru.etzhayyim.com | `graph.query` cross-app edge | 製造 → 車両 traceability |
+| -> Publishes | resource-flow.etzhayyim.com | `shipmentVolume` | 出荷台数 → flow 可視化 |
 
 ## Extended Graph: Production Topology `[DESIGN]`
 
@@ -271,10 +271,10 @@ ai.gftd.apps.vin.jurisdictionRegistry  # jurisdiction registry metadata
 
 | Role | DID Path | 概数 | 生成 |
 |---|---|---|---|
-| **VehicleType** | `did:web:vin.gftd.ai:type:{segment}:{body}` | ~200 | 静的 (OICA segment) |
-| **Plant** | `did:web:vin.gftd.ai:plant:{manufacturer}:{code}` | ~3,000 | 動的 (メーカー IR) |
-| **Line** | `did:web:vin.gftd.ai:line:{plant}:{lineId}` | ~15,000 | 動的 |
-| **ShipmentCohort** | `did:web:vin.gftd.ai:cohort:shipment:{jurisdiction}:{year}:{type}` | 動的 | 集計時生成 |
+| **VehicleType** | `did:web:vin.etzhayyim.com:type:{segment}:{body}` | ~200 | 静的 (OICA segment) |
+| **Plant** | `did:web:vin.etzhayyim.com:plant:{manufacturer}:{code}` | ~3,000 | 動的 (メーカー IR) |
+| **Line** | `did:web:vin.etzhayyim.com:line:{plant}:{lineId}` | ~15,000 | 動的 |
+| **ShipmentCohort** | `did:web:vin.etzhayyim.com:cohort:shipment:{jurisdiction}:{year}:{type}` | 動的 | 集計時生成 |
 
 ### 拡張 Seed Order (逆トポロジカル)
 
@@ -342,7 +342,7 @@ OICA 年間出荷統計 (~95M 台/年, ~200 jurisdiction) → ShipmentCohort を
 MATCH (sv:ShipmentVolume {year: $year})
 WITH sv.jurisdiction AS jur, sv.vehicle_type AS vtype, sum(sv.volume) AS total
 MERGE (sc:ShipmentCohort {
-  cohortDid: 'did:web:vin.gftd.ai:cohort:shipment:' + jur + ':' + toString($year) + ':' + vtype
+  cohortDid: 'did:web:vin.etzhayyim.com:cohort:shipment:' + jur + ':' + toString($year) + ':' + vtype
 })
 SET sc.label = jur + ' ' + toString($year) + ' ' + vtype,
     sc.jurisdiction = jur, sc.year = $year, sc.vehicle_type = vtype,
@@ -372,7 +372,7 @@ SET sc.label = jur + ' ' + toString($year) + ' ' + vtype,
 3. Seed L2: WmiCode (JTD, WBA, 1FA) + ProductionPlant (元町, Dingolfing, Flat Rock)
 4. Seed L3: ProductionLine (元町#1→sedan, Dingolfing#3→suv)
 5. Inject ShipmentVolume: 元町 → jpn, 10000 sedan, 2025-01
-6. Assert: ShipmentCohort auto-created (did:web:vin.gftd.ai:cohort:shipment:jpn:2025:sedan)
+6. Assert: ShipmentCohort auto-created (did:web:vin.etzhayyim.com:cohort:shipment:jpn:2025:sedan)
 7. Decode VIN: JTDKN3DU5A0123456 → Toyota sedan
 8. Assert: Vehicle → [:IS_TYPE] → VehicleType(sedan)
 9. Assert: Vehicle → [:MEMBER_OF] → ShipmentCohort(jpn:2025:sedan)
@@ -390,7 +390,7 @@ SET sc.label = jur + ' ' + toString($year) + ' ' + vtype,
 13. Social post: "Integration test passed: 元町 → jpn sedan flow verified"
 ```
 
-### tsukuru.gftd.ai Cross-App Edge
+### tsukuru.etzhayyim.com Cross-App Edge
 
 ```sql
 // tsukuru ProductionOrder → vin Vehicle traceability
@@ -399,7 +399,7 @@ MATCH (v:Vehicle {vin: $vin})                    // vin graph
 MERGE (po)-[:PRODUCED_VEHICLE]->(v)
 
 // vin ProductionPlant ↔ tsukuru Manufacturer (shared DID)
-// did:web:tsukuru.gftd.ai:manufacturer:toyota
-// did:web:vin.gftd.ai:manufacturer:toyota
+// did:web:tsukuru.etzhayyim.com:manufacturer:toyota
+// did:web:vin.etzhayyim.com:manufacturer:toyota
 // → G() cross-app query で解決
 ```

@@ -1,6 +1,6 @@
 ---
 id: yoro-superapp-oembed-design
-title: yoro.gftd.ai SuperApp-Only Architecture + oEmbed (Lexicon Web)
+title: yoro.etzhayyim.com SuperApp-Only Architecture + oEmbed (Lexicon Web)
 status: active
 doc_type: explanation
 topic: yoro-superapp-oembed
@@ -21,15 +21,15 @@ supersedes:
 superseded_by: []
 ---
 
-# yoro.gftd.ai SuperApp-Only Architecture + oEmbed (Lexicon Web)
+# yoro.etzhayyim.com SuperApp-Only Architecture + oEmbed (Lexicon Web)
 
 ## Goal
 
-yoro.gftd.ai を **唯一の UI host** として全 App のコンテンツを表示する。個別 app の Svelte UI (`fullapp`) を廃止し、`canvas` + `miniapp` の 2 モードに統一。URL は Bluesky (`bsky.app`) と互換。
+yoro.etzhayyim.com を **唯一の UI host** として全 App のコンテンツを表示する。個別 app の Svelte UI (`fullapp`) を廃止し、`canvas` + `miniapp` の 2 モードに統一。URL は Bluesky (`bsky.app`) と互換。
 
 ## Scope
 
-- yoro.gftd.ai の URL routing 設計
+- yoro.etzhayyim.com の URL routing 設計
 - oEmbed endpoint (AT Protocol Lexicon Web 提案準拠)
 - SSR OG tags (crawler 対応)
 - channel 概念の除去
@@ -44,7 +44,7 @@ AT Protocol は **data (PDS records) と rendering (client) の完全分離** �
 - **View**: AppView が records を加工して client に返すもの
 - **Client**: views を独自に rendering する
 
-yoro.gftd.ai を唯一の client とし、全 app のコンテンツを rendering するのは AT Protocol の想定された使い方。
+yoro.etzhayyim.com を唯一の client とし、全 app のコンテンツを rendering するのは AT Protocol の想定された使い方。
 
 ### AT URI スキーム (RFC 準拠)
 
@@ -81,7 +81,7 @@ Public timeline は feed generator で構成 (convo で分離しない)。
 
 ### 1. URL Routing (Bluesky 互換)
 
-| bsky.app | yoro.gftd.ai | AT URI |
+| bsky.app | yoro.etzhayyim.com | AT URI |
 |---|---|---|
 | `/profile/{handle}` | `/profile/{handle}` | — |
 | `/profile/{handle}/post/{rkey}` | `/profile/{handle}/post/{rkey}` | `at://{did}/app.bsky.feed.post/{rkey}` |
@@ -108,8 +108,8 @@ Public timeline は feed generator で構成 (convo で分離しない)。
 
 | Route | SSR | OG Tags Source |
 |---|---|---|
-| `/profile/{handle}` | `+page.server.ts` (ssr=true) | `atproto.gftd.ai/xrpc/app.bsky.actor.getProfile` |
-| `/profile/{handle}/post/{rkey}` | `+page.server.ts` (ssr=true) | `atproto.gftd.ai/xrpc/app.bsky.feed.getPostThread` |
+| `/profile/{handle}` | `+page.server.ts` (ssr=true) | `atproto.etzhayyim.com/xrpc/app.bsky.actor.getProfile` |
+| `/profile/{handle}/post/{rkey}` | `+page.server.ts` (ssr=true) | `atproto.etzhayyim.com/xrpc/app.bsky.feed.getPostThread` |
 | `/` (home) | Client-side | Static OG tags |
 | `/hashtag/{tag}` | Client-side | Static OG tags |
 
@@ -124,7 +124,7 @@ Server-side fetch は `$lib/server/pds.ts` helper 経由。3s timeout、null fal
 | JSON-LD (Home) | `routes/+page.svelte` | `WebApplication` schema (name, description, applicationCategory, publisher) |
 | JSON-LD (Profile) | `routes/profile/[handle]/+page.server.ts` | `Person` or `Organization` (agent=Organization) + `InteractionCounter` (followers, posts) |
 | JSON-LD (Post) | `routes/profile/[handle]/post/[rkey]/+page.server.ts` | `SocialMediaPosting` + engagement counters (likes, reposts, replies) + author + publisher |
-| Global meta | `app.html` | `theme-color`, `application-name`, `og:locale=ja_JP`, `og:site_name=YORO`, `twitter:site=@gftdcojp` |
+| Global meta | `app.html` | `theme-color`, `application-name`, `og:locale=ja_JP`, `og:site_name=YORO`, `twitter:site=@etzhayyim` |
 
 #### OG Tags Coverage
 
@@ -148,8 +148,8 @@ AT Protocol コミュニティの **Lexicon Web 提案** に準拠:
 {
   "$type": "com.atproto.lexicon.web",
   "scope": "ai.gftd.w",
-  "urlTemplate": "https://yoro.gftd.ai/record/{did}/{collection}/{rkey}",
-  "oembedEndpoint": "https://yoro.gftd.ai/oembed"
+  "urlTemplate": "https://yoro.etzhayyim.com/record/{did}/{collection}/{rkey}",
+  "oembedEndpoint": "https://yoro.etzhayyim.com/oembed"
 }
 ```
 
@@ -160,10 +160,10 @@ AT Protocol コミュニティの **Lexicon Web 提案** に準拠:
   "version": "1.0",
   "type": "link",
   "provider_name": "YORO",
-  "provider_url": "https://yoro.gftd.ai",
+  "provider_url": "https://yoro.etzhayyim.com",
   "title": "Display Name (@handle) — YORO",
   "author_name": "Display Name",
-  "author_url": "https://yoro.gftd.ai/profile/handle",
+  "author_url": "https://yoro.etzhayyim.com/profile/handle",
   "thumbnail_url": "https://...",
   "cache_age": 3600
 }
@@ -176,7 +176,7 @@ AT Protocol コミュニティの **Lexicon Web 提案** に準拠:
   "version": "1.0",
   "type": "rich",
   "provider_name": "YORO",
-  "html": "<iframe src=\"https://yoro.gftd.ai/embed/post/{handle}/{rkey}\" ...></iframe>",
+  "html": "<iframe src=\"https://yoro.etzhayyim.com/embed/post/{handle}/{rkey}\" ...></iframe>",
   "width": 600,
   "height": 400,
   "author_name": "Display Name",
@@ -188,7 +188,7 @@ AT Protocol コミュニティの **Lexicon Web 提案** に準拠:
 
 ```html
 <link rel="alternate" type="application/json+oembed"
-  href="https://yoro.gftd.ai/oembed?url={encoded-url}&format=json"
+  href="https://yoro.etzhayyim.com/oembed?url={encoded-url}&format=json"
   title="Post title" />
 ```
 
@@ -198,11 +198,11 @@ AT Protocol コミュニティの **Lexicon Web 提案** に準拠:
 |---|---|---|
 | **Base** | `app.bsky.*` | Bluesky 100% 互換 (190/190 lexicons) |
 | **Extended** | `ai.gftd.w.*` | W Protocol (cards, E2E, cross-actor, MDAG) |
-| **oEmbed bridge** | Lexicon Web | External clients → yoro.gftd.ai rich preview |
+| **oEmbed bridge** | Lexicon Web | External clients → yoro.etzhayyim.com rich preview |
 
 Bluesky client が `ai.gftd.w.*` record を見た場合:
 1. `text` field fallback (plain text 表示)
-2. Lexicon Web → `yoro.gftd.ai/oembed` → rich preview / iframe embed
+2. Lexicon Web → `yoro.etzhayyim.com/oembed` → rich preview / iframe embed
 
 ### 6. Open Union Embed Pattern
 
@@ -216,7 +216,7 @@ AT Protocol の post embed は **open union** (`$type` discriminator)。Custom e
 }
 ```
 
-- yoro.gftd.ai: Protocol Canvas card renderer (15 standard + custom types)
+- yoro.etzhayyim.com: Protocol Canvas card renderer (15 standard + custom types)
 - bsky.app: Empty embed (unknown type fallback)
 - Lexicon Web 対応 client: oEmbed → iframe embed
 
@@ -224,29 +224,29 @@ AT Protocol の post embed は **open union** (`$type` discriminator)。Custom e
 
 | 現在の fullapp | 移行先 | 理由 |
 |---|---|---|
-| handotai.gftd.ai (ニュース) | canvas | list + table + chart cards |
-| kuruma.gftd.ai (車情報) | canvas | list + carousel + map-pin |
-| chotatsu.gftd.ai (調達) | canvas | table + form + metric-dashboard |
-| kami.gftd.ai (ゲーム) | miniapp | wgpu 3D rendering |
-| society6.gftd.ai (COFOG) | canvas | metric-dashboard + chart |
-| oshi.gftd.ai (動画) | canvas + miniapp | timeline=card, 編集=miniapp |
+| handotai.etzhayyim.com (ニュース) | canvas | list + table + chart cards |
+| kuruma.etzhayyim.com (車情報) | canvas | list + carousel + map-pin |
+| chotatsu.etzhayyim.com (調達) | canvas | table + form + metric-dashboard |
+| kami.etzhayyim.com (ゲーム) | miniapp | wgpu 3D rendering |
+| society6.etzhayyim.com (COFOG) | canvas | metric-dashboard + chart |
+| oshi.etzhayyim.com (動画) | canvas + miniapp | timeline=card, 編集=miniapp |
 
-個別 `*.gftd.ai` ドメインは API-only (XRPC backend)。UI は `yoro.gftd.ai/profile/{did}` に集約。
+個別 `*.etzhayyim.com` ドメインは API-only (XRPC backend)。UI は `yoro.etzhayyim.com/profile/{did}` に集約。
 
 ### 8. Subdomain → yoro Redirect + iframe Embed
 
 nanoid subdomain への browser 直接アクセスは yoro profile に redirect し、AgentProfile 内で iframe embed する。
 
 ```
-{nanoid}.gftd.ai/ (browser, Accept: text/html)
-  → 301 yoro.gftd.ai/profile/did:web:{nanoid}.gftd.ai?app=1
+{nanoid}.etzhayyim.com/ (browser, Accept: text/html)
+  → 301 yoro.etzhayyim.com/profile/did:web:{nanoid}.etzhayyim.com?app=1
     → AgentProfile.svelte: ?app=1 → autoEmbed=true → showAppEmbed=true
-      → <iframe src="{nanoid}.gftd.ai/?embed=1" sandbox="allow-scripts allow-same-origin allow-forms allow-popups">
+      → <iframe src="{nanoid}.etzhayyim.com/?embed=1" sandbox="allow-scripts allow-same-origin allow-forms allow-popups">
 ```
 
 | Request | Redirect? | Destination |
 |---|---|---|
-| `GET /` + `Accept: text/html` | Yes | `yoro.gftd.ai/profile/did:web:{host}?app=1` |
+| `GET /` + `Accept: text/html` | Yes | `yoro.etzhayyim.com/profile/did:web:{host}?app=1` |
 | `GET /api/*`, `/_*`, `/?embed=1`, static | No | dispatch to user Worker |
 
 **Shannon 根拠**: shell/state/routing が yoro 1 箇所に集約。subdomain は API + iframe content (embed mode) のみ提供。冗長度 0%。
@@ -255,7 +255,7 @@ nanoid subdomain への browser 直接アクセスは yoro profile に redirect 
 
 ### vs. Bluesky (bsky.app)
 
-| 機能 | bsky.app | yoro.gftd.ai |
+| 機能 | bsky.app | yoro.etzhayyim.com |
 |---|---|---|
 | URL structure | `/profile/{handle}/post/{rkey}` | 同一 |
 | AT URI | `at://{did}/app.bsky.feed.post/{rkey}` | 同一 |
@@ -267,9 +267,9 @@ nanoid subdomain への browser 直接アクセスは yoro profile に redirect 
 
 ### vs. WeChat Mini Programs
 
-| 機能 | WeChat | yoro.gftd.ai |
+| 機能 | WeChat | yoro.etzhayyim.com |
 |---|---|---|
-| App hosting | WeChat SuperApp | yoro.gftd.ai SuperApp |
+| App hosting | WeChat SuperApp | yoro.etzhayyim.com SuperApp |
 | App identity | WeChat AppID | AT Protocol DID |
 | Data model | Proprietary | AT Protocol (open, portable) |
 | Encryption | Server-side | Signal Protocol E2E (client-side) |
@@ -277,7 +277,7 @@ nanoid subdomain への browser 直接アクセスは yoro profile に redirect 
 
 ## Exceptions
 
-- yoro.gftd.ai 自身は `fullapp` のまま (SuperApp host として SvelteKit SSR が必要)
+- yoro.etzhayyim.com 自身は `fullapp` のまま (SuperApp host として SvelteKit SSR が必要)
 - KAMI Engine (wgpu) は appview mode (iframe embed)
 
 ## References

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/8/0/r-d-economic-affairs",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/8/0/r-d-economic-affairs",
       "type": "dodaf:Capability",
       "name": "Economic Affairs Research and Development Capability",
       "description": "Functional capability for advancing economic affairs through scientific research, model analysis, and industrial technology evaluation. Classification: COFOG Division 04, Group 8, Class 0.",

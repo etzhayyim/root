@@ -10,7 +10,7 @@
     "environments": "gh:environments",
     "episodeId": "gh:episodeId",
     "episodeIndex": "gh:episodeIndex",
-    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "gh": "https://ghosthacker.etzhayyim.com/ns/",
     "panel": "gh:panelIndex",
     "prompt": "gh:runwayPrompt",
     "properties": "gh:shotProperties",

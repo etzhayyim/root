@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/3/3/nuclear-fuel/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/3/3/nuclear-fuel/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Nuclear Fuel Management Lifecycle",
       "description": "The administrative process of inspecting fuel processing, coordinating waste logistics, and monitoring safety compliance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/3/nuclear-fuel"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/3/nuclear-fuel"
     }
   ]
 }

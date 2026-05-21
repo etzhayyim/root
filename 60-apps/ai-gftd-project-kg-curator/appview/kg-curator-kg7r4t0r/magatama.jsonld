@@ -1,5 +1,5 @@
 {
-  "@context": "https://magatama.gftd.ai/v1",
+  "@context": "https://magatama.etzhayyim.com/v1",
   "@id": "ai.gftd.apps.kgCurator",
   "@type": "MagatamaApp",
   "nanoid": "kg7r4t0r",

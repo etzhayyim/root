@@ -61,7 +61,7 @@ SELECT current_setting('work_mem') as work_mem,
 cat > /tmp/monitor_health.sh << 'EOF'
 #!/bin/bash
 
-DB_URL="postgresql://gftd_user:${RW_STAGING_PASSWORD}@risingwave-staging.gftd.ai:4566/gftd"
+DB_URL="postgresql://gftd_user:${RW_STAGING_PASSWORD}@risingwave-staging.etzhayyim.com:4566/gftd"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 echo "=== Health Check: $TIMESTAMP ===" >> /tmp/migration_health.log
@@ -151,7 +151,7 @@ cat > /tmp/pds_health.sh << 'EOF'
 #!/bin/bash
 
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
-PDS_URL="https://atproto.gftd.ai"
+PDS_URL="https://atproto.etzhayyim.com"
 
 echo "=== PDS Health: $TIMESTAMP ===" >> /tmp/pds_health.log
 
@@ -299,7 +299,7 @@ fi
 {
   echo "To: $RECIPIENT"
   echo "Subject: $SUBJECT"
-  echo "From: deployment-bot@gftd.ai"
+  echo "From: deployment-bot@etzhayyim.com"
   echo "MIME-Version: 1.0"
   echo "Content-Type: text/plain; charset=UTF-8"
   echo ""
@@ -332,7 +332,7 @@ cat > /tmp/email_notifier_mailgun.sh << 'EOF'
 RECIPIENT="$1"
 MIGRATION_NUM="$2"
 STATUS="$3"
-MAILGUN_DOMAIN="${MAILGUN_DOMAIN:-mg.gftd.ai}"
+MAILGUN_DOMAIN="${MAILGUN_DOMAIN:-mg.etzhayyim.com}"
 MAILGUN_API_KEY="${MAILGUN_API_KEY}"
 
 if [ -z "$MAILGUN_API_KEY" ]; then
@@ -352,7 +352,7 @@ fi
 
 curl -s --user "api:${MAILGUN_API_KEY}" \
   "https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages" \
-  -F "from=deployment@gftd.ai" \
+  -F "from=deployment@etzhayyim.com" \
   -F "to=${RECIPIENT}" \
   -F "subject=${SUBJECT}" \
   -F "text=${TEXT}" > /dev/null
@@ -393,7 +393,7 @@ Alert: If memory > 85%
 ```
 Title: PDS Response Time
 Query: Synthetic check every 2m
-Target: https://atproto.gftd.ai/xrpc/com.atproto.server.describeServer
+Target: https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer
 Alert: If latency > 500ms for >5 min
 ```
 
@@ -450,13 +450,13 @@ while true; do
   
   # Migration progress
   echo "📊 MIGRATION PROGRESS:"
-  migration_count=$(psql -h risingwave-staging.gftd.ai -U gftd_user -d gftd -tc "SELECT COUNT(*) FROM kysely_migration WHERE migration LIKE '202604%';" 2>/dev/null || echo "?")
+  migration_count=$(psql -h risingwave-staging.etzhayyim.com -U gftd_user -d gftd -tc "SELECT COUNT(*) FROM kysely_migration WHERE migration LIKE '202604%';" 2>/dev/null || echo "?")
   echo "   Migrations applied: $migration_count / 40"
   echo ""
   
   # RW Cluster health
   echo "🖥️  CLUSTER HEALTH:"
-  if psql -h risingwave-staging.gftd.ai -U gftd_user -d gftd -c "SELECT 1;" > /dev/null 2>&1; then
+  if psql -h risingwave-staging.etzhayyim.com -U gftd_user -d gftd -c "SELECT 1;" > /dev/null 2>&1; then
     cpu=$(kubectl top pod -n risingwave -l role=compute --no-headers 2>/dev/null | awk '{sum+=$2} END {print sum "m"}' || echo "?")
     mem=$(kubectl top pod -n risingwave -l role=compute --no-headers 2>/dev/null | awk '{sum+=$3} END {print sum "Mi"}' || echo "?")
     echo "   Status: ✓ RESPONSIVE"
@@ -468,7 +468,7 @@ while true; do
   
   # PDS health
   echo "🌐 PDS STATUS:"
-  pds_code=$(curl -s -o /dev/null -w "%{http_code}" https://atproto.gftd.ai/xrpc/com.atproto.server.describeServer 2>/dev/null || echo "???")
+  pds_code=$(curl -s -o /dev/null -w "%{http_code}" https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer 2>/dev/null || echo "???")
   if [ "$pds_code" = "200" ]; then
     echo "   Status: ✓ UP (HTTP 200)"
   else

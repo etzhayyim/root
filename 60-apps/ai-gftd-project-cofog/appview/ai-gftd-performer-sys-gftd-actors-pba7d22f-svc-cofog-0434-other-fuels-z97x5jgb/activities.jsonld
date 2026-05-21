@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/3/4/other-fuels/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/3/4/other-fuels/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Alternative Fuel Management Lifecycle",
       "description": "The administrative process of evaluating bio-fuel potential, coordinating multi-fuel logistics, and monitoring regulatory standards.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/4/other-fuels"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/4/other-fuels"
     }
   ]
 }

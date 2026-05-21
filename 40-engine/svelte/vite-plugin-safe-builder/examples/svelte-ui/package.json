@@ -10,13 +10,13 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "file:../../../design-system"
+    "@etzhayyim/design-system": "file:../../../design-system"
   },
   "devDependencies": {
     "@sveltejs/adapter-cloudflare": "^7.2.8",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
-    "@gftdcojp/vite-plugin-safe-builder": "file:../..",
+    "@etzhayyim/vite-plugin-safe-builder": "file:../..",
     "svelte": "^5.0.0",
     "svelte-check": "^4.0.0",
     "typescript": "^5.0.0",

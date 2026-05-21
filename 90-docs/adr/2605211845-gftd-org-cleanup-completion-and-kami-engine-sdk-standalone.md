@@ -9,11 +9,11 @@ last_verified: 2026-05-21
 priority: 4.0
 axis: operations
 weight: 0.40
-priority_note: "Closes the long-running gftdcojp [MOVED → etzhayyim/root] cleanup. Records the kami-engine-sdk standalone mirror as the only intentional carve-out from the monorepo SoT rule."
+priority_note: "Closes the long-running etzhayyim [MOVED → etzhayyim/root] cleanup. Records the kami-engine-sdk standalone mirror as the only intentional carve-out from the monorepo SoT rule."
 authoritative_for:
-  - gftdcojp MOVED-tagged repo deletion completion (0 remaining)
+  - etzhayyim MOVED-tagged repo deletion completion (0 remaining)
   - etzhayyim/kami-engine-sdk standalone mirror policy (monorepo = SoT, standalone = read-only mirror)
-  - @gftdcojp/kami-engine-sdk → @etzhayyim/kami-engine-sdk npm scope rename
+  - @etzhayyim/kami-engine-sdk → @etzhayyim/kami-engine-sdk npm scope rename
   - public-global late-fetch reconciliation pattern
 related:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
@@ -32,36 +32,36 @@ superseded_by: []
 
 # Context
 
-Between 2026-04 and 2026-05, ~15 gftdcojp public repos were progressively migrated into `etzhayyim/root` (this monorepo) per the Shannon-Optimal 8-Layer Architecture (ADR-2604251830). Each migrated source repo was left at gftdcojp with description prefix `[MOVED → github.com/etzhayyim/root]` and archived.
+Between 2026-04 and 2026-05, ~15 etzhayyim public repos were progressively migrated into `etzhayyim/root` (this monorepo) per the Shannon-Optimal 8-Layer Architecture (ADR-2604251830). Each migrated source repo was left at etzhayyim with description prefix `[MOVED → github.com/etzhayyim/root]` and archived.
 
 The migration left two operational tails:
 
-1. **Stale source repos**. Archived ≠ deleted. The MOVED-tagged copies were still publicly listed under gftdcojp, with their pre-cleanup tree (which in some cases pre-dated substrate-boundary purges and vendor-business-actor sweeps per commit `393da1ce`).
+1. **Stale source repos**. Archived ≠ deleted. The MOVED-tagged copies were still publicly listed under etzhayyim, with their pre-cleanup tree (which in some cases pre-dated substrate-boundary purges and vendor-business-actor sweeps per commit `393da1ce`).
 2. **One repo (public-global)** carried the MOVED description but had never actually been imported into the monorepo. The description was inaccurate.
 
-A separate question — surfaced by `gftdcojp/kami-engine-sdk` — was whether some SDKs should be republished as standalone repos (mirror pattern) for downstream consumers who prefer pinning to a focused repo rather than a monorepo subdir.
+A separate question — surfaced by `etzhayyim/kami-engine-sdk` — was whether some SDKs should be republished as standalone repos (mirror pattern) for downstream consumers who prefer pinning to a focused repo rather than a monorepo subdir.
 
 # Decision
 
-## (a) Delete all MOVED-tagged gftdcojp repos
+## (a) Delete all MOVED-tagged etzhayyim repos
 
-All 15 gftdcojp repos with `[MOVED → github.com/etzhayyim/root]` in their description are physically deleted from GitHub. archived-only retention is rejected: the leaked pre-cleanup trees (vendor business actors, Stripe lexicons, etc.) shouldn't remain publicly discoverable just because the source side is archived.
+All 15 etzhayyim repos with `[MOVED → github.com/etzhayyim/root]` in their description are physically deleted from GitHub. archived-only retention is rejected: the leaked pre-cleanup trees (vendor business actors, Stripe lexicons, etc.) shouldn't remain publicly discoverable just because the source side is archived.
 
-Verified outcome (2026-05-21 18:00 JST): `gftdcojp` has **0** MOVED-tagged repos remaining.
+Verified outcome (2026-05-21 18:00 JST): `etzhayyim` has **0** MOVED-tagged repos remaining.
 
 ## (b) Reconcile public-global before deleting
 
-`gftdcojp/ai-gftd-project-public-global` was MOVED-tagged but never imported. Before deletion, it was cloned into `60-apps/ai-gftd-project-public-global/` (16 files, 2 WasmCloud components) to make the MOVED claim accurate retroactively. Committed as `690135d3`.
+`etzhayyim/ai-gftd-project-public-global` was MOVED-tagged but never imported. Before deletion, it was cloned into `60-apps/ai-gftd-project-public-global/` (16 files, 2 WasmCloud components) to make the MOVED claim accurate retroactively. Committed as `690135d3`.
 
 ## (c) Publish kami-engine-sdk standalone
 
 `etzhayyim/kami-engine-sdk` is created as a public repo at `github.com/etzhayyim/kami-engine-sdk`, seeded from `20-actors/kami-engine-sdk/`. The monorepo subdir remains the **source of truth**; the standalone repo is a read-only mirror.
 
-Package name renamed from `@gftdcojp/kami-engine-sdk` to `@etzhayyim/kami-engine-sdk`. Six in-tree referrers updated (`20-actors/kami-engine-sdk/{package.json,README.md,src/lib/{index,document/index,document/scene-bridge}.ts}`, `20-actors/magatama/sdk/magatama-host-sdk/package.json`, `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/genko-stub.ts`).
+Package name renamed from `@etzhayyim/kami-engine-sdk` to `@etzhayyim/kami-engine-sdk`. Six in-tree referrers updated (`20-actors/kami-engine-sdk/{package.json,README.md,src/lib/{index,document/index,document/scene-bridge}.ts}`, `20-actors/magatama/sdk/magatama-host-sdk/package.json`, `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/genko-stub.ts`).
 
 ## (d) Scope of standalone mirror policy
 
-`kami-engine-sdk` is **the only** intentional carve-out at the time of this ADR. Other public SDKs left at gftdcojp (bpmn-engine-ts, bpmn-sdk-rs, rs-jsonnet, effect-actor, ontology, shigarami, sparql-ts) and the gftd README repo remain at gftdcojp by user direction — they are vendor-tier SDKs without etzhayyim Charter Rider applied, and replicating them under etzhayyim would imply etzhayyim sponsorship that does not exist. No automatic mirror rule.
+`kami-engine-sdk` is **the only** intentional carve-out at the time of this ADR. Other public SDKs left at etzhayyim (bpmn-engine-ts, bpmn-sdk-rs, rs-jsonnet, effect-actor, ontology, shigarami, sparql-ts) and the gftd README repo remain at etzhayyim by user direction — they are vendor-tier SDKs without etzhayyim Charter Rider applied, and replicating them under etzhayyim would imply etzhayyim sponsorship that does not exist. No automatic mirror rule.
 
 Future SDK standalone publications follow the same one-by-one explicit decision pattern. No bulk republication.
 
@@ -69,13 +69,13 @@ Future SDK standalone publications follow the same one-by-one explicit decision 
 
 ## Positive
 
-- Public surface area of `gftdcojp` no longer advertises etzhayyim work via stale archived repos. Discoverability matches actual canonical location (etzhayyim/root + the one standalone mirror).
+- Public surface area of `etzhayyim` no longer advertises etzhayyim work via stale archived repos. Discoverability matches actual canonical location (etzhayyim/root + the one standalone mirror).
 - `public-global` description is now true (it really is in etzhayyim/root).
 - Downstream consumers of `kami-engine-sdk` can pin `github:etzhayyim/kami-engine-sdk` without depending on the full monorepo. npm scope aligns with the rest of `@etzhayyim/*`.
 
 ## Negative / accepted
 
-- Old git SHAs that referenced the gftdcojp repos as remotes will 404. Acceptable: these were already archived (read-only); deletion was the next step.
+- Old git SHAs that referenced the etzhayyim repos as remotes will 404. Acceptable: these were already archived (read-only); deletion was the next step.
 - Standalone mirror introduces a sync surface (monorepo → standalone). For v0 this is a manual one-time push. If divergence appears (e.g. someone pushes to the standalone), the monorepo wins.
 - Charter Rider is not (yet) auto-applied to the standalone — it is bundled in the snapshot pushed (CHARTER-RIDER.md + NOTICE come from the monorepo subdir copy).
 
@@ -89,7 +89,7 @@ No durable loss to etzhayyim/root because the user's parallel reconstruction wil
 
 # Alternatives Considered
 
-## Keep gftdcojp MOVED repos archived (not delete)
+## Keep etzhayyim MOVED repos archived (not delete)
 
 Was the user's initial pattern. Rejected on this pass because:
 - Archive ≠ public removal. Pre-cleanup vendor-business content (Stripe lexicons, malak/keiei/akuma/manimani/ses subpackages) was still discoverable.
@@ -111,5 +111,5 @@ Rejected during the session. Saved to `260521-cell-waves` first, then closed the
 - ADR-2605192200 (Apache 2.0 + etzhayyim Charter Compliance Rider v2.0)
 - Commit `393da1ce` (Remove vendor business actors leaked into public seed — Tier 1)
 - Commit `690135d3` (60-apps: import ai-gftd-project-public-global from gftd)
-- Commit `d302f274` (20-actors/kami-engine-sdk: rename @gftdcojp/* → @etzhayyim/* + publish mirror)
+- Commit `d302f274` (20-actors/kami-engine-sdk: rename @etzhayyim/* → @etzhayyim/* + publish mirror)
 - PR #254 (closed — Religious-corp Pregel cell waves; see Operational note)

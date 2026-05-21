@@ -16,7 +16,7 @@ related:
 # Scope
 
 Long-running session on 2026-04-24 that started as "why does
-`yoro.gftd.ai/profile/sh1n5h1x.gftd.ai` show 0 posts" and ended with a
+`yoro.etzhayyim.com/profile/sh1n5h1x.etzhayyim.com` show 0 posts" and ended with a
 production topology refactor (yoro purified, bsky AppView Worker live,
 γ2 cutover fully automated). 2 PRs merged (#1115 + #1117), 3 new
 ADRs, ~30 commits, LaunchAgent on the operator's machine for the
@@ -54,7 +54,7 @@ just the log of what happened and where to find the pieces.
     + `mv_profile_core_stats`) with `GROUP BY normalize_actor_did(repo)`
     so path-DID posts aggregate under the root DID.
   - First-ever deploy of `ai-gftd-appview` Worker — claimed
-    `bsky.gftd.ai/*` route (was falling through to routing-gateway's
+    `bsky.etzhayyim.com/*` route (was falling through to routing-gateway's
     BPMN-as-actor catch-all, which returned "no active binding").
   - `profile.ts` MV LIMIT fix — Kysely's `.limit(1)` generates
     `LIMIT $N` which RW's sql_parser rejects for MV SELECTs; replaced
@@ -62,7 +62,7 @@ just the log of what happened and where to find the pieces.
   - `feed.ts` MV LIMIT fix — same pattern applied to 2 viewer-context
     MV queries.
   - Smoke `70-tools/scripts/sh1n5h1x-profile-smoke.sh` — end-to-end
-    gate: bsky.gftd.ai getProfile postsCount ≥ 1 + getAuthorFeed
+    gate: bsky.etzhayyim.com getProfile postsCount ≥ 1 + getAuthorFeed
     counter-check + yoro SSR resolves + yoro `/xrpc/*` returns 410
     (ADR-2604241038 Phase ε).
 
@@ -85,7 +85,7 @@ just the log of what happened and where to find the pieces.
 - **BPMN yabai batch-3 routing**
   - `NSID_EXACT_MATCH_TABLE` entries for `crtshFuzzySearch` +
     `reverseIpLookup` + `enrichLegalEntity` so PDS dispatch hits
-    `dispatcher.gftd.ai` for these 3 pivots.
+    `dispatcher.etzhayyim.com` for these 3 pivots.
   - Graph migration
     `20260424120000_seed_yabai_batch3_bpmn_actors.ts` registers
     both the `vertex_bpmn_process_def` + `vertex_bpmn_lexicon_binding`
@@ -113,10 +113,10 @@ Refresh of `90-docs/rules/waituntil-requires-catch-baseline.txt`
 
 | Surface | State |
 |---|---|
-| `bsky.gftd.ai` | Live — `ai-gftd-appview` version `d085c7bf` with pg.Pool refactor + MV LIMIT fix |
-| `atproto.gftd.ai` | Routing unchanged; BPMN yabai batch-3 NSIDs now land at dispatcher |
-| `dispatcher.gftd.ai` | 12 yabai BPMN actors live in `vertex_bpmn_lexicon_binding` |
-| `sh1n5h1x.gftd.ai` | `postsCount = 1476` (was 0), did-web root row in `mv_actor_social_stats` |
+| `bsky.etzhayyim.com` | Live — `ai-gftd-appview` version `d085c7bf` with pg.Pool refactor + MV LIMIT fix |
+| `atproto.etzhayyim.com` | Routing unchanged; BPMN yabai batch-3 NSIDs now land at dispatcher |
+| `dispatcher.etzhayyim.com` | 12 yabai BPMN actors live in `vertex_bpmn_lexicon_binding` |
+| `sh1n5h1x.etzhayyim.com` | `postsCount = 1476` (was 0), did-web root row in `mv_actor_social_stats` |
 | LaunchAgent | `ai.gftd.legacy-trust-tally` bootstrapped in `gui/501`, fires 09:17 daily |
 | Tally log | `90-docs/260424-legacy-trust-tally.log` seeded with first samples (0/0 hits) |
 | RisingWave | 1236 tables / 17152 columns, drift clean |
@@ -178,8 +178,8 @@ reinventing them.
 
 # References
 
-- PR #1115: https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1115
-- PR #1117: https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1117
+- PR #1115: https://github.com/etzhayyim/etzhayyim-root/pull/1115
+- PR #1117: https://github.com/etzhayyim/etzhayyim-root/pull/1117
 - Merge commits: `fd749574c56`, `0bfcde4ab2c`
 - ADRs: `90-docs/adr/{2604241038, 2604241121, 2604241342}-*.md`
 - Ephemeral-runbook convention:

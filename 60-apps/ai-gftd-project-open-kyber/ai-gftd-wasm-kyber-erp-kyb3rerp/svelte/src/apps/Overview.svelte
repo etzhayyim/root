@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Card, Badge } from '@gftdcojp/design-system';
+  import { Button, Card, Badge } from '@etzhayyim/design-system';
   import { callXrpc, periodYM } from '../lib/xrpc';
   import { ui } from '../lib/store.svelte';
   import { apps, type AppId } from '../lib/apps';

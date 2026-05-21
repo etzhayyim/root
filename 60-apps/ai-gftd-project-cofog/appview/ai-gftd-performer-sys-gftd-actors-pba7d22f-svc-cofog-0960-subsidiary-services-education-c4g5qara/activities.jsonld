@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/09/6/0/subsidiary-services-education/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/09/6/0/subsidiary-services-education/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Ancillary Education Service Lifecycle",
       "description": "The administrative process of auditing subsidiary services, coordinating logistics, and monitoring service quality.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/09/6/0/subsidiary-services-education"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/6/0/subsidiary-services-education"
     }
   ]
 }

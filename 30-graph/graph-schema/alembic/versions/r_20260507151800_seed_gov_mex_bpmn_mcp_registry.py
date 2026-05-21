@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-seedOrgs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-seedOrgs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_seed_orgs" name="govMex seed orgs" '
@@ -63,10 +63,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govMex/seedOrgs.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -80,15 +80,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-registerDIDs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-registerDIDs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_register_dids" name="govMex register DIDs" '
@@ -120,10 +120,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govMex/registerDIDs.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,15 +137,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-followSiteDeps-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-followSiteDeps-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_follow_site_deps" name="govMex follow site deps" '
@@ -175,10 +175,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govMex/followSiteDeps.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,15 +192,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-resolveOrgPath-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-resolveOrgPath-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_resolve_org_path" name="govMex resolve org path" '
@@ -233,10 +233,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govMex/resolveOrgPath.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -250,15 +250,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-listOrgs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-listOrgs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_list_orgs" name="govMex list orgs" '
@@ -287,10 +287,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govMex/listOrgs.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -304,15 +304,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-syncWetUpdates-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-syncWetUpdates-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_sync_wet_updates" name="govMex sync wet updates" '
@@ -343,10 +343,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govMex/syncWetUpdates.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -360,15 +360,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-shinka-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-shinka-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_shinka',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_shinka"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_shinka" name="govMex shinka" isExecutable="true">\n'
@@ -398,10 +398,10 @@ UP = [{'sql': '\n'
                  1351,
                  '00-contracts/bpmn/ai/gftd/govMex/shinka.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,8 +415,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeatTick-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeatTick-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -424,7 +424,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_mex_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_heartbeat_tick" name="govMex heartbeat tick" '
@@ -467,10 +467,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govMex/heartbeatTick.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -484,15 +484,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-seed-orgs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-seed-orgs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_seed_orgs" name="govMex seed orgs" '
@@ -522,10 +522,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govMex/seedOrgs.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-seed-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-seed-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -539,15 +539,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-register-dids-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-register-dids-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_register_dids" name="govMex register DIDs" '
@@ -579,10 +579,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govMex/registerDIDs.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-register-dids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,15 +596,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-follow-site-deps-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-follow-site-deps-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_follow_site_deps" name="govMex follow site deps" '
@@ -634,10 +634,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govMex/followSiteDeps.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-follow-site-deps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-follow-site-deps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -651,15 +651,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-resolve-org-path-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-resolve-org-path-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_resolve_org_path" name="govMex resolve org path" '
@@ -692,10 +692,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govMex/resolveOrgPath.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-resolve-org-path-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-resolve-org-path-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -709,15 +709,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-list-orgs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-list-orgs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_list_orgs" name="govMex list orgs" '
@@ -746,10 +746,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govMex/listOrgs.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-list-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-list-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -763,15 +763,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-sync-wet-updates-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-sync-wet-updates-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_mex_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_sync_wet_updates" name="govMex sync wet updates" '
@@ -802,10 +802,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govMex/syncWetUpdates.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-sync-wet-updates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-sync-wet-updates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -819,8 +819,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeat-tick-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeat-tick-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'gov_mex_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -828,7 +828,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_mex_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govMex"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govMex"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_mex_heartbeat_tick" name="govMex heartbeat tick" '
@@ -871,10 +871,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govMex/heartbeatTick.bpmn',
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeat-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeat-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -889,17 +889,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.seedOrgs',
                  'gov_mex_seed_orgs',
                  90000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,17 +914,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.registerDIDs',
                  'gov_mex_register_dids',
                  90000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,17 +939,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.followSiteDeps',
                  'gov_mex_follow_site_deps',
                  90000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,17 +964,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.resolveOrgPath',
                  'gov_mex_resolve_org_path',
                  60000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,17 +989,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.listOrgs',
                  'gov_mex_list_orgs',
                  60000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,17 +1014,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.syncWetUpdates',
                  'gov_mex_sync_wet_updates',
                  180000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,17 +1039,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-shinka-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-shinka-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.shinka',
                  'gov_mex_shinka',
                  180000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,17 +1064,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.heartbeatTick',
                  'gov_mex_heartbeat_tick',
                  180000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,17 +1089,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.seedOrgs',
                  'gov_mex_seed_orgs',
                  90000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,17 +1114,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.registerDIDs',
                  'gov_mex_register_dids',
                  90000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,17 +1139,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.followSiteDeps',
                  'gov_mex_follow_site_deps',
                  90000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,17 +1164,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.resolveOrgPath',
                  'gov_mex_resolve_org_path',
                  60000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,17 +1189,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.listOrgs',
                  'gov_mex_list_orgs',
                  60000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,17 +1214,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.syncWetUpdates',
                  'gov_mex_sync_wet_updates',
                  180000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,17 +1239,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1',
-                 'did:web:mex-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1',
+                 'did:web:mex-state.etzhayyim.com',
                  'ai.gftd.govMex.heartbeatTick',
                  'gov_mex_heartbeat_tick',
                  180000,
                  '2026-05-07T15:18:00Z',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,10 +1266,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs',
                  'ai.gftd.govMex.seedOrgs',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Mexico government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1277,12 +1277,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govMex/seedOrgs.json',
                  '3f2c3b2e9b99f5fc',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,10 +1299,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs',
                  'ai.gftd.govMex.registerDIDs',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Mexico government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1310,12 +1310,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govMex/registerDIDs.json',
                  'b348dc4b18b51aff',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,10 +1332,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps',
                  'ai.gftd.govMex.followSiteDeps',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Mexico government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1343,12 +1343,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govMex/followSiteDeps.json',
                  'e234edb446bea889',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,10 +1365,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath',
                  'ai.gftd.govMex.resolveOrgPath',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'query',
                  'Resolve a Mexico government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1376,12 +1376,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govMex/resolveOrgPath.json',
                  '01d14768558cd074',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,10 +1398,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs',
                  'ai.gftd.govMex.listOrgs',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'query',
                  'List Mexico government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1409,12 +1409,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govMex/listOrgs.json',
                  '1b15b6286bae3ed7',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,10 +1431,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates',
                  'ai.gftd.govMex.syncWetUpdates',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Mexico government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1442,12 +1442,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govMex/syncWetUpdates.json',
                  '2c0577b27488602c',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,10 +1464,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-shinka',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-shinka',
                  'ai.gftd.govMex.shinka',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Post a periodic graph-visible Mexico government organization update.',
                  '{"properties":{"limit":{"default":1,"maximum":5,"minimum":1,"type":"integer"},"postUpdates":{"default":true,"type":"boolean"}},"required":[],"type":"object"}',
@@ -1475,12 +1475,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.shinka',
                  '00-contracts/lexicons/ai/gftd/govMex/shinka.json',
                  'af1b145ced22bed1',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-shinka']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,10 +1497,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick',
                  'ai.gftd.govMex.heartbeatTick',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Run the Mexico government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1508,12 +1508,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govMex/heartbeatTick.json',
                  '26d32671f3acdd2d',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1530,10 +1530,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs',
                  'ai.gftd.govMex.seedOrgs',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Mexico government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1541,12 +1541,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govMex/seedOrgs.json',
                  '3f2c3b2e9b99f5fc',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1563,10 +1563,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs',
                  'ai.gftd.govMex.registerDIDs',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Mexico government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1574,12 +1574,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govMex/registerDIDs.json',
                  'b348dc4b18b51aff',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1596,10 +1596,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps',
                  'ai.gftd.govMex.followSiteDeps',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Mexico government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1607,12 +1607,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govMex/followSiteDeps.json',
                  'e234edb446bea889',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1629,10 +1629,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath',
                  'ai.gftd.govMex.resolveOrgPath',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'query',
                  'Resolve a Mexico government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1640,12 +1640,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govMex/resolveOrgPath.json',
                  '01d14768558cd074',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1662,10 +1662,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs',
                  'ai.gftd.govMex.listOrgs',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'query',
                  'List Mexico government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1673,12 +1673,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govMex/listOrgs.json',
                  '1b15b6286bae3ed7',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1695,10 +1695,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates',
                  'ai.gftd.govMex.syncWetUpdates',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Mexico government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1706,12 +1706,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govMex/syncWetUpdates.json',
                  '2c0577b27488602c',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates']},
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1728,10 +1728,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick',
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick',
                  'ai.gftd.govMex.heartbeatTick',
-                 'did:web:mex-state.gftd.ai',
-                 'mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'mex-state.etzhayyim.com',
                  'procedure',
                  'Run the Mexico government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1739,103 +1739,103 @@ UP = [{'sql': '\n'
                  'ai.gftd.govMex.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govMex/heartbeatTick.json',
                  '26d32671f3acdd2d',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
-                 'did:web:mex-state.gftd.ai',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
+                 'did:web:mex-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mex',
                  '2026-05-07T15:18:00Z',
-                 'at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick']}]
+                 'at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-shinka']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mex-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick']},
+  'parameters': ['at://did:web:mex-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govMex-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govMex-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-seed-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-seed-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-follow-site-deps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-follow-site-deps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-resolve-org-path-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-resolve-org-path-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-list-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-list-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-sync-wet-updates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-sync-wet-updates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeat-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-mex-heartbeat-tick-v1']}]
 
 
 def upgrade() -> None:

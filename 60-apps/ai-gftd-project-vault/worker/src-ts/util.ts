@@ -43,7 +43,7 @@ export function json(body: unknown, status = 200): Response {
     status,
     headers: {
       "Content-Type": "application/json",
-      // Vault API is browser-callable from yoro; allow CORS for vault.gftd.ai consumers.
+      // Vault API is browser-callable from yoro; allow CORS for vault.etzhayyim.com consumers.
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Headers": "Authorization, Content-Type, X-Active-DID",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",

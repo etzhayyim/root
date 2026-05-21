@@ -1,6 +1,6 @@
 ---
 id: 260426-site-common-crawl-zeebe-python-worker-design
-title: "site.gftd.ai Common Crawl Zeebe / Python worker design"
+title: "site.etzhayyim.com Common Crawl Zeebe / Python worker design"
 status: implemented
 doc_type: design
 topic: ingest-orchestration
@@ -12,7 +12,7 @@ related:
 
 # Summary
 
-`site.gftd.ai` owns the web page archive and site read models. Common Crawl
+`site.etzhayyim.com` owns the web page archive and site read models. Common Crawl
 remains an acquisition pipeline, while durable orchestration moves to Zeebe and
 the write commit point stays in domain ingest.
 

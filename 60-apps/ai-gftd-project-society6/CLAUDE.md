@@ -4,7 +4,7 @@
 
 COFOG portal + **Well-Becoming Kyu/Dan rank system**. Constituent 成長の過程を 5 軸で評価し、武道的段級位で可視化する。
 
-**URL**: `https://society6.gftd.ai`
+**URL**: `https://society6.etzhayyim.com`
 
 ## Well-Becoming Scoring
 
@@ -38,7 +38,7 @@ COFOG portal + **Well-Becoming Kyu/Dan rank system**. Constituent 成長の過�
 - **PromoteRank**: rank promotion + achievement recording + WSend notification
 - **GetRank / GetScoreBreakdown / ListAchievements / GetLeaderboard**: rank queries
 
-## dojo.gftd.ai 連携
+## dojo.etzhayyim.com 連携
 
 - SQL cross-app query で `DojoDrill` (competence) と `DojoAAR` (resilience) を取得
 - dojo `CompleteDrill` → WSend(`dojo-feed`, `dojo.drill.completed`) → society6 channel で受信可能

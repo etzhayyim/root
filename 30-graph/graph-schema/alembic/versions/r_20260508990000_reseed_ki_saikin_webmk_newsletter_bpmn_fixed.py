@@ -13,7 +13,7 @@ branch_labels = None
 depends_on = None
 
 UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -25,15 +25,15 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
          '        1, $9, $10, $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'ki_vascular_synthesis_cycle',
                  2,
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-                 'id="Definitions_ki_vascular_synthesis" targetNamespace="https://gftd.ai/bpmn/ki" '
+                 'id="Definitions_ki_vascular_synthesis" targetNamespace="https://etzhayyim.com/bpmn/ki" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="ki_vascular_synthesis_cycle" name="vascular-synthesis-cycle" '
                  'isExecutable="true">\n'
@@ -153,7 +153,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:ki.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:ki.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ki.vascular_synthesis&quot;" '
                  'target="action"/>\n'
@@ -176,11 +176,11 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  6016,
                  '00-contracts/bpmn/ai/gftd/ki/vascular-synthesis-cycle.bpmn',
                  '2026-05-08T09:50:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.reseed.phase4-fix']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,8 +192,8 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
          '        1, $9, $10, $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'saikin_horizontal_transfer_cycle',
                  2,
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -201,7 +201,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_saikin_horizontal_transfer" '
-                 'targetNamespace="https://gftd.ai/bpmn/saikin" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/saikin" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="saikin_horizontal_transfer_cycle" '
                  'name="horizontal-transfer-cycle" isExecutable="true">\n'
@@ -343,7 +343,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:saikin.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:saikin.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;saikin.horizontal_transfer&quot;" '
                  'target="action"/>\n'
@@ -365,11 +365,11 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  7037,
                  '00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn',
                  '2026-05-08T09:50:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.reseed.phase4-fix']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -381,8 +381,8 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
          '        1, $9, $10, $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'webmk_create_proposal',
                  2,
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -391,7 +391,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  'xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" '
                  'xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" '
                  'id="Definitions_webmk_create_proposal" '
-                 'targetNamespace="https://gftd.ai/bpmn/webmk">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/webmk">\n'
                  '  <bpmn:process id="webmk_create_proposal" name="webmk createProposal" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>{ "nsid": "ai.gftd.apps.webmk.createProposal", '
@@ -424,7 +424,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '      <bpmn:outgoing>F3</bpmn:outgoing>\n'
                  '    </bpmn:serviceTask>\n'
                  '\n'
-                 '    <!-- Step 3: Optionally create ads.gftd.ai campaign -->\n'
+                 '    <!-- Step 3: Optionally create ads.etzhayyim.com campaign -->\n'
                  '    <bpmn:sequenceFlow id="F3" sourceRef="DeliverEmail" '
                  'targetRef="CampaignGateway"/>\n'
                  '    <bpmn:exclusiveGateway id="CampaignGateway" name="createAdCampaign?">\n'
@@ -438,7 +438,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '      <bpmn:conditionExpression>=createAdCampaign = '
                  'true</bpmn:conditionExpression>\n'
                  '    </bpmn:sequenceFlow>\n'
-                 '    <bpmn:serviceTask id="CreateAdCampaign" name="Create ads.gftd.ai campaign">\n'
+                 '    <bpmn:serviceTask id="CreateAdCampaign" name="Create ads.etzhayyim.com campaign">\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="webmk.create_ad_campaign" retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
@@ -460,11 +460,11 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  3022,
                  '00-contracts/bpmn/ai/gftd/webmk/createProposal.bpmn',
                  '2026-05-08T09:50:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.reseed.phase4-fix']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -476,15 +476,15 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
          '        1, $9, $10, $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'newsletter_weekly_send',
                  2,
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_newsletter_weekly_send" '
-                 'targetNamespace="https://gftd.ai/bpmn/newsletter">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/newsletter">\n'
                  '  <bpmn:process id="newsletter_weekly_send" name="newsletter weeklySend" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>{ "nsid": "ai.gftd.apps.newsletter.weeklySend", '
@@ -517,7 +517,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '      <bpmn:outgoing>F3</bpmn:outgoing>\n'
                  '    </bpmn:serviceTask>\n'
                  '\n'
-                 '    <!-- Step 3: Optionally create ads.gftd.ai sponsor slot -->\n'
+                 '    <!-- Step 3: Optionally create ads.etzhayyim.com sponsor slot -->\n'
                  '    <bpmn:sequenceFlow id="F3" sourceRef="SendViaResend" '
                  'targetRef="AdGateway"/>\n'
                  '    <bpmn:exclusiveGateway id="AdGateway" name="includeAdSlot?">\n'
@@ -531,7 +531,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '      <bpmn:conditionExpression>=includeAdSlot = '
                  'true</bpmn:conditionExpression>\n'
                  '    </bpmn:sequenceFlow>\n'
-                 '    <bpmn:serviceTask id="CreateSponsorSlot" name="Create ads.gftd.ai sponsor '
+                 '    <bpmn:serviceTask id="CreateSponsorSlot" name="Create ads.etzhayyim.com sponsor '
                  'slot">\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="newsletter.create_sponsor_slot" '
@@ -555,18 +555,18 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  2867,
                  '00-contracts/bpmn/ai/gftd/newsletter/weeklySend.bpmn',
                  '2026-05-08T09:50:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.reseed.phase4-fix']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1']}]
 
 
 def upgrade() -> None:

@@ -6,7 +6,7 @@ Last updated: 2026-04-02
 
 - PDS write/read path for domain collections
 - `gftd apps kyumei-koji` readiness computation
-- sub-DID (`did:web:<nanoid>.gftd.ai:<path>`) gather/read consistency
+- sub-DID (`did:web:<nanoid>.etzhayyim.com:<path>`) gather/read consistency
 
 ## Mandatory Rules
 
@@ -27,7 +27,7 @@ Last updated: 2026-04-02
 ## Verification Commands
 
 ```bash
-curl -sS "https://atproto.gftd.ai/xrpc/com.atproto.repo.listRecords?repo=did:web:tnt4ib0d.gftd.ai:moon&collection=ai.gftd.apps.tentai.celestialBody&limit=5"
+curl -sS "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:tnt4ib0d.etzhayyim.com:moon&collection=ai.gftd.apps.tentai.celestialBody&limit=5"
 go run ./70-tools/gftd/gftd apps kyumei-koji -nanoid tnt4ib0d -dir ./60-apps -json
 go run ./70-tools/gftd/gftd monitor shinka -nanoid tnt4ib0d -dir ./60-apps --freshness-hours 24 --json
 ```

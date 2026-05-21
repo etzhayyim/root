@@ -6,23 +6,23 @@ DID-native 自前認証基盤。TS infra Workers (2)。AI Agent-First + DID-nati
 
 | Worker | Name | Routes | 責務 |
 |---|---|---|---|
-| `ai-gftd-auth` | **auth.gftd.ai** (canonical) | `auth.gftd.ai/*`, `authn.gftd.ai/*` (301 redirect) | AuthN: passkey / session JWT / DID / Service Auth |
-| `ai-gftd-authz` | **accounts.gftd.ai** (canonical) | `accounts.gftd.ai/*`, `authz.gftd.ai/*` (301 redirect) | AuthZ: linked methods / actor score / org / /manage UI |
+| `ai-gftd-auth` | **auth.etzhayyim.com** (canonical) | `auth.etzhayyim.com/*`, `authn.etzhayyim.com/*` (301 redirect) | AuthN: passkey / session JWT / DID / Service Auth |
+| `ai-gftd-authz` | **accounts.etzhayyim.com** (canonical) | `accounts.etzhayyim.com/*`, `authz.etzhayyim.com/*` (301 redirect) | AuthZ: linked methods / actor score / org / /manage UI |
 
 **DNS**:
-- `auth.gftd.ai` → auth Worker (`worker/`) — **canonical**
-- `authn.gftd.ai` → auth Worker (301 → auth.gftd.ai, DNS 廃止予定 2026-10-01)
-- `accounts.gftd.ai` → authz Worker (`worker-authz/`) — **canonical**
-- `authz.gftd.ai` → authz Worker (301 → accounts.gftd.ai, DNS 廃止予定 TBD)
+- `auth.etzhayyim.com` → auth Worker (`worker/`) — **canonical**
+- `authn.etzhayyim.com` → auth Worker (301 → auth.etzhayyim.com, DNS 廃止予定 2026-10-01)
+- `accounts.etzhayyim.com` → authz Worker (`worker-authz/`) — **canonical**
+- `authz.etzhayyim.com` → authz Worker (301 → accounts.etzhayyim.com, DNS 廃止予定 TBD)
 
 **301 redirect 例外** (PDS service binding が直接 fetch するため redirect しない):
 - `/.well-known/*` — Worker DID document / JWKS
-- `/users/:id/did.json` — user DID document (did:web:authn.gftd.ai:user:*)
+- `/users/:id/did.json` — user DID document (did:web:authn.etzhayyim.com:user:*)
 
 **XRPC NSIDs**:
 - `ai.gftd.auth.*` — auth Worker (passkey, session, DID, service auth)
 - `ai.gftd.authz.*` — authz Worker (linked methods, actor score, org) **canonical**
-- `ai.gftd.auth.link*` on auth Worker → 307 → `accounts.gftd.ai/xrpc/ai.gftd.authz.*`
+- `ai.gftd.auth.link*` on auth Worker → 307 → `accounts.etzhayyim.com/xrpc/ai.gftd.authz.*`
 
 ### Org Management XRPC (ai.gftd.authz.org*)
 
@@ -42,20 +42,20 @@ DID-native 自前認証基盤。TS infra Workers (2)。AI Agent-First + DID-nati
 - `edge_gftd_auth_member` — membership edge (org_did → member_did, role, status)
 - `vertex_gftd_auth_invite` — pending invites (HMAC token, expires_at)
 
-**Auth UI**: `auth.gftd.ai/sign-in` + `/sign-up`. `?redirectUrl=` で認証後 `accounts.gftd.ai/manage` へリダイレクト。
-**Account Management UI**: `accounts.gftd.ai/manage` → `auth.gftd.ai/manage` (暫定 302。manage UI は将来 accounts.gftd.ai に移行予定)。Linked methods / actor score / OAuth link/unlink。
+**Auth UI**: `auth.etzhayyim.com/sign-in` + `/sign-up`. `?redirectUrl=` で認証後 `accounts.etzhayyim.com/manage` へリダイレクト。
+**Account Management UI**: `accounts.etzhayyim.com/manage` → `auth.etzhayyim.com/manage` (暫定 302。manage UI は将来 accounts.etzhayyim.com に移行予定)。Linked methods / actor score / OAuth link/unlink。
 
 ### Sign-Up Flow (Passkey-First, Zero Input, Account = Actor = Org)
 
 ```
-authn.gftd.ai/sign-up
+authn.etzhayyim.com/sign-up
   → [🔒 Create Account] ボタン 1 タップ
   → Touch ID / Face ID / デバイス PIN (WebAuthn FIDO2)
-  → Account DID 自動生成: did:web:authn.gftd.ai:user:{nanoid} (8 文字, alpha-start, performerType: organization, org_type: personal)
-  → Default Human Sub-Actor 自動作成: did:web:authn.gftd.ai:user:{nanoid}:person:default (performerType: person)
+  → Account DID 自動生成: did:web:authn.etzhayyim.com:user:{nanoid} (8 文字, alpha-start, performerType: organization, org_type: personal)
+  → Default Human Sub-Actor 自動作成: did:web:authn.etzhayyim.com:user:{nanoid}:person:default (performerType: person)
   → (:AccountDID)-[:CONTROLS]->(:SubActorDID) edge 作成
   → AT Protocol session 発行 (access_jwt + refresh_jwt, account_did=actor=org, active_did=default person sub-actor)
-  → yoro.gftd.ai にリダイレクト
+  → yoro.etzhayyim.com にリダイレクト
 ```
 
 **入力フィールド: ゼロ。** Username/password/email/phone 不要。Passkey = phishing-resistant (FIDO2 Level 2, `user_verification: "preferred"` — Touch ID/Face ID 優先、fallback PIN)。
@@ -65,7 +65,7 @@ authn.gftd.ai/sign-up
 新規登録は **必ず Passkey**。Email / Google / Microsoft は既存 account への追加認証手段としてのみ許可する。
 
 ```
-accounts.gftd.ai/manage
+accounts.etzhayyim.com/manage
   → session cookie / Authorization Bearer で account 確認
   → linked_auth_methods 一覧表示
   → Email link: code 発行 → verify
@@ -84,8 +84,8 @@ accounts.gftd.ai/manage
 
 **全アカウントはデフォルトで actor DID = org DID (`performerType: organization`, `org_type: personal`)。** human / service / team / legal / finance はすべて actor 配下の sub-actor DID とする。
 
-- **Account = Actor = Org DID**: `did:web:authn.gftd.ai:user:{nanoid}` — billing/settings/admin/repo ownership/RACI root の主体
-- **Human Default Sub-Actor**: `did:web:authn.gftd.ai:user:{nanoid}:person:default` — posts/likes/follows/DM の標準 author
+- **Account = Actor = Org DID**: `did:web:authn.etzhayyim.com:user:{nanoid}` — billing/settings/admin/repo ownership/RACI root の主体
+- **Human Default Sub-Actor**: `did:web:authn.etzhayyim.com:user:{nanoid}:person:default` — posts/likes/follows/DM の標準 author
 - **Session 2 DID**: `account_did` (actor root) + `active_did` (current sub-actor, switchable)
 - **Sub-Actor expansion**: `:person:*`, `:service:*`, `:team:*`, `:legal:*`, `:finance:*`, `:moderator:*` を追加可能
 - **RACI root**: RACI assignment は actor/account DID 配下 resource に対して sub-actor へ付与する
@@ -138,12 +138,12 @@ accounts.gftd.ai/manage
 
 | ドキュメント | 法的根拠 | URL |
 |---|---|---|
-| 特定商取引法に基づく表示 | 特商法 11条 | `yoro.gftd.ai/support/tokushoho` |
-| 電気通信事業届出 | 電気通信事業法 16条 | `yoro.gftd.ai/support/telecom-registration` |
-| 本人確認ポリシー (KYC) | 犯収法 + 携帯電話不正利用防止法 | `yoro.gftd.ai/support/kyc-policy` |
-| AML/CTF ポリシー | 犯収法 + FATF | `yoro.gftd.ai/support/aml-policy` |
-| 利用規約 | 民法 + 電気通信事業法 | `yoro.gftd.ai/terms` |
-| プライバシーポリシー | 個人情報保護法 + GDPR | `yoro.gftd.ai/privacy` |
+| 特定商取引法に基づく表示 | 特商法 11条 | `yoro.etzhayyim.com/support/tokushoho` |
+| 電気通信事業届出 | 電気通信事業法 16条 | `yoro.etzhayyim.com/support/telecom-registration` |
+| 本人確認ポリシー (KYC) | 犯収法 + 携帯電話不正利用防止法 | `yoro.etzhayyim.com/support/kyc-policy` |
+| AML/CTF ポリシー | 犯収法 + FATF | `yoro.etzhayyim.com/support/aml-policy` |
+| 利用規約 | 民法 + 電気通信事業法 | `yoro.etzhayyim.com/terms` |
+| プライバシーポリシー | 個人情報保護法 + GDPR | `yoro.etzhayyim.com/privacy` |
 
 ## CRITICAL: Identity Model — did:web + Server-Assisted Custody (3-Tier)
 
@@ -155,7 +155,7 @@ Clerk は全認証の ~15% (Browser JWT) のみカバー。残り 85% は既に�
 
 | 不整合 | 詳細 |
 |---|---|
-| **Ephemeral DID** | Clerk sub → `did:web:atproto.gftd.ai:user:${sub}` を毎回生成。DID Document 未登録 |
+| **Ephemeral DID** | Clerk sub → `did:web:atproto.etzhayyim.com:user:${sub}` を毎回生成。DID Document 未登録 |
 | **Agent 認証不能** | 715+ AI Agent は人間ではない。Clerk は human-first |
 | **Org-in-Org 不能** | Clerk = flat org_id。DID path 階層 (L1-L5) 表現不可 |
 | **AT Protocol bypass** | `issueAtprotoSession()` が dead code。Clerk JWT が直接 XRPC を通過 |
@@ -170,7 +170,7 @@ App ではない。PDS/dispatcher と同列の **infra Worker**。**Rust workers
 ```
 ┌─ Deployment Topology ─────────────────────────────────────┐
 │                                                            │
-│  Browser ──→ authn.gftd.ai ──dispatcher──→ AUTH_SERVICE     │
+│  Browser ──→ authn.etzhayyim.com ──dispatcher──→ AUTH_SERVICE     │
 │                                                  (TS)      │
 │  PDS ──service binding──→ AUTH_SERVICE                      │
 │   │                                                        │
@@ -194,8 +194,8 @@ App ではない。PDS/dispatcher と同列の **infra Worker**。**Rust workers
 60-apps/ai-gftd-project-auth/
 ├── CLAUDE.md
 ├── PROJECT.jsonld
-├── worker/                     # ai-gftd-auth → authn.gftd.ai (AuthN)
-│   ├── wrangler.jsonc          # routes: authn.gftd.ai/*, authn.gftd.ai/*
+├── worker/                     # ai-gftd-auth → authn.etzhayyim.com (AuthN)
+│   ├── wrangler.jsonc          # routes: authn.etzhayyim.com/*, authn.etzhayyim.com/*
 │   ├── svelte/                 # Shared CSR build (sign-in / sign-up / manage)
 │   └── src-ts/
 │       ├── index.ts            # AuthN router: passkey/session/DID/service-auth/PKCE
@@ -207,8 +207,8 @@ App ではない。PDS/dispatcher と同列の **infra Worker**。**Rust workers
 │       ├── ui.ts               # /sign-in, /sign-up HTML pages
 │       ├── base64url.ts        # Base64url encode/decode
 │       └── security.ts         # fnv1a32 hash
-└── worker-authz/               # ai-gftd-authz → accounts.gftd.ai (AuthZ, canonical)
-    ├── wrangler.jsonc          # routes: accounts.gftd.ai/*, authz.gftd.ai/* (301 redirect)
+└── worker-authz/               # ai-gftd-authz → accounts.etzhayyim.com (AuthZ, canonical)
+    ├── wrangler.jsonc          # routes: accounts.etzhayyim.com/*, authz.etzhayyim.com/* (301 redirect)
     └── src-ts/
         └── index.ts            # AuthZ router: linked methods/actor score/org/manage UI
 ```
@@ -239,12 +239,12 @@ gftd deploy        # or: wrangler deploy
 ```
 
 **Public URL**:
-- `https://authn.gftd.ai/*` — sign-in / sign-up / CLI OAuth PKCE
-- `https://accounts.gftd.ai/*` — account management / linked auth methods
+- `https://authn.etzhayyim.com/*` — sign-in / sign-up / CLI OAuth PKCE
+- `https://accounts.etzhayyim.com/*` — account management / linked auth methods
 
 **PDS integration**: PDS `wrangler.jsonc` に `{ "binding": "AUTH_RPC", "service": "ai-gftd-auth" }` 追加 → `authenticate()` を `env.AUTH_RPC.fetch("/rpc/authenticate")` に委譲
 
-**DNS note**: `authn.gftd.ai` / `accounts.gftd.ai` ともに CF proxied → dispatcher → AUTH_SERVICE。OAuth2 PKCE: `/oauth/authorize` + `/oauth/token` で `gftd authn signin` をサポート。`/oauth/token` は `application/x-www-form-urlencoded` (OAuth2 RFC 6749 標準) と `application/json` の両方を受付。
+**DNS note**: `authn.etzhayyim.com` / `accounts.etzhayyim.com` ともに CF proxied → dispatcher → AUTH_SERVICE。OAuth2 PKCE: `/oauth/authorize` + `/oauth/token` で `gftd authn signin` をサポート。`/oauth/token` は `application/x-www-form-urlencoded` (OAuth2 RFC 6749 標準) と `application/json` の両方を受付。
 
 **OAuth provider env**:
 - Google: `GOOGLE_OAUTH_CLIENT_ID` / `GOOGLE_OAUTH_CLIENT_SECRET`
@@ -387,7 +387,7 @@ interface AuthResult {
 }
 
 interface DIDDocument {
-  did: string;                    // did:web:authn.gftd.ai:user:{nanoid}
+  did: string;                    // did:web:authn.etzhayyim.com:user:{nanoid}
   controller: string;             // root actor DID (self for account DID)
   publicKeyMultibase: string;     // z-prefixed base58btc P-256
   performerType: PerformerType;   // service | system | person | organization
@@ -420,7 +420,7 @@ PDS `authenticate()` を AUTH_SERVICE service binding に委譲。Clerk JWT は 
 
 **auth Worker 実装**:
 - `session.ts` — HS256 JWT issue/verify/refresh (WebCrypto HMAC + SHA-256)
-- `did.ts` — DID Document 生成 + yata MERGE。account/actor root = `did:web:authn.gftd.ai:user:{nanoid}`、sub-actor = `did:web:authn.gftd.ai:user:{nanoid}:{kind}:{name}`
+- `did.ts` — DID Document 生成 + yata MERGE。account/actor root = `did:web:authn.etzhayyim.com:user:{nanoid}`、sub-actor = `did:web:authn.etzhayyim.com:user:{nanoid}:{kind}:{name}`
 - `service-auth.ts` — ES256 sign/verify (WebCrypto P-256 ECDSA)
 - (Clerk bridge は P3 で完全除去済み)
 
@@ -481,7 +481,7 @@ Agent request (ES256 Service Auth JWT)
 人間の sign-up/sign-in を自前化。Clerk 完全除去。
 
 **auth Worker 実装**:
-- `passkey.ts` — WebAuthn registration (attestation verification) + authentication (assertion verification)。P-256 ECDSA (WebCrypto subtle) + CBOR parsing (custom minimal decoder)。RP ID = `gftd.ai`
+- `passkey.ts` — WebAuthn registration (attestation verification) + authentication (assertion verification)。P-256 ECDSA (WebCrypto subtle) + CBOR parsing (custom minimal decoder)。RP ID = `etzhayyim.com`
 - 4 XRPC routes: `/xrpc/ai.gftd.auth.passkeyBeginRegister`, `/xrpc/ai.gftd.auth.passkeyVerifyRegister`, `/xrpc/ai.gftd.auth.passkeyBeginAuth`, `/xrpc/ai.gftd.auth.passkeyVerifyAuth`
 - `GET /.well-known/jwks.json` — ES256 公開鍵 JWKS endpoint (Cache-Control: 1h, CORS: *)
 - Clerk bridge コード **削除** — RS256 JWKS 検証ロジック除去
@@ -502,7 +502,7 @@ Agent request (ES256 Service Auth JWT)
 - **Clerk 完全除去** — npm 依存・DNS CNAME・Secrets Store・auth Worker bridge 全削除
 - Passkey = phishing-resistant (FIDO2 Level 2, `user_verification: "preferred"` — Touch ID/Face ID 優先、fallback PIN)
 - TS-only 化により Cargo build / wasm-bindgen 中間層を撤廃
-- `authn.gftd.ai` CNAME を Clerk から解放可能
+- `authn.etzhayyim.com` CNAME を Clerk から解放可能
 
 ### P4: AT Protocol Federation + DPoP
 
@@ -510,7 +510,7 @@ AT Protocol 完全準拠 + federation 対応。
 
 **Federation (did:plc)**:
 - `did:plc` resolution — PLC Directory (`plc.directory`) query + 5min cache。auth Worker `/rpc/resolve-external-did` + PDS `resolveDIDSigningKey()` 3-layer
-- External PDS DID key resolution — HTTPS `.well-known/did.json` (non-gftd.ai did:web)
+- External PDS DID key resolution — HTTPS `.well-known/did.json` (non-etzhayyim.com did:web)
 - PDS 3-layer DID resolution: (1) yata graph → (2) PLC Directory → (3) HTTPS .well-known
 
 **OAuth hardening**:
@@ -594,7 +594,7 @@ AT Protocol 完全準拠 + federation 対応。
 - **GraphAr schema**: D1 auth control (vertex_gftd_auth_*) と RisingWave governance (vertex_gftd_identity) が同一 GraphAr 命名規則
 - **Design doc**: `90-docs/260416-did-schema-dodaf-org-agent-shannon-design.md`
 - **Root topology (CRITICAL, ADR-0074)**: `90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md` — ERC725 root + Coinbase Smart Wallet execution + `did:pkh` wallet alias + `did:plc`/`did:web` AT facade。SIWE は link ceremony、CACAO は portable delegated capability。
-- **Legacy method spec (ADR-0029)**: `90-docs/adr/0029-did-gftd-method-specification.md` — W3C DID Core 1.0 + DID Resolution v0.3 準拠。CIDv1 (`b` base32 + `raw` codec + sha2-256 multihash) + DAG-CBOR canonical genesis op + path-form sub-DID (max depth 6)。独自 top-level field なし。Reference impl: `10-protocol/did-gftd/`。Resolver: `did.gftd.ai` (`10-protocol/did-gftd/resolver/`)。Op submit: PDS XRPC `ai.gftd.identity.submitOp` (create/update/deactivate)。`did.ts` 既存 hex-truncated 形式は legacy として grandfather (auto-migration 経路は `gftd identity migrate-paths` で提供予定)
+- **Legacy method spec (ADR-0029)**: `90-docs/adr/0029-did-gftd-method-specification.md` — W3C DID Core 1.0 + DID Resolution v0.3 準拠。CIDv1 (`b` base32 + `raw` codec + sha2-256 multihash) + DAG-CBOR canonical genesis op + path-form sub-DID (max depth 6)。独自 top-level field なし。Reference impl: `10-protocol/did-gftd/`。Resolver: `did.etzhayyim.com` (`10-protocol/did-gftd/resolver/`)。Op submit: PDS XRPC `ai.gftd.identity.submitOp` (create/update/deactivate)。`did.ts` 既存 hex-truncated 形式は legacy として grandfather (auto-migration 経路は `gftd identity migrate-paths` で提供予定)
 
 ### D1 Tables (GraphAr schema, auth control plane)
 

@@ -104,7 +104,7 @@ boundary so pod restart does not lose queue progress.
 |---|---|---|---|
 | `seed` | query, productUrl, merchantUrl, brand hint, GTIN hint | normalized job | validates scope and idempotency key |
 | `discover_candidates` | query / seed URL | official URLs, merchant URLs | retailer APIs, sitemap, Common Crawl/CDX, existing `vertex_kakaku_*` |
-| `fetch_official_pages` | brand/product official URLs | markdown/html/jsonld evidence | calls `site.gftd.ai` / webfetch, respects robots and rate limits |
+| `fetch_official_pages` | brand/product official URLs | markdown/html/jsonld evidence | calls `site.etzhayyim.com` / webfetch, respects robots and rate limits |
 | `fetch_merchant_pages` | offer/product URLs | price/stock evidence | calls `site.crawlPage`; direct fetch only as fallback |
 | `extract_product_facts` | evidence bundle | name, brand, model, GTIN/JAN/UPC/EAN, MPN, specs, images | deterministic JSON-LD/meta first, LLM fallback second |
 | `resolve_brand_owner` | brand/site/domain | legal entity / website / country candidates | uses intel entity resolution and graph lookup |
@@ -140,9 +140,9 @@ Keep the existing actor split:
 
 | Actor/table | Owns | Does not own |
 |---|---|---|
-| `gtin.gftd.ai` / `vertex_gtin_product` | canonical product identity and barcode-family identifiers | prices, merchant availability |
-| `kakaku.gftd.ai` / `vertex_kakaku_*` | merchant product, merchant, offer, price history, match candidates | global identity truth |
-| `yoro.gftd.ai` / `vertex_yoro_product_research` | research runs, summaries, operator-facing recommendations | canonical identity or price truth |
+| `gtin.etzhayyim.com` / `vertex_gtin_product` | canonical product identity and barcode-family identifiers | prices, merchant availability |
+| `kakaku.etzhayyim.com` / `vertex_kakaku_*` | merchant product, merchant, offer, price history, match candidates | global identity truth |
+| `yoro.etzhayyim.com` / `vertex_yoro_product_research` | research runs, summaries, operator-facing recommendations | canonical identity or price truth |
 
 Add evidence tables in the implementation phase:
 

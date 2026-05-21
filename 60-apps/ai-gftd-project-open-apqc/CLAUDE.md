@@ -5,7 +5,7 @@ Tranche F scaffolding (Phase 2). See README.md.
 ## Boundary
 
 - **etzhayyim (here)**: PCF reference catalog + BPMN task catalog + projection spec + open lexicons
-- **vendor** (`gftdcojp/ai-gftd-apps-gftdcojp`): customer-specific mappings, RisingWave projector runtime, tenant deploys
+- **vendor** (`etzhayyim/etzhayyim-root`): customer-specific mappings, RisingWave projector runtime, tenant deploys
 
 ## NSIDs
 

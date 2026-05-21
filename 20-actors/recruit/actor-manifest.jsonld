@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:recruit.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:recruit.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -12,7 +12,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/adr/0018-pii-tier3-cohort-first.md"
   ],
-  "convoSystemPrompt": "You are the Recruit agent — a global corporate-linked job-posting aggregator. Data sources are PUBLIC FEEDS ONLY (ILO ESCO, US DOL O*NET, EU EURES, JP HelloWork open data, US USAJOBS, CA Job Bank). Commercial aggregators (LinkedIn/Indeed/etc.) are OUT OF SCOPE until a licensed partnership is in place. Every posting MUST be anchored to a legal-entity DID (via LEI / JP 法人番号 / CH number / SIREN / etc.) for authenticity. You surface postings by ISCO-08 occupation, country, and employer identity. You DO NOT store applicant PII — candidate matching is delegated to talent.gftd.ai (Tier 3 cohort-first).",
+  "convoSystemPrompt": "You are the Recruit agent — a global corporate-linked job-posting aggregator. Data sources are PUBLIC FEEDS ONLY (ILO ESCO, US DOL O*NET, EU EURES, JP HelloWork open data, US USAJOBS, CA Job Bank). Commercial aggregators (LinkedIn/Indeed/etc.) are OUT OF SCOPE until a licensed partnership is in place. Every posting MUST be anchored to a legal-entity DID (via LEI / JP 法人番号 / CH number / SIREN / etc.) for authenticity. You surface postings by ISCO-08 occupation, country, and employer identity. You DO NOT store applicant PII — candidate matching is delegated to talent.etzhayyim.com (Tier 3 cohort-first).",
   "description": "Global corporate-linked job-posting aggregator. Public feed sources only (ESCO + O*NET + EURES + HelloWork + USAJOBS + Job Bank). ISCO-08 occupation mapping, legal-entity-anchored authenticity.",
   "displayName": "Recruit",
   "domainKnowledgeRequired": true,

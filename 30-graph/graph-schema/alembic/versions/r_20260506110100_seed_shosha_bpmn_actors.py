@@ -19,12 +19,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_market_intelligence_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — market intelligence ingest (autonomous, R/PT1H).\n'
+                 '  shosha.etzhayyim.com — market intelligence ingest (autonomous, R/PT1H).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. shosha.intel.ingestPrices    Yahoo v8 chart (CL=F, BZ=F, NG=F, GC=F, '
@@ -40,7 +40,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_market_intelligence_ingest"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_market_intelligence_ingest" name="shosha market '
@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;ai.gftd.apps.shosha.marketIntelligenceIngest&quot;" '
@@ -124,10 +124,10 @@ UP = [{'sql': '\n'
                  4005,
                  '00-contracts/bpmn/ai/gftd/shosha/marketIntelligenceIngest.bpmn',
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -135,12 +135,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_trade_book_recompute',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — trade book recompute (autonomous, R/PT4H).\n'
+                 '  shosha.etzhayyim.com — trade book recompute (autonomous, R/PT4H).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. shosha.exposure.recompute  Aggregate open trades minus hedges → '
@@ -155,7 +155,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_trade_book_recompute"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_trade_book_recompute" name="shosha trade book '
@@ -201,7 +201,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;ai.gftd.apps.shosha.tradeBookRecompute&quot;" '
@@ -226,10 +226,10 @@ UP = [{'sql': '\n'
                  3346,
                  '00-contracts/bpmn/ai/gftd/shosha/tradeBookRecompute.bpmn',
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -237,12 +237,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_trade_idea_synthesize',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — trade idea synthesize (autonomous, R/PT4H).\n'
+                 '  shosha.etzhayyim.com — trade idea synthesize (autonomous, R/PT4H).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. shosha.trade.synth          LLM synthesis of trade ideas from market '
@@ -251,7 +251,7 @@ UP = [{'sql': '\n'
                  '                                   Returns ideaCount + summary text.\n'
                  '    2. ExclusiveGateway            ideaCount > 0 ?\n'
                  '       Yes → generic.pds.dispatch  Post idea summary as `app.bsky.feed.post`\n'
-                 '                                   from did:web:shosha.gftd.ai (social derive).\n'
+                 '                                   from did:web:shosha.etzhayyim.com (social derive).\n'
                  '       No  → skip social\n'
                  '    3. generic.audit.emit          OCEL trail.\n'
                  '\n'
@@ -262,7 +262,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_trade_idea_synthesize"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_trade_idea_synthesize" name="shosha trade idea '
@@ -315,7 +315,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.pds.dispatch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="repo"/>\n'
                  '          <zeebe:input source="={ &quot;text&quot;: summary, '
                  '&quot;createdAt&quot;: string(now()) }" target="record"/>\n'
@@ -331,7 +331,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;ai.gftd.apps.shosha.tradeIdeaSynthesize&quot;" '
@@ -354,10 +354,10 @@ UP = [{'sql': '\n'
                  4540,
                  '00-contracts/bpmn/ai/gftd/shosha/tradeIdeaSynthesize.bpmn',
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -365,12 +365,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_daily_report',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — daily report (autonomous, cron 0 0 22 * * ? UTC = 07:00 '
+                 '  shosha.etzhayyim.com — daily report (autonomous, cron 0 0 22 * * ? UTC = 07:00 '
                  'JST).\n'
                  '\n'
                  '  Pipeline:\n'
@@ -378,7 +378,7 @@ UP = [{'sql': '\n'
                  '    2. shosha.dailyReport.compose      Compose summary text (P&L + at-risk + top '
                  'exposures)\n'
                  '    3. generic.pds.dispatch            Post `app.bsky.feed.post` from '
-                 'did:web:shosha.gftd.ai\n'
+                 'did:web:shosha.etzhayyim.com\n'
                  '    4. generic.audit.emit              OCEL trail\n'
                  '\n'
                  '  Cron (Zeebe 8 quartz syntax) chosen over `R/PT24H` so it fires at a stable\n'
@@ -390,7 +390,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_daily_report"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_daily_report" name="shosha daily report (07:00 JST)" '
@@ -437,7 +437,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.pds.dispatch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="repo"/>\n'
                  '          <zeebe:input source="={ &quot;text&quot;: summary, '
                  '&quot;createdAt&quot;: string(now()) }" target="record"/>\n'
@@ -453,7 +453,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.shosha.dailyReport&quot;" '
                  'target="eventType"/>\n'
@@ -476,10 +476,10 @@ UP = [{'sql': '\n'
                  4314,
                  '00-contracts/bpmn/ai/gftd/shosha/dailyShoshaReport.bpmn',
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -487,12 +487,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_submit_trade',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — submitTrade workflow (XRPC ai.gftd.apps.shosha.submitTrade).\n'
+                 '  shosha.etzhayyim.com — submitTrade workflow (XRPC ai.gftd.apps.shosha.submitTrade).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. shosha.comply.sanctionsCheck    counterparty + commodity sanctions match\n'
@@ -511,7 +511,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_submit_trade"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_submit_trade" name="shosha submit trade" '
@@ -597,7 +597,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.shosha.submitTrade&quot;" '
                  'target="eventType"/>\n'
@@ -615,7 +615,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;ai.gftd.apps.shosha.submitTrade.complyFail&quot;" '
@@ -642,10 +642,10 @@ UP = [{'sql': '\n'
                  6457,
                  '00-contracts/bpmn/ai/gftd/shosha/submitTrade.bpmn',
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -653,12 +653,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_propose_hedge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — proposeHedge workflow (XRPC '
+                 '  shosha.etzhayyim.com — proposeHedge workflow (XRPC '
                  'ai.gftd.apps.shosha.proposeHedge).\n'
                  '\n'
                  '  Pipeline:\n'
@@ -674,7 +674,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_propose_hedge"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_propose_hedge" name="shosha propose hedge" '
@@ -731,7 +731,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.shosha.proposeHedge&quot;" '
                  'target="eventType"/>\n'
@@ -755,10 +755,10 @@ UP = [{'sql': '\n'
                  3958,
                  '00-contracts/bpmn/ai/gftd/shosha/proposeHedge.bpmn',
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -766,12 +766,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_comply_check',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — complyCheck workflow (XRPC ai.gftd.apps.shosha.complyCheck).\n'
+                 '  shosha.etzhayyim.com — complyCheck workflow (XRPC ai.gftd.apps.shosha.complyCheck).\n'
                  '\n'
                  '  Standalone sanctions / comply check (also invoked inline by submitTrade).\n'
                  '  Returns: complyOk + flags + rationale.\n'
@@ -781,7 +781,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_comply_check"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_comply_check" name="shosha comply check" '
@@ -821,7 +821,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.shosha.complyCheck&quot;" '
                  'target="eventType"/>\n'
@@ -845,10 +845,10 @@ UP = [{'sql': '\n'
                  2994,
                  '00-contracts/bpmn/ai/gftd/shosha/complyCheck.bpmn',
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -856,12 +856,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_agent_loop',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — agentLoop (XRPC ai.gftd.apps.shosha.agentLoop).\n'
+                 '  shosha.etzhayyim.com — agentLoop (XRPC ai.gftd.apps.shosha.agentLoop).\n'
                  '\n'
                  '  Path F unified agent loop entry (ADR 260413). The pyzeebe handler\n'
                  '  shosha.agent.chat:\n'
@@ -877,7 +877,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_agent_loop"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_agent_loop" name="shosha agent loop" '
@@ -920,7 +920,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.shosha.agentLoop&quot;" '
                  'target="eventType"/>\n'
@@ -945,10 +945,10 @@ UP = [{'sql': '\n'
                  3469,
                  '00-contracts/bpmn/ai/gftd/shosha/agentLoop.bpmn',
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -956,16 +956,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-submitTrade-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-submitTrade-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'ai.gftd.apps.shosha.submitTrade',
                  'shosha_submit_trade',
                  60000,
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-submitTrade-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-submitTrade-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -973,16 +973,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-proposeHedge-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-proposeHedge-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'ai.gftd.apps.shosha.proposeHedge',
                  'shosha_propose_hedge',
                  30000,
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-proposeHedge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-proposeHedge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -990,16 +990,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-complyCheck-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-complyCheck-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'ai.gftd.apps.shosha.complyCheck',
                  'shosha_comply_check',
                  30000,
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-complyCheck-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-complyCheck-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1007,41 +1007,41 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-agentLoop-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-agentLoop-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'ai.gftd.apps.shosha.agentLoop',
                  'shosha_agent_loop',
                  60000,
                  '2026-05-06T10:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-agentLoop-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-agentLoop-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-submitTrade-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-submitTrade-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-proposeHedge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-proposeHedge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-complyCheck-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-complyCheck-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-agentLoop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-agentLoop-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-book-recompute-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-daily-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-submit-trade-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-propose-hedge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-comply-check-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-agent-loop-v1']}]
 
 
 def upgrade() -> None:

@@ -11,7 +11,7 @@ axis: architecture
 weight: 0.6
 priority_note: "新 actor — user の任意 input (text/url/file_ref) を ingest し、LLM 主導で project bucket に自動振り分け、project 種別ごとに LLM pipeline で artifact 化する personal knowledge router"
 authoritative_for:
-  - manimani.gftd.ai actor 定義 (T3 CF Worker edge facade + LangGraph Server execution)
+  - manimani.etzhayyim.com actor 定義 (T3 CF Worker edge facade + LangGraph Server execution)
   - user intake → project 自動振り分け (LLM 主導 classification, embedding 補助)
   - project-typed LLM pipeline (knowledge / task / memo / unsorted の 4 kind)
   - manimani 系 schema (vertex_manimani_intake / project / artifact / run + edge_manimani_belongs_to + 2 MV)
@@ -44,7 +44,7 @@ user が自分の頭の中にある断片 (text / link / file への参照) を 
 
 ### In scope (Phase A — 本 ADR で contract を確定)
 
-- T3 actor `manimani.gftd.ai` (CF Worker edge facade + LangGraph Server execution) の定義
+- T3 actor `manimani.etzhayyim.com` (CF Worker edge facade + LangGraph Server execution) の定義
 - 4 vertex + 1 edge + 2 MV の RisingWave schema (Hyperdrive direct, ADR-0036)
 - 6 NSID lexicon (`ai.gftd.apps.manimani.{ingest, classify, process, getProject, listProjects, coverage}`)
 - LangGraph StateGraph 7 node (parse_input → classify_project → route_processor → 3 並列 processor → persist_artifact → emit_audit)
@@ -57,11 +57,11 @@ user が自分の頭の中にある断片 (text / link / file への参照) を 
 - 実 deploy (P2: classifier.py / processors.py + Helm pool + smoke — 別 session)
 - yoro AppView 上の project / intake 一覧 UI (P4)
 - Cross-actor sharing (manimani の artifact を別 actor から read する経路) — 必要になった時点で別 ADR
-- vault.gftd.ai 連携 (現状の sensitivity_ord で十分、E2E 暗号化は P3+ で評価)
+- vault.etzhayyim.com 連携 (現状の sensitivity_ord で十分、E2E 暗号化は P3+ で評価)
 
 ## Executive Summary
 
-新規 T3 actor `manimani.gftd.ai` を立ち上げる。CF Worker は edge facade (Hono + auth + XRPC) のみを持ち (ADR-2604282300)、business logic は LangGraph Server + Granian (ADR-2605080600) で実行する。intra-job ≥3 LLM branches (parse → classify → route → 3 processor 分岐 → persist) のため StateGraph 採用条件 (ADR-2605072000) を満たす。
+新規 T3 actor `manimani.etzhayyim.com` を立ち上げる。CF Worker は edge facade (Hono + auth + XRPC) のみを持ち (ADR-2604282300)、business logic は LangGraph Server + Granian (ADR-2605080600) で実行する。intra-job ≥3 LLM branches (parse → classify → route → 3 processor 分岐 → persist) のため StateGraph 採用条件 (ADR-2605072000) を満たす。
 
 project の自動振り分けは **LLM 主導** とする。Anthropic structured output で `(existing_project_id | new_project_proposal)` を返させ、user は事後 `classify` で再振り分け可能。embedding 類似度は将来 (Phase B) でハイブリッド化する余地を残すが、Phase A は採用しない (cost より境界の柔らかさを優先)。
 
@@ -73,8 +73,8 @@ manimani は user の頭の中の断片を扱うため **non-federable** とす�
 
 | 項目 | 値 |
 |---|---|
-| host | `manimani.gftd.ai` |
-| DID | `did:web:manimani.gftd.ai` |
+| host | `manimani.etzhayyim.com` |
+| DID | `did:web:manimani.etzhayyim.com` |
 | AT Protocol Layer | 9 Client App + Actor Worker |
 | Tier | T3 (CF Worker = edge facade、LangGraph Server = execution) |
 | Federable | **No** (default AT Repo emit block) |
@@ -85,7 +85,7 @@ manimani は user の頭の中の断片を扱うため **non-federable** とす�
 
 | Layer | 担当 |
 |---|---|
-| L1 Edge | `manimani.gftd.ai` CF Worker — Hono dispatcher、auth middleware、XRPC facade のみ |
+| L1 Edge | `manimani.etzhayyim.com` CF Worker — Hono dispatcher、auth middleware、XRPC facade のみ |
 | L3 Routing | `bpmn-dispatcher.mitama-udf.svc.cluster.local:8080` (HMAC `x-internal-trust`) |
 | L3 Execution | LangGraph Server + Granian (`mitama-manimani-pool` Helm release) |
 | L4 SSoT | `vertex_manimani_{intake, project, artifact, run}` + `edge_manimani_belongs_to` |
@@ -184,7 +184,7 @@ vertex_manimani_intake (PK content-addressed: sha256(actor_did + ts_ms + raw_tex
   - actor_did / org_did / at_did / created_at  (ADR-0095)
 
 vertex_manimani_project (PK content-addressed: sha256(actor_did + slug))
-  - project_did VARCHAR  (= "did:web:manimani.gftd.ai:project:{slug}", path-based sub-DID)
+  - project_did VARCHAR  (= "did:web:manimani.etzhayyim.com:project:{slug}", path-based sub-DID)
   - slug VARCHAR
   - title VARCHAR
   - kind ∈ {knowledge, task, memo, unsorted}
@@ -251,7 +251,7 @@ ADR-0095 RLS 列 (`actor_did` / `org_did` / `at_did` / `created_at`) を全 vert
 ```
 60-apps/ai-gftd-project-manimani/
 ├─ magatama.jsonld          T3 dispatcher actor + AI Agent profile
-├─ wrangler.jsonc           manimani.gftd.ai/* + HYPERDRIVE binding (Phase B read shortcut 用)
+├─ wrangler.jsonc           manimani.etzhayyim.com/* + HYPERDRIVE binding (Phase B read shortcut 用)
 │                           PDS_SERVICE / AUTHN_SERVICE service binding
 ├─ package.json             @gftd/magatama-host-sdk dep
 ├─ tsconfig.json
@@ -287,7 +287,7 @@ LLM inference は `pymagatama.llm.call_tier` 経由:
 
 | 禁止 | 代替 |
 |---|---|
-| CF Worker `manimani.gftd.ai` 内で Anthropic / vLLM を直接叩く | LangGraph Server (mitama-manimani-pool) 経由 |
+| CF Worker `manimani.etzhayyim.com` 内で Anthropic / vLLM を直接叩く | LangGraph Server (mitama-manimani-pool) 経由 |
 | `sdk.pds.dispatch({type:"com.atproto.repo.createRecord"})` で `ai.gftd.apps.manimani.*` 書込 | `createKyselyDb(env.HYPERDRIVE).insertInto('vertex_manimani_*').values(...).execute()` (ADR-0036) |
 | AT Repo (federable) に manimani の intake / project / artifact を emit | non-federable 維持。social derive は user の明示 `pds.dispatch({type:'app.bsky.feed.post'})` opt-in のみ |
 | ハードコード LLM model 名 | `resolveModelId()` / `MURAKUMO_DEFAULT_MODEL` (LLM Model SSoT convention) |
@@ -331,7 +331,7 @@ manimani が扱うのは user の頭の中 / 機密情報 / 個人 PII を含む
 
 - 後続 ADR で LangGraph state graph に node を追加する場合 (e.g. `embedding_index` を Phase B で追加) は schema 列 + `classification_method` enum 拡張で吸収し、本 ADR は **追記** で再公布する (`amends`)
 - 大規模化で active project > 50 になり LLM context が破綻したら、embedding hybrid 経路を `classification_method='hybrid'` で並走させ、運用比較 ADR を別途切る
-- vault.gftd.ai 連携 (intake を E2E 暗号化) は本 ADR の forbidden には入れず、Phase C で別 ADR
+- vault.etzhayyim.com 連携 (intake を E2E 暗号化) は本 ADR の forbidden には入れず、Phase C で別 ADR
 
 ## Migration plan
 

@@ -51,7 +51,7 @@ vault kv put secret/orgs/gftd/users/junkawasaki/services/japanpost-enaiyo/primar
 Or via the `provider-vault` XRPC adapter (preferred — scoped by DID session):
 
 ```bash
-curl -X POST https://yorishiro.gftd.ai/xrpc/gftd.providerVault.credentials.put \
+curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.put \
   -H "Authorization: Bearer $GFTD_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -72,7 +72,7 @@ curl -X POST https://yorishiro.gftd.ai/xrpc/gftd.providerVault.credentials.put \
 Check configured credentials (no value returned):
 
 ```bash
-curl -X POST https://yorishiro.gftd.ai/xrpc/gftd.providerVault.credentials.check \
+curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.check \
   -H "Authorization: Bearer $GFTD_TOKEN" \
   -d '{"service":"japanpost-enaiyo","key":"primary"}'
 ```

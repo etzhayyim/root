@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Card, Button, Input, Textarea } from '@gftdcojp/design-system';
+  import { Card, Button, Input, Textarea } from '@etzhayyim/design-system';
   import { listTools, runTool } from '$lib/mcp';
 
   type Tool = { name?: string; description?: string };

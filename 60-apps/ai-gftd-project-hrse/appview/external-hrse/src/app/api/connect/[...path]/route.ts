@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/ai-gftd-hrse#ConnectProxyRoute
+ * @etzhayyim/ai-gftd-hrse#ConnectProxyRoute
  * Connect-RPC API Route - Connect-Go サーバーへのプロキシ
  * 
  * クライアントからの Connect リクエストを Go バックエンドにプロキシします

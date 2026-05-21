@@ -25,7 +25,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "VideoGame",
@@ -39,13 +39,13 @@
     {
       "@type": "CreativeWork",
       "name": "God of War Ragnarok Guide Hub",
-      "url": "https://news.gftd.ai/ja/articles/gow-ragnarok-guide-hub-2026"
+      "url": "https://news.etzhayyim.com/ja/articles/gow-ragnarok-guide-hub-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "ベルセルカー全員+王フロルフ攻略",
-      "url": "https://news.gftd.ai/ja/articles/gow-ragnarok-berserkers-complete-guide-2026"
+      "url": "https://news.etzhayyim.com/ja/articles/gow-ragnarok-berserkers-complete-guide-2026"
     }
   ],
-  "url": "https://news.gftd.ai/ja/articles/gow-ragnarok-starolfr-guide-2026"
+  "url": "https://news.etzhayyim.com/ja/articles/gow-ragnarok-starolfr-guide-2026"
 }

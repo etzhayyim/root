@@ -1,5 +1,5 @@
 /**
- * models.ts — Diffusion model definitions for gazo.gftd.ai.
+ * models.ts — Diffusion model definitions for gazo.etzhayyim.com.
  *
  * @module
  */
@@ -34,14 +34,14 @@ export interface DiffusionModel {
 	outputSize: [number, number];
 }
 
-/** Available models. ONNX files hosted on R2 (cdn.gftd.ai). */
+/** Available models. ONNX files hosted on R2 (cdn.etzhayyim.com). */
 export const DIFFUSION_MODELS: readonly DiffusionModel[] = [
 	{
 		id: 'sd15-base',
 		label: 'Stable Diffusion 1.5',
 		arch: 'SD 1.5',
 		sizeMb: 2400,
-		cdnBase: 'https://cdn.gftd.ai/models/sd15',
+		cdnBase: 'https://cdn.etzhayyim.com/models/sd15',
 		clipParts: [
 			'text_encoder/model.onnx.part0',
 			'text_encoder/model.onnx.part1',

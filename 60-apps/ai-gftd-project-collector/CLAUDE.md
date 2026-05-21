@@ -1,6 +1,6 @@
 # ai-gftd-project-collector
 
-Unified collector App (`collector.gftd.ai`) — network intelligence, resource data, blockchain monitoring を 1 app に統合。
+Unified collector App (`collector.etzhayyim.com`) — network intelligence, resource data, blockchain monitoring を 1 app に統合。
 
 ## Component
 
@@ -122,8 +122,8 @@ await sdk.pds.createRecord("ai.gftd.apps.collector.dnsObservation", record);
 
 | ID | Category | Data Source | Status |
 |---|---|---|---|
-| `malak-btc` | blockchain | linode-crypto (Bitcoin Core v27.1 + Electrs) — `linode-crypto.gftd.ai` | BTC sync 45.6% 待ち |
-| `malak-eth` | blockchain | linode-crypto (Erigon v2.61.3) — `linode-crypto.gftd.ai` | ETH snapshot 55% 待ち |
+| `malak-btc` | blockchain | linode-crypto (Bitcoin Core v27.1 + Electrs) — `linode-crypto.etzhayyim.com` | BTC sync 45.6% 待ち |
+| `malak-eth` | blockchain | linode-crypto (Erigon v2.61.3) — `linode-crypto.etzhayyim.com` | ETH snapshot 55% 待ち |
 | `netintel-dns` | netintel | RDAP (TLD 別エンドポイント 25 TLD + IANA fallback) + Cloudflare DoH (A/AAAA/MX/NS/TXT/CNAME) | ✅ 稼働中 |
 | `common-crawl` | passive-dns | Common Crawl CDX API (index.commoncrawl.org) | ✅ 稼働中 |
 | `internet-archive` | passive-dns | Internet Archive CDX API (web.archive.org/cdx) | ✅ 稼働中 |
@@ -134,27 +134,27 @@ await sdk.pds.createRecord("ai.gftd.apps.collector.dnsObservation", record);
 ## intel-blockchain (LKE sg-sin-2 namespace)
 
 Bitcoin Core + Electrs + Erigon は既存 LKE cluster (sg-sin-2) 内 `intel-blockchain` namespace で稼働。
-URL: `https://linode-crypto.gftd.ai` (NodeBalancer `139.162.92.210`) — Auth: `X-Auth-Token` header
+URL: `https://linode-crypto.etzhayyim.com` (NodeBalancer `139.162.92.210`) — Auth: `X-Auth-Token` header
 
 | Pod | Image | PVC | Sync Status |
 |---|---|---|---|
 | `bitcoin-core-0` | `lncm/bitcoind:v27.1` + `mempool/electrs:latest` | 900 Gi | height=685929, 45.6% (2026-04-12) |
 | `erigon-0` | `erigontech/erigon:v2.61.3` | 700 Gi | snapshot 55% (peers=0 停止中) |
-| `geoip-service` | python:3.12-alpine | — | ✅ 稼働 (`linode-geoip.gftd.ai`) |
+| `geoip-service` | python:3.12-alpine | — | ✅ 稼働 (`linode-geoip.etzhayyim.com`) |
 
 Secrets 登録済み (worker secrets 2026-04-12):
-- `SS_LINODE_CRYPTO_TOKEN` / `SS_LINODE_CRYPTO_URL` = `https://linode-crypto.gftd.ai`
-- `SS_LINODE_GEOIP_TOKEN` / `SS_LINODE_GEOIP_URL` = `https://linode-geoip.gftd.ai`
+- `SS_LINODE_CRYPTO_TOKEN` / `SS_LINODE_CRYPTO_URL` = `https://linode-crypto.etzhayyim.com`
+- `SS_LINODE_GEOIP_TOKEN` / `SS_LINODE_GEOIP_URL` = `https://linode-geoip.etzhayyim.com`
 
 ## Entity DID Registration
 
 収集時に path-based DID を自動登録:
 | Entity | DID |
 |---|---|
-| BTC address | `did:web:c0ll3ct1.gftd.ai:btc:{address}` |
-| ETH address | `did:web:c0ll3ct1.gftd.ai:eth:{address}` |
-| DNS domain | `did:web:c0ll3ct1.gftd.ai:dns:{domain}` |
-| IP address | `did:web:c0ll3ct1.gftd.ai:ip:{ip}` |
+| BTC address | `did:web:c0ll3ct1.etzhayyim.com:btc:{address}` |
+| ETH address | `did:web:c0ll3ct1.etzhayyim.com:eth:{address}` |
+| DNS domain | `did:web:c0ll3ct1.etzhayyim.com:dns:{domain}` |
+| IP address | `did:web:c0ll3ct1.etzhayyim.com:ip:{ip}` |
 
 ## DNS Change Detection
 
@@ -172,16 +172,16 @@ gftd deploy   # gftd build は不要 (TS Native)
 
 ```bash
 # DNS (RDAP + DoH)
-curl -s -X POST https://c0ll3ct1.gftd.ai/xrpc/ai.gftd.apps.collector.collectNetintelDns \
+curl -s -X POST https://c0ll3ct1.etzhayyim.com/xrpc/ai.gftd.apps.collector.collectNetintelDns \
   -H "Content-Type: application/json" -H "Authorization: Bearer $(gftd authn token)" \
   -d '{"domain":"cloudflare.com"}' | jq '{domain,registrar,dnssec,a:.records.a}'
 
 # BTC (sync 完了後に real data)
-curl -s -X POST https://c0ll3ct1.gftd.ai/xrpc/ai.gftd.apps.collector.collectBlockchainBtc \
+curl -s -X POST https://c0ll3ct1.etzhayyim.com/xrpc/ai.gftd.apps.collector.collectBlockchainBtc \
   -H "Content-Type: application/json" -H "Authorization: Bearer $(gftd authn token)" \
   -d '{"address":"1A1zP1eP5QGefi2DMPTfTL5SLmv7Divf"}' | jq .
 
 # Dashboard
-curl -s -X POST https://c0ll3ct1.gftd.ai/xrpc/ai.gftd.apps.collector.getDashboard \
+curl -s -X POST https://c0ll3ct1.etzhayyim.com/xrpc/ai.gftd.apps.collector.getDashboard \
   -H "Authorization: Bearer $(gftd authn token)" | jq .
 ```

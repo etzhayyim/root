@@ -46,8 +46,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-register-batch-v1',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-register-batch-v1',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'seiyaku_register_batch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_seiyaku_register_batch"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-seiyaku"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-seiyaku"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="seiyaku_register_batch" name="製薬バッチ登録" isExecutable="true">\n'
@@ -135,7 +135,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" '
+                 'source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSeiyaku.batch.validationFailed&quot;" '
                  'target="action"/>\n'
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" '
+                 'source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSeiyaku.batch.qaRework&quot;" '
                  'target="action"/>\n'
@@ -380,7 +380,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" '
+                 'source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSeiyaku.batch.release&quot;" '
                  'target="action"/>\n'
@@ -441,7 +441,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" '
+                 'source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSeiyaku.batch.reject&quot;" '
                  'target="action"/>\n'
@@ -465,9 +465,9 @@ UP = [{'sql': '\n'
                  18396,
                  '00-contracts/bpmn/ai/gftd/open-seiyaku/registerBatch.bpmn',
                  '2026-04-23T19:10:00Z',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-register-batch-v1']},
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-register-batch-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -502,8 +502,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-amend-batch-v1',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-amend-batch-v1',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'seiyaku_amend_batch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -511,7 +511,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_seiyaku_amend_batch"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-seiyaku"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-seiyaku"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="seiyaku_amend_batch" name="製薬バッチ変更" isExecutable="true">\n'
@@ -613,7 +613,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" '
+                 'source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSeiyaku.batch.amend.reject&quot;" '
                  'target="action"/>\n'
@@ -711,7 +711,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" '
+                 'source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSeiyaku.batch.amend&quot;" '
                  'target="action"/>\n'
@@ -739,9 +739,9 @@ UP = [{'sql': '\n'
                  10260,
                  '00-contracts/bpmn/ai/gftd/open-seiyaku/amendBatch.bpmn',
                  '2026-04-23T19:10:00Z',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-amend-batch-v1']},
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-amend-batch-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -776,8 +776,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-purge-v1',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-purge-v1',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'seiyaku_purge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -785,7 +785,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_seiyaku_purge"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-seiyaku"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-seiyaku"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="seiyaku_purge" name="製薬 confidential purge" '
@@ -864,7 +864,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" '
+                 'source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSeiyaku.purge&quot;" '
                  'target="action"/>\n'
@@ -885,7 +885,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" '
+                 'source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSeiyaku.purge.noop&quot;" '
                  'target="action"/>\n'
@@ -907,9 +907,9 @@ UP = [{'sql': '\n'
                  4981,
                  '00-contracts/bpmn/ai/gftd/open-seiyaku/purge.bpmn',
                  '2026-04-23T19:10:00Z',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-purge-v1']},
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-purge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -942,15 +942,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'ai.gftd.apps.openSeiyaku.startBatchRecord',
                  'seiyaku_register_batch',
                  0,
                  '2026-04-23T19:10:00Z',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1']},
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -983,15 +983,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'ai.gftd.apps.openSeiyaku.amendBatchRecord',
                  'seiyaku_amend_batch',
                  0,
                  '2026-04-23T19:10:00Z',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1']},
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1024,28 +1024,28 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-purge-v1',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-purge-v1',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'ai.gftd.apps.openSeiyaku.purge',
                  'seiyaku_purge',
                  120000,
                  '2026-04-23T19:10:00Z',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'did:web:open-seiyaku.gftd.ai:manufacturing',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-purge-v1']}]
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'did:web:open-seiyaku.etzhayyim.com:manufacturing',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-purge-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-seiyaku-purge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-seiyaku-purge-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-register-batch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-register-batch-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-amend-batch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-amend-batch-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-seiyaku-purge-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-seiyaku-purge-v1']}]
 
 
 def upgrade() -> None:

@@ -1,4 +1,4 @@
-// Dispatcher — voxelforge.gftd.ai → bpmn-dispatcher (K8s ClusterIP) →
+// Dispatcher — voxelforge.etzhayyim.com → bpmn-dispatcher (K8s ClusterIP) →
 // LangGraph Server /runs (ADR-2605080600 / ADR-2605080700).
 //
 // Trust model (ADR-2604282300 §Addendum 2026-04-30):

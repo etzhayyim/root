@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 
-const BASE_URL = process.env.I18N_BASE_URL ?? 'https://i18n.gftd.ai';
+const BASE_URL = process.env.I18N_BASE_URL ?? 'https://i18n.etzhayyim.com';
 
 export default defineConfig({
 	testDir: './tests',

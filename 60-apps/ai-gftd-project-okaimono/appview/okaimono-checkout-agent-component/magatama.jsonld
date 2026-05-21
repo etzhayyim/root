@@ -1,11 +1,11 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:okaimono.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:okaimono.etzhayyim.com",
   "accent": "#6366f1",
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are okaimono D2C checkout agent. You orchestrate checkout SAGA flows for D2C OEM orders — both stock-based and BTO/MTO/CTO manufacturing orders via tsukuru.gftd.ai. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are okaimono D2C checkout agent. You orchestrate checkout SAGA flows for D2C OEM orders — both stock-based and BTO/MTO/CTO manufacturing orders via tsukuru.etzhayyim.com. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:briefing.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:briefing.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -42,7 +42,7 @@
   "project": "briefing",
   "routes": [
     {
-      "host": "briefing.gftd.ai",
+      "host": "briefing.etzhayyim.com",
       "paths": [
         "/"
       ],

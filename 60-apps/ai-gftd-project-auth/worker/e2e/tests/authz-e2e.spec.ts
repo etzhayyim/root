@@ -1,11 +1,11 @@
 /**
  * T4 AuthZ Worker Integration Tests (ADR-0024 / T4 topology, 2026-04-16)
  *
- * Verifies accounts.gftd.ai (ai-gftd-authz Worker) end-to-end:
+ * Verifies accounts.etzhayyim.com (ai-gftd-authz Worker) end-to-end:
  *
- * 1. Redirect chain — accounts.gftd.ai root → /manage → authn sign-in (no session)
+ * 1. Redirect chain — accounts.etzhayyim.com root → /manage → authn sign-in (no session)
  * 2. Unauthenticated getSession returns {ok: false}
- * 3. Full passkey register (via authn.gftd.ai) → session cookie shared → authz getSession
+ * 3. Full passkey register (via authn.etzhayyim.com) → session cookie shared → authz getSession
  * 4. Canonical ai.gftd.authz.getSession works on authz
  * 5. Org management: orgCreate → orgInfo → orgList → orgInvite → orgInviteAccept → orgMembers
  */
@@ -13,11 +13,11 @@
 import { test, expect, type Page, type CDPSession } from "@playwright/test";
 import { randomBytes } from "node:crypto";
 
-const AUTHN_BASE = process.env.AUTH_BASE_URL ?? "https://authn.gftd.ai";
-// auth.gftd.ai is the canonical URL — authn.gftd.ai 301-redirects and POST→GET conversion breaks XRPC calls.
-const AUTH_CANONICAL = "https://auth.gftd.ai";
-const AUTHZ_BASE = process.env.AUTHZ_BASE_URL ?? "https://accounts.gftd.ai";
-const ACCOUNTS_BASE = "https://accounts.gftd.ai";
+const AUTHN_BASE = process.env.AUTH_BASE_URL ?? "https://authn.etzhayyim.com";
+// auth.etzhayyim.com is the canonical URL — authn.etzhayyim.com 301-redirects and POST→GET conversion breaks XRPC calls.
+const AUTH_CANONICAL = "https://auth.etzhayyim.com";
+const AUTHZ_BASE = process.env.AUTHZ_BASE_URL ?? "https://accounts.etzhayyim.com";
+const ACCOUNTS_BASE = "https://accounts.etzhayyim.com";
 
 // ── CDP Virtual Authenticator ──
 
@@ -39,18 +39,18 @@ async function attachVirtualAuthenticator(page: Page): Promise<CDPSession> {
 
 // ── Register a passkey and return session cookie + DID ──
 // Uses Playwright `request` fixture (Node.js) for XRPC calls to avoid SvelteKit patched
-// window.fetch cross-origin failures and authn.gftd.ai 301 POST→GET conversion.
+// window.fetch cross-origin failures and authn.etzhayyim.com 301 POST→GET conversion.
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function registerPasskeySession(page: Page, request: any): Promise<{ did: string; cookie: string }> {
   await attachVirtualAuthenticator(page);
   await page.goto(`${AUTHN_BASE}/sign-up`, { waitUntil: "domcontentloaded" });
-  // Capture the canonical origin after the authn.gftd.ai → auth.gftd.ai 301 redirect.
+  // Capture the canonical origin after the authn.etzhayyim.com → auth.etzhayyim.com 301 redirect.
   const AUTH_ORIGIN = new URL(page.url()).origin;
 
   // 1. passkeyBeginRegister — Node.js side (avoids SvelteKit patched window.fetch)
   const userId = randomBytes(16).toString("hex");
-  const userName = `authz-e2e-${randomBytes(4).toString("hex")}@gftd.ai`;
+  const userName = `authz-e2e-${randomBytes(4).toString("hex")}@etzhayyim.com`;
   const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/ai.gftd.auth.passkeyBeginRegister`, {
     data: { userId, userName },
   });
@@ -114,21 +114,21 @@ async function registerPasskeySession(page: Page, request: any): Promise<{ did: 
 
 // ── Test suite ──
 
-test.describe("T4 AuthZ Worker (authz.gftd.ai)", () => {
-  test("1. accounts.gftd.ai root redirects to /manage, no-session /manage redirects to authn sign-in", async ({
+test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
+  test("1. accounts.etzhayyim.com root redirects to /manage, no-session /manage redirects to authn sign-in", async ({
     page,
   }) => {
-    // Follow redirect chain without session: accounts.gftd.ai/ → /manage → authn sign-in
+    // Follow redirect chain without session: accounts.etzhayyim.com/ → /manage → authn sign-in
     const resp = await page.goto(ACCOUNTS_BASE + "/", {
       waitUntil: "domcontentloaded",
       timeout: 15_000,
     });
-    // Final destination should be authn.gftd.ai/sign-in or authz.gftd.ai/manage (if already signed in)
+    // Final destination should be authn.etzhayyim.com/sign-in or authz.etzhayyim.com/manage (if already signed in)
     const finalUrl = page.url();
     const ok =
-      finalUrl.startsWith("https://authn.gftd.ai/sign-in") ||
-      finalUrl.startsWith("https://auth.gftd.ai/sign-in") ||
-      finalUrl.startsWith("https://accounts.gftd.ai/manage");
+      finalUrl.startsWith("https://authn.etzhayyim.com/sign-in") ||
+      finalUrl.startsWith("https://auth.etzhayyim.com/sign-in") ||
+      finalUrl.startsWith("https://accounts.etzhayyim.com/manage");
     expect(ok, `Unexpected final URL after redirect: ${finalUrl}`).toBe(true);
   });
 
@@ -183,7 +183,7 @@ test.describe("T4 AuthZ Worker (authz.gftd.ai)", () => {
     // 5a. orgCreate
     const createResp = await request.post(`${AUTHZ_BASE}/xrpc/ai.gftd.authz.orgCreate`, {
       headers: { Cookie: ownerCookie, "Content-Type": "application/json" },
-      data: { name: "E2E Test Org", domain: "e2e.gftd.ai", orgType: "company" },
+      data: { name: "E2E Test Org", domain: "e2e.etzhayyim.com", orgType: "company" },
     });
     expect(createResp.ok(), `orgCreate failed: ${await createResp.text()}`).toBe(true);
     const created = await createResp.json();
@@ -217,7 +217,7 @@ test.describe("T4 AuthZ Worker (authz.gftd.ai)", () => {
     expect(found.role).toBe("owner");
 
     // 5d. orgInvite (invite a fake email; token is HMAC-stateless so no delivery needed)
-    const inviteEmail = `e2e-invitee-${Date.now()}@gftd.ai`;
+    const inviteEmail = `e2e-invitee-${Date.now()}@etzhayyim.com`;
     const inviteResp = await request.post(`${AUTHZ_BASE}/xrpc/ai.gftd.authz.orgInvite`, {
       headers: { Cookie: ownerCookie, "Content-Type": "application/json" },
       data: { orgDid, email: inviteEmail, role: "member" },
@@ -287,7 +287,7 @@ test.describe("T4 AuthZ Worker (authz.gftd.ai)", () => {
     expect(health.ok()).toBe(true);
     expect(await health.text()).toBe("ok");
 
-    // Use AUTH_CANONICAL (auth.gftd.ai) — authn.gftd.ai 301-redirects which converts POST→GET.
+    // Use AUTH_CANONICAL (auth.etzhayyim.com) — authn.etzhayyim.com 301-redirects which converts POST→GET.
     const beginAuth = await request.post(`${AUTH_CANONICAL}/xrpc/ai.gftd.auth.passkeyBeginAuth`, {
       headers: { "Content-Type": "application/json" },
       data: {},

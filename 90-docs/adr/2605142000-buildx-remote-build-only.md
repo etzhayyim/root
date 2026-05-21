@@ -41,7 +41,7 @@ Canonical command:
 
 ```sh
 70-tools/scripts/buildkit/remote-build.sh \
-  --image ghcr.io/gftdcojp/<name> \
+  --image ghcr.io/etzhayyim/<name> \
   --context <dir> \
   --dockerfile <dir>/Dockerfile
 ```

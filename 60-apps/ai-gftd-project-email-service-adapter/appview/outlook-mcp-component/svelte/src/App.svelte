@@ -26,7 +26,7 @@
   const SERVICE_BASE = "/xrpc/gftd.outlook.v1.OutlookService";
   const REDIRECT_PATH = "/auth/callback";
   const AUTH_SESSION_KEY = "gftd-auth-session";
-  const AUTH_SIGNIN_URL = "https://authn.gftd.ai/sign-in";
+  const AUTH_SIGNIN_URL = "https://authn.etzhayyim.com/sign-in";
   const OAUTH_STATE_KEY = "outlook_oauth_state_v1";
   const OAUTH_CODE_VERIFIER_KEY = "outlook_oauth_code_verifier_v1";
 
@@ -332,7 +332,7 @@
 
     await refreshAuthStatus();
     if (!signedIn) {
-      message = "Sign in with auth.gftd.ai to continue.";
+      message = "Sign in with auth.etzhayyim.com to continue.";
       return;
     }
     if (authActor) {
@@ -370,7 +370,7 @@
 
     <section class="tokenCard">
       <h2>Auth Session</h2>
-      <p class="hint">Authentication is auto-detected from <code>auth.gftd.ai</code> session.</p>
+      <p class="hint">Authentication is auto-detected from <code>auth.etzhayyim.com</code> session.</p>
       <div class="tokenRow">
         <div class="authSummary">
           <strong>{signedIn ? "Signed In" : "Signed Out"}</strong>

@@ -43,7 +43,7 @@ from langgraph.types import RetryPolicy
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL", "")
-_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _DEFAULT_SCOPES = "comfyui,comfyui:generate,read"
 _DEFAULT_PRODUCT = "comfyui"
 
@@ -67,7 +67,7 @@ class _State(TypedDict, total=False):
 
 
 def _email_to_did(email: str) -> str:
-    """Map `user@gftd.co.jp` → `did:web:mangaka.gftd.ai:user:user_at_gftd_co_jp`.
+    """Map `user@gftd.co.jp` → `did:web:mangaka.etzhayyim.com:user:user_at_gftd_co_jp`.
 
     DID path segments must be ASCII without `:`/`@`/`.`, so we substitute.
     """

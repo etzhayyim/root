@@ -108,7 +108,7 @@ Each multi-cell control loop is a LangGraph graph; each WASM cell is a Pregel no
 | Pregel super-step | one IEC 61499 event tick = one cell `step()` for all participating cells |
 | Pregel message | typed IEC 61499 event + data, transported via Zenoh (intra-site) or OPC UA FX (cross-vendor) |
 | Super-step barrier | TSN `802.1Qbv` gate event when present; software barrier on the Pregel scheduler otherwise |
-| LangGraph node | one cell DID (`did:web:open-ot.gftd.ai:cell:*`) bound to a pinned `.aot` artefact |
+| LangGraph node | one cell DID (`did:web:open-ot.etzhayyim.com:cell:*`) bound to a pinned `.aot` artefact |
 | LangGraph graph | one loop DID (`:loop:*`); graph-as-data per ADR-2605082000 |
 | Checkpointer | RisingWave checkpointer per ADR-2605082100 — each super-step persists `(loop_did, step_id, cell_state[], in_flight_msgs[])` |
 | Single-task / row-driven | per ADR-2605082200 — one signal change → one row in `vertex_open_ot_signal_change` → one task → one super-step on the affected loop |
@@ -124,7 +124,7 @@ Cycle-period vs super-step rate: tight inner loops (≥ 100 Hz) run **on the fie
 
 Aligns with platform invariants:
 
-- Each device, cell, and signal point gets a path-based DID (`did:web:open-ot.gftd.ai:{device|cell|signal|loop}:{id}`).
+- Each device, cell, and signal point gets a path-based DID (`did:web:open-ot.etzhayyim.com:{device|cell|signal|loop}:{id}`).
 - Configuration, version pins, capability grants, and audit are atproto records under `ai.gftd.apps.openOt.*` NSIDs.
 - Telemetry is **not** atproto records — it is Zenoh stream + RisingWave continuous ingest (per ADR-2605111200, RW writes happen inside K8s pods via XRPC `recordTelemetryBatch`, not from the edge device directly; a tunnel pod aggregates).
 - Control writes (setpoint changes, mode changes) go XRPC → bpmn-dispatcher → AgentGateway MCP → LangServer pod → Zenoh publish → device cell. The control-plane round trip is human / agent latency, not control-loop latency.

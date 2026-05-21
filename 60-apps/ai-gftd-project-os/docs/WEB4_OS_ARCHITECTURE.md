@@ -71,7 +71,7 @@ retains oversight, trust control, and economic governance over their agents.
                                    │ NATS (internet)
                                    ▼
 ┌──────────────────────────────────────────────────────────────────┐
-│                    gftd.ai Cloud (App K8s)                  │
+│                    etzhayyim.com Cloud (App K8s)                  │
 │                                                                   │
 │   ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌──────────┐  │
 │   │ Cloud Agent │  │ Calendar   │  │ Communicator│  │ Collector│  │

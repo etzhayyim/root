@@ -11,7 +11,7 @@ interface ExportedHandler<E> {
   fetch(req: Request, env: E): Promise<Response>;
 }
 
-const ACTOR_DID = "did:web:managon.gftd.ai";
+const ACTOR_DID = "did:web:managon.etzhayyim.com";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -245,7 +245,7 @@ function renderHome(): string {
     For advice on a specific matter, please contact the firm directly.
   </p>
   <p>
-    &copy; Minoru Law Office (みのる法律事務所). English-language site at <code>managon.gftd.ai</code>.
+    &copy; Minoru Law Office (みのる法律事務所). English-language site at <code>managon.etzhayyim.com</code>.
   </p>
 </footer>
 

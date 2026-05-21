@@ -87,13 +87,13 @@ Successful `karma_deploy.bpmn` execution emits two karma edges:
 
 1. **Operator → Hegemon (Vivere axis, Help direction)**:
    - source: operator DID
-   - target: `did:web:karma.gftd.ai`
+   - target: `did:web:karma.etzhayyim.com`
    - axis: Vivere
    - tier: Mid (sustained labor) or High (multi-hour heavy DDL drain)
    - magnitude: 1.0 + (deploy_duration_minutes / 60.0)
 
 2. **Hegemon → Operator (Veritas axis, Help direction)**:
-   - source: `did:web:karma.gftd.ai`
+   - source: `did:web:karma.etzhayyim.com`
    - target: operator DID
    - axis: Veritas
    - tier: Mid (truthful report)

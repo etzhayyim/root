@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, Button, Toggle } from '@gftdcojp/design-system';
+	import { Badge, Button, Toggle } from '@etzhayyim/design-system';
 	import {
 		setConvoEncryption, listConvoMembers, memberLabel,
 		updateConvo, archiveConvo, inviteConvoMember, updateConvoMemberRole,

@@ -2,7 +2,7 @@
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/port/actor-manifest.jsonld`).
 
-`port.gftd.ai` (nanoid: `p0rt7890`) — 8.5K major ports globally (UNCTAD + World Port Source). UN/LOCODE 5-character identifier. Port call event tracking.
+`port.etzhayyim.com` (nanoid: `p0rt7890`) — 8.5K major ports globally (UNCTAD + World Port Source). UN/LOCODE 5-character identifier. Port call event tracking.
 
 ## cross-actor
 - `vessel` — port call (vessel ↔ port arrival/departure)

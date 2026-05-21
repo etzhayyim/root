@@ -7,7 +7,7 @@
 		EmptyState,
 		NotificationBanner,
 		Skeleton,
-	} from '@gftdcojp/design-system';
+	} from '@etzhayyim/design-system';
 	import { apiKey } from '$lib/stores';
 	import { storage, ApiError, type BucketRow, type ObjectRow } from '$lib/api';
 

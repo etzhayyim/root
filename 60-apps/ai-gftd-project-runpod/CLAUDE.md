@@ -6,7 +6,7 @@ This project runs **Ollama on RunPod Serverless** behind a Cloudflare Worker gat
 
 Current architecture:
 
-- CF Worker: `runpod.gftd.ai`
+- CF Worker: `runpod.etzhayyim.com`
 - RunPod Serverless endpoint: `8rf4i80jpud0w2` (template: `1l08sdg6cc`)
 - Inference engine: `ollama serve` (llama.cpp CUDA)
 - Model: `gemma4:26b-a4b-it-q4_K_M` (MoE 26B total, 4B active, ~15.2GB Q4_K_M)
@@ -72,7 +72,7 @@ Use digest-pinned templates for deterministic rollouts.
 
 Example image reference:
 
-`ghcr.io/gftdcojp/runpod-ollama-gemma4@sha256:<digest>`
+`ghcr.io/etzhayyim/runpod-ollama-gemma4@sha256:<digest>`
 
 ## Key Files
 

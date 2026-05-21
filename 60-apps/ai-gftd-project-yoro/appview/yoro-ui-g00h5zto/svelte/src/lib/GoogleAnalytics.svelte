@@ -26,6 +26,7 @@
       const script = document.createElement('script');
       script.id = scriptId;
       script.async = true;
+// CHARTER-VIOLATION §substrate (GA4 ad-tracking forbidden — remove gtag/GA injection)
       script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
       document.head.appendChild(script);
     }

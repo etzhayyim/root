@@ -25,11 +25,11 @@ const VALID_TRIGGER_TYPES = new Set(["cron", "subscribeRepos", "xrpc"]);
 
 describe("Data Center Ops Actor Manifest", () => {
   it("@context valid", () => {
-    expect(m["@context"]).toBe("https://gftd.ai/ns/actor/v1");
+    expect(m["@context"]).toBe("https://etzhayyim.com/ns/actor/v1");
   });
 
   it("DID valid", () => {
-    expect(m["@id"]).toBe("did:web:data-center-ops.gftd.ai");
+    expect(m["@id"]).toBe("did:web:data-center-ops.etzhayyim.com");
   });
 
   it("name and nanoid", () => {

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a maps collection job (control plane). Coordinates web crawl / OSM diff / Overpass query / Microsoft Building Footprint ingestion for maps.gftd.ai.",
+      "description": "Register a maps collection job (control plane). Coordinates web crawl / OSM diff / Overpass query / Microsoft Building Footprint ingestion for maps.etzhayyim.com.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",
@@ -13,12 +13,12 @@
           "required": ["jobType", "sourceDid"],
           "properties": {
             "jobType": { "type": "string", "enum": ["overpass", "osm-diff", "ms-building-footprint", "google-places", "openaddresses", "naturalearth", "wikidata-poi", "web-crawl"] },
-            "sourceDid": { "type": "string", "format": "did", "description": "source DID under maps.gftd.ai" },
+            "sourceDid": { "type": "string", "format": "did", "description": "source DID under maps.etzhayyim.com" },
             "bbox": { "type": "array", "items": { "type": "number" }, "description": "[minLon, minLat, maxLon, maxLat]" },
             "country": { "type": "string" },
             "scheduledAt": { "type": "string", "format": "datetime" },
             "frequency": { "type": "string", "enum": ["once", "daily", "weekly", "monthly", "quarterly"] },
-            "outputCollection": { "type": "string", "description": "maps.gftd.ai NSID for derived records" }
+            "outputCollection": { "type": "string", "description": "maps.etzhayyim.com NSID for derived records" }
           }
         }
       },

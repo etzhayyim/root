@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Usage:
-#   BASE_URL="https://omise.gftd.ai" ORDER_ID="order-..." ./scripts/omise-did-flow.sh
+#   BASE_URL="https://omise.etzhayyim.com" ORDER_ID="order-..." ./scripts/omise-did-flow.sh
 # Optional:
 #   AUTH_HEADER="Authorization: Bearer <token>"
 #   WAREHOUSE_DID / LOGISTICS_DID / INVENTORY_DID / DISTRIBUTION_DID
@@ -12,7 +12,7 @@ if ! command -v jq >/dev/null 2>&1; then
   exit 1
 fi
 
-BASE_URL="${BASE_URL:-https://omise.gftd.ai}"
+BASE_URL="${BASE_URL:-https://omise.etzhayyim.com}"
 ORDER_ID="${ORDER_ID:-}"
 AUTH_HEADER="${AUTH_HEADER:-}"
 
@@ -21,10 +21,10 @@ if [[ -z "${ORDER_ID}" ]]; then
   exit 1
 fi
 
-WAREHOUSE_DID="${WAREHOUSE_DID:-did:web:warehouse.gftd.ai:tokyo}"
-LOGISTICS_DID="${LOGISTICS_DID:-did:web:logistics.gftd.ai:primary}"
-INVENTORY_DID="${INVENTORY_DID:-did:web:inventory.gftd.ai:central}"
-DISTRIBUTION_DID="${DISTRIBUTION_DID:-did:web:distribution.gftd.ai:east}"
+WAREHOUSE_DID="${WAREHOUSE_DID:-did:web:warehouse.etzhayyim.com:tokyo}"
+LOGISTICS_DID="${LOGISTICS_DID:-did:web:logistics.etzhayyim.com:primary}"
+INVENTORY_DID="${INVENTORY_DID:-did:web:inventory.etzhayyim.com:central}"
+DISTRIBUTION_DID="${DISTRIBUTION_DID:-did:web:distribution.etzhayyim.com:east}"
 
 POST_CMD=(
   curl -sS -X POST

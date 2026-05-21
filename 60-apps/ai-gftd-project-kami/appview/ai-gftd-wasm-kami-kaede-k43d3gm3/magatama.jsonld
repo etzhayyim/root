@@ -26,7 +26,7 @@
     "change-map",
     "get-leaderboard"
   ],
-  "guestDIDPrefix": "did:web:kami.gftd.ai:guest:",
+  "guestDIDPrefix": "did:web:kami.etzhayyim.com:guest:",
   "kpi": [
     "credits の獲得"
   ],
@@ -47,14 +47,14 @@
   },
   "routes": [
     {
-      "host": "kaede-kami.gftd.ai",
+      "host": "kaede-kami.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "k43d3gm3.gftd.ai",
+      "host": "k43d3gm3.etzhayyim.com",
       "paths": [
         "/"
       ],

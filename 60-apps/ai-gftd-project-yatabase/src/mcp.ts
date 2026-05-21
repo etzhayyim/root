@@ -431,10 +431,10 @@ function handleResourcesRead(params: Record<string, unknown>): ResourcesReadOk |
   const pointer = {
     pointsTo:
       resource.uri === "yatabase://meta/agent"
-        ? "https://yatabase.gftd.ai/.well-known/agent.json"
+        ? "https://yatabase.etzhayyim.com/.well-known/agent.json"
         : resource.uri === "yatabase://meta/mcp"
-          ? "https://yatabase.gftd.ai/.well-known/mcp.json"
-          : "https://yatabase.gftd.ai/_app/meta",
+          ? "https://yatabase.etzhayyim.com/.well-known/mcp.json"
+          : "https://yatabase.etzhayyim.com/_app/meta",
   };
   return {
     value: {

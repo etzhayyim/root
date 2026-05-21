@@ -1,5 +1,5 @@
 // Shim: re-export wasm-bindgen snake_case exports as camelCase aliases
-// expected by @gftdcojp/kami-engine-sdk builders/createVrmEngine.svelte.ts.
+// expected by @etzhayyim/kami-engine-sdk builders/createVrmEngine.svelte.ts.
 import initCore, * as core from './kamiWebCore.js';
 
 export default initCore;

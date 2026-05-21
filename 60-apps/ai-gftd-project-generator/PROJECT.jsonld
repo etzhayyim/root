@@ -1,13 +1,13 @@
 {
   "@context": {
     "@vocab": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/dodaf/"
+    "dodaf": "https://resources.etzhayyim.com/dodaf/"
   },
   "@type": "Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-generator/id/Project/ai-gftd-project-generator",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-generator/id/Project/ai-gftd-project-generator",
   "name": "ai-gftd-project-generator",
   "description": "Multimodal AI Content Generator — text, text-to-image (t2i), text-to-video (t2v), and image-to-video (i2v) generation via OpenRouter integration",
-  "url": "https://generator.gftd.ai",
+  "url": "https://generator.etzhayyim.com",
   "dodaf:capability": [
     "Text Generation (Chat Completions via OpenRouter)",
     "Text-to-Image Generation (DALL-E 3, SDXL, Flux)",

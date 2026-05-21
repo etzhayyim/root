@@ -3,11 +3,12 @@ import {
   type HostSDK, nowISO, str, genID, nsid,
 } from "@gftd/magatama-host-sdk";
 import type { Database } from "@gftd/graph-schema";
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
 
 const ACTOR_NAME = "playwright";
 const ACTOR_NSID_NS = "playwright";
-const ACTOR_DID = `did:web:${ACTOR_NAME}.gftd.ai`;
+const ACTOR_DID = `did:web:${ACTOR_NAME}.etzhayyim.com`;
 
 function camelToSnake(s: string): string {
   return s.replace(/[A-Z]/g, m => "_" + m.toLowerCase()).replace(/^_/, "");
@@ -93,7 +94,7 @@ async function enqueueLocalOp(env: any, sessionId: string, op: string, args: Rec
 
 async function dispatchCfBrowser(env: any, sessionId: string, op: string, args: Record<string, unknown>): Promise<unknown> {
   if (!env.CF_BROWSER_RENDER) return { error: "CF_BROWSER_RENDER binding not configured" };
-  const url = `https://cloudflare-browser-render.gftd.ai/xrpc/ai.gftd.apps.cloudflareBrowserRender.dispatchOp`;
+  const url = `https://cloudflare-browser-render.etzhayyim.com/xrpc/ai.gftd.apps.cloudflareBrowserRender.dispatchOp`;
   const body = { sessionId, op, args };
   const res = await env.CF_BROWSER_RENDER.fetch(new Request(url, {
     method: "POST",

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kg8r2m5n.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kg8r2m5n.etzhayyim.com",
   "name": "kaigo-hp",
   "nanoid": "kg8r2m5n",
   "project": "kaigo",
@@ -18,7 +18,7 @@
     "protocols": ["xrpc"]
   },
   "routes": [
-    { "host": "kaigo.gftd.ai" }
+    { "host": "kaigo.etzhayyim.com" }
   ],
   "governance": {
     "raci": "responsible",

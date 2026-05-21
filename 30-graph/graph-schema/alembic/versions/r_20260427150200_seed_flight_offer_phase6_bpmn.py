@@ -22,8 +22,8 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-fetch-from-source-v1',
-                 'did:web:flight-offer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-fetch-from-source-v1',
+                 'did:web:flight-offer.etzhayyim.com',
                  'flight_offer_fetch_from_source',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -31,7 +31,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_flight_offer_fetch_from_source"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/flight-offer"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/flight-offer"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="flight_offer_fetch_from_source" name="fetchFromSource" '
@@ -81,7 +81,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:flight-offer.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:flight-offer.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;flight.offer.fetchFromSource&quot;" '
                  'target="action"/>\n'
@@ -103,10 +103,10 @@ UP = [{'sql': '\n'
                  3408,
                  '00-contracts/bpmn/ai/gftd/flight-offer/fetchFromSource.bpmn',
                  '2026-04-27T15:02:00Z',
-                 'did:web:flight-offer.gftd.ai',
-                 'did:web:flight-offer.gftd.ai',
+                 'did:web:flight-offer.etzhayyim.com',
+                 'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-fetch-from-source-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-fetch-from-source-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -119,16 +119,16 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$10)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-fetch-from-source-v1',
-                 'did:web:flight-offer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-fetch-from-source-v1',
+                 'did:web:flight-offer.etzhayyim.com',
                  'ai.gftd.apps.flightOffer.fetchFromSource',
                  'flight_offer_fetch_from_source',
                  30000,
                  '2026-04-27T15:02:00Z',
-                 'did:web:flight-offer.gftd.ai',
-                 'did:web:flight-offer.gftd.ai',
+                 'did:web:flight-offer.etzhayyim.com',
+                 'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-fetch-from-source-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-fetch-from-source-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -139,8 +139,8 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-list-sources-v1',
-                 'did:web:flight-offer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-list-sources-v1',
+                 'did:web:flight-offer.etzhayyim.com',
                  'flight_offer_list_sources',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -148,7 +148,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_flight_offer_list_sources"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/flight-offer"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/flight-offer"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="flight_offer_list_sources" name="listSources" '
@@ -181,10 +181,10 @@ UP = [{'sql': '\n'
                  1497,
                  '00-contracts/bpmn/ai/gftd/flight-offer/listSources.bpmn',
                  '2026-04-27T15:02:00Z',
-                 'did:web:flight-offer.gftd.ai',
-                 'did:web:flight-offer.gftd.ai',
+                 'did:web:flight-offer.etzhayyim.com',
+                 'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-list-sources-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-list-sources-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -197,16 +197,16 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$10)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-list-sources-v1',
-                 'did:web:flight-offer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-list-sources-v1',
+                 'did:web:flight-offer.etzhayyim.com',
                  'ai.gftd.apps.flightOffer.listSources',
                  'flight_offer_list_sources',
                  10000,
                  '2026-04-27T15:02:00Z',
-                 'did:web:flight-offer.gftd.ai',
-                 'did:web:flight-offer.gftd.ai',
+                 'did:web:flight-offer.etzhayyim.com',
+                 'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-list-sources-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-list-sources-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -217,8 +217,8 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-list-airlines-v1',
-                 'did:web:flight-offer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-list-airlines-v1',
+                 'did:web:flight-offer.etzhayyim.com',
                  'flight_offer_list_airlines',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -226,7 +226,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_flight_offer_list_airlines"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/flight-offer"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/flight-offer"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="flight_offer_list_airlines" name="listAirlines" '
@@ -261,10 +261,10 @@ UP = [{'sql': '\n'
                  1622,
                  '00-contracts/bpmn/ai/gftd/flight-offer/listAirlines.bpmn',
                  '2026-04-27T15:02:00Z',
-                 'did:web:flight-offer.gftd.ai',
-                 'did:web:flight-offer.gftd.ai',
+                 'did:web:flight-offer.etzhayyim.com',
+                 'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-list-airlines-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-list-airlines-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -277,29 +277,29 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$10)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-list-airlines-v1',
-                 'did:web:flight-offer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-list-airlines-v1',
+                 'did:web:flight-offer.etzhayyim.com',
                  'ai.gftd.apps.flightOffer.listAirlines',
                  'flight_offer_list_airlines',
                  10000,
                  '2026-04-27T15:02:00Z',
-                 'did:web:flight-offer.gftd.ai',
-                 'did:web:flight-offer.gftd.ai',
+                 'did:web:flight-offer.etzhayyim.com',
+                 'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-list-airlines-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-list-airlines-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-fetch-from-source-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-fetch-from-source-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-fetch-from-source-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-fetch-from-source-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-list-sources-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-list-sources-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-list-sources-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-list-sources-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/flight-offer-list-airlines-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-list-airlines-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/flight-offer-list-airlines-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-list-airlines-v1']}]
 
 
 def upgrade() -> None:

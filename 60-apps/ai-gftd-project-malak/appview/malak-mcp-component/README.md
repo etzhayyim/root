@@ -9,7 +9,7 @@
 - `GET /readyz`
 - `GET /status`
 - `POST /xrpc`
-- `POST https://{nanoid}.gftd.ai/xrpc`
+- `POST https://{nanoid}.etzhayyim.com/xrpc`
 - `GET /...` (static frontend from `svelte/build`)
 
 ## MCP tools

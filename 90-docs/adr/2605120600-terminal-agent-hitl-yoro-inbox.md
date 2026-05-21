@@ -13,7 +13,7 @@ priority_note: "terminal-agent k8s deployment + HITL decision inbox wired into Y
 authoritative_for:
   - terminal-agent LangGraph Server runtime selection (langgraph-cli[inmem])
   - terminal-agent k8s deployment topology (Vultr VKE, terminal-agent namespace)
-  - HITL proxy architecture (Yoro CF Worker → terminal-agent.gftd.ai)
+  - HITL proxy architecture (Yoro CF Worker → terminal-agent.etzhayyim.com)
   - Yoro HITL inbox UI (/tasks/inbox)
   - HITL authentication model (HITL_API_KEY bearer + LANGCHAIN_API_KEY x-api-key)
 depends_on:
@@ -62,14 +62,14 @@ amends: []
 ### 2. k8s デプロイ (Vultr VKE, terminal-agent namespace)
 
 ```yaml
-image: ghcr.io/gftdcojp/terminal-agent-server:latest
+image: ghcr.io/etzhayyim/terminal-agent-server:latest
 namespace: terminal-agent
 port: 2024
 ```
 
 - Kaniko Job (init container: alpine/git clone → Kaniko executor → GHCR push) でイメージビルド
-- CF Origin wildcard cert (`*.gftd.ai`) を `dispatcher-gftd-ai-tls` から namespace にコピー
-- nginx-ingress: `terminal-agent.gftd.ai` → ClusterIP :2024
+- CF Origin wildcard cert (`*.etzhayyim.com`) を `dispatcher-gftd-ai-tls` から namespace にコピー
+- nginx-ingress: `terminal-agent.etzhayyim.com` → ClusterIP :2024
   - `proxy-buffering: off` (SSE streaming)
   - `proxy-read-timeout: 600s` (long-running runs)
 - `LANGCHAIN_API_KEY`: LangGraph Server の `x-api-key` 認証。公開 IP からの直接アクセスを防ぐ
@@ -79,9 +79,9 @@ port: 2024
 
 ```
 Browser
-  → POST https://yoro.gftd.ai/api/hitl/* (Authorization: Bearer HITL_API_KEY)
+  → POST https://yoro.etzhayyim.com/api/hitl/* (Authorization: Bearer HITL_API_KEY)
     → Yoro CF Worker Hono proxy
-      → https://terminal-agent.gftd.ai/* (x-api-key: LANGCHAIN_API_KEY)
+      → https://terminal-agent.etzhayyim.com/* (x-api-key: LANGCHAIN_API_KEY)
         → nginx-ingress → ClusterIP :2024 → LangGraph Server
 ```
 
@@ -157,7 +157,7 @@ POST /api/hitl/threads/{thread_id}/runs/stream
   langgraph.json                # {"graphs": {"agent": "terminal_agent.graph:graph"}}
   k8s/
     deployment.yaml             # terminal-agent-server Deployment + Service
-    ingress.yaml                # terminal-agent.gftd.ai nginx-ingress
+    ingress.yaml                # terminal-agent.etzhayyim.com nginx-ingress
 
 60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/
   src/app.ts                    # /api/hitl/* Hono proxy

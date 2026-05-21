@@ -2,7 +2,7 @@
   "@context": {
     "dct": "http://purl.org/dc/terms/",
     "env": "gh:environment/",
-    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "gh": "https://ghosthacker.etzhayyim.com/ns/",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "schema": "http://schema.org/"
   },

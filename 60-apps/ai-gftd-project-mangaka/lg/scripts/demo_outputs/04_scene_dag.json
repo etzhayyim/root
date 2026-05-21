@@ -1,6 +1,6 @@
 {
   "scene_dag": {
-    "@context": "https://kami.gftd.ai/mangaka-scene/v1",
+    "@context": "https://kami.etzhayyim.com/mangaka-scene/v1",
     "environment": {
       "biome": "Plains",
       "weather": "clear",

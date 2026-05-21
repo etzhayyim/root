@@ -3,9 +3,9 @@
 ## 1) Current Runtime Topology (2026-04-14)
 
 ### Public Entry Points
-- `mailer.gftd.ai` / `ai-gftd-project-mailer.gftd.ai` / `a8wwtz73.gftd.ai`
+- `mailer.etzhayyim.com` / `ai-gftd-project-mailer.etzhayyim.com` / `a8wwtz73.etzhayyim.com`
   - UI + XRPC proxy (`mailer-mcp-component` Worker)
-- `*@gftd.ai` inbound SMTP
+- `*@etzhayyim.com` inbound SMTP
   - Cloudflare Email Routing -> `ai-gftd-email-relay` Worker `email()` handler
 
 ### Service/Data Topology

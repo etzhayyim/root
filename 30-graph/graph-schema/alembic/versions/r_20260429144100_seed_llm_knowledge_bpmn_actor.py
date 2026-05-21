@@ -26,14 +26,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/llm-answer-with-knowledge-v1',
-                 'did:web:llm.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/llm-answer-with-knowledge-v1',
+                 'did:web:llm.etzhayyim.com',
                  'llm_answer_with_knowledge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  llm.answerWithKnowledge\n'
                  '\n'
-                 '  Proper RAG path for llm.gftd.ai:\n'
+                 '  Proper RAG path for llm.etzhayyim.com:\n'
                  '    1. Retrieve domain knowledge from RisingWave vertex/edge/MV tables.\n'
                  '    2. Run a Python LangGraph answer graph over retrieved evidence.\n'
                  '    3. Emit audit.\n'
@@ -45,7 +45,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_llm_answer_with_knowledge"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/llm"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/llm"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="llm_answer_with_knowledge" name="llm answer with knowledge" '
@@ -121,11 +121,11 @@ UP = [{'sql': '\n'
                  3837,
                  '00-contracts/bpmn/ai/gftd/llm/answerWithKnowledge.bpmn',
                  '2026-04-29T14:41:00+09:00',
-                 'did:web:llm.gftd.ai',
-                 'did:web:llm.gftd.ai',
+                 'did:web:llm.etzhayyim.com',
+                 'did:web:llm.etzhayyim.com',
                  'sys.bpmn.seed.llm-knowledge',
-                 'did:web:llm.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/llm-answer-with-knowledge-v1']},
+                 'did:web:llm.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/llm-answer-with-knowledge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -140,21 +140,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/llm-answer-with-knowledge-v1',
-                 'did:web:llm.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/llm-answer-with-knowledge-v1',
+                 'did:web:llm.etzhayyim.com',
                  'ai.gftd.apps.llm.answerWithKnowledge',
                  'llm_answer_with_knowledge',
                  '2026-04-29T14:41:00+09:00',
-                 'did:web:llm.gftd.ai',
-                 'did:web:llm.gftd.ai',
+                 'did:web:llm.etzhayyim.com',
+                 'did:web:llm.etzhayyim.com',
                  'sys.bpmn.seed.llm-knowledge',
-                 'did:web:llm.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/llm-answer-with-knowledge-v1']}]
+                 'did:web:llm.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/llm-answer-with-knowledge-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/llm-answer-with-knowledge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/llm-answer-with-knowledge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/llm-answer-with-knowledge-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/llm-answer-with-knowledge-v1']}]
 
 
 def upgrade() -> None:

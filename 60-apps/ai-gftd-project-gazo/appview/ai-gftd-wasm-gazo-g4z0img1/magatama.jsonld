@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:gazo.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:gazo.etzhayyim.com",
   "name": "gazo",
   "nanoid": "g4z0img1",
   "runtimeType": "worker",

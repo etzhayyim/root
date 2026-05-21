@@ -1,4 +1,4 @@
-# os.gftd.ai DMG Blob Download
+# os.etzhayyim.com DMG Blob Download
 
 `os-ui-6s80i2ya` now serves installer downloads from App `wasi:blobstore`:
 
@@ -14,12 +14,12 @@
 curl -X PUT \
   -H "X-GFTD-Upload-Token: ${OS_DMGS_UPLOAD_TOKEN}" \
   --data-binary @GFTD-OS_0.1.0_aarch64.dmg \
-  https://os.gftd.ai/api/downloads/GFTD-OS_0.1.0_aarch64.dmg
+  https://os.etzhayyim.com/api/downloads/GFTD-OS_0.1.0_aarch64.dmg
 ```
 
 ## Download Example
 
 ```bash
 curl -L -o GFTD-OS_0.1.0_aarch64.dmg \
-  https://os.gftd.ai/download/GFTD-OS_0.1.0_aarch64.dmg
+  https://os.etzhayyim.com/download/GFTD-OS_0.1.0_aarch64.dmg
 ```

@@ -5,8 +5,8 @@
 | Key | Value |
 |---|---|
 | **nanoid** | `xw1tt3r1` |
-| **domain** | `x.gftd.ai` |
-| **AT bot DID** | `did:web:x.gftd.ai` |
+| **domain** | `x.etzhayyim.com` |
+| **AT bot DID** | `did:web:x.etzhayyim.com` |
 | **Runtime** | **Single Worker** (TS Native, appview mode) |
 | **Data store** | **W Protocol Event Stream** — Write: `ComAtprotoRepoCreateRecord()` + `DIDCreate()` + `DIDWrite()`. Read: `G()` SQL |
 | **UI mode** | `appview` (Protocol Canvas card, zero frontend) |
@@ -53,10 +53,10 @@
 ### Multi-DID Architecture
 
 ```
-did:web:x.gftd.ai                              <- primary (controller)
-  +- did:web:x.gftd.ai:user:elonmusk           <- X user DID
-  +- did:web:x.gftd.ai:user:jack               <- X user DID
-  +- did:web:x.gftd.ai:user:...                <- N users
+did:web:x.etzhayyim.com                              <- primary (controller)
+  +- did:web:x.etzhayyim.com:user:elonmusk           <- X user DID
+  +- did:web:x.etzhayyim.com:user:jack               <- X user DID
+  +- did:web:x.etzhayyim.com:user:...                <- N users
 ```
 
 Each X account = path-based DID -> appears as actor in yoro -> viewable profile.
@@ -67,7 +67,7 @@ Each X account = path-based DID -> appears as actor in yoro -> viewable profile.
 - `processFollow`: welcome post with connect instructions on follow
 - `app.Handle("", "sync_profile", ..., RequireCallerRole("member"))`: only followers can trigger sync
 
-## UX Flow (yoro.gftd.ai/profile/did:web:x.gftd.ai?app=1)
+## UX Flow (yoro.etzhayyim.com/profile/did:web:x.etzhayyim.com?app=1)
 
 ```
 Step 1: Follow

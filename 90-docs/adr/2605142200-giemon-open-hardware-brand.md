@@ -45,13 +45,13 @@ last_verified: 2026-05-14
 
 ### ドメイン
 
-- 統一ドメイン: `giemon.gftd.ai`（旧 `armcrawler.gftd.ai` から移行）
-- SvelteKit appview nanoid route: `op3nr0b0.gftd.ai`（変更なし）
-- 介護応用: `kaigo.gftd.ai` (nanoid: `kg8r2m5n`)
+- 統一ドメイン: `giemon.etzhayyim.com`（旧 `armcrawler.etzhayyim.com` から移行）
+- SvelteKit appview nanoid route: `op3nr0b0.etzhayyim.com`（変更なし）
+- 介護応用: `kaigo.etzhayyim.com` (nanoid: `kg8r2m5n`)
 
 ### 3D ビューア (kami-app-giemon WASM)
 
-`giemon.gftd.ai/viewer.htm?model=arm|hitogata|caterpillar` で 3 モデル切替。
+`giemon.etzhayyim.com/viewer.htm?model=arm|hitogata|caterpillar` で 3 モデル切替。
 WASM バンドル 226KB、WebGPU/WebGL2 対応。
 
 | WASM エントリ | 説明 |
@@ -60,9 +60,9 @@ WASM バンドル 226KB、WebGPU/WebGL2 対応。
 | `run_giemon_hitogata_v1` | Hitogata: 17軸 2 足歩行、全高 285mm |
 | `run_giemon_caterpillar_v1` | Caterpillar: 380mm UGV、LiDAR ドーム + ステレオカメラ + IMU/GPS |
 
-`kaigo.gftd.ai` は同 WASM を iframe で共有（ビルド成果物重複なし）。
+`kaigo.etzhayyim.com` は同 WASM を iframe で共有（ビルド成果物重複なし）。
 
-### 製品サイト構成（giemon.gftd.ai）
+### 製品サイト構成（giemon.etzhayyim.com）
 
 | URL | 内容 | 状態 |
 |---|---|---|
@@ -103,11 +103,11 @@ WASM バンドル 226KB、WebGPU/WebGL2 対応。
 
 ## Consequences
 
-- SEO: `armcrawler.gftd.ai` から `giemon.gftd.ai` へ CF DNS 301 リダイレクト設定が必要（未対応）
+- SEO: `armcrawler.etzhayyim.com` から `giemon.etzhayyim.com` へ CF DNS 301 リダイレクト設定が必要（未対応）
 - Makuake / Kickstarter URL: `makuake.com/project/otete`、`kickstarter.com/projects/gftd/otete`
 - 将来の Hitogata 製品は同一 `ai-gftd-project-open-robo` リポジトリ配下に `appview/hitogata-hp/` として追加
 - Caterpillar 製品は同 `appview/caterpillar-hp/` として追加
-- kaigo.gftd.ai が介護向け 3D ビューアとして giemon.gftd.ai WASM を iframe で共有
+- kaigo.etzhayyim.com が介護向け 3D ビューアとして giemon.etzhayyim.com WASM を iframe で共有
 
 ---
 

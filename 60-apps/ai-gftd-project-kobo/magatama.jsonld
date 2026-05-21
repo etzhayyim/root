@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kobo.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kobo.etzhayyim.com",
   "name": "kobo",
   "nanoid": "k0b0y501",
   "project": "kobo",

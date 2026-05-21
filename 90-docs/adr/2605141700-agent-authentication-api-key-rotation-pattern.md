@@ -24,7 +24,7 @@ superseded_by: []
 # Context
 
 A 2026-05-14 session by an AI coding agent (Claude Code, Opus 4.7) needed to
-call the `projector.add_blocker` MCP tool at `atproto.gftd.ai/mcp` to record
+call the `projector.add_blocker` MCP tool at `atproto.etzhayyim.com/mcp` to record
 4 open blockers in the projector graph. Authentication failed because the
 local `sk_live_*` API key in `~/.gftd/auth.json` (issued 2026-04-23) had
 been revoked or expired. The agent then tried four fallback paths and all
@@ -34,9 +34,9 @@ failed:
    endpoint), rejected by `tools/call` (`AuthRequired`).
 2. **Clerk `id_token` (Clerk RS256 JWT)** — same: list works, call rejected.
 3. **`gftd authn signin`** — opens
-   `https://authn.gftd.ai/oauth/authorize?...` in the browser. That endpoint
+   `https://authn.etzhayyim.com/oauth/authorize?...` in the browser. That endpoint
    returns **HTTP 404** because the actual OAuth authorization server lives
-   at `atproto.gftd.ai/oauth/authorize` (verified via
+   at `atproto.etzhayyim.com/oauth/authorize` (verified via
    `/.well-known/oauth-authorization-server`). The CLI's hardcoded URL is
    a stale pre-ADR-0024 path. Even after fixing the URL, the AT Protocol
    OAuth server requires DPoP-bound clients (`dpop_bound_access_tokens=true`
@@ -46,7 +46,7 @@ failed:
    by Chrome MCP's cookie/query-string guardrail (`[BLOCKED: Cookie/query
    string data]`). This guardrail is designed to prevent agent-in-browser
    credential exfiltration; it correctly fires on any
-   `authn.gftd.ai/sign-in?...` URL.
+   `authn.etzhayyim.com/sign-in?...` URL.
 
 The 4-layer matrix in `70-tools/gftd/CLAUDE.md` already lists API key as the
 correct programmatic path, but the practical implications of rotation —
@@ -65,7 +65,7 @@ ADR fixes that gap and pins a CLI bug for follow-up.
 | Heartbeat / cron pod | ES256 Service Auth JWT minted from app DID | 60 s scoped | per-invocation via `getServiceAuth` |
 | Internal binding | `x-magatama-verified: true` HMAC | per-request | n/a (service binding) |
 
-`ai.gftd.auth.createApiKey` accepts **only** a fresh authn.gftd.ai session
+`ai.gftd.auth.createApiKey` accepts **only** a fresh authn.etzhayyim.com session
 (passkey-bound cookies) — **not** Clerk `oat_*`, **not** Clerk `id_token`,
 **not** sk_test_, **not** prior sk_live_. This is by design: API key
 creation is a privileged self-rotation that must be human-presence
@@ -86,7 +86,7 @@ attempted. Three hard barriers, each sufficient on its own:
   *correct* security policy — bypassing it would defeat the
   agent-vs-credential isolation that makes Chrome MCP safe to grant in
   the first place.
-- AT Protocol OAuth (`atproto.gftd.ai/oauth/*`) requires DPoP-bound
+- AT Protocol OAuth (`atproto.etzhayyim.com/oauth/*`) requires DPoP-bound
   clients with explicit `redirect_uris` allowlisting — `client_id=gftd-cli`
   + `redirect_uri=http://127.0.0.1:9876/callback` is not registered, so
   even hypothetically routing the CLI to the correct authorize endpoint
@@ -118,14 +118,14 @@ flow is designed to preserve.
 **5. Fix the gftd CLI's authorize URL** (follow-up, tracked).
 
 `70-tools/gftd/gftd/auth.go:27` hardcodes
-`https://authn.gftd.ai/oauth/authorize`. The actual OAuth Authorization
-Server is at `https://atproto.gftd.ai/oauth/authorize` per
+`https://authn.etzhayyim.com/oauth/authorize`. The actual OAuth Authorization
+Server is at `https://atproto.etzhayyim.com/oauth/authorize` per
 `/.well-known/oauth-authorization-server`. Fix: either
-- (a) point the CLI at `atproto.gftd.ai` directly, register
+- (a) point the CLI at `atproto.etzhayyim.com` directly, register
       `client_id=gftd-cli` in the AT Protocol client registry, add DPoP
       signing to the CLI, OR
 - (b) deploy a thin `/oauth/authorize` + `/oauth/token` shim on
-      `authn.gftd.ai` that wraps the AT Protocol OAuth flow without
+      `authn.etzhayyim.com` that wraps the AT Protocol OAuth flow without
       requiring DPoP at the CLI layer.
 
 (a) is the standard atproto path. (b) is a 1-2 day patch that keeps the
@@ -163,10 +163,10 @@ CLI shape stable. Decision deferred to a separate ADR.
 
 ```bash
 # 1. Open the sign-in page (browser opens via macOS default browser).
-open 'https://authn.gftd.ai/sign-in?redirect_url=https%3A%2F%2Fyoro.gftd.ai%2Fsettings%2Fdeveloper'
+open 'https://authn.etzhayyim.com/sign-in?redirect_url=https%3A%2F%2Fyoro.etzhayyim.com%2Fsettings%2Fdeveloper'
 
 # 2. Sign in with passkey (Touch ID / Face ID via Apple Keychain).
-#    After redirect to yoro.gftd.ai/settings/developer, click
+#    After redirect to yoro.etzhayyim.com/settings/developer, click
 #    "Create API key" → name=claude-2026-MM-DD, scopes=read,write,admin.
 #    Copy the displayed sk_live_*.
 
@@ -193,10 +193,10 @@ gftd projector list   # should not return AuthRequired
 |---|---|
 | **Long-lived OAuth refresh token in `~/.gftd/auth.json`** | DPoP-bound clients in AT Protocol OAuth don't support stateless refresh from non-browser clients. Refresh token storage outside DPoP key custody re-introduces bearer-token theft risk. |
 | **App Password (Bluesky-style)** | Deprecated in AT Protocol per ADR-2604240914. No scope, not revocable per-action. |
-| **Dedicated agent DID (`did:web:claude-jun.gftd.ai`) with local signing key** | Adds a second identity to govern with no benefit beyond what `getServiceAuth` already provides (60 s, NSID-scoped JWT). Increases attack surface. |
+| **Dedicated agent DID (`did:web:claude-jun.etzhayyim.com`) with local signing key** | Adds a second identity to govern with no benefit beyond what `getServiceAuth` already provides (60 s, NSID-scoped JWT). Increases attack surface. |
 | **CDP Virtual Authenticator for passkey** | Possible but defeats purpose: the virtual passkey has no relation to the user's iCloud-Keychain credentials, so it's just a different API key under a different shape. The privileged-mint ceremony still happens once with the real passkey. |
-| **Magic-link email at authn.gftd.ai** | Not currently offered. Adding it would re-introduce email-account-takeover risk that passkey was deployed to remove. |
-| **Re-use the YORO Clerk session JWT (`__session` cookie)** | The Clerk-issued JWT's `aud` is `api-gftd` for a dev tenant; production atproto.gftd.ai rejects it because issuer doesn't match the configured Clerk frontend. Bridge would require an iss-aware token-exchange endpoint that doesn't exist. |
+| **Magic-link email at authn.etzhayyim.com** | Not currently offered. Adding it would re-introduce email-account-takeover risk that passkey was deployed to remove. |
+| **Re-use the YORO Clerk session JWT (`__session` cookie)** | The Clerk-issued JWT's `aud` is `api-gftd` for a dev tenant; production atproto.etzhayyim.com rejects it because issuer doesn't match the configured Clerk frontend. Bridge would require an iss-aware token-exchange endpoint that doesn't exist. |
 
 # References
 
@@ -212,7 +212,7 @@ gftd projector list   # should not return AuthRequired
   `refresh_token`) — Clerk-side state, NOT accepted by atproto auth
 - macOS Keychain `gftd.auth/api_key` — canonical storage per root
   CLAUDE.md "Local Secret Storage"
-- `https://atproto.gftd.ai/.well-known/oauth-authorization-server` — the
+- `https://atproto.etzhayyim.com/.well-known/oauth-authorization-server` — the
   authoritative authorize/token endpoints
 - ADR-0022 "Auth Topology Consolidation"
 - ADR-0023 "Auth Shannon-Optimal 4-Layer"
@@ -225,7 +225,7 @@ gftd projector list   # should not return AuthRequired
 
 | Action | Owner | ETA |
 |---|---|---|
-| Fix `gftd authn` hardcoded URL → `atproto.gftd.ai/oauth/authorize`, add DPoP | CLI maintainer | Phase 1 (separate PR) |
+| Fix `gftd authn` hardcoded URL → `atproto.etzhayyim.com/oauth/authorize`, add DPoP | CLI maintainer | Phase 1 (separate PR) |
 | Add `gftd auth fix-api-key <sk_live_*>` one-liner that does the security/json save above | CLI maintainer | optional UX polish |
 | Add this ADR's runbook to the README of `70-tools/gftd/` | docs | next sweep |
 | Investigate CDP Virtual Authenticator for headless CI (separate from human agents) | future | not blocking |

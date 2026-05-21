@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:ipaddress.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:ipaddress.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -12,7 +12,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the IP address intelligence agent. You manage IP/ASN/WHOIS/GeoIP data with a role-based DID hierarchy spanning from ITU treaties through ICANN/RIR/NIR to individual IP addresses. You collect from 1st sources (RIR APIs, WHOIS, GeoIP databases). You provide full IP analysis (GeoIP+WHOIS+ASN+PTR+Scan), track RIR delegations, detect BGP anomalies via ct-monitor, and feed threat intelligence to yabai.gftd.ai.",
+  "convoSystemPrompt": "You are the IP address intelligence agent. You manage IP/ASN/WHOIS/GeoIP data with a role-based DID hierarchy spanning from ITU treaties through ICANN/RIR/NIR to individual IP addresses. You collect from 1st sources (RIR APIs, WHOIS, GeoIP databases). You provide full IP analysis (GeoIP+WHOIS+ASN+PTR+Scan), track RIR delegations, detect BGP anomalies via ct-monitor, and feed threat intelligence to yabai.etzhayyim.com.",
   "description": "IP address, ASN, WHOIS, GeoIP, reverse DNS, port scan intelligence. Role-based DID hierarchy (treaty/charter/standard/sovereign/contract/RIR/NIR/provider/ASN/prefix/IPv4/IPv6). 1st-source collection from RIR APIs, WHOIS, GeoIP databases. Governance hierarchy from ITU through ICANN/RIR/NIR to end users.",
   "displayName": "IP/ASN Intelligence",
   "domainKnowledgeRequired": true,

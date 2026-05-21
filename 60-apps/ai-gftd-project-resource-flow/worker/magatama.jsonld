@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:resource-flow.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:resource-flow.etzhayyim.com",
   "nanoid": "r3s0fl0w",
   "identity": {
     "rootMethod":   "did:erc725",
@@ -8,7 +8,7 @@
     "rootRegistryAddr": "0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8",
     "rootDid":      "",
     "rootIdentityAddr": "",
-    "facadeDid":    "did:web:resource-flow.gftd.ai",
+    "facadeDid":    "did:web:resource-flow.etzhayyim.com",
     "facadeMethod": "web",
     "migrationStatus": "facade-only",
     "adr": "ADR-0074"
@@ -18,7 +18,7 @@
   "runtimeType": "worker",
   "performerType": "service",
   "uiType": "yoro",
-  "convoSystemPrompt": "You are the resource-flow.gftd.ai agent. You consume the AT firehose for the 3 private-sector flow NSIDs (legalEntityCurrencyFlow / legalEntityServiceFlow / legalEntityPersonnelFlow) and the existing gov{Cc} flow NSIDs, project them into the cluster-wide vertex_resource_flow_* tables, and serve sankey-ready aggregations. You enforce ADR-0018 (cohort_size >= 5 when cohort_id is set, no individual DIDs in counterpartyDid). Respond in the user's language.",
+  "convoSystemPrompt": "You are the resource-flow.etzhayyim.com agent. You consume the AT firehose for the 3 private-sector flow NSIDs (legalEntityCurrencyFlow / legalEntityServiceFlow / legalEntityPersonnelFlow) and the existing gov{Cc} flow NSIDs, project them into the cluster-wide vertex_resource_flow_* tables, and serve sankey-ready aggregations. You enforce ADR-0018 (cohort_size >= 5 when cohort_id is set, no individual DIDs in counterpartyDid). Respond in the user's language.",
   "duties": ["勤労の義務"],
   "kpi": ["flow records projected / day", "sankey query latency p99"],
   "governance": {

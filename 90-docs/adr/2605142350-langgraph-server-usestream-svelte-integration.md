@@ -21,7 +21,7 @@ superseded_by: []
 
 # Context
 
-`ai-gftd-chat-shell` (`gftd.ai`) and `yoro.gftd.ai` both stream AI responses
+`ai-gftd-chat-shell` (`etzhayyim.com`) and `yoro.etzhayyim.com` both stream AI responses
 to the browser.  Before this ADR the chat-shell used a hand-rolled
 `for await (const event of streamChat(...))` SSE loop in `ChatPanel.svelte`,
 and yoro's `ConvoHome.svelte` used `graphRAG.query()` (local WebLLM) with no

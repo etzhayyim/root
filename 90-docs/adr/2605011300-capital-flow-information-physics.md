@@ -155,7 +155,7 @@ Shannon η (Rank 6, weight 0.45) と同 tier。η は per-decision 効率、
 3. graph migration: `vertex_market_listing` + `vertex_market_settlement` +
    `mv_market_vacuum_score` (1 narrow MV, low-cardinality GROUP BY)
 4. BPMN: `generic.settlement.bundle` task primitive
-5. Worker handler は次 ADR で定義 (`market.gftd.ai` actor — Phase 1.1)
+5. Worker handler は次 ADR で定義 (`market.etzhayyim.com` actor — Phase 1.1)
 
 # Consequences
 
@@ -230,14 +230,14 @@ write→read 間に sleep(15s) を入れる。lag を "lost write" と誤認し�
 
 # §9 — Public Discovery Surface (2026-05-05, S axis externalization)
 
-`market.gftd.ai/.well-known/atproto-market.json` を公開し、AI agent crawler /
+`market.etzhayyim.com/.well-known/atproto-market.json` を公開し、AI agent crawler /
 search engine / federated AT Protocol AppView が認証なしで 5 lane と現在の
 ∇φ を取得できるようにする。S 軸 (information surface area) の外部到達面を一段拡張する。
 
 ```json
 {
-  "@context": "https://gftd.ai/ns/market/v1",
-  "actor": "did:web:market.gftd.ai", "adr": "2605011300", "phase": "1.2",
+  "@context": "https://etzhayyim.com/ns/market/v1",
+  "actor": "did:web:market.etzhayyim.com", "adr": "2605011300", "phase": "1.2",
   "lanes": [{
     "lane": "vault", "issuer_did": "did:erc725:gftd:260425:vault",
     "vacuum": { "demand": 4.61, "supply": 0, "vacuum": 4.61 },

@@ -6,7 +6,7 @@
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-recap`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-recap`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 
@@ -43,3 +43,22 @@ The TRANSFORM classification was based on the app's domain pattern (commerce /
 communication adapter / media etc.), not on detected violations. Manual review
 is still required to confirm Charter §2(a)-(h) and substrate-boundary
 compliance before this app is considered etzhayyim-aligned.
+
+---
+
+## Post-verification gap patch (2026-05-21)
+
+Additional violations detected in re-scan:
+
+```
+  - 60-apps/ai-gftd-project-recap/lg/pymagatama/sqlmesh/config.py
+  - 60-apps/ai-gftd-project-recap/lg/pymagatama/src/pymagatama/pregel/graph.py
+  - 60-apps/ai-gftd-project-recap/lg/pymagatama/src/pymagatama/primitives/chat.py
+  - 60-apps/ai-gftd-project-recap/lg/pymagatama/src/pymagatama/registry.py
+  - 60-apps/ai-gftd-project-recap/lg/pymagatama/src/pymagatama/rw_sql.py
+  - 60-apps/ai-gftd-project-recap/lg/pymagatama/tests/test_agent_economy_primitives.py
+  - 60-apps/ai-gftd-project-recap/lg/pymagatama/tests/test_chat_domain_knowledge.py
+  - 60-apps/ai-gftd-project-recap/lg/pymagatama/tests/test_rw_sql.py
+```
+
+Lines annotated with `CHARTER-VIOLATION §substrate` comments.

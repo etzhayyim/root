@@ -1,13 +1,13 @@
 ---
 id: adr-2605180600-lawyer-attorney-portal-design
-title: "ADR-2605180600: lawyer.gftd.ai — Attorney Portal Design (Pregel + LangServer + Svelte)"
+title: "ADR-2605180600: lawyer.etzhayyim.com — Attorney Portal Design (Pregel + LangServer + Svelte)"
 status: active
 doc_type: adr
 topic: lawyer-portal
 authoritative: true
 last_verified: 2026-05-18
 authoritative_for:
-  - lawyer.gftd.ai service design and UI view structure
+  - lawyer.etzhayyim.com service design and UI view structure
   - lawfirm↔lawyer connection protocol (externalCounselGrant flow)
   - ISCO-2611 document approval gate design
   - LangGraph attorney workspace graph definitions
@@ -24,21 +24,21 @@ superseded_by: []
 
 # Context
 
-`lawfirm.gftd.ai` serves clients with intake, matter management, and billing. The platform lacked an attorney-facing workspace. Attorneys (bengoshi) — starting with k.bakshi (`did:gftd:{h_lawyer}:{h_bakshi}`) as Lead CLO — need a dedicated portal to:
+`lawfirm.etzhayyim.com` serves clients with intake, matter management, and billing. The platform lacked an attorney-facing workspace. Attorneys (bengoshi) — starting with k.bakshi (`did:gftd:{h_lawyer}:{h_bakshi}`) as Lead CLO — need a dedicated portal to:
 
-- Accept or decline external counsel grant invitations from lawfirm.gftd.ai
+- Accept or decline external counsel grant invitations from lawfirm.etzhayyim.com
 - View and work on assigned matters (as lead advocate or co-counsel)
 - Log work notes and time entries against matters
 - Submit AI-assisted document drafts that pass the ISCO-2611 lawyer-review compliance gate before finalization
 - Prepare for upcoming hearings
 
-The existing CLAUDE.md stated "独自 `ai.gftd.apps.lawyer.*` は作らない" as an early MVP constraint. This ADR supersedes that constraint: as the attorney portal matures into a standalone appview at `lawyer.gftd.ai`, a dedicated lexicon namespace is required to model attorney-specific operations that have no natural home in the client-facing `ai.gftd.apps.lawfirm.*` namespace.
+The existing CLAUDE.md stated "独自 `ai.gftd.apps.lawyer.*` は作らない" as an early MVP constraint. This ADR supersedes that constraint: as the attorney portal matures into a standalone appview at `lawyer.etzhayyim.com`, a dedicated lexicon namespace is required to model attorney-specific operations that have no natural home in the client-facing `ai.gftd.apps.lawfirm.*` namespace.
 
 # Decision
 
 ## 1. Lexicon Namespace
 
-Create `ai.gftd.apps.lawyer.*` as the authoritative namespace for attorney-facing operations. The `ai.gftd.apps.lawfirm.*` namespace remains the SSoT for shared matter/grant/hearing/time-entry records. Lawyer lexicons are read/write facades that operate on those shared records, scoped by `firmDid=did:web:lawyer.gftd.ai`.
+Create `ai.gftd.apps.lawyer.*` as the authoritative namespace for attorney-facing operations. The `ai.gftd.apps.lawfirm.*` namespace remains the SSoT for shared matter/grant/hearing/time-entry records. Lawyer lexicons are read/write facades that operate on those shared records, scoped by `firmDid=did:web:lawyer.etzhayyim.com`.
 
 ### 6 XRPC Commands
 
@@ -51,7 +51,7 @@ Create `ai.gftd.apps.lawyer.*` as the authoritative namespace for attorney-facin
 | `ai.gftd.apps.lawyer.logWorkNote` | procedure | Write encrypted work note + optional billable time to matter |
 | `ai.gftd.apps.lawyer.submitDocumentDraft` | procedure | Trigger AI draft generation → ISCO-2611 approval gate → store in `vertex_lawyer_document_draft` |
 
-Time entries flow back through the shared lexicon: `ai.gftd.apps.lawfirm.recordTimeEntry` with `firmDid=did:web:lawyer.gftd.ai`.
+Time entries flow back through the shared lexicon: `ai.gftd.apps.lawfirm.recordTimeEntry` with `firmDid=did:web:lawyer.etzhayyim.com`.
 
 ## 2. lawfirm → lawyer Connection Protocol
 
@@ -63,7 +63,7 @@ lawfirm.createCase (India / external-counsel marker detected)
   → attorney calls ai.gftd.apps.lawyer.acceptGrant
   → grant status=accepted, acceptedAt=now()
   → attorney can now call listAssignedMatters, logWorkNote, submitDocumentDraft
-  → time entries loop back via ai.gftd.apps.lawfirm.recordTimeEntry (firmDid=did:web:lawyer.gftd.ai)
+  → time entries loop back via ai.gftd.apps.lawfirm.recordTimeEntry (firmDid=did:web:lawyer.etzhayyim.com)
 ```
 
 The grant record (`ai.gftd.apps.lawfirm.externalCounselGrant`) is the canonical authority object. Its `capabilities[]` array (`read`, `comment`, `uploadDocument`, `propose`, `sign`, `scheduleHearing`) governs what the attorney may do in the matter workspace.
@@ -122,7 +122,7 @@ LangGraph checkpointer: PostgreSQL (RisingWave 4566) via `AsyncPostgresSaver`. T
 | `/grants` | Grants | `listPendingGrants` — accept / decline cards |
 | `/drafts` | Drafts | `submitDocumentDraft` form + draft status tracker |
 
-All routes are protected by AT Protocol session JWT. The Svelte app calls `/xrpc/ai.gftd.apps.lawyer.*` against the lawyer Worker BFF at `lawyer.gftd.ai`.
+All routes are protected by AT Protocol session JWT. The Svelte app calls `/xrpc/ai.gftd.apps.lawyer.*` against the lawyer Worker BFF at `lawyer.etzhayyim.com`.
 
 ## 6. Data Tables (RisingWave)
 
@@ -146,9 +146,9 @@ All tables follow ADR-0095 canonical columns: `actor_did`, `org_did`, `at_did`, 
 
 | Layer | Value |
 |---|---|
-| Handle | `lawyer.gftd.ai` |
-| did:web | `did:web:lawyer.gftd.ai` |
-| FIRM_DID | `did:web:lawyer.gftd.ai` |
+| Handle | `lawyer.etzhayyim.com` |
+| did:web | `did:web:lawyer.etzhayyim.com` |
+| FIRM_DID | `did:web:lawyer.etzhayyim.com` |
 | nanoid | `334bbd5f` |
 | Runtime tier | T2 TS Native (CF Worker + Hono) |
 | Worker path | `60-apps/ai-gftd-project-lawyer/appview/ai-gftd-wasm-lawyer-334bbd5f/` |
@@ -158,8 +158,8 @@ All tables follow ADR-0095 canonical columns: `actor_did`, `org_did`, `at_did`, 
 
 | Repo | URL | Visibility |
 |---|---|---|
-| `gftdcojp/lawfirm` | https://github.com/gftdcojp/lawfirm | private |
-| `gftdcojp/lawyer` | https://github.com/gftdcojp/lawyer | private |
+| `etzhayyim/lawfirm` | https://github.com/etzhayyim/lawfirm | private |
+| `etzhayyim/lawyer` | https://github.com/etzhayyim/lawyer | private |
 
 **Engineer access** (push permission): `gw-cKd` (chikada) / `tanaka4B2` (tanaka) / `dir445` (nishino)
 
@@ -194,7 +194,7 @@ lexicons/lawyer/  ← 6 AT Protocol lexicon JSON
 
 ### Sync policy
 
-These repos are standalone copies of the relevant monorepo subtrees. Changes merged to `main` in each repo must be manually backported to `ai-gftd-apps-gftdcojp` (monorepo stays as the authoritative source for shared infra). A `git subtree` automation is tracked in `deps.toml [[migrations]] lawfirm-lawyer-repo-monorepo-sync`.
+These repos are standalone copies of the relevant monorepo subtrees. Changes merged to `main` in each repo must be manually backported to `etzhayyim-root` (monorepo stays as the authoritative source for shared infra). A `git subtree` automation is tracked in `deps.toml [[migrations]] lawfirm-lawyer-repo-monorepo-sync`.
 
 ## 9. PII Handling
 
@@ -218,7 +218,7 @@ Attorney notes and generated document content are Tier 3 PII (attorney-client pr
 ## Future Work
 
 - `approveDocumentDraft` / `rejectDocumentDraft` lexicons (reviewer-side procedures)
-- Hearing prep assistant graph (`lawyer_hearing_prep`) — case law retrieval via hanrei.gftd.ai
+- Hearing prep assistant graph (`lawyer_hearing_prep`) — case law retrieval via hanrei.etzhayyim.com
 - Multi-firm support (k.bakshi handling grants from multiple lawfirm tenants)
 - E-signature integration via `ai.gftd.apps.lawfirm.eSignRequest` (shared lexicon)
 

@@ -31,7 +31,7 @@ related:
 
 **主目的: spirit-in-physics 研究のデータ収集フロントエンド**
 
-deai.gftd.ai は「出会い系アプリ」を装置として使い、Jung の語連想実験 + Hume AI 感情計測の
+deai.etzhayyim.com は「出会い系アプリ」を装置として使い、Jung の語連想実験 + Hume AI 感情計測の
 研究データを大規模収集することが第一目的。マッチング機能は参加動機を高めるための
 インセンティブレイヤー。
 
@@ -50,7 +50,7 @@ Jun Kawasaki の論文 "Spirit in Physics: Spirit as a Thermodynamic Information
 - Spirit Types: Hero / Sage / Lover / Caregiver（Jung 分析心理学）
 - 測定式: `P(w_O|w_I) = exp(w_I·w_O) × r^α × exp(γ·ΔSP/λ) × exp(η·F) / Z`
 
-この ADR は `deai.gftd.ai` マッチングアプリの設計決定を記録する。
+この ADR は `deai.etzhayyim.com` マッチングアプリの設計決定を記録する。
 
 # Decision
 
@@ -97,7 +97,7 @@ W×B目的関数の `spirit-connection` gate（Rank 2）を直接適用。
 
 ```
 cohort_hash = DJB2(spirit_type | quantized_emotion_centroid)
-cohort_did = "did:web:deai.gftd.ai:" + cohort_hash
+cohort_did = "did:web:deai.etzhayyim.com:" + cohort_hash
 ```
 
 - 実 DID（メール・電話）= server 非保持
@@ -176,7 +176,7 @@ const HUME_PROXY_WS = (import.meta.env.VITE_HUME_PROXY_WS as string | undefined)
 
 # Consequences
 
-- `deai.gftd.ai` は `U_spirit` 最大化を product の第一目的とする
+- `deai.etzhayyim.com` は `U_spirit` 最大化を product の第一目的とする
 - 孤独・分離を増やすマッチ（separation_delta < -200）は UI に表示しない
 - 生体データの server 側保持を技術的に禁止（Privacy-by-Design）
 - Capacitor + SvelteKit で App Store / Google Play 提出可能な状態まで scaffold 済み

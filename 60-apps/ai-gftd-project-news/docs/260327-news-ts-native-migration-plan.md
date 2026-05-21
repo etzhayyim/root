@@ -1,6 +1,6 @@
 # 260327 News TS Native Migration Plan
 
-対象: `news.gftd.ai` (`60-apps/ai-gftd-project-news/wasm/news-core-component`)
+対象: `news.etzhayyim.com` (`60-apps/ai-gftd-project-news/wasm/news-core-component`)
 
 ## Goal
 

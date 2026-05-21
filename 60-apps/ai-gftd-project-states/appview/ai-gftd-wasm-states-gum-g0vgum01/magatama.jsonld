@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:gum-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:gum-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Territory of Guam AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -31,7 +31,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "gum-state.gftd.ai",
+      "host": "gum-state.etzhayyim.com",
       "paths": [
         "/"
       ],

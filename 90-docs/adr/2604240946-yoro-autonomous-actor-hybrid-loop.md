@@ -1,13 +1,13 @@
 ---
 id: adr-2604240946-yoro-autonomous-actor-hybrid-loop
-title: "ADR: yoro.gftd.ai 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + RisingWave UDF)"
+title: "ADR: yoro.etzhayyim.com 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + RisingWave UDF)"
 status: active
 doc_type: adr
 topic: yoro-autonomous-actor
 authoritative: true
 last_verified: 2026-04-27
 authoritative_for:
-  - yoro.gftd.ai (did:web:yoro.gftd.ai) の自律化トポロジ
+  - yoro.etzhayyim.com (did:web:yoro.etzhayyim.com) の自律化トポロジ
   - AT Protocol actor としての相互成長ループの実装境界
   - T1 MCP-Compose / BPMN-as-actor / UDF / LangChain の役割分担
   - actor multi-tenancy model の選択 (shared infra vs actor-per-pod)
@@ -31,8 +31,8 @@ superseded_by: []
 
 # Context
 
-`yoro.gftd.ai` は ADR-2604231811 の **Layer 9 Client App** 兼 AT Protocol
-actor (`did:web:yoro.gftd.ai`) である。現状は 2 層:
+`yoro.etzhayyim.com` は ADR-2604231811 の **Layer 9 Client App** 兼 AT Protocol
+actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 
 - **T1 MCP-Compose actor** (`20-actors/yoro/actor-manifest.jsonld`, 279 行, `executionTier: "T1"`) が canonical。PDS Shared Executor / ActorExecutorDO が pipeline を解釈し pds.dispatch + graph.write + agent.chat を実行。
 - **wasm SPA Worker** (`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/`) は Layer 9 Client App (SPA 配信 + bsky AppView pipethrough target)。`/xrpc/*` route は剥離済 (Candidate C, ADR-2604231828)。
@@ -47,7 +47,7 @@ actor (`did:web:yoro.gftd.ai`) である。現状は 2 層:
 
 ## 現状の非対称
 
-- **XRPC** は AT surface (Write = PDS `atproto.gftd.ai` / Read = AppView `bsky.gftd.ai`) として既に canonical。
+- **XRPC** は AT surface (Write = PDS `atproto.etzhayyim.com` / Read = AppView `bsky.etzhayyim.com`) として既に canonical。
 - **agent 実行層が世代をまたいで散乱**: (a) **legacy Path F** (`260413-agent-loop-unification-path-analysis.md` + `-path-f-openclaw-agent-os-design.md`) = PDS Worker 内 `agentInfer()` + 4 middleware (memory / consent / audit / scheduler)。(b) **goose cron** (ADR-0034)。(c) **T1 MCP-Compose actor-manifest** (ADR-0038) = yoro の canonical。(d) **BPMN-as-actor** (ADR-0056) = Zeebe + pyzeebe + generic primitives。(e) **UDF** (ADR-0044 / ADR-0049)。
 - Path F は T1 MCP-Compose + BPMN-as-actor に役割を奪われつつあり、**legacy 扱いとして段階 retire** する。
 - ms-streaming (sensor), s-reactive (inner loop), min-deliberative (outer loop), hour-policy (self-improve) の **時間軸** が単一面に圧縮されている。
@@ -81,7 +81,7 @@ actor (`did:web:yoro.gftd.ai`) である。現状は 2 層:
 2. **LangChain は pyzeebe worker 内でのみ動く**。CF Worker 内 LangChain JS は廃止。long-running / persistent / tool-calling は Zeebe job worker に寄せる。T1 MCP-Compose pipeline 内の LLM 呼び出しは `agent.chat` primitive (Murakumo inference 短時間 call) に限定。
 3. **outer loop の trigger は BPMN**。cron / goose (ADR-0034) を yoro に新規導入しない。ADR-0056 の timer-start (`R/PT5M`) と message-start を使う。
 4. **inner loop の tool/capability SSoT は actor-manifest.jsonld**。`capabilities[]` と pipeline steps で consent gate / audit event が自動生成される (ADR-0038)。yoro の wasm/app.ts `asAgentTool()` は T3 fallback 用として残置するのみ、T1 executor は参照しない。
-5. **MCP canonical endpoint は `mcp.gftd.ai/xrpc/ai.gftd.mcp.message`** (compat `/mcp`)。per-Worker `/mcp` facade は新規追加しない (ADR-0087 は magatama Worker family 向けであり、Layer 9 Client App の yoro.gftd.ai は適用外)。
+5. **MCP canonical endpoint は `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`** (compat `/mcp`)。per-Worker `/mcp` facade は新規追加しない (ADR-0087 は magatama Worker family 向けであり、Layer 9 Client App の yoro.etzhayyim.com は適用外)。
 6. **自己監視は ADR-0046**。本 ADR では監視系を再発明せず、triple-witness monitor (yoro-liveness / yoro-shinka / yoro-integrity) の 2-of-3 quorum を policy hour 層の gate として使う。
 7. **Path F は entry と middleware で扱いを分ける**。
    - **Entry points 禁止**: Path F の top-level entry points (`pds.invoke` / `agent.chat` XRPC / `convo.send` / `projector.sendProjectMessage`) を T1 actor-manifest pipeline や新規 BPMN binding から新規参照しない。既存経路は retire されるまで凍結保守。
@@ -101,7 +101,7 @@ actor (`did:web:yoro.gftd.ai`) である。現状は 2 層:
 
 **(3) capability / entity 駆動**
 - capability SSoT = `20-actors/yoro/actor-manifest.jsonld` `capabilities[]` (現状: `graph.query` / `graph.write` / `agent.chat` / `agent.invoke` / `derive:social`) + `00-contracts/lexicons/ai/gftd/host/`。
-- tool discovery = canonical `mcp.gftd.ai/xrpc/ai.gftd.mcp.message` (`tools/list`) + `:ActorCapability` graph + `/_app/meta` fallback の 4 層 (既存実装)。
+- tool discovery = canonical `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` (`tools/list`) + `:ActorCapability` graph + `/_app/meta` fallback の 4 層 (既存実装)。
 - entity = `vertex_yoro_*` (ADR-0081 Worker-direct Hyperdrive)。
 - BPMN ↔ NSID binding = `vertex_bpmn_lexicon_binding` (ADR-0056)。
 
@@ -178,14 +178,14 @@ P2 outer loop が live で確認済み。`platformPulse` BPMN (`etzhayyim-root/0
 P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:'app.bsky.feed.post'})` を使う設計だったが、pyzeebe Worker (Vultr 外部 IP) からの PDS `com.atproto.repo.createRecord` 呼び出しが `x-magatama-verified: true` 付きでも 401 AuthRequired を返す事象を発見 (CF WAF が外部 IP の write path で internal-trust header を strip している疑い)。短期回避として **C-path** = `generic.db.insert` で `vertex_repo_record` に直接 INSERT。Trade-off:
 
 - ✅ Graph 可視 (RisingWave MV / AppView read 経路は不変)
-- ❌ Federation 不可 (PDS commit log / firehose を経由しないため `did:web:yoro.gftd.ai` repo の MST commit が出ない)
+- ❌ Federation 不可 (PDS commit log / firehose を経由しないため `did:web:yoro.etzhayyim.com` repo の MST commit が出ない)
 - ❌ 本来不変条件 1 (Act primitive = `sdk.pds.dispatch` + Worker-direct Hyperdrive **of own domain table**) の精神からは federation path で逸脱しているが、Worker-direct Hyperdrive の物理的同一書き込み経路 (Kysely insert into `vertex_repo_record`) を pyzeebe から共有しているため violation ではなく、pds commit pipeline の一時 bypass と整理する。
 
 正規 PDS path への復旧は pymagatama Bearer auth (`PDS_API_KEY` env) または ES256 Service Auth JWT mint を pyzeebe primitive に追加した時点で C-path を retire する (別 PR、ADR-0023 P4)。
 
 ### Inference backend
 
-`agent.chat` primitive の LLM upstream は ADR で Murakumo MLX を canonical としている。**2026-04-27 に Murakumo を canonical に復帰**: Mac mini fleet (10 ノード Ollama + judah:4000 LiteLLM gateway) 経由の `https://murakumo-serve.gftd.ai` が CF Zero Trust tunnel `ae341542` の remote ingress 設定欠落で 404 degraded 状態だったが、tunnel ingress に `murakumo-serve.gftd.ai → http://localhost:4000` を追加して即時復活 (10/10 nodes healthy、`yoro.chat` MCP probe で 200 + 23s cold inference 確認)。同時に PDS Worker (`ai-gftd-pds-2603241700`) の暫定 secret `RUNPOD_API_KEY` / `RUNPOD_ENDPOINT_ID` を削除し、`50-infra/cloudflare/workers/atproto/src/agent/infer.ts:callLLM` の RunPod gate (`runpodKey && runpodEndpointId`) を false 化 → Murakumo フォールバック (`MURAKUMO_SERVICE` binding + `SS_MURAKUMO_API_KEY`) を primary に戻した。RunPod Serverless endpoint `9z9l2nzwugnqyu` (yoro-chat-gemma4) は idle 状態で残置 (再切替が必要なら secret 再投入 + `RUNPOD_ENDPOINT_ID=9z9l2nzwugnqyu`)。
+`agent.chat` primitive の LLM upstream は ADR で Murakumo MLX を canonical としている。**2026-04-27 に Murakumo を canonical に復帰**: Mac mini fleet (10 ノード Ollama + judah:4000 LiteLLM gateway) 経由の `https://murakumo-serve.etzhayyim.com` が CF Zero Trust tunnel `ae341542` の remote ingress 設定欠落で 404 degraded 状態だったが、tunnel ingress に `murakumo-serve.etzhayyim.com → http://localhost:4000` を追加して即時復活 (10/10 nodes healthy、`yoro.chat` MCP probe で 200 + 23s cold inference 確認)。同時に PDS Worker (`ai-gftd-pds-2603241700`) の暫定 secret `RUNPOD_API_KEY` / `RUNPOD_ENDPOINT_ID` を削除し、`50-infra/cloudflare/workers/atproto/src/agent/infer.ts:callLLM` の RunPod gate (`runpodKey && runpodEndpointId`) を false 化 → Murakumo フォールバック (`MURAKUMO_SERVICE` binding + `SS_MURAKUMO_API_KEY`) を primary に戻した。RunPod Serverless endpoint `9z9l2nzwugnqyu` (yoro-chat-gemma4) は idle 状態で残置 (再切替が必要なら secret 再投入 + `RUNPOD_ENDPOINT_ID=9z9l2nzwugnqyu`)。
 
 ### Open follow-ups (separate PRs)
 
@@ -222,7 +222,7 @@ P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:
 - pod-per-actor 構成への移行 (E は本 ADR で却下済み。将来再検討時は新 ADR で supersede)
 - `sdk.pds.createRecord()` の domain collection 直接使用 (ADR-0081 + root rule)
 - Path F **entry points** (`pds.invoke` / `agent.chat` XRPC / `convo.send` / `projector.sendProjectMessage`) を T1 actor-manifest pipeline や新規 BPMN binding から参照すること (Invariant 7 参照。middleware machinery の executor 内部利用は許容)
-- yoro wasm Worker への `/mcp` facade 追加 (MCP canonical は `mcp.gftd.ai/xrpc/ai.gftd.mcp.message`)
+- yoro wasm Worker への `/mcp` facade 追加 (MCP canonical は `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`)
 
 ## 監視
 

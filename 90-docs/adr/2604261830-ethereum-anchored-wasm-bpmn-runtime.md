@@ -177,7 +177,7 @@ Sanity reads on 2026-04-26:
 
 ## Yoro Runtime Rollout
 
-`yoro.gftd.ai` is the first live actor-worker deployment wired to this ADR.
+`yoro.etzhayyim.com` is the first live actor-worker deployment wired to this ADR.
 The VKE member cluster runs the runtime in namespace `yoro-actors`; no resources
 are created in `default`.
 
@@ -185,7 +185,7 @@ are created in `default`.
 |---|---|
 | Zeebe worker | `deployment/yoro-actor-zeebe-worker` |
 | MCP adapter | `deployment/yoro-mcp-adapter` |
-| Image | `ghcr.io/gftdcojp/pymagatama:yoro-actor-runtime-20260426-receipts` |
+| Image | `ghcr.io/etzhayyim/pymagatama:yoro-actor-runtime-20260426-receipts` |
 | WASM runtime | `wasmtime 44.0.0` |
 | Receipt CLI | `cast 1.5.0` |
 | Registry RPC | `http://geth-private.geth-private.svc.cluster.local:8545` |

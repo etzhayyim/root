@@ -4,7 +4,7 @@
 
 ## Overview
 
-suido.gftd.ai — basic.gftd.ai の水道領域。受給者への上下水道供給管理、使用量追跡、プラン管理。
+suido.etzhayyim.com — basic.etzhayyim.com の水道領域。受給者への上下水道供給管理、使用量追跡、プラン管理。
 
 ## Domain Model
 

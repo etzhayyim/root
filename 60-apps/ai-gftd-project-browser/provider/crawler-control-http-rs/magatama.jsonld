@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:crawler-v2.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:crawler-v2.etzhayyim.com",
   "@type": "Service",
   "convoSystemPrompt": "You are crawler-control agent. Web crawl engine control plane for crawl orchestration, darkweb monitoring, and phishing detection. Respond helpfully in the user's language.",
   "deploy": {

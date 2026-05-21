@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 
-const BASE_URL = process.env.MALAK_BASE_URL ?? 'https://malak.gftd.ai';
+const BASE_URL = process.env.MALAK_BASE_URL ?? 'https://malak.etzhayyim.com';
 
 export default defineConfig({
 	testDir: './tests',

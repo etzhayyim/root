@@ -1,6 +1,6 @@
 # ai-gftd-project-cyber-drill — VENDOR-PRIVATE
 
-OT cybersecurity training experiences delivered as smartphone WebVR walkthroughs. Built on `@gftdcojp/kami-engine-sdk/webvr` (public SDK) + proprietary branching-playbook scenarios (this project).
+OT cybersecurity training experiences delivered as smartphone WebVR walkthroughs. Built on `@etzhayyim/kami-engine-sdk/webvr` (public SDK) + proprietary branching-playbook scenarios (this project).
 
 ## Boundary (ADR-2605172400 3-axis split)
 
@@ -10,15 +10,15 @@ OT cybersecurity training experiences delivered as smartphone WebVR walkthroughs
 | Custody | **vendor** | Scenarios reference customer-specific regulatory exposure (METI, 消防法, 高圧ガス保安法, GHS) and may include proprietary OT topology |
 | Settlement | **vendor** | Sold as paid SaaS / training engagement; Stripe / Japanese fiat |
 
-**→ vendor-only.** This project is NOT eligible for the etzhayyim/root open-org mirror. Do not move to `github.com/etzhayyim/root`. The SDK runtime it consumes (`@gftdcojp/kami-engine-sdk`) is separately eligible for public mirror.
+**→ vendor-only.** This project is NOT eligible for the etzhayyim/root open-org mirror. Do not move to `github.com/etzhayyim/root`. The SDK runtime it consumes (`@etzhayyim/kami-engine-sdk`) is separately eligible for public mirror.
 
 ## Architecture
 
 | 項目 | 値 |
 |---|---|
-| Domain | `cyber-drill.gftd.ai` *(planned)* |
+| Domain | `cyber-drill.etzhayyim.com` *(planned)* |
 | Runtime | Single Worker (TS Native), Svelte 5 SPA |
-| Consumer of | `@gftdcojp/kami-engine-sdk/webvr` |
+| Consumer of | `@etzhayyim/kami-engine-sdk/webvr` |
 
 ## Layout
 

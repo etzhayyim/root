@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:8wwtz73p.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:8wwtz73p.etzhayyim.com",
   "component": {
     "path": "src/app.ts"
   },
@@ -38,13 +38,13 @@
   "project": "ai-gftd-project-mailer",
   "routes": [
     {
-      "host": "mailer.gftd.ai"
+      "host": "mailer.etzhayyim.com"
     },
     {
-      "host": "ai-gftd-project-mailer.gftd.ai"
+      "host": "ai-gftd-project-mailer.etzhayyim.com"
     },
     {
-      "host": "8wwtz73p.gftd.ai"
+      "host": "8wwtz73p.etzhayyim.com"
     }
   ],
   "runtimeType": "worker",

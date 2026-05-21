@@ -71,7 +71,7 @@ APQC PCF L1 13 process area × 代表 role × locale=jp で seed:
 ### Fission readiness
 
 - 全 cohort `fission_enabled = false` (initial default)。Phase C は未到達
-- fission 先の個人 actor handle prefix: `agent-{nano}.gftd.ai` (ADR-0026 §1 Phase C)
+- fission 先の個人 actor handle prefix: `agent-{nano}.etzhayyim.com` (ADR-0026 §1 Phase C)
 
 ## Process Mining (OCEL 2.0) 配線計画
 
@@ -85,7 +85,7 @@ ADR-0025 Kyber projector の `ai.gftd.apqc.apqcEvent` を cohort lifecycle に�
 | Fission | `cohort.fission` | `cohort`, `individual` |
 | Purge (k<50 violation) | `cohort.purge` | `cohort` |
 
-投影先 DID (ADR-0025 path-based): `did:web:kyber-projector.gftd.ai:apqc:{1..13}-{slug}`。
+投影先 DID (ADR-0025 path-based): `did:web:kyber-projector.etzhayyim.com:apqc:{1..13}-{slug}`。
 cohort ↔ L1 actor DID の対応表は cohort_actors.segment_hash の `pcfL1` prefix で導出可能。
 
 **次 iteration TODO**:
@@ -128,7 +128,7 @@ Gap: L1/L2/L4/L6/L8/L10/L12/L13 は role 1 種のみ。industry overlay は 2 L1
 ## Process Mining Wiring
 
 - evidence commit → OCEL event mapping schema を DDL draft doc §Process Mining 連携 で固定
-- segment_hash.pcfL1 から APQC L1 DID (`did:web:kyber-projector.gftd.ai:apqc:{L1}`) への導出規則を明文化
+- segment_hash.pcfL1 から APQC L1 DID (`did:web:kyber-projector.etzhayyim.com:apqc:{L1}`) への導出規則を明文化
 - 実装配線は `onCommit` handler 拡張 (次 iteration)
 
 ## 次 iteration TODO
@@ -259,8 +259,8 @@ import { createSchedule } from './agent/scheduler';
 
 // boot hook / migration-time registration
 await createSchedule(env, {
-  callerDid: 'did:web:atproto.gftd.ai',         // system caller
-  agentDid: 'did:web:cohort-watchdog.gftd.ai',  // dedicated system agent
+  callerDid: 'did:web:atproto.etzhayyim.com',         // system caller
+  agentDid: 'did:web:cohort-watchdog.etzhayyim.com',  // dedicated system agent
   triggerType: 'cron',
   cronExpr: '0 */6 * * *',                       // every 6 hours, on hour (not :00/:30? — see CronCreate policy, use '7 */6 * * *')
   action: JSON.stringify({
@@ -465,7 +465,7 @@ doubles: [scanned_count, violations_count]
 
 ## 次 iteration TODO
 
-1. `runCohortWatchdogTick` の `result.ocelEvents` を apqc projector (`did:web:kyber-projector.gftd.ai:apqc:{L1}`) に forward する
+1. `runCohortWatchdogTick` の `result.ocelEvents` を apqc projector (`did:web:kyber-projector.etzhayyim.com:apqc:{L1}`) に forward する
 2. evidence commit handler: `handleCommit` で `collection === 'ai.gftd.cohort.evidence'` 検出 → apqc projector emit
 3. `ai.gftd.cohort.seed` PDS procedure 実装
 4. lexicon `ai.gftd.cohort.listCohorts` (query) の仕様化
@@ -491,7 +491,7 @@ watchdog の OCEL stream:
 - 集約 1 行: `[scanned, violations]` (既存)
 - **per-event 行 (新規)**: `[kProxy, 1]` + blobs に `cohortDid / apqcL1 / apqcDid` 同梱
 
-`/xrpc/ai.gftd.pds.getOcel?index=ai.gftd.cohort.kReevaluated` で `apqcL1` by bucket 集計が可能。Kyber projector 側の `did:web:kyber-projector.gftd.ai:apqc:{L1}` に対する record write は次 iter。
+`/xrpc/ai.gftd.pds.getOcel?index=ai.gftd.cohort.kReevaluated` で `apqcL1` by bucket 集計が可能。Kyber projector 側の `did:web:kyber-projector.etzhayyim.com:apqc:{L1}` に対する record write は次 iter。
 
 ## Cohort Total N=54 (unchanged)
 
@@ -540,9 +540,9 @@ cron match → parseCohortAction → runCohortKReevaluate (JOIN 済み)
   → for each ocel event:
       env.OCEL.writeDataPoint (analytics)
       forwardOcelToApqc (projector AT Record write)
-         → POST https://atproto.gftd.ai/xrpc/com.atproto.repo.createRecord
+         → POST https://atproto.etzhayyim.com/xrpc/com.atproto.repo.createRecord
          → collection: ai.gftd.apqc.apqcEvent
-         → did: did:web:kyber-projector.gftd.ai:apqc:{L1}
+         → did: did:web:kyber-projector.etzhayyim.com:apqc:{L1}
          → record: { ocelEventId, apqcCode, eventType, caseId=cohortDid, ... }
   → 結果 log: "forwarded N/M to apqc projector"
 ```
@@ -661,7 +661,7 @@ POST /xrpc/ai.gftd.cohort.seed
   {segmentJsonld, kAnonymity: 50}
   → handleCohortSeed(env, input)
     → INSERT vertex_cohort_actor
-    → forwardOcelToApqc({eventType: 'cohort.genesis', apqcDid: did:web:kyber-projector.gftd.ai:apqc:3-market-sell})
+    → forwardOcelToApqc({eventType: 'cohort.genesis', apqcDid: did:web:kyber-projector.etzhayyim.com:apqc:3-market-sell})
       → POST /xrpc/com.atproto.repo.createRecord
         collection: ai.gftd.apqc.apqcEvent
         record: {ocelEventId, apqcCode:'3-market-sell', eventType:'cohort.genesis', caseId:cohort_did, ...}
@@ -718,7 +718,7 @@ POST `/xrpc/ai.gftd.cohort.seed` が reachable (要 auth)。
 ## Request Shape
 
 ```bash
-curl -X POST https://atproto.gftd.ai/xrpc/ai.gftd.cohort.seed \
+curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.cohort.seed \
   -H "Authorization: Bearer <JWT>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -726,8 +726,8 @@ curl -X POST https://atproto.gftd.ai/xrpc/ai.gftd.cohort.seed \
     "kAnonymity": 50
   }'
 # → 200
-# { "did":"did:plc:pending-<nano8>", "handle":"cohort-<nano8>.gftd.ai",
-#   "signatureUri":"at://cohort-<nano8>.gftd.ai/ai.gftd.cohort.signature/self",
+# { "did":"did:plc:pending-<nano8>", "handle":"cohort-<nano8>.etzhayyim.com",
+#   "signatureUri":"at://cohort-<nano8>.etzhayyim.com/ai.gftd.cohort.signature/self",
 #   "genesisAt":"2026-04-14T..." }
 ```
 
@@ -768,8 +768,8 @@ GFTD_TOKEN=$AT_TOKEN gftd cohort seed \
 # Output:
 # cohort genesis:
 #   did:          did:plc:pending-<nano8>
-#   handle:       cohort-<nano8>.gftd.ai
-#   signatureUri: at://cohort-<nano8>.gftd.ai/ai.gftd.cohort.signature/self
+#   handle:       cohort-<nano8>.etzhayyim.com
+#   signatureUri: at://cohort-<nano8>.etzhayyim.com/ai.gftd.cohort.signature/self
 #   genesisAt:    2026-04-14T...
 ```
 
@@ -973,16 +973,16 @@ gftd cohort fission --cohort did:plc:pending-abc \
 #    1. Validate gate (posterior>=0.95 AND judge=true AND evidence[]>=1)
 #    2. SELECT vertex_cohort_actor WHERE cohort_did=? AND kind='cohort'
 #    3. Assert fission_enabled=true (watchdog で false 化されていない)
-#    4. Mint new did:plc:pending-<nano> + handle agent-<nano>.gftd.ai
+#    4. Mint new did:plc:pending-<nano> + handle agent-<nano>.etzhayyim.com
 #    5. INSERT vertex_cohort_actor (kind='fissioned', derived_from=parent)
 #    6. forwardOcelToApqc('cohort.fission', posterior)
 
 # Response:
 {
   "individualDid": "did:plc:pending-<nano>",
-  "individualHandle": "agent-<nano>.gftd.ai",
+  "individualHandle": "agent-<nano>.etzhayyim.com",
   "derivedFrom": "did:plc:pending-abc",
-  "lineageArchiveUri": "at://agent-<nano>.gftd.ai/ai.gftd.cohort.fissionLineage/self",
+  "lineageArchiveUri": "at://agent-<nano>.etzhayyim.com/ai.gftd.cohort.fissionLineage/self",
   "fissionAt": "2026-04-15T..."
 }
 ```
@@ -1040,8 +1040,8 @@ gftd cohort fission --cohort did:plc:pending-abc \
 ```bash
 gftd cohort lineage --did did:plc:pending-<fissioned>
 # lineage (2 hop):
-#   ├─ did:plc:pending-xxxxxxxx  agent-xxxxxxxx.gftd.ai  kind=fissioned  segment=sha256:pcfL1=3-market-sell;...
-#   └─ did:plc:pending-cmkt003c  cohort-cmkt003c.gftd.ai  kind=cohort    segment=sha256:pcfL1=3-market-sell;...
+#   ├─ did:plc:pending-xxxxxxxx  agent-xxxxxxxx.etzhayyim.com  kind=fissioned  segment=sha256:pcfL1=3-market-sell;...
+#   └─ did:plc:pending-cmkt003c  cohort-cmkt003c.etzhayyim.com  kind=cohort    segment=sha256:pcfL1=3-market-sell;...
 ```
 
 ## Evaluation — API Surface Cleanup
@@ -1100,7 +1100,7 @@ chain が長い = 繰り返し分裂した actor、短い = 1 回のみ fission�
 ```bash
 # 特定 cohort の fission-ready evidence 件数
 curl -H "Authorization: Bearer $AT_TOKEN" \
-  "https://atproto.gftd.ai/xrpc/ai.gftd.cohort.listEvidence?cohortDid=did:plc:pending-abc&minPosterior=0.95&judgeAgreement=true"
+  "https://atproto.etzhayyim.com/xrpc/ai.gftd.cohort.listEvidence?cohortDid=did:plc:pending-abc&minPosterior=0.95&judgeAgreement=true"
 
 # → posterior ≥ 0.95 かつ judge agreed な evidence row を列挙
 #    これが >= 1 かつ fission_enabled=true なら `gftd cohort fission` を発火できる
@@ -1154,10 +1154,10 @@ gftd cohort forest      # cohort + children downward tree  ← 本 iter
 ```
 $ gftd cohort forest --pcfL1 3-market-sell
 forest (4 nodes, pcfL1=3-market-sell):
-did:plc:pending-cmkt003c  cohort-cmkt003c.gftd.ai  kind=cohort
-  did:plc:pending-xxxxxxxx  agent-xxxxxxxx.gftd.ai  kind=fissioned
-    did:plc:pending-yyyyyyyy  agent-yyyyyyyy.gftd.ai  kind=fissioned
-did:plc:pending-cmkt203n  cohort-cmkt203n.gftd.ai  kind=cohort
+did:plc:pending-cmkt003c  cohort-cmkt003c.etzhayyim.com  kind=cohort
+  did:plc:pending-xxxxxxxx  agent-xxxxxxxx.etzhayyim.com  kind=fissioned
+    did:plc:pending-yyyyyyyy  agent-yyyyyyyy.etzhayyim.com  kind=fissioned
+did:plc:pending-cmkt203n  cohort-cmkt203n.etzhayyim.com  kind=cohort
 ```
 
 ## Process Mining — Dashboard-ready Queries
@@ -1612,7 +1612,7 @@ gftd cohort gen --pcfL1 9-financial-resources --role accountant --industry banki
 
 # Actual seed
 gftd cohort gen --pcfL1 9-financial-resources --role accountant --industry banking --locale jp -k 50
-# gen ok: did=did:plc:pending-<nano> handle=cohort-<nano>.gftd.ai
+# gen ok: did=did:plc:pending-<nano> handle=cohort-<nano>.etzhayyim.com
 ```
 
 ## Process Mining
@@ -2978,7 +2978,7 @@ import {
 import { agentReact, cohortToolSpecs, createCohortToolHandler } from '@gftd/magatama-host-sdk';
 
 const cohortHandler = createCohortToolHandler({
-  pdsBaseUrl: 'https://atproto.gftd.ai',
+  pdsBaseUrl: 'https://atproto.etzhayyim.com',
   bearerToken: process.env.GFTD_TOKEN!,
 });
 
@@ -3105,7 +3105,7 @@ RTX 4000 Ada 20 GiB VRAM が空いているため、posterior の Bayesian updat
 ## 使用例
 
 ```bash
-PDS_URL=https://atproto.gftd.ai \
+PDS_URL=https://atproto.etzhayyim.com \
   ./70-tools/scripts/cohort-staging-e2e.sh
 
 # == E2E SUCCESS ==

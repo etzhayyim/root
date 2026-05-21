@@ -1,8 +1,8 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://resources.gftd.ai/ontology#",
-    "@base": "https://resources.gftd.ai/ontology#",
+    "@vocab": "https://resources.etzhayyim.com/ontology#",
+    "@base": "https://resources.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "schema": "https://schema.org/",
@@ -14,7 +14,7 @@
     "updatedAt": { "@id": "dct:modified", "@type": "xsd:dateTime" },
     "version": "dct:hasVersion"
   },
-  "id": "https://resources.gftd.ai/project/ai-gftd-project-resources",
+  "id": "https://resources.etzhayyim.com/project/ai-gftd-project-resources",
   "type": "schema:Dataset",
   "name": "GFTD Resources",
   "description": "Public JSON-LD entity resources for GFTD projects.",

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:cloudflare-browser-render.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:cloudflare-browser-render.etzhayyim.com",
   "name": "cloudflare-browser-render",
   "nanoid": "cfbr0w53",
   "performerType": "service",
@@ -24,7 +24,7 @@
   "duties": ["capability-provisioning"],
   "kpi": ["cf-browser-session-cost-usd", "render-success-rate"],
   "deploy": {},
-  "routes": [ { "host": "cloudflare-browser-render.gftd.ai", "paths": ["/"], "tls": true } ],
+  "routes": [ { "host": "cloudflare-browser-render.etzhayyim.com", "paths": ["/"], "tls": true } ],
   "space": { "name": "CF Browser Render", "joinRule": "invite", "historyVisibility": "shared", "channels": [{"name":"session-log","kind":"private","default":true}] },
   "triggers": {
     "subscribeRepos": {

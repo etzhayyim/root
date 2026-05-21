@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-seedOrgs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-seedOrgs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_seed_orgs" name="govFji seed orgs" '
@@ -63,10 +63,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govFji/seedOrgs.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -80,15 +80,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-registerDIDs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-registerDIDs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_register_dids" name="govFji register DIDs" '
@@ -120,10 +120,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govFji/registerDIDs.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,15 +137,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-followSiteDeps-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-followSiteDeps-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_follow_site_deps" name="govFji follow site deps" '
@@ -175,10 +175,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govFji/followSiteDeps.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,15 +192,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-resolveOrgPath-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-resolveOrgPath-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_resolve_org_path" name="govFji resolve org path" '
@@ -233,10 +233,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govFji/resolveOrgPath.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -250,15 +250,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-listOrgs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-listOrgs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_list_orgs" name="govFji list orgs" '
@@ -287,10 +287,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govFji/listOrgs.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -304,15 +304,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-syncWetUpdates-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-syncWetUpdates-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_sync_wet_updates" name="govFji sync wet updates" '
@@ -343,10 +343,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govFji/syncWetUpdates.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -360,15 +360,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-shinka-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-shinka-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_shinka',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_shinka"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_shinka" name="govFji shinka" isExecutable="true">\n'
@@ -398,10 +398,10 @@ UP = [{'sql': '\n'
                  1351,
                  '00-contracts/bpmn/ai/gftd/govFji/shinka.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,8 +415,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeatTick-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeatTick-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -424,7 +424,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_fji_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_heartbeat_tick" name="govFji heartbeat tick" '
@@ -467,10 +467,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govFji/heartbeatTick.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -484,15 +484,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-seed-orgs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-seed-orgs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_seed_orgs" name="govFji seed orgs" '
@@ -522,10 +522,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govFji/seedOrgs.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-seed-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-seed-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -539,15 +539,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-register-dids-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-register-dids-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_register_dids" name="govFji register DIDs" '
@@ -579,10 +579,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govFji/registerDIDs.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-register-dids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,15 +596,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-follow-site-deps-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-follow-site-deps-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_follow_site_deps" name="govFji follow site deps" '
@@ -634,10 +634,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govFji/followSiteDeps.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-follow-site-deps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-follow-site-deps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -651,15 +651,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-resolve-org-path-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-resolve-org-path-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_resolve_org_path" name="govFji resolve org path" '
@@ -692,10 +692,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govFji/resolveOrgPath.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-resolve-org-path-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-resolve-org-path-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -709,15 +709,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-list-orgs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-list-orgs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_list_orgs" name="govFji list orgs" '
@@ -746,10 +746,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govFji/listOrgs.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-list-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-list-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -763,15 +763,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-sync-wet-updates-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-sync-wet-updates-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_fji_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_sync_wet_updates" name="govFji sync wet updates" '
@@ -802,10 +802,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govFji/syncWetUpdates.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-sync-wet-updates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-sync-wet-updates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -819,8 +819,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeat-tick-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeat-tick-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'gov_fji_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -828,7 +828,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_fji_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govFji"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govFji"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_fji_heartbeat_tick" name="govFji heartbeat tick" '
@@ -871,10 +871,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govFji/heartbeatTick.bpmn',
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeat-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeat-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -889,17 +889,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.seedOrgs',
                  'gov_fji_seed_orgs',
                  90000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,17 +914,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.registerDIDs',
                  'gov_fji_register_dids',
                  90000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,17 +939,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.followSiteDeps',
                  'gov_fji_follow_site_deps',
                  90000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,17 +964,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.resolveOrgPath',
                  'gov_fji_resolve_org_path',
                  60000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,17 +989,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.listOrgs',
                  'gov_fji_list_orgs',
                  60000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,17 +1014,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.syncWetUpdates',
                  'gov_fji_sync_wet_updates',
                  180000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,17 +1039,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-shinka-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-shinka-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.shinka',
                  'gov_fji_shinka',
                  180000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,17 +1064,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.heartbeatTick',
                  'gov_fji_heartbeat_tick',
                  180000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,17 +1089,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.seedOrgs',
                  'gov_fji_seed_orgs',
                  90000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,17 +1114,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.registerDIDs',
                  'gov_fji_register_dids',
                  90000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,17 +1139,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.followSiteDeps',
                  'gov_fji_follow_site_deps',
                  90000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,17 +1164,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.resolveOrgPath',
                  'gov_fji_resolve_org_path',
                  60000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,17 +1189,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.listOrgs',
                  'gov_fji_list_orgs',
                  60000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,17 +1214,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.syncWetUpdates',
                  'gov_fji_sync_wet_updates',
                  180000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,17 +1239,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1',
-                 'did:web:fji-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1',
+                 'did:web:fji-state.etzhayyim.com',
                  'ai.gftd.govFji.heartbeatTick',
                  'gov_fji_heartbeat_tick',
                  180000,
                  '2026-05-07T14:41:00Z',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,10 +1266,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs',
                  'ai.gftd.govFji.seedOrgs',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Fiji government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1277,12 +1277,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govFji/seedOrgs.json',
                  '316c47d942ba18df',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,10 +1299,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs',
                  'ai.gftd.govFji.registerDIDs',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Fiji government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1310,12 +1310,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govFji/registerDIDs.json',
                  '4ee59890448f7e15',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,10 +1332,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps',
                  'ai.gftd.govFji.followSiteDeps',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Fiji government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1343,12 +1343,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govFji/followSiteDeps.json',
                  '2230324d24635290',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,10 +1365,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath',
                  'ai.gftd.govFji.resolveOrgPath',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'query',
                  'Resolve a Fiji government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1376,12 +1376,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govFji/resolveOrgPath.json',
                  '9dd1b1655262f59f',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,10 +1398,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs',
                  'ai.gftd.govFji.listOrgs',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'query',
                  'List Fiji government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1409,12 +1409,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govFji/listOrgs.json',
                  'dda6a715ec85de22',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,10 +1431,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates',
                  'ai.gftd.govFji.syncWetUpdates',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Fiji government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1442,12 +1442,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govFji/syncWetUpdates.json',
                  '881efbec73af154e',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,10 +1464,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-shinka',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-shinka',
                  'ai.gftd.govFji.shinka',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Post a periodic graph-visible Fiji government organization update.',
                  '{"properties":{"limit":{"default":1,"maximum":5,"minimum":1,"type":"integer"},"postUpdates":{"default":true,"type":"boolean"}},"required":[],"type":"object"}',
@@ -1475,12 +1475,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.shinka',
                  '00-contracts/lexicons/ai/gftd/govFji/shinka.json',
                  '7b8345a55a5024d3',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-shinka']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,10 +1497,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick',
                  'ai.gftd.govFji.heartbeatTick',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Run the Fiji government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1508,12 +1508,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govFji/heartbeatTick.json',
                  'ff37a601ff90a229',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1530,10 +1530,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs',
                  'ai.gftd.govFji.seedOrgs',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Fiji government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1541,12 +1541,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govFji/seedOrgs.json',
                  '316c47d942ba18df',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1563,10 +1563,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs',
                  'ai.gftd.govFji.registerDIDs',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Fiji government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1574,12 +1574,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govFji/registerDIDs.json',
                  '4ee59890448f7e15',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1596,10 +1596,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps',
                  'ai.gftd.govFji.followSiteDeps',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Fiji government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1607,12 +1607,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govFji/followSiteDeps.json',
                  '2230324d24635290',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1629,10 +1629,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath',
                  'ai.gftd.govFji.resolveOrgPath',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'query',
                  'Resolve a Fiji government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1640,12 +1640,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govFji/resolveOrgPath.json',
                  '9dd1b1655262f59f',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1662,10 +1662,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs',
                  'ai.gftd.govFji.listOrgs',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'query',
                  'List Fiji government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1673,12 +1673,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govFji/listOrgs.json',
                  'dda6a715ec85de22',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1695,10 +1695,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates',
                  'ai.gftd.govFji.syncWetUpdates',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Fiji government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1706,12 +1706,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govFji/syncWetUpdates.json',
                  '881efbec73af154e',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates']},
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1728,10 +1728,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick',
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick',
                  'ai.gftd.govFji.heartbeatTick',
-                 'did:web:fji-state.gftd.ai',
-                 'fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'fji-state.etzhayyim.com',
                  'procedure',
                  'Run the Fiji government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1739,103 +1739,103 @@ UP = [{'sql': '\n'
                  'ai.gftd.govFji.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govFji/heartbeatTick.json',
                  'ff37a601ff90a229',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
-                 'did:web:fji-state.gftd.ai',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
+                 'did:web:fji-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-fji',
                  '2026-05-07T14:41:00Z',
-                 'at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick']}]
+                 'at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-shinka']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:fji-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick']},
+  'parameters': ['at://did:web:fji-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govFji-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govFji-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-seed-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-seed-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-follow-site-deps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-follow-site-deps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-resolve-org-path-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-resolve-org-path-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-list-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-list-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-sync-wet-updates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-sync-wet-updates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeat-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-fji-heartbeat-tick-v1']}]
 
 
 def upgrade() -> None:

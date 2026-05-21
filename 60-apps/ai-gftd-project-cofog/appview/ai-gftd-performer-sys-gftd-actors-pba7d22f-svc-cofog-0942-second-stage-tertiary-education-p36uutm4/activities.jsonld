@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/09/4/2/second-stage-tertiary-education/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/09/4/2/second-stage-tertiary-education/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Advanced Research and Doctoral Management Lifecycle",
       "description": "The administrative process of auditing research facilities, coordinating doctoral programs, and monitoring research impact.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/09/4/2/second-stage-tertiary-education"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/4/2/second-stage-tertiary-education"
     }
   ]
 }

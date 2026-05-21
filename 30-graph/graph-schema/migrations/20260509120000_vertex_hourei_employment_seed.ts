@@ -11,7 +11,7 @@ import { sql } from "kysely";
  * Identifiers follow at://did:web:hourei.etzhayyim.com/... convention so
  * edge_cites (existing) can reference them as dst_vid.
  *
- * Cite linkage to vertex_gftdcojp_contract_clause lands in a follow-up
+ * Cite linkage to vertex_etzhayyim_contract_clause lands in a follow-up
  * migration (clause→hourei seed), which CEO/k-bakshi must sign-off
  * row-by-row (legal interpretation).
  */

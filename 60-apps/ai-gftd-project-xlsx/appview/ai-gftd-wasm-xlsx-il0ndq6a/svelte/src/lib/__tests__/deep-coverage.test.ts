@@ -1,5 +1,5 @@
 /**
- * Deep Coverage Tests — xlsx.gftd.ai
+ * Deep Coverage Tests — xlsx.etzhayyim.com
  *
  * Covers: editor-state logic (reimplemented without runes), kami-bridge helpers,
  * exporter edge cases, formula edge cases, parser edge cases, grid renderer

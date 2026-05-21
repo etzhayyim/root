@@ -1,6 +1,6 @@
 # ai-gftd-project-lawfirm
 
-Legal case management and BPO automation platform (`lawfirm.gftd.ai`).
+Legal case management and BPO automation platform (`lawfirm.etzhayyim.com`).
 
 ## Runtime
 
@@ -43,11 +43,11 @@ Legal case management and BPO automation platform (`lawfirm.gftd.ai`).
 
 - `handle_daily_evolution` が `PerformerConfig.Methods` に登録済み（必須）
 - `DefaultAppTeam("lawfirm1", "lawfirm", ...)` + `RegisterDailyEvolutionReminder` 設定済み
-- LLM: `murakumo.gftd.ai` / `qwen3-vl-8b`
+- LLM: `murakumo.etzhayyim.com` / `qwen3-vl-8b`
 
 ## India Intake (Hindi / 22 Scheduled Languages, 2026-04)
 
-Hindi / regional-language user が `https://lawfirm.gftd.ai` から申込可能。実装: `src/app.ts` §India routing helpers + 4 commands。
+Hindi / regional-language user が `https://lawfirm.etzhayyim.com` から申込可能。実装: `src/app.ts` §India routing helpers + 4 commands。
 
 | NSID | 役割 | 根拠 |
 |---|---|---|
@@ -58,7 +58,7 @@ Hindi / regional-language user が `https://lawfirm.gftd.ai` から申込可能�
 
 **India marker 判定**: `lang ∈ {hi, bn, ta, te, mr, gu, kn, ml, pa, or, as, ur, sa, ne, sd, ks, kok, mai, mni, sat, doi, brx}` OR `state.startsWith("IN-")` OR `jurisdiction ∈ {IND, IN}`。
 
-**Auto-route to peer firm**: India marker 一致時、`LAWYER_FIRM_DID_HINT` (e.g. lawyer.gftd.ai) 宛に `externalCounselGrant` を自動発行 (role=coCounsel, capabilities=read/comment/uploadDocument/propose/sign/scheduleHearing, expires=+90d)。`KUNAL_LEAD_HANDLE_HINT`(default `k.bakshi`) が `granteeHandle`、`KUNAL_LEAD_DID_HINT` が `leadBengoshiHint` として記録される。
+**Auto-route to peer firm**: India marker 一致時、`LAWYER_FIRM_DID_HINT` (e.g. lawyer.etzhayyim.com) 宛に `externalCounselGrant` を自動発行 (role=coCounsel, capabilities=read/comment/uploadDocument/propose/sign/scheduleHearing, expires=+90d)。`KUNAL_LEAD_HANDLE_HINT`(default `k.bakshi`) が `granteeHandle`、`KUNAL_LEAD_DID_HINT` が `leadBengoshiHint` として記録される。
 
 **PII handling (CRITICAL)**:
 - `requestConsult`: plaintext summary は drop。AT Repo には `summaryHash` + `lang` + `state` + `triageCohortDid` のみ
@@ -69,7 +69,7 @@ Hindi / regional-language user が `https://lawfirm.gftd.ai` から申込可能�
 `bootstrap` 後に以下の 3 var を wrangler secret / vars で埋める必要がある:
 
 ```bash
-# post-phase1 (lawyer.gftd.ai firm did:gftd root)
+# post-phase1 (lawyer.etzhayyim.com firm did:gftd root)
 wrangler secret put LAWYER_FIRM_DID_HINT   # did:gftd:{h_lawyer}
 wrangler secret put KUNAL_LEAD_DID_HINT    # did:gftd:{h_lawyer}:{h_bakshi}
 # handle はデフォルト k.bakshi (wrangler.jsonc vars)
@@ -85,19 +85,19 @@ wrangler secret put KUNAL_LEAD_DID_HINT    # did:gftd:{h_lawyer}:{h_bakshi}
 
 ```bash
 # Hindi intake
-curl -sX POST https://lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawfirm.requestConsult \
+curl -sX POST https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.requestConsult \
   -H "Authorization: Bearer ${BEARER}" -H "Content-Type: application/json" \
   -d '{"lang":"hi","state":"IN-MH","city":"mumbai","summary":"मेरा चेक बाउंस हो गया","domainHint":"ni138","channel":"web"}'
 # → { consultDid, uri, triageCohortDid, suggestedDomain: "ni138" }
 
 # India case (auto-routes to Kunal if LAWYER_FIRM_DID_HINT set)
-curl -sX POST https://lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawfirm.createCase \
+curl -sX POST https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.createCase \
   -H "Authorization: Bearer ${BEARER}" -H "Content-Type: application/json" \
   -d '{"domain":"ni138","state":"IN-MH","lang":"hi","city":"mumbai","subjectSummary":"Cheque ₹5L bounced","amountInDispute":500000,"currency":"INR","urgency":"routine"}'
 # → { did, uri, cohortDid, caseNumber, autoGrant: { grantDid, granteeDid, granteeHandle: "k.bakshi" } }
 
 # Hindi translation
-curl -sX POST https://lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawfirm.translateToLang \
+curl -sX POST https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.translateToLang \
   -H "Content-Type: application/json" \
   -d '{"text":"Section 138 NI Act complaint","targetLang":"hi","register":"court-of-record","domain":"ni138"}'
 ```
@@ -116,10 +116,10 @@ gftd deploy
 
 ```bash
 # client component
-gftd deploy --smoke-url https://lawfirm.gftd.ai/health
+gftd deploy --smoke-url https://lawfirm.etzhayyim.com/health
 
 # smoke test
-curl https://lawfirm.gftd.ai/health
-curl -X POST https://lawfirm.gftd.ai/gftd.lawfirm.v1.LawfirmQueryService/ListCases \
+curl https://lawfirm.etzhayyim.com/health
+curl -X POST https://lawfirm.etzhayyim.com/gftd.lawfirm.v1.LawfirmQueryService/ListCases \
   -H "Content-Type: application/json" -d '{}'
 ```

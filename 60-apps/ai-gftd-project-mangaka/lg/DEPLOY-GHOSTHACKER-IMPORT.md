@@ -30,21 +30,21 @@ docker buildx build \
   --builder gftd-vke \
   --platform linux/amd64 \
   --build-context py=../../../20-actors/magatama/py \
-  --cache-from type=registry,ref=ghcr.io/gftdcojp/build-cache:main \
-  --cache-to   type=registry,ref=ghcr.io/gftdcojp/build-cache:main,mode=max \
-  -t ghcr.io/gftdcojp/lg-mangaka:${TAG} \
+  --cache-from type=registry,ref=ghcr.io/etzhayyim/build-cache:main \
+  --cache-to   type=registry,ref=ghcr.io/etzhayyim/build-cache:main,mode=max \
+  -t ghcr.io/etzhayyim/lg-mangaka:${TAG} \
   --push .
 
 # Capture sha256
-IMAGE_SHA=$(docker buildx imagetools inspect ghcr.io/gftdcojp/lg-mangaka:${TAG} | awk '/Digest:/{print $2}')
-echo "fullRef: ghcr.io/gftdcojp/lg-mangaka:${TAG}@${IMAGE_SHA}"
+IMAGE_SHA=$(docker buildx imagetools inspect ghcr.io/etzhayyim/lg-mangaka:${TAG} | awk '/Digest:/{print $2}')
+echo "fullRef: ghcr.io/etzhayyim/lg-mangaka:${TAG}@${IMAGE_SHA}"
 ```
 
 Update `50-infra/vultr/lg-mangaka-pool/values.yaml`:
 ```yaml
 image:
   tag: "<TAG>"
-  fullRef: "ghcr.io/gftdcojp/lg-mangaka:<TAG>@sha256:<SHA>"
+  fullRef: "ghcr.io/etzhayyim/lg-mangaka:<TAG>@sha256:<SHA>"
 ```
 
 ## Phase C — Helm deploy to Vultr VKE (TODO, ~2-3 min)
@@ -74,37 +74,37 @@ kubectl -n mitama-udf run smoke --rm -i --image=curlimages/curl --restart=Never 
 
 ## Phase D — Cloudflared tunnel (TODO, ~5 min)
 
-`lg-mangaka.gftd.ai` needs to route to the in-cluster service. Two routes work:
+`lg-mangaka.etzhayyim.com` needs to route to the in-cluster service. Two routes work:
 
 ### Option 1 — Add to existing `bpmn-dispatcher-tunnel` (recommended)
 
 Add a hostname mapping to `50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml`:
 ```yaml
 ingress:
-  - hostname: dispatcher.gftd.ai
+  - hostname: dispatcher.etzhayyim.com
     service: http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080
-  - hostname: lg-mangaka.gftd.ai
+  - hostname: lg-mangaka.etzhayyim.com
     service: http://lg-mangaka.mitama-udf.svc.cluster.local:8000
   - service: http_status:404
 ```
 
 ```bash
 kubectl apply -f 50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml
-# In Cloudflare dashboard / Terraform: CNAME lg-mangaka.gftd.ai → <tunnel-uuid>.cfargotunnel.com (proxied)
+# In Cloudflare dashboard / Terraform: CNAME lg-mangaka.etzhayyim.com → <tunnel-uuid>.cfargotunnel.com (proxied)
 ```
 
-### Option 2 — Route via atproto.gftd.ai dispatcher
+### Option 2 — Route via atproto.etzhayyim.com dispatcher
 
-Update `50-infra/cloudflare/workers/atproto/src/yoro-reactive-dispatch.ts` to route `ai.gftd.mangaka.saveDocument` etc. to `http://lg-mangaka.mitama-udf.svc.cluster.local:8000` via the same CF Tunnel hop. Then `mangaka.gftd.ai` continues to proxy to `dispatcher.gftd.ai` (no tunnel update needed) and the dispatcher forwards based on NSID prefix.
+Update `50-infra/cloudflare/workers/atproto/src/yoro-reactive-dispatch.ts` to route `ai.gftd.mangaka.saveDocument` etc. to `http://lg-mangaka.mitama-udf.svc.cluster.local:8000` via the same CF Tunnel hop. Then `mangaka.etzhayyim.com` continues to proxy to `dispatcher.etzhayyim.com` (no tunnel update needed) and the dispatcher forwards based on NSID prefix.
 
 ## Phase E — Run the ghosthacker import (TODO, ~10-30 min depending on size)
 
-Once `https://lg-mangaka.gftd.ai/xrpc/ai.gftd.mangaka.saveDocument` returns 200 in a smoke test:
+Once `https://lg-mangaka.etzhayyim.com/xrpc/ai.gftd.mangaka.saveDocument` returns 200 in a smoke test:
 
 ```bash
-# Update import-jump-all.ts to target lg-mangaka instead of mangaka.gftd.ai
-# (one-line change: const MANGAKA_BASE = "https://lg-mangaka.gftd.ai/xrpc/";)
-# Or pass via env: LG_MANGAKA_BASE=https://lg-mangaka.gftd.ai/xrpc/ deno run ...
+# Update import-jump-all.ts to target lg-mangaka instead of mangaka.etzhayyim.com
+# (one-line change: const MANGAKA_BASE = "https://lg-mangaka.etzhayyim.com/xrpc/";)
+# Or pass via env: LG_MANGAKA_BASE=https://lg-mangaka.etzhayyim.com/xrpc/ deno run ...
 
 # Then:
 cd 60-apps/ai-gftd-project-mangaka
@@ -119,14 +119,14 @@ PGPASSWORD=... psql "$KAISYA_URL" -c \
   "SELECT rkey, name FROM vertex_mangaka WHERE kind='document' AND collection='ai.gftd.mangaka.document' ORDER BY rkey;"
 
 # Web UI deep-link (after frontend loadDocument wired to lg-mangaka path)
-open "https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.document/doc-gh-arc0-1-origin"
+open "https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/doc-gh-arc0-1-origin"
 ```
 
 ## Phase F — Frontend `loadDocument` wiring (TODO, ~30 min)
 
 The mangaka Svelte SPA calls `loadDocument({ docId })` somewhere. Update its base URL to either:
-- Call `https://mangaka.gftd.ai/xrpc/ai.gftd.mangaka.loadDocument` (proxied to lg-mangaka via dispatcher / tunnel)
-- Or call `https://lg-mangaka.gftd.ai/xrpc/ai.gftd.mangaka.loadDocument` directly
+- Call `https://mangaka.etzhayyim.com/xrpc/ai.gftd.mangaka.loadDocument` (proxied to lg-mangaka via dispatcher / tunnel)
+- Or call `https://lg-mangaka.etzhayyim.com/xrpc/ai.gftd.mangaka.loadDocument` directly
 
 Confirm the response shape matches what Genko canvas expects (`{ document: "<JSON string>" }`).
 

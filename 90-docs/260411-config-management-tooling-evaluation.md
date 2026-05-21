@@ -195,7 +195,7 @@ jobs:
 **選定理由**:
 - `pnpm-lock.yaml` が依存 SSoT なので GitHub Dependency Graph (C) がゼロ設定で最大カバレッジ。
 - cdxgen (A) は CycloneDX 1.6 で pnpm workspace を正しく解釈し、VEX・ライセンス情報まで生成できる。
-- コンテナイメージ埋め込み (D) は `ghcr.io/gftdcojp/*` 対象に独立追加可能。
+- コンテナイメージ埋め込み (D) は `ghcr.io/etzhayyim/*` 対象に独立追加可能。
 
 ---
 

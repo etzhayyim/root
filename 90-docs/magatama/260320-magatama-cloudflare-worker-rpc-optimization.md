@@ -22,7 +22,7 @@ superseded_by: []
 `magatama` を Cloudflare Worker backend で最適化する際、**Service Binding** と **Workers RPC** をどう使い分けるかを整理する。
 
 Worker backend を `magatama` の default runtime とし、Container を fallback とする評価は
-[90-docs/260320-magatama-cloudflare-containers-evaluation.md](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/90-docs/260320-magatama-cloudflare-containers-evaluation.md)
+[90-docs/260320-magatama-cloudflare-containers-evaluation.md](/Users/junkawasaki/etzhayyim/etzhayyim-root/90-docs/260320-magatama-cloudflare-containers-evaluation.md)
 を参照。
 
 ここでいう Workers RPC は、Cloudflare の `WorkerEntrypoint` / `RpcTarget` ベースの RPC であり、内部実装は Cap'n Proto RPC 系だが、利用者は JavaScript/TypeScript メソッド呼び出しとして扱う。

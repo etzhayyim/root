@@ -1,8 +1,8 @@
-// resource-flow XRPC client. Hits atproto.gftd.ai (PDS pipethrough →
+// resource-flow XRPC client. Hits atproto.etzhayyim.com (PDS pipethrough →
 // resource-flow Worker) by default, falls back to same-origin when the
-// page is served from resource-flow.gftd.ai itself.
+// page is served from resource-flow.etzhayyim.com itself.
 
-const DEFAULT_SERVICE = 'https://atproto.gftd.ai';
+const DEFAULT_SERVICE = 'https://atproto.etzhayyim.com';
 
 function service(): string {
   if (typeof window !== 'undefined') {
@@ -11,7 +11,7 @@ function service(): string {
     const isLocalhost =
       window.location.hostname === 'localhost' ||
       window.location.hostname === '127.0.0.1';
-    if (!isLocalhost && window.location.origin.endsWith('gftd.ai')) {
+    if (!isLocalhost && window.location.origin.endsWith('etzhayyim.com')) {
       return window.location.origin;
     }
   }

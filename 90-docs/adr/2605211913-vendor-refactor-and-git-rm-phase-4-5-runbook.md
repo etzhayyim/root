@@ -48,7 +48,7 @@ monorepo:
 5. **Vendor open-scope deletion** — `git rm` the etzhayyim-classified worker
    / ingest / primitive files from the gftd repo
 6. Archive markers — `[MOVED → github.com/etzhayyim/root]` description prefix
-   on archived gftdcojp repos
+   on archived etzhayyim repos
 
 Phases 1-3 are complete. ADR-2605211757 covers gate (b) DNS cutover (which is
 operationally distinct from Phase 4-5 but must precede the final `git rm` so
@@ -108,7 +108,7 @@ preference:
 **Default for Phase 4**: Option A (git submodule). Operator commands:
 
 ```bash
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp
+cd /Users/junkawasaki/github/etzhayyim-root
 git submodule add https://github.com/etzhayyim/root etzhayyim
 # Or if the submodule already exists at .gitmodules level, just:
 git submodule update --init etzhayyim
@@ -134,7 +134,7 @@ The only **mandatory** Phase 4 import switches are the 4 gate-(d) target files
 Audit for additional importers (run before Step 2):
 
 ```bash
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp
+cd /Users/junkawasaki/github/etzhayyim-root
 grep -rln "from pymagatama" --include="*.py" \
   | grep -v _archive \
   | grep -v "20-actors/magatama/py/src/pymagatama/" \
@@ -155,7 +155,7 @@ them (relocate or local-copy per the same playbook).
 ### Step 2.A — Delete relocated lg subtrees
 
 ```bash
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp
+cd /Users/junkawasaki/github/etzhayyim-root
 git rm -r 60-apps/ai-gftd-project-ki/lg
 git rm -r 60-apps/ai-gftd-project-legal-entity/lg
 git rm -r 60-apps/ai-gftd-project-curpus2skill/lg
@@ -178,7 +178,7 @@ holds JP corporate-registry PII → vendor; otherwise etzhayyim).
 ### Step 2.B — Delete the 29 worker_main files
 
 ```bash
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp/20-actors/magatama/py/src/pymagatama
+cd /Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/py/src/pymagatama
 # 8 organism BeliefStore
 git rm hakkou_worker_main.py kabi_worker_main.py ki_worker_main.py \
        kinoko_worker_main.py kobo_worker_main.py koke_worker_main.py \
@@ -209,7 +209,7 @@ Authorized-By: <operator>
 ### Step 2.C — Delete the 4 ingest modules
 
 ```bash
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp/20-actors/magatama/py/src/pymagatama
+cd /Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/py/src/pymagatama
 git rm ingest/blockchain.py ingest/houbun.py ingest/curpus2skill.py \
        ingest/site_common_crawl.py ingest/core.py
 git commit -m "phase5(tranche-f): remove 4 etzhayyim ingest modules + ingest.core
@@ -227,7 +227,7 @@ Authorized-By: <operator>
 ### Step 2.D — Delete the 4 substrate primitives
 
 ```bash
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp/20-actors/magatama/py/src/pymagatama/primitives
+cd /Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/py/src/pymagatama/primitives
 git rm active_inference_substrate.py at_ipfs_belief_store.py \
        rw_belief_store.py legal_entity.py
 # worker_runtime.py was at pymagatama/ root, not primitives/, but is also etzhayyim:
@@ -248,7 +248,7 @@ Authorized-By: <operator>
 ### Step 2.E — Post-deletion verification
 
 ```bash
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp
+cd /Users/junkawasaki/github/etzhayyim-root
 # 1. No vendor file should still import any deleted symbol:
 deleted_symbols=("hakkou_worker_main" "kabi_worker_main" "ki_worker_main"
                  "kinoko_worker_main" "kobo_worker_main" "koke_worker_main"
@@ -293,7 +293,7 @@ gh pr create --base main --title "phase5(tranche-f): finalize vendor open-scope 
 Update the closure cross-reference:
 
 ```toml
-# ai-gftd-apps-gftdcojp/deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17
+# etzhayyim-root/deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17
 all_gates_closed_at = "2026-05-21T17:57:00Z"          # design + runbook
 gate_a_execution_completed_at = "2026-MM-DDTHH:MMZ"   # operator fills when Phase 3 (a) re-impl lands
 phase_5_deletion_completed_at = "2026-MM-DDTHH:MMZ"   # operator fills when Step 2.A-2.D commits land
@@ -386,4 +386,4 @@ Rollback differs by step:
 - ADR-2605172000 (RW-free substrate — primitive boundary)
 - `90-docs/2605211800-vendor-importer-survey-gate-d.md` — gate (d) target list
 - `90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md` — gate status snapshot
-- `ai-gftd-apps-gftdcojp/deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17` — cross-repo log
+- `etzhayyim-root/deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17` — cross-repo log

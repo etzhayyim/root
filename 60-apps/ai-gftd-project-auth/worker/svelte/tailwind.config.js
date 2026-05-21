@@ -1,10 +1,10 @@
 import plugin from 'tailwindcss/plugin';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { gftdUIKit } from '@gftdcojp/design-system/plugin';
+import { gftdUIKit } from '@etzhayyim/design-system/plugin';
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url));
-const designSystemDist = path.resolve(rootDir, 'node_modules/@gftdcojp/design-system/dist/**/*.{svelte,js}');
+const designSystemDist = path.resolve(rootDir, 'node_modules/@etzhayyim/design-system/dist/**/*.{svelte,js}');
 
 export default {
 	content: [

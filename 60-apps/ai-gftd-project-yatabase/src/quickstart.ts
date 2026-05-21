@@ -98,7 +98,7 @@ export function quickstartResponse(): Response {
      to <code>/cypher</code> on this same hostname — no CORS dance), or copy the curl line to a terminal.</p>
 
   <h3>2a. <code>CREATE</code></h3>
-  <pre id="curl1"><button class="copy-pre" onclick="copyPre('curl1')">copy</button><span class="cmd">curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
+  <pre id="curl1"><button class="copy-pre" onclick="copyPre('curl1')">copy</button><span class="cmd">curl -X POST <span class="s">https://yatabase.etzhayyim.com/cypher</span> \\
   -H <span class="s">"authorization: Bearer YOUR_KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">query</span>":"CREATE (n:Demo {name:\\"hello world\\", ts:'$(date +%s)'}) RETURN n"}'</span></pre>
@@ -106,7 +106,7 @@ export function quickstartResponse(): Response {
   <div id="resp1" class="resp" style="display:none"></div>
 
   <h3 style="margin-top:18px">2b. <code>MATCH</code> (read it back)</h3>
-  <pre id="curl2"><button class="copy-pre" onclick="copyPre('curl2')">copy</button><span class="cmd">curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
+  <pre id="curl2"><button class="copy-pre" onclick="copyPre('curl2')">copy</button><span class="cmd">curl -X POST <span class="s">https://yatabase.etzhayyim.com/cypher</span> \\
   -H <span class="s">"authorization: Bearer YOUR_KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">query</span>":"MATCH (n:Demo) RETURN n.name LIMIT 10"}'</span></pre>
@@ -114,7 +114,7 @@ export function quickstartResponse(): Response {
   <div id="resp2" class="resp" style="display:none"></div>
 
   <h3 style="margin-top:18px">2c. <code>MCP tools/list</code> (no auth on this method)</h3>
-  <pre id="curl3"><button class="copy-pre" onclick="copyPre('curl3')">copy</button><span class="cmd">curl -X POST <span class="s">https://yatabase.gftd.ai/mcp</span> \\
+  <pre id="curl3"><button class="copy-pre" onclick="copyPre('curl3')">copy</button><span class="cmd">curl -X POST <span class="s">https://yatabase.etzhayyim.com/mcp</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">jsonrpc</span>":"2.0","<span class="k">method</span>":"tools/list","<span class="k">id</span>":1}'</span></pre>
   <button class="btn btn-primary" onclick="runMcpList('resp3')">Run from browser</button>
@@ -307,7 +307,7 @@ if (existing && existing.startsWith('sk_live_yata_')) {
 </script>
 
 <footer>
-  <p>© 2026 etz hayim · <a href="/">yatabase.gftd.ai</a> · <a href="/docs">/docs</a> · <a href="/privacy">/privacy</a> · <a href="/terms">/terms</a></p>
+  <p>© 2026 etz hayim · <a href="/">yatabase.etzhayyim.com</a> · <a href="/docs">/docs</a> · <a href="/privacy">/privacy</a> · <a href="/terms">/terms</a></p>
 </footer>
 
 </body></html>`;

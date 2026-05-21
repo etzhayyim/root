@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#MasterDataSteps
+// @etzhayyim/cyber-freelance#MasterDataSteps
 // Master Data関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

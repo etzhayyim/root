@@ -1,4 +1,4 @@
-// driver.gftd.ai — static-asset Worker. All paths fall through to the
+// driver.etzhayyim.com — static-asset Worker. All paths fall through to the
 // `ASSETS` binding (configured in wrangler.jsonc with
 // `not_found_handling: "single-page-application"`).
 //
@@ -23,7 +23,7 @@ export default {
     if (url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:driver.gftd.ai",
+        actor: "did:web:driver.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "c4r51m00",
         execution: "static-asset",
         wasmCrate: "40-engine/kami-engine/kami-app-car-sim",

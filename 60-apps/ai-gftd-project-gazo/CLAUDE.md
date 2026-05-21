@@ -1,6 +1,6 @@
 # ai-gftd-project-gazo — Browser SD Image Generation
 
-**URL**: `https://gazo.gftd.ai`
+**URL**: `https://gazo.etzhayyim.com`
 
 ## Architecture
 
@@ -21,7 +21,7 @@ User clicks Generate
 
 ### B2 CDN Model Files
 
-ONNX files hosted on `cdn.gftd.ai/models/sd15/`. Files >300MB are split into 200MB parts (wrangler B2 PUT limit).
+ONNX files hosted on `cdn.etzhayyim.com/models/sd15/`. Files >300MB are split into 200MB parts (wrangler B2 PUT limit).
 
 | Component | B2 Path | Size | Format |
 |---|---|---|---|

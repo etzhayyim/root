@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:handotai.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:handotai.etzhayyim.com",
   "component": {
     "env": {
       "CRAWL_INTERVAL_MIN": "15",
-      "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions"
+      "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions"
     },
     "path": "/wasm/component.wasm"
   },
@@ -14,7 +14,7 @@
   ],
   "entities": [
     {
-      "did": "did:web:handotai.gftd.ai:writer:pcw",
+      "did": "did:web:handotai.etzhayyim.com:writer:pcw",
       "id": "writer-pcw",
       "name": "PC Watch",
       "role": "news-writer",
@@ -25,7 +25,7 @@
       }
     },
     {
-      "did": "did:web:handotai.gftd.ai:writer:itm",
+      "did": "did:web:handotai.etzhayyim.com:writer:itm",
       "id": "writer-itm",
       "name": "ITmedia NEWS",
       "role": "news-writer",
@@ -36,7 +36,7 @@
       }
     },
     {
-      "did": "did:web:handotai.gftd.ai:writer:pubk",
+      "did": "did:web:handotai.etzhayyim.com:writer:pubk",
       "id": "writer-pubk",
       "name": "Publickey",
       "role": "news-writer",
@@ -47,7 +47,7 @@
       }
     },
     {
-      "did": "did:web:handotai.gftd.ai:writer:semia",
+      "did": "did:web:handotai.etzhayyim.com:writer:semia",
       "id": "writer-semia",
       "name": "SemiAnalysis",
       "role": "news-writer",
@@ -58,7 +58,7 @@
       }
     },
     {
-      "did": "did:web:handotai.gftd.ai:writer:semie",
+      "did": "did:web:handotai.etzhayyim.com:writer:semie",
       "id": "writer-semie",
       "name": "Semiconductor Engineering",
       "role": "news-writer",
@@ -69,7 +69,7 @@
       }
     },
     {
-      "did": "did:web:handotai.gftd.ai:writer:eet",
+      "did": "did:web:handotai.etzhayyim.com:writer:eet",
       "id": "writer-eet",
       "name": "EE Times",
       "role": "news-writer",

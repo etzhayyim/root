@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#SignUpCompleteConnect
+ * @etzhayyim/ai-gftd-hrse#SignUpCompleteConnect
  * サインアップ完了後の処理ページ（Connect-Web版）
  */
 

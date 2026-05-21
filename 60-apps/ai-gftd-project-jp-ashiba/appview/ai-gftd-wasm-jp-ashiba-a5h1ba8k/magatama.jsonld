@@ -1,12 +1,12 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:jp-ashiba.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:jp-ashiba.etzhayyim.com",
   "name": "jp-ashiba",
   "nanoid": "a5h1ba8k",
   "performerType": "service",
   "runtimeType": "worker",
   "uiType": "appview",
-  "embedUrl": "https://a5h1ba8k.gftd.ai/embed",
+  "embedUrl": "https://a5h1ba8k.etzhayyim.com/embed",
   "profile": {
     "displayName": "足場レンタル・サブスク (jp-ashiba)",
     "description": "建設現場向け仮設足場のレンタル・サブスクリプション管理 AI Agent。くさび緊結式・枠組・単管・吊り・移動式足場の在庫管理、現場配送、組立/解体工程、安全点検を自律運営。",
@@ -97,7 +97,7 @@
   "governance": {
     "raci": {
       "responsible": "actor:estimator",
-      "accountable": "did:web:jp-ashiba.gftd.ai",
+      "accountable": "did:web:jp-ashiba.etzhayyim.com",
       "consulted": ["actor:inspector", "actor:inventory"],
       "informed": ["actor:support"]
     },

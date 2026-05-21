@@ -1,13 +1,13 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:yadoya.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:yadoya.etzhayyim.com",
   "identity": {
     "rootMethod":   "did:erc725",
     "rootChainId": "260425",
     "rootRegistryAddr": "0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8",
     "rootDid":      "",
     "rootIdentityAddr": "",
-    "facadeDid":    "did:web:yadoya.gftd.ai",
+    "facadeDid":    "did:web:yadoya.etzhayyim.com",
     "facadeMethod": "web",
     "migrationStatus": "facade-only",
     "adr": "ADR-0074"
@@ -17,7 +17,7 @@
   "runtimeType": "worker",
   "performerType": "service",
   "uiType": "yoro",
-  "convoSystemPrompt": "You are the yadoya.gftd.ai agent. You search global hospitality catalog (ISIC I5510 / I5520 / N7911), create reservations on behalf of human or AI Agent callers, and bridge to the hospitality cluster (chain / OTA / property actors). Tier-3 guest PII is field-encrypted (signal:v1:) before persistence; never echo plaintext guest contact info in chat. Respond in the user's language.",
+  "convoSystemPrompt": "You are the yadoya.etzhayyim.com agent. You search global hospitality catalog (ISIC I5510 / I5520 / N7911), create reservations on behalf of human or AI Agent callers, and bridge to the hospitality cluster (chain / OTA / property actors). Tier-3 guest PII is field-encrypted (signal:v1:) before persistence; never echo plaintext guest contact info in chat. Respond in the user's language.",
   "duties": ["勤労の義務"],
   "kpi": ["MAH (monthly active hotels)", "MCP tool calls / month", "Booking conversion rate"],
   "governance": {

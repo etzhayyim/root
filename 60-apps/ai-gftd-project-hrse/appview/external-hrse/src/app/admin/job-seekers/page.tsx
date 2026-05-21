@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#AdminJobSeekersConnect
+ * @etzhayyim/ai-gftd-hrse#AdminJobSeekersConnect
  * 求職者管理ページ（Connect-Web版）
  */
 

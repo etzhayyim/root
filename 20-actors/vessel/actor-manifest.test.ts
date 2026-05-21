@@ -25,12 +25,12 @@ describe("Vessel Actor Manifest", () => {
   // --- Required fields (mitama.go validateActorManifest) ---
 
   it("has valid @context", () => {
-    expect(manifest["@context"]).toBe("https://gftd.ai/ns/actor/v1");
+    expect(manifest["@context"]).toBe("https://etzhayyim.com/ns/actor/v1");
   });
 
   it("has valid DID @id", () => {
     expect(manifest["@id"]).toMatch(/^did:/);
-    expect(manifest["@id"]).toBe("did:web:vessel.gftd.ai");
+    expect(manifest["@id"]).toBe("did:web:vessel.etzhayyim.com");
   });
 
   it("has name", () => {
@@ -159,14 +159,14 @@ describe("Vessel Actor Manifest", () => {
       expect(posPipeline).toBeDefined();
     });
 
-    it("portCall pipeline invokes port.gftd.ai via agent.invoke", () => {
+    it("portCall pipeline invokes port.etzhayyim.com via agent.invoke", () => {
       const callPipeline = subPipelines.find((p: any) =>
         p.trigger.collections.includes("ai.gftd.apps.vessel.portCall")
       );
       expect(callPipeline).toBeDefined();
       const invokeStep = callPipeline.steps.find((s: any) => s.fn === "agent.invoke");
       expect(invokeStep).toBeDefined();
-      expect(invokeStep.args.did).toBe("did:web:port.gftd.ai");
+      expect(invokeStep.args.did).toBe("did:web:port.etzhayyim.com");
     });
   });
 

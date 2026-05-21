@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-register-firearm-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-register-firearm-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_register_firearm',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_arms_register_firearm" '
-                 'targetNamespace="https://gftd.ai/bpmn/arms" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/arms" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="arms_register_firearm" name="arms '
                  'registerFirearm" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.arms.registerFirearm", "version": 1, "resultTimeoutMs": 60000 '
@@ -49,11 +49,11 @@ UP = [{'sql': '\n'
                  1093,
                  '00-contracts/bpmn/ai/gftd/arms/registerFirearm.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-register-firearm-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-register-firearm-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -68,18 +68,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-register-firearm-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-register-firearm-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.registerFirearm',
                  'arms_register_firearm',
                  60000,
                  'vertex_arms_firearm,vertex_arms_firearm_pii,edge_arms_firearm_to_holder',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-register-firearm-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-register-firearm-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -95,14 +95,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-authenticate-holder-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-authenticate-holder-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_authenticate_holder',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_arms_authenticate_holder" '
-                 'targetNamespace="https://gftd.ai/bpmn/arms" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/arms" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="arms_authenticate_holder" name="arms '
                  'authenticateHolder" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.arms.authenticateHolder", "version": 1, "resultTimeoutMs": 60000 '
@@ -117,11 +117,11 @@ UP = [{'sql': '\n'
                  1111,
                  '00-contracts/bpmn/ai/gftd/arms/authenticateHolder.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-authenticate-holder-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-authenticate-holder-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -136,18 +136,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-authenticate-holder-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-authenticate-holder-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.authenticateHolder',
                  'arms_authenticate_holder',
                  60000,
                  'vertex_arms_auth_session',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-authenticate-holder-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-authenticate-holder-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -163,14 +163,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-verify-auth-challenge-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-verify-auth-challenge-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_verify_auth_challenge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_arms_verify_auth_challenge" '
-                 'targetNamespace="https://gftd.ai/bpmn/arms" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/arms" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="arms_verify_auth_challenge" name="arms '
                  'verifyAuthChallenge" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.arms.verifyAuthChallenge", "version": 1, "resultTimeoutMs": 60000 '
@@ -185,11 +185,11 @@ UP = [{'sql': '\n'
                  1119,
                  '00-contracts/bpmn/ai/gftd/arms/verifyAuthChallenge.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-verify-auth-challenge-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-verify-auth-challenge-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -204,18 +204,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-verify-auth-challenge-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-verify-auth-challenge-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.verifyAuthChallenge',
                  'arms_verify_auth_challenge',
                  60000,
                  'vertex_arms_auth_session',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-verify-auth-challenge-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-verify-auth-challenge-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -231,13 +231,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-issue-permit-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-issue-permit-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_issue_permit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arms_issue_permit" targetNamespace="https://gftd.ai/bpmn/arms" '
+                 'id="Definitions_arms_issue_permit" targetNamespace="https://etzhayyim.com/bpmn/arms" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process '
                  'id="arms_issue_permit" name="arms issuePermit" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
@@ -252,11 +252,11 @@ UP = [{'sql': '\n'
                  1069,
                  '00-contracts/bpmn/ai/gftd/arms/issuePermit.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-issue-permit-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-issue-permit-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -271,18 +271,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-issue-permit-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-issue-permit-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.issuePermit',
                  'arms_issue_permit',
                  60000,
                  'vertex_arms_permit,vertex_arms_permit_pii',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-issue-permit-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-issue-permit-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -298,14 +298,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-transfer-custody-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-transfer-custody-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_transfer_custody',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_arms_transfer_custody" '
-                 'targetNamespace="https://gftd.ai/bpmn/arms" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/arms" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="arms_transfer_custody" name="arms '
                  'transferCustody" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.arms.transferCustody", "version": 1, "resultTimeoutMs": 60000 '
@@ -320,11 +320,11 @@ UP = [{'sql': '\n'
                  1093,
                  '00-contracts/bpmn/ai/gftd/arms/transferCustody.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-transfer-custody-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-transfer-custody-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -339,18 +339,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-transfer-custody-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-transfer-custody-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.transferCustody',
                  'arms_transfer_custody',
                  60000,
                  'vertex_arms_custody_event,edge_arms_firearm_to_holder,edge_arms_firearm_to_permit',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-transfer-custody-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-transfer-custody-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -366,14 +366,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-check-out-firearm-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-check-out-firearm-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_check_out_firearm',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_arms_check_out_firearm" '
-                 'targetNamespace="https://gftd.ai/bpmn/arms" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/arms" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="arms_check_out_firearm" name="arms '
                  'checkOutFirearm" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.arms.checkOutFirearm", "version": 1, "resultTimeoutMs": 60000 '
@@ -388,11 +388,11 @@ UP = [{'sql': '\n'
                  1095,
                  '00-contracts/bpmn/ai/gftd/arms/checkOutFirearm.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-check-out-firearm-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-check-out-firearm-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -407,18 +407,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-check-out-firearm-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-check-out-firearm-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.checkOutFirearm',
                  'arms_check_out_firearm',
                  60000,
                  'vertex_arms_custody_event,vertex_arms_firearm',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-check-out-firearm-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-check-out-firearm-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -434,14 +434,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-check-in-firearm-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-check-in-firearm-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_check_in_firearm',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_arms_check_in_firearm" '
-                 'targetNamespace="https://gftd.ai/bpmn/arms" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/arms" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="arms_check_in_firearm" name="arms '
                  'checkInFirearm" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.arms.checkInFirearm", "version": 1, "resultTimeoutMs": 60000 '
@@ -456,11 +456,11 @@ UP = [{'sql': '\n'
                  1089,
                  '00-contracts/bpmn/ai/gftd/arms/checkInFirearm.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-check-in-firearm-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-check-in-firearm-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -475,18 +475,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-check-in-firearm-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-check-in-firearm-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.checkInFirearm',
                  'arms_check_in_firearm',
                  60000,
                  'vertex_arms_custody_event,vertex_arms_firearm',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-check-in-firearm-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-check-in-firearm-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -502,14 +502,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-report-incident-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-report-incident-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_report_incident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_arms_report_incident" '
-                 'targetNamespace="https://gftd.ai/bpmn/arms" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/arms" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="arms_report_incident" name="arms '
                  'reportIncident" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.arms.reportIncident", "version": 1, "resultTimeoutMs": 60000 '
@@ -524,11 +524,11 @@ UP = [{'sql': '\n'
                  1087,
                  '00-contracts/bpmn/ai/gftd/arms/reportIncident.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-report-incident-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-report-incident-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -543,18 +543,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-report-incident-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-report-incident-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.reportIncident',
                  'arms_report_incident',
                  60000,
                  'vertex_arms_custody_event,vertex_open_defence_event,vertex_arms_firearm',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-report-incident-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-report-incident-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -570,13 +570,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-get-firearm-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-get-firearm-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_get_firearm',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arms_get_firearm" targetNamespace="https://gftd.ai/bpmn/arms" '
+                 'id="Definitions_arms_get_firearm" targetNamespace="https://etzhayyim.com/bpmn/arms" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process '
                  'id="arms_get_firearm" name="arms getFirearm" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
@@ -591,11 +591,11 @@ UP = [{'sql': '\n'
                  1063,
                  '00-contracts/bpmn/ai/gftd/arms/getFirearm.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-get-firearm-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-get-firearm-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -610,18 +610,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-get-firearm-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-get-firearm-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.getFirearm',
                  'arms_get_firearm',
                  30000,
                  '',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-get-firearm-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-get-firearm-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -637,13 +637,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-list-firearms-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-list-firearms-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_list_firearms',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arms_list_firearms" targetNamespace="https://gftd.ai/bpmn/arms" '
+                 'id="Definitions_arms_list_firearms" targetNamespace="https://etzhayyim.com/bpmn/arms" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process '
                  'id="arms_list_firearms" name="arms listFirearms" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
@@ -658,11 +658,11 @@ UP = [{'sql': '\n'
                  1075,
                  '00-contracts/bpmn/ai/gftd/arms/listFirearms.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-list-firearms-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-list-firearms-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -677,18 +677,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-list-firearms-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-list-firearms-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.listFirearms',
                  'arms_list_firearms',
                  30000,
                  '',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-list-firearms-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-list-firearms-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -704,13 +704,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-list-permits-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-list-permits-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_list_permits',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arms_list_permits" targetNamespace="https://gftd.ai/bpmn/arms" '
+                 'id="Definitions_arms_list_permits" targetNamespace="https://etzhayyim.com/bpmn/arms" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process '
                  'id="arms_list_permits" name="arms listPermits" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
@@ -725,11 +725,11 @@ UP = [{'sql': '\n'
                  1069,
                  '00-contracts/bpmn/ai/gftd/arms/listPermits.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-list-permits-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-list-permits-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -744,18 +744,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-list-permits-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-list-permits-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.listPermits',
                  'arms_list_permits',
                  30000,
                  '',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-list-permits-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-list-permits-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -771,13 +771,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-get-audit-log-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-get-audit-log-v1',
+                 'did:web:arms.etzhayyim.com',
                  'arms_get_audit_log',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arms_get_audit_log" targetNamespace="https://gftd.ai/bpmn/arms" '
+                 'id="Definitions_arms_get_audit_log" targetNamespace="https://etzhayyim.com/bpmn/arms" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process '
                  'id="arms_get_audit_log" name="arms getAuditLog" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
@@ -792,11 +792,11 @@ UP = [{'sql': '\n'
                  1071,
                  '00-contracts/bpmn/ai/gftd/arms/getAuditLog.bpmn',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-get-audit-log-v1']},
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-get-audit-log-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -811,67 +811,67 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-get-audit-log-v1',
-                 'did:web:arms.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-get-audit-log-v1',
+                 'did:web:arms.etzhayyim.com',
                  'ai.gftd.apps.arms.getAuditLog',
                  'arms_get_audit_log',
                  30000,
                  '',
                  '2026-04-29T20:40:00+09:00',
-                 'did:web:arms.gftd.ai',
-                 'did:web:arms.gftd.ai',
+                 'did:web:arms.etzhayyim.com',
+                 'did:web:arms.etzhayyim.com',
                  'sys.bpmn.seed.arms',
-                 'did:web:arms.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-get-audit-log-v1']}]
+                 'did:web:arms.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-get-audit-log-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-register-firearm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-register-firearm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-register-firearm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-register-firearm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-authenticate-holder-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-authenticate-holder-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-authenticate-holder-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-authenticate-holder-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-verify-auth-challenge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-verify-auth-challenge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-verify-auth-challenge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-verify-auth-challenge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-issue-permit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-issue-permit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-issue-permit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-issue-permit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-transfer-custody-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-transfer-custody-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-transfer-custody-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-transfer-custody-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-check-out-firearm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-check-out-firearm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-check-out-firearm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-check-out-firearm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-check-in-firearm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-check-in-firearm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-check-in-firearm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-check-in-firearm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-report-incident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-report-incident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-report-incident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-report-incident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-get-firearm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-get-firearm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-get-firearm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-get-firearm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-list-firearms-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-list-firearms-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-list-firearms-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-list-firearms-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-list-permits-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-list-permits-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-list-permits-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-list-permits-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arms-get-audit-log-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-get-audit-log-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arms-get-audit-log-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-get-audit-log-v1']}]
 
 
 def upgrade() -> None:

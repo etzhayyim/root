@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/5/5/pipeline-and-other-transport/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/5/5/pipeline-and-other-transport/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Pipeline and Multi-Modal Transport Management Lifecycle",
       "description": "The operational process of inspecting pipeline integrity, coordinating multi-modal transport, and monitoring safety.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/5/5/pipeline-and-other-transport"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/5/5/pipeline-and-other-transport"
     }
   ]
 }

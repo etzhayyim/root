@@ -58,7 +58,7 @@ def _make_organism_proxy(nsid: str) -> McpHandler:
 
 ```
 MCP client
-  → POST https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message
+  → POST https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message
   → CF Tunnel → bpmn-dispatcher Service (mitama-udf)
   → mcp_dispatch._proxy(nsid=ai.gftd.apps.saikin.probeEnvironment)
   → POST http://lg-organism.mitama-udf.svc.cluster.local:8000/xrpc/ai.gftd.apps.saikin.probeEnvironment
@@ -66,18 +66,18 @@ MCP client
   → response.output unwrapped → MCP result
 ```
 
-`atproto.gftd.ai` remains the AT Protocol PDS / DID / OAuth surface only. Public
-MCP traffic must use `mcp.gftd.ai`; edge workers and SvelteKit BFF shims set
-`AGENTGATEWAY_MCP_ROUTER_URL=https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message`.
+`atproto.etzhayyim.com` remains the AT Protocol PDS / DID / OAuth surface only. Public
+MCP traffic must use `mcp.etzhayyim.com`; edge workers and SvelteKit BFF shims set
+`AGENTGATEWAY_MCP_ROUTER_URL=https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`.
 The public hostname terminates at Cloudflare and is tunneled to the
 `bpmn-dispatcher` k8s Service, which then routes MCP tool calls to
 `mcp_dispatch.py` and pod-side LangServer/LangGraph runtimes (`lg-organism` for
-saikin/ki/koke in Phase H). Do not route MCP calls through `atproto.gftd.ai`
+saikin/ki/koke in Phase H). Do not route MCP calls through `atproto.etzhayyim.com`
 except for legacy compatibility checks.
 
 ### Image
 
-`ghcr.io/gftdcojp/pymagatama:phase-h2-20260513192230-amd64@sha256:592ca26c2bfee942e1ccdeccfdeb7c383a4b870f44c585db199443c2c09ef2bb`
+`ghcr.io/etzhayyim/pymagatama:phase-h2-20260513192230-amd64@sha256:592ca26c2bfee942e1ccdeccfdeb7c383a4b870f44c585db199443c2c09ef2bb`
 
 ## Crash Postmortem (deployment blocker)
 
@@ -126,6 +126,6 @@ POST /xrpc/ai.gftd.mcp.message
 - Organism actors now execute in the lg-organism pod (LangGraph runtime) rather than in-process within bpmn-dispatcher
 - MCP handler count: 133 total (14 proxies + 119 in-process)
 - lg-organism pod is now a required dependency for organism MCP calls
-- `mcp.gftd.ai` is the public MCP/XRPC router hostname; `atproto.gftd.ai` is not
+- `mcp.etzhayyim.com` is the public MCP/XRPC router hostname; `atproto.etzhayyim.com` is not
   the MCP router.
 - Phase G cleanup + Phase H proxy together complete the organism actor decoupling from bpmn-dispatcher in-process execution

@@ -310,7 +310,7 @@ IoT Sensors (温度/湿度/カビ胞子)
   │   ├─ ExecutionContract: 査察記録・是正命令・罰金
   │   └─ JudiciaryContract: 不服審査・判決
   │
-  └─ Society6 Portal (society6.gftd.ai)
+  └─ Society6 Portal (society6.etzhayyim.com)
       ├─ 衛生格付 公開ダッシュボード
       ├─ ファンド申請フォーム
       └─ 透明性レポート閲覧

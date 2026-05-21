@@ -7,7 +7,7 @@ import { sql } from "kysely";
  * Pre-built outreach .eml files in outbox/08[a-g]-*-warm-intro.eml.
  * On apply: lawfirm_sales_cadence_tick BPMN (R/PT24H) walks
  * vertex_lawfirm_lead.next_action_at and triggers cadence-tick auto-send
- * via gftdcojp.microsoft.sendDraft → k-bakshi Outlook.
+ * via etzhayyim.microsoft.sendDraft → k-bakshi Outlook.
  *
  * Funnel design rationale: tier2-lead-funnel-india.md
  *   P(0 wins) drops 30% → 5% versus top-3-only.

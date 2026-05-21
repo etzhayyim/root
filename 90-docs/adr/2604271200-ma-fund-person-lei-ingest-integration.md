@@ -49,8 +49,8 @@ The integration boundary is:
 - PDS app records keep source and app-level records.
 - RisingWave graph tables provide queryable deal, fund, person, and legal
   entity state.
-- `mailer.gftd.ai` is the only standard email path. Outbound mail uses Resend;
-  inbound mail uses Cloudflare Email Routing for `*@gftd.ai`.
+- `mailer.etzhayyim.com` is the only standard email path. Outbound mail uses Resend;
+  inbound mail uses Cloudflare Email Routing for `*@etzhayyim.com`.
 
 As of 2026-04-27, the `business_person_collect_public_roles` path is no longer
 just a BPMN wrapper. The local manifest now records the source request builder,

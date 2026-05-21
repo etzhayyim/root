@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * BDD-style quality acceptance tests for malak.gftd.ai
+ * BDD-style quality acceptance tests for malak.etzhayyim.com
  *
  * Feature: Cybercrime Intelligence Platform
  *   As a law enforcement analyst
@@ -9,7 +9,7 @@ import { test, expect } from '@playwright/test';
  *   So that cybercriminals can be identified and apprehended
  */
 
-const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.gftd.ai';
+const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.etzhayyim.com';
 const SVC = `${BASE}/xrpc/gftd.malak.v1.MalakService`;
 const HDR = { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-bdd' };
 
@@ -195,13 +195,13 @@ test.describe('Feature: OSINT & Sanctions', () => {
 // --- Scenario: Cross-app integration quality ---
 
 test.describe('Feature: Cross-App Integration', () => {
-	test('crypto-asset-freeze.gftd.ai is reachable', async ({ request }) => {
-		const r = await request.get('https://crypto-asset-freeze.gftd.ai/health');
+	test('crypto-asset-freeze.etzhayyim.com is reachable', async ({ request }) => {
+		const r = await request.get('https://crypto-asset-freeze.etzhayyim.com/health');
 		expect(r.ok()).toBeTruthy();
 	});
 
 	test('crypto-asset-freeze manifest has correct canvas config', async ({ request }) => {
-		const r = await request.get('https://crypto-asset-freeze.gftd.ai/_app/meta');
+		const r = await request.get('https://crypto-asset-freeze.etzhayyim.com/_app/meta');
 		expect(r.ok()).toBeTruthy();
 		const m = await r.json();
 		expect(m.ui).toBe('canvas');
@@ -212,7 +212,7 @@ test.describe('Feature: Cross-App Integration', () => {
 		const b = await r.json();
 		const freeze = b.linkedApps.find((a: any) => a.appId === 'crypto-asset-freeze');
 		expect(freeze).toBeDefined();
-		expect(freeze.url).toBe('https://crypto-asset-freeze.gftd.ai/dashboard');
+		expect(freeze.url).toBe('https://crypto-asset-freeze.etzhayyim.com/dashboard');
 		expect(freeze.capabilities).toEqual(expect.arrayContaining([
 			'incidentManagement', 'freezeManagement',
 		]));

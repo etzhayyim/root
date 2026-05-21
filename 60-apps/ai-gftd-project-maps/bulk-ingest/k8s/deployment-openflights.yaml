@@ -33,7 +33,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: dumper
-          image: ghcr.io/gftdcojp/maps-bulk-ingest:1.2.0
+          image: ghcr.io/etzhayyim/maps-bulk-ingest:1.2.0
           imagePullPolicy: IfNotPresent
           command: ["python", "/app/workers/openflights_dumper.py"]
           ports:

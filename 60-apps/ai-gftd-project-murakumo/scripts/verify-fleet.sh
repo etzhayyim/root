@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-MURAKUMO_URL="${MURAKUMO_URL:-https://murakumo.gftd.ai}"
+MURAKUMO_URL="${MURAKUMO_URL:-https://murakumo.etzhayyim.com}"
 API_KEY="${MURAKUMO_API_KEY:-}"
 MODEL="${MURAKUMO_MODEL:-gemma-4-e4b-it}"
 SSH_NODES=(

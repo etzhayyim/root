@@ -29,8 +29,8 @@ _VLLM_URL = os.environ.get("VLLM_URL", "https://vyp99t9px7h4dl-4000.proxy.runpod
 _VLLM_MODEL = os.environ.get("VLLM_MODEL", "tier0-general")
 _VLLM_TIMEOUT = float(os.environ.get("VLLM_TIMEOUT_SEC", "120"))
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_REPO = os.environ.get("RECAP_REPO_DID", "did:web:recap.gftd.ai")
-_OWNER = os.environ.get("RECAP_OWNER_DID", "did:web:recap.gftd.ai")
+_REPO = os.environ.get("RECAP_REPO_DID", "did:web:recap.etzhayyim.com")
+_OWNER = os.environ.get("RECAP_OWNER_DID", "did:web:recap.etzhayyim.com")
 _DEFAULT_ORG_DID = os.environ.get("RECAP_ORG_DID", "anon")
 _COOKIES_FILE_SRC = os.environ.get("YTDLP_COOKIES_FILE", "")
 if _COOKIES_FILE_SRC:

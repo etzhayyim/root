@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/ai-gftd-calendar
+ * @etzhayyim/ai-gftd-calendar
  * TerminusDB initialization script
  *
  * Process Network Node: scripts/init-terminusdb

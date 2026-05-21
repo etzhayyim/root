@@ -1,15 +1,15 @@
 ---
 id: adr-2604231828-appview-domain-separation-bsky-gftd-ai
-title: "ADR: AppView を bsky.gftd.ai に分離 — PDS/AppView domain separation (self-hosting guide 準拠)"
+title: "ADR: AppView を bsky.etzhayyim.com に分離 — PDS/AppView domain separation (self-hosting guide 準拠)"
 status: active
 doc_type: adr
 topic: service-topology
 authoritative: true
 last_verified: 2026-04-24
 authoritative_for:
-  - PDS (atproto.gftd.ai) と AppView の public domain 分離方針
-  - bsky.gftd.ai を Layer 2 AppView の正 host とする決定
-  - yoro.gftd.ai から AppView 機能を剥離する設計
+  - PDS (atproto.etzhayyim.com) と AppView の public domain 分離方針
+  - bsky.etzhayyim.com を Layer 2 AppView の正 host とする決定
+  - yoro.etzhayyim.com から AppView 機能を剥離する設計
   - did:web 配下での PDS/AppView endpoint 宣言規則
 related:
   - adr-2604231811-atproto-extension-service-layers
@@ -36,12 +36,12 @@ ADR-2604231811 で定めた 15-Layer Taxonomy でも Layer 1 (PDS) と Layer 2 (
 
 ## 現状 (2026-04-23 監査)
 
-**全部 `atproto.gftd.ai` に集約、AppView 分離は未実装**。
+**全部 `atproto.etzhayyim.com` に集約、AppView 分離は未実装**。
 
 ```
 Browser / @atproto/api
    ↓ XRPC (app.bsky.* / com.atproto.* / ai.gftd.*)
-atproto.gftd.ai  ← PDS + Entryway (OAuth AS)
+atproto.etzhayyim.com  ← PDS + Entryway (OAuth AS)
    │ (内部 service binding, 無効化中)
    └─ APPVIEW_SERVICE → yoro AppView Worker
 ```
@@ -89,26 +89,26 @@ ADR-2604231811 では:
 
 | Worker | Layer | AT standard? |
 |---|---|---|
-| `atproto.gftd.ai` | 1 PDS + 4 Entryway | standard |
-| `yoro.gftd.ai` | 9 Client App | standard |
+| `atproto.etzhayyim.com` | 1 PDS + 4 Entryway | standard |
+| `yoro.etzhayyim.com` | 9 Client App | standard |
 | (Layer 2 AppView host) | 2 AppView | standard |
 
 Layer 2 AppView host が **未実装 (physical domain 不在)** であり、実体は
-atproto.gftd.ai (PDS) + yoro.gftd.ai (Client App) に散在している。
+atproto.etzhayyim.com (PDS) + yoro.etzhayyim.com (Client App) に散在している。
 
 ### did:web との関係
 
-user handle (`{user}.gftd.ai`) は did:web で identity binding され、DID Document
+user handle (`{user}.etzhayyim.com`) は did:web で identity binding され、DID Document
 の `service[]` に PDS endpoint を宣言する:
 
 ```
-did:web:alice.gftd.ai
-  → https://alice.gftd.ai/.well-known/did.json
+did:web:alice.etzhayyim.com
+  → https://alice.etzhayyim.com/.well-known/did.json
   → {
       "service": [{
         "id": "#atproto_pds",
         "type": "AtprotoPersonalDataServer",
-        "serviceEndpoint": "https://atproto.gftd.ai"
+        "serviceEndpoint": "https://atproto.etzhayyim.com"
       }]
     }
 ```
@@ -127,16 +127,16 @@ PDS = 1 つ)。AppView を別 domain に出すのは did:web とは直交した�
 
 # Decision
 
-**AppView を独立 Worker に切り出し、`bsky.gftd.ai` を Layer 2 AppView の正
+**AppView を独立 Worker に切り出し、`bsky.etzhayyim.com` を Layer 2 AppView の正
 public host として運用する**。yoro Worker からは AppView 実装を剥離し、
 Client App (Layer 9) の純粋な責務に閉じる。
 
 ## 方針 5 axis
 
-1. **`bsky.gftd.ai` = Layer 2 AppView host** — 新規 public domain。`ai-gftd-appview`
+1. **`bsky.etzhayyim.com` = Layer 2 AppView host** — 新規 public domain。`ai-gftd-appview`
    Worker を立てる。`app.bsky.*` NSID の read-path を全て担う
 2. **PDS は AppView に public HTTP で forward** — service binding の代わりに
-   `https://bsky.gftd.ai/xrpc/*` に直接 fetch。circular dep 解消
+   `https://bsky.etzhayyim.com/xrpc/*` に直接 fetch。circular dep 解消
 3. **yoro Worker は Client App 専業** — `handleAppViewRpc` + `handleYoroAppView`
    を削除、`/xrpc/*` route を撤去。Svelte SPA + SEO snapshot + cache purge のみ
 4. **did:web DID Document に AppView endpoint を宣言** — `service[]` に
@@ -148,9 +148,9 @@ Client App (Layer 9) の純粋な責務に閉じる。
 
 | Worker | host | Layer | 責務 |
 |---|---|---|---|
-| `ai-gftd-pds` | `atproto.gftd.ai` | 1 PDS + 4 Entryway | commit log / blob / identity / OAuth AS |
-| **`ai-gftd-appview` (新)** | **`bsky.gftd.ai`** | 2 AppView | `app.bsky.*` read (timeline/profile/feed/search/graph) |
-| `ai-gftd-yoro` | `yoro.gftd.ai` | 9 Client App | Svelte SPA + SEO snapshot + cache purge only |
+| `ai-gftd-pds` | `atproto.etzhayyim.com` | 1 PDS + 4 Entryway | commit log / blob / identity / OAuth AS |
+| **`ai-gftd-appview` (新)** | **`bsky.etzhayyim.com`** | 2 AppView | `app.bsky.*` read (timeline/profile/feed/search/graph) |
+| `ai-gftd-yoro` | `yoro.etzhayyim.com` | 9 Client App | Svelte SPA + SEO snapshot + cache purge only |
 
 ## Topology 図
 
@@ -159,7 +159,7 @@ Client App (Layer 9) の純粋な責務に閉じる。
 ```
 Browser
    ↓ all XRPC
-atproto.gftd.ai (PDS + Entryway + AppView local handler)
+atproto.etzhayyim.com (PDS + Entryway + AppView local handler)
    │ internal binding (disabled)
    └╴APPVIEW_SERVICE → yoro Worker (AppView 実装 + Svelte SPA + PDS_SERVICE 逆 binding)
                                                                     ↑
@@ -170,17 +170,17 @@ atproto.gftd.ai (PDS + Entryway + AppView local handler)
 
 ```
 Browser
-   ├─ app.bsky.* read → bsky.gftd.ai ← Layer 2 AppView (new, standalone)
+   ├─ app.bsky.* read → bsky.etzhayyim.com ← Layer 2 AppView (new, standalone)
    │                        │
    │                        └─ HYPERDRIVE → RisingWave (同じ graph DB)
    │
-   ├─ com.atproto.* write → atproto.gftd.ai (PDS)
-   ├─ OAuth flow         → atproto.gftd.ai (Entryway)
-   ├─ ai.gftd.vault.*    → atproto.gftd.ai → VAULT_SERVICE
-   ├─ ai.gftd.signal.*   → atproto.gftd.ai → signal.gftd.ai
-   └─ ai.gftd.convo.*    → atproto.gftd.ai (Chat service)
+   ├─ com.atproto.* write → atproto.etzhayyim.com (PDS)
+   ├─ OAuth flow         → atproto.etzhayyim.com (Entryway)
+   ├─ ai.gftd.vault.*    → atproto.etzhayyim.com → VAULT_SERVICE
+   ├─ ai.gftd.signal.*   → atproto.etzhayyim.com → signal.etzhayyim.com
+   └─ ai.gftd.convo.*    → atproto.etzhayyim.com (Chat service)
 
-yoro.gftd.ai (Svelte SPA only, no /xrpc/* route)
+yoro.etzhayyim.com (Svelte SPA only, no /xrpc/* route)
 ```
 
 ## AT Protocol DID Document 拡張
@@ -197,12 +197,12 @@ AT Protocol spec は service type `AtprotoPersonalDataServer` を標準化して
     {
       "id": "#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://atproto.gftd.ai"
+      "serviceEndpoint": "https://atproto.etzhayyim.com"
     },
     {
       "id": "#bsky_appview",
       "type": "BskyAppView",
-      "serviceEndpoint": "https://bsky.gftd.ai"
+      "serviceEndpoint": "https://bsky.etzhayyim.com"
     }
   ]
 }
@@ -228,10 +228,10 @@ Phase 3 (yoro AppView 剥離) の順。Phase 間は互換性を保つ。
 
 | # | Gap | 対象 | 優先度 |
 |---|---|---|---|
-| A1 | `ai-gftd-appview` Worker 新規作成 + `bsky.gftd.ai` route 設定 | 新規 `50-infra/cloudflare/workers/appview/` | **CRITICAL** |
+| A1 | `ai-gftd-appview` Worker 新規作成 + `bsky.etzhayyim.com` route 設定 | 新規 `50-infra/cloudflare/workers/appview/` | **CRITICAL** |
 | A2 | yoro Worker から `handleAppViewRpc` / `handleYoroAppView` / `/xrpc/*` route を剥離 | `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:909-1090` | HIGH |
 | A3 | PDS `pipethroughAppView` を service binding → public HTTP fetch に変更 | `50-infra/cloudflare/workers/atproto/src/dispatch.ts:331-363` | **CRITICAL** |
-| A4 | `wrangler.jsonc` の `APPVIEW_SERVICE` binding 削除、secret / env に `APPVIEW_URL=https://bsky.gftd.ai` を追加 | `50-infra/cloudflare/workers/atproto/wrangler.jsonc` | CRITICAL |
+| A4 | `wrangler.jsonc` の `APPVIEW_SERVICE` binding 削除、secret / env に `APPVIEW_URL=https://bsky.etzhayyim.com` を追加 | `50-infra/cloudflare/workers/atproto/wrangler.jsonc` | CRITICAL |
 | A5 | DID Document serve に `#bsky_appview` service 追加 | `60-apps/ai-gftd-project-auth/worker/src-ts/did.ts` + `50-infra/cloudflare/workers/atproto/src/handlers/pds/` | MEDIUM |
 | A6 | `@gftd/wproto` AtpAgent config に default AppView resolution を追加 (optional, DID doc 経由) | `10-protocol/wproto/src/client.ts` | LOW |
 
@@ -265,8 +265,8 @@ Auth:
     trusted binding 専用なので public Worker では使えない。必ず JWT verify 経由
 
 Route:
-- `bsky.gftd.ai/*` → `ai-gftd-appview` Worker (CF route)
-- `bsky.gftd.ai/_worker/health` / `/health` smoke test
+- `bsky.etzhayyim.com/*` → `ai-gftd-appview` Worker (CF route)
+- `bsky.etzhayyim.com/_worker/health` / `/health` smoke test
 
 ## A2. yoro Worker から AppView 剥離 (HIGH)
 
@@ -334,7 +334,7 @@ async function pipethroughAppView(nsid: string, ctx: PdsDispatchCtx): Promise<Re
 ```jsonc
 {
   "vars": {
-    "APPVIEW_URL": "https://bsky.gftd.ai"
+    "APPVIEW_URL": "https://bsky.etzhayyim.com"
   },
   // secrets_store_secrets (既存パターンに追加)
   "secrets_store_secrets": [
@@ -351,24 +351,24 @@ authn Worker + PDS の DID doc serve handler で `service[]` に追加:
 
 ```ts
 service: [
-  { id: "#atproto_pds", type: "AtprotoPersonalDataServer", serviceEndpoint: "https://atproto.gftd.ai" },
-  { id: "#bsky_appview", type: "BskyAppView", serviceEndpoint: "https://bsky.gftd.ai" },
+  { id: "#atproto_pds", type: "AtprotoPersonalDataServer", serviceEndpoint: "https://atproto.etzhayyim.com" },
+  { id: "#bsky_appview", type: "BskyAppView", serviceEndpoint: "https://bsky.etzhayyim.com" },
 ],
 ```
 
 影響範囲:
 - `60-apps/ai-gftd-project-auth/worker/src-ts/did.ts` の `buildDidDocument`
 - 既存 user DID doc は regenerate (lazy、次回 create/update 時)
-- `atproto.gftd.ai/.well-known/did.json` も service 追加
+- `atproto.etzhayyim.com/.well-known/did.json` も service 追加
 
 ## A6. `@gftd/wproto` AtpAgent default resolution (LOW, optional)
 
 ```ts
 import { AtpAgent } from '@atproto/api';
 // ...
-const pds = new AtpAgent({ service: "https://atproto.gftd.ai" });
+const pds = new AtpAgent({ service: "https://atproto.etzhayyim.com" });
 // 将来的に:
-const appview = new AtpAgent({ service: "https://bsky.gftd.ai" });
+const appview = new AtpAgent({ service: "https://bsky.etzhayyim.com" });
 ```
 
 browser client が read/write で別 endpoint を使う pattern は既存 `@atproto/api`
@@ -385,25 +385,25 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 ## Phase 1 (A1 + A4, 2026-04-25)
 
 1. `ai-gftd-appview` Worker を新規 deploy
-2. `bsky.gftd.ai` DNS + CF route 設定 (Terraform)
+2. `bsky.etzhayyim.com` DNS + CF route 設定 (Terraform)
 3. `handleAppViewRpc` / `handleYoroAppView` のロジックを新 Worker に移植
    (yoro 側はまだ残したまま、dual-serve 期間)
-4. smoke test: `curl https://bsky.gftd.ai/xrpc/app.bsky.actor.getProfile?actor=xxx`
-5. PDS `wrangler.jsonc` に `APPVIEW_URL=https://bsky.gftd.ai` を追加 + secret 設定
+4. smoke test: `curl https://bsky.etzhayyim.com/xrpc/app.bsky.actor.getProfile?actor=xxx`
+5. PDS `wrangler.jsonc` に `APPVIEW_URL=https://bsky.etzhayyim.com` を追加 + secret 設定
 
 ## Phase 2 (A3, 2026-04-28)
 
 1. PDS `pipethroughAppView` を public HTTP 版に切替 deploy
-2. `app.bsky.*` trafficが PDS → bsky.gftd.ai に流れることを log 監視
+2. `app.bsky.*` trafficが PDS → bsky.etzhayyim.com に流れることを log 監視
    (Logpush `atproto-worker` → B2)
 3. 1 週間 regression watch、yoro /_xrpc/* route は warning log だけ出す
-   (`[yoro] deprecated /xrpc/ call — use bsky.gftd.ai`)
+   (`[yoro] deprecated /xrpc/ call — use bsky.etzhayyim.com`)
 
 ## Phase 3 (A2, 2026-05-05)
 
 1. yoro Worker から AppView 実装削除 deploy
 2. yoro `app.all("/xrpc/*", ...)` route を削除 (既存 caller は PDS に直接
-   または bsky.gftd.ai に向ける)
+   または bsky.etzhayyim.com に向ける)
 3. `60-apps/ai-gftd-project-yoro/CLAUDE.md` 更新 (Layer 9 Client App 明示)
 
 ## Phase 4 (A5, 2026-05-12)
@@ -452,7 +452,7 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 - RisingWave graph DB は共有したまま (PDS write → MV → AppView read)。
   schema / migration 責務は graph 側で一元管理
 - ai.gftd.*/chat.bsky.convo.* / ai.gftd.vault.* / ai.gftd.signal.* 等の
-  non-bsky namespace は **atproto.gftd.ai に残す** (Layer 1 PDS + Layer 7 Chat
+  non-bsky namespace は **atproto.etzhayyim.com に残す** (Layer 1 PDS + Layer 7 Chat
   + Layer 11 Key Directory + Layer 12 Secret Vault の pipethrough target)。
   本 ADR は `app.bsky.*` のみ AppView に分離
 
@@ -466,22 +466,22 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 
 ## B2. AppView を yoro Worker に同居のまま、circular dep を回避する別策
 
-- 案: yoro の `PDS_SERVICE` binding を削除、yoro は HTTP で atproto.gftd.ai
+- 案: yoro の `PDS_SERVICE` binding を削除、yoro は HTTP で atproto.etzhayyim.com
   を叩くだけにする
 - pros: 新 Worker 不要
 - cons: yoro は Client App (Svelte SPA) + AppView の 2 責務が同居し続ける。
   Layer taxonomy 違反。SPA deploy と AppView deploy の blast radius が
   結合し、SPA バグで AppView を巻き込む。**却下**
 
-## B3. `appview.gftd.ai` を host にする
+## B3. `appview.etzhayyim.com` を host にする
 
 - pros: 名前が責務を直接表す
 - cons: Bluesky / AT Protocol community では `bsky.{tld}` が慣例 (bsky.app,
-  bsky.social 等)。`bsky.gftd.ai` の方が `@atproto/api` default resolution /
-  user の心当たりで通じやすい。**却下** (`appview.gftd.ai` を CNAME alias と
+  bsky.social 等)。`bsky.etzhayyim.com` の方が `@atproto/api` default resolution /
+  user の心当たりで通じやすい。**却下** (`appview.etzhayyim.com` を CNAME alias と
   して残すのは許容)
 
-## B4. AppView も atproto.gftd.ai に残し、path で分離 (`/appview/xrpc/*`)
+## B4. AppView も atproto.etzhayyim.com に残し、path で分離 (`/appview/xrpc/*`)
 
 - pros: domain 追加不要
 - cons: AT Protocol client は host ベースで routing する前提 (service

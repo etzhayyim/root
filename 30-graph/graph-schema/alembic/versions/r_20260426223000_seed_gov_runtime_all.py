@@ -22,7 +22,7 @@ UP = [{'sql': '\n'
          '    )\n'
          '    SELECT\n'
          "      CONCAT('at://', r.actor_did, '/ai.gftd.actor.govOrgRuntime/', r.gov_org_key),\n"
-         "      'did:web:gov.gftd.ai',\n"
+         "      'did:web:gov.etzhayyim.com',\n"
          '      r.actor_did,\n'
          '      r.gov_org_key,\n'
          "      CONCAT('gov-org-', r.gov_org_key),\n"
@@ -31,7 +31,7 @@ UP = [{'sql': '\n'
          "      'active',\n"
          "      'ai.gftd.actor.govOrgRuntime',\n"
          '      r.gov_org_key,\n'
-         "      'did:web:gov.gftd.ai',\n"
+         "      'did:web:gov.etzhayyim.com',\n"
          '      $1,\n'
          "      CONCAT('gov-org-', r.gov_org_key),\n"
          "      'gov',\n"
@@ -64,7 +64,7 @@ UP = [{'sql': '\n'
          '        \'<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
          "',\n"
          '        \'id="defs_\', r.bpmn_process_id, \'" '
-         'targetNamespace="https://gov.gftd.ai/bpmn">\',\n'
+         'targetNamespace="https://gov.etzhayyim.com/bpmn">\',\n'
          '        \'<bpmn:process id="\', r.bpmn_process_id, \'" isExecutable="true">\',\n'
          '        \'<bpmn:startEvent id="start"/>\',\n'
          '        \'<bpmn:task id="refresh_coverage" name="Refresh gov organization '
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
          '        \'<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
          "',\n"
          '        \'id="defs_\', r.bpmn_process_id, \'" '
-         'targetNamespace="https://gov.gftd.ai/bpmn">\',\n'
+         'targetNamespace="https://gov.etzhayyim.com/bpmn">\',\n'
          '        \'<bpmn:process id="\', r.bpmn_process_id, \'" isExecutable="true">\',\n'
          '        \'<bpmn:startEvent id="start"/>\',\n'
          '        \'<bpmn:task id="refresh_coverage" name="Refresh gov organization '
@@ -91,8 +91,8 @@ UP = [{'sql': '\n'
          "      'active',\n"
          '      $1,\n'
          '      1,\n'
-         "      'did:web:gov.gftd.ai',\n"
-         "      'did:web:gov.gftd.ai',\n"
+         "      'did:web:gov.etzhayyim.com',\n"
+         "      'did:web:gov.etzhayyim.com',\n"
          '      $2\n'
          '    FROM mv_gov_org_runtime r\n'
          '    WHERE NOT EXISTS (\n'
@@ -108,7 +108,7 @@ UP = [{'sql': '\n'
          '      actor_id, write_table_allowlist\n'
          '    )\n'
          '    SELECT\n'
-         "      CONCAT('at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/gov-org-', "
+         "      CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gov-org-', "
          "r.gov_org_key, '-coverage-refresh-v1'),\n"
          '      r.actor_did,\n'
          "      CONCAT('ai.gftd.apps.govOrgRuntime.coverageRefresh', "
@@ -119,8 +119,8 @@ UP = [{'sql': '\n'
          "      'active',\n"
          '      $1,\n'
          '      1,\n'
-         "      'did:web:gov.gftd.ai',\n"
-         "      'did:web:gov.gftd.ai',\n"
+         "      'did:web:gov.etzhayyim.com',\n"
+         "      'did:web:gov.etzhayyim.com',\n"
          '      $2,\n'
          '      '
          "'edge_gov_org_site_dependency,vertex_gov_org,mv_gov_coverage_dedup,mv_gov_org_runtime'\n"
@@ -128,7 +128,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding b\n'
          '      WHERE b.vertex_id = '
-         "CONCAT('at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/gov-org-', r.gov_org_key, "
+         "CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gov-org-', r.gov_org_key, "
          "'-coverage-refresh-v1')\n"
          '    )\n'
          '  ',
@@ -144,7 +144,7 @@ UP = [{'sql': '\n'
          "      CONCAT('at://', t.actor_did, '/ai.gftd.mcp.toolDef/', REPLACE(t.nsid, '.', '-')),\n"
          '      t.nsid,\n'
          '      t.actor_did,\n'
-         "      'gov.gftd.ai',\n"
+         "      'gov.etzhayyim.com',\n"
          '      t.lexicon_type,\n'
          '      t.description,\n'
          '      t.input_schema,\n'
@@ -156,10 +156,10 @@ UP = [{'sql': '\n'
          "      CONCAT('runtime://gov/org/', t.gov_org_key, '/mcp/', REPLACE(t.nsid, '.', '/'), "
          "'.json'),\n"
          '      NULL,\n'
-         "      'did:web:gov.gftd.ai',\n"
+         "      'did:web:gov.etzhayyim.com',\n"
          '      1,\n'
-         "      'did:web:gov.gftd.ai',\n"
-         "      'did:web:gov.gftd.ai',\n"
+         "      'did:web:gov.etzhayyim.com',\n"
+         "      'did:web:gov.etzhayyim.com',\n"
          '      $1,\n'
          '      $2\n'
          '    FROM (\n'

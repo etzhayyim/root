@@ -1,8 +1,8 @@
-# yoro.gftd.ai Security Topology (2026-04-15)
+# yoro.etzhayyim.com Security Topology (2026-04-15)
 
 ## Scope
 
-- Target: `yoro.gftd.ai`
+- Target: `yoro.etzhayyim.com`
 - Related trust boundaries:
   - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte`
   - `60-apps/ai-gftd-project-auth/worker`
@@ -11,18 +11,18 @@
 ## Topology
 
 ```text
-browser (yoro.gftd.ai)
+browser (yoro.etzhayyim.com)
   -> local/sessionStorage
   -> third-party JS (Google AdSense)
-  -> authn.gftd.ai (#auth transfer + refreshSession)
-  -> atproto.gftd.ai (XRPC, credentials include, Bearer/session)
-  -> app iframes on *.gftd.ai / external app hosts
+  -> authn.etzhayyim.com (#auth transfer + refreshSession)
+  -> atproto.etzhayyim.com (XRPC, credentials include, Bearer/session)
+  -> app iframes on *.etzhayyim.com / external app hosts
 
-authn.gftd.ai
-  -> sets Domain=.gftd.ai HttpOnly session cookie
+authn.etzhayyim.com
+  -> sets Domain=.etzhayyim.com HttpOnly session cookie
   -> also returns access/refresh JWTs to browser JS
 
-atproto.gftd.ai
+atproto.etzhayyim.com
   -> reflects Origin in CORS
   -> accepts credentials + Authorization
 ```
@@ -34,10 +34,10 @@ atproto.gftd.ai
 `yoro` stores `accessJwt` and `refreshJwt` in browser storage and mirrors them into client-side session objects.
 
 - Evidence:
-  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:34)
-  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:75)
-  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:101)
-  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/atproto-agent.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/atproto-agent.ts:23)
+  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:34)
+  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:75)
+  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:101)
+  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/atproto-agent.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/atproto-agent.ts:23)
 
 - Impact:
   - Any XSS, compromised third-party script, or malicious same-origin code can exfiltrate both access and refresh tokens.
@@ -51,7 +51,7 @@ atproto.gftd.ai
 `auth` Worker config currently contains live/secret-looking values in `vars`.
 
 - Evidence:
-  - [`60-apps/ai-gftd-project-auth/worker/wrangler.jsonc`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-auth/worker/wrangler.jsonc:24)
+  - [`60-apps/ai-gftd-project-auth/worker/wrangler.jsonc`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-auth/worker/wrangler.jsonc:24)
 
 - Notable values:
   - `SS_AT_SESSION_SECRET` placeholder in `vars`
@@ -69,10 +69,10 @@ atproto.gftd.ai
 PDS reflects request origin for CORS and allows credentials. Auth uses a cross-subdomain cookie and also exposes HTML with permissive CORS.
 
 - Evidence:
-  - [`50-infra/cloudflare/workers/atproto/src/middleware/index.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/50-infra/cloudflare/workers/atproto/src/middleware/index.ts:24)
-  - [`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:171)
-  - [`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:251)
-  - [`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1438)
+  - [`50-infra/cloudflare/workers/atproto/src/middleware/index.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/50-infra/cloudflare/workers/atproto/src/middleware/index.ts:24)
+  - [`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:171)
+  - [`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:251)
+  - [`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1438)
 
 - Impact:
   - If an allowlisted or same-site origin is compromised, cookie-backed XRPC becomes reachable with fewer barriers.
@@ -86,7 +86,7 @@ PDS reflects request origin for CORS and allows credentials. Auth uses a cross-s
 ### Third-party script inclusion raises the cost of browser-held tokens
 
 - Evidence:
-  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:25)
+  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:25)
 
 - Observation:
   - `yoro` loads Google AdSense JS.
@@ -95,8 +95,8 @@ PDS reflects request origin for CORS and allows credentials. Auth uses a cross-s
 ### Header source of truth is drifting
 
 - Evidence:
-  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/static/_headers`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/static/_headers:1)
-  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/_svelte/_headers`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/_svelte/_headers:9)
+  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/static/_headers`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/static/_headers:1)
+  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/_svelte/_headers`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/_svelte/_headers:9)
 
 - Observation:
   - Source headers are minimal.
@@ -109,7 +109,7 @@ These are not the current root issues.
 
 ### Rich text rendering is not the immediate XSS root
 
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/w/RichText.svelte`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/w/RichText.svelte:1)
+- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/w/RichText.svelte`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/w/RichText.svelte:1)
 - I did not find `{@html}` or raw HTML injection in the path I checked.
 
 ### `getSession()` raw unauth bootstrap regression appears already pruned
@@ -120,7 +120,7 @@ These are not the current root issues.
 ### Iframe embedding is secondary, not primary
 
 - Some embeds are sandboxed, some game embeds intentionally are not:
-  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/AgentProfile.svelte`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/AgentProfile.svelte:1235)
+  - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/AgentProfile.svelte`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/AgentProfile.svelte:1235)
 - This matters, but iframe isolation is not the first branch to cut while refresh tokens remain readable in JS.
 
 ## Recommended Cut Order
@@ -146,6 +146,6 @@ These are not the current root issues.
 
 ### Browser hardening
 
-- Add explicit CSP for `yoro.gftd.ai`.
+- Add explicit CSP for `yoro.etzhayyim.com`.
 - Review whether AdSense is worth the attack-surface cost before token persistence is fixed.
 

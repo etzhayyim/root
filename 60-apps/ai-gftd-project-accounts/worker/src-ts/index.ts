@@ -31,7 +31,7 @@ interface Env {
 
 export default {
   async fetch(_request: Request, _env: Env): Promise<Response> {
-    return new Response("accounts.gftd.ai scaffold — not yet deployed (ADR-0024 Step 3)", {
+    return new Response("accounts.etzhayyim.com scaffold — not yet deployed (ADR-0024 Step 3)", {
       status: 501,
       headers: { "content-type": "text/plain" },
     });

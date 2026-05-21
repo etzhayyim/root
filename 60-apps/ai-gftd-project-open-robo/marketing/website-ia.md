@@ -105,7 +105,7 @@ giemon.etzhayyim.com/
 `/firmware/quickstart`:
 ```bash
 # 3コマンドでスタート
-git clone https://github.com/gftdcojp/otete
+git clone https://github.com/etzhayyim/otete
 cd otete/firmware
 python test/home_pose.py   # 全軸ホームポジション確認
 ```

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:hs.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:hs.etzhayyim.com",
   "actors": [
     {
       "description": "Canonical HS section, chapter, heading, and subheading hierarchy registry.",

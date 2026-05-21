@@ -94,7 +94,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 ### Deployment
 
-- **Image**: `ghcr.io/gftdcojp/pymagatama:0.3.35-202605050833-amd64` (built `docker buildx --platform linux/amd64 --no-cache --push`)
+- **Image**: `ghcr.io/etzhayyim/pymagatama:0.3.35-202605050833-amd64` (built `docker buildx --platform linux/amd64 --no-cache --push`)
 - **Helm**: `mitama-udf-pool` revision 346, `50-infra/vultr/mitama-udf-pool/values.yaml` updated
 - **Hot-patch**: whois fix applied to running 0.3.34 pod via `kubectl exec | tee` while OrbStack was restarting — confirmed insert worked before 0.3.35 image was ready
 - **Verified**: `vertex_whois_record` 18+ rows, `vertex_cc_entity_cursor` cursors advancing for all 4 domains (kuruma, media_anime, media_gamers, handotai)
@@ -146,8 +146,8 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 **HuggingFace Hub push Phase D (commit dc707059974)**:
 - `trainingExport.bpmn` updated: after triple loop completes → `training.push.huggingface` → End
-- `task_training_push_huggingface()` in pymagatama 0.3.26: reads `vertex_training_shard` (status=done), downloads from B2, uploads to `gftdcojp/gftd-corpus` on HF Hub via `huggingface_hub.HfApi`
-- K8s Secret `training-hf-creds` created (`HF_TOKEN` from 1Password `gftd.hf/HF_TOKEN`, `HF_REPO_ID=gftdcojp/gftd-corpus`)
+- `task_training_push_huggingface()` in pymagatama 0.3.26: reads `vertex_training_shard` (status=done), downloads from B2, uploads to `etzhayyim/gftd-corpus` on HF Hub via `huggingface_hub.HfApi`
+- K8s Secret `training-hf-creds` created (`HF_TOKEN` from 1Password `gftd.hf/HF_TOKEN`, `HF_REPO_ID=etzhayyim/gftd-corpus`)
 - Keychain `gftd.huggingface/HF_TOKEN` saved
 - BPMN redeployed to Zeebe (key=2251799825707622) via F5 watcher
 
@@ -155,7 +155,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 ## Recent Fix: maps fill layer invisible at zoom ≥ 5.5 (2026-04-30)
 
-**Status**: ✅ **COMPLETE — deployed maps.gftd.ai Worker 808128a4, commit b51c27053d0**
+**Status**: ✅ **COMPLETE — deployed maps.etzhayyim.com Worker 808128a4, commit b51c27053d0**
 
 **Root cause**: `polygon_to_fill_earcut` in `kami-geo/src/mesh.rs` produces CCW-in-2D triangles. In the XZ ground plane (2D X→3D X, 2D Y→3D Z), these triangles have surface normal −Y (down). wgpu PBR pipeline uses `FrontFace::Ccw + cull_mode::Back` → downward-facing triangles are back-face culled → fill invisible.
 
@@ -171,7 +171,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 
 **Status**: ✅ **Routing implemented + old CF-edge call sites eliminated. Image build pending (99915209ec9-amd64).**
 
-**Problem**: Zeebe/UDF/LangGraph の `generic.pds.dispatch` が `https://atproto.gftd.ai` (CF edge) を経由していた。K8s Pod 内で完結すべき処理が CF WAF/ネットワークを踏む構造上の違反。
+**Problem**: Zeebe/UDF/LangGraph の `generic.pds.dispatch` が `https://atproto.etzhayyim.com` (CF edge) を経由していた。K8s Pod 内で完結すべき処理が CF WAF/ネットワークを踏む構造上の違反。
 
 **Implementation (commit `39bd3166dbc`, ADR-2604282300 §Addendum 2026-04-30)**:
 `zeebe_worker_main.py:task_generic_pds_dispatch` を 3-way K8s-internal routing に置換:
@@ -218,8 +218,8 @@ See: `deps.toml [[conventions]] rw-psycopg3-no-param-limit`, `[[conventions]] py
 **Status**: ✅ **Topology refactor live, γ2 in 14-day observation (day 3/14)**
 
 **Shipped via PR #1115 + #1117 + #1118 + #1120**:
-- `bsky.gftd.ai` Layer-2 AppView Worker (`ai-gftd-appview` v `d085c7bf`)
-  — first deploy. sh1n5h1x.gftd.ai postsCount 0 → 1476 fixed end-to-end
+- `bsky.etzhayyim.com` Layer-2 AppView Worker (`ai-gftd-appview` v `d085c7bf`)
+  — first deploy. sh1n5h1x.etzhayyim.com postsCount 0 → 1476 fixed end-to-end
   (MV `mv_actor_social_stats` GROUP BY → `normalize_actor_did(repo)` +
   AppView Worker route claim + Kysely `.limit(1)` → `sql` template
   for RW MV LIMIT incompat).
@@ -263,11 +263,11 @@ See: `90-docs/adr/2604240946-yoro-autonomous-actor-hybrid-loop.md` §Verificatio
 
 ## Recent Stabilization: Murakumo fleet + RunPod retirement (2026-04-27)
 
-**Status**: ✅ `murakumo.gftd.ai` fleet (10 mac mini Ollama backends + judah:4000 LiteLLM) を canonical inference path に復帰、RunPod Serverless 暫定経路を退役。
+**Status**: ✅ `murakumo.etzhayyim.com` fleet (10 mac mini Ollama backends + judah:4000 LiteLLM) を canonical inference path に復帰、RunPod Serverless 暫定経路を退役。
 
-**Root cause**: CF Zero Trust tunnel `ae341542` (`murakumo-fleet`) の remote ingress 設定で `murakumo-serve.gftd.ai` が欠落。
+**Root cause**: CF Zero Trust tunnel `ae341542` (`murakumo-fleet`) の remote ingress 設定で `murakumo-serve.etzhayyim.com` が欠落。
 
-**Fix**: CF Zero Trust API で tunnel ingress に `{"hostname":"murakumo-serve.gftd.ai","service":"http://localhost:4000"}` 追加 (config version 32 → 33)。PDS Worker から RunPod secrets DELETE。10 fleet ノードで legacy Nomad プロセスを停止。
+**Fix**: CF Zero Trust API で tunnel ingress に `{"hostname":"murakumo-serve.etzhayyim.com","service":"http://localhost:4000"}` 追加 (config version 32 → 33)。PDS Worker から RunPod secrets DELETE。10 fleet ノードで legacy Nomad プロセスを停止。
 
 ---
 
@@ -353,7 +353,7 @@ See: `90-docs/adr/2604291800-well-becoming-formal-model.md`, `90-docs/adr/260429
 
 **Live verification**:
 - Helm revision `444`.
-- Image: `ghcr.io/gftdcojp/pymagatama:public-malak-smoke-module-e7580bb1bd08-20260507052544-amd64`.
+- Image: `ghcr.io/etzhayyim/pymagatama:public-malak-smoke-module-e7580bb1bd08-20260507052544-amd64`.
 - `helm -n mitama-udf test mitama-udf-pool --timeout 1200s` succeeded.
 - CronJob-derived manual job succeeded with HTML/HAR `200`, `store=s3`, and `listSnapshots.status=200`.
 
@@ -405,10 +405,10 @@ Repo-record legacy materialization: grandfathered `actorManifest` rows in
 state is available from the typed graph table while keeping the historical repo
 records intact.
 
-## 2026-05-07 — Web Marketing Proposal Agent (webmk.gftd.ai) — ① of 5
+## 2026-05-07 — Web Marketing Proposal Agent (webmk.etzhayyim.com) — ① of 5
 
 Introduced **LangGraph agent loop pattern** (ADR-2605072000) and implemented the
-first of five marketing business models: `webmk.gftd.ai`.
+first of five marketing business models: `webmk.etzhayyim.com`.
 
 **ADR**: `90-docs/adr/2605072000-langgraph-agent-loop-pattern.md`
 - LangGraph handles intra-job state transitions (≥3 LLM steps with branching).
@@ -416,7 +416,7 @@ first of five marketing business models: `webmk.gftd.ai`.
 - No LangGraph checkpointer — durability via `vertex_webmk_proposal` rows.
 - New deps: `langchain-anthropic>=0.3.0`, `resend>=2.0.0`.
 
-**Actor**: `did:web:webmk.gftd.ai` / nanoid `wbmk0001`
+**Actor**: `did:web:webmk.etzhayyim.com` / nanoid `wbmk0001`
 
 **Lexicons** (`00-contracts/lexicons/ai/gftd/apps/webmk/`):
 - `createProposal` — trigger LangGraph loop, returns proposalId immediately
@@ -439,19 +439,19 @@ first of five marketing business models: `webmk.gftd.ai`.
 **PyZeebe job types**:
 - `webmk.run_proposal_agent` — LangGraph loop (180s timeout, 2 retries)
 - `webmk.deliver_via_resend` — Resend transactional email (60s, 3 retries)
-- `webmk.create_ad_campaign` — XRPC to ads.gftd.ai createCampaign (30s, 2 retries)
+- `webmk.create_ad_campaign` — XRPC to ads.etzhayyim.com createCampaign (30s, 2 retries)
 
 **RisingWave migration**: `30-graph/graph-schema/migrations/20260507800000_vertex_webmk_tables.ts`
 - `vertex_webmk_client`, `vertex_webmk_proposal`, `edge_webmk_campaign_link`
 
-**Integration**: `ads.gftd.ai` optional campaign creation → `edge_webmk_campaign_link`.
+**Integration**: `ads.etzhayyim.com` optional campaign creation → `edge_webmk_campaign_link`.
 Proposals non-federable (internal, sensitivity_ord=2).
 
 ---
 
-## 2026-05-07 — Newsletter Factory (newsletter.gftd.ai) — ② of 5
+## 2026-05-07 — Newsletter Factory (newsletter.etzhayyim.com) — ② of 5
 
-**Actor**: `did:web:newsletter.gftd.ai` / nanoid `nwsl0001`
+**Actor**: `did:web:newsletter.etzhayyim.com` / nanoid `nwsl0001`
 
 **Schedule**: Weekly BPMN timer (Tue 09:00 JST, `0 0 * * 2`). On-demand via `createCampaign` XRPC.
 
@@ -478,7 +478,7 @@ Proposals non-federable (internal, sensitivity_ord=2).
 **PyZeebe job types**:
 - `newsletter.run_curation_agent` — LangGraph loop (180s, 2 retries)
 - `newsletter.send_via_resend` — Resend batch per-subscriber (120s, 3 retries)
-- `newsletter.create_sponsor_slot` — XRPC to ads.gftd.ai createCampaign (30s, 2 retries)
+- `newsletter.create_sponsor_slot` — XRPC to ads.etzhayyim.com createCampaign (30s, 2 retries)
 
 **RisingWave migration**: `30-graph/graph-schema/migrations/20260507810000_vertex_newsletter_tables.ts`
 - `vertex_newsletter_subscriber` (sensitivity_ord=3, Tier 3 PII: email/name/cohortName)
@@ -487,14 +487,14 @@ Proposals non-federable (internal, sensitivity_ord=2).
 - `edge_newsletter_sent` (campaign → subscriber, resend_email_id)
 
 **subscribeRepos** (magatama.jsonld triggers):
-- `ai.gftd.apps.news.article` — fresh articles from news.gftd.ai
-- `ai.gftd.narou.chapter` — chapters from narou.gftd.ai
+- `ai.gftd.apps.news.article` — fresh articles from news.etzhayyim.com
+- `ai.gftd.narou.chapter` — chapters from narou.etzhayyim.com
 
 **Governance**: Subscriber PII (email) is Tier 3 (ADR-0018). Never logged or included in AT Repo records. Cohort-first grouping. GDPR Art 17 cascade purge applies.
 
-## 2026-05-07 — Sales Outreach Automation (outreach.gftd.ai) — ③ of 5
+## 2026-05-07 — Sales Outreach Automation (outreach.etzhayyim.com) — ③ of 5
 
-**Actor**: `did:web:outreach.gftd.ai` · nanoid `otch0001`
+**Actor**: `did:web:outreach.etzhayyim.com` · nanoid `otch0001`
 **ADR**: ADR-2605072000 (LangGraph agent loop pattern)
 
 ### Files created
@@ -538,7 +538,7 @@ Proposals non-federable (internal, sensitivity_ord=2).
 | `outreach.run_research_agent` | 180s | LangGraph loop |
 | `outreach.send_via_resend` | 60s | Resend send per step (step 1 + step 2 follow-up) |
 | `outreach.correlate_reply` | 30s | Correlate gmail/m365Ingest reply to active sequence |
-| `outreach.create_sponsor_slot` | 30s | Optional ads.gftd.ai createCampaign |
+| `outreach.create_sponsor_slot` | 30s | Optional ads.etzhayyim.com createCampaign |
 
 ### BPMN flow (outreachSequence.bpmn)
 
@@ -569,9 +569,9 @@ Prospect PII (email, name, title, company) is Tier 3 (ADR-0018, sensitivity_ord=
 DNC table checked before every send. GDPR Art 17 cascade purge applies.
 Reply detection via existing gmail/m365Ingest actors — no new inbound infra.
 
-## 2026-05-07 — Competitive Intelligence Dashboard (compintel.gftd.ai) — ④ of 5
+## 2026-05-07 — Competitive Intelligence Dashboard (compintel.etzhayyim.com) — ④ of 5
 
-**Actor**: `did:web:compintel.gftd.ai` · nanoid `cpti0001`
+**Actor**: `did:web:compintel.etzhayyim.com` · nanoid `cpti0001`
 **ADR**: ADR-2605072000 (LangGraph agent loop pattern)
 
 ### Files created
@@ -602,9 +602,9 @@ fetch_signals → analyze_pricing → analyze_product → analyze_hiring → sco
 
 ### Tables: vertex_compintel_competitor, vertex_compintel_snapshot, vertex_compintel_alert, edge_compintel_snapshot. No PII.
 
-## 2026-05-07 — Personalized Content Engine (contentengine.gftd.ai) — ⑤ of 5
+## 2026-05-07 — Personalized Content Engine (contentengine.etzhayyim.com) — ⑤ of 5
 
-**Actor**: `did:web:contentengine.gftd.ai` · nanoid `cten0001`
+**Actor**: `did:web:contentengine.etzhayyim.com` · nanoid `cten0001`
 **ADR**: ADR-2605072000 (LangGraph agent loop pattern)
 
 ### Files created
@@ -630,7 +630,7 @@ load_cohort_profile → match_sources → draft_content → rank_variants → qu
 | Type | Timeout | Purpose |
 |---|---|---|
 | `contentengine.run_content_agent` | 180s | LangGraph personalization loop |
-| `contentengine.create_sponsor_slot` | 30s | Optional ads.gftd.ai createCampaign |
+| `contentengine.create_sponsor_slot` | 30s | Optional ads.etzhayyim.com createCampaign |
 
 ### Tables: vertex_contentengine_cohort_profile, vertex_contentengine_content. No PII (sensitivity_ord=0, ADR-0018 cohort-first).
 
@@ -640,11 +640,11 @@ load_cohort_profile → match_sources → draft_content → rank_variants → qu
 
 | # | Actor | Domain | Nanoid | Status |
 |---|---|---|---|---|
-| ① | webmk | webmk.gftd.ai | wbmk0001 | ✅ |
-| ② | newsletter | newsletter.gftd.ai | nwsl0001 | ✅ |
-| ③ | outreach | outreach.gftd.ai | otch0001 | ✅ |
-| ④ | compintel | compintel.gftd.ai | cpti0001 | ✅ |
-| ⑤ | contentengine | contentengine.gftd.ai | cten0001 | ✅ |
+| ① | webmk | webmk.etzhayyim.com | wbmk0001 | ✅ |
+| ② | newsletter | newsletter.etzhayyim.com | nwsl0001 | ✅ |
+| ③ | outreach | outreach.etzhayyim.com | otch0001 | ✅ |
+| ④ | compintel | compintel.etzhayyim.com | cpti0001 | ✅ |
+| ⑤ | contentengine | contentengine.etzhayyim.com | cten0001 | ✅ |
 
 ## 2026-05-07 — Recruit Cohort Matching: listMatchDecisionEvents + matchStats
 

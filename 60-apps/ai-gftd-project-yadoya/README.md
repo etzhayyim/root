@@ -4,8 +4,8 @@ Autonomous hotel search and reservation platform delivered as App components.
 
 ## Domain
 
-- URL: `https://yadoya.gftd.ai`
-- API: `https://{nanoid}.gftd.ai/xrpc`
+- URL: `https://yadoya.etzhayyim.com`
+- API: `https://{nanoid}.etzhayyim.com/xrpc`
 - Component: `60-apps/ai-gftd-project-yadoya/wasm/yadoya-ui-b7r4n2xq`
 
 ## Business Plan (v1.0)
@@ -151,8 +151,8 @@ Autonomous hotel search and reservation platform delivered as App components.
 
 ```
 Browser/AI Agent
-  ├─ HTML/JS/CSS → yadoya.gftd.ai (R2 Custom Domain, per-site bucket)
-  └─ API → 1.gftd.ai/xrpc → Envoy Gateway
+  ├─ HTML/JS/CSS → yadoya.etzhayyim.com (R2 Custom Domain, per-site bucket)
+  └─ API → 1.etzhayyim.com/xrpc → Envoy Gateway
               ↓
        yadoya-ui-b7r4n2xq (App, TinyGo)
               ├─ wasi:http/incoming-handler (API)

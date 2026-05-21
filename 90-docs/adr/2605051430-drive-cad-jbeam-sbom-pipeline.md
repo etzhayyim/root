@@ -7,7 +7,7 @@ topic: drive-cad-jbeam-sbom-pipeline
 authoritative: true
 last_verified: 2026-05-05
 authoritative_for:
-  - driver.gftd.ai CAD to JBeam import architecture
+  - driver.etzhayyim.com CAD to JBeam import architecture
   - kami-cad-import crate scope
   - vehicle part graph and CycloneDX SBOM emission
   - physical component recall and supplier-quality SBOM flow
@@ -16,7 +16,7 @@ related:
   - adr-2604251830-shannon-optimal-layered-architecture
 ---
 
-# ADR 2605051430 — drive (driver.gftd.ai) CAD → JBeam → SBOM pipeline
+# ADR 2605051430 — drive (driver.etzhayyim.com) CAD → JBeam → SBOM pipeline
 
 Status: proposed
 Date: 2026-05-05
@@ -26,13 +26,13 @@ Superseded by: —
 
 ## Context
 
-`driver.gftd.ai` (`kami-app-car-sim` + `kami-vehicle`) currently runs a hand-written parametric sedan: 86 nodes / 220 beams / 48 flat-shaded triangles, no CAD source, no part-level provenance, no SBOM.
+`driver.etzhayyim.com` (`kami-app-car-sim` + `kami-vehicle`) currently runs a hand-written parametric sedan: 86 nodes / 220 beams / 48 flat-shaded triangles, no CAD source, no part-level provenance, no SBOM.
 
 The roadmap to BeamNG.drive-grade fidelity needs:
 1. real CAD ingestion (STEP / glTF / OpenSCAD) → part graph with mass + inertia + hardpoints
 2. JBeam topology auto-emission from the part graph (so 6 garage cars → 6 part-graphs, not 6 hand-written beam tables)
-3. per-vehicle SBOM with full part lineage so `sbom.gftd.ai` can do CVE-style recall / supplier-quality alerts on physical parts (e.g. Takata airbag-style recalls) the same way it does on Rust crates
-4. Software SBOM for the Rust crates is already covered by `cargo-cyclonedx` (see `60-apps/ai-gftd-project-watashi/native/watashi-host/sbom.cdx.json`); this ADR adds **vehicle BOM** in the same CycloneDX format so both flow through `sbom.gftd.ai`'s existing CVE pipeline.
+3. per-vehicle SBOM with full part lineage so `sbom.etzhayyim.com` can do CVE-style recall / supplier-quality alerts on physical parts (e.g. Takata airbag-style recalls) the same way it does on Rust crates
+4. Software SBOM for the Rust crates is already covered by `cargo-cyclonedx` (see `60-apps/ai-gftd-project-watashi/native/watashi-host/sbom.cdx.json`); this ADR adds **vehicle BOM** in the same CycloneDX format so both flow through `sbom.etzhayyim.com`'s existing CVE pipeline.
 
 ## Decision
 
@@ -75,7 +75,7 @@ Add one new crate `kami-cad-import` between `kami-cad` (BREP kernel + assembly) 
      └────────┬─────────┘              └────────┬─────────┘
               │                                 │
               ▼                                 ▼
-     kami-vehicle::jbeam::load_*    sbom.gftd.ai register-sbom
+     kami-vehicle::jbeam::load_*    sbom.etzhayyim.com register-sbom
      → simulated soft-body car      → SbomComponent graph → CVE match
 ```
 
@@ -90,11 +90,11 @@ Add one new crate `kami-cad-import` between `kami-cad` (BREP kernel + assembly) 
 | **VehicleAssembly → JBeam JSON** | `kami-cad-import::jbeam_emit` (NEW) | AABB-corner sampling + hardpoint-driven beam topology |
 | **VehicleAssembly → CycloneDX 1.5** | `kami-cad-import::sbom` (NEW) | CDX `type: "device"` per part, `purl`, `cpe`, `evidence`, GFTD `properties` |
 | Soft-body sim consumer | `kami-vehicle::jbeam::load` (existing, unchanged) | reads JSON output of `jbeam_emit` |
-| SBOM consumer | `sbom.gftd.ai` (existing) | already ingests CycloneDX → `SbomComponent` graph → CVE match |
+| SBOM consumer | `sbom.etzhayyim.com` (existing) | already ingests CycloneDX → `SbomComponent` graph → CVE match |
 
 ### CycloneDX choice (CDX 1.5)
 
-Match the existing `sbom.gftd.ai` default (CLAUDE.md `60-apps/ai-gftd-project-sbom/CLAUDE.md` line 48). CDX 1.5 supports `type: "device"` for physical components — exactly the right primitive for an alternator, a brake disc, or a chassis subframe. No new format. No new pipeline. The vehicle BOM lands in the same `SbomArtifact` graph as software SBOMs and gets the same CVE / recall / supplier-quality treatment that already exists.
+Match the existing `sbom.etzhayyim.com` default (CLAUDE.md `60-apps/ai-gftd-project-sbom/CLAUDE.md` line 48). CDX 1.5 supports `type: "device"` for physical components — exactly the right primitive for an alternator, a brake disc, or a chassis subframe. No new format. No new pipeline. The vehicle BOM lands in the same `SbomArtifact` graph as software SBOMs and gets the same CVE / recall / supplier-quality treatment that already exists.
 
 `type: "device"` carries:
 - `manufacturer.name` (supplier)
@@ -108,7 +108,7 @@ Match the existing `sbom.gftd.ai` default (CLAUDE.md `60-apps/ai-gftd-project-sb
   - `cdx:gftd:vehicle:material`
   - `cdx:gftd:vehicle:parent` (`bom-ref` of parent in assembly tree)
 
-This keeps every SBOM clause in the public CycloneDX schema — `sbom.gftd.ai` continues to validate cleanly.
+This keeps every SBOM clause in the public CycloneDX schema — `sbom.etzhayyim.com` continues to validate cleanly.
 
 ### Auto-emitted JBeam topology (Phase 1 baseline)
 
@@ -121,13 +121,13 @@ This yields ~30 parts × ~12 nodes ≈ 360 nodes / ~580 beams for the PoC sedan 
 
 ### Provenance / SBOM is mandatory, not optional
 
-Every `VehiclePart` MUST declare `source { uri, sha256, license }`. The crate refuses to emit JBeam without it. This is the same posture `sbom.gftd.ai` already enforces on software components — physical parts get the same governance.
+Every `VehiclePart` MUST declare `source { uri, sha256, license }`. The crate refuses to emit JBeam without it. This is the same posture `sbom.etzhayyim.com` already enforces on software components — physical parts get the same governance.
 
 ## Consequences
 
 Positive:
 - One source of truth (`VehicleAssembly`) drives both physics and SBOM — no drift.
-- Existing `sbom.gftd.ai` CVE / recall / supplier-quality machinery applies immediately to physical parts (zero new infrastructure).
+- Existing `sbom.etzhayyim.com` CVE / recall / supplier-quality machinery applies immediately to physical parts (zero new infrastructure).
 - License clearance is forced at ingest (`source.license` required).
 - Per-part mass / inertia from CAD volume × material density beats hand-tuned numbers.
 - New Rust crate is additive — no `kami-vehicle` / `kami-cad` / `kami-app-car-sim` API change.

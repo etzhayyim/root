@@ -4,7 +4,7 @@
 
 ## Overview
 
-`pb.gftd.ai` — クラウドファンディング方式の公共資金ファンド。COFOG/ISIC/APQC ベースの起案・審査・分配。
+`pb.etzhayyim.com` — クラウドファンディング方式の公共資金ファンド。COFOG/ISIC/APQC ベースの起案・審査・分配。
 
 ## Domain Model
 

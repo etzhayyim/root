@@ -1,6 +1,6 @@
 ---
 id: adr-2605212240-screener-migration-disposition
-title: "ADR-2605212240: screener app migration disposition (gftdcojp → etzhayyim)"
+title: "ADR-2605212240: screener app migration disposition (etzhayyim → etzhayyim)"
 status: proposed
 doc_type: adr
 topic: screener-migration
@@ -20,7 +20,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605212240: screener app migration disposition (gftdcojp → etzhayyim)
+# ADR-2605212240: screener app migration disposition (etzhayyim → etzhayyim)
 
 **Status**: proposed
 **Date**: 2026-05-21
@@ -37,11 +37,11 @@ admits two readings under Charter Rider v2.0 §2:
 2. **Sanctions screener** — KYC / AML / OFAC-list screening that supports
    compliance and humanitarian (e.g. crypto-asset-freeze) workflows.
 
-Inspection of the source repository (`ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-screener/README.md`
+Inspection of the source repository (`etzhayyim-root/60-apps/ai-gftd-project-screener/README.md`
 and PROJECT.jsonld) confirms reading (2):
 
 > "Sanctions screening service" — deployed as `v0-sanctions-screening-service`
-> on Vercel under the gftdcojp org.
+> on Vercel under the etzhayyim org.
 
 Sibling apps `ai-gftd-project-sanctions` and `ai-gftd-project-crypto-asset-freeze`
 have already been migrated under the P3_SUBSTRATE batch (see migration log
@@ -82,4 +82,4 @@ Constraints carried forward:
 - ADR-2605192100 (Charter §2(b) speculative finance definition)
 - ADR-2605192200 (Charter Rider v2.0)
 - `_working_p5_decisions.md` (P5_REVIEW 255 アプリ 個別移行判断)
-- Source: `ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-screener/README.md`
+- Source: `etzhayyim-root/60-apps/ai-gftd-project-screener/README.md`

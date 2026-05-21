@@ -1,15 +1,15 @@
 ---
 id: adr-2604292130
-title: llm.gftd.ai を Murakumo から分離し RunPod pass-through gateway に固定
+title: llm.etzhayyim.com を Murakumo から分離し RunPod pass-through gateway に固定
 status: active
 doc_type: adr
 topic: inference
 authoritative: true
 last_verified: 2026-04-29
 authoritative_for:
-  - llm.gftd.ai routing
+  - llm.etzhayyim.com routing
   - RunPod Gemma4 OpenAI-compatible gateway
-  - Murakumo and llm.gftd.ai separation
+  - Murakumo and llm.etzhayyim.com separation
 related:
   - adr-2604282100
   - adr-0056
@@ -20,33 +20,33 @@ superseded_by: []
 
 # Context
 
-`llm.gftd.ai` had accumulated two conflicting meanings:
+`llm.etzhayyim.com` had accumulated two conflicting meanings:
 
 - public OpenAI-compatible LLM endpoint for higher-quality Gemma4 generation
 - legacy / XRPC LLM actor path that could proxy into `magatama-llm8cf4ai` and the Murakumo LiteLLM fleet
 
 This caused ambiguous routing. In particular, `gemma4-runpod` was advertised at the edge while
-`murakumo-serve.gftd.ai` did not have the same model registered in its LiteLLM database.
+`murakumo-serve.etzhayyim.com` did not have the same model registered in its LiteLLM database.
 The result was a split-brain path where `/v1/models` and `/v1/chat/completions` could disagree
 depending on which Worker or tunnel answered.
 
 # Decision
 
-`llm.gftd.ai` is now an independent RunPod pass-through gateway served by
+`llm.etzhayyim.com` is now an independent RunPod pass-through gateway served by
 `60-apps/ai-gftd-project-runpod/serve` (`ai-gftd-runpod`).
 
 It must not depend on or proxy to:
 
-- `murakumo-serve.gftd.ai`
-- `murakumo.gftd.ai`
+- `murakumo-serve.etzhayyim.com`
+- `murakumo.etzhayyim.com`
 - `magatama-llm8cf4ai`
 - `LLM_SERVICE` service binding
 
-The only active public inference path for `llm.gftd.ai/v1/*` is:
+The only active public inference path for `llm.etzhayyim.com/v1/*` is:
 
 ```text
 client
-  -> https://llm.gftd.ai/v1/chat/completions
+  -> https://llm.etzhayyim.com/v1/chat/completions
   -> ai-gftd-runpod Cloudflare Worker
   -> RunPod Serverless endpoint 3fctheq51haikt
   -> Ollama gemma4:26b-a4b-it-q4_K_M
@@ -58,27 +58,27 @@ Public model aliases:
 - `tier0-runpod`
 - `gemma4:26b-a4b-it-q4_K_M`
 
-`llm.gftd.ai/xrpc/ai.gftd.apps.llm.answerWithKnowledge` is intentionally unsupported on this
+`llm.etzhayyim.com/xrpc/ai.gftd.apps.llm.answerWithKnowledge` is intentionally unsupported on this
 gateway and returns `unsupported_route`. RisingWave/BPMN knowledge workflows must use their own
 actor route and must not be smuggled through the RunPod gateway.
 
 Murakumo remains a separate inference platform. Its public and internal surfaces are
-`murakumo.gftd.ai` and `murakumo-serve.gftd.ai`; those are not aliases for `llm.gftd.ai`.
+`murakumo.etzhayyim.com` and `murakumo-serve.etzhayyim.com`; those are not aliases for `llm.etzhayyim.com`.
 
 # Consequences
 
-- `llm.gftd.ai` no longer uses Murakumo LiteLLM as a backend or fallback.
-- RunPod cold starts and queue delay are part of the `llm.gftd.ai` SLO. Callers must use longer
+- `llm.etzhayyim.com` no longer uses Murakumo LiteLLM as a backend or fallback.
+- RunPod cold starts and queue delay are part of the `llm.etzhayyim.com` SLO. Callers must use longer
   timeouts for non-streaming requests, or stream where possible.
 - Schema-aware RAG can target `gemma4-runpod` without depending on Murakumo model registration.
-- Any XRPC workflow previously expecting `llm.gftd.ai` to proxy into `magatama-llm8cf4ai` must be
+- Any XRPC workflow previously expecting `llm.etzhayyim.com` to proxy into `magatama-llm8cf4ai` must be
   moved to a dedicated actor hostname or Worker binding.
 
 Verified 2026-04-29:
 
 ```bash
-curl https://llm.gftd.ai/_app/meta
-curl -H 'x-magatama-verified: true' https://llm.gftd.ai/v1/models
+curl https://llm.etzhayyim.com/_app/meta
+curl -H 'x-magatama-verified: true' https://llm.etzhayyim.com/v1/models
 pnpm --dir 30-graph/graph-schema rag:llm -- \
   --query "legal corpus documents for JP jurisdiction" \
   --model gemma4-runpod \
@@ -87,19 +87,19 @@ pnpm --dir 30-graph/graph-schema rag:llm -- \
   --magatama-verified
 ```
 
-The RAG run returned HTTP 200 from `llm.gftd.ai`, model
+The RAG run returned HTTP 200 from `llm.etzhayyim.com`, model
 `gemma4:26b-a4b-it-q4_K_M`, and SQL verifier `ok: true`.
 
 # Alternatives Considered
 
-- **Keep `llm.gftd.ai` on Murakumo LiteLLM and add RunPod as a LiteLLM DB model**:
+- **Keep `llm.etzhayyim.com` on Murakumo LiteLLM and add RunPod as a LiteLLM DB model**:
   rejected for this hostname because it keeps public RunPod quality path coupled to Murakumo fleet
   health, LiteLLM DB migrations, and Murakumo tunnel routing.
-- **Route `llm.gftd.ai` to `magatama-llm8cf4ai` and let that Worker choose backends**:
+- **Route `llm.etzhayyim.com` to `magatama-llm8cf4ai` and let that Worker choose backends**:
   rejected because it preserves the ambiguous XRPC + OpenAI surface and allows accidental fallback
   into Murakumo.
-- **Expose only `runpod.gftd.ai` and retire `llm.gftd.ai`**:
-  rejected because multiple consumers already use `llm.gftd.ai` as the canonical OpenAI-compatible
+- **Expose only `runpod.etzhayyim.com` and retire `llm.etzhayyim.com`**:
+  rejected because multiple consumers already use `llm.etzhayyim.com` as the canonical OpenAI-compatible
   LLM endpoint.
 
 # References

@@ -34,7 +34,7 @@ ADR-2604261110 (wproto/wreactive/WIT retire) と ADR-2604251801 (cron 3
 レイヤー集約) で旧 architecture の subtractive 整理が完了した結果、現在
 動いている実体だけが残った:
 
-- **Cloudflare**: PDS gateway (atproto.gftd.ai), AppView (bsky.gftd.ai),
+- **Cloudflare**: PDS gateway (atproto.etzhayyim.com), AppView (bsky.etzhayyim.com),
   routing-gateway, 189 actor Worker
 - **Backblaze B2**: object storage, RW Hummock backing store (ADR-0048)
 - **RisingWave (Vultr)**: streaming SQL + materialized views, Hummock
@@ -66,8 +66,8 @@ BPMN process と RW vertex_repo_record の 3 箇所に二重定義される」dr
 | Layer | 場所 | 役割 | **してはいけないこと** |
 |---|---|---|---|
 | **L1 Edge** | Cloudflare (Pages / DNS / Workers AI / Vectorize) | TLS termination, HTTP/3, CDN, geographic routing, edge inference (任意) | actor / MCP / tool 実体定義 |
-| **L2 Routing** | Cloudflare Worker (`atproto.gftd.ai` PDS gateway, `bsky.gftd.ai` AppView) | AT Protocol XRPC entry, OAuth + DPoP verify, Service Auth ES256 JWT verify, NSID → backend lookup (RW registry), pipethrough | business logic, actor state, long-running job |
-| **L3 Dispatcher** | Cloudflare Worker (per-app `{nanoid}.gftd.ai`) | XRPC → backend translator: PDS write / Hyperdrive direct write (ADR-0036) / Zeebe message-start / k8s pod RPC / MCP invoke | actor の "実体" を保持しない (実体は RW registry が SSoT)。30s/128MB を超える work |
+| **L2 Routing** | Cloudflare Worker (`atproto.etzhayyim.com` PDS gateway, `bsky.etzhayyim.com` AppView) | AT Protocol XRPC entry, OAuth + DPoP verify, Service Auth ES256 JWT verify, NSID → backend lookup (RW registry), pipethrough | business logic, actor state, long-running job |
+| **L3 Dispatcher** | Cloudflare Worker (per-app `{nanoid}.etzhayyim.com`) | XRPC → backend translator: PDS write / Hyperdrive direct write (ADR-0036) / Zeebe message-start / k8s pod RPC / MCP invoke | actor の "実体" を保持しない (実体は RW registry が SSoT)。30s/128MB を超える work |
 | **L4 Registry SSoT** | RisingWave PostgreSQL (Vultr) via Hyperdrive | `actor_registry` / `mcp_registry` / `tool_registry` / `process_def` / `vertex_bpmn_lexicon_binding` テーブル。actor の DID, capability tags, runtime tier, backend URL, MCP tool list, BPMN binding を持つ唯一の SSoT | 個別 worker の `_app/meta` JSON や repo 内 `actor-manifest.jsonld` を SSoT として扱う (それらは registry の generator/cache に降格) |
 | **L5 Storage** | B2 (objects, blobs) + RisingWave Hummock (streaming SQL state) | content-addressed blob (`blobs/{repo}/{sha256hex}`)、MV state、RW snapshot | 別 object store (R2 active write は廃止、ADR-0048) |
 | **L6 In-Stream Compute** | RisingWave External Python UDF + Embedded Rust WASM + SQL UDF | per-row enrichment / classifier / hash / ML feature。UDF strategy = ADR-0044 | 高並列 burst web fetch (CF Worker `Promise.all(50..100)` 維持)、長時間 job |
@@ -86,14 +86,14 @@ CF Worker は **edge / routing / dispatcher** の 3 sublayer のみ。
 └─────────────────────┬──────────────────────────────┘
                       │
 ┌─────────────────────▼──────────────────────────────┐
-│ L2 Routing (atproto.gftd.ai, bsky.gftd.ai)         │
+│ L2 Routing (atproto.etzhayyim.com, bsky.etzhayyim.com)         │
 │   XRPC entry, OAuth/DPoP, NSID lookup              │
 │   - reads L4 actor_registry to find backend        │
 │   - pipethrough to dispatcher / direct to L4 / L7  │
 └─────────────────────┬──────────────────────────────┘
                       │
 ┌─────────────────────▼──────────────────────────────┐
-│ L3 Dispatcher (per-app {nanoid}.gftd.ai Worker)    │
+│ L3 Dispatcher (per-app {nanoid}.etzhayyim.com Worker)    │
 │   XRPC → translate → L4 PG INSERT (ADR-0036)       │
 │                    → L7 Zeebe message-start        │
 │                    → L8 k8s pod RPC                │

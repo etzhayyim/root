@@ -25,7 +25,7 @@ stage as a separate go/no-go.
 | `forge --version` ≥ 1.0 | `forge --version` |
 | `node --version` ≥ 20 (for the npm Safe artifact pull) | `node --version` |
 | Sealer `.local-secrets/sealer.priv` reachable | `cast wallet address --private-key "$(cat 50-infra/vultr/geth-private/.local-secrets/sealer.priv)"` → `0xaFed0Cb7633EDBd26aA52658e71528309F562501` |
-| RPC reachable | `cast chain-id --rpc-url https://geth.gftd.ai` → `260425` |
+| RPC reachable | `cast chain-id --rpc-url https://geth.etzhayyim.com` → `260425` |
 | Prebuilt Safe v1.4.1 artifacts in place | `cd 50-infra/vultr/geth-private/contracts && npm install && ls node_modules/@safe-global/safe-contracts/build/artifacts/contracts/Safe.sol/Safe.json` |
 | Foundry compiles | `cd 50-infra/vultr/geth-private/contracts && forge build` |
 
@@ -64,7 +64,7 @@ cd 50-infra/vultr/geth-private/contracts
 npm install   # idempotent; pulls @safe-global/safe-contracts@1.4.1 if missing
 
 forge script script/DeploySafe.s.sol \
-  --rpc-url https://geth.gftd.ai \
+  --rpc-url https://geth.etzhayyim.com \
   --sig 'simulate(address[],uint256,uint256)' \
   "[$K1,$K2,$K3]" 2 0
 ```
@@ -85,7 +85,7 @@ threshold + saltNonce + owner enumeration. **No tx broadcast.** If
 
 ```bash
 MIGRATE_LIVE=true forge script script/DeploySafe.s.sol \
-  --rpc-url https://geth.gftd.ai \
+  --rpc-url https://geth.etzhayyim.com \
   --broadcast \
   --legacy \
   --private-key "$(cat 50-infra/vultr/geth-private/.local-secrets/sealer.priv)" \
@@ -99,13 +99,13 @@ the only piece of state you need from this stage.
 Sanity:
 
 ```bash
-cast call "$SAFE_ADDR" 'getThreshold()(uint256)' --rpc-url https://geth.gftd.ai
+cast call "$SAFE_ADDR" 'getThreshold()(uint256)' --rpc-url https://geth.etzhayyim.com
 # → 2
 
-cast call "$SAFE_ADDR" 'getOwners()(address[])' --rpc-url https://geth.gftd.ai
+cast call "$SAFE_ADDR" 'getOwners()(address[])' --rpc-url https://geth.etzhayyim.com
 # → [K1, K2, K3]
 
-cast call "$SAFE_ADDR" 'VERSION()(string)' --rpc-url https://geth.gftd.ai
+cast call "$SAFE_ADDR" 'VERSION()(string)' --rpc-url https://geth.etzhayyim.com
 # → "1.4.1"
 ```
 
@@ -145,7 +145,7 @@ b. **Run `MigrateOwnersToSafe.s.sol simulate`** — prints the per-role
 
    ```bash
    forge script script/MigrateOwnersToSafe.s.sol \
-     --rpc-url https://geth.gftd.ai \
+     --rpc-url https://geth.etzhayyim.com \
      --sig 'simulate(address)' "$SAFE_ADDR"
    ```
 
@@ -160,7 +160,7 @@ c. **Pull the trigger** (separate ceremony, requires K1+K2 signatures
 
    ```bash
    MIGRATE_LIVE=true forge script script/MigrateOwnersToSafe.s.sol \
-     --rpc-url https://geth.gftd.ai \
+     --rpc-url https://geth.etzhayyim.com \
      --broadcast \
      --legacy \
      --private-key "$(cat 50-infra/vultr/geth-private/.local-secrets/sealer.priv)" \

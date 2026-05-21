@@ -28,8 +28,8 @@ if _COOKIES_FILE_SRC:
 else:
     _COOKIES_FILE = ""
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_REPO = os.environ.get("RECAP_REPO_DID", "did:web:recap.gftd.ai")
-_OWNER = os.environ.get("RECAP_OWNER_DID", "did:web:recap.gftd.ai")
+_REPO = os.environ.get("RECAP_REPO_DID", "did:web:recap.etzhayyim.com")
+_OWNER = os.environ.get("RECAP_OWNER_DID", "did:web:recap.etzhayyim.com")
 _DEFAULT_ORG_DID = os.environ.get("RECAP_ORG_DID", "anon")
 _B2_BUCKET = os.environ.get("RECAP_B2_BUCKET", "ai-gftd-cache")
 _ALLOWED_SCOPES = {"research", "authorized"}

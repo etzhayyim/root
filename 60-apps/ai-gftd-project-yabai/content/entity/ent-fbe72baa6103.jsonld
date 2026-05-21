@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-fbe72baa6103",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fbe72baa6103",
   "entityId": "ent-fbe72baa6103",
   "canonicalName": "artemis offshore",
   "aliases": [

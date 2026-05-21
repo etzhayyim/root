@@ -17,11 +17,11 @@
   },
   "protocols": [
     {
-      "actorDid": "did:web:kami-agent.gftd.ai",
+      "actorDid": "did:web:kami-agent.etzhayyim.com",
       "facadeFor": "did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643",
       "kind": "atproto-xrpc",
-      "pdsDid": "did:web:atproto.gftd.ai",
-      "service": "https://atproto.gftd.ai",
+      "pdsDid": "did:web:atproto.etzhayyim.com",
+      "service": "https://atproto.etzhayyim.com",
       "xrpc": {
         "repoMethods": [
           "com.atproto.repo.createRecord",
@@ -69,7 +69,7 @@
     }
   ],
   "registries": {
-    "actorRegistryRow": "actor_registry:did:web:kami-agent.gftd.ai",
+    "actorRegistryRow": "actor_registry:did:web:kami-agent.etzhayyim.com",
     "mcpRegistryRow": "",
     "toolRegistryRows": [
       "tool_registry:agent.organism.status",
@@ -82,11 +82,11 @@
     "chainId": 260425,
     "didPkh": "",
     "facadeDids": [
-      "did:web:kami-agent.gftd.ai"
+      "did:web:kami-agent.etzhayyim.com"
     ],
     "kind": "erc725-root",
     "policyCid": "",
     "rootDid": "did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643"
   },
-  "schema": "https://gftd.ai/schemas/erc8004-agent-registration/v1.json"
+  "schema": "https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json"
 }

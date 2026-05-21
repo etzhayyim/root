@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/5/electricity",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/5/electricity",
       "type": "dodaf:Capability",
       "name": "Electricity Supply and Grid Management Capability",
       "description": "Functional capability for managing electrical power generation, grid distribution, and energy safety standards. Classification: COFOG Division 04, Group 3, Class 5.",

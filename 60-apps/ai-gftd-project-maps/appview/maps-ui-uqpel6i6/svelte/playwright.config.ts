@@ -7,7 +7,7 @@ export default defineConfig({
   reporter: 'list',
 
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'https://maps.gftd.ai',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'https://maps.etzhayyim.com',
     // WebGL2 (SwiftShader software renderer) for KAMI map canvas in headless
     launchOptions: {
       args: [

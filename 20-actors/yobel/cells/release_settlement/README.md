@@ -13,14 +13,14 @@ Input lexicon: `ai.gftd.apps.etzhayyim.yobel.recordRelease` (also callable direc
 ## Steps
 
 1. `loadPair` — decrypt creditor `debtItem` (per-pair wrapped key); load debtor enrollment; assert `riteId` + `debtId` match
-2. `taxWarningDmn` — invoke [`dmn/tax-warning-by-jurisdiction.md`](../../dmn/tax-warning-by-jurisdiction.md). Persist `warnings[]` into rite + release records. **Tax warnings do NOT block release** (Charter §1.5: free release; tax consequences are creditor's / debtor's downstream responsibility, served by vendor:lawfirm.gftd.ai if needed)
+2. `taxWarningDmn` — invoke [`dmn/tax-warning-by-jurisdiction.md`](../../dmn/tax-warning-by-jurisdiction.md). Persist `warnings[]` into rite + release records. **Tax warnings do NOT block release** (Charter §1.5: free release; tax consequences are creditor's / debtor's downstream responsibility, served by vendor:lawfirm.etzhayyim.com if needed)
 3. `oneWayBoundaryCheck` — **schema-level Charter Rider §2(b) gate**: assert `releasedMicroUsdc ≤ debtItem.principalMicroUsdc + debtItem.accruedMicroUsdc`. Releases can only decrease creditor's stated claim (one-way utility increase). Negative or over-release → reject
 4. `tithRouterPathSelection` — DMN: rite-induced release is **tithe-neutral** (no 10% tithe taken from the released amount, since money never changes hands in the canonical `voluntary_bookkeeping` mode). For `base_l2_transfer` mode, route via `TitheRouter.route()` with `releaseDirection=forward`, `tithRate=0` (rite override). Per ADR-2605172100 + ADR-2605192130 standard route is creditor → debtor 100% (no tithe on a forgiveness)
 5. `executeRelease` — dispatch by `releaseMethod`:
    - `voluntary_bookkeeping` — no on-chain tx; creditor records forgiveness in own ledger
    - `base_l2_transfer` — invoke `EtzhayyimPaymaster` ERC-4337 user op: creditor USDC vault → debtor USDC vault, signature via creditor ERC725. Returns `baseL2TxHash`
-   - `court_order` — emit cross-actor invoke to vendor:lawfirm.gftd.ai `runCourtOrderFiling` (read-only output capture; vendor handles secular procedure)
-   - `sovereign_decree` — political_amnesty rite only; cross-actor invoke to vendor:lawfirm.gftd.ai `recordSovereignDecreeApplication`
+   - `court_order` — emit cross-actor invoke to vendor:lawfirm.etzhayyim.com `runCourtOrderFiling` (read-only output capture; vendor handles secular procedure)
+   - `sovereign_decree` — political_amnesty rite only; cross-actor invoke to vendor:lawfirm.etzhayyim.com `recordSovereignDecreeApplication`
    - `ecclesiastical_indulgence` — religious_jubilee rite only; no monetary tx, only doctrinal record
 6. `anchorRelease` — write `release` MST record with `releaseMethod`, `baseL2TxHash` (if any), `warnings[]`, `releasedMicroUsdc`, `releasedAt`. Anchor via AnchorBridge
 7. `emitAuditEvent` — message `audit_witness` cell (reuben) with release event for continuous append-only log
@@ -31,7 +31,7 @@ Input lexicon: `ai.gftd.apps.etzhayyim.yobel.recordRelease` (also callable direc
 
 ## Failure modes
 
-- DMN tax warning severity = `high` (release ≥ $1M USDC, R9) → release **continues** but cell emits `requiresLegalReview` cross-actor message to vendor:lawfirm.gftd.ai before anchor commit (advisory; not blocking). Operator can configure stricter policy via `releaseSettlementPolicy` MST record
+- DMN tax warning severity = `high` (release ≥ $1M USDC, R9) → release **continues** but cell emits `requiresLegalReview` cross-actor message to vendor:lawfirm.etzhayyim.com before anchor commit (advisory; not blocking). Operator can configure stricter policy via `releaseSettlementPolicy` MST record
 - `releasedMicroUsdc > debt.principalMicroUsdc + debt.accruedMicroUsdc` → reject with `error: "one-way invariant violated — release ≤ enrolled debt amount"`
 - Base L2 transfer revert (insufficient creditor vault balance) → release status = `pending_funding`, retry queue. Council Lv6+ can override to `voluntary_bookkeeping` if creditor cannot fund on-chain transfer but commits to bookkeeping forgiveness
 - Cross-actor invoke to lawfirm fails / times out → release continues (lawfirm involvement is for downstream tax / court papering, not for blocking the rite act itself)
@@ -54,4 +54,4 @@ Lexicon `ai.gftd.apps.etzhayyim.yobel.recordRelease` response:
 - DMN [`dmn/tax-warning-by-jurisdiction.md`](../../dmn/tax-warning-by-jurisdiction.md)
 - ADR-2605172100 etzhayyim open telecom fabric (Base L2 settlement substrate)
 - ADR-2605192130 TitheRouter (tithe-neutral pass-through for rite releases)
-- vendor:lawfirm.gftd.ai — court_order / sovereign_decree downstream papering
+- vendor:lawfirm.etzhayyim.com — court_order / sovereign_decree downstream papering

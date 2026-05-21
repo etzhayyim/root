@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/01/5/1/transfers-general-character/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/01/5/1/transfers-general-character/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Fiscal Equalization and Local Transfer Process",
       "description": "The administrative process of calculating, verifying, and disbursing general-purpose fiscal transfers to sub-national governments.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/01/5/1/transfers-general-character"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/5/1/transfers-general-character"
     }
   ]
 }

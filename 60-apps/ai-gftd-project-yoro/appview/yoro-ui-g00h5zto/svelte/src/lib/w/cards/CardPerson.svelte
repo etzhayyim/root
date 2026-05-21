@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Avatar, Badge } from '@gftdcojp/design-system';
+	import { Avatar, Badge } from '@etzhayyim/design-system';
 	import type { CardPersonPayload } from '../w-types.js';
 
 	interface Props {

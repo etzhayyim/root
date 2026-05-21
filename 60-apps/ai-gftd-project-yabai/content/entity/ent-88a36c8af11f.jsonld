@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-88a36c8af11f",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-88a36c8af11f",
   "entityId": "ent-88a36c8af11f",
   "canonicalName": "armed islamic group",
   "aliases": [

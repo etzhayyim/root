@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/09/2/2/upper-secondary-education/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/09/2/2/upper-secondary-education/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Upper-Secondary Education Management Lifecycle",
       "description": "The administrative process of auditing vocational facilities, coordinating specializations, and monitoring career readiness.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/09/2/2/upper-secondary-education"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/2/2/upper-secondary-education"
     }
   ]
 }

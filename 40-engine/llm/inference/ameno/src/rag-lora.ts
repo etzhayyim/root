@@ -250,7 +250,7 @@ export async function selectAdapters(
  * @param conn - DuckDB-WASM connection with the `P9_TABLE` table loaded from R2 Parquet.
  * @param queryEmbedding - Query embedding vector for RAG similarity search.
  * @param actorDid - Actor DID for per-actor adapter scoping.
- * @param pdsBaseUrl - PDS base URL for R2 adapter weight fetch (e.g. `"https://atproto.gftd.ai"`).
+ * @param pdsBaseUrl - PDS base URL for R2 adapter weight fetch (e.g. `"https://atproto.etzhayyim.com"`).
  * @param options - Optional pipeline parameters.
  * @param options.topK - RAG search top-K limit. Defaults to 20.
  * @param options.minSimilarity - RAG search minimum similarity. Defaults to 0.5.

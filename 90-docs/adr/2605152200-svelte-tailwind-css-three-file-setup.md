@@ -18,7 +18,7 @@ related:
 
 # Context
 
-`auth.gftd.ai/sign-in` が全黒画面になる障害が発生した (2026-05-15)。
+`auth.etzhayyim.com/sign-in` が全黒画面になる障害が発生した (2026-05-15)。
 Tailwind ユーティリティクラス (`flex`, `fixed`, `z-10` 等) が一切 CSS 出力されず、
 パーティクルアニメーションのみが描画される状態だった。
 
@@ -27,7 +27,7 @@ Tailwind ユーティリティクラス (`flex`, `fixed`, `z-10` 等) が一切 
 
 | ファイル | 欠落内容 |
 |---|---|
-| `package.json` | `tailwindcss` / `autoprefixer` / `postcss` / `@gftdcojp/design-system` 未登録 |
+| `package.json` | `tailwindcss` / `autoprefixer` / `postcss` / `@etzhayyim/design-system` 未登録 |
 | `postcss.config.js` | `tailwindcss: {}` プラグインなし (`autoprefixer` のみ) |
 | `src/app.css` | `@tailwind base/components/utilities` ディレクティブなし |
 
@@ -45,7 +45,7 @@ Tailwind ユーティリティクラス (`flex`, `fixed`, `z-10` 等) が一切 
 ```json
 {
   "devDependencies": {
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.9",
     "tailwindcss": "^3.4.19"
@@ -53,7 +53,7 @@ Tailwind ユーティリティクラス (`flex`, `fixed`, `z-10` 等) が一切 
 }
 ```
 
-`@gftdcojp/design-system` は `tailwind.config.js` の `gftdUIKit` plugin を提供する。
+`@etzhayyim/design-system` は `tailwind.config.js` の `gftdUIKit` plugin を提供する。
 workspace 内のパッケージなので `workspace:*` を使用する。
 
 ## 2. `postcss.config.js` — tailwindcss plugin 必須
@@ -86,7 +86,7 @@ export default {
 
 - `pnpm build` 後の CSS bundle に Tailwind utilities が含まれる (68KB+ が正常)
 - `tailwind.config.js` の `content` 配列で指定したファイルからクラスが tree-shake される
-- `@gftdcojp/design-system` の `gftdUIKit` plugin が CSS カスタムプロパティ (CSS変数) を注入する
+- `@etzhayyim/design-system` の `gftdUIKit` plugin が CSS カスタムプロパティ (CSS変数) を注入する
 
 # Detection
 

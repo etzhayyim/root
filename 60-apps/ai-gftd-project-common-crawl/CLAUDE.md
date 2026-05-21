@@ -9,8 +9,8 @@ path. `domain` and `page` are both W3C did:web actors now.
 
 | Layer | Actor | DID | rkey |
 |---|---|---|---|
-| Domain | domain | `did:web:site.gftd.ai:{domain-slug}` | `{domain}` |
-| Page | page | `did:web:site.gftd.ai:{domain-slug}:{path-seg}:…` | `{domain-slug}:{path-seg}:…` |
+| Domain | domain | `did:web:site.etzhayyim.com:{domain-slug}` | `{domain}` |
+| Page | page | `did:web:site.etzhayyim.com:{domain-slug}:{path-seg}:…` | `{domain-slug}:{path-seg}:…` |
 
 URL → DID is path-isomorphic (`/` ↔ `:`), root `/` uses the sentinel
 `:_root`. Query/fragment stripped. Long URLs (>2048 char total) fall
@@ -340,11 +340,11 @@ Recommended phase order:
 
 Legacy ingestion helpers from the removed RisingWave pipeline have been deleted.
 
-## Relationship to site.gftd.ai
+## Relationship to site.etzhayyim.com
 
-Common Crawl pipeline feeds into site.gftd.ai (internet clone gateway):
-- **WebDomain** DIDs are created in `did:web:site.gftd.ai:{domain-slug}` namespace
-- **WebPage** DIDs follow `did:web:site.gftd.ai:{domain-slug}:{page-slug}`
+Common Crawl pipeline feeds into site.etzhayyim.com (internet clone gateway):
+- **WebDomain** DIDs are created in `did:web:site.etzhayyim.com:{domain-slug}` namespace
+- **WebPage** DIDs follow `did:web:site.etzhayyim.com:{domain-slug}:{page-slug}`
 - Intelligence extraction results are written as `ai.gftd.apps.site.domain` records
-- Link graph enables site.gftd.ai's coverage tracking for 403 world domains
+- Link graph enables site.etzhayyim.com's coverage tracking for 403 world domains
 - **Profile**: `vertex_actor` に 872 domain profiles 登録済み (PDS getProfile で取得可能)

@@ -99,7 +99,7 @@ PyZeebe task types `yoro.social.translatePost` and
 `yoro.social.translatePostBatch` on the yoro actor LangServer worker.
 The worker creates translated sibling `app.bsky.feed.post` records and writes
 `ai.gftd.apps.media_gamers.record.translationLink` projection rows so
-`yoro.gftd.ai` post detail can render language tabs without changing AT URI
+`yoro.etzhayyim.com` post detail can render language tabs without changing AT URI
 semantics. The Murakumo route is pinned to `gemma-4-e4b-it`.
 """
 impact = "Yoro multilingual post UX, LangServer task routing, Murakumo Gemma 4 E4B usage"

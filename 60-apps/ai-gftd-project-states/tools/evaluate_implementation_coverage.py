@@ -71,7 +71,7 @@ def collect_metrics(base: Path) -> dict:
                 metrics["main_bind_to_adapter"] += 1
             if "performer.NewAdapter(" in main_text:
                 metrics["main_new_adapter"] += 1
-            if "nata.NewStore(" in main_text or 'nata "github.com/gftdcojp/performer/lancedbrest"' in main_text:
+            if "nata.NewStore(" in main_text or 'nata "github.com/etzhayyim/performer/lancedbrest"' in main_text:
                 metrics["main_nata_store"] += 1
             if "performer.PerformerConfig{" in main_text:
                 metrics["main_register_performer_config"] += 1

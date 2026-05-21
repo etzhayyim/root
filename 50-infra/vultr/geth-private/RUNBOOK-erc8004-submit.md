@@ -23,9 +23,9 @@ moves to `"completed"`.
    - `ls 50-infra/vultr/geth-private/.local-secrets/sealer.priv` — exists
    - `security find-generic-password -s "gftd.private-chain" -a "SEALER_PRIV" -w | head -c 4` — prints `0x` (Keychain L2)
    - **L3 Vault**: run `bash 50-infra/vultr/geth-private/scripts/vault-investiture.sh` first if not already done. This runbook continues with L1 + L2 only as fallback, but L3 is required for prod.
-3. `geth.gftd.ai` healthy:
+3. `geth.etzhayyim.com` healthy:
    ```bash
-   curl -sS -X POST https://geth.gftd.ai \
+   curl -sS -X POST https://geth.etzhayyim.com \
      -H 'Content-Type: application/json' \
      -d '{"jsonrpc":"2.0","id":1,"method":"eth_chainId"}'
    # → {"result":"0x3f949"}
@@ -38,7 +38,7 @@ moves to `"completed"`.
 ## Step 1 — render + dry-run
 
 ```bash
-cd /path/to/ai-gftd-apps-gftdcojp
+cd /path/to/etzhayyim-root
 # gftd agent-runtime publish-agent \  (removed 2026-05-20)
   --dry-run \
   --cluster murakumo-vke \
@@ -110,7 +110,7 @@ reference pattern was `70-tools/gftd/gftd/eth_deploy_receipt.go`, removed
 cast call 0xbfe74a0D3BBB3D77bCd16fDe2C64741eF4472F8E \
   'agentByRootDidHash(bytes32)(uint256)' \
   "$(cast keccak "$ROOT_DID")" \
-  --rpc-url https://geth.gftd.ai
+  --rpc-url https://geth.etzhayyim.com
 # → 1   (token id)
 
 # 4b. RisingWave projection (chain event sync runs every minute)

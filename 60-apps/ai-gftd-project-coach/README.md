@@ -23,7 +23,7 @@
 - iPad 優先 4 段階レイアウト (`<768`, `md`, `lg`, `xl`)
 - Safe Area (`viewport-fit=cover`, `env(safe-area-inset-*)`)
 - 44px タップターゲット / `touch-action: manipulation`
-- `coach.gftd.ai` の `/` で公開、API は同一オリジン `/xrpc`
+- `coach.etzhayyim.com` の `/` で公開、API は同一オリジン `/xrpc`
 
 ## API
 
@@ -44,7 +44,7 @@ kubectl apply -f 60-apps/ai-gftd-project-coach/wasm/coach-ui-component/k8s/http-
 
 ## ルーティング
 
-- Host: `coach.gftd.ai`
+- Host: `coach.etzhayyim.com`
 - HTTPRoute namespace: `edge-router-performers`
 - Gateway namespace: `edge-gateway-system`
 - Service namespace: `magatama-runtime`

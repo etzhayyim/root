@@ -9,7 +9,7 @@ import { GetThreadRequestSchema } from "@/gen/proto/hrse/v1/mailbox_pb";
 import { useEffect, useState } from "react";
 
 /**
- * @gftdcojp/ai-gftd-hrse#MailboxThreadPage
+ * @etzhayyim/ai-gftd-hrse#MailboxThreadPage
  * Individual thread view page
  */
 export default function MailboxThreadPage() {

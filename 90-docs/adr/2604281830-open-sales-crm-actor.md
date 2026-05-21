@@ -35,10 +35,10 @@ ADR-0056 (BPMN-as-actor) パターンに従い、新規 CF Worker を 0 追加�
 | 項目 | 値 |
 |---|---|
 | Actor name | open-sales |
-| Domain | `open-sales.gftd.ai` |
-| DID | `did:web:open-sales.gftd.ai` |
+| Domain | `open-sales.etzhayyim.com` |
+| DID | `did:web:open-sales.etzhayyim.com` |
 | Layer | T1 (BPMN-as-actor, ADR-0056) |
-| XRPC endpoint | `dispatcher.gftd.ai:8080/xrpc/ai.gftd.openSales.*` |
+| XRPC endpoint | `dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.openSales.*` |
 | New CF Workers | 0 |
 
 ### BPMN Inventory — 8 flows
@@ -92,7 +92,7 @@ ADR-0056 (BPMN-as-actor) パターンに従い、新規 CF Worker を 0 追加�
 ## Consequences
 
 - 全 8 BPMN が Zeebe に deploy される (F5 watcher 経由, 30s 以内)
-- `dispatcher.gftd.ai:8080/xrpc/ai.gftd.openSales.*` で XRPC 6 手続きが即座に利用可能
+- `dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.openSales.*` で XRPC 6 手続きが即座に利用可能
 - timer-start 2 flows (fetchPipelineDelta R/P1D, computeForecast R/P7D) が自律的に実行
 - LLM (qualifyLead / generateQuote / computeForecast) は `generic.llm.json` primitive 経由で Murakumo fleet を使用
 - vertex_open_sales_forecast に AI 予測値 (ai_forecast_usd / confidence_pct) が蓄積される

@@ -27,7 +27,7 @@ Giemon ロボット（Otete / Hitogata / Caterpillar）は教育・研究向け�
 同時に、既存の介護プラットフォームは「欠損モデル」（できないことを評価して給付する受動型）に依存しており、
 当事者の能力・意欲・社会参加を育てる視点が欠如している。
 
-本 ADR は `kaigo.gftd.ai`（`ai-gftd-project-kaigo`）の応用プラットフォームとして Giemon ロボットを位置づけ、
+本 ADR は `kaigo.etzhayyim.com`（`ai-gftd-project-kaigo`）の応用プラットフォームとして Giemon ロボットを位置づけ、
 アーキテクチャを確定する。
 
 ---
@@ -45,16 +45,16 @@ Giemon ロボット（Otete / Hitogata / Caterpillar）は教育・研究向け�
 ### アーキテクチャ
 
 ```
-kaigo.gftd.ai (SvelteKit 5 / CF Worker kg8r2m5n)
-├── 3D ビューア               ← iframe: giemon.gftd.ai/viewer.htm?model=arm|hitogata|caterpillar
+kaigo.etzhayyim.com (SvelteKit 5 / CF Worker kg8r2m5n)
+├── 3D ビューア               ← iframe: giemon.etzhayyim.com/viewer.htm?model=arm|hitogata|caterpillar
 ├── 住宅改修支援モジュール      ← フロントエンド試算 + XRPC calcHousingReformBenefit
 ├── 介護保険ナビ               ← フロントエンド静的 + XRPC estimateCareCost
-├── Well-Becoming ケアサークル ← kaigo.gftd.ai:circle 経路 (Well-Being 5 軸)
+├── Well-Becoming ケアサークル ← kaigo.etzhayyim.com:circle 経路 (Well-Being 5 軸)
 └── Murakumo AI 会話          ← Opus 4.6 via MURAKUMO_SERVICE binding
 ```
 
-**3D ビューア共有**: `giemon.gftd.ai` の WASM バンドル（`kami_app_giemon.{js,wasm}` 226KB）を
-`kaigo.gftd.ai` 側の iframe で cross-origin 利用。WASM の重複デプロイなし。
+**3D ビューア共有**: `giemon.etzhayyim.com` の WASM バンドル（`kami_app_giemon.{js,wasm}` 226KB）を
+`kaigo.etzhayyim.com` 側の iframe で cross-origin 利用。WASM の重複デプロイなし。
 
 ### 介護保険制度対応
 
@@ -79,7 +79,7 @@ kaigo.gftd.ai (SvelteKit 5 / CF Worker kg8r2m5n)
 
 ### Well-Becoming モデル（欠損 → 能力成長）
 
-公的介護の「欠損モデル」に対し、kaigo.gftd.ai は **Well-Becoming 5 軸**で能力成長を計測する。
+公的介護の「欠損モデル」に対し、kaigo.etzhayyim.com は **Well-Becoming 5 軸**で能力成長を計測する。
 
 | 軸 | 測定源 |
 |---|---|
@@ -107,24 +107,24 @@ kaigo.gftd.ai (SvelteKit 5 / CF Worker kg8r2m5n)
 | `ai.gftd.apps.kaigo.calcHousingReformBenefit` | query | 住宅改修費給付額試算 |
 | `ai.gftd.apps.kaigo.estimateCareCost` | query | 月額介護費用目安 |
 
-### Path-based DID エージェント（kaigo.gftd.ai）
+### Path-based DID エージェント（kaigo.etzhayyim.com）
 
 | Agent DID | 役割 |
 |---|---|
-| `did:web:kaigo.gftd.ai:capability` | Well-Being 能力マップ |
-| `did:web:kaigo.gftd.ai:mutual_care` | ケア交換記録 |
-| `did:web:kaigo.gftd.ai:time_bank` | 時間銀行（非貨幣） |
-| `did:web:kaigo.gftd.ai:circle` | ケアサークル（近隣互助 5-8人） |
-| `did:web:kaigo.gftd.ai:vitality` | バイタリティ 3 軸 |
-| `did:web:kaigo.gftd.ai:mentorship` | 知恵伝承 + Opus 4.6 アーカイブ |
-| `did:web:kaigo.gftd.ai:journey` | ライフジャーニー（成長物語） |
+| `did:web:kaigo.etzhayyim.com:capability` | Well-Being 能力マップ |
+| `did:web:kaigo.etzhayyim.com:mutual_care` | ケア交換記録 |
+| `did:web:kaigo.etzhayyim.com:time_bank` | 時間銀行（非貨幣） |
+| `did:web:kaigo.etzhayyim.com:circle` | ケアサークル（近隣互助 5-8人） |
+| `did:web:kaigo.etzhayyim.com:vitality` | バイタリティ 3 軸 |
+| `did:web:kaigo.etzhayyim.com:mentorship` | 知恵伝承 + Opus 4.6 アーカイブ |
+| `did:web:kaigo.etzhayyim.com:journey` | ライフジャーニー（成長物語） |
 
 ---
 
 ## Consequences
 
-- `giemon.gftd.ai` と `kaigo.gftd.ai` は **独立した CF Worker デプロイ** を維持するが、
-  WASM 3D ビューアは giemon.gftd.ai 側に一元化し iframe で共有。
+- `giemon.etzhayyim.com` と `kaigo.etzhayyim.com` は **独立した CF Worker デプロイ** を維持するが、
+  WASM 3D ビューアは giemon.etzhayyim.com 側に一元化し iframe で共有。
 - WAM NET 介護施設データ収集は `cmd_collect_wam_facilities` XRPC コマンドで実装予定。
 - 介護保険費用の試算は参考値であり、実際の給付額は市区町村の審査で確定する旨を UI に明示済み。
 - LLM ケアプラン提案は Murakumo Opus 4.6 を使用。医療・介護の診断・処方ではないことを免責事項に記載。
@@ -136,6 +136,6 @@ kaigo.gftd.ai (SvelteKit 5 / CF Worker kg8r2m5n)
 - ADR-2605142200 — Giemon オープンハードウェアブランド確立
 - `60-apps/ai-gftd-project-kaigo/CLAUDE.md`
 - `60-apps/ai-gftd-project-kaigo/appview/kaigo-hp/`
-- `giemon.gftd.ai/viewer.htm` (WASM 3D ビューア共有元)
+- `giemon.etzhayyim.com/viewer.htm` (WASM 3D ビューア共有元)
 - 厚生労働省 WAM NET: 介護サービス情報公表システム
 - 介護保険法第 7 条（住宅改修費給付）

@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:ml1nb0nd.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:ml1nb0nd.etzhayyim.com",
   "component": {
     "path": "/wasm/component.wasm"
   },
-  "convoSystemPrompt": "You are mailer-inbound agent. DID-based email gateway. Receives email at {handle}@mailer.gftd.ai and delivers as Signal E2E encrypted DM to yoro.. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are mailer-inbound agent. DID-based email gateway. Receives email at {handle}@mailer.etzhayyim.com and delivers as Signal E2E encrypted DM to yoro.. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],
@@ -29,7 +29,7 @@
       "email-management",
       "did-messaging"
     ],
-    "description": "DID-based email gateway. Receives email at {handle}@mailer.gftd.ai and delivers as Signal E2E encrypted DM to yoro.",
+    "description": "DID-based email gateway. Receives email at {handle}@mailer.etzhayyim.com and delivers as Signal E2E encrypted DM to yoro.",
     "displayName": "Mailer Gateway",
     "isBot": true,
     "operator": "gftd.co.jp",
@@ -38,10 +38,10 @@
   "project": "ai-gftd-project-mailer",
   "routes": [
     {
-      "host": "ml1nb0nd.gftd.ai"
+      "host": "ml1nb0nd.etzhayyim.com"
     },
     {
-      "host": "mailer.gftd.ai"
+      "host": "mailer.etzhayyim.com"
     }
   ],
   "runtimeType": "worker",

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-6e75dd428dac",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6e75dd428dac",
   "entityId": "ent-6e75dd428dac",
   "canonicalName": "antónio injai",
   "aliases": [

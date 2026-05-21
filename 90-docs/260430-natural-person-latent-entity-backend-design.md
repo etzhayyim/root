@@ -27,20 +27,20 @@ All-human latent entity scale can be tens of billions. The logical graph treats 
 Record path:
 
 ```text
-at://did:web:natural-person.gftd.ai/ai.gftd.apps.naturalPerson.cohortPerson/{rkey}
+at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/{rkey}
 ```
 
 Current cohort DID patterns:
 
 ```text
-did:web:natural-person.gftd.ai:{cohort_hash}
-did:web:natural-person.gftd.ai:deceased:{era}:{cause_cluster}
+did:web:natural-person.etzhayyim.com:{cohort_hash}
+did:web:natural-person.etzhayyim.com:deceased:{era}:{cause_cluster}
 ```
 
 Registry path:
 
 ```text
-at://did:web:natural-person.gftd.ai/ai.gftd.apps.naturalPerson.cohortActor/{rkey}
+at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/{rkey}
 ```
 
 ### Latent Entity
@@ -48,13 +48,13 @@ at://did:web:natural-person.gftd.ai/ai.gftd.apps.naturalPerson.cohortActor/{rkey
 Vertex path:
 
 ```text
-at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/{entity_hash}
+at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/{entity_hash}
 ```
 
 Natural-person scoped DID-like identifier:
 
 ```text
-did:web:natural-person.gftd.ai:latent:{entity_hash}
+did:web:natural-person.etzhayyim.com:latent:{entity_hash}
 ```
 
 `entity_hash` must be deterministic and versioned:
@@ -68,14 +68,14 @@ blake3("np:latent:v1|{cohort_hash}|{source_family}|{evidence_key_or_ordinal}").s
 For natural-person managed records:
 
 ```text
-did:web:natural-person.gftd.ai:person:{person_hash}
+did:web:natural-person.etzhayyim.com:person:{person_hash}
 ```
 
 For agent-only reverse identity actors:
 
 ```text
 did:plc:{minted}
-handle: agent-{nano}.gftd.ai
+handle: agent-{nano}.etzhayyim.com
 ```
 
 Fission must write lineage back to the cohort:

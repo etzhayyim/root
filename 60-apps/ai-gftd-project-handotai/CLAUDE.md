@@ -7,14 +7,14 @@
 | Key | Value |
 |---|---|
 | **nanoid** | `dtyy44cr` |
-| **domain** | `handotai.gftd.ai` |
+| **domain** | `handotai.etzhayyim.com` |
 | **performer_id** | `dtyy44cr` |
-| **AT bot DID** | `did:web:handotai-dtyy44cr.gftd.ai` |
+| **AT bot DID** | `did:web:handotai-dtyy44cr.etzhayyim.com` |
 | **World** | `gftd-actor-agent` (LLM agent for semiconductor intelligence) |
 | **Runtime** | **Single Worker** (TS Native + SvelteKit SSR) |
 | **Data store** | **W Protocol Event Stream** — Write: `WRecord()` (PDS → yata SQL direct (SHA-256 content CID))、Read: `G()` (yata SQL) |
 | **UI mode** | `appview` |
-| **Reference** | ohsi (vibes.gftd.ai) が canonical 実装パターン。handotai は W Protocol Event Stream stateful 拡張例 |
+| **Reference** | ohsi (vibes.etzhayyim.com) が canonical 実装パターン。handotai は W Protocol Event Stream stateful 拡張例 |
 
 ## Writer Entities (News Sources with DID)
 
@@ -22,15 +22,15 @@ Each news source is a **writer entity** with its own AT Protocol bot DID. Articl
 
 | Source | DID | Language | Category |
 |---|---|---|---|
-| PC Watch | `did:web:handotai.gftd.ai:writer:pcw` | ja | fabrication |
-| ITmedia NEWS | `did:web:handotai.gftd.ai:writer:itm` | ja | market |
-| Publickey | `did:web:handotai.gftd.ai:writer:pubk` | ja | design |
-| SemiAnalysis | `did:web:handotai.gftd.ai:writer:semia` | en | market |
-| Semiconductor Engineering | `did:web:handotai.gftd.ai:writer:semie` | en | design |
-| EE Times | `did:web:handotai.gftd.ai:writer:eet` | en | market |
+| PC Watch | `did:web:handotai.etzhayyim.com:writer:pcw` | ja | fabrication |
+| ITmedia NEWS | `did:web:handotai.etzhayyim.com:writer:itm` | ja | market |
+| Publickey | `did:web:handotai.etzhayyim.com:writer:pubk` | ja | design |
+| SemiAnalysis | `did:web:handotai.etzhayyim.com:writer:semia` | en | market |
+| Semiconductor Engineering | `did:web:handotai.etzhayyim.com:writer:semie` | en | design |
+| EE Times | `did:web:handotai.etzhayyim.com:writer:eet` | en | market |
 
 - Writer entities are registered via `IdentityRegister()` at init with discoverable `crawl` tool
-- Custom sources added via `source_add` command get dynamic DIDs: `did:web:handotai.gftd.ai:writer:{source_id}`
+- Custom sources added via `source_add` command get dynamic DIDs: `did:web:handotai.etzhayyim.com:writer:{source_id}`
 - `magatama.jsonld` `entities[]` section declares all built-in writers
 
 ## W Protocol Event Stream Data Flow
@@ -161,7 +161,7 @@ Request → CF Single Worker
 - **Translation source**: `svelte/src/lib/translations.ts` (75+ static translation pairs)
 - **Display logic**: `displayTitle(article, lang)` → `lookupJaTranslation(title_original)` → JA title
 - **Known limitation**: TS Native 移行により UTF-8 問題は解消
-- **Future**: WIT UTF-8 修正後、i18n.gftd.ai LLM auto-translation で SQL 直接保存に移行
+- **Future**: WIT UTF-8 修正後、i18n.etzhayyim.com LLM auto-translation で SQL 直接保存に移行
 
 ## Build & Deploy
 
@@ -177,15 +177,15 @@ gftd deploy
 
 # Seed articles
 for i in $(seq 0 79); do
-  curl -s -X POST https://atproto.gftd.ai/xrpc/ai.gftd.apps.handotai.seedArticles \
+  curl -s -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.apps.handotai.seedArticles \
     -H "Content-Type: application/json" -d "{\"i\":$i}"
   sleep 2
 done
 
 # Health check
-curl https://handotai.gftd.ai/health
-curl https://handotai.gftd.ai/_worker/health
-curl https://handotai.gftd.ai/_worker/metrics
+curl https://handotai.etzhayyim.com/health
+curl https://handotai.etzhayyim.com/_worker/health
+curl https://handotai.etzhayyim.com/_worker/metrics
 ```
 
 ## Key Technical Notes

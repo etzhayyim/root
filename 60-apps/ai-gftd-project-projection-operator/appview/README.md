@@ -1,7 +1,7 @@
 # ai-gftd-project-projection-operator App migration
 
 projection-manager を projection-operator 側へ統合した構成です。  
-このディレクトリのみを運用対象とし、MCP エンドポイントは `po.gftd.ai` を正とします。
+このディレクトリのみを運用対象とし、MCP エンドポイントは `po.etzhayyim.com` を正とします。
 
 ## 統合済み components
 
@@ -12,6 +12,6 @@ projection-manager を projection-operator 側へ統合した構成です。
 
 ## mailbox actor integration
 
-- project 単位で `[project-nanoid]@gftd.ai` を Resend 受信
+- project 単位で `[project-nanoid]@etzhayyim.com` を Resend 受信
 - inbound mail は activity/message として取り込み
 - project manager actor が返信要否を判定

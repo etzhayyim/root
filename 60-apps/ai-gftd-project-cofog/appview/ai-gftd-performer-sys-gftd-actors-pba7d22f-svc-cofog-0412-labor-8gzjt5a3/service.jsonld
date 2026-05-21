@@ -11,7 +11,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/services/ai-gftd-performer-svc-cofog-0412-labor-8gzjt5a3",
+      "id": "https://kyber-services.etzhayyim.com/services/ai-gftd-performer-svc-cofog-0412-labor-8gzjt5a3",
       "type": "dodaf:Service",
       "name": "ai-gftd-performer-svc-cofog-0412-labor-8gzjt5a3",
       "description": "Government service for administration of general labor affairs and services based on COFOG 04.1.2.",

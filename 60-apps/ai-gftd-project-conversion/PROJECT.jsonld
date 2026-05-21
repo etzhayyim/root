@@ -6,7 +6,7 @@
   "status": "In Progress",
   "identifier": "ai-gftd-project-conversion",
   "description": "Society6 membership conversion app — oath/pledge submission, eKYC identity verification, and blockchain attestation for public membership records.",
-  "url": "https://conversion.gftd.ai",
+  "url": "https://conversion.etzhayyim.com",
   "hasPart": [
     {
       "@type": "SoftwareApplication",
@@ -34,7 +34,7 @@
     },
     {
       "status": "pending",
-      "task": "Deploy conversion.gftd.ai and verify production."
+      "task": "Deploy conversion.etzhayyim.com and verify production."
     }
   ]
 }

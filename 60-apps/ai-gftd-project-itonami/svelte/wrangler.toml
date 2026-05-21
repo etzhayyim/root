@@ -6,12 +6,12 @@ pages_build_output_dir = "build"
 name = "ai-gftd-project-itonami"
 
 [[env.production.custom_domains]]
-pattern = "itonami.gftd.ai"
+pattern = "itonami.etzhayyim.com"
 custom_certificate_id = "default"
 
 [env.preview]
 name = "ai-gftd-project-itonami-staging"
 
 [[env.preview.custom_domains]]
-pattern = "staging.itonami.gftd.ai"
+pattern = "staging.itonami.etzhayyim.com"
 custom_certificate_id = "default"

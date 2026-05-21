@@ -145,7 +145,7 @@
     },
     "/xrpc/ai.gftd.govZaf.ingestOfficialSources": {
       "post": {
-        "summary": "Queue official South Africa government sources through site.gftd.ai for WET/WAT/screenshot capture.",
+        "summary": "Queue official South Africa government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
         "operationId": "ai.gftd.govZaf.ingestOfficialSources",
         "requestBody": {
           "required": true,

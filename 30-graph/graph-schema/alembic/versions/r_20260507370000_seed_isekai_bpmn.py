@@ -27,13 +27,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-analyze-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-analyze-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_analyze',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_isekai_analyze" targetNamespace="https://gftd.ai/bpmn/isekai" '
+                 'id="Definitions_isekai_analyze" targetNamespace="https://etzhayyim.com/bpmn/isekai" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_analyze" name="analyze" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -56,17 +56,17 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/analyze.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-analyze-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-analyze-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1083, 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-analyze-v1']},
+  'parameters': [1083, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-analyze-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -81,17 +81,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-analyze-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-analyze-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.analyze',
                  'isekai_analyze',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-analyze-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-analyze-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -107,14 +107,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-browse-worlds-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-browse-worlds-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_browse_worlds',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_browse_worlds" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_browse_worlds" name="browseWorlds" '
                  'isExecutable="true">\n'
@@ -138,18 +138,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/browseWorlds.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-browse-worlds-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-browse-worlds-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1125,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-browse-worlds-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-browse-worlds-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -164,17 +164,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-browse-worlds-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-browse-worlds-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.browseWorlds',
                  'isekai_browse_worlds',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-browse-worlds-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-browse-worlds-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -190,13 +190,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-card-home-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-card-home-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_card_home',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_isekai_card_home" targetNamespace="https://gftd.ai/bpmn/isekai" '
+                 'id="Definitions_isekai_card_home" targetNamespace="https://etzhayyim.com/bpmn/isekai" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_card_home" name="cardHome" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -219,18 +219,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/cardHome.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-card-home-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-card-home-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1093,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-card-home-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-card-home-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -245,17 +245,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-card-home-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-card-home-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.cardHome',
                  'isekai_card_home',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-card-home-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-card-home-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -271,14 +271,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-catch-pokoa-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-catch-pokoa-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_catch_pokoa',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_catch_pokoa" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_catch_pokoa" name="catchPokoa" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -301,18 +301,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/catchPokoa.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-catch-pokoa-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-catch-pokoa-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1109,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-catch-pokoa-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-catch-pokoa-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -327,17 +327,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-catch-pokoa-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-catch-pokoa-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.catchPokoa',
                  'isekai_catch_pokoa',
                  'vertex_isekai_world_state,vertex_isekai_chunk_data,vertex_isekai_creature_roster,vertex_isekai_inventory_item,vertex_isekai_brainrot_event,vertex_isekai_compliance_dep,vertex_isekai_game_capture,vertex_isekai_game_craft,vertex_isekai_game_brainrot_encounter',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-catch-pokoa-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-catch-pokoa-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -353,13 +353,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-craft-item-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-craft-item-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_craft_item',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_isekai_craft_item" targetNamespace="https://gftd.ai/bpmn/isekai" '
+                 'id="Definitions_isekai_craft_item" targetNamespace="https://etzhayyim.com/bpmn/isekai" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_craft_item" name="craftItem" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -382,18 +382,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/craftItem.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-craft-item-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-craft-item-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1101,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-craft-item-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-craft-item-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -408,17 +408,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-craft-item-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-craft-item-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.craftItem',
                  'isekai_craft_item',
                  'vertex_isekai_world_state,vertex_isekai_chunk_data,vertex_isekai_creature_roster,vertex_isekai_inventory_item,vertex_isekai_brainrot_event,vertex_isekai_compliance_dep,vertex_isekai_game_capture,vertex_isekai_game_craft,vertex_isekai_game_brainrot_encounter',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-craft-item-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-craft-item-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -434,14 +434,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-create-world-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-create-world-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_create_world',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_create_world" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_create_world" name="createWorld" '
                  'isExecutable="true">\n'
@@ -465,18 +465,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/createWorld.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-create-world-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-create-world-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1117,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-create-world-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-create-world-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -491,17 +491,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-create-world-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-create-world-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.createWorld',
                  'isekai_create_world',
                  'vertex_isekai_world_state,vertex_isekai_chunk_data,vertex_isekai_creature_roster,vertex_isekai_inventory_item,vertex_isekai_brainrot_event,vertex_isekai_compliance_dep,vertex_isekai_game_capture,vertex_isekai_game_craft,vertex_isekai_game_brainrot_encounter',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-create-world-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-create-world-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -517,14 +517,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-flee-battle-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-flee-battle-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_flee_battle',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_flee_battle" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_flee_battle" name="fleeBattle" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -547,18 +547,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/fleeBattle.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-flee-battle-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-flee-battle-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1109,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-flee-battle-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-flee-battle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -573,17 +573,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-flee-battle-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-flee-battle-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.fleeBattle',
                  'isekai_flee_battle',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-flee-battle-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-flee-battle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -599,13 +599,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-chunk-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-chunk-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_get_chunk',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_isekai_get_chunk" targetNamespace="https://gftd.ai/bpmn/isekai" '
+                 'id="Definitions_isekai_get_chunk" targetNamespace="https://etzhayyim.com/bpmn/isekai" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_get_chunk" name="getChunk" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -628,18 +628,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/getChunk.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-chunk-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-chunk-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1093,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-chunk-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-chunk-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -654,17 +654,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-chunk-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-chunk-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.getChunk',
                  'isekai_get_chunk',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-chunk-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-chunk-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -680,14 +680,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-compliance-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-compliance-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_get_compliance',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_get_compliance" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_get_compliance" name="getCompliance" '
                  'isExecutable="true">\n'
@@ -711,18 +711,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/getCompliance.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-compliance-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-compliance-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1133,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-compliance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-compliance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -737,17 +737,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-compliance-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-compliance-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.getCompliance',
                  'isekai_get_compliance',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-compliance-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-compliance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -763,14 +763,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-inventory-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-inventory-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_get_inventory',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_get_inventory" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_get_inventory" name="getInventory" '
                  'isExecutable="true">\n'
@@ -794,18 +794,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/getInventory.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-inventory-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-inventory-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1125,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-inventory-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-inventory-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -820,17 +820,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-inventory-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-inventory-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.getInventory',
                  'isekai_get_inventory',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-inventory-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-inventory-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -846,14 +846,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-legendaries-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-legendaries-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_get_legendaries',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_get_legendaries" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_get_legendaries" name="getLegendaries" '
                  'isExecutable="true">\n'
@@ -877,18 +877,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/getLegendaries.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-legendaries-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-legendaries-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1141,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-legendaries-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-legendaries-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -903,17 +903,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-legendaries-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-legendaries-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.getLegendaries',
                  'isekai_get_legendaries',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-legendaries-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-legendaries-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -929,14 +929,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-portal-state-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-portal-state-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_get_portal_state',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_get_portal_state" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_get_portal_state" name="getPortalState" '
                  'isExecutable="true">\n'
@@ -960,18 +960,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/getPortalState.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-portal-state-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-portal-state-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1143,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-portal-state-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-portal-state-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -986,17 +986,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-portal-state-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-portal-state-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.getPortalState',
                  'isekai_get_portal_state',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-portal-state-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-portal-state-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1012,13 +1012,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-roster-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-roster-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_get_roster',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_isekai_get_roster" targetNamespace="https://gftd.ai/bpmn/isekai" '
+                 'id="Definitions_isekai_get_roster" targetNamespace="https://etzhayyim.com/bpmn/isekai" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_get_roster" name="getRoster" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -1041,18 +1041,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/getRoster.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-roster-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-roster-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1101,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-roster-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-roster-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1067,17 +1067,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-roster-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-roster-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.getRoster',
                  'isekai_get_roster',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-roster-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-roster-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1093,13 +1093,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-world-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-world-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_get_world',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_isekai_get_world" targetNamespace="https://gftd.ai/bpmn/isekai" '
+                 'id="Definitions_isekai_get_world" targetNamespace="https://etzhayyim.com/bpmn/isekai" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_get_world" name="getWorld" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -1122,18 +1122,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/getWorld.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-world-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-world-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1093,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-world-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-world-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1148,17 +1148,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-world-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-world-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.getWorld',
                  'isekai_get_world',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-world-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-world-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1174,13 +1174,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-heal-party-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-heal-party-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_heal_party',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_isekai_heal_party" targetNamespace="https://gftd.ai/bpmn/isekai" '
+                 'id="Definitions_isekai_heal_party" targetNamespace="https://etzhayyim.com/bpmn/isekai" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_heal_party" name="healParty" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -1203,18 +1203,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/healParty.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-heal-party-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-heal-party-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1101,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-heal-party-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-heal-party-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1229,17 +1229,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-heal-party-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-heal-party-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.healParty',
                  'isekai_heal_party',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-heal-party-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-heal-party-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1255,14 +1255,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-list-recipes-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-list-recipes-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_list_recipes',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_list_recipes" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_list_recipes" name="listRecipes" '
                  'isExecutable="true">\n'
@@ -1286,18 +1286,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/listRecipes.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-list-recipes-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-list-recipes-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1117,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-list-recipes-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-list-recipes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1312,17 +1312,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-list-recipes-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-list-recipes-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.listRecipes',
                  'isekai_list_recipes',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-list-recipes-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-list-recipes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1338,14 +1338,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-list-scenes-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-list-scenes-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_list_scenes',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_list_scenes" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_list_scenes" name="listScenes" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -1368,18 +1368,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/listScenes.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-list-scenes-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-list-scenes-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1109,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-list-scenes-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-list-scenes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1394,17 +1394,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-list-scenes-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-list-scenes-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.listScenes',
                  'isekai_list_scenes',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-list-scenes-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-list-scenes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1420,13 +1420,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-mine-block-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-mine-block-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_mine_block',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_isekai_mine_block" targetNamespace="https://gftd.ai/bpmn/isekai" '
+                 'id="Definitions_isekai_mine_block" targetNamespace="https://etzhayyim.com/bpmn/isekai" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_mine_block" name="mineBlock" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -1449,18 +1449,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/mineBlock.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-mine-block-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-mine-block-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1101,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-mine-block-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-mine-block-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1475,17 +1475,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-mine-block-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-mine-block-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.mineBlock',
                  'isekai_mine_block',
                  'vertex_isekai_world_state,vertex_isekai_chunk_data,vertex_isekai_creature_roster,vertex_isekai_inventory_item,vertex_isekai_brainrot_event,vertex_isekai_compliance_dep,vertex_isekai_game_capture,vertex_isekai_game_craft,vertex_isekai_game_brainrot_encounter',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-mine-block-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-mine-block-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1501,14 +1501,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-place-block-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-place-block-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_place_block',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_place_block" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_place_block" name="placeBlock" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -1531,18 +1531,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/placeBlock.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-place-block-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-place-block-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1109,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-place-block-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-place-block-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1557,17 +1557,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-place-block-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-place-block-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.placeBlock',
                  'isekai_place_block',
                  'vertex_isekai_world_state,vertex_isekai_chunk_data,vertex_isekai_creature_roster,vertex_isekai_inventory_item,vertex_isekai_brainrot_event,vertex_isekai_compliance_dep,vertex_isekai_game_capture,vertex_isekai_game_craft,vertex_isekai_game_brainrot_encounter',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-place-block-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-place-block-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1583,14 +1583,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-register-compliance-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-register-compliance-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_register_compliance',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_register_compliance" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_register_compliance" name="registerCompliance" '
                  'isExecutable="true">\n'
@@ -1614,18 +1614,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/registerCompliance.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-register-compliance-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-register-compliance-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1173,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-register-compliance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-register-compliance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1640,17 +1640,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-register-compliance-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-register-compliance-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.registerCompliance',
                  'isekai_register_compliance',
                  'vertex_isekai_world_state,vertex_isekai_chunk_data,vertex_isekai_creature_roster,vertex_isekai_inventory_item,vertex_isekai_brainrot_event,vertex_isekai_compliance_dep,vertex_isekai_game_capture,vertex_isekai_game_craft,vertex_isekai_game_brainrot_encounter',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-register-compliance-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-register-compliance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1666,14 +1666,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-roll-brainrot-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-roll-brainrot-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_roll_brainrot',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_roll_brainrot" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_roll_brainrot" name="rollBrainrot" '
                  'isExecutable="true">\n'
@@ -1697,18 +1697,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/rollBrainrot.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-roll-brainrot-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-roll-brainrot-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1125,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-roll-brainrot-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-roll-brainrot-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1723,17 +1723,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-roll-brainrot-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-roll-brainrot-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.rollBrainrot',
                  'isekai_roll_brainrot',
                  'vertex_isekai_world_state,vertex_isekai_chunk_data,vertex_isekai_creature_roster,vertex_isekai_inventory_item,vertex_isekai_brainrot_event,vertex_isekai_compliance_dep,vertex_isekai_game_capture,vertex_isekai_game_craft,vertex_isekai_game_brainrot_encounter',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-roll-brainrot-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-roll-brainrot-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1749,14 +1749,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-roll-encounter-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-roll-encounter-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_roll_encounter',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_roll_encounter" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_roll_encounter" name="rollEncounter" '
                  'isExecutable="true">\n'
@@ -1780,18 +1780,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/rollEncounter.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-roll-encounter-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-roll-encounter-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1133,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-roll-encounter-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-roll-encounter-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1806,17 +1806,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-roll-encounter-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-roll-encounter-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.rollEncounter',
                  'isekai_roll_encounter',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-roll-encounter-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-roll-encounter-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1832,14 +1832,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-start-battle-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-start-battle-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_start_battle',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_start_battle" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_start_battle" name="startBattle" '
                  'isExecutable="true">\n'
@@ -1863,18 +1863,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/startBattle.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-start-battle-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-start-battle-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1117,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-start-battle-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-start-battle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1889,17 +1889,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-start-battle-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-start-battle-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.startBattle',
                  'isekai_start_battle',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-start-battle-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-start-battle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1915,14 +1915,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-start-ohio-raid-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-start-ohio-raid-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_start_ohio_raid',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_start_ohio_raid" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_start_ohio_raid" name="startOhioRaid" '
                  'isExecutable="true">\n'
@@ -1946,18 +1946,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/startOhioRaid.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-start-ohio-raid-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-start-ohio-raid-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1135,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-start-ohio-raid-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-start-ohio-raid-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1972,17 +1972,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-start-ohio-raid-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-start-ohio-raid-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.startOhioRaid',
                  'isekai_start_ohio_raid',
                  'vertex_isekai_world_state,vertex_isekai_chunk_data,vertex_isekai_creature_roster,vertex_isekai_inventory_item,vertex_isekai_brainrot_event,vertex_isekai_compliance_dep,vertex_isekai_game_capture,vertex_isekai_game_craft,vertex_isekai_game_brainrot_encounter',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-start-ohio-raid-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-start-ohio-raid-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1998,14 +1998,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-teleport-biome-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-teleport-biome-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_teleport_biome',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_isekai_teleport_biome" '
-                 'targetNamespace="https://gftd.ai/bpmn/isekai" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/isekai" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_teleport_biome" name="teleportBiome" '
                  'isExecutable="true">\n'
@@ -2029,18 +2029,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/teleportBiome.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-teleport-biome-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-teleport-biome-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1133,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-teleport-biome-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-teleport-biome-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2055,17 +2055,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-teleport-biome-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-teleport-biome-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.teleportBiome',
                  'isekai_teleport_biome',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-teleport-biome-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-teleport-biome-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -2081,13 +2081,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-use-move-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-use-move-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'isekai_use_move',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_isekai_use_move" targetNamespace="https://gftd.ai/bpmn/isekai" '
+                 'id="Definitions_isekai_use_move" targetNamespace="https://etzhayyim.com/bpmn/isekai" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="isekai_use_move" name="useMove" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -2110,18 +2110,18 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/isekai/useMove.bpmn',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-use-move-v1']},
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-use-move-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1085,
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-use-move-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-use-move-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2136,122 +2136,122 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-use-move-v1',
-                 'did:web:isekai.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-use-move-v1',
+                 'did:web:isekai.etzhayyim.com',
                  'ai.gftd.apps.isekai.useMove',
                  'isekai_use_move',
                  '',
                  '2026-05-07T00:35:00Z',
-                 'did:web:isekai.gftd.ai',
-                 'did:web:isekai.gftd.ai',
+                 'did:web:isekai.etzhayyim.com',
+                 'did:web:isekai.etzhayyim.com',
                  'sys.bpmn.seed.isekai',
-                 'did:web:isekai.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-use-move-v1']}]
+                 'did:web:isekai.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-use-move-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-analyze-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-analyze-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-analyze-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-analyze-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-browse-worlds-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-browse-worlds-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-browse-worlds-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-browse-worlds-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-card-home-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-card-home-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-card-home-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-card-home-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-catch-pokoa-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-catch-pokoa-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-catch-pokoa-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-catch-pokoa-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-craft-item-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-craft-item-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-craft-item-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-craft-item-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-create-world-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-create-world-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-create-world-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-create-world-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-flee-battle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-flee-battle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-flee-battle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-flee-battle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-chunk-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-chunk-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-chunk-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-chunk-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-compliance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-compliance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-compliance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-compliance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-inventory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-inventory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-inventory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-inventory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-legendaries-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-legendaries-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-legendaries-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-legendaries-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-portal-state-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-portal-state-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-portal-state-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-portal-state-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-roster-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-roster-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-roster-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-roster-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-get-world-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-get-world-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-get-world-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-get-world-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-heal-party-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-heal-party-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-heal-party-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-heal-party-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-list-recipes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-list-recipes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-list-recipes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-list-recipes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-list-scenes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-list-scenes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-list-scenes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-list-scenes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-mine-block-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-mine-block-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-mine-block-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-mine-block-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-place-block-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-place-block-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-place-block-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-place-block-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-register-compliance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-register-compliance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-register-compliance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-register-compliance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-roll-brainrot-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-roll-brainrot-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-roll-brainrot-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-roll-brainrot-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-roll-encounter-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-roll-encounter-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-roll-encounter-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-roll-encounter-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-start-battle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-start-battle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-start-battle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-start-battle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-start-ohio-raid-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-start-ohio-raid-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-start-ohio-raid-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-start-ohio-raid-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-teleport-biome-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-teleport-biome-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-teleport-biome-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-teleport-biome-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isekai-use-move-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-use-move-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isekai-use-move-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-use-move-v1']}]
 
 
 def upgrade() -> None:

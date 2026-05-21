@@ -590,7 +590,7 @@
     <div class="landing">
       <div class="landing-card">
         <h1>XLSX Editor</h1>
-        <p>xlsx.gftd.ai — Excel spreadsheet editor with formula evaluation</p>
+        <p>xlsx.etzhayyim.com — Excel spreadsheet editor with formula evaluation</p>
         <div class="landing-actions">
           <button class="btn btn-primary" onclick={handleNew}>New Workbook</button>
           <button class="btn" onclick={() => fileInput?.click()}>Open .xlsx / .csv</button>

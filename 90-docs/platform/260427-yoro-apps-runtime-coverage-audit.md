@@ -2,7 +2,7 @@
 
 ## Question
 
-Of the apps surfaced in `https://yoro.gftd.ai/apps`, how many are actually
+Of the apps surfaced in `https://yoro.etzhayyim.com/apps`, how many are actually
 implemented across the four canonical runtime layers of the
 ADR-2604251830 Shannon-Optimal 8-Layer Architecture?
 
@@ -11,7 +11,7 @@ The four layers under audit:
 | Layer | What counts as "implemented" |
 |---|---|
 | **L3 CF Hono + Svelte edge** | `60-apps/ai-gftd-project-{id}` contains a `wrangler.jsonc` (Hono Worker) and / or a `svelte/package.json` (Svelte CSR app shell) |
-| **L7 BPMN (Zeebe)** | At least one `.bpmn` lives under `etzhayyim-root/00-contracts/bpmn/ai/gftd/{id}/` (deployed via `bpmn-dispatcher.gftd.ai` watcher to the `zeebe-0` cluster) |
+| **L7 BPMN (Zeebe)** | At least one `.bpmn` lives under `etzhayyim-root/00-contracts/bpmn/ai/gftd/{id}/` (deployed via `bpmn-dispatcher.etzhayyim.com` watcher to the `zeebe-0` cluster) |
 | **L8 Python pod worker** | Has a `50-infra/k8s/{id}*` deployment, or owns a Vultr VKE pod under `50-infra/vultr/{id}*` |
 | **MCP server** | Worker source declares `agentTool` / `mcpRegistry` (per ADR-0087 magatama MCP facade) **or** ships a dedicated MCP pod (`50-infra/k8s/{id}-mcp`) |
 
@@ -33,7 +33,7 @@ canonical SSoT path).
 
 The closest is **maps** (CF Worker + Svelte SPA + BPMN/Zeebe + 3 Python pods),
 which was missing only an MCP facade. **RESOLVED 2026-04-27**: maps MCP
-deployed (`mcpRegistry: { actorDid: "did:web:maps.gftd.ai" }`, 189 tools live).
+deployed (`mcpRegistry: { actorDid: "did:web:maps.etzhayyim.com" }`, 189 tools live).
 
 ## Layer counts
 
@@ -73,22 +73,22 @@ deployed via `bpmn-dispatcher`. They lack Python pods and MCP facades.
 | 3-of-4 layers | 2 | tsukuru, lawfirm |
 | 2-of-4 layers | 7 | calendar, docs, drive, gmail, lawyer, news, sheets |
 | 1-of-4 layer | 23 | CF-only, Svelte-only, or BPMN-only, or MCP-only entries |
-| 0-of-4 (launcher only) | 39 | Pure profile shortcuts to `did:web:{id}.gftd.ai` (incl. `ge`, `lo`) |
+| 0-of-4 (launcher only) | 39 | Pure profile shortcuts to `did:web:{id}.etzhayyim.com` (incl. `ge`, `lo`) |
 
 (Re-tally after parity check against `deps.toml [yoro_apps_coverage]` —
 73 / 73 reconciled. The earlier draft's 42 launcher count double-counted
 two false-positive substring matches; corrected.)
 
 So **~58% of /apps tiles (42 / 73)** carry no per-app runtime — they are
-launchers that `goto('/profile/did:web:${id}.gftd.ai')`. This matches
+launchers that `goto('/profile/did:web:${id}.etzhayyim.com')`. This matches
 ADR-2604251830's intent: actor SSoT lives in the L4 RisingWave registry, not
 in per-app CF Workers. But it also means `/apps` over-reports the deployed
 stack count.
 
 ## Recommendation
 
-1. ~~**Promote `maps` to 4-of-4**~~ **DONE 2026-04-27** — `mcpRegistry: { actorDid: "did:web:maps.gftd.ai" }` deployed,
-   189 tools live at `https://maps.gftd.ai/mcp`. First 4-of-4 app on platform.
+1. ~~**Promote `maps` to 4-of-4**~~ **DONE 2026-04-27** — `mcpRegistry: { actorDid: "did:web:maps.etzhayyim.com" }` deployed,
+   189 tools live at `https://maps.etzhayyim.com/mcp`. First 4-of-4 app on platform.
 2. **Audit the 42 launcher-only tiles** and either (a) demote them out of
    `/apps` and into a "Directory" view, or (b) wire a registry-backed
    indicator so the tile shows which L4/L7/L8 backends are alive for that

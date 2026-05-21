@@ -44,7 +44,7 @@ yatabase をご利用いただきありがとうございます。
   • OWL EL+RL+QL reasoning
   • SLA 99.9%
 
-今すぐアップグレード: https://yatabase.gftd.ai/studio/billing{note}
+今すぐアップグレード: https://yatabase.etzhayyim.com/studio/billing{note}
 
 ご質問があればいつでもご連絡ください。
 

@@ -12,7 +12,7 @@ import { runTanaka } from "./tanaka";
 import { runNishino } from "./nishino";
 import { runSakamoto } from "./sakamoto";
 
-const HOST_DID = "did:web:yatabase.gftd.ai";
+const HOST_DID = "did:web:yatabase.etzhayyim.com";
 
 export const AGENTS: Record<AgentName, AgentDef> = {
   chikada: {

@@ -114,10 +114,10 @@ export interface SiweMessage {
 }
 
 export interface SiweBuildInput {
-  domain: string;            // e.g. "authz.gftd.ai"
+  domain: string;            // e.g. "authz.etzhayyim.com"
   address: string;           // lowercase 0x-prefixed
   statement?: string;
-  uri: string;               // origin (https://authz.gftd.ai)
+  uri: string;               // origin (https://authz.etzhayyim.com)
   chainId: number;
   nonce: string;             // hex, single-use
   issuedAt: Date;

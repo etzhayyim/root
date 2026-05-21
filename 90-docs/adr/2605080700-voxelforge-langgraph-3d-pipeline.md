@@ -11,7 +11,7 @@ axis: architecture
 weight: 0.65
 priority_note: "新 actor — text/image/CAD 入力から .glb mesh + .vox voxel を生成し isekai (Minecraft voxel sandbox) と Minecraft 互換ツールに供給する"
 authoritative_for:
-  - voxelforge.gftd.ai actor 定義 (T2 LangGraph Server actor)
+  - voxelforge.etzhayyim.com actor 定義 (T2 LangGraph Server actor)
   - 3D 設計入力 → mesh / voxel 統合 pipeline (StateGraph 7 node)
   - .glb (gltf-binary) + .vox (MagicaVoxel) 中間形式 contract
   - RunPod 6000 Ada unified pod を canonical compute backend に標準化 (ADR-2605010000 addendum)
@@ -45,13 +45,13 @@ isekai (`60-apps/ai-gftd-project-isekai/`) は Minecraft 風 voxel sandbox を W
 
 ## Decision
 
-新 T2 actor `voxelforge.gftd.ai` を `LangGraph Server + Granian` (ADR-2605080600) で実装する。Zeebe BPMN-as-actor ではなく LangGraph Server を選ぶ理由は intra-job ≥3 LLM/compute branches (parse → route → generate → post → voxelize → export(.glb) → export(.vox) → register = 8 node) で、ADR-2605072000 の StateGraph 採用条件 (≥3 LLM branches) を満たすため。
+新 T2 actor `voxelforge.etzhayyim.com` を `LangGraph Server + Granian` (ADR-2605080600) で実装する。Zeebe BPMN-as-actor ではなく LangGraph Server を選ぶ理由は intra-job ≥3 LLM/compute branches (parse → route → generate → post → voxelize → export(.glb) → export(.vox) → register = 8 node) で、ADR-2605072000 の StateGraph 採用条件 (≥3 LLM branches) を満たすため。
 
 ### Layer 配置 (ADR-2604251830)
 
 | Layer | 担当 |
 |---|---|
-| L1 Edge | `voxelforge.gftd.ai` (CF Worker, Hono dispatcher) — XRPC entry / auth / billing meter |
+| L1 Edge | `voxelforge.etzhayyim.com` (CF Worker, Hono dispatcher) — XRPC entry / auth / billing meter |
 | L3 Routing | `bpmn-dispatcher.mitama-udf.svc.cluster.local:8080` |
 | L3 Execution | **LangGraph Server + Granian** (`mitama-voxelforge-pool` Helm release) |
 | L4 SSoT | `vertex_voxelforge_design` / `vertex_voxelforge_artifact` / `vertex_voxelforge_run` |
@@ -96,7 +96,7 @@ isekai (`60-apps/ai-gftd-project-isekai/`) は Minecraft 風 voxel sandbox を W
 
 ### 3D-aware backend (RunPod 6000 Ada unified pod)
 
-ADR-2605010000 で確立した `vyp99t9px7h4dl` (RTX 6000 Ada, US-KS-2, Network Volume `p9riuzhrvf` 250 GB) を **RunPod canonical compute pod** に正式昇格させ、image を `ghcr.io/gftdcojp/runpod-unified-3d:latest` に切り替える。内訳:
+ADR-2605010000 で確立した `vyp99t9px7h4dl` (RTX 6000 Ada, US-KS-2, Network Volume `p9riuzhrvf` 250 GB) を **RunPod canonical compute pod** に正式昇格させ、image を `ghcr.io/etzhayyim/runpod-unified-3d:latest` に切り替える。内訳:
 
 | Service | Port | Component | VRAM (peak) |
 |---|---|---|---|
@@ -180,7 +180,7 @@ mv_3d_blob_count_by_source
 
 | 禁止 | 代替 |
 |---|---|
-| CF Worker `voxelforge.gftd.ai` 内で TRELLIS / ComfyUI を直接叩く | LangGraph Server (mitama-voxelforge-pool) 経由 |
+| CF Worker `voxelforge.etzhayyim.com` 内で TRELLIS / ComfyUI を直接叩く | LangGraph Server (mitama-voxelforge-pool) 経由 |
 | `sdk.pds.dispatch({type:"com.atproto.repo.createRecord"})` で domain 書き込み | `createKyselyDb(env.HYPERDRIVE).insertInto('vertex_voxelforge_*').values(...).execute()` |
 | `did:pkh` 発行 (ADR-0095) | `actor_did` フィールドは ERC725 DID か legacy did:web 受理、wallet alias は `wallet_address` 列 |
 | RunPod pod URL を CF Worker secrets に直接設定 (drift する) | LangGraph Server 環境変数 (`RUNPOD_TRELLIS_URL` / `RUNPOD_COMFYUI_URL`) で集中管理。pod ID 変更時は ADR-2605010000 の `runpod-podid-update-checklist` を実行 |
@@ -208,7 +208,7 @@ mv_3d_blob_count_by_source
 | Phase | scope | trigger to next |
 |---|---|---|
 | **Phase A — Foundation (本 ADR で完了)** | schema 2 migration / 4 lexicon / CF Worker skeleton / LangGraph state graph 雛形 / ADSK Phase 2 BPMN | first end-to-end smoke (`generate kind=cad` で `.glb + .vox` が B2 に着地) |
-| Phase B — RunPod unified pod 切替 | `ghcr.io/gftdcojp/runpod-unified-3d:latest` build + `vyp99t9px7h4dl` への deploy。LLM 同居の VRAM テスト | pod 上で TRELLIS `/generate` が ≤90s で 1 mesh 返す |
+| Phase B — RunPod unified pod 切替 | `ghcr.io/etzhayyim/runpod-unified-3d:latest` build + `vyp99t9px7h4dl` への deploy。LLM 同居の VRAM テスト | pod 上で TRELLIS `/generate` が ≤90s で 1 mesh 返す |
 | Phase C — Helm pool deploy | `mitama-voxelforge-pool` rollout、LangGraph Server `/runs` が bpmn-dispatcher 越しに到達可能 | XRPC `voxelforge.generate` smoke pass |
 | Phase D — isekai consumer wiring | kami-voxel browser side で `voxel_grid.json` import loader 実装 | isekai world に voxelforge artifact を 1 つ配置 |
 | Phase E — ADSK Phase 2 ingest live | `ingest3DBlob.bpmn` cron 月次起動、`vertex_3d_blob` に最初の 100 sample 着地 | sample が voxelforge LangGraph `route_generator` で reference 可能になる |

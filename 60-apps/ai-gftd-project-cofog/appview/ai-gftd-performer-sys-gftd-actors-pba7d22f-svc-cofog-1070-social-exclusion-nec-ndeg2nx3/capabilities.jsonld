@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/10/7/0/social-exclusion-nec",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/7/0/social-exclusion-nec",
       "type": "dodaf:Capability",
       "name": "Social Inclusion and Integration Capability",
       "description": "Functional capability for analyzing social exclusion risks, coordinating integration programs, and monitoring inclusion outcomes. Classification: COFOG Division 10, Group 7, Class 0.",

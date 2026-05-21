@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#RecruiterSupporterPage
+ * @etzhayyim/ai-gftd-hrse#RecruiterSupporterPage
  * Agency Recruiter Supporter AI Agent Page
  */
 

@@ -96,7 +96,7 @@
       "topic": "vault-zero-knowledge-crypto",
       "authoritative": true,
       "authoritative_for": [
-        "vault.gftd.ai zero knowledge key hierarchy and encryption design",
+        "vault.etzhayyim.com zero knowledge key hierarchy and encryption design",
         "vault principal types and key exchange patterns",
         "vault WIT interface design (magatama:secrets/vault)"
       ],
@@ -139,7 +139,7 @@
     {
       "path": "90-docs/yoro/260323-yoro-human-credit-economy-design.md",
       "id": "260323-yoro-human-credit-economy-design",
-      "title": "yoro.gftd.ai Human Credit Economy — Murakumo + HC Task Rewards",
+      "title": "yoro.etzhayyim.com Human Credit Economy — Murakumo + HC Task Rewards",
       "status": "active",
       "doc_type": "explanation",
       "topic": "yoro-credit-economy",
@@ -147,7 +147,7 @@
       "authoritative_for": [
         "yoro human participation credit system",
         "murakumo credit reward rates",
-        "hc.gftd.ai credit integration"
+        "hc.etzhayyim.com credit integration"
       ],
       "related": [
         "yoro-superapp-oembed-design",
@@ -162,13 +162,13 @@
     {
       "path": "90-docs/dt/260324-dt-secure-file-transfer-design.md",
       "id": "260324-dt-secure-file-transfer-design",
-      "title": "dt.gftd.ai — Secure File Transfer Design",
+      "title": "dt.etzhayyim.com — Secure File Transfer Design",
       "status": "active",
       "doc_type": "explanation",
       "topic": "dt-secure-file-transfer",
       "authoritative": true,
       "authoritative_for": [
-        "dt.gftd.ai secure file transfer architecture",
+        "dt.etzhayyim.com secure file transfer architecture",
         "ai-gftd-project-data-transfer app boundary and transfer lifecycle"
       ],
       "related": [
@@ -283,7 +283,7 @@
       "authoritative": true,
       "authoritative_for": [
         "AT Protocol lexicon reference baseline used in this repo",
-        "atproto.gftd.ai implementation coverage summary",
+        "atproto.etzhayyim.com implementation coverage summary",
         "AT Protocol normative compliance summary"
       ],
       "related": [
@@ -684,7 +684,7 @@
     {
       "path": "90-docs/260426-site-common-crawl-zeebe-python-worker-design.md",
       "id": "260426-site-common-crawl-zeebe-python-worker-design",
-      "title": "site.gftd.ai Common Crawl Zeebe / Python worker design",
+      "title": "site.etzhayyim.com Common Crawl Zeebe / Python worker design",
       "status": "implemented",
       "doc_type": "design",
       "topic": "ingest-orchestration",
@@ -703,7 +703,7 @@
     {
       "path": "90-docs/260427-legal-corpus-deploy-runbook.md",
       "id": "260427-legal-corpus-deploy-runbook",
-      "title": "legal-corpus.gftd.ai Deploy Runbook (Phase A)",
+      "title": "legal-corpus.etzhayyim.com Deploy Runbook (Phase A)",
       "status": "active",
       "doc_type": "how-to",
       "topic": "legal-corpus",
@@ -1227,11 +1227,11 @@
       "topic": "dns-routing",
       "authoritative": true,
       "authoritative_for": [
-        "nanoid.gftd.ai subdomain の deprecation + 301 redirect policy",
-        "handle {name}.gftd.ai を唯一の public routing URL とする運用",
+        "nanoid.etzhayyim.com subdomain の deprecation + 301 redirect policy",
+        "handle {name}.etzhayyim.com を唯一の public routing URL とする運用",
         "CF Worker dispatcher の nanoid → handle 変換ロジック",
         "AT Protocol handle verification (_atproto TXT record + .well-known/atproto-did) の自動生成",
-        "atproto.gftd.ai / {nanoid}.gftd.ai / {handle}.gftd.ai の 3 surface → 2 surface 統合"
+        "atproto.etzhayyim.com / {nanoid}.etzhayyim.com / {handle}.etzhayyim.com の 3 surface → 2 surface 統合"
       ],
       "related": [
         "adr-0003-at-protocol-public-private-boundary",
@@ -1397,7 +1397,7 @@
       "authoritative": true,
       "authoritative_for": [
         "2026-10-01 cutover の day-by-day checklist",
-        "{nanoid}.gftd.ai DNS record 全削除手順",
+        "{nanoid}.etzhayyim.com DNS record 全削除手順",
         "deploy directory rename (ai-gftd-wasm-{name}-{nanoid}/ → ai-gftd-wasm-{name}/)",
         "[[legacy_nanoids]] table の archive 移動",
         "想定 incident 種別 + rollback policy"
@@ -1484,8 +1484,8 @@
       "topic": "auth-worker-topology",
       "authoritative": false,
       "authoritative_for": [
-        "authn.gftd.ai worker responsibilities (AuthN)",
-        "authz.gftd.ai worker responsibilities (AuthZ, absorbs accounts.gftd.ai)",
+        "authn.etzhayyim.com worker responsibilities (AuthN)",
+        "authz.etzhayyim.com worker responsibilities (AuthZ, absorbs accounts.etzhayyim.com)",
         "cross-domain session / redirect flow",
         "PDS XRPC gateway single-entry rule for com.atproto.server.*",
         "ai.gftd.authz.* NSID namespace (linked methods, actor score, org management)"
@@ -1568,8 +1568,8 @@
       "topic": "recruit-talent-ingest",
       "authoritative": true,
       "authoritative_for": [
-        "recruit.gftd.ai data sources",
-        "talent.gftd.ai ingest compliance",
+        "recruit.etzhayyim.com data sources",
+        "talent.etzhayyim.com ingest compliance",
         "occupation taxonomy SSoT"
       ],
       "related": [
@@ -1709,16 +1709,16 @@
     {
       "path": "90-docs/adr/0033-did-gftd-federation-via-did-web-shim.md",
       "id": "adr-0033-did-gftd-federation-via-did-web-shim",
-      "title": "ADR-0033: did:gftd Federation via did:web Shim — plc.directory 依存を排し did.gftd.ai に集約",
+      "title": "ADR-0033: did:gftd Federation via did:web Shim — plc.directory 依存を排し did.etzhayyim.com に集約",
       "status": "active",
       "doc_type": "adr",
       "topic": "did-gftd-federation",
       "authoritative": true,
       "authoritative_for": [
         "did:gftd actor が Bluesky / 外部 atproto ecosystem に federate する canonical 経路",
-        "did.gftd.ai resolver の did:web shim endpoint 仕様",
+        "did.etzhayyim.com resolver の did:web shim endpoint 仕様",
         "federation-visible tier の境界条件 (vertex_gftd_identity.federated)",
-        "plc.directory / plc.gftd.ai 依存の排除ルール"
+        "plc.directory / plc.etzhayyim.com 依存の排除ルール"
       ],
       "related": [
         "90-docs/adr/0010-per-did-signing-key-custody.md",
@@ -1775,7 +1775,7 @@
         "JP 国税・地方税の全額フロー (歳入 → 一般会計/特別会計 → 省庁 → 地方交付税/国庫支出金 → 自治体 → 契約 → 受給者) の actor DID 分解",
         "reverse-topological emission 順序 (leaf = payee/contract から root = taxpayer に commit 伝搬)",
         "Write-Only Derived Architecture (ADR-0004) に基づく money-move / contract の自動 social post rule",
-        "per-DID path form (`did:web:gov.gftd.ai:country:jpn:{agency}:{bureau}:{program}`) の命名規則"
+        "per-DID path form (`did:web:gov.etzhayyim.com:country:jpn:{agency}:{bureau}:{program}`) の命名規則"
       ],
       "related": [
         "adr-0016-legal-cluster-topology",
@@ -2121,8 +2121,8 @@
       "topic": "yoro-autonomy-monitoring",
       "authoritative": true,
       "authoritative_for": [
-        "yoro.gftd.ai autonomy guarantee (liveness / knowledge / behavior)",
-        "3 monitor actor DIDs (did:web:yoro-liveness.gftd.ai / yoro-shinka.gftd.ai / yoro-integrity.gftd.ai)",
+        "yoro.etzhayyim.com autonomy guarantee (liveness / knowledge / behavior)",
+        "3 monitor actor DIDs (did:web:yoro-liveness.etzhayyim.com / yoro-shinka.etzhayyim.com / yoro-integrity.etzhayyim.com)",
         "Monitor placement (jacob / judah / CF Worker — 3 independent failure domains)",
         "2-of-3 quorum vote record (vertex_yoro_monitor_vote) for corrective actions",
         "Cross-monitor liveness checks (each monitor attests on the other 2)",
@@ -2154,7 +2154,7 @@
       "authoritative": true,
       "authoritative_for": [
         "per-actor Cloudflare Worker retirement candidate for `ai.gftd.apps.*` actors",
-        "centralized XRPC dispatch at atproto.gftd.ai (PDS Worker) replacing per-actor V8 isolates",
+        "centralized XRPC dispatch at atproto.etzhayyim.com (PDS Worker) replacing per-actor V8 isolates",
         "cross-actor invoke retirement path (sdk.hostImports.invoke / hostClient.invokeCall fully removed 2026-04-21 prerequisite)",
         "write-path continuity: Worker-direct Hyperdrive (ADR-0036) wire is preserved through PDS Worker",
         "UDF role: RW-side compute (ADR-0044) composes inside `INSERT ... SELECT udf(...)` issued by the dispatching PDS handler"
@@ -2234,7 +2234,7 @@
     {
       "path": "90-docs/adr/0049-legal-corpus-global-ingest.md",
       "id": "adr-0049-legal-corpus-global-ingest",
-      "title": "Global Legal Corpus Ingest + Embedding (legal-corpus.gftd.ai)",
+      "title": "Global Legal Corpus Ingest + Embedding (legal-corpus.etzhayyim.com)",
       "status": "active",
       "doc_type": "adr",
       "topic": "legal-corpus",
@@ -2317,7 +2317,7 @@
       "authoritative": true,
       "authoritative_for": [
         "所得税法 §194 マル扶 (給与所得者の扶養控除等申告書) の actor topology",
-        "did:web:jpn.payroll.gftd.ai:fuyou path-based DID",
+        "did:web:jpn.payroll.etzhayyim.com:fuyou path-based DID",
         "ai.gftd.apps.fuyou.* NSID lexicon (8 method)",
         "vertex_fuyou_* schema (Tier 1 + Tier 3 分離)",
         "fuyou_declare_initial / fuyou_amend / fuyou_purge BPMN process",
@@ -2347,14 +2347,14 @@
       "authoritative": true,
       "authoritative_for": [
         "EPF & MP Act 1952 §6 月次 ECR (employer-side) の actor topology",
-        "did:web:ind.payroll.gftd.ai:epfo path-based DID",
+        "did:web:ind.payroll.etzhayyim.com:epfo path-based DID",
         "ai.gftd.apps.epfo.* NSID lexicon (8 method)",
         "vertex_epfo_* schema (Tier 1 + Tier 3 分離 — UAN/Aadhaar/PAN 暗号化)",
         "epfo_submit_monthly_ecr / epfo_amend / epfo_purge BPMN process",
         "epfo-ecr-form-v1 / epfo-review-v1 / epfo-amend-v1 form schema",
         "7 年 retention (EPF Act §82, EPFO Records Maintenance Order)",
         "kaikei PF payable accounting 連携 + INR 通貨処理",
-        "ind.payroll.gftd.ai cluster の新設"
+        "ind.payroll.etzhayyim.com cluster の新設"
       ],
       "related": [
         "adr-0018-pii-tier3-cohort-first",
@@ -2412,7 +2412,7 @@
       "authoritative": true,
       "authoritative_for": [
         "ESI Act 1948 §39 (contribution) + §44 (records) の actor topology",
-        "did:web:ind.payroll.gftd.ai:esic path-based DID",
+        "did:web:ind.payroll.etzhayyim.com:esic path-based DID",
         "ai.gftd.apps.esic.* NSID lexicon (8 method)",
         "vertex_esic_* schema (Tier 1 + Tier 3 分離 — IP No / Aadhaar / dispensary 暗号化)",
         "esic_submit_monthly / esic_amend / esic_purge BPMN process",
@@ -2441,7 +2441,7 @@
       "authoritative": true,
       "authoritative_for": [
         "datacenter operations actor topology",
-        "did:web:infra.gftd.ai:datacenter path-based DID",
+        "did:web:infra.etzhayyim.com:datacenter path-based DID",
         "ai.gftd.apps.datacenter.* NSID lexicon (15 method)",
         "vertex_datacenter_operation / vertex_datacenter_access_request / vertex_datacenter_capacity_reservation schema",
         "vertex_datacenter_access_request_pii Tier 3 visitor payload schema",
@@ -2696,7 +2696,7 @@
       "authoritative_for": [
         "ai.gftd.apps.insatsu.printPartner.*",
         "ai.gftd.apps.insatsu.printMailJob.*",
-        "insatsu.gftd.ai"
+        "insatsu.etzhayyim.com"
       ],
       "related": [
         "0061-tsukuru-isic-bpmn-actors"
@@ -2710,14 +2710,14 @@
     {
       "path": "90-docs/adr/0062-jpn-seizure-cluster-topology.md",
       "id": "adr-0062-jpn-seizure-cluster-topology",
-      "title": "ADR-0032: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.gftd.ai",
+      "title": "ADR-0032: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.etzhayyim.com",
       "status": "deprecated",
       "doc_type": "adr",
       "topic": "jpn-seizure-cluster",
       "authoritative": true,
       "authoritative_for": [
         "日本の行政差し押さえ 5 法域の actor トポロジー",
-        "jpn.state.gftd.ai 配下の差押関連 path-based DID 設計",
+        "jpn.state.etzhayyim.com 配下の差押関連 path-based DID 設計",
         "sashiosae aggregator (logical actor) の責務",
         "ai.gftd.apps.sashiosae.* NSID lexicon",
         "債務者 PII の Tier 配置 (ADR-0018 準拠)",
@@ -2878,12 +2878,12 @@
       "authoritative": true,
       "authoritative_for": [
         "Income Tax Act 1961 §139(1) ITR-1 Sahaj 個人所得税申告 actor topology",
-        "did:web:ind.union.gftd.ai:cbdt:itr1 path-based DID",
+        "did:web:ind.union.etzhayyim.com:cbdt:itr1 path-based DID",
         "ai.gftd.apps.itr1.* NSID lexicon (8 method)",
         "vertex_itr1_* schema (Tier 1 + Tier 3 分離 — PAN/Aadhaar/bank/income 暗号化)",
         "itr1_file_return / itr1_amend / itr1_purge BPMN process",
         "7 年 retention (IT Act §139(5) で revised return ≤ 31 Dec of AY、records §44AA + §139A 7 年)",
-        "ind.union.gftd.ai:cbdt cluster (Central Board of Direct Taxes) の新設"
+        "ind.union.etzhayyim.com:cbdt cluster (Central Board of Direct Taxes) の新設"
       ],
       "related": [
         "adr-0018-pii-tier3-cohort-first",
@@ -2909,12 +2909,12 @@
       "authoritative": true,
       "authoritative_for": [
         "CGST Act 2017 §39 + GST Rules 61(5) GSTR-3B 月次 summary return actor",
-        "did:web:ind.union.gftd.ai:cbic:gstr3b path-based DID",
+        "did:web:ind.union.etzhayyim.com:cbic:gstr3b path-based DID",
         "ai.gftd.apps.gstr3b.* NSID lexicon (8 method)",
         "vertex_gstr3b_* schema (Tier 1 + Tier 3 — GSTIN/PAN/turnover 暗号化)",
         "gstr3b_file_return / gstr3b_amend (DRC-03) / gstr3b_purge BPMN",
         "6 年 retention (CGST Act §35(1) records preservation 72 months)",
-        "ind.union.gftd.ai:cbic cluster (Central Board of Indirect Taxes & Customs) の新設"
+        "ind.union.etzhayyim.com:cbic cluster (Central Board of Indirect Taxes & Customs) の新設"
       ],
       "related": [
         "adr-0018-pii-tier3-cohort-first",
@@ -2938,7 +2938,7 @@
       "topic": "resource-flow-private-sector",
       "authoritative": true,
       "authoritative_for": [
-        "resource-flow.gftd.ai が受け入れる source DID の範囲 (gov + legal-entity + cohort)",
+        "resource-flow.etzhayyim.com が受け入れる source DID の範囲 (gov + legal-entity + cohort)",
         "12 resource class flow の private-sector semantics (revenue / headcount / customers served 等)",
         "private-sector flow と ADR-0018 PII tier の整合ルール",
         "hospitality cluster (yadoya / minpaku / chain / OTA) を pilot として指名"
@@ -3102,14 +3102,14 @@
     {
       "path": "90-docs/adr/0078-jpn-seizure-cluster-topology.md",
       "id": "adr-0078-jpn-seizure-cluster-topology",
-      "title": "ADR-0035: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.gftd.ai",
+      "title": "ADR-0035: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.etzhayyim.com",
       "status": "active",
       "doc_type": "adr",
       "topic": "jpn-seizure-cluster",
       "authoritative": true,
       "authoritative_for": [
         "日本の行政差し押さえ 5 法域の actor トポロジー",
-        "jpn.state.gftd.ai 配下の差押関連 path-based DID 設計",
+        "jpn.state.etzhayyim.com 配下の差押関連 path-based DID 設計",
         "sashiosae aggregator (logical actor) の責務",
         "ai.gftd.apps.sashiosae.* NSID lexicon",
         "債務者 PII の Tier 配置 (ADR-0018 準拠)",
@@ -3131,15 +3131,15 @@
     {
       "path": "90-docs/adr/0079-lawfirm-india-intake-auto-route.md",
       "id": "adr-0079-lawfirm-india-intake-auto-route",
-      "title": "ADR-0036: lawfirm.gftd.ai India (Hindi / 22 Scheduled Languages) Intake + Auto-Route to Peer Firm",
+      "title": "ADR-0036: lawfirm.etzhayyim.com India (Hindi / 22 Scheduled Languages) Intake + Auto-Route to Peer Firm",
       "status": "active",
       "doc_type": "adr",
       "topic": "lawfirm-india-intake",
       "authoritative": true,
       "authoritative_for": [
-        "lawfirm.gftd.ai が受け入れる India intake 言語と detection ルール",
+        "lawfirm.etzhayyim.com が受け入れる India intake 言語と detection ルール",
         "Hindi / regional-lang intake の PII 配置 (ADR-0018 Tier 3 準拠)",
-        "India marker 検出時の peer firm (lawyer.gftd.ai / Kunal @ k.bakshi) への auto-route 配線",
+        "India marker 検出時の peer firm (lawyer.etzhayyim.com / Kunal @ k.bakshi) への auto-route 配線",
         "auto-route 失敗時の fail-loud policy (silent skip 禁止)",
         "ai.gftd.apps.lawfirm.{requestConsult, createCase, translateToLang, translateFromLang} の実装要件"
       ],
@@ -3318,7 +3318,7 @@
       "topic": "image-generation-gateway",
       "authoritative": true,
       "authoritative_for": [
-        "comfyui.gftd.ai gateway topology and upstream path",
+        "comfyui.etzhayyim.com gateway topology and upstream path",
         "image-generation server-side inference pattern (post-Murakumo image endpoint deprecation 2026-04-19)",
         "auth reuse of Murakumo ADR-0023 2-token model for image workloads",
         "workflow-graph-first approach (vs. raw diffusers / Gradio webuis)"
@@ -3366,7 +3366,7 @@
     {
       "path": "90-docs/adr/0090-hc-typed-schema-vertex-other-pruning.md",
       "id": "adr-0090-hc-typed-schema-vertex-other-pruning",
-      "title": "hc.gftd.ai typed vertex_hc_* schema + vertex_other dead path pruning",
+      "title": "hc.etzhayyim.com typed vertex_hc_* schema + vertex_other dead path pruning",
       "status": "active",
       "doc_type": "adr",
       "topic": "hc-graph-projection",
@@ -3392,17 +3392,17 @@
     {
       "path": "90-docs/adr/0091-houbun-actor-topology.md",
       "id": "adr-0091-houbun-actor-topology",
-      "title": "houbun.gftd.ai — statute/regulation/treaty corpus actor (Phase 1)",
+      "title": "houbun.etzhayyim.com — statute/regulation/treaty corpus actor (Phase 1)",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "actor-topology",
       "authoritative": true,
       "authoritative_for": [
-        "houbun.gftd.ai actor scope (law/regulation/treaty full-text corpus)",
+        "houbun.etzhayyim.com actor scope (law/regulation/treaty full-text corpus)",
         "3-layer DID topology for houbun (primary / source path / article hash)",
         "ai.gftd.houbun.* lexicon surface",
         "Phase 1 crawl source set (JPN e-Gov, USA CFR+USC, EU EUR-Lex, UN Treaty Collection)",
-        "Separation of concerns vs social-contract.gftd.ai (契約類型) and legal-entity.gftd.ai (法人 registry)"
+        "Separation of concerns vs social-contract.etzhayyim.com (契約類型) and legal-entity.etzhayyim.com (法人 registry)"
       ],
       "related": [
         "90-docs/adr/0044-risingwave-udf-language-strategy.md",
@@ -3469,7 +3469,7 @@
       "related": [
         "adr-0076-moneyforward-actor-replacement",
         "adr-2604251200-vault-zero-knowledge-invariant",
-        "adr-2604251215-gftdcojp-agent-authority-bounds"
+        "adr-2604251215-etzhayyim-agent-authority-bounds"
       ],
       "last_verified": "2026-04-25",
       "supersedes": [],
@@ -3572,7 +3572,7 @@
       "authoritative_for": [
         "China law corpus ingest",
         "NPC FDB houbun extension",
-        "houbun.gftd.ai CN path topology"
+        "houbun.etzhayyim.com CN path topology"
       ],
       "related": [
         "adr-0091-houbun-actor-topology"
@@ -3594,7 +3594,7 @@
       "topic": "anime-production-pipeline",
       "authoritative": true,
       "authoritative_for": [
-        "animeka.gftd.ai 12-stage production orchestration",
+        "animeka.etzhayyim.com 12-stage production orchestration",
         "LLM / image / video / audio primitive routing for anime production",
         "BPMN process identity for each of the 12 stages"
       ],
@@ -3743,15 +3743,15 @@
     {
       "path": "90-docs/adr/2604231828-appview-domain-separation-bsky-gftd-ai.md",
       "id": "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
-      "title": "ADR: AppView を bsky.gftd.ai に分離 — PDS/AppView domain separation (self-hosting guide 準拠)",
+      "title": "ADR: AppView を bsky.etzhayyim.com に分離 — PDS/AppView domain separation (self-hosting guide 準拠)",
       "status": "active",
       "doc_type": "adr",
       "topic": "service-topology",
       "authoritative": true,
       "authoritative_for": [
-        "PDS (atproto.gftd.ai) と AppView の public domain 分離方針",
-        "bsky.gftd.ai を Layer 2 AppView の正 host とする決定",
-        "yoro.gftd.ai から AppView 機能を剥離する設計",
+        "PDS (atproto.etzhayyim.com) と AppView の public domain 分離方針",
+        "bsky.etzhayyim.com を Layer 2 AppView の正 host とする決定",
+        "yoro.etzhayyim.com から AppView 機能を剥離する設計",
         "did:web 配下での PDS/AppView endpoint 宣言規則"
       ],
       "related": [
@@ -3769,13 +3769,13 @@
     {
       "path": "90-docs/adr/2604231839-did-doc-custom-service-declaration.md",
       "id": "adr-2604231839-did-doc-custom-service-declaration",
-      "title": "ADR: did:web:*.gftd.ai DID Doc に custom service endpoint を明示宣言 — chat.bsky.convo パターン",
+      "title": "ADR: did:web:*.etzhayyim.com DID Doc に custom service endpoint を明示宣言 — chat.bsky.convo パターン",
       "status": "active",
       "doc_type": "adr",
       "topic": "did-service-discovery",
       "authoritative": true,
       "authoritative_for": [
-        "did:web:*.gftd.ai の DID Doc `service[]` 宣言規約",
+        "did:web:*.etzhayyim.com の DID Doc `service[]` 宣言規約",
         "`GftdActor` service type + fragment id 命名",
         "他 AT Protocol client からの actor discovery 経路"
       ],
@@ -3821,13 +3821,13 @@
     {
       "path": "90-docs/adr/2604240946-yoro-autonomous-actor-hybrid-loop.md",
       "id": "adr-2604240946-yoro-autonomous-actor-hybrid-loop",
-      "title": "ADR: yoro.gftd.ai 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + RisingWave UDF)",
+      "title": "ADR: yoro.etzhayyim.com 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + RisingWave UDF)",
       "status": "active",
       "doc_type": "adr",
       "topic": "yoro-autonomous-actor",
       "authoritative": true,
       "authoritative_for": [
-        "yoro.gftd.ai (did:web:yoro.gftd.ai) の自律化トポロジ",
+        "yoro.etzhayyim.com (did:web:yoro.etzhayyim.com) の自律化トポロジ",
         "AT Protocol actor としての相互成長ループの実装境界",
         "T1 MCP-Compose / BPMN-as-actor / UDF / LangChain の役割分担",
         "actor multi-tenancy model の選択 (shared infra vs actor-per-pod)",
@@ -3894,7 +3894,7 @@
       "authoritative": true,
       "authoritative_for": [
         "Why AT Protocol `com.atproto.repo.*` commits must stay on the PDS Worker",
-        "Why chat.gftd.ai / signal.gftd.ai / actor Workers only serve reads + non-commit state",
+        "Why chat.etzhayyim.com / signal.etzhayyim.com / actor Workers only serve reads + non-commit state",
         "Split-service boundary rule — what can move out of PDS and what can't",
         "Conditions under which this invariant could ever be revisited"
       ],
@@ -3942,8 +3942,8 @@
       "topic": "cad-bim-runtime",
       "authoritative": true,
       "authoritative_for": [
-        "cad.gftd.ai viewer runtime",
-        "bim.gftd.ai viewer runtime",
+        "cad.etzhayyim.com viewer runtime",
+        "bim.etzhayyim.com viewer runtime",
         "kami-app-{cad,bim} / kami-bim / kami-cad responsibility split"
       ],
       "related": [
@@ -4019,7 +4019,7 @@
     {
       "path": "90-docs/adr/2604250900-gameka-bpmn-langgraph-game-studio.md",
       "id": "adr-2604250900-gameka-bpmn-langgraph-game-studio",
-      "title": "ADR: gameka.gftd.ai — autonomous game studio actor on BPMN + LangGraph substrate",
+      "title": "ADR: gameka.etzhayyim.com — autonomous game studio actor on BPMN + LangGraph substrate",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "agentic-actor-game-studio",
@@ -4109,7 +4109,7 @@
       "topic": "vault-zero-knowledge",
       "authoritative": true,
       "authoritative_for": [
-        "vault.gftd.ai server-side data classification",
+        "vault.etzhayyim.com server-side data classification",
         "vaultKey / memberDeviceKey custody boundary",
         "MCP response redaction contract"
       ],
@@ -4171,12 +4171,12 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2604251215-gftdcojp-agent-authority-bounds.md",
-      "id": "adr-2604251215-gftdcojp-agent-authority-bounds",
-      "title": "ADR: gftdcojp Agent authority bounds — internal direct, external draft-approve, payment forbidden",
+      "path": "90-docs/adr/2604251215-etzhayyim-agent-authority-bounds.md",
+      "id": "adr-2604251215-etzhayyim-agent-authority-bounds",
+      "title": "ADR: etzhayyim Agent authority bounds — internal direct, external draft-approve, payment forbidden",
       "status": "active",
       "doc_type": "adr",
-      "topic": "gftdcojp-agent",
+      "topic": "etzhayyim-agent",
       "authoritative": true,
       "authoritative_for": [
         "Claude Agent autonomous action scope as Gftd Japan",
@@ -4251,7 +4251,7 @@
       "authoritative": true,
       "authoritative_for": [
         "Murakumo Mac mini k3s fleet placement for Zeebe workers",
-        "yoro.gftd.ai persistent AT Protocol actor loop on Murakumo",
+        "yoro.etzhayyim.com persistent AT Protocol actor loop on Murakumo",
         "LangGraph agent worker and MCP tool boundary for yoro social actions",
         "llama.cpp Vulkan inference tier for actor workers"
       ],
@@ -4591,13 +4591,13 @@
     {
       "path": "90-docs/adr/2604261936-ipfs-self-hosted-vultr-b2.md",
       "id": "adr-2604261936-ipfs-self-hosted-vultr-b2",
-      "title": "ADR: ipfs.gftd.ai — self-hosted Kubo on Vultr VKE with Backblaze B2 block backend",
+      "title": "ADR: ipfs.etzhayyim.com — self-hosted Kubo on Vultr VKE with Backblaze B2 block backend",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "ipfs-self-hosted",
       "authoritative": true,
       "authoritative_for": [
-        "ipfs.gftd.ai gateway topology",
+        "ipfs.etzhayyim.com gateway topology",
         "Kubo + B2 datastore split",
         "IPFS pin policy alignment with PDS uploadBlob"
       ],
@@ -4940,7 +4940,7 @@
       "topic": "arms-firearm-id-authentication",
       "authoritative": true,
       "authoritative_for": [
-        "arms.gftd.ai DID challenge-response holder authentication",
+        "arms.etzhayyim.com DID challenge-response holder authentication",
         "firearms chain-of-custody tracking (vertex_arms_*)",
         "Tier 3 PII split for serial/permit numbers (ADR-0018)",
         "defence cluster incident integration (vertex_open_defence_event)",
@@ -5315,15 +5315,15 @@
     {
       "path": "90-docs/adr/2604292130-llm-gftd-ai-runpod-pass.md",
       "id": "adr-2604292130",
-      "title": "llm.gftd.ai を Murakumo から分離し RunPod pass-through gateway に固定",
+      "title": "llm.etzhayyim.com を Murakumo から分離し RunPod pass-through gateway に固定",
       "status": "active",
       "doc_type": "adr",
       "topic": "inference",
       "authoritative": true,
       "authoritative_for": [
-        "llm.gftd.ai routing",
+        "llm.etzhayyim.com routing",
         "RunPod Gemma4 OpenAI-compatible gateway",
-        "Murakumo and llm.gftd.ai separation"
+        "Murakumo and llm.etzhayyim.com separation"
       ],
       "related": [
         "adr-2604282100",
@@ -5552,7 +5552,7 @@
       "topic": "drive-cad-jbeam-sbom-pipeline",
       "authoritative": true,
       "authoritative_for": [
-        "driver.gftd.ai CAD to JBeam import architecture",
+        "driver.etzhayyim.com CAD to JBeam import architecture",
         "kami-cad-import crate scope",
         "vehicle part graph and CycloneDX SBOM emission",
         "physical component recall and supplier-quality SBOM flow"
@@ -5665,11 +5665,11 @@
       "authoritative": true,
       "authoritative_for": [
         "myco-yeast artificial organism architecture",
-        "kabi.gftd.ai — Mycelium Network Orchestrator",
-        "kobo.gftd.ai — Yeast Agent Factory",
-        "kinoko.gftd.ai — Fruiting Body Consensus",
-        "houshi.gftd.ai — Spore Registry",
-        "hakkou.gftd.ai — Fermentation Pipeline",
+        "kabi.etzhayyim.com — Mycelium Network Orchestrator",
+        "kobo.etzhayyim.com — Yeast Agent Factory",
+        "kinoko.etzhayyim.com — Fruiting Body Consensus",
+        "houshi.etzhayyim.com — Spore Registry",
+        "hakkou.etzhayyim.com — Fermentation Pipeline",
         "Proof of Nutrient Flow (PoNF) consensus mechanism",
         "Sporulation Protocol",
         "Anastomosis Gate Protocol",
@@ -6121,7 +6121,7 @@
       "topic": "voxelforge-3d-pipeline",
       "authoritative": true,
       "authoritative_for": [
-        "voxelforge.gftd.ai actor 定義 (T2 LangGraph Server actor)",
+        "voxelforge.etzhayyim.com actor 定義 (T2 LangGraph Server actor)",
         "3D 設計入力 → mesh / voxel 統合 pipeline (StateGraph 7 node)",
         ".glb (gltf-binary) + .vox (MagicaVoxel) 中間形式 contract",
         "RunPod 6000 Ada unified pod を canonical compute backend に標準化 (ADR-2605010000 addendum)",
@@ -6140,13 +6140,13 @@
     {
       "path": "90-docs/adr/2605080800-iryo-hospital-ops-phase1.md",
       "id": "adr-2605080800-iryo-hospital-ops-phase1",
-      "title": "ADR-2605080800: iryo.gftd.ai hospital operations Phase 1",
+      "title": "ADR-2605080800: iryo.etzhayyim.com hospital operations Phase 1",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "iryo-hospital-ops-phase1",
       "authoritative": true,
       "authoritative_for": [
-        "iryo.gftd.ai hospital actor topology",
+        "iryo.etzhayyim.com hospital actor topology",
         "hospital operations Phase 1 data sources",
         "hospital DRG graph schema direction"
       ],
@@ -6166,7 +6166,7 @@
       "topic": "manimani-user-intake-routing",
       "authoritative": true,
       "authoritative_for": [
-        "manimani.gftd.ai actor 定義 (T3 CF Worker edge facade + LangGraph Server execution)",
+        "manimani.etzhayyim.com actor 定義 (T3 CF Worker edge facade + LangGraph Server execution)",
         "user intake → project 自動振り分け (LLM 主導 classification, embedding 補助)",
         "project-typed LLM pipeline (knowledge / task / memo / unsorted の 4 kind)",
         "manimani 系 schema (vertex_manimani_intake / project / artifact / run + edge_manimani_belongs_to + 2 MV)",
@@ -7086,7 +7086,7 @@
         "RisingWave capability storage target design",
         "DID-bound authority evaluation over RW writes and reads",
         "Tahoe-like read/write/verify capability mapping for gftd storage",
-        "auth.gftd.ai / DID / ERC725 alignment for capability checks"
+        "auth.etzhayyim.com / DID / ERC725 alignment for capability checks"
       ],
       "related": [
         "90-docs/dt/260324-dt-secure-file-transfer-design.md",
@@ -7105,14 +7105,14 @@
     {
       "path": "90-docs/adr/2605092800-kami-gsplat-preview-bake-pipeline.md",
       "id": "adr-2605092800-kami-gsplat-preview-bake-pipeline",
-      "title": "KAMI Gsplat Preview Renderer + Splat→Mesh Bake Pipeline for maps.gftd.ai",
+      "title": "KAMI Gsplat Preview Renderer + Splat→Mesh Bake Pipeline for maps.etzhayyim.com",
       "status": "active",
       "doc_type": "adr",
       "topic": "kami-gsplat-preview-bake",
       "authoritative": true,
       "authoritative_for": [
         "kami-engine 3D Gaussian Splatting policy",
-        "maps.gftd.ai splat asset preview path",
+        "maps.etzhayyim.com splat asset preview path",
         "splat-to-mesh bake pipeline contract",
         "mapillary-to-3dgs trainer + idempotency rules",
         "per-tile spend cap + per-job cost telemetry"
@@ -7516,7 +7516,7 @@
         "Provider routing policy (non-China upstream selection)",
         "Model alternatives: DeepSeek V4 Pro / Kimi K2.6 / MiniMax M2.5 / Gemma 4 26B",
         "Agentic coding CLI tools: OpenCode v1.14.48 + Aider v0.86.2",
-        "OpenRouter API key storage (1Password gftdcojp vault)",
+        "OpenRouter API key storage (1Password etzhayyim vault)",
         "terminal-agent agentic benchmark suite (gftd code bench --agentic --swe)",
         "Model selection by workload (interactive / batch / long-context / code-correctness)",
         "RisingWave bench result schema (vertex_bench_run / vertex_bench_result)"
@@ -7570,7 +7570,7 @@
       "authoritative_for": [
         "terminal-agent LangGraph Server runtime selection (langgraph-cli[inmem])",
         "terminal-agent k8s deployment topology (Vultr VKE, terminal-agent namespace)",
-        "HITL proxy architecture (Yoro CF Worker → terminal-agent.gftd.ai)",
+        "HITL proxy architecture (Yoro CF Worker → terminal-agent.etzhayyim.com)",
         "Yoro HITL inbox UI (/tasks/inbox)",
         "HITL authentication model (HITL_API_KEY bearer + LANGCHAIN_API_KEY x-api-key)"
       ],
@@ -7745,7 +7745,7 @@
       "topic": "malak-surveillance-international-collapse",
       "authoritative": true,
       "authoritative_for": [
-        "malak.gftd.ai surveillance capability cluster (15 NSID)",
+        "malak.etzhayyim.com surveillance capability cluster (15 NSID)",
         "International LEA seed scope (INTERPOL 196 members)",
         "cooperation_status filter (prohibited / restricted / standard / unverified)",
         "etzhayyim ↔ Gftd Japan operating-entity / vendor boundary for surveillance"
@@ -7785,7 +7785,7 @@
     {
       "path": "90-docs/adr/2605131700-gworkspace-oauth-client-separation-broker-pattern.md",
       "id": "adr-2605131700-gworkspace-oauth-client-separation-broker-pattern",
-      "title": "Google Workspace OAuth — Identity Client vs Data Ingest Client separation, with auth.gftd.ai as Refresh-Token Broker",
+      "title": "Google Workspace OAuth — Identity Client vs Data Ingest Client separation, with auth.etzhayyim.com as Refresh-Token Broker",
       "status": "accepted",
       "doc_type": "adr",
       "topic": "gworkspace-oauth-architecture",
@@ -7858,7 +7858,7 @@
       "topic": "yoro-i18n",
       "authoritative": true,
       "authoritative_for": [
-        "yoro.gftd.ai social post translation worker topology",
+        "yoro.etzhayyim.com social post translation worker topology",
         "yoro social translation MCP tool exposure",
         "scheduled target language set for yoro post backfill"
       ],
@@ -8007,13 +8007,13 @@
     {
       "path": "90-docs/adr/2605141900-mailer-gewp-implementation.md",
       "id": "adr-2605141900-mailer-gewp-implementation",
-      "title": "ADR-2605141900: mailer.gftd.ai — GEWP v1.0 Implementation",
+      "title": "ADR-2605141900: mailer.etzhayyim.com — GEWP v1.0 Implementation",
       "status": "accepted",
       "doc_type": "adr",
       "topic": "mailer-gewp-implementation",
       "authoritative": true,
       "authoritative_for": [
-        "mailer.gftd.ai の GEWP 送受信実装",
+        "mailer.etzhayyim.com の GEWP 送受信実装",
         "pymagatama.gewp モジュール API",
         "vertex_mailer_inbound_email / vertex_mailer_outbound_email の GEWP 列定義",
         "Resend API を経由した GEWP 3-layer 送信方式",
@@ -8058,7 +8058,7 @@
     {
       "path": "90-docs/adr/2605141930-world-monitor-resident-intelligence-graph.md",
       "id": "adr-2605141930-world-monitor-resident-intelligence-graph",
-      "title": "World Monitor-style resident intelligence graph facade for maps.gftd.ai",
+      "title": "World Monitor-style resident intelligence graph facade for maps.etzhayyim.com",
       "status": "active",
       "doc_type": "adr",
       "topic": "maps-world-monitor-resident-intelligence",
@@ -8282,13 +8282,13 @@
     {
       "path": "90-docs/adr/2605152100-auth-unified-topology.md",
       "id": "adr-2605152100-auth-unified-topology",
-      "title": "Auth Unified Topology — auth.gftd.ai canonical, 4-layer minimum, x-magatama-verified retirement",
+      "title": "Auth Unified Topology — auth.etzhayyim.com canonical, 4-layer minimum, x-magatama-verified retirement",
       "status": "active",
       "doc_type": "adr",
       "topic": "auth-topology",
       "authoritative": true,
       "authoritative_for": [
-        "auth canonical domain (auth.gftd.ai)",
+        "auth canonical domain (auth.etzhayyim.com)",
         "worker split (auth = AuthN, authz = AuthZ)",
         "oauth-as physical location (PDS)",
         "x-magatama-verified cutover date",
@@ -8321,7 +8321,7 @@
       "topic": "etzhayyim-github-org-boundary",
       "authoritative": true,
       "authoritative_for": [
-        "GitHub org boundary between religious-corp principal (etzhayyim) and Gftd Japan vendor (gftdcojp)",
+        "GitHub org boundary between religious-corp principal (etzhayyim) and Gftd Japan vendor (etzhayyim)",
         "License policy per org (Apache 2.0 for etzhayyim, proprietary for gftd)",
         "Monorepo seed strategy (single etzhayyim/root, NOT multi-repo transfer)",
         "Monorepo directory layout convention (Shannon-Optimal 8-Layer mirrored)",
@@ -8486,15 +8486,15 @@
     {
       "path": "90-docs/adr/2605180000-lawfirm-product-focus-bmc-lean.md",
       "id": "adr-2605180000-lawfirm-product-focus-bmc-lean",
-      "title": "ADR-2605180000: lawfirm.gftd.ai 選択と集中 — Business Model Canvas + Lean Canvas",
+      "title": "ADR-2605180000: lawfirm.etzhayyim.com 選択と集中 — Business Model Canvas + Lean Canvas",
       "status": "active",
       "doc_type": "adr",
       "topic": "lawfirm-product-focus",
       "authoritative": true,
       "authoritative_for": [
-        "gftdcojp プロダクトポートフォリオの選択と集中方針 (2026-05〜)",
-        "lawfirm.gftd.ai のビジネスモデル定義 (BMC + Lean Canvas)",
-        "shinshi.gftd.ai / animeka.gftd.ai のリソース配分方針",
+        "etzhayyim プロダクトポートフォリオの選択と集中方針 (2026-05〜)",
+        "lawfirm.etzhayyim.com のビジネスモデル定義 (BMC + Lean Canvas)",
+        "shinshi.etzhayyim.com / animeka.etzhayyim.com のリソース配分方針",
         "lawfirm 収益化ロードマップと KPI",
         "Sprint 1 技術ゲート状況 (バックエンド接続完了 2026-05-18)"
       ],
@@ -8540,13 +8540,13 @@
     {
       "path": "90-docs/adr/2605180600-lawyer-attorney-portal-design.md",
       "id": "adr-2605180600-lawyer-attorney-portal-design",
-      "title": "ADR-2605180600: lawyer.gftd.ai — Attorney Portal Design (Pregel + LangServer + Svelte)",
+      "title": "ADR-2605180600: lawyer.etzhayyim.com — Attorney Portal Design (Pregel + LangServer + Svelte)",
       "status": "active",
       "doc_type": "adr",
       "topic": "lawyer-portal",
       "authoritative": true,
       "authoritative_for": [
-        "lawyer.gftd.ai service design and UI view structure",
+        "lawyer.etzhayyim.com service design and UI view structure",
         "lawfirm↔lawyer connection protocol (externalCounselGrant flow)",
         "ISCO-2611 document approval gate design",
         "LangGraph attorney workspace graph definitions",
@@ -8620,7 +8620,7 @@
     {
       "path": "90-docs/adr/2605190000-yatabase-bmc-lean.md",
       "id": "adr-2605190000-yatabase-bmc-lean",
-      "title": "ADR-2605190000: yatabase.gftd.ai — Business Model Canvas + Lean Canvas",
+      "title": "ADR-2605190000: yatabase.etzhayyim.com — Business Model Canvas + Lean Canvas",
       "status": "superseded",
       "doc_type": "adr",
       "topic": "yatabase-product-bmc",
@@ -8688,8 +8688,8 @@
       "related": [
         "90-docs/adr/0048-risingwave-vultr-b2-primary.md",
         "90-docs/adr/2605181400-bpmn-extract-to-etzhayyim-root.md",
-        "_working/gftdcojp-revenue/DECISION-LOG.md",
-        "_working/gftdcojp-revenue/stream-a-activation-runbook.md"
+        "_working/etzhayyim-revenue/DECISION-LOG.md",
+        "_working/etzhayyim-revenue/stream-a-activation-runbook.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8901,7 +8901,7 @@
       "topic": "yobel-actor",
       "authoritative": true,
       "authoritative_for": [
-        "yobel.gftd.ai",
+        "yobel.etzhayyim.com",
         "collective debt release rites",
         "etzhayyim religious-corp doctrinal acts"
       ],
@@ -8922,14 +8922,14 @@
     {
       "path": "90-docs/adr/2605202225-mangaka-comfyui-langgraph-pipeline.md",
       "id": "adr-2605202225-mangaka-comfyui-langgraph-pipeline",
-      "title": "mangaka.gftd.ai — ComfyUI Generation Pipeline via LangGraph + Studio Embed",
+      "title": "mangaka.etzhayyim.com — ComfyUI Generation Pipeline via LangGraph + Studio Embed",
       "status": "active",
       "doc_type": "adr",
       "topic": "mangaka-comfyui-pipeline",
       "authoritative": true,
       "authoritative_for": [
-        "mangaka.gftd.ai image / 3D / video / page generation pipeline",
-        "studio.gftd.ai → ComfyUI dispatch contract",
+        "mangaka.etzhayyim.com image / 3D / video / page generation pipeline",
+        "studio.etzhayyim.com → ComfyUI dispatch contract",
         "LangGraph wrapper convention for ComfyUI workflows (build → submit → poll)",
         "ComfyUI workflow library install convention (`scripts/install-mangaka-comfy-workflow.py`)",
         "Quality-pack install convention (`scripts/install-comfy-quality-pack.ps1`)"
@@ -8989,7 +8989,7 @@
     {
       "path": "90-docs/adr/2605210000-search-gftd-ai-internal-only.md",
       "id": "adr-2605210000-search-gftd-ai-internal-only",
-      "title": "search.gftd.ai = internal-only; 外部 DNS ルート削除",
+      "title": "search.etzhayyim.com = internal-only; 外部 DNS ルート削除",
       "status": "active",
       "doc_type": "adr",
       "topic": "search-worker-internal-only",
@@ -9186,12 +9186,12 @@
       "topic": "cyber-drill-webvr-visual-stack",
       "authoritative": true,
       "authoritative_for": [
-        "cyber-drill.gftd.ai VR visual stack (room shell + spark backdrop + per-node effects)",
+        "cyber-drill.etzhayyim.com VR visual stack (room shell + spark backdrop + per-node effects)",
         "choice-card reveal UX contract (narration-gated, fade-in + scale pop)",
         "selection deadline policy (30s post-narration, inaction auto-fire)",
         "cyber-drill scenario authoring contract (IncidentNode.effects)",
-        "@gftdcojp/kami-engine-sdk/webvr public surface for incident drills",
-        "@gftdcojp/kami-engine-sdk/spark scene-attachable splat layer API"
+        "@etzhayyim/kami-engine-sdk/webvr public surface for incident drills",
+        "@etzhayyim/kami-engine-sdk/spark scene-attachable splat layer API"
       ],
       "related": [
         "adr-2605082000-langgraph-graph-definition-as-data",
@@ -9942,7 +9942,7 @@
     {
       "path": "90-docs/260425-gameka-operator-runbook.md",
       "id": "doc-260425-gameka-operator-runbook",
-      "title": "gameka.gftd.ai operator runbook (P1–P14)",
+      "title": "gameka.etzhayyim.com operator runbook (P1–P14)",
       "status": "active",
       "doc_type": "how-to",
       "topic": "gameka-rollout",
@@ -9989,13 +9989,13 @@
     {
       "path": "90-docs/260429-animeka-r0-recovery-state.md",
       "id": "doc-260429-animeka-r0-recovery-state",
-      "title": "animeka.gftd.ai R0 recovery — 2026-04-29 handoff state",
+      "title": "animeka.etzhayyim.com R0 recovery — 2026-04-29 handoff state",
       "status": "active",
       "doc_type": "how-to",
       "topic": "animeka-pipeline-recovery",
       "authoritative": true,
       "authoritative_for": [
-        "animeka.gftd.ai pipeline recovery from 2026-04-26→2026-04-29 outage",
+        "animeka.etzhayyim.com pipeline recovery from 2026-04-26→2026-04-29 outage",
         "R2 (Misaki character LoRA) staged work-in-progress",
         "pyzeebe Channel-close intermittent bug (workaround documented)"
       ],
@@ -10375,7 +10375,7 @@
       "topic": "maps-kami-runtime",
       "authoritative": true,
       "authoritative_for": [
-        "maps.gftd.ai street-level spatial asset pipeline",
+        "maps.etzhayyim.com street-level spatial asset pipeline",
         "KAMI runtime format for photogrammetry-derived city assets",
         "Mapillary-derived reconstruction policy"
       ],
@@ -10416,7 +10416,7 @@
     {
       "path": "90-docs/maps-worldmonitor-parity.md",
       "id": "maps-worldmonitor-parity",
-      "title": "maps.gftd.ai World Monitor parity status",
+      "title": "maps.etzhayyim.com World Monitor parity status",
       "status": "active",
       "doc_type": "reference",
       "topic": "maps-world-monitor-parity",
@@ -10481,7 +10481,7 @@
         "90-docs/adr/2605190100-defense-cluster-topology.md",
         "90-docs/adr/2605200000-nist-csf-respond-irp.md",
         "90-docs/adr/2605200200-nist-csf-recover-rto-rpo.md",
-        "deps.toml [gftdcojp_agent.product_portfolio]"
+        "deps.toml [etzhayyim_agent.product_portfolio]"
       ],
       "last_verified": "2026-05-20",
       "supersedes": [],
@@ -10653,7 +10653,7 @@
     {
       "path": "90-docs/yoro/260405-yoro-ocel-activity-log-design.md",
       "id": "yoro-ocel-activity-log",
-      "title": "yoro.gftd.ai — OCEL v2 Activity Log Design",
+      "title": "yoro.etzhayyim.com — OCEL v2 Activity Log Design",
       "status": "active",
       "doc_type": "explanation",
       "topic": "yoro-activity-ocel",
@@ -10676,7 +10676,7 @@
     {
       "path": "90-docs/yoro/260321-yoro-superapp-oembed-design.md",
       "id": "yoro-superapp-oembed-design",
-      "title": "yoro.gftd.ai SuperApp-Only Architecture + oEmbed (Lexicon Web)",
+      "title": "yoro.etzhayyim.com SuperApp-Only Architecture + oEmbed (Lexicon Web)",
       "status": "active",
       "doc_type": "explanation",
       "topic": "yoro-superapp-oembed",

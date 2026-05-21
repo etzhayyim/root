@@ -114,7 +114,7 @@ runtime receipts, or human input.
 
 | Column | Type | Notes |
 |---|---|---|
-| `vertex_id` | VARCHAR PRIMARY KEY | `at://did:web:agent.gftd.ai/ai.gftd.apps.agent.observation/{rkey}` |
+| `vertex_id` | VARCHAR PRIMARY KEY | `at://did:web:agent.etzhayyim.com/ai.gftd.apps.agent.observation/{rkey}` |
 | `agent_did` | VARCHAR | owning agent |
 | `source_kind` | VARCHAR | `tool`, `sensor`, `telemetry`, `social`, `runtime`, `human` |
 | `source_ref` | VARCHAR | URI / topic / task id |

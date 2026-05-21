@@ -35,7 +35,7 @@ Replaces: Camunda 8 / Zeebe broker pod (license-encumbered).
 # Build (BuildKit remote, root CLAUDE.md "buildkit-k8s-remote-build")
 70-tools/scripts/buildkit/remote-build.sh \
   -d 50-infra/k8s/bpmn-engine-host \
-  -t ghcr.io/gftdcojp/bpmn-engine-host:$(date +%Y%m%d-%H%M%S)
+  -t ghcr.io/etzhayyim/bpmn-engine-host:$(date +%Y%m%d-%H%M%S)
 
 # Apply
 kubectl apply -f 50-infra/k8s/bpmn-engine-host/deployment.yaml

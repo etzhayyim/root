@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-14c9bce0feb7",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-14c9bce0feb7",
   "entityId": "ent-14c9bce0feb7",
   "canonicalName": "水谷翔太",
   "aliases": [

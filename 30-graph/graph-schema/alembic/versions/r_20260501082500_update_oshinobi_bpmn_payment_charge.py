@@ -43,8 +43,8 @@ UP = [{'sql': '\n'
          "        'sys.bpmn.seed.oshinobi'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'oshinobi_subscribe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_oshinobi_subscribe"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/oshinobi"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/oshinobi"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="oshinobi_subscribe" name="oshinobi subscribe" '
@@ -210,7 +210,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;oshinobi.subscription.created&quot;" '
                  'target="action"/>\n'
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;oshinobi.subscription.payment_declined&quot;" target="action"/>\n'
@@ -304,8 +304,8 @@ UP = [{'sql': '\n'
                  10828,
                  '00-contracts/bpmn/ai/gftd/oshinobi/subscribe.bpmn',
                  '2026-05-01T08:25:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id,\n'
@@ -337,8 +337,8 @@ UP = [{'sql': '\n'
          "        'sys.bpmn.seed.oshinobi'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'oshinobi_tip_creator',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -346,7 +346,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_oshinobi_tipCreator"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/oshinobi"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/oshinobi"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="oshinobi_tip_creator" name="oshinobi tipCreator" '
@@ -503,7 +503,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;oshinobi.tip.captured&quot;" '
                  'target="action"/>\n'
@@ -536,8 +536,8 @@ UP = [{'sql': '\n'
                  8075,
                  '00-contracts/bpmn/ai/gftd/oshinobi/tipCreator.bpmn',
                  '2026-05-01T08:25:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai']}]
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com']}]
 
 DOWN = []
 

@@ -2,7 +2,7 @@
 
 # ai-gftd-project-kenkyusha
 
-**kenkyusha.gftd.ai** — AI 研究者 Actor。既存学術分野の DID knowledge graph から未解明 research frontier を特定し、仮説生成・検証・論文走査を自律実行する。
+**kenkyusha.etzhayyim.com** — AI 研究者 Actor。既存学術分野の DID knowledge graph から未解明 research frontier を特定し、仮説生成・検証・論文走査を自律実行する。
 
 ## Domain Model
 
@@ -35,7 +35,7 @@ Frontier = 以下のいずれかで検出:
 ## Architecture
 
 - **Runtime**: T1 MCP-Compose (PDS Shared Executor)
-- **Primary DID**: `did:web:kenkyusha.gftd.ai`
+- **Primary DID**: `did:web:kenkyusha.etzhayyim.com`
 - **nanoid**: `kk8r3n5v`
 - **UI**: `yoro` (Protocol Canvas feed)
 - **Classification**: `internal`
@@ -48,7 +48,7 @@ Frontier = 以下のいずれかで検出:
 - `graph.query` — SQL read (citation gap 検出, evidence 検索)
 - `graph.write` — SQL write (frontier/hypothesis/evidence MERGE)
 - `agent.chat` — Murakumo LLM (仮説生成, evidence 評価, ISCED-F 分類)
-- `browser.fetch` — site.gftd.ai gateway (外部学術 DB)
+- `browser.fetch` — site.etzhayyim.com gateway (外部学術 DB)
 - `derive:social` — PDS commit pipeline (social post 自動導出)
 - `agent.invoke` — cross-actor (bunken/hanrei/isbn への cross-app query)
 - `graph.vectorSearch` — semantic frontier discovery
@@ -68,10 +68,10 @@ gftd mitama -dir 60-apps/ai-gftd-project-kenkyusha
 
 | DID pattern | 用途 | 数 |
 |---|---|---|
-| `did:web:kenkyusha.gftd.ai` | Primary actor | 1 |
-| `did:web:kenkyusha.gftd.ai:discipline:{isced4}` | ISCED-F Detailed field | ~80 |
-| `did:web:kenkyusha.gftd.ai:frontier:{djb2Hash}` | Research frontier | N (動的生成) |
-| `did:web:kenkyusha.gftd.ai:researcher:{cohortHash}` | Researcher cohort | N (動的生成) |
+| `did:web:kenkyusha.etzhayyim.com` | Primary actor | 1 |
+| `did:web:kenkyusha.etzhayyim.com:discipline:{isced4}` | ISCED-F Detailed field | ~80 |
+| `did:web:kenkyusha.etzhayyim.com:frontier:{djb2Hash}` | Research frontier | N (動的生成) |
+| `did:web:kenkyusha.etzhayyim.com:researcher:{cohortHash}` | Researcher cohort | N (動的生成) |
 
 Total path-based DIDs: ~80 (discipline) + N (frontier + researcher cohort)
 
@@ -202,14 +202,14 @@ Dimensions (5):
 
 | Source | 用途 |
 |---|---|
-| bunken.gftd.ai | Citation graph, 文献メタデータ, content gap 検出 |
-| isbn.gftd.ai | 書籍識別, fulltext (PD), subject classification |
-| issn.gftd.ai | 学術雑誌識別, linking |
-| hanrei.gftd.ai | 法的根拠の科学的争点抽出 |
-| intel.gftd.ai | OSINT/TECHINT 学術情報補完 |
-| natural-person.gftd.ai | 研究者 cohort → natural person mapping |
-| society6.gftd.ai | Kyu/Dan rank (研究者 well-becoming) |
-| dojo.gftd.ai | Research readiness drill |
+| bunken.etzhayyim.com | Citation graph, 文献メタデータ, content gap 検出 |
+| isbn.etzhayyim.com | 書籍識別, fulltext (PD), subject classification |
+| issn.etzhayyim.com | 学術雑誌識別, linking |
+| hanrei.etzhayyim.com | 法的根拠の科学的争点抽出 |
+| intel.etzhayyim.com | OSINT/TECHINT 学術情報補完 |
+| natural-person.etzhayyim.com | 研究者 cohort → natural person mapping |
+| society6.etzhayyim.com | Kyu/Dan rank (研究者 well-becoming) |
+| dojo.etzhayyim.com | Research readiness drill |
 
 ## Pipeline Schedule (T1 cron + subscribeRepos)
 

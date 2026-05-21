@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Resolve the caller's Coinbase Smart Wallet-compatible ERC-4337 execution-account address on the gftd private chain (chainId 260425). AuthZ first resolves the caller's accountDid to an ERC725 root DID via `GftdRootIdentityRegistry` when available, then reads `GftdActorRegistry.actorByDid(rootDidHash)` via `https://geth.gftd.ai`. Returns `{activated:true, smartAccount}` if the actor has activated their account, or `{activated:false, didHash}` otherwise. Caller must hold a session (passkey-first policy, ADR-0074).",
+      "description": "Resolve the caller's Coinbase Smart Wallet-compatible ERC-4337 execution-account address on the gftd private chain (chainId 260425). AuthZ first resolves the caller's accountDid to an ERC725 root DID via `GftdRootIdentityRegistry` when available, then reads `GftdActorRegistry.actorByDid(rootDidHash)` via `https://geth.etzhayyim.com`. Returns `{activated:true, smartAccount}` if the actor has activated their account, or `{activated:false, didHash}` otherwise. Caller must hold a session (passkey-first policy, ADR-0074).",
       "parameters": { "type": "params", "properties": {} },
       "output": {
         "encoding": "application/json",

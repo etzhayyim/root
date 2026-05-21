@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a mediator/arbitrator. Path-based DID: did:web:adr.gftd.ai:arb:{iso3}:{slug}.",
+      "description": "Register a mediator/arbitrator. Path-based DID: did:web:adr.etzhayyim.com:arb:{iso3}:{slug}.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

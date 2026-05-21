@@ -26,7 +26,7 @@ superseded_by: []
 
 # Context
 
-The platform mapped IPFS (`ipfs.gftd.ai`), NATS JetStream firehose
+The platform mapped IPFS (`ipfs.etzhayyim.com`), NATS JetStream firehose
 bridging, and a BitNet-tier model strategy in 2026-04 / 05, but had no
 **actor** that closes the "browser-edge WASM inference + post +
 distributed processing" loop end-to-end. `yoro` runs Gemma E2B for
@@ -34,20 +34,20 @@ guest chat (ADR 2604291630), but it never persists, never credits, and
 does not subscribe to the firehose. The Baien browser path (ADR
 2605092350) was designed but unplumbed.
 
-External question that triggered this work: "atproto.gftd.ai は ipfs
+External question that triggered this work: "atproto.etzhayyim.com は ipfs
 にデータ保存している? nats を firehose に使っている? この atproto
 record / xrpc であれば browser edge で wasm で推論と post, 分散型処理が
 可能?" The answer needed to be **yes**, with code on disk.
 
 # Decision
 
-Promote `ameno.gftd.ai` from a stub Svelte scaffold (engine package only)
+Promote `ameno.etzhayyim.com` from a stub Svelte scaffold (engine package only)
 to a full L3 dispatcher actor that:
 
 - Runs Gemma 4 E2B / E4B (WebGPU) **and** Baien BitNet b1.58 2B
   (WASM ternary) entirely in the browser tab.
 - Persists every inference via the standard ADR-2605111200 path
-  (`ameno.gftd.ai` Worker → `atproto.gftd.ai` PDS → `bpmn-dispatcher` →
+  (`ameno.etzhayyim.com` Worker → `atproto.etzhayyim.com` PDS → `bpmn-dispatcher` →
   `ameno-langserver` pod → `INSERT vertex_ameno_inferenceresult`).
   No `createKyselyDb()` in the Worker; pod-side asyncpg + SQLAlchemy
   Core only.

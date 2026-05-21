@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:warehouse.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:warehouse.etzhayyim.com",
   "name": "warehouse",
   "nanoid": "w4r3h0u5",
   "project": "warehouse",

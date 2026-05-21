@@ -13,7 +13,7 @@
           "required": ["caseDid", "lawyerDid", "assignedAt"],
           "properties": {
             "caseDid": { "type": "string", "format": "did" },
-            "lawyerDid": { "type": "string", "format": "did", "description": "bengoshi.gftd.ai DID" },
+            "lawyerDid": { "type": "string", "format": "did", "description": "bengoshi.etzhayyim.com DID" },
             "assignedAt": { "type": "string", "format": "datetime" },
             "role": { "type": "string", "enum": ["lead", "associate", "duty-counsel"] },
             "feeStructure": { "type": "string", "enum": ["pro-bono", "panel-rate", "subsidized"] }

@@ -101,7 +101,7 @@ async function write(_sdk: HostSDK, collection: string, rec: Record<string, unkn
     forensicTrace: "vertex_crypto_asset_freeze_forensic_trace",
   };
   const table = tableMap[collection] ?? `vertex_crypto_asset_freeze_${camelToSnake(collection)}`;
-  const ownerDid = `did:web:qjp7mjyb.gftd.ai`;
+  const ownerDid = `did:web:qjp7mjyb.etzhayyim.com`;
   const rkey = str(rec.incidentId ?? rec.requestId ?? rec.traceId ?? "") || genID();
   const vertex_id = `at://${ownerDid}/ai.gftd.apps.cryptoAssetFreeze.${collection}/${rkey}`;
   const snakeRec = Object.fromEntries(Object.entries(rec).map(([k, v]) => [camelToSnake(k), v]));

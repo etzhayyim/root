@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/02/3/0/foreign-military-aid",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/02/3/0/foreign-military-aid",
       "type": "dodaf:Capability",
       "name": "Foreign Military Aid Management",
       "description": "Functional capability for orchestrating the provision of military equipment, technical assistance, and defense support to foreign nations. Classification: COFOG Division 02, Group 3, Class 0.",

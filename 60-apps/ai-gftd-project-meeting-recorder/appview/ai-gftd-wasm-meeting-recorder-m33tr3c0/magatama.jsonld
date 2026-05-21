@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:meeting-recorder.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:meeting-recorder.etzhayyim.com",
   "name": "m33tr3c0",
   "nanoid": "m33tr3c0",
   "performerType": "service",

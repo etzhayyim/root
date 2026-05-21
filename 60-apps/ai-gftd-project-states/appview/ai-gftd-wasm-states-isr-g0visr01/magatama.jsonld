@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:isr-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:isr-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Israel AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -85,7 +85,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "isr-state.gftd.ai",
+      "host": "isr-state.etzhayyim.com",
       "paths": [
         "/"
       ],

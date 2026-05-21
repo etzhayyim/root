@@ -1,6 +1,6 @@
 # shigotoba-jobs-component
 
-Global jobs marketplace component for `shigotoba.gftd.ai`.
+Global jobs marketplace component for `shigotoba.etzhayyim.com`.
 
 ## Endpoints
 
@@ -29,7 +29,7 @@ Global jobs marketplace component for `shigotoba.gftd.ai`.
 - Job catalog is sourced from public APIs (`remotive`, `arbeitnow`, `remoteok`) and refreshed on interval.
 - Application store remains in-memory for now.
 - Source design and normalization policy: `DATA_SOURCES.md`
-- UI is built from `svelte/` and uses `@gftdcojp/appshellv2` components (`AppShell`, `Header`, `Sidebar`, `ThemeToggle`, `AppsDirectory`).
+- UI is built from `svelte/` and uses `@etzhayyim/appshellv2` components (`AppShell`, `Header`, `Sidebar`, `ThemeToggle`, `AppsDirectory`).
 - Built static assets are emitted to `static/` and served by the Go component.
 
 ## UI Build

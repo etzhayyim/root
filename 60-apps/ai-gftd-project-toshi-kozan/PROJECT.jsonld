@@ -2,17 +2,17 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://gftd.ai/schemas/",
+      "gftd": "https://etzhayyim.com/schemas/",
       "capabilities": "gftd:capabilities",
       "actors": "gftd:actors"
     }
   ],
   "@type": "SoftwareApplication",
   "identifier": "ai-gftd-project-toshi-kozan",
-  "name": "toshi-kozan.gftd.ai",
+  "name": "toshi-kozan.etzhayyim.com",
   "description": "都市鉱山 (Urban Mining) Intelligence — e-waste からの貴金属・レアメタル・レアアース回収 end-to-end パイプライン (10 actor 協調: 案内→回収→受領→画像認識→分類→分解→ロボットアーム/HC→鑑定→告知)",
   "applicationCategory": "EnvironmentalManagement",
-  "url": "https://toshi-kozan.gftd.ai",
+  "url": "https://toshi-kozan.etzhayyim.com",
   "actors": [
     {"@type": "DefinedTerm", "name": "guide", "description": "案内 AI — 持込場所・手順・安全指示"},
     {"@type": "DefinedTerm", "name": "collector", "description": "回収 AI — 拠点管理・ピックアップ手配"},
@@ -21,7 +21,7 @@
     {"@type": "DefinedTerm", "name": "classifier", "description": "分類 AI — 素材分類・グレード判定"},
     {"@type": "DefinedTerm", "name": "disassembler", "description": "分解 AI — BOM 分析・分解工程計画"},
     {"@type": "DefinedTerm", "name": "arm", "description": "ロボットアーム AI — 自動 pick-and-place・仕分け"},
-    {"@type": "DefinedTerm", "name": "hcDelegate", "description": "HC 委任 AI — hc.gftd.ai 人間タスク委任"},
+    {"@type": "DefinedTerm", "name": "hcDelegate", "description": "HC 委任 AI — hc.etzhayyim.com 人間タスク委任"},
     {"@type": "DefinedTerm", "name": "appraiser", "description": "鑑定 AI — 素材価値評価・市場価格連動"},
     {"@type": "DefinedTerm", "name": "announcer", "description": "告知 AI — 回収実績・キャンペーン告知"}
   ],
@@ -34,7 +34,7 @@
       {"@type": "DefinedTerm", "name": "material-classification", "description": "素材分類・グレード判定・下流工程ルーティング"},
       {"@type": "DefinedTerm", "name": "disassembly-planning", "description": "BOM ベース分解工程計画・自動/人間振分け"},
       {"@type": "DefinedTerm", "name": "robotic-arm-control", "description": "ロボットアーム pick-and-place・ビン仕分け"},
-      {"@type": "DefinedTerm", "name": "human-task-delegation", "description": "hc.gftd.ai への精密分解・危険物処理タスク委任"},
+      {"@type": "DefinedTerm", "name": "human-task-delegation", "description": "hc.etzhayyim.com への精密分解・危険物処理タスク委任"},
       {"@type": "DefinedTerm", "name": "material-appraisal", "description": "素材価値評価・LME/TOCOM 市場価格連動・CO2 削減量算出"}
     ]
   }

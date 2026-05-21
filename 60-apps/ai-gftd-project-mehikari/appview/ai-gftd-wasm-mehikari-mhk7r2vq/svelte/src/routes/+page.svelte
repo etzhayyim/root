@@ -1,5 +1,5 @@
 <script lang="ts">
-  // mehikari.gftd.ai トップ — 技術説明 (静的) + 問合せ動線。
+  // mehikari.etzhayyim.com トップ — 技術説明 (静的) + 問合せ動線。
   // Phase 0 段階は「公開しない」前提、Phase 1 (警察庁照会) 直前に公開判断。
 </script>
 

@@ -164,7 +164,7 @@ registered worker task type.
 coverage report. New BPMN structural, lexicon-contract, and worker-task gates
 belong to lefthook rather than GitHub workflow steps.
 The `coverage-site` workflow also runs every 6 hours and writes the same BPMN
-coverage gate into `coverage.gftd.ai` as `/bpmn-coverage/latest.json`.
+coverage gate into `coverage.etzhayyim.com` as `/bpmn-coverage/latest.json`.
 
 Generate the site snapshot locally:
 

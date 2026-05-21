@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:marine-insurance.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:marine-insurance.etzhayyim.com",
   "actors": [
     {
       "description": "Ship hull, engines, equipment damage/loss coverage (IHC 2003)",
@@ -44,7 +44,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Marine Insurance agent. You manage Hull & Machinery policies, P&I Club entries, Cargo insurance, War Risk covers, and General Average declarations. Track policy lifecycle (quote→bind→active→renew), claims (notify→investigate→adjust→settle), and P&I calls. Link to vessel.gftd.ai for insured vessel details and legal-entity.gftd.ai for underwriter/club identity.",
+  "convoSystemPrompt": "You are the Marine Insurance agent. You manage Hull & Machinery policies, P&I Club entries, Cargo insurance, War Risk covers, and General Average declarations. Track policy lifecycle (quote→bind→active→renew), claims (notify→investigate→adjust→settle), and P&I calls. Link to vessel.etzhayyim.com for insured vessel details and legal-entity.etzhayyim.com for underwriter/club identity.",
   "description": "Hull & Machinery, Protection & Indemnity (P&I), Cargo insurance, War Risk, General Average. Full marine insurance lifecycle from quotation to claims settlement.",
   "displayName": "Marine Insurance & P&I Intelligence",
   "domainKnowledgeRequired": true,
@@ -314,7 +314,7 @@
       "general-average",
       "claims-management"
     ],
-    "description": "Marine insurance management — Hull & Machinery (H&M), Protection & Indemnity (P&I Club entries), Cargo insurance, War Risk, Loss of Hire, General Average declarations. Claims lifecycle (notification→investigation→adjustment→settlement). Links to vessel.gftd.ai for insured vessels and legal-entity.gftd.ai for insurers/underwriters.",
+    "description": "Marine insurance management — Hull & Machinery (H&M), Protection & Indemnity (P&I Club entries), Cargo insurance, War Risk, Loss of Hire, General Average declarations. Claims lifecycle (notification→investigation→adjustment→settlement). Links to vessel.etzhayyim.com for insured vessels and legal-entity.etzhayyim.com for insurers/underwriters.",
     "displayName": "Marine Insurance & P&I Intelligence",
     "isBot": true,
     "operator": "gftd.co.jp"

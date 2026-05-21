@@ -51,7 +51,7 @@ export interface OutboxEvent {
 export interface OutboxEnv {
   HYPERDRIVE?: unknown;
   RESEND_API_KEY?: string;          // optional — outbox-only when missing
-  EMAIL_FROM?: string;              // sender, e.g. "noreply@yatabase.gftd.ai"
+  EMAIL_FROM?: string;              // sender, e.g. "noreply@yatabase.etzhayyim.com"
   GFTD_OUTBOX_DISABLED?: string;
   YATABASE_AUTH_CACHE?: KVNamespace; // P89: KV mirror when RW is degraded
 }
@@ -95,7 +95,7 @@ export async function emitOutbox(env: OutboxEnv, event: OutboxEvent): Promise<{ 
   const tsMs = Date.now();
   const nowIso = new Date(tsMs).toISOString();
   const idDigest = await sha256Hex(`${event.orgDid}|${event.kind}|${tsMs}|${Math.random()}`);
-  const vertexId = `at://did:web:outbox.gftd.ai/ai.gftd.apps.outbox.event/${idDigest.slice(0, 32)}`;
+  const vertexId = `at://did:web:outbox.etzhayyim.com/ai.gftd.apps.outbox.event/${idDigest.slice(0, 32)}`;
   const recipient = event.recipientEmail ?? "";
 
   // P65: send via Resend regardless of RW availability. Customers care
@@ -365,7 +365,7 @@ API key (shown ONCE — Yatabase only keeps the SHA-256 hash):
 Three things to try right now:
 
 1) First Cypher query
-   curl -X POST https://yatabase.gftd.ai/cypher \\
+   curl -X POST https://yatabase.etzhayyim.com/cypher \\
      -H "Authorization: Bearer ${apiKey}" \\
      -H "content-type: application/json" \\
      -d '{"query":"CREATE (n:Demo {name:\\"hello\\"}) RETURN n"}'
@@ -373,10 +373,10 @@ Three things to try right now:
 2) Upload a file (Supabase-shape REST)
    curl -X PUT --data-binary @photo.jpg \\
      -H "Authorization: Bearer ${apiKey}" \\
-     https://yatabase.gftd.ai/storage/v1/object/my-bucket/photo.jpg
+     https://yatabase.etzhayyim.com/storage/v1/object/my-bucket/photo.jpg
 
 3) List MCP tools (no auth on this one)
-   curl -X POST https://yatabase.gftd.ai/mcp \\
+   curl -X POST https://yatabase.etzhayyim.com/mcp \\
      -H 'content-type: application/json' \\
      -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
 
@@ -384,17 +384,17 @@ Free tier: $0/month · 1,000 api_request/day · 5 GB storage · 5 CU-h Cypher.
 Upgrade when you outgrow: POST /auth/v1/upgrade {"plan":"starter"} → Stripe Checkout.
 
 Reference:
-  Docs            https://yatabase.gftd.ai/docs
-  OpenAPI 3.1     https://yatabase.gftd.ai/openapi.json
-  Integrations    https://yatabase.gftd.ai/integrations
-  Studio (UI)     https://yatabase.gftd.ai/studio
-  Status          https://yatabase.gftd.ai/status
+  Docs            https://yatabase.etzhayyim.com/docs
+  OpenAPI 3.1     https://yatabase.etzhayyim.com/openapi.json
+  Integrations    https://yatabase.etzhayyim.com/integrations
+  Studio (UI)     https://yatabase.etzhayyim.com/studio
+  Status          https://yatabase.etzhayyim.com/status
 
 Your tenant DID: ${orgDid}
 Right to know / delete: GET /api/export · POST /api/account/delete
 
 Questions? Reply to this email — sakamoto (our CS agent) routes it. The
-Yatabase team operates as 4 named AI agents — see https://yatabase.gftd.ai/team.
+Yatabase team operates as 4 named AI agents — see https://yatabase.etzhayyim.com/team.
 
 — The Yatabase team (chikada / tanaka / nishino / sakamoto)
    Operated by etz hayim · Invoiced by Gftd Japan株式会社 (T9007028460042)
@@ -427,7 +427,7 @@ Yatabase team operates as 4 named AI agents — see https://yatabase.gftd.ai/tea
       <tr><td style="padding:18px 32px 0 32px;font-size:15px">
         <h3 style="margin:8px 0 8px 0;font-size:16px;color:#0f172a">Three things to try right now</h3>
         <p style="margin:6px 0;color:#475569;font-size:13px"><strong>1.</strong> Your first Cypher query:</p>
-        <pre style="background:#0f172a;color:#e2e8f0;padding:12px 14px;border-radius:8px;font:12px/1.5 ui-monospace,SF Mono,Menlo,Consolas,monospace;overflow-x:auto;margin:6px 0">curl -X POST https://yatabase.gftd.ai/cypher \\
+        <pre style="background:#0f172a;color:#e2e8f0;padding:12px 14px;border-radius:8px;font:12px/1.5 ui-monospace,SF Mono,Menlo,Consolas,monospace;overflow-x:auto;margin:6px 0">curl -X POST https://yatabase.etzhayyim.com/cypher \\
   -H "Authorization: Bearer ${apiKey}" \\
   -H "content-type: application/json" \\
   -d '{"query":"CREATE (n:Demo {name:\\"hello\\"}) RETURN n"}'</pre>
@@ -435,10 +435,10 @@ Yatabase team operates as 4 named AI agents — see https://yatabase.gftd.ai/tea
         <p style="margin:14px 0 6px;color:#475569;font-size:13px"><strong>2.</strong> Upload a file (Supabase-shape REST):</p>
         <pre style="background:#0f172a;color:#e2e8f0;padding:12px 14px;border-radius:8px;font:12px/1.5 ui-monospace,SF Mono,Menlo,Consolas,monospace;overflow-x:auto;margin:6px 0">curl -X PUT --data-binary @photo.jpg \\
   -H "Authorization: Bearer ${apiKey}" \\
-  https://yatabase.gftd.ai/storage/v1/object/my-bucket/photo.jpg</pre>
+  https://yatabase.etzhayyim.com/storage/v1/object/my-bucket/photo.jpg</pre>
 
         <p style="margin:14px 0 6px;color:#475569;font-size:13px"><strong>3.</strong> Talk to it as an MCP tool from Cursor / Claude / LangChain:</p>
-        <pre style="background:#0f172a;color:#e2e8f0;padding:12px 14px;border-radius:8px;font:12px/1.5 ui-monospace,SF Mono,Menlo,Consolas,monospace;overflow-x:auto;margin:6px 0">curl -X POST https://yatabase.gftd.ai/mcp \\
+        <pre style="background:#0f172a;color:#e2e8f0;padding:12px 14px;border-radius:8px;font:12px/1.5 ui-monospace,SF Mono,Menlo,Consolas,monospace;overflow-x:auto;margin:6px 0">curl -X POST https://yatabase.etzhayyim.com/mcp \\
   -H 'content-type: application/json' \\
   -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'</pre>
       </td></tr>
@@ -451,26 +451,26 @@ Yatabase team operates as 4 named AI agents — see https://yatabase.gftd.ai/tea
       <tr><td style="padding:18px 32px 0 32px;font-size:14px;color:#475569">
         <strong style="color:#0f172a;font-size:13px;text-transform:uppercase;letter-spacing:0.05em">Reference</strong>
         <table cellpadding="0" cellspacing="0" border="0" style="margin-top:6px;font-size:13px">
-          <tr><td style="padding:3px 12px 3px 0;color:#64748b">Docs</td><td><a href="https://yatabase.gftd.ai/docs" style="color:#0ea5e9;text-decoration:none">yatabase.gftd.ai/docs</a></td></tr>
-          <tr><td style="padding:3px 12px 3px 0;color:#64748b">OpenAPI 3.1</td><td><a href="https://yatabase.gftd.ai/openapi.json" style="color:#0ea5e9;text-decoration:none">/openapi.json</a></td></tr>
-          <tr><td style="padding:3px 12px 3px 0;color:#64748b">Integrations</td><td><a href="https://yatabase.gftd.ai/integrations" style="color:#0ea5e9;text-decoration:none">/integrations</a> · Cursor / LangChain / Claude / Postman</td></tr>
-          <tr><td style="padding:3px 12px 3px 0;color:#64748b">Studio (UI)</td><td><a href="https://yatabase.gftd.ai/studio" style="color:#0ea5e9;text-decoration:none">/studio</a></td></tr>
-          <tr><td style="padding:3px 12px 3px 0;color:#64748b">Status</td><td><a href="https://yatabase.gftd.ai/status" style="color:#0ea5e9;text-decoration:none">/status</a></td></tr>
+          <tr><td style="padding:3px 12px 3px 0;color:#64748b">Docs</td><td><a href="https://yatabase.etzhayyim.com/docs" style="color:#0ea5e9;text-decoration:none">yatabase.etzhayyim.com/docs</a></td></tr>
+          <tr><td style="padding:3px 12px 3px 0;color:#64748b">OpenAPI 3.1</td><td><a href="https://yatabase.etzhayyim.com/openapi.json" style="color:#0ea5e9;text-decoration:none">/openapi.json</a></td></tr>
+          <tr><td style="padding:3px 12px 3px 0;color:#64748b">Integrations</td><td><a href="https://yatabase.etzhayyim.com/integrations" style="color:#0ea5e9;text-decoration:none">/integrations</a> · Cursor / LangChain / Claude / Postman</td></tr>
+          <tr><td style="padding:3px 12px 3px 0;color:#64748b">Studio (UI)</td><td><a href="https://yatabase.etzhayyim.com/studio" style="color:#0ea5e9;text-decoration:none">/studio</a></td></tr>
+          <tr><td style="padding:3px 12px 3px 0;color:#64748b">Status</td><td><a href="https://yatabase.etzhayyim.com/status" style="color:#0ea5e9;text-decoration:none">/status</a></td></tr>
         </table>
       </td></tr>
       <tr><td style="padding:18px 32px 0 32px;font-size:12px;color:#64748b">
         Tenant DID: <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px">${orgDid}</code><br>
-        Data rights: <a href="https://yatabase.gftd.ai/api/export" style="color:#0ea5e9">GET /api/export</a> · <a href="https://yatabase.gftd.ai/api/account/delete" style="color:#0ea5e9">POST /api/account/delete</a>
+        Data rights: <a href="https://yatabase.etzhayyim.com/api/export" style="color:#0ea5e9">GET /api/export</a> · <a href="https://yatabase.etzhayyim.com/api/account/delete" style="color:#0ea5e9">POST /api/account/delete</a>
       </td></tr>
       <tr><td style="padding:24px 32px 28px 32px;border-top:1px solid #e2e8f0;font-size:12px;color:#64748b;margin-top:24px">
         Questions? Reply to this email — <strong>sakamoto</strong> (our CS agent) routes it.
-        The Yatabase team operates as 4 named AI agents: <a href="https://yatabase.gftd.ai/team" style="color:#0ea5e9">chikada · tanaka · nishino · sakamoto</a>.
+        The Yatabase team operates as 4 named AI agents: <a href="https://yatabase.etzhayyim.com/team" style="color:#0ea5e9">chikada · tanaka · nishino · sakamoto</a>.
         <br><br>
         Operated by <strong>etz hayim</strong> · Invoiced by <strong>Gftd Japan株式会社</strong> (T9007028460042 — 適格請求書登録番号)
         <br>
-        <a href="https://yatabase.gftd.ai/privacy" style="color:#94a3b8">Privacy</a> ·
-        <a href="https://yatabase.gftd.ai/terms" style="color:#94a3b8">Terms</a> ·
-        <a href="https://yatabase.gftd.ai/.well-known/security.txt" style="color:#94a3b8">security.txt</a>
+        <a href="https://yatabase.etzhayyim.com/privacy" style="color:#94a3b8">Privacy</a> ·
+        <a href="https://yatabase.etzhayyim.com/terms" style="color:#94a3b8">Terms</a> ·
+        <a href="https://yatabase.etzhayyim.com/.well-known/security.txt" style="color:#94a3b8">security.txt</a>
       </td></tr>
     </table>
   </td></tr>
@@ -495,7 +495,7 @@ Invoices:    Studio → Invoices (monthly, US/JP dual currency).
   <tr><td>Monthly fee</td><td><strong>$${monthlyUsd}</strong></td></tr>
   <tr><td>Tenant</td><td><code>${orgDid}</code></td></tr>
 </table>
-<p><a href="https://yatabase.gftd.ai/">Open Studio</a> → Plan to see new quota limits, or → Invoices for billing history (USD primary, JPY secondary).</p>`;
+<p><a href="https://yatabase.etzhayyim.com/">Open Studio</a> → Plan to see new quota limits, or → Invoices for billing history (USD primary, JPY secondary).</p>`;
   return { subject, text, html };
 }
 
@@ -699,16 +699,16 @@ Here's a quick recap of what you have on the free tier:
 
 If you've hit any of those ceilings, the Starter plan ($13/mo) gives you 33k requests/day, 50 GB storage, and 20 deployed query slots — enough to ship to real users.
 
-  Upgrade: curl -X POST https://yatabase.gftd.ai/auth/v1/upgrade \\
+  Upgrade: curl -X POST https://yatabase.etzhayyim.com/auth/v1/upgrade \\
              -H "Authorization: Bearer <your-key>" \\
              -H "content-type: application/json" \\
              -d '{"plan":"starter"}'
 
 Compare us vs Supabase / Neo4j AuraDB / Hasura:
-  https://yatabase.gftd.ai/comparison
+  https://yatabase.etzhayyim.com/comparison
 
 Quick-start guide:
-  https://yatabase.gftd.ai/quickstart
+  https://yatabase.etzhayyim.com/quickstart
 
 Questions? Reply here — sakamoto routes it to the right agent.
 
@@ -744,9 +744,9 @@ Questions? Reply here — sakamoto routes it to the right agent.
         <p style="margin:0 0 12px 0;font-size:14px;color:#475569">If you've hit those ceilings, <strong>Starter ($13/mo)</strong> gives you 33k requests/day, 50 GB storage, and 20 deployed query slots.</p>
       </td></tr>
       <tr><td style="padding:8px 32px 20px 32px">
-        <a href="https://yatabase.gftd.ai/studio" style="display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px">Upgrade in Studio →</a>
+        <a href="https://yatabase.etzhayyim.com/studio" style="display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px">Upgrade in Studio →</a>
         &nbsp;
-        <a href="https://yatabase.gftd.ai/comparison" style="display:inline-block;background:#f1f5f9;color:#0f172a;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px">Compare plans</a>
+        <a href="https://yatabase.etzhayyim.com/comparison" style="display:inline-block;background:#f1f5f9;color:#0f172a;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px">Compare plans</a>
       </td></tr>
       <tr><td style="padding:0 32px 24px 32px;font-size:13px;color:#64748b;border-top:1px solid #f1f5f9">
         <p style="margin:16px 0 4px 0">Questions? Reply here — sakamoto routes it to the right agent.</p>
@@ -780,12 +780,12 @@ A heads-up: your Yatabase free-tier account has consumed ${pct}% of today's requ
 
 The quota resets at UTC midnight. The Starter plan ($13/mo) gives you 33× more — 33,000 requests/day.
 
-  curl -X POST https://yatabase.gftd.ai/auth/v1/upgrade \\
+  curl -X POST https://yatabase.etzhayyim.com/auth/v1/upgrade \\
     -H "Authorization: Bearer <your-key>" \\
     -H "content-type: application/json" \\
     -d '{"plan":"starter"}'
 
-Compare plans: https://yatabase.gftd.ai/comparison
+Compare plans: https://yatabase.etzhayyim.com/comparison
 
 — The Yatabase team (chikada / tanaka / nishino / sakamoto)
    Operated by etz hayim · Invoiced by Gftd Japan株式会社 (T9007028460042)
@@ -831,9 +831,9 @@ Compare plans: https://yatabase.gftd.ai/comparison
         </p>
       </td></tr>
       <tr><td style="padding:8px 32px 20px 32px">
-        <a href="https://yatabase.gftd.ai/studio" style="display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px">Upgrade in Studio →</a>
+        <a href="https://yatabase.etzhayyim.com/studio" style="display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px">Upgrade in Studio →</a>
         &nbsp;
-        <a href="https://yatabase.gftd.ai/comparison" style="display:inline-block;background:#f1f5f9;color:#0f172a;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px">Compare plans</a>
+        <a href="https://yatabase.etzhayyim.com/comparison" style="display:inline-block;background:#f1f5f9;color:#0f172a;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px">Compare plans</a>
       </td></tr>
       <tr><td style="padding:0 32px 24px 32px;font-size:13px;color:#64748b;border-top:1px solid #f1f5f9">
         <p style="margin:16px 0 4px 0">Questions? Reply here — sakamoto routes it to the right agent.</p>

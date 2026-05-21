@@ -16,6 +16,7 @@ from pymagatama import rw_sql
 def test_sqlalchemy_url_from_postgresql_url() -> None:
     assert (
         rw_sql.sqlalchemy_url_from_rw_url("postgresql://root@example:4566/dev")
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
         == "risingwave+psycopg2://root@example:4566/dev"
     )
 

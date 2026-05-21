@@ -1,4 +1,4 @@
-// air-mro.gftd.ai — airline maintenance, repair, and overhaul layer
+// air-mro.etzhayyim.com — airline maintenance, repair, and overhaul layer
 // Thin-edge dispatcher: business logic in AgentGateway MCP + pod-side LangServer.
 // 8 methods: createWorkOrder / trackComponent / checkAirworthiness / reportTechOccurrence / scheduleMaintenance / reportReliability / orderSparePart / recordGroundEquipment
 
@@ -11,7 +11,7 @@ interface Env {
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const NSID_PREFIX = "ai.gftd.apps.airMro.";
-const ACTOR_DID = "did:web:air-mro.gftd.ai";
+const ACTOR_DID = "did:web:air-mro.etzhayyim.com";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -52,7 +52,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const secret = typeof env.DISPATCHER_INTERNAL_SECRET === "object"
     ? await env.DISPATCHER_INTERNAL_SECRET.get()
     : (env.DISPATCHER_INTERNAL_SECRET ?? "");

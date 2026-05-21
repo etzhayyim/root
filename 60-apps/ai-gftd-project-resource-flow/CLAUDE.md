@@ -1,6 +1,6 @@
 # ai-gftd-project-resource-flow — Resource Flow Visualization Platform
 
-resource-flow.gftd.ai — 公的団体 **+ 民間法人** の 12 resource class flow を social post で可視化する 2次ソース platform。
+resource-flow.etzhayyim.com — 公的団体 **+ 民間法人** の 12 resource class flow を social post で可視化する 2次ソース platform。
 民間拡張は `90-docs/adr/0028-resource-flow-private-sector-extension.md` が権威 (gov 限定撤廃、legal-entity DID を source として accept)。
 
 ## Implementation status (2026-04-28)
@@ -12,8 +12,8 @@ resource-flow.gftd.ai — 公的団体 **+ 民間法人** の 12 resource class 
 | BPMN | 2 | `registerEmitter.bpmn` + `detectAnomaly.bpmn` (timer-start `R/PT24H`, ADR-0046) |
 | AppView | sankey + anomaly tabs | `appview/resource-flow-ui-r3s0fl0w/svelte/` — Svelte 5, d3-sankey, `?tab=sankey\|anomaly` URL-state, severity-coloured anomaly table with ACK/DIS/ESC inline review buttons (Phase 15), bulk DID → label via `getActorLabels`, reviewed-state join via `mv_resource_flow_anomaly_review_latest` (Phase 16'): open/closed/any filter, row dimming, Status badge showing last action |
 | Graph | 3 vertex + 3 sankey MV | `vertex_resource_flow_{currency,service,personnel}` + `mv_resource_flow_sankey_*` (rebuilt ADR-0074, key on `COALESCE(root_did, source_did)`) |
-| Pilot emitters | 1 | `did:web:yadoya.gftd.ai` (hospitality cluster, ISIC I5510) |
-| Chain profiles | 12 | `did:web:hospitality.gftd.ai:actor:chain:*` minted in `vertex_profile` (external RWE; ERC725 root not applicable, stays facade-only) |
+| Pilot emitters | 1 | `did:web:yadoya.etzhayyim.com` (hospitality cluster, ISIC I5510) |
+| Chain profiles | 12 | `did:web:hospitality.etzhayyim.com:actor:chain:*` minted in `vertex_profile` (external RWE; ERC725 root not applicable, stays facade-only) |
 | MCP facade | enabled | `APP_MCP_REGISTRY=1` — sankey + listFlows surface as MCP tools |
 | ERC725 alignment (ADR-0074) | facade-only | All 3 cluster tables carry `root_did` / `facade_did` / `counterparty_root_did` / `migration_status`. lexicons accept optional `sourceRootDid` / `counterpartyRootDid`. Auth team backfill via `migrate-rw-erc725-root.mjs` once `GftdRootIdentity` contracts for emitters are registered. |
 | AppView (Svelte) | scaffold | `appview/resource-flow-ui-r3s0fl0w/svelte/` (Svelte 5 runes + d3-sankey). Worker `assets` binding mounts `./dist` at `/` with SPA fallback. Counterparty labels via `app.bsky.actor.getProfile`. |
@@ -22,7 +22,7 @@ resource-flow.gftd.ai — 公的団体 **+ 民間法人** の 12 resource class 
 
 | Field | Value |
 |---|---|
-| **Domain** | resource-flow.gftd.ai |
+| **Domain** | resource-flow.etzhayyim.com |
 | **nanoid** | r3s0fl0w |
 | **performerType** | service |
 | **Sensitivity** | public |
@@ -35,13 +35,13 @@ Country APPs (gov-jpn, gov-usa, gov-deu, gov-intl-un, ...)
   │  Write: ai.gftd.apps.gov{Cc}.{class}Flow
   │  ATPost: "FY2025 予算配分..."
   │
-Legal-entity DIDs (did:web:legal-entity.gftd.ai:lei:*, hospitality:actor:*, ...)
+Legal-entity DIDs (did:web:legal-entity.etzhayyim.com:lei:*, hospitality:actor:*, ...)
   │  Write: ai.gftd.apps.resourceFlow.legalEntity{Currency|Personnel|Service}Flow
   │  ATPost: "Q1 revenue ¥X / headcount +Y / room-nights Z..."
   │
   ├─ Follow ─────────────────────────────────┐
   │                                          ▼
-  │                              resource-flow.gftd.ai
+  │                              resource-flow.etzhayyim.com
   │                              ├─ ComAtprotoSyncSubscribeRepos()
   │                              │  ├─ flow record 受信
   │                              │  ├─ 集計・Sankey 生成
@@ -105,7 +105,7 @@ Personnel: 342 transfers across 8 ministries
 Goods: ¥180B procurement (74% defense)
 Debt: ¥1.2T JGB issued (10Y avg yield 0.52%)
 
-Sankey → resource-flow.gftd.ai/jpn/2025/w12
+Sankey → resource-flow.etzhayyim.com/jpn/2025/w12
 ```
 
 ### 2. Anomaly Alert (threshold-triggered ATPost)
@@ -117,7 +117,7 @@ Currency outflow +340% vs 30-day avg
 ¥890B → Mitsubishi Heavy Industries (corp:4010001008772)
 Source: 防衛装備庁 調達公告 2025-03-15
 
-Details → resource-flow.gftd.ai/alert/3lr...
+Details → resource-flow.etzhayyim.com/alert/3lr...
 ```
 
 ### 3. Cross-Country Comparison (monthly ATPost)
@@ -131,7 +131,7 @@ DEU: €52B | ITA: €28B | CAN: C$27B
 Top cross-border: USA→JPN ¥890B (FMS)
 Top intl org: NATO contributions $1.2B total
 
-Sankey → resource-flow.gftd.ai/g7/defense/2025q1
+Sankey → resource-flow.etzhayyim.com/g7/defense/2025q1
 ```
 
 ### 4. Lineage Trace (on-demand ATPost)
@@ -147,7 +147,7 @@ Sankey → resource-flow.gftd.ai/g7/defense/2025q1
 
 5 hops | data_source: MOF予算書+MHLW概算要求
 
-Full trace → resource-flow.gftd.ai/lineage/3lr...
+Full trace → resource-flow.etzhayyim.com/lineage/3lr...
 ```
 
 ## Data Model (W Protocol Event Stream)
@@ -170,7 +170,7 @@ Country APP が書いた flow records を **直接 SQL query** で集計:
 // 日本 FY2025 の全 currency flow を省庁別集計
 result, _ := magatama.G("GovCurrencyFlow").
     Match(magatama.Eq{"fiscal_year": "2025"}).
-    Where("sourceDid", "STARTS WITH", "did:web:gov-jpn.gftd.ai").
+    Where("sourceDid", "STARTS WITH", "did:web:gov-jpn.etzhayyim.com").
     Return("destDid", "SUM(amount) AS total").
     GroupBy("destDid").
     OrderBy("total DESC").
@@ -202,7 +202,7 @@ result, _ := magatama.G("GovCurrencyFlow").
 }
 ```
 
-**`hospitality.*` と `app.bsky.actor.profile` の受信**: hospitality umbrella project (`hospitality.gftd.ai`) が発行する actor profile (`app.bsky.actor.profile`) + lei bridge (`leiBridge`) + 親子関係 (`ownedBy`) を同時 subscribe し、`vertex_actor_profile_meta` / `edge_same_as` / `edge_owned_by` を更新するたびに resource-flow coverage snapshot を再計算する (`mv_hospitality_actor_coverage` — migration 0057 参照)。
+**`hospitality.*` と `app.bsky.actor.profile` の受信**: hospitality umbrella project (`hospitality.etzhayyim.com`) が発行する actor profile (`app.bsky.actor.profile`) + lei bridge (`leiBridge`) + 親子関係 (`ownedBy`) を同時 subscribe し、`vertex_actor_profile_meta` / `edge_same_as` / `edge_owned_by` を更新するたびに resource-flow coverage snapshot を再計算する (`mv_hospitality_actor_coverage` — migration 0057 参照)。
 
 ## WIT
 

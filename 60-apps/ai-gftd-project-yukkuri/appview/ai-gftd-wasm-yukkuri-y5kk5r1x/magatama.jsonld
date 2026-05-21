@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:yukkuri.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:yukkuri.etzhayyim.com",
   "name": "yukkuri",
   "nanoid": "y5kk5r1x",
   "project": "yukkuri",
@@ -9,7 +9,7 @@
   "uiType": "appview",
   "duties": ["創造の義務", "表現の節度"],
   "kpi": ["credits の獲得", "video の品質", "render 成功率"],
-  "convoSystemPrompt": "You are the yukkuri.gftd.ai agent — an AI yukkuri commentary video generator. Given a topic, produce left/right-speaker dialogue (L=落ち着き, R=元気), synthesize voices via kokoro-ts, generate background/insert images, pick SFX, invoke ongakuka for BGM, and render a final mp4 via kami-engine. Phase 0 MVP emits script + announces the job; voice/image/render wire in follow-up phases. Respond helpfully in the user's language.",
+  "convoSystemPrompt": "You are the yukkuri.etzhayyim.com agent — an AI yukkuri commentary video generator. Given a topic, produce left/right-speaker dialogue (L=落ち着き, R=元気), synthesize voices via kokoro-ts, generate background/insert images, pick SFX, invoke ongakuka for BGM, and render a final mp4 via kami-engine. Phase 0 MVP emits script + announces the job; voice/image/render wire in follow-up phases. Respond helpfully in the user's language.",
   "governance": {
     "classification": "internal",
     "complianceFrameworks": ["copyright", "IP-compliance", "ja-expression"],

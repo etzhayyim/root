@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hf-model-scan-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-model-scan-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  hf.modelScan — daily HuggingFace Hub model catalog scan.\n'
@@ -38,14 +38,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.hf.modelScan\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hf-model-scan-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-model-scan-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_hf_model_scan"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/hf"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/hf"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '\n'
@@ -131,9 +131,9 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  4117,
                  '2026-05-06T23:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hf-model-scan-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-model-scan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -146,12 +146,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $6\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/hf-model-scan-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hf-model-scan-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  '2026-05-06T23:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/hf-model-scan-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hf-model-scan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_hfhub_filter\n'
          '      (vertex_id, created_date, slug, display_name, description,\n'
@@ -170,7 +170,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_hfhub_filter WHERE vertex_id = '
          "'hf:filter:llm-popular-models')\n"
          '  ',
-  'parameters': ['did:web:ingest.gftd.ai']},
+  'parameters': ['did:web:ingest.etzhayyim.com']},
  {'sql': '\n'
          '    INSERT INTO vertex_hfhub_filter\n'
          '      (vertex_id, created_date, slug, display_name, description,\n'
@@ -189,7 +189,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_hfhub_filter WHERE vertex_id = '
          "'hf:filter:japanese-models')\n"
          '  ',
-  'parameters': ['did:web:ingest.gftd.ai']},
+  'parameters': ['did:web:ingest.etzhayyim.com']},
  {'sql': '\n'
          '    INSERT INTO vertex_hfhub_filter\n'
          '      (vertex_id, created_date, slug, display_name, description,\n'
@@ -206,7 +206,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_hfhub_filter WHERE vertex_id = '
          "'hf:filter:apache2-models')\n"
          '  ',
-  'parameters': ['did:web:ingest.gftd.ai']}]
+  'parameters': ['did:web:ingest.etzhayyim.com']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_hfhub_filter WHERE vertex_id IN (\n'
          '    '
@@ -214,9 +214,9 @@ DOWN = [{'sql': 'DELETE FROM vertex_hfhub_filter WHERE vertex_id IN (\n'
          '  )',
   'parameters': []},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/hf-model-scan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hf-model-scan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hf-model-scan-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-model-scan-v1']}]
 
 
 def upgrade() -> None:

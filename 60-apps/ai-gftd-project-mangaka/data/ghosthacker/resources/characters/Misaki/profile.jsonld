@@ -1,6 +1,6 @@
 {
   "@context": {
-    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "gh": "https://ghosthacker.etzhayyim.com/ns/",
     "schema": "http://schema.org/",
     "dct": "http://purl.org/dc/terms/"
   },

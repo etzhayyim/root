@@ -6,7 +6,7 @@ doc_type: explanation
 topic: vault-zero-knowledge-crypto
 authoritative: true
 authoritative_for:
-  - vault.gftd.ai zero knowledge key hierarchy and encryption design
+  - vault.etzhayyim.com zero knowledge key hierarchy and encryption design
   - vault principal types and key exchange patterns
   - vault WIT interface design (magatama:secrets/vault)
 last_verified: "2026-03-20"
@@ -23,7 +23,7 @@ superseded_by: []
 
 ## Goal
 
-vault.gftd.ai を **zero-knowledge** アーキテクチャで再設計する。server は暗号文のみ保持し、平文に一切触れない。Human / Agent / Org の全 principal type に対応し、6 通りの鍵共有パターン (U2U, U2A, U2O, cross-actor, A2U, A2O) + org 間 (O2O, O2U, O2A) を統一的に扱う。
+vault.etzhayyim.com を **zero-knowledge** アーキテクチャで再設計する。server は暗号文のみ保持し、平文に一切触れない。Human / Agent / Org の全 principal type に対応し、6 通りの鍵共有パターン (U2U, U2A, U2O, cross-actor, A2U, A2O) + org 間 (O2O, O2U, O2A) を統一的に扱う。
 
 ## Scope
 
@@ -32,7 +32,7 @@ vault.gftd.ai を **zero-knowledge** アーキテクチャで再設計する。s
 - 全 9 参加者パターンの鍵交換プロトコル
 - `magatama:consent` との統合 (delegation flow)
 - Cloudflare native storage mapping (D1 / B2 / Secrets Store / DO)
-- kaiyaku.gftd.ai 連携の具体フロー
+- kaiyaku.etzhayyim.com 連携の具体フロー
 
 ## Non-Scope
 
@@ -333,7 +333,7 @@ interface vault {
 - B2: large encrypted blobs (item ciphertext は可変長)
 - Cypher graph: consent grant / audit trail は graph-native (既に `magatama:consent` が使用)
 
-## kaiyaku.gftd.ai 連携フロー (具体例)
+## kaiyaku.etzhayyim.com 連携フロー (具体例)
 
 ```
 User: "Netflix を解約して"

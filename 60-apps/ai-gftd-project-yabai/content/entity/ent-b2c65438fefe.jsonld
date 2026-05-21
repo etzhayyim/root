@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-b2c65438fefe",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b2c65438fefe",
   "entityId": "ent-b2c65438fefe",
   "canonicalName": "russian universal bank",
   "aliases": [

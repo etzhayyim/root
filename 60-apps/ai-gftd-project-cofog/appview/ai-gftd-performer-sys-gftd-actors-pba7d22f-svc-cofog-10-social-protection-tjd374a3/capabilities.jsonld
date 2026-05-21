@@ -8,12 +8,12 @@
   },
   "@graph": [
     {
-      "@id": "https://kyber-systems.gftd.ai/capabilities/social-protection-admin-capability",
+      "@id": "https://kyber-systems.etzhayyim.com/capabilities/social-protection-admin-capability",
       "@type": "dodaf:Capability",
       "dct:title": "Social Protection Administration Capability",
       "dct:description": "Ability to handle government-related social insurance and labor insurance procedures for workforce management.",
       "enables": [
-        "https://kyber-systems.gftd.ai/activities/social-insurance-enrollment-process"
+        "https://kyber-systems.etzhayyim.com/activities/social-insurance-enrollment-process"
       ]
     }
   ]

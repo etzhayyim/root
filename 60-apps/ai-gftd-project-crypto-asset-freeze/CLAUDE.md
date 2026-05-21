@@ -2,7 +2,7 @@
 
 > **T2 Logical Actor**: Manifest-driven (`20-actors/crypto-asset-freeze/actor-manifest.jsonld`). **Restricted: LE-only**.
 
-`crypto-asset-freeze.gftd.ai` (nanoid: `qjp7mjyb`) — 100K LE-grade incidents. Issuer-level (Tether/Circle), CEX wallet, smart contract pause coordination.
+`crypto-asset-freeze.etzhayyim.com` (nanoid: `qjp7mjyb`) — 100K LE-grade incidents. Issuer-level (Tether/Circle), CEX wallet, smart contract pause coordination.
 
 ## Lexicons
 `cryptoAssetFreeze/` (5 files): createIncident, requestFreeze, traceWallet, getIncident, listIncidents.

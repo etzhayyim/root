@@ -19,12 +19,12 @@ import {ContributionRoyaltyRegistry} from "../src/ContributionRoyaltyRegistry.so
 ///
 ///         Example (dry-run):
 ///           forge script script/DeployContributionRegistry.s.sol \
-///             --rpc-url https://geth.gftd.ai --legacy
+///             --rpc-url https://geth.etzhayyim.com --legacy
 ///
 ///         Example (broadcast):
 ///           MIGRATE_LIVE=true \
 ///           forge script script/DeployContributionRegistry.s.sol \
-///             --rpc-url https://geth.gftd.ai --broadcast --legacy -vvv
+///             --rpc-url https://geth.etzhayyim.com --broadcast --legacy -vvv
 contract DeployContributionRegistry is Script {
     function run() external {
         uint256 deployerPk = vm.envUint("PRIVATE_KEY");

@@ -1,22 +1,22 @@
 [component]
 id = "ai-gftd-project-ma"
 name = "Global M&A Brokerage"
-domain = "ma.gftd.ai"
-did = "did:web:ma.gftd.ai"
+domain = "ma.etzhayyim.com"
+did = "did:web:ma.etzhayyim.com"
 runtime = "k8s-langserver"
-owner_did = "did:web:ma.gftd.ai"
+owner_did = "did:web:ma.etzhayyim.com"
 status = "production-wiring"
 
 [public_agent_registration]
 status = "planned"
 adr = "90-docs/adr/2604262100-erc725-erc8004-k8s-ipfs-agent-runtime.md"
 protocol_root_adr = "90-docs/adr/2604262145-erc8004-protocol-root-atproto-profile.md"
-schema = "https://gftd.ai/schemas/erc8004-agent-registration/v1.json"
+schema = "https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json"
 chain_id = 260425
 agent_registry = "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865"
 root_identity_kind = "erc725-root"
 root_did = "did:erc725:gftd:260425:0x0000000000000000000000000000000000000000"
-facade_did = "did:web:ma.gftd.ai"
+facade_did = "did:web:ma.etzhayyim.com"
 registration_template = "../../50-infra/multicluster/murakumo-vke/ma-actors/public-agent-registration.template.json"
 runtime_namespace = "ma-actors"
 runtime_kind = "k8s-langserver"
@@ -25,9 +25,9 @@ note = "Public ERC-8004 agentURI registration is pending root identity deploymen
 
 [[public_agent_registration.protocol_profiles]]
 kind = "atproto-xrpc"
-service = "https://atproto.gftd.ai"
-pds_did = "did:web:atproto.gftd.ai"
-actor_did = "did:web:ma.gftd.ai"
+service = "https://atproto.etzhayyim.com"
+pds_did = "did:web:atproto.etzhayyim.com"
+actor_did = "did:web:ma.etzhayyim.com"
 collections = [
   "ai.gftd.apps.ma.startDealWorkflow",
   "ai.gftd.apps.fund.managerDiscovery",
@@ -36,13 +36,13 @@ collections = [
 
 [[public_agent_registration.protocol_profiles]]
 kind = "mcp"
-endpoint = "https://ma.gftd.ai/mcp"
+endpoint = "https://ma.etzhayyim.com/mcp"
 transport = "streamable-http"
 auth = "oauth2-dpop"
 
 [[public_agent_registration.protocol_profiles]]
 kind = "a2a"
-endpoint = "https://ma.gftd.ai/a2a"
+endpoint = "https://ma.etzhayyim.com/a2a"
 auth = "service-auth-es256"
 
 [[public_agent_registration.protocol_profiles]]
@@ -56,11 +56,11 @@ workload_name = "ma-actor-langserver-worker"
 dispatcher = "agentgateway-mcp"
 worker = "pymagatama.worker_api"
 graph = "risingwave"
-default_email_provider = "mailer.gftd.ai"
+default_email_provider = "mailer.etzhayyim.com"
 outbound_email_provider = "resend"
 inbound_email_provider = "cloudflare-email-routing"
-sender_domain = "gftd.ai"
-sender_pattern = "{local}@gftd.ai"
+sender_domain = "etzhayyim.com"
+sender_pattern = "{local}@etzhayyim.com"
 
 [[bpmn_processes]]
 process_id = "ma_start_deal_workflow"
@@ -232,13 +232,13 @@ feeds = ["fund.enrichEntity", "ma.research.companyProfile", "ma.dd.ownershipChec
 identity_key = "lei"
 
 [mail]
-provider = "mailer.gftd.ai"
+provider = "mailer.etzhayyim.com"
 send_nsid = "ai.gftd.apps.mailer.sendEmail"
 inbound_collection = "ai.gftd.apps.mailer.inboundEmail"
 outbound_provider = "resend"
 inbound_provider = "cloudflare-email-routing"
-sender_domain = "gftd.ai"
-default_sender = "ma@gftd.ai"
-reply_to = "ma@gftd.ai"
+sender_domain = "etzhayyim.com"
+default_sender = "ma@etzhayyim.com"
+reply_to = "ma@etzhayyim.com"
 external_send_default = "draft_only"
 approval_group = "ma-operators"

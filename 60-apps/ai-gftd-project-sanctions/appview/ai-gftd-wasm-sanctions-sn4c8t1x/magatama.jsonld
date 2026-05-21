@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:sanctions.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:sanctions.etzhayyim.com",
   "name": "sanctions",
   "nanoid": "sn4c8t1x",
   "performerType": "service",
@@ -55,12 +55,12 @@
   "deploy": {},
   "routes": [
     {
-      "host": "sanctions.gftd.ai",
+      "host": "sanctions.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     },
     {
-      "host": "sn4c8t1x.gftd.ai",
+      "host": "sn4c8t1x.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }

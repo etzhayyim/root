@@ -72,6 +72,7 @@ def test_runtime_reserve_dry_run_does_not_submit_onchain() -> None:
     assert out["leaseId"].startswith("lease_")
 
 
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 def test_insert_normalizes_timestamp_values_for_risingwave(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

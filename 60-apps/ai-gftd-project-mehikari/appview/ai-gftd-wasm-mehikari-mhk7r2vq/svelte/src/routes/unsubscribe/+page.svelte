@@ -32,7 +32,7 @@
         message = "オプトアウトを承りました。今後 amanomibashira / Gftd Japan からの当該案件に関するメールはお送りしません。";
       } else if (json.status === "tokenExpired") {
         status = "error";
-        message = "オプトアウトリンクの有効期限が切れています。お手数ですが mehikari-info@gftd.ai までご一報ください。";
+        message = "オプトアウトリンクの有効期限が切れています。お手数ですが mehikari-info@etzhayyim.com までご一報ください。";
       } else {
         status = "error";
         message = json.error || `処理できませんでした (${json.status ?? "unknown"})。`;

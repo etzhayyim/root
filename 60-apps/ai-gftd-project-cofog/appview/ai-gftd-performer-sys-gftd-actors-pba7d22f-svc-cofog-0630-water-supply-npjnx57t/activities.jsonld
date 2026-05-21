@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/06/3/0/water-supply/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/06/3/0/water-supply/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Potable Water Supply and Distribution Lifecycle",
       "description": "The operational process of monitoring water sources, coordinating treatment, and enforcing drinking water quality standards.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/06/3/0/water-supply"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/3/0/water-supply"
     }
   ]
 }

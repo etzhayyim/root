@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/cyber-freelance#SeedMasterData
+ * @etzhayyim/cyber-freelance#SeedMasterData
  * マスターデータseedスクリプト
  * 
  * 本番環境のデータベースにマスターデータを追加します

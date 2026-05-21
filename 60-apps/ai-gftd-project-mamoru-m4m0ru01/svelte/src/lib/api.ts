@@ -1,4 +1,4 @@
-const BASE = typeof window !== "undefined" ? window.location.origin : "https://mamoru.gftd.ai";
+const BASE = typeof window !== "undefined" ? window.location.origin : "https://mamoru.etzhayyim.com";
 const KEY_STORAGE = "mamoru_api_key";
 
 export function getApiKey(): string {

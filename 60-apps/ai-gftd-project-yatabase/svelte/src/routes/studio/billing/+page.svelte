@@ -7,7 +7,7 @@
 		NotificationBanner,
 		Skeleton,
 		EmptyState,
-	} from '@gftdcojp/design-system';
+	} from '@etzhayyim/design-system';
 	import { apiKey, plan } from '$lib/stores';
 	import { plan as planApi, auth, ApiError, type UsageMetric } from '$lib/api';
 

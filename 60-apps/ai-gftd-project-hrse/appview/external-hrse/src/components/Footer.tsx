@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 /**
- * @gftdcojp/cyber-freelance#Footer
+ * @etzhayyim/cyber-freelance#Footer
  * Toptalスタイルのフッターコンポーネント
  */
 export function Footer() {

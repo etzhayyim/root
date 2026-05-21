@@ -31,7 +31,7 @@ export async function authenticate(req: Request, env: { AUTH_SERVICE: Fetcher; V
   }
   // Delegate verification to AUTH_SERVICE (handles AT session HS256 + ES256 Service Auth + API key).
   const activeDid = req.headers.get("x-active-did");
-  const verifyRes = await env.AUTH_SERVICE.fetch("https://authn.gftd.ai/xrpc/ai.gftd.auth.authenticate", {
+  const verifyRes = await env.AUTH_SERVICE.fetch("https://authn.etzhayyim.com/xrpc/ai.gftd.auth.authenticate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

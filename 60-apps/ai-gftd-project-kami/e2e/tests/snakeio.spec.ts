@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-const KAMI = process.env.KAMI_BASE_URL ?? 'https://kami.gftd.ai';
-const RT = process.env.KAMI_RT_BASE_URL ?? 'https://kami-rt.gftd.ai';
-const WORLDS = process.env.WORLDS_BASE_URL ?? 'https://worlds.gftd.ai';
+const KAMI = process.env.KAMI_BASE_URL ?? 'https://kami.etzhayyim.com';
+const RT = process.env.KAMI_RT_BASE_URL ?? 'https://kami-rt.etzhayyim.com';
+const WORLDS = process.env.WORLDS_BASE_URL ?? 'https://worlds.etzhayyim.com';
 
 const SNAKE_ISLAND_ID = 'isl-23ca92ce40';
 

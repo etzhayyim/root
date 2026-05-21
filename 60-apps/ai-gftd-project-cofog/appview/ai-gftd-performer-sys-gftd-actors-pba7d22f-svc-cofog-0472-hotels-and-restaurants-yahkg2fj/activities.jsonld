@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/7/2/hotels-and-restaurants/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/7/2/hotels-and-restaurants/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Hospitality Industry Oversight Lifecycle",
       "description": "The operational process of inspecting facility standards, coordinating industry licensing, and monitoring health and safety.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/7/2/hotels-and-restaurants"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/7/2/hotels-and-restaurants"
     }
   ]
 }

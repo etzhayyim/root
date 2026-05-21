@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/02/4/0/r-d-defense",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/02/4/0/r-d-defense",
       "type": "dodaf:Capability",
       "name": "Defense Research and Development Management",
       "description": "Functional capability for managing advanced military research, experimental development, and prototyping of next-generation defense systems. Classification: COFOG Division 02, Group 4, Class 0.",

@@ -20,7 +20,7 @@
     "get-current-season",
     "spectate-match"
   ],
-  "guestDIDPrefix": "did:web:kami.gftd.ai:guest:",
+  "guestDIDPrefix": "did:web:kami.etzhayyim.com:guest:",
   "kpi": [
     "credits の獲得"
   ],

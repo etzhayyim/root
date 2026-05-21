@@ -1,7 +1,7 @@
 {
   "name": "maps-ui-uqpel6i6",
   "version": "1.0.0",
-  "description": "maps.gftd.ai Spatial Intelligence + Digital Twin",
+  "description": "maps.etzhayyim.com Spatial Intelligence + Digital Twin",
   "main": "svelte/.svelte-kit/cloudflare/_worker.js",
   "type": "module",
   "dependencies": {

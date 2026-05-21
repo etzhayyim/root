@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gftd.ai/gftd.json",
+  "$schema": "https://etzhayyim.com/gftd.json",
   "name": "ai-gftd-wasm-kami-workbench",
   "nanoid": "k4m1w0rk",
   "project": "kami",
@@ -9,14 +9,14 @@
   "source": "template",
   "routes": [
     {
-      "host": "kami.gftd.ai",
+      "host": "kami.etzhayyim.com",
       "tls": true,
       "paths": [
         "/"
       ]
     },
     {
-      "host": "k4m1w0rk.gftd.ai",
+      "host": "k4m1w0rk.etzhayyim.com",
       "tls": true,
       "paths": [
         "/"

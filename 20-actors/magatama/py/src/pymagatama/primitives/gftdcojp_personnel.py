@@ -1,12 +1,12 @@
 """
-gftdcojp.personnel.* — LangServer handlers for the
+etzhayyim.personnel.* — LangServer handlers for the
 personnelAssignmentDecide.bpmn workflow.
 
 Task types:
-  gftdcojp.personnel.loadProfile     read Tier-3 RLS-gated profile bundle
-  gftdcojp.personnel.minimaxScore    compute worst-case loss + Ω-axis deltas
-  gftdcojp.personnel.notifyDeny      audit + notify CEO/CLO when blocked
-  gftdcojp.personnel.writeAssignment write vertex_gftdcojp_assignment + RACI
+  etzhayyim.personnel.loadProfile     read Tier-3 RLS-gated profile bundle
+  etzhayyim.personnel.minimaxScore    compute worst-case loss + Ω-axis deltas
+  etzhayyim.personnel.notifyDeny      audit + notify CEO/CLO when blocked
+  etzhayyim.personnel.writeAssignment write vertex_etzhayyim_assignment + RACI
 
 ADR refs:
   ADR-0018 Tier 3 PII (CEO/COO/CLO read only)
@@ -23,9 +23,9 @@ import logging
 import uuid
 from typing import Any
 
-LOG = logging.getLogger("gftdcojp.personnel")
+LOG = logging.getLogger("etzhayyim.personnel")
 
-_ORG_DID   = "did:web:gftdcojp.etzhayyim.com"
+_ORG_DID   = "did:web:etzhayyim.etzhayyim.com"
 _OWNER_DID = "did:web:bpmn.etzhayyim.com"
 
 # Tier 3 RLS allowlist (CEO + COO + CLO only)
@@ -43,7 +43,7 @@ def _now_iso() -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{_OWNER_DID}/ai.gftd.apps.gftdcojp.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{_OWNER_DID}/ai.gftd.apps.etzhayyim.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 def _query(sql_str: str, params: dict | None = None) -> list[dict]:
     try:
@@ -87,7 +87,7 @@ def _llm_json(system: str, user: str, max_tokens: int = 1500) -> dict:
 
 # ── Task: loadProfile (Tier 3 RLS-gated read) ──────────────────────────────────
 
-async def task_gftdcojp_personnel_load_profile(
+async def task_etzhayyim_personnel_load_profile(
     person_did: str,
     candidate_target: str = "",
     decision_kind: str = "assignment.create",
@@ -101,22 +101,22 @@ async def task_gftdcojp_personnel_load_profile(
 
     skills = _query(
         "SELECT skill_id, proficiency, peer_verified, last_used_at "
-        "FROM vertex_gftdcojp_person_skill WHERE person_did = :did",
+        "FROM vertex_etzhayyim_person_skill WHERE person_did = :did",
         {"did": person_did},
     )
 
     contracts = _query(
         "SELECT c.contract_id, c.contract_kind, c.principal_did, c.vendor_did, "
         "       c.title, c.start_date, c.end_date, c.status "
-        "FROM vertex_gftdcojp_contract c "
-        "JOIN edge_gftdcojp_person_contract e ON e.contract_id = c.contract_id "
+        "FROM vertex_etzhayyim_contract c "
+        "JOIN edge_etzhayyim_person_contract e ON e.contract_id = c.contract_id "
         "WHERE e.person_did = :did AND c.status = 'active'",
         {"did": person_did},
     )
 
     person = _query(
         "SELECT person_did, display_name, department, title, employment_type, status "
-        "FROM vertex_gftdcojp_person WHERE person_did = :did LIMIT 1",
+        "FROM vertex_etzhayyim_person WHERE person_did = :did LIMIT 1",
         {"did": person_did},
     )
 
@@ -131,26 +131,26 @@ async def task_gftdcojp_personnel_load_profile(
         bio = _query(
             "SELECT birth_year, gender, birthplace_pref, household_type, "
             "       socioeconomic_band, family_env_summary "
-            "FROM vertex_gftdcojp_person_bio WHERE person_did = :did LIMIT 1",
+            "FROM vertex_etzhayyim_person_bio WHERE person_did = :did LIMIT 1",
             {"did": person_did},
         )
         education = _query(
             "SELECT level, institution, department, degree, major, "
             "       start_date, end_date, graduated "
-            "FROM vertex_gftdcojp_person_education WHERE person_did = :did "
+            "FROM vertex_etzhayyim_person_education WHERE person_did = :did "
             "ORDER BY start_date DESC LIMIT 10",
             {"did": person_did},
         )
         career = _query(
             "SELECT employer, title, department, employment_type, "
             "       start_date, end_date, current, key_achievement, reason_for_leaving "
-            "FROM vertex_gftdcojp_person_career WHERE person_did = :did "
+            "FROM vertex_etzhayyim_person_career WHERE person_did = :did "
             "ORDER BY start_date DESC LIMIT 20",
             {"did": person_did},
         )
         dependents = _query(
             "SELECT relation, birth_year, financial_dependent, care_dependent, lives_with "
-            "FROM vertex_gftdcojp_person_dependent WHERE person_did = :did",
+            "FROM vertex_etzhayyim_person_dependent WHERE person_did = :did",
             {"did": person_did},
         )
         profile = _query(
@@ -159,7 +159,7 @@ async def task_gftdcojp_personnel_load_profile(
             "       self_preservation, risk_tolerance, conflict_style, "
             "       learning_velocity, autonomy_level, llm_compat_score, "
             "       strengths_summary, caveats_summary "
-            "FROM vertex_gftdcojp_person_profile WHERE person_did = :did "
+            "FROM vertex_etzhayyim_person_profile WHERE person_did = :did "
             "ORDER BY assessed_at DESC LIMIT 1",
             {"did": person_did},
         )
@@ -167,7 +167,7 @@ async def task_gftdcojp_personnel_load_profile(
             "SELECT COUNT(*) AS n, AVG(sentiment) AS avg_sentiment, "
             "       AVG(conflict_score) AS avg_conflict, "
             "       AVG(certainty_score) AS avg_certainty "
-            "FROM vertex_gftdcojp_person_utterance WHERE person_did = :did",
+            "FROM vertex_etzhayyim_person_utterance WHERE person_did = :did",
             {"did": person_did},
         )
 
@@ -185,7 +185,7 @@ async def task_gftdcojp_personnel_load_profile(
 
 # ── Task: minimaxScore (worst-case + Ω-axis evaluation) ────────────────────────
 
-_MINIMAX_SYSTEM = """You are the minimax scorer for gftdcojp.etzhayyim.com personnel
+_MINIMAX_SYSTEM = """You are the minimax scorer for etzhayyim.etzhayyim.com personnel
 decisions. Principal: etzhayyim. Vendor: Gftd Japan株式会社.
 
 Inputs: person profile bundle (skill/bio/career/profile) + candidate target
@@ -209,7 +209,7 @@ Compute for THIS person × THIS target:
 Output ONLY JSON with these exact keys.
 """
 
-async def task_gftdcojp_personnel_minimax_score(
+async def task_etzhayyim_personnel_minimax_score(
     profile_bundle: dict,
     candidate_target: str,
     decision_kind: str = "assignment.create",
@@ -244,7 +244,7 @@ async def task_gftdcojp_personnel_minimax_score(
 
     person_did = (profile_bundle.get("person") or {}).get("person_did", "")
 
-    # Persist to vertex_gftdcojp_person_minimax (Tier 3)
+    # Persist to vertex_etzhayyim_person_minimax (Tier 3)
     row = {
         "vertex_id":              _vid("personMinimax"),
         "person_did":             person_did,
@@ -265,13 +265,13 @@ async def task_gftdcojp_personnel_minimax_score(
         "recommendation":         str(scored.get("recommendation") or "needs_human_review"),
         "rationale":              str(scored.get("rationale") or "")[:1000],
         "assessed_at":            _now_iso(),
-        "assessor_did":           "did:web:gftdcojp.etzhayyim.com",
+        "assessor_did":           "did:web:etzhayyim.etzhayyim.com",
         "llm_model":              "structured",
         "created_at":             _now_iso(),
         "owner_did":              _ORG_DID,
     }
     _execute(
-        "INSERT INTO vertex_gftdcojp_person_minimax "
+        "INSERT INTO vertex_etzhayyim_person_minimax "
         "(vertex_id, person_did, decision_kind, candidate_target, "
         " worst_case_loss_jpy, worst_case_summary, worst_case_probability, "
         " expected_value_jpy, expected_value_summary, regret_score, "
@@ -292,7 +292,7 @@ async def task_gftdcojp_personnel_minimax_score(
 
 # ── Task: notifyDeny (audit-only; integrators wire actual channel) ─────────────
 
-async def task_gftdcojp_personnel_notify_deny(
+async def task_etzhayyim_personnel_notify_deny(
     minimax_result: dict,
     recipient_dids: list[str] | None = None,
 ) -> dict:
@@ -316,13 +316,13 @@ async def task_gftdcojp_personnel_notify_deny(
 
 # ── Task: writeAssignment (post-approval) ──────────────────────────────────────
 
-async def task_gftdcojp_personnel_write_assignment(
+async def task_etzhayyim_personnel_write_assignment(
     person_did: str,
     candidate_target: str,
     minimax_result: dict,
     approval_decision: str,
 ) -> dict:
-    """Write vertex_gftdcojp_assignment + RACI rows after COO approval."""
+    """Write vertex_etzhayyim_assignment + RACI rows after COO approval."""
     if approval_decision != "approved":
         return {"ok": False, "error": f"not approved: {approval_decision}"}
 
@@ -344,7 +344,7 @@ async def task_gftdcojp_personnel_write_assignment(
     if task_nsid:
         # RACI write — default role = R (responsible)
         _execute(
-            "INSERT INTO vertex_gftdcojp_raci "
+            "INSERT INTO vertex_etzhayyim_raci "
             "(vertex_id, task_nsid, person_did, raci_role, context, "
             " effective_date, created_at, owner_did) "
             "VALUES (:vid, :nsid, :did, 'R', :ctx, :eff, :now, :owner)",
@@ -360,7 +360,7 @@ async def task_gftdcojp_personnel_write_assignment(
         )
     else:
         _execute(
-            "INSERT INTO vertex_gftdcojp_assignment "
+            "INSERT INTO vertex_etzhayyim_assignment "
             "(vertex_id, person_did, role_id, project_id, allocation_pct, "
             " start_date, status, created_at, owner_did) "
             "VALUES (:vid, :did, :rid, :pid, :pct, :start, 'active', :now, :owner)",
@@ -386,47 +386,47 @@ async def task_gftdcojp_personnel_write_assignment(
 # ── Worker registration ────────────────────────────────────────────────────────
 
 def register(app: Any, timeout_ms: int = 90_000) -> None:
-    """Register all gftdcojp.personnel.* task handlers."""
+    """Register all etzhayyim.personnel.* task handlers."""
     from pymagatama.langserver_compat import LangServerWorker
     if not isinstance(app, LangServerWorker):
         return
 
-    @app.task(task_type="gftdcojp.personnel.loadProfile",
+    @app.task(task_type="etzhayyim.personnel.loadProfile",
               timeout_ms=timeout_ms, max_jobs_to_activate=4)
     async def _load(person_did: str = "", candidate_target: str = "",
                     decision_kind: str = "assignment.create",
                     requester_did: str = "") -> dict:
-        return await task_gftdcojp_personnel_load_profile(
+        return await task_etzhayyim_personnel_load_profile(
             person_did, candidate_target, decision_kind, requester_did,
         )
 
-    @app.task(task_type="gftdcojp.personnel.minimaxScore",
+    @app.task(task_type="etzhayyim.personnel.minimaxScore",
               timeout_ms=timeout_ms, max_jobs_to_activate=2)
     async def _score(profile_bundle: dict | None = None,
                      candidate_target: str = "",
                      decision_kind: str = "assignment.create") -> dict:
-        return await task_gftdcojp_personnel_minimax_score(
+        return await task_etzhayyim_personnel_minimax_score(
             profile_bundle or {}, candidate_target, decision_kind,
         )
 
-    @app.task(task_type="gftdcojp.personnel.notifyDeny",
+    @app.task(task_type="etzhayyim.personnel.notifyDeny",
               timeout_ms=timeout_ms, max_jobs_to_activate=4)
     async def _deny(minimax_result: dict | None = None,
                     recipient_dids: list[str] | None = None) -> dict:
-        return await task_gftdcojp_personnel_notify_deny(
+        return await task_etzhayyim_personnel_notify_deny(
             minimax_result or {}, recipient_dids,
         )
 
-    @app.task(task_type="gftdcojp.personnel.writeAssignment",
+    @app.task(task_type="etzhayyim.personnel.writeAssignment",
               timeout_ms=timeout_ms, max_jobs_to_activate=4)
     async def _write(person_did: str = "", candidate_target: str = "",
                      minimax_result: dict | None = None,
                      approval_decision: str = "denied") -> dict:
-        return await task_gftdcojp_personnel_write_assignment(
+        return await task_etzhayyim_personnel_write_assignment(
             person_did, candidate_target, minimax_result or {}, approval_decision,
         )
 
     LOG.info(
-        "Registered tasks: gftdcojp.personnel.{loadProfile,minimaxScore,"
+        "Registered tasks: etzhayyim.personnel.{loadProfile,minimaxScore,"
         "notifyDeny,writeAssignment}"
     )

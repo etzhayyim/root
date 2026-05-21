@@ -2,7 +2,7 @@
 
 ## Symptom
 
-10 sequential `createWork` XRPC calls against `animeka.gftd.ai`:
+10 sequential `createWork` XRPC calls against `animeka.etzhayyim.com`:
 - 10 HTTP 200 responses, each returning a valid rkey
 - **Only 1 row** appears in `vertex_repo_commit`
 - 90% of writes never persist

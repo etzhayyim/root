@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:cmr-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:cmr-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Cameroon AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -109,7 +109,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "cmr-state.gftd.ai",
+      "host": "cmr-state.etzhayyim.com",
       "paths": [
         "/"
       ],

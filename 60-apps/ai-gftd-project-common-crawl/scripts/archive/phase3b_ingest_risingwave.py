@@ -20,6 +20,7 @@ Streaming MVs (auto-refresh on INSERT):
   mv_cc_domain_coverage    — domain × actor join
 
 Usage:
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
   python3 scripts/archive/phase3b_ingest_risingwave.py --phase domains
   python3 scripts/archive/phase3b_ingest_risingwave.py --phase pages --workers 4
   python3 scripts/archive/phase3b_ingest_risingwave.py --phase all
@@ -267,7 +268,7 @@ def parse_cypher_file(path):
             if m:
                 key = m.group(1)
                 # key is either domain name (CcDomain) or DID (DomainDID)
-                if key.startswith("did:web:site.gftd.ai:"):
+                if key.startswith("did:web:site.etzhayyim.com:"):
                     pass  # domain already captured from DomainDID MERGE
                 else:
                     domains.setdefault(key, "")
@@ -534,13 +535,13 @@ def ingest_actors(conn, dry_run=False):
         batch = domains[i:i + BATCH_SIZE]
         rows = []
         for vid, did, domain, slug in batch:
-            handle = f"site.gftd.ai:{slug}"
+            handle = f"site.etzhayyim.com:{slug}"
             display_name = domain
             description = f"[AI Agent — unofficial] Internet domain: {domain}"
             rows.append((
                 did, did, None, handle, display_name, None, None,
                 None, "active", "ai.gftd.apps.site.domain", slug,
-                "did:web:site.gftd.ai", None, None, None,
+                "did:web:site.etzhayyim.com", None, None, None,
                 "service", None, None, None, None, None, None,
                 now, 0, None, None,
             ))
@@ -575,8 +576,8 @@ def update_pds_profiles(conn, dry_run=False):
     """Update PDS profiles for CC domain actors (displayName + description)."""
     import requests
 
-    PDS_URL = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
-    SITE_APP_DID = "did:web:site.gftd.ai"
+    PDS_URL = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
+    SITE_APP_DID = "did:web:site.etzhayyim.com"
 
     cur = conn.cursor()
     cur.execute("""

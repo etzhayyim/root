@@ -13,27 +13,27 @@ branch_labels = None
 depends_on = None
 
 UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isbn-ingestOpenLibrary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestOpenLibrary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isbn-ingestAozora-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestAozora-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isbn-ingestGutenberg-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestGutenberg-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isbn-ingestNdl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestNdl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/isbn-ingestHathiTrust-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestHathiTrust-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-refresh-daily-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-refresh-daily-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-open-library-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-open-library-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-aozora-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-aozora-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-gutenberg-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-gutenberg-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-ndl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-ndl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-hathitrust-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-hathitrust-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -41,12 +41,12 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
          "    SELECT $1, $2, $3, 2, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-open-library-v2',
-                 'did:web:isbn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-open-library-v2',
+                 'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_open_library',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  isbn.gftd.ai — Open Library monthly editions dump (autonomous).\n'
+                 '  isbn.etzhayyim.com — Open Library monthly editions dump (autonomous).\n'
                  '\n'
                  '  Timer-start: every month on the 5th @ 00:00 UTC. Open Library\n'
                  '  publishes ol_dump_editions_latest.txt.gz monthly; the 5th gives\n'
@@ -60,7 +60,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_isbn_ingest_open_library"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/isbn"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/isbn"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="isbn_ingest_open_library" name="isbn ingest Open Library '
@@ -88,7 +88,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;isbn.ingest.openLibrary&quot;" '
                  'target="action"/>\n'
@@ -109,10 +109,10 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  2409,
                  '00-contracts/bpmn/ai/gftd/isbn/ingestOpenLibrary.bpmn',
                  '2026-05-05T11:00:00Z',
-                 'did:web:isbn.gftd.ai',
-                 'did:web:isbn.gftd.ai',
+                 'did:web:isbn.etzhayyim.com',
+                 'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-no-cf-worker',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-open-library-v2']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-open-library-v2']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -120,12 +120,12 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
          "    SELECT $1, $2, $3, 2, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-aozora-v2',
-                 'did:web:isbn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-aozora-v2',
+                 'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_aozora',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  isbn.gftd.ai — 青空文庫 daily delta (autonomous).\n'
+                 '  isbn.etzhayyim.com — 青空文庫 daily delta (autonomous).\n'
                  '\n'
                  '  Timer-start: every 24h. Aozora catalog re-fetch + new work delta.\n'
                  '  fulltext=true → chapter chunks → B2 + vertex_isbn_book_chapter.\n'
@@ -138,7 +138,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_isbn_ingest_aozora"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/isbn"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/isbn"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="isbn_ingest_aozora" name="isbn ingest 青空文庫 (daily)" '
@@ -170,7 +170,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;isbn.ingest.aozora&quot;" '
                  'target="action"/>\n'
@@ -191,10 +191,10 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  2508,
                  '00-contracts/bpmn/ai/gftd/isbn/ingestAozora.bpmn',
                  '2026-05-05T11:00:00Z',
-                 'did:web:isbn.gftd.ai',
-                 'did:web:isbn.gftd.ai',
+                 'did:web:isbn.etzhayyim.com',
+                 'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-no-cf-worker',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-aozora-v2']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-aozora-v2']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -202,12 +202,12 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
          "    SELECT $1, $2, $3, 2, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-gutenberg-v2',
-                 'did:web:isbn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-gutenberg-v2',
+                 'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_gutenberg',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  isbn.gftd.ai — Project Gutenberg daily delta (autonomous).\n'
+                 '  isbn.etzhayyim.com — Project Gutenberg daily delta (autonomous).\n'
                  '\n'
                  '  Timer-start: every 24h. GutenDex JSON API pagination + fulltext\n'
                  '  download. limit=200 per run.\n'
@@ -219,7 +219,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_isbn_ingest_gutenberg"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/isbn"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/isbn"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="isbn_ingest_gutenberg" name="isbn ingest Project Gutenberg '
@@ -251,7 +251,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;isbn.ingest.gutenberg&quot;" '
                  'target="action"/>\n'
@@ -272,10 +272,10 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  2406,
                  '00-contracts/bpmn/ai/gftd/isbn/ingestGutenberg.bpmn',
                  '2026-05-05T11:00:00Z',
-                 'did:web:isbn.gftd.ai',
-                 'did:web:isbn.gftd.ai',
+                 'did:web:isbn.etzhayyim.com',
+                 'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-no-cf-worker',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-gutenberg-v2']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-gutenberg-v2']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -283,12 +283,12 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
          "    SELECT $1, $2, $3, 2, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-ndl-v2',
-                 'did:web:isbn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-ndl-v2',
+                 'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_ndl',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  isbn.gftd.ai — NDL Search SRU weekly sweep (autonomous).\n'
+                 '  isbn.etzhayyim.com — NDL Search SRU weekly sweep (autonomous).\n'
                  '\n'
                  '  Timer-start: every Monday 00:00 UTC. SRU caps maxRecords=200/req\n'
                  '  so this fires once a week with a broad ISBN wildcard query.\n'
@@ -302,7 +302,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_isbn_ingest_ndl"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/isbn"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/isbn"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="isbn_ingest_ndl" name="isbn ingest NDL SRU (weekly)" '
@@ -335,7 +335,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;isbn.ingest.ndl&quot;" target="action"/>\n'
                  '        </zeebe:ioMapping>\n'
@@ -355,10 +355,10 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  2559,
                  '00-contracts/bpmn/ai/gftd/isbn/ingestNdl.bpmn',
                  '2026-05-05T11:00:00Z',
-                 'did:web:isbn.gftd.ai',
-                 'did:web:isbn.gftd.ai',
+                 'did:web:isbn.etzhayyim.com',
+                 'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-no-cf-worker',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-ndl-v2']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-ndl-v2']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -366,12 +366,12 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
          "    SELECT $1, $2, $3, 2, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-hathitrust-v2',
-                 'did:web:isbn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-hathitrust-v2',
+                 'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_hathitrust',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  isbn.gftd.ai — HathiTrust monthly hathifile (autonomous).\n'
+                 '  isbn.etzhayyim.com — HathiTrust monthly hathifile (autonomous).\n'
                  '\n'
                  '  Timer-start: every month on the 8th @ 00:00 UTC. HathiTrust drops\n'
                  '  hathifile_full_*.txt.gz on the 1st-3rd; the 8th gives buffer.\n'
@@ -390,7 +390,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_isbn_ingest_hathitrust"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/isbn"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/isbn"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="isbn_ingest_hathitrust" name="isbn ingest HathiTrust '
@@ -421,7 +421,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;isbn.ingest.hathitrust&quot;" '
                  'target="action"/>\n'
@@ -442,10 +442,10 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
                  2754,
                  '00-contracts/bpmn/ai/gftd/isbn/ingestHathiTrust.bpmn',
                  '2026-05-05T11:00:00Z',
-                 'did:web:isbn.gftd.ai',
-                 'did:web:isbn.gftd.ai',
+                 'did:web:isbn.etzhayyim.com',
+                 'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-no-cf-worker',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/isbn-ingest-hathitrust-v2']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-hathitrust-v2']}]
 
 DOWN = []
 

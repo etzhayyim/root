@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "季節祭 (供養祭) を新規スケジュール。authority gated (issuer = did:web:otakiage.gftd.ai or :matsuri sub-DID のみ)。BPMN matsuriSchedule (cron 月初) からも内部呼出される。",
+      "description": "季節祭 (供養祭) を新規スケジュール。authority gated (issuer = did:web:otakiage.etzhayyim.com or :matsuri sub-DID のみ)。BPMN matsuriSchedule (cron 月初) からも内部呼出される。",
       "input": {
         "encoding": "application/json",
         "schema": {

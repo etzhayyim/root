@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#CucumberWorld
+// @etzhayyim/cyber-freelance#CucumberWorld
 // Cucumber World設定
 
 import { setWorldConstructor, World } from "@cucumber/cucumber";

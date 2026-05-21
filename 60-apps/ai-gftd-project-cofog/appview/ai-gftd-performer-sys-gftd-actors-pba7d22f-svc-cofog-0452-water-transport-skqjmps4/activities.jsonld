@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/5/2/water-transport/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/5/2/water-transport/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Maritime and Water Transport Management Lifecycle",
       "description": "The operational process of coordinating port maintenance, managing maritime safety, and overseeing waterborne transport operations.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/5/2/water-transport"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/5/2/water-transport"
     }
   ]
 }

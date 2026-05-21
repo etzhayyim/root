@@ -1,5 +1,5 @@
 /**
- * Coverage Expansion Tests — xlsx.gftd.ai
+ * Coverage Expansion Tests — xlsx.etzhayyim.com
  *
  * Covers ALL remaining untested formula functions + editor operations +
  * CSV edge cases + XLSX stress tests + formatting roundtrip.

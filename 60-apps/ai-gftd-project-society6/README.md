@@ -2,7 +2,7 @@
 
 COFOG wasm components のアクセスポータルと、Society6 向け提言・思想をまとめた公開サイトです。
 
-- Public URL: `https://society6.gftd.ai`
+- Public URL: `https://society6.etzhayyim.com`
 - Runtime: App component
 - Static delivery: `70-tools/gftd-static-site`
 
@@ -10,7 +10,7 @@ COFOG wasm components のアクセスポータルと、Society6 向け提言・�
 
 - `ai-gftd-project-cofog/wasm` の主要 MCP endpoints へのアクセスハブ
 - Society6 の政策提言・実装原則・評価軸の公開
-- web4.gftd.ai の世界観を参考にしたネットワーク指向 UI
+- web4.etzhayyim.com の世界観を参考にしたネットワーク指向 UI
 
 ## Component
 

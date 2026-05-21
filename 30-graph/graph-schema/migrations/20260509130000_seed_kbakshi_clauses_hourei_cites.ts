@@ -125,9 +125,9 @@ const CITES: Cite[] = [
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── clause inserts ──────────────────────────────────────────────────────────
   for (const c of CLAUSES) {
-    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${c.cid}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contractClause/${c.cid}`;
     await sql`
-      INSERT INTO vertex_gftdcojp_contract_clause
+      INSERT INTO vertex_etzhayyim_contract_clause
         (vertex_id, contract_id, clause_kind, ip_assigned_to, nda_scope,
          term_months, summary, summary_ja, severity, created_at,
          sensitivity_ord, owner_did)
@@ -136,13 +136,13 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         ${c.ipAssignedTo ?? null}, ${c.ndaScope ?? null}, CAST(${c.termMonths ?? null} AS integer),
         ${c.summaryEn}, ${c.summaryJa}, ${c.severity},
         ${NOW}, 300, ${OWNER}
-      WHERE NOT EXISTS (SELECT 1 FROM vertex_gftdcojp_contract_clause WHERE vertex_id = ${vid})
+      WHERE NOT EXISTS (SELECT 1 FROM vertex_etzhayyim_contract_clause WHERE vertex_id = ${vid})
     `.execute(db);
   }
 
   // ── clause→hourei.jobun cite edges via existing edge_cites ────────────────
   for (const cite of CITES) {
-    const srcVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${cite.clauseCid}`;
+    const srcVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contractClause/${cite.clauseCid}`;
     const dstVid = `at://did:web:hourei.etzhayyim.com/ai.gftd.apps.hourei.article/${cite.hourei}--${cite.art}`;
     const edgeId = `edge:${cite.clauseCid}:cites:${cite.hourei}--${cite.art}`;
     const label = `${cite.hourei} 第${cite.art}条 — ${cite.paragraph}`;
@@ -166,7 +166,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       cc.severity,
       COUNT(DISTINCT e.dst_vid) AS cite_count,
       ARRAY_AGG(DISTINCT e.dst_vid) AS cited_jobun
-    FROM vertex_gftdcojp_contract_clause cc
+    FROM vertex_etzhayyim_contract_clause cc
     LEFT JOIN edge_cites e ON e.src_vid = cc.vertex_id
     WHERE e.dst_vid LIKE 'at://did:web:hourei.etzhayyim.com/%'
        OR e.dst_vid IS NULL
@@ -181,7 +181,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     await sql`DELETE FROM edge_cites WHERE edge_id = ${edgeId}`.execute(db);
   }
   for (const c of CLAUSES) {
-    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${c.cid}`;
-    await sql`DELETE FROM vertex_gftdcojp_contract_clause WHERE vertex_id = ${vid}`.execute(db);
+    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contractClause/${c.cid}`;
+    await sql`DELETE FROM vertex_etzhayyim_contract_clause WHERE vertex_id = ${vid}`.execute(db);
   }
 }

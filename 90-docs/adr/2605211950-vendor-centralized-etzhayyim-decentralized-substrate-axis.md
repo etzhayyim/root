@@ -1,6 +1,6 @@
 ---
 id: 2605211950-vendor-centralized-etzhayyim-decentralized-substrate-axis
-title: "Substrate Centralization Axis — gftdcojp = Centralized Exclusive, etzhayyim = Decentralized Exclusive"
+title: "Substrate Centralization Axis — etzhayyim = Centralized Exclusive, etzhayyim = Decentralized Exclusive"
 status: active
 doc_type: adr
 topic: vendor-etzhayyim-centralization-axis
@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 8.5
 axis: architecture
 weight: 0.85
-priority_note: "Sharpens the vendor/etzhayyim boundary established by ADR-2605152100 + 2605172000 + 2605172100 + 2605172400. Adds the centralization axis as a constitutional rule: decentralization primitives (Ethereum / Base L2 / IPFS / AT MST / did:web / did:plc / ERC-4337 / ERC725) live exclusively in etzhayyim; centralized substrate (fiat / Stripe / RisingWave / operator-controlled storage / central JWT) lives exclusively in gftdcojp."
+priority_note: "Sharpens the vendor/etzhayyim boundary established by ADR-2605152100 + 2605172000 + 2605172100 + 2605172400. Adds the centralization axis as a constitutional rule: decentralization primitives (Ethereum / Base L2 / IPFS / AT MST / did:web / did:plc / ERC-4337 / ERC725) live exclusively in etzhayyim; centralized substrate (fiat / Stripe / RisingWave / operator-controlled storage / central JWT) lives exclusively in etzhayyim."
 authoritative_for:
   - rule: decentralization primitives are etzhayyim-exclusive
   - rule: centralized substrate is vendor-exclusive
@@ -32,7 +32,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605211950: Substrate Centralization Axis — gftdcojp = Centralized Exclusive, etzhayyim = Decentralized Exclusive
+# ADR-2605211950: Substrate Centralization Axis — etzhayyim = Centralized Exclusive, etzhayyim = Decentralized Exclusive
 
 **Status**: active
 **Date**: 2026-05-21
@@ -42,7 +42,7 @@ superseded_by: []
 
 The vendor/etzhayyim boundary is governed by four prior ADRs:
 
-- ADR-2605152100 — GitHub org boundary (etzhayyim/root vs gftdcojp/ai-gftd-apps-gftdcojp).
+- ADR-2605152100 — GitHub org boundary (etzhayyim/root vs etzhayyim/etzhayyim-root).
 - ADR-2605172000 — etzhayyim is RW-free (AT MST + IPFS + Base L2 only, no centralized DB).
 - ADR-2605172100 — etzhayyim payments are on-chain only (Base L2 + USDC + ERC-4337, no fiat processor).
 - ADR-2605172400 — vendor 3-axis split rule (Liability × Custody × Settlement) for per-project classification.
@@ -60,12 +60,12 @@ Today the vendor repo still holds decentralization primitives:
 
 This mixes the two layers and creates two operational risks:
 
-1. **Identity provenance ambiguity.** ERC725 root issued by `authz.gftd.ai` is constitutionally a decentralization primitive (cryptographic, censorship-resistant), but issued by a centralized operator (Gftd Japan). The trust assumption silently inherits vendor trust.
+1. **Identity provenance ambiguity.** ERC725 root issued by `authz.etzhayyim.com` is constitutionally a decentralization primitive (cryptographic, censorship-resistant), but issued by a centralized operator (Gftd Japan). The trust assumption silently inherits vendor trust.
 2. **Crossover direction drift.** ADR-2605172100 requires vendor → etzhayyim as paid-tier XRPC. With decentralization primitives in vendor, the crossover can go the other way (etzhayyim depending on vendor for on-chain identity), inverting the substrate hierarchy.
 
 The user-stated principle on 2026-05-21 makes the rule explicit:
 
-> 基本的に gftdcojp は 中央集権, etzhayyim は 非中央集権
+> 基本的に etzhayyim は 中央集権, etzhayyim は 非中央集権
 
 This ADR records that principle as the canonical vendor/etzhayyim substrate-axis rule.
 
@@ -75,20 +75,20 @@ The **centralization axis** is now the constitutional split between vendor and e
 
 ### Allowed primitives per side
 
-| Layer | etzhayyim/root (decentralized exclusive) | gftdcojp vendor (centralized exclusive) |
+| Layer | etzhayyim/root (decentralized exclusive) | etzhayyim vendor (centralized exclusive) |
 |---|---|---|
 | **Identity** | `did:web:etzhayyim.com`, `did:plc:*`, ERC-4337 Smart Wallet (DID-bound), WebAuthn passkey, **ERC725 root identity** | Operator JWT, internal account ID, vendor-issued session token, OAuth (Gftd-side IdP) |
 | **Payment / settlement** | Base L2 + USDC, ERC-4337 UserOp, 0xSplits, Superfluid, etzhayyim Paymaster, on-chain escrow | Stripe (Charges + Issuing), bank ACH/wire, PayPal/Square/Razorpay, fiat invoicing, tax-recognized commercial relationship |
 | **State / persistence** | AT Protocol MST + IPFS + Base L2 anchor (ADR-2605171800), did:web cloudflare worker | RisingWave / PostgreSQL / Hyperdrive / Kysely, S3 / B2 (operator-controlled), Cloudflare KV/D1, internal materialized views |
 | **Compute / runtime** | langGraph cells on murakumo fleet (launchd), CF Worker edge proxy, k8s pods that read MST | k8s pods over RisingWave, BuildKit on remote builder, vendor-internal cron, vendor CI |
-| **DNS / domain** | `etzhayyim.com` + did:web resolver | `gftd.ai`, `gftd.co.jp` and subdomains, vendor-controlled DNS |
+| **DNS / domain** | `etzhayyim.com` + did:web resolver | `etzhayyim.com`, `gftd.co.jp` and subdomains, vendor-controlled DNS |
 | **Governance** | 1 SBT = 1 vote (on-chain), Council attestation (on-chain), Charter Rider (license + on-chain Council) | Vendor org chart, employment contracts, internal RACI, board governance |
 | **Storage of off-chain blobs** | IPFS via etzhayyim ipfs-pinner | S3 / B2 / R2 (operator-owned bucket) |
 | **Anchoring** | l2-anchor-contract → Base L2 (ADR-2605171800 Stage 5) | Vendor-internal audit log, AWS CloudTrail, vendor-only retention |
 
 ### Hard rules
 
-1. **No decentralization primitive may be implemented or operated in `ai-gftd-apps-gftdcojp/`**, including:
+1. **No decentralization primitive may be implemented or operated in `etzhayyim-root/`**, including:
    - Ethereum / Base L2 / Polygon / any EVM chain RPC, signing, or anchoring.
    - ERC725, ERC-4337, ERC-8004, ERC-1271, Smart Wallet, Smart Account.
    - IPFS pinning, IPLD, content-addressable hash anchoring.
@@ -105,12 +105,12 @@ The **centralization axis** is now the constitutional split between vendor and e
    - **vendor → etzhayyim**: vendor MAY expose a paid-tier XRPC (Stripe, RW analytic query, K8s heavy compute, etc.) that etzhayyim apps call as progressive enhancement (per ADR-2605172000 upstream carve-out). The etzhayyim app remains operational without it.
    - **etzhayyim → vendor**: an etzhayyim app MUST NOT depend on a vendor service for its core decentralized operation. If a decentralization primitive currently lives in vendor (ERC725 root issuance, K2 anchors), that primitive is in **migration debt** and is treated as a deprecated path.
 
-4. **Identity issuance is etzhayyim-exclusive going forward.** New ERC725 / Smart Wallet provisioning MUST be performed by an etzhayyim service (eligible candidate: `50-infra/etzhayyim-did-web/` extension, or a new actor under `20-actors/`). Vendor `authz.gftd.ai` continues to issue vendor session tokens for paid-tier access only, never DIDs.
+4. **Identity issuance is etzhayyim-exclusive going forward.** New ERC725 / Smart Wallet provisioning MUST be performed by an etzhayyim service (eligible candidate: `50-infra/etzhayyim-did-web/` extension, or a new actor under `20-actors/`). Vendor `authz.etzhayyim.com` continues to issue vendor session tokens for paid-tier access only, never DIDs.
 
 ## Consequences
 
 - The vendor repo accumulates **migration debt** for the decentralization primitives it currently hosts. Concretely:
-  - ERC725 root identity issuer (`authz.gftd.ai` `linkEthereumBegin/Verify` + `provision-root-identity` + `sign-up.ts` Ethereum branch) → relocate to etzhayyim authz.
+  - ERC725 root identity issuer (`authz.etzhayyim.com` `linkEthereumBegin/Verify` + `provision-root-identity` + `sign-up.ts` Ethereum branch) → relocate to etzhayyim authz.
   - K2 ecosystem on-chain components (`KarmaAnchor.sol`, ERC-4337 bundler, zk-SNARK `RebirthGate`, Filecoin pinning) → relocate to `etzhayyim/root/50-infra/`.
   - `00-contracts/lexicons/ai/gftd/authz/linkEthereum*.json` lexicons → either move to etzhayyim lexicon namespace or deprecate.
   - Stripe Issuing → ERC-4337 + USDC bridge → split: Stripe Issuing stays vendor, ERC-4337 + USDC moves to etzhayyim. The bridge is reframed as a vendor → etzhayyim XRPC call (vendor mints a fiat credit, etzhayyim mints the on-chain USDC equivalent).
@@ -144,13 +144,13 @@ The **centralization axis** is now the constitutional split between vendor and e
 - ADR-2605172400 — vendor 3-axis split rule
 - ADR-2605192100 — etzhayyim mission charter (constitutional invariants)
 - Vendor: ADR-0074 (ethereum-identity-bridge-cacao-webauthn), ADR-0095 (3-layer identity rw-vault), ADR-2604261830 (ethereum-anchored-wasm-bpmn-runtime), ADR-2604262100 (erc725-erc8004-k8s-ipfs-agent-runtime) — to be migrated/superseded as decentralization primitives move out of vendor.
-- User directive 2026-05-21: 「gftdcojp は ethereum 不使用で ok」「基本的に gftdcojp は 中央集権, etzhayyim は 非中央集権」.
+- User directive 2026-05-21: 「etzhayyim は ethereum 不使用で ok」「基本的に etzhayyim は 中央集権, etzhayyim は 非中央集権」.
 
 ## Open Items (migration debt)
 
 These are tracked as future work, not part of this ADR's cutover. Updated 2026-05-21 (end-of-session):
 
-1. **Relocate ERC725 root identity issuance** from `gftdcojp/ai-gftd-apps-gftdcojp` authz to an etzhayyim service.
+1. **Relocate ERC725 root identity issuance** from `etzhayyim/etzhayyim-root` authz to an etzhayyim service.
    - Design: **ADR-2605212030** — Base L2 mainnet + hybrid did:web/did:erc725 + 5-phase opt-in cutover + `org.etzhayyim.authz.*` namespace.
    - **Phase α P0 (contract)**: ✅ landed. `EtzhayyimAuthz.sol` Foundry contract + Deploy script + 17 tests passing + Anvil 31337 E2E smoke validated.
    - **Phase α P1 (XRPC / chain client / docs)**: ✅ landed. CF Worker scaffold (`50-infra/etzhayyim-authz/src/worker.ts`) + viem chain reader (resolveRoot fully functional once env vars set) + Council Safe proposal builder + 5 lexicons under `00-contracts/lexicons/org/etzhayyim/authz/` + Base Sepolia deploy runbook + Council multisig SOP. did:web Worker extended with `/actor/<handle>/did.json` path-based per-handle DID document.
@@ -174,7 +174,7 @@ These are tracked as future work, not part of this ADR's cutover. Updated 2026-0
 
 End-of-day summary for the substrate-axis migration. Branches:
 - etzhayyim/root: `260521-yorishiro-phase1` (pushed)
-- gftdcojp/ai-gftd-apps-gftdcojp: `260521-substrate-axis-vendor-side` (pushed, PR-ready)
+- etzhayyim/etzhayyim-root: `260521-substrate-axis-vendor-side` (pushed, PR-ready)
 
 | # | Open Item | Status before | Status after | Lines landed |
 |---|---|---|---|---|

@@ -33,7 +33,7 @@ related:
 
 - **vertex/edge table 命名**: `vertex_<domain>_<label>`, `edge_<domain>_<reltype>` (例: `vertex_kuruma_model`, `edge_kuruma_contains_part`)
 - **promoted columns**: `vertex_id` PK, `_seq`, `created_date`, `sensitivity_ord`, `owner_did` + 各 entity 固有フィールド (P10v2 GraphAr-native pattern を踏襲)
-- **DID path**: `did:web:<app>.gftd.ai:<layer>:<id>` (例: `did:web:kuruma.gftd.ai:model:Q165836`)
+- **DID path**: `did:web:<app>.etzhayyim.com:<layer>:<id>` (例: `did:web:kuruma.etzhayyim.com:model:Q165836`)
 - **世界比率**: 各 sub-vertex に `world_total_estimate` を `dim_world_domain` で補足
 
 ### A. kuruma — 自動車ドメイン深さ設計
@@ -42,19 +42,19 @@ related:
 
 **Path DID 階層**:
 ```
-did:web:kuruma.gftd.ai                             — controller
-did:web:kuruma.gftd.ai:maker:{qid}                 — OEM (e.g. Toyota, BMW)
-did:web:kuruma.gftd.ai:model:{qid}                 — 車モデル (Corolla, Camry)
-did:web:kuruma.gftd.ai:trim:{qid}:{variant}        — グレード (Hybrid, Turbo)
-did:web:kuruma.gftd.ai:platform:{qid}              — 共有プラットフォーム
-did:web:kuruma.gftd.ai:part:{oem-or-tier1}:{pn}    — 部品 (engine, ECU, sensor)
-did:web:kuruma.gftd.ai:supplier:{lei-or-qid}       — サプライヤ (Denso, Bosch) → vertex_legal_entity 参照
-did:web:kuruma.gftd.ai:plant:{qid}                 — 組立工場
-did:web:kuruma.gftd.ai:unit:{vin}                  — 個車 (17-char VIN)
-did:web:kuruma.gftd.ai:dealer:{qid-or-local-id}    — ディーラー → vertex_legal_entity
-did:web:kuruma.gftd.ai:sales:{model}:{country}:{ym} — 月次販売台数
-did:web:kuruma.gftd.ai:recall:{campaign-id}        — リコール案件
-did:web:kuruma.gftd.ai:review:{source}:{id}        — 試乗レビュー
+did:web:kuruma.etzhayyim.com                             — controller
+did:web:kuruma.etzhayyim.com:maker:{qid}                 — OEM (e.g. Toyota, BMW)
+did:web:kuruma.etzhayyim.com:model:{qid}                 — 車モデル (Corolla, Camry)
+did:web:kuruma.etzhayyim.com:trim:{qid}:{variant}        — グレード (Hybrid, Turbo)
+did:web:kuruma.etzhayyim.com:platform:{qid}              — 共有プラットフォーム
+did:web:kuruma.etzhayyim.com:part:{oem-or-tier1}:{pn}    — 部品 (engine, ECU, sensor)
+did:web:kuruma.etzhayyim.com:supplier:{lei-or-qid}       — サプライヤ (Denso, Bosch) → vertex_legal_entity 参照
+did:web:kuruma.etzhayyim.com:plant:{qid}                 — 組立工場
+did:web:kuruma.etzhayyim.com:unit:{vin}                  — 個車 (17-char VIN)
+did:web:kuruma.etzhayyim.com:dealer:{qid-or-local-id}    — ディーラー → vertex_legal_entity
+did:web:kuruma.etzhayyim.com:sales:{model}:{country}:{ym} — 月次販売台数
+did:web:kuruma.etzhayyim.com:recall:{campaign-id}        — リコール案件
+did:web:kuruma.etzhayyim.com:review:{source}:{id}        — 試乗レビュー
 ```
 
 **Vertex tables** (12):
@@ -102,19 +102,19 @@ did:web:kuruma.gftd.ai:review:{source}:{id}        — 試乗レビュー
 
 **Path DID 階層**:
 ```
-did:web:media-anime.gftd.ai
-did:web:media-anime.gftd.ai:title:{mal-or-anilist-id}    — 作品
-did:web:media-anime.gftd.ai:franchise:{qid}              — シリーズ / IP 全体
-did:web:media-anime.gftd.ai:studio:{qid}                 — 制作スタジオ
-did:web:media-anime.gftd.ai:committee:{title-id}         — 製作委員会
-did:web:media-anime.gftd.ai:staff:{qid}                  — 監督・脚本・作画・声優
-did:web:media-anime.gftd.ai:character:{title}:{slug}     — キャラクター
-did:web:media-anime.gftd.ai:episode:{title}:{ep-number}  — エピソード
-did:web:media-anime.gftd.ai:broadcaster:{qid}            — TV 局・配信プラットフォーム
-did:web:media-anime.gftd.ai:distribution:{title}:{country}:{platform} — 配信契約
-did:web:media-anime.gftd.ai:source:{type}:{id}           — 原作 (manga/LN/game)
-did:web:media-anime.gftd.ai:song:{title}:{kind}:{n}      — OP/ED/BGM
-did:web:media-anime.gftd.ai:merchandise:{title}:{sku}    — グッズ
+did:web:media-anime.etzhayyim.com
+did:web:media-anime.etzhayyim.com:title:{mal-or-anilist-id}    — 作品
+did:web:media-anime.etzhayyim.com:franchise:{qid}              — シリーズ / IP 全体
+did:web:media-anime.etzhayyim.com:studio:{qid}                 — 制作スタジオ
+did:web:media-anime.etzhayyim.com:committee:{title-id}         — 製作委員会
+did:web:media-anime.etzhayyim.com:staff:{qid}                  — 監督・脚本・作画・声優
+did:web:media-anime.etzhayyim.com:character:{title}:{slug}     — キャラクター
+did:web:media-anime.etzhayyim.com:episode:{title}:{ep-number}  — エピソード
+did:web:media-anime.etzhayyim.com:broadcaster:{qid}            — TV 局・配信プラットフォーム
+did:web:media-anime.etzhayyim.com:distribution:{title}:{country}:{platform} — 配信契約
+did:web:media-anime.etzhayyim.com:source:{type}:{id}           — 原作 (manga/LN/game)
+did:web:media-anime.etzhayyim.com:song:{title}:{kind}:{n}      — OP/ED/BGM
+did:web:media-anime.etzhayyim.com:merchandise:{title}:{sku}    — グッズ
 ```
 
 **Vertex tables** (13):
@@ -165,21 +165,21 @@ did:web:media-anime.gftd.ai:merchandise:{title}:{sku}    — グッズ
 
 **Path DID 階層**:
 ```
-did:web:media-gamers.gftd.ai
-did:web:media-gamers.gftd.ai:title:{igdb-or-steam-id}
-did:web:media-gamers.gftd.ai:franchise:{qid}
-did:web:media-gamers.gftd.ai:platform:{qid}             — PS5/Switch/PC
-did:web:media-gamers.gftd.ai:engine:{qid}               — Unity/Unreal/Godot
-did:web:media-gamers.gftd.ai:store:{qid}                — Steam/Epic/eShop
-did:web:media-gamers.gftd.ai:developer:{lei-or-qid}     → vertex_legal_entity
-did:web:media-gamers.gftd.ai:publisher:{lei-or-qid}     → vertex_legal_entity
-did:web:media-gamers.gftd.ai:character:{title}:{slug}
-did:web:media-gamers.gftd.ai:map:{title}:{slug}
-did:web:media-gamers.gftd.ai:item:{title}:{slug}
-did:web:media-gamers.gftd.ai:quest:{title}:{slug}       — ストーリ/クエスト
-did:web:media-gamers.gftd.ai:dlc:{title}:{slug}
-did:web:media-gamers.gftd.ai:sales:{title}:{region}:{ym}
-did:web:media-gamers.gftd.ai:esports:{event-id}
+did:web:media-gamers.etzhayyim.com
+did:web:media-gamers.etzhayyim.com:title:{igdb-or-steam-id}
+did:web:media-gamers.etzhayyim.com:franchise:{qid}
+did:web:media-gamers.etzhayyim.com:platform:{qid}             — PS5/Switch/PC
+did:web:media-gamers.etzhayyim.com:engine:{qid}               — Unity/Unreal/Godot
+did:web:media-gamers.etzhayyim.com:store:{qid}                — Steam/Epic/eShop
+did:web:media-gamers.etzhayyim.com:developer:{lei-or-qid}     → vertex_legal_entity
+did:web:media-gamers.etzhayyim.com:publisher:{lei-or-qid}     → vertex_legal_entity
+did:web:media-gamers.etzhayyim.com:character:{title}:{slug}
+did:web:media-gamers.etzhayyim.com:map:{title}:{slug}
+did:web:media-gamers.etzhayyim.com:item:{title}:{slug}
+did:web:media-gamers.etzhayyim.com:quest:{title}:{slug}       — ストーリ/クエスト
+did:web:media-gamers.etzhayyim.com:dlc:{title}:{slug}
+did:web:media-gamers.etzhayyim.com:sales:{title}:{region}:{ym}
+did:web:media-gamers.etzhayyim.com:esports:{event-id}
 ```
 
 **Vertex tables** (14):

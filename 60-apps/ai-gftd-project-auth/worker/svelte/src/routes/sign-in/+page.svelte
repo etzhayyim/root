@@ -42,7 +42,7 @@
 				yoroError = 'notFound';
 				mascot?.speak('アカウントが見つからないよ\u2026\u2026 新しく作ってね!');
 			} else if (isNoPasskey) {
-				status = 'gftd.ai の passkey がこのブラウザで見つからないか、選択されませんでした。';
+				status = 'etzhayyim.com の passkey がこのブラウザで見つからないか、選択されませんでした。';
 				statusKind = 'error';
 				mascot?.speak('このブラウザで使える passkey を選んでね。見つからないなら新規登録だよ。');
 			} else if (isAuthFailed) {
@@ -145,10 +145,10 @@
 
 		<div class="mt-3.5 text-[10px] leading-relaxed {$theme === 'dark' ? 'text-[#444]' : 'text-gray-400'}">
 			By continuing, you agree to our
-			<a href="https://yoro.gftd.ai/terms" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">Terms</a>,
-			<a href="https://yoro.gftd.ai/privacy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">Privacy</a>,
-			<a href="https://yoro.gftd.ai/support/kyc-policy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">KYC</a> &amp;
-			<a href="https://yoro.gftd.ai/support/aml-policy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">AML/CTF</a> policies.
+			<a href="https://yoro.etzhayyim.com/terms" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">Terms</a>,
+			<a href="https://yoro.etzhayyim.com/privacy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">Privacy</a>,
+			<a href="https://yoro.etzhayyim.com/support/kyc-policy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">KYC</a> &amp;
+			<a href="https://yoro.etzhayyim.com/support/aml-policy" target="_blank" class="text-[#6366f1] hover:text-[#a5b4fc]">AML/CTF</a> policies.
 		</div>
 	</div>
 </div>

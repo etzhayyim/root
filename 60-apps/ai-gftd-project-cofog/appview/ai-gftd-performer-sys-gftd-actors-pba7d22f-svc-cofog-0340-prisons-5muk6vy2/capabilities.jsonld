@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/03/4/0/prisons",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/03/4/0/prisons",
       "type": "dodaf:Capability",
       "name": "Correctional and Prison Management Capability",
       "description": "Functional capability for managing correctional facilities, inmate rehabilitation, and facility security. Classification: COFOG Division 03, Group 4, Class 0.",

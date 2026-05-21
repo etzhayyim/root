@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@gftdcojp/design-system':
+      '@etzhayyim/design-system':
         specifier: file:../../../../../40-engine/svelte/design-system
         version: file:../../../../../40-engine/svelte/design-system(svelte@5.55.5)
       clsx:
@@ -204,7 +204,7 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@gftdcojp/design-system@file:../../../../../40-engine/svelte/design-system':
+  '@etzhayyim/design-system@file:../../../../../40-engine/svelte/design-system':
     resolution: {directory: ../../../../../40-engine/svelte/design-system, type: directory}
     engines: {node: '>=20'}
     peerDependencies:
@@ -920,7 +920,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.12':
     optional: true
 
-  '@gftdcojp/design-system@file:../../../../../40-engine/svelte/design-system(svelte@5.55.5)':
+  '@etzhayyim/design-system@file:../../../../../40-engine/svelte/design-system(svelte@5.55.5)':
     dependencies:
       '@digital-go-jp/design-tokens': 1.1.9
       '@digital-go-jp/tailwind-theme-plugin': 0.3.4(tailwindcss@3.4.19)

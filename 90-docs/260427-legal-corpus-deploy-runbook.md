@@ -1,6 +1,6 @@
 ---
 id: 260427-legal-corpus-deploy-runbook
-title: legal-corpus.gftd.ai Deploy Runbook (Phase A)
+title: legal-corpus.etzhayyim.com Deploy Runbook (Phase A)
 status: active
 doc_type: how-to
 topic: legal-corpus
@@ -12,15 +12,15 @@ related:
   - adr-0048-risingwave-vultr-b2-primary
 ---
 
-# legal-corpus.gftd.ai Deploy Runbook (Phase A)
+# legal-corpus.etzhayyim.com Deploy Runbook (Phase A)
 
-ADR-0049 で設計した `legal-corpus.gftd.ai` を **production live** にする手順書。
+ADR-0049 で設計した `legal-corpus.etzhayyim.com` を **production live** にする手順書。
 T2 BPMN-as-actor (ADR-0056) のため CF Worker deploy は不要。
 作業範囲は (1) 外部 API key 取得 (2) Vault / Workers AI binding (3) RW migration (4) Zeebe deploy (5) DNS (6) 5 source registerSource (7) 初回 fetch 検証。
 
 ## Pre-flight
 
-- Actor: `did:web:legal-corpus.gftd.ai` (nanoid `lc0rpus0`)
+- Actor: `did:web:legal-corpus.etzhayyim.com` (nanoid `lc0rpus0`)
 - Migrations to apply: `20260427230000` / `230100` / `230200` / `230300` / `230400`
 - Lexicons: `00-contracts/lexicons/ai/gftd/apps/legal-corpus/*.json` (6)
 - BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/*.bpmn` (8)
@@ -93,10 +93,10 @@ kubectl -n zeebe set env deployment/zeebe-worker \
 ### DNS
 
 ```bash
-# legal-corpus.gftd.ai CNAME → CF routing-gateway
+# legal-corpus.etzhayyim.com CNAME → CF routing-gateway
 gftd dns-sync --actor legal-corpus
 # verify
-dig +short legal-corpus.gftd.ai
+dig +short legal-corpus.etzhayyim.com
 ```
 
 ## Day 0: 投入
@@ -126,7 +126,7 @@ DATABASE_URL=... pnpm db:drift  # zero-drift 確認
 psql $DATABASE_URL -c "
   SELECT bpmn_process_id, status, deployed_at
   FROM vertex_bpmn_process_def
-  WHERE owner_did = 'did:web:legal-corpus.gftd.ai'
+  WHERE owner_did = 'did:web:legal-corpus.etzhayyim.com'
   ORDER BY bpmn_process_id;
 "
 # 期待: 8 rows, status='active', deployed_at NOT NULL
@@ -296,7 +296,7 @@ psql $DATABASE_URL -c "
 psql $DATABASE_URL -c "
   UPDATE vertex_bpmn_process_def
   SET status = 'disabled'
-  WHERE owner_did = 'did:web:legal-corpus.gftd.ai'
+  WHERE owner_did = 'did:web:legal-corpus.etzhayyim.com'
     AND bpmn_process_id LIKE 'legal_corpus_fetch_%';
 "
 # F5 watcher が次サイクルで Zeebe undeploy
@@ -318,7 +318,7 @@ DATABASE_URL=... pnpm db:migrate down
 | 3 | 5 source registered | `SELECT count(*) FROM vertex_legal_corpus_source WHERE status='active'` | 5 |
 | 4 | 1st fetch ≥ 1 doc | `SELECT count(*) FROM vertex_legal_corpus_document WHERE source_id='courtlistener'` | ≥ 1 |
 | 5 | 1 doc embedded | `SELECT count(*) FROM vertex_legal_corpus_document WHERE embedding IS NOT NULL` | ≥ 1 |
-| 6 | DNS resolves | `dig +short legal-corpus.gftd.ai` | CNAME present |
+| 6 | DNS resolves | `dig +short legal-corpus.etzhayyim.com` | CNAME present |
 | 7 | T+24h auto-fetch | `mv_legal_corpus_jurisdiction_coverage` jurisdictions | ≥ 5 distinct |
 
 7 個全て PASS で Phase A 完了。Phase B (read path 実装) に移行可。

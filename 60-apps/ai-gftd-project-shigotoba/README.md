@@ -1,6 +1,6 @@
 # ai-gftd-project-shigotoba
 
-`ai-gftd-project-shigotoba` は `shigotoba.gftd.ai` 向けのグローバル求人サイト設計・実装プロジェクトです。
+`ai-gftd-project-shigotoba` は `shigotoba.etzhayyim.com` 向けのグローバル求人サイト設計・実装プロジェクトです。
 
 ## Goal
 
@@ -25,7 +25,7 @@
 ## System Design
 
 - Single wasm component (`shigotoba-jobs-component`)
-  - Web UI (`GET /`, `@gftdcojp/appshellv2` integrated)
+  - Web UI (`GET /`, `@etzhayyim/appshellv2` integrated)
   - REST API (`/api/v1/*`)
   - MCP endpoint (`POST /api/mcp`)
 - 求人 catalogue は公開 API (`remotive`, `arbeitnow`, `remoteok`) から定期取得して反映

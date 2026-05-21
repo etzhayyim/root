@@ -61,7 +61,7 @@ const NSID = {
   tracking: "ai.gftd.apps.yorishiroEnaiyo.tracking",
 } as const;
 
-const PROVIDER_DID = "did:web:yorishiro.gftd.ai";
+const PROVIDER_DID = "did:web:yorishiro.etzhayyim.com";
 const ENAIYO_LANDING = "https://www.post.japanpost.jp/service/enaiyo/pay.html";
 const ENAIYO_DOWNLOAD = "https://www.post.japanpost.jp/service/enaiyo/download.html";
 
@@ -208,7 +208,7 @@ async function cmdCreateDraft(_sdk: HostSDK, payload: Uint8Array): Promise<unkno
   }
 
   const draftId = genID("naiyo");
-  const ownerDid = actorDID || "did:web:jp4n41y0.gftd.ai";
+  const ownerDid = actorDID || "did:web:jp4n41y0.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_draftNaiyo" as any)
     .values({
@@ -271,7 +271,7 @@ async function cmdRenderDocx(sdk: HostSDK, payload: Uint8Array): Promise<unknown
       params: JSON.stringify({ draftId: req.draftId, jobId, templateSource: ENAIYO_DOWNLOAD }),
     },
   });
-  const ownerDid = actorDID || "did:web:jp4n41y0.gftd.ai";
+  const ownerDid = actorDID || "did:web:jp4n41y0.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_docxBlob" as any)
     .values({
@@ -316,7 +316,7 @@ async function cmdSubmitNaiyo(sdk: HostSDK, payload: Uint8Array): Promise<unknow
     },
   });
 
-  const ownerDid = actorDID || "did:web:jp4n41y0.gftd.ai";
+  const ownerDid = actorDID || "did:web:jp4n41y0.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_submitJob" as any)
     .values({
@@ -367,7 +367,7 @@ async function cmdSubmitBatch(sdk: HostSDK, payload: Uint8Array): Promise<unknow
     },
   });
 
-  const ownerDid = actorDID || "did:web:jp4n41y0.gftd.ai";
+  const ownerDid = actorDID || "did:web:jp4n41y0.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_batchJob" as any)
     .values({
@@ -405,7 +405,7 @@ async function cmdRecordReceipt(_sdk: HostSDK, payload: Uint8Array): Promise<unk
     return { error: "jobId, draftId, receiptNumber are required" };
   }
   const receiptId = genID("rcpt");
-  const ownerDid = actorDID || "did:web:jp4n41y0.gftd.ai";
+  const ownerDid = actorDID || "did:web:jp4n41y0.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_receipt" as any)
     .values({

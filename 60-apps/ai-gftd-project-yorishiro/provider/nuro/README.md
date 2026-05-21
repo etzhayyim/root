@@ -67,7 +67,7 @@ vault kv put secret/orgs/gftd/users/junkawasaki/services/nuro/bankAccount/primar
 Or via the `provider-vault` XRPC adapter (preferred — scoped by DID session):
 
 ```bash
-curl -X POST https://yorishiro.gftd.ai/xrpc/gftd.providerVault.credentials.put \
+curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.put \
   -H "Authorization: Bearer $GFTD_TOKEN" \
   -d '{
     "service": "nuro",
@@ -76,7 +76,7 @@ curl -X POST https://yorishiro.gftd.ai/xrpc/gftd.providerVault.credentials.put \
     "value": {"userId":"...","password":"..."}
   }'
 
-curl -X POST https://yorishiro.gftd.ai/xrpc/gftd.providerVault.credentials.put \
+curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.put \
   -H "Authorization: Bearer $GFTD_TOKEN" \
   -d '{
     "service": "nuro",

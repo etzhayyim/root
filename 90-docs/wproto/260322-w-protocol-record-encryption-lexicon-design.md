@@ -168,7 +168,7 @@ W Protocol は **3 層の書き込み API** を提供する。各 API は異な�
 magatama.ATPost("New article published: "+title, &magatama.ATPostOpts{
     Embed: &magatama.ATEmbed{
         Type: "app.bsky.embed.external",
-        URI:  "https://app.gftd.ai/articles/" + id,
+        URI:  "https://app.etzhayyim.com/articles/" + id,
         Title: title,
     },
 })

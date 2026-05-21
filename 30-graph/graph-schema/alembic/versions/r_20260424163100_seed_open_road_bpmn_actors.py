@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-road-define-road-v1',
-                 'did:web:open-road.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-road-define-road-v1',
+                 'did:web:open-road.etzhayyim.com',
                  'open_road_define_road',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_road_define_road"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-road"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-road"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_road_define_road" name="道路登録" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -62,7 +62,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-road.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-road.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openRoad.road.define&quot;" '
                  'target="action"/>\n'
@@ -81,10 +81,10 @@ UP = [{'sql': '\n'
                  2575,
                  '00-contracts/bpmn/ai/gftd/open-road/defineRoad.bpmn',
                  '2026-04-24T16:30:00Z',
-                 'did:web:open-road.gftd.ai',
-                 'did:web:open-road.gftd.ai',
+                 'did:web:open-road.etzhayyim.com',
+                 'did:web:open-road.etzhayyim.com',
                  'sys.bpmn.seed.open-road',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-road-define-road-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-road-define-road-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -92,8 +92,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-road-report-incident-v1',
-                 'did:web:open-road.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-road-report-incident-v1',
+                 'did:web:open-road.etzhayyim.com',
                  'open_road_report_incident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -101,7 +101,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_road_report_incident"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-road"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-road"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_road_report_incident" name="道路事故 報告" '
                  'isExecutable="true">\n'
@@ -208,7 +208,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-road.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-road.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openRoad.incident.publicNotice&quot;" '
                  'target="action"/>\n'
@@ -226,7 +226,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-road.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-road.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openRoad.incident.log&quot;" '
                  'target="action"/>\n'
@@ -249,10 +249,10 @@ UP = [{'sql': '\n'
                  6543,
                  '00-contracts/bpmn/ai/gftd/open-road/reportIncident.bpmn',
                  '2026-04-24T16:30:00Z',
-                 'did:web:open-road.gftd.ai',
-                 'did:web:open-road.gftd.ai',
+                 'did:web:open-road.etzhayyim.com',
+                 'did:web:open-road.etzhayyim.com',
                  'sys.bpmn.seed.open-road',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-road-report-incident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-road-report-incident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -260,16 +260,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-road-defineRoad-v1',
-                 'did:web:open-road.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-road-defineRoad-v1',
+                 'did:web:open-road.etzhayyim.com',
                  'ai.gftd.apps.openRoad.defineRoad',
                  'open_road_define_road',
                  15000,
                  '2026-04-24T16:30:00Z',
-                 'did:web:open-road.gftd.ai',
-                 'did:web:open-road.gftd.ai',
+                 'did:web:open-road.etzhayyim.com',
+                 'did:web:open-road.etzhayyim.com',
                  'sys.bpmn.seed.open-road',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-road-defineRoad-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-road-defineRoad-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -277,25 +277,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-road-reportIncident-v1',
-                 'did:web:open-road.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-road-reportIncident-v1',
+                 'did:web:open-road.etzhayyim.com',
                  'ai.gftd.apps.openRoad.reportIncident',
                  'open_road_report_incident',
                  30000,
                  '2026-04-24T16:30:00Z',
-                 'did:web:open-road.gftd.ai',
-                 'did:web:open-road.gftd.ai',
+                 'did:web:open-road.etzhayyim.com',
+                 'did:web:open-road.etzhayyim.com',
                  'sys.bpmn.seed.open-road',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-road-reportIncident-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-road-reportIncident-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-road-defineRoad-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-road-defineRoad-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-road-reportIncident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-road-reportIncident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-road-define-road-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-road-define-road-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-road-report-incident-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-road-report-incident-v1']}]
 
 
 def upgrade() -> None:

@@ -1,14 +1,14 @@
 {
   "@context": {
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/"
+    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/"
   },
   "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-hc/id/Project/ai-gftd-project-hc",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-hc/id/Project/ai-gftd-project-hc",
   "schema:name": "ai-gftd-project-hc",
   "schema:description": "Human Computing Platform — AI-to-human task marketplace where LLM agents post micro-tasks requiring human intelligence, with USDC/USDT stablecoin escrow payments on Ethereum.",
-  "schema:url": "https://hc.gftd.ai",
+  "schema:url": "https://hc.etzhayyim.com",
   "dodaf:capability": [
     {
       "@type": "dodaf:Capability",
@@ -50,7 +50,7 @@
     {
       "@type": "dodaf:Performer",
       "schema:name": "hc-static",
-      "schema:description": "Static SvelteKit site at hc.gftd.ai (R2 Custom Domain bucket hc-gftd-ai). Requester dashboard, worker marketplace, task detail views."
+      "schema:description": "Static SvelteKit site at hc.etzhayyim.com (R2 Custom Domain bucket hc-gftd-ai). Requester dashboard, worker marketplace, task detail views."
     }
   ],
   "dodaf:activity": [

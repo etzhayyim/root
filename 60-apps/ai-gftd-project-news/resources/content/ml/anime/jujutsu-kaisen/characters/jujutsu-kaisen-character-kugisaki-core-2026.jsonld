@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "TVSeries",
@@ -28,5 +28,5 @@
       "name": "Nobara Kugisaki"
     }
   },
-  "url": "https://news.gftd.ai/ml/articles/jujutsu-kaisen-character-kugisaki-core-2026"
+  "url": "https://news.etzhayyim.com/ml/articles/jujutsu-kaisen-character-kugisaki-core-2026"
 }

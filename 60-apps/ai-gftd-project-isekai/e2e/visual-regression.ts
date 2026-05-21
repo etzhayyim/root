@@ -16,7 +16,7 @@
  */
 import { test, expect, type Page } from '@playwright/test';
 
-const BASE = 'https://isekai.gftd.ai';
+const BASE = 'https://isekai.etzhayyim.com';
 const SEED = 42;
 
 /** Wait for game state to be available (WebGPU render loop running). */

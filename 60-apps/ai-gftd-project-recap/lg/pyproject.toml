@@ -1,7 +1,7 @@
 [project]
 name = "lg-recap"
 version = "0.1.0"
-description = "recap.gftd.ai OSS LangGraph FastAPI server — multi-platform media download (yt-dlp, research/education scope)"
+description = "recap.etzhayyim.com OSS LangGraph FastAPI server — multi-platform media download (yt-dlp, research/education scope)"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",

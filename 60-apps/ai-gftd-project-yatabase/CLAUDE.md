@@ -1,4 +1,4 @@
-# yatabase.gftd.ai — retail cloud graph DB + integrated Supabase-style storage
+# yatabase.etzhayyim.com — retail cloud graph DB + integrated Supabase-style storage
 
 Authoritative: ADR-2605080000 §D10 + Roadmap P3 / P3.1.
 **io-yatabase BaaS surface 拡張** (Cypher / Bolt / Realtime / PostgREST / GraphQL / Auth / Functions / MCP / Studio): ADR-2605080000 §D12-D24 (codename io-yatabase, Roadmap P4a-P4f, M3-M5)。
@@ -38,13 +38,13 @@ L3 Dispatcher (CF Worker, edge). State-less. All persistence + heavy compute liv
 ## Forwarding model (ADR-2605111200, P59 2026-05-11)
 
 ```
-Client → CF Worker (yatabase.gftd.ai)
+Client → CF Worker (yatabase.etzhayyim.com)
    ↓ auth middleware:
-   │   sk_live_yata_* → POST https://dispatcher.gftd.ai/xrpc/ai.gftd.apps.yata.authResolveApiKey
+   │   sk_live_yata_* → POST https://dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.yata.authResolveApiKey
    │                    (HMAC over body, bpmn-dispatcher proxies to lg-yatabase pod)
    │   ES256 JWT     → PDS_SERVICE getSession (legacy)
    ↓ resolved { did, orgDid, activeDid, productScope }
-   ↓ POST/GET https://dispatcher.gftd.ai/xrpc/ai.gftd.apps.yata.*
+   ↓ POST/GET https://dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.yata.*
       headers: x-internal-trust=<HMAC>, x-gftd-org-did, x-gftd-actor-did,
                x-gftd-product-scope=yata, x-gftd-trace-id
 CF Tunnel → cloudflared pod → bpmn-dispatcher pod
@@ -145,8 +145,8 @@ Workers KV namespace `YATABASE_AUTH_CACHE` (id
 ### Deployed artifacts
 
 - `magatama-y4t4b4se` Worker — version `d92e5728-6c6e-4001-a8f2-ec7f7427c134` (P104)
-- `ghcr.io/gftdcojp/pymagatama:p62-content-type-fix-amd64` — bpmn-dispatcher
-- `ghcr.io/gftdcojp/lg-yatabase:0.0.9-amd64` — pod
+- `ghcr.io/etzhayyim/pymagatama:p62-content-type-fix-amd64` — bpmn-dispatcher
+- `ghcr.io/etzhayyim/lg-yatabase:0.0.9-amd64` — pod
 - KV namespace `fbb9ca096633432486a7daee53e8cfd9` bound as `YATABASE_AUTH_CACHE`
 - Vultr LoadBalancer `108.61.207.153` → nginx-ingress → bpmn-dispatcher → pod
 
@@ -196,9 +196,9 @@ namespace) + `svelte/src/lib/components/StudioNav.svelte` (Admin section)
 
 ---
 
-### Shipped (P20, 2026-05-14): Studio UI on @gftdcojp/design-system
+### Shipped (P20, 2026-05-14): Studio UI on @etzhayyim/design-system
 
-SvelteKit + Svelte 5 + Tailwind + `@gftdcojp/design-system` Studio under
+SvelteKit + Svelte 5 + Tailwind + `@etzhayyim/design-system` Studio under
 `svelte/`. Static-prerendered, fully client-rendered against the edge
 Worker. Workers Assets `assets.directory = ./svelte/build` is already
 configured, so `pnpm deploy` (root) chains `vite build → gftd deploy
@@ -217,7 +217,7 @@ call. `lib/stores.ts` validates via `/auth/v1/whoami` + caches identity
 a developer who already has an API key from `/auth/v1/signup`.
 
 UI rules followed (per `40-engine/svelte/CLAUDE.md`):
-- `@gftdcojp/design-system` components only (`Button`, `Input`,
+- `@etzhayyim/design-system` components only (`Button`, `Input`,
   `Textarea`, `Card`, `Badge`, `NotificationBanner`, `EmptyState`,
   `ErrorText`, `Label`, `Skeleton`)
 - Tailwind utilities only; no `<style>` blocks
@@ -281,24 +281,24 @@ wrangler secret put DISPATCHER_INTERNAL_SECRET  # shared with K8s bpmn-dispatche
 cd lg
 docker buildx build --platform linux/amd64 --builder multiarch-builder \
   --build-context py=../../../20-actors/magatama/py \
-  -t ghcr.io/gftdcojp/lg-yatabase:<tag> --push .
-kubectl -n mitama-udf set image deployment/lg-yatabase lg-yatabase=ghcr.io/gftdcojp/lg-yatabase:<tag>
+  -t ghcr.io/etzhayyim/lg-yatabase:<tag> --push .
+kubectl -n mitama-udf set image deployment/lg-yatabase lg-yatabase=ghcr.io/etzhayyim/lg-yatabase:<tag>
 
 # bpmn-dispatcher (proxies yata.* XRPC NSIDs to lg-yatabase pod)
 cd 20-actors/magatama/py
 docker buildx build --platform linux/amd64 --builder multiarch-builder \
-  -t ghcr.io/gftdcojp/pymagatama:<tag> --push .
-kubectl -n mitama-udf set image deployment/bpmn-dispatcher dispatcher=ghcr.io/gftdcojp/pymagatama:<tag>
+  -t ghcr.io/etzhayyim/pymagatama:<tag> --push .
+kubectl -n mitama-udf set image deployment/bpmn-dispatcher dispatcher=ghcr.io/etzhayyim/pymagatama:<tag>
 ```
 
 ## Smoke
 
 ```bash
-curl https://yatabase.gftd.ai/health
-curl https://yatabase.gftd.ai/_app/meta
+curl https://yatabase.etzhayyim.com/health
+curl https://yatabase.etzhayyim.com/_app/meta
 curl -H "Authorization: Bearer sk_live_yata_xxx" \
-     https://yatabase.gftd.ai/xrpc/ai.gftd.apps.yata.coverage
+     https://yatabase.etzhayyim.com/xrpc/ai.gftd.apps.yata.coverage
 curl -X PUT --data-binary @small.png \
      -H "Authorization: Bearer sk_live_yata_xxx" \
-     https://yatabase.gftd.ai/storage/v1/object/test/small.png
+     https://yatabase.etzhayyim.com/storage/v1/object/test/small.png
 ```

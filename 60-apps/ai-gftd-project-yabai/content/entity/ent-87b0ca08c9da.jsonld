@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-87b0ca08c9da",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-87b0ca08c9da",
   "entityId": "ent-87b0ca08c9da",
   "canonicalName": "felicien nsanzubukire",
   "aliases": [

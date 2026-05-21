@@ -1,11 +1,11 @@
-# yoro.gftd.ai Security Topology Analysis
+# yoro.etzhayyim.com Security Topology Analysis
 
 Date: 2026-04-16
 Time: 2026-04-16 08:02 JST
 
 ## Scope
 
-- Target: `https://yoro.gftd.ai`
+- Target: `https://yoro.etzhayyim.com`
 - Reviewed source:
   - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts`
   - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/_svelte/_headers`
@@ -17,16 +17,16 @@ Time: 2026-04-16 08:02 JST
   - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/post/[rkey]/+page.server.ts`
   - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/post/[rkey]/+page.svelte`
 - Live verification:
-  - `curl -I https://yoro.gftd.ai/`
-  - `curl -I https://yoro.gftd.ai/profile/did:web:yoro.gftd.ai`
-  - `curl https://yoro.gftd.ai/`
-  - `curl https://yoro.gftd.ai/profile/did:web:yoro.gftd.ai`
-  - `curl -X POST https://yoro.gftd.ai/api/internal/cache/purge -H 'content-type: application/json' -d '{}'`
+  - `curl -I https://yoro.etzhayyim.com/`
+  - `curl -I https://yoro.etzhayyim.com/profile/did:web:yoro.etzhayyim.com`
+  - `curl https://yoro.etzhayyim.com/`
+  - `curl https://yoro.etzhayyim.com/profile/did:web:yoro.etzhayyim.com`
+  - `curl -X POST https://yoro.etzhayyim.com/api/internal/cache/purge -H 'content-type: application/json' -d '{}'`
 
 ## Topology
 
 1. Public browser shell
-   - `yoro.gftd.ai` currently serves the same generic SPA shell for `/` and `/profile/...`.
+   - `yoro.etzhayyim.com` currently serves the same generic SPA shell for `/` and `/profile/...`.
    - The live shell contains static JSON-LD plus Cloudflare-injected challenge JavaScript.
    - `svelte/src/app.html` also includes a hash-to-`sessionStorage` auth transfer shim.
 
@@ -84,7 +84,7 @@ Evidence in source:
 
 Evidence in production on 2026-04-16 08:00 JST:
 
-- `curl -I https://yoro.gftd.ai/` and `curl -I https://yoro.gftd.ai/profile/did:web:yoro.gftd.ai` returned `200` without:
+- `curl -I https://yoro.etzhayyim.com/` and `curl -I https://yoro.etzhayyim.com/profile/did:web:yoro.etzhayyim.com` returned `200` without:
   - `Content-Security-Policy`
   - `X-Content-Type-Options`
   - `X-Frame-Options`

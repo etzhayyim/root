@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:air-yield.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:air-yield.etzhayyim.com",
   "name": "air-yield",
   "nanoid": "a1ry13ld",
   "project": "air-yield",

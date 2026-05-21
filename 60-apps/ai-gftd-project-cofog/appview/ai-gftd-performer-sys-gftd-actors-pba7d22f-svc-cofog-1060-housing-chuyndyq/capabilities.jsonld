@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/10/6/0/housing",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/6/0/housing",
       "type": "dodaf:Capability",
       "name": "Housing Support and Residential Stability Capability",
       "description": "Functional capability for managing housing benefit verification, coordination of rental assistance, and residential stability monitoring. Classification: COFOG Division 10, Group 6, Class 0.",

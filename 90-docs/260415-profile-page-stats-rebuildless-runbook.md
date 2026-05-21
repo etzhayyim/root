@@ -23,8 +23,8 @@
 
 実装ファイル:
 
-- [20260415200000_profile_page_stats_rebuildless_split.ts](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/30-graph/graph-schema/migrations/20260415200000_profile_page_stats_rebuildless_split.ts)
-- [feed.ts](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/50-infra/cloudflare/workers/atproto/src/handlers/appview/feed.ts)
+- [20260415200000_profile_page_stats_rebuildless_split.ts](/Users/junkawasaki/etzhayyim/etzhayyim-root/30-graph/graph-schema/migrations/20260415200000_profile_page_stats_rebuildless_split.ts)
+- [feed.ts](/Users/junkawasaki/etzhayyim/etzhayyim-root/50-infra/cloudflare/workers/atproto/src/handlers/appview/feed.ts)
 
 適用:
 
@@ -62,8 +62,8 @@ SHOW JOBS;
 SELECT actor_did, page_count
 FROM view_profile_page_stats
 WHERE canonical_actor_did IN (
-  'did:web:en-wikipedia-org.gftd.ai',
-  'did:web:en-wiktionary-org.gftd.ai'
+  'did:web:en-wikipedia-org.etzhayyim.com',
+  'did:web:en-wiktionary-org.etzhayyim.com'
 )
 ORDER BY actor_did;
 ```
@@ -81,8 +81,8 @@ SELECT count(*) AS total_rows FROM view_profile_page_stats;
 SELECT canonical_actor_did, page_count
 FROM mv_page_count_by_owner_canonical_did
 WHERE canonical_actor_did IN (
-  'did:web:en-wikipedia-org.gftd.ai',
-  'did:web:en-wiktionary-org.gftd.ai'
+  'did:web:en-wikipedia-org.etzhayyim.com',
+  'did:web:en-wiktionary-org.etzhayyim.com'
 )
 ORDER BY canonical_actor_did;
 ```

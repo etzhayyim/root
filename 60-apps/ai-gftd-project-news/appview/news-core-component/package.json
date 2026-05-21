@@ -1,7 +1,7 @@
 {
   "name": "magatama-nwscr001",
   "version": "1.0.0",
-  "description": "GFTD News — RSS ingestion + multilingual translation (news.gftd.ai)",
+  "description": "GFTD News — RSS ingestion + multilingual translation (news.etzhayyim.com)",
   "main": "src/app.ts",
   "scripts": {
     "test": "echo \"no tests\""

@@ -4,7 +4,7 @@ import { TouchOptimizedButton } from "@/components/TouchOptimizedButton";
 import type { Suggestion } from "@/gen/proto/hrse/v1/recruiter_agent_pb";
 
 /**
- * @gftdcojp/ai-gftd-hrse#SuggestionPanel
+ * @etzhayyim/ai-gftd-hrse#SuggestionPanel
  * Suggestion panel component for recruiter agent
  */
 

@@ -24,7 +24,7 @@ ACTOR_DID = "did:web:bpmn.etzhayyim.com"
 ORG_DID = "anon"
 CHAIN_ID = int(os.environ.get("AGENT_ECONOMY_CHAIN_ID", "260425"))
 ESCROW_ADDR = os.environ.get("AGENT_RUNTIME_LEASE_ESCROW_ADDR", "").strip()
-ETH_RPC_URL = os.environ.get("ETH_RPC_URL", "https://geth.gftd.ai").strip()
+ETH_RPC_URL = os.environ.get("ETH_RPC_URL", "https://geth.etzhayyim.com").strip()
 GCC_ADDR = os.environ.get("GCC_ADDR", "0x8e9A5162b2800E0D19acC1708A531A3954900E21").strip()
 
 DISALLOWED_NAMESPACES = {"", "default"}

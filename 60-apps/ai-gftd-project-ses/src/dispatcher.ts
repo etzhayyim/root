@@ -1,4 +1,4 @@
-// Dispatcher — ses.gftd.ai → bpmn-dispatcher (K8s ClusterIP) →
+// Dispatcher — ses.etzhayyim.com → bpmn-dispatcher (K8s ClusterIP) →
 // LangGraph Server ses-langgraph.mitama-udf.svc.cluster.local:8000
 // (ADR-2605120000 / ADR-2605080600).
 //
@@ -6,7 +6,7 @@
 // Bridge headers: x-gftd-actor-did / x-gftd-org-did / x-gftd-trace-id.
 
 const DISPATCH_TIMEOUT_MS = 60_000;
-const DEFAULT_DISPATCHER_URL = "https://dispatcher.gftd.ai";
+const DEFAULT_DISPATCHER_URL = "https://dispatcher.etzhayyim.com";
 
 type DispatcherEnv = {
   BPMN_DISPATCHER_URL?: string;

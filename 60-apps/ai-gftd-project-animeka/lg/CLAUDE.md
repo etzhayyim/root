@@ -1,4 +1,4 @@
-# lg-animeka — LangGraph Server actor for animeka.gftd.ai
+# lg-animeka — LangGraph Server actor for animeka.etzhayyim.com
 
 **P3+P4+P5 complete** of the OSS LangGraph migration. Mirrors lg-shinshi
 (production live since 2026-05-08). 27 graphs total (publishEpisode added 2026-05-15).
@@ -9,7 +9,7 @@ Same root cause as lg-shinshi: the LangServer-based animeka pool
 (`mitama-animeka-pool`, 3 replicas) suffers from the same shared-queue
 saturation pattern (registers `generic.{db.insert,db.select,...}` along
 with 13 `animeka.*` task types). Per CLAUDE.md "Recent Completion:
-animeka.gftd.ai worker isolation" the BPMN E2E was always pending.
+animeka.etzhayyim.com worker isolation" the BPMN E2E was always pending.
 
 LangGraph Server gives us:
 - Per-graph checkpointing → mid-render recovery
@@ -69,7 +69,7 @@ lg/
   forget). OCEL trail preserved per ADR-0056.
 - `VLLM_URL` defaults to RunPod unified pod `vyp99t9px7h4dl-4000`. Per
   ADR-2605010000 there is no Murakumo fallback.
-- `ANIMEKA_APP_DID` env defaults to `did:web:animeka.gftd.ai`.
+- `ANIMEKA_APP_DID` env defaults to `did:web:animeka.etzhayyim.com`.
 
 ## NSID coverage map (27 of 27)
 

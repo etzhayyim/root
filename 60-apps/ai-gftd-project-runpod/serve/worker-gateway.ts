@@ -353,7 +353,7 @@ async function proxyAnswerWithKnowledge(env: Env, request: Request): Promise<Res
   return new Response(
     JSON.stringify({
       error: "unsupported_route",
-      message: `${ANSWER_WITH_KNOWLEDGE_NSID} is not served by the independent RunPod llm.gftd.ai gateway.`,
+      message: `${ANSWER_WITH_KNOWLEDGE_NSID} is not served by the independent RunPod llm.etzhayyim.com gateway.`,
     }),
     {
       status: 404,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applySelection, initialState, type IncidentScenario } from '@gftdcojp/kami-engine-sdk/webvr';
+import { applySelection, initialState, type IncidentScenario } from '@etzhayyim/kami-engine-sdk/webvr';
 import { SEMI_PLANT_INCIDENT } from './semiconductor-chem-plant.js';
 
 function reachesTerminal(scenario: IncidentScenario, fromId: string, seen = new Set<string>()): boolean {

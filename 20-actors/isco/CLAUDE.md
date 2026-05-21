@@ -14,20 +14,20 @@ ILO ISCO-08 全分類を **1 app (coordinator) × 619 Multi-DIDs** で管理す�
 
 | App | Nanoid | DID | Role |
 |---|---|---|---|
-| workforce-coordinator | `wfc8k3n1` | `did:web:isco.gftd.ai` | 619 DID 管理、全 ISCO-08 コマンド |
+| workforce-coordinator | `wfc8k3n1` | `did:web:isco.etzhayyim.com` | 619 DID 管理、全 ISCO-08 コマンド |
 
 ## DID Path Convention
 
 ```
-did:web:isco.gftd.ai:occupation:{code}
+did:web:isco.etzhayyim.com:occupation:{code}
 ```
 
 | 例 | Level | Name |
 |---|---|---|
-| `did:web:isco.gftd.ai:occupation:2` | major | Professionals |
-| `did:web:isco.gftd.ai:occupation:25` | submajor | ICT Professionals |
-| `did:web:isco.gftd.ai:occupation:251` | minor | Software and Applications Developers |
-| `did:web:isco.gftd.ai:occupation:2512` | unit | Software Developers |
+| `did:web:isco.etzhayyim.com:occupation:2` | major | Professionals |
+| `did:web:isco.etzhayyim.com:occupation:25` | submajor | ICT Professionals |
+| `did:web:isco.etzhayyim.com:occupation:251` | minor | Software and Applications Developers |
+| `did:web:isco.etzhayyim.com:occupation:2512` | unit | Software Developers |
 
 ## WIT Structure
 

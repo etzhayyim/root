@@ -236,7 +236,7 @@ def _build_route_rows(feed: dict, routes: list[dict], trips: list[dict],
             stops_by_trip.setdefault(tid, []).append(sid)
 
     rows: list[dict] = []
-    repo_did = "did:web:maps.gftd.ai"
+    repo_did = "did:web:maps.etzhayyim.com"
     feed_id = feed["feed_id"]
     for r in routes:
         route_id = r.get("route_id", "")
@@ -316,7 +316,7 @@ def _build_route_rows(feed: dict, routes: list[dict], trips: list[dict],
             "display_name": name,
             "lat": lat,
             "lng": lng,
-            "source_did": "did:web:maps.gftd.ai:gtfs",
+            "source_did": "did:web:maps.etzhayyim.com:gtfs",
             "source": "gtfs-jp",
             "category": label.lower(),
             "description": (f"{feed.get('agency','?')} {r.get('route_short_name','')} {r.get('route_long_name','')}").strip()[:500],
@@ -335,7 +335,7 @@ def _build_stop_rows(feed: dict, stops: list[dict], routes: list[dict],
                      trips: list[dict], stop_times: list[dict]) -> list[dict]:
     """One vertex_spatial row per stop. Station vs BusStop is decided by
     the route_type majority of routes that serve the stop."""
-    repo_did = "did:web:maps.gftd.ai"
+    repo_did = "did:web:maps.etzhayyim.com"
     feed_id = feed["feed_id"]
 
     route_label_by_id = {r.get("route_id", ""): _classify_route_label(r.get("route_type", "")) for r in routes}
@@ -396,7 +396,7 @@ def _build_stop_rows(feed: dict, stops: list[dict], routes: list[dict],
             "display_name": name,
             "lat": lat,
             "lng": lng,
-            "source_did": "did:web:maps.gftd.ai:gtfs",
+            "source_did": "did:web:maps.etzhayyim.com:gtfs",
             "source": "gtfs-jp",
             "category": label.lower(),
             "description": (f"{feed.get('agency','?')} {label}")[:500],

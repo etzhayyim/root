@@ -166,7 +166,7 @@ then delete from vendor monorepo with `[MOVED]` README stub):
 | 16 Lexicon JSON files (12 agent + 4 capability) | `00-contracts/lexicons/ai/etzhayyim/{agent,consent/capability}/` (already dual-published per Stage C) |
 | `00-contracts/lexicons/ai/gftd/{agent,consent/capability}/` | DELETED after Stage C 30d window |
 | 50-infra/k8s/organism-langgraph/* | moved to etzhayyim/root/50-infra/k8s/organism-langgraph/ |
-| `50-infra/cloudflare/workers/atproto/src/consent-capability-handler.ts` | NOT moved — MCP facade stays at mcp.gftd.ai (vendor capability per ADR D3c) |
+| `50-infra/cloudflare/workers/atproto/src/consent-capability-handler.ts` | NOT moved — MCP facade stays at mcp.etzhayyim.com (vendor capability per ADR D3c) |
 | `50-infra/cloudflare/workers/atproto/src/llm-dispatch.ts` | NOT moved — CF Worker edge proxy stays vendor (consumes etzhayyim capability) |
 
 Pass criteria:

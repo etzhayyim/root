@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-test('news.gftd.ai debug', async ({ page }) => {
-  await page.goto('https://news.gftd.ai/', { waitUntil: 'networkidle', timeout: 30000 });
+test('news.etzhayyim.com debug', async ({ page }) => {
+  await page.goto('https://news.etzhayyim.com/', { waitUntil: 'networkidle', timeout: 30000 });
   await page.screenshot({ path: '/tmp/news-debug.png', fullPage: true });
   const title = await page.title();
   console.log('Title:', title);

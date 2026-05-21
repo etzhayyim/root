@@ -13,7 +13,7 @@ import { projectToVertexSpatial } from "./vertex-spatial-projection";
 type Db = ReturnType<HostSDK["env"]["HYPERDRIVE" & keyof HostSDK["env"]] extends infer _ ? any : any>;
 
 function mapsActorDid(appId: string): string {
-  return `did:web:${appId}.gftd.ai`;
+  return `did:web:${appId}.etzhayyim.com`;
 }
 
 async function writeSpatial(db: any, appId: string, entity: string, rec: Record<string, unknown>): Promise<void> {
@@ -65,8 +65,8 @@ interface WriterEntity {
 }
 function buildWriters(appId: string): WriterEntity[] {
   return [
-    { sourceId: "src-osm", name: "OpenStreetMap", did: `did:web:${appId}.gftd.ai:source:osm`, url: "https://overpass-api.de/api/interpreter", dataType: "poi", license: "ODbL" },
-    { sourceId: "src-wikidata", name: "Wikidata", did: `did:web:${appId}.gftd.ai:source:wikidata`, url: "https://query.wikidata.org/sparql", dataType: "poi", license: "CC0" },
+    { sourceId: "src-osm", name: "OpenStreetMap", did: `did:web:${appId}.etzhayyim.com:source:osm`, url: "https://overpass-api.de/api/interpreter", dataType: "poi", license: "ODbL" },
+    { sourceId: "src-wikidata", name: "Wikidata", did: `did:web:${appId}.etzhayyim.com:source:wikidata`, url: "https://query.wikidata.org/sparql", dataType: "poi", license: "CC0" },
   ];
 }
 
@@ -79,7 +79,7 @@ export async function registerWriterEntities(sdk: HostSDK, db: any, appId: strin
       const slug = `source:${w.sourceId.replace("src-", "")}`;
       const did = str(sdk.hostImports.comAtprotoIdentityCreate(slug, JSON.stringify({
         displayName: w.name,
-        description: `${w.name} data source for maps.gftd.ai (${w.license} license)`,
+        description: `${w.name} data source for maps.etzhayyim.com (${w.license} license)`,
         dataType: w.dataType, license: w.license,
       })));
       if (did) w.did = did;
@@ -694,7 +694,7 @@ async function cmdRunCoverageJob(ctx: Ctx, payload: Uint8Array): Promise<unknown
   }
 
   if (!errorMsg && recordsWritten > 0) {
-    await ctx.post(`[Coverage:run] ${dispatchKind} ${label} → +${recordsWritten} rows (${sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || "primary"})\ncc @maps.gftd.ai`);
+    await ctx.post(`[Coverage:run] ${dispatchKind} ${label} → +${recordsWritten} rows (${sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || "primary"})\ncc @maps.etzhayyim.com`);
   }
 
   return {
@@ -724,7 +724,7 @@ async function runOverpassComposite(ctx: Ctx, job: MapsJobRow, primaryLabel: str
   let parsed: { elements?: Array<Record<string, any>> };
   try { parsed = JSON.parse(await resp.text()); } catch { return 0; }
   const els = parsed.elements ?? [];
-  const sourceDid = job.source_id ?? `did:web:${ctx.appId}.gftd.ai:infrastructure`;
+  const sourceDid = job.source_id ?? `did:web:${ctx.appId}.etzhayyim.com:infrastructure`;
   let primaryWritten = 0;
   let totalWritten = 0;
   for (const el of els) {
@@ -790,7 +790,7 @@ async function runOverpass(ctx: Ctx, job: MapsJobRow, coverageLabel: string, max
   });
   if (!resp.ok) throw new Error(`Overpass ${resp.status}`);
   const body = await resp.text();
-  const sourceDid = job.source_id ?? `did:web:${ctx.appId}.gftd.ai:infrastructure`;
+  const sourceDid = job.source_id ?? `did:web:${ctx.appId}.etzhayyim.com:infrastructure`;
 
   // parseOverpassResponse skips elements without `tags.name` (POI-style).
   // For structural labels (Building / Road / Railway / Waterway / AdminArea /
@@ -855,7 +855,7 @@ async function runGleif(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, maxRe
   if (!resp.ok) throw new Error(`GLEIF ${resp.status}`);
   const body = (await resp.json()) as any;
   const items: any[] = Array.isArray(body?.data) ? body.data : [];
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:registry:gleif";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:registry:gleif";
   let written = 0;
   for (const it of items) {
     const attrs = it?.attributes ?? {};
@@ -902,7 +902,7 @@ async function runMapillary(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, m
   if (!resp.ok) throw new Error(`Mapillary ${resp.status}`);
   const data = (await resp.json()) as any;
   const imgs: any[] = Array.isArray(data?.data) ? data.data : [];
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:street_view";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:street_view";
   let written = 0;
   for (const im of imgs) {
     if (written >= maxRecords) break;
@@ -938,9 +938,9 @@ async function runMapillary(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, m
 async function runWikipedia(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, maxRecords: number): Promise<number> {
   // MediaWiki GeoSearch — ~14M geotagged articles across Wikipedia.
   // Zero auth. Language variant selectable via source_did suffix:
-  //   did:web:maps.gftd.ai:wikipedia        → en.wikipedia.org
-  //   did:web:maps.gftd.ai:wikipedia:ja     → ja.wikipedia.org
-  //   did:web:maps.gftd.ai:wikipedia:{lang} → {lang}.wikipedia.org
+  //   did:web:maps.etzhayyim.com:wikipedia        → en.wikipedia.org
+  //   did:web:maps.etzhayyim.com:wikipedia:ja     → ja.wikipedia.org
+  //   did:web:maps.etzhayyim.com:wikipedia:{lang} → {lang}.wikipedia.org
   const src = job.source_id ?? "";
   const m = /did:web:maps\.gftd\.ai:wikipedia(?::(\w+))?/.exec(src);
   const lang = m?.[1] ?? "en";
@@ -953,12 +953,12 @@ async function runWikipedia(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, m
   const limit = Math.min(maxRecords, 500);
   const url = `https://${lang}.wikipedia.org/w/api.php?format=json&origin=*&action=query&list=geosearch&gsradius=10000&gscoord=${cLat}%7C${cLng}&gslimit=${limit}`;
   const resp = await cachedFetch(url, {
-    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@gftd.ai)" },
+    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@etzhayyim.com)" },
   });
   if (!resp.ok) throw new Error(`Wikipedia ${resp.status}`);
   const data = (await resp.json()) as any;
   const hits: any[] = data?.query?.geosearch ?? [];
-  const sourceDid = src || "did:web:maps.gftd.ai:wikipedia";
+  const sourceDid = src || "did:web:maps.etzhayyim.com:wikipedia";
   let written = 0;
   for (const h of hits) {
     if (written >= maxRecords) break;
@@ -999,7 +999,7 @@ async function cachedFetch(url: string, init?: RequestInit, ttlSec = 300): Promi
   const bodyStr = init?.body == null ? "" : (typeof init.body === "string" ? init.body : String(init.body));
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${method}|${url}|${bodyStr}`));
   const digest = Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 32);
-  const keyReq = new Request(`https://maps-cache.gftd.ai/x/${digest}`, { method: "GET" });
+  const keyReq = new Request(`https://maps-cache.etzhayyim.com/x/${digest}`, { method: "GET" });
   const cache = (caches as any).default;
   if (cache) {
     const hit = await cache.match(keyReq);
@@ -1044,12 +1044,12 @@ async function runEonet(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, maxRe
   const catParam = cat ? `&category=${encodeURIComponent(cat)}` : "";
   const url = `https://eonet.gsfc.nasa.gov/api/v3/events?status=open&limit=${limit}${catParam}`;
   const resp = await cachedFetch(url, {
-    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@gftd.ai)" },
+    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@etzhayyim.com)" },
   });
   if (!resp.ok) throw new Error(`EONET ${resp.status}`);
   const data = (await resp.json()) as any;
   const events: any[] = data?.events ?? [];
-  const sourceDid = src || "did:web:maps.gftd.ai:eonet";
+  const sourceDid = src || "did:web:maps.etzhayyim.com:eonet";
   let written = 0;
   for (const ev of events) {
     if (written >= maxRecords) break;
@@ -1088,7 +1088,7 @@ async function runNoaaTides(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, m
   // (mostly US coasts + Pacific). Zero-auth JSON.
   const url = "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=tidepredictions";
   const resp = await cachedFetch(url, {
-    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@gftd.ai)" },
+    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@etzhayyim.com)" },
   });
   if (!resp.ok) throw new Error(`NOAA Tides ${resp.status}`);
   const data = (await resp.json()) as any;
@@ -1098,7 +1098,7 @@ async function runNoaaTides(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, m
   const chunk = Math.min(maxRecords, 50);
   const offset = (hashString(job.job_id) % Math.max(1, Math.ceil(stations.length / chunk))) * chunk;
   const window = stations.slice(offset, offset + chunk);
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:noaa_tides";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:noaa_tides";
   let written = 0;
   for (const st of window) {
     if (written >= maxRecords) break;
@@ -1144,13 +1144,13 @@ async function runOpenSky(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, max
   const resp = await fetchWithBackoff(url, {
     headers: {
       Accept: "application/json",
-      "User-Agent": "gftd-maps-coverage/1.0 (contact@gftd.ai; +https://maps.gftd.ai)",
+      "User-Agent": "gftd-maps-coverage/1.0 (contact@etzhayyim.com; +https://maps.etzhayyim.com)",
     },
   }, 2, 3000);
   if (!resp.ok) throw new Error(`OpenSky ${resp.status}`);
   const data = (await resp.json()) as any;
   const states: any[] = Array.isArray(data?.states) ? data.states : [];
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:opensky";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:opensky";
   let written = 0;
   for (const s of states) {
     if (written >= maxRecords) break;
@@ -1201,12 +1201,12 @@ async function runWikivoyage(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, 
   const limit = Math.min(maxRecords, 500);
   const url = `https://${lang}.wikivoyage.org/w/api.php?format=json&origin=*&action=query&list=geosearch&gsradius=10000&gscoord=${cLat}%7C${cLng}&gslimit=${limit}`;
   const resp = await cachedFetch(url, {
-    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@gftd.ai)" },
+    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@etzhayyim.com)" },
   });
   if (!resp.ok) throw new Error(`Wikivoyage ${resp.status}`);
   const data = (await resp.json()) as any;
   const hits: any[] = data?.query?.geosearch ?? [];
-  const sourceDid = src || "did:web:maps.gftd.ai:wikivoyage";
+  const sourceDid = src || "did:web:maps.etzhayyim.com:wikivoyage";
   let written = 0;
   for (const h of hits) {
     if (written >= maxRecords) break;
@@ -1247,12 +1247,12 @@ async function runGbif(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, maxRec
   const offset = (hashString(job.job_id) % 100) * per;
   const url = `https://api.gbif.org/v1/occurrence/search?decimalLatitude=${bbox.south},${bbox.north}&decimalLongitude=${bbox.west},${bbox.east}&hasCoordinate=true&limit=${per}&offset=${offset}`;
   const resp = await cachedFetch(url, {
-    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@gftd.ai)" },
+    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@etzhayyim.com)" },
   });
   if (!resp.ok) throw new Error(`GBIF ${resp.status}`);
   const data = (await resp.json()) as any;
   const occs: any[] = data?.results ?? [];
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:gbif";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:gbif";
   let written = 0;
   for (const o of occs) {
     if (written >= maxRecords) break;
@@ -1296,12 +1296,12 @@ async function runINaturalist(ctx: Ctx, job: MapsJobRow, _coverageLabel: string,
   const page = 1 + (hashString(job.job_id) % 50);
   const url = `https://api.inaturalist.org/v1/observations?swlat=${bbox.south}&swlng=${bbox.west}&nelat=${bbox.north}&nelng=${bbox.east}&per_page=${per}&page=${page}&order=desc&order_by=observed_on&quality_grade=research`;
   const resp = await fetchWithBackoff(url, {
-    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@gftd.ai)" },
+    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@etzhayyim.com)" },
   });
   if (!resp.ok) throw new Error(`iNaturalist ${resp.status}`);
   const data = (await resp.json()) as any;
   const obs: any[] = data?.results ?? [];
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:inaturalist";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:inaturalist";
   let written = 0;
   for (const o of obs) {
     if (written >= maxRecords) break;
@@ -1352,12 +1352,12 @@ async function runCommons(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, max
   const limit = Math.min(maxRecords, 500);
   const url = `https://commons.wikimedia.org/w/api.php?format=json&origin=*&action=query&list=geosearch&gsnamespace=6&gsradius=10000&gscoord=${cLat}%7C${cLng}&gslimit=${limit}`;
   const resp = await cachedFetch(url, {
-    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@gftd.ai)" },
+    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@etzhayyim.com)" },
   });
   if (!resp.ok) throw new Error(`Commons ${resp.status}`);
   const data = (await resp.json()) as any;
   const hits: any[] = data?.query?.geosearch ?? [];
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:commons";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:commons";
   let written = 0;
   for (const h of hits) {
     if (written >= maxRecords) break;
@@ -1417,7 +1417,7 @@ async function runSeismic(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, max
   if (!resp.ok) throw new Error(`Seismic(${kind || "default"}) ${resp.status}`);
   const data = (await resp.json()) as any;
   const feats: any[] = Array.isArray(data?.features) ? data.features : [];
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:seismic";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:seismic";
   let written = 0;
   for (const f of feats.slice(0, maxRecords)) {
     const props = f?.properties ?? {};
@@ -1485,7 +1485,7 @@ async function runStac(ctx: Ctx, job: MapsJobRow, coverageLabel: string, maxReco
   if (!resp.ok) throw new Error(`STAC ${resp.status}`);
   const data = (await resp.json()) as any;
   const feats: any[] = Array.isArray(data?.features) ? data.features : [];
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:satellite";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:satellite";
   let written = 0;
   for (const f of feats) {
     const sceneId = String(f?.id ?? "").slice(0, 120);
@@ -1516,8 +1516,8 @@ async function runStac(ctx: Ctx, job: MapsJobRow, coverageLabel: string, maxReco
 }
 
 // Wikidata entity-type SPARQL profiles. Routing by source_did suffix:
-//   did:web:maps.gftd.ai:registry:wikidata        → corp (default)
-//   did:web:maps.gftd.ai:registry:wikidata:river  → Q4022 rivers
+//   did:web:maps.etzhayyim.com:registry:wikidata        → corp (default)
+//   did:web:maps.etzhayyim.com:registry:wikidata:river  → Q4022 rivers
 //   …etc. Each profile targets a different Wikidata instance-of class.
 const WIKIDATA_PROFILES: Record<string, { qid: string; label: string; nodeKind: string }> = {
   corp:       { qid: "Q4830453", label: "LegalEntity", nodeKind: "legalEntity" },
@@ -1863,7 +1863,7 @@ async function runWikidata(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, ma
   if (!resp.ok) throw new Error(`Wikidata ${resp.status}`);
   const data = (await resp.json()) as any;
   const bindings: any[] = data?.results?.bindings ?? [];
-  const sourceDid = src || "did:web:maps.gftd.ai:registry:wikidata";
+  const sourceDid = src || "did:web:maps.etzhayyim.com:registry:wikidata";
   // Build all rows first, then batch INSERT — ~15x faster than per-row
   // round-trips on Hyperdrive (50 × 30ms → 1 × 100ms).
   const poiBatch: Record<string, unknown>[] = [];
@@ -1930,12 +1930,12 @@ async function runOsmNotes(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, ma
   const bboxStr = `${bbox.west},${bbox.south},${bbox.east},${bbox.north}`;
   const url = `https://api.openstreetmap.org/api/0.6/notes.json?bbox=${bboxStr}&limit=${limit}&closed=7`;
   const resp = await cachedFetch(url, {
-    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@gftd.ai)" },
+    headers: { Accept: "application/json", "User-Agent": "gftd-maps-coverage/1.0 (contact@etzhayyim.com)" },
   });
   if (!resp.ok) throw new Error(`OSM Notes ${resp.status}`);
   const data = (await resp.json()) as any;
   const features: any[] = Array.isArray(data?.features) ? data.features : [];
-  const sourceDid = job.source_id ?? "did:web:maps.gftd.ai:osm_notes";
+  const sourceDid = job.source_id ?? "did:web:maps.etzhayyim.com:osm_notes";
   let written = 0;
   for (const f of features) {
     if (written >= maxRecords) break;
@@ -1997,7 +1997,7 @@ async function proxyCollectionCommand(ctx: Ctx, command: string, payload: Uint8A
     return { error: "InvalidJson" };
   }
   const env = ctx.sdk.env as Record<string, unknown>;
-  const base = String(env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = String(env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const secret = env.DISPATCHER_INTERNAL_SECRET;
   if (typeof secret === "string" && secret) headers["x-internal-trust"] = secret;

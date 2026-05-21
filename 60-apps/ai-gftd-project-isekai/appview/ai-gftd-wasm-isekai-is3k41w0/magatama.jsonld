@@ -28,7 +28,7 @@
     "browse-worlds",
     "teleport-biome"
   ],
-  "guestDIDPrefix": "did:web:kami.gftd.ai:guest:",
+  "guestDIDPrefix": "did:web:kami.etzhayyim.com:guest:",
   "kpi": [
     "Pokoa caught",
     "blocks mined",
@@ -55,12 +55,12 @@
   },
   "routes": [
     {
-      "host": "isekai.gftd.ai",
+      "host": "isekai.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     },
     {
-      "host": "is3k41w0.gftd.ai",
+      "host": "is3k41w0.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }

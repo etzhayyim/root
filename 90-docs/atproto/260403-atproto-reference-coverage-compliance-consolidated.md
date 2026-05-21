@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-04-03
 authoritative_for:
   - AT Protocol lexicon reference baseline used in this repo
-  - atproto.gftd.ai implementation coverage summary
+  - atproto.etzhayyim.com implementation coverage summary
   - AT Protocol normative compliance summary
 related:
   - atproto-permission-scope-design
@@ -29,7 +29,7 @@ AT Protocol の「一覧」「実装カバレッジ」「仕様準拠」を1つ�
 ## Scope
 
 - Lexicon namespace のカタログ基準
-- atproto.gftd.ai 実装カバレッジの集約値
+- atproto.etzhayyim.com 実装カバレッジの集約値
 - normative requirement 準拠状況の要約
 
 ## Lexicon Baseline
@@ -41,7 +41,7 @@ AT Protocol の「一覧」「実装カバレッジ」「仕様準拠」を1つ�
 
 Namespace 別の詳細列挙は、実装コード生成/検証の入力と同期することを優先し、個別ドキュメントでの重複管理は行わない。
 
-## Coverage Summary (atproto.gftd.ai)
+## Coverage Summary (atproto.etzhayyim.com)
 
 - Route coverage: 272/272
 - Full implementation: 65+

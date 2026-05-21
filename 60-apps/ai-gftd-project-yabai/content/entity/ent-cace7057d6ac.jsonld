@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-cace7057d6ac",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cace7057d6ac",
   "entityId": "ent-cace7057d6ac",
   "canonicalName": "farmacia y mini super trinidad",
   "aliases": [

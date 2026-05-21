@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sekkei-daily-pulse-v1',
-                 'did:web:sekkei.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-daily-pulse-v1',
+                 'did:web:sekkei.etzhayyim.com',
                  'sekkei_daily_pulse',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
                  '  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '  id="Definitions_sekkei_daily_pulse"\n'
-                 '  targetNamespace="https://gftd.ai/bpmn/sekkei"\n'
+                 '  targetNamespace="https://etzhayyim.com/bpmn/sekkei"\n'
                  '  exporter="hand-written"\n'
                  '  exporterVersion="1.0">\n'
                  '  <bpmn:process id="sekkei_daily_pulse" name="sekkei Daily Pulse" '
@@ -102,7 +102,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;dailyPulse&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ statusRows: statusRows, staleReviewCount: '
@@ -133,7 +133,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;staleReviewAlert&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ staleCount: staleCount, staleRows: staleRows '
@@ -156,10 +156,10 @@ UP = [{'sql': '\n'
                  5280,
                  '00-contracts/bpmn/ai/gftd/sekkei/dailyPulse.bpmn',
                  '2026-04-28T22:05:00Z',
-                 'did:web:sekkei.gftd.ai',
-                 'did:web:sekkei.gftd.ai',
+                 'did:web:sekkei.etzhayyim.com',
+                 'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sekkei-daily-pulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-daily-pulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -173,8 +173,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sekkei-review-drawing-v1',
-                 'did:web:sekkei.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-review-drawing-v1',
+                 'did:web:sekkei.etzhayyim.com',
                  'sekkei_review_drawing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -199,7 +199,7 @@ UP = [{'sql': '\n'
                  '  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '  id="Definitions_sekkei_review_drawing"\n'
-                 '  targetNamespace="https://gftd.ai/bpmn/sekkei"\n'
+                 '  targetNamespace="https://etzhayyim.com/bpmn/sekkei"\n'
                  '  exporter="hand-written"\n'
                  '  exporterVersion="1.0">\n'
                  '  <bpmn:process id="sekkei_review_drawing" name="sekkei Review Drawing" '
@@ -313,7 +313,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;drawingApproved&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ drawingId: drawingId, revNo: revNo, '
@@ -364,7 +364,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;drawingRejected&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ drawingId: drawingId, revNo: revNo, '
@@ -388,10 +388,10 @@ UP = [{'sql': '\n'
                  8615,
                  '00-contracts/bpmn/ai/gftd/sekkei/reviewDrawing.bpmn',
                  '2026-04-28T22:05:00Z',
-                 'did:web:sekkei.gftd.ai',
-                 'did:web:sekkei.gftd.ai',
+                 'did:web:sekkei.etzhayyim.com',
+                 'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sekkei-review-drawing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-review-drawing-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -405,8 +405,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sekkei-approve-revision-v1',
-                 'did:web:sekkei.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-approve-revision-v1',
+                 'did:web:sekkei.etzhayyim.com',
                  'sekkei_approve_revision',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -429,7 +429,7 @@ UP = [{'sql': '\n'
                  '  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '  id="Definitions_sekkei_approve_revision"\n'
-                 '  targetNamespace="https://gftd.ai/bpmn/sekkei"\n'
+                 '  targetNamespace="https://etzhayyim.com/bpmn/sekkei"\n'
                  '  exporter="hand-written"\n'
                  '  exporterVersion="1.0">\n'
                  '  <bpmn:process id="sekkei_approve_revision" name="sekkei Approve Revision" '
@@ -549,7 +549,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;drawingReleased&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ drawingId: drawingId, revNo: revNo, '
@@ -567,7 +567,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;releaseError&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ drawingId: drawingId, revNo: revNo, error: '
@@ -590,10 +590,10 @@ UP = [{'sql': '\n'
                  7427,
                  '00-contracts/bpmn/ai/gftd/sekkei/approveRevision.bpmn',
                  '2026-04-28T22:05:00Z',
-                 'did:web:sekkei.gftd.ai',
-                 'did:web:sekkei.gftd.ai',
+                 'did:web:sekkei.etzhayyim.com',
+                 'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sekkei-approve-revision-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-approve-revision-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -607,16 +607,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sekkei-dailyPulse-v1',
-                 'did:web:sekkei.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-dailyPulse-v1',
+                 'did:web:sekkei.etzhayyim.com',
                  'ai.gftd.apps.sekkei.dailyPulse',
                  'sekkei_daily_pulse',
                  30000,
                  '2026-04-28T22:05:00Z',
-                 'did:web:sekkei.gftd.ai',
-                 'did:web:sekkei.gftd.ai',
+                 'did:web:sekkei.etzhayyim.com',
+                 'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sekkei-dailyPulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-dailyPulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -630,16 +630,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sekkei-reviewDrawing-v1',
-                 'did:web:sekkei.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-reviewDrawing-v1',
+                 'did:web:sekkei.etzhayyim.com',
                  'ai.gftd.apps.sekkei.reviewDrawing',
                  'sekkei_review_drawing',
                  300000,
                  '2026-04-28T22:05:00Z',
-                 'did:web:sekkei.gftd.ai',
-                 'did:web:sekkei.gftd.ai',
+                 'did:web:sekkei.etzhayyim.com',
+                 'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sekkei-reviewDrawing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-reviewDrawing-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -653,29 +653,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sekkei-approveRevision-v1',
-                 'did:web:sekkei.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-approveRevision-v1',
+                 'did:web:sekkei.etzhayyim.com',
                  'ai.gftd.apps.sekkei.approveRevision',
                  'sekkei_approve_revision',
                  60000,
                  '2026-04-28T22:05:00Z',
-                 'did:web:sekkei.gftd.ai',
-                 'did:web:sekkei.gftd.ai',
+                 'did:web:sekkei.etzhayyim.com',
+                 'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sekkei-approveRevision-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-approveRevision-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sekkei-dailyPulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-dailyPulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sekkei-reviewDrawing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-reviewDrawing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sekkei-approveRevision-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-approveRevision-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sekkei-daily-pulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-daily-pulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sekkei-review-drawing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-review-drawing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sekkei-approve-revision-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-approve-revision-v1']}]
 
 
 def upgrade() -> None:

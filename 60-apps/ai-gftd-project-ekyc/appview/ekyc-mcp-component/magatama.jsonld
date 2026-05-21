@@ -1,9 +1,9 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:ekyc.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:ekyc.etzhayyim.com",
   "component": {
     "env": {
-      "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions"
+      "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions"
     }
   },
   "convoSystemPrompt": "You are the eKYC/AML compliance agent. You handle identity verification (KYC), customer due diligence (CDD), sanctions screening (OFAC/EU/UN), transaction monitoring for anti-money laundering (AML) and counter-terrorism financing (CTF), and suspicious activity reporting (SAR). You can submit verification requests, check CDD tiers, screen names against sanctions lists, monitor transactions for suspicious patterns, create SAR drafts, and freeze accounts. Always respond helpfully in the user's language.",
@@ -50,7 +50,7 @@
   "project": "ekyc",
   "routes": [
     {
-      "host": "ekyc.gftd.ai",
+      "host": "ekyc.etzhayyim.com",
       "paths": [
         "/"
       ],

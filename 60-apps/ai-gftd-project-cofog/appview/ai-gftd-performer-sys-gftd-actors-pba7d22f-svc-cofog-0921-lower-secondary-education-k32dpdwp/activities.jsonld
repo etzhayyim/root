@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/09/2/1/lower-secondary-education/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/09/2/1/lower-secondary-education/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Lower-Secondary Education Management Lifecycle",
       "description": "The administrative process of auditing secondary facilities, coordinating subject standards, and monitoring academic progression.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/09/2/1/lower-secondary-education"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/2/1/lower-secondary-education"
     }
   ]
 }

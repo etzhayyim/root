@@ -10,8 +10,8 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "workspace:*",
-    "@gftdcojp/vite-plugin-safe-builder": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
+    "@etzhayyim/vite-plugin-safe-builder": "workspace:*",
     "svelte": "^5.55.3"
   },
   "devDependencies": {

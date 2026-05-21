@@ -126,7 +126,7 @@ function cmdGetContract(_sdk: HostSDK, body: Uint8Array): unknown {
   if (!CONTRACT_TYPES.includes(contractType)) return { error: `type must be one of: ${CONTRACT_TYPES.join(", ")}` };
   if (!SUPPORTED_LOCALES.includes(locale)) return { error: `locale must be one of: ${SUPPORTED_LOCALES.join(", ")}` };
   return {
-    did: `did:web:${APP_NANOID}.gftd.ai:legal:${contractType}`,
+    did: `did:web:${APP_NANOID}.etzhayyim.com:legal:${contractType}`,
     type: contractType,
     locale,
     'governingLaw': "日本法",
@@ -140,7 +140,7 @@ function cmdListContracts(_sdk: HostSDK, _body: Uint8Array): unknown {
   return {
     contracts: CONTRACT_TYPES.map(t => ({
       type: t,
-      did: `did:web:${APP_NANOID}.gftd.ai:legal:${t}`,
+      did: `did:web:${APP_NANOID}.etzhayyim.com:legal:${t}`,
       'governingLaw': "日本法",
       jurisdiction: "東京地方裁判所",
     })),
@@ -160,7 +160,7 @@ async function cmdAcceptContract(sdk: HostSDK, body: Uint8Array): Promise<unknow
     owner_did: actorDID,
     id: acceptId,
     contract_type: args.contractType,
-    contract_did: `did:web:${APP_NANOID}.gftd.ai:legal:${args.contractType}`,
+    contract_did: `did:web:${APP_NANOID}.etzhayyim.com:legal:${args.contractType}`,
     acceptor_did: args.acceptorDid,
     locale,
     accepted_at: nowISO(),
@@ -458,7 +458,7 @@ function registerHcCommands(sdk: HostSDK): void {
       withCapabilityTags('write', 'service-provider', 'audit'),
     )
     .command(nsid("ai.gftd.apps.hc.registerToTsukuru"), (ctx, body) => cmdRegisterToTsukuru(sdk, body),
-      asAgentTool("Register approved SP to tsukuru.gftd.ai (issues manufacturer/factory DID)"),
+      asAgentTool("Register approved SP to tsukuru.etzhayyim.com (issues manufacturer/factory DID)"),
       withCapabilityTags('write', 'service-provider', 'tsukuru'),
     )
     .command(nsid("ai.gftd.apps.hc.createInspectionTask"), (ctx, body) => cmdCreateInspectionTask(sdk, body),
@@ -502,7 +502,7 @@ const shinkaEnabled = true; // shinka domain: hc;
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:hc0mp7ng.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:hc0mp7ng.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   // --- shouldDrill: kyumei-koji self-research ---
@@ -551,12 +551,12 @@ async function cmdExportHc(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 function cmdHealthHc(sdk: HostSDK, _body: Uint8Array): unknown {
-  return { status: "healthy", agent: "Hc", nanoid: "hc0mp7ng", did: `did:web:${APP_NANOID}.gftd.ai`, ts: nowISO() };
+  return { status: "healthy", agent: "Hc", nanoid: "hc0mp7ng", did: `did:web:${APP_NANOID}.etzhayyim.com`, ts: nowISO() };
 }
 
 function cmdDescribeHc(sdk: HostSDK, _body: Uint8Array): unknown {
   return {
-    name: "Hc", did: `did:web:${APP_NANOID}.gftd.ai`, nanoid: "hc0mp7ng", domain: "hc",
+    name: "Hc", did: `did:web:${APP_NANOID}.etzhayyim.com`, nanoid: "hc0mp7ng", domain: "hc",
     capabilities: ["list", "get", "search", "create", "stats", "export", "describe", "summarize", "ingest"],
     protocols: ["xrpc", "w-protocol", "mcp"],
   };
@@ -670,7 +670,7 @@ type EmailEnvelope = { to: string; subject: string; html: string; text?: string;
 
 async function sendEmail(sdk: HostSDK, env: EmailEnvelope): Promise<{ sent: boolean; outboxId?: string; provider?: string; error?: string }> {
   const apiKey = (sdk.env as any)?.SS_RESEND_API_KEY ?? "";
-  const from = "hc.gftd.ai <noreply@hc.gftd.ai>";
+  const from = "hc.etzhayyim.com <noreply@hc.etzhayyim.com>";
   if (apiKey) {
     try {
       const r = await fetch("https://api.resend.com/emails", {
@@ -709,25 +709,25 @@ async function sendEmail(sdk: HostSDK, env: EmailEnvelope): Promise<{ sent: bool
 
 function emailWorkerConfirm(intakeId: string, fullName: string, kycUrl: string): EmailEnvelope {
   return {
-    to: "", subject: "【hc.gftd.ai】ご登録ありがとうございます（KYC案内）",
+    to: "", subject: "【hc.etzhayyim.com】ご登録ありがとうございます（KYC案内）",
     tag: "worker-confirm",
     html: `<!doctype html><html><body style="font-family:sans-serif;line-height:1.7;color:#0f172a">
 <h2 style="color:#0ea06a">ご登録ありがとうございます</h2>
 <p>${fullName} 様</p>
-<p>hc.gftd.ai にワーカー登録いただきました。<br/>申込ID: <code>${intakeId}</code></p>
+<p>hc.etzhayyim.com にワーカー登録いただきました。<br/>申込ID: <code>${intakeId}</code></p>
 <h3>次のステップ：本人確認（KYC）</h3>
 <p>以下のリンクから本人確認書類（運転免許証・パスポート・マイナンバーカード等）をアップロードしてください。</p>
 <p><a href="${kycUrl}" style="background:#0ea06a;color:#fff;padding:10px 20px;border-radius:999px;text-decoration:none;display:inline-block">KYC書類をアップロード</a></p>
-<p style="color:#475569;font-size:13px">このリンクは72時間有効です。期限切れの場合は <a href="https://hc.gftd.ai/register">/register</a> から再発行してください。</p>
+<p style="color:#475569;font-size:13px">このリンクは72時間有効です。期限切れの場合は <a href="https://hc.etzhayyim.com/register">/register</a> から再発行してください。</p>
 <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0"/>
-<p style="color:#475569;font-size:12px">運営: etzhayyim (宗教法人・任意団体・blockchain 登記) ／ hc.gftd.ai ／ 準拠法：日本法 ／ 専属管轄：東京地方裁判所</p>
+<p style="color:#475569;font-size:12px">運営: etzhayyim (宗教法人・任意団体・blockchain 登記) ／ hc.etzhayyim.com ／ 準拠法：日本法 ／ 専属管轄：東京地方裁判所</p>
 </body></html>`,
   };
 }
 
 function emailMinorConfirm(intakeId: string, guardianName: string, childName: string, confirmUrl: string): EmailEnvelope {
   return {
-    to: "", subject: "【hc.gftd.ai】保護者申込の確認（最終同意）",
+    to: "", subject: "【hc.etzhayyim.com】保護者申込の確認（最終同意）",
     tag: "minor-confirm",
     html: `<!doctype html><html><body style="font-family:sans-serif;line-height:1.7;color:#0f172a">
 <h2 style="color:#0ea06a">保護者申込を受け付けました</h2>
@@ -739,7 +739,7 @@ function emailMinorConfirm(intakeId: string, guardianName: string, childName: st
 <p>同意完了後、お子さまの年齢に適合する CERO A/B タイトル一覧をご案内します。</p>
 <p style="color:#475569;font-size:13px">制限事項：1日2時間／週10時間、深夜帯（21:00〜翌7:00）予約不可。報酬は保護者メール宛にAmazonギフトカードで配布。</p>
 <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0"/>
-<p style="color:#475569;font-size:12px">運営: etzhayyim (宗教法人・任意団体・blockchain 登記) ／ hc.gftd.ai ／ <a href="https://hc.gftd.ai/legal/minor-consent">保護者同意書</a></p>
+<p style="color:#475569;font-size:12px">運営: etzhayyim (宗教法人・任意団体・blockchain 登記) ／ hc.etzhayyim.com ／ <a href="https://hc.etzhayyim.com/legal/minor-consent">保護者同意書</a></p>
 </body></html>`,
   };
 }
@@ -749,7 +749,7 @@ function emailPayout(reviewId: string, submissionId: string, payoutJpy: number, 
     ? `<div style="background:#fff7ed;border:1px dashed #fdba74;padding:14px;border-radius:8px;margin:12px 0;font-family:ui-monospace,monospace;font-size:16px;text-align:center">${giftCode}</div>`
     : `<p style="color:#b45309">※ Amazonギフトコードは 1〜7営業日以内に別途メールでお送りします。</p>`;
   return {
-    to: "", subject: "【hc.gftd.ai】タスクが承認されました",
+    to: "", subject: "【hc.etzhayyim.com】タスクが承認されました",
     tag: "payout-approved",
     html: `<!doctype html><html><body style="font-family:sans-serif;line-height:1.7;color:#0f172a">
 <h2 style="color:#0ea06a">✅ タスクが承認されました</h2>
@@ -758,7 +758,7 @@ function emailPayout(reviewId: string, submissionId: string, payoutJpy: number, 
 ${codeBlock}
 <p style="color:#475569;font-size:13px">Amazonギフトカードの利用には Amazon アカウントが必要です。<a href="https://www.amazon.co.jp/gc/redeem">こちら</a>からコードを登録してください。</p>
 <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0"/>
-<p style="color:#475569;font-size:12px">運営: etzhayyim (宗教法人・任意団体・blockchain 登記) ／ hc.gftd.ai</p>
+<p style="color:#475569;font-size:12px">運営: etzhayyim (宗教法人・任意団体・blockchain 登記) ／ hc.etzhayyim.com</p>
 </body></html>`,
   };
 }
@@ -769,7 +769,7 @@ ${codeBlock}
 // required, add a dedicated typed table under ADR-0018 Tier 3 policy.)
 
 // --- Worker Intake & Game Capture Task Lifecycle (2026-04-22) ---
-// Supports game-play-uploader.gftd.ai referral registration (ADR-0051).
+// Supports game-play-uploader.etzhayyim.com referral registration (ADR-0051).
 
 function safeJson(body: Uint8Array): Record<string, unknown> {
   try {
@@ -847,7 +847,7 @@ async function cmdRegisterWorker(sdk: HostSDK, body: Uint8Array): Promise<unknow
         owner_did: actorDID,
         id: acceptId,
         contract_type: t,
-        contract_did: `did:web:${APP_NANOID}.gftd.ai:legal:${t}`,
+        contract_did: `did:web:${APP_NANOID}.etzhayyim.com:legal:${t}`,
         acceptor_intake_id: intakeId,
         locale: "ja",
         accepted_at: nowISO(),
@@ -857,7 +857,7 @@ async function cmdRegisterWorker(sdk: HostSDK, body: Uint8Array): Promise<unknow
     }
   }
 
-  const kycUrl = `https://hc.gftd.ai/worker/kyc?intakeId=${intakeId}&tok=${kycToken}`;
+  const kycUrl = `https://hc.etzhayyim.com/worker/kyc?intakeId=${intakeId}&tok=${kycToken}`;
   const envelope = { ...emailWorkerConfirm(intakeId, fullName, kycUrl), to: email };
   const emailResult = await sendEmail(sdk, envelope);
 
@@ -930,7 +930,7 @@ async function cmdRegisterMinorGuardian(sdk: HostSDK, body: Uint8Array): Promise
         owner_did: actorDID,
         id: acceptId,
         contract_type: contractType,
-        contract_did: `did:web:${APP_NANOID}.gftd.ai:legal:${contractType}`,
+        contract_did: `did:web:${APP_NANOID}.etzhayyim.com:legal:${contractType}`,
         acceptor_intake_id: intakeId,
         locale: "ja",
         accepted_at: nowISO(),
@@ -940,7 +940,7 @@ async function cmdRegisterMinorGuardian(sdk: HostSDK, body: Uint8Array): Promise
     }
   }
 
-  const confirmUrl = `https://hc.gftd.ai/worker/minor-confirm?intakeId=${intakeId}`;
+  const confirmUrl = `https://hc.etzhayyim.com/worker/minor-confirm?intakeId=${intakeId}`;
   const envelope = { ...emailMinorConfirm(intakeId, guardianName, childName, confirmUrl), to: guardianEmail };
   const emailResult = await sendEmail(sdk, envelope);
 
@@ -1313,7 +1313,7 @@ async function cmdGetIntakeSummary(_sdk: HostSDK, body: Uint8Array): Promise<unk
 function registerGameCaptureCommands(sdk: HostSDK): void {
   sdk.app
     .command(nsid("ai.gftd.apps.hc.registerWorker"), (_ctx, body) => cmdRegisterWorker(sdk, body),
-      asAgentTool("Register an adult worker (18+) via hc.gftd.ai /register form"),
+      asAgentTool("Register an adult worker (18+) via hc.etzhayyim.com /register form"),
       withCapabilityTags("write", "onboarding", "worker"),
       withOCELEvent("onboarding.workerIntake.created"),
     )

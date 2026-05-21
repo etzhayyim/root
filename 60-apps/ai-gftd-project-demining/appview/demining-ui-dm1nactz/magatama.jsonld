@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:dm1nactz.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:dm1nactz.etzhayyim.com",
   "name": "demining-ui",
   "nanoid": "dm1nactz",
   "project": "demining",
@@ -44,7 +44,7 @@
     ]
   },
   "routes": [
-    { "host": "demining.gftd.ai", "paths": ["/"], "tls": true }
+    { "host": "demining.etzhayyim.com", "paths": ["/"], "tls": true }
   ],
   "derive": {
     "social": [

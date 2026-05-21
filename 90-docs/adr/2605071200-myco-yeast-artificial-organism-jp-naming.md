@@ -12,11 +12,11 @@ weight: 0.78
 priority_note: "STRONG — カビ・酵母生命科学から導出した三層 Organism 設計、PoNF コンセンサス、日本語 alphabet 命名体系を決定する"
 authoritative_for:
   - myco-yeast artificial organism architecture
-  - kabi.gftd.ai — Mycelium Network Orchestrator
-  - kobo.gftd.ai — Yeast Agent Factory
-  - kinoko.gftd.ai — Fruiting Body Consensus
-  - houshi.gftd.ai — Spore Registry
-  - hakkou.gftd.ai — Fermentation Pipeline
+  - kabi.etzhayyim.com — Mycelium Network Orchestrator
+  - kobo.etzhayyim.com — Yeast Agent Factory
+  - kinoko.etzhayyim.com — Fruiting Body Consensus
+  - houshi.etzhayyim.com — Spore Registry
+  - hakkou.etzhayyim.com — Fermentation Pipeline
   - Proof of Nutrient Flow (PoNF) consensus mechanism
   - Sporulation Protocol
   - Anastomosis Gate Protocol
@@ -72,21 +72,21 @@ Ecosystem model が必要だという設計方針。
 ```
 ┌─────────────────────────────────────────────────┐
 │  Layer 3: 子実体 / きのこ (Fruiting Body)          │
-│  kinoko.gftd.ai                                  │
+│  kinoko.etzhayyim.com                                  │
 │  Consensus Block Production — Proof of Nutrient Flow │
 ├─────────────────────────────────────────────────┤
 │  Layer 2: 菌糸網 / カビ (Mycelium Network)        │
-│  kabi.gftd.ai                                    │
+│  kabi.etzhayyim.com                                    │
 │  Distributed Graph Routing — Anastomosis — Chemotaxis │
 ├─────────────────────────────────────────────────┤
 │  Layer 1: 酵母単細胞 (Yeast Cell)                 │
-│  kobo.gftd.ai                                    │
+│  kobo.etzhayyim.com                                    │
 │  Agent Lifecycle — Budding — Fermentation — Prion │
 └─────────────────────────────────────────────────┘
 
 補助サービス:
-  houshi.gftd.ai — 胞子レジストリ (Spore Registry)
-  hakkou.gftd.ai — 発酵パイプライン (Fermentation Pipeline)
+  houshi.etzhayyim.com — 胞子レジストリ (Spore Registry)
+  hakkou.etzhayyim.com — 発酵パイプライン (Fermentation Pipeline)
 ```
 
 各 Worker は AT Protocol 15-Layer (ADR-2604231811) の **Actor Worker (Layer 10)** として実装し、
@@ -98,11 +98,11 @@ T3 CF Worker + Zeebe BPMN worker (ADR-2604282300) に分離する。
 
 | 和名 | Romanization | Domain | 役割 |
 |---|---|---|---|
-| カビ | kabi | `kabi.gftd.ai` | Mycelium Network Orchestrator |
-| 酵母 | kobo | `kobo.gftd.ai` | Yeast Agent Factory |
-| きのこ | kinoko | `kinoko.gftd.ai` | Fruiting Body Consensus |
-| 胞子 | houshi | `houshi.gftd.ai` | Spore Dormant-State Registry |
-| 発酵 | hakkou | `hakkou.gftd.ai` | Fermentation Data Pipeline |
+| カビ | kabi | `kabi.etzhayyim.com` | Mycelium Network Orchestrator |
+| 酵母 | kobo | `kobo.etzhayyim.com` | Yeast Agent Factory |
+| きのこ | kinoko | `kinoko.etzhayyim.com` | Fruiting Body Consensus |
+| 胞子 | houshi | `houshi.etzhayyim.com` | Spore Dormant-State Registry |
+| 発酵 | hakkou | `hakkou.etzhayyim.com` | Fermentation Data Pipeline |
 | 菌糸 | kinshi | `kinshi` (internal label) | Hypha edge type in graph |
 | 出芽 | shuga | `shuga` (BPMN task type) | Budding operation |
 | anastomosis | anastomosis | (英語そのまま) | Network merge protocol |
@@ -113,11 +113,11 @@ T3 CF Worker + Zeebe BPMN worker (ADR-2604282300) に分離する。
 ### DID
 
 ```
-did:web:kabi.gftd.ai
-did:web:kobo.gftd.ai
-did:web:kinoko.gftd.ai
-did:web:houshi.gftd.ai
-did:web:hakkou.gftd.ai
+did:web:kabi.etzhayyim.com
+did:web:kobo.etzhayyim.com
+did:web:kinoko.etzhayyim.com
+did:web:houshi.etzhayyim.com
+did:web:hakkou.etzhayyim.com
 ```
 
 ### NSID プレフィックス
@@ -309,7 +309,7 @@ PoNF アルゴリズム:
 ```
 1. edge_kabi_hypha.flow の総和 = total_nutrient_flow を計測 (Streaming MV)
 2. total_nutrient_flow ≥ FLOW_THRESHOLD (設定値) になった時点で子実体形成トリガー
-3. kinoko.gftd.ai が Zeebe BPMN fruiting_body_formation プロセスを起動:
+3. kinoko.etzhayyim.com が Zeebe BPMN fruiting_body_formation プロセスを起動:
      a. η ≥ η_min な edge_kabi_hypha を収集 (= 有効菌糸の選定)
      b. 収集した flow の merkle root を計算 → block_hash
      c. INSERT vertex_kinoko_block (block_hash, total_flow, participant_hyphae[], timestamp)
@@ -385,14 +385,14 @@ Spore (houshi) ──germinate──▶ Vegetative kobo_agent
 ### AT Protocol 15-Layer 配置 (ADR-2604231811)
 
 ```
-kabi.gftd.ai    → Layer 10 Actor Worker (mycelium routing)
-kobo.gftd.ai    → Layer 10 Actor Worker (yeast agent factory)
-kinoko.gftd.ai  → Layer 10 Actor Worker (consensus / fruiting body)
-houshi.gftd.ai  → Layer 10 Actor Worker (spore registry)
-hakkou.gftd.ai  → Layer 10 Actor Worker (fermentation pipeline)
+kabi.etzhayyim.com    → Layer 10 Actor Worker (mycelium routing)
+kobo.etzhayyim.com    → Layer 10 Actor Worker (yeast agent factory)
+kinoko.etzhayyim.com  → Layer 10 Actor Worker (consensus / fruiting body)
+houshi.etzhayyim.com  → Layer 10 Actor Worker (spore registry)
+hakkou.etzhayyim.com  → Layer 10 Actor Worker (fermentation pipeline)
 ```
 
-全 Worker は `did:web:{name}.gftd.ai` として PDS に登録。
+全 Worker は `did:web:{name}.etzhayyim.com` として PDS に登録。
 NSID prefix `ai.gftd.apps.{kabi|kobo|kinoko|houshi|hakkou}.*`
 
 ---

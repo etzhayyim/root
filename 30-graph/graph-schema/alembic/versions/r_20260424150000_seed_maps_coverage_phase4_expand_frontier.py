@@ -21,13 +21,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/infrastructure:Waterway',
-                 'did:web:maps.gftd.ai:infrastructure',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:Waterway',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  'Waterway',
                  5000000,
                  0.3,
                  720,
-                 'did:web:maps.gftd.ai:infrastructure',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  '2026-05-08T00:14:39.651Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -38,13 +38,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/infrastructure:River',
-                 'did:web:maps.gftd.ai:infrastructure',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:River',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  'River',
                  500000,
                  0.3,
                  720,
-                 'did:web:maps.gftd.ai:infrastructure',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  '2026-05-08T00:14:39.651Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -55,13 +55,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/infrastructure:Mountain',
-                 'did:web:maps.gftd.ai:infrastructure',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:Mountain',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  'Mountain',
                  1000000,
                  0.3,
                  720,
-                 'did:web:maps.gftd.ai:infrastructure',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  '2026-05-08T00:14:39.651Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -72,13 +72,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/infrastructure:BusStop',
-                 'did:web:maps.gftd.ai:infrastructure',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:BusStop',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  'BusStop',
                  5000000,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:infrastructure',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  '2026-05-08T00:14:39.651Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -89,13 +89,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/infrastructure:Parking',
-                 'did:web:maps.gftd.ai:infrastructure',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:Parking',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  'Parking',
                  50000000,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:infrastructure',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  '2026-05-08T00:14:39.651Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -106,13 +106,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/infrastructure:Sensor',
-                 'did:web:maps.gftd.ai:infrastructure',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:Sensor',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  'Sensor',
                  100000,
                  0.1,
                  168,
-                 'did:web:maps.gftd.ai:infrastructure',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  '2026-05-08T00:14:39.651Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

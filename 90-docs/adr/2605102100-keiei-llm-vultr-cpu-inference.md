@@ -26,7 +26,7 @@ related:
 Status: **Proposed** (2026-05-10, iter129).
 Operating Entity: etzhayyim (sole principal).
 Vendor: Gftd Japan株式会社 (engineering capacity).
-Author: gftdcojp Claude Agent on behalf of CEO 河崎.
+Author: etzhayyim Claude Agent on behalf of CEO 河崎.
 
 ## 1. Decision
 
@@ -34,7 +34,7 @@ The keiei (経営) resident LSP daemon (ADR 2605101200) resolves its LLM
 calls through a **dedicated Vultr VKE CPU inference pod** running
 `google/gemma-4-E2B-it` (Q4_K_M GGUF, ~1.5 GiB) under
 **llama.cpp's OpenAI-compatible HTTP server**. Public surface is
-`https://gemma-e2b.gftd.ai` via Cloudflare Tunnel; in-cluster surface is
+`https://gemma-e2b.etzhayyim.com` via Cloudflare Tunnel; in-cluster surface is
 the ClusterIP `keiei-llm.keiei-llm.svc.cluster.local:8080`.
 
 The macOS launchd daemon (`ai.gftd.keiei`) is wired through a small
@@ -66,7 +66,7 @@ Until then, CPU is the right tier.
 ## 3. Why a dedicated pod
 
 `60-apps/ai-gftd-project-murakumo/litellm/` (mac mini fleet at
-`https://llm.gftd.ai`) is the platform's general-purpose LLM gateway.
+`https://llm.etzhayyim.com`) is the platform's general-purpose LLM gateway.
 Reasons it's not used here:
 
 - **Auth boundary** — the keiei daemon is the *only* caller for the AI
@@ -92,13 +92,13 @@ new operational shape — only a new instance of an established pattern.
 macOS launchd ai.gftd.keiei  (PID alive, KeepAlive=true)
   └─ /bin/zsh -c keiei-launchd-wrapper.sh
        ├─ security find-generic-password -s gftd.keiei -a LLM_BEARER → GFTD_LLM_API_KEY
-       ├─ export GFTD_LLM_URL=https://gemma-e2b.gftd.ai/v1/chat/completions
+       ├─ export GFTD_LLM_URL=https://gemma-e2b.etzhayyim.com/v1/chat/completions
        ├─ export KEIEI_LLM_MODEL=gemma-4-E2B-it
        └─ exec python3 -m pymagatama.keiei --socket ~/Library/Caches/keiei.sock
             ↓
         pymagatama.keiei.graph._llm.call_llm()    (lazy import, only when gate allows)
             ↓ HTTPS POST (Authorization: Bearer)
-        gemma-e2b.gftd.ai
+        gemma-e2b.etzhayyim.com
             ↓ QUIC tunnel (cloudflared-keiei-llm × 2 replicas)
         keiei-llm Service :8080  (ClusterIP)
             ↓
@@ -173,7 +173,7 @@ macOS launchd ai.gftd.keiei  (PID alive, KeepAlive=true)
 - **Not a replacement** for murakumo / litellm. Those gateways serve
   general application traffic (heartbeat, shinka, ingest); this pod
   serves only the keiei layer.
-- **Not a public LLM API.** `gemma-e2b.gftd.ai` is bearer-gated; the
+- **Not a public LLM API.** `gemma-e2b.etzhayyim.com` is bearer-gated; the
   bearer rotates at operator discretion. Do not document the endpoint
   externally; do not create an ingress without a bearer requirement.
 - **Not a quality replacement** for larger models. gemma-4-E2B is
@@ -220,7 +220,7 @@ renders its own PVC / Deployment / Service named `keiei-llm-{name}`.
 A LiteLLM proxy (`keiei-litellm`, ClusterIP :4000) sits in front and
 exposes the OpenAI-compatible `/v1/chat/completions` with a
 `model_list` covering both backends, so the daemon picks model by
-name. Public surface is `gemma.gftd.ai` (LiteLLM); `gemma-{e2b,e4b}.gftd.ai`
+name. Public surface is `gemma.etzhayyim.com` (LiteLLM); `gemma-{e2b,e4b}.etzhayyim.com`
 remain as direct routes for benchmark/diagnostic use.
 
 The bearer Secret (`keiei-llm-auth`) does triple duty: backend
@@ -265,7 +265,7 @@ review traffic. The current E4B sizing is 3500m CPU / 6 GiB requested and
 6 CPU / 12 GiB limited; this is intentionally scoped for bounded review calls,
 not high-throughput image understanding.
 
-The public `gemma-e4b.gftd.ai` route remains diagnostic. Product traffic from
+The public `gemma-e4b.etzhayyim.com` route remains diagnostic. Product traffic from
 Shinshi uses the cluster-local service through `lg-shinshi`, preserving the
 edge-only rule: Cloudflare/SvelteKit does not hold model credentials, DB
 connections, or Hyperdrive state.

@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#BDDGenerator
+// @etzhayyim/cyber-freelance#BDDGenerator
 // capabilities.jsonldからCucumber BDD featureファイルを生成
 
 import { readFileSync, writeFileSync, mkdirSync } from "fs";
@@ -43,7 +43,7 @@ function generateFeatureFile(capability: Capability): string {
 	// Given-When-Thenシナリオを生成
 	const scenarios = generateScenarios(capability, label, description);
 
-	return `# @gftdcojp/cyber-freelance#${id}
+	return `# @etzhayyim/cyber-freelance#${id}
 # Capability: ${label}
 # Description: ${description}
 # Activity: ${Array.isArray(activity) ? activity.join(", ") : activity}

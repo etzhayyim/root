@@ -111,7 +111,7 @@ async function generateImage(prompt: string): Promise<string | null> {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-        'HTTP-Referer': 'https://ghosthacker.gftd.ai',
+        'HTTP-Referer': 'https://ghosthacker.etzhayyim.com',
         'X-Title': 'ghosthacker-character-avatar-generator',
       },
       body: JSON.stringify({

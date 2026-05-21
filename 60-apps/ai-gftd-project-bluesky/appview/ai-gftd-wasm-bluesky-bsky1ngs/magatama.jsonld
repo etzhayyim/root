@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:bluesky.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:bluesky.etzhayyim.com",
   "name": "bluesky",
   "nanoid": "bsky1ngs",
   "performerType": "service",
@@ -34,6 +34,6 @@
     "classification": "internal"
   },
   "routes": [
-    "bluesky.gftd.ai"
+    "bluesky.etzhayyim.com"
   ]
 }

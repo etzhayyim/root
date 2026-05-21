@@ -1,4 +1,4 @@
-# yabai.gftd.ai — Risk Intelligence Platform
+# yabai.etzhayyim.com — Risk Intelligence Platform
 
 AML/sanctions/anti-social forces risk scoring + IP access filtering。
 
@@ -13,12 +13,12 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 | **W Protocol** | 4 channels: `yabai-feed`, `yabai-alerts`, `yabai-audit`, `yabai-evolution` + stream method `stream-alerts` |
 | **WIT export** | `gftd:yabai-risk/risk-assessment@1.0.0`, `network-intel@1.0.0`, `vuln-intel@1.0.0`, `threat-intel@1.0.0`, `exchange-intel@1.0.0`, `infra-intel@1.0.0`, `access-audit@1.0.0`, `cf-metrics-ingest@1.0.0` |
 | **Agent tools** | `get-risk`, `evaluate-entity`, `explain-score`, `get-entity`, `analyze-entity`, `get-summary`, `list-entities`, `get-entity-graph`, `ingest-ip`, `get-ip-risk`, `report-rate-abuse`, `sync-waf-lists`, `ingest-whois`, `get-whois`, `ingest-dns`, `get-dns`, `ingest-asn`, `get-asn`, `ingest-geoip`, `get-geoip`, `detect-whois-anomalies`, `detect-dns-anomalies`, `ingest-cve`, `get-cve`, `search-cves`, `ingest-mitre-technique`, `get-mitre-technique`, `map-actor-techniques`, `record-exploit-observation`, `list-exploit-observations`, `ingest-tls-certificate`, `get-tls-certificate`, `record-tls-anomaly`, `ingest-malware-sample`, `get-malware-sample`, `ingest-ioc`, `search-iocs`, `ingest-phishing-url`, `list-phishing-urls`, `ingest-stix-bundle`, `get-stix-bundle`, `export-stix-bundle`, `record-bgp-event`, `list-bgp-events`, `submit-abuse-report`, `get-abuse-report`, `list-abuse-reports` |
-| **Domain** | `yabai.gftd.ai` / `y8b41k0x.gftd.ai` |
+| **Domain** | `yabai.etzhayyim.com` / `y8b41k0x.etzhayyim.com` |
 
 ## Reactive Runtime (Design D 準拠)
 
 - **Input**: `subscribe-repos.handle-repo-commit` (`handleComAtprotoSyncSubscribeReposCommit`) で `ai.gftd.apps.yabai.*` + `ai.gftd.apps.ipaddress.*` commit を受けて即時処理
-- **Follow-based input**: `magatama.Follow("n7w1p4d0")` で ipaddress.gftd.ai を Follow → `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` を自動受信
+- **Follow-based input**: `magatama.Follow("n7w1p4d0")` で ipaddress.etzhayyim.com を Follow → `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` を自動受信
 - **Processing**: yabai commit → reactive publish。ipaddress commit → auto IP ingest + risk evaluation
 - **Output (stream)**: `serve.handle-stream("stream-alerts")` を subscriber role + trust level で配信
 - **Output (social)**: `postRiskAnalysis()` でリスクスコアリング結果を entity の path-based DID (`ip:*`/`person:*`/`org:*`) に `AppBskyFeedPost` で投稿
@@ -101,13 +101,13 @@ IP/ドメインのホスティング帰属・地理的移動履歴・メール�
 
 **Path-Based DIDs** (Hosting Providers + Risk Entities):
 ```
-did:web:yabai.gftd.ai:hosting:cloudflare
-did:web:yabai.gftd.ai:hosting:aws
-did:web:yabai.gftd.ai:hosting:hetzner
-did:web:yabai.gftd.ai:ip:192_168_1_1          # IPAddress risk profile
-did:web:yabai.gftd.ai:person:john_doe          # Person risk profile
-did:web:yabai.gftd.ai:org:acme_corp            # Organization risk profile
-did:web:yabai.gftd.ai:entity:ent_abc123        # Generic entity risk profile
+did:web:yabai.etzhayyim.com:hosting:cloudflare
+did:web:yabai.etzhayyim.com:hosting:aws
+did:web:yabai.etzhayyim.com:hosting:hetzner
+did:web:yabai.etzhayyim.com:ip:192_168_1_1          # IPAddress risk profile
+did:web:yabai.etzhayyim.com:person:john_doe          # Person risk profile
+did:web:yabai.etzhayyim.com:org:acme_corp            # Organization risk profile
+did:web:yabai.etzhayyim.com:entity:ent_abc123        # Generic entity risk profile
 ```
 
 ### Access Audit (Intel Access Log / Session / Device)

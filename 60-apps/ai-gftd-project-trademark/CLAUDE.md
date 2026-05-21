@@ -2,7 +2,7 @@
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/trademark/actor-manifest.jsonld`). No Worker deploy — PDS Shared Executor runs 5 pipelines (get/list/madrid.members/coverage/cron) against `vertex_trademark` + `edge_owned_by` + `edge_classified_as` (migration 0037).
 
-`trademark.gftd.ai` (nanoid: `tm4rk001`) — 商標登録 coverage actor。JPO / USPTO (TESS/TSDR) / EUIPO / WIPO Madrid を 2 次ソースとして統合。
+`trademark.etzhayyim.com` (nanoid: `tm4rk001`) — 商標登録 coverage actor。JPO / USPTO (TESS/TSDR) / EUIPO / WIPO Madrid を 2 次ソースとして統合。
 
 ## Role
 
@@ -14,8 +14,8 @@ trademark = **標章 (商標・サービスマーク・団体商標) perspective
 
 | Level | DID | 用途 |
 |---|---|---|
-| Primary | `did:web:trademark.gftd.ai` | Coordinator, heartbeat |
-| Jurisdiction | `did:web:trademark.gftd.ai:jp` / `:us` / `:eu` / `:wo` | 国/地域別 coverage |
+| Primary | `did:web:trademark.etzhayyim.com` | Coordinator, heartbeat |
+| Jurisdiction | `did:web:trademark.etzhayyim.com:jp` / `:us` / `:eu` / `:wo` | 国/地域別 coverage |
 
 ## Lexicon (`ai.gftd.apps.trademark.*`)
 

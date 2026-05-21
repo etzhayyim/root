@@ -10,7 +10,7 @@ from graph_schema.db import execute_sql_text
 
 
 revision = "r_20260509130000_vertex_ndl_image_ocr"
-down_revision = "r_20260508993000_vertex_gftdcojp_personnel"
+down_revision = "r_20260508993000_vertex_etzhayyim_personnel"
 branch_labels = None
 depends_on = None
 

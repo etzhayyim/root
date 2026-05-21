@@ -1,4 +1,4 @@
-// yabai.gftd.ai thin edge facade.
+// yabai.etzhayyim.com thin edge facade.
 //
 // Fraud/risk scoring, claim challenge decisions, graph writes, and related
 // business logic run in AgentGateway MCP + pod-side LangServer and UDF where applicable. This
@@ -19,7 +19,7 @@ interface ExportedHandler<E> {
 }
 
 const APP = "yabai";
-const ACTOR_DID = "did:web:yabai.gftd.ai";
+const ACTOR_DID = "did:web:yabai.etzhayyim.com";
 const DEFAULT_NANOID = "y8b41k0x";
 const NSID_PREFIX = "ai.gftd.apps.yabai.";
 
@@ -70,7 +70,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

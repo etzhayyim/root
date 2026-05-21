@@ -2,7 +2,7 @@
 
 NSID: ai.gftd.apps.yukkuri.generateBgm
 
-Actor: did:web:yukkuri.gftd.ai:actor:composer
+Actor: did:web:yukkuri.etzhayyim.com:actor:composer
 
 Calls ai.gftd.ongakuka.compose XRPC to generate BGM for the video.
 Stores returned blob_key in vertex_yukkuri_asset (kind='bgm').
@@ -30,14 +30,14 @@ _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _ONGAKUKA_URL = os.environ.get(
-    "ONGAKUKA_XRPC_URL", "https://atproto.gftd.ai/xrpc/ai.gftd.ongakuka.compose"
+    "ONGAKUKA_XRPC_URL", "https://atproto.etzhayyim.com/xrpc/ai.gftd.ongakuka.compose"
 )
 _ONGAKUKA_TIMEOUT = float(os.environ.get("ONGAKUKA_TIMEOUT_SEC", "120"))
-_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.gftd.ai")
+_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
 _COMPOSER_DID = os.environ.get(
-    "YUKKURI_COMPOSER_DID", "did:web:yukkuri.gftd.ai:actor:composer"
+    "YUKKURI_COMPOSER_DID", "did:web:yukkuri.etzhayyim.com:actor:composer"
 )
-_REPO = os.environ.get("YUKKURI_REPO_DID", "did:web:y5kk5r1x.gftd.ai")
+_REPO = os.environ.get("YUKKURI_REPO_DID", "did:web:y5kk5r1x.etzhayyim.com")
 
 
 class _State(TypedDict, total=False):

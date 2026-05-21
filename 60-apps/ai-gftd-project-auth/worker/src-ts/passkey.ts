@@ -1,8 +1,8 @@
 import { decodeBase64Url, encodeBase64Url } from "./base64url";
 
-const RP_ID = "gftd.ai";
+const RP_ID = "etzhayyim.com";
 const RP_NAME = "GFTD Platform";
-const RP_ORIGIN = "https://authn.gftd.ai";
+const RP_ORIGIN = "https://authn.etzhayyim.com";
 
 export interface PasskeyCredential {
   'credentialId': string;
@@ -28,7 +28,7 @@ function decodeJsonBase64Url<T>(value: string): T {
 }
 
 function normalizeOrigin(origin: string): boolean {
-  return origin === RP_ORIGIN || origin.endsWith(".gftd.ai");
+  return origin === RP_ORIGIN || origin.endsWith(".etzhayyim.com");
 }
 
 type CborValue = number | Uint8Array | string | CborValue[] | Map<CborValue, CborValue>;
@@ -156,7 +156,7 @@ function extractP256PublicKey(coseBytes: Uint8Array): string {
   return encodeBase64Url(raw);
 }
 
-export function beginRegistration(userId = crypto.randomUUID(), userName = `${crypto.randomUUID().slice(0, 8)}@gftd.ai`): Record<string, unknown> {
+export function beginRegistration(userId = crypto.randomUUID(), userName = `${crypto.randomUUID().slice(0, 8)}@etzhayyim.com`): Record<string, unknown> {
   const authenticatorSelection = {
     'authenticatorAttachment': "platform",
     'residentKey': "required",

@@ -102,7 +102,7 @@
     <Header>
       {#snippet left()}
         <div class="flex flex-col gap-0.5">
-          <a href="/" class="font-extrabold tracking-wide no-underline">shigotoba.gftd.ai</a>
+          <a href="/" class="font-extrabold tracking-wide no-underline">shigotoba.etzhayyim.com</a>
           <span class="text-xs text-gftd-muted">Global public jobs collection</span>
         </div>
       {/snippet}

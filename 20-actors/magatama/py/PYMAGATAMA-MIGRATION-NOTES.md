@@ -47,7 +47,7 @@ Verdict taxonomy (mirrors lexicon port rules):
 | primitives/kaisya_master.py | comments | Same as kaisya_ai_org | LiteLLM | REDIRECT | Comments only |
 | voxelforge/runpod_client.py | (entire file) | RunPod HTTP client | n/a | VENDOR-ONLY | Whole module is vendor-only |
 | langgraph_graphs/webya_site_generation.py | comment | RunPod 6000 Ada comment | LiteLLM | REDIRECT | Comment only |
-| langgraph_graphs/gftdcojp_company_ops.py | comments | RunPod SSoT comments | LiteLLM | REDIRECT | Comments only |
+| langgraph_graphs/etzhayyim_company_ops.py | comments | RunPod SSoT comments | LiteLLM | REDIRECT | Comments only |
 | handlers/news_translate.py | model | RunPod gemma4:26b replaced | LiteLLM | REDIRECT | Translation pipeline |
 | sdk/magatama-host-sdk/src/llm-model-types.ts | refs | RunPod refs | LiteLLM | REDIRECT | Model registry comments |
 | sdk/magatama-host-sdk/src/llm-model-registry.ts | entries | RunPod entries | LiteLLM | REDIRECT | Model registry |

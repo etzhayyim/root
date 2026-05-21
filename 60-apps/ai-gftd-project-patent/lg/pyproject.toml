@@ -1,7 +1,7 @@
 [project]
 name = "lg-patent"
 version = "0.1.0"
-description = "patent.gftd.ai OSS LangGraph FastAPI server"
+description = "patent.etzhayyim.com OSS LangGraph FastAPI server"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",

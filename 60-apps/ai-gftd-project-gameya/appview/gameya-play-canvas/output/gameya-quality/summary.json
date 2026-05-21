@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "url": "https://gameya.gftd.ai",
+  "url": "https://gameya.etzhayyim.com",
   "desktop": {
     "score": 360,
     "clearedMode": "stageclear",
@@ -8,18 +8,18 @@
     "hazards": 1,
     "pausedMode": "paused",
     "resumedX": 242,
-    "screenshot": "/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-gameya/appview/gameya-play-canvas/output/gameya-quality/desktop.png"
+    "screenshot": "/Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-gameya/appview/gameya-play-canvas/output/gameya-quality/desktop.png"
   },
   "mobile": {
     "x": 339,
     "y": 283,
-    "screenshot": "/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-gameya/appview/gameya-play-canvas/output/gameya-quality/mobile.png"
+    "screenshot": "/Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-gameya/appview/gameya-play-canvas/output/gameya-quality/mobile.png"
   },
   "allClear": {
     "finalMode": "clear",
     "finalStage": 3,
     "finalScore": 1240,
-    "screenshot": "/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-gameya/appview/gameya-play-canvas/output/gameya-quality/all-clear.png"
+    "screenshot": "/Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-gameya/appview/gameya-play-canvas/output/gameya-quality/all-clear.png"
   },
   "xrpc": {
     "assistant_id": "gameya_quality_loop",

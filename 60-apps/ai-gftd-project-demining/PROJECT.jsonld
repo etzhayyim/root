@@ -50,15 +50,15 @@
     { "@type": "CreativeWork", "name": "Lexicon contracts", "url": "../../00-contracts/lexicons/ai/gftd/apps/demining/" }
   ],
   "performers": [
-    { "@type": "Service", "name": "Demining Coordinator Actor", "identifier": "did:web:demining.gftd.ai" },
-    { "@type": "Service", "name": "Survey Actor (NTS/TS)", "identifier": "did:web:demining.gftd.ai:actor:survey" },
-    { "@type": "Service", "name": "Clearance Operations Actor", "identifier": "did:web:demining.gftd.ai:actor:clearance" },
-    { "@type": "Service", "name": "EORE Actor", "identifier": "did:web:demining.gftd.ai:actor:eore" },
-    { "@type": "Service", "name": "Victim Assistance Actor", "identifier": "did:web:demining.gftd.ai:actor:victim-assistance" },
-    { "@type": "Service", "name": "Asset Inventory Actor (detectors, PPE, MDD, flails)", "identifier": "did:web:demining.gftd.ai:actor:assets" }
+    { "@type": "Service", "name": "Demining Coordinator Actor", "identifier": "did:web:demining.etzhayyim.com" },
+    { "@type": "Service", "name": "Survey Actor (NTS/TS)", "identifier": "did:web:demining.etzhayyim.com:actor:survey" },
+    { "@type": "Service", "name": "Clearance Operations Actor", "identifier": "did:web:demining.etzhayyim.com:actor:clearance" },
+    { "@type": "Service", "name": "EORE Actor", "identifier": "did:web:demining.etzhayyim.com:actor:eore" },
+    { "@type": "Service", "name": "Victim Assistance Actor", "identifier": "did:web:demining.etzhayyim.com:actor:victim-assistance" },
+    { "@type": "Service", "name": "Asset Inventory Actor (detectors, PPE, MDD, flails)", "identifier": "did:web:demining.etzhayyim.com:actor:assets" }
   ],
   "tasks": [
-    { "status": "pending", "task": "Register nanoid via `gftd actor register` for demining.gftd.ai" },
+    { "status": "pending", "task": "Register nanoid via `gftd actor register` for demining.etzhayyim.com" },
     { "status": "pending", "task": "Expand lexicon stubs (SHA schema, EO item taxonomy, IMSMA XML import)" },
     { "status": "pending", "task": "Graph schema: HazardArea / ExplosiveOrdnanceItem / ClearanceTask / LandReleaseDecision / EoreSession / Victim" },
     { "status": "pending", "task": "Implement T1 pipelines (survey → clearance → release → social summary)" },

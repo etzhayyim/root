@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/08/2/0/cultural-services/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/08/2/0/cultural-services/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Cultural Heritage and Arts Orchestration Lifecycle",
       "description": "The administrative process of monitoring heritage sites, coordinating arts funding, and orchestrating cultural events.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/08/2/0/cultural-services"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/2/0/cultural-services"
     }
   ]
 }

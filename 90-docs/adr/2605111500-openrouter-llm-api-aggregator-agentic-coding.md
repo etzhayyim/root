@@ -11,7 +11,7 @@ authoritative_for:
   - Provider routing policy (non-China upstream selection)
   - Model alternatives: DeepSeek V4 Pro / Kimi K2.6 / MiniMax M2.5 / Gemma 4 26B
   - Agentic coding CLI tools: OpenCode v1.14.48 + Aider v0.86.2
-  - OpenRouter API key storage (1Password gftdcojp vault)
+  - OpenRouter API key storage (1Password etzhayyim vault)
   - terminal-agent agentic benchmark suite (gftd code bench --agentic --swe)
   - Model selection by workload (interactive / batch / long-context / code-correctness)
   - RisingWave bench result schema (vertex_bench_run / vertex_bench_result)
@@ -27,7 +27,7 @@ related:
 Status: **Active** (2026-05-11).
 Operating Entity: etzhayyim (sole principal).
 Vendor: Gftd Japan株式会社 (engineering capacity).
-Author: gftdcojp Claude Agent on behalf of CEO 河崎.
+Author: etzhayyim Claude Agent on behalf of CEO 河崎.
 
 ## 1. Decision
 
@@ -123,10 +123,10 @@ auto-routes to cheapest provider, which may be the official Chinese API.
 
 ### 5.1 API key
 
-Stored in 1Password `gftdcojp` vault:
+Stored in 1Password `etzhayyim` vault:
 - Title: `OpenRouter API Key`
 - Item ID: `y64zp3ndrfwlxycgo4wyzpg6qm`
-- Load: `op read "op://gftdcojp/OpenRouter API Key/credential"`
+- Load: `op read "op://etzhayyim/OpenRouter API Key/credential"`
 
 **Note**: The raw key was inadvertently exposed in chat session
 2026-05-11. Key rotation recommended at `openrouter.ai/keys`.
@@ -148,7 +148,7 @@ Launcher: `~/.local/bin/oc`
 
 ```zsh
 #!/bin/zsh
-OR_KEY=$(op read "op://gftdcojp/OpenRouter API Key/credential")
+OR_KEY=$(op read "op://etzhayyim/OpenRouter API Key/credential")
 MODEL="${1:-openrouter/deepseek/deepseek-v4-pro}"
 shift 2>/dev/null
 OPENROUTER_API_KEY="$OR_KEY" opencode -m "$MODEL" "$@"
@@ -165,7 +165,7 @@ oc openrouter/minimax/minimax-m2.5             # MiniMax M2.5 (SambaNova US)
 
 ```zsh
 aider \
-  --openai-api-key "$(op read 'op://gftdcojp/OpenRouter API Key/credential')" \
+  --openai-api-key "$(op read 'op://etzhayyim/OpenRouter API Key/credential')" \
   --openai-api-base https://openrouter.ai/api/v1 \
   --model openrouter/deepseek/deepseek-v4-pro
 ```

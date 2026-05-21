@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:maps.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:maps.etzhayyim.com",
   "accent": "#3b82f6",
   "component": {
     "env": {
@@ -8,12 +8,12 @@
     },
     "path": "/wasm/component.wasm"
   },
-  "convoSystemPrompt": "You are Maps, the spatial intelligence agent for gftd.ai. Graph-first architecture with 980 Multi-DIDs, 137 XRPC commands across 14 WIT domains. You can look up places, calculate routes, check weather, query infrastructure networks, manage digital twins, run simulations, and maintain Bayesian latent world-model beliefs over spatial entities. You monitor real-time seismic events (USGS), aircraft positions (OpenSky ADS-B), and public transit (GTFS-JP). You extract geolocation from user post images (EXIF), ingest POIs from Mapraly, analyze images via Murakumo Vision, and process satellite imagery (Sentinel-2, Landsat). You manage 50+ geo crawl domains via site.gftd.ai for web-sourced geographic entity extraction. 14 source DIDs, 32 geographic code schemes, 12 Overpass entity types for JP-wide coverage. Use your tools to provide accurate, real-time spatial intelligence.",
+  "convoSystemPrompt": "You are Maps, the spatial intelligence agent for etzhayyim.com. Graph-first architecture with 980 Multi-DIDs, 137 XRPC commands across 14 WIT domains. You can look up places, calculate routes, check weather, query infrastructure networks, manage digital twins, run simulations, and maintain Bayesian latent world-model beliefs over spatial entities. You monitor real-time seismic events (USGS), aircraft positions (OpenSky ADS-B), and public transit (GTFS-JP). You extract geolocation from user post images (EXIF), ingest POIs from Mapraly, analyze images via Murakumo Vision, and process satellite imagery (Sentinel-2, Landsat). You manage 50+ geo crawl domains via site.etzhayyim.com for web-sourced geographic entity extraction. 14 source DIDs, 32 geographic code schemes, 12 Overpass entity types for JP-wide coverage. Use your tools to provide accurate, real-time spatial intelligence.",
   "deploy": {},
   "duties": [
     "勤労の義務"
   ],
-  "embedUrl": "https://uqpel6i6.gftd.ai/?embed=1",
+  "embedUrl": "https://uqpel6i6.etzhayyim.com/?embed=1",
   "governance": {
     "clearance": "public",
     "disclosureTier": "T0",
@@ -46,14 +46,14 @@
   "project": "maps",
   "routes": [
     {
-      "host": "maps.gftd.ai",
+      "host": "maps.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "uqpel6i6.gftd.ai",
+      "host": "uqpel6i6.etzhayyim.com",
       "paths": [
         "/"
       ],
@@ -166,56 +166,56 @@
     "social": [
       {
         "on": "ai.gftd.apps.maps.layerCoordinator",
-        "template": "[Layer] {{displayName}} coordinator registered ({{layerSlug}})\ncc @jinushi.gftd.ai"
+        "template": "[Layer] {{displayName}} coordinator registered ({{layerSlug}})\ncc @jinushi.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.adminArea",
-        "template": "[Region] {{displayName}} (L{{adminLevel}}) registered\ncc @jinushi.gftd.ai"
+        "template": "[Region] {{displayName}} (L{{adminLevel}}) registered\ncc @jinushi.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.verticalZone",
-        "template": "[VerticalZone] {{displayName}} ({{zoneType}}: {{minAlt}}m–{{maxAlt}}m)\ncc @intel.gftd.ai"
+        "template": "[VerticalZone] {{displayName}} ({{zoneType}}: {{minAlt}}m–{{maxAlt}}m)\ncc @intel.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.naturalZone",
-        "template": "[NaturalZone] {{displayName}} ({{zoneType}})\ncc @intel.gftd.ai"
+        "template": "[NaturalZone] {{displayName}} ({{zoneType}})\ncc @intel.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.spatialEvent",
         "condition": "{{eventType}} == 'earthquake' && {{magnitude}} >= 5.0",
-        "template": "[Seismic] M{{magnitude}} {{place}} depth:{{depth}}km\ncc @jinushi.gftd.ai"
+        "template": "[Seismic] M{{magnitude}} {{place}} depth:{{depth}}km\ncc @jinushi.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.airport",
-        "template": "[Airport] {{name}} ({{icaoCode}}/{{iataCode}}) registered\ncc @intel.gftd.ai"
+        "template": "[Airport] {{name}} ({{icaoCode}}/{{iataCode}}) registered\ncc @intel.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.port",
-        "template": "[Port] {{name}} registered\ncc @intel.gftd.ai"
+        "template": "[Port] {{name}} registered\ncc @intel.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.satelliteScene",
-        "template": "[Satellite] {{satellite}} scene {{sceneId}} ({{acquisitionDate}})\ncc @intel.gftd.ai"
+        "template": "[Satellite] {{satellite}} scene {{sceneId}} ({{acquisitionDate}})\ncc @intel.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.station",
-        "template": "[Station] {{name}} registered\ncc @intel.gftd.ai"
+        "template": "[Station] {{name}} registered\ncc @intel.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.spot",
-        "template": "[Spot] {{name}} ({{category}})\ncc @intel.gftd.ai"
+        "template": "[Spot] {{name}} ({{category}})\ncc @intel.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.legalEntity",
-        "template": "[Entity] {{name}} ({{entityType}}, {{jurisdiction}})\ncc @jinushi.gftd.ai"
+        "template": "[Entity] {{name}} ({{entityType}}, {{jurisdiction}})\ncc @jinushi.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.landRegistry",
-        "template": "[LandRegistry] {{registryNumber}} ({{jurisdiction}}, {{propertyType}})\ncc @jinushi.gftd.ai"
+        "template": "[LandRegistry] {{registryNumber}} ({{jurisdiction}}, {{propertyType}})\ncc @jinushi.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.maps.businessRegistry",
-        "template": "[BusinessRegistry] {{name}} №{{registryNumber}} ({{jurisdiction}})\ncc @jinushi.gftd.ai"
+        "template": "[BusinessRegistry] {{name}} №{{registryNumber}} ({{jurisdiction}})\ncc @jinushi.etzhayyim.com"
       }
     ]
   },

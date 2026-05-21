@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/09/4/2/second-stage-tertiary-education",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/4/2/second-stage-tertiary-education",
       "type": "dodaf:Capability",
       "name": "Advanced Research and Doctoral Education Capability",
       "description": "Functional capability for managing second-stage tertiary services, PhD research programs, and research impact evaluation. Classification: COFOG Division 09, Group 4, Class 2.",

@@ -1,4 +1,4 @@
-// commoncrawl.gftd.ai — CF Worker XRPC facade (L3 Dispatcher, ADR-2604251830).
+// commoncrawl.etzhayyim.com — CF Worker XRPC facade (L3 Dispatcher, ADR-2604251830).
 // Entity extraction logic lives in pymagatama/primitives/common_crawl.py
 // (LangServer task type: commonCrawl.entities.extract, timeout 600s).
 // Hourly autonomous runs via extractEntities.bpmn R/PT1H timer-start (ADR-0056).
@@ -13,7 +13,7 @@ type Domain = typeof VALID_DOMAINS[number];
 type InternalSecret = string | { get(): Promise<string> };
 type EnvLike = { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: InternalSecret };
 function envOf(sdk: unknown): EnvLike { return ((sdk as { env?: EnvLike }).env ?? {}) as EnvLike; }
-function dispatcherUrl(sdk: unknown): string { return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.gftd.ai"; }
+function dispatcherUrl(sdk: unknown): string { return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com"; }
 async function internalTrustHeader(sdk: unknown): Promise<string> {
   const binding = envOf(sdk).DISPATCHER_INTERNAL_SECRET;
   if (!binding) return "";

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:vehicle.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:vehicle.etzhayyim.com",
   "name": "vehicle",
   "nanoid": "v3h1cl01",
   "performerType": "service",

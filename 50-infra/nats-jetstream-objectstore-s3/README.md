@@ -55,7 +55,7 @@ Use any S3 client (AWS CLI, aws-sdk-go, boto3, MinIO Client, etc.) to store and 
 ### Binary
 
 ```bash
-go install github.com/gftdcojp/nats-jetstream-objectstore-s3/cmd/nats-objstore-s3@latest
+go install github.com/etzhayyim/nats-jetstream-objectstore-s3/cmd/nats-objstore-s3@latest
 nats-objstore-s3 -config config.yaml
 ```
 
@@ -141,7 +141,7 @@ package main
 import (
     "net/http"
 
-    "github.com/gftdcojp/nats-jetstream-objectstore-s3/pkg/s3gw"
+    "github.com/etzhayyim/nats-jetstream-objectstore-s3/pkg/s3gw"
     "github.com/nats-io/nats.go"
     "github.com/nats-io/nats.go/jetstream"
     "go.uber.org/zap"

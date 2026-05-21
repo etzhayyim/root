@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#GenerateE2EFromCapabilities
+// @etzhayyim/cyber-freelance#GenerateE2EFromCapabilities
 // capabilities.jsonldからE2E TDDテストを自動生成するスクリプト
 
 import * as fs from "node:fs";
@@ -49,7 +49,7 @@ function generateE2ETest(capability: Capability): string {
 			: [];
 	const implementations = capability.implementation || [];
 
-	const testContent = `// @gftdcojp/cyber-freelance#${id}E2E
+	const testContent = `// @etzhayyim/cyber-freelance#${id}E2E
 // E2E TDD Test: ${labelEn}
 // Description: ${descEn}
 // Activities: ${activities.join(", ")}
@@ -175,7 +175,7 @@ function generateE2EFeature(capability: Capability): string {
 			: [];
 	const implementations = capability.implementation || [];
 
-	const featureContent = `# @gftdcojp/cyber-freelance#${id}
+	const featureContent = `# @etzhayyim/cyber-freelance#${id}
 # Capability: ${labelEn}
 # Description: ${descEn}
 # Activity: ${activities.join(", ")}

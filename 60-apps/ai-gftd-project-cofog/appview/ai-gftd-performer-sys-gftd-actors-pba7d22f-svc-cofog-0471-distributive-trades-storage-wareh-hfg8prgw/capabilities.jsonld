@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/7/1/distributive-trades-storage-warehousing",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/7/1/distributive-trades-storage-warehousing",
       "type": "dodaf:Capability",
       "name": "Distributive Trade and Warehousing Management Capability",
       "description": "Functional capability for managing distributive trades, supply chain logistics, and warehousing oversight. Classification: COFOG Division 04, Group 7, Class 1.",

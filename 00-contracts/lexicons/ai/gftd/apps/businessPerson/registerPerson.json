@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a public business person profile (corporate officer, board member, executive). Sources: corporate registries + XBRL filings + Wikipedia + official disclosures. Path-based DID: did:web:business-person.gftd.ai:bp:{slug}.",
+      "description": "Register a public business person profile (corporate officer, board member, executive). Sources: corporate registries + XBRL filings + Wikipedia + official disclosures. Path-based DID: did:web:business-person.etzhayyim.com:bp:{slug}.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",
@@ -18,7 +18,7 @@
             "primaryRole": { "type": "string", "enum": ["ceo", "cfo", "coo", "cto", "chairman", "president", "vice-president", "director", "founder", "secretary", "treasurer"] },
             "primaryEntityDid": { "type": "string", "format": "did", "description": "legal-entity DID where person holds primary role" },
             "appointedAt": { "type": "string", "format": "datetime" },
-            "naturalPersonDid": { "type": "string", "format": "did", "description": "linked natural-person.gftd.ai DID for PII Tier 3" },
+            "naturalPersonDid": { "type": "string", "format": "did", "description": "linked natural-person.etzhayyim.com DID for PII Tier 3" },
             "linkedinUri": { "type": "string", "format": "uri" },
             "wikidataId": { "type": "string", "description": "Q-identifier" }
           }

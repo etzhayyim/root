@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/03/5/0/r-d-public-order-safety",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/03/5/0/r-d-public-order-safety",
       "type": "dodaf:Capability",
       "name": "Public Order and Safety Research and Development Capability",
       "description": "Functional capability for advancing public safety through scientific research, data analysis, and technology prototyping. Classification: COFOG Division 03, Group 5, Class 0.",

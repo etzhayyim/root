@@ -42,8 +42,8 @@ superseded_by: []
 ## Context
 
 絵本・家具・ぬいぐるみなどの「思い出のある物」の不要化局面で、現状 platform は受け皿を持たない。
-既存 `fleamarket.gftd.ai` は個人間売買に特化 (有償取引、Clerk 認証、決済前提)、
-`toshi-kozan.gftd.ai` は工業 e-waste / urban mining 向けで一般家庭向けではない。
+既存 `fleamarket.etzhayyim.com` は個人間売買に特化 (有償取引、Clerk 認証、決済前提)、
+`toshi-kozan.etzhayyim.com` は工業 e-waste / urban mining 向けで一般家庭向けではない。
 
 ユーザは 4 つの C2C / 譲渡モデルから platform 適合度を比較した:
 
@@ -82,7 +82,7 @@ graph schema で扱い、各遷移を AT Protocol 公開記録 + RisingWave Hype
 - 譲渡完了記録 (handover)
 - お焚き上げ依頼 (ritual)
 - 季節祭スケジュール (人形供養祭 / 絵本供養祭 / 家具解体祭)
-- 永続証跡発行 (Phase 1: AT Record JSON、URI = `at://otakiage.gftd.ai/ai.gftd.otakiage.certificate/{rkey}`)
+- 永続証跡発行 (Phase 1: AT Record JSON、URI = `at://otakiage.etzhayyim.com/ai.gftd.otakiage.certificate/{rkey}`)
 - T1 social derive (handover / ritual 完了時に PII を含まない post)
 
 ### Out of scope (Phase 2+)
@@ -90,8 +90,8 @@ graph schema で扱い、各遷移を AT Protocol 公開記録 + RisingWave Hype
 - ERC725 NFT anchor (blockchain 登記による改ざん耐性証跡)
 - 配送 actor 連携 (家具の引取 / 集荷)
 - 神社仏閣 actor 連携 (実物理的な合同供養祭)
-- 寄付領収書 (T3 PII 必要、別 actor `donate.gftd.ai` で扱う)
-- 売買 (escrow / 決済) — `fleamarket.gftd.ai` の責務
+- 寄付領収書 (T3 PII 必要、別 actor `donate.etzhayyim.com` で扱う)
+- 売買 (escrow / 決済) — `fleamarket.etzhayyim.com` の責務
 
 ### Non-goals
 
@@ -101,7 +101,7 @@ graph schema で扱い、各遷移を AT Protocol 公開記録 + RisingWave Hype
 
 ## Executive Summary
 
-`otakiage.gftd.ai` を T2 actor (CF Worker = Svelte CSR + XRPC facade、業務ロジック = pyzeebe + BPMN-as-actor)
+`otakiage.etzhayyim.com` を T2 actor (CF Worker = Svelte CSR + XRPC facade、業務ロジック = pyzeebe + BPMN-as-actor)
 として立ち上げ、以下の不変条件を持つ:
 
 1. **State machine 1 本**: `submitted → reuse_open → {handed_over | ritualized}`、家具のみ `reuse_only` モードで ritual に流れない
@@ -109,7 +109,7 @@ graph schema で扱い、各遷移を AT Protocol 公開記録 + RisingWave Hype
    - T1 Social: handover / ritual 完了時の謝辞 post (PII なし、位置 H3 res-3 まで丸める)
    - T2 Domain: 全 item / reuse_request / handover / ritual / matsuri / certificate を Hyperdrive 直接
    - T3 State: 受領者 / 寄贈者 PII (氏名 / 住所 / 連絡先) は Preferences
-3. **Path-based DID (ADR-0019)**: `did:web:otakiage.gftd.ai:{root,reuse,ritual,matsuri}` の 4 sub-DID で責務分離
+3. **Path-based DID (ADR-0019)**: `did:web:otakiage.etzhayyim.com:{root,reuse,ritual,matsuri}` の 4 sub-DID で責務分離
 4. **BPMN-as-actor (ADR-0056)**: 4 process_def (reuse_match R/PT1H, reuse_expire R/PT24H, matsuri_schedule cron 月1, social_announce XRPC)
 5. **永続証跡 = AT Record (Phase 1)**: ritualized 時に `ai.gftd.otakiage.certificate` を発行、URI が永続 ID
 6. **季節祭 calendar 内蔵**: 人形供養祭 (3月/11月)、絵本供養祭 (4月)、家具解体祭 (随時、reuse_expired バッチ)
@@ -122,8 +122,8 @@ graph schema で扱い、各遷移を AT Protocol 公開記録 + RisingWave Hype
 Layer        | Component
 -------------|-------------------------------------------------------------
 L1 Edge      | Cloudflare DNS / Pages / TLS
-L2 Routing   | atproto.gftd.ai (PDS gateway, social federation 経路)
-L3 Dispatcher| otakiage.gftd.ai CF Worker (Svelte CSR + XRPC facade のみ)
+L2 Routing   | atproto.etzhayyim.com (PDS gateway, social federation 経路)
+L3 Dispatcher| otakiage.etzhayyim.com CF Worker (Svelte CSR + XRPC facade のみ)
 L4 Registry  | RisingWave: vertex_otakiage_*, vertex_bpmn_process_def
 L5 Storage   | B2 (写真 blob, content-addressed) + RisingWave Hummock
 L6 Compute   | RW SQL UDF (h3_neighbors_at_res, category_match_score)
@@ -131,7 +131,7 @@ L7 Orchestr. | Zeebe + pyzeebe (mitama-otakiage-pool 専用 worker)
 L8 Tools     | (Phase 1 不要 — pure SQL + LLM only)
 ```
 
-CF Worker `otakiage.gftd.ai` の責務 = Svelte UI 配信 + XRPC 受付 + bpmn-dispatcher への internal forward のみ
+CF Worker `otakiage.etzhayyim.com` の責務 = Svelte UI 配信 + XRPC 受付 + bpmn-dispatcher への internal forward のみ
 (ADR-2604282300 §Addendum 2026-04-30 の K8s-internal routing 経路)。
 業務ロジックは pyzeebe primitive が担う。
 
@@ -139,10 +139,10 @@ CF Worker `otakiage.gftd.ai` の責務 = Svelte UI 配信 + XRPC 受付 + bpmn-d
 
 | DID | nanoid | 役割 |
 |---|---|---|
-| `did:web:otakiage.gftd.ai` | `0t4k1ag3` | controller (primary)、profile / coverage |
-| `did:web:otakiage.gftd.ai:reuse` | — | reuse broker (近接マッチ + 通知) |
-| `did:web:otakiage.gftd.ai:ritual` | — | 司式 actor (供養記録 + 証跡発行) |
-| `did:web:otakiage.gftd.ai:matsuri` | — | 季節祭 organizer (calendar 駆動) |
+| `did:web:otakiage.etzhayyim.com` | `0t4k1ag3` | controller (primary)、profile / coverage |
+| `did:web:otakiage.etzhayyim.com:reuse` | — | reuse broker (近接マッチ + 通知) |
+| `did:web:otakiage.etzhayyim.com:ritual` | — | 司式 actor (供養記録 + 証跡発行) |
+| `did:web:otakiage.etzhayyim.com:matsuri` | — | 季節祭 organizer (calendar 駆動) |
 
 各 sub-DID で post する社 social (`app.bsky.feed.post`) は path-DID author の T1 (PDS dispatch)。
 
@@ -248,14 +248,14 @@ ritualized 時に `vertex_otakiage_certificate` + AT Record `ai.gftd.otakiage.ce
 ```json
 {
   "$type": "ai.gftd.otakiage.certificate",
-  "ritualUri": "at://did:web:otakiage.gftd.ai:ritual/.../...",
+  "ritualUri": "at://did:web:otakiage.etzhayyim.com:ritual/.../...",
   "itemUris": ["at://...", "at://..."],
-  "donorDids": ["did:web:alice.gftd.ai", "did:web:bob.gftd.ai"],
+  "donorDids": ["did:web:alice.etzhayyim.com", "did:web:bob.etzhayyim.com"],
   "issuedAt": "2026-05-15T10:00:00Z",
   "issuer": {
     "name": "etzhayyim",
     "kind": "religious-corporation",
-    "did": "did:web:otakiage.gftd.ai:ritual"
+    "did": "did:web:otakiage.etzhayyim.com:ritual"
   },
   "displayText": "ぬいぐるみ 3 体 / 絵本 12 冊 を 2026-05-15 春の供養祭にて謹んでお焚き上げいたしました",
   "categories": {"nuigurumi": 3, "ehon": 12},
@@ -274,9 +274,9 @@ handler は **explicit `postFeed()` を書かない** (ADR-0004 / ADR-0036 不�
 
 | Domain write | T1 Social derive | author DID | PII 除去 |
 |---|---|---|---|
-| `vertex_otakiage_handover` INSERT | `app.bsky.feed.post` 「♻️ {category} が新しいお家へ。ありがとうの気持ちが循環しました」 | `did:web:otakiage.gftd.ai:reuse` | donor / recipient DID は post 本文に含めない、handle は記載しない、H3 res-3 (~50km) まで丸める |
-| `vertex_otakiage_ritual` INSERT | `app.bsky.feed.post` 「✨ {category 集計} を {matsuri.name} にてお焚き上げいたしました」 | `did:web:otakiage.gftd.ai:ritual` | donor DIDs は集計のみ、個別 mention なし |
-| `vertex_otakiage_matsuri` INSERT | `app.bsky.feed.post` 「📅 {matsuri.name} を {date} に開催します。受付中です」 | `did:web:otakiage.gftd.ai:matsuri` | — |
+| `vertex_otakiage_handover` INSERT | `app.bsky.feed.post` 「♻️ {category} が新しいお家へ。ありがとうの気持ちが循環しました」 | `did:web:otakiage.etzhayyim.com:reuse` | donor / recipient DID は post 本文に含めない、handle は記載しない、H3 res-3 (~50km) まで丸める |
+| `vertex_otakiage_ritual` INSERT | `app.bsky.feed.post` 「✨ {category 集計} を {matsuri.name} にてお焚き上げいたしました」 | `did:web:otakiage.etzhayyim.com:ritual` | donor DIDs は集計のみ、個別 mention なし |
+| `vertex_otakiage_matsuri` INSERT | `app.bsky.feed.post` 「📅 {matsuri.name} を {date} に開催します。受付中です」 | `did:web:otakiage.etzhayyim.com:matsuri` | — |
 
 ### 9. Helm Pool
 
@@ -293,7 +293,7 @@ handler は **explicit `postFeed()` を書かない** (ADR-0004 / ADR-0036 不�
 | **Phase 2b1** | ERC725 anchor — state tracking + queue + sweep stub (`anchorCertificate` + `certificateAnchorSweep`) | 1 週間 | ✅ 2026-05-08 完了 (ファイル) |
 | **Phase 2b2** | ERC725 anchor — 実 on-chain submission (ethers/viem、Base L2) | 2-3 週間 | 未着手 |
 | **Phase 2c** | 配送 actor 連携 (ヤマト集荷 API)、季節祭の Wan 2.2 動画生成 | 1-2 ヶ月 | 未着手 |
-| **Phase 3** | 神社仏閣 actor 連携 (合同供養祭の実物理イベント連携)、寄付 actor `donate.gftd.ai` との 2-way bridge、Well-Becoming Spirit objective 上のメトリクス組込 (ADR-2604291800 の Spirit healing axis として)、LangGraph BaseCheckpointSaver で会話 中断/再開 | 3-6 ヶ月 | 未着手 |
+| **Phase 3** | 神社仏閣 actor 連携 (合同供養祭の実物理イベント連携)、寄付 actor `donate.etzhayyim.com` との 2-way bridge、Well-Becoming Spirit objective 上のメトリクス組込 (ADR-2604291800 の Spirit healing axis として)、LangGraph BaseCheckpointSaver で会話 中断/再開 | 3-6 ヶ月 | 未着手 |
 
 ### 11. Phase 2a — Conversational LangGraph Agent (2026-05-08)
 
@@ -440,7 +440,7 @@ issueCertificate → (auto-queue, non-fatal)
 
 ## Exceptions
 
-- **donate (寄付) は別 actor**: 寄付領収書 (税控除) は T3 PII heavy で otakiage に混ぜない。`donate.gftd.ai` を別 ADR で立ち上げる
+- **donate (寄付) は別 actor**: 寄付領収書 (税控除) は T3 PII heavy で otakiage に混ぜない。`donate.etzhayyim.com` を別 ADR で立ち上げる
 - **fleamarket との関係**: 「有償譲渡したい」ユーザは fleamarket、「無償譲渡 / 供養したい」は otakiage。submitItem 時に price=0 制約 (有償化したければ fleamarket へリダイレクト)
 - **物品の写真がない場合**: photo_blob_keys[] = [] を許容 (story_text 必須)、ただし reuse マッチ率は下がる
 - **現実のお焚き上げ実施**: Phase 1 は digital ritual のみ (記録 + 証跡)。実物理的な火を使う供養は Phase 3 の神社仏閣 actor 連携時に解禁

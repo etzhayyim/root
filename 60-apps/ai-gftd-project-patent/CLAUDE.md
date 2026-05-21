@@ -2,7 +2,7 @@
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/patent/actor-manifest.jsonld`). No Worker deploy — PDS Shared Executor runs 7 pipelines (get/list/citations/family/coverage/cron + site.page subscribeRepos) against `vertex_patent` + `edge_patent_cites` + `edge_family_member` + `edge_classified_as` (migration 0037).
 
-`patent.gftd.ai` (nanoid: `p4t3nt01`) — 特許情報 coverage actor。JPO (J-PlatPat) / USPTO (PatentsView) / EPO (OPS) / WIPO (PATENTSCOPE) を 2 次ソースとして統合。
+`patent.etzhayyim.com` (nanoid: `p4t3nt01`) — 特許情報 coverage actor。JPO (J-PlatPat) / USPTO (PatentsView) / EPO (OPS) / WIPO (PATENTSCOPE) を 2 次ソースとして統合。
 
 ## Role
 
@@ -14,8 +14,8 @@ patent = **知的財産 (特許・実用新案) perspective**。出願・公開�
 
 | Level | DID | 用途 |
 |---|---|---|
-| Primary | `did:web:patent.gftd.ai` | Coordinator, heartbeat, social evolution |
-| Jurisdiction | `did:web:patent.gftd.ai:jp` / `:us` / `:ep` / `:wo` | 国/地域別 coverage 投稿 |
+| Primary | `did:web:patent.etzhayyim.com` | Coordinator, heartbeat, social evolution |
+| Jurisdiction | `did:web:patent.etzhayyim.com:jp` / `:us` / `:ep` / `:wo` | 国/地域別 coverage 投稿 |
 
 ## Lexicon (`ai.gftd.apps.patent.*`)
 

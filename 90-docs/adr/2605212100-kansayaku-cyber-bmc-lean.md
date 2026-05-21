@@ -67,7 +67,7 @@ superseded_by: []
 収益モデル: 成果報酬型 (年収の 30〜35%)
 顧客     : 非上場スタートアップ (IPO 準備・直前期) + 上場企業 (プライム/スタンダード)
 特化軸   : サイバーセキュリティ知見を持つ社外監査役 × AI マッチング
-チャネル : lawfirm.gftd.ai / kaisya.gftd.ai / recruit.gftd.ai 連携 + 直販
+チャネル : lawfirm.etzhayyim.com / kaisya.etzhayyim.com / recruit.etzhayyim.com 連携 + 直販
 ```
 
 ---
@@ -78,13 +78,13 @@ superseded_by: []
 ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ KEY PARTNERS              │ KEY ACTIVITIES             │ VALUE PROPOSITIONS    │ CUST REL      │ CUSTOMER SEGMENTS        │
 │                           │                            │                       │               │                          │
-│ • recruit.gftd.ai         │ • 候補者発掘・エンリッチ    │ 【上場企業 / IPO準備】 │ • 担当制 RM    │ 【Primary A】              │
+│ • recruit.etzhayyim.com         │ • 候補者発掘・エンリッチ    │ 【上場企業 / IPO準備】 │ • 担当制 RM    │ 【Primary A】              │
 │   (talent cohort registry │   (ISCO-08 × cyber cert    │ • CISO 経験者 × 監査役 │   (企業側)     │ 東証プライム/スタンダード   │
 │   21,373 行, ORCID連携)   │   × board 実績でスコア)   │   適格者を最短 30 日   │ • AI マッチ    │ 上場企業 (IT/金融/製造)    │
-│ • lawfirm.gftd.ai         │ • AI マッチング            │   で提示              │   レポート     │ サイバーインシデント後の    │
+│ • lawfirm.etzhayyim.com         │ • AI マッチング            │   で提示              │   レポート     │ サイバーインシデント後の    │
 │   (法律事務所ネットワーク  │   (LangGraph 候補者スコア  │ • 会社法適合 + 独立性  │   (月次)       │ ガバナンス強化ニーズ        │
 │   → 顧客企業紹介)         │   リング → 上位 3 名提示) │   要件チェック自動化   │               │                          │
-│ • kaisya.gftd.ai          │ • デュー・ディリジェンス    │ • AT Protocol DID で  │ • 候補者向け   │ 【Primary B】              │
+│ • kaisya.etzhayyim.com          │ • デュー・ディリジェンス    │ • AT Protocol DID で  │ • 候補者向け   │ 【Primary B】              │
 │   (企業ガバナンスデータ    │   (候補者独立性・利益相反   │   ポートフォリオ検証   │   プロフィル   │ 非上場スタートアップ        │
 │   + 役員変遷 track)       │   + cyber cert 検証)       │                       │   (self-       │ (Series B〜 / IPO直前期)  │
 │ • 情報処理安全確保支援士   │ • SOW 締結・候補者推薦     │ 【候補者 (人材側)】    │   sovereign    │ 上場審査でガバナンス指摘    │
@@ -96,8 +96,8 @@ superseded_by: []
 ├───────────────────────────┼────────────────────────────┴───────────────────────┴───────────────┴──────────────────────────┤
 │ KEY RESOURCES             │ CHANNELS                                                                                      │
 │                           │                                                                                               │
-│ • recruit.gftd.ai 候補者  │ • lawfirm.gftd.ai 経由: 法律事務所が企業クライアントにガバナンス強化を提案 → gftd 紹介       │
-│   コホート (21,373 行)    │ • kaisya.gftd.ai 経由: 役員変遷分析で監査役空席を検出 → アウトリーチ自動化                  │
+│ • recruit.etzhayyim.com 候補者  │ • lawfirm.etzhayyim.com 経由: 法律事務所が企業クライアントにガバナンス強化を提案 → gftd 紹介       │
+│   コホート (21,373 行)    │ • kaisya.etzhayyim.com 経由: 役員変遷分析で監査役空席を検出 → アウトリーチ自動化                  │
 │ • LangGraph マッチング    │ • 直販: IPO 準備企業に直接アプローチ (Wantedly / LinkedIn / 東証 IPO カレンダー)           │
 │   エンジン (候補者スコア   │ • VC ネットワーク: Series B+ 投資家経由のポートフォリオ企業一括紹介                         │
 │   リング + 独立性チェック) │ • 情報処理安全確保支援士コミュニティ: Slack / 勉強会 (副業監査役マッチング)                  │
@@ -134,7 +134,7 @@ superseded_by: []
 ┌───────────────────────────────────────────────────────────────────────────────────────────┐
 │ PROBLEM                       │ SOLUTION                  │ UNIQUE VALUE PROPOSITION        │
 │                               │                           │                                 │
-│ 1. サイバーセキュリティ知見    │ • recruit.gftd.ai の      │「サイバー監査役を 30 日で」        │
+│ 1. サイバーセキュリティ知見    │ • recruit.etzhayyim.com の      │「サイバー監査役を 30 日で」        │
 │    を持つ社外監査役が           │   コホートデータ +         │                                 │
 │    市場にほぼ存在しない         │   ISCO-08 × cert × board  │ CISO 経験 × 監査役適格 × 独立性  │
 │    (供給不足 × 需要急増)        │   実績でスコアリング       │ を AI で一括検証し提示            │
@@ -154,10 +154,10 @@ superseded_by: []
 │ • ヘッドハンティング大手        │ Month 3:                  ├─────────────────────────────────┤
 │   (JAC / Spencer Stuart)      │   初回 SOW 成約件数        │ UNFAIR ADVANTAGE                │
 │   → サイバー特化なし           │                           │                                 │
-│ • 監査役協会コミュニティ        │ Month 6:                  │ • recruit.gftd.ai 21,373行       │
+│ • 監査役協会コミュニティ        │ Month 6:                  │ • recruit.etzhayyim.com 21,373行       │
 │   → ネットワーク紹介のみ        │   累計成約数 / MRR換算     │   コホートデータ × ORCID 連携     │
 │   (AI マッチングなし)          │                           │   (他社が 6ヶ月で追いつけない)    │
-│ • 会計士事務所 OB 紹介         │ Month 12:                 │ • lawfirm.gftd.ai 経由の          │
+│ • 会計士事務所 OB 紹介         │ Month 12:                 │ • lawfirm.etzhayyim.com 経由の          │
 │   → 会計専門で cyber 弱い      │   リピート企業率 / NPS     │   法律事務所インバウンドチャネル   │
 │                               │   平均フィー単価            │ • AT Protocol DID ポートフォリオ  │
 │                               │                           │   (実績改ざん不可 = 信頼担保)     │
@@ -165,8 +165,8 @@ superseded_by: []
 ├───────────────────────────────┴───────────────────────────┴─────────────────────────────────┤
 │ CHANNELS                      │ COST STRUCTURE            │ REVENUE STREAMS                 │
 │                               │                           │                                 │
-│ • lawfirm.gftd.ai 法律事務所  │ Fixed: 許可取得 ¥150K      │ 成果報酬: 年収 × 30〜35%         │
-│ • kaisya.gftd.ai 空席検出     │ Variable: RM 人件費 主要   │                                 │
+│ • lawfirm.etzhayyim.com 法律事務所  │ Fixed: 許可取得 ¥150K      │ 成果報酬: 年収 × 30〜35%         │
+│ • kaisya.etzhayyim.com 空席検出     │ Variable: RM 人件費 主要   │                                 │
 │ • 情報処理安全確保支援士コミュ │                           │ 上場企業 avg fee: ¥1,500,000     │
 │ • LinkedIn / Wantedly 直販    │ 目標: CAC < ¥100,000       │ スタートアップ avg fee: ¥450,000 │
 │ • VC ポートフォリオ一括紹介   │                           │                                 │
@@ -187,17 +187,17 @@ superseded_by: []
 | タスク | 担当 | 期限 |
 |---|---|---|
 | 有料職業紹介事業許可 申請書類確認 (厚労省 ハローワーク) | Jun | 05-28 |
-| recruit.gftd.ai コホートから cyber cert (CISA / CISSP / 情報処理安全確保支援士) 保有者抽出 | LangGraph | 05-25 |
+| recruit.etzhayyim.com コホートから cyber cert (CISA / CISSP / 情報処理安全確保支援士) 保有者抽出 | LangGraph | 05-25 |
 | 情報処理安全確保支援士 登録者リスト (IPA 公開) → 副業意向アンケート設計 | Jun | 05-28 |
-| lawfirm.gftd.ai にガバナンス強化相談 intake NSID 追加検討 | backlog | Sprint 1 |
+| lawfirm.etzhayyim.com にガバナンス強化相談 intake NSID 追加検討 | backlog | Sprint 1 |
 
 #### Sprint 1 (2026-06-01 〜 07-01): 最初の SOW 成約
 
 **Riskiest Assumption 1**: 企業が成果報酬 ¥1,000,000+ を払う意思がある
 
 **実験**:
-- kaisya.gftd.ai の役員変遷データから監査役ポスト空席候補企業 10 社を特定
-- lawfirm.gftd.ai 経由の企業クライアント 3 社にヒアリング
+- kaisya.etzhayyim.com の役員変遷データから監査役ポスト空席候補企業 10 社を特定
+- lawfirm.etzhayyim.com 経由の企業クライアント 3 社にヒアリング
 - 候補者 3 名をクローズドで提示 → SOW 1 件署名
 
 **判定基準**:
@@ -209,8 +209,8 @@ superseded_by: []
 **Riskiest Assumption 2**: lawfirm チャネルがリードを安定供給する
 
 **実験**:
-- lawfirm.gftd.ai の requestConsult XRPC に「ガバナンス強化」カテゴリを追加
-- IPO 準備企業 (東証 IPO カレンダー + kaisya.gftd.ai) へのアウトリーチ自動化
+- lawfirm.etzhayyim.com の requestConsult XRPC に「ガバナンス強化」カテゴリを追加
+- IPO 準備企業 (東証 IPO カレンダー + kaisya.etzhayyim.com) へのアウトリーチ自動化
 - 候補者プールを 50 名に拡大 (情報処理安全確保支援士コミュニティ + LinkedIn)
 
 **判定基準**:
@@ -232,14 +232,14 @@ superseded_by: []
 
 | 連携先 | 連携内容 | 実装形態 |
 |---|---|---|
-| `recruit.gftd.ai` | 候補者コホートからサイバー cert × board 実績スコアリング | `ai.gftd.apps.recruit.matchStats` + LangGraph |
-| `kaisya.gftd.ai` | 役員変遷データで監査役空席・改選タイミング検出 | `kaisya` actor query (既存) |
-| `lawfirm.gftd.ai` | 法律事務所クライアント企業からのインバウンドリード | `requestConsult` XRPC に category=governance 追加 |
-| `vault.gftd.ai` | 候補者 PII (連絡先・職歴) の E2E 暗号化保管 | `signal:v1:` field-encrypt (ADR-0018 Tier 3) |
-| `recruit.gftd.ai` DID | 候補者ポートフォリオを AT Protocol DID で改ざん不可に | `ai.gftd.apps.recruit.talentCohort` record |
+| `recruit.etzhayyim.com` | 候補者コホートからサイバー cert × board 実績スコアリング | `ai.gftd.apps.recruit.matchStats` + LangGraph |
+| `kaisya.etzhayyim.com` | 役員変遷データで監査役空席・改選タイミング検出 | `kaisya` actor query (既存) |
+| `lawfirm.etzhayyim.com` | 法律事務所クライアント企業からのインバウンドリード | `requestConsult` XRPC に category=governance 追加 |
+| `vault.etzhayyim.com` | 候補者 PII (連絡先・職歴) の E2E 暗号化保管 | `signal:v1:` field-encrypt (ADR-0018 Tier 3) |
+| `recruit.etzhayyim.com` DID | 候補者ポートフォリオを AT Protocol DID で改ざん不可に | `ai.gftd.apps.recruit.talentCohort` record |
 
 **PII 管理 (ADR-0018 Tier 3 遵守)**:
-- 候補者個人情報は `vault.gftd.ai` + `signal:v1:` field-encrypt 必須
+- 候補者個人情報は `vault.etzhayyim.com` + `signal:v1:` field-encrypt 必須
 - 企業側への開示は候補者の consent record URI 確認後のみ
 - 成約後の個人情報は GDPR Art.17 準拠で hard delete
 
@@ -267,9 +267,9 @@ KPI は `projector.update_status` (ADR-2605130000) で毎スプリント末に�
 ### 即時アクション (今週)
 
 1. **有料職業紹介事業許可**: 厚労省様式確認 + 弁護士 (lawfirm 連携) に申請代行相談
-2. **候補者コホート初期抽出**: `recruit.gftd.ai` から情報処理安全確保支援士 × 副業可能者を LangGraph で抽出
-3. **kaisya.gftd.ai 監査役空席検出**: 役員変遷データクエリで IPO 準備企業 + 直近 2 年監査役未変更企業リスト作成
-4. **lawfirm.gftd.ai 連携**: `requestConsult` XRPC に `category: "governance"` フィールド追加を backlog に積む
+2. **候補者コホート初期抽出**: `recruit.etzhayyim.com` から情報処理安全確保支援士 × 副業可能者を LangGraph で抽出
+3. **kaisya.etzhayyim.com 監査役空席検出**: 役員変遷データクエリで IPO 準備企業 + 直近 2 年監査役未変更企業リスト作成
+4. **lawfirm.etzhayyim.com 連携**: `requestConsult` XRPC に `category: "governance"` フィールド追加を backlog に積む
 
 ### トレードオフ
 

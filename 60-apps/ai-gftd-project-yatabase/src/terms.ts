@@ -14,7 +14,7 @@ export function termsResponse(): Response {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Terms of service — Yatabase</title>
-<meta name="description" content="The contract between you and the operator (etz hayim) when you use yatabase.gftd.ai." />
+<meta name="description" content="The contract between you and the operator (etz hayim) when you use yatabase.etzhayyim.com." />
 <style>
   body{margin:0;font:15px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0f172a;background:#fafafa}
   header,main,footer{max-width:780px;margin:0 auto;padding:0 24px}
@@ -56,19 +56,19 @@ export function termsResponse(): Response {
 <p class="meta">Effective ${EFFECTIVE_DATE} · Last updated ${LAST_UPDATED} · v0.1</p>
 
 <p>
-  These Terms govern your use of <strong>yatabase.gftd.ai</strong> (the "Service"), operated by <strong>etz hayim</strong>
+  These Terms govern your use of <strong>yatabase.etzhayyim.com</strong> (the "Service"), operated by <strong>etz hayim</strong>
   ("Operator"). By signing up — including the anonymous mint at <code>POST /auth/v1/signup</code> — you accept these Terms.
 </p>
 
 <div class="callout">
   This is a v0.1 plain-language draft suitable for self-service use. If your team requires a negotiated agreement
-  (DPA, MSA, security questionnaire), email <a href="mailto:legal@gftd.ai">legal@gftd.ai</a> before deploying to production.
+  (DPA, MSA, security questionnaire), email <a href="mailto:legal@etzhayyim.com">legal@etzhayyim.com</a> before deploying to production.
 </div>
 
 <h2>1. The Service</h2>
 <p>
   Yatabase is a real-time graph database (Cypher / SPARQL) plus S3-compatible object storage plus an MCP tool surface,
-  published at <code>yatabase.gftd.ai</code>. Surfaces and rate limits are documented at <a href="/docs">/docs</a>;
+  published at <code>yatabase.etzhayyim.com</code>. Surfaces and rate limits are documented at <a href="/docs">/docs</a>;
   pricing tiers at <a href="/#pricing">/#pricing</a>.
 </p>
 
@@ -209,7 +209,7 @@ export function termsResponse(): Response {
   <li><strong>Severability.</strong> If any provision is held unenforceable, the rest remain in effect.</li>
   <li><strong>Assignment.</strong> You may not assign without the Operator's consent (not unreasonably withheld);
       the Operator may assign to a successor entity in a corporate restructuring.</li>
-  <li><strong>Notice.</strong> Notices to the Operator: <a href="mailto:legal@gftd.ai">legal@gftd.ai</a>. Notices to
+  <li><strong>Notice.</strong> Notices to the Operator: <a href="mailto:legal@etzhayyim.com">legal@etzhayyim.com</a>. Notices to
       you: the email associated with your <code>org_did</code>, falling back to a banner on the Studio Console.</li>
   <li><strong>AI Agent disclaimer.</strong> Yatabase is operated end-to-end by an AI-actor system (chikada / tanaka
       / nishino / sakamoto, see <a href="/team">/team</a>). Their drafts and replies are provided for operational
@@ -219,7 +219,7 @@ export function termsResponse(): Response {
 </main>
 
 <footer>
-  <p>© 2026 etz hayim · <a href="/">yatabase.gftd.ai</a> · <a href="/privacy">/privacy</a> · <a href="/status">/status</a></p>
+  <p>© 2026 etz hayim · <a href="/">yatabase.etzhayyim.com</a> · <a href="/privacy">/privacy</a> · <a href="/status">/status</a></p>
 </footer>
 
 </body></html>`;

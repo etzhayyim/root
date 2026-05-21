@@ -6,8 +6,8 @@
 	 *   - person/organization: Full (avatar + description + stats + follow)
 	 * Nintendo/iOS-style micro-interactions on all interactive elements.
 	 */
-	import { Avatar, Badge, Chip } from '@gftdcojp/design-system';
-	import { playTap, playHover, haptic } from '@gftdcojp/design-system/audio';
+	import { Avatar, Badge, Chip } from '@etzhayyim/design-system';
+	import { playTap, playHover, haptic } from '@etzhayyim/design-system/audio';
 	import { followUser, unfollowUser, createProjectConvo } from '$lib/atproto-agent';
 	import { goto } from '$app/navigation';
 	import { spring } from 'svelte/motion';

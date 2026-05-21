@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferFission-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferFission-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'coverage_infer_fission_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -57,7 +57,7 @@ UP = [{'sql': '\n'
                  '(`ai.gftd.apps.coverage.inferFission`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-infer-fission-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-fission-v1\n'
                  '  NSID:      ai.gftd.apps.coverage.inferFission\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -65,7 +65,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_coverage_infer_fission"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/coverage"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/coverage"\n'
                  '    exporter="hand-written" exporterVersion="2.0">\n'
                  '  <bpmn:process id="coverage_infer_fission_v1" name="coverage infer fission" '
                  'isExecutable="true">\n'
@@ -231,8 +231,8 @@ UP = [{'sql': '\n'
                  'null) then {\n'
                  '            &quot;vertex_id&quot;:      candidates[1].vertex_id,\n'
                  '            &quot;status&quot;:         &quot;fissioned&quot;,\n'
-                 '            &quot;actor_did&quot;:      &quot;did:web:coverage.gftd.ai&quot;,\n'
-                 '            &quot;org_did&quot;:        &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '            &quot;actor_did&quot;:      &quot;did:web:coverage.etzhayyim.com&quot;,\n'
+                 '            &quot;org_did&quot;:        &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '            &quot;created_at&quot;:     now()\n'
                  '          } else null" target="row"/>\n'
                  '        </zeebe:ioMapping>\n'
@@ -248,7 +248,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferFission.promote&quot;" '
                  'target="action"/>\n'
@@ -272,7 +272,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferFission.abort&quot;" '
                  'target="action"/>\n'
@@ -299,10 +299,10 @@ UP = [{'sql': '\n'
                  11282,
                  '00-contracts/bpmn/ai/gftd/coverage/inferFission.bpmn',
                  '2026-04-29T09:08:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferFission-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferFission-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -316,16 +316,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferFission-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferFission-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'ai.gftd.apps.coverage.inferFission',
                  'coverage_infer_fission_v1',
                  120000,
                  '2026-04-29T09:08:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferFission-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferFission-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -339,8 +339,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaIncremental-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaIncremental-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'coverage_infer_lda_incremental_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -376,7 +376,7 @@ UP = [{'sql': '\n'
                  '(`ai.gftd.apps.coverage.inferLdaIncremental`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-incremental-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-incremental-v1\n'
                  '  NSID:      ai.gftd.apps.coverage.inferLdaIncremental\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -384,7 +384,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_coverage_infer_lda_incremental"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/coverage"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/coverage"\n'
                  '    exporter="hand-written" exporterVersion="2.0">\n'
                  '  <bpmn:process id="coverage_infer_lda_incremental_v1" name="coverage infer LDA '
                  'incremental" isExecutable="true">\n'
@@ -551,11 +551,11 @@ UP = [{'sql': '\n'
                  '    &quot;dst_vid&quot;:             a.topic_vid,\n'
                  '    &quot;_seq&quot;:                1,\n'
                  '    &quot;sensitivity_ord&quot;:     0,\n'
-                 '    &quot;owner_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;weight&quot;:              a.weight,\n'
                  '    &quot;source_collection&quot;:   a.collection,\n'
-                 '    &quot;actor_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,\n'
-                 '    &quot;org_did&quot;:             &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
+                 '    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;created_at&quot;:          now()\n'
                  '  }" target="rows"/>\n'
                  '          <zeebe:output source="=inserted" target="thetaWritten"/>\n'
@@ -572,7 +572,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferLdaIncremental.update&quot;" '
                  'target="action"/>\n'
@@ -596,7 +596,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferLdaIncremental.abort&quot;" '
                  'target="action"/>\n'
@@ -623,10 +623,10 @@ UP = [{'sql': '\n'
                  12375,
                  '00-contracts/bpmn/ai/gftd/coverage/inferLdaIncremental.bpmn',
                  '2026-04-29T09:08:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaIncremental-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaIncremental-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -640,25 +640,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaIncremental-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaIncremental-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'ai.gftd.apps.coverage.inferLdaIncremental',
                  'coverage_infer_lda_incremental_v1',
                  300000,
                  '2026-04-29T09:08:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaIncremental-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaIncremental-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferFission-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferFission-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferFission-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferFission-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaIncremental-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaIncremental-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaIncremental-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaIncremental-v1']}]
 
 
 def upgrade() -> None:

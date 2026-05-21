@@ -41,7 +41,7 @@ inside RisingWave.
 
 Persist Hume distillation artifacts using a two-store layout:
 
-1. **IPFS body store**: artifact bytes are pinned to `ipfs.gftd.ai` via the
+1. **IPFS body store**: artifact bytes are pinned to `ipfs.etzhayyim.com` via the
    self-hosted Kubo service. The returned CID is the authoritative artifact body
    address.
 2. **RisingWave index store**: searchable metadata is written to the existing

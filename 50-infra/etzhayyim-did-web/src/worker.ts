@@ -18,7 +18,7 @@ import didDoc from "../did.json";
  *    the same actor (bidirectional pointer in the returned document).
  *
  * 3) Apex landing & all other paths — reverse-proxied to UPSTREAM_HOST
- *    (default `yoro.gftd.ai`). This unblocks `https://etzhayyim.com/`
+ *    (default `yoro.etzhayyim.com`). This unblocks `https://etzhayyim.com/`
  *    while a dedicated etzhayyim landing page is being authored. yoro
  *    is a SvelteKit app served from Cloudflare; assets use relative URLs
  *    so the proxy is transparent.
@@ -33,7 +33,7 @@ import didDoc from "../did.json";
  *   - future: /.well-known/atproto-did, /.well-known/security.txt, etc.
  */
 
-const UPSTREAM_HOST = "yoro.gftd.ai";
+const UPSTREAM_HOST = "yoro.etzhayyim.com";
 
 // Service binding name — populated from wrangler.toml [[services]] block.
 interface Env {
@@ -98,10 +98,10 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
 
 // Headers we strip from the upstream response before sending to the client.
 // `set-cookie` is dropped because the cookie domain would be wrong
-// (yoro.gftd.ai), and we don't want cross-domain cookie shenanigans.
+// (yoro.etzhayyim.com), and we don't want cross-domain cookie shenanigans.
 const STRIPPED_RESPONSE_HEADERS = new Set([
   "set-cookie",
-  "content-security-policy",      // upstream CSP may reference yoro.gftd.ai
+  "content-security-policy",      // upstream CSP may reference yoro.etzhayyim.com
   "content-security-policy-report-only",
   "strict-transport-security",    // we set our own
   "alt-svc",
@@ -138,7 +138,7 @@ function rewriteUpstreamResponse(upstream: Response): Response {
   headers.set("x-proxied-by", "etzhayyim-did-web");
   headers.set("x-proxied-upstream", UPSTREAM_HOST);
 
-  // If upstream returned a redirect with a yoro.gftd.ai Location, rewrite it
+  // If upstream returned a redirect with a yoro.etzhayyim.com Location, rewrite it
   // to keep the user on etzhayyim.com.
   const loc = headers.get("location");
   if (loc) {

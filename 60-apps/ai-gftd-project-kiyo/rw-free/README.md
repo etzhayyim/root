@@ -41,7 +41,7 @@ adds IPFS pin index for availability tracking.
 
 ## Pattern translation (Option B)
 
-| Vendor (`kiyo.gftd.ai`) | etzhayyim (this PR) |
+| Vendor (`kiyo.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
 | `db.insertInto("vertex_kiyo_paper").values({...}).execute()` | `e.write({ collection: "ai.gftd.kiyo.paper", record, rkey })` |

@@ -25,7 +25,7 @@ from typing import Any
 
 _log = logging.getLogger(__name__)
 
-_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _DEFAULT_RW_URL = os.environ.get("RW_URL", "")
 
 
@@ -250,7 +250,7 @@ def tool_place_scene(
     poses = pose_plan or {}
 
     dag: dict[str, Any] = {
-        "@context": "https://kami.gftd.ai/mangaka-scene/v1",
+        "@context": "https://kami.etzhayyim.com/mangaka-scene/v1",
         "environment": (
             {
                 "biome": env.get("biome") or "Plains",

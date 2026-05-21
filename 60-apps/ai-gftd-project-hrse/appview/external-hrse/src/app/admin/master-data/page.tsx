@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#AdminMasterDataConnect
+ * @etzhayyim/ai-gftd-hrse#AdminMasterDataConnect
  * マスターデータ管理ページ（Connect-Web版）
  */
 

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/9/0/economic-affairs-nec",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/9/0/economic-affairs-nec",
       "type": "dodaf:Capability",
       "name": "Miscellaneous Economic Affairs Management Capability",
       "description": "Functional capability for managing unclassified economic affairs, multi-sector coordination, and regulatory oversight. Classification: COFOG Division 04, Group 9, Class 0.",

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:canvas.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:canvas.etzhayyim.com",
   "component": {
     "env": {},
     "path": "component.wasm"
@@ -37,7 +37,7 @@
   "project": "canvas",
   "routes": [
     {
-      "host": "canvas.gftd.ai",
+      "host": "canvas.etzhayyim.com",
       "paths": [
         "/"
       ],

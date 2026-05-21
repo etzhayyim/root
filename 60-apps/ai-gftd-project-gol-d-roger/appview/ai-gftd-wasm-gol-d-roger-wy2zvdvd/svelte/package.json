@@ -10,10 +10,10 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "workspace:*"
+    "@etzhayyim/design-system": "workspace:*"
   },
   "devDependencies": {
-    "@gftdcojp/vite-plugin-safe-builder": "workspace:*",
+    "@etzhayyim/vite-plugin-safe-builder": "workspace:*",
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.9",

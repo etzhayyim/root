@@ -193,7 +193,7 @@ operational surface and unlocks 24×7 ComfyUI + E4B GPU inference.
 | keiei-llm-e2b (in dual pod, port 8080) | `ghcr.io/ggml-org/llama.cpp:server-cuda` | `--model /model/gemma-4-E2B-it-Q4_K_M.gguf --n-gpu-layers 99 --ctx-size 8192 --threads 2 --port 8080 --api-key-file /etc/keiei-llm/auth/bearer` |
 | keiei-llm-e4b (in dual pod, port 8081) | same | `--model /model/gemma-4-E4B-it-Q4_K_M.gguf --n-gpu-layers 99 --ctx-size 8192 --threads 2 --port 8081 --api-key-file /etc/keiei-llm/auth/bearer` |
 | LiteLLM (separate pod, CPU) | `ghcr.io/berriai/litellm:main-stable` | unchanged; model_list points at `keiei-llm-gpu:8080` and `:8081` |
-| ComfyUI (separate pod, GPU node A) | `ghcr.io/gftdcojp/comfyui:cu124` (build mirror of RunPod image) | SDXL 1024×1024, fp16, 1× `nvidia.com/gpu` |
+| ComfyUI (separate pod, GPU node A) | `ghcr.io/etzhayyim/comfyui:cu124` (build mirror of RunPod image) | SDXL 1024×1024, fp16, 1× `nvidia.com/gpu` |
 
 `--threads 2` because GPU does the work and CPU contention with RW
 compute on the same node is the real risk on 8-vCPU hardware.
@@ -234,8 +234,8 @@ volume-format conversion.
 | **0** | Provision 2-node `vcg-a40-8c-40g-16vram` pool, label `pool=keiei-a40`. **Install Vultr managed apps**: NVIDIA GPU Operator + kube-state-metrics + Longhorn + Cert-Manager (UI: Compute → Kubernetes → Applications). Verify `nvidia.com/gpu` resource on each node (`kubectl describe node | grep nvidia.com/gpu` → `1`). Verify Longhorn UI healthy with both nodes registered. | yes | 0 |
 | **1** | Add new pool to RW Helm `nodeSelector` tolerance; cordon old vhf nodes; let RW reschedule onto new pool (compute pods migrate one at a time, anti-affinity-preserving) | yes (drop tolerance, re-cordon) | ~5 min RW degraded per compute pod move |
 | **2** | Helm upgrade keiei-llm-pool with `gpu.enabled=true`; deploy dual pod on Node B + LiteLLM on either node | yes (helm rollback) | 0 (additive — old CPU pods still serve until cutover) |
-| **3** | Build/push `ghcr.io/gftdcojp/comfyui:cu124`, deploy ComfyUI Helm chart on Node A, copy SDXL checkpoints from RunPod NV → local NVMe via rsync | yes (RunPod still alive) | 0 (additive) |
-| **4** | Cut `comfyui.gftd.ai` Worker `UPSTREAM_URL` env from RunPod → Vultr; flip keiei daemon plist `GFTD_LLM_URL` to keiei-llm.gftd.ai (or keep port-forward until CF Worker exclusion) | yes (Worker var flip back) | <1 min |
+| **3** | Build/push `ghcr.io/etzhayyim/comfyui:cu124`, deploy ComfyUI Helm chart on Node A, copy SDXL checkpoints from RunPod NV → local NVMe via rsync | yes (RunPod still alive) | 0 (additive) |
+| **4** | Cut `comfyui.etzhayyim.com` Worker `UPSTREAM_URL` env from RunPod → Vultr; flip keiei daemon plist `GFTD_LLM_URL` to keiei-llm.etzhayyim.com (or keep port-forward until CF Worker exclusion) | yes (Worker var flip back) | <1 min |
 | **5** | Drain + delete `vhf-16c-58gb` pool, terminate RunPod `comfyui-gftd-unified`, archive RunPod ansible role | partially (cluster recreate from B2 + RunPod re-spin needed for full revert) | 0 if Phase 4 healthy |
 
 Detailed step-by-step in
@@ -265,7 +265,7 @@ case: re-create the 2 × `vhf-16c-58gb` pool, restore RW from the most
 recent `rw-meta-backup` CronJob snapshot
 (`b2://ai-gftd-nats/.../risingwave/state/backup/{id}.snapshot`),
 re-spin the RunPod `comfyui-gftd-unified` pod from the existing
-template, point `comfyui.gftd.ai` Worker `UPSTREAM_URL` back to
+template, point `comfyui.etzhayyim.com` Worker `UPSTREAM_URL` back to
 RunPod. Recovery window: ~45 min if hourly meta snapshot is current,
 longer if Hummock SST replay is needed.
 

@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/7/3/tourism/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/7/3/tourism/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Tourism Development and Monitoring Lifecycle",
       "description": "The administrative process of analyzing tourism trends, coordinating promotion, and monitoring tourist safety.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/7/3/tourism"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/7/3/tourism"
     }
   ]
 }

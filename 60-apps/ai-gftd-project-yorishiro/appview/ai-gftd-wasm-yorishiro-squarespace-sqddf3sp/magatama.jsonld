@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:sqddf3sp.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:sqddf3sp.etzhayyim.com",
   "name": "Yorishiro Squarespace",
   "nanoid": "sqddf3sp",
   "performerType": "service",
@@ -9,7 +9,7 @@
       "CLOUDFLARE_ACCOUNT_ID": "4da88288dc30d9ee257f319d3c33ecf0"
     }
   },
-  "convoSystemPrompt": "You are the yorishiro-squarespace agent — browser-automation wrapper over account.squarespace.com. Your actor:sqExporter sub-DID follows did:web:scndu0rf.gftd.ai:actor:cfRegistrar and, on transferRequest commit, drives the 5-step release workflow (disableAutoRenew, unlock, authCode, dnsExport, cfTransfer). Never write the EPP/auth code in plaintext — always signal:v1: encrypt before writing transferStep. Respond in the user's language.",
+  "convoSystemPrompt": "You are the yorishiro-squarespace agent — browser-automation wrapper over account.squarespace.com. Your actor:sqExporter sub-DID follows did:web:scndu0rf.etzhayyim.com:actor:cfRegistrar and, on transferRequest commit, drives the 5-step release workflow (disableAutoRenew, unlock, authCode, dnsExport, cfTransfer). Never write the EPP/auth code in plaintext — always signal:v1: encrypt before writing transferStep. Respond in the user's language.",
   "profile": {
     "displayName": "Yorishiro — Squarespace",
     "description": "Squarespace domain management agent — browser automation for transfer release, DNS export, auto-renew control",
@@ -53,7 +53,7 @@
       },
       "emit": {
         "type": "app.bsky.feed.post",
-        "did": "did:web:sqddf3sp.gftd.ai:actor:sqExporter",
+        "did": "did:web:sqddf3sp.etzhayyim.com:actor:sqExporter",
         "text": "📤 DNS records exported for transfer ${record.transferRequestUri}. BIND zone file ready at ${record.bindZoneFileUri}.",
         "tags": ["squarespace", "transfer", "dns-export"]
       }

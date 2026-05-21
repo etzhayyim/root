@@ -1,11 +1,11 @@
 {
-  "schema": "https://gftd.ai/schemas/holochain-agent-runtime-plan/v1.json",
+  "schema": "https://etzhayyim.com/schemas/holochain-agent-runtime-plan/v1.json",
   "runtimeKind": "holochain",
   "status": "experimental",
   "layer": "L3 virtual actor runtime experiment; L5 remains RisingWave",
-  "agentDid": "did:web:kami-agent.gftd.ai",
+  "agentDid": "did:web:kami-agent.etzhayyim.com",
   "conductor": {
-    "image": "ghcr.io/gftdcojp/holochain-agent-runtime:experimental",
+    "image": "ghcr.io/etzhayyim/holochain-agent-runtime:experimental",
     "cluster": "local-dev",
     "namespace": "agent-runtime-holochain",
     "workload": "holochain-agent-runtime"
@@ -62,7 +62,7 @@
   "registration": {
     "artifactId": "0x29e818737bc99b0d8a2d58de1411058e8b9eaf8b95ae87b9ec4ae8a09f26f812",
     "artifactUri": "ipfs://bafy-happ",
-    "containerRef": "ghcr.io/gftdcojp/holochain-agent-runtime:experimental",
+    "containerRef": "ghcr.io/etzhayyim/holochain-agent-runtime:experimental",
     "runtimeKind": "holochain"
   },
   "operationalGates": [

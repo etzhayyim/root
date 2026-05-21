@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:kakaku.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:kakaku.etzhayyim.com",
   "actors": [
     {
       "description": "ISCO 2434 — canonical product creation, normalization, and category assignment",

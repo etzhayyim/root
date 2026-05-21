@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:chn-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:chn-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of China AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -143,7 +143,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "chn-state.gftd.ai",
+      "host": "chn-state.etzhayyim.com",
       "paths": [
         "/"
       ],

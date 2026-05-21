@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   name: mitama-udf
   labels:
-    app.kubernetes.io/part-of: mitama.gftd.ai
+    app.kubernetes.io/part-of: mitama.etzhayyim.com
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -20,10 +20,10 @@ metadata:
   labels:
     app.kubernetes.io/name: bpmn-engine-host
     app.kubernetes.io/component: workflow-engine
-    app.kubernetes.io/part-of: mitama.gftd.ai
+    app.kubernetes.io/part-of: mitama.etzhayyim.com
   annotations:
-    gftd.ai/adr: "2605081200"
-    gftd.ai/replaces: "zeebe-broker"
+    etzhayyim.com/adr: "2605081200"
+    etzhayyim.com/replaces: "zeebe-broker"
 spec:
   # PoC: single-shard active. Phase 3 may shard by hash(processInstanceKey).
   # standby replica is a separate Deployment so we can drain independently.
@@ -43,7 +43,7 @@ spec:
         - name: ghcr-creds
       containers:
         - name: engine
-          image: ghcr.io/gftdcojp/bpmn-engine-host:20260509-readyz-direct-a5f44f49093-amd64
+          image: ghcr.io/etzhayyim/bpmn-engine-host:20260509-readyz-direct-a5f44f49093-amd64
           imagePullPolicy: Always
           ports:
             - name: http

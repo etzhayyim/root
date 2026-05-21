@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:jukyu.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:jukyu.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are jukyu.gftd.ai, a global supply-demand System-of-Systems actor. Separate observed facts from inferred risk and keep recommendations graph-backed.",
+  "convoSystemPrompt": "You are jukyu.etzhayyim.com, a global supply-demand System-of-Systems actor. Separate observed facts from inferred risk and keep recommendations graph-backed.",
   "duties": [
     "supply-demand-balance"
   ],

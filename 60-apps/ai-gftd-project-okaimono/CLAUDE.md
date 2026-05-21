@@ -1,14 +1,14 @@
-# okaimono.gftd.ai — D2C OEM-Only AI-operated EC Platform
+# okaimono.etzhayyim.com — D2C OEM-Only AI-operated EC Platform
 
 ## Architecture
 
-D2C (Direct-to-Consumer) OEM 専用 EC。自社ブランド OEM 商品のみを tsukuru.gftd.ai 経由で製造・販売。外部マーケットプレイス仕入・転売 (せどり/アービトラージ) 禁止。全運営（カタログ管理・注文・在庫・出荷・価格最適化・レビュー・レコメンド・CS・分析・製造管理）を AI Agent が自律実行。
+D2C (Direct-to-Consumer) OEM 専用 EC。自社ブランド OEM 商品のみを tsukuru.etzhayyim.com 経由で製造・販売。外部マーケットプレイス仕入・転売 (せどり/アービトラージ) 禁止。全運営（カタログ管理・注文・在庫・出荷・価格最適化・レビュー・レコメンド・CS・分析・製造管理）を AI Agent が自律実行。
 
 ## D2C OEM-Only Policy (CRITICAL)
 
-- **販売チャネル**: okaimono.gftd.ai のみ (自社ストアフロント D2C)
+- **販売チャネル**: okaimono.etzhayyim.com のみ (自社ストアフロント D2C)
 - **商品**: OEM/BTO/MTO/CTO 製造品のみ。外部仕入・転売禁止
-- **製造**: tsukuru.gftd.ai 経由 OEM 工場。全商品に `manufacturer_did` + `factory_did` 必須
+- **製造**: tsukuru.etzhayyim.com 経由 OEM 工場。全商品に `manufacturer_did` + `factory_did` 必須
 - **禁止**: Amazon/Rakuten/Mercari 等の外部マーケットプレイス出品・仕入・価格監視・クロスボーダーアービトラージ
 
 ## Components
@@ -73,7 +73,7 @@ UNSPSC 51 segment APP を Follow → `ai.gftd.apps.unispsc.commodity` commit を
 Catalog record fields for UNSPSC-backed items:
 
 - `unispsc_code`, `unispsc_segment`, `unispsc_family`, `unispsc_class`
-- `commodity_did = did:web:unispsc.gftd.ai:seg{NN}:commodity:c{8-digit}`
+- `commodity_did = did:web:unispsc.etzhayyim.com:seg{NN}:commodity:c{8-digit}`
 - `product_id = unispsc-{8-digit}` and `sku = UNSPSC-{8-digit}` for imported commodity catalog rows
 - `ai.gftd.apps.openUnispsc.syncCatalogItem` transforms upstream commodity records into `ai.gftd.apps.okaimono.catalogItem`
 
@@ -86,7 +86,7 @@ python3 60-apps/ai-gftd-project-okaimono/scripts/verify_unispsc_contracts.py --p
 The verifier checks proto fields/RPCs, component manifest capabilities/subscriptions,
 and docs for the UNSPSC import/search/purchase contract surface.
 
-## OEM Manufacturing Integration (tsukuru.gftd.ai) — CORE
+## OEM Manufacturing Integration (tsukuru.etzhayyim.com) — CORE
 
 **全商品が OEM 製造品。** catalog item に `fulfillment_mode` を設定。
 
@@ -105,19 +105,19 @@ and docs for the UNSPSC import/search/purchase contract surface.
 
 **tsukuru contract**: production-order, production-progress, quality-inspection
 
-**Convo**: `yoro.gftd.ai/convo` で tsukuru agent と DM しながら OEM 注文 → 製造管理 → 出荷追跡が可能 (Murakumo LLM + MCP tool calling)
+**Convo**: `yoro.etzhayyim.com/convo` で tsukuru agent と DM しながら OEM 注文 → 製造管理 → 出荷追跡が可能 (Murakumo LLM + MCP tool calling)
 
 ## OEM Manufacturing Site Governance (CRITICAL)
 
-**各国で適切な OEM 製造拠点を tsukuru.gftd.ai の manufacturer-registry + factory-registry で管理。** Governance は verification tier + trade compliance + quality inspection の 3 軸で enforcement。
+**各国で適切な OEM 製造拠点を tsukuru.etzhayyim.com の manufacturer-registry + factory-registry で管理。** Governance は verification tier + trade compliance + quality inspection の 3 軸で enforcement。
 
 ### 製造拠点選定フロー
 
 1. **商品企画**: UNSPSC/CPC 分類 → tsukuru process-registry で適切な製造プロセス特定
-2. **SP 登録 (hc.gftd.ai)**: 新規製造者は `Invoke(hc0mp7ng, "create_sp_application", {...})` で HC 登録パイプラインに投入
+2. **SP 登録 (hc.etzhayyim.com)**: 新規製造者は `Invoke(hc0mp7ng, "create_sp_application", {...})` で HC 登録パイプラインに投入
    → KYC/KYB 検証タスク → 工場監査タスク → tsukuru 正式登録
 3. **拠点探索**: `Invoke(tsukr8u0, "search-manufacturers", {category, country, certifications})` → HC 検証済み候補一覧
-4. **Governance 検証**: verification tier (BASIC→VERIFIED→GOLD→DIAMOND) + 認証 (ISO-9001 等) + sanctions screening (yabai.gftd.ai)
+4. **Governance 検証**: verification tier (BASIC→VERIFIED→GOLD→DIAMOND) + 認証 (ISO-9001 等) + sanctions screening (yabai.etzhayyim.com)
 5. **Trade Compliance**: HS 分類 + 関税率 + 輸出規制 + 原産地規則 (tsukuru trade-compliance API)
 6. **QC タスク生成**: 出荷前品質検査は `Invoke(hc0mp7ng, "create_inspection_task", {...})` で HC worker にアサイン
 7. **Contract 締結**: OEM 製造契約 → manufacturer_did + factory_did を catalog item に紐付け
@@ -151,14 +151,14 @@ and docs for the UNSPSC import/search/purchase contract surface.
 
 | 連携先 | 用途 |
 |---|---|
-| `hc.gftd.ai` | **SP 登録パイプライン** — KYC/KYB 検証 → 工場監査 → QC 検査 (HC タスク) |
-| `tsukuru.gftd.ai` | OEM manufacturer/factory registry, production order, QC, trade compliance |
-| `yabai.gftd.ai` | 制裁スクリーニング (OFAC/EU/UN) — manufacturer 登録時 + 注文時 |
-| `trust.gftd.ai` | manufacturer DID trust score — 拠点選定の信頼性指標 |
-| `completer.gftd.ai` | 規制コンプライアンス評価 — 各国製造規制の遵守チェック |
-| `treaty.gftd.ai` | FTA/EPA 解決 — 関税優遇の自動適用 |
-| `supply_chain.gftd.ai` | サプライチェーンリスク評価 — upstream vendor assessment |
-| `maps.gftd.ai` | 工場 geolocation — `:LOCATED_IN` relation で地理的リスク分析 |
+| `hc.etzhayyim.com` | **SP 登録パイプライン** — KYC/KYB 検証 → 工場監査 → QC 検査 (HC タスク) |
+| `tsukuru.etzhayyim.com` | OEM manufacturer/factory registry, production order, QC, trade compliance |
+| `yabai.etzhayyim.com` | 制裁スクリーニング (OFAC/EU/UN) — manufacturer 登録時 + 注文時 |
+| `trust.etzhayyim.com` | manufacturer DID trust score — 拠点選定の信頼性指標 |
+| `completer.etzhayyim.com` | 規制コンプライアンス評価 — 各国製造規制の遵守チェック |
+| `treaty.etzhayyim.com` | FTA/EPA 解決 — 関税優遇の自動適用 |
+| `supply_chain.etzhayyim.com` | サプライチェーンリスク評価 — upstream vendor assessment |
+| `maps.etzhayyim.com` | 工場 geolocation — `:LOCATED_IN` relation で地理的リスク分析 |
 
 ## Checkout SAGA (chk8uty2)
 

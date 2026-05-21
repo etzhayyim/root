@@ -10,7 +10,7 @@ authoritative_for:
   - RisingWave capability storage target design
   - DID-bound authority evaluation over RW writes and reads
   - Tahoe-like read/write/verify capability mapping for gftd storage
-  - auth.gftd.ai / DID / ERC725 alignment for capability checks
+  - auth.etzhayyim.com / DID / ERC725 alignment for capability checks
 priority: 9.1
 axis: security
 weight: 0.91
@@ -52,10 +52,10 @@ RW into a bearer-secret database:
 
 ## Compatibility Position
 
-This design is compatible with the current `auth.gftd.ai`, DID, and ERC725
+This design is compatible with the current `auth.etzhayyim.com`, DID, and ERC725
 architecture only under these constraints:
 
-- `auth.gftd.ai` remains the session issuer and proof-of-possession boundary.
+- `auth.etzhayyim.com` remains the session issuer and proof-of-possession boundary.
   Capability checks consume auth context from OAuth/DPoP-bound sessions; they do
   not mint independent login sessions.
 - The canonical authority key is the ERC725 root DID:
@@ -139,7 +139,7 @@ boundary is:
 ```
 external principal
   -> MCP facade
-  -> auth.gftd.ai OAuth/DPoP validation
+  -> auth.etzhayyim.com OAuth/DPoP validation
   -> facade DID to ERC725 root DID resolution
   -> capability verifier / authority evaluator
   -> internal XRPC or Worker handler
@@ -153,7 +153,7 @@ the capability verifier for the operation being attempted.
 This means:
 
 - MCP tool call includes DID-bound authentication plus capability proof.
-- The presented token is validated as an `auth.gftd.ai` issued OAuth access
+- The presented token is validated as an `auth.etzhayyim.com` issued OAuth access
   token, including DPoP `cnf.jkt` proof-of-possession where applicable.
 - The caller's facade DID is normalized through `GftdRootIdentityRegistry` or
   the RW projection of it before matching any grant.
@@ -257,7 +257,7 @@ Derived materialized views:
    cap.
 4. Client wraps read/admin material to recipient DID(s) using Signal/X25519.
 5. Client calls MCP `cap.object.create` or domain-specific wrapper with an
-   `auth.gftd.ai` OAuth/DPoP session.
+   `auth.etzhayyim.com` OAuth/DPoP session.
 6. Gateway resolves caller and recipients to ERC725 root DID(s).
 7. Gateway verifies caller identity and write/admin authority.
 8. Gateway inserts object/grant/audit rows into RW.
@@ -267,7 +267,7 @@ field is explicitly public.
 
 ## F. Read Path
 
-1. Caller invokes MCP tool with `auth.gftd.ai` DID auth and read cap proof.
+1. Caller invokes MCP tool with `auth.etzhayyim.com` DID auth and read cap proof.
 2. Gateway validates OAuth/DPoP and resolves facade DID to ERC725 root DID.
 3. Gateway computes `cap_hash` and looks up effective grant in RW.
 4. Gateway evaluates caveats: subject, object, method, TTL, max use, device,

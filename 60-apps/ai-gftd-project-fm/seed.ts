@@ -10,8 +10,8 @@ declare const process: {
   exitCode?: number;
 };
 
-const PDS = 'https://atproto.gftd.ai';
-const ROOT_DID = 'did:web:fund.gftd.ai';
+const PDS = 'https://atproto.etzhayyim.com';
+const ROOT_DID = 'did:web:fund.etzhayyim.com';
 const PROJECT_ID = 'fm';
 
 const GFTD_TOKEN = process.env.GFTD_TOKEN;

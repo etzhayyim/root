@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -69,7 +69,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/project",
+  "@id": "https://scap.etzhayyim.com/project",
   "@type": [
     "dodaf:Project",
     "prov:Entity"
@@ -81,84 +81,84 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "capabilities": [
     {
-      "@id": "https://scap.gftd.ai/capabilities/security-content-automation"
+      "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation"
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/vulnerability-assessment"
+      "@id": "https://scap.etzhayyim.com/capabilities/vulnerability-assessment"
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/compliance-scanning"
+      "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning"
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/data-integration"
+      "@id": "https://scap.etzhayyim.com/capabilities/data-integration"
     }
   ],
   "activities": [
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-collection"
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-collection"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-scan-execution"
+      "@id": "https://scap.etzhayyim.com/activities/scap-scan-execution"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-search"
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-search"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/worker-orchestration"
+      "@id": "https://scap.etzhayyim.com/activities/worker-orchestration"
     }
   ],
   "performers": [
     {
-      "@id": "https://scap.gftd.ai/performers/systems/scap-platform"
+      "@id": "https://scap.etzhayyim.com/performers/systems/scap-platform"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/systems/worker"
+      "@id": "https://scap.etzhayyim.com/performers/systems/worker"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/services/scap-data-service"
+      "@id": "https://scap.etzhayyim.com/performers/services/scap-data-service"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/services/scap-scan-service"
+      "@id": "https://scap.etzhayyim.com/performers/services/scap-scan-service"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/services/workflow-engine"
+      "@id": "https://scap.etzhayyim.com/performers/services/workflow-engine"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/services/graphql"
+      "@id": "https://scap.etzhayyim.com/performers/services/graphql"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/services/graphql-gateway"
+      "@id": "https://scap.etzhayyim.com/performers/services/graphql-gateway"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/services/scap-data-collection-service"
+      "@id": "https://scap.etzhayyim.com/performers/services/scap-data-collection-service"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/services/scap-scan-execution-service"
+      "@id": "https://scap.etzhayyim.com/performers/services/scap-scan-execution-service"
     }
   ],
   "resources": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapDataSources"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapDataSources"
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/README.md",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/package.json"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/README.md",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/package.json"
   ],
   "rdfUnifiedDocuments": {
     "@type": "Dataset",
@@ -170,7 +170,7 @@
         "content": {
           "@context": {
             "@version": 1.1,
-            "@vocab": "https://scap.gftd.ai/ontology#",
+            "@vocab": "https://scap.etzhayyim.com/ontology#",
             "id": "@id",
             "type": "@type",
             "dodaf": "https://dod.af/dodaf/dm2#",
@@ -208,7 +208,7 @@
               "@container": "@set"
             }
           },
-          "@id": "https://scap.gftd.ai/goal",
+          "@id": "https://scap.etzhayyim.com/goal",
           "@type": [
             "dodaf:Goal",
             "prov:Entity"
@@ -220,59 +220,59 @@
           "vision": "Enable automated security compliance scanning through continuous collection and processing of SCAP data from multiple authoritative sources",
           "goal": [
             {
-              "@id": "https://scap.gftd.ai/goal/collect-scap-data",
+              "@id": "https://scap.etzhayyim.com/goal/collect-scap-data",
               "name": "Collect SCAP Data from External Sources",
               "description": "Automatically collect SCAP data from NIST NVD, MITRE OVAL, OpenSCAP, and DISA STIG sources"
             },
             {
-              "@id": "https://scap.gftd.ai/goal/process-scap-data",
+              "@id": "https://scap.etzhayyim.com/goal/process-scap-data",
               "name": "Process and Store SCAP Data",
               "description": "Process collected SCAP data using Workflow DevKit and store in PostgreSQL database via Rust GraphQL service (Diesel ORM)"
             },
             {
-              "@id": "https://scap.gftd.ai/goal/execute-scap-scans",
+              "@id": "https://scap.etzhayyim.com/goal/execute-scap-scans",
               "name": "Execute SCAP Compliance Scans",
               "description": "Execute SCAP compliance scans against integrated targets (AWS, GCP, Azure, GitHub, GitLab)"
             },
             {
-              "@id": "https://scap.gftd.ai/goal/search-scap-data",
+              "@id": "https://scap.etzhayyim.com/goal/search-scap-data",
               "name": "Search and Query SCAP Data",
               "description": "Provide search and query capabilities for SCAP data with filtering by type, source, severity, and other criteria"
             }
           ],
           "desiredEffect": [
             {
-              "@id": "https://scap.gftd.ai/effect/automated-compliance",
+              "@id": "https://scap.etzhayyim.com/effect/automated-compliance",
               "name": "Automated Compliance Assessment",
               "description": "Reduce manual effort in security compliance assessment through automated data collection and scanning"
             },
             {
-              "@id": "https://scap.gftd.ai/effect/unified-scap-platform",
+              "@id": "https://scap.etzhayyim.com/effect/unified-scap-platform",
               "name": "Unified SCAP Platform",
               "description": "Provide a single platform for accessing and managing SCAP data from multiple sources"
             },
             {
-              "@id": "https://scap.gftd.ai/effect/real-time-monitoring",
+              "@id": "https://scap.etzhayyim.com/effect/real-time-monitoring",
               "name": "Real-time Security Monitoring",
               "description": "Enable real-time monitoring of security vulnerabilities and compliance status through Supabase Realtime"
             }
           ],
           "realizedBy": [
             {
-              "@id": "https://scap.gftd.ai/capabilities/security-content-automation"
+              "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation"
             },
             {
-              "@id": "https://scap.gftd.ai/capabilities/vulnerability-assessment"
+              "@id": "https://scap.etzhayyim.com/capabilities/vulnerability-assessment"
             },
             {
-              "@id": "https://scap.gftd.ai/capabilities/compliance-scanning"
+              "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning"
             },
             {
-              "@id": "https://scap.gftd.ai/capabilities/data-integration"
+              "@id": "https://scap.etzhayyim.com/capabilities/data-integration"
             }
           ],
           "wasDerivedFrom": [
-            "https://github.com/gftdcojp/ai-gftd-scap/blob/main/README.md"
+            "https://github.com/etzhayyim/ai-gftd-scap/blob/main/README.md"
           ]
         }
       },
@@ -282,7 +282,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

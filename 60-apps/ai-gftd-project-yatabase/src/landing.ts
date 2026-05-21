@@ -1,4 +1,4 @@
-// landing.ts — public marketing surface for yatabase.gftd.ai/.
+// landing.ts — public marketing surface for yatabase.etzhayyim.com/.
 //
 // Deliberately self-contained: no JS, no external CSS, no analytics tags.
 // Single Hono response; no auth; no state. The whole page is hot-cacheable
@@ -21,13 +21,13 @@ export function landingResponse(): Response {
 <meta name="description" content="Real-time graph database with integrated S3-style object storage. Cypher, SPARQL, MCP. One bill. BWA-free egress." />
 <meta property="og:title" content="Yatabase — real-time graph DB + storage" />
 <meta property="og:description" content="Cypher / SPARQL / MCP / S3-compat — one bill. Free tier $0/mo." />
-<meta property="og:url" content="https://yatabase.gftd.ai/" />
+<meta property="og:url" content="https://yatabase.etzhayyim.com/" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Yatabase",
-  "url": "https://yatabase.gftd.ai/",
+  "url": "https://yatabase.etzhayyim.com/",
   "description": "Real-time graph database with integrated S3-style object storage. Cypher, SPARQL, MCP. One bill. AT Protocol native.",
   "applicationCategory": "DeveloperApplication",
   "applicationSubCategory": "Database as a Service",
@@ -43,12 +43,12 @@ export function landingResponse(): Response {
     "@type": "Organization",
     "name": "etz hayim",
     "alternateName": ["运営法人", "Operator"],
-    "url": "https://yatabase.gftd.ai/team",
+    "url": "https://yatabase.etzhayyim.com/team",
     "vatID": "T9007028460042",
     "contactPoint": [
-      { "@type": "ContactPoint", "contactType": "Privacy",  "email": "privacy@gftd.ai" },
-      { "@type": "ContactPoint", "contactType": "Legal",    "email": "legal@gftd.ai" },
-      { "@type": "ContactPoint", "contactType": "Sales",    "email": "sales@gftd.ai" }
+      { "@type": "ContactPoint", "contactType": "Privacy",  "email": "privacy@etzhayyim.com" },
+      { "@type": "ContactPoint", "contactType": "Legal",    "email": "legal@etzhayyim.com" },
+      { "@type": "ContactPoint", "contactType": "Sales",    "email": "sales@etzhayyim.com" }
     ]
   },
   "featureList": [
@@ -75,7 +75,7 @@ export function landingResponse(): Response {
       "name": "How do I get started with Yatabase?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Run a single curl: curl -X POST https://yatabase.gftd.ai/auth/v1/signup. The response contains your sk_live_yata_* API key (shown once), an orgDid, and AWS access keys for the S3-compatible surface. Use the same key on /cypher, /storage, /mcp, and /xrpc."
+        "text": "Run a single curl: curl -X POST https://yatabase.etzhayyim.com/auth/v1/signup. The response contains your sk_live_yata_* API key (shown once), an orgDid, and AWS access keys for the S3-compatible surface. Use the same key on /cypher, /storage, /mcp, and /xrpc."
       }
     },
     {
@@ -91,7 +91,7 @@ export function landingResponse(): Response {
       "name": "Can my AI agent (Cursor / Claude / LangChain) use Yatabase as a tool?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. /mcp speaks JSON-RPC 2.0 with public initialize/ping/tools-list and authenticated tools/call. Add https://yatabase.gftd.ai/mcp to your MCP client config (Cursor, Claude Desktop, Continue.dev) with a Bearer header. See /integrations for paste-ready snippets."
+        "text": "Yes. /mcp speaks JSON-RPC 2.0 with public initialize/ping/tools-list and authenticated tools/call. Add https://yatabase.etzhayyim.com/mcp to your MCP client config (Cursor, Claude Desktop, Continue.dev) with a Bearer header. See /integrations for paste-ready snippets."
       }
     },
     {
@@ -123,7 +123,7 @@ export function landingResponse(): Response {
       "name": "Who runs Yatabase?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Operator is etz hayim. Vendor of record (Japan tax invoicing) is Gftd Japan株式会社, qualified-invoice number T9007028460042. The four resident AI actors (chikada, tanaka, nishino, sakamoto) are documented at /team with public DIDs and run counts. Security contact: security@gftd.ai (RFC 9116 at /.well-known/security.txt)."
+        "text": "Operator is etz hayim. Vendor of record (Japan tax invoicing) is Gftd Japan株式会社, qualified-invoice number T9007028460042. The four resident AI actors (chikada, tanaka, nishino, sakamoto) are documented at /team with public DIDs and run counts. Security contact: security@etzhayyim.com (RFC 9116 at /.well-known/security.txt)."
       }
     }
   ]
@@ -206,16 +206,16 @@ export function landingResponse(): Response {
   </div>
 
   <pre class="curl" id="try-it"><span class="c"># 1. Sign up (anonymous, mints an API key)</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/signup</span>
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/signup</span>
 
 <span class="c"># 2. Ship your first Cypher query</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/cypher</span> \\
   -H <span class="s">'authorization: Bearer sk_live_yata_…'</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">query</span>":"CREATE (n:Demo {name:\\"hello\\"}) RETURN n"}'
 
 <span class="c"># 3. Or talk to it like an MCP tool</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/mcp</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/mcp</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">jsonrpc</span>":"2.0","<span class="k">method</span>":"tools/list","<span class="k">id</span>":1}'</pre>
 </section>
@@ -261,7 +261,7 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/mcp</span> \\
     <div class="plan">
       <h3>Enterprise</h3>
       <div class="price">$6,700+<span class="jpy">starting / month</span></div>
-      <ul><li>Unlimited usage</li><li>SLA, SSO, multi-region</li><li>Sales-negotiated</li><li><a href="mailto:sales@gftd.ai">Contact sales</a></li></ul>
+      <ul><li>Unlimited usage</li><li>SLA, SSO, multi-region</li><li>Sales-negotiated</li><li><a href="mailto:sales@etzhayyim.com">Contact sales</a></li></ul>
     </div>
   </div>
   <p style="font-size:13px;color:#64748b;margin-top:14px">Upgrade in-product via Studio → Plan, or POST /auth/v1/upgrade. Stripe Live (US) — Japan-compliant 適格請求書 included for JP customers (T9007028460042).</p>

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/01/5/1/transfers-general-character",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/5/1/transfers-general-character",
       "type": "dodaf:Capability",
       "name": "Inter-Governmental General Transfers Management",
       "description": "Functional capability for administering general character transfers between different levels of government, including equalization grants and unconditional fiscal support. Classification: COFOG Division 01, Group 5, Class 1.",

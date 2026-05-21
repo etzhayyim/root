@@ -119,7 +119,7 @@ async function probePdsService(env: AgentEnv): Promise<ProbeResult> {
   }
   try {
     const r = await pdsService.fetch(
-      new Request("https://atproto.gftd.ai/xrpc/com.atproto.server.describeServer"),
+      new Request("https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer"),
     );
     return {
       surface: "backend", method: "RPC", path: "pds.describeServer",
@@ -172,7 +172,7 @@ export async function runTanaka(
           VALUES (
             ${`qarun:${runId}:${pr.surface}:${pr.path}`},
             ${runId}, ${Date.now()},
-            ${"did:web:yatabase.gftd.ai:actor:tanaka"},
+            ${"did:web:yatabase.etzhayyim.com:actor:tanaka"},
             ${pr.surface}, ${pr.method}, ${pr.path},
             ${pr.status}, ${pr.latencyMs}, ${pr.ok ? 1 : 0},
             ${pr.reason ?? ""}, ${new Date().toISOString()}
@@ -212,7 +212,7 @@ export async function runTanaka(
       `— Tanaka (Yatabase QA agent)`,
     ].join("\n");
     const r2 = await emitOutbox(env, {
-      orgDid: "did:web:yatabase.gftd.ai",
+      orgDid: "did:web:yatabase.etzhayyim.com",
       kind: "qa-regression-report",
       subject,
       bodyText: body,
@@ -229,7 +229,7 @@ export async function runTanaka(
     ok: failed.length === 0,
     agent: "tanaka",
     role: "qa",
-    did: "did:web:yatabase.gftd.ai:actor:tanaka",
+    did: "did:web:yatabase.etzhayyim.com:actor:tanaka",
     runId,
     startedAt,
     durationMs: Date.now() - t0,

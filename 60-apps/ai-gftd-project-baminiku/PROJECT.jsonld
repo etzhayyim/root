@@ -1,7 +1,7 @@
 {
   "@context": {
     "dodaf": "https://dodcio.defense.gov/dodaf20/",
-    "gftd": "https://gftd.ai/ontology/",
+    "gftd": "https://etzhayyim.com/ontology/",
     "schema": "https://schema.org/",
     "isic": "https://unstats.un.org/unsd/classifications/Econ/ISIC/",
     "isco": "https://www.ilo.org/public/english/bureau/stat/isco/isco08/"
@@ -11,8 +11,8 @@
   "schema:name": "baminiku",
   "schema:description": "3D Avatar Live Streaming Platform — Real-time A-Frame/glTF avatar streaming with motion tracing, viewer interactions, credits economy, and AI broadcasting",
   "gftd:domains": [
-    "baminiku.gftd.ai",
-    "baminiku-liver.gftd.ai"
+    "baminiku.etzhayyim.com",
+    "baminiku-liver.etzhayyim.com"
   ],
   "gftd:nanoid": "ykb48d7a",
   "gftd:isicSection": "isic:J",
@@ -56,7 +56,7 @@
       "@id": "gftd:performer/baminiku-component",
       "schema:name": "baminiku-component",
       "gftd:wasmComponent": "ai-gftd-wasm-baminiku-ykb48d7a",
-      "gftd:image": "ghcr.io/gftdcojp/baminiku-component"
+      "gftd:image": "ghcr.io/etzhayyim/baminiku-component"
     }
   ]
 }

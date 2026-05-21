@@ -1,5 +1,5 @@
 /**
- * meeting-recorder.gftd.ai — Multi-provider meeting recorder control-plane Worker.
+ * meeting-recorder.etzhayyim.com — Multi-provider meeting recorder control-plane Worker.
  *
  * 5 XRPC procedures + 2 records (ai.gftd.apps.meetingRecorder.*):
  *   joinMeeting / leaveMeeting / getSession / listSessions / getTranscript
@@ -32,7 +32,7 @@ import {
 import { verifySignature, parseDidKey, formatDidKey } from "@atproto/crypto";
 
 const APP_NANOID = "m33tr3c0";
-const RECORDER_DID = "did:web:meeting-recorder.gftd.ai";
+const RECORDER_DID = "did:web:meeting-recorder.etzhayyim.com";
 
 // ── Request-scoped auth ────────────────────────────────────────────────────
 
@@ -125,11 +125,11 @@ async function resolveDid(did: string): Promise<DidDocument> {
   }
 
   if (did.startsWith("did:gftd:")) {
-    // ADR-0029 — did.gftd.ai is the canonical resolver.
+    // ADR-0029 — did.etzhayyim.com is the canonical resolver.
     // Path convention follows W3C DID Resolution v0.3 but the did string is
     // NOT encodeURIComponent'd (colons preserved) to match the resolver's
     // actual routing (identifiers is routed by exact prefix match).
-    const base = getVar("DID_GFTD_RESOLVER", "https://did.gftd.ai");
+    const base = getVar("DID_GFTD_RESOLVER", "https://did.etzhayyim.com");
     const url = `${base}/1.0/identifiers/${did}`;
     const res = await fetch(url, cfCache);
     if (!res.ok) throw new Error(`did:gftd resolve ${url}: ${res.status}`);
@@ -231,8 +231,8 @@ async function mintPdsBearer(lxm: string, ttlSeconds = 600): Promise<{ token: st
   const authSvc = _cfEnv?.AUTH_SERVICE as { fetch(r: Request): Promise<Response> } | undefined;
   if (!authSvc) throw new Error("AUTH_SERVICE binding missing");
 
-  const pdsDid = getVar("PDS_DID", "did:web:atproto.gftd.ai");
-  const res = await authSvc.fetch(new Request("https://authn.gftd.ai/xrpc/com.atproto.server.getServiceAuth", {
+  const pdsDid = getVar("PDS_DID", "did:web:atproto.etzhayyim.com");
+  const res = await authSvc.fetch(new Request("https://authn.etzhayyim.com/xrpc/com.atproto.server.getServiceAuth", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ iss: RECORDER_DID, aud: pdsDid, lxm }),
@@ -427,7 +427,7 @@ async function cmdJoinMeeting(sdk: HostSDK, body: Uint8Array) {
   // 4. Dispatch to Vultr media-plane. Include the mint endpoint + shared
   //    secret so the container can refresh PDS bearers over the session
   //    lifetime without holding the recorder's signing key.
-  const mintBearerUrl = `${new URL(_cfEnv!.RECORDER_SELF_URL as string ?? "https://meeting-recorder.gftd.ai").origin}/_internal/mint-pds-bearer`;
+  const mintBearerUrl = `${new URL(_cfEnv!.RECORDER_SELF_URL as string ?? "https://meeting-recorder.etzhayyim.com").origin}/_internal/mint-pds-bearer`;
   const tunnelSecret = getVar("RECORDER_TUNNEL_SECRET");
   if (!tunnelSecret) {
     return { sessionId, sessionDid, provider: input.provider, status: "failed",

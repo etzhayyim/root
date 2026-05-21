@@ -1,14 +1,14 @@
 ---
 id: adr-2605202225-mangaka-comfyui-langgraph-pipeline
-title: "mangaka.gftd.ai — ComfyUI Generation Pipeline via LangGraph + Studio Embed"
+title: "mangaka.etzhayyim.com — ComfyUI Generation Pipeline via LangGraph + Studio Embed"
 status: active
 doc_type: adr
 topic: mangaka-comfyui-pipeline
 authoritative: true
 last_verified: 2026-05-20
 authoritative_for:
-  - mangaka.gftd.ai image / 3D / video / page generation pipeline
-  - studio.gftd.ai → ComfyUI dispatch contract
+  - mangaka.etzhayyim.com image / 3D / video / page generation pipeline
+  - studio.etzhayyim.com → ComfyUI dispatch contract
   - LangGraph wrapper convention for ComfyUI workflows (build → submit → poll)
   - ComfyUI workflow library install convention (`scripts/install-mangaka-comfy-workflow.py`)
   - Quality-pack install convention (`scripts/install-comfy-quality-pack.ps1`)
@@ -70,7 +70,7 @@ superseded_by: []
 
 # Context
 
-mangaka.gftd.ai produces three artefact families per the existing record
+mangaka.etzhayyim.com produces three artefact families per the existing record
 schema (`ai.gftd.mangaka.{character,environment,panel,page,asset,...}`):
 
 - **2D images** at three scopes — character design sheet, environment
@@ -82,7 +82,7 @@ Prior to this ADR every stage of the kami-cine pipeline
 (`cine_generate_scene` / `cine_generate_panel`) was synthetic — the
 LangGraph nodes wrote stub CIDs and only the diffusionPass at stage 6
 optionally called the production ComfyUI gateway. The studio at
-`studio.gftd.ai` had no UI binding to the actual ComfyUI workflow editor,
+`studio.etzhayyim.com` had no UI binding to the actual ComfyUI workflow editor,
 and the gateway path required a sk_live_ API key that not all artists
 had minted.
 
@@ -101,7 +101,7 @@ artist needs for production output.
 
 | Layer | Wire | Purpose |
 |---|---|---|
-| **L1 — Studio Svelte SPA** (`studio.gftd.ai`) | HTTP `/api/*` → langgraph dev `:2024` | UI: Pregel DAG view (@xyflow/svelte), Mermaid view, embedded ComfyUI iframe view, per-graph Input panel, SSE-driven stage colouring + inline image / video / page gallery. |
+| **L1 — Studio Svelte SPA** (`studio.etzhayyim.com`) | HTTP `/api/*` → langgraph dev `:2024` | UI: Pregel DAG view (@xyflow/svelte), Mermaid view, embedded ComfyUI iframe view, per-graph Input panel, SSE-driven stage colouring + inline image / video / page gallery. |
 | **L2 — LangGraph wrappers** (`lg/lg_mangaka/graphs/*.py`) | LangGraph Pregel + `lg_mangaka.comfy_runner` | Typed dispatch: each graph maps a domain record (character, scene, panel, page, …) onto an API-format ComfyUI workflow JSON via `lg_mangaka.comfy_workflows.<kind>_workflow(...)`. Three super-step pattern: `build → submit → poll`. Page graph adds `plan` (upload shared ref) and `composite` (PIL pasting onto a manga page canvas with bbox layout). |
 | **L3 — ComfyUI** (`http://192.168.1.70:8188`) | HTTP `/prompt`, `/history`, `/view`, `/upload/image`, `/userdata/workflows/*` | Workflow execution. The LangGraph workflows above are the same API-format JSON the embedded editor displays after `install-mangaka-comfy-workflow.py` POSTs them into `userdata/workflows/`. |
 
@@ -231,7 +231,7 @@ anime-illustration in 47 seconds at 1536×1024.
 
 # Alternatives Considered
 
-1. **Stay on the gateway path** (`comfyui.gftd.ai` CF Worker → fleet).
+1. **Stay on the gateway path** (`comfyui.etzhayyim.com` CF Worker → fleet).
    Rejected: the gateway is a thin OpenAI-compat shim; it can't drive
    IPAdapter, ControlNet, or Hy3D because they require workflow-level
    composition the OpenAI surface doesn't expose. The wrapper-+-direct

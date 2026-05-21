@@ -36,7 +36,7 @@ superseded_by: []
 
 # Context
 
-ADR-2605152100 established the etzhayyim / gftdcojp org boundary. ADR-2605172000
+ADR-2605152100 established the etzhayyim / etzhayyim org boundary. ADR-2605172000
 mandated RW-free substrate for etzhayyim apps. ADR-2605172100 mandated on-chain
 payment only for etzhayyim apps. These three ADRs define **what the etzhayyim
 substrate looks like** but do not give a deterministic rule for **which projects
@@ -50,10 +50,10 @@ kyber-apqc / yoro / sanctions / malak / kami.
 
 The intuitive split "aggressive autonomous AI + open-source + blockchain +
 humanity-universal → etzhayyim; human/org-centric + Stripe + private →
-gftdcojp" is correct in direction but ambiguous on three failure modes:
+etzhayyim" is correct in direction but ambiguous on three failure modes:
 
 1. **autonomy ≠ openness**: vendor side also runs aggressive autonomous agents
-   (e.g. gftdcojp_agent lawfirm pipeline). The differentiator is not whether
+   (e.g. etzhayyim_agent lawfirm pipeline). The differentiator is not whether
    the agent is autonomous, but who absorbs the legal liability if the agent
    fails.
 2. **private data is multi-modal**: AT MST + E2E encryption can hold private
@@ -116,7 +116,7 @@ Applying the 3-axis rule to the post-Wave-2 borderline list:
 | kyber / kyber-qzzg06nh / apqc | user direction 2026-05-17: full move (not split). APQC PCF + Kyber BPMN projector are open process catalog with no customer mapping coupling at the catalog level |
 | yoro AppView | ADR-2605171900 status proposed → active. yoro.etzhayyim.com migration green-lit |
 | Well-Becoming Kyu/Dan spec | user-self-asserted skill claims; reputation API monetization stays vendor |
-| vault zero-knowledge protocol spec | ECIES + WebAuthn PRF + Signal preKey usage spec is open; running vault.gftd.ai service stays vendor |
+| vault zero-knowledge protocol spec | ECIES + WebAuthn PRF + Signal preKey usage spec is open; running vault.etzhayyim.com service stays vendor |
 | C-group creative open Lexicons | anime / animeka / manga / mangaka / drama / gameka / dougaka / douga / music / ongakuka / color-by-number / voxelforge / canvas / editor / comfyui / image2metahuman / image2vrm / images / gazo / img2pptx / photos / gyotaku / isekai / obebe / ohanashi lexicon JSON only; production workflows referencing customer custody stay vendor |
 | A-group open standards | blockchain / bpmn / gtin / isbn / issn / isin / ndc / ocel / sbom / scap / ipaddress / ipfs / dns / arxiv / common-crawl / distill / rare-earth / rare-earth-coverage / legal-corpus / hanrei / houbun / houki / treaty / customary / legal-aid / legal-entity / industry-standard / unispec |
 | B-group religious / cultural | religious / yorishiro / omikuji / otakiage / kiyome / omatsuri / ki / kareyanagi / koke / kiyo / ijin / ethics / social-contract / ohanashi / narou / syosetsu / tradition / hakkou / houshi / joucho / kagami / sense |
@@ -130,16 +130,16 @@ Applying the 3-axis rule to the post-Wave-2 borderline list:
 | trust | Liability, Custody, Settlement | DID trust score in fintech decisions; transaction event PII; paid API |
 | vault (running service) | Custody, Settlement | ciphertext custody is operator; subscription model |
 | signal (PDS pipethrough) | Custody | preKey bundle + ciphertext held at PDS |
-| gftdcojp / kaisya | all three | the literal vendor company and its internal workflow |
+| etzhayyim / kaisya | all three | the literal vendor company and its internal workflow |
 | malak (vendor version) | Liability, Custody | JP on-prem face template + warrant-gated surveillance; massive controllership |
 | sanctions screening service | Liability, Custody, Settlement | AML liability attaches on false negatives; customer screening log; paid SaaS |
 
-## SPLIT (open spec → etzhayyim; vendor binding → gftdcojp)
+## SPLIT (open spec → etzhayyim; vendor binding → etzhayyim)
 
 | project | etzhayyim part | vendor part |
 |---------|----------------|-------------|
 | auth / iam | DID method spec + OAuth flow lexicon | ai-gftd-auth Worker + D1 KEYS_DB (session, revocation) |
-| agentgateway | MCP facade spec + reference impl | mcp.gftd.ai running gateway (SLA, abuse, audit) |
+| agentgateway | MCP facade spec + reference impl | mcp.etzhayyim.com running gateway (SLA, abuse, audit) |
 | bpmn | engine + open process_def (APQC etc.) | customer-specific process_def referencing PII |
 | magatama | `@etzhayyim/sdk` + `magatama-go` + `kami-engine-sdk` (done in Wave 2) | gftd-cli wrapping vendor CF account |
 | shinka | abstract evolution operator | business-app shinka application |
@@ -162,7 +162,7 @@ Tranche F therefore proceeds in this order:
 3. **Content copy** — copy file content from vendor to etzhayyim/root, preserving git history where reasonable (`git subtree split` or `git filter-repo`)
 4. **Vendor business-app dependency switch** — point lawfirm / vault / kaisya / microsoft / finance / billing / bengoshi / bunken / bankruptcy / air-* / tia / har at `@etzhayyim/*` packages
 5. **Vendor open-scope deletion** — `git rm` the now-redundant copies in this repo
-6. **Archive markers** — prefix archived gftdcojp repo descriptions with `[MOVED → github.com/etzhayyim/root]`
+6. **Archive markers** — prefix archived etzhayyim repo descriptions with `[MOVED → github.com/etzhayyim/root]`
 
 Steps 2-5 do not block production because alias resolution (npm scope +
 TypeScript paths) keeps existing references valid through the transition.
@@ -198,7 +198,7 @@ TypeScript paths) keeps existing references valid through the transition.
 
 ## Executed wave summary (27 PRs over 2026-05-17 → 2026-05-18)
 
-### Vendor (gftdcojp) — 17 merged PRs
+### Vendor (etzhayyim) — 17 merged PRs
 
 | PR | wave | items / files |
 |----|------|---------------|

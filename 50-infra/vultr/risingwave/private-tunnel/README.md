@@ -11,7 +11,7 @@ Cloudflare Workers
         ↓ (binding)
 Hyperdrive
         ↓ (over Cloudflare Tunnel, no public origin)
-risingwave-private.gftd.ai (CNAME → a17cdf9d-….cfargotunnel.com)
+risingwave-private.etzhayyim.com (CNAME → a17cdf9d-….cfargotunnel.com)
         ↓ (cloudflared in cluster)
 tcp://risingwave.risingwave.svc.cluster.local:4566  (ClusterIP, in-cluster only)
         ↓
@@ -23,12 +23,12 @@ RisingWave frontend (auth-required, root password in 1Password)
 | Resource | Name | Purpose |
 |---|---|---|
 | CF Tunnel | `risingwave-private` (id `a17cdf9d-7b9d-4cf4-a482-66129bc2a43d`) | TCP ingress into the cluster |
-| CF DNS | `risingwave-private.gftd.ai` (CNAME → tunnel) | Hostname for Hyperdrive |
+| CF DNS | `risingwave-private.etzhayyim.com` (CNAME → tunnel) | Hostname for Hyperdrive |
 | K8s Secret | `risingwave/cloudflared-risingwave-private-credentials` | Tunnel `credentials.json` |
 | K8s ConfigMap | `risingwave/cloudflared-risingwave-private-config` | `config.yaml` with TCP ingress |
 | K8s Deployment | `risingwave/cloudflared-risingwave-private` (replicas: 2) | cloudflared 2025.4.0 |
 | K8s Service (target) | `risingwave/risingwave` (ClusterIP `10.100.13.171:4566`) | RisingWave frontend |
-| RW credential | 1Password vault `gftdcojp`, item `RisingWave root (rotated 2026-05-17)` (ID `kudkk66526jk3ft4iasbezf6uy`) | 32-char root password (auth-enforced via `ALTER USER root WITH PASSWORD`) |
+| RW credential | 1Password vault `etzhayyim`, item `RisingWave root (rotated 2026-05-17)` (ID `kudkk66526jk3ft4iasbezf6uy`) | 32-char root password (auth-enforced via `ALTER USER root WITH PASSWORD`) |
 
 ## Apply (idempotent)
 
@@ -36,7 +36,7 @@ RisingWave frontend (auth-required, root password in 1Password)
 # 1. Create tunnel + DNS (one-time)
 cloudflared tunnel create risingwave-private
 TUNNEL_ID=$(cloudflared tunnel list | awk '/risingwave-private/ {print $1}')
-cloudflared tunnel route dns risingwave-private risingwave-private.gftd.ai
+cloudflared tunnel route dns risingwave-private risingwave-private.etzhayyim.com
 
 # 2. K8s Secret with tunnel credentials (one-time)
 export KUBECONFIG=/tmp/rw-vke-a61d513b-f9b7-4121-abb9-b53732aa5ec4.yaml
@@ -74,7 +74,7 @@ dashboard is the path).
 7. Database engine: `PostgreSQL`
 8. Database name: `dev`
 9. Database user: `root`
-10. Password: paste from 1Password vault `gftdcojp` item
+10. Password: paste from 1Password vault `etzhayyim` item
     `RisingWave root (rotated 2026-05-17)` (32 chars)
 11. Save.
 

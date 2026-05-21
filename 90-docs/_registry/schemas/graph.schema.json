@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/docs/schemas/docs-graph.schema.json",
+  "$id": "https://etzhayyim.com/docs/schemas/docs-graph.schema.json",
   "title": "Docs Relation Graph",
   "type": "object",
   "additionalProperties": false,

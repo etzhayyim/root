@@ -45,8 +45,8 @@ Exit code 0 = pass. Output is JSON for CI ingestion.
 
 2026-05-09 verified baseline:
 
-- `bpmn-engine-host`: `ghcr.io/gftdcojp/bpmn-engine-host:20260509-1705no-inline-cache`
-- `lawfirm-spiff-worker`: `ghcr.io/gftdcojp/lawfirm-spiff-worker:20260509-0250inline-default4`
+- `bpmn-engine-host`: `ghcr.io/etzhayyim/bpmn-engine-host:20260509-1705no-inline-cache`
+- `lawfirm-spiff-worker`: `ghcr.io/etzhayyim/lawfirm-spiff-worker:20260509-0250inline-default4`
 - c100 smoke: `completed=100`, `p95_s=10.888`,
   `history_violations=[]`, `orphan_violations=[]`
 - restart drill c100: `completed=100`, `p95_s=12.861`,

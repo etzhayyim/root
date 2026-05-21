@@ -46,7 +46,7 @@
   ];
 
   function generateGuestId(): string {
-    return `did:web:kami.gftd.ai:guest:${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+    return `did:web:kami.etzhayyim.com:guest:${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
   }
 
   // ── API ──
@@ -162,7 +162,7 @@
     try {
       // Dynamic import of kami-web WASM
       // @ts-ignore — loaded at runtime from CDN
-      const kami = await import('https://cdn.gftd.ai/k4m1w0rk/kami_web.js');
+      const kami = await import('https://cdn.etzhayyim.com/k4m1w0rk/kami_web.js');
       await kami.default(); // init WASM
       if (sceneJson) {
         await kami.run_with_scene('kami-play-canvas', sceneJson);

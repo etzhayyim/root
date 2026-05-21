@@ -7,7 +7,7 @@ topic: maps-kami-runtime
 authoritative: true
 last_verified: 2026-04-17
 authoritative_for:
-  - maps.gftd.ai street-level spatial asset pipeline
+  - maps.etzhayyim.com street-level spatial asset pipeline
   - KAMI runtime format for photogrammetry-derived city assets
   - Mapillary-derived reconstruction policy
 related:
@@ -19,12 +19,12 @@ superseded_by: []
 
 # Maps to KAMI Street Asset Pipeline Design
 
-`maps.gftd.ai` で収集した street-level imagery を、`kami engine` で実行可能な軽量 3D アセットへ落とすための設計。結論は明確で、**NeRF / 3DGS は再構成用の中間表現としてのみ使い、ランタイム配信形式には採用しない**。
+`maps.etzhayyim.com` で収集した street-level imagery を、`kami engine` で実行可能な軽量 3D アセットへ落とすための設計。結論は明確で、**NeRF / 3DGS は再構成用の中間表現としてのみ使い、ランタイム配信形式には採用しない**。
 
 ## Goal
 
 - Mapillary 由来の画像から、ゲーム実行に耐える街区 3D アセットを生成する
-- `maps.gftd.ai` の graph-first / DID-scoped source 設計を崩さずに provenance を保持する
+- `maps.etzhayyim.com` の graph-first / DID-scoped source 設計を崩さずに provenance を保持する
 - `kami engine` の wgpu + Rust WASM ランタイムに適した形式へ焼き込む
 - Switch クラスを含む resource-constrained device で成立するメモリ・I/O・描画予算に収める
 
@@ -57,10 +57,10 @@ NeRF / 3D Gaussian Splatting は以下に限定する。
 
 ## System Boundary
 
-### maps.gftd.ai の責務
+### maps.etzhayyim.com の責務
 
 - 画像・シーケンス・bbox 単位の収集制御
-- `did:web:maps.gftd.ai:street_view` による provenance 管理
+- `did:web:maps.etzhayyim.com:street_view` による provenance 管理
 - Collection Job 発行
 - graph 上での Spot / Route / Building / VisionResult との紐付け
 - 画像から意味表現への抽象化
@@ -93,7 +93,7 @@ Mapillary / street_view sequence
 
 ### 1. Acquisition and Selection
 
-`maps.gftd.ai` は Mapillary 画像を全件保持しない。取得は bbox / sequence / landmark priority ベースで行い、隣接フレームの高重複区間を先に落とす。
+`maps.etzhayyim.com` は Mapillary 画像を全件保持しない。取得は bbox / sequence / landmark priority ベースで行い、隣接フレームの高重複区間を先に落とす。
 
 選別ルール:
 
@@ -115,7 +115,7 @@ Mapillary / street_view sequence
 - reconstruction confidence
 - track coverage per segment
 
-この結果を `maps.gftd.ai` では collection artifact として管理し、街区ごとの asset build job に渡す。
+この結果を `maps.etzhayyim.com` では collection artifact として管理し、街区ごとの asset build job に渡す。
 
 ### 3. Depth and Local Refinement
 
@@ -182,7 +182,7 @@ metadata sidecar には以下を含める。
 
 ## Data Model Integration
 
-`maps.gftd.ai` の graph には、実行時アセットそのものではなく build provenance と意味抽象を保持する。
+`maps.etzhayyim.com` の graph には、実行時アセットそのものではなく build provenance と意味抽象を保持する。
 
 追加または運用強化するエンティティ:
 
@@ -308,7 +308,7 @@ metadata sidecar には以下を含める。
 
 ## Build Stages
 
-`maps.gftd.ai` から `kami engine` までの build は、以下の 7 stage に分ける。
+`maps.etzhayyim.com` から `kami engine` までの build は、以下の 7 stage に分ける。
 
 1. `sequence_select`
    Mapillary sequence を bbox / route / landmark priority で抽出し、重複フレームを落とす。
@@ -514,7 +514,7 @@ Mapillary ベースの街路生成では、まず sequence を `50m` chunk へ�
 {
   "schemaVersion": "gftd.kami.street-chunk.v1",
   "packageKind": "streetChunkRuntimePackage",
-  "tileUrl": "https://tiles.maps.gftd.ai/v1/{z}/{x}/{y}.pbf",
+  "tileUrl": "https://tiles.maps.etzhayyim.com/v1/{z}/{x}/{y}.pbf",
   "source": "env",
   "targetRuntime": "kami-map",
   "chunking": {
@@ -549,9 +549,9 @@ Mapillary ベースの街路生成では、まず sequence を `50m` chunk へ�
     "maxCollisionBytes": 800000
   },
   "entrypoints": {
-    "vectorTileUrl": "https://tiles.maps.gftd.ai/v1/{z}/{x}/{y}.pbf",
+    "vectorTileUrl": "https://tiles.maps.etzhayyim.com/v1/{z}/{x}/{y}.pbf",
     "demTileUrl": "https://elevation.example/{z}/{x}/{y}.png",
-    "styleUrl": "https://tiles.maps.gftd.ai/v1/style.json"
+    "styleUrl": "https://tiles.maps.etzhayyim.com/v1/style.json"
   }
 }
 ```
@@ -583,11 +583,11 @@ graph 側には実アセット本体ではなく、次の参照情報を書く�
 
 ## Operational Rule
 
-`maps.gftd.ai` は raw imagery platform ではなく、**street imagery を graph-backed game asset へ変換する control plane** と位置付ける。`kami engine` はその結果を実行する renderer / simulation runtime とする。
+`maps.etzhayyim.com` は raw imagery platform ではなく、**street imagery を graph-backed game asset へ変換する control plane** と位置付ける。`kami engine` はその結果を実行する renderer / simulation runtime とする。
 
 ## Cosmic Runtime Extension
 
-2026-04-17 時点で `maps.gftd.ai` の KAMI runtime は street / globe だけでなく、`Earth -> Cislunar -> Solar System -> Milky Way -> Observable Universe` まで連続 zoom-out できる cosmic scene を持つ。
+2026-04-17 時点で `maps.etzhayyim.com` の KAMI runtime は street / globe だけでなく、`Earth -> Cislunar -> Solar System -> Milky Way -> Observable Universe` まで連続 zoom-out できる cosmic scene を持つ。
 
 ### Runtime Policy
 
@@ -644,6 +644,6 @@ frontend はそれをそのまま `KamiMapBridge.create()` に渡し、WASM 側�
 
 このリポジトリにおける正解は次の一文に要約できる。
 
-> Mapillary 画像は最終形式として保持せず、`maps.gftd.ai` で選別・再構成・意味抽象化し、`kami engine` には LoD 付き mesh + baked textures + compressed glTF を渡す。
+> Mapillary 画像は最終形式として保持せず、`maps.etzhayyim.com` で選別・再構成・意味抽象化し、`kami engine` には LoD 付き mesh + baked textures + compressed glTF を渡す。
 
 NeRF / 3DGS は高品質再構成のためのオーブンであり、食卓に出す形式ではない。

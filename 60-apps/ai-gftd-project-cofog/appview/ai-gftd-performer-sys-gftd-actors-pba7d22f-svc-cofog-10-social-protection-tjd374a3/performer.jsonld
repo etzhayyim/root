@@ -6,7 +6,7 @@
     "dodaf": "http://purl.org/dodaf#",
     "dct": "http://purl.org/dc/terms/"
   },
-  "id": "https://kyber-systems.gftd.ai/performers/ai-gftd-performer-svc-cofog-10-social-protection",
+  "id": "https://kyber-systems.etzhayyim.com/performers/ai-gftd-performer-svc-cofog-10-social-protection",
   "type": "dodaf:Performer",
   "name": "Social Protection Performer (COFOG 10)",
   "description": "Manages government-mandated social insurance and labor insurance procedures for employees.",

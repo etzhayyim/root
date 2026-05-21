@@ -1,4 +1,4 @@
-# yata — Rust client for [yatabase](https://yatabase.gftd.ai)
+# yata — Rust client for [yatabase](https://yatabase.etzhayyim.com)
 
 > Real-time graph database with integrated Supabase-style object storage.
 > PG-compatible reads, SPARQL, S3-compatible upload, vector search, OWL
@@ -43,7 +43,7 @@ struct Knows {
 #[tokio::main]
 async fn main() -> yata::Result<()> {
     // Connect — DSN works with `sk_live_yata_*` Bearer or `psql://` URL.
-    let y = Yata::connect("yatabase://sk_live_yata_xxx@yatabase.gftd.ai/my-db").await?;
+    let y = Yata::connect("yatabase://sk_live_yata_xxx@yatabase.etzhayyim.com/my-db").await?;
 
     // Type-safe schema migration. Idempotent.
     y.migrate::<(Person, Knows)>().await?;
@@ -139,11 +139,11 @@ yata bench                           # built-in latency / throughput
 ## Status
 
 **v0.1 (skeleton)** — public API surface from
-[ADR-2605080000 §D5](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605080000-yatabase-yata-retail-cloud.md).
+[ADR-2605080000 §D5](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/2605080000-yatabase-yata-retail-cloud.md).
 Many functions are `todo!()` while the
-[yatabase.gftd.ai server](https://yatabase.gftd.ai) ships P3.2+
+[yatabase.etzhayyim.com server](https://yatabase.etzhayyim.com) ships P3.2+
 surfaces. Track the roadmap at
-[`60-apps/ai-gftd-project-yatabase/CLAUDE.md`](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/60-apps/ai-gftd-project-yatabase/CLAUDE.md).
+[`60-apps/ai-gftd-project-yatabase/CLAUDE.md`](https://github.com/etzhayyim/etzhayyim-root/blob/main/60-apps/ai-gftd-project-yatabase/CLAUDE.md).
 
 ## MSRV
 

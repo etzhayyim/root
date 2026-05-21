@@ -1,6 +1,6 @@
 # murakumo LiteLLM gateway
 
-`llm.gftd.ai` → LiteLLM (one mac mini, port 4000) → serve_plain.py (loopback + fleet fallback).
+`llm.etzhayyim.com` → LiteLLM (one mac mini, port 4000) → serve_plain.py (loopback + fleet fallback).
 
 ## Why
 
@@ -16,14 +16,14 @@ LKE GPU Ollama retired 2026-04-19. All LLM calls consolidate onto the murakumo m
 CF Worker (murakumo, news, shinshi, ...)
   │ Authorization: Bearer $LITELLM_MASTER_KEY
   ↓
-https://llm.gftd.ai
+https://llm.etzhayyim.com
   │ CF Tunnel `murakumo-fleet` (ae341542), ingress route added to host mac mini
   ↓
 LiteLLM @ 127.0.0.1:4000  (launchd com.gftd.litellm)
   │
   ├── fast path: http://127.0.0.1:8000/v1   (same-host serve_plain.py, p50 <300ms)
   │
-  └── fallback:   https://murakumo-serve.gftd.ai/v1   (fleet tunnel, auto-LB)
+  └── fallback:   https://murakumo-serve.etzhayyim.com/v1   (fleet tunnel, auto-LB)
 ```
 
 ## Install (one mac mini, recommended `dan`)
@@ -43,14 +43,14 @@ cd 60-apps/ai-gftd-project-murakumo/litellm
 #    /opt/gftd/cloudflared-fleet/config.yaml (or wherever tunnel config lives):
 #
 #    ingress:
-#      - hostname: llm.gftd.ai
+#      - hostname: llm.etzhayyim.com
 #        service: http://localhost:4000
-#      - hostname: murakumo-serve.gftd.ai
+#      - hostname: murakumo-serve.etzhayyim.com
 #        service: http://localhost:8000
 #      ...
 
 # 5. Create DNS in Cloudflare (orange or gray cloud)
-#    llm.gftd.ai → CNAME ae341542.cfargotunnel.com
+#    llm.etzhayyim.com → CNAME ae341542.cfargotunnel.com
 
 # 6. Distribute the master key to Worker secrets
 #    wrangler secret put LITELLM_MASTER_KEY  (inside each consumer Worker)
@@ -66,7 +66,7 @@ use-case=structured  → tier0-structured
 use-case=reasoning   → tier1-reasoning
 ```
 
-`MURAKUMO_CHAT_URL` env in each Worker: `https://llm.gftd.ai/v1/chat/completions`
+`MURAKUMO_CHAT_URL` env in each Worker: `https://llm.etzhayyim.com/v1/chat/completions`
 `MURAKUMO_API_KEY` secret: value of `gftd.litellm/MASTER_KEY`.
 
 ## Ops
@@ -78,6 +78,6 @@ use-case=reasoning   → tier1-reasoning
 
 ## Known limitations
 
-- Single-host gateway (if the mac mini hosting LiteLLM dies, `llm.gftd.ai` goes 5xx even if the other 3 serve_plain nodes are up). Mitigation: run LiteLLM on 2 macs and front with CF Tunnel LB (both registered for `llm.gftd.ai`). Not wired up yet.
+- Single-host gateway (if the mac mini hosting LiteLLM dies, `llm.etzhayyim.com` goes 5xx even if the other 3 serve_plain nodes are up). Mitigation: run LiteLLM on 2 macs and front with CF Tunnel LB (both registered for `llm.etzhayyim.com`). Not wired up yet.
 - No persistent budget/auth DB. Every call authenticates against the single `LITELLM_MASTER_KEY`; granular keys require adding postgres.
 - Embedding path not yet configured. When embedding model ships on mac mini, add model block + update `deps.toml embedding_server`.

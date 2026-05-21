@@ -1,11 +1,11 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:gyotaku.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:gyotaku.etzhayyim.com",
   "component": {
     "env": {},
     "path": "/wasm/component.wasm"
   },
-  "convoSystemPrompt": "You are gyotaku agent. You provide Internet Archive (Wayback Machine) functionality, allowing users to browse historical snapshots of websites crawled by site.gftd.ai. You can search by URL or domain, show timelines, and display archived content (text, metadata, screenshots).",
+  "convoSystemPrompt": "You are gyotaku agent. You provide Internet Archive (Wayback Machine) functionality, allowing users to browse historical snapshots of websites crawled by site.etzhayyim.com. You can search by URL or domain, show timelines, and display archived content (text, metadata, screenshots).",
   "duties": [
     "勤労の義務"
   ],
@@ -27,7 +27,7 @@
       "snapshot-viewer",
       "timeline-browser"
     ],
-    "description": "Internet Archive viewer for site.gftd.ai crawled snapshots. Browse historical website captures with Wayback Machine-style timeline navigation.",
+    "description": "Internet Archive viewer for site.etzhayyim.com crawled snapshots. Browse historical website captures with Wayback Machine-style timeline navigation.",
     "displayName": "Gyotaku",
     "isBot": true,
     "operator": "gftd.co.jp"

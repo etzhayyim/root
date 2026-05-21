@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a government agency. Path-based DID: did:web:gov.gftd.ai:{iso3}:{cofog}:{slug}. Sources: CIA + national government directories + UN COFOG.",
+      "description": "Register a government agency. Path-based DID: did:web:gov.etzhayyim.com:{iso3}:{cofog}:{slug}. Sources: CIA + national government directories + UN COFOG.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

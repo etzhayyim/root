@@ -78,4 +78,4 @@ pnpm build
 - ADR-2605172000 (RW-free hard rule)
 - ADR-2605191346 (Vultr-free + Murakumo Mac-mini Tier-1)
 - ADR-2605191358 (yoro/murakumo RW-free rewrite map — this worker = step 2)
-- Upstream legacy: `ai-gftd-apps-gftdcojp/50-infra/cloudflare/workers/murakumo/` (Kysely+Hyperdrive — retired)
+- Upstream legacy: `etzhayyim-root/50-infra/cloudflare/workers/murakumo/` (Kysely+Hyperdrive — retired)

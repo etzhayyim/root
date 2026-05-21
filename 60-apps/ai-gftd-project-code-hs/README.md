@@ -11,8 +11,8 @@ Harmonized System (HS) code ベースの国際貿易品目分類 project。
 
 ## Primary identifiers
 
-- domain: `hs.gftd.ai`
-- primary DID: `did:web:hs.gftd.ai`
+- domain: `hs.etzhayyim.com`
+- primary DID: `did:web:hs.etzhayyim.com`
 - NSID prefix: `ai.gftd.apps.hs.*`
 
 ## References

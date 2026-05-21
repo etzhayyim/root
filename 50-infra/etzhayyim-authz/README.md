@@ -25,7 +25,7 @@
 Per ADR-2605211950 (substrate centralization axis), decentralization
 primitives — including **ERC725 root identity issuance** — are
 etzhayyim-exclusive. The current implementation lives in the vendor
-repo at `ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-auth/worker-authz/`
+repo at `etzhayyim-root/60-apps/ai-gftd-project-auth/worker-authz/`
 and is reachable via the `ai.gftd.authz.linkEthereum{Begin,Verify}`
 lexicons (now marked `[DEPRECATED — migration target]` in the vendor
 repo).
@@ -48,7 +48,7 @@ identity issuance once migration is scheduled.
 - Vendor `actor_did` / `org_did` RisingWave column convention (ADR-0095)
   — that side stays vendor-owned as a **reference** to the etzhayyim-
   issued DID. Vendor reads the etzhayyim chain; vendor does not write.
-- Vendor session JWT issuance (`authz.gftd.ai` ordinary login) —
+- Vendor session JWT issuance (`authz.etzhayyim.com` ordinary login) —
   stays vendor (centralized primitive, ADR-2605211950 allows it).
 
 ## Open design questions (defer to follow-up ADR)

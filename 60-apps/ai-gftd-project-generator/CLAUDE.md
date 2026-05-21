@@ -2,14 +2,14 @@
 
 Multimodal AI Content Generator — text, text-to-image (t2i), text-to-video (t2v), and image-to-video (i2v) generation via OpenRouter integration.
 
-**URL**: `https://generator.gftd.ai`
+**URL**: `https://generator.etzhayyim.com`
 
 ## Architecture
 
 ```
-Browser (generator.gftd.ai)
-  ├─ HTML/JS/CSS → generator.gftd.ai (static delivery)
-  └─ API → gftd.ai/g3nrt0rx/xrpc → Envoy Gateway
+Browser (generator.etzhayyim.com)
+  ├─ HTML/JS/CSS → generator.etzhayyim.com (static delivery)
+  └─ API → etzhayyim.com/g3nrt0rx/xrpc → Envoy Gateway
               ↓
        App: generator-component (TS Native)
               ├─ text-gen → openrouter-provider (cluster-internal :21090)
@@ -22,7 +22,7 @@ Browser (generator.gftd.ai)
 
 | Component | Type | Nanoid | Endpoint |
 |-----------|------|--------|----------|
-| `ai-gftd-wasm-generator-g3nrt0rx` | TS Native App | `g3nrt0rx` | `https://gftd.ai/g3nrt0rx/xrpc` |
+| `ai-gftd-wasm-generator-g3nrt0rx` | TS Native App | `g3nrt0rx` | `https://etzhayyim.com/g3nrt0rx/xrpc` |
 
 ## WIT Interfaces
 
@@ -83,7 +83,7 @@ Image/video generation calls OpenRouter multimodal endpoints directly via `wasi:
 
 ## Static Delivery
 
-- Domain: `generator.gftd.ai`
+- Domain: `generator.etzhayyim.com`
 - `svelte/build/` は fileserver component に同梱して static delivery で公開
 
 ## Build & Deploy
@@ -91,13 +91,13 @@ Image/video generation calls OpenRouter multimodal endpoints directly via `wasi:
 ```bash
 cd 60-apps/ai-gftd-project-generator/wasm/ai-gftd-wasm-generator-g3nrt0rx
 gftd build
-gftd deploy --smoke-url https://g3nrt0rx.gftd.ai/health
+gftd deploy --smoke-url https://g3nrt0rx.etzhayyim.com/health
 ```
 
 ## Conventions
 
 - **pnpm** only (never npm)
-- Tailwind CSS + `@gftdcojp/design-system` + `@gftdcojp/appshell`
+- Tailwind CSS + `@etzhayyim/design-system` + `@etzhayyim/appshell`
 - Auth headers: `Authorization: Bearer <JWT>`, `X-GFTD-ORG-ID`, `X-GFTD-USER-ID`
 - XRPC-first: no hardcoded nanoid URLs
 - Async operations (t2v/i2v): submit → poll pattern with KV-backed state

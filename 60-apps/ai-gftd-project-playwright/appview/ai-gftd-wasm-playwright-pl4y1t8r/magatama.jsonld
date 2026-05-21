@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:playwright.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:playwright.etzhayyim.com",
   "name": "playwright",
   "nanoid": "pl4y1t8r",
   "performerType": "service",
@@ -27,7 +27,7 @@
   "duties": ["capability-provisioning"],
   "kpi": ["session-success-rate", "avg-op-latency-ms"],
   "deploy": {},
-  "routes": [ { "host": "playwright.gftd.ai", "paths": ["/"], "tls": true } ],
+  "routes": [ { "host": "playwright.etzhayyim.com", "paths": ["/"], "tls": true } ],
   "space": {
     "name": "Playwright Primitives",
     "joinRule": "public",

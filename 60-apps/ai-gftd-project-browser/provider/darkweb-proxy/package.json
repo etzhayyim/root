@@ -1,7 +1,7 @@
 {
   "name": "darkweb-proxy",
   "version": "0.1.0",
-  "description": "Tor + Playwright HTTP fetch proxy for onion.gftd.ai",
+  "description": "Tor + Playwright HTTP fetch proxy for onion.etzhayyim.com",
   "type": "module",
   "main": "dist/server.js",
   "scripts": {

@@ -2,7 +2,7 @@
 
 > **T2 Logical Actor**: Manifest-driven (`20-actors/calendar/actor-manifest.jsonld`).
 
-`calendar.gftd.ai` — iCalendar RFC 5545 互換 calendar event intelligence.
+`calendar.etzhayyim.com` — iCalendar RFC 5545 互換 calendar event intelligence.
 
 ## Lexicons
 `calendar/` (3 files): rsvp, createEvent, listEvents.

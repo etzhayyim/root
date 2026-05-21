@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#CucumberE2EConfig
+// @etzhayyim/cyber-freelance#CucumberE2EConfig
 // E2E BDD用のCucumber設定ファイル
 
 import type { IConfiguration } from "@cucumber/cucumber";

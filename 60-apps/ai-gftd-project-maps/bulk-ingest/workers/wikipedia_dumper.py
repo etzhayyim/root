@@ -120,7 +120,7 @@ def _parse_mysql_dump(url: str) -> Iterator[list]:
     Streams gzipped content line-by-line and emits tuples for INSERT VALUES.
     """
     log.info("fetching %s", url)
-    req = Request(url, headers={"User-Agent": "gftd-maps-bulk-ingest/1.0 (contact@gftd.ai)"})
+    req = Request(url, headers={"User-Agent": "gftd-maps-bulk-ingest/1.0 (contact@etzhayyim.com)"})
     with urlopen(req, timeout=300) as resp, gzip.open(resp, "rb") as f:
         for line in f:
             if not line.startswith(b"INSERT INTO"):
@@ -186,19 +186,19 @@ def _load_page_titles(lang: str, wanted: set[int]) -> dict[int, str]:
 
 def _row(lang: str, page_id: int, title: str, lat: float, lon: float) -> dict:
     return {
-        "vertex_id": f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.spot/wp-{lang}-{page_id}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.spot/wp-{lang}-{page_id}",
         "rkey": f"wp-{lang}-{page_id}",
-        "repo": "did:web:maps.gftd.ai",
+        "repo": "did:web:maps.etzhayyim.com",
         "label": "Spot",
-        "did": "did:web:maps.gftd.ai",
+        "did": "did:web:maps.etzhayyim.com",
         "collection": "ai.gftd.apps.maps.spot",
         "name": title[:200],
         "lat": lat,
         "lng": lon,
-        "source_did": f"did:web:maps.gftd.ai:wikipedia:{lang}:bulk",
+        "source_did": f"did:web:maps.etzhayyim.com:wikipedia:{lang}:bulk",
         "category": f"wikipedia-{lang}",
         "description": "",
-        "owner_did": "did:web:maps.gftd.ai",
+        "owner_did": "did:web:maps.etzhayyim.com",
         "sensitivity_ord": 0,
         "created_date": datetime.now(timezone.utc).date().isoformat(),
     }

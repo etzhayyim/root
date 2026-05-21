@@ -8,8 +8,8 @@ All 25 commodity Apps are deployed and accessible via per-subdomain direct routi
 
 ```
 Browser/AI Agent
-  └─ API → {nanoid}.gftd.ai → Cloudflare → Envoy Gateway
-              ↓ HTTPRoute (per-App, hostname: {nanoid}.gftd.ai)
+  └─ API → {nanoid}.etzhayyim.com → Cloudflare → Envoy Gateway
+              ↓ HTTPRoute (per-App, hostname: {nanoid}.etzhayyim.com)
            App Service (magatama-runtime:80, magatama-operator auto-created)
 ```
 
@@ -62,7 +62,7 @@ metadata:
   name: ai-gftd-wasm-commodity-{symbol}-{nanoid}
   namespace: magatama-runtime
 spec:
-  image: ghcr.io/gftdcojp/ai-gftd-wasm-commodity-{symbol}-{nanoid}:{tag}
+  image: ghcr.io/etzhayyim/ai-gftd-wasm-commodity-{symbol}-{nanoid}:{tag}
   executor: containerd-shim-magatama
   replicas: 1
   imagePullSecrets:
@@ -109,15 +109,15 @@ spec:
 
 ```bash
 # Health check
-curl https://{nanoid}.gftd.ai/health
+curl https://{nanoid}.etzhayyim.com/health
 
 # GetInfo
-curl -X POST https://{nanoid}.gftd.ai/commodity.v1.CommodityService/GetInfo \
+curl -X POST https://{nanoid}.etzhayyim.com/commodity.v1.CommodityService/GetInfo \
   -H "Content-Type: application/json" -d '{}' | jq .
 
 # Batch health sweep
 for n in e1cl2o3p e2bz4r5s e3ng6t7u ...; do
-  curl -s "https://${n}.gftd.ai/health" | jq -r '.commodity // .symbol'
+  curl -s "https://${n}.etzhayyim.com/health" | jq -r '.commodity // .symbol'
 done
 ```
 

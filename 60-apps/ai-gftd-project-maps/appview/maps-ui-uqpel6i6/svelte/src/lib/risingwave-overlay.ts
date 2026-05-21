@@ -1,7 +1,7 @@
 /**
  * RisingWave-native vector overlay for KAMI.
  *
- * Replaces the external MVT tile dependency (tiles-maps.gftd.ai) with a
+ * Replaces the external MVT tile dependency (tiles-maps.etzhayyim.com) with a
  * direct XRPC query to ai.gftd.apps.maps.tileGeoJson. On every moveend we
  * fetch per-label GeoJSON for the current viewport bbox and feed it into
  * KAMI's existing GeoJSON layer path (circle/line/fill). No WASM change

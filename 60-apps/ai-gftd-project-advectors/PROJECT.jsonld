@@ -1,13 +1,13 @@
 {
   "@context": {
     "schema": "https://schema.org/",
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/"
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
+    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/"
   },
   "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-advectors/id/Project/ai-gftd-project-advectors",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-advectors/id/Project/ai-gftd-project-advectors",
   "schema:name": "ai-gftd-project-advectors",
-  "schema:description": "LLM-first ad operations project for grounded creative submission and policy-aware delivery on advectors.gftd.ai",
+  "schema:description": "LLM-first ad operations project for grounded creative submission and policy-aware delivery on advectors.etzhayyim.com",
   "dodaf:capability": [
     {
       "@type": "dodaf:Capability",
@@ -26,7 +26,7 @@
     },
     {
       "@type": "dodaf:Capability",
-      "schema:name": "Split Routing on advectors.gftd.ai",
+      "schema:name": "Split Routing on advectors.etzhayyim.com",
       "schema:description": "Route submission and delivery paths to dedicated SpinApp components"
     }
   ],
@@ -36,16 +36,16 @@
       "schema:name": "advectors-submit-mcp-component",
       "schema:description": "Submission endpoint and MCP facade for grounded text/image creative drafting",
       "gftd:nanoid": "sv9k3d2m",
-      "gftd:mcpEndpoint": "https://sv9k3d2m.gftd.ai/api/mcp",
-      "gftd:serviceEndpoint": "https://advectors.gftd.ai/api/v1/submit"
+      "gftd:mcpEndpoint": "https://sv9k3d2m.etzhayyim.com/api/mcp",
+      "gftd:serviceEndpoint": "https://advectors.etzhayyim.com/api/v1/submit"
     },
     {
       "@type": "dodaf:Performer",
       "schema:name": "advectors-delivery-mcp-component",
       "schema:description": "Delivery endpoint and telemetry facade for serving approved creatives",
       "gftd:nanoid": "dz7q1n8r",
-      "gftd:mcpEndpoint": "https://dz7q1n8r.gftd.ai/api/mcp",
-      "gftd:serviceEndpoint": "https://advectors.gftd.ai/api/v1/serve"
+      "gftd:mcpEndpoint": "https://dz7q1n8r.etzhayyim.com/api/mcp",
+      "gftd:serviceEndpoint": "https://advectors.etzhayyim.com/api/v1/serve"
     }
   ],
   "rdfUnifiedDocuments": {
@@ -59,7 +59,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

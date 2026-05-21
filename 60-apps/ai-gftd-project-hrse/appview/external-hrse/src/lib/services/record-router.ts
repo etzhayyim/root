@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#RecordRouter
+// @etzhayyim/cyber-freelance#RecordRouter
 // レコード振り分けサービス
 // Connect-Web を使用してバックエンドと通信
 // Go 側の RecordRouterService を呼び出す

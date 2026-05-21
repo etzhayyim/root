@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#AgencyRecruiterMailbox
+ * @etzhayyim/ai-gftd-hrse#AgencyRecruiterMailbox
  * エージェンシー所属リクルーター向けメールボックスページ
  */
 

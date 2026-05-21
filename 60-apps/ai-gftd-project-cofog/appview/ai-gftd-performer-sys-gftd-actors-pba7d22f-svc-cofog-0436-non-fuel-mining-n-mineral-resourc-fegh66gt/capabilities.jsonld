@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/6/non-fuel-mining-and-mineral-resources",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/6/non-fuel-mining-and-mineral-resources",
       "type": "dodaf:Capability",
       "name": "Non-Fuel Mineral Resource Management Capability",
       "description": "Functional capability for managing non-fuel mineral resources, extraction licences, and environmental reclamation. Classification: COFOG Division 04, Group 3, Class 6.",

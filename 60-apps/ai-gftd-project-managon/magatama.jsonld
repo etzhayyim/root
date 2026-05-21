@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:managon.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:managon.etzhayyim.com",
   "name": "managon",
   "nanoid": "m4n4g0n1",
   "performerType": "service",

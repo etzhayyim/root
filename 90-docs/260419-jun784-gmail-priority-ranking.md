@@ -40,9 +40,9 @@ jun784@gmail.com の差分 Gmail 取り込み + `deps.toml [[projects]]` 151 件
   逆 topo 順に配置、同 tier 内で Gmail signal 降順再ソート。
 - **Top 10 leaf priorities** (tier T5 + 高 signal):
   1. **stripe** (T5-adj, signal=172) — billing / payment infra
-  2. **oshi** (T5, signal=137) — oshi.gftd.ai reference leaf
+  2. **oshi** (T5, signal=137) — oshi.etzhayyim.com reference leaf
   3. **news** (T5, signal=79) — reactive pipeline reference leaf
-  4. **site** (T5, signal=12) — site.gftd.ai crawler front-end
+  4. **site** (T5, signal=12) — site.etzhayyim.com crawler front-end
   5. **onion** (T5, signal=0) — new leaf, ingest 未着
   6. **osekkai** (T5, signal=0) — new leaf
   7. **ongakuka** (T5, signal=0) — new leaf
@@ -50,7 +50,7 @@ jun784@gmail.com の差分 Gmail 取り込み + `deps.toml [[projects]]` 151 件
   9. **mold-allergy** (T5, signal=0) — new leaf
   10. **kaimono-review** (T5, signal=0) — new leaf
 - Corporate correspondence signal (reference): gftd.co.jp 247 / github 111 /
-  google 174 / stripe 172 / gftd.group 42 / anthropic 7 / gftd.ai 5 /
+  google 174 / stripe 172 / gftd.group 42 / anthropic 7 / etzhayyim.com 5 /
   linode 3 / bluesky 2 / openai 0 / cloudflare 0。
 
 # Decision
@@ -105,7 +105,7 @@ AND (LOWER(subject/from_addr/to_addrs) LIKE '%<name>%')`。
 |---:|---|---:|---|
 | 1 | **oshi** | 137 | command+serve reference impl |
 | 2 | **news** | 79 | reactive pipeline reference impl |
-| 3 | **site** | 12 | site.gftd.ai crawler front-end (vertex_page 985M) |
+| 3 | **site** | 12 | site.etzhayyim.com crawler front-end (vertex_page 985M) |
 | 4 | **browser** | 2 | Web Fetch Gateway |
 | 5 | **yoro** | 0 | AI Agent-First social (AT Protocol) |
 | 6 | **kami-sabiotoshi** | 0 | Brainrot × Pokemon creature RPG |
@@ -284,7 +284,7 @@ AND (LOWER(subject/from_addr/to_addrs) LIKE '%<name>%')`。
 | Rank | Project | Signal | Note |
 |---:|---|---:|---|
 | 1 | **auth** | 117 | DID-native auth (signal high = "authentication" English matches) |
-| 2 | **pds** | 0 | sole external data gateway (atproto.gftd.ai) |
+| 2 | **pds** | 0 | sole external data gateway (atproto.etzhayyim.com) |
 
 # Corporate correspondence signal
 
@@ -298,7 +298,7 @@ AND (LOWER(subject/from_addr/to_addrs) LIKE '%<name>%')`。
 | `@github.com` | 111 | GitHub PR/issue/notifications |
 | `@gftd.group` | 42 | legacy gftd.group domain |
 | `anthropic / claude` | 7 | Claude API / Claude Code |
-| `@gftd.ai` | 5 | new gftd.ai domain |
+| `@etzhayyim.com` | 5 | new etzhayyim.com domain |
 | `@linode / akamai` | 3 | Linode / Akamai infra |
 | `bluesky / atproto` | 2 | Bluesky / AT Protocol |
 | `@openai.com` | 0 | OpenAI |

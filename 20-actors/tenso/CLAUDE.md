@@ -1,11 +1,11 @@
-# tenso.gftd.ai - Signal E2E Secure File Transfer
+# tenso.etzhayyim.com - Signal E2E Secure File Transfer
 
 ## Overview
 
 Zero-knowledge file transfer service. Signal Protocol (X3DH + Double Ratchet) for key exchange, AES-256-GCM per-transfer file key, chunked encrypted blob upload to B2. Server never sees plaintext.
 
-- **URL**: https://tenso.gftd.ai
-- **API**: https://t3ns0f1l.gftd.ai/xrpc
+- **URL**: https://tenso.etzhayyim.com
+- **API**: https://t3ns0f1l.etzhayyim.com/xrpc
 - **Nanoid**: `t3ns0f1l`
 - **Execution Tier**: T1 (MCP-Compose; T3 Worker planned when Signal crypto Worker is deployed)
 - **Governance**: `confidential`
@@ -112,22 +112,22 @@ Purge Worker
 ## Multi-DID
 
 ```
-did:web:tenso.gftd.ai                          <- controller
-  did:web:tenso.gftd.ai:transfer:{nanoid}      <- per-transfer isolation
-  did:web:tenso.gftd.ai:vault:{nanoid}         <- per-user storage vault
+did:web:tenso.etzhayyim.com                          <- controller
+  did:web:tenso.etzhayyim.com:transfer:{nanoid}      <- per-transfer isolation
+  did:web:tenso.etzhayyim.com:vault:{nanoid}         <- per-user storage vault
 ```
 
 ## Cross-Project Dependencies
 
 | Target | Purpose | Direction |
 |---|---|---|
-| `yabai.gftd.ai` | Risk assessment on errors | tenso -> yabai (derive invoke) |
-| `organizer.gftd.ai` | Received file auto-organize | tenso -> organizer (derive invoke) |
-| `trust.gftd.ai` | Sender trust score check | tenso -> trust (query) |
+| `yabai.etzhayyim.com` | Risk assessment on errors | tenso -> yabai (derive invoke) |
+| `organizer.etzhayyim.com` | Received file auto-organize | tenso -> organizer (derive invoke) |
+| `trust.etzhayyim.com` | Sender trust score check | tenso -> trust (query) |
 
 ## Build & Deploy
 
 ```bash
 cd 60-apps/ai-gftd-project-tenso/wasm/ai-gftd-wasm-tenso-t3ns0f1l
-gftd deploy --smoke-url https://t3ns0f1l.gftd.ai/health
+gftd deploy --smoke-url https://t3ns0f1l.etzhayyim.com/health
 ```

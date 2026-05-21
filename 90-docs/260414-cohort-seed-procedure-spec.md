@@ -33,7 +33,7 @@ superseded_by: []
 // Output
 {
   did: string,                // 生成 / 解決された did:plc:pending-*
-  handle: string,             // cohort-{nano}.gftd.ai
+  handle: string,             // cohort-{nano}.etzhayyim.com
   signatureUri: string,       // at://...self
   genesisAt: string,
 }
@@ -75,8 +75,8 @@ async function deriveSegmentHash(segmentJsonld: string): Promise<string> {
 
 ```typescript
 const nano = genID('coh').slice(-8); // 8-char, base36
-const handle = `cohort-${nano}.gftd.ai`;
-// Phase 5 (plc.gftd.ai live) 後: call ai.gftd.plc.migrateActor with genesis op
+const handle = `cohort-${nano}.etzhayyim.com`;
+// Phase 5 (plc.etzhayyim.com live) 後: call ai.gftd.plc.migrateActor with genesis op
 // 暫定: "did:plc:pending-" + nano
 const did = `did:plc:pending-${nano}`;
 ```
@@ -106,7 +106,7 @@ await db.insertInto('vertex_cohort_actor')
     status: 'pending-plc-genesis',
     signature_uri: `at://${handle}/ai.gftd.cohort.signature/self`,
     genesis_at: new Date().toISOString(),
-    owner_did: 'did:web:cohort-watchdog.gftd.ai',
+    owner_did: 'did:web:cohort-watchdog.etzhayyim.com',
     created_date: new Date(),
   })
   .execute();
@@ -141,7 +141,7 @@ await forwardOcelToApqc({
   eventType: 'cohort.genesis' as any,  // 型を union 拡張する
   kProxy: input.kAnonymity,
   apqcL1: parseSegmentHash(segmentHash)?.pcfL1 ?? null,
-  apqcDid: apqcL1 ? `did:web:kyber-projector.gftd.ai:apqc:${apqcL1}` : null,
+  apqcDid: apqcL1 ? `did:web:kyber-projector.etzhayyim.com:apqc:${apqcL1}` : null,
 });
 ```
 

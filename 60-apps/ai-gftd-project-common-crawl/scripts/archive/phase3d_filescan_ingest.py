@@ -44,7 +44,7 @@ S3_SECRET = os.environ.get("S3_SECRET_KEY", "Wv5b0cNdv7wNoZuiSmnJAxMwlye1MHEl1C6
 
 GRAPH_XRPC_URL = os.environ.get(
     "GRAPH_XRPC_URL",
-    "https://graph.gftd.ai/xrpc/ai.gftd.kagami.sql",
+    "https://graph.etzhayyim.com/xrpc/ai.gftd.kagami.sql",
 )
 XRPC_TIMEOUT = int(os.environ.get("XRPC_TIMEOUT", "120"))
 
@@ -282,8 +282,8 @@ def populate_domains(dry_run: bool = False):
     )
     SELECT
         p.domain, p.domain,
-        'did:web:site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
-        'site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
+        'did:web:site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
+        'site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
         p.domain, NULL::VARCHAR, 'service', 'active',
         0::BIGINT, 0::BIGINT, NULL::DATE, NULL::VARCHAR
     FROM (SELECT DISTINCT domain FROM vertex_page WHERE domain IS NOT NULL AND domain != '') p"""

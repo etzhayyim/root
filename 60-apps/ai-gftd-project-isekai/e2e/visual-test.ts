@@ -8,7 +8,7 @@
  */
 import { test, expect, type Page } from '@playwright/test';
 
-const BASE = 'https://isekai.gftd.ai';
+const BASE = 'https://isekai.etzhayyim.com';
 const SEED = 42;
 const URL = `${BASE}/?seed=${SEED}`;
 

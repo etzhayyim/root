@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.gftd.ai';
+const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.etzhayyim.com';
 const SVC = `${BASE}/xrpc/gftd.malak.v1.MalakService`;
 const HDR = { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-test' };
 
-test.describe('malak.gftd.ai — Dashboard Card', () => {
+test.describe('malak.etzhayyim.com — Dashboard Card', () => {
 	test('malak.dashboard returns metric-dashboard card', async ({ request }) => {
 		const r = await request.post(`${SVC}/malak.dashboard`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
@@ -32,7 +32,7 @@ test.describe('malak.gftd.ai — Dashboard Card', () => {
 	});
 });
 
-test.describe('malak.gftd.ai — Threat Actor Cards', () => {
+test.describe('malak.etzhayyim.com — Threat Actor Cards', () => {
 	test('malak.threatActors returns list card', async ({ request }) => {
 		const r = await request.post(`${SVC}/malak.threatActors`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
@@ -42,7 +42,7 @@ test.describe('malak.gftd.ai — Threat Actor Cards', () => {
 	});
 });
 
-test.describe('malak.gftd.ai — Submit Tip Form', () => {
+test.describe('malak.etzhayyim.com — Submit Tip Form', () => {
 	test('malak.submitTip returns form card', async ({ request }) => {
 		const r = await request.post(`${SVC}/malak.submitTip`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
@@ -70,7 +70,7 @@ test.describe('malak.gftd.ai — Submit Tip Form', () => {
 	});
 });
 
-test.describe('malak.gftd.ai — Agencies & Tools', () => {
+test.describe('malak.etzhayyim.com — Agencies & Tools', () => {
 	test('malak.agencies returns list of 16+ agencies', async ({ request }) => {
 		const r = await request.post(`${SVC}/malak.agencies`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
@@ -104,11 +104,11 @@ test.describe('malak.gftd.ai — Agencies & Tools', () => {
 		const b = await r.json();
 		const freezeItem = b.payload.items.find((i: any) => i.label === 'Crypto Asset Freeze');
 		expect(freezeItem).toBeDefined();
-		expect(freezeItem.action).toContain('crypto-asset-freeze.gftd.ai');
+		expect(freezeItem.action).toContain('crypto-asset-freeze.etzhayyim.com');
 	});
 });
 
-test.describe('malak.gftd.ai — Capabilities', () => {
+test.describe('malak.etzhayyim.com — Capabilities', () => {
 	test('getCapabilities returns full capability list', async ({ request }) => {
 		const r = await request.post(`${SVC}/getCapabilities`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
@@ -133,7 +133,7 @@ test.describe('malak.gftd.ai — Capabilities', () => {
 	});
 });
 
-test.describe('malak.gftd.ai — Card Action Routing', () => {
+test.describe('malak.etzhayyim.com — Card Action Routing', () => {
 	test('card.action with unknown action returns ok', async ({ request }) => {
 		const r = await request.post(`${SVC}/card.action`, {
 			headers: HDR, data: { action: 'unknown' },

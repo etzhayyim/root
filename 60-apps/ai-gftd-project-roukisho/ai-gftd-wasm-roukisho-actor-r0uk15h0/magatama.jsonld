@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:roukisho.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:roukisho.etzhayyim.com",
   "name": "roukisho",
   "nanoid": "r0uk15h0",
   "project": "roukisho",
@@ -32,7 +32,7 @@
   "entities": [
     {
       "category": "ministry",
-      "did": "did:web:roukisho.gftd.ai:mhlw",
+      "did": "did:web:roukisho.etzhayyim.com:mhlw",
       "sourceId": "mhlw",
       "name": "厚生労働省 (Ministry of Health, Labour and Welfare)",
       "url": "https://www.mhlw.go.jp/",
@@ -41,7 +41,7 @@
     },
     {
       "category": "prefectural-bureau",
-      "did": "did:web:roukisho.gftd.ai:tokyo",
+      "did": "did:web:roukisho.etzhayyim.com:tokyo",
       "sourceId": "tokyo-labour-bureau",
       "name": "東京労働局",
       "url": "https://jsite.mhlw.go.jp/tokyo-roudoukyoku/",
@@ -50,7 +50,7 @@
     },
     {
       "category": "inspection-office",
-      "did": "did:web:roukisho.gftd.ai:tokyo:chuo",
+      "did": "did:web:roukisho.etzhayyim.com:tokyo:chuo",
       "sourceId": "jp-tokyo-chuo",
       "name": "中央労働基準監督署",
       "url": "https://jsite.mhlw.go.jp/tokyo-roudoukyoku/",

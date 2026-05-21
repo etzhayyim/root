@@ -1,4 +1,4 @@
-// voxelforge.gftd.ai — L3 dispatcher CF Worker (ADR-2605080700).
+// voxelforge.etzhayyim.com — L3 dispatcher CF Worker (ADR-2605080700).
 //
 // Surfaces:
 //   /health, /_app/meta                          edge probe (no auth)
@@ -57,7 +57,7 @@ app.get("/_worker/health", (c) =>
 app.get("/_app/meta", (c) =>
   c.json({
     app: "ai-gftd-project-voxelforge",
-    did: c.env.VOXELFORGE_ACTOR_DID ?? "did:web:voxelforge.gftd.ai",
+    did: c.env.VOXELFORGE_ACTOR_DID ?? "did:web:voxelforge.etzhayyim.com",
     version: c.env.VOXELFORGE_VERSION ?? "0.0.0",
     layer: "L3-dispatcher",
     surfaces: [

@@ -13,7 +13,7 @@ authoritative_for:
   - Custom RunPod image build pipeline (50-infra/runpod/vllm-gemma-image/, .github/workflows/runpod-vllm-gemma-image.yml)
 related:
   - adr-2604282100  # LLM benchmark gemma4 default
-  - adr-2604292130  # llm.gftd.ai runpod pass-through
+  - adr-2604292130  # llm.etzhayyim.com runpod pass-through
   - adr-2605080600  # resident LangGraph organism actors may use Murakumo as L8 somatic inference
   - adr-2604231328  # animeka 12-stage pipeline
   - adr-2604281600  # shinshi melina pipeline
@@ -36,13 +36,13 @@ notes: |
 
 # Context
 
-`animeka.gftd.ai`, `mangaka.gftd.ai`, `shinshi.gftd.ai` 等の生成 pipeline は 2 系統のバックエンドに依存していた:
+`animeka.etzhayyim.com`, `mangaka.etzhayyim.com`, `shinshi.etzhayyim.com` 等の生成 pipeline は 2 系統のバックエンドに依存していた:
 
 | 用途 | バックエンド | 状態 (2026-04-30) |
 |---|---|---|
 | LLM (chat / structured JSON / planning) | Murakumo Mac mini fleet (LiteLLM @ judah:4000) | 動作中だが 17s 帰り (cold) — judah → Ollama gemma4-e4b の serial path |
-| LLM (高品質 32B クラス) | `llm.gftd.ai` (CF Worker `ai-gftd-runpod` → RunPod Serverless `3fctheq51haikt`) | gemma4:26b-a4b-it-q4_K_M (Ollama on serverless), 421 jobs success, $19/day standby |
-| 画像生成 (SDXL) | RunPod pod `r127r1ab2arjg8` (RTX 6000 Ada, EU-SE-1) | 2026-04-29 頃 terminate、`comfyui.gftd.ai` upstream 死亡 |
+| LLM (高品質 32B クラス) | `llm.etzhayyim.com` (CF Worker `ai-gftd-runpod` → RunPod Serverless `3fctheq51haikt`) | gemma4:26b-a4b-it-q4_K_M (Ollama on serverless), 421 jobs success, $19/day standby |
+| 画像生成 (SDXL) | RunPod pod `r127r1ab2arjg8` (RTX 6000 Ada, EU-SE-1) | 2026-04-29 頃 terminate、`comfyui.etzhayyim.com` upstream 死亡 |
 
 User の方針 (2026-04-30):
 > animeka, mangaka, shinshi などでは murakumo を使わずに runpod の 6000 ada で一本化
@@ -58,16 +58,16 @@ User の方針 (2026-04-30):
 
 **RunPod RTX 6000 Ada Generation 48 GB Secure 単一 pod に ComfyUI + vLLM + LiteLLM を pre-built image で co-locate**。Murakumo / serverless / 旧 6000 Ada (EU-SE-1) を全て退役。
 
-> **2026-05-17 DC 移行 + Secure SUPPLY_CONSTRAINT**: US-KS-2 GPU pool 完全在庫切れ → US-WA-1 に移行。volume `p9riuzhrvf` (US-KS-2) 削除、新規 volume `om0lfbfmvg` (US-WA-1, 250 GB) 作成。pod `numnfxlu2qx7s2` を deploy したが SSH タイムアウト (image pull 失敗の疑い) → terminate。**その後 RTX 6000 Ada Secure が全 DC で SUPPLY_CONSTRAINT** (US-WA-1/TX-3/GA-1/OR-1/CA-1/CA-MTL-1/EU-SE-1/EU-NL-1 全滅)。containerRegistryAuth `cmnr5ls0c00dtl707ehmglpul` (ghcr-gftdcojp-v2) のトークンを 2026-05-17 に更新済み。Secure cloud が復旧次第 `comfyui-l40s/scripts/up.sh` を再実行すること。現在 **ComfyUI / LLM / LiteLLM エンドポイントすべて DOWN**。
+> **2026-05-17 DC 移行 + Secure SUPPLY_CONSTRAINT**: US-KS-2 GPU pool 完全在庫切れ → US-WA-1 に移行。volume `p9riuzhrvf` (US-KS-2) 削除、新規 volume `om0lfbfmvg` (US-WA-1, 250 GB) 作成。pod `numnfxlu2qx7s2` を deploy したが SSH タイムアウト (image pull 失敗の疑い) → terminate。**その後 RTX 6000 Ada Secure が全 DC で SUPPLY_CONSTRAINT** (US-WA-1/TX-3/GA-1/OR-1/CA-1/CA-MTL-1/EU-SE-1/EU-NL-1 全滅)。containerRegistryAuth `cmnr5ls0c00dtl707ehmglpul` (ghcr-etzhayyim-v2) のトークンを 2026-05-17 に更新済み。Secure cloud が復旧次第 `comfyui-l40s/scripts/up.sh` を再実行すること。現在 **ComfyUI / LLM / LiteLLM エンドポイントすべて DOWN**。
 
 ## LLM inference SSoT (CRITICAL, 2026-05-07 reaffirmed)
 
-**LLM 推論の正本 = この ADR の RunPod pod (`ghcr.io/gftdcojp/runpod-vllm-gemma:latest` on RTX 6000 Ada)。Murakumo は LLM 推論経路として想定しない。** Mac mini fleet (`murakumo.gftd.ai`, judah:4000 LiteLLM) は LLM 推論 SSoT から外す。
+**LLM 推論の正本 = この ADR の RunPod pod (`ghcr.io/etzhayyim/runpod-vllm-gemma:latest` on RTX 6000 Ada)。Murakumo は LLM 推論経路として想定しない。** Mac mini fleet (`murakumo.etzhayyim.com`, judah:4000 LiteLLM) は LLM 推論 SSoT から外す。
 
 > **pod なし (2026-05-17 現在)**: RTX 6000 Ada Secure SUPPLY_CONSTRAINT 全 DC。Secure cloud 復旧後に新 pod ID が払い出される。`runpod-podid-update-checklist` に従って zeebe-worker / shinshi / training Helm values の URL を更新すること。Volume `om0lfbfmvg` (US-WA-1) は存在するがモデル未ダウンロード。
 
 **禁止 (新規コードに対する不変条件)**:
-- pymagatama / agent loop / projector / BPMN handler から `murakumo.gftd.ai` / `murakumo-serve.gftd.ai` / `magatama-llm8cf4ai` / `LLM_SERVICE` service binding に対する LLM call を新規追加する
+- pymagatama / agent loop / projector / BPMN handler から `murakumo.etzhayyim.com` / `murakumo-serve.etzhayyim.com` / `magatama-llm8cf4ai` / `LLM_SERVICE` service binding に対する LLM call を新規追加する
 - RunPod が cold / 障害状態の時に Murakumo を automatic fallback として呼ぶ (silent fail で degraded response を返すか、明示的に `503 ServiceUnavailable` を返すこと)
 - LLM 用の new env var (`MURAKUMO_*`, `LLM_FALLBACK_*`) を default true で配るか、Worker secret に投入する
 - `MURAKUMO_DEFAULT_MODEL` を「Murakumo の default」と読む実装。これは命名が legacy で残るが意味は **「LLM SSoT (= RunPod) の default model alias」** に再定義 (rename は future kaizen)
@@ -86,7 +86,7 @@ as the **L8 Somatic Inference Layer** when all conditions hold:
 - there is no silent fallback from RunPod to Murakumo for animeka / mangaka /
   shinshi / generic production GenAI paths
 
-This exception does not change the public `llm.gftd.ai` SSoT for generation
+This exception does not change the public `llm.etzhayyim.com` SSoT for generation
 pipelines. It only defines the resident organism loop described by
 ADR-2605080600.
 
@@ -105,7 +105,7 @@ ADR-2605080600.
 Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-gftd, $0.77/hr)  ← 未払い出し (2026-05-17 SUPPLY_CONSTRAINT)
 │  (旧: numnfxlu2qx7s2 terminated、旧: 58pvflvw9w6nt3 US-KS-2、旧: vyp99t9px7h4dl US-KS-2)
 │
-├─ Image: ghcr.io/gftdcojp/runpod-vllm-gemma:latest
+├─ Image: ghcr.io/etzhayyim/runpod-vllm-gemma:latest
 │         (FROM runpod/comfyui:latest + /opt/venv-vllm + /opt/start-llm.sh)
 │         ENTRYPOINT /start.sh wraps base /start.sh.original (ComfyUI/sshd/jupyter bg)
 │         → 45s sleep → exec /opt/start-llm.sh → vLLM :8000 → LiteLLM :4000
@@ -118,7 +118,7 @@ Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-gftd, $0.77/hr)  ← 未払�
 │
 ├─ Service :8188 — ComfyUI 0.18.2
 │    Public URL: https://<NEW_ID>-8188.proxy.runpod.net  ← DOWN (pod なし)
-│    Front: comfyui.gftd.ai (CF Worker ai-gftd-comfyui-2604221600)
+│    Front: comfyui.etzhayyim.com (CF Worker ai-gftd-comfyui-2604221600)
 │    VRAM: ~10-12 GiB peak per model
 │
 ├─ Service :8000 — vLLM 0.19.1 (CUDA 12.x)
@@ -146,22 +146,22 @@ Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-gftd, $0.77/hr)  ← 未払�
 ## Caller routing
 
 ```
-animeka.gftd.ai (thin CF Worker b7b7f6b2)
-  → dispatcher.gftd.ai/xrpc/ai.gftd.animeka.* (HTTPS via CF)
+animeka.etzhayyim.com (thin CF Worker b7b7f6b2)
+  → dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.* (HTTPS via CF)
     → bpmn-dispatcher (mitama-udf VKE) → Zeebe broker
       → zeebe-worker pod (pymagatama:0.3.11-amd64)
         → generic.llm.chat / generic.llm.json handler
           → LLM_CHAT_COMPLETIONS_URL = https://<NEW_ID>-4000.proxy.runpod.net/v1/chat/completions  ← DOWN
             → LiteLLM :4000 → vLLM :8000 → gemma-4-26B-A4B-it
         → generic.comfyui.call handler
-          → comfyui.gftd.ai (CF Worker)
+          → comfyui.etzhayyim.com (CF Worker)
             → UPSTREAM_URL = https://<NEW_ID>-8188.proxy.runpod.net  ← DOWN
 
-shinshi.gftd.ai (CF Worker 0df83283)
+shinshi.etzhayyim.com (CF Worker 0df83283)
   → seedScenesWithImagesReal (photoreal SDXL)
     → COMFY_POD_URL = https://<NEW_ID>-8188.proxy.runpod.net  ← DOWN
   → ai.gftd.apps.shinshi.generateVideo (Wan video)
-    → dispatcher.gftd.ai → Zeebe → shinshi.video.render
+    → dispatcher.etzhayyim.com → Zeebe → shinshi.video.render
 ```
 
 # Alternatives considered
@@ -235,7 +235,7 @@ security add-generic-password -s "gftd.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/
 
 1. **`vllm-cuda12x-compat`** (priority 7.0, 訂正): `pip install vllm==0.19.1` 後に `--force-reinstall torch` を **してはいけない**。vLLM wheel の `_C.abi3.so` が同梱 torch (2.10.0+cu128) の CXX11 ABI に依存しており、別 torch で上書きすると `undefined symbol _ZN3c106ivalue14ConstantString6create...` ImportError で起動不能。flashinfer は `--no-deps` で torch 上書き防止。
 
-2. **`runpod-proxy-browser-ua-required`** (priority 8.0, NEW): `*.proxy.runpod.net` は CF 経由で配信され default Python urllib UA を 403 block する。Python caller は browser UA (Chrome/129) 必須。`pymagatama/llm.py` は対応済。CF Worker `comfyui.gftd.ai` / `llm.gftd.ai` 経由なら UA 制約なし (CF→CF egress)。
+2. **`runpod-proxy-browser-ua-required`** (priority 8.0, NEW): `*.proxy.runpod.net` は CF 経由で配信され default Python urllib UA を 403 block する。Python caller は browser UA (Chrome/129) 必須。`pymagatama/llm.py` は対応済。CF Worker `comfyui.etzhayyim.com` / `llm.etzhayyim.com` 経由なら UA 制約なし (CF→CF egress)。
 
 3. **`runpod-podid-update-checklist`** (priority 6.0, NEW): pod 再作成時に sed 一括更新する箇所:
    - `50-infra/cloudflare/workers/comfyui/wrangler.jsonc` `UPSTREAM_URL` → `wrangler deploy`
@@ -274,7 +274,7 @@ security add-generic-password -s "gftd.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/
 |---|---|
 | vLLM :8000 chat/completions | ✅ "OK" 1.8s |
 | LiteLLM :4000 alias | ✅ "PONG" 1.8s |
-| comfyui.gftd.ai upstream.reachable | ✅ true 346ms |
+| comfyui.etzhayyim.com upstream.reachable | ✅ true 346ms |
 | shinshi seedScenesWithImagesReal | ✅ 832×1216 PNG 1.16 MB |
 
 ## 現状 (2026-05-17)

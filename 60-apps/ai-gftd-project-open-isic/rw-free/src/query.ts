@@ -1,6 +1,7 @@
 /**
  * Query: MST prefix traversal via @etzhayyim/sdk.read().
  *
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
  * Replaces the RW query path (kysely.selectFrom('vertex_open_isic_class')…)
  * with a direct PDS read over MST. ISIC hierarchy maps to key prefixes
  * directly because rkey == 4-digit code:

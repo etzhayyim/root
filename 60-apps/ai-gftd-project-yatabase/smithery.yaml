@@ -4,8 +4,8 @@ description: >
   Cloud graph database with Cypher queries, Supabase-compatible object storage,
   and a built-in MCP server. Connect any AI agent directly to your knowledge
   graph with one API key — no infrastructure required.
-homepage: https://yatabase.gftd.ai
-documentation: https://yatabase.gftd.ai/docs
+homepage: https://yatabase.etzhayyim.com
+documentation: https://yatabase.etzhayyim.com/docs
 categories:
   - database
   - graph
@@ -14,13 +14,13 @@ categories:
 license: commercial
 startCommand:
   type: http
-  url: https://yatabase.gftd.ai/mcp
+  url: https://yatabase.etzhayyim.com/mcp
   configSchema:
     type: object
     properties:
       apiKey:
         type: string
-        description: "Your yatabase API key (sk_live_yata_…). Get one at https://yatabase.gftd.ai/studio"
+        description: "Your yatabase API key (sk_live_yata_…). Get one at https://yatabase.etzhayyim.com/studio"
     required:
       - apiKey
 tools:

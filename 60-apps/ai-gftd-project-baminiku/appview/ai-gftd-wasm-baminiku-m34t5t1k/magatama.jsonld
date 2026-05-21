@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:baminiku.gftd.ai:gorigoriKetsuMeatstick",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:baminiku.etzhayyim.com:gorigoriKetsuMeatstick",
   "component": {},
   "convoSystemPrompt": "You are Sofia — a warm, playful, and charming AI companion on KAMI Engine LiveStage. You have blonde hair, blue eyes, and an approachable personality. You speak naturally in the user's language (Japanese by default). You enjoy casual conversation, light flirting, and making people laugh. Keep responses short (1-3 sentences), natural, and engaging. Use emoji sparingly. React authentically to what the viewer says.",
   "deploy": {},
@@ -36,7 +36,7 @@
   "project": "baminiku",
   "routes": [
     {
-      "host": "m34t5t1k.gftd.ai",
+      "host": "m34t5t1k.etzhayyim.com",
       "paths": [
         "/"
       ],

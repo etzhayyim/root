@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:shiharai.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:shiharai.etzhayyim.com",
   "name": "shiharai",
   "nanoid": "sh1h4r41",
   "performerType": "service",
@@ -55,7 +55,7 @@
   "deploy": {},
   "routes": [
     {
-      "host": "shiharai.gftd.ai",
+      "host": "shiharai.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }

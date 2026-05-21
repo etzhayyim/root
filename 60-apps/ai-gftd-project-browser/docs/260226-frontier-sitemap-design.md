@@ -186,14 +186,14 @@ metadata:
   namespace: magatama-runtime
   annotations:
     description: Distributed URL frontier with sitemap/RSS discovery
-    performer.gftd.ai/categories: go,crawler,frontier
+    performer.etzhayyim.com/categories: go,crawler,frontier
 spec:
   components:
     # ── Frontier component (single-writer) ──
     - name: frontier-component
       type: component
       properties:
-        image: ghcr.io/gftdcojp/frontier-component:v0.1.0
+        image: ghcr.io/etzhayyim/frontier-component:v0.1.0
         config:
           - name: frontier-config
             properties:
@@ -232,7 +232,7 @@ spec:
       type: capability
       dependsOn: [frontier-component]
       properties:
-        image: ghcr.io/gftdcojp/http-server:0.26.0
+        image: ghcr.io/etzhayyim/http-server:0.26.0
       traits:
         - type: daemonscaler
           properties:
@@ -253,7 +253,7 @@ spec:
       type: capability
       dependsOn: [frontier-component]
       properties:
-        image: ghcr.io/gftdcojp/http-client:0.12.0
+        image: ghcr.io/etzhayyim/http-client:0.12.0
       traits:
         - type: daemonscaler
           properties:
@@ -264,7 +264,7 @@ spec:
       type: capability
       dependsOn: [frontier-component]
       properties:
-        image: ghcr.io/gftdcojp/keyvalue-nats:0.3.1
+        image: ghcr.io/etzhayyim/keyvalue-nats:0.3.1
       traits:
         - type: daemonscaler
           properties:
@@ -281,14 +281,14 @@ metadata:
   namespace: magatama-runtime
   annotations:
     description: Distributed crawler workers — pull URLs from frontier via wRPC
-    performer.gftd.ai/categories: go,mcp,crawler
+    performer.etzhayyim.com/categories: go,mcp,crawler
 spec:
   components:
     # ── Crawler worker (horizontally scaled) ──
     - name: crawler-mcp-component
       type: component
       properties:
-        image: ghcr.io/gftdcojp/crawler-mcp-component:v1.0.0-frontier
+        image: ghcr.io/etzhayyim/crawler-mcp-component:v1.0.0-frontier
         config:
           - name: crawler-worker-config
             properties:
@@ -349,7 +349,7 @@ spec:
       type: capability
       dependsOn: [crawler-mcp-component]
       properties:
-        image: ghcr.io/gftdcojp/http-server:0.26.0
+        image: ghcr.io/etzhayyim/http-server:0.26.0
       traits:
         - type: daemonscaler
           properties:
@@ -369,7 +369,7 @@ spec:
       type: capability
       dependsOn: [crawler-mcp-component]
       properties:
-        image: ghcr.io/gftdcojp/http-client:0.12.0
+        image: ghcr.io/etzhayyim/http-client:0.12.0
       traits:
         - type: daemonscaler
           properties:
@@ -379,7 +379,7 @@ spec:
       type: capability
       dependsOn: [crawler-mcp-component]
       properties:
-        image: ghcr.io/gftdcojp/keyvalue-nats:0.3.1
+        image: ghcr.io/etzhayyim/keyvalue-nats:0.3.1
       traits:
         - type: daemonscaler
           properties:
@@ -389,7 +389,7 @@ spec:
       type: capability
       dependsOn: [crawler-mcp-component]
       properties:
-        image: ghcr.io/gftdcojp/blobstore-s3:0.10.0
+        image: ghcr.io/etzhayyim/blobstore-s3:0.10.0
       traits:
         - type: daemonscaler
           properties:

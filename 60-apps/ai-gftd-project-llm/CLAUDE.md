@@ -1,4 +1,4 @@
-# ai-gftd-project-llm — llm.gftd.ai
+# ai-gftd-project-llm — llm.etzhayyim.com
 
 **LLM inference gateway — currently no backend.** The Linode GPU Ollama path was pruned 2026-04-22 (LKE GPU node pool removed, `inference` namespace deleted). CF Workers AI + OpenRouter fallbacks were pruned earlier (2026-04-15). Callers hitting `/v1/chat/completions` now receive a structured 200 with `finish_reason: "error:inference_unavailable"` and empty content, so upstream UIs can render honest state rather than timing out. Murakumo (hayate + qwen3.5-4b translation) is unaffected — that path is separate in host-sdk `llm.ts`.
 
@@ -10,7 +10,7 @@
 | `/v1/chat/completions` (stream) | identical error |
 | Credits gate | still enforced (`x-credits-did` required unless `x-magatama-verified: true`) |
 | hayate-v4/v5 → Murakumo | active |
-| Translation (qwen3.5-4b) → Murakumo direct | active (i18n.gftd.ai → murakumo.gftd.ai) |
+| Translation (qwen3.5-4b) → Murakumo direct | active (i18n.etzhayyim.com → murakumo.etzhayyim.com) |
 
 To restore inference, re-wire a backend inside `runInference()` in `src/app.ts` and redeploy. The retained `pvc/ollama-models` 50Gi Linode block-storage volume still has the pre-pulled gemma4:e2b/e4b models and can be re-mounted if a new GPU pool is added.
 
@@ -20,15 +20,15 @@ To restore inference, re-wire a backend inside `runInference()` in `src/app.ts` 
 App (host-sdk llm.ts)
   ├─ hayate-v4/v5 model → Murakumo (on-prem MLX fleet) — active
   ├─ translation (qwen3.5-4b) → Murakumo direct — active
-  └─ other models      → llm.gftd.ai → [no backend] error:inference_unavailable
+  └─ other models      → llm.etzhayyim.com → [no backend] error:inference_unavailable
 ```
 
 ## Model Tier Strategy
 
 | Tier | Model | Backend | Use Case | Cost |
 |---|---|---|---|---|
-| 0a GPU pod | `gemma4:e2b` | Ollama LKE GPU pod (`ollama.gftd.ai`) | heartbeat, shinka, react, general, simple, social, convo | $0 |
-| 0b GPU pod | `gemma4:e4b` | Ollama LKE GPU pod (`ollama.gftd.ai`) | kyumei-koji, japanese, structured, extraction, json | $0 |
+| 0a GPU pod | `gemma4:e2b` | Ollama LKE GPU pod (`ollama.etzhayyim.com`) | heartbeat, shinka, react, general, simple, social, convo | $0 |
+| 0b GPU pod | `gemma4:e4b` | Ollama LKE GPU pod (`ollama.etzhayyim.com`) | kyumei-koji, japanese, structured, extraction, json | $0 |
 
 Both GPU pod models warm simultaneously in VRAM (OLLAMA_MAX_LOADED_MODELS=2, ~12 GiB / 20 GiB).  
 `gemma4:e2b` = exact Ollama equivalent of `@cf/google/gemma-4-e2b-it` (released 2026-04-02, Apache 2.0, 128K ctx).  
@@ -46,7 +46,7 @@ Ollama 不達時は `finishReason: "error:ollama_unavailable"` を返す (no fal
 
 ## Credits Gate
 
-Credits service (credits.gftd.ai) への pre-check は **graceful degradation** — HTTP 402 (insufficient_balance) のみブロック。
+Credits service (credits.etzhayyim.com) への pre-check は **graceful degradation** — HTTP 402 (insufficient_balance) のみブロック。
 credits service 不達・unknown method・その他エラーはスルー (credits は AT Protocol commit pipeline で事後請求)。
 
 ## Commands (6)
@@ -66,12 +66,12 @@ credits service 不達・unknown method・その他エラーはスルー (credit
 - `llmAsk(prompt)` → Ollama Tier 0 (gemma4:e4b)
 - `llmCall(system, user, "hayate-v5")` → Murakumo
 - `agentConverseAsync(msgs, { use_case: "heartbeat" })` → Ollama Tier 0 gemma4:e4b
-- `agentConverseAsync(msgs, { use_case: "kyumei-koji" })` → llm.gftd.ai Ollama qwen3-30b
+- `agentConverseAsync(msgs, { use_case: "kyumei-koji" })` → llm.etzhayyim.com Ollama qwen3-30b
 
 **Key env vars:**
-- `MURAKUMO_CHAT_URL = "http://ollama.gftd.ai/v1/chat/completions"` (llm.ts SSOT)
-- `OLLAMA_URL = "http://172-236-133-64.ip.linodeusercontent.com"` (wrangler.jsonc `vars`, LLM Worker Tier 0 — Linode NB hostname; `ollama.gftd.ai` gray-cloud is intercepted by routing-gateway Worker for CF Worker subrequests)
-- `EMBED_URL = "http://embed.gftd.ai"` (graph Worker, self-hosted TEI — CF AI fallback pruned)
+- `MURAKUMO_CHAT_URL = "http://ollama.etzhayyim.com/v1/chat/completions"` (llm.ts SSOT)
+- `OLLAMA_URL = "http://172-236-133-64.ip.linodeusercontent.com"` (wrangler.jsonc `vars`, LLM Worker Tier 0 — Linode NB hostname; `ollama.etzhayyim.com` gray-cloud is intercepted by routing-gateway Worker for CF Worker subrequests)
+- `EMBED_URL = "http://embed.etzhayyim.com"` (graph Worker, self-hosted TEI — CF AI fallback pruned)
 
 ## OpenAI-Compatible API
 
@@ -83,7 +83,7 @@ credits service 不達・unknown method・その他エラーはスルー (credit
   provider: openai
   apiKey: dummy
   model: gemma4:e4b
-  apiBase: https://llm.gftd.ai/v1
+  apiBase: https://llm.etzhayyim.com/v1
 ```
 
 ## Build & Deploy
@@ -92,10 +92,10 @@ credits service 不達・unknown method・その他エラーはスルー (credit
 
 ```bash
 cd 60-apps/ai-gftd-project-llm/wasm/ai-gftd-wasm-llm-llm8cf4ai
-# account-level Worker deploy (llm.gftd.ai route)
+# account-level Worker deploy (llm.etzhayyim.com route)
 mkdir -p build && npx esbuild src/app.ts --bundle --outfile=build/worker.mjs --format=esm --platform=browser --target=es2022 --external:cloudflare:workers
 pnpm wrangler deploy
 
-# App Worker deploy (llm8cf4ai.gftd.ai)
-gftd deploy --no-svelte --smoke-url https://llm8cf4ai.gftd.ai/health
+# App Worker deploy (llm8cf4ai.etzhayyim.com)
+gftd deploy --no-svelte --smoke-url https://llm8cf4ai.etzhayyim.com/health
 ```

@@ -4,7 +4,7 @@
 //!
 //! ```bash
 //! cd 50-clients/rust/yata
-//! YATA_DSN="yatabase://sk_live_yata_xxx@yatabase.gftd.ai/yata_xxx" \
+//! YATA_DSN="yatabase://sk_live_yata_xxx@yatabase.etzhayyim.com/yata_xxx" \
 //!     cargo run --example 01-quickstart
 //! ```
 //!
@@ -38,7 +38,7 @@ struct Knows {
 #[tokio::main]
 async fn main() -> Result<()> {
     let dsn = std::env::var("YATA_DSN")
-        .unwrap_or_else(|_| "yatabase://sk_live_yata_xxx@yatabase.gftd.ai/yata_xxx".into());
+        .unwrap_or_else(|_| "yatabase://sk_live_yata_xxx@yatabase.etzhayyim.com/yata_xxx".into());
 
     let y = Yata::connect(&dsn).await?;
     println!("connected: host={} db={}", y.dsn().host, y.dsn().database);

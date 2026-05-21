@@ -27,7 +27,7 @@ superseded_by: []
 
 # Context
 
-`https://yoro.gftd.ai/search` needs low-latency search across actors, posts,
+`https://yoro.etzhayyim.com/search` needs low-latency search across actors, posts,
 and later text/image/audio/video/PDF media. The older actor search path used
 lexical predicates over actor views, and the older post semantic path used a
 384-dimensional HNSW index over `vertex_bluesky_post_embedding`. Production
@@ -335,7 +335,7 @@ retrieval signal.
 
 ## Decision
 
-`site.gftd.ai` corpus (`vertex_wet_chunk`, 19,660 markdown rows from site
+`site.etzhayyim.com` corpus (`vertex_wet_chunk`, 19,660 markdown rows from site
 crawl) uses CPU-based K8s Job batch embedding + faiss IVF+PQ codebook for the
 `site.searchSemantic` XRPC handler with `method=ivf_pq`.
 
@@ -347,7 +347,7 @@ crawl) uses CPU-based K8s Job batch embedding + faiss IVF+PQ codebook for the
 max 2048 chars input) with `OMP_NUM_THREADS=2` matching the 2-CPU limit.
 Throughput: ~5.74 s/text CPU-bound. Total wall-clock: ~7–8 h for full corpus.
 
-Image: `ghcr.io/gftdcojp/pymagatama:0.3.22-202605010216-amd64` (built
+Image: `ghcr.io/etzhayyim/pymagatama:0.3.22-202605010216-amd64` (built
 2026-05-01, includes `faiss-cpu>=1.8.0` and `site_ivf_pq.py`). The original
 image built at 00:39 UTC predated the `site_ivf_pq.py` commit (00:42 UTC) and
 lacked faiss; a `--no-cache` rebuild was required.

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { Link } from '@gftdcojp/design-system';
+  import { Link } from '@etzhayyim/design-system';
   import { openSupportRoom } from './superapp.js';
 
   interface Props {

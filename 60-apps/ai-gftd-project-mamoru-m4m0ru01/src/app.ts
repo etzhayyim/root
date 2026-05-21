@@ -1,4 +1,4 @@
-// mamoru.gftd.ai — L3 dispatcher CF Worker.
+// mamoru.etzhayyim.com — L3 dispatcher CF Worker.
 //
 // Surfaces:
 //   /health, /_app/meta                              edge probes (no auth)
@@ -91,7 +91,7 @@ declare module "hono" {
   }
 }
 
-const ACTOR_DID_DEFAULT = "did:web:mamoru.gftd.ai";
+const ACTOR_DID_DEFAULT = "did:web:mamoru.etzhayyim.com";
 const NSID_PREFIX = "ai.gftd.apps.mamoru";
 const PROCEDURES = new Set(["scanCommit", "scanRepo", "resolveIncident", "processSecretAlert"]);
 const QUERIES = new Set(["listIncidents", "getIncident"]);
@@ -189,7 +189,7 @@ app.post("/webhook/github-secret-scanning", async (c) => {
   );
 
   const xrpcBody = { alerts };
-  const dispatcherUrl = c.env.BPMN_DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = c.env.BPMN_DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const target = `${dispatcherUrl}/xrpc/${NSID_PREFIX}.processSecretAlert`;
   const internalSecret = c.env.DISPATCHER_INTERNAL_SECRET ?? "";
   const hmacHeader = internalSecret ? await computeHmac(JSON.stringify(xrpcBody), internalSecret) : "dev";
@@ -220,7 +220,7 @@ async function handleGitHubPublicized(
   const repoId = String(repo.full_name ?? repo.id ?? "unknown");
 
   const xrpcBody = { repoId, provider: "github", trigger: "publicized" };
-  const dispatcherUrl = c.env.BPMN_DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = c.env.BPMN_DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const target = `${dispatcherUrl}/xrpc/${NSID_PREFIX}.scanRepo`;
   const internalSecret = c.env.DISPATCHER_INTERNAL_SECRET ?? "";
   const hmacHeader = internalSecret ? await computeHmac(JSON.stringify(xrpcBody), internalSecret) : "dev";
@@ -272,7 +272,7 @@ async function handleGitHubPush(
     ...(authorEmailHash ? { authorEmailHash } : {}),
   };
 
-  const dispatcherUrl = c.env.BPMN_DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = c.env.BPMN_DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const target = `${dispatcherUrl}/xrpc/${NSID_PREFIX}.scanCommit`;
   const internalSecret = c.env.DISPATCHER_INTERNAL_SECRET ?? "";
   const hmacHeader = internalSecret
@@ -308,7 +308,7 @@ async function resolveAuth(req: Request, env: Env): Promise<AuthContext | null> 
   if (env.PDS_SERVICE) {
     try {
       const res = await env.PDS_SERVICE.fetch(
-        new Request("https://atproto.gftd.ai/_internal/resolve-auth", {
+        new Request("https://atproto.etzhayyim.com/_internal/resolve-auth", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token }),
@@ -346,7 +346,7 @@ async function dispatchXrpc(
   body: unknown,
   auth: AuthContext,
 ): Promise<Response> {
-  const dispatcherUrl = c.env.BPMN_DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = c.env.BPMN_DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const target = `${dispatcherUrl}/xrpc/${NSID_PREFIX}.${method}`;
   const internalSecret = c.env.DISPATCHER_INTERNAL_SECRET ?? "";
   const bodyStr = JSON.stringify(body);

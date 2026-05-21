@@ -1,4 +1,4 @@
-# watashi.gftd.ai — 渡し (Cross-Platform Input Sharing)
+# watashi.etzhayyim.com — 渡し (Cross-Platform Input Sharing)
 
 カーソルの渡し舟。画面の境界を越えて macOS ↔ Windows 間でマウス/キーボードを共有する。
 
@@ -53,7 +53,7 @@ For cross-network pairing when mDNS is unavailable:
 
 - `initiatePairing(localPeerId, method: "webauthn" | "pin" | "qr")` — creates 5-min challenge
 - `completePairing(pairingId, remotePeerId, response)` — completes from remote side
-- WebAuthn delegates to `auth.gftd.ai` passkey infrastructure
+- WebAuthn delegates to `auth.etzhayyim.com` passkey infrastructure
 - PIN: 6-digit code displayed on server, entered on client
 - QR: `watashi://pair?id={pairingId}&challenge={challenge}` deep link
 
@@ -68,7 +68,7 @@ Binaries hosted on R2 via `cdn` package. Platform detection + download via WASM 
 ### Windows Installation
 
 ```bash
-# 1. Download from watashi.gftd.ai (platform auto-detected)
+# 1. Download from watashi.etzhayyim.com (platform auto-detected)
 #    or build locally:
 cd native/watashi-host
 cargo build --release --target x86_64-pc-windows-msvc

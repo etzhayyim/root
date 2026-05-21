@@ -1,4 +1,4 @@
-"""One-shot seed: deai.gftd.ai Business Model Canvas + Lean hypotheses.
+"""One-shot seed: deai.etzhayyim.com Business Model Canvas + Lean hypotheses.
 
 Usage (from lg/ directory):
     RW_URL=postgres://... python seeds/seed_deai_bmc.py
@@ -19,8 +19,8 @@ sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent.parent))
 from lg_yatabase.bmc import repository
 from lg_yatabase.bmc.db import close_pool, execute, fetchval
 
-ORG_DID = "did:web:deai.gftd.ai"
-ACTOR_DID = "did:web:deai.gftd.ai"
+ORG_DID = "did:web:deai.etzhayyim.com"
+ACTOR_DID = "did:web:deai.etzhayyim.com"
 AUTHORED_BY = "jun@gftd.group"
 
 # ── BMC canvas (9 blocks + 5 Lean-Canvas extensions) ───────────────────
@@ -77,7 +77,7 @@ CANVAS: dict = {
     },
     "channels": {
         "bullets": [
-            "deai.gftd.ai Web SPA (Phase 1)",
+            "deai.etzhayyim.com Web SPA (Phase 1)",
             "iOS / Android Capacitor アプリ (Phase 2)",
             "Bluesky / X — 研究 PR・口コミ",
             "論文・学術カンファレンス (spirit-in-physics.com)",
@@ -230,7 +230,7 @@ async def main() -> None:
     canvas_json = json.dumps(CANVAS, ensure_ascii=False)
     result = await repository.append_state(
         canvas_json=canvas_json,
-        rationale="deai.gftd.ai v1 初期 BMC — Spirit-in-Physics 研究 × マッチングアプリ (seed)",
+        rationale="deai.etzhayyim.com v1 初期 BMC — Spirit-in-Physics 研究 × マッチングアプリ (seed)",
         source="seed",
         actor_did=ACTOR_DID,
         org_did=ORG_DID,

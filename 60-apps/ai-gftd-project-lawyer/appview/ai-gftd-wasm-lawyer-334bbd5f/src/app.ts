@@ -1,6 +1,6 @@
-// lawyer.gftd.ai thin edge facade.
+// lawyer.etzhayyim.com thin edge facade.
 // Lawyer-specific operations: ai.gftd.apps.lawyer.*
-// Shared lawfirm operations (firmDid=did:web:lawyer.gftd.ai): ai.gftd.apps.lawfirm.*
+// Shared lawfirm operations (firmDid=did:web:lawyer.etzhayyim.com): ai.gftd.apps.lawfirm.*
 // All business logic runs in LangServer pods via dispatcher.
 
 interface SecretBinding {
@@ -24,15 +24,15 @@ const ROUTED_PREFIXES = ["ai.gftd.apps.lawyer.", "ai.gftd.apps.lawfirm."];
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
-    const firmDid = env.FIRM_DID_HINT ?? "did:web:lawyer.gftd.ai";
+    const firmDid = env.FIRM_DID_HINT ?? "did:web:lawyer.etzhayyim.com";
     const lawyerDid = env.LAWYER_DID_HINT ?? "";
 
     if (url.pathname === "/health" || url.pathname === "/_worker/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
         nanoid: env.APP_NANOID ?? "334bbd5f",
-        handle: "lawyer.gftd.ai",
-        tenant: "gftdcojp",
+        handle: "lawyer.etzhayyim.com",
+        tenant: "etzhayyim",
         firmDid,
         lawyerDid,
         execution: "edge-langserver",
@@ -91,7 +91,7 @@ async function bodyWithQuery(
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

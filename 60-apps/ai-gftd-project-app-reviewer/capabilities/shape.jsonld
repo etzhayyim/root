@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://app-reviewer.gftd.ai/ontology#",
+    "@vocab": "https://app-reviewer.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "sh": "http://www.w3.org/ns/shacl#",
@@ -31,21 +31,21 @@
     "pattern": "sh:pattern",
     "name": "sh:name"
   },
-  "@id": "https://app-reviewer.gftd.ai/capabilities/shape",
+  "@id": "https://app-reviewer.etzhayyim.com/capabilities/shape",
   "@type": "sh:Shape",
   "name": "App Reviewer Validation Shapes",
   "@graph": [
     {
-      "@id": "https://app-reviewer.gftd.ai/shapes/ReviewSubmissionShape",
+      "@id": "https://app-reviewer.etzhayyim.com/shapes/ReviewSubmissionShape",
       "@type": "sh:NodeShape",
       "targetClass": {
-        "@id": "https://app-reviewer.gftd.ai/ontology#ReviewSubmission"
+        "@id": "https://app-reviewer.etzhayyim.com/ontology#ReviewSubmission"
       },
       "name": "Review Submission Shape",
       "property": [
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#submissionId"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#submissionId"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -56,7 +56,7 @@
         },
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#developerId"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#developerId"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -67,7 +67,7 @@
         },
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#orgId"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#orgId"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -78,7 +78,7 @@
         },
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#status"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#status"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -122,16 +122,16 @@
       ]
     },
     {
-      "@id": "https://app-reviewer.gftd.ai/shapes/AutomatedCheckShape",
+      "@id": "https://app-reviewer.etzhayyim.com/shapes/AutomatedCheckShape",
       "@type": "sh:NodeShape",
       "targetClass": {
-        "@id": "https://app-reviewer.gftd.ai/ontology#AutomatedCheck"
+        "@id": "https://app-reviewer.etzhayyim.com/ontology#AutomatedCheck"
       },
       "name": "Automated Check Shape",
       "property": [
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#checkName"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#checkName"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -142,7 +142,7 @@
         },
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#checkStatus"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#checkStatus"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -164,7 +164,7 @@
         },
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#severity"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#severity"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -190,16 +190,16 @@
       ]
     },
     {
-      "@id": "https://app-reviewer.gftd.ai/shapes/ReviewFindingShape",
+      "@id": "https://app-reviewer.etzhayyim.com/shapes/ReviewFindingShape",
       "@type": "sh:NodeShape",
       "targetClass": {
-        "@id": "https://app-reviewer.gftd.ai/ontology#ReviewFinding"
+        "@id": "https://app-reviewer.etzhayyim.com/ontology#ReviewFinding"
       },
       "name": "Review Finding Shape",
       "property": [
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#findingCategory"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#findingCategory"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -230,7 +230,7 @@
         },
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#severity"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#severity"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -256,16 +256,16 @@
       ]
     },
     {
-      "@id": "https://app-reviewer.gftd.ai/shapes/ReviewDecisionShape",
+      "@id": "https://app-reviewer.etzhayyim.com/shapes/ReviewDecisionShape",
       "@type": "sh:NodeShape",
       "targetClass": {
-        "@id": "https://app-reviewer.gftd.ai/ontology#ReviewDecision"
+        "@id": "https://app-reviewer.etzhayyim.com/ontology#ReviewDecision"
       },
       "name": "Review Decision Shape",
       "property": [
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#decision"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#decision"
           },
           "datatype": {
             "@id": "xsd:string"
@@ -290,7 +290,7 @@
         },
         {
           "path": {
-            "@id": "https://app-reviewer.gftd.ai/ontology#reviewerId"
+            "@id": "https://app-reviewer.etzhayyim.com/ontology#reviewerId"
           },
           "datatype": {
             "@id": "xsd:string"

@@ -10,7 +10,7 @@
 
 | Key | Value |
 |---|---|
-| **AT bot DID** | `did:web:business-manager.gftd.ai` |
+| **AT bot DID** | `did:web:business-manager.etzhayyim.com` |
 | **executionTier** | T1 (PDS Shared Executor — Worker 不要) |
 | **performerType** | `service` |
 | **uiType** | `yoro` |

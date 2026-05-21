@@ -1,5 +1,5 @@
 {
-  "name": "@gftdcojp/briefing-frontend",
+  "name": "@etzhayyim/briefing-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -21,7 +21,7 @@
     "@sveltejs/kit": "^2.57.1"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
     "lucide-svelte": "^0.460.1",
     "svelte": "^5.55.3"
   },

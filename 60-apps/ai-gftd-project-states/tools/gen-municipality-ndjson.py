@@ -182,7 +182,7 @@ CONTRACT_GOVLEVEL = {
 # ---------------------------------------------------------------------------
 
 JPN_CONTRACT = "地方自治法"
-JPN_CONTRACT_DID = "did:web:gov-jpn.gftd.ai:law:local-autonomy-act"
+JPN_CONTRACT_DID = "did:web:gov-jpn.etzhayyim.com:law:local-autonomy-act"
 
 # JPN designated cities
 JPN_DESIGNATED = [
@@ -271,7 +271,7 @@ JPN_CAPITALS = [
 # USA — 50 state capitals
 # ---------------------------------------------------------------------------
 USA_CONTRACT = "State Municipal Charter"
-USA_CONTRACT_DID = "did:web:gov-usa.gftd.ai:law:state-municipal-charter"
+USA_CONTRACT_DID = "did:web:gov-usa.etzhayyim.com:law:state-municipal-charter"
 
 USA_CAPITALS = [
     ("state:alabama:montgomery",         "Montgomery",    "Montgomery",     None, 200000,  "https://www.montgomeryal.gov/",           "capital", "state:alabama"),
@@ -330,7 +330,7 @@ USA_CAPITALS = [
 # DEU — 16 Länder capitals
 # ---------------------------------------------------------------------------
 DEU_CONTRACT = "Gemeindeordnung / GG Art.28"
-DEU_CONTRACT_DID = "did:web:gov-deu.gftd.ai:law:grundgesetz-art-28"
+DEU_CONTRACT_DID = "did:web:gov-deu.etzhayyim.com:law:grundgesetz-art-28"
 
 DEU_CAPITALS = [
     ("land:baden-wuerttemberg:stuttgart",     "Stuttgart",  "Stuttgart",  None, 635000,   "https://www.stuttgart.de/",    "capital", "land:baden-wuerttemberg"),
@@ -355,7 +355,7 @@ DEU_CAPITALS = [
 # FRA — 13 région capitals
 # ---------------------------------------------------------------------------
 FRA_CONTRACT = "Code général des collectivités territoriales"
-FRA_CONTRACT_DID = "did:web:gov-fra.gftd.ai:law:cgct"
+FRA_CONTRACT_DID = "did:web:gov-fra.etzhayyim.com:law:cgct"
 
 FRA_CAPITALS = [
     ("region:ile-de-france:paris",                  "Paris",      "Paris",      None, 2161000, "https://www.paris.fr/",               "capital", "region:ile-de-france"),
@@ -377,7 +377,7 @@ FRA_CAPITALS = [
 # GBR — major cities
 # ---------------------------------------------------------------------------
 GBR_CONTRACT = "Local Government Act 1972"
-GBR_CONTRACT_DID = "did:web:gov-gbr.gftd.ai:law:local-government-act-1972"
+GBR_CONTRACT_DID = "did:web:gov-gbr.etzhayyim.com:law:local-government-act-1972"
 
 GBR_CITIES = [
     ("nation:england:london",           "London",          "London",          None, 8799800, "https://www.london.gov.uk/",          "metropolitan", "nation:england"),
@@ -395,7 +395,7 @@ GBR_CITIES = [
 # ITA — 20 regional capitals (+ extras)
 # ---------------------------------------------------------------------------
 ITA_CONTRACT = "TUEL D.Lgs. 267/2000"
-ITA_CONTRACT_DID = "did:web:gov-ita.gftd.ai:law:tuel-2000"
+ITA_CONTRACT_DID = "did:web:gov-ita.etzhayyim.com:law:tuel-2000"
 
 ITA_CAPITALS = [
     ("regione:lazio:roma",                         "Roma",            "Rome",           None, 2873494, "https://www.comune.roma.it/",                "capital", "regione:lazio"),
@@ -428,7 +428,7 @@ ITA_CAPITALS = [
 # CAN — provincial/territorial capitals
 # ---------------------------------------------------------------------------
 CAN_CONTRACT = "Municipal Government Acts (provincial)"
-CAN_CONTRACT_DID = "did:web:gov-can.gftd.ai:law:constitution-act-1867"
+CAN_CONTRACT_DID = "did:web:gov-can.etzhayyim.com:law:constitution-act-1867"
 
 CAN_CITIES = [
     ("province:ontario:ottawa",                         "Ottawa",       "Ottawa",       None, 1017449,  "https://ottawa.ca/",                    "capital",  "province:ontario"),
@@ -454,7 +454,7 @@ CAN_CITIES = [
 # AUS — state/territory capitals
 # ---------------------------------------------------------------------------
 AUS_CONTRACT = "Local Government Act (state)"
-AUS_CONTRACT_DID = "did:web:gov-aus.gftd.ai:law:local-government-act"
+AUS_CONTRACT_DID = "did:web:gov-aus.etzhayyim.com:law:local-government-act"
 
 AUS_CAPITALS = [
     ("state:new-south-wales:sydney",    "Sydney",    "Sydney",    None, 5312000, "https://www.cityofsydney.nsw.gov.au/", "capital", "state:new-south-wales"),
@@ -471,7 +471,7 @@ AUS_CAPITALS = [
 # KOR — 17 시도 capitals
 # ---------------------------------------------------------------------------
 KOR_CONTRACT = "지방자치법"
-KOR_CONTRACT_DID = "did:web:gov-kor.gftd.ai:law:local-autonomy-act"
+KOR_CONTRACT_DID = "did:web:gov-kor.etzhayyim.com:law:local-autonomy-act"
 
 KOR_CAPITALS = [
     ("gwangyeok:seoul:seoul",           "서울특별시",     "Seoul",      None, 9720846,  "https://english.seoul.go.kr/",         "metropolitan", "gwangyeok:seoul"),
@@ -497,7 +497,7 @@ KOR_CAPITALS = [
 # IND — state/UT capitals
 # ---------------------------------------------------------------------------
 IND_CONTRACT = "74th Constitutional Amendment Act 1992"
-IND_CONTRACT_DID = "did:web:gov-ind.gftd.ai:law:constitution-74th-amendment"
+IND_CONTRACT_DID = "did:web:gov-ind.etzhayyim.com:law:constitution-74th-amendment"
 
 IND_CAPITALS = [
     ("ut:delhi:new-delhi",                        "New Delhi",          "New Delhi",          None, 11034555, "https://www.mcdonline.nic.in/",                 "capital", "ut:delhi"),
@@ -535,7 +535,7 @@ IND_CAPITALS = [
 # BRA — state capitals
 # ---------------------------------------------------------------------------
 BRA_CONTRACT = "Constituição Federal Art.29-31"
-BRA_CONTRACT_DID = "did:web:gov-bra.gftd.ai:law:constituicao-federal-art-29"
+BRA_CONTRACT_DID = "did:web:gov-bra.etzhayyim.com:law:constituicao-federal-art-29"
 
 BRA_CAPITALS = [
     ("df:distrito-federal:brasilia",                     "Brasília",       "Brasilia",       None, 2817068,  "https://www.agefis.df.gov.br/",             "capital", "df:distrito-federal"),
@@ -571,7 +571,7 @@ BRA_CAPITALS = [
 # CHN — direct-controlled municipalities
 # ---------------------------------------------------------------------------
 CHN_CONTRACT = "城市居民委员会组织法"
-CHN_CONTRACT_DID = "did:web:gov-chn.gftd.ai:law:urban-residents-committees-law"
+CHN_CONTRACT_DID = "did:web:gov-chn.etzhayyim.com:law:urban-residents-committees-law"
 
 CHN_CITIES = [
     ("municipality:beijing",   "北京市", "Beijing",  None, 21893095, "https://www.beijing.gov.cn/", "metropolitan", "municipality:beijing"),
@@ -582,17 +582,17 @@ CHN_CITIES = [
 
 # For CHN, parentPath = same as path (direct-controlled, no separate parent)
 CHN_PARENT_OVERRIDES = {
-    "municipality:beijing":   ("municipality:beijing",   "did:web:gov-chn.gftd.ai:municipality:beijing"),
-    "municipality:shanghai":  ("municipality:shanghai",  "did:web:gov-chn.gftd.ai:municipality:shanghai"),
-    "municipality:tianjin":   ("municipality:tianjin",   "did:web:gov-chn.gftd.ai:municipality:tianjin"),
-    "municipality:chongqing": ("municipality:chongqing", "did:web:gov-chn.gftd.ai:municipality:chongqing"),
+    "municipality:beijing":   ("municipality:beijing",   "did:web:gov-chn.etzhayyim.com:municipality:beijing"),
+    "municipality:shanghai":  ("municipality:shanghai",  "did:web:gov-chn.etzhayyim.com:municipality:shanghai"),
+    "municipality:tianjin":   ("municipality:tianjin",   "did:web:gov-chn.etzhayyim.com:municipality:tianjin"),
+    "municipality:chongqing": ("municipality:chongqing", "did:web:gov-chn.etzhayyim.com:municipality:chongqing"),
 }
 
 # ---------------------------------------------------------------------------
 # RUS
 # ---------------------------------------------------------------------------
 RUS_CONTRACT = "Федеральный закон 131-ФЗ"
-RUS_CONTRACT_DID = "did:web:gov-rus.gftd.ai:law:federal-law-131-2003"
+RUS_CONTRACT_DID = "did:web:gov-rus.etzhayyim.com:law:federal-law-131-2003"
 
 RUS_CITIES = [
     ("federal-city:moscow",           "Москва",           "Moscow",           None, 12506468, "https://www.mos.ru/",         "metropolitan", "federal-city:moscow"),
@@ -603,7 +603,7 @@ RUS_CITIES = [
 # MEX
 # ---------------------------------------------------------------------------
 MEX_CONTRACT = "Constitución Política Art.115"
-MEX_CONTRACT_DID = "did:web:gov-mex.gftd.ai:law:constitucion-art-115"
+MEX_CONTRACT_DID = "did:web:gov-mex.etzhayyim.com:law:constitucion-art-115"
 
 MEX_CITIES = [
     ("estado:ciudad-de-mexico:cdmx",    "Ciudad de México", "Mexico City",  None, 9209944,  "https://www.cdmx.gob.mx/",              "capital", "estado:ciudad-de-mexico"),
@@ -615,7 +615,7 @@ MEX_CITIES = [
 # SAU
 # ---------------------------------------------------------------------------
 SAU_CONTRACT = "نظام المناطق 1992"
-SAU_CONTRACT_DID = "did:web:gov-sau.gftd.ai:law:regions-regulation-1992"
+SAU_CONTRACT_DID = "did:web:gov-sau.etzhayyim.com:law:regions-regulation-1992"
 
 SAU_CITIES = [
     ("mintaqah:riyadh:riyadh", "الرياض", "Riyadh", None, 7676654, "https://www.alriyadh.gov.sa/", "capital", "mintaqah:riyadh"),
@@ -626,7 +626,7 @@ SAU_CITIES = [
 # TUR
 # ---------------------------------------------------------------------------
 TUR_CONTRACT = "Belediye Kanunu 5393"
-TUR_CONTRACT_DID = "did:web:gov-tur.gftd.ai:law:belediye-kanunu-5393"
+TUR_CONTRACT_DID = "did:web:gov-tur.etzhayyim.com:law:belediye-kanunu-5393"
 
 TUR_CITIES = [
     ("il:ankara:ankara",   "Ankara",   "Ankara",   None, 5747325,  "https://www.ankara.bel.tr/", "capital", "il:ankara"),
@@ -637,7 +637,7 @@ TUR_CITIES = [
 # ARG
 # ---------------------------------------------------------------------------
 ARG_CONTRACT = "Constitución Nacional Art.123"
-ARG_CONTRACT_DID = "did:web:gov-arg.gftd.ai:law:constitucion-art-123"
+ARG_CONTRACT_DID = "did:web:gov-arg.etzhayyim.com:law:constitucion-art-123"
 
 ARG_CITIES = [
     ("provincia:buenos-aires:buenos-aires", "Buenos Aires", "Buenos Aires", None, 2890151, "https://buenosaires.gob.ar/",      "capital", "provincia:buenos-aires"),
@@ -648,7 +648,7 @@ ARG_CITIES = [
 # ZAF
 # ---------------------------------------------------------------------------
 ZAF_CONTRACT = "Local Government: Municipal Structures Act 117/1998"
-ZAF_CONTRACT_DID = "did:web:gov-zaf.gftd.ai:law:municipal-structures-act-1998"
+ZAF_CONTRACT_DID = "did:web:gov-zaf.etzhayyim.com:law:municipal-structures-act-1998"
 
 ZAF_CITIES = [
     ("province:gauteng:pretoria",        "Pretoria",     "Pretoria",     None, 741651,   "https://www.tshwane.gov.za/",     "capital", "province:gauteng"),
@@ -660,7 +660,7 @@ ZAF_CITIES = [
 # IDN
 # ---------------------------------------------------------------------------
 IDN_CONTRACT = "UU No.23 Tahun 2014"
-IDN_CONTRACT_DID = "did:web:gov-idn.gftd.ai:law:uu-23-2014"
+IDN_CONTRACT_DID = "did:web:gov-idn.etzhayyim.com:law:uu-23-2014"
 
 IDN_CITIES = [
     ("special-region:jakarta:jakarta",  "Jakarta",  "Jakarta",  None, 10562088, "https://jakarta.go.id/",         "capital", "special-region:jakarta"),
@@ -672,7 +672,7 @@ IDN_CITIES = [
 # ESP
 # ---------------------------------------------------------------------------
 ESP_CONTRACT = CONTRACTS["esp"][1]
-ESP_CONTRACT_DID = f"did:web:gov-esp.gftd.ai:law:{CONTRACTS['esp'][2]}"
+ESP_CONTRACT_DID = f"did:web:gov-esp.etzhayyim.com:law:{CONTRACTS['esp'][2]}"
 
 ESP_CITIES = [
     ("city:madrid", "Madrid", "Madrid", None, 3300000, "https://www.madrid.es/", "capital", "capital-district"),
@@ -683,7 +683,7 @@ ESP_CITIES = [
 # NLD
 # ---------------------------------------------------------------------------
 NLD_CONTRACT = CONTRACTS["nld"][1]
-NLD_CONTRACT_DID = f"did:web:gov-nld.gftd.ai:law:{CONTRACTS['nld'][2]}"
+NLD_CONTRACT_DID = f"did:web:gov-nld.etzhayyim.com:law:{CONTRACTS['nld'][2]}"
 
 NLD_CITIES = [
     ("city:amsterdam", "Amsterdam", "Amsterdam", None, 872680, "https://www.amsterdam.nl/", "capital", "capital-district"),
@@ -694,7 +694,7 @@ NLD_CITIES = [
 # BEL
 # ---------------------------------------------------------------------------
 BEL_CONTRACT = CONTRACTS["bel"][1]
-BEL_CONTRACT_DID = f"did:web:gov-bel.gftd.ai:law:{CONTRACTS['bel'][2]}"
+BEL_CONTRACT_DID = f"did:web:gov-bel.etzhayyim.com:law:{CONTRACTS['bel'][2]}"
 
 BEL_CITIES = [
     ("city:brussels", "Bruxelles", "Brussels", None, 185000, "https://www.brussels.be/", "capital", "capital-district"),
@@ -704,7 +704,7 @@ BEL_CITIES = [
 # CHE
 # ---------------------------------------------------------------------------
 CHE_CONTRACT = CONTRACTS["che"][1]
-CHE_CONTRACT_DID = f"did:web:gov-che.gftd.ai:law:{CONTRACTS['che'][2]}"
+CHE_CONTRACT_DID = f"did:web:gov-che.etzhayyim.com:law:{CONTRACTS['che'][2]}"
 
 CHE_CITIES = [
     ("city:bern", "Bern", "Bern", None, 133115, "https://www.bern.ch/", "capital", "capital-district"),
@@ -715,7 +715,7 @@ CHE_CITIES = [
 # AUT
 # ---------------------------------------------------------------------------
 AUT_CONTRACT = CONTRACTS["aut"][1]
-AUT_CONTRACT_DID = f"did:web:gov-aut.gftd.ai:law:{CONTRACTS['aut'][2]}"
+AUT_CONTRACT_DID = f"did:web:gov-aut.etzhayyim.com:law:{CONTRACTS['aut'][2]}"
 
 AUT_CITIES = [
     ("city:vienna", "Wien", "Vienna", None, 1897000, "https://www.wien.gv.at/", "capital", "capital-district"),
@@ -725,7 +725,7 @@ AUT_CITIES = [
 # POL
 # ---------------------------------------------------------------------------
 POL_CONTRACT = CONTRACTS["pol"][1]
-POL_CONTRACT_DID = f"did:web:gov-pol.gftd.ai:law:{CONTRACTS['pol'][2]}"
+POL_CONTRACT_DID = f"did:web:gov-pol.etzhayyim.com:law:{CONTRACTS['pol'][2]}"
 
 POL_CITIES = [
     ("city:warsaw", "Warszawa", "Warsaw", None, 1794166, "https://www.um.warszawa.pl/", "capital", "capital-district"),
@@ -736,7 +736,7 @@ POL_CITIES = [
 # SWE
 # ---------------------------------------------------------------------------
 SWE_CONTRACT = CONTRACTS["swe"][1]
-SWE_CONTRACT_DID = f"did:web:gov-swe.gftd.ai:law:{CONTRACTS['swe'][2]}"
+SWE_CONTRACT_DID = f"did:web:gov-swe.etzhayyim.com:law:{CONTRACTS['swe'][2]}"
 
 SWE_CITIES = [
     ("city:stockholm", "Stockholm", "Stockholm", None, 975551, "https://start.stockholm/", "capital", "capital-district"),
@@ -747,7 +747,7 @@ SWE_CITIES = [
 # NOR
 # ---------------------------------------------------------------------------
 NOR_CONTRACT = CONTRACTS["nor"][1]
-NOR_CONTRACT_DID = f"did:web:gov-nor.gftd.ai:law:{CONTRACTS['nor'][2]}"
+NOR_CONTRACT_DID = f"did:web:gov-nor.etzhayyim.com:law:{CONTRACTS['nor'][2]}"
 
 NOR_CITIES = [
     ("city:oslo", "Oslo", "Oslo", None, 693494, "https://www.oslo.kommune.no/", "capital", "capital-district"),
@@ -757,7 +757,7 @@ NOR_CITIES = [
 # DNK
 # ---------------------------------------------------------------------------
 DNK_CONTRACT = CONTRACTS["dnk"][1]
-DNK_CONTRACT_DID = f"did:web:gov-dnk.gftd.ai:law:{CONTRACTS['dnk'][2]}"
+DNK_CONTRACT_DID = f"did:web:gov-dnk.etzhayyim.com:law:{CONTRACTS['dnk'][2]}"
 
 DNK_CITIES = [
     ("city:copenhagen", "København", "Copenhagen", None, 794128, "https://www.kk.dk/", "capital", "capital-district"),
@@ -767,7 +767,7 @@ DNK_CITIES = [
 # FIN
 # ---------------------------------------------------------------------------
 FIN_CONTRACT = CONTRACTS["fin"][1]
-FIN_CONTRACT_DID = f"did:web:gov-fin.gftd.ai:law:{CONTRACTS['fin'][2]}"
+FIN_CONTRACT_DID = f"did:web:gov-fin.etzhayyim.com:law:{CONTRACTS['fin'][2]}"
 
 FIN_CITIES = [
     ("city:helsinki", "Helsinki", "Helsinki", None, 656229, "https://www.hel.fi/", "capital", "capital-district"),
@@ -777,7 +777,7 @@ FIN_CITIES = [
 # PRT
 # ---------------------------------------------------------------------------
 PRT_CONTRACT = CONTRACTS["prt"][1]
-PRT_CONTRACT_DID = f"did:web:gov-prt.gftd.ai:law:{CONTRACTS['prt'][2]}"
+PRT_CONTRACT_DID = f"did:web:gov-prt.etzhayyim.com:law:{CONTRACTS['prt'][2]}"
 
 PRT_CITIES = [
     ("city:lisbon", "Lisboa", "Lisbon", None, 545245, "https://www.cm-lisboa.pt/", "capital", "capital-district"),
@@ -788,7 +788,7 @@ PRT_CITIES = [
 # GRC
 # ---------------------------------------------------------------------------
 GRC_CONTRACT = CONTRACTS["grc"][1]
-GRC_CONTRACT_DID = f"did:web:gov-grc.gftd.ai:law:{CONTRACTS['grc'][2]}"
+GRC_CONTRACT_DID = f"did:web:gov-grc.etzhayyim.com:law:{CONTRACTS['grc'][2]}"
 
 GRC_CITIES = [
     ("city:athens", "Αθήνα", "Athens", None, 664046, "https://www.cityofathens.gr/", "capital", "capital-district"),
@@ -799,7 +799,7 @@ GRC_CITIES = [
 # CZE
 # ---------------------------------------------------------------------------
 CZE_CONTRACT = CONTRACTS["cze"][1]
-CZE_CONTRACT_DID = f"did:web:gov-cze.gftd.ai:law:{CONTRACTS['cze'][2]}"
+CZE_CONTRACT_DID = f"did:web:gov-cze.etzhayyim.com:law:{CONTRACTS['cze'][2]}"
 
 CZE_CITIES = [
     ("city:prague", "Praha", "Prague", None, 1335084, "https://www.praha.eu/", "capital", "capital-district"),
@@ -810,7 +810,7 @@ CZE_CITIES = [
 # HUN
 # ---------------------------------------------------------------------------
 HUN_CONTRACT = CONTRACTS["hun"][1]
-HUN_CONTRACT_DID = f"did:web:gov-hun.gftd.ai:law:{CONTRACTS['hun'][2]}"
+HUN_CONTRACT_DID = f"did:web:gov-hun.etzhayyim.com:law:{CONTRACTS['hun'][2]}"
 
 HUN_CITIES = [
     ("city:budapest", "Budapest", "Budapest", None, 1752286, "https://budapest.hu/", "capital", "capital-district"),
@@ -820,7 +820,7 @@ HUN_CITIES = [
 # ROU
 # ---------------------------------------------------------------------------
 ROU_CONTRACT = CONTRACTS["rou"][1]
-ROU_CONTRACT_DID = f"did:web:gov-rou.gftd.ai:law:{CONTRACTS['rou'][2]}"
+ROU_CONTRACT_DID = f"did:web:gov-rou.etzhayyim.com:law:{CONTRACTS['rou'][2]}"
 
 ROU_CITIES = [
     ("city:bucharest", "București", "Bucharest", None, 1716983, "https://www.pmb.ro/", "capital", "capital-district"),
@@ -831,7 +831,7 @@ ROU_CITIES = [
 # UKR
 # ---------------------------------------------------------------------------
 UKR_CONTRACT = CONTRACTS["ukr"][1]
-UKR_CONTRACT_DID = f"did:web:gov-ukr.gftd.ai:law:{CONTRACTS['ukr'][2]}"
+UKR_CONTRACT_DID = f"did:web:gov-ukr.etzhayyim.com:law:{CONTRACTS['ukr'][2]}"
 
 UKR_CITIES = [
     ("city:kyiv", "Київ", "Kyiv", None, 2952301, "https://kyivcity.gov.ua/", "capital", "capital-district"),
@@ -842,7 +842,7 @@ UKR_CITIES = [
 # BGR
 # ---------------------------------------------------------------------------
 BGR_CONTRACT = CONTRACTS["bgr"][1]
-BGR_CONTRACT_DID = f"did:web:gov-bgr.gftd.ai:law:{CONTRACTS['bgr'][2]}"
+BGR_CONTRACT_DID = f"did:web:gov-bgr.etzhayyim.com:law:{CONTRACTS['bgr'][2]}"
 
 BGR_CITIES = [
     ("city:sofia", "София", "Sofia", None, 1241675, "https://www.sofia.bg/", "capital", "capital-district"),
@@ -852,7 +852,7 @@ BGR_CITIES = [
 # HRV
 # ---------------------------------------------------------------------------
 HRV_CONTRACT = CONTRACTS["hrv"][1]
-HRV_CONTRACT_DID = f"did:web:gov-hrv.gftd.ai:law:{CONTRACTS['hrv'][2]}"
+HRV_CONTRACT_DID = f"did:web:gov-hrv.etzhayyim.com:law:{CONTRACTS['hrv'][2]}"
 
 HRV_CITIES = [
     ("city:zagreb", "Zagreb", "Zagreb", None, 767131, "https://www.zagreb.hr/", "capital", "capital-district"),
@@ -862,7 +862,7 @@ HRV_CITIES = [
 # SRB
 # ---------------------------------------------------------------------------
 SRB_CONTRACT = CONTRACTS["srb"][1]
-SRB_CONTRACT_DID = f"did:web:gov-srb.gftd.ai:law:{CONTRACTS['srb'][2]}"
+SRB_CONTRACT_DID = f"did:web:gov-srb.etzhayyim.com:law:{CONTRACTS['srb'][2]}"
 
 SRB_CITIES = [
     ("city:belgrade", "Beograd", "Belgrade", None, 1688667, "https://www.beograd.rs/", "capital", "capital-district"),
@@ -872,7 +872,7 @@ SRB_CITIES = [
 # SVK
 # ---------------------------------------------------------------------------
 SVK_CONTRACT = CONTRACTS["svk"][1]
-SVK_CONTRACT_DID = f"did:web:gov-svk.gftd.ai:law:{CONTRACTS['svk'][2]}"
+SVK_CONTRACT_DID = f"did:web:gov-svk.etzhayyim.com:law:{CONTRACTS['svk'][2]}"
 
 SVK_CITIES = [
     ("city:bratislava", "Bratislava", "Bratislava", None, 477174, "https://www.bratislava.sk/", "capital", "capital-district"),
@@ -882,7 +882,7 @@ SVK_CITIES = [
 # SVN
 # ---------------------------------------------------------------------------
 SVN_CONTRACT = CONTRACTS["svn"][1]
-SVN_CONTRACT_DID = f"did:web:gov-svn.gftd.ai:law:{CONTRACTS['svn'][2]}"
+SVN_CONTRACT_DID = f"did:web:gov-svn.etzhayyim.com:law:{CONTRACTS['svn'][2]}"
 
 SVN_CITIES = [
     ("city:ljubljana", "Ljubljana", "Ljubljana", None, 295504, "https://www.ljubljana.si/", "capital", "capital-district"),
@@ -892,7 +892,7 @@ SVN_CITIES = [
 # ALB
 # ---------------------------------------------------------------------------
 ALB_CONTRACT = CONTRACTS["alb"][1]
-ALB_CONTRACT_DID = f"did:web:gov-alb.gftd.ai:law:{CONTRACTS['alb'][2]}"
+ALB_CONTRACT_DID = f"did:web:gov-alb.etzhayyim.com:law:{CONTRACTS['alb'][2]}"
 
 ALB_CITIES = [
     ("city:tirana", "Tiranë", "Tirana", None, 897631, "https://bashkiatirane.gov.al/", "capital", "capital-district"),
@@ -902,7 +902,7 @@ ALB_CITIES = [
 # BIH
 # ---------------------------------------------------------------------------
 BIH_CONTRACT = CONTRACTS["bih"][1]
-BIH_CONTRACT_DID = f"did:web:gov-bih.gftd.ai:law:{CONTRACTS['bih'][2]}"
+BIH_CONTRACT_DID = f"did:web:gov-bih.etzhayyim.com:law:{CONTRACTS['bih'][2]}"
 
 BIH_CITIES = [
     ("city:sarajevo", "Sarajevo", "Sarajevo", None, 419957, "https://www.sarajevo.ba/", "capital", "capital-district"),
@@ -912,7 +912,7 @@ BIH_CITIES = [
 # MKD
 # ---------------------------------------------------------------------------
 MKD_CONTRACT = CONTRACTS["mkd"][1]
-MKD_CONTRACT_DID = f"did:web:gov-mkd.gftd.ai:law:{CONTRACTS['mkd'][2]}"
+MKD_CONTRACT_DID = f"did:web:gov-mkd.etzhayyim.com:law:{CONTRACTS['mkd'][2]}"
 
 MKD_CITIES = [
     ("city:skopje", "Скопје", "Skopje", None, 444831, "https://www.skopje.gov.mk/", "capital", "capital-district"),
@@ -922,7 +922,7 @@ MKD_CITIES = [
 # GEO
 # ---------------------------------------------------------------------------
 GEO_CONTRACT = CONTRACTS["geo"][1]
-GEO_CONTRACT_DID = f"did:web:gov-geo.gftd.ai:law:{CONTRACTS['geo'][2]}"
+GEO_CONTRACT_DID = f"did:web:gov-geo.etzhayyim.com:law:{CONTRACTS['geo'][2]}"
 
 GEO_CITIES = [
     ("city:tbilisi", "თბილისი", "Tbilisi", None, 1171100, "https://tbilisi.gov.ge/", "capital", "capital-district"),
@@ -932,7 +932,7 @@ GEO_CITIES = [
 # EST
 # ---------------------------------------------------------------------------
 EST_CONTRACT = CONTRACTS["est"][1]
-EST_CONTRACT_DID = f"did:web:gov-est.gftd.ai:law:{CONTRACTS['est'][2]}"
+EST_CONTRACT_DID = f"did:web:gov-est.etzhayyim.com:law:{CONTRACTS['est'][2]}"
 
 EST_CITIES = [
     ("city:tallinn", "Tallinn", "Tallinn", None, 455695, "https://www.tallinn.ee/", "capital", "capital-district"),
@@ -942,7 +942,7 @@ EST_CITIES = [
 # LTU
 # ---------------------------------------------------------------------------
 LTU_CONTRACT = CONTRACTS["ltu"][1]
-LTU_CONTRACT_DID = f"did:web:gov-ltu.gftd.ai:law:{CONTRACTS['ltu'][2]}"
+LTU_CONTRACT_DID = f"did:web:gov-ltu.etzhayyim.com:law:{CONTRACTS['ltu'][2]}"
 
 LTU_CITIES = [
     ("city:vilnius", "Vilnius", "Vilnius", None, 574147, "https://www.vilnius.lt/", "capital", "capital-district"),
@@ -952,7 +952,7 @@ LTU_CITIES = [
 # LVA
 # ---------------------------------------------------------------------------
 LVA_CONTRACT = CONTRACTS["lva"][1]
-LVA_CONTRACT_DID = f"did:web:gov-lva.gftd.ai:law:{CONTRACTS['lva'][2]}"
+LVA_CONTRACT_DID = f"did:web:gov-lva.etzhayyim.com:law:{CONTRACTS['lva'][2]}"
 
 LVA_CITIES = [
     ("city:riga", "Rīga", "Riga", None, 614618, "https://www.riga.lv/", "capital", "capital-district"),
@@ -962,7 +962,7 @@ LVA_CITIES = [
 # ISL
 # ---------------------------------------------------------------------------
 ISL_CONTRACT = CONTRACTS["isl"][1]
-ISL_CONTRACT_DID = f"did:web:gov-isl.gftd.ai:law:{CONTRACTS['isl'][2]}"
+ISL_CONTRACT_DID = f"did:web:gov-isl.etzhayyim.com:law:{CONTRACTS['isl'][2]}"
 
 ISL_CITIES = [
     ("city:reykjavik", "Reykjavík", "Reykjavik", None, 131136, "https://reykjavik.is/", "capital", "capital-district"),
@@ -972,7 +972,7 @@ ISL_CITIES = [
 # LUX
 # ---------------------------------------------------------------------------
 LUX_CONTRACT = CONTRACTS["lux"][1]
-LUX_CONTRACT_DID = f"did:web:gov-lux.gftd.ai:law:{CONTRACTS['lux'][2]}"
+LUX_CONTRACT_DID = f"did:web:gov-lux.etzhayyim.com:law:{CONTRACTS['lux'][2]}"
 
 LUX_CITIES = [
     ("city:luxembourg", "Luxembourg", "Luxembourg City", None, 125000, "https://www.vdl.lu/", "capital", "capital-district"),
@@ -982,7 +982,7 @@ LUX_CITIES = [
 # CYP
 # ---------------------------------------------------------------------------
 CYP_CONTRACT = CONTRACTS["cyp"][1]
-CYP_CONTRACT_DID = f"did:web:gov-cyp.gftd.ai:law:{CONTRACTS['cyp'][2]}"
+CYP_CONTRACT_DID = f"did:web:gov-cyp.etzhayyim.com:law:{CONTRACTS['cyp'][2]}"
 
 CYP_CITIES = [
     ("city:nicosia", "Λευκωσία", "Nicosia", None, 313626, "https://www.nicosia.org.cy/", "capital", "capital-district"),
@@ -993,7 +993,7 @@ CYP_CITIES = [
 # ---------------------------------------------------------------------------
 IRL_DEFAULT = ("Municipal Government Act", "Municipal Government Act", "municipal-government-act", "Local Government Act 2001", "2001-01-01", "https://www.gov.ie/")
 IRL_CONTRACT = IRL_DEFAULT[1]
-IRL_CONTRACT_DID = "did:web:gov-irl.gftd.ai:law:municipal-government-act"
+IRL_CONTRACT_DID = "did:web:gov-irl.etzhayyim.com:law:municipal-government-act"
 
 IRL_CITIES = [
     ("city:dublin", "Dublin", "Dublin", None, 553165, "https://www.dublincity.ie/", "capital", "capital-district"),
@@ -1003,7 +1003,7 @@ IRL_CITIES = [
 # QAT
 # ---------------------------------------------------------------------------
 QAT_CONTRACT = CONTRACTS["qat"][1]
-QAT_CONTRACT_DID = f"did:web:gov-qat.gftd.ai:law:{CONTRACTS['qat'][2]}"
+QAT_CONTRACT_DID = f"did:web:gov-qat.etzhayyim.com:law:{CONTRACTS['qat'][2]}"
 
 QAT_CITIES = [
     ("city:doha", "الدوحة", "Doha", None, 2400000, "https://www.doha.gov.qa/", "capital", "capital-district"),
@@ -1013,7 +1013,7 @@ QAT_CITIES = [
 # KWT
 # ---------------------------------------------------------------------------
 KWT_CONTRACT = CONTRACTS["kwt"][1]
-KWT_CONTRACT_DID = f"did:web:gov-kwt.gftd.ai:law:{CONTRACTS['kwt'][2]}"
+KWT_CONTRACT_DID = f"did:web:gov-kwt.etzhayyim.com:law:{CONTRACTS['kwt'][2]}"
 
 KWT_CITIES = [
     ("city:kuwait-city", "مدينة الكويت", "Kuwait City", None, 2989000, "https://www.baladia.gov.kw/", "capital", "capital-district"),
@@ -1023,7 +1023,7 @@ KWT_CITIES = [
 # OMN
 # ---------------------------------------------------------------------------
 OMN_CONTRACT = CONTRACTS["omn"][1]
-OMN_CONTRACT_DID = f"did:web:gov-omn.gftd.ai:law:{CONTRACTS['omn'][2]}"
+OMN_CONTRACT_DID = f"did:web:gov-omn.etzhayyim.com:law:{CONTRACTS['omn'][2]}"
 
 OMN_CITIES = [
     ("city:muscat", "مسقط", "Muscat", None, 1550000, "https://www.muscat.gov.om/", "capital", "capital-district"),
@@ -1033,7 +1033,7 @@ OMN_CITIES = [
 # JOR
 # ---------------------------------------------------------------------------
 JOR_CONTRACT = CONTRACTS["jor"][1]
-JOR_CONTRACT_DID = f"did:web:gov-jor.gftd.ai:law:{CONTRACTS['jor'][2]}"
+JOR_CONTRACT_DID = f"did:web:gov-jor.etzhayyim.com:law:{CONTRACTS['jor'][2]}"
 
 JOR_CITIES = [
     ("city:amman", "عمّان", "Amman", None, 4007526, "https://www.ammancity.gov.jo/", "capital", "capital-district"),
@@ -1043,7 +1043,7 @@ JOR_CITIES = [
 # LBN
 # ---------------------------------------------------------------------------
 LBN_CONTRACT = CONTRACTS["lbn"][1]
-LBN_CONTRACT_DID = f"did:web:gov-lbn.gftd.ai:law:{CONTRACTS['lbn'][2]}"
+LBN_CONTRACT_DID = f"did:web:gov-lbn.etzhayyim.com:law:{CONTRACTS['lbn'][2]}"
 
 LBN_CITIES = [
     ("city:beirut", "بيروت", "Beirut", None, 2200000, "https://www.beirut.gov.lb/", "capital", "capital-district"),
@@ -1053,7 +1053,7 @@ LBN_CITIES = [
 # IRN
 # ---------------------------------------------------------------------------
 IRN_CONTRACT = CONTRACTS["irn"][1]
-IRN_CONTRACT_DID = f"did:web:gov-irn.gftd.ai:law:{CONTRACTS['irn'][2]}"
+IRN_CONTRACT_DID = f"did:web:gov-irn.etzhayyim.com:law:{CONTRACTS['irn'][2]}"
 
 IRN_CITIES = [
     ("city:tehran", "تهران", "Tehran", None, 9259009, "https://www.tehran.ir/", "capital", "capital-district"),
@@ -1065,7 +1065,7 @@ IRN_CITIES = [
 # IRQ
 # ---------------------------------------------------------------------------
 IRQ_CONTRACT = CONTRACTS["irq"][1]
-IRQ_CONTRACT_DID = f"did:web:gov-irq.gftd.ai:law:{CONTRACTS['irq'][2]}"
+IRQ_CONTRACT_DID = f"did:web:gov-irq.etzhayyim.com:law:{CONTRACTS['irq'][2]}"
 
 IRQ_CITIES = [
     ("city:baghdad", "بغداد", "Baghdad", None, 7682136, "https://www.amanatbaghdad.gov.iq/", "capital", "capital-district"),
@@ -1076,7 +1076,7 @@ IRQ_CITIES = [
 # SYR
 # ---------------------------------------------------------------------------
 SYR_CONTRACT = CONTRACTS["syr"][1]
-SYR_CONTRACT_DID = f"did:web:gov-syr.gftd.ai:law:{CONTRACTS['syr'][2]}"
+SYR_CONTRACT_DID = f"did:web:gov-syr.etzhayyim.com:law:{CONTRACTS['syr'][2]}"
 
 SYR_CITIES = [
     ("city:damascus", "دمشق", "Damascus", None, 2500000, "https://www.damascus.gov.sy/", "capital", "capital-district"),
@@ -1087,7 +1087,7 @@ SYR_CITIES = [
 # YEM
 # ---------------------------------------------------------------------------
 YEM_CONTRACT = CONTRACTS["yem"][1]
-YEM_CONTRACT_DID = f"did:web:gov-yem.gftd.ai:law:{CONTRACTS['yem'][2]}"
+YEM_CONTRACT_DID = f"did:web:gov-yem.etzhayyim.com:law:{CONTRACTS['yem'][2]}"
 
 YEM_CITIES = [
     ("city:sanaa", "صنعاء", "Sana'a", None, 2957000, "https://www.sanaa.gov.ye/", "capital", "capital-district"),
@@ -1098,7 +1098,7 @@ YEM_CITIES = [
 # PAK
 # ---------------------------------------------------------------------------
 PAK_CONTRACT = CONTRACTS["pak"][1]
-PAK_CONTRACT_DID = f"did:web:gov-pak.gftd.ai:law:{CONTRACTS['pak'][2]}"
+PAK_CONTRACT_DID = f"did:web:gov-pak.etzhayyim.com:law:{CONTRACTS['pak'][2]}"
 
 PAK_CITIES = [
     ("city:islamabad", "اسلام آباد", "Islamabad", None, 1014825, "https://www.islamabad.gov.pk/", "capital", "capital-district"),
@@ -1110,7 +1110,7 @@ PAK_CITIES = [
 # BGD
 # ---------------------------------------------------------------------------
 BGD_CONTRACT = CONTRACTS["bgd"][1]
-BGD_CONTRACT_DID = f"did:web:gov-bgd.gftd.ai:law:{CONTRACTS['bgd'][2]}"
+BGD_CONTRACT_DID = f"did:web:gov-bgd.etzhayyim.com:law:{CONTRACTS['bgd'][2]}"
 
 BGD_CITIES = [
     ("city:dhaka", "ঢাকা", "Dhaka", None, 10278882, "https://www.dhakacity.org/", "capital", "capital-district"),
@@ -1121,7 +1121,7 @@ BGD_CITIES = [
 # LKA
 # ---------------------------------------------------------------------------
 LKA_CONTRACT = CONTRACTS["lka"][1]
-LKA_CONTRACT_DID = f"did:web:gov-lka.gftd.ai:law:{CONTRACTS['lka'][2]}"
+LKA_CONTRACT_DID = f"did:web:gov-lka.etzhayyim.com:law:{CONTRACTS['lka'][2]}"
 
 LKA_CITIES = [
     ("city:colombo", "කොළඹ", "Colombo", None, 752993, "https://www.colombo.mc.gov.lk/", "capital", "capital-district"),
@@ -1132,7 +1132,7 @@ LKA_CITIES = [
 # NPL
 # ---------------------------------------------------------------------------
 NPL_CONTRACT = CONTRACTS["npl"][1]
-NPL_CONTRACT_DID = f"did:web:gov-npl.gftd.ai:law:{CONTRACTS['npl'][2]}"
+NPL_CONTRACT_DID = f"did:web:gov-npl.etzhayyim.com:law:{CONTRACTS['npl'][2]}"
 
 NPL_CITIES = [
     ("city:kathmandu", "काठमाडौं", "Kathmandu", None, 975453, "https://kathmandacity.gov.np/", "capital", "capital-district"),
@@ -1142,7 +1142,7 @@ NPL_CITIES = [
 # MMR
 # ---------------------------------------------------------------------------
 MMR_CONTRACT = CONTRACTS["mmr"][1]
-MMR_CONTRACT_DID = f"did:web:gov-mmr.gftd.ai:law:{CONTRACTS['mmr'][2]}"
+MMR_CONTRACT_DID = f"did:web:gov-mmr.etzhayyim.com:law:{CONTRACTS['mmr'][2]}"
 
 MMR_CITIES = [
     ("city:naypyidaw", "နေပြည်တော်", "Naypyidaw", None, 1160000, "https://www.naypyidaw.gov.mm/", "capital", "capital-district"),
@@ -1153,7 +1153,7 @@ MMR_CITIES = [
 # THA
 # ---------------------------------------------------------------------------
 THA_CONTRACT = CONTRACTS["tha"][1]
-THA_CONTRACT_DID = f"did:web:gov-tha.gftd.ai:law:{CONTRACTS['tha'][2]}"
+THA_CONTRACT_DID = f"did:web:gov-tha.etzhayyim.com:law:{CONTRACTS['tha'][2]}"
 
 THA_CITIES = [
     ("city:bangkok", "กรุงเทพมหานคร", "Bangkok", None, 10539000, "https://www.bangkok.go.th/", "capital", "capital-district"),
@@ -1164,7 +1164,7 @@ THA_CITIES = [
 # VNM
 # ---------------------------------------------------------------------------
 VNM_CONTRACT = CONTRACTS["vnm"][1]
-VNM_CONTRACT_DID = f"did:web:gov-vnm.gftd.ai:law:{CONTRACTS['vnm'][2]}"
+VNM_CONTRACT_DID = f"did:web:gov-vnm.etzhayyim.com:law:{CONTRACTS['vnm'][2]}"
 
 VNM_CITIES = [
     ("city:hanoi", "Hà Nội", "Hanoi", None, 8053663, "https://hanoi.gov.vn/", "capital", "capital-district"),
@@ -1175,7 +1175,7 @@ VNM_CITIES = [
 # PHL
 # ---------------------------------------------------------------------------
 PHL_CONTRACT = CONTRACTS["phl"][1]
-PHL_CONTRACT_DID = f"did:web:gov-phl.gftd.ai:law:{CONTRACTS['phl'][2]}"
+PHL_CONTRACT_DID = f"did:web:gov-phl.etzhayyim.com:law:{CONTRACTS['phl'][2]}"
 
 PHL_CITIES = [
     ("city:manila", "Manila", "Manila", None, 1846513, "https://www.manila.gov.ph/", "capital", "capital-district"),
@@ -1187,7 +1187,7 @@ PHL_CITIES = [
 # MYS
 # ---------------------------------------------------------------------------
 MYS_CONTRACT = CONTRACTS["mys"][1]
-MYS_CONTRACT_DID = f"did:web:gov-mys.gftd.ai:law:{CONTRACTS['mys'][2]}"
+MYS_CONTRACT_DID = f"did:web:gov-mys.etzhayyim.com:law:{CONTRACTS['mys'][2]}"
 
 MYS_CITIES = [
     ("city:kuala-lumpur", "Kuala Lumpur", "Kuala Lumpur", None, 1982112, "https://www.dbkl.gov.my/", "capital", "capital-district"),
@@ -1198,7 +1198,7 @@ MYS_CITIES = [
 # SGP
 # ---------------------------------------------------------------------------
 SGP_CONTRACT = CONTRACTS["sgp"][1]
-SGP_CONTRACT_DID = f"did:web:gov-sgp.gftd.ai:law:{CONTRACTS['sgp'][2]}"
+SGP_CONTRACT_DID = f"did:web:gov-sgp.etzhayyim.com:law:{CONTRACTS['sgp'][2]}"
 
 SGP_CITIES = [
     ("city:singapore", "Singapore", "Singapore", None, 5850342, "https://www.gov.sg/", "capital", "capital-district"),
@@ -1208,7 +1208,7 @@ SGP_CITIES = [
 # KHM
 # ---------------------------------------------------------------------------
 KHM_CONTRACT = CONTRACTS["khm"][1]
-KHM_CONTRACT_DID = f"did:web:gov-khm.gftd.ai:law:{CONTRACTS['khm'][2]}"
+KHM_CONTRACT_DID = f"did:web:gov-khm.etzhayyim.com:law:{CONTRACTS['khm'][2]}"
 
 KHM_CITIES = [
     ("city:phnom-penh", "ភ្នំពេញ", "Phnom Penh", None, 2281951, "https://www.phnompenh.gov.kh/", "capital", "capital-district"),
@@ -1218,7 +1218,7 @@ KHM_CITIES = [
 # LAO
 # ---------------------------------------------------------------------------
 LAO_CONTRACT = CONTRACTS["lao"][1]
-LAO_CONTRACT_DID = f"did:web:gov-lao.gftd.ai:law:{CONTRACTS['lao'][2]}"
+LAO_CONTRACT_DID = f"did:web:gov-lao.etzhayyim.com:law:{CONTRACTS['lao'][2]}"
 
 LAO_CITIES = [
     ("city:vientiane", "ວຽງຈັນ", "Vientiane", None, 948477, "https://www.vientiane.gov.la/", "capital", "capital-district"),
@@ -1228,7 +1228,7 @@ LAO_CITIES = [
 # ZWE
 # ---------------------------------------------------------------------------
 ZWE_CONTRACT = CONTRACTS["zwe"][1]
-ZWE_CONTRACT_DID = f"did:web:gov-zwe.gftd.ai:law:{CONTRACTS['zwe'][2]}"
+ZWE_CONTRACT_DID = f"did:web:gov-zwe.etzhayyim.com:law:{CONTRACTS['zwe'][2]}"
 
 ZWE_CITIES = [
     ("city:harare", "Harare", "Harare", None, 1485231, "https://www.hararecity.co.zw/", "capital", "capital-district"),
@@ -1239,7 +1239,7 @@ ZWE_CITIES = [
 # KEN
 # ---------------------------------------------------------------------------
 KEN_CONTRACT = CONTRACTS["ken"][1]
-KEN_CONTRACT_DID = f"did:web:gov-ken.gftd.ai:law:{CONTRACTS['ken'][2]}"
+KEN_CONTRACT_DID = f"did:web:gov-ken.etzhayyim.com:law:{CONTRACTS['ken'][2]}"
 
 KEN_CITIES = [
     ("city:nairobi", "Nairobi", "Nairobi", None, 4397073, "https://www.nairobi.go.ke/", "capital", "capital-district"),
@@ -1250,7 +1250,7 @@ KEN_CITIES = [
 # TZA
 # ---------------------------------------------------------------------------
 TZA_CONTRACT = CONTRACTS["tza"][1]
-TZA_CONTRACT_DID = f"did:web:gov-tza.gftd.ai:law:{CONTRACTS['tza'][2]}"
+TZA_CONTRACT_DID = f"did:web:gov-tza.etzhayyim.com:law:{CONTRACTS['tza'][2]}"
 
 TZA_CITIES = [
     ("city:dodoma", "Dodoma", "Dodoma", None, 410956, "https://www.dodoma.go.tz/", "capital", "capital-district"),
@@ -1261,7 +1261,7 @@ TZA_CITIES = [
 # NGA
 # ---------------------------------------------------------------------------
 NGA_CONTRACT = CONTRACTS["nga"][1]
-NGA_CONTRACT_DID = f"did:web:gov-nga.gftd.ai:law:{CONTRACTS['nga'][2]}"
+NGA_CONTRACT_DID = f"did:web:gov-nga.etzhayyim.com:law:{CONTRACTS['nga'][2]}"
 
 NGA_CITIES = [
     ("city:abuja", "Abuja", "Abuja", None, 3649000, "https://www.fcta.gov.ng/", "capital", "capital-district"),
@@ -1273,7 +1273,7 @@ NGA_CITIES = [
 # ETH
 # ---------------------------------------------------------------------------
 ETH_CONTRACT = CONTRACTS["eth"][1]
-ETH_CONTRACT_DID = f"did:web:gov-eth.gftd.ai:law:{CONTRACTS['eth'][2]}"
+ETH_CONTRACT_DID = f"did:web:gov-eth.etzhayyim.com:law:{CONTRACTS['eth'][2]}"
 
 ETH_CITIES = [
     ("city:addis-ababa", "አዲስ አበባ", "Addis Ababa", None, 3353000, "https://www.addisababacity.gov.et/", "capital", "capital-district"),
@@ -1284,7 +1284,7 @@ ETH_CITIES = [
 # GHA
 # ---------------------------------------------------------------------------
 GHA_CONTRACT = CONTRACTS["gha"][1]
-GHA_CONTRACT_DID = f"did:web:gov-gha.gftd.ai:law:{CONTRACTS['gha'][2]}"
+GHA_CONTRACT_DID = f"did:web:gov-gha.etzhayyim.com:law:{CONTRACTS['gha'][2]}"
 
 GHA_CITIES = [
     ("city:accra", "Accra", "Accra", None, 2514000, "https://www.ghanadistricts.gov.gh/", "capital", "capital-district"),
@@ -1295,7 +1295,7 @@ GHA_CITIES = [
 # CMR
 # ---------------------------------------------------------------------------
 CMR_CONTRACT = CONTRACTS["cmr"][1]
-CMR_CONTRACT_DID = f"did:web:gov-cmr.gftd.ai:law:{CONTRACTS['cmr'][2]}"
+CMR_CONTRACT_DID = f"did:web:gov-cmr.etzhayyim.com:law:{CONTRACTS['cmr'][2]}"
 
 CMR_CITIES = [
     ("city:yaounde", "Yaoundé", "Yaounde", None, 3236000, "https://www.communaute-urbaine-de-yaounde.cm/", "capital", "capital-district"),
@@ -1306,7 +1306,7 @@ CMR_CITIES = [
 # SEN
 # ---------------------------------------------------------------------------
 SEN_CONTRACT = CONTRACTS["sen"][1]
-SEN_CONTRACT_DID = f"did:web:gov-sen.gftd.ai:law:{CONTRACTS['sen'][2]}"
+SEN_CONTRACT_DID = f"did:web:gov-sen.etzhayyim.com:law:{CONTRACTS['sen'][2]}"
 
 SEN_CITIES = [
     ("city:dakar", "Dakar", "Dakar", None, 3137196, "https://www.ville.dakar.sn/", "capital", "capital-district"),
@@ -1316,7 +1316,7 @@ SEN_CITIES = [
 # AGO
 # ---------------------------------------------------------------------------
 AGO_CONTRACT = CONTRACTS["ago"][1]
-AGO_CONTRACT_DID = f"did:web:gov-ago.gftd.ai:law:{CONTRACTS['ago'][2]}"
+AGO_CONTRACT_DID = f"did:web:gov-ago.etzhayyim.com:law:{CONTRACTS['ago'][2]}"
 
 AGO_CITIES = [
     ("city:luanda", "Luanda", "Luanda", None, 8330000, "https://www.luanda.gov.ao/", "capital", "capital-district"),
@@ -1326,7 +1326,7 @@ AGO_CITIES = [
 # COD
 # ---------------------------------------------------------------------------
 COD_CONTRACT = CONTRACTS["cod"][1]
-COD_CONTRACT_DID = f"did:web:gov-cod.gftd.ai:law:{CONTRACTS['cod'][2]}"
+COD_CONTRACT_DID = f"did:web:gov-cod.etzhayyim.com:law:{CONTRACTS['cod'][2]}"
 
 COD_CITIES = [
     ("city:kinshasa", "Kinshasa", "Kinshasa", None, 14970460, "https://www.kinshasa.cd/", "capital", "capital-district"),
@@ -1337,7 +1337,7 @@ COD_CITIES = [
 # UGA
 # ---------------------------------------------------------------------------
 UGA_CONTRACT = CONTRACTS["uga"][1]
-UGA_CONTRACT_DID = f"did:web:gov-uga.gftd.ai:law:{CONTRACTS['uga'][2]}"
+UGA_CONTRACT_DID = f"did:web:gov-uga.etzhayyim.com:law:{CONTRACTS['uga'][2]}"
 
 UGA_CITIES = [
     ("city:kampala", "Kampala", "Kampala", None, 1659600, "https://www.kcca.go.ug/", "capital", "capital-district"),
@@ -1347,7 +1347,7 @@ UGA_CITIES = [
 # MOZ
 # ---------------------------------------------------------------------------
 MOZ_CONTRACT = CONTRACTS["moz"][1]
-MOZ_CONTRACT_DID = f"did:web:gov-moz.gftd.ai:law:{CONTRACTS['moz'][2]}"
+MOZ_CONTRACT_DID = f"did:web:gov-moz.etzhayyim.com:law:{CONTRACTS['moz'][2]}"
 
 MOZ_CITIES = [
     ("city:maputo", "Maputo", "Maputo", None, 1101170, "https://www.cm-maputo.gov.mz/", "capital", "capital-district"),
@@ -1357,7 +1357,7 @@ MOZ_CITIES = [
 # MDG
 # ---------------------------------------------------------------------------
 MDG_CONTRACT = CONTRACTS["mdg"][1]
-MDG_CONTRACT_DID = f"did:web:gov-mdg.gftd.ai:law:{CONTRACTS['mdg'][2]}"
+MDG_CONTRACT_DID = f"did:web:gov-mdg.etzhayyim.com:law:{CONTRACTS['mdg'][2]}"
 
 MDG_CITIES = [
     ("city:antananarivo", "Antananarivo", "Antananarivo", None, 1391433, "https://www.tananarive.gov.mg/", "capital", "capital-district"),
@@ -1367,7 +1367,7 @@ MDG_CITIES = [
 # RWA
 # ---------------------------------------------------------------------------
 RWA_CONTRACT = CONTRACTS["rwa"][1]
-RWA_CONTRACT_DID = f"did:web:gov-rwa.gftd.ai:law:{CONTRACTS['rwa'][2]}"
+RWA_CONTRACT_DID = f"did:web:gov-rwa.etzhayyim.com:law:{CONTRACTS['rwa'][2]}"
 
 RWA_CITIES = [
     ("city:kigali", "Kigali", "Kigali", None, 1132686, "https://www.kigalicity.gov.rw/", "capital", "capital-district"),
@@ -1377,7 +1377,7 @@ RWA_CITIES = [
 # CIV
 # ---------------------------------------------------------------------------
 CIV_CONTRACT = CONTRACTS["civ"][1]
-CIV_CONTRACT_DID = f"did:web:gov-civ.gftd.ai:law:{CONTRACTS['civ'][2]}"
+CIV_CONTRACT_DID = f"did:web:gov-civ.etzhayyim.com:law:{CONTRACTS['civ'][2]}"
 
 CIV_CITIES = [
     ("city:yamoussoukro", "Yamoussoukro", "Yamoussoukro", None, 350000, "https://www.yamoussoukro.ci/", "capital", "capital-district"),
@@ -1388,7 +1388,7 @@ CIV_CITIES = [
 # BFA
 # ---------------------------------------------------------------------------
 BFA_CONTRACT = CONTRACTS["bfa"][1]
-BFA_CONTRACT_DID = f"did:web:gov-bfa.gftd.ai:law:{CONTRACTS['bfa'][2]}"
+BFA_CONTRACT_DID = f"did:web:gov-bfa.etzhayyim.com:law:{CONTRACTS['bfa'][2]}"
 
 BFA_CITIES = [
     ("city:ouagadougou", "Ouagadougou", "Ouagadougou", None, 2415266, "https://www.mairie-ouagadougou.bf/", "capital", "capital-district"),
@@ -1398,7 +1398,7 @@ BFA_CITIES = [
 # MLI
 # ---------------------------------------------------------------------------
 MLI_CONTRACT = CONTRACTS["mli"][1]
-MLI_CONTRACT_DID = f"did:web:gov-mli.gftd.ai:law:{CONTRACTS['mli'][2]}"
+MLI_CONTRACT_DID = f"did:web:gov-mli.etzhayyim.com:law:{CONTRACTS['mli'][2]}"
 
 MLI_CITIES = [
     ("city:bamako", "Bamako", "Bamako", None, 2929519, "https://www.mairie-bamako.ml/", "capital", "capital-district"),
@@ -1408,7 +1408,7 @@ MLI_CITIES = [
 # NER
 # ---------------------------------------------------------------------------
 NER_CONTRACT = CONTRACTS["ner"][1]
-NER_CONTRACT_DID = f"did:web:gov-ner.gftd.ai:law:{CONTRACTS['ner'][2]}"
+NER_CONTRACT_DID = f"did:web:gov-ner.etzhayyim.com:law:{CONTRACTS['ner'][2]}"
 
 NER_CITIES = [
     ("city:niamey", "Niamey", "Niamey", None, 1324508, "https://www.niamey.ne/", "capital", "capital-district"),
@@ -1418,7 +1418,7 @@ NER_CITIES = [
 # TCD
 # ---------------------------------------------------------------------------
 TCD_CONTRACT = CONTRACTS["tcd"][1]
-TCD_CONTRACT_DID = f"did:web:gov-tcd.gftd.ai:law:{CONTRACTS['tcd'][2]}"
+TCD_CONTRACT_DID = f"did:web:gov-tcd.etzhayyim.com:law:{CONTRACTS['tcd'][2]}"
 
 TCD_CITIES = [
     ("city:ndjamena", "N'Djamena", "N'Djamena", None, 1508000, "https://www.mairie-ndjamena.td/", "capital", "capital-district"),
@@ -1428,7 +1428,7 @@ TCD_CITIES = [
 # GIN
 # ---------------------------------------------------------------------------
 GIN_CONTRACT = CONTRACTS["gin"][1]
-GIN_CONTRACT_DID = f"did:web:gov-gin.gftd.ai:law:{CONTRACTS['gin'][2]}"
+GIN_CONTRACT_DID = f"did:web:gov-gin.etzhayyim.com:law:{CONTRACTS['gin'][2]}"
 
 GIN_CITIES = [
     ("city:conakry", "Conakry", "Conakry", None, 1667864, "https://www.mairie-conakry.gov.gn/", "capital", "capital-district"),
@@ -1438,7 +1438,7 @@ GIN_CITIES = [
 # TGO
 # ---------------------------------------------------------------------------
 TGO_CONTRACT = CONTRACTS["tgo"][1]
-TGO_CONTRACT_DID = f"did:web:gov-tgo.gftd.ai:law:{CONTRACTS['tgo'][2]}"
+TGO_CONTRACT_DID = f"did:web:gov-tgo.etzhayyim.com:law:{CONTRACTS['tgo'][2]}"
 
 TGO_CITIES = [
     ("city:lome", "Lomé", "Lome", None, 1477660, "https://www.mairie-lome.tg/", "capital", "capital-district"),
@@ -1448,7 +1448,7 @@ TGO_CITIES = [
 # BEN
 # ---------------------------------------------------------------------------
 BEN_CONTRACT = CONTRACTS["ben"][1]
-BEN_CONTRACT_DID = f"did:web:gov-ben.gftd.ai:law:{CONTRACTS['ben'][2]}"
+BEN_CONTRACT_DID = f"did:web:gov-ben.etzhayyim.com:law:{CONTRACTS['ben'][2]}"
 
 BEN_CITIES = [
     ("city:porto-novo", "Porto-Novo", "Porto-Novo", None, 264320, "https://www.porto-novo.bj/", "capital", "capital-district"),
@@ -1459,7 +1459,7 @@ BEN_CITIES = [
 # NAM
 # ---------------------------------------------------------------------------
 NAM_CONTRACT = CONTRACTS["nam"][1]
-NAM_CONTRACT_DID = f"did:web:gov-nam.gftd.ai:law:{CONTRACTS['nam'][2]}"
+NAM_CONTRACT_DID = f"did:web:gov-nam.etzhayyim.com:law:{CONTRACTS['nam'][2]}"
 
 NAM_CITIES = [
     ("city:windhoek", "Windhoek", "Windhoek", None, 431000, "https://www.windhoekcc.org.na/", "capital", "capital-district"),
@@ -1469,7 +1469,7 @@ NAM_CITIES = [
 # BWA
 # ---------------------------------------------------------------------------
 BWA_CONTRACT = CONTRACTS["bwa"][1]
-BWA_CONTRACT_DID = f"did:web:gov-bwa.gftd.ai:law:{CONTRACTS['bwa'][2]}"
+BWA_CONTRACT_DID = f"did:web:gov-bwa.etzhayyim.com:law:{CONTRACTS['bwa'][2]}"
 
 BWA_CITIES = [
     ("city:gaborone", "Gaborone", "Gaborone", None, 231592, "https://www.gaborone.gov.bw/", "capital", "capital-district"),
@@ -1479,7 +1479,7 @@ BWA_CITIES = [
 # LSO
 # ---------------------------------------------------------------------------
 LSO_CONTRACT = CONTRACTS["lso"][1]
-LSO_CONTRACT_DID = f"did:web:gov-lso.gftd.ai:law:{CONTRACTS['lso'][2]}"
+LSO_CONTRACT_DID = f"did:web:gov-lso.etzhayyim.com:law:{CONTRACTS['lso'][2]}"
 
 LSO_CITIES = [
     ("city:maseru", "Maseru", "Maseru", None, 330760, "https://www.maseru.gov.ls/", "capital", "capital-district"),
@@ -1489,7 +1489,7 @@ LSO_CITIES = [
 # SWZ
 # ---------------------------------------------------------------------------
 SWZ_CONTRACT = CONTRACTS["swz"][1]
-SWZ_CONTRACT_DID = f"did:web:gov-swz.gftd.ai:law:{CONTRACTS['swz'][2]}"
+SWZ_CONTRACT_DID = f"did:web:gov-swz.etzhayyim.com:law:{CONTRACTS['swz'][2]}"
 
 SWZ_CITIES = [
     ("city:mbabane", "Mbabane", "Mbabane", None, 94874, "https://www.mbabane.gov.sz/", "capital", "capital-district"),
@@ -1500,7 +1500,7 @@ SWZ_CITIES = [
 # MWI
 # ---------------------------------------------------------------------------
 MWI_CONTRACT = CONTRACTS["mwi"][1]
-MWI_CONTRACT_DID = f"did:web:gov-mwi.gftd.ai:law:{CONTRACTS['mwi'][2]}"
+MWI_CONTRACT_DID = f"did:web:gov-mwi.etzhayyim.com:law:{CONTRACTS['mwi'][2]}"
 
 MWI_CITIES = [
     ("city:lilongwe", "Lilongwe", "Lilongwe", None, 989318, "https://www.lilongwe.mw/", "capital", "capital-district"),
@@ -1511,7 +1511,7 @@ MWI_CITIES = [
 # ZMB
 # ---------------------------------------------------------------------------
 ZMB_CONTRACT = CONTRACTS["zmb"][1]
-ZMB_CONTRACT_DID = f"did:web:gov-zmb.gftd.ai:law:{CONTRACTS['zmb'][2]}"
+ZMB_CONTRACT_DID = f"did:web:gov-zmb.etzhayyim.com:law:{CONTRACTS['zmb'][2]}"
 
 ZMB_CITIES = [
     ("city:lusaka", "Lusaka", "Lusaka", None, 2731696, "https://www.lcc.gov.zm/", "capital", "capital-district"),
@@ -1522,7 +1522,7 @@ ZMB_CITIES = [
 # COL
 # ---------------------------------------------------------------------------
 COL_CONTRACT = CONTRACTS["col"][1]
-COL_CONTRACT_DID = f"did:web:gov-col.gftd.ai:law:{CONTRACTS['col'][2]}"
+COL_CONTRACT_DID = f"did:web:gov-col.etzhayyim.com:law:{CONTRACTS['col'][2]}"
 
 COL_CITIES = [
     ("city:bogota", "Bogotá", "Bogota", None, 7743955, "https://www.bogota.gov.co/", "capital", "capital-district"),
@@ -1534,7 +1534,7 @@ COL_CITIES = [
 # VEN
 # ---------------------------------------------------------------------------
 VEN_CONTRACT = CONTRACTS["ven"][1]
-VEN_CONTRACT_DID = f"did:web:gov-ven.gftd.ai:law:{CONTRACTS['ven'][2]}"
+VEN_CONTRACT_DID = f"did:web:gov-ven.etzhayyim.com:law:{CONTRACTS['ven'][2]}"
 
 VEN_CITIES = [
     ("city:caracas", "Caracas", "Caracas", None, 2900000, "https://www.alcaldiadecaracas.gob.ve/", "capital", "capital-district"),
@@ -1545,7 +1545,7 @@ VEN_CITIES = [
 # PER
 # ---------------------------------------------------------------------------
 PER_CONTRACT = CONTRACTS["per"][1]
-PER_CONTRACT_DID = f"did:web:gov-per.gftd.ai:law:{CONTRACTS['per'][2]}"
+PER_CONTRACT_DID = f"did:web:gov-per.etzhayyim.com:law:{CONTRACTS['per'][2]}"
 
 PER_CITIES = [
     ("city:lima", "Lima", "Lima", None, 10555782, "https://www.munlima.gob.pe/", "capital", "capital-district"),
@@ -1556,7 +1556,7 @@ PER_CITIES = [
 # CHL
 # ---------------------------------------------------------------------------
 CHL_CONTRACT = CONTRACTS["chl"][1]
-CHL_CONTRACT_DID = f"did:web:gov-chl.gftd.ai:law:{CONTRACTS['chl'][2]}"
+CHL_CONTRACT_DID = f"did:web:gov-chl.etzhayyim.com:law:{CONTRACTS['chl'][2]}"
 
 CHL_CITIES = [
     ("city:santiago", "Santiago", "Santiago", None, 5220161, "https://www.munistgo.cl/", "capital", "capital-district"),
@@ -1567,7 +1567,7 @@ CHL_CITIES = [
 # ECU
 # ---------------------------------------------------------------------------
 ECU_CONTRACT = CONTRACTS["ecu"][1]
-ECU_CONTRACT_DID = f"did:web:gov-ecu.gftd.ai:law:{CONTRACTS['ecu'][2]}"
+ECU_CONTRACT_DID = f"did:web:gov-ecu.etzhayyim.com:law:{CONTRACTS['ecu'][2]}"
 
 ECU_CITIES = [
     ("city:quito", "Quito", "Quito", None, 1619146, "https://www.quito.gob.ec/", "capital", "capital-district"),
@@ -1578,7 +1578,7 @@ ECU_CITIES = [
 # BOL
 # ---------------------------------------------------------------------------
 BOL_CONTRACT = CONTRACTS["bol"][1]
-BOL_CONTRACT_DID = f"did:web:gov-bol.gftd.ai:law:{CONTRACTS['bol'][2]}"
+BOL_CONTRACT_DID = f"did:web:gov-bol.etzhayyim.com:law:{CONTRACTS['bol'][2]}"
 
 BOL_CITIES = [
     ("city:sucre", "Sucre", "Sucre", None, 281000, "https://www.sucre.bo/", "capital", "capital-district"),
@@ -1590,7 +1590,7 @@ BOL_CITIES = [
 # PRY
 # ---------------------------------------------------------------------------
 PRY_CONTRACT = CONTRACTS["pry"][1]
-PRY_CONTRACT_DID = f"did:web:gov-pry.gftd.ai:law:{CONTRACTS['pry'][2]}"
+PRY_CONTRACT_DID = f"did:web:gov-pry.etzhayyim.com:law:{CONTRACTS['pry'][2]}"
 
 PRY_CITIES = [
     ("city:asuncion", "Asunción", "Asuncion", None, 729307, "https://www.asuncion.gov.py/", "capital", "capital-district"),
@@ -1600,7 +1600,7 @@ PRY_CITIES = [
 # URY
 # ---------------------------------------------------------------------------
 URY_CONTRACT = CONTRACTS["ury"][1]
-URY_CONTRACT_DID = f"did:web:gov-ury.gftd.ai:law:{CONTRACTS['ury'][2]}"
+URY_CONTRACT_DID = f"did:web:gov-ury.etzhayyim.com:law:{CONTRACTS['ury'][2]}"
 
 URY_CITIES = [
     ("city:montevideo", "Montevideo", "Montevideo", None, 1382481, "https://montevideo.gub.uy/", "capital", "capital-district"),
@@ -1610,7 +1610,7 @@ URY_CITIES = [
 # PAN
 # ---------------------------------------------------------------------------
 PAN_CONTRACT = CONTRACTS["pan"][1]
-PAN_CONTRACT_DID = f"did:web:gov-pan.gftd.ai:law:{CONTRACTS['pan'][2]}"
+PAN_CONTRACT_DID = f"did:web:gov-pan.etzhayyim.com:law:{CONTRACTS['pan'][2]}"
 
 PAN_CITIES = [
     ("city:panama-city", "Ciudad de Panamá", "Panama City", None, 880691, "https://www.ciudaddepanama.gob.pa/", "capital", "capital-district"),
@@ -1620,7 +1620,7 @@ PAN_CITIES = [
 # CRI
 # ---------------------------------------------------------------------------
 CRI_CONTRACT = CONTRACTS["cri"][1]
-CRI_CONTRACT_DID = f"did:web:gov-cri.gftd.ai:law:{CONTRACTS['cri'][2]}"
+CRI_CONTRACT_DID = f"did:web:gov-cri.etzhayyim.com:law:{CONTRACTS['cri'][2]}"
 
 CRI_CITIES = [
     ("city:san-jose", "San José", "San Jose", None, 340000, "https://www.msj.go.cr/", "capital", "capital-district"),
@@ -1630,7 +1630,7 @@ CRI_CITIES = [
 # GTM
 # ---------------------------------------------------------------------------
 GTM_CONTRACT = CONTRACTS["gtm"][1]
-GTM_CONTRACT_DID = f"did:web:gov-gtm.gftd.ai:law:{CONTRACTS['gtm'][2]}"
+GTM_CONTRACT_DID = f"did:web:gov-gtm.etzhayyim.com:law:{CONTRACTS['gtm'][2]}"
 
 GTM_CITIES = [
     ("city:guatemala-city", "Ciudad de Guatemala", "Guatemala City", None, 994938, "https://www.muniguate.com/", "capital", "capital-district"),
@@ -1640,7 +1640,7 @@ GTM_CITIES = [
 # HND
 # ---------------------------------------------------------------------------
 HND_CONTRACT = CONTRACTS["hnd"][1]
-HND_CONTRACT_DID = f"did:web:gov-hnd.gftd.ai:law:{CONTRACTS['hnd'][2]}"
+HND_CONTRACT_DID = f"did:web:gov-hnd.etzhayyim.com:law:{CONTRACTS['hnd'][2]}"
 
 HND_CITIES = [
     ("city:tegucigalpa", "Tegucigalpa", "Tegucigalpa", None, 1157509, "https://www.municipalidadtegucigalpa.hn/", "capital", "capital-district"),
@@ -1650,7 +1650,7 @@ HND_CITIES = [
 # SLV
 # ---------------------------------------------------------------------------
 SLV_CONTRACT = CONTRACTS["slv"][1]
-SLV_CONTRACT_DID = f"did:web:gov-slv.gftd.ai:law:{CONTRACTS['slv'][2]}"
+SLV_CONTRACT_DID = f"did:web:gov-slv.etzhayyim.com:law:{CONTRACTS['slv'][2]}"
 
 SLV_CITIES = [
     ("city:san-salvador", "San Salvador", "San Salvador", None, 316090, "https://www.sansalvador.gob.sv/", "capital", "capital-district"),
@@ -1660,7 +1660,7 @@ SLV_CITIES = [
 # NIC
 # ---------------------------------------------------------------------------
 NIC_CONTRACT = CONTRACTS["nic"][1]
-NIC_CONTRACT_DID = f"did:web:gov-nic.gftd.ai:law:{CONTRACTS['nic'][2]}"
+NIC_CONTRACT_DID = f"did:web:gov-nic.etzhayyim.com:law:{CONTRACTS['nic'][2]}"
 
 NIC_CITIES = [
     ("city:managua", "Managua", "Managua", None, 1055247, "https://www.managua.gob.ni/", "capital", "capital-district"),
@@ -1670,7 +1670,7 @@ NIC_CITIES = [
 # DOM
 # ---------------------------------------------------------------------------
 DOM_CONTRACT = CONTRACTS["dom"][1]
-DOM_CONTRACT_DID = f"did:web:gov-dom.gftd.ai:law:{CONTRACTS['dom'][2]}"
+DOM_CONTRACT_DID = f"did:web:gov-dom.etzhayyim.com:law:{CONTRACTS['dom'][2]}"
 
 DOM_CITIES = [
     ("city:santo-domingo", "Santo Domingo", "Santo Domingo", None, 965040, "https://www.adn.gob.do/", "capital", "capital-district"),
@@ -1681,7 +1681,7 @@ DOM_CITIES = [
 # CUB
 # ---------------------------------------------------------------------------
 CUB_CONTRACT = CONTRACTS["cub"][1]
-CUB_CONTRACT_DID = f"did:web:gov-cub.gftd.ai:law:{CONTRACTS['cub'][2]}"
+CUB_CONTRACT_DID = f"did:web:gov-cub.etzhayyim.com:law:{CONTRACTS['cub'][2]}"
 
 CUB_CITIES = [
     ("city:havana", "La Habana", "Havana", None, 2130517, "https://www.gobiernoprovincial.oh.cu/", "capital", "capital-district"),
@@ -1692,7 +1692,7 @@ CUB_CITIES = [
 # JAM
 # ---------------------------------------------------------------------------
 JAM_CONTRACT = CONTRACTS["jam"][1]
-JAM_CONTRACT_DID = f"did:web:gov-jam.gftd.ai:law:{CONTRACTS['jam'][2]}"
+JAM_CONTRACT_DID = f"did:web:gov-jam.etzhayyim.com:law:{CONTRACTS['jam'][2]}"
 
 JAM_CITIES = [
     ("city:kingston", "Kingston", "Kingston", None, 662426, "https://www.kingstoncityja.com/", "capital", "capital-district"),
@@ -1702,7 +1702,7 @@ JAM_CITIES = [
 # GUY
 # ---------------------------------------------------------------------------
 GUY_CONTRACT = CONTRACTS["guy"][1]
-GUY_CONTRACT_DID = f"did:web:gov-guy.gftd.ai:law:{CONTRACTS['guy'][2]}"
+GUY_CONTRACT_DID = f"did:web:gov-guy.etzhayyim.com:law:{CONTRACTS['guy'][2]}"
 
 GUY_CITIES = [
     ("city:georgetown", "Georgetown", "Georgetown", None, 235017, "https://www.gina.gov.gy/", "capital", "capital-district"),
@@ -1712,7 +1712,7 @@ GUY_CITIES = [
 # KAZ
 # ---------------------------------------------------------------------------
 KAZ_CONTRACT = CONTRACTS["kaz"][1]
-KAZ_CONTRACT_DID = f"did:web:gov-kaz.gftd.ai:law:{CONTRACTS['kaz'][2]}"
+KAZ_CONTRACT_DID = f"did:web:gov-kaz.etzhayyim.com:law:{CONTRACTS['kaz'][2]}"
 
 KAZ_CITIES = [
     ("city:astana", "Астана", "Astana", None, 1200000, "https://astana.gov.kz/", "capital", "capital-district"),
@@ -1723,7 +1723,7 @@ KAZ_CITIES = [
 # UZB
 # ---------------------------------------------------------------------------
 UZB_CONTRACT = CONTRACTS["uzb"][1]
-UZB_CONTRACT_DID = f"did:web:gov-uzb.gftd.ai:law:{CONTRACTS['uzb'][2]}"
+UZB_CONTRACT_DID = f"did:web:gov-uzb.etzhayyim.com:law:{CONTRACTS['uzb'][2]}"
 
 UZB_CITIES = [
     ("city:tashkent", "Тошкент", "Tashkent", None, 2571394, "https://tashkent.uz/", "capital", "capital-district"),
@@ -1734,7 +1734,7 @@ UZB_CITIES = [
 # TKM
 # ---------------------------------------------------------------------------
 TKM_CONTRACT = CONTRACTS["tkm"][1]
-TKM_CONTRACT_DID = f"did:web:gov-tkm.gftd.ai:law:{CONTRACTS['tkm'][2]}"
+TKM_CONTRACT_DID = f"did:web:gov-tkm.etzhayyim.com:law:{CONTRACTS['tkm'][2]}"
 
 TKM_CITIES = [
     ("city:ashgabat", "Aşgabat", "Ashgabat", None, 1031992, "https://www.turkmenistan.gov.tm/", "capital", "capital-district"),
@@ -1744,7 +1744,7 @@ TKM_CITIES = [
 # KGZ
 # ---------------------------------------------------------------------------
 KGZ_CONTRACT = CONTRACTS["kgz"][1]
-KGZ_CONTRACT_DID = f"did:web:gov-kgz.gftd.ai:law:{CONTRACTS['kgz'][2]}"
+KGZ_CONTRACT_DID = f"did:web:gov-kgz.etzhayyim.com:law:{CONTRACTS['kgz'][2]}"
 
 KGZ_CITIES = [
     ("city:bishkek", "Бишкек", "Bishkek", None, 1053000, "https://www.bishkek.gov.kg/", "capital", "capital-district"),
@@ -1754,7 +1754,7 @@ KGZ_CITIES = [
 # TJK
 # ---------------------------------------------------------------------------
 TJK_CONTRACT = CONTRACTS["tjk"][1]
-TJK_CONTRACT_DID = f"did:web:gov-tjk.gftd.ai:law:{CONTRACTS['tjk'][2]}"
+TJK_CONTRACT_DID = f"did:web:gov-tjk.etzhayyim.com:law:{CONTRACTS['tjk'][2]}"
 
 TJK_CITIES = [
     ("city:dushanbe", "Душанбе", "Dushanbe", None, 863400, "https://www.hukumat.tj/", "capital", "capital-district"),
@@ -1764,7 +1764,7 @@ TJK_CITIES = [
 # ARM
 # ---------------------------------------------------------------------------
 ARM_CONTRACT = CONTRACTS["arm"][1]
-ARM_CONTRACT_DID = f"did:web:gov-arm.gftd.ai:law:{CONTRACTS['arm'][2]}"
+ARM_CONTRACT_DID = f"did:web:gov-arm.etzhayyim.com:law:{CONTRACTS['arm'][2]}"
 
 ARM_CITIES = [
     ("city:yerevan", "Երևան", "Yerevan", None, 1093485, "https://www.yerevan.am/", "capital", "capital-district"),
@@ -1774,7 +1774,7 @@ ARM_CITIES = [
 # AZE
 # ---------------------------------------------------------------------------
 AZE_CONTRACT = CONTRACTS["aze"][1]
-AZE_CONTRACT_DID = f"did:web:gov-aze.gftd.ai:law:{CONTRACTS['aze'][2]}"
+AZE_CONTRACT_DID = f"did:web:gov-aze.etzhayyim.com:law:{CONTRACTS['aze'][2]}"
 
 AZE_CITIES = [
     ("city:baku", "Bakı", "Baku", None, 2293100, "https://www.baku.gov.az/", "capital", "capital-district"),
@@ -1784,7 +1784,7 @@ AZE_CITIES = [
 # BLR
 # ---------------------------------------------------------------------------
 BLR_CONTRACT = CONTRACTS["blr"][1]
-BLR_CONTRACT_DID = f"did:web:gov-blr.gftd.ai:law:{CONTRACTS['blr'][2]}"
+BLR_CONTRACT_DID = f"did:web:gov-blr.etzhayyim.com:law:{CONTRACTS['blr'][2]}"
 
 BLR_CITIES = [
     ("city:minsk", "Мінск", "Minsk", None, 2009786, "https://minsk.gov.by/", "capital", "capital-district"),
@@ -1795,7 +1795,7 @@ BLR_CITIES = [
 # ---------------------------------------------------------------------------
 AFG_DEFAULT = DEFAULT_CONTRACT
 AFG_CONTRACT = AFG_DEFAULT[1]
-AFG_CONTRACT_DID = "did:web:gov-afg.gftd.ai:law:municipal-government-act"
+AFG_CONTRACT_DID = "did:web:gov-afg.etzhayyim.com:law:municipal-government-act"
 
 AFG_CITIES = [
     ("city:kabul", "کابل", "Kabul", None, 4601789, "https://www.kabul.gov.af/", "capital", "capital-district"),
@@ -1806,7 +1806,7 @@ AFG_CITIES = [
 # DZA (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 DZA_CONTRACT = DEFAULT_CONTRACT[1]
-DZA_CONTRACT_DID = "did:web:gov-dza.gftd.ai:law:municipal-government-act"
+DZA_CONTRACT_DID = "did:web:gov-dza.etzhayyim.com:law:municipal-government-act"
 
 DZA_CITIES = [
     ("city:algiers", "الجزائر", "Algiers", None, 3415811, "https://www.wilaya-alger.dz/", "capital", "capital-district"),
@@ -1817,7 +1817,7 @@ DZA_CITIES = [
 # EGY (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 EGY_CONTRACT = DEFAULT_CONTRACT[1]
-EGY_CONTRACT_DID = "did:web:gov-egy.gftd.ai:law:municipal-government-act"
+EGY_CONTRACT_DID = "did:web:gov-egy.etzhayyim.com:law:municipal-government-act"
 
 EGY_CITIES = [
     ("city:cairo", "القاهرة", "Cairo", None, 10107125, "https://www.cairo.gov.eg/", "capital", "capital-district"),
@@ -1829,7 +1829,7 @@ EGY_CITIES = [
 # ISR (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 ISR_CONTRACT = DEFAULT_CONTRACT[1]
-ISR_CONTRACT_DID = "did:web:gov-isr.gftd.ai:law:municipal-government-act"
+ISR_CONTRACT_DID = "did:web:gov-isr.etzhayyim.com:law:municipal-government-act"
 
 ISR_CITIES = [
     ("city:jerusalem", "ירושלים", "Jerusalem", None, 919438, "https://www.jerusalem.muni.il/", "capital", "capital-district"),
@@ -1840,7 +1840,7 @@ ISR_CITIES = [
 # MAR (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 MAR_CONTRACT = DEFAULT_CONTRACT[1]
-MAR_CONTRACT_DID = "did:web:gov-mar.gftd.ai:law:municipal-government-act"
+MAR_CONTRACT_DID = "did:web:gov-mar.etzhayyim.com:law:municipal-government-act"
 
 MAR_CITIES = [
     ("city:rabat", "الرباط", "Rabat", None, 577827, "https://www.ville.rabat.ma/", "capital", "capital-district"),
@@ -1851,7 +1851,7 @@ MAR_CITIES = [
 # SDN (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 SDN_CONTRACT = DEFAULT_CONTRACT[1]
-SDN_CONTRACT_DID = "did:web:gov-sdn.gftd.ai:law:municipal-government-act"
+SDN_CONTRACT_DID = "did:web:gov-sdn.etzhayyim.com:law:municipal-government-act"
 
 SDN_CITIES = [
     ("city:khartoum", "الخرطوم", "Khartoum", None, 5274321, "https://www.khartoum.gov.sd/", "capital", "capital-district"),
@@ -1862,7 +1862,7 @@ SDN_CITIES = [
 # MNG (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 MNG_CONTRACT = DEFAULT_CONTRACT[1]
-MNG_CONTRACT_DID = "did:web:gov-mng.gftd.ai:law:municipal-government-act"
+MNG_CONTRACT_DID = "did:web:gov-mng.etzhayyim.com:law:municipal-government-act"
 
 MNG_CITIES = [
     ("city:ulaanbaatar", "Улаанбаатар", "Ulaanbaatar", None, 1382930, "https://www.ulaanbaatar.mn/", "capital", "capital-district"),
@@ -1872,7 +1872,7 @@ MNG_CITIES = [
 # PRK (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 PRK_CONTRACT = DEFAULT_CONTRACT[1]
-PRK_CONTRACT_DID = "did:web:gov-prk.gftd.ai:law:municipal-government-act"
+PRK_CONTRACT_DID = "did:web:gov-prk.etzhayyim.com:law:municipal-government-act"
 
 PRK_CITIES = [
     ("city:pyongyang", "평양", "Pyongyang", None, 3255288, "https://www.rodong.rep.kp/", "capital", "capital-district"),
@@ -1882,7 +1882,7 @@ PRK_CITIES = [
 # PSE (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 PSE_CONTRACT = DEFAULT_CONTRACT[1]
-PSE_CONTRACT_DID = "did:web:gov-pse.gftd.ai:law:municipal-government-act"
+PSE_CONTRACT_DID = "did:web:gov-pse.etzhayyim.com:law:municipal-government-act"
 
 PSE_CITIES = [
     ("city:ramallah", "رام الله", "Ramallah", None, 38998, "https://www.ramallah.ps/", "capital", "capital-district"),
@@ -1893,7 +1893,7 @@ PSE_CITIES = [
 # TWN (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 TWN_CONTRACT = DEFAULT_CONTRACT[1]
-TWN_CONTRACT_DID = "did:web:gov-twn.gftd.ai:law:municipal-government-act"
+TWN_CONTRACT_DID = "did:web:gov-twn.etzhayyim.com:law:municipal-government-act"
 
 TWN_CITIES = [
     ("city:taipei", "臺北市", "Taipei", None, 2646204, "https://www.gov.taipei/", "capital", "capital-district"),
@@ -1905,7 +1905,7 @@ TWN_CITIES = [
 # TUN (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 TUN_CONTRACT = DEFAULT_CONTRACT[1]
-TUN_CONTRACT_DID = "did:web:gov-tun.gftd.ai:law:municipal-government-act"
+TUN_CONTRACT_DID = "did:web:gov-tun.etzhayyim.com:law:municipal-government-act"
 
 TUN_CITIES = [
     ("city:tunis", "تونس", "Tunis", None, 1056247, "https://www.commune-tunis.gov.tn/", "capital", "capital-district"),
@@ -1915,7 +1915,7 @@ TUN_CITIES = [
 # XKX (Kosovo, no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 XKX_CONTRACT = DEFAULT_CONTRACT[1]
-XKX_CONTRACT_DID = "did:web:gov-xkx.gftd.ai:law:municipal-government-act"
+XKX_CONTRACT_DID = "did:web:gov-xkx.etzhayyim.com:law:municipal-government-act"
 
 XKX_CITIES = [
     ("city:pristina", "Prishtinë", "Pristina", None, 198897, "https://kk.rks-gov.net/prishtina/", "capital", "capital-district"),
@@ -1925,7 +1925,7 @@ XKX_CITIES = [
 # BDI (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 BDI_CONTRACT = DEFAULT_CONTRACT[1]
-BDI_CONTRACT_DID = "did:web:gov-bdi.gftd.ai:law:municipal-government-act"
+BDI_CONTRACT_DID = "did:web:gov-bdi.etzhayyim.com:law:municipal-government-act"
 
 BDI_CITIES = [
     ("city:gitega", "Gitega", "Gitega", None, 47300, "https://www.burundi.gov.bi/", "capital", "capital-district"),
@@ -1936,7 +1936,7 @@ BDI_CITIES = [
 # BHS (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 BHS_CONTRACT = DEFAULT_CONTRACT[1]
-BHS_CONTRACT_DID = "did:web:gov-bhs.gftd.ai:law:municipal-government-act"
+BHS_CONTRACT_DID = "did:web:gov-bhs.etzhayyim.com:law:municipal-government-act"
 
 BHS_CITIES = [
     ("city:nassau", "Nassau", "Nassau", None, 280000, "https://www.bahamas.gov.bs/", "capital", "capital-district"),
@@ -1946,7 +1946,7 @@ BHS_CITIES = [
 # BLZ (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 BLZ_CONTRACT = DEFAULT_CONTRACT[1]
-BLZ_CONTRACT_DID = "did:web:gov-blz.gftd.ai:law:municipal-government-act"
+BLZ_CONTRACT_DID = "did:web:gov-blz.etzhayyim.com:law:municipal-government-act"
 
 BLZ_CITIES = [
     ("city:belmopan", "Belmopan", "Belmopan", None, 22800, "https://www.belize.gov.bz/", "capital", "capital-district"),
@@ -1957,7 +1957,7 @@ BLZ_CITIES = [
 # BRN (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 BRN_CONTRACT = DEFAULT_CONTRACT[1]
-BRN_CONTRACT_DID = "did:web:gov-brn.gftd.ai:law:municipal-government-act"
+BRN_CONTRACT_DID = "did:web:gov-brn.etzhayyim.com:law:municipal-government-act"
 
 BRN_CITIES = [
     ("city:bandar-seri-begawan", "Bandar Seri Begawan", "Bandar Seri Begawan", None, 100700, "https://www.brunei.gov.bn/", "capital", "capital-district"),
@@ -1967,7 +1967,7 @@ BRN_CITIES = [
 # BTN (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 BTN_CONTRACT = DEFAULT_CONTRACT[1]
-BTN_CONTRACT_DID = "did:web:gov-btn.gftd.ai:law:municipal-government-act"
+BTN_CONTRACT_DID = "did:web:gov-btn.etzhayyim.com:law:municipal-government-act"
 
 BTN_CITIES = [
     ("city:thimphu", "ཐིམ་ཕུ", "Thimphu", None, 114551, "https://www.thimphucity.gov.bt/", "capital", "capital-district"),
@@ -1977,7 +1977,7 @@ BTN_CITIES = [
 # CAF (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 CAF_CONTRACT = DEFAULT_CONTRACT[1]
-CAF_CONTRACT_DID = "did:web:gov-caf.gftd.ai:law:municipal-government-act"
+CAF_CONTRACT_DID = "did:web:gov-caf.etzhayyim.com:law:municipal-government-act"
 
 CAF_CITIES = [
     ("city:bangui", "Bangui", "Bangui", None, 889231, "https://www.gouv.cf/", "capital", "capital-district"),
@@ -1987,7 +1987,7 @@ CAF_CITIES = [
 # COG (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 COG_CONTRACT = DEFAULT_CONTRACT[1]
-COG_CONTRACT_DID = "did:web:gov-cog.gftd.ai:law:municipal-government-act"
+COG_CONTRACT_DID = "did:web:gov-cog.etzhayyim.com:law:municipal-government-act"
 
 COG_CITIES = [
     ("city:brazzaville", "Brazzaville", "Brazzaville", None, 1827000, "https://www.ville-brazzaville.cg/", "capital", "capital-district"),
@@ -1998,7 +1998,7 @@ COG_CITIES = [
 # COM (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 COM_CONTRACT = DEFAULT_CONTRACT[1]
-COM_CONTRACT_DID = "did:web:gov-com.gftd.ai:law:municipal-government-act"
+COM_CONTRACT_DID = "did:web:gov-com.etzhayyim.com:law:municipal-government-act"
 
 COM_CITIES = [
     ("city:moroni", "مورونى", "Moroni", None, 54000, "https://www.gouvernement.km/", "capital", "capital-district"),
@@ -2008,7 +2008,7 @@ COM_CITIES = [
 # CPV (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 CPV_CONTRACT = DEFAULT_CONTRACT[1]
-CPV_CONTRACT_DID = "did:web:gov-cpv.gftd.ai:law:municipal-government-act"
+CPV_CONTRACT_DID = "did:web:gov-cpv.etzhayyim.com:law:municipal-government-act"
 
 CPV_CITIES = [
     ("city:praia", "Praia", "Praia", None, 168450, "https://www.cmpraia.cv/", "capital", "capital-district"),
@@ -2018,7 +2018,7 @@ CPV_CITIES = [
 # DJI (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 DJI_CONTRACT = DEFAULT_CONTRACT[1]
-DJI_CONTRACT_DID = "did:web:gov-dji.gftd.ai:law:municipal-government-act"
+DJI_CONTRACT_DID = "did:web:gov-dji.etzhayyim.com:law:municipal-government-act"
 
 DJI_CITIES = [
     ("city:djibouti", "Djibouti", "Djibouti City", None, 623891, "https://www.gouv.dj/", "capital", "capital-district"),
@@ -2028,7 +2028,7 @@ DJI_CITIES = [
 # ERI (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 ERI_CONTRACT = DEFAULT_CONTRACT[1]
-ERI_CONTRACT_DID = "did:web:gov-eri.gftd.ai:law:municipal-government-act"
+ERI_CONTRACT_DID = "did:web:gov-eri.etzhayyim.com:law:municipal-government-act"
 
 ERI_CITIES = [
     ("city:asmara", "ኣስመራ", "Asmara", None, 963000, "https://www.shabait.com/", "capital", "capital-district"),
@@ -2038,7 +2038,7 @@ ERI_CITIES = [
 # FJI (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 FJI_CONTRACT = DEFAULT_CONTRACT[1]
-FJI_CONTRACT_DID = "did:web:gov-fji.gftd.ai:law:municipal-government-act"
+FJI_CONTRACT_DID = "did:web:gov-fji.etzhayyim.com:law:municipal-government-act"
 
 FJI_CITIES = [
     ("city:suva", "Suva", "Suva", None, 93970, "https://www.suvacitycouncil.org.fj/", "capital", "capital-district"),
@@ -2048,7 +2048,7 @@ FJI_CITIES = [
 # GMB (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 GMB_CONTRACT = DEFAULT_CONTRACT[1]
-GMB_CONTRACT_DID = "did:web:gov-gmb.gftd.ai:law:municipal-government-act"
+GMB_CONTRACT_DID = "did:web:gov-gmb.etzhayyim.com:law:municipal-government-act"
 
 GMB_CITIES = [
     ("city:banjul", "Banjul", "Banjul", None, 31301, "https://www.banjulcitycouncil.gm/", "capital", "capital-district"),
@@ -2059,7 +2059,7 @@ GMB_CITIES = [
 # GNB (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 GNB_CONTRACT = DEFAULT_CONTRACT[1]
-GNB_CONTRACT_DID = "did:web:gov-gnb.gftd.ai:law:municipal-government-act"
+GNB_CONTRACT_DID = "did:web:gov-gnb.etzhayyim.com:law:municipal-government-act"
 
 GNB_CITIES = [
     ("city:bissau", "Bissau", "Bissau", None, 492004, "https://www.gov.gw/", "capital", "capital-district"),
@@ -2069,7 +2069,7 @@ GNB_CITIES = [
 # GNQ (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 GNQ_CONTRACT = DEFAULT_CONTRACT[1]
-GNQ_CONTRACT_DID = "did:web:gov-gnq.gftd.ai:law:municipal-government-act"
+GNQ_CONTRACT_DID = "did:web:gov-gnq.etzhayyim.com:law:municipal-government-act"
 
 GNQ_CITIES = [
     ("city:malabo", "Malabo", "Malabo", None, 297000, "https://www.guineaecuatorialpress.com/", "capital", "capital-district"),
@@ -2079,7 +2079,7 @@ GNQ_CITIES = [
 # HTI (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 HTI_CONTRACT = DEFAULT_CONTRACT[1]
-HTI_CONTRACT_DID = "did:web:gov-hti.gftd.ai:law:municipal-government-act"
+HTI_CONTRACT_DID = "did:web:gov-hti.etzhayyim.com:law:municipal-government-act"
 
 HTI_CITIES = [
     ("city:port-au-prince", "Port-au-Prince", "Port-au-Prince", None, 1234750, "https://www.haiti.gouv.ht/", "capital", "capital-district"),
@@ -2089,7 +2089,7 @@ HTI_CITIES = [
 # KIR (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 KIR_CONTRACT = DEFAULT_CONTRACT[1]
-KIR_CONTRACT_DID = "did:web:gov-kir.gftd.ai:law:municipal-government-act"
+KIR_CONTRACT_DID = "did:web:gov-kir.etzhayyim.com:law:municipal-government-act"
 
 KIR_CITIES = [
     ("city:south-tarawa", "South Tarawa", "South Tarawa", None, 56388, "https://www.kiribati.gov.ki/", "capital", "capital-district"),
@@ -2099,7 +2099,7 @@ KIR_CITIES = [
 # LBR (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 LBR_CONTRACT = DEFAULT_CONTRACT[1]
-LBR_CONTRACT_DID = "did:web:gov-lbr.gftd.ai:law:municipal-government-act"
+LBR_CONTRACT_DID = "did:web:gov-lbr.etzhayyim.com:law:municipal-government-act"
 
 LBR_CITIES = [
     ("city:monrovia", "Monrovia", "Monrovia", None, 1010970, "https://www.monroviacitycooperation.org/", "capital", "capital-district"),
@@ -2109,7 +2109,7 @@ LBR_CITIES = [
 # LCA (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 LCA_CONTRACT = DEFAULT_CONTRACT[1]
-LCA_CONTRACT_DID = "did:web:gov-lca.gftd.ai:law:municipal-government-act"
+LCA_CONTRACT_DID = "did:web:gov-lca.etzhayyim.com:law:municipal-government-act"
 
 LCA_CITIES = [
     ("city:castries", "Castries", "Castries", None, 22000, "https://www.gosl.gov.lc/", "capital", "capital-district"),
@@ -2119,7 +2119,7 @@ LCA_CITIES = [
 # MCO (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 MCO_CONTRACT = DEFAULT_CONTRACT[1]
-MCO_CONTRACT_DID = "did:web:gov-mco.gftd.ai:law:municipal-government-act"
+MCO_CONTRACT_DID = "did:web:gov-mco.etzhayyim.com:law:municipal-government-act"
 
 MCO_CITIES = [
     ("city:monaco", "Monaco", "Monaco", None, 39244, "https://www.gouv.mc/", "capital", "capital-district"),
@@ -2129,7 +2129,7 @@ MCO_CITIES = [
 # MDV (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 MDV_CONTRACT = DEFAULT_CONTRACT[1]
-MDV_CONTRACT_DID = "did:web:gov-mdv.gftd.ai:law:municipal-government-act"
+MDV_CONTRACT_DID = "did:web:gov-mdv.etzhayyim.com:law:municipal-government-act"
 
 MDV_CITIES = [
     ("city:male", "މާލެ", "Male", None, 133412, "https://www.malecity.gov.mv/", "capital", "capital-district"),
@@ -2139,7 +2139,7 @@ MDV_CITIES = [
 # MNP (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 MNP_CONTRACT = DEFAULT_CONTRACT[1]
-MNP_CONTRACT_DID = "did:web:gov-mnp.gftd.ai:law:municipal-government-act"
+MNP_CONTRACT_DID = "did:web:gov-mnp.etzhayyim.com:law:municipal-government-act"
 
 MNP_CITIES = [
     ("city:saipan", "Saipan", "Saipan", None, 48220, "https://www.cnmi-gov.mp/", "capital", "capital-district"),
@@ -2149,7 +2149,7 @@ MNP_CITIES = [
 # MRT (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 MRT_CONTRACT = DEFAULT_CONTRACT[1]
-MRT_CONTRACT_DID = "did:web:gov-mrt.gftd.ai:law:municipal-government-act"
+MRT_CONTRACT_DID = "did:web:gov-mrt.etzhayyim.com:law:municipal-government-act"
 
 MRT_CITIES = [
     ("city:nouakchott", "نواكشوط", "Nouakchott", None, 1205000, "https://www.mauritania.mr/", "capital", "capital-district"),
@@ -2159,7 +2159,7 @@ MRT_CITIES = [
 # NZL (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 NZL_CONTRACT = DEFAULT_CONTRACT[1]
-NZL_CONTRACT_DID = "did:web:gov-nzl.gftd.ai:law:municipal-government-act"
+NZL_CONTRACT_DID = "did:web:gov-nzl.etzhayyim.com:law:municipal-government-act"
 
 NZL_CITIES = [
     ("city:wellington", "Wellington", "Wellington", None, 215400, "https://www.wellington.govt.nz/", "capital", "capital-district"),
@@ -2170,7 +2170,7 @@ NZL_CITIES = [
 # PLW (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 PLW_CONTRACT = DEFAULT_CONTRACT[1]
-PLW_CONTRACT_DID = "did:web:gov-plw.gftd.ai:law:municipal-government-act"
+PLW_CONTRACT_DID = "did:web:gov-plw.etzhayyim.com:law:municipal-government-act"
 
 PLW_CITIES = [
     ("city:ngerulmud", "Ngerulmud", "Ngerulmud", None, 391, "https://www.palaugov.pw/", "capital", "capital-district"),
@@ -2181,7 +2181,7 @@ PLW_CITIES = [
 # PNG (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 PNG_CONTRACT = DEFAULT_CONTRACT[1]
-PNG_CONTRACT_DID = "did:web:gov-png.gftd.ai:law:municipal-government-act"
+PNG_CONTRACT_DID = "did:web:gov-png.etzhayyim.com:law:municipal-government-act"
 
 PNG_CITIES = [
     ("city:port-moresby", "Port Moresby", "Port Moresby", None, 364125, "https://www.ncdc.gov.pg/", "capital", "capital-district"),
@@ -2191,7 +2191,7 @@ PNG_CITIES = [
 # PRI (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 PRI_CONTRACT = DEFAULT_CONTRACT[1]
-PRI_CONTRACT_DID = "did:web:gov-pri.gftd.ai:law:municipal-government-act"
+PRI_CONTRACT_DID = "did:web:gov-pri.etzhayyim.com:law:municipal-government-act"
 
 PRI_CITIES = [
     ("city:san-juan", "San Juan", "San Juan", None, 318441, "https://www.sanjuanciudadcapital.com/", "capital", "capital-district"),
@@ -2201,7 +2201,7 @@ PRI_CITIES = [
 # SLB (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 SLB_CONTRACT = DEFAULT_CONTRACT[1]
-SLB_CONTRACT_DID = "did:web:gov-slb.gftd.ai:law:municipal-government-act"
+SLB_CONTRACT_DID = "did:web:gov-slb.etzhayyim.com:law:municipal-government-act"
 
 SLB_CITIES = [
     ("city:honiara", "Honiara", "Honiara", None, 82000, "https://www.hcc.gov.sb/", "capital", "capital-district"),
@@ -2211,7 +2211,7 @@ SLB_CITIES = [
 # SLE (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 SLE_CONTRACT = DEFAULT_CONTRACT[1]
-SLE_CONTRACT_DID = "did:web:gov-sle.gftd.ai:law:municipal-government-act"
+SLE_CONTRACT_DID = "did:web:gov-sle.etzhayyim.com:law:municipal-government-act"
 
 SLE_CITIES = [
     ("city:freetown", "Freetown", "Freetown", None, 1055964, "https://www.fcc.gov.sl/", "capital", "capital-district"),
@@ -2221,7 +2221,7 @@ SLE_CITIES = [
 # SOM (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 SOM_CONTRACT = DEFAULT_CONTRACT[1]
-SOM_CONTRACT_DID = "did:web:gov-som.gftd.ai:law:municipal-government-act"
+SOM_CONTRACT_DID = "did:web:gov-som.etzhayyim.com:law:municipal-government-act"
 
 SOM_CITIES = [
     ("city:mogadishu", "Muqdisho", "Mogadishu", None, 2587183, "https://www.mogadishucity.gov.so/", "capital", "capital-district"),
@@ -2231,7 +2231,7 @@ SOM_CITIES = [
 # SSD (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 SSD_CONTRACT = DEFAULT_CONTRACT[1]
-SSD_CONTRACT_DID = "did:web:gov-ssd.gftd.ai:law:municipal-government-act"
+SSD_CONTRACT_DID = "did:web:gov-ssd.etzhayyim.com:law:municipal-government-act"
 
 SSD_CITIES = [
     ("city:juba", "Juba", "Juba", None, 400000, "https://www.goss.org/", "capital", "capital-district"),
@@ -2241,7 +2241,7 @@ SSD_CITIES = [
 # STP (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 STP_CONTRACT = DEFAULT_CONTRACT[1]
-STP_CONTRACT_DID = "did:web:gov-stp.gftd.ai:law:municipal-government-act"
+STP_CONTRACT_DID = "did:web:gov-stp.etzhayyim.com:law:municipal-government-act"
 
 STP_CITIES = [
     ("city:sao-tome", "São Tomé", "São Tomé", None, 90000, "https://www.presidencia.st/", "capital", "capital-district"),
@@ -2251,7 +2251,7 @@ STP_CITIES = [
 # SUR (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 SUR_CONTRACT = DEFAULT_CONTRACT[1]
-SUR_CONTRACT_DID = "did:web:gov-sur.gftd.ai:law:municipal-government-act"
+SUR_CONTRACT_DID = "did:web:gov-sur.etzhayyim.com:law:municipal-government-act"
 
 SUR_CITIES = [
     ("city:paramaribo", "Paramaribo", "Paramaribo", None, 241000, "https://www.sr.gov.sr/", "capital", "capital-district"),
@@ -2261,7 +2261,7 @@ SUR_CITIES = [
 # SYC (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 SYC_CONTRACT = DEFAULT_CONTRACT[1]
-SYC_CONTRACT_DID = "did:web:gov-syc.gftd.ai:law:municipal-government-act"
+SYC_CONTRACT_DID = "did:web:gov-syc.etzhayyim.com:law:municipal-government-act"
 
 SYC_CITIES = [
     ("city:victoria", "Victoria", "Victoria", None, 26450, "https://www.gov.sc/", "capital", "capital-district"),
@@ -2271,7 +2271,7 @@ SYC_CITIES = [
 # TLS (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 TLS_CONTRACT = DEFAULT_CONTRACT[1]
-TLS_CONTRACT_DID = "did:web:gov-tls.gftd.ai:law:municipal-government-act"
+TLS_CONTRACT_DID = "did:web:gov-tls.etzhayyim.com:law:municipal-government-act"
 
 TLS_CITIES = [
     ("city:dili", "Dili", "Dili", None, 222323, "https://www.mof.gov.tl/", "capital", "capital-district"),
@@ -2281,7 +2281,7 @@ TLS_CITIES = [
 # TON (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 TON_CONTRACT = DEFAULT_CONTRACT[1]
-TON_CONTRACT_DID = "did:web:gov-ton.gftd.ai:law:municipal-government-act"
+TON_CONTRACT_DID = "did:web:gov-ton.etzhayyim.com:law:municipal-government-act"
 
 TON_CITIES = [
     ("city:nukualofa", "Nukuʻalofa", "Nuku'alofa", None, 23658, "https://www.gov.to/", "capital", "capital-district"),
@@ -2291,7 +2291,7 @@ TON_CITIES = [
 # TUV (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 TUV_CONTRACT = DEFAULT_CONTRACT[1]
-TUV_CONTRACT_DID = "did:web:gov-tuv.gftd.ai:law:municipal-government-act"
+TUV_CONTRACT_DID = "did:web:gov-tuv.etzhayyim.com:law:municipal-government-act"
 
 TUV_CITIES = [
     ("city:funafuti", "Funafuti", "Funafuti", None, 6025, "https://www.tuvalu.tv/", "capital", "capital-district"),
@@ -2301,7 +2301,7 @@ TUV_CITIES = [
 # VUT (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 VUT_CONTRACT = DEFAULT_CONTRACT[1]
-VUT_CONTRACT_DID = "did:web:gov-vut.gftd.ai:law:municipal-government-act"
+VUT_CONTRACT_DID = "did:web:gov-vut.etzhayyim.com:law:municipal-government-act"
 
 VUT_CITIES = [
     ("city:port-vila", "Port-Vila", "Port Vila", None, 53000, "https://www.vanuatu.gov.vu/", "capital", "capital-district"),
@@ -2311,7 +2311,7 @@ VUT_CITIES = [
 # WSM (no CONTRACTS entry)
 # ---------------------------------------------------------------------------
 WSM_CONTRACT = DEFAULT_CONTRACT[1]
-WSM_CONTRACT_DID = "did:web:gov-wsm.gftd.ai:law:municipal-government-act"
+WSM_CONTRACT_DID = "did:web:gov-wsm.etzhayyim.com:law:municipal-government-act"
 
 WSM_CITIES = [
     ("city:apia", "Apia", "Apia", None, 37391, "https://www.samoagovt.ws/", "capital", "capital-district"),
@@ -2590,11 +2590,11 @@ def get_contract_tuple(cc):
 
 
 def make_contract_did(cc, slug):
-    return f"did:web:gov-{cc}.gftd.ai:law:{slug}"
+    return f"did:web:gov-{cc}.etzhayyim.com:law:{slug}"
 
 
 def make_parent_did(cc, parent_path):
-    return f"did:web:gov-{cc}.gftd.ai:{parent_path}"
+    return f"did:web:gov-{cc}.etzhayyim.com:{parent_path}"
 
 
 def build_municipality_record(cc, row, contract_name, contract_did):

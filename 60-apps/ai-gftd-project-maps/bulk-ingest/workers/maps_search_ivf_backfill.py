@@ -216,8 +216,8 @@ def _insert_embeddings(cur, source: str, rows: list[tuple[str, str]], vectors: l
             (name or "")[:200],
             now,
             now,
-            "did:web:maps.gftd.ai",
-            "did:web:maps.gftd.ai",
+            "did:web:maps.etzhayyim.com",
+            "did:web:maps.etzhayyim.com",
         ))
     if not payload:
         return 0
@@ -343,8 +343,8 @@ def _train_centroids(conn) -> dict:
                 str(k),
                 IVF_SPACE,
                 centroids[k].tolist(),
-                "did:web:maps.gftd.ai",
-                "did:web:maps.gftd.ai",
+                "did:web:maps.etzhayyim.com",
+                "did:web:maps.etzhayyim.com",
             ))
         cur.executemany(
             """

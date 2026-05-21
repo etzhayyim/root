@@ -14,9 +14,9 @@
 	} from '$lib/auth';
 	import { SuperAppLayout, Tuner } from '$lib/superapp';
 	import { currentTab, pathToTab } from '$lib/superapp';
-	import { ActionSheet } from '@gftdcojp/design-system';
+	import { ActionSheet } from '@etzhayyim/design-system';
 	import { playClick } from '$lib/sound';
-	import { playTap, haptic } from '@gftdcojp/design-system/audio';
+	import { playTap, haptic } from '@etzhayyim/design-system/audio';
 	import { setTokenProvider } from '$lib/atproto-agent';
 	import { useProviderWorker, useBrowserInference, useLocalLLM, useShinkaInference } from '$lib/provider';
 	import { useEvolutionTasks } from '$lib/provider/evolution-tasks.svelte.js';

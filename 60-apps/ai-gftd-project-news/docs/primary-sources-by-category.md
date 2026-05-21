@@ -1,4 +1,4 @@
-# Primary Sources By Category (news.gftd.ai)
+# Primary Sources By Category (news.etzhayyim.com)
 
 This file seeds official primary-source channels per category track (C1-C11).
 

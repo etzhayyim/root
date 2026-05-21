@@ -40,7 +40,7 @@ class OutreachBody:
 
 
 _FOOTER_TEXT = (
-    "\n\n— nishino\nyatabase.gftd.ai\n\n"
+    "\n\n— nishino\nyatabase.etzhayyim.com\n\n"
     "etzhayyim (operator) — etz hayim (corporate vendor: Gftd Japan株式会社)\n"
     "Tokyo, Japan.\n"
     "Don't want these? Reply 'stop' and we'll never email you again.\n"
@@ -48,7 +48,7 @@ _FOOTER_TEXT = (
 
 _FOOTER_HTML = (
     '<p style="color:#888;font-size:0.85em;margin-top:32px">'
-    "— nishino<br/>yatabase.gftd.ai<br/><br/>"
+    "— nishino<br/>yatabase.etzhayyim.com<br/><br/>"
     "etzhayyim (operator) — etz hayim (corporate vendor: Gftd Japan株式会社)<br/>"
     "Tokyo, Japan.<br/>"
     "Don't want these? Reply 'stop' and we'll never email you again."
@@ -91,7 +91,7 @@ def _marketing_touch_1(company: str, domain: str, segment: ICPSegment) -> Outrea
     body = (
         f"Hi [[PARTNER_NAME]],\n\n"
         f"{angle}\n\n"
-        "yatabase.gftd.ai is a graph DB with built-in object storage, auth, and "
+        "yatabase.etzhayyim.com is a graph DB with built-in object storage, auth, and "
         "MCP. Free tier covers 1k req/day; no card. If it's useful: we share the "
         "Cypher + Storage S3-compat surface from day one.\n\n"
         "Worth a 15-min chat next week, or should I just send a 1-pager?"
@@ -109,7 +109,7 @@ def _marketing_touch_2(company: str, domain: str, segment: ICPSegment) -> Outrea
         f"I sent a note about yatabase last week (graph DB + S3-compat storage + "
         f"MCP, free for {company}-sized teams). No worries if it isn't a fit right "
         "now, but a 1-line reply (yes / not now / never) saves me from chasing.\n\n"
-        "If it's helpful: our public docs are at https://yatabase.gftd.ai/docs and "
+        "If it's helpful: our public docs are at https://yatabase.etzhayyim.com/docs and "
         "you can spin up a free tenant in ~2 seconds (no card)."
     )
     return OutreachBody(
@@ -123,7 +123,7 @@ def _marketing_touch_3(company: str, domain: str, segment: ICPSegment) -> Outrea
     body = (
         f"Hi [[PARTNER_NAME]], last note from me — I'll stop after this.\n\n"
         f"If yatabase ever becomes relevant for {company} ({domain}), the door "
-        "stays open. We publish ADRs publicly at github.com/gftdcojp/yatabase so "
+        "stays open. We publish ADRs publicly at github.com/etzhayyim/yatabase so "
         "you can audit before adopting.\n\n"
         "Wishing you and the team well. — nishino"
     )
@@ -203,7 +203,7 @@ def _upgrade(org_did: str, metric_24h: dict[str, int]) -> OutreachBody:
         f"Hi [[PARTNER_NAME]] — your team hit {api} api_request in the last 24h, "
         "and the free tier caps at 1k/day.\n\n"
         "Starter ($29/mo) lifts that to 100k/day + 10 GiB storage + priority "
-        "support. Self-serve at https://yatabase.gftd.ai/studio/billing — no "
+        "support. Self-serve at https://yatabase.etzhayyim.com/studio/billing — no "
         "card friction.\n\n"
         "If the pricing doesn't fit your model, reply and I'll work out a custom "
         "shape with you (no auto-bills, no surprises)."
@@ -220,7 +220,7 @@ def _book_call(org_did: str) -> OutreachBody:
         f"Hi [[PARTNER_NAME]] — your team's traction on yatabase looks like a "
         "good fit for a 20-min call to align on roadmap (and to hear what's "
         "missing).\n\n"
-        "Pick any slot here: https://cal.gftd.ai/nishino — or reply with a "
+        "Pick any slot here: https://cal.etzhayyim.com/nishino — or reply with a "
         "couple of windows and I'll book it manually. JP/EN both fine."
     )
     return OutreachBody(
@@ -261,6 +261,7 @@ def classify_segment(lead: dict) -> ICPSegment:
     signal = (lead.get("signal") or "").lower()
     domain = (lead.get("domain") or "").lower()
 
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
     if any(t in stack for t in ("supabase", "hasura", "neo4j", "prisma", "drizzle", "kysely")):
         return "dev-tooling-saas"
     if any(t in stack for t in ("snowflake", "databricks", "dbt", "airbyte", "fivetran")):

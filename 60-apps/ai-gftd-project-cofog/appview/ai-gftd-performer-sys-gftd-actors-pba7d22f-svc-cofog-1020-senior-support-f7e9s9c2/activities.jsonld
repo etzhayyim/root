@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/10/2/0/old-age/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/10/2/0/old-age/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Old Age Pension and Senior Support Lifecycle",
       "description": "The administrative process of verifying retirement eligibility, calculating pension benefits, and monitoring senior wellness outcomes.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/10/2/0/old-age"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/2/0/old-age"
     }
   ]
 }

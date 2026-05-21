@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:vessel.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:vessel.etzhayyim.com",
   "actors": [
     {
       "description": "10 container shipping companies — Maersk, MSC, CMA CGM, COSCO, Hapag-Lloyd, Evergreen, ONE, HMM, Yang Ming, Wan Hai",
@@ -49,7 +49,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Vessel Registry & Maritime Intelligence agent. You manage ship registries (IMO/MMSI), track vessel positions via AIS, manage voyages and port calls, and link vessels to owners (legal-entity.gftd.ai) and ports (port.gftd.ai). You cover 16 major shipping companies across container, tanker, bulk carrier, and LNG segments. Query the graph for vessel positions, voyage status, port calls, and the full owner→vessel→position→port→satellite chain.",
+  "convoSystemPrompt": "You are the Vessel Registry & Maritime Intelligence agent. You manage ship registries (IMO/MMSI), track vessel positions via AIS, manage voyages and port calls, and link vessels to owners (legal-entity.etzhayyim.com) and ports (port.etzhayyim.com). You cover 16 major shipping companies across container, tanker, bulk carrier, and LNG segments. Query the graph for vessel positions, voyage status, port calls, and the full owner→vessel→position→port→satellite chain.",
   "description": "Ship registry (IMO/MMSI), AIS position tracking, voyage management, port call tracking, owner-vessel-port-satellite chain intelligence. 16 shipping companies, 25 vessels (container/tanker/bulk/LNG), 15 flag state registries.",
   "displayName": "Vessel Registry & Maritime Intelligence",
   "domainKnowledgeRequired": true,
@@ -141,7 +141,7 @@
       "steps": [
         {
           "args": {
-            "did": "did:web:port.gftd.ai",
+            "did": "did:web:port.etzhayyim.com",
             "method": "ai.gftd.apps.port.portCallTracking.receivePortCallEvent",
             "params": "$input.record"
           },

@@ -130,3 +130,12 @@ pre-commit:
       glob: "00-contracts/lexicons/ai/etzhayyim/yorishiro/**/*.json"
       run: node 70-tools/scripts/lint/no-external-purchase-purpose.mjs {staged_files}
       tags: lexicon yorishiro
+
+    no-two-stage-gftd-domains:
+      # Enforce ADR-2605212340 (legacy domain → etzhayyim.com cutover).
+      # Blocks new introduction of the legacy gftd top-level zone literal
+      # in canonical etzhayyim code, including in .jsonld @context URIs.
+      # Alias docs (/CLAUDE.md, /README.md, /CHARTER-RIDER.md) are exempt.
+      glob: "*.{md,toml,yaml,yml,json,jsonc,jsonld,ts,tsx,js,jsx,mjs,cjs,py,rs,go,sh,sol,svelte}"
+      run: node 70-tools/scripts/lint/no-two-stage-gftd-domains.mjs {staged_files}
+      stage_fixed: false

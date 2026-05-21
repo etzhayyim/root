@@ -1,12 +1,12 @@
 /**
  * darkweb-proxy — CF Container companion Worker
  *
- * Exposes darkweb-proxy.gftd.ai/* routing to the Container instance.
+ * Exposes darkweb-proxy.etzhayyim.com/* routing to the Container instance.
  * The Container runs Tor + Playwright (Fastify on :8080).
  *
  * Usage from onion Worker:
- *   fetch("https://darkweb-proxy.gftd.ai/fetch", { method: "POST", ... })
- *   fetch("https://darkweb-proxy.gftd.ai/health")
+ *   fetch("https://darkweb-proxy.etzhayyim.com/fetch", { method: "POST", ... })
+ *   fetch("https://darkweb-proxy.etzhayyim.com/health")
  */
 
 import { Container } from "@cloudflare/containers";

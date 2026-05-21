@@ -36,7 +36,7 @@ ADR-2605141200 (mangaka 3D scene Pregel + kami SDK) established the
 9-super-step `compose_scene_3d` LangGraph + the `kami-mangaka-scene`
 Rust crate, with a clear P0–P6 roadmap. By 2026-05-14 P0–P4 were in
 production and P5 (wasm-pack interactive preview) was live at
-`https://mangaka.gftd.ai/scene-3d-preview.htm`. P6 — the migration to a
+`https://mangaka.etzhayyim.com/scene-3d-preview.htm`. P6 — the migration to a
 fully data-driven `kind='topology'` assistant row per
 ADR-2605082000 — was scaffolded but blocked behind a board of six
 items that this ADR closes:
@@ -81,7 +81,7 @@ endpoint for `ai.gftd.mangaka.tools.*`. Two routes converge on
   envelope (used by Phase C topology and external MCP clients).
 
 The in-cluster Pregel short-circuits the external trip through
-`mangaka.gftd.ai` via the new
+`mangaka.etzhayyim.com` via the new
 `MCP_NSID_OVERRIDE_<key>=<base_url>` env var pattern in
 `pymagatama.langgraph_node_resolvers._resolve_mcp_nsid`. `<key>` is the
 NSID prefix with dots replaced by underscores; segment-boundary match
@@ -90,7 +90,7 @@ prevents substring collisions; longest-prefix wins on conflict.
 `MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools=http://localhost:8000`
 so the topology Pregel never leaves the container for tool dispatch.
 
-**External MCP clients** still resolve `actor_host = mangaka.gftd.ai`
+**External MCP clients** still resolve `actor_host = mangaka.etzhayyim.com`
 from the registry and hit the CF Worker (SvelteKit edge). Forwarding
 that path through to the pod is a deferred residual — Phase C
 activation does not depend on it.
@@ -188,12 +188,12 @@ of the response).
   `MANGAKA_HUME_STUDENT_MODEL` — no code path change is required
   when a new corpus produces a better centroid. Cold-start lookup
   happens once at module load.
-* External MCP clients calling `actor_host = mangaka.gftd.ai` still
+* External MCP clients calling `actor_host = mangaka.etzhayyim.com` still
   404 because the CF Worker is a pure SvelteKit edge with no MCP
   forwarder. This is intentional for the current cut and tracked in
   `[[migrations]] mangaka-external-mcp-forwarding-2026-05-14` for
   later closure (either Cloudflare Tunnel to the pod or
-  `actor_host = atproto.gftd.ai` flip).
+  `actor_host = atproto.etzhayyim.com` flip).
 * `_panelChildren` is now a load-bearing field in the Genko document
   model — without it, the `aggregate` step can't roll ai-image
   emotions up to their parent panel. Existing docs without
@@ -246,7 +246,7 @@ artefact — no graph changes required.
 |---|---|---|
 | Phase C — alembic flip      | `r_20260514170000_topology_compose_scene_3d` applied in dev DB, watcher re-resolves NSID, smoke test compose_scene_3d invocation against the v2 row | ✅ ready (waiting on dev DB apply) |
 | Hume distillation cron     | Schedule `scripts/distill_hume_emotion.py` to run nightly, persist the model JSON to a stable path on the pod, watch corpus growth | ⏳ |
-| External MCP forwarding    | Either CF Worker `/xrpc/ai.gftd.mcp.message` → pod via tunnel, OR flip `actor_host = atproto.gftd.ai` and let the existing MCP adapter forward | ⏳ |
+| External MCP forwarding    | Either CF Worker `/xrpc/ai.gftd.mcp.message` → pod via tunnel, OR flip `actor_host = atproto.etzhayyim.com` and let the existing MCP adapter forward | ⏳ |
 | `_panelChildren` backfill  | Walk existing Genko documents that predate this ADR and infer panel→ai-image children from canvas geometry, so historical docs gain panel emotion aggregates | ⏳ |
 
 # References

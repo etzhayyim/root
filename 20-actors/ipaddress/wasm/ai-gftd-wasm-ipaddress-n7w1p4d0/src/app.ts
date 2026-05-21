@@ -47,7 +47,7 @@ let appId = "";
 //   geoip/{ip}-{YYYYMMDD}.json           — GeoIP snapshots
 //   rir/{rir}-{YYYYMMDD}.txt             — RIR delegation files
 //   blockchain/{chain}/addr/{addr}.json  — blockchain address data
-// 4. All scan results → graph.gftd.ai as ScanResult nodes linked to IPAddress
+// 4. All scan results → graph.etzhayyim.com as ScanResult nodes linked to IPAddress
 
 // --- RIR RDAP endpoints ---
 const RIR_RDAP: Record<string, string> = {
@@ -191,11 +191,11 @@ function ipv4ToHex(ip: string): string {
 
 function ipv4ToDid(ip: string): string {
   const hex = ipv4ToHex(ip);
-  return hex ? `did:web:ipaddress.gftd.ai:v4:ip${hex}` : "";
+  return hex ? `did:web:ipaddress.etzhayyim.com:v4:ip${hex}` : "";
 }
 
 function asnToDid(asn: number): string {
-  return `did:web:ipaddress.gftd.ai:asn:as${asn}`;
+  return `did:web:ipaddress.etzhayyim.com:asn:as${asn}`;
 }
 
 function cidrToNodeId(cidr: string): string {
@@ -699,13 +699,13 @@ async function cmdReverseDns(sdk: HostSDK, payload: Uint8Array): Promise<unknown
 }
 
 async function cmdGetIpReputation(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  // Cross-app: query yabai.gftd.ai for IP risk score
+  // Cross-app: query yabai.etzhayyim.com for IP risk score
   const req = decodeJson<{ ip?: string }>(payload, {});
   const ip = str(req.ip ?? "").trim();
   if (!ip) return { error: "ip required" };
 
   try {
-    const res = await fetch(`https://yabai.gftd.ai/xrpc/ai.gftd.apps.yabai.getIpRisk`, {
+    const res = await fetch(`https://yabai.etzhayyim.com/xrpc/ai.gftd.apps.yabai.getIpRisk`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ip }),
@@ -743,14 +743,14 @@ async function cmdRegisterEntityProfiles(sdk: HostSDK, _payload: Uint8Array): Pr
   // Register governance DID hierarchy: treaty → charter → RIR
   const ts = nowISO();
   const entities = [
-    { did: "did:web:ipaddress.gftd.ai:treaty:itu", role: "treaty", name: "International Telecommunication Union", scope: "global" },
-    { did: "did:web:ipaddress.gftd.ai:charter:icann", role: "charter", name: "ICANN / IANA", scope: "global" },
-    { did: "did:web:ipaddress.gftd.ai:rir:apnic", role: "rir", name: "APNIC", scope: "asia-pacific" },
-    { did: "did:web:ipaddress.gftd.ai:rir:ripe", role: "rir", name: "RIPE NCC", scope: "europe-middle-east-central-asia" },
-    { did: "did:web:ipaddress.gftd.ai:rir:arin", role: "rir", name: "ARIN", scope: "north-america" },
-    { did: "did:web:ipaddress.gftd.ai:rir:lacnic", role: "rir", name: "LACNIC", scope: "latin-america-caribbean" },
-    { did: "did:web:ipaddress.gftd.ai:rir:afrinic", role: "rir", name: "AFRINIC", scope: "africa" },
-    { did: "did:web:ipaddress.gftd.ai:nir:jpnic", role: "nir", name: "JPNIC", scope: "japan", parentRir: "apnic" },
+    { did: "did:web:ipaddress.etzhayyim.com:treaty:itu", role: "treaty", name: "International Telecommunication Union", scope: "global" },
+    { did: "did:web:ipaddress.etzhayyim.com:charter:icann", role: "charter", name: "ICANN / IANA", scope: "global" },
+    { did: "did:web:ipaddress.etzhayyim.com:rir:apnic", role: "rir", name: "APNIC", scope: "asia-pacific" },
+    { did: "did:web:ipaddress.etzhayyim.com:rir:ripe", role: "rir", name: "RIPE NCC", scope: "europe-middle-east-central-asia" },
+    { did: "did:web:ipaddress.etzhayyim.com:rir:arin", role: "rir", name: "ARIN", scope: "north-america" },
+    { did: "did:web:ipaddress.etzhayyim.com:rir:lacnic", role: "rir", name: "LACNIC", scope: "latin-america-caribbean" },
+    { did: "did:web:ipaddress.etzhayyim.com:rir:afrinic", role: "rir", name: "AFRINIC", scope: "africa" },
+    { did: "did:web:ipaddress.etzhayyim.com:nir:jpnic", role: "nir", name: "JPNIC", scope: "japan", parentRir: "apnic" },
   ];
 
   for (const e of entities) {

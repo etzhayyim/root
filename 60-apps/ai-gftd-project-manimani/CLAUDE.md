@@ -1,4 +1,4 @@
-# manimani.gftd.ai — personal knowledge router (LangGraph user-intake routing)
+# manimani.etzhayyim.com — personal knowledge router (LangGraph user-intake routing)
 
 Authoritative: ADR-2605080800 + ADR-2605080600 (LangGraph Server) + ADR-2604282300 (CF Worker = edge facade).
 
@@ -42,10 +42,10 @@ intake / project / artifact rows to RisingWave directly via Hyperdrive.
 ## Forwarding model
 
 ```
-Client → CF Worker (manimani.gftd.ai)
+Client → CF Worker (manimani.etzhayyim.com)
    ↓ auth middleware → PDS_SERVICE binding /_internal/resolve-auth
    ↓ resolved { did, orgDid, activeDid, productScope }
-   ↓ POST https://dispatcher.gftd.ai/xrpc/ai.gftd.apps.manimani.{method}
+   ↓ POST https://dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.manimani.{method}
       headers: x-internal-trust=<HMAC>, x-gftd-{org,actor}-did, x-gftd-trace-id
 bpmn-dispatcher (K8s ClusterIP)
    ↓ NSID prefix routing (ai.gftd.apps.manimani.* → langgraph backend)
@@ -77,11 +77,11 @@ gftd deploy --no-svelte
 
 ```bash
 # 1. Edge health (no auth)
-curl https://manimani.gftd.ai/health
-curl https://manimani.gftd.ai/_app/meta
+curl https://manimani.etzhayyim.com/health
+curl https://manimani.etzhayyim.com/_app/meta
 
 # 2. Submit a text intake (Bearer required)
-curl -X POST https://manimani.gftd.ai/xrpc/ai.gftd.apps.manimani.ingest \
+curl -X POST https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.ingest \
   -H "Authorization: Bearer sk_live_xxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -92,11 +92,11 @@ curl -X POST https://manimani.gftd.ai/xrpc/ai.gftd.apps.manimani.ingest \
 # → { "runId": "...", "intakeId": "...", "status": "running", "estimatedSeconds": 3 }
 
 # 3. List projects (auto-emerged on first ingest)
-curl https://manimani.gftd.ai/xrpc/ai.gftd.apps.manimani.listProjects \
+curl https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.listProjects \
   -H "Authorization: Bearer sk_live_xxxxx"
 
 # 4. Re-classify an intake
-curl -X POST https://manimani.gftd.ai/xrpc/ai.gftd.apps.manimani.classify \
+curl -X POST https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.classify \
   -H "Authorization: Bearer sk_live_xxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -105,6 +105,6 @@ curl -X POST https://manimani.gftd.ai/xrpc/ai.gftd.apps.manimani.classify \
   }'
 
 # 5. Coverage snapshot
-curl 'https://manimani.gftd.ai/xrpc/ai.gftd.apps.manimani.coverage?windowDays=7' \
+curl 'https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.coverage?windowDays=7' \
   -H "Authorization: Bearer sk_live_xxxxx"
 ```

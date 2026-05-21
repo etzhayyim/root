@@ -82,14 +82,14 @@ const doc = new Document({
       }
     },
     headers: {
-      default: new Header({ children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: "news.gftd.ai \u2014 Marketing & Monetization Strategy", font: "Arial", size: 16, color: "888888" })] })] })
+      default: new Header({ children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: "news.etzhayyim.com \u2014 Marketing & Monetization Strategy", font: "Arial", size: 16, color: "888888" })] })] })
     },
     footers: {
       default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Page ", font: "Arial", size: 16, color: "888888" }), new TextRun({ children: [PageNumber.CURRENT], font: "Arial", size: 16, color: "888888" })] })] })
     },
     children: [
       // === TITLE PAGE ===
-      new Paragraph({ spacing: { before: 3000 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: "news.gftd.ai", font: "Arial", size: 48, bold: true, color: "1B2A4A" })] }),
+      new Paragraph({ spacing: { before: 3000 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: "news.etzhayyim.com", font: "Arial", size: 48, bold: true, color: "1B2A4A" })] }),
       new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [new TextRun({ text: "\u30DE\u30FC\u30B1\u30C6\u30A3\u30F3\u30B0 & \u30DE\u30CD\u30BF\u30A4\u30BA\u6226\u7565\u66F8", font: "Arial", size: 36, color: "2E5090" })] }),
       new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [new TextRun({ text: "Marketing & Monetization Strategy", font: "Arial", size: 28, color: "666666" })] }),
       new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 600 }, children: [new TextRun({ text: "2026\u5E742\u6708 | \u30A2\u30CB\u30E1\u30FB\u30B2\u30FC\u30E0\u30FB\u30DE\u30F3\u30AC \u30CB\u30E5\u30FC\u30B9\u30E1\u30C7\u30A3\u30A2", font: "Arial", size: 22, color: "888888" })] }),
@@ -99,7 +99,7 @@ const doc = new Document({
 
       // === 1. EXECUTIVE SUMMARY ===
       heading1("1. \u30A8\u30B0\u30BC\u30AF\u30C6\u30A3\u30D6\u30B5\u30DE\u30EA\u30FC"),
-      para("news.gftd.ai\u306F\u3001\u65E5\u672C\u306E\u30B2\u30FC\u30E0\u30E1\u30FC\u30AB\u30FC\u30FBPS5/Switch\u30D7\u30E9\u30C3\u30C8\u30D5\u30A9\u30FC\u30E0\u3092\u4E2D\u5FC3\u306B\u3001\u30A2\u30CB\u30E1\u30FB\u30B2\u30FC\u30E0\u30FB\u30DE\u30F3\u30AC\u306E\u30CB\u30E5\u30FC\u30B9\u3092\u591A\u8A00\u8A9E\uFF0812\u8A00\u8A9E\uFF09\u3067\u914D\u4FE1\u3059\u308B\u81EA\u5F8B\u578B\u30CB\u30E5\u30FC\u30B9\u30E1\u30C7\u30A3\u30A2\u3067\u3042\u308B\u3002"),
+      para("news.etzhayyim.com\u306F\u3001\u65E5\u672C\u306E\u30B2\u30FC\u30E0\u30E1\u30FC\u30AB\u30FC\u30FBPS5/Switch\u30D7\u30E9\u30C3\u30C8\u30D5\u30A9\u30FC\u30E0\u3092\u4E2D\u5FC3\u306B\u3001\u30A2\u30CB\u30E1\u30FB\u30B2\u30FC\u30E0\u30FB\u30DE\u30F3\u30AC\u306E\u30CB\u30E5\u30FC\u30B9\u3092\u591A\u8A00\u8A9E\uFF0812\u8A00\u8A9E\uFF09\u3067\u914D\u4FE1\u3059\u308B\u81EA\u5F8B\u578B\u30CB\u30E5\u30FC\u30B9\u30E1\u30C7\u30A3\u30A2\u3067\u3042\u308B\u3002"),
       para("\u53CE\u76CA\u76EE\u6A19\u306F\u6708\u9593100\u4E07\u5186\uFF08ExoClick\u5E83\u544A\u53CE\u5165\uFF09\u3002\u521D\u5FC3\u8005\u5411\u3051\u30D7\u30E9\u30A4\u30DE\u30FC\u8A18\u4E8B\u3092\u8EF8\u306B\u3001SEO\u30C8\u30E9\u30D5\u30A3\u30C3\u30AF\u3068ExoClick\u5E83\u544A\u6700\u9069\u5316\u3067\u53CE\u76CA\u5316\u3092\u56F3\u308B\u3002"),
       boldPara("\u30BF\u30FC\u30B2\u30C3\u30C8\u8AAD\u8005: ", "\u30A2\u30CB\u30E1\u30FB\u30B2\u30FC\u30E0\u521D\u5FC3\u8005\uFF08\u65B0\u898F\u30D5\u30A1\u30F3\u3001\u5225\u30B8\u30E3\u30F3\u30EB\u304B\u3089\u306E\u6D41\u5165\u8005\uFF09"),
       boldPara("\u53CE\u76CA\u30E2\u30C7\u30EB: ", "ExoClick\u30C7\u30A3\u30B9\u30D7\u30EC\u30A4\u5E83\u544A + \u30DD\u30C3\u30D7\u30A2\u30F3\u30C0\u30FC"),
@@ -270,7 +270,7 @@ const doc = new Document({
       bulletItem("\u8457\u4F5C\u6A29\u30EA\u30B9\u30AF\uFF1A\u30AA\u30EA\u30B8\u30CA\u30EB\u30B3\u30F3\u30C6\u30F3\u30C4\u306B\u5FB9\u3057\u3001\u4E8C\u6B21\u30BD\u30FC\u30B9\u306E\u5F15\u7528\u306F\u6700\u5C0F\u9650\u306B", "bullets"),
 
       new Paragraph({ spacing: { before: 400 }, border: { top: { style: BorderStyle.SINGLE, size: 2, color: "CCCCCC", space: 1 } }, children: [] }),
-      para("\u672C\u6587\u66F8\u306Fnews.gftd.ai\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u5185\u90E8\u6226\u7565\u8CC7\u6599\u3067\u3042\u308A\u30012026\u5E742\u6708\u6642\u70B9\u306E\u60C5\u5831\u306B\u57FA\u3065\u304F\u3002"),
+      para("\u672C\u6587\u66F8\u306Fnews.etzhayyim.com\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u5185\u90E8\u6226\u7565\u8CC7\u6599\u3067\u3042\u308A\u30012026\u5E742\u6708\u6642\u70B9\u306E\u60C5\u5831\u306B\u57FA\u3065\u304F\u3002"),
     ]
   }]
 });

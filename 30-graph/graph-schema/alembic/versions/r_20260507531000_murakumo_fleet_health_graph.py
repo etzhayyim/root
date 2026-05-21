@@ -110,8 +110,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/murakumo-fleet-health-check-v1',
-                 'did:web:murakumo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/murakumo-fleet-health-check-v1',
+                 'did:web:murakumo.etzhayyim.com',
                  'murakumo_fleet_health_check',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -128,7 +128,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_murakumo_fleet_health_check"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/murakumo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/murakumo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="murakumo_fleet_health_check" name="murakumo '
@@ -175,10 +175,10 @@ UP = [{'sql': '\n'
                  2448,
                  '00-contracts/bpmn/ai/gftd/murakumo/fleetHealthCheck.bpmn',
                  '2026-05-07T06:31:00Z',
-                 'did:web:murakumo.gftd.ai',
-                 'did:web:murakumo.gftd.ai',
-                 'did:web:murakumo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/murakumo-fleet-health-check-v1']},
+                 'did:web:murakumo.etzhayyim.com',
+                 'did:web:murakumo.etzhayyim.com',
+                 'did:web:murakumo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/murakumo-fleet-health-check-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -195,19 +195,19 @@ UP = [{'sql': '\n'
          '      write_table_allowlist = EXCLUDED.write_table_allowlist,\n'
          '      status = EXCLUDED.status\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/murakumo-fleet-health-check-v1',
-                 'did:web:murakumo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/murakumo-fleet-health-check-v1',
+                 'did:web:murakumo.etzhayyim.com',
                  'ai.gftd.apps.murakumo.fleetHealthCheck',
                  'murakumo_fleet_health_check',
                  '2026-05-07T06:31:00Z',
-                 'did:web:murakumo.gftd.ai',
-                 'did:web:murakumo.gftd.ai',
-                 'did:web:murakumo.gftd.ai']}]
+                 'did:web:murakumo.etzhayyim.com',
+                 'did:web:murakumo.etzhayyim.com',
+                 'did:web:murakumo.etzhayyim.com']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/murakumo-fleet-health-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/murakumo-fleet-health-check-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/murakumo-fleet-health-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/murakumo-fleet-health-check-v1']},
  {'sql': 'DROP MATERIALIZED VIEW IF EXISTS mv_murakumo_node_health_counts', 'parameters': []},
  {'sql': 'DROP MATERIALIZED VIEW IF EXISTS mv_murakumo_fleet_health_latest', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS edge_murakumo_fleet_node_health', 'parameters': []},

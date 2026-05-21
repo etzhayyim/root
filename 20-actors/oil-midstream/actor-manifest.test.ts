@@ -7,8 +7,8 @@ const m = JSON.parse(readFileSync(resolve(__dirname, "actor-manifest.jsonld"), "
 const VP = new Set(["graph.query","graph.write","graph.vectorSearch","agent.chat","agent.invoke","identity.resolve","browser.fetch","signal.encrypt","consent.check","derive:social","dmn.evaluate","form.collect"]);
 
 describe("Oil Midstream Actor Manifest", () => {
-  it("@context valid", () => { expect(m["@context"]).toBe("https://gftd.ai/ns/actor/v1"); });
-  it("DID valid", () => { expect(m["@id"]).toBe("did:web:oil-midstream.gftd.ai"); });
+  it("@context valid", () => { expect(m["@context"]).toBe("https://etzhayyim.com/ns/actor/v1"); });
+  it("DID valid", () => { expect(m["@id"]).toBe("did:web:oil-midstream.etzhayyim.com"); });
   it("runtime", () => { expect(m.runtime).toBe("k8s-langserver"); });
   it("nanoid", () => { expect(m.nanoid).toBe("01lm1dst"); });
   it("capabilities valid", () => { for (const c of m.capabilities) expect(VP.has(c)).toBe(true); });

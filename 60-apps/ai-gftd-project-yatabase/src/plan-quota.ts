@@ -1,7 +1,7 @@
 // plan-quota.ts — Plan tier inference + daily quota enforcement (P7).
 //
 // Each tenant is assigned a plan tier based on the orgDid pattern. The
-// `yata-tenant.gftd.ai` namespace produced by /auth/v1/signup defaults
+// `yata-tenant.etzhayyim.com` namespace produced by /auth/v1/signup defaults
 // to the Free tier; non-tenant DIDs (gftd internal CLI keys, enterprise
 // onboarded customers) get Enterprise unlimited.
 //
@@ -86,7 +86,7 @@ export interface PlanQuotaEnv {
 
 /**
  * Pick a plan tier from the orgDid alone. The signup flow always mints
- * `yata-tenant.gftd.ai` DIDs so freshly-signed-up tenants start on Free.
+ * `yata-tenant.etzhayyim.com` DIDs so freshly-signed-up tenants start on Free.
  * Non-tenant DIDs (e.g. gftd CLI internal keys, enterprise customers
  * onboarded out-of-band) bypass the quota.
  */
@@ -217,7 +217,7 @@ export async function getQuotaStatus(env: PlanQuotaEnv, orgDid: string): Promise
   }
 
   let used = 0;
-  const cacheKey = new Request(`https://cache-yatabase.gftd.ai/quota/${encodeURIComponent(orgDid)}`);
+  const cacheKey = new Request(`https://cache-yatabase.etzhayyim.com/quota/${encodeURIComponent(orgDid)}`);
   const cache = (caches as unknown as { default?: Cache }).default;
   if (cache) {
     const cached = await cache.match(cacheKey);

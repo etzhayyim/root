@@ -16,7 +16,7 @@ export default createWorkerExport((sdk: HostSDK) => {
       name: 'Giemon Kaigo',
       version: '1.0.0',
       robots: ['giemon-otete', 'giemon-hitogata', 'giemon-caterpillar'],
-      url: 'https://kaigo.gftd.ai',
+      url: 'https://kaigo.etzhayyim.com',
     };
   });
 

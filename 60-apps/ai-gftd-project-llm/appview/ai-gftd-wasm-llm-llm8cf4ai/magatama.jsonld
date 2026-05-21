@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:llm.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:llm.etzhayyim.com",
   "component": {
     "env": {
       "CF_ACCOUNT_ID": "4da88288dc30d9ee257f319d3c33ecf0",
@@ -42,14 +42,14 @@
   "project": "llm",
   "routes": [
     {
-      "host": "llm.gftd.ai",
+      "host": "llm.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "llm8cf4ai.gftd.ai",
+      "host": "llm8cf4ai.etzhayyim.com",
       "paths": [
         "/"
       ],

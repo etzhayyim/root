@@ -25,7 +25,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "VideoGame",
@@ -39,13 +39,13 @@
     {
       "@type": "CreativeWork",
       "name": "God of War Ragnarok Guide Hub",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-guide-hub-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-guide-hub-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "All Berserkers plus King Hrolf",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-berserkers-complete-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-berserkers-complete-guide-2026"
     }
   ],
-  "url": "https://news.gftd.ai/en/articles/gow-ragnarok-svipdagr-sisters-guide-2026"
+  "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-svipdagr-sisters-guide-2026"
 }

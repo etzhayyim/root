@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { Avatar } from '@gftdcojp/design-system';
+	import { Avatar } from '@etzhayyim/design-system';
 	import {
 		ADSENSE_CLIENT_ID,
 		AD_SLOTS,

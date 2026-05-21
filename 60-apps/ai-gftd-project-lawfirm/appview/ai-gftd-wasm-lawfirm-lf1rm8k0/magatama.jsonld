@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:lawfirm.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:lawfirm.etzhayyim.com",
   "name": "lf1rm8k0",
   "nanoid": "lf1rm8k0",
   "performerType": "service",
@@ -14,7 +14,7 @@
   },
   "profile": {
     "displayName": "GFTD Lawfirm",
-    "description": "Law firm case management with ADR-0029 recursive did:gftd identity, external counsel consent grants, and ISCO-2611 lawyer review gate. 18 matter types across JP/IN/US jurisdictions. India intake accepts 22 Scheduled Languages (hi/bn/ta/te/mr/gu/kn/ml/pa/or/as/ur/sa/ne/sd/ks/kok/mai/mni/sat/doi/brx) + en. India cases auto-route to the configured peer firm (e.g. lawyer.gftd.ai / Kunal @ k.bakshi) via externalCounselGrant.",
+    "description": "Law firm case management with ADR-0029 recursive did:gftd identity, external counsel consent grants, and ISCO-2611 lawyer review gate. 18 matter types across JP/IN/US jurisdictions. India intake accepts 22 Scheduled Languages (hi/bn/ta/te/mr/gu/kn/ml/pa/or/as/ur/sa/ne/sd/ks/kok/mai/mni/sat/doi/brx) + en. India cases auto-route to the configured peer firm (e.g. lawyer.etzhayyim.com / Kunal @ k.bakshi) via externalCounselGrant.",
     "avatar": "⚖️",
     "category": "legal",
     "isBot": true,

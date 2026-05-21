@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-swift-register-institution-v1',
-                 'did:web:open-swift.gftd.ai:core',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-swift-register-institution-v1',
+                 'did:web:open-swift.etzhayyim.com:core',
                  'open_swift_register_institution',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_swift_register_institution"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-swift"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-swift"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_swift_register_institution" name="SWIFT institution 登録" '
                  'isExecutable="true">\n'
@@ -64,7 +64,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-swift.gftd.ai:core&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-swift.etzhayyim.com:core&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSwift.institution.register&quot;" '
                  'target="action"/>\n'
@@ -83,10 +83,10 @@ UP = [{'sql': '\n'
                  2552,
                  '00-contracts/bpmn/ai/gftd/open-swift/registerInstitution.bpmn',
                  '2026-04-24T14:30:00Z',
-                 'did:web:open-swift.gftd.ai:core',
-                 'did:web:open-swift.gftd.ai:core',
+                 'did:web:open-swift.etzhayyim.com:core',
+                 'did:web:open-swift.etzhayyim.com:core',
                  'sys.bpmn.seed.open-swift',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-swift-register-institution-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-swift-register-institution-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -94,8 +94,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-swift-send-customer-credit-transfer-v1',
-                 'did:web:open-swift.gftd.ai:core',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-swift-send-customer-credit-transfer-v1',
+                 'did:web:open-swift.etzhayyim.com:core',
                  'open_swift_send_customer_credit_transfer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -103,7 +103,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_swift_send_customer_credit_transfer"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-swift"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-swift"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_swift_send_customer_credit_transfer" name="pacs.008 送信" '
                  'isExecutable="true">\n'
@@ -253,7 +253,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-swift.gftd.ai:core&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-swift.etzhayyim.com:core&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSwift.screening.block&quot;" '
                  'target="action"/>\n'
@@ -273,7 +273,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-swift.gftd.ai:core&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-swift.etzhayyim.com:core&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSwift.screening.manualReview&quot;" '
                  'target="action"/>\n'
@@ -291,7 +291,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-swift.gftd.ai:core&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-swift.etzhayyim.com:core&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSwift.screening.autoPass&quot;" '
                  'target="action"/>\n'
@@ -316,10 +316,10 @@ UP = [{'sql': '\n'
                  9305,
                  '00-contracts/bpmn/ai/gftd/open-swift/sendCustomerCreditTransfer.bpmn',
                  '2026-04-24T14:30:00Z',
-                 'did:web:open-swift.gftd.ai:core',
-                 'did:web:open-swift.gftd.ai:core',
+                 'did:web:open-swift.etzhayyim.com:core',
+                 'did:web:open-swift.etzhayyim.com:core',
                  'sys.bpmn.seed.open-swift',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-swift-send-customer-credit-transfer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-swift-send-customer-credit-transfer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -327,16 +327,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-swift-registerInstitution-v1',
-                 'did:web:open-swift.gftd.ai:core',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-swift-registerInstitution-v1',
+                 'did:web:open-swift.etzhayyim.com:core',
                  'ai.gftd.apps.openSwift.registerInstitution',
                  'open_swift_register_institution',
                  15000,
                  '2026-04-24T14:30:00Z',
-                 'did:web:open-swift.gftd.ai:core',
-                 'did:web:open-swift.gftd.ai:core',
+                 'did:web:open-swift.etzhayyim.com:core',
+                 'did:web:open-swift.etzhayyim.com:core',
                  'sys.bpmn.seed.open-swift',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-swift-registerInstitution-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-swift-registerInstitution-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -344,25 +344,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-swift-sendCustomerCreditTransfer-v1',
-                 'did:web:open-swift.gftd.ai:core',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-swift-sendCustomerCreditTransfer-v1',
+                 'did:web:open-swift.etzhayyim.com:core',
                  'ai.gftd.apps.openSwift.sendCustomerCreditTransfer',
                  'open_swift_send_customer_credit_transfer',
                  30000,
                  '2026-04-24T14:30:00Z',
-                 'did:web:open-swift.gftd.ai:core',
-                 'did:web:open-swift.gftd.ai:core',
+                 'did:web:open-swift.etzhayyim.com:core',
+                 'did:web:open-swift.etzhayyim.com:core',
                  'sys.bpmn.seed.open-swift',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-swift-sendCustomerCreditTransfer-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-swift-sendCustomerCreditTransfer-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-swift-registerInstitution-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-swift-registerInstitution-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-swift-sendCustomerCreditTransfer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-swift-sendCustomerCreditTransfer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-swift-register-institution-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-swift-register-institution-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-swift-send-customer-credit-transfer-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-swift-send-customer-credit-transfer-v1']}]
 
 
 def upgrade() -> None:

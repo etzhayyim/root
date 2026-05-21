@@ -17,7 +17,7 @@
         "properties": {
           "did": {
             "type": "string",
-            "description": "Canonical nanoid DID (did:web:{nanoid}.gftd.ai). Compatible with app.bsky.actor.defs profile DID.",
+            "description": "Canonical nanoid DID (did:web:{nanoid}.etzhayyim.com). Compatible with app.bsky.actor.defs profile DID.",
             "format": "did"
           },
           "nanoid": {

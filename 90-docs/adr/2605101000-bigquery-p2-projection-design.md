@@ -67,7 +67,7 @@ The adapter is responsible for:
   predicate or use `EXPORT DATA` with a partition WHERE clause; the
   partitioning hint comes from `vertex_public_dataset_table.partitioning_json`.
 - **dedupe / canonical key**: surface a stable `vertex_id` derivation rule per
-  the existing record-log convention (e.g. `at://did:web:<actor>.gftd.ai/<NSID>/<rkey>`).
+  the existing record-log convention (e.g. `at://did:web:<actor>.etzhayyim.com/<NSID>/<rkey>`).
 - **license attribution**: copy `license`, `terms_url`, `provider`,
   `dataset_id` from the catalog row into every projected vertex `props.json`
   enrichment block so downstream training pipelines can filter on license at

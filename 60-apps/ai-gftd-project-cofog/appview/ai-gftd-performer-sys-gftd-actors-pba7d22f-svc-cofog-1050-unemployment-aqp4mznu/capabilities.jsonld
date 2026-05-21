@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/10/5/0/unemployment",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/5/0/unemployment",
       "type": "dodaf:Capability",
       "name": "Unemployment Support and Re-employment Capability",
       "description": "Functional capability for managing unemployment benefit verification, coordination of vocational training, and job search compliance monitoring. Classification: COFOG Division 10, Group 5, Class 0.",

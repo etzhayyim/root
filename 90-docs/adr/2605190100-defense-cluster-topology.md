@@ -41,7 +41,7 @@ superseded_by: []
 防衛調達（日本の防衛省・ATLA および prime contractor 向け）AI プラットフォームの設計。
 Anduril 型の defense-tech ポジションを、gftd の既存 AT Protocol + LangGraph + MCP スタック上で実現する。
 
-gftdcojp は現時点で ATLA 調達情報サービス未登録のため、
+etzhayyim は現時点で ATLA 調達情報サービス未登録のため、
 **Phase 1 は prime contractor（防衛産業企業）向け SaaS** から開始する。
 
 ## Decision
@@ -220,7 +220,7 @@ T0 (unclassified) は通常開発フロー。T1 以上に関する技術デー�
 
 ### XRPC デュアルワイヤー (ADR-2605091400)
 
-内部 wire (`dispatcher.gftd.ai/xrpc/<nsid>`) は `x-internal-trust` ヘッダーで認証。
+内部 wire (`dispatcher.etzhayyim.com/xrpc/<nsid>`) は `x-internal-trust` ヘッダーで認証。
 `00-contracts/lexicons/` の lexicon JSON が MCP inputSchema と XRPC validation の両方を駆動。
 
 ### 入力バリデーション (Phase 11A)

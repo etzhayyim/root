@@ -11,11 +11,11 @@ import {
   type HostSDK,
 } from "@gftd/magatama-host-sdk";
 
-const PRIMARY_DID = "did:web:cad.gftd.ai";
-const IMPORTER_DID = "did:web:cad.gftd.ai:actor:importer";
-const TESSELLATOR_DID = "did:web:cad.gftd.ai:actor:tessellator";
-const REVIEWER_DID = "did:web:cad.gftd.ai:actor:reviewer";
-const EXPORTER_DID = "did:web:cad.gftd.ai:actor:exporter";
+const PRIMARY_DID = "did:web:cad.etzhayyim.com";
+const IMPORTER_DID = "did:web:cad.etzhayyim.com:actor:importer";
+const TESSELLATOR_DID = "did:web:cad.etzhayyim.com:actor:tessellator";
+const REVIEWER_DID = "did:web:cad.etzhayyim.com:actor:reviewer";
+const EXPORTER_DID = "did:web:cad.etzhayyim.com:actor:exporter";
 
 let pathDidsReady = false;
 
@@ -58,7 +58,7 @@ async function cmdImportCadFile(sdk: HostSDK, env: Record<string, unknown>, body
     });
   }
   try {
-    const req = new Request("https://cad-job.gftd.ai/jobs/import", {
+    const req = new Request("https://cad-job.etzhayyim.com/jobs/import", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -153,7 +153,7 @@ async function cmdRequestExport(sdk: HostSDK, env: Record<string, unknown>, body
     return JSON.stringify({ jobId: genID(), status: "queued", estimatedSeconds: 30, note: "CAD_JOB binding missing" });
   }
   try {
-    const req = new Request("https://cad-job.gftd.ai/jobs/export", {
+    const req = new Request("https://cad-job.etzhayyim.com/jobs/export", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(input),

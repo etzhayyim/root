@@ -144,17 +144,17 @@ ORDER BY pct DESC;
 
 ```bash
 # Test 1: Maps job status
-curl -s "https://atproto.gftd.ai/xrpc/ai.gftd.apps.maps.getJobStatus?jobId=test-job-1" \
+curl -s "https://atproto.etzhayyim.com/xrpc/ai.gftd.apps.maps.getJobStatus?jobId=test-job-1" \
   -H "Authorization: Bearer $GFTD_PROD_TOKEN" | jq .
 # Response: {"job_id":"test-job-1","status":"active",...} ✅
 
 # Test 2: Legal entity company facts
-curl -s "https://atproto.gftd.ai/xrpc/ai.gftd.legalEntity.listCompanies?limit=1" \
+curl -s "https://atproto.etzhayyim.com/xrpc/ai.gftd.legalEntity.listCompanies?limit=1" \
   -H "Authorization: Bearer $GFTD_PROD_TOKEN" | jq '.records | length'
 # Response: 1 ✅
 
 # Test 3: Ongakuka music tracks
-curl -s "https://atproto.gftd.ai/xrpc/ai.gftd.ongakuka.listTracks?limit=1" \
+curl -s "https://atproto.etzhayyim.com/xrpc/ai.gftd.ongakuka.listTracks?limit=1" \
   -H "Authorization: Bearer $GFTD_PROD_TOKEN" | jq '.records | length'
 # Response: 0 (expected — no ingest yet) ✅
 ```

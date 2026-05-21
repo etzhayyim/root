@@ -243,7 +243,7 @@ async def emit_contribution_usage(
     db, source_hash: str, consumer_did: str,
     usage_type: str, gcc_value_wei: str
 ):
-    vertex_id = f"at://did:web:contribution.gftd.ai/ai.gftd.apps.contribution.usage/{generate_tid()}"
+    vertex_id = f"at://did:web:contribution.etzhayyim.com/ai.gftd.apps.contribution.usage/{generate_tid()}"
     await db.execute("""
         INSERT INTO vertex_contribution_usage
             (vertex_id, source_hash, consumer_did, usage_type, gcc_value_wei, used_at, actor_did, org_did)
@@ -276,7 +276,7 @@ BPMN タスクの `input` に `contribution_source_id: "media:irasutoya.com/illu
 #### 5-A. Platform ユーザー (既登録 DID)
 
 ```
-authz.gftd.ai/xrpc/ai.gftd.authz.registerContributionSource
+authz.etzhayyim.com/xrpc/ai.gftd.authz.registerContributionSource
   body: {
     canonicalId: "oss:github.com/myname/mylib",
     sourceType: "oss",
@@ -287,7 +287,7 @@ authz.gftd.ai/xrpc/ai.gftd.authz.registerContributionSource
 
 #### 5-B. GitHub OSS 作者 (未登録)
 
-1. contributor が gftd.ai で sign-up
+1. contributor が etzhayyim.com で sign-up
 2. `linkGithub` (OAuth) → GitHub handle を `linked_auth_methods` に登録
 3. `ai.gftd.authz.claimContributionPending` を呼ぶ
 4. authz が `pendingEarned[keccak256("github:{handle}")]` を lookup → `registerSource` + `claimPending` on-chain

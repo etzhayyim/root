@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shigotoba-ingestJobs-v1',
-                 'did:web:shigotoba.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shigotoba-ingestJobs-v1',
+                 'did:web:shigotoba.etzhayyim.com',
                  'shigotoba_ingest_jobs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -40,7 +40,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_shigotoba_ingest_jobs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shigotoba"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shigotoba"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="shigotoba_ingest_jobs" name="shigotoba ingest jobs" '
                  'isExecutable="true">\n'
@@ -67,7 +67,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:shigotoba.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:shigotoba.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ingestJobs&quot;" target="action"/>\n'
                  '          <zeebe:input source="=result" target="payload"/>\n'
@@ -85,10 +85,10 @@ UP = [{'sql': '\n'
                  2285,
                  '00-contracts/bpmn/ai/gftd/shigotoba/ingestJobs.bpmn',
                  '2026-04-29T09:09:00Z',
-                 'did:web:shigotoba.gftd.ai',
-                 'did:web:shigotoba.gftd.ai',
+                 'did:web:shigotoba.etzhayyim.com',
+                 'did:web:shigotoba.etzhayyim.com',
                  'sys.bpmn.seed.shigotoba',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shigotoba-ingestJobs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shigotoba-ingestJobs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -102,16 +102,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shigotoba-ingestJobs-v1',
-                 'did:web:shigotoba.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shigotoba-ingestJobs-v1',
+                 'did:web:shigotoba.etzhayyim.com',
                  'ai.gftd.apps.shigotoba.ingestJobs',
                  'shigotoba_ingest_jobs',
                  600000,
                  '2026-04-29T09:09:00Z',
-                 'did:web:shigotoba.gftd.ai',
-                 'did:web:shigotoba.gftd.ai',
+                 'did:web:shigotoba.etzhayyim.com',
+                 'did:web:shigotoba.etzhayyim.com',
                  'sys.bpmn.seed.shigotoba',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shigotoba-ingestJobs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shigotoba-ingestJobs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -125,8 +125,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shigotoba-summarize-v1',
-                 'did:web:shigotoba.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shigotoba-summarize-v1',
+                 'did:web:shigotoba.etzhayyim.com',
                  'shigotoba_summarize',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -140,7 +140,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_shigotoba_summarize"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shigotoba"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shigotoba"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="shigotoba_summarize" name="shigotoba summarize" '
                  'isExecutable="true">\n'
@@ -174,7 +174,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>\n'
                  '          <zeebe:input source="=&quot;You summarize public job-market data for '
-                 'shigotoba.gftd.ai. Be concise, factual, and avoid unsupported claims.&quot;" '
+                 'shigotoba.etzhayyim.com. Be concise, factual, and avoid unsupported claims.&quot;" '
                  'target="system"/>\n'
                  '          <zeebe:input source="=&quot;Topic: &quot; + (if topic = null then '
                  '&quot;job market&quot; else string(topic)) + &quot;\\nRecent jobs JSON: &quot; + '
@@ -195,7 +195,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:shigotoba.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:shigotoba.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;summarize&quot;" target="action"/>\n'
                  '          <zeebe:input source="={topic: (if topic = null then &quot;job '
@@ -215,10 +215,10 @@ UP = [{'sql': '\n'
                  3820,
                  '00-contracts/bpmn/ai/gftd/shigotoba/summarize.bpmn',
                  '2026-04-29T09:09:00Z',
-                 'did:web:shigotoba.gftd.ai',
-                 'did:web:shigotoba.gftd.ai',
+                 'did:web:shigotoba.etzhayyim.com',
+                 'did:web:shigotoba.etzhayyim.com',
                  'sys.bpmn.seed.shigotoba',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shigotoba-summarize-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shigotoba-summarize-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -232,25 +232,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shigotoba-summarize-v1',
-                 'did:web:shigotoba.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shigotoba-summarize-v1',
+                 'did:web:shigotoba.etzhayyim.com',
                  'ai.gftd.apps.shigotoba.summarize',
                  'shigotoba_summarize',
                  180000,
                  '2026-04-29T09:09:00Z',
-                 'did:web:shigotoba.gftd.ai',
-                 'did:web:shigotoba.gftd.ai',
+                 'did:web:shigotoba.etzhayyim.com',
+                 'did:web:shigotoba.etzhayyim.com',
                  'sys.bpmn.seed.shigotoba',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shigotoba-summarize-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shigotoba-summarize-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shigotoba-ingestJobs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shigotoba-ingestJobs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shigotoba-ingestJobs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shigotoba-ingestJobs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shigotoba-summarize-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shigotoba-summarize-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shigotoba-summarize-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shigotoba-summarize-v1']}]
 
 
 def upgrade() -> None:

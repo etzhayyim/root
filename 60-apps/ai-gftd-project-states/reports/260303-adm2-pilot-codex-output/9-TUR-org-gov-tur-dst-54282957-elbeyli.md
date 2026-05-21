@@ -9,7 +9,7 @@
 - `states/adm2/org-gov-tur-dst-54282957-elbeyli/values.json` – ADM2 metadata (rank 9, gap 999, target shape id/name).
 
 **3) K8s Manifest Skeleton Names**
-- App: `kind: App`, `metadata.name: org-gov-tur-dst-54282957-elbeyli`, `spec.image: ghcr.io/gftdcojp/org-gov-tur-dst-54282957-elbeyli:pilot`, `spec.runtime.namespace: magatama-runtime`.
+- App: `kind: App`, `metadata.name: org-gov-tur-dst-54282957-elbeyli`, `spec.image: ghcr.io/etzhayyim/org-gov-tur-dst-54282957-elbeyli:pilot`, `spec.runtime.namespace: magatama-runtime`.
 - ServiceAccount/RoleBinding (if needed): names derived from slug for least-privilege.
 - Edge route: `kind: HTTPRoute`, `metadata.name: org-gov-tur-dst-54282957-elbeyli`, `metadata.namespace: edge-router-performers`, backend ref to App service.
 - ConfigMap/Secret placeholders for ADM2 dataset references (prefixed with slug) if data ingestion requires them.
@@ -17,8 +17,8 @@
 **4) Quality Gates Checklist**
 - slug + metadata match: stem consistent across README, manifests, image.
 - namespace policy: App → `magatama-runtime`, HTTPRoute → `edge-router-performers`.
-- endpoint: Connect gRPC-Web client points to `https://<nanoid>.gftd.ai/api/grpc`; document nanoid in README.
-- image source: `ghcr.io/gftdcojp/*`, tag not `latest`, push workflow updated.
+- endpoint: Connect gRPC-Web client points to `https://<nanoid>.etzhayyim.com/api/grpc`; document nanoid in README.
+- image source: `ghcr.io/etzhayyim/*`, tag not `latest`, push workflow updated.
 - ADM2 data: confirm `adm2_total = 999` and `gap = 999` documented; include shape ID `54988432B86465154282957`.
 - HIG/iPad layout note for any future WASM frontends (even if not built yet).
 - Kustomization validated via `kustomize build` (dry run) before commit.

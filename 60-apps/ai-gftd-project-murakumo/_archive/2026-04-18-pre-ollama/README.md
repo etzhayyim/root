@@ -12,4 +12,4 @@ shift — Ollama fleet + LiteLLM (2026-04-18 pm).
 
 Safe to delete entirely once ADR confirms no external consumer needs MLX-specific
 behaviour. Keep until `[[migrations]] murakumo-cf-worker-litellm-rewire` is closed
-and public `murakumo.gftd.ai` runs through LiteLLM.
+and public `murakumo.etzhayyim.com` runs through LiteLLM.

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-69f517847e47",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-69f517847e47",
   "entityId": "ent-69f517847e47",
   "canonicalName": "chunpeng su",
   "aliases": [

@@ -15,7 +15,7 @@ Vendor source NOT carried over — wave-3 follow-up sub-PRs will port each comma
 - Lexicons: 13 files migrated to `00-contracts/lexicons/ai/gftd/kiyo/`
 - rw-free reference impl: deferred (Option B pattern follows etz #89 / #90)
 - kiyo.etzhayyim.com deploy: NOT yet (operator stage)
-- kiyo.gftd.ai (vendor) status: **LIVE** — wait for operator Stage 4 (routing-gateway 301) + 1-week observation before vendor rm
+- kiyo.etzhayyim.com (vendor) status: **LIVE** — wait for operator Stage 4 (routing-gateway 301) + 1-week observation before vendor rm
 
 ## Related
 - ADR-2605172000 — RW-free substrate

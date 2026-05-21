@@ -245,7 +245,7 @@ caller app
 
 ### Phase 1
 
-- keep existing `crawler.gftd.ai`
+- keep existing `crawler.etzhayyim.com`
 - add `crawler-control` and `crawler-frontier`
 - make `SearchResults` federated from `crawler-control`
 

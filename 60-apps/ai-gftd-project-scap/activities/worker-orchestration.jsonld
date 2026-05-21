@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -60,7 +60,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/activities/worker-orchestration",
+  "@id": "https://scap.etzhayyim.com/activities/worker-orchestration",
   "@type": [
     "dodaf:Activity",
     "prov:Activity"
@@ -71,79 +71,79 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "performedBy": [
     {
-      "@id": "https://scap.gftd.ai/performers/systems/worker"
+      "@id": "https://scap.etzhayyim.com/performers/systems/worker"
     }
   ],
   "produces": [
     {
-      "@id": "https://scap.gftd.ai/resources/service-registry",
+      "@id": "https://scap.etzhayyim.com/resources/service-registry",
       "name": "Service Registry",
       "description": "Registry of active activity services and their status"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/worker-stats",
+      "@id": "https://scap.etzhayyim.com/resources/worker-stats",
       "name": "Worker Statistics",
       "description": "Statistics and metrics for worker system and managed services"
     }
   ],
   "consumes": [
     {
-      "@id": "https://scap.gftd.ai/performers/services/scap-data-collection-service"
+      "@id": "https://scap.etzhayyim.com/performers/services/scap-data-collection-service"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/services/scap-scan-execution-service"
+      "@id": "https://scap.etzhayyim.com/performers/services/scap-scan-execution-service"
     }
   ],
   "requires": [
     {
-      "@id": "https://scap.gftd.ai/capabilities/security-content-automation"
+      "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation"
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/data-integration"
+      "@id": "https://scap.etzhayyim.com/capabilities/data-integration"
     }
   ],
   "enables": [
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-collection"
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-collection"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-scan-execution"
+      "@id": "https://scap.etzhayyim.com/activities/scap-scan-execution"
     }
   ],
   "realizes": [
     {
-      "@id": "https://scap.gftd.ai/goal/orchestrate-scap-services"
+      "@id": "https://scap.etzhayyim.com/goal/orchestrate-scap-services"
     }
   ],
   "step": [
     {
-      "@id": "https://scap.gftd.ai/activities/worker-orchestration/service-discovery",
+      "@id": "https://scap.etzhayyim.com/activities/worker-orchestration/service-discovery",
       "name": "Service Discovery",
       "description": "Discover and register activity services",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/systems/worker/src/manager.rs"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/systems/worker/src/manager.rs"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/worker-orchestration/scheduling",
+      "@id": "https://scap.etzhayyim.com/activities/worker-orchestration/scheduling",
       "name": "Job Scheduling",
       "description": "Schedule and coordinate periodic tasks for activity services",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/systems/worker/src/scheduler.rs"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/systems/worker/src/scheduler.rs"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/worker-orchestration/health-monitoring",
+      "@id": "https://scap.etzhayyim.com/activities/worker-orchestration/health-monitoring",
       "name": "Health Monitoring",
       "description": "Monitor health and status of activity services",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/systems/worker/src/health.rs"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/systems/worker/src/health.rs"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/worker-orchestration/lifecycle-management",
+      "@id": "https://scap.etzhayyim.com/activities/worker-orchestration/lifecycle-management",
       "name": "Lifecycle Management",
       "description": "Manage startup, shutdown, and restart of activity services",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/systems/worker/src/worker.rs"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/systems/worker/src/worker.rs"
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/systems/worker/src/main.rs",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/workers/scheduled-scap-worker.ts",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/workers/integrated-scap-worker.ts"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/systems/worker/src/main.rs",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/workers/scheduled-scap-worker.ts",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/workers/integrated-scap-worker.ts"
   ]
 }

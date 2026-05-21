@@ -44,7 +44,7 @@ spec:
             - name: ghcr-pull
           containers:
             - name: dumper
-              image: ghcr.io/gftdcojp/maps-bulk-ingest:1.3.1
+              image: ghcr.io/etzhayyim/maps-bulk-ingest:1.3.1
               imagePullPolicy: IfNotPresent
               command: ["python", "/app/workers/noaa_ais_dumper.py"]
               envFrom:

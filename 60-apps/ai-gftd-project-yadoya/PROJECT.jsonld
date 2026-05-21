@@ -2,7 +2,7 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://gftd.ai/ns/",
+      "gftd": "https://etzhayyim.com/ns/",
       "apqc": "https://www.apqc.org/pcf/",
       "isic": "https://unstats.un.org/unsd/classifications/Econ/ISIC/",
       "isco": "https://www.ilo.org/public/english/bureau/stat/isco/"
@@ -12,7 +12,7 @@
   "name": "Yadoya — Autonomous Hotel Search & Reservation Platform",
   "identifier": "ai-gftd-project-yadoya",
   "description": "Hotel search and reservation platform. AI Agent (MCP) + human (Web) dual-channel. Global catalog with 16-language coverage, APQC/ISIC/ISCO process taxonomy.",
-  "url": "https://yadoya.gftd.ai",
+  "url": "https://yadoya.etzhayyim.com",
   "status": "In Progress",
   "dateCreated": "2026-02-22",
   "dateModified": "2026-02-28",
@@ -38,7 +38,7 @@
       {
         "@type": "gftd:MarketSegment",
         "name": "個人旅行者 (B2C Direct)",
-        "description": "多言語対応 Web UI による直接検索・予約。yadoya.gftd.ai から 16 言語で世界のホテルを検索。",
+        "description": "多言語対応 Web UI による直接検索・予約。yadoya.etzhayyim.com から 16 言語で世界のホテルを検索。",
         "priority": "secondary"
       },
       {
@@ -129,7 +129,7 @@
           "APQC/ISIC/ISCO process taxonomy mapping",
           "Auto-collection scheduler (interval-based health check probing)",
           "Static HTML frontend (vanilla JS, responsive grid)",
-          "WADM manifest + CDN route (yadoya.gftd.ai)"
+          "WADM manifest + CDN route (yadoya.etzhayyim.com)"
         ]
       },
       {
@@ -186,8 +186,8 @@
       "component": "yadoya-ui-b7r4n2xq",
       "nanoid": "b7r4n2xq",
       "port": 8164,
-      "domain": "yadoya.gftd.ai",
-      "apiEndpoint": "https://{nanoid}.gftd.ai/api/grpc",
+      "domain": "yadoya.etzhayyim.com",
+      "apiEndpoint": "https://{nanoid}.etzhayyim.com/api/grpc",
       "cdnBucket": "yadoya-gftd-ai",
       "kvBucket": "yadoya-store",
       "componentTopology": {
@@ -230,8 +230,8 @@
         ]
       },
       "dataFlow": [
-        "Browser → yadoya.gftd.ai (R2 Custom Domain) → static HTML/JS/CSS",
-        "Browser → 1.gftd.ai/api/grpc → Envoy Gateway → SpinApp component",
+        "Browser → yadoya.etzhayyim.com (R2 Custom Domain) → static HTML/JS/CSS",
+        "Browser → 1.etzhayyim.com/api/grpc → Envoy Gateway → SpinApp component",
         "AI Agent → MCP tools (yadoya.search_hotels, yadoya.create_reservation, ...)",
         "Scheduler → wasi:http/outgoing-handler → hotel official sites (price collection)",
         "Component → wasi:keyvalue/store → NATS KV (yadoya-store)"
@@ -328,7 +328,7 @@
     {
       "@type": "WebApplication",
       "name": "Yadoya Booking Portal",
-      "url": "https://yadoya.gftd.ai",
+      "url": "https://yadoya.etzhayyim.com",
       "description": "Multi-language hotel search and reservation web application"
     },
     {
@@ -497,7 +497,7 @@
     },
     {
       "status": "in_progress",
-      "task": "Deploy to yadoya.gftd.ai via CDN route and SpinApp application"
+      "task": "Deploy to yadoya.etzhayyim.com via CDN route and SpinApp application"
     },
     {
       "status": "in_progress",

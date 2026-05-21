@@ -1,5 +1,5 @@
 /**
- * Editor & Render BDD Tests — xlsx.gftd.ai cell ops, merge, grid renderer, selection, parser, exporter.
+ * Editor & Render BDD Tests — xlsx.etzhayyim.com cell ops, merge, grid renderer, selection, parser, exporter.
  *
  * Tests underlying logic without importing Svelte 5 rune-based editor-state.svelte.ts.
  * Insert/delete row/column logic is re-implemented inline to avoid Svelte compilation dependency.

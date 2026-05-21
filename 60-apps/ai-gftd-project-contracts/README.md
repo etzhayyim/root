@@ -42,7 +42,7 @@ ai-gftd-project-contracts
 
 全データは `data/schema/context.jsonld` で定義された @context を使用します。
 
-- Base vocab: `https://gftd.ai/schema/contracts#`
+- Base vocab: `https://etzhayyim.com/schema/contracts#`
 - Schema.org: `https://schema.org/`
 - GLEIF: `https://www.gleif.org/ontology/`
 
@@ -52,7 +52,7 @@ ai-gftd-project-contracts
 {
   "@context": "../schema/context.jsonld",
   "@type": "Organization",
-  "@id": "https://gftd.ai/data/organizations/{id}",
+  "@id": "https://etzhayyim.com/data/organizations/{id}",
   "name": "組織名",
   "legalName": "法的登録名",
   "identifier": "法人番号",
@@ -70,7 +70,7 @@ ai-gftd-project-contracts
 {
   "@context": "../schema/context.jsonld",
   "@type": "SocialContract",
-  "@id": "https://gftd.ai/data/social-contracts/{id}",
+  "@id": "https://etzhayyim.com/data/social-contracts/{id}",
   "name": "契約名",
   "constitutionalType": "constitution",
   "jurisdiction": "JP",
@@ -110,7 +110,7 @@ ai-gftd-project-crawler を使用して以下のソースから収集：
 
 `wasm/contracts-crawler-component/` に App MCP として実装。
 
-Endpoint: `https://{nanoid}.gftd.ai/api/mcp`
+Endpoint: `https://{nanoid}.etzhayyim.com/api/mcp`
 
 Tools:
 - `collect_organizations`: 組織データ収集
@@ -124,9 +124,9 @@ Tools:
 
 収集されたデータは ai-gftd-project-public-global を通じて公開されます。
 
-- 公開 API endpoint: `https://public.gftd.ai/contracts/`
-- SPARQL endpoint: `https://public.gftd.ai/sparql`
-- Linked Data: `https://gftd.ai/data/{type}/{id}.jsonld`
+- 公開 API endpoint: `https://public.etzhayyim.com/contracts/`
+- SPARQL endpoint: `https://public.etzhayyim.com/sparql`
+- Linked Data: `https://etzhayyim.com/data/{type}/{id}.jsonld`
 
 ## Privacy & Compliance
 
@@ -148,19 +148,19 @@ Tools:
 ### Organization Query
 
 ```bash
-curl https://gftd.ai/data/organizations/apple-inc.jsonld
+curl https://etzhayyim.com/data/organizations/apple-inc.jsonld
 ```
 
 ### Social Contract Query
 
 ```bash
-curl https://gftd.ai/data/social-contracts/japan-constitution.jsonld
+curl https://etzhayyim.com/data/social-contracts/japan-constitution.jsonld
 ```
 
 ### SPARQL Query (planned)
 
 ```sparql
-PREFIX gftd: <https://gftd.ai/schema/>
+PREFIX gftd: <https://etzhayyim.com/schema/>
 PREFIX schema: <https://schema.org/>
 
 SELECT ?org ?name ?lei
@@ -178,7 +178,7 @@ WHERE {
 
 1. データを適切なディレクトリに配置 (`data/{type}/`)
 2. JSON-LD 形式で記述（`@context` は `../schema/context.jsonld` を参照）
-3. `@id` は `https://gftd.ai/data/{type}/{id}` 形式
+3. `@id` は `https://etzhayyim.com/data/{type}/{id}` 形式
 4. `source`, `dateCollected`, `confidence` フィールドを必ず含める
 
 ### Validation

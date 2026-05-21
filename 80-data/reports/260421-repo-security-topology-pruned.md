@@ -5,7 +5,7 @@ Time: 2026-04-21 09:01:42 JST
 
 ## Scope
 
-- Repository: `ai-gftd-apps-gftdcojp`
+- Repository: `etzhayyim-root`
 - Method:
   - static review of current `HEAD`
   - repo-wide pruning of public attack branches, credential residue, and dependency-driven auth breakage

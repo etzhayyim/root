@@ -55,7 +55,7 @@
     {
       "@context": "./context.jsonld",
       "@type": "Person",
-      "@id": "https://gftd.ai/data/persons/satoshi-nakamoto",
+      "@id": "https://etzhayyim.com/data/persons/satoshi-nakamoto",
       "name": "Satoshi Nakamoto",
       "description": "Bitcoin creator (pseudonymous)",
       "sameAs": [

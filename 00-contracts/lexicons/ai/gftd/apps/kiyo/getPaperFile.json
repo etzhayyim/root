@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.gftd.ai/ipfs/{cid} — no expiry (content-addressed, immutable).",
+      "description": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.etzhayyim.com/ipfs/{cid} — no expiry (content-addressed, immutable).",
       "parameters": {
         "type": "params",
         "properties": {
@@ -19,7 +19,7 @@
         "schema": {
           "type": "object",
           "properties": {
-            "url":         { "type": "string",  "description": "https://ipfs.gftd.ai/ipfs/{cid}" },
+            "url":         { "type": "string",  "description": "https://ipfs.etzhayyim.com/ipfs/{cid}" },
             "cid":         { "type": "string" },
             "version":     { "type": "integer" },
             "contentType": { "type": "string" }

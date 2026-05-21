@@ -2,7 +2,7 @@
 
 > **T2 Logical Actor**: Manifest-driven (`20-actors/sanctions/actor-manifest.jsonld`).
 
-`sanctions.gftd.ai` (nanoid: `sn4c8t1x`) — 50K sanctioned entities across OFAC SDN + EU consolidated + UN Security Council + JP MOF + UK OFSI + AU DFAT + CA OSFI.
+`sanctions.etzhayyim.com` (nanoid: `sn4c8t1x`) — 50K sanctioned entities across OFAC SDN + EU consolidated + UN Security Council + JP MOF + UK OFSI + AU DFAT + CA OSFI.
 
 ## Lexicons
 `sanctions/` (5 files): screening + ingestion procedures.

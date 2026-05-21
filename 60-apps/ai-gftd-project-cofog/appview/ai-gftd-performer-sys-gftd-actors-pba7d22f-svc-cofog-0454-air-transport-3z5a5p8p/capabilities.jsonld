@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/5/4/air-transport",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/5/4/air-transport",
       "type": "dodaf:Capability",
       "name": "Air Transport and Aviation Management Capability",
       "description": "Functional capability for managing air traffic control, airport infrastructure, and aviation safety. Classification: COFOG Division 04, Group 5, Class 4.",

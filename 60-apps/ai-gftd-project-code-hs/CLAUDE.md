@@ -4,10 +4,10 @@
 
 | key | value |
 |---|---|
-| domain | hs.gftd.ai |
+| domain | hs.etzhayyim.com |
 | performerType | service |
 | nanoid | hs6c0d3x |
-| primary DID | `did:web:hs.gftd.ai` |
+| primary DID | `did:web:hs.etzhayyim.com` |
 | NSID prefix | `ai.gftd.apps.hs.*` |
 
 ## What This Project Does
@@ -26,13 +26,13 @@ GTIN の商品実体、ISIC の産業活動、states の customs/tariff 制度�
 
 | DID | 用途 |
 |---|---|
-| `did:web:hs.gftd.ai` | App coordinator |
-| `did:web:hs.gftd.ai:section:{section_slug}` | Section browse / explanation |
-| `did:web:hs.gftd.ai:chapter:{chapter2}` | Chapter-level coverage / report |
-| `did:web:hs.gftd.ai:heading:{heading4}` | Heading-level trade family |
-| `did:web:hs.gftd.ai:subheading:{subheading6}` | Declaration-grade classification |
-| `did:web:hs.gftd.ai:revision:{edition}` | Revision delta overlay |
-| `did:web:hs.gftd.ai:country:{iso3}` | Country customs/policy overlay |
+| `did:web:hs.etzhayyim.com` | App coordinator |
+| `did:web:hs.etzhayyim.com:section:{section_slug}` | Section browse / explanation |
+| `did:web:hs.etzhayyim.com:chapter:{chapter2}` | Chapter-level coverage / report |
+| `did:web:hs.etzhayyim.com:heading:{heading4}` | Heading-level trade family |
+| `did:web:hs.etzhayyim.com:subheading:{subheading6}` | Declaration-grade classification |
+| `did:web:hs.etzhayyim.com:revision:{edition}` | Revision delta overlay |
+| `did:web:hs.etzhayyim.com:country:{iso3}` | Country customs/policy overlay |
 
 ## Actor Paths
 

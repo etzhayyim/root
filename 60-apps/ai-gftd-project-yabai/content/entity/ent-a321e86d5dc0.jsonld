@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-a321e86d5dc0",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a321e86d5dc0",
   "entityId": "ent-a321e86d5dc0",
   "canonicalName": "limited liability company river park",
   "aliases": [

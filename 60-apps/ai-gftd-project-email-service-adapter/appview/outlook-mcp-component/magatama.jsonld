@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:outlook.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:outlook.etzhayyim.com",
   "name": "outlook-mcp-component",
   "nanoid": "outlook",
   "performerType": "service",

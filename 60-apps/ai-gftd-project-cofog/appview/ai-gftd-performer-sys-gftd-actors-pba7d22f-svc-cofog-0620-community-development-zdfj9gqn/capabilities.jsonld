@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/06/2/0/community-development",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/2/0/community-development",
       "type": "dodaf:Capability",
       "name": "Community Development and Social Infrastructure Capability",
       "description": "Functional capability for managing community development projects, local amenities, and demographic analysis. Classification: COFOG Division 06, Group 2, Class 0.",

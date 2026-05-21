@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register an oil refinery. Path-based DID: did:web:oil-refining.gftd.ai:refinery:{iso3}:{slug}. Tracks unit configuration, throughput, outage, product yield.",
+      "description": "Register an oil refinery. Path-based DID: did:web:oil-refining.etzhayyim.com:refinery:{iso3}:{slug}. Tracks unit configuration, throughput, outage, product yield.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

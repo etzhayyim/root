@@ -1,4 +1,4 @@
-"""yukkuri.gftd.ai LangGraph Server actor.
+"""yukkuri.etzhayyim.com LangGraph Server actor.
 
 AI ゆっくり動画生成パイプライン。1 topic → 台本 → TTS → 画像 → BGM → render → review → publish。
 

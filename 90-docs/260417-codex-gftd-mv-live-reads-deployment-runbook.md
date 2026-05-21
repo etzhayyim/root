@@ -102,7 +102,7 @@ cat /tmp/manual_migrations.txt | wc -l
 
 ```bash
 # Take snapshot of current schema
-RW_HOST=risingwave-staging.gftd.ai
+RW_HOST=risingwave-staging.etzhayyim.com
 RW_PORT=4566
 DATABASE_URL="postgresql://gftd_user:${RW_PASSWORD}@${RW_HOST}:${RW_PORT}/gftd"
 
@@ -180,7 +180,7 @@ psql "$DATABASE_URL" -c "SELECT version();"
 ```bash
 cd 30-graph/graph-schema
 
-export DATABASE_URL="postgresql://gftd_user:${RW_PASSWORD}@risingwave-staging.gftd.ai:4566/gftd"
+export DATABASE_URL="postgresql://gftd_user:${RW_PASSWORD}@risingwave-staging.etzhayyim.com:4566/gftd"
 export MIGRATION_DIR="./migrations"
 
 # Create a wrapper script to apply one migration at a time
@@ -257,7 +257,7 @@ chmod +x /tmp/apply_migrations.sh
 watch -n 5 'kubectl top pod -n risingwave | grep -E "compute|NAME" | head -5'
 
 # Watch checkpoint progress (every 2 min)
-watch -n 120 "psql postgresql://gftd_user:\${RW_PASSWORD}@risingwave-staging.gftd.ai:4566/gftd -c 'SHOW jobs;' | head -30"
+watch -n 120 "psql postgresql://gftd_user:\${RW_PASSWORD}@risingwave-staging.etzhayyim.com:4566/gftd -c 'SHOW jobs;' | head -30"
 
 # Monitor S3 write timeouts (in RW logs)
 kubectl logs -n risingwave -l role=compute -f 2>&1 | grep -i "timeout\|error\|write"
@@ -308,7 +308,7 @@ for nsid in "${endpoints[@]}"; do
   echo "Testing: $nsid"
   
   # Call via XRPC (example; adjust for your test harness)
-  curl -s "https://atproto.gftd.ai/xrpc/$nsid?limit=1" \
+  curl -s "https://atproto.etzhayyim.com/xrpc/$nsid?limit=1" \
     -H "Authorization: Bearer $GFTD_TEST_TOKEN" | jq . | head -10
   
   echo "---"
@@ -361,10 +361,10 @@ EOF
 
 ```bash
 # Assuming maps-collection-control-plane is running in staging
-curl -s "https://maps-collection-staging.gftd.ai/_app/meta" | jq .
+curl -s "https://maps-collection-staging.etzhayyim.com/_app/meta" | jq .
 
 # Test job listing (should use new vertex_maps_job schema)
-curl -s "https://maps-collection-staging.gftd.ai/jobs/list?status=active&limit=10" \
+curl -s "https://maps-collection-staging.etzhayyim.com/jobs/list?status=active&limit=10" \
   -H "Authorization: Bearer $GFTD_TEST_TOKEN" | jq '.jobs[] | {id, status, progress_pct}'
 ```
 
@@ -389,7 +389,7 @@ psql "$DATABASE_URL" \
 #### 4.1 Prod Backup & Baseline
 
 ```bash
-export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.gftd.ai:4566/gftd"
+export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/gftd"
 
 # Full schema backup
 pg_dump -s "$DATABASE_URL" > /tmp/schema_backup_$(date +%Y%m%d_%H%M%S).sql
@@ -418,8 +418,8 @@ echo "✓ Backups uploaded to S3"
 kubectl -n risingwave get pods -o wide | grep -E "compute|NAME"
 
 # Check PDS & AppView are responding
-curl -s https://atproto.gftd.ai/xrpc/com.atproto.server.describeServer | jq '.availableUserDomains | length'
-curl -s https://appview.gftd.ai/_app/meta | jq '.appid'
+curl -s https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer | jq '.availableUserDomains | length'
+curl -s https://appview.etzhayyim.com/_app/meta | jq '.appid'
 
 # Confirm Hyperdrive is healthy
 psql "$DATABASE_URL" -c "SELECT COUNT(*) as table_count FROM information_schema.tables WHERE table_schema='public';" | grep -o '[0-9]*'
@@ -458,8 +458,8 @@ Changes:
 - 649 concordance systems
 
 Monitoring:
-- RW cluster: https://monitoring.gftd.ai/risingwave
-- PDS health: https://atproto.gftd.ai/xrpc/com.atproto.server.describeServer
+- RW cluster: https://monitoring.etzhayyim.com/risingwave
+- PDS health: https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer
 - Alerts: Slack #platform-deploys
 
 Rollback: If migration fails, reverting to backup (EST 30 min)
@@ -472,7 +472,7 @@ slack --channel platform-deploys < /tmp/deploy_announcement.txt
 #### 5.2 Apply Migrations (Using Same Serial Script)
 
 ```bash
-export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.gftd.ai:4566/gftd"
+export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/gftd"
 
 cd /repo
 git fetch origin codex/gftd-mv-live-reads
@@ -499,11 +499,11 @@ kubectl logs -n risingwave -l role=compute -f 2>&1 | tee /tmp/rw_logs_$(date +%Y
 # Terminal 2: Query health checks every 30 sec
 for i in {1..600}; do
   echo "=== Check $i ($(date)) ==="
-  psql postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.gftd.ai:4566/gftd \
+  psql postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/gftd \
     -c "SELECT COUNT(*) as migrations_applied FROM kysely_migration WHERE migration LIKE '202604%';"
   
   # Check PDS responding
-  curl -s https://atproto.gftd.ai/xrpc/com.atproto.server.describeServer > /dev/null 2>&1 && echo "PDS: OK" || echo "PDS: UNREACHABLE ⚠"
+  curl -s https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer > /dev/null 2>&1 && echo "PDS: OK" || echo "PDS: UNREACHABLE ⚠"
   
   sleep 30
 done
@@ -578,7 +578,7 @@ test_cases=(
 
 for endpoint in "${test_cases[@]}"; do
   echo "Testing: $endpoint"
-  curl -s "https://atproto.gftd.ai/xrpc/${endpoint}" \
+  curl -s "https://atproto.etzhayyim.com/xrpc/${endpoint}" \
     -H "Authorization: Bearer $GFTD_PROD_TOKEN" | jq '.error // .records | length' | head -5
   echo "---"
 done
@@ -692,13 +692,13 @@ aws s3 cp /tmp/incident.txt s3://gftd-incidents/$(date +%Y/%m/%d)/
 
 ```bash
 # Staging
-export DATABASE_URL="postgresql://gftd_user:${RW_STAGING_PASSWORD}@risingwave-staging.gftd.ai:4566/gftd"
-export RW_HOST=risingwave-staging.gftd.ai
+export DATABASE_URL="postgresql://gftd_user:${RW_STAGING_PASSWORD}@risingwave-staging.etzhayyim.com:4566/gftd"
+export RW_HOST=risingwave-staging.etzhayyim.com
 export GFTD_TEST_TOKEN="<staging-bearer-token>"
 
 # Production
-export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.gftd.ai:4566/gftd"
-export RW_HOST=risingwave.gftd.ai
+export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/gftd"
+export RW_HOST=risingwave.etzhayyim.com
 export GFTD_PROD_TOKEN="<prod-bearer-token>"
 ```
 
@@ -713,9 +713,9 @@ force_two_phase_agg = true        -- Already set system-wide (safe default)
 
 ### Monitoring Dashboards
 
-- RW Cluster: https://monitoring.gftd.ai/risingwave
-- PDS Health: https://monitoring.gftd.ai/pds
-- AppView: https://monitoring.gftd.ai/appview
+- RW Cluster: https://monitoring.etzhayyim.com/risingwave
+- PDS Health: https://monitoring.etzhayyim.com/pds
+- AppView: https://monitoring.etzhayyim.com/appview
 - Alerts: Slack `#platform-alerts`
 
 ---

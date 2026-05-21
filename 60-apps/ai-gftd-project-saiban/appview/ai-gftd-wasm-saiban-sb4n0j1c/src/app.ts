@@ -164,7 +164,7 @@ async function cmdCreateJiken(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   // Cross-actor: notify hanrei to link case law
   if (title) {
     sdk.pds.dispatch({ type: "magatama.invoke", payload: {
-      did: "did:web:hanrei.gftd.ai",
+      did: "did:web:hanrei.etzhayyim.com",
       method: "ai.gftd.hanrei.searchCases",
       params: JSON.stringify({ query: title, caseType }),
     }});
@@ -173,7 +173,7 @@ async function cmdCreateJiken(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   const lawfirmCaseId = str(req.lawfirmCaseId);
   if (lawfirmCaseId) {
     sdk.pds.dispatch({ type: "magatama.invoke", payload: {
-      did: "did:web:lawfirm.gftd.ai",
+      did: "did:web:lawfirm.etzhayyim.com",
       method: "ai.gftd.apps.lawfirm.notifyLinkedCase",
       params: JSON.stringify({ jikenId: id, lawfirmCaseId }),
     }});
@@ -305,7 +305,7 @@ async function cmdScheduleTrialEvent(sdk: HostSDK, payload: Uint8Array): Promise
   // Cross-actor: notify lawfirm of trial event
   if (jikenId) {
     sdk.pds.dispatch({ type: "magatama.invoke", payload: {
-      did: "did:web:lawfirm.gftd.ai",
+      did: "did:web:lawfirm.etzhayyim.com",
       method: "ai.gftd.apps.lawfirm.notifyTrialEvent",
       params: JSON.stringify({ jikenId, eventType, scheduledAt }),
     }});
@@ -433,7 +433,7 @@ const inboxBuf = createInboxBuffer();
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence(`did:web:${appId}.gftd.ai`, cadenceState, inboxBuf);
+  const cadence = await resolveHeartbeatCadence(`did:web:${appId}.etzhayyim.com`, cadenceState, inboxBuf);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
   if (actions.length === 1) actions.push({ action: "noop", mood: cadence.mood, ts });
   return { ok: true, actions };

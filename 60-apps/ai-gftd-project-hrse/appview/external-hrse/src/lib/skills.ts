@@ -1,4 +1,4 @@
-// @gftdcojp/ai-gftd-hrse#SkillCategories
+// @etzhayyim/ai-gftd-hrse#SkillCategories
 // Technical Skills Constants for Job Seeker Profiles
 
 export const SKILL_LEVELS = ["A", "B", "C", "D", "E"] as const;

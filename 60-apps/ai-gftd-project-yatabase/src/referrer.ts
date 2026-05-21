@@ -34,8 +34,8 @@ const SOURCE_MAP: Array<[string, string]> = [
   ["mcp.so",              "mcp-so"],
   ["pulsemcp.com",        "pulsemcp"],
   ["mcpservers.org",      "mcpservers"],
-  ["mcp.gftd.ai",         "mcp-internal"],
-  ["yatabase.gftd.ai",    "direct"],     // self-referral → direct
+  ["mcp.etzhayyim.com",         "mcp-internal"],
+  ["yatabase.etzhayyim.com",    "direct"],     // self-referral → direct
   ["github.com",          "github"],
   ["news.ycombinator.com","hackernews"],
   ["ycombinator.com",     "hackernews"],

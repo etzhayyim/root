@@ -2,12 +2,12 @@
   "runEnabled": true,
   "seedUrls": [
     {
-      "url": "https://gftd.ai",
+      "url": "https://etzhayyim.com",
       "maxDepth": 1
     }
   ],
   "domains": [
-    "gftd.ai"
+    "etzhayyim.com"
   ],
   "ips": [
     "1.1.1.1"

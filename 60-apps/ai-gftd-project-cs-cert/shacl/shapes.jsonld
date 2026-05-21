@@ -1,6 +1,6 @@
 {
   "@context": [
-    "https://resources.gftd.ai/ontology/cs-cert/context.jsonld",
+    "https://resources.etzhayyim.com/ontology/cs-cert/context.jsonld",
     {
       "sh": "http://www.w3.org/ns/shacl#",
       "xsd": "http://www.w3.org/2001/XMLSchema#"

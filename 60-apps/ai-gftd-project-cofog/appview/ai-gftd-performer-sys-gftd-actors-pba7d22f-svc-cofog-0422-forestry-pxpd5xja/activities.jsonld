@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/2/2/forestry/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/2/2/forestry/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Forest Resource Survey and Conservation Process",
       "description": "The administrative process of surveying forest health, coordinating reforestation projects, and monitoring logging permit compliance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/2/2/forestry"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/2/2/forestry"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:apps.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:apps.etzhayyim.com",
   "accent": "#8b5cf6",
   "component": {
     "build": {
@@ -8,7 +8,7 @@
       "entrypoint": "src/app.ts"
     },
     "env": {
-      "DISPATCHER_URL": "https://dispatcher.gftd.ai"
+      "DISPATCHER_URL": "https://dispatcher.etzhayyim.com"
     },
     "framework": "ts-thin-edge",
     "path": "src/app.ts"
@@ -80,7 +80,7 @@
   "project": "apps",
   "routes": [
     {
-      "host": "apps.gftd.ai",
+      "host": "apps.etzhayyim.com",
       "paths": [
         "/"
       ],

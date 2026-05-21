@@ -41,9 +41,9 @@ def _doc_with_two_ai_images_under_one_panel() -> dict:
                 {"data": {"_nid": "pnl-1", "type": "panel",
                           "_panelChildren": ["img-a", "img-b"]}},
                 {"data": {"_nid": "img-a", "type": "ai-image",
-                          "_genImageUrl": "https://mangaka.gftd.ai/blob/cid-a?did=anonymous"}},
+                          "_genImageUrl": "https://mangaka.etzhayyim.com/blob/cid-a?did=anonymous"}},
                 {"data": {"_nid": "img-b", "type": "ai-image",
-                          "_genImageUrl": "https://mangaka.gftd.ai/blob/cid-b?did=anonymous"}},
+                          "_genImageUrl": "https://mangaka.etzhayyim.com/blob/cid-b?did=anonymous"}},
                 # Unrelated nodes that must NOT be touched.
                 {"data": {"_nid": "txt-1", "type": "text", "text": "hello"}},
             ],

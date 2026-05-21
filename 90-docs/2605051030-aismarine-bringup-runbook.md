@@ -20,13 +20,13 @@ related:
 # aismarine bring-up runbook
 
 **Status**: active — 2026-05-05
-**Design source-of-truth**: [ADR-2605011500](/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/90-docs/adr/2605011500-maps-aismarine-pipeline.md)
+**Design source-of-truth**: [ADR-2605011500](/Users/junkawasaki/github/etzhayyim-root/90-docs/adr/2605011500-maps-aismarine-pipeline.md)
 
 ## Purpose
 
 PR-A〜PR-E で実装した MarineTraffic 相当の AIS vessel-tracking pipeline を
-本番 (RisingWave + Vultr K8s + maps.gftd.ai CF Worker + kami-geo Svelte) に
-順次投入し、`maps.gftd.ai` 上で vessel layer が live になるまでの operator 手順
+本番 (RisingWave + Vultr K8s + maps.etzhayyim.com CF Worker + kami-geo Svelte) に
+順次投入し、`maps.etzhayyim.com` 上で vessel layer が live になるまでの operator 手順
 を固定する。
 
 責務境界は 4 つ:
@@ -51,8 +51,8 @@ export GFTD_TOKEN='sk_live_...'
 
 # aisstream.io API key (free tier; sign up at https://aisstream.io)
 # Once obtained, register to macOS Keychain (Root-Only Rule):
-security add-generic-password -s gftd.aisstream -a API_KEY -w '<api-key>' -U
-# Mirror to 1Password 'Gftd Japan株式会社' vault, title: gftd.aisstream/API_KEY
+security add-generic-password -s etzhayyim.comsstream -a API_KEY -w '<api-key>' -U
+# Mirror to 1Password 'Gftd Japan株式会社' vault, title: etzhayyim.comsstream/API_KEY
 ```
 
 ### Required cluster context
@@ -68,7 +68,7 @@ kubectl get ns mitama-udf >/dev/null         # bpmn-dispatcher ClusterIP target
 - Node.js ≥ 20 / pnpm 9.x / `gftd` CLI installed
 - Python 3.11 / `uv` (for primitive tests)
 - Docker Buildx with linux/amd64 emulation
-- `gh` CLI authenticated to `ghcr.io/gftdcojp`
+- `gh` CLI authenticated to `ghcr.io/etzhayyim`
 
 ## Step-by-step bring-up
 
@@ -134,7 +134,7 @@ uv run pytest -q tests/test_aismarine_pure_helpers.py
 cd 20-actors/magatama/py
 TAG="0.3.27-202605051030-amd64"
 docker buildx build --platform linux/amd64 \
-  -t ghcr.io/gftdcojp/pymagatama:$TAG --push .
+  -t ghcr.io/etzhayyim/pymagatama:$TAG --push .
 
 # Roll out zeebe-worker
 helm -n mitama-udf upgrade zeebe-worker \
@@ -178,7 +178,7 @@ The new consumer requires `websockets==13.1` + `aiohttp==3.10.10` (added to
 ```bash
 cd 60-apps/ai-gftd-project-maps/bulk-ingest
 docker buildx build --platform linux/amd64 \
-  -t ghcr.io/gftdcojp/maps-bulk-ingest:1.3.0 --push .
+  -t ghcr.io/etzhayyim/maps-bulk-ingest:1.3.0 --push .
 ```
 
 ### 6. Deploy + scale the aismarine consumer
@@ -189,7 +189,7 @@ kubectl apply -f 60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-aismari
 
 # Inject AIS_STREAM_API_KEY from Keychain.
 kubectl -n maps-bulk-ingest create secret generic aismarine-credentials \
-  --from-literal=AIS_STREAM_API_KEY="$(security find-generic-password -s gftd.aisstream -a API_KEY -w)" \
+  --from-literal=AIS_STREAM_API_KEY="$(security find-generic-password -s etzhayyim.comsstream -a API_KEY -w)" \
   --dry-run=client -o yaml | kubectl apply -f -
 
 # bpmn-dispatcher-auth secret already exists (used by other workers); confirm:
@@ -207,7 +207,7 @@ kubectl -n maps-bulk-ingest rollout status deploy/bulk-ingest-aismarine --timeou
 ```bash
 cd 60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6
 gftd build       # bundles src/app.ts (XRPC) + svelte/build (overlay)
-gftd deploy      # account-level CF Worker, maps.gftd.ai
+gftd deploy      # account-level CF Worker, maps.etzhayyim.com
 ```
 
 ## Smoke verification (first 30 minutes)
@@ -258,7 +258,7 @@ psql "$DATABASE_URL" -c \
 
 ```bash
 # Singapore Strait — busiest waterway globally.
-curl -s 'https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.aismarine.queryVesselsBbox?bbox=103.6&bbox=1.0&bbox=104.2&bbox=1.5&limit=100' \
+curl -s 'https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.aismarine.queryVesselsBbox?bbox=103.6&bbox=1.0&bbox=104.2&bbox=1.5&limit=100' \
   | jq '.total, .features | length'
 # Expected: total > 50 within 10 min of consumer start.
 ```
@@ -269,7 +269,7 @@ curl -s 'https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.aismarine.queryVesselsBbox?
 # Pick any MMSI from S2.
 MMSI=$(psql "$DATABASE_URL" -tAc \
   "SELECT mmsi FROM mv_vessel_latest_position ORDER BY ts_ms DESC LIMIT 1")
-curl -s "https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.aismarine.getVesselDetail?mmsi=$MMSI" \
+curl -s "https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.aismarine.getVesselDetail?mmsi=$MMSI" \
   | jq '.vessel.mmsi, (.recentTrack | length)'
 # Expected: same MMSI + > 0 track points
 ```
@@ -290,7 +290,7 @@ psql "$DATABASE_URL" -c \
 
 ### S7. Frontend vessel layer
 
-Navigate to `https://maps.gftd.ai/` in a browser:
+Navigate to `https://maps.etzhayyim.com/` in a browser:
 
 - zoom 0–7: blue translucent hex polygons appear over Singapore Strait,
   English Channel, Tokyo Bay, etc. (density layer)

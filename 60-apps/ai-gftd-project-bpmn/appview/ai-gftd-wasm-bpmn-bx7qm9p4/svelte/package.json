@@ -1,5 +1,5 @@
 {
-  "name": "@gftdcojp/bpmn-frontend",
+  "name": "@etzhayyim/bpmn-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,7 +19,7 @@
     "vite": "^6.4.2"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
     "bpmn-js": "^17.11.1",
     "lucide-svelte": "^0.460.1"
   },

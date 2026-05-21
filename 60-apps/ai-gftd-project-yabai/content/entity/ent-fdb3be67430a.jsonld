@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-fdb3be67430a",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fdb3be67430a",
   "entityId": "ent-fdb3be67430a",
   "canonicalName": "товариство з обмеженою відповідальністю \"тд ідєалпрод\"",
   "aliases": [

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-98ee1cbae662",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-98ee1cbae662",
   "entityId": "ent-98ee1cbae662",
   "canonicalName": "captain dynasty shipping l.l.c",
   "aliases": [

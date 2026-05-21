@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Protocol canvas card for ameno.gftd.ai. Returns the home card metadata (title, description, model picker, recent history snippet). Pure compute on CF Worker edge — no DB access.",
+      "description": "Protocol canvas card for ameno.etzhayyim.com. Returns the home card metadata (title, description, model picker, recent history snippet). Pure compute on CF Worker edge — no DB access.",
       "output": {
         "encoding": "application/json",
         "schema": {

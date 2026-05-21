@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:cowork-graph.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:cowork-graph.etzhayyim.com",
   "name": "cowork-graph",
   "nanoid": "c0w0rkg1",
   "performerType": "service",
@@ -50,7 +50,7 @@
   "deploy": {},
   "routes": [
     {
-      "host": "cowork-graph.gftd.ai",
+      "host": "cowork-graph.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }

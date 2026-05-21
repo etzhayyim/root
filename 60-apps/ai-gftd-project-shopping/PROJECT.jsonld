@@ -2,7 +2,7 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://gftd.ai/schemas/",
+      "gftd": "https://etzhayyim.com/schemas/",
       "capabilities": "gftd:capabilities",
       "survivalIndicators": "gftd:survivalIndicators",
       "scheduler": "gftd:scheduler",
@@ -21,11 +21,11 @@
   "identifier": "ai-gftd-project-shopping",
   "name": "ai gftd project shopping",
   "status": "Active",
-  "description": "okaimono.gftd.ai の AI自動運営EC（販売・発送・仕入れ・CS）向け設計を先行実装するプロジェクト。",
+  "description": "okaimono.etzhayyim.com の AI自動運営EC（販売・発送・仕入れ・CS）向け設計を先行実装するプロジェクト。",
   "capabilities": {
     "@type": "DefinedTermSet",
     "name": "Capabilities",
-    "description": "okaimono.gftd.ai のAI運営基盤が担う能力（CV-1）",
+    "description": "okaimono.etzhayyim.com のAI運営基盤が担う能力（CV-1）",
     "terms": [
       {
         "@type": "DefinedTerm",
@@ -80,7 +80,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

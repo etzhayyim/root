@@ -34,10 +34,10 @@ From `50-infra/cloudflare/workers/atproto/wrangler.jsonc` + `60-apps/ai-gftd-pro
 | XRPC NSID | gftd handler | Storage touched | RW gap impact |
 |---|---|---|---|
 | `com.atproto.server.createAccount` | `handlers/register.ts` | D1 (passkey) + D1 (keys) + RW INSERT `vertex_repo_commit` genesis | None. INSERT-only on RW side |
-| `com.atproto.server.createSession` | `AUTH_SERVICE` binding → authn.gftd.ai Worker | D1 (session row) | None. D1 is full OLTP |
+| `com.atproto.server.createSession` | `AUTH_SERVICE` binding → authn.etzhayyim.com Worker | D1 (session row) | None. D1 is full OLTP |
 | `com.atproto.server.refreshSession` | AUTH_SERVICE | D1 UPDATE + ON CONFLICT on refresh_jti | None (D1) |
 | `com.atproto.server.getServiceAuth` | AUTH_SERVICE | D1 read + ES256 sign with KEK-unwrapped key | None |
-| `com.atproto.identity.resolveHandle` | PLC_DIRECTORY service binding (`plc.gftd.ai` D1) or DNS TXT | D1 lookup | None |
+| `com.atproto.identity.resolveHandle` | PLC_DIRECTORY service binding (`plc.etzhayyim.com` D1) or DNS TXT | D1 lookup | None |
 | `com.atproto.repo.createRecord` / `putRecord` / `deleteRecord` | `handlers/pds/repo.ts` + `core.ts` commit pipeline | RW `vertex_repo_commit` INSERT + `vertex_repo_record` **delete-then-insert** + `vertex_repo_block` INSERT + firehose seq emit | **Works**. See `core.ts:2998` |
 | `com.atproto.repo.applyWrites` | same | batched same as above | Works. ADR-0041 content-addressed PK handles parallel bursts |
 | `com.atproto.repo.getRecord` | repo.ts | RW SELECT `vertex_repo_record WHERE did,collection,rkey` | None (snapshot read) |
@@ -154,7 +154,7 @@ The tranquil POC proved that **RW is the constraint, not the choice of PDS imple
 - **Lexicon**: `app.bsky.*` / `com.atproto.*` + custom `ai.gftd.*`. Bluesky client ignores unknown NSID (forward-compat). ai.gftd clients use `@gftd/wproto` which wraps AtpAgent.
 - **Blob upload**: `com.atproto.repo.uploadBlob` → B2 PUT works. Client reads blob ref from AT record normally.
 
-**Bluesky social-app would connect to gftd PDS transparently if we registered the `atproto.gftd.ai` endpoint.** The RW gaps are internal storage concerns that never leak to the client.
+**Bluesky social-app would connect to gftd PDS transparently if we registered the `atproto.etzhayyim.com` endpoint.** The RW gaps are internal storage concerns that never leak to the client.
 
 ## Actions
 

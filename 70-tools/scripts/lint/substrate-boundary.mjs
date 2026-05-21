@@ -44,7 +44,7 @@ const allowedPrefixes = [
   "50-infra/etzhayyim-did-web/",               // CF Worker
   "50-infra/etzhayyim-pds-did-web/",           // CF Worker
   "50-infra/cloudflare/",                      // CF Workers stack
-  "50-infra/vultr/",                           // gftd.ai legacy (ADR-2605191346 §2)
+  "50-infra/vultr/",                           // etzhayyim.com legacy (ADR-2605191346 §2)
   "50-infra/l2-anchor-contract/",              // Solidity
   // Tests + archives.
   "_archive/",

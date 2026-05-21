@@ -1,5 +1,5 @@
 {
-  "name": "@gftdcojp/yotei-frontend",
+  "name": "@etzhayyim/yotei-frontend",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -19,7 +19,7 @@
     "vite": "^6.4.2"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "workspace:*"
+    "@etzhayyim/design-system": "workspace:*"
   },
   "type": "module"
 }

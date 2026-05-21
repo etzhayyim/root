@@ -16,7 +16,7 @@ worker:
 ```sh
 cd 20-actors/magatama/py
 docker buildx build --platform linux/arm64 \
-  -t ghcr.io/gftdcojp/pymagatama:yoro-vector-embedding-20260427-arm64 \
+  -t ghcr.io/etzhayyim/pymagatama:yoro-vector-embedding-20260427-arm64 \
   --push .
 ```
 

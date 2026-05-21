@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/01/1/1/executive-legislative",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/1/1/executive-legislative",
       "type": "dodaf:Capability",
       "name": "Executive and Legislative Organs Management",
       "description": "Functional capability for managing executive and legislative organs, including policy formulation and law-making processes. Classification: COFOG Division 01, Group 1, Class 1.",

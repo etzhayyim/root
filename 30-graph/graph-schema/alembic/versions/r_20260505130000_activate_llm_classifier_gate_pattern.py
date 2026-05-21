@@ -148,13 +148,13 @@ UP = [{'sql': '\n'
          '      NULL\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/llm_classifier_gate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/llm_classifier_gate-v1',
                  'llm_classifier_gate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"\n'
                  '  id="Definitions_llm_classifier_gate"\n'
                  '  name="llm_classifier_gate"\n'
-                 '  namespace="https://gftd.ai/dmn/llm">\n'
+                 '  namespace="https://etzhayyim.com/dmn/llm">\n'
                  '  <decision id="llm_classifier_gate" name="llm_classifier_gate">\n'
                  '    <decisionTable id="DecisionTable_llm_classifier_gate" hitPolicy="FIRST">\n'
                  '      <input id="Input_llmOk">\n'

@@ -23,7 +23,7 @@
                 "properties": {
                   "projectorDid": {
                     "type": "string",
-                    "description": "Override projector DID (default did:web:kyber-projector.gftd.ai)"
+                    "description": "Override projector DID (default did:web:kyber-projector.etzhayyim.com)"
                   },
                   "projectorNanoid": {
                     "type": "string",

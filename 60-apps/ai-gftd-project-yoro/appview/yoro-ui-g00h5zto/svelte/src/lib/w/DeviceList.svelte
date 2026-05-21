@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, Button } from '@gftdcojp/design-system';
+	import { Badge, Button } from '@etzhayyim/design-system';
 	import { listDevices, ensureDevice, revokeDevice, renameDevice, replenishOtpks } from '$lib/atproto-agent';
 	import { ensureSignalIdentity, hasIdentity } from '$lib/atproto-agent';
 	import { getCurrentDID } from '$lib/atproto-agent';

@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#MatchingNotificationSteps
+// @etzhayyim/cyber-freelance#MatchingNotificationSteps
 // Matching Notification関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

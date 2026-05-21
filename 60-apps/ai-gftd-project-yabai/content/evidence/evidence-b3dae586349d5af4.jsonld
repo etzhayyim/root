@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "gftd:YabaiEvidence",
-  "@id": "https://yabai.gftd.ai/content/evidence/evidence-b3dae586349d5af4",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-b3dae586349d5af4",
   "evidenceId": "evidence-b3dae586349d5af4",
   "entityId": "ent-dc51bf520002",
   "category": "AntiSocialAssociation",

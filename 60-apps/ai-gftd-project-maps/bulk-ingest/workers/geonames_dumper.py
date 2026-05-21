@@ -136,20 +136,20 @@ def _row(fields: list[str]) -> dict | None:
         return None
     label = _classify_geonames(fcl, fcode)
     return {
-        "vertex_id": f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.spot/geonames-{gid}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.spot/geonames-{gid}",
         "rkey": f"geonames-{gid}",
-        "repo": "did:web:maps.gftd.ai",
+        "repo": "did:web:maps.etzhayyim.com",
         "label": label,
-        "did": "did:web:maps.gftd.ai",
+        "did": "did:web:maps.etzhayyim.com",
         "collection": "ai.gftd.apps.maps.spot",
         "name": name,
         "lat": lat,
         "lng": lon,
-        "source_did": "did:web:maps.gftd.ai:registry:geonames:bulk",
+        "source_did": "did:web:maps.etzhayyim.com:registry:geonames:bulk",
         "category": f"geonames-{fcl.lower() or 'other'}",
         "description": (f"{fcode} pop={population} cc={country}")[:500],
         "country": country[:8] if country else None,
-        "owner_did": "did:web:maps.gftd.ai",
+        "owner_did": "did:web:maps.etzhayyim.com",
         "sensitivity_ord": 0,
         "created_date": datetime.now(timezone.utc).date().isoformat(),
     }

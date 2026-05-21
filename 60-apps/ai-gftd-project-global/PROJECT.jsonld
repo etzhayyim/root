@@ -5,7 +5,7 @@
   "identifier": "ai-gftd-project-global",
   "status": "In Progress",
   "description": "Global resource flow visualization platform using App actors, graph theory, and systems thinking. Aggregates worldwide resource statistics by year, infers time-series flows, and renders interactive 3D visualizations with Svelte Threlte (Three.js).",
-  "url": "https://global.gftd.ai",
+  "url": "https://global.etzhayyim.com",
   "hasPart": [
     {
       "@type": "CreativeWork",
@@ -15,17 +15,17 @@
     {
       "@type": "WebApplication",
       "name": "Global Systems View",
-      "url": "https://global.gftd.ai/systems"
+      "url": "https://global.etzhayyim.com/systems"
     },
     {
       "@type": "WebApplication",
       "name": "Resource Flow Visualization",
-      "url": "https://global.gftd.ai/resource-flow"
+      "url": "https://global.etzhayyim.com/resource-flow"
     },
     {
       "@type": "WebApplication",
       "name": "Resource Explorer",
-      "url": "https://global.gftd.ai/resources"
+      "url": "https://global.etzhayyim.com/resources"
     }
   ],
   "component": [
@@ -67,7 +67,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",
@@ -105,14 +105,14 @@
             {
               "@type": "CreativeWork",
               "name": "Production access verification",
-              "description": "Verify DNS and HTTP reachability for global.gftd.ai endpoints and record status (site/routes reachable; /api/mcp expects POST).",
+              "description": "Verify DNS and HTTP reachability for global.etzhayyim.com endpoints and record status (site/routes reachable; /api/mcp expects POST).",
               "dueDate": "2026-02-15",
               "status": "Done"
             },
             {
               "@type": "CreativeWork",
               "name": "Production smoke against global domain",
-              "description": "Verify resource-flow and /api/mcp behavior against https://global.gftd.ai.",
+              "description": "Verify resource-flow and /api/mcp behavior against https://global.etzhayyim.com.",
               "dueDate": "2026-02-17",
               "status": "Done"
             },
@@ -133,7 +133,7 @@
             {
               "@type": "CreativeWork",
               "name": "Resource collector SpinApp actor",
-              "description": "SpinApp component that fetches global resource data from World Bank API, normalizes to JSON-LD, and publishes to gftdcojp/resources repo.",
+              "description": "SpinApp component that fetches global resource data from World Bank API, normalizes to JSON-LD, and publishes to etzhayyim/resources repo.",
               "dueDate": "2026-02-20",
               "status": "In Progress"
             },
@@ -146,8 +146,8 @@
             },
             {
               "@type": "CreativeWork",
-              "name": "Public repo sync (gftdcojp/resources)",
-              "description": "Export collected JSON-LD to gftdcojp/resources content/ directory via collector.export_jsonld and git push.",
+              "name": "Public repo sync (etzhayyim/resources)",
+              "description": "Export collected JSON-LD to etzhayyim/resources content/ directory via collector.export_jsonld and git push.",
               "dueDate": "2026-02-24",
               "status": "Planned"
             }
@@ -159,7 +159,7 @@
                 "name": "global-resource-collection",
                 "description": "Periodic collection of global resource data from World Bank API",
                 "cron": "0 */6 * * *",
-                "targetUrl": "https://1.gftd.ai/scheduler/trigger",
+                "targetUrl": "https://1.etzhayyim.com/scheduler/trigger",
                 "method": "POST",
                 "enabled": true
               },
@@ -167,7 +167,7 @@
                 "name": "global-resource-jsonld-export",
                 "description": "Export collected resources as JSON-LD after each collection run",
                 "cron": "30 */6 * * *",
-                "targetUrl": "https://{nanoid}.gftd.ai/api/grpc",
+                "targetUrl": "https://{nanoid}.etzhayyim.com/api/grpc",
                 "method": "POST",
                 "body": {
                   "jsonrpc": "2.0",

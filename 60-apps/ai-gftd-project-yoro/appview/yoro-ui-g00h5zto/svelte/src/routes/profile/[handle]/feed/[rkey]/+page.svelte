@@ -6,8 +6,8 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { RichText } from '$lib/w';
 	import { getFeedGenerator, getFeed, getAuthorProfile } from '$lib/atproto-agent';
 	import type { FeedGeneratorView, FeedItem } from '$lib/atproto-agent';

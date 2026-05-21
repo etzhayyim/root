@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@gftdcojp/kami-engine-sdk':
+      '@etzhayyim/kami-engine-sdk':
         specifier: file:../../../../../packages/engine/kami-engine/kami-engine-sdk
         version: file:../../../../../packages/engine/kami-engine/kami-engine-sdk(@pixiv/three-vrm@3.5.1(three@0.170.0))(svelte@5.55.1)(three@0.170.0)
       '@pixiv/three-vrm':
@@ -201,7 +201,7 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@gftdcojp/kami-engine-sdk@file:../../../../../packages/engine/kami-engine/kami-engine-sdk':
+  '@etzhayyim/kami-engine-sdk@file:../../../../../packages/engine/kami-engine/kami-engine-sdk':
     resolution: {directory: ../../../../../packages/engine/kami-engine/kami-engine-sdk, type: directory}
     peerDependencies:
       '@pixiv/three-vrm': '>=3.0.0'
@@ -777,7 +777,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.12':
     optional: true
 
-  '@gftdcojp/kami-engine-sdk@file:../../../../../packages/engine/kami-engine/kami-engine-sdk(@pixiv/three-vrm@3.5.1(three@0.170.0))(svelte@5.55.1)(three@0.170.0)':
+  '@etzhayyim/kami-engine-sdk@file:../../../../../packages/engine/kami-engine/kami-engine-sdk(@pixiv/three-vrm@3.5.1(three@0.170.0))(svelte@5.55.1)(three@0.170.0)':
     dependencies:
       '@pixiv/three-vrm': 3.5.1(three@0.170.0)
       svelte: 5.55.1

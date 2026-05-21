@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:hoge.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:hoge.etzhayyim.com",
   "convoSystemPrompt": "You are hoge agent. AssemblyScript WASM execution validation — deploy and invoke compiled WASM contracts. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"

@@ -41,7 +41,7 @@ async function isSystemAdmin(): Promise<boolean> {
 }
 
 /**
- * @gftdcojp/cyber-freelance#LandingPage
+ * @etzhayyim/cyber-freelance#LandingPage
  * Toptalスタイルのランディングページ
  * Apple HIG準拠：タッチターゲット44px、認知負荷最小化、Fittsの法則
  */

@@ -21,7 +21,7 @@ CutStage = Literal[
 class WorkState(TypedDict, total=False):
     """One work (series). Used by createWork / listWorks / addEpisode."""
     work_id: str
-    work_did: str           # did:web:animeka.gftd.ai:work:{id}
+    work_did: str           # did:web:animeka.etzhayyim.com:work:{id}
     title: str
     description: str
     owner_did: str

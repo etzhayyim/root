@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/05/5/0/r-d-environmental-protection",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/05/5/0/r-d-environmental-protection",
       "type": "dodaf:Capability",
       "name": "Environmental Protection Research and Development Capability",
       "description": "Functional capability for advancing environmental sustainability through scientific research, impact simulation, and green tech evaluation. Classification: COFOG Division 05, Group 5, Class 0.",

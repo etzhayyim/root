@@ -1,6 +1,6 @@
 # ai-gftd-project-fm
 
-Investment fund domain baseline for `fund.gftd.ai`.
+Investment fund domain baseline for `fund.etzhayyim.com`.
 
 - Public domains covered by this seed:
   - `sovereign_fund`
@@ -20,8 +20,8 @@ Investment fund domain baseline for `fund.gftd.ai`.
 ## Why this exists
 
 `public_fund` is a separate crowdfunding / budget-disbursement domain on
-`public-fund.gftd.ai`. Investment-fund coverage should be bootstrapped from
-`fund.gftd.ai` records, not only from `public_fund`.
+`public-fund.etzhayyim.com`. Investment-fund coverage should be bootstrapped from
+`fund.etzhayyim.com` records, not only from `public_fund`.
 
 ## Seed
 

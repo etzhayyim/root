@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:per-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:per-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Peru (República del Perú) AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -92,7 +92,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "per-state.gftd.ai",
+      "host": "per-state.etzhayyim.com",
       "paths": [
         "/"
       ],

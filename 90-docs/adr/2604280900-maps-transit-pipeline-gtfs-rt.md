@@ -32,7 +32,7 @@ related:
 
 ## Context
 
-`maps.gftd.ai` had stub dispatch for GTFS-JP (heartbeat, 1 prefecture/fire) but no per-stop timetable, no sea routes, no air routes, and no realtime delay data. Operators and riders need:
+`maps.etzhayyim.com` had stub dispatch for GTFS-JP (heartbeat, 1 prefecture/fire) but no per-stop timetable, no sea routes, no air routes, and no realtime delay data. Operators and riders need:
 
 - **Next departure at stop X** (bus/train schedule, sub-50ms)
 - **Realtime delays at stop X** (GTFS-RT TripUpdate, graceful offline degradation)

@@ -2,8 +2,8 @@
 
 **Date**: 2026-04-07
 **Status**: `[DESIGN]`
-**Product**: keyboard.gftd.ai
-**Sales**: okaimono.gftd.ai D2C 専売 (OEM CTO)
+**Product**: keyboard.etzhayyim.com
+**Sales**: okaimono.etzhayyim.com D2C 専売 (OEM CTO)
 
 ---
 
@@ -307,7 +307,7 @@
                                 │
     Phase 5: MP (Month 10〜)     ▼
     ┌────────────────────────────────────────────────────────────┐
-    │  Mass Production 10,000 units → okaimono.gftd.ai 販売開始   │
+    │  Mass Production 10,000 units → okaimono.etzhayyim.com 販売開始   │
     │  → CTO order → 2-week lead time → 出荷                     │
     └────────────────────────────────────────────────────────────┘
 ```
@@ -363,13 +363,13 @@
 
 **独立 USB 設計の利点**: 左右間の通信 (TRRS/serial) が不要。各半分が独立した USB HID デバイス。片方だけでも使用可能。
 
-### 8.2 keyboard.gftd.ai AI Optimization
+### 8.2 keyboard.etzhayyim.com AI Optimization
 
 ```
     User typing data (opt-in, local analysis)
         │
         ▼
-    keyboard.gftd.ai actor
+    keyboard.etzhayyim.com actor
         │
         ├── typing pattern analysis
         │   → heatmap → underused keys → layout suggestion

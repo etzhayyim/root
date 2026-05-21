@@ -1,13 +1,13 @@
 ---
 id: adr-2604231839-did-doc-custom-service-declaration
-title: "ADR: did:web:*.gftd.ai DID Doc に custom service endpoint を明示宣言 — chat.bsky.convo パターン"
+title: "ADR: did:web:*.etzhayyim.com DID Doc に custom service endpoint を明示宣言 — chat.bsky.convo パターン"
 status: active
 doc_type: adr
 topic: did-service-discovery
 authoritative: true
 last_verified: 2026-04-23
 authoritative_for:
-  - did:web:*.gftd.ai の DID Doc `service[]` 宣言規約
+  - did:web:*.etzhayyim.com の DID Doc `service[]` 宣言規約
   - `GftdActor` service type + fragment id 命名
   - 他 AT Protocol client からの actor discovery 経路
 related:
@@ -22,24 +22,24 @@ superseded_by: []
 
 # Context
 
-本 repo の `did:web:*.gftd.ai` (+ path-form) は 90+ の DID を持つ。各 DID の
+本 repo の `did:web:*.etzhayyim.com` (+ path-form) は 90+ の DID を持つ。各 DID の
 `/.well-known/did.json` は現在以下しか service endpoint を宣言していない:
 
 ```json
 {
   "service": [
     { "id": "#atprotoPds", "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://atproto.gftd.ai" }
+      "serviceEndpoint": "https://atproto.etzhayyim.com" }
   ]
 }
 ```
 
-つまり **PDS への委譲宣言のみ**。実際には各 `*.gftd.ai` Worker が自分自身の
+つまり **PDS への委譲宣言のみ**。実際には各 `*.etzhayyim.com` Worker が自分自身の
 NSID 向け XRPC (`/xrpc/ai.gftd.apps.<app>.*`) を serve しているにも関わらず、
 DID Doc を読んだ client はその事実を知る方法がない。現状 discovery は:
 
-- DNS 経由 (`<handle>.gftd.ai` に直接リクエスト) — 内部ツール / `gftd xrpc` のみ
-- PDS pipethrough 経由 (`atproto.gftd.ai/xrpc/<nsid>` → routing-gateway → 各 actor) — 暗黙
+- DNS 経由 (`<handle>.etzhayyim.com` に直接リクエスト) — 内部ツール / `gftd xrpc` のみ
+- PDS pipethrough 経由 (`atproto.etzhayyim.com/xrpc/<nsid>` → routing-gateway → 各 actor) — 暗黙
 
 のどちらかに頼っていて、**AT Protocol spec のネイティブな discovery チャネル
 である DID Doc を使っていない**。spec の `DidDocument.service[]` 機構は、まさに
@@ -65,7 +65,7 @@ DID Doc でその事実を宣言していない。結果:
 
 - **外部 AT Protocol client (`@atproto/api`, Bluesky App, 3rd party) が actor 発見不可** —
   DNS を引いて各 actor hostname を直打ちする fallback しかなく、spec 準拠の client は reach できない
-- **federation 時の interop 不完全** — 他 PDS / 他 AppView が `did:web:mangaka.gftd.ai` を
+- **federation 時の interop 不完全** — 他 PDS / 他 AppView が `did:web:mangaka.etzhayyim.com` を
   resolve しても、custom NSID `ai.gftd.mangaka.*` の endpoint が発見できない
 - **`Atproto-Proxy` header flow が未利用** — 既に PDS 側の pipethrough 実装はあるが
   DID Doc 側の service 宣言がないため形式不整合
@@ -79,7 +79,7 @@ DID Doc に明示される** べきである (既に前会話でユーザーと�
 
 # Decision
 
-全 `did:web:*.gftd.ai` (root + path-form) の DID Doc `service[]` に以下 1 entry
+全 `did:web:*.etzhayyim.com` (root + path-form) の DID Doc `service[]` に以下 1 entry
 を追加する:
 
 ```json
@@ -101,17 +101,17 @@ DID Doc に明示される** べきである (既に前会話でユーザーと�
 Root actor 例:
 
 ```json
-// did:web:mangaka.gftd.ai/.well-known/did.json
+// did:web:mangaka.etzhayyim.com/.well-known/did.json
 {
   "@context": ["https://www.w3.org/ns/did/v1", "https://w3id.org/security/multikey/v1"],
-  "id": "did:web:mangaka.gftd.ai",
+  "id": "did:web:mangaka.etzhayyim.com",
   "verificationMethod": [...],
   "authentication": [...],
   "service": [
     { "id": "#atprotoPds", "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://atproto.gftd.ai" },
+      "serviceEndpoint": "https://atproto.etzhayyim.com" },
     { "id": "#gftd_actor", "type": "GftdActor",
-      "serviceEndpoint": "https://mangaka.gftd.ai" }
+      "serviceEndpoint": "https://mangaka.etzhayyim.com" }
   ]
 }
 ```
@@ -119,15 +119,15 @@ Root actor 例:
 Path-form sub-actor (ADR-0019 / ADR-0029 準拠):
 
 ```json
-// did:web:mangaka.gftd.ai:actor:storyboard
-// path → https://mangaka.gftd.ai/actor/storyboard/did.json
+// did:web:mangaka.etzhayyim.com:actor:storyboard
+// path → https://mangaka.etzhayyim.com/actor/storyboard/did.json
 {
-  "id": "did:web:mangaka.gftd.ai:actor:storyboard",
+  "id": "did:web:mangaka.etzhayyim.com:actor:storyboard",
   "service": [
     { "id": "#atprotoPds", "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://atproto.gftd.ai" },
+      "serviceEndpoint": "https://atproto.etzhayyim.com" },
     { "id": "#gftd_actor", "type": "GftdActor",
-      "serviceEndpoint": "https://mangaka.gftd.ai" }
+      "serviceEndpoint": "https://mangaka.etzhayyim.com" }
   ]
 }
 ```
@@ -137,9 +137,9 @@ sub-actor は独立 Worker を持たないため parent の NSID dispatcher が�
 
 ## Client routing semantics
 
-1. **DNS direct (既存路、継続)**: client が `https://mangaka.gftd.ai/xrpc/ai.gftd.mangaka.foo` を直接叩く
-2. **PDS pipethrough (既存路、継続)**: client が PDS に `Atproto-Proxy: did:web:mangaka.gftd.ai#gftd_actor` header 付きで送信 → PDS が DID Doc resolve → service endpoint 発見 → routing-gateway 経由で forward
-3. **DID Doc discovery (新規)**: client が `did:web:mangaka.gftd.ai` を直接 resolve → `service[].type=GftdActor` を発見 → その `serviceEndpoint` に XRPC 直送。外部 AT client が spec-native に gftd actor へ到達できる最小経路
+1. **DNS direct (既存路、継続)**: client が `https://mangaka.etzhayyim.com/xrpc/ai.gftd.mangaka.foo` を直接叩く
+2. **PDS pipethrough (既存路、継続)**: client が PDS に `Atproto-Proxy: did:web:mangaka.etzhayyim.com#gftd_actor` header 付きで送信 → PDS が DID Doc resolve → service endpoint 発見 → routing-gateway 経由で forward
+3. **DID Doc discovery (新規)**: client が `did:web:mangaka.etzhayyim.com` を直接 resolve → `service[].type=GftdActor` を発見 → その `serviceEndpoint` に XRPC 直送。外部 AT client が spec-native に gftd actor へ到達できる最小経路
 
 # Implementation Plan
 
@@ -154,7 +154,7 @@ Single commit、additive only、既存 client への影響なし。
 service: [
   {
     id: `${appDID}#atproto-pds`, type: "AtprotoPersonalDataServer",
-    serviceEndpoint: "https://atproto.gftd.ai",
+    serviceEndpoint: "https://atproto.etzhayyim.com",
     ...(caps.length > 0 ? { capabilities: caps } : {}),
     ...(appVersion ? { version: appVersion } : {}),
   },
@@ -176,10 +176,10 @@ atproto Worker が serve するケース (DNS 直打ち failback) では entry �
 ```ts
 service: [
   { id: "#atprotoPds", type: "AtprotoPersonalDataServer",
-    serviceEndpoint: "https://atproto.gftd.ai" },
+    serviceEndpoint: "https://atproto.etzhayyim.com" },
   ...(isPds
     ? [{ id: "#atprotoLabeler", type: "AtprotoLabeler",
-         serviceEndpoint: "https://atproto.gftd.ai" }]
+         serviceEndpoint: "https://atproto.etzhayyim.com" }]
     : [{ id: "#gftd_actor", type: "GftdActor",
          serviceEndpoint: `https://${hostname}` }]),
 ],
@@ -194,7 +194,7 @@ pattern で `GftdActor` entry を含める。key rotation 時の DID Doc 再生�
 ## I4. `50-infra/cloudflare/workers/atproto/src/handlers/plc/index.ts` (did:plc migration)
 
 ADR-0014 Phase 5 の did:plc migration 時に発行される DID Doc にも同じ entry を入れる
-(`plc.gftd.ai` が serve する did:plc 形式 DID Doc も同じ service taxonomy)。
+(`plc.etzhayyim.com` が serve する did:plc 形式 DID Doc も同じ service taxonomy)。
 
 ## I5. Test
 
@@ -208,16 +208,16 @@ ADR-0014 Phase 5 の did:plc migration 時に発行される DID Doc にも同�
 ## I6. Smoke (post-deploy)
 
 ```bash
-curl -s https://mangaka.gftd.ai/.well-known/did.json | jq '.service'
+curl -s https://mangaka.etzhayyim.com/.well-known/did.json | jq '.service'
 # 期待:
 # [
-#   { "id": "did:web:mangaka.gftd.ai#atproto-pds", "type": "AtprotoPersonalDataServer",
-#     "serviceEndpoint": "https://atproto.gftd.ai" },
-#   { "id": "did:web:mangaka.gftd.ai#gftd_actor", "type": "GftdActor",
-#     "serviceEndpoint": "https://mangaka.gftd.ai" }
+#   { "id": "did:web:mangaka.etzhayyim.com#atproto-pds", "type": "AtprotoPersonalDataServer",
+#     "serviceEndpoint": "https://atproto.etzhayyim.com" },
+#   { "id": "did:web:mangaka.etzhayyim.com#gftd_actor", "type": "GftdActor",
+#     "serviceEndpoint": "https://mangaka.etzhayyim.com" }
 # ]
 
-curl -s https://atproto.gftd.ai/.well-known/did.json | jq '.service[].type'
+curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type'
 # 期待: "AtprotoPersonalDataServer", "AtprotoLabeler" のみ (GftdActor なし)
 ```
 
@@ -225,14 +225,14 @@ curl -s https://atproto.gftd.ai/.well-known/did.json | jq '.service[].type'
 
 ## Positive
 
-- **Spec-native discovery**: 外部 AT Protocol client が `did:web:*.gftd.ai` を
+- **Spec-native discovery**: 外部 AT Protocol client が `did:web:*.etzhayyim.com` を
   resolve するだけで actor endpoint に到達できる。`@atproto/api`, Bluesky App,
   3rd party agent が actor service を認識可能に
 - **Federation 下地**: 他 PDS / 他 AppView が我々の actor DID を resolve した時に、
   service endpoint の位置が明確に分かる。将来の federation 拡張 (ADR-2604231811
   の extension layer taxonomy と組み合わせ) の foundation
 - **`Atproto-Proxy` header flow の正統化**: 既存の PDS pipethrough 実装が spec 規約
-  に完全準拠する。`Atproto-Proxy: did:web:mangaka.gftd.ai#gftd_actor` が意味を持つ
+  に完全準拠する。`Atproto-Proxy: did:web:mangaka.etzhayyim.com#gftd_actor` が意味を持つ
 - **ADR-2604231800 との相補性**: permission-set で "which NSID can be called" を
   discovery できたのに対し、本 ADR は "where to call them" を discovery できる。
   2 つ合わせて **認可 (what) + routing (where)** の discovery が spec-native に閉じる

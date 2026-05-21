@@ -1,13 +1,13 @@
 ---
 id: adr-2604261936-ipfs-self-hosted-vultr-b2
-title: "ADR: ipfs.gftd.ai — self-hosted Kubo on Vultr VKE with Backblaze B2 block backend"
+title: "ADR: ipfs.etzhayyim.com — self-hosted Kubo on Vultr VKE with Backblaze B2 block backend"
 status: proposed
 doc_type: adr
 topic: ipfs-self-hosted
 authoritative: true
 last_verified: 2026-04-26
 authoritative_for:
-  - ipfs.gftd.ai gateway topology
+  - ipfs.etzhayyim.com gateway topology
   - Kubo + B2 datastore split
   - IPFS pin policy alignment with PDS uploadBlob
 related:
@@ -31,7 +31,7 @@ ADR-2604261717 (`atRecordCid` field on `stakedAttestation`) のいずれも
 
 要件:
 
-1. **`ipfs.gftd.ai` を public IPFS gateway として公開**。`https://ipfs.gftd.ai/ipfs/<cid>`
+1. **`ipfs.etzhayyim.com` を public IPFS gateway として公開**。`https://ipfs.etzhayyim.com/ipfs/<cid>`
    で誰でも CID を取得できる (Cloudflare's /Pinata's gateway と同等の semantic)。
 2. **データ実体は Backblaze B2** (ADR-0048 / ADR-2604251400 の方針継続)。
    block は B2、IPFS metadata + DAG index のみ pod-local PVC。
@@ -59,7 +59,7 @@ ADR-2604261717 (`atRecordCid` field on `stakedAttestation`) のいずれも
 
 ```
 external:
-  client ─────► ipfs.gftd.ai (CF DNS, proxied)
+  client ─────► ipfs.etzhayyim.com (CF DNS, proxied)
               ─► ai-gftd-ipfs-proxy (CF Worker)
                   • /ipfs/*, /ipns/*           = public, no auth
                   • /api/v0/{cat,get,dag/get,
@@ -89,7 +89,7 @@ internal services (PDS, claim-consumer, …):
 | **PVC** `kubo-repo-0` | Vultr Block Storage HDD | `vultr-block-storage-hdd-retain` | 40 Gi (Vultr minimum; metadata fits in ~1 GiB) | levelds metadata + go-ds-s3 measure dir |
 | **caddy TLS proxy** Deployment | ns `ipfs`, replicas=2 | `caddy:2.8.4-alpine` | req 25m / 32 Mi | mirror `geth-private/40-tls-proxy.yaml` |
 | **Vultr LB** | LB :443 | `service.beta.kubernetes.io/vultr-loadbalancer-protocol=tcp` | — | terminates TLS via caddy self-signed cert |
-| **CF Worker** `ai-gftd-ipfs-proxy` | CF account | TS, single file | — | route `ipfs.gftd.ai/*`; HMAC SS binding for write paths |
+| **CF Worker** `ai-gftd-ipfs-proxy` | CF account | TS, single file | — | route `ipfs.etzhayyim.com/*`; HMAC SS binding for write paths |
 | **B2 prefix** `s3://ai-gftd-nats/ipfs/blocks/` | Bandwidth Alliance, region `us-west-004` | shares the bucket already used by RisingWave Hummock state (ADR-0048); application key in `gftd.b2` Keychain is scoped to this `bucketId` so no new key provisioning needed | — | block storage only; lifecycle = none (pinned) |
 
 ## Datastore configuration
@@ -222,7 +222,7 @@ XRPC 経路は新規追加せず、Kubo HTTP API を直接プロキシする。�
 | init-config script | `50-infra/vultr/ipfs/scripts/init-config.sh` | first-boot: `ipfs init`, swap datastore, set Gateway/HTTPHeaders |
 | CF Worker | `50-infra/cloudflare/workers/ipfs-proxy/{src/index.ts,wrangler.jsonc,package.json,tsconfig.json}` | path-based auth split |
 | CLAUDE.md | `50-infra/vultr/ipfs/CLAUDE.md` | runbook, B2 keychain refs, restore drill |
-| DNS | `ipfs.gftd.ai` CNAME → CF, route Worker | via `gftd dns-sync` |
+| DNS | `ipfs.etzhayyim.com` CNAME → CF, route Worker | via `gftd dns-sync` |
 
 **Phase 1.5 — pin integration [PROPOSED]**
 
@@ -239,7 +239,7 @@ XRPC 経路は新規追加せず、Kubo HTTP API を直接プロキシする。�
 
 **Phase 3 — federation [DEFERRED]**
 
-- `did:web:ipfs.gftd.ai` で IPFS service identity 確立
+- `did:web:ipfs.etzhayyim.com` で IPFS service identity 確立
 - AT Protocol PDS の CAR import を IPFS swarm 経由 fallback (現 HTTP 一本依存を解消)
 - Cluster sharding (multi-region に拡張、B2 single-source 維持)
 

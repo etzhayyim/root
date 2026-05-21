@@ -1,7 +1,7 @@
 {
   "@context": {
     "dodaf": "https://dodcio.defense.gov/dodaf20/",
-    "gftd": "https://gftd.ai/ontology/",
+    "gftd": "https://etzhayyim.com/ontology/",
     "schema": "https://schema.org/",
     "dct": "http://purl.org/dc/terms/"
   },
@@ -10,10 +10,10 @@
   "schema:name": "ai-gftd-project-researcher-bio-gene",
   "schema:description": "Bio/gene research operator for genomic literature intelligence, variant interpretation, multi-omics synthesis, assay planning, translational research decision support, and provenance-safe evidence delivery.",
   "gftd:domains": [
-    "bio-gene.gftd.ai",
-    "genomics.gftd.ai",
-    "variant.gftd.ai",
-    "omics.gftd.ai"
+    "bio-gene.etzhayyim.com",
+    "genomics.etzhayyim.com",
+    "variant.etzhayyim.com",
+    "omics.etzhayyim.com"
   ],
   "gftd:nanoid": "b10g3n3r",
   "hasPart": [

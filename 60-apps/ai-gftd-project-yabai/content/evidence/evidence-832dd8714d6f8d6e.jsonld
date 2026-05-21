@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "gftd:YabaiEvidence",
-  "@id": "https://yabai.gftd.ai/content/evidence/evidence-832dd8714d6f8d6e",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-832dd8714d6f8d6e",
   "evidenceId": "evidence-832dd8714d6f8d6e",
   "entityId": "ent-96ad34f0402f",
   "category": "AMLPattern",

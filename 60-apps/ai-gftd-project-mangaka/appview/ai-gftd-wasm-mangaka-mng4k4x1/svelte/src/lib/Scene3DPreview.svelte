@@ -29,7 +29,7 @@
   // Seed scene — matches the standalone shell so the two routes show
   // identical content at load time.
   const SEED_SCENE = `{
-  "@context": "https://kami.gftd.ai/mangaka-scene/v1",
+  "@context": "https://kami.etzhayyim.com/mangaka-scene/v1",
   "characters": [],
   "props": [],
   "camera": null,

@@ -83,7 +83,7 @@ RUNPOD_STATUS_URL_TPL = "https://api.runpod.ai/v2/{endpoint}/status/{job_id}"
 RUNPOD_MAX_POLLS = int(os.environ.get("RUNPOD_MAX_POLLS", "1800"))  # ≤ 30 min
 RUNPOD_POLL_SEC = float(os.environ.get("RUNPOD_POLL_SEC", "1.5"))
 
-SOURCE_DID = "did:web:maps.gftd.ai:street_view"
+SOURCE_DID = "did:web:maps.etzhayyim.com:street_view"
 
 _lock = Lock()
 _state: dict = {
@@ -348,7 +348,7 @@ def _emit_job_state(
     later rate changes don't rewrite history."""
     now_iso = datetime.now(timezone.utc).isoformat()
     vertex_id = (
-        f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.gsplatJob/{job_id}-"
+        f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.gsplatJob/{job_id}-"
         f"{int(time.time() * 1000)}"
     )
     try:
@@ -368,7 +368,7 @@ def _emit_job_state(
                     vertex_id, job_id, job_kind, tile_h3, status, phase,
                     message, splat_count, triangle_count, byte_size, runtime_ms,
                     cost_usd, imageids_hash, now_iso,
-                    "did:web:maps.gftd.ai", "did:web:maps.gftd.ai", now_iso,
+                    "did:web:maps.etzhayyim.com", "did:web:maps.etzhayyim.com", now_iso,
                 ),
             )
             conn.commit()
@@ -570,7 +570,7 @@ def _insert_mesh_row(
                 mesh_vertex_id, gsplat_vertex_id, tile_h3, bake_job_id, b2_key,
                 int(byte_size), int(triangle_count), int(view_count), int(bake_runtime_ms),
                 str(baker_version), now_iso,
-                "did:web:maps.gftd.ai", "did:web:maps.gftd.ai", now_iso,
+                "did:web:maps.etzhayyim.com", "did:web:maps.etzhayyim.com", now_iso,
             ),
         )
         cur.execute(
@@ -584,7 +584,7 @@ def _insert_mesh_row(
             (
                 edge_id, gsplat_vertex_id, mesh_vertex_id, now_iso, bake_job_id,
                 "GsplatMesh", int(triangle_count),
-                "did:web:maps.gftd.ai", "did:web:maps.gftd.ai", now_iso,
+                "did:web:maps.etzhayyim.com", "did:web:maps.etzhayyim.com", now_iso,
             ),
         )
         conn.commit()
@@ -607,7 +607,7 @@ def _insert_gsplat_row(
     train_job_id: str,
 ) -> None:
     """RW append-only INSERT (no ON CONFLICT, record-log semantics)."""
-    vertex_id = f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.gsplatAsset/{tile_h3}-{int(time.time())}"
+    vertex_id = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.gsplatAsset/{tile_h3}-{int(time.time())}"
     now_iso = datetime.now(timezone.utc).isoformat()
     conn = psycopg2.connect(DATABASE_URL)
     conn.autocommit = False
@@ -626,7 +626,7 @@ def _insert_gsplat_row(
                 vertex_id, SOURCE_DID, tile_h3, b2_key,
                 int(byte_size), int(splat_count), int(sh_degree), str(fmt),
                 now_iso,
-                "did:web:maps.gftd.ai", "did:web:maps.gftd.ai",
+                "did:web:maps.etzhayyim.com", "did:web:maps.etzhayyim.com",
                 now_iso,
             ),
         )
@@ -728,7 +728,7 @@ def _run_bake(req: dict) -> None:
                         status="running", phase="rw-insert",
                         triangle_count=triangle_count)
         mesh_vertex_id = (
-            f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.gsplatMesh/"
+            f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.gsplatMesh/"
             f"{tile_h3}-{bake_job_id}"
         )
         _insert_mesh_row(

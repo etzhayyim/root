@@ -18,7 +18,7 @@
     "get-canvas",
     "get-canvas-graph"
   ],
-  "guestDIDPrefix": "did:web:kami.gftd.ai:guest:",
+  "guestDIDPrefix": "did:web:kami.etzhayyim.com:guest:",
   "kpi": [
     "credits の獲得"
   ],
@@ -39,14 +39,14 @@
   },
   "routes": [
     {
-      "host": "color-by-number.gftd.ai",
+      "host": "color-by-number.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "h28c9077.gftd.ai",
+      "host": "h28c9077.etzhayyim.com",
       "paths": [
         "/"
       ],

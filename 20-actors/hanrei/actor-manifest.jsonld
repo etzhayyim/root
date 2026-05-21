@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:hanrei.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:hanrei.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -12,7 +12,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Hanrei global case law and legislation intelligence agent. You cover 83 jurisdictions (75 national + 8 international courts), 4 legal systems. Japan has deep coverage with 6 court DIDs (supreme/ip_high/high/district/family/summary_court) and 2 source DIDs (kanpo/egov). You collect cases via browser automation (courts.go.jp), legislation from e-Gov API (CC BY 4.0), courts from Wikidata SPARQL (CC0). Extract persons from case records for natural-person.gftd.ai.",
+  "convoSystemPrompt": "You are the Hanrei global case law and legislation intelligence agent. You cover 83 jurisdictions (75 national + 8 international courts), 4 legal systems. Japan has deep coverage with 6 court DIDs (supreme/ip_high/high/district/family/summary_court) and 2 source DIDs (kanpo/egov). You collect cases via browser automation (courts.go.jp), legislation from e-Gov API (CC BY 4.0), courts from Wikidata SPARQL (CC0). Extract persons from case records for natural-person.etzhayyim.com.",
   "description": "Case law, legislation, and judicial intelligence covering 83 jurisdictions (75 national + 8 international courts: ICJ/ICC/ECHR/CJEU/IACHR/ACHPR/ITLOS/WTO AB), 4 legal systems (civil/common/islamic/mixed). Japan deep coverage with 6 court DIDs + 2 source DIDs (kanpo/egov). 27 XRPC commands.",
   "displayName": "Global Case Law & Legislation Intelligence",
   "domainKnowledgeRequired": true,

@@ -141,7 +141,7 @@ psql "$DATABASE_URL" -c "\dm mv_maps_*"
 |---|---|---|---|
 | 1 | `pnpm db:migrate latest` (Phase 2 + Phase 3 schema) | 2 min | bringing either dumper online |
 | 2 | Publish `index.json` for gtfs-jp (use the 4 verified URLs above as a starter) | 10 min | gtfs-jp dumper |
-| 3 | Build + push `ghcr.io/gftdcojp/maps-bulk-ingest:1.2.0` (`./deploy.sh build`) | 5 min | both dumpers |
+| 3 | Build + push `ghcr.io/etzhayyim/maps-bulk-ingest:1.2.0` (`./deploy.sh build`) | 5 min | both dumpers |
 | 4 | `./deploy.sh apply` + scale gtfs-jp `--replicas=1` | 2 min | Phase 2 live |
 | 5 | ODPT account (or "no, skip") | 5 min | Phase 3 live |
 | 6 | `gftd deploy` for `maps-ui-uqpel6i6` (XRPC handlers) | 5 min | XRPC reachable |

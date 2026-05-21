@@ -14,9 +14,9 @@ from langgraph.graph import END, START, StateGraph
 from lg_webmk.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
-_APP_DID = os.environ.get("WEBMK_APP_DID", "did:web:webmk.gftd.ai")
+_APP_DID = os.environ.get("WEBMK_APP_DID", "did:web:webmk.etzhayyim.com")
 _RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
-_RESEND_FROM = os.environ.get("RESEND_FROM", "webmk@gftd.ai")
+_RESEND_FROM = os.environ.get("RESEND_FROM", "webmk@etzhayyim.com")
 
 
 class _State(TypedDict, total=False):
@@ -98,7 +98,7 @@ async def _update_status(state: _State) -> dict[str, Any]:
             await conn.execute(
                 "INSERT INTO vertex_webmk_proposal (vertex_id, proposal_id, status, actor_did, org_did, created_at) "
                 "VALUES (%s, %s, 'delivered', %s, 'anon', NOW()) ",
-                (f"at://did:web:webmk.gftd.ai/ai.gftd.apps.webmk.proposal/{proposal_id}", proposal_id, _APP_DID),
+                (f"at://did:web:webmk.etzhayyim.com/ai.gftd.apps.webmk.proposal/{proposal_id}", proposal_id, _APP_DID),
             )
     except Exception as exc:  # noqa: BLE001
         _log.warning("update_status failed (non-fatal): %s", exc)

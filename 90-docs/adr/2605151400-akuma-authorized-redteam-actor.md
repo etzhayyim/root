@@ -39,7 +39,7 @@ its defensive identity, or (b) bypass the authority chain entirely.
 
 # Decision
 
-Introduce a new actor `akuma` (悪魔) at `did:web:akuma.gftd.ai`,
+Introduce a new actor `akuma` (悪魔) at `did:web:akuma.etzhayyim.com`,
 nanoid `ak0m4r3d`, `performer_type = service`, governed by etzhayyim
 under the standard operating-entity boundary (CLAUDE.md root rule).
 
@@ -94,7 +94,7 @@ actor.
 
 Akuma follows the platform's standard runtime topology:
 
-- **Edge**: SvelteKit CF Worker proxy at `akuma.gftd.ai` (no business logic;
+- **Edge**: SvelteKit CF Worker proxy at `akuma.etzhayyim.com` (no business logic;
   CF Worker = edge only per ADR-2605111200)
 - **Runtime**: K8s LangServer pod (Granian L3) under namespace
   `akuma-langserver` invoked via AgentGateway MCP
@@ -106,7 +106,7 @@ Akuma follows the platform's standard runtime topology:
   external principals (per ADR-2605091400 cytoplasmic demotion). Direct
   XRPC exposure to external callers is prohibited.
 - **Persistence**: append-only `vertex_akuma_*` rows; no soft delete; raw
-  finding payloads ciphertext-stored in `vault.gftd.ai` (zero-knowledge
+  finding payloads ciphertext-stored in `vault.etzhayyim.com` (zero-knowledge
   invariant maintained — server holds ciphertext + wrapped keys + metadata
   only)
 
@@ -124,7 +124,7 @@ The actor is active and ADR-bound. The deployed baseline is:
   namespace, not `default`, with reconciled egress derived from active
   scope contracts.
 - Authority key: the etzhayyim authority signing key was generated;
-  human publication to `https://akuma.gftd.ai/.well-known/did.json` and
+  human publication to `https://akuma.etzhayyim.com/.well-known/did.json` and
   1Password mirroring remain operational handoff tasks.
 
 Control-plane work remains open and is tracked in `deps.toml`:
@@ -258,7 +258,7 @@ records the concrete artifact state. It supersedes any earlier
 | K8s reconciler | `scope-egress-reconciler` CronJob (`* * * * *`) targeting `akuma-probe-scope-allow` NetworkPolicy | applied; **Errors with ModuleNotFoundError** because `pymagatama:latest` predates `pymagatama.akuma` module |
 | K8s langserver | `akuma-langserver` Deployment + Service in `mitama-udf` ns | Running 1/1 |
 | K8s secrets | `akuma-authority-key` (PUBLIC only) in `mitama-udf`; `akuma-rw-readonly` (KAISYA URL) in `akuma-probe` | created |
-| PDS lexicons | 8 NSIDs `ai.gftd.apps.akuma.*` live at `atproto.gftd.ai` (Worker version `fdfc4c61-ce87-40fd-adaf-7f9e85522359`) | wrangler deploy 2026-05-15; HTTP 401 (auth required), not 404 |
+| PDS lexicons | 8 NSIDs `ai.gftd.apps.akuma.*` live at `atproto.etzhayyim.com` (Worker version `fdfc4c61-ce87-40fd-adaf-7f9e85522359`) | wrangler deploy 2026-05-15; HTTP 401 (auth required), not 404 |
 | Rego policy | `gftd.akuma.scope` package | 11/11 unit tests PASS |
 | Reconciler module | `pymagatama.akuma.scope_egress_reconciler` | source landed in repo, NOT yet baked into a published `pymagatama` image |
 | Smoke test | data plane round-trip (INSERT scope → sign+verify → reconciler SELECT → 5 policy decisions → INSERT audit + finding → count → hard delete) | all 9 steps PASS |
@@ -266,13 +266,13 @@ records the concrete artifact state. It supersedes any earlier
 ## Remaining human steps
 
 1. Publish `AUTHORITY_SIGNING_KEY_PUBLIC` (`726c7daa...0915`) at
-   `https://akuma.gftd.ai/.well-known/did.json` `verificationMethod`
+   `https://akuma.etzhayyim.com/.well-known/did.json` `verificationMethod`
    (`Ed25519VerificationKey2020`) so external owners can verify
    `authority_signature` on scope contracts.
 2. Mirror Keychain `gftd.akuma` entries to 1Password vault
    `Gftd Japan株式会社` per the `op item create` command printed by
    `provision-authority-key.sh`.
-3. Rebuild `ghcr.io/gftdcojp/pymagatama` image with the new
+3. Rebuild `ghcr.io/etzhayyim/pymagatama` image with the new
    `pymagatama.akuma` module included and bump
    `scope-egress-reconciler` CronJob image tag. Until then the
    reconciler stays in CrashLoopBackoff and `akuma-probe-scope-allow`

@@ -20,8 +20,8 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             $6, 'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ir-scrape-queue-seeds-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ir-scrape-queue-seeds-v1',
+                 'did:web:news.etzhayyim.com',
                  'ir_scrape_queue_seeds',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -30,13 +30,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '  Task handler: irScrape.queueSeeds (pymagatama ir_scrape.py)\n'
                  '  NSID: ai.gftd.apps.irScrape.queueSeeds\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ir-scrape-queue-seeds-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ir-scrape-queue-seeds-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_ir_scrape_queue_seeds"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/irScrape"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/irScrape"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="ir_scrape_queue_seeds" name="IR Scrape: Queue Seeds" '
@@ -108,11 +108,11 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  3311,
                  '00-contracts/bpmn/ai/gftd/irScrape/queueSeeds.bpmn',
                  '2026-04-30T21:00:00+09:00',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.irScrape',
-                 'did:web:news.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ir-scrape-queue-seeds-v1']},
+                 'did:web:news.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ir-scrape-queue-seeds-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
          '       write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id,\n'
@@ -122,18 +122,18 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ir-scrape-queue-seeds-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ir-scrape-queue-seeds-v1',
+                 'did:web:news.etzhayyim.com',
                  'ai.gftd.apps.irScrape.queueSeeds',
                  'ir_scrape_queue_seeds',
                  120000,
                  'vertex_ir_company,vertex_ir_scraper_run',
                  '2026-04-30T21:00:00+09:00',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.irScrape',
-                 'did:web:news.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ir-scrape-queue-seeds-v1']},
+                 'did:web:news.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ir-scrape-queue-seeds-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size, source_path, '
          'status,\n'
@@ -142,8 +142,8 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             $6, 'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ir-scrape-process-queue-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ir-scrape-process-queue-v1',
+                 'did:web:news.etzhayyim.com',
                  'ir_scrape_process_queue',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -152,13 +152,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '  Task handler: irScrape.processQueue (pymagatama ir_scrape.py)\n'
                  '  NSID: ai.gftd.apps.irScrape.processQueue\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ir-scrape-process-queue-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ir-scrape-process-queue-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_ir_scrape_process_queue"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/irScrape"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/irScrape"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="ir_scrape_process_queue" name="IR Scrape: Process Queue" '
@@ -233,11 +233,11 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  3494,
                  '00-contracts/bpmn/ai/gftd/irScrape/processQueue.bpmn',
                  '2026-04-30T21:00:00+09:00',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.irScrape',
-                 'did:web:news.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ir-scrape-process-queue-v1']},
+                 'did:web:news.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ir-scrape-process-queue-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
          '       write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id,\n'
@@ -247,27 +247,27 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ir-scrape-process-queue-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ir-scrape-process-queue-v1',
+                 'did:web:news.etzhayyim.com',
                  'ai.gftd.apps.irScrape.processQueue',
                  'ir_scrape_process_queue',
                  300000,
                  'vertex_ir_scraper_run,vertex_ir_pressrelease',
                  '2026-04-30T21:00:00+09:00',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.irScrape',
-                 'did:web:news.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ir-scrape-process-queue-v1']}]
+                 'did:web:news.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ir-scrape-process-queue-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ir-scrape-queue-seeds-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ir-scrape-queue-seeds-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ir-scrape-queue-seeds-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ir-scrape-queue-seeds-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ir-scrape-process-queue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ir-scrape-process-queue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ir-scrape-process-queue-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ir-scrape-process-queue-v1']}]
 
 
 def upgrade() -> None:

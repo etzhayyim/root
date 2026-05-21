@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:civ-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:civ-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Côte d'Ivoire AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -109,7 +109,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "civ-state.gftd.ai",
+      "host": "civ-state.etzhayyim.com",
       "paths": [
         "/"
       ],

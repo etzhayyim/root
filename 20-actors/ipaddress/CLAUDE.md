@@ -1,4 +1,4 @@
-# ipaddress.gftd.ai — IP Address Intelligence Platform
+# ipaddress.etzhayyim.com — IP Address Intelligence Platform
 
 1次ソース IP/ASN/WHOIS/GeoIP 収集・正規化。全 entity を AI Agent (DID Performer) として管理。
 
@@ -12,7 +12,7 @@
 | **Data** | SQL graph (yata Workers RPC) — Role-based DID hierarchy (C 案: Shannon 最適) |
 | **W Protocol Event Stream** | Design E 3-Tier Write。Social: `AppBskyFeedPost`、Domain: `ComAtprotoRepoCreateRecord`、State: `Preferences`、Read: `G()` |
 | **WIT export** | `gftd:ipaddress/ip-registry@1.0.0`, `network-topology@1.0.0`, `delegation-chain@1.0.0` |
-| **Domain** | `ipaddress.gftd.ai` |
+| **Domain** | `ipaddress.etzhayyim.com` |
 | **Source type** | **1次ソース** (RIR API, WHOIS, GeoIP DB 直接取得) |
 
 ## DID Structure (Role-based, Option C) `[DESIGN]`
@@ -23,18 +23,18 @@ Shannon 最適: SQL single graph 前提で全 agent を 1 app に集約 (R=0%, b
 
 | Role | DID Path | 概数 | 生成 |
 |---|---|---|---|
-| **Treaty** | `did:web:ipaddress.gftd.ai:treaty:itu` | ~5 | 静的 |
-| **Charter** | `did:web:ipaddress.gftd.ai:charter:icann` | ~3 | 静的 |
-| **Standard** | `did:web:ipaddress.gftd.ai:standard:rfc2050` | ~20 | 静的 |
-| **Sovereign** | `did:web:ipaddress.gftd.ai:sovereign:jpn` | ~50 | 静的 |
-| **Contract** | `did:web:ipaddress.gftd.ai:contract:apnic_membership` | ~10 | 静的 |
-| **RIR** | `did:web:ipaddress.gftd.ai:rir:apnic` | 5 | 静的 |
-| **NIR** | `did:web:ipaddress.gftd.ai:nir:jpnic` | ~10 | 静的 |
-| **Provider** | `did:web:ipaddress.gftd.ai:provider:cloudflare` | ~数百 | 動的 |
-| **ASN** | `did:web:ipaddress.gftd.ai:asn:as13335` | ~110,000 | 動的 (RIR feed) |
-| **Prefix** | `did:web:ipaddress.gftd.ai:prefix:p203d0d113m24` | ~1,000,000 | 動的 (BGP table) |
-| **IPv4** | `did:web:ipaddress.gftd.ai:v4:ipc0a80101` | ~3.7B (理論) | **on-demand** (観測時) |
-| **IPv6** | `did:web:ipaddress.gftd.ai:v6:ip20010db800000000` | on-demand | on-demand |
+| **Treaty** | `did:web:ipaddress.etzhayyim.com:treaty:itu` | ~5 | 静的 |
+| **Charter** | `did:web:ipaddress.etzhayyim.com:charter:icann` | ~3 | 静的 |
+| **Standard** | `did:web:ipaddress.etzhayyim.com:standard:rfc2050` | ~20 | 静的 |
+| **Sovereign** | `did:web:ipaddress.etzhayyim.com:sovereign:jpn` | ~50 | 静的 |
+| **Contract** | `did:web:ipaddress.etzhayyim.com:contract:apnic_membership` | ~10 | 静的 |
+| **RIR** | `did:web:ipaddress.etzhayyim.com:rir:apnic` | 5 | 静的 |
+| **NIR** | `did:web:ipaddress.etzhayyim.com:nir:jpnic` | ~10 | 静的 |
+| **Provider** | `did:web:ipaddress.etzhayyim.com:provider:cloudflare` | ~数百 | 動的 |
+| **ASN** | `did:web:ipaddress.etzhayyim.com:asn:as13335` | ~110,000 | 動的 (RIR feed) |
+| **Prefix** | `did:web:ipaddress.etzhayyim.com:prefix:p203d0d113m24` | ~1,000,000 | 動的 (BGP table) |
+| **IPv4** | `did:web:ipaddress.etzhayyim.com:v4:ipc0a80101` | ~3.7B (理論) | **on-demand** (観測時) |
+| **IPv6** | `did:web:ipaddress.etzhayyim.com:v6:ip20010db800000000` | on-demand | on-demand |
 
 ### IP Address Encoding (alpha-start 準拠)
 
@@ -196,11 +196,11 @@ ai.gftd.apps.ipaddress.scan_result        # port/service scan result (software, 
 
 | Direction | Target | Method | Purpose |
 |---|---|---|---|
-| → Followed by | yabai.gftd.ai (`y8b41k0x`) | `ComAtprotoSyncSubscribeRepos` | `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` → 自動リスク評価 + proxy/datacenter 検出で VPNDatacenter evidence 付与 |
-| → Followed by | ct-monitor.gftd.ai | `ComAtprotoSyncSubscribeRepos` | ASN/prefix → BGP 相関 |
-| → Followed by | maps.gftd.ai | `ComAtprotoSyncSubscribeRepos` | GeoIP → spatial mapping |
-| ← Invokes | yabai.gftd.ai | `get-ip-risk` | risk score 照会 |
-| ← Invokes | ct-monitor.gftd.ai | `record-bgp-event` | BGP event 受信 |
+| → Followed by | yabai.etzhayyim.com (`y8b41k0x`) | `ComAtprotoSyncSubscribeRepos` | `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` → 自動リスク評価 + proxy/datacenter 検出で VPNDatacenter evidence 付与 |
+| → Followed by | ct-monitor.etzhayyim.com | `ComAtprotoSyncSubscribeRepos` | ASN/prefix → BGP 相関 |
+| → Followed by | maps.etzhayyim.com | `ComAtprotoSyncSubscribeRepos` | GeoIP → spatial mapping |
+| ← Invokes | yabai.etzhayyim.com | `get-ip-risk` | risk score 照会 |
+| ← Invokes | ct-monitor.etzhayyim.com | `record-bgp-event` | BGP event 受信 |
 
 ## Shannon Design Rationale `[DESIGN]`
 

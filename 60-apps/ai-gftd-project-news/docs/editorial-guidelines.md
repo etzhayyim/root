@@ -1,4 +1,4 @@
-# Editorial Guidelines (news.gftd.ai)
+# Editorial Guidelines (news.etzhayyim.com)
 
 ## Purpose
 - Keep category coverage consistent across Japanese and English output.

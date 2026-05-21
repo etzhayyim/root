@@ -29,61 +29,61 @@ superseded_by: []
 
 ## Scope
 
-- Actor 供給: `natural-person.gftd.ai` (人物)、`maps.gftd.ai` (建造物)、`bunken.gftd.ai` (文献・記録)
-- 投稿スケジューリング: `shinka.gftd.ai` (既存 cron 拡張)
+- Actor 供給: `natural-person.etzhayyim.com` (人物)、`maps.etzhayyim.com` (建造物)、`bunken.etzhayyim.com` (文献・記録)
+- 投稿スケジューリング: `shinka.etzhayyim.com` (既存 cron 拡張)
 - 投稿先: AT Protocol `app.bsky.feed.post` (Tier 1 Social)
 - 伝播モデル: `PropagationEvent` domain record (Tier 2)
 
 ## Decision
 
-### D1: Actor 供給元 — 既存プロジェクト + bunken.gftd.ai
+### D1: Actor 供給元 — 既存プロジェクト + bunken.etzhayyim.com
 
 | Entity 種別 | Actor 供給元 | DID パターン | 根拠 |
 |---|---|---|---|
-| 記録に名前が残る人物 | `natural-person.gftd.ai` Phase 1.5 | `did:web:natural-person.gftd.ai:person_{DJB2(name\|country\|role\|org)}` | Cross-app person identification (既存) |
-| 名前が残らない人物 (足軽、町人) | `natural-person.gftd.ai` Phase 1C | `did:web:natural-person.gftd.ai:{DJB2(26-dim cohort)}` | Deceased cohort generation (既存) |
-| 建造物 (城、寺、街道) | `maps.gftd.ai` | `did:web:maps.gftd.ai:building:{id}` | Digital Twin node (既存) |
-| 文献・記録 (古典籍、書状、碑文) | `bunken.gftd.ai` | `did:web:bunken.gftd.ai:{scheme}:{id}` | 国際書誌識別体系 (新規) |
-| 地理的領域 (国、藩) | `jinushi.gftd.ai` | `did:web:jinushi.gftd.ai:zone:{country}:{region}:{code}` | CadastralZone (既存) |
+| 記録に名前が残る人物 | `natural-person.etzhayyim.com` Phase 1.5 | `did:web:natural-person.etzhayyim.com:person_{DJB2(name\|country\|role\|org)}` | Cross-app person identification (既存) |
+| 名前が残らない人物 (足軽、町人) | `natural-person.etzhayyim.com` Phase 1C | `did:web:natural-person.etzhayyim.com:{DJB2(26-dim cohort)}` | Deceased cohort generation (既存) |
+| 建造物 (城、寺、街道) | `maps.etzhayyim.com` | `did:web:maps.etzhayyim.com:building:{id}` | Digital Twin node (既存) |
+| 文献・記録 (古典籍、書状、碑文) | `bunken.etzhayyim.com` | `did:web:bunken.etzhayyim.com:{scheme}:{id}` | 国際書誌識別体系 (新規) |
+| 地理的領域 (国、藩) | `jinushi.etzhayyim.com` | `did:web:jinushi.etzhayyim.com:zone:{country}:{region}:{code}` | CadastralZone (既存) |
 
 **actor を作る責務と投稿する責務を分離する。** natural-person / maps / bunken が actor を seed し、shinka が投稿を生成する。
 
-### D1.1: bunken.gftd.ai — 文献書誌 intelligence
+### D1.1: bunken.etzhayyim.com — 文献書誌 intelligence
 
 全世界の図書館・アーカイブに登録された文献を actor 化する。各書誌識別体系が path-based DID の namespace となる。
 
 #### Actor DID 設計
 
 ```
-did:web:bunken.gftd.ai                              (controller)
+did:web:bunken.etzhayyim.com                              (controller)
 │
 ├── NDL (国立国会図書館)
-│   ├── did:web:bunken.gftd.ai:ndl:bib:{bib_id}     書誌レコード (全所蔵、古典籍含む)
-│   └── did:web:bunken.gftd.ai:ndl:pid:{pid}         デジタルコレクション資料
+│   ├── did:web:bunken.etzhayyim.com:ndl:bib:{bib_id}     書誌レコード (全所蔵、古典籍含む)
+│   └── did:web:bunken.etzhayyim.com:ndl:pid:{pid}         デジタルコレクション資料
 │
 ├── NCID (NII / CiNii)
-│   └── did:web:bunken.gftd.ai:ncid:{ncid}           学術資料 (古典籍DB含む)
+│   └── did:web:bunken.etzhayyim.com:ncid:{ncid}           学術資料 (古典籍DB含む)
 │
 ├── LCCN (Library of Congress)
-│   └── did:web:bunken.gftd.ai:lccn:{lccn}           米国議会図書館所蔵
+│   └── did:web:bunken.etzhayyim.com:lccn:{lccn}           米国議会図書館所蔵
 │
 ├── OCLC (WorldCat)
-│   └── did:web:bunken.gftd.ai:oclc:{number}         世界の図書館横断
+│   └── did:web:bunken.etzhayyim.com:oclc:{number}         世界の図書館横断
 │
 ├── VIAF (Virtual International Authority File)
-│   └── did:web:bunken.gftd.ai:viaf:{viaf_id}        著者・著作の典拠 (国際横断)
+│   └── did:web:bunken.etzhayyim.com:viaf:{viaf_id}        著者・著作の典拠 (国際横断)
 │
 ├── ISBN (ISO 2108) — 1970年以降の書籍のみ
-│   └── did:web:bunken.gftd.ai:isbn:{isbn13}         近代書籍 (isbn.gftd.ai と相互参照)
+│   └── did:web:bunken.etzhayyim.com:isbn:{isbn13}         近代書籍 (isbn.etzhayyim.com と相互参照)
 │
 ├── DOI (Digital Object Identifier)
-│   └── did:web:bunken.gftd.ai:doi:{prefix}:{suffix} デジタルオブジェクト (近代中心)
+│   └── did:web:bunken.etzhayyim.com:doi:{prefix}:{suffix} デジタルオブジェクト (近代中心)
 │
 ├── ARK (Archival Resource Key)
-│   └── did:web:bunken.gftd.ai:ark:{naan}:{name}     アーカイブ資料
+│   └── did:web:bunken.etzhayyim.com:ark:{naan}:{name}     アーカイブ資料
 │
 └── unidentified (書誌ID未付与の文献)
-    └── did:web:bunken.gftd.ai:doc:{DJB2(title|author|year|country)}
+    └── did:web:bunken.etzhayyim.com:doc:{DJB2(title|author|year|country)}
 ```
 
 #### 識別体系の特性と Actor 適性
@@ -96,7 +96,7 @@ did:web:bunken.gftd.ai                              (controller)
 | `lccn` | Library of Congress (米) | 全所蔵資料 | ○ | LOC API | 「米国議会図書館に所蔵」— 国際的権威 |
 | `oclc` | WorldCat (国際) | 図書館横断 | ○ | WorldCat API | 「世界のN図書館が所蔵」— 横断的存在証明 |
 | `viaf` | VIAF | 著者・著作の典拠 | ○ 国際横断 | VIAF API | 著者 actor との関係付け (AUTHORED_BY edge) |
-| `isbn` | ISO 2108 | 書籍 | ✕ 1970以降 | OpenBD / Google Books | 近代書籍のみ。isbn.gftd.ai と相互参照 |
+| `isbn` | ISO 2108 | 書籍 | ✕ 1970以降 | OpenBD / Google Books | 近代書籍のみ。isbn.etzhayyim.com と相互参照 |
 | `doi` | 国際DOI財団 | デジタルオブジェクト | △ 近代中心 | DOI API | 「デジタルで永続参照可能」 |
 | `ark` | ARK | アーカイブ資料 | ○ | 機関依存 | 「アーカイブに保存された」— 保存資料 |
 
@@ -106,11 +106,11 @@ did:web:bunken.gftd.ai                              (controller)
 
 ```cypher
 // 信長公記 = NDL + NCID + OCLC
-(:Bunken {did: "did:web:bunken.gftd.ai:ndl:bib:000007312345"})
+(:Bunken {did: "did:web:bunken.etzhayyim.com:ndl:bib:000007312345"})
   -[:SAME_AS]->
-(:Bunken {did: "did:web:bunken.gftd.ai:ncid:BA12345678"})
+(:Bunken {did: "did:web:bunken.etzhayyim.com:ncid:BA12345678"})
   -[:SAME_AS]->
-(:Bunken {did: "did:web:bunken.gftd.ai:oclc:123456789"})
+(:Bunken {did: "did:web:bunken.etzhayyim.com:oclc:123456789"})
 ```
 
 **投稿時の DID 選定**: 最も権威的な識別子 (1次ソースに近いもの) を投稿者 DID とする。日本の古典籍 → `ndl:bib`、米国の文献 → `lccn`、国際横断 → `oclc`。
@@ -119,7 +119,7 @@ did:web:bunken.gftd.ai                              (controller)
 
 ```cypher
 (:Bunken {
-  did: "did:web:bunken.gftd.ai:ndl:bib:{bib_id}",
+  did: "did:web:bunken.etzhayyim.com:ndl:bib:{bib_id}",
   scheme: "ndl:bib",
   externalId: "{bib_id}",
   title: "信長公記",
@@ -134,10 +134,10 @@ did:web:bunken.gftd.ai                              (controller)
 })
 
 // 著者関係 (natural-person → bunken)
-(:IdentifiedPerson {did: "did:web:natural-person.gftd.ai:person_{hash}"})-[:AUTHORED]->(:Bunken)
+(:IdentifiedPerson {did: "did:web:natural-person.etzhayyim.com:person_{hash}"})-[:AUTHORED]->(:Bunken)
 
 // 所蔵関係
-(:Bunken)-[:HELD_BY {since: "1948"}]->(:Organization {did: "did:web:soshiki.gftd.ai:org:ndl"})
+(:Bunken)-[:HELD_BY {since: "1948"}]->(:Organization {did: "did:web:soshiki.etzhayyim.com:org:ndl"})
 
 // 文献間関係
 (:Bunken)-[:CITES]->(:Bunken)          // 引用
@@ -162,13 +162,13 @@ did:web:bunken.gftd.ai                              (controller)
 | `map` | 古地図 | 「この地図が描く世界は…」 |
 | `gazette` | 官報・布告 | 「公に布告された」 |
 
-#### isbn.gftd.ai / issn.gftd.ai との関係
+#### isbn.etzhayyim.com / issn.etzhayyim.com との関係
 
 | プロジェクト | スコープ | bunken との関係 |
 |---|---|---|
-| `isbn.gftd.ai` | ISBN (ISO 2108) 書籍識別 | `bunken.gftd.ai:isbn:{isbn13}` が参照。isbn.gftd.ai は識別子バリデーション・メタデータ取得の権威 |
-| `issn.gftd.ai` | ISSN (ISO 3297) 逐次刊行物 | `bunken.gftd.ai:issn:{issn}` として拡張可能。issn.gftd.ai が識別子の権威 |
-| `bunken.gftd.ai` | 全書誌識別体系の統合 actor | ISBN/ISSN を含む全識別体系の文献 actor を管理。識別子の権威は各専門プロジェクトに委譲 |
+| `isbn.etzhayyim.com` | ISBN (ISO 2108) 書籍識別 | `bunken.etzhayyim.com:isbn:{isbn13}` が参照。isbn.etzhayyim.com は識別子バリデーション・メタデータ取得の権威 |
+| `issn.etzhayyim.com` | ISSN (ISO 3297) 逐次刊行物 | `bunken.etzhayyim.com:issn:{issn}` として拡張可能。issn.etzhayyim.com が識別子の権威 |
+| `bunken.etzhayyim.com` | 全書誌識別体系の統合 actor | ISBN/ISSN を含む全識別体系の文献 actor を管理。識別子の権威は各専門プロジェクトに委譲 |
 
 ### D2: 投稿者は行為者ではなく情報受領者
 
@@ -439,9 +439,9 @@ if (events.rows.length === 0) {
 ```cypher
 // === Entity Nodes (Actor 供給元が管理) ===
 
-// natural-person.gftd.ai が管理
+// natural-person.etzhayyim.com が管理
 (:Actor:IdentifiedPerson {
-  did: "did:web:natural-person.gftd.ai:person_{hash}",
+  did: "did:web:natural-person.etzhayyim.com:person_{hash}",
   displayName: "森蘭丸",
   born: "1565", died: "1582-06-21",
   role: "小姓", performerType: "witness",
@@ -449,23 +449,23 @@ if (events.rows.length === 0) {
 })
 
 (:Actor:CohortPerson {
-  did: "did:web:natural-person.gftd.ai:{cohort_hash}",
+  did: "did:web:natural-person.etzhayyim.com:{cohort_hash}",
   displayName: "安土城下の商人",
   era: "medieval", vital_status: "deceased",
   country: "jpn", region: "kinki"
 })
 
-// maps.gftd.ai が管理
+// maps.etzhayyim.com が管理
 (:Actor:Building {
-  did: "did:web:maps.gftd.ai:building:honnoji",
+  did: "did:web:maps.etzhayyim.com:building:honnoji",
   displayName: "本能寺",
   built_year: 1415, destroyed_year: 1582,
   country: "jpn", region: "kinki", address: "京都"
 })
 
-// bunken.gftd.ai が管理
+// bunken.etzhayyim.com が管理
 (:Actor:Bunken {
-  did: "did:web:bunken.gftd.ai:ndl:bib:{bib_id}",
+  did: "did:web:bunken.etzhayyim.com:ndl:bib:{bib_id}",
   scheme: "ndl:bib", externalId: "{bib_id}",
   displayName: "信長公記",
   author: "太田牛一", year: 1610,
@@ -486,7 +486,7 @@ if (events.rows.length === 0) {
 (:PropagationEvent {
   id: "pe_honnoji_honnoji_structure",
   eventId: "honnoji-1582",
-  receiverDid: "did:web:maps.gftd.ai:building:honnoji",
+  receiverDid: "did:web:maps.etzhayyim.com:building:honnoji",
   receivedAt: "1582-06-21T04:00:00Z",
   sourceType: "eyewitness", fidelity: 1.0,
   sourceDid: null, posted: false
@@ -495,10 +495,10 @@ if (events.rows.length === 0) {
 (:PropagationEvent {
   id: "pe_honnoji_merchant_azuchi",
   eventId: "honnoji-1582",
-  receiverDid: "did:web:natural-person.gftd.ai:{cohort_hash}",
+  receiverDid: "did:web:natural-person.etzhayyim.com:{cohort_hash}",
   receivedAt: "1582-06-21T10:00:00Z",
   sourceType: "hearsay", fidelity: 0.5,
-  sourceDid: "did:web:natural-person.gftd.ai:person_{courier}",
+  sourceDid: "did:web:natural-person.etzhayyim.com:person_{courier}",
   posted: false
 })
 
@@ -594,7 +594,7 @@ Command("seedEventParticipants", async (sdk, body) => {
 PropagationEvent の初期データは以下の方法で構築:
 
 1. **LLM 生成 (primary)**: Murakumo に歴史事象を入力 → 「誰がいつ知ったか」の伝播グラフを生成
-2. **kyumei-koji**: site.gftd.ai 経由で歴史資料を crawl → 人物・場所・時系列を抽出
+2. **kyumei-koji**: site.etzhayyim.com 経由で歴史資料を crawl → 人物・場所・時系列を抽出
 3. **手動 seed**: 重要事象の伝播チェーンを JSON で定義
 
 ```typescript
@@ -628,12 +628,12 @@ const prompt = `
 
 ```
 歴史上の無名の人物 (足軽、町人、農民):
-  → cohort DID: did:web:natural-person.gftd.ai:{DJB2(26-dim)}
+  → cohort DID: did:web:natural-person.etzhayyim.com:{DJB2(26-dim)}
   → 1 cohort = 類似属性の人物群を代表
   → 数百億人 → 数百万 cohort DID に圧縮
 
 記録に名前が残る人物:
-  → identified person DID: did:web:natural-person.gftd.ai:person_{hash}
+  → identified person DID: did:web:natural-person.etzhayyim.com:person_{hash}
   → 歴史上の記録人物 ~数千万人
 ```
 
@@ -641,8 +641,8 @@ const prompt = `
 |---|---|---|---|
 | 名前が残る歴史人物 | ~50M | ~50M | 個別 DID |
 | 無名の歴史人物 | ~100B | ~10M cohort | 26-dim cohort 圧縮 |
-| 建造物 | ~1B | ~1B | maps.gftd.ai Digital Twin |
-| 文献 | ~500M | ~500M | bunken.gftd.ai 書誌 |
+| 建造物 | ~1B | ~1B | maps.etzhayyim.com Digital Twin |
+| 文献 | ~500M | ~500M | bunken.etzhayyim.com 書誌 |
 | **合計** | ~100B entity | **~1.5B DID** | cohort 圧縮で 2 桁削減 |
 
 **DID 登録スループット**: `PDS_SERVICE.batchImport()` → RisingWave INSERT → ~10ms/record。
@@ -698,10 +698,10 @@ const prompt = `
 
 ```
 shinka Worker × N (era/region partition):
-  shinka-ancient.gftd.ai     → Timeline {projectId: "propagation-ancient"}
-  shinka-medieval-asia.gftd.ai → Timeline {projectId: "propagation-medieval-asia"}
-  shinka-medieval-europe.gftd.ai → Timeline {projectId: "propagation-medieval-europe"}
-  shinka-industrial.gftd.ai  → Timeline {projectId: "propagation-industrial"}
+  shinka-ancient.etzhayyim.com     → Timeline {projectId: "propagation-ancient"}
+  shinka-medieval-asia.etzhayyim.com → Timeline {projectId: "propagation-medieval-asia"}
+  shinka-medieval-europe.etzhayyim.com → Timeline {projectId: "propagation-medieval-europe"}
+  shinka-industrial.etzhayyim.com  → Timeline {projectId: "propagation-industrial"}
 ```
 
 各 Worker は独自の Timeline cursor を持ち、独立に進行。PDS heartbeat fan-out (16 並列) で coordination。
@@ -714,7 +714,7 @@ PropagationEvent を **RisingWave Materialized View** で pre-aggregate し、sh
 
 - `figure` (行為者) が自ら投稿するケースは原則ない。ただし行為者が別の事象の `witness` である場合は投稿する (例: 秀吉が関ヶ原の前に本能寺の変を語る)
 - 現代 (`era = modern`) の人物は natural-person の privacy 制約により対象外
-- 建造物が現存しない場合でも `maps.gftd.ai` の DID は有効 (Digital Twin として存在)
+- 建造物が現存しない場合でも `maps.etzhayyim.com` の DID は有効 (Digital Twin として存在)
 
 ## References
 

@@ -1,6 +1,6 @@
 import { defineConfig } from "@playwright/test";
 
-const AUTH_BASE = process.env.AUTH_BASE_URL ?? "https://authn.gftd.ai";
+const AUTH_BASE = process.env.AUTH_BASE_URL ?? "https://authn.etzhayyim.com";
 
 export default defineConfig({
   testDir: "./tests",

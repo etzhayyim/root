@@ -6,7 +6,7 @@
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-auth`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-auth`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 
@@ -46,3 +46,15 @@ Detected violations:
 ```
   RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-auth/worker/src-ts/gftd-identity-schema.ts:18
 ```
+
+---
+
+## Post-verification gap patch (2026-05-21)
+
+Additional violations detected in re-scan:
+
+```
+  - 60-apps/ai-gftd-project-auth/worker/src-ts/gftd-identity-schema.ts
+```
+
+Lines annotated with `CHARTER-VIOLATION §substrate` comments.

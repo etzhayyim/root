@@ -46,10 +46,10 @@ _MEDIUM_BODY = """\
 お変わりありませんか？最近 yatabase のご利用が少なくなっているようです。
 
 セットアップでお困りの場合は、15分のサポートをご提供しています:
-  → https://yatabase.gftd.ai/support
+  → https://yatabase.etzhayyim.com/support
 
 または docs をご覧ください:
-  → https://yatabase.gftd.ai/docs
+  → https://yatabase.etzhayyim.com/docs
 
 引き続きよろしくお願いします。
 

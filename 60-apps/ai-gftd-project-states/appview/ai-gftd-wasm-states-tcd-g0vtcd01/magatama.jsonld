@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:tcd-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:tcd-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Republic of Chad AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "tcd-state.gftd.ai",
+      "host": "tcd-state.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -23,7 +23,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 | Smoke: joinMeeting with consent JWT | expected `consent expired` after body parsing; **observed**: `invalid provider` → indicates lexicon codegen gap (see Phase 2 #codegen) | PARTIAL (超越済、下記) |
 | **Codegen + parseLexiconInput fix** (post-investigation): `node 70-tools/scripts/contract/gen-lexicon-nsid-types.mjs` + handler の `parseLexiconInput("nsid", body)` 組込 | live curl | PASS |
 | Smoke (post-fix) Test 5: expired consent → `{"status":"failed","error":"consent rejected: consent expired"}` | live curl | PASS |
-| Smoke (post-fix) Test 6: aud mismatch → `{"status":"failed","error":"consent rejected: aud mismatch: got did:web:wrong.gftd.ai"}` | live curl | PASS |
+| Smoke (post-fix) Test 6: aud mismatch → `{"status":"failed","error":"consent rejected: aud mismatch: got did:web:wrong.etzhayyim.com"}` | live curl | PASS |
 | Smoke (post-fix) Test 8: valid consent + future exp → Hyperdrive stub 失敗 (consent gate 通過確認) | live curl | PASS |
 | Smoke (post-fix) Test 7 (POST): listSessions → Hyperdrive stub 失敗 (routing OK) | live curl | PASS |
 | **Session binding (Phase 2 — defense layer 1)**: `accountDid === onBehalfOfDid === consentToken.sub` 強制 | live curl | PASS |
@@ -32,7 +32,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 |   S3: session ≠ onBehalfOfDid → `caller session did ≠ onBehalfOfDid` | — | PASS |
 | **ES256 signature verify (Phase 2 — defense layer 2)**: `did:web` resolution (`/.well-known/did.json` or path-form) → P-256 JWK → WebCrypto ECDSA verify。`alg=none` / `RS256` downgrade attacks reject | S2 smoke | PASS |
 | **Provisioning script** `50-infra/vultr/meeting-recorder/provision.sh`: Vultr VKE node pool + B2 bucket + CF Tunnel + DNS CNAME + gftd Vault folder + wrangler secret + graph migration, idempotent (check-or-create) | `bash -n` syntax | PASS |
-| **Multi-method DID resolver** (`resolveDid`): did:web (.well-known/did.json + path-form) / did:plc (plc.directory、override via DID_PLC_RESOLVER) / did:gftd (did.gftd.ai /1.0/identifiers/, ADR-0029) / reject unknown (`did:key` 等) | live curl | PASS |
+| **Multi-method DID resolver** (`resolveDid`): did:web (.well-known/did.json + path-form) / did:plc (plc.directory、override via DID_PLC_RESOLVER) / did:gftd (did.etzhayyim.com /1.0/identifiers/, ADR-0029) / reject unknown (`did:key` 等) | live curl | PASS |
 |   M1: real did:plc (`did:plc:ewvi7nxzyoun6zhxrhs64oiz`) → DID doc 200 fetch → `found: multibase` reject (Phase 3 TODO) | — | PASS (limitation surfaced) |
 |   M3: `did:key:xyz` → `unsupported DID method` | — | PASS |
 |   **Phase 3 deferred**: (a) multibase (z-base58btc) → raw key decode, (b) secp256k1 WebCrypto support (atproto default), (c) compressed-point P-256 decompression |
@@ -61,7 +61,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 | `AUTH_SERVICE` binding target `ai-gftd-auth` | CF account 上に存在 (既存) | — |
 | `HYPERDRIVE` config `e84c0a2babe44fc7b74818e394b4b896` | 既存 | — |
 | `RECORDER_TUNNEL_SECRET` wrangler secret | 未 provisioned | `openssl rand -hex 32 \| wrangler secret put RECORDER_TUNNEL_SECRET` + gftd Vault 登録 |
-| did:web:meeting-recorder.gftd.ai signing key (auth Worker KEYS_DB) | 未 provisioned | `gftd deploy` 初回実行で `com.atproto.admin.registerApp` → KEK envelope 化保存 |
+| did:web:meeting-recorder.etzhayyim.com signing key (auth Worker KEYS_DB) | 未 provisioned | `gftd deploy` 初回実行で `com.atproto.admin.registerApp` → KEK envelope 化保存 |
 | `vertex_meetingrecorder_*` graph tables | 未 migrated | `pnpm -F @gftd/graph-schema migrate up` |
 
 ### (B) `docker build` には以下が必要
@@ -80,7 +80,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 - Zoom marketplace Server-to-Server OAuth app + SDK license (Zoom)
 - Vultr VKE node pool `meeting-recorder` provisioned
 - B2 bucket `ai-gftd-recordings` + prefix-scoped app key
-- Cloudflare Tunnel `meeting-recorder-control` + DNS `meeting-recorder-ctrl.gftd.ai`
+- Cloudflare Tunnel `meeting-recorder-control` + DNS `meeting-recorder-ctrl.etzhayyim.com`
 
 ## (1) Bootstrap flow 検証手順 (prereq 揃ってから実行)
 
@@ -90,7 +90,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 gftd authn signin
 gftd agent-token \
   --lxm ai.gftd.apps.meetingRecorder.joinMeeting \
-  --aud did:web:meeting-recorder.gftd.ai \
+  --aud did:web:meeting-recorder.etzhayyim.com \
   --ttl 300 \
   > /tmp/consent.jwt
 ```
@@ -98,18 +98,18 @@ gftd agent-token \
 ### 1.2 joinMeeting 呼び出し
 
 ```bash
-curl -X POST https://meeting-recorder.gftd.ai/xrpc/ai.gftd.apps.meetingRecorder.joinMeeting \
+curl -X POST https://meeting-recorder.etzhayyim.com/xrpc/ai.gftd.apps.meetingRecorder.joinMeeting \
   -H "content-type: application/json" \
   -H "authorization: Bearer $(cat /tmp/session.jwt)" \
   -d "{
     \"provider\": \"teams\",
     \"joinTarget\": {\"joinUrl\": \"https://teams.microsoft.com/l/meetup-join/...\"},
-    \"onBehalfOfDid\": \"did:web:jun.gftd.ai\",
+    \"onBehalfOfDid\": \"did:web:jun.etzhayyim.com\",
     \"consentToken\": \"$(cat /tmp/consent.jwt)\"
   }"
 ```
 
-**期待**: `{"sessionDid":"did:web:meeting-recorder.gftd.ai:session:teams:<id>","sessionId":"ses_...","status":"joining"}`
+**期待**: `{"sessionDid":"did:web:meeting-recorder.etzhayyim.com:session:teams:<id>","sessionId":"ses_...","status":"joining"}`
 
 **consent 拒否テスト** (exp を過去にして mint):
 
@@ -123,7 +123,7 @@ gftd agent-token --lxm ... --ttl -10 > /tmp/expired.jwt
 Container 内 TokenRotator は以下を自動実行:
 
 ```
-POST https://meeting-recorder.gftd.ai/_internal/mint-pds-bearer
+POST https://meeting-recorder.etzhayyim.com/_internal/mint-pds-bearer
   headers:
     content-type: application/json
     x-recorder-auth: <hmac-sha256(body, RECORDER_TUNNEL_SECRET)>
@@ -136,7 +136,7 @@ POST https://meeting-recorder.gftd.ai/_internal/mint-pds-bearer
 **HMAC 欠落テスト**:
 
 ```bash
-curl -X POST https://meeting-recorder.gftd.ai/_internal/mint-pds-bearer \
+curl -X POST https://meeting-recorder.etzhayyim.com/_internal/mint-pds-bearer \
   -H "content-type: application/json" \
   -d '{"lxm":"com.atproto.repo.createRecord"}'
 # → 401 {"error":"unauthorized"}
@@ -147,7 +147,7 @@ curl -X POST https://meeting-recorder.gftd.ai/_internal/mint-pds-bearer \
 ```bash
 TOKEN=... # from response
 echo "$TOKEN" | cut -d. -f2 | base64 -d 2>/dev/null | jq
-# 期待: {"iss":"did:web:meeting-recorder.gftd.ai","aud":"did:web:atproto.gftd.ai",
+# 期待: {"iss":"did:web:meeting-recorder.etzhayyim.com","aud":"did:web:atproto.etzhayyim.com",
 #       "lxm":"com.atproto.repo.createRecord","exp":...,"iat":...,"jti":"..."}
 ```
 
@@ -158,7 +158,7 @@ echo "$TOKEN" | cut -d. -f2 | base64 -d 2>/dev/null | jq
 すでに確認済:
 
 ```bash
-pnpm --filter ai-gftd-apps-gftdcojp esbuild --bundle \
+pnpm --filter etzhayyim-root esbuild --bundle \
   --platform=neutral \
   --external:@gftd/magatama-host-sdk --external:node:async_hooks \
   60-apps/ai-gftd-project-meeting-recorder/appview/ai-gftd-wasm-meeting-recorder-m33tr3c0/src/app.ts

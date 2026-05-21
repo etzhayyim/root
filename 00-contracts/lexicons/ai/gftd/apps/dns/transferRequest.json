@@ -14,8 +14,8 @@
           "fromRegistrar": { "type": "string", "enum": ["squarespace"], "description": "Source registrar (only squarespace supported in v1)" },
           "toRegistrar": { "type": "string", "enum": ["cloudflare"] },
           "requesterDid": { "type": "string", "description": "DID of user who initiated the transfer" },
-          "cfRegistrarDid": { "type": "string", "description": "did:web:scndu0rf.gftd.ai:actor:cfRegistrar" },
-          "sqExporterDid": { "type": "string", "description": "did:web:sqddf3sp.gftd.ai:actor:sqExporter" },
+          "cfRegistrarDid": { "type": "string", "description": "did:web:scndu0rf.etzhayyim.com:actor:cfRegistrar" },
+          "sqExporterDid": { "type": "string", "description": "did:web:sqddf3sp.etzhayyim.com:actor:sqExporter" },
           "projectConvoId": { "type": "string", "description": "Convo room scoping all transferStep records" },
           "status": { "type": "string", "enum": ["requested", "approved", "in-progress", "completed", "failed", "rolled-back"] },
           "approvals": {

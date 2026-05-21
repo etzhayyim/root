@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-c3eda2bd8ec2",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c3eda2bd8ec2",
   "entityId": "ent-c3eda2bd8ec2",
   "canonicalName": "consultorias profesionales almida, s.a. de c.v.",
   "aliases": [

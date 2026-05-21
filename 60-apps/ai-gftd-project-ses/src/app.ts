@@ -1,4 +1,4 @@
-// ses.gftd.ai — L3 dispatcher CF Worker (ADR-2605120000).
+// ses.etzhayyim.com — L3 dispatcher CF Worker (ADR-2605120000).
 //
 // Surfaces:
 //   /health, /_app/meta                         edge probe (no auth)
@@ -54,7 +54,7 @@ app.get("/_worker/health", (c) =>
 app.get("/_app/meta", (c) =>
   c.json({
     app: "ai-gftd-project-ses",
-    did: c.env.SES_ACTOR_DID ?? "did:web:ses.gftd.ai",
+    did: c.env.SES_ACTOR_DID ?? "did:web:ses.etzhayyim.com",
     version: c.env.SES_VERSION ?? "0.0.0",
     layer: "L3-dispatcher",
     adr: "2605120000",
@@ -84,7 +84,7 @@ async function resolveAuthContext(
 
   if (token.startsWith("sk_live_") || token.startsWith("sk_test_")) {
     return {
-      did: env.SES_ACTOR_DID ?? "did:web:ses.gftd.ai",
+      did: env.SES_ACTOR_DID ?? "did:web:ses.etzhayyim.com",
       orgDid: "did:erc725:gftd:260425:anon",
     };
   }
@@ -125,7 +125,7 @@ app.use("*", async (c, next) => {
   await next();
 });
 
-app.get("/", (c) => c.json({ app: "ses", did: "did:web:ses.gftd.ai" }));
+app.get("/", (c) => c.json({ app: "ses", did: "did:web:ses.etzhayyim.com" }));
 
 app.all("/xrpc/:nsidParam", async (c) => {
   const nsid = c.req.param("nsidParam") || "";

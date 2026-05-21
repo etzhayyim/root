@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-49c036d6fd65",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-49c036d6fd65",
   "entityId": "ent-49c036d6fd65",
   "canonicalName": "oleg yuryevich nesterov",
   "aliases": [

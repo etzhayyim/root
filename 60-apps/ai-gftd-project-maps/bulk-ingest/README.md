@@ -104,8 +104,8 @@ delete — keep an audit trail).
 
 ```bash
 # Build image (one-time)
-docker build -t ghcr.io/gftdcojp/maps-bulk-ingest:1.0.0 60-apps/ai-gftd-project-maps/bulk-ingest/
-docker push ghcr.io/gftdcojp/maps-bulk-ingest:1.0.0
+docker build -t ghcr.io/etzhayyim/maps-bulk-ingest:1.0.0 60-apps/ai-gftd-project-maps/bulk-ingest/
+docker push ghcr.io/etzhayyim/maps-bulk-ingest:1.0.0
 
 # Deploy resident worker
 kubectl apply -f 60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment.yaml

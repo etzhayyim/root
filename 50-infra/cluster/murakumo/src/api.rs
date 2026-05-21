@@ -5,7 +5,7 @@ use std::time::Duration;
 use crate::config::env_or;
 use crate::models::*;
 
-const DEFAULT_MURAKUMO_APP_ENDPOINT: &str = "https://murakumo.gftd.ai";
+const DEFAULT_MURAKUMO_APP_ENDPOINT: &str = "https://murakumo.etzhayyim.com";
 
 /// Shared HTTP client with configurable timeout.
 pub fn http_client() -> Client {

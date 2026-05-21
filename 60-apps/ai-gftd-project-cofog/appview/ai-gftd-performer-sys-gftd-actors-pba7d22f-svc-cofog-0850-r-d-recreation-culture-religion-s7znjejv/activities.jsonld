@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/08/5/0/r-d-recreation-culture-religion/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/08/5/0/r-d-recreation-culture-religion/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Cultural and Social Innovation Lifecycle",
       "description": "The research and development process of planning cultural research, simulating social trends, and evaluating arts/sports innovation.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/08/5/0/r-d-recreation-culture-religion"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/5/0/r-d-recreation-culture-religion"
     }
   ]
 }

@@ -1,4 +1,4 @@
-// graph-sos-intel.gftd.ai — graph System-of-Systems intelligence actor
+// graph-sos-intel.etzhayyim.com — graph System-of-Systems intelligence actor
 // Thin-edge dispatcher: inventory cron + briefing cron in LangServer BPMN-contract + Python.
 // 3 methods: health / listRelations / listFindings
 
@@ -11,7 +11,7 @@ interface Env {
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const NSID_PREFIX = "ai.gftd.apps.graphSosIntel.";
-const ACTOR_DID = "did:web:graph-sos-intel.gftd.ai";
+const ACTOR_DID = "did:web:graph-sos-intel.etzhayyim.com";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -41,7 +41,7 @@ export default {
 } satisfies ExportedHandler<Env>;
 
 async function proxyToDispatcher(env: Env, nsid: string, req: Request): Promise<Response> {
-  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const secret = typeof env.DISPATCHER_INTERNAL_SECRET === "string"
     ? env.DISPATCHER_INTERNAL_SECRET
     : await env.DISPATCHER_INTERNAL_SECRET?.get() ?? "";

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, Button } from '@gftdcojp/design-system';
+	import { Badge, Button } from '@etzhayyim/design-system';
 	import { playClick, playSuccess } from '$lib/sound';
 	import type { CharacterAppearance, CreateAgentInput } from '$lib/auth';
 	import { randomCharacterAppearance } from '$lib/auth';

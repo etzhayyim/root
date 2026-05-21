@@ -1,7 +1,7 @@
 // vite.config.ts
-import { sveltekit } from "file:///Users/junkawasaki/gftdcojp/ai-gftd-kyber/apps/ai-gftd-sheets/node_modules/.deno/@sveltejs+kit@2.49.4/node_modules/@sveltejs/kit/src/exports/vite/index.js";
-import { paraglideVitePlugin } from "file:///Users/junkawasaki/gftdcojp/ai-gftd-kyber/apps/ai-gftd-sheets/node_modules/.deno/@inlang+paraglide-js@2.8.0/node_modules/@inlang/paraglide-js/dist/index.js";
-import { defineConfig } from "file:///Users/junkawasaki/gftdcojp/ai-gftd-kyber/apps/ai-gftd-sheets/node_modules/.deno/vite@6.4.1/node_modules/vite/dist/node/index.js";
+import { sveltekit } from "file:///Users/junkawasaki/etzhayyim/ai-gftd-kyber/apps/ai-gftd-sheets/node_modules/.deno/@sveltejs+kit@2.49.4/node_modules/@sveltejs/kit/src/exports/vite/index.js";
+import { paraglideVitePlugin } from "file:///Users/junkawasaki/etzhayyim/ai-gftd-kyber/apps/ai-gftd-sheets/node_modules/.deno/@inlang+paraglide-js@2.8.0/node_modules/@inlang/paraglide-js/dist/index.js";
+import { defineConfig } from "file:///Users/junkawasaki/etzhayyim/ai-gftd-kyber/apps/ai-gftd-sheets/node_modules/.deno/vite@6.4.1/node_modules/vite/dist/node/index.js";
 var vite_config_default = defineConfig({
   plugins: [
     sveltekit(),

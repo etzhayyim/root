@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Create a sponsored-post campaign. Issues a path-based DID `did:web:ads.gftd.ai:campaign:{id}` that becomes the advertiser identity for subsequent sponsored posts.",
+      "description": "Create a sponsored-post campaign. Issues a path-based DID `did:web:ads.etzhayyim.com:campaign:{id}` that becomes the advertiser identity for subsequent sponsored posts.",
       "input": {
         "encoding": "application/json",
         "schema": {

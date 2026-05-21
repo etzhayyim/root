@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/09/8/0/education-nec",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/8/0/education-nec",
       "type": "dodaf:Capability",
       "name": "Miscellaneous Education and Unclassified Learning Oversight Capability",
       "description": "Functional capability for managing unclassified educational services, multi-agency education coordination, and regulatory oversight. Classification: COFOG Division 09, Group 8, Class 0.",

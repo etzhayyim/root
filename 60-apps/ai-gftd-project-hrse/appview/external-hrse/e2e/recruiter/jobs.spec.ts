@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#RecruiterJobsE2E
+// @etzhayyim/cyber-freelance#RecruiterJobsE2E
 // リクルーター案件管理ページのE2Eテスト
 
 import { test, expect } from "@playwright/test";

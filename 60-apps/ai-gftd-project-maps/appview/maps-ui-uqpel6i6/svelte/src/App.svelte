@@ -203,7 +203,7 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
   // Dev tools toggle (replaces always-visible info panel)
   let showDevTools = $state(false);
 
-  // Operations dashboard (World Monitor-inspired, but backed by maps.gftd.ai graph/live layers)
+  // Operations dashboard (World Monitor-inspired, but backed by maps.etzhayyim.com graph/live layers)
   let showOpsPanel = $state(true);
   let showLayerDrawer = $state(false);
   let dashboard = $state<MapsDashboard | null>(null);
@@ -242,10 +242,10 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
   // Hamburger menu
   let showMenu = $state(false);
   const mapsTools = [
-    { icon: '\u{1F50D}', label: 'Search', href: 'https://search.gftd.ai' },
-    { icon: '\u{1F577}\uFE0F', label: 'Crawler', href: 'https://crawler.gftd.ai' },
-    { icon: '\u{1F4F0}', label: 'News', href: 'https://news.gftd.ai' },
-    { icon: '\u{1F5C4}\uFE0F', label: 'Collection CP', href: 'https://v1m9k2q8.gftd.ai/xrpc' },
+    { icon: '\u{1F50D}', label: 'Search', href: 'https://search.etzhayyim.com' },
+    { icon: '\u{1F577}\uFE0F', label: 'Crawler', href: 'https://crawler.etzhayyim.com' },
+    { icon: '\u{1F4F0}', label: 'News', href: 'https://news.etzhayyim.com' },
+    { icon: '\u{1F5C4}\uFE0F', label: 'Collection CP', href: 'https://v1m9k2q8.etzhayyim.com/xrpc' },
   ];
   const dataSources = [
     { icon: '\u{1F30D}', label: 'OpenStreetMap', href: 'https://openstreetmap.org' },
@@ -685,7 +685,7 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
     // tile-server); otherwise keep empty so KAMI uses raster basemap + the
     // RisingWave overlay attached below.
     //
-    // Known-broken host `tiles-maps.gftd.ai` (TLS handshake fails — no cert on
+    // Known-broken host `tiles-maps.etzhayyim.com` (TLS handshake fails — no cert on
     // that 2nd-level subdomain) is explicitly rejected so stale server config
     // or registered VectorSource rows can't resurrect the black-tile path.
     const rawVectorCandidate = (
@@ -694,7 +694,7 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
       || (mapTileUrlRaw.includes('.pbf') ? mapTileUrlRaw : '')
       || ''
     ).trim();
-    const vectorTileUrlRaw = rawVectorCandidate.includes('tiles-maps.gftd.ai')
+    const vectorTileUrlRaw = rawVectorCandidate.includes('tiles-maps.etzhayyim.com')
       ? ''
       : rawVectorCandidate;
     const vectorTileUrl = vectorTileUrlRaw ? decodeURIComponent(vectorTileUrlRaw) : '';
@@ -1648,7 +1648,7 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
   }
 
   async function sharePlace(place: MapSearchResult) {
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://maps.gftd.ai';
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://maps.etzhayyim.com';
     const params = new URLSearchParams({ title: place.title });
     if (place.lat != null) params.set('lat', place.lat.toFixed(6));
     if (place.lng != null) params.set('lng', place.lng.toFixed(6));
@@ -3635,7 +3635,7 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
         {/each}
       </div>
       <div class="border-t border-[#eee] px-3 py-2">
-        <span class="text-[11px] text-[#888]">maps.gftd.ai</span>
+        <span class="text-[11px] text-[#888]">maps.etzhayyim.com</span>
       </div>
     </div>
   {/if}
@@ -3742,7 +3742,7 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
         <span class="h-2 w-2 rounded-full" style="background:{riskColor(dashboard?.risk.level)}"></span>
         <div class="min-w-0 flex-1">
           <div class="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/45">Spatial Ops</div>
-          <div class="truncate text-[13px] font-semibold">maps.gftd.ai monitor</div>
+          <div class="truncate text-[13px] font-semibold">maps.etzhayyim.com monitor</div>
         </div>
         <button class="h-8 w-8 rounded-md text-white/60 hover:bg-white/10 hover:text-white" onclick={() => { showLayerDrawer = !showLayerDrawer; }} aria-label="Layer catalog">☷</button>
         <button class="h-8 w-8 rounded-md text-white/60 hover:bg-white/10 hover:text-white" onclick={() => { showOpsPanel = !showOpsPanel; }} aria-label="Toggle ops panel">{showOpsPanel ? '−' : '+'}</button>
@@ -4269,11 +4269,11 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
         <div class="border border-dashed border-white/20 rounded-lg text-[#9aa0a6] text-[0.72rem] p-[10px] text-center flex flex-col gap-1.5 items-center">
           クローラジョブがありません
           <a
-            href="https://crawler.gftd.ai"
+            href="https://crawler.etzhayyim.com"
             target="_blank"
             rel="noopener noreferrer"
             class="text-[#33b8ff] text-[0.68rem] no-underline hover:underline"
-          >crawler.gftd.ai を開く</a>
+          >crawler.etzhayyim.com を開く</a>
         </div>
       {:else}
         <div class="mt-1 flex flex-col gap-1.5 max-h-[240px] overflow-auto pr-1">

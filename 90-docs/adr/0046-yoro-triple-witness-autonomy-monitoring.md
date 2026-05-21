@@ -7,8 +7,8 @@ topic: yoro-autonomy-monitoring
 authoritative: true
 last_verified: 2026-04-22
 authoritative_for:
-  - yoro.gftd.ai autonomy guarantee (liveness / knowledge / behavior)
-  - 3 monitor actor DIDs (did:web:yoro-liveness.gftd.ai / yoro-shinka.gftd.ai / yoro-integrity.gftd.ai)
+  - yoro.etzhayyim.com autonomy guarantee (liveness / knowledge / behavior)
+  - 3 monitor actor DIDs (did:web:yoro-liveness.etzhayyim.com / yoro-shinka.etzhayyim.com / yoro-integrity.etzhayyim.com)
   - Monitor placement (jacob / judah / CF Worker — 3 independent failure domains)
   - 2-of-3 quorum vote record (vertex_yoro_monitor_vote) for corrective actions
   - Cross-monitor liveness checks (each monitor attests on the other 2)
@@ -28,7 +28,7 @@ superseded_by: []
 
 # Goal
 
-`yoro.gftd.ai` (T1 AI-Agent-First social platform actor, `did:web:yoro.gftd.ai`) の **自律性を単独障害に対して堅牢にする**。yoro 自身が完全に制御できる判断経路 (self-certify) を塞ぎ、**3 つの独立した監視 actor** が相互に監視することで、以下を保証する:
+`yoro.etzhayyim.com` (T1 AI-Agent-First social platform actor, `did:web:yoro.etzhayyim.com`) の **自律性を単独障害に対して堅牢にする**。yoro 自身が完全に制御できる判断経路 (self-certify) を塞ぎ、**3 つの独立した監視 actor** が相互に監視することで、以下を保証する:
 
 1. **Liveness** — yoro の heartbeat / goose recipe / domain write が停止したとき、外部から検出できる
 2. **Integrity** — yoro の shinka/koji/kyumei による domain knowledge 更新が drift / loop / 乗っ取られた場合、独立 witness が拒否できる
@@ -40,7 +40,7 @@ superseded_by: []
 |---|---|
 | 3 監視 actor の DID / placement / cron / 権限 | yoro 本体の機能変更 (feed / convo / search etc.) |
 | 監視 axes 3 種 (liveness / shinka / behavior) の分離設計 | AI content 品質評価 (LLM-as-judge 等) |
-| 2-of-3 quorum vote schema + `vertex_yoro_monitor_vote` | 一般 PDS moderation (moderator.gftd.ai の責務) |
+| 2-of-3 quorum vote schema + `vertex_yoro_monitor_vote` | 一般 PDS moderation (moderator.etzhayyim.com の責務) |
 | corrective action tier (alert/pause/rollback/rotate/escalate) | Byzantine consensus (n=3f+1 ではなく crash-fault tolerance + disagreement 検出) |
 | 監視 actor 自身の自律性 (per-did-kyumei-shinka-autonomy 準拠) | 他 T1 actor (mangaka/news/briefing…) の同種監視 (本 ADR のパターンを後から派生) |
 | RisingWave graph schema (1 vote + 1 attestation table) | OCEL 2.0 との event naming 合わせ (ADR-0025 と整合する方針のみ記載) |
@@ -68,7 +68,7 @@ superseded_by: []
 
 ```
                               ┌──────────────────────────────────┐
-                              │  did:web:yoro.gftd.ai (subject)  │
+                              │  did:web:yoro.etzhayyim.com (subject)  │
                               │  T1 MCP-Compose, judah goose cron │
                               │  (monitored — 受動、監視に従う)    │
                               └──────────────────────────────────┘
@@ -81,7 +81,7 @@ superseded_by: []
 │ Monitor-L          │  │ Monitor-K        │  │ Monitor-B                     │
 │ did:web:           │  │ did:web:         │  │ did:web:                      │
 │   yoro-liveness    │  │   yoro-shinka    │  │   yoro-integrity              │
-│   .gftd.ai         │  │   .gftd.ai       │  │   .gftd.ai                    │
+│   .etzhayyim.com         │  │   .etzhayyim.com       │  │   .etzhayyim.com                    │
 │ axis = liveness    │  │ axis = knowledge │  │ axis = behavior/output        │
 │ host = jacob       │  │ host = judah     │  │ host = CF Worker (off-fleet)  │
 │ cron = */5 min     │  │ cron = */15 min  │  │ cron = */10 min               │
@@ -107,7 +107,7 @@ superseded_by: []
 |---|---|---|---|---|
 | **L** (liveness) | jacob (LiteLLM gateway host) | macOS Keychain @ jacob | LiteLLM :4000 (local) | LAN 死亡で L 停止、K/B 生存 |
 | **K** (shinka) | judah (goose agent host) | macOS Keychain @ judah | Ollama :11434 native | judah 死亡で K 停止、L/B 生存 |
-| **B** (behavior) | CF Worker (`yoro-integrity.gftd.ai`) | CF Secret + D1 | Workers AI or murakumo public | fleet 全滅でも B 生存、PDS 外部視点 |
+| **B** (behavior) | CF Worker (`yoro-integrity.etzhayyim.com`) | CF Secret + D1 | Workers AI or murakumo public | fleet 全滅でも B 生存、PDS 外部視点 |
 
 jacob と judah 両方が死亡しても、B (CF Worker) が生存し、quorum 不成立状態を alert として発報 → 人間エスカレーション。
 
@@ -174,16 +174,16 @@ RisingWave P10v2 GraphAr convention (1 row per record, promoted columns, VARCHAR
 -- Migration: 30-graph/graph-schema/migrations/20260422000000_vertex_yoro_monitor_tables.ts
 
 CREATE TABLE vertex_yoro_monitor_attestation (
-  vertex_id        VARCHAR PRIMARY KEY,   -- at://did:web:yoro-<axis>.gftd.ai/ai.gftd.yoro-<axis>.attestation/<rkey>
+  vertex_id        VARCHAR PRIMARY KEY,   -- at://did:web:yoro-<axis>.etzhayyim.com/ai.gftd.yoro-<axis>.attestation/<rkey>
   _seq             BIGINT,
   created_date     DATE,
   sensitivity_ord  BIGINT,
   owner_did        VARCHAR,               -- = monitor_did (RLS)
   rkey             VARCHAR,
   repo             VARCHAR,               -- monitor DID
-  monitor_did      VARCHAR,               -- did:web:yoro-{liveness,shinka,integrity}.gftd.ai
+  monitor_did      VARCHAR,               -- did:web:yoro-{liveness,shinka,integrity}.etzhayyim.com
   axis             VARCHAR,               -- 'liveness' | 'shinka' | 'behavior'
-  subject_did      VARCHAR,               -- did:web:yoro.gftd.ai (監視対象)
+  subject_did      VARCHAR,               -- did:web:yoro.etzhayyim.com (監視対象)
   observed_at      VARCHAR,               -- ISO 8601
   status           VARCHAR,               -- 'ok' | 'stale' | 'drift' | 'loop' | 'byzantine'
   fault_class      VARCHAR,               -- stale|drift|loop|byzantine|pii-leak|flood|impersonation|none
@@ -197,14 +197,14 @@ CREATE TABLE vertex_yoro_monitor_attestation (
 );
 
 CREATE TABLE vertex_yoro_monitor_vote (
-  vertex_id        VARCHAR PRIMARY KEY,   -- at://did:web:yoro.gftd.ai/ai.gftd.yoro_gov.vote/<rkey>
+  vertex_id        VARCHAR PRIMARY KEY,   -- at://did:web:yoro.etzhayyim.com/ai.gftd.yoro_gov.vote/<rkey>
   _seq             BIGINT,
   created_date     DATE,
   sensitivity_ord  BIGINT,
   owner_did        VARCHAR,               -- = requested_by monitor DID (opener)
   rkey             VARCHAR,
   repo             VARCHAR,               -- = subject_did (vote は subject の graph に属する)
-  subject_did      VARCHAR,               -- did:web:yoro.gftd.ai 通常
+  subject_did      VARCHAR,               -- did:web:yoro.etzhayyim.com 通常
   action           VARCHAR,               -- 'alert' | 'pause' | 'rollback' | 'rotate-key' | 'escalate'
   reason           VARCHAR,               -- fault_class (stale|drift|loop|byzantine|pii-leak|flood|...)
   requested_by     VARCHAR,               -- monitor DID that opened the vote
@@ -243,8 +243,8 @@ CREATE TABLE vertex_yoro_monitor_vote (
 |---|---|---|---|---|
 | **alert** | **unilateral** (1 monitor) | 発動 monitor が PagerDuty / Slack / gftd notify | 人間のみ | 任意の `stale` / 軽度 drift |
 | **pause** | **2-of-3** | gateway (goose wrapper) が crontab から該当 recipe を削除 | yoro 社 post 停止、DM read 停止 | `flood` / `loop` / `knowledge stale` |
-| **rollback** | **2-of-3** + moderator signoff | moderator.gftd.ai が問題 AT commit を tombstone | 直近 N 投稿の取消 | `PII leak` / `impersonation` |
-| **rotate-key** | **2-of-3** + human approve | authz.gftd.ai が yoro の ES256 key を rotate (ADR-0022 multi-key policy) | yoro 全 XRPC 再認証 | `byzantine disagree` / 鍵漏洩疑義 |
+| **rollback** | **2-of-3** + moderator signoff | moderator.etzhayyim.com が問題 AT commit を tombstone | 直近 N 投稿の取消 | `PII leak` / `impersonation` |
+| **rotate-key** | **2-of-3** + human approve | authz.etzhayyim.com が yoro の ES256 key を rotate (ADR-0022 multi-key policy) | yoro 全 XRPC 再認証 | `byzantine disagree` / 鍵漏洩疑義 |
 | **escalate** | **unilateral** (1 monitor) | 人間 (oncall) に page | 人間判断へ | 判定に自信なし、quorum 不成立、2 monitor 沈黙 |
 
 **alert / escalate が unilateral** な理由: 情報を人間に上げる行為は副作用が人間の判断のみ。**pause / rollback / rotate-key** は yoro の外部行動を直接止める mutation なので quorum 必須。
@@ -281,7 +281,7 @@ CREATE TABLE vertex_yoro_monitor_vote (
 
 50-infra/cloudflare/workers/yoro-integrity/
   src/worker.ts                              (Monitor-B, CF Cron Trigger */10 min)
-  wrangler.jsonc                             (route yoro-integrity.gftd.ai/*, HYPERDRIVE binding)
+  wrangler.jsonc                             (route yoro-integrity.etzhayyim.com/*, HYPERDRIVE binding)
 
 30-graph/graph-schema/migrations/
   2026042200000_yoro_monitor_tables.ts       (vertex_yoro_monitor_attestation/_vote)
@@ -353,8 +353,8 @@ yoro_watchdog_shinka:
 - False-positive drill 週次稼働
 
 **Phase 4 — Action tier 拡張** (T+21〜T+35d):
-- `rollback` (moderator.gftd.ai 連携)
-- `rotate-key` (authz.gftd.ai multi-key rotation 連携)
+- `rollback` (moderator.etzhayyim.com 連携)
+- `rotate-key` (authz.etzhayyim.com multi-key rotation 連携)
 - Runbook を `90-docs/platform/` に追加
 
 **Phase 5 — 他 actor への派生** (T+35d〜):
@@ -366,7 +366,7 @@ Each phase gate:
 
 ```bash
 # Monitor self-compliance (per-did-kyumei-shinka-autonomy rule L49)
-gftd apps kyumei-koji -nanoid <monitor-nanoid> -repo-did did:web:yoro-<axis>.gftd.ai \
+gftd apps kyumei-koji -nanoid <monitor-nanoid> -repo-did did:web:yoro-<axis>.etzhayyim.com \
   -dir ./20-actors -json
 
 # Cross-attestation freshness (no monitor silent > 3× cadence)
@@ -377,11 +377,11 @@ psql "$RW" -c "SELECT monitor_did, axis, max(observed_at) FROM vertex_yoro_monit
                WHERE observed_at > now() - interval '1 hour' GROUP BY 1,2"
 
 # Quorum dry-run (synthetic fault injection — new CLI, Phase 0 deliverable)
-gftd monitor vote dry-run --subject did:web:yoro.gftd.ai \
+gftd monitor vote dry-run --subject did:web:yoro.etzhayyim.com \
   --action pause --reason flood --fake-ballots 2
 
 # False-positive drill (週 1)
-gftd monitor drill --axis all --subject did:web:yoro.gftd.ai
+gftd monitor drill --axis all --subject did:web:yoro.etzhayyim.com
 ```
 
 Acceptance:
@@ -401,14 +401,14 @@ Proposed 状態の段階で、前提条件と ADR 内の主張を実測で verif
 | `gftd apps kyumei-koji` 実在 | `gftd apps kyumei-koji --help` | ✓ 存在 |
 | `gftd monitor shinka` 実在 | `gftd monitor shinka --help` | ✓ 存在 |
 | `gftd monitor vote` 実在 | `gftd monitor vote --help` | ✗ 未実装 (Phase 0 で新設) |
-| yoro.gftd.ai live | `curl https://yoro.gftd.ai/_app/meta` | ✓ 200, 正規 HTML |
+| yoro.etzhayyim.com live | `curl https://yoro.etzhayyim.com/_app/meta` | ✓ 200, 正規 HTML |
 | 3 goose recipe が judah で scheduled | `ssh judah crontab -l \| grep goose` | ✓ heartbeat `*/15` + persona-cron `0 */4` + mention-drain `*/15` が active、NSID collection が Monitor-L axis の観測対象と一致 |
 | jacob LiteLLM reachable (Monitor-L placement) | `curl http://192.168.1.37:4000/health/liveliness` | ✓ 200, 17ms |
 | judah Ollama reachable (Monitor-K placement) | `curl http://192.168.1.61:11434/api/tags` | ✓ 200, 15ms |
-| 提案 subdomain 未占有 | `curl https://yoro-{liveness,shinka,integrity}.gftd.ai/` | ✓ 全 404 — 3 subdomain 全て deploy 可能 |
+| 提案 subdomain 未占有 | `curl https://yoro-{liveness,shinka,integrity}.etzhayyim.com/` | ✓ 全 404 — 3 subdomain 全て deploy 可能 |
 | 既存 monitor actor との衝突 | `grep yoro-{liveness,shinka,integrity}` on repo | ✓ 衝突なし (本 ADR のみが参照) |
 | 既存 schema との衝突 | `grep vertex_yoro_monitor_* on migrations` | ✓ 衝突なし |
-| yoro current readiness | `gftd apps kyumei-koji -nanoid g00h5zto -repo-did did:web:yoro.gftd.ai` | readiness_score=6 (D grade) — domain records 0 件、sub-DID 0 件。**外部監視の必要性を裏付け** (self-compliance が weak なので triple-witness が正当化される) |
+| yoro current readiness | `gftd apps kyumei-koji -nanoid g00h5zto -repo-did did:web:yoro.etzhayyim.com` | readiness_score=6 (D grade) — domain records 0 件、sub-DID 0 件。**外部監視の必要性を裏付け** (self-compliance が weak なので triple-witness が正当化される) |
 
 ### ADR 内容の訂正
 

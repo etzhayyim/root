@@ -146,7 +146,7 @@
   ├─ repository.publicized     → POST /webhook/github  (action=publicized)
   └─ Secret Scanning Partner   → POST /webhook/github-secret-scanning
           ↓
-CF Worker  mamoru.gftd.ai  (L3 Dispatcher, stateless)
+CF Worker  mamoru.etzhayyim.com  (L3 Dispatcher, stateless)
           ↓  x-internal-trust HMAC
 bpmn-dispatcher  (K8s ClusterIP)
           ↓  NSID routing

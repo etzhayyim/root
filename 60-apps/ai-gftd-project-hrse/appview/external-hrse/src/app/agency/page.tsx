@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/cyber-freelance#AgencyPage
+ * @etzhayyim/cyber-freelance#AgencyPage
  * エージェンシー用ダッシュボード
  */
 export default function AgencyPage() {

@@ -256,7 +256,7 @@ Runtime, germline, and evolution responsibilities SHOULD be separated.
 Recommended repo split:
 
 ```text
-ai-gftd-apps-gftdcojp
+etzhayyim-root
   substrate: ADRs, graph schema, contracts, shared policies, protocol anchors
 
 ai-gftd-organism-runtime

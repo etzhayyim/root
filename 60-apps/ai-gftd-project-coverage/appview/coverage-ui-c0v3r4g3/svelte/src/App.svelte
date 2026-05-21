@@ -152,7 +152,7 @@
 {:else if report}
   <main class="shell">
     <section class="hero">
-      <p class="eyebrow">coverage.gftd.ai</p>
+      <p class="eyebrow">coverage.etzhayyim.com</p>
       <h1>Coverage Control Room</h1>
       <p class="lede">Live world coverage from <code>mv_world_coverage_live</code> with test snapshot overlay.</p>
       <div class="kpis">

@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/nogu-daily-pulse-v1',
-                 'did:web:nogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/nogu-daily-pulse-v1',
+                 'did:web:nogu.etzhayyim.com',
                  'nogu_daily_pulse',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
                  '  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '  id="Definitions_nogu_daily_pulse"\n'
-                 '  targetNamespace="https://gftd.ai/bpmn/nogu"\n'
+                 '  targetNamespace="https://etzhayyim.com/bpmn/nogu"\n'
                  '  exporter="hand-written"\n'
                  '  exporterVersion="1.0">\n'
                  '  <bpmn:process id="nogu_daily_pulse" name="nogu Daily Pulse" '
@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;dailyPulse&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ itemStatusRows: itemStatusRows, overdueCount: '
@@ -130,7 +130,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;inspectionOverdueAlert&quot;" '
                  'target="action"/>\n'
@@ -154,10 +154,10 @@ UP = [{'sql': '\n'
                  5277,
                  '00-contracts/bpmn/ai/gftd/nogu/dailyPulse.bpmn',
                  '2026-04-28T22:03:00Z',
-                 'did:web:nogu.gftd.ai',
-                 'did:web:nogu.gftd.ai',
+                 'did:web:nogu.etzhayyim.com',
+                 'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/nogu-daily-pulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/nogu-daily-pulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -171,8 +171,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/nogu-schedule-inspection-v1',
-                 'did:web:nogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/nogu-schedule-inspection-v1',
+                 'did:web:nogu.etzhayyim.com',
                  'nogu_schedule_inspection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -190,7 +190,7 @@ UP = [{'sql': '\n'
                  '  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '  id="Definitions_nogu_schedule_inspection"\n'
-                 '  targetNamespace="https://gftd.ai/bpmn/nogu"\n'
+                 '  targetNamespace="https://etzhayyim.com/bpmn/nogu"\n'
                  '  exporter="hand-written"\n'
                  '  exporterVersion="1.0">\n'
                  '  <bpmn:process id="nogu_schedule_inspection" name="nogu Schedule Inspection" '
@@ -256,7 +256,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;inspectionScheduled&quot;" '
                  'target="action"/>\n'
@@ -274,7 +274,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;inspectionScheduleError&quot;" '
                  'target="action"/>\n'
@@ -298,10 +298,10 @@ UP = [{'sql': '\n'
                  4853,
                  '00-contracts/bpmn/ai/gftd/nogu/scheduleInspection.bpmn',
                  '2026-04-28T22:03:00Z',
-                 'did:web:nogu.gftd.ai',
-                 'did:web:nogu.gftd.ai',
+                 'did:web:nogu.etzhayyim.com',
+                 'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/nogu-schedule-inspection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/nogu-schedule-inspection-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -315,8 +315,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/nogu-record-lease-v1',
-                 'did:web:nogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/nogu-record-lease-v1',
+                 'did:web:nogu.etzhayyim.com',
                  'nogu_record_lease',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -337,7 +337,7 @@ UP = [{'sql': '\n'
                  '  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '  id="Definitions_nogu_record_lease"\n'
-                 '  targetNamespace="https://gftd.ai/bpmn/nogu"\n'
+                 '  targetNamespace="https://etzhayyim.com/bpmn/nogu"\n'
                  '  exporter="hand-written"\n'
                  '  exporterVersion="1.0">\n'
                  '  <bpmn:process id="nogu_record_lease" name="nogu Record Lease" '
@@ -386,7 +386,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=if(action = &quot;start&quot;, '
                  '&quot;leaseStarted&quot;, &quot;leaseReturned&quot;)" target="action"/>\n'
@@ -424,7 +424,7 @@ UP = [{'sql': '\n'
                  'target="table"/>\n'
                  '          <zeebe:input source="={ item_id: itemId, maintenance_type: '
                  '&quot;repair&quot;, performed_at: returnedAt, performer_did: '
-                 '&quot;did:web:nogu.gftd.ai&quot;, status: &quot;pending-parts&quot;, notes: '
+                 '&quot;did:web:nogu.etzhayyim.com&quot;, status: &quot;pending-parts&quot;, notes: '
                  '&quot;Auto-created from lease return: conditionOnReturn=&quot; + '
                  'conditionOnReturn }" target="row"/>\n'
                  '        </zeebe:ioMapping>\n'
@@ -440,7 +440,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;maintenanceRequired&quot;" '
                  'target="action"/>\n'
@@ -464,10 +464,10 @@ UP = [{'sql': '\n'
                  6014,
                  '00-contracts/bpmn/ai/gftd/nogu/recordLease.bpmn',
                  '2026-04-28T22:03:00Z',
-                 'did:web:nogu.gftd.ai',
-                 'did:web:nogu.gftd.ai',
+                 'did:web:nogu.etzhayyim.com',
+                 'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/nogu-record-lease-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/nogu-record-lease-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -481,16 +481,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/nogu-dailyPulse-v1',
-                 'did:web:nogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/nogu-dailyPulse-v1',
+                 'did:web:nogu.etzhayyim.com',
                  'ai.gftd.apps.nogu.dailyPulse',
                  'nogu_daily_pulse',
                  30000,
                  '2026-04-28T22:03:00Z',
-                 'did:web:nogu.gftd.ai',
-                 'did:web:nogu.gftd.ai',
+                 'did:web:nogu.etzhayyim.com',
+                 'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/nogu-dailyPulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/nogu-dailyPulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -504,16 +504,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/nogu-scheduleInspection-v1',
-                 'did:web:nogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/nogu-scheduleInspection-v1',
+                 'did:web:nogu.etzhayyim.com',
                  'ai.gftd.apps.nogu.scheduleInspection',
                  'nogu_schedule_inspection',
                  30000,
                  '2026-04-28T22:03:00Z',
-                 'did:web:nogu.gftd.ai',
-                 'did:web:nogu.gftd.ai',
+                 'did:web:nogu.etzhayyim.com',
+                 'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/nogu-scheduleInspection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/nogu-scheduleInspection-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -527,29 +527,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/nogu-recordLease-v1',
-                 'did:web:nogu.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/nogu-recordLease-v1',
+                 'did:web:nogu.etzhayyim.com',
                  'ai.gftd.apps.nogu.recordLease',
                  'nogu_record_lease',
                  30000,
                  '2026-04-28T22:03:00Z',
-                 'did:web:nogu.gftd.ai',
-                 'did:web:nogu.gftd.ai',
+                 'did:web:nogu.etzhayyim.com',
+                 'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/nogu-recordLease-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/nogu-recordLease-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/nogu-dailyPulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/nogu-dailyPulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/nogu-scheduleInspection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/nogu-scheduleInspection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/nogu-recordLease-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/nogu-recordLease-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/nogu-daily-pulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/nogu-daily-pulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/nogu-schedule-inspection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/nogu-schedule-inspection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/nogu-record-lease-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/nogu-record-lease-v1']}]
 
 
 def upgrade() -> None:

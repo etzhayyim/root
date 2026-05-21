@@ -9,7 +9,7 @@ const PUBLIC_ROUTES = ["/", "/docs", "/status", "/team", "/studio", "/dashboard"
 
 export function robotsResponse(): Response {
   const lines = [
-    `# yatabase.gftd.ai robots.txt`,
+    `# yatabase.etzhayyim.com robots.txt`,
     `# Operator: etz hayim · Vendor: Gftd Japan株式会社 (T9007028460042)`,
     ``,
     `User-agent: *`,
@@ -49,7 +49,7 @@ export function robotsResponse(): Response {
     `User-agent: yatabase-enrich-bot`,
     `Disallow: /`,
     ``,
-    `Sitemap: https://yatabase.gftd.ai/sitemap.xml`,
+    `Sitemap: https://yatabase.etzhayyim.com/sitemap.xml`,
     ``,
   ];
   return new Response(lines.join("\n"), {
@@ -71,17 +71,17 @@ export function robotsResponse(): Response {
 export function securityTxtResponse(): Response {
   const expires = new Date(Date.now() + 365 * 86400 * 1000).toISOString();
   const lines = [
-    `# yatabase.gftd.ai security.txt — RFC 9116`,
+    `# yatabase.etzhayyim.com security.txt — RFC 9116`,
     `# Operator: etz hayim · Vendor: Gftd Japan株式会社 (T9007028460042)`,
     ``,
-    `Contact: mailto:security@gftd.ai`,
+    `Contact: mailto:security@etzhayyim.com`,
     `Expires: ${expires}`,
     `Preferred-Languages: en, ja`,
-    `Canonical: https://yatabase.gftd.ai/.well-known/security.txt`,
-    `Policy: https://yatabase.gftd.ai/privacy`,
-    `Acknowledgments: https://yatabase.gftd.ai/team`,
+    `Canonical: https://yatabase.etzhayyim.com/.well-known/security.txt`,
+    `Policy: https://yatabase.etzhayyim.com/privacy`,
+    `Acknowledgments: https://yatabase.etzhayyim.com/team`,
     ``,
-    `# Scope: yatabase.gftd.ai (Cloudflare Worker magatama-y4t4b4se),`,
+    `# Scope: yatabase.etzhayyim.com (Cloudflare Worker magatama-y4t4b4se),`,
     `# tenant schemas yata_* on RisingWave Vultr LAX, the dispatched`,
     `# LangServer storage primitives in mitama-yata-pool.`,
     `#`,
@@ -112,7 +112,7 @@ export function sitemapResponse(): Response {
   const today = new Date().toISOString().slice(0, 10);
   const urls = PUBLIC_ROUTES.map(
     (p) => `  <url>
-    <loc>https://yatabase.gftd.ai${p === "/" ? "/" : p}</loc>
+    <loc>https://yatabase.etzhayyim.com${p === "/" ? "/" : p}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${p === "/" ? "daily" : "weekly"}</changefreq>
     <priority>${p === "/" ? "1.0" : p === "/docs" ? "0.9" : "0.7"}</priority>

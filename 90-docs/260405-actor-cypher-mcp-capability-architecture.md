@@ -57,8 +57,8 @@ Promoted columns: `did`, `repo`, `status`, `collection`, `updatedAt`.
 Non-promoted (in `val`): `nanoid`, `handle`, `projectId`, `displayName`, `description`, `hasWorker`, `createdAt`, `lastHeartbeat`.
 
 ```cypher
-MERGE (a:Actor {did: "did:web:k3rn5la4.gftd.ai"})
-SET a.nanoid = "k3rn5la4", a.handle = "k3rn5la4.gftd.ai",
+MERGE (a:Actor {did: "did:web:k3rn5la4.etzhayyim.com"})
+SET a.nanoid = "k3rn5la4", a.handle = "k3rn5la4.etzhayyim.com",
     a.status = "active", a.hasWorker = "true", ...
 ```
 
@@ -79,8 +79,8 @@ SET t.description = "Summarize article by URL",
 Actor → Tool access (CAN_USE). Vertex with composite key `grantId = actorDid::toolName`.
 
 ```cypher
-MERGE (g:ToolGrant {grantId: "did:web:k3rn5la4.gftd.ai::news.summarize"})
-SET g.actorDid = "did:web:k3rn5la4.gftd.ai", g.toolName = "news.summarize",
+MERGE (g:ToolGrant {grantId: "did:web:k3rn5la4.etzhayyim.com::news.summarize"})
+SET g.actorDid = "did:web:k3rn5la4.etzhayyim.com", g.toolName = "news.summarize",
     g.status = "active"
 ```
 
@@ -164,7 +164,7 @@ PDS cron (`*/5 * * * *`):
 
 ```bash
 # Run all phases
-curl -X POST atproto.gftd.ai/xrpc/ai.gftd.actor.migrateBatch \
+curl -X POST atproto.etzhayyim.com/xrpc/ai.gftd.actor.migrateBatch \
   -H 'X-Magatama-Verified: true' \
   -d '{"phase":"all","batchLimit":500}'
 ```
@@ -197,9 +197,9 @@ PDS hot paths were patched to stop circuit-breaker cascades caused by non-P9v20 
 
 ### Measured behavior after deploy (2026-04-06)
 
-- `app.bsky.actor.getProfile?actor=did:web:shinka.gftd.ai`
+- `app.bsky.actor.getProfile?actor=did:web:shinka.etzhayyim.com`
   - stable `HTTP 200`, ~`1.27s`-`1.32s` over repeated runs
-- `app.bsky.feed.getAuthorFeed?actor=did:web:shinka.gftd.ai&limit=10`
+- `app.bsky.feed.getAuthorFeed?actor=did:web:shinka.etzhayyim.com&limit=10`
   - stable `HTTP 200`, typically ~`2.24s`-`2.31s` after warmup
   - no 12-20s timeout behavior observed in the final verification batch
 

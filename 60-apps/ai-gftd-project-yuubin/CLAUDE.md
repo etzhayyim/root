@@ -1,12 +1,12 @@
 # ai-gftd-project-yuubin — 日本郵便 Web ゆうびん 自動化 actor
 
-**URL**: `https://yuubin.gftd.ai` / `https://y00b1nx9.gftd.ai`
-**DID**: `did:web:yuubin.gftd.ai`
+**URL**: `https://yuubin.etzhayyim.com` / `https://y00b1nx9.etzhayyim.com`
+**DID**: `did:web:yuubin.etzhayyim.com`
 **nanoid**: `y00b1nx9`
 
 ## Purpose
 
-裁判所申立書・差押命令申立書・第三者情報取得手続申立書・内容証明郵便など、司法・行政文書の自前郵送を Web ゆうびん 自動化で完結させる。`fax.gftd.ai` (新件申立書 FAX 不可) と `mailer.gftd.ai` (電子メール) の中間レイヤを埋める。
+裁判所申立書・差押命令申立書・第三者情報取得手続申立書・内容証明郵便など、司法・行政文書の自前郵送を Web ゆうびん 自動化で完結させる。`fax.etzhayyim.com` (新件申立書 FAX 不可) と `mailer.etzhayyim.com` (電子メール) の中間レイヤを埋める。
 
 ## ⚠ CRITICAL: Web ゆうびん 自動投函は F5 ASM + iframe CDP 非互換で断念 (2026-04-20)
 
@@ -44,7 +44,7 @@ yuubin actor
   ├─ Tier 1 composeAndPost
   │    ├─ provider="auto" → CF Browser Rendering puppeteer →
   │    │    Web ゆうびん login → menu select → file upload → 宛先入力 → 決済 → 申込番号
-  │    └─ fallback → manual-handoff (mailer.gftd.ai → Teams/email)
+  │    └─ fallback → manual-handoff (mailer.etzhayyim.com → Teams/email)
   ├─ Tier 1 submitNaiyoShomei → e内容証明 (現状 manual-handoff)
   └─ confirmManualPost (operator が完了報告)
 ```
@@ -127,8 +127,8 @@ Web ゆうびん の DOM 構造は予告なく変わるため、初回 deploy �
 
 ## Cross-Actor Integration
 
-- **Caller**: `kaisya.gftd.ai` (case 起点) / `lawfirm.gftd.ai` (matter 起点) / Claude agent (MCP)
-- **Notifier**: `mailer.gftd.ai` (manual-handoff 通知)
+- **Caller**: `kaisya.etzhayyim.com` (case 起点) / `lawfirm.etzhayyim.com` (matter 起点) / Claude agent (MCP)
+- **Notifier**: `mailer.etzhayyim.com` (manual-handoff 通知)
 - **Audit**: `vertex_collection_procedure` (RW) に `procedure_kind: postalSubmission` で記録予定 (kaisya 連携)
 
 ## Cost Estimate (per 投函)
@@ -172,11 +172,11 @@ scripts/normalize-a4-docx.sh input.docx output-a4.docx
 ### Worker-side preprocessing (XRPC)
 
 ```
-POST https://yuubin.gftd.ai/xrpc/ai.gftd.apps.yuubin.normalizeDocx
+POST https://yuubin.etzhayyim.com/xrpc/ai.gftd.apps.yuubin.normalizeDocx
 { "blobKey": "<sha256 hex of docx in CDN_R2>" }
 → { "normalizedBlobKey": "<new sha256>", "normalizedPublicUrl": "..." }
 
-POST https://yuubin.gftd.ai/xrpc/ai.gftd.apps.yuubin.validatePdf
+POST https://yuubin.etzhayyim.com/xrpc/ai.gftd.apps.yuubin.validatePdf
 { "blobKey": "<sha256 hex of PDF in CDN_R2>" }
 → { "isA4": true/false, "pages": N, "sampleSize": [w, h], "warning": "..." }
 ```

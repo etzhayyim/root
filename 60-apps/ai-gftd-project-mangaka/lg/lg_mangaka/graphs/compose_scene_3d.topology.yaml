@@ -92,12 +92,12 @@
 #      `MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools` env on the deployment
 #      pod. The Pregel never leaves the container for tool dispatch.
 #      RESIDUAL — external MCP clients (Cursor / Claude / partner agents)
-#      still resolve `actor_host = mangaka.gftd.ai` from the registry and
+#      still resolve `actor_host = mangaka.etzhayyim.com` from the registry and
 #      hit the SvelteKit CF Worker, which does not yet forward
 #      `tools/call` envelopes to the pod. External access stays best-effort
 #      (404) until either (a) a CF Worker route forwards via Cloudflare
 #      Tunnel / Service Binding, or (b) the registry's `actor_host` is
-#      flipped to `atproto.gftd.ai` so the existing MCP adapter handles the
+#      flipped to `atproto.etzhayyim.com` so the existing MCP adapter handles the
 #      forward. Phase C activation does not depend on external access.
 
 assistant_id: ai.gftd.mangaka.composeScene3d
@@ -108,7 +108,7 @@ description: |
   preset camera + Python-bundled rendering with LLM cinematography, kami-
   mangaka-scene headless render, and gpt-4o-mini-vision 7-axis critique.
 checkpointer_mode: postgres
-authored_by: did:web:mangaka.gftd.ai
+authored_by: did:web:mangaka.etzhayyim.com
 
 # Channels written by nodes (per-key reducer when langgraph compiles).
 state_keys:

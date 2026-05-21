@@ -422,7 +422,7 @@ function convertToF32(raw: Uint8Array, dtype: string): Float32Array {
  *
  * @param actorDid - Actor DID that owns the adapter (used as R2 path segment).
  * @param adapterId - Adapter identifier (e.g. `"finance-m1a2b3"`).
- * @param pdsBaseUrl - PDS base URL that proxies R2 content (e.g. `"https://atproto.gftd.ai"`).
+ * @param pdsBaseUrl - PDS base URL that proxies R2 content (e.g. `"https://atproto.etzhayyim.com"`).
  * @returns Loaded adapter with metadata and parsed weight tensors.
  * @throws If either fetch fails (non-2xx status).
  */

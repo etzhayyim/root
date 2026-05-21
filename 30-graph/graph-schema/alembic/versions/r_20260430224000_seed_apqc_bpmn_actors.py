@@ -19,15 +19,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apqc-materialize-subprocesses-v1',
-                 'did:web:kyber-projector.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apqc-materialize-subprocesses-v1',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'apqc_materialize_subprocesses',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_apqc_materialize_subprocesses"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/apqc"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/apqc"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="apqc_materialize_subprocesses" name="APQC subprocess '
                  'materialization" isExecutable="true">\n'
@@ -59,10 +59,10 @@ UP = [{'sql': '\n'
                  1594,
                  '00-contracts/bpmn/ai/gftd/apqc/materializeSubprocesses.bpmn',
                  '2026-04-30T22:40:00Z',
-                 'did:web:kyber-projector.gftd.ai',
-                 'did:web:kyber-projector.gftd.ai',
+                 'did:web:kyber-projector.etzhayyim.com',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'sys.bpmn.seed.apqc',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apqc-materialize-subprocesses-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apqc-materialize-subprocesses-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -70,15 +70,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apqc-emit-event-v1',
-                 'did:web:kyber-projector.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apqc-emit-event-v1',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'apqc_emit_event',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_apqc_emit_event"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/apqc"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/apqc"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="apqc_emit_event" name="APQC OCEL event emit" '
                  'isExecutable="true">\n'
@@ -120,10 +120,10 @@ UP = [{'sql': '\n'
                  2021,
                  '00-contracts/bpmn/ai/gftd/apqc/emitEvent.bpmn',
                  '2026-04-30T22:40:00Z',
-                 'did:web:kyber-projector.gftd.ai',
-                 'did:web:kyber-projector.gftd.ai',
+                 'did:web:kyber-projector.etzhayyim.com',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'sys.bpmn.seed.apqc',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apqc-emit-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apqc-emit-event-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -131,15 +131,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apqc-coverage-snapshot-v1',
-                 'did:web:kyber-projector.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apqc-coverage-snapshot-v1',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'apqc_coverage_snapshot',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_apqc_coverage_snapshot"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/apqc"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/apqc"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="apqc_coverage_snapshot" name="APQC coverage snapshot" '
                  'isExecutable="true">\n'
@@ -161,10 +161,10 @@ UP = [{'sql': '\n'
                  1076,
                  '00-contracts/bpmn/ai/gftd/apqc/coverageSnapshot.bpmn',
                  '2026-04-30T22:40:00Z',
-                 'did:web:kyber-projector.gftd.ai',
-                 'did:web:kyber-projector.gftd.ai',
+                 'did:web:kyber-projector.etzhayyim.com',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'sys.bpmn.seed.apqc',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apqc-coverage-snapshot-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apqc-coverage-snapshot-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -172,16 +172,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apqc-materializeSubprocesses-v1',
-                 'did:web:kyber-projector.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apqc-materializeSubprocesses-v1',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'ai.gftd.apps.apqc.materializeSubprocesses',
                  'apqc_materialize_subprocesses',
                  60000,
                  '2026-04-30T22:40:00Z',
-                 'did:web:kyber-projector.gftd.ai',
-                 'did:web:kyber-projector.gftd.ai',
+                 'did:web:kyber-projector.etzhayyim.com',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'sys.bpmn.seed.apqc',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apqc-materializeSubprocesses-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apqc-materializeSubprocesses-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -189,16 +189,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apqc-emitEvent-v1',
-                 'did:web:kyber-projector.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apqc-emitEvent-v1',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'ai.gftd.apps.apqc.emitEvent',
                  'apqc_emit_event',
                  60000,
                  '2026-04-30T22:40:00Z',
-                 'did:web:kyber-projector.gftd.ai',
-                 'did:web:kyber-projector.gftd.ai',
+                 'did:web:kyber-projector.etzhayyim.com',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'sys.bpmn.seed.apqc',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apqc-emitEvent-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apqc-emitEvent-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -206,29 +206,29 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apqc-coverageSnapshot-v1',
-                 'did:web:kyber-projector.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apqc-coverageSnapshot-v1',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'ai.gftd.apps.apqc.coverageSnapshot',
                  'apqc_coverage_snapshot',
                  30000,
                  '2026-04-30T22:40:00Z',
-                 'did:web:kyber-projector.gftd.ai',
-                 'did:web:kyber-projector.gftd.ai',
+                 'did:web:kyber-projector.etzhayyim.com',
+                 'did:web:kyber-projector.etzhayyim.com',
                  'sys.bpmn.seed.apqc',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apqc-coverageSnapshot-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apqc-coverageSnapshot-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apqc-materializeSubprocesses-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apqc-materializeSubprocesses-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apqc-emitEvent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apqc-emitEvent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apqc-coverageSnapshot-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apqc-coverageSnapshot-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apqc-materialize-subprocesses-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apqc-materialize-subprocesses-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apqc-emit-event-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apqc-emit-event-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apqc-coverage-snapshot-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apqc-coverage-snapshot-v1']}]
 
 
 def upgrade() -> None:

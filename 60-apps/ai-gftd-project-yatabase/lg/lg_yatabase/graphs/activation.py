@@ -33,12 +33,12 @@ yatabase にサインアップいただいてから3日が経ちました。
 
 ◆ 最初の Cypher クエリ (30秒)
 
-  curl -X POST https://yatabase.gftd.ai/cypher \\
+  curl -X POST https://yatabase.etzhayyim.com/cypher \\
     -H "Authorization: Bearer $YOUR_API_KEY" \\
     -H "Content-Type: application/json" \\
     -d '{"query": "CREATE (n:Person {name: \\"Alice\\"}) RETURN n"}'
 
-詳細: https://yatabase.gftd.ai/docs/quickstart
+詳細: https://yatabase.etzhayyim.com/docs/quickstart
 
 ご不明な点があれば、このメールに返信してください。
 
@@ -52,10 +52,10 @@ yatabase をご利用いただきありがとうございます。
 サインアップから7日が経ちましたが、まだクエリが少ない状態のようです。
 
 もし何かお困りのことがあれば、15分のセットアップサポートをご利用ください:
-  → https://yatabase.gftd.ai/support
+  → https://yatabase.etzhayyim.com/support
 
 ◆ MCP endpoint (AI エージェント連携):
-  curl -X POST https://yatabase.gftd.ai/mcp \\
+  curl -X POST https://yatabase.etzhayyim.com/mcp \\
     -H "Authorization: Bearer $YOUR_API_KEY" \\
     -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
 

@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/03/3/0/law-courts/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/03/3/0/law-courts/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Judicial Adjudication Lifecycle",
       "description": "The administrative process of registering legal filings, scheduling hearings, and delivering formal judicial judgments.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/03/3/0/law-courts"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/03/3/0/law-courts"
     }
   ]
 }

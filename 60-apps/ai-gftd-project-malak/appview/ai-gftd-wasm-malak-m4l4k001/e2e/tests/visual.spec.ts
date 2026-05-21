@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.gftd.ai';
+const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.etzhayyim.com';
 
-test.describe('malak.gftd.ai — Visual Rendering', () => {
+test.describe('malak.etzhayyim.com — Visual Rendering', () => {
 	test('page loads without critical JS errors', async ({ page }) => {
 		const errors: string[] = [];
 		page.on('pageerror', (e) => {

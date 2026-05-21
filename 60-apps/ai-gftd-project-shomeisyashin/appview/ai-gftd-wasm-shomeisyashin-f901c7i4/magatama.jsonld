@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:syomeisyashin.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:syomeisyashin.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -37,21 +37,21 @@
   "project": "shomeisyashin",
   "routes": [
     {
-      "host": "syomeisyashin.gftd.ai",
+      "host": "syomeisyashin.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "shomeisyashin.gftd.ai",
+      "host": "shomeisyashin.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "f901c7i4.gftd.ai",
+      "host": "f901c7i4.etzhayyim.com",
       "paths": [
         "/"
       ],

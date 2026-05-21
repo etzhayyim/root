@@ -291,18 +291,18 @@ impl MeshDns {
     pub fn new(table: Arc<RwLock<RoutingTable>>) -> Self {
         Self {
             table,
-            suffix: ".mesh.gftd.ai".to_string(),
+            suffix: ".mesh.etzhayyim.com".to_string(),
         }
     }
 
-    /// Resolve node-id.mesh.gftd.ai → mesh IP
+    /// Resolve node-id.mesh.etzhayyim.com → mesh IP
     pub fn resolve(&self, name: &str) -> Option<Ipv4Addr> {
         let node_id = name.strip_suffix(&self.suffix)?;
         let table = self.table.read().ok()?;
         table.lookup_node(node_id).map(|r| r.mesh_ip)
     }
 
-    /// Reverse: mesh IP → node-id.mesh.gftd.ai
+    /// Reverse: mesh IP → node-id.mesh.etzhayyim.com
     pub fn reverse(&self, ip: &Ipv4Addr) -> Option<String> {
         let table = self.table.read().ok()?;
         table.lookup_ip(ip).map(|r| format!("{}{}", r.node_id, self.suffix))

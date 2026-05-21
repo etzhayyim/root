@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from '$app/stores';
 
-  const FIRM_DID = 'did:web:lawyer.gftd.ai';
-  const LAWYER_DID = 'did:web:k-bakshi.gftd.ai'; // default, will be from auth
+  const FIRM_DID = 'did:web:lawyer.etzhayyim.com';
+  const LAWYER_DID = 'did:web:k-bakshi.etzhayyim.com'; // default, will be from auth
 
   const nav = [
     { href: '/', label: 'Dashboard', icon: '⚖️' },

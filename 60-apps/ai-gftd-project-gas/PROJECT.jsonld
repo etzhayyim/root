@@ -1,8 +1,8 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "gas.gftd.ai",
+  "name": "gas.etzhayyim.com",
   "description": "ガスサービス — Basic Life Guarantee 受給者への都市ガス/LPG供給管理",
   "applicationCategory": "Utility",
-  "url": "https://gas.gftd.ai"
+  "url": "https://gas.etzhayyim.com"
 }

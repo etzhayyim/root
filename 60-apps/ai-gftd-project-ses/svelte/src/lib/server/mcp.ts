@@ -2,8 +2,8 @@ import type { RequestEvent } from '@sveltejs/kit';
 import type { SesMcpInput, SesMcpOutput, SesMcpToolName } from '../contracts/ses-mcp';
 
 // ses-langgraph is ClusterIP-only; SES_MCP_URL must be set to the externally reachable
-// ses-api.gftd.ai endpoint (requires Cloudflare Tunnel ingress rule +
-// DNS CNAME ses-api.gftd.ai → <tunnel-uuid>.cfargotunnel.com).
+// ses-api.etzhayyim.com endpoint (requires Cloudflare Tunnel ingress rule +
+// DNS CNAME ses-api.etzhayyim.com → <tunnel-uuid>.cfargotunnel.com).
 const DEFAULT_SES_MCP_URL = '';
 
 type Env = Record<string, unknown> & {

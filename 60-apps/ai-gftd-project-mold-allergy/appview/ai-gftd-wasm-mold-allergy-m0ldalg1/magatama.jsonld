@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:mold-allergy.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:mold-allergy.etzhayyim.com",
   "framework": "ts-thin-edge",
   "component": {
     "path": "src/app.ts"

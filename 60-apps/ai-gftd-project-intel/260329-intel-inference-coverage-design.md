@@ -2,7 +2,7 @@
 
 **Date**: 2026-03-29
 **Status**: Design
-**Author**: AI Agent (intel.gftd.ai)
+**Author**: AI Agent (intel.etzhayyim.com)
 
 ## Problem
 
@@ -71,7 +71,7 @@ natural-person の cohort パターンを経済/産業 intelligence に適用す
 
 [Output: Cohort Records]
   ComAtprotoRepoCreateRecord("inferred_cohort", {
-    subject_did: "did:web:intel.gftd.ai:org:toyota",
+    subject_did: "did:web:intel.etzhayyim.com:org:toyota",
     inference_chain_id: "ic-{timestamp}-{seq}",
     layer: 1,                          // 推論の深さ
     source_type: "ir_report",          // 1次ソース種別
@@ -109,13 +109,13 @@ natural-person の cohort パターンを経済/産業 intelligence に適用す
 
 ```
 [Stable Transition]
-  kuruma.gftd.ai から Toyota ディーラー一覧 ingest
+  kuruma.etzhayyim.com から Toyota ディーラー一覧 ingest
     → 実際の 168,432 ディーラー DID 作成
     → inferred_cohort (170,000 推定) を stable に更新
     → actual_count: 168,432, deviation: -0.9%
     → SUPERSEDED_BY edge: cohort → real DID 群
 
-  legal-entity.gftd.ai から Toyota グループ法人 ingest
+  legal-entity.etzhayyim.com から Toyota グループ法人 ingest
     → 実際の 717 法人 (541 連結 + 176 関連)
     → inferred_cohort (717 推定) を stable に更新
     → deviation: 0.0% (IR 数値が正確)
@@ -128,7 +128,7 @@ natural-person の cohort パターンを経済/産業 intelligence に適用す
 ```
 InferenceChain {
   id: "ic-{timestamp}-{seq}",
-  subject: "did:web:intel.gftd.ai:org:toyota",
+  subject: "did:web:intel.etzhayyim.com:org:toyota",
   trigger: "ir_report_2025" | "follow_commit" | "scheduled_scan",
   created_at: ISO8601,
   steps: InferenceStep[]
@@ -199,11 +199,11 @@ EFFECTIVE = ACTUAL×1.0 + INFERRED(C)×0.7 + INFERRED(I)×0.3
 
 ### PDS Query Extension
 
-Intel inference cohort は `intel.gftd.ai` の path-based DID として登録されるため、既存の `gftd coverage` Cypher query で自然にカウントされる。ただし inference tier 区別のため、`InferredCohort` node に `status` property を付与。
+Intel inference cohort は `intel.etzhayyim.com` の path-based DID として登録されるため、既存の `gftd coverage` Cypher query で自然にカウントされる。ただし inference tier 区別のため、`InferredCohort` node に `status` property を付与。
 
 ```cypher
 // Actual count (現行)
-MATCH (d:Did) WHERE d.repo CONTAINS '{domain}.gftd.ai' RETURN count(d) LIMIT 1
+MATCH (d:Did) WHERE d.repo CONTAINS '{domain}.etzhayyim.com' RETURN count(d) LIMIT 1
 
 // Intel inference count (追加)
 MATCH (c:InferredCohort {target_domain: '{domain}', status: 'corroborated'})
@@ -327,7 +327,7 @@ handleHeartbeat
                                               │ Cypher query
                                               ▼
 ┌──────────────┐  Follow    ┌──────────────────────────────────┐
-│ handotai     │──commit──▶│         intel.gftd.ai             │
+│ handotai     │──commit──▶│         intel.etzhayyim.com             │
 │ kuruma       │──commit──▶│                                    │
 │ malak        │──commit──▶│  1. Reactive inference             │
 │ yabai        │──commit──▶│     (follow commit → LLM chain)   │
@@ -439,7 +439,7 @@ function effectiveWeight(status: string, confidence: number): number {
 
 ```
 cmdInferCoverage({
-  subject_did: "did:web:intel.gftd.ai:org:toyota",
+  subject_did: "did:web:intel.etzhayyim.com:org:toyota",
   source_text: "Toyota Motor Corporation FY2025 IR: Global sales 10.5M vehicles, production 10.2M, 541 consolidated subsidiaries, 176 affiliated companies, revenue ¥45.1T",
   source_url: "https://global.toyota/en/ir/"
 })

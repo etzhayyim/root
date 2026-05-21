@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/10/8/0/r-d-social-protection/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/10/8/0/r-d-social-protection/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Social Protection R&D Lifecycle",
       "description": "The administrative process of planning research, simulating policy impact, and evaluating welfare model effectiveness.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/10/8/0/r-d-social-protection"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/8/0/r-d-social-protection"
     }
   ]
 }

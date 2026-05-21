@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-ee42cff6a653",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ee42cff6a653",
   "entityId": "ent-ee42cff6a653",
   "canonicalName": "tambov plant (tz) “october”",
   "aliases": [

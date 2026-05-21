@@ -5,7 +5,7 @@ import { TouchOptimizedButton } from "@/components/TouchOptimizedButton";
 import { ChatMessage } from "./ChatMessage";
 
 /**
- * @gftdcojp/ai-gftd-hrse#ChatInterface
+ * @etzhayyim/ai-gftd-hrse#ChatInterface
  * Chat interface component for recruiter agent
  */
 interface ChatMessage {

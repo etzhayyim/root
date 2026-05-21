@@ -30,7 +30,7 @@ from langgraph.types import RetryPolicy
 
 _log = logging.getLogger(__name__)
 _RW_URL = os.environ.get("RW_URL", "")
-_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 
 
 class _State(TypedDict, total=False):

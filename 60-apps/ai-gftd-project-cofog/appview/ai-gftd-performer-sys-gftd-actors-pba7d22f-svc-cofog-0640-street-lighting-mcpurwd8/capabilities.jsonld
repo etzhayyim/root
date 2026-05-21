@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/06/4/0/street-lighting",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/4/0/street-lighting",
       "type": "dodaf:Capability",
       "name": "Street Lighting Infrastructure and Energy Efficiency Capability",
       "description": "Functional capability for managing street lighting systems, maintenance, and energy efficiency. Classification: COFOG Division 06, Group 4, Class 0.",

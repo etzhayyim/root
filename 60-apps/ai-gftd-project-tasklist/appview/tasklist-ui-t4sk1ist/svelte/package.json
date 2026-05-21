@@ -6,6 +6,6 @@
     "build": "mkdir -p build && cp -f index.html build/index.html"
   },
   "dependencies": {
-    "@gftdcojp/design-system": "workspace:*"
+    "@etzhayyim/design-system": "workspace:*"
   }
 }

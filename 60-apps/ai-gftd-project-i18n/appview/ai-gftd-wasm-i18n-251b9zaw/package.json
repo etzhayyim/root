@@ -1,7 +1,7 @@
 {
   "name": "ai-gftd-wasm-i18n-251b9zaw",
   "version": "1.0.0",
-  "description": "i18n.gftd.ai translation service with multilingual TM and credits job integration",
+  "description": "i18n.etzhayyim.com translation service with multilingual TM and credits job integration",
   "main": "src/app.ts",
   "type": "module",
   "devDependencies": {

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/1/1/pharmaceutical-products",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/1/1/pharmaceutical-products",
       "type": "dodaf:Capability",
       "name": "Pharmaceutical Product Oversight and Safety Capability",
       "description": "Functional capability for managing drug efficacy reviews, licensing authorizations, and pharmacovigilance. Classification: COFOG Division 07, Group 1, Class 1.",

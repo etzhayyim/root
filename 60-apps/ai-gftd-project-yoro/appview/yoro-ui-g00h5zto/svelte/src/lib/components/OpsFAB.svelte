@@ -5,12 +5,12 @@
 	import { fade, fly } from 'svelte/transition';
 	import { isSignedIn, clerkUser, displayName as clerkDisplayName } from '$lib/auth';
 	import { playClick } from '$lib/sound';
-	import { playTap } from '@gftdcojp/design-system/audio';
+	import { playTap } from '@etzhayyim/design-system/audio';
 	import { PostComposer } from '$lib/w';
 	import { createProjectConvo, followUser, searchActors, atProcedure } from '$lib/atproto-agent';
 	import type { AuthorProfile } from '$lib/atproto-agent';
 	import { useProviderWorker } from '$lib/provider';
-	import { Avatar } from '@gftdcojp/design-system';
+	import { Avatar } from '@etzhayyim/design-system';
 	import { getSessionToken } from '$lib/auth';
 
 	const OPS_DID = 'did:web:ops.etzhayyim.com';

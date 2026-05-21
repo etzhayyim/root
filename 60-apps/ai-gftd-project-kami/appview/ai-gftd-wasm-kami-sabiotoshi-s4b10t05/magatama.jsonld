@@ -23,7 +23,7 @@
     "get-leaderboard",
     "submit-score"
   ],
-  "guestDIDPrefix": "did:web:kami.gftd.ai:guest:",
+  "guestDIDPrefix": "did:web:kami.etzhayyim.com:guest:",
   "heroPreference": "iframe",
   "kpi": [
     "credits の獲得"
@@ -48,7 +48,7 @@
   },
   "routes": [
     {
-      "host": "sabiotoshi-kami.gftd.ai",
+      "host": "sabiotoshi-kami.etzhayyim.com",
       "paths": [
         "/"
       ],

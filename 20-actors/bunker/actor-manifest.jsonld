@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:bunker.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:bunker.etzhayyim.com",
   "actors": [
     {
       "description": "Very Low Sulphur Fuel Oil (0.50% S) — IMO 2020 compliant",

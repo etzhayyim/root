@@ -1,4 +1,4 @@
-const ENDPOINT = process.env.PLAYWRIGHT_ENDPOINT ?? "https://playwright.gftd.ai";
+const ENDPOINT = process.env.PLAYWRIGHT_ENDPOINT ?? "https://playwright.etzhayyim.com";
 const TOKEN = process.env.PLAYWRIGHT_DAEMON_TOKEN ?? "";
 
 async function call<T>(method: string, params: Record<string, unknown>): Promise<T> {

@@ -1,10 +1,10 @@
-# xlsx.gftd.ai — API Coverage & Test Coverage Report
+# xlsx.etzhayyim.com — API Coverage & Test Coverage Report
 
 ## 1. Formula Function Coverage vs Excel / Google Sheets
 
 ### Implementation: 133 unique functions
 
-| Category | xlsx.gftd.ai | Excel (500+) | Google Sheets (~400) | Coverage vs Excel | Coverage vs Sheets |
+| Category | xlsx.etzhayyim.com | Excel (500+) | Google Sheets (~400) | Coverage vs Excel | Coverage vs Sheets |
 |---|---|---|---|---|---|
 | **Math & Trig** | 27 (SUM, SUMPRODUCT, AVERAGE, MIN, MAX, COUNT, COUNTA, COUNTBLANK, ROUND, ROUNDUP, ROUNDDOWN, CEILING, FLOOR, INT, SIGN, ABS, MOD, SQRT, POWER, LOG, LOG10, LN, EXP, PI, RAND, RANDBETWEEN, PRODUCT, SUBTOTAL) | 60+ | 40+ | 45% | 68% |
 | **Text** | 22 (CONCATENATE, CONCAT, TEXTJOIN, LEFT, RIGHT, MID, LEN, FIND, SEARCH, SUBSTITUTE, REPLACE, REPT, EXACT, TRIM, CLEAN, UPPER, LOWER, PROPER, TEXT, VALUE, CHAR, CODE, T) | 30+ | 25+ | 73% | 88% |
@@ -42,7 +42,7 @@
 
 ### Spreadsheet Operations
 
-| Feature Category | Sub-Feature | xlsx.gftd.ai | Excel API | Google Sheets API | BDD Tested |
+| Feature Category | Sub-Feature | xlsx.etzhayyim.com | Excel API | Google Sheets API | BDD Tested |
 |---|---|---|---|---|---|
 | **Workbook** | Create | YES | YES | YES | YES (roundtrip) |
 | | Open (XLSX parse) | YES | YES | YES | YES (3 scenarios) |

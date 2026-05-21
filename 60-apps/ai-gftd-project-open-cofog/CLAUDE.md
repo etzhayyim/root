@@ -1,4 +1,4 @@
-# open-cofog.gftd.ai — UN COFOG (Classification of the Functions of Government) (OSS)
+# open-cofog.etzhayyim.com — UN COFOG (Classification of the Functions of Government) (OSS)
 
 **Status**: MVP scaffold (2026-04-20). Companion to `open-isic` — read-only
 DID-addressed lookup of UN Statistics Division's COFOG classification.
@@ -10,7 +10,7 @@ Apache-2.0.
 > loaded at build time. Classes grow **one per cron iteration** the same way
 > `open-isic` does.
 
-- **Route**: `open-cofog.gftd.ai/*` (1 Worker, `did:web:open-cofog.gftd.ai`)
+- **Route**: `open-cofog.etzhayyim.com/*` (1 Worker, `did:web:open-cofog.etzhayyim.com`)
 - **Impl**: `worker/src/app.ts` (single file, no DB)
 - **Class addition unit**: 1 PR = `data/classes/{4digit}.json` + 1 line in
   `worker/src/classes-index.ts` = 1 cron iteration
@@ -20,7 +20,7 @@ Apache-2.0.
   - `ai.gftd.apps.openCofog.listGroups`
   - `ai.gftd.apps.openCofog.listClasses`
   - `ai.gftd.apps.openCofog.getClass`
-- **OSS repo**: `github.com/gftdcojp/ai-gftd-project-open-cofog` (Apache-2.0)
+- **OSS repo**: `github.com/etzhayyim/ai-gftd-project-open-cofog` (Apache-2.0)
 - **Cron**: `*/10 * * * *` for class-by-class implementation (`loop` session)
 
 ## COFOG hierarchy
@@ -29,9 +29,9 @@ UN COFOG (1999, last update 2014). 3-level taxonomy:
 
 | Level | Count | Code format | DID form | Example |
 |---|---|---|---|---|
-| **Division** | **10** | 2-digit (`01`–`10`) | `did:web:open-cofog.gftd.ai:division:01` | 01 General public services |
-| **Group** | **~65** | 3-digit (`011`, `021`, …) | `did:web:open-cofog.gftd.ai:group:011` | 011 Executive and legislative organs |
-| **Class** | **96** (this monorepo) | 4-digit (`0111`, `0210`, …) | `did:web:open-cofog.gftd.ai:class:0111` | 0111 Executive and legislative organs |
+| **Division** | **10** | 2-digit (`01`–`10`) | `did:web:open-cofog.etzhayyim.com:division:01` | 01 General public services |
+| **Group** | **~65** | 3-digit (`011`, `021`, …) | `did:web:open-cofog.etzhayyim.com:group:011` | 011 Executive and legislative organs |
+| **Class** | **96** (this monorepo) | 4-digit (`0111`, `0210`, …) | `did:web:open-cofog.etzhayyim.com:class:0111` | 0111 Executive and legislative organs |
 
 Code packing: `{division XX}{group Y}{class Z}` → 4-digit `XXYZ`. Group code
 = first 3 digits of class code; division code = first 2 digits of class code.

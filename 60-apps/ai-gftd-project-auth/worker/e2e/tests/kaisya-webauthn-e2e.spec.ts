@@ -1,11 +1,11 @@
 import { test, expect, type Page, type CDPSession } from "@playwright/test";
 import { randomBytes } from "node:crypto";
 
-const AUTH_BASE = process.env.AUTH_BASE_URL ?? "https://authn.gftd.ai";
-// kaisya.gftd.ai = SvelteKit BFF (UI + /auth/callback, POST-only /xrpc via MCP)
-// kaisya01.gftd.ai = direct Hono Worker (GET/POST /xrpc/* with auth middleware)
-const KAISYA_BASE = process.env.KAISYA_BASE_URL ?? "https://kaisya.gftd.ai";
-const KAISYA_API = process.env.KAISYA_API_URL ?? "https://kaisya01.gftd.ai";
+const AUTH_BASE = process.env.AUTH_BASE_URL ?? "https://authn.etzhayyim.com";
+// kaisya.etzhayyim.com = SvelteKit BFF (UI + /auth/callback, POST-only /xrpc via MCP)
+// kaisya01.etzhayyim.com = direct Hono Worker (GET/POST /xrpc/* with auth middleware)
+const KAISYA_BASE = process.env.KAISYA_BASE_URL ?? "https://kaisya.etzhayyim.com";
+const KAISYA_API = process.env.KAISYA_API_URL ?? "https://kaisya01.etzhayyim.com";
 
 async function attachVirtualAuthenticator(page: Page): Promise<CDPSession> {
   const cdp = await page.context().newCDPSession(page);
@@ -23,7 +23,7 @@ async function attachVirtualAuthenticator(page: Page): Promise<CDPSession> {
   return cdp;
 }
 
-test.describe("kaisya.gftd.ai WebAuthn E2E", () => {
+test.describe("kaisya.etzhayyim.com WebAuthn E2E", () => {
   test("passkey registration yields JWT that can log into kaisya protected endpoints", async ({
     page,
     request,
@@ -31,13 +31,13 @@ test.describe("kaisya.gftd.ai WebAuthn E2E", () => {
     const cdp = await attachVirtualAuthenticator(page);
 
     await page.goto(`${AUTH_BASE}/sign-up`, { waitUntil: "domcontentloaded" });
-    // authn.gftd.ai 301-redirects to auth.gftd.ai; capture the final origin so
+    // authn.etzhayyim.com 301-redirects to auth.etzhayyim.com; capture the final origin so
     // Node-side request.post calls don't hit the redirect (which converts POST→GET).
     const AUTH_ORIGIN = new URL(page.url()).origin;
 
     // 1. passkeyBeginRegister — Node.js side
     const userId = randomBytes(16).toString("hex");
-    const userName = `kaisya-e2e-${randomBytes(4).toString("hex")}@gftd.ai`;
+    const userName = `kaisya-e2e-${randomBytes(4).toString("hex")}@etzhayyim.com`;
     const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/ai.gftd.auth.passkeyBeginRegister`, {
       data: { userId, userName },
     });
@@ -135,7 +135,7 @@ test.describe("kaisya.gftd.ai WebAuthn E2E", () => {
     });
     if (getHome.ok()) {
       expect((getHomeBody as any).user?.did).toBe(String(regResult.did));
-      expect((getHomeBody as any).payroll?.actorDid).toBe("did:web:jpn-payroll.gftd.ai:fuyou");
+      expect((getHomeBody as any).payroll?.actorDid).toBe("did:web:jpn-payroll.etzhayyim.com:fuyou");
     }
 
     const startDeclaration = await request.post(
@@ -143,7 +143,7 @@ test.describe("kaisya.gftd.ai WebAuthn E2E", () => {
       {
         headers: { ...authHeaders, "Content-Type": "application/json" },
         data: {
-          employeeDid: "did:web:kaisya.gftd.ai:org:hr",
+          employeeDid: "did:web:kaisya.etzhayyim.com:org:hr",
           employerOrgId: "kaisya",
           taxYear: new Date().getUTCFullYear(),
         },

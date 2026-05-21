@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/2/1/agriculture",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/2/1/agriculture",
       "type": "dodaf:Capability",
       "name": "Agricultural Development and Land Management Capability",
       "description": "Functional capability for managing agricultural policies, land evaluation, and technical farming support. Classification: COFOG Division 04, Group 2, Class 1.",

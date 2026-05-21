@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#AuthHelpersClient
+// @etzhayyim/cyber-freelance#AuthHelpersClient
 // 認証チェックヘルパー関数（クライアントサイド）
 
 "use client";

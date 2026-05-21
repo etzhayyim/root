@@ -16,7 +16,7 @@ sentence-transformers, exposes a tiny HTTP server with two endpoints:
 CPU-only is fine — bge-base does ~50 ms / sentence on a single core, ~5 ms
 amortised in a 32-batch. The pod sits behind a ClusterIP Service; the
 backfill CronJob calls it via the in-cluster DNS name; the maps Worker
-calls it via the new cf-tunnel `embedder.gftd.ai`.
+calls it via the new cf-tunnel `embedder.etzhayyim.com`.
 
 ENV:
   EMBED_MODEL          — default 'BAAI/bge-base-en-v1.5' (768-dim)

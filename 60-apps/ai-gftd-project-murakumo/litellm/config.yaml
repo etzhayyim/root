@@ -1,7 +1,7 @@
 # LiteLLM config for murakumo — RunPod GPU cluster (RTX 6000 Ada, vLLM).
 #
 # Traffic path:
-#   CF Worker / host-sdk → https://llm.gftd.ai/v1/chat/completions
+#   CF Worker / host-sdk → https://llm.etzhayyim.com/v1/chat/completions
 #   → LiteLLM (gateway, port 4000)
 #   → RunPod Serverless API (OpenAI-compat, vLLM)
 #     https://api.runpod.ai/v2/{endpoint-id}/openai/v1

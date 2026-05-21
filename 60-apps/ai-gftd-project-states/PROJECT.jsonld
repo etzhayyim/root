@@ -1,16 +1,16 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "@id": "https://gftd.ai",
+  "@id": "https://etzhayyim.com",
   "name": "ai-gftd-project-states",
   "description": "Government performer actors - 1950 SpinApp MCP components representing government organizations across 50+ countries and international bodies",
-  "url": "https://gftd.ai",
+  "url": "https://etzhayyim.com",
   "applicationCategory": "Government",
   "operatingSystem": "Kubernetes + SpinApp",
   "author": {
     "@type": "Organization",
-    "name": "gftdcojp",
-    "url": "https://gftd.ai"
+    "name": "etzhayyim",
+    "url": "https://etzhayyim.com"
   },
   "component": [
     {

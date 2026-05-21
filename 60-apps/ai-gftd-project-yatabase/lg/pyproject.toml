@@ -1,7 +1,7 @@
 [project]
 name = "lg-yatabase"
 version = "0.0.1"
-description = "LangGraph Server graphs for yatabase.gftd.ai marketing + sales (ADR-2605080600 L3 runtime)."
+description = "LangGraph Server graphs for yatabase.etzhayyim.com marketing + sales (ADR-2605080600 L3 runtime)."
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "langgraph>=0.2.61",

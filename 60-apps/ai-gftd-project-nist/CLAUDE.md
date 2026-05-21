@@ -1,6 +1,6 @@
 > **DEPRECATED**: Actor migrated to `20-actors/nist/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
-# nist.gftd.ai — NIST Cybersecurity Framework Intelligence
+# nist.etzhayyim.com — NIST Cybersecurity Framework Intelligence
 
 NIST CSF 2.0 の 6 Function + Tier Gap + CMMC L2 + SP 1302 Community Profile を Multi-DID logical actor として管理。106 subcategory 全量 + cross-framework mapping。
 
@@ -9,9 +9,9 @@ NIST CSF 2.0 の 6 Function + Tier Gap + CMMC L2 + SP 1302 Community Profile を
 | Key | Value |
 |---|---|
 | **nanoid** | `n1st0csf` |
-| **domain** | `nist.gftd.ai` |
+| **domain** | `nist.etzhayyim.com` |
 | **performer_id** | `n1st0csf` |
-| **AT bot DID** | `did:web:nist.gftd.ai` |
+| **AT bot DID** | `did:web:nist.etzhayyim.com` |
 | **Runtime** | Logical Actor (Worker なし、SQL `:Actor` node) |
 | **UI** | yoro (profile-based) |
 
@@ -20,16 +20,16 @@ NIST CSF 2.0 の 6 Function + Tier Gap + CMMC L2 + SP 1302 Community Profile を
 全 actor は SQL graph node として存在。PDS が XRPC 代理応答。データは RisingWave graph。
 
 ```
-did:web:n1st0csf.gftd.ai                          → root coordinator
-  ├─ did:web:n1st0csf.gftd.ai:csf:govern          → GV (ガバナンス)
-  ├─ did:web:n1st0csf.gftd.ai:csf:identify        → ID (識別)
-  ├─ did:web:n1st0csf.gftd.ai:csf:protect         → PR (防御)
-  ├─ did:web:n1st0csf.gftd.ai:csf:detect          → DE (検知)
-  ├─ did:web:n1st0csf.gftd.ai:csf:respond         → RS (対応)
-  ├─ did:web:n1st0csf.gftd.ai:csf:recover         → RC (復旧)
-  ├─ did:web:n1st0csf.gftd.ai:tier:gap            → Tier 3→4 gap analysis
-  ├─ did:web:n1st0csf.gftd.ai:cmmc:level2         → CMMC L2 (SP 800-171)
-  └─ did:web:n1st0csf.gftd.ai:sp:communityProfile → SP 1302 community profiles
+did:web:n1st0csf.etzhayyim.com                          → root coordinator
+  ├─ did:web:n1st0csf.etzhayyim.com:csf:govern          → GV (ガバナンス)
+  ├─ did:web:n1st0csf.etzhayyim.com:csf:identify        → ID (識別)
+  ├─ did:web:n1st0csf.etzhayyim.com:csf:protect         → PR (防御)
+  ├─ did:web:n1st0csf.etzhayyim.com:csf:detect          → DE (検知)
+  ├─ did:web:n1st0csf.etzhayyim.com:csf:respond         → RS (対応)
+  ├─ did:web:n1st0csf.etzhayyim.com:csf:recover         → RC (復旧)
+  ├─ did:web:n1st0csf.etzhayyim.com:tier:gap            → Tier 3→4 gap analysis
+  ├─ did:web:n1st0csf.etzhayyim.com:cmmc:level2         → CMMC L2 (SP 800-171)
+  └─ did:web:n1st0csf.etzhayyim.com:sp:communityProfile → SP 1302 community profiles
 ```
 
 ## Multi-DID Actor Definitions (10 actors)
@@ -109,12 +109,12 @@ did:web:n1st0csf.gftd.ai                          → root coordinator
 
 | Target | Method | Direction | Purpose |
 |---|---|---|---|
-| scap.gftd.ai | `runScan` | nist → scap | NVD/OVAL スキャン実行 (ID.RA, DE.CM) |
-| completer.gftd.ai | `evaluate` | completer → nist | CSF subcategory 準拠評価 |
-| yabai.gftd.ai | `ingestThreatIntel` | yabai → nist | 脅威情報 → DE.AE |
-| ct-monitor.gftd.ai | `pollVulnFeeds` | ct-monitor → nist | CVE/KEV → ID.RA |
-| sbom.gftd.ai | `getBlastRadius` | nist → sbom | 影響範囲 → RS.AN |
-| trust.gftd.ai | `evaluateTrust` | nist → trust | CSF tier → trust score 反映 |
+| scap.etzhayyim.com | `runScan` | nist → scap | NVD/OVAL スキャン実行 (ID.RA, DE.CM) |
+| completer.etzhayyim.com | `evaluate` | completer → nist | CSF subcategory 準拠評価 |
+| yabai.etzhayyim.com | `ingestThreatIntel` | yabai → nist | 脅威情報 → DE.AE |
+| ct-monitor.etzhayyim.com | `pollVulnFeeds` | ct-monitor → nist | CVE/KEV → ID.RA |
+| sbom.etzhayyim.com | `getBlastRadius` | nist → sbom | 影響範囲 → RS.AN |
+| trust.etzhayyim.com | `evaluateTrust` | nist → trust | CSF tier → trust score 反映 |
 
 ## Cross-Framework Mapping
 

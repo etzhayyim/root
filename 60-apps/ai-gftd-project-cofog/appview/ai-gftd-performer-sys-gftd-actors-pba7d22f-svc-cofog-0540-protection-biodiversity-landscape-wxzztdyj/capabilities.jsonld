@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/05/4/0/protection-biodiversity-landscape",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/05/4/0/protection-biodiversity-landscape",
       "type": "dodaf:Capability",
       "name": "Biodiversity Protection and Landscape Management Capability",
       "description": "Functional capability for managing wildlife conservation, habitat surveys, and landscape restoration. Classification: COFOG Division 05, Group 4, Class 0.",

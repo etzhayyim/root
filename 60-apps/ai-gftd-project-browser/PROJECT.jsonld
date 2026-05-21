@@ -1,5 +1,5 @@
 {
-  "@context": "https://1.gftd.ai/project",
+  "@context": "https://1.etzhayyim.com/project",
   "@type": "Project",
   "name": "ai-gftd-project-www-crawler",
   "description": "Go + legacy runtime web crawler: scheduler/frontier, fetcher+extractor, indexer with scale-to-zero",
@@ -12,7 +12,7 @@
       "keda": true,
       "routes": [
         {
-          "host": "gftd.ai",
+          "host": "etzhayyim.com",
           "paths": [
             "/o0dqx491/api/"
           ]
@@ -25,7 +25,7 @@
       "stack": "sveltekit",
       "routes": [
         {
-          "host": "gftd.ai",
+          "host": "etzhayyim.com",
           "paths": [
             "/o0dqx491/"
           ]
@@ -44,7 +44,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

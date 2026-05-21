@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#AdminRecruitersConnect
+ * @etzhayyim/ai-gftd-hrse#AdminRecruitersConnect
  * リクルーター管理ページ（Connect-Web版）
  */
 

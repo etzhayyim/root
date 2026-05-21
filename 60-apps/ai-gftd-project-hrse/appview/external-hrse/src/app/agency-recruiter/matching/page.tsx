@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#AgencyRecruiterMatchingConnect
+ * @etzhayyim/ai-gftd-hrse#AgencyRecruiterMatchingConnect
  * エージェンシー所属リクルーター向けマッチング結果ページ（Connect-Web版）
  */
 

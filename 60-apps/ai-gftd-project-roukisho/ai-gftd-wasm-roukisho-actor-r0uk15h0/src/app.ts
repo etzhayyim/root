@@ -1,4 +1,4 @@
-// roukisho.gftd.ai — 労働基準監督署 (Labor Standards Inspection Office) registry
+// roukisho.etzhayyim.com — 労働基準監督署 (Labor Standards Inspection Office) registry
 // TS Native Worker: 4 XRPC (listOffices / getOffice / recordCommunication / listCommunications)
 // Directory seed is static (entities[] in magatama.jsonld mirror). Graph reads via Kysely pending.
 
@@ -38,7 +38,7 @@ type OfficeSeed = {
 const OFFICES_SEED: OfficeSeed[] = [
   {
     officeId: "jp-tokyo-chuo",
-    did: "did:web:roukisho.gftd.ai:tokyo:chuo",
+    did: "did:web:roukisho.etzhayyim.com:tokyo:chuo",
     name: "中央労働基準監督署",
     prefecture: "JP-13",
     bureau: "東京労働局",
@@ -110,7 +110,7 @@ async function cmdRecordCommunication(sdk: HostSDK, body: Uint8Array) {
   const officeId = str(args.officeId ?? "");
   if (!direction || !channel || !officeId) return { ok: false, error: "direction, channel, officeId required" };
   const recordId = genID("comm");
-  const officeDid = str(args.officeDid ?? `did:web:roukisho.gftd.ai:${officeId.replace(/^jp-/, "").replace(/-/g, ":")}`);
+  const officeDid = str(args.officeDid ?? `did:web:roukisho.etzhayyim.com:${officeId.replace(/^jp-/, "").replace(/-/g, ":")}`);
   write(sdk, "communication", {
     recordId,
     direction,

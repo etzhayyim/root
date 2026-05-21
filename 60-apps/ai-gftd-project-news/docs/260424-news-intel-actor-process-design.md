@@ -1,10 +1,10 @@
-# news.gftd.ai Intel Actor Process
+# news.etzhayyim.com Intel Actor Process
 
 Date: 2026-04-24
 
 ## Goal
 
-`news.gftd.ai` publishes global news as intel, not commodity summaries. The actor process prioritizes primary and official sources, extracts factual claims, scores provenance, records an `ai.gftd.apps.intel.report`, and publishes an attributed writer-DID post only when confidence and priority pass gate thresholds.
+`news.etzhayyim.com` publishes global news as intel, not commodity summaries. The actor process prioritizes primary and official sources, extracts factual claims, scores provenance, records an `ai.gftd.apps.intel.report`, and publishes an attributed writer-DID post only when confidence and priority pass gate thresholds.
 
 ## Architecture
 
@@ -12,7 +12,7 @@ Date: 2026-04-24
 - UDF scoring: `news_source_credibility` and `news_intel_priority`
 - XRPC/MCP commands: `ai.gftd.apps.news.listIntelSources`, `analyzeIntel`, `publishIntel`
 - Intel record: `ai.gftd.apps.intel.report`
-- Publisher identity: `did:web:news.gftd.ai:writer:{sourceId}`
+- Publisher identity: `did:web:news.etzhayyim.com:writer:{sourceId}`
 
 ## Flow
 

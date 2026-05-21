@@ -19,7 +19,7 @@ related:
 
 ## Goal
 
-Autonomous domain coverage growth without manual `gftd seed`. PDS cron discovers new domains from Common Crawl bulk ingest, enriches via LLM, registers as apps, generates social posts and knowledge graphs — all visible on yoro.gftd.ai.
+Autonomous domain coverage growth without manual `gftd seed`. PDS cron discovers new domains from Common Crawl bulk ingest, enriches via LLM, registers as apps, generates social posts and knowledge graphs — all visible on yoro.etzhayyim.com.
 
 ## Decision
 
@@ -38,7 +38,7 @@ PDS cron (*/5 min) → expandDomainCoverage()
   │   CDX: index.commoncrawl.org/{crawl}-index?url={domain}/*&output=json
   │   WAT: data.commoncrawl.org/{filename} (Range: bytes=offset-end)
   │
-  ├─ Phase 3: MCP Fallback (site.gftd.ai → gyotaku.gftd.ai)
+  ├─ Phase 3: MCP Fallback (site.etzhayyim.com → gyotaku.etzhayyim.com)
   │   Layer 2: POST /xrpc/ai.gftd.apps.site.crawlPage → WET/WAT
   │   Layer 3: POST /xrpc/ai.gftd.apps.gyotaku.searchSnapshots → archive
   │
@@ -63,8 +63,8 @@ PDS cron (*/5 min) → expandDomainCoverage()
 | Layer | Source | API | Fallback |
 |---|---|---|---|
 | 1 | Common Crawl S3 | `data.commoncrawl.org` CDX + WAT range | Layer 2 |
-| 2 | site.gftd.ai | `ai.gftd.apps.site.crawlPage` XRPC | Layer 3 |
-| 3 | gyotaku.gftd.ai | `ai.gftd.apps.gyotaku.searchSnapshots` XRPC | static desc |
+| 2 | site.etzhayyim.com | `ai.gftd.apps.site.crawlPage` XRPC | Layer 3 |
+| 3 | gyotaku.etzhayyim.com | `ai.gftd.apps.gyotaku.searchSnapshots` XRPC | static desc |
 
 ## Verified Results (2026-04-11)
 

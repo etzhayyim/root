@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:driver.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:driver.etzhayyim.com",
   "accent": "#22c55e",
   "name": "car-sim",
   "nanoid": "c4r51m00",
@@ -35,8 +35,8 @@
   },
   "project": "car-sim",
   "routes": [
-    { "host": "driver.gftd.ai", "paths": ["/"], "tls": true },
-    { "host": "c4r51m00.gftd.ai", "paths": ["/"], "tls": true }
+    { "host": "driver.etzhayyim.com", "paths": ["/"], "tls": true },
+    { "host": "c4r51m00.etzhayyim.com", "paths": ["/"], "tls": true }
   ],
   "runtimeType": "worker",
   "uiType": "game",

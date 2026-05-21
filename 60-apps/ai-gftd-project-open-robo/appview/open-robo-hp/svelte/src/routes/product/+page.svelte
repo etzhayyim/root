@@ -102,7 +102,7 @@
       <a href="/product/bom" class="rounded border border-[#2a2d3a] px-4 py-2 text-sm text-slate-300 hover:border-[#e85d04] hover:text-white transition-colors">
         BOM・部品一覧 →
       </a>
-      <a href="https://github.com/gftdcojp/otete" target="_blank" rel="noopener"
+      <a href="https://github.com/etzhayyim/otete" target="_blank" rel="noopener"
          class="rounded border border-[#2a2d3a] px-4 py-2 text-sm text-slate-300 hover:border-[#e85d04] hover:text-white transition-colors">
         GitHub →
       </a>
@@ -124,7 +124,7 @@
            class="rounded border border-[#2a2d3a] bg-[#0f1117]/80 px-3 py-1.5 text-xs text-slate-300 backdrop-blur hover:border-[#e85d04] hover:text-white transition-colors">
           フルスクリーン
         </a>
-        <a href="https://github.com/gftdcojp/otete/tree/main/cad"
+        <a href="https://github.com/etzhayyim/otete/tree/main/cad"
            target="_blank" rel="noopener"
            class="rounded border border-[#2a2d3a] bg-[#0f1117]/80 px-3 py-1.5 text-xs text-slate-300 backdrop-blur hover:border-[#e85d04] hover:text-white transition-colors">
           STEP DL

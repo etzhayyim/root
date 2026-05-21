@@ -20,7 +20,7 @@ export { theme, resolvedTheme, setTheme, toggleTheme, ALL_THEMES, THEME_META } f
 export type { Theme, ColorTheme, ThemeMeta } from './theme';
 
 // Re-export design-system primitives for one-stop imports.
-export * from '@gftdcojp/design-system';
+export * from '@etzhayyim/design-system';
 
 // Unified facade for appshellv2-* packages.
 export * from './auth';
@@ -71,4 +71,4 @@ export {
 } from './translate/stores.js';
 
 // Unified facade for build-safety tooling.
-// safe-builder: use @gftdcojp/vite-plugin-safe-builder directly
+// safe-builder: use @etzhayyim/vite-plugin-safe-builder directly

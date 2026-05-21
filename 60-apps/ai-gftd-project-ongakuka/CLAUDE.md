@@ -4,14 +4,14 @@
 
 ## Overview
 
-ongakuka.gftd.ai — Suno クラスの AI 音楽生成。歌詞 + style prompt から歌唱 + 伴奏のミックス、または stem 分割を生成する。Generation backend は `murakumo:inference/audio` (Mac fleet)。実装は **既存 OSS (DiffRhythm / YuE) を `serve_plain.py` 流に MLX でラップ** → 日本語歌詞 LoRA → 自前 2 段 LM (semantic → acoustic) の順で進める。
+ongakuka.etzhayyim.com — Suno クラスの AI 音楽生成。歌詞 + style prompt から歌唱 + 伴奏のミックス、または stem 分割を生成する。Generation backend は `murakumo:inference/audio` (Mac fleet)。実装は **既存 OSS (DiffRhythm / YuE) を `serve_plain.py` 流に MLX でラップ** → 日本語歌詞 LoRA → 自前 2 段 LM (semantic → acoustic) の順で進める。
 
 ## Identifier (ADR-0019 atproto-native)
 
 | 層 | 値 |
 |---|---|
-| Primary DID | `did:plc:ongakuka` (Phase 5 `plc.gftd.ai` で genesis) |
-| Handle | `ongakuka.gftd.ai` |
+| Primary DID | `did:plc:ongakuka` (Phase 5 `plc.etzhayyim.com` で genesis) |
+| Handle | `ongakuka.etzhayyim.com` |
 | Legacy nanoid | `0ng4k4k4` (grandfather, deprecate 2026-10-01) |
 | NSID | `ai.gftd.ongakuka.*` |
 
@@ -21,13 +21,13 @@ ongakuka.gftd.ai — Suno クラスの AI 音楽生成。歌詞 + style prompt �
 
 | Path DID | 役割 | 主モデル |
 |---|---|---|
-| `did:web:ongakuka.gftd.ai` | controller | — |
-| `did:web:ongakuka.gftd.ai:actor:lyricist` | 歌詞補完 / 翻訳 / 韻律調整 | murakumo text (gftd-moe-moe-kyun-general / gemma-4) |
-| `did:web:ongakuka.gftd.ai:actor:composer` | semantic token (旋律 + 構成) 生成 | audio LM stage-1 |
-| `did:web:ongakuka.gftd.ai:actor:vocalist` | 歌声 acoustic token + phoneme alignment | audio LM stage-2 (vocal branch) |
-| `did:web:ongakuka.gftd.ai:actor:arranger` | 伴奏 acoustic token (drums/bass/keys/...) | audio LM stage-2 (instr branch) |
-| `did:web:ongakuka.gftd.ai:actor:mixer` | vocoder + LUFS 正規化 + マスタリング | DAC/EnCodec decoder |
-| `did:web:ongakuka.gftd.ai:actor:critic` | CLAP score + 歌詞 alignment QA + 著作権 sim 検査 | CLAP + text classifier |
+| `did:web:ongakuka.etzhayyim.com` | controller | — |
+| `did:web:ongakuka.etzhayyim.com:actor:lyricist` | 歌詞補完 / 翻訳 / 韻律調整 | murakumo text (gftd-moe-moe-kyun-general / gemma-4) |
+| `did:web:ongakuka.etzhayyim.com:actor:composer` | semantic token (旋律 + 構成) 生成 | audio LM stage-1 |
+| `did:web:ongakuka.etzhayyim.com:actor:vocalist` | 歌声 acoustic token + phoneme alignment | audio LM stage-2 (vocal branch) |
+| `did:web:ongakuka.etzhayyim.com:actor:arranger` | 伴奏 acoustic token (drums/bass/keys/...) | audio LM stage-2 (instr branch) |
+| `did:web:ongakuka.etzhayyim.com:actor:mixer` | vocoder + LUFS 正規化 + マスタリング | DAC/EnCodec decoder |
+| `did:web:ongakuka.etzhayyim.com:actor:critic` | CLAP score + 歌詞 alignment QA + 著作権 sim 検査 | CLAP + text classifier |
 
 actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。stage 出力 (stem) は `ai.gftd.ongakuka.stem` record + `actorDid` field で帰属。
 
@@ -154,14 +154,14 @@ XRPC compose
 | Nanoid | `0ng4k4k4` |
 | Folder | `wasm/ai-gftd-wasm-ongakuka-0ng4k4k4/` |
 | Runtime | TS Native (`src/app.ts`, `"runtimeType": "worker"`) |
-| Wrangler route | `ongakuka.gftd.ai/*` |
+| Wrangler route | `ongakuka.etzhayyim.com/*` |
 | Bindings | `HYPERDRIVE`, `B2_KEY_ID` / `B2_APPLICATION_KEY` (Backblaze B2 SigV4, ADR-0048; bucket `ai-gftd-ongakuka`), `MURAKUMO_SERVICE`, `AUTH_SERVICE`, `PDS_SERVICE`, `KAKIN_SERVICE`, `CREDITS_SERVICE` |
 
 ## Frontend (planned)
 
 - Hono router + Svelte CSR (40-engine/svelte AppShell v2)
 - 画面: lyrics editor / style picker (prompt or upload) / generation queue / waveform player / stem mixer / critic feedback
-- Deep-link: `https://ongakuka.gftd.ai/at/{handle}/ai.gftd.ongakuka.track/{rkey}`
+- Deep-link: `https://ongakuka.etzhayyim.com/at/{handle}/ai.gftd.ongakuka.track/{rkey}`
 
 ## Migration Backlog
 

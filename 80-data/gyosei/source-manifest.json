@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "actorDid": "did:web:jpn.state.gftd.ai:gyosei",
+  "actorDid": "did:web:jpn.state.etzhayyim.com:gyosei",
   "bucketPurpose": "Official legal and administrative source archival for gyosei workflows",
   "defaultB2Prefix": "legal-sources/gyosei",
   "sources": [

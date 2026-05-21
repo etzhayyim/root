@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:yabai.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:yabai.etzhayyim.com",
   "actors": [
     {
       "description": "IP address risk scoring and WAF integration",

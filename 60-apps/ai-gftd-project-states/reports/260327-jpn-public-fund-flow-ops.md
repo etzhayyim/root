@@ -32,8 +32,8 @@
 ## 例: 記録
 ```json
 {
-  "source_did": "did:web:gov-jpn.gftd.ai:mof",
-  "dest_did": "did:web:gov-jpn.gftd.ai:mlit",
+  "source_did": "did:web:gov-jpn.etzhayyim.com:mof",
+  "dest_did": "did:web:gov-jpn.etzhayyim.com:mlit",
   "amount": "125000000",
   "fiscal_year": "2025",
   "purpose": "公共事業契約支払",

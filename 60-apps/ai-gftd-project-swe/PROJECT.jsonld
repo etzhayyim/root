@@ -15,9 +15,9 @@
   "author": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://gftd.ai"
+    "url": "https://etzhayyim.com"
   },
-  "codeRepository": "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp",
+  "codeRepository": "https://github.com/etzhayyim/etzhayyim-root",
   "programmingLanguage": [
     "Go",
     "TypeScript",
@@ -27,7 +27,7 @@
     {
       "@type": "WebApplication",
       "name": "swe-ui",
-      "description": "SvelteKit frontend for swe.gftd.ai — IDE-like UI with project explorer, conversation panel, code diff viewer, and deployment status",
+      "description": "SvelteKit frontend for swe.etzhayyim.com — IDE-like UI with project explorer, conversation panel, code diff viewer, and deployment status",
       "applicationCategory": "Frontend",
       "runtimePlatform": "SvelteKit static (R2 Custom Domain: swe-gftd-ai)",
       "path": "wasm/ai-gftd-wasm-swe-sw3ng1n3/svelte"
@@ -87,7 +87,7 @@
     },
     {
       "status": "pending",
-      "task": "Verify 1.gftd.ai/api/mcp endpoint"
+      "task": "Verify 1.etzhayyim.com/api/mcp endpoint"
     }
   ]
 }

@@ -46,8 +46,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1',
-                 'did:web:open-water.gftd.ai:network',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1',
+                 'did:web:open-water.etzhayyim.com:network',
                  'open_water_define_main',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_water_define_main"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-water"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-water"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_water_define_main" name="配水本管 登録" isExecutable="true">\n'
@@ -156,7 +156,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-water.gftd.ai:network&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-water.etzhayyim.com:network&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openWater.main.define&quot;" '
                  'target="action"/>\n'
@@ -184,10 +184,10 @@ UP = [{'sql': '\n'
                  5529,
                  '00-contracts/bpmn/ai/gftd/open-water/defineMain.bpmn',
                  '2026-04-24T12:10:00Z',
-                 'did:web:open-water.gftd.ai:network',
-                 'did:web:open-water.gftd.ai:network',
+                 'did:web:open-water.etzhayyim.com:network',
+                 'did:web:open-water.etzhayyim.com:network',
                  'sys.bpmn.seed.open-water',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -222,8 +222,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1',
-                 'did:web:open-water.gftd.ai:network',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1',
+                 'did:web:open-water.etzhayyim.com:network',
                  'open_water_report_leak',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -231,7 +231,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_water_report_leak"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-water"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-water"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_water_report_leak" name="漏水 報告" isExecutable="true">\n'
@@ -349,7 +349,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-water.gftd.ai:network&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-water.etzhayyim.com:network&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openWater.leak.publicNotice&quot;" '
                  'target="action"/>\n'
@@ -370,7 +370,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-water.gftd.ai:network&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-water.etzhayyim.com:network&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openWater.leak.log&quot;" '
                  'target="action"/>\n'
@@ -398,10 +398,10 @@ UP = [{'sql': '\n'
                  7191,
                  '00-contracts/bpmn/ai/gftd/open-water/reportLeak.bpmn',
                  '2026-04-24T12:10:00Z',
-                 'did:web:open-water.gftd.ai:network',
-                 'did:web:open-water.gftd.ai:network',
+                 'did:web:open-water.etzhayyim.com:network',
+                 'did:web:open-water.etzhayyim.com:network',
                  'sys.bpmn.seed.open-water',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -434,16 +434,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1',
-                 'did:web:open-water.gftd.ai:network',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1',
+                 'did:web:open-water.etzhayyim.com:network',
                  'ai.gftd.apps.openWater.defineMain',
                  'open_water_define_main',
                  15000,
                  '2026-04-24T12:10:00Z',
-                 'did:web:open-water.gftd.ai:network',
-                 'did:web:open-water.gftd.ai:network',
+                 'did:web:open-water.etzhayyim.com:network',
+                 'did:web:open-water.etzhayyim.com:network',
                  'sys.bpmn.seed.open-water',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -476,25 +476,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1',
-                 'did:web:open-water.gftd.ai:network',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1',
+                 'did:web:open-water.etzhayyim.com:network',
                  'ai.gftd.apps.openWater.reportLeak',
                  'open_water_report_leak',
                  30000,
                  '2026-04-24T12:10:00Z',
-                 'did:web:open-water.gftd.ai:network',
-                 'did:web:open-water.gftd.ai:network',
+                 'did:web:open-water.etzhayyim.com:network',
+                 'did:web:open-water.etzhayyim.com:network',
                  'sys.bpmn.seed.open-water',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1']}]
 
 
 def upgrade() -> None:

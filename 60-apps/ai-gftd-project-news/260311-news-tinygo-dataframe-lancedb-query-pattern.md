@@ -1,8 +1,8 @@
-# news.gftd.ai: TinyGo cypher graph + cypher graph Query Pattern
+# news.etzhayyim.com: TinyGo cypher graph + cypher graph Query Pattern
 
 ## Scope
 
-`news.gftd.ai` の article list/get、quality evaluation、translation、semantic lookup を
+`news.etzhayyim.com` の article list/get、quality evaluation、translation、semantic lookup を
 TinyGo component から `cypher graph/cypher graph` に問い合わせるための標準設計。
 
 対象 component:
@@ -264,7 +264,7 @@ semantic assist 専用 vector table。`_doc_id = chunk_id`
 
 ### Package Boundary
 
-`news.gftd.ai` では `performer/nata.Client` の上に薄い `newsframe` layer を置く。
+`news.etzhayyim.com` では `performer/nata.Client` の上に薄い `newsframe` layer を置く。
 最初は project local (`60-apps/ai-gftd-project-news/wasm/internal/newsframe`) でよい。
 複数 project に広がった時点で shared package に上げる。
 
@@ -459,7 +459,7 @@ key 参照が多い列は scalar index 前提で設計する。
 
 ## Short Conclusion
 
-`news.gftd.ai` での TinyGo + cypher graph 設計は、
+`news.etzhayyim.com` での TinyGo + cypher graph 設計は、
 
 - Arrow table を source of truth にする
 - current/projection を明示的に分ける

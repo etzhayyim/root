@@ -14,7 +14,7 @@ import { GetRecruiterByUserIdRequestSchema } from "@/gen/proto/hrse/v1/agency_pb
 import { useUser } from "@clerk/nextjs";
 
 /**
- * @gftdcojp/ai-gftd-hrse#RecruiterMailboxPage
+ * @etzhayyim/ai-gftd-hrse#RecruiterMailboxPage
  * Recruiter mailbox page
  */
 export default function RecruiterMailboxPage() {

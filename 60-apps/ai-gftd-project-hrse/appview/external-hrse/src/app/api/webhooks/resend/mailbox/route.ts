@@ -78,8 +78,8 @@ export async function POST(request: Request) {
 		const toEmailMatch = toEmail.match(/<([^>]+)>/) || toEmail.match(/([^\s<]+@[^\s>]+)/);
 		const targetEmail = toEmailMatch ? toEmailMatch[1] : toEmail;
 
-		// Check if this is a mailbox address (@mail.gftd.ai)
-		if (!targetEmail.includes("@mail.gftd.ai")) {
+		// Check if this is a mailbox address (@mail.etzhayyim.com)
+		if (!targetEmail.includes("@mail.etzhayyim.com")) {
 			// Not a mailbox email, ignore
 			return NextResponse.json({ received: true, message: "Not a mailbox email" });
 		}

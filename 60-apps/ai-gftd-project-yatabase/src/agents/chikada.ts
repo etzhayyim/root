@@ -5,7 +5,7 @@
 //      GROUP BY surface, method.
 //   2. Any (surface, method) with >= 3 errors → emit dev-incident-summary
 //      outbox row (kind='dev-incident-summary') addressed to the operating
-//      org (did:web:yatabase.gftd.ai), so the staff inbox lights up.
+//      org (did:web:yatabase.etzhayyim.com), so the staff inbox lights up.
 //   3. Sample 1 representative path/status_code per group for the body.
 //
 // Deliberately read-only on production data. No code is ever modified by
@@ -55,7 +55,7 @@ export async function runChikada(
       ok: false,
       agent: "chikada",
       role: "dev",
-      did: "did:web:yatabase.gftd.ai:actor:chikada",
+      did: "did:web:yatabase.etzhayyim.com:actor:chikada",
       runId,
       startedAt,
       durationMs: Date.now() - t0,
@@ -105,7 +105,7 @@ export async function runChikada(
       ok: false,
       agent: "chikada",
       role: "dev",
-      did: "did:web:yatabase.gftd.ai:actor:chikada",
+      did: "did:web:yatabase.etzhayyim.com:actor:chikada",
       runId,
       startedAt,
       durationMs: Date.now() - t0,
@@ -137,7 +137,7 @@ export async function runChikada(
     ].join("\n");
     if (!dryRun) {
       const r2 = await emitOutbox(env, {
-        orgDid: "did:web:yatabase.gftd.ai",
+        orgDid: "did:web:yatabase.etzhayyim.com",
         kind: "dev-incident-summary",
         subject,
         bodyText: body,
@@ -161,7 +161,7 @@ export async function runChikada(
     ok: true,
     agent: "chikada",
     role: "dev",
-    did: "did:web:yatabase.gftd.ai:actor:chikada",
+    did: "did:web:yatabase.etzhayyim.com:actor:chikada",
     runId,
     startedAt,
     durationMs: Date.now() - t0,

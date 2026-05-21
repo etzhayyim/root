@@ -6,10 +6,10 @@ Design: `90-docs/260327-celler-did-telephony-starlink-mesh-design.md`
 
 | key | value |
 |---|---|
-| domain | celler.gftd.ai |
+| domain | celler.etzhayyim.com |
 | nanoid | oilt0wta |
 | performerType | service |
-| DID | `did:web:celler.gftd.ai` |
+| DID | `did:web:celler.etzhayyim.com` |
 | Language | TypeScript (TS Native) |
 | Build | `gftd deploy` |
 | UI mode | iframe |
@@ -228,10 +228,10 @@ PSTN着信 → Telnyx webhook → handleInboundAi
 
 ### Verification
 
-`llm.gftd.ai` の `verify_celler_ai` コマンドで 10言語 E2E テスト:
+`llm.etzhayyim.com` の `verify_celler_ai` コマンドで 10言語 E2E テスト:
 
 ```bash
-curl -X POST https://llm.gftd.ai/xrpc/ai.gftd.apps.llm.verify_celler_ai -d '{}'
+curl -X POST https://llm.etzhayyim.com/xrpc/ai.gftd.apps.llm.verify_celler_ai -d '{}'
 ```
 
 ## AI Agent Integration

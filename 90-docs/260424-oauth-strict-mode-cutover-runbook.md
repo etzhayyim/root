@@ -131,7 +131,7 @@ Run it before any flip; exit 0 is a hard gate on the runbook:
 
 ```bash
 cd 50-infra/cloudflare/workers/atproto
-# Against staging (SAMPLE wrangler tail + smoke against staging.atproto.gftd.ai)
+# Against staging (SAMPLE wrangler tail + smoke against staging.atproto.etzhayyim.com)
 STAGING=1 bash scripts/oauth-strict-mode-preflight.sh
 
 # Against production (after 24h staging soak)
@@ -150,7 +150,7 @@ Temporarily flip staging first:
 cd 50-infra/cloudflare/workers/atproto
 # Edit wrangler.jsonc: "DPOP_CNF_JKT_ENFORCEMENT": "strict"
 wrangler deploy --env staging
-ORIGIN=https://staging.atproto.gftd.ai bash scripts/oauth-smoke.sh
+ORIGIN=https://staging.atproto.etzhayyim.com bash scripts/oauth-smoke.sh
 ```
 
 The smoke script exercises the spec-compliant happy path (Bearer / DPoP

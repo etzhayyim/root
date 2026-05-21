@@ -140,7 +140,7 @@ propagation lag).
 ## Did:web routing
 
 did:web records for organism actors (e.g.
-`did:web:etzhayyim-kobo.gftd.ai`) point at static well-known JSON
+`did:web:etzhayyim-kobo.etzhayyim.com`) point at static well-known JSON
 served from CF Worker edge. Multi-region failover is transparent at the
 DID level because CF Workers are globally edge-resolved.
 

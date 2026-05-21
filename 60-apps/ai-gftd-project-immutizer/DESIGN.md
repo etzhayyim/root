@@ -20,8 +20,8 @@
 - public interaction
   - Matrix protocol only
 - deployment hostname
-  - operator UI: `immutizer.gftd.ai`
-  - direct app endpoint: `https://<nanoid>.gftd.ai`
+  - operator UI: `immutizer.etzhayyim.com`
+  - direct app endpoint: `https://<nanoid>.etzhayyim.com`
 
 ## 3. Scope
 

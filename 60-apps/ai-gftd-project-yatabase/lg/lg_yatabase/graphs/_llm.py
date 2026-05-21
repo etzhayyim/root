@@ -25,7 +25,7 @@ _log = logging.getLogger(__name__)
 
 _LLM_URL = os.environ.get(
     "GFTD_LLM_URL",
-    "https://gemma-e2b.gftd.ai/v1/chat/completions",
+    "https://gemma-e2b.etzhayyim.com/v1/chat/completions",
 )
 _LLM_KEY = os.environ.get("GFTD_LLM_API_KEY", "")
 _LLM_MODEL = os.environ.get(
@@ -106,7 +106,7 @@ def call_llm_json(prompt: str, *, system: str = "", max_tokens: int = 256,
 def score_lead(lead: dict, *, segment: str) -> LLMScore:
     """Return a 0-100 fit score with one-line reasoning."""
     system = (
-        "You are yatabase.gftd.ai's nishino lead-scorer. Score 0-100 how good "
+        "You are yatabase.etzhayyim.com's nishino lead-scorer. Score 0-100 how good "
         "a fit a lead is for yatabase (graph DB + storage + auth + MCP SaaS). "
         "ICP segments: dev-tooling-saas (Supabase/Hasura/Neo4j users), "
         "data-team-mid-market (50-500 emp data teams), bsky-builders "

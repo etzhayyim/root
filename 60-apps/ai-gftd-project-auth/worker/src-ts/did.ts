@@ -119,8 +119,8 @@ export async function createDid(path: string, performerType: PerformerType): Pro
   return {
     'privateKeyB64url': key.privateKeyB64url,
     'didDocument': {
-      did: `did:web:authn.gftd.ai:${path}`,
-      controller: "did:web:authn.gftd.ai",
+      did: `did:web:authn.etzhayyim.com:${path}`,
+      controller: "did:web:authn.etzhayyim.com",
       'publicKeyMultibase': key.publicKeyMultibase,
       'performerType': performerType,
       'createdAt': now,

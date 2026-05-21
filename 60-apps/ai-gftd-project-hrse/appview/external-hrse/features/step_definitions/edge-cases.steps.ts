@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#EdgeCasesSteps
+// @etzhayyim/cyber-freelance#EdgeCasesSteps
 // Edge Cases関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

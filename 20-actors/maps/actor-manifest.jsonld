@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:maps.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:maps.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -119,7 +119,7 @@
         },
         {
           "args": {
-            "template": "MERGE (e:WebCrawlGeoEntity {sourceUrl: $input.record.url, entityType: 'nerExtract'}) SET e.sourceDomain = $input.record.domain, e.sourceDid = 'did:web:site.gftd.ai', e.extractedJson = $extractGeoEntities.response, e.createdAt = toString(timestamp())"
+            "template": "MERGE (e:WebCrawlGeoEntity {sourceUrl: $input.record.url, entityType: 'nerExtract'}) SET e.sourceDomain = $input.record.domain, e.sourceDid = 'did:web:site.etzhayyim.com', e.extractedJson = $extractGeoEntities.response, e.createdAt = toString(timestamp())"
           },
           "fn": "graph.write",
           "id": "writeEntities"
@@ -153,7 +153,7 @@
         },
         {
           "args": {
-            "template": "MERGE (e:WebCrawlGeoEntity {sourceUrl: $input.record.url, entityType: 'domainCoverage'}) SET e.sourceDomain = $input.record.domain, e.title = $input.record.title, e.sourceDid = 'did:web:site.gftd.ai', e.outlinkCount = $input.record.outlinkCount, e.createdAt = toString(timestamp())"
+            "template": "MERGE (e:WebCrawlGeoEntity {sourceUrl: $input.record.url, entityType: 'domainCoverage'}) SET e.sourceDomain = $input.record.domain, e.title = $input.record.title, e.sourceDid = 'did:web:site.etzhayyim.com', e.outlinkCount = $input.record.outlinkCount, e.createdAt = toString(timestamp())"
           },
           "depends_on": [],
           "fn": "graph.write",

@@ -1,4 +1,4 @@
-// @gftdcojp/ai-gftd-hrse#AnalyticsTracker
+// @etzhayyim/ai-gftd-hrse#AnalyticsTracker
 // Comprehensive Analytics Tracker for Secure Links
 
 export interface ClickEvent {

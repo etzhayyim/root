@@ -702,6 +702,7 @@ def main() -> int:
     if args.init_db:
         init_db()
     if args.dry_run:
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
         print(json.dumps({"ok": True, "db": "kysely-risingwave", "url_env": "RW_URL|DATABASE_URL"}, ensure_ascii=False))
         return 0
     if args.command == "serve":

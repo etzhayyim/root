@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "VideoGameSeries",
@@ -29,5 +29,5 @@
     "https://www.jp.square-enix.com/ff16/",
     "https://www.jp.square-enix.com/ffvii_rebirth/"
   ],
-  "url": "https://news.gftd.ai/ja/articles/final-fantasy-series-design-analysis-2026"
+  "url": "https://news.etzhayyim.com/ja/articles/final-fantasy-series-design-analysis-2026"
 }

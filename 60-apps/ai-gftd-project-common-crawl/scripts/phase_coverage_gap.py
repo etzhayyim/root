@@ -8,6 +8,7 @@ Pipeline position (Critical Path step A):
     → UPDATE vertex_domain.page_count
 
 After this script completes, run in order:
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
   phase4_intel_risingwave.py --gaps-only   # Murakumo classification
   phase5_inject_did.py --from-rw           # Actor/DID registration
 
@@ -79,7 +80,7 @@ def domain_to_slug(domain: str) -> str:
 
 
 def domain_to_did(domain: str) -> str:
-    return f"did:web:site.gftd.ai:{domain_to_slug(domain)}"
+    return f"did:web:site.etzhayyim.com:{domain_to_slug(domain)}"
 
 
 def get_conn():
@@ -237,7 +238,7 @@ def insert_pages_and_edges(conn, domain: str, cdx_pages: list[dict]) -> dict:
         page_rows.append((
             vid,            # vertex_id
             url_hash,       # rkey
-            "did:web:site.gftd.ai",  # repo
+            "did:web:site.etzhayyim.com",  # repo
             did,            # did
             "Page",         # label
             url,            # url

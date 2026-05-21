@@ -17,7 +17,7 @@
  *
  * Env:
  *   SIP_SOURCE_DIR   default: /Users/junkawasaki/github/260208-spirit-in-physics
- *   PDS_BASE         default: https://atproto.gftd.ai/xrpc
+ *   PDS_BASE         default: https://atproto.etzhayyim.com/xrpc
  *
  * Flags:
  *   --dry-run         enumerate targets, no network / image calls
@@ -29,7 +29,7 @@
  */
 
 const SOURCE_DIR  = Deno.env.get("SIP_SOURCE_DIR") ?? "/Users/junkawasaki/github/260208-spirit-in-physics";
-const PDS_BASE    = Deno.env.get("PDS_BASE") ?? "https://atproto.gftd.ai/xrpc";
+const PDS_BASE    = Deno.env.get("PDS_BASE") ?? "https://atproto.etzhayyim.com/xrpc";
 const DRY_RUN     = Deno.args.includes("--dry-run");
 const OVERWRITE   = Deno.args.includes("--overwrite");
 const LIMIT       = parseInt((Deno.args.find((a) => a.startsWith("--limit=")) ?? "--limit=0").split("=")[1], 10) || 0;

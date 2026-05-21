@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "har": "https://har.gftd.ai/schema/",
+    "har": "https://har.etzhayyim.com/schema/",
     "isco": "https://isco.org/isco-08/",
     "apqc": "https://www.apqc.org/pcf/"
   },

@@ -81,8 +81,8 @@ for f in [d/'go.mod', d/'main.go', d/'spin.toml', d/'k8s'/'spinapp.yaml', new_js
         txt = txt.replace(a,b)
     txt = txt.replace('if path == "/api/mcp" && r.Method == http.MethodPost {',
                       'if path == "/api/grpc" && r.Method == http.MethodPost {')
-    txt = txt.replace('"endpoint":    "https://gftd.ai/" + componentNanoID + "/api/mcp",',
-                      '"endpoint":    "https://" + componentNanoID + ".gftd.ai/api/grpc",')
+    txt = txt.replace('"endpoint":    "https://etzhayyim.com/" + componentNanoID + "/api/mcp",',
+                      '"endpoint":    "https://" + componentNanoID + ".etzhayyim.com/api/grpc",')
     txt = txt.replace('/api/mcp', '/api/grpc')
     f.write_text(txt, encoding='utf-8')
 

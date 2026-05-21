@@ -1,6 +1,6 @@
 {
   "@context": {
-    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "gh": "https://ghosthacker.etzhayyim.com/ns/",
     "page": "gh:page/",
     "pageId": "gh:pageId",
     "pagePrompts": "gh:pagePrompts",

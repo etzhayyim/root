@@ -19,7 +19,7 @@ from lg_animeka.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.gftd.ai")
+_DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.etzhayyim.com")
 
 
 class _ListWorksState(TypedDict, total=False):

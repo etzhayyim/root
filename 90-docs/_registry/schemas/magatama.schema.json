@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/schemas/magatama.schema.json",
+  "$id": "https://etzhayyim.com/schemas/magatama.schema.json",
   "title": "magatama.jsonld",
   "description": "App manifest — unified app identity, profile, build, deploy, and runtime config.",
   "type": "object",
@@ -12,11 +12,11 @@
   "properties": {
     "@context": {
       "type": "string",
-      "const": "https://gftd.ai/ns/magatama/v1"
+      "const": "https://etzhayyim.com/ns/magatama/v1"
     },
     "@id": {
       "type": "string",
-      "description": "DID (e.g. did:web:vibes.gftd.ai)"
+      "description": "DID (e.g. did:web:vibes.etzhayyim.com)"
     },
     "performerType": {
       "type": "string",

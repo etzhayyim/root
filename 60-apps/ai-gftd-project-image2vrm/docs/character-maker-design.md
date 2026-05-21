@@ -193,7 +193,7 @@ Photo upload
 - Three.js + @pixiv/three-vrm viewer
 - Skin/hair/eye color tinting via material uniforms
 - Tab UI with color pickers
-- Deploy to image2vrm.gftd.ai
+- Deploy to image2vrm.etzhayyim.com
 
 ### P2: Face Blendshapes (next)
 - Map CharacterDef face params → VRM blendshape weights

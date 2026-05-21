@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-fb572de45557",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fb572de45557",
   "entityId": "ent-fb572de45557",
   "canonicalName": "prophane victor",
   "aliases": [

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/09/2/1/lower-secondary-education",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/2/1/lower-secondary-education",
       "type": "dodaf:Capability",
       "name": "Lower-Secondary Education and Academic Standards Capability",
       "description": "Functional capability for managing lower-secondary educational services, academic facility audits, and subject-specific standards. Classification: COFOG Division 09, Group 2, Class 1.",

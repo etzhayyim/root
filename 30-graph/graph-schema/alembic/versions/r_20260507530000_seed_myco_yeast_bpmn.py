@@ -25,14 +25,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-budding-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-budding-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kobo_budding',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-                 'id="Definitions_kobo_budding" targetNamespace="https://gftd.ai/bpmn/kobo" '
+                 'id="Definitions_kobo_budding" targetNamespace="https://etzhayyim.com/bpmn/kobo" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="kobo_budding" name="budding" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kobo.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kobo.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;kobo.budAgent&quot;" target="action"/>\n'
                  '          <zeebe:input source="={parentDid: parentDid, childDid: childDid, '
@@ -77,9 +77,9 @@ UP = [{'sql': '\n'
                  2260,
                  '00-contracts/bpmn/ai/gftd/kobo/budding.bpmn',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-budding-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-budding-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -91,14 +91,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-budding-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-budding-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kobo_budding',
                  'ai.gftd.apps.kobo.budAgent',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-budding-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-budding-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -112,14 +112,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-germination-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-germination-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kobo_germination',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-                 'id="Definitions_kobo_germination" targetNamespace="https://gftd.ai/bpmn/kobo" '
+                 'id="Definitions_kobo_germination" targetNamespace="https://etzhayyim.com/bpmn/kobo" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="kobo_germination" name="germination" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -160,7 +160,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kobo.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kobo.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;kobo.germinate&quot;" target="action"/>\n'
                  '          <zeebe:input source="={sporeVertexId: sporeVertexId, newAgentDid: '
@@ -180,9 +180,9 @@ UP = [{'sql': '\n'
                  3122,
                  '00-contracts/bpmn/ai/gftd/kobo/germination.bpmn',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-germination-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-germination-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -194,14 +194,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-germination-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-germination-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kobo_germination',
                  'ai.gftd.apps.kobo.spawnAgent',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-germination-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-germination-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -215,14 +215,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-sporulation-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-sporulation-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kobo_sporulation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-                 'id="Definitions_kobo_sporulation" targetNamespace="https://gftd.ai/bpmn/kobo" '
+                 'id="Definitions_kobo_sporulation" targetNamespace="https://etzhayyim.com/bpmn/kobo" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="kobo_sporulation" name="sporulation" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -266,7 +266,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kobo.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kobo.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;kobo.sporulate&quot;" target="action"/>\n'
                  '          <zeebe:input source="={agentDid: agentDid, sporeVertexId: '
@@ -284,9 +284,9 @@ UP = [{'sql': '\n'
                  3010,
                  '00-contracts/bpmn/ai/gftd/kobo/sporulation.bpmn',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-sporulation-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-sporulation-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -298,14 +298,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-sporulation-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-sporulation-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kobo_sporulation',
                  'ai.gftd.apps.kobo.sporulate',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-sporulation-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-sporulation-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -319,15 +319,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kabi-anastomosis-gate-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kabi-anastomosis-gate-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kabi_anastomosis_gate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_kabi_anastomosis_gate" '
-                 'targetNamespace="https://gftd.ai/bpmn/kabi" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/kabi" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="kabi_anastomosis_gate" name="anastomosis-gate" '
                  'isExecutable="true">\n'
@@ -383,7 +383,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kabi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kabi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;kabi.anastomosisGate&quot;" '
                  'target="action"/>\n'
@@ -403,9 +403,9 @@ UP = [{'sql': '\n'
                  3563,
                  '00-contracts/bpmn/ai/gftd/kabi/anastomosis-gate.bpmn',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kabi-anastomosis-gate-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kabi-anastomosis-gate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -417,14 +417,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kabi-anastomosis-gate-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kabi-anastomosis-gate-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kabi_anastomosis_gate',
                  'ai.gftd.apps.kabi.fusionProbe',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kabi-anastomosis-gate-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kabi-anastomosis-gate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -438,15 +438,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kinoko-ponf-fruiting-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kinoko-ponf-fruiting-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kinoko_ponf_fruiting',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_kinoko_ponf_fruiting" '
-                 'targetNamespace="https://gftd.ai/bpmn/kinoko" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/kinoko" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <!-- Triggered by R/PT15M timer when flow threshold may be reached -->\n'
                  '  <bpmn:process id="kinoko_ponf_fruiting" name="ponf-fruiting" '
@@ -493,7 +493,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:kinoko.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:kinoko.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;kinoko.formBlock&quot;" target="action"/>\n'
                  '          <zeebe:input source="={blockVertexId: blockVertexId, totalFlow: '
@@ -514,9 +514,9 @@ UP = [{'sql': '\n'
                  3309,
                  '00-contracts/bpmn/ai/gftd/kinoko/ponf-fruiting.bpmn',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kinoko-ponf-fruiting-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kinoko-ponf-fruiting-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -528,14 +528,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kinoko-ponf-fruiting-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kinoko-ponf-fruiting-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'kinoko_ponf_fruiting',
                  'ai.gftd.apps.kinoko.formBlock',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kinoko-ponf-fruiting-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kinoko-ponf-fruiting-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -549,15 +549,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hakkou-ferment-pipeline-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hakkou-ferment-pipeline-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'hakkou_ferment_pipeline',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_hakkou_ferment_pipeline" '
-                 'targetNamespace="https://gftd.ai/bpmn/hakkou" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/hakkou" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="hakkou_ferment_pipeline" name="ferment-pipeline" '
                  'isExecutable="true">\n'
@@ -631,7 +631,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:hakkou.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:hakkou.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;hakkou.ferment&quot;" target="action"/>\n'
                  '          <zeebe:input source="={fermentVertexId: fermentVertexId, agentDid: '
@@ -650,9 +650,9 @@ UP = [{'sql': '\n'
                  4468,
                  '00-contracts/bpmn/ai/gftd/hakkou/ferment-pipeline.bpmn',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hakkou-ferment-pipeline-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hakkou-ferment-pipeline-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -664,39 +664,39 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/hakkou-ferment-pipeline-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hakkou-ferment-pipeline-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'hakkou_ferment_pipeline',
                  'ai.gftd.apps.hakkou.startFerment',
                  '2026-05-07T23:30:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/hakkou-ferment-pipeline-v1']}]
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hakkou-ferment-pipeline-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-budding-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-budding-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-budding-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-budding-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-germination-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-germination-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-germination-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-germination-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kobo-sporulation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kobo-sporulation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kobo-sporulation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kobo-sporulation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kabi-anastomosis-gate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kabi-anastomosis-gate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kabi-anastomosis-gate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kabi-anastomosis-gate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/kinoko-ponf-fruiting-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kinoko-ponf-fruiting-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kinoko-ponf-fruiting-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kinoko-ponf-fruiting-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/hakkou-ferment-pipeline-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hakkou-ferment-pipeline-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hakkou-ferment-pipeline-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hakkou-ferment-pipeline-v1']}]
 
 
 def upgrade() -> None:

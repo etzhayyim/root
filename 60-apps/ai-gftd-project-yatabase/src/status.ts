@@ -189,7 +189,7 @@ export async function statusResponse(env: StatusEnv): Promise<Response> {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Status — Yatabase</title>
-<meta name="description" content="Live operational status for yatabase.gftd.ai. Probe results, agent activity, version." />
+<meta name="description" content="Live operational status for yatabase.etzhayyim.com. Probe results, agent activity, version." />
 <style>
   body{margin:0;font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0f172a;background:#fafafa}
   header,main,footer{max-width:980px;margin:0 auto;padding:0 24px}

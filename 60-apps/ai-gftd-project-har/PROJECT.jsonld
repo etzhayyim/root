@@ -2,7 +2,7 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://gftd.ai/schemas/",
+      "gftd": "https://etzhayyim.com/schemas/",
       "capabilities": "gftd:capabilities",
       "survivalIndicators": "gftd:survivalIndicators",
       "scheduler": "gftd:scheduler",
@@ -96,7 +96,7 @@
             {
               "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
               "dm2": "https://www.omg.org/spec/DoDAF-DM2/",
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "gitPrimarySource": "gftd:gitPrimarySource",
               "contractType": "gftd:contractType",
               "salary": "gftd:salary",
@@ -190,7 +190,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",
@@ -222,7 +222,7 @@
               "@type": "ListItem",
               "position": 2,
               "name": "Public recruitment launch",
-              "description": "Open recruitment through https://har.gftd.ai/jobs",
+              "description": "Open recruitment through https://har.etzhayyim.com/jobs",
               "status": "Planned",
               "dependsOn": "../ai-gftd-project-government-body/scheduler.jsonld"
             }

@@ -186,14 +186,14 @@ def go_module(dirname: str) -> str:
 go 1.23
 
 require (
-\tgithub.com/gftdcojp/magatama-go v0.0.0
-\tgithub.com/gftdcojp/signal-client v0.0.0-00010101000000-000000000000
+\tgithub.com/etzhayyim/magatama-go v0.0.0
+\tgithub.com/etzhayyim/signal-client v0.0.0-00010101000000-000000000000
 )
 
 require go.bytecodealliance.org/cm v0.3.0 // indirect
 
-replace github.com/gftdcojp/signal-client => ../../../../packages/go/signal-client
-replace github.com/gftdcojp/magatama-go => ../../../../packages/rust/magatama/magatama-go
+replace github.com/etzhayyim/signal-client => ../../../../packages/go/signal-client
+replace github.com/etzhayyim/magatama-go => ../../../../packages/rust/magatama/magatama-go
 """
 
 
@@ -247,8 +247,8 @@ def jsonld(iso: str, nanoid: str, label: str, description: str) -> str:
             "description": description,
             "identifier": nanoid,
             "address": {"@type": "PostalAddress", "addressCountry": iso.upper()},
-            "url": f"https://{nanoid}.gftd.ai",
-            "mainEntityOfPage": f"https://{nanoid}.gftd.ai/api/mcp",
+            "url": f"https://{nanoid}.etzhayyim.com",
+            "mainEntityOfPage": f"https://{nanoid}.etzhayyim.com/api/mcp",
         },
         indent=2,
         ensure_ascii=False,
@@ -268,7 +268,7 @@ import (
 \t"net/http"
 \t"time"
 
-\tmagatama "github.com/gftdcojp/magatama-go"
+\tmagatama "github.com/etzhayyim/magatama-go"
 )
 
 const (
@@ -344,7 +344,7 @@ func registerMethods(a *magatama.Adapter) {{
 \t\t\t\t"name": entityName,
 \t\t\t\t"countryCode": countryCode,
 \t\t\t\t"type": divisionType,
-\t\t\t\t"endpoint": "https://" + componentNanoID + ".gftd.ai/api/grpc",
+\t\t\t\t"endpoint": "https://" + componentNanoID + ".etzhayyim.com/api/grpc",
 \t\t\t}}, nil
 \t\t}},
 \t}})

@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -38,7 +38,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults",
+  "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults",
   "@type": [
     "dodaf:Resource",
     "dodaf:DataType"
@@ -50,12 +50,12 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "primaryKey": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/id"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/id"
     }
   ],
   "column": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/id",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/id",
       "name": "id",
       "description": "Primary key identifier",
       "dataType": {
@@ -64,7 +64,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/scanId",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/scanId",
       "name": "scanId",
       "description": "Scan identifier",
       "dataType": {
@@ -73,7 +73,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/integrationId",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/integrationId",
       "name": "integrationId",
       "description": "Integration identifier",
       "dataType": {
@@ -82,7 +82,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/targetId",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/targetId",
       "name": "targetId",
       "description": "Target identifier",
       "dataType": {
@@ -91,7 +91,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/targetType",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/targetType",
       "name": "targetType",
       "description": "Target type (host, container, configuration)",
       "dataType": {
@@ -105,7 +105,7 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/scapContentId",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/scapContentId",
       "name": "scapContentId",
       "description": "SCAP content identifier used for the scan",
       "dataType": {
@@ -114,7 +114,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/executedAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/executedAt",
       "name": "executedAt",
       "description": "Timestamp when the scan was executed",
       "dataType": {
@@ -123,7 +123,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/completedAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/completedAt",
       "name": "completedAt",
       "description": "Timestamp when the scan was completed",
       "dataType": {
@@ -132,7 +132,7 @@
       "required": false
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/status",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/status",
       "name": "status",
       "description": "Scan status (pending, running, completed, failed)",
       "dataType": {
@@ -148,7 +148,7 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/results",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/results",
       "name": "results",
       "description": "Array of test result objects with ruleId, result, score, message, details, timestamp",
       "dataType": {
@@ -157,7 +157,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/summary",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/summary",
       "name": "summary",
       "description": "Summary object with totalRules, passedRules, failedRules, errorRules, unknownRules, notApplicableRules, compliancePercentage",
       "dataType": {
@@ -166,7 +166,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/metadata",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/metadata",
       "name": "metadata",
       "description": "JSON metadata containing priority and requestedAt",
       "dataType": {
@@ -175,7 +175,7 @@
       "required": false
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/createdAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/createdAt",
       "name": "createdAt",
       "description": "Timestamp when the record was created",
       "dataType": {
@@ -185,7 +185,7 @@
       "default": "now()"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/updatedAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/updatedAt",
       "name": "updatedAt",
       "description": "Timestamp when the record was last updated",
       "dataType": {
@@ -197,35 +197,35 @@
   ],
   "index": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/scanIdIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/scanIdIdx",
       "name": "scap_scan_results_scan_id_idx",
       "columns": [
         "scanId"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/integrationIdIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/integrationIdIdx",
       "name": "scap_scan_results_integration_id_idx",
       "columns": [
         "integrationId"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/statusIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/statusIdx",
       "name": "scap_scan_results_status_idx",
       "columns": [
         "status"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/executedAtIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/executedAtIdx",
       "name": "scap_scan_results_executed_at_idx",
       "columns": [
         "executedAt"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults/scapContentIdIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults/scapContentIdIdx",
       "name": "scap_scan_results_scap_content_id_idx",
       "columns": [
         "scapContentId"
@@ -233,7 +233,7 @@
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/zod/scapScanResult.ts"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/zod/scapScanResult.ts"
   ]
 }

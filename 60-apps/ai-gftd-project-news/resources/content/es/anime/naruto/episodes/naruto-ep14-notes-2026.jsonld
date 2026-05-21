@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "TVEpisode",
@@ -29,5 +29,5 @@
       "name": "Naruto"
     }
   },
-  "url": "https://news.gftd.ai/es/articles/naruto-ep14-notes-2026"
+  "url": "https://news.etzhayyim.com/es/articles/naruto-ep14-notes-2026"
 }

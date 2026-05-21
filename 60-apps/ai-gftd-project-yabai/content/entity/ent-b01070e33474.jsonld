@@ -1,16 +1,16 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "WebSite",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-b01070e33474",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b01070e33474",
   "entityId": "ent-b01070e33474",
-  "canonicalName": "gftd.ai",
+  "canonicalName": "etzhayyim.com",
   "aliases": [
     "About GFTD",
     "GFTD - Artificial Organism",
-    "gftd.ai"
+    "etzhayyim.com"
   ],
   "websites": [
-    "https://gftd.ai",
-    "https://gftd.ai/about"
+    "https://etzhayyim.com",
+    "https://etzhayyim.com/about"
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:nyusatsu.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:nyusatsu.etzhayyim.com",
   "name": "nyusatsu",
   "nanoid": "nyu5at5u",
   "displayName": "Nyusatsu — JP Public Procurement Aggregator",
@@ -252,5 +252,5 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md"
   ],
   "convoSystemPrompt": "You are the Nyusatsu actor — a self-hosted public procurement aggregator for Japan. Crawl government bid portals (central, prefecture, municipality, incorp) politely (robots.txt + 1.5s rate limit), extract structured bid fields via Murakumo LLM, and emit ai.gftd.apps.jpFiscal.procurementBid records. Link to contract records on award. Never rely on paid third-party aggregators.",
-  "convention": "Bid records are owned by issuer DID (did:web:gov.gftd.ai:country:jpn:{agency}); nyusatsu itself only writes when issuer DID resolution is pending. Reconcile ownership during linkAward."
+  "convention": "Bid records are owned by issuer DID (did:web:gov.etzhayyim.com:country:jpn:{agency}); nyusatsu itself only writes when issuer DID resolution is pending. Reconcile ownership during linkAward."
 }

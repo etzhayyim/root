@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/10/4/0/family-and-children",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/4/0/family-and-children",
       "type": "dodaf:Capability",
       "name": "Family Support and Child Welfare Capability",
       "description": "Functional capability for managing family benefit eligibility, coordination of child care support, and welfare monitoring. Classification: COFOG Division 10, Group 4, Class 0.",

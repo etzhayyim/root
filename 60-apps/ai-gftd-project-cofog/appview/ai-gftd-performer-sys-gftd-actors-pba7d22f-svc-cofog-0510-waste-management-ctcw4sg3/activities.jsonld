@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/05/1/0/waste-management/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/05/1/0/waste-management/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Waste Management Lifecycle",
       "description": "The administrative process of coordinating waste collection, processing recycling, and monitoring disposal compliance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/05/1/0/waste-management"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/05/1/0/waste-management"
     }
   ]
 }

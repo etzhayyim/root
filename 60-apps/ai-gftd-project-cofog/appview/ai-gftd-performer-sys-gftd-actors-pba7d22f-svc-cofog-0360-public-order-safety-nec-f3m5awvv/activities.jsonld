@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/03/6/0/public-order-safety-nec/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/03/6/0/public-order-safety-nec/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Ancillary Public Order Orchestration Process",
       "description": "The administrative process of managing miscellaneous safety requests, coordinating inter-agency policies, and executing regulatory oversight.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/03/6/0/public-order-safety-nec"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/03/6/0/public-order-safety-nec"
     }
   ]
 }

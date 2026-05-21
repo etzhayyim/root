@@ -13,7 +13,7 @@
           "properties": {
             "charSlug": {
               "type": "string",
-              "description": "Character slug (kebab-case, e.g. rei-ayanami-evangelion). Maps to did:web:sh1n5h1x.gftd.ai:{slug} as protagonist DID."
+              "description": "Character slug (kebab-case, e.g. rei-ayanami-evangelion). Maps to did:web:sh1n5h1x.etzhayyim.com:{slug} as protagonist DID."
             },
             "charName": {
               "type": "string",

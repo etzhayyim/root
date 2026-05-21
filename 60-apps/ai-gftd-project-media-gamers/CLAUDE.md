@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-`media-gamers.gftd.ai` — ゲーム情報 intelligence メディア。1 Worker + N path-based DID。
+`media-gamers.etzhayyim.com` — ゲーム情報 intelligence メディア。1 Worker + N path-based DID。
 
 **Component**: `wasm/media-gamers-7m8oocsn/`
 **nanoid**: `a7m8oocs`
@@ -16,13 +16,13 @@
 
 | DID | 用途 |
 |---|---|
-| `did:web:media-gamers.gftd.ai` (primary) | Platform agent (controller) |
-| `did:web:media-gamers.gftd.ai:{game-slug}` | ゲームタイトル (例: `elden-ring`, `zelda-totk`) |
-| `did:web:media-gamers.gftd.ai:publisher:{slug}` | パブリッシャー (例: `publisher:nintendo`) |
-| `did:web:media-gamers.gftd.ai:developer:{slug}` | デベロッパー (例: `developer:fromsoft`) |
-| `did:web:media-gamers.gftd.ai:platform:{slug}` | プラットフォーム |
-| `did:web:media-gamers.gftd.ai:franchise:{slug}` | フランチャイズ |
-| `did:web:media-gamers.gftd.ai:source:{id}` | データソース (Steam, RAWG, IGDB, OpenCritic, Giant Bomb) |
+| `did:web:media-gamers.etzhayyim.com` (primary) | Platform agent (controller) |
+| `did:web:media-gamers.etzhayyim.com:{game-slug}` | ゲームタイトル (例: `elden-ring`, `zelda-totk`) |
+| `did:web:media-gamers.etzhayyim.com:publisher:{slug}` | パブリッシャー (例: `publisher:nintendo`) |
+| `did:web:media-gamers.etzhayyim.com:developer:{slug}` | デベロッパー (例: `developer:fromsoft`) |
+| `did:web:media-gamers.etzhayyim.com:platform:{slug}` | プラットフォーム |
+| `did:web:media-gamers.etzhayyim.com:franchise:{slug}` | フランチャイズ |
+| `did:web:media-gamers.etzhayyim.com:source:{id}` | データソース (Steam, RAWG, IGDB, OpenCritic, Giant Bomb) |
 
 ```typescript
 // ゲーム DID 作成 (TS Native)
@@ -61,7 +61,7 @@ media_gamers.translation {
 | **Search fallback** | primary `name` LIKE → 0件なら translation `name` LIKE |
 | **URL** | `/{lang}/game/{slug}` (例: `/en/game/elden-ring`, `/ja/game/elden-ring`) |
 | **SEO** | `<link rel="alternate" hreflang="en">` + `hreflang="ja"` + `hreflang="x-default"` |
-| **i18n.gftd.ai 連携** | Follow → ComAtprotoSyncSubscribeRepos で `ai.gftd.i18n.translation_completed` 受信 → translation record 自動作成 |
+| **i18n.etzhayyim.com 連携** | Follow → ComAtprotoSyncSubscribeRepos で `ai.gftd.i18n.translation_completed` 受信 → translation record 自動作成 |
 
 ### Translation API
 
@@ -192,9 +192,9 @@ media_gamers.translation {
 
 | App | Integration | 用途 |
 |---|---|---|
-| `legal-entity.gftd.ai` | `Invoke(did, "get-entity", ...)` | パブリッシャーの法人登記 |
-| `media-anime.gftd.ai` | `Invoke(did, "get-title", ...)` | ゲーム↔アニメ原作リンク |
-| `i18n.gftd.ai` | Follow → ComAtprotoSyncSubscribeRepos | 翻訳 Record 自動受信 |
+| `legal-entity.etzhayyim.com` | `Invoke(did, "get-entity", ...)` | パブリッシャーの法人登記 |
+| `media-anime.etzhayyim.com` | `Invoke(did, "get-title", ...)` | ゲーム↔アニメ原作リンク |
+| `i18n.etzhayyim.com` | Follow → ComAtprotoSyncSubscribeRepos | 翻訳 Record 自動受信 |
 
 ### Downstream (Export via Invoke/Serve)
 
@@ -206,7 +206,7 @@ media_gamers.translation {
 | `list-by-platform` | プラットフォーム別作品 |
 | `get-guide` | 攻略ガイド取得 |
 
-## Translation Model Strategy (i18n.gftd.ai 連携)
+## Translation Model Strategy (i18n.etzhayyim.com 連携)
 
 **3-Tier モデル選定。コンテンツ種別と言語で最適モデルを自動ルーティング。**
 
@@ -441,7 +441,7 @@ Seed games: elden-ring, zelda-totk, monster-hunter-wilds, black-myth-wukong, pok
 
 ### Write Path (PDS XRPC)
 
-Write は PDS XRPC (`https://atproto.gftd.ai/xrpc/*`) が標準パス。worker.ts に ES256 JWT ServiceAuthSigner (`SS_SIGNING_KEY` Secrets Store binding) を組み込み認証。
+Write は PDS XRPC (`https://atproto.etzhayyim.com/xrpc/*`) が標準パス。worker.ts に ES256 JWT ServiceAuthSigner (`SS_SIGNING_KEY` Secrets Store binding) を組み込み認証。
 
 禁止:
 - `legacy internal HTTP paths`
@@ -460,11 +460,11 @@ gftd deploy       # account-level Worker
 
 ## API Endpoints
 
-- App: `https://a7m8oocs.gftd.ai`
-- XRPC: `https://a7m8oocs.gftd.ai/xrpc/ai.gftd.apps.media_gamers.{command}`
-- Route: `https://media-gamers.gftd.ai`
-- Health: `https://a7m8oocs.gftd.ai/health`
-- Heartbeat: `POST https://a7m8oocs.gftd.ai/_heartbeat`
+- App: `https://a7m8oocs.etzhayyim.com`
+- XRPC: `https://a7m8oocs.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.{command}`
+- Route: `https://media-gamers.etzhayyim.com`
+- Health: `https://a7m8oocs.etzhayyim.com/health`
+- Heartbeat: `POST https://a7m8oocs.etzhayyim.com/_heartbeat`
 
 ## Claude Code Agent — gftd xrpc
 
@@ -514,7 +514,7 @@ Direct-INSERT expansion via `/loop ドメイン知識、カバレッジを向上
 **T0 sync pattern** (idempotent, run after each phase ingest):
 ```sql
 INSERT INTO public.vertex_actor (did, handle, display_name, created_at, classification, execution_tier)
-SELECT vertex_id, replace(vertex_id, 'did:gftd:gamechar:', '') || '.gamechar.gftd.ai', name, now(), 'tier-0-db-only', 'T0'
+SELECT vertex_id, replace(vertex_id, 'did:gftd:gamechar:', '') || '.gamechar.etzhayyim.com', name, now(), 'tier-0-db-only', 'T0'
 FROM public.vertex_game_character
 WHERE vertex_id NOT IN (SELECT did FROM public.vertex_actor WHERE did LIKE 'did:gftd:gamechar:%');
 -- mirror for vertex_game_item via vertex_id (legacy items have NULL did, use vertex_id)

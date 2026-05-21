@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:os.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:os.etzhayyim.com",
   "nanoid": "os-gftd-01",
   "name": "gftd-os",
   "displayName": "GFTD OS",
@@ -64,7 +64,7 @@
   },
 
   "uiType": "appview",
-  "embedUrl": "https://os-gftd-01.gftd.ai/embed",
+  "embedUrl": "https://os-gftd-01.etzhayyim.com/embed",
   "kpi": ["agent uptime", "consent response time", "budget utilization"],
   "duties": ["agent lifecycle governance", "human-in-the-loop enforcement"]
 }

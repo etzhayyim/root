@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/10/1/1/sickness",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/1/1/sickness",
       "type": "dodaf:Capability",
       "name": "Sickness Benefit and Income Support Capability",
       "description": "Functional capability for managing sickness benefit payments, medical certificate validation, and recovery monitoring. Classification: COFOG Division 10, Group 1, Class 1.",

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:ukr-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:ukr-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Ukraine AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -118,7 +118,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "ukr-state.gftd.ai",
+      "host": "ukr-state.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -19,7 +19,7 @@
           "required": ["challenge", "rpId"],
           "properties": {
             "challenge": { "type": "string", "description": "Base64url-encoded challenge" },
-            "rpId": { "type": "string", "description": "Relying party ID (gftd.ai)" },
+            "rpId": { "type": "string", "description": "Relying party ID (etzhayyim.com)" },
             "allowCredentials": { "type": "array" },
             "userVerification": { "type": "string" },
             "timeout": { "type": "integer" }

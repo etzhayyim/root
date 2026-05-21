@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/01/2/1/r-d-general-public-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/2/1/r-d-general-public-services",
       "type": "dodaf:Capability",
       "name": "General Public Services R&D",
       "description": "Functional capability for research and development related to general public services, focusing on governance innovation and policy effectiveness. Classification: COFOG Division 01, Group 2, Class 1.",

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:business-manager.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:business-manager.etzhayyim.com",
   "approvalThresholds": {
     "journalEntry": {
       "amount": 1000000,

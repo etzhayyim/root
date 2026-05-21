@@ -19,7 +19,7 @@ related:
 
 Operating Entity: etzhayyim (sole principal)
 Vendor: Gftd Japan株式会社 (engineering capacity)
-Author: gftdcojp Claude Agent on behalf of CEO 河崎
+Author: etzhayyim Claude Agent on behalf of CEO 河崎
 
 ## 1. Decision
 
@@ -78,12 +78,12 @@ Decision Classes follow `00-contracts/dmn/` taxonomy (A=org-level / B=ops-level
 2. **Financial-action prohibition** — CFO AI **MUST NOT** initiate Stripe
    charges, wire transfers, payroll runs, or sign legal documents. It may
    only **prepare drafts** and **request human approval** via consent
-   workflow (`createConsentHelper`). Per `[gftdcojp_agent.permissions]`
+   workflow (`createConsentHelper`). Per `[etzhayyim_agent.permissions]`
    `financial_action = false`.
-3. **External-mail gate** — All `gftd.co.jp` / `gftd.ai` / `gftd.works` /
+3. **External-mail gate** — All `gftd.co.jp` / `etzhayyim.com` / `gftd.works` /
    `gftd.group` recipients = direct send. All other recipients = draft only,
    require human approval before `sendDraft`. Per
-   `[gftdcojp_agent.auth] email_send_external = "draft_only"`.
+   `[etzhayyim_agent.auth] email_send_external = "draft_only"`.
 4. **Class A escalation, no exceptions** — Any decision tagged Class A
    (org-level: legal entity changes, M&A, layoffs, public statements) is
    **always** routed to CEO 河崎 with `$/escalate` notification + blocking
@@ -99,7 +99,7 @@ Decision Classes follow `00-contracts/dmn/` taxonomy (A=org-level / B=ops-level
 ## 5. LSP wire (JSON-RPC 2.0)
 
 Transport: **Unix socket** (`$XDG_RUNTIME_DIR/keiei.sock`) for local clients
-+ **WebSocket** (`wss://keiei.gftd.ai/lsp`) for remote (mTLS, `did:web` auth
++ **WebSocket** (`wss://keiei.etzhayyim.com/lsp`) for remote (mTLS, `did:web` auth
 via PDS pipethrough). Both speak identical JSON-RPC 2.0.
 
 ### Methods (initial set — extend per role as needed)
@@ -183,7 +183,7 @@ definition (graph-definition-as-data per ADR 2605082000).
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>
   <key>WorkingDirectory</key>
-  <string>/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/py</string>
+  <string>/Users/junkawasaki/etzhayyim/etzhayyim-root/20-actors/magatama/py</string>
   <key>StandardOutPath</key><string>/tmp/keiei.out.log</string>
   <key>StandardErrorPath</key><string>/tmp/keiei.err.log</string>
 </dict></plist>
@@ -204,12 +204,12 @@ spec:
     spec:
       containers:
       - name: keiei
-        image: ghcr.io/gftdcojp/keiei-lsp:latest
+        image: ghcr.io/etzhayyim/keiei-lsp:latest
         command: ["granian","--interface","asgi","pymagatama.keiei.lsp_server:app"]
         env:
         - {name: KEIEI_PRINCIPAL_DID, value: "did:web:etz-hayim"}
         - {name: KEIEI_LEDGER_PATH, value: "/data/CXO-LEDGER.md"}
-        - {name: GFTD_LLM_URL, value: "https://murakumo.gftd.ai/v1/chat/completions"}
+        - {name: GFTD_LLM_URL, value: "https://murakumo.etzhayyim.com/v1/chat/completions"}
         ports: [{containerPort: 8443, name: lsp-wss}]
         volumeMounts: [{name: state, mountPath: /data}]
       volumes: [{name: state, persistentVolumeClaim: {claimName: keiei-state}}]
@@ -229,7 +229,7 @@ Single append-only file: `_working/keiei/CXO-LEDGER.md`. Format echoes
 
 Class A entries link to a CEO-approval record in PDS
 (`ai.gftd.governance.classA-approval`). Class B entries auto-disclose to
-CEO inbox within 24h via `microsoft.gftd.ai sendMail` (internal direct).
+CEO inbox within 24h via `microsoft.etzhayyim.com sendMail` (internal direct).
 
 ## 9. Migration path
 
@@ -239,7 +239,7 @@ CEO inbox within 24h via `microsoft.gftd.ai sendMail` (internal direct).
 | Phase 1 | implement `cto` role first (vacant seat, real demand from infra work) — graph + LSP method handlers + ledger emit | **shipped 2026-05-12** (graph/cto.py + LSP `_decide` wired to `dispatch_decide`; ledger seq 11+ rationale-tracked) |
 | Phase 2 | add `cfo` (gated) + `cmo` + `chro` for vacant-seat coverage + 24h auto-disclose mailer | **shipped 2026-05-14** — `graph/{cfo,cmo,chro}.py` lens routing + `pymagatama.keiei.mailer` + launchd plist `ai.gftd.keiei-mailer` (hourly tick) + `_working/keiei/CXO-MAILER-STATE.json` watermark. Hard rules force-gated by `roles.gate()` (cfo financial_action_gated, chro payroll_gated). 43 unit tests under `tests/test_keiei_phase2.py` |
 | Phase 3 | shadow roles (`ceo`/`coo`/`clo`/`ciso`/`cdo`) — chief-of-staff for existing humans | **shipped 2026-05-14** — `graph/{ceo,coo,clo,ciso,cdo}.py` fully expanded with shadow-mode lens routing (AI-CEO impersonation guardrail § ADR §10, COO Track A/B/C ownership map, CLO BCI Rule 36 + atproto OAuth wire-format + malak G2 + outreach placeholder discipline, CISO 8 malak hard invariants + vault zero-knowledge + threat-ledger pattern, CDO Bonsai cultivar metaphor + WCAG 2.2 AA + [data-lang] i18n + paid/owned channel split with AI-CMO). Class B gated to blocking human-confirm via `roles.gate()` shadow rule. 49 unit tests under `tests/test_keiei_phase3.py` (including mailer-excludes-shadow-Class-B regression). |
-| Phase 4 | residency hardening — k8s deploy, mTLS, multi-client, leader-election | **code shipped 2026-05-14 (operator apply pending)** — HTTP transport `pymagatama.keiei.http_server` (FastAPI + bearer auth + JSON-RPC pass-through, granian-served per ADR-2605080600); `pymagatama.keiei.leader.K8sLeaseLeader` acquires/renews `coordination.k8s.io/v1` Lease via stdlib HTTPS (no python-kubernetes dep); `LocalLeader` fallback preserves launchd path; `ledger_append` + `mailer.run_once` gated on `is_leader()`, followers surface `status="not-leader"` + `leaderIdentity` (HTTP 503 + `X-Keiei-Leader`). k8s manifests under `50-infra/k8s/keiei/` (Namespace, ServiceAccount + namespaced Role/RoleBinding scoped to `leases/keiei-writer`, Deployment 3-replica with downward-API identity + RWX PVC `/data/keiei`, Service ClusterIP, Ingress `keiei.gftd.ai` with `nginx.ingress.kubernetes.io/auth-tls-secret` mTLS + `proxy-next-upstream` on 503, PDB minAvailable=2, kustomization). Image source `60-apps/ai-gftd-project-keiei/lg/Dockerfile`. RUNBOOK at `50-infra/k8s/keiei/RUNBOOK.md`. Operator (y-nishino) remaining: RWX class verify, image build/push, secret provisioning (`keiei-lsp-secrets` + `keiei-gftd-ai-tls` + `keiei-mtls-ca`), per-client mTLS cert issuance, DNS, `kubectl apply -k`, RUNBOOK §3-§6 walk. 9 unit tests + 6 fastapi-gated tests in `tests/test_keiei_phase4.py` (combined 101 + 6 across all phases). |
+| Phase 4 | residency hardening — k8s deploy, mTLS, multi-client, leader-election | **code shipped 2026-05-14 (operator apply pending)** — HTTP transport `pymagatama.keiei.http_server` (FastAPI + bearer auth + JSON-RPC pass-through, granian-served per ADR-2605080600); `pymagatama.keiei.leader.K8sLeaseLeader` acquires/renews `coordination.k8s.io/v1` Lease via stdlib HTTPS (no python-kubernetes dep); `LocalLeader` fallback preserves launchd path; `ledger_append` + `mailer.run_once` gated on `is_leader()`, followers surface `status="not-leader"` + `leaderIdentity` (HTTP 503 + `X-Keiei-Leader`). k8s manifests under `50-infra/k8s/keiei/` (Namespace, ServiceAccount + namespaced Role/RoleBinding scoped to `leases/keiei-writer`, Deployment 3-replica with downward-API identity + RWX PVC `/data/keiei`, Service ClusterIP, Ingress `keiei.etzhayyim.com` with `nginx.ingress.kubernetes.io/auth-tls-secret` mTLS + `proxy-next-upstream` on 503, PDB minAvailable=2, kustomization). Image source `60-apps/ai-gftd-project-keiei/lg/Dockerfile`. RUNBOOK at `50-infra/k8s/keiei/RUNBOOK.md`. Operator (y-nishino) remaining: RWX class verify, image build/push, secret provisioning (`keiei-lsp-secrets` + `keiei-gftd-ai-tls` + `keiei-mtls-ca`), per-client mTLS cert issuance, DNS, `kubectl apply -k`, RUNBOOK §3-§6 walk. 9 unit tests + 6 fastapi-gated tests in `tests/test_keiei_phase4.py` (combined 101 + 6 across all phases). |
 
 ## 10. Anti-goals (explicit)
 
@@ -256,9 +256,9 @@ CEO inbox within 24h via `microsoft.gftd.ai sendMail` (internal direct).
 ## 11. Cross-references
 
 - `deps.toml [platform.operating_entity]` — etzhayyim principal SSoT
-- `deps.toml [gftdcojp_agent]` — auth / permissions / org_members
+- `deps.toml [etzhayyim_agent]` — auth / permissions / org_members
 - `90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md` — runtime
 - `90-docs/adr/2605082000-langgraph-graph-definition-as-data.md` — graph SSoT
 - `90-docs/adr/2605082100-langgraph-checkpointer-storage.md` — state persistence
 - `00-contracts/dmn/` — Decision Class taxonomy (A/B/C/D)
-- `_working/gftdcojp-revenue/DECISION-LOG.md` — chronology (iter123 entry)
+- `_working/etzhayyim-revenue/DECISION-LOG.md` — chronology (iter123 entry)

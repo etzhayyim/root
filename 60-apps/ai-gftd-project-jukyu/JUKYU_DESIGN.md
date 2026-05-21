@@ -2,7 +2,7 @@
 
 Date: 2026-05-14
 
-`jukyu.gftd.ai` is the global supply-demand System-of-Systems layer. It does not replace domain actors such as `naphtha-supply.gftd.ai`; it orchestrates them, normalizes their outputs, runs common stress propagation, ranks company exposure, and emits target-company signals.
+`jukyu.etzhayyim.com` is the global supply-demand System-of-Systems layer. It does not replace domain actors such as `naphtha-supply.etzhayyim.com`; it orchestrates them, normalizes their outputs, runs common stress propagation, ranks company exposure, and emits target-company signals.
 
 ## Product Goal
 
@@ -163,7 +163,7 @@ Returns delivery status and signal trace id.
 ```json
 {
   "domain": "naphtha",
-  "sourceActor": "did:web:naphtha-supply.gftd.ai",
+  "sourceActor": "did:web:naphtha-supply.etzhayyim.com",
   "targetContract": "jukyu_sos_v1"
 }
 ```

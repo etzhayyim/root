@@ -38,12 +38,12 @@
           },
           "panels": {
             "type": "array",
-            "description": "Per-panel geometry + dialogue. Not exposed in the derived post directly; used by the full-screen reader (mangaka.gftd.ai/at/...) for panel-level navigation, and by yabai-style LLM downstream workers for per-panel analysis.",
+            "description": "Per-panel geometry + dialogue. Not exposed in the derived post directly; used by the full-screen reader (mangaka.etzhayyim.com/at/...) for panel-level navigation, and by yabai-style LLM downstream workers for per-panel analysis.",
             "items": { "type": "ref", "ref": "#panel" }
           },
           "charactersAppearing": {
             "type": "array",
-            "description": "Characters appearing on this page (subset of chapter.charactersAppearing). Derive rule expands each into app.bsky.richtext.facet#mention with did = did:web:mangaka.gftd.ai:character:{slug}. Keep the list tight (page-scope) to avoid mention spam in the thread reply.",
+            "description": "Characters appearing on this page (subset of chapter.charactersAppearing). Derive rule expands each into app.bsky.richtext.facet#mention with did = did:web:mangaka.etzhayyim.com:character:{slug}. Keep the list tight (page-scope) to avoid mention spam in the thread reply.",
             "items": { "type": "ref", "ref": "ai.gftd.mangaka.chapter#characterAppearance" }
           },
           "layersCid": {

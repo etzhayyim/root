@@ -1,6 +1,6 @@
 # ai-gftd-project-joucho — 情緒 Well-Becoming Scoring
 
-**joucho.gftd.ai** — Well-Becoming 観点でモノ・場所・サービスの質を評価するスコアリングプラットフォーム。
+**joucho.etzhayyim.com** — Well-Becoming 観点でモノ・場所・サービスの質を評価するスコアリングプラットフォーム。
 
 ## Core Concept
 
@@ -16,7 +16,7 @@
 ## Architecture
 
 - **performerType**: `service`
-- **DID**: `did:web:joucho.gftd.ai`
+- **DID**: `did:web:joucho.etzhayyim.com`
 - **uiType**: `redirect`
 - **LLM**: Murakumo Opus 4.6 (`claude-opus-4-6`)
 - **Pattern**: Single Worker + multi-DID + W Protocol Event Stream + joucho 情緒 cadence heartbeat

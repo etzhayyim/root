@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "skos": "http://www.w3.org/2004/02/skos/core#",
@@ -38,13 +38,13 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/capabilities/taxonomy",
+  "@id": "https://scap.etzhayyim.com/capabilities/taxonomy",
   "@type": "skos:ConceptScheme",
   "prefLabel": "SCAP Platform Capabilities Taxonomy",
   "definition": "SKOS taxonomy organizing SCAP platform capabilities in a hierarchical structure",
   "@graph": [
     {
-      "@id": "https://scap.gftd.ai/capabilities/security-content-automation",
+      "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation",
       "@type": [
         "skos:Concept",
         "dodaf:Capability"
@@ -52,78 +52,78 @@
       "prefLabel": "Security Content Automation",
       "definition": "Automated collection, processing, and management of SCAP data from multiple authoritative sources",
       "topConceptOf": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       },
       "narrower": [
         {
-          "@id": "https://scap.gftd.ai/capabilities/nvd-data-collection"
+          "@id": "https://scap.etzhayyim.com/capabilities/nvd-data-collection"
         },
         {
-          "@id": "https://scap.gftd.ai/capabilities/oval-data-collection"
+          "@id": "https://scap.etzhayyim.com/capabilities/oval-data-collection"
         },
         {
-          "@id": "https://scap.gftd.ai/capabilities/openscap-collection"
+          "@id": "https://scap.etzhayyim.com/capabilities/openscap-collection"
         },
         {
-          "@id": "https://scap.gftd.ai/capabilities/disa-stig-collection"
+          "@id": "https://scap.etzhayyim.com/capabilities/disa-stig-collection"
         }
       ],
       "related": [
         {
-          "@id": "https://scap.gftd.ai/capabilities/data-integration"
+          "@id": "https://scap.etzhayyim.com/capabilities/data-integration"
         }
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/nvd-data-collection",
+      "@id": "https://scap.etzhayyim.com/capabilities/nvd-data-collection",
       "@type": "skos:Concept",
       "prefLabel": "NVD Data Collection",
       "definition": "Collection of CVE data from NIST National Vulnerability Database",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/security-content-automation"
+        "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/oval-data-collection",
+      "@id": "https://scap.etzhayyim.com/capabilities/oval-data-collection",
       "@type": "skos:Concept",
       "prefLabel": "OVAL Data Collection",
       "definition": "Collection of OVAL definitions from MITRE OVAL Repository",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/security-content-automation"
+        "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/openscap-collection",
+      "@id": "https://scap.etzhayyim.com/capabilities/openscap-collection",
       "@type": "skos:Concept",
       "prefLabel": "OpenSCAP Collection",
       "definition": "Collection of SCAP content from OpenSCAP Security Guide",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/security-content-automation"
+        "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/disa-stig-collection",
+      "@id": "https://scap.etzhayyim.com/capabilities/disa-stig-collection",
       "@type": "skos:Concept",
       "prefLabel": "DISA STIG Collection",
       "definition": "Collection of DISA STIG (Security Technical Implementation Guide) content",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/security-content-automation"
+        "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/vulnerability-assessment",
+      "@id": "https://scap.etzhayyim.com/capabilities/vulnerability-assessment",
       "@type": [
         "skos:Concept",
         "dodaf:Capability"
@@ -131,48 +131,48 @@
       "prefLabel": "Vulnerability Assessment",
       "definition": "Assessment of vulnerabilities using CVE data and OVAL definitions",
       "topConceptOf": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       },
       "narrower": [
         {
-          "@id": "https://scap.gftd.ai/capabilities/cve-analysis"
+          "@id": "https://scap.etzhayyim.com/capabilities/cve-analysis"
         },
         {
-          "@id": "https://scap.gftd.ai/capabilities/severity-scoring"
+          "@id": "https://scap.etzhayyim.com/capabilities/severity-scoring"
         }
       ],
       "related": [
         {
-          "@id": "https://scap.gftd.ai/capabilities/compliance-scanning"
+          "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning"
         }
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/cve-analysis",
+      "@id": "https://scap.etzhayyim.com/capabilities/cve-analysis",
       "@type": "skos:Concept",
       "prefLabel": "CVE Analysis",
       "definition": "Analysis of Common Vulnerabilities and Exposures data",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/vulnerability-assessment"
+        "@id": "https://scap.etzhayyim.com/capabilities/vulnerability-assessment"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/severity-scoring",
+      "@id": "https://scap.etzhayyim.com/capabilities/severity-scoring",
       "@type": "skos:Concept",
       "prefLabel": "Severity Scoring",
       "definition": "CVSS scoring and severity classification of vulnerabilities",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/vulnerability-assessment"
+        "@id": "https://scap.etzhayyim.com/capabilities/vulnerability-assessment"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/compliance-scanning",
+      "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning",
       "@type": [
         "skos:Concept",
         "dodaf:Capability"
@@ -180,93 +180,93 @@
       "prefLabel": "Compliance Scanning",
       "definition": "Execution of SCAP compliance scans against integrated targets",
       "topConceptOf": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       },
       "narrower": [
         {
-          "@id": "https://scap.gftd.ai/capabilities/aws-scanning"
+          "@id": "https://scap.etzhayyim.com/capabilities/aws-scanning"
         },
         {
-          "@id": "https://scap.gftd.ai/capabilities/gcp-scanning"
+          "@id": "https://scap.etzhayyim.com/capabilities/gcp-scanning"
         },
         {
-          "@id": "https://scap.gftd.ai/capabilities/azure-scanning"
+          "@id": "https://scap.etzhayyim.com/capabilities/azure-scanning"
         },
         {
-          "@id": "https://scap.gftd.ai/capabilities/github-scanning"
+          "@id": "https://scap.etzhayyim.com/capabilities/github-scanning"
         },
         {
-          "@id": "https://scap.gftd.ai/capabilities/gitlab-scanning"
+          "@id": "https://scap.etzhayyim.com/capabilities/gitlab-scanning"
         }
       ],
       "related": [
         {
-          "@id": "https://scap.gftd.ai/capabilities/vulnerability-assessment"
+          "@id": "https://scap.etzhayyim.com/capabilities/vulnerability-assessment"
         }
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/aws-scanning",
+      "@id": "https://scap.etzhayyim.com/capabilities/aws-scanning",
       "@type": "skos:Concept",
       "prefLabel": "AWS Scanning",
       "definition": "SCAP compliance scanning for AWS resources",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/compliance-scanning"
+        "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/gcp-scanning",
+      "@id": "https://scap.etzhayyim.com/capabilities/gcp-scanning",
       "@type": "skos:Concept",
       "prefLabel": "GCP Scanning",
       "definition": "SCAP compliance scanning for Google Cloud Platform resources",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/compliance-scanning"
+        "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/azure-scanning",
+      "@id": "https://scap.etzhayyim.com/capabilities/azure-scanning",
       "@type": "skos:Concept",
       "prefLabel": "Azure Scanning",
       "definition": "SCAP compliance scanning for Microsoft Azure resources",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/compliance-scanning"
+        "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/github-scanning",
+      "@id": "https://scap.etzhayyim.com/capabilities/github-scanning",
       "@type": "skos:Concept",
       "prefLabel": "GitHub Scanning",
       "definition": "SCAP compliance scanning for GitHub repositories",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/compliance-scanning"
+        "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/gitlab-scanning",
+      "@id": "https://scap.etzhayyim.com/capabilities/gitlab-scanning",
       "@type": "skos:Concept",
       "prefLabel": "GitLab Scanning",
       "definition": "SCAP compliance scanning for GitLab repositories",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/compliance-scanning"
+        "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/data-integration",
+      "@id": "https://scap.etzhayyim.com/capabilities/data-integration",
       "@type": [
         "skos:Concept",
         "dodaf:Capability"
@@ -274,49 +274,49 @@
       "prefLabel": "Data Integration",
       "definition": "Integration of multiple SCAP data sources into unified platform",
       "topConceptOf": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       },
       "narrower": [
         {
-          "@id": "https://scap.gftd.ai/capabilities/workflow-orchestration"
+          "@id": "https://scap.etzhayyim.com/capabilities/workflow-orchestration"
         },
         {
-          "@id": "https://scap.gftd.ai/capabilities/realtime-messaging"
+          "@id": "https://scap.etzhayyim.com/capabilities/realtime-messaging"
         }
       ],
       "related": [
         {
-          "@id": "https://scap.gftd.ai/capabilities/security-content-automation"
+          "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation"
         }
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/workflow-orchestration",
+      "@id": "https://scap.etzhayyim.com/capabilities/workflow-orchestration",
       "@type": "skos:Concept",
       "prefLabel": "Workflow Orchestration",
       "definition": "Orchestration of data collection workflows using Workflow DevKit",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/data-integration"
+        "@id": "https://scap.etzhayyim.com/capabilities/data-integration"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/realtime-messaging",
+      "@id": "https://scap.etzhayyim.com/capabilities/realtime-messaging",
       "@type": "skos:Concept",
       "prefLabel": "Real-time Messaging",
       "definition": "Real-time messaging and event distribution using Supabase Realtime",
       "broader": {
-        "@id": "https://scap.gftd.ai/capabilities/data-integration"
+        "@id": "https://scap.etzhayyim.com/capabilities/data-integration"
       },
       "inScheme": {
-        "@id": "https://scap.gftd.ai/capabilities/taxonomy"
+        "@id": "https://scap.etzhayyim.com/capabilities/taxonomy"
       }
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/README.md",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/services/scap-data-service.ts"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/README.md",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/services/scap-data-service.ts"
   ]
 }

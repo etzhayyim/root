@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-saas-register-product-v1',
-                 'did:web:open-saas.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-saas-register-product-v1',
+                 'did:web:open-saas.etzhayyim.com',
                  'open_saas_register_product',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_saas_register_product"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-saas"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-saas"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_saas_register_product" name="SaaS product 登録" '
                  'isExecutable="true">\n'
@@ -115,7 +115,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-saas.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-saas.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSaas.product.securityReview&quot;" '
                  'target="action"/>\n'
@@ -133,7 +133,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-saas.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-saas.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSaas.product.register&quot;" '
                  'target="action"/>\n'
@@ -156,10 +156,10 @@ UP = [{'sql': '\n'
                  5780,
                  '00-contracts/bpmn/ai/gftd/open-saas/registerProduct.bpmn',
                  '2026-04-24T15:30:00Z',
-                 'did:web:open-saas.gftd.ai',
-                 'did:web:open-saas.gftd.ai',
+                 'did:web:open-saas.etzhayyim.com',
+                 'did:web:open-saas.etzhayyim.com',
                  'sys.bpmn.seed.open-saas',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-saas-register-product-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-saas-register-product-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -167,8 +167,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-saas-map-to-unspsc-v1',
-                 'did:web:open-saas.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-saas-map-to-unspsc-v1',
+                 'did:web:open-saas.etzhayyim.com',
                  'open_saas_map_to_unspsc',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -176,7 +176,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_saas_map_to_unspsc"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-saas"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-saas"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_saas_map_to_unspsc" name="SaaS → UNSPSC 対応" '
                  'isExecutable="true">\n'
@@ -216,7 +216,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="={\n'
                  '              edge_id: string(vertexId) + &quot;:unspsc&quot;,\n'
                  '              src_vid: productVid,\n'
-                 '              dst_vid: &quot;did:web:unispsc.gftd.ai:seg&quot; + '
+                 '              dst_vid: &quot;did:web:unispsc.etzhayyim.com:seg&quot; + '
                  'substring(string(unspscCode),1,2) + &quot;:commodity:c&quot; + '
                  'string(unspscCode),\n'
                  '              role: &quot;mapped_as&quot;,\n'
@@ -238,7 +238,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-saas.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-saas.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openSaas.mapping.record&quot;" '
                  'target="action"/>\n'
@@ -257,10 +257,10 @@ UP = [{'sql': '\n'
                  3670,
                  '00-contracts/bpmn/ai/gftd/open-saas/mapToUnspsc.bpmn',
                  '2026-04-24T15:30:00Z',
-                 'did:web:open-saas.gftd.ai',
-                 'did:web:open-saas.gftd.ai',
+                 'did:web:open-saas.etzhayyim.com',
+                 'did:web:open-saas.etzhayyim.com',
                  'sys.bpmn.seed.open-saas',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-saas-map-to-unspsc-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-saas-map-to-unspsc-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -268,16 +268,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-saas-registerProduct-v1',
-                 'did:web:open-saas.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-saas-registerProduct-v1',
+                 'did:web:open-saas.etzhayyim.com',
                  'ai.gftd.apps.openSaas.registerProduct',
                  'open_saas_register_product',
                  30000,
                  '2026-04-24T15:30:00Z',
-                 'did:web:open-saas.gftd.ai',
-                 'did:web:open-saas.gftd.ai',
+                 'did:web:open-saas.etzhayyim.com',
+                 'did:web:open-saas.etzhayyim.com',
                  'sys.bpmn.seed.open-saas',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-saas-registerProduct-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-saas-registerProduct-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -285,25 +285,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-saas-mapToUnspsc-v1',
-                 'did:web:open-saas.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-saas-mapToUnspsc-v1',
+                 'did:web:open-saas.etzhayyim.com',
                  'ai.gftd.apps.openSaas.mapToUnspsc',
                  'open_saas_map_to_unspsc',
                  15000,
                  '2026-04-24T15:30:00Z',
-                 'did:web:open-saas.gftd.ai',
-                 'did:web:open-saas.gftd.ai',
+                 'did:web:open-saas.etzhayyim.com',
+                 'did:web:open-saas.etzhayyim.com',
                  'sys.bpmn.seed.open-saas',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-saas-mapToUnspsc-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-saas-mapToUnspsc-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-saas-registerProduct-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-saas-registerProduct-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-saas-mapToUnspsc-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-saas-mapToUnspsc-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-saas-register-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-saas-register-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-saas-map-to-unspsc-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-saas-map-to-unspsc-v1']}]
 
 
 def upgrade() -> None:

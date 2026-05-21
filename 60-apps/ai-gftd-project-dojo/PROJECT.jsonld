@@ -1,13 +1,13 @@
 {
   "@context": {
     "@vocab": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/dodaf/"
+    "dodaf": "https://resources.etzhayyim.com/dodaf/"
   },
   "@type": "Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-dojo/id/Project/ai-gftd-project-dojo",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-dojo/id/Project/ai-gftd-project-dojo",
   "name": "ai-gftd-project-dojo",
   "description": "Readiness-oriented Dojo app for track-based skill learning, drills, qualification checkpoints, and AAR loops",
-  "url": "https://dojo.gftd.ai",
+  "url": "https://dojo.etzhayyim.com",
   "dodaf:capability": [
     "Skill Readiness Management",
     "Scenario Drill Operations",

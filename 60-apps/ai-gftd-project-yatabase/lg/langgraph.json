@@ -1,5 +1,5 @@
 {
-  "$comment": "lg-yatabase — LangGraph Server config. Marketing + sales graphs for yatabase.gftd.ai (ADR-2605080600 L3 runtime, ADR-2605082100 checkpointer). 100% OSS — no LANGSMITH_API_KEY required. Mirrors lg-narou shape.",
+  "$comment": "lg-yatabase — LangGraph Server config. Marketing + sales graphs for yatabase.etzhayyim.com (ADR-2605080600 L3 runtime, ADR-2605082100 checkpointer). 100% OSS — no LANGSMITH_API_KEY required. Mirrors lg-narou shape.",
   "dependencies": ["./lg_yatabase", "../../../20-actors/magatama/py"],
   "graphs": {
     "health":         "./lg_yatabase/graphs/health.py:GRAPH",

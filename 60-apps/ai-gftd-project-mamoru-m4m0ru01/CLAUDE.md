@@ -1,4 +1,4 @@
-# mamoru.gftd.ai — git secret guardian
+# mamoru.etzhayyim.com — git secret guardian
 
 ADR refs: 2605080800 + 2605080600 (LangGraph Server) + 2604282300 (CF Worker = edge facade).
 
@@ -40,7 +40,7 @@ Detectors (P1): aws-access-key-id, aws-secret-access-key, github-token, generic-
 ```
 GitHub App push webhook
     ↓ HMAC verify @ CF Worker
-    ↓ POST /xrpc/ai.gftd.apps.mamoru.scanCommit → dispatcher.gftd.ai
+    ↓ POST /xrpc/ai.gftd.apps.mamoru.scanCommit → dispatcher.etzhayyim.com
 bpmn-dispatcher (K8s ClusterIP)
     ↓ NSID routing → mamoru-langgraph.mitama-udf.svc.cluster.local:8000
 mamoru LangGraph pod
@@ -65,19 +65,19 @@ gftd deploy
 ## Smoke
 
 ```bash
-curl https://mamoru.gftd.ai/health
-curl https://mamoru.gftd.ai/_app/meta
+curl https://mamoru.etzhayyim.com/health
+curl https://mamoru.etzhayyim.com/_app/meta
 
 # List incidents (Bearer required)
-curl 'https://mamoru.gftd.ai/xrpc/ai.gftd.apps.mamoru.listIncidents?limit=10' \
+curl 'https://mamoru.etzhayyim.com/xrpc/ai.gftd.apps.mamoru.listIncidents?limit=10' \
   -H "Authorization: Bearer sk_live_xxxxx"
 
 # Manual scan trigger
-curl -X POST https://mamoru.gftd.ai/xrpc/ai.gftd.apps.mamoru.scanCommit \
+curl -X POST https://mamoru.etzhayyim.com/xrpc/ai.gftd.apps.mamoru.scanCommit \
   -H "Authorization: Bearer sk_live_xxxxx" \
   -H "Content-Type: application/json" \
   -d '{
-    "repoId": "gftdcojp/ai-gftd-apps-gftdcojp",
+    "repoId": "etzhayyim/etzhayyim-root",
     "commitSha": "abc123",
     "diffPayload": "<base64-diff>"
   }'

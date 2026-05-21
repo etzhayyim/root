@@ -1,5 +1,5 @@
 {
-  "$comment": "LangGraph Server config — webmk.gftd.ai actor (Web Marketing Proposal Agent). 5 graphs.",
+  "$comment": "LangGraph Server config — webmk.etzhayyim.com actor (Web Marketing Proposal Agent). 5 graphs.",
   "dependencies": ["./lg_webmk", "../../../20-actors/magatama/py"],
   "graphs": {
     "health":           "./lg_webmk/graphs/health.py:GRAPH",

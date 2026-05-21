@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-066556470896",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-066556470896",
   "entityId": "ent-066556470896",
   "canonicalName": "do hyeong kwon",
   "aliases": [

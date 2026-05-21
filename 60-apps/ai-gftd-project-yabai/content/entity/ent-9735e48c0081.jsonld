@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-9735e48c0081",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9735e48c0081",
   "entityId": "ent-9735e48c0081",
   "canonicalName": "kempes sanon",
   "aliases": [

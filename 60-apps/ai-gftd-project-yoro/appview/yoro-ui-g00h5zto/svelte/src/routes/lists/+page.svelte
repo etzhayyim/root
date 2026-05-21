@@ -5,8 +5,8 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { getLists, getCurrentDID } from '$lib/atproto-agent';
 
 	let lists = $state<Array<{ uri: string; name: string; description?: string; avatar?: string; purpose?: string }>>([]);

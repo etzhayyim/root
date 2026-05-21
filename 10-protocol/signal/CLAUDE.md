@@ -23,7 +23,7 @@ convention** per ADR-2604261110 (2026-04-26).
 import { AtpAgent } from '@atproto/api';
 import { setSignalTransport, atpAgentTransport, ensureSignalIdentity } from '@gftd/signal';
 
-const agent = new AtpAgent({ service: 'https://pds.gftd.ai' });
+const agent = new AtpAgent({ service: 'https://pds.etzhayyim.com' });
 await agent.login({ identifier: '...', password: '...' });
 
 setSignalTransport(atpAgentTransport(() => agent));

@@ -1,15 +1,15 @@
 {
-  "@context": "https://gftd.ai/ld/magatama/v1",
+  "@context": "https://etzhayyim.com/ld/magatama/v1",
   "name": "ai-gftd-project-mamoru",
   "nanoid": "m4m0ru01",
   "displayName": "Mamoru",
   "description": "Secret guardian for git repositories. Scans commits for leaked API keys, tokens, and credentials using pattern matching, entropy analysis, and active validity probing.",
-  "did": "did:web:mamoru.gftd.ai",
+  "did": "did:web:mamoru.etzhayyim.com",
   "tier": "T3",
   "uiType": "appview",
   "routes": [
     {
-      "host": "mamoru.gftd.ai",
+      "host": "mamoru.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }
@@ -18,9 +18,9 @@
   "atStandard": false,
   "nsidPrefixes": ["ai.gftd.apps.mamoru"],
   "backendDependencies": {
-    "atproto": "https://atproto.gftd.ai",
-    "authn": "https://authn.gftd.ai",
-    "bpmnDispatcher": "https://dispatcher.gftd.ai",
+    "atproto": "https://atproto.etzhayyim.com",
+    "authn": "https://authn.etzhayyim.com",
+    "bpmnDispatcher": "https://dispatcher.etzhayyim.com",
     "langgraphServer": "in-cluster: mamoru-langgraph.mitama-udf.svc.cluster.local:8000"
   },
   "profile": {

@@ -33,7 +33,7 @@ This session landed:
 | `c38e4ada5a3` | smoke script + runbook + `gftd authn revoke` |
 | `{next}`     | **AppView A2 full migration + package.json wiring** |
 
-Current prod baseline (against live `atproto.gftd.ai`):
+Current prod baseline (against live `atproto.etzhayyim.com`):
 
 ```
 $ bash 50-infra/cloudflare/workers/atproto/scripts/oauth-smoke.sh
@@ -50,7 +50,7 @@ Deploy **authn first**, then **bsky (AppView)**, then **atproto PDS**. This
 keeps each Worker's dependencies hot before the next one starts relying on
 them, and lets rollback be one-Worker granular if a stage fails smoke.
 
-## 1. authn.gftd.ai (authentication service)
+## 1. authn.etzhayyim.com (authentication service)
 
 ```bash
 cd 60-apps/ai-gftd-project-auth/worker
@@ -69,11 +69,11 @@ wrangler deploy
 
 ```bash
 # AS-side (still lives on authn): JWKS present
-curl -sS https://authn.gftd.ai/.well-known/jwks.json | jq '.keys | length'
+curl -sS https://authn.etzhayyim.com/.well-known/jwks.json | jq '.keys | length'
 # expect: ≥ 1
 ```
 
-## 2. bsky.gftd.ai (Layer 2 AppView)
+## 2. bsky.etzhayyim.com (Layer 2 AppView)
 
 ```bash
 cd 50-infra/cloudflare/workers/appview
@@ -82,7 +82,7 @@ wrangler deploy
 ```
 
 **Ships**:
-- Worker scaffold on `bsky.gftd.ai/*`
+- Worker scaffold on `bsky.etzhayyim.com/*`
 - Real `app.bsky.{actor,feed}.*` handlers migrated from yoro
   (`profile`/`search`/`feed`/`rank`/`intent-prior`/`topic-extract`)
 - `x-gftd-internal-trust` gate on `x-gftd-authenticated-did` forwarding
@@ -91,26 +91,26 @@ wrangler deploy
 
 ```bash
 # Health probes
-curl -sS https://bsky.gftd.ai/_worker/health
+curl -sS https://bsky.etzhayyim.com/_worker/health
 # expect: {"ok":true,"app":"appview",...}
 
-curl -sS https://bsky.gftd.ai/_app/meta
+curl -sS https://bsky.etzhayyim.com/_app/meta
 # expect: {"app":"ai-gftd-appview","layer":"appview","atStandard":true,...}
 
 # Unknown NSID → 501 (PDS will fall back to local handler)
-curl -sS -o /dev/null -w "%{http_code}\n" https://bsky.gftd.ai/xrpc/app.bsky.feed.getCustomFeed
+curl -sS -o /dev/null -w "%{http_code}\n" https://bsky.etzhayyim.com/xrpc/app.bsky.feed.getCustomFeed
 # expect: 501
 
 # Migrated NSID → 200 + JSON body
-curl -sS "https://bsky.gftd.ai/xrpc/app.bsky.actor.getProfile?actor=did:web:yoro.gftd.ai" | jq .did
+curl -sS "https://bsky.etzhayyim.com/xrpc/app.bsky.actor.getProfile?actor=did:web:yoro.etzhayyim.com" | jq .did
 # expect: a DID string
 
 # Non-app.bsky.* rejection
-curl -sS -o /dev/null -w "%{http_code}\n" https://bsky.gftd.ai/xrpc/com.atproto.repo.listRecords
+curl -sS -o /dev/null -w "%{http_code}\n" https://bsky.etzhayyim.com/xrpc/com.atproto.repo.listRecords
 # expect: 501
 ```
 
-## 3. atproto.gftd.ai (PDS + Entryway)
+## 3. atproto.etzhayyim.com (PDS + Entryway)
 
 ```bash
 cd 50-infra/cloudflare/workers/atproto
@@ -151,7 +151,7 @@ gftd authn revoke -q
 
 # 3. introspect the revoked token with a confidential client
 TOK=$(jq -r .access_token ~/.gftd/auth.json.bak 2>/dev/null)   # or capture before revoke
-curl -sS -X POST https://atproto.gftd.ai/oauth/introspect \
+curl -sS -X POST https://atproto.etzhayyim.com/oauth/introspect \
   -H "Authorization: Bearer $SK" \
   -d "token=$TOK" | jq .
 # expect: {"active": false}
@@ -170,7 +170,7 @@ wrangler rollback --message "revert ADR-2604240914 pass"
   RS DPoP middleware unwires → DPoP scheme falls through as before.
   Pipethrough falls back to local (since `APPVIEW_URL` still works with
   the bsky Worker serving).
-- bsky Worker rollback: bsky.gftd.ai returns 501 for every NSID →
+- bsky Worker rollback: bsky.etzhayyim.com returns 501 for every NSID →
   atproto PDS falls back to local handlers (yoro-side copy still in
   place as safety net). Net effect: same as pre-migration.
 - authn Worker rollback: session issuance drops `cnf.jkt` + `sid`

@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/4/1/manufacturing/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/4/1/manufacturing/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Manufacturing Development Lifecycle",
       "description": "The administrative process of analyzing industrial capacity, coordinating subsidies, and monitoring manufacturing standards.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/4/1/manufacturing"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/4/1/manufacturing"
     }
   ]
 }

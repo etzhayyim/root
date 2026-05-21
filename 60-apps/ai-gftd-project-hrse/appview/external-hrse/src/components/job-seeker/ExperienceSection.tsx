@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#ExperienceSectionConnect
+ * @etzhayyim/ai-gftd-hrse#ExperienceSectionConnect
  * 職歴管理セクション（Connect-Web版）
  */
 

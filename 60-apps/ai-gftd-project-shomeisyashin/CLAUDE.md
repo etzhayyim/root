@@ -1,11 +1,11 @@
 # ai-gftd-project-shomeisyashin
 
-証明写真生成サービス shomeisyashin.gftd.ai — 自撮り写真を証明写真規格に変換。murakumo VL (qwen3-vl-8b) で顔検出・背景解析。
+証明写真生成サービス shomeisyashin.etzhayyim.com — 自撮り写真を証明写真規格に変換。murakumo VL (qwen3-vl-8b) で顔検出・背景解析。
 
 ## Architecture
 
 ```
-Browser → shomeisyashin.gftd.ai (SSR)
+Browser → shomeisyashin.etzhayyim.com (SSR)
        → API → /gftd.shomeisyashin.v1.ShomeisyashinCommandService/... + QueryService/...
                   ↓
            App: ai-gftd-wasm-shomeisyashin-f901c7i4
@@ -54,5 +54,5 @@ cd 60-apps/ai-gftd-project-shomeisyashin/wasm/ai-gftd-wasm-shomeisyashin-f901c7i
 pnpm install && pnpm build
 cd ..
 gftd build
-gftd deploy --smoke-url https://f901c7i4.gftd.ai/health
+gftd deploy --smoke-url https://f901c7i4.etzhayyim.com/health
 ```

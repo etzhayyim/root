@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#OrgAgencyDashboard
+ * @etzhayyim/ai-gftd-hrse#OrgAgencyDashboard
  * エージェンシー用ダッシュボード（Connect-Web版）
  * Apple Human Interface Guidelinesに基づくiPad最適化デザイン
  */

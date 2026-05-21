@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "TVSeries",
@@ -28,5 +28,5 @@
       "name": "Naruto Uzumaki"
     }
   },
-  "url": "https://news.gftd.ai/es/articles/naruto-character-naruto-growth-2026"
+  "url": "https://news.etzhayyim.com/es/articles/naruto-character-naruto-growth-2026"
 }

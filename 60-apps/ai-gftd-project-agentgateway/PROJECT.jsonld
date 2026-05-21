@@ -27,6 +27,6 @@
   "gftd:architecture": {
     "runtime": "Cloudflare Worker",
     "protocol": "AT Protocol (XRPC), JSON-RPC 2.0 (MCP)",
-    "entrypoint": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message (or dedicated subdomain)"
+    "entrypoint": "https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message (or dedicated subdomain)"
   }
 }

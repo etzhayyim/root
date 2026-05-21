@@ -1,4 +1,4 @@
-// @gftdcojp/ai-gftd-hrse#EmailSender
+// @etzhayyim/ai-gftd-hrse#EmailSender
 // Email Sending Service with Resend integration and secure link generation
 
 import { randomBytes } from "crypto";
@@ -36,7 +36,7 @@ export class EmailSenderService {
 		}
 
 		this.defaultFrom =
-			process.env.RESEND_FROM_EMAIL || "noreply@gftd.ai";
+			process.env.RESEND_FROM_EMAIL || "noreply@etzhayyim.com";
 	}
 
 	/**

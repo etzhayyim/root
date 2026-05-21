@@ -595,7 +595,7 @@ function handleComAtprotoSyncSubscribeReposCommit(
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:il0ndq6a.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:il0ndq6a.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   if (actions.length === 1) actions.push({ action: "noop", mood: cadence.mood, ts });
@@ -619,7 +619,7 @@ function ensureSubDid(sdk: HostSDK, path: string, displayName: string): string {
       path,
       JSON.stringify({
         displayName,
-        description: `${displayName} — sub-DID for xlsx.gftd.ai`,
+        description: `${displayName} — sub-DID for xlsx.etzhayyim.com`,
       }),
     ),
   );

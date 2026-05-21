@@ -54,7 +54,7 @@ const ORG_CONTEXT_PATTERNS = [
 	'requireOrgContext',
 ];
 
-/** Cloud MCP tool name patterns — tools routed to gftd.ai that require orgId.
+/** Cloud MCP tool name patterns — tools routed to etzhayyim.com that require orgId.
  * Local-only tools (mlx_*, provider_*, hardware_*, agent_*) are excluded. */
 const CLOUD_TOOL_PATTERNS = [
 	// Session tools

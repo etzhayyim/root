@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/06/6/0/housing-community-amenities-nec",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/6/0/housing-community-amenities-nec",
       "type": "dodaf:Capability",
       "name": "Miscellaneous Housing and Community Amenities Capability",
       "description": "Functional capability for managing unclassified housing services, multi-agency urban coordination, and regulatory oversight. Classification: COFOG Division 06, Group 6, Class 0.",

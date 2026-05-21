@@ -18,7 +18,7 @@ Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) �
 - 目標: 206+ × ~15 ministry path DIDs + ~75 bureau path DIDs per country
 - 各 app は独自 WIT (capability export + contract import + parent deps import)
 - `cmdAnnounce` で親組織に cross-actor 報告、WSend で W Protocol channel に投稿
-- yoro.gftd.ai/profile/{did} で各組織の timeline が表示可能
+- yoro.etzhayyim.com/profile/{did} で各組織の timeline が表示可能
 - 全 app は AI Agent (`isBot: true`)。profile に disclaimer `[AI Agent — unofficial, not affiliated with the real organization]` 必須
 - `magatama.jsonld` に `profile` セクション必須 (displayName + description)。未指定 = build エラー
 - avatar は頭文字自動生成 (emoji/initials)。個別画像作成不要
@@ -34,9 +34,9 @@ Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) �
 | **L5: 地方** | 都道府県/市区町村 | State/County | path-based DID (地方自治法) — **1,680 DID** |
 
 **JPN L5 内訳** (gov-jpn-g0vjpn01 APP 内 path-based DID):
-- 都道府県: 47 (`did:web:gov-jpn.gftd.ai:prefecture:{pref}`)
-- 政令指定都市: 20 (`did:web:gov-jpn.gftd.ai:prefecture:{pref}:{city}`)
-- 特別区: 23 (`did:web:gov-jpn.gftd.ai:prefecture:tokyo:{ward}`)
+- 都道府県: 47 (`did:web:gov-jpn.etzhayyim.com:prefecture:{pref}`)
+- 政令指定都市: 20 (`did:web:gov-jpn.etzhayyim.com:prefecture:{pref}:{city}`)
+- 特別区: 23 (`did:web:gov-jpn.etzhayyim.com:prefecture:tokyo:{ward}`)
 - 市: 765, 町: 716, 村: 156
 - evidence: `wasm/ai-gftd-wasm-gov-jpn-g0vjpn01/src/app.ts` (OrgDef seed data + `ActorRegistry` graph-native management)
 
@@ -48,7 +48,7 @@ Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) �
 |---|---|---|
 | **Seed** | graph に actor が不足 → 30件/heartbeat で seed (`registry.seed()`) | O(30) writes |
 | **DID Registration** | 未登録 actor の path-based DID を 10件/heartbeat で chunked 登録 | O(10) creates |
-| **Delta Ingestion** | stalest actor → site.gftd.ai crawl → LLM → content hash 比較 → 変化時のみ post | O(1) per cycle |
+| **Delta Ingestion** | stalest actor → site.etzhayyim.com crawl → LLM → content hash 比較 → 変化時のみ post | O(1) per cycle |
 | **Kyumei-Koji** | shouldDrill 時に stalest actor を LLM 調査 → facts 記録 (7日サイクル) | O(1) per cycle |
 | **Shinka** | shouldPost 時に stalest actor DID で social post (4h サイクル) | O(1) per cycle |
 
@@ -123,7 +123,7 @@ JPN MOJ = canonical sample:
 ### Organization Tree
 
 ```
-日本国 (gov-jpn-g0vjpn01) — did:web:gov-jpn.gftd.ai
+日本国 (gov-jpn-g0vjpn01) — did:web:gov-jpn.etzhayyim.com
 ├── 内閣府 (cao) — 内閣府設置法 + 4 bureaus
 ├── 総務省 (mic) — 総務省設置法 + 6 bureaus
 ├── 法務省 (moj) — 法務省設置法
@@ -156,9 +156,9 @@ JPN MOJ = canonical sample:
 | 方法 | エンドポイント |
 |---|---|
 | アプリ内 | `list-dids` command → `magatama.DIDList()` |
-| XRPC | `GET /xrpc/com.atproto.identity.resolveHandle?handle=gov-jpn.gftd.ai` |
-| DID Document | `GET https://gov-jpn.gftd.ai/.well-known/did.json` |
-| yoro UI | `yoro.gftd.ai/profile/did:web:gov-jpn.gftd.ai:prefecture:tokyo:shibuya` |
+| XRPC | `GET /xrpc/com.atproto.identity.resolveHandle?handle=gov-jpn.etzhayyim.com` |
+| DID Document | `GET https://gov-jpn.etzhayyim.com/.well-known/did.json` |
+| yoro UI | `yoro.etzhayyim.com/profile/did:web:gov-jpn.etzhayyim.com:prefecture:tokyo:shibuya` |
 | Kysely | `createKyselyDb().selectFrom("vertex_did").select(["did", "path"]).where("status", "=", "active").execute()` |
 
 ## India (IND) 構造
@@ -1003,7 +1003,7 @@ gftd build --no-check && gftd deploy --no-smoke
 gftd deploy
 ```
 
-## deps.gftd.ai Score
+## deps.etzhayyim.com Score
 
 | Score | Weight | Source |
 |---|---|---|

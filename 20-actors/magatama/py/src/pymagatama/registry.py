@@ -25,6 +25,7 @@ from dataclasses import dataclass
 from typing import Any
 
 # arrow-udf is the official RisingWave External Python UDF framework.
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 # See https://docs.risingwave.com/sql/udfs/use-udfs-in-python
 try:
     from arrow_udf import udf as _arrow_udf

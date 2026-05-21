@@ -2,7 +2,7 @@
 
 NSID: ai.gftd.apps.yukkuri.reviewVideo
 
-Actor: did:web:yukkuri.gftd.ai:actor:critic
+Actor: did:web:yukkuri.etzhayyim.com:actor:critic
 
 Checks (CLAUDE.md §CRITICAL Copyright Invariants):
   1. Script text: 個人名 / PII / 誹謗中傷 detection via LLM classifier
@@ -32,11 +32,11 @@ _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _VLLM_URL = os.environ.get("VLLM_URL", "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1").rstrip("/")
 _VLLM_MODEL = os.environ.get("VLLM_MODEL", "tier0-general")
 _VLLM_TIMEOUT = float(os.environ.get("VLLM_TIMEOUT_SEC", "30"))
-_PDS_XRPC_URL = os.environ.get("PDS_XRPC_URL", "https://atproto.gftd.ai/xrpc")
-_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.gftd.ai")
-_CRITIC_DID = os.environ.get("YUKKURI_CRITIC_DID", "did:web:yukkuri.gftd.ai:actor:critic")
+_PDS_XRPC_URL = os.environ.get("PDS_XRPC_URL", "https://atproto.etzhayyim.com/xrpc")
+_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
+_CRITIC_DID = os.environ.get("YUKKURI_CRITIC_DID", "did:web:yukkuri.etzhayyim.com:actor:critic")
 _SCRIPTWRITER_DID = os.environ.get(
-    "YUKKURI_SCRIPTWRITER_DID", "did:web:yukkuri.gftd.ai:actor:scriptwriter"
+    "YUKKURI_SCRIPTWRITER_DID", "did:web:yukkuri.etzhayyim.com:actor:scriptwriter"
 )
 
 _REVIEW_SYSTEM = """\
@@ -174,7 +174,7 @@ async def _node_social_publish(state: _State) -> dict[str, Any]:
                 f"{_PDS_XRPC_URL}/app.bsky.feed.post",
                 json={
                     "did": _APP_DID,
-                    "text": f"🎬 新作ゆっくり動画: {topic[:80]}\nyukkuri.gftd.ai",
+                    "text": f"🎬 新作ゆっくり動画: {topic[:80]}\nyukkuri.etzhayyim.com",
                     "collection": "app.bsky.feed.post",
                 },
                 headers={"Content-Type": "application/json"},

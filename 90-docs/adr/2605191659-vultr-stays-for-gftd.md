@@ -1,6 +1,6 @@
 ---
 id: adr-2605191659-vultr-stays-for-gftd
-title: "ADR-2605191659: Vultr stays for gftd.ai — supersede step 6 of ADR-2605191358"
+title: "ADR-2605191659: Vultr stays for etzhayyim.com — supersede step 6 of ADR-2605191358"
 status: active
 doc_type: adr
 topic: vultr-stays-for-gftd
@@ -9,7 +9,7 @@ last_verified: 2026-05-19
 priority: 7.0
 axis: governance
 weight: 0.70
-priority_note: "Reinforces operator directive: 50-infra/vultr/* dirs remain in etzhayyim/root as gftd.ai legacy resources; no archive sweep. Removes a misleading step from ADR-2605191358 that implied otherwise."
+priority_note: "Reinforces operator directive: 50-infra/vultr/* dirs remain in etzhayyim/root as etzhayyim.com legacy resources; no archive sweep. Removes a misleading step from ADR-2605191358 that implied otherwise."
 authoritative_for:
   - 50-infra/vultr/* retention policy in etzhayyim/root
   - supersession of ADR-2605191358 §step 6 (Vultr archive sweep)
@@ -23,7 +23,7 @@ supersedes:
 superseded_by: []
 ---
 
-# ADR-2605191659: Vultr stays for gftd.ai — supersede step 6 of ADR-2605191358
+# ADR-2605191659: Vultr stays for etzhayyim.com — supersede step 6 of ADR-2605191358
 
 **Status**: active
 **Date**: 2026-05-19
@@ -31,16 +31,16 @@ superseded_by: []
 
 # Context
 
-ADR-2605191346 established the hard boundary: `etzhayyim/*` workloads run on the Murakumo Mac-mini fleet only; the Vultr-based legacy cluster manifests under `50-infra/vultr/*` are explicitly marked **gftd.ai legacy** and OUT of that ADR's archive scope.
+ADR-2605191346 established the hard boundary: `etzhayyim/*` workloads run on the Murakumo Mac-mini fleet only; the Vultr-based legacy cluster manifests under `50-infra/vultr/*` are explicitly marked **etzhayyim.com legacy** and OUT of that ADR's archive scope.
 
 ADR-2605191358 §Ordering then listed:
 
 > 6. **Vultr archive sweep** — multicluster + yoro-actors-raw Postgres removed; legacy Vultr dirs move to `50-infra/_archive/vultr/`.
 
-That phrasing contradicts ADR-2605191346 §2 (which keeps `50-infra/vultr/` for gftd.ai use) and was over-eager. The operator confirmed on 2026-05-19:
+That phrasing contradicts ADR-2605191346 §2 (which keeps `50-infra/vultr/` for etzhayyim.com use) and was over-eager. The operator confirmed on 2026-05-19:
 
-> "vulter は gftd.ai としては使うので、それは残しておいて"
-> (Vultr is used for gftd.ai, leave it as-is.)
+> "vulter は etzhayyim.com としては使うので、それは残しておいて"
+> (Vultr is used for etzhayyim.com, leave it as-is.)
 
 This ADR records the correction.
 
@@ -50,14 +50,14 @@ This ADR records the correction.
 2. **The substrate boundary is unaffected**. `etzhayyim/*` workloads still must not target Vultr (ADR-2605191346 §1). The lefthook substrate-boundary gate (ADR-2605191648) continues to block new direct imports of RW / Hyperdrive / Kysely / fiat-payment SDKs in app code.
 3. **Step 6 of ADR-2605191358 is superseded** by this ADR. The follow-ups it implied (move multicluster, move yoro-actors-raw Postgres) are dropped. The underlying substrate fixes for those workloads are addressed by:
    - The rewrite map (ADR-2605191358 steps 1-5) for any etzhayyim-branded surface
-   - gftd.ai operator's discretion for anything Vultr-hosted that is NOT etzhayyim-branded
+   - etzhayyim.com operator's discretion for anything Vultr-hosted that is NOT etzhayyim-branded
 4. **Physical separation to a different repo** (e.g. `gftd-co-jp/legacy-vultr-manifests`) remains a follow-up task tracked alongside repo-root `CLAUDE.md` Step 8 cutover, at the operator's pace. This ADR does not schedule it.
 
 ## Hard rule recap (no change)
 
 | Path | Tenant | Vultr allowed? |
 |---|---|---|
-| `50-infra/vultr/*` | **gftd.ai legacy** | ✅ stays (no archive sweep) |
+| `50-infra/vultr/*` | **etzhayyim.com legacy** | ✅ stays (no archive sweep) |
 | `50-infra/k8s/*` | etzhayyim | ❌ Murakumo Mac-mini only |
 | `50-infra/etzhayyim-*` | etzhayyim | ❌ Murakumo / Cloudflare only |
 | `60-apps/ai-gftd-project-*` | etzhayyim (during rename grace) | ❌ |
@@ -75,7 +75,7 @@ This ADR records the correction.
 
 **Negative**:
 
-- The `50-infra/vultr/` tree contains substrate-violating manifests (RisingWave, Postgres, Hyperdrive references) by design (these are the gftd.ai legacy stack). The lefthook substrate-boundary gate (`70-tools/scripts/lint/substrate-boundary.mjs`) must continue to allowlist the `50-infra/vultr/*` path so the gate doesn't block routine gftd.ai-side commits. Verify on next commit that touches anything under `50-infra/vultr/`; tune the allowlist if needed.
+- The `50-infra/vultr/` tree contains substrate-violating manifests (RisingWave, Postgres, Hyperdrive references) by design (these are the etzhayyim.com legacy stack). The lefthook substrate-boundary gate (`70-tools/scripts/lint/substrate-boundary.mjs`) must continue to allowlist the `50-infra/vultr/*` path so the gate doesn't block routine etzhayyim.com-side commits. Verify on next commit that touches anything under `50-infra/vultr/`; tune the allowlist if needed.
 
 **Required follow-ups**:
 
@@ -85,7 +85,7 @@ This ADR records the correction.
 # Alternatives Considered
 
 **A. Honour ADR-2605191358 step 6 literally and move 50-infra/vultr/ to _archive/.**
-Rejected. Contradicts the operator directive and ADR-2605191346 §2. Would also break gftd.ai's running deployment path.
+Rejected. Contradicts the operator directive and ADR-2605191346 §2. Would also break etzhayyim.com's running deployment path.
 
 **B. Move 50-infra/vultr/ to a separate repo immediately.**
 Rejected for this ADR. Operator decision deferred to repo-root `CLAUDE.md` Step 8 cutover; not scheduled here. Cross-cutting concern (deployment scripts, CI references, docs) requires its own cutover ADR.

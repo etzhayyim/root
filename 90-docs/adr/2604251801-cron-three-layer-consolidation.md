@@ -127,7 +127,7 @@ Hummock 集計が本質なので移行対象)。
 - `ai.gftd.legacy-trust-tally.plist` (γ2 cutover tally, 9:17 daily)
   は 2026-05-08 に自動 cleanup する短命 job。**移行不要、消化待ち**。
 
-**今後**: gftdcojp 個人 mac の launchd は agent-token / vault
+**今後**: etzhayyim 個人 mac の launchd は agent-token / vault
 unlock 等の **session-bound** 用途のみに限定する (cron 化しない)。
 
 ## 4-D. Murakumo fleet ansible/crontab — goose recipes (deprecated, 3 entry)
@@ -169,7 +169,7 @@ mac-mini fleet 上の cron は撤廃する。
   cron 化しない
 - **CF Worker `scheduled()` handler** — handler 実装は残してよい。
   trigger を CF cron ではなく Zeebe timer 経由 XRPC に切り替える
-- **個人 mac の crontab / launchd** — gftdcojp 個人運用ツール
+- **個人 mac の crontab / launchd** — etzhayyim 個人運用ツール
   (ローカル backup 等) は対象外
 
 # Migration

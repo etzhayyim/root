@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/03/1/0/police-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/03/1/0/police-services",
       "type": "dodaf:Capability",
       "name": "Law Enforcement and Public Safety Capability",
       "description": "Functional capability for maintaining public order, conducting criminal investigations, and providing emergency police response. Classification: COFOG Division 03, Group 1, Class 0.",

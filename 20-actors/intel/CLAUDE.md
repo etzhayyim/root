@@ -1,6 +1,6 @@
 # ai-gftd-project-intel — Multi-INT Fusion Intelligence Platform
 
-**intel.gftd.ai** — 30 INT discipline を統合した LLM 駆動 intelligence analysis platform
+**intel.etzhayyim.com** — 30 INT discipline を統合した LLM 駆動 intelligence analysis platform
 
 ## Architecture
 
@@ -8,7 +8,7 @@
 
 | 項目 | 値 |
 |---|---|
-| URL | `https://intel.gftd.ai` / `https://i7n73l0x.gftd.ai` |
+| URL | `https://intel.etzhayyim.com` / `https://i7n73l0x.etzhayyim.com` |
 | Runtime | Worker WASM (default) |
 | UI mode | appview |
 | Sensitivity | **cui** (default classification) |
@@ -38,10 +38,10 @@ LLM で抽出された identity-bearing entity に対して path-based DID を�
 
 | Entity Type | DID Path | 例 |
 |---|---|---|
-| person | `person:{slug}` | `did:web:intel.gftd.ai:person:john_doe` |
-| org | `org:{slug}` | `did:web:intel.gftd.ai:org:tsmc` |
-| technology | `tech:{slug}` | `did:web:intel.gftd.ai:tech:euv_lithography` |
-| location | `geo:{slug}` | `did:web:intel.gftd.ai:geo:tokyo` |
+| person | `person:{slug}` | `did:web:intel.etzhayyim.com:person:john_doe` |
+| org | `org:{slug}` | `did:web:intel.etzhayyim.com:org:tsmc` |
+| technology | `tech:{slug}` | `did:web:intel.etzhayyim.com:tech:euv_lithography` |
+| location | `geo:{slug}` | `did:web:intel.etzhayyim.com:geo:tokyo` |
 | event, other | — (DID 不要) | graph node のみ |
 
 DID 作成時に `entity_did` record を Domain 記録 + social announce。
@@ -109,18 +109,18 @@ SubmitAnalysis(title, source_text)
 
 | Source | nanoid | Collections | 用途 |
 |---|---|---|---|
-| handotai.gftd.ai | `dtyy44cr` | `article`, `company`, `product` | 半導体 intel |
-| kuruma.gftd.ai | `qewr7sl0` | `article`, `company`, `product` | 自動車 intel |
-| malak.gftd.ai | `m4l4k001` | `threat_actor`, `intel_report`, `osint_finding`, `email_message` | Cybercrime intelligence |
-| yabai.gftd.ai | `y8b41k0x` | `entity`, `alert`, `risk` | Risk intelligence (AML/CTI) |
-| ct-monitor.gftd.ai | `ctm0n1t0` | `ct_alert`, `bgp_alert`, `kev_entry` | CT/BGP/CVE 監視 |
-| ipaddress.gftd.ai | `n7w1p4d0` | `ip_address`, `ip_analysis` | IP/ASN intelligence |
+| handotai.etzhayyim.com | `dtyy44cr` | `article`, `company`, `product` | 半導体 intel |
+| kuruma.etzhayyim.com | `qewr7sl0` | `article`, `company`, `product` | 自動車 intel |
+| malak.etzhayyim.com | `m4l4k001` | `threat_actor`, `intel_report`, `osint_finding`, `email_message` | Cybercrime intelligence |
+| yabai.etzhayyim.com | `y8b41k0x` | `entity`, `alert`, `risk` | Risk intelligence (AML/CTI) |
+| ct-monitor.etzhayyim.com | `ctm0n1t0` | `ct_alert`, `bgp_alert`, `kev_entry` | CT/BGP/CVE 監視 |
+| ipaddress.etzhayyim.com | `n7w1p4d0` | `ip_address`, `ip_analysis` | IP/ASN intelligence |
 
 ## Cross-actor Integration (outbound)
 
 | Target | 用途 |
 |---|---|
-| yabai.gftd.ai (`y8b41k0x`) | Entity risk evaluation (best-effort push via XRPC) |
+| yabai.etzhayyim.com (`y8b41k0x`) | Entity risk evaluation (best-effort push via XRPC) |
 
 ## Reactive Pipeline (handleComAtprotoSyncSubscribeReposCommit)
 

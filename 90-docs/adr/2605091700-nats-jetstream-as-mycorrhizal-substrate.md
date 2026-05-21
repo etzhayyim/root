@@ -34,7 +34,7 @@ superseded_by: []
 
 **Status**: accepted
 **Date**: 2026-05-09
-**Deciders**: Jun Kawasaki (etzhayyim authority via gftdcojp agent)
+**Deciders**: Jun Kawasaki (etzhayyim authority via etzhayyim agent)
 
 ## Context
 

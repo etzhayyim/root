@@ -32,8 +32,8 @@ export interface VertexGftdAuthAccountTable {
   owner_did: string | null;         // = vertex_id (self)
 
   did: string;                      // = vertex_id (denorm for query compat)
-  legacy_did: string | null;        // did:web:authn.gftd.ai:user:{nanoid}
-  handle: string | null;            // abc12345.gftd.ai
+  legacy_did: string | null;        // did:web:authn.etzhayyim.com:user:{nanoid}
+  handle: string | null;            // abc12345.etzhayyim.com
   performer_type: string;           // person | organization | service | system
   controller_did: string | null;    // parent authority did:gftd
   actor_score: ColumnType<number, number | undefined, number>;

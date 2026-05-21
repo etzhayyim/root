@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/7/3/tourism",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/7/3/tourism",
       "type": "dodaf:Capability",
       "name": "Tourism Development and Promotion Capability",
       "description": "Functional capability for managing tourism campaigns, destination development, and tourist safety. Classification: COFOG Division 04, Group 7, Class 3.",

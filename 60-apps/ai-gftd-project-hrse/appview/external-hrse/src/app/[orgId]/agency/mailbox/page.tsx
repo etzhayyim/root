@@ -14,7 +14,7 @@ import {
 import { GetAgencyByClerkOrgIdRequestSchema } from "@/gen/proto/hrse/v1/agency_pb";
 
 /**
- * @gftdcojp/ai-gftd-hrse#MailboxPage
+ * @etzhayyim/ai-gftd-hrse#MailboxPage
  * Organization mailbox page
  */
 export default function MailboxPage() {

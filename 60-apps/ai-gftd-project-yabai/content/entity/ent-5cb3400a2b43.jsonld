@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-5cb3400a2b43",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5cb3400a2b43",
   "entityId": "ent-5cb3400a2b43",
   "canonicalName": "alexander franz josef lins",
   "aliases": [

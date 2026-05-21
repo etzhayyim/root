@@ -2,7 +2,7 @@
 
 NSID: ai.gftd.apps.yukkuri.renderVideo
 
-Actor: did:web:yukkuri.gftd.ai:actor:renderer
+Actor: did:web:yukkuri.etzhayyim.com:actor:renderer
 
 Calls lg-dougaka (ComfyUI image-per-scene + ffmpeg mux render service).
   POST {DOUGAKA_XRPC_URL}/xrpc/ai.gftd.apps.dougaka.render
@@ -35,9 +35,9 @@ _DOUGAKA_XRPC_URL = os.environ.get(
     "DOUGAKA_XRPC_URL", "http://lg-dougaka.mitama-udf.svc.cluster.local:8000"
 ).rstrip("/")
 _RENDER_TIMEOUT = float(os.environ.get("RENDER_TIMEOUT_SEC", "600"))
-_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.gftd.ai")
+_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
 _RENDERER_DID = os.environ.get(
-    "YUKKURI_RENDERER_DID", "did:web:yukkuri.gftd.ai:actor:renderer"
+    "YUKKURI_RENDERER_DID", "did:web:yukkuri.etzhayyim.com:actor:renderer"
 )
 
 

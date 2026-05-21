@@ -1,11 +1,11 @@
 # ai-gftd-project-pharma
 
-OTC 医薬品通販プラットフォーム (pharma.gftd.ai). 薬機法コンプライアンス対応. AI エージェント群が Matrix protocol で連携し仕入→在庫→出荷→配送を全自動化.
+OTC 医薬品通販プラットフォーム (pharma.etzhayyim.com). 薬機法コンプライアンス対応. AI エージェント群が Matrix protocol で連携し仕入→在庫→出荷→配送を全自動化.
 
 ## Architecture
 
 - **Runtime**: TS Native + Lexicon Contract
-- **Domain**: `pharma.gftd.ai`
+- **Domain**: `pharma.etzhayyim.com`
 - **nanoid**: `f0963b54`
 - **Static**: static delivery で `svelte/build/` を配信
 

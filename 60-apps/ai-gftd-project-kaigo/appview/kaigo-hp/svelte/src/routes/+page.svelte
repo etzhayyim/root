@@ -269,7 +269,7 @@
       <!-- 3D ビューア -->
       <div class="relative bg-[#f2f2f2] border border-[#e6e6e6] rounded-lg overflow-hidden" style="aspect-ratio:16/10">
         <iframe
-          src={`https://giemon.gftd.ai/viewer.htm?model=${robotTabs.find(t => t.id === selectedRobot)?.model}`}
+          src={`https://giemon.etzhayyim.com/viewer.htm?model=${robotTabs.find(t => t.id === selectedRobot)?.model}`}
           title={`Giemon ${selectedRobot} 3D ビューア`}
           class="absolute inset-0 w-full h-full border-0"
           loading="lazy"
@@ -291,7 +291,7 @@
             </li>
           {/each}
         </ul>
-        <a href="https://giemon.gftd.ai" target="_blank" rel="noopener"
+        <a href="https://giemon.etzhayyim.com" target="_blank" rel="noopener"
            class="mt-5 inline-flex items-center gap-1 text-[#0017c1] text-sm font-medium">
           Giemon 製品ページへ →
         </a>
@@ -574,7 +574,7 @@
         開発元: Gftd Japan株式会社 / amanomibashira
       </p>
       <p class="mt-3 text-[10px] text-[#616161]">
-        Powered by <a href="https://giemon.gftd.ai" class="text-[#6ea0f7]">Giemon ロボット</a>
+        Powered by <a href="https://giemon.etzhayyim.com" class="text-[#6ea0f7]">Giemon ロボット</a>
       </p>
     </div>
     <div>
@@ -588,8 +588,8 @@
     <div>
       <p class="text-white font-semibold text-sm mb-3">リンク</p>
       <ul class="space-y-1.5 text-xs">
-        <li><a href="https://giemon.gftd.ai" target="_blank" rel="noopener" class="text-[#949494] hover:text-white no-underline hover:underline">Giemon 公式サイト</a></li>
-        <li><a href="https://github.com/gftdcojp/otete" target="_blank" rel="noopener" class="text-[#949494] hover:text-white no-underline hover:underline">GitHub (オープンソース)</a></li>
+        <li><a href="https://giemon.etzhayyim.com" target="_blank" rel="noopener" class="text-[#949494] hover:text-white no-underline hover:underline">Giemon 公式サイト</a></li>
+        <li><a href="https://github.com/etzhayyim/otete" target="_blank" rel="noopener" class="text-[#949494] hover:text-white no-underline hover:underline">GitHub (オープンソース)</a></li>
         <li><a href="mailto:kaigo@gftd.co.jp" class="text-[#949494] hover:text-white no-underline hover:underline">お問い合わせ</a></li>
         <li><a href="/privacy" class="text-[#949494] hover:text-white no-underline hover:underline">プライバシーポリシー</a></li>
         <li><a href="/terms" class="text-[#949494] hover:text-white no-underline hover:underline">利用規約</a></li>

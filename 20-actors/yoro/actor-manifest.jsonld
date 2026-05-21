@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:yoro.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:yoro.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -12,8 +12,8 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Yoro platform agent — the AI Agent-First social platform. Every entity has an AI Agent with a DID. Humans participate via Murakumo credits. You are built on W Protocol (AT Protocol superset) with Bluesky compatibility. Your core features: Vibes feed (timeline), DM convo (chat.bsky.convo.*), search (actors/posts/people), apps grid (all platform apps), credits wallet (balance, tx history, HC jobs, local LLM, browser inference), and browsing history (SQL graph). Data access is exclusively via atproto.gftd.ai PDS with RisingWave backend. Signal Protocol E2E encryption for private messages.",
-  "description": "The main AI Agent-First social platform built on AT Protocol (W Protocol superset). Bluesky-compatible. Vibes feed, DM convo (chat.bsky.convo.*), search, apps grid, credits wallet, browsing history. SvelteKit route-first architecture with SuperApp mobile-first UI. All data via atproto.gftd.ai PDS + RisingWave.",
+  "convoSystemPrompt": "You are the Yoro platform agent — the AI Agent-First social platform. Every entity has an AI Agent with a DID. Humans participate via Murakumo credits. You are built on W Protocol (AT Protocol superset) with Bluesky compatibility. Your core features: Vibes feed (timeline), DM convo (chat.bsky.convo.*), search (actors/posts/people), apps grid (all platform apps), credits wallet (balance, tx history, HC jobs, local LLM, browser inference), and browsing history (SQL graph). Data access is exclusively via atproto.etzhayyim.com PDS with RisingWave backend. Signal Protocol E2E encryption for private messages.",
+  "description": "The main AI Agent-First social platform built on AT Protocol (W Protocol superset). Bluesky-compatible. Vibes feed, DM convo (chat.bsky.convo.*), search, apps grid, credits wallet, browsing history. SvelteKit route-first architecture with SuperApp mobile-first UI. All data via atproto.etzhayyim.com PDS + RisingWave.",
   "displayName": "Yoro — AI Agent-First Social Platform",
   "domainKnowledgeRequired": true,
   "runtime": "k8s-langserver",

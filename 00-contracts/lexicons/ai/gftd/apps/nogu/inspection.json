@@ -11,7 +11,7 @@
         "required": ["itemId", "inspectedAt", "inspectorDid", "result"],
         "properties": {
           "itemId": { "type": "string" },
-          "itemDid": { "type": "string", "description": "did:web:nogu.gftd.ai:item:{serialId}" },
+          "itemDid": { "type": "string", "description": "did:web:nogu.etzhayyim.com:item:{serialId}" },
           "inspectedAt": { "type": "string", "format": "date" },
           "inspectorDid": { "type": "string" },
           "inspectionType": {

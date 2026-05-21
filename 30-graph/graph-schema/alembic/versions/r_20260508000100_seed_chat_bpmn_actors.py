@@ -19,12 +19,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-memory-reindex-v1',
-                 'did:web:gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-memory-reindex-v1',
+                 'did:web:etzhayyim.com',
                  'chat_memory_reindex',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  gftd.ai chat — memory reindex (timer-start, autonomous, R/PT24H).\n'
+                 '  etzhayyim.com chat — memory reindex (timer-start, autonomous, R/PT24H).\n'
                  '\n'
                  '  Walks vertex_chat_message.embedding IS NULL rows (last 24h),\n'
                  '  embeds via Murakumo-served sentence-transformers actor, writes\n'
@@ -36,7 +36,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_chat_memory_reindex"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/chat"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/chat"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="chat_memory_reindex" name="chat memory reindex" '
@@ -74,7 +74,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:gftd.ai&quot;" target="actor"/>\n'
+                 '          <zeebe:input source="=&quot;did:web:etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.chat.memoryReindex&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;embedded&quot;: embedded, '
@@ -96,10 +96,10 @@ UP = [{'sql': '\n'
                  2854,
                  '00-contracts/bpmn/ai/gftd/chat/memoryReindex.bpmn',
                  '2026-05-08T00:00:00Z',
-                 'did:web:gftd.ai',
-                 'did:web:gftd.ai',
+                 'did:web:etzhayyim.com',
+                 'did:web:etzhayyim.com',
                  'sys.bpmn.seed.chat',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-memory-reindex-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-memory-reindex-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -107,12 +107,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-artifact-gc-v1',
-                 'did:web:gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-artifact-gc-v1',
+                 'did:web:etzhayyim.com',
                  'chat_artifact_gc',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  gftd.ai chat — artifact GC (timer-start, autonomous, R/PT24H).\n'
+                 '  etzhayyim.com chat — artifact GC (timer-start, autonomous, R/PT24H).\n'
                  '\n'
                  '  Removes B2 objects + soft-deletes vertex_chat_artifact rows whose\n'
                  "  expires_at < now() OR (status='gc-pending' AND ts_ms older than 30 d).\n"
@@ -122,7 +122,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_chat_artifact_gc"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/chat"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/chat"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="chat_artifact_gc" name="chat artifact GC" '
@@ -158,7 +158,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:gftd.ai&quot;" target="actor"/>\n'
+                 '          <zeebe:input source="=&quot;did:web:etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.chat.artifactGc&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;deleted&quot;: deleted, '
@@ -180,10 +180,10 @@ UP = [{'sql': '\n'
                  2658,
                  '00-contracts/bpmn/ai/gftd/chat/artifactGc.bpmn',
                  '2026-05-08T00:00:00Z',
-                 'did:web:gftd.ai',
-                 'did:web:gftd.ai',
+                 'did:web:etzhayyim.com',
+                 'did:web:etzhayyim.com',
                  'sys.bpmn.seed.chat',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-artifact-gc-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-artifact-gc-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -191,12 +191,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-conversation-archive-v1',
-                 'did:web:gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-conversation-archive-v1',
+                 'did:web:etzhayyim.com',
                  'chat_conversation_archive',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  gftd.ai chat — conversation archive (timer-start, autonomous, R/P7D).\n'
+                 '  etzhayyim.com chat — conversation archive (timer-start, autonomous, R/P7D).\n'
                  '\n'
                  "  Conversations idle > 90 d → status='archived', dump rolled into\n"
                  '  Iceberg parquet (read-only cold tier). Active hot store stays\n'
@@ -207,7 +207,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_chat_conversation_archive"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/chat"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/chat"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="chat_conversation_archive" name="chat conversation archive" '
@@ -245,7 +245,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:gftd.ai&quot;" target="actor"/>\n'
+                 '          <zeebe:input source="=&quot;did:web:etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;ai.gftd.apps.chat.conversationArchive&quot;" '
                  'target="eventType"/>\n'
@@ -269,10 +269,10 @@ UP = [{'sql': '\n'
                  2865,
                  '00-contracts/bpmn/ai/gftd/chat/conversationArchive.bpmn',
                  '2026-05-08T00:00:00Z',
-                 'did:web:gftd.ai',
-                 'did:web:gftd.ai',
+                 'did:web:etzhayyim.com',
+                 'did:web:etzhayyim.com',
                  'sys.bpmn.seed.chat',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-conversation-archive-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-conversation-archive-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -280,12 +280,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-schedule-report-v1',
-                 'did:web:gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-schedule-report-v1',
+                 'did:web:etzhayyim.com',
                  'chat_schedule_report',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  gftd.ai chat — scheduleReport (XRPC ai.gftd.apps.chat.scheduleReport).\n'
+                 '  etzhayyim.com chat — scheduleReport (XRPC ai.gftd.apps.chat.scheduleReport).\n'
                  '\n'
                  '  Side-effect tool example: LangGraph agent calls this when the user asks\n'
                  '  for a deferred report. The BPMN runs Murakumo deep research, persists\n'
@@ -297,7 +297,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_chat_schedule_report"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/chat"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/chat"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="chat_schedule_report" name="chat schedule report" '
@@ -340,7 +340,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:gftd.ai&quot;" target="actor"/>\n'
+                 '          <zeebe:input source="=&quot;did:web:etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.chat.scheduleReport&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;convId&quot;: convId, &quot;runId&quot;: '
@@ -363,10 +363,10 @@ UP = [{'sql': '\n'
                  3308,
                  '00-contracts/bpmn/ai/gftd/chat/scheduleReport.bpmn',
                  '2026-05-08T00:00:00Z',
-                 'did:web:gftd.ai',
-                 'did:web:gftd.ai',
+                 'did:web:etzhayyim.com',
+                 'did:web:etzhayyim.com',
                  'sys.bpmn.seed.chat',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-schedule-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-schedule-report-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -374,27 +374,27 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/chat-scheduleReport-v1',
-                 'did:web:gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/chat-scheduleReport-v1',
+                 'did:web:etzhayyim.com',
                  'ai.gftd.apps.chat.scheduleReport',
                  'chat_schedule_report',
                  30000,
                  '2026-05-08T00:00:00Z',
-                 'did:web:gftd.ai',
-                 'did:web:gftd.ai',
+                 'did:web:etzhayyim.com',
+                 'did:web:etzhayyim.com',
                  'sys.bpmn.seed.chat',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/chat-scheduleReport-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/chat-scheduleReport-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/chat-scheduleReport-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/chat-scheduleReport-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-memory-reindex-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-memory-reindex-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-artifact-gc-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-artifact-gc-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-conversation-archive-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-conversation-archive-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/chat-schedule-report-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-schedule-report-v1']}]
 
 
 def upgrade() -> None:

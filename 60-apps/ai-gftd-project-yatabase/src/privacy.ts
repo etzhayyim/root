@@ -17,7 +17,7 @@ export function privacyResponse(): Response {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Privacy policy — Yatabase</title>
-<meta name="description" content="What yatabase.gftd.ai collects, how long we keep it, who else sees it, and how you exercise your CCPA / GDPR / 改正個人情報保護法 rights." />
+<meta name="description" content="What yatabase.etzhayyim.com collects, how long we keep it, who else sees it, and how you exercise your CCPA / GDPR / 改正個人情報保護法 rights." />
 <style>
   body{margin:0;font:15px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0f172a;background:#fafafa}
   header,main,footer{max-width:780px;margin:0 auto;padding:0 24px}
@@ -63,10 +63,10 @@ export function privacyResponse(): Response {
 
 <h2>1. Who we are</h2>
 <p>
-  <strong>yatabase.gftd.ai</strong> ("Yatabase", "the service") is operated by <strong>etz hayim</strong>
+  <strong>yatabase.etzhayyim.com</strong> ("Yatabase", "the service") is operated by <strong>etz hayim</strong>
   (運営法人), a religious organization / blockchain-registered entity. <strong>Gftd Japan株式会社</strong>
   (Japan corporate ID T9007028460042 — 適格請求書登録番号) is the Japan-side vendor of record for tax-invoice
-  issuance only. This policy applies to the entire <code>yatabase.gftd.ai</code> domain and every
+  issuance only. This policy applies to the entire <code>yatabase.etzhayyim.com</code> domain and every
   endpoint listed in <a href="/_app/meta">/_app/meta</a>.
 </p>
 
@@ -76,7 +76,7 @@ export function privacyResponse(): Response {
   <thead><tr><th>Field</th><th>Source</th><th>Where it lives</th></tr></thead>
   <tbody>
     <tr>
-      <td><strong>orgDid</strong> (e.g. <code>did:web:t-xxxxx.yata-tenant.gftd.ai</code>)</td>
+      <td><strong>orgDid</strong> (e.g. <code>did:web:t-xxxxx.yata-tenant.etzhayyim.com</code>)</td>
       <td>Generated server-side when you POST <code>/auth/v1/signup</code>.</td>
       <td><code>vertex_api_key.owner_did</code></td>
     </tr>
@@ -211,14 +211,14 @@ export function privacyResponse(): Response {
 <h2>11. Contact</h2>
 <p>
   Privacy requests, DPA requests, supervisory-authority cooperation: reach out to
-  <a href="mailto:privacy@gftd.ai">privacy@gftd.ai</a>. We aim to respond within 30 calendar days, the GDPR Art 12(3)
+  <a href="mailto:privacy@etzhayyim.com">privacy@etzhayyim.com</a>. We aim to respond within 30 calendar days, the GDPR Art 12(3)
   default.
 </p>
 
 </main>
 
 <footer>
-  <p>© 2026 etz hayim · <a href="/">yatabase.gftd.ai</a> · <a href="/terms">/terms</a> · <a href="/status">/status</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
+  <p>© 2026 etz hayim · <a href="/">yatabase.etzhayyim.com</a> · <a href="/terms">/terms</a> · <a href="/status">/status</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
 </footer>
 
 </body></html>`;

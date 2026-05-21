@@ -20,7 +20,7 @@ export default {
     if (url.pathname === "/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:eng-kami.gftd.ai",
+        actor: "did:web:eng-kami.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "k4m13ng1",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/kami_eng.py",
@@ -55,7 +55,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

@@ -5,9 +5,9 @@
  * Usage: npx tsx 60-apps/ai-gftd-project-business-person/seed.ts
  */
 
-const PDS = 'https://atproto.gftd.ai';
+const PDS = 'https://atproto.etzhayyim.com';
 const NANOID = 'bp3r5n0x';
-const ROOT_DID = `did:web:business-person.gftd.ai`;
+const ROOT_DID = `did:web:business-person.etzhayyim.com`;
 const PROJECT_ID = 'business-person';
 
 // ── Helpers ──
@@ -174,7 +174,7 @@ async function main(): Promise<void> {
       raci: 'responsible',
       complianceFrameworks: ['APPI', 'GDPR-public-interest'],
       deps: [
-        { to: 'did:web:business-manager.gftd.ai', type: 'data', sourceKind: 'graph', collection: 'ai.gftd.apps.businessManager.employee' },
+        { to: 'did:web:business-manager.etzhayyim.com', type: 'data', sourceKind: 'graph', collection: 'ai.gftd.apps.businessManager.employee' },
       ],
     },
     icon: '',
@@ -208,7 +208,7 @@ async function main(): Promise<void> {
   }
   console.log(`  ✓ ${ROLE_TYPES.length} role types`);
 
-  // 6. Corporate HP Collection Jobs (1次ソース: 企業公式HP + site.gftd.ai JS rendering + Murakumo LLM)
+  // 6. Corporate HP Collection Jobs (1次ソース: 企業公式HP + site.etzhayyim.com JS rendering + Murakumo LLM)
   console.log('\n── 6. Corporate HP Collection Jobs (Primary Source) ──');
   const HP_JOBS = [
     // ── US (S&P 500 top) ── corporate leadership/officer pages
@@ -261,7 +261,7 @@ async function main(): Promise<void> {
 
   // 7. Announcement post
   console.log('\n── 7. Social Post ──');
-  await socialPost(ROOT_DID, 'Business Person actor: dispatched 30 corporate HP collection jobs (1次ソース). site.gftd.ai JS rendering + Murakumo LLM officer extraction. US/UK/JP/EU/APAC. #gftd #businessPerson');
+  await socialPost(ROOT_DID, 'Business Person actor: dispatched 30 corporate HP collection jobs (1次ソース). site.etzhayyim.com JS rendering + Murakumo LLM officer extraction. US/UK/JP/EU/APAC. #gftd #businessPerson');
 
   // Summary
   const total = ACTORS.length + 1 + TOOLS.length + REGISTRY_SOURCES.length + ROLE_TYPES.length + HP_JOBS.length + 1;

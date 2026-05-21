@@ -1,9 +1,9 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kouza.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kouza.etzhayyim.com",
   "name": "kouza-core-k0uz401",
   "nanoid": "k0uz401",
-  "handle": "kouza.gftd.ai",
+  "handle": "kouza.etzhayyim.com",
   "project": "kouza",
   "runtimeType": "worker",
   "performerType": "service",

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-6cd94864613c",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6cd94864613c",
   "entityId": "ent-6cd94864613c",
   "canonicalName": "desert pulse trading fze",
   "aliases": [

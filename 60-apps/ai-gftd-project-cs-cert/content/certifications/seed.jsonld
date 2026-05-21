@@ -2,22 +2,22 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://resources.gftd.ai/ontology#",
+      "gftd": "https://resources.etzhayyim.com/ontology#",
       "prov": "http://www.w3.org/ns/prov#"
     }
   ],
   "@type": "ItemList",
   "name": "GFTD CS Certified — Sample Certificates",
-  "description": "セキュリティ診断済み認証のサンプルデータ。certs.gftd.ai で公開される認証バッジの参照実装。",
+  "description": "セキュリティ診断済み認証のサンプルデータ。certs.etzhayyim.com で公開される認証バッジの参照実装。",
   "itemListElement": [
     {
       "@type": "ListItem",
       "position": 1,
       "item": {
         "@type": "gftd:CsCertificate",
-        "@id": "https://certs.gftd.ai/cert/gftd-cs-a1b2c3d4",
+        "@id": "https://certs.etzhayyim.com/cert/gftd-cs-a1b2c3d4",
         "identifier": "gftd-cs-a1b2c3d4",
-        "gftd:subjectDomain": "gftd.ai",
+        "gftd:subjectDomain": "etzhayyim.com",
         "gftd:subjectOrgName": "GFTD Inc.",
         "gftd:certLevel": "cs-advanced",
         "gftd:certStatus": "active",
@@ -25,8 +25,8 @@
         "gftd:expiresAt": "2027-02-01T00:00:00Z",
         "gftd:assessmentId": "assess-gftd-ai-20260201",
         "gftd:overallScore": 96.5,
-        "gftd:verificationUrl": "https://certs.gftd.ai/verify/gftd-cs-a1b2c3d4",
-        "gftd:badgeEmbed": "<script src=\"https://certs.gftd.ai/badge/gftd-cs-a1b2c3d4.js\" async></script>",
+        "gftd:verificationUrl": "https://certs.etzhayyim.com/verify/gftd-cs-a1b2c3d4",
+        "gftd:badgeEmbed": "<script src=\"https://certs.etzhayyim.com/badge/gftd-cs-a1b2c3d4.js\" async></script>",
         "prov:generatedAtTime": "2026-02-01T00:00:00Z"
       }
     },
@@ -35,9 +35,9 @@
       "position": 2,
       "item": {
         "@type": "gftd:CsAssessment",
-        "@id": "https://certs.gftd.ai/assessment/assess-gftd-ai-20260201",
+        "@id": "https://certs.etzhayyim.com/assessment/assess-gftd-ai-20260201",
         "identifier": "assess-gftd-ai-20260201",
-        "gftd:subjectDomain": "gftd.ai",
+        "gftd:subjectDomain": "etzhayyim.com",
         "gftd:certLevel": "cs-advanced",
         "actionStatus": "completed",
         "gftd:assessorId": "gftd-security-team",

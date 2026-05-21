@@ -14,6 +14,7 @@ from pymagatama import rw_schema
 
 
 def sqlalchemy_url_from_rw_url(rw_url: str) -> str:
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
     if rw_url.startswith("risingwave+"):
         return rw_url
     if rw_url.startswith("postgresql://"):

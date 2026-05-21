@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/3/nuclear-fuel",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/3/nuclear-fuel",
       "type": "dodaf:Capability",
       "name": "Nuclear Fuel Management and Safety Capability",
       "description": "Functional capability for managing nuclear fuel processing, waste logistics, and radiological safety. Classification: COFOG Division 04, Group 3, Class 3.",

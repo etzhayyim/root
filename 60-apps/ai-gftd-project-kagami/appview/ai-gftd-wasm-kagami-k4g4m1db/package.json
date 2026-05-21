@@ -1,7 +1,7 @@
 {
   "name": "ai-gftd-wasm-kagami-k4g4m1db",
   "version": "1.0.0",
-  "description": "kagami.gftd.ai — Serverless graph DB (R2 SQL + Pipelines). SQL-to-SQL.",
+  "description": "kagami.etzhayyim.com — Serverless graph DB (R2 SQL + Pipelines). SQL-to-SQL.",
   "main": "src/app.ts",
   "type": "module",
   "dependencies": {

@@ -699,7 +699,7 @@ export async function sendApprovedLead(
   }
 
   const dryRun = !(env.RESEND_API_KEY && env.EMAIL_FROM);
-  const fromAddr = env.EMAIL_FROM ?? "noreply@yatabase.gftd.ai";
+  const fromAddr = env.EMAIL_FROM ?? "noreply@yatabase.etzhayyim.com";
 
   if (dryRun) {
     return {

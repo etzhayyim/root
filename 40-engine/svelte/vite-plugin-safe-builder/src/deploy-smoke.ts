@@ -1,7 +1,7 @@
 import type { Plugin } from "vite";
 
 export interface DeploySmokeOptions {
-  /** Base URL to check, e.g. https://news.gftd.ai */
+  /** Base URL to check, e.g. https://news.etzhayyim.com */
   baseUrl: string;
   /** Paths to probe, e.g. ["/ja", "/ja/games"] */
   paths: string[];

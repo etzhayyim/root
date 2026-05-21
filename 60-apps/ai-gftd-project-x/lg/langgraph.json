@@ -1,5 +1,5 @@
 {
-  "$comment": "LangGraph Server config — x.gftd.ai (Twitter ops actor). P5 scaffold (2026-05-08). NSID handlers: health/agent_chat/compose_tweet. The actual `post` graph (which calls X API v2) is deferred until OAuth credentials are wired through Vault.",
+  "$comment": "LangGraph Server config — x.etzhayyim.com (Twitter ops actor). P5 scaffold (2026-05-08). NSID handlers: health/agent_chat/compose_tweet. The actual `post` graph (which calls X API v2) is deferred until OAuth credentials are wired through Vault.",
   "dependencies": ["./lg_x", "../../../20-actors/magatama/py"],
   "graphs": {
     "health":        "./lg_x/graphs/health.py:GRAPH",

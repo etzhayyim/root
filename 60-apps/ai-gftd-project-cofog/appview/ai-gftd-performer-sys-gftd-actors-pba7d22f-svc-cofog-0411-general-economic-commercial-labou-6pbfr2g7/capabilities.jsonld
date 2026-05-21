@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/1/1/general-economic-commercial-labour-affairs",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/1/1/general-economic-commercial-labour-affairs",
       "type": "dodaf:Capability",
       "name": "General Economic, Commercial and Labour Affairs Management",
       "description": "Functional capability for managing general economic policies, commercial regulations, and labour market affairs. Classification: COFOG Division 04, Group 1, Class 1.",

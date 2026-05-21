@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/01/3/1/general-public-services-nec/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/01/3/1/general-public-services-nec/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Miscellaneous Administrative Support Process",
       "description": "Orchestration of unclassified and ancillary public services, ensuring administrative continuity for non-standard governmental tasks.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/01/3/1/general-public-services-nec"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/3/1/general-public-services-nec"
     }
   ]
 }

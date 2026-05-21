@@ -1,13 +1,13 @@
 # ai-gftd-project-bunken — 文献書誌 Intelligence
 
-**bunken.gftd.ai** — 全世界の図書館・アーカイブ文献を actor 化する書誌 intelligence。
+**bunken.etzhayyim.com** — 全世界の図書館・アーカイブ文献を actor 化する書誌 intelligence。
 
 ## Architecture
 
 ```
 Common Crawl CDX API → 書誌 URL 発見 (NDL/LOC/WorldCat/CiNii/VIAF/DOI/ARK)
   → CollectionJob → fetchCdxBatch (CDX 結果パース → Bunken node MERGE)
-  → enrichBatch (site.gftd.ai crawl → Murakumo LLM メタデータ抽出)
+  → enrichBatch (site.etzhayyim.com crawl → Murakumo LLM メタデータ抽出)
   → registerDids (path-based DID 登録)
   → linkSameAs (同一文献の SAME_AS edge)
 ```
@@ -16,16 +16,16 @@ Common Crawl CDX API → 書誌 URL 発見 (NDL/LOC/WorldCat/CiNii/VIAF/DOI/ARK)
 
 | Scheme | DID Pattern | Source |
 |---|---|---|
-| `ndl:bib` | `did:web:bunken.gftd.ai:ndl:bib:{bib_id}` | 国立国会図書館書誌 |
-| `ndl:pid` | `did:web:bunken.gftd.ai:ndl:pid:{pid}` | NDL デジタルコレクション |
-| `ncid` | `did:web:bunken.gftd.ai:ncid:{ncid}` | NII CiNii |
-| `lccn` | `did:web:bunken.gftd.ai:lccn:{lccn}` | Library of Congress |
-| `oclc` | `did:web:bunken.gftd.ai:oclc:{number}` | WorldCat |
-| `viaf` | `did:web:bunken.gftd.ai:viaf:{viaf_id}` | VIAF 典拠 |
-| `isbn` | `did:web:bunken.gftd.ai:isbn:{isbn13}` | ISBN (isbn.gftd.ai 相互参照) |
-| `doi` | `did:web:bunken.gftd.ai:doi:{prefix}:{suffix}` | DOI |
-| `ark` | `did:web:bunken.gftd.ai:ark:{naan}:{name}` | ARK |
-| `doc` | `did:web:bunken.gftd.ai:doc:{DJB2(title\|author\|year\|country)}` | 書誌ID未付与 |
+| `ndl:bib` | `did:web:bunken.etzhayyim.com:ndl:bib:{bib_id}` | 国立国会図書館書誌 |
+| `ndl:pid` | `did:web:bunken.etzhayyim.com:ndl:pid:{pid}` | NDL デジタルコレクション |
+| `ncid` | `did:web:bunken.etzhayyim.com:ncid:{ncid}` | NII CiNii |
+| `lccn` | `did:web:bunken.etzhayyim.com:lccn:{lccn}` | Library of Congress |
+| `oclc` | `did:web:bunken.etzhayyim.com:oclc:{number}` | WorldCat |
+| `viaf` | `did:web:bunken.etzhayyim.com:viaf:{viaf_id}` | VIAF 典拠 |
+| `isbn` | `did:web:bunken.etzhayyim.com:isbn:{isbn13}` | ISBN (isbn.etzhayyim.com 相互参照) |
+| `doi` | `did:web:bunken.etzhayyim.com:doi:{prefix}:{suffix}` | DOI |
+| `ark` | `did:web:bunken.etzhayyim.com:ark:{naan}:{name}` | ARK |
+| `doc` | `did:web:bunken.etzhayyim.com:doc:{DJB2(title\|author\|year\|country)}` | 書誌ID未付与 |
 
 ## Graph Labels
 
@@ -39,8 +39,8 @@ Common Crawl CDX API → 書誌 URL 発見 (NDL/LOC/WorldCat/CiNii/VIAF/DOI/ARK)
 | Edge | From → To | Purpose |
 |---|---|---|
 | `SAME_AS` | Bunken → Bunken | 同一文献の異なる識別子 |
-| `AUTHORED` | IdentifiedPerson → Bunken | 著者 (natural-person.gftd.ai) |
-| `HELD_BY` | Bunken → Organization | 所蔵機関 (soshiki.gftd.ai) |
+| `AUTHORED` | IdentifiedPerson → Bunken | 著者 (natural-person.etzhayyim.com) |
+| `HELD_BY` | Bunken → Organization | 所蔵機関 (soshiki.etzhayyim.com) |
 | `CITES` | Bunken → Bunken | 引用 |
 | `RECORDS` | Bunken → HistoricalEvent | 歴史事象記録 (PropagationEvent 用) |
 
@@ -50,7 +50,7 @@ Common Crawl CDX API → 書誌 URL 発見 (NDL/LOC/WorldCat/CiNii/VIAF/DOI/ARK)
 |---|---|
 | `collectFromCdx` | Common Crawl CDX API で書誌 URL を発見、CollectionJob 作成 |
 | `fetchCdxBatch` | pending job を 1 件処理、CDX fetch → Bunken node MERGE |
-| `enrichBatch` | site.gftd.ai crawl + Murakumo LLM でメタデータ抽出 |
+| `enrichBatch` | site.etzhayyim.com crawl + Murakumo LLM でメタデータ抽出 |
 | `registerDids` | enriched record に path-based DID 登録 |
 | `linkSameAs` | title+author 一致の異 scheme record 間に SAME_AS edge |
 
@@ -73,7 +73,7 @@ Common Crawl CDX API → 書誌 URL 発見 (NDL/LOC/WorldCat/CiNii/VIAF/DOI/ARK)
    → title="" (未 enrich) のまま graph に記録
 
 3. enrichBatch(batchSize: 10)  ← heartbeat で繰り返し呼出
-   → site.gftd.ai crawl_page → Murakumo LLM → title/author/year/era 抽出
+   → site.etzhayyim.com crawl_page → Murakumo LLM → title/author/year/era 抽出
    → Bunken node SET
 
 4. registerDids(batchSize: 10)  ← heartbeat で繰り返し呼出
@@ -87,8 +87,8 @@ Common Crawl CDX API → 書誌 URL 発見 (NDL/LOC/WorldCat/CiNii/VIAF/DOI/ARK)
 
 | Rule | Description |
 |---|---|
-| **isbn.gftd.ai 委譲** | ISBN バリデーション・メタデータは isbn.gftd.ai が権威。bunken は DID を管理 |
-| **issn.gftd.ai 委譲** | 同上 ISSN |
+| **isbn.etzhayyim.com 委譲** | ISBN バリデーション・メタデータは isbn.etzhayyim.com が権威。bunken は DID を管理 |
+| **issn.etzhayyim.com 委譲** | 同上 ISSN |
 | **Murakumo only** | LLM は on-prem fleet only (qwen3.5-4b)。外部 API 禁止 |
 | **DJB2 dedup** | doc scheme (書誌ID未付与) は DJB2(title\|author\|year\|country) で dedup |
 | **SAME_AS 不変** | 一度作成した SAME_AS edge は削除しない |

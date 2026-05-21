@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: zeebe
     app.kubernetes.io/component: broker
-    app.kubernetes.io/part-of: yoro.gftd.ai
+    app.kubernetes.io/part-of: yoro.etzhayyim.com
   annotations:
     service.beta.kubernetes.io/vultr-loadbalancer-protocol: "tcp"
 spec:

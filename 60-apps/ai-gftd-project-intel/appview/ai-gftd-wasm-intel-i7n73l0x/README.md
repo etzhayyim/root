@@ -4,7 +4,7 @@ Murakumo-backed INT analysis App.
 
 ## Behavior
 
-- `SubmitAnalysis`: calls `https://murakumo.gftd.ai/api/openai/v1/chat/completions` with `qwen3-vl-8b`
+- `SubmitAnalysis`: calls `https://murakumo.etzhayyim.com/api/openai/v1/chat/completions` with `qwen3-vl-8b`
 - stores the full analysis privately for `org_id=default`
 - returns a public-safe JSON-LD candidate for `resources` when `publish_public=true`
 - uses `public|unclassified|cui|confidential|secret|top_secret` as the information classification vocabulary

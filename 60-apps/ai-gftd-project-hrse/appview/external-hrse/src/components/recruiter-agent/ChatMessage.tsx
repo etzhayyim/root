@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 
 /**
- * @gftdcojp/ai-gftd-hrse#ChatMessage
+ * @etzhayyim/ai-gftd-hrse#ChatMessage
  * Chat message component for recruiter agent
  */
 interface ChatMessageProps {

@@ -23,7 +23,7 @@ Measurement dispatchers (see metric_query prefix):
     sql:vertex_audit_log_referrer_funnel:{from_path}:{to_path}
     external:stripe_subscriptions[:filter]
 
-deai.gftd.ai dispatchers:
+deai.etzhayyim.com dispatchers:
     sql:vertex_deai_session_completion_rate[:Nd]
     sql:vertex_deai_retention_7d
     sql:vertex_deai_match_resonance_avg[:Nd]
@@ -251,7 +251,7 @@ async def _measure_sql(metric_query: str) -> dict[str, Any]:
             c = await pg_fetchval(
                 """
                 SELECT COUNT(*) FROM vertex_api_key
-                WHERE owner_did LIKE 'did:web:t-%.yata-tenant.gftd.ai'
+                WHERE owner_did LIKE 'did:web:t-%.yata-tenant.etzhayyim.com'
                   AND created_at >= $1
                 """,
                 since_iso,
@@ -319,7 +319,7 @@ async def _measure_sql(metric_query: str) -> dict[str, Any]:
             return {"value": ratio, "sample": int(from_n),
                     "source": f"audit_log {from_path}->{to_path} 30d",
                     "window_start_ms": since30, "window_end_ms": now_ms, "raw": ""}
-        # ── deai.gftd.ai dispatchers ───────────────────────────────────
+        # ── deai.etzhayyim.com dispatchers ───────────────────────────────────
         # metric_query forms:
         #   sql:vertex_deai_session_completion_rate[:Nd]
         #   sql:vertex_deai_retention_7d
@@ -513,7 +513,7 @@ def _decide_deterministic(state: _State) -> tuple[DecisionLiteral, str]:
 
 async def _call_murakumo(system: str, user: str, model: str) -> str | None:
     """LLM call via Murakumo fleet (gemma-4-e4b-it). Returns content or None."""
-    base = os.environ.get("MURAKUMO_BASE_URL", "https://murakumo.gftd.ai")
+    base = os.environ.get("MURAKUMO_BASE_URL", "https://murakumo.etzhayyim.com")
     try:
         async with httpx.AsyncClient(timeout=60.0) as client:
             # Health check first — skip if fleet offline.
@@ -561,7 +561,7 @@ async def _call_openrouter(system: str, user: str, model: str) -> str | None:
                 headers={
                     "authorization": f"Bearer {key}",
                     "content-type": "application/json",
-                    "http-referer": "https://yatabase.gftd.ai",
+                    "http-referer": "https://yatabase.etzhayyim.com",
                     "x-title": "lg-yatabase BMC iteration agent",
                 },
                 json={
@@ -592,7 +592,7 @@ async def _decide(state: _State) -> _State:
     proposed: dict[str, Any] = {}
 
     system = (
-        "You are the resident BMC iteration agent for yatabase.gftd.ai.\n"
+        "You are the resident BMC iteration agent for yatabase.etzhayyim.com.\n"
         "Return a SINGLE JSON object: { action, rationale, proposed_block_edits? }.\n"
         "action ∈ {persevere, pivot, kill, extend}. action=persevere when measured>=threshold AND min_sample reached.\n"
         "action=kill when iteration_no>=3 and consistently failing. action=pivot ONLY when deadline reached AND measured<threshold AND iteration_no<3. On pivot, include proposed_block_edits with concrete add_bullets (≤3, ≤200 chars each).\n"

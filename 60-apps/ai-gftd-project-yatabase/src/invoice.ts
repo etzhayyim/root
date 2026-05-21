@@ -326,7 +326,7 @@ export function renderInvoiceHtml(summary: InvoiceSummary): string {
   <div>
     <h3>Vendor</h3>
     <strong>${escapeHtml(VENDOR_NAME)}</strong><br>
-    yatabase.gftd.ai (io-yatabase BaaS)<br>
+    yatabase.etzhayyim.com (io-yatabase BaaS)<br>
     Address: ${escapeHtml(VENDOR_ADDRESS_JP)}<br>
     <div class="qii" style="margin-top:8px">JP QII registry: ${escapeHtml(QII_NUMBER)}</div>
     <div class="meta" style="margin-top:6px">US merchant of record: Stripe (Delaware-domiciled etz hayim entity, planned)</div>

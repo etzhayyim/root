@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#LLMIntegrationSteps
+// @etzhayyim/cyber-freelance#LLMIntegrationSteps
 // LLM Integration関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

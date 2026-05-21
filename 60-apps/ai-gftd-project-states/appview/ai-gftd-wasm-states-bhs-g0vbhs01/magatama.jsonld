@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:bhs-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:bhs-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Commonwealth of The Bahamas AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "bhs-state.gftd.ai",
+      "host": "bhs-state.etzhayyim.com",
       "paths": [
         "/"
       ],

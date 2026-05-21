@@ -5,6 +5,7 @@ Superseded on 2026-04-13 by `phase3g_copy_ingest.py` on `path-j-cc-hummock`.
 
 Hyperdrive の接続タイムアウトを回避するため、psycopg2 で RisingWave に直接接続。
 事前に kubectl port-forward が必要:
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
   kubectl -n risingwave port-forward svc/risingwave 14566:4566
 
 CREATE SOURCE (3 つ) + 各バッチの INSERT を chunk_size バッチ単位で実行。
@@ -347,8 +348,8 @@ def populate_domains(conn, dry_run: bool = False):
     )
     SELECT
         p.domain, p.domain,
-        'did:web:site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
-        'site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
+        'did:web:site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
+        'site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
         p.domain, NULL::VARCHAR, 'service', 'active',
         0::BIGINT, 0::BIGINT, NULL::DATE, NULL::VARCHAR
     FROM (SELECT DISTINCT domain FROM vertex_page WHERE domain IS NOT NULL AND domain != '') p"""

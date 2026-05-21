@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:com-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:com-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Union of the Comoros AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "com-state.gftd.ai",
+      "host": "com-state.etzhayyim.com",
       "paths": [
         "/"
       ],

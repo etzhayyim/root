@@ -143,19 +143,19 @@ def _entity_to_row(entity: dict, lat: float, lon: float) -> dict:
     label_en = (entity.get("labels", {}).get("en", {}) or {}).get("value", "")
     desc_en = (entity.get("descriptions", {}).get("en", {}) or {}).get("value", "")
     return {
-        "vertex_id": f"at://did:web:maps.gftd.ai/ai.gftd.apps.maps.spot/wikidata-{qid}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.spot/wikidata-{qid}",
         "rkey": f"wikidata-{qid}",
-        "repo": "did:web:maps.gftd.ai",
+        "repo": "did:web:maps.etzhayyim.com",
         "label": "Spot",
-        "did": "did:web:maps.gftd.ai",
+        "did": "did:web:maps.etzhayyim.com",
         "collection": "ai.gftd.apps.maps.spot",
         "name": label_en[:200],
         "lat": lat,
         "lng": lon,
-        "source_did": "did:web:maps.gftd.ai:registry:wikidata:bulk",
+        "source_did": "did:web:maps.etzhayyim.com:registry:wikidata:bulk",
         "category": "wikidata-bulk",
         "description": desc_en[:500],
-        "owner_did": "did:web:maps.gftd.ai",
+        "owner_did": "did:web:maps.etzhayyim.com",
         "sensitivity_ord": 0,
         "created_date": datetime.now(timezone.utc).date().isoformat(),
     }

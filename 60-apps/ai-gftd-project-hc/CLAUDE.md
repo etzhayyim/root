@@ -7,16 +7,16 @@
 Timee-style ギグワーク + MTurk-style マイクロタスク のハイブリッドプラットフォーム。
 日本の労働基準法に準拠。全通知・手続きは Matrix protocol 経由。
 
-- **URL**: https://hc.gftd.ai
-- **API**: https://hc0mp7ng.gftd.ai/xrpc
+- **URL**: https://hc.etzhayyim.com
+- **API**: https://hc0mp7ng.etzhayyim.com/xrpc
 - **Nanoid**: `hc0mp7ng`
 
 ## Architecture
 
 ```
 Browser (SuperApp Mobile-First)
-  ├─ HTML/JS → hc.gftd.ai (static delivery)
-  └─ API → hc0mp7ng.gftd.ai/xrpc → Envoy Gateway
+  ├─ HTML/JS → hc.etzhayyim.com (static delivery)
+  └─ API → hc0mp7ng.etzhayyim.com/xrpc → Envoy Gateway
               ↓
        App: hc-nhc0mp7ng (TS Native)
               ├─ HCCommandService — compatibility ingress for shifts/tasks/bookings/compliance
@@ -107,7 +107,7 @@ Platform fee: 2.5% (250 bps)
 
 ### yoro Credit Rewards (CRITICAL)
 
-**hc.gftd.ai のタスク完了は Murakumo クレジットとしても付与される。** 人間は HC タスクをこなすことで yoro.gftd.ai で AI Agent に質問・投稿できる。
+**hc.etzhayyim.com のタスク完了は Murakumo クレジットとしても付与される。** 人間は HC タスクをこなすことで yoro.etzhayyim.com で AI Agent に質問・投稿できる。
 
 HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "reward-compute-credits", ...)` で Murakumo にクレジット付与を要求する。
 
@@ -133,10 +133,10 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 | 契約 | DID | 対象 | 当団体 (etzhayyim) 有利ポイント |
 |---|---|---|---|
-| **Worker Agreement** | `did:web:hc.gftd.ai:legal:worker-agreement` | ギグ/タスクワーカー | 成果物 IP 全帰属 (著作権法27条28条含む), 人格権不行使, 免責最大化, 責任上限=直近12ヶ月報酬, 即時アカウント停止権, 競業避止1年, 秘密保持無期限+違約金100万円/件, 規約変更14日 |
-| **SP Service Agreement** | `did:web:hc.gftd.ai:legal:sp-service-agreement` | OEM 製造者/工場 | 品質保証義務+瑕疵担保2年は SP 側, 不合格品費用 SP 負担, 納期遅延0.5%/日, PL法負担は SP, 監査権(3営業日通知), 競業避止2年, 秘密保持5年, 一方的解除権(30日), IP 改良は当団体 (etzhayyim) 帰属 |
-| **Task Terms** | `did:web:hc.gftd.ai:legal:task-terms` | マイクロタスク個別 | reject 時報酬なし, auto-approve 期限後の黙示承認, 紛争裁定は当団体 (etzhayyim) 最終・拘束力あり・不服申立不可, 禁止行為違反で未払報酬没収 |
-| **Shift Terms** | `did:web:hc.gftd.ai:legal:shift-terms` | シフトワーク個別 | 当社はマッチングのみ(契約当事者でない), シフト中事故の免責, 即時払い3%手数料, 手数料率変更権 |
+| **Worker Agreement** | `did:web:hc.etzhayyim.com:legal:worker-agreement` | ギグ/タスクワーカー | 成果物 IP 全帰属 (著作権法27条28条含む), 人格権不行使, 免責最大化, 責任上限=直近12ヶ月報酬, 即時アカウント停止権, 競業避止1年, 秘密保持無期限+違約金100万円/件, 規約変更14日 |
+| **SP Service Agreement** | `did:web:hc.etzhayyim.com:legal:sp-service-agreement` | OEM 製造者/工場 | 品質保証義務+瑕疵担保2年は SP 側, 不合格品費用 SP 負担, 納期遅延0.5%/日, PL法負担は SP, 監査権(3営業日通知), 競業避止2年, 秘密保持5年, 一方的解除権(30日), IP 改良は当団体 (etzhayyim) 帰属 |
+| **Task Terms** | `did:web:hc.etzhayyim.com:legal:task-terms` | マイクロタスク個別 | reject 時報酬なし, auto-approve 期限後の黙示承認, 紛争裁定は当団体 (etzhayyim) 最終・拘束力あり・不服申立不可, 禁止行為違反で未払報酬没収 |
+| **Shift Terms** | `did:web:hc.etzhayyim.com:legal:shift-terms` | シフトワーク個別 | 当社はマッチングのみ(契約当事者でない), シフト中事故の免責, 即時払い3%手数料, 手数料率変更権 |
 
 ### 国別ローカライズ (13 locale)
 
@@ -177,8 +177,8 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
    → KYC/KYB verification task 自動生成 (kyc49bb7)
 
 2. KYC/KYB 検証 → HC worker が書類確認タスクを実行
-   → legal-entity.gftd.ai で法人存在確認
-   → yabai.gftd.ai で制裁スクリーニング
+   → legal-entity.etzhayyim.com で法人存在確認
+   → yabai.etzhayyim.com で制裁スクリーニング
    → 結果: approved / rejected / needs_more_info
 
 3. 工場監査 → HC `factory-audit` タスク生成
@@ -217,12 +217,12 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 | 連携先 | 用途 | Direction |
 |---|---|---|
-| `tsukuru.gftd.ai` | manufacturer/factory DID 登録 | HC → tsukuru (Invoke) |
-| `legal-entity.gftd.ai` | 法人存在確認 | HC → legal-entity (Invoke) |
-| `yabai.gftd.ai` | 制裁スクリーニング | HC → yabai (Invoke) |
-| `trust.gftd.ai` | DID trust score | HC → trust (Invoke) |
-| `okaimono.gftd.ai` | 登録済み SP を OEM 製造元として利用 | okaimono → tsukuru (query) |
-| `credits.gftd.ai` | SP 関連 HC タスク完了のクレジット付与 | HC → credits (Invoke) |
+| `tsukuru.etzhayyim.com` | manufacturer/factory DID 登録 | HC → tsukuru (Invoke) |
+| `legal-entity.etzhayyim.com` | 法人存在確認 | HC → legal-entity (Invoke) |
+| `yabai.etzhayyim.com` | 制裁スクリーニング | HC → yabai (Invoke) |
+| `trust.etzhayyim.com` | DID trust score | HC → trust (Invoke) |
+| `okaimono.etzhayyim.com` | 登録済み SP を OEM 製造元として利用 | okaimono → tsukuru (query) |
+| `credits.etzhayyim.com` | SP 関連 HC タスク完了のクレジット付与 | HC → credits (Invoke) |
 
 ### Governance
 
@@ -246,5 +246,5 @@ cd wasm/ai-gftd-wasm-hc-hc0mp7ng/svelte
 pnpm install && pnpm build
 cd ..
 gftd build
-gftd deploy --smoke-url https://hc0mp7ng.gftd.ai/health
+gftd deploy --smoke-url https://hc0mp7ng.etzhayyim.com/health
 ```

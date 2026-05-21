@@ -4,13 +4,13 @@
 >
 > | URL | Bundle | Engine path |
 > |---|---|---|
-> | `isekai.gftd.ai/` | kami_web 1.85 MB (legacy) | `kami-web::run_with_scene` — full voxel+NPC+Pokoa gameplay |
-> | `isekai.gftd.ai/v2.htm` | kami_app_isekai 261 KB | `kami-app-isekai::run_isekai_v2` — builder composition + streaming terrain + multi-species vegetation + water + **streaming voxels (mine/place with particle FX) + gravity/jump + 3-axis AABB wall collision + greedy-meshed blocks**. NPC / Pokoa capture pending migration |
-> | `isekai.gftd.ai/quarry-walk-v2.htm` | kami_app_quarry_walk 199 KB | 2nd reference game validating shared `kami-pipelines` reuse |
-> | `isekai.gftd.ai/v3-demos.htm#scene=0..10` | same kami_app_isekai | **v3 DEC physics demo harness + Nintendo-style visual layer** (2026-04-19) — 11 scenes isolate one phenomenon each: 0 heat / 1 moisture / 2 wind / 3 projection / 4 walls+vorticity / 5 Maxwell EM / 6 fire propagation / 7 water extinguish / 8 gravity rain / 9 wind drag / 10 gravity·fire·water·wind coupled. Runtime HUD publishes pos/yaw/pitch/fps to `window.__kami_hud_isekai`. Perf stack: active-region clip + 30 Hz DEC tick + multigrid projection + LOD on Field/Edge/FaceVisAdapter. Nintendo layer: AtlasVisAdapter (16 procedural sprite slots: flame/water/sparkle/shock_wave/wind_swirl/…) + spring-anim (bob/pulse/wiggle/pop-in) + FieldIconMap shared heat/moisture→icon rules + Web Audio SFX (coin on ignition, tick on EM ring, pop on splash, whoosh on vortex) + atlas sparkle-LOD (15–40 m collapse, >40 m cull). Entry `run_isekai_v2_scene(canvas_id, scene_id)` |
-> | `isekai.gftd.ai/v3-demos.htm#scene=12` | kami_web 2.26 MB | **VRM character locomotion demo** (2026-04-20, M1+M2+M3) — scene 12 bypasses `run_isekai_v2_scene` and loads `kami-web::run_embed_vrm` (ADR-0031 sanctioned additive extension). Default VRM = pixiv/three-vrm `VRM1_Constraint_Twist_Sample.vrm`. Controls: WASD walk (2 m/s, 1.2 Hz leg cycle, 25° swing) / Shift+WASD run (4.5 m/s, 2.0 Hz, 35° swing + 6° forward lean) / Space jump (7 m/s impulse, 20 m/s² gravity, grounded re-entry check) / mouse drag third-person orbit / wheel zoom. Pose selection: air > run > walk > idle, authored as Euler-degree bone-rotation tuples applied per-frame to `VRM_SKIN_STATE.pose_overrides` using VRM 1.0 humanoid names (leftUpperLeg / rightUpperArm / spine / chest / head etc.). Root TRS composed into each batch `instance_buffer` every frame via `Mat4::from_translation * Mat4::from_rotation_y * base_transform` |
+> | `isekai.etzhayyim.com/` | kami_web 1.85 MB (legacy) | `kami-web::run_with_scene` — full voxel+NPC+Pokoa gameplay |
+> | `isekai.etzhayyim.com/v2.htm` | kami_app_isekai 261 KB | `kami-app-isekai::run_isekai_v2` — builder composition + streaming terrain + multi-species vegetation + water + **streaming voxels (mine/place with particle FX) + gravity/jump + 3-axis AABB wall collision + greedy-meshed blocks**. NPC / Pokoa capture pending migration |
+> | `isekai.etzhayyim.com/quarry-walk-v2.htm` | kami_app_quarry_walk 199 KB | 2nd reference game validating shared `kami-pipelines` reuse |
+> | `isekai.etzhayyim.com/v3-demos.htm#scene=0..10` | same kami_app_isekai | **v3 DEC physics demo harness + Nintendo-style visual layer** (2026-04-19) — 11 scenes isolate one phenomenon each: 0 heat / 1 moisture / 2 wind / 3 projection / 4 walls+vorticity / 5 Maxwell EM / 6 fire propagation / 7 water extinguish / 8 gravity rain / 9 wind drag / 10 gravity·fire·water·wind coupled. Runtime HUD publishes pos/yaw/pitch/fps to `window.__kami_hud_isekai`. Perf stack: active-region clip + 30 Hz DEC tick + multigrid projection + LOD on Field/Edge/FaceVisAdapter. Nintendo layer: AtlasVisAdapter (16 procedural sprite slots: flame/water/sparkle/shock_wave/wind_swirl/…) + spring-anim (bob/pulse/wiggle/pop-in) + FieldIconMap shared heat/moisture→icon rules + Web Audio SFX (coin on ignition, tick on EM ring, pop on splash, whoosh on vortex) + atlas sparkle-LOD (15–40 m collapse, >40 m cull). Entry `run_isekai_v2_scene(canvas_id, scene_id)` |
+> | `isekai.etzhayyim.com/v3-demos.htm#scene=12` | kami_web 2.26 MB | **VRM character locomotion demo** (2026-04-20, M1+M2+M3) — scene 12 bypasses `run_isekai_v2_scene` and loads `kami-web::run_embed_vrm` (ADR-0031 sanctioned additive extension). Default VRM = pixiv/three-vrm `VRM1_Constraint_Twist_Sample.vrm`. Controls: WASD walk (2 m/s, 1.2 Hz leg cycle, 25° swing) / Shift+WASD run (4.5 m/s, 2.0 Hz, 35° swing + 6° forward lean) / Space jump (7 m/s impulse, 20 m/s² gravity, grounded re-entry check) / mouse drag third-person orbit / wheel zoom. Pose selection: air > run > walk > idle, authored as Euler-degree bone-rotation tuples applied per-frame to `VRM_SKIN_STATE.pose_overrides` using VRM 1.0 humanoid names (leftUpperLeg / rightUpperArm / spine / chest / head etc.). Root TRS composed into each batch `instance_buffer` every frame via `Mat4::from_translation * Mat4::from_rotation_y * base_transform` |
 
-# ai-gftd-project-isekai — isekai.gftd.ai
+# ai-gftd-project-isekai — isekai.etzhayyim.com
 
 **ISEKAI** — Minecraft voxel sandbox + Pokoa creature collection + Brainrot meme chaos。KAMI Engine WebGPU で異世界転生オープンワールド。Guest Mode でログイン不要プレイ。
 
@@ -19,7 +19,7 @@
 | 項目 | 値 |
 |---|---|
 | Engine | **KAMI Engine** (`40-engine/kami-engine/`) — wgpu + hecs + Rapier 3D + KNP |
-| Domain | `isekai.gftd.ai` (vanity), `is3k41w0.gftd.ai` (nanoid) |
+| Domain | `isekai.etzhayyim.com` (vanity), `is3k41w0.etzhayyim.com` (nanoid) |
 | Runtime | Single Worker (TS Native + host-sdk) |
 | UI | `game` mode — yoro profile hero 9:16 iframe |
 | WIT | `gftd:isekai@1.0.0` (`wit/isekai/package.wit`) — 5 interfaces |
@@ -178,12 +178,12 @@ impl IsekaiGame {
 ## Build & Deploy
 
 ```bash
-# Legacy client (1.85 MB monolithic kami-web, isekai.gftd.ai/)
+# Legacy client (1.85 MB monolithic kami-web, isekai.etzhayyim.com/)
 cd 40-engine/kami-engine
 cargo build -p kami-game
 wasm-pack build kami-web --target web
 
-# v2 client (221 KB per-game crate, isekai.gftd.ai/v2.htm — PREFERRED for new work)
+# v2 client (221 KB per-game crate, isekai.etzhayyim.com/v2.htm — PREFERRED for new work)
 cd 40-engine/kami-engine
 wasm-pack build kami-app-isekai --target web --release
 # Copy pkg/* into

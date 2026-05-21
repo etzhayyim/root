@@ -1,7 +1,7 @@
 /**
  * KAMI Engine Bridge — optional WebGPU integration for 3D chart rendering.
  *
- * Unlike pptx.gftd.ai where KAMI renders slides, xlsx uses KAMI only for
+ * Unlike pptx.etzhayyim.com where KAMI renders slides, xlsx uses KAMI only for
  * 3D chart visualisation (bar, pie, surface, scatter). Spreadsheet grid
  * rendering uses Canvas 2D (grid-renderer.ts) as primary path.
  *

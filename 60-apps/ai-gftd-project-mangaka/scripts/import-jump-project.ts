@@ -1,12 +1,12 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net
 /**
  * Create a Ghost Hacker project record that links all episode documents.
- * Saves to R2 via mangaka.gftd.ai XRPC + direct project save.
- * AT URI: mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.project/gh-260123-jump
+ * Saves to R2 via mangaka.etzhayyim.com XRPC + direct project save.
+ * AT URI: mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.project/gh-260123-jump
  */
 
 const JUMP_DIR = "/Users/junkawasaki/github/ghosthacker/260123-jump/resources";
-const MANGAKA_BASE = "https://mangaka.gftd.ai/xrpc/";
+const MANGAKA_BASE = "https://mangaka.etzhayyim.com/xrpc/";
 
 async function xrpc(method: string, body: Record<string, unknown>) {
   const resp = await fetch(MANGAKA_BASE + method, {
@@ -85,7 +85,7 @@ const createR = await xrpc("ai.gftd.mangaka.createProject", {
 });
 console.log(`Project index: ${JSON.stringify(createR)}`);
 
-const url = `https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.project/${PROJECT_ID}`;
+const url = `https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.project/${PROJECT_ID}`;
 console.log(`\n=== Done ===`);
-console.log(`AT URI: at://mng4k4x1.gftd.ai/ai.gftd.mangaka.project/${PROJECT_ID}`);
+console.log(`AT URI: at://mng4k4x1.etzhayyim.com/ai.gftd.mangaka.project/${PROJECT_ID}`);
 console.log(`URL:    ${url}`);

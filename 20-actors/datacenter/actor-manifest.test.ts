@@ -23,8 +23,8 @@ const VALID_PRIMITIVES = new Set([
 
 describe("Datacenter Actor Manifest", () => {
   it("has valid @context and DID", () => {
-    expect(manifest["@context"]).toBe("https://gftd.ai/ns/actor/v1");
-    expect(manifest["@id"]).toBe("did:web:infra.gftd.ai:datacenter");
+    expect(manifest["@context"]).toBe("https://etzhayyim.com/ns/actor/v1");
+    expect(manifest["@id"]).toBe("did:web:infra.etzhayyim.com:datacenter");
   });
 
   it("is a T1 service actor", () => {
@@ -32,7 +32,7 @@ describe("Datacenter Actor Manifest", () => {
     expect(manifest.nanoid).toBe("d7c3n7r0");
     expect(manifest.runtime).toBe("k8s-langserver");
     expect(manifest.performerType).toBe("service");
-    expect(manifest.parentDid).toBe("did:web:infra.gftd.ai");
+    expect(manifest.parentDid).toBe("did:web:infra.etzhayyim.com");
   });
 
   it("uses only valid capabilities", () => {

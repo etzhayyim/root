@@ -1,6 +1,6 @@
 # Kakaku Smoke Runbook
 
-`kakaku.gftd.ai` の最小 smoke。merchant / product / offer / compare / history の順で確認する。
+`kakaku.etzhayyim.com` の最小 smoke。merchant / product / offer / compare / history の順で確認する。
 
 ## Quick Run
 
@@ -39,7 +39,7 @@ gftd xrpc ai.gftd.apps.kakaku.registerProduct \
 
 期待:
 - `productId=jan_4902370553023`
-- `productDid=did:web:kakaku.gftd.ai:product:jan_4902370553023`
+- `productDid=did:web:kakaku.etzhayyim.com:product:jan_4902370553023`
 
 ### 3. Offer upsert
 
@@ -154,4 +154,4 @@ gftd xrpc ai.gftd.apps.kakaku.getPriceHistory \
 - `productId` は path resolve に合わせて `jan_4902370553023` のような canonical key を使う。
 - landed price は `price + shippingFee`。
 - 同一 offer 再投入時は差分が無ければ `historyWritten=false` になる。
-- UI editor は [60-apps/ai-gftd-project-apps/appview/apps-cdn-a9p5l1st/svelte/src/App.svelte](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-apps/appview/apps-cdn-a9p5l1st/svelte/src/App.svelte:1)。`pnpm --dir 60-apps/ai-gftd-project-apps/appview/apps-cdn-a9p5l1st/svelte dev` で merchant selector editor を起動できる。
+- UI editor は [60-apps/ai-gftd-project-apps/appview/apps-cdn-a9p5l1st/svelte/src/App.svelte](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-apps/appview/apps-cdn-a9p5l1st/svelte/src/App.svelte:1)。`pnpm --dir 60-apps/ai-gftd-project-apps/appview/apps-cdn-a9p5l1st/svelte dev` で merchant selector editor を起動できる。

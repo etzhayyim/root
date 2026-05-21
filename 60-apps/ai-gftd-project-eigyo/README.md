@@ -1,10 +1,10 @@
 # ai-gftd-project-eigyo
 
-`eigyo.gftd.ai` 向けの営業活動 App プロジェクトです。
+`eigyo.etzhayyim.com` 向けの営業活動 App プロジェクトです。
 
 ## Targets
 
-- Sales cockpit: `https://eigyo.gftd.ai/`
+- Sales cockpit: `https://eigyo.etzhayyim.com/`
 - Magatama component: `wasm/ai-gftd-wasm-eigyo-e1gy0ai8`
 
 ## Domain Contracts (WIT)

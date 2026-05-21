@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net --allow-env
 /**
- * Ingest VRM files into mangaka.gftd.ai.
+ * Ingest VRM files into mangaka.etzhayyim.com.
  *
  * P13 of ADR-2605141200 — VRM character ingestion. Walks a directory of
  * character folders (`<NAME>/avatar.vrm` per the ghost-hacker layout),
@@ -29,7 +29,7 @@
  * nothing changed.
  */
 
-const POD_BASE = (Deno.env.get("POD_BASE") ?? "https://mangaka.gftd.ai").replace(/\/$/, "");
+const POD_BASE = (Deno.env.get("POD_BASE") ?? "https://mangaka.etzhayyim.com").replace(/\/$/, "");
 const API_KEY = Deno.env.get("MANGAKA_API_KEY") ?? "";
 const ENDPOINT = `${POD_BASE}/xrpc/ai.gftd.mangaka.tools.attachCharacterVrm`;
 

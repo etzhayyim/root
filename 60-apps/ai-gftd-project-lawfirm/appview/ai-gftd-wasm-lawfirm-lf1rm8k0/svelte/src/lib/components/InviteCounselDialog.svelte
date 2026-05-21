@@ -108,7 +108,7 @@
           <div>
             <label class="text-xs font-medium" for="invite-counsel-handle">Handle (display)</label>
             <input id="invite-counsel-handle" class="w-full mt-1 rounded border border-neutral-300 dark:border-neutral-700 bg-transparent px-2 py-1 text-sm"
-              placeholder="jdoe-otherfirm.gftd.ai" bind:value={granteeHandle} />
+              placeholder="jdoe-otherfirm.etzhayyim.com" bind:value={granteeHandle} />
           </div>
           <div>
             <label class="text-xs font-medium" for="invite-counsel-role">Role</label>

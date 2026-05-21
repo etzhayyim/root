@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-a670c8032a43",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a670c8032a43",
   "entityId": "ent-a670c8032a43",
   "canonicalName": "sam bankman-fried",
   "aliases": [

@@ -281,7 +281,7 @@ ON edge_research_claim_materialized_as(dst_vid);
 
 ## Agent Loop Actor
 
-Actor id: `did:web:media-gamers-research.gftd.ai`
+Actor id: `did:web:media-gamers-research.etzhayyim.com`
 
 Runtime:
 
@@ -344,7 +344,7 @@ Supersteps:
 The 2026-05-09 run saved:
 
 - item vertex: `did:gftd:gameitem:pokemon-pokopia:chigo-berry`
-- document: `at://did:web:llm.gftd.ai/ai.gftd.apps.llm.domainKnowledge/pokemon-pokopia-chigo-berry`
+- document: `at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/pokemon-pokopia-chigo-berry`
 - chunks:
   - acquisition/location
   - farming/restoration
@@ -371,7 +371,7 @@ Three migrations applied to RisingWave:
 
 1. **`202605150100_pokopia_ditto_doll_ja_knowledge`** — Japanese-language
    domain-knowledge document + chunk + alias/token rows for メタモン人形 (Ditto
-   doll). Enables chat.gftd.ai to answer Japanese acquisition questions for the
+   doll). Enables chat.etzhayyim.com to answer Japanese acquisition questions for the
    item.
 
 2. **`202605150200_vertex_research_provenance`** — Full DDL for the provenance

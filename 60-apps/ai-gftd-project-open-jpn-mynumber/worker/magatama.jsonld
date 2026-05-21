@@ -1,8 +1,8 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-jpn-mynumber.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-jpn-mynumber.etzhayyim.com",
   "name": "open-jpn-mynumber",
-  "handle": "open-jpn-mynumber.gftd.ai",
+  "handle": "open-jpn-mynumber.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "k8s-langserver",
   "project": "open-jpn-mynumber",

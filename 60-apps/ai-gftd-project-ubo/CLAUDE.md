@@ -1,17 +1,17 @@
 # ai-gftd-project-ubo — Ultimate Beneficial Owner Analysis
 
-`ubo.gftd.ai` — 土地・建物・法人・口座の所有構造を SQL graph で統合し、実質的支配者 (UBO) を特定・公開する App。
+`ubo.etzhayyim.com` — 土地・建物・法人・口座の所有構造を SQL graph で統合し、実質的支配者 (UBO) を特定・公開する App。
 
 ## Architecture: Design E + Intel Reactive Pipeline
 
 ```
-intel.gftd.ai → Follow → ai.gftd.apps.intel.report commit
+intel.etzhayyim.com → Follow → ai.gftd.apps.intel.report commit
   → handleComAtprotoSyncSubscribeReposCommit
   → Murakumo LLM (ownership extraction)
   → ComAtprotoRepoCreateRecord("uboEntity"/"ubo_ownership") [Tier 2: domain]
   → AppBskyFeedPost(entityDID, analysis) [Tier 1: social]
 
-legal-entity.gftd.ai → Follow → ai.gftd.apps.legal_entity.entity commit
+legal-entity.etzhayyim.com → Follow → ai.gftd.apps.legal_entity.entity commit
   → auto-register as UBOEntity [Tier 2: domain]
 ```
 
@@ -35,12 +35,12 @@ legal-entity.gftd.ai → Follow → ai.gftd.apps.legal_entity.entity commit
 
 | DID | entity_type |
 |---|---|
-| `did:web:ubo.gftd.ai:corporation` | 法人 |
-| `did:web:ubo.gftd.ai:land` | 土地 |
-| `did:web:ubo.gftd.ai:building` | 建物 |
-| `did:web:ubo.gftd.ai:account` | 口座 |
-| `did:web:ubo.gftd.ai:trust` | 信託 |
-| `did:web:ubo.gftd.ai:fund` | ファンド |
+| `did:web:ubo.etzhayyim.com:corporation` | 法人 |
+| `did:web:ubo.etzhayyim.com:land` | 土地 |
+| `did:web:ubo.etzhayyim.com:building` | 建物 |
+| `did:web:ubo.etzhayyim.com:account` | 口座 |
+| `did:web:ubo.etzhayyim.com:trust` | 信託 |
+| `did:web:ubo.etzhayyim.com:fund` | ファンド |
 
 ### UBO 判定基準
 
@@ -63,9 +63,9 @@ legal-entity.gftd.ai → Follow → ai.gftd.apps.legal_entity.entity commit
 
 | app | 連携内容 |
 |---|---|
-| `intel.gftd.ai` (i7n73l0x) | Follow → intel.report/indicator commit を reactive 受信 → Murakumo で UBO 分析 |
-| `legal-entity.gftd.ai` | Follow → entity commit を UBOEntity に自動同期 |
-| `malak.gftd.ai` | 反社チェック・制裁リスト照合 (cross-actor invoke) |
+| `intel.etzhayyim.com` (i7n73l0x) | Follow → intel.report/indicator commit を reactive 受信 → Murakumo で UBO 分析 |
+| `legal-entity.etzhayyim.com` | Follow → entity commit を UBOEntity に自動同期 |
+| `malak.etzhayyim.com` | 反社チェック・制裁リスト照合 (cross-actor invoke) |
 | lawyer/lawfirm agent | `RequestLegalReview` → cross-actor discovery → 法務レビュー |
 
 ## Contract

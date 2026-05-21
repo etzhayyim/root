@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:air-cargo.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:air-cargo.etzhayyim.com",
   "name": "air-cargo",
   "nanoid": "a1rcarg0",
   "project": "air-cargo",

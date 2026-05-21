@@ -2,21 +2,21 @@
 
 ## Overview
 
-`sre.gftd.ai` — SRE monitoring App。全 App を定期評価し、問題を各 App の Matrix AS issue room に起票する。
+`sre.etzhayyim.com` — SRE monitoring App。全 App を定期評価し、問題を各 App の Matrix AS issue room に起票する。
 
 ## Architecture
 
 ```
 Performer Reminder (5 min)
   └─ health_check_all → HTTP GET /health per registered App
-       └─ fail → sre_issues upsert + POST !sre-issues-{nanoid}:matrix.gftd.ai
+       └─ fail → sre_issues upsert + POST !sre-issues-{nanoid}:matrix.etzhayyim.com
 
 Playwright Runner CronJob (30 min)  [Native Go Docker]
   └─ list_apps → run generic smoke tests per App
        └─ report_playwright_result → sre_issues + Matrix post
 
 Daily Evolution (JST 02:00)
-  └─ 5-agent team review: BM/PO/MK/ENG/QA in !sre-team-srej0b1x:matrix.gftd.ai
+  └─ 5-agent team review: BM/PO/MK/ENG/QA in !sre-team-srej0b1x:matrix.etzhayyim.com
 ```
 
 ## Components
@@ -28,7 +28,7 @@ Daily Evolution (JST 02:00)
 
 ## SRE App (nanoid: `srej0b1x`)
 
-**Hostname**: `sre.gftd.ai`
+**Hostname**: `sre.etzhayyim.com`
 **Methods**:
 
 | Method | Trigger | Description |
@@ -46,8 +46,8 @@ Daily Evolution (JST 02:00)
 ## Matrix Issue Room Convention
 
 App 登録時に以下の room を作成する:
-- Room alias: `!sre-issues-{app_nanoid}:matrix.gftd.ai`
-- Members: `@sre:matrix.gftd.ai`, `@eng-{app_nanoid}:matrix.gftd.ai`, `@qa-{app_nanoid}:matrix.gftd.ai`
+- Room alias: `!sre-issues-{app_nanoid}:matrix.etzhayyim.com`
+- Members: `@sre:matrix.etzhayyim.com`, `@eng-{app_nanoid}:matrix.etzhayyim.com`, `@qa-{app_nanoid}:matrix.etzhayyim.com`
 - SRE bot が `m.room.message` で issue event を投稿する
 
 ## Arrow Tables
@@ -60,7 +60,7 @@ App 登録時に以下の room を作成する:
 
 ## Playwright Runner
 
-- **Image**: `ghcr.io/gftdcojp/sre-playwright-runner:TAG`
+- **Image**: `ghcr.io/etzhayyim/sre-playwright-runner:TAG`
 - **CronJob**: `infra/k8s/sre-cronjobs.yaml` — every 30 min
 - Generic smoke checks: page load, h1 visible, health endpoint 200, meta description present
 
@@ -70,19 +70,19 @@ App 登録時に以下の room を作成する:
 # App
 cd 60-apps/ai-gftd-project-sre/wasm/ai-gftd-wasm-sre-job-srej0b1x
 gftd build
-gftd deploy --smoke-url https://srej0b1x.gftd.ai/health
+gftd deploy --smoke-url https://srej0b1x.etzhayyim.com/health
 
 # Playwright Runner
 cd 60-apps/ai-gftd-project-sre/runner
-docker build -t ghcr.io/gftdcojp/sre-playwright-runner:<tag> .
-docker push ghcr.io/gftdcojp/sre-playwright-runner:<tag>
+docker build -t ghcr.io/etzhayyim/sre-playwright-runner:<tag> .
+docker push ghcr.io/etzhayyim/sre-playwright-runner:<tag>
 kubectl apply -f ../../infra/k8s/sre-cronjobs.yaml
 ```
 
 ## Registering a App for Monitoring
 
 ```bash
-curl -X POST https://sre.gftd.ai/xrpc/gftd.sre.v1.SREService/register_app \
+curl -X POST https://sre.etzhayyim.com/xrpc/gftd.sre.v1.SREService/register_app \
   -H "Content-Type: application/json" \
-  -d '{"id":"7m8oocsn","name":"GFTD Gamers","hostname":"gamers.gftd.ai","playwright_enabled":true}'
+  -d '{"id":"7m8oocsn","name":"GFTD Gamers","hostname":"gamers.etzhayyim.com","playwright_enabled":true}'
 ```

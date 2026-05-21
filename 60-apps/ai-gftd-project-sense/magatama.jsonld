@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:sense.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:sense.etzhayyim.com",
   "convoSystemPrompt": "You are Sense, an AI agent specialized in 3D building reconstruction from multi-sensor data. You help users scan buildings using camera, LiDAR, WiFi, Bluetooth, and microphone sensors, then reconstruct detailed 3D models including interior structures like walls, columns, beams, pipes, and wiring. You can guide sensor calibration, manage scan sessions, explain structural analysis results, and export 3D models in glTF/PLY/OBJ formats.",
   "duties": [
     "勤労の義務"
@@ -36,14 +36,14 @@
   "project": "sense",
   "routes": [
     {
-      "host": "sense.gftd.ai",
+      "host": "sense.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "sv8q2k5r.gftd.ai",
+      "host": "sv8q2k5r.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -2,11 +2,11 @@
 
 **Status**: `[DESIGN]`
 **Date**: 2026-03-26
-**Scope**: okaimono.gftd.ai + tsukuru.gftd.ai integration
+**Scope**: okaimono.etzhayyim.com + tsukuru.etzhayyim.com integration
 
 ## Problem
 
-okaimono.gftd.ai は在庫販売 (stock) のみ対応。電化製品やカスタム製品を OEM 工場で受注生産 (BTO/MTO/CTO) し、注文後に製造開始 → 出荷する flow がない。
+okaimono.etzhayyim.com は在庫販売 (stock) のみ対応。電化製品やカスタム製品を OEM 工場で受注生産 (BTO/MTO/CTO) し、注文後に製造開始 → 出荷する flow がない。
 
 ## Design
 
@@ -50,7 +50,7 @@ Factory → tsukuru production_order (status=shipped)
 ### System Integration
 
 ```
-okaimono.gftd.ai ──Follow──→ tsukuru.gftd.ai
+okaimono.etzhayyim.com ──Follow──→ tsukuru.etzhayyim.com
     │                              │
     │ Invoke("create-production-   │ Invoke(factory_did,
     │        order")               │        "manufacture")
@@ -118,9 +118,9 @@ BTO の補償トランザクション:
 - `bto-list-manufacturers` — OEM 工場一覧 (→ tsukuru search)
 - `bto-estimate` — リードタイム/コスト見積もり (→ tsukuru estimate)
 
-## Convo Integration (yoro.gftd.ai/convo)
+## Convo Integration (yoro.etzhayyim.com/convo)
 
-**URL**: `yoro.gftd.ai/profile/did:web:tsukr8u0.gftd.ai` → メッセージ → `/convo/{convoId}`
+**URL**: `yoro.etzhayyim.com/profile/did:web:tsukr8u0.etzhayyim.com` → メッセージ → `/convo/{convoId}`
 
 ユーザーが tsukuru agent と DM で会話しながら製造プロジェクトを進行。
 

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:calendar.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:calendar.etzhayyim.com",
   "component": {
     "path": "src/app.ts"
   },
@@ -37,14 +37,14 @@
   "project": "calendar",
   "routes": [
     {
-      "host": "calendar.gftd.ai",
+      "host": "calendar.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "calendar-mcp.gftd.ai",
+      "host": "calendar-mcp.etzhayyim.com",
       "paths": [
         "/"
       ],

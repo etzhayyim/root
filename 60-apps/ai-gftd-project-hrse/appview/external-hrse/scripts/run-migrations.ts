@@ -1,4 +1,4 @@
-// @gftdcojp/ai-gftd-hrse#RunMigrations
+// @etzhayyim/ai-gftd-hrse#RunMigrations
 // Vercel ビルド時にSQLマイグレーションを実行するスクリプト
 // sqlx互換のマイグレーション管理
 

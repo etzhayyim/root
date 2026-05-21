@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
   "@id": "did:plc:y3nnbwowvrtamshornglr7fa",
   "architecture": "design-e-reactive-pipeline",
   "build": {
@@ -9,18 +9,18 @@
     "env": {
       "GBIF_BASE_URL": "https://api.gbif.org/v1",
       "WIKIDATA_BASE_URL": "https://www.wikidata.org/wiki",
-      "MURAKUMO_GATEWAY": "https://murakumo.gftd.ai"
+      "MURAKUMO_GATEWAY": "https://murakumo.etzhayyim.com"
     },
     "path": "/src/app.ts"
   },
   "convoSystemPrompt": "You are Seibutsu, an AI agent that registers and serves biological taxa as DID-addressed actors. You traverse the Linnaean hierarchy (domain → species), resolve taxa to procedural-generation traits compatible with the kami-vegetation engine, ingest field observations of individual organisms, and cross-reference GBIF / NCBI / Wikidata. You can identify species from images via Murakumo. Each taxon is a sovereign actor; observations are written as that observer's signed records.",
   "duties": ["生物多様性の記録", "勤労の義務"],
   "entities": [
-    { "category": "kingdom", "did": "did:web:seibutsu.gftd.ai:taxon:plantae", "displayName": "Plantae", "slug": "plantae" },
-    { "category": "division", "did": "did:web:seibutsu.gftd.ai:taxon:angiospermae", "displayName": "Angiospermae", "slug": "angiospermae" },
-    { "category": "division", "did": "did:web:seibutsu.gftd.ai:taxon:gymnospermae", "displayName": "Gymnospermae", "slug": "gymnospermae" },
-    { "category": "division", "did": "did:web:seibutsu.gftd.ai:taxon:pteridophyta", "displayName": "Pteridophyta", "slug": "pteridophyta" },
-    { "category": "division", "did": "did:web:seibutsu.gftd.ai:taxon:bryophyta", "displayName": "Bryophyta", "slug": "bryophyta" }
+    { "category": "kingdom", "did": "did:web:seibutsu.etzhayyim.com:taxon:plantae", "displayName": "Plantae", "slug": "plantae" },
+    { "category": "division", "did": "did:web:seibutsu.etzhayyim.com:taxon:angiospermae", "displayName": "Angiospermae", "slug": "angiospermae" },
+    { "category": "division", "did": "did:web:seibutsu.etzhayyim.com:taxon:gymnospermae", "displayName": "Gymnospermae", "slug": "gymnospermae" },
+    { "category": "division", "did": "did:web:seibutsu.etzhayyim.com:taxon:pteridophyta", "displayName": "Pteridophyta", "slug": "pteridophyta" },
+    { "category": "division", "did": "did:web:seibutsu.etzhayyim.com:taxon:bryophyta", "displayName": "Bryophyta", "slug": "bryophyta" }
   ],
   "governance": {
     "classification": "public",
@@ -54,7 +54,7 @@
   },
   "project": "seibutsu",
   "routes": [
-    { "host": "seibutsu.gftd.ai", "paths": ["/"], "tls": true }
+    { "host": "seibutsu.etzhayyim.com", "paths": ["/"], "tls": true }
   ],
   "runtimeType": "worker",
   "space": {

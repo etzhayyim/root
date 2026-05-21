@@ -30,7 +30,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '    1. generic.db.select     — top gap from view_maps_coverage_gap_ranked\n'
                  '    2. generic.http.fetch    — POST to '
-                 'dispatcher.gftd.ai/xrpc/ai.gftd.apps.maps.advanceCoverage\n'
+                 'dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.maps.advanceCoverage\n'
                  '                                (the XRPC handler runs createCollectionJob + '
                  'bumps last_fetched_at)\n'
                  '    3. generic.audit.emit    — OCEL 2.0 event for coverage.advance\n'
@@ -44,7 +44,7 @@ UP = [{'sql': '\n'
                  '    path = 00-contracts/bpmn/ai/gftd/maps/advanceCoverage.bpmn\n'
                  '    NSID = ai.gftd.apps.maps.advanceCoverage\n'
                  '    vertex_id = '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-advance-coverage-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-advance-coverage-v1\n'
                  '\n'
                  "  Timer-start processes get no lexicon binding row — they fire on Zeebe's\n"
                  '  schedule, not XRPC. The XRPC NSID `ai.gftd.apps.maps.advanceCoverage`\n'
@@ -54,7 +54,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_advance_coverage"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_advance_coverage" name="maps coverage advance" '
@@ -135,7 +135,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.http.fetch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.advanceCoverage&quot;" '
+                 'source="=&quot;https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.advanceCoverage&quot;" '
                  'target="url"/>\n'
                  '          <zeebe:input source="=&quot;POST&quot;"                           '
                  'target="method"/>\n'
@@ -183,7 +183,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  6886,
                  '00-contracts/bpmn/ai/gftd/maps/advanceCoverage.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-advance-coverage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-advance-coverage-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -204,13 +204,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.bulkRefreshFerryRoutes\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-ferry-routes-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-ferry-routes-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_bulk_refresh_ferry_routes"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_bulk_refresh_ferry_routes" name="maps bulk refresh '
@@ -289,7 +289,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  3765,
                  '00-contracts/bpmn/ai/gftd/maps/bulkRefreshFerryRoutes.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-ferry-routes-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-ferry-routes-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -309,13 +309,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.bulkRefreshGeonames\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-geonames-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-geonames-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_bulk_refresh_geonames"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_bulk_refresh_geonames" name="maps bulk refresh '
@@ -393,7 +393,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  3641,
                  '00-contracts/bpmn/ai/gftd/maps/bulkRefreshGeonames.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-geonames-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-geonames-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -414,13 +414,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.bulkRefreshGtfsJp\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-gtfs-jp-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-gtfs-jp-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_bulk_refresh_gtfs_jp"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_bulk_refresh_gtfs_jp" name="maps bulk refresh gtfs jp" '
@@ -499,7 +499,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  3759,
                  '00-contracts/bpmn/ai/gftd/maps/bulkRefreshGtfsJp.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-gtfs-jp-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-gtfs-jp-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -520,13 +520,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.bulkRefreshOpenflights\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-openflights-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-openflights-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_bulk_refresh_openflights"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_bulk_refresh_openflights" name="maps bulk refresh '
@@ -605,7 +605,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  3764,
                  '00-contracts/bpmn/ai/gftd/maps/bulkRefreshOpenflights.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-openflights-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-openflights-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -629,13 +629,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.bulkRefreshOsmPlanet\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-osm-planet-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-osm-planet-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_bulk_refresh_osm_planet"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_bulk_refresh_osm_planet" name="maps bulk refresh osm '
@@ -713,7 +713,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  3890,
                  '00-contracts/bpmn/ai/gftd/maps/bulkRefreshOsmPlanet.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-osm-planet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-osm-planet-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -746,13 +746,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.bulkRefreshWikidata\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikidata-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikidata-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_bulk_refresh_wikidata"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_bulk_refresh_wikidata" name="maps bulk refresh '
@@ -832,7 +832,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  4401,
                  '00-contracts/bpmn/ai/gftd/maps/bulkRefreshWikidata.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikidata-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikidata-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -852,13 +852,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.bulkRefreshWikipedia\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikipedia-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikipedia-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_bulk_refresh_wikipedia"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_bulk_refresh_wikipedia" name="maps bulk refresh '
@@ -936,7 +936,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  3691,
                  '00-contracts/bpmn/ai/gftd/maps/bulkRefreshWikipedia.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikipedia-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikipedia-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -966,13 +966,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.refreshCoverageStats\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-refresh-coverage-stats-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-refresh-coverage-stats-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_refresh_coverage_stats"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_refresh_coverage_stats" name="maps refresh coverage '
@@ -1005,7 +1005,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.http.fetch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.refreshCoverageStats&quot;" '
+                 'source="=&quot;https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.refreshCoverageStats&quot;" '
                  'target="url"/>\n'
                  '          <zeebe:input source="=&quot;POST&quot;"                '
                  'target="method"/>\n'
@@ -1051,7 +1051,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  4208,
                  '00-contracts/bpmn/ai/gftd/maps/refreshCoverageStats.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-refresh-coverage-stats-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-refresh-coverage-stats-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -1090,13 +1090,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.runPendingCoverageJobs\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-run-pending-coverage-jobs-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-run-pending-coverage-jobs-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_maps_run_pending_coverage_jobs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="maps_run_pending_coverage_jobs" name="maps run pending '
@@ -1180,7 +1180,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.http.fetch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.runCoverageJob&quot;" '
+                 'source="=&quot;https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.runCoverageJob&quot;" '
                  'target="url"/>\n'
                  '          <zeebe:input source="=&quot;POST&quot;"             target="method"/>\n'
                  '          <zeebe:input source="=&quot;application/json&quot;" '
@@ -1229,7 +1229,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  7024,
                  '00-contracts/bpmn/ai/gftd/maps/runPendingCoverageJobs.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-run-pending-coverage-jobs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-run-pending-coverage-jobs-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -1264,14 +1264,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  ADR-2604271800. NSID: ai.gftd.apps.maps.sentinelIngest.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_sentinel_ingest"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_sentinel_ingest" name="maps sentinel ingest" '
@@ -1365,7 +1365,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  5557,
                  '00-contracts/bpmn/ai/gftd/maps/sentinelIngest.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1']}]
 
 DOWN = [{'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
@@ -1374,7 +1374,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-advance-coverage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-advance-coverage-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1382,7 +1382,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-ferry-routes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-ferry-routes-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1390,7 +1390,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-geonames-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-geonames-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1398,7 +1398,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-gtfs-jp-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-gtfs-jp-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1406,7 +1406,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-openflights-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-openflights-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1414,7 +1414,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-osm-planet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-osm-planet-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1422,7 +1422,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikidata-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikidata-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1430,7 +1430,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikipedia-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-bulk-refresh-wikipedia-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1438,7 +1438,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-refresh-coverage-stats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-refresh-coverage-stats-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1446,7 +1446,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-run-pending-coverage-jobs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-run-pending-coverage-jobs-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "version" = 1,\n'
@@ -1454,7 +1454,7 @@ DOWN = [{'sql': '\n'
          '          "deployed_zeebe_key" = NULL\n'
          '      WHERE "vertex_id" = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1']}]
 
 
 def upgrade() -> None:

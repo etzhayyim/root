@@ -23,7 +23,7 @@ from lg_animeka.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.gftd.ai")
+_DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.etzhayyim.com")
 
 _STAGES = [
     "script", "storyboard", "layout", "keyAnim",
@@ -115,7 +115,7 @@ async def _node_insert(state: _AddCutState) -> dict[str, Any]:
                 cut_num = int(max_row[0] or 0) + 1 if max_row else 1
 
             vertex_id = f"at://{owner_did}/{collection}/{rkey}"
-            cut_did = f"did:web:animeka.gftd.ai:cut:{rkey}"
+            cut_did = f"did:web:animeka.etzhayyim.com:cut:{rkey}"
 
             await cur.execute(
                 """

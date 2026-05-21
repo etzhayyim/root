@@ -13,7 +13,7 @@ branch_labels = None
 depends_on = None
 
 UP = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v2']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v2']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -22,12 +22,12 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
          'AS int), $8, $9, $10\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v3',
-                 'did:web:adsk.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v3',
+                 'did:web:adsk.etzhayyim.com',
                  'adsk_ingest_dataset',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  adsk.gftd.ai — HuggingFace dataset ingest (autonomous, monthly).\n'
+                 '  adsk.etzhayyim.com — HuggingFace dataset ingest (autonomous, monthly).\n'
                  '\n'
                  '  Timer-start: every 30d. Iterates vertex_hf_dataset rows with\n'
                  "  status='active' and last_synced_at older than 28d, calling the\n"
@@ -43,7 +43,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_adsk_ingest_dataset"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/adsk"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/adsk"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="adsk_ingest_dataset" name="adsk HF dataset ingest (monthly)" '
@@ -76,7 +76,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:adsk.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:adsk.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;adsk.dataset.ingestAll&quot;" '
                  'target="action"/>\n'
@@ -97,13 +97,13 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
                  2674,
                  '00-contracts/bpmn/ai/gftd/adsk/ingestAdskDataset.bpmn',
                  '2026-05-06T00:01:00Z',
-                 'did:web:adsk.gftd.ai',
-                 'did:web:adsk.gftd.ai',
+                 'did:web:adsk.etzhayyim.com',
+                 'did:web:adsk.etzhayyim.com',
                  'sys.bpmn.seed.adsk-comment-fix',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v3']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v3']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v3']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v3']}]
 
 
 def upgrade() -> None:

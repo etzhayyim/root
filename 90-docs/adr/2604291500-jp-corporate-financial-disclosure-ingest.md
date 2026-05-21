@@ -156,8 +156,8 @@ failure modes.
 1. 発行日ごとの issue metadata を取得する。
 2. 記事 index から `会社その他の公告` / `決算公告` 候補を抽出する。
 3. PDF または画像 PDF を raw artifact として保存する。
-4. PDF は page 単位で WebP に変換し、各 WebP を `ipfs.gftd.ai` に pin
-   する。OCR は WebP の IPFS URL を `llm.gftd.ai` の Gemma 4 に渡して
+4. PDF は page 単位で WebP に変換し、各 WebP を `ipfs.etzhayyim.com` に pin
+   する。OCR は WebP の IPFS URL を `llm.etzhayyim.com` の Gemma 4 に渡して
    実行し、PDF を直接 VLM に渡さない。
 5. OCR/table extraction で会社名、住所、代表者、貸借対照表要旨、公告日を
    normalized JSON にする。

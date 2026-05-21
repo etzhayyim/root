@@ -38,8 +38,8 @@
     status: string;
   };
 
-  // T4 topology: authz.gftd.ai owns linked methods + session state.
-  // accounts.gftd.ai is served by the same authz Worker — location.origin works for both.
+  // T4 topology: authz.etzhayyim.com owns linked methods + session state.
+  // accounts.etzhayyim.com is served by the same authz Worker — location.origin works for both.
   const API = typeof window !== 'undefined' ? location.origin : '';
 
   let loading = $state(true);
@@ -450,10 +450,10 @@
       <div>
         <p class="mb-2 text-xs uppercase tracking-[0.28em] {isDark ? 'text-[#6b7280]' : 'text-gray-500'}">Accounts</p>
         <h1 class="m-0 text-4xl font-black tracking-tight {isDark ? 'text-white' : 'text-gray-900'}">Authentication Management</h1>
-        <p class="mt-3 text-sm {isDark ? 'text-[#9ca3af]' : 'text-gray-600'}">`auth.gftd.ai` signs you in. `accounts.gftd.ai` manages linked authentication methods.</p>
+        <p class="mt-3 text-sm {isDark ? 'text-[#9ca3af]' : 'text-gray-600'}">`auth.etzhayyim.com` signs you in. `accounts.etzhayyim.com` manages linked authentication methods.</p>
       </div>
       <a
-        href="https://auth.gftd.ai/sign-in?redirectUrl=https%3A%2F%2Faccounts.gftd.ai%2Fmanage"
+        href="https://auth.etzhayyim.com/sign-in?redirectUrl=https%3A%2F%2Faccounts.etzhayyim.com%2Fmanage"
         class="rounded-2xl px-4 py-3 text-sm font-semibold no-underline {isDark ? 'bg-white text-black' : 'bg-gray-900 text-white'}"
       >
         Sign In
@@ -467,7 +467,7 @@
     {:else if error}
       <div class="rounded-[28px] border p-8 {isDark ? 'border-[#3f1d1d] bg-[rgba(32,10,10,0.9)]' : 'border-red-200 bg-red-50'}">
         <p class="m-0 text-base font-semibold {isDark ? 'text-[#fecaca]' : 'text-red-700'}">{error}</p>
-        <p class="mt-2 mb-0 text-sm {isDark ? 'text-[#fca5a5]' : 'text-red-600'}">Sign in via `auth.gftd.ai` and return here.</p>
+        <p class="mt-2 mb-0 text-sm {isDark ? 'text-[#fca5a5]' : 'text-red-600'}">Sign in via `auth.etzhayyim.com` and return here.</p>
       </div>
     {:else if session}
       <div class="grid gap-6 md:grid-cols-[1.15fr,0.85fr]">

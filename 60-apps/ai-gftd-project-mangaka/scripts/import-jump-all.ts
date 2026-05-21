@@ -1,14 +1,14 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net --allow-run --allow-write --allow-env
 /**
- * Import ALL episodes from 260123-jump into mangaka.gftd.ai as Genko documents.
+ * Import ALL episodes from 260123-jump into mangaka.etzhayyim.com as Genko documents.
  * Each episode = 1 document (multi-page). Images uploaded to PDS blob.
- * AT URI: mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.document/{docId}
+ * AT URI: mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/{docId}
  */
 
 const JUMP_DIR = "/Users/junkawasaki/github/ghosthacker/260123-jump/resources";
 const IMG_DIR = "/Users/junkawasaki/github/ghosthacker/260123-jump/resources/images";
-const PDS_BASE = "https://atproto.gftd.ai/xrpc/";
-const MANGAKA_BASE = Deno.env.get("MANGAKA_BASE") || "https://mangaka.gftd.ai/xrpc/";
+const PDS_BASE = "https://atproto.etzhayyim.com/xrpc/";
+const MANGAKA_BASE = Deno.env.get("MANGAKA_BASE") || "https://mangaka.etzhayyim.com/xrpc/";
 
 let created = 0, errors = 0, imagesUploaded = 0;
 
@@ -387,7 +387,7 @@ async function main() {
     const r = await xrpc("ai.gftd.mangaka.saveDocument", { docId, name: doc.name, document: docJson, convoId });
     if (r.status === "saved") {
       created++;
-      const url = `https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.document/${docId}`;
+      const url = `https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/${docId}`;
       results.push({ slug: epSlug, title: doc.name, docId, pages: pageCount, images: imgsThisEp, url });
       console.log(`  → ${url}`);
     } else {

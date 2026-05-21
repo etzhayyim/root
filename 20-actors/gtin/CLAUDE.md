@@ -1,6 +1,6 @@
 # ai-gftd-project-gtin
 
-gtin.gftd.ai — 全世界の商品 identity を GTIN family で正規化する canonical product actor。価格や merchant offer は持たず、商品そのものの DID を持つ。
+gtin.etzhayyim.com — 全世界の商品 identity を GTIN family で正規化する canonical product actor。価格や merchant offer は持たず、商品そのものの DID を持つ。
 
 ## Role
 
@@ -15,7 +15,7 @@ gtin.gftd.ai — 全世界の商品 identity を GTIN family で正規化する 
 Browser / API client
   → /xrpc/ai.gftd.gtin.*
     ↓
-  did:web:gtin.gftd.ai
+  did:web:gtin.etzhayyim.com
     ├─ Catalog: registerProduct / updateProduct / lookupProduct
     ├─ Identifier Registry: validateGtin / resolveAlias / mergeAliases
     ├─ Brand Registry: registerBrand / matchBrand
@@ -37,13 +37,13 @@ Browser / API client
 
 ## DID Patterns
 
-controller は `did:web:gtin.gftd.ai`。
+controller は `did:web:gtin.etzhayyim.com`。
 
 | Entity | DID pattern | Notes |
 |---|---|---|
-| Product | `did:web:gtin.gftd.ai:product:{product_key}` | canonical trade item |
-| Brand | `did:web:gtin.gftd.ai:brand:{brand_key}` | canonical brand |
-| Alias | `did:web:gtin.gftd.ai:alias:{code_type}:{code_value}` | GTIN-family alias edge |
+| Product | `did:web:gtin.etzhayyim.com:product:{product_key}` | canonical trade item |
+| Brand | `did:web:gtin.etzhayyim.com:brand:{brand_key}` | canonical brand |
+| Alias | `did:web:gtin.etzhayyim.com:alias:{code_type}:{code_value}` | GTIN-family alias edge |
 
 ## Path Resolve
 
@@ -64,10 +64,10 @@ Normalization:
 
 ## Boundary With Other Actors
 
-- `gtin.gftd.ai`: 商品 identity
-- `kakaku.gftd.ai`: merchant-specific offer / price history / comparison
-- `serial.gftd.ai`: SGTIN など個品シリアル
-- `omise.gftd.ai`: marketplace catalog / order / seller state
+- `gtin.etzhayyim.com`: 商品 identity
+- `kakaku.etzhayyim.com`: merchant-specific offer / price history / comparison
+- `serial.etzhayyim.com`: SGTIN など個品シリアル
+- `omise.etzhayyim.com`: marketplace catalog / order / seller state
 
 `kakaku` で `productId = jan_4902370553023` のように扱っていたものは、本来 `gtin` 側の canonical DID を upstream に持てる。
 
@@ -89,9 +89,9 @@ scraper.
 
 ### Live Path
 
-`site.gftd.ai -> gtin.gftd.ai -> kakaku.gftd.ai`
+`site.etzhayyim.com -> gtin.etzhayyim.com -> kakaku.etzhayyim.com`
 
-1. `site.gftd.ai` が merchant page を `crawlPage` で取得する
+1. `site.etzhayyim.com` が merchant page を `crawlPage` で取得する
 2. page / markdown / JSON-LD から `gtin`, `jan`, `upc`, `ean` 候補を抽出する
 3. `ai.gftd.gtin.validateGtin` で code 種別判定と check digit 検証を行う
 4. `ai.gftd.gtin.lookupProduct` で canonical product DID を解決する
@@ -100,7 +100,7 @@ scraper.
 
 ### Batch Path
 
-`common crawler ingest -> gtin.gftd.ai -> kakaku.gftd.ai`
+`common crawler ingest -> gtin.etzhayyim.com -> kakaku.etzhayyim.com`
 
 1. Common Crawl / OpenFoodFacts / merchant feed dump から URL または product JSON を見つける
 2. barcode candidate を抽出する
@@ -110,9 +110,9 @@ scraper.
 
 ### Current Implementation
 
-- `ai.gftd.apps.kakaku.ingestOfferFromUrl` は `site.gftd.ai` の `crawlPage` 結果と直接 fetch HTML の両方から barcode candidate を抽出する
+- `ai.gftd.apps.kakaku.ingestOfferFromUrl` は `site.etzhayyim.com` の `crawlPage` 結果と直接 fetch HTML の両方から barcode candidate を抽出する
 - 抽出優先は `JSON-LD -> labeled text (GTIN/JAN/UPC/EAN/barcode) -> unlabeled 8/12/13/14 digit`
-- barcode が取れたら `gtin.gftd.ai` の global product node を lookup し、無ければ register してから `KakakuProduct.global_product_*` に接続する
+- barcode が取れたら `gtin.etzhayyim.com` の global product node を lookup し、無ければ register してから `KakakuProduct.global_product_*` に接続する
 - `70-tools/scripts/ingest-domain-data.ts` の `parseGtinProducts` も同じ digit/check-digit ルールで `canonicalGtin14` を出す
 
 ### Extraction Priority
@@ -127,21 +127,21 @@ barcode extraction は次の順で見る:
 
 ### Responsibility Split
 
-- `site.gftd.ai`: live acquisition
+- `site.etzhayyim.com`: live acquisition
 - common crawler: large-scale discovery and backfill
-- `gtin.gftd.ai`: canonical product identity
-- `kakaku.gftd.ai`: merchant offer and price history
+- `gtin.etzhayyim.com`: canonical product identity
+- `kakaku.etzhayyim.com`: merchant offer and price history
 
 ## Examples
 
 | Input | Resolved DID |
 |---|---|
-| JAN `4902102139496` | `did:web:gtin.gftd.ai:product:jan_4902102139496` |
-| GTIN `00194253396062` | `did:web:gtin.gftd.ai:product:gtin_00194253396062` |
-| UPC `012345678905` | `did:web:gtin.gftd.ai:product:upc_012345678905` |
+| JAN `4902102139496` | `did:web:gtin.etzhayyim.com:product:jan_4902102139496` |
+| GTIN `00194253396062` | `did:web:gtin.etzhayyim.com:product:gtin_00194253396062` |
+| UPC `012345678905` | `did:web:gtin.etzhayyim.com:product:upc_012345678905` |
 
 ## Notes
 
 - global coverage target in repo is `1_000_000_000 GTIN barcodes`
-- seed / coverage 上の canonical actor は `did:web:gtin.gftd.ai`
+- seed / coverage 上の canonical actor は `did:web:gtin.etzhayyim.com`
 - merchant price comparison を直接ここに入れない

@@ -1,5 +1,5 @@
 {
-  "name": "@gftdcojp/yoro-ui",
+  "name": "@etzhayyim/yoro-ui",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -55,8 +55,8 @@
     "@gftd/ameno": "workspace:*",
     "@etzhayyim/signal": "workspace:*",
     "@etzhayyim/xrpc": "workspace:*",
-    "@gftdcojp/auth": "workspace:*",
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/auth": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
     "@huggingface/transformers": "^3.8.1",
     "@inlang/paraglide-js": "^2.15.3",
     "@langchain/core": "^1.1.46",

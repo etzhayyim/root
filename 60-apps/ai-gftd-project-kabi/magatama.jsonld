@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kabi.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kabi.etzhayyim.com",
   "name": "kabi",
   "nanoid": "k4b100m1",
   "project": "kabi",

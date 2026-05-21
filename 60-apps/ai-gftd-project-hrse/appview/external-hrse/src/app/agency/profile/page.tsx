@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#AgencyProfileConnect
+ * @etzhayyim/ai-gftd-hrse#AgencyProfileConnect
  * エージェンシープロファイル作成/編集ページ（Connect-Web版）
  */
 

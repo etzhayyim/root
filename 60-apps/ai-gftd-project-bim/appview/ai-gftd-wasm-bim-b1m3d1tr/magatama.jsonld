@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:bim.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:bim.etzhayyim.com",
   "convoSystemPrompt": "You are ai-gftd-wasm-bim agent. Bim — AI Agent for BIM (Building Information Modeling) viewing, review, annotation, and IFC export. Respond helpfully in the user's language.",
   "duties": [
     "勤労の義務"
@@ -35,7 +35,7 @@
   "project": "bim",
   "routes": [
     {
-      "host": "bim.gftd.ai",
+      "host": "bim.etzhayyim.com",
       "paths": [
         "/"
       ],
@@ -47,7 +47,7 @@
     {
       "binding": "BIM_JOB",
       "service": "bim-job",
-      "purpose": "Heavy IFC parse / tessellation / export — CF Container (lite/standard) at bim-job.gftd.ai. ADR 2604241500."
+      "purpose": "Heavy IFC parse / tessellation / export — CF Container (lite/standard) at bim-job.etzhayyim.com. ADR 2604241500."
     }
   ],
   "space": {

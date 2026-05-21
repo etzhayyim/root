@@ -2,13 +2,13 @@
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/vessel/actor-manifest.jsonld`).
 
-`vessel.gftd.ai` (nanoid: `vessel01`) — Physical vessel asset registry. 105K merchant vessels (IMO + Lloyd's). Path-based DID per IMO 7-digit number.
+`vessel.etzhayyim.com` (nanoid: `vessel01`) — Physical vessel asset registry. 105K merchant vessels (IMO + Lloyd's). Path-based DID per IMO 7-digit number.
 
 ## Role
 
 vessel = **physical asset perspective** (船籍登録、IMO 番号主キー)。oil-shipping.tanker = **commercial wrapper** (用船・operator・dark-fleet flag)。同一 IMO で 2 重 DID 設計:
-- `did:web:vessel.gftd.ai:imo:{IMO}` — physical
-- `did:web:oil-shipping.gftd.ai:tanker:imo:{IMO}` — commercial
+- `did:web:vessel.etzhayyim.com:imo:{IMO}` — physical
+- `did:web:oil-shipping.etzhayyim.com:tanker:imo:{IMO}` — commercial
 
 ## cross-actor
 - `cargo` — manifest 結合 (vesselDid)

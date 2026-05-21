@@ -33,8 +33,8 @@ See `classifications.jsonld` for:
 | Key | Value |
 |---|---|
 | nanoid | **TBD** — register via `gftd actor register demining` |
-| domain | `demining.gftd.ai` |
-| AT bot DID | `did:web:demining.gftd.ai` |
+| domain | `demining.etzhayyim.com` |
+| AT bot DID | `did:web:demining.etzhayyim.com` |
 | Execution tier | **T1 MCP-Compose** (see `20-actors/demining/actor-manifest.jsonld`) |
 | Data store | RisingWave via Hyperdrive (read), PDS pipeline (write) |
 
@@ -60,14 +60,14 @@ Tier demotion (3 → 1) happens only on Land Release decision per IMAS 07.11, re
 
 | DID | Role | IMAS ref |
 |---|---|---|
-| `did:web:demining.gftd.ai` | Controller / coordinator | 07.10 |
-| `did:web:demining.gftd.ai:actor:survey` | NTS + TS data capture | 08.10 / 08.20 |
-| `did:web:demining.gftd.ai:actor:clearance` | Clearance task lifecycle | 09.10 |
-| `did:web:demining.gftd.ai:actor:release` | Land Release decision record | 07.11 |
-| `did:web:demining.gftd.ai:actor:eore` | EORE session + beneficiary | 12.10 |
-| `did:web:demining.gftd.ai:actor:victim-assistance` | Victim referral (Tier 3 PII) | VA guidelines |
-| `did:web:demining.gftd.ai:actor:assets` | Detector / PPE / MDD / flail inventory | UNSPSC 46101500 |
-| `did:web:demining.gftd.ai:actor:imsma-sync` | IMSMA XML / NAA interop | 05.10 |
+| `did:web:demining.etzhayyim.com` | Controller / coordinator | 07.10 |
+| `did:web:demining.etzhayyim.com:actor:survey` | NTS + TS data capture | 08.10 / 08.20 |
+| `did:web:demining.etzhayyim.com:actor:clearance` | Clearance task lifecycle | 09.10 |
+| `did:web:demining.etzhayyim.com:actor:release` | Land Release decision record | 07.11 |
+| `did:web:demining.etzhayyim.com:actor:eore` | EORE session + beneficiary | 12.10 |
+| `did:web:demining.etzhayyim.com:actor:victim-assistance` | Victim referral (Tier 3 PII) | VA guidelines |
+| `did:web:demining.etzhayyim.com:actor:assets` | Detector / PPE / MDD / flail inventory | UNSPSC 46101500 |
+| `did:web:demining.etzhayyim.com:actor:imsma-sync` | IMSMA XML / NAA interop | 05.10 |
 
 ## Planned lexicons (`ai.gftd.apps.demining.*`)
 

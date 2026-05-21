@@ -48,7 +48,7 @@ This ADR codifies (a) the optimal OSM ingest config validated end-to-end,
 | RW system `barrier_interval_ms` | **2000** | Config A; 5000 → 2000 |
 | RW system `checkpoint_frequency` | **15** | Config A; 30 → 15 (cycle 150s → 30s) |
 | RW system `batch_enable_distributed_dml` | **true** | bench: +12% mean N=2 |
-| Image | `ghcr.io/gftdcojp/maps-osm-ingest:v0.3.0` | RunTracker + B2 cache (POST bug, falls back to direct) + cursor every 100 batches |
+| Image | `ghcr.io/etzhayyim/maps-osm-ingest:v0.3.0` | RunTracker + B2 cache (POST bug, falls back to direct) + cursor every 100 batches |
 | Per-pod cpu request / limit | **2 / 4** | per-pod parallelism: 3 writers (node/way/rel) |
 | Per-pod memory request / limit | **4Gi / 8Gi** | streamed decode, no large in-memory state |
 
@@ -267,7 +267,7 @@ to preserve ordering (S2 cell IDs are interleaved x/y bits; bit-pattern
 ordering is geographic-locality-preserving regardless of signedness
 interpretation, but mixing signed and unsigned breaks the order).
 
-Image: `ghcr.io/gftdcojp/maps-osm-ingest:v0.3.1@sha256:8646be4f...`,
+Image: `ghcr.io/etzhayyim/maps-osm-ingest:v0.3.1@sha256:8646be4f...`,
 all 59 jobs swapped 2026-05-08T11:00 JST.
 
 ### D9. License key removal — exit Premium tier, no cluster size cap

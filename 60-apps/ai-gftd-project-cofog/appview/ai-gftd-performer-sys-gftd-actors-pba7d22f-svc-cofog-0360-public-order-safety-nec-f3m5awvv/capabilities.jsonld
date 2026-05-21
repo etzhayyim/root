@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/03/6/0/public-order-safety-nec",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/03/6/0/public-order-safety-nec",
       "type": "dodaf:Capability",
       "name": "Miscellaneous Public Order and Safety Capability",
       "description": "Functional capability for managing unclassified public order services, multi-agency safety coordination, and regulatory oversight. Classification: COFOG Division 03, Group 6, Class 0.",

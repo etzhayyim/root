@@ -1,4 +1,4 @@
-// manimani.gftd.ai — /embed HTML UI (Phase 6, ADR-2605080800).
+// manimani.etzhayyim.com — /embed HTML UI (Phase 6, ADR-2605080800).
 //
 // Surfaces:
 //   /embed?bearer=…        standalone dev mode (insecure, query-string token)
@@ -16,7 +16,7 @@
 //   - The parent (yoro AppShell) iframes /embed and posts
 //     `{type:'gftd:embed:auth', token:'sk_live_...'}` once mounted.
 //   - As a dev/standalone fallback, `?bearer=...` is honored.
-//   - All XRPC calls go to manimani.gftd.ai which forwards to
+//   - All XRPC calls go to manimani.etzhayyim.com which forwards to
 //     bpmn-dispatcher with x-internal-trust HMAC; the embed only sees
 //     the public Bearer surface.
 

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 
 /**
- * @gftdcojp/ai-gftd-hrse#DashboardCard
+ * @etzhayyim/ai-gftd-hrse#DashboardCard
  * ダッシュボード用カードコンポーネント
  * Apple HIGに基づくタッチ最適化デザイン
  */

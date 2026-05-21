@@ -1,6 +1,6 @@
 ---
 id: adr-2605212245-shinshi-migration-disposition
-title: "ADR-2605212245: shinshi app migration disposition (gftdcojp → etzhayyim)"
+title: "ADR-2605212245: shinshi app migration disposition (etzhayyim → etzhayyim)"
 status: proposed
 doc_type: adr
 topic: shinshi-migration
@@ -21,7 +21,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605212245: shinshi app migration disposition (gftdcojp → etzhayyim)
+# ADR-2605212245: shinshi app migration disposition (etzhayyim → etzhayyim)
 
 **Status**: proposed
 **Date**: 2026-05-21
@@ -29,8 +29,8 @@ superseded_by: []
 
 # Context
 
-`ai-gftd-project-shinshi` (137 files) is the gftdcojp NSFW content platform
-(`shinshi.gftd.ai`) implementing wRPC stream-native reactive pipeline with
+`ai-gftd-project-shinshi` (137 files) is the etzhayyim NSFW content platform
+(`shinshi.etzhayyim.com`) implementing wRPC stream-native reactive pipeline with
 path-based DID identity, age-gated (18+), 247 models × 5 scenes = 1,235 images,
 self-labeled `nsfw` / `nudity` / `sexual`.
 
@@ -61,7 +61,7 @@ Charter Rider v2.0 has two competing pulls on this app:
 
 The Charter does not prohibit consensual adult content per se; it prohibits
 **the ad-supported revenue model + addictive engagement design** that is the
-de-facto operating mode of `shinshi.gftd.ai`.
+de-facto operating mode of `shinshi.etzhayyim.com`.
 
 # Decision
 
@@ -92,7 +92,7 @@ That future app would be a NEW design under a NEW ADR, not a port of shinshi.
 - EXCLUDE count increments from 30 → 31.
 - The future Eros-permitted platform (if commissioned) gets a clean-slate
   ADR rather than inheriting shinshi's compromised architecture.
-- gftd-side `shinshi.gftd.ai` deployment continues to operate under gftd
+- gftd-side `shinshi.etzhayyim.com` deployment continues to operate under gftd
   governance (out of etzhayyim's jurisdiction).
 
 # Alternatives Considered
@@ -111,6 +111,6 @@ That future app would be a NEW design under a NEW ADR, not a port of shinshi.
 - ADR-2605192100 §1.13 (Eros 許容 constitutional invariant)
 - ADR-2605192200 (Charter Rider v2.0 §2(c) + §2(h))
 - ADR-2605192400 (Eros allowed / Gore prohibited)
-- Source: `ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-shinshi/260228-ad-strategy-trafficstars-exoclick.md`
-- Source: `ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-shinshi/CLAUDE.md`
+- Source: `etzhayyim-root/60-apps/ai-gftd-project-shinshi/260228-ad-strategy-trafficstars-exoclick.md`
+- Source: `etzhayyim-root/60-apps/ai-gftd-project-shinshi/CLAUDE.md`
 - Sibling P0_EXCLUDE: ai-gftd-project-pornhub, ai-gftd-project-exoclick

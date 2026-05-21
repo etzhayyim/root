@@ -1,4 +1,4 @@
-"""yatabase `marketing` graph — top-of-funnel demand-gen for yatabase.gftd.ai.
+"""yatabase `marketing` graph — top-of-funnel demand-gen for yatabase.etzhayyim.com.
 
 Pipeline (LangGraph state-machine):
 
@@ -112,6 +112,7 @@ def _now_iso() -> str:
 
 
 _TECH_STACK_HINTS = (
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
     "neo4j", "supabase", "hasura", "prisma", "drizzle", "kysely",
     "snowflake", "databricks", "dbt", "atproto", "bsky", "bluesky",
     "graphql", "postgres", "graph",

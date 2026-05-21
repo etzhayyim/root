@@ -5,25 +5,25 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 /**
- * gftdcojp.etzhayyim.com Company Ops schema
+ * etzhayyim.etzhayyim.com Company Ops schema
  * Principal: etzhayyim. Vendor: Gftd Japan株式会社.
  *
  * Tables (5 domain event tables + 1 streaming MV):
- *   vertex_gftdcojp_hr_event          HR domain events
- *   vertex_gftdcojp_finance_event     Finance events
- *   vertex_gftdcojp_legal_event       Legal events
- *   vertex_gftdcojp_sales_event       Sales events
- *   vertex_gftdcojp_governance_event  Governance events
+ *   vertex_etzhayyim_hr_event          HR domain events
+ *   vertex_etzhayyim_finance_event     Finance events
+ *   vertex_etzhayyim_legal_event       Legal events
+ *   vertex_etzhayyim_sales_event       Sales events
+ *   vertex_etzhayyim_governance_event  Governance events
  *
  * Streaming MVs:
- *   mv_gftdcojp_omega_daily           daily Ω(t) trend
+ *   mv_etzhayyim_omega_daily           daily Ω(t) trend
  *
  * BPMN process_def + lexicon_binding seeds use canonical schema
  * matching production vertex_bpmn_process_def + vertex_bpmn_lexicon_binding
  * (bpmn_process_id / xml / xml_byte_size / source_path / RLS columns).
  *
  * ADR-0036: Worker-direct Hyperdrive.
- * ADR-2605080600: LangGraph Server L3 Runtime (gftdcojp-company-ops graph).
+ * ADR-2605080600: LangGraph Server L3 Runtime (etzhayyim-company-ops graph).
  */
 
 const __filename = fileURLToPath(import.meta.url);
@@ -31,30 +31,30 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf8");
 const createdAt = "2026-05-08T00:00:00Z";
-const ownerDid = "did:web:gftdcojp.etzhayyim.com";
-const actorTag = "sys.bpmn.seed.gftdcojp";
+const ownerDid = "did:web:etzhayyim.etzhayyim.com";
+const actorTag = "sys.bpmn.seed.etzhayyim";
 
 type P = { vertexId: string; bpmnProcessId: string; sourcePath: string };
 type B = { vertexId: string; nsid: string; bpmnProcessId: string; resultTimeoutMs: number };
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gftdcojp-governance-daily-check-v1",
-    bpmnProcessId: "gftdcojp_governance_daily_check",
-    sourcePath: "00-contracts/bpmn/ai/gftd/gftdcojp/governanceDailyCheck.bpmn",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/etzhayyim-governance-daily-check-v1",
+    bpmnProcessId: "etzhayyim_governance_daily_check",
+    sourcePath: "00-contracts/bpmn/ai/gftd/etzhayyim/governanceDailyCheck.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gftdcojp-company-ops-dispatch-v1",
-    bpmnProcessId: "gftdcojp_company_ops_dispatch",
-    sourcePath: "00-contracts/bpmn/ai/gftd/gftdcojp/companyOpsDispatch.bpmn",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/etzhayyim-company-ops-dispatch-v1",
+    bpmnProcessId: "etzhayyim_company_ops_dispatch",
+    sourcePath: "00-contracts/bpmn/ai/gftd/etzhayyim/companyOpsDispatch.bpmn",
   },
 ];
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gftdcojp-company-ops-dispatch-xrpc-v1",
-    nsid: "ai.gftd.apps.gftdcojp.companyOpsDispatch",
-    bpmnProcessId: "gftdcojp_company_ops_dispatch",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/etzhayyim-company-ops-dispatch-xrpc-v1",
+    nsid: "ai.gftd.apps.etzhayyim.companyOpsDispatch",
+    bpmnProcessId: "etzhayyim_company_ops_dispatch",
     resultTimeoutMs: 180_000,
   },
 ];
@@ -79,7 +79,7 @@ async function insertBinding(db: Kysely<unknown>, s: B): Promise<void> {
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_hr_event (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_hr_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       action varchar,
@@ -95,7 +95,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_finance_event (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_finance_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       action varchar,
@@ -113,7 +113,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_legal_event (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_legal_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       action varchar,
@@ -129,7 +129,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_sales_event (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_sales_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       action varchar,
@@ -146,7 +146,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftdcojp_governance_event (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_governance_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       omega_score double precision,
@@ -163,7 +163,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of bindingSeeds) await insertBinding(db, s);
 
   await sql`
-    CREATE MATERIALIZED VIEW IF NOT EXISTS mv_gftdcojp_omega_daily AS
+    CREATE MATERIALIZED VIEW IF NOT EXISTS mv_etzhayyim_omega_daily AS
     SELECT
       SUBSTRING(created_at, 1, 10) AS day,
       AVG(omega_score)            AS avg_omega,
@@ -171,21 +171,21 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       MAX(omega_score)            AS max_omega,
       COUNT(*)                    AS check_count,
       BOOL_OR(floor_violated)     AS any_floor_violated
-    FROM vertex_gftdcojp_governance_event
+    FROM vertex_etzhayyim_governance_event
     WHERE omega_score IS NOT NULL
     GROUP BY SUBSTRING(created_at, 1, 10)
   `.execute(db);
 }
 
 export async function down(db: Kysely<unknown>): Promise<void> {
-  await sql`DROP MATERIALIZED VIEW IF EXISTS mv_gftdcojp_omega_daily`.execute(db);
+  await sql`DROP MATERIALIZED VIEW IF EXISTS mv_etzhayyim_omega_daily`.execute(db);
   for (const s of bindingSeeds)
     await sql`DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${s.vertexId}`.execute(db);
   for (const s of processSeeds)
     await sql`DELETE FROM vertex_bpmn_process_def WHERE vertex_id = ${s.vertexId}`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_governance_event`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_sales_event`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_legal_event`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_finance_event`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftdcojp_hr_event`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_governance_event`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_sales_event`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_legal_event`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_finance_event`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_hr_event`.execute(db);
 }

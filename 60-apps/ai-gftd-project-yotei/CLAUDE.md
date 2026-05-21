@@ -4,21 +4,21 @@
 
 Calendar scheduling & availability coordination — Calendly-like AI Agent。
 
-**URL**: `https://yotei.gftd.ai`
+**URL**: `https://yotei.etzhayyim.com`
 **performerType**: `service`
-**Primary DID**: `did:web:yotei.gftd.ai`
+**Primary DID**: `did:web:yotei.etzhayyim.com`
 
 ## Architecture
 
-**Convo Integration**: yotei commands (`CreateEvent`, `SetAvailability`, `BookSlot` 等) は他 agent の DM convo 内から MCP tool calling で呼び出し可能。ops.gftd.ai 等の PM agent がスケジュール調整を yotei に委譲。
+**Convo Integration**: yotei commands (`CreateEvent`, `SetAvailability`, `BookSlot` 等) は他 agent の DM convo 内から MCP tool calling で呼び出し可能。ops.etzhayyim.com 等の PM agent がスケジュール調整を yotei に委譲。
 
 ### 1 Calendar = 1 Path-Based DID
 
-各カレンダーオーナー (人間 or AI Agent) は path-based DID としてカレンダーを持ち、yoro.gftd.ai 上で予約ページを公開。
+各カレンダーオーナー (人間 or AI Agent) は path-based DID としてカレンダーを持ち、yoro.etzhayyim.com 上で予約ページを公開。
 
 | 概念 | 実装 |
 |---|---|
-| **Calendar** | `DIDCreate("calendar:{id}", document)` → `did:web:yotei.gftd.ai:calendar:{id}` |
+| **Calendar** | `DIDCreate("calendar:{id}", document)` → `did:web:yotei.etzhayyim.com:calendar:{id}` |
 | **Availability** | `ComAtprotoRepoCreateRecord("availability", payload)` → yata graph (`:Availability` node) |
 | **Event** | `ComAtprotoRepoCreateRecord("event", payload)` → yata graph (`:Event` node) |
 | **Booking** | `ComAtprotoRepoCreateRecord("booking", payload)` → graph `(:Calendar)-[:HAS_BOOKING]->(:Booking)` |
@@ -29,12 +29,12 @@ Calendar scheduling & availability coordination — Calendly-like AI Agent。
 **yoro の compose ボタンから yotei AI agent との DM convo を開く。** 自然言語またはスラッシュコマンドでスケジュール調整。
 
 ```
-yoro.gftd.ai FAB tap
-  → createDM(did:web:yotei.gftd.ai)
+yoro.etzhayyim.com FAB tap
+  → createDM(did:web:yotei.etzhayyim.com)
   → /messages/{convoId}
   → user: "/available mon-fri 10:00-17:00"
   → yotei agent: "Availability set: Mon-Fri 10:00-17:00 JST"
-  → user: "/book @alice.gftd.ai 30min next week"
+  → user: "/book @alice.etzhayyim.com 30min next week"
   → yotei agent: "Proposed slots: ..."
 ```
 
@@ -48,14 +48,14 @@ yoro.gftd.ai FAB tap
 
 ## UI Architecture (Hono + Svelte CSR)
 
-**uiType: appview** — `unyrsfan.gftd.ai` / `yotei.gftd.ai` で独自 UI を持つ。
+**uiType: appview** — `unyrsfan.etzhayyim.com` / `yotei.etzhayyim.com` で独自 UI を持つ。
 
 | Layer | Tech | Path |
 |---|---|---|
 | **Host** | Hono (`@gftd/magatama-host-sdk`) | `src/app.ts` — XRPC + `/embed` route |
 | **Client** | Svelte 5 + Vite 6 + Tailwind | `svelte/` — CSR SPA |
 | **Layout** | `SuperAppLayout` (mobile-first 600px) | 5-tab SuperApp shell |
-| **Design** | `@gftdcojp/design-system` | UIKit components |
+| **Design** | `@etzhayyim/design-system` | UIKit components |
 
 ### Pages
 
@@ -72,7 +72,7 @@ yoro.gftd.ai FAB tap
 ### Booking Flow
 
 ```
-Requester → Invoke("did:web:yotei.gftd.ai", "proposeBooking", params)
+Requester → Invoke("did:web:yotei.etzhayyim.com", "proposeBooking", params)
   → yotei checks availability (G("Availability").Match(...).Query())
   → available slots returned
   → Requester confirms slot

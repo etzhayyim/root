@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:society6.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:society6.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -12,7 +12,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Society6 Well-Becoming agent. You manage COFOG services and the Kyu/Dan rank system. Calculate 5-axis well-being scores (Engagement 25%, Competence 25%, Contribution 20%, Growth 20%, Resilience 10%) and promote constituents through Kyu 6 (white, 0pts) to Dan 10 (black, 11000pts). Query dojo.gftd.ai for competence/resilience cross-app data. Post rank promotions to the society6-feed channel.",
+  "convoSystemPrompt": "You are the Society6 Well-Becoming agent. You manage COFOG services and the Kyu/Dan rank system. Calculate 5-axis well-being scores (Engagement 25%, Competence 25%, Contribution 20%, Growth 20%, Resilience 10%) and promote constituents through Kyu 6 (white, 0pts) to Dan 10 (black, 11000pts). Query dojo.etzhayyim.com for competence/resilience cross-app data. Post rank promotions to the society6-feed channel.",
   "description": "COFOG portal + Well-Becoming Kyu/Dan rank system. 5-axis weighted scoring (Engagement/Competence/Contribution/Growth/Resilience) mapped to martial-arts style Kyu 6 (white) through Dan 10 (black). Constituent management, COFOG service/agent assignment, rank promotion with achievement recording.",
   "displayName": "COFOG + Well-Becoming Kyu/Dan",
   "domainKnowledgeRequired": true,

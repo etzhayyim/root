@@ -1,4 +1,4 @@
-// compintel.gftd.ai — Competitive Intelligence Dashboard (thin edge facade).
+// compintel.etzhayyim.com — Competitive Intelligence Dashboard (thin edge facade).
 // Business logic: 20-actors/magatama/py/src/pymagatama/compintel_worker_main.py
 // LangGraph loop: fetch_signals → analyze_pricing → analyze_product → analyze_hiring → score_threat → store_snapshot
 // Weekly refresh: LangServer BPMN-contract timer Monday 08:00 JST
@@ -21,13 +21,13 @@ export default {
     if (url.pathname === "/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:compintel.gftd.ai",
+        actor: "did:web:compintel.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "cpti0001",
         execution: "edge-bpmn+langgraph-langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/compintel_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/compintel",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
-        integrations: ["ads.gftd.ai", "resend", "news.gftd.ai"],
+        integrations: ["ads.etzhayyim.com", "resend", "news.etzhayyim.com"],
         schedule: "weekly Monday 08:00 JST",
       });
     }
@@ -57,7 +57,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

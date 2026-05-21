@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/08/3/0/broadcasting-publishing-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/3/0/broadcasting-publishing-services",
       "type": "dodaf:Capability",
       "name": "Broadcasting and Publishing Oversight Capability",
       "description": "Functional capability for managing media licensing, content standards, and broadcasting infrastructure. Classification: COFOG Division 08, Group 3, Class 0.",

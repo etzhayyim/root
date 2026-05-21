@@ -1,6 +1,6 @@
 # ai-gftd-project-public-domain-colorization
 
-`pd-color.gftd.ai` is a publication pipeline for restored and colorized public-domain audiovisual works. The project does not decide public-domain status by title age alone; it records a provenance bundle, delegates rights screening to `copyright.gftd.ai`, and only publishes when a human reviewer signs the jurisdiction-specific public-domain conclusion.
+`pd-color.etzhayyim.com` is a publication pipeline for restored and colorized public-domain audiovisual works. The project does not decide public-domain status by title age alone; it records a provenance bundle, delegates rights screening to `copyright.etzhayyim.com`, and only publishes when a human reviewer signs the jurisdiction-specific public-domain conclusion.
 
 ## Scope
 
@@ -17,11 +17,11 @@
 
 | Actor | Responsibility |
 |---|---|
-| `did:web:pd-color.gftd.ai` | Pipeline coordinator and publication actor. |
-| `did:web:copyright.gftd.ai` | Rights evidence inspection, orphan-work signals, registration checks, license/public-domain classification. |
-| `did:web:media-anime.gftd.ai` | Optional catalog enrichment for anime titles, studio/person links, and media metadata. |
-| `did:web:ipfs.gftd.ai` | Primary movie source ingest and pinning through `ipfs.gftd.ai`. |
-| `did:web:storage.gftd.ai` | Blob and derivative asset storage for generated manifests and non-source artifacts. |
+| `did:web:pd-color.etzhayyim.com` | Pipeline coordinator and publication actor. |
+| `did:web:copyright.etzhayyim.com` | Rights evidence inspection, orphan-work signals, registration checks, license/public-domain classification. |
+| `did:web:media-anime.etzhayyim.com` | Optional catalog enrichment for anime titles, studio/person links, and media metadata. |
+| `did:web:ipfs.etzhayyim.com` | Primary movie source ingest and pinning through `ipfs.etzhayyim.com`. |
+| `did:web:storage.etzhayyim.com` | Blob and derivative asset storage for generated manifests and non-source artifacts. |
 
 This project should not become a generic copyright registry. It consumes copyright conclusions and stores colorization production records.
 
@@ -29,7 +29,7 @@ This project should not become a generic copyright registry. It consumes copyrig
 
 The gate requires all of the following:
 
-1. `copyright.gftd.ai` returns `classification = "public-domain"` or `classification = "license-permits-colorization"` for the requested `publishJurisdiction`.
+1. `copyright.etzhayyim.com` returns `classification = "public-domain"` or `classification = "license-permits-colorization"` for the requested `publishJurisdiction`.
 2. The evidence bundle includes publication date, country of origin, author/studio where known, source archive URL or accession ID, and rule basis.
 3. Music, subtitles, intertitles, dub audio, posters, title cards, and restored source scans are screened separately when present.
 4. Human reviewer sets `rightsApproved = true`. Automated age heuristics cannot publish.
@@ -38,7 +38,7 @@ Useful policy anchors verified 2026-04-28:
 
 - Japan: the Agency for Cultural Affairs describes the general copyright term as life plus 70 years, and expired works as public domain.
 - United States: the U.S. Copyright Office describes anonymous, pseudonymous, and work-made-for-hire terms as 95 years from publication or 120 years from creation, whichever expires first; expired works enter the public domain.
-- U.S. restoration/renewal rules can change the result for older films, so the worker must use `copyright.gftd.ai` evidence instead of only checking a year.
+- U.S. restoration/renewal rules can change the result for older films, so the worker must use `copyright.etzhayyim.com` evidence instead of only checking a year.
 
 ## Data Model
 
@@ -128,7 +128,7 @@ Worker runtime:
 - Python `LangServer`, deployed with the shared `mitama-udf-pool` worker fleet.
 - Long GPU operations use `generic.comfyui.call` with a 600s timeout; the dedicated worker should enqueue batches and return CIDs, not stream frames through LangServer variables.
 - Store large artifacts in blob storage and pass only CIDs, hashes, durations, dimensions, and manifest references through BPMN.
-- Movie source files are first added to `ipfs.gftd.ai`; downstream tasks should read `sourceIpfsCid`/`sourceIpfsUrl`, not arbitrary source URLs.
+- Movie source files are first added to `ipfs.etzhayyim.com`; downstream tasks should read `sourceIpfsCid`/`sourceIpfsUrl`, not arbitrary source URLs.
 - Fail closed on rights uncertainty. `classification in ["unknown", "in-copyright", "blocked"]` routes to `End_Blocked`.
 - Never publish directly from a ComfyUI task; publication is after human QC and a separate rights-approved variable.
 - Subtitle translation uses `ai.gftd.apps.i18n.translateBatch` with `contentKind = "timed-text"` so translation memory, glossary approval, and RTL handling stay in the i18n actor.
@@ -184,7 +184,7 @@ Artifacts:
   "publicationCid": "bafy...",
   "masterVideoCid": "bafy...",
   "sourceIpfsCid": "bafy...",
-  "sourceIpfsUrl": "https://ipfs.gftd.ai/ipfs/bafy...",
+  "sourceIpfsUrl": "https://ipfs.etzhayyim.com/ipfs/bafy...",
   "subtitleManifestCid": "bafy...",
   "dubbedAudioManifestCid": "bafy...",
   "localizedPackageManifestCid": "bafy...",
@@ -216,7 +216,7 @@ node 60-apps/ai-gftd-project-public-domain-colorization/scripts/pdcolor-demo-ing
 node 60-apps/ai-gftd-project-public-domain-colorization/scripts/pdcolor-demo-ingest.mjs --work steamboat-willie-1928
 ```
 
-To add the verified file to `ipfs.gftd.ai`, run the same script with `IPFS_HMAC` and `--ipfs-add`:
+To add the verified file to `ipfs.etzhayyim.com`, run the same script with `IPFS_HMAC` and `--ipfs-add`:
 
 ```sh
 IPFS_HMAC=... node 60-apps/ai-gftd-project-public-domain-colorization/scripts/pdcolor-demo-ingest.mjs --work gertie-the-dinosaur-1914 --ipfs-add
@@ -238,7 +238,7 @@ Local verification on 2026-04-29:
 
 ## Published Demo Viewer
 
-The static viewer reads `demo/publications.json` and opens the first published canary record. It links the source movie on `ipfs.gftd.ai`, publication package manifests, localized subtitle/audio manifests, and the live PDS record.
+The static viewer reads `demo/publications.json` and opens the first published canary record. It links the source movie on `ipfs.etzhayyim.com`, publication package manifests, localized subtitle/audio manifests, and the live PDS record.
 
 ```sh
 cd 60-apps/ai-gftd-project-public-domain-colorization/demo
@@ -250,7 +250,7 @@ Current canary publication:
 
 - Work: `Gertie the Dinosaur`
 - PDS record CID: `3mkmf36owkk2m`
-- AT URI: `at://did:web:pd-color.gftd.ai/ai.gftd.apps.publicDomainColorization.publication/3mkmf36owkk2m`
+- AT URI: `at://did:web:pd-color.etzhayyim.com/ai.gftd.apps.publicDomainColorization.publication/3mkmf36owkk2m`
 - Publication package CID: `bafkreibf2d5q7t4thvtro2qjomq4ejytqlv2rh3z5vg5otrpwngma4fice`
 - Localized package CID: `bafkreifoyld7dyj7urialgcq357w5n6yhnrdveosspeukflcw6ablv2t6e`
 - Subtitle manifest CID: `bafkreigoyykv7ckdivx463qtjw4nldd43rrwkwa5iad5deatzxh7xffvle`

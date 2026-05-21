@@ -5,7 +5,7 @@ Time: 2026-04-17 JST
 
 ## Scope
 
-- Repository: `ai-gftd-apps-gftdcojp`
+- Repository: `etzhayyim-root`
 - Method:
   - static review of tracked credentials, browser session handling, CORS/auth edges, and public infra exposure
   - pruning rule: keep only branches with current repo evidence and a credible compromise path

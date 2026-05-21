@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/07/1/2/other-medical-products/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/07/1/2/other-medical-products/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Medical Product Certification and Safety Lifecycle",
       "description": "The administrative process of reviewing safety, coordinating certifications, and monitoring usage of medical products.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/07/1/2/other-medical-products"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/1/2/other-medical-products"
     }
   ]
 }

@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/ai-gftd-hrse#ConnectServerClient
+ * @etzhayyim/ai-gftd-hrse#ConnectServerClient
  * Connect-Web サーバーサイドクライアント
  * 
  * API Routes や Server Components で使用する Connect クライアント
@@ -38,7 +38,7 @@ function getConnectApiUrl(): string {
     }
     
     // 最終フォールバック: 本番ドメイン
-    return "https://hrse.gftd.ai/xrpc-web";
+    return "https://hrse.etzhayyim.com/xrpc-web";
   }
   
   // ローカル開発環境
@@ -55,7 +55,7 @@ export async function getServerConnectClient<T>(Service: T) {
   void Service;
   const { getToken } = await clerkAuth();
   const transport = new AtpBaseClient({
-    service: () => CONNECT_API_URL || "https://atproto.gftd.ai",
+    service: () => CONNECT_API_URL || "https://atproto.etzhayyim.com",
   });
 
   const getClerkToken = async (): Promise<string | null> => {

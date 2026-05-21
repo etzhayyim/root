@@ -1,6 +1,6 @@
 ---
 id: adr-2605190000-yatabase-bmc-lean
-title: "ADR-2605190000: yatabase.gftd.ai — Business Model Canvas + Lean Canvas"
+title: "ADR-2605190000: yatabase.etzhayyim.com — Business Model Canvas + Lean Canvas"
 status: superseded
 doc_type: adr
 topic: yatabase-product-bmc
@@ -18,7 +18,7 @@ superseded_by:
   - adr-2605210001-yatabase-minimax-pricing-bmc
 ---
 
-# ADR-2605190000: yatabase.gftd.ai — Business Model Canvas + Lean Canvas
+# ADR-2605190000: yatabase.etzhayyim.com — Business Model Canvas + Lean Canvas
 
 **Status**: accepted
 **Date**: 2026-05-19
@@ -26,7 +26,7 @@ superseded_by:
 
 ## Context
 
-yatabase.gftd.ai は gftd platform の余剰能力 (B2 Bandwidth Alliance 実質ゼロ egress、RisingWave 共有クラスター、Murakumo 自己ホスト LLM) を **retail cloud product** として外部開発者に再販するプロダクトである。
+yatabase.etzhayyim.com は gftd platform の余剰能力 (B2 Bandwidth Alliance 実質ゼロ egress、RisingWave 共有クラスター、Murakumo 自己ホスト LLM) を **retail cloud product** として外部開発者に再販するプロダクトである。
 
 | 項目 | 状態 |
 |---|---|
@@ -36,13 +36,13 @@ yatabase.gftd.ai は gftd platform の余剰能力 (B2 Bandwidth Alliance 実質
 | リード獲得 | HN Algolia cron (0 */6) + GitHub stargazers cron (45 */6) 自律稼働 |
 | BMC LangGraph | `bmc_iteration` cron 毎朝 07:00 UTC で自律計測 |
 
-gftdcojp ポートフォリオ内での位置付け:
+etzhayyim ポートフォリオ内での位置付け:
 
 ```
-Priority 1 (主軸)     : lawfirm.gftd.ai   — 70% エンジニアリングリソース
-Priority 2 (維持)     : shinshi.gftd.ai    — 20%
-Priority 3 (自動運転) : animeka.gftd.ai    — 10%
-Priority 4 (プラットフォーム・自律稼働) : yatabase.gftd.ai — 専用予算 + 自律 AI 運用
+Priority 1 (主軸)     : lawfirm.etzhayyim.com   — 70% エンジニアリングリソース
+Priority 2 (維持)     : shinshi.etzhayyim.com    — 20%
+Priority 3 (自動運転) : animeka.etzhayyim.com    — 10%
+Priority 4 (プラットフォーム・自律稼働) : yatabase.etzhayyim.com — 専用予算 + 自律 AI 運用
 ```
 
 yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB、B2 object storage、MCP surface) でもある。エンジニアリング人的介入は機能開発 sprint 時のみ、通常は自律エージェントが運営する。
@@ -63,7 +63,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 
 ---
 
-### 2. Business Model Canvas — yatabase.gftd.ai
+### 2. Business Model Canvas — yatabase.etzhayyim.com
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -76,7 +76,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 │   (RisingWave cluster  │   (homepage scrape →     │ • MCP-native: 業界   │ • sakamoto     │                        │
 │   per-tenant DB)       │   contact_email/         │   初の /mcp surface  │   CS agent が  │ 【Secondary】           │
 │ • Backblaze B2         │   tech_stack)            │   付き graph DB cloud│   support@     │ Indie hackers / side    │
-│   (content-addressed   │ • Outreach drafting      │ • Supabase Pro $25   │   gftd.ai を   │ projects (価格感度高)   │
+│   (content-addressed   │ • Outreach drafting      │ • Supabase Pro $25   │   etzhayyim.com を   │ projects (価格感度高)   │
 │   object storage)      │   (nishino agent →       │   比 ~50% 安い       │   トリアージ    │                        │
 │ • Stripe               │   operator 承認 →        │   Starter $13/月     │   + 下書き     │ 【Tertiary】            │
 │   (US payments + Tax)  │   batch-send)            │ • アノニマスサインア  │ • nishino      │ Japan SaaS startups     │
@@ -91,7 +91,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 │ KEY RESOURCES          │ CHANNELS                                                                                  │
 │                        │                                                                                           │
 │ • CF Worker edge       │ • HN Algolia scrape → cold outreach (autonomous, cron 0 */6)                            │
-│   (yatabase.gftd.ai    │ • GitHub stargazers (neo4j/supabase/hasura/dgraph/arangodb) (cron 45 */6)               │
+│   (yatabase.etzhayyim.com    │ • GitHub stargazers (neo4j/supabase/hasura/dgraph/arangodb) (cron 45 */6)               │
 │   API gateway)         │ • Organic SEO (sitemap.xml, JSON-LD SoftwareApplication + FAQPage)                       │
 │ • RisingWave on Vultr  │ • /comparison page vs Supabase / Neo4j AuraDB / Hasura                                  │
 │   (per-org yata_<hash> │ • /integrations: Cursor / Claude Desktop / Continue.dev MCP listings (手動)             │
@@ -129,7 +129,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 
 ---
 
-### 3. Lean Canvas — yatabase.gftd.ai
+### 3. Lean Canvas — yatabase.etzhayyim.com
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -269,7 +269,7 @@ KPI は `projector.update_status` (ADR-2605130000) で毎スプリント末に�
 ```
 # セッション開始時に projector.create_project を呼ぶ
 projector.create_project {
-  name: "yatabase.gftd.ai — MCP listing + 最初の有償テナント",
+  name: "yatabase.etzhayyim.com — MCP listing + 最初の有償テナント",
   orgId: "default",
   description: "Sprint 1: Cursor/Claude Desktop MCP 登録 + /comparison 強化 + free→paid 5% (〜2026-06-15)",
   targetDate: "2026-06-15"
@@ -320,7 +320,7 @@ projector.create_project {
 - `70-tools/scripts/yatabase-customer-journey.mjs` — カスタマージャーニー計測
 - `70-tools/scripts/yatabase-smoke.mjs` — デプロイ後スモークテスト
 - `deps.toml [platform.products.yatabase]` — 製品 SSoT (pricing display, plan-quota, invoice)
-- `deps.toml [gftdcojp_agent.product_portfolio.yatabase]` — ポートフォリオ位置付け
+- `deps.toml [etzhayyim_agent.product_portfolio.yatabase]` — ポートフォリオ位置付け
 - `60-apps/ai-gftd-project-yatabase/CLAUDE.md` — 実装詳細
 - ADR-2605130000 — projector MCP tools
 - ADR-2605180000 — lawfirm 選択と集中 (ポートフォリオ親 ADR)

@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "VideoGameSeries",
@@ -28,5 +28,5 @@
     "https://www.finalfantasy.com/",
     "https://jp.finalfantasy.com/"
   ],
-  "url": "https://news.gftd.ai/ja/articles/final-fantasy-characters-complete-index-2026"
+  "url": "https://news.etzhayyim.com/ja/articles/final-fantasy-characters-complete-index-2026"
 }

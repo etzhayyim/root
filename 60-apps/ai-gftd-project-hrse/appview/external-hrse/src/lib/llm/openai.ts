@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#LLMService
+// @etzhayyim/cyber-freelance#LLMService
 // OpenAI API統合
 
 import OpenAI from "openai";

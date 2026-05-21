@@ -3,12 +3,12 @@
     "https://schema.org/",
     {
       "@version": 1.1,
-      "@vocab": "https://resources.gftd.ai/ontology#",
-      "@base": "https://resources.gftd.ai/ontology#",
+      "@vocab": "https://resources.etzhayyim.com/ontology#",
+      "@base": "https://resources.etzhayyim.com/ontology#",
       "id": "@id",
       "type": "@type",
       "schema": "https://schema.org/",
-      "gftd": "https://gftd.ai/schemas/",
+      "gftd": "https://etzhayyim.com/schemas/",
       "dct": "http://purl.org/dc/terms/",
       "xsd": "http://www.w3.org/2001/XMLSchema#",
       "name": "dct:title",
@@ -28,26 +28,26 @@
   "@id": "urn:gftd:project:ai-gftd-project-cs-cert",
   "identifier": "ai-gftd-project-cs-cert",
   "name": "GFTD CS Certified",
-  "description": "サイバーセキュリティ診断済みサイトに認証ロゴ (GFTD CS Certified バッジ) を発行・表示するサービス。SSL trust seal のように、セキュリティ診断を完了したサイトが信頼性を証明するバッジを埋め込める。certs.gftd.ai で公開。",
-  "url": "https://certs.gftd.ai",
+  "description": "サイバーセキュリティ診断済みサイトに認証ロゴ (GFTD CS Certified バッジ) を発行・表示するサービス。SSL trust seal のように、セキュリティ診断を完了したサイトが信頼性を証明するバッジを埋め込める。certs.etzhayyim.com で公開。",
+  "url": "https://certs.etzhayyim.com",
   "version": "0.1.0",
-  "codeRepository": "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp",
+  "codeRepository": "https://github.com/etzhayyim/etzhayyim-root",
   "author": {
     "@type": "Organization",
-    "name": "gftdcojp",
-    "url": "https://gftd.ai"
+    "name": "etzhayyim",
+    "url": "https://etzhayyim.com"
   },
   "hasPart": [
     {
       "@type": "WebAPI",
       "name": "cs-cert-api",
-      "url": "https://certs.gftd.ai/api/grpc",
+      "url": "https://certs.etzhayyim.com/api/grpc",
       "description": "Connect gRPC-Web API for certificate issuance, verification, and badge serving"
     },
     {
       "@type": "WebSite",
       "name": "cs-cert-portal",
-      "url": "https://certs.gftd.ai",
+      "url": "https://certs.etzhayyim.com",
       "description": "公開ポータル: 認証バッジ検証、診断申請、認証済みサイト一覧"
     }
   ],
@@ -140,7 +140,7 @@
       },
       {
         "@type": "CreativeWork",
-        "name": "Public portal on certs.gftd.ai",
+        "name": "Public portal on certs.etzhayyim.com",
         "description": "Static site with certificate search, verification page, and assessment request form.",
         "status": "Planned",
         "dueDate": "2026-03-31"

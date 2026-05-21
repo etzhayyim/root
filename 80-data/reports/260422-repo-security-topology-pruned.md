@@ -5,7 +5,7 @@ Time: 2026-04-22 JST
 
 ## Scope
 
-- Repository: `ai-gftd-apps-gftdcojp`
+- Repository: `etzhayyim-root`
 - Method:
   - static review of current `HEAD`
   - repo-wide pruning of branches that still have a live compromise path
@@ -34,13 +34,13 @@ Time: 2026-04-22 JST
 
 Evidence:
 
-- [`60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py:17)
+- [`60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py:17)
   - embeds Linode object-storage access and secret keys in `S3_CONF`
-- [`70-tools/gftd/gftd/murakumo_fleet.go`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/70-tools/gftd/gftd/murakumo_fleet.go:31)
+- [`70-tools/gftd/gftd/murakumo_fleet.go`](/Users/junkawasaki/etzhayyim/etzhayyim-root/70-tools/gftd/gftd/murakumo_fleet.go:31)
   - hardcodes fleet SSH password `fleetSSHPass`
-- [`70-tools/scripts/bulk-stream-ingest.mjs`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/70-tools/scripts/bulk-stream-ingest.mjs:29)
+- [`70-tools/scripts/bulk-stream-ingest.mjs`](/Users/junkawasaki/etzhayyim/etzhayyim-root/70-tools/scripts/bulk-stream-ingest.mjs:29)
   - hardcodes a password-bearing RisingWave DSN
-- [`70-tools/scripts/yabai-baseline-ingest.mjs`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/70-tools/scripts/yabai-baseline-ingest.mjs:16)
+- [`70-tools/scripts/yabai-baseline-ingest.mjs`](/Users/junkawasaki/etzhayyim/etzhayyim-root/70-tools/scripts/yabai-baseline-ingest.mjs:16)
   - keeps the same DSN as default fallback
 
 Why it survives pruning:
@@ -55,11 +55,11 @@ Evidence:
 
 - workspace `pnpm audit --prod --json`
   - reports `@clerk/nextjs 6.34.1` and `@clerk/shared 3.47.3` / `3.45.1` as affected by `GHSA-vqx2-fgx2-5wq9`
-- [`60-apps/ai-gftd-project-hrse/appview/external-hrse/package.json`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-hrse/appview/external-hrse/package.json:77)
+- [`60-apps/ai-gftd-project-hrse/appview/external-hrse/package.json`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-hrse/appview/external-hrse/package.json:77)
   - pins `@clerk/nextjs` to `6.34.1`
-- [`60-apps/ai-gftd-project-hrse/appview/external-hrse/src/middleware.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-hrse/appview/external-hrse/src/middleware.ts:5)
+- [`60-apps/ai-gftd-project-hrse/appview/external-hrse/src/middleware.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-hrse/appview/external-hrse/src/middleware.ts:5)
   - uses `createRouteMatcher(...)`
-- [`60-apps/ai-gftd-project-hrse/appview/external-hrse/src/middleware.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-hrse/appview/external-hrse/src/middleware.ts:59)
+- [`60-apps/ai-gftd-project-hrse/appview/external-hrse/src/middleware.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-hrse/appview/external-hrse/src/middleware.ts:59)
   - relies on `if (!isPublicRoute(request)) await auth.protect()`
 
 Why it survives pruning:
@@ -71,13 +71,13 @@ Why it survives pruning:
 
 Evidence:
 
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:28)
+- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:28)
   - `StoredSession` contains both `accessJwt` and `refreshJwt`
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:65)
+- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:65)
   - session is serialized into `sessionStorage`
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:89)
+- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:89)
   - both JWTs are synced into `@gftd/wproto`
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:9)
+- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:9)
   - `#auth=` payload is copied into `sessionStorage` before cleanup
 
 Why it survives pruning:
@@ -89,11 +89,11 @@ Why it survives pruning:
 
 Evidence:
 
-- [`60-apps/ai-gftd-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts:5)
+- [`60-apps/ai-gftd-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts:5)
   - reads `import.meta.env.VITE_OPENROUTER_API_KEY`
-- [`60-apps/ai-gftd-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts:53)
+- [`60-apps/ai-gftd-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts:53)
   - sends it as `Authorization: Bearer ...` from browser fetch
-- [`60-apps/ai-gftd-project-narou/ghosthacker/apps/docker-compose.yml`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-narou/ghosthacker/apps/docker-compose.yml:30)
+- [`60-apps/ai-gftd-project-narou/ghosthacker/apps/docker-compose.yml`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-narou/ghosthacker/apps/docker-compose.yml:30)
   - injects the same key into frontend runtime env
 
 Why it survives pruning:
@@ -105,13 +105,13 @@ Why it survives pruning:
 
 Evidence:
 
-- [`50-infra/cloudflare/workers/bitwarden-mcp/src/index.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/50-infra/cloudflare/workers/bitwarden-mcp/src/index.ts:216)
+- [`50-infra/cloudflare/workers/bitwarden-mcp/src/index.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/50-infra/cloudflare/workers/bitwarden-mcp/src/index.ts:216)
   - global CORS is `Access-Control-Allow-Origin: *`
-- [`50-infra/cloudflare/workers/bitwarden-mcp/src/index.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/50-infra/cloudflare/workers/bitwarden-mcp/src/index.ts:234)
+- [`50-infra/cloudflare/workers/bitwarden-mcp/src/index.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/50-infra/cloudflare/workers/bitwarden-mcp/src/index.ts:234)
   - auth is enforced only if `env.MCP_AUTH_TOKEN` is set
-- [`50-infra/cloudflare/workers/atproto/src/auth.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/50-infra/cloudflare/workers/atproto/src/auth.ts:112)
+- [`50-infra/cloudflare/workers/atproto/src/auth.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/50-infra/cloudflare/workers/atproto/src/auth.ts:112)
   - helper reflects request origin or falls back to `*`
-- [`60-apps/ai-gftd-project-llm/appview/ai-gftd-wasm-llm-llm8cf4ai/src/app.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-llm/appview/ai-gftd-wasm-llm-llm8cf4ai/src/app.ts:558)
+- [`60-apps/ai-gftd-project-llm/appview/ai-gftd-wasm-llm-llm8cf4ai/src/app.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-llm/appview/ai-gftd-wasm-llm-llm8cf4ai/src/app.ts:558)
   - OpenAI-compatible responses set `Access-Control-Allow-Origin: *`
 
 Why it survives pruning:

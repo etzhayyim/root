@@ -441,13 +441,13 @@
               {#each autoCuts.filter(c => c._st.composite === 'approved').slice(-16) as c}
                 <button
                   class="thumb-btn"
-                  onclick={() => go?.(`/at/an1m3k4x.gftd.ai/ai.gftd.animeka.cut/${c.rkey}`)}
+                  onclick={() => go?.(`/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.cut/${c.rkey}`)}
                   title={String(c.rkey ?? '')}
                 >
                   {#if c.thumb_cid}
                     <img
                       class="thumb-img"
-                      src={`https://atproto.gftd.ai/xrpc/com.atproto.sync.getBlob?did=anonymous&cid=${c.thumb_cid}`}
+                      src={`https://atproto.etzhayyim.com/xrpc/com.atproto.sync.getBlob?did=anonymous&cid=${c.thumb_cid}`}
                       alt={String(c.rkey ?? '')}
                       loading="lazy"
                     />
@@ -480,9 +480,9 @@
             {:else if publishDone}
               <span class="kaizen-ok">
                 EP ready · {publishCutCount} cuts ·
-                <a href="https://atproto.gftd.ai/xrpc/com.atproto.sync.getBlob?did=anonymous&cid={episodeCid}" target="_blank" class="kaizen-link">MP4</a>
+                <a href="https://atproto.etzhayyim.com/xrpc/com.atproto.sync.getBlob?did=anonymous&cid={episodeCid}" target="_blank" class="kaizen-link">MP4</a>
               </span>
-              <video class="ep-video" src="https://atproto.gftd.ai/xrpc/com.atproto.sync.getBlob?did=anonymous&cid={episodeCid}" controls></video>
+              <video class="ep-video" src="https://atproto.etzhayyim.com/xrpc/com.atproto.sync.getBlob?did=anonymous&cid={episodeCid}" controls></video>
             {/if}
           </div>
 

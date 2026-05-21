@@ -4,7 +4,7 @@
 
 ## Overview
 
-yukkuri.gftd.ai — ゆっくり実況動画を 1 トピック / 1 台本から自動生成する。画面は左右 2 キャラ構図 (L=Reimu-like / R=Marisa-like) を既定とし、`kokoro-ts` で TTS、背景・挿絵・SFX は murakumo image/audio、BGM は `ongakuka`、最終合成は `kami-engine` の headless render path を使って mp4 / webm に書き出す。
+yukkuri.etzhayyim.com — ゆっくり実況動画を 1 トピック / 1 台本から自動生成する。画面は左右 2 キャラ構図 (L=Reimu-like / R=Marisa-like) を既定とし、`kokoro-ts` で TTS、背景・挿絵・SFX は murakumo image/audio、BGM は `ongakuka`、最終合成は `kami-engine` の headless render path を使って mp4 / webm に書き出す。
 
 **依存**: `murakumo:inference/{text,image,audio}` / `ongakuka` / `kami-engine (kami-render + kami-audio + kami-character + kami-text + kami-scene-graph)` / `kokoro-ts` (40-engine に vendoring 予定)。
 
@@ -12,8 +12,8 @@ yukkuri.gftd.ai — ゆっくり実況動画を 1 トピック / 1 台本から�
 
 | 層 | 値 |
 |---|---|
-| Primary DID | `did:plc:yukkuri` (Phase 5 `plc.gftd.ai` で genesis) |
-| Handle | `yukkuri.gftd.ai` |
+| Primary DID | `did:plc:yukkuri` (Phase 5 `plc.etzhayyim.com` で genesis) |
+| Handle | `yukkuri.etzhayyim.com` |
 | Legacy nanoid | `y5kk5r1x` (grandfather, deprecate 2026-10-01) |
 | NSID | `ai.gftd.apps.yukkuri.*` |
 
@@ -23,17 +23,17 @@ yukkuri.gftd.ai — ゆっくり実況動画を 1 トピック / 1 台本から�
 
 | Path DID | 役割 | 主モデル / 実装 |
 |---|---|---|
-| `did:web:yukkuri.gftd.ai` | controller / job orchestration | — |
-| `did:web:yukkuri.gftd.ai:actor:scriptwriter` | トピック → 台本 (L/R 掛け合い, scene 分割, 感情タグ) | murakumo text (`gemma-4-12b-it` / `gftd-moe-moe-kyun-general`) |
-| `did:web:yukkuri.gftd.ai:actor:voiceLeft` | 左キャラ (Reimu-like) TTS | `kokoro-ts` voice preset `af_heart` 相当 |
-| `did:web:yukkuri.gftd.ai:actor:voiceRight` | 右キャラ (Marisa-like) TTS | `kokoro-ts` voice preset `am_puck` 相当 |
-| `did:web:yukkuri.gftd.ai:actor:character` | 立ち絵 pose / 表情 / 口パク timing 生成 | `kami-character` + `kami-skeleton` / VRM part compose |
-| `did:web:yukkuri.gftd.ai:actor:illustrator` | 背景 + 挿絵 + テロップ素材 | `murakumo:inference/image` (SDXL / flux) |
-| `did:web:yukkuri.gftd.ai:actor:sfx` | 効果音選定 + 必要時生成 | SFX lib + `murakumo:inference/audio` (sfx-mode) |
-| `did:web:yukkuri.gftd.ai:actor:composer` | BGM (cross-project invoke `ongakuka.compose`) | `ai.gftd.ongakuka.compose` |
-| `did:web:yukkuri.gftd.ai:actor:editor` | timeline / cut / fade / telop / subtitle 合成仕様 | local TS scheduler |
-| `did:web:yukkuri.gftd.ai:actor:renderer` | 最終動画 render (frame → H.264/VP9) | `kami-engine` headless + `ffmpeg-wasm` mux |
-| `did:web:yukkuri.gftd.ai:actor:critic` | 尺 / ラウドネス / IP / 表現 QA | text+audio classifier |
+| `did:web:yukkuri.etzhayyim.com` | controller / job orchestration | — |
+| `did:web:yukkuri.etzhayyim.com:actor:scriptwriter` | トピック → 台本 (L/R 掛け合い, scene 分割, 感情タグ) | murakumo text (`gemma-4-12b-it` / `gftd-moe-moe-kyun-general`) |
+| `did:web:yukkuri.etzhayyim.com:actor:voiceLeft` | 左キャラ (Reimu-like) TTS | `kokoro-ts` voice preset `af_heart` 相当 |
+| `did:web:yukkuri.etzhayyim.com:actor:voiceRight` | 右キャラ (Marisa-like) TTS | `kokoro-ts` voice preset `am_puck` 相当 |
+| `did:web:yukkuri.etzhayyim.com:actor:character` | 立ち絵 pose / 表情 / 口パク timing 生成 | `kami-character` + `kami-skeleton` / VRM part compose |
+| `did:web:yukkuri.etzhayyim.com:actor:illustrator` | 背景 + 挿絵 + テロップ素材 | `murakumo:inference/image` (SDXL / flux) |
+| `did:web:yukkuri.etzhayyim.com:actor:sfx` | 効果音選定 + 必要時生成 | SFX lib + `murakumo:inference/audio` (sfx-mode) |
+| `did:web:yukkuri.etzhayyim.com:actor:composer` | BGM (cross-project invoke `ongakuka.compose`) | `ai.gftd.ongakuka.compose` |
+| `did:web:yukkuri.etzhayyim.com:actor:editor` | timeline / cut / fade / telop / subtitle 合成仕様 | local TS scheduler |
+| `did:web:yukkuri.etzhayyim.com:actor:renderer` | 最終動画 render (frame → H.264/VP9) | `kami-engine` headless + `ffmpeg-wasm` mux |
+| `did:web:yukkuri.etzhayyim.com:actor:critic` | 尺 / ラウドネス / IP / 表現 QA | text+audio classifier |
 
 actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。中間成果物は `ai.gftd.apps.yukkuri.asset` + `actorDid` / `kind` field で帰属。
 
@@ -130,12 +130,12 @@ XRPC compose
 
 ## LLM Routing (CRITICAL)
 
-**App Workers must call LLM via `llmCall`/`agentConverseAsync` from `@gftd/magatama-host-sdk`.** Direct `fetch()` to `llm.gftd.ai` or the Linode Ollama IP (`172.236.133.64`) returns 403 (empty body) from CF WAF for same-account Worker outbound subrequests — confirmed 2026-04-15.
+**App Workers must call LLM via `llmCall`/`agentConverseAsync` from `@gftd/magatama-host-sdk`.** Direct `fetch()` to `llm.etzhayyim.com` or the Linode Ollama IP (`172.236.133.64`) returns 403 (empty body) from CF WAF for same-account Worker outbound subrequests — confirmed 2026-04-15.
 
 | Path | Result | Use |
 |---|---|---|
-| `llmCall(system, user)` (host-sdk) | ✅ 200 | **DEFAULT** — routes via `PDS_SERVICE` binding → `atproto.gftd.ai/xrpc/ai.gftd.apps.llm.chatCompletions` → `MURAKUMO_SERVICE` (Worker binding, WAF bypass) |
-| `fetch("https://llm.gftd.ai/...")` | ❌ 403 CF WAF | Direct outbound — **禁止** |
+| `llmCall(system, user)` (host-sdk) | ✅ 200 | **DEFAULT** — routes via `PDS_SERVICE` binding → `atproto.etzhayyim.com/xrpc/ai.gftd.apps.llm.chatCompletions` → `MURAKUMO_SERVICE` (Worker binding, WAF bypass) |
+| `fetch("https://llm.etzhayyim.com/...")` | ❌ 403 CF WAF | Direct outbound — **禁止** |
 | `fetch("http://172.236.133.64/...")` | ❌ 403 CF WAF | Direct outbound — **禁止** |
 
 ## Inference Backends
@@ -202,7 +202,7 @@ XRPC compose
 | Nanoid | `y5kk5r1x` |
 | Folder | `60-apps/ai-gftd-project-yukkuri/wasm/ai-gftd-wasm-yukkuri-y5kk5r1x/` |
 | Runtime | TS Native (`src/app.ts`, `"runtimeType": "worker"`) |
-| Wrangler route | `yukkuri.gftd.ai/*` |
+| Wrangler route | `yukkuri.etzhayyim.com/*` |
 | Bindings | `HYPERDRIVE`, `R2_BLOBS`, `MURAKUMO_SERVICE`, `ONGAKUKA_SERVICE`, `AUTH_SERVICE`, `PDS_SERVICE`, `KAKIN_SERVICE`, `CREDITS_SERVICE`, `HEADLESS_BROWSER` (Phase 1) |
 
 ## Frontend (planned)
@@ -216,7 +216,7 @@ XRPC compose
   - generation queue + preview player (scene 単位 / full video)
   - timeline ruler (waveform + telop + 口パク dots)
   - render 押下で final mp4 DL
-- Deep-link: `https://yukkuri.gftd.ai/at/{handle}/ai.gftd.apps.yukkuri.video/{rkey}`
+- Deep-link: `https://yukkuri.etzhayyim.com/at/{handle}/ai.gftd.apps.yukkuri.video/{rkey}`
 
 ## Migration Backlog
 

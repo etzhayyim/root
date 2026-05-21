@@ -1,10 +1,10 @@
 /**
- * maps.gftd.ai — feature-by-feature e2e debug
+ * maps.etzhayyim.com — feature-by-feature e2e debug
  *
  * Each test is a standalone debug probe.  Run with:
  *   pnpm exec playwright test e2e/features.spec.ts --headed --timeout 60000
  *
- * baseURL = https://maps.gftd.ai (playwright.config.ts)
+ * baseURL = https://maps.etzhayyim.com (playwright.config.ts)
  */
 import { test, expect } from '@playwright/test';
 
@@ -329,7 +329,7 @@ test('8b. Spatial Ops — dashboard rail and layer catalog are usable', async ({
   await waitForMap(page);
 
   await expect(page.getByText('Spatial Ops')).toBeVisible();
-  await expect(page.getByText('maps.gftd.ai monitor')).toBeVisible();
+  await expect(page.getByText('maps.etzhayyim.com monitor')).toBeVisible();
   await expect(page.getByText('Risk')).toBeVisible();
   await expect(page.getByText('Live Intel')).toBeVisible();
 

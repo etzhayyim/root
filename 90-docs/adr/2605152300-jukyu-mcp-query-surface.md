@@ -15,9 +15,9 @@ tags: ["jukyu", "mcp", "xrpc", "langgraph", "bpmn-dispatcher"]
 
 ## Context
 
-`jukyu.gftd.ai` runs global supply-demand equilibrium analysis via a resident K8s LangGraph/Pregel pod (`lg-jukyu`, `mitama-udf` namespace). The Pregel loop runs every 15 minutes, writing results to four RisingWave MVs. Before this ADR, the pod exposed `/cron/equilibrium`, `/extract/shocks`, and `/export/brief` but had no queryable MCP surface — callers had no way to read balance data, supply-chain topology, or company exposure rankings without direct pod access.
+`jukyu.etzhayyim.com` runs global supply-demand equilibrium analysis via a resident K8s LangGraph/Pregel pod (`lg-jukyu`, `mitama-udf` namespace). The Pregel loop runs every 15 minutes, writing results to four RisingWave MVs. Before this ADR, the pod exposed `/cron/equilibrium`, `/extract/shocks`, and `/export/brief` but had no queryable MCP surface — callers had no way to read balance data, supply-chain topology, or company exposure rankings without direct pod access.
 
-This ADR documents the implementation of four new XRPC MCP query endpoints and the bpmn-dispatcher routing changes that wire them to the public `jukyu.gftd.ai` CF edge worker.
+This ADR documents the implementation of four new XRPC MCP query endpoints and the bpmn-dispatcher routing changes that wire them to the public `jukyu.etzhayyim.com` CF edge worker.
 
 ## Decision
 
@@ -53,14 +53,14 @@ The `dispatch()` function checks `LG_JUKYU_PROXY_PREFIXES` before the `vertex_bp
 
 ### 3. CF worker UTIL_PATHS routing gap fix
 
-`jukyu.gftd.ai` app.ts previously routed only NSID-prefixed and `CRON_PATHS` requests to the dispatcher. Added `UTIL_PATHS = new Set(["/extract/shocks", "/export/brief"])` and included it in the routing condition, enabling those two non-XRPC paths to reach the dispatcher correctly.
+`jukyu.etzhayyim.com` app.ts previously routed only NSID-prefixed and `CRON_PATHS` requests to the dispatcher. Added `UTIL_PATHS = new Set(["/extract/shocks", "/export/brief"])` and included it in the routing condition, enabling those two non-XRPC paths to reach the dispatcher correctly.
 
 ## Routing chain
 
 ```
-POST jukyu.gftd.ai/xrpc/ai.gftd.apps.jukyu.queryBalance
+POST jukyu.etzhayyim.com/xrpc/ai.gftd.apps.jukyu.queryBalance
   → CF Worker (app.ts): NSID_PREFIX match → proxyToDispatcher
-    → dispatcher.gftd.ai/xrpc/ai.gftd.apps.jukyu.queryBalance
+    → dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.jukyu.queryBalance
       → bpmn-dispatcher: LG_JUKYU_PROXY_PREFIXES match → _proxy_to_lg_pod
         → lg-jukyu.mitama-udf.svc.cluster.local:8000/xrpc/ai.gftd.apps.jukyu.queryBalance
           → FastAPI + psycopg2 → RisingWave mv_jukyu_global_balance
@@ -78,12 +78,12 @@ POST jukyu.gftd.ai/xrpc/ai.gftd.apps.jukyu.queryBalance
 
 ## Deployed image tags
 
-- `lg-jukyu`: `ghcr.io/gftdcojp/pymagatama:jukyu-mcp-query-1127e93592e-20260515170344-amd64`
+- `lg-jukyu`: `ghcr.io/etzhayyim/pymagatama:jukyu-mcp-query-1127e93592e-20260515170344-amd64`
 - `bpmn-dispatcher`: rebuilt same session with lg-jukyu routing additions
 
 ## Consequences
 
-- All four query endpoints respond through `jukyu.gftd.ai` (HTTP 200, verified 2026-05-15)
+- All four query endpoints respond through `jukyu.etzhayyim.com` (HTTP 200, verified 2026-05-15)
 - `explainNode` requires real node codes (format: `JURONG-NAPH`, `ARA-NAPH`, `CHIBA-C2`) from `vertex_jukyu_supply_node`
 - The bpmn-dispatcher proxy pattern is now consistent across: lg-animeka, lg-malak, lg-jukyu (and others)
 - No RisingWave `vertex_bpmn_lexicon_binding` row needed for jukyu — static prefix table is the SSoT

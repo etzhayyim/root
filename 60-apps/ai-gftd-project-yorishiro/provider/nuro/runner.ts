@@ -8,8 +8,8 @@
  *   secret/data/orgs/{orgId}/users/{userId}/services/nuro/bankAccount
  *
  * Calls back via XRPC:
- *   POST https://nur0cb01.gftd.ai/xrpc/ai.gftd.apps.yorishiroNuro.recordOffers
- *   POST https://nur0cb01.gftd.ai/xrpc/ai.gftd.apps.yorishiroNuro.recordClaim
+ *   POST https://nur0cb01.etzhayyim.com/xrpc/ai.gftd.apps.yorishiroNuro.recordOffers
+ *   POST https://nur0cb01.etzhayyim.com/xrpc/ai.gftd.apps.yorishiroNuro.recordClaim
  */
 
 import {
@@ -20,7 +20,7 @@ import {
   type CashbackOffer,
 } from "./flow.js";
 
-const NURO_APP_BASE = "https://nur0cb01.gftd.ai";
+const NURO_APP_BASE = "https://nur0cb01.etzhayyim.com";
 const VAULT_URL = process.env.VAULT_URL ?? "http://vault:8200";
 const VAULT_TOKEN = process.env.VAULT_TOKEN ?? "";
 

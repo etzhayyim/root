@@ -4,7 +4,7 @@
 
 ## Overview
 
-toshi-kozan.gftd.ai — 都市鉱山 (Urban Mining) インテリジェンス。使用済み電子機器・廃棄物から貴金属・レアメタル・レアアースを回収するための end-to-end パイプライン。回収案内 → 受領 → 画像認識 → 分類 → 分解 → ロボットアーム自動分離 → 人間精密作業 (hc.gftd.ai) → 鑑定 → 告知 の全工程を 10 actor が協調処理する。
+toshi-kozan.etzhayyim.com — 都市鉱山 (Urban Mining) インテリジェンス。使用済み電子機器・廃棄物から貴金属・レアメタル・レアアースを回収するための end-to-end パイプライン。回収案内 → 受領 → 画像認識 → 分類 → 分解 → ロボットアーム自動分離 → 人間精密作業 (hc.etzhayyim.com) → 鑑定 → 告知 の全工程を 10 actor が協調処理する。
 
 ## Actor Topology
 
@@ -43,17 +43,17 @@ toshi-kozan.gftd.ai — 都市鉱山 (Urban Mining) インテリジェンス。�
 
 | Actor | DID | Role | Capability |
 |---|---|---|---|
-| **controller** | `did:web:toshi-kozan.gftd.ai` | Orchestration, project lifecycle | pipeline 統括 |
-| **guide** | `did:web:toshi-kozan.gftd.ai:actor:guide` | 案内 AI — 持込場所・手順・安全指示 | agent.chat, maps 連携 |
-| **collector** | `did:web:toshi-kozan.gftd.ai:actor:collector` | 回収 AI — 拠点管理・ピックアップ手配 | graph.write, logistics |
-| **receiver** | `did:web:toshi-kozan.gftd.ai:actor:receiver` | 受領 AI — 計量・受領証発行・所有権移転 | graph.write, receipt |
-| **eye** | `did:web:toshi-kozan.gftd.ai:actor:eye` | 画像認識 AI — 外観撮影・素材推定・損傷検出 | image inference, Murakumo |
-| **classifier** | `did:web:toshi-kozan.gftd.ai:actor:classifier` | 分類 AI — 素材分類・グレード判定・下流ルーティング | material science, graph.write |
-| **disassembler** | `did:web:toshi-kozan.gftd.ai:actor:disassembler` | 分解 AI — 分解計画・工程管理・部品追跡 | BOM analysis, process planning |
-| **arm** | `did:web:toshi-kozan.gftd.ai:actor:arm` | ロボットアーム AI — 自動分離・仕分け・ビン配置 | robotic control, IoT |
-| **hcDelegate** | `did:web:toshi-kozan.gftd.ai:actor:hcDelegate` | HC 委任 AI — 人間タスク生成・進捗追跡 | hc.gftd.ai invoke |
-| **appraiser** | `did:web:toshi-kozan.gftd.ai:actor:appraiser` | 鑑定 AI — 素材価値評価・市場価格連動 | kakaku 連携, valuation |
-| **announcer** | `did:web:toshi-kozan.gftd.ai:actor:announcer` | 告知 AI — 回収実績・キャンペーン・社会投稿 | derive:social |
+| **controller** | `did:web:toshi-kozan.etzhayyim.com` | Orchestration, project lifecycle | pipeline 統括 |
+| **guide** | `did:web:toshi-kozan.etzhayyim.com:actor:guide` | 案内 AI — 持込場所・手順・安全指示 | agent.chat, maps 連携 |
+| **collector** | `did:web:toshi-kozan.etzhayyim.com:actor:collector` | 回収 AI — 拠点管理・ピックアップ手配 | graph.write, logistics |
+| **receiver** | `did:web:toshi-kozan.etzhayyim.com:actor:receiver` | 受領 AI — 計量・受領証発行・所有権移転 | graph.write, receipt |
+| **eye** | `did:web:toshi-kozan.etzhayyim.com:actor:eye` | 画像認識 AI — 外観撮影・素材推定・損傷検出 | image inference, Murakumo |
+| **classifier** | `did:web:toshi-kozan.etzhayyim.com:actor:classifier` | 分類 AI — 素材分類・グレード判定・下流ルーティング | material science, graph.write |
+| **disassembler** | `did:web:toshi-kozan.etzhayyim.com:actor:disassembler` | 分解 AI — 分解計画・工程管理・部品追跡 | BOM analysis, process planning |
+| **arm** | `did:web:toshi-kozan.etzhayyim.com:actor:arm` | ロボットアーム AI — 自動分離・仕分け・ビン配置 | robotic control, IoT |
+| **hcDelegate** | `did:web:toshi-kozan.etzhayyim.com:actor:hcDelegate` | HC 委任 AI — 人間タスク生成・進捗追跡 | hc.etzhayyim.com invoke |
+| **appraiser** | `did:web:toshi-kozan.etzhayyim.com:actor:appraiser` | 鑑定 AI — 素材価値評価・市場価格連動 | kakaku 連携, valuation |
+| **announcer** | `did:web:toshi-kozan.etzhayyim.com:actor:announcer` | 告知 AI — 回収実績・キャンペーン・社会投稿 | derive:social |
 
 ## Domain Model
 
@@ -70,7 +70,7 @@ toshi-kozan.gftd.ai — 都市鉱山 (Urban Mining) インテリジェンス。�
 | **分解計画 (DisassemblyPlan)** | `TkDisassemblyPlan` | BOM ベース分解工程・自動/人間の振分け |
 | **分解工程 (DisassemblyStep)** | `TkDisassemblyStep` | 個別工程ステップ (arm or HC) |
 | **アーム指令 (ArmCommand)** | `TkArmCommand` | ロボットアーム制御指令 (pick/place/sort) |
-| **HC タスク (HcTask)** | `TkHcTask` | hc.gftd.ai に委任した人間タスク |
+| **HC タスク (HcTask)** | `TkHcTask` | hc.etzhayyim.com に委任した人間タスク |
 | **回収バッチ (Batch)** | `TkBatch` | 回収処理バッチ (投入量, 回収量, 回収率) |
 | **鑑定 (Appraisal)** | `TkAppraisal` | 素材価値評価・市場価格・CO2 削減量 |
 | **回収施設 (Facility)** | `TkFacility` | 精錬・分離施設の処理能力・稼働状況 |
@@ -110,7 +110,7 @@ toshi-kozan.gftd.ai — 都市鉱山 (Urban Mining) インテリジェンス。�
 
 ```
 市民/企業 → guide.chat("スマホを処分したい")
-  → guide: maps.gftd.ai invoke → 最寄り depot 検索
+  → guide: maps.etzhayyim.com invoke → 最寄り depot 検索
   → guide: 持込手順・安全注意事項を回答
   → collector: createPickup (出張回収予約) or depot 持込案内
 ```
@@ -156,7 +156,7 @@ disassembler: step(type=auto) → onCommit
   → arm: sortToBin (素材別ビン仕分け)
 
 disassembler: step(type=human) → onCommit
-  → hcDelegate: createHcTask (hc.gftd.ai invoke)
+  → hcDelegate: createHcTask (hc.etzhayyim.com invoke)
   → hcDelegate: trackCompletion (完了追跡)
   → HC worker が精密分解・危険物処理を実行
 ```
@@ -166,7 +166,7 @@ disassembler: step(type=human) → onCommit
 ```
 arm/hcDelegate: step 完了 → onCommit
   → appraiser: assessValue (素材重量 × 市場価格)
-  → appraiser: kakaku.gftd.ai invoke (LME/TOCOM 価格取得)
+  → appraiser: kakaku.etzhayyim.com invoke (LME/TOCOM 価格取得)
   → appraiser: calculateCo2Saved (環境インパクト)
 ```
 
@@ -178,7 +178,7 @@ appraiser: appraisal 完了 → derive:social
   → announcer: campaignNotify (キャンペーン告知)
 ```
 
-## HC Task Categories (hc.gftd.ai 委任タスク)
+## HC Task Categories (hc.etzhayyim.com 委任タスク)
 
 | Category | 用途 | Difficulty | Reward |
 |---|---|---|---|
@@ -192,15 +192,15 @@ appraiser: appraisal 完了 → derive:social
 
 | Project | 関係 | Direction |
 |---|---|---|
-| `hc.gftd.ai` | 人間タスク委任 (精密分解・危険物・QC) | toshi-kozan → HC (Invoke) |
-| `maps.gftd.ai` | 回収拠点の空間配置・物流ルート | toshi-kozan → maps (Invoke) |
-| `kakaku.gftd.ai` | 素材市場価格データ (LME/TOCOM) | toshi-kozan → kakaku (Invoke) |
-| `energy.gftd.ai` | 精錬プロセスのエネルギー消費 | toshi-kozan → energy (query) |
-| `society6.gftd.ai` | 循環経済指標への寄与 | toshi-kozan → society6 (derive) |
-| `collector.gftd.ai` | 廃棄物収集パイプライン上流 | collector → toshi-kozan (onCommit) |
-| `murakumo.gftd.ai` | 画像認識・LLM 推論 | toshi-kozan → Murakumo (inference) |
-| `yabai.gftd.ai` | 違法廃棄物・盗品スクリーニング | toshi-kozan → yabai (Invoke) |
-| `trust.gftd.ai` | 提供者 DID 信頼スコア | toshi-kozan → trust (query) |
+| `hc.etzhayyim.com` | 人間タスク委任 (精密分解・危険物・QC) | toshi-kozan → HC (Invoke) |
+| `maps.etzhayyim.com` | 回収拠点の空間配置・物流ルート | toshi-kozan → maps (Invoke) |
+| `kakaku.etzhayyim.com` | 素材市場価格データ (LME/TOCOM) | toshi-kozan → kakaku (Invoke) |
+| `energy.etzhayyim.com` | 精錬プロセスのエネルギー消費 | toshi-kozan → energy (query) |
+| `society6.etzhayyim.com` | 循環経済指標への寄与 | toshi-kozan → society6 (derive) |
+| `collector.etzhayyim.com` | 廃棄物収集パイプライン上流 | collector → toshi-kozan (onCommit) |
+| `murakumo.etzhayyim.com` | 画像認識・LLM 推論 | toshi-kozan → Murakumo (inference) |
+| `yabai.etzhayyim.com` | 違法廃棄物・盗品スクリーニング | toshi-kozan → yabai (Invoke) |
+| `trust.etzhayyim.com` | 提供者 DID 信頼スコア | toshi-kozan → trust (query) |
 
 ## COFOG Classification
 
@@ -254,7 +254,7 @@ appraiser: appraisal 完了 → derive:social
 |---|---|---|
 | `ai.gftd.apps.toshiKozan.appraisal` | `derive:social` | `[都市鉱山] 回収バッチ完了 — {{grade}} grade {{materialName}} {{weightKg}}kg 回収 (市場価値 ¥{{economicValueJpy}}, CO2削減 {{co2SavedKg}}kg)` |
 | `ai.gftd.apps.toshiKozan.receipt` (>100kg) | `derive:social` | `[都市鉱山] 大口受入: {{wasteCategory}} {{weightKg}}kg を {{depotName}} で受領` |
-| `ai.gftd.apps.toshiKozan.hcTask` (pending) | `derive:invoke` | `hc.gftd.ai` に HC タスク自動生成 |
+| `ai.gftd.apps.toshiKozan.hcTask` (pending) | `derive:invoke` | `hc.etzhayyim.com` に HC タスク自動生成 |
 
 ## Commands (XRPC)
 
@@ -270,7 +270,7 @@ appraiser: appraisal 完了 → derive:social
 | `ai.gftd.apps.toshiKozan.createDisassemblyPlan` | disassembler | 分解計画作成 (LLM BOM 分析) |
 | `ai.gftd.apps.toshiKozan.dispatchStep` | disassembler | 工程ステップ振分け (auto/human) |
 | `ai.gftd.apps.toshiKozan.executeArmCommand` | arm | ロボットアーム指令 (高承認レベル) |
-| `ai.gftd.apps.toshiKozan.delegateToHc` | hcDelegate | hc.gftd.ai に人間タスク委任 |
+| `ai.gftd.apps.toshiKozan.delegateToHc` | hcDelegate | hc.etzhayyim.com に人間タスク委任 |
 | `ai.gftd.apps.toshiKozan.appraiseBatch` | appraiser | 素材価値鑑定 (kakaku 市場価格連動) |
 | `ai.gftd.apps.toshiKozan.announceCampaign` | announcer | キャンペーン告知投稿 |
 | `ai.gftd.apps.toshiKozan.registerMaterial` | controller | 素材マスタ登録 |
@@ -309,9 +309,9 @@ appraiser: appraisal 完了 → derive:social
 ```bash
 cd appview/ai-gftd-wasm-toshi-kozan-tk7x9p2m
 gftd deploy
-# Health: https://tk7x9p2m.gftd.ai/health
-# Meta:   https://tk7x9p2m.gftd.ai/_app/meta
-# Vanity: https://toshi-kozan.gftd.ai/
+# Health: https://tk7x9p2m.etzhayyim.com/health
+# Meta:   https://tk7x9p2m.etzhayyim.com/_app/meta
+# Vanity: https://toshi-kozan.etzhayyim.com/
 ```
 
 ## App Component

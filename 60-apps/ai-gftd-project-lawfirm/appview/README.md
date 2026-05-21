@@ -3,7 +3,7 @@
 ## 実装済み components
 
 - `lawfirm-client-mcp-component`
-  - `lawfirm.gftd.ai` / `lawyer.gftd.ai` の `/xrpc` を担当
+  - `lawfirm.etzhayyim.com` / `lawyer.etzhayyim.com` の `/xrpc` を担当
   - `GET /...` で静的フロント (`svelte/build`) を配信
   - runtime: magatama runtime (performer.Adapter + ClickHouse)
   - XRPC: `gftd.lawfirm.v1.LawfirmService` (62 methods)

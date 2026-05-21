@@ -91,7 +91,7 @@ PDS handler 内に分散する agent inference パスを **agentInfer() 単一�
 
 ```
 A) XRPC direct fetch (現状)
-   sendProjectMessage → fetch(`https://{nanoid}.gftd.ai/xrpc/...`)
+   sendProjectMessage → fetch(`https://{nanoid}.etzhayyim.com/xrpc/...`)
    → memory/consent/audit なし ✗
 
 B) agentInfer delegation (推奨)

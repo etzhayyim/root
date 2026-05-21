@@ -1,7 +1,7 @@
 {
   "@context": {
     "schema": "https://schema.org/",
-    "gftd": "https://gftd.ai/ontology/"
+    "gftd": "https://etzhayyim.com/ontology/"
   },
   "@type": "ItemList",
   "name": "Bio Gene Research Actors",

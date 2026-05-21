@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/10/7/0/social-exclusion-nec/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/10/7/0/social-exclusion-nec/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Social Inclusion and Program Lifecycle",
       "description": "The administrative process of analyzing exclusion needs, coordinating integration support, and monitoring program outcomes.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/10/7/0/social-exclusion-nec"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/7/0/social-exclusion-nec"
     }
   ]
 }

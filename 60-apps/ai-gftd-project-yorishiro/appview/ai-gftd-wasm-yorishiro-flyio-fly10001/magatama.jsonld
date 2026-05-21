@@ -1,11 +1,11 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:fly10001.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:fly10001.etzhayyim.com",
   "name": "yorishiro-flyio",
   "nanoid": "fly10001",
   "component": {
     "env": {
-      "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions"
+      "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions"
     }
   },
   "convoSystemPrompt": "You are the yorishiro-flyio agent — browser automation adapter for Fly.io account management and account closure (解約). You navigate fly.io via yorishiro-provider (Playwright), retrieve account/app/org info, and execute destructive operations only when the user explicitly confirms. Credentials are stored in provider-vault; never exposed. All cancellation steps are logged to the audit graph. Respond in the user's language.",

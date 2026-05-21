@@ -1,9 +1,9 @@
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "gamers.gftd.ai — HC Task Definitions",
-  "description": "Human Computing (hc.gftd.ai) タスク定義。gamers.gftd.ai の記事品質向上・翻訳・検証・SEO改善のためのマイクロタスク群。CreateTask RPC で投入する。",
-  "url": "https://hc.gftd.ai",
+  "name": "gamers.etzhayyim.com — HC Task Definitions",
+  "description": "Human Computing (hc.etzhayyim.com) タスク定義。gamers.etzhayyim.com の記事品質向上・翻訳・検証・SEO改善のためのマイクロタスク群。CreateTask RPC で投入する。",
+  "url": "https://hc.etzhayyim.com",
   "numberOfItems": 30,
   "itemListElement": [
     {
@@ -17,7 +17,7 @@
       "description": "ゲーム攻略記事のファクトチェック — 数値・仕様の正確性検証",
       "object": {
         "title": "ゲーム攻略記事 正確性レビュー",
-        "description": "gamers.gftd.ai のゲーム攻略記事を読み、記載されている数値（ダメージ値、スキル効果、確率など）が実際のゲーム仕様と一致しているか検証してください。\n\n【作業内容】\n1. 指定された記事URLを開く\n2. 記事内の全数値データ（ダメージ値、倍率、秒数、確率など）をリストアップ\n3. 各数値がゲーム内の実データと一致するか検証（自身のプレイ経験 or 公式攻略本 or 信頼性の高い攻略サイトで確認）\n4. 不一致がある場合、正しい値と出典を報告\n5. 数値が未検証の場合は「未確認」と報告\n\n【回答フォーマット】\n{\"article_id\": \"...\", \"checks\": [{\"claim\": \"引用文\", \"value_in_article\": \"...\", \"actual_value\": \"...\", \"source\": \"...\", \"verdict\": \"correct|incorrect|unverified\"}], \"overall_accuracy\": 0-100, \"notes\": \"...\"}",
+        "description": "gamers.etzhayyim.com のゲーム攻略記事を読み、記載されている数値（ダメージ値、スキル効果、確率など）が実際のゲーム仕様と一致しているか検証してください。\n\n【作業内容】\n1. 指定された記事URLを開く\n2. 記事内の全数値データ（ダメージ値、倍率、秒数、確率など）をリストアップ\n3. 各数値がゲーム内の実データと一致するか検証（自身のプレイ経験 or 公式攻略本 or 信頼性の高い攻略サイトで確認）\n4. 不一致がある場合、正しい値と出典を報告\n5. 数値が未検証の場合は「未確認」と報告\n\n【回答フォーマット】\n{\"article_id\": \"...\", \"checks\": [{\"claim\": \"引用文\", \"value_in_article\": \"...\", \"actual_value\": \"...\", \"source\": \"...\", \"verdict\": \"correct|incorrect|unverified\"}], \"overall_accuracy\": 0-100, \"notes\": \"...\"}",
         "category": "content-moderation",
         "difficulty": "medium",
         "rewardAmount": "0.80",
@@ -39,7 +39,7 @@
       "description": "記事の網羅性レビュー — game8 水準との差分分析",
       "object": {
         "title": "攻略記事 網羅性チェック（game8比較）",
-        "description": "gamers.gftd.ai の指定ゲームの記事群と、game8.jp の同ゲームの記事群を比較し、不足しているトピック・記事タイプを特定してください。\n\n【作業内容】\n1. gamers.gftd.ai/ja/games/{slug}/ の全記事を確認\n2. game8.jp の同ゲームのトップページを確認\n3. game8 にあって gamers にないトピック/記事タイプをリストアップ\n4. 各不足トピックの優先度を判定（high/medium/low）\n5. 不足記事の推定文字数と想定読者層を記載\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"gamers_article_count\": N, \"game8_article_count\": N, \"missing_topics\": [{\"topic\": \"...\", \"article_type\": \"weapon|boss|character|...\", \"priority\": \"high|medium|low\", \"estimated_words\": N, \"target_audience\": \"...\"}], \"coverage_score\": 0-100}",
+        "description": "gamers.etzhayyim.com の指定ゲームの記事群と、game8.jp の同ゲームの記事群を比較し、不足しているトピック・記事タイプを特定してください。\n\n【作業内容】\n1. gamers.etzhayyim.com/ja/games/{slug}/ の全記事を確認\n2. game8.jp の同ゲームのトップページを確認\n3. game8 にあって gamers にないトピック/記事タイプをリストアップ\n4. 各不足トピックの優先度を判定（high/medium/low）\n5. 不足記事の推定文字数と想定読者層を記載\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"gamers_article_count\": N, \"game8_article_count\": N, \"missing_topics\": [{\"topic\": \"...\", \"article_type\": \"weapon|boss|character|...\", \"priority\": \"high|medium|low\", \"estimated_words\": N, \"target_audience\": \"...\"}], \"coverage_score\": 0-100}",
         "category": "content-moderation",
         "difficulty": "medium",
         "rewardAmount": "1.20",
@@ -61,7 +61,7 @@
       "description": "記事の読みやすさ・構成レビュー",
       "object": {
         "title": "攻略記事 読みやすさレビュー",
-        "description": "gamers.gftd.ai の指定記事を読み、読みやすさ・構成の品質を評価してください。\n\n【評価基準】\n1. 見出し構成: H2/H3の階層は適切か、スキャンしやすいか (0-20点)\n2. 段落長: 1段落が長すぎないか、適切に分割されているか (0-20点)\n3. 具体性: 抽象的な表現でなく具体的な数値・手順が書かれているか (0-20点)\n4. 導入: 記事の冒頭で「この記事で何が分かるか」が明示されているか (0-20点)\n5. アクション可能性: 読んだ後にプレイヤーが何をすればいいか明確か (0-20点)\n\n【回答フォーマット】\n{\"article_id\": \"...\", \"scores\": {\"heading_structure\": N, \"paragraph_length\": N, \"specificity\": N, \"introduction\": N, \"actionability\": N}, \"total\": N, \"improvements\": [\"改善提案1\", \"改善提案2\", ...], \"best_section\": \"最も良いセクション名\", \"worst_section\": \"最も改善が必要なセクション名\"}",
+        "description": "gamers.etzhayyim.com の指定記事を読み、読みやすさ・構成の品質を評価してください。\n\n【評価基準】\n1. 見出し構成: H2/H3の階層は適切か、スキャンしやすいか (0-20点)\n2. 段落長: 1段落が長すぎないか、適切に分割されているか (0-20点)\n3. 具体性: 抽象的な表現でなく具体的な数値・手順が書かれているか (0-20点)\n4. 導入: 記事の冒頭で「この記事で何が分かるか」が明示されているか (0-20点)\n5. アクション可能性: 読んだ後にプレイヤーが何をすればいいか明確か (0-20点)\n\n【回答フォーマット】\n{\"article_id\": \"...\", \"scores\": {\"heading_structure\": N, \"paragraph_length\": N, \"specificity\": N, \"introduction\": N, \"actionability\": N}, \"total\": N, \"improvements\": [\"改善提案1\", \"改善提案2\", ...], \"best_section\": \"最も良いセクション名\", \"worst_section\": \"最も改善が必要なセクション名\"}",
         "category": "content-moderation",
         "difficulty": "easy",
         "rewardAmount": "0.50",
@@ -87,7 +87,7 @@
       "description": "日本語記事 → 英語翻訳（ゲーム用語対応）",
       "object": {
         "title": "ゲーム攻略記事 日英翻訳",
-        "description": "gamers.gftd.ai の日本語攻略記事を英語に翻訳してください。ゲーム固有の用語は公式英語版の表記に準拠すること。\n\n【重要ルール】\n- ゲーム内の固有名詞（武器名、スキル名、モンスター名）は公式英語版の表記を使用\n- 数値は原文のまま保持（変換しない）\n- セクション構造（見出し、箇条書き）は原文と同じ構成を維持\n- 意訳OK。直訳でなくゲーマーが自然に読める英語にする\n- FAQ のQ&Aも翻訳対象\n\n【入力】input_json に原文JSON（title, summary, sections, key_points, faq）が含まれる\n\n【回答フォーマット】\n{\"translated\": {\"title\": \"...\", \"summary\": \"...\", \"sections\": [{\"title\": \"...\", \"body\": \"...\"}], \"key_points\": [\"...\"], \"faq\": [{\"question\": \"...\", \"answer\": \"...\"}]}, \"notes\": \"翻訳で迷った箇所のメモ\"}",
+        "description": "gamers.etzhayyim.com の日本語攻略記事を英語に翻訳してください。ゲーム固有の用語は公式英語版の表記に準拠すること。\n\n【重要ルール】\n- ゲーム内の固有名詞（武器名、スキル名、モンスター名）は公式英語版の表記を使用\n- 数値は原文のまま保持（変換しない）\n- セクション構造（見出し、箇条書き）は原文と同じ構成を維持\n- 意訳OK。直訳でなくゲーマーが自然に読める英語にする\n- FAQ のQ&Aも翻訳対象\n\n【入力】input_json に原文JSON（title, summary, sections, key_points, faq）が含まれる\n\n【回答フォーマット】\n{\"translated\": {\"title\": \"...\", \"summary\": \"...\", \"sections\": [{\"title\": \"...\", \"body\": \"...\"}], \"key_points\": [\"...\"], \"faq\": [{\"question\": \"...\", \"answer\": \"...\"}]}, \"notes\": \"翻訳で迷った箇所のメモ\"}",
         "category": "translation",
         "difficulty": "medium",
         "rewardAmount": "1.50",
@@ -109,7 +109,7 @@
       "description": "日本語記事 → 中国語（簡体字）翻訳",
       "object": {
         "title": "ゲーム攻略記事 日中翻訳",
-        "description": "gamers.gftd.ai の日本語攻略記事を中国語（簡体字）に翻訳してください。中国ゲームコミュニティで通用するゲーム用語を使用すること。\n\n【重要ルール】\n- ゲーム内固有名詞は中国語版公式表記を使用（例：エルデンリング→艾尔登法环）\n- 中国のゲームコミュニティで通用する俗語・略語を優先（例：DPS→输出）\n- セクション構造は原文と同じ構成を維持\n- 数値は原文のまま保持\n\n【回答フォーマット】\n{\"translated\": {\"title\": \"...\", \"summary\": \"...\", \"sections\": [...], \"key_points\": [...], \"faq\": [...]}, \"term_glossary\": [{\"ja\": \"...\", \"zh\": \"...\"}]}",
+        "description": "gamers.etzhayyim.com の日本語攻略記事を中国語（簡体字）に翻訳してください。中国ゲームコミュニティで通用するゲーム用語を使用すること。\n\n【重要ルール】\n- ゲーム内固有名詞は中国語版公式表記を使用（例：エルデンリング→艾尔登法环）\n- 中国のゲームコミュニティで通用する俗語・略語を優先（例：DPS→输出）\n- セクション構造は原文と同じ構成を維持\n- 数値は原文のまま保持\n\n【回答フォーマット】\n{\"translated\": {\"title\": \"...\", \"summary\": \"...\", \"sections\": [...], \"key_points\": [...], \"faq\": [...]}, \"term_glossary\": [{\"ja\": \"...\", \"zh\": \"...\"}]}",
         "category": "translation",
         "difficulty": "medium",
         "rewardAmount": "1.50",
@@ -131,7 +131,7 @@
       "description": "日本語記事 → スペイン語翻訳",
       "object": {
         "title": "ゲーム攻略記事 日西翻訳",
-        "description": "gamers.gftd.ai の日本語攻略記事をスペイン語に翻訳してください。ラテンアメリカのゲーマー向けの自然なスペイン語にすること。",
+        "description": "gamers.etzhayyim.com の日本語攻略記事をスペイン語に翻訳してください。ラテンアメリカのゲーマー向けの自然なスペイン語にすること。",
         "category": "translation",
         "difficulty": "medium",
         "rewardAmount": "1.50",
@@ -153,7 +153,7 @@
       "description": "翻訳済み記事のネイティブチェック",
       "object": {
         "title": "翻訳記事 ネイティブチェック",
-        "description": "LLM が翻訳した gamers.gftd.ai の記事を、対象言語のネイティブスピーカーとしてレビューしてください。\n\n【チェック項目】\n1. 自然さ: 機械翻訳臭がないか (0-25点)\n2. ゲーム用語: 公式/コミュニティ通用語が正しく使われているか (0-25点)\n3. 文法: 文法・綴りエラーがないか (0-25点)\n4. トーン: ゲーマー向けの適切なトーンか（堅すぎない、カジュアルすぎない）(0-25点)\n\n【回答フォーマット】\n{\"lang\": \"en|zh|es|hi|ar\", \"scores\": {\"naturalness\": N, \"terminology\": N, \"grammar\": N, \"tone\": N}, \"total\": N, \"corrections\": [{\"original\": \"...\", \"corrected\": \"...\", \"reason\": \"...\"}]}",
+        "description": "LLM が翻訳した gamers.etzhayyim.com の記事を、対象言語のネイティブスピーカーとしてレビューしてください。\n\n【チェック項目】\n1. 自然さ: 機械翻訳臭がないか (0-25点)\n2. ゲーム用語: 公式/コミュニティ通用語が正しく使われているか (0-25点)\n3. 文法: 文法・綴りエラーがないか (0-25点)\n4. トーン: ゲーマー向けの適切なトーンか（堅すぎない、カジュアルすぎない）(0-25点)\n\n【回答フォーマット】\n{\"lang\": \"en|zh|es|hi|ar\", \"scores\": {\"naturalness\": N, \"terminology\": N, \"grammar\": N, \"tone\": N}, \"total\": N, \"corrections\": [{\"original\": \"...\", \"corrected\": \"...\", \"reason\": \"...\"}]}",
         "category": "translation",
         "difficulty": "easy",
         "rewardAmount": "0.80",
@@ -249,7 +249,7 @@
       "description": "記事タイトル・meta description の SEO 最適化",
       "object": {
         "title": "記事タイトル・メタディスクリプション最適化",
-        "description": "gamers.gftd.ai の指定記事群のタイトルと meta description を SEO 最適化してください。\n\n【最適化基準】\n- タイトル: 30〜60文字。主要キーワードを前方に配置。クリックしたくなる表現。\n- meta description: 80〜120文字。記事の価値を端的に伝える。キーワードを自然に含める。\n- 検索意図: 「[ゲーム名] [武器名] おすすめ」「[ゲーム名] [ボス名] 倒し方」などの実際の検索クエリを意識\n\n【回答フォーマット】\n{\"optimizations\": [{\"article_id\": \"...\", \"current_title\": \"...\", \"optimized_title\": \"...\", \"current_desc\": \"...\", \"optimized_desc\": \"...\", \"target_keywords\": [\"...\"], \"search_intent\": \"...\"}]}",
+        "description": "gamers.etzhayyim.com の指定記事群のタイトルと meta description を SEO 最適化してください。\n\n【最適化基準】\n- タイトル: 30〜60文字。主要キーワードを前方に配置。クリックしたくなる表現。\n- meta description: 80〜120文字。記事の価値を端的に伝える。キーワードを自然に含める。\n- 検索意図: 「[ゲーム名] [武器名] おすすめ」「[ゲーム名] [ボス名] 倒し方」などの実際の検索クエリを意識\n\n【回答フォーマット】\n{\"optimizations\": [{\"article_id\": \"...\", \"current_title\": \"...\", \"optimized_title\": \"...\", \"current_desc\": \"...\", \"optimized_desc\": \"...\", \"target_keywords\": [\"...\"], \"search_intent\": \"...\"}]}",
         "category": "search-relevance",
         "difficulty": "medium",
         "rewardAmount": "1.00",
@@ -271,7 +271,7 @@
       "description": "ゲーム別キーワードリサーチ（検索ボリューム調査）",
       "object": {
         "title": "ゲーム攻略キーワードリサーチ",
-        "description": "指定ゲームに関する攻略系キーワードをリサーチし、検索ボリュームと競合度を調査してください。\n\n【作業内容】\n1. Google サジェスト、People Also Ask、関連検索からキーワードを50個以上収集\n2. 各キーワードの推定月間検索ボリューム（Google Keyword Planner or 類似ツール）\n3. 競合記事の上位3サイトのタイトルと推定文字数\n4. gamers.gftd.ai に該当記事があるかチェック（ある場合は記事ID記載）\n5. 未対応キーワードを優先度でランク付け\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"keywords\": [{\"keyword\": \"...\", \"monthly_volume\": N, \"competition\": \"low|medium|high\", \"top3_competitors\": [\"...\"], \"gamers_article_id\": \"...|null\", \"priority\": \"high|medium|low\"}], \"top_opportunities\": [\"未対応で検索ボリューム高のキーワード上位5\"]}",
+        "description": "指定ゲームに関する攻略系キーワードをリサーチし、検索ボリュームと競合度を調査してください。\n\n【作業内容】\n1. Google サジェスト、People Also Ask、関連検索からキーワードを50個以上収集\n2. 各キーワードの推定月間検索ボリューム（Google Keyword Planner or 類似ツール）\n3. 競合記事の上位3サイトのタイトルと推定文字数\n4. gamers.etzhayyim.com に該当記事があるかチェック（ある場合は記事ID記載）\n5. 未対応キーワードを優先度でランク付け\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"keywords\": [{\"keyword\": \"...\", \"monthly_volume\": N, \"competition\": \"low|medium|high\", \"top3_competitors\": [\"...\"], \"gamers_article_id\": \"...|null\", \"priority\": \"high|medium|low\"}], \"top_opportunities\": [\"未対応で検索ボリューム高のキーワード上位5\"]}",
         "category": "search-relevance",
         "difficulty": "hard",
         "rewardAmount": "2.50",
@@ -293,7 +293,7 @@
       "description": "内部リンク構造の最適化提案",
       "object": {
         "title": "内部リンク構造 最適化レポート",
-        "description": "gamers.gftd.ai の指定ゲームの記事群間の内部リンクを分析し、追加すべきリンクを提案してください。\n\n【分析項目】\n1. 現在の記事間リンク構造をマッピング（どの記事からどの記事にリンクしているか）\n2. 孤立ページ（他から1本もリンクされていない記事）の特定\n3. リンク追加提案: 「記事Aのセクション『○○』に記事Bへのリンクを追加」形式\n4. アンカーテキスト提案: SEOに効果的なアンカーテキストを各リンクに提案\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"total_articles\": N, \"orphan_articles\": [\"...\"], \"link_additions\": [{\"from_article\": \"...\", \"from_section\": \"...\", \"to_article\": \"...\", \"anchor_text\": \"...\", \"reason\": \"...\"}]}",
+        "description": "gamers.etzhayyim.com の指定ゲームの記事群間の内部リンクを分析し、追加すべきリンクを提案してください。\n\n【分析項目】\n1. 現在の記事間リンク構造をマッピング（どの記事からどの記事にリンクしているか）\n2. 孤立ページ（他から1本もリンクされていない記事）の特定\n3. リンク追加提案: 「記事Aのセクション『○○』に記事Bへのリンクを追加」形式\n4. アンカーテキスト提案: SEOに効果的なアンカーテキストを各リンクに提案\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"total_articles\": N, \"orphan_articles\": [\"...\"], \"link_additions\": [{\"from_article\": \"...\", \"from_section\": \"...\", \"to_article\": \"...\", \"anchor_text\": \"...\", \"reason\": \"...\"}]}",
         "category": "search-relevance",
         "difficulty": "medium",
         "rewardAmount": "1.50",
@@ -319,7 +319,7 @@
       "description": "記事画像の alt テキスト最適化",
       "object": {
         "title": "ゲーム攻略画像 alt テキスト作成",
-        "description": "gamers.gftd.ai の記事で使用されている画像に対し、SEO とアクセシビリティに最適な alt テキストを作成してください。\n\n【ルール】\n- 現在: ゲーム名のみ（例: 「モンスターハンターワイルズ」）\n- 最適化後: ゲーム名 + 記事内容 + キーワード（例: 「モンスターハンターワイルズ 大剣 溜め斬り タイミング解説」）\n- 50〜100文字以内\n- キーワードの詰め込みはNG。自然な説明文にする\n\n【回答フォーマット】\n{\"images\": [{\"article_id\": \"...\", \"current_alt\": \"...\", \"optimized_alt_ja\": \"...\", \"optimized_alt_en\": \"...\"}]}",
+        "description": "gamers.etzhayyim.com の記事で使用されている画像に対し、SEO とアクセシビリティに最適な alt テキストを作成してください。\n\n【ルール】\n- 現在: ゲーム名のみ（例: 「モンスターハンターワイルズ」）\n- 最適化後: ゲーム名 + 記事内容 + キーワード（例: 「モンスターハンターワイルズ 大剣 溜め斬り タイミング解説」）\n- 50〜100文字以内\n- キーワードの詰め込みはNG。自然な説明文にする\n\n【回答フォーマット】\n{\"images\": [{\"article_id\": \"...\", \"current_alt\": \"...\", \"optimized_alt_ja\": \"...\", \"optimized_alt_en\": \"...\"}]}",
         "category": "image-annotation",
         "difficulty": "easy",
         "rewardAmount": "0.30",
@@ -368,7 +368,7 @@
       "description": "記事の有用性アンケート（実プレイヤー評価）",
       "object": {
         "title": "攻略記事 有用性評価アンケート",
-        "description": "gamers.gftd.ai の指定攻略記事を読み、実際のゲームプレイに役立つかどうかを評価してください。対象ゲームをプレイした経験がある方限定。\n\n【質問項目】\n1. この記事を読む前と後で、ゲームの理解度は変わりましたか？ (1-5)\n2. 記事の情報は最新ですか？古い情報はありましたか？ (1-5 + 自由記述)\n3. 他の攻略サイト（game8, 神ゲー攻略等）と比べて、この記事の価値は？ (1-5)\n4. この記事に足りない情報は何ですか？ (自由記述)\n5. 友達にこの記事を共有しますか？ (Yes/No + 理由)\n\n【応募資格】\n- 対象ゲームを10時間以上プレイした経験\n- 日本語で回答可能\n\n【回答フォーマット】\n{\"article_id\": \"...\", \"play_hours\": N, \"scores\": {\"understanding\": N, \"freshness\": N, \"comparison\": N}, \"missing_info\": \"...\", \"would_share\": true/false, \"share_reason\": \"...\", \"overall_feedback\": \"...\"}",
+        "description": "gamers.etzhayyim.com の指定攻略記事を読み、実際のゲームプレイに役立つかどうかを評価してください。対象ゲームをプレイした経験がある方限定。\n\n【質問項目】\n1. この記事を読む前と後で、ゲームの理解度は変わりましたか？ (1-5)\n2. 記事の情報は最新ですか？古い情報はありましたか？ (1-5 + 自由記述)\n3. 他の攻略サイト（game8, 神ゲー攻略等）と比べて、この記事の価値は？ (1-5)\n4. この記事に足りない情報は何ですか？ (自由記述)\n5. 友達にこの記事を共有しますか？ (Yes/No + 理由)\n\n【応募資格】\n- 対象ゲームを10時間以上プレイした経験\n- 日本語で回答可能\n\n【回答フォーマット】\n{\"article_id\": \"...\", \"play_hours\": N, \"scores\": {\"understanding\": N, \"freshness\": N, \"comparison\": N}, \"missing_info\": \"...\", \"would_share\": true/false, \"share_reason\": \"...\", \"overall_feedback\": \"...\"}",
         "category": "survey",
         "difficulty": "easy",
         "rewardAmount": "0.40",
@@ -390,7 +390,7 @@
       "description": "検索行動調査 — ゲーマーの検索パターン収集",
       "object": {
         "title": "ゲーム攻略 検索行動調査",
-        "description": "あなたが普段ゲーム攻略情報を探す時の検索行動を教えてください。\n\n【質問項目】\n1. 過去1週間で検索したゲーム攻略関連のキーワードを5個以上列挙\n2. 各キーワードで最初にクリックしたサイトはどこ？\n3. そのサイトで満足しましたか？不満だった点は？\n4. ゲーム攻略サイトに最も求めるものは？ (順位付け: 正確性/速報性/見やすさ/深さ/動画)\n5. gamers.gftd.ai を使ったことがある場合、印象を教えてください\n\n【回答フォーマット】\n{\"searches\": [{\"keyword\": \"...\", \"first_click\": \"...\", \"satisfied\": true/false, \"complaint\": \"...\"}], \"priorities\": [\"正確性\", \"速報性\", ...], \"gamers_impression\": \"...\"}",
+        "description": "あなたが普段ゲーム攻略情報を探す時の検索行動を教えてください。\n\n【質問項目】\n1. 過去1週間で検索したゲーム攻略関連のキーワードを5個以上列挙\n2. 各キーワードで最初にクリックしたサイトはどこ？\n3. そのサイトで満足しましたか？不満だった点は？\n4. ゲーム攻略サイトに最も求めるものは？ (順位付け: 正確性/速報性/見やすさ/深さ/動画)\n5. gamers.etzhayyim.com を使ったことがある場合、印象を教えてください\n\n【回答フォーマット】\n{\"searches\": [{\"keyword\": \"...\", \"first_click\": \"...\", \"satisfied\": true/false, \"complaint\": \"...\"}], \"priorities\": [\"正確性\", \"速報性\", ...], \"gamers_impression\": \"...\"}",
         "category": "survey",
         "difficulty": "trivial",
         "rewardAmount": "0.25",
@@ -464,7 +464,7 @@
       "description": "ボス戦プレイ動画撮影 — ノーダメ or 安定クリア",
       "object": {
         "title": "ボス戦プレイ動画 撮影・アップロード",
-        "description": "指定ゲームの指定ボスをプレイし、攻略動画を撮影してアップロードしてください。\n\n【撮影条件】\n- 解像度: 1080p (1920×1080) 以上\n- フレームレート: 30fps 以上\n- UI表示: ON（HP、スタミナ、武器種が見える状態）\n- 音声: ゲーム音声あり。実況音声は任意（あれば加点）\n- 長さ: ボス戦全体（開始〜撃破まで）。編集不要、1テイクで撮影\n\n【撮影パターン（以下から1つ選択）】\nA. ノーダメージクリア: 1回も被弾せずにボスを倒す（難易度: expert、報酬加算あり）\nB. 安定クリア: 回復3回以内でクリア。初心者が参考にできる安全な立ち回り\nC. 武器別クリア: 指定武器種でのクリア映像。武器の適性が分かる内容\n\n【アップロード】\nstorage.gftd.ai の S3 Gateway に PUT。パスは input_json で指定。\ncurl -X PUT 'https://storage.gftd.ai/gamers/videos/{game_slug}/{boss_slug}/{pattern}.mp4' \\\n  -H 'Content-Type: video/mp4' --data-binary @recording.mp4\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"boss_name\": \"...\", \"pattern\": \"A|B|C\", \"weapon_used\": \"...\", \"clear_time\": \"MM:SS\", \"damage_taken\": N, \"deaths\": 0, \"video_url\": \"https://storage.gftd.ai/gamers/videos/...\", \"resolution\": \"1080p\", \"fps\": 60, \"file_size_mb\": N, \"highlights\": [{\"timestamp\": \"MM:SS\", \"description\": \"回避テクニック説明\"}]}",
+        "description": "指定ゲームの指定ボスをプレイし、攻略動画を撮影してアップロードしてください。\n\n【撮影条件】\n- 解像度: 1080p (1920×1080) 以上\n- フレームレート: 30fps 以上\n- UI表示: ON（HP、スタミナ、武器種が見える状態）\n- 音声: ゲーム音声あり。実況音声は任意（あれば加点）\n- 長さ: ボス戦全体（開始〜撃破まで）。編集不要、1テイクで撮影\n\n【撮影パターン（以下から1つ選択）】\nA. ノーダメージクリア: 1回も被弾せずにボスを倒す（難易度: expert、報酬加算あり）\nB. 安定クリア: 回復3回以内でクリア。初心者が参考にできる安全な立ち回り\nC. 武器別クリア: 指定武器種でのクリア映像。武器の適性が分かる内容\n\n【アップロード】\nstorage.etzhayyim.com の S3 Gateway に PUT。パスは input_json で指定。\ncurl -X PUT 'https://storage.etzhayyim.com/gamers/videos/{game_slug}/{boss_slug}/{pattern}.mp4' \\\n  -H 'Content-Type: video/mp4' --data-binary @recording.mp4\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"boss_name\": \"...\", \"pattern\": \"A|B|C\", \"weapon_used\": \"...\", \"clear_time\": \"MM:SS\", \"damage_taken\": N, \"deaths\": 0, \"video_url\": \"https://storage.etzhayyim.com/gamers/videos/...\", \"resolution\": \"1080p\", \"fps\": 60, \"file_size_mb\": N, \"highlights\": [{\"timestamp\": \"MM:SS\", \"description\": \"回避テクニック説明\"}]}",
         "category": "other",
         "difficulty": "hard",
         "rewardAmount": "5.00",
@@ -487,7 +487,7 @@
       "description": "武器コンボ紹介動画 — 全コンボルート実演",
       "object": {
         "title": "武器コンボ実演動画 撮影・アップロード",
-        "description": "指定ゲームの指定武器種の全コンボルートを実演し、動画を撮影してアップロードしてください。\n\n【撮影条件】\n- 解像度: 1080p以上、フレームレート: 60fps推奨（コンボのフレームが見えるため）\n- 場所: トレーニングモード or 訓練場（敵のいない安全な場所）\n- UI表示: ON（入力ボタンが表示される設定があれば使用）\n\n【必須コンテンツ】\n1. 基本コンボ3種: 最も使用頻度の高い3つのコンボを各3回ずつ実演\n2. 上級テクニック2種: キャンセル技、カウンター、特殊入力を実演\n3. 実戦コンボ: モンスター or ボス相手に実際のコンボを当てる映像（30秒以上）\n4. 失敗例: 各コンボの「やりがちなミス」を1回ずつ意図的に見せる\n\n【アップロード】\nstorage.gftd.ai の S3 Gateway にアップロード。\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"weapon_name\": \"...\", \"video_url\": \"https://storage.gftd.ai/gamers/videos/...\", \"combos\": [{\"name\": \"コンボ名\", \"inputs\": \"入力コマンド\", \"timestamp\": \"MM:SS\", \"damage\": N, \"notes\": \"...\"}], \"advanced_techniques\": [{\"name\": \"...\", \"timestamp\": \"MM:SS\"}], \"common_mistakes\": [{\"mistake\": \"...\", \"timestamp\": \"MM:SS\"}]}",
+        "description": "指定ゲームの指定武器種の全コンボルートを実演し、動画を撮影してアップロードしてください。\n\n【撮影条件】\n- 解像度: 1080p以上、フレームレート: 60fps推奨（コンボのフレームが見えるため）\n- 場所: トレーニングモード or 訓練場（敵のいない安全な場所）\n- UI表示: ON（入力ボタンが表示される設定があれば使用）\n\n【必須コンテンツ】\n1. 基本コンボ3種: 最も使用頻度の高い3つのコンボを各3回ずつ実演\n2. 上級テクニック2種: キャンセル技、カウンター、特殊入力を実演\n3. 実戦コンボ: モンスター or ボス相手に実際のコンボを当てる映像（30秒以上）\n4. 失敗例: 各コンボの「やりがちなミス」を1回ずつ意図的に見せる\n\n【アップロード】\nstorage.etzhayyim.com の S3 Gateway にアップロード。\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"weapon_name\": \"...\", \"video_url\": \"https://storage.etzhayyim.com/gamers/videos/...\", \"combos\": [{\"name\": \"コンボ名\", \"inputs\": \"入力コマンド\", \"timestamp\": \"MM:SS\", \"damage\": N, \"notes\": \"...\"}], \"advanced_techniques\": [{\"name\": \"...\", \"timestamp\": \"MM:SS\"}], \"common_mistakes\": [{\"mistake\": \"...\", \"timestamp\": \"MM:SS\"}]}",
         "category": "other",
         "difficulty": "medium",
         "rewardAmount": "4.00",
@@ -510,7 +510,7 @@
       "description": "ストーリー攻略動画 — チャプター単位",
       "object": {
         "title": "ストーリー攻略動画 撮影・アップロード（チャプター単位）",
-        "description": "指定ゲームの指定チャプター/エリアの攻略動画を撮影してください。\n\n【撮影条件】\n- 解像度: 1080p以上\n- 全アイテム・収集物を拾いながら進行（100%コンプリート走）\n- 重要な分岐点では両方の選択肢を見せる（片方は別テイクで可）\n- ボス戦は安定クリア（初心者参考用）\n\n【チャプタータイムスタンプ】\n動画内の各セクションにタイムスタンプを付与（回答に含める）。\n例: 00:00 チャプター開始、02:30 最初の分岐、05:00 中ボス戦...\n\n【アップロード】\nstorage.gftd.ai にアップロード。長時間の場合は30分ごとに分割可。\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"chapter\": \"...\", \"video_urls\": [\"...\"], \"total_duration\": \"HH:MM:SS\", \"timestamps\": [{\"time\": \"MM:SS\", \"label\": \"...\", \"type\": \"item|boss|cutscene|puzzle|secret\"}], \"collectibles_found\": N, \"secrets_found\": N}",
+        "description": "指定ゲームの指定チャプター/エリアの攻略動画を撮影してください。\n\n【撮影条件】\n- 解像度: 1080p以上\n- 全アイテム・収集物を拾いながら進行（100%コンプリート走）\n- 重要な分岐点では両方の選択肢を見せる（片方は別テイクで可）\n- ボス戦は安定クリア（初心者参考用）\n\n【チャプタータイムスタンプ】\n動画内の各セクションにタイムスタンプを付与（回答に含める）。\n例: 00:00 チャプター開始、02:30 最初の分岐、05:00 中ボス戦...\n\n【アップロード】\nstorage.etzhayyim.com にアップロード。長時間の場合は30分ごとに分割可。\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"chapter\": \"...\", \"video_urls\": [\"...\"], \"total_duration\": \"HH:MM:SS\", \"timestamps\": [{\"time\": \"MM:SS\", \"label\": \"...\", \"type\": \"item|boss|cutscene|puzzle|secret\"}], \"collectibles_found\": N, \"secrets_found\": N}",
         "category": "other",
         "difficulty": "hard",
         "rewardAmount": "6.00",
@@ -533,7 +533,7 @@
       "description": "ゲーム内スクリーンショット一括撮影（20枚セット）",
       "object": {
         "title": "ゲーム内スクリーンショット一括撮影（20枚）",
-        "description": "指定ゲームのスクリーンショットを20枚撮影し、storage.gftd.ai にアップロードしてください。gamers.gftd.ai の記事サムネイル・本文中の画像として使用します。\n\n【撮影要件】\n- 解像度: 1920×1080以上（4K歓迎）\n- フォーマット: PNG（品質優先）or JPEG (quality=95)\n- UI非表示推奨（フォトモードがある場合）\n- 各画像にキャプション（日本語 + 英語）を付与\n\n【必須カテゴリ（20枚の内訳）】\n- ボス全体像: 4枚（異なるボス × 各1枚、戦闘中の迫力あるシーン）\n- 武器アクション: 4枚（異なる武器種のコンボ/必殺技の瞬間）\n- 風景・マップ: 4枚（象徴的なロケーション、隠しエリア入口）\n- 装備・UI: 4枚（装備画面、スキル画面、重要メニュー）\n- フリー: 4枚（ゲームの魅力が伝わるベストショット）\n\n【アップロード】\nstorage.gftd.ai にアップロード:\ncurl -X PUT 'https://storage.gftd.ai/gamers/images/{game_slug}/{category}/{filename}.png' \\\n  -H 'Content-Type: image/png' --data-binary @screenshot.png\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"screenshots\": [{\"url\": \"https://storage.gftd.ai/gamers/images/...\", \"category\": \"boss|weapon|landscape|ui|free\", \"caption_ja\": \"...\", \"caption_en\": \"...\", \"alt_text_ja\": \"SEO向けalt\", \"alt_text_en\": \"SEO alt\", \"resolution\": \"1920x1080\", \"file_size_kb\": N, \"suggested_article_id\": \"関連する記事ID（あれば）\"}]}",
+        "description": "指定ゲームのスクリーンショットを20枚撮影し、storage.etzhayyim.com にアップロードしてください。gamers.etzhayyim.com の記事サムネイル・本文中の画像として使用します。\n\n【撮影要件】\n- 解像度: 1920×1080以上（4K歓迎）\n- フォーマット: PNG（品質優先）or JPEG (quality=95)\n- UI非表示推奨（フォトモードがある場合）\n- 各画像にキャプション（日本語 + 英語）を付与\n\n【必須カテゴリ（20枚の内訳）】\n- ボス全体像: 4枚（異なるボス × 各1枚、戦闘中の迫力あるシーン）\n- 武器アクション: 4枚（異なる武器種のコンボ/必殺技の瞬間）\n- 風景・マップ: 4枚（象徴的なロケーション、隠しエリア入口）\n- 装備・UI: 4枚（装備画面、スキル画面、重要メニュー）\n- フリー: 4枚（ゲームの魅力が伝わるベストショット）\n\n【アップロード】\nstorage.etzhayyim.com にアップロード:\ncurl -X PUT 'https://storage.etzhayyim.com/gamers/images/{game_slug}/{category}/{filename}.png' \\\n  -H 'Content-Type: image/png' --data-binary @screenshot.png\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"screenshots\": [{\"url\": \"https://storage.etzhayyim.com/gamers/images/...\", \"category\": \"boss|weapon|landscape|ui|free\", \"caption_ja\": \"...\", \"caption_en\": \"...\", \"alt_text_ja\": \"SEO向けalt\", \"alt_text_en\": \"SEO alt\", \"resolution\": \"1920x1080\", \"file_size_kb\": N, \"suggested_article_id\": \"関連する記事ID（あれば）\"}]}",
         "category": "image-annotation",
         "difficulty": "medium",
         "rewardAmount": "3.00",
@@ -556,7 +556,7 @@
       "description": "マップ画像作成 — アイテム位置・ルート図",
       "object": {
         "title": "攻略マップ画像作成（アイテム位置＆探索ルート）",
-        "description": "指定ゲームの指定エリアの攻略マップ画像を作成してください。ゲーム内マップのスクリーンショットに、アイテム位置・推奨ルート・危険地帯のアノテーションを追加した画像です。\n\n【作成手順】\n1. ゲーム内マップ画面を最大ズームでスクリーンショット撮影\n2. 画像編集ソフト（Figma, Photoshop, GIMP等）で以下をマーキング:\n   - 赤丸: ボス/強敵の位置\n   - 青丸: 重要アイテム（武器、防具、素材）の位置\n   - 緑丸: 安全地帯/休憩ポイント\n   - 黄色矢印: 推奨探索ルート\n   - 紫星: 隠しエリア/シークレットの入口\n3. 各マーキングに番号を振り、凡例を画像内に含める\n\n【納品物】\n- アノテーション付きマップ画像 (PNG, 2000px以上)\n- 凡例テキスト（各番号の説明、日本語）\n\n【アップロード】storage.gftd.ai にアップロード\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"area_name\": \"...\", \"map_url\": \"https://storage.gftd.ai/gamers/images/...\", \"annotations\": [{\"number\": 1, \"type\": \"boss|item|safe|route|secret\", \"label_ja\": \"...\", \"label_en\": \"...\", \"x_percent\": 0.5, \"y_percent\": 0.3}], \"legend_text\": \"...\"}",
+        "description": "指定ゲームの指定エリアの攻略マップ画像を作成してください。ゲーム内マップのスクリーンショットに、アイテム位置・推奨ルート・危険地帯のアノテーションを追加した画像です。\n\n【作成手順】\n1. ゲーム内マップ画面を最大ズームでスクリーンショット撮影\n2. 画像編集ソフト（Figma, Photoshop, GIMP等）で以下をマーキング:\n   - 赤丸: ボス/強敵の位置\n   - 青丸: 重要アイテム（武器、防具、素材）の位置\n   - 緑丸: 安全地帯/休憩ポイント\n   - 黄色矢印: 推奨探索ルート\n   - 紫星: 隠しエリア/シークレットの入口\n3. 各マーキングに番号を振り、凡例を画像内に含める\n\n【納品物】\n- アノテーション付きマップ画像 (PNG, 2000px以上)\n- 凡例テキスト（各番号の説明、日本語）\n\n【アップロード】storage.etzhayyim.com にアップロード\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"area_name\": \"...\", \"map_url\": \"https://storage.etzhayyim.com/gamers/images/...\", \"annotations\": [{\"number\": 1, \"type\": \"boss|item|safe|route|secret\", \"label_ja\": \"...\", \"label_en\": \"...\", \"x_percent\": 0.5, \"y_percent\": 0.3}], \"legend_text\": \"...\"}",
         "category": "image-annotation",
         "difficulty": "hard",
         "rewardAmount": "4.00",
@@ -579,7 +579,7 @@
       "description": "ショート動画（30秒〜60秒）— SNS拡散用クリップ",
       "object": {
         "title": "ゲーム攻略ショート動画（30-60秒）",
-        "description": "gamers.gftd.ai の記事から、SNS で拡散できるショート動画（30〜60秒）を作成してください。\n\n【フォーマット】\n- 縦型 9:16 (1080×1920) — TikTok/Reels/Shorts 対応\n- 長さ: 30〜60秒\n- テキストオーバーレイ: 日本語で要点を3〜5個表示（読みやすいフォント、白文字＋黒縁取り）\n- BGM: フリー素材またはゲーム内BGM（著作権に注意）\n\n【コンテンツパターン（1つ選択）】\nA. 「知らないと損する○○」: 記事の key_points を30秒で紹介\nB. 「○○の倒し方」: ボス攻略の核心を30秒で実演\nC. 「最強武器ランキング TOP3」: ティアリストの上位3つを実演付きで紹介\nD. 「初心者がやりがちなミス」: mistakes を実演→正しい行動を対比\n\n【テキストオーバーレイ例】\n「モンハンワイルズ 大剣で知らないと損する5つのこと」\n①TCSは2回目の光で離す\n②強溜めの傷つけ率は90%\n...\n\n【アップロード】storage.gftd.ai にアップロード\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"pattern\": \"A|B|C|D\", \"title\": \"動画タイトル\", \"video_url\": \"https://storage.gftd.ai/gamers/videos/shorts/...\", \"duration_sec\": N, \"text_overlays\": [\"...\"], \"source_article_id\": \"元記事ID\", \"hashtags\": [\"#モンハンワイルズ\", \"#攻略\", ...]}",
+        "description": "gamers.etzhayyim.com の記事から、SNS で拡散できるショート動画（30〜60秒）を作成してください。\n\n【フォーマット】\n- 縦型 9:16 (1080×1920) — TikTok/Reels/Shorts 対応\n- 長さ: 30〜60秒\n- テキストオーバーレイ: 日本語で要点を3〜5個表示（読みやすいフォント、白文字＋黒縁取り）\n- BGM: フリー素材またはゲーム内BGM（著作権に注意）\n\n【コンテンツパターン（1つ選択）】\nA. 「知らないと損する○○」: 記事の key_points を30秒で紹介\nB. 「○○の倒し方」: ボス攻略の核心を30秒で実演\nC. 「最強武器ランキング TOP3」: ティアリストの上位3つを実演付きで紹介\nD. 「初心者がやりがちなミス」: mistakes を実演→正しい行動を対比\n\n【テキストオーバーレイ例】\n「モンハンワイルズ 大剣で知らないと損する5つのこと」\n①TCSは2回目の光で離す\n②強溜めの傷つけ率は90%\n...\n\n【アップロード】storage.etzhayyim.com にアップロード\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"pattern\": \"A|B|C|D\", \"title\": \"動画タイトル\", \"video_url\": \"https://storage.etzhayyim.com/gamers/videos/shorts/...\", \"duration_sec\": N, \"text_overlays\": [\"...\"], \"source_article_id\": \"元記事ID\", \"hashtags\": [\"#モンハンワイルズ\", \"#攻略\", ...]}",
         "category": "other",
         "difficulty": "medium",
         "rewardAmount": "3.50",
@@ -603,7 +603,7 @@
       "description": "記事サムネイル画像作成 — Unsplash→実ゲーム画像置換",
       "object": {
         "title": "記事サムネイル画像作成（ゲーム実画像）",
-        "description": "gamers.gftd.ai で現在 Unsplash のストック画像を使っている記事のサムネイルを、実際のゲーム画像に置き換えてください。\n\n【要件】\n- サイズ: 1200×630px（OGP最適サイズ）\n- フォーマット: JPEG (quality=90) — ファイルサイズ 200KB以下推奨\n- 内容: ゲームの象徴的なシーンを撮影し、以下を合成:\n  - 左下にゲームタイトルロゴ or テキスト（白、太字、影付き）\n  - 右下に記事タイプバッジ（例: 「武器攻略」「ボス攻略」）\n  - 全体に薄い暗めのグラデーション（テキストが読みやすいように）\n\n【1タスクにつき5枚】\n指定された5記事のサムネイルを作成。input_json に article_id リストが含まれる。\n\n【アップロード】\nstorage.gftd.ai にアップロード:\ngamers/thumbnails/{article_id}.jpg\n\n【回答フォーマット】\n{\"thumbnails\": [{\"article_id\": \"...\", \"url\": \"https://storage.gftd.ai/gamers/thumbnails/...\", \"alt_text_ja\": \"...\", \"alt_text_en\": \"...\", \"file_size_kb\": N}]}",
+        "description": "gamers.etzhayyim.com で現在 Unsplash のストック画像を使っている記事のサムネイルを、実際のゲーム画像に置き換えてください。\n\n【要件】\n- サイズ: 1200×630px（OGP最適サイズ）\n- フォーマット: JPEG (quality=90) — ファイルサイズ 200KB以下推奨\n- 内容: ゲームの象徴的なシーンを撮影し、以下を合成:\n  - 左下にゲームタイトルロゴ or テキスト（白、太字、影付き）\n  - 右下に記事タイプバッジ（例: 「武器攻略」「ボス攻略」）\n  - 全体に薄い暗めのグラデーション（テキストが読みやすいように）\n\n【1タスクにつき5枚】\n指定された5記事のサムネイルを作成。input_json に article_id リストが含まれる。\n\n【アップロード】\nstorage.etzhayyim.com にアップロード:\ngamers/thumbnails/{article_id}.jpg\n\n【回答フォーマット】\n{\"thumbnails\": [{\"article_id\": \"...\", \"url\": \"https://storage.etzhayyim.com/gamers/thumbnails/...\", \"alt_text_ja\": \"...\", \"alt_text_en\": \"...\", \"file_size_kb\": N}]}",
         "category": "image-annotation",
         "difficulty": "medium",
         "rewardAmount": "3.00",
@@ -649,7 +649,7 @@
       "description": "インフォグラフィック作成 — ティアリスト/フローチャート",
       "object": {
         "title": "攻略インフォグラフィック作成",
-        "description": "gamers.gftd.ai の記事データを元に、SNS共有可能なインフォグラフィック画像を作成してください。\n\n【テンプレートパターン（1つ選択）】\nA. ティアリスト画像: 武器/キャラのランキングをS/A/B/C段で視覚化\nB. フローチャート: 「どの武器を使うべき？」的な選択フローチャート\nC. チートシート: 1枚で全ボスの弱点属性が分かる早見表\nD. ビルド構成図: 装備＋スキルの構成を図解\n\n【要件】\n- サイズ: 1080×1350px（Instagram最適）or 1200×2400px（Pinterest最適）\n- 背景: ダーク系（ゲーム攻略らしい色調）\n- フォント: 読みやすい日本語フォント（源ノ角ゴシック推奨）\n- ロゴ: 右下に「gamers.gftd.ai」ウォーターマーク\n\n【アップロード】storage.gftd.ai にアップロード\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"pattern\": \"A|B|C|D\", \"image_url\": \"https://storage.gftd.ai/gamers/images/infographic/...\", \"title\": \"...\", \"source_article_id\": \"...\", \"dimensions\": \"1080x1350\"}",
+        "description": "gamers.etzhayyim.com の記事データを元に、SNS共有可能なインフォグラフィック画像を作成してください。\n\n【テンプレートパターン（1つ選択）】\nA. ティアリスト画像: 武器/キャラのランキングをS/A/B/C段で視覚化\nB. フローチャート: 「どの武器を使うべき？」的な選択フローチャート\nC. チートシート: 1枚で全ボスの弱点属性が分かる早見表\nD. ビルド構成図: 装備＋スキルの構成を図解\n\n【要件】\n- サイズ: 1080×1350px（Instagram最適）or 1200×2400px（Pinterest最適）\n- 背景: ダーク系（ゲーム攻略らしい色調）\n- フォント: 読みやすい日本語フォント（源ノ角ゴシック推奨）\n- ロゴ: 右下に「gamers.etzhayyim.com」ウォーターマーク\n\n【アップロード】storage.etzhayyim.com にアップロード\n\n【回答フォーマット】\n{\"game_slug\": \"...\", \"pattern\": \"A|B|C|D\", \"image_url\": \"https://storage.etzhayyim.com/gamers/images/infographic/...\", \"title\": \"...\", \"source_article_id\": \"...\", \"dimensions\": \"1080x1350\"}",
         "category": "image-annotation",
         "difficulty": "hard",
         "rewardAmount": "5.00",
@@ -698,7 +698,7 @@
       "description": "ゲームトレンド調査（新作・話題作の検出）",
       "object": {
         "title": "ゲームトレンド週次レポート",
-        "description": "直近1週間のゲーム業界トレンドを調査し、gamers.gftd.ai で新規カバーすべきゲームを提案してください。\n\n【調査ソース】\n- Google Trends（ゲーム攻略カテゴリ）\n- Twitter/X のゲームトレンド\n- Reddit の r/gaming, r/Games のトップポスト\n- Steam の売上ランキング\n- Nintendo eShop / PlayStation Store の人気ランキング\n\n【回答フォーマット】\n{\"week\": \"2026-W12\", \"trending_games\": [{\"name\": \"...\", \"platform\": \"...\", \"trend_score\": 1-10, \"search_volume_estimate\": \"...\", \"already_covered\": true/false, \"recommended_articles\": [\"overview|weapon|boss|...\"]}], \"declining_games\": [\"直近で検索需要が減っているゲーム\"], \"upcoming_releases\": [{\"name\": \"...\", \"release_date\": \"...\", \"expected_demand\": \"high|medium|low\"}]}",
+        "description": "直近1週間のゲーム業界トレンドを調査し、gamers.etzhayyim.com で新規カバーすべきゲームを提案してください。\n\n【調査ソース】\n- Google Trends（ゲーム攻略カテゴリ）\n- Twitter/X のゲームトレンド\n- Reddit の r/gaming, r/Games のトップポスト\n- Steam の売上ランキング\n- Nintendo eShop / PlayStation Store の人気ランキング\n\n【回答フォーマット】\n{\"week\": \"2026-W12\", \"trending_games\": [{\"name\": \"...\", \"platform\": \"...\", \"trend_score\": 1-10, \"search_volume_estimate\": \"...\", \"already_covered\": true/false, \"recommended_articles\": [\"overview|weapon|boss|...\"]}], \"declining_games\": [\"直近で検索需要が減っているゲーム\"], \"upcoming_releases\": [{\"name\": \"...\", \"release_date\": \"...\", \"expected_demand\": \"high|medium|low\"}]}",
         "category": "other",
         "difficulty": "medium",
         "rewardAmount": "1.50",

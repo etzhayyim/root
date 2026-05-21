@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/01/4/1/public-debt-transactions",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/4/1/public-debt-transactions",
       "type": "dodaf:Capability",
       "name": "Public Debt Administration",
       "description": "Functional capability for managing public debt transactions, including bond issuance, interest servicing, and fiscal sustainability monitoring. Classification: COFOG Division 01, Group 4, Class 1.",

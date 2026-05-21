@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/08/2/0/cultural-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/2/0/cultural-services",
       "type": "dodaf:Capability",
       "name": "Cultural Heritage and Arts Management Capability",
       "description": "Functional capability for managing cultural heritage sites, arts funding, and public cultural events. Classification: COFOG Division 08, Group 2, Class 0.",

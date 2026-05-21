@@ -46,8 +46,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1',
-                 'did:web:claim-consumer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1',
+                 'did:web:claim-consumer.etzhayyim.com',
                  'claim_auto_challenge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -62,13 +62,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.claim.unchallengedSweep\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_claim_auto_challenge"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/claim"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/claim"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="claim_auto_challenge" name="claim unchallenged sweep '
@@ -131,9 +131,9 @@ UP = [{'sql': '\n'
                  3073,
                  '00-contracts/bpmn/ai/gftd/claim/claimAutoChallenge.bpmn',
                  '2026-04-28T19:00:00Z',
-                 'did:web:claim-consumer.gftd.ai',
-                 'did:web:claim-consumer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1']},
+                 'did:web:claim-consumer.etzhayyim.com',
+                 'did:web:claim-consumer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -166,20 +166,20 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/claim-unchallengedSweep-v1',
-                 'did:web:claim-consumer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/claim-unchallengedSweep-v1',
+                 'did:web:claim-consumer.etzhayyim.com',
                  'ai.gftd.apps.claim.unchallengedSweep',
                  'claim_auto_challenge',
                  120000,
                  '2026-04-28T19:00:00Z',
-                 'did:web:claim-consumer.gftd.ai',
-                 'did:web:claim-consumer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/claim-unchallengedSweep-v1']}]
+                 'did:web:claim-consumer.etzhayyim.com',
+                 'did:web:claim-consumer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/claim-unchallengedSweep-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/claim-unchallengedSweep-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/claim-unchallengedSweep-v1']},
  {'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/claim-auto-challenge-v1']}]
 
 
 def upgrade() -> None:

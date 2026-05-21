@@ -4,13 +4,13 @@
   "name": "Society6 Access Portal and Policy Manifesto",
   "status": "In Progress",
   "identifier": "ai-gftd-project-society6",
-  "description": "Public portal at society6.gftd.ai that aggregates access to COFOG wasm components and publishes Society6 policy proposals and implementation principles.",
-  "url": "https://society6.gftd.ai",
+  "description": "Public portal at society6.etzhayyim.com that aggregates access to COFOG wasm components and publishes Society6 policy proposals and implementation principles.",
+  "url": "https://society6.etzhayyim.com",
   "hasPart": [
     {
       "@type": "WebApplication",
       "name": "Society6 Portal",
-      "url": "https://society6.gftd.ai"
+      "url": "https://society6.etzhayyim.com"
     },
     {
       "@type": "SoftwareApplication",
@@ -38,7 +38,7 @@
     },
     {
       "status": "in_progress",
-      "task": "Publish society6.gftd.ai route and verify production access."
+      "task": "Publish society6.etzhayyim.com route and verify production access."
     },
     {
       "status": "in_progress",

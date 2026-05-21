@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Fresh crawl + ingest of a SocialContract (constitution / international treaty / social norm). Sources: UN Treaty Collection, Constitute Project. Writes vertex_contracts_social_contract directly to Hyperdrive (ADR-0036). Law full-text corpus (statute/article) is out of scope — delegated to houbun.gftd.ai (ADR-0052).",
+      "description": "Fresh crawl + ingest of a SocialContract (constitution / international treaty / social norm). Sources: UN Treaty Collection, Constitute Project. Writes vertex_contracts_social_contract directly to Hyperdrive (ADR-0036). Law full-text corpus (statute/article) is out of scope — delegated to houbun.etzhayyim.com (ADR-0052).",
       "input": {
         "encoding": "application/json",
         "schema": {

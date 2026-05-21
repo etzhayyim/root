@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Post a public update or policy change from a government agency actor to the yoro.gftd.ai social feed.",
+      "description": "Post a public update or policy change from a government agency actor to the yoro.etzhayyim.com social feed.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -2,20 +2,20 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://gftd.ai/schemas/",
-      "ux": "https://gftd.ai/schemas/ux#"
+      "gftd": "https://etzhayyim.com/schemas/",
+      "ux": "https://etzhayyim.com/schemas/ux#"
     }
   ],
   "@type": "CreativeWork",
   "identifier": "cs-cert-ux-design",
   "name": "GFTD CS Certified — UX Design Specification",
-  "description": "certs.gftd.ai の UX 設計。セキュリティ認証バッジの表示、検証ページ、診断申請フローを定義。",
+  "description": "certs.etzhayyim.com の UX 設計。セキュリティ認証バッジの表示、検証ページ、診断申請フローを定義。",
   "dateCreated": "2026-02-28T00:00:00Z",
   "ux:pages": [
     {
       "@type": "WebPage",
       "name": "Landing Page",
-      "url": "https://certs.gftd.ai/",
+      "url": "https://certs.etzhayyim.com/",
       "description": "GFTD CS Certified サービスのランディングページ。認証レベル説明、検証フォーム、認証済みサイト一覧。",
       "ux:layout": "single-column",
       "ux:sections": [
@@ -56,7 +56,7 @@
     {
       "@type": "WebPage",
       "name": "Verification Page",
-      "url": "https://certs.gftd.ai/verify/{certId}",
+      "url": "https://certs.etzhayyim.com/verify/{certId}",
       "description": "個別認証の検証ページ。証明書の詳細、診断スコア、有効期限、発行元を表示。",
       "ux:layout": "two-column",
       "ux:sections": [
@@ -89,7 +89,7 @@
     {
       "@type": "WebPage",
       "name": "Assessment Request",
-      "url": "https://certs.gftd.ai/request",
+      "url": "https://certs.etzhayyim.com/request",
       "description": "セキュリティ診断の申請ページ。対象ドメイン、組織情報、希望レベルを入力。",
       "ux:layout": "form",
       "ux:sections": [
@@ -155,17 +155,17 @@
       {
         "name": "JavaScript Widget",
         "description": "非同期 JS スクリプトタグ。バッジ SVG + 検証リンク + ツールチップを動的レンダリング。",
-        "ux:code": "<script src=\"https://certs.gftd.ai/badge/{certId}.js\" async></script>"
+        "ux:code": "<script src=\"https://certs.etzhayyim.com/badge/{certId}.js\" async></script>"
       },
       {
         "name": "Static SVG",
         "description": "静的 SVG 画像 + 検証ページへのリンク。",
-        "ux:code": "<a href=\"https://certs.gftd.ai/verify/{certId}\"><img src=\"https://certs.gftd.ai/badge/{certId}.svg\" alt=\"GFTD CS Certified\" /></a>"
+        "ux:code": "<a href=\"https://certs.etzhayyim.com/verify/{certId}\"><img src=\"https://certs.etzhayyim.com/badge/{certId}.svg\" alt=\"GFTD CS Certified\" /></a>"
       },
       {
         "name": "JSON-LD Structured Data",
         "description": "検索エンジン向け JSON-LD マークアップ。",
-        "ux:code": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org/\",\"@type\":\"Organization\",\"hasCredential\":{\"@type\":\"EducationalOccupationalCredential\",\"credentialCategory\":\"SecurityCertification\",\"recognizedBy\":{\"@type\":\"Organization\",\"name\":\"GFTD CS Certified\",\"url\":\"https://certs.gftd.ai\"}}}</script>"
+        "ux:code": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org/\",\"@type\":\"Organization\",\"hasCredential\":{\"@type\":\"EducationalOccupationalCredential\",\"credentialCategory\":\"SecurityCertification\",\"recognizedBy\":{\"@type\":\"Organization\",\"name\":\"GFTD CS Certified\",\"url\":\"https://certs.etzhayyim.com\"}}}</script>"
       }
     ]
   }

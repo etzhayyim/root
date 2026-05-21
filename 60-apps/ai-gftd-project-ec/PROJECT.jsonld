@@ -36,7 +36,7 @@
   ],
   "potentialAction": {
     "@type": "Action",
-    "name": "Launch okaimono.gftd.ai",
+    "name": "Launch okaimono.etzhayyim.com",
     "agent": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-2-0-autonomous-sales",
     "description": "Deploy a SvelteKit-based global EC storefront integrated with autonomous actors."
   },
@@ -51,13 +51,13 @@
           "@context": "https://schema.org/",
           "@type": "Strategy",
           "name": "Autonomous EC Strategy",
-          "description": "Maximize global arbitrage opportunities and brand equity by combining a proprietary storefront (okaimono.gftd.ai) with major marketplace integrations (Amazon, eBay).",
+          "description": "Maximize global arbitrage opportunities and brand equity by combining a proprietary storefront (okaimono.etzhayyim.com) with major marketplace integrations (Amazon, eBay).",
           "itemListElement": [
             {
               "@type": "ListItem",
               "position": 1,
               "name": "Hybrid Marketplace Presence",
-              "description": "Leverage Amazon/eBay (SP-API) for traffic and trust while using okaimono.gftd.ai (SvelteKit/Shopify) for brand control and higher margins."
+              "description": "Leverage Amazon/eBay (SP-API) for traffic and trust while using okaimono.etzhayyim.com (SvelteKit/Shopify) for brand control and higher margins."
             },
             {
               "@type": "ListItem",
@@ -113,7 +113,7 @@
               "@type": "Action",
               "name": "Create Listings",
               "participant": "Sales Manager Actor",
-              "instrument": "okaimono.gftd.ai, Amazon SP-API",
+              "instrument": "okaimono.etzhayyim.com, Amazon SP-API",
               "result": "Active Product Pages"
             },
             {
@@ -151,7 +151,7 @@
               "@type": "Service",
               "name": "Sales Manager Actor (APQC 2.0)",
               "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-2-0-autonomous-sales",
-              "description": "Manages listings on shopping.gftd.ai and external marketplaces."
+              "description": "Manages listings on shopping.etzhayyim.com and external marketplaces."
             },
             {
               "@type": "Service",
@@ -186,7 +186,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

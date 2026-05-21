@@ -1,6 +1,6 @@
 ---
 id: adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com
-title: "ADR-2605211757: DNS cutover runbook for the 27 ported workers — *.gftd.ai → *.etzhayyim.com (Phase 3 gate (b))"
+title: "ADR-2605211757: DNS cutover runbook for the 27 ported workers — *.etzhayyim.com → *.etzhayyim.com (Phase 3 gate (b))"
 status: proposed
 doc_type: adr
 topic: dns-cutover-runbook-gftd-ai-to-etzhayyim-com
@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 8.0
 axis: operations
 weight: 0.80
-priority_note: "Closes ADR-2605212100 Phase 3 gate (b) at the **runbook** level. Specifies the operator runbook + verify protocol for cutting actor DIDs from vendor (gftd.ai) to etzhayyim (etzhayyim.com). Gate (c) deployment surface choice (Mac mini fleet + per-actor SQLite PVC) is embedded inline (§0 + §3.1). Gate (a) per-worker RW-free re-impl is **pattern-established but execution OPEN** — Wave A-D cutover assumes per-worker ports land before each wave's target actors are switched."
+priority_note: "Closes ADR-2605212100 Phase 3 gate (b) at the **runbook** level. Specifies the operator runbook + verify protocol for cutting actor DIDs from vendor (etzhayyim.com) to etzhayyim (etzhayyim.com). Gate (c) deployment surface choice (Mac mini fleet + per-actor SQLite PVC) is embedded inline (§0 + §3.1). Gate (a) per-worker RW-free re-impl is **pattern-established but execution OPEN** — Wave A-D cutover assumes per-worker ports land before each wave's target actors are switched."
 authoritative_for:
   - DNS cutover ordering for the 27 ported workers
   - per-worker verify protocol (curl /.well-known/did.json + worker smoke ping + SQLite state seed)
@@ -27,7 +27,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605211757: DNS cutover runbook — *.gftd.ai → *.etzhayyim.com for the 27 ported workers
+# ADR-2605211757: DNS cutover runbook — *.etzhayyim.com → *.etzhayyim.com for the 27 ported workers
 
 **Status**: proposed
 **Date**: 2026-05-21
@@ -41,7 +41,7 @@ migration. As of 2026-05-21:
 | Gate | State |
 |------|-------|
 | (a) per-worker RW-free re-impl for 29 etzhayyim-classified workers | 🟡 **pattern established, execution OPEN** — 6 patterns catalogued (BeliefStore / audit log / read-cache / primary store / worker_runtime / ingest module) with prototypes that were not retained in `etzhayyim/root/20-actors/magatama/py/src/pymagatama/`. Per-actor wave below is gated on landing the per-worker ports before each wave's target switches |
-| (b) DNS cutover ``*.gftd.ai`` → ``*.etzhayyim.com`` | 🟢 **this ADR** |
+| (b) DNS cutover ``*.etzhayyim.com`` → ``*.etzhayyim.com`` | 🟢 **this ADR** |
 | (c) etzhayyim deployment surface | 🟡 documented inline in §0 + §3.1 (Mac mini fleet via ``50-infra/k8s/murakumo-kubelet`` + per-actor SQLite PVC under ``$ORGANISM_SQLITE_DIR``); a standalone ADR was drafted but not retained on disk |
 | (d) vendor-side worker importer survey clean | 🟢 unblocked — separate work item |
 
@@ -57,7 +57,7 @@ has ``ACTOR_DID = "did:web:narou.etzhayyim.com"``). What remains is operational:
   in ``50-infra/etzhayyim-did-web/``).
 - Per-actor SQLite PVCs must be provisioned and (where applicable) seeded with
   initial state imported from the vendor RW snapshot.
-- The vendor-side ``{actor}.gftd.ai`` route must serve a 410 Gone (preferred) or
+- The vendor-side ``{actor}.etzhayyim.com`` route must serve a 410 Gone (preferred) or
   301 to the new URL during the public-objection / soak window, after which it
   is removed.
 
@@ -279,7 +279,7 @@ confirm the SQLite path is wired correctly.
 
 After 24h soak (Wave D) / 1h soak (Wave A-C) of green smoke + no error
 in worker logs, edit ``50-infra/cloudflare/workers/routing-gateway/src/worker.ts``
-on the gftd side (separate repo) to return 410 or 301 for ``${a}.gftd.ai``:
+on the gftd side (separate repo) to return 410 or 301 for ``${a}.etzhayyim.com``:
 
 - **410 Gone** (preferred): clients update their address.
 - **301 Moved Permanently** to ``https://${a}.etzhayyim.com$path$query``:
@@ -291,7 +291,7 @@ Deploy:
 ```bash
 cd 50-infra/cloudflare/workers/routing-gateway
 pnpm exec wrangler deploy
-curl -I https://${a}.gftd.ai/
+curl -I https://${a}.etzhayyim.com/
 # expect 410 or 301
 ```
 
@@ -403,16 +403,16 @@ atomic from the worker's perspective; clients see at most one minute of
    yet built. Starting with Wave A buys time to design + test the bridge
    while making concrete progress.
 
-3. **No vendor 410** (keep vendor.gftd.ai alive indefinitely as fallback).
+3. **No vendor 410** (keep vendor.etzhayyim.com alive indefinitely as fallback).
    Rejected: violates ADR-2605152100 §"Step 8 vendor open-scope cleanup"
    ("vendor open scope cleanup [...] after business app dependency
    切替"). Leaving the vendor route up forever defeats the org-split
    purpose.
 
 4. **Skip DNS, route by HTTP host header** (single ingress sees both
-   ``*.gftd.ai`` and ``*.etzhayyim.com``).
+   ``*.etzhayyim.com`` and ``*.etzhayyim.com``).
    Rejected: requires the etzhayyim ingress to claim ownership of the
-   ``gftd.ai`` zone, which is owned by Gftd Japan株式会社 (vendor). The
+   ``etzhayyim.com`` zone, which is owned by Gftd Japan株式会社 (vendor). The
    org-split is precisely about not crossing this boundary.
 
 # References

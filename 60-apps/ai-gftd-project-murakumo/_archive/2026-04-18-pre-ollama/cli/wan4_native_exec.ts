@@ -197,7 +197,7 @@ function resolveTokenizerCacheDir(): string {
 
 function defaultModelBaseUrl(): string {
   return Deno.env.get("GFTD_NATIVE_WAN4_BASE_URL")?.trim() ||
-    "https://cdn.gftd.ai/models/wan4";
+    "https://cdn.etzhayyim.com/models/wan4";
 }
 
 const UMT5_TOKENIZER_JSON_URL =

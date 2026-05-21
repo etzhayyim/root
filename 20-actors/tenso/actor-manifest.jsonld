@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:tenso.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:tenso.etzhayyim.com",
   "actors": [
     {
       "description": "Per-transfer isolation DID for blob scoping",
@@ -35,7 +35,7 @@
         },
         "method": "ai.gftd.apps.yabai.assessRisk",
         "on": "ai.gftd.apps.tenso.transferLog",
-        "target": "did:web:yabai.gftd.ai",
+        "target": "did:web:yabai.etzhayyim.com",
         "when": {
           "eventType": "error"
         }
@@ -104,7 +104,7 @@
               "transferId": "{{record.transferId}}"
             },
             "method": "ai.gftd.apps.yabai.assessRisk",
-            "target": "did:web:yabai.gftd.ai"
+            "target": "did:web:yabai.etzhayyim.com"
           },
           "fn": "agent.invoke",
           "id": "auditCheck"

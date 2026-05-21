@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-d976f6820be9",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d976f6820be9",
   "entityId": "ent-d976f6820be9",
   "canonicalName": "jamil mukulu",
   "aliases": [

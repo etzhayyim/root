@@ -9,7 +9,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@gftdcojp/kami-engine-sdk": "link:../../../40-engine/kami-engine/kami-engine-sdk",
+    "@etzhayyim/kami-engine-sdk": "link:../../../40-engine/kami-engine/kami-engine-sdk",
     "@langchain/core": "^1.0.0",
     "@langchain/langgraph": "^1.0.0",
     "three": "^0.183.0"

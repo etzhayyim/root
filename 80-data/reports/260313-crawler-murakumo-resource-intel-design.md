@@ -1,11 +1,11 @@
 # Crawler Murakumo Resource Intel Design
 
 Date: 2026-03-13
-Scope: `crawler.gftd.ai` が収集した Web データを、`murakumo` を用いた抽出・分類・要約で強化し、`collector`、`resources`、`entity`、`resourceflow`、`intel` に段階的に格納する設計。
+Scope: `crawler.etzhayyim.com` が収集した Web データを、`murakumo` を用いた抽出・分類・要約で強化し、`collector`、`resources`、`entity`、`resourceflow`、`intel` に段階的に格納する設計。
 
 ## 1. Goal
 
-この設計の目的は、`crawler.gftd.ai` のページ取得結果を単なる `CrawlPage` JSON-LD で終わらせず、次の 5 層に分離して再利用可能にすること。
+この設計の目的は、`crawler.etzhayyim.com` のページ取得結果を単なる `CrawlPage` JSON-LD で終わらせず、次の 5 層に分離して再利用可能にすること。
 
 1. `collector`: 収集実行の事実、raw evidence、connector 状態
 2. `resources`: 再利用可能な公開資源・文書・サイト・データセット
@@ -20,14 +20,14 @@ Scope: `crawler.gftd.ai` が収集した Web データを、`murakumo` を用い
 - canonical object は `resources` / `entity` に置く
 - page から canonical object に落とした経路は `resourceflow` に置く
 - threat / anomaly / confidence 付きの判断結果は `intel` に置く
-- `murakumo` は既定で `https://murakumo.gftd.ai/api/openai/v1/chat/completions` を使い、分類・抽出・要約・risk hint 生成に使う
+- `murakumo` は既定で `https://murakumo.etzhayyim.com/api/openai/v1/chat/completions` を使い、分類・抽出・要約・risk hint 生成に使う
 - public query は XRPC (`/xrpc/{NSID}`)、command は W Protocol Event Stream に寄せる
 - structured persistence は Tonbo Flight SQL + Arrow-compatible schema を正とする
 
 ## 3. End-to-End Flow
 
 ```text
-crawler.gftd.ai
+crawler.etzhayyim.com
   -> content/crawl/job/*.jsonld
   -> content/crawl/page/*.jsonld
   -> content/crawl/site/*.jsonld
@@ -83,7 +83,7 @@ canonicalization は rule-based resolver と既存 graph を優先し、`murakum
 - `collector_sources_current`
 - `collector_evidence_current`
 
-`crawler.gftd.ai` の `CrawlJob` / `CrawlPage` は collector にとって外部 connector 由来 evidence として扱う。
+`crawler.etzhayyim.com` の `CrawlJob` / `CrawlPage` は collector にとって外部 connector 由来 evidence として扱う。
 
 ### 5.2 Resources
 
@@ -352,7 +352,7 @@ command は Matrix event。
 
 ## 11. Recommended Ownership Split
 
-- `crawler.gftd.ai`: fetch / render / frontier / dedupe / page JSON-LD
+- `crawler.etzhayyim.com`: fetch / render / frontier / dedupe / page JSON-LD
 - `collector`: run orchestration / evidence registry / raw lineage
 - `murakumo`: extraction / classification / summarization / risk hint
 - `resources`: reusable document publication
@@ -374,6 +374,6 @@ command は Matrix event。
 
 推奨 canonical path は次の通り。
 
-`crawler.gftd.ai` の結果をまず `collector` に evidence として受け、`murakumo` で enrichment し、その結果を `entity` と `resourceflow` で正規化し、再利用可能なものだけ `resources` に昇格し、脅威・異常・監視価値のあるものを `intel` observation として保持する。
+`crawler.etzhayyim.com` の結果をまず `collector` に evidence として受け、`murakumo` で enrichment し、その結果を `entity` と `resourceflow` で正規化し、再利用可能なものだけ `resources` に昇格し、脅威・異常・監視価値のあるものを `intel` observation として保持する。
 
 これにより、収集、資源化、主体同定、lineage、分析が 1 つの page ingestion から一貫して追跡できる。

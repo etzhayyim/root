@@ -1,4 +1,4 @@
-# lawfirm.gftd.ai — Svelte UI (Phase C)
+# lawfirm.etzhayyim.com — Svelte UI (Phase C)
 
 SvelteKit (`adapter-static`) SPA served from the `ai-gftd-wasm-lawfirm-lf1rm8k0`
 Worker via the `ASSETS` binding. Phase C scope is a working 4-tab Protocol
@@ -55,7 +55,7 @@ adapter-static default).
 ## Runtime Wiring
 
 All XRPC calls use the AT Protocol XRPC wire format through local
-`atProcedure()` / `atQuery()` helpers and target `atproto.gftd.ai`
+`atProcedure()` / `atQuery()` helpers and target `atproto.etzhayyim.com`
 (platform PDS). Session JWT is picked up from the appshellv2 auth store.
 
 ## ADR-0029 Surfaces in the UI

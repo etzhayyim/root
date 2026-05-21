@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:recap.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:recap.etzhayyim.com",
   "name": "recap",
   "nanoid": "r3c4p001",
   "project": "recap",

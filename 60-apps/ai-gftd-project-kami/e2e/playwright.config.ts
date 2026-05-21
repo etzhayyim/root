@@ -1,9 +1,9 @@
 import { defineConfig } from '@playwright/test';
 
-const KAMI_BASE_URL = process.env.KAMI_BASE_URL ?? 'https://kami.gftd.ai';
-const WORLDS_BASE_URL = process.env.WORLDS_BASE_URL ?? 'https://worlds.gftd.ai';
-const KAMI_RT_BASE_URL = process.env.KAMI_RT_BASE_URL ?? 'https://kami-rt.gftd.ai';
-const YORO_BASE_URL = process.env.YORO_BASE_URL ?? 'https://yoro.gftd.ai';
+const KAMI_BASE_URL = process.env.KAMI_BASE_URL ?? 'https://kami.etzhayyim.com';
+const WORLDS_BASE_URL = process.env.WORLDS_BASE_URL ?? 'https://worlds.etzhayyim.com';
+const KAMI_RT_BASE_URL = process.env.KAMI_RT_BASE_URL ?? 'https://kami-rt.etzhayyim.com';
+const YORO_BASE_URL = process.env.YORO_BASE_URL ?? 'https://yoro.etzhayyim.com';
 
 export default defineConfig({
   testDir: './tests',

@@ -1,6 +1,6 @@
 # ai-gftd-project-tenki
 
-`ai-gftd-project-tenki` は `tenki.gftd.ai` 向けの天気情報表示プロジェクトです。
+`ai-gftd-project-tenki` は `tenki.etzhayyim.com` 向けの天気情報表示プロジェクトです。
 
 ## 目的
 

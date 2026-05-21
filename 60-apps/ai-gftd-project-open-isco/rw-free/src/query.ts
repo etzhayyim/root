@@ -2,6 +2,7 @@
  * Query: MST prefix traversal via @etzhayyim/sdk.read().
  *
  * Replaces the old RW query path
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
  * (kysely.selectFrom('vertex_open_isco_occupation').where(...))
  * with a direct PDS read over MST. Key-prefix filter maps to ISCO
  * hierarchy (1-digit major / 2-digit subMajor / 3-digit minor / 4-digit code).

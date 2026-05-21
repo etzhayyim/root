@@ -6,7 +6,7 @@ import { sql } from "kysely";
  * vertex_lawfirm_payment companion if missing + mv_lawfirm_billing_reconciliation.
  *
  * Backs the W11-W12 conversion path defined in
- * `_working/gftdcojp-revenue/stripe-connect-onboarding-runbook.md`:
+ * `_working/etzhayyim-revenue/stripe-connect-onboarding-runbook.md`:
  *   stripe_customer_id          — Mode A flat tier (firm = direct customer)
  *   stripe_connect_account_id   — Mode B rev-share (firm = Express connected account)
  *   billing_mode                — flat | rev_share_y1 | rev_share_y2 | rev_share_y3 | free

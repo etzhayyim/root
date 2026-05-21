@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/10/8/0/r-d-social-protection",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/8/0/r-d-social-protection",
       "type": "dodaf:Capability",
       "name": "Social Protection R&D and Innovation Capability",
       "description": "Functional capability for managing social protection research, impact simulation, and model evaluation. Classification: COFOG Division 10, Group 8, Class 0.",

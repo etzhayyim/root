@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#GlobalSetup
+// @etzhayyim/cyber-freelance#GlobalSetup
 // Playwrightグローバルセットアップ - Clerk認証状態の保存
 
 import { clerk, clerkSetup } from "@clerk/testing/playwright";

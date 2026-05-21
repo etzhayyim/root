@@ -5,7 +5,7 @@ This runbook covers the Public Malak hourly smoke test in
 
 The smoke writes one synthetic Telegram observation, waits for RisingWave
 snapshot visibility, checks `listSnapshots` through the in-cluster dispatcher,
-and verifies public HTML/HAR artifact routes through `public-malak.gftd.ai`.
+and verifies public HTML/HAR artifact routes through `public-malak.etzhayyim.com`.
 
 ## Manual Gate
 

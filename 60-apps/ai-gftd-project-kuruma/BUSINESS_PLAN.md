@@ -1,4 +1,4 @@
-# kuruma.gftd.ai Business Plan (Global from Japan)
+# kuruma.etzhayyim.com Business Plan (Global from Japan)
 
 ## 1. Objective
 

@@ -1,7 +1,7 @@
 {
   "@context": {
     "dct": "http://purl.org/dc/terms/",
-    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "gh": "https://ghosthacker.etzhayyim.com/ns/",
     "schema": "http://schema.org/"
   },
   "@id": "chat:UIM-QmTqyAnGqVuBL3q4P",

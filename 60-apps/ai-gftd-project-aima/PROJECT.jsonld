@@ -54,7 +54,7 @@
     {
       "@type": "WebApplication",
       "name": "AIMA UI",
-      "url": "https://aima.gftd.ai"
+      "url": "https://aima.etzhayyim.com"
     }
   ],
   "tasks": [
@@ -101,7 +101,7 @@
     {
       "status": "completed",
       "id": "task-9",
-      "task": "Configure Kubernetes manifests and GitOps for aima.gftd.ai."
+      "task": "Configure Kubernetes manifests and GitOps for aima.etzhayyim.com."
     },
     {
       "status": "completed",
@@ -116,7 +116,7 @@
     {
       "status": "completed",
       "id": "task-12",
-      "task": "aima.gftd.ai を公開し、実名SNSとして提供開始。"
+      "task": "aima.etzhayyim.com を公開し、実名SNSとして提供開始。"
     },
     {
       "status": "completed",
@@ -149,9 +149,9 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aima/architecture",
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/architecture",
           "type": "dodaf:SystemView",
           "dct:title": "AIMA Well-becoming Real-Name SNS System Architecture (SV-1)",
           "gftd:components": [
@@ -213,9 +213,9 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aima/engineer",
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/engineer",
           "type": "dodaf:EngineeringView",
           "name": "AIMA Well-becoming Real-Name SNS Engineering Specification",
           "description": "Technical implementation for trusted social graph operations, community intelligence, and AI-assisted communication.",
@@ -275,7 +275,7 @@
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aima/strategy",
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/strategy",
           "type": "dodaf:StrategicView",
           "dct:title": "AIMA Well-becoming Real-Name SNS Strategy",
           "dct:description": "To redefine trusted digital communities through the lens of 'Well-becoming', where Production AGI supports authentic identity, healthy discourse, and long-term human connections beyond dating.",
@@ -294,9 +294,9 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aima/activities",
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/activities",
           "type": "dodaf:OperationalActivity",
           "dct:title": "AIMA Well-becoming Real-Name SNS Operational Process (OV-5b)",
           "dct:description": "AGI-driven real-name social networking workflow focusing on trusted identity, healthy communities, and collective flourishing.",
@@ -416,7 +416,7 @@
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aima/capabilities",
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/capabilities",
           "type": "dodaf:Capability",
           "dct:title": "AIMA Real-Name SNS Capability Catalog (Threads Reference)",
           "capabilities": [
@@ -448,7 +448,7 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
           "@type": "dodaf:Measure",
           "name": "AIMA Real-Name SNS Performance Measures",
@@ -490,7 +490,7 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://gftd.ai/schemas/"
+            "gftd": "https://etzhayyim.com/schemas/"
           },
           "@type": "dodaf:Rule",
           "name": "AIMA Real-Name SNS Operational Rules",
@@ -529,7 +529,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

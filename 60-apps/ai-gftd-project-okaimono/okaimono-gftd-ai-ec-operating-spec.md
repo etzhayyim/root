@@ -1,13 +1,13 @@
-# okaimono.gftd.ai D2C OEM-Only AI自動運営EC 実装仕様（MVP）
+# okaimono.etzhayyim.com D2C OEM-Only AI自動運営EC 実装仕様（MVP）
 
 この仕様は「**自社ブランドOEM商品のD2C販売〜OEM製造〜発送〜CSをAIで閉じる**」運用を前提に、
-`okaimono.gftd.ai`（`60-apps/ai-gftd-project-okaimono`）で実装する。
+`okaimono.etzhayyim.com`（`60-apps/ai-gftd-project-okaimono`）で実装する。
 
 ## 1) コア前提
 
 - **D2C OEM-Only**: 自社ブランドOEM商品のみ。外部マーケットプレイス仕入・転売禁止
-- **販売チャネル**: okaimono.gftd.ai のみ (D2C ストアフロント)
-- **製造**: tsukuru.gftd.ai 経由 OEM 工場。全商品に `manufacturer_did` + `factory_did` 必須
+- **販売チャネル**: okaimono.etzhayyim.com のみ (D2C ストアフロント)
+- **製造**: tsukuru.etzhayyim.com 経由 OEM 工場。全商品に `manufacturer_did` + `factory_did` 必須
 - 人手操作は **エスカレーション時のみ**（異常系、規約違反、監査要件）
 - すべての意思決定は W Protocol MDAG で自動監査
 - **Data access**: W Protocol Event Stream のみ。Write = `WRecord()`, Read = `G()` (Cypher)
@@ -134,7 +134,7 @@ add these classification fields:
 | `unispsc_segment` | 2-digit segment |
 | `unispsc_family` | 4-digit family |
 | `unispsc_class` | 6-digit class |
-| `commodity_did` | `did:web:unispsc.gftd.ai:seg{NN}:commodity:c{code}` |
+| `commodity_did` | `did:web:unispsc.etzhayyim.com:seg{NN}:commodity:c{code}` |
 
 `import-unispsc-segment` is a bulk import command: query
 `G("unispsc_commodities").Where(Eq{"segment": segment})`, transform each row via

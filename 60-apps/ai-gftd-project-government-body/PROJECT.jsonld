@@ -11,7 +11,7 @@
   "name": "ai-gftd-project-government-body",
   "identifier": "ai-gftd-project-government-body",
   "description": "Digital Nation-State 'GFTD' — blockchain-registered sovereign territory operated by Stichting GFTD (Netherlands religious corporation). Extends the ai-gftd-organism autopoietic artificial organization into a fully autonomous government, implementing all COFOG divisions as AI Agent performers on Kubernetes with blockchain-based land registry, identity, currency, and governance. Includes DoDAF v2 DM2 resource planning for AI-to-human hiring workflows managed in ai-gftd-project-har.",
-  "url": "https://gb.gftd.ai",
+  "url": "https://gb.etzhayyim.com",
   "applicationCategory": "ai-gftd-project-government-body",
   "operatingSystem": "Kubernetes",
   "author": {
@@ -38,17 +38,17 @@
       "name": "GFTD",
       "description": "Blockchain-registered sovereign digital territory. Land parcels are NFTs on Ethereum L2 with on-chain deed registry."
     },
-    "url": "https://gb.gftd.ai/planning",
+    "url": "https://gb.etzhayyim.com/planning",
     "subjectOf": [
       {
         "@type": "WebPage",
         "name": "Gov Planning Dashboard",
-        "url": "https://gb.gftd.ai/planning"
+        "url": "https://gb.etzhayyim.com/planning"
       },
       {
         "@type": "WebPage",
         "name": "HAR Hiring Dashboard",
-        "url": "https://har.gftd.ai/jobs"
+        "url": "https://har.etzhayyim.com/jobs"
       }
     ]
   },
@@ -81,7 +81,7 @@
     {
       "@type": "WebApplication",
       "name": "GFTD Gov Portal",
-      "url": "https://gb.gftd.ai"
+      "url": "https://gb.etzhayyim.com"
     },
     {
       "@type": "CreativeWork",
@@ -284,7 +284,7 @@
           "@context": [
             "https://schema.org",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "primaryResource": "gftd:primaryResource",
               "publishedEndpoint": "gftd:publishedEndpoint",
               "gitPath": "gftd:gitPath",
@@ -300,37 +300,37 @@
               "@type": "CreativeWork",
               "name": "Gov resource planning",
               "gitPath": "projects/ai-gftd-project-government-body/RESOURCE_PLANNING.jsonld",
-              "publishedEndpoint": "https://gb.gftd.ai/api/v1/planning/resource"
+              "publishedEndpoint": "https://gb.etzhayyim.com/api/v1/planning/resource"
             },
             {
               "@type": "CreativeWork",
               "name": "Gov scheduler",
               "gitPath": "projects/ai-gftd-project-government-body/scheduler.jsonld",
-              "publishedEndpoint": "https://gb.gftd.ai/api/v1/planning/schedule"
+              "publishedEndpoint": "https://gb.etzhayyim.com/api/v1/planning/schedule"
             },
             {
               "@type": "CreativeWork",
               "name": "HAR job postings",
               "gitPath": "projects/ai-gftd-project-har/JOB_POSTINGS.jsonld",
-              "publishedEndpoint": "https://har.gftd.ai/api/v1/job-postings"
+              "publishedEndpoint": "https://har.etzhayyim.com/api/v1/job-postings"
             },
             {
               "@type": "CreativeWork",
               "name": "HAR scheduler",
               "gitPath": "projects/ai-gftd-project-har/scheduler.jsonld",
-              "publishedEndpoint": "https://har.gftd.ai/api/v1/schedule"
+              "publishedEndpoint": "https://har.etzhayyim.com/api/v1/schedule"
             }
           ],
           "distribution": [
             {
               "@type": "DataDownload",
-              "name": "gb.gftd.ai Planning View",
-              "contentUrl": "https://gb.gftd.ai/planning"
+              "name": "gb.etzhayyim.com Planning View",
+              "contentUrl": "https://gb.etzhayyim.com/planning"
             },
             {
               "@type": "DataDownload",
-              "name": "har.gftd.ai Hiring View",
-              "contentUrl": "https://har.gftd.ai/jobs"
+              "name": "har.etzhayyim.com Hiring View",
+              "contentUrl": "https://har.etzhayyim.com/jobs"
             }
           ],
           "gitBranch": "main",
@@ -345,7 +345,7 @@
             {
               "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
               "dm2": "https://www.omg.org/spec/DoDAF-DM2/",
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "resourceFlow": "dm2:ResourceFlow",
               "performer": "dm2:Performer",
               "activity": "dm2:Activity",
@@ -388,7 +388,7 @@
               "@type": "SoftwareApplication",
               "identifier": "actor-gov-planning-mcp",
               "name": "gov-planning-mcp-component",
-              "description": "SpinApp actor that serves planning/schedule/gitstate JSON-LD APIs for gb.gftd.ai and har.gftd.ai.",
+              "description": "SpinApp actor that serves planning/schedule/gitstate JSON-LD APIs for gb.etzhayyim.com and har.etzhayyim.com.",
               "url": "wasm/gov-planning-mcp-component"
             },
             {
@@ -450,7 +450,7 @@
               "@type": "resourceFlow",
               "identifier": "flow-gitstate-to-dashboard",
               "name": "GitState-to-Dashboard Flow",
-              "description": "gov-planning-mcp-component exposes JSON-LD to gb.gftd.ai/planning and har.gftd.ai/jobs dashboards.",
+              "description": "gov-planning-mcp-component exposes JSON-LD to gb.etzhayyim.com/planning and har.etzhayyim.com/jobs dashboards.",
               "source": "info-gitstate-jsonld",
               "target": "actor-gov-planning-mcp"
             }
@@ -472,7 +472,7 @@
               "@type": "rule",
               "identifier": "rule-visualization-endpoint-parity",
               "name": "Visualization Endpoint Parity Rule",
-              "description": "gb.gftd.ai と har.gftd.ai の表示データは GitState JSON-LD からのみ取得する。"
+              "description": "gb.etzhayyim.com と har.etzhayyim.com の表示データは GitState JSON-LD からのみ取得する。"
             }
           ],
           "measures": [
@@ -523,7 +523,7 @@
                 "Implement DID (Decentralized Identifier) system for citizen identity using W3C DID Core spec",
                 "Deploy GCC token contract (ERC-20) as sovereign currency backed by k8s compute allocation",
                 "Draft and ratify digital constitution as on-chain governance document",
-                "Set up gb.gftd.ai portal with citizen registration and identity management"
+                "Set up gb.etzhayyim.com portal with citizen registration and identity management"
               ]
             },
             {
@@ -556,7 +556,7 @@
               "goal": [
                 "COFOG 07 — Health: AI health advisory performers, medical record management (encrypted on-chain), public health monitoring, pharmaceutical regulation, telemedicine coordination",
                 "COFOG 08 — Recreation, Culture and Religion: Core function of Stichting GFTD — religious services, cultural preservation (digital archives), broadcasting (content distribution), sports/recreation platform integration",
-                "COFOG 09 — Education: AI tutor performers, certification system (on-chain verifiable credentials), research funding allocation, library services (docs.gftd.ai integration), lifelong learning programs",
+                "COFOG 09 — Education: AI tutor performers, certification system (on-chain verifiable credentials), research funding allocation, library services (docs.etzhayyim.com integration), lifelong learning programs",
                 "COFOG 10 — Social Protection: Universal Basic Income (UBI) via GCC distribution, pension management, unemployment insurance, family support, disability services — all automated via smart contracts + AI performers"
               ]
             },
@@ -580,14 +580,14 @@
         "fileName": "capabilities.jsonld",
         "content": {
           "@context": [
-            "https://gftd.ai/contexts/capabilities.jsonld",
+            "https://etzhayyim.com/contexts/capabilities.jsonld",
             {
               "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
               "dct": "http://purl.org/dc/terms/",
               "cofog": "https://unstats.un.org/unsd/classifications/Econ/COFOG#"
             }
           ],
-          "id": "https://gftd.ai/projects/ai-gftd-project-government-body/capabilities",
+          "id": "https://etzhayyim.com/projects/ai-gftd-project-government-body/capabilities",
           "type": "dodaf:Capability",
           "dct:title": "GFTD Digital Nation-State Capability Catalog (CV-2)",
           "dct:description": "DoDAF CV-2 Capability Taxonomy mapped to COFOG divisions. Each capability maps to a government function implemented by AI Agent performers on Kubernetes.",
@@ -851,7 +851,7 @@
                   "id": "cap-gov-0820",
                   "cofog": "08.2",
                   "name": "Cultural Services (C8.2)",
-                  "description": "Digital archives, ai-gftd-project-narou integration, manga/music/anime cultural production, museum (docs.gftd.ai)."
+                  "description": "Digital archives, ai-gftd-project-narou integration, manga/music/anime cultural production, museum (docs.etzhayyim.com)."
                 },
                 {
                   "id": "cap-gov-0830",
@@ -890,7 +890,7 @@
                   "id": "cap-gov-0950",
                   "cofog": "09.5",
                   "name": "Education n.e.c. (C9.2)",
-                  "description": "On-chain verifiable credential certificates (W3C VC), research grant allocation, integration with docs.gftd.ai as national library."
+                  "description": "On-chain verifiable credential certificates (W3C VC), research grant allocation, integration with docs.etzhayyim.com as national library."
                 }
               ]
             },
@@ -1144,7 +1144,7 @@
                 {
                   "termCode": "04.6",
                   "name": "Communication",
-                  "implementation": "natad gRPC message stream infrastructure, API gateway, DNS management (gftd.ai, gftd.dev)"
+                  "implementation": "natad gRPC message stream infrastructure, API gateway, DNS management (etzhayyim.com, gftd.dev)"
                 },
                 {
                   "termCode": "04.7",
@@ -1349,7 +1349,7 @@
                 {
                   "termCode": "09.6",
                   "name": "Subsidiary services to education",
-                  "implementation": "docs.gftd.ai as national library, educational content delivery, exam proctoring AI"
+                  "implementation": "docs.etzhayyim.com as national library, educational content delivery, exam proctoring AI"
                 },
                 {
                   "termCode": "09.7",
@@ -1425,7 +1425,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",
@@ -1468,7 +1468,7 @@
               "@type": "ListItem",
               "position": 3,
               "name": "Publish GitState JSON-LD",
-              "description": "Expose canonical JSON-LD over gb.gftd.ai and har.gftd.ai",
+              "description": "Expose canonical JSON-LD over gb.etzhayyim.com and har.etzhayyim.com",
               "startDate": "2026-02-20",
               "endDate": "2026-02-21",
               "status": "Planned"
@@ -1477,7 +1477,7 @@
               "@type": "ListItem",
               "position": 4,
               "name": "Enable visual dashboards",
-              "description": "Render planning at https://gb.gftd.ai/planning and hiring data at https://har.gftd.ai/jobs",
+              "description": "Render planning at https://gb.etzhayyim.com/planning and hiring data at https://har.etzhayyim.com/jobs",
               "startDate": "2026-02-21",
               "endDate": "2026-02-23",
               "status": "Planned"
@@ -1611,7 +1611,7 @@
                   "termCode": "80111600",
                   "name": "Management support services",
                   "cofogMapping": "01.3",
-                  "govApplication": "Administrative automation, document management (docs.gftd.ai), workflow orchestration"
+                  "govApplication": "Administrative automation, document management (docs.etzhayyim.com), workflow orchestration"
                 },
                 {
                   "termCode": "80161500",
@@ -1687,7 +1687,7 @@
                   "termCode": "86141500",
                   "name": "Library services",
                   "cofogMapping": "09.6",
-                  "govApplication": "docs.gftd.ai national library, knowledge base management, research archive"
+                  "govApplication": "docs.etzhayyim.com national library, knowledge base management, research archive"
                 }
               ]
             },

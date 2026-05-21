@@ -42,7 +42,7 @@ from typing_extensions import TypedDict
 
 _log = logging.getLogger(__name__)
 
-_PDS_BASE = os.environ.get("ANIMEKA_PDS_BASE", "https://atproto.gftd.ai")
+_PDS_BASE = os.environ.get("ANIMEKA_PDS_BASE", "https://atproto.etzhayyim.com")
 _BLOB_DID = "anonymous"  # blobs uploaded via legacy-trust header land under anonymous/
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 

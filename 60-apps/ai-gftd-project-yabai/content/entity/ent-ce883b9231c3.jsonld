@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-ce883b9231c3",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ce883b9231c3",
   "entityId": "ent-ce883b9231c3",
   "canonicalName": "shandong independent energy trading dmcc",
   "aliases": [

@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#PlaywrightConfig
+// @etzhayyim/cyber-freelance#PlaywrightConfig
 // Playwright E2Eテスト設定
 
 import { defineConfig, devices } from "@playwright/test";

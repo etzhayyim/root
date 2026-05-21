@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Input, Label, ErrorText, SupportText } from '@gftdcojp/design-system';
+	import { Button, Input, Label, ErrorText, SupportText } from '@etzhayyim/design-system';
 	import { apiKey, sessionError, sessionLoading, refreshSession } from '$lib/stores';
 
 	let draft = $state($apiKey);
@@ -18,7 +18,7 @@
 		Paste the <code class="rounded bg-black/40 px-1 py-0.5 text-gftd-text"
 			>sk_live_yata_*</code
 		> API key you got when you signed up. It stays in your browser (localStorage); we don't
-		send it anywhere except yatabase.gftd.ai itself.
+		send it anywhere except yatabase.etzhayyim.com itself.
 	</p>
 
 	<form
@@ -51,7 +51,7 @@
 				{$sessionLoading ? 'Validating…' : 'Continue'}
 			</Button>
 			<a
-				href="https://yatabase.gftd.ai/docs"
+				href="https://yatabase.etzhayyim.com/docs"
 				class="text-sm text-gftd-accent underline underline-offset-4 hover:no-underline"
 				>Read the docs</a
 			>

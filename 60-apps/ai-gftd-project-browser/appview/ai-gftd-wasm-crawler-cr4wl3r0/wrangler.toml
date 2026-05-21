@@ -6,8 +6,8 @@ compatibility_flags = ["nodejs_compat"]
 workers_dev = true
 
 routes = [
-  { pattern = "crawler.gftd.ai/*", zone_name = "gftd.ai" },
-  { pattern = "cr4wl3r0.gftd.ai/*", zone_name = "gftd.ai" }
+  { pattern = "crawler.etzhayyim.com/*", zone_name = "etzhayyim.com" },
+  { pattern = "cr4wl3r0.etzhayyim.com/*", zone_name = "etzhayyim.com" }
 ]
 
 [observability]

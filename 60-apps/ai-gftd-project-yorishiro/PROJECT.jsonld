@@ -3,7 +3,7 @@
   "@type": "Project",
   "name": "Yorishiro — Web Service Browser Automation",
   "identifier": "ai-gftd-project-yorishiro",
-  "description": "Apify-inspired web service abstraction layer. A native Go provider (Playwright/Chromium) exports browser automation primitives; per-service TinyGo wasm components encode service-specific navigation logic and export typed gRPC/MCP interfaces. Yorishiro (依り代) channels external web services into the gftd.ai wRPC mesh.",
+  "description": "Apify-inspired web service abstraction layer. A native Go provider (Playwright/Chromium) exports browser automation primitives; per-service TinyGo wasm components encode service-specific navigation logic and export typed gRPC/MCP interfaces. Yorishiro (依り代) channels external web services into the etzhayyim.com wRPC mesh.",
   "hasPart": [
     {
       "@type": "SoftwareApplication",

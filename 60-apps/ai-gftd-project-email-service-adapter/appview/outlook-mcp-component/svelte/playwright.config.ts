@@ -5,7 +5,7 @@ export default defineConfig({
   timeout: 30_000,
   retries: 1,
   use: {
-    baseURL: 'https://outlook.gftd.ai',
+    baseURL: 'https://outlook.etzhayyim.com',
     headless: true,
   },
 });

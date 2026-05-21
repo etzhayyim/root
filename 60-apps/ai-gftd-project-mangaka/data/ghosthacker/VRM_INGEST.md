@@ -75,7 +75,7 @@ artist hands off                            mangaka pod
        │                                              │
        │  ◄───────────────────────────────────────────┤
        │  { blobKey: "blobs/mangaka/vrm/9b...",        │
-       │    vertexId: "at://did:web:mangaka.gftd.ai/ │
+       │    vertexId: "at://did:web:mangaka.etzhayyim.com/ │
        │                ai.gftd.mangaka.character/ch-chise",
        │    status: "attached" }                      │
        ▼                                              │
@@ -106,11 +106,11 @@ After a successful run:
 
 ```bash
 # Confirm B2 blob landed:
-curl -I https://mangaka.gftd.ai/api/blob/blobs/mangaka/vrm/<sha256>
+curl -I https://mangaka.etzhayyim.com/api/blob/blobs/mangaka/vrm/<sha256>
 #   → 200 OK, content-type: model/gltf-binary
 
 # Confirm character row sees the new key (replace ch-chise / API key):
-curl -X POST https://mangaka.gftd.ai/xrpc/ai.gftd.mangaka.tools.resolveAssets \
+curl -X POST https://mangaka.etzhayyim.com/xrpc/ai.gftd.mangaka.tools.resolveAssets \
   -H "content-type: application/json" \
   -d '{"panelPlan": {"characters": ["ch-chise"]}}'
 #   → {"assetRefs": {"characters": {"ch-chise": {"vrm_blob_key": "blobs/mangaka/vrm/<sha256>", ...}}}}

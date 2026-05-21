@@ -83,14 +83,14 @@
     {
       "@context": "./context.jsonld",
       "@type": "SocialContract",
-      "@id": "https://gftd.ai/data/social-contracts/un-charter",
+      "@id": "https://etzhayyim.com/data/social-contracts/un-charter",
       "name": "Charter of the United Nations",
       "constitutionalType": "treaty",
       "jurisdiction": "international",
       "adoptedDate": "1945-06-26",
       "effectiveDate": "1945-10-24",
       "signatories": [
-        "https://gftd.ai/data/organizations/united-nations"
+        "https://etzhayyim.com/data/organizations/united-nations"
       ],
       "scope": "International peace and security, human rights, international law",
       "url": "https://www.un.org/en/about-us/un-charter",
@@ -101,7 +101,7 @@
     {
       "@context": "./context.jsonld",
       "@type": "SocialContract",
-      "@id": "https://gftd.ai/data/social-contracts/jp-constitution",
+      "@id": "https://etzhayyim.com/data/social-contracts/jp-constitution",
       "name": "日本国憲法",
       "alternateName": "Constitution of Japan",
       "constitutionalType": "constitution",

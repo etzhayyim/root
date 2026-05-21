@@ -23,7 +23,7 @@ Run modes:
 ENV:
   DATABASE_URL                — required, RisingWave Postgres URL
   WIKIDATA_SPARQL_URL         — default https://query.wikidata.org/sparql
-  WIKIDATA_USER_AGENT         — default 'gftd-maps/1.0 (https://maps.gftd.ai)'
+  WIKIDATA_USER_AGENT         — default 'gftd-maps/1.0 (https://maps.etzhayyim.com)'
   WIKIDATA_BATCH_SIZE         — default 5000 (Wikidata caps at 10000 rows)
   DRY_RUN                     — '1' = parse + count only
   TARGET_LEI                  — optional LEI filter
@@ -51,7 +51,7 @@ log = logging.getLogger("aismarine_wikidata_lei")
 DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
 SPARQL_URL = os.environ.get("WIKIDATA_SPARQL_URL", "https://query.wikidata.org/sparql")
 USER_AGENT = os.environ.get(
-    "WIKIDATA_USER_AGENT", "gftd-maps/1.0 (https://maps.gftd.ai)"
+    "WIKIDATA_USER_AGENT", "gftd-maps/1.0 (https://maps.etzhayyim.com)"
 )
 BATCH_SIZE = int(os.environ.get("WIKIDATA_BATCH_SIZE", "5000"))
 DRY_RUN = os.environ.get("DRY_RUN", "0") == "1"

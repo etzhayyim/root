@@ -1,13 +1,13 @@
 # ai-gftd-project-yorishiro
 
 Apify-inspired web service browser automation platform.
-**Yorishiro (依り代)** — a vessel/medium that channels external web services into the gftd.ai platform via Playwright.
+**Yorishiro (依り代)** — a vessel/medium that channels external web services into the etzhayyim.com platform via Playwright.
 
 ## Architecture
 
 ```
 Browser / AI Agent
-  └─ MCP/XRPC → {nanoid}.gftd.ai/xrpc
+  └─ MCP/XRPC → {nanoid}.etzhayyim.com/xrpc
        └─ App: yorishiro-{service} (TS Native)
                  │
                  ├─ exports gftd:yorishiro-{service}/* (typed service interface)
@@ -38,7 +38,7 @@ Browser / AI Agent
 | yorishiro-mturk | `m7turk01` | TS Native | `gftd-yorishiro-mturk-provider` | Amazon Mechanical Turk Requester API (HIT + assignment lifecycle) |
 | yorishiro-marqeta | `m4rq3t4` | TS Native | `gftd-yorishiro-marqeta-provider` | Marqeta card issuing API (users/cards/GPA/transactions) |
 | yorishiro-1password | `1p4ssw0d` | TS Native | `gftd-yorishiro-1password-provider` | 1Password Connect Server API (vaults/items/files CRUD) |
-| yorishiro-squarespace | `sqddf3sp` | TS Native | `gftd-yorishiro-squarespace-provider` | Squarespace domain management, transfer, DNS export (browser automation). Exposes sub-actor DID `did:web:sqddf3sp.gftd.ai:actor:sqExporter` that follows `did:web:scndu0rf.gftd.ai:actor:cfRegistrar` and drives the 5-step transfer-to-Cloudflare workflow. See `60-apps/ai-gftd-project-dns/CLAUDE.md` §Project Actor Composition |
+| yorishiro-squarespace | `sqddf3sp` | TS Native | `gftd-yorishiro-squarespace-provider` | Squarespace domain management, transfer, DNS export (browser automation). Exposes sub-actor DID `did:web:sqddf3sp.etzhayyim.com:actor:sqExporter` that follows `did:web:scndu0rf.etzhayyim.com:actor:cfRegistrar` and drives the 5-step transfer-to-Cloudflare workflow. See `60-apps/ai-gftd-project-dns/CLAUDE.md` §Project Actor Composition |
 | yorishiro-japanpost-enaiyo | `jp4n41y0` | TS Native | `gftd-yorishiro-japanpost-enaiyo-provider` | 日本郵便 Webゆうびん 電子内容証明 (e-naiyo) — draft/submit/receipt/tracking via post.japanpost.jp |
 | yorishiro-flyio | `fly10001` | TS Native | `gftd-yorishiro-flyio-provider` | Fly.io アカウント管理・解約 — getAccountInfo / deleteApp / deleteOrg / closeAccount via fly.io dashboard |
 | yorishiro-nuro | `nur0cb01` | TS Native | `gftd-yorishiro-nuro-provider` | NURO 光 (Sony Network Communications) MyPage キャッシュバック受取 — listOffers / claimCashback / getClaimStatus via www.nuro.jp/app/mypage |
@@ -47,7 +47,7 @@ Browser / AI Agent
 ### Crypto Exchange Compliance Agents (API-based, W Protocol cross-actor)
 
 Fraud/theft incident response agents — freeze requests, account inquiry, tx tracing, law enforcement coordination.
-Integrated with `crypto-asset-freeze` (APQC 11.3) + `lawfirm.gftd.ai` via cross-actor.
+Integrated with `crypto-asset-freeze` (APQC 11.3) + `lawfirm.etzhayyim.com` via cross-actor.
 
 | Component | nanoid | Jurisdiction | Exchange |
 |---|---|---|---|

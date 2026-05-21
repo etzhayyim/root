@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:joucho.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:joucho.etzhayyim.com",
   "component": {
     "env": {
       "MURAKUMO_MODEL": "gemma-4-e2b-it",
-      "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions",
+      "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions",
       "EMOTION_TAXONOMY": "sst-48-hume",
       "EMOTION_COUNT": "48"
     },
@@ -43,7 +43,7 @@
   "project": "joucho",
   "routes": [
     {
-      "host": "joucho.gftd.ai",
+      "host": "joucho.etzhayyim.com",
       "paths": [
         "/"
       ]

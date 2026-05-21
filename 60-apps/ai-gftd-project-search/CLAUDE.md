@@ -1,15 +1,15 @@
 # ai-gftd-project-search — Runbook
 
-`search.gftd.ai` / crawler search backend の運用ルール。
+`search.etzhayyim.com` / crawler search backend の運用ルール。
 
 ## Backend Direction
 
-- `search.gftd.ai` は RisingWave 上の IVF / IVF+PQ 検索を前提にする。
+- `search.etzhayyim.com` は RisingWave 上の IVF / IVF+PQ 検索を前提にする。
 - 旧 LanceDB / Tonbo API は deprecated。`lancedb-api/` は historical stub として扱い、新規経路へ戻さない。
 - 旧 Magatama graph/Cypher 前提の `:Page` / `LINKS_TO` 検索は互換説明としてのみ残し、primary path にはしない。
 - Primary text/web corpus は `vertex_wet_chunk`。検索用の近傍候補は `embedding`, `embedding_norm`, `ivf_cluster_id` と `vertex_wet_chunk_pq` / `vertex_pq_codebook` を使う。
 - 汎用 768d embedding search は `vertex_vector_embedding_768` (`space_id = gftd-mm-768`) を使う。
-- query vector は `llm.gftd.ai` / bge-m3 系 embedding で作成し、RisingWave の PostgreSQL wire protocol 経由で候補取得する。
+- query vector は `llm.etzhayyim.com` / bge-m3 系 embedding で作成し、RisingWave の PostgreSQL wire protocol 経由で候補取得する。
 
 ## Deployment Rules
 
@@ -31,7 +31,7 @@
 
 - **site Common Crawl ingest** starts `ingest_site_common_crawl_delta` and writes RisingWave corpus state.
 - **site IVF/PQ reindex** is registered as `site_ivf_pq_reindex` (`ai.gftd.apps.site.ivfPqReindex`) and maintains `vertex_wet_chunk_pq`.
-- **search.gftd.ai** reads RisingWave, ranks by ANN candidate distance + lexical/domain freshness signals, and serves web/image verticals.
+- **search.etzhayyim.com** reads RisingWave, ranks by ANN candidate distance + lexical/domain freshness signals, and serves web/image verticals.
 - **image/OCR ingest** is separate from web search. Current integrated sources include NDL image OCR and biblio open-data OCR; generic web image crawl remains a crawler capability/workload, not the full production search corpus.
 
 ## Crawler Integration Status

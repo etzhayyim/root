@@ -18,12 +18,12 @@ export default createWorkerExport((sdk) => {
     { path: "actor:classifier", displayName: "分類 AI", description: "素材分類・グレード判定" },
     { path: "actor:disassembler", displayName: "分解 AI", description: "BOM 分析・分解工程計画" },
     { path: "actor:arm", displayName: "ロボットアーム AI", description: "自動 pick-and-place・仕分け" },
-    { path: "actor:hcDelegate", displayName: "HC 委任 AI", description: "hc.gftd.ai 人間タスク委任" },
+    { path: "actor:hcDelegate", displayName: "HC 委任 AI", description: "hc.etzhayyim.com 人間タスク委任" },
     { path: "actor:appraiser", displayName: "鑑定 AI", description: "素材価値評価・市場価格連動" },
     { path: "actor:announcer", displayName: "告知 AI", description: "回収実績・キャンペーン告知" },
   ] as const;
 
-  const actorDid = (role: string) => `did:web:toshi-kozan.gftd.ai:${role}`;
+  const actorDid = (role: string) => `did:web:toshi-kozan.etzhayyim.com:${role}`;
 
   // ════════════════════════════════════════════════════════
   // Guide (案内) — 持込場所・手順案内
@@ -33,7 +33,7 @@ export default createWorkerExport((sdk) => {
     nsid("ai.gftd.apps.toshiKozan.guideDropoff"),
     async (ctx, body) => {
       const input = parseLexiconInput("ai.gftd.apps.toshiKozan.guideDropoff", body);
-      // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke maps.gftd.ai/nearbySearch.
+      // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke maps.etzhayyim.com/nearbySearch.
       // TODO: reimplement via direct Hyperdrive SELECT on vertex_maps_depot once
       // cross-actor read RLS pattern is specified.
       console.log(`[toshi-kozan] guideDropoff request: lat=${input.lat} lng=${input.lng} — cross-actor stub`);
@@ -115,7 +115,7 @@ export default createWorkerExport((sdk) => {
     nsid("ai.gftd.apps.toshiKozan.issueReceipt"),
     async (ctx, body) => {
       const input = parseLexiconInput("ai.gftd.apps.toshiKozan.issueReceipt", body);
-      // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke yabai.gftd.ai/screenItem
+      // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke yabai.etzhayyim.com/screenItem
       // for theft detection. TODO: reimplement via shared vertex_yabai_entity SELECT
       // (hit check) or replace with classify_t1-style SQL UDF on serial_numbers.
       console.log(`[toshi-kozan] issueReceipt cross-actor stub: yabai screen skipped for ${input.serialNumbers?.length ?? 0} serials`);
@@ -266,14 +266,14 @@ export default createWorkerExport((sdk) => {
   );
 
   // ════════════════════════════════════════════════════════
-  // HC Delegate (HC 委任) — hc.gftd.ai 人間タスク
+  // HC Delegate (HC 委任) — hc.etzhayyim.com 人間タスク
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
     nsid("ai.gftd.apps.toshiKozan.delegateToHc"),
     async (ctx, body) => {
       const input = parseLexiconInput("ai.gftd.apps.toshiKozan.delegateToHc", body);
-      // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke hc.gftd.ai/createTask.
+      // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke hc.etzhayyim.com/createTask.
       // The local hcTask record below is the write-only derived source; hc can
       // consume via its own onCommit / MV on ai.gftd.apps.toshiKozan.hcTask once
       // ADR-0004 derive pattern is wired for this actor pair.
@@ -293,7 +293,7 @@ export default createWorkerExport((sdk) => {
       return JSON.stringify({ ok: true });
     },
     {
-      agentTool: "hc.gftd.ai に人間タスクを委任",
+      agentTool: "hc.etzhayyim.com に人間タスクを委任",
       capabilityTags: ["hc-delegate", "human-task", "crowdsourcing"],
       responsible: { role: "hcDelegate" },
     },
@@ -307,7 +307,7 @@ export default createWorkerExport((sdk) => {
     nsid("ai.gftd.apps.toshiKozan.appraiseBatch"),
     async (ctx, body) => {
       const input = parseLexiconInput("ai.gftd.apps.toshiKozan.appraiseBatch", body);
-      // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke kakaku.gftd.ai/getPrice
+      // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke kakaku.etzhayyim.com/getPrice
       // for LME market prices. TODO: reimplement via direct Hyperdrive SELECT on
       // vertex_kakaku_price (or a `kakaku_latest_price(symbol, exchange)` SQL UDF).
       console.log(`[toshi-kozan] appraiseBatch cross-actor stub: ${(input.materialSymbols ?? []).join(",")}`);
@@ -456,7 +456,7 @@ export default createWorkerExport((sdk) => {
         });
       }
 
-      // ── collector.gftd.ai pickup → receiver: 自動受領 ──
+      // ── collector.etzhayyim.com pickup → receiver: 自動受領 ──
       if (op.collection === "ai.gftd.apps.collector.pickup") {
         if (record.category && record.weightKg) {
           await sdk.pds.writePublic("ai.gftd.apps.toshiKozan.receipt", {
@@ -519,7 +519,7 @@ export default createWorkerExport((sdk) => {
         const category = hazardLevel === "high" ? "tk-hazmat-handling" : "tk-precision-disassembly";
         const rewardJpy = hazardLevel === "high" ? 15000 : 5000;
         // cross-actor removed (ADR-0047 audit 2026-04-21). The hcTask record below is
-        // the write-only derived source for hc.gftd.ai — no outbound invoke.
+        // the write-only derived source for hc.etzhayyim.com — no outbound invoke.
         await sdk.pds.writePublic("ai.gftd.apps.toshiKozan.hcTask", {
           stepRkey: op.rkey,
           hcCategory: category,
@@ -538,7 +538,7 @@ export default createWorkerExport((sdk) => {
         (op.collection === "ai.gftd.apps.toshiKozan.hcTask" && record.status === "completed")
       ) {
         if (record.materialSymbol && record.weightKg) {
-          // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke kakaku.gftd.ai
+          // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke kakaku.etzhayyim.com
           // for LME price lookup — the call was fire-and-forget and its result
           // was not embedded in the appraisal record. Safely deleted.
           await sdk.pds.writePublic("ai.gftd.apps.toshiKozan.appraisal", {

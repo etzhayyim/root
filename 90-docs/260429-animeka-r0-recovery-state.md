@@ -1,13 +1,13 @@
 ---
 id: doc-260429-animeka-r0-recovery-state
-title: "animeka.gftd.ai R0 recovery — 2026-04-29 handoff state"
+title: "animeka.etzhayyim.com R0 recovery — 2026-04-29 handoff state"
 status: active
 doc_type: how-to
 topic: animeka-pipeline-recovery
 authoritative: true
 last_verified: 2026-04-29
 authoritative_for:
-  - animeka.gftd.ai pipeline recovery from 2026-04-26→2026-04-29 outage
+  - animeka.etzhayyim.com pipeline recovery from 2026-04-26→2026-04-29 outage
   - R2 (Misaki character LoRA) staged work-in-progress
   - pyzeebe Channel-close intermittent bug (workaround documented)
 related:
@@ -18,7 +18,7 @@ related:
 # Goal
 
 Concise resume document for the agent (human or LLM) picking up the
-animeka.gftd.ai pipeline recovery work after a session close on
+animeka.etzhayyim.com pipeline recovery work after a session close on
 2026-04-29. Captures: what's fixed, what's open, what's staged
 locally, and the exact next checks / actions.
 
@@ -31,7 +31,7 @@ pipeline; Vultr fallback retired 2026-05-09) — read that first.
 | Date  / time (UTC) | Event |
 |---|---|
 | 2026-04-26 22:44Z | Last successful autopilot cut (`3mkgmz6yjo22e` on bsky) |
-| 2026-04-26 ~23Z   | comfyui.gftd.ai gateway break-glass key rotated; pyzeebe `Bearer pod-inline` no longer matches → all comfyui.call return 401 |
+| 2026-04-26 ~23Z   | comfyui.etzhayyim.com gateway break-glass key rotated; pyzeebe `Bearer pod-inline` no longer matches → all comfyui.call return 401 |
 | 2026-04-28 14:47Z | Last 401 cutRunner audit before broker died |
 | 2026-04-28 ~14:50Z | Zeebe broker zeebe-0 starts OOMKilling (1.5Gi limit insufficient under live workload) |
 | 2026-04-28 12:48Z (= 21:48 +0900) | Code fix `fbf6b86f` on branch — adds `x-magatama-verified: true` to `task_generic_comfyui_call` matching shinshi_video pattern |

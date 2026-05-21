@@ -23,7 +23,7 @@
 import { test, expect, type APIRequestContext } from "@playwright/test";
 
 const env = {
-  base: process.env.LAWFIRM_BASE_URL ?? "https://lawfirm.gftd.ai",
+  base: process.env.LAWFIRM_BASE_URL ?? "https://lawfirm.etzhayyim.com",
   firm: process.env.LAWFIRM_FIRM_DID ?? "",
   client: process.env.LAWFIRM_CLIENT_DID ?? "",
   bengoshi: process.env.LAWFIRM_BENGOSHI_DID ?? "",

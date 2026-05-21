@@ -1,9 +1,9 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://gftd.ai/schema/contracts#",
+    "@vocab": "https://etzhayyim.com/schema/contracts#",
     "schema": "https://schema.org/",
-    "gftd": "https://gftd.ai/schema/",
+    "gftd": "https://etzhayyim.com/schema/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",

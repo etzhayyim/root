@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:cargo.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:cargo.etzhayyim.com",
   "actors": [
     {
       "description": "Ocean master bill of lading lifecycle management",
@@ -34,7 +34,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Cargo & Container Intelligence agent. You manage bills of lading, cargo manifests, container tracking, and IMDG dangerous goods declarations. Query the graph for B/L status, container locations, cargo items with HS codes, and voyage manifests. Link cargo to vessel.gftd.ai voyages and port.gftd.ai operations.",
+  "convoSystemPrompt": "You are the Cargo & Container Intelligence agent. You manage bills of lading, cargo manifests, container tracking, and IMDG dangerous goods declarations. Query the graph for B/L status, container locations, cargo items with HS codes, and voyage manifests. Link cargo to vessel.etzhayyim.com voyages and port.etzhayyim.com operations.",
   "description": "Bill of lading (B/L), cargo manifest, container tracking, IMDG dangerous goods classification. Links vessel voyages to physical cargo flow.",
   "displayName": "Cargo & Container Intelligence",
   "domainKnowledgeRequired": true,
@@ -301,7 +301,7 @@
       "container-tracking",
       "imdg-compliance"
     ],
-    "description": "Maritime cargo management — bill of lading lifecycle (draft→issued→surrendered→accomplished), cargo items with HS codes, intermodal container tracking, IMDG dangerous goods declarations. Links to vessel.gftd.ai voyages and port.gftd.ai operations.",
+    "description": "Maritime cargo management — bill of lading lifecycle (draft→issued→surrendered→accomplished), cargo items with HS codes, intermodal container tracking, IMDG dangerous goods declarations. Links to vessel.etzhayyim.com voyages and port.etzhayyim.com operations.",
     "displayName": "Cargo & Container Intelligence",
     "isBot": true,
     "operator": "gftd.co.jp"

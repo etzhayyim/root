@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Badge, Button, Card, Input, Toggle } from '@gftdcojp/design-system';
+	import { Badge, Button, Card, Input, Toggle } from '@etzhayyim/design-system';
 	import { useProviderWorker } from '../provider/worker-state.svelte.js';
 	import { useProviderMarket } from '../provider/market-state.svelte.js';
 	import { useBrowserInference } from '../provider/browser-inference-state.svelte.js';

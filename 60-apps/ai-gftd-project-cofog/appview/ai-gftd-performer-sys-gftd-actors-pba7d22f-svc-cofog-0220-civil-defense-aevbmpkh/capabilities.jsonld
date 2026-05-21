@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/02/2/0/civil-defense",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/02/2/0/civil-defense",
       "type": "dodaf:Capability",
       "name": "Civil Defense and Emergency Management",
       "description": "Functional capability for civil defense operations, including disaster preparedness, emergency response coordination, and public safety mitigation. Classification: COFOG Division 02, Group 2, Class 0.",

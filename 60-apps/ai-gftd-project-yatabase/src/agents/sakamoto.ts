@@ -105,7 +105,7 @@ export async function runSakamoto(
       ok: false,
       agent: "sakamoto",
       role: "cs",
-      did: "did:web:yatabase.gftd.ai:actor:sakamoto",
+      did: "did:web:yatabase.etzhayyim.com:actor:sakamoto",
       runId,
       startedAt,
       durationMs: Date.now() - t0,
@@ -158,7 +158,7 @@ export async function runSakamoto(
       ok: false,
       agent: "sakamoto",
       role: "cs",
-      did: "did:web:yatabase.gftd.ai:actor:sakamoto",
+      did: "did:web:yatabase.etzhayyim.com:actor:sakamoto",
       runId,
       startedAt,
       durationMs: Date.now() - t0,
@@ -176,7 +176,7 @@ export async function runSakamoto(
     const body = draftBody(row.kind, row.status, row.subject);
     if (!dryRun) {
       const r2 = await emitOutbox(env, {
-        orgDid: "did:web:yatabase.gftd.ai",
+        orgDid: "did:web:yatabase.etzhayyim.com",
         kind: "support-followup",
         subject,
         bodyText: body,
@@ -200,7 +200,7 @@ export async function runSakamoto(
     ok: true,
     agent: "sakamoto",
     role: "cs",
-    did: "did:web:yatabase.gftd.ai:actor:sakamoto",
+    did: "did:web:yatabase.etzhayyim.com:actor:sakamoto",
     runId,
     startedAt,
     durationMs: Date.now() - t0,

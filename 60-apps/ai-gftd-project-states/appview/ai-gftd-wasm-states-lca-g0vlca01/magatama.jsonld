@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:lca-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:lca-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Saint Lucia AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "lca-state.gftd.ai",
+      "host": "lca-state.etzhayyim.com",
       "paths": [
         "/"
       ],

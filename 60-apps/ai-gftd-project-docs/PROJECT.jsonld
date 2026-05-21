@@ -4,7 +4,7 @@
   "name": "Document Management Platform (ai-gftd-project-docs)",
   "status": "In Progress",
   "identifier": "ai-gftd-project-docs",
-  "description": "Notion-like document management system with real-time collaboration, AI assistance, and version control. Accessible at docs.gftd.ai.",
+  "description": "Notion-like document management system with real-time collaboration, AI assistance, and version control. Accessible at docs.etzhayyim.com.",
   "hasPart": [
     {
       "@type": "CreativeWork",
@@ -18,7 +18,7 @@
     },
     {
       "@type": "WebApplication",
-      "name": "docs.gftd.ai App",
+      "name": "docs.etzhayyim.com App",
       "url": "app/"
     },
     {
@@ -38,7 +38,7 @@
     },
     {
       "status": "completed",
-      "task": "Set up DNS for docs.gftd.ai via Pulumi-managed Linode DomainRecord and Gateway."
+      "task": "Set up DNS for docs.etzhayyim.com via Pulumi-managed Linode DomainRecord and Gateway."
     },
     {
       "status": "in_progress",
@@ -50,7 +50,7 @@
     },
     {
       "status": "pending",
-      "task": "Deploy docs.gftd.ai to Kubernetes with GitOps."
+      "task": "Deploy docs.etzhayyim.com to Kubernetes with GitOps."
     }
   ],
   "performers": [
@@ -78,7 +78,7 @@
           "@context": "https://schema.org/",
           "@type": "CreativeWork",
           "name": "Strategy for Document Management Platform",
-          "description": "Strategic roadmap for docs.gftd.ai, providing Notion-like document management with AI-assisted editing and real-time collaboration.",
+          "description": "Strategic roadmap for docs.etzhayyim.com, providing Notion-like document management with AI-assisted editing and real-time collaboration.",
           "about": [
             {
               "@type": "Thing",
@@ -113,7 +113,7 @@
           "@context": "https://schema.org/",
           "@type": "CreativeWork",
           "name": "Capabilities for Document Management Platform",
-          "description": "Defines the capabilities of docs.gftd.ai, traced to activities and performers.",
+          "description": "Defines the capabilities of docs.etzhayyim.com, traced to activities and performers.",
           "hasPart": [
             {
               "@type": "Capability",
@@ -156,7 +156,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",
@@ -191,7 +191,7 @@
             },
             {
               "@type": "CreativeWork",
-              "name": "Deploy docs.gftd.ai to Kubernetes with GitOps.",
+              "name": "Deploy docs.etzhayyim.com to Kubernetes with GitOps.",
               "status": "Planned",
               "dueDate": "2026-03-08"
             }

@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/3/1/coal-and-other-solid-mineral-fuels/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/3/1/coal-and-other-solid-mineral-fuels/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Solid Fuel Resource Management Lifecycle",
       "description": "The administrative process of surveying mineral deposits, processing extraction permits, and monitoring mining compliance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/1/coal-and-other-solid-mineral-fuels"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/1/coal-and-other-solid-mineral-fuels"
     }
   ]
 }

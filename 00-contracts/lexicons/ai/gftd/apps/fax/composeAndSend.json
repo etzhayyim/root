@@ -43,7 +43,7 @@
             "inspector": { "type": "string", "description": "監督官 name (logged as evidence)" },
             "referenceNumber": { "type": "string", "description": "External case ref (e.g. 中央基署呼発第10号) printed as document header" },
             "provider": { "type": "string", "enum": ["auto", "manual", "phaxio"], "default": "auto", "description": "auto = manual (Phaxio is dead path; only fires if provider='phaxio' explicit AND SS_FAX_API_KEY set). manual = Dropbox Fax UI handoff with operator notification." },
-            "teamsChannelEmail": { "type": "string", "description": "Channel email for Teams notification (e.g. gj-ce-legal-2504-matsuoka@gftdcojp.onmicrosoft.com)" },
+            "teamsChannelEmail": { "type": "string", "description": "Channel email for Teams notification (e.g. gj-ce-legal-2504-matsuoka@etzhayyim.onmicrosoft.com)" },
             "operatorEmail": { "type": "string", "description": "Operator personal email for notification" },
             "dryRun": { "type": "boolean", "default": false, "description": "Render + upload only; skip handoff/send" }
           }

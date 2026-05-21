@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#EmailSyncJobSteps
+// @etzhayyim/cyber-freelance#EmailSyncJobSteps
 // Email Sync Job関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

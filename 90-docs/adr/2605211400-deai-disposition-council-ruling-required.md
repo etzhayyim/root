@@ -7,7 +7,7 @@ topic: deai-disposition
 authoritative: true
 last_verified: 2026-05-21
 authoritative_for:
-  - deai.gftd.ai (vendor) → ? (etzhayyim move target | SPLIT | vendor confirmed) disposition
+  - deai.etzhayyim.com (vendor) → ? (etzhayyim move target | SPLIT | vendor confirmed) disposition
   - Council Lv6+ ruling agenda item
 related:
   - adr-2605172000-etzhayyim-rw-free-substrate
@@ -29,7 +29,7 @@ superseded_by: []
 
 # Context
 
-`deai.gftd.ai` is a vendor project (gftdcojp/ai-gftd-apps-gftdcojp) that landed 2026-05-17 (post-Tranche-F catalog freeze). Its `magatama.jsonld` declares `profile.operator = "etzhayyim"` but the project lives in vendor 60-apps, not etzhayyim/root.
+`deai.etzhayyim.com` is a vendor project (etzhayyim/etzhayyim-root) that landed 2026-05-17 (post-Tranche-F catalog freeze). Its `magatama.jsonld` declares `profile.operator = "etzhayyim"` but the project lives in vendor 60-apps, not etzhayyim/root.
 
 The 2026-05-21 post-freeze 3-axis audit (vendor PR #1339 `tranche-f-post-freeze-7-actors-audit-2026-05-21`) flagged deai for **Council Lv6+ ruling** because the 3-axis OR-test verdict and the magatama-declared operator contradict.
 

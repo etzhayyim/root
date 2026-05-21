@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.ai/schema/",
+  "@context": "https://etzhayyim.com/schema/",
   "@type": "gftd:Project",
   "@id": "ai-gftd-project-contracts",
   "name": "Global Contracts Knowledge Base",
@@ -34,7 +34,7 @@
     "ai-gftd-project-public-global"
   ],
   "maintainers": [
-    "gftd.ai platform team"
+    "etzhayyim.com platform team"
   ],
   "version": "0.1.0",
   "created": "2026-02-17T00:00:00Z",

@@ -1,4 +1,4 @@
-# ai-gftd-project-mangaka — mangaka.gftd.ai
+# ai-gftd-project-mangaka — mangaka.etzhayyim.com
 
 **Manga creation appview** — KAMI Engine canvas-based manga editor with AI-assisted drawing, panel layout, inking, and toning.
 
@@ -6,7 +6,7 @@
 
 | 項目 | 値 |
 |---|---|
-| Domain | `mangaka.gftd.ai` |
+| Domain | `mangaka.etzhayyim.com` |
 | Runtime | **Single Worker** (TS Native) |
 | nanoid | `mng4k4x1` |
 | performerType | `service` (default sensitivity: `public`) |
@@ -16,10 +16,10 @@
 
 | DID | 用途 |
 |---|---|
-| `did:web:mangaka.gftd.ai` | Controller (app 本体) |
-| `did:web:mangaka.gftd.ai:work:{nanoid}` | Manga work (作品単位) |
-| `did:web:mangaka.gftd.ai:chapter:{nanoid}` | Chapter (話単位) |
-| `did:web:mangaka.gftd.ai:character:{nanoid}` | Character design sheet |
+| `did:web:mangaka.etzhayyim.com` | Controller (app 本体) |
+| `did:web:mangaka.etzhayyim.com:work:{nanoid}` | Manga work (作品単位) |
+| `did:web:mangaka.etzhayyim.com:chapter:{nanoid}` | Chapter (話単位) |
+| `did:web:mangaka.etzhayyim.com:character:{nanoid}` | Character design sheet |
 
 ## Design E 3-Tier Write
 
@@ -68,14 +68,14 @@
 AT Protocol URI scheme (`at://`) を HTTP path `/at/` にマッピング。正規化コスト 0 (`s|/at/|at://|`)。
 
 ```
-https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.document/{rkey}
-  ↔ at://mng4k4x1.gftd.ai/ai.gftd.mangaka.document/{rkey}
+https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/{rkey}
+  ↔ at://mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/{rkey}
 ```
 
 | Collection | Deep-link 例 |
 |---|---|
-| document | `mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.document/doc-gh-arc01-xxx` |
-| work | `mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.mangaka.work/work-arc0-1-origin` |
+| document | `mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/doc-gh-arc01-xxx` |
+| work | `mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.work/work-arc0-1-origin` |
 
 **Genko canvas**: pathname から `{authority}/{collection}/{rkey}` を parse → `loadDocument(rkey)` で自動ロード。
 
@@ -142,7 +142,7 @@ Shared helpers live in `lg/lg_mangaka/cine.py` (`STAGE_NAMES`, `new_run_id`, `re
 
 **Local Studio**: `bash lg/scripts/dev.sh` starts `langgraph dev` against `lg/langgraph.dev.json` (in-memory checkpointer, no RW required). Studio at `https://smith.langchain.com/studio/?baseUrl=http://127.0.0.1:2024`; API at `http://127.0.0.1:2024/docs`. Pick `cine_generate_scene` or `cine_generate_panel` in Studio, run with `"dry_run": true` to inspect the Pregel DAG + per-node state without touching B2 / RW / vLLM. For connected-dev runs, copy `lg/.env.example` → `lg/.env` and fill `RW_URL` / `VLLM_URL`.
 
-**MCP server (`studio.gftd.ai/mcp`)** — Claude Code / agent integration, **passkey-free after first deploy**. 5 tools (JSON-RPC 2.0):
+**MCP server (`studio.etzhayyim.com/mcp`)** — Claude Code / agent integration, **passkey-free after first deploy**. 5 tools (JSON-RPC 2.0):
 
 | Tool | 機能 | Backend |
 |---|---|---|
@@ -152,28 +152,28 @@ Shared helpers live in `lg/lg_mangaka/cine.py` (`STAGE_NAMES`, `new_run_id`, `re
 | `studio.mintApiKey` | sk_live_* mint (RW INSERT) | `auth_mint_api_key` Pregel (`lg/lg_mangaka/graphs/auth_mint_api_key.py`) — pod は cluster 内なので RW_URL 到達可 |
 | `studio.restartStudio` | k8s rollout restart 案内 | manual `kubectl rollout restart` |
 
-**Auth**: CF Access JWT (`@gftd.co.jp` / Microsoft Entra) で gate。`Cf-Access-Authenticated-User-Email` → `owner_did` 自動派生 (`did:web:mangaka.gftd.ai:user:{email-safe}`)。passkey は **studio.gftd.ai への 24h SSO 1 回のみ** — `gftd authn signin` の chicken-and-egg は解消。
+**Auth**: CF Access JWT (`@gftd.co.jp` / Microsoft Entra) で gate。`Cf-Access-Authenticated-User-Email` → `owner_did` 自動派生 (`did:web:mangaka.etzhayyim.com:user:{email-safe}`)。passkey は **studio.etzhayyim.com への 24h SSO 1 回のみ** — `gftd authn signin` の chicken-and-egg は解消。
 
 **Deploy state (2026-05-19)**: 
-- Image: `ghcr.io/gftdcojp/lg-mangaka-studio:0.1.1-amd64@sha256:eb6901c…` (slim, no torch/cuda — ~400MB vs 8GB)
+- Image: `ghcr.io/etzhayyim/lg-mangaka-studio:0.1.1-amd64@sha256:eb6901c…` (slim, no torch/cuda — ~400MB vs 8GB)
 - Pod: `lg-mangaka-studio` in `mitama-udf` ns、helm release rev 10、`studio.enabled=true`、replicas=2 (`sessionAffinity: ClientIP` 3h)
 - Status: ✅ 21 graphs imported, mint API key INSERT 済 (`sk_live_comfyui_f931…` in `public.vertex_api_key`)
 - 残: Studio Worker (svelte + /mcp) deploy (`gftd authn signin` block 中)、CF Tunnel + CF Access apps (operator manual)、comfyui worker migration to yatabase-style pod-side authResolveApiKey (migration debt — ADR-2605111200 で Hyperdrive-Worker 検証が壊れた、未 migrate)
 
 **Claude Code 統合**: `~/.claude/mcp.json` に:
 ```json
-{ "mcpServers": { "studio": { "url": "https://studio.gftd.ai/mcp" } } }
+{ "mcpServers": { "studio": { "url": "https://studio.etzhayyim.com/mcp" } } }
 ```
 追加 → `mcp__studio_listGraphs` / `mcp__studio_runGraph` / `mcp__studio_mintApiKey` などが Claude tool palette に並ぶ。最初の使用時に CF Access SSO challenge (Microsoft Entra)、以降 24h はトークン継続。
 
-**Team Studio (`studio.gftd.ai`)** — self-hosted, **no LangSmith dependency**. Two-tier:
+**Team Studio (`studio.etzhayyim.com`)** — self-hosted, **no LangSmith dependency**. Two-tier:
 
 | Tier | Where | What |
 |---|---|---|
-| UI + auth edge | CF Worker `magatama-stdk2024` at `studio.gftd.ai/*` | Svelte 5 SPA (graph list + Mermaid DAG + invoke form + SSE stream). Behind CF Access (Microsoft Entra IdP, `@gftd.co.jp` domain). Code: `appview-studio/ai-gftd-wasm-studio-stdk2024/` |
-| LangGraph backend | k8s pod `lg-mangaka-studio` × 2 (mitama-udf ns) at `studio-api.gftd.ai` | Stock `langgraph dev` (in-memory, ClientIP affinity). Image: `lg/Dockerfile.studio`. Chart: `50-infra/vultr/lg-mangaka-pool/templates/studio.yaml`, toggle `studio.enabled=true`. Tunnel: `50-infra/vultr/cloudflared/lg-mangaka-studio-tunnel.yaml`. Behind CF Access **service-token** policy — only the Worker's `CF-Access-Client-Id/-Secret` pair passes through. Audit disabled (`LG_AUDIT_DISABLED=1`). |
+| UI + auth edge | CF Worker `magatama-stdk2024` at `studio.etzhayyim.com/*` | Svelte 5 SPA (graph list + Mermaid DAG + invoke form + SSE stream). Behind CF Access (Microsoft Entra IdP, `@gftd.co.jp` domain). Code: `appview-studio/ai-gftd-wasm-studio-stdk2024/` |
+| LangGraph backend | k8s pod `lg-mangaka-studio` × 2 (mitama-udf ns) at `studio-api.etzhayyim.com` | Stock `langgraph dev` (in-memory, ClientIP affinity). Image: `lg/Dockerfile.studio`. Chart: `50-infra/vultr/lg-mangaka-pool/templates/studio.yaml`, toggle `studio.enabled=true`. Tunnel: `50-infra/vultr/cloudflared/lg-mangaka-studio-tunnel.yaml`. Behind CF Access **service-token** policy — only the Worker's `CF-Access-Client-Id/-Secret` pair passes through. Audit disabled (`LG_AUDIT_DISABLED=1`). |
 
-Operator runbook (8 steps including the two CF Access apps) lives in the tunnel YAML header. End-user opens `https://studio.gftd.ai/` → SSO → pick `cine_generate_scene` / `cine_generate_panel` (or any of the 20) → run with `"dry_run": true` for cost-free inspection.
+Operator runbook (8 steps including the two CF Access apps) lives in the tunnel YAML header. End-user opens `https://studio.etzhayyim.com/` → SSO → pick `cine_generate_scene` / `cine_generate_panel` (or any of the 20) → run with `"dry_run": true` for cost-free inspection.
 
 Invocation pattern (XRPC → bpmn-dispatcher → LangServer pod):
 ```

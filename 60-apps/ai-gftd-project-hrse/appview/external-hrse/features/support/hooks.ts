@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#CucumberHooks
+// @etzhayyim/cyber-freelance#CucumberHooks
 // Cucumber hooks for timeout and setup
 
 import { setDefaultTimeout } from "@cucumber/cucumber";

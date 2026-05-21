@@ -2,7 +2,7 @@
 
 Headless browser rendering service (browserless-style) for fetching rendered HTML from modern web pages (SPA/AJAX).
 
-This service is intended to be called by other components (for example `crawler.gftd.ai`) when static HTTP fetch is insufficient.
+This service is intended to be called by other components (for example `crawler.etzhayyim.com`) when static HTTP fetch is insufficient.
 
 ## Endpoints
 

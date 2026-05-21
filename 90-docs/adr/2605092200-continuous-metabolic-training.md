@@ -142,14 +142,14 @@ cell が rebirth (ADR-2605081400 §D) すると:
 
 | Layer | PR | Status | Notes |
 |---|---|---|---|
-| Record lexicon `ai.etzhayyim.organism.gradient.flow` | [#1368](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1368) | 🟡 open | int8 magnitude + int-ppm scale (no float per Lexicon convention) |
+| Record lexicon `ai.etzhayyim.organism.gradient.flow` | [#1368](https://github.com/etzhayyim/etzhayyim-root/pull/1368) | 🟡 open | int8 magnitude + int-ppm scale (no float per Lexicon convention) |
 | Python primitive (`gradient_flow.py`) | #1368 | 🟡 open | 9-enum + reward matrix + quantizer + `pair_with_prune` + Protocol — 34 pure tests |
 | TS edge mirror (`gradient-flow.ts`) | #1368 | 🟡 open | Same matrix in CF Worker — 18 pure tests |
 | Bonsai prune paired emission | #1368 | ✅ merged | branch / fruit / leaf emit; trunk / seed / flower null — 8 paired-emission tests |
-| AT MST canonical write (emitter) | [#1371](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1371) | ✅ merged | `_atRecordWriter` injection; flip `GRADIENT_FLOW_WRITE_PATH=canonical` |
-| Gradient consumer scaffold (Python) | [#1373](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1373) | ✅ merged | `pymagatama.primitives.gradient_consumer` + `gradient_consumer_main` — scalar SGD stub + health aggregator + floor escalation |
+| AT MST canonical write (emitter) | [#1371](https://github.com/etzhayyim/etzhayyim-root/pull/1371) | ✅ merged | `_atRecordWriter` injection; flip `GRADIENT_FLOW_WRITE_PATH=canonical` |
+| Gradient consumer scaffold (Python) | [#1373](https://github.com/etzhayyim/etzhayyim-root/pull/1373) | ✅ merged | `pymagatama.primitives.gradient_consumer` + `gradient_consumer_main` — scalar SGD stub + health aggregator + floor escalation |
 | Adapter delta + health snapshot lexicons | #1373 | ✅ merged | `ai.etzhayyim.organism.{adapter.delta,health.snapshot}` records |
-| Consumer canonical PDS writer | [#1374](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1374) | ✅ merged | `make_pds_writer` urllib → `com.atproto.repo.createRecord`. snake_case → camelCase + datetime → ISO bridge. 33 pure tests |
+| Consumer canonical PDS writer | [#1374](https://github.com/etzhayyim/etzhayyim-root/pull/1374) | ✅ merged | `make_pds_writer` urllib → `com.atproto.repo.createRecord`. snake_case → camelCase + datetime → ISO bridge. 33 pure tests |
 | Watering / consume / karma / spore / mutate-permit emitters | — | ⏳ pending | matrix supports all 9 signal_kinds; only bonsai emitter wired |
 | Real TE FP8 E4M3 / E5M2 encoding | — | ⏳ pending | stub: `encoding: "fp8-uniform-stub"` label |
 | Online SGD step (RunPod 6000 Ada trainer pool, §C) | — | ⏳ pending | — |

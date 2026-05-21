@@ -1,7 +1,7 @@
 # ai-gftd-project-rare-earth appview
 
-- primary actor: `did:web:rare-earth-coverage.gftd.ai`
-- appview did: `did:web:rare-earth.gftd.ai`
+- primary actor: `did:web:rare-earth-coverage.etzhayyim.com`
+- appview did: `did:web:rare-earth.etzhayyim.com`
 - collections:
   - `ai.gftd.apps.rareEarth.actor`
   - `ai.gftd.apps.rareEarth.flow`

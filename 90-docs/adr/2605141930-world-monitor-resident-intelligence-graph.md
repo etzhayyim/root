@@ -1,6 +1,6 @@
 ---
 id: adr-2605141930-world-monitor-resident-intelligence-graph
-title: "World Monitor-style resident intelligence graph facade for maps.gftd.ai"
+title: "World Monitor-style resident intelligence graph facade for maps.etzhayyim.com"
 status: active
 doc_type: adr
 topic: maps-world-monitor-resident-intelligence
@@ -24,13 +24,13 @@ amends:
 
 # Context
 
-`maps.gftd.ai` needs a World Monitor-style resident intelligence surface:
+`maps.etzhayyim.com` needs a World Monitor-style resident intelligence surface:
 risk snapshot, source-backed event feed, latest brief, alert stream, market
 signals, and a dashboard-level coverage report. The edge Worker must remain a
 thin facade under ADR-2604282300 and ADR-2605111200; it must not own domain DB
 reads or resident intelligence logic.
 
-The deployed system now has these public XRPCs on `maps.gftd.ai`:
+The deployed system now has these public XRPCs on `maps.etzhayyim.com`:
 
 - `ai.gftd.apps.maps.getWorldMonitorDashboard`
 - `ai.gftd.apps.maps.listIntelEvents`
@@ -94,11 +94,11 @@ clear maturation path.
 
 # Verification
 
-Verified on 2026-05-14 against `https://maps.gftd.ai`:
+Verified on 2026-05-14 against `https://maps.etzhayyim.com`:
 
 ```bash
 curl -sS --max-time 70 \
-  -X POST https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.getWorldMonitorDashboard \
+  -X POST https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.getWorldMonitorDashboard \
   -H 'content-type: application/json' \
   --data '{"limit":2}'
 ```

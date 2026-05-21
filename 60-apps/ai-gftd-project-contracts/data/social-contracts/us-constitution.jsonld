@@ -1,7 +1,7 @@
 {
   "@context": "../schema/context.jsonld",
   "@type": "SocialContract",
-  "@id": "https://gftd.ai/data/social-contracts/us-constitution",
+  "@id": "https://etzhayyim.com/data/social-contracts/us-constitution",
   "name": "Constitution of the United States",
   "alternateName": "U.S. Constitution",
   "constitutionalType": "constitution",

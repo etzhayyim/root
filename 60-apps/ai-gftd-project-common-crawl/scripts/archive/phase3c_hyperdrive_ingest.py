@@ -5,7 +5,7 @@ Superseded on 2026-04-13 by `phase3g_copy_ingest.py` on `path-j-cc-hummock`.
 
 データフロー:
   Local Parquet → S3 (boto3 upload, skip existing)
-  → CREATE SOURCE in RisingWave (via graph.gftd.ai XRPC → Hyperdrive)
+  → CREATE SOURCE in RisingWave (via graph.etzhayyim.com XRPC → Hyperdrive)
   → Chunked INSERT INTO vertex_page / edge_* (via XRPC → Hyperdrive)
 
 全 SQL は Cloudflare graph Worker の XRPC エンドポイントを通して実行する。
@@ -37,7 +37,7 @@ Usage:
   CC_PARQUET_DIR   - ローカル Parquet ディレクトリ (default: /Volumes/251220/CC/2603/parquet-rs)
   S3_ACCESS_KEY    - Linode S3 access key
   S3_SECRET_KEY    - Linode S3 secret key
-  GRAPH_XRPC_URL   - graph Worker XRPC URL (default: https://graph.gftd.ai/xrpc/ai.gftd.kagami.sql)
+  GRAPH_XRPC_URL   - graph Worker XRPC URL (default: https://graph.etzhayyim.com/xrpc/ai.gftd.kagami.sql)
   XRPC_TIMEOUT     - SQL timeout per chunk in seconds (default: 600)
   CHUNK_SIZE       - batches per INSERT chunk (default: 100)
 """
@@ -70,7 +70,7 @@ S3_SECRET = os.environ.get("S3_SECRET_KEY", "Wv5b0cNdv7wNoZuiSmnJAxMwlye1MHEl1C6
 # Hyperdrive 経由の XRPC エンドポイント (graph Worker → Hyperdrive → RisingWave)
 GRAPH_XRPC_URL = os.environ.get(
     "GRAPH_XRPC_URL",
-    "https://graph.gftd.ai/xrpc/ai.gftd.kagami.sql",
+    "https://graph.etzhayyim.com/xrpc/ai.gftd.kagami.sql",
 )
 
 # タイムアウト: CF Worker の CPU 上限は 30s だが I/O wait は別カウント
@@ -395,8 +395,8 @@ def populate_domains(dry_run: bool = False):
     SELECT
         p.domain,
         p.domain,
-        'did:web:site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
-        'site.gftd.ai:' || REPLACE(p.domain, '.', '-'),
+        'did:web:site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
+        'site.etzhayyim.com:' || REPLACE(p.domain, '.', '-'),
         p.domain,
         NULL::VARCHAR,
         'service',

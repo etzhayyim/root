@@ -70,7 +70,7 @@ async function cmdLaunch(sdk, payload) {
       {
         "on": "ai.gftd.apps.{app}.{collection}",
         "when": { "status": "value" },
-        "target": "did:web:{target}.gftd.ai",
+        "target": "did:web:{target}.etzhayyim.com",
         "method": "ai.gftd.apps.{target}.{method}",
         "map": { "targetField": "{{sourceField}}" }
       }

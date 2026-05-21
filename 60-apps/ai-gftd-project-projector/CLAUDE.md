@@ -1,23 +1,23 @@
 # ai-gftd-project-projector
 
-AI Project Manager — recursive project convo (projector.gftd.ai)。
+AI Project Manager — recursive project convo (projector.etzhayyim.com)。
 
-**URL**: `https://projector.gftd.ai`
+**URL**: `https://projector.etzhayyim.com`
 **performerType**: `service`
-**Primary DID**: `did:web:projector.gftd.ai`
+**Primary DID**: `did:web:projector.etzhayyim.com`
 
 ## Architecture
 
-**Projector = AI PM Agent-First Project Management。** 1 project = 1 convoId = 1 PM AI Agent (ops.gftd.ai)。Recursive nesting (max depth 10): root project → sub-projects (channels/threads/email-inboxes)。1 concept で Discord channels, Slack threads, Teams channels, email inboxes を統一。
+**Projector = AI PM Agent-First Project Management。** 1 project = 1 convoId = 1 PM AI Agent (ops.etzhayyim.com)。Recursive nesting (max depth 10): root project → sub-projects (channels/threads/email-inboxes)。1 concept で Discord channels, Slack threads, Teams channels, email inboxes を統一。
 
 ### Core Concepts
 
 | Concept | Implementation |
 |---|---|
 | **Project** | `ai.gftd.projector.newProjectConvo` で作成。convoId = projectId。path-based DID 自動発行 |
-| **PM Agent** | `did:web:ops.gftd.ai` が全 project の PM。slash commands + MCP tool calling |
+| **PM Agent** | `did:web:ops.etzhayyim.com` が全 project の PM。slash commands + MCP tool calling |
 | **Recursive Nesting** | parentProjectUri で parent-child。max depth 10。kind: general/channel/thread/email-inbox |
-| **Auto Email** | 各 project に `{slug}@gftd.ai` メールアドレス自動生成。email-relay が inbound routing |
+| **Auto Email** | 各 project に `{slug}@etzhayyim.com` メールアドレス自動生成。email-relay が inbound routing |
 | **Membership** | `ai.gftd.convo.membership` record。auto-enroll on first access |
 | **Tasks** | `ai.gftd.convo.projectTask` record。/task, /done slash commands |
 
@@ -146,7 +146,7 @@ User message → sendProjectMessage
 |---|---|
 | `pm.search_agents` | Platform AI agent semantic search (embedding + keyword) |
 | `pm.invite_agent` | Invite agent to project → member + tools available |
-| `pm.web_research` | site.gftd.ai gateway URL fetch → Markdown |
+| `pm.web_research` | site.etzhayyim.com gateway URL fetch → Markdown |
 | `pm.create_entity_did` | Create path-based DID for discovered entity |
 | `pm.graph_search` | Knowledge graph search (duplicate prevention) |
 
@@ -198,8 +198,8 @@ User sends message in project chat
 
 | System | Integration |
 |---|---|
-| **yoro.gftd.ai** | `/projects` route (list), `/projects/{projectId}` route (chat) |
-| **ops.gftd.ai** | PM Agent DID (`did:web:ops.gftd.ai`) |
+| **yoro.etzhayyim.com** | `/projects` route (list), `/projects/{projectId}` route (chat) |
+| **ops.etzhayyim.com** | PM Agent DID (`did:web:ops.etzhayyim.com`) |
 | **email-relay** | Inbound email → `resolveProjectEmail` → `sendProjectMessage` |
 | **dispatcher** | Email forward → `newProjectConvo` + `sendProjectMessage` |
 | **browser-host** | Browser session → project convo creation |
@@ -272,13 +272,13 @@ LLM transport は `pymagatama.llm.call_tier` (Vultr Serverless + RunPod fallback
 |---|---|---|
 | **1** | ✅ scaffolded | BPMN 4 + LangServer primitives + migration + worker registration |
 | **2** | ✅ scaffolded | ToT + SC sub-processes |
-| **3** | ✅ flag-gated, default off | `PROJECTOR_USE_BPMN=1` で CF Worker `handleSendProjectMessage` が `dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.projector.sendProjectMessage` に `waitUntil(fetch())` で委譲し 202 + convoId を返却。yoro Worker が `GET /sse/projects/:convoId` (90s budget) を提供、`/projects/[projectId]/+page.svelte` が `EventSource` で append。`PROJECTOR_PERSIST_VIA_PDS=1` で reply を `generic.pds.dispatch` 経由 federate (default は `vertex_projector_message` 直書き)。`projector.auth.mint` task type で BPMN flow が Service Auth JWT を取得可能 |
+| **3** | ✅ flag-gated, default off | `PROJECTOR_USE_BPMN=1` で CF Worker `handleSendProjectMessage` が `dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.projector.sendProjectMessage` に `waitUntil(fetch())` で委譲し 202 + convoId を返却。yoro Worker が `GET /sse/projects/:convoId` (90s budget) を提供、`/projects/[projectId]/+page.svelte` が `EventSource` で append。`PROJECTOR_PERSIST_VIA_PDS=1` で reply を `generic.pds.dispatch` 経由 federate (default は `vertex_projector_message` 直書き)。`projector.auth.mint` task type で BPMN flow が Service Auth JWT を取得可能 |
 | **4** | pending | TS reasoning path (`pds-handlers-gftd.ts` 約 1500 LoC) 削除 — Phase 3 canary が clean に通った後 |
 | **5** | pending | DMN guardrail + per-tool RACI + 5% canary A/B + `/image` `/think` の専用 BPMN sub-process 化 |
 
 ### Cutover の前提
 
-- F5 watcher (`dispatcher.gftd.ai:8080`) が `vertex_bpmn_process_def` の `status='active'` row を 30s 以内に LangServer deploy
+- F5 watcher (`dispatcher.etzhayyim.com:8080`) が `vertex_bpmn_process_def` の `status='active'` row を 30s 以内に LangServer deploy
 - LangServer pod 再起動が必要 (新 task type 認識: `projector.*` × 11)
 - Phase 3 適用前は CF Worker の reasoning path がそのまま動作 (BPMN seed 適用だけでは behavior は変わらない)
 - Phase 3 cutover は **PDS Worker `PROJECTOR_USE_BPMN` env を 1 にして再 deploy のみ**。rollback は flag を 0 (or unset) に戻す 1 deploy
@@ -287,9 +287,9 @@ LLM transport は `pymagatama.llm.call_tier` (Vultr Serverless + RunPod fallback
 
 | Env | Worker | 効果 |
 |---|---|---|
-| `PROJECTOR_USE_BPMN` | atproto.gftd.ai (PDS) | `=1` で `sendProjectMessage` が BPMN dispatcher に委譲 + 202 即返却 |
-| `BPMN_URL` | atproto.gftd.ai (PDS) | dispatcher base URL (default `https://dispatcher.gftd.ai`) |
-| `DISPATCHER_INTERNAL_SECRET` | atproto.gftd.ai (PDS) | dispatcher の internal-trust check 用 (Secret binding 推奨) |
+| `PROJECTOR_USE_BPMN` | atproto.etzhayyim.com (PDS) | `=1` で `sendProjectMessage` が BPMN dispatcher に委譲 + 202 即返却 |
+| `BPMN_URL` | atproto.etzhayyim.com (PDS) | dispatcher base URL (default `https://dispatcher.etzhayyim.com`) |
+| `DISPATCHER_INTERNAL_SECRET` | atproto.etzhayyim.com (PDS) | dispatcher の internal-trust check 用 (Secret binding 推奨) |
 | `PROJECTOR_PERSIST_VIA_PDS` | LangServer pod | `=1` で reply を `generic.pds.dispatch` 経由 PDS write (federable)。default は `vertex_projector_message` 直 INSERT (graph-visible) |
 | `PDS_SERVICE_AUTH_MINT_URL` / `..._SECRET` / `..._TTL_SEC` | LangServer pod | 既存 Service Auth mint。`projector.auth.mint` task が共有
 

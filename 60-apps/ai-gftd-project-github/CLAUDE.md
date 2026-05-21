@@ -5,8 +5,8 @@
 | Key | Value |
 |---|---|
 | **nanoid** | `g1thub01` |
-| **domain** | `github.gftd.ai` |
-| **AT bot DID** | `did:web:github.gftd.ai` |
+| **domain** | `github.etzhayyim.com` |
+| **AT bot DID** | `did:web:github.etzhayyim.com` |
 | **Runtime** | **Single Worker** (TS Native, appview mode) |
 | **Data store** | **W Protocol Event Stream** — Write: `ComAtprotoRepoCreateRecord()` + `DIDCreate()` + `DIDWrite()`。Read: `G()` SQL |
 | **UI mode** | `appview` (Protocol Canvas card, zero frontend) |
@@ -31,7 +31,7 @@
 ```
 [P1 Automated — Public Profile Crawl]
   Heartbeat/command → crawl_public_profile
-  → Invoke("did:web:browser.gftd.ai", "FetchPage", {url, render: true})
+  → Invoke("did:web:browser.etzhayyim.com", "FetchPage", {url, render: true})
   → Parse HTML → DIDCreate("user:{username}") or DIDCreate("org:{org_name}")
   → ComAtprotoRepoCreateRecord("github_entity", profile_data)
   → AppBskyFeedPost("Discovered GitHub profile: {username}")
@@ -65,14 +65,14 @@
 ### Multi-DID Architecture
 
 ```
-did:web:github.gftd.ai                              <- primary (controller)
-  +- did:web:github.gftd.ai:user:torvalds            <- GitHub user DID
-  +- did:web:github.gftd.ai:user:octocat             <- GitHub user DID
-  +- did:web:github.gftd.ai:org:microsoft            <- GitHub org DID
-  +- did:web:github.gftd.ai:org:google               <- GitHub org DID
-  +- did:web:github.gftd.ai:repos                    <- repos aggregate
-  +- did:web:github.gftd.ai:issues                   <- issues aggregate
-  +- did:web:github.gftd.ai:stars                    <- stars aggregate
+did:web:github.etzhayyim.com                              <- primary (controller)
+  +- did:web:github.etzhayyim.com:user:torvalds            <- GitHub user DID
+  +- did:web:github.etzhayyim.com:user:octocat             <- GitHub user DID
+  +- did:web:github.etzhayyim.com:org:microsoft            <- GitHub org DID
+  +- did:web:github.etzhayyim.com:org:google               <- GitHub org DID
+  +- did:web:github.etzhayyim.com:repos                    <- repos aggregate
+  +- did:web:github.etzhayyim.com:issues                   <- issues aggregate
+  +- did:web:github.etzhayyim.com:stars                    <- stars aggregate
 ```
 
 Each GitHub user/org = path-based DID -> appears as actor in yoro -> queryable.

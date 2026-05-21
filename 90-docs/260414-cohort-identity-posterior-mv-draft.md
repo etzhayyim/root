@@ -109,7 +109,7 @@ Evidence write が `vertex_repo_record` に commit → PDS commit pipeline → `
 
 | MV 状態遷移 | OCEL eventType | APQC L1 DID 経路 |
 |---|---|---|
-| 新 cohort 登場 (evidence_count 0→1) | `cohort.genesis` | segment_hash.pcfL1 → `did:web:kyber-projector.gftd.ai:apqc:{L1}` |
+| 新 cohort 登場 (evidence_count 0→1) | `cohort.genesis` | segment_hash.pcfL1 → `did:web:kyber-projector.etzhayyim.com:apqc:{L1}` |
 | evidence 追加 | `cohort.evidence.accrued` | 同上 |
 | k_proxy < 50 | `cohort.kReevaluated` (violation) | 同上 |
 | fission_ready_count ≥ 1 && fission_enabled | `cohort.fission` | 同上 |

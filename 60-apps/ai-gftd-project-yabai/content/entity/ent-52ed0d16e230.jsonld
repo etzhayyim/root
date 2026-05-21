@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-52ed0d16e230",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-52ed0d16e230",
   "entityId": "ent-52ed0d16e230",
   "canonicalName": "gazprombank leasing zao",
   "aliases": [

@@ -11,7 +11,7 @@ axis: organization
 weight: 0.70
 priority_note: "Active 2026-05-15: domain etzhayyim.com 登録済 (Cloudflare 12:08 UTC), github.com/etzhayyim org 作成済 (2026-05-10 14:23 UTC), github.com/etzhayyim/root monorepo 作成済 (2026-05-15 12:20 UTC, public, Apache 2.0). Remaining = monorepo content seed (filter-repo) + downstream cutover (220-file etzhayyim→etzhayyim sed)."
 authoritative_for:
-  - GitHub org boundary between religious-corp principal (etzhayyim) and Gftd Japan vendor (gftdcojp)
+  - GitHub org boundary between religious-corp principal (etzhayyim) and Gftd Japan vendor (etzhayyim)
   - License policy per org (Apache 2.0 for etzhayyim, proprietary for gftd)
   - Monorepo seed strategy (single etzhayyim/root, NOT multi-repo transfer)
   - Monorepo directory layout convention (Shannon-Optimal 8-Layer mirrored)
@@ -38,17 +38,17 @@ superseded_by: []
 
 `[platform.operating_entity]` の 2026-05-15 rename (`etzhayyim` → `etzhayyim`) で canonical 名が確定したのに合わせて、principal (etzhayyim = 宗教法人) と vendor (Gftd Japan株式会社) を **source-control 層でも明確に分離**する必要が出てきた。
 
-現状 `github.com/gftdcojp` org には:
+現状 `github.com/etzhayyim` org には:
 
 - 完全 open 名乗りの repo (Apache 2.0): `ai-gftd-project-open-{lexicon,bpmn,isic,jpn-gov,banking}`, `ai-gftd-project-public-{global,malak}`
 - 中間的 open infrastructure: `wproto`, `at-client`, `signal-client`, `magatama-go`, `gftd-cli`, `kami-engine-sdk`, `effect-cypher`, `lancedb-wasm`, `yata`, `watashi`, `tonbo`, `nats-tiered-storage`, `nats-jetstream-{objectstore-s3,kv-resp}`, `sveltejs-adapter-wasm`, `spin-tinygo-flight`, `cdn`, `resources`
-- vendor-internal (proprietary): `ai-gftd-apps-gftdcojp` (mono-repo), `_working/gftdcojp-revenue/*`, `ai-gftd-performer-*`, business app projects (`lawfirm`, `vault`, `kaisya`, `microsoft`, `accounts`, `finance`, `billing`, `bengoshi`, `bunken`)
+- vendor-internal (proprietary): `etzhayyim-root` (mono-repo), `_working/etzhayyim-revenue/*`, `ai-gftd-performer-*`, business app projects (`lawfirm`, `vault`, `kaisya`, `microsoft`, `accounts`, `finance`, `billing`, `bengoshi`, `bunken`)
 
 混在の問題:
 
-1. **payoff 帰属の不透明性** — open repos が `gftdcojp` org 配下にあると、外部から見て「Gftd Japan が単独 owner」と誤読される。Operating Entity Boundary (CLAUDE.md root rule) では owner は etzhayyim。
+1. **payoff 帰属の不透明性** — open repos が `etzhayyim` org 配下にあると、外部から見て「Gftd Japan が単独 owner」と誤読される。Operating Entity Boundary (CLAUDE.md root rule) では owner は etzhayyim。
 2. **license 矛盾** — Apache 2.0 repo と proprietary repo が同 org 配下にあると、commit history / issue tracker の境界線が曖昧。
-3. **migration / fork 抑制** — 宗教法人公益活動として外部 contributor を受け入れる時、`gftdcojp` (株式会社名 = 営利 vendor) ブランドが reputational barrier になる。
+3. **migration / fork 抑制** — 宗教法人公益活動として外部 contributor を受け入れる時、`etzhayyim` (株式会社名 = 営利 vendor) ブランドが reputational barrier になる。
 
 # Decision
 
@@ -83,7 +83,7 @@ etzhayyim/root/
 └── README.md
 ```
 
-`ai-gftd-apps-gftdcojp` (vendor monorepo) と同じ 8-layer 構造を採用することで、contributor / agent が両 repo を横断する時の認知負荷を最小化する。
+`etzhayyim-root` (vendor monorepo) と同じ 8-layer 構造を採用することで、contributor / agent が両 repo を横断する時の認知負荷を最小化する。
 
 ### 9 領域 (user 指定) ↔ monorepo path 対応
 
@@ -91,7 +91,7 @@ etzhayyim/root/
 |---|---|
 | **blockchain** | `50-infra/{geth-private,holochain,ipfs,blockscout}`, `10-protocol/did-etzhayyim` (旧 `10-protocol/did-gftd` rename) |
 | **baien** (旧コードネーム bien / BitNet b1.58 1-bit multimodal) | `60-apps/ai-gftd-project-baien*`, `90-docs/baien/`, `90-docs/adr/2605092350-baien-*.md` |
-| **bpmn** | `etzhayyim-root/00-contracts/bpmn/`, `00-contracts/dmn/`, `60-apps/ai-gftd-project-open-bpmn` (旧 gftdcojp/ai-gftd-project-open-bpmn を取り込み) |
+| **bpmn** | `etzhayyim-root/00-contracts/bpmn/`, `00-contracts/dmn/`, `60-apps/ai-gftd-project-open-bpmn` (旧 etzhayyim/ai-gftd-project-open-bpmn を取り込み) |
 | **lexicon** | `00-contracts/lexicons/`, `10-protocol/lexicons-bundle`, `10-protocol/xrpc`, `60-apps/ai-gftd-project-open-lexicon` |
 | **pregel** | `20-actors/magatama/` (actor framework + Pregel-pattern SDK), LangGraph bridge |
 | **atproto** | `10-protocol/atproto`, `60-apps/ai-gftd-project-atproto`, `50-infra/k8s/atproto-pds` |
@@ -99,7 +99,7 @@ etzhayyim/root/
 | **open data wrappers** | `60-apps/ai-gftd-project-open-{airplane, banking, cofog, denki, gas, isco, isic, jpn-gov, jpn-mynumber, kyber, network, ossekai, ot, patent, ports, power, rail, robo, saas, seiyaku, swift, unispsc, water}` (22 本) |
 | **public governance** | `60-apps/ai-gftd-project-public-{global, malak}` (cyber crime tracking / global resource flow) |
 
-## `github.com/gftdcojp/ai-gftd-apps-gftdcojp` (EXISTING — vendor monorepo, 残置)
+## `github.com/etzhayyim/etzhayyim-root` (EXISTING — vendor monorepo, 残置)
 
 | 属性 | 値 |
 |---|---|
@@ -110,7 +110,7 @@ etzhayyim/root/
 **配下に残すスコープ**:
 
 - **法務・会計・HR app**: `lawfirm`, `vault`, `kaisya`, `microsoft`, `accounts`, `finance`, `billing`, `bengoshi`, `bunken`, `bankruptcy`
-- **収益・営業書類**: `_working/gftdcojp-revenue/*` (CEO packet, SOW templates, India lawfirm 等)
+- **収益・営業書類**: `_working/etzhayyim-revenue/*` (CEO packet, SOW templates, India lawfirm 等)
 - **内部 tools**: `70-tools/gftd/` (CLI)
 - **vendor org graph**: `ai-gftd-performer-*` (HR/組織図 implementations), `ai-gftd-hrse`
 - **vertical SaaS (顧客契約付き)**: `ai-gftd-project-air-*` 航空 cluster, `ai-gftd-tia`, `ai-gftd-har`
@@ -121,16 +121,16 @@ etzhayyim/root/
 ## 正の効果
 
 - **payoff 帰属の transparency**: open ecosystem contributor は `etzhayyim/root` への PR で「宗教法人公益活動への貢献」が明確化。
-- **monorepo 運用知見の継承**: 既存 `gftdcojp/ai-gftd-apps-gftdcojp` (本 repo) の 8-layer 構造・deps.toml SSoT 規約・lefthook hook をそのまま `etzhayyim/root` に移植できる。
+- **monorepo 運用知見の継承**: 既存 `etzhayyim/etzhayyim-root` (本 repo) の 8-layer 構造・deps.toml SSoT 規約・lefthook hook をそのまま `etzhayyim/root` に移植できる。
 - **cross-cut 変更が atomic**: lexicon → bpmn → atproto 連動更新が単一 PR で完結。multi-repo 分散ならば 3 つの PR を順序整合させる必要があった。
 - **license/CI 統制の集中化**: Apache 2.0 default、actions secrets、dependabot 設定を 1 箇所で管理。
 - **branding**: `etzhayyim.com` ↔ `github.com/etzhayyim/root` ↔ `did:web:etzhayyim.com` の三位一体で生命の樹 (Tree of Life) ブランドが揃う。`.ai` TLD は alias 留保 (Cloudflare Registrar は `.ai` 非対応)。
 
 ## 負の効果 / コスト
 
-- **monorepo 肥大化**: `gftdcojp` 側 mono-repo も既に肥大化しており、open scope を加えると更に増える。git operations の latency が許容範囲かは初期 push 後に測定して判断。
-- **selective seed の手間**: gftdcojp mono-repo 全体を copy するのではなく、open scope のみを `git filter-repo` で抽出する必要あり (history 保持のため)。実行時間 ~10-20 分想定。
-- **既存独立 repo の処理**: gftdcojp 配下に既にある `ai-gftd-project-open-{lexicon,bpmn,isic,jpn-gov,banking}` 等は archive + pointer 付け (削除しない — issue/PR 番号は immutable な歴史的記録)。
+- **monorepo 肥大化**: `etzhayyim` 側 mono-repo も既に肥大化しており、open scope を加えると更に増える。git operations の latency が許容範囲かは初期 push 後に測定して判断。
+- **selective seed の手間**: etzhayyim mono-repo 全体を copy するのではなく、open scope のみを `git filter-repo` で抽出する必要あり (history 保持のため)。実行時間 ~10-20 分想定。
+- **既存独立 repo の処理**: etzhayyim 配下に既にある `ai-gftd-project-open-{lexicon,bpmn,isic,jpn-gov,banking}` 等は archive + pointer 付け (削除しない — issue/PR 番号は immutable な歴史的記録)。
 - **did:web 公開準備**: `etzhayyim.com/.well-known/did.json` を Cloudflare Pages or Worker で配信する必要あり (別作業)。
 
 ## Seed migration plan (revised — monorepo single-shot)
@@ -143,10 +143,10 @@ etzhayyim/root/
 4. [x] **ADR proposed → active 化** (本 commit)
 5. [ ] **`etzhayyim/root` scaffold seed**: LICENSE (Apache 2.0)、README.md (org boundary + monorepo layout 説明)、CLAUDE.md (本 ADR pointer)、deps.toml (open subset)、`.gitignore`、lefthook 設定の最小セット
 6. [ ] **content seed (filter-repo or rsync)**:
-   - 推奨: `git filter-repo --path 00-contracts/ --path 10-protocol/ --path 20-actors/magatama/ --path 30-graph/ --path 50-infra/{geth-private,holochain,ipfs,blockscout,k8s/atproto-pds}/ --path 60-apps/ai-gftd-project-{open-*,public-*,atproto,ameno,baien*}/ --path 90-docs/baien/ --path 90-docs/adr/{open-relevant ADRs}` で `gftdcojp/ai-gftd-apps-gftdcojp` から open scope を抽出 → `etzhayyim/root` に push
+   - 推奨: `git filter-repo --path 00-contracts/ --path 10-protocol/ --path 20-actors/magatama/ --path 30-graph/ --path 50-infra/{geth-private,holochain,ipfs,blockscout,k8s/atproto-pds}/ --path 60-apps/ai-gftd-project-{open-*,public-*,atproto,ameno,baien*}/ --path 90-docs/baien/ --path 90-docs/adr/{open-relevant ADRs}` で `etzhayyim/etzhayyim-root` から open scope を抽出 → `etzhayyim/root` に push
    - history 保持 (license attribution / blame trail / open-source compliance のため必須)
-7. [ ] **既存 gftdcojp 独立 repo の archive**: `ai-gftd-project-open-{lexicon,bpmn,isic,jpn-gov,banking}`, `ai-gftd-project-public-{global,malak}` 等を README に "moved to etzhayyim/root" pointer を付けて `gh repo archive`。削除はしない (issue/PR 番号と外部 link を温存)。
-8. [ ] **gftdcojp/ai-gftd-apps-gftdcojp 側 cleanup**: 移動した open scope ディレクトリを削除 + `[[migrations]]` テーブルに記録 + `directory_index` pointer を `etzhayyim/root` に書き換え
+7. [ ] **既存 etzhayyim 独立 repo の archive**: `ai-gftd-project-open-{lexicon,bpmn,isic,jpn-gov,banking}`, `ai-gftd-project-public-{global,malak}` 等を README に "moved to etzhayyim/root" pointer を付けて `gh repo archive`。削除はしない (issue/PR 番号と外部 link を温存)。
+8. [ ] **etzhayyim/etzhayyim-root 側 cleanup**: 移動した open scope ディレクトリを削除 + `[[migrations]]` テーブルに記録 + `directory_index` pointer を `etzhayyim/root` に書き換え
 9. [ ] **CI / wrangler.jsonc / package.json `repository` field**: etzhayyim/root 配下のものは `https://github.com/etzhayyim/root` に sed
 10. [ ] **did:web:etzhayyim.com/.well-known/did.json 公開** (Cloudflare Pages or Worker; verificationMethod = Ed25519、service endpoints は org の `did_resolution` service)
 11. [ ] **downstream 220 file sed**: etzhayyim → etzhayyim (religious-corp 登記変更後; alias 解決で読みは取れる状態のまま)
@@ -160,12 +160,12 @@ etzhayyim/root/
 却下理由:
 - 管理 overhead が大きい (Dependabot / actions / branch protection を 50 箇所維持)
 - contributor が cross-cut 変更で複数 PR を順序整合させる friction
-- 既存 `gftdcojp/ai-gftd-apps-gftdcojp` の monorepo 運用知見 (deps.toml SSoT、lefthook、ADR registry) を活かせない
+- 既存 `etzhayyim/etzhayyim-root` の monorepo 運用知見 (deps.toml SSoT、lefthook、ADR registry) を活かせない
 - monorepo なら lexicon→bpmn→atproto 連動更新が atomic commit で済む
 
 ## B. mono-repo 維持 + visibility 別管理
 
-`gftdcojp` org のまま、各 repo の visibility (public/private) で分離する案。
+`etzhayyim` org のまま、各 repo の visibility (public/private) で分離する案。
 
 却下理由: payoff 帰属の不透明性は解決せず、外部 contributor の reputational barrier も残る。Operating Entity Boundary (CLAUDE.md root rule) の SSoT 化に逆行。
 
@@ -179,7 +179,7 @@ etzhayyim/root/
 
 却下理由: 個人帰属になり、宗教法人公益活動として行うという principal の意思と矛盾。
 
-## E. orphan branch 戦略 (gftdcojp に open-only branch 保持)
+## E. orphan branch 戦略 (etzhayyim に open-only branch 保持)
 
 却下理由: org boundary が失われ、principal 帰属の transparency が出ない。issue tracker が共有されるので separation が形骸化する。
 

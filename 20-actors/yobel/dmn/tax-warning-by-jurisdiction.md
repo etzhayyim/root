@@ -3,7 +3,7 @@
 Per [ADR-2605201800](../../../90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md).
 Gate for `verifyEligibility` cell — produces per-jurisdiction COD (cancellation-of-debt) income / tithe / Schuldenerlass tax warnings.
 
-**Warnings are informational only.** Tax advice 提供は禁止 — `lawfirm.gftd.ai` (vendor) に delegate。
+**Warnings are informational only.** Tax advice 提供は禁止 — `lawfirm.etzhayyim.com` (vendor) に delegate。
 
 **Hit policy**: COLLECT (multiple jurisdictions can fire; all warnings appended).
 
@@ -38,7 +38,7 @@ Gate for `verifyEligibility` cell — produces per-jurisdiction COD (cancellatio
 | **R6** | `GBR` | `*` | `*` | `≥ 1` | "UK Income Tax (Trading and Other Income) Act 2005 §249: release of debt deemed income if previously deductible. Charity exemption (CTA 2010 §471) does not auto-extend to religious-corp voluntary rite — check ESC C16 / SP D32." | `caution` |
 | **R7** | `FRA` | `*` | `*` | `≥ 1` | "Code général des impôts art. 39-1 + abandon de créance doctrine: abandon de créance à caractère commercial = recette imposable; à caractère financier = neutre. Religieux voluntary release: position fiscale incertaine." | `caution` |
 | **R8** | `ISR` | `*` | `shmita_7yr ∨ yobel_50yr` | `*` | "Israel: שמיטת כספים (prozbul institution per Hillel) historically routes around shmita debt cancellation; modern Israeli law (Pkudat Mas Hachnasa) does not auto-recognize religious shmita as tax-exempt cancellation." | `caution` |
-| **R9** | `*` (any) | `*` | `*` | `≥ 1000000` | "Releases ≥ $1M USDC trigger many jurisdictions' anti-abuse / disguised-gift rules. Coordinate with vendor:lawfirm.gftd.ai before settlement." | `high` |
+| **R9** | `*` (any) | `*` | `*` | `≥ 1000000` | "Releases ≥ $1M USDC trigger many jurisdictions' anti-abuse / disguised-gift rules. Coordinate with vendor:lawfirm.etzhayyim.com before settlement." | `high` |
 | **R10** | `*` | `*` | `*` | `≥ 100` | "Release amount may exceed gift tax annual exclusion in many jurisdictions. Verify jurisdiction-specific gift tax rules." | `info` |
 | **R11** | `USA` | `USA` | `*` | `≥ 600` | "US IRS Form 1099-C threshold (≥ $600). Creditor may have reporting obligation independent of yobel rite." | `info` |
 | **R12** | `*` | `*` | `political_amnesty` | `*` | "Political amnesty operates under sovereign decree referenced in declareRite.doctrinalBasis — tax treatment determined by that decree's terms, not by this actor's defaults." | `info` |
@@ -51,4 +51,4 @@ Gate for `verifyEligibility` cell — produces per-jurisdiction COD (cancellatio
 
 ## Implementation note
 
-DMN は `cells/release_settlement/nodes.py` の eligibility eval step で実行 + `recordRelease` lexicon response の `jurisdictionNotes` に warnings 配列を文字列化して埋め込む。詳細 advice は vendor:lawfirm.gftd.ai の `runConflictCheck` / `searchPrecedent` cross-actor invoke で取得 (yobel 自身は tax advice を出さない)。
+DMN は `cells/release_settlement/nodes.py` の eligibility eval step で実行 + `recordRelease` lexicon response の `jurisdictionNotes` に warnings 配列を文字列化して埋め込む。詳細 advice は vendor:lawfirm.etzhayyim.com の `runConflictCheck` / `searchPrecedent` cross-actor invoke で取得 (yobel 自身は tax advice を出さない)。

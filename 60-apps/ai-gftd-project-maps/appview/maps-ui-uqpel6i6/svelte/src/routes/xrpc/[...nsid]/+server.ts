@@ -1,8 +1,8 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 
-const APP_UPSTREAM = 'https://uqpel6i6.gftd.ai';
-const PDS_UPSTREAM = 'https://atproto.gftd.ai';
+const APP_UPSTREAM = 'https://uqpel6i6.etzhayyim.com';
+const PDS_UPSTREAM = 'https://atproto.etzhayyim.com';
 
 const ALLOWED_NSID_PREFIXES = ['app.bsky.', 'ai.gftd.apps.maps.'];
 const ALLOWED_NSID_EXACT = new Set([

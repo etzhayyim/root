@@ -3,7 +3,7 @@
 #
 # Run ONCE on the mac mini that should host the gateway (recommend the node with
 # lowest serve_plain.py utilization; typically `dan`). After install, configure
-# CF Tunnel route `llm.gftd.ai` → `http://localhost:4000` in the existing
+# CF Tunnel route `llm.etzhayyim.com` → `http://localhost:4000` in the existing
 # `murakumo-fleet` tunnel config (managed locally on this machine).
 #
 # Prereqs:
@@ -16,7 +16,7 @@
 #   Before running this script:
 #     KEY="sk-litellm-$(openssl rand -hex 32)"
 #     security add-generic-password -s "gftd.litellm" -a "MASTER_KEY" -w "$KEY" -U
-#   Then in each CF Worker that calls https://llm.gftd.ai:
+#   Then in each CF Worker that calls https://llm.etzhayyim.com:
 #     wrangler secret put LITELLM_MASTER_KEY  # paste the same $KEY
 
 set -euo pipefail
@@ -77,11 +77,11 @@ for i in $(seq 1 30); do
     echo "\033[32m✓\033[0m LiteLLM healthy on http://127.0.0.1:4000"
     echo
     echo "Next:"
-    echo "  1. Add CF Tunnel ingress route: llm.gftd.ai → http://localhost:4000"
+    echo "  1. Add CF Tunnel ingress route: llm.etzhayyim.com → http://localhost:4000"
     echo "     (edit the murakumo-fleet tunnel config on THIS mac)"
-    echo "  2. Create DNS CNAME llm.gftd.ai → ae341542.cfargotunnel.com"
+    echo "  2. Create DNS CNAME llm.etzhayyim.com → ae341542.cfargotunnel.com"
     echo "  3. Test end-to-end:"
-    echo "     curl -X POST https://llm.gftd.ai/v1/chat/completions \\"
+    echo "     curl -X POST https://llm.etzhayyim.com/v1/chat/completions \\"
     echo "       -H 'Authorization: Bearer \$MASTER_KEY' \\"
     echo "       -H 'Content-Type: application/json' \\"
     echo "       -d '{\"model\":\"tier0-general\",\"messages\":[{\"role\":\"user\",\"content\":\"2+2\"}]}'"

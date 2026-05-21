@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:vin.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:vin.etzhayyim.com",
   "name": "ai-gftd-wasm-vin",
   "nanoid": "v1n0g10b",
   "performerType": "service",
@@ -22,6 +22,6 @@
     "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/vin"
   },
   "interfaces": {"provides":["gftd:vin/vehicle-registry@1.0.0","gftd:vin/plate-resolver@1.0.0","gftd:vin/production-flow@1.0.0"],"requires":[]},
-  "routes": [{"host":"vin.gftd.ai","paths":["/"],"tls":true},{"host":"v1n0g10b.gftd.ai","paths":["/"],"tls":true}],
+  "routes": [{"host":"vin.etzhayyim.com","paths":["/"],"tls":true},{"host":"v1n0g10b.etzhayyim.com","paths":["/"],"tls":true}],
   "triggers": {"subscribeRepos":{"collections":["app.bsky.feed.post","ai.gftd.apps.vin.vehicle","ai.gftd.apps.vin.manufacturer","ai.gftd.apps.vin.shipmentVolume"]}}
 }

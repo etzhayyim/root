@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kyber-qzzg06nh.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kyber-qzzg06nh.etzhayyim.com",
   "accent": "#6366f1",
   "component": {
     "path": "component.wasm"
@@ -19,17 +19,17 @@
     "roles": [
       {
         "description": "Operates Kyber shell workflows and deployment entry points.",
-        "did": "did:web:kyber-qzzg06nh.gftd.ai:shell",
+        "did": "did:web:kyber-qzzg06nh.etzhayyim.com:shell",
         "role": "shell-operator"
       },
       {
         "description": "Approves release-affecting shell changes.",
-        "did": "did:web:kyber-qzzg06nh.gftd.ai",
+        "did": "did:web:kyber-qzzg06nh.etzhayyim.com",
         "role": "shell-owner"
       },
       {
         "description": "Tracks release traceability for shell publish events.",
-        "did": "did:web:kyber-qzzg06nh.gftd.ai:release",
+        "did": "did:web:kyber-qzzg06nh.etzhayyim.com:release",
         "role": "release-manager"
       }
     ]

@@ -7,10 +7,10 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
-	import { ActionSheet } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
-	import { playTap, playSuccess, haptic } from '@gftdcojp/design-system/audio';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
+	import { ActionSheet } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
+	import { playTap, playSuccess, haptic } from '@etzhayyim/design-system/audio';
 	import { RichText, PostEmbed, ContentLabel, didFromRouteActor, normalizedPostEmbed, postRkey, postRouteActor } from '$lib/w';
 		import { getPostThread, getCurrentDID, likePost, unlikePost, repost, unrepost, createPost, createBookmark, deleteBookmark, muteThread, unmuteThread, muteActor, blockActor, reportContent, sendInteractions, resolveHandle } from '$lib/atproto-agent';
 	import type { FeedItem, PostView } from '$lib/atproto-agent';

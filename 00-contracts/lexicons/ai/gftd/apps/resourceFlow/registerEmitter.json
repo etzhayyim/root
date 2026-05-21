@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Subscribe resource-flow.gftd.ai to a legal-entity emitter's firehose by issuing app.bsky.graph.follow and recording the emitter in vertex_profile. ADR-0028. Invoked once per emitter; idempotent on emitterDid.",
+      "description": "Subscribe resource-flow.etzhayyim.com to a legal-entity emitter's firehose by issuing app.bsky.graph.follow and recording the emitter in vertex_profile. ADR-0028. Invoked once per emitter; idempotent on emitterDid.",
       "input": {
         "encoding": "application/json",
         "schema": {

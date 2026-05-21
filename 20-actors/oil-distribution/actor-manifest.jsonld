@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:oil-distribution.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:oil-distribution.etzhayyim.com",
   "actors": [
     {
       "description": "Downstream product terminal coverage.",

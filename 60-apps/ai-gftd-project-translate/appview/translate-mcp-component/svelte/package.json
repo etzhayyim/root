@@ -1,5 +1,5 @@
 {
-  "name": "@gftdcojp/translate-ui",
+  "name": "@etzhayyim/translate-ui",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -14,7 +14,7 @@
     "@bufbuild/protobuf": "^1.10.1",
     "@connectrpc/connect": "^1.7.0",
     "@connectrpc/connect-web": "^1.7.0",
-    "@gftdcojp/design-system": "workspace:*"
+    "@etzhayyim/design-system": "workspace:*"
   },
   "devDependencies": {
     "@bufbuild/protoc-gen-es": "^1.10.1",

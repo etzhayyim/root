@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Badge, Button, Card, Chip } from '@gftdcojp/design-system';
+  import { Badge, Button, Card, Chip } from '@etzhayyim/design-system';
 
   type BalanceRow = {
     country_code: string;
@@ -157,7 +157,7 @@
 
   const fallbackExposures: ExposureRow[] = [
     {
-      company_did: 'did:web:petrochem.gftd.ai',
+      company_did: 'did:web:petrochem.etzhayyim.com',
       company_name: 'Chiba steam cracker',
       country_code: 'JP',
       product_code: 'NAPH-L',
@@ -170,7 +170,7 @@
       recommended_action: 'Evaluate alternate naphtha supply routes, term coverage, cracker run-rate flexibility, and inventory buffer.'
     },
     {
-      company_did: 'did:web:petrochem.gftd.ai',
+      company_did: 'did:web:petrochem.etzhayyim.com',
       company_name: 'Yeosu steam cracker',
       country_code: 'KR',
       product_code: 'NAPH-L',
@@ -206,7 +206,7 @@
 
   function exposure(company_name: string, country_code: string, product_code: string, risk_score: number, action: string): ExposureRow {
     return {
-      company_did: `did:web:${company_name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.gftd.ai`,
+      company_did: `did:web:${company_name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.etzhayyim.com`,
       company_name,
       country_code,
       product_code,
@@ -576,7 +576,7 @@
     <div class="brand">
       <div class="mark">J</div>
       <div>
-        <p class="eyebrow">jukyu.gftd.ai</p>
+        <p class="eyebrow">jukyu.etzhayyim.com</p>
         <h1>Global Balance</h1>
       </div>
     </div>

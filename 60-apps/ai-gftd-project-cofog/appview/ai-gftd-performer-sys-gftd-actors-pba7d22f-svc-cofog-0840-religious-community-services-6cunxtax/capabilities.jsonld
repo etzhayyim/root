@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/08/4/0/religious-community-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/4/0/religious-community-services",
       "type": "dodaf:Capability",
       "name": "Religious and Community Service Orchestration Capability",
       "description": "Functional capability for managing religious facilities, community programs, and social impact analysis. Classification: COFOG Division 08, Group 4, Class 0.",

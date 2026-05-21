@@ -37,10 +37,10 @@ worker/wrangler.jsonc            CF Worker config
 ## DID
 
 ```
-did:web:open-cofog.gftd.ai                    primary
-did:web:open-cofog.gftd.ai:division:{XX}      e.g. :division:01
-did:web:open-cofog.gftd.ai:group:{XXX}        e.g. :group:011
-did:web:open-cofog.gftd.ai:class:{XXXX}       e.g. :class:0111
+did:web:open-cofog.etzhayyim.com                    primary
+did:web:open-cofog.etzhayyim.com:division:{XX}      e.g. :division:01
+did:web:open-cofog.etzhayyim.com:group:{XXX}        e.g. :group:011
+did:web:open-cofog.etzhayyim.com:class:{XXXX}       e.g. :class:0111
 ```
 
 ## Adding a new class

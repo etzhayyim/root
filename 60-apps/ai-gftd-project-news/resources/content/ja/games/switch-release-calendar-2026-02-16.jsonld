@@ -17,7 +17,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "Thing",
@@ -75,5 +75,5 @@
       "url": "https://www.gamecity.ne.jp/"
     }
   ],
-  "url": "https://news.gftd.ai/ja/articles/switch-release-calendar-2026-02-16"
+  "url": "https://news.etzhayyim.com/ja/articles/switch-release-calendar-2026-02-16"
 }

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Start the LangServer model-evaluation pipeline for media-gamers.gftd.ai.",
+      "description": "Start the LangServer model-evaluation pipeline for media-gamers.etzhayyim.com.",
       "input": {
         "encoding": "application/json",
         "schema": {

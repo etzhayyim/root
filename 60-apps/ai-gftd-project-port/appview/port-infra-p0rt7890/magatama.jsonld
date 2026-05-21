@@ -1,13 +1,13 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:p0rt7890.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:p0rt7890.etzhayyim.com",
   "name": "port-infra",
   "nanoid": "p0rt7890",
   "performerType": "service",
   "runtimeType": "worker",
   "uiType": "yoro",
   "profile": {
-    "displayName": "Port Infrastructure (port.gftd.ai)",
+    "displayName": "Port Infrastructure (port.etzhayyim.com)",
     "description": "World port infrastructure, berths, terminals, vessel call tracking",
     "isBot": true,
     "agentType": "autonomous",

@@ -37,7 +37,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: dumper
-          image: ghcr.io/gftdcojp/maps-bulk-ingest:1.0.0
+          image: ghcr.io/etzhayyim/maps-bulk-ingest:1.0.0
           imagePullPolicy: IfNotPresent
           command: ["python", "/app/workers/wikipedia_dumper.py"]
           ports:

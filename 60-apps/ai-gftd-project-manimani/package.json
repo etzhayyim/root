@@ -6,7 +6,7 @@
   "main": "src/app.ts",
   "scripts": {
     "deploy": "gftd deploy --no-svelte",
-    "smoke": "curl -s https://manimani.gftd.ai/health"
+    "smoke": "curl -s https://manimani.etzhayyim.com/health"
   },
   "dependencies": {
     "@gftd/magatama-host-sdk": "workspace:*",

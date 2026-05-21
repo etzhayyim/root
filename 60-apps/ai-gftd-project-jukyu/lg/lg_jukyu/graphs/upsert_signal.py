@@ -19,7 +19,7 @@ from lg_jukyu.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.gftd.ai")
+_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.etzhayyim.com")
 
 
 class _State(TypedDict, total=False):
@@ -47,7 +47,7 @@ async def _node_write(state: _State) -> dict[str, Any]:
     signal_id = state.get("signal_id") or (
         f"jukyu-signal:{time.strftime('%Y%m%d')}:{company_did[:30]}:{uuid.uuid4().hex[:8]}"
     )
-    vertex_id = f"at://jukyu001.gftd.ai/ai.gftd.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
+    vertex_id = f"at://jukyu001.etzhayyim.com/ai.gftd.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
     risk = float(state.get("risk_score") or 0)
     conf = float(state.get("confidence") or 0)
     severity = state.get("severity") or (

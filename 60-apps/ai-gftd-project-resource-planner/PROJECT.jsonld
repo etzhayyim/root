@@ -1,14 +1,14 @@
 {
   "@context": {
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/"
+    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/"
   },
   "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-resource-planner/id/Project/ai-gftd-project-resource-planner",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-resource-planner/id/Project/ai-gftd-project-resource-planner",
   "schema:name": "ai-gftd-project-resource-planner",
   "schema:description": "Inngest event-driven resource planner that ingests user/org resources and generates optimal activity resource allocation plans.",
-  "schema:url": "https://rp.gftd.ai",
+  "schema:url": "https://rp.etzhayyim.com",
   "dodaf:capability": [
     {
       "@type": "dodaf:Capability",
@@ -35,12 +35,12 @@
     {
       "@type": "dodaf:Performer",
       "schema:name": "resource-planner-component",
-      "schema:description": "TinyGo wasm component — performer framework, Connect gRPC-Web API at rp7n3st2.gftd.ai/api/grpc, Inngest event emission, NATS KV state"
+      "schema:description": "TinyGo wasm component — performer framework, Connect gRPC-Web API at rp7n3st2.etzhayyim.com/api/grpc, Inngest event emission, NATS KV state"
     },
     {
       "@type": "dodaf:Performer",
       "schema:name": "resource-planner-ui",
-      "schema:description": "SvelteKit static site at rp.gftd.ai — resource dashboard, plan visualization, Inngest event timeline"
+      "schema:description": "SvelteKit static site at rp.etzhayyim.com — resource dashboard, plan visualization, Inngest event timeline"
     }
   ]
 }

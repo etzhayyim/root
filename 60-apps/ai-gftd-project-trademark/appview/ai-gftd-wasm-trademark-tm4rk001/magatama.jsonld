@@ -1,13 +1,13 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:trademark.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:trademark.etzhayyim.com",
   "convoSystemPrompt": "You are Trademark Registry agent. Global trademark platform integrating JPO, USPTO (TESS/TSDR), EUIPO, WIPO Madrid. Data model: trademark, owner, niceClass (45 class), viennaCode, madridRegistration, opposition, coverageReport. Primary key = {jurisdiction}-{regNumber}. Respond helpfully in the user's language.",
   "duties": ["勤労の義務"],
   "entities": [
-    { "category": "regulatory", "did": "did:web:trademark.gftd.ai:source:jpo", "name": "JPO Trademark Gazette", "sourceId": "src-jpo-tm", "url": "https://www.j-platpat.inpit.go.jp/" },
-    { "category": "regulatory", "did": "did:web:trademark.gftd.ai:source:uspto", "name": "USPTO TESS/TSDR", "sourceId": "src-uspto-tm", "url": "https://tmsearch.uspto.gov/" },
-    { "category": "regulatory", "did": "did:web:trademark.gftd.ai:source:euipo", "name": "EUIPO eSearch plus", "sourceId": "src-euipo", "url": "https://euipo.europa.eu/eSearch/" },
-    { "category": "international", "did": "did:web:trademark.gftd.ai:source:wipo-madrid", "name": "WIPO Madrid Monitor", "sourceId": "src-wipo-madrid", "url": "https://www3.wipo.int/madrid/monitor/" }
+    { "category": "regulatory", "did": "did:web:trademark.etzhayyim.com:source:jpo", "name": "JPO Trademark Gazette", "sourceId": "src-jpo-tm", "url": "https://www.j-platpat.inpit.go.jp/" },
+    { "category": "regulatory", "did": "did:web:trademark.etzhayyim.com:source:uspto", "name": "USPTO TESS/TSDR", "sourceId": "src-uspto-tm", "url": "https://tmsearch.uspto.gov/" },
+    { "category": "regulatory", "did": "did:web:trademark.etzhayyim.com:source:euipo", "name": "EUIPO eSearch plus", "sourceId": "src-euipo", "url": "https://euipo.europa.eu/eSearch/" },
+    { "category": "international", "did": "did:web:trademark.etzhayyim.com:source:wipo-madrid", "name": "WIPO Madrid Monitor", "sourceId": "src-wipo-madrid", "url": "https://www3.wipo.int/madrid/monitor/" }
   ],
   "governance": { "classification": "internal", "complianceFrameworks": ["Nice-Classification", "Madrid-Protocol"], "raci": "responsible" },
   "kpi": ["credits の獲得"],

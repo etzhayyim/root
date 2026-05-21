@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#FreelancerProfileE2E
+// @etzhayyim/cyber-freelance#FreelancerProfileE2E
 // フリーランスプロファイルページのE2Eテスト
 
 import { test, expect } from "@playwright/test";

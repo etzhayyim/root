@@ -2,14 +2,14 @@
 
 > **T2 Logical Actor**: Manifest-driven (`20-actors/public-malak/actor-manifest.jsonld` — to be mirrored from vendor in Phase 2).
 
-`public-malak.etzhayyim.com` (nanoid: `pb1ml4k0`) — Sanitized version of `malak.gftd.ai` (vendor-side parent). **TLP CLEAR + GREEN only**. Audience: SOC analysts, security researchers, journalists.
+`public-malak.etzhayyim.com` (nanoid: `pb1ml4k0`) — Sanitized version of `malak.etzhayyim.com` (vendor-side parent). **TLP CLEAR + GREEN only**. Audience: SOC analysts, security researchers, journalists.
 
 ## Tranche F migration status
 
-Per `gftdcojp/ai-gftd-apps-gftdcojp` deps.toml `tranche-f-public-malak-classification-2026-05-20` (status `judgment-recorded`): 3-axis OR-test all clean (`Liability`/`Custody`/`Settlement`) → confirmed etzhayyim move target.
+Per `etzhayyim/etzhayyim-root` deps.toml `tranche-f-public-malak-classification-2026-05-20` (status `judgment-recorded`): 3-axis OR-test all clean (`Liability`/`Custody`/`Settlement`) → confirmed etzhayyim move target.
 
 **Inverted partial-migration shape** (as of 2026-05-20):
-- Vendor (gftdcojp) retains: project scaffold (CLAUDE.md, magatama.jsonld), 14 lexicons under `publicMalak/`, 280 MB crawled corpus (`60-apps/ai-gftd-project-public-malak/data/ingest/`).
+- Vendor (etzhayyim) retains: project scaffold (CLAUDE.md, magatama.jsonld), 14 lexicons under `publicMalak/`, 280 MB crawled corpus (`60-apps/ai-gftd-project-public-malak/data/ingest/`).
 - etzhayyim already had: BPMN definitions (`00-contracts/bpmn/ai/gftd/public-malak/{analyzeAd,crawlAds}.bpmn`).
 
 This commit lands the etzhayyim-side scaffold mirror (CLAUDE.md + OWNERS + PROJECT.jsonld + magatama.jsonld) and 14 lexicons. The worker (`src/app.ts`), rw-free reference impl, and corpus residency follow separately:
@@ -56,12 +56,12 @@ All surface the ad-library scraper graph (Meta / Facebook / Instagram / WhatsApp
 
 Per `etzhayyim/root/CLAUDE.md` §"Substrate boundary":
 - This project is RW-free. No `createKyselyDb` / `env.HYPERDRIVE` in any deploy from this directory.
-- All paid-tier / fiat-billed features stay in vendor (`malak.gftd.ai` parent).
+- All paid-tier / fiat-billed features stay in vendor (`malak.etzhayyim.com` parent).
 - Ad-library API ingestion uses public APIs only — no fiat-billed transparency-data resellers.
 
 ## References
 
-- vendor parent: `gftdcojp/ai-gftd-apps-gftdcojp` `60-apps/ai-gftd-project-public-malak/` + `60-apps/ai-gftd-project-malak/`
+- vendor parent: `etzhayyim/etzhayyim-root` `60-apps/ai-gftd-project-public-malak/` + `60-apps/ai-gftd-project-malak/`
 - tranche-F judgment: vendor deps.toml `tranche-f-public-malak-classification-2026-05-20`
 - ADR-2605172000 — etzhayyim RW-free substrate
 - ADR-2605172400 — etzhayyim vendor 3-axis split rule

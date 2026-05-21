@@ -67,7 +67,7 @@ const NSID = {
   claimReceipt: "ai.gftd.apps.yorishiroNuro.claimReceipt",
 } as const;
 
-const PROVIDER_DID = "did:web:yorishiro.gftd.ai";
+const PROVIDER_DID = "did:web:yorishiro.etzhayyim.com";
 const NURO_MYPAGE = "https://www.nuro.jp/app/mypage";
 
 // ---------------------------------------------------------------------------
@@ -225,7 +225,7 @@ async function cmdRecordOffers(_sdk: HostSDK, payload: Uint8Array): Promise<unkn
     const code = String(o.campaignCode ?? "");
     if (!code) continue;
     const rkey = genID("nuroOffer");
-    const ownerDid = actorDID || "did:web:nur0cb01.gftd.ai";
+    const ownerDid = actorDID || "did:web:nur0cb01.etzhayyim.com";
     await getDb()
       .insertInto("vertex_yorishiroNuro_offer" as any)
       .values({
@@ -255,7 +255,7 @@ async function cmdRecordClaim(sdk: HostSDK, payload: Uint8Array): Promise<unknow
     return { error: "jobId, campaignCode, receiptNumber are required" };
   }
   const receiptId = genID("nuroRcpt");
-  const ownerDid = actorDID || "did:web:nur0cb01.gftd.ai";
+  const ownerDid = actorDID || "did:web:nur0cb01.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroNuro_claimReceipt" as any)
     .values({
@@ -326,7 +326,7 @@ async function cmdClaimCashback(sdk: HostSDK, payload: Uint8Array): Promise<unkn
     idempotencyKey: req.idempotencyKey,
   });
 
-  const ownerDid = actorDID || "did:web:nur0cb01.gftd.ai";
+  const ownerDid = actorDID || "did:web:nur0cb01.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroNuro_claimJob" as any)
     .values({

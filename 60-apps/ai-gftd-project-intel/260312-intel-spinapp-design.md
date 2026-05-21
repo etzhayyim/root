@@ -254,7 +254,7 @@ command service は public には作らない。
 - project: `60-apps/ai-gftd-project-intel`
 - app dir: `60-apps/ai-gftd-project-intel/wasm/ai-gftd-wasm-intel-<nanoid>`
 - namespace: `magatama-runtime`
-- image: `ghcr.io/gftdcojp/*`
+- image: `ghcr.io/etzhayyim/*`
 
 最低限の routes:
 

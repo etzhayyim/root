@@ -1,4 +1,4 @@
-# ai-gftd-project-canvas — canvas.gftd.ai
+# ai-gftd-project-canvas — canvas.etzhayyim.com
 
 **Protocol Canvas rendering & collaboration** — W Protocol record visualization, interactive card layout, real-time collaborative canvas.
 
@@ -6,7 +6,7 @@
 
 | 項目 | 値 |
 |---|---|
-| Domain | `canvas.gftd.ai` |
+| Domain | `canvas.etzhayyim.com` |
 | Runtime | **Single Worker** (TS Native) |
 | nanoid | `cnv5dr4w` |
 | performerType | `service` (default sensitivity: `public`) |
@@ -16,9 +16,9 @@
 
 | DID | 用途 |
 |---|---|
-| `did:web:canvas.gftd.ai` | Controller (app 本体) |
-| `did:web:canvas.gftd.ai:board:{nanoid}` | Canvas board |
-| `did:web:canvas.gftd.ai:template:{nanoid}` | Reusable canvas template |
+| `did:web:canvas.etzhayyim.com` | Controller (app 本体) |
+| `did:web:canvas.etzhayyim.com:board:{nanoid}` | Canvas board |
+| `did:web:canvas.etzhayyim.com:template:{nanoid}` | Reusable canvas template |
 
 ## Design E 3-Tier Write
 

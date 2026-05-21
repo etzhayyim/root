@@ -31,10 +31,10 @@
 
 ## Implemented MVP
 
-- App component: [ai-gftd-wasm-intel-i7n73l0x](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-intel/wasm/ai-gftd-wasm-intel-i7n73l0x)
-- Murakumo integration: `https://murakumo.gftd.ai/api/openai/v1/chat/completions` with default model `qwen3-vl-8b`
+- App component: [ai-gftd-wasm-intel-i7n73l0x](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-intel/wasm/ai-gftd-wasm-intel-i7n73l0x)
+- Murakumo integration: `https://murakumo.etzhayyim.com/api/openai/v1/chat/completions` with default model `qwen3-vl-8b`
 - Private storage: intel analyses are readable only when `_org_id == "default"`
 - Public export: safe summaries are emitted as JSON-LD candidates targeting `60-apps/ai-gftd-project-resources/content/intel/public/`
-- Local pipeline tool: [analyze_and_export.go](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-intel/tools/analyze_and_export.go)
+- Local pipeline tool: [analyze_and_export.go](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-intel/tools/analyze_and_export.go)
 
 詳細設計は project 内の 2026-03-12 設計書を参照。

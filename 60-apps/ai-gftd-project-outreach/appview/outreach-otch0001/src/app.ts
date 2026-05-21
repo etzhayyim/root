@@ -1,4 +1,4 @@
-// outreach.gftd.ai — Sales Outreach Automation (thin edge facade).
+// outreach.etzhayyim.com — Sales Outreach Automation (thin edge facade).
 // Business logic: 20-actors/magatama/py/src/pymagatama/outreach_worker_main.py
 // LangGraph loop: research_prospect → draft_opening → quality_gate → store_step
 // Reply detection: subscribeRepos on gmail.message + m365Ingest.email
@@ -21,13 +21,13 @@ export default {
     if (url.pathname === "/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:outreach.gftd.ai",
+        actor: "did:web:outreach.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "otch0001",
         execution: "edge-bpmn+langgraph-langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/outreach_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/outreach",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
-        integrations: ["ads.gftd.ai", "resend", "gmail", "m365Ingest"],
+        integrations: ["ads.etzhayyim.com", "resend", "gmail", "m365Ingest"],
         pii: "Tier 3 (sensitivity_ord=3, ADR-0018)",
         dnc: "vertex_outreach_dnc checked before every send",
       });
@@ -58,7 +58,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

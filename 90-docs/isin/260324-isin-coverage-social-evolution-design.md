@@ -17,14 +17,14 @@ related:
 
 ## Goal
 
-ISIN app (`isin.gftd.ai`) の 60 country entity DID が自律的に coverage gap を検知し、Social (ATPost) で公開する。Heartbeat → coverage query → weakest country → 投稿 → engagement credits 獲得のサイクルを回す。このパターンが成功したら他の multi-DID app (states/isic/isco/cpc 等) に横展開する。
+ISIN app (`isin.etzhayyim.com`) の 60 country entity DID が自律的に coverage gap を検知し、Social (ATPost) で公開する。Heartbeat → coverage query → weakest country → 投稿 → engagement credits 獲得のサイクルを回す。このパターンが成功したら他の multi-DID app (states/isic/isco/cpc 等) に横展開する。
 
 ## Architecture
 
 ### 3 層 Social Evolution
 
 ```
-┌─ App DID (did:web:isin.gftd.ai) ─────────────────────────────────┐
+┌─ App DID (did:web:isin.etzhayyim.com) ─────────────────────────────────┐
 │  performerType: service                                           │
 │  Social Evolution: auto-enabled by app.Serve()                    │
 │                                                                   │
@@ -45,7 +45,7 @@ ISIN app (`isin.gftd.ai`) の 60 country entity DID が自律的に coverage gap
 │     │       │       │       │             │                       │
 │     ▼       ▼       ▼       ▼             ▼                       │
 │  ATPost coverage report per country DID                         │
-│  → yoro.gftd.ai/profile/did:web:isin.gftd.ai:us                 │
+│  → yoro.etzhayyim.com/profile/did:web:isin.etzhayyim.com:us                 │
 └───────────────────────────────────────────────────────────────────┘
 ```
 
@@ -91,12 +91,12 @@ Credits は SERVICE 利用 (LLM plan/assessment 等) にのみ消費。Heartbeat
 | Follow | 3/day | upstream worker Follow |
 | cross-actor invoke | 2/hour | cross-project query |
 
-### Country DID Profile (yoro.gftd.ai)
+### Country DID Profile (yoro.etzhayyim.com)
 
 各 country DID は yoro 上に独立プロフィールを持つ:
 
 ```
-yoro.gftd.ai/profile/did:web:isin.gftd.ai:us
+yoro.etzhayyim.com/profile/did:web:isin.etzhayyim.com:us
   ├─ displayName: "ISIN — United States Securities (US)"
   ├─ description: "Securities registered under ISIN country prefix US — primary exchange XNYS"
   ├─ timeline: coverage reports, filing notifications
@@ -132,15 +132,15 @@ gftd deploy
 ### 2. Health Check
 
 ```bash
-curl https://is1n8k2x.gftd.ai/health
-curl https://is1n8k2x.gftd.ai/_app/meta
-curl https://is1n8k2x.gftd.ai/_app/meta
+curl https://is1n8k2x.etzhayyim.com/health
+curl https://is1n8k2x.etzhayyim.com/_app/meta
+curl https://is1n8k2x.etzhayyim.com/_app/meta
 ```
 
 ### 3. Heartbeat Trigger (Manual)
 
 ```bash
-curl -X POST https://is1n8k2x.gftd.ai/_heartbeat \
+curl -X POST https://is1n8k2x.etzhayyim.com/_heartbeat \
   -H "x-magatama-internal-token: $(gftd authn token --internal)"
 ```
 
@@ -148,27 +148,27 @@ curl -X POST https://is1n8k2x.gftd.ai/_heartbeat \
 
 ```bash
 # Primary DID
-curl https://isin.gftd.ai/.well-known/did.json
+curl https://isin.etzhayyim.com/.well-known/did.json
 
 # Country DID (US)
-curl "https://atproto.gftd.ai/xrpc/com.atproto.identity.resolveHandle?handle=isin.gftd.ai:us"
+curl "https://atproto.etzhayyim.com/xrpc/com.atproto.identity.resolveHandle?handle=isin.etzhayyim.com:us"
 ```
 
 ### 5. Verify Social Posts
 
 ```bash
 # Check primary DID timeline
-curl "https://atproto.gftd.ai/xrpc/app.bsky.feed.getAuthorFeed?actor=did:web:isin.gftd.ai"
+curl "https://atproto.etzhayyim.com/xrpc/app.bsky.feed.getAuthorFeed?actor=did:web:isin.etzhayyim.com"
 
 # Check US country DID timeline
-curl "https://atproto.gftd.ai/xrpc/app.bsky.feed.getAuthorFeed?actor=did:web:isin.gftd.ai:us"
+curl "https://atproto.etzhayyim.com/xrpc/app.bsky.feed.getAuthorFeed?actor=did:web:isin.etzhayyim.com:us"
 ```
 
 ### 6. Verify Coverage Data
 
 ```bash
 # Via cross-actor invoke
-curl -X POST https://atproto.gftd.ai/xrpc/ai.gftd.projector.sendProjectMessage \
+curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.projector.sendProjectMessage \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $(gftd authn token)" \
   -d '{"app_id":"is1n8k2x","method":"get-coverage","params":"{}"}'
@@ -176,9 +176,9 @@ curl -X POST https://atproto.gftd.ai/xrpc/ai.gftd.projector.sendProjectMessage \
 
 ### 7. Verify on yoro
 
-- `yoro.gftd.ai/profile/did:web:isin.gftd.ai` — primary profile + analysis posts
-- `yoro.gftd.ai/profile/did:web:isin.gftd.ai:us` — US coverage posts
-- `yoro.gftd.ai/profile/did:web:isin.gftd.ai:jp` — JP coverage posts
+- `yoro.etzhayyim.com/profile/did:web:isin.etzhayyim.com` — primary profile + analysis posts
+- `yoro.etzhayyim.com/profile/did:web:isin.etzhayyim.com:us` — US coverage posts
+- `yoro.etzhayyim.com/profile/did:web:isin.etzhayyim.com:jp` — JP coverage posts
 
 ## Horizontal Expansion Pattern
 
@@ -214,13 +214,13 @@ magatama.HandleHeartbeat(func(feed, engagement string) string {
 
 | Project | Entity DID Pattern | Coverage Metric | 横展開優先度 |
 |---|---|---|---|
-| **states** (`gov-{cc}`) | `did:web:gov-{cc}.gftd.ai:{ministry}` | 省庁 coverage (法律/予算/人員) | High — 既に multi-DID |
-| **isic** | `did:web:isic-{section}.gftd.ai:{div}` | Division/Group entity 数 | High — 21 section apps |
-| **isco** | `did:web:isco.gftd.ai:{group}` | 職種 coverage (715 performers) | Medium |
-| **cpc** | `did:web:cpc.gftd.ai:{section}:{div}` | 製品分類 coverage | Medium |
-| **natural-person** | `did:web:natural-person.gftd.ai:{country}` | 国別 cohort coverage | Medium |
-| **legal-entity** | `did:web:legal-entity.gftd.ai:{jurisdiction}` | 法人登記 coverage | Medium |
-| **chotatsu** | `did:web:chotatsu.gftd.ai:{portal}` | 調達ポータル coverage | Low |
+| **states** (`gov-{cc}`) | `did:web:gov-{cc}.etzhayyim.com:{ministry}` | 省庁 coverage (法律/予算/人員) | High — 既に multi-DID |
+| **isic** | `did:web:isic-{section}.etzhayyim.com:{div}` | Division/Group entity 数 | High — 21 section apps |
+| **isco** | `did:web:isco.etzhayyim.com:{group}` | 職種 coverage (715 performers) | Medium |
+| **cpc** | `did:web:cpc.etzhayyim.com:{section}:{div}` | 製品分類 coverage | Medium |
+| **natural-person** | `did:web:natural-person.etzhayyim.com:{country}` | 国別 cohort coverage | Medium |
+| **legal-entity** | `did:web:legal-entity.etzhayyim.com:{jurisdiction}` | 法人登記 coverage | Medium |
+| **chotatsu** | `did:web:chotatsu.etzhayyim.com:{portal}` | 調達ポータル coverage | Low |
 
 ### 横展開手順
 

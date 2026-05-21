@@ -1,7 +1,7 @@
 [project]
 name = "lg-x"
 version = "0.1.0"
-description = "x.gftd.ai OSS LangGraph FastAPI server (P5 — social platform ops)"
+description = "x.etzhayyim.com OSS LangGraph FastAPI server (P5 — social platform ops)"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",

@@ -52,8 +52,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1',
-                 'did:web:natural-person.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1',
+                 'did:web:natural-person.etzhayyim.com',
                  'natural_person_materialize_all_latent_entities_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -101,9 +101,9 @@ UP = [{'sql': '\n'
                  'sensitivity_ord, owner_did, actor_did, org_did, created_at, updated_at, '
                  'cohort_vid, cohort_hash, target_count, next_ordinal, materialized_count, '
                  'batch_size, status) SELECT '
-                 "'at://did:web:natural-person.gftd.ai/ai.gftd.apps.naturalPerson.latentCursor/' "
-                 "|| c.cohort_hash, 1, 300, 'did:web:natural-person.gftd.ai', "
-                 "'did:web:natural-person.gftd.ai', 'did:web:natural-person.gftd.ai', NOW(), "
+                 "'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.latentCursor/' "
+                 "|| c.cohort_hash, 1, 300, 'did:web:natural-person.etzhayyim.com', "
+                 "'did:web:natural-person.etzhayyim.com', 'did:web:natural-person.etzhayyim.com', NOW(), "
                  'NOW(), c.vertex_id, c.cohort_hash, GREATEST(COALESCE(c.intel_estimated_count, '
                  '0), 0), 1, 0, 100000, CASE WHEN GREATEST(COALESCE(c.intel_estimated_count, 0), '
                  "0) &gt; 0 THEN 'active' ELSE 'complete' END FROM "
@@ -150,12 +150,12 @@ UP = [{'sql': '\n'
                  'entity_kind, canonical_label, existence_probability, k_evidence_count, '
                  'viewpoint_consensus, fission_eligible, status, primary_topic_vid, '
                  'individual_did) SELECT '
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/natural-person-individual-' "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/natural-person-individual-' "
                  "|| w.cohort_hash || '-' || LPAD(g.i::VARCHAR, 12, '0'), g.i, 300, "
-                 "'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', "
-                 "'did:web:coverage.gftd.ai', NOW(), 'natural_person_individual_latent', 'natural "
+                 "'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', "
+                 "'did:web:coverage.etzhayyim.com', NOW(), 'natural_person_individual_latent', 'natural "
                  "person latent: ' || w.cohort_hash || ' #' || g.i::VARCHAR, 0.50, 1, 1, false, "
-                 "'active', w.cohort_vid, 'did:web:natural-person.gftd.ai:latent:' || "
+                 "'active', w.cohort_vid, 'did:web:natural-person.etzhayyim.com:latent:' || "
                  "w.cohort_hash || ':' || g.i::VARCHAR FROM (SELECT vertex_id, cohort_vid, "
                  'cohort_hash, target_count, next_ordinal, LEAST(next_ordinal + batch_size - 1, '
                  'target_count) AS end_ordinal FROM '
@@ -217,7 +217,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:natural-person.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:natural-person.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;naturalPerson.materializeAllLatentEntities.complete&quot;" '
@@ -264,10 +264,10 @@ UP = [{'sql': '\n'
                  10242,
                  '00-contracts/bpmn/ai/gftd/natural-person/materializeAllLatentEntities.bpmn',
                  '2026-04-30T20:30:00Z',
-                 'did:web:natural-person.gftd.ai',
-                 'did:web:natural-person.gftd.ai',
+                 'did:web:natural-person.etzhayyim.com',
+                 'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -281,21 +281,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1',
-                 'did:web:natural-person.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1',
+                 'did:web:natural-person.etzhayyim.com',
                  'ai.gftd.apps.naturalPerson.materializeAllLatentEntities',
                  'natural_person_materialize_all_latent_entities_v1',
                  300000,
                  '2026-04-30T20:30:00Z',
-                 'did:web:natural-person.gftd.ai',
-                 'did:web:natural-person.gftd.ai',
+                 'did:web:natural-person.etzhayyim.com',
+                 'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_natural_person_latent_materialization_cursor',
   'parameters': []}]
 

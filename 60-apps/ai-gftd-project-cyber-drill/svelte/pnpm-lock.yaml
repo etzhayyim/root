@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@gftdcojp/kami-engine-sdk':
+      '@etzhayyim/kami-engine-sdk':
         specifier: link:../../../40-engine/kami-engine/kami-engine-sdk
         version: link:../../../40-engine/kami-engine/kami-engine-sdk
       '@langchain/core':

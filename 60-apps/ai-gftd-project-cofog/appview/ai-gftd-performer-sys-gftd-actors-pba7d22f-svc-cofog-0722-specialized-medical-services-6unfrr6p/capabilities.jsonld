@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/2/2/specialized-medical-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/2/2/specialized-medical-services",
       "type": "dodaf:Capability",
       "name": "Specialized Outpatient Medical Oversight Capability",
       "description": "Functional capability for managing specialized outpatient medical services, specialist facility audits, and consultant coordination. Classification: COFOG Division 07, Group 2, Class 2.",

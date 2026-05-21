@@ -1,5 +1,5 @@
 /**
- * E2E BDD Tests — xlsx.gftd.ai spreadsheet editor
+ * E2E BDD Tests — xlsx.etzhayyim.com spreadsheet editor
  *
  * Behavior-Driven scenarios covering the full user workflow:
  *   Given → When → Then

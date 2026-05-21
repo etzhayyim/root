@@ -130,7 +130,7 @@
   const stripTags = (value: string) => value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 
   let form: MerchantForm = $state({
-    endpoint: "https://atproto.gftd.ai",
+    endpoint: "https://atproto.etzhayyim.com",
     merchantName: "Yodobashi",
     domain: "www.yodobashi.com",
     baseCurrency: "JPY",
@@ -376,7 +376,7 @@
 
 <main class="shell">
   <section class="hero">
-    <p class="eyebrow">kakaku.gftd.ai</p>
+    <p class="eyebrow">kakaku.etzhayyim.com</p>
     <h1>Merchant Selector Editor</h1>
     <p class="lede">
       `KakakuMerchant` の `selectorProfile` と `selectorConfig` をその場で編集し、同じ画面で抽出 preview を見てから

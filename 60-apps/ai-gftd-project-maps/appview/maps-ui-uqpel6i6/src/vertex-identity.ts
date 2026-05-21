@@ -8,7 +8,7 @@ const SELF_DID_FIELDS: Record<string, string[]> = {
 };
 
 function toMapsActorDid(appId: string): string {
-  return `did:web:${appId}.gftd.ai`;
+  return `did:web:${appId}.etzhayyim.com`;
 }
 
 function toDidSlug(value: string): string {
@@ -77,6 +77,6 @@ export function normalizeMapsVertexIdentity(
   const stableIdentity = firstStableIdentity(collection, normalized);
   if (!stableIdentity) return normalized;
 
-  normalized.did = `did:web:${appId}.gftd.ai:${toCollectionSlug(collection)}:${toDidSlug(stableIdentity)}`;
+  normalized.did = `did:web:${appId}.etzhayyim.com:${toCollectionSlug(collection)}:${toDidSlug(stableIdentity)}`;
   return normalized;
 }

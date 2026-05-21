@@ -19,14 +19,14 @@ UP = [{'sql': '\n'
          "      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-register-property-v1',
-                 'did:web:real-estate.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-register-property-v1',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'real_estate_register_property',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_real_estate_register_property" '
-                 'targetNamespace="https://gftd.ai/bpmn/real-estate" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/real-estate" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="real_estate_register_property" name="registerProperty" '
                  'isExecutable="true">\n'
@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" '
                  'name="audit"><bpmn:extensionElements><zeebe:taskDefinition '
                  'type="generic.audit.emit"/><zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:real-estate.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:real-estate.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;realEstate.registerProperty&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, propertyId: propertyId, canonicalPropertyKey: '
                  'canonicalPropertyKey}" '
@@ -72,10 +72,10 @@ UP = [{'sql': '\n'
                  2812,
                  '00-contracts/bpmn/ai/gftd/real-estate/registerProperty.bpmn',
                  '2026-04-25T21:10:00Z',
-                 'did:web:real-estate.gftd.ai:ops',
-                 'did:web:real-estate.gftd.ai:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-register-property-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-register-property-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, '
@@ -84,17 +84,17 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-register-property-v1',
-                 'did:web:real-estate.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-register-property-v1',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'ai.gftd.apps.realEstate.registerProperty',
                  'real_estate_register_property',
                  20000,
                  'vertex_real_estate_property',
                  '2026-04-25T21:10:00Z',
-                 'did:web:real-estate.gftd.ai:ops',
-                 'did:web:real-estate.gftd.ai:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-register-property-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-register-property-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, '
          'version, xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, '
@@ -102,14 +102,14 @@ UP = [{'sql': '\n'
          "      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-publish-listing-v1',
-                 'did:web:real-estate.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-publish-listing-v1',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'real_estate_publish_listing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_real_estate_publish_listing" '
-                 'targetNamespace="https://gftd.ai/bpmn/real-estate" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/real-estate" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="real_estate_publish_listing" name="publishListing" '
                  'isExecutable="true">\n'
@@ -143,7 +143,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" '
                  'name="audit"><bpmn:extensionElements><zeebe:taskDefinition '
                  'type="generic.audit.emit"/><zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:real-estate.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:real-estate.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;realEstate.publishListing&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, listingId: listingId, listingKind: listingKind}" '
                  'target="payload"/></zeebe:ioMapping></bpmn:extensionElements><bpmn:incoming>Flow_Audit</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing></bpmn:serviceTask>\n'
@@ -155,10 +155,10 @@ UP = [{'sql': '\n'
                  2791,
                  '00-contracts/bpmn/ai/gftd/real-estate/publishListing.bpmn',
                  '2026-04-25T21:10:00Z',
-                 'did:web:real-estate.gftd.ai:ops',
-                 'did:web:real-estate.gftd.ai:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-publish-listing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-publish-listing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, '
@@ -167,17 +167,17 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-publish-listing-v1',
-                 'did:web:real-estate.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-publish-listing-v1',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'ai.gftd.apps.realEstate.publishListing',
                  'real_estate_publish_listing',
                  20000,
                  'vertex_real_estate_listing',
                  '2026-04-25T21:10:00Z',
-                 'did:web:real-estate.gftd.ai:ops',
-                 'did:web:real-estate.gftd.ai:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-publish-listing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-publish-listing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, '
          'version, xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, '
@@ -185,14 +185,14 @@ UP = [{'sql': '\n'
          "      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-record-transaction-v1',
-                 'did:web:real-estate.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-record-transaction-v1',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'real_estate_record_transaction',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_real_estate_record_transaction" '
-                 'targetNamespace="https://gftd.ai/bpmn/real-estate" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/real-estate" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="real_estate_record_transaction" name="recordTransaction" '
                  'isExecutable="true">\n'
@@ -225,7 +225,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" '
                  'name="audit"><bpmn:extensionElements><zeebe:taskDefinition '
                  'type="generic.audit.emit"/><zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:real-estate.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:real-estate.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;realEstate.recordTransaction&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, transactionId: transactionId, transactionKind: '
                  'transactionKind}" '
@@ -238,10 +238,10 @@ UP = [{'sql': '\n'
                  2723,
                  '00-contracts/bpmn/ai/gftd/real-estate/recordTransaction.bpmn',
                  '2026-04-25T21:10:00Z',
-                 'did:web:real-estate.gftd.ai:ops',
-                 'did:web:real-estate.gftd.ai:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-record-transaction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-record-transaction-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, '
@@ -250,17 +250,17 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-record-transaction-v1',
-                 'did:web:real-estate.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-record-transaction-v1',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'ai.gftd.apps.realEstate.recordTransaction',
                  'real_estate_record_transaction',
                  20000,
                  'vertex_real_estate_transaction',
                  '2026-04-25T21:10:00Z',
-                 'did:web:real-estate.gftd.ai:ops',
-                 'did:web:real-estate.gftd.ai:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-record-transaction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-record-transaction-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, '
          'version, xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, '
@@ -268,14 +268,14 @@ UP = [{'sql': '\n'
          "      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-register-source-v1',
-                 'did:web:real-estate.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-register-source-v1',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'real_estate_register_source',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_real_estate_register_source" '
-                 'targetNamespace="https://gftd.ai/bpmn/real-estate" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/real-estate" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="real_estate_register_source" name="registerSource" '
                  'isExecutable="true">\n'
@@ -303,7 +303,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" '
                  'name="audit"><bpmn:extensionElements><zeebe:taskDefinition '
                  'type="generic.audit.emit"/><zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:real-estate.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:real-estate.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;realEstate.registerSource&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, sourceId: sourceId}" '
                  'target="payload"/></zeebe:ioMapping></bpmn:extensionElements><bpmn:incoming>Flow_Audit</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing></bpmn:serviceTask>\n'
@@ -315,10 +315,10 @@ UP = [{'sql': '\n'
                  2304,
                  '00-contracts/bpmn/ai/gftd/real-estate/registerSource.bpmn',
                  '2026-04-25T21:10:00Z',
-                 'did:web:real-estate.gftd.ai:ops',
-                 'did:web:real-estate.gftd.ai:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-register-source-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-register-source-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, '
@@ -327,34 +327,34 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-register-source-v1',
-                 'did:web:real-estate.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-register-source-v1',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'ai.gftd.apps.realEstate.registerSource',
                  'real_estate_register_source',
                  15000,
                  'vertex_real_estate_source',
                  '2026-04-25T21:10:00Z',
-                 'did:web:real-estate.gftd.ai:ops',
-                 'did:web:real-estate.gftd.ai:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
+                 'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-register-source-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-register-source-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-register-property-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-register-property-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-register-property-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-register-property-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-publish-listing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-publish-listing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-publish-listing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-publish-listing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-record-transaction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-record-transaction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-record-transaction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-record-transaction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/real-estate-register-source-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-register-source-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/real-estate-register-source-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-register-source-v1']}]
 
 
 def upgrade() -> None:

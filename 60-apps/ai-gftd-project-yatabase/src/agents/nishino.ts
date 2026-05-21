@@ -67,7 +67,7 @@ export async function runNishino(
       ok: false,
       agent: "nishino",
       role: "sales",
-      did: "did:web:yatabase.gftd.ai:actor:nishino",
+      did: "did:web:yatabase.etzhayyim.com:actor:nishino",
       runId,
       startedAt,
       durationMs: Date.now() - t0,
@@ -107,7 +107,7 @@ export async function runNishino(
       ok: false,
       agent: "nishino",
       role: "sales",
-      did: "did:web:yatabase.gftd.ai:actor:nishino",
+      did: "did:web:yatabase.etzhayyim.com:actor:nishino",
       runId,
       startedAt,
       durationMs: Date.now() - t0,
@@ -124,7 +124,7 @@ export async function runNishino(
     const q = sql`
       SELECT owner_did, MIN(created_at) AS first_signup
       FROM vertex_api_key
-      WHERE owner_did LIKE 'did:web:t-%.yata-tenant.gftd.ai'
+      WHERE owner_did LIKE 'did:web:t-%.yata-tenant.etzhayyim.com'
       GROUP BY owner_did
       HAVING MIN(created_at) <= ${new Date(since).toISOString()}
       LIMIT 100
@@ -255,9 +255,9 @@ export async function runNishino(
       ``,
       `Free tier $0/month → 1k api_request/day. Try it in 30 seconds:`,
       ``,
-      `    curl -X POST https://yatabase.gftd.ai/auth/v1/signup`,
+      `    curl -X POST https://yatabase.etzhayyim.com/auth/v1/signup`,
       ``,
-      `Or browse https://yatabase.gftd.ai/ for the full pitch + pricing.`,
+      `Or browse https://yatabase.etzhayyim.com/ for the full pitch + pricing.`,
       ``,
       `If this isn't relevant, hit reply and I'll close the loop.`,
       ``,
@@ -268,7 +268,7 @@ export async function runNishino(
       const r2 = await emitOutbox(env, {
         // Lead is yatabase's CRM data, not a tenant — use the operator org_did
         // so the outbox row sits in the staff inbox, not a customer's.
-        orgDid: "did:web:yatabase.gftd.ai",
+        orgDid: "did:web:yatabase.etzhayyim.com",
         recipientEmail: lead.contact_email || undefined,
         recipientName: lead.company,
         kind: "sales-onboarding-nudge",   // cold-outreach reuses onboarding kind
@@ -300,7 +300,7 @@ export async function runNishino(
     ok: true,
     agent: "nishino",
     role: "sales",
-    did: "did:web:yatabase.gftd.ai:actor:nishino",
+    did: "did:web:yatabase.etzhayyim.com:actor:nishino",
     runId,
     startedAt,
     durationMs: Date.now() - t0,

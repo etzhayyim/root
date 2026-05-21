@@ -1,9 +1,9 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:mehikari.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:mehikari.etzhayyim.com",
   "component": {
     "env": {
-      "BPMN_DISPATCHER_URL": "https://dispatcher.gftd.ai",
+      "BPMN_DISPATCHER_URL": "https://dispatcher.etzhayyim.com",
       "MEHIKARI_R2_BUCKET": "ai-gftd-mehikari-clips",
       "VAULT_KID_ACTIVE": "mehikari-2026Q2",
       "AUDIT_RETENTION_YEARS": "7",
@@ -14,11 +14,11 @@
       "VENDOR": "Gftd Japan株式会社"
     }
   },
-  "convoSystemPrompt": "You are the mehikari.gftd.ai agent — 監視カメラ シーン/人物検索 + 警察向け B2G 営業 LangGraph の edge dispatcher. You forward XRPC requests to the bpmn-dispatcher → LangGraph Server (Granian L3) → murakumo on-prem inference pod (JP-domestic only). You NEVER process face templates locally, NEVER call RunPod (US) for face/frame data, NEVER send outbound sales mail without an approved review record. All warrant-gated person queries require legalBasis (warrantRef OR enquiryRef) + supervisor approval before results are released.",
+  "convoSystemPrompt": "You are the mehikari.etzhayyim.com agent — 監視カメラ シーン/人物検索 + 警察向け B2G 営業 LangGraph の edge dispatcher. You forward XRPC requests to the bpmn-dispatcher → LangGraph Server (Granian L3) → murakumo on-prem inference pod (JP-domestic only). You NEVER process face templates locally, NEVER call RunPod (US) for face/frame data, NEVER send outbound sales mail without an approved review record. All warrant-gated person queries require legalBasis (warrantRef OR enquiryRef) + supervisor approval before results are released.",
   "duties": ["公共安全への寄与", "プライバシー保護", "法令遵守"],
   "governance": {
     "classification": "restricted",
-    "complianceFrameworks": ["gftdcojp-agent-rules", "PII-Tier3", "個人情報保護法", "警察庁通達-R6-公開草案", "特定電子メール法"],
+    "complianceFrameworks": ["etzhayyim-agent-rules", "PII-Tier3", "個人情報保護法", "警察庁通達-R6-公開草案", "特定電子メール法"],
     "raci": "responsible",
     "vaultRequired": true,
     "humanInTheLoopRequired": true
@@ -50,8 +50,8 @@
   },
   "project": "mehikari",
   "routes": [
-    { "host": "mehikari.gftd.ai", "paths": ["/"], "tls": true },
-    { "host": "mhk7r2vq.gftd.ai", "paths": ["/"], "tls": true }
+    { "host": "mehikari.etzhayyim.com", "paths": ["/"], "tls": true },
+    { "host": "mhk7r2vq.etzhayyim.com", "paths": ["/"], "tls": true }
   ],
   "runtimeType": "worker",
   "space": {
@@ -78,5 +78,5 @@
     "http": { "listen": "0.0.0.0:8080" }
   },
   "uiType": "appview",
-  "embedUrl": "https://mhk7r2vq.gftd.ai/embed"
+  "embedUrl": "https://mhk7r2vq.etzhayyim.com/embed"
 }

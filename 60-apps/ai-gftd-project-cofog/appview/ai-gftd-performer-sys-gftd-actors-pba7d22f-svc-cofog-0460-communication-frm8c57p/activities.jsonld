@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/6/0/communication/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/6/0/communication/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Communication Network and Service Management Lifecycle",
       "description": "The administrative process of analyzing coverage, coordinating spectrum allocation, and monitoring service standards.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/6/0/communication"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/6/0/communication"
     }
   ]
 }

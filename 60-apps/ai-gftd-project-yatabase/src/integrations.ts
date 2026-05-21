@@ -69,7 +69,7 @@ export function integrationsResponse(): Response {
   <pre>{
   "<span class="k">mcpServers</span>": {
     "<span class="k">yatabase</span>": {
-      "<span class="k">url</span>": <span class="s">"https://yatabase.gftd.ai/mcp"</span>,
+      "<span class="k">url</span>": <span class="s">"https://yatabase.etzhayyim.com/mcp"</span>,
       "<span class="k">headers</span>": {
         "<span class="k">Authorization</span>": <span class="s">"Bearer sk_live_yata_…"</span>
       }
@@ -85,7 +85,7 @@ export function integrationsResponse(): Response {
   <pre>{
   "<span class="k">tools</span>": [{
     "<span class="k">type</span>": <span class="s">"mcp"</span>,
-    "<span class="k">url</span>": <span class="s">"https://yatabase.gftd.ai/mcp"</span>,
+    "<span class="k">url</span>": <span class="s">"https://yatabase.etzhayyim.com/mcp"</span>,
     "<span class="k">headers</span>": {"<span class="k">Authorization</span>":<span class="s">"Bearer sk_live_yata_…"</span>}
   }]
 }</pre>
@@ -98,7 +98,7 @@ export function integrationsResponse(): Response {
   "<span class="k">mcpServers</span>": {
     "<span class="k">yatabase</span>": {
       "<span class="k">command</span>": <span class="s">"npx"</span>,
-      "<span class="k">args</span>": [<span class="s">"-y"</span>, <span class="s">"mcp-remote"</span>, <span class="s">"https://yatabase.gftd.ai/mcp"</span>,
+      "<span class="k">args</span>": [<span class="s">"-y"</span>, <span class="s">"mcp-remote"</span>, <span class="s">"https://yatabase.etzhayyim.com/mcp"</span>,
                <span class="s">"--header"</span>, <span class="s">"Authorization:Bearer sk_live_yata_…"</span>]
     }
   }
@@ -114,7 +114,7 @@ from langchain_mcp_adapters.client import MultiServerMCPClient
 client = MultiServerMCPClient({
   <span class="s">"yatabase"</span>: {
     <span class="s">"transport"</span>: <span class="s">"streamable_http"</span>,
-    <span class="s">"url"</span>: <span class="s">"https://yatabase.gftd.ai/mcp"</span>,
+    <span class="s">"url"</span>: <span class="s">"https://yatabase.etzhayyim.com/mcp"</span>,
     <span class="s">"headers"</span>: {<span class="s">"Authorization"</span>: <span class="s">"Bearer sk_live_yata_…"</span>},
   }
 })
@@ -127,7 +127,7 @@ tools = await client.get_tools()
   <p class="who">For raw OpenAI Chat Completions / Responses API. Use the OpenAPI spec to autogenerate function schemas.</p>
   <pre><span class="c"># pip install openapi-pydantic</span>
 import requests, json
-spec = requests.get(<span class="s">"https://yatabase.gftd.ai/openapi.json"</span>).json()
+spec = requests.get(<span class="s">"https://yatabase.etzhayyim.com/openapi.json"</span>).json()
 <span class="c"># Convert each operation in spec['paths'] to an OpenAI</span>
 <span class="c"># function spec via your favorite openapi→tool converter,</span>
 <span class="c"># or use the MCP path above (simpler).</span></pre>
@@ -136,14 +136,14 @@ spec = requests.get(<span class="s">"https://yatabase.gftd.ai/openapi.json"</spa
 <article class="card">
   <h2>TypeScript client (typed)</h2>
   <p class="who">Generate a fully-typed fetch client from the OpenAPI spec.</p>
-  <pre>npx openapi-typescript <span class="s">https://yatabase.gftd.ai/openapi.json</span> -o yatabase.d.ts
+  <pre>npx openapi-typescript <span class="s">https://yatabase.etzhayyim.com/openapi.json</span> -o yatabase.d.ts
 
 <span class="c">// then in code:</span>
 import createClient from <span class="s">"openapi-fetch"</span>;
 import type { paths } from <span class="s">"./yatabase"</span>;
 
 const yata = createClient<paths>({
-  <span class="k">baseUrl</span>: <span class="s">"https://yatabase.gftd.ai"</span>,
+  <span class="k">baseUrl</span>: <span class="s">"https://yatabase.etzhayyim.com"</span>,
   <span class="k">headers</span>: { <span class="k">Authorization</span>: <span class="s">\`Bearer \${process.env.YATA_KEY}\`</span> },
 });
 const { data } = await yata.POST(<span class="s">"/cypher"</span>, {
@@ -154,22 +154,22 @@ const { data } = await yata.POST(<span class="s">"/cypher"</span>, {
 <article class="card">
   <h2>Postman</h2>
   <p class="who">Import the OpenAPI spec — Postman generates a collection automatically.</p>
-  <pre>File → Import → Link → <span class="s">https://yatabase.gftd.ai/openapi.json</span></pre>
-  <p>Or via CLI: <code>postman api create --workspace=&lt;ws&gt; --schema=https://yatabase.gftd.ai/openapi.json</code>.</p>
+  <pre>File → Import → Link → <span class="s">https://yatabase.etzhayyim.com/openapi.json</span></pre>
+  <p>Or via CLI: <code>postman api create --workspace=&lt;ws&gt; --schema=https://yatabase.etzhayyim.com/openapi.json</code>.</p>
 </article>
 
 <article class="card">
   <h2>Python client</h2>
   <pre>pip install openapi-python-client
 openapi-python-client generate \\
-  --url <span class="s">https://yatabase.gftd.ai/openapi.json</span></pre>
+  --url <span class="s">https://yatabase.etzhayyim.com/openapi.json</span></pre>
   <p>Output: an installable package with typed dataclasses for every request / response in the spec.</p>
 </article>
 
 <article class="card">
   <h2>S3-compatible tooling (boto3 / aws-cli / rclone)</h2>
   <p class="who">Use the <code>awsAccessKeyId</code>+secret returned by <code>POST /auth/v1/signup</code>.</p>
-  <pre>aws configure set endpoint_url <span class="s">https://yatabase.gftd.ai/s3</span>
+  <pre>aws configure set endpoint_url <span class="s">https://yatabase.etzhayyim.com/s3</span>
 aws s3 cp localfile.txt s3://my-bucket/file.txt
 rclone copy localfile.txt yatabase:my-bucket/</pre>
 </article>
@@ -177,7 +177,7 @@ rclone copy localfile.txt yatabase:my-bucket/</pre>
 <article class="card">
   <h2>Neo4j drivers (read-only Cypher subset)</h2>
   <p class="who">Use <code>POST /cypher</code> directly — Neo4j HTTP API shape.</p>
-  <pre>curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
+  <pre>curl -X POST <span class="s">https://yatabase.etzhayyim.com/cypher</span> \\
   -H <span class="s">"Authorization: Bearer sk_live_yata_…"</span> \\
   -d '{"<span class="k">query</span>":"MATCH (n) RETURN n LIMIT 10"}'</pre>
   <p>Bolt protocol (<code>:7687</code>) is on the roadmap (P11). Until then, the HTTP path is fully supported.</p>
@@ -186,21 +186,21 @@ rclone copy localfile.txt yatabase:my-bucket/</pre>
 <article class="card">
   <h2>AT Protocol / Bluesky</h2>
   <p class="who">Yatabase auth resolves AT Protocol session JWTs as well as <code>sk_live_yata_*</code>.</p>
-  <pre><span class="c"># Sign in at atproto.gftd.ai, get a session JWT,</span>
-<span class="c"># then use the same Bearer header on yatabase.gftd.ai.</span>
+  <pre><span class="c"># Sign in at atproto.etzhayyim.com, get a session JWT,</span>
+<span class="c"># then use the same Bearer header on yatabase.etzhayyim.com.</span>
 curl -H <span class="s">"Authorization: Bearer &lt;at-jwt&gt;"</span> \\
-  <span class="s">https://yatabase.gftd.ai/api/plan</span></pre>
+  <span class="s">https://yatabase.etzhayyim.com/api/plan</span></pre>
 </article>
 
 <article class="card">
   <h2>raw curl</h2>
   <p class="who">For shell scripts, CI, or just getting things done.</p>
   <pre><span class="c"># 1. Mint a key (anonymous)</span>
-KEY=$(curl -sS -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/signup</span> \\
+KEY=$(curl -sS -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/signup</span> \\
        | jq -r .apiKey)
 
 <span class="c"># 2. First Cypher query</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/cypher</span> \\
   -H <span class="s">"Authorization: Bearer $KEY"</span> \\
   -d '{"<span class="k">query</span>":"CREATE (n:Hello) RETURN n"}'</pre>
 </article>
@@ -208,15 +208,15 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
 </div>
 
 <p style="margin-top:32px;color:#475569;font-size:14px">
-  Don't see your tool? File an issue at <a href="https://github.com/gftdcojp">github.com/gftdcojp</a> or email
-  <a href="mailto:support@gftd.ai">support@gftd.ai</a>. The OpenAPI spec at
+  Don't see your tool? File an issue at <a href="https://github.com/etzhayyim">github.com/etzhayyim</a> or email
+  <a href="mailto:support@etzhayyim.com">support@etzhayyim.com</a>. The OpenAPI spec at
   <a href="/openapi.json">/openapi.json</a> covers every endpoint and is the canonical source for codegen.
 </p>
 
 </main>
 
 <footer>
-  <p>© 2026 etz hayim · <a href="/">yatabase.gftd.ai</a> · <a href="/docs">/docs</a> · <a href="/status">/status</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
+  <p>© 2026 etz hayim · <a href="/">yatabase.etzhayyim.com</a> · <a href="/docs">/docs</a> · <a href="/status">/status</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
 </footer>
 
 </body></html>`;

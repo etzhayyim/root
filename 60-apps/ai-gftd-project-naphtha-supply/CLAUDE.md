@@ -2,14 +2,14 @@
 
 > **Runtime**: K8s pod-side LangServer / LangGraph Pregel. Cloudflare edge is only a proxy.
 
-`naphtha-supply.gftd.ai` tracks refinery naphtha supply, splitters, terminals, steam-cracker and petrochemical demand, cargo movement, and regional price spreads.
+`naphtha-supply.etzhayyim.com` tracks refinery naphtha supply, splitters, terminals, steam-cracker and petrochemical demand, cargo movement, and regional price spreads.
 
 ## App Identity
 
 | Key | Value |
 |---|---|
 | **nanoid** | `n4ph7h4` |
-| **DID** | `did:web:naphtha-supply.gftd.ai` |
+| **DID** | `did:web:naphtha-supply.etzhayyim.com` |
 | **Runtime** | `k8s-langserver` |
 | **Manifest** | `20-actors/naphtha-supply/actor-manifest.jsonld` |
 | **Japan stress design** | `60-apps/ai-gftd-project-naphtha-supply/JAPAN_NAPHTHA_STRESS_DESIGN.md` |

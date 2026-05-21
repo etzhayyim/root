@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -60,7 +60,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/activities/scap-data-collection",
+  "@id": "https://scap.etzhayyim.com/activities/scap-data-collection",
   "@type": [
     "dodaf:Activity",
     "prov:Activity"
@@ -71,74 +71,74 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "performedBy": [
     {
-      "@id": "https://scap.gftd.ai/performers/services/scap-data-service"
+      "@id": "https://scap.etzhayyim.com/performers/services/scap-data-service"
     },
     {
-      "@id": "https://scap.gftd.ai/performers/services/workflow-engine"
+      "@id": "https://scap.etzhayyim.com/performers/services/workflow-engine"
     }
   ],
   "produces": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/cveData"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/cveData"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions"
     }
   ],
   "consumes": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapDataSources"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapDataSources"
     }
   ],
   "requires": [
     {
-      "@id": "https://scap.gftd.ai/capabilities/security-content-automation"
+      "@id": "https://scap.etzhayyim.com/capabilities/security-content-automation"
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/data-integration"
+      "@id": "https://scap.etzhayyim.com/capabilities/data-integration"
     }
   ],
   "enables": [
     {
-      "@id": "https://scap.gftd.ai/activities/scap-scan-execution"
+      "@id": "https://scap.etzhayyim.com/activities/scap-scan-execution"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-search"
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-search"
     }
   ],
   "realizes": [
     {
-      "@id": "https://scap.gftd.ai/goal/collect-scap-data"
+      "@id": "https://scap.etzhayyim.com/goal/collect-scap-data"
     },
     {
-      "@id": "https://scap.gftd.ai/goal/process-scap-data"
+      "@id": "https://scap.etzhayyim.com/goal/process-scap-data"
     }
   ],
   "step": [
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-collection/fetch-nvd-data",
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-collection/fetch-nvd-data",
       "name": "Fetch NVD Data",
       "description": "Fetch CVE data from NIST National Vulnerability Database API",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/workflows/steps/fetch-nvd-data.ts"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/workflows/steps/fetch-nvd-data.ts"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-collection/fetch-oval-data",
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-collection/fetch-oval-data",
       "name": "Fetch OVAL Data",
       "description": "Fetch OVAL definitions from MITRE OVAL Repository",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/workflows/steps/fetch-oval-data.ts"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/workflows/steps/fetch-oval-data.ts"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-data-collection/save-to-database",
+      "@id": "https://scap.etzhayyim.com/activities/scap-data-collection/save-to-database",
       "name": "Save to Database",
       "description": "Save collected SCAP data to PostgreSQL database via Rust GraphQL service (Diesel ORM)",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/workflows/steps/save-to-database.ts"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/workflows/steps/save-to-database.ts"
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/workflows/scap-data-collection.ts",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/services/scap-data-service.ts"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/workflows/scap-data-collection.ts",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/services/scap-data-service.ts"
   ]
 }

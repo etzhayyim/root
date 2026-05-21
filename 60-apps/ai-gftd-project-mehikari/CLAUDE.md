@@ -1,12 +1,12 @@
 # ai-gftd-project-mehikari
 
-`mehikari.gftd.ai` — 監視カメラ シーン/人物検索 + 警察向け B2G 営業 LangGraph。共通ルールは `60-apps/CLAUDE.md`、設計詳細は `_working/mehikari/DESIGN.md`、法令ガードは `_working/mehikari/COMPLIANCE-MEMO.md`。
+`mehikari.etzhayyim.com` — 監視カメラ シーン/人物検索 + 警察向け B2G 営業 LangGraph。共通ルールは `60-apps/CLAUDE.md`、設計詳細は `_working/mehikari/DESIGN.md`、法令ガードは `_working/mehikari/COMPLIANCE-MEMO.md`。
 
 ## Components
 
 | Component | Folder | Domain | Role |
 |---|---|---|---|
-| **mehikari** (mhk7r2vq) | `appview/ai-gftd-wasm-mehikari-mhk7r2vq` | `mehikari.gftd.ai` | T3 TS Native L3 dispatcher — `ai.gftd.apps.mehikari.{registerCamera,ingestClip,queryScene,queryPerson,reviewMatches,exportEvidence,registerProspect,draftSalesEmail,reviewSalesEmail,sendSalesEmail,handleInboundReply,unsubscribe,listQueries,getAuditTrail,listOutreach}` XRPC + MCP |
+| **mehikari** (mhk7r2vq) | `appview/ai-gftd-wasm-mehikari-mhk7r2vq` | `mehikari.etzhayyim.com` | T3 TS Native L3 dispatcher — `ai.gftd.apps.mehikari.{registerCamera,ingestClip,queryScene,queryPerson,reviewMatches,exportEvidence,registerProspect,draftSalesEmail,reviewSalesEmail,sendSalesEmail,handleInboundReply,unsubscribe,listQueries,getAuditTrail,listOutreach}` XRPC + MCP |
 
 ## CRITICAL — Domestic inference invariant
 
@@ -76,8 +76,8 @@ CF Worker (this dir) は edge L3 dispatcher。直接 face / frame を扱わな�
 
 ## Deploy pre-reqs
 
-1. Secrets Store に `mehikari_vault_master_key` (face-template 暗号化用 AES-256), `mehikari_ms_client_secret` (営業送信用 microsoft.gftd.ai 共有 secret 経路) を登録
-2. DNS: `mehikari.gftd.ai` + `reply.mehikari.gftd.ai` (inbound email worker) の CNAME を `gftd dns-sync` 経由
+1. Secrets Store に `mehikari_vault_master_key` (face-template 暗号化用 AES-256), `mehikari_ms_client_secret` (営業送信用 microsoft.etzhayyim.com 共有 secret 経路) を登録
+2. DNS: `mehikari.etzhayyim.com` + `reply.mehikari.etzhayyim.com` (inbound email worker) の CNAME を `gftd dns-sync` 経由
 3. R2 bucket `ai-gftd-mehikari-clips` (police-only ACL, lifecycle 90日)
 4. bpmn-dispatcher に `ai.gftd.apps.mehikari.*` の routing 登録 (LangGraph pod を pointers)
 5. murakumo on-prem pod `mehikari-inference` を JP DC に常駐 (`_working/mehikari/MURAKUMO-DOMESTIC-CONSTRAINT.md` Phase 2)

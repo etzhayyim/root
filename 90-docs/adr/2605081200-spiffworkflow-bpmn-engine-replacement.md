@@ -217,10 +217,10 @@ ADR file の `status` は既存 convention に合わせて `active` のまま保
 Acceptance snapshot:
 
 - `bpmn-engine-host` image:
-  `ghcr.io/gftdcojp/bpmn-engine-host:20260509-0229remember-followups`
+  `ghcr.io/etzhayyim/bpmn-engine-host:20260509-0229remember-followups`
   (`replicas=1 ready=1 updated=1`)
 - `lawfirm-spiff-worker` image:
-  `ghcr.io/gftdcojp/lawfirm-spiff-worker:20260509-0154inline0-scale10`
+  `ghcr.io/etzhayyim/lawfirm-spiff-worker:20260509-0154inline0-scale10`
   (`replicas=6 ready=6 updated=6`)
 - c10 smoke: `completed=10`, `p95_s=4.193`, no history/orphan violations
 - c100 smoke: `completed=100`, `p95_s=20.328`, `rc=0`, no history/orphan violations

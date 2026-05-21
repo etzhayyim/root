@@ -30,14 +30,14 @@ from typing_extensions import TypedDict
 
 _log = logging.getLogger(__name__)
 
-_PDS_BASE       = os.environ.get("PDS_BASE", "https://atproto.gftd.ai")
+_PDS_BASE       = os.environ.get("PDS_BASE", "https://atproto.etzhayyim.com")
 # Internal Bun PDS pod has HYPERDRIVE (RISINGWAVE_URL) and can write AT records.
 # CF Worker at PDS_BASE is edge-only (no HYPERDRIVE, ADR-2605111200).
 _PDS_INTERNAL   = os.environ.get(
     "PDS_INTERNAL_URL",
     "http://atproto-pds.atproto.svc.cluster.local:8787",
 )
-_APP_DID        = os.environ.get("ANIMEKA_APP_DID", "did:web:an1m3k4x.gftd.ai")
+_APP_DID        = os.environ.get("ANIMEKA_APP_DID", "did:web:an1m3k4x.etzhayyim.com")
 _MINT_SECRET    = os.environ.get("PDS_SERVICE_AUTH_MINT_SECRET", "")
 _RW_URL         = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 
@@ -112,7 +112,7 @@ async def _sp0_fetch_episode(state: PublishEpisodeState) -> dict[str, Any]:
             episode_rkey = row["rkey"]
 
             # Fetch work title from latest work record
-            work_title = "animeka.gftd.ai"
+            work_title = "animeka.etzhayyim.com"
             work_rows = await db.fetch(
                 """
                 SELECT title, _seq FROM vertex_animeka
@@ -151,8 +151,8 @@ async def _sp1_post_social(state: PublishEpisodeState) -> dict[str, Any]:
         return {"skipped": True}
 
     episode_rkey = state.get("episode_rkey") or ""
-    work_title = state.get("work_title") or "animeka.gftd.ai"
-    episode_url = f"https://animeka.gftd.ai/episodes/{episode_rkey}"
+    work_title = state.get("work_title") or "animeka.etzhayyim.com"
+    episode_url = f"https://animeka.etzhayyim.com/episodes/{episode_rkey}"
 
     # Post text ≤ 300 chars
     text = f"🎬 新エピソード公開！\n『{work_title}』\nBGM・SFX・ナレーション付きで全カット完成。\n{episode_url}\n#animeka #gftdai"
@@ -164,7 +164,7 @@ async def _sp1_post_social(state: PublishEpisodeState) -> dict[str, Any]:
         "repo": _APP_DID,
         "text": text,
         "embedUri": episode_url,
-        "embedTitle": f"『{work_title}』— animeka.gftd.ai",
+        "embedTitle": f"『{work_title}』— animeka.etzhayyim.com",
         "embedDescription": "BGM + SFX + ナレーション付きアニメエピソード",
     }, ensure_ascii=False, separators=(",", ":"))
 

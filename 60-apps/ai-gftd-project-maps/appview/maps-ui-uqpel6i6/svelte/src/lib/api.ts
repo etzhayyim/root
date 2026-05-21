@@ -610,10 +610,10 @@ function normalizeGraphEdge(edge: GraphEdge & Record<string, unknown>): GraphEdg
 const isBrowser = typeof window !== 'undefined';
 const baseUrl =
   (_Capacitor && typeof _Capacitor.isNativePlatform === 'function' && _Capacitor.isNativePlatform())
-    ? 'https://maps.gftd.ai'
-    : (isBrowser ? window.location.origin : 'https://maps.gftd.ai');
+    ? 'https://maps.etzhayyim.com'
+    : (isBrowser ? window.location.origin : 'https://maps.etzhayyim.com');
 
-const xrpcClient = new XrpcHttpClient(baseUrl || window.location.origin || 'https://atproto.gftd.ai');
+const xrpcClient = new XrpcHttpClient(baseUrl || window.location.origin || 'https://atproto.etzhayyim.com');
 
 async function getClerkToken(): Promise<string | null> {
   const clerk = (globalThis as { Clerk?: { session?: { getToken?: () => Promise<string | null> } } }).Clerk;

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:mnp-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:mnp-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Commonwealth of the Northern Mariana Islands AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -31,7 +31,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "mnp-state.gftd.ai",
+      "host": "mnp-state.etzhayyim.com",
       "paths": [
         "/"
       ],

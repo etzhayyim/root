@@ -14,7 +14,7 @@
  *      - POST /oauth/token with the code → assert `apiKey` returned
  *
  * Assertions:
- *   - Passkey register returns DID starting with `did:web:authn.gftd.ai:user:`
+ *   - Passkey register returns DID starting with `did:web:authn.etzhayyim.com:user:`
  *   - Passkey auth returns a session JWT
  *   - `/oauth/token` response contains `apiKey: "sk_live_*"` (bootstrap
  *      via ES256 JWT path, ADR-0023 P4 pilot verification)
@@ -23,7 +23,7 @@
 import { test, expect, type Page, type CDPSession } from "@playwright/test";
 import { createHash, randomBytes } from "node:crypto";
 
-const AUTH_BASE = process.env.AUTH_BASE_URL ?? "https://authn.gftd.ai";
+const AUTH_BASE = process.env.AUTH_BASE_URL ?? "https://authn.etzhayyim.com";
 
 // ── CDP Virtual Authenticator ──
 
@@ -67,7 +67,7 @@ test.describe("ADR-0023 P4 WebAuthn + apiKey bootstrap", () => {
     const cdp = await attachVirtualAuthenticator(page);
     test.info().annotations.push({ type: "step", description: "virtual authenticator attached" });
 
-    // 2. visit origin so navigator.credentials is bound to auth.gftd.ai
+    // 2. visit origin so navigator.credentials is bound to auth.etzhayyim.com
     await page.goto(`${AUTH_BASE}/sign-up`, { waitUntil: "domcontentloaded" });
 
     // 3. run full passkeyRegister sequence in-page (uses production XRPC)
@@ -90,7 +90,7 @@ test.describe("ADR-0023 P4 WebAuthn + apiKey bootstrap", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: crypto.randomUUID(),
-          userName: `e2e-${crypto.randomUUID().slice(0, 8)}@gftd.ai`,
+          userName: `e2e-${crypto.randomUUID().slice(0, 8)}@etzhayyim.com`,
         }),
       }).then((r) => r.json());
 
@@ -130,7 +130,7 @@ test.describe("ADR-0023 P4 WebAuthn + apiKey bootstrap", () => {
     expect(regResult.verify.ok, `passkeyVerifyRegister failed: ${JSON.stringify(regResult.verify)}`).toBe(true);
     const did = regResult.verify.body.did as string;
     const handle = regResult.verify.body.handle as string;
-    // Atomic cutover (Phase 1, 2026-04-17): did:web host = authn.gftd.ai only.
+    // Atomic cutover (Phase 1, 2026-04-17): did:web host = authn.etzhayyim.com only.
     expect(did).toMatch(/^did:(gftd:[a-f0-9]{24}|web:authn\.gftd\.ai:user:)/);
     expect(handle).toBeTruthy();
     test.info().annotations.push({ type: "did", description: did });
@@ -217,7 +217,7 @@ test.describe("ADR-0023 P4 WebAuthn + apiKey bootstrap", () => {
     for (let i = 0; i < 5; i++) {
       pdsCheck = await page.evaluate(async (apiKey) => {
         const resp = await fetch(
-          "https://atproto.gftd.ai/xrpc/ai.gftd.auth.listApiKeys",
+          "https://atproto.etzhayyim.com/xrpc/ai.gftd.auth.listApiKeys",
           { method: "POST", headers: { Authorization: `Bearer ${apiKey}` } }
         );
         return { status: resp.status, body: await resp.json().catch(() => ({})) };

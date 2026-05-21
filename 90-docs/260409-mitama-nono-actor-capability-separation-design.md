@@ -95,13 +95,13 @@ Cyber Actor (mitama)                    Capability Provider (nono)
 actor-manifest.jsonld                   src/app.ts (Worker)
 ┌────────────────────┐                  ┌─────────────────────────┐
 │ pipeline step:     │                  │                         │
-│ fn: "agent.chat"   │ ──── MCP ────→  │ llm.gftd.ai             │
+│ fn: "agent.chat"   │ ──── MCP ────→  │ llm.etzhayyim.com             │
 │ args: {message}    │   primitive      │ env.AI → Workers AI     │
 │                    │                  │ → inference result      │
-│ fn: "browser.fetch"│ ──── MCP ────→  │ site.gftd.ai            │
+│ fn: "browser.fetch"│ ──── MCP ────→  │ site.etzhayyim.com            │
 │ args: {url}        │   primitive      │ HEADLESS_BROWSER        │
 │                    │                  │ → HTML/Markdown         │
-│ fn: "agent.invoke" │ ──── cross-actor ────→  │ livecam.gftd.ai         │
+│ fn: "agent.invoke" │ ──── cross-actor ────→  │ livecam.etzhayyim.com         │
 │ args: {targetDid,  │   via proxy     │ Murakumo CoreML         │
 │        method}     │                 │ → detection result      │
 │                    │                  │                         │
@@ -140,8 +140,8 @@ Worker deploy が必要だが、数は ~20 に限定。
 
 ```json
 {
-  "@context": "https://gftd.ai/ns/nono/v1",
-  "@id": "did:web:llm.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/nono/v1",
+  "@id": "did:web:llm.etzhayyim.com",
   "name": "llm",
   "nanoid": "llm-nanoid",
   "type": "nono",
@@ -274,7 +274,7 @@ Actor manifest から呼べるようになる:
 {
   "fn": "agent.invoke",
   "args": {
-    "targetDid": "did:web:livecam.gftd.ai",
+    "targetDid": "did:web:livecam.etzhayyim.com",
     "method": "detect",
     "args": { "frameUrl": "$input.frameUrl" }
   }

@@ -51,8 +51,8 @@ UP = [{'sql': '\n'
          '      sensitivity_ord, org_id, user_id, actor_id\n'
          '    )\n'
          '    SELECT\n'
-         "      'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-mineral-seed-v1',\n"
-         "      'did:web:bpmn.gftd.ai',\n"
+         "      'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-mineral-seed-v1',\n"
+         "      'did:web:bpmn.etzhayyim.com',\n"
          "      'science_mineral_seed',\n"
          '      1,\n'
          '      $1,\n'
@@ -61,9 +61,9 @@ UP = [{'sql': '\n'
          "      'active',\n"
          '      NOW()::VARCHAR,\n'
          '      0,\n'
-         "      'bpmn.gftd.ai',\n"
+         "      'bpmn.etzhayyim.com',\n"
          "      'system',\n"
-         "      'did:web:bpmn.gftd.ai'\n"
+         "      'did:web:bpmn.etzhayyim.com'\n"
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_process_def\n'
          "      WHERE bpmn_process_id = 'science_mineral_seed'\n"

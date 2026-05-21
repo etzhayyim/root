@@ -182,7 +182,7 @@ export function changelogResponse(): Response {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Changelog — Yatabase</title>
-<meta name="description" content="What we shipped on yatabase.gftd.ai. Reverse chronological. Each entry maps to a phase ID in deps.toml." />
+<meta name="description" content="What we shipped on yatabase.etzhayyim.com. Reverse chronological. Each entry maps to a phase ID in deps.toml." />
 <style>
   body{margin:0;font:15px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0f172a;background:#fafafa}
   header,main,footer{max-width:780px;margin:0 auto;padding:0 24px}
@@ -239,7 +239,7 @@ ${dayBlocks}
 </main>
 
 <footer>
-  <p>© 2026 etz hayim · <a href="/">yatabase.gftd.ai</a> · <a href="/team">/team</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
+  <p>© 2026 etz hayim · <a href="/">yatabase.etzhayyim.com</a> · <a href="/team">/team</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
 </footer>
 
 </body></html>`;

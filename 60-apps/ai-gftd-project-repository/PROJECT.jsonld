@@ -2,7 +2,7 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://gftd.ai/schemas/",
+      "gftd": "https://etzhayyim.com/schemas/",
       "capabilities": "gftd:capabilities",
       "survivalIndicators": "gftd:survivalIndicators",
       "scheduler": "gftd:scheduler",
@@ -16,7 +16,7 @@
   "identifier": "ai-gftd-project-repository",
   "name": "ai gftd project repository",
   "status": "Proposed",
-  "description": "ADR-0039 Repository-in-Graph — git object model (blob/tree/commit/ref) over Actor DID. Backs repository.gftd.ai. Source code + actor manifest FaaS via Cloudflare Workers for Platforms.",
+  "description": "ADR-0039 Repository-in-Graph — git object model (blob/tree/commit/ref) over Actor DID. Backs repository.etzhayyim.com. Source code + actor manifest FaaS via Cloudflare Workers for Platforms.",
   "capabilities": {
     "@type": "DefinedTermSet",
     "name": "Capabilities",

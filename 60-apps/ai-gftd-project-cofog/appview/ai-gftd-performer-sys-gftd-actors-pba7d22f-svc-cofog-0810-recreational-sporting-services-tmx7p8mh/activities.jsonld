@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/08/1/0/recreational-sporting-services/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/08/1/0/recreational-sporting-services/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Sports Facility and Event Management Lifecycle",
       "description": "The administrative process of inspecting sporting facilities, coordinating athletic grants, and monitoring event safety.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/08/1/0/recreational-sporting-services"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/1/0/recreational-sporting-services"
     }
   ]
 }

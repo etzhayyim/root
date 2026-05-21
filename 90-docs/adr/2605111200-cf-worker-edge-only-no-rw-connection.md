@@ -213,18 +213,18 @@ Phase 2 で migrate する actor 全部 に共通する infra gating 条件。ya
    `[storage.cache_refill] data_refill_levels=0-6` 設定 (`50-infra/vultr/risingwave/helm/values.yaml`) で defense-in-depth。bulk ingest 中は `SET dml_rate_limit` 必須。詳細: `50-infra/vultr/risingwave/deps.toml [risingwave_vultr.incident_2026_04_25]`。
 
 8. **dispatcher Cloudflare 502 は app 変更前に tunnel pod の node readiness を見る.**
-   2026-05-14 に `dispatcher.gftd.ai` が Cloudflare 502 を返したが、nginx ingress / Vultr LB 直叩き
-   (`--resolve dispatcher.gftd.ai:443:108.61.207.153`) は `HTTP/2 200 {"status":"ok"}` だった。
+   2026-05-14 に `dispatcher.etzhayyim.com` が Cloudflare 502 を返したが、nginx ingress / Vultr LB 直叩き
+   (`--resolve dispatcher.etzhayyim.com:443:108.61.207.153`) は `HTTP/2 200 {"status":"ok"}` だった。
    原因は `cloudflared-bpmn-dispatcher` が `NotReady` の `risingwave-pool-58gb-e693733cc5dd`
    node 上に残り、origin lookup が `lookup bpmn-dispatcher.mitama-udf.svc.cluster.local: i/o timeout`
    になっていたこと。修復は app / Worker 変更ではなく、cloudflared Deployment を
    `osm-ingest-pool` へ nodeSelector で固定し、`workload=osm-ingest:NoSchedule` taint を toleration
-   すること。復旧後は `https://dispatcher.gftd.ai/health` が 200、trust header なしの mailer XRPC は
+   すること。復旧後は `https://dispatcher.etzhayyim.com/health` が 200、trust header なしの mailer XRPC は
    502 ではなく期待どおり 401 になった。永続化: `50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml`。
 
 # Operational Update (2026-05-14)
 
-`analytics.gftd.ai` was serving the generic SvelteKit placeholder even though
+`analytics.etzhayyim.com` was serving the generic SvelteKit placeholder even though
 the repository already contained a real analytics dashboard implementation. The
 deployed Worker entrypoint is SvelteKit (`svelte/.svelte-kit/cloudflare/_worker.js`),
 so the placeholder `+page.svelte` was the effective production surface. The
@@ -237,7 +237,7 @@ This remains ADR-compliant as a **read-only edge observability exception**:
 - no RisingWave / Hyperdrive binding;
 - no business-domain write path;
 - `/api/data` reads Cloudflare GraphQL with `CF_API_TOKEN` / `CF_ZONE_ID`;
-- operational XRPC/MCP defaults point to `mcp.gftd.ai`, not `atproto.gftd.ai`.
+- operational XRPC/MCP defaults point to `mcp.etzhayyim.com`, not `atproto.etzhayyim.com`.
 
 The same session inventory confirmed the intended Worker shape:
 
@@ -245,19 +245,19 @@ The same session inventory confirmed the intended Worker shape:
 - `/xrpc/[...path]` shims forward JSON-RPC MCP calls to
   `AGENTGATEWAY_MCP_ROUTER_URL` or `MCP_ROUTER_URL`;
 - canonical public MCP routing is
-  `https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message`;
+  `https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`;
 - legacy non-Svelte / Worker-local logic remains a migration target and must be
   treated as exception debt, not a new precedent.
 
-PDS is the remaining production-critical exception. A thin `atproto.gftd.ai`
-proxy to `atproto-canary.gftd.ai` was built and deploy-tested, but the canary
+PDS is the remaining production-critical exception. A thin `atproto.etzhayyim.com`
+proxy to `atproto-canary.etzhayyim.com` was built and deploy-tested, but the canary
 origin returned HTTP 522. Production was immediately rolled back to the CF
 Worker PDS version that serves:
 
-- `GET https://atproto.gftd.ai/_app/meta` -> 200;
-- `GET https://atproto.gftd.ai/xrpc/com.atproto.server.describeServer` -> 200.
+- `GET https://atproto.etzhayyim.com/_app/meta` -> 200;
+- `GET https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer` -> 200.
 
 Therefore this ADR is still authoritative, but PDS enforcement is gated on
 ADR-2605111300 P1/P2: the k8s pod and Cloudflare Tunnel for
-`atproto-canary.gftd.ai` must be healthy before `atproto.gftd.ai` can become a
+`atproto-canary.etzhayyim.com` must be healthy before `atproto.etzhayyim.com` can become a
 thin edge proxy or be removed from Cloudflare Workers.

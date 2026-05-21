@@ -1,6 +1,6 @@
 # ai-gftd-project-maps
 
-Spatial Intelligence + Digital Twin Platform (maps.gftd.ai). Graph-first architecture — 自前グラフを育て、データがない時だけ外部ソースから取得・永続化。全外部ソースは path-based DID で identity 管理。
+Spatial Intelligence + Digital Twin Platform (maps.etzhayyim.com). Graph-first architecture — 自前グラフを育て、データがない時だけ外部ソースから取得・永続化。全外部ソースは path-based DID で identity 管理。
 
 ## App Identity
 
@@ -9,7 +9,7 @@ Spatial Intelligence + Digital Twin Platform (maps.gftd.ai). Graph-first archite
 | Key | Value |
 |---|---|
 | **nanoid (UI)** | `uqpel6i6` |
-| **AT bot DID** | `did:web:maps.gftd.ai` |
+| **AT bot DID** | `did:web:maps.etzhayyim.com` |
 | **Runtime** | **TS Native** (`src/app.ts` + `@gftd/magatama-host-sdk` → esbuild bundle) |
 | **Data store** | **RisingWave via Hyperdrive** — Write: `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` → PDS commit pipeline → graph Worker → Hyperdrive RisingWave, Read: `createKyselyDb(env.HYPERDRIVE).selectFrom(...)` → Hyperdrive RisingWave |
 | **UI mode** | `iframe` (SvelteKit-Primary, MapLibre + KAMI engine) |
@@ -32,32 +32,32 @@ Client Request
 
 | DID | 外部 API 置換 | TTL |
 |---|---|---|
-| `did:web:maps.gftd.ai:geocode` | Nominatim (OSM) | 無期限 |
-| `did:web:maps.gftd.ai:weather` | Open-Meteo | 1h |
-| `did:web:maps.gftd.ai:ip_geolocation` | ip-api | 24h |
-| `did:web:maps.gftd.ai:infrastructure` | Overpass API (OSM) | 7d |
-| `did:web:maps.gftd.ai:tile` | OpenFreeMap | 30d |
-| `did:web:maps.gftd.ai:street_view` | Mapillary | 30d |
-| `did:web:maps.gftd.ai:planet` | OSM Planet | 週次 |
-| `did:web:maps.gftd.ai:user_post` | User post EXIF geolocation | 無期限 |
-| `did:web:maps.gftd.ai:mapraly` | Mapraly POI/route | 7d |
-| `did:web:maps.gftd.ai:vision` | Murakumo Vision analysis | 無期限 |
-| `did:web:maps.gftd.ai:satellite` | Sentinel-2 / Landsat (STAC) | 30d |
-| `did:web:maps.gftd.ai:seismic` | USGS Earthquake Hazards API | 15m |
-| `did:web:maps.gftd.ai:gtfs` | MLIT GTFS-JP (全国公共交通) | 1d |
-| `did:web:maps.gftd.ai:adsb` | OpenSky Network ADS-B (航空機位置) | 5m |
-| `did:web:site.gftd.ai` | site.gftd.ai Web Crawl (WET/WAT geo extraction) | 7d |
+| `did:web:maps.etzhayyim.com:geocode` | Nominatim (OSM) | 無期限 |
+| `did:web:maps.etzhayyim.com:weather` | Open-Meteo | 1h |
+| `did:web:maps.etzhayyim.com:ip_geolocation` | ip-api | 24h |
+| `did:web:maps.etzhayyim.com:infrastructure` | Overpass API (OSM) | 7d |
+| `did:web:maps.etzhayyim.com:tile` | OpenFreeMap | 30d |
+| `did:web:maps.etzhayyim.com:street_view` | Mapillary | 30d |
+| `did:web:maps.etzhayyim.com:planet` | OSM Planet | 週次 |
+| `did:web:maps.etzhayyim.com:user_post` | User post EXIF geolocation | 無期限 |
+| `did:web:maps.etzhayyim.com:mapraly` | Mapraly POI/route | 7d |
+| `did:web:maps.etzhayyim.com:vision` | Murakumo Vision analysis | 無期限 |
+| `did:web:maps.etzhayyim.com:satellite` | Sentinel-2 / Landsat (STAC) | 30d |
+| `did:web:maps.etzhayyim.com:seismic` | USGS Earthquake Hazards API | 15m |
+| `did:web:maps.etzhayyim.com:gtfs` | MLIT GTFS-JP (全国公共交通) | 1d |
+| `did:web:maps.etzhayyim.com:adsb` | OpenSky Network ADS-B (航空機位置) | 5m |
+| `did:web:site.etzhayyim.com` | site.etzhayyim.com Web Crawl (WET/WAT geo extraction) | 7d |
 
 ## Geo DID Architecture (multi-scheme, 3-layer)
 
 ### Layer 1: Visual Layer DIDs (11, KAMI rendering layers)
 
-`did:web:{appId}.gftd.ai:layer:{slug}` — tile, poi, route, infra, building, weather, sensor, transport, geography, satellite, event
+`did:web:{appId}.etzhayyim.com:layer:{slug}` — tile, poi, route, infra, building, weather, sensor, transport, geography, satellite, event
 
 ### Layer 2: Region DIDs (canonical nanoid + scheme alias DIDs)
 
-`did:web:{appId}.gftd.ai:region:{nanoid}` — canonical AdminArea DID (stable, scheme-agnostic)
-`did:web:{appId}.gftd.ai:geo:{scheme}:{code}` — scheme alias DIDs (ISO 3166, JIS, H3, S2, MGRS, etc.)
+`did:web:{appId}.etzhayyim.com:region:{nanoid}` — canonical AdminArea DID (stable, scheme-agnostic)
+`did:web:{appId}.etzhayyim.com:geo:{scheme}:{code}` — scheme alias DIDs (ISO 3166, JIS, H3, S2, MGRS, etc.)
 
 **Bootstrap**: JP country (1) + 47 prefectures. Each gets canonical DID + 2 alias DIDs (iso3166-2 + jis-x0401).
 
@@ -65,8 +65,8 @@ Client Request
 
 ### Layer 3: Zone DIDs (vertical + natural)
 
-`did:web:{appId}.gftd.ai:vzone:{slug}` — VerticalZone (atmosphere 5 + underground 4 + ocean 5 = 14)
-`did:web:{appId}.gftd.ai:nzone:{slug}` — NaturalZone (Köppen 5 + biome 14 + tectonic 15 = 34)
+`did:web:{appId}.etzhayyim.com:vzone:{slug}` — VerticalZone (atmosphere 5 + underground 4 + ocean 5 = 14)
+`did:web:{appId}.etzhayyim.com:nzone:{slug}` — NaturalZone (Köppen 5 + biome 14 + tectonic 15 = 34)
 
 ### Graph Nodes
 
@@ -195,11 +195,11 @@ register + list × 7 types: `spot`, `river`, `lake`, `coastline`, `mountain`, `m
 
 | Command | Description |
 |---|---|
-| `seed_geo_domains` | Seed geo domain crawls via site.gftd.ai + CommonCrawl fallback (36 target domains) |
+| `seed_geo_domains` | Seed geo domain crawls via site.etzhayyim.com + CommonCrawl fallback (36 target domains) |
 | `list_geo_domains` | List geo domain crawl targets (filter: category, country) |
 | `list_web_crawl_geo_entities` | List geo entities extracted from WET/WAT (filter: domain, entityType) |
 
-**Pipeline**: `seedGeoDomains` → cross-actor invoke `site.gftd.ai:seedForProject` → site crawls domains + CC fallback → WET/WAT records → maps `handleComAtprotoSyncSubscribeReposCommit` subscribes → WET: Murakumo NER geo entity extraction → WAT: outlink graph + geo sub-page discovery → `WebCrawlGeoEntity` graph nodes
+**Pipeline**: `seedGeoDomains` → cross-actor invoke `site.etzhayyim.com:seedForProject` → site crawls domains + CC fallback → WET/WAT records → maps `handleComAtprotoSyncSubscribeReposCommit` subscribes → WET: Murakumo NER geo entity extraction → WAT: outlink graph + geo sub-page discovery → `WebCrawlGeoEntity` graph nodes
 
 **Target domains (56)**: JP GIS (nlftp.mlit.go.jp, gsi.go.jp, maps.gsi.go.jp, stat.go.jp), JP Transport (JR East/West/Central, Tokyo Metro, Navitime, ekitan), JP Hazard (disaportal.gsi.go.jp, jma.go.jp, j-shis.bosai.go.jp, river.go.jp), JP Municipal GIS (Tokyo/Osaka/Nagoya city), JP Real Estate (reinfolib, land.mlit.go.jp), JP Airport/Port (NRT, KIX, Tokyo Port), Global GIS (OSM, Natural Earth, GADM, Wikidata, Wikipedia, geofabrik, humdata, data.europa.eu), Global Transport (OpenRailwayMap, FlightRadar24, MarineTraffic, OurAirports), Hazard (USGS earthquake, EMSC, tsunami.gov, GDACS, FIRMS wildfire, flood.firetoc.eu), Satellite (Copernicus, USGS earthexplorer), Tourism (JNTO, japan.travel), Infrastructure (TEPCO, Tokyo Waterworks)
 
@@ -227,7 +227,7 @@ register + list × 7 types: `spot`, `river`, `lake`, `coastline`, `mountain`, `m
 ### maps-ui — Hono + Svelte CSR (Single Worker)
 
 ```
-maps.gftd.ai / uqpel6i6.gftd.ai
+maps.etzhayyim.com / uqpel6i6.etzhayyim.com
   → Single Worker (magatama-uqpel6i6, src/app.ts)
     ├─ /_app/meta     → host-sdk auto route
     ├─ static assets  → Workers Assets (svelte/build/)
@@ -240,7 +240,7 @@ maps.gftd.ai / uqpel6i6.gftd.ai
 ### maps-collection — App Worker
 
 ```
-v1m9k2q8.gftd.ai
+v1m9k2q8.etzhayyim.com
   → dispatcher → account-level Worker (magatama-v1m9k2q8)
     ├─ /_heartbeat    → runHeartbeat()
     ├─ /_commit       → handleComAtprotoSyncSubscribeReposCommit()

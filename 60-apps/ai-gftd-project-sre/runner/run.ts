@@ -1,14 +1,14 @@
 /**
  * run.ts — SRE Playwright Runner entry point.
  *
- * 1. Fetches the SpinApp registry from sre.gftd.ai
+ * 1. Fetches the SpinApp registry from sre.etzhayyim.com
  * 2. For each registered SpinApp, runs the generic smoke suite against its hostname
- * 3. Reports results back to sre.gftd.ai via reportPlaywrightResult
+ * 3. Reports results back to sre.etzhayyim.com via reportPlaywrightResult
  */
 import { execSync } from "child_process";
 import * as fs from "fs";
 
-const SRE_BASE_URL = process.env.SRE_BASE_URL ?? "https://sre.gftd.ai";
+const SRE_BASE_URL = process.env.SRE_BASE_URL ?? "https://sre.etzhayyim.com";
 const SRE_ACCESS_TOKEN = process.env.SRE_ACCESS_TOKEN ?? "";
 
 interface SpinApp {

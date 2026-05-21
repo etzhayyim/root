@@ -25,8 +25,8 @@ from lg_animeka.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.gftd.ai")
-_REPO = os.environ.get("ANIMEKA_REPO_DID", "did:web:an1m3k4x.gftd.ai")
+_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.etzhayyim.com")
+_REPO = os.environ.get("ANIMEKA_REPO_DID", "did:web:an1m3k4x.etzhayyim.com")
 
 
 class _State(TypedDict, total=False):

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "List recommended products. Commercial products carry an Amazon search keyword; diy_tsukuru products carry CAD/factory DID cross-references to tsukuru.gftd.ai.",
+      "description": "List recommended products. Commercial products carry an Amazon search keyword; diy_tsukuru products carry CAD/factory DID cross-references to tsukuru.etzhayyim.com.",
       "parameters": {
         "type": "params",
         "properties": {

@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/5/1/road-transport/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/5/1/road-transport/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Road Transport and Traffic Management Lifecycle",
       "description": "The operational process of planning road infrastructure, coordinating traffic safety, and monitoring transport services.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/5/1/road-transport"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/5/1/road-transport"
     }
   ]
 }

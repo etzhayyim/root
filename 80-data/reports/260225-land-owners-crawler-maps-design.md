@@ -1,23 +1,23 @@
-# crawler → land-owners 正規化 → maps.gftd.ai 表示 設計
+# crawler → land-owners 正規化 → maps.etzhayyim.com 表示 設計
 
 ## 1. 目的と前提
-- 目的: `crawler` で土地所有者情報ソースを収集し、`land-owners` で正規化・永続化し、`maps.gftd.ai` で地図表示する。
+- 目的: `crawler` で土地所有者情報ソースを収集し、`land-owners` で正規化・永続化し、`maps.etzhayyim.com` で地図表示する。
 - 前提（現状実装）:
-  - `crawler-mcp-component` は MCP (`https://crawler.gftd.ai/api/mcp`) と REST を提供し、crawl job / result を KV + Quickwit に保存。
+  - `crawler-mcp-component` は MCP (`https://crawler.etzhayyim.com/api/mcp`) と REST を提供し、crawl job / result を KV + Quickwit に保存。
   - `land-owners-crawler-component` は `POST /api/crawler/collect` と `GET /api/map/geojson` を提供するが、現在は in-memory 保存。
   - `maps-ui-uqpel6i6` は `MAP_CRAWLER_MCP_URL` で crawler を参照し、`/api/map/search/resources` を提供。
 
 ## 2. 現状ギャップ
 - `land-owners` は永続化されず、再起動で消失する。
 - `crawler` のページ結果 (`crawler.list_results`) から土地所有者エンティティへの抽出経路が未定義。
-- `maps.gftd.ai` には land-owners 専用レイヤー API が未接続。
+- `maps.etzhayyim.com` には land-owners 専用レイヤー API が未接続。
 - フロント新規APIは XRPC 方針だが、land-owners 表示系の契約が未整備。
 
 ## 3. 目標アーキテクチャ
 1. `crawler` が登記・自治体公開データ・公告ページを crawl。
 2. `land-owners` の正規化ワーカーが crawler 結果を取り込み、所有者レコードへ正規化。
 3. 正規化済みレコードを `performer/rdbms` (cypher graph RDBMS) に保存（必要に応じて Quickwit 二次インデックス）。
-4. `maps.gftd.ai` は land-owners GeoJSON API/Connect API から取得しレイヤー表示。
+4. `maps.etzhayyim.com` は land-owners GeoJSON API/Connect API から取得しレイヤー表示。
 
 ```text
 crawler-mcp-component
@@ -26,7 +26,7 @@ land-owners-normalizer (new)
   -> (dedupe/normalize/geocode)
 land-owners-api (existing component expanded)
   -> /api/map/geojson?country=&region=&owner_type=
-maps.gftd.ai
+maps.etzhayyim.com
   -> layer render + search
 ```
 
@@ -87,7 +87,7 @@ GeoJSON properties:
 - 新規推奨（フロント向け）:
   - XRPC `ai.gftd.apps.jinushi.listMapFeatures`
 
-## 6. maps.gftd.ai 統合
+## 6. maps.etzhayyim.com 統合
 - maps backend (`maps-ui-uqpel6i6/main.go`) に `searchWithLandOwners` を追加。
 - 検索統合優先順位:
   1. land-owners（地物）
@@ -103,9 +103,9 @@ GeoJSON properties:
 - 配置:
   - App platform/system: `magatama-system`
   - WADM app resources: `magatama-runtime`
-  - HTTPRoute: `ai-gftd-performers-org-gftdcojp`
+  - HTTPRoute: `ai-gftd-performers-org-etzhayyim`
 - 既存運用と合わせ、`mage Deploy` でデプロイ。
-- 画像配布は `ghcr.io/gftdcojp/*` のみ。
+- 画像配布は `ghcr.io/etzhayyim/*` のみ。
 
 ## 8. 可観測性・品質ゲート
 - 指標:

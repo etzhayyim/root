@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1',
-                 'did:web:jpn-edinet.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1',
+                 'did:web:jpn-edinet.etzhayyim.com',
                  'jpn_edinet_submit_securities_filing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_jpn_edinet_submit_securities_filing"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/jpn-edinet"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/jpn-edinet"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="jpn_edinet_submit_securities_filing" name="金融庁 EDINET 有報" '
                  'isExecutable="true">\n'
@@ -102,7 +102,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-edinet.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-edinet.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnEdinet.filing.marketNotice&quot;" '
                  'target="action"/>\n'
@@ -120,7 +120,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-edinet.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-edinet.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnEdinet.filing.log&quot;" '
                  'target="action"/>\n'
@@ -143,10 +143,10 @@ UP = [{'sql': '\n'
                  5257,
                  '00-contracts/bpmn/ai/gftd/jpn-edinet/submitSecuritiesFiling.bpmn',
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-edinet.gftd.ai',
-                 'did:web:jpn-edinet.gftd.ai',
+                 'did:web:jpn-edinet.etzhayyim.com',
+                 'did:web:jpn-edinet.etzhayyim.com',
                  'sys.bpmn.seed.jpn-edinet',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -154,8 +154,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-edinet-record-material-event-v1',
-                 'did:web:jpn-edinet.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-edinet-record-material-event-v1',
+                 'did:web:jpn-edinet.etzhayyim.com',
                  'jpn_edinet_record_material_event',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -163,7 +163,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_jpn_edinet_record_material_event"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/jpn-edinet"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/jpn-edinet"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="jpn_edinet_record_material_event" name="金融庁 EDINET 臨報" '
                  'isExecutable="true">\n'
@@ -240,7 +240,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-edinet.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-edinet.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnEdinet.event.tradingHalt&quot;" '
                  'target="action"/>\n'
@@ -258,7 +258,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-edinet.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-edinet.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnEdinet.event.log&quot;" '
                  'target="action"/>\n'
@@ -281,10 +281,10 @@ UP = [{'sql': '\n'
                  5420,
                  '00-contracts/bpmn/ai/gftd/jpn-edinet/recordMaterialEvent.bpmn',
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-edinet.gftd.ai',
-                 'did:web:jpn-edinet.gftd.ai',
+                 'did:web:jpn-edinet.etzhayyim.com',
+                 'did:web:jpn-edinet.etzhayyim.com',
                  'sys.bpmn.seed.jpn-edinet',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-edinet-record-material-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-edinet-record-material-event-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -292,16 +292,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1',
-                 'did:web:jpn-edinet.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1',
+                 'did:web:jpn-edinet.etzhayyim.com',
                  'ai.gftd.apps.jpnEdinet.submitSecuritiesFiling',
                  'jpn_edinet_submit_securities_filing',
                  30000,
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-edinet.gftd.ai',
-                 'did:web:jpn-edinet.gftd.ai',
+                 'did:web:jpn-edinet.etzhayyim.com',
+                 'did:web:jpn-edinet.etzhayyim.com',
                  'sys.bpmn.seed.jpn-edinet',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -309,25 +309,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1',
-                 'did:web:jpn-edinet.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1',
+                 'did:web:jpn-edinet.etzhayyim.com',
                  'ai.gftd.apps.jpnEdinet.recordMaterialEvent',
                  'jpn_edinet_record_material_event',
                  30000,
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-edinet.gftd.ai',
-                 'did:web:jpn-edinet.gftd.ai',
+                 'did:web:jpn-edinet.etzhayyim.com',
+                 'did:web:jpn-edinet.etzhayyim.com',
                  'sys.bpmn.seed.jpn-edinet',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-edinet-record-material-event-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-edinet-record-material-event-v1']}]
 
 
 def upgrade() -> None:

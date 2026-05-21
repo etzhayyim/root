@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "WebSite",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-9a0bfc43c0ab",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9a0bfc43c0ab",
   "entityId": "ent-9a0bfc43c0ab",
   "canonicalName": "www.nicovideo.jp",
   "aliases": [

@@ -47,7 +47,7 @@ const SFU_THRESHOLD = 8;
 async function write(_sdk: HostSDK, kind: string, rec: Record<string, unknown>): Promise<void> {
   function camelToSnake(s: string): string { return s.replace(/[A-Z]/g, c => `_${c.toLowerCase()}`); }
   const table = `vertex_${camelToSnake(kind)}`;
-  const ownerDid = actorDID || "did:web:w3olw1pf.gftd.ai";
+  const ownerDid = actorDID || "did:web:w3olw1pf.etzhayyim.com";
   const rkey = str(rec.recordingId ?? rec.roomId ?? "") || genID();
   const vertex_id = `at://${ownerDid}/ai.gftd.apps.briefing.${kind}/${rkey}`;
   const snakeRec = Object.fromEntries(Object.entries(rec).map(([k, v]) => [camelToSnake(k), v]));
@@ -145,7 +145,7 @@ async function dispatcherSecret(env: Record<string, unknown>): Promise<string> {
 
 async function proxyToDispatcher(sdk: HostSDK, targetNsid: string, body: Uint8Array): Promise<Record<string, unknown>> {
   const env = sdk.env as unknown as Record<string, unknown>;
-  const base = str(env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = str(env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const payload = parseLexiconInput(targetNsid, body) as Record<string, unknown>;
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await dispatcherSecret(env);

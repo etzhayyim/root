@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-seedOrgs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-seedOrgs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_seed_orgs" name="govBel seed orgs" '
@@ -63,10 +63,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govBel/seedOrgs.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -80,15 +80,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-registerDIDs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-registerDIDs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_register_dids" name="govBel register DIDs" '
@@ -120,10 +120,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govBel/registerDIDs.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,15 +137,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-followSiteDeps-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-followSiteDeps-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_follow_site_deps" name="govBel follow site deps" '
@@ -175,10 +175,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govBel/followSiteDeps.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,15 +192,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-resolveOrgPath-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-resolveOrgPath-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_resolve_org_path" name="govBel resolve org path" '
@@ -233,10 +233,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govBel/resolveOrgPath.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -250,15 +250,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-listOrgs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-listOrgs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_list_orgs" name="govBel list orgs" '
@@ -287,10 +287,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govBel/listOrgs.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -304,15 +304,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-syncWetUpdates-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-syncWetUpdates-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_sync_wet_updates" name="govBel sync wet updates" '
@@ -343,10 +343,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govBel/syncWetUpdates.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -360,15 +360,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-shinka-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-shinka-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_shinka',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_shinka"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_shinka" name="govBel shinka" isExecutable="true">\n'
@@ -398,10 +398,10 @@ UP = [{'sql': '\n'
                  1351,
                  '00-contracts/bpmn/ai/gftd/govBel/shinka.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,8 +415,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeatTick-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeatTick-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -424,7 +424,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_bel_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_heartbeat_tick" name="govBel heartbeat tick" '
@@ -467,10 +467,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govBel/heartbeatTick.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -484,15 +484,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-seed-orgs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-seed-orgs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_seed_orgs" name="govBel seed orgs" '
@@ -522,10 +522,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govBel/seedOrgs.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-seed-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-seed-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -539,15 +539,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-register-dids-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-register-dids-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_register_dids" name="govBel register DIDs" '
@@ -579,10 +579,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govBel/registerDIDs.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-register-dids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,15 +596,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-follow-site-deps-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-follow-site-deps-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_follow_site_deps" name="govBel follow site deps" '
@@ -634,10 +634,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govBel/followSiteDeps.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-follow-site-deps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-follow-site-deps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -651,15 +651,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-resolve-org-path-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-resolve-org-path-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_resolve_org_path" name="govBel resolve org path" '
@@ -692,10 +692,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govBel/resolveOrgPath.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-resolve-org-path-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-resolve-org-path-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -709,15 +709,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-list-orgs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-list-orgs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_list_orgs" name="govBel list orgs" '
@@ -746,10 +746,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govBel/listOrgs.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-list-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-list-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -763,15 +763,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-sync-wet-updates-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-sync-wet-updates-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_bel_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_sync_wet_updates" name="govBel sync wet updates" '
@@ -802,10 +802,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govBel/syncWetUpdates.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-sync-wet-updates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-sync-wet-updates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -819,8 +819,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeat-tick-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeat-tick-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'gov_bel_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -828,7 +828,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_bel_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govBel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govBel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_bel_heartbeat_tick" name="govBel heartbeat tick" '
@@ -871,10 +871,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govBel/heartbeatTick.bpmn',
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeat-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeat-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -889,17 +889,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.seedOrgs',
                  'gov_bel_seed_orgs',
                  90000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,17 +914,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.registerDIDs',
                  'gov_bel_register_dids',
                  90000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,17 +939,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.followSiteDeps',
                  'gov_bel_follow_site_deps',
                  90000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,17 +964,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.resolveOrgPath',
                  'gov_bel_resolve_org_path',
                  60000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,17 +989,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.listOrgs',
                  'gov_bel_list_orgs',
                  60000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,17 +1014,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.syncWetUpdates',
                  'gov_bel_sync_wet_updates',
                  180000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,17 +1039,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-shinka-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-shinka-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.shinka',
                  'gov_bel_shinka',
                  180000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,17 +1064,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.heartbeatTick',
                  'gov_bel_heartbeat_tick',
                  180000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,17 +1089,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.seedOrgs',
                  'gov_bel_seed_orgs',
                  90000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,17 +1114,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.registerDIDs',
                  'gov_bel_register_dids',
                  90000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,17 +1139,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.followSiteDeps',
                  'gov_bel_follow_site_deps',
                  90000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,17 +1164,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.resolveOrgPath',
                  'gov_bel_resolve_org_path',
                  60000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,17 +1189,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.listOrgs',
                  'gov_bel_list_orgs',
                  60000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,17 +1214,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.syncWetUpdates',
                  'gov_bel_sync_wet_updates',
                  180000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,17 +1239,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1',
-                 'did:web:bel-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1',
+                 'did:web:bel-state.etzhayyim.com',
                  'ai.gftd.govBel.heartbeatTick',
                  'gov_bel_heartbeat_tick',
                  180000,
                  '2026-05-07T14:07:00Z',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,10 +1266,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs',
                  'ai.gftd.govBel.seedOrgs',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Belgium government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1277,12 +1277,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govBel/seedOrgs.json',
                  '99303e89da27edb1',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,10 +1299,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs',
                  'ai.gftd.govBel.registerDIDs',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Belgium government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1310,12 +1310,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govBel/registerDIDs.json',
                  '059ad7ab1b15818c',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,10 +1332,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps',
                  'ai.gftd.govBel.followSiteDeps',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Belgium government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1343,12 +1343,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govBel/followSiteDeps.json',
                  '54fe349b43c2ac4e',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,10 +1365,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath',
                  'ai.gftd.govBel.resolveOrgPath',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'query',
                  'Resolve a Belgium government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1376,12 +1376,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govBel/resolveOrgPath.json',
                  '8ea193eec6689ef1',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,10 +1398,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs',
                  'ai.gftd.govBel.listOrgs',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'query',
                  'List Belgium government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1409,12 +1409,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govBel/listOrgs.json',
                  '08f390738edd41e2',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,10 +1431,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates',
                  'ai.gftd.govBel.syncWetUpdates',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Belgium government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1442,12 +1442,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govBel/syncWetUpdates.json',
                  '267dedf90ee523b2',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,10 +1464,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-shinka',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-shinka',
                  'ai.gftd.govBel.shinka',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Post a periodic graph-visible Belgium government organization update.',
                  '{"properties":{"limit":{"default":1,"maximum":5,"minimum":1,"type":"integer"},"postUpdates":{"default":true,"type":"boolean"}},"required":[],"type":"object"}',
@@ -1475,12 +1475,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.shinka',
                  '00-contracts/lexicons/ai/gftd/govBel/shinka.json',
                  'bef0151e154676a9',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-shinka']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,10 +1497,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick',
                  'ai.gftd.govBel.heartbeatTick',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Run the Belgium government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1508,12 +1508,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govBel/heartbeatTick.json',
                  'fcf89d33998a3069',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1530,10 +1530,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs',
                  'ai.gftd.govBel.seedOrgs',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Belgium government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1541,12 +1541,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govBel/seedOrgs.json',
                  '99303e89da27edb1',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1563,10 +1563,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs',
                  'ai.gftd.govBel.registerDIDs',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Belgium government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1574,12 +1574,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govBel/registerDIDs.json',
                  '059ad7ab1b15818c',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1596,10 +1596,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps',
                  'ai.gftd.govBel.followSiteDeps',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Belgium government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1607,12 +1607,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govBel/followSiteDeps.json',
                  '54fe349b43c2ac4e',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1629,10 +1629,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath',
                  'ai.gftd.govBel.resolveOrgPath',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'query',
                  'Resolve a Belgium government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1640,12 +1640,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govBel/resolveOrgPath.json',
                  '8ea193eec6689ef1',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1662,10 +1662,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs',
                  'ai.gftd.govBel.listOrgs',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'query',
                  'List Belgium government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1673,12 +1673,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govBel/listOrgs.json',
                  '08f390738edd41e2',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1695,10 +1695,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates',
                  'ai.gftd.govBel.syncWetUpdates',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Belgium government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1706,12 +1706,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govBel/syncWetUpdates.json',
                  '267dedf90ee523b2',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates']},
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1728,10 +1728,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick',
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick',
                  'ai.gftd.govBel.heartbeatTick',
-                 'did:web:bel-state.gftd.ai',
-                 'bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'bel-state.etzhayyim.com',
                  'procedure',
                  'Run the Belgium government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1739,103 +1739,103 @@ UP = [{'sql': '\n'
                  'ai.gftd.govBel.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govBel/heartbeatTick.json',
                  'fcf89d33998a3069',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
-                 'did:web:bel-state.gftd.ai',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
+                 'did:web:bel-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-bel',
                  '2026-05-07T14:07:00Z',
-                 'at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick']}]
+                 'at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-shinka']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bel-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick']},
+  'parameters': ['at://did:web:bel-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govBel-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govBel-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-seed-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-seed-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-follow-site-deps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-follow-site-deps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-resolve-org-path-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-resolve-org-path-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-list-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-list-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-sync-wet-updates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-sync-wet-updates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeat-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-bel-heartbeat-tick-v1']}]
 
 
 def upgrade() -> None:

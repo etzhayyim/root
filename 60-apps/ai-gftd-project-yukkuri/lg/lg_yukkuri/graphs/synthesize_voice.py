@@ -3,8 +3,8 @@
 NSID: ai.gftd.apps.yukkuri.synthesizeVoice
 
 Actors:
-  LEFT  → did:web:yukkuri.gftd.ai:actor:voiceLeft  (voice preset: af_heart)
-  RIGHT → did:web:yukkuri.gftd.ai:actor:voiceRight (voice preset: am_puck)
+  LEFT  → did:web:yukkuri.etzhayyim.com:actor:voiceLeft  (voice preset: af_heart)
+  RIGHT → did:web:yukkuri.etzhayyim.com:actor:voiceRight (voice preset: am_puck)
 
 Calls murakumo:inference/audio TTS endpoint (kokoro provider) for each
 line, uploads wav to B2 via PDS uploadBlob, stores blob_key in
@@ -35,8 +35,8 @@ _MURAKUMO_TTS_URL = os.environ.get(
     "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1/audio/speech",
 ).rstrip("/")
 _TTS_TIMEOUT = float(os.environ.get("TTS_TIMEOUT_SEC", "30"))
-_PDS_BLOB_URL = os.environ.get("PDS_BLOB_URL", "https://atproto.gftd.ai/xrpc/com.atproto.repo.uploadBlob")
-_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.gftd.ai")
+_PDS_BLOB_URL = os.environ.get("PDS_BLOB_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob")
+_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
 
 _VOICE_PRESET: dict[str, str] = {
     "left": os.environ.get("YUKKURI_VOICE_LEFT", "af_heart"),

@@ -12,11 +12,11 @@ last_verified: 2026-04-07
 
 **Status**: `[DESIGN]`
 **Date**: 2026-04-07
-**Scope**: okaimono.gftd.ai + tsukuru.gftd.ai + stripe.gftd.ai 統合
+**Scope**: okaimono.etzhayyim.com + tsukuru.etzhayyim.com + stripe.etzhayyim.com 統合
 
 ## Problem
 
-okaimono BTO checkout SAGA の `process-payment` ステップが汎用的で、決済手段が未定義。stripe.gftd.ai は Murakumo credit-backed Stripe Issuing card を既に実装済みだが、tsukuru OEM 製造発注の決済フローに接続されていない。
+okaimono BTO checkout SAGA の `process-payment` ステップが汎用的で、決済手段が未定義。stripe.etzhayyim.com は Murakumo credit-backed Stripe Issuing card を既に実装済みだが、tsukuru OEM 製造発注の決済フローに接続されていない。
 
 ## Decision
 
@@ -71,7 +71,7 @@ Checkout SAGA (chk8uty2) — BTO/MTO/CTO mode:
        cardId: card_id,
        amount: cost_estimate_jpy
      })
-   → credits.gftd.ai CheckSpendAllowed → SpendCredits
+   → credits.etzhayyim.com CheckSpendAllowed → SpendCredits
    → Murakumo credit debit (user pool → card allocation)
 
 5. create-production-order
@@ -141,7 +141,7 @@ Factory → tsukuru production_order (status=delivered)
 /// create-order params に payment section 追加:
 ///   payment: {
 ///     method: "stripe_issuing",
-///     cardId: string,          // stripe.gftd.ai internal card ID
+///     cardId: string,          // stripe.etzhayyim.com internal card ID
 ///     stripeCardId: string,    // Stripe API card token
 ///     authorizedAmount: u64,   // JPY minor units
 ///     currency: "jpy"
@@ -208,11 +208,11 @@ Per-order virtual card の spending limit は `cost_estimate_jpy` に設定。�
 | `spendingLimitInterval` | `all-time` | Single-use card |
 | `allowed_categories` | OEM manufacturing MCC codes | Restrict to manufacturing merchants |
 | Card metadata `productionOrderRef` | `okaimono_order_id` | Audit trail |
-| Card metadata `manufacturerDid` | `did:web:tsukuru.gftd.ai:manufacturer_*` | Factory binding |
+| Card metadata `manufacturerDid` | `did:web:tsukuru.etzhayyim.com:manufacturer_*` | Factory binding |
 
 ### MCP Tools (Convo)
 
-tsukuru convo (yoro.gftd.ai) で追加可能な MCP tools:
+tsukuru convo (yoro.etzhayyim.com) で追加可能な MCP tools:
 
 | Tool | Description |
 |---|---|

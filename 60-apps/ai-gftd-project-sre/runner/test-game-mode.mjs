@@ -1,6 +1,6 @@
 /**
  * Game Mode — Visual + Quality Test Suite
- * Tests: color-by-number.gftd.ai (soblx2wf) + ex66satl.gftd.ai (snake)
+ * Tests: color-by-number.etzhayyim.com (soblx2wf) + ex66satl.etzhayyim.com (snake)
  */
 import { chromium } from 'playwright';
 
@@ -64,7 +64,7 @@ const browser = await chromium.launch({ headless: true });
 console.log('\n══ 1. Color-by-Number (soblx2wf) — Endpoints ══');
 // ═══════════════════════════════════════════════════════════════════
 
-const CBN = 'https://color-by-number.gftd.ai';
+const CBN = 'https://color-by-number.etzhayyim.com';
 
 await testEndpoint('CBN app meta', `${CBN}/_app/meta`, { status: 200 });
 
@@ -176,7 +176,7 @@ console.log('\n══ 3. Color-by-Number — Visual (Playwright) ══');
 console.log('\n══ 4. Snake (ex66satl) — Endpoints ══');
 // ═══════════════════════════════════════════════════════════════════
 
-const SNAKE = 'https://ex66satl.gftd.ai';
+const SNAKE = 'https://ex66satl.etzhayyim.com';
 
 await testEndpoint('Snake app meta', `${SNAKE}/_app/meta`, { status: 200 });
 

@@ -1,4 +1,4 @@
-# ai-gftd-project-editor — editor.gftd.ai
+# ai-gftd-project-editor — editor.etzhayyim.com
 
 **Web code editor + project manager (v0.dev-like).** CodeMirror 6 + Sandpack in-browser preview。Pattern 1 (Single Worker + B2 content-addressed blob + yata SQL graph), platform-compliant 修正版。P0 = single user, no realtime collab。
 
@@ -64,7 +64,7 @@ editor Worker (createWorkerExport + @gftd/magatama-host-sdk)
 cd 60-apps/ai-gftd-project-editor/wasm/ai-gftd-wasm-editor-ed1t0r00
 mkdir -p build && npx esbuild src/app.ts --bundle --outfile=build/worker.mjs --format=esm --platform=browser --target=es2022 --external:cloudflare:workers
 pnpm wrangler deploy
-curl https://editor.gftd.ai/health
+curl https://editor.etzhayyim.com/health
 ```
 
 ## Roadmap

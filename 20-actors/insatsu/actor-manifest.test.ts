@@ -8,7 +8,7 @@ const manifest = JSON.parse(readFileSync(resolve(__dirname, "actor-manifest.json
 
 describe("Insatsu actor manifest", () => {
   it("has canonical DID and nanoid", () => {
-    expect(manifest["@id"]).toBe("did:web:insatsu.gftd.ai");
+    expect(manifest["@id"]).toBe("did:web:insatsu.etzhayyim.com");
     expect(manifest.nanoid).toBe("ins4tup1");
   });
 

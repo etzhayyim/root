@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/2/3/fishing-and-hunting",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/2/3/fishing-and-hunting",
       "type": "dodaf:Capability",
       "name": "Fishery and Wildlife Resource Management Capability",
       "description": "Functional capability for managing fish stocks, wildlife populations, and the enforcement of fishing/hunting regulations. Classification: COFOG Division 04, Group 2, Class 3.",

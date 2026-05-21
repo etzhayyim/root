@@ -1,6 +1,7 @@
 /**
  * Forward-topology chunk overlay for KAMI.
  *
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
  * Replaces the bbox-per-moveend risingwave-overlay with an H3-indexed chunk
  * cache. The client computes `visibleH3Cells` for the current viewport + LOD,
  * fetches only missing cells via `ai.gftd.apps.maps.getChunk`, keeps them in

@@ -17,7 +17,7 @@ Context: post-MST removal (2026-04-24), we wanted to identify additional dead ha
 | NSID / event | Count | Outcome | Notes |
 |---|---|---|---|
 | `comAtprotoIdentityCreate` (rpcMethod) | 13 | **all `exception`** (100% failure) | Crashing on every call. Called via Worker RPC (service binding), not HTTP XRPC. Handler lives at `gftd/index.ts:2476`. |
-| `app.bsky.feed.getAuthorFeed` | 7 | Ok | Only 2 unique actor DIDs: `sh1n5h1x.gftd.ai:{boa-hancock-one-piece, rias-gremory-high-school-dxd}` — looks cron-driven (5-min cadence). |
+| `app.bsky.feed.getAuthorFeed` | 7 | Ok | Only 2 unique actor DIDs: `sh1n5h1x.etzhayyim.com:{boa-hancock-one-piece, rias-gremory-high-school-dxd}` — looks cron-driven (5-min cadence). |
 | `/health` | 1 | Canceled | Internal healthcheck. |
 | (none) | 0 | — | Zero HTTP `com.atproto.*` / `ai.gftd.*` write traffic |
 

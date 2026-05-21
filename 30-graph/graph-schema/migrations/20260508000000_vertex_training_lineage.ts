@@ -11,7 +11,7 @@ import { sql } from "kysely";
  *
  * ADR-2605070700 — adds run / checkpoint / eval lineage on top of the
  * already-live corpus export path (`v_training_text` / `v_training_triple`
- * → B2 shard → HF Hub `gftdcojp/gftd-corpus`, ADR Phase D 2026-05-01).
+ * → B2 shard → HF Hub `etzhayyim/gftd-corpus`, ADR Phase D 2026-05-01).
  *
  * Weight artifact 2-store layout (mirrors ADR-2604300135 Hume distillation):
  *   - B2: `gftd-training-data/v1/checkpoints/{run_id}/step-{NNNNNN}.safetensors`

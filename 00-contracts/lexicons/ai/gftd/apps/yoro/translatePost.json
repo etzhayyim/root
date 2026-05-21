@@ -26,7 +26,7 @@
             },
             "postRepo": {
               "type": "string",
-              "description": "Repository DID for translated sibling posts. Defaults to did:web:yoro.gftd.ai."
+              "description": "Repository DID for translated sibling posts. Defaults to did:web:yoro.etzhayyim.com."
             },
             "postText": {
               "type": "string",

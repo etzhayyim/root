@@ -28,7 +28,7 @@
     },
     {
       "@type": "WebApplication",
-      "name": "maps.gftd.ai Portal",
+      "name": "maps.etzhayyim.com Portal",
       "url": "ui/"
     }
   ],
@@ -43,7 +43,7 @@
     },
     {
       "status": "completed",
-      "task": "Initialize maps.gftd.ai UI with Svelte 5 and MapLibre."
+      "task": "Initialize maps.etzhayyim.com UI with Svelte 5 and MapLibre."
     },
     {
       "status": "pending",
@@ -51,7 +51,7 @@
     },
     {
       "status": "in_progress",
-      "task": "Deploy maps.gftd.ai to Kubernetes with GitOps."
+      "task": "Deploy maps.etzhayyim.com to Kubernetes with GitOps."
     },
     {
       "status": "in_progress",
@@ -95,7 +95,7 @@
           "@context": "https://schema.org/",
           "@type": "CreativeWork",
           "name": "Architecture for Spatial Intelligence Platform",
-          "description": "Technical architecture for maps.gftd.ai.",
+          "description": "Technical architecture for maps.etzhayyim.com.",
           "hasPart": [
             {
               "@type": "SoftwareApplication",
@@ -128,7 +128,7 @@
           "@context": "https://schema.org/",
           "@type": "CreativeWork",
           "name": "Strategy for Spatial Intelligence Platform",
-          "description": "Strategic roadmap for maps.gftd.ai, focusing on AI-agent (cross-actor) spatial awareness and military-grade interoperability.",
+          "description": "Strategic roadmap for maps.etzhayyim.com, focusing on AI-agent (cross-actor) spatial awareness and military-grade interoperability.",
           "about": [
             {
               "@type": "Thing",
@@ -138,7 +138,7 @@
             {
               "@type": "Thing",
               "name": "Phase 2: Visualization",
-              "description": "Launch maps.gftd.ai UI with Svelte 5 and deck.gl for tactical monitoring."
+              "description": "Launch maps.etzhayyim.com UI with Svelte 5 and deck.gl for tactical monitoring."
             },
             {
               "@type": "Thing",
@@ -163,7 +163,7 @@
           "@context": "https://schema.org/",
           "@type": "CreativeWork",
           "name": "Operational Activities (OV-5b) for Spatial Intelligence",
-          "description": "Activity hierarchy for maps.gftd.ai spatial operations.",
+          "description": "Activity hierarchy for maps.etzhayyim.com spatial operations.",
           "hasPart": [
             {
               "@type": "Action",
@@ -198,7 +198,7 @@
           "@context": "https://schema.org/",
           "@type": "CreativeWork",
           "name": "Capabilities for Spatial Intelligence Platform",
-          "description": "Defines the tactical capabilities of maps.gftd.ai, traced to activities and performers.",
+          "description": "Defines the tactical capabilities of maps.etzhayyim.com, traced to activities and performers.",
           "hasPart": [
             {
               "@type": "Capability",
@@ -233,7 +233,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",
@@ -274,7 +274,7 @@
             },
             {
               "@type": "CreativeWork",
-              "name": "Deploy maps.gftd.ai to Kubernetes with GitOps.",
+              "name": "Deploy maps.etzhayyim.com to Kubernetes with GitOps.",
               "status": "Planned",
               "dueDate": "2026-03-15"
             }

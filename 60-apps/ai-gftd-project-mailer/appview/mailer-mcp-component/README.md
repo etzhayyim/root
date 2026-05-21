@@ -7,7 +7,7 @@ This component exposes mailer MCP endpoints on `/api/mcp` and `/{nanoid}/api/mcp
 - `POST /api/mcp` (JSON-RPC 2.0: `tools/list`, `tools/call`)
 - `GET /api/mcp/tools`
 - `POST /api/mcp/tools/{tool}/call`
-- `POST /api/mcp` on `ra27m5t6.gftd.ai`
+- `POST /api/mcp` on `ra27m5t6.etzhayyim.com`
 
 ## Required Environment
 

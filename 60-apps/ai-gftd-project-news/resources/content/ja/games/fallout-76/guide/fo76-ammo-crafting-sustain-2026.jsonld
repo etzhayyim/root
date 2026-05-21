@@ -24,7 +24,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "VideoGame",
@@ -40,7 +40,7 @@
   "isPartOf": {
     "@type": "CreativeWork",
     "name": "Fallout 76 Beginner Guide Hub",
-    "url": "https://news.gftd.ai/ja/articles/fo76-beginner-guide-hub-2026"
+    "url": "https://news.etzhayyim.com/ja/articles/fo76-beginner-guide-hub-2026"
   },
-  "url": "https://news.gftd.ai/ja/articles/fo76-ammo-crafting-sustain-2026"
+  "url": "https://news.etzhayyim.com/ja/articles/fo76-ammo-crafting-sustain-2026"
 }

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/09/2/2/upper-secondary-education",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/2/2/upper-secondary-education",
       "type": "dodaf:Capability",
       "name": "Upper-Secondary Education and Vocational Pathway Capability",
       "description": "Functional capability for managing upper-secondary academic and vocational services, graduation requirements, and career readiness. Classification: COFOG Division 09, Group 2, Class 2.",

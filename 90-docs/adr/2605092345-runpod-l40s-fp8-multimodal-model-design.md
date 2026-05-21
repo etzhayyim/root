@@ -66,7 +66,7 @@ model family described in this ADR.
 - H100 NVL は Hopper 世代 4th-gen Tensor Core + Transformer Engine で FP8
   training を素直に回せる。`bf16` baseline + `fp8` activation cast の両方が
   smoke 完走済み（後段 §Status）。
-- inference は別 pod (6000 Ada) を経由し、`https://llm.gftd.ai/v1/chat/completions`
+- inference は別 pod (6000 Ada) を経由し、`https://llm.etzhayyim.com/v1/chat/completions`
   に向ける。training pod の HTTP server (`pymagatama.training_http_server`)
   は inference を受け持たない。
 - Default base = `google/gemma-4-E4B` (4B 活性 / MoE、128k context、bf16)。
@@ -374,7 +374,7 @@ Codex attempted to start training from the existing `gftd training` surface:
   could query RunPod successfully; no existing L40S pod or model cache volume
   was running.
 - A private-image L40S pod was created through RunPod REST with
-  `ghcr.io/gftdcojp/runpod-vllm-gemma:latest`, the GHCR registry auth id, and
+  `ghcr.io/etzhayyim/runpod-vllm-gemma:latest`, the GHCR registry auth id, and
   RW/B2/HF/training-token env values. RunPod accepted the pod and marked it
   `RUNNING`, but runtime port mappings never appeared, so `:8003` could not be
   reached. The pod was terminated.

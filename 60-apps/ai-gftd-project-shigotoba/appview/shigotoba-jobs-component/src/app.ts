@@ -130,7 +130,7 @@ function registerEntityDids(sdk: HostSDK): void {
     const did = str(
       sdk.hostImports.comAtprotoIdentityCreate(slug, JSON.stringify({
         displayName: slug.replace(/_/g, " "),
-        description: `Shigotoba entity DID: ${slug} — shigotoba.gftd.ai`,
+        description: `Shigotoba entity DID: ${slug} — shigotoba.etzhayyim.com`,
       })),
     );
     if (did) {
@@ -189,7 +189,7 @@ async function cmdListCompanies(sdk: HostSDK, body: Uint8Array): Promise<unknown
 
 function dispatcherUrl(sdk: HostSDK): string {
   const env = ((sdk as unknown as { env?: Record<string, string> }).env) ?? {};
-  return env.DISPATCHER_URL || "https://dispatcher.gftd.ai";
+  return env.DISPATCHER_URL || "https://dispatcher.etzhayyim.com";
 }
 
 async function proxyStage(sdk: HostSDK, stageNsid: string, body: Uint8Array): Promise<unknown> {
@@ -271,7 +271,7 @@ const shinkaEnabled = true;
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:a80c21a0.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:a80c21a0.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   if (actions.length === 1) actions.push({ action: "noop", mood: cadence.mood, ts });
@@ -322,12 +322,12 @@ async function cmdExportShigotoba(sdk: HostSDK, body: Uint8Array): Promise<unkno
 }
 
 function cmdHealthShigotoba(sdk: HostSDK, _body: Uint8Array): unknown {
-  return { status: "healthy", agent: "Shigotoba Jobs", nanoid: "a80c21a0", did: `did:web:${appId}.gftd.ai`, ts: nowISO() };
+  return { status: "healthy", agent: "Shigotoba Jobs", nanoid: "a80c21a0", did: `did:web:${appId}.etzhayyim.com`, ts: nowISO() };
 }
 
 function cmdDescribeShigotoba(sdk: HostSDK, _body: Uint8Array): unknown {
   return {
-    name: "Shigotoba Jobs", did: `did:web:${appId}.gftd.ai`, nanoid: "a80c21a0", domain: "shigotoba",
+    name: "Shigotoba Jobs", did: `did:web:${appId}.etzhayyim.com`, nanoid: "a80c21a0", domain: "shigotoba",
     capabilities: ["listJobPostings", "getJobPosting", "searchJobPostings", "listCompanies", "ingestJobs", "stats", "export", "describe", "summarize", "audit"],
     protocols: ["xrpc", "w-protocol", "mcp"],
     sources: ["remotive", "arbeitnow", "remoteok"],
@@ -399,7 +399,7 @@ export default createWorkerExport((sdk) => {
   registerEntityDids(sdk);
   sdk.app
       .command(nsid("ai.gftd.apps.shigotoba.listJobPostings"), (ctx, body) => cmdListJobPostings(sdk, body),
-      asAgentTool("List job postings from shigotoba.gftd.ai"),
+      asAgentTool("List job postings from shigotoba.etzhayyim.com"),
       withCapabilityTags('query', 'shigotoba', 'jobs'),
       withOCELEvent("governance.audit"),
       )

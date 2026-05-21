@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/01/3/1/general-public-services-nec",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/3/1/general-public-services-nec",
       "type": "dodaf:Capability",
       "name": "General Public Services Management (n.e.c.)",
       "description": "Functional capability for miscellaneous public services not elsewhere classified, providing flexible administrative support for evolving government needs. Classification: COFOG Division 01, Group 3, Class 1.",

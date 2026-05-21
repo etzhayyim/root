@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/docs/schemas/docs-registry.schema.json",
+  "$id": "https://etzhayyim.com/docs/schemas/docs-registry.schema.json",
   "title": "Docs Registry",
   "type": "object",
   "additionalProperties": false,

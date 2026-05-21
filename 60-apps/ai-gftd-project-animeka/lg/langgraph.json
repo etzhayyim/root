@@ -1,5 +1,5 @@
 {
-  "$comment": "LangGraph Server config — animeka.gftd.ai actor. 27 graphs (publishEpisode added 2026-05-15).",
+  "$comment": "LangGraph Server config — animeka.etzhayyim.com actor. 27 graphs (publishEpisode added 2026-05-15).",
   "dependencies": ["./lg_animeka", "../../../20-actors/magatama/py"],
   "graphs": {
     "health":            "./lg_animeka/graphs/health.py:GRAPH",

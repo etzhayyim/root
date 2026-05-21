@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#ErrorHandlingSteps
+// @etzhayyim/cyber-freelance#ErrorHandlingSteps
 // Error Handling関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

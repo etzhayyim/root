@@ -1,10 +1,10 @@
 [component]
 id = "ai-gftd-project-patent"
 name = "Patent Registry"
-domain = "patent.gftd.ai"
-did = "did:web:patent.gftd.ai"
+domain = "patent.etzhayyim.com"
+did = "did:web:patent.etzhayyim.com"
 runtime = "k8s-langserver"
-owner_did = "did:web:patent.gftd.ai"
+owner_did = "did:web:patent.etzhayyim.com"
 status = "expired-pharma-worker-wiring"
 
 [orchestration]

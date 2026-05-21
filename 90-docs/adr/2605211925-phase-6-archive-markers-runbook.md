@@ -1,6 +1,6 @@
 ---
 id: adr-2605211925-phase-6-archive-markers-runbook
-title: "ADR-2605211925: Phase 6 runbook — archive markers on cut-over gftdcojp repos (ADR-2605152100 finale)"
+title: "ADR-2605211925: Phase 6 runbook — archive markers on cut-over etzhayyim repos (ADR-2605152100 finale)"
 status: proposed
 doc_type: adr
 topic: phase-6-archive-markers-runbook
@@ -9,9 +9,9 @@ last_verified: 2026-05-21
 priority: 7.5
 axis: operations
 weight: 0.55
-priority_note: "Final phase of the ADR-2605152100 6-phase cutover (org split). After the per-repo `git rm` + DNS cutover, this runbook applies the `[MOVED → github.com/etzhayyim/root]` description prefix + GitHub archive flag to the gftdcojp-side repos whose open scope has been relocated. Closes the org-split loop at the GitHub-repo-metadata layer."
+priority_note: "Final phase of the ADR-2605152100 6-phase cutover (org split). After the per-repo `git rm` + DNS cutover, this runbook applies the `[MOVED → github.com/etzhayyim/root]` description prefix + GitHub archive flag to the etzhayyim-side repos whose open scope has been relocated. Closes the org-split loop at the GitHub-repo-metadata layer."
 authoritative_for:
-  - Phase 6 archive-marker procedure for cut-over gftdcojp repos
+  - Phase 6 archive-marker procedure for cut-over etzhayyim repos
   - description-prefix convention + archive-flag policy
   - rollback (un-archive) procedure
 depends_on:
@@ -26,7 +26,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605211925: Phase 6 runbook — archive markers on cut-over gftdcojp repos
+# ADR-2605211925: Phase 6 runbook — archive markers on cut-over etzhayyim repos
 
 **Status**: proposed
 **Date**: 2026-05-21
@@ -42,10 +42,10 @@ ADR-2605152100 (etzhayyim GitHub org boundary) defines a 6-phase cutover:
 4. Vendor business-app dependency switch — ADR-2605211913 §1 runbook
 5. Vendor open-scope deletion — ADR-2605211913 §2 runbook
 6. **Archive markers** — `[MOVED → github.com/etzhayyim/root]` description prefix
-   on archived gftdcojp repos (this ADR)
+   on archived etzhayyim repos (this ADR)
 
 The CLAUDE.md status table records that Tranches A-E + Wave 2 already produced
-"26 旧 gftdcojp open repos archived with [MOVED] prefix" as of 2026-05-17.
+"26 旧 etzhayyim open repos archived with [MOVED] prefix" as of 2026-05-17.
 That Wave 2 batch is **already done**. This ADR is the runbook for the
 **Tranche F follow-on archive markers** — the additional repos that get
 archived once Phase 5 `git rm` (ADR-2605211913 §2) lands and the routing-
@@ -53,10 +53,10 @@ gateway 410 Gone is in place (ADR-2605211757 Step 3.7).
 
 Two distinct archive targets exist:
 
-- **A. Whole-repo archive**: repos like `gftdcojp/<single-purpose-repo>` whose
+- **A. Whole-repo archive**: repos like `etzhayyim/<single-purpose-repo>` whose
   entire content moved to etzhayyim/root. Mark the GitHub repo as Archived +
   add `[MOVED → github.com/etzhayyim/root/<subpath>]` to the description.
-- **B. Subtree archive**: subdirectories of `ai-gftd-apps-gftdcojp` whose
+- **B. Subtree archive**: subdirectories of `etzhayyim-root` whose
   content was relocated (e.g. the 3 lg subtrees from gate (d), the 27
   workers + 4 ingest + 4 primitive from Phase 5). Subtrees inside a still-
   active monorepo cannot be GitHub-archived; they get a `_archive/` move +
@@ -65,39 +65,39 @@ Two distinct archive targets exist:
 # Decision
 
 Adopt the 4-step Phase 6 runbook. The runbook fires AFTER ADR-2605211913
-Phase 5 `git rm` commits land in `ai-gftd-apps-gftdcojp`.
+Phase 5 `git rm` commits land in `etzhayyim-root`.
 
 ## 0. Pre-flight
 
 These conditions MUST hold:
 
 1. **Phase 5 deletion landed**: ADR-2605211913 Step 2.A-2.D commits exist in
-   `ai-gftd-apps-gftdcojp` main + the verification protocol (Step 2.E) returned
+   `etzhayyim-root` main + the verification protocol (Step 2.E) returned
    green.
 2. **DNS cutover complete (all waves)**: ADR-2605211757 Wave A-D operator-
    confirmed; routing-gateway returning 410 Gone (or 301) for the cut-over
-   `{actor}.gftd.ai` hosts.
+   `{actor}.etzhayyim.com` hosts.
 3. **etzhayyim/root mirror live**: each Phase 6 target's relocated content is
    reachable via `https://github.com/etzhayyim/root/blob/main/<subpath>`.
 4. **operator authority**: GitHub repo settings changes (archive + description
-   edit) require admin access to the gftdcojp organization.
+   edit) require admin access to the etzhayyim organization.
 
 ## 1. Inventory
 
 ### 1.A — Whole-repo Phase 6 targets
 
-Identify gftdcojp-org repos that are 100% relocated to etzhayyim/root and have
+Identify etzhayyim-org repos that are 100% relocated to etzhayyim/root and have
 no remaining vendor-only content. As of 2026-05-21, the Wave 2 batch of 26
 repos is already archived per CLAUDE.md status. New Tranche F additions from
 this session: **none at the whole-repo level** (the Tranche F closure operates
-on subtrees inside `ai-gftd-apps-gftdcojp`, not on standalone repos).
+on subtrees inside `etzhayyim-root`, not on standalone repos).
 
 Operator check (re-run before executing):
 
 ```bash
-gh repo list gftdcojp --limit 500 --json name,description,isArchived \
+gh repo list etzhayyim --limit 500 --json name,description,isArchived \
   | jq -r '.[] | select(.isArchived == false) | "\(.name)\t\(.description // "")"' \
-  > /tmp/gftdcojp-active.tsv
+  > /tmp/etzhayyim-active.tsv
 
 # Cross-reference with etzhayyim/root content to find unintended duplicates:
 gh api repos/etzhayyim/root/contents \
@@ -113,7 +113,7 @@ to cover it.
 
 ### 1.B — Subtree Phase 6 targets
 
-Within `ai-gftd-apps-gftdcojp`, the Tranche F subtrees that have been moved
+Within `etzhayyim-root`, the Tranche F subtrees that have been moved
 to etzhayyim/root and `git rm`'d per Phase 5 need archive-marker stubs.
 Concretely:
 
@@ -132,17 +132,17 @@ For each `<repo>` in the §1.A inventory:
 
 ```bash
 # 1. Update description with MOVED prefix
-gh repo edit gftdcojp/<repo> \
+gh repo edit etzhayyim/<repo> \
   --description "[MOVED → github.com/etzhayyim/root/<subpath>] <original description>"
 
 # 2. Archive the repo (read-only flag)
-gh repo archive gftdcojp/<repo> --yes
+gh repo archive etzhayyim/<repo> --yes
 ```
 
 Verify:
 
 ```bash
-gh repo view gftdcojp/<repo> --json isArchived,description
+gh repo view etzhayyim/<repo> --json isArchived,description
 # expect: { "isArchived": true, "description": "[MOVED → github.com/etzhayyim/root/...] ..." }
 ```
 
@@ -152,7 +152,7 @@ For the 3 lg subtrees:
 
 ```bash
 # Example for ki — repeat with legal-entity and curpus2skill substituted:
-cat > /Users/junkawasaki/github/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-ki/lg/MOVED.md <<EOF
+cat > /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-ki/lg/MOVED.md <<EOF
 # Moved to etzhayyim/root
 
 This subtree was relocated as part of Tranche F (ADR-2605212100) gate (d)
@@ -179,7 +179,7 @@ browsing.)
 ### Step 2.C — pymagatama MOVED-FILES.md catalog
 
 ```bash
-cat > /Users/junkawasaki/github/ai-gftd-apps-gftdcojp/20-actors/magatama/py/MOVED-FILES.md <<EOF
+cat > /Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/py/MOVED-FILES.md <<EOF
 # Files moved to etzhayyim/root
 
 The following Python modules were relocated to etzhayyim/root as part of
@@ -236,12 +236,12 @@ EOF
 
 ### Step 2.D — Top-level CLAUDE.md amendment
 
-Update `ai-gftd-apps-gftdcojp/CLAUDE.md` to add a new line in the org-split
+Update `etzhayyim-root/CLAUDE.md` to add a new line in the org-split
 section noting the Tranche F archive markers:
 
 ```markdown
 # In §Operating Entity Boundary (CRITICAL), append after the existing
-# "26 旧 gftdcojp open repos archived with [MOVED] prefix" clause:
+# "26 旧 etzhayyim open repos archived with [MOVED] prefix" clause:
 
 、Tranche F の 3 lg subtree (lg_organism / lg_legal_entity / lg_curpus2skill)
 + 37 pymagatama files (workers 29 + ingest 4 + primitive 4) は
@@ -258,16 +258,16 @@ for stub in \
   60-apps/ai-gftd-project-legal-entity/lg/MOVED.md \
   60-apps/ai-gftd-project-curpus2skill/lg/MOVED.md \
   20-actors/magatama/py/MOVED-FILES.md; do
-  test -f "/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/$stub" \
+  test -f "/Users/junkawasaki/github/etzhayyim-root/$stub" \
     && echo "  ✓ $stub" \
     || echo "  ✗ MISSING: $stub"
 done
 
 # 2. CLAUDE.md amendment landed:
-grep -c "ADR-2605211925" /Users/junkawasaki/github/ai-gftd-apps-gftdcojp/CLAUDE.md
+grep -c "ADR-2605211925" /Users/junkawasaki/github/etzhayyim-root/CLAUDE.md
 
 # 3. deps.toml records the phase 6 completion timestamp:
-grep "phase_6_archive_markers_completed_at" /Users/junkawasaki/github/ai-gftd-apps-gftdcojp/deps.toml
+grep "phase_6_archive_markers_completed_at" /Users/junkawasaki/github/etzhayyim-root/deps.toml
 ```
 
 ## 4. `deps.toml` post-Phase-6 amendment
@@ -285,7 +285,7 @@ is now `[MOVED]` marked end-to-end.
 
 Phase 6 is the **least destructive** phase — rollback is straightforward:
 
-- **Whole-repo archive rollback** (Step 2.A): `gh repo unarchive gftdcojp/<repo>`
+- **Whole-repo archive rollback** (Step 2.A): `gh repo unarchive etzhayyim/<repo>`
   + `gh repo edit ... --description "<original>"`. Restores write access.
 - **Subtree MOVED.md rollback** (Step 2.B/2.C): `git rm MOVED.md` + re-add the
   relocated files via `git revert` of the Phase 5 commits. Two commits per
@@ -316,7 +316,7 @@ Phase 6 is the **least destructive** phase — rollback is straightforward:
   access is lost (e.g. operator turnover), Phase 6 stalls. Mitigation: the
   subtree stubs in Step 2.B-D do NOT require GitHub Org admin and can land
   via regular PR.
-- Newly-added repos under gftdcojp (post-2026-05-21) that should also be
+- Newly-added repos under etzhayyim (post-2026-05-21) that should also be
   archived will require a re-run of Step 1.A. There is no automation for
   "detect a new repo that's eligible for archive". Mitigation: quarterly
   audit per the §"Re-judgment triggers" rhythm in Tranche F migration entry.
@@ -356,6 +356,6 @@ Phase 6 is the **least destructive** phase — rollback is straightforward:
 - ADR-2605211757 (DNS cutover runbook — gate (b))
 - ADR-2605211913 (Phase 4-5 runbook — deletion procedure that precedes this Phase 6)
 - ADR-2605172400 (3-axis split rule)
-- `ai-gftd-apps-gftdcojp/CLAUDE.md` §"Operating Entity Boundary" (status table —
+- `etzhayyim-root/CLAUDE.md` §"Operating Entity Boundary" (status table —
   records the Wave 2 26-repo archive already done 2026-05-17)
-- `ai-gftd-apps-gftdcojp/deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17`
+- `etzhayyim-root/deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17`

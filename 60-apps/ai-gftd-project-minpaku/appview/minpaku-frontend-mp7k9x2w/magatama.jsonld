@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:minpaku.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:minpaku.etzhayyim.com",
   "component": {
     "path": "/wasm/component.wasm"
   },
@@ -36,14 +36,14 @@
   "project": "minpaku",
   "routes": [
     {
-      "host": "minpaku.gftd.ai",
+      "host": "minpaku.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "mp7k9x2w.gftd.ai",
+      "host": "mp7k9x2w.etzhayyim.com",
       "paths": [
         "/"
       ],

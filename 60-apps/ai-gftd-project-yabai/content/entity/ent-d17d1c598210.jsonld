@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-d17d1c598210",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d17d1c598210",
   "entityId": "ent-d17d1c598210",
   "canonicalName": "bahram ali shayesteh",
   "aliases": [

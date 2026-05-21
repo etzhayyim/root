@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/07/6/0/health-nec/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/07/6/0/health-nec/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Ancillary Health and Medical Orchestration Process",
       "description": "The administrative process of managing miscellaneous health requests, coordinating inter-agency health policies, and executing regulatory oversight.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/07/6/0/health-nec"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/6/0/health-nec"
     }
   ]
 }

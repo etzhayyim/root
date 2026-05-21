@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-const KAMI = process.env.KAMI_BASE_URL ?? 'https://kami.gftd.ai';
-const RT = process.env.KAMI_RT_BASE_URL ?? 'https://kami-rt.gftd.ai';
+const KAMI = process.env.KAMI_BASE_URL ?? 'https://kami.etzhayyim.com';
+const RT = process.env.KAMI_RT_BASE_URL ?? 'https://kami-rt.etzhayyim.com';
 
 const COLOR_ISLAND_ID = 'isl-23e9ecedc0';
-const COLOR_DID = 'did:web:kami.gftd.ai:island:colorbynumber';
+const COLOR_DID = 'did:web:kami.etzhayyim.com:island:colorbynumber';
 
 test.describe('Color by Number Island', () => {
   test('create + generate + publish lifecycle', async ({ request }) => {
@@ -31,7 +31,7 @@ test.describe('Color by Number Island', () => {
     expect(pub.ok()).toBeTruthy();
     const pubData = await pub.json();
     expect(pubData.state).toBe('published');
-    expect(pubData.gamesUrl).toContain('games.gftd.ai');
+    expect(pubData.gamesUrl).toContain('games.etzhayyim.com');
   });
 
   test('spawn player actor on color island', async ({ request }) => {
@@ -56,7 +56,7 @@ test.describe('Color by Number Island', () => {
     });
     expect(res.ok()).toBeTruthy();
     const data = await res.json();
-    expect(data.did).toContain('did:web:kami.gftd.ai:island:');
+    expect(data.did).toContain('did:web:kami.etzhayyim.com:island:');
     expect(data.registered).toBeTruthy();
   });
 });

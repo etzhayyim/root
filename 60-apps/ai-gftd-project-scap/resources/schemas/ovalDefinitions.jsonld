@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -38,7 +38,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions",
+  "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions",
   "@type": [
     "dodaf:Resource",
     "dodaf:DataType"
@@ -50,12 +50,12 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "primaryKey": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/id"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/id"
     }
   ],
   "column": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/id",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/id",
       "name": "id",
       "description": "OVAL definition identifier",
       "dataType": {
@@ -64,7 +64,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/title",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/title",
       "name": "title",
       "description": "Title of the OVAL definition",
       "dataType": {
@@ -73,7 +73,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/description",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/description",
       "name": "description",
       "description": "Description of the OVAL definition",
       "dataType": {
@@ -82,7 +82,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/class",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/class",
       "name": "class",
       "description": "OVAL class (vulnerability, compliance, inventory)",
       "dataType": {
@@ -96,7 +96,7 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/affectedProducts",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/affectedProducts",
       "name": "affectedProducts",
       "description": "Array of affected product identifiers",
       "dataType": {
@@ -105,7 +105,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/criteria",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/criteria",
       "name": "criteria",
       "description": "Criteria object with operator (AND/OR) and criterion array",
       "dataType": {
@@ -114,7 +114,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/metadata",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/metadata",
       "name": "metadata",
       "description": "JSON metadata containing title, affected platforms, and description",
       "dataType": {
@@ -123,7 +123,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/createdAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/createdAt",
       "name": "createdAt",
       "description": "Timestamp when the record was created",
       "dataType": {
@@ -133,7 +133,7 @@
       "default": "now()"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/updatedAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/updatedAt",
       "name": "updatedAt",
       "description": "Timestamp when the record was last updated",
       "dataType": {
@@ -145,7 +145,7 @@
   ],
   "index": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/ovalDefinitions/classIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/ovalDefinitions/classIdx",
       "name": "oval_definitions_class_idx",
       "columns": [
         "class"
@@ -153,7 +153,7 @@
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/zod/ovalDefinition.ts"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/zod/ovalDefinition.ts"
   ]
 }

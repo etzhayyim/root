@@ -1,13 +1,13 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:baminiku.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:baminiku.etzhayyim.com",
   "component": {
     "build": {
       "command": "pnpm typecheck",
       "entrypoint": "src/app.ts"
     },
     "env": {
-      "DISPATCHER_URL": "https://dispatcher.gftd.ai"
+      "DISPATCHER_URL": "https://dispatcher.etzhayyim.com"
     },
     "framework": "ts-thin-edge",
     "path": "src/app.ts"
@@ -48,14 +48,14 @@
   "project": "baminiku",
   "routes": [
     {
-      "host": "baminiku.gftd.ai",
+      "host": "baminiku.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "bm1n1ku8.gftd.ai",
+      "host": "bm1n1ku8.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -15,15 +15,15 @@ export function buildAgentJson(env: WellKnownEnv): Record<string, unknown> {
     name: "yatabase",
     description:
       "Yatabase — graph database BaaS with integrated S3-compat storage, SPARQL, openCypher, and streaming MV. Cell-membrane MCP facade per ADR-2605091400.",
-    url: "https://yatabase.gftd.ai",
+    url: "https://yatabase.etzhayyim.com",
     provider: {
       organization: "etz hayim",
       vendor: "Gftd Japan株式会社",
       url: "https://gftd.group",
     },
     version: env.YATA_VERSION ?? "0.0.0",
-    did: env.YATA_ACTOR_DID ?? "did:web:yatabase.gftd.ai",
-    documentationUrl: "https://yatabase.gftd.ai/_app/meta",
+    did: env.YATA_ACTOR_DID ?? "did:web:yatabase.etzhayyim.com",
+    documentationUrl: "https://yatabase.etzhayyim.com/_app/meta",
     capabilities: {
       streaming: false,
       pushNotifications: false,
@@ -47,7 +47,7 @@ export function buildMcpJson(env: WellKnownEnv): Record<string, unknown> {
     version: env.YATA_VERSION ?? "0.0.0",
     protocolVersion: "2025-06-18",
     transport: "streamable-http",
-    endpoint: "https://yatabase.gftd.ai/mcp",
+    endpoint: "https://yatabase.etzhayyim.com/mcp",
     auth: {
       schemes: ["bearer", "atproto-oauth"],
       publicMethods: [
@@ -66,8 +66,8 @@ export function buildMcpJson(env: WellKnownEnv): Record<string, unknown> {
     },
     tools: listMcpTools().map((t) => ({ name: t.name, nsid: t.nsid })),
     documentation: {
-      adr: "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605080000-yatabase-yata-retail-cloud.md",
-      meta: "https://yatabase.gftd.ai/_app/meta",
+      adr: "https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/2605080000-yatabase-yata-retail-cloud.md",
+      meta: "https://yatabase.etzhayyim.com/_app/meta",
     },
   };
 }

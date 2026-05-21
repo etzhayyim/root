@@ -29,7 +29,7 @@ superseded_by: []
    (`20-actors/credits/CLAUDE.md` L9-14, L40, L135)。
    ただし Spend rate table に登録されている action は `Post` / `Reply` /
    `DM` のみで、MCP 経由 (`/mcp` Streamable HTTP, ADR-0087) や
-   `mcp.gftd.ai/xrpc/ai.gftd.mcp.message` 経由の tool 呼び出しは
+   `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` 経由の tool 呼び出しは
    metering されていない。host-sdk
    (`20-actors/magatama/sdk/magatama-host-sdk/src/mcp-server.ts`) の
    `tools/call` は `app.handleXRPC()` または BPMN dispatcher に
@@ -98,7 +98,7 @@ destination_id?, metadata: { tool_nsid, actor_did } }`。
 ```
 
 `McpServerContext` に optional `meter: McpMeter` と `callerUserId: string`
-を追加。`McpMeter` interface は `credits.gftd.ai` の `CheckSpendAllowed`
+を追加。`McpMeter` interface は `credits.etzhayyim.com` の `CheckSpendAllowed`
 + `SpendCredits` 2 mutation を抽象化した薄いラッパー。`meter` 未設定時
 は metering を skip (既存 host-sdk consumer に対する後方互換)。
 
@@ -139,7 +139,7 @@ contract MurakumoAgentBridge {
 ```
 
 deploy script `script/DeployMurakumoBridge.s.sol` を追加。GCC / EntryPoint
-と同様に `forge script ... --broadcast` で `https://geth.gftd.ai` 経由で
+と同様に `forge script ... --broadcast` で `https://geth.etzhayyim.com` 経由で
 deploy。`ADDRESSES.md` に行追加。off-chain caller (yoro UI / authz Worker
 / MCP discovery) は `MurakumoAgentBridge.resolveAgent(...)` 1 call で
 ERC-8004 agentURI と Murakumo stake を同時に取得できる。
@@ -154,7 +154,7 @@ off-chain reader が `agentByOperator[did]` を引いた上で
 | Tier | scope | trigger |
 |---|---|---|
 | **T0** (本 ADR) | credits rate table 追加、host-sdk hook 実装、bridge contract 設計 | accept |
-| **T1** | host-sdk PR + credits-mcp deploy。pilot は lawfirm.gftd.ai (ADR-0087 既存 pilot)。`mcpRegistry: { meter: { ... } }` を opt-in | T0 merge |
+| **T1** | host-sdk PR + credits-mcp deploy。pilot は lawfirm.etzhayyim.com (ADR-0087 既存 pilot)。`mcpRegistry: { meter: { ... } }` を opt-in | T0 merge |
 | **T2** | bridge contract deploy + `MurakumoRegistry` operator 全件 (現 mac mini fleet 4 node) を bridge に link | T1 安定後 |
 | **T3** | ERC-8004 agentURI に MCP endpoint + `mcp_invoke` rate を含める (agent.json に rate field 追加)。caller が discovery で fee を事前確認可能 | T2 完了後 |
 

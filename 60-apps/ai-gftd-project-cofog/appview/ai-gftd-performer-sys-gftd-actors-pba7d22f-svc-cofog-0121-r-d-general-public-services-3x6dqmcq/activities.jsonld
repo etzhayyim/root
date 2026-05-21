@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/01/2/1/r-d-general-public-services/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/01/2/1/r-d-general-public-services/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Governance Research and Policy Analysis",
       "description": "Systematic investigation into governance structures, policy outcomes, and public service delivery models to drive innovation.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/01/2/1/r-d-general-public-services"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/2/1/r-d-general-public-services"
     }
   ]
 }

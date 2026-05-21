@@ -1,16 +1,16 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "@id": "https://messenger.gftd.ai",
+  "@id": "https://messenger.etzhayyim.com",
   "name": "ai-gftd-project-messenger",
   "description": "GFTD Messenger - real-time messaging platform for team communication with channels, direct messages, and thread replies",
-  "url": "https://messenger.gftd.ai",
+  "url": "https://messenger.etzhayyim.com",
   "applicationCategory": "Communication",
   "operatingSystem": "Kubernetes",
   "author": {
     "@type": "Organization",
-    "name": "gftdcojp",
-    "url": "https://gftd.ai"
+    "name": "etzhayyim",
+    "url": "https://etzhayyim.com"
   },
   "component": [
     {
@@ -41,7 +41,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

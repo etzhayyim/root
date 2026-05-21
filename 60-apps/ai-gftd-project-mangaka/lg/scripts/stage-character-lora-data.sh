@@ -9,7 +9,7 @@
 
 set -euo pipefail
 
-CHARS_LOCAL="/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-mangaka/data/ghosthacker/resources/characters"
+CHARS_LOCAL="/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-mangaka/data/ghosthacker/resources/characters"
 REMOTE_BASE='/c:/Users/gad/lora-data'
 
 # Variant filename → caption fragment

@@ -1,6 +1,6 @@
 # ai-gftd-project-browser — Browser Agent (L2)
 
-**browser.gftd.ai** — L2 Browser Agent。JS rendering, stealth anti-bot bypass, darkweb Tor proxy, phishing detection, LLM entity extraction。browserless (Playwright headless Chromium) 統合済み。
+**browser.etzhayyim.com** — L2 Browser Agent。JS rendering, stealth anti-bot bypass, darkweb Tor proxy, phishing detection, LLM entity extraction。browserless (Playwright headless Chromium) 統合済み。
 
 ## CRITICAL: L2 Browser Agent Role
 
@@ -22,7 +22,7 @@
 |------|-------|
 | nanoid | `cr4wl3r0` |
 | Path | `60-apps/ai-gftd-project-browser/wasm/ai-gftd-wasm-crawler-cr4wl3r0/` |
-| Domain | `browser.gftd.ai` / `cr4wl3r0.gftd.ai` |
+| Domain | `browser.etzhayyim.com` / `cr4wl3r0.etzhayyim.com` |
 | Runtime | Single Worker (canvas) |
 | UI mode | canvas |
 | Service path | `/xrpc/gftd.crawler.v1.CrawlerService/` |
@@ -36,24 +36,24 @@ Single Worker + MagatamaContainer DO (WASM-in-DO)。W Protocol Event Stream で 
 **1 crawled webpage = 1 path-based DID (AT Protocol actor)**。`com-atproto:identity/identity@1.0.0` WIT 経由。
 
 ```
-did:web:site.gftd.ai                        ← primary DID (controller)
-  └── did:web:site.gftd.ai:page:{urlHash}   ← webpage path-based DID
+did:web:site.etzhayyim.com                        ← primary DID (controller)
+  └── did:web:site.etzhayyim.com:page:{urlHash}   ← webpage path-based DID
 ```
 
 - `DIDCreate("page:"+urlHash, profile)` で冪等登録 (同一 URL → 同一 DID)
 - `DIDWrite(did, "ai.gftd.apps.crawler.crawlPage", record)` で crawl data を AT Record として永続化
 - `ATPost(did, title, embed)` で webpage DID として Bluesky timeline に投稿
 - `actor_id` = webpage DID (provenance tracking)
-- yoro.gftd.ai/profile/{did} で各 webpage が followable/likeable
+- yoro.etzhayyim.com/profile/{did} で各 webpage が followable/likeable
 - re-crawl 時: 同一 DID → DIDWrite で update + ATPost で更新通知
 - `ListWebpageDIDs` / `DeactivateWebpageDID` で DID lifecycle 管理
 
 ### Darkweb Proxy (Container sidecar)
 
-Darkweb crawling は自前 Container (`darkweb-proxy.gftd.ai`) 経由で Tor + headless Chromium を使用。Worker が `magatama.Send()` で Container HTTP API を呼ぶ hybrid 構成。
+Darkweb crawling は自前 Container (`darkweb-proxy.etzhayyim.com`) 経由で Tor + headless Chromium を使用。Worker が `magatama.Send()` で Container HTTP API を呼ぶ hybrid 構成。
 
 ```
-site.gftd.ai (Worker) → POST darkweb-proxy.gftd.ai/fetch
+site.etzhayyim.com (Worker) → POST darkweb-proxy.etzhayyim.com/fetch
   → Tor SOCKS5 (127.0.0.1:9050)
     → Chromium headless (--proxy-server=socks5://...)
       → .onion page HTML + screenshot (base64 PNG)
@@ -175,9 +175,9 @@ Evidence-weighted scoring (yabai pattern):
 
 | Target | Tool | Trigger |
 |---|---|---|
-| malak.gftd.ai (`m4l4k001`) | `CreateThreatActor` | PhishingScore ≥ 85 |
-| malak.gftd.ai (`m4l4k001`) | `SubmitIntelReport` | PhishingScore ≥ 95 |
-| yabai.gftd.ai (`y8b41k0x`) | `IngestEvidence` | All high-scoring pages |
+| malak.etzhayyim.com (`m4l4k001`) | `CreateThreatActor` | PhishingScore ≥ 85 |
+| malak.etzhayyim.com (`m4l4k001`) | `SubmitIntelReport` | PhishingScore ≥ 95 |
+| yabai.etzhayyim.com (`y8b41k0x`) | `IngestEvidence` | All high-scoring pages |
 | ← malak/yabai | `DarkwebCrawl`/`DarkwebFetch` | Inbound cross-actor crawl request |
 
 ## WIT Capability

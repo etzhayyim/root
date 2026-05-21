@@ -24,14 +24,14 @@ related:
 
 Publisher（媒体社）は自分のサイトやアプリに広告枠（Ad Unit）を設置し、Advertiser（広告主）は Campaign を通じて入札する。Impression / Click / Conversion を記録し、RPM（1,000 インプレッション当たり収益）/ CTR（クリック率）/ CVR（コンバージョン率）をリアルタイムで計算する。収益は Publisher に revenue_share_pct（デフォルト 70%）に従って分配する。
 
-BPMN-as-actor（ADR-0056）パターンに従い、CF Worker + Zeebe BPMN + RisingWave で構成する。専用 CF Worker は不要（bpmn.gftd.ai dispatcher が XRPC 受付）。
+BPMN-as-actor（ADR-0056）パターンに従い、CF Worker + Zeebe BPMN + RisingWave で構成する。専用 CF Worker は不要（bpmn.etzhayyim.com dispatcher が XRPC 受付）。
 
 ## Decision
 
-- **Actor DID**: `did:web:open-adnetwork.gftd.ai`
+- **Actor DID**: `did:web:open-adnetwork.etzhayyim.com`
 - **Tier**: T1 Actor（ADR-0056 BPMN-as-actor）
 - **NSID prefix**: `ai.gftd.openAdnetwork.*`
-- **Dispatcher**: `http://dispatcher.gftd.ai:8080/xrpc/{nsid}`
+- **Dispatcher**: `http://dispatcher.etzhayyim.com:8080/xrpc/{nsid}`
 - **Graph tables**: 8 `vertex_open_adnetwork_*` + 3 `mv_open_adnetwork_*`
 
 ## BPMN Flows

@@ -3,7 +3,7 @@
   "clusterContext": "vke-a61d513b-f9b7-4121-abb9-b53732aa5ec4",
   "remoteBuilder": "gftd-vke",
   "runtimeImage": {
-    "image": "ghcr.io/gftdcojp/holochain-agent-actor-runtime:experimental-amd64",
+    "image": "ghcr.io/etzhayyim/holochain-agent-actor-runtime:experimental-amd64",
     "digest": "sha256:29a1f2f037a31a8ae0518272706368714610b3eba845667e9690834b31a031b0",
     "platform": "linux/amd64"
   },
@@ -16,7 +16,7 @@
       "version": "2.0.0"
     },
     "assistantId": "echo",
-    "actorDid": "did:web:holochain-agent-runtime.gftd.ai",
+    "actorDid": "did:web:holochain-agent-runtime.etzhayyim.com",
     "threadId": "holochain-actor-thread-20260509",
     "runId": "be761cd8-0a01-46e4-836f-4709ceabd925",
     "status": "success",
@@ -41,8 +41,8 @@
   },
   "langchainActorSmoke": {
     "namespace": "agent-runtime-holochain",
-    "image": "ghcr.io/gftdcojp/pymagatama:biblio-asia-resident-c2bcf065dc95-20260509073828-amd64",
-    "actorDid": "did:web:holochain-agent-runtime.gftd.ai",
+    "image": "ghcr.io/etzhayyim/pymagatama:biblio-asia-resident-c2bcf065dc95-20260509073828-amd64",
+    "actorDid": "did:web:holochain-agent-runtime.etzhayyim.com",
     "assistantId": "langchain-tool-agent",
     "threadId": "holochain-langchain-thread-20260509",
     "runId": "langchain-smoke-20260509",
@@ -67,7 +67,7 @@
     "zome": "actor_runtime",
     "actor": {
       "id": "holo-langgraph-echo",
-      "did": "did:web:holochain-agent-runtime.gftd.ai",
+      "did": "did:web:holochain-agent-runtime.etzhayyim.com",
       "runtimeFamily": "LangGraph",
       "assistantId": "echo",
       "threadId": "holochain-actor-thread-20260509"

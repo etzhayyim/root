@@ -1,6 +1,6 @@
 ---
 id: adr-2605131700-gworkspace-oauth-client-separation-broker-pattern
-title: Google Workspace OAuth — Identity Client vs Data Ingest Client separation, with auth.gftd.ai as Refresh-Token Broker
+title: Google Workspace OAuth — Identity Client vs Data Ingest Client separation, with auth.etzhayyim.com as Refresh-Token Broker
 status: accepted
 doc_type: adr
 topic: gworkspace-oauth-architecture
@@ -24,34 +24,34 @@ The Google Workspace ingest pipeline (`90-docs/260417-google-workspace-ingest-ru
 
 | Client | Purpose | scopes | redirect_uris |
 |---|---|---|---|
-| `96227025012-nnvmf7l8rfmttdrag3tkqnl51eg2lnpq…` | Workspace **data ingest** (gworkspace_lite + gmail.py) | 12 unified scopes (gmail.modify + calendar + drive + contacts.readonly + tasks + documents.readonly + spreadsheets.readonly + presentations.readonly + meetings.space.readonly + directory.readonly + contacts.other.readonly + openid email profile) | `https://gmail.gftd.ai/oauth/callback` (live); 8 more per-service callbacks **pending registration** |
-| `812728035865-f8lejbdpkquqfovmdttj1r6796qc509v…` | auth.gftd.ai **identity sign-in** (account-link OAuth at `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1260`) | `openid email profile` only | javascript_origins: `https://auth.gftd.ai` |
+| `96227025012-nnvmf7l8rfmttdrag3tkqnl51eg2lnpq…` | Workspace **data ingest** (gworkspace_lite + gmail.py) | 12 unified scopes (gmail.modify + calendar + drive + contacts.readonly + tasks + documents.readonly + spreadsheets.readonly + presentations.readonly + meetings.space.readonly + directory.readonly + contacts.other.readonly + openid email profile) | `https://gmail.etzhayyim.com/oauth/callback` (live); 8 more per-service callbacks **pending registration** |
+| `812728035865-f8lejbdpkquqfovmdttj1r6796qc509v…` | auth.etzhayyim.com **identity sign-in** (account-link OAuth at `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1260`) | `openid email profile` only | javascript_origins: `https://auth.etzhayyim.com` |
 
-During Phase 0 operator-action 2026-05-13, the identity sign-in client JSON was downloaded by mistake instead of the ingest client. This forced clarification of which client should be used for what, and whether "auth.gftd.ai 一本化" implies collapsing both into one client.
+During Phase 0 operator-action 2026-05-13, the identity sign-in client JSON was downloaded by mistake instead of the ingest client. This forced clarification of which client should be used for what, and whether "auth.etzhayyim.com 一本化" implies collapsing both into one client.
 
 # Decision
 
 **Keep the two OAuth Web Clients separate**:
 
-1. **`96227025012-…` = Data Ingest Client** — owns the 12 Workspace data scopes. redirect_uris are the 9 per-service callbacks `https://{gmail,calendar,drive,contacts,tasks,docs,sheets,slides,meet}.gftd.ai/oauth/callback`. Refresh tokens land in per-service `vertex_g<svc>_oauth_token`. This is the client `gworkspace_lite.py` + `gmail.py` consume.
+1. **`96227025012-…` = Data Ingest Client** — owns the 12 Workspace data scopes. redirect_uris are the 9 per-service callbacks `https://{gmail,calendar,drive,contacts,tasks,docs,sheets,slides,meet}.etzhayyim.com/oauth/callback`. Refresh tokens land in per-service `vertex_g<svc>_oauth_token`. This is the client `gworkspace_lite.py` + `gmail.py` consume.
 
-2. **`812728035865-…` = Identity Sign-In Client** — owns `openid email profile` only. Used by `auth.gftd.ai` to verify "this human is X@google.com" for account-link flow (ADR-0022/0023). Refresh tokens here are **discarded after identity verification** — they are not persisted.
+2. **`812728035865-…` = Identity Sign-In Client** — owns `openid email profile` only. Used by `auth.etzhayyim.com` to verify "this human is X@google.com" for account-link flow (ADR-0022/0023). Refresh tokens here are **discarded after identity verification** — they are not persisted.
 
-3. **Future broker (Phase 1, separate work)**: build `auth.gftd.ai/oauth/google/ingest-callback` as a refresh-token **storage broker** for the data ingest client. It consumes consent codes minted by the data ingest client, exchanges for refresh tokens, and persists into `vault.gftd.ai` (zero-knowledge invariant). Per-service workers query `vault.gftd.ai/getRefreshToken(account, service)` at sync time. The existing `auth.gftd.ai/oauth/google/callback` path (identity sign-in) is left **unchanged** — broker uses a different path to avoid scope-leak.
+3. **Future broker (Phase 1, separate work)**: build `auth.etzhayyim.com/oauth/google/ingest-callback` as a refresh-token **storage broker** for the data ingest client. It consumes consent codes minted by the data ingest client, exchanges for refresh tokens, and persists into `vault.etzhayyim.com` (zero-knowledge invariant). Per-service workers query `vault.etzhayyim.com/getRefreshToken(account, service)` at sync time. The existing `auth.etzhayyim.com/oauth/google/callback` path (identity sign-in) is left **unchanged** — broker uses a different path to avoid scope-leak.
 
-**"auth.gftd.ai 一本化" is reinterpreted as "broker-token-storage 一本化", not "single OAuth client"**.
+**"auth.etzhayyim.com 一本化" is reinterpreted as "broker-token-storage 一本化", not "single OAuth client"**.
 
 # Consequences
 
 **Positive**:
 - Google's own consent-screen design — which separates identity verification from data access — is respected. Audit scope is narrow (compromise of one client doesn't widen the other's blast radius).
 - Existing gmail refresh tokens (already minted against `96227025012-…`) keep working without re-consent.
-- auth.gftd.ai's account-link flow stays unaffected by the ingest pipeline's roadmap.
+- auth.etzhayyim.com's account-link flow stays unaffected by the ingest pipeline's roadmap.
 - Phase 1 broker is greenfield work that can iterate independently — it does not require any change to the identity sign-in client.
 
 **Negative**:
 - Two clients to rotate. Mitigated by separate ownership: `96227025012-…` rotation = Phase 0/1 owners; `812728035865-…` rotation = auth Worker owner.
-- 9 redirect URIs across 9 subdomains for the data ingest client (vs 1 callback if collapsed). Mitigated because the per-subdomain CF Workers each have their `/oauth/callback` already wired (verified 2026-05-13: all 9 return 400-on-missing-code except `calendar.gftd.ai` which is 404-pending-redeploy).
+- 9 redirect URIs across 9 subdomains for the data ingest client (vs 1 callback if collapsed). Mitigated because the per-subdomain CF Workers each have their `/oauth/callback` already wired (verified 2026-05-13: all 9 return 400-on-missing-code except `calendar.etzhayyim.com` which is 404-pending-redeploy).
 
 **Neutral**:
 - Once the Phase 1 broker is live, per-service callbacks become legacy. They can stay registered for backwards compatibility; new tokens flow through the broker only.
@@ -60,18 +60,18 @@ During Phase 0 operator-action 2026-05-13, the identity sign-in client JSON was 
 
 **A. Single OAuth client for both identity and data ingest** — REJECTED. Violates principle-of-least-privilege at the OAuth client granularity. Identity flows would carry 12-scope consent screens. Anonymous sign-in users would be asked "Allow gftd to read your Google Drive?" which is a worse UX and harder for Google's OAuth verification team to approve.
 
-**B. Collapse all 9 per-service redirect_uris into a single `https://auth.gftd.ai/oauth/google/data-callback` on the existing `96227025012-…` client** — DEFERRED to Phase 1. Requires (a) implementing the broker handler at auth.gftd.ai, (b) modifying `gworkspace_lite.py` to read tokens from vault.gftd.ai instead of `vertex_g<svc>_oauth_token`, (c) data migration. Architecturally correct but not the right unit of work for unblocking Phase 0 ingest today.
+**B. Collapse all 9 per-service redirect_uris into a single `https://auth.etzhayyim.com/oauth/google/data-callback` on the existing `96227025012-…` client** — DEFERRED to Phase 1. Requires (a) implementing the broker handler at auth.etzhayyim.com, (b) modifying `gworkspace_lite.py` to read tokens from vault.etzhayyim.com instead of `vertex_g<svc>_oauth_token`, (c) data migration. Architecturally correct but not the right unit of work for unblocking Phase 0 ingest today.
 
 **C. Domain-Wide Delegation** — REJECTED. Already ruled out in runbook because accounts span 5+ Workspace tenants; DWD is intra-tenant only.
 
-**D. Use the identity sign-in client (`812728035865-…`) for ingest** — REJECTED. The client only carries identity scopes; expanding it to 12-scope ingest pollutes a security-sensitive client and breaks Google's recommended pattern. Also `javascript_origins: ["https://auth.gftd.ai"]` is a single-origin browser-flow hint, not aligned with server-side per-service callbacks the ingest needs.
+**D. Use the identity sign-in client (`812728035865-…`) for ingest** — REJECTED. The client only carries identity scopes; expanding it to 12-scope ingest pollutes a security-sensitive client and breaks Google's recommended pattern. Also `javascript_origins: ["https://auth.etzhayyim.com"]` is a single-origin browser-flow hint, not aligned with server-side per-service callbacks the ingest needs.
 
 # References
 
 - `90-docs/260417-google-workspace-ingest-runbook.md` — Phase 0 ingest design
 - `_working/keiei/GWORKSPACE-INGEST-OPERATOR-HANDOFF.md` — current Phase 0 unblock state
 - `20-actors/magatama/py/src/pymagatama/ingest/gworkspace_lite.py:21-36` — 12 unified scopes
-- `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1242-1273` — auth.gftd.ai Google identity sign-in handler
+- `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1242-1273` — auth.etzhayyim.com Google identity sign-in handler
 - `90-docs/adr/0022-auth-topology-consolidation.md` — Auth topology
 - `90-docs/adr/0023-auth-shannon-optimal-4-layer.md` — 4-layer auth
-- vault.gftd.ai zero-knowledge invariant — CLAUDE.md root §Vault Zero-Knowledge Invariant
+- vault.etzhayyim.com zero-knowledge invariant — CLAUDE.md root §Vault Zero-Knowledge Invariant

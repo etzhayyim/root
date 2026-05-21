@@ -15,8 +15,8 @@
 set -euo pipefail
 
 RUNPOD_API_KEY="${RUNPOD_API_KEY:?Set RUNPOD_API_KEY}"
-IMAGE="ghcr.io/gftdcojp/runpod-ollama-gemma4:latest"
-CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/gftdcojp/build-cache:runpod-ollama-gemma4}"
+IMAGE="ghcr.io/etzhayyim/runpod-ollama-gemma4:latest"
+CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/etzhayyim/build-cache:runpod-ollama-gemma4}"
 
 echo "=== Step 1: Build & Push Docker Image ==="
 cd "$(dirname "$0")"
@@ -66,8 +66,8 @@ echo "  echo '$RUNPOD_API_KEY' | wrangler secret put RUNPOD_API_KEY"
 echo ""
 echo "=== Step 4: Verify ==="
 echo ""
-echo "  curl https://runpod.gftd.ai/health"
-echo "  curl -H 'x-api-key: rpgw_...' https://runpod.gftd.ai/v1/models"
+echo "  curl https://runpod.etzhayyim.com/health"
+echo "  curl -H 'x-api-key: rpgw_...' https://runpod.etzhayyim.com/v1/models"
 echo ""
 echo 'Direct RunPod test:'
 echo '  curl -X POST "https://api.runpod.ai/v2/{ENDPOINT_ID}/runsync" \'

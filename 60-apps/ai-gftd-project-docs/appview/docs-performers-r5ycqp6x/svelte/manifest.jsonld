@@ -1,5 +1,5 @@
 {
-  "@context": "https://kyber-services.gftd.ai/schema#",
+  "@context": "https://kyber-services.etzhayyim.com/schema#",
   "@type": "AppManifest",
   "id": "ai-gftd-performer-sys-gftd-app-docs-dvf92zap",
   "name": "Docs",
@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "category": "Documentation",
   "capabilities": [
-    "https://kyber-services.gftd.ai/capabilities/documentation-management"
+    "https://kyber-services.etzhayyim.com/capabilities/documentation-management"
   ],
-  "entryPoint": "https://docs.gftd.ai"
+  "entryPoint": "https://docs.etzhayyim.com"
 }

@@ -1,6 +1,6 @@
 # AIMA mobile release
 
-`aima.gftd.ai` is packaged as a Capacitor app in this directory. Native shells live in `ios/` and `android/`. Store publishing is driven by Fastlane.
+`aima.etzhayyim.com` is packaged as a Capacitor app in this directory. Native shells live in `ios/` and `android/`. Store publishing is driven by Fastlane.
 
 ## Setup
 

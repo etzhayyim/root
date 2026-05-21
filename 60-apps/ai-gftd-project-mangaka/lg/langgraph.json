@@ -1,5 +1,5 @@
 {
-  "$comment": "LangGraph Server config — mangaka.gftd.ai. P4 scaffold (2026-05-08), mirrors lg-shinshi/lg-animeka OSS pattern. NSID handlers: health/agent_chat (initial); generation graphs to be added in subsequent iterations.",
+  "$comment": "LangGraph Server config — mangaka.etzhayyim.com. P4 scaffold (2026-05-08), mirrors lg-shinshi/lg-animeka OSS pattern. NSID handlers: health/agent_chat (initial); generation graphs to be added in subsequent iterations.",
   "dependencies": ["./lg_mangaka", "../../../20-actors/magatama/py"],
   "graphs": {
     "health":             "./lg_mangaka/graphs/health.py:GRAPH",

@@ -2,7 +2,7 @@
 
 ## Identity
 
-**image2vrm.gftd.ai** / **img2vrm1.gftd.ai** — VRM Character Maker with dual-engine rendering.
+**image2vrm.etzhayyim.com** / **img2vrm1.etzhayyim.com** — VRM Character Maker with dual-engine rendering.
 
 ## Architecture
 
@@ -17,7 +17,7 @@
 └─────────────────────┘ └──────────────────────┘ └─────────────┘
          ↑                        ↑                     │
          └────── VRM (10MB) from R2 ─────────────────────┘
-                murakumo.gftd.ai/api/r2/avatar/base/body_v1.vrm
+                murakumo.etzhayyim.com/api/r2/avatar/base/body_v1.vrm
 ```
 
 ## Dual Engine Rendering
@@ -282,8 +282,8 @@ npx wrangler r2 object put "ai-gftd-cdn/kami-web/vrm2122/kami_web.js" --file="ka
 ## Rules
 
 - **src/app.ts = deploy entry**: `gftd deploy` bundles from `src/app.ts` (CF best practice)
-- **KAMI WASM CDN**: `https://cdn.gftd.ai/kami-web/vrm2122/` — rebuild with `wasm-pack` after engine changes
-- **VRM B2 proxy**: `murakumo.gftd.ai/api/r2/avatar/base/body_v1.vrm` — CORS enabled, cached 1h
+- **KAMI WASM CDN**: `https://cdn.etzhayyim.com/kami-web/vrm2122/` — rebuild with `wasm-pack` after engine changes
+- **VRM B2 proxy**: `murakumo.etzhayyim.com/api/r2/avatar/base/body_v1.vrm` — CORS enabled, cached 1h
 - **Morph targets**: CPU blend in render loop, dirty flag pattern. `set_vrm_morph` from JS triggers re-upload next frame
 - **Camera**: Interactive orbit stored in thread_local RefCell, read each frame
 - **MToon detection**: `sss_model == 99` in MaterialUniform selects MToon pipeline

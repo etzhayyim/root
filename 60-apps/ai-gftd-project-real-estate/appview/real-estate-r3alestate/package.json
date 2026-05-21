@@ -1,7 +1,7 @@
 {
   "name": "real-estate-r3alestate",
   "version": "0.1.0",
-  "description": "real-estate.gftd.ai — global property/listing/transaction MCP facade",
+  "description": "real-estate.etzhayyim.com — global property/listing/transaction MCP facade",
   "main": "src/app.ts",
   "type": "module",
   "devDependencies": {

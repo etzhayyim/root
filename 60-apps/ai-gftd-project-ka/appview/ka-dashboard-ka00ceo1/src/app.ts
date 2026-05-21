@@ -1,4 +1,4 @@
-// ka.gftd.ai thin edge facade. Strategy dashboard queries run in AgentGateway MCP + pod-side LangServer.
+// ka.etzhayyim.com thin edge facade. Strategy dashboard queries run in AgentGateway MCP + pod-side LangServer.
 
 interface SecretBinding { get(): Promise<string>; }
 interface Env { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | SecretBinding; APP_NANOID?: string; }
@@ -29,7 +29,7 @@ export default {
     if (url.pathname === "/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:ka.gftd.ai",
+        actor: "did:web:ka.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "ka00ceo1",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/ka.py",
@@ -73,7 +73,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>, unwrapRows: boolean): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

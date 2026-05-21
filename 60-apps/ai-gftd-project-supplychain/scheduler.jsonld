@@ -8,7 +8,7 @@
   "milestones": [
     {
       "@type": "DefinedTerm",
-      "name": "Scaffold supplychain.gftd.ai SpinApp",
+      "name": "Scaffold supplychain.etzhayyim.com SpinApp",
       "description": "Create public static UI and API surface for curated supply chain topology."
     },
     {

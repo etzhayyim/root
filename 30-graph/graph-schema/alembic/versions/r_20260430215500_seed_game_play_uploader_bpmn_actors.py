@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-register-participant-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-register-participant-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'game_play_uploader_register_participant',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_game_play_uploader_register_participant" '
-                 'targetNamespace="https://gftd.ai/bpmn/gamePlayUploader"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/gamePlayUploader"><bpmn:process '
                  'id="game_play_uploader_register_participant" name="gamePlayUploader '
                  'registerParticipant" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.gamePlayUploader.registerParticipant", "version": 1, '
@@ -48,11 +48,11 @@ UP = [{'sql': '\n'
                  1112,
                  '00-contracts/bpmn/ai/gftd/gamePlayUploader/registerParticipant.bpmn',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-register-participant-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-register-participant-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,17 +67,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-register-participant-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-register-participant-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'ai.gftd.apps.gamePlayUploader.registerParticipant',
                  'game_play_uploader_register_participant',
                  'vertex_game_play_participant,vertex_game_play_upload_session,vertex_game_play_upload,vertex_game_play_review,vertex_game_play_reward,edge_game_play_participant_session,edge_game_play_session_upload,edge_game_play_upload_review,edge_game_play_upload_reward',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-register-participant-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-register-participant-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -93,14 +93,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-create-upload-session-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-create-upload-session-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'game_play_uploader_create_upload_session',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_game_play_uploader_create_upload_session" '
-                 'targetNamespace="https://gftd.ai/bpmn/gamePlayUploader"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/gamePlayUploader"><bpmn:process '
                  'id="game_play_uploader_create_upload_session" name="gamePlayUploader '
                  'createUploadSession" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.gamePlayUploader.createUploadSession", "version": 1, '
@@ -114,11 +114,11 @@ UP = [{'sql': '\n'
                  1115,
                  '00-contracts/bpmn/ai/gftd/gamePlayUploader/createUploadSession.bpmn',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-create-upload-session-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-create-upload-session-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -133,17 +133,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-create-upload-session-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-create-upload-session-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'ai.gftd.apps.gamePlayUploader.createUploadSession',
                  'game_play_uploader_create_upload_session',
                  'vertex_game_play_participant,vertex_game_play_upload_session,vertex_game_play_upload,vertex_game_play_review,vertex_game_play_reward,edge_game_play_participant_session,edge_game_play_session_upload,edge_game_play_upload_review,edge_game_play_upload_reward',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-create-upload-session-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-create-upload-session-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -159,14 +159,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-record-gameplay-upload-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-record-gameplay-upload-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'game_play_uploader_record_gameplay_upload',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_game_play_uploader_record_gameplay_upload" '
-                 'targetNamespace="https://gftd.ai/bpmn/gamePlayUploader"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/gamePlayUploader"><bpmn:process '
                  'id="game_play_uploader_record_gameplay_upload" name="gamePlayUploader '
                  'recordGameplayUpload" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.gamePlayUploader.recordGameplayUpload", "version": 1, '
@@ -180,11 +180,11 @@ UP = [{'sql': '\n'
                  1121,
                  '00-contracts/bpmn/ai/gftd/gamePlayUploader/recordGameplayUpload.bpmn',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-record-gameplay-upload-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-record-gameplay-upload-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -199,17 +199,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-record-gameplay-upload-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-record-gameplay-upload-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'ai.gftd.apps.gamePlayUploader.recordGameplayUpload',
                  'game_play_uploader_record_gameplay_upload',
                  'vertex_game_play_participant,vertex_game_play_upload_session,vertex_game_play_upload,vertex_game_play_review,vertex_game_play_reward,edge_game_play_participant_session,edge_game_play_session_upload,edge_game_play_upload_review,edge_game_play_upload_reward',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-record-gameplay-upload-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-record-gameplay-upload-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -225,14 +225,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-review-upload-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-review-upload-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'game_play_uploader_review_upload',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_game_play_uploader_review_upload" '
-                 'targetNamespace="https://gftd.ai/bpmn/gamePlayUploader"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/gamePlayUploader"><bpmn:process '
                  'id="game_play_uploader_review_upload" name="gamePlayUploader reviewUpload" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.gamePlayUploader.reviewUpload", "version": 1, "resultTimeoutMs": '
@@ -246,11 +246,11 @@ UP = [{'sql': '\n'
                  1070,
                  '00-contracts/bpmn/ai/gftd/gamePlayUploader/reviewUpload.bpmn',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-review-upload-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-review-upload-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -265,17 +265,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-review-upload-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-review-upload-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'ai.gftd.apps.gamePlayUploader.reviewUpload',
                  'game_play_uploader_review_upload',
                  'vertex_game_play_participant,vertex_game_play_upload_session,vertex_game_play_upload,vertex_game_play_review,vertex_game_play_reward,edge_game_play_participant_session,edge_game_play_session_upload,edge_game_play_upload_review,edge_game_play_upload_reward',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-review-upload-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-review-upload-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -291,14 +291,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-calculate-reward-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-calculate-reward-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'game_play_uploader_calculate_reward',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_game_play_uploader_calculate_reward" '
-                 'targetNamespace="https://gftd.ai/bpmn/gamePlayUploader"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/gamePlayUploader"><bpmn:process '
                  'id="game_play_uploader_calculate_reward" name="gamePlayUploader calculateReward" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.gamePlayUploader.calculateReward", "version": 1, '
@@ -312,11 +312,11 @@ UP = [{'sql': '\n'
                  1088,
                  '00-contracts/bpmn/ai/gftd/gamePlayUploader/calculateReward.bpmn',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-calculate-reward-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-calculate-reward-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -331,17 +331,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-calculate-reward-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-calculate-reward-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'ai.gftd.apps.gamePlayUploader.calculateReward',
                  'game_play_uploader_calculate_reward',
                  '',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-calculate-reward-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-calculate-reward-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -357,14 +357,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-get-campaign-status-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-get-campaign-status-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'game_play_uploader_get_campaign_status',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_game_play_uploader_get_campaign_status" '
-                 'targetNamespace="https://gftd.ai/bpmn/gamePlayUploader"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/gamePlayUploader"><bpmn:process '
                  'id="game_play_uploader_get_campaign_status" name="gamePlayUploader '
                  'getCampaignStatus" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.gamePlayUploader.getCampaignStatus", "version": 1, '
@@ -378,11 +378,11 @@ UP = [{'sql': '\n'
                  1103,
                  '00-contracts/bpmn/ai/gftd/gamePlayUploader/getCampaignStatus.bpmn',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-get-campaign-status-v1']},
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-get-campaign-status-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -397,42 +397,42 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-get-campaign-status-v1',
-                 'did:web:game-play-uploader.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-get-campaign-status-v1',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'ai.gftd.apps.gamePlayUploader.getCampaignStatus',
                  'game_play_uploader_get_campaign_status',
                  '',
                  '2026-04-30T21:55:00+09:00',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'did:web:game-play-uploader.gftd.ai',
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'did:web:game-play-uploader.etzhayyim.com',
                  'sys.bpmn.seed.game-play-uploader',
-                 'did:web:game-play-uploader.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-get-campaign-status-v1']}]
+                 'did:web:game-play-uploader.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-get-campaign-status-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-register-participant-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-register-participant-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-register-participant-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-register-participant-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-create-upload-session-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-create-upload-session-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-create-upload-session-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-create-upload-session-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-record-gameplay-upload-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-record-gameplay-upload-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-record-gameplay-upload-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-record-gameplay-upload-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-review-upload-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-review-upload-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-review-upload-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-review-upload-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-calculate-reward-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-calculate-reward-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-calculate-reward-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-calculate-reward-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/game-play-uploader-get-campaign-status-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/game-play-uploader-get-campaign-status-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/game-play-uploader-get-campaign-status-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/game-play-uploader-get-campaign-status-v1']}]
 
 
 def upgrade() -> None:

@@ -1,23 +1,23 @@
 # ai-gftd-project-minpaku
 
-民泊 & 宿泊施設 intelligence。`minpaku.gftd.ai`
+民泊 & 宿泊施設 intelligence。`minpaku.etzhayyim.com`
 
 ## App Identity
 
 | Key | Value |
 |---|---|
 | nanoid | `mp7k9x2w` |
-| domain | `minpaku.gftd.ai` |
+| domain | `minpaku.etzhayyim.com` |
 | performer ID | `mp7k9x2w` |
-| AT bot DID | `did:web:minpaku.gftd.ai` |
+| AT bot DID | `did:web:minpaku.etzhayyim.com` |
 | Runtime | TS Native + Lexicon Contract |
 
 ## Writer Entities (Data Sources with DID)
 
 | Source | DID | Category | Format |
 |---|---|---|---|
-| OpenStreetMap | `did:web:minpaku.gftd.ai:source:osm` | accommodation | overpass_json |
-| Kankocho Minpaku Data | `did:web:minpaku.gftd.ai:source:kankocho` | minpaku | gov_open_data |
+| OpenStreetMap | `did:web:minpaku.etzhayyim.com:source:osm` | accommodation | overpass_json |
+| Kankocho Minpaku Data | `did:web:minpaku.etzhayyim.com:source:kankocho` | minpaku | gov_open_data |
 
 ## Data Model
 

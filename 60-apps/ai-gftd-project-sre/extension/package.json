@@ -1,7 +1,7 @@
 {
-  "name": "@gftdcojp/sre-toolbar-extension",
+  "name": "@etzhayyim/sre-toolbar-extension",
   "version": "1.0.0",
-  "description": "SRE Toolbar extension for gftd.ai",
+  "description": "SRE Toolbar extension for etzhayyim.com",
   "type": "module",
   "scripts": {
     "dev": "vite build --watch",

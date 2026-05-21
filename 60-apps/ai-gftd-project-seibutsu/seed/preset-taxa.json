@@ -3,12 +3,12 @@
   "taxa": [
     {
       "taxon": {
-        "did": "did:web:seibutsu.gftd.ai:taxon:poaceae",
+        "did": "did:web:seibutsu.etzhayyim.com:taxon:poaceae",
         "rank": "family",
         "scientificName": "Poaceae",
         "authority": "Barnhart 1895",
         "commonName": "grass",
-        "parentDid": "did:web:seibutsu.gftd.ai:taxon:angiospermae",
+        "parentDid": "did:web:seibutsu.etzhayyim.com:taxon:angiospermae",
         "gbifId": "3073"
       },
       "traits": {
@@ -21,11 +21,11 @@
     },
     {
       "taxon": {
-        "did": "did:web:seibutsu.gftd.ai:taxon:polypodiopsida",
+        "did": "did:web:seibutsu.etzhayyim.com:taxon:polypodiopsida",
         "rank": "class",
         "scientificName": "Polypodiopsida",
         "commonName": "fern",
-        "parentDid": "did:web:seibutsu.gftd.ai:taxon:pteridophyta"
+        "parentDid": "did:web:seibutsu.etzhayyim.com:taxon:pteridophyta"
       },
       "traits": {
         "division": "pteridophyta", "habit": "herb", "arrangement": "alternate",
@@ -37,12 +37,12 @@
     },
     {
       "taxon": {
-        "did": "did:web:seibutsu.gftd.ai:taxon:arecaceae",
+        "did": "did:web:seibutsu.etzhayyim.com:taxon:arecaceae",
         "rank": "family",
         "scientificName": "Arecaceae",
         "authority": "Bercht. & J.Presl 1820",
         "commonName": "palm",
-        "parentDid": "did:web:seibutsu.gftd.ai:taxon:angiospermae",
+        "parentDid": "did:web:seibutsu.etzhayyim.com:taxon:angiospermae",
         "gbifId": "7681"
       },
       "traits": {
@@ -55,12 +55,12 @@
     },
     {
       "taxon": {
-        "did": "did:web:seibutsu.gftd.ai:taxon:pinaceae",
+        "did": "did:web:seibutsu.etzhayyim.com:taxon:pinaceae",
         "rank": "family",
         "scientificName": "Pinaceae",
         "authority": "Spreng. ex F.Rudolphi 1830",
         "commonName": "conifer",
-        "parentDid": "did:web:seibutsu.gftd.ai:taxon:gymnospermae",
+        "parentDid": "did:web:seibutsu.etzhayyim.com:taxon:gymnospermae",
         "gbifId": "3925"
       },
       "traits": {
@@ -73,12 +73,12 @@
     },
     {
       "taxon": {
-        "did": "did:web:seibutsu.gftd.ai:taxon:rhamnaceae",
+        "did": "did:web:seibutsu.etzhayyim.com:taxon:rhamnaceae",
         "rank": "family",
         "scientificName": "Rhamnaceae",
         "authority": "Juss. 1789",
         "commonName": "bush",
-        "parentDid": "did:web:seibutsu.gftd.ai:taxon:angiospermae"
+        "parentDid": "did:web:seibutsu.etzhayyim.com:taxon:angiospermae"
       },
       "traits": {
         "division": "angiospermae", "habit": "shrub", "arrangement": "alternate",
@@ -90,12 +90,12 @@
     },
     {
       "taxon": {
-        "did": "did:web:seibutsu.gftd.ai:taxon:cactaceae",
+        "did": "did:web:seibutsu.etzhayyim.com:taxon:cactaceae",
         "rank": "family",
         "scientificName": "Cactaceae",
         "authority": "Juss. 1789",
         "commonName": "cactus",
-        "parentDid": "did:web:seibutsu.gftd.ai:taxon:angiospermae",
+        "parentDid": "did:web:seibutsu.etzhayyim.com:taxon:angiospermae",
         "gbifId": "3084"
       },
       "traits": {
@@ -108,11 +108,11 @@
     },
     {
       "taxon": {
-        "did": "did:web:seibutsu.gftd.ai:taxon:bryopsida",
+        "did": "did:web:seibutsu.etzhayyim.com:taxon:bryopsida",
         "rank": "class",
         "scientificName": "Bryopsida",
         "commonName": "moss",
-        "parentDid": "did:web:seibutsu.gftd.ai:taxon:bryophyta"
+        "parentDid": "did:web:seibutsu.etzhayyim.com:taxon:bryophyta"
       },
       "traits": {
         "division": "bryophyta", "habit": "mat", "arrangement": "none",

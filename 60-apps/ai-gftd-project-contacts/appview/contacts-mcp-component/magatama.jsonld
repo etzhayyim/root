@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:contacts.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:contacts.etzhayyim.com",
   "name": "contacts",
   "nanoid": "contacts-mcp",
   "performerType": "service",

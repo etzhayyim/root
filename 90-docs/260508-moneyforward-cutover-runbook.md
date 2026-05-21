@@ -83,7 +83,7 @@ curl -fsS -X POST http://localhost:8080/v1/instance \
 Run after every MoneyForward export period:
 
 ```bash
-curl -fsS -X POST https://kaikei.gftd.ai/xrpc/ai.gftd.apps.kaikei.validateMoneyForwardParity \
+curl -fsS -X POST https://kaikei.etzhayyim.com/xrpc/ai.gftd.apps.kaikei.validateMoneyForwardParity \
   -H 'content-type: application/json' \
   -d '{"owner":"works","periodFrom":"2026-04-01","periodTo":"2026-04-30","mfExportCid":"bafy...","mfTotal":0}'
 ```
@@ -96,7 +96,7 @@ delta has a documented manual adjustment row.
 - All schema migrations applied and `db:drift` is clean.
 - Spiff smoke for `seikyu`, `keiyaku`, `kousuu`, `keihi`, `jinji`, `kaikei`,
   and `kaisya` succeeds.
-- `kaisya.gftd.ai/finance` renders invoice aging, contract, project burn,
+- `kaisya.etzhayyim.com/finance` renders invoice aging, contract, project burn,
   expense, payroll, statutory, parity, SaaS, year-end, and My Number sections.
 - MoneyForward parity status is `matched` for Works, Japan, and Labo or an
   exception note is filed.

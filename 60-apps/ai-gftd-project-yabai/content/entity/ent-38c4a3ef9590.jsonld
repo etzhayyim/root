@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-38c4a3ef9590",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-38c4a3ef9590",
   "entityId": "ent-38c4a3ef9590",
   "canonicalName": "ряховський сергій васильович",
   "aliases": [

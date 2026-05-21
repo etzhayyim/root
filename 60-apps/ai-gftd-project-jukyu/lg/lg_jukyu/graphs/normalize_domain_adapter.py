@@ -35,13 +35,13 @@ from lg_jukyu.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.gftd.ai")
+_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.etzhayyim.com")
 
 
 def _supply_node_vid(node_code: str, domain: str) -> str:
     """Deterministic AT URI for a supply node, stable across runs."""
     h = hashlib.sha256(f"{node_code}:{domain}".encode()).hexdigest()[:16]
-    return f"at://jukyu001.gftd.ai/ai.gftd.apps.jukyu.supplyNode/{h}"
+    return f"at://jukyu001.etzhayyim.com/ai.gftd.apps.jukyu.supplyNode/{h}"
 
 # Domain confidence scores from CLAUDE.md (semiconductor handled within transport)
 _DOMAIN_CONFIDENCE: dict[str, float] = {
@@ -175,7 +175,7 @@ async def _normalize_naphtha(cur: Any, confidence: float) -> dict[str, Any]:
     for r in bal_rows:
         try:
             obs_id = f"naphtha-balance:{r[0]}:{r[1]}"
-            vertex_id = f"at://jukyu001.gftd.ai/ai.gftd.apps.jukyu.balanceObservation/{uuid.uuid4().hex[:12]}"
+            vertex_id = f"at://jukyu001.etzhayyim.com/ai.gftd.apps.jukyu.balanceObservation/{uuid.uuid4().hex[:12]}"
             await cur.execute(
                 """
                 INSERT INTO vertex_jukyu_balance_observation
@@ -402,7 +402,7 @@ async def _normalize_transport(cur: Any, confidence: float) -> dict[str, Any]:
     for (domain, product_family, dest_locode), total_qty in in_transit.items():
         try:
             obs_id = f"transport-intransit:{domain}:{product_family}:{dest_locode}"
-            vertex_id = f"at://jukyu001.gftd.ai/ai.gftd.apps.jukyu.balanceObservation/{uuid.uuid4().hex[:12]}"
+            vertex_id = f"at://jukyu001.etzhayyim.com/ai.gftd.apps.jukyu.balanceObservation/{uuid.uuid4().hex[:12]}"
             dest_cc = dest_locode[:2] if len(dest_locode) >= 2 else "XX"
             await cur.execute(
                 """

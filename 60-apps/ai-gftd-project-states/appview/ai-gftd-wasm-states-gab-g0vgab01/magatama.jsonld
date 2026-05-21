@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:gab-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:gab-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Gabonese Republic AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "gab-state.gftd.ai",
+      "host": "gab-state.etzhayyim.com",
       "paths": [
         "/"
       ],

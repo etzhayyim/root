@@ -62,6 +62,7 @@ _MICROSOFT_XRPC = os.getenv(
 # Known pipeline tracks for dependency mapping
 _TRACKS = {
     "track_a": ["bakshi", "khaitan", "nishith", "law firm", "外弁", "counsel"],
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
     "track_b": ["risingwave", "rw migration", "vertex", "migration", "apply"],
     "track_c": ["configmap", "outbox", "eml", "pymagatama", "zeebe", "worker"],
     "hubspot": ["hubspot", "crm", "portal", "ingest", "contact"],

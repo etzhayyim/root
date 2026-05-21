@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-e06a0bf33a6f",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e06a0bf33a6f",
   "entityId": "ent-e06a0bf33a6f",
   "canonicalName": "blue berri shipping inc.",
   "aliases": [

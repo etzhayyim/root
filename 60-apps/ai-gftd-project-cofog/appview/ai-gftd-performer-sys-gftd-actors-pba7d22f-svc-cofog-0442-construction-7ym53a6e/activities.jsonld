@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/4/2/construction/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/4/2/construction/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Construction Oversight and Inspection Lifecycle",
       "description": "The administrative process of reviewing construction designs, inspecting site safety, and verifying building code compliance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/4/2/construction"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/4/2/construction"
     }
   ]
 }

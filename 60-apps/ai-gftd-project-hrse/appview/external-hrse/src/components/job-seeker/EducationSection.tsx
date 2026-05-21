@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#EducationSectionConnect
+ * @etzhayyim/ai-gftd-hrse#EducationSectionConnect
  * 学歴管理セクション（Connect-Web版）
  */
 

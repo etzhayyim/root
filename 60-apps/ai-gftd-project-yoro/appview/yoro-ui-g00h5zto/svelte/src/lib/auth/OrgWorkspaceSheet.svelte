@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, BottomSheet, Button, Card, Input } from '@gftdcojp/design-system';
+	import { Badge, BottomSheet, Button, Card, Input } from '@etzhayyim/design-system';
 	import type { Organization, TrustSummary } from './types.js';
 	import { trustVariantFromScore } from './trust.js';
 

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:bol-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:bol-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Bolivia (Estado Plurinacional de Bolivia) AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -109,7 +109,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "bol-state.gftd.ai",
+      "host": "bol-state.etzhayyim.com",
       "paths": [
         "/"
       ],

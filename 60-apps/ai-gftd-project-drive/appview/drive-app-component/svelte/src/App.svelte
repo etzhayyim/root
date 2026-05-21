@@ -1,7 +1,7 @@
 <main>
   <section class="toolbar">
     <div>
-      <p class="eyebrow">drive.gftd.ai</p>
+      <p class="eyebrow">drive.etzhayyim.com</p>
       <h1>Workspace Drive</h1>
     </div>
     <button>Connect</button>

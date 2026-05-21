@@ -1,22 +1,22 @@
 {
   "@context": {
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/",
+    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/",
     "dependsOn": {
       "@id": "gftd:dependsOn",
       "@type": "@id"
     }
   },
   "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-ohanashi/id/Project/ai-gftd-project-ohanashi",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-ohanashi/id/Project/ai-gftd-project-ohanashi",
   "schema:name": "ai-gftd-project-ohanashi",
   "schema:description": "Phone-first AI consultation project for seniors. Users call by phone and receive safe, clear guidance with family notification and escalation workflows.",
-  "schema:url": "https://ohanashi.gftd.ai",
+  "schema:url": "https://ohanashi.etzhayyim.com",
   "dependsOn": [
-    "https://resources.gftd.ai/ai-gftd-project-iam/id/Project/ai-gftd-project-iam",
-    "https://resources.gftd.ai/ai-gftd-project-mailer/id/Project/ai-gftd-project-mailer",
-    "https://resources.gftd.ai/ai-gftd-project-ops/id/Project/ai-gftd-project-ops"
+    "https://resources.etzhayyim.com/ai-gftd-project-iam/id/Project/ai-gftd-project-iam",
+    "https://resources.etzhayyim.com/ai-gftd-project-mailer/id/Project/ai-gftd-project-mailer",
+    "https://resources.etzhayyim.com/ai-gftd-project-ops/id/Project/ai-gftd-project-ops"
   ],
   "dodaf:capability": [
     {
@@ -44,7 +44,7 @@
     {
       "@type": "dodaf:Performer",
       "schema:name": "ohanashi-family-portal",
-      "schema:description": "Web portal on ohanashi.gftd.ai for consent, notifications, and conversation summaries."
+      "schema:description": "Web portal on ohanashi.etzhayyim.com for consent, notifications, and conversation summaries."
     }
   ]
 }

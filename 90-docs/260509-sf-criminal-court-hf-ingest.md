@@ -66,7 +66,7 @@ export HF_TOKEN='...'
 
 python3 70-tools/scripts/ingest/legal-court-hf-datasets.py \
   export-world \
-  --repo-id gftdcojp/world_criminal_court \
+  --repo-id etzhayyim/world_criminal_court \
   --push
 ```
 

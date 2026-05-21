@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/01/1/2/foreign-economic-aid/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/01/1/2/foreign-economic-aid/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "International Development Cooperation Process",
       "description": "Orchestration of international aid programs, encompassing proposal review, funding approval, and multi-lateral coordination.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/01/1/2/foreign-economic-aid"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/1/2/foreign-economic-aid"
     }
   ]
 }

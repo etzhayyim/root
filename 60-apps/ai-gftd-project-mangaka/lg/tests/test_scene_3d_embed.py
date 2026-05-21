@@ -83,7 +83,7 @@ def test_both_paths_seed_with_jsonld_context():
     inconsistent starting states."""
     sv = _SVELTE_COMPONENT.read_text()
     htm = _STATIC_HTM.read_text()
-    ctx = "https://kami.gftd.ai/mangaka-scene/v1"
+    ctx = "https://kami.etzhayyim.com/mangaka-scene/v1"
     assert ctx in sv, "Svelte component missing seed scene @context"
     assert ctx in htm, "HTM shell missing seed scene @context"
 

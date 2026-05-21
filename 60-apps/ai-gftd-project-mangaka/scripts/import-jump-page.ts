@@ -1,13 +1,13 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net --allow-run --allow-write --allow-env
 /**
- * Import 1 episode page (arc0-1-origin, page 0) into mangaka.gftd.ai as a Genko document.
+ * Import 1 episode page (arc0-1-origin, page 0) into mangaka.etzhayyim.com as a Genko document.
  * Uploads images to PDS blob storage, references by URL in the document.
  */
 
 const JUMP_DIR = "/Users/junkawasaki/github/ghosthacker/260123-jump/resources";
 const IMG_DIR = "/Users/junkawasaki/github/ghosthacker/260123-jump/resources/images";
-const PDS_BASE = "https://atproto.gftd.ai/xrpc/";
-const MANGAKA_BASE = "https://mangaka.gftd.ai/xrpc/";
+const PDS_BASE = "https://atproto.etzhayyim.com/xrpc/";
+const MANGAKA_BASE = "https://mangaka.etzhayyim.com/xrpc/";
 
 async function xrpc(method: string, body: Record<string, unknown>) {
   const resp = await fetch(MANGAKA_BASE + method, {
@@ -206,4 +206,4 @@ const saveResult = await xrpc("ai.gftd.mangaka.saveDocument", {
   convoId,
 });
 console.log("Result:", JSON.stringify(saveResult));
-console.log(`\n=== Done! Refresh mangaka.gftd.ai → select Ghost Hacker project ===`);
+console.log(`\n=== Done! Refresh mangaka.etzhayyim.com → select Ghost Hacker project ===`);

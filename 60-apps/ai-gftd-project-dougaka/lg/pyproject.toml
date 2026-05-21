@@ -1,7 +1,7 @@
 [project]
 name = "lg-dougaka"
 version = "0.1.0"
-description = "dougaka.gftd.ai OSS LangGraph FastAPI server — ComfyUI-based video render service for yukkuri pipeline"
+description = "dougaka.etzhayyim.com OSS LangGraph FastAPI server — ComfyUI-based video render service for yukkuri pipeline"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",

@@ -9,6 +9,7 @@
 //   createWorkerExport drain → archiveToOutbox(failedWrites, db)
 //   PDS cron (*/5 * * * *) → syncOutbox(db, replayFn)
 
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import type { Kysely } from "kysely";
 import type { Database } from "@gftd/graph-schema";
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '@gftdcojp/design-system';
+	import { cn } from '@etzhayyim/design-system';
 	import { resolveConsent } from '$lib/atproto-agent';
 	import type { ConsentGrant } from '$lib/atproto-agent';
 	import { fade } from 'svelte/transition';

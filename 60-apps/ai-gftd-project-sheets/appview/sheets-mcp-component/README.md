@@ -7,7 +7,7 @@ This component exposes Sheets MCP endpoints on `/api/mcp` and `/{nanoid}/api/mcp
 - `POST /api/mcp` (JSON-RPC 2.0: `tools/list`, `tools/call`)
 - `GET /api/mcp/tools`
 - `POST /api/mcp/tools/{tool}/call`
-- `POST https://{nanoid}.gftd.ai/api/mcp`
+- `POST https://{nanoid}.etzhayyim.com/api/mcp`
 - `GET /{nanoid}/api/mcp/tools`
 - `POST /{nanoid}/api/mcp/tools/{tool}/call`
 

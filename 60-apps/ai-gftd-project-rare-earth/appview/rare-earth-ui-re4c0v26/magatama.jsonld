@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:rare-earth.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:rare-earth.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -82,7 +82,7 @@
   },
   "upstreams": [
     {
-      "did": "did:web:rare-earth-coverage.gftd.ai",
+      "did": "did:web:rare-earth-coverage.etzhayyim.com",
       "role": "primary-coverage-actor"
     }
   ]

@@ -7,12 +7,12 @@
  *   secret/data/orgs/{orgId}/users/{userId}/services/japanpost-enaiyo/primary
  *
  * Calls back via XRPC:
- *   POST https://jp4n41y0.gftd.ai/xrpc/ai.gftd.apps.yorishiroEnaiyo.recordReceipt
+ *   POST https://jp4n41y0.etzhayyim.com/xrpc/ai.gftd.apps.yorishiroEnaiyo.recordReceipt
  */
 
 import { runJapanpostEnaiyoSingle, runJapanpostEnaiyoBatch, type EnaiyoCredentials } from "./flow.js";
 
-const ENAIYO_APP_BASE = "https://jp4n41y0.gftd.ai";
+const ENAIYO_APP_BASE = "https://jp4n41y0.etzhayyim.com";
 const VAULT_URL = process.env.VAULT_URL ?? "http://vault:8200";
 const VAULT_TOKEN = process.env.VAULT_TOKEN ?? "";
 

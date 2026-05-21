@@ -4,7 +4,7 @@
 
 ## Overview
 
-`public-sento.gftd.ai` — 銭湯の立ち上げ・運営を対象にした公共資金ファンド。
+`public-sento.etzhayyim.com` — 銭湯の立ち上げ・運営を対象にした公共資金ファンド。
 開業準備から運営改善までを、Fund Campaign / Eligibility / Disbursement で一貫管理する。
 
 ## Domain Model

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/4/1/manufacturing",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/4/1/manufacturing",
       "type": "dodaf:Capability",
       "name": "Industrial and Manufacturing Development Capability",
       "description": "Functional capability for managing industrial development, manufacturing incentives, and quality standards. Classification: COFOG Division 04, Group 4, Class 1.",

@@ -1,7 +1,7 @@
 #[allow(warnings)]
 mod bindings;
 
-use bindings::exports::gftdcojp::svelte_adapter::js_runtime::Guest;
+use bindings::exports::etzhayyim::svelte_adapter::js_runtime::Guest;
 
 struct Component;
 

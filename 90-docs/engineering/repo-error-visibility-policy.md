@@ -89,4 +89,4 @@ underlying violations — never to silence new ones.
 
 ## Historical Incidents
 
-- 2026-04-14: yoro.gftd.ai のデータ読み込み失敗。`com.atproto.repo.listRecords` の Hyperdrive query が try/catch なしで uncaught exception → CF Worker 1101 を間欠発生。修正: `handlers/pds/repo.ts` listRecords/getRecord に明示 try/catch → 502 `UpstreamQueryFailed` JSON 化 + `helpers.ts buildRecordView` の `cid=rkey` 取り違え bug 修正。併せて本 policy を priority 10.0 (inviolable) に昇格。
+- 2026-04-14: yoro.etzhayyim.com のデータ読み込み失敗。`com.atproto.repo.listRecords` の Hyperdrive query が try/catch なしで uncaught exception → CF Worker 1101 を間欠発生。修正: `handlers/pds/repo.ts` listRecords/getRecord に明示 try/catch → 502 `UpstreamQueryFailed` JSON 化 + `helpers.ts buildRecordView` の `cid=rkey` 取り違え bug 修正。併せて本 policy を priority 10.0 (inviolable) に昇格。

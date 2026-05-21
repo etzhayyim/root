@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/10/5/0/unemployment/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/10/5/0/unemployment/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Unemployment Benefit and Job Search Lifecycle",
       "description": "The administrative process of verifying unemployment eligibility, coordinating vocational training, and monitoring job search compliance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/10/5/0/unemployment"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/5/0/unemployment"
     }
   ]
 }

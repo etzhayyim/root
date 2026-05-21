@@ -65,7 +65,7 @@ export async function GET({ params, url, platform }: { params: { cid: string }; 
   // CF edge cache lookup first (per-colo).
   const caches = (globalThis as any).caches as { default: { match(req: Request): Promise<Response | undefined>; put(req: Request, res: Response): Promise<void> } };
   const cache = caches?.default;
-  const cacheKey = new Request(`https://mangaka.gftd.ai/blob/${cid}?did=${did}`, { method: "GET" });
+  const cacheKey = new Request(`https://mangaka.etzhayyim.com/blob/${cid}?did=${did}`, { method: "GET" });
   if (cache) {
     const hit = await cache.match(cacheKey);
     if (hit) {

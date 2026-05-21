@@ -2,17 +2,17 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://gftd.ai/schemas/",
+      "gftd": "https://etzhayyim.com/schemas/",
       "capabilities": "gftd:capabilities",
       "performers": "gftd:performers",
       "dodaf": "gftd:dodaf/"
     }
   ],
   "@type": "Project",
-  "name": "LLM Translation Service (translate.gftd.ai)",
+  "name": "LLM Translation Service (translate.etzhayyim.com)",
   "status": "Active",
   "identifier": "ai-gftd-project-translate",
-  "description": "LLM-powered translation service providing high-quality multi-language translation via gRPC API and web UI at translate.gftd.ai",
+  "description": "LLM-powered translation service providing high-quality multi-language translation via gRPC API and web UI at translate.etzhayyim.com",
   "capabilities": {
     "@type": "DefinedTermSet",
     "terms": [

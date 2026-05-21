@@ -1,4 +1,4 @@
-import adapter from '@gftdcojp/sveltejs-adapter-wasm';
+import adapter from '@etzhayyim/sveltejs-adapter-wasm';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

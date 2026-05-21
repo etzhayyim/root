@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-4f7d50baff6b",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4f7d50baff6b",
   "entityId": "ent-4f7d50baff6b",
   "canonicalName": "linkers automation (pvt) ltd.",
   "aliases": [

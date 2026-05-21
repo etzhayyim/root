@@ -184,7 +184,7 @@ the deployment environment. The required migration is:
 ```bash
 cd 20-actors/magatama/py
 SHA=$(git rev-parse --short HEAD)
-IMG=ghcr.io/gftdcojp/pymagatama:${SHA}
+IMG=ghcr.io/etzhayyim/pymagatama:${SHA}
 
 docker buildx build \
   --platform linux/amd64 \
@@ -206,12 +206,12 @@ helm upgrade --install mitama-udf-pool \
 - Zeebe gateway reachable from the worker:
   `ZEEBE_GATEWAY=zeebe-gateway.mitama-udf.svc:26500`
 - RisingWave URL in `mitama-udf-pool-rw/RW_URL`
-- dispatcher strict auth secret when exposed through `dispatcher.gftd.ai`
+- dispatcher strict auth secret when exposed through `dispatcher.etzhayyim.com`
 - `VULTR_SERVERLESS_KEY` or a working `RUNPOD_LLM_URL` for LLM-backed tasks
 - PDS service auth settings if BPMN tasks call `generic.pds.dispatch`
-- mailer.gftd.ai available for standard email send/receive
+- mailer.etzhayyim.com available for standard email send/receive
 - `SS_RESEND_API_KEY` on the mailer Worker for outbound Resend delivery
-- Cloudflare Email Routing catch-all for inbound `*@gftd.ai`
+- Cloudflare Email Routing catch-all for inbound `*@etzhayyim.com`
 
 4. Confirm the dispatcher deployed the BPMN rows into Zeebe:
 
@@ -226,7 +226,7 @@ tables referenced by the process.
 5. Start a smoke workflow through the dispatcher:
 
 ```bash
-curl -sf -X POST "https://dispatcher.gftd.ai/xrpc/ai.gftd.apps.ma.startDealWorkflow" \
+curl -sf -X POST "https://dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.ma.startDealWorkflow" \
   -H "x-internal-trust: ${DISPATCHER_INTERNAL_SECRET}" \
   -H "content-type: application/json" \
   -d '{
@@ -236,7 +236,7 @@ curl -sf -X POST "https://dispatcher.gftd.ai/xrpc/ai.gftd.apps.ma.startDealWorkf
     "sector": "robotics",
     "jurisdiction": "JP",
     "expectedValueUsd": 50000000,
-    "operatorDid": "did:web:operator.gftd.ai"
+    "operatorDid": "did:web:operator.etzhayyim.com"
   }' | jq
 ```
 
@@ -267,8 +267,8 @@ LIMIT 20;
 | M&A intake | deterministic `ma.salesOrigination.intake` | authenticated app/UI intake, conflict check, client authorization record |
 | Research | generic `http.fetch`, LLM JSON, GLEIF/OpenLEI pieces exist | source-specific research tasks for company, market, sanctions, litigation, filings, news, ownership |
 | Buyer / LP matching | deterministic ranking from supplied candidates | candidate sourcing from graph, CRM, fund manager graph, public registries, private lists |
-| Email drafting | `ma.outreach.composeDraft` creates a mailer.gftd.ai draft envelope | approval UI / human task, then `ai.gftd.apps.mailer.sendEmail` |
-| Email sending | mailer.gftd.ai sends through Resend | external recipients must default to draft-only; direct send only after policy approval |
+| Email drafting | `ma.outreach.composeDraft` creates a mailer.etzhayyim.com draft envelope | approval UI / human task, then `ai.gftd.apps.mailer.sendEmail` |
+| Email sending | mailer.etzhayyim.com sends through Resend | external recipients must default to draft-only; direct send only after policy approval |
 | Negotiation | `ma.tradeBroker.negotiate` prepares a negotiation envelope | term sheet state machine, counterparty messages, human approval, versioned offers |
 | Due diligence | not implemented as MA tasks | data room ingest, checklist graph, document extraction, red-flag scoring, Q&A workflow |
 | LP gathering | not implemented as MA tasks | investor suitability/accreditation status, consent, jurisdiction rules, outreach cadence, opt-out |
@@ -332,12 +332,12 @@ Add worker tasks:
 - `ma.outreach.sendApproved`
 - `ma.outreach.recordReply`
 
-Use `mailer.gftd.ai` as the standard provider:
+Use `mailer.etzhayyim.com` as the standard provider:
 
 - outbound: `ai.gftd.apps.mailer.sendEmail` -> Resend
 - inbound: Cloudflare Email Routing -> `email-relay` ->
   `ai.gftd.apps.mailer.inboundEmail`
-- sender addresses: `{local}@gftd.ai`, for example `ma@gftd.ai`
+- sender addresses: `{local}@etzhayyim.com`, for example `ma@etzhayyim.com`
 
 External-recipient policy should create a draft/approval envelope first. The
 actual `ai.gftd.apps.mailer.sendEmail` call is allowed only after human

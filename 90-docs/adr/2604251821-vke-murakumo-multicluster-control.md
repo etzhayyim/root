@@ -67,7 +67,7 @@ placement contracts as declarative bootstrap inputs under
 | pyzeebe generic workers | `vke-primary` by default; actor-heavy workers can be propagated to Murakumo |
 | yoro LangGraph agent workers | `murakumo-k3s` |
 | llama.cpp Vulkan DaemonSet | `murakumo-k3s`, `murakumo-system/llama-vulkan-fleet` |
-| MCP adapter for yoro actor tools | `murakumo-k3s`, with PDS dispatch still going through `atproto.gftd.ai` |
+| MCP adapter for yoro actor tools | `murakumo-k3s`, with PDS dispatch still going through `atproto.etzhayyim.com` |
 | public HTTP ingress | VKE / Cloudflare Worker; Murakumo exposes only explicit service endpoints |
 
 ## Network Boundary
@@ -93,17 +93,17 @@ Data plane:
 Cluster labels:
 
 ```yaml
-gftd.ai/cluster-role: hub | gpu-actor-worker
-gftd.ai/location: vultr-lax | murakumo-lan
-gftd.ai/gpu.apple-vulkan: "true" | "false"
-gftd.ai/storage.cloud-pvc: "true" | "false"
+etzhayyim.com/cluster-role: hub | gpu-actor-worker
+etzhayyim.com/location: vultr-lax | murakumo-lan
+etzhayyim.com/gpu.apple-vulkan: "true" | "false"
+etzhayyim.com/storage.cloud-pvc: "true" | "false"
 ```
 
 Namespace ownership:
 
 ```yaml
-gftd.ai/placement-owner: vke-primary | murakumo-k3s
-gftd.ai/default-namespace-forbidden: "true"
+etzhayyim.com/placement-owner: vke-primary | murakumo-k3s
+etzhayyim.com/default-namespace-forbidden: "true"
 ```
 
 # Consequences
@@ -149,7 +149,7 @@ Trade-offs:
 As of 2026-04-27, the Murakumo member cluster runs
 `murakumo-system/llama-vulkan-fleet` as a DaemonSet on all 11 Mac mini nodes.
 The image is published as
-`ghcr.io/gftdcojp/murakumo-llama-vulkan:20260427-fleet-arm64`, and both
+`ghcr.io/etzhayyim/murakumo-llama-vulkan:20260427-fleet-arm64`, and both
 `llama-vulkan-fleet` and compatibility Service `llama-vulkan` select the same
 pod set. Service-local `/v1/models` returns `smollm2-vulkan`.
 

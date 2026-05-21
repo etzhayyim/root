@@ -222,8 +222,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1',
-                 'did:web:pd-color.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1',
+                 'did:web:pd-color.etzhayyim.com',
                  'public_domain_colorization_pipeline',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -231,7 +231,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_public_domain_colorization_pipeline"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/public-domain-colorization"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/public-domain-colorization"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="public_domain_colorization_pipeline" name="Public-domain '
@@ -841,7 +841,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:pd-color.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:pd-color.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;pdColor.publish&quot;" target="action"/>\n'
                  '          <zeebe:input source="={runVertexId: runVertexId, workId: workId, '
@@ -860,7 +860,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:pd-color.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:pd-color.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;pdColor.dryRunReady&quot;" '
                  'target="action"/>\n'
@@ -880,7 +880,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:pd-color.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:pd-color.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;pdColor.reworkRequested&quot;" '
                  'target="action"/>\n'
@@ -898,7 +898,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:pd-color.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:pd-color.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;pdColor.blocked&quot;" target="action"/>\n'
                  '          <zeebe:input source="={runVertexId: runVertexId, workId: workId, '
@@ -926,10 +926,10 @@ UP = [{'sql': '\n'
                  33207,
                  '00-contracts/bpmn/ai/gftd/public-domain-colorization/colorizeWork.bpmn',
                  '2026-04-29T09:00:00Z',
-                 'did:web:pd-color.gftd.ai',
-                 'did:web:pd-color.gftd.ai',
+                 'did:web:pd-color.etzhayyim.com',
+                 'did:web:pd-color.etzhayyim.com',
                  'sys.bpmn.seed.public-domain-colorization',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -943,21 +943,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1',
-                 'did:web:pd-color.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1',
+                 'did:web:pd-color.etzhayyim.com',
                  'ai.gftd.apps.publicDomainColorization.colorizeWork',
                  'public_domain_colorization_pipeline',
                  900000,
                  '2026-04-29T09:00:00Z',
-                 'did:web:pd-color.gftd.ai',
-                 'did:web:pd-color.gftd.ai',
+                 'did:web:pd-color.etzhayyim.com',
+                 'did:web:pd-color.etzhayyim.com',
                  'sys.bpmn.seed.public-domain-colorization',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_pd_color_publication', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_pd_color_localization_asset', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_pd_color_derivative_asset', 'parameters': []},

@@ -24,7 +24,7 @@ superseded_by: []
 
 ## Context
 
-The magatama platform (`magatama.gftd.ai`) surfaces goose agent activity from
+The magatama platform (`magatama.etzhayyim.com`) surfaces goose agent activity from
 the Mac mini fleet. ADR-0034 wired goose runs into RisingWave via the
 `vertex_repo_commit` table with a deterministic cron wrapper. This left one
 question open: **how should the platform pace itself as more agents and
@@ -59,7 +59,7 @@ subject to a fleet capacity constraint and a joucho-driven per-recipe floor.
 
 ## Decision
 
-Introduce a **repo-wide organizer** inside the `magatama.gftd.ai` Worker
+Introduce a **repo-wide organizer** inside the `magatama.etzhayyim.com` Worker
 with three plug-in signals — Bayesian health, Shannon entropy, joucho cadence
 — fused into a single cadence decision per recipe, plus an LLM-synthesised
 narrative layer for humans. Persist the decision in

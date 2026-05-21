@@ -13,7 +13,7 @@ related:
   - 90-docs/adr/2605190100-defense-cluster-topology.md
   - 90-docs/adr/2605200000-nist-csf-respond-irp.md
   - 90-docs/adr/2605200200-nist-csf-recover-rto-rpo.md
-  - deps.toml [gftdcojp_agent.product_portfolio]
+  - deps.toml [etzhayyim_agent.product_portfolio]
 ---
 
 # DoDAF PV-2 — Project Timeline & Portfolio Roadmap
@@ -29,12 +29,12 @@ related:
 
 | Priority | Product | Domain | Revenue Weight | Status |
 |---|---|---|---|---|
-| **P1** | lawfirm.gftd.ai | Legal-tech SaaS (India intake + JP lawfirm) | 70% | D-Day execution — Scenario A active |
-| **P2** | lawyer.gftd.ai | Attorney portal (bar-member access) | 20% | Design approved (ADR-2605180600) |
-| **P3** | animeka.gftd.ai | Team anime creation pipeline | 5% | Prototype in-progress |
-| **P4** | yatabase.gftd.ai | Platform-layer product projector | 5% | BMC approved (ADR-2605190000) |
+| **P1** | lawfirm.etzhayyim.com | Legal-tech SaaS (India intake + JP lawfirm) | 70% | D-Day execution — Scenario A active |
+| **P2** | lawyer.etzhayyim.com | Attorney portal (bar-member access) | 20% | Design approved (ADR-2605180600) |
+| **P3** | animeka.etzhayyim.com | Team anime creation pipeline | 5% | Prototype in-progress |
+| **P4** | yatabase.etzhayyim.com | Platform-layer product projector | 5% | BMC approved (ADR-2605190000) |
 
-SSoT: `deps.toml [gftdcojp_agent.product_portfolio]` + `90-docs/adr/2605180000-lawfirm-product-focus-bmc-lean.md`
+SSoT: `deps.toml [etzhayyim_agent.product_portfolio]` + `90-docs/adr/2605180000-lawfirm-product-focus-bmc-lean.md`
 
 ---
 
@@ -61,7 +61,7 @@ SSoT: `deps.toml [gftdcojp_agent.product_portfolio]` + `90-docs/adr/2605180000-l
 | Milestone | Deadline | Owner | Status |
 |---|---|---|---|
 | k-bakshi BCI/foreign bar approval | **2026-05-23** (Rule 36) | k-bakshi | Awaiting reply |
-| D-Day XRPC send pipeline | Running | gftdcojp agent | 5 mails sent (iter115-119) |
+| D-Day XRPC send pipeline | Running | etzhayyim agent | 5 mails sent (iter115-119) |
 | y-nishino RW migration apply (D2) | Unblocked after auth | y-nishino | 3 migrations pending |
 | Track C K8s delegation | Post-auth | a-nakamura | Deferred |
 | gftd auth login (PKCE session) | Immediate | operator | **BLOCKED** |
@@ -79,7 +79,7 @@ SSoT: `deps.toml [gftdcojp_agent.product_portfolio]` + `90-docs/adr/2605180000-l
 
 | Milestone | Target | ADR |
 |---|---|---|
-| lawyer.gftd.ai attorney portal MVP | 2026-Q3 | ADR-2605180600 |
+| lawyer.etzhayyim.com attorney portal MVP | 2026-Q3 | ADR-2605180600 |
 | Bar-member auth topology (ADR-2605152100 GitHub boundary) | 2026-Q3 | ADR-2605152100 |
 | LangGraph attorney onboarding flow | 2026-Q3 | — |
 | Open LEI bridge full verification (5 India lawfirm rows) | 2026-Q3 | ADR-2605130900 |

@@ -6,7 +6,7 @@
 ## Architecture
 
 ### 1. The Adapter (TypeScript)
-The adapter package (`@gftdcojp/sveltejs-adapter-wasm`) handles the SvelteKit build process.
+The adapter package (`@etzhayyim/sveltejs-adapter-wasm`) handles the SvelteKit build process.
 - **Client Assets**: Client-side code and prerendered files are output to the `build/client` directory.
 - **Server Bundle**: Server-side code is bundled into a single self-contained `index.js` using `esbuild`.
 - **Component Packaging**: The adapter wraps the `index.js` into a wasmCloud component source (TinyGo).

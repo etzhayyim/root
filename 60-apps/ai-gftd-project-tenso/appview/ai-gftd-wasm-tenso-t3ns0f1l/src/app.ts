@@ -456,7 +456,7 @@ function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtpro
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:t3ns0f1l.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:t3ns0f1l.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   if (actions.length === 1) actions.push({ action: "noop", mood: cadence.mood, ts });
@@ -471,13 +471,13 @@ async function cmdStatsTenso(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 function cmdHealthTenso(sdk: HostSDK, _body: Uint8Array): unknown {
-  return { status: "healthy", agent: "Tenso", nanoid: APP_NANOID, did: `did:web:${APP_NANOID}.gftd.ai`, ts: nowISO() };
+  return { status: "healthy", agent: "Tenso", nanoid: APP_NANOID, did: `did:web:${APP_NANOID}.etzhayyim.com`, ts: nowISO() };
 }
 
 function cmdDescribeTenso(sdk: HostSDK, _body: Uint8Array): unknown {
   return {
     name: "Tenso",
-    did: `did:web:${APP_NANOID}.gftd.ai`,
+    did: `did:web:${APP_NANOID}.etzhayyim.com`,
     nanoid: APP_NANOID,
     domain: "secure-file-transfer",
     capabilities: ["create-transfer", "accept-transfer", "download-chunk", "revoke-transfer", "list-transfers", "init-signal-session"],

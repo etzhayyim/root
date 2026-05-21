@@ -1,4 +1,4 @@
-# open-ot.gftd.ai — WASM-native PLC + Distributed Logic Controller (OSS)
+# open-ot.etzhayyim.com — WASM-native PLC + Distributed Logic Controller (OSS)
 
 **Status**: spec / research only (2026-05-15). No runtime artefacts yet (no `magatama.jsonld`, no `src/`, no `wrangler.jsonc`). Apache-2.0.
 
@@ -48,7 +48,7 @@ Reference implementation for **WASM-based industrial PLC and DLC** in non-safety
 
 ## Project conventions
 
-- All entities use path-based DIDs: `did:web:open-ot.gftd.ai:{device|cell|signal|loop|fault}:{id}`.
+- All entities use path-based DIDs: `did:web:open-ot.etzhayyim.com:{device|cell|signal|loop|fault}:{id}`.
 - Telemetry is Zenoh + RisingWave (pod-side ingest), **not** atproto records.
 - Control writes go XRPC → bpmn-dispatcher → AgentGateway MCP → LangServer pod → Zenoh publish (per ADR-2605111200 / ADR-2605091400).
 - WASM artefacts are pinned by content hash (CID) on `pinModule`; AOT compile happens on a trusted builder, not on edge devices.

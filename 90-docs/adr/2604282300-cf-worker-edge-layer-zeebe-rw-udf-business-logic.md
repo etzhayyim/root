@@ -332,22 +332,22 @@ CF Worker 全体の前提を次の通り更新する。
    場合でも、Worker は adapter/proxy に限定する。
 
 Historical validation: `ai.gftd.apps.llm.answerWithKnowledge?stream=1` was served by
-`dispatcher.gftd.ai` with SSE events while the actual work runs in the
+`dispatcher.etzhayyim.com` with SSE events while the actual work runs in the
 `llm-knowledge-zeebe-worker` pool. PDS/ATProto workers must preserve this stream
 when proxying BPMN NSIDs. New validation target is the same stream contract via
 AgentGateway MCP and pod-side LangServer.
 
-2026-04-29 phase validation: `llm.gftd.ai/xrpc/ai.gftd.apps.llm.answerWithKnowledge`
+2026-04-29 phase validation: `llm.etzhayyim.com/xrpc/ai.gftd.apps.llm.answerWithKnowledge`
 now delegates to the same PDS/BPMN path and preserves SSE (`started`,
 `heartbeat`, `complete`) without buffering. The `llm_knowledge` Python primitive
 must not synthesize an extractive fallback answer when the LLM backend fails or
 returns empty content. It returns `ok=false`, `error`, and `errorKind` so the
 caller can surface backend loss explicitly.
 
-2026-04-29 Projector validation: `yoro.gftd.ai/projects/*` now routes Pokopia /
+2026-04-29 Projector validation: `yoro.etzhayyim.com/projects/*` now routes Pokopia /
 Dream Island questions, or explicit `/knowledge ...`, to
-`llm.gftd.ai/xrpc/ai.gftd.apps.llm.answerWithKnowledge?stream=1` using browser
-`fetch()` stream parsing. The public `llm.gftd.ai` hostname is served by the
+`llm.etzhayyim.com/xrpc/ai.gftd.apps.llm.answerWithKnowledge?stream=1` using browser
+`fetch()` stream parsing. The public `llm.etzhayyim.com` hostname is served by the
 RunPod gateway Worker, so that Worker exposes only this knowledge XRPC as a
 thin CORS/SSE proxy and calls the `magatama-llm8cf4ai` Worker by service binding.
 The actor Worker then reaches the PDS/BPMN dispatcher path by service binding.
@@ -470,7 +470,7 @@ Cloudflare boundary conditions (may retain edge adapter, never business logic):
 
 ## Addendum 2026-04-30: generic.pds.dispatch K8s-internal routing
 
-Historical note: `generic.pds.dispatch` は従来 `https://atproto.gftd.ai`
+Historical note: `generic.pds.dispatch` は従来 `https://atproto.etzhayyim.com`
 (CF edge) を経由して PDS XRPC を呼んでいた。Zeebe/UDF/LangGraph の処理パスが
 CF edge を踏むことは ADR 原則 (Business logic は K8s Pod に) に反するため、
 当時の zeebe-worker 内で 3-way ルーティングに置き換えた
@@ -485,7 +485,7 @@ CF edge を踏むことは ADR 原則 (Business logic は K8s Pod に) に反す
 |---|---|---|---|
 | `app.bsky.*` / `chat.bsky.*` / `com.atproto.repo.*` | C-path: `vertex_repo_record` 直接 INSERT | `_pds_dispatch_c_path` | graph-visible, AT federation なし |
 | `ai.gftd.*` | bpmn-dispatcher ClusterIP (`x-internal-trust` 認証) | `_pds_dispatch_internal_xrpc` | K8s クラスタ内完結 |
-| その他 | legacy PDS HTTP (`https://atproto.gftd.ai`) | `_pds_dispatch_legacy` | 後方互換フォールバック |
+| その他 | legacy PDS HTTP (`https://atproto.etzhayyim.com`) | `_pds_dispatch_legacy` | 後方互換フォールバック |
 
 ### C-path 詳細 (social/AT writes)
 
@@ -524,9 +524,9 @@ Helm template は `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` �
 
 ---
 
-## Addendum 2026-04-30: maps.gftd.ai business command cutover
+## Addendum 2026-04-30: maps.etzhayyim.com business command cutover
 
-Historical note: `maps.gftd.ai` の CF Worker (`maps-ui-uqpel6i6`) は、
+Historical note: `maps.etzhayyim.com` の CF Worker (`maps-ui-uqpel6i6`) は、
 ADR-2604282300 の thin-edge 原則に合わせて business command surface を
 BPMN / Zeebe / Python worker へ移した。2026-05-13 以後の target は
 SvelteKit edge proxy → AgentGateway MCP → pod-side LangServer であり、

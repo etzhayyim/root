@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/4/other-fuels",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/4/other-fuels",
       "type": "dodaf:Capability",
       "name": "Alternative and Miscellaneous Fuel Management Capability",
       "description": "Functional capability for managing bio-fuels, alternative energy sources, and miscellaneous fuel logistics. Classification: COFOG Division 04, Group 3, Class 4.",

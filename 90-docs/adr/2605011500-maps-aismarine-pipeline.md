@@ -33,7 +33,7 @@ related:
 
 ## Goal
 
-Provide a MarineTraffic-equivalent global vessel-tracking surface on `maps.gftd.ai`:
+Provide a MarineTraffic-equivalent global vessel-tracking surface on `maps.etzhayyim.com`:
 
 - Live vessel positions worldwide (no geo filter), refreshed sub-minute
 - Vessel detail (MMSI / IMO / name / type / flag / dimensions / recent track)
@@ -49,7 +49,7 @@ Constraint: **open / free data only** (no Spire / VT Explorer / IHS paid feeds).
 - aisstream.io WebSocket as the sole live position source (free, global, no bbox filter)
 - Vessel master limited to fields broadcast over AIS itself (MMSI, IMO, name, callsign, type code, dimensions, draught) — no commercial enrichment
 - 4 BPMN actors + 1 long-running K8s Deployment (consumer)
-- 4 read XRPC commands on `maps.gftd.ai`
+- 4 read XRPC commands on `maps.etzhayyim.com`
 - Frontend vessel + density layer in kami-geo
 
 **Out of scope**:
@@ -60,11 +60,11 @@ Constraint: **open / free data only** (no Spire / VT Explorer / IHS paid feeds).
 
 ## Executive Summary
 
-Add a new `aismarine` actor under `maps.gftd.ai` mirroring the Transit pipeline (ADR-2604280900). One K8s `Deployment` runs the long-running aisstream WebSocket consumer (BPMN unsuitable for persistent sockets); four BPMNs handle batch operations on `R/PT5M` / `R/PT15M` / `R/PT24H` cadences. All writes are Worker-direct Hyperdrive (ADR-0036). Read path is `mv_vessel_latest_position` + bbox SELECT through Hyperdrive. CF Worker stays in L3 dispatcher subset (ADR-2604251830) — no business logic, just XRPC facade.
+Add a new `aismarine` actor under `maps.etzhayyim.com` mirroring the Transit pipeline (ADR-2604280900). One K8s `Deployment` runs the long-running aisstream WebSocket consumer (BPMN unsuitable for persistent sockets); four BPMNs handle batch operations on `R/PT5M` / `R/PT15M` / `R/PT24H` cadences. All writes are Worker-direct Hyperdrive (ADR-0036). Read path is `mv_vessel_latest_position` + bbox SELECT through Hyperdrive. CF Worker stays in L3 dispatcher subset (ADR-2604251830) — no business logic, just XRPC facade.
 
 ## Decision
 
-### Layer 1-3: CF Worker (`maps.gftd.ai`) XRPC surface
+### Layer 1-3: CF Worker (`maps.etzhayyim.com`) XRPC surface
 
 Add to existing `maps-ui-uqpel6i6` Worker (no new Worker, ADR-2604282300):
 
@@ -177,7 +177,7 @@ Two new rows in `vertex_bpmn_process_def` + 4 in `vertex_bpmn_lexicon_binding` (
 - In-process queue, batch flush every 5s **or** 500 messages (whichever first)
 - Batch INSERT via `task_aismarine_position_batch_insert` (psycopg3, `flush=False`)
 - Restart policy: `Always`; CrashLoopBackOff acceptable, supervisor-style
-- Secret `aismarine-credentials` carries `AIS_STREAM_API_KEY` (registered to `gftd.aisstream/API_KEY` in macOS Keychain + 1Password mirror per Root-Only Rule)
+- Secret `aismarine-credentials` carries `AIS_STREAM_API_KEY` (registered to `etzhayyim.comsstream/API_KEY` in macOS Keychain + 1Password mirror per Root-Only Rule)
 
 **Why Deployment, not BPMN timer-start**: WebSocket needs a persistent socket with sub-second message arrival; BPMN R/PT* loops would re-handshake every fire and drop messages between fires. This mirrors `kafka-consumer` / `firehose-consumer` patterns elsewhere in the repo.
 
@@ -241,7 +241,7 @@ def task_aismarine_query_bbox(bbox, types, limit)
 
 ## Rationale
 
-**Layered placement**: This is a textbook L4-L8 split (ADR-2604251830). CF Worker stays L1-L3 facade only; the actor identity (`did:web:maps.gftd.ai:aismarine`) lives in `vertex_actor_registry`; business logic is in pyzeebe primitives invoked from BPMN; long-running socket is L8 K8s. Mirrors the Transit pipeline (ADR-2604280900) almost line-for-line.
+**Layered placement**: This is a textbook L4-L8 split (ADR-2604251830). CF Worker stays L1-L3 facade only; the actor identity (`did:web:maps.etzhayyim.com:aismarine`) lives in `vertex_actor_registry`; business logic is in pyzeebe primitives invoked from BPMN; long-running socket is L8 K8s. Mirrors the Transit pipeline (ADR-2604280900) almost line-for-line.
 
 **Why not extend `vertex_oil_tanker_phase2a`**: That table is for opaque-fleet detection (ADR-0017 §dark-fleet detection), curated subset, multi-source-correlated. AIS live feed is a different concern: high-volume, low-curation, all-vessels. Joining at query time on MMSI is preferred over conflating tables.
 
@@ -260,7 +260,7 @@ def task_aismarine_query_bbox(bbox, types, limit)
 1. **PR-A schema** — migration + 6 lexicon JSONs
 2. **PR-B pyzeebe** — `aismarine.py` primitive + tests
 3. **PR-C BPMN** — 4 BPMN files + Zeebe binding seed migration
-4. **PR-D worker + frontend + K8s** — `maps.gftd.ai` XRPC + kami-geo vessel layer + `aismarine-consumer` Helm chart + Keychain/1Password registration of `gftd.aisstream/API_KEY`
+4. **PR-D worker + frontend + K8s** — `maps.etzhayyim.com` XRPC + kami-geo vessel layer + `aismarine-consumer` Helm chart + Keychain/1Password registration of `etzhayyim.comsstream/API_KEY`
 
 Each PR is independently deployable. Live cutover is at PR-D (consumer start).
 

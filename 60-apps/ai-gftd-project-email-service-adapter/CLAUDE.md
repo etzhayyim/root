@@ -2,7 +2,7 @@
 
 > **T2 Logical Actor**: Manifest-driven (`20-actors/email-service-adapter/actor-manifest.jsonld`). **PII Tier 3**.
 
-`outlook.gftd.ai` (nanoid: `outlook`) — Outlook OAuth + mailbox sync. Mailbox content stored as **Tier 3 (Preferences only)**.
+`outlook.etzhayyim.com` (nanoid: `outlook`) — Outlook OAuth + mailbox sync. Mailbox content stored as **Tier 3 (Preferences only)**.
 
 ## Lexicons
 `emailServiceAdapter/` (2 files): syncMailbox, listSyncs.
@@ -11,7 +11,7 @@
 - `gmail` — peer adapter (Gmail OAuth)
 - `mailer` — outbound transactional email
 - `briefing` — invitation flow
-- `kyber-inbox` (`did:web:kyber-qzzg06nh.gftd.ai:dept:inbox`, nanoid `inb0x4k2`) — receives derived `ai.gftd.apps.kyber.inbox.{emailSignal,calendarSignal,documentSignal}` records (dept-routed signal/noise classification). Wired via `magatama.jsonld` `derive` rule from `syncJob`. RisingWave sink: `vertex_email_message` / `vertex_calendar_event` / `vertex_office_document` + `edge_kyber_routed`.
+- `kyber-inbox` (`did:web:kyber-qzzg06nh.etzhayyim.com:dept:inbox`, nanoid `inb0x4k2`) — receives derived `ai.gftd.apps.kyber.inbox.{emailSignal,calendarSignal,documentSignal}` records (dept-routed signal/noise classification). Wired via `magatama.jsonld` `derive` rule from `syncJob`. RisingWave sink: `vertex_email_message` / `vertex_calendar_event` / `vertex_office_document` + `edge_kyber_routed`.
 
 ## PII (per ADR-0014)
 - email body / headers: Tier 3 (Preferences only)

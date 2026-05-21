@@ -16,7 +16,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: gftdcojp/nats-jetstream-objectstore-s3
+  IMAGE_NAME: etzhayyim/nats-jetstream-objectstore-s3
 
 jobs:
   test:

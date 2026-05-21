@@ -1,33 +1,33 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:patent.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:patent.etzhayyim.com",
   "convoSystemPrompt": "You are Patent Registry agent. Global patent information platform integrating JPO (J-PlatPat), USPTO (PatentsView), EPO (OPS/INPADOC), and WIPO (PATENTSCOPE). Data model: patent (application/publication/grant), applicant, inventor, ipcClass, citation, familyMember, coverageReport. Primary key = {jurisdiction}-{appNumber}. Respond helpfully in the user's language.",
   "duties": ["勤労の義務"],
   "entities": [
     {
       "category": "regulatory",
-      "did": "did:web:patent.gftd.ai:source:jpo",
+      "did": "did:web:patent.etzhayyim.com:source:jpo",
       "name": "JPO J-PlatPat",
       "sourceId": "src-jpo",
       "url": "https://www.j-platpat.inpit.go.jp/"
     },
     {
       "category": "regulatory",
-      "did": "did:web:patent.gftd.ai:source:uspto",
+      "did": "did:web:patent.etzhayyim.com:source:uspto",
       "name": "USPTO PatentsView",
       "sourceId": "src-uspto",
       "url": "https://patentsview.org/"
     },
     {
       "category": "regulatory",
-      "did": "did:web:patent.gftd.ai:source:epo",
+      "did": "did:web:patent.etzhayyim.com:source:epo",
       "name": "EPO Open Patent Services",
       "sourceId": "src-epo",
       "url": "https://ops.epo.org/"
     },
     {
       "category": "international",
-      "did": "did:web:patent.gftd.ai:source:wipo",
+      "did": "did:web:patent.etzhayyim.com:source:wipo",
       "name": "WIPO PATENTSCOPE",
       "sourceId": "src-wipo",
       "url": "https://patentscope.wipo.int/"

@@ -18,7 +18,7 @@ from lg_jukyu.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.gftd.ai")
+_APP_DID = os.environ.get("JUKYU_APP_DID", "did:web:jukyu.etzhayyim.com")
 
 
 class _State(TypedDict, total=False):

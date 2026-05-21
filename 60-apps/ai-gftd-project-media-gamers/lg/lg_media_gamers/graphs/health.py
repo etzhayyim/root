@@ -20,7 +20,7 @@ from lg_media_gamers.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_APP_DID = os.environ.get("MEDIA_GAMERS_APP_DID", "did:web:media-gamers.gftd.ai")
+_APP_DID = os.environ.get("MEDIA_GAMERS_APP_DID", "did:web:media-gamers.etzhayyim.com")
 
 
 class _HealthState(TypedDict, total=False):

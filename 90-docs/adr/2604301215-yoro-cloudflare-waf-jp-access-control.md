@@ -20,7 +20,7 @@ superseded_by: []
 
 # Context
 
-`yoro.gftd.ai` is served by the `magatama-yoro` Cloudflare Worker with
+`yoro.etzhayyim.com` is served by the `magatama-yoro` Cloudflare Worker with
 Workers Assets. A first implementation put Japan geo blocking inside the
 Worker request handler. That caused legitimate operator access to receive
 `403 Forbidden` when Cloudflare observed the request over an IPv6 address
@@ -45,9 +45,9 @@ Live rule:
 
 | Field | Value |
 |---|---|
-| Zone | `gftd.ai` |
+| Zone | `etzhayyim.com` |
 | Zone ID | `63132931facb26812993527da9f85186` |
-| Ruleset | `gftd.ai yoro access control` |
+| Ruleset | `etzhayyim.com yoro access control` |
 | Ruleset ID | `67eee63e3ec24916be3ffdb556dec05d` |
 | Phase | `http_request_firewall_custom` |
 | Rule ID | `e3e04e28ef7944eca3475da894883daf` |
@@ -57,17 +57,17 @@ Live rule:
 Rule expression:
 
 ```txt
-(http.host eq "yoro.gftd.ai"
+(http.host eq "yoro.etzhayyim.com"
  and ip.geoip.country eq "JP"
  and not ip.src in {219.104.136.140 240d:f:88c:8100::/64})
 ```
 
-This blocks Japan-origin requests to `yoro.gftd.ai` except the current operator
+This blocks Japan-origin requests to `yoro.etzhayyim.com` except the current operator
 IPv4 and the operator IPv6 `/64` observed by Cloudflare.
 
 # Consequences
 
-- `yoro.gftd.ai` application code must not contain ad hoc JP/IP block logic.
+- `yoro.etzhayyim.com` application code must not contain ad hoc JP/IP block logic.
 - Operator access remains available from the currently observed IPv4 and IPv6
   prefix.
 - Non-operator JP access is blocked before Worker execution.

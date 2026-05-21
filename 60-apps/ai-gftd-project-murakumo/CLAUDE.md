@@ -4,7 +4,7 @@
 
 **Server-side inference cluster.** Primary: RunPod GPU cluster (RTX 6000 Ada, vLLM) via
 LiteLLM gateway on judah + CF Worker gateway. Public API is OpenAI-compat; browser visitors
-of https://murakumo.gftd.ai/ get an in-page chat UI that talks to the cluster via an
+of https://murakumo.etzhayyim.com/ get an in-page chat UI that talks to the cluster via an
 ephemeral HMAC token (no sk_live_* key needed for anonymous chat).
 
 SSoT: **ADR-2605010000** (RunPod RTX 6000 Ada unified pod). Mac Mini fleet demoted to
@@ -12,7 +12,7 @@ L8 Somatic Inference for resident organism actors only (ADR-2605080600).
 
 ```
 Browser / API client
-  → murakumo.gftd.ai (CF Worker v4.1.0, auth + proxy)
+  → murakumo.etzhayyim.com (CF Worker v4.1.0, auth + proxy)
     - GET /                          → chat HTML + ephemeral mkc_* token
     - POST /v1/chat/completions       → requireAuth → LITELLM_URL
     - GET  /v1/models, /v1/model/info → LITELLM_URL
@@ -21,7 +21,7 @@ Browser / API client
   → RunPod Serverless API (vLLM, OpenAI-compat)
     https://api.runpod.ai/v2/vyp99t9px7h4dl/openai/v1
     GPU: RTX 6000 Ada (48 GB VRAM) — pod vyp99t9px7h4dl
-    Model: gemma-4-e4b-it (primary), image: ghcr.io/gftdcojp/runpod-vllm-gemma:latest
+    Model: gemma-4-e4b-it (primary), image: ghcr.io/etzhayyim/runpod-vllm-gemma:latest
 ```
 
 **Auth layers**:
@@ -33,7 +33,7 @@ Browser / API client
 **Legacy pruned (2026-04-20, [[migrations]] murakumo-cf-worker-litellm-rewire done)**:
 serve_plain.py / daemon.py / Nomad / Ray / mesh_tunnel / Linode GPU Ollama tier /
 RunPod Tier-3 fallback / image+audio endpoints / CoordinatorDO+SessionDO DOs /
-`cdn.gftd.ai/mlx-models/*.tar.gz` B2 fallback / hayate custom inference server.
+`cdn.etzhayyim.com/mlx-models/*.tar.gz` B2 fallback / hayate custom inference server.
 Git history preserves; `_archive/` holds retired serve_plain.py etc.
 
 ### Migration from V1 (Nomad + daemon.py + CoordinatorDO)
@@ -55,7 +55,7 @@ Design doc: `90-docs/260408-murakumo-fleet-redesign-shannon-comparison.md`
 - Dispatcher: `ORIGIN_PASSTHROUGH_HOSTS` に tunnel hostname 追加済み
 - Latency: 220-284ms GPU, 400-570ms E2E (warm gemma-4-e2b-it)
 
-- **`murakumo.gftd.ai`** — Mac Mini fleet + OpenAI-compatible API
+- **`murakumo.etzhayyim.com`** — Mac Mini fleet + OpenAI-compatible API
 - **nanoid**: `m9r4k8m0`
 - **Worker**: `50-infra/cloudflare/workers/murakumo/` (`index.ts`)
 
@@ -85,7 +85,7 @@ magatama:inference/image@1.0.0         ← 画像生成抽象化
 magatama:inference/fleet@1.0.0         ← fleet 管理
   └─ get-cluster-status, list-workers
 
-magatama:inference/audio@1.0.0         ← 音楽/音声生成抽象化 (ongakuka.gftd.ai 駆動)
+magatama:inference/audio@1.0.0         ← 音楽/音声生成抽象化 (ongakuka.etzhayyim.com 駆動)
   ├─ text-to-music         (lyrics + style → audio tokens or wav)
   ├─ text-to-music-stems   (vocal/inst/drums/bass を分離 stem で出力)
   ├─ vocoder               (RVQ codes → waveform 44.1kHz)
@@ -104,8 +104,8 @@ magatama:inference/audio@1.0.0         ← 音楽/音声生成抽象化 (ongakuk
 ### Architecture
 
 ```
-Client → murakumo.gftd.ai (CF Worker, stateless gateway)
-           │ fetch("https://murakumo-serve.gftd.ai/...")
+Client → murakumo.etzhayyim.com (CF Worker, stateless gateway)
+           │ fetch("https://murakumo-serve.etzhayyim.com/...")
            ↓
          Cloudflare Tunnel (murakumo-fleet, ae341542, auto-LB)
            ├─→ dan      ┐
@@ -236,18 +236,18 @@ Request (x-org-id, x-user-id, x-api-key)
 | Interface | 役割 | 実装場所 |
 |---|---|---|
 | `magatama:metering/usage` | per-request usage 記録 + cost 計算 | CF Worker (`calculateCost`, `emitMeteringEvent`) |
-| `magatama:metering/quota` | pre-request quota gate | CF Worker (→ kakin.gftd.ai 連携予定) |
-| `magatama:metering/reward` | node operator credit 報酬 | CF Worker (`calculateReward`) → credits.gftd.ai |
-| `magatama:metering/penalty` | abuse/SLA violation 処理 | CF Worker → credits.gftd.ai |
+| `magatama:metering/quota` | pre-request quota gate | CF Worker (→ kakin.etzhayyim.com 連携予定) |
+| `magatama:metering/reward` | node operator credit 報酬 | CF Worker (`calculateReward`) → credits.etzhayyim.com |
+| `magatama:metering/penalty` | abuse/SLA violation 処理 | CF Worker → credits.etzhayyim.com |
 
 ### Credits Integration
 
 | Flow | From | To | API |
 |---|---|---|---|
-| **Consumer spend** | CF Worker | credits.gftd.ai | `SpendCredits({user_id, amount, action: "inference"})` |
-| **Operator reward** | CF Worker | credits.gftd.ai | `RewardFromCompute({node_id, inference_ms, tokens})` |
+| **Consumer spend** | CF Worker | credits.etzhayyim.com | `SpendCredits({user_id, amount, action: "inference"})` |
+| **Operator reward** | CF Worker | credits.etzhayyim.com | `RewardFromCompute({node_id, inference_ms, tokens})` |
 | **Usage log** | CF Worker | PDS | `createRecord("ai.gftd.apps.murakumo.inferenceUsage")` |
-| **Quota check** | CF Worker | kakin.gftd.ai | `CheckQuota({org_id, estimated_tokens})` |
+| **Quota check** | CF Worker | kakin.etzhayyim.com | `CheckQuota({org_id, estimated_tokens})` |
 
 ## Persistence
 
@@ -308,7 +308,7 @@ ansible-playbook health-check.yml
 
 - Cloudflare Tunnel: 4 connectors active (dan/simeon/naphtali/levi), Cloudflare auto-LB verified
 - serve_plain.py: 4 nodes running (Starlette + uvicorn + mlx_lm), gemma-4-e2b-it loaded, 220-284ms GPU
-- E2E: `murakumo.gftd.ai` → CF Worker → Tunnel → serve_plain.py → 4 ノード分散、正答確認 (3+3=6 etc.)
+- E2E: `murakumo.etzhayyim.com` → CF Worker → Tunnel → serve_plain.py → 4 ノード分散、正答確認 (3+3=6 etc.)
 - Dispatcher: `ORIGIN_PASSTHROUGH_HOSTS` passthrough verified
 
 ## Architecture shift — Ollama fleet + LiteLLM (2026-04-18 pm)
@@ -378,8 +378,8 @@ macOS SSH sessions cannot reliably `launchctl bootstrap` into `gui/{uid}` (retur
 ### Migration notes
 
 - **openclaw retired (2026-04-20)**: Ansible role + CLI (`70-tools/gftd/gftd/openclaw.go`) + LaunchAgent (`ai.openclaw.gateway`) deleted. goose role ships an idempotent `purge_openclaw.yml` task that removes `~/.openclaw/` on next apply. Replacement topology: 3 goose recipes (heartbeat / persona-cron / mention-drain) co-owned by the wrapper shell script for deterministic side effects + qwen3.5:9b for narrative text.
-- `serve_plain.py` LaunchAgent (`ai.gftd.murakumo-serve`) still loaded on fleet but no longer consumed by the agent path. Retire when public `murakumo.gftd.ai` API is either re-wired to LiteLLM or confirmed unused (see `[[migrations]] serve-plain-py-retirement`).
-- Public `murakumo.gftd.ai` endpoint still proxies via CF Worker → CF Tunnel → serve_plain.py on fleet. Unchanged during this phase.
+- `serve_plain.py` LaunchAgent (`ai.gftd.murakumo-serve`) still loaded on fleet but no longer consumed by the agent path. Retire when public `murakumo.etzhayyim.com` API is either re-wired to LiteLLM or confirmed unused (see `[[migrations]] serve-plain-py-retirement`).
+- Public `murakumo.etzhayyim.com` endpoint still proxies via CF Worker → CF Tunnel → serve_plain.py on fleet. Unchanged during this phase.
 
 ### Verified (2026-04-18) — 10/10 node restoration
 
@@ -395,7 +395,7 @@ Starting state: 2 nodes dark (naphtali/levi, crash-loop on model load) + 3 tunne
 
 ### Fleet failure-mode runbook
 
-Two distinct crash-loop shapes seen on 2026-04-18. Both reach `_r2_download_model()` fallback which 404s against the deprecated `cdn.gftd.ai/mlx-models/*.tar.gz` path (see `[[migrations]] murakumo-serve-r2-fallback-removal`).
+Two distinct crash-loop shapes seen on 2026-04-18. Both reach `_r2_download_model()` fallback which 404s against the deprecated `cdn.etzhayyim.com/mlx-models/*.tar.gz` path (see `[[migrations]] murakumo-serve-r2-fallback-removal`).
 
 **Pattern A — stale root-owned `.locks/` subdir**:
 
@@ -470,10 +470,10 @@ crontab @ judah
            │   - instructions = actor-manifest.jsonld convoSystemPrompt (pinned in template)
            │   - shell tool: psql $RW_URL  (read KPI / pick mention)
            │   - shell tool: psql $RW_URL  (INSERT domain record — platformDigest / reply)
-           │   - shell tool: curl → atproto.gftd.ai/xrpc (optional federation)
+           │   - shell tool: curl → atproto.etzhayyim.com/xrpc (optional federation)
            │
            ▼ RisingWave public.vertex_repo_commit
-               (repo=did:web:yoro.gftd.ai, collection=ai.gftd.yoro.* | ai.gftd.convo.message)
+               (repo=did:web:yoro.etzhayyim.com, collection=ai.gftd.yoro.* | ai.gftd.convo.message)
 ```
 
 ### Hard requirements
@@ -505,11 +505,11 @@ All three recipes ship via the `goose` ansible role (`templates/*.j2` → `~/.co
 
 ### AT Protocol federation (optional per recipe)
 
-Each recipe has a Step 4 guarded by `$GFTD_AGENT_TOKEN_OK`. The wrapper sets it when `gftd agent-token --lxm com.atproto.repo.createRecord -sub did:web:yoro.gftd.ai` returns a valid 60s ES256 JWT. Without a live `gftd authn signin` session on judah, Step 4 is skipped and only the RisingWave direct write lands — the actor-manifest pipeline still produces the domain record, just without public federation. Gated on session-auth provisioning for the yoro DID.
+Each recipe has a Step 4 guarded by `$GFTD_AGENT_TOKEN_OK`. The wrapper sets it when `gftd agent-token --lxm com.atproto.repo.createRecord -sub did:web:yoro.etzhayyim.com` returns a valid 60s ES256 JWT. Without a live `gftd authn signin` session on judah, Step 4 is skipped and only the RisingWave direct write lands — the actor-manifest pipeline still produces the domain record, just without public federation. Gated on session-auth provisioning for the yoro DID.
 
 ### Scaling the pattern to other actors
 
-Topology is actor-agnostic. To add a new T1 actor (e.g. `mangaka.gftd.ai`):
+Topology is actor-agnostic. To add a new T1 actor (e.g. `mangaka.etzhayyim.com`):
 
 1. Read the actor's `actor-manifest.jsonld` `convoSystemPrompt` + `pipelines[]`
 2. Copy `yoro-persona-cron.yaml.j2` → `<actor>-persona-cron.yaml.j2`, swap the persona string + DIDs + collections
@@ -693,14 +693,14 @@ gftd-moe-moe-kyun/
 ## Hard Constraints (2026-05-11, RunPod GPU cluster)
 
 1. **Primary inference = RunPod vLLM** — SSoT ADR-2605010000. RunPod Serverless endpoint
-   `vyp99t9px7h4dl` (RTX 6000 Ada 48 GB), image `ghcr.io/gftdcojp/runpod-vllm-gemma:latest`.
+   `vyp99t9px7h4dl` (RTX 6000 Ada 48 GB), image `ghcr.io/etzhayyim/runpod-vllm-gemma:latest`.
    All LLM API traffic routes here. Mac Mini Ollama is **not** LLM SSoT.
 2. **Router = LiteLLM** — OpenAI-compat proxy on judah:4000, pointing to RunPod endpoint via
    `RUNPOD_GEMMA4_OPENAI_BASE` + `RUNPOD_API_KEY`. Master key `sk-gftd-litellm-local`
    (Keychain / secrets.json).
 3. **Mac Mini fleet = L8 Somatic Inference only** — 10-node Mac Mini M4 fleet at
    `192.168.1.*:11434` remains active for resident organism actor inference (ADR-2605080600).
-   Not exposed via murakumo.gftd.ai public endpoint. Goose cron recipes on judah remain.
+   Not exposed via murakumo.etzhayyim.com public endpoint. Goose cron recipes on judah remain.
 4. **K8s/WireGuard/Aeron/UCX/RDMA/Ray/Nomad 禁止** — 再導入禁止.
 5. **No custom inference server** — `serve_plain.py` (MLX + Starlette) and `daemon.py` are
    dead. Any new inference server on Mac Mini uses Ollama.
@@ -713,7 +713,7 @@ gftd-moe-moe-kyun/
 |---|---|---|---|
 | `vyp99t9px7h4dl` | RTX 6000 Ada 48 GB | **Primary vLLM inference** | `https://api.runpod.ai/v2/vyp99t9px7h4dl/openai/v1` |
 
-- Image: `ghcr.io/gftdcojp/runpod-vllm-gemma:latest`
+- Image: `ghcr.io/etzhayyim/runpod-vllm-gemma:latest`
 - Model: `gemma-4-e4b-it` (served via vLLM OpenAI-compat API)
 - Auth: `RUNPOD_API_KEY` env var on LiteLLM host
 
@@ -733,7 +733,7 @@ gftd-moe-moe-kyun/
 | asher | 192.168.1.54 | Ollama backend (L8 somatic) | asher |
 
 SSH config (`~/.ssh/config`) + `/etc/hosts` に全 10 node 登録済。
-Mac Mini fleet は公開 `murakumo.gftd.ai` エンドポイントを経由しない。
+Mac Mini fleet は公開 `murakumo.etzhayyim.com` エンドポイントを経由しない。
 
 ## Dead Components (再導入禁止)
 
@@ -742,13 +742,13 @@ Retired inference + orchestration stacks. Source archived under
 
 | Stack | Why dead | Replaced by |
 |---|---|---|
-| `serve_plain.py` (MLX + Starlette + uvicorn) | Single-thread saturation @ ~10 concurrent; dead cdn.gftd.ai B2 tarball fallback; crash-loops on root-owned hf_hub cache | Ollama per-node (continuous batching, model lifecycle, OpenAI-compat API built-in) |
+| `serve_plain.py` (MLX + Starlette + uvicorn) | Single-thread saturation @ ~10 concurrent; dead cdn.etzhayyim.com B2 tarball fallback; crash-loops on root-owned hf_hub cache | Ollama per-node (continuous batching, model lifecycle, OpenAI-compat API built-in) |
 | `cli/daemon.py` (Nomad poll loop) | Ghost-worker blacklist complexity, CoordinatorDO state entropy H=2.58, model affinity bugs | Stateless LiteLLM `simple-shuffle` router — no per-worker state |
 | Nomad 1.11.3 + SSH tunnel + port-forward.py | macOS LN Privacy workaround stack, 3-server quorum burden, manual Screen Sharing for LN allow | @reboot crontab + Ollama LAN bind (`OLLAMA_HOST=0.0.0.0:11434`) |
 | CoordinatorDO (7 DOs, 3519 lines) | Worker-pool orchestration on CF Durable Objects | Ollama's own process model; no orchestration layer needed |
-| B2 `cdn.gftd.ai/mlx-models/*.tar.gz` | URL deprecated, 404s, no replacement | `ollama pull` (HF Hub direct) |
+| B2 `cdn.etzhayyim.com/mlx-models/*.tar.gz` | URL deprecated, 404s, no replacement | `ollama pull` (HF Hub direct) |
 | Rust daemon CLI (`cli/src/*.rs`, Cargo.toml) | Superseded by Python `serve_plain.py`, now both dead | Ollama |
-| V1 wrangler.jsonc / V1 CF Worker | Stateless rewrite | Current `50-infra/cloudflare/workers/murakumo/` Tier 1 (Linode GPU Ollama via `ollama-tunnel.gftd.ai`) |
+| V1 wrangler.jsonc / V1 CF Worker | Stateless rewrite | Current `50-infra/cloudflare/workers/murakumo/` Tier 1 (Linode GPU Ollama via `ollama-tunnel.etzhayyim.com`) |
 | K8s / WireGuard / Aeron / UCX / RDMA / Ray / geth / Virtual Kubelet / LanceDB projections | Architectural dead ends | n/a |
 | `/api/purge-workers`, `consecutiveFailures` ghost-worker blacklist | Patch for CoordinatorDO worker-pool staleness | No worker pool; LiteLLM retries transient 5xx transparently |
 | MLX `gemma-4-e2b-it-4bit` weights + `mlx_lm.generate` chat template | Agent-loop rejection + single-thread | Ollama `gemma3:1b` (GGUF); larger models via `ollama pull` |

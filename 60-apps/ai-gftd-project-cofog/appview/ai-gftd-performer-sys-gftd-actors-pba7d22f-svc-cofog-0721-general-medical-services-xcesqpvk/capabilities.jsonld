@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/2/1/general-medical-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/2/1/general-medical-services",
       "type": "dodaf:Capability",
       "name": "General Medical and Primary Care Oversight Capability",
       "description": "Functional capability for managing general outpatient medical services, clinic facility audits, and primary care coordination. Classification: COFOG Division 07, Group 2, Class 1.",

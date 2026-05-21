@@ -248,7 +248,7 @@
             <div class="row" class:has-retake={hasRetake}>
               <button
                 class="cutcol"
-                onclick={() => go(`/at/an1m3k4x.gftd.ai/ai.gftd.animeka.cut/${cut.rkey}`)}
+                onclick={() => go(`/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.cut/${cut.rkey}`)}
                 title={cut.rkey}
               >
                 <span class="cut-num">{cutLabel(cut, idx)}</span>

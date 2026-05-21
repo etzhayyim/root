@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/08/4/0/religious-community-services/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/08/4/0/religious-community-services/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Community Support and Social Cohesion Lifecycle",
       "description": "The administrative process of supporting religious facilities, coordinating community programs, and monitoring social impact.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/08/4/0/religious-community-services"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/4/0/religious-community-services"
     }
   ]
 }

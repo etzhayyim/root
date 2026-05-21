@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/5/0/r-d-health",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/5/0/r-d-health",
       "type": "dodaf:Capability",
       "name": "Health Research and Development Capability",
       "description": "Functional capability for advancing medical science through clinical research, health impact simulation, and biomedical tech evaluation. Classification: COFOG Division 07, Group 5, Class 0.",

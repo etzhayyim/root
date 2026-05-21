@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:oil-trading.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:oil-trading.etzhayyim.com",
   "actors": [
     {
       "description": "Spot and term cargo trade coverage.",

@@ -4,7 +4,7 @@
 #[rustfmt::skip]
 #[allow(dead_code, clippy::all)]
 pub mod exports {
-    pub mod gftdcojp {
+    pub mod etzhayyim {
         pub mod svelte_adapter {
             #[allow(dead_code, async_fn_in_trait, unused_imports, clippy::all)]
             pub mod js_runtime {
@@ -54,21 +54,21 @@ pub mod exports {
                     ) -> _rt::String;
                 }
                 #[doc(hidden)]
-                macro_rules! __export_gftdcojp_svelte_adapter_js_runtime_cabi {
+                macro_rules! __export_etzhayyim_svelte_adapter_js_runtime_cabi {
                     ($ty:ident with_types_in $($path_to_types:tt)*) => {
                         const _ : () = { #[unsafe (export_name =
-                        "gftdcojp:svelte-adapter/js-runtime#evaluate")] unsafe extern "C"
+                        "etzhayyim:svelte-adapter/js-runtime#evaluate")] unsafe extern "C"
                         fn export_evaluate(arg0 : * mut u8, arg1 : usize, arg2 : * mut
                         u8, arg3 : usize,) -> * mut u8 { unsafe { $($path_to_types)*::
                         _export_evaluate_cabi::<$ty > (arg0, arg1, arg2, arg3) } }
                         #[unsafe (export_name =
-                        "cabi_post_gftdcojp:svelte-adapter/js-runtime#evaluate")] unsafe
+                        "cabi_post_etzhayyim:svelte-adapter/js-runtime#evaluate")] unsafe
                         extern "C" fn _post_return_evaluate(arg0 : * mut u8,) { unsafe {
                         $($path_to_types)*:: __post_return_evaluate::<$ty > (arg0) } } };
                     };
                 }
                 #[doc(hidden)]
-                pub(crate) use __export_gftdcojp_svelte_adapter_js_runtime_cabi;
+                pub(crate) use __export_etzhayyim_svelte_adapter_js_runtime_cabi;
                 #[cfg_attr(target_pointer_width = "64", repr(align(8)))]
                 #[cfg_attr(target_pointer_width = "32", repr(align(4)))]
                 struct _RetArea(
@@ -134,23 +134,23 @@ macro_rules! __export_engine_impl {
     };
     ($ty:ident with_types_in $($path_to_types_root:tt)*) => {
         $($path_to_types_root)*::
-        exports::gftdcojp::svelte_adapter::js_runtime::__export_gftdcojp_svelte_adapter_js_runtime_cabi!($ty
+        exports::etzhayyim::svelte_adapter::js_runtime::__export_etzhayyim_svelte_adapter_js_runtime_cabi!($ty
         with_types_in $($path_to_types_root)*::
-        exports::gftdcojp::svelte_adapter::js_runtime);
+        exports::etzhayyim::svelte_adapter::js_runtime);
     };
 }
 #[doc(inline)]
 pub(crate) use __export_engine_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[unsafe(
-    link_section = "component-type:wit-bindgen:0.41.0:gftdcojp:quickjs-engine:engine:encoded world"
+    link_section = "component-type:wit-bindgen:0.41.0:etzhayyim:quickjs-engine:engine:encoded world"
 )]
 #[doc(hidden)]
 #[allow(clippy::octal_escapes)]
 pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 245] = *b"\
 \0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07y\x01A\x02\x01A\x02\x01\
 B\x02\x01@\x02\x04codes\x0crequest-jsons\0s\x04\0\x08evaluate\x01\0\x04\0\"gftdc\
-ojp:svelte-adapter/js-runtime\x05\0\x04\0\x1egftdcojp:quickjs-engine/engine\x04\0\
+ojp:svelte-adapter/js-runtime\x05\0\x04\0\x1eetzhayyim:quickjs-engine/engine\x04\0\
 \x0b\x0c\x01\0\x06engine\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-\
 component\x070.227.1\x10wit-bindgen-rust\x060.41.0";
 #[inline(never)]

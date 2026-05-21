@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/5/2/water-transport",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/5/2/water-transport",
       "type": "dodaf:Capability",
       "name": "Water Transport and Maritime Management Capability",
       "description": "Functional capability for managing port infrastructure, maritime safety, and waterborne transport services. Classification: COFOG Division 04, Group 5, Class 2.",

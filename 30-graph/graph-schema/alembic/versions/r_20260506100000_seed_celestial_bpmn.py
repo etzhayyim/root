@@ -22,8 +22,8 @@ UP = [{'sql': '\n'
          '           1, $8, $9, $10\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1',
+                 'did:web:maps.etzhayyim.com',
                  'maps_ingest_celestial_catalogs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -40,7 +40,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_ingest_celestial"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_ingest_celestial_catalogs" name="maps ingest celestial '
@@ -124,10 +124,10 @@ UP = [{'sql': '\n'
                  3833,
                  '00-contracts/bpmn/ai/gftd/maps/ingestCelestialCatalogs.bpmn',
                  '2026-05-06T10:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-celestial',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -139,23 +139,23 @@ UP = [{'sql': '\n'
          "           $8, $9, $10, $11, 'anon'\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1',
+                 'did:web:maps.etzhayyim.com',
                  'ai.gftd.apps.maps.ingestCelestialCatalogs',
                  'maps_ingest_celestial_catalogs',
                  1800000,
                  'vertex_celestial_catalog,vertex_celestial_object',
                  '2026-05-06T10:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-celestial',
-                 'did:web:maps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1']}]
+                 'did:web:maps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1']}]
 
 
 def upgrade() -> None:

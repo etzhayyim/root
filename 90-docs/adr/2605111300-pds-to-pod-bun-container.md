@@ -6,7 +6,7 @@ doc_type: adr
 topic: pds-runtime-migration
 authoritative: true
 last_verified: 2026-05-14
-phase_status: "P1 complete (pod live, not handling external traffic yet). /_internal/create-social-post deployed and verified 2026-05-15 — Bun pod now used by lg-animeka publishEpisode via ClusterIP. P2 (canary smoke) blocked until atproto-canary.gftd.ai tunnel is healthy."
+phase_status: "P1 complete (pod live, not handling external traffic yet). /_internal/create-social-post deployed and verified 2026-05-15 — Bun pod now used by lg-animeka publishEpisode via ClusterIP. P2 (canary smoke) blocked until atproto-canary.etzhayyim.com tunnel is healthy."
 priority: 9.4
 axis: architecture
 weight: 0.92
@@ -31,7 +31,7 @@ amended_by: []
 
 # Context
 
-ADR-2605111200 が「CF Worker → RisingWave 接続を全面禁止」を定めたが、現在 `atproto.gftd.ai` を serve している **PDS Worker (`ai-gftd-pds-2603241700`, 38 ファイル / ~30k LOC) 自体が CF Worker** であり、commit log / record CRUD / DID document mirror / MCP registry など、Hyperdrive 経由で RisingWave に大量の write/read を発行している。
+ADR-2605111200 が「CF Worker → RisingWave 接続を全面禁止」を定めたが、現在 `atproto.etzhayyim.com` を serve している **PDS Worker (`ai-gftd-pds-2603241700`, 38 ファイル / ~30k LOC) 自体が CF Worker** であり、commit log / record CRUD / DID document mirror / MCP registry など、Hyperdrive 経由で RisingWave に大量の write/read を発行している。
 
 このため Phase 1 で `wrangler.jsonc` から hyperdrive binding を削除すると次回 `gftd deploy` で本番が壊れる。一時 revert で凌いでいるが、ADR-2605111200 の不変条件を満たすには PDS 自体を K8s pod に移す必要がある。
 
@@ -43,7 +43,7 @@ ADR-2605111200 が「CF Worker → RisingWave 接続を全面禁止」を定め�
 
 Ingress 選択肢:
 
-1. **Cloudflare Tunnel (cloudflared sidecar)**: pod 内 cloudflared が outbound のみで CF edge に接続、`atproto.gftd.ai` の trafficを tunnel target に向ける。DNS / 証明書変更不要、DDoS 保護維持。 → **採用**
+1. **Cloudflare Tunnel (cloudflared sidecar)**: pod 内 cloudflared が outbound のみで CF edge に接続、`atproto.etzhayyim.com` の trafficを tunnel target に向ける。DNS / 証明書変更不要、DDoS 保護維持。 → **採用**
 2. Vultr LoadBalancer + caddy TLS: 追加 cost ($10/mo) + DNS 変更 + Origin Cert 管理。geth で前例があるが PDS には不要なオーバーヘッド。却下。
 3. CF Worker thin proxy + CF Tunnel inbound: hop +1 latency。本 ADR の意図 (Worker を edge-only にする) と矛盾。却下。
 
@@ -55,7 +55,7 @@ Ingress 選択肢:
    Public Internet (AT Protocol federation, browser, MCP client)
       │ HTTPS / WSS
       ▼
-   Cloudflare Edge (DNS atproto.gftd.ai, DDoS, WAF, CF Tunnel terminator)
+   Cloudflare Edge (DNS atproto.etzhayyim.com, DDoS, WAF, CF Tunnel terminator)
       │ outbound-only CF Tunnel
       ▼
 ┌─────────────────────────────────────────────────────────────┐
@@ -64,11 +64,11 @@ Ingress 選択肢:
 │ ┌──────────────────────┐   ┌─────────────────────────────┐  │
 │ │ Container: pds       │   │ Sidecar: cloudflared        │  │
 │ │   Image: ghcr.io/    │   │   Image: cloudflare/        │  │
-│ │     gftdcojp/        │   │     cloudflared:latest      │  │
+│ │     etzhayyim/        │   │     cloudflared:latest      │  │
 │ │     atproto-pds:bun  │   │   Args: tunnel --no-autoup  │  │
 │ │   Runtime: Bun 1.x   │   │     run --token $TUNNEL_TKN │  │
 │ │   Entry: bun src/    │   │   Forwards: localhost:8787  │  │
-│ │     index.ts (Hono)  │   │     → atproto.gftd.ai       │  │
+│ │     index.ts (Hono)  │   │     → atproto.etzhayyim.com       │  │
 │ │   Port: 8787         │◀──┤                             │  │
 │ └────────┬─────────────┘   └─────────────────────────────┘  │
 │          │                                                   │
@@ -85,7 +85,7 @@ Ingress 選択肢:
 - Entry: `50-infra/cloudflare/workers/atproto/src/index.ts` の Hono `app.fetch` を `Bun.serve({fetch})` で wrap
 - Build: `bun install --frozen-lockfile && bun build src/index.ts --target=bun --outfile=dist/server.js`
 - 起動: `CMD ["bun", "dist/server.js"]`
-- BuildKit remote (ADR `buildkit-k8s-remote-build`) 経由で `linux/amd64` build → `ghcr.io/gftdcojp/atproto-pds:<tag>` push
+- BuildKit remote (ADR `buildkit-k8s-remote-build`) 経由で `linux/amd64` build → `ghcr.io/etzhayyim/atproto-pds:<tag>` push
 
 ## CF binding substitutes
 
@@ -93,18 +93,18 @@ Ingress 選択肢:
 |---|---|---|
 | `env.HYPERDRIVE` | `pg.Pool({ connectionString })` direct | `RISINGWAVE_URL` (k8s Secret) |
 | `env.CACHE_R2` (R2 bucket) | S3 client → B2 endpoint | `B2_KEY_ID` / `B2_APPLICATION_KEY` / `B2_BUCKET` (k8s Secret) |
-| `env.AUTH_SERVICE` (Worker→Worker service binding) | HTTP fetch to `auth.gftd.ai` or k8s ClusterIP | `AUTH_SERVICE_URL` |
+| `env.AUTH_SERVICE` (Worker→Worker service binding) | HTTP fetch to `auth.etzhayyim.com` or k8s ClusterIP | `AUTH_SERVICE_URL` |
 | `env.GRAPH_QUERY_SERVICE` | 直接 pg query へ収束 (Worker hop 廃止) | n/a |
-| `env.ROUTING_GATEWAY` (did:web resolution) | HTTP fetch to `gateway.gftd.ai` | `ROUTING_GATEWAY_URL` |
-| `env.PLC_DIRECTORY` | HTTP fetch to `plc.gftd.ai` | `PLC_DIRECTORY_URL` |
-| `env.VAULT_SERVICE` | HTTP fetch to `vault.gftd.ai` | `VAULT_SERVICE_URL` |
-| `env.APPVIEW_SERVICE` | HTTP fetch to `bsky.gftd.ai` (or pod-local AppView when migrated) | `APPVIEW_SERVICE_URL` |
+| `env.ROUTING_GATEWAY` (did:web resolution) | HTTP fetch to `gateway.etzhayyim.com` | `ROUTING_GATEWAY_URL` |
+| `env.PLC_DIRECTORY` | HTTP fetch to `plc.etzhayyim.com` | `PLC_DIRECTORY_URL` |
+| `env.VAULT_SERVICE` | HTTP fetch to `vault.etzhayyim.com` | `VAULT_SERVICE_URL` |
+| `env.APPVIEW_SERVICE` | HTTP fetch to `bsky.etzhayyim.com` (or pod-local AppView when migrated) | `APPVIEW_SERVICE_URL` |
 | `env.RESOURCE_FLOW_SERVICE` | HTTP fetch to bpmn-dispatcher | `BPMN_DISPATCHER_URL` |
-| `env.IPFS_API` | HTTP fetch to `ipfs.gftd.ai` | `IPFS_API_URL` |
+| `env.IPFS_API` | HTTP fetch to `ipfs.etzhayyim.com` | `IPFS_API_URL` |
 | Durable Object (rate-limit / cache) | Redis (`mitama-udf-pool` redis service) | `REDIS_URL` |
 | Secrets Store | k8s Secret `atproto-pds-secrets` | (per-key env) |
 | `env.PDS_SERVICE_AUTH_MINT_SECRET` (Secrets Store) | k8s Secret `atproto-pds-secrets` key `PDS_SERVICE_AUTH_MINT_SECRET` | string env var; `resolveSecret` handles both shapes |
-| Cloudflare AI binding | HTTP fetch to `llm.gftd.ai` (ADR-2605010000) | `LLM_GATEWAY_URL` |
+| Cloudflare AI binding | HTTP fetch to `llm.etzhayyim.com` (ADR-2605010000) | `LLM_GATEWAY_URL` |
 
 ## Cloudflared tunnel
 
@@ -112,22 +112,22 @@ Ingress 選択肢:
 - CF dashboard で `atproto-gftd-pds-tunnel` を作成、token を取得。
 - k8s Secret `atproto-pds-tunnel-token` に格納。
 - Sidecar コンテナが `cloudflared tunnel --no-autoupdate run --token $TUNNEL_TOKEN` で起動。
-- `atproto.gftd.ai` を tunnel target `http://localhost:8787` に向ける public hostname rule を CF dashboard で設定。
+- `atproto.etzhayyim.com` を tunnel target `http://localhost:8787` に向ける public hostname rule を CF dashboard で設定。
 
 ## Cutover phases
 
 | Phase | Action | Rollback |
 |---|---|---|
 | **P0 (本 ADR 同時)** | (a) ADR 承認、(b) k8s manifest scaffold commit、(c) PDS wrangler に HYPERDRIVE binding を temp revert | n/a (planning only) |
-| **P1** | Bun-build pipeline 完成、`atproto-pds:bun-canary` image push、staging namespace で起動。`atproto-canary.gftd.ai` (別 hostname) に CF Tunnel。2026-05-14 時点では public canary が 522 のため未完了扱い。 | image delete / cloudflared rollback |
+| **P1** | Bun-build pipeline 完成、`atproto-pds:bun-canary` image push、staging namespace で起動。`atproto-canary.etzhayyim.com` (別 hostname) に CF Tunnel。2026-05-14 時点では public canary が 522 のため未完了扱い。 | image delete / cloudflared rollback |
 | **P2** | Sanity: AT Protocol federation handshake / repo CRUD / firehose subscribe / MCP discovery を canary で smoke-test。RW load 同等性を観測。P1 canary 200 が前提。 | wrangler は触っていない → prod 影響なし |
-| **P3** | CF dashboard で `atproto.gftd.ai` の traffic を 1% → 10% → 50% → 100% に段階移行 (CF tunnel weighted target or Page Rule)。observability: latency / error / commit log replication lag | 重み戻し |
+| **P3** | CF dashboard で `atproto.etzhayyim.com` の traffic を 1% → 10% → 50% → 100% に段階移行 (CF tunnel weighted target or Page Rule)。observability: latency / error / commit log replication lag | 重み戻し |
 | **P4** | 100% pod 後、CF Worker `ai-gftd-pds-2603241700` を deploy 停止 (`wrangler delete` は最終段階) | CF Worker 再 deploy |
 | **P5** | CF Worker 削除、 `50-infra/cloudflare/workers/atproto/` を `_archive/` に移動、ADR-2605111200 の "T3 infra carve-out" 例外を閉じる | (irreversible without rebuild) |
 
 ## Out of scope (deferred to later ADRs)
 
-- AppView (`bsky.gftd.ai`) pod 化 — 同じ pattern が適用可能、別 ADR
+- AppView (`bsky.etzhayyim.com`) pod 化 — 同じ pattern が適用可能、別 ADR
 - Graph projection worker pod 化 — 既に pyzeebe 経路あり、低優先度
 - Signal / Chat Worker pod 化 — PDS pipethrough のみなので PDS 移行後でも残せる
 - Murakumo Worker pod 化 — LLM gateway、ADR-2605010000 と整合する別 path
@@ -158,15 +158,15 @@ Ingress 選択肢:
 The session attempted the smallest possible production transition:
 
 1. Build the existing SvelteKit PDS facade as a transparent edge proxy.
-2. Deploy `atproto.gftd.ai` with `PDS_UPSTREAM_URL` targeting
-   `https://atproto-canary.gftd.ai`.
+2. Deploy `atproto.etzhayyim.com` with `PDS_UPSTREAM_URL` targeting
+   `https://atproto-canary.etzhayyim.com`.
 3. Verify production XRPC/meta endpoints.
 
 The deploy succeeded mechanically, but the upstream failed:
 
-- `GET https://atproto.gftd.ai/xrpc/com.atproto.server.describeServer`
-  returned a Cloudflare 522 page for `atproto-canary.gftd.ai`.
-- `GET https://atproto.gftd.ai/_app/meta` did not return the expected PDS meta
+- `GET https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer`
+  returned a Cloudflare 522 page for `atproto-canary.etzhayyim.com`.
+- `GET https://atproto.etzhayyim.com/_app/meta` did not return the expected PDS meta
   while the proxy was pointed at canary.
 
 Production was rolled back immediately:
@@ -180,15 +180,15 @@ Production was rolled back immediately:
   `/xrpc/com.atproto.server.describeServer` returned 200.
 
 This confirms the cutover blocker is not the edge proxy shape; it is the
-`atproto-canary.gftd.ai` tunnel/origin readiness. Do not redeploy the thin
+`atproto-canary.etzhayyim.com` tunnel/origin readiness. Do not redeploy the thin
 proxy to production until these gates pass:
 
 ```bash
 kubectl -n atproto get pods,svc,deploy
 kubectl -n atproto logs deploy/atproto-pds -c pds --tail=200
 kubectl -n atproto logs deploy/atproto-pds -c cloudflared --tail=200
-curl -i https://atproto-canary.gftd.ai/_app/meta
-curl -i 'https://atproto-canary.gftd.ai/xrpc/com.atproto.server.describeServer'
+curl -i https://atproto-canary.etzhayyim.com/_app/meta
+curl -i 'https://atproto-canary.etzhayyim.com/xrpc/com.atproto.server.describeServer'
 ```
 
 Expected canary gate before any production cutover:
@@ -203,7 +203,7 @@ Expected canary gate before any production cutover:
 # 2026-05-15 Internal Endpoint Activation Record
 
 The Bun pod is now used in production for internal writes by `lg-animeka`'s
-`publishEpisode` graph, without yet handling any external `atproto.gftd.ai`
+`publishEpisode` graph, without yet handling any external `atproto.etzhayyim.com`
 traffic. This is the first real write load on the pod.
 
 ## `/_internal/create-social-post` (HMAC-authenticated)
@@ -244,7 +244,7 @@ remote driver with port-forward instead.
 
 ```
 POST http://atproto-pds.atproto.svc.cluster.local:8787/_internal/create-social-post
-→ 200 { uri: "at://did:web:animeka.gftd.ai/app.bsky.feed.post/3mluhfalehc2g", cid: "..." }
+→ 200 { uri: "at://did:web:animeka.etzhayyim.com/app.bsky.feed.post/3mluhfalehc2g", cid: "..." }
 episode ep-1776928323916-1 → status='announced'
 ```
 

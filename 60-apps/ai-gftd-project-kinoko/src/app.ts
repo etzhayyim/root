@@ -1,4 +1,4 @@
-// kinoko.gftd.ai — fruiting body / PoNF consensus layer (kinoko = きのこ)
+// kinoko.etzhayyim.com — fruiting body / PoNF consensus layer (kinoko = きのこ)
 // Thin-edge dispatcher: BPMN ponf-fruiting.bpmn runs on R/PT15M timer in LangServer.
 // 3 methods: checkFlowThreshold / formBlock / getBlock
 
@@ -11,7 +11,7 @@ interface Env {
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const NSID_PREFIX = "ai.gftd.apps.kinoko.";
-const ACTOR_DID = "did:web:kinoko.gftd.ai";
+const ACTOR_DID = "did:web:kinoko.etzhayyim.com";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -52,7 +52,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const secret = typeof env.DISPATCHER_INTERNAL_SECRET === "object"
     ? await env.DISPATCHER_INTERNAL_SECRET.get()
     : (env.DISPATCHER_INTERNAL_SECRET ?? "");

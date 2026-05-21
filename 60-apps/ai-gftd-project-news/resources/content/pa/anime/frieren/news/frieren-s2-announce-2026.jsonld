@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "TVSeries",
@@ -31,5 +31,5 @@
       "url": "https://www.oricon.co.jp/news/2313757/full/"
     }
   ],
-  "url": "https://news.gftd.ai/pa/articles/frieren-s2-announce-2026"
+  "url": "https://news.etzhayyim.com/pa/articles/frieren-s2-announce-2026"
 }

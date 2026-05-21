@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "TVSeries",
@@ -36,5 +36,5 @@
       "url": "https://www.fujitv.co.jp/kimetsu/"
     }
   ],
-  "url": "https://news.gftd.ai/en/articles/kimetsu-tv-rerun-2026"
+  "url": "https://news.etzhayyim.com/en/articles/kimetsu-tv-rerun-2026"
 }

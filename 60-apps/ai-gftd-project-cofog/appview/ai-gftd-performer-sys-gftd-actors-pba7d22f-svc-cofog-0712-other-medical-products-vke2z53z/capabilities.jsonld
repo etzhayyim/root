@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/1/2/other-medical-products",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/1/2/other-medical-products",
       "type": "dodaf:Capability",
       "name": "Miscellaneous Medical Product Oversight Capability",
       "description": "Functional capability for managing safety reviews, certifications, and monitoring of miscellaneous medical products. Classification: COFOG Division 07, Group 1, Class 2.",

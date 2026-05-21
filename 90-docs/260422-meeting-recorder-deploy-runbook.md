@@ -1,7 +1,7 @@
 # meeting-recorder deploy runbook (Phase 1)
 
-- Actor: `did:web:meeting-recorder.gftd.ai` (nanoid `m33tr3c0`)
-- Control-plane: CF Worker `meeting-recorder.gftd.ai` (XRPC + MCP facade, ADR-0042)
+- Actor: `did:web:meeting-recorder.etzhayyim.com` (nanoid `m33tr3c0`)
+- Control-plane: CF Worker `meeting-recorder.etzhayyim.com` (XRPC + MCP facade, ADR-0042)
 - Media-plane: Vultr VKE LAX, node pool `meeting-recorder` (vhf-4c-16gb × 2)
 - Storage: Backblaze B2 `ai-gftd-recordings/meeting-recorder/...` (ADR-0048 egress-free)
 - Transcription: Murakumo MLX `whisper-large-v3`
@@ -17,7 +17,7 @@
    - `Calls.AccessMedia.All`
    - `OnlineMeetings.Read.All`
 3. Client secret を生成し `gftd vault add --folder meeting-recorder --name AZURE_AD_CLIENT_SECRET`。
-4. Notification URL を CF Worker `meeting-recorder.gftd.ai/_graph/callbacks` に設定。
+4. Notification URL を CF Worker `meeting-recorder.etzhayyim.com/_graph/callbacks` に設定。
 
 ### Google Meet
 
@@ -50,15 +50,15 @@ b2 key create --bucket ai-gftd-recordings \
 
 # 3. Cloudflare Tunnel (control-plane のみ)
 cloudflared tunnel create meeting-recorder-control
-cloudflared tunnel route dns meeting-recorder-control meeting-recorder-ctrl.gftd.ai
+cloudflared tunnel route dns meeting-recorder-control meeting-recorder-ctrl.etzhayyim.com
 ```
 
 ## T-1d: CI / image build
 
 ```bash
 cd 50-infra/vultr/meeting-recorder
-docker build -t registry.gftd.ai/meeting-recorder-unix:0.1.0 container/
-docker push registry.gftd.ai/meeting-recorder-unix:0.1.0
+docker build -t registry.etzhayyim.com/meeting-recorder-unix:0.1.0 container/
+docker push registry.etzhayyim.com/meeting-recorder-unix:0.1.0
 ```
 
 ## Day 0: cutover
@@ -98,13 +98,13 @@ gftd deploy   # writes did.json, configures XRPC routes, MCP facade
 # Teams
 gftd agent-token --lxm ai.gftd.apps.meetingRecorder.joinMeeting \
   | xargs -I{} curl -H "Authorization: Bearer {}" \
-    https://meeting-recorder.gftd.ai/xrpc/ai.gftd.apps.meetingRecorder.joinMeeting \
-    -d '{"provider":"teams","joinTarget":{"joinUrl":"<test-meeting>"},"onBehalfOfDid":"did:web:jun.gftd.ai","consentToken":"<signed-jwt>"}'
+    https://meeting-recorder.etzhayyim.com/xrpc/ai.gftd.apps.meetingRecorder.joinMeeting \
+    -d '{"provider":"teams","joinTarget":{"joinUrl":"<test-meeting>"},"onBehalfOfDid":"did:web:jun.etzhayyim.com","consentToken":"<signed-jwt>"}'
 
 # Meet / Zoom も同様
 ```
 
-期待応答: `{"sessionDid":"did:web:meeting-recorder.gftd.ai:session:<provider>:<mtgId>", "status":"joining"}`。
+期待応答: `{"sessionDid":"did:web:meeting-recorder.etzhayyim.com:session:<provider>:<mtgId>", "status":"joining"}`。
 
 ### Step 5. Regression (既存 topology 非破壊確認)
 

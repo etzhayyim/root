@@ -429,7 +429,7 @@ ADR-2605092700 accepts RW capability storage and authority boundary:
   caveats, revocation state, encrypted manifests, and audit rows.
 - RW must not store raw read/write/admin capability secrets, DEKs, or protected
   plaintext for migrated object classes.
-- auth.gftd.ai remains the OAuth/DPoP proof-of-possession session boundary.
+- auth.etzhayyim.com remains the OAuth/DPoP proof-of-possession session boundary.
 - Capability evaluation normalizes did:web / did:plc facade DIDs to canonical
   `did:erc725:gftd:260425:<identity>` root DIDs before grant matching.
 - ERC725 / ERC-8004 remain the trust/discovery anchors; RW is the operational
@@ -449,7 +449,7 @@ Target MVs:
 - mv_cap_object_visibility
 - mv_cap_revocation_closure
 """
-impact = "RW protected-object schema, MCP capability verifier, auth.gftd.ai integration, ERC725 root DID authority"
+impact = "RW protected-object schema, MCP capability verifier, auth.etzhayyim.com integration, ERC725 root DID authority"
 references = [
   "90-docs/adr/2605092700-rw-capability-storage-authority.md",
   "90-docs/260424-oauth-strict-mode-cutover-runbook.md",
@@ -652,8 +652,8 @@ Runtime assistant:
   runs the resident trigger in `{{ .Values.namespace }}` and never creates
   Kubernetes resources in the default namespace.
 
-`gtin.gftd.ai` continues to own canonical product identity. `kakaku.gftd.ai`
-continues to own merchant offers and price history. `yoro.gftd.ai` owns
+`gtin.etzhayyim.com` continues to own canonical product identity. `kakaku.etzhayyim.com`
+continues to own merchant offers and price history. `yoro.etzhayyim.com` owns
 operator-facing product research summaries.
 """
 impact = "global product identity, price comparison, evidence lineage, LangGraph resident ingest"
@@ -724,7 +724,7 @@ search excludes legacy facade-keyed rows.
 
 Yoro live root/facade pair:
 - root: `did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`
-- facade: `did:web:yoro.gftd.ai`
+- facade: `did:web:yoro.etzhayyim.com`
 """
 impact = "view_actor_unified root_did projection, vector embedding source keys, AppView actor HNSW search"
 related_files = [
@@ -756,7 +756,7 @@ source_table = "vertex_vector_embedding_source"
 embedding_table = "vertex_vector_embedding_768"
 actor_source_uri_prefix = "actor:did:erc725:gftd:260425:"
 legacy_actor_source_uri_prefixes_excluded = ["actor:did:web:", "actor:did:plc:"]
-worker_image = "ghcr.io/gftdcojp/pymagatama:yoro-vector-embedding-20260427-search768d-amd64"
+worker_image = "ghcr.io/etzhayyim/pymagatama:yoro-vector-embedding-20260427-search768d-amd64"
 appview_version = "3f5dd746-87e0-4da1-9a88-e5f91ec2a009"
 adr = "90-docs/adr/2604270015-vector-embedding-backfill-zeebe-worker.md"
 
@@ -960,7 +960,7 @@ tables = [
   "vertex_contract",
   "vertex_keiyaku_contract_canonical",
 
-  # Sashiosae cluster (ADR-0035, jpn-state.gftd.ai parent)
+  # Sashiosae cluster (ADR-0035, jpn-state.etzhayyim.com parent)
   "vertex_atrecord_sashiosae_choushuu_case",
   "vertex_atrecord_sashiosae_kanka_result",
   "vertex_atrecord_sashiosae_notice",

@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/ai-gftd-hrse#GenerateGoTDD
+ * @etzhayyim/ai-gftd-hrse#GenerateGoTDD
  * Generate Go TDD tests from capabilities.jsonld
  */
 
@@ -26,7 +26,7 @@ function generateGoTDDTest(capability: Capability): string {
   const label = capability["rdfs:label"]?.find(l => l["@language"] === "en")?.["@value"] || capabilityID;
   const description = capability["dcterms:description"]?.find(d => d["@language"] === "en")?.["@value"] || "";
 
-  return `// @gftdcojp/ai-gftd-hrse#${capabilityID}TDD
+  return `// @etzhayyim/ai-gftd-hrse#${capabilityID}TDD
 // TDD Tests for ${label}
 // ${description}
 package service

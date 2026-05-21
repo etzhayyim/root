@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:news.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:news.etzhayyim.com",
   "name": "nwscr001",
   "nanoid": "nwscr001",
   "performerType": "service",

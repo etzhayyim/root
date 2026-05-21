@@ -16,6 +16,7 @@ function resetChain() {
 	selectFromMock.mockReset().mockReturnValue({ select: selectMock });
 }
 
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 vi.mock("../src/kysely.js", () => ({
 	createKyselyDb: () => ({ selectFrom: selectFromMock }),
 }));

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:gha-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:gha-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Ghana AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -118,7 +118,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "gha-state.gftd.ai",
+      "host": "gha-state.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-85e018086095",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-85e018086095",
   "entityId": "ent-85e018086095",
   "canonicalName": "benoil shipping inc",
   "aliases": [

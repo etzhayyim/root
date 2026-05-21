@@ -26,7 +26,7 @@ Connector の組織キーは、Slack/Teams 添付や Notion 平文化が常態�
 
 # Decision
 
-## D1. Primary = gftd Vault (`vault.gftd.ai`)
+## D1. Primary = gftd Vault (`vault.etzhayyim.com`)
 
 メンバー間共有 credential は **gftd Vault** に保存する。Zero-knowledge
 invariant (ADR-2604251200) により server breach 耐性を確保。
@@ -44,7 +44,7 @@ Vault を補助利用。Claude Code MCP integration:
 
 ## D3. Claude.ai org connector
 
-- URL: `https://mcp.gftd.ai/mcp`
+- URL: `https://mcp.etzhayyim.com/mcp`
 - 組織共有キー (`sk_live_org_*`) は org connector 設定済み
 - 個人キーは gftd Vault `gftd-claude-connector` フォルダ参照
 
@@ -57,7 +57,7 @@ Vault を補助利用。Claude Code MCP integration:
 
 # Consequences
 
-- 共有 credential の audit trail が `vault.gftd.ai` に集約 (ADR-0010 audit log)。
+- 共有 credential の audit trail が `vault.etzhayyim.com` に集約 (ADR-0010 audit log)。
 - Member off-board 時は wrapped key を revoke するだけで該当 member の復号権を
   失効可能。
 - Bitwarden は SaaS login のみ — API key は Vault 一元管理で散逸を防ぐ。

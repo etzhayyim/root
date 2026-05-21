@@ -54,7 +54,7 @@ wamrc \
 # 3. Sign + upload + pin via XRPC
 cid=$(b3sum pid_limited.aot | awk '{print $1}')
 sig=$(./scripts/builder-sign.sh pid_limited.aot)  # was `gftd builder sign` before 2026-05-20 CLI removal
-curl -X POST https://open-ot.gftd.ai/xrpc/ai.gftd.apps.openOt.pinModule \
+curl -X POST https://open-ot.etzhayyim.com/xrpc/ai.gftd.apps.openOt.pinModule \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d "{
@@ -62,7 +62,7 @@ curl -X POST https://open-ot.gftd.ai/xrpc/ai.gftd.apps.openOt.pinModule \
     \"moduleCid\": \"$cid\",
     \"moduleSig\": \"$sig\",
     \"moduleSizeBytes\": $(wc -c < pid_limited.aot),
-    \"builderDid\": \"did:web:builder.gftd.ai\",
+    \"builderDid\": \"did:web:builder.etzhayyim.com\",
     \"wasmTarget\": \"wasm32-wasi\",
     \"aotTarget\": \"thumbv7em-none-eabi\",
     \"compilerName\": \"wamrc\",

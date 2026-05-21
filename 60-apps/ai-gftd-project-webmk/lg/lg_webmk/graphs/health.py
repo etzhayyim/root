@@ -16,7 +16,7 @@ from lg_webmk.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_APP_DID = os.environ.get("WEBMK_APP_DID", "did:web:webmk.gftd.ai")
+_APP_DID = os.environ.get("WEBMK_APP_DID", "did:web:webmk.etzhayyim.com")
 
 
 class _State(TypedDict, total=False):

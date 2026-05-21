@@ -6,7 +6,7 @@
     "status": "https://schema.org/creativeWorkStatus",
     "topic": "https://schema.org/about",
     "authoritative": "https://schema.org/authoritativeLegalValue",
-    "authoritativeFor": "https://gftd.ai/docs/authoritativeFor",
+    "authoritativeFor": "https://etzhayyim.com/docs/authoritativeFor",
     "related": {
       "@id": "https://schema.org/isRelatedTo",
       "@type": "@id"
@@ -73,7 +73,7 @@
       "topic": "vault-zero-knowledge-crypto",
       "authoritative": true,
       "authoritativeFor": [
-        "vault.gftd.ai zero knowledge key hierarchy and encryption design",
+        "vault.etzhayyim.com zero knowledge key hierarchy and encryption design",
         "vault principal types and key exchange patterns",
         "vault WIT interface design (magatama:secrets/vault)"
       ]
@@ -119,25 +119,25 @@
     {
       "id": "doc:260323-yoro-human-credit-economy-design",
       "type": "TechArticle",
-      "title": "yoro.gftd.ai Human Credit Economy — Murakumo + HC Task Rewards",
+      "title": "yoro.etzhayyim.com Human Credit Economy — Murakumo + HC Task Rewards",
       "status": "active",
       "topic": "yoro-credit-economy",
       "authoritative": true,
       "authoritativeFor": [
         "yoro human participation credit system",
         "murakumo credit reward rates",
-        "hc.gftd.ai credit integration"
+        "hc.etzhayyim.com credit integration"
       ]
     },
     {
       "id": "doc:260324-dt-secure-file-transfer-design",
       "type": "TechArticle",
-      "title": "dt.gftd.ai — Secure File Transfer Design",
+      "title": "dt.etzhayyim.com — Secure File Transfer Design",
       "status": "active",
       "topic": "dt-secure-file-transfer",
       "authoritative": true,
       "authoritativeFor": [
-        "dt.gftd.ai secure file transfer architecture",
+        "dt.etzhayyim.com secure file transfer architecture",
         "ai-gftd-project-data-transfer app boundary and transfer lifecycle"
       ]
     },
@@ -197,7 +197,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "AT Protocol lexicon reference baseline used in this repo",
-        "atproto.gftd.ai implementation coverage summary",
+        "atproto.etzhayyim.com implementation coverage summary",
         "AT Protocol normative compliance summary"
       ]
     },
@@ -365,7 +365,7 @@
     {
       "id": "doc:data-gateway-consolidation",
       "type": "TechArticle",
-      "title": "Data Gateway Consolidation — atproto.gftd.ai 一元化",
+      "title": "Data Gateway Consolidation — atproto.etzhayyim.com 一元化",
       "status": "superseded",
       "topic": "data-gateway-security-boundary",
       "authoritative": true,
@@ -543,7 +543,7 @@
     {
       "id": "doc:yoro-superapp-oembed-design",
       "type": "TechArticle",
-      "title": "yoro.gftd.ai SuperApp-Only Architecture + oEmbed (Lexicon Web)",
+      "title": "yoro.etzhayyim.com SuperApp-Only Architecture + oEmbed (Lexicon Web)",
       "status": "active",
       "topic": "yoro-superapp-oembed",
       "authoritative": true,
@@ -582,8 +582,8 @@
       "topic": "auth-worker-topology",
       "authoritative": true,
       "authoritativeFor": [
-        "auth.gftd.ai worker responsibilities",
-        "accounts.gftd.ai worker responsibilities",
+        "auth.etzhayyim.com worker responsibilities",
+        "accounts.etzhayyim.com worker responsibilities",
         "cross-domain session / redirect flow",
         "PDS XRPC gateway single-entry rule for com.atproto.server.*"
       ],
@@ -682,7 +682,7 @@
     {
       "id": "doc:adr-0032-jpn-seizure-cluster-topology",
       "type": "TechArticle",
-      "title": "ADR-0032: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.gftd.ai",
+      "title": "ADR-0032: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.etzhayyim.com",
       "status": "proposed",
       "topic": "jpn-seizure-cluster",
       "authoritative": true,
@@ -708,7 +708,7 @@
     {
       "id": "doc:adr-0032-jpn-seizure-cluster-topology",
       "type": "TechArticle",
-      "title": "ADR-0032: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.gftd.ai",
+      "title": "ADR-0032: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.etzhayyim.com",
       "status": "proposed",
       "topic": "jpn-seizure-cluster",
       "authoritative": true,
@@ -746,7 +746,7 @@
     {
       "id": "doc:adr-0033-did-gftd-federation-via-did-web-shim",
       "type": "TechArticle",
-      "title": "ADR-0033: did:gftd Federation via did:web Shim — plc.directory 依存を排し did.gftd.ai に集約",
+      "title": "ADR-0033: did:gftd Federation via did:web Shim — plc.directory 依存を排し did.etzhayyim.com に集約",
       "status": "proposed",
       "topic": "did-gftd-federation",
       "authoritative": true,
@@ -966,7 +966,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "Murakumo Mac mini k3s fleet placement for Zeebe workers",
-        "yoro.gftd.ai persistent AT Protocol actor loop on Murakumo",
+        "yoro.etzhayyim.com persistent AT Protocol actor loop on Murakumo",
         "LangGraph agent worker and MCP tool boundary for yoro social actions",
         "llama.cpp Vulkan inference tier for actor workers"
       ],

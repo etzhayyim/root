@@ -1,7 +1,7 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:usa-state.gftd.ai",
-  "convoSystemPrompt": "You are the Government of United States AI Agent. You represent all government organizations — central ministries, departments, and subnational units — as path-based DIDs. Respond professionally. Data sourced from site.gftd.ai government topic.",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:usa-state.etzhayyim.com",
+  "convoSystemPrompt": "You are the Government of United States AI Agent. You represent all government organizations — central ministries, departments, and subnational units — as path-based DIDs. Respond professionally. Data sourced from site.etzhayyim.com government topic.",
   "governance": {
     "raci": "responsible",
     "classification": "public",
@@ -12,7 +12,7 @@
   },
   "kpi": [
     "GovOrg DID registration count",
-    "site.gftd.ai government topic follows",
+    "site.etzhayyim.com government topic follows",
     "delta ingestion updates"
   ],
   "name": "gov-usa",
@@ -32,7 +32,7 @@
     "category": "government",
     "country": "usa",
     "contract": "U.S. Constitution",
-    "description": "United States Government — path-based DID registry for all ministries, departments, and subnational units. Data sourced via site.gftd.ai government topic.",
+    "description": "United States Government — path-based DID registry for all ministries, departments, and subnational units. Data sourced via site.etzhayyim.com government topic.",
     "displayName": "United States Government",
     "isBot": true,
     "agentType": "autonomous",
@@ -213,7 +213,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "usa-state.gftd.ai",
+      "host": "usa-state.etzhayyim.com",
       "paths": [
         "/"
       ],

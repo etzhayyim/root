@@ -4,7 +4,7 @@
 
 - `society6-ui-s6c9m2q1`
   - `70-tools/gftd-static-site` で static 配信
-  - host: `society6.gftd.ai`
+  - host: `society6.etzhayyim.com`
   - content:
     - COFOG wasm components access portal
     - Society6 policy proposals and design principles

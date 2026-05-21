@@ -62,13 +62,13 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 
 | Tier | NSID prefix | Deploy | Rationale |
 |---|---|---|---|
-| **Edge** | `com.atproto.*` | CF PDS worker (`atproto.gftd.ai`) | AT Protocol federation endpoint, 3rd party atproto client 直叩き必須 |
-| **Edge** | `app.bsky.*` | CF AppView worker (`bsky.gftd.ai`) | Bluesky 互換 read API, CF POP latency が UX 支配 |
+| **Edge** | `com.atproto.*` | CF PDS worker (`atproto.etzhayyim.com`) | AT Protocol federation endpoint, 3rd party atproto client 直叩き必須 |
+| **Edge** | `app.bsky.*` | CF AppView worker (`bsky.etzhayyim.com`) | Bluesky 互換 read API, CF POP latency が UX 支配 |
 | **Edge** | `chat.bsky.convo.*` / `ai.gftd.convo.*` | CF Chat worker | DM latency 制約, E2E signal 経路 |
 | **Edge** | `ai.gftd.signal.*` | CF Signal worker | Key directory — Service Auth verify hot path |
 | **Edge** | `ai.gftd.vault.*` | CF Vault worker | Zero-knowledge 前提, ciphertext のみ server 保持 (root rule) |
 | **Edge** | `ai.gftd.plc.*` / `ai.gftd.identity.*` | CF PLC directory / PDS local | DID resolution, edge cache が η 支配 |
-| **K8s** | `ai.gftd.apps.*` | K8s bpmn-dispatcher (`dispatcher.gftd.ai`) | Domain state, RisingWave 近接, BPMN evaluator |
+| **K8s** | `ai.gftd.apps.*` | K8s bpmn-dispatcher (`dispatcher.etzhayyim.com`) | Domain state, RisingWave 近接, BPMN evaluator |
 
 `ai.gftd.apps.*` の default fallback は `local` (actor-slug Worker) から `pipethrough:bpmn` に flip する。
 
@@ -85,7 +85,7 @@ CF Worker を新規に作って `ai.gftd.apps.*` を handle するのは禁止�
 
 **現状**: CF Tunnel (cloudflared pod, tunnel `be2cc0b0-...`) → zeebe-gateway ClusterIP → aiohttp :8080 (origin HTTP, `noTLSVerify: true`)
 
-**目標**: `dispatcher.gftd.ai` を cert-manager 発行の TLS cert (LetsEncrypt or Cloudflare Origin CA) で終端し、CF Tunnel の `noTLSVerify` を除去する。2026-04-24 に `langgraph-agent-cert.yaml` が既にあるので cert-manager pipeline は稼働中。既存 LoadBalancer `bpmn-dispatcher-lb` (207.246.100.170:8080) と externalIP (149.28.89.211) は本 ADR 完遂時に削除する。
+**目標**: `dispatcher.etzhayyim.com` を cert-manager 発行の TLS cert (LetsEncrypt or Cloudflare Origin CA) で終端し、CF Tunnel の `noTLSVerify` を除去する。2026-04-24 に `langgraph-agent-cert.yaml` が既にあるので cert-manager pipeline は稼働中。既存 LoadBalancer `bpmn-dispatcher-lb` (207.246.100.170:8080) と externalIP (149.28.89.211) は本 ADR 完遂時に削除する。
 
 ingress middleware には ADR-0042 と同じく `lxm`-scoped Service Auth JWT verify を乗せ、ADR-2604241038 Contract 3 の HMAC trust header verify と並走させる。
 
@@ -119,7 +119,7 @@ E Full K8s:          |redundant paths| ≈ 2   η ≈ 0.87  - edge benefit loss
 
 ## B を採らない理由
 
-1. **Federation compliance 違反** — `atproto.gftd.ai` は 3rd party atproto client (Bluesky app, 独自 client) が直接叩く前提。BFF 裏に入れると AT Protocol network から切断される
+1. **Federation compliance 違反** — `atproto.etzhayyim.com` は 3rd party atproto client (Bluesky app, 独自 client) が直接叩く前提。BFF 裏に入れると AT Protocol network から切断される
 2. **APAC latency** — Vultr LAX 単一 region は Gftd Japan 本拠地の p95 を 150–300ms 悪化させる
 3. **BFF XRPC proxy = 純オーバーヘッド** — BFF は UI concern (SSR / session / CSRF) を扱うものであり、XRPC を tunnel するのは redundant hop
 
@@ -146,7 +146,7 @@ C は edge-thin PDS + K8s actor core の「責務分離」止まりで、NSID pr
 
 ## Phase δ3 — K8s ingress TLS 昇格 (1 sprint)
 
-- cert-manager で `dispatcher.gftd.ai` TLS cert 発行 (`langgraph-agent-cert.yaml` pattern 流用)
+- cert-manager で `dispatcher.etzhayyim.com` TLS cert 発行 (`langgraph-agent-cert.yaml` pattern 流用)
 - cloudflared config から `noTLSVerify: true` を除去
 - LoadBalancer `bpmn-dispatcher-lb` + externalIP 149.28.89.211 削除
 
@@ -166,7 +166,7 @@ C は edge-thin PDS + K8s actor core の「責務分離」止まりで、NSID pr
 
 - **Murakumo** (`ai.gftd.apps.murakumo.*`) は Rule 1 に対する明示例外。K8s ではなく CF Tunnel + Python MLX fleet を維持
 - **Legacy yabai NSID** は Phase δ1 完了後も safety net として `NSID_EXACT_MATCH_TABLE` に残してよい (δ5 で BPMN coverage 確認後削除)
-- **Bootstrap 経路** (`authn.gftd.ai` / `authz.gftd.ai`) は本 ADR の NSID routing 対象外 (ADR-0022 循環依存回避)
+- **Bootstrap 経路** (`authn.etzhayyim.com` / `authz.etzhayyim.com`) は本 ADR の NSID routing 対象外 (ADR-0022 循環依存回避)
 
 # Consequences
 

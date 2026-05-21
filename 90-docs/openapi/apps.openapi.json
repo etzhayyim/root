@@ -2504,7 +2504,7 @@
     },
     "/xrpc/ai.gftd.apps.yoro.postAgencyUpdate": {
       "post": {
-        "summary": "Post a public update or policy change from a government agency actor to the yoro.gftd.ai social feed.",
+        "summary": "Post a public update or policy change from a government agency actor to the yoro.etzhayyim.com social feed.",
         "operationId": "ai.gftd.apps.yoro.postAgencyUpdate",
         "requestBody": {
           "required": true,
@@ -2634,7 +2634,7 @@
                   },
                   "postRepo": {
                     "type": "string",
-                    "description": "Repository DID for translated sibling posts. Defaults to did:web:yoro.gftd.ai."
+                    "description": "Repository DID for translated sibling posts. Defaults to did:web:yoro.etzhayyim.com."
                   },
                   "postText": {
                     "type": "string",
@@ -3815,7 +3815,7 @@
     },
     "/xrpc/ai.gftd.apps.yorishiro.createYorishiro": {
       "post": {
-        "summary": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.gftd.ai:{type}:{slug}.",
+        "summary": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.etzhayyim.com:{type}:{slug}.",
         "operationId": "ai.gftd.apps.yorishiro.createYorishiro",
         "requestBody": {
           "required": true,
@@ -5233,7 +5233,7 @@
                     },
                     "endpointUrl": {
                       "type": "string",
-                      "description": "Full S3-compat URL: https://yatabase.gftd.ai/s3/{bucket}/"
+                      "description": "Full S3-compat URL: https://yatabase.etzhayyim.com/s3/{bucket}/"
                     },
                     "error": {
                       "type": "string"
@@ -6155,7 +6155,7 @@
     },
     "/xrpc/ai.gftd.apps.yata.provisionDatabase": {
       "post": {
-        "summary": "Provision a per-tenant RisingWave database for the caller's org_did. Creates `yata_<sha256(did)[:16]>` database + dedicated PG ROLE + applies storage schema migration inside the new DB. Idempotent. Caller MUST be `did:web:billing.gftd.ai` admin or an authorized provisioning agent.",
+        "summary": "Provision a per-tenant RisingWave database for the caller's org_did. Creates `yata_<sha256(did)[:16]>` database + dedicated PG ROLE + applies storage schema migration inside the new DB. Idempotent. Caller MUST be `did:web:billing.etzhayyim.com` admin or an authorized provisioning agent.",
         "operationId": "ai.gftd.apps.yata.provisionDatabase",
         "requestBody": {
           "required": true,
@@ -7207,10 +7207,10 @@
             "name": "chainDid",
             "in": "query",
             "required": false,
-            "description": "did:web:hospitality.gftd.ai:actor:chain:* filter",
+            "description": "did:web:hospitality.etzhayyim.com:actor:chain:* filter",
             "schema": {
               "type": "string",
-              "description": "did:web:hospitality.gftd.ai:actor:chain:* filter",
+              "description": "did:web:hospitality.etzhayyim.com:actor:chain:* filter",
               "format": "did"
             }
           },
@@ -9889,7 +9889,7 @@
                   },
                   "customDomain": {
                     "type": "string",
-                    "description": "希望独自ドメイン (例: yamada-law.jp)。未指定時は {slug}.webya.gftd.ai を自動付与"
+                    "description": "希望独自ドメイン (例: yamada-law.jp)。未指定時は {slug}.webya.etzhayyim.com を自動付与"
                   },
                   "contactEmail": {
                     "type": "string"
@@ -9925,7 +9925,7 @@
                     },
                     "subdomain": {
                       "type": "string",
-                      "description": "自動付与サブドメイン (例: yamada-law-webya.gftd.ai)"
+                      "description": "自動付与サブドメイン (例: yamada-law-webya.etzhayyim.com)"
                     },
                     "status": {
                       "type": "string",
@@ -10266,7 +10266,7 @@
                     },
                     "cnameTarget": {
                       "type": "string",
-                      "description": "CNAME 先 (proxy-webya.gftd.ai)"
+                      "description": "CNAME 先 (proxy-webya.etzhayyim.com)"
                     },
                     "txtName": {
                       "type": "string",
@@ -10407,7 +10407,7 @@
                   },
                   "createAdCampaign": {
                     "type": "boolean",
-                    "description": "If true, also calls ads.gftd.ai createCampaign after generation."
+                    "description": "If true, also calls ads.etzhayyim.com createCampaign after generation."
                   }
                 },
                 "required": [
@@ -10563,7 +10563,7 @@
                     },
                     "campaignId": {
                       "type": "string",
-                      "description": "ads.gftd.ai campaignId if createAdCampaign was true."
+                      "description": "ads.etzhayyim.com campaignId if createAdCampaign was true."
                     },
                     "deliveredAt": {
                       "type": "string",
@@ -67551,7 +67551,7 @@
     },
     "/xrpc/ai.gftd.apps.sbom.health": {
       "get": {
-        "summary": "sbom.gftd.ai liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met.",
+        "summary": "sbom.etzhayyim.com liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met.",
         "operationId": "ai.gftd.apps.sbom.health",
         "parameters": [],
         "responses": {
@@ -67745,7 +67745,7 @@
     },
     "/xrpc/ai.gftd.apps.sbom.registerArtifact": {
       "post": {
-        "summary": "Register a CycloneDX or SPDX SBOM artifact with sbom.gftd.ai. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact graph and CVE / recall pipeline (60-apps/ai-gftd-project-sbom/CLAUDE.md). For vehicle BOMs the optional vehicle* fields capture the part-graph metadata needed for Takata-style supplier recall queries.",
+        "summary": "Register a CycloneDX or SPDX SBOM artifact with sbom.etzhayyim.com. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact graph and CVE / recall pipeline (60-apps/ai-gftd-project-sbom/CLAUDE.md). For vehicle BOMs the optional vehicle* fields capture the part-graph metadata needed for Takata-style supplier recall queries.",
         "operationId": "ai.gftd.apps.sbom.registerArtifact",
         "requestBody": {
           "required": true,
@@ -67821,7 +67821,7 @@
                   "properties": {
                     "artifactUri": {
                       "type": "string",
-                      "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.gftd.ai/ai.gftd.apps.sbom.artifact/<rkey>)."
+                      "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.etzhayyim.com/ai.gftd.apps.sbom.artifact/<rkey>)."
                     },
                     "componentCount": {
                       "type": "integer",
@@ -71722,7 +71722,7 @@
     },
     "/xrpc/ai.gftd.apps.resourceFlow.registerEmitter": {
       "post": {
-        "summary": "Subscribe resource-flow.gftd.ai to a legal-entity emitter's firehose by issuing app.bsky.graph.follow and recording the emitter in vertex_profile. ADR-0028. Invoked once per emitter; idempotent on emitterDid.",
+        "summary": "Subscribe resource-flow.etzhayyim.com to a legal-entity emitter's firehose by issuing app.bsky.graph.follow and recording the emitter in vertex_profile. ADR-0028. Invoked once per emitter; idempotent on emitterDid.",
         "operationId": "ai.gftd.apps.resourceFlow.registerEmitter",
         "requestBody": {
           "required": true,
@@ -86618,7 +86618,7 @@
     },
     "/xrpc/ai.gftd.apps.otakiage.anchorCertificate": {
       "post": {
-        "summary": "供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する (Phase 2b1)。authority gated (issuer = did:web:otakiage.gftd.ai:ritual のみ)。Phase 2b1 = state tracking のみ (`anchor_status: pending → queued`)、Phase 2b2 で実 on-chain 取引を ethers/viem 経由で実装。anchored 状態に到達した certificate は etzhayyim の blockchain 登記の延長として永続証跡を持つ。redo 不可 (1 certificate = 1 anchor token、token_id = sha256(certificate_json))。",
+        "summary": "供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する (Phase 2b1)。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。Phase 2b1 = state tracking のみ (`anchor_status: pending → queued`)、Phase 2b2 で実 on-chain 取引を ethers/viem 経由で実装。anchored 状態に到達した certificate は etzhayyim の blockchain 登記の延長として永続証跡を持つ。redo 不可 (1 certificate = 1 anchor token、token_id = sha256(certificate_json))。",
         "operationId": "ai.gftd.apps.otakiage.anchorCertificate",
         "requestBody": {
           "required": true,
@@ -86629,7 +86629,7 @@
                 "properties": {
                   "certificateUri": {
                     "type": "string",
-                    "description": "at://did:web:otakiage.gftd.ai:ritual/.../certificate/{rkey}"
+                    "description": "at://did:web:otakiage.etzhayyim.com:ritual/.../certificate/{rkey}"
                   },
                   "chain": {
                     "type": "string",
@@ -86974,7 +86974,7 @@
     },
     "/xrpc/ai.gftd.apps.otakiage.issueCertificate": {
       "post": {
-        "summary": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.gftd.ai:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = JSON、Phase 2 で anchorTokenId に ERC725 anchor 追加可能。",
+        "summary": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = JSON、Phase 2 で anchorTokenId に ERC725 anchor 追加可能。",
         "operationId": "ai.gftd.apps.otakiage.issueCertificate",
         "requestBody": {
           "required": true,
@@ -87021,7 +87021,7 @@
                     },
                     "certificateUri": {
                       "type": "string",
-                      "description": "at://did:web:otakiage.gftd.ai:ritual/ai.gftd.apps.otakiage.certificate/{rkey}"
+                      "description": "at://did:web:otakiage.etzhayyim.com:ritual/ai.gftd.apps.otakiage.certificate/{rkey}"
                     },
                     "ritualUri": {
                       "type": "string"
@@ -87381,7 +87381,7 @@
     },
     "/xrpc/ai.gftd.apps.otakiage.scheduleMatsuri": {
       "post": {
-        "summary": "季節祭 (供養祭) を新規スケジュール。authority gated (issuer = did:web:otakiage.gftd.ai or :matsuri sub-DID のみ)。BPMN matsuriSchedule (cron 月初) からも内部呼出される。",
+        "summary": "季節祭 (供養祭) を新規スケジュール。authority gated (issuer = did:web:otakiage.etzhayyim.com or :matsuri sub-DID のみ)。BPMN matsuriSchedule (cron 月初) からも内部呼出される。",
         "operationId": "ai.gftd.apps.otakiage.scheduleMatsuri",
         "requestBody": {
           "required": true,
@@ -87567,7 +87567,7 @@
                     },
                     "itemUri": {
                       "type": "string",
-                      "description": "at://did:web:otakiage.gftd.ai/ai.gftd.apps.otakiage.item/{rkey}"
+                      "description": "at://did:web:otakiage.etzhayyim.com/ai.gftd.apps.otakiage.item/{rkey}"
                     },
                     "state": {
                       "type": "string",
@@ -100408,7 +100408,7 @@
     },
     "/xrpc/ai.gftd.apps.openPatent.ingestMulti": {
       "post": {
-        "summary": "Multi-jurisdiction patent enrichment coordinator (Follow-based: reads from AT firehose data already ingested by patent.gftd.ai)",
+        "summary": "Multi-jurisdiction patent enrichment coordinator (Follow-based: reads from AT firehose data already ingested by patent.etzhayyim.com)",
         "operationId": "ai.gftd.apps.openPatent.ingestMulti",
         "requestBody": {
           "required": true,
@@ -111078,7 +111078,7 @@
     },
     "/xrpc/ai.gftd.apps.onion.getStats": {
       "get": {
-        "summary": "Get onion.gftd.ai crawl statistics.",
+        "summary": "Get onion.etzhayyim.com crawl statistics.",
         "operationId": "ai.gftd.apps.onion.getStats",
         "parameters": [],
         "responses": {
@@ -114737,7 +114737,7 @@
     },
     "/xrpc/ai.gftd.apps.oilUpstream.registerField": {
       "post": {
-        "summary": "Register an oil/gas upstream field. Path-based DID: did:web:oil-upstream.gftd.ai:basin:{basin}:field:{slug}. Sources: USGS + IHS Markit + Wood Mackenzie + national petroleum agencies.",
+        "summary": "Register an oil/gas upstream field. Path-based DID: did:web:oil-upstream.etzhayyim.com:basin:{basin}:field:{slug}. Sources: USGS + IHS Markit + Wood Mackenzie + national petroleum agencies.",
         "operationId": "ai.gftd.apps.oilUpstream.registerField",
         "requestBody": {
           "required": true,
@@ -115038,7 +115038,7 @@
     },
     "/xrpc/ai.gftd.apps.oilTrading.registerTrade": {
       "post": {
-        "summary": "Register a physical oil trade (cargo / offtake / swap). Path-based DID: did:web:oil-trading.gftd.ai:trade:{tradeId}. Counterparty intelligence for benchmark exposure tracking.",
+        "summary": "Register a physical oil trade (cargo / offtake / swap). Path-based DID: did:web:oil-trading.etzhayyim.com:trade:{tradeId}. Counterparty intelligence for benchmark exposure tracking.",
         "operationId": "ai.gftd.apps.oilTrading.registerTrade",
         "requestBody": {
           "required": true,
@@ -115213,7 +115213,7 @@
                     },
                     "linkedVesselDid": {
                       "type": "string",
-                      "description": "vessel.gftd.ai DID with same IMO",
+                      "description": "vessel.etzhayyim.com DID with same IMO",
                       "format": "did"
                     }
                   }
@@ -115366,7 +115366,7 @@
     },
     "/xrpc/ai.gftd.apps.oilShipping.registerTanker": {
       "post": {
-        "summary": "Register a crude/product tanker (vessel domain superset). Path-based DID: did:web:oil-shipping.gftd.ai:tanker:imo:{imo}. Includes dark-fleet flagging.",
+        "summary": "Register a crude/product tanker (vessel domain superset). Path-based DID: did:web:oil-shipping.etzhayyim.com:tanker:imo:{imo}. Includes dark-fleet flagging.",
         "operationId": "ai.gftd.apps.oilShipping.registerTanker",
         "requestBody": {
           "required": true,
@@ -115661,7 +115661,7 @@
     },
     "/xrpc/ai.gftd.apps.oilRefining.registerRefinery": {
       "post": {
-        "summary": "Register an oil refinery. Path-based DID: did:web:oil-refining.gftd.ai:refinery:{iso3}:{slug}. Tracks unit configuration, throughput, outage, product yield.",
+        "summary": "Register an oil refinery. Path-based DID: did:web:oil-refining.etzhayyim.com:refinery:{iso3}:{slug}. Tracks unit configuration, throughput, outage, product yield.",
         "operationId": "ai.gftd.apps.oilRefining.registerRefinery",
         "requestBody": {
           "required": true,
@@ -115973,7 +115973,7 @@
     },
     "/xrpc/ai.gftd.apps.oilMidstream.registerPipeline": {
       "post": {
-        "summary": "Register a midstream pipeline / storage terminal. Path-based DID: did:web:oil-midstream.gftd.ai:pipeline:{slug} or :storage:{slug}. Tracks chokepoint exposure.",
+        "summary": "Register a midstream pipeline / storage terminal. Path-based DID: did:web:oil-midstream.etzhayyim.com:pipeline:{slug} or :storage:{slug}. Tracks chokepoint exposure.",
         "operationId": "ai.gftd.apps.oilMidstream.registerPipeline",
         "requestBody": {
           "required": true,
@@ -116256,7 +116256,7 @@
     },
     "/xrpc/ai.gftd.apps.oilDistribution.registerTerminal": {
       "post": {
-        "summary": "Register a downstream product terminal / wholesale hub. Path-based DID: did:web:oil-distribution.gftd.ai:terminal:{iso3}:{slug}.",
+        "summary": "Register a downstream product terminal / wholesale hub. Path-based DID: did:web:oil-distribution.etzhayyim.com:terminal:{iso3}:{slug}.",
         "operationId": "ai.gftd.apps.oilDistribution.registerTerminal",
         "requestBody": {
           "required": true,
@@ -118506,7 +118506,7 @@
     },
     "/xrpc/ai.gftd.apps.newsletter.createCampaign": {
       "post": {
-        "summary": "Create a newsletter campaign. LangGraph curation loop ingests news.gftd.ai + narou.gftd.ai signals, ranks content, drafts and personalizes per cohort, then delivers via Resend.",
+        "summary": "Create a newsletter campaign. LangGraph curation loop ingests news.etzhayyim.com + narou.etzhayyim.com signals, ranks content, drafts and personalizes per cohort, then delivers via Resend.",
         "operationId": "ai.gftd.apps.newsletter.createCampaign",
         "requestBody": {
           "required": true,
@@ -118535,7 +118535,7 @@
                   },
                   "includeAdSlot": {
                     "type": "boolean",
-                    "description": "If true, creates an ads.gftd.ai sponsor slot in the newsletter."
+                    "description": "If true, creates an ads.etzhayyim.com sponsor slot in the newsletter."
                   },
                   "subjectLine": {
                     "type": "string",
@@ -118841,7 +118841,7 @@
     },
     "/xrpc/ai.gftd.apps.news.analyzeIntel": {
       "post": {
-        "summary": "Turn primary/official-source news evidence into an attributed intel brief for news.gftd.ai.",
+        "summary": "Turn primary/official-source news evidence into an attributed intel brief for news.etzhayyim.com.",
         "operationId": "ai.gftd.apps.news.analyzeIntel",
         "requestBody": {
           "required": true,
@@ -119411,7 +119411,7 @@
     },
     "/xrpc/ai.gftd.apps.news.listIntelSources": {
       "get": {
-        "summary": "List official and primary source feeds used by the news.gftd.ai intel actor process.",
+        "summary": "List official and primary source feeds used by the news.etzhayyim.com intel actor process.",
         "operationId": "ai.gftd.apps.news.listIntelSources",
         "parameters": [
           {
@@ -119791,7 +119791,7 @@
     },
     "/xrpc/ai.gftd.apps.news.publishIntel": {
       "post": {
-        "summary": "Publish a prepared intel brief as an attributed news.gftd.ai writer DID post.",
+        "summary": "Publish a prepared intel brief as an attributed news.etzhayyim.com writer DID post.",
         "operationId": "ai.gftd.apps.news.publishIntel",
         "requestBody": {
           "required": true,
@@ -119995,7 +119995,7 @@
     },
     "/xrpc/ai.gftd.apps.news.rssIngest": {
       "post": {
-        "summary": "Start the LangServer RSS ingest pipeline for news.gftd.ai.",
+        "summary": "Start the LangServer RSS ingest pipeline for news.etzhayyim.com.",
         "operationId": "ai.gftd.apps.news.rssIngest",
         "requestBody": {
           "required": true,
@@ -120144,7 +120144,7 @@
     },
     "/xrpc/ai.gftd.apps.news.socialArbitrageIntel": {
       "post": {
-        "summary": "Start the LangServer social-arbitrage intel pipeline for news.gftd.ai.",
+        "summary": "Start the LangServer social-arbitrage intel pipeline for news.etzhayyim.com.",
         "operationId": "ai.gftd.apps.news.socialArbitrageIntel",
         "requestBody": {
           "required": true,
@@ -126414,7 +126414,7 @@
                   },
                   "consentToken": {
                     "type": "string",
-                    "description": "ES256 JWT signed by onBehalfOfDid. Claims: iss, sub, aud=did:web:meeting-recorder.gftd.ai, lxm=ai.gftd.apps.meetingRecorder.joinMeeting, meetingRef, audio (bool), video (bool), purpose, exp."
+                    "description": "ES256 JWT signed by onBehalfOfDid. Claims: iss, sub, aud=did:web:meeting-recorder.etzhayyim.com, lxm=ai.gftd.apps.meetingRecorder.joinMeeting, meetingRef, audio (bool), video (bool), purpose, exp."
                   },
                   "recordAudio": {
                     "type": "boolean",
@@ -126910,7 +126910,7 @@
     },
     "/xrpc/ai.gftd.apps.media_gamers.evalModelsProcess": {
       "post": {
-        "summary": "Start the LangServer model-evaluation pipeline for media-gamers.gftd.ai.",
+        "summary": "Start the LangServer model-evaluation pipeline for media-gamers.etzhayyim.com.",
         "operationId": "ai.gftd.apps.media_gamers.evalModelsProcess",
         "requestBody": {
           "required": true,
@@ -128148,7 +128148,7 @@
     },
     "/xrpc/ai.gftd.apps.media_gamers.knowledge.knowledgeGuideGenerate": {
       "post": {
-        "summary": "Start the LangServer knowledge-guide generation pipeline for media-gamers.gftd.ai.",
+        "summary": "Start the LangServer knowledge-guide generation pipeline for media-gamers.etzhayyim.com.",
         "operationId": "ai.gftd.apps.media_gamers.knowledge.knowledgeGuideGenerate",
         "requestBody": {
           "required": true,
@@ -129173,7 +129173,7 @@
     },
     "/xrpc/ai.gftd.apps.media_gamers.guide.guideGenerate": {
       "post": {
-        "summary": "Start the LangServer guide generation pipeline for media-gamers.gftd.ai.",
+        "summary": "Start the LangServer guide generation pipeline for media-gamers.etzhayyim.com.",
         "operationId": "ai.gftd.apps.media_gamers.guide.guideGenerate",
         "requestBody": {
           "required": true,
@@ -130532,7 +130532,7 @@
     },
     "/xrpc/ai.gftd.apps.mediaAnime.registerTitle": {
       "post": {
-        "summary": "Register an anime title. Path-based DID: did:web:media-anime.gftd.ai:title:{slug}. Sources: MAL + AniList + Annict + AniDB.",
+        "summary": "Register an anime title. Path-based DID: did:web:media-anime.etzhayyim.com:title:{slug}. Sources: MAL + AniList + Annict + AniDB.",
         "operationId": "ai.gftd.apps.mediaAnime.registerTitle",
         "requestBody": {
           "required": true,
@@ -132356,7 +132356,7 @@
     },
     "/xrpc/ai.gftd.apps.marineInsurance.registerPolicy": {
       "post": {
-        "summary": "Register a marine insurance policy (Hull & Machinery, Cargo, P&I). Sources: IUMI + Lloyd's + IG P&I Clubs. Path-based DID: did:web:marine-insurance.gftd.ai:policy:{slug}.",
+        "summary": "Register a marine insurance policy (Hull & Machinery, Cargo, P&I). Sources: IUMI + Lloyd's + IG P&I Clubs. Path-based DID: did:web:marine-insurance.etzhayyim.com:policy:{slug}.",
         "operationId": "ai.gftd.apps.marineInsurance.registerPolicy",
         "requestBody": {
           "required": true,
@@ -133001,7 +133001,7 @@
     },
     "/xrpc/ai.gftd.apps.mapsCollection.registerJob": {
       "post": {
-        "summary": "Register a maps collection job (control plane). Coordinates web crawl / OSM diff / Overpass query / Microsoft Building Footprint ingestion for maps.gftd.ai.",
+        "summary": "Register a maps collection job (control plane). Coordinates web crawl / OSM diff / Overpass query / Microsoft Building Footprint ingestion for maps.etzhayyim.com.",
         "operationId": "ai.gftd.apps.mapsCollection.registerJob",
         "requestBody": {
           "required": true,
@@ -133025,7 +133025,7 @@
                   },
                   "sourceDid": {
                     "type": "string",
-                    "description": "source DID under maps.gftd.ai",
+                    "description": "source DID under maps.etzhayyim.com",
                     "format": "did"
                   },
                   "bbox": {
@@ -133053,7 +133053,7 @@
                   },
                   "outputCollection": {
                     "type": "string",
-                    "description": "maps.gftd.ai NSID for derived records"
+                    "description": "maps.etzhayyim.com NSID for derived records"
                   }
                 },
                 "required": [
@@ -133265,7 +133265,7 @@
     },
     "/xrpc/ai.gftd.apps.maps3d.fetchMapillary": {
       "post": {
-        "summary": "Fetch Mapillary v4 image metadata for an H3 tile bbox. Used as a LangServer handler (`maps3d.fetchMapillary`) inside `processTile.bpmn`. Output is metadata only (image_id + camera_pose + captured_at + url); the actual JPEG fetch + B2 upload happens after image curation narrows the candidate set. Source DID `did:web:maps.gftd.ai:street_view`.",
+        "summary": "Fetch Mapillary v4 image metadata for an H3 tile bbox. Used as a LangServer handler (`maps3d.fetchMapillary`) inside `processTile.bpmn`. Output is metadata only (image_id + camera_pose + captured_at + url); the actual JPEG fetch + B2 upload happens after image curation narrows the candidate set. Source DID `did:web:maps.etzhayyim.com:street_view`.",
         "operationId": "ai.gftd.apps.maps3d.fetchMapillary",
         "requestBody": {
           "required": true,
@@ -133370,7 +133370,7 @@
     },
     "/xrpc/ai.gftd.apps.maps3d.linkActor": {
       "post": {
-        "summary": "LangGraph actor disambiguation. For each VisionResult detection, search Wikidata SPARQL + GLEIF + OSM operator/owner tags + Murakumo LLM disambiguator → emit a candidate `did:web:maps.gftd.ai:registry:*:{code}` plus confidence. Strong matches get an `Operates` / `OwnsProperty` edge to the host Building vertex; weak matches stay as VisionResult-only. Per ADR-0036 the worker writes vertex / edge rows directly via Hyperdrive, no PDS round-trip.",
+        "summary": "LangGraph actor disambiguation. For each VisionResult detection, search Wikidata SPARQL + GLEIF + OSM operator/owner tags + Murakumo LLM disambiguator → emit a candidate `did:web:maps.etzhayyim.com:registry:*:{code}` plus confidence. Strong matches get an `Operates` / `OwnsProperty` edge to the host Building vertex; weak matches stay as VisionResult-only. Per ADR-0036 the worker writes vertex / edge rows directly via Hyperdrive, no PDS round-trip.",
         "operationId": "ai.gftd.apps.maps3d.linkActor",
         "requestBody": {
           "required": true,
@@ -133420,7 +133420,7 @@
                           },
                           "actorDid": {
                             "type": "string",
-                            "description": "Resolved registry-aliased DID, e.g. did:web:maps.gftd.ai:registry:wikidata:Q38076."
+                            "description": "Resolved registry-aliased DID, e.g. did:web:maps.etzhayyim.com:registry:wikidata:Q38076."
                           },
                           "actorLabel": {
                             "type": "string"
@@ -133470,7 +133470,7 @@
     },
     "/xrpc/ai.gftd.apps.maps3d.processTile": {
       "post": {
-        "summary": "Entry point for the maps3d photogrammetry pipeline. Triggers a single H3 tile through Mapillary fetch → image curation (LangGraph) → COLMAP CPU dense reconstruction → mesh simplification → Murakumo Vision annotation → actor disambiguation → vertex_spatial ingest. BPMN-as-actor (ADR-0056) — invoked via `POST http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.maps3d.processTile` or auto-fired by timer-start R/PT15M against `vertex_maps3d_tile WHERE status IN ('pending','stale')`. Real work runs in LangServer handlers under namespace `maps3d` in Vultr LKE. Backed by `00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn` v1, `vertex_id = at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1`.",
+        "summary": "Entry point for the maps3d photogrammetry pipeline. Triggers a single H3 tile through Mapillary fetch → image curation (LangGraph) → COLMAP CPU dense reconstruction → mesh simplification → Murakumo Vision annotation → actor disambiguation → vertex_spatial ingest. BPMN-as-actor (ADR-0056) — invoked via `POST http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.maps3d.processTile` or auto-fired by timer-start R/PT15M against `vertex_maps3d_tile WHERE status IN ('pending','stale')`. Real work runs in LangServer handlers under namespace `maps3d` in Vultr LKE. Backed by `00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn` v1, `vertex_id = at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1`.",
         "operationId": "ai.gftd.apps.maps3d.processTile",
         "requestBody": {
           "required": true,
@@ -133913,7 +133913,7 @@
                   },
                   "sourceDid": {
                     "type": "string",
-                    "description": "Optional filter: only advance this source DID (e.g. did:web:maps.gftd.ai:registry:gleif)"
+                    "description": "Optional filter: only advance this source DID (e.g. did:web:maps.etzhayyim.com:registry:gleif)"
                   },
                   "label": {
                     "type": "string",
@@ -145396,7 +145396,7 @@
     },
     "/xrpc/ai.gftd.apps.maps.seedGtfsJp": {
       "post": {
-        "summary": "Seed GTFS-JP coverage by asking site.gftd.ai to crawl the gtfs.jp aggregator + transit-agency domains. WET/WAT records flow back into maps via the standard subscribeRepos pipeline; the aggregator's per-prefecture feed-zip URLs become CollectionJob rows that are then ingested by the K8s GTFS-JP dumper (see ai.gftd.apps.maps.bulkRefreshGtfsJp).",
+        "summary": "Seed GTFS-JP coverage by asking site.etzhayyim.com to crawl the gtfs.jp aggregator + transit-agency domains. WET/WAT records flow back into maps via the standard subscribeRepos pipeline; the aggregator's per-prefecture feed-zip URLs become CollectionJob rows that are then ingested by the K8s GTFS-JP dumper (see ai.gftd.apps.maps.bulkRefreshGtfsJp).",
         "operationId": "ai.gftd.apps.maps.seedGtfsJp",
         "requestBody": {
           "required": true,
@@ -145818,7 +145818,7 @@
                 "properties": {
                   "sceneUri": {
                     "type": "string",
-                    "description": "AT URI of the satelliteScene record to analyze (at://did:web:maps.gftd.ai/ai.gftd.apps.maps.satelliteScene/{rkey})."
+                    "description": "AT URI of the satelliteScene record to analyze (at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/{rkey})."
                   },
                   "analysisType": {
                     "type": "string",
@@ -150209,7 +150209,7 @@
                 "properties": {
                   "charSlug": {
                     "type": "string",
-                    "description": "Character slug (kebab-case, e.g. rei-ayanami-evangelion). Maps to did:web:sh1n5h1x.gftd.ai:{slug} as protagonist DID."
+                    "description": "Character slug (kebab-case, e.g. rei-ayanami-evangelion). Maps to did:web:sh1n5h1x.etzhayyim.com:{slug} as protagonist DID."
                   },
                   "charName": {
                     "type": "string",
@@ -151683,7 +151683,7 @@
                   },
                   "workDid": {
                     "type": "string",
-                    "description": "Path-based work DID, e.g. 'did:web:mangaka.gftd.ai:work:{rkey}'. Defaults to controller did:web:mangaka.gftd.ai."
+                    "description": "Path-based work DID, e.g. 'did:web:mangaka.etzhayyim.com:work:{rkey}'. Defaults to controller did:web:mangaka.etzhayyim.com."
                   },
                   "announcementText": {
                     "type": "string",
@@ -152504,7 +152504,7 @@
     },
     "/xrpc/ai.gftd.apps.mangaka.tools.autoRigHumanoid": {
       "post": {
-        "summary": "P16 step 6 of ai.gftd.apps.mangaka.composeCharacterVrm. Auto-rigs the reconstructed mesh on the VKE CPU pool, two tracks inside one pod image `ghcr.io/gftdcojp/blender-rigify-rignet:0.1`: (a) Blender Rigify template-fit (anime-tuned meta-rig auto-scaled to the mesh AABB + head landmark) — production primary; (b) in-house RigNet distill checkpoint (MIT base architecture, our weights at `b2://gftd-models/rignet-anime-v0.<n>/`) — production fallback when Rigify produces a broken bind. Self-hosted invariant: no external rigging service (Mixamo / AccuRIG etc.) is called from this path. External APIs are train-only teacher signals — see `data/ghosthacker/TRAINING_PIPELINE.md`. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_auto_rig_humanoid.",
+        "summary": "P16 step 6 of ai.gftd.apps.mangaka.composeCharacterVrm. Auto-rigs the reconstructed mesh on the VKE CPU pool, two tracks inside one pod image `ghcr.io/etzhayyim/blender-rigify-rignet:0.1`: (a) Blender Rigify template-fit (anime-tuned meta-rig auto-scaled to the mesh AABB + head landmark) — production primary; (b) in-house RigNet distill checkpoint (MIT base architecture, our weights at `b2://gftd-models/rignet-anime-v0.<n>/`) — production fallback when Rigify produces a broken bind. Self-hosted invariant: no external rigging service (Mixamo / AccuRIG etc.) is called from this path. External APIs are train-only teacher signals — see `data/ghosthacker/TRAINING_PIPELINE.md`. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_auto_rig_humanoid.",
         "operationId": "ai.gftd.apps.mangaka.tools.autoRigHumanoid",
         "requestBody": {
           "required": true,
@@ -152566,7 +152566,7 @@
     },
     "/xrpc/ai.gftd.apps.mangaka.tools.bindVrm": {
       "post": {
-        "summary": "P16 step 7 of ai.gftd.apps.mangaka.composeCharacterVrm. Headless Blender (`--background --python`) on the VKE CPU pool runs the saturday06 VRM Add-on to take the rigged glTF + blendshape pack + spring-bone hints derived from `profile.gh:hair` and emit a VRM 1.0 binary. ARKit blendshape names are mapped onto VRM Expression presets. Self-hosted on `ghcr.io/gftdcojp/blender-vrm:4.1` (no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_bind_vrm.",
+        "summary": "P16 step 7 of ai.gftd.apps.mangaka.composeCharacterVrm. Headless Blender (`--background --python`) on the VKE CPU pool runs the saturday06 VRM Add-on to take the rigged glTF + blendshape pack + spring-bone hints derived from `profile.gh:hair` and emit a VRM 1.0 binary. ARKit blendshape names are mapped onto VRM Expression presets. Self-hosted on `ghcr.io/etzhayyim/blender-vrm:4.1` (no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_bind_vrm.",
         "operationId": "ai.gftd.apps.mangaka.tools.bindVrm",
         "requestBody": {
           "required": true,
@@ -152622,7 +152622,7 @@
     },
     "/xrpc/ai.gftd.apps.mangaka.tools.extractFacialBlendshapes": {
       "post": {
-        "summary": "P16 step 5 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs MediaPipe Face Landmarker (Apache-2.0) on the VKE CPU pool to extract 52 ARKit-compatible blendshape weights + 478 face landmarks from the character reference image. The result is folded into bind_vrm so the VRM has working facial animation out of the gate. Self-hosted on `ghcr.io/gftdcojp/mediapipe-face:1` (no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_extract_facial_blendshapes.",
+        "summary": "P16 step 5 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs MediaPipe Face Landmarker (Apache-2.0) on the VKE CPU pool to extract 52 ARKit-compatible blendshape weights + 478 face landmarks from the character reference image. The result is folded into bind_vrm so the VRM has working facial animation out of the gate. Self-hosted on `ghcr.io/etzhayyim/mediapipe-face:1` (no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_extract_facial_blendshapes.",
         "operationId": "ai.gftd.apps.mangaka.tools.extractFacialBlendshapes",
         "requestBody": {
           "required": true,
@@ -152669,7 +152669,7 @@
     },
     "/xrpc/ai.gftd.apps.mangaka.tools.generateMultiviewAnime": {
       "post": {
-        "summary": "P16 step 3 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs CharacterGen (PKU, SIGGRAPH 2024, MIT) on the VKE render pool to turn a single anime reference image + prompt pack into 4–6 view-consistent A-pose images. Self-hosted on `ghcr.io/gftdcojp/character-gen:0.1` (open-weight, no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_generate_multiview_anime.",
+        "summary": "P16 step 3 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs CharacterGen (PKU, SIGGRAPH 2024, MIT) on the VKE render pool to turn a single anime reference image + prompt pack into 4–6 view-consistent A-pose images. Self-hosted on `ghcr.io/etzhayyim/character-gen:0.1` (open-weight, no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_generate_multiview_anime.",
         "operationId": "ai.gftd.apps.mangaka.tools.generateMultiviewAnime",
         "requestBody": {
           "required": true,
@@ -152969,7 +152969,7 @@
     },
     "/xrpc/ai.gftd.apps.mangaka.tools.reconstructMesh": {
       "post": {
-        "summary": "P16 step 4 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs Hunyuan3D-2 (Tencent OSS) on the VKE render pool to turn 4–6 multi-view images into a textured binary-glTF mesh. Self-hosted on `ghcr.io/gftdcojp/hunyuan3d-2:0.2` (open-weight, no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_reconstruct_mesh.",
+        "summary": "P16 step 4 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs Hunyuan3D-2 (Tencent OSS) on the VKE render pool to turn 4–6 multi-view images into a textured binary-glTF mesh. Self-hosted on `ghcr.io/etzhayyim/hunyuan3d-2:0.2` (open-weight, no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_reconstruct_mesh.",
         "operationId": "ai.gftd.apps.mangaka.tools.reconstructMesh",
         "requestBody": {
           "required": true,
@@ -154000,7 +154000,7 @@
     },
     "/xrpc/ai.gftd.apps.manga.submitFromNarou": {
       "post": {
-        "summary": "Import title and chapter from narou.gftd.ai",
+        "summary": "Import title and chapter from narou.etzhayyim.com",
         "operationId": "ai.gftd.apps.manga.submitFromNarou",
         "requestBody": {
           "required": true,
@@ -156817,7 +156817,7 @@
     },
     "/xrpc/ai.gftd.apps.lifehack.listProducts": {
       "get": {
-        "summary": "List recommended products. Commercial products carry an Amazon search keyword; diy_tsukuru products carry CAD/factory DID cross-references to tsukuru.gftd.ai.",
+        "summary": "List recommended products. Commercial products carry an Amazon search keyword; diy_tsukuru products carry CAD/factory DID cross-references to tsukuru.etzhayyim.com.",
         "operationId": "ai.gftd.apps.lifehack.listProducts",
         "parameters": [
           {
@@ -158799,7 +158799,7 @@
     },
     "/xrpc/ai.gftd.apps.kyber.provisionTenant": {
       "post": {
-        "summary": "Provision a new kyber tenant. Creates billing_tenant row and Stripe customer. Called by yoro.gftd.ai signup flow on first login. Idempotent by orgDid.",
+        "summary": "Provision a new kyber tenant. Creates billing_tenant row and Stripe customer. Called by yoro.etzhayyim.com signup flow on first login. Idempotent by orgDid.",
         "operationId": "ai.gftd.apps.kyber.provisionTenant",
         "requestBody": {
           "required": true,
@@ -161165,7 +161165,7 @@
     },
     "/xrpc/ai.gftd.apps.kiyo.getPaper": {
       "get": {
-        "summary": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.gftd.ai/ipfs/{cid}.",
+        "summary": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.etzhayyim.com/ipfs/{cid}.",
         "operationId": "ai.gftd.apps.kiyo.getPaper",
         "parameters": [
           {
@@ -161248,7 +161248,7 @@
     },
     "/xrpc/ai.gftd.apps.kiyo.getPaperFile": {
       "get": {
-        "summary": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.gftd.ai/ipfs/{cid} — no expiry (content-addressed, immutable).",
+        "summary": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.etzhayyim.com/ipfs/{cid} — no expiry (content-addressed, immutable).",
         "operationId": "ai.gftd.apps.kiyo.getPaperFile",
         "parameters": [
           {
@@ -161290,7 +161290,7 @@
                   "properties": {
                     "url": {
                       "type": "string",
-                      "description": "https://ipfs.gftd.ai/ipfs/{cid}"
+                      "description": "https://ipfs.etzhayyim.com/ipfs/{cid}"
                     },
                     "cid": {
                       "type": "string"
@@ -161688,7 +161688,7 @@
     },
     "/xrpc/ai.gftd.apps.kiyo.submitPaper": {
       "post": {
-        "summary": "Submit a new preprint to kiyo.gftd.ai. The PDF (and optionally LaTeX source) must be supplied as base64. A CIDv1 is assigned via ipfs.gftd.ai and stored in vertex_kiyo_paper. Triggers submitPaper.bpmn.",
+        "summary": "Submit a new preprint to kiyo.etzhayyim.com. The PDF (and optionally LaTeX source) must be supplied as base64. A CIDv1 is assigned via ipfs.etzhayyim.com and stored in vertex_kiyo_paper. Triggers submitPaper.bpmn.",
         "operationId": "ai.gftd.apps.kiyo.submitPaper",
         "requestBody": {
           "required": true,
@@ -163400,7 +163400,7 @@
     },
     "/xrpc/ai.gftd.apps.kamiSabiotoshi.registerItem": {
       "post": {
-        "summary": "Register a game item in the sabiotoshi catalog (KAMI canvas item collector). Path-based DID: did:web:kami.gftd.ai:item:{slug}.",
+        "summary": "Register a game item in the sabiotoshi catalog (KAMI canvas item collector). Path-based DID: did:web:kami.etzhayyim.com:item:{slug}.",
         "operationId": "ai.gftd.apps.kamiSabiotoshi.registerItem",
         "requestBody": {
           "required": true,
@@ -165738,7 +165738,7 @@
     },
     "/xrpc/ai.gftd.apps.kafun.agent.research": {
       "post": {
-        "summary": "Run kafun-bokumetsu researcher LangGraph (kafun.research.v1). Returns findings rows authored under did:web:n97ik10n.gftd.ai:actor:researcher; CF Worker writes them to vertex_kafun_research.",
+        "summary": "Run kafun-bokumetsu researcher LangGraph (kafun.research.v1). Returns findings rows authored under did:web:n97ik10n.etzhayyim.com:actor:researcher; CF Worker writes them to vertex_kafun_research.",
         "operationId": "ai.gftd.apps.kafun.agent.research",
         "requestBody": {
           "required": true,
@@ -165807,7 +165807,7 @@
     },
     "/xrpc/ai.gftd.apps.kafun.agent.think": {
       "post": {
-        "summary": "Run kafun-bokumetsu proposer LangGraph (kafun.think.v1). Synthesises seed findings into one insight + up to 3 proposals authored under did:web:n97ik10n.gftd.ai:actor:proposer.",
+        "summary": "Run kafun-bokumetsu proposer LangGraph (kafun.think.v1). Synthesises seed findings into one insight + up to 3 proposals authored under did:web:n97ik10n.etzhayyim.com:actor:proposer.",
         "operationId": "ai.gftd.apps.kafun.agent.think",
         "requestBody": {
           "required": true,
@@ -165868,7 +165868,7 @@
     },
     "/xrpc/ai.gftd.apps.kafun.agent.tick": {
       "post": {
-        "summary": "Run kafun-bokumetsu executor LangGraph (kafun.tick.v1). Cron-driven autonomous loop: selects the highest-priority affordable proposal and emits a vertex_kafun_action row authored under did:web:n97ik10n.gftd.ai:actor:executor. No input fields — Worker reads pending proposals + fund balance from RisingWave.",
+        "summary": "Run kafun-bokumetsu executor LangGraph (kafun.tick.v1). Cron-driven autonomous loop: selects the highest-priority affordable proposal and emits a vertex_kafun_action row authored under did:web:n97ik10n.etzhayyim.com:actor:executor. No input fields — Worker reads pending proposals + fund balance from RisingWave.",
         "operationId": "ai.gftd.apps.kafun.agent.tick",
         "requestBody": {
           "required": true,
@@ -201738,7 +201738,7 @@
     },
     "/xrpc/ai.gftd.apps.hatsubai.submitToCert": {
       "post": {
-        "summary": "Open a new cert submission round for a built master candidate. Writes a certSubmission record (result='pending'), increments the round counter, and triggers the BPMN cert-tracking process on bpmn.gftd.ai.",
+        "summary": "Open a new cert submission round for a built master candidate. Writes a certSubmission record (result='pending'), increments the round counter, and triggers the BPMN cert-tracking process on bpmn.etzhayyim.com.",
         "operationId": "ai.gftd.apps.hatsubai.submitToCert",
         "requestBody": {
           "required": true,
@@ -205458,7 +205458,7 @@
     },
     "/xrpc/ai.gftd.apps.gov.registerAgency": {
       "post": {
-        "summary": "Register a government agency. Path-based DID: did:web:gov.gftd.ai:{iso3}:{cofog}:{slug}. Sources: CIA + national government directories + UN COFOG.",
+        "summary": "Register a government agency. Path-based DID: did:web:gov.etzhayyim.com:{iso3}:{cofog}:{slug}. Sources: CIA + national government directories + UN COFOG.",
         "operationId": "ai.gftd.apps.gov.registerAgency",
         "requestBody": {
           "required": true,
@@ -211033,7 +211033,7 @@
                   },
                   "notifyDid": {
                     "type": "string",
-                    "description": "DID to post drop alerts as. Defaults to flight-offer.gftd.ai actor DID."
+                    "description": "DID to post drop alerts as. Defaults to flight-offer.etzhayyim.com actor DID."
                   }
                 },
                 "required": [
@@ -211113,7 +211113,7 @@
                   },
                   "notifyDid": {
                     "type": "string",
-                    "description": "DID to publish the app.bsky.feed.post drop alert from. Defaults to flight-offer.gftd.ai actor DID."
+                    "description": "DID to publish the app.bsky.feed.post drop alert from. Defaults to flight-offer.etzhayyim.com actor DID."
                   }
                 },
                 "required": [
@@ -213632,7 +213632,7 @@
                   },
                   "teamsChannelEmail": {
                     "type": "string",
-                    "description": "Channel email for Teams notification (e.g. gj-ce-legal-2504-matsuoka@gftdcojp.onmicrosoft.com)"
+                    "description": "Channel email for Teams notification (e.g. gj-ce-legal-2504-matsuoka@etzhayyim.onmicrosoft.com)"
                   },
                   "operatorEmail": {
                     "type": "string",
@@ -219616,7 +219616,7 @@
                   },
                   "legalRepresentationDid": {
                     "type": "string",
-                    "description": "DID of the law firm / counsel representing the debtor (typically vendor:lawfirm.gftd.ai or equivalent). Required for corporate_chapter_11 + corporate_workout rite types."
+                    "description": "DID of the law firm / counsel representing the debtor (typically vendor:lawfirm.etzhayyim.com or equivalent). Required for corporate_chapter_11 + corporate_workout rite types."
                   },
                   "totalLiabilitiesMicroUsdc": {
                     "type": "integer",
@@ -234712,7 +234712,7 @@
     },
     "/xrpc/ai.gftd.apps.crew.registerCrew": {
       "post": {
-        "summary": "Register a maritime crew member with STCW certification. Sources: STCW Convention + flag state seafarer registries. Path-based DID: did:web:crew.gftd.ai:seafarer:{flagState}:{cdcNo}. PII Tier 3.",
+        "summary": "Register a maritime crew member with STCW certification. Sources: STCW Convention + flag state seafarer registries. Path-based DID: did:web:crew.etzhayyim.com:seafarer:{flagState}:{cdcNo}. PII Tier 3.",
         "operationId": "ai.gftd.apps.crew.registerCrew",
         "requestBody": {
           "required": true,
@@ -235404,10 +235404,10 @@
             "name": "did",
             "in": "query",
             "required": true,
-            "description": "Actor の DID (例: did:web:kaisya.gftd.ai)",
+            "description": "Actor の DID (例: did:web:kaisya.etzhayyim.com)",
             "schema": {
               "type": "string",
-              "description": "Actor の DID (例: did:web:kaisya.gftd.ai)"
+              "description": "Actor の DID (例: did:web:kaisya.etzhayyim.com)"
             }
           }
         ],
@@ -235450,10 +235450,10 @@
             "name": "filter",
             "in": "query",
             "required": false,
-            "description": "WHERE 句の条件 (例: owner_did = 'did:web:kaisya.gftd.ai')",
+            "description": "WHERE 句の条件 (例: owner_did = 'did:web:kaisya.etzhayyim.com')",
             "schema": {
               "type": "string",
-              "description": "WHERE 句の条件 (例: owner_did = 'did:web:kaisya.gftd.ai')"
+              "description": "WHERE 句の条件 (例: owner_did = 'did:web:kaisya.etzhayyim.com')"
             }
           },
           {
@@ -235588,10 +235588,10 @@
             "name": "assigneeDid",
             "in": "query",
             "required": false,
-            "description": "タスク担当者の DID (例: did:web:kaisya.gftd.ai:member:j-kawasaki)",
+            "description": "タスク担当者の DID (例: did:web:kaisya.etzhayyim.com:member:j-kawasaki)",
             "schema": {
               "type": "string",
-              "description": "タスク担当者の DID (例: did:web:kaisya.gftd.ai:member:j-kawasaki)"
+              "description": "タスク担当者の DID (例: did:web:kaisya.etzhayyim.com:member:j-kawasaki)"
             }
           },
           {
@@ -235658,7 +235658,7 @@
     },
     "/xrpc/ai.gftd.apps.coworkGraph.mailDraft": {
       "post": {
-        "summary": "メール下書きを作成する。gftdcojp_agent ルール準拠の draft_only — 実際の送信は行わない。承認後に Outlook/別ツールで送信すること。",
+        "summary": "メール下書きを作成する。etzhayyim_agent ルール準拠の draft_only — 実際の送信は行わない。承認後に Outlook/別ツールで送信すること。",
         "operationId": "ai.gftd.apps.coworkGraph.mailDraft",
         "requestBody": {
           "required": true,
@@ -235888,7 +235888,7 @@
     },
     "/xrpc/ai.gftd.apps.coworkGraph.sendBpmnGuidance": {
       "post": {
-        "summary": "gftdcojp BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-gftd-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。",
+        "summary": "etzhayyim BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-gftd-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。",
         "operationId": "ai.gftd.apps.coworkGraph.sendBpmnGuidance",
         "requestBody": {
           "required": true,
@@ -237321,7 +237321,7 @@
     },
     "/xrpc/ai.gftd.apps.contracts.ingestSocialContract": {
       "post": {
-        "summary": "Fresh crawl + ingest of a SocialContract (constitution / international treaty / social norm). Sources: UN Treaty Collection, Constitute Project. Writes vertex_contracts_social_contract directly to Hyperdrive (ADR-0036). Law full-text corpus (statute/article) is out of scope — delegated to houbun.gftd.ai (ADR-0052).",
+        "summary": "Fresh crawl + ingest of a SocialContract (constitution / international treaty / social norm). Sources: UN Treaty Collection, Constitute Project. Writes vertex_contracts_social_contract directly to Hyperdrive (ADR-0036). Law full-text corpus (statute/article) is out of scope — delegated to houbun.etzhayyim.com (ADR-0052).",
         "operationId": "ai.gftd.apps.contracts.ingestSocialContract",
         "requestBody": {
           "required": true,
@@ -237397,7 +237397,7 @@
     },
     "/xrpc/ai.gftd.apps.contracts.mintOrganizationDid": {
       "post": {
-        "summary": "Mint a deterministic organization DID under social-contract.gftd.ai from an existing vertex_legal_entity row. Hash input: country_alpha3 + national_id + name_normalized + incorporated_date (blake3 12-char prefix). Idempotent: same input → same DID.",
+        "summary": "Mint a deterministic organization DID under social-contract.etzhayyim.com from an existing vertex_legal_entity row. Hash input: country_alpha3 + national_id + name_normalized + incorporated_date (blake3 12-char prefix). Idempotent: same input → same DID.",
         "operationId": "ai.gftd.apps.contracts.mintOrganizationDid",
         "requestBody": {
           "required": true,
@@ -237435,7 +237435,7 @@
                     },
                     "did": {
                       "type": "string",
-                      "description": "did:web:social-contract.gftd.ai:entity:{alpha3}:{blake3_prefix12}"
+                      "description": "did:web:social-contract.etzhayyim.com:entity:{alpha3}:{blake3_prefix12}"
                     },
                     "inserted": {
                       "type": "boolean",
@@ -237533,10 +237533,10 @@
             "name": "did",
             "in": "query",
             "required": false,
-            "description": "did:web:social-contract.gftd.ai:entity:...",
+            "description": "did:web:social-contract.etzhayyim.com:entity:...",
             "schema": {
               "type": "string",
-              "description": "did:web:social-contract.gftd.ai:entity:..."
+              "description": "did:web:social-contract.etzhayyim.com:entity:..."
             }
           },
           {
@@ -250803,7 +250803,7 @@
     },
     "/xrpc/ai.gftd.apps.cargo.registerCargo": {
       "post": {
-        "summary": "Register a maritime cargo manifest (container/bulk/breakbulk/RoRo). Sources: WCO + national customs + AIS-linked manifests. Path-based DID: did:web:cargo.gftd.ai:cargo:{bookingRef}.",
+        "summary": "Register a maritime cargo manifest (container/bulk/breakbulk/RoRo). Sources: WCO + national customs + AIS-linked manifests. Path-based DID: did:web:cargo.etzhayyim.com:cargo:{bookingRef}.",
         "operationId": "ai.gftd.apps.cargo.registerCargo",
         "requestBody": {
           "required": true,
@@ -251841,7 +251841,7 @@
                     },
                     "naturalPersonDid": {
                       "type": "string",
-                      "description": "full PII Tier 3 via natural-person.gftd.ai",
+                      "description": "full PII Tier 3 via natural-person.etzhayyim.com",
                       "format": "did"
                     },
                     "linkedinUri": {
@@ -251987,7 +251987,7 @@
     },
     "/xrpc/ai.gftd.apps.businessPerson.registerPerson": {
       "post": {
-        "summary": "Register a public business person profile (corporate officer, board member, executive). Sources: corporate registries + XBRL filings + Wikipedia + official disclosures. Path-based DID: did:web:business-person.gftd.ai:bp:{slug}.",
+        "summary": "Register a public business person profile (corporate officer, board member, executive). Sources: corporate registries + XBRL filings + Wikipedia + official disclosures. Path-based DID: did:web:business-person.etzhayyim.com:bp:{slug}.",
         "operationId": "ai.gftd.apps.businessPerson.registerPerson",
         "requestBody": {
           "required": true,
@@ -252033,7 +252033,7 @@
                   },
                   "naturalPersonDid": {
                     "type": "string",
-                    "description": "linked natural-person.gftd.ai DID for PII Tier 3",
+                    "description": "linked natural-person.etzhayyim.com DID for PII Tier 3",
                     "format": "did"
                   },
                   "linkedinUri": {
@@ -253047,7 +253047,7 @@
     },
     "/xrpc/ai.gftd.apps.bunker.registerSupply": {
       "post": {
-        "summary": "Register a marine bunker fuel supply event (HFO/MGO/VLSFO/LNG). MARPOL Annex VI sulphur compliance tracking. Path-based DID: did:web:bunker.gftd.ai:supply:{slug}.",
+        "summary": "Register a marine bunker fuel supply event (HFO/MGO/VLSFO/LNG). MARPOL Annex VI sulphur compliance tracking. Path-based DID: did:web:bunker.etzhayyim.com:supply:{slug}.",
         "operationId": "ai.gftd.apps.bunker.registerSupply",
         "requestBody": {
           "required": true,
@@ -262209,7 +262209,7 @@
     },
     "/xrpc/ai.gftd.apps.arb.publishProposal": {
       "post": {
-        "summary": "Publish a scored proposal to yoro social (T1 Social via app.bsky.feed.post) with mandatory disclaimer. Mentions are restricted to opt-in trader cohort handle (@trader.gftd.ai). NOT trade execution.",
+        "summary": "Publish a scored proposal to yoro social (T1 Social via app.bsky.feed.post) with mandatory disclaimer. Mentions are restricted to opt-in trader cohort handle (@trader.etzhayyim.com). NOT trade execution.",
         "operationId": "ai.gftd.apps.arb.publishProposal",
         "requestBody": {
           "required": true,
@@ -262223,7 +262223,7 @@
                   },
                   "mentionCohort": {
                     "type": "string",
-                    "default": "trader.gftd.ai"
+                    "default": "trader.etzhayyim.com"
                   }
                 },
                 "required": [
@@ -262916,7 +262916,7 @@
     },
     "/xrpc/ai.gftd.apps.apps.listApps": {
       "get": {
-        "summary": "List apps.gftd.ai directory listings with optional category/search filters.",
+        "summary": "List apps.etzhayyim.com directory listings with optional category/search filters.",
         "operationId": "ai.gftd.apps.apps.listApps",
         "parameters": [
           {
@@ -263054,7 +263054,7 @@
     },
     "/xrpc/ai.gftd.apps.apps.registerAppListing": {
       "post": {
-        "summary": "Register an app listing for apps.gftd.ai directory search and category navigation.",
+        "summary": "Register an app listing for apps.etzhayyim.com directory search and category navigation.",
         "operationId": "ai.gftd.apps.apps.registerAppListing",
         "requestBody": {
           "required": true,
@@ -263982,7 +263982,7 @@
     },
     "/xrpc/ai.gftd.apps.animeka.addCut": {
       "post": {
-        "summary": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.gftd.ai:cut:{rkey}. Sequential addCut calls on the same scene auto-increment cutNum if omitted.",
+        "summary": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.etzhayyim.com:cut:{rkey}. Sequential addCut calls on the same scene auto-increment cutNum if omitted.",
         "operationId": "ai.gftd.apps.animeka.addCut",
         "requestBody": {
           "required": true,
@@ -264392,7 +264392,7 @@
     },
     "/xrpc/ai.gftd.apps.animeka.createWork": {
       "post": {
-        "summary": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.gftd.ai:work:{slug}.",
+        "summary": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.etzhayyim.com:work:{slug}.",
         "operationId": "ai.gftd.apps.animeka.createWork",
         "requestBody": {
           "required": true,
@@ -267400,7 +267400,7 @@
     },
     "/xrpc/ai.gftd.apps.ameno.cardHome": {
       "get": {
-        "summary": "Protocol canvas card for ameno.gftd.ai. Returns the home card metadata (title, description, model picker, recent history snippet). Pure compute on CF Worker edge — no DB access.",
+        "summary": "Protocol canvas card for ameno.etzhayyim.com. Returns the home card metadata (title, description, model picker, recent history snippet). Pure compute on CF Worker edge — no DB access.",
         "operationId": "ai.gftd.apps.ameno.cardHome",
         "parameters": [],
         "responses": {
@@ -277277,7 +277277,7 @@
     },
     "/xrpc/ai.gftd.apps.ads.createCampaign": {
       "post": {
-        "summary": "Create a sponsored-post campaign. Issues a path-based DID `did:web:ads.gftd.ai:campaign:{id}` that becomes the advertiser identity for subsequent sponsored posts.",
+        "summary": "Create a sponsored-post campaign. Issues a path-based DID `did:web:ads.etzhayyim.com:campaign:{id}` that becomes the advertiser identity for subsequent sponsored posts.",
         "operationId": "ai.gftd.apps.ads.createCampaign",
         "requestBody": {
           "required": true,
@@ -277737,7 +277737,7 @@
     },
     "/xrpc/ai.gftd.apps.adr.registerArbitrator": {
       "post": {
-        "summary": "Register a mediator/arbitrator. Path-based DID: did:web:adr.gftd.ai:arb:{iso3}:{slug}.",
+        "summary": "Register a mediator/arbitrator. Path-based DID: did:web:adr.etzhayyim.com:arb:{iso3}:{slug}.",
         "operationId": "ai.gftd.apps.adr.registerArbitrator",
         "requestBody": {
           "required": true,
@@ -279190,7 +279190,7 @@
           },
           "siteTopicDid": {
             "type": "string",
-            "description": "Optional topic DID, e.g. did:web:site.gftd.ai:topic:government"
+            "description": "Optional topic DID, e.g. did:web:site.etzhayyim.com:topic:government"
           },
           "updated_at": {
             "type": "string",
@@ -279468,7 +279468,7 @@
           },
           "linkedActorDid": {
             "type": "string",
-            "description": "対象機器の actor DID (例: did:web:nogu.gftd.ai:item:{serialId})"
+            "description": "対象機器の actor DID (例: did:web:nogu.etzhayyim.com:item:{serialId})"
           },
           "tsukuruManufacturerDid": {
             "type": "string",
@@ -280919,7 +280919,7 @@
         "properties": {
           "tenantDid": {
             "type": "string",
-            "description": "owning tenant DID (did:web:<slug>.opensaas.gftd.ai)"
+            "description": "owning tenant DID (did:web:<slug>.opensaas.etzhayyim.com)"
           },
           "ownerDid": {
             "type": "string",
@@ -282580,7 +282580,7 @@
           },
           "itemDid": {
             "type": "string",
-            "description": "did:web:nogu.gftd.ai:item:{serialId}"
+            "description": "did:web:nogu.etzhayyim.com:item:{serialId}"
           },
           "inspectedAt": {
             "type": "string",
@@ -283882,7 +283882,7 @@
           },
           "readerUri": {
             "type": "string",
-            "description": "Full-screen reader URL (e.g. https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post.",
+            "description": "Full-screen reader URL (e.g. https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post.",
             "format": "uri"
           },
           "status": {
@@ -283985,7 +283985,7 @@
           },
           "protagonistDid": {
             "type": "string",
-            "description": "Character path-DID (did:web:sh1n5h1x.gftd.ai:{slug})."
+            "description": "Character path-DID (did:web:sh1n5h1x.etzhayyim.com:{slug})."
           },
           "setting": {
             "type": "string"
@@ -285845,7 +285845,7 @@
           },
           "articleDid": {
             "type": "string",
-            "description": "did:web:houbun.gftd.ai:article:{blake3_prefix12}"
+            "description": "did:web:houbun.etzhayyim.com:article:{blake3_prefix12}"
           },
           "blake3Hash": {
             "type": "string",
@@ -286868,7 +286868,7 @@
           },
           "subDid": {
             "type": "string",
-            "description": "Per-title path-based DID, e.g. did:web:gameka.gftd.ai:game:quarry-rune. Auto-served by host-sdk did.json (ADR-0023)."
+            "description": "Per-title path-based DID, e.g. did:web:gameka.etzhayyim.com:game:quarry-rune. Auto-served by host-sdk did.json (ADR-0023)."
           },
           "parentSpecId": {
             "type": "string"
@@ -286881,7 +286881,7 @@
           },
           "playUrl": {
             "type": "string",
-            "description": "Public play URL, e.g. https://game-play.gftd.ai/{slug}. Resolves to a kami-app shell that loads the latest -built artefact for this title."
+            "description": "Public play URL, e.g. https://game-play.etzhayyim.com/{slug}. Resolves to a kami-app shell that loads the latest -built artefact for this title."
           },
           "version": {
             "type": "string",
@@ -288751,7 +288751,7 @@
           },
           "zoneDid": {
             "type": "string",
-            "description": "did:web:dns.gftd.ai:zone:{domain_slug} — populated on success"
+            "description": "did:web:dns.etzhayyim.com:zone:{domain_slug} — populated on success"
           },
           "cloudflareZoneId": {
             "type": "string"
@@ -288805,11 +288805,11 @@
           },
           "cfRegistrarDid": {
             "type": "string",
-            "description": "did:web:scndu0rf.gftd.ai:actor:cfRegistrar"
+            "description": "did:web:scndu0rf.etzhayyim.com:actor:cfRegistrar"
           },
           "sqExporterDid": {
             "type": "string",
-            "description": "did:web:sqddf3sp.gftd.ai:actor:sqExporter"
+            "description": "did:web:sqddf3sp.etzhayyim.com:actor:sqExporter"
           },
           "projectConvoId": {
             "type": "string",
@@ -289588,7 +289588,7 @@
           },
           "slug": {
             "type": "string",
-            "description": "URL-safe slug. Used for did:web:animeka.gftd.ai:character:{slug}."
+            "description": "URL-safe slug. Used for did:web:animeka.etzhayyim.com:character:{slug}."
           },
           "name": {
             "type": "string",
@@ -290609,7 +290609,7 @@
           },
           "slug": {
             "type": "string",
-            "description": "URL-safe slug. Used to construct did:web:animeka.gftd.ai:work:{slug}."
+            "description": "URL-safe slug. Used to construct did:web:animeka.etzhayyim.com:work:{slug}."
           },
           "genre": {
             "type": "string",

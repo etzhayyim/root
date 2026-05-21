@@ -28,7 +28,7 @@ superseded_by: []
 
 # Context
 
-The 2026-05-21 working session executed a Tranche F status sweep across both `etzhayyim/root` and `gftdcojp/ai-gftd-apps-gftdcojp` to close out the mechanical migration phase started 2026-05-17 (catalog freeze) and document the remaining structural patterns.
+The 2026-05-21 working session executed a Tranche F status sweep across both `etzhayyim/root` and `etzhayyim/etzhayyim-root` to close out the mechanical migration phase started 2026-05-17 (catalog freeze) and document the remaining structural patterns.
 
 Inputs to the sweep:
 

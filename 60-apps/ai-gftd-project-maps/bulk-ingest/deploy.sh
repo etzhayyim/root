@@ -23,7 +23,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-IMAGE="ghcr.io/gftdcojp/maps-bulk-ingest:1.2.0"
+IMAGE="ghcr.io/etzhayyim/maps-bulk-ingest:1.2.0"
 NAMESPACE="maps-bulk-ingest"
 
 # Active dumpers — keep in sync with k8s/deployment-*.yaml.
@@ -34,7 +34,7 @@ cmd="${1:-help}"
 case "$cmd" in
   build)
     cd "$SCRIPT_DIR"
-    CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/gftdcojp/build-cache:maps-bulk-ingest}"
+    CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/etzhayyim/build-cache:maps-bulk-ingest}"
     : "${GHCR_USERNAME:=$(gh api user -q .login 2>/dev/null || echo "")}"
     : "${GHCR_TOKEN:=$(gh auth token 2>/dev/null || echo "")}"
     [ -z "$GHCR_TOKEN" ] && { echo "GHCR_TOKEN not set; gh auth login first"; exit 1; }

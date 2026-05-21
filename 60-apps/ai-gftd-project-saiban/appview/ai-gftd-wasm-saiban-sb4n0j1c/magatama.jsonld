@@ -1,11 +1,11 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
   "name": "saiban",
   "nanoid": "sb4n0j1c",
   "runtimeType": "worker",
   "profile": {
     "displayName": "裁判 Intelligence",
-    "description": "Judicial intelligence — 33 court-level DIDs (JP 8 + USA 5 + UK 6 + DE 8 + FR 6), judge profiles, jiken (case) DID management (11 types), trial event tracking (7 types), jurisdiction mapping. Bridges lawfirm.gftd.ai and hanrei.gftd.ai.",
+    "description": "Judicial intelligence — 33 court-level DIDs (JP 8 + USA 5 + UK 6 + DE 8 + FR 6), judge profiles, jiken (case) DID management (11 types), trial event tracking (7 types), jurisdiction mapping. Bridges lawfirm.etzhayyim.com and hanrei.etzhayyim.com.",
     "avatar": "裁",
     "category": "government",
     "isBot": true,

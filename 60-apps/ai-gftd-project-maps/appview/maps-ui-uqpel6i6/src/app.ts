@@ -256,7 +256,7 @@ function getDb(): KyselyDb {
 }
 
 function mapsLangserverUrl(): string {
-  return String(_mapsEnv.MAPS_LANGSERVER_URL ?? "https://maps-langserver.gftd.ai").replace(/\/+$/, "");
+  return String(_mapsEnv.MAPS_LANGSERVER_URL ?? "https://maps-langserver.etzhayyim.com").replace(/\/+$/, "");
 }
 
 async function callMapsLangserverRead(nsidValue: string, payload: Uint8Array): Promise<unknown | null> {
@@ -272,7 +272,7 @@ async function callMapsLangserverRead(nsidValue: string, payload: Uint8Array): P
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-gftd-actor-did": "did:web:maps.gftd.ai",
+        "x-gftd-actor-did": "did:web:maps.etzhayyim.com",
         "x-gftd-trace-id": `maps-edge-${Date.now()}`,
       },
       body,
@@ -920,7 +920,7 @@ async function resolvePlaceCoordinates(queryText: string): Promise<{ lat: number
 }
 
 function mapsActorDid(): string {
-  return `did:web:${appId}.gftd.ai`;
+  return `did:web:${appId}.etzhayyim.com`;
 }
 
 async function upsertRepoRecordDirect(
@@ -1090,7 +1090,7 @@ const LABEL_MAP: Record<string, string> = {
   'zoningRecord': "ZoningRecord",
 };
 
-// ── Geo Domain Targets (site.gftd.ai crawl targets for spatial coverage) ──
+// ── Geo Domain Targets (site.etzhayyim.com crawl targets for spatial coverage) ──
 
 const GEO_CRAWL_DOMAINS: Array<{ domain: string; category: string; country: string }> = [
   // JP Government GIS / Geospatial
@@ -1796,7 +1796,7 @@ async function fetchBuildingsFromOverpass(
       lat: String(cy),
       lng: String(cx),
       source: "osm",
-      sourceDid: `did:web:${appId}.gftd.ai:infrastructure`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:infrastructure`,
       nodeLabel: "Building",
       createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
@@ -1832,7 +1832,7 @@ async function bootstrapWorldPorts(sdk: HostSDK): Promise<number> {
       nodeId: `port:${p.unlocode.toLowerCase()}`, name: p.name, portType: "container",
       unlocode: p.unlocode, country: p.country,
       lat: p.lat, lng: p.lng,
-      sourceDid: `did:web:${appId}.gftd.ai:geocode`, source: "seed",
+      sourceDid: `did:web:${appId}.etzhayyim.com:geocode`, source: "seed",
       nodeLabel: "Port", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -1864,7 +1864,7 @@ async function bootstrapWorldAirports(sdk: HostSDK): Promise<number> {
       nodeId: `airport:${a.icao.toLowerCase()}`, name: a.name,
       icaoCode: a.icao, iataCode: a.iata, country: a.country,
       lat: a.lat, lng: a.lng,
-      sourceDid: `did:web:${appId}.gftd.ai:geocode`, source: "seed",
+      sourceDid: `did:web:${appId}.etzhayyim.com:geocode`, source: "seed",
       nodeLabel: "Airport", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -1933,7 +1933,7 @@ async function dispatchOverpassCollectionJob(sdk: HostSDK, phase: number): Promi
   const jobId = genID("ovp");
   await write(sdk, "collectionJob", {
     nodeId: `cj:${jobId}`, jobId, source: "overpass",
-    sourceDid: `did:web:${appId}.gftd.ai:infrastructure`,
+    sourceDid: `did:web:${appId}.etzhayyim.com:infrastructure`,
     sourceUrl: "https://overpass-api.de/api/interpreter",
     format: "overpass_json", status: "pending", phase: 1,
     osmTag: etype.osmTag, mapsCollection: etype.mapsCollection,
@@ -1984,7 +1984,7 @@ async function dispatchSatelliteCollectionJob(sdk: HostSDK, phase: number): Prom
   const stacSearchUrl = `${catalog.stacUrl}/search?collections=${catalog.collectionId}&bbox=${lngMin},${latMin},${lngMax},${latMax}&datetime=${dateFrom}/${dateTo}&limit=3&sortby=-datetime`;
   // Remote site:ingestGeoData → stac_search_json format → processStacSearchResult → satelliteScene geoRecord
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: stacSearchUrl, format: "stac_search_json", project: "maps", satellite, stacCollectionId: catalog.collectionId }),
   );
@@ -1994,7 +1994,7 @@ async function dispatchSatelliteCollectionJob(sdk: HostSDK, phase: number): Prom
 /**
  * Dispatch USGS seismic (earthquake) collection jobs — real-time feed, every heartbeat.
  * Rotates between global M2.5+ (day) and global significant (week) feeds.
- * sourceDid: did:web:{appId}.gftd.ai:seismic, TTL: 15m
+ * sourceDid: did:web:{appId}.etzhayyim.com:seismic, TTL: 15m
  */
 async function dispatchSeismicCollectionJob(sdk: HostSDK, phase: number): Promise<string | null> {
   const feeds = [
@@ -2005,7 +2005,7 @@ async function dispatchSeismicCollectionJob(sdk: HostSDK, phase: number): Promis
   const jobId = genID("seismic");
   await write(sdk, "collectionJob", {
     nodeId: `cj:${jobId}`, jobId, source: "seismic",
-    sourceDid: `did:web:${appId}.gftd.ai:seismic`,
+    sourceDid: `did:web:${appId}.etzhayyim.com:seismic`,
     sourceUrl: feed.url,
     format: "usgs_geojson", status: "pending", phase: 1,
     region: feed.region, minMagnitude: feed.minMag, ttlHours: 0.25,
@@ -2017,7 +2017,7 @@ async function dispatchSeismicCollectionJob(sdk: HostSDK, phase: number): Promis
 
 /**
  * Dispatch MLIT GTFS-JP collection jobs — 1 prefecture per heartbeat, cycles through 47.
- * sourceDid: did:web:{appId}.gftd.ai:gtfs, TTL: 1d
+ * sourceDid: did:web:{appId}.etzhayyim.com:gtfs, TTL: 1d
  */
 async function dispatchGtfsJpCollectionJob(sdk: HostSDK, phase: number): Promise<{ prefecture: string } | null> {
   const prefIdx = phase % JP_PREFECTURES.length;
@@ -2025,7 +2025,7 @@ async function dispatchGtfsJpCollectionJob(sdk: HostSDK, phase: number): Promise
   const jobId = genID("gtfs");
   await write(sdk, "collectionJob", {
     nodeId: `cj:${jobId}`, jobId, source: "gtfs",
-    sourceDid: `did:web:${appId}.gftd.ai:gtfs`,
+    sourceDid: `did:web:${appId}.etzhayyim.com:gtfs`,
     // gtfs.jp host alone is not a feed URL — the actual feed.zip URL is
     // determined by the K8s gtfs-jp dumper from GTFS_JP_FEED_INDEX_URL.
     // Keep this as a marker so consumers know which aggregator we trust.
@@ -2042,7 +2042,7 @@ async function dispatchGtfsJpCollectionJob(sdk: HostSDK, phase: number): Promise
 /**
  * Dispatch MLIT N03 municipality data collection jobs — 1 prefecture per heartbeat.
  * Fetches GeoJSON from nlftp.mlit.go.jp → registers AdminArea DID for each 市区町村.
- * sourceDid: did:web:{appId}.gftd.ai:geocode, TTL: 無期限
+ * sourceDid: did:web:{appId}.etzhayyim.com:geocode, TTL: 無期限
  */
 async function dispatchMunicipalityCollectionJob(sdk: HostSDK, phase: number): Promise<{ prefecture: string } | null> {
   const prefIdx = phase % JP_PREFECTURES.length;
@@ -2051,7 +2051,7 @@ async function dispatchMunicipalityCollectionJob(sdk: HostSDK, phase: number): P
   const jobId = genID("muni");
   await write(sdk, "collectionJob", {
     nodeId: `cj:${jobId}`, jobId, source: "municipality",
-    sourceDid: `did:web:${appId}.gftd.ai:geocode`,
+    sourceDid: `did:web:${appId}.etzhayyim.com:geocode`,
     // MLIT N03 行政区域データ (N03-2024) — GeoJSON/Shapefile 無料公開
     sourceUrl: `https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2024/N03-20240101_${prefCode}_GML.zip`,
     format: "mlit_n03_geojson", status: "pending", phase: 1,
@@ -2238,8 +2238,8 @@ const MAPS_SOCIAL_PROFILE = {
 };
 
 const MAPS_BOOTSTRAP_FOLLOW_DIDS = [
-  "did:web:yoro.gftd.ai",
-  "did:web:jinushi.gftd.ai",
+  "did:web:yoro.etzhayyim.com",
+  "did:web:jinushi.etzhayyim.com",
 ];
 
 async function bootstrapMapsIdentityAndSocial(sdk: HostSDK): Promise<{
@@ -2249,7 +2249,7 @@ async function bootstrapMapsIdentityAndSocial(sdk: HostSDK): Promise<{
   bootstrapPostCreated: boolean;
   followsCreated: string[];
 }> {
-  const mapsDid = `did:web:${appId}.gftd.ai`;
+  const mapsDid = `did:web:${appId}.etzhayyim.com`;
   const db = getDb();
   const [profileRow, actorRow, socialProfileRows, postRow, followRows] = await Promise.all([
     getCollectionRow("profile", (query) => query.where("did", "=", mapsDid)),
@@ -2280,7 +2280,7 @@ async function bootstrapMapsIdentityAndSocial(sdk: HostSDK): Promise<{
       displayName: MAPS_SOCIAL_PROFILE.displayName,
       description: MAPS_SOCIAL_PROFILE.description,
       did: mapsDid,
-      handle: `${appId}.gftd.ai`,
+      handle: `${appId}.etzhayyim.com`,
       isBot: true,
       agentType: "autonomous",
       nodeLabel: "Profile",
@@ -2322,7 +2322,7 @@ async function bootstrapMapsIdentityAndSocial(sdk: HostSDK): Promise<{
 
   let bootstrapPostCreated = false;
   if (Number(postRow?.cnt ?? 0) === 0) {
-    await post(sdk, "[Bootstrap] Maps actor initialized for YORO profile / social graph\ncc @jinushi.gftd.ai", "bootstrap");
+    await post(sdk, "[Bootstrap] Maps actor initialized for YORO profile / social graph\ncc @jinushi.etzhayyim.com", "bootstrap");
     bootstrapPostCreated = true;
   }
 
@@ -2356,7 +2356,7 @@ async function cmdBackfillSocial(sdk: HostSDK, payload: Uint8Array): Promise<unk
   const dryRun = req.dryRun === true;
   const sampleLimit = Math.min(Math.max(Number(req.sampleLimit ?? 3), 1), 10);
   const summaryOnly = req.summaryOnly === true;
-  const mapsDid = `did:web:${appId}.gftd.ai`;
+  const mapsDid = `did:web:${appId}.etzhayyim.com`;
 
   const socialBootstrap = dryRun
     ? {
@@ -2384,11 +2384,11 @@ async function cmdBackfillSocial(sdk: HostSDK, payload: Uint8Array): Promise<unk
   const summaryPosts = [
     {
       rkey: "backfill-summary",
-      text: `[Backfill:summary] Maps graph contains ${buildingCount} buildings, ${landRegistryCount} land registries, ${propertyRegistryCount} property registries, and ${zoningRecordCount} zoning records.\ncc @jinushi.gftd.ai`,
+      text: `[Backfill:summary] Maps graph contains ${buildingCount} buildings, ${landRegistryCount} land registries, ${propertyRegistryCount} property registries, and ${zoningRecordCount} zoning records.\ncc @jinushi.etzhayyim.com`,
     },
     {
       rkey: "backfill-coverage",
-      text: `[Backfill:coverage] AdminAreas ${adminAreaCount}, Airports ${airportCount}, Stations ${stationCount}.\ncc @yoro.gftd.ai`,
+      text: `[Backfill:coverage] AdminAreas ${adminAreaCount}, Airports ${airportCount}, Stations ${stationCount}.\ncc @yoro.etzhayyim.com`,
     },
   ];
 
@@ -2496,7 +2496,7 @@ async function cmdPlaceReverseGeocode(sdk: HostSDK, payload: Uint8Array): Promis
   // graph MISS → create collection job for Nominatim fallback
   await write(sdk, "place", {
     'nodeId': `place:geo-${req.lat}-${req.lng}`, label: `Geocode ${req.lat},${req.lng}`,
-    lat: req.lat, lng: req.lng, source: "nominatim", 'sourceDid': `did:web:${appId}.gftd.ai:geocode`,
+    lat: req.lat, lng: req.lng, source: "nominatim", 'sourceDid': `did:web:${appId}.etzhayyim.com:geocode`,
     status: "pending", 'createdAt': nowISO(), 'orgId': "anon", 'userId': "anon", 'actorId': appId,
   });
   return { status: "collectionJobCreated", lat: req.lat, lng: req.lng };
@@ -2516,7 +2516,7 @@ async function cmdWeatherAt(sdk: HostSDK, payload: Uint8Array): Promise<unknown>
   // graph MISS → write collection job for Open-Meteo fallback
   await write(sdk, "weatherPoint", {
     'nodeId': `wx:${req.lat}:${req.lng}`, lat: req.lat, lng: req.lng,
-    'sourceDid': `did:web:${appId}.gftd.ai:weather`, 'ttlHours': 1, status: "pending",
+    'sourceDid': `did:web:${appId}.etzhayyim.com:weather`, 'ttlHours': 1, status: "pending",
     'fetchedAt': nowISO(), 'createdAt': nowISO(), 'orgId': "anon", 'userId': "anon", 'actorId': appId,
   });
   return { status: "collectionJobCreated", lat: req.lat, lng: req.lng };
@@ -3622,7 +3622,7 @@ async function cmdNextDeparturesAtStop(_sdk: HostSDK, body: ArrayBuffer | Uint8A
 
   // Single 3-way join, anchored by (stop_id, departure_time) index.
   // route metadata lives in vertex_spatial keyed by
-  //   at://did:web:maps.gftd.ai/ai.gftd.apps.maps.{railway|busRoute}/gtfsjp-{feed_id}-{route_id}
+  //   at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.{railway|busRoute}/gtfsjp-{feed_id}-{route_id}
   // so we reconstruct the rkey from feed_id + route_id at query time.
   const rows = await raceTimeout<any[]>(sql`
     SELECT
@@ -4363,7 +4363,7 @@ async function cmdBakeGsplatAsset(sdk: HostSDK, body: ArrayBuffer | Uint8Array |
 async function cmdRegisterAirport(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
   const req = decodeJson<Record<string, unknown>>(payload, {});
   if (!str(req.name)) return { error: "name required" };
-  const airportDid = str(req.airportDid) || `did:web:maps.gftd.ai:airport:${genID("apt")}`;
+  const airportDid = str(req.airportDid) || `did:web:maps.etzhayyim.com:airport:${genID("apt")}`;
   const nodeId = `airport:${genID("apt")}`;
   await write(sdk, "airport", {
     ...req,
@@ -4415,7 +4415,7 @@ async function cmdListAirports(_sdk: HostSDK, payload: Uint8Array): Promise<unkn
 async function cmdRegisterAircraft(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
   const req = decodeJson<Record<string, unknown>>(payload, {});
   if (!str(req.tailNumber)) return { error: "tailNumber required" };
-  const aircraftDid = str(req.aircraftDid) || `did:web:maps.gftd.ai:aircraft:${genID("ac")}`;
+  const aircraftDid = str(req.aircraftDid) || `did:web:maps.etzhayyim.com:aircraft:${genID("ac")}`;
   const nodeId = `aircraft:${genID("ac")}`;
   await write(sdk, "aircraft", {
     ...req,
@@ -4431,7 +4431,7 @@ async function cmdRegisterAircraft(sdk: HostSDK, payload: Uint8Array): Promise<u
 async function cmdUpsertFlightOperation(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
   const req = decodeJson<Record<string, unknown>>(payload, {});
   if (!str(req.flightNumber) || !str(req.aircraftDid) || !str(req.asOf)) return { error: "flightNumber, aircraftDid, asOf required" };
-  const flightDid = str(req.flightDid) || `did:web:maps.gftd.ai:flight:${genID("flt")}`;
+  const flightDid = str(req.flightDid) || `did:web:maps.etzhayyim.com:flight:${genID("flt")}`;
   const nodeId = `flightOperation:${genID("fop")}`;
   const revenue = readFiniteNumber(req.revenue);
   const cost = readFiniteNumber(req.cost);
@@ -4525,7 +4525,7 @@ async function cmdCrawlFlightPrices(sdk: HostSDK, payload: Uint8Array): Promise<
   });
 
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.crawlPage",
     JSON.stringify({ url: sourceUrl, depth: 1, topics: "flight-price,aviation,booking" }),
   );
@@ -4819,7 +4819,7 @@ async function cmdSimulationCreate(sdk: HostSDK, payload: Uint8Array): Promise<u
     'createdAt': nowISO(), 'orgId': "anon", 'userId': "anon", 'actorId': appId,
   });
   await post(sdk,
-    `[Simulation] ${truncateText(req.name, 80)} created (${req.modelType ?? "generic"})\ncc @intel.gftd.ai`);
+    `[Simulation] ${truncateText(req.name, 80)} created (${req.modelType ?? "generic"})\ncc @intel.etzhayyim.com`);
   return { 'nodeId': nodeId, status: "created" };
 }
 
@@ -5145,7 +5145,7 @@ async function cmdDisplayLayerDefine(sdk: HostSDK, payload: Uint8Array): Promise
 
 const cmdListDisplayLayers = mkList("DisplayLayer", "domain");
 
-// ── Step 1: User Post EXIF → SpatialEvent ('sourceDid': did:web:${appId}.gftd.ai:userPost) ──
+// ── Step 1: User Post EXIF → SpatialEvent ('sourceDid': did:web:${appId}.etzhayyim.com:userPost) ──
 
 async function cmdExtractPostLocation(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
   const req = parseLexiconInput("ai.gftd.apps.maps.extractPostLocation", payload);
@@ -5162,7 +5162,7 @@ async function cmdExtractPostLocation(sdk: HostSDK, payload: Uint8Array): Promis
       'locationJson': JSON.stringify({ lat: img.exif.lat, lng: img.exif.lng, altitude: img.exif.altitude }),
       'imageCid': img.cid, 'cameraMake': img.exif.cameraMake, 'cameraModel': img.exif.cameraModel,
       'photoTimestamp': img.exif.timestamp, 'authorDid': req.authorDid,
-      'sourceDid': `did:web:${appId}.gftd.ai:userPost`, 'nodeLabel': "SpatialEvent",
+      'sourceDid': `did:web:${appId}.etzhayyim.com:userPost`, 'nodeLabel': "SpatialEvent",
       'occurredAt': img.exif.timestamp ?? nowISO(), 'createdAt': nowISO(),
       'orgId': "anon", 'userId': str(req.authorDid ?? "anon"), 'actorId': appId,
     });
@@ -5178,7 +5178,7 @@ async function cmdExtractPostLocation(sdk: HostSDK, payload: Uint8Array): Promis
       await write(sdk, "place", {
         'nodeId': `place:${placeId}`, label: `User photo location`,
         lat: img.exif.lat, lng: img.exif.lng, source: "userPost",
-        'sourceDid': `did:web:${appId}.gftd.ai:userPost`, status: "confirmed",
+        'sourceDid': `did:web:${appId}.etzhayyim.com:userPost`, status: "confirmed",
         'createdAt': nowISO(), 'orgId': "anon", 'userId': str(req.authorDid ?? "anon"), 'actorId': appId,
       });
     }
@@ -5208,7 +5208,7 @@ async function cmdListPostLocations(sdk: HostSDK, payload: Uint8Array): Promise<
   }).slice(0, limit);
 }
 
-// ── Step 2: Mapraly ingest → Place/Route ('sourceDid': did:web:${appId}.gftd.ai:mapraly) ──
+// ── Step 2: Mapraly ingest → Place/Route ('sourceDid': did:web:${appId}.etzhayyim.com:mapraly) ──
 
 async function cmdMapralyIngest(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
   const req = parseLexiconInput("ai.gftd.apps.maps.mapralyIngest", payload);
@@ -5216,7 +5216,7 @@ async function cmdMapralyIngest(sdk: HostSDK, payload: Uint8Array): Promise<unkn
   const jobId = genID("mapralyJob");
   await write(sdk, "collectionJob", {
     'nodeId': `cj:${jobId}`, 'jobId': jobId, source: "mapraly",
-    'sourceDid': `did:web:${appId}.gftd.ai:mapraly`, 'sourceUrl': "https://mapraly.com/api",
+    'sourceDid': `did:web:${appId}.etzhayyim.com:mapraly`, 'sourceUrl': "https://mapraly.com/api",
     format: "geojson", status: "pending", phase: 1,
     region: req.region, 'poiType': req.poiType,
     'bboxJson': req.bbox ? JSON.stringify(req.bbox) : undefined,
@@ -5224,7 +5224,7 @@ async function cmdMapralyIngest(sdk: HostSDK, payload: Uint8Array): Promise<unkn
     'orgId': "anon", 'userId': "anon", 'actorId': appId,
   });
   await post(sdk,
-    `[Collection] Mapraly ingest job created: ${req.region ?? "bbox"} ${req.poiType ?? "all"}\ncc @jinushi.gftd.ai`);
+    `[Collection] Mapraly ingest job created: ${req.region ?? "bbox"} ${req.poiType ?? "all"}\ncc @jinushi.etzhayyim.com`);
   return { 'jobId': jobId, status: "pending", source: "mapraly" };
 }
 
@@ -5239,7 +5239,7 @@ async function cmdMapralyImportPoi(sdk: HostSDK, payload: Uint8Array): Promise<u
       await write(sdk, "route", {
         'nodeId': `route:${routeId}`, name: poi.name, 'routeType': "mapraly",
         geojson: poi.routeGeojson, lat: poi.lat, lng: poi.lng,
-        source: "mapraly", 'sourceDid': `did:web:${appId}.gftd.ai:mapraly`,
+        source: "mapraly", 'sourceDid': `did:web:${appId}.etzhayyim.com:mapraly`,
         'mapralyId': poi.mapralyId, description: poi.description,
         'nodeLabel': "Route", 'createdAt': nowISO(),
         'orgId': "anon", 'userId': "anon", 'actorId': appId,
@@ -5250,7 +5250,7 @@ async function cmdMapralyImportPoi(sdk: HostSDK, payload: Uint8Array): Promise<u
         'nodeId': `spot:${spotId}`, name: poi.name, 'spotType': "mapralyPoi",
         category: poi.category ?? "general", lat: poi.lat, lng: poi.lng,
         description: poi.description, 'photosJson': poi.photos ? JSON.stringify(poi.photos) : undefined,
-        source: "mapraly", 'sourceDid': `did:web:${appId}.gftd.ai:mapraly`,
+        source: "mapraly", 'sourceDid': `did:web:${appId}.etzhayyim.com:mapraly`,
         'mapralyId': poi.mapralyId, 'nodeLabel': "Spot",
         'createdAt': nowISO(), 'orgId': "anon", 'userId': "anon", 'actorId': appId,
       });
@@ -5259,7 +5259,7 @@ async function cmdMapralyImportPoi(sdk: HostSDK, payload: Uint8Array): Promise<u
   }
   if (created > 0) {
     await post(sdk,
-      `[Mapraly] Imported ${created} POIs/routes\ncc @jinushi.gftd.ai @resources-r3s0urc3.gftd.ai`);
+      `[Mapraly] Imported ${created} POIs/routes\ncc @jinushi.etzhayyim.com @resources-r3s0urc3.etzhayyim.com`);
   }
   return { imported: created, total: req.pois.length };
 }
@@ -5285,7 +5285,7 @@ async function cmdMapralyListPois(sdk: HostSDK, payload: Uint8Array): Promise<un
   }).slice(0, limit);
 }
 
-// ── Step 3: Murakumo Vision → image analysis → entity extraction ('sourceDid': did:web:${appId}.gftd.ai:vision) ──
+// ── Step 3: Murakumo Vision → image analysis → entity extraction ('sourceDid': did:web:${appId}.etzhayyim.com:vision) ──
 
 async function cmdAnalyzeImage(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
   const req = parseLexiconInput("ai.gftd.apps.maps.analyzeImage", payload);
@@ -5293,7 +5293,7 @@ async function cmdAnalyzeImage(sdk: HostSDK, payload: Uint8Array): Promise<unkno
   const jobId = genID("visionJob");
   await write(sdk, "collectionJob", {
     'nodeId': `cj:${jobId}`, 'jobId': jobId, source: "murakumoVision",
-    'sourceDid': `did:web:${appId}.gftd.ai:vision`,
+    'sourceDid': `did:web:${appId}.etzhayyim.com:vision`,
     format: "visionAnalysis", status: "pending", phase: 1,
     'imageCid': req.imageCid, 'imageUrl': req.imageUrl,
     lat: req.lat, lng: req.lng,
@@ -5303,7 +5303,7 @@ async function cmdAnalyzeImage(sdk: HostSDK, payload: Uint8Array): Promise<unkno
     'orgId': "anon", 'userId': "anon", 'actorId': appId,
   });
   await post(sdk,
-    `[Vision] Image analysis job created: ${req.analysisType ?? "spatialEntityExtraction"}\ncc @intel.gftd.ai`);
+    `[Vision] Image analysis job created: ${req.analysisType ?? "spatialEntityExtraction"}\ncc @intel.etzhayyim.com`);
   return { 'jobId': jobId, status: "pending", source: "murakumoVision" };
 }
 
@@ -5320,7 +5320,7 @@ async function cmdVisionImportEntities(sdk: HostSDK, payload: Uint8Array): Promi
       'nodeId': `${collection}:${nodeId}`, name: ent.name, 'nodeLabel': label,
       lat: ent.lat, lng: ent.lng, confidence: ent.confidence,
       'detectedClasses': ent.classes ? JSON.stringify(ent.classes) : undefined,
-      source: "murakumoVision", 'sourceDid': `did:web:${appId}.gftd.ai:vision`,
+      source: "murakumoVision", 'sourceDid': `did:web:${appId}.etzhayyim.com:vision`,
       'sourceImageCid': req.imageCid, 'visionJobId': req.jobId,
       ...(ent.properties ?? {}),
       'createdAt': nowISO(), 'orgId': "anon", 'userId': "anon", 'actorId': appId,
@@ -5330,14 +5330,14 @@ async function cmdVisionImportEntities(sdk: HostSDK, payload: Uint8Array): Promi
       'entityKind': collection, 'entityNodeId': `${collection}:${nodeId}`,
       confidence: ent.confidence, 'classesJson': ent.classes ? JSON.stringify(ent.classes) : undefined,
       lat: ent.lat, lng: ent.lng, 'nodeLabel': "VisionResult",
-      'sourceDid': `did:web:${appId}.gftd.ai:vision`,
+      'sourceDid': `did:web:${appId}.etzhayyim.com:vision`,
       'createdAt': nowISO(), 'orgId': "anon", 'userId': "anon", 'actorId': appId,
     });
     created++;
   }
   if (created > 0) {
     await post(sdk,
-      `[Vision] Extracted ${created} spatial entities from image\ncc @jinushi.gftd.ai @intel.gftd.ai`);
+      `[Vision] Extracted ${created} spatial entities from image\ncc @jinushi.etzhayyim.com @intel.etzhayyim.com`);
   }
   return { imported: created, total: req.entities.length };
 }
@@ -5353,7 +5353,7 @@ async function cmdListVisionResults(sdk: HostSDK, payload: Uint8Array): Promise<
   }).slice(0, limit);
 }
 
-// ── Step 4: Satellite imagery → STAC → analysis ('sourceDid': did:web:${appId}.gftd.ai:satellite) ──
+// ── Step 4: Satellite imagery → STAC → analysis ('sourceDid': did:web:${appId}.etzhayyim.com:satellite) ──
 
 // Free satellite sources — STAC endpoints and metadata
 const FREE_SATELLITE_CATALOG: Record<string, { 'stacUrl': string; 'resolutionM': number; bands: string; 'revisitDays': number; 'sensorType': string; 'collectionId': string }> = {
@@ -5374,7 +5374,7 @@ async function cmdSatelliteIngest(sdk: HostSDK, payload: Uint8Array): Promise<un
   const jobId = genID("satJob");
   await write(sdk, "collectionJob", {
     'nodeId': `cj:${jobId}`, 'jobId': jobId, source: "satellite",
-    'sourceDid': `did:web:${appId}.gftd.ai:satellite`,
+    'sourceDid': `did:web:${appId}.etzhayyim.com:satellite`,
     'sourceUrl': catalog.stacUrl, 'stacCollectionId': catalog.collectionId,
     format: "stacCog", status: "pending", phase: 1,
     satellite, 'sensorType': catalog.sensorType, bands: catalog.bands,
@@ -5386,7 +5386,7 @@ async function cmdSatelliteIngest(sdk: HostSDK, payload: Uint8Array): Promise<un
     'orgId': "anon", 'userId': "anon", 'actorId': appId,
   });
   await post(sdk,
-    `[Satellite] ${satellite} (${catalog.resolutionM}m, ${catalog.sensorType}) ingest: ${req.bbox.latMin},${req.bbox.lngMin} → ${req.bbox.latMax},${req.bbox.lngMax}\ncc @intel.gftd.ai @jinushi.gftd.ai`);
+    `[Satellite] ${satellite} (${catalog.resolutionM}m, ${catalog.sensorType}) ingest: ${req.bbox.latMin},${req.bbox.lngMin} → ${req.bbox.latMax},${req.bbox.lngMax}\ncc @intel.etzhayyim.com @jinushi.etzhayyim.com`);
   return { 'jobId': jobId, status: "pending", satellite, 'stacUrl': catalog.stacUrl, 'collectionId': catalog.collectionId, 'resolutionM': catalog.resolutionM, 'sensorType': catalog.sensorType };
 }
 
@@ -5412,7 +5412,7 @@ async function cmdSatelliteImportScene(sdk: HostSDK, payload: Uint8Array): Promi
       lng: (scene.bbox.lngMin + scene.bbox.lngMax) / 2,
       'bandsJson': scene.bands ? JSON.stringify(scene.bands) : undefined,
       'cogUrl': scene.cogUrl, 'thumbnailUrl': scene.thumbnailUrl,
-      source: "satellite", 'sourceDid': `did:web:${appId}.gftd.ai:satellite`,
+      source: "satellite", 'sourceDid': `did:web:${appId}.etzhayyim.com:satellite`,
       'nodeLabel': "SatelliteScene", 'createdAt': nowISO(),
       'orgId': "anon", 'userId': "anon", 'actorId': appId,
     });
@@ -5420,7 +5420,7 @@ async function cmdSatelliteImportScene(sdk: HostSDK, payload: Uint8Array): Promi
   }
   if (created > 0) {
     await post(sdk,
-      `[Satellite] Imported ${created} scenes\ncc @intel.gftd.ai`);
+      `[Satellite] Imported ${created} scenes\ncc @intel.etzhayyim.com`);
   }
   return { imported: created, total: req.scenes.length };
 }
@@ -5434,7 +5434,7 @@ async function cmdSatelliteAnalyze(sdk: HostSDK, payload: Uint8Array): Promise<u
   const analysisType = req.analysisType ?? "changeDetection";
   await write(sdk, "collectionJob", {
     'nodeId': `cj:${jobId}`, 'jobId': jobId, source: "satelliteAnalysis",
-    'sourceDid': `did:web:${appId}.gftd.ai:satellite`,
+    'sourceDid': `did:web:${appId}.etzhayyim.com:satellite`,
     format: "visionAnalysis", status: "pending", phase: 1,
     'sceneId': req.sceneId, 'analysisType': analysisType,
     'imageUrl': str(scenes[0].cogUrl ?? scenes[0].thumbnailUrl),
@@ -5443,7 +5443,7 @@ async function cmdSatelliteAnalyze(sdk: HostSDK, payload: Uint8Array): Promise<u
     'orgId': "anon", 'userId': "anon", 'actorId': appId,
   });
   await post(sdk,
-    `[Satellite] Analysis job: ${analysisType} on ${req.sceneId}\ncc @intel.gftd.ai`);
+    `[Satellite] Analysis job: ${analysisType} on ${req.sceneId}\ncc @intel.etzhayyim.com`);
   return { 'jobId': jobId, status: "pending", 'analysisType': analysisType, 'sceneId': req.sceneId };
 }
 
@@ -5563,7 +5563,7 @@ async function cmdGetDashboard(sdk: HostSDK, _payload: Uint8Array): Promise<unkn
   };
 }
 
-// ── Web Crawl Geo Coverage: site.gftd.ai integration ──
+// ── Web Crawl Geo Coverage: site.etzhayyim.com integration ──
 
 async function cmdSeedGeoDomains(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
   const req = parseLexiconInput("ai.gftd.apps.maps.seedGeoDomains", payload);
@@ -5578,11 +5578,11 @@ async function cmdSeedGeoDomains(sdk: HostSDK, payload: Uint8Array): Promise<Uin
 
   const domains = targets.map(d => d.domain);
 
-  // Invoke site.gftd.ai seedForProject remotely
+  // Invoke site.etzhayyim.com seedForProject remotely
   sdk.pds.dispatch({
     type: "invoke",
     payload: {
-      did: "did:web:site.gftd.ai",
+      did: "did:web:site.etzhayyim.com",
       method: "ai.gftd.apps.site.seedForProject",
       params: JSON.stringify({
         project: "maps",
@@ -5598,9 +5598,9 @@ async function cmdSeedGeoDomains(sdk: HostSDK, payload: Uint8Array): Promise<Uin
   // Register site web crawl source DID (idempotent)
   await write(sdk, "source", {
     'sourceId': "src-site-webcrawl",
-    name: "site.gftd.ai Web Crawl",
+    name: "site.etzhayyim.com Web Crawl",
     'sourceType': "webcrawl",
-    'sourceDid': "did:web:site.gftd.ai",
+    'sourceDid': "did:web:site.etzhayyim.com",
     'dataType': "wet+wat",
     license: "mixed",
     'crawlIntervalMin': 1440,
@@ -5610,7 +5610,7 @@ async function cmdSeedGeoDomains(sdk: HostSDK, payload: Uint8Array): Promise<Uin
   });
 
   await post(sdk,
-    `[SeedGeoDomains] Requested ${domains.length} geo domains from site.gftd.ai (categories: ${(req.categories ?? ["all"]).join(",")})\ncc @site.gftd.ai @jinushi.gftd.ai`);
+    `[SeedGeoDomains] Requested ${domains.length} geo domains from site.etzhayyim.com (categories: ${(req.categories ?? ["all"]).join(",")})\ncc @site.etzhayyim.com @jinushi.etzhayyim.com`);
 
   return encodeJson({ status: "seeded", 'domainCount': domains.length, domains });
 }
@@ -5624,10 +5624,10 @@ async function cmdListGeoDomains(sdk: HostSDK, _payload: Uint8Array): Promise<Ui
   });
 }
 
-// ── C-approach: seed commands → site.gftd.ai:ingestGeoData ──
+// ── C-approach: seed commands → site.etzhayyim.com:ingestGeoData ──
 
 /**
- * Seed USGS seismic feed via site.gftd.ai:ingestGeoData.
+ * Seed USGS seismic feed via site.etzhayyim.com:ingestGeoData.
  * site fetches USGS GeoJSON → emits geoRecord{entityType:"seismicEvent"}
  * → maps handleCommit → write(spatialEvent).
  */
@@ -5641,16 +5641,16 @@ async function cmdSeedSeismicFeed(sdk: HostSDK, payload: Uint8Array): Promise<Ui
   } as const;
   const feedUrl = feedMap[req.feed ?? "day"];
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: feedUrl, format: "usgs_geojson", project: "maps" }),
   );
-  await post(sdk, `[SeedSeismic] Requested USGS ${req.feed ?? "day"} feed via @site.gftd.ai`);
+  await post(sdk, `[SeedSeismic] Requested USGS ${req.feed ?? "day"} feed via @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", feed: req.feed ?? "day", url: feedUrl });
 }
 
 /**
- * Seed JP municipality data via site.gftd.ai:ingestGeoData (Wikidata SPARQL).
+ * Seed JP municipality data via site.etzhayyim.com:ingestGeoData (Wikidata SPARQL).
  * Wikidata SPARQL: SELECT municipalities with JIS X 0402 codes + coordinates.
  * site → processWikidataSparqlResult → geoRecord{entityType:"municipality"}
  * → maps handleCommit → registerRegionRecord (AdminArea DID per municipality).
@@ -5672,16 +5672,16 @@ async function cmdSeedMunicipalities(sdk: HostSDK, payload: Uint8Array): Promise
   ].join(" ");
   const url = `https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(sparql)}`;
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "wikidata_sparql", project: "maps" }),
   );
-  await post(sdk, `[SeedMunicipalities] Requested JP 市区町村 via Wikidata SPARQL → @site.gftd.ai`);
+  await post(sdk, `[SeedMunicipalities] Requested JP 市区町村 via Wikidata SPARQL → @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", source: "wikidata_sparql", limit: 2000 });
 }
 
 /**
- * Seed GTFS-JP data via site.gftd.ai:seedForProject on gtfs.jp + transit agency domains.
+ * Seed GTFS-JP data via site.etzhayyim.com:seedForProject on gtfs.jp + transit agency domains.
  * site crawls those pages → WET/WAT with GTFS file links → maps WAT handler detects GTFS URLs
  * → future: site:ingestGeoData with gtfs_zip format for discovered URLs.
  */
@@ -5696,7 +5696,7 @@ async function cmdSeedGtfsJp(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8A
     "developer.odpt.org",
   ];
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.seedForProject",
     JSON.stringify({
       project: "maps-gtfs",
@@ -5706,12 +5706,12 @@ async function cmdSeedGtfsJp(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8A
       priority: 45,
     }),
   );
-  await post(sdk, `[SeedGTFS] Seeding ${gtfsDomains.length} JP transit domains via @site.gftd.ai`);
+  await post(sdk, `[SeedGTFS] Seeding ${gtfsDomains.length} JP transit domains via @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", domains: gtfsDomains });
 }
 
 /**
- * A: Seed World AdminArea tier-2 via Wikidata SPARQL → site.gftd.ai → adminArea2 geoRecords.
+ * A: Seed World AdminArea tier-2 via Wikidata SPARQL → site.etzhayyim.com → adminArea2 geoRecords.
  * Covers US states, CN provinces, IN states, DE Bundesländer, FR régions, BR estados, etc.
  * Optional: region param filters by ISO 3166-1 alpha-2 prefix (e.g., "US" for US-* codes).
  */
@@ -5731,12 +5731,12 @@ async function cmdSeedWorldAdminAreas(sdk: HostSDK, payload: Uint8Array): Promis
   ].join(" ");
   const url = `https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(sparql)}`;
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "wikidata_sparql", project: "maps" }),
   );
   const label = req.region ? `region:${req.region}` : `all regions`;
-  await post(sdk, `[SeedWorldAdminAreas] Requested tier-2 AdminAreas (${label}, limit:${limit}) via Wikidata SPARQL → @site.gftd.ai`);
+  await post(sdk, `[SeedWorldAdminAreas] Requested tier-2 AdminAreas (${label}, limit:${limit}) via Wikidata SPARQL → @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", source: "wikidata_sparql", entityType: "adminArea2", limit, region: req.region ?? "all" });
 }
 
@@ -5749,11 +5749,11 @@ async function cmdSeedWorldAdminAreas(sdk: HostSDK, payload: Uint8Array): Promis
 async function cmdSeedAirports(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   const url = "https://davidmegginson.github.io/ourairports-data/airports.csv";
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "ourairports_csv", project: "maps" }),
   );
-  await post(sdk, `[SeedAirports] Requested OurAirports CSV (large+medium airports) via @site.gftd.ai`);
+  await post(sdk, `[SeedAirports] Requested OurAirports CSV (large+medium airports) via @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", source: "ourairports_csv", url });
 }
 
@@ -5773,11 +5773,11 @@ async function cmdSeedAdsb(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arra
   const lomax = req.lomax ?? 154.0;
   const url = `https://opensky-network.org/api/states/all?lamin=${lamin}&lomin=${lomin}&lamax=${lamax}&lomax=${lomax}`;
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "opensky_json", project: "maps" }),
   );
-  await post(sdk, `[SeedADSB] Requested OpenSky ADS-B snapshot (bbox:[${lamin},${lomin}→${lamax},${lomax}]) via @site.gftd.ai`);
+  await post(sdk, `[SeedADSB] Requested OpenSky ADS-B snapshot (bbox:[${lamin},${lomin}→${lamax},${lomax}]) via @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", source: "opensky_json", bbox: { lamin, lomin, lamax, lomax } });
 }
 
@@ -5786,13 +5786,13 @@ async function cmdSeedAdsb(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arra
  */
 async function cmdSeedWorldRivers(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng WHERE { ?item wdt:P31 wd:Q4022; wdt:P625 ?coord. BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 15000`,
       entityType: "river" }),
   );
-  await post(sdk, `[SeedRivers] Requested ~15K world rivers via Wikidata SPARQL → @site.gftd.ai`);
+  await post(sdk, `[SeedRivers] Requested ~15K world rivers via Wikidata SPARQL → @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", source: "wikidata_sparql", entityType: "river", limit: 15000 });
 }
 
@@ -5801,13 +5801,13 @@ async function cmdSeedWorldRivers(sdk: HostSDK, _payload: Uint8Array): Promise<U
  */
 async function cmdSeedWorldLakes(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng WHERE { ?item wdt:P31 wd:Q23397; wdt:P625 ?coord. BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 10000`,
       entityType: "lake" }),
   );
-  await post(sdk, `[SeedLakes] Requested ~8K world lakes via Wikidata SPARQL → @site.gftd.ai`);
+  await post(sdk, `[SeedLakes] Requested ~8K world lakes via Wikidata SPARQL → @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", source: "wikidata_sparql", entityType: "lake", limit: 10000 });
 }
 
@@ -6000,13 +6000,13 @@ async function cmdListCelestialObjects(_sdk: HostSDK, payload: Uint8Array): Prom
  */
 async function cmdSeedWorldMountains(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng ?elevation WHERE { ?item wdt:P31 wd:Q8502; wdt:P625 ?coord. OPTIONAL { ?item wdt:P2044 ?elevation. } BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 25000`,
       entityType: "mountain" }),
   );
-  await post(sdk, `[SeedMountains] Requested ~20K world mountains via Wikidata SPARQL → @site.gftd.ai`);
+  await post(sdk, `[SeedMountains] Requested ~20K world mountains via Wikidata SPARQL → @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", source: "wikidata_sparql", entityType: "mountain", limit: 25000 });
 }
 
@@ -6015,13 +6015,13 @@ async function cmdSeedWorldMountains(sdk: HostSDK, _payload: Uint8Array): Promis
  */
 async function cmdSeedWorldStations(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng WHERE { ?item wdt:P31 wd:Q55488; wdt:P625 ?coord. BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 30000`,
       entityType: "station" }),
   );
-  await post(sdk, `[SeedStations] Requested ~30K world railway stations via Wikidata SPARQL → @site.gftd.ai`);
+  await post(sdk, `[SeedStations] Requested ~30K world railway stations via Wikidata SPARQL → @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", source: "wikidata_sparql", entityType: "station", limit: 30000 });
 }
 
@@ -6030,13 +6030,13 @@ async function cmdSeedWorldStations(sdk: HostSDK, _payload: Uint8Array): Promise
  */
 async function cmdSeedWorldPorts(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng WHERE { ?item wdt:P31 wd:Q44782; wdt:P625 ?coord. BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 8000`,
       entityType: "port" }),
   );
-  await post(sdk, `[SeedPorts] Requested ~5K world ports via Wikidata SPARQL → @site.gftd.ai`);
+  await post(sdk, `[SeedPorts] Requested ~5K world ports via Wikidata SPARQL → @site.etzhayyim.com`);
   return encodeJson({ status: "seeded", source: "wikidata_sparql", entityType: "port", limit: 8000 });
 }
 
@@ -6097,12 +6097,12 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
               lng: Number(entity.lng ?? centerLng),
               description: desc, confidence: conf,
               source: "satelliteAnalysis", satellite, sceneId,
-              sourceDid: `did:web:${appId}.gftd.ai:satellite`,
+              sourceDid: `did:web:${appId}.etzhayyim.com:satellite`,
               nodeLabel: etype.charAt(0).toUpperCase() + etype.slice(1),
               createdAt: nowISO(), orgId: "anon", userId: "anon", actorId: appId,
             });
             await post(sdk,
-              `[Sat:${satellite}] ${ename} (${etype}) conf:${(conf * 100).toFixed(0)}%\n${truncateText(desc, 80)}\ncc @intel.gftd.ai @jinushi.gftd.ai`);
+              `[Sat:${satellite}] ${ename} (${etype}) conf:${(conf * 100).toFixed(0)}%\n${truncateText(desc, 80)}\ncc @intel.etzhayyim.com @jinushi.etzhayyim.com`);
           }
         }
       } catch (e: any) { console.warn(`satelliteAnalysis error: ${e?.message ?? e}`); }
@@ -6127,7 +6127,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
           const geo = (lat && lng) ? ` (${Number(lat).toFixed(3)},${Number(lng).toFixed(3)})` : "";
           if (name) {
             await post(sdk,
-              `[${label}] ${truncateText(name, 80)}${geo}\ncc @jinushi.gftd.ai @resources-r3s0urc3.gftd.ai @intel.gftd.ai`);
+              `[${label}] ${truncateText(name, 80)}${geo}\ncc @jinushi.etzhayyim.com @resources-r3s0urc3.etzhayyim.com @intel.etzhayyim.com`);
           }
         }
       } catch (e: any) { console.warn(`maps commit error: ${e?.message ?? e}`); }
@@ -6158,13 +6158,13 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
                     'nodeId': `evt:${eventId}`, 'entityId': commit.rkey, 'eventType': "userPostPhoto",
                     severity: "info", description: `Auto-extracted from post image`,
                     lat, lng, 'locationJson': JSON.stringify({ lat, lng }),
-                    'imageCid': str(imgObj.cid ?? ""), 'sourceDid': `did:web:${appId}.gftd.ai:userPost`,
+                    'imageCid': str(imgObj.cid ?? ""), 'sourceDid': `did:web:${appId}.etzhayyim.com:userPost`,
                     'authorDid': str(record.repo ?? record.author ?? ""),
                     'nodeLabel': "SpatialEvent", 'occurredAt': nowISO(), 'createdAt': nowISO(),
                     'orgId': "anon", 'userId': "anon", 'actorId': appId,
                   });
                   await post(sdk,
-                    `[GeoPhoto] Auto-located post at ${lat.toFixed(4)},${lng.toFixed(4)}\ncc @jinushi.gftd.ai`);
+                    `[GeoPhoto] Auto-located post at ${lat.toFixed(4)},${lng.toFixed(4)}\ncc @jinushi.etzhayyim.com`);
                 }
               }
             }
@@ -6191,14 +6191,14 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
             'createdAt': nowISO(), 'orgId': "anon", 'userId': "anon", 'actorId': appId,
           });
           await post(sdk,
-            `[Spot:IPGeo] ${ip} → ${city}, ${country}\nvia @ipaddress.gftd.ai cc @yabai.gftd.ai`);
+            `[Spot:IPGeo] ${ip} → ${city}, ${country}\nvia @ipaddress.etzhayyim.com cc @yabai.etzhayyim.com`);
         }
       }
     } catch (e: any) { console.warn(`ipGeo commit error: ${e?.message ?? e}`); }
     return { ok: true, detail: "processedIpGeo" };
   }
 
-  // ── site.gftd.ai WET → geo entity NER extraction (Murakumo LLM) ──
+  // ── site.etzhayyim.com WET → geo entity NER extraction (Murakumo LLM) ──
   if (commit.collection === "ai.gftd.apps.site.wet") {
     try {
       const rows = await listCollectionRows("site.wet");
@@ -6214,7 +6214,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
           sdk.pds.dispatch({
             type: "invoke",
             payload: {
-              did: "did:web:murakumo.gftd.ai",
+              did: "did:web:murakumo.etzhayyim.com",
               method: "llm-ask",
               params: JSON.stringify({
                 model: resolveModelId(undefined, "general"),
@@ -6222,7 +6222,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
                 prompt: `URL: ${url}\nDomain: ${domain}\nLanguage: ${language}\n\nText:\n${truncateText(markdown, 3000)}`,
                 'responseFormat': "json",
                 'callbackCollection': "ai.gftd.apps.maps.webCrawlGeoEntity",
-                'callbackMeta': JSON.stringify({ 'sourceDomain': domain, 'sourceUrl': url, 'sourceRkey': commit.rkey, 'sourceDid': "did:web:site.gftd.ai" }),
+                'callbackMeta': JSON.stringify({ 'sourceDomain': domain, 'sourceUrl': url, 'sourceRkey': commit.rkey, 'sourceDid': "did:web:site.etzhayyim.com" }),
               }),
             },
           });
@@ -6232,7 +6232,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
     return { ok: true, detail: "processedWetGeo" };
   }
 
-  // ── site.gftd.ai WAT → outlink graph + domain geo classification ──
+  // ── site.etzhayyim.com WAT → outlink graph + domain geo classification ──
   if (commit.collection === "ai.gftd.apps.site.wat") {
     try {
       const rows = await listCollectionRows("site.wat");
@@ -6253,11 +6253,11 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
             const geoLinks = outlinks.filter(l => geoKeywords.test(l)).slice(0, 20);
 
             if (geoLinks.length > 0) {
-              // Enqueue geo-relevant sub-pages back to site.gftd.ai for deeper crawl
+              // Enqueue geo-relevant sub-pages back to site.etzhayyim.com for deeper crawl
               sdk.pds.dispatch({
                 type: "invoke",
                 payload: {
-                  did: "did:web:site.gftd.ai",
+                  did: "did:web:site.etzhayyim.com",
                   method: "ai.gftd.apps.site.enqueueBulk",
                   params: JSON.stringify({
                     urls: geoLinks,
@@ -6278,7 +6278,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
             'entityType': "domainCoverage",
             'sourceDomain': domain,
             'sourceUrl': url,
-            'sourceDid': "did:web:site.gftd.ai",
+            'sourceDid': "did:web:site.etzhayyim.com",
             category: geoTarget.category,
             country: geoTarget.country,
             'nodeLabel': "WebCrawlGeoEntity",
@@ -6290,7 +6290,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
     return { ok: true, detail: "processedWatGeo" };
   }
 
-  // ── site.gftd.ai LLM NER callback → write extracted geo entities to graph ──
+  // ── site.etzhayyim.com LLM NER callback → write extracted geo entities to graph ──
   if (commit.collection === "ai.gftd.apps.maps.webCrawlGeoEntity") {
     try {
       const rows = await listCollectionRows("webCrawlGeoEntity");
@@ -6315,7 +6315,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
             await write(sdk, collection, {
               nodeId: `ner:${entityId}`, name,
               lat, lng,
-              sourceDid: "did:web:site.gftd.ai",
+              sourceDid: "did:web:site.etzhayyim.com",
               sourceUrl: str(rec.sourceUrl ?? ""),
               sourceDomain: str(rec.sourceDomain ?? ""),
               nodeLabel: collection.charAt(0).toUpperCase() + collection.slice(1),
@@ -6324,14 +6324,14 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
             });
           }
           await post(sdk,
-            `[WebCrawlGeo] ${entityType}: ${truncateText(name, 60)}${geo}\nfrom @site.gftd.ai cc @jinushi.gftd.ai`);
+            `[WebCrawlGeo] ${entityType}: ${truncateText(name, 60)}${geo}\nfrom @site.etzhayyim.com cc @jinushi.etzhayyim.com`);
         }
       }
     } catch (e: any) { console.warn(`webCrawlGeoEntity commit error: ${e?.message ?? e}`); }
     return { ok: true, detail: "processedWebCrawlGeoEntity" };
   }
 
-  // ── site.gftd.ai geoRecord → AdminArea DID / SpatialEvent / Station / BusStop ──
+  // ── site.etzhayyim.com geoRecord → AdminArea DID / SpatialEvent / Station / BusStop ──
   if (commit.collection === "ai.gftd.apps.site.geoRecord") {
     try {
       const rows = await listCollectionRows("site.geoRecord");
@@ -6368,7 +6368,7 @@ function expandGeoRecordRow(row: Record<string, unknown>): Record<string, unknow
 }
 
 /**
- * Process a site.gftd.ai geoRecord and write the appropriate entity to the maps graph.
+ * Process a site.etzhayyim.com geoRecord and write the appropriate entity to the maps graph.
  * entityType:
  *   "seismicEvent"  → SpatialEvent + social post
  *   "municipality"  → AdminArea DID via registerRegionRecord (jis-x0402 + iso3166-2 alias)
@@ -6412,13 +6412,13 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
       time: String(Number(extra.time ?? 0)),
       alert: str(extra.alert ?? ""), tsunami: String(Number(extra.tsunami ?? 0)),
       sig: String(Number(extra.sig ?? 0)), status: str(extra.status ?? ""),
-      sourceDid: `did:web:${appId}.gftd.ai:seismic`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:seismic`,
       nodeLabel: "SpatialEvent", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
     if (magnitude >= 5.0) {
       await post(sdk,
-        `[Seismic] M${magnitude.toFixed(1)} ${place} depth:${depth}km\nvia @site.gftd.ai:usgs cc @jinushi.gftd.ai`);
+        `[Seismic] M${magnitude.toFixed(1)} ${place} depth:${depth}km\nvia @site.etzhayyim.com:usgs cc @jinushi.etzhayyim.com`);
     }
     return;
   }
@@ -6441,7 +6441,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
     await write(sdk, collection, {
       nodeId: `stop:${str(rec.entityId ?? "")}`, name,
       lat, lng, stopId: str(rec.entityId ?? ""),
-      sourceDid: `did:web:${appId}.gftd.ai:gtfs`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:gtfs`,
       nodeLabel: stopType === "station" ? "Station" : "BusStop",
       createdAt: nowISO(), orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6454,7 +6454,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
     await write(sdk, collection, {
       nodeId: `route:${str(rec.entityId ?? "")}`, name,
       routeId: str(rec.entityId ?? ""), routeType,
-      sourceDid: `did:web:${appId}.gftd.ai:gtfs`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:gtfs`,
       nodeLabel: routeType === "railway" ? "Railway" : "BusRoute",
       createdAt: nowISO(), orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6476,7 +6476,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
       satellite, acquisitionDate, cloudCover,
       thumbnailUrl, cogUrl, bboxJson,
       lat, lng,
-      sourceDid: `did:web:${appId}.gftd.ai:satellite`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:satellite`,
       nodeLabel: "SatelliteScene", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6485,7 +6485,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
       sdk.pds.dispatch({
         type: "invoke",
         payload: {
-          did: "did:web:murakumo.gftd.ai",
+          did: "did:web:murakumo.etzhayyim.com",
           method: "llm-ask",
           params: JSON.stringify({
             model: resolveModelId(undefined, "vision"),
@@ -6525,7 +6525,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
       nodeId: `airport:${icao.toLowerCase()}`, name,
       icaoCode: icao, iataCode: iata, country, airportType, elevation,
       lat, lng,
-      sourceDid: `did:web:${appId}.gftd.ai:adsb`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:adsb`,
       nodeLabel: "Airport", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6570,7 +6570,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
       nodeId: `port:${portId}`, name,
       portId, portType, unlocode, country,
       lat, lng,
-      sourceDid: `did:web:${appId}.gftd.ai:infrastructure`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:infrastructure`,
       nodeLabel: "Port", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6598,7 +6598,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
     await write(sdk, "road", {
       nodeId: `road:${roadId}`, name,
       roadId, roadType, lat, lng,
-      sourceDid: `did:web:${appId}.gftd.ai:infrastructure`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:infrastructure`,
       nodeLabel: "Road", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6612,7 +6612,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
     await write(sdk, "river", {
       nodeId: `river:${riverId}`, name,
       riverId, length: String(length), lat, lng,
-      sourceDid: `did:web:${appId}.gftd.ai:infrastructure`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:infrastructure`,
       nodeLabel: "River", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6626,7 +6626,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
     await write(sdk, "mountain", {
       nodeId: `mtn:${mountainId}`, name,
       mountainId, elevation: String(elevation), lat, lng,
-      sourceDid: `did:web:${appId}.gftd.ai:infrastructure`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:infrastructure`,
       nodeLabel: "Mountain", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6641,7 +6641,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
     await write(sdk, "building", {
       nodeId: `bld:${buildingId}`, name,
       buildingId, buildingType, floors: String(floors), lat, lng,
-      sourceDid: `did:web:${appId}.gftd.ai:infrastructure`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:infrastructure`,
       nodeLabel: "Building", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6656,7 +6656,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
     await write(sdk, "place", {
       nodeId: `place:${placeId}`, name,
       placeId, address, country, lat, lng,
-      sourceDid: `did:web:${appId}.gftd.ai:geocode`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:geocode`,
       nodeLabel: "Place", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6679,7 +6679,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
       name: callsign || icao24,
       lat, lng, altitude, velocity, heading, onGround,
       icao24, callsign,
-      sourceDid: `did:web:${appId}.gftd.ai:adsb`,
+      sourceDid: `did:web:${appId}.etzhayyim.com:adsb`,
       nodeLabel: "SpatialEvent", createdAt: nowISO(),
       orgId: "anon", userId: "anon", actorId: appId,
     });
@@ -6704,16 +6704,16 @@ export async function runHeartbeat(_sdk: HostSDK): Promise<{ ok: boolean; action
 // ── Registry & Legal Entity Intelligence (2026-04-13) ──
 // Source DIDs for global registry data coverage
 const REGISTRY_SOURCE_DIDS = {
-  gleif: "did:web:maps.gftd.ai:registry:gleif",
-  opencorporates: "did:web:maps.gftd.ai:registry:opencorporates",
-  wikidata: "did:web:maps.gftd.ai:registry:wikidata",
-  osm: "did:web:maps.gftd.ai:registry:osm",
-  jpMoj: "did:web:maps.gftd.ai:registry:jp-moj",
-  jpNta: "did:web:maps.gftd.ai:registry:jp-nta",
-  ukCh: "did:web:maps.gftd.ai:registry:uk-ch",
-  usEdgar: "did:web:maps.gftd.ai:registry:us-edgar",
-  euBr: "did:web:maps.gftd.ai:registry:eu-br",
-  openaddresses: "did:web:maps.gftd.ai:registry:openaddresses",
+  gleif: "did:web:maps.etzhayyim.com:registry:gleif",
+  opencorporates: "did:web:maps.etzhayyim.com:registry:opencorporates",
+  wikidata: "did:web:maps.etzhayyim.com:registry:wikidata",
+  osm: "did:web:maps.etzhayyim.com:registry:osm",
+  jpMoj: "did:web:maps.etzhayyim.com:registry:jp-moj",
+  jpNta: "did:web:maps.etzhayyim.com:registry:jp-nta",
+  ukCh: "did:web:maps.etzhayyim.com:registry:uk-ch",
+  usEdgar: "did:web:maps.etzhayyim.com:registry:us-edgar",
+  euBr: "did:web:maps.etzhayyim.com:registry:eu-br",
+  openaddresses: "did:web:maps.etzhayyim.com:registry:openaddresses",
 } as const;
 
 const cmdRegisterLegalEntity = mkRegister("legalEntity", "LegalEntity", "ent", "name");
@@ -6793,7 +6793,7 @@ async function cmdSeedGlobalRegistries(sdk: HostSDK, payload: Uint8Array): Promi
   const actions: unknown[] = [];
   // Wikidata SPARQL: companies with HQ coordinates + industry
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({
       url: "https://query.wikidata.org/sparql",
@@ -6810,21 +6810,21 @@ async function cmdSeedGlobalRegistries(sdk: HostSDK, payload: Uint8Array): Promi
   actions.push({ action: "wikidataCorporations", source: REGISTRY_SOURCE_DIDS.wikidata });
   // GLEIF LEI bulk download (CSV)
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://lei-api.gleif.org/api/v1/lei-records?page[size]=100&page[number]=1", format: "gleif_json", project: "maps" }),
   );
   actions.push({ action: "gleifLei", source: REGISTRY_SOURCE_DIDS.gleif });
   // JP 法人番号 (NTA open data)
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://www.houjin-bangou.nta.go.jp/download/zenken/", format: "jp_nta_csv", project: "maps" }),
   );
   actions.push({ action: "jpNtaCorporateNumber", source: REGISTRY_SOURCE_DIDS.jpNta });
   // OpenAddresses global addresses
   (sdk as any).hostImports?.magatamaInvoke?.(
-    "site.gftd.ai",
+    "site.etzhayyim.com",
     "ai.gftd.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://batch.openaddresses.io/api/data", format: "openaddresses_json", project: "maps" }),
   );
@@ -6837,7 +6837,7 @@ async function cmdSeedGlobalRegistries(sdk: HostSDK, payload: Uint8Array): Promi
 // Read path: createKyselyDb(env.HYPERDRIVE) → mv_vessel_latest_position +
 // vertex_vessel + vertex_vessel_voyage. Write path is via the K8s
 // aismarine-consumer Deployment (long-running aisstream.io WebSocket) that
-// POSTs through maps-langserver.gftd.ai (CF Tunnel) to the ingestAisStream NSID.
+// POSTs through maps-langserver.etzhayyim.com (CF Tunnel) to the ingestAisStream NSID.
 // CF Worker stays L3 dispatcher subset (ADR-2604251830) — no business logic.
 
 const AISMARINE_TYPE_CLASSES = new Set([
@@ -6972,7 +6972,7 @@ async function cmdAismarineGetVesselDetail(_sdk: HostSDK, payload: Uint8Array): 
   // (millions of GLEIF rows, no index on `lei` → full-table scan, 25s
   // XRPC hard cap blown). entity_label already lives on the edge from
   // the Wikidata enrichment task. For the full legal-entity record
-  // caller can resolve dst_vid → legal-entity.gftd.ai out-of-band.
+  // caller can resolve dst_vid → legal-entity.etzhayyim.com out-of-band.
   const owners = await (db as any).selectFrom("edge_vessel_owned_by")
     .select([
       "lei", "wikidata_qid", "entity_label",
@@ -7271,7 +7271,7 @@ async function cmdSearchResources(_sdk: HostSDK, payload: Uint8Array): Promise<u
       source: "vessel",
       latitude: null,  // resolved at click via aismarine.queryVesselsBbox / mv_vessel_latest_position
       longitude: null,
-      url: `/at/did:web:maps.gftd.ai/ai.gftd.apps.maps.aismarine/${v.mmsi}`,
+      url: `/at/did:web:maps.etzhayyim.com/ai.gftd.apps.maps.aismarine/${v.mmsi}`,
     });
   }
   for (const e of entities) {
@@ -7398,7 +7398,7 @@ const IVF_CENTROID_PROBE = 4;
 // Self-hosted embedder pod via cf-tunnel. ADR-2605011500 §Phase-1.3.
 // No external API call. The token gates the public ingress; the pod
 // itself is on a maps-bulk-ingest ClusterIP, not directly reachable.
-const EMBEDDER_BASE_URL = "https://embedder.gftd.ai";
+const EMBEDDER_BASE_URL = "https://embedder.etzhayyim.com";
 
 // RisingWave returns `real[]` as a textual array literal ("{0.1,0.2,…}" or
 // "[0.1,0.2,…]") through Hyperdrive. Parse before cosine; null on bogus shape.
@@ -7585,7 +7585,7 @@ const _innerExport = createWorkerExport((sdk) => {
     // --- Bootstrap 0: Profile + Actor + social graph registration ---
     if (!profileRegistered || !socialBootstrapRegistered) {
       try {
-        const mapsDid = `did:web:${appId}.gftd.ai`;
+        const mapsDid = `did:web:${appId}.etzhayyim.com`;
         const socialBootstrap = await bootstrapMapsIdentityAndSocial(sdk);
         actions.push({
           action: "profileRegistered",
@@ -7623,7 +7623,7 @@ const _innerExport = createWorkerExport((sdk) => {
         socialBootstrapRegistered = true;
         actions.push({ action: "profileRegistered", sources: sourceDids.length, ts });
         if (socialBootstrap.profileCreated || socialBootstrap.actorCreated || socialBootstrap.socialProfileCreated || socialBootstrap.bootstrapPostCreated || socialBootstrap.followsCreated.length > 0) {
-          await post(sdk, `[Bootstrap] Maps profile + actor + social graph ensured (${socialBootstrap.followsCreated.length} follows, ${sourceDids.length} source DIDs)\ncc @jinushi.gftd.ai`);
+          await post(sdk, `[Bootstrap] Maps profile + actor + social graph ensured (${socialBootstrap.followsCreated.length} follows, ${sourceDids.length} source DIDs)\ncc @jinushi.etzhayyim.com`);
         }
       } catch (e: any) {
         console.warn(`[heartbeat] profile registration: ${e?.message ?? e}`);
@@ -7712,7 +7712,7 @@ const _innerExport = createWorkerExport((sdk) => {
       ];
       const feedUrl = feeds[collectionPhase % feeds.length];
       (sdk as any).hostImports?.magatamaInvoke?.(
-        "site.gftd.ai",
+        "site.etzhayyim.com",
         "ai.gftd.apps.site.ingestGeoData",
         JSON.stringify({ url: feedUrl, format: "usgs_geojson", project: "maps" }),
       );
@@ -7735,7 +7735,7 @@ const _innerExport = createWorkerExport((sdk) => {
       const tile = tiles[collectionPhase % tiles.length];
       const adsbUrl = `https://opensky-network.org/api/states/all?lamin=${tile.lamin}&lomin=${tile.lomin}&lamax=${tile.lamax}&lomax=${tile.lomax}`;
       (sdk as any).hostImports?.magatamaInvoke?.(
-        "site.gftd.ai",
+        "site.etzhayyim.com",
         "ai.gftd.apps.site.ingestGeoData",
         JSON.stringify({ url: adsbUrl, format: "opensky_json", project: "maps" }),
       );
@@ -7812,23 +7812,23 @@ const _innerExport = createWorkerExport((sdk) => {
     // Step 4: Satellite Imagery (free sources: Sentinel-2, Landsat, Sentinel-1 SAR, HLS, Copernicus DEM, NAIP)
     a.command(nsid("ai.gftd.apps.maps.satelliteIngest"), (_, body) => cmdSatelliteIngest(sdk, body), asAgentTool("Ingest satellite scenes from free STAC catalogs"), withCapabilityTags("satellite", "ingest"))
       .command(nsid("ai.gftd.apps.maps.satelliteAnalyze"), (_, body) => cmdSatelliteAnalyze(sdk, body), asAgentTool("Analyze satellite scene via Murakumo Vision"), withCapabilityTags("satellite", "analyze"));
-    // Web Crawl Geo Coverage (site.gftd.ai integration)
-    a.command(nsid("ai.gftd.apps.maps.seedGeoDomains"), (_, body) => cmdSeedGeoDomains(sdk, body), asAgentTool("Seed geo domain crawls via site.gftd.ai + CommonCrawl fallback"), withCapabilityTags("webcrawl", "seed", "coverage"));
-    // Seed commands → site.gftd.ai:ingestGeoData
-    a.command(nsid("ai.gftd.apps.maps.seedSeismicFeed"), (_, body) => cmdSeedSeismicFeed(sdk, body), asAgentTool("Seed USGS seismic feed via site.gftd.ai → SpatialEvent records"), withCapabilityTags("seismic", "usgs", "seed", "remote-ingest"))
-      .command(nsid("ai.gftd.apps.maps.seedMunicipalities"), (_, body) => cmdSeedMunicipalities(sdk, body), asAgentTool("Seed JP 市区町村 AdminArea DIDs via Wikidata SPARQL → site.gftd.ai → registerRegionRecord"), withCapabilityTags("municipality", "adminArea", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("ai.gftd.apps.maps.seedGtfsJp"), (_, body) => cmdSeedGtfsJp(sdk, body), asAgentTool("Seed GTFS-JP transit data via site.gftd.ai crawl of transit agency domains"), withCapabilityTags("gtfs", "transit", "station", "seed", "remote-ingest"))
+    // Web Crawl Geo Coverage (site.etzhayyim.com integration)
+    a.command(nsid("ai.gftd.apps.maps.seedGeoDomains"), (_, body) => cmdSeedGeoDomains(sdk, body), asAgentTool("Seed geo domain crawls via site.etzhayyim.com + CommonCrawl fallback"), withCapabilityTags("webcrawl", "seed", "coverage"));
+    // Seed commands → site.etzhayyim.com:ingestGeoData
+    a.command(nsid("ai.gftd.apps.maps.seedSeismicFeed"), (_, body) => cmdSeedSeismicFeed(sdk, body), asAgentTool("Seed USGS seismic feed via site.etzhayyim.com → SpatialEvent records"), withCapabilityTags("seismic", "usgs", "seed", "remote-ingest"))
+      .command(nsid("ai.gftd.apps.maps.seedMunicipalities"), (_, body) => cmdSeedMunicipalities(sdk, body), asAgentTool("Seed JP 市区町村 AdminArea DIDs via Wikidata SPARQL → site.etzhayyim.com → registerRegionRecord"), withCapabilityTags("municipality", "adminArea", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("ai.gftd.apps.maps.seedGtfsJp"), (_, body) => cmdSeedGtfsJp(sdk, body), asAgentTool("Seed GTFS-JP transit data via site.etzhayyim.com crawl of transit agency domains"), withCapabilityTags("gtfs", "transit", "station", "seed", "remote-ingest"))
       // P1 seeds
-      .command(nsid("ai.gftd.apps.maps.seedWorldAdminAreas"), (_, body) => cmdSeedWorldAdminAreas(sdk, body), asAgentTool("Seed world AdminArea tier-2 DIDs (US states, CN provinces, etc.) via Wikidata SPARQL → site.gftd.ai"), withCapabilityTags("adminArea", "wikidata", "tier2", "seed", "remote-ingest"))
-      .command(nsid("ai.gftd.apps.maps.seedAirports"), (_, body) => cmdSeedAirports(sdk, body), asAgentTool("Seed 1000+ airports (large/medium) from OurAirports CSV via site.gftd.ai → Airport DIDs + ICAO/IATA aliases"), withCapabilityTags("airport", "icao", "iata", "ourairports", "seed", "remote-ingest"))
-      .command(nsid("ai.gftd.apps.maps.seedAdsb"), (_, body) => cmdSeedAdsb(sdk, body), asAgentTool("Seed real-time aircraft positions from OpenSky ADS-B (optional bbox) via site.gftd.ai → SpatialEvent{aircraftPosition}"), withCapabilityTags("adsb", "aircraft", "opensky", "realtime", "seed", "remote-ingest"))
+      .command(nsid("ai.gftd.apps.maps.seedWorldAdminAreas"), (_, body) => cmdSeedWorldAdminAreas(sdk, body), asAgentTool("Seed world AdminArea tier-2 DIDs (US states, CN provinces, etc.) via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("adminArea", "wikidata", "tier2", "seed", "remote-ingest"))
+      .command(nsid("ai.gftd.apps.maps.seedAirports"), (_, body) => cmdSeedAirports(sdk, body), asAgentTool("Seed 1000+ airports (large/medium) from OurAirports CSV via site.etzhayyim.com → Airport DIDs + ICAO/IATA aliases"), withCapabilityTags("airport", "icao", "iata", "ourairports", "seed", "remote-ingest"))
+      .command(nsid("ai.gftd.apps.maps.seedAdsb"), (_, body) => cmdSeedAdsb(sdk, body), asAgentTool("Seed real-time aircraft positions from OpenSky ADS-B (optional bbox) via site.etzhayyim.com → SpatialEvent{aircraftPosition}"), withCapabilityTags("adsb", "aircraft", "opensky", "realtime", "seed", "remote-ingest"))
       // P2 seeds: Wikidata bulk natural geography + infrastructure
-      .command(nsid("ai.gftd.apps.maps.seedWorldRivers"), (_, body) => cmdSeedWorldRivers(sdk, body), asAgentTool("Seed ~15K world rivers via Wikidata SPARQL → site.gftd.ai"), withCapabilityTags("river", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("ai.gftd.apps.maps.seedWorldLakes"), (_, body) => cmdSeedWorldLakes(sdk, body), asAgentTool("Seed ~8K world lakes via Wikidata SPARQL → site.gftd.ai"), withCapabilityTags("lake", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("ai.gftd.apps.maps.seedWorldMountains"), (_, body) => cmdSeedWorldMountains(sdk, body), asAgentTool("Seed ~20K world mountains via Wikidata SPARQL → site.gftd.ai"), withCapabilityTags("mountain", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("ai.gftd.apps.maps.seedWorldStations"), (_, body) => cmdSeedWorldStations(sdk, body), asAgentTool("Seed ~30K world railway stations via Wikidata SPARQL → site.gftd.ai"), withCapabilityTags("station", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("ai.gftd.apps.maps.seedWorldPorts"), (_, body) => cmdSeedWorldPorts(sdk, body), asAgentTool("Seed ~5K world ports via Wikidata SPARQL → site.gftd.ai"), withCapabilityTags("port", "wikidata", "seed", "remote-ingest"))
-      // GeoRecord poll — process site.gftd.ai geoRecords written since $since
+      .command(nsid("ai.gftd.apps.maps.seedWorldRivers"), (_, body) => cmdSeedWorldRivers(sdk, body), asAgentTool("Seed ~15K world rivers via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("river", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("ai.gftd.apps.maps.seedWorldLakes"), (_, body) => cmdSeedWorldLakes(sdk, body), asAgentTool("Seed ~8K world lakes via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("lake", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("ai.gftd.apps.maps.seedWorldMountains"), (_, body) => cmdSeedWorldMountains(sdk, body), asAgentTool("Seed ~20K world mountains via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("mountain", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("ai.gftd.apps.maps.seedWorldStations"), (_, body) => cmdSeedWorldStations(sdk, body), asAgentTool("Seed ~30K world railway stations via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("station", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("ai.gftd.apps.maps.seedWorldPorts"), (_, body) => cmdSeedWorldPorts(sdk, body), asAgentTool("Seed ~5K world ports via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("port", "wikidata", "seed", "remote-ingest"))
+      // GeoRecord poll — process site.etzhayyim.com geoRecords written since $since
       .command(nsid("ai.gftd.apps.maps.pollGeoRecords"), async (_, payload) => {;
         const req = parseLexiconInput("ai.gftd.apps.maps.pollGeoRecords", payload);
         const since = req.since ?? new Date(Date.now() - 10 * 60 * 1000).toISOString();
@@ -7842,7 +7842,7 @@ const _innerExport = createWorkerExport((sdk) => {
         }
         lastGeoRecordPollAt = new Date(Date.now() - 30 * 1000).toISOString();
         return { ok: true, processed, since, found: geoRecs.length };
-      }, asAgentTool("Process recent site.gftd.ai geoRecords → SpatialEvent / AdminArea / Station"), withCapabilityTags("geoRecord", "poll", "seismic", "adsb"));
+      }, asAgentTool("Process recent site.etzhayyim.com geoRecords → SpatialEvent / AdminArea / Station"), withCapabilityTags("geoRecord", "poll", "seismic", "adsb"));
     // Registry & Legal Entity Intelligence (2026-04-13)
     a.command(nsid("ai.gftd.apps.maps.seedGlobalRegistries"), (_, body) => cmdSeedGlobalRegistries(sdk, body), asAgentTool("Seed global registry data (GLEIF LEI, JP NTA, Wikidata corps, OpenAddresses)"), withCapabilityTags("registry", "seed", "remote-ingest"))
       .command(nsid("ai.gftd.apps.maps.backfillSocial"), (_, body) => cmdBackfillSocial(sdk, body), asAgentTool("Backfill maps social posts/follows from existing RisingWave graph"), withCapabilityTags("social", "backfill", "post", "follow"));
@@ -7878,7 +7878,7 @@ const _innerExport = createWorkerExport((sdk) => {
   // running a legacy ingestion path.
   registerCollectionCommands(sdk, null as any, appId, (text) => post(sdk, text));
   registerWriterEntities(sdk, null as any, appId).catch((e) => console.warn(`[registerWriterEntities] ${e?.message ?? e}`));
-}, { mcpRegistry: { actorDid: "did:web:maps.gftd.ai" } });
+}, { mcpRegistry: { actorDid: "did:web:maps.etzhayyim.com" } });
 
 // Wrap _innerExport to capture the raw CF env on every request — needed for
 // the `AI` (Workers AI) binding which the host-sdk's HostSDK.env doesn't

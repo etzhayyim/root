@@ -44,7 +44,7 @@ superseded_by: []
 - **Lexicon**: `00-contracts/lexicons/ai/gftd/apps/kafun/agent/{tick,think,research}.json` (3 procedures)
 - **Project (App)**: nanoid `n97ik10n`、TS Native + Murakumo runtime、Svelte SPA、K8s CronJob (6h毎)
 - **Graph projection**: `vertex_kafun_langgraph` / `vertex_agent_topo_and_kafun_concrete` / `vertex_kafun_satellite_landowner_stakeholder` (3 alembic migrations)
-- **DIDs**: `did:web:n97ik10n.gftd.ai:actor:{executor,proposer,researcher}` (3 sub-actor identities)
+- **DIDs**: `did:web:n97ik10n.etzhayyim.com:actor:{executor,proposer,researcher}` (3 sub-actor identities)
 
 この設計は religious-corp 確立 (ADR-2605192100 wave, 2026-05-19/20) より前に着手されたため、以下の非整合が残る:
 
@@ -209,7 +209,7 @@ kafun の AI agent 出力 (research findings / proposals / actions) は **Charte
 
 1. Status #8 cutover が repo 全体 220 file を対象とする計画であり、kafun 単独 cutover は drift する
 2. legacy prefix `ai.gftd.*` の意味論的問題 (religious-corp 帰属の曖昧化) は本 ADR §1-§4 で **意味論レベルでは解消** される (Charter Rider 適用 + Public Fund grantee 化 + mission axis 帰属)
-3. URL identifier (`n97ik10n.gftd.ai` / `kafun-bokumetsu.gftd.ai`) の rename は登記変更後に並行実施
+3. URL identifier (`n97ik10n.etzhayyim.com` / `kafun-bokumetsu.etzhayyim.com`) の rename は登記変更後に並行実施
 
 ただし以下を本 ADR 承認後即時実施:
 
@@ -294,7 +294,7 @@ Public Fund 全体は religious-corp が運営、kafun 内 sub-fund は project 
 religious-corp 公式 project から外し、外部 NPO として運営。
 
 - Pro: religious-corp の constitutional 制約から自由になる。
-- Con: kafun の DID (`did:web:n97ik10n.gftd.ai`) は etzhayyim domain 配下にあり、external NPO 化は domain 再割り当てを要する。さらに kafun の AI agent runtime (Murakumo) は religious-corp infrastructure 上で動作しており、infrastructure 利用料を取らない religious-corp の non-profit 制約 (§1.1) と整合させるには結局 grant cycle が必要。
+- Con: kafun の DID (`did:web:n97ik10n.etzhayyim.com`) は etzhayyim domain 配下にあり、external NPO 化は domain 再割り当てを要する。さらに kafun の AI agent runtime (Murakumo) は religious-corp infrastructure 上で動作しており、infrastructure 利用料を取らない religious-corp の non-profit 制約 (§1.1) と整合させるには結局 grant cycle が必要。
 - 却下。
 
 ## E. 本 ADR 承認 + Status #8 cutover を kafun 先行実施

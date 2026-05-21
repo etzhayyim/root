@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/01/1/1/executive-legislative/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/01/1/1/executive-legislative/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Legislative and Policy Formulation Process",
       "description": "The end-to-end process of drafting, debating, voting on, and enacting legislative bills and executive policies.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/01/1/1/executive-legislative"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/1/1/executive-legislative"
     }
   ]
 }

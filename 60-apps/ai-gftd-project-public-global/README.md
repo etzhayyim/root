@@ -4,12 +4,12 @@ Global resource flow visualization platform. Aggregates worldwide resource stati
 
 ## Live
 
-- https://global.gftd.ai
+- https://global.etzhayyim.com
 
 ## MCP Endpoint
 
 ```
-POST https://actors.gftd.ai/{nanoid}/api/mcp
+POST https://actors.etzhayyim.com/{nanoid}/api/mcp
 Content-Type: application/json
 
 {"jsonrpc":"2.0","method":"tools/list","id":1}

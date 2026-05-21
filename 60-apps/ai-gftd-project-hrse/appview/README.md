@@ -17,10 +17,10 @@
 
 - `hrse-components-app-component`: `hrse-components-ijwzfzfn` 向け UI components metadata companion (`/api/mcp`, `/{nanoid}/api/mcp`, `/healthz`)
 - `hrse-mcp-component`: App 単体で動作する MCP facade (`/api/mcp`, `/{nanoid}/api/mcp`, `/health`)
-- `hrse-ui-w7h3x9nq`: `hrse.gftd.ai` 向け static site component (`70-tools/gftd-static-site` + embedded `static/`)
+- `hrse-ui-w7h3x9nq`: `hrse.etzhayyim.com` 向け static site component (`70-tools/gftd-static-site` + embedded `static/`)
 
 ## 移行ステータス
 
 - `hrse-components-ijwzfzfn`: implemented (`hrse-components-app-component`)
 - `hrse-cz9yy991`: implemented (`hrse-mcp-component`)
-- `hrse.gftd.ai` frontend: implemented (`hrse-ui-w7h3x9nq`)
+- `hrse.etzhayyim.com` frontend: implemented (`hrse-ui-w7h3x9nq`)

@@ -1,9 +1,9 @@
 ---
-id: adr-2604251215-gftdcojp-agent-authority-bounds
-title: "ADR: gftdcojp Agent authority bounds — internal direct, external draft-approve, payment forbidden"
+id: adr-2604251215-etzhayyim-agent-authority-bounds
+title: "ADR: etzhayyim Agent authority bounds — internal direct, external draft-approve, payment forbidden"
 status: active
 doc_type: adr
-topic: gftdcojp-agent
+topic: etzhayyim-agent
 authoritative: true
 last_verified: 2026-04-25
 authoritative_for:
@@ -23,7 +23,7 @@ superseded_by: []
 Claude Agent (Claude Code / Claude.ai connector) が Gftd Japan 法人として
 自律行動する際、外部第三者に与える影響と payment 系の不可逆性から authority
 bound を明示する必要がある。CLAUDE.md Root-Only Rule を ADR 化し、`deps.toml
-[gftdcojp_agent]` を SSoT として参照する。
+[etzhayyim_agent]` を SSoT として参照する。
 
 # Decision
 
@@ -35,14 +35,14 @@ bound を明示する必要がある。CLAUDE.md Root-Only Rule を ADR 化し�
 | **社外** (1 件でも非 `@gftd.co.jp` を含む) | draft → approve → send | `sendDraft` で draft 作成 → 人間が `/manage` UI で approve → `sendMail` |
 
 判定は recipient list に **1 件でも** 社外 domain が含まれる時点で社外扱い。
-SSoT: `deps.toml [gftdcojp_agent.auth].email_send_internal` /
+SSoT: `deps.toml [etzhayyim_agent.auth].email_send_internal` /
 `email_send_external`。
 
 ## D2. Teams authority
 
 Teams への投稿は **channel email 宛 `Mail.Send` app-only** 経路を使用。
 - method: `teams_send_method = "channel_email_via_mail_send"`
-- channel email address は `microsoft.gftd.ai` の channel mapping を参照
+- channel email address は `microsoft.etzhayyim.com` の channel mapping を参照
 - chat (1:1 / group) への直接投稿は agent から不可 — draft メールで代替
 
 ## D3. Payment authority
@@ -58,7 +58,7 @@ trigger されない:
 
 ## D4. Invocation channel
 
-Agent から送信するには `microsoft.gftd.ai` (Layer 9 Client App) の以下 XRPC
+Agent から送信するには `microsoft.etzhayyim.com` (Layer 9 Client App) の以下 XRPC
 を呼ぶ:
 - `ai.gftd.apps.microsoft.sendMail`
 - `ai.gftd.apps.microsoft.sendDraft`
@@ -84,7 +84,7 @@ Agent から送信するには `microsoft.gftd.ai` (Layer 9 Client App) の以�
 
 # References
 
-- `deps.toml [gftdcojp_agent]`
+- `deps.toml [etzhayyim_agent]`
 - `60-apps/ai-gftd-project-kaisya/CLAUDE.md`
 - `60-apps/ai-gftd-project-microsoft/CLAUDE.md`
 - ADR-2604251205 (Local Secret Storage — `gftd.m365` keychain entry)

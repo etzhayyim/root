@@ -6,7 +6,7 @@
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-cowork`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-cowork`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 
@@ -50,3 +50,15 @@ Detected violations:
   RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-cowork/appview/ai-gftd-wasm-cowork-graph-c0w0rkg1/src/app.ts:584
   RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-cowork/appview/ai-gftd-wasm-cowork-graph-c0w0rkg1/src/app.ts:673
 ```
+
+---
+
+## Post-verification gap patch (2026-05-21)
+
+Additional violations detected in re-scan:
+
+```
+  - 60-apps/ai-gftd-project-cowork/appview/ai-gftd-wasm-cowork-graph-c0w0rkg1/src/app.ts
+```
+
+Lines annotated with `CHARTER-VIOLATION §substrate` comments.

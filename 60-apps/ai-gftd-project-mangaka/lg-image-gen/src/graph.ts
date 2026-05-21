@@ -130,7 +130,7 @@ async function generateOpenRouter(state: PanelState): Promise<Partial<PanelState
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
-        "HTTP-Referer": "https://ghosthacker.gftd.ai",
+        "HTTP-Referer": "https://ghosthacker.etzhayyim.com",
         "X-Title": "ghosthacker-arc0-1-lg-image-gen",
       },
       body: JSON.stringify({

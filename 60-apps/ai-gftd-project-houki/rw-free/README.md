@@ -42,7 +42,7 @@ did:web:houki.etzhayyim.com:rulebundle:{bundleId-slug}   — RuleBundle (future)
 
 ## Pattern translation (Option B)
 
-| Vendor (`houki.gftd.ai`) | etzhayyim (this PR) |
+| Vendor (`houki.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
 | `db.insertInto("vertex_houki_document").values({...}).execute()` | `e.write({ collection: "ai.gftd.houki.document", record, rkey })` |

@@ -5,8 +5,8 @@
 	 */
 	import { onMount } from 'svelte';
 	import { fade, scale } from 'svelte/transition';
-	import { playSuccess } from '@gftdcojp/design-system/audio';
-	import { elasticEase } from '@gftdcojp/design-system/motion';
+	import { playSuccess } from '@etzhayyim/design-system/audio';
+	import { elasticEase } from '@etzhayyim/design-system/motion';
 
 	interface Props {
 		/** App display name. */

@@ -25,7 +25,7 @@ before they enter the irreversible hakkou (発酵) fermentation pipeline.
 
 ## Scope
 
-- `koke.gftd.ai` CF Worker (nanoid `k0k3m001`)
+- `koke.etzhayyim.com` CF Worker (nanoid `k0k3m001`)
 - `vertex_koke_fixation` + `edge_koke_flow` graph tables
 - 4 Zeebe task types: `koke.scan_raw_signals`, `koke.fix_signal`,
   `koke.classify_fixation`, `koke.handoff_to_hakkou`

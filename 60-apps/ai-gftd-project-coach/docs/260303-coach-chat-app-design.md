@@ -54,5 +54,5 @@
 ## Deployment
 
 - Runtime: magatama runtime (`core.magatama-runtime.dev/v1alpha1`)
-- Image: `ghcr.io/gftdcojp/coach-chat-mcp-component:magatama-runtime-0.1.0`
-- Route: `https://coach.gftd.ai/xrpc`
+- Image: `ghcr.io/etzhayyim/coach-chat-mcp-component:magatama-runtime-0.1.0`
+- Route: `https://coach.etzhayyim.com/xrpc`

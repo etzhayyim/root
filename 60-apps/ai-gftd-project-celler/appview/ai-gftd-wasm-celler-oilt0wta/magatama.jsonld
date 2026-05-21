@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:celler.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:celler.etzhayyim.com",
   "architecture": "design-e-reactive-pipeline",
   "build": {
     "guestLanguage": "go"
@@ -8,11 +8,11 @@
   "component": {
     "env": {
       "FREESWITCH_URL": "",
-      "STUN_URL": "stun:stun.celler.gftd.ai:3478",
+      "STUN_URL": "stun:stun.celler.etzhayyim.com:3478",
       "TELNYX_API_KEY": "",
       "TELNYX_MESSAGING_PROFILE_ID": "",
       "TELNYX_SIP_CONNECTION_ID": "",
-      "TURN_URL": "turn:turn.celler.gftd.ai:3478"
+      "TURN_URL": "turn:turn.celler.etzhayyim.com:3478"
     },
     "path": "/wasm/component.wasm"
   },
@@ -23,19 +23,19 @@
   "entities": [
     {
       "category": "gateway",
-      "did": "did:web:celler.gftd.ai:gw_starlink_primary",
+      "did": "did:web:celler.etzhayyim.com:gw_starlink_primary",
       "displayName": "Starlink Primary Gateway",
       "slug": "gw_starlink_primary"
     },
     {
       "category": "cell",
-      "did": "did:web:celler.gftd.ai:cell_default",
+      "did": "did:web:celler.etzhayyim.com:cell_default",
       "displayName": "Default Cell",
       "slug": "cell_default"
     },
     {
       "category": "infrastructure",
-      "did": "did:web:celler.gftd.ai:sip_gateway",
+      "did": "did:web:celler.etzhayyim.com:sip_gateway",
       "displayName": "SIP Gateway (FreeSWITCH)",
       "slug": "sip_gateway"
     }
@@ -79,7 +79,7 @@
   "project": "celler",
   "routes": [
     {
-      "host": "celler.gftd.ai",
+      "host": "celler.etzhayyim.com",
       "paths": [
         "/"
       ],

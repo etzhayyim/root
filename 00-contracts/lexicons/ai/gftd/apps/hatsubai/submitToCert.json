@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Open a new cert submission round for a built master candidate. Writes a certSubmission record (result='pending'), increments the round counter, and triggers the BPMN cert-tracking process on bpmn.gftd.ai.",
+      "description": "Open a new cert submission round for a built master candidate. Writes a certSubmission record (result='pending'), increments the round counter, and triggers the BPMN cert-tracking process on bpmn.etzhayyim.com.",
       "input": {
         "encoding": "application/json",
         "schema": {

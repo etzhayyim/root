@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:webya.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:webya.etzhayyim.com",
   "name": "webya",
   "nanoid": "w3bya001",
   "project": "webya",

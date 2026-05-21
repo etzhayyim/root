@@ -1,10 +1,10 @@
 // agents/types.ts — yatabase BaaS AI-actor team common shape (Project Actor Composition).
 //
-// Roster (path-based DIDs under did:web:yatabase.gftd.ai):
-//   chikada (dev)    → did:web:yatabase.gftd.ai:actor:chikada
-//   tanaka  (qa)     → did:web:yatabase.gftd.ai:actor:tanaka
-//   nishino (sales)  → did:web:yatabase.gftd.ai:actor:nishino
-//   sakamoto (cs)    → did:web:yatabase.gftd.ai:actor:sakamoto
+// Roster (path-based DIDs under did:web:yatabase.etzhayyim.com):
+//   chikada (dev)    → did:web:yatabase.etzhayyim.com:actor:chikada
+//   tanaka  (qa)     → did:web:yatabase.etzhayyim.com:actor:tanaka
+//   nishino (sales)  → did:web:yatabase.etzhayyim.com:actor:nishino
+//   sakamoto (cs)    → did:web:yatabase.etzhayyim.com:actor:sakamoto
 //
 // Each agent is a stateless run() function that:
 //   1. reads bounded recent state (audit log / billing event / outbox) via Hyperdrive
@@ -65,4 +65,4 @@ export interface AgentRunReport {
   dryRun?: boolean;
 }
 
-export const ADMIN_ORG_DID = "did:web:yatabase.gftd.ai";
+export const ADMIN_ORG_DID = "did:web:yatabase.etzhayyim.com";

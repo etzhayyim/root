@@ -1,4 +1,4 @@
-// yotei.gftd.ai thin facade. Domain logic runs in AgentGateway MCP + pod-side LangServer workers.
+// yotei.etzhayyim.com thin facade. Domain logic runs in AgentGateway MCP + pod-side LangServer workers.
 
 type Env = {
   DISPATCHER_URL?: string;
@@ -6,8 +6,8 @@ type Env = {
 };
 
 const ACTOR = {
-  name: "yotei.gftd.ai",
-  did: "did:web:yotei.gftd.ai",
+  name: "yotei.etzhayyim.com",
+  did: "did:web:yotei.etzhayyim.com",
   app: "yotei",
   nanoid: "unyrsfan",
 };
@@ -50,7 +50,7 @@ async function readBody(request: Request): Promise<Record<string, unknown>> {
 }
 
 async function dispatch(env: Env, nsid: string, body: Record<string, unknown>, request: Request): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers = new Headers({ accept: "application/json", "content-type": "application/json" });
   const auth = request.headers.get("authorization");
   if (auth) headers.set("authorization", auth);

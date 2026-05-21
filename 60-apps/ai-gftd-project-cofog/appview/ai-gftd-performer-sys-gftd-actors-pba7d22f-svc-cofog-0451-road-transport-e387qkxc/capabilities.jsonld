@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/5/1/road-transport",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/5/1/road-transport",
       "type": "dodaf:Capability",
       "name": "Road Transport and Infrastructure Management Capability",
       "description": "Functional capability for managing road infrastructure, traffic safety, and public transport services. Classification: COFOG Division 04, Group 5, Class 1.",

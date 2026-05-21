@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:tun-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:tun-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Gouvernement de Tunisie AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -102,7 +102,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "tun-state.gftd.ai",
+      "host": "tun-state.etzhayyim.com",
       "paths": [
         "/"
       ],

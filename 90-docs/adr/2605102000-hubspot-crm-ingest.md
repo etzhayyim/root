@@ -20,7 +20,7 @@ related:
 **Date**: 2026-05-10
 **Status**: accepted (scaffold + token issued; RW apply + deploy pending y-nishino)
 **Operator**: etzhayyim
-**Implementer (this iteration)**: Claude on behalf of CEO 河崎 (gftdcojp agent execution-phase)
+**Implementer (this iteration)**: Claude on behalf of CEO 河崎 (etzhayyim agent execution-phase)
 
 ## Context
 
@@ -31,8 +31,8 @@ ADR 2604281830) is a HubSpot-equivalent self-CRM, not an ingest pipeline.
 
 ## Decision
 
-Build a single TS-Native CF Worker (`hubspot.gftd.ai`, nanoid `hb5p0t1n`,
-did:web:hubspot.gftd.ai) that polls HubSpot CRM v3 REST API and writes each row
+Build a single TS-Native CF Worker (`hubspot.etzhayyim.com`, nanoid `hb5p0t1n`,
+did:web:hubspot.etzhayyim.com) that polls HubSpot CRM v3 REST API and writes each row
 to `vertex_hubspot_*` via Hyperdrive direct per ADR-0036. Surface 4 NSIDs over
 XRPC + auto-published MCP:
 
@@ -69,7 +69,7 @@ Per `30-graph/graph-schema/CLAUDE.md` + root `CLAUDE.md` Record-log semantics:
 
 ## Auth + secret topology
 
-- HubSpot Legacy Private App `gftdcojp-risingwave-ingest`, App ID `39124460`, portal `42189574`.
+- HubSpot Legacy Private App `etzhayyim-risingwave-ingest`, App ID `39124460`, portal `42189574`.
 - 18 read scopes: `crm.objects.{contacts,companies,deals,owners,line_items,products,quotes,subscriptions,feedback_submissions}.read` + `crm.schemas.{contacts,companies,deals,line_items,quotes,subscriptions}.read` + `tickets` + `e-commerce` + `sales-email-read`.
 - Token stored in 3 locations:
   1. macOS Keychain (`gftd.hubspot/HUBSPOT_PRIVATE_APP_TOKEN`)
@@ -93,8 +93,8 @@ Initial backfill: `syncAll {since: "1970-01-01T00:00:00Z", maxPagesPerType: 200}
 
 | Layer | Component |
 |---|---|
-| L2 Routing | atproto.gftd.ai PDS XRPC entry |
-| L3 Dispatcher | `hubspot.gftd.ai` Worker (this ADR) |
+| L2 Routing | atproto.etzhayyim.com PDS XRPC entry |
+| L3 Dispatcher | `hubspot.etzhayyim.com` Worker (this ADR) |
 | L4 Registry | `vertex_capability` MCP tool definitions auto-registered on first hit |
 | L5 Storage | RisingWave Hummock (B2) `vertex_hubspot_*` |
 | L7 Orchestration | Zeebe R/PT15M timer for `syncAll` cron |
@@ -112,4 +112,4 @@ Initial backfill: `syncAll {since: "1970-01-01T00:00:00Z", maxPagesPerType: 200}
 - `30-graph/graph-schema/alembic/current_versions/r_20260510010000_vertex_hubspot.py`
 - `00-contracts/lexicons/ai/gftd/apps/hubspot/{syncObjectType,syncAll,listObjects,getSyncStatus}.json`
 - `60-apps/ai-gftd-project-hubspot-hb5p0t1n/appview/ai-gftd-wasm-hubspot-hb5p0t1n/{magatama.jsonld,wrangler.jsonc,package.json,tsconfig.json,src/app.ts}`
-- `_working/gftdcojp-revenue/DECISION-LOG.md` iter 123, 127
+- `_working/etzhayyim-revenue/DECISION-LOG.md` iter 123, 127

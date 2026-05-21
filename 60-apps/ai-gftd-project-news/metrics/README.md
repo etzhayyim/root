@@ -20,7 +20,7 @@ python3 70-tools/70-tools/70-tools/scripts/project_metadata.py apply-metrics --m
 ## Source-of-Truth (Proposed)
 
 - `requests`
-  - Primary: CDN access logs for `news.gftd.ai` (bucket `gftd-static-sites`, prefix `news.gftd.ai`).
+  - Primary: CDN access logs for `news.etzhayyim.com` (bucket `gftd-static-sites`, prefix `news.etzhayyim.com`).
   - Fallback: GA4 page_view counts.
 - `gccCredit`
   - Primary: GCC credit dashboard / credits service export.

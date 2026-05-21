@@ -15,7 +15,7 @@ export default {
 		},
 		publishQuiet: true,
 		worldParameters: {
-			baseURL: process.env.DOCS_BASE_URL || "https://docs-systems.gftd.ai",
+			baseURL: process.env.DOCS_BASE_URL || "https://docs-systems.etzhayyim.com",
 		},
 	},
 };

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-`kg-curator.gftd.ai` (nanoid `kg7r4t0r`) — LLM-driven knowledge graph expansion for media-gamers and other AppView projects. **All inference on-prem (Linode g2-gpu-rtx4000a1-l GPU node)** — no Workers AI / Anthropic / OpenAI external calls.
+`kg-curator.etzhayyim.com` (nanoid `kg7r4t0r`) — LLM-driven knowledge graph expansion for media-gamers and other AppView projects. **All inference on-prem (Linode g2-gpu-rtx4000a1-l GPU node)** — no Workers AI / Anthropic / OpenAI external calls.
 
 **Component**: `appview/kg-curator-kg7r4t0r/`
 **Runtime**: Single Worker (T2 hybrid)
@@ -14,7 +14,7 @@
 |---|---|---|---|
 | Ollama | `http://172-236-133-64.ip.linodeusercontent.com/v1/chat/completions` | `gemma4:e4b` (Tier 0b) | JSON / structured extraction |
 | Ollama | 同上 | `gemma4:e2b` (Tier 0a) | general / lighter |
-| TEI | `https://embed.gftd.ai/embed` | `google/embeddinggemma-300m` (768-dim) | similarity dedup |
+| TEI | `https://embed.etzhayyim.com/embed` | `google/embeddinggemma-300m` (768-dim) | similarity dedup |
 
 CF Worker からは Linode NB hostname で直叩き (gray-cloud DNS は routing-gateway が intercept する)。VRAM 余り 8 GiB / 20 GiB に余裕あり、KG curator 追加負荷ゼロコスト。
 
@@ -59,9 +59,9 @@ gftd deploy --no-svelte
 
 ## API Endpoints
 
-- `https://kg7r4t0r.gftd.ai/xrpc/ai.gftd.apps.kgCurator.analyzeCoverage` (POST)
-- `https://kg7r4t0r.gftd.ai/xrpc/ai.gftd.apps.kgCurator.expandTitle` (POST `{scope_did, target_count}`)
-- `https://kg7r4t0r.gftd.ai/xrpc/ai.gftd.apps.kgCurator.status` (GET)
+- `https://kg7r4t0r.etzhayyim.com/xrpc/ai.gftd.apps.kgCurator.analyzeCoverage` (POST)
+- `https://kg7r4t0r.etzhayyim.com/xrpc/ai.gftd.apps.kgCurator.expandTitle` (POST `{scope_did, target_count}`)
+- `https://kg7r4t0r.etzhayyim.com/xrpc/ai.gftd.apps.kgCurator.status` (GET)
 
 ## Cluster Health Caveat
 

@@ -28,7 +28,7 @@ growth rings representing versioned knowledge checkpoints.
 
 ## Scope
 
-- `ki.gftd.ai` CF Worker (nanoid `k1k1b001`)
+- `ki.etzhayyim.com` CF Worker (nanoid `k1k1b001`)
 - `vertex_ki_absorb`, `vertex_ki_artifact`, `vertex_ki_ring`, `edge_ki_vascular` graph tables
 - 4 Zeebe task types: `ki.absorb`, `ki.synthesize`, `ki.bloom`, `ki.ring`
 - BPMN: `vascular-synthesis-cycle.bpmn` (R/PT60M timer)

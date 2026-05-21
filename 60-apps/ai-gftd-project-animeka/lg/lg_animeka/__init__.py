@@ -1,4 +1,4 @@
-"""animeka.gftd.ai LangGraph Server actor.
+"""animeka.etzhayyim.com LangGraph Server actor.
 
 P3 of the OSS LangGraph migration (after lg-shinshi reached production
 2026-05-08). Mirrors the same OSS FastAPI wrapper pattern: no
@@ -11,10 +11,10 @@ Replaces (when fully ported):
   - All animeka.* task handlers in pymagatama.zeebe_worker_main
 
 Keeps:
-  - CF Worker (animeka.gftd.ai) as XRPC entry — proxies to this server
+  - CF Worker (animeka.etzhayyim.com) as XRPC entry — proxies to this server
   - RunPod ComfyUI (vyp99t9px7h4dl:8188) for image gen
   - RunPod vLLM (vyp99t9px7h4dl:4000) for script/storyboard generation
-  - PDS (atproto.gftd.ai) for `app.bsky.*` social + `chat.bsky.convo.*` DM
+  - PDS (atproto.etzhayyim.com) for `app.bsky.*` social + `chat.bsky.convo.*` DM
   - Hyperdrive RW for `ai.gftd.animeka.*` domain rows
   - bpmn-dispatcher receives fire-and-forget OCEL audit only
 

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/01/1/3/general-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/01/1/3/general-services",
       "type": "dodaf:Capability",
       "name": "General Government Services Management",
       "description": "Functional capability for provision of general services to all levels of government, including personnel services, centralized procurement, and shared infrastructure. Classification: COFOG Division 01, Group 1, Class 3.",

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, Button } from '@gftdcojp/design-system';
+	import { Badge, Button } from '@etzhayyim/design-system';
 	import { identity, plan, apiKey, tenantLabel } from '$lib/stores';
 
 	function copyKey() {
@@ -95,7 +95,7 @@
 				<span>
 					Wire MCP into Claude Code:
 					<code class="rounded bg-black/40 px-1 py-0.5 text-gftd-text"
-						>https://yatabase.gftd.ai/mcp</code
+						>https://yatabase.etzhayyim.com/mcp</code
 					>
 					with your API key as the bearer.
 				</span>

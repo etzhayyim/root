@@ -1,6 +1,6 @@
 ---
 id: adr-0033-did-gftd-federation-via-did-web-shim
-title: "ADR-0033: did:gftd Federation via did:web Shim — plc.directory 依存を排し did.gftd.ai に集約"
+title: "ADR-0033: did:gftd Federation via did:web Shim — plc.directory 依存を排し did.etzhayyim.com に集約"
 status: active
 doc_type: adr
 topic: did-gftd-federation
@@ -8,9 +8,9 @@ authoritative: true
 last_verified: 2026-04-23
 authoritative_for:
   - did:gftd actor が Bluesky / 外部 atproto ecosystem に federate する canonical 経路
-  - did.gftd.ai resolver の did:web shim endpoint 仕様
+  - did.etzhayyim.com resolver の did:web shim endpoint 仕様
   - federation-visible tier の境界条件 (vertex_gftd_identity.federated)
-  - plc.directory / plc.gftd.ai 依存の排除ルール
+  - plc.directory / plc.etzhayyim.com 依存の排除ルール
 related:
   - 90-docs/adr/0010-per-did-signing-key-custody.md
   - 90-docs/adr/0014-self-hosted-did-plc.md
@@ -29,7 +29,7 @@ ADR-0029 で採用した `did:gftd` recursive Merkle method は、数千億 (10^
 actor 発行を前提に設計されている (内部 agent / cohort / matter / document / grant /
 session の 1 entity = 1 DID)。
 
-ADR-0014 (自前 plc.gftd.ai) は `did:plc` を primary identity として federation する
+ADR-0014 (自前 plc.etzhayyim.com) は `did:plc` を primary identity として federation する
 前提で書かれていたが、前提が 2 つ変わった:
 
 1. **Primary identity が `did:plc` ではなく `did:gftd`** (ADR-0029)
@@ -46,7 +46,7 @@ ADR-0014 (自前 plc.gftd.ai) は `did:plc` を primary identity として feder
 「Bluesky client が GFTD actor の post / profile を見られる」ためには、外部
 `@atproto/identity` が:
 
-1. handle (`kami.gftd.ai`) → DID を resolve できる (`_atproto` TXT)
+1. handle (`kami.etzhayyim.com`) → DID を resolve できる (`_atproto` TXT)
 2. DID → DID document を resolve できる (method-dependent)
 3. DID document から `atproto_pds` endpoint を取得できる
 4. PDS から repo / record を取得できる
@@ -57,7 +57,7 @@ ADR-0014 (自前 plc.gftd.ai) は `did:plc` を primary identity として feder
 # Decision
 
 **`did:gftd` identity を `did:web` shim に転写して federate する。**
-plc.directory / plc.gftd.ai に一切 op を投げない。
+plc.directory / plc.etzhayyim.com に一切 op を投げない。
 
 ## R1. Tier separation
 
@@ -65,7 +65,7 @@ plc.directory / plc.gftd.ai に一切 op を投げない。
 残りは pure `did:gftd` のまま内部運用。
 
 - **境界**: `vertex_gftd_identity.federated BOOLEAN DEFAULT false`
-- **enable 条件**: `federate=true` にセットされた actor のみ did.gftd.ai が応答
+- **enable 条件**: `federate=true` にセットされた actor のみ did.etzhayyim.com が応答
 - **scale 試算**: federate 対象は AI agent の大部分を除外し 10^3〜10^6 想定。
   10^11 全体の 0.0001% 以下
 - **migration**: federated flag が立った時点で `pubkey_multibase` (ADR-0029 R
@@ -78,28 +78,28 @@ plc.directory / plc.gftd.ai に一切 op を投げない。
 ADR-0029 の semantic path (sub / id / lexicon) をそのまま URL segment に転写:
 
 ```
-did:gftd:{s0}                   ↔ did:web:did.gftd.ai:{s0}
-did:gftd:{s0}:{s1}              ↔ did:web:did.gftd.ai:{s0}:{s1}
-did:gftd:{s0}:{s1}:…:{sN}       ↔ did:web:did.gftd.ai:{s0}:…:{sN}   (N≤6)
+did:gftd:{s0}                   ↔ did:web:did.etzhayyim.com:{s0}
+did:gftd:{s0}:{s1}              ↔ did:web:did.etzhayyim.com:{s0}:{s1}
+did:gftd:{s0}:{s1}:…:{sN}       ↔ did:web:did.etzhayyim.com:{s0}:…:{sN}   (N≤6)
 ```
 
 URL 側:
 
 ```
-https://did.gftd.ai/{s0}/did.json                      (depth=1, root)
-https://did.gftd.ai/{s0}/{s1}/did.json                  (depth=2)
-https://did.gftd.ai/{s0}/{s1}/.../{sN}/did.json         (depth=N)
+https://did.etzhayyim.com/{s0}/did.json                      (depth=1, root)
+https://did.etzhayyim.com/{s0}/{s1}/did.json                  (depth=2)
+https://did.etzhayyim.com/{s0}/{s1}/.../{sN}/did.json         (depth=N)
 ```
 
 具体例 (3-segment standard form `sub:id:lexicon`):
 
 ```
 did:gftd:user:kami:ai.gftd.yoro.profile
-  ↔ did:web:did.gftd.ai:user:kami:ai.gftd.yoro.profile
-  ↔ https://did.gftd.ai/user/kami/ai.gftd.yoro.profile/did.json
+  ↔ did:web:did.etzhayyim.com:user:kami:ai.gftd.yoro.profile
+  ↔ https://did.etzhayyim.com/user/kami/ai.gftd.yoro.profile/did.json
 
 did:gftd:lawfirm-kagoshima-univ:matter-2026-001:ai.gftd.apps.sashiosae.case
-  ↔ https://did.gftd.ai/lawfirm-kagoshima-univ/matter-2026-001/ai.gftd.apps.sashiosae.case/did.json
+  ↔ https://did.etzhayyim.com/lawfirm-kagoshima-univ/matter-2026-001/ai.gftd.apps.sashiosae.case/did.json
 ```
 
 `did:web` spec は colon を path separator として解釈する (`did:web:host:a:b:c` →
@@ -109,45 +109,45 @@ Phase 1 grandfather hex DID も同一 rule で serve:
 
 ```
 did:gftd:3k2vfg8qnwxhealoxy123456                       (legacy)
-  ↔ https://did.gftd.ai/3k2vfg8qnwxhealoxy123456/did.json
+  ↔ https://did.etzhayyim.com/3k2vfg8qnwxhealoxy123456/did.json
 ```
 
 ## R3. Handle binding
 
-federated actor の handle は GFTD 既存の `{name}.gftd.ai` をそのまま使う:
+federated actor の handle は GFTD 既存の `{name}.etzhayyim.com` をそのまま使う:
 
-- **handle**: `kami.gftd.ai`
-- **DID**: `did:web:did.gftd.ai:h0:h1:…` (DID host と handle host を分離)
-- **`_atproto` TXT record**: `kami.gftd.ai` の TXT に `did=did:web:did.gftd.ai:...`
+- **handle**: `kami.etzhayyim.com`
+- **DID**: `did:web:did.etzhayyim.com:h0:h1:…` (DID host と handle host を分離)
+- **`_atproto` TXT record**: `kami.etzhayyim.com` の TXT に `did=did:web:did.etzhayyim.com:...`
 
-handle host (`kami.gftd.ai`) と DID host (`did.gftd.ai`) を分離することで:
+handle host (`kami.etzhayyim.com`) と DID host (`did.etzhayyim.com`) を分離することで:
 
 - handle は既存 routing-gateway で配信 (ADR-0013)
-- DID document は did.gftd.ai に集約 (1 Worker で全 federated actor を serve)
+- DID document は did.etzhayyim.com に集約 (1 Worker で全 federated actor を serve)
 - handle 変更が DID 変更を引き起こさない (did:gftd が content-addressed なので本来不変)
 
 ## R4. DID document 生成
 
-did.gftd.ai Worker は `vertex_gftd_identity` から on-demand 生成:
+did.etzhayyim.com Worker は `vertex_gftd_identity` から on-demand 生成:
 
 ```json
 {
   "@context": ["https://www.w3.org/ns/did/v1"],
-  "id": "did:web:did.gftd.ai:user:kami:ai.gftd.yoro.profile",
+  "id": "did:web:did.etzhayyim.com:user:kami:ai.gftd.yoro.profile",
   "alsoKnownAs": [
-    "at://kami.gftd.ai",
+    "at://kami.etzhayyim.com",
     "at://kami/ai.gftd.yoro.profile/self"
   ],
   "verificationMethod": [{
-    "id": "did:web:did.gftd.ai:user:kami:ai.gftd.yoro.profile#atproto",
+    "id": "did:web:did.etzhayyim.com:user:kami:ai.gftd.yoro.profile#atproto",
     "type": "Multikey",
-    "controller": "did:web:did.gftd.ai:user:kami:ai.gftd.yoro.profile",
+    "controller": "did:web:did.etzhayyim.com:user:kami:ai.gftd.yoro.profile",
     "publicKeyMultibase": "z..." /* from vertex_gftd_identity.pubkey_multibase of nearest pubkey/root ancestor */
   }],
   "service": [{
     "id": "#atproto_pds",
     "type": "AtprotoPersonalDataServer",
-    "serviceEndpoint": "https://atproto.gftd.ai"
+    "serviceEndpoint": "https://atproto.etzhayyim.com"
   }]
 }
 ```
@@ -162,10 +162,10 @@ did.gftd.ai Worker は `vertex_gftd_identity` から on-demand 生成:
   `verificationMethod` は ADR-0029 R "Key Custody" に従い最寄り ancestor の
   `pubkey_multibase` を採用
 
-## R5. plc.directory / plc.gftd.ai 依存の排除
+## R5. plc.directory / plc.etzhayyim.com 依存の排除
 
 - `plc.directory` への op submit を**禁止**。どの戦略でも投げない
-- `plc.gftd.ai` は本 ADR で **non-goal** に確定。ADR-0014 を supersede
+- `plc.etzhayyim.com` は本 ADR で **non-goal** に確定。ADR-0014 を supersede
   - 未 deploy の場合: deploy しない (CF Worker project 作成も不要)
   - deploy 済の場合: archive 予約 (別 task で archive 手順を確定)
 
@@ -173,7 +173,7 @@ did.gftd.ai Worker は `vertex_gftd_identity` から on-demand 生成:
 
 ```
 Phase 1 (current, 2026-04-19)  pure did:gftd, federation なし
-Phase 2 (on demand)            did.gftd.ai Worker 実装 (本 ADR の R1-R4 実装)
+Phase 2 (on demand)            did.etzhayyim.com Worker 実装 (本 ADR の R1-R4 実装)
 Phase 3 (Bluesky outreach 時)  最初の federated actor に federated=true を立てる
 Phase 4 (必要時)               account-level Worker 分割 (ADR-0028 sharding pattern)
 ```
@@ -188,17 +188,17 @@ future requirements" — しかし設計判断として記録は残す必要が�
 
 - **即時性**: did:web は `@atproto/identity` の built-in resolver で今日から動く
 - **ecosystem outreach なし**: Bluesky, Ozone, atproto tooling の code 変更なし
-- **sovereignty 保持**: did.gftd.ai を gftd が運用、key material は ADR-0010 custody
+- **sovereignty 保持**: did.etzhayyim.com を gftd が運用、key material は ADR-0010 custody
 - **scale neutral**: CF Worker + edge cache で federation 視認 actor 数に線形スケール
 
 native `did:gftd` resolver の PR は長期 option として open、ただし Phase 2 以降
 federation 需要が実測で 10^4 order を超えてから再評価。
 
-## Why `did.gftd.ai` と handle host の分離?
+## Why `did.etzhayyim.com` と handle host の分離?
 
-`did:web:{handle}.gftd.ai` (handle == DID host) は 1 Worker per actor を要求し、
+`did:web:{handle}.etzhayyim.com` (handle == DID host) は 1 Worker per actor を要求し、
 federated subset が 10^4 を超えると CF Worker account 上限 (500/zone) に衝突する。
-`did:web:did.gftd.ai:h0:h1` は 1 Worker で N actor を serve するため上限に当たらない。
+`did:web:did.etzhayyim.com:h0:h1` は 1 Worker で N actor を serve するため上限に当たらない。
 
 また ADR-0029 の content-addressed identity の「DNS 非依存」性質は handle 変更で
 DID が変わらないことを保証する。handle host と DID host を分離することで、
@@ -212,7 +212,7 @@ DID が変わらないことを保証する。handle host と DID host を分離
 - matter / document / grant は parent actor の federation で間接的に参照可能
 - 真の federation 対象は "自然人 / 法人 / プロジェクト公式 account" 相当の 10^3-10^6
 
-flag を false default にすることで、**federate していない actor は did.gftd.ai に
+flag を false default にすることで、**federate していない actor は did.etzhayyim.com に
 leak しない** (privacy default)。`federated=true` は明示的な opt-in。
 
 ## Why Phase 2 実装を延期?
@@ -227,7 +227,7 @@ leak しない** (privacy default)。`federated=true` は明示的な opt-in。
 ## Positive
 
 - plc.directory 負荷 0 → Bluesky ecosystem への無害性保証
-- plc.gftd.ai 運用 cost 0 (ADR-0014 を実装しなくて済む)
+- plc.etzhayyim.com 運用 cost 0 (ADR-0014 を実装しなくて済む)
 - `did:gftd` の content-addressed 性質 (handle 変更で DID 不変) を維持したまま
   federation 互換を得る
 - ADR-0010 の per-DID signing key custody がそのまま使える (federated actor は
@@ -239,11 +239,11 @@ leak しない** (privacy default)。`federated=true` は明示的な opt-in。
 
 - `@atproto/identity` の did:web 実装に依存 → upstream が did:web spec を変える場合
   追随が必要 (現時点で did:web spec は stable)
-- handle host (`{name}.gftd.ai`) と DID host (`did.gftd.ai`) の分離を運用で意識する
+- handle host (`{name}.etzhayyim.com`) と DID host (`did.etzhayyim.com`) の分離を運用で意識する
   必要 (docs で明示)
-- Bluesky client 側から見た GFTD actor は全て `did:web:did.gftd.ai:*` prefix を
+- Bluesky client 側から見た GFTD actor は全て `did:web:did.etzhayyim.com:*` prefix を
   持つため、GFTD origin の actor が識別しやすい (privacy 観点でのリスクは限定的、
-  handle で既に .gftd.ai origin は判る)
+  handle で既に .etzhayyim.com origin は判る)
 
 # Alternatives Considered
 
@@ -279,7 +279,7 @@ plc.directory への真の需要分 submit が残るため scale 問題が部分
 
 ## Phase 2 Worker 実装 (federation 需要発生時)
 
-- `50-infra/cloudflare/workers/did-resolver/` 新規 Worker (`did.gftd.ai` route)
+- `50-infra/cloudflare/workers/did-resolver/` 新規 Worker (`did.etzhayyim.com` route)
   - `GET /:h0/did.json` (depth 1)
   - `GET /:h0/:h1/did.json` ... (depth 2-6)
   - D1 or RisingWave lookup → chain verify (ADR-0029 resolver ロジック再利用)
@@ -300,7 +300,7 @@ plc.directory への真の需要分 submit が残るため scale 問題が部分
 # References
 
 - ADR-0010 — per-DID signing key custody (key material 管理)
-- ADR-0014 — self-hosted plc.gftd.ai (本 ADR で supersede)
+- ADR-0014 — self-hosted plc.etzhayyim.com (本 ADR で supersede)
 - ADR-0019 — atproto-native identifier topology (5-layer model の土台)
 - ADR-0023 — auth Shannon-optimal 4-layer (did:web sub-actor path 実装の前例)
 - ADR-0029 — did:gftd recursive Merkle (primary identity method)

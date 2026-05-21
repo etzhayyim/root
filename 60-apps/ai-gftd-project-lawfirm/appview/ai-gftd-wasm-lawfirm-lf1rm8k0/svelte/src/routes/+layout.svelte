@@ -6,7 +6,7 @@
   interface Props { children?: Snippet }
   const { children }: Props = $props();
 
-  const BASE_TITLE = "lawfirm.gftd.ai — AI Legal Services for India";
+  const BASE_TITLE = "lawfirm.etzhayyim.com — AI Legal Services for India";
   const BASE_DESC = "AI-powered legal platform serving India in Hindi and 21 regional languages. NI Act 138, RERA, FEMA, PIL/RTI. Instant intake, auto-route to specialist counsel.";
 
   const TABS = [
@@ -38,7 +38,7 @@
     <div class="max-w-screen-2xl mx-auto flex items-center gap-4 px-4 h-12">
       <a href="/" class="flex items-center gap-2">
         <span class="text-lg">⚖️</span>
-        <span class="font-semibold text-sm">lawfirm.gftd.ai</span>
+        <span class="font-semibold text-sm">lawfirm.etzhayyim.com</span>
       </a>
       <nav class="flex items-center gap-1 ml-4">
         {#each TABS as t}

@@ -1,4 +1,4 @@
-"""gftdcojp Artificial Organism — kaisya AI agent primitives.
+"""etzhayyim Artificial Organism — kaisya AI agent primitives.
 
 ADR-2604291800 §ai_org — 8 AI agents, timer-start cadence, human-gate via
 vertex_kaisya_task.
@@ -32,7 +32,7 @@ LOG = logging.getLogger("kaisya.ai_org")
 OWNER_DID = "did:web:bpmn.etzhayyim.com"
 ORG_DID   = "did:web:kaisya.etzhayyim.com"
 
-# human_did for each agent (must match deps.toml [gftdcojp_agent.org_members])
+# human_did for each agent (must match deps.toml [etzhayyim_agent.org_members])
 _AGENT_HUMAN: dict[str, str] = {
     "kaisya_ceo_agent":        "did:web:j-kawasaki.etzhayyim.com",
     "kaisya_coo_agent":        "did:web:a-nakamura.etzhayyim.com",
@@ -150,7 +150,7 @@ async def _ceo_synthesize(agent_metrics: list[dict], pending_counts: list[dict])
     metrics_txt = json.dumps(agent_metrics, ensure_ascii=False)[:800]
     pending_txt = json.dumps(pending_counts, ensure_ascii=False)[:400]
     prompt = (
-        f"You are the CEO AI agent of Gftd Japan (gftdcojp). "
+        f"You are the CEO AI agent of Gftd Japan (etzhayyim). "
         f"Evaluate the following agent activity and pending task counts. "
         f"Identify if there is OKR drift (key objectives not progressing) and if any action is required.\n\n"
         f"Agent metrics (last 24h): {metrics_txt}\n"

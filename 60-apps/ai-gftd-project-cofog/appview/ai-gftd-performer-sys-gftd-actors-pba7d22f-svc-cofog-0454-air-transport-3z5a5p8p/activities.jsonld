@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/5/4/air-transport/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/5/4/air-transport/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Aviation and Air Transport Management Lifecycle",
       "description": "The operational process of coordinating air traffic control, managing airport operations, and overseeing airline safety compliance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/5/4/air-transport"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/5/4/air-transport"
     }
   ]
 }

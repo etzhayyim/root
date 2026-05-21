@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/3/2/specialized-hospital-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/3/2/specialized-hospital-services",
       "type": "dodaf:Capability",
       "name": "Specialized Hospital Oversight and Advanced Care Capability",
       "description": "Functional capability for managing specialized inpatient services, advanced facility protocols, and complex care coordination. Classification: COFOG Division 07, Group 3, Class 2.",

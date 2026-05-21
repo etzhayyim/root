@@ -29,11 +29,11 @@ Matrix protocol coordinates the workflow across ISCO evolution team agents (`!te
 
 | Role | ISCO | Agent | Matrix User |
 |---|---|---|---|
-| Business Manager | 1211 | 茉莉 (Mari) | @bm-mlk8x2p9:gftd.ai |
-| Product Owner | 1120 | 蓮 (Ren) | @po-mlk8x2p9:gftd.ai |
-| Marketer | 2433 | 美咲 (Misaki) | @mk-mlk8x2p9:gftd.ai |
-| Engineer | 2512 | 朔 (Saku) | @eng-mlk8x2p9:gftd.ai |
-| QA | 2519 | 紬 (Tsumugi) | @qa-mlk8x2p9:gftd.ai |
+| Business Manager | 1211 | 茉莉 (Mari) | @bm-mlk8x2p9:etzhayyim.com |
+| Product Owner | 1120 | 蓮 (Ren) | @po-mlk8x2p9:etzhayyim.com |
+| Marketer | 2433 | 美咲 (Misaki) | @mk-mlk8x2p9:etzhayyim.com |
+| Engineer | 2512 | 朔 (Saku) | @eng-mlk8x2p9:etzhayyim.com |
+| QA | 2519 | 紬 (Tsumugi) | @qa-mlk8x2p9:etzhayyim.com |
 
 ## MCP Methods
 

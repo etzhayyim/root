@@ -135,7 +135,7 @@ transition:chat.bsky                             — Bluesky DM
 transition:generic                               — transitional
 include:ai.gftd.convo.authConversation           — permission set
 repo:com.atproto.repo.createRecord?collection=app.bsky.feed.post — resource scope
-rpc?aud=did:web:test.gftd.ai&lxm=ai.gftd.pds.getProfile        — rpc scope
+rpc?aud=did:web:test.etzhayyim.com&lxm=ai.gftd.pds.getProfile        — rpc scope
 blob?accept=image/*                              — blob (standalone only)
 account?action=manage                            — account (standalone only)
 identity:manage                                  — identity (standalone only)

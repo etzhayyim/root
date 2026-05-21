@@ -1,11 +1,11 @@
 {
-  "@context": "https://gftd.ai/ns/project",
+  "@context": "https://etzhayyim.com/ns/project",
   "@type": "Project",
-  "@id": "did:web:watashi.gftd.ai",
+  "@id": "did:web:watashi.etzhayyim.com",
   "name": "watashi",
   "displayName": "Watashi (渡し)",
   "description": "Cross-platform mouse/keyboard sharing between macOS and Windows machines. Cursor ferry between screens. Rust native agent + WASM coordination + KAMI Engine UI.",
-  "domain": "watashi.gftd.ai",
+  "domain": "watashi.etzhayyim.com",
   "status": "developing",
   "runtimeType": "native",
   "capabilities": [

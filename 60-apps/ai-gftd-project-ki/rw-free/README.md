@@ -22,7 +22,7 @@ periodically  →  ring       →  RingRecord       (dendrochronology snapshot)
 ## Architectural note (different from sibling rw-free packages)
 
 Vendor's ki is a thin-edge dispatcher — its Worker proxies XRPC calls to
-`dispatcher.gftd.ai`, which writes the underlying record into RisingWave.
+`dispatcher.etzhayyim.com`, which writes the underlying record into RisingWave.
 On the etzhayyim substrate per ADR-2605111200:
 
 - The CF Worker stays a **pure thin XRPC facade** (no RW write, no createKyselyDb).

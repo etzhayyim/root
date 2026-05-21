@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:air-dcs.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:air-dcs.etzhayyim.com",
   "name": "air-dcs",
   "nanoid": "a1rd3cs0",
   "project": "air-dcs",

@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kg-curator-analyze-coverage-v1',
-                 'did:web:kg-curator.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kg-curator-analyze-coverage-v1',
+                 'did:web:kg-curator.etzhayyim.com',
                  'kg_curator_analyze_coverage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_kg_curator_analyze_coverage" '
-                 'targetNamespace="https://gftd.ai/bpmn/kgCurator"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/kgCurator"><bpmn:process '
                  'id="kg_curator_analyze_coverage" name="kgCurator analyzeCoverage" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.kgCurator.analyzeCoverage", "version": 1, "resultTimeoutMs": '
@@ -48,11 +48,11 @@ UP = [{'sql': '\n'
                  1045,
                  '00-contracts/bpmn/ai/gftd/kgCurator/analyzeCoverage.bpmn',
                  '2026-04-30T20:40:00+09:00',
-                 'did:web:kg-curator.gftd.ai',
-                 'did:web:kg-curator.gftd.ai',
+                 'did:web:kg-curator.etzhayyim.com',
+                 'did:web:kg-curator.etzhayyim.com',
                  'sys.bpmn.seed.kg-curator',
-                 'did:web:kg-curator.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kg-curator-analyze-coverage-v1']},
+                 'did:web:kg-curator.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kg-curator-analyze-coverage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,18 +67,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kg-curator-analyzeCoverage-v1',
-                 'did:web:kg-curator.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kg-curator-analyzeCoverage-v1',
+                 'did:web:kg-curator.etzhayyim.com',
                  'ai.gftd.apps.kgCurator.analyzeCoverage',
                  'kg_curator_analyze_coverage',
                  120000,
                  '',
                  '2026-04-30T20:40:00+09:00',
-                 'did:web:kg-curator.gftd.ai',
-                 'did:web:kg-curator.gftd.ai',
+                 'did:web:kg-curator.etzhayyim.com',
+                 'did:web:kg-curator.etzhayyim.com',
                  'sys.bpmn.seed.kg-curator',
-                 'did:web:kg-curator.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kg-curator-analyzeCoverage-v1']},
+                 'did:web:kg-curator.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kg-curator-analyzeCoverage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,14 +94,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kg-curator-expand-title-v1',
-                 'did:web:kg-curator.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kg-curator-expand-title-v1',
+                 'did:web:kg-curator.etzhayyim.com',
                  'kg_curator_expand_title',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_kg_curator_expand_title" '
-                 'targetNamespace="https://gftd.ai/bpmn/kgCurator"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/kgCurator"><bpmn:process '
                  'id="kg_curator_expand_title" name="kgCurator expandTitle" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.kgCurator.expandTitle", "version": 1, "resultTimeoutMs": 300000 '
@@ -115,11 +115,11 @@ UP = [{'sql': '\n'
                  1021,
                  '00-contracts/bpmn/ai/gftd/kgCurator/expandTitle.bpmn',
                  '2026-04-30T20:40:00+09:00',
-                 'did:web:kg-curator.gftd.ai',
-                 'did:web:kg-curator.gftd.ai',
+                 'did:web:kg-curator.etzhayyim.com',
+                 'did:web:kg-curator.etzhayyim.com',
                  'sys.bpmn.seed.kg-curator',
-                 'did:web:kg-curator.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kg-curator-expand-title-v1']},
+                 'did:web:kg-curator.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kg-curator-expand-title-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,18 +134,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kg-curator-expandTitle-v1',
-                 'did:web:kg-curator.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kg-curator-expandTitle-v1',
+                 'did:web:kg-curator.etzhayyim.com',
                  'ai.gftd.apps.kgCurator.expandTitle',
                  'kg_curator_expand_title',
                  300000,
                  'vertex_game_character,vertex_actor,vertex_actor_manifest',
                  '2026-04-30T20:40:00+09:00',
-                 'did:web:kg-curator.gftd.ai',
-                 'did:web:kg-curator.gftd.ai',
+                 'did:web:kg-curator.etzhayyim.com',
+                 'did:web:kg-curator.etzhayyim.com',
                  'sys.bpmn.seed.kg-curator',
-                 'did:web:kg-curator.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kg-curator-expandTitle-v1']},
+                 'did:web:kg-curator.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kg-curator-expandTitle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -161,14 +161,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kg-curator-status-v1',
-                 'did:web:kg-curator.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kg-curator-status-v1',
+                 'did:web:kg-curator.etzhayyim.com',
                  'kg_curator_status',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_kg_curator_status" '
-                 'targetNamespace="https://gftd.ai/bpmn/kgCurator"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/kgCurator"><bpmn:process '
                  'id="kg_curator_status" name="kgCurator status" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.kgCurator.status", "version": 1, "resultTimeoutMs": 30000 '
@@ -182,11 +182,11 @@ UP = [{'sql': '\n'
                  987,
                  '00-contracts/bpmn/ai/gftd/kgCurator/status.bpmn',
                  '2026-04-30T20:40:00+09:00',
-                 'did:web:kg-curator.gftd.ai',
-                 'did:web:kg-curator.gftd.ai',
+                 'did:web:kg-curator.etzhayyim.com',
+                 'did:web:kg-curator.etzhayyim.com',
                  'sys.bpmn.seed.kg-curator',
-                 'did:web:kg-curator.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kg-curator-status-v1']},
+                 'did:web:kg-curator.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kg-curator-status-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -201,31 +201,31 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kg-curator-status-v1',
-                 'did:web:kg-curator.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kg-curator-status-v1',
+                 'did:web:kg-curator.etzhayyim.com',
                  'ai.gftd.apps.kgCurator.status',
                  'kg_curator_status',
                  30000,
                  '',
                  '2026-04-30T20:40:00+09:00',
-                 'did:web:kg-curator.gftd.ai',
-                 'did:web:kg-curator.gftd.ai',
+                 'did:web:kg-curator.etzhayyim.com',
+                 'did:web:kg-curator.etzhayyim.com',
                  'sys.bpmn.seed.kg-curator',
-                 'did:web:kg-curator.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kg-curator-status-v1']}]
+                 'did:web:kg-curator.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kg-curator-status-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kg-curator-analyzeCoverage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kg-curator-analyzeCoverage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kg-curator-analyze-coverage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kg-curator-analyze-coverage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kg-curator-expandTitle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kg-curator-expandTitle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kg-curator-expand-title-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kg-curator-expand-title-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kg-curator-status-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kg-curator-status-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kg-curator-status-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kg-curator-status-v1']}]
 
 
 def upgrade() -> None:

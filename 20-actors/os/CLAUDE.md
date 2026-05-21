@@ -51,7 +51,7 @@ KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成
 ```
 60-apps/ai-gftd-project-os/
 ├── CLAUDE.md                  # This file
-├── magatama.jsonld            # Magatama app definition (did:web:os.gftd.ai)
+├── magatama.jsonld            # Magatama app definition (did:web:os.etzhayyim.com)
 ├── PROJECT.jsonld             # Metadata
 ├── OWNERS
 ├── src/
@@ -150,5 +150,5 @@ wasm-pack build --target web kami-os
 # Magatama OS service (TS Native)
 cd 60-apps/ai-gftd-project-os
 gftd build
-gftd deploy --smoke-url https://os-gftd-01.gftd.ai/health
+gftd deploy --smoke-url https://os-gftd-01.etzhayyim.com/health
 ```

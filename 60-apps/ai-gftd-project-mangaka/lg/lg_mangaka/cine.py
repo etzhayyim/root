@@ -32,7 +32,7 @@ import psycopg
 
 _log = logging.getLogger(__name__)
 
-_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _RW_URL = os.environ.get("RW_URL", "")
 _ORG_DID = os.environ.get("MANGAKA_ORG_DID", "anon")
 
@@ -48,7 +48,7 @@ STAGE_NAMES: tuple[str, ...] = (
 )
 
 # Default per-stage producer DIDs. Override per-graph if you stand up
-# specialized actor DIDs (e.g. did:web:mangaka.gftd.ai:actor:storyboarder).
+# specialized actor DIDs (e.g. did:web:mangaka.etzhayyim.com:actor:storyboarder).
 _DEFAULT_PRODUCER_DIDS: dict[str, str] = {
     "worldModel":    f"{_APP_DID}:actor:storyboarder",
     "usdScene":      f"{_APP_DID}:actor:layoutDesigner",

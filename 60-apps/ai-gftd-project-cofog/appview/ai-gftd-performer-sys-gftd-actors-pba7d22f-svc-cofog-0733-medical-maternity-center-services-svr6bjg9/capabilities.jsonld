@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/3/3/medical-maternity-center-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/3/3/medical-maternity-center-services",
       "type": "dodaf:Capability",
       "name": "Maternity and Child Health Center Oversight Capability",
       "description": "Functional capability for managing maternity, obstetric, and neonatal services and center safety standards. Classification: COFOG Division 07, Group 3, Class 3.",

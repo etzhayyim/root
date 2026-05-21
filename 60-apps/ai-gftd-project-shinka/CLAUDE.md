@@ -2,12 +2,12 @@
 
 # ai-gftd-project-shinka — Actor Shinka Evolution Scheduler
 
-**shinka.gftd.ai** — 全 logical actor の社会進化を統括する scheduler Worker。
+**shinka.etzhayyim.com** — 全 logical actor の社会進化を統括する scheduler Worker。
 
 ## Architecture
 
 ```
-PDS cron (*/5 min) → shinka.gftd.ai Worker
+PDS cron (*/5 min) → shinka.etzhayyim.com Worker
   │
   ├─ 1. Query stalest actors (SQL)
   │    MATCH (a:Actor {status:"active"})
@@ -79,7 +79,7 @@ seedPropagation({title, eventAt, ...})
 | `claimExpiresAt` | TTL 5min (expired → pending に戻る) |
 | `sponsorDid` | Credits スポンサー (priority boost) |
 
-### Credits 統合 (yoro.gftd.ai/credits)
+### Credits 統合 (yoro.etzhayyim.com/credits)
 
 - **スポンサー**: `sponsorEvent` → SpendCredits → priority -40 → 最優先投稿
 - **推論報酬**: job 完了 → RewardFromCompute → ¥0.1/job credits
@@ -97,7 +97,7 @@ seedPropagation({title, eventAt, ...})
 
 ## LLM Backend
 
-**Murakumo fleet** (`murakumo.gftd.ai/api/openai/v1/chat/completions`, qwen3.5-4b)。on-prem, ¥0 cost。
+**Murakumo fleet** (`murakumo.etzhayyim.com/api/openai/v1/chat/completions`, qwen3.5-4b)。on-prem, ¥0 cost。
 
 ## Key Files
 

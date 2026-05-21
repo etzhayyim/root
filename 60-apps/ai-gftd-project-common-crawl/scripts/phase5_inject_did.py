@@ -6,8 +6,8 @@ creates DID actors (com.atproto.identity.create) and domain metadata records
 (ai.gftd.apps.site.domain) in PDS via XRPC.
 
 DID hierarchy:
-  did:web:site.gftd.ai                          (APP primary, existing)
-  did:web:site.gftd.ai:{domain-slug}            (domain DID, created here)
+  did:web:site.etzhayyim.com                          (APP primary, existing)
+  did:web:site.etzhayyim.com:{domain-slug}            (domain DID, created here)
 
 Usage:
   python3 phase5_inject_did.py --limit 100 --dry-run
@@ -35,8 +35,8 @@ GRAPH_DIR = BASE_DIR / "graph"
 # State file falls back to /tmp when CC_DATA_DIR doesn't exist
 _state_dir = BASE_DIR / "scripts" if (BASE_DIR / "scripts").exists() else Path("/tmp")
 STATE_FILE = _state_dir / ".phase5_state.json"
-PDS_URL = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
-SITE_APP_DID = "did:web:site.gftd.ai"
+PDS_URL = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
+SITE_APP_DID = "did:web:site.etzhayyim.com"
 
 # Auth token from gftd auth
 AUTH_TOKEN_FILE = Path.home() / ".gftd" / "auth.json"
@@ -188,7 +188,7 @@ def inject_domains(domains: list[dict], dry_run: bool, batch_size: int):
 
         domain_name = domain["domain"]
         slug = domain.get("slug", domain_name.replace(".", "-").replace("_", "-"))
-        did = domain.get("did", f"did:web:site.gftd.ai:{slug}")
+        did = domain.get("did", f"did:web:site.etzhayyim.com:{slug}")
         topics = domain.get("topics", [])
         page_count = domain.get("pageCount", 0)
         sample_titles = domain.get("sampleTitles", [])
@@ -211,7 +211,7 @@ def inject_domains(domains: list[dict], dry_run: bool, batch_size: int):
             continue
 
         # 1. Create DID actor (com.atproto.identity.create)
-        # hostDid tells PDS to create the DID under site.gftd.ai namespace
+        # hostDid tells PDS to create the DID under site.etzhayyim.com namespace
         # documentJson carries displayName/description for profile auto-creation
         doc = {
             "displayName": display_name,
@@ -287,6 +287,7 @@ def inject_domains(domains: list[dict], dry_run: bool, batch_size: int):
     log.info(f"Phase 5 {status}: {created_count} created, {error_count} errors, {skipped_count} skipped, {elapsed:.0f}s")
 
 
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 def load_domains_from_risingwave(limit: int = 0) -> list[dict]:
     """Load gap domains directly from RisingWave.
 
@@ -331,7 +332,7 @@ def load_domains_from_risingwave(limit: int = 0) -> list[dict]:
             except Exception:
                 pass
         slug = domain.replace(".", "-")
-        did = f"did:web:site.gftd.ai:{slug}"
+        did = f"did:web:site.etzhayyim.com:{slug}"
         domains.append({
             "domain": domain,
             "did": did,

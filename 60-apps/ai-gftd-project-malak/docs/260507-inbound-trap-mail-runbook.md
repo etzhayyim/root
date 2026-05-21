@@ -11,7 +11,7 @@ defensive CTI evidence collection.
 Active trap:
 
 ```text
-trap-email-malak-spamtrap-primary@gftd.ai
+trap-email-malak-spamtrap-primary@etzhayyim.com
 ```
 
 Telnyx/SMS is intentionally not active in this phase.
@@ -20,10 +20,10 @@ Telnyx/SMS is intentionally not active in this phase.
 
 ```text
 owned sender / external inbound mail
-  -> *@gftd.ai Cloudflare Email Routing catch-all
+  -> *@etzhayyim.com Cloudflare Email Routing catch-all
   -> ai-gftd-email-relay Worker email() handler
   -> PDS record:
-     did:web:ml1nb0nd.gftd.ai / ai.gftd.apps.mailer.inboundEmail
+     did:web:ml1nb0nd.etzhayyim.com / ai.gftd.apps.mailer.inboundEmail
   -> LaunchAgent ai.gftd.malak-trap-sync, every 300s
   -> vertex_malak_trap_message
 ```

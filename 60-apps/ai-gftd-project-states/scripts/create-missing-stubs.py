@@ -25,8 +25,8 @@ def existing_isos() -> set:
 def make_stub(iso: str, display_name: str) -> dict:
     nanoid = nanoid_for(iso)
     return {
-        "@context": "https://gftd.ai/ns/magatama/v1",
-        "@id": f"did:web:{iso}.state.gftd.ai",
+        "@context": "https://etzhayyim.com/ns/magatama/v1",
+        "@id": f"did:web:{iso}.state.etzhayyim.com",
         "convoSystemPrompt": f"You are the {display_name} AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
         "governance": {"raci": "responsible", "classification": "public", "complianceFrameworks": []},
         "kpi": ["GovOrg DID registration count"],
@@ -46,7 +46,7 @@ def make_stub(iso: str, display_name: str) -> dict:
             "agentType": "autonomous"
         },
         "project": "states",
-        "routes": [{"host": f"{iso}.state.gftd.ai", "paths": ["/"], "tls": True}],
+        "routes": [{"host": f"{iso}.state.etzhayyim.com", "paths": ["/"], "tls": True}],
         "runtimeType": "worker",
         "space": {
             "channels": [{"default": True, "description": f"{display_name} activity feed", "kind": "public", "name": f"gov-{iso}-feed"}],

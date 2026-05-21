@@ -33,13 +33,13 @@ amended_by:
 
 # Context
 
-magatama actor の CF Worker (T3 TS Native, F-Plan 2026-04-13) は command を `sdk.app.command(nsid, handler, asAgentTool("..."), ...)` で宣言し、`CommandEntry.agentToolDesc` → `buildActorCardFromCommands()` → `ActorCard.tools[]` 経由で **PDS governance manifest に登録、`mcp.gftd.ai/xrpc/ai.gftd.mcp.message` の単一 MCP endpoint で全 actor 分を合成公開** している。
+magatama actor の CF Worker (T3 TS Native, F-Plan 2026-04-13) は command を `sdk.app.command(nsid, handler, asAgentTool("..."), ...)` で宣言し、`CommandEntry.agentToolDesc` → `buildActorCardFromCommands()` → `ActorCard.tools[]` 経由で **PDS governance manifest に登録、`mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` の単一 MCP endpoint で全 actor 分を合成公開** している。
 
 これには 3 つの問題がある:
 
 1. **scope が PDS 集約**: LangGraph / OpenAI Apps SDK / Claude Desktop 等の外部 LLM agent は actor 単位で tool scope を切りたい (例: lawfirm actor の tool だけを bind)。現状は全 actor tool を 1 endpoint で混ぜて公開しており、per-actor 切り出しは client 側 filter に頼る。
 2. **discovery 規格の不在**: AtProto XRPC 仕様は service discovery を定義していない (*"there is not yet a consistent way to enumerate which endpoints do or do not"* — atproto.com/specs/xrpc)。AT-native client は lexicon JSON をビルド時取り込みで解決するが、LLM agent は runtime discovery を必要とする。
-3. **2026 年事実上標準との乖離**: LLM agent tool exposure は **MCP (Model Context Protocol)** に収束した。Anthropic (origin) / OpenAI Apps SDK / LangGraph Server / Claude Code / Cursor が `/mcp` Streamable HTTP endpoint を採用。OpenAI Assistants API は 2026-08-26 終了、Responses API + MCP へ移行。repo も既に `ai.gftd.mcp.message` NSID と `mcp.gftd.ai/mcp` connector endpoint を持つが、per-actor Worker 側には MCP server 実体が無い。
+3. **2026 年事実上標準との乖離**: LLM agent tool exposure は **MCP (Model Context Protocol)** に収束した。Anthropic (origin) / OpenAI Apps SDK / LangGraph Server / Claude Code / Cursor が `/mcp` Streamable HTTP endpoint を採用。OpenAI Assistants API は 2026-08-26 終了、Responses API + MCP へ移行。repo も既に `ai.gftd.mcp.message` NSID と `mcp.etzhayyim.com/mcp` connector endpoint を持つが、per-actor Worker 側には MCP server 実体が無い。
 
 5 プロトコル比較:
 
@@ -112,7 +112,7 @@ Lexicon → Zod + MCP tool manifest を単一 codegen で出す:
 
 **Risks / migration notes:**
 - MCP SSE stream を長期保持する client は CF Worker 実行時間制約 (30s default, 15min paid) の影響を受ける。tool call は単発 request/response なので影響小。subscribe 系の将来機能は DO に逃がす。
-- `mcp.gftd.ai/mcp` 集約 endpoint と per-actor `/mcp` が並存。両者は同じ tool 集合の 2 scope (all-actor vs per-actor) を出す。consumer 側で**どちらを指すかを明示**させる (例: Claude connector は集約、LangGraph は per-actor)。
+- `mcp.etzhayyim.com/mcp` 集約 endpoint と per-actor `/mcp` が並存。両者は同じ tool 集合の 2 scope (all-actor vs per-actor) を出す。consumer 側で**どちらを指すかを明示**させる (例: Claude connector は集約、LangGraph は per-actor)。
 - codegen 追加は CI で `gen-tool-manifest.mjs` 実行を `gen-service-from-lexicon.mjs` と同 step にまとめる。build 時間 +~2s/actor。
 
 # Alternatives Considered

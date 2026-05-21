@@ -23,7 +23,7 @@
  *   prior `status:"error"` and move on.
  *
  * Flags:
- *   --pod-base <url>      Override POD_BASE env (default https://mangaka.gftd.ai)
+ *   --pod-base <url>      Override POD_BASE env (default https://mangaka.etzhayyim.com)
  *   --characters-dir <p>  Override the character roster directory
  *   --cursor <path>       Cursor file (default ./author-ghosthacker-vrms.cursor.json)
  *   --rkey-prefix <s>     Character rkey prefix (default "ch-")
@@ -39,7 +39,7 @@
  * driver short-circuits before the POST to save the GPU minutes.
  */
 
-const DEFAULT_POD_BASE = "https://mangaka.gftd.ai";
+const DEFAULT_POD_BASE = "https://mangaka.etzhayyim.com";
 const DEFAULT_CHARACTERS_DIR =
   "60-apps/ai-gftd-project-mangaka/data/ghosthacker/resources/characters";
 const DEFAULT_CURSOR = "author-ghosthacker-vrms.cursor.json";
@@ -128,7 +128,7 @@ function printHelp() {
   console.log(`author-ghosthacker-vrms.ts — batch driver for compose_character_vrm
 
 Usage:
-  POD_BASE=https://mangaka.gftd.ai MANGAKA_API_KEY=...
+  POD_BASE=https://mangaka.etzhayyim.com MANGAKA_API_KEY=...
   deno run -A scripts/author-ghosthacker-vrms.ts [flags]
 
 Flags:

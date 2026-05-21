@@ -1,6 +1,6 @@
-//! # `yata` — Rust client for [yatabase](https://yatabase.gftd.ai)
+//! # `yata` — Rust client for [yatabase](https://yatabase.etzhayyim.com)
 //!
-//! See the workspace [README](https://github.com/gftdcojp/yata#readme)
+//! See the workspace [README](https://github.com/etzhayyim/yata#readme)
 //! for a quickstart.
 //!
 //! ## Public API tour
@@ -17,7 +17,7 @@
 //!     #[yata(vector(dim = 768))] embedding: Vec<f32>,
 //! }
 //!
-//! let y = Yata::connect("yatabase://sk_live_yata_xxx@yatabase.gftd.ai/my-db").await?;
+//! let y = Yata::connect("yatabase://sk_live_yata_xxx@yatabase.etzhayyim.com/my-db").await?;
 //! y.migrate::<(Person,)>().await?;
 //! y.insert(Person { /* ... */ }).await?;
 //!

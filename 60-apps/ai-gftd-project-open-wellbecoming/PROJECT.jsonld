@@ -1,15 +1,15 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "@id": "https://{nanoid}.gftd.ai/api/grpc",
+  "@id": "https://{nanoid}.etzhayyim.com/api/grpc",
   "name": "ai-gftd-project-well-becoming",
   "description": "GFTD Well-Becoming - becoming aspirations and wellness monitoring via MCP",
   "applicationCategory": "Health",
   "operatingSystem": "Kubernetes",
   "author": {
     "@type": "Organization",
-    "name": "gftdcojp",
-    "url": "https://gftd.ai"
+    "name": "etzhayyim",
+    "url": "https://etzhayyim.com"
   },
   "component": [
     {
@@ -40,7 +40,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

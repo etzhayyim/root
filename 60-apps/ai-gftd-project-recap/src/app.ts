@@ -1,4 +1,4 @@
-// recap.gftd.ai — multi-platform media download agent (research/education).
+// recap.etzhayyim.com — multi-platform media download agent (research/education).
 // L3 thin edge dispatcher: forwards XRPC to lg-recap LangGraph server.
 // Policy: fair-use only (research/authorized scope). Arbitrary public download prohibited.
 
@@ -60,7 +60,7 @@ async function proxyToLg(
   nsidStr: string,
   body: Record<string, unknown>,
 ): Promise<string> {
-  const base = ((env.DISPATCHER_URL as string | undefined) ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = ((env.DISPATCHER_URL as string | undefined) ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const secret = await resolveSecret(env.DISPATCHER_INTERNAL_SECRET);
   if (secret) headers["x-internal-trust"] = secret;

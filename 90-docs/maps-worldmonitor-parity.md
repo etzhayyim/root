@@ -1,6 +1,6 @@
 ---
 id: maps-worldmonitor-parity
-title: "maps.gftd.ai World Monitor parity status"
+title: "maps.etzhayyim.com World Monitor parity status"
 status: active
 doc_type: reference
 topic: maps-world-monitor-parity
@@ -17,7 +17,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# maps.gftd.ai World Monitor Parity Plan
+# maps.etzhayyim.com World Monitor Parity Plan
 
 Status date: 2026-05-14
 
@@ -31,7 +31,7 @@ resident intelligence dashboard surface.
 Last verified on 2026-05-14 against:
 
 ```bash
-POST https://maps.gftd.ai/xrpc/ai.gftd.apps.maps.getWorldMonitorDashboard
+POST https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.getWorldMonitorDashboard
 ```
 
 Observed dashboard evidence:
@@ -71,7 +71,7 @@ The public supporting XRPCs also returned HTTP 200 from the pod LangServer:
 
 | Runtime surface | Coverage | Notes |
 |---|---:|---|
-| Public World Monitor XRPC surface | 100% | Five public XRPCs return HTTP 200 through `maps.gftd.ai`; dashboard reports `productCoveragePct = 100` and `gaps = []`. |
+| Public World Monitor XRPC surface | 100% | Five public XRPCs return HTTP 200 through `maps.etzhayyim.com`; dashboard reports `productCoveragePct = 100` and `gaps = []`. |
 | Cloudflare edge / langserver contract surface | 90% | Worker registers the World Monitor XRPCs and proxies them to pod-side reads; the edge remains a thin facade. |
 | Edge-local product semantics | 80% | World Monitor product semantics are now pod-side. Remaining edge-local reads should be retired or converted as follow-up. |
 | maps coverage LangGraph | 65% | `maps-coverage-langgraph` runs coverage tick and stats refresh flows. Scope is coverage only. |
@@ -83,8 +83,8 @@ The public supporting XRPCs also returned HTTP 200 from the pod LangServer:
 
 ### P0: Restore Reliable Runtime
 
-- [x] Redeploy `magatama-uqpel6i6` so `maps.gftd.ai/xrpc/*` routes hit the Worker instead of timing out.
-- [x] Verify `ai.gftd.apps.maps.getDashboard` returns 200 on `maps.gftd.ai`.
+- [x] Redeploy `magatama-uqpel6i6` so `maps.etzhayyim.com/xrpc/*` routes hit the Worker instead of timing out.
+- [x] Verify `ai.gftd.apps.maps.getDashboard` returns 200 on `maps.etzhayyim.com`.
 - [x] Add defensive edge degrade for dashboard collection reads and live aircraft/satellite reads when Worker-side DB access is prohibited.
 - [x] Move World Monitor dashboard counts, risk snapshot, event feed, brief, alerts, and market signals to pod-side maps LangServer reads.
 
@@ -115,7 +115,7 @@ The public supporting XRPCs also returned HTTP 200 from the pod LangServer:
 Use the repo-local CLI for the legacy `magatama.jsonld` deploy path:
 
 ```bash
-/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/gftd deploy
+/Users/junkawasaki/github/etzhayyim-root/gftd deploy
 ```
 
 The `/usr/local/bin/gftd` binary is a newer `gftd.json`-based control-plane CLI and does not deploy this component.

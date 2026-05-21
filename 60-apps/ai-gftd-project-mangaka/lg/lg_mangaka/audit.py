@@ -40,7 +40,7 @@ async def emit_audit(
     """Send one OCEL event to BPMN dispatcher's `generic.audit.emit`.
 
     Args:
-        actor: did:web:mng4k4x1.gftd.ai (or sub-actor DID for path-based scope)
+        actor: did:web:mng4k4x1.etzhayyim.com (or sub-actor DID for path-based scope)
         activity: e.g. "scene.bulkSeed.start", "scene.render.success"
         object_id: e.g. "melina-elden-ring:scene-3"
         object_type: e.g. "mangaka.scene"

@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/06/1/0/housing-development/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/06/1/0/housing-development/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Housing Development and Allocation Lifecycle",
       "description": "The administrative process of planning housing projects, coordinating construction, and monitoring quality standards.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/06/1/0/housing-development"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/1/0/housing-development"
     }
   ]
 }

@@ -19,26 +19,26 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/jpn-gov-budget-management",
+      "id": "https://kyber-services.etzhayyim.com/activities/jpn-gov-budget-management",
       "type": "dodaf:OperationalActivity",
       "name": "Japan Government Budget Management Workflow",
       "description": "Automated workflow for budget distribution and execution tracking (COFOG 01.1).",
       "cofog": "01.1",
       "hasSubActivity": [
         {
-          "id": "https://kyber-services.gftd.ai/activities/budget-initial-distribution",
+          "id": "https://kyber-services.etzhayyim.com/activities/budget-initial-distribution",
           "type": "dodaf:OperationalActivity",
           "name": "Initial Budget Distribution",
           "description": "Allocating initial funds to L1-L3 services based on cabinet decision."
         },
         {
-          "id": "https://kyber-services.gftd.ai/activities/budget-expense-execution",
+          "id": "https://kyber-services.etzhayyim.com/activities/budget-expense-execution",
           "type": "dodaf:OperationalActivity",
           "name": "Budget Expense Execution",
           "description": "Recording and verifying expenses from L3 divisions."
         },
         {
-          "id": "https://kyber-services.gftd.ai/activities/budget-variance-monitoring",
+          "id": "https://kyber-services.etzhayyim.com/activities/budget-variance-monitoring",
           "type": "dodaf:OperationalActivity",
           "name": "Budget Variance Monitoring",
           "description": "Monitoring deviation from allocated budget and triggering alerts."

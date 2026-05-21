@@ -9,8 +9,8 @@
 	 */
 	import { tick } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
-	import { Avatar, Chip } from '@gftdcojp/design-system';
-	import { playTap, playSuccess } from '@gftdcojp/design-system/audio';
+	import { Avatar, Chip } from '@etzhayyim/design-system';
+	import { playTap, playSuccess } from '@etzhayyim/design-system/audio';
 	import { createPost, detectFacets, resolveFacetMentions, uploadBlob, uploadVideo, getVideoJobStatus, setThreadgate, searchActorsTypeahead, atQuery, getCurrentDID } from '$lib/atproto-agent';
 	import { getSessionToken } from '$lib/auth/passkey';
 	import type { PostView, AuthorProfile, ThreadgateRule } from '$lib/atproto-agent';

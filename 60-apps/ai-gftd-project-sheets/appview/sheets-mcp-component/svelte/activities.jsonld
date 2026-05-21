@@ -1,6 +1,6 @@
 {
   "@context": {
-    "kyber": "https://kyber-services.gftd.ai/schema#",
+    "kyber": "https://kyber-services.etzhayyim.com/schema#",
     "prov": "http://www.w3.org/ns/prov#",
     "schema": "https://schema.org/"
   },

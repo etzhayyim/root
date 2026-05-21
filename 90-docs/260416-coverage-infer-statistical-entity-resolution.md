@@ -120,7 +120,7 @@ cd 30-graph/risingwave-udf
 
 # Or step-by-step:
 ./deploy.sh build     # docker build
-./deploy.sh push      # ghcr.io/gftdcojp/risingwave-python-udf:latest
+./deploy.sh push      # ghcr.io/etzhayyim/risingwave-python-udf:latest
 ./deploy.sh apply     # kubectl apply + rollout wait
 ```
 
@@ -128,7 +128,7 @@ cd 30-graph/risingwave-udf
 
 | Resource | Value |
 |---|---|
-| Image | `ghcr.io/gftdcojp/risingwave-python-udf:latest` |
+| Image | `ghcr.io/etzhayyim/risingwave-python-udf:latest` |
 | Namespace | `risingwave` |
 | Port | 8815 (Arrow Flight) |
 | Node selector | `rw-role: compute` (co-locate with RisingWave) |

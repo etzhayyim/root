@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:vin.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:vin.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -207,7 +207,7 @@
               "volume": "$input.record.volume",
               "year": "$input.record.year"
             },
-            "template": "MERGE (sc:ShipmentCohort {cohortDid: 'did:web:vin.gftd.ai:cohort:shipment:' + $jurisdiction + ':' + toString($year) + ':' + $vehicleType}) SET sc.label = $jurisdiction + ' ' + toString($year) + ' ' + $vehicleType, sc.jurisdiction = $jurisdiction, sc.year = $year, sc.vehicle_type = $vehicleType, sc.volume = $volume, sc.repo = $did, sc.updated_at = datetime() MERGE (sc)-[:AGGREGATES]->(:ShipmentVolume {_rkey: $rkey})"
+            "template": "MERGE (sc:ShipmentCohort {cohortDid: 'did:web:vin.etzhayyim.com:cohort:shipment:' + $jurisdiction + ':' + toString($year) + ':' + $vehicleType}) SET sc.label = $jurisdiction + ' ' + toString($year) + ' ' + $vehicleType, sc.jurisdiction = $jurisdiction, sc.year = $year, sc.vehicle_type = $vehicleType, sc.volume = $volume, sc.repo = $did, sc.updated_at = datetime() MERGE (sc)-[:AGGREGATES]->(:ShipmentVolume {_rkey: $rkey})"
           },
           "depends_on": [
             "linkShipmentEdges"

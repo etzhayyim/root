@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/02/5/0/defense-nec/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/02/5/0/defense-nec/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "defense-nec Process",
       "description": "Main governmental functional process for defense-nec.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/02/5/0/defense-nec"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/02/5/0/defense-nec"
     }
   ]
 }

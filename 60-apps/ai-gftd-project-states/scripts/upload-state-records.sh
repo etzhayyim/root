@@ -46,7 +46,7 @@ for kind in $kinds; do
 
     AT_TOKEN=$(gftd agent-token --lxm com.atproto.repo.putRecord --ttl 60 2>/dev/null)
     http=$(curl -s -m "$TIMEOUT" -o /tmp/_up_body.json -w '%{http_code}' \
-      -X POST https://atproto.gftd.ai/xrpc/com.atproto.repo.putRecord \
+      -X POST https://atproto.etzhayyim.com/xrpc/com.atproto.repo.putRecord \
       -H "Authorization: Bearer $AT_TOKEN" -H "Content-Type: application/json" \
       --data-binary @"$f")
 

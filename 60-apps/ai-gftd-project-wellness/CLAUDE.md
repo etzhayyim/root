@@ -4,12 +4,12 @@ Wellness competency platform — 122-bit evaluation across 8 dimensions.
 
 ## Architecture
 
-- **URL**: `https://wellness.gftd.ai`
+- **URL**: `https://wellness.etzhayyim.com`
 - **Nanoid**: `w3lln3sx`
 - **Port**: 21080
 - **KV Bucket**: `wellness-content-store`
-- **API**: `https://{nanoid}.gftd.ai/xrpc`
-- **Frontend**: `wellness.gftd.ai` served from the parent App fileserver (`svelte/build/`)
+- **API**: `https://{nanoid}.etzhayyim.com/xrpc`
+- **Frontend**: `wellness.etzhayyim.com` served from the parent App fileserver (`svelte/build/`)
 
 ## 8 Dimensions of Wellness (Syracuse University)
 
@@ -72,5 +72,5 @@ Each bit is assessed on two axes:
 ```bash
 cd 60-apps/ai-gftd-project-wellness/wasm/ai-gftd-wasm-wellness-w3lln3sx
 gftd build
-gftd deploy --smoke-url https://w3lln3sx.gftd.ai/health
+gftd deploy --smoke-url https://w3lln3sx.etzhayyim.com/health
 ```

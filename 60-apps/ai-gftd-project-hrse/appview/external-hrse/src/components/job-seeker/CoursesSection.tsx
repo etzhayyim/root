@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#CoursesSectionConnect
+ * @etzhayyim/ai-gftd-hrse#CoursesSectionConnect
  * コース修了管理セクション（Connect-Web版）
  */
 

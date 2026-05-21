@@ -14,7 +14,7 @@ interface IERC20 {
  * @notice Council-controlled USDC reserve backing the Stripe Issuing →
  *         ERC-4337 + USDC bridge per ADR-2605212050.
  *
- *         Vendor (gftdcojp) holds fiat receivables; this contract holds
+ *         Vendor (etzhayyim) holds fiat receivables; this contract holds
  *         the on-chain USDC backing. Each `creditFromFiat` call consumes
  *         from the reserve and atomically splits 90% to the recipient +
  *         10% to the Public Fund (ADR-2605192130 tithe).

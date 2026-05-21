@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kago.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kago.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -37,14 +37,14 @@
   "project": "kago",
   "routes": [
     {
-      "host": "kago.gftd.ai",
+      "host": "kago.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "y83jjx4l.gftd.ai",
+      "host": "y83jjx4l.etzhayyim.com",
       "paths": [
         "/"
       ],

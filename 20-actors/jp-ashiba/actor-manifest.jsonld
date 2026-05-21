@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:jp-ashiba.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:jp-ashiba.etzhayyim.com",
   "actors": [
     {
       "description": "現場条件→最適足場種別・数量の提案、価格算出",

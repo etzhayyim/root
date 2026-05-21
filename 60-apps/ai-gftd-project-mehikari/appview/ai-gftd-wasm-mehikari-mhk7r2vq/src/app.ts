@@ -1,4 +1,4 @@
-// mehikari.gftd.ai — L3 edge dispatcher for 監視カメラ search + B2G sales.
+// mehikari.etzhayyim.com — L3 edge dispatcher for 監視カメラ search + B2G sales.
 //
 // PER ADR-2605111200: this Worker holds NO database connection, NO face data,
 // NO LLM/inference SDK. All work is dispatched to bpmn-dispatcher →
@@ -202,7 +202,7 @@ export default createWorkerExport((sdk) => {
 			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.sendSalesEmail", input);
 			return JSON.stringify(result);
 		},
-		asAgentTool("Dispatch an approved draft via microsoft.gftd.ai. Idempotent on draftId."),
+		asAgentTool("Dispatch an approved draft via microsoft.etzhayyim.com. Idempotent on draftId."),
 		withCapabilityTags("sales", "send", "business-hours-gated"),
 	);
 
@@ -213,7 +213,7 @@ export default createWorkerExport((sdk) => {
 			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.handleInboundReply", input);
 			return JSON.stringify(result);
 		},
-		asAgentTool("Process inbound reply (Cloudflare email worker → reply.mehikari.gftd.ai)."),
+		asAgentTool("Process inbound reply (Cloudflare email worker → reply.mehikari.etzhayyim.com)."),
 		withCapabilityTags("sales", "inbound"),
 	);
 

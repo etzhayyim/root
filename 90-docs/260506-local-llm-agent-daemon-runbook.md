@@ -125,8 +125,8 @@ The proposal object shape expected from the local LLM:
 ```
 
 For email, `from` may be omitted. `agent.planRealWorldDispatch` derives it as
-`{agent-id}@gftd.ai`; for example `did:web:kami-agent.gftd.ai` becomes
-`kami-agent@gftd.ai`. This relies on the Resend-verified `gftd.ai` sender
+`{agent-id}@etzhayyim.com`; for example `did:web:kami-agent.etzhayyim.com` becomes
+`kami-agent@etzhayyim.com`. This relies on the Resend-verified `etzhayyim.com` sender
 domain behind `mailer.sendEmail`.
 
 Smoke-test the planner without sending:
@@ -135,7 +135,7 @@ Smoke-test the planner without sending:
 cd 20-actors/magatama/py
 PYTHONPATH=src \
 python3 -m pymagatama.agent_email_smoke \
-  --agent-did did:web:kami-agent.gftd.ai \
+  --agent-did did:web:kami-agent.etzhayyim.com \
   --to ops@example.com
 ```
 
@@ -153,7 +153,7 @@ Inline policy can be carried on each proposal:
 {
   "policy": {
     "allowedChannels": ["email"],
-    "allowedRecipientDomains": ["gftd.ai", "example.com"],
+    "allowedRecipientDomains": ["etzhayyim.com", "example.com"],
     "maxPayloadBytes": 10000
   }
 }
@@ -230,7 +230,7 @@ ERC-8004 IPFS publication and chain registration:
 ```bash
 AGENT_DAEMON_ENV_FILE=ops/local-agent/agent-daemon.env \
   20-actors/magatama/py/.venv/bin/magatama-agent-erc8004 \
-  --agent-did did:web:kami-agent.gftd.ai \
+  --agent-did did:web:kami-agent.etzhayyim.com \
   --out 90-docs/proof/kami-agent-erc8004-registration.local.json \
   --publish-ipfs \
   --submit-chain \
@@ -238,7 +238,7 @@ AGENT_DAEMON_ENV_FILE=ops/local-agent/agent-daemon.env \
   --publish-proof-out 90-docs/proof/kami-agent-erc8004-publish-attempt.local.json
 ```
 
-The command publishes the generated registration JSON to `https://ipfs.gftd.ai`
+The command publishes the generated registration JSON to `https://ipfs.etzhayyim.com`
 and then calls `gftd agent-runtime register`, which submits
 `GftdAgentRegistry.registerAgent(...)` on chain `260425`. It fails closed before
 IPFS/chain writes when the registration still contains unsafe placeholders such

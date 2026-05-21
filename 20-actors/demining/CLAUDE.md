@@ -6,14 +6,14 @@ Humanitarian Mine Action actor (T1 MCP-Compose). See `60-apps/ai-gftd-project-de
 
 | DID | Role |
 |---|---|
-| `did:web:demining.gftd.ai` | Controller |
-| `did:web:demining.gftd.ai:actor:survey` | IMAS 08.10 NTS + 08.20 TS |
-| `did:web:demining.gftd.ai:actor:clearance` | IMAS 09.10 / 09.30 / 09.40 / 09.50 |
-| `did:web:demining.gftd.ai:actor:release` | IMAS 07.11 Land Release |
-| `did:web:demining.gftd.ai:actor:eore` | IMAS 12.10 EORE |
-| `did:web:demining.gftd.ai:actor:victim-assistance` | IMAS 13.10 VA |
-| `did:web:demining.gftd.ai:actor:assets` | Detector / PPE / MDD / flail inventory |
-| `did:web:demining.gftd.ai:actor:imsma-sync` | IMSMA XML interop |
+| `did:web:demining.etzhayyim.com` | Controller |
+| `did:web:demining.etzhayyim.com:actor:survey` | IMAS 08.10 NTS + 08.20 TS |
+| `did:web:demining.etzhayyim.com:actor:clearance` | IMAS 09.10 / 09.30 / 09.40 / 09.50 |
+| `did:web:demining.etzhayyim.com:actor:release` | IMAS 07.11 Land Release |
+| `did:web:demining.etzhayyim.com:actor:eore` | IMAS 12.10 EORE |
+| `did:web:demining.etzhayyim.com:actor:victim-assistance` | IMAS 13.10 VA |
+| `did:web:demining.etzhayyim.com:actor:assets` | Detector / PPE / MDD / flail inventory |
+| `did:web:demining.etzhayyim.com:actor:imsma-sync` | IMSMA XML interop |
 
 ## Invariants (CRITICAL)
 

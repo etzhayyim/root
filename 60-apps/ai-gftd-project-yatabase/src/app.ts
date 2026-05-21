@@ -1,4 +1,4 @@
-// yatabase.gftd.ai — L3 dispatcher CF Worker (ADR-2605080000 §D10 P3.1).
+// yatabase.etzhayyim.com — L3 dispatcher CF Worker (ADR-2605080000 §D10 P3.1).
 //
 // Surfaces:
 //   /health, /_app/meta                       — edge probe
@@ -139,7 +139,7 @@ app.use("*", async (c, next) => {
       "script-src 'self' 'unsafe-inline'; " +
       "style-src 'self' 'unsafe-inline'; " +
       "img-src 'self' data: https:; " +
-      "connect-src 'self' https://yatabase.gftd.ai https://atproto.gftd.ai https://api.resend.com; " +
+      "connect-src 'self' https://yatabase.etzhayyim.com https://atproto.etzhayyim.com https://api.resend.com; " +
       "frame-ancestors 'self'; " +
       "base-uri 'self'; " +
       "form-action 'self'");
@@ -176,7 +176,7 @@ app.get("/_worker/health", (c) =>
 app.get("/_app/meta", (c) =>
   c.json({
     app: "ai-gftd-project-yatabase",
-    did: c.env.YATA_ACTOR_DID ?? "did:web:yatabase.gftd.ai",
+    did: c.env.YATA_ACTOR_DID ?? "did:web:yatabase.etzhayyim.com",
     version: c.env.YATA_VERSION ?? "0.0.0",
     layer: "L3-dispatcher",
     codename: "io-yatabase",
@@ -260,7 +260,7 @@ app.post("/auth/v1/signup", async (c) => handleSignup(c.env, c.req.raw));
 // is wired (planned P4b §D11 retail-cloud admin).
 //
 // Service binding `PDS_SERVICE.fetch` is preferred (zero-egress, ~5ms) but
-// falls back to public `https://atproto.gftd.ai/xrpc/...` if the binding is
+// falls back to public `https://atproto.etzhayyim.com/xrpc/...` if the binding is
 // missing (local dev).
 import { lookupCachedApiKey, rememberApiKeyResolution } from "./auth-cache";
 
@@ -331,7 +331,7 @@ async function resolveAuthContext(req: Request, env: Env): Promise<AuthContext |
       };
     }
 
-    const dispatcherBase = env.LG_YATABASE_URL || "https://dispatcher.gftd.ai";
+    const dispatcherBase = env.LG_YATABASE_URL || "https://dispatcher.etzhayyim.com";
     const url = `${dispatcherBase.replace(/\/+$/, "")}/xrpc/ai.gftd.apps.yata.authResolveApiKey`;
     try {
       const keyHash = await sha256Hex(rawKey);
@@ -375,7 +375,7 @@ async function resolveAuthContext(req: Request, env: Env): Promise<AuthContext |
   // is preferred (zero-egress) but `fetch` works too.
   const headers: Record<string, string> = { authorization: h };
   if (xActiveDid) headers["x-active-did"] = xActiveDid;
-  const url = "https://atproto.gftd.ai/xrpc/com.atproto.server.getSession";
+  const url = "https://atproto.etzhayyim.com/xrpc/com.atproto.server.getSession";
   const fetcher = env.PDS_SERVICE?.fetch
     ? (r: Request) => env.PDS_SERVICE!.fetch(r)
     : (r: Request) => fetch(r);
@@ -676,7 +676,7 @@ app.post("/auth/v1/attach-email", async (c) => {
       JSON.stringify({ orgDid: auth.orgDid, email, createdAt: attachedAt }),
       { expirationTtl: 86400 }, // 24h to verify
     );
-    const verifyUrl = `https://yatabase.gftd.ai/auth/v1/verify-email?token=${verifyToken}`;
+    const verifyUrl = `https://yatabase.etzhayyim.com/auth/v1/verify-email?token=${verifyToken}`;
     const subject = "[Yatabase] Verify your recovery email";
     const text =
       `Confirm ${email} as the recovery address for ${auth.orgDid}.\n\n` +
@@ -812,7 +812,7 @@ app.post("/auth/v1/recover", async (c) => {
     email, orgs, createdAt: new Date().toISOString(),
   }), { expirationTtl: 900 });
 
-  const recoverUrl = `https://yatabase.gftd.ai/auth/v1/redeem?token=${token}`;
+  const recoverUrl = `https://yatabase.etzhayyim.com/auth/v1/redeem?token=${token}`;
   const subject = `[Yatabase] Recovery link for ${orgs.length} tenant${orgs.length === 1 ? "" : "s"}`;
   const text = `You requested API key recovery for ${email}.\n\n` +
     `Click this link within 15 minutes to mint a new API key:\n  ${recoverUrl}\n\n` +
@@ -870,7 +870,7 @@ app.post("/auth/v1/redeem", async (c) => {
   const minted: Array<{ orgDid: string; apiKey?: string; keyId?: string; error?: string }> = [];
   for (const orgDid of orgs) {
     try {
-      const synthetic = new Request("https://yatabase.gftd.ai/auth/v1/invite", {
+      const synthetic = new Request("https://yatabase.etzhayyim.com/auth/v1/invite", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ name: `recovery-${Date.now()}` }),
@@ -1130,7 +1130,7 @@ app.all("/storage/v1/*", async (c) => {
         metric: "api_request",
         qty: 1,
         product: "yata",
-        refResource: "did:web:yatabase.gftd.ai:surface:storage",
+        refResource: "did:web:yatabase.etzhayyim.com:surface:storage",
       }),
     );
   }
@@ -1191,7 +1191,7 @@ app.get("/api/schema", async (c) => {
   // Cache key per tenant. CF Cache API is per-colo + per-account, but a
   // 60-second TTL on a per-org boundary is a fine trade-off — schema
   // changes are infrequent and customers refresh after CREATE.
-  const cacheKey = new Request(`https://cache-yatabase.gftd.ai/api/schema/${encodeURIComponent(auth.orgDid)}`, {
+  const cacheKey = new Request(`https://cache-yatabase.etzhayyim.com/api/schema/${encodeURIComponent(auth.orgDid)}`, {
     method: "GET",
   });
   const cache = (caches as unknown as { default?: Cache }).default;
@@ -1291,7 +1291,7 @@ app.all("/cypher", async (c) => {
       metric: "api_request",
       qty: 1,
       product: "yata",
-      refResource: "did:web:yatabase.gftd.ai:surface:cypher",
+      refResource: "did:web:yatabase.etzhayyim.com:surface:cypher",
     }),
   );
   // P97: dispatch outbound webhooks for any cypher mutations. Read the
@@ -1337,7 +1337,7 @@ app.all("/mcp", async (c) => {
         metric: "mcp_call",
         qty: 1,
         product: "yata",
-        refResource: "did:web:yatabase.gftd.ai:surface:mcp",
+        refResource: "did:web:yatabase.etzhayyim.com:surface:mcp",
       }),
     );
     return {
@@ -2015,7 +2015,7 @@ app.all("/xrpc/:nsid", async (c) => {
   const nsid = c.req.param("nsid");
   if (!nsid.startsWith("ai.gftd.apps.yata.") && !nsid.startsWith("ai.gftd.apps.billing.")) {
     return c.json(
-      { error: "NotFound", message: `nsid ${nsid} is not handled by yatabase.gftd.ai; use atproto.gftd.ai` },
+      { error: "NotFound", message: `nsid ${nsid} is not handled by yatabase.etzhayyim.com; use atproto.etzhayyim.com` },
       404,
     );
   }
@@ -2094,7 +2094,7 @@ app.all("/xrpc/:nsid", async (c) => {
       metric: "api_request",
       qty: 1,
       product: "yata",
-      refResource: `did:web:yatabase.gftd.ai:xrpc:${nsid}`,
+      refResource: `did:web:yatabase.etzhayyim.com:xrpc:${nsid}`,
     }),
   );
   if (!result.ok) return c.json({ error: "DispatcherError", message: result.error }, result.status);
@@ -2105,7 +2105,7 @@ app.notFound((c) =>
   c.json(
     {
       error: "NotFound",
-      message: `path ${c.req.path} not handled by yatabase.gftd.ai; see /_app/meta for surface list`,
+      message: `path ${c.req.path} not handled by yatabase.etzhayyim.com; see /_app/meta for surface list`,
     },
     404,
   ),

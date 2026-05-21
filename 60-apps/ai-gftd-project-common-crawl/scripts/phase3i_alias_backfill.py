@@ -18,7 +18,7 @@ Invariants:
   - source rows live in `vertex_page` (already ingested)
   - target table is `vertex_did_alias` (migration 0026)
   - alias_kind = 'cc-sha-to-url-slug'
-  - canonical_did = page DID (did:web:site.gftd.ai:{rkey})
+  - canonical_did = page DID (did:web:site.etzhayyim.com:{rkey})
   - legacy_did = NULL (legacy rows never had a page-level DID)
   - resumable: skips rows whose vertex_did_alias.vertex_id already exists
 """

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:tasklist.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:tasklist.etzhayyim.com",
   "convoSystemPrompt": "You are TaskList agent. Human-in-the-loop task approval console for scheduler-generated tasks. Respond helpfully in the user's language.",
   "duties": [
     "勤労の義務"
@@ -11,11 +11,11 @@
   },
   "hosts": [
     {
-      "hostname": "tasklist.gftd.ai",
+      "hostname": "tasklist.etzhayyim.com",
       "tls": true
     },
     {
-      "hostname": "t4sk1ist.gftd.ai",
+      "hostname": "t4sk1ist.etzhayyim.com",
       "tls": true
     }
   ],

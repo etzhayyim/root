@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:blz-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:blz-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Belize AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "blz-state.gftd.ai",
+      "host": "blz-state.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Avatar, Badge, Chip, cn } from '@gftdcojp/design-system';
+	import { Avatar, Badge, Chip, cn } from '@etzhayyim/design-system';
 	import type { ConvoGroup, ConvoSection, PresenceState, ConversationKind } from '$lib/atproto-agent';
 
 	type ConversationFilter = 'all' | ConversationKind;

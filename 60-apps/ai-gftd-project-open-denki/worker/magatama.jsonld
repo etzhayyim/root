@@ -1,8 +1,8 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-denki.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-denki.etzhayyim.com",
   "name": "open-denki",
-  "handle": "open-denki.gftd.ai",
+  "handle": "open-denki.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-denki",

@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/business-person-score-influence-v1',
-                 'did:web:business-person.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-score-influence-v1',
+                 'did:web:business-person.etzhayyim.com',
                  'business_person_score_influence',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Influence scoring pipeline — pure SQL, no LLM.\n'
                  '\n'
                  '  NSID:       ai.gftd.apps.businessPerson.scoreInfluence\n'
-                 '  Owner DID:  did:web:business-person.gftd.ai\n'
+                 '  Owner DID:  did:web:business-person.etzhayyim.com\n'
                  '  Process ID: business_person_score_influence\n'
                  '\n'
                  '  Fires every 24h (R/PT24H).\n'
@@ -48,7 +48,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_business_person_score_influence"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/business-person"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/business-person"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="business_person_score_influence" name="business person score '
@@ -119,7 +119,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:business-person.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:business-person.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;businessPerson.scoreInfluence.completed&quot;" target="action"/>\n'
@@ -140,10 +140,10 @@ UP = [{'sql': '\n'
                  4483,
                  '00-contracts/bpmn/ai/gftd/business-person/scoreInfluence.bpmn',
                  '2026-04-28T26:00:00Z',
-                 'did:web:business-person.gftd.ai',
-                 'did:web:business-person.gftd.ai',
+                 'did:web:business-person.etzhayyim.com',
+                 'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/business-person-score-influence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-score-influence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -158,16 +158,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/business-person-scoreInfluence-v1',
-                 'did:web:business-person.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/business-person-scoreInfluence-v1',
+                 'did:web:business-person.etzhayyim.com',
                  'ai.gftd.apps.businessPerson.scoreInfluence',
                  'business_person_score_influence',
                  60000,
                  '2026-04-28T26:00:00Z',
-                 'did:web:business-person.gftd.ai',
-                 'did:web:business-person.gftd.ai',
+                 'did:web:business-person.etzhayyim.com',
+                 'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/business-person-scoreInfluence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/business-person-scoreInfluence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -181,15 +181,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1',
-                 'did:web:business-person.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1',
+                 'did:web:business-person.etzhayyim.com',
                  'business_person_enrich_career_llm',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  LLM-driven career enrichment pipeline (RunPod Serverless).\n'
                  '\n'
                  '  NSID:       ai.gftd.apps.businessPerson.enrichCareerLLM\n'
-                 '  Owner DID:  did:web:business-person.gftd.ai\n'
+                 '  Owner DID:  did:web:business-person.etzhayyim.com\n'
                  '  Process ID: business_person_enrich_career_llm\n'
                  '\n'
                  '  Fires every 7 days (R/PT7D).\n'
@@ -206,7 +206,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_business_person_enrich_career_llm"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/business-person"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/business-person"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="business_person_enrich_career_llm" name="business person '
@@ -308,7 +308,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:business-person.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:business-person.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;businessPerson.enrichCareerLLM.completed&quot;" '
@@ -326,7 +326,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:business-person.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:business-person.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;businessPerson.enrichCareerLLM.abort&quot;" target="action"/>\n'
@@ -349,10 +349,10 @@ UP = [{'sql': '\n'
                  6970,
                  '00-contracts/bpmn/ai/gftd/business-person/enrichCareerLLM.bpmn',
                  '2026-04-28T26:00:00Z',
-                 'did:web:business-person.gftd.ai',
-                 'did:web:business-person.gftd.ai',
+                 'did:web:business-person.etzhayyim.com',
+                 'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -367,25 +367,25 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/business-person-enrichCareerLLM-v1',
-                 'did:web:business-person.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/business-person-enrichCareerLLM-v1',
+                 'did:web:business-person.etzhayyim.com',
                  'ai.gftd.apps.businessPerson.enrichCareerLLM',
                  'business_person_enrich_career_llm',
                  120000,
                  '2026-04-28T26:00:00Z',
-                 'did:web:business-person.gftd.ai',
-                 'did:web:business-person.gftd.ai',
+                 'did:web:business-person.etzhayyim.com',
+                 'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/business-person-enrichCareerLLM-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/business-person-enrichCareerLLM-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/business-person-scoreInfluence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/business-person-scoreInfluence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/business-person-score-influence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-score-influence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/business-person-enrichCareerLLM-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/business-person-enrichCareerLLM-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1']}]
 
 
 def upgrade() -> None:

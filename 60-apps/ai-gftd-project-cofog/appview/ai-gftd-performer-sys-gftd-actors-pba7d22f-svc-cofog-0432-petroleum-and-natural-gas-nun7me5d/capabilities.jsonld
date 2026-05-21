@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/2/petroleum-and-natural-gas",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/2/petroleum-and-natural-gas",
       "type": "dodaf:Capability",
       "name": "Petroleum and Natural Gas Resource Management Capability",
       "description": "Functional capability for managing petroleum and natural gas resources, extraction logistics, and safety compliance. Classification: COFOG Division 04, Group 3, Class 2.",

@@ -10,7 +10,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 APPVIEW="$SCRIPT_DIR/../../../appview/src/jco-component"
-CARGO_TARGET="${CARGO_TARGET_DIR:-$HOME/.cargo-target/ai-gftd-apps-gftdcojp}"
+CARGO_TARGET="${CARGO_TARGET_DIR:-$HOME/.cargo-target/etzhayyim-root}"
 
 # 1. Build core module (no WASI)
 cd "$SCRIPT_DIR"

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/09/7/0/r-d-education",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/7/0/r-d-education",
       "type": "dodaf:Capability",
       "name": "Education Research and Development Capability",
       "description": "Functional capability for advancing pedagogical science through innovation research, pedagogical simulation, and EdTech evaluation. Classification: COFOG Division 09, Group 7, Class 0.",

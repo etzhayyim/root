@@ -1,4 +1,4 @@
-// resource-flow.gftd.ai thin XRPC facade. Domain reads/writes run in AgentGateway MCP + pod-side LangServer.
+// resource-flow.etzhayyim.com thin XRPC facade. Domain reads/writes run in AgentGateway MCP + pod-side LangServer.
 
 import {
   asAgentTool,
@@ -27,7 +27,7 @@ interface CommitEvent {
   observedAt?: string;
 }
 
-const PRIMARY_DID = "did:web:resource-flow.gftd.ai";
+const PRIMARY_DID = "did:web:resource-flow.etzhayyim.com";
 
 function paramsFromBody(raw: unknown): Record<string, unknown> {
   if (!raw) return {};
@@ -65,7 +65,7 @@ async function internalTrustSecret(env: Env): Promise<string> {
 
 async function dispatchBpmn(sdk: HostSDK, nsid: string, body: unknown): Promise<unknown> {
   const env = sdk.env as unknown as Env;
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

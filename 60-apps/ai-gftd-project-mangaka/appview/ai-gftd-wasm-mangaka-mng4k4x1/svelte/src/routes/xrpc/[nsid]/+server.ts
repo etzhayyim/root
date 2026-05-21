@@ -47,7 +47,7 @@ async function proxy(request: Request, url: URL, params: { nsid: string }, env: 
       headers: { "content-type": "application/json" },
     });
   }
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await readSecret(env.DISPATCHER_INTERNAL_SECRET);
   if (trust) headers["x-internal-trust"] = trust;

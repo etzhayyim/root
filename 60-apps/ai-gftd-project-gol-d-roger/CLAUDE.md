@@ -5,7 +5,7 @@
 Gold collection, portfolio management, and asset preservation platform.
 金の収集・運用・管理保持を行う資産運用プラットフォーム。
 
-- **Subdomain**: `gol-d-roger.gftd.ai`
+- **Subdomain**: `gol-d-roger.etzhayyim.com`
 - **nanoid**: `wy2zvdvd`
 - **Proto**: `proto/gftd/gol_d_roger/v1/gol_d_roger.proto`
 
@@ -91,7 +91,7 @@ Control Plane (App, SQL Graph)
 
 ### Command Contract
 
-- command room: `#gold-commands:gftd.ai`
+- command room: `#gold-commands:etzhayyim.com`
 - event types:
   - `org.gftd.command.gold.ingest-market-data`
   - `org.gftd.command.gold.create-position`
@@ -186,7 +186,7 @@ gol-d-roger (wy2zvdvd)
 ### Room → Actor Mailbox Flow
 
 ```
-Room message (br8bojxp.gftd.ai)
+Room message (br8bojxp.etzhayyim.com)
   ↓ XRPC (SendMessage)
 Actor Mailbox (performer-framework)
   ↓ envelope delivery

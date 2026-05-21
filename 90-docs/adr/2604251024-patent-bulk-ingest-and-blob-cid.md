@@ -34,7 +34,7 @@ collected=3,799 / vertex_count=81 (`coverage_rate ≈ 0.000019`)。trademark は
   + `edge_patent_cites` + `edge_family_member` + `edge_open_patent_citation_pair`
   + `mv_open_patent_by_jurisdiction`
 - Manifest: `20-actors/patent/actor-manifest.jsonld` (489 行)、4 source entity
-  (JPO/USPTO/EPO/WIPO) を `did:web:patent.gftd.ai:source:*` で記述済
+  (JPO/USPTO/EPO/WIPO) を `did:web:patent.etzhayyim.com:source:*` で記述済
 - Magatama: `60-apps/ai-gftd-project-patent/appview/ai-gftd-wasm-patent-p4t3nt01/magatama.jsonld`
   に `subscribeRepos` で 6 NSID 受信設定済
 - Blob CID 前例: PDS `blobs/{repo}/{sha256hex}` content-addressed R2 dedup
@@ -124,7 +124,7 @@ F5 watcher (30s) → Zeebe deploy → live。
 
 ```sql
 CREATE TABLE vertex_patent_blob (
-  vertex_id varchar PRIMARY KEY,         -- at://did:web:patent.gftd.ai/ai.gftd.apps.patent.blob/{patent_number}
+  vertex_id varchar PRIMARY KEY,         -- at://did:web:patent.etzhayyim.com/ai.gftd.apps.patent.blob/{patent_number}
   _seq bigint, created_date date, sensitivity_ord int, owner_did varchar,
 
   patent_vertex_id varchar NOT NULL,     -- FK vertex_open_patent_patent.vertex_id
@@ -207,7 +207,7 @@ patent-blob-converter (k8s Deployment, Vultr LAX, replicas=1)
 - 例: `bafkreigh2akiscaildc...` (webp), `bafkreid7e6vsfh...` (OCR text)
 
 ADR-0029 の did:gftd CID 仕様と同じ codec/hash 群を使うので、将来 patent blob を
-did:gftd path-form sub-DID で参照する拡張が容易 (e.g. `did:web:patent.gftd.ai/blob/{cid}`)。
+did:gftd path-form sub-DID で参照する拡張が容易 (e.g. `did:web:patent.etzhayyim.com/blob/{cid}`)。
 
 ## Federation policy
 
@@ -224,7 +224,7 @@ federable opt-in を再検討。
 ## Coverage MV update
 
 `dim_world_domain` の patent エントリに `world_total=200_000_000` を維持しつつ、
-`mv_world_coverage_live` 上で patent.gftd.ai の vertex_count が 8M レンジに到達する。
+`mv_world_coverage_live` 上で patent.etzhayyim.com の vertex_count が 8M レンジに到達する。
 
 新規 MV `mv_patent_coverage_by_year_jurisdiction`:
 

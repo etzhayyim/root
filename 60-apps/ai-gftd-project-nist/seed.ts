@@ -6,9 +6,9 @@
  * Usage: npx tsx projects/ai-gftd-project-nist/seed.ts
  */
 
-const PDS = 'https://atproto.gftd.ai';
+const PDS = 'https://atproto.etzhayyim.com';
 const NANOID = 'n1st0csf';
-const ROOT_DID = `did:web:${NANOID}.gftd.ai`;
+const ROOT_DID = `did:web:${NANOID}.etzhayyim.com`;
 const PROJECT_ID = 'nist';
 
 // ── Helpers ──

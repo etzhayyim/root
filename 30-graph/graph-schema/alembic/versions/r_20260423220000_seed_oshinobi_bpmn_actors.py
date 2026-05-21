@@ -46,8 +46,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'oshinobi_subscribe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_oshinobi_subscribe"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/oshinobi"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/oshinobi"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="oshinobi_subscribe" name="oshinobi subscribe" '
@@ -213,7 +213,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;oshinobi.subscription.created&quot;" '
                  'target="action"/>\n'
@@ -272,7 +272,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;oshinobi.subscription.payment_declined&quot;" target="action"/>\n'
@@ -307,9 +307,9 @@ UP = [{'sql': '\n'
                  10828,
                  '00-contracts/bpmn/ai/gftd/oshinobi/subscribe.bpmn',
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -344,8 +344,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-unsubscribe-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-unsubscribe-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'oshinobi_unsubscribe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -353,7 +353,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_oshinobi_unsubscribe"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/oshinobi"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/oshinobi"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="oshinobi_unsubscribe" name="oshinobi unsubscribe" '
@@ -444,7 +444,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;oshinobi.subscription.cancelled&quot;" '
                  'target="action"/>\n'
@@ -474,9 +474,9 @@ UP = [{'sql': '\n'
                  5075,
                  '00-contracts/bpmn/ai/gftd/oshinobi/unsubscribe.bpmn',
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-unsubscribe-v1']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-unsubscribe-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -511,8 +511,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-publish-post-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-publish-post-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'oshinobi_publish_post',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -520,7 +520,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_oshinobi_publishPost"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/oshinobi"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/oshinobi"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="oshinobi_publish_post" name="oshinobi publishPost" '
@@ -671,7 +671,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;oshinobi.post.published&quot;" '
                  'target="action"/>\n'
@@ -705,9 +705,9 @@ UP = [{'sql': '\n'
                  7848,
                  '00-contracts/bpmn/ai/gftd/oshinobi/publishPost.bpmn',
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-publish-post-v1']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-publish-post-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -742,8 +742,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'oshinobi_tip_creator',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -751,7 +751,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_oshinobi_tipCreator"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/oshinobi"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/oshinobi"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="oshinobi_tip_creator" name="oshinobi tipCreator" '
@@ -908,7 +908,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;oshinobi.tip.captured&quot;" '
                  'target="action"/>\n'
@@ -941,9 +941,9 @@ UP = [{'sql': '\n'
                  8075,
                  '00-contracts/bpmn/ai/gftd/oshinobi/tipCreator.bpmn',
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -978,8 +978,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-report-content-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-report-content-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'oshinobi_report_content',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -987,7 +987,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_oshinobi_reportContent"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/oshinobi"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/oshinobi"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="oshinobi_report_content" name="oshinobi reportContent" '
@@ -1086,7 +1086,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;oshinobi.report.escalated&quot;" '
                  'target="action"/>\n'
@@ -1143,7 +1143,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;oshinobi.report.queued&quot;" '
                  'target="action"/>\n'
@@ -1171,9 +1171,9 @@ UP = [{'sql': '\n'
                  7922,
                  '00-contracts/bpmn/ai/gftd/oshinobi/reportContent.bpmn',
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-report-content-v1']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-report-content-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1206,15 +1206,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-subscribe-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-subscribe-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'ai.gftd.apps.oshinobi.subscribe',
                  'oshinobi_subscribe',
                  15000,
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-subscribe-v1']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-subscribe-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1247,15 +1247,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-cancelSubscription-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-cancelSubscription-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'ai.gftd.apps.oshinobi.cancelSubscription',
                  'oshinobi_unsubscribe',
                  5000,
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-cancelSubscription-v1']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-cancelSubscription-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1288,15 +1288,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-publishPost-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-publishPost-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'ai.gftd.apps.oshinobi.publishPost',
                  'oshinobi_publish_post',
                  10000,
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-publishPost-v1']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-publishPost-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1329,15 +1329,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-tipCreator-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-tipCreator-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'ai.gftd.apps.oshinobi.tipCreator',
                  'oshinobi_tip_creator',
                  15000,
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-tipCreator-v1']},
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-tipCreator-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1370,36 +1370,36 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-reportContent-v1',
-                 'did:web:oshinobi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-reportContent-v1',
+                 'did:web:oshinobi.etzhayyim.com',
                  'ai.gftd.apps.oshinobi.reportContent',
                  'oshinobi_report_content',
                  15000,
                  '2026-04-23T22:00:00Z',
-                 'did:web:oshinobi.gftd.ai',
-                 'did:web:oshinobi.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-reportContent-v1']}]
+                 'did:web:oshinobi.etzhayyim.com',
+                 'did:web:oshinobi.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-reportContent-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-subscribe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-subscribe-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-cancelSubscription-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-cancelSubscription-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-publishPost-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-publishPost-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-tipCreator-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-tipCreator-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/oshinobi-reportContent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/oshinobi-reportContent-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-unsubscribe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-unsubscribe-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-publish-post-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-publish-post-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/oshinobi-report-content-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-report-content-v1']}]
 
 
 def upgrade() -> None:

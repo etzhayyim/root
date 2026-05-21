@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/09/4/1/first-stage-tertiary-education/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/09/4/1/first-stage-tertiary-education/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Undergraduate Education Management Lifecycle",
       "description": "The administrative process of auditing university faculty, coordinating undergraduate programs, and monitoring alumni employment outcomes.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/09/4/1/first-stage-tertiary-education"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/4/1/first-stage-tertiary-education"
     }
   ]
 }

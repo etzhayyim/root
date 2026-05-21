@@ -1,4 +1,4 @@
-# ai-gftd-project-isekai — isekai.gftd.ai
+# ai-gftd-project-isekai — isekai.etzhayyim.com
 
 **ISEKAI** — Minecraft voxel sandbox + Pokoa creature collection + Brainrot meme chaos。KAMI Engine WebGPU で異世界転生オープンワールド。Guest Mode でログイン不要プレイ。
 
@@ -7,7 +7,7 @@
 | 項目 | 値 |
 |---|---|
 | Engine | **KAMI Engine** (`40-engine/kami-engine/`) — wgpu + hecs + Rapier 3D + KNP |
-| Domain | `isekai.gftd.ai` (vanity), `is3k41w0.gftd.ai` (nanoid) |
+| Domain | `isekai.etzhayyim.com` (vanity), `is3k41w0.etzhayyim.com` (nanoid) |
 | Runtime | Single Worker (TS Native + host-sdk) |
 | UI | `game` mode — yoro profile hero 9:16 iframe |
 | WIT | `gftd:isekai@1.0.0` (`wit/isekai/package.wit`) — 5 interfaces |

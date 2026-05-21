@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 /**
- * @gftdcojp/cyber-freelance#ExpertCard
+ * @etzhayyim/cyber-freelance#ExpertCard
  * 検証済みエキスパートプロフィールカード
  * Toptalスタイルのエキスパートカード表示
  */

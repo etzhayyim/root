@@ -199,12 +199,12 @@ describe("OS Messaging Gateway — Integration Tests", () => {
       const result = await invokeCommand("ai.gftd.apps.osMessaging.connectPlatform", {
         platform: "discord",
         platformUid: "user-456",
-        gftdDid: "did:web:gkgua2o1.gftd.ai",
+        gftdDid: "did:web:gkgua2o1.etzhayyim.com",
       });
       expect(result.status).toBe("connected");
       const mapping = writtenRecords.find(r => r.collection === "ai.gftd.apps.osMessaging.platformMapping");
       expect(mapping).toBeDefined();
-      expect(mapping!.record.gftdDid).toBe("did:web:gkgua2o1.gftd.ai");
+      expect(mapping!.record.gftdDid).toBe("did:web:gkgua2o1.etzhayyim.com");
     });
 
     it("disconnectPlatform writes disconnect record", async () => {

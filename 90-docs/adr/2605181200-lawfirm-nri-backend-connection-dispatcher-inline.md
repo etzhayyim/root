@@ -30,8 +30,8 @@ superseded_by: []
 
 ## Context
 
-lawfirm.gftd.ai の 4 NSID (`requestConsult`, `createCase`, `translateToLang`, `translateFromLang`) が  
-`bpmn-dispatcher` (`https://lf1rm8k0.gftd.ai/xrpc/...`) から 404 を返していた。
+lawfirm.etzhayyim.com の 4 NSID (`requestConsult`, `createCase`, `translateToLang`, `translateFromLang`) が  
+`bpmn-dispatcher` (`https://lf1rm8k0.etzhayyim.com/xrpc/...`) から 404 を返していた。
 
 根本原因: `vertex_bpmn_lexicon_binding` テーブルにこれらの NSID が未登録のため、
 `dispatcher_main.py` の `lookup_binding()` が Nothing を返し、汎用 404 handler が応答していた。
@@ -77,7 +77,7 @@ if lawfirm_response is not None:
 
 | 関数 | 実装内容 |
 |---|---|
-| `task_lawfirm_request_consult` | `summaryHash` (SHA-256) + `triageCohortDid` のみ INSERT (ADR-0018 Tier 3 PII)。`consultDid = at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.consult/{timestamp}-{uuid8}` を返す |
+| `task_lawfirm_request_consult` | `summaryHash` (SHA-256) + `triageCohortDid` のみ INSERT (ADR-0018 Tier 3 PII)。`consultDid = at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.consult/{timestamp}-{uuid8}` を返す |
 | `task_lawfirm_create_case` | `subjectSummary` を `signal:v1:{base64(utf8)}` field-encrypt (ADR-0010 Stage 1)。India marker 検出時に `LAWYER_FIRM_DID_HINT` env var 参照 → 未設定の場合は `autoRouteError: {code: "NotConfigured"}` + `autoRouteExpected: true` を返す (fail-loud; 案件 record 自体は作成) |
 
 **India marker 判定** (ADR-0036 準拠):
@@ -125,7 +125,7 @@ def _is_india_marker(lang="", state="", jurisdiction="") -> bool:
       optional: true
 ```
 
-pymagatama image `ghcr.io/gftdcojp/pymagatama:16a1aeab4e6-20260518095952-amd64` を  
+pymagatama image `ghcr.io/etzhayyim/pymagatama:16a1aeab4e6-20260518095952-amd64` を  
 `kubectl set image deployment/bpmn-dispatcher dispatcher=<image> -n mitama-udf` で更新。
 
 ### 5. NRI booking form frontend wiring
@@ -140,20 +140,20 @@ pymagatama image `ghcr.io/gftdcojp/pymagatama:16a1aeab4e6-20260518095952-amd64` 
 ## Verified Live State (2026-05-18)
 
 ```
-POST https://lf1rm8k0.gftd.ai/xrpc/ai.gftd.apps.lawfirm.requestConsult
-→ {"ok":true,"consultDid":"at://did:web:bpmn.gftd.ai/ai.gftd.apps.lawfirm.consult/20260518013456-d8e37780",...}
+POST https://lf1rm8k0.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.requestConsult
+→ {"ok":true,"consultDid":"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.consult/20260518013456-d8e37780",...}
 
-POST https://lf1rm8k0.gftd.ai/xrpc/ai.gftd.apps.lawfirm.createCase
+POST https://lf1rm8k0.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.createCase
 → {"ok":true,"caseDid":"...","autoRouteExpected":true,"autoRouteError":{"code":"NotConfigured",...}}
 
-POST https://lf1rm8k0.gftd.ai/xrpc/ai.gftd.apps.lawfirm.translateToLang
+POST https://lf1rm8k0.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.translateToLang
 → {"ok":true,"translatedText":"...","targetLang":"hi","register":"court-of-record"}
 
-POST https://lf1rm8k0.gftd.ai/xrpc/ai.gftd.apps.lawfirm.translateFromLang
+POST https://lf1rm8k0.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.translateFromLang
 → {"ok":true,"translatedText":"...","sourceLang":"auto","targetLang":"en","register":"court-of-record"}
 ```
 
-Frontend `lawfirm.gftd.ai` (version ID `18fa9e6b`) deployed and wired.
+Frontend `lawfirm.etzhayyim.com` (version ID `18fa9e6b`) deployed and wired.
 
 ## Phase 2 Bug Fix (2026-05-19)
 
@@ -162,10 +162,10 @@ lawyer portal read operations (`getDashboard`, `listAssignedMatters`, `listPendi
 
 ### Bug 1 — CF Worker proxy routing
 
-`lawfirm.gftd.ai` の `/xrpc/[...path]/+server.ts` が全 NSID を `atproto.gftd.ai` に転送していた
+`lawfirm.etzhayyim.com` の `/xrpc/[...path]/+server.ts` が全 NSID を `atproto.etzhayyim.com` に転送していた
 → `ai.gftd.apps.*` は atproto PDS が処理しないため 522。
 
-Fix: `ai.gftd.apps.*` → `dispatcher.gftd.ai` (with `x-internal-trust` header)、それ以外は `atproto.gftd.ai`。
+Fix: `ai.gftd.apps.*` → `dispatcher.etzhayyim.com` (with `x-internal-trust` header)、それ以外は `atproto.etzhayyim.com`。
 
 ### Bug 2 — SQL param style + INSERT column mismatch (lawfirm_intake.py)
 
@@ -184,22 +184,22 @@ Fix: `%(name)s` style に統一、`actor_did`、`status='invited'` を明示。
 Fix (1): LIMIT/OFFSET を Python f-string 整数リテラルに変更 (`[[conventions]] rw-psycopg3-no-param-limit` 準拠)。  
 Fix (2): `_q()` を `sync_cursor` 直接使用に書き換え、`cursor.description` からカラム名を取得して dict を構築。
 
-Deployed: `ghcr.io/gftdcojp/pymagatama:9fe3e9181b0-20260519003849-amd64` (Helm rev 489)
+Deployed: `ghcr.io/etzhayyim/pymagatama:9fe3e9181b0-20260519003849-amd64` (Helm rev 489)
 
 ### Verified Live State (2026-05-19T00:44Z)
 
 ```
-POST dispatcher.gftd.ai/xrpc/ai.gftd.apps.lawyer.listPendingGrants
-  {"lawyerDid":"did:web:k-bakshi.gftd.ai","limit":10,"offset":0}
+POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.listPendingGrants
+  {"lawyerDid":"did:web:k-bakshi.etzhayyim.com","limit":10,"offset":0}
   → {"grants":[{"grantId":"20260518152613-5e3059ec","role":"coCounsel",...},
                {"grantId":"20260518151310-40fe202f","role":"coCounsel",...}],
      "count":2,"offset":0,"limit":10}
 
-POST dispatcher.gftd.ai/xrpc/ai.gftd.apps.lawyer.getDashboard
-  {"lawyerDid":"did:web:k-bakshi.gftd.ai"}
+POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.getDashboard
+  {"lawyerDid":"did:web:k-bakshi.etzhayyim.com"}
   → {"pendingGrants":2,"pendingGrantList":[{…},{…}],"activeMatters":0,...}
 
-POST lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawyer.listPendingGrants  ← E2E CF→dispatcher
+POST lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.listPendingGrants  ← E2E CF→dispatcher
   → {"grants":[{…},{…}],"count":2}
 ```
 
@@ -211,7 +211,7 @@ POST lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawyer.listPendingGrants  ← E2E CF→di
 | `acceptGrant` E2E — grant `20260518152613-5e3059ec` → `status=accepted` | ✅ done |
 | `listAssignedMatters` — matter seed + schema fix (firm_did→owner_did, matter_number 除去) | ✅ done |
 | India auto-route smoke (lang=hi → autoGrant → listPendingGrants count:2) | ✅ done |
-| Deployed: `ghcr.io/gftdcojp/pymagatama:e64e00aac20-20260519104345-amd64` (Helm rev 491) | ✅ done |
+| Deployed: `ghcr.io/etzhayyim/pymagatama:e64e00aac20-20260519104345-amd64` (Helm rev 491) | ✅ done |
 
 ## Track B 完結 (2026-05-19)
 
@@ -221,18 +221,18 @@ POST lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawyer.listPendingGrants  ← E2E CF→di
 | `vertex_lawyer_document_draft` テーブル作成 | ✅ done |
 | `logWorkNote` dispatcher handler + smoke (`billable_minutes=45`) | ✅ done |
 | `submitDocumentDraft` — `persist_draft_node` (LangGraph) + ISCO-2611 gate smoke | ✅ done |
-| Deployed: `ghcr.io/gftdcojp/pymagatama:e64e00aac20-20260519021934-amd64` (Helm rev 494) | ✅ done |
+| Deployed: `ghcr.io/etzhayyim/pymagatama:e64e00aac20-20260519021934-amd64` (Helm rev 494) | ✅ done |
 
 ### Verified Live State (2026-05-19T02:24Z)
 
 ```
-POST dispatcher.gftd.ai/xrpc/ai.gftd.apps.lawyer.logWorkNote
-  {"matterId":"20260518152613-7170c1b7","lawyerDid":"did:web:k-bakshi.gftd.ai",
+POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.logWorkNote
+  {"matterId":"20260518152613-7170c1b7","lawyerDid":"did:web:k-bakshi.etzhayyim.com",
    "billableMinutes":45,"noteType":"work_note","content":"Reviewed NRI property docs"}
   → {"ok":true,"noteId":"20260519015852-6344db68","billableMinutes":45}
 
-POST dispatcher.gftd.ai/xrpc/ai.gftd.apps.lawyer.submitDocumentDraft
-  {"matterId":"20260518152613-7170c1b7","lawyerDid":"did:web:k-bakshi.gftd.ai",
+POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.submitDocumentDraft
+  {"matterId":"20260518152613-7170c1b7","lawyerDid":"did:web:k-bakshi.etzhayyim.com",
    "documentType":"vakalatnama","contentPrompt":"Draft vakalatnama for NRI property..."}
   → {"ok":true,"draftId":"20260519022434-4b601c45","threadId":"draft:addfefb9...",
      "approvalStatus":"pending","compliancePassed":true,"complianceIssues":[]}
@@ -262,15 +262,15 @@ ISCO-2611 advocate review queue — `/drafts` SvelteKit page + `approveDocumentD
 ### Verified Live State (2026-05-19)
 
 ```
-GET  dispatcher.gftd.ai/xrpc/ai.gftd.apps.lawyer.listDocumentDrafts?lawyerDid=…&status=under_review
+GET  dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.listDocumentDrafts?lawyerDid=…&status=under_review
   → {"ok":true,"drafts":[…],"total":N,"offset":0,"limit":50}
 
-POST dispatcher.gftd.ai/xrpc/ai.gftd.apps.lawyer.approveDocumentDraft
-  {"draftId":"…","reviewerDid":"did:web:k-bakshi.gftd.ai","reviewNote":"LGTM"}
+POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.approveDocumentDraft
+  {"draftId":"…","reviewerDid":"did:web:k-bakshi.etzhayyim.com","reviewNote":"LGTM"}
   → {"ok":true,"draftId":"…","status":"approved","approvedAt":"…"}
 
-POST dispatcher.gftd.ai/xrpc/ai.gftd.apps.lawyer.rejectDocumentDraft
-  {"draftId":"…","reviewerDid":"did:web:k-bakshi.gftd.ai","reviewNote":"Missing vakalatnama clause"}
+POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.rejectDocumentDraft
+  {"draftId":"…","reviewerDid":"did:web:k-bakshi.etzhayyim.com","reviewNote":"Missing vakalatnama clause"}
   → {"ok":true,"draftId":"…","status":"rejected","rejectedAt":"…","reviewNote":"…"}
 ```
 
@@ -287,11 +287,11 @@ Stripe billing infrastructure — webhook HMAC verification + Mode A (flat SaaS)
 | `billingModeAStart` / `billingModeBOnboard` xrpc.ts client bindings | ✅ done |
 | `/billing/subscribe/+page.svelte` — Mode A (flat SaaS: legalName/adminEmail/monthly/currency) + Mode B (rev-share Connect: country + onboarding_url redirect) | ✅ done |
 | SQL migrations live: `vertex_lawfirm_invoice`, `vertex_lawfirm_payment`, billing columns on `vertex_lawfirm_tenant` (`stripe_customer_id`, `stripe_connect_account_id`, `billing_mode`, `platform_fee_pct`) | ✅ done |
-| Deployed: image `ghcr.io/gftdcojp/pymagatama:billing-wh-41286572354-amd64`, Helm rev 500, CF `505efb0a` | ✅ done |
+| Deployed: image `ghcr.io/etzhayyim/pymagatama:billing-wh-41286572354-amd64`, Helm rev 500, CF `505efb0a` | ✅ done |
 
 **Manual ops remaining** (require human):
 - `kubectl -n mitama-udf edit secret lawfirm-stripe` → add `STRIPE_WEBHOOK_SECRET`, `STRIPE_IN_API_KEY`, `STRIPE_JP_API_KEY` (base64)
-- Register webhook in Stripe Dashboard: `https://lawfirm.gftd.ai/xrpc/ai.gftd.apps.lawfirm.billing.processWebhookInvoicePaid` (event: `invoice.paid`) → copy `whsec_…` → insert as `STRIPE_WEBHOOK_SECRET`
+- Register webhook in Stripe Dashboard: `https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.billing.processWebhookInvoicePaid` (event: `invoice.paid`) → copy `whsec_…` → insert as `STRIPE_WEBHOOK_SECRET`
 
 ## Pending
 

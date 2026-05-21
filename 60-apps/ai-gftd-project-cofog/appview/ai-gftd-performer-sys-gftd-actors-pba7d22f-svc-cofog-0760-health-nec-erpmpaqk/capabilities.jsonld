@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/6/0/health-nec",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/6/0/health-nec",
       "type": "dodaf:Capability",
       "name": "Miscellaneous Health and Unclassified Medical Oversight Capability",
       "description": "Functional capability for managing unclassified health services, multi-agency health coordination, and regulatory oversight. Classification: COFOG Division 07, Group 6, Class 0.",

@@ -21,7 +21,7 @@ os-memory (App)         ──────→  agent/memory.ts (PDS 新規 modul
 os-skills (App)         ──────→  discoverAgentTools() + executeToolCalls() 既存
 os-runner (App)         ──────→  os-messaging Worker 内 (browser_automation capability)
 os-scheduler (App)      ──────→  agent/scheduler.ts (PDS 新規 module, Alarm API)
-os-ui (App)             ──────→  yoro.gftd.ai projector UI 既存
+os-ui (App)             ──────→  yoro.etzhayyim.com projector UI 既存
 os-consent (App)        ──────→  agent/consent.ts (PDS 新規 module)
 ```
 
@@ -301,10 +301,10 @@ graphar.vertex_AgentSchedule (
 
 ```
 Worker: ai-gftd-os-messaging-0sm3sg01
-DID:    did:web:os-messaging.gftd.ai
+DID:    did:web:os-messaging.etzhayyim.com
 Nanoid: 0sm3sg01
 
-Route: os-messaging.gftd.ai/*
+Route: os-messaging.etzhayyim.com/*
 Service bindings: PDS_SERVICE, PDS_RPC
 ```
 
@@ -352,7 +352,7 @@ graphar.vertex_PlatformUserMapping (
   mapping_id   TEXT PRIMARY KEY,
   platform     TEXT NOT NULL,
   platform_uid TEXT NOT NULL,     -- discord user ID, telegram chat ID, etc.
-  gftd_did     TEXT NOT NULL,     -- did:web:gkgua2o1.gftd.ai
+  gftd_did     TEXT NOT NULL,     -- did:web:gkgua2o1.etzhayyim.com
   connected_at TIMESTAMPTZ
 )
 ```
@@ -537,7 +537,7 @@ Browser (Control UI) ─ ws://127.0.0.1:18789 ─→ judah gateway (launchd Keep
 - yoro-profile isolated agent: `~/.openclaw/workspaces/yoro-profile`, bound to cron
 - Murakumo provider: `models.providers.murakumo` with gemma-4-e4b-it (128K) + qwen3.5-9b (32K), api=`openai-completions`
 - Secret: Keychain-first (`gftd.murakumo / MURAKUMO_API_KEY`) → file-mode JSON resolver
-- E2E HTTP: openclaw → `https://murakumo.gftd.ai/api/openai/v1/chat/completions` → serve_plain.py, 9.4s round-trip with valid completion
+- E2E HTTP: openclaw → `https://murakumo.etzhayyim.com/api/openai/v1/chat/completions` → serve_plain.py, 9.4s round-trip with valid completion
 
 **Ansible (idempotent)**:
 

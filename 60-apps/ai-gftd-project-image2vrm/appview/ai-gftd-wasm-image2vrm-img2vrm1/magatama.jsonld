@@ -1,6 +1,6 @@
 {
   "@context": "https://gftd.co.jp/ns/magatama",
-  "@id": "did:web:img2vrm1.gftd.ai",
+  "@id": "did:web:img2vrm1.etzhayyim.com",
   "nanoid": "img2vrm1",
   "name": "image2vrm",
   "description": "Photo → VTuber 3D Avatar with Murakumo LLM chat + TTS voice (KAMI Engine + Three.js dual render)",
@@ -25,10 +25,10 @@
   },
   "routes": [
     {
-      "pattern": "image2vrm.gftd.ai/*"
+      "pattern": "image2vrm.etzhayyim.com/*"
     },
     {
-      "pattern": "img2vrm1.gftd.ai/*"
+      "pattern": "img2vrm1.etzhayyim.com/*"
     }
   ],
   "governance": {
@@ -45,11 +45,11 @@
       ],
       "accountable": "avatar-platform-owner",
       "consulted": [
-        "kami.gftd.ai",
+        "kami.etzhayyim.com",
         "community-safety"
       ],
       "informed": [
-        "yoro.gftd.ai",
+        "yoro.etzhayyim.com",
         "creator-support"
       ]
     }

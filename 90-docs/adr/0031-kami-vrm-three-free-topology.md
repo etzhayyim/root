@@ -19,7 +19,7 @@ superseded_by: []
 
 ## Context
 
-Until 2026-04-17 the VRM avatar viewer in `@gftdcojp/kami-engine-sdk` relied on **three.js + `@pixiv/three-vrm`** at runtime for:
+Until 2026-04-17 the VRM avatar viewer in `@etzhayyim/kami-engine-sdk` relied on **three.js + `@pixiv/three-vrm`** at runtime for:
 
 - Scene graph + WebGL renderer
 - VRM skeletal deformation
@@ -163,4 +163,4 @@ JS surface (kami-engine-sdk / createVrmEngine)
 - `40-engine/kami-engine/CLAUDE.md` §wgpu 統一レンダラ, §Prohibitions, §Ownership & Authority
 - `40-engine/kami-engine/ARCHITECTURE.md`
 - Runtime verification log: 2026-04-18 baminiku dev server, VRM1_Constraint_Twist_Sample.vrm, 83 joints / 13 skinned meshes / 57 morph targets / 22 spring chains / 14 node constraints, zero WebGPU validation errors, zero three/@pixiv module fetches.
-- **L10 locomotion (2026-04-20)**: additive extension inside `run_embed_vrm` — WASD walk / Shift+WASD run / Space jump / third-person orbit camera + idle·walk·run·air pose state machine. Authored as Euler-degree bone tuples (VRM 1.0 humanoid names: `leftUpperLeg` / `rightUpperArm` / `spine` / `chest` / `head`) converted to quaternions and written to `VRM_SKIN_STATE.pose_overrides` per-frame; existing spring/constraint solver consumes overrides unchanged. Root TRS composed into each batch `instance_buffer` via `from_translation * from_rotation_y * base_transform`. Exposed at `isekai.gftd.ai/v3-demos.htm#scene=12`. Sanctioned by "VRM viewer surface" carveout; does not introduce new `run_with_*` exports.
+- **L10 locomotion (2026-04-20)**: additive extension inside `run_embed_vrm` — WASD walk / Shift+WASD run / Space jump / third-person orbit camera + idle·walk·run·air pose state machine. Authored as Euler-degree bone tuples (VRM 1.0 humanoid names: `leftUpperLeg` / `rightUpperArm` / `spine` / `chest` / `head`) converted to quaternions and written to `VRM_SKIN_STATE.pose_overrides` per-frame; existing spring/constraint solver consumes overrides unchanged. Root TRS composed into each batch `instance_buffer` via `from_translation * from_rotation_y * base_transform`. Exposed at `isekai.etzhayyim.com/v3-demos.htm#scene=12`. Sanctioned by "VRM viewer surface" carveout; does not introduce new `run_with_*` exports.

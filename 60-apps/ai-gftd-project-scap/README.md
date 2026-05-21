@@ -1,8 +1,8 @@
-# scap.gftd.ai
+# scap.etzhayyim.com
 
 *Automatically synced with your [v0.dev](https://v0.dev) deployments*
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/gftdcojp/v0-scap-gftd-ai)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/etzhayyim/v0-scap-gftd-ai)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/fGPxHejv5ww)
 
 ## Overview
@@ -14,7 +14,7 @@ Any changes you make to your deployed app will be automatically pushed to this r
 
 Your project is live at:
 
-**[https://vercel.com/gftdcojp/v0-scap-gftd-ai](https://vercel.com/gftdcojp/v0-scap-gftd-ai)**
+**[https://vercel.com/etzhayyim/v0-scap-gftd-ai](https://vercel.com/etzhayyim/v0-scap-gftd-ai)**
 
 ## Build your app
 
@@ -172,7 +172,7 @@ curl -X POST http://localhost:8080/api/graphql \
 ### プロジェクト構造
 
 \`\`\`
-scap.gftd.ai/
+scap.etzhayyim.com/
 ├── app/                    # Next.js ルーティング（ports/ui/ から再エクスポート）
 ├── capabilities/          # 能力定義（RDF/OWL/SKOS/SHACL）
 ├── activities/            # 活動定義

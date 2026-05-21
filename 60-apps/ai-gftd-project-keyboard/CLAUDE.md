@@ -1,6 +1,6 @@
-# keyboard.gftd.ai — Ergonomic Dual-Body Split Keyboard (OEM D2C)
+# keyboard.etzhayyim.com — Ergonomic Dual-Body Split Keyboard (OEM D2C)
 
-**URL**: `https://keyboard.gftd.ai`
+**URL**: `https://keyboard.etzhayyim.com`
 
 ## Product Concept
 
@@ -98,7 +98,7 @@ CTO options: switch (+¥0〜¥5,000), keycap material (+¥0〜¥3,000), frame co
 | Data | Storage | Reason |
 |---|---|---|
 | SKU catalog, firmware | in-memory (static) / Repo (public) | 公開カタログ情報 |
-| `crowdfundingRequest` | Repo (public) | 公開 intent — derive rule → auto invoke crowdfunding.gftd.ai |
+| `crowdfundingRequest` | Repo (public) | 公開 intent — derive rule → auto invoke crowdfunding.etzhayyim.com |
 | `configuration` | Preferences (private) | user-specific CTO 構成 |
 | `ergonomicProfile` | Preferences (private) | 身体情報 (PII) |
 
@@ -114,10 +114,10 @@ Derive rules: `magatama.jsonld` `"derive"` section。設計: `90-docs/260407-wri
 
 | Actor DID | Role |
 |---|---|
-| `did:web:keyboard.gftd.ai` | controller — product intelligence + catalog management |
-| `did:web:keyboard.gftd.ai:actor:designer` | hardware CAD + BOM optimization |
-| `did:web:keyboard.gftd.ai:actor:firmware` | keyboard firmware intelligence (QMK/VIA/ZMK) |
-| `did:web:keyboard.gftd.ai:actor:configurator` | CTO configurator UI (switch/keycap/frame selector) |
+| `did:web:keyboard.etzhayyim.com` | controller — product intelligence + catalog management |
+| `did:web:keyboard.etzhayyim.com:actor:designer` | hardware CAD + BOM optimization |
+| `did:web:keyboard.etzhayyim.com:actor:firmware` | keyboard firmware intelligence (QMK/VIA/ZMK) |
+| `did:web:keyboard.etzhayyim.com:actor:configurator` | CTO configurator UI (switch/keycap/frame selector) |
 
 ## Domain WIT (Lexicon)
 
@@ -132,7 +132,7 @@ Derive rules: `magatama.jsonld` `"derive"` section。設計: `90-docs/260407-wri
 
 ## Sales Channel
 
-**okaimono.gftd.ai 経由 D2C 専売。** OEM 製造品として `fulfillment_mode: "cto"` (Configure-to-Order) で catalog 登録。
+**okaimono.etzhayyim.com 経由 D2C 専売。** OEM 製造品として `fulfillment_mode: "cto"` (Configure-to-Order) で catalog 登録。
 
 - okaimono catalog に `ai.gftd.apps.okaimono.catalogItem` として登録
 - `manufacturer_did`: OEM factory DID
@@ -157,7 +157,7 @@ Derive rules: `magatama.jsonld` `"derive"` section。設計: `90-docs/260407-wri
 
 ## Firmware Intelligence
 
-keyboard.gftd.ai actor が QMK/VIA keymap を AI 最適化:
+keyboard.etzhayyim.com actor が QMK/VIA keymap を AI 最適化:
 - typing pattern analysis → layout recommendation
 - per-user ergonomic profile → tenting/splay angle suggestion
 - firmware OTA update via USB-C (QMK DFU)

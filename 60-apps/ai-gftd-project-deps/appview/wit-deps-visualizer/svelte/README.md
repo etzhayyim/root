@@ -1,8 +1,8 @@
-# deps.gftd.ai frontend
+# deps.etzhayyim.com frontend
 
 ## Snapshot Delivery
 
-`deps.gftd.ai` の deps snapshot 配信は static asset を正とする。
+`deps.etzhayyim.com` の deps snapshot 配信は static asset を正とする。
 
 - 正規生成元は `gftd deps export`
 - 生成先は `src/lib/data/*`

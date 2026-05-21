@@ -10,7 +10,7 @@ import {
 } from "@/gen/proto/hrse/v1/mailbox_pb";
 
 /**
- * @gftdcojp/ai-gftd-hrse#ThreadList
+ * @etzhayyim/ai-gftd-hrse#ThreadList
  * Thread list component for mailbox
  */
 interface ThreadListProps {

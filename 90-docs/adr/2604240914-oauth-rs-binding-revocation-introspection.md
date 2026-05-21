@@ -22,7 +22,7 @@ superseded_by: []
 
 # Context
 
-ADR-2604231821 Phase 1-3 で OAuth AS (`atproto.gftd.ai` + `authn.gftd.ai`) の
+ADR-2604231821 Phase 1-3 で OAuth AS (`atproto.etzhayyim.com` + `authn.etzhayyim.com`) の
 wire format と token endpoint の DPoP nonce 強制 (RFC 9449 §8) を完了した。
 同 ADR が "Phase 5 follow-up" として out-of-scope 化した 3 項目を本 ADR で扱う。
 
@@ -101,7 +101,7 @@ access/refresh token の metadata (active / scope / sub / exp / jkt / iss) を
 
 ## Y2. `/oauth/revoke` endpoint (RFC 7009)
 
-1. atproto.gftd.ai に `POST /oauth/revoke` を追加
+1. atproto.etzhayyim.com に `POST /oauth/revoke` を追加
 2. form body: `token` (必須), `token_type_hint` (`access_token` / `refresh_token`, optional)
 3. authn Worker に委譲 — access_jwt / refresh_jwt を jti ベースの blacklist
    (`vertex_gftd_key_revoked_session` D1 table, 既存) に追加
@@ -115,7 +115,7 @@ access/refresh token の metadata (active / scope / sub / exp / jkt / iss) を
 
 ## Y3. `/oauth/introspect` endpoint (RFC 7662)
 
-1. atproto.gftd.ai に `POST /oauth/introspect` を追加
+1. atproto.etzhayyim.com に `POST /oauth/introspect` を追加
 2. confidential client 専用: `Authorization: Bearer <sk_live_*>` で `gftd`
    internal API key 認証 (ADR-0022 L0)。public client は 403 で reject
 3. form body: `token` (必須), `token_type_hint` (optional)
@@ -124,11 +124,11 @@ access/refresh token の metadata (active / scope / sub / exp / jkt / iss) を
    {
      "active": true,
      "scope": "atproto transition:generic",
-     "client_id": "https://atproto.gftd.ai/client-metadata.json",
-     "sub": "did:web:alice.gftd.ai",
+     "client_id": "https://atproto.etzhayyim.com/client-metadata.json",
+     "sub": "did:web:alice.etzhayyim.com",
      "exp": 1745702400,
      "iat": 1745701500,
-     "iss": "https://atproto.gftd.ai",
+     "iss": "https://atproto.etzhayyim.com",
      "token_type": "DPoP",
      "cnf": { "jkt": "<thumbprint>" }
    }
@@ -248,9 +248,9 @@ access/refresh token の metadata (active / scope / sub / exp / jkt / iss) を
 ```json
 {
   ...,
-  "revocation_endpoint": "https://atproto.gftd.ai/oauth/revoke",
+  "revocation_endpoint": "https://atproto.etzhayyim.com/oauth/revoke",
   "revocation_endpoint_auth_methods_supported": ["none"],
-  "introspection_endpoint": "https://atproto.gftd.ai/oauth/introspect",
+  "introspection_endpoint": "https://atproto.etzhayyim.com/oauth/introspect",
   "introspection_endpoint_auth_methods_supported": ["private_key_jwt"]
 }
 ```

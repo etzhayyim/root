@@ -1,7 +1,7 @@
 [project]
 name = "lg-jukyu"
 version = "0.1.0"
-description = "jukyu.gftd.ai OSS LangGraph FastAPI server — Global Supply Demand System"
+description = "jukyu.etzhayyim.com OSS LangGraph FastAPI server — Global Supply Demand System"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",

@@ -7,7 +7,7 @@
     "dct": "http://purl.org/dc/terms/",
     "name": "dct:title",
     "description": "dct:description",
-    "cap": "https://kyber-systems.gftd.ai/capabilities/"
+    "cap": "https://kyber-systems.etzhayyim.com/capabilities/"
   },
   "@graph": [
     {

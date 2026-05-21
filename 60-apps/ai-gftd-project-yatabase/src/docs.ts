@@ -15,7 +15,7 @@ export function docsResponse(): Response {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Docs — Yatabase</title>
-<meta name="description" content="API reference for yatabase.gftd.ai — graph DB + S3-style storage + MCP. Cypher, SPARQL, S3, MCP, XRPC, billing, data rights." />
+<meta name="description" content="API reference for yatabase.etzhayyim.com — graph DB + S3-style storage + MCP. Cypher, SPARQL, S3, MCP, XRPC, billing, data rights." />
 <meta property="og:title" content="Yatabase API reference" />
 <meta property="og:description" content="Cypher / SPARQL / S3 / MCP — copy-pastable curl for every surface." />
 <style>
@@ -102,38 +102,38 @@ export function docsResponse(): Response {
 <p class="lede">
   Single-host BaaS combining a real-time graph database (Cypher / SPARQL),
   S3-style object storage, an MCP tool surface, and AT Protocol-native auth.
-  Every section below is copy-pastable curl that targets <code>https://yatabase.gftd.ai</code>.
+  Every section below is copy-pastable curl that targets <code>https://yatabase.etzhayyim.com</code>.
 </p>
 <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14px">
   <strong style="color:#0369a1">Machine-readable spec:</strong>
   <a href="/openapi.json">/openapi.json</a> (OpenAPI 3.1).
   Import into Postman / Swagger UI, or generate typed clients:
   <pre style="margin-top:8px"><span class="c"># TypeScript types (openapi-typescript)</span>
-npx openapi-typescript <span class="s">https://yatabase.gftd.ai/openapi.json</span> -o yatabase.d.ts
+npx openapi-typescript <span class="s">https://yatabase.etzhayyim.com/openapi.json</span> -o yatabase.d.ts
 
 <span class="c"># Generate a Python client (openapi-python-client)</span>
-openapi-python-client generate --url <span class="s">https://yatabase.gftd.ai/openapi.json</span></pre>
+openapi-python-client generate --url <span class="s">https://yatabase.etzhayyim.com/openapi.json</span></pre>
 </div>
 
 <h2 id="quickstart">Quickstart</h2>
 <p>From zero to first row in 30 seconds:</p>
 <pre><span class="c"># 1. Sign up — anonymous mint, returns sk_live_yata_*</span>
-SIGNUP=$(curl -sS -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/signup</span>)
+SIGNUP=$(curl -sS -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/signup</span>)
 KEY=$(echo "$SIGNUP" | python3 -c <span class="s">'import sys,json;print(json.load(sys.stdin)["apiKey"])'</span>)
 echo "$KEY"
 
 <span class="c"># 2. Create a vertex</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/cypher</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">query</span>":"CREATE (n:Demo {name:\\"hello\\"}) RETURN n"}'
 
 <span class="c"># 3. Query it back</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/cypher</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">query</span>":"MATCH (n:Demo) RETURN n.name LIMIT 10"}'</pre>
-<p>The signup response also contains <code>orgDid</code> (e.g. <code>did:web:t-xxxxx.yata-tenant.gftd.ai</code>),
+<p>The signup response also contains <code>orgDid</code> (e.g. <code>did:web:t-xxxxx.yata-tenant.etzhayyim.com</code>),
    a fresh AWS access-key pair, and an <code>emailStatus</code> field if you passed <code>{email, name}</code>.</p>
 
 <h2 id="auth">Auth</h2>
@@ -164,7 +164,7 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
 <p><strong>Deferred:</strong> multi-hop, variable-length path, <code>MERGE</code>, <code>count()</code>/<code>collect()</code>, <code>OPTIONAL MATCH</code>, <code>WITH</code>.</p>
 
 <pre><span class="c"># Edge traversal</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/cypher</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">query</span>":"MATCH (a:Person)-[:KNOWS]-&gt;(b:Person) RETURN a.name, b.name LIMIT 25"}'</pre>
@@ -177,7 +177,7 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
 
 <h2 id="sparql">SPARQL</h2>
 <p>POST <code>/sparql</code> — SPARQL 1.1 SELECT / CONSTRUCT / ASK on the same graph.</p>
-<pre>curl -X POST <span class="s">https://yatabase.gftd.ai/sparql</span> \\
+<pre>curl -X POST <span class="s">https://yatabase.etzhayyim.com/sparql</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -H <span class="s">'content-type: application/sparql-query'</span> \\
   --data '<span class="k">SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 10</span>'</pre>
@@ -187,22 +187,22 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/cypher</span> \\
 <pre><span class="c"># Upload</span>
 curl -X PUT --data-binary @photo.jpg \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
-  <span class="s">https://yatabase.gftd.ai/storage/v1/object/my-bucket/photo.jpg</span>
+  <span class="s">https://yatabase.etzhayyim.com/storage/v1/object/my-bucket/photo.jpg</span>
 
 <span class="c"># List bucket</span>
 curl -H <span class="s">"authorization: Bearer $KEY"</span> \\
-  <span class="s">https://yatabase.gftd.ai/storage/v1/object/list/my-bucket</span>
+  <span class="s">https://yatabase.etzhayyim.com/storage/v1/object/list/my-bucket</span>
 
 <span class="c"># Public download (only if bucket public_read=true AND ACL grants it)</span>
-curl <span class="s">https://yatabase.gftd.ai/storage/v1/object/public/my-bucket/photo.jpg</span>
+curl <span class="s">https://yatabase.etzhayyim.com/storage/v1/object/public/my-bucket/photo.jpg</span>
 
 <span class="c"># Presigned URL</span>
 curl -X POST -H <span class="s">"authorization: Bearer $KEY"</span> \\
-  <span class="s">https://yatabase.gftd.ai/storage/v1/object/sign/my-bucket/photo.jpg</span></pre>
+  <span class="s">https://yatabase.etzhayyim.com/storage/v1/object/sign/my-bucket/photo.jpg</span></pre>
 
 <h2 id="s3">S3 SigV4 compat</h2>
 <p>Same blobs, AWS SigV4 wire format. Use the <code>awsAccessKeyId</code> + <code>awsSecretAccessKey</code> returned by <code>/auth/v1/signup</code>.</p>
-<pre>aws --endpoint-url <span class="s">https://yatabase.gftd.ai/s3</span> \\
+<pre>aws --endpoint-url <span class="s">https://yatabase.etzhayyim.com/s3</span> \\
   s3 cp photo.jpg s3://my-bucket/photo.jpg</pre>
 
 <h2 id="mcp">MCP (JSON-RPC 2.0)</h2>
@@ -210,12 +210,12 @@ curl -X POST -H <span class="s">"authorization: Bearer $KEY"</span> \\
 <p><code>initialize</code> / <code>ping</code> / <code>tools/list</code> / <code>resources/list</code> / <code>prompts/list</code> are public.
    <code>tools/call</code> and <code>resources/read</code> require auth.</p>
 <pre><span class="c"># List tools (public)</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/mcp</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/mcp</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">jsonrpc</span>":"2.0","<span class="k">method</span>":"tools/list","<span class="k">id</span>":1}'
 
 <span class="c"># Call yata.graph.cypher</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/mcp</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/mcp</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">jsonrpc</span>":"2.0","<span class="k">method</span>":"tools/call","<span class="k">params</span>":{"<span class="k">name</span>":"yata.graph.cypher","<span class="k">arguments</span>":{"<span class="k">query</span>":"MATCH (n) RETURN n LIMIT 5"}},"<span class="k">id</span>":2}'</pre>
@@ -223,7 +223,7 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/mcp</span> \\
 
 <h2 id="xrpc">XRPC pass-through</h2>
 <p>Native AT Protocol XRPC for <code>ai.gftd.apps.yata.*</code> and <code>ai.gftd.apps.billing.*</code>.</p>
-<pre>curl -X POST <span class="s">https://yatabase.gftd.ai/xrpc/ai.gftd.apps.yata.runCypher</span> \\
+<pre>curl -X POST <span class="s">https://yatabase.etzhayyim.com/xrpc/ai.gftd.apps.yata.runCypher</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">query</span>":"MATCH (n:Demo) RETURN n LIMIT 10"}'</pre>
@@ -242,11 +242,11 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/mcp</span> \\
 </table>
 <p>Quota check is per-day, sums today's <code>api_request</code> billing events. Hit 429 with <code>Retry-After</code> when exceeded.</p>
 <p>Read your usage:</p>
-<pre>curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.gftd.ai/api/usage</span>
-curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.gftd.ai/api/plan</span></pre>
+<pre>curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.etzhayyim.com/api/usage</span>
+curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.etzhayyim.com/api/plan</span></pre>
 
 <h2 id="upgrade">Upgrade</h2>
-<pre>curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/upgrade</span> \\
+<pre>curl -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/upgrade</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">plan</span>":"starter"}'</pre>
@@ -255,7 +255,7 @@ curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">http
    inside ~40 s of payment confirmation.</p>
 
 <h3>Customer portal (change card, cancel, view invoices)</h3>
-<pre>curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/portal</span> \\
+<pre>curl -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/portal</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -d '{}'</pre>
 <p>Returns <code>{portalUrl}</code> — a Stripe-hosted page where customers self-serve
@@ -269,17 +269,17 @@ curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">http
    prevents an attacker from attaching a victim's email and abusing yatabase to send
    them spam-looking "recovery" notices):</p>
 <pre><span class="c"># 1a. Attach an email while you still have the key (emails a verify link)</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/attach-email</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/attach-email</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -d '{"<span class="k">email</span>":"you@example.com"}'
 
 <span class="c"># 1b. Click the verification link in your inbox. The link calls:</span>
 <span class="c">#     GET /auth/v1/verify-email?token=...   (24-hour TTL, single-use)</span>
-<span class="c">#     Confirm with: curl https://yatabase.gftd.ai/auth/v1/whoami -H "authorization: Bearer $KEY"</span>
+<span class="c">#     Confirm with: curl https://yatabase.etzhayyim.com/auth/v1/whoami -H "authorization: Bearer $KEY"</span>
 <span class="c">#     attachedEmailVerified should now be true.</span>
 
 <span class="c"># 2. Later, if you lose the key, anyone can request a recovery link</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/recover</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/recover</span> \\
   -d '{"<span class="k">email</span>":"you@example.com"}'
 <span class="c"># Always returns 200 (no enumeration leak). If the email matches a</span>
 <span class="c"># tenant, a recovery link is sent. Link contains a 48-hex token with</span>
@@ -287,13 +287,13 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/recover</span> \\
 
 <span class="c"># 3. Click the link → it posts the token to /auth/v1/redeem and</span>
 <span class="c">#    returns a brand-new API key for the matching org.</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/redeem</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/redeem</span> \\
   -d '{"<span class="k">token</span>":"...48 hex chars from the link..."}'</pre>
 <p>Existing keys remain valid after recovery — recovery is additive, not replacement.
    Revoke the lost key separately via <code>/auth/v1/revoke</code> once the new key is in hand.</p>
 
 <h2 id="whoami">Who am I?</h2>
-<pre>curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.gftd.ai/auth/v1/whoami</span></pre>
+<pre>curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.etzhayyim.com/auth/v1/whoami</span></pre>
 <p>Returns the tenant identity for the current bearer:
    <code>{orgDid, actorDid, plan, attachedEmail, stripeCustomerId, canOpenPortal}</code>.
    Useful for client bootstrap, dashboard rendering, and confirming a recovered key
@@ -301,15 +301,15 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/redeem</span> \\
 
 <h2 id="members">Members &amp; multi-tenant</h2>
 <pre><span class="c"># List members of your org</span>
-curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.gftd.ai/api/members</span>
+curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.etzhayyim.com/api/members</span>
 
 <span class="c"># Mint a new key for a teammate</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/invite</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/invite</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -d '{"<span class="k">name</span>":"alice"}'
 
 <span class="c"># Revoke a key</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/revoke</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/revoke</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -d '{"<span class="k">vertex_id</span>":"apikey:..."}'</pre>
 
@@ -317,7 +317,7 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/auth/v1/revoke</span> \\
 <p>Register a URL to receive HMAC-signed POST notifications when Cypher mutations happen.
    Useful for replicating to Slack, Zapier, your own backend, or any HTTP endpoint.</p>
 <pre><span class="c"># Register a webhook (URL must be HTTPS)</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/api/webhooks</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/api/webhooks</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{
@@ -328,10 +328,10 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/api/webhooks</span> \\
 <span class="c"># Response includes webhook.secret — save it. Subsequent GETs only show secretPrefix.</span>
 
 <span class="c"># List your webhooks (secret redacted)</span>
-curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.gftd.ai/api/webhooks</span>
+curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.etzhayyim.com/api/webhooks</span>
 
 <span class="c"># Remove a webhook</span>
-curl -X DELETE <span class="s">https://yatabase.gftd.ai/api/webhooks/whk_...</span> \\
+curl -X DELETE <span class="s">https://yatabase.etzhayyim.com/api/webhooks/whk_...</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span></pre>
 <table>
   <thead><tr><th>Event</th><th>Fires on</th><th>Payload</th></tr></thead>
@@ -367,10 +367,10 @@ function verifyYatabase(req, secret) {
 
 <h2 id="privacy">Data rights (CCPA / GDPR / 改正個人情報保護法)</h2>
 <pre><span class="c"># Right to know — full export</span>
-curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.gftd.ai/api/export</span>
+curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.etzhayyim.com/api/export</span>
 
 <span class="c"># Right to delete — irreversible</span>
-curl -X POST <span class="s">https://yatabase.gftd.ai/api/account/delete</span> \\
+curl -X POST <span class="s">https://yatabase.etzhayyim.com/api/account/delete</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -d '{"<span class="k">confirm</span>":"DELETE"}'</pre>
 <p>See <a href="/.well-known/agent.json">/.well-known/agent.json</a> for the legal disclaimer.
@@ -425,7 +425,7 @@ curl -X POST <span class="s">https://yatabase.gftd.ai/api/account/delete</span> 
 </main>
 
 <footer>
-  <p>© 2026 etz hayim · <a href="/">yatabase.gftd.ai</a> · <a href="/status">/status</a> · <a href="/team">/team</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
+  <p>© 2026 etz hayim · <a href="/">yatabase.etzhayyim.com</a> · <a href="/status">/status</a> · <a href="/team">/team</a> · <a href="/.well-known/agent.json">/.well-known/agent.json</a></p>
 </footer>
 
 </body></html>`;

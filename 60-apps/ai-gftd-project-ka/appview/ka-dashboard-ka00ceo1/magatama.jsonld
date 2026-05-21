@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:ka.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:ka.etzhayyim.com",
   "accent": "#dc2626",
   "component": { "path": "src/app.ts" },
   "build": {

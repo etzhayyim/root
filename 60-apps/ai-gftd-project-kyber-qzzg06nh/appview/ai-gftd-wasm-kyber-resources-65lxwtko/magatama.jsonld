@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kyber-qzzg06nh.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kyber-qzzg06nh.etzhayyim.com",
   "accent": "#6366f1",
   "component": {
     "path": "component.wasm"
@@ -19,17 +19,17 @@
     "roles": [
       {
         "description": "Maintains Kyber resource records and inventory state.",
-        "did": "did:web:kyber-qzzg06nh.gftd.ai",
+        "did": "did:web:kyber-qzzg06nh.etzhayyim.com",
         "role": "resource-operator"
       },
       {
         "description": "Approves high-impact resource allocations and changes.",
-        "did": "did:web:kyber-qzzg06nh.gftd.ai:operations",
+        "did": "did:web:kyber-qzzg06nh.etzhayyim.com:operations",
         "role": "resource-owner"
       },
       {
         "description": "Reviews budget-bearing resource allocation changes.",
-        "did": "did:web:kyber-qzzg06nh.gftd.ai:finance",
+        "did": "did:web:kyber-qzzg06nh.etzhayyim.com:finance",
         "role": "finance-controller"
       }
     ]

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:vct-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:vct-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Saint Vincent and the Grenadines AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -81,7 +81,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "vct-state.gftd.ai",
+      "host": "vct-state.etzhayyim.com",
       "paths": [
         "/"
       ],

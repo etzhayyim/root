@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:mwi-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:mwi-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Republic of Malawi AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "mwi-state.gftd.ai",
+      "host": "mwi-state.etzhayyim.com",
       "paths": [
         "/"
       ],

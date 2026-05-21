@@ -9,7 +9,7 @@
   let error = $state('');
   let activeScene: number | null = $state(null);
 
-  const REPO = 'did:web:y5kk5r1x.gftd.ai';
+  const REPO = 'did:web:y5kk5r1x.etzhayyim.com';
 
   async function load() {
     loading = true;

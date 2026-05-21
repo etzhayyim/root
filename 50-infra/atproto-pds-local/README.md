@@ -74,7 +74,7 @@ EOF
 mkdir -p ~/etzhayyim/pds-data ~/etzhayyim/pds-blobs
 ```
 
-> **Store JWT_SECRET + ADMIN_PASSWORD + the 2 K256 keys in 1Password** (vault `gftdcojp`, item `etzhayyim/pds-mini-01`) before starting, then add a Keychain entry on this Mac (mirror).
+> **Store JWT_SECRET + ADMIN_PASSWORD + the 2 K256 keys in 1Password** (vault `etzhayyim`, item `etzhayyim/pds-mini-01`) before starting, then add a Keychain entry on this Mac (mirror).
 
 ## Step 4 — Start PDS
 
@@ -187,5 +187,5 @@ After acceptance, Phase 2 (mini-02 LangGraph worker) can start.
 
 - ADR-2605171800 § Stage 1-2 — PDS + LangGraph cell runtime
 - ADR-2605172000 — RW-free substrate (PDS is the AT MST host)
-- Vendor monorepo `gftdcojp/ai-gftd-apps-gftdcojp/90-docs/adr/2605111300-pds-to-pod-bun-container.md` — Bun container PDS reference (we use the same source, packaged for mini deploy)
+- Vendor monorepo `etzhayyim/etzhayyim-root/90-docs/adr/2605111300-pds-to-pod-bun-container.md` — Bun container PDS reference (we use the same source, packaged for mini deploy)
 - atproto PDS docs — https://atproto.com/guides/self-hosting

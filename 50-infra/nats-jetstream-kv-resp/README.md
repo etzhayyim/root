@@ -41,7 +41,7 @@ Internal prefixes (`_h.`, `_hm.`, `_l.`, `_ttl.`) are excluded from `KEYS`/`SCAN
 ### Binary
 
 ```bash
-go install github.com/gftdcojp/nats-jetstream-kv-resp/cmd/nats-jetstream-kv-resp@latest
+go install github.com/etzhayyim/nats-jetstream-kv-resp/cmd/nats-jetstream-kv-resp@latest
 nats-jetstream-kv-resp -config config.yaml
 ```
 
@@ -126,8 +126,8 @@ import (
     "context"
     "log"
 
-    "github.com/gftdcojp/nats-jetstream-kv-resp/internal/config"
-    "github.com/gftdcojp/nats-jetstream-kv-resp/pkg/bridge"
+    "github.com/etzhayyim/nats-jetstream-kv-resp/internal/config"
+    "github.com/etzhayyim/nats-jetstream-kv-resp/pkg/bridge"
     "go.uber.org/zap"
 )
 

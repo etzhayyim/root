@@ -1,5 +1,5 @@
 {
-  "$comment": "LangGraph Server config — patent.gftd.ai. Graphs: blob_convert (every 5 min), ingest_uspto_weekly (weekly).",
+  "$comment": "LangGraph Server config — patent.etzhayyim.com. Graphs: blob_convert (every 5 min), ingest_uspto_weekly (weekly).",
   "dependencies": ["./lg_patent", "../../../20-actors/magatama/py"],
   "graphs": {
     "health":               "./lg_patent/graphs/health.py:GRAPH",

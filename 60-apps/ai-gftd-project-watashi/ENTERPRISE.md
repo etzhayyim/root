@@ -102,7 +102,7 @@ watashi-host (external device)
 
 Current production relay endpoint:
 
-- `https://watashi-relay.gftd.ai/relay`
+- `https://watashi-relay.etzhayyim.com/relay`
 
 Properties:
 
@@ -155,8 +155,8 @@ Control-plane responsibilities:
   - `deny_clipboard_file`
   - `allow_file_transfer`
 - return launch commands for both peers so enterprise operators can copy/paste:
-  - `watashi --relay-host https://watashi-relay.gftd.ai/relay --session ... --peer ... --token ...`
-  - `watashi --relay-client https://watashi-relay.gftd.ai/relay --session ... --peer ... --token ...`
+  - `watashi --relay-host https://watashi-relay.etzhayyim.com/relay --session ... --peer ... --token ...`
+  - `watashi --relay-client https://watashi-relay.etzhayyim.com/relay --session ... --peer ... --token ...`
 
 #### `watashi-relay`
 

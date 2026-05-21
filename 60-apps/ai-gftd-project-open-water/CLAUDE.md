@@ -1,4 +1,4 @@
-# open-water.gftd.ai — Water Utility Operations & Network Design (OSS)
+# open-water.etzhayyim.com — Water Utility Operations & Network Design (OSS)
 
 **Status**: MVP scaffold (2026-04-20). Reference implementation for water
 distribution network design (reservoirs / mains / service points) and
@@ -23,7 +23,7 @@ operations (meter readings, leak reports, water quality samples). Apache-2.0.
 - **Runtime**: Single CF Worker (`src/app.ts`)
 - **Storage**: D1. Tables: `nodes`, `mains`, `meter_readings`, `leaks`, `quality_samples`
 - **Identity**: reservoir/service-point/main/leak = path-based DIDs
-  `did:web:open-water.gftd.ai:{node|main|leak|sample}:{id}`
+  `did:web:open-water.etzhayyim.com:{node|main|leak|sample}:{id}`
 - **Topology**: directed reservoir → service points via mains
 - **Leak severity** by DMN (`openWater.leakSeverity`): estimated flow l/min +
   contamination risk → `{severity, requirePublicNotice}`

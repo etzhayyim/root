@@ -1,7 +1,7 @@
 {
   "name": "ai-gftd-wasm-canvas-cnv5dr4w",
   "version": "1.0.0",
-  "description": "canvas.gftd.ai — Protocol Canvas rendering & collaboration",
+  "description": "canvas.etzhayyim.com — Protocol Canvas rendering & collaboration",
   "main": "src/app.ts",
   "type": "module",
   "dependencies": {

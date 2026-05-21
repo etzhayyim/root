@@ -133,8 +133,8 @@ log = logging.getLogger(__name__)
 
 
 # ── Identity helpers ────────────────────────────────────────────────────────
-ENGINE_OWNER_DID = "did:web:bpmn.gftd.ai"
-PROCESS_DID_HOST = "did:web:bpmn.gftd.ai"
+ENGINE_OWNER_DID = "did:web:bpmn.etzhayyim.com"
+PROCESS_DID_HOST = "did:web:bpmn.etzhayyim.com"
 
 
 def _vertex_instance(instance_id: str, seq: int = 0) -> str:

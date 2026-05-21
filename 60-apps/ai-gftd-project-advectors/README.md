@@ -4,7 +4,7 @@ LLM-first ad project for:
 
 - grounded ad submission (text/image)
 - policy-aware ad delivery
-- split routing on `advectors.gftd.ai`
+- split routing on `advectors.etzhayyim.com`
 
 ## Components
 
@@ -19,7 +19,7 @@ LLM-first ad project for:
 - Serves ads and collects impression/click telemetry.
 - Exposes REST (`/api/v1/register`, `/api/v1/serve`, `/api/v1/impression`, `/api/v1/click`, `/api/v1/metrics`).
 
-## Host Routing (`advectors.gftd.ai`)
+## Host Routing (`advectors.etzhayyim.com`)
 
 - Submit paths:
   - `/api/v1/submit/*`
@@ -53,4 +53,4 @@ Delivery accepts the same shape (with required fields) at `POST /api/v1/register
 
 - WADM namespace: `magatama-runtime`
 - Route backend namespace: `magatama-system`
-- Image registry: `ghcr.io/gftdcojp/*`
+- Image registry: `ghcr.io/etzhayyim/*`

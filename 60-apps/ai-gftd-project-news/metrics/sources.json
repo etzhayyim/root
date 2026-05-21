@@ -4,7 +4,7 @@
   "updatedAt": "2026-02-15T00:00:00Z",
   "sources": {
     "requests": {
-      "primary": "CDN access logs (gftd-static-sites bucket, prefix news.gftd.ai)",
+      "primary": "CDN access logs (gftd-static-sites bucket, prefix news.etzhayyim.com)",
       "fallback": "GA4 page_view counts"
     },
     "gccCredit": {

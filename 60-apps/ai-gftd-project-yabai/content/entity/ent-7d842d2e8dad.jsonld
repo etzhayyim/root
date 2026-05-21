@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-7d842d2e8dad",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7d842d2e8dad",
   "entityId": "ent-7d842d2e8dad",
   "canonicalName": "muhammad hamza zubaidi",
   "aliases": [

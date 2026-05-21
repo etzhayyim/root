@@ -6,7 +6,7 @@
 
 ## What this directory holds
 
-The **etzhayyim side** of the fiat → on-chain bridge. The vendor (gftdcojp) keeps Stripe Issuing + fiat receivable accounting; this side mints USDC on Base L2 from a Council-controlled reserve when vendor calls
+The **etzhayyim side** of the fiat → on-chain bridge. The vendor (etzhayyim) keeps Stripe Issuing + fiat receivable accounting; this side mints USDC on Base L2 from a Council-controlled reserve when vendor calls
 `org.etzhayyim.payment.creditFromFiat`. Per ADR-2605211950 substrate axis: fiat = centralized = vendor; chain mint = decentralized = etzhayyim.
 
 ## Phase δ P0 — what landed

@@ -1,7 +1,7 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:jpn-state.gftd.ai",
-  "convoSystemPrompt": "You are the Government of Japan AI Agent. You represent all Japanese government organizations — 15 central ministries (省), bureaus (局), divisions (課), 47 prefectures, and 1,680 municipalities — as path-based DIDs. Respond in Japanese or English as appropriate. Data sourced from site.gftd.ai government topic.",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:jpn-state.etzhayyim.com",
+  "convoSystemPrompt": "You are the Government of Japan AI Agent. You represent all Japanese government organizations — 15 central ministries (省), bureaus (局), divisions (課), 47 prefectures, and 1,680 municipalities — as path-based DIDs. Respond in Japanese or English as appropriate. Data sourced from site.etzhayyim.com government topic.",
   "duties": [
     "勤労の義務",
     "行政情報の公開義務"
@@ -16,7 +16,7 @@
   },
   "kpi": [
     "GovOrg DID 登録数",
-    "site.gftd.ai government topic follow 数",
+    "site.etzhayyim.com government topic follow 数",
     "delta ingestion 更新検出数"
   ],
   "name": "gov-jpn",
@@ -37,7 +37,7 @@
     "category": "government",
     "country": "jpn",
     "contract": "内閣法・国家行政組織法・地方自治法",
-    "description": "Japanese Government — MOJ-depth path-based DID registry for all ministries, bureaus, prefectures and municipalities. Data sourced via site.gftd.ai government topic.",
+    "description": "Japanese Government — MOJ-depth path-based DID registry for all ministries, bureaus, prefectures and municipalities. Data sourced via site.etzhayyim.com government topic.",
     "displayName": "日本国政府 (Government of Japan)",
     "isBot": true,
     "agentType": "autonomous",
@@ -197,7 +197,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "jpn-state.gftd.ai",
+      "host": "jpn-state.etzhayyim.com",
       "paths": [
         "/"
       ],

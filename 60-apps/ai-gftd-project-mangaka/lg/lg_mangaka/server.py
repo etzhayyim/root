@@ -288,9 +288,9 @@ def _xrpc_input_to_graph_input(_nsid: str, body: dict[str, Any]) -> dict[str, An
 # `ai.gftd.mangaka.tools.<m>` NSIDs route directly to the pure
 # functions in `lg_mangaka.tools` — these are not LangGraph graphs, they
 # are the 6 MCP-resolvable bodies referenced by the topology spec. The
-# MCP adapter at atproto.gftd.ai forwards `tools/call` envelopes here
+# MCP adapter at atproto.etzhayyim.com forwards `tools/call` envelopes here
 # once `vertex_mcp_tool_def` (P8 seed) routes the NSID's `actor_host` to
-# mangaka.gftd.ai. Worker side stays a thin pass-through — RW + B2 + GPU
+# mangaka.etzhayyim.com. Worker side stays a thin pass-through — RW + B2 + GPU
 # all live on the pod per ADR-2605111200.
 #
 # camelCase JSON body → snake_case kwargs adapter preserves the lexicon
@@ -371,7 +371,7 @@ async def _dispatch_mcp_tool(nsid: str, body: dict[str, Any]) -> dict[str, Any]:
 # Phase C topology this resolves to the pod itself when
 # `MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools=http://localhost:8000` is
 # set (see `50-infra/vultr/lg-mangaka-pool/values.yaml`). External MCP
-# clients reach the atproto.gftd.ai MCP adapter and end up here through
+# clients reach the atproto.etzhayyim.com MCP adapter and end up here through
 # the same envelope, so both paths converge.
 #
 # Envelope shape (JSON-RPC 2.0):

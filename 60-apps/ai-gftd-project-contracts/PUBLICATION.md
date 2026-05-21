@@ -9,13 +9,13 @@ ai-gftd-project-contracts のデータは以下の方法で公開されます：
 全データは JSON-LD として Git リポジトリに格納され、直接アクセス可能：
 
 ```
-https://gftd.ai/data/{type}/{id}.jsonld
+https://etzhayyim.com/data/{type}/{id}.jsonld
 ```
 
 Examples:
-- `https://gftd.ai/data/organizations/apple-inc.jsonld`
-- `https://gftd.ai/data/social-contracts/japan-constitution.jsonld`
-- `https://gftd.ai/data/contracts/example-procurement-001.jsonld`
+- `https://etzhayyim.com/data/organizations/apple-inc.jsonld`
+- `https://etzhayyim.com/data/social-contracts/japan-constitution.jsonld`
+- `https://etzhayyim.com/data/contracts/example-procurement-001.jsonld`
 
 ## 2. CDN Distribution (Planned)
 
@@ -36,9 +36,9 @@ Features:
 REST API for programmatic access:
 
 ```
-GET https://public.gftd.ai/contracts/organizations/{id}
-GET https://public.gftd.ai/contracts/social-contracts/{id}
-GET https://public.gftd.ai/contracts/search?q={query}
+GET https://public.etzhayyim.com/contracts/organizations/{id}
+GET https://public.etzhayyim.com/contracts/social-contracts/{id}
+GET https://public.etzhayyim.com/contracts/search?q={query}
 ```
 
 ## 4. SPARQL Endpoint (Future)
@@ -46,10 +46,10 @@ GET https://public.gftd.ai/contracts/search?q={query}
 RDF triple store with SPARQL endpoint:
 
 ```
-POST https://public.gftd.ai/sparql
+POST https://public.etzhayyim.com/sparql
 Content-Type: application/sparql-query
 
-PREFIX gftd: <https://gftd.ai/schema/>
+PREFIX gftd: <https://etzhayyim.com/schema/>
 PREFIX schema: <https://schema.org/>
 
 SELECT ?org ?name ?lei
@@ -139,15 +139,15 @@ We respect privacy and comply with:
 
 ### Right to be Forgotten
 
-Contact: privacy@gftd.ai
+Contact: privacy@etzhayyim.com
 
 We will remove personal data upon request.
 
 ## Contact
 
-- Issues: https://github.com/gftd-ai/ai-gftd-apps-gftdcojp/issues
-- Email: contracts@gftd.ai
-- MCP Endpoint: https://q2whl5cx.gftd.ai/api/mcp
+- Issues: https://github.com/gftd-ai/etzhayyim-root/issues
+- Email: contracts@etzhayyim.com
+- MCP Endpoint: https://q2whl5cx.etzhayyim.com/api/mcp
 
 ## Related Projects
 

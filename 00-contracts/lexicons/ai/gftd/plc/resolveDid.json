@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Proxy for plc.gftd.ai GET /{did} — returns the current W3C DID document by replaying the signed op log. Caller-side alternative: fetch plc.gftd.ai directly (no PDS auth required for public DIDs).",
+      "description": "Proxy for plc.etzhayyim.com GET /{did} — returns the current W3C DID document by replaying the signed op log. Caller-side alternative: fetch plc.etzhayyim.com directly (no PDS auth required for public DIDs).",
       "parameters": {
         "type": "params",
         "required": ["did"],
@@ -28,7 +28,7 @@
             },
             "source": {
               "type": "string",
-              "enum": ["plc.gftd.ai", "did:web", "cache"],
+              "enum": ["plc.etzhayyim.com", "did:web", "cache"],
               "description": "which resolver satisfied the query"
             },
             "resolvedAt": {

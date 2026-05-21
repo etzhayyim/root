@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:society6.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:society6.etzhayyim.com",
   "component": {
     "path": "/wasm/component.wasm"
   },
@@ -36,14 +36,14 @@
   "project": "society6",
   "routes": [
     {
-      "host": "society6.gftd.ai",
+      "host": "society6.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "s6c9m2q1.gftd.ai",
+      "host": "s6c9m2q1.etzhayyim.com",
       "paths": [
         "/"
       ],

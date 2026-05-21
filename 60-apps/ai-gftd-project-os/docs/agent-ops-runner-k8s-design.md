@@ -1,7 +1,7 @@
 # Agent Ops Runner on Kubernetes (Performers Control Plane) Design
 
 ## Goal
-`/jobs/scheduler-tick` (gftdcojp backend) が起点となって、`jt4qfzv1` (sys-os) の Agent Ops による自動実行で、次を **高確度** に成立させる。
+`/jobs/scheduler-tick` (etzhayyim backend) が起点となって、`jt4qfzv1` (sys-os) の Agent Ops による自動実行で、次を **高確度** に成立させる。
 
 - 対象リポジトリの checkout（必要なら shallow / mirror）
 - git 認証（push できる）
@@ -18,7 +18,7 @@
 
 ```mermaid
 flowchart LR
-  A["App scheduler binding\ncron-gftdcojp-scheduler\n(/jobs/scheduler-tick)"] --> B["gftdcojp backend\n(automation store + tick)"]
+  A["App scheduler binding\ncron-etzhayyim-scheduler\n(/jobs/scheduler-tick)"] --> B["etzhayyim backend\n(automation store + tick)"]
   B --> C["Performers Control Plane\n(Runner Manager)"]
   C --> D["Kubernetes Job\nagent-ops-runner"]
   D --> E["GitHub\nclone/push/PR"]
@@ -35,7 +35,7 @@ Performers control plane 側に Runner Manager を置く（既存の deploy/agen
   - K8s Job を作成
 - `ObserveRun`:
   - Pod 状態 / exit code / log を収集
-  - PR URL / エラーを gftdcojp backend に返す（Scheduler thread を更新）
+  - PR URL / エラーを etzhayyim backend に返す（Scheduler thread を更新）
 - `Cleanup`:
   - TTLAfterFinished により Job/Pod を自動削除
   - 必要なら workspace volume の掃除
@@ -141,7 +141,7 @@ image cache 戦略:
 - lock を取れなければ run を delay（次 tick に回す）
 
 ## Observability
-Runner Manager が以下を収集し、gftdcojp backend の scheduler thread に反映する。
+Runner Manager が以下を収集し、etzhayyim backend の scheduler thread に反映する。
 
 - Pod phase / exit code
 - 重要ログ（clone/push/pr URL）
@@ -161,7 +161,7 @@ Runner Manager が以下を収集し、gftdcojp backend の scheduler thread に
 ## Rollout Plan
 1. Runner image を作成（ツール同梱、digest pin）
 2. control plane に Runner Manager を追加（Job 作成 + log 回収）
-3. gftdcojp backend の automation 実行を「legacy runtime invoke 直叩き」から「Runner Manager 呼び出し」に切替
+3. etzhayyim backend の automation 実行を「legacy runtime invoke 直叩き」から「Runner Manager 呼び出し」に切替
 4. cache PV / remote cache を追加し、ウォームアップ DaemonSet を投入
 5. 本番 automation を段階的に enable
 

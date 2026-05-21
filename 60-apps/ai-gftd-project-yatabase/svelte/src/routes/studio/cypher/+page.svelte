@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, Textarea, NotificationBanner, EmptyState } from '@gftdcojp/design-system';
+	import { Button, Textarea, NotificationBanner, EmptyState } from '@etzhayyim/design-system';
 	import { apiKey } from '$lib/stores';
 	import { graph, ApiError, type CypherResp } from '$lib/api';
 

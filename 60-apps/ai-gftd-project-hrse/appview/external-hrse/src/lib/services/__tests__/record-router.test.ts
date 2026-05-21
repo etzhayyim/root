@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#RecordRouterTest
+// @etzhayyim/cyber-freelance#RecordRouterTest
 // Record RouterサービスのVitestテスト（カバレッジ測定用）
 
 import { describe, it, expect, vi, beforeEach } from "vitest";

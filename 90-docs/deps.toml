@@ -77,7 +77,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "active"
-description = "llm.gftd.ai is an independent RunPod pass-through gateway, not a Murakumo or magatama-llm8cf4ai route."
+description = "llm.etzhayyim.com is an independent RunPod pass-through gateway, not a Murakumo or magatama-llm8cf4ai route."
 related = [
   "60-apps/ai-gftd-project-runpod/serve/worker-gateway.ts",
   "60-apps/ai-gftd-project-runpod/serve/wrangler.jsonc",
@@ -153,7 +153,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "active"
-description = "Authoritative CF Worker thin-edge boundary: T1/T2 business logic runs in BPMN/Zeebe/Python worker or RisingWave UDF; Python worker pods use FastAPI + Granian for K8s-internal HTTP surfaces only; maps.gftd.ai cutover verified 2026-04-30 with 162 BPMN-backed business commands and 35 retained edge exceptions."
+description = "Authoritative CF Worker thin-edge boundary: T1/T2 business logic runs in BPMN/Zeebe/Python worker or RisingWave UDF; Python worker pods use FastAPI + Granian for K8s-internal HTTP surfaces only; maps.etzhayyim.com cutover verified 2026-04-30 with 162 BPMN-backed business commands and 35 retained edge exceptions."
 related = [
   "60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/app.ts",
   "20-actors/magatama/py/src/pymagatama/ingest/maps_collection.py",
@@ -182,7 +182,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "accepted"
-description = "PDS runtime migration from CF Worker to k8s Bun pod with cloudflared sidecar. 2026-05-14 deploy attempt proved thin proxy shape but rolled back because atproto-canary.gftd.ai returned HTTP 522."
+description = "PDS runtime migration from CF Worker to k8s Bun pod with cloudflared sidecar. 2026-05-14 deploy attempt proved thin proxy shape but rolled back because atproto-canary.etzhayyim.com returned HTTP 522."
 related = [
   "90-docs/adr/2605111200-cf-worker-edge-only-no-rw-connection.md",
   "50-infra/k8s/atproto-pds/README.md",
@@ -196,7 +196,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "active"
-description = "World Monitor-style resident intelligence graph facade for maps.gftd.ai: public XRPC product coverage 100%, pod-side maps LangServer reads, dashboard cache, and no new RisingWave DDL."
+description = "World Monitor-style resident intelligence graph facade for maps.etzhayyim.com: public XRPC product coverage 100%, pod-side maps LangServer reads, dashboard cache, and no new RisingWave DDL."
 related = [
   "90-docs/maps-worldmonitor-parity.md",
   "20-actors/magatama/py/src/pymagatama/worker_api.py",
@@ -216,7 +216,7 @@ tier = "production"
 [subdirs.celler]
 role = "celler-docs"
 tier = "production"
-description = "celler.gftd.ai DID-addressed telephony docs"
+description = "celler.etzhayyim.com DID-addressed telephony docs"
 
 [subdirs.dt]
 role = "digital-twin-docs"
@@ -245,7 +245,7 @@ description = "Magatama architecture docs"
 [subdirs.okaimono]
 role = "okaimono-docs"
 tier = "production"
-description = "okaimono.gftd.ai D2C OEM EC docs"
+description = "okaimono.etzhayyim.com D2C OEM EC docs"
 
 [subdirs.platform]
 role = "platform-docs"
@@ -288,7 +288,7 @@ description = "Cryptographic test vectors"
 [subdirs.soshiki]
 role = "soshiki-docs"
 tier = "production"
-description = "soshiki.gftd.ai biological + social org docs"
+description = "soshiki.etzhayyim.com biological + social org docs"
 
 [subdirs.wproto]
 role = "wproto-docs"
@@ -300,7 +300,7 @@ replaced_by = "90-docs/adr/2604251700-wproto-wit-dead-path.md"
 [subdirs.yoro]
 role = "yoro-docs"
 tier = "production"
-description = "yoro.gftd.ai AI Agent-First social docs"
+description = "yoro.etzhayyim.com AI Agent-First social docs"
 
 # ── Root-level design docs (YYMMDD-*.md) ─────────────────
 # These are editable design documents. Use _registry/docs.json for index.

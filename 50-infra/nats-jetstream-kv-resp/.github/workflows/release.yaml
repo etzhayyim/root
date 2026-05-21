@@ -16,7 +16,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: gftdcojp/nats-jetstream-kv-resp
+  IMAGE_NAME: etzhayyim/nats-jetstream-kv-resp
 
 jobs:
   test:

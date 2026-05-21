@@ -1613,6 +1613,7 @@ def tool_web_search(args: dict[str, Any]) -> dict[str, Any]:
                 }
                 for hit in kg_hits
             ],
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
             "provider": "risingwave-domain-knowledge",
         }
     vector_hits = _search_internal_vector_index(query, top_k=top_k)

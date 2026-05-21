@@ -1,5 +1,5 @@
 // Kenkyusha thin facade. Research-frontier logic runs in the lg-kenkyusha
-// LangGraph pod (https://kenkyusha.gftd.ai). MCP tools/list discovers the
+// LangGraph pod (https://kenkyusha.etzhayyim.com). MCP tools/list discovers the
 // three Science OS / EACN3 lifecycle NSIDs (publishFrontier / getFrontier /
 // listFrontiers) via vertex_capability (Alembic 20260514_0002) and dispatches
 // here; this facade then proxies the call to the pod with x-api-key auth.
@@ -7,7 +7,7 @@
 
 type Env = {
   DISPATCHER_URL?: string;
-  /** Base URL of the lg-kenkyusha pod (ingress). Defaults to kenkyusha.gftd.ai. */
+  /** Base URL of the lg-kenkyusha pod (ingress). Defaults to kenkyusha.etzhayyim.com. */
   KENKYUSHA_LG_URL?: string;
   /** x-api-key forwarded to lg-kenkyusha. Stored as a Worker secret. */
   LG_KENKYUSHA_API_KEY?: string;
@@ -16,7 +16,7 @@ type Env = {
 
 const ACTOR = {
   name: "Kenkyusha",
-  did: "did:web:kenkyusha.gftd.ai",
+  did: "did:web:kenkyusha.etzhayyim.com",
   nanoid: "kk8r3n5v",
 };
 
@@ -37,7 +37,7 @@ const NSIDS = new Set([
 ]);
 
 // NSIDs that go directly to the lg-kenkyusha pod (Phase 2A MCP facade).
-// Everything else still goes through dispatcher.gftd.ai.
+// Everything else still goes through dispatcher.etzhayyim.com.
 const POD_NSIDS = new Set([
   "ai.gftd.apps.kenkyusha.publishFrontier",
   "ai.gftd.apps.kenkyusha.getFrontier",
@@ -70,7 +70,7 @@ async function readBody(request: Request): Promise<Record<string, unknown> | nul
 }
 
 async function dispatch(env: Env, nsid: string, body: Record<string, unknown>, request: Request): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers = new Headers({ accept: "application/json", "content-type": "application/json" });
   const auth = request.headers.get("authorization");
   if (auth) headers.set("authorization", auth);
@@ -97,7 +97,7 @@ async function dispatch(env: Env, nsid: string, body: Record<string, unknown>, r
  *   listFrontiers   → GET  /frontiers?limit=&status=
  */
 async function dispatchPod(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.KENKYUSHA_LG_URL ?? "https://kenkyusha.gftd.ai").replace(/\/+$/, "");
+  const base = (env.KENKYUSHA_LG_URL ?? "https://kenkyusha.etzhayyim.com").replace(/\/+$/, "");
   const headers = new Headers({ accept: "application/json", "content-type": "application/json" });
   if (env.LG_KENKYUSHA_API_KEY) headers.set("x-api-key", env.LG_KENKYUSHA_API_KEY);
 

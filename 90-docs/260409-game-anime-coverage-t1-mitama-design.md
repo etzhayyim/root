@@ -53,7 +53,7 @@
 新規 actor を追加する。
 
 - `20-actors/media-anime/actor-manifest.jsonld`
-  - DID: `did:web:media-anime.gftd.ai`
+  - DID: `did:web:media-anime.etzhayyim.com`
   - `executionTier: T1`
   - capabilities: `graph.query`, `graph.write`, `agent.chat`, `derive:social` など最小集合
   - coverage pipeline は game と同一テンプレート
@@ -102,7 +102,7 @@
 1. anime T1 manifest 追加 (`20-actors/media-anime/actor-manifest.jsonld`)
 2. `gftd mitama -dir 20-actors/media-anime --dry-run`
 3. `gftd mitama -dir 20-actors/media-anime` で登録
-4. `gftd mitama inspect did:web:media-anime.gftd.ai` で登録内容確認
+4. `gftd mitama inspect did:web:media-anime.etzhayyim.com` で登録内容確認
 5. `ai.gftd.apps.mediaanime.coverage.get` を smoke 実行
 6. `media-gamers` 側も同契約に合わせて key/collection の揺れを是正
 7. 必要に応じて `news` を T1 actor 化し category coverage を統合

@@ -35,7 +35,7 @@ export function buildMapsSocialPost(collection: string, rec: SocialRecord): stri
       height != null ? `${height}m` : "",
       locality,
     ].filter(Boolean).join(" / ");
-    return `[Building] ${name}${details ? ` (${details})` : ""}\ncc @jinushi.gftd.ai`;
+    return `[Building] ${name}${details ? ` (${details})` : ""}\ncc @jinushi.etzhayyim.com`;
   }
 
   if (collection === "landRegistry") {
@@ -44,7 +44,7 @@ export function buildMapsSocialPost(collection: string, rec: SocialRecord): stri
     const jurisdiction = firstText(rec.jurisdiction, rec.country, rec.regionName);
     const propertyType = firstText(rec.propertyType, rec.landUse, rec.category);
     const details = [jurisdiction, propertyType].filter(Boolean).join(", ");
-    return `[LandRegistry] ${registryNumber}${details ? ` (${details})` : ""}\ncc @jinushi.gftd.ai`;
+    return `[LandRegistry] ${registryNumber}${details ? ` (${details})` : ""}\ncc @jinushi.etzhayyim.com`;
   }
 
   if (collection === "propertyRegistry") {
@@ -53,7 +53,7 @@ export function buildMapsSocialPost(collection: string, rec: SocialRecord): stri
     const propertyName = firstText(rec.name, rec.displayName, rec.address);
     const jurisdiction = firstText(rec.jurisdiction, rec.country, rec.regionName);
     const details = [propertyName, jurisdiction].filter(Boolean).join(", ");
-    return `[PropertyRegistry] ${registryNumber}${details ? ` (${details})` : ""}\ncc @jinushi.gftd.ai`;
+    return `[PropertyRegistry] ${registryNumber}${details ? ` (${details})` : ""}\ncc @jinushi.etzhayyim.com`;
   }
 
   if (collection === "zoningRecord") {
@@ -61,7 +61,7 @@ export function buildMapsSocialPost(collection: string, rec: SocialRecord): stri
     if (!landUse) return null;
     const jurisdiction = firstText(rec.jurisdiction, rec.regionName, rec.country);
     const details = [jurisdiction].filter(Boolean).join(", ");
-    return `[Zoning] ${landUse}${details ? ` (${details})` : ""}\ncc @jinushi.gftd.ai`;
+    return `[Zoning] ${landUse}${details ? ` (${details})` : ""}\ncc @jinushi.etzhayyim.com`;
   }
 
   return null;

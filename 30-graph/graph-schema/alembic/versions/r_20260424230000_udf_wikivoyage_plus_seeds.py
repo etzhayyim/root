@@ -21,43 +21,43 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          '    LANGUAGE sql\n'
          '    AS $$\n'
          '      SELECT CASE\n'
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:gleif'       THEN 'gleif'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata'    THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:gleif'       THEN 'gleif'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata'    THEN "
          "'wikidata'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata:%'  THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata:%'  THEN "
          "'wikidata'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:%'           THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:%'           THEN "
          "'registry_other'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikipedia'            THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikipedia'            THEN "
          "'wikipedia'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikipedia:%'          THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikipedia:%'          THEN "
          "'wikipedia'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikivoyage'           THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikivoyage'           THEN "
          "'wikivoyage'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikivoyage:%'         THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikivoyage:%'         THEN "
          "'wikivoyage'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:commons'              THEN 'commons'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:commons:%'            THEN 'commons'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:inaturalist'          THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:commons'              THEN 'commons'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:commons:%'            THEN 'commons'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:inaturalist'          THEN "
          "'inaturalist'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:inaturalist:%'        THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:inaturalist:%'        THEN "
          "'inaturalist'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:gbif'                 THEN 'gbif'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:gbif:%'               THEN 'gbif'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite'            THEN 'stac'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite:%'          THEN 'stac'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic'              THEN 'seismic'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic:%'            THEN 'seismic'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:street_view'          THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gbif'                 THEN 'gbif'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gbif:%'               THEN 'gbif'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite'            THEN 'stac'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite:%'          THEN 'stac'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic'              THEN 'seismic'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic:%'            THEN 'seismic'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:street_view'          THEN "
          "'mapillary'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:infrastructure'       THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:infrastructure'       THEN "
          "'overpass'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:geocode'              THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:geocode'              THEN "
          "'overpass'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:weather'              THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:weather'              THEN "
          "'overpass'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:gtfs'                 THEN 'gtfs'\n"
-         "        WHEN source_did LIKE 'did:web:site.gftd.ai'                      THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gtfs'                 THEN 'gtfs'\n"
+         "        WHEN source_did LIKE 'did:web:site.etzhayyim.com'                      THEN "
          "'web_crawl'\n"
          "        ELSE 'unsupported'\n"
          '      END\n'
@@ -73,13 +73,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage',
                  'Spot',
                  30000,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage',
+                 'did:web:maps.etzhayyim.com:wikivoyage',
                  '2026-05-08T00:18:50.266Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -90,13 +90,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-de:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:de',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-de:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:de',
                  'Spot',
                  15000,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:de',
+                 'did:web:maps.etzhayyim.com:wikivoyage:de',
                  '2026-05-08T00:18:50.266Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -107,13 +107,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikivoyage-fr:Spot',
-                 'did:web:maps.gftd.ai:wikivoyage:fr',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikivoyage-fr:Spot',
+                 'did:web:maps.etzhayyim.com:wikivoyage:fr',
                  'Spot',
                  10000,
                  0.3,
                  168,
-                 'did:web:maps.gftd.ai:wikivoyage:fr',
+                 'did:web:maps.etzhayyim.com:wikivoyage:fr',
                  '2026-05-08T00:18:50.266Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

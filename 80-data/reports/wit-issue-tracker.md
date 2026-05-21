@@ -1,8 +1,8 @@
 # WIT Issue Tracker
 
-- High: https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/issues/759
-- Medium: https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/issues/760
-- Low: https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/issues/761
+- High: https://github.com/etzhayyim/etzhayyim-root/issues/759
+- Medium: https://github.com/etzhayyim/etzhayyim-root/issues/760
+- Low: https://github.com/etzhayyim/etzhayyim-root/issues/761
 
 Source reports:
 - reports/wit-implementation-audit-non-state.md

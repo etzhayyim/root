@@ -41,7 +41,7 @@ import {
 
 // ── Murakumo Gemma 4 E2B config ──
 
-const MURAKUMO_URL = "https://murakumo.gftd.ai/api/openai/v1/chat/completions";
+const MURAKUMO_URL = "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions";
 const MURAKUMO_KEY = "murk_NQhD62as9BwwY1RPxoyh0nK4bsbdGlI1lCWbHpbCdQLCDNo";
 const EMOTION_MODEL_PRIMARY = MURAKUMO_DEFAULT_MODEL;
 const EMOTION_MODEL_FALLBACK = MURAKUMO_DEFAULT_MODEL;
@@ -704,7 +704,7 @@ async function handleCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeReposCo
 /** Joucho heartbeat: analyze recent activity and update platform emotion state. */
 async function cmdHeartbeat(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
   const args = parseLexiconInput("ai.gftd.joucho.heartbeat", body) as any;
-  const actorDid = args.actorDid ?? "did:web:joucho.gftd.ai";
+  const actorDid = args.actorDid ?? "did:web:joucho.etzhayyim.com";
 
   // Generate a mood-reflective post about platform emotional state
   const mood = args.stress >= 70 ? "stressed"
@@ -811,7 +811,7 @@ export function setup(sdk: HostSDK): void {
     }
   });
 
-  // Embed route for yoro.gftd.ai iframe
+  // Embed route for yoro.etzhayyim.com iframe
   sdk.router.get("/embed", (c) => {
     return c.html(`<!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>Joucho</title>

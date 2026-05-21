@@ -109,7 +109,7 @@ fn print_usage() {
     print!(
         r#"gftd-murakumo -- Native Worker for Murakumo Compute Cluster
 
-  Joins the Murakumo network (murakumo.gftd.ai CF Worker cluster)
+  Joins the Murakumo network (murakumo.etzhayyim.com CF Worker cluster)
   as a native compute worker via HTTP/3.
 
 commands:
@@ -140,7 +140,7 @@ modes (GFTD_PROVIDER_MODE):
   inference  MLX inference only (no task dispatch)
 
 env:
-  GFTD_MURAKUMO              Control plane (default: https://murakumo.gftd.ai)
+  GFTD_MURAKUMO              Control plane (default: https://murakumo.etzhayyim.com)
   GFTD_PROVIDER_MODE         Mode: worker|inference
   GFTD_MURAKUMO_HTTP_TIMEOUT Connect timeout (default: 90s)
   GFTD_MURAKUMO_VERBOSE      Enable trace logs
@@ -148,8 +148,8 @@ env:
   GFTD_QUIC_GATEWAY_ADDR     QUIC gateway address (optional)
 
 examples:
-  curl -fsSL https://murakumo.gftd.ai/install.sh | sh
-  GFTD_PROVIDER_MODE=inference curl -fsSL https://murakumo.gftd.ai/install.sh | sh
+  curl -fsSL https://murakumo.etzhayyim.com/install.sh | sh
+  GFTD_PROVIDER_MODE=inference curl -fsSL https://murakumo.etzhayyim.com/install.sh | sh
   gftd-murakumo daemon --verbose
   gftd-murakumo join
   gftd-murakumo sync
@@ -157,7 +157,7 @@ examples:
   gftd-murakumo murakumo-mesh stun
   gftd-murakumo murakumo-mesh tunnel --node-id my-node --secret-key <sk>
   gftd-murakumo murakumo-mesh status
-  gftd-murakumo murakumo-mesh dns <node-id>.mesh.gftd.ai
+  gftd-murakumo murakumo-mesh dns <node-id>.mesh.etzhayyim.com
 "#
     );
 }
@@ -570,16 +570,16 @@ async fn cmd_mesh(cfg: &config::NodeConfig, args: &[String]) {
         }
         "dns" => {
             if args.len() < 2 {
-                fatal("usage: gftd-murakumo murakumo-mesh dns <name.mesh.gftd.ai>");
+                fatal("usage: gftd-murakumo murakumo-mesh dns <name.mesh.etzhayyim.com>");
             }
             let name = &args[1];
-            if let Some(node_id) = name.strip_suffix(".mesh.gftd.ai") {
+            if let Some(node_id) = name.strip_suffix(".mesh.etzhayyim.com") {
                 let ip = murakumo_mesh::allocate_mesh_ip(node_id);
                 println!("{} -> {}", name, ip);
             } else {
                 // Try as node_id directly
                 let ip = murakumo_mesh::allocate_mesh_ip(name);
-                println!("{}.mesh.gftd.ai -> {}", name, ip);
+                println!("{}.mesh.etzhayyim.com -> {}", name, ip);
             }
         }
         "encrypt" => {

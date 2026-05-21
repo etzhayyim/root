@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#E2ECucumberWorld
+// @etzhayyim/cyber-freelance#E2ECucumberWorld
 // E2E BDD用のCucumber World設定（Playwright統合）
 
 import { setWorldConstructor, World } from "@cucumber/cucumber";

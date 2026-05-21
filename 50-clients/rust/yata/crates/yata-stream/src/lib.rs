@@ -11,7 +11,7 @@
 //! ```
 //!
 //! Wire format (planned for v0.2):
-//!   GET wss://yatabase.gftd.ai/xrpc/ai.gftd.apps.yata.subscribeMv?name=...
+//!   GET wss://yatabase.etzhayyim.com/xrpc/ai.gftd.apps.yata.subscribeMv?name=...
 //!   ↓
 //!   one JSON event per WebSocket text frame.
 

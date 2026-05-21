@@ -259,7 +259,7 @@ const INTEL_SOURCES: IntelSource[] = [
     sourceType: "official",
     official: true,
     primary: true,
-    url: "https://news.gftd.ai/",
+    url: "https://news.etzhayyim.com/",
   },
   {
     id: "un-news",
@@ -399,7 +399,7 @@ const INTEL_SOURCES: IntelSource[] = [
 
 /** Path-based writer DID for a news source. */
 function writerDID(sourceId: string): string {
-  return `did:web:news.gftd.ai:writer:${sourceId}`;
+  return `did:web:news.etzhayyim.com:writer:${sourceId}`;
 }
 
 function findIntelSource(
@@ -837,7 +837,7 @@ async function dispatchLiveAudioIngest(
   const baseUrl = (await envString(
     (sdk.env as Record<string, unknown>).NEWS_BPMN_URL ||
       (sdk.env as Record<string, unknown>).BPMN_URL ||
-      "https://dispatcher.gftd.ai"
+      "https://dispatcher.etzhayyim.com"
   )).replace(/\/+$/, "");
   const dispatcherSecret = await envString((sdk.env as Record<string, unknown>).BPMN_DISPATCHER_SECRET);
   const headers: Record<string, string> = { "content-type": "application/json" };
@@ -917,7 +917,7 @@ async function exportNewsEntitiesToMaps(
   const baseUrl = (await envString(
     (sdk.env as Record<string, unknown>).NEWS_MAPS_BPMN_URL ||
       (sdk.env as Record<string, unknown>).BPMN_URL ||
-      "https://dispatcher.gftd.ai"
+      "https://dispatcher.etzhayyim.com"
   )).replace(/\/+$/, "");
   const dispatcherSecret = await envString((sdk.env as Record<string, unknown>).BPMN_DISPATCHER_SECRET);
   const headers: Record<string, string> = { "content-type": "application/json" };
@@ -1001,7 +1001,7 @@ async function publishIntelPost(
     payload: {
       path: `writer:${report.sourceId || "intel"}`,
       displayName: "GFTD Intel Desk",
-      description: "news.gftd.ai intel writer DID",
+      description: "news.etzhayyim.com intel writer DID",
     },
   });
   const postText = (report.socialPost
@@ -1726,7 +1726,7 @@ async function cmdAnalyzeIntel(
         status: "ready",
         orgId: "gftd.co.jp",
         userId: "system",
-        actorId: "did:web:news.gftd.ai",
+        actorId: "did:web:news.etzhayyim.com",
         createdAt,
         props: JSON.stringify({
           sourceUrl,
@@ -1909,7 +1909,7 @@ export async function runHeartbeat(
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
   const cadence = await resolveHeartbeatCadence(
-    `did:web:${APP_NANOID}.gftd.ai`,
+    `did:web:${APP_NANOID}.etzhayyim.com`,
     cadenceState,
     inbox
   );
@@ -2040,7 +2040,7 @@ const _workerInner = createWorkerExport((sdk) => {
       nsid("ai.gftd.apps.news.publishIntel"),
       (_ctx, body) => cmdPublishIntel(sdk, body),
       asAgentTool(
-        "Publish a prepared intel brief through a news.gftd.ai writer DID."
+        "Publish a prepared intel brief through a news.etzhayyim.com writer DID."
       ),
       withCapabilityTags("publish", "intel", "news")
     )

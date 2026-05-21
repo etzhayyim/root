@@ -4,9 +4,9 @@ Generate data/gov/{cc}/{tier}.ndjson from component-registry.json.
 Run from the ai-gftd-project-states/ directory.
 
 Layout mirrors DID path:
-  data/gov/{cc}/ministry.ndjson  → did:web:gov-{cc}.gftd.ai:{ministry-path}
-  data/gov/{cc}/district.ndjson  → did:web:gov-{cc}.gftd.ai:district:{slug}
-  data/gov/intl/agency.ndjson    → did:web:gov-intl.gftd.ai:{slug}
+  data/gov/{cc}/ministry.ndjson  → did:web:gov-{cc}.etzhayyim.com:{ministry-path}
+  data/gov/{cc}/district.ndjson  → did:web:gov-{cc}.etzhayyim.com:district:{slug}
+  data/gov/intl/agency.ndjson    → did:web:gov-intl.etzhayyim.com:{slug}
 """
 import json, os, re, pathlib
 

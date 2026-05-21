@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/07/4/0/public-health-services",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/4/0/public-health-services",
       "type": "dodaf:Capability",
       "name": "Public Health and Disease Prevention Capability",
       "description": "Functional capability for managing epidemiological monitoring, vaccination programs, and public wellness. Classification: COFOG Division 07, Group 4, Class 0.",

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:oil-shipping.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:oil-shipping.etzhayyim.com",
   "actors": [
     {
       "description": "VLCC, Suezmax and Aframax crude shipping coverage.",

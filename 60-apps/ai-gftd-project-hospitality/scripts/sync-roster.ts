@@ -55,8 +55,8 @@ function validateRoster(rows: RosterRow[]): void {
   for (const r of rows) {
     if (seen.has(r.did)) throw new Error(`duplicate DID: ${r.did}`);
     seen.add(r.did);
-    if (!r.did.startsWith("did:web:hospitality.gftd.ai:")) {
-      throw new Error(`DID must be under hospitality.gftd.ai: ${r.did}`);
+    if (!r.did.startsWith("did:web:hospitality.etzhayyim.com:")) {
+      throw new Error(`DID must be under hospitality.etzhayyim.com: ${r.did}`);
     }
     if (!TIER_ORDER.includes(r.tier)) throw new Error(`bad tier: ${r.tier}`);
     if (!r.displayName || !r.description) throw new Error(`missing name/desc: ${r.did}`);
@@ -95,7 +95,7 @@ export async function syncRoster(sdk: GftdSdk, opts: { dryRun?: boolean; verifyL
   let leiBridges = 0;
 
   for (const row of rows) {
-    const path = row.did.replace("did:web:hospitality.gftd.ai:", "");
+    const path = row.did.replace("did:web:hospitality.etzhayyim.com:", "");
 
     // 1. DID create (idempotent — skip if already registered)
     if (!existing.has(row.did)) {
@@ -142,7 +142,7 @@ export async function syncRoster(sdk: GftdSdk, opts: { dryRun?: boolean; verifyL
         record: {
           actorDid: row.did,
           lei: row.lei,
-          legalEntityDid: `did:web:legal-entity.gftd.ai:lei:${row.lei}`,
+          legalEntityDid: `did:web:legal-entity.etzhayyim.com:lei:${row.lei}`,
           industryCode: row.isic,
           region: row.region,
           source: row.source,

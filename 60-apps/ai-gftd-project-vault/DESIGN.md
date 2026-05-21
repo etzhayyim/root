@@ -1,15 +1,15 @@
-# vault.gftd.ai (ai-gftd-project-vault) Design Document
+# vault.etzhayyim.com (ai-gftd-project-vault) Design Document
 
 ## 概要 (Overview)
-`vault.gftd.ai` は、1Password のようなパスワードおよびシークレット管理を提供するアプリケーションです。
+`vault.etzhayyim.com` は、1Password のようなパスワードおよびシークレット管理を提供するアプリケーションです。
 バックエンドのセキュアな保存先として HashiCorp Vault を利用し、Clerk によって提供される `user_id` と `org_id` に基づいてユーザーごとの「Personal Vault」と組織内の「Shared Vault」を分離・管理します。
 
 ## アーキテクチャ (Architecture)
 
 1. **Frontend (SvelteKit UI)**
    - **デプロイ**: `vault-mcp-component` の static 配信 (`/...`) に統合
-   - **UIライブラリ**: `@gftdcojp/appshellv2` を使用した 1Password 風の3ペインレイアウト (Sidebar, Item List, Item Detail)
-   - **認証**: `@gftdcojp/appshellv2/auth` (Clerk) を使用。ログイン後に `org_id` と `user_id` を取得。
+   - **UIライブラリ**: `@etzhayyim/appshellv2` を使用した 1Password 風の3ペインレイアウト (Sidebar, Item List, Item Detail)
+   - **認証**: `@etzhayyim/appshellv2/auth` (Clerk) を使用。ログイン後に `org_id` と `user_id` を取得。
    - **通信**: バックエンドの `vault-mcp-component` に対して、HTTP Header (`X-GFTD-ORG-ID`, `X-GFTD-USER-ID`) を付与してリクエストを送信。
 
 2. **Backend (App Component)**

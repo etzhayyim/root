@@ -1,4 +1,4 @@
-// manimani.gftd.ai — L3 dispatcher CF Worker (ADR-2605080800).
+// manimani.etzhayyim.com — L3 dispatcher CF Worker (ADR-2605080800).
 //
 // Surfaces:
 //   /health, /_app/meta                          edge probe (no auth)
@@ -61,7 +61,7 @@ app.get("/_worker/health", (c) =>
 app.get("/_app/meta", (c) =>
   c.json({
     app: "ai-gftd-project-manimani",
-    did: c.env.MANIMANI_ACTOR_DID ?? "did:web:manimani.gftd.ai",
+    did: c.env.MANIMANI_ACTOR_DID ?? "did:web:manimani.etzhayyim.com",
     version: c.env.MANIMANI_VERSION ?? "0.0.0",
     layer: "L3-dispatcher",
     surfaces: [
@@ -108,7 +108,7 @@ async function resolveAuthContext(req: Request, env: Env): Promise<AuthContext |
     // dispatcher / PDS validate. The Worker fills in best-effort caller DID
     // from env.MANIMANI_ACTOR_DID so downstream RLS still scopes by actor.
     return {
-      did: env.MANIMANI_ACTOR_DID ?? "did:web:manimani.gftd.ai",
+      did: env.MANIMANI_ACTOR_DID ?? "did:web:manimani.etzhayyim.com",
       orgDid: "did:erc725:gftd:260425:anon",
       productScope: null,
     };
@@ -123,7 +123,7 @@ async function resolveAuthContext(req: Request, env: Env): Promise<AuthContext |
     const iss = String(payload.iss ?? "").trim();
     if (!sub) return null;
     // For agent-issued tokens (gftd agent-token), `sub` is the caller DID.
-    // `iss` is the issuer (authn.gftd.ai for service-auth tokens).
+    // `iss` is the issuer (authn.etzhayyim.com for service-auth tokens).
     // Org DID is not present in service-auth JWTs; we use a deterministic
     // fallback that downstream RLS treats as anon-org. Real org binding
     // happens once `/_internal/resolve-auth` ships on PDS.

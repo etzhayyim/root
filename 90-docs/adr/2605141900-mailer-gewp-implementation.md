@@ -1,6 +1,6 @@
 ---
 id: adr-2605141900-mailer-gewp-implementation
-title: "ADR-2605141900: mailer.gftd.ai — GEWP v1.0 Implementation"
+title: "ADR-2605141900: mailer.etzhayyim.com — GEWP v1.0 Implementation"
 status: accepted
 doc_type: adr
 topic: mailer-gewp-implementation
@@ -9,9 +9,9 @@ last_verified: 2026-05-21
 priority: 7.0
 axis: architecture
 weight: 0.70
-priority_note: "mailer.gftd.ai (did:web:mailer.gftd.ai) を GEWP v1.0 Core Conformant + ext:atproto + ext:pregel にする実装 ADR (Phase 1-3 完了)"
+priority_note: "mailer.etzhayyim.com (did:web:mailer.etzhayyim.com) を GEWP v1.0 Core Conformant + ext:atproto + ext:pregel にする実装 ADR (Phase 1-3 完了)"
 authoritative_for:
-  - mailer.gftd.ai の GEWP 送受信実装
+  - mailer.etzhayyim.com の GEWP 送受信実装
   - pymagatama.gewp モジュール API
   - vertex_mailer_inbound_email / vertex_mailer_outbound_email の GEWP 列定義
   - Resend API を経由した GEWP 3-layer 送信方式
@@ -26,11 +26,11 @@ related:
   - adr-0032-gmail-direct-ingest-yabai-classifier
 ---
 
-# ADR-2605141900: mailer.gftd.ai — GEWP v1.0 Implementation
+# ADR-2605141900: mailer.etzhayyim.com — GEWP v1.0 Implementation
 
 ## Goal
 
-`mailer.gftd.ai` (`did:web:mailer.gftd.ai`) を GEWP v1.0 **Core Conformant** + **ext:atproto** + **ext:pregel** として実装し、LLM agent 間・グループメール・人間とのメール通信を Pregel メッセージパッシングとして扱えるようにする。Phase 1–3 完了。
+`mailer.etzhayyim.com` (`did:web:mailer.etzhayyim.com`) を GEWP v1.0 **Core Conformant** + **ext:atproto** + **ext:pregel** として実装し、LLM agent 間・グループメール・人間とのメール通信を Pregel メッセージパッシングとして扱えるようにする。Phase 1–3 完了。
 
 ---
 
@@ -165,9 +165,9 @@ GEWP 送信の専用関数。`gewp_thread_id` / `gewp_step` / `gewp_payload` を
 
 ## Runtime Operations Note (2026-05-14)
 
-`mailer.gftd.ai` の API surface (`/api/stats`, `/api/emails`) は
+`mailer.etzhayyim.com` の API surface (`/api/stats`, `/api/emails`) は
 `DISPATCHER_URL` 経由で dispatcher XRPC を読む。2026-05-14 の Cloudflare
-502 は mailer / GEWP 実装の不具合ではなく、`dispatcher.gftd.ai` の
+502 は mailer / GEWP 実装の不具合ではなく、`dispatcher.etzhayyim.com` の
 cloudflared origin pod が `NotReady` node 上に残ったことによる ingress 障害だった。
 
 復旧手順は ADR-2605111200 の Operational Prerequisites #8 に従う:
@@ -176,10 +176,10 @@ cloudflared origin pod が `NotReady` node 上に残ったことによる ingres
 
 | Probe | Expected |
 |---|---|
-| `GET https://dispatcher.gftd.ai/health` | `200 {"status":"ok"}` |
-| `GET https://dispatcher.gftd.ai/xrpc/ai.gftd.apps.mailer.stats` without trust header | `401 missing x-internal-trust header` |
-| `GET https://mailer.gftd.ai/api/stats` | `200` |
-| `GET https://mailer.gftd.ai/api/emails?limit=1` | `200` |
+| `GET https://dispatcher.etzhayyim.com/health` | `200 {"status":"ok"}` |
+| `GET https://dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.mailer.stats` without trust header | `401 missing x-internal-trust header` |
+| `GET https://mailer.etzhayyim.com/api/stats` | `200` |
+| `GET https://mailer.etzhayyim.com/api/emails?limit=1` | `200` |
 
 ---
 

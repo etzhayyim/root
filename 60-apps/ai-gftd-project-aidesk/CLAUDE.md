@@ -7,8 +7,8 @@ AI Design Desk — 画像・テキストから CadQuery/STEP を生成し tsukur
 | Field | Value |
 |---|---|
 | nanoid | `a1d3sk00` |
-| domain | `aidesk.gftd.ai` |
-| AT bot DID | `did:web:aidesk.gftd.ai` |
+| domain | `aidesk.etzhayyim.com` |
+| AT bot DID | `did:web:aidesk.etzhayyim.com` |
 | Primary DID | `did:erc725:gftd:260505:{identityContract}` |
 | Runtime | T3 CF Worker (thin edge) + T2 pymagatama BPMN (LangServer) |
 | NSID prefix (商用) | `ai.gftd.apps.aidesk.*` |
@@ -48,7 +48,7 @@ normalize/validate は tsukuru 既存 BPMN に委譲。aidesk 側で再実装し
 
 ```bash
 cd 60-apps/ai-gftd-project-aidesk/appview/aidesk-a1d3sk00
-gftd deploy --smoke-url https://a1d3sk00.gftd.ai/health
+gftd deploy --smoke-url https://a1d3sk00.etzhayyim.com/health
 ```
 
 ## Graph Tables

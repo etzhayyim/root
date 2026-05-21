@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#RecordRoutingSteps
+// @etzhayyim/cyber-freelance#RecordRoutingSteps
 // Record Routing関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

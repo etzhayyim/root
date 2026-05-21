@@ -5,8 +5,8 @@
 | Key | Value |
 |---|---|
 | **nanoid** | `r3c4p001` |
-| **domain** | `recap.gftd.ai` |
-| **AT bot DID** | `did:web:recap.gftd.ai` |
+| **domain** | `recap.etzhayyim.com` |
+| **AT bot DID** | `did:web:recap.etzhayyim.com` |
 | **Runtime** | CF Worker (L3 dispatcher) → LangGraph Server pod (L8) |
 | **Scope** | **社内研究・教育用途 (fair-use only)** — arbitrary public download は禁止 |
 | **Backend** | `lg-recap` FastAPI + LangGraph (同 lg-animeka パターン) |
@@ -20,7 +20,7 @@ YouTube · TikTok · Instagram Reels · Twitter/X · NicoNico · Bilibili · Vim
 ```
 User / yoro MCP Tool
   → XRPC ai.gftd.apps.recap.{download,getInfo,listDownloads}
-    → CF Worker (recap.gftd.ai) — L3 thin dispatcher
+    → CF Worker (recap.etzhayyim.com) — L3 thin dispatcher
       → DISPATCHER_URL = http://lg-recap:8000/xrpc/{nsid}
         → LangGraph FastAPI server (lg-recap pod, mitama-udf namespace)
           → download graph: validate_url → get_metadata → select_format
@@ -90,7 +90,7 @@ gftd deploy
 cd 60-apps/ai-gftd-project-recap/lg
 docker buildx build --platform linux/amd64 \
   --build-context py=../../../20-actors/magatama/py \
-  -t ghcr.io/gftdcojp/lg-recap:0.1.0-amd64 --push .
+  -t ghcr.io/etzhayyim/lg-recap:0.1.0-amd64 --push .
 
 # Helm deploy (mitama-udf namespace, Vultr VKE)
 helm upgrade --install lg-recap-pool 50-infra/vultr/lg-recap-pool \

@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2',
-                 'did:web:live.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2',
+                 'did:web:live.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  ai.gftd.apps.live.postChat — append an actor utterance to a live room.\n'
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
                  '    3. generic.audit.emit → live.postChat (audit trail)\n'
                  '\n'
                  '  RLS shape per ADR-0095. The federation step is best-effort: a 4xx\n'
-                 '  from atproto.gftd.ai (e.g. unmintable Service Auth for the actor)\n'
+                 '  from atproto.etzhayyim.com (e.g. unmintable Service Auth for the actor)\n'
                  "  doesn't roll back the local chat row — viewers still see the bubble\n"
                  '  via the WebSocket fan-out from the DO.\n'
                  '-->\n'
@@ -47,7 +47,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_live_post_chat"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/apps/live"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/apps/live"\n'
                  '    exporter="hand-written" exporterVersion="1.1">\n'
                  '  <bpmn:process id="live_post_chat" name="live postChat" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -130,7 +130,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:live.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:live.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;live.postChat&quot;" target="action"/>\n'
                  '          <zeebe:input source="={\n'
@@ -153,10 +153,10 @@ UP = [{'sql': '\n'
                  5459,
                  '00-contracts/bpmn/ai/gftd/apps/live/postChat.bpmn',
                  '2026-04-29T02:00:00Z',
-                 'did:web:live.gftd.ai',
-                 'did:web:live.gftd.ai',
+                 'did:web:live.etzhayyim.com',
+                 'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live.v2',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_process_def\n'
          "    SET status = 'superseded'\n"
@@ -171,7 +171,7 @@ UP = [{'sql': '\n'
          '        result_timeout_ms = CAST(15000 AS integer)\n'
          '    WHERE vertex_id = $1\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1']}]
 
 DOWN = [{'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
@@ -179,7 +179,7 @@ DOWN = [{'sql': '\n'
          '        result_timeout_ms = CAST(5000 AS integer)\n'
          '    WHERE vertex_id = $1\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_process_def\n'
          "    SET status = 'active'\n"
@@ -188,7 +188,7 @@ DOWN = [{'sql': '\n'
          '  ',
   'parameters': []},
  {'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2']}]
 
 
 def upgrade() -> None:

@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#TestHelpers
+// @etzhayyim/cyber-freelance#TestHelpers
 // BDDテスト用のヘルパー関数
 
 /**

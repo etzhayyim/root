@@ -44,7 +44,7 @@ export interface QuoteResult {
 export const PRINT_PARTNERS: PrintPartner[] = [
   {
     slug: "tokyo-printpost",
-    partnerDid: "did:web:insatsu.gftd.ai:partner:tokyo-printpost",
+    partnerDid: "did:web:insatsu.etzhayyim.com:partner:tokyo-printpost",
     displayName: "Tokyo PrintPost Center",
     country: "JPN",
     region: "APAC",
@@ -55,11 +55,11 @@ export const PRINT_PARTNERS: PrintPartner[] = [
     baseCostUsd: 6,
     perPageUsd: 0.035,
     serviceLevels: ["economy", "standard", "express"],
-    downstreamActorDid: "did:web:yuubin.gftd.ai"
+    downstreamActorDid: "did:web:yuubin.etzhayyim.com"
   },
   {
     slug: "singapore-hybrid-mail",
-    partnerDid: "did:web:insatsu.gftd.ai:partner:singapore-hybrid-mail",
+    partnerDid: "did:web:insatsu.etzhayyim.com:partner:singapore-hybrid-mail",
     displayName: "Singapore Hybrid Mail Hub",
     country: "SGP",
     region: "APAC",
@@ -73,7 +73,7 @@ export const PRINT_PARTNERS: PrintPartner[] = [
   },
   {
     slug: "berlin-direct-mail",
-    partnerDid: "did:web:insatsu.gftd.ai:partner:berlin-direct-mail",
+    partnerDid: "did:web:insatsu.etzhayyim.com:partner:berlin-direct-mail",
     displayName: "Berlin Direct Mail Works",
     country: "DEU",
     region: "EMEA",
@@ -87,7 +87,7 @@ export const PRINT_PARTNERS: PrintPartner[] = [
   },
   {
     slug: "chicago-print-fulfillment",
-    partnerDid: "did:web:insatsu.gftd.ai:partner:chicago-print-fulfillment",
+    partnerDid: "did:web:insatsu.etzhayyim.com:partner:chicago-print-fulfillment",
     displayName: "Chicago Print Fulfillment",
     country: "USA",
     region: "NAM",
@@ -101,7 +101,7 @@ export const PRINT_PARTNERS: PrintPartner[] = [
   },
   {
     slug: "sao-paulo-postal-print",
-    partnerDid: "did:web:insatsu.gftd.ai:partner:sao-paulo-postal-print",
+    partnerDid: "did:web:insatsu.etzhayyim.com:partner:sao-paulo-postal-print",
     displayName: "Sao Paulo Postal Print",
     country: "BRA",
     region: "LATAM",
@@ -115,7 +115,7 @@ export const PRINT_PARTNERS: PrintPartner[] = [
   },
   {
     slug: "johannesburg-gov-mail",
-    partnerDid: "did:web:insatsu.gftd.ai:partner:johannesburg-gov-mail",
+    partnerDid: "did:web:insatsu.etzhayyim.com:partner:johannesburg-gov-mail",
     displayName: "Johannesburg Gov Mail Press",
     country: "ZAF",
     region: "AFR",

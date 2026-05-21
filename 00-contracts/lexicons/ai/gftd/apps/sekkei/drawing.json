@@ -30,7 +30,7 @@
           "pdfFileRef": { "type": "string", "description": "PDF 閲覧用 blob ref" },
           "linkedActorDid": {
             "type": "string",
-            "description": "対象機器の actor DID (例: did:web:nogu.gftd.ai:item:{serialId})"
+            "description": "対象機器の actor DID (例: did:web:nogu.etzhayyim.com:item:{serialId})"
           },
           "tsukuruManufacturerDid": { "type": "string", "description": "製造委託先 tsukuru 製造業者 DID" },
           "notes": { "type": "string" }

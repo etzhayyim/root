@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:tuv-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:tuv-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Tuvalu AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -97,7 +97,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "tuv-state.gftd.ai",
+      "host": "tuv-state.etzhayyim.com",
       "paths": [
         "/"
       ],

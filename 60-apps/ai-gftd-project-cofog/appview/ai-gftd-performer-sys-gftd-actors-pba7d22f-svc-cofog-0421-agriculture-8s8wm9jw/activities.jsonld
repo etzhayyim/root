@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/2/1/agriculture/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/2/1/agriculture/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Agricultural Support and Land Evaluation Process",
       "description": "The administrative process of evaluating agricultural land, coordinating water supply, and providing technical farming assistance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/2/1/agriculture"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/2/1/agriculture"
     }
   ]
 }

@@ -1,7 +1,7 @@
 [project]
 name = "lg-kenkyusha"
 version = "0.0.1"
-description = "LangGraph Server for kenkyusha.gftd.ai — co-scientist research-frontier Pregel loop (ADR-2605080600)."
+description = "LangGraph Server for kenkyusha.etzhayyim.com — co-scientist research-frontier Pregel loop (ADR-2605080600)."
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "langgraph>=0.2.61",

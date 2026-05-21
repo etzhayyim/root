@@ -2,7 +2,7 @@
 
 NSID: ai.gftd.apps.yukkuri.generateVisual
 
-Actor: did:web:yukkuri.gftd.ai:actor:illustrator
+Actor: did:web:yukkuri.etzhayyim.com:actor:illustrator
 
 Calls murakumo:inference/image (flux-schnell / sdxl-turbo-ja-lora) for each
 scene's background. Stores blob_key in vertex_yukkuri_asset (kind='image').
@@ -36,12 +36,12 @@ _IMAGE_URL = os.environ.get(
     "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1/images/generations",
 ).rstrip("/")
 _IMAGE_TIMEOUT = float(os.environ.get("IMAGE_TIMEOUT_SEC", "60"))
-_PDS_BLOB_URL = os.environ.get("PDS_BLOB_URL", "https://atproto.gftd.ai/xrpc/com.atproto.repo.uploadBlob")
-_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.gftd.ai")
+_PDS_BLOB_URL = os.environ.get("PDS_BLOB_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob")
+_APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
 _ILLUSTRATOR_DID = os.environ.get(
-    "YUKKURI_ILLUSTRATOR_DID", "did:web:yukkuri.gftd.ai:actor:illustrator"
+    "YUKKURI_ILLUSTRATOR_DID", "did:web:yukkuri.etzhayyim.com:actor:illustrator"
 )
-_REPO = os.environ.get("YUKKURI_REPO_DID", "did:web:y5kk5r1x.gftd.ai")
+_REPO = os.environ.get("YUKKURI_REPO_DID", "did:web:y5kk5r1x.etzhayyim.com")
 
 _NEGATIVE_PROMPT = "real person, celebrity, logo, watermark, nsfw, explicit"
 

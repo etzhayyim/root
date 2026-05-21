@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 /**
- * @gftdcojp/cyber-freelance#CheckEnv
+ * @etzhayyim/cyber-freelance#CheckEnv
  * ビルド前に必要な環境変数が設定されているかチェック
  */
 

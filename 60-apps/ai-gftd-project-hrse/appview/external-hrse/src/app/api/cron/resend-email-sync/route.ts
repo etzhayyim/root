@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#VercelCronResendEmailSync
+// @etzhayyim/cyber-freelance#VercelCronResendEmailSync
 // Vercel Cron Function: Resend APIから受信メール履歴を取得して処理
 // Connect-Web を使用してバックエンドと通信
 

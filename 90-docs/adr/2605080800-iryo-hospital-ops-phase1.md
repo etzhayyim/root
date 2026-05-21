@@ -1,6 +1,6 @@
 ---
 id: adr-2605080800-iryo-hospital-ops-phase1
-title: "ADR-2605080800: iryo.gftd.ai hospital operations Phase 1"
+title: "ADR-2605080800: iryo.etzhayyim.com hospital operations Phase 1"
 status: proposed
 doc_type: adr
 topic: iryo-hospital-ops-phase1
@@ -9,9 +9,9 @@ last_verified: 2026-05-08
 priority: 6.8
 axis: architecture
 weight: 0.68
-priority_note: "iryo.gftd.ai hospital operations Phase 1 actor topology, data sources, and DRG-oriented graph schema"
+priority_note: "iryo.etzhayyim.com hospital operations Phase 1 actor topology, data sources, and DRG-oriented graph schema"
 authoritative_for:
-  - iryo.gftd.ai hospital actor topology
+  - iryo.etzhayyim.com hospital actor topology
   - hospital operations Phase 1 data sources
   - hospital DRG graph schema direction
 depends_on:
@@ -22,7 +22,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR 2605080800 — iryo.gftd.ai hospital operations Phase 1
+# ADR 2605080800 — iryo.etzhayyim.com hospital operations Phase 1
 
 **Status**: proposed
 **Date**: 2026-05-08
@@ -42,20 +42,20 @@ superseded_by: []
 
 ## Decision
 
-`did:web:iryo.gftd.ai` を医療 umbrella actor として新設し、Phase 1 ではその下の `:hospital` sub-DID で acute-care 病院運営を実装する。Phase 2/3 で `:clinic` / `:zaitaku` (在宅医療) を追加可能な path-based topology を取る。
+`did:web:iryo.etzhayyim.com` を医療 umbrella actor として新設し、Phase 1 ではその下の `:hospital` sub-DID で acute-care 病院運営を実装する。Phase 2/3 で `:clinic` / `:zaitaku` (在宅医療) を追加可能な path-based topology を取る。
 
-実装方式は **pure T2 (ADR-2604282300)** — CF Worker を持たず、pymagatama + Zeebe BPMN-as-actor のみで構成する。`iryo.gftd.ai` は did:web 解決とドキュメント公開だけに使い、外部 entrypoint は bpmn-dispatcher 経由 XRPC + 内部 timer-start BPMN とする。
+実装方式は **pure T2 (ADR-2604282300)** — CF Worker を持たず、pymagatama + Zeebe BPMN-as-actor のみで構成する。`iryo.etzhayyim.com` は did:web 解決とドキュメント公開だけに使い、外部 entrypoint は bpmn-dispatcher 経由 XRPC + 内部 timer-start BPMN とする。
 
 ### Identity topology
 
 ```
-did:web:iryo.gftd.ai                     (umbrella, Phase 1+)
-  └── did:web:iryo.gftd.ai:hospital      (Phase 1 root)
+did:web:iryo.etzhayyim.com                     (umbrella, Phase 1+)
+  └── did:web:iryo.etzhayyim.com:hospital      (Phase 1 root)
         ├── :hospital:dept:{slug}        (e.g. :dept:cardiology, :dept:icu)
         ├── :hospital:ward:{slug}        (e.g. :ward:icu-3f, :ward:gen-5f)
         └── :hospital:role:{md|rn|admin} (clinical role facets)
-  └── did:web:iryo.gftd.ai:clinic        (Phase 2, deferred)
-  └── did:web:iryo.gftd.ai:zaitaku       (Phase 3, deferred)
+  └── did:web:iryo.etzhayyim.com:clinic        (Phase 2, deferred)
+  └── did:web:iryo.etzhayyim.com:zaitaku       (Phase 3, deferred)
 ```
 
 ### Claim cycle: Generic DRG (international)
@@ -112,7 +112,7 @@ mv_iryo_staff_coverage_gap         shifts where required headcount > rostered
 ```
 
 Vertex IDs follow ADR-0041 content-addressed PK pattern:
-`at://did:web:iryo.gftd.ai:hospital/ai.gftd.apps.iryo.{collection}/{rkey}`.
+`at://did:web:iryo.etzhayyim.com:hospital/ai.gftd.apps.iryo.{collection}/{rkey}`.
 
 PII tier (ADR-0018):
 - Tier 1 (federable): hospital / dept / ward / bed / staff / health_kpi (code/category/aggregate only)
@@ -132,7 +132,7 @@ PII tier (ADR-0018):
 
 ## XRPC surface (Phase 1, 8 lexicons)
 
-`ai.gftd.apps.iryo.*` 全て bpmn-dispatcher 経由 (`http://dispatcher.gftd.ai:8080/xrpc/{nsid}`):
+`ai.gftd.apps.iryo.*` 全て bpmn-dispatcher 経由 (`http://dispatcher.etzhayyim.com:8080/xrpc/{nsid}`):
 
 | NSID | type | purpose |
 |---|---|---|

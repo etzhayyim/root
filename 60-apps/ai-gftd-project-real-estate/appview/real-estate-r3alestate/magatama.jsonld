@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/magatama/context/v1",
+  "@context": "https://etzhayyim.com/magatama/context/v1",
   "@type": "MagatamaApp",
   "id": "real-estate-r3alestate",
   "name": "Real Estate MCP",
   "description": "Global real-estate source, property, listing, and transaction MCP facade.",
-  "primaryDid": "did:web:real-estate.gftd.ai",
+  "primaryDid": "did:web:real-estate.etzhayyim.com",
   "runtimeType": "worker",
   "framework": "ts-thin-edge",
   "component": { "path": "src/app.ts" },
@@ -15,7 +15,7 @@
   },
   "routes": [
     {
-      "host": "gftd.ai",
+      "host": "etzhayyim.com",
       "paths": ["/r3alestate/api/mcp", "/xrpc/ai.gftd.apps.realEstate.*"]
     }
   ],

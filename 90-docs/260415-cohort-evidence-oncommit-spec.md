@@ -81,7 +81,7 @@ async function handleCohortEvidenceCommit(
     eventType,                                         // genesis / accrued / fissionReady
     kProxy: commit.record.posterior ?? 0,              // overload: posterior into kProxy slot
     apqcL1: pcfL1,
-    apqcDid: pcfL1 ? `did:web:kyber-projector.gftd.ai:apqc:${pcfL1}` : null,
+    apqcDid: pcfL1 ? `did:web:kyber-projector.etzhayyim.com:apqc:${pcfL1}` : null,
   });
 }
 ```

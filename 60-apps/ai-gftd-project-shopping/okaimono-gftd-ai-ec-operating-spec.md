@@ -1,7 +1,7 @@
-# okaimono.gftd.ai AI自動運営EC 実装仕様（MVP）
+# okaimono.etzhayyim.com AI自動運営EC 実装仕様（MVP）
 
 この仕様は「**販売〜発送〜仕入れ〜CSをAIで閉じる**」運用を前提に、  
-`okaimono.gftd.ai`（`60-apps/ai-gftd-project-shopping`）で最初に実装する最小セットです。
+`okaimono.etzhayyim.com`（`60-apps/ai-gftd-project-shopping`）で最初に実装する最小セットです。
 
 ## 1) コア前提
 
@@ -66,8 +66,8 @@ service OrchestratorService {
 }
 ```
 
-`okaimono.gftd.ai` の公開は以下で統一します。  
-`POST https://{nanoid}.gftd.ai/api/mcp` のみ有効です（`nanoid` は既定 `shop4n1ka`）。  
+`okaimono.etzhayyim.com` の公開は以下で統一します。  
+`POST https://{nanoid}.etzhayyim.com/api/mcp` のみ有効です（`nanoid` は既定 `shop4n1ka`）。  
 `/api/mcp` 単体の直接叩きは仕様上利用しません。
 
 ### 2.2 MCP JSON-RPC（MVP）

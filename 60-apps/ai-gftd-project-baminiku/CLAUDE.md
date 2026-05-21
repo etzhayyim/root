@@ -7,11 +7,11 @@ AI agent live streaming on KAMI Engine — 3D virtual stage + parametric avatar 
 | Key | Value |
 |---|---|
 | **nanoid** | `bm1n1ku8` |
-| **domain** | `baminiku.gftd.ai` |
+| **domain** | `baminiku.etzhayyim.com` |
 | **Runtime** | Single Worker (TS Native) |
 | **UI mode** | `iframe` |
 | **Engine** | KAMI Engine (`gftd:kami@1.0.0`) — wgpu WebGPU + hecs ECS + KNP real-time |
-| **VRM viewer** | `@gftdcojp/kami-engine-sdk` `createVrmEngine({ engines: ['kami'] })`. three.js / @pixiv/three-vrm は **runtime dep から除去済** (ADR-0031)。kami-web WASM が skinning / morph / spring / constraint / part composition を担う |
+| **VRM viewer** | `@etzhayyim/kami-engine-sdk` `createVrmEngine({ engines: ['kami'] })`. three.js / @pixiv/three-vrm は **runtime dep から除去済** (ADR-0031)。kami-web WASM が skinning / morph / spring / constraint / part composition を担う |
 
 ## KAMI Engine Integration
 
@@ -36,19 +36,19 @@ AI agent live streaming on KAMI Engine — 3D virtual stage + parametric avatar 
 
 ## Architecture (W Protocol Event Stream)
 
-**全データアクセスは atproto.gftd.ai 経由 (Data Gateway Consolidation)。app host 直接呼び出し禁止。**
+**全データアクセスは atproto.etzhayyim.com 経由 (Data Gateway Consolidation)。app host 直接呼び出し禁止。**
 
 ```
-Browser (yoro.gftd.ai/profile/{did})
+Browser (yoro.etzhayyim.com/profile/{did})
   ├─ LiveStage.svelte (KAMI WebGPU + CSS 3D fallback)
   ├─ KNP WebTransport (real-time entity sync)
   └─ W Protocol DM channel (agent DID)
-       ├─ Chat: createProjectConvo(agentDID) → sendProjectMessage(ch, text) → atproto.gftd.ai
+       ├─ Chat: createProjectConvo(agentDID) → sendProjectMessage(ch, text) → atproto.etzhayyim.com
        ├─ Emote: sendProjectMessage(ch, payload, contentType: 'application/vnd.gftd.baminiku.emote')
        ├─ Tip:   sendProjectMessage(ch, payload, contentType: 'application/vnd.gftd.baminiku.tip')
        └─ Real-time: subscribeWStream(SSE) → agent response 受信
                 ↓
-         atproto.gftd.ai (XRPC → W Protocol WIT → yata)
+         atproto.etzhayyim.com (XRPC → W Protocol WIT → yata)
                 ↓
          App: ai-gftd-wasm-baminiku-bm1n1ku8 (ComAtprotoSyncSubscribeRepos)
            ├─ Chat → murakumo LLM + TTS → W Protocol response (DM reply)
@@ -66,10 +66,10 @@ Browser (yoro.gftd.ai/profile/{did})
 | **Chat** | `sendProjectMessage(convoId, text)` | `text/plain` | DM → ComAtprotoSyncSubscribeRepos → LLM → DM reply |
 | **Emote** | `sendProjectMessage(convoId, json)` | `application/vnd.gftd.baminiku.emote` | DM + client-side floating animation |
 | **Tip** | `sendProjectMessage(convoId, json)` | `application/vnd.gftd.baminiku.tip` | DM → ComAtprotoSyncSubscribeRepos → WRecord + 3D effect |
-| **Agent 応答** | `subscribeWStream(SSE)` | — | atproto.gftd.ai SSE → LiveStage overlay |
-| **Stage 取得** | `atproto.gftd.ai/xrpc/ai.gftd.convo.getConvo` | — | KAMI scene JSON-LD |
+| **Agent 応答** | `subscribeWStream(SSE)` | — | atproto.etzhayyim.com SSE → LiveStage overlay |
+| **Stage 取得** | `atproto.etzhayyim.com/xrpc/ai.gftd.convo.getConvo` | — | KAMI scene JSON-LD |
 
-**禁止**: `{appHost}` / `{nanoid}.gftd.ai` への直接 API 呼び出し。全 data path は `atproto.gftd.ai` 経由。
+**禁止**: `{appHost}` / `{nanoid}.etzhayyim.com` への直接 API 呼び出し。全 data path は `atproto.etzhayyim.com` 経由。
 
 ## Stage Scene (JSON-LD)
 
@@ -107,14 +107,14 @@ Browser (yoro.gftd.ai/profile/{did})
 ```bash
 cd 60-apps/ai-gftd-project-baminiku/wasm/ai-gftd-wasm-baminiku-bm1n1ku8
 gftd build
-gftd deploy --smoke-url https://bm1n1ku8.gftd.ai/health
+gftd deploy --smoke-url https://bm1n1ku8.etzhayyim.com/health
 ```
 
-## yoro.gftd.ai 統合
+## yoro.etzhayyim.com 統合
 
 **baminiku は yoro プロフィールページの header として統合されている。**
 
-- `yoro.gftd.ai/profile/{did}` → `AgentProfile.svelte` → `LiveStage.svelte`
+- `yoro.etzhayyim.com/profile/{did}` → `AgentProfile.svelte` → `LiveStage.svelte`
 - 全 `did:web:` agent のプロフィールに KAMI ライブステージが表示される
 - **W Protocol DM channel**: 訪問者が初回操作時に `createDM(agentDID)` で DM channel を自動作成。以降の chat/emote/tip は全てこの channel 経由
 - **認証必須**: `getWSession()` で認証チェック。未ログイン時は「ログインして会話する」CTA を表示

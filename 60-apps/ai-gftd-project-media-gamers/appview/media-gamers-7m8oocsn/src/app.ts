@@ -1,7 +1,7 @@
-// media-gamers.gftd.ai thin edge facade.
+// media-gamers.etzhayyim.com thin edge facade.
 //
 // LangGraph graphs (health, ingestCharts, generateGuide, autopilot) are
-// proxied to lg-media-gamers via dispatcher.gftd.ai cloudflared tunnel.
+// proxied to lg-media-gamers via dispatcher.etzhayyim.com cloudflared tunnel.
 // commitGuide is handled locally: writes AT record to PDS and returns rkey.
 
 interface SecretBinding {
@@ -25,8 +25,8 @@ interface ExportedHandler<E> {
 }
 
 const APP = "media-gamers";
-const ACTOR_DID = "did:web:media-gamers.gftd.ai";
-const REPO_DID = "did:web:a7m8oocs.gftd.ai";
+const ACTOR_DID = "did:web:media-gamers.etzhayyim.com";
+const REPO_DID = "did:web:a7m8oocs.etzhayyim.com";
 const DEFAULT_NANOID = "a7m8oocs";
 const NSID_PREFIX = "ai.gftd.apps.media_gamers.";
 // MCP adapter routes via capability_worker='a7m8oocs' (nanoid, DNS-safe).
@@ -117,7 +117,7 @@ async function handleCommitGuide(env: Env, body: Record<string, unknown>): Promi
     createdAt: new Date().toISOString(),
   };
 
-  const pdsBase = (env.PDS_URL ?? "https://atproto.gftd.ai").replace(/\/+$/, "");
+  const pdsBase = (env.PDS_URL ?? "https://atproto.etzhayyim.com").replace(/\/+$/, "");
   try {
     const resp = await fetch(`${pdsBase}/xrpc/com.atproto.repo.createRecord`, {
       method: "POST",
@@ -153,7 +153,7 @@ async function handleCommitKnowledgeGuide(env: Env, body: Record<string, unknown
     createdAt: new Date().toISOString(),
   };
 
-  const pdsBase = (env.PDS_URL ?? "https://atproto.gftd.ai").replace(/\/+$/, "");
+  const pdsBase = (env.PDS_URL ?? "https://atproto.etzhayyim.com").replace(/\/+$/, "");
   try {
     const resp = await fetch(`${pdsBase}/xrpc/com.atproto.repo.createRecord`, {
       method: "POST",
@@ -176,7 +176,7 @@ async function handleCommitKnowledgeGuide(env: Env, body: Record<string, unknown
 // ── dispatcher proxy ──────────────────────────────────────────────────
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

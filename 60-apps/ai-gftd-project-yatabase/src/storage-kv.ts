@@ -123,7 +123,7 @@ export async function mintKvSignedUrl(
   const token = Array.from(new Uint8Array(sig)).map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 32);
   const orgB64 = btoa(orgDid).replace(/=+$/, "").replace(/\+/g, "-").replace(/\//g, "_");
   const expB64 = encodeURIComponent(expiresAt);
-  const signedURL = `https://yatabase.gftd.ai/storage/v1/object/public/${encodeURIComponent(bucket)}/${encodeURIComponent(key)}?token=${token}&org=${orgB64}&exp=${expB64}`;
+  const signedURL = `https://yatabase.etzhayyim.com/storage/v1/object/public/${encodeURIComponent(bucket)}/${encodeURIComponent(key)}?token=${token}&org=${orgB64}&exp=${expB64}`;
   return { signedURL, expiresAt };
 }
 

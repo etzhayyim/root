@@ -1,6 +1,6 @@
 # ai-gftd-project-omise
 
-`omise.gftd.ai` 向けの出店者オペレーション UI プロジェクトです。
+`omise.etzhayyim.com` 向けの出店者オペレーション UI プロジェクトです。
 
 ## MVP Scope (2026-03)
 
@@ -13,14 +13,14 @@
 
 ## Targets
 
-- Seller UI: `https://omise.gftd.ai/`
+- Seller UI: `https://omise.etzhayyim.com/`
 - Component: `wasm/omise-seller-ui-component`
 
 ## DID Flow Smoke
 
 ```bash
 cd 60-apps/ai-gftd-project-omise
-BASE_URL="https://omise.gftd.ai" ORDER_ID="order-..." ./70-tools/70-tools/70-tools/scripts/omise-did-flow.sh
+BASE_URL="https://omise.etzhayyim.com" ORDER_ID="order-..." ./70-tools/70-tools/70-tools/scripts/omise-did-flow.sh
 ```
 
 このスクリプトは `actor_register_did` → `shipment_create` → `shipment_update_status` → `order_event_list` を順番に実行します。

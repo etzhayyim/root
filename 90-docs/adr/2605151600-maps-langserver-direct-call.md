@@ -36,7 +36,7 @@ The BPMN dispatcher is a deprecated execution path (ADR-2604282300, CLAUDE.md in
 - `ai.gftd.apps.maps.getLatestBrief`
 - `ai.gftd.apps.maps.listIntelAlerts`
 
-The pod was only reachable within the K8s cluster (ClusterIP Service). The CF Worker at `maps.gftd.ai` was calling through `dispatcher.gftd.ai` as a workaround.
+The pod was only reachable within the K8s cluster (ClusterIP Service). The CF Worker at `maps.etzhayyim.com` was calling through `dispatcher.etzhayyim.com` as a workaround.
 
 ## Decision
 
@@ -44,7 +44,7 @@ Remove the bpmn-dispatcher hop for the 8 maps-read NSIDs above. The CF Worker ca
 
 ### Transport
 
-A `cloudflare/cloudflared` sidecar container runs in the `maps-read-langserver` Deployment. The tunnel exposes the pod's port 8081 to `maps-langserver.gftd.ai`. The CF Worker reads `MAPS_LANGSERVER_URL` (default `https://maps-langserver.gftd.ai`) and calls `/xrpc/{nsid}` directly.
+A `cloudflare/cloudflared` sidecar container runs in the `maps-read-langserver` Deployment. The tunnel exposes the pod's port 8081 to `maps-langserver.etzhayyim.com`. The CF Worker reads `MAPS_LANGSERVER_URL` (default `https://maps-langserver.etzhayyim.com`) and calls `/xrpc/{nsid}` directly.
 
 ### Auth boundary
 
@@ -70,8 +70,8 @@ All operator steps completed in the same session:
 |---|---|
 | CF Tunnel | `maps-langserver` — ID `a84a1d0b-7dfc-4994-be0b-a20725721cc6` |
 | Tunnel status | healthy, 4 connections (lax01 × 2, lax08, lax10) |
-| DNS | `maps-langserver.gftd.ai` CNAME → `a84a1d0b…cfargotunnel.com` (proxied) |
-| Tunnel ingress | `maps-langserver.gftd.ai` → `http://localhost:8081` |
+| DNS | `maps-langserver.etzhayyim.com` CNAME → `a84a1d0b…cfargotunnel.com` (proxied) |
+| Tunnel ingress | `maps-langserver.etzhayyim.com` → `http://localhost:8081` |
 | K8s secret | `maps-langserver-tunnel-token` in namespace `maps` |
 | K8s secret | `mitama-udf-pool-rw` copied to namespace `maps` (RW_URL) |
 | Deployment | `maps-read-langserver` — 2/2 Running (worker-api + cloudflared) |

@@ -3,7 +3,7 @@
 <script lang="ts">
   import { AiGftdProjectSreToolbar, submitFeedbackViaMcp } from '@sre-shared';
 
-  let { authToken = '', mcpEndpoint = 'https://sre-toolbar.gftd.ai/xrpc' } = $props<{
+  let { authToken = '', mcpEndpoint = 'https://sre-toolbar.etzhayyim.com/xrpc' } = $props<{
     authToken?: string;
     mcpEndpoint?: string;
   }>();

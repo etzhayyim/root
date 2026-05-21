@@ -7,7 +7,7 @@
 [product]
 name = "yatabase"
 codename = "io-yatabase"
-host = "yatabase.gftd.ai"
+host = "yatabase.etzhayyim.com"
 positioning = "Real-time graph database + Supabase-style storage + MCP cell-membrane facade. Neo4j Cypher subset + S3 SigV4 + atproto auth."
 status = "MVP shipped — 29/29 smoke PASS"
 deploy_target = "Cloudflare Worker (magatama-y4t4b4se)"
@@ -109,12 +109,12 @@ jp_corporate_tax_law_126 = "vertex_billing_event 7y retention"
 
 [product.endpoints_internal]
 hyperdrive_id = "e84c0a2bf3724d5d9b6ad5cc91c45f01"
-bpmn_dispatcher = "https://dispatcher.gftd.ai"
+bpmn_dispatcher = "https://dispatcher.etzhayyim.com"
 pds_service = "ai-gftd-pds-2603241700"
 auth_service = "ai-gftd-auth"
 
 [product.integration_tests]
-# End-to-end conversion path proof. Runs against live yatabase.gftd.ai.
+# End-to-end conversion path proof. Runs against live yatabase.etzhayyim.com.
 # Required env: STRIPE_WEBHOOK_SECRET (must match wrangler secret on the Worker).
 stripe_webhook = "70-tools/scripts/yatabase-stripe-webhook-test.mjs"
 stripe_webhook_runs = "signup → /api/plan(pre)=free → POST signed checkout.session.completed → bad-signature reject → /api/plan(post)=starter"
@@ -128,15 +128,15 @@ customer_journey_classification = "PASS=hard requirement met; SOFT=infra depende
 [product.deployment]
 worker = "magatama-y4t4b4se"
 routes = [
-  "yatabase.gftd.ai/*",
-  "y4t4b4se.gftd.ai/*",
+  "yatabase.etzhayyim.com/*",
+  "y4t4b4se.etzhayyim.com/*",
 ]
 deploy_cmd = "70-tools/scripts/yatabase-deploy.sh (gftd deploy + cron-preserving wrangler reattach; bare gftd deploy strips triggers.crons)"
 smoke_cmd = "YATA_API_KEY=sk_live_yata_* node 70-tools/scripts/yatabase-smoke.mjs"
 
 [product.deployment.k8s]
 yata_zeebe_worker = "deployment/yata-zeebe-worker (mitama-udf namespace, 1/1 replica)"
-yata_zeebe_image_pattern = "ghcr.io/gftdcojp/pymagatama:cypher-edge-v3-* / cypher-set-v4-* / storage-fix-* / cypher-edge-v* (rolling)"
+yata_zeebe_image_pattern = "ghcr.io/etzhayyim/pymagatama:cypher-edge-v3-* / cypher-set-v4-* / storage-fix-* / cypher-edge-v* (rolling)"
 yata_zeebe_profile_env = "ZEEBE_WORKER_PROFILE=yata"
 
 [product.deployment.secrets]
@@ -245,7 +245,7 @@ caps = "windowHours=168 perQueryHits=30 maxLeads=25 per fire"
 source_file = "src/lead-sources/hn.ts"
 
 [product.agents]
-# 4-actor team: dev / qa / sales / cs. Path-based DIDs under did:web:yatabase.gftd.ai.
+# 4-actor team: dev / qa / sales / cs. Path-based DIDs under did:web:yatabase.etzhayyim.com.
 # Triggered manually via POST /_agents/{name}/run (x-yata-admin-key header).
 # Audit trail: vertex_yata_agent_run + emitted side-effects in vertex_email_outbox.
 list_endpoint = "GET /_agents/list"
@@ -257,7 +257,7 @@ qa_table = "vertex_yata_qa_run"
 [[product.agents.roster]]
 name = "chikada"
 role = "dev"
-did = "did:web:yatabase.gftd.ai:actor:chikada"
+did = "did:web:yatabase.etzhayyim.com:actor:chikada"
 purpose = "Engineering / DevEx — scans audit log for 5xx surfaces, drafts dev-incident-summary."
 inputs = ["vertex_audit_log"]
 outputs = ["vertex_email_outbox kind=dev-incident-summary"]
@@ -265,7 +265,7 @@ outputs = ["vertex_email_outbox kind=dev-incident-summary"]
 [[product.agents.roster]]
 name = "tanaka"
 role = "qa"
-did = "did:web:yatabase.gftd.ai:actor:tanaka"
+did = "did:web:yatabase.etzhayyim.com:actor:tanaka"
 purpose = "QA / reliability — probes /health, /_app/meta, /.well-known/*; records pass/fail."
 inputs = ["public surfaces"]
 outputs = ["vertex_yata_qa_run", "vertex_email_outbox kind=qa-regression-report (only on FAIL)"]
@@ -273,7 +273,7 @@ outputs = ["vertex_yata_qa_run", "vertex_email_outbox kind=qa-regression-report 
 [[product.agents.roster]]
 name = "nishino"
 role = "sales"
-did = "did:web:yatabase.gftd.ai:actor:nishino"
+did = "did:web:yatabase.etzhayyim.com:actor:nishino"
 purpose = "Sales / GTM — drafts upgrade nudges (quota >75%) + onboarding nudges (quiet new tenants)."
 inputs = ["vertex_billing_event", "vertex_api_key", "vertex_org_plan"]
 outputs = ["vertex_email_outbox kind=sales-quota-nudge", "vertex_email_outbox kind=sales-onboarding-nudge"]
@@ -281,7 +281,7 @@ outputs = ["vertex_email_outbox kind=sales-quota-nudge", "vertex_email_outbox ki
 [[product.agents.roster]]
 name = "sakamoto"
 role = "cs"
-did = "did:web:yatabase.gftd.ai:actor:sakamoto"
+did = "did:web:yatabase.etzhayyim.com:actor:sakamoto"
 purpose = "Customer success — triages stalled outbox emails, drafts support-followup."
 inputs = ["vertex_email_outbox"]
 outputs = ["vertex_email_outbox kind=support-followup"]
@@ -293,7 +293,7 @@ outputs = ["vertex_email_outbox kind=support-followup"]
 package_root = "60-apps/ai-gftd-project-yatabase/lg"
 config = "60-apps/ai-gftd-project-yatabase/lg/langgraph.json"
 graphs = ["health", "marketing", "sales"]
-image_pattern = "ghcr.io/gftdcojp/lg-yatabase:0.1.0-amd64"
+image_pattern = "ghcr.io/etzhayyim/lg-yatabase:0.1.0-amd64"
 deploy_target = "k8s Deployment lg-yatabase (mitama-udf namespace, 1/1 replica, edge-pool node)"
 status = "live — all 3 graphs operational; k8s CronJobs drive schedule; ainvoke fix shipped 2026-05-18"
 crons = [
@@ -447,20 +447,20 @@ container_rebuild_required = true
 operator_runbook = """
 1. Build new lg-yatabase container with the auth/ module:
      cd 60-apps/ai-gftd-project-yatabase/lg
-     docker build --platform linux/amd64 -t ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64 .
-     docker push ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64
+     docker build --platform linux/amd64 -t ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64 .
+     docker push ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64
 2. Rollout the pod (k8s):
      kubectl -n mitama-yata-pool set image deployment/lg-yatabase \\
-       lg-yatabase=ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64
+       lg-yatabase=ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64
      kubectl -n mitama-yata-pool rollout status deployment/lg-yatabase
 3. Confirm pod exposes /xrpc/ai.gftd.apps.yata.signup:
-     curl -X POST https://lg-yatabase.gftd.ai/xrpc/ai.gftd.apps.yata.signup \\
+     curl -X POST https://lg-yatabase.etzhayyim.com/xrpc/ai.gftd.apps.yata.signup \\
        -H 'x-internal-trust: $(echo -n "{}" | openssl dgst -sha256 -hmac "$DISPATCHER_INTERNAL_SECRET" | cut -d= -f2)' \\
        -H 'content-type: application/json' -d '{}'
 4. Wire the Worker to forward (one secret push):
-     echo -n 'https://lg-yatabase.gftd.ai' | npx wrangler secret put LG_YATABASE_URL --name magatama-y4t4b4se
+     echo -n 'https://lg-yatabase.etzhayyim.com' | npx wrangler secret put LG_YATABASE_URL --name magatama-y4t4b4se
 5. Verify:
-     curl -X POST https://yatabase.gftd.ai/auth/v1/signup
+     curl -X POST https://yatabase.etzhayyim.com/auth/v1/signup
      # expect: 200 OK with apiKey + orgDid + x-yatabase-signup-path: lg-yatabase-pod header
 """
 
@@ -509,10 +509,10 @@ behavior_today = "Worker forwards to pod (LG_YATABASE_URL is set); pod responds 
 # code-complete. These three operator steps activate it:
 step_1_pod_container_rebuild = """
 cd 60-apps/ai-gftd-project-yatabase/lg
-docker build --platform linux/amd64 -t ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64 .
-docker push ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64
+docker build --platform linux/amd64 -t ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64 .
+docker push ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64
 kubectl -n mitama-yata-pool set image deployment/lg-yatabase \\
-  lg-yatabase=ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64
+  lg-yatabase=ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64
 """
 step_2_hmac_alignment = """
 # Match Worker DISPATCHER_INTERNAL_SECRET on pod side
@@ -521,12 +521,12 @@ kubectl -n mitama-yata-pool patch deployment/lg-yatabase --type=strategic \\
   -p "{\\"spec\\":{\\"template\\":{\\"spec\\":{\\"containers\\":[{\\"name\\":\\"lg-yatabase\\",\\"env\\":[{\\"name\\":\\"DISPATCHER_INTERNAL_SECRET\\",\\"value\\":\\"$WORKER_SECRET\\"}]}]}}}}"
 """
 step_3_resend_key_fix = """
-# Resend dashboard → API Keys → generate new full_access key for email.gftd.ai domain
+# Resend dashboard → API Keys → generate new full_access key for email.etzhayyim.com domain
 echo -n 're_VALID_FROM_DASHBOARD' | npx wrangler secret put RESEND_API_KEY --name magatama-y4t4b4se
 """
 step_4_stripe_webhook_secret = """
 # Stripe dashboard → Developers → Webhooks → Add endpoint
-#   URL: https://yatabase.gftd.ai/webhook/stripe
+#   URL: https://yatabase.etzhayyim.com/webhook/stripe
 #   Events: checkout.session.completed, customer.subscription.updated, customer.subscription.deleted
 # Copy the whsec_* signing secret:
 echo -n 'whsec_FROM_STRIPE_DASHBOARD' | npx wrangler secret put STRIPE_WEBHOOK_SECRET --name magatama-y4t4b4se
@@ -538,7 +538,7 @@ ended_at = "2026-05-11T05:35Z"
 status = "blocked_on_infra"
 result = "lg-yatabase pod is live + routed, but cloudflared cluster-network bug blocks last-mile origin dial"
 done = [
-  "ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64 build + push (auth + leads + bmc XRPC routes)",
+  "ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64 build + push (auth + leads + bmc XRPC routes)",
   "k8s/lg-yatabase.yaml — added imagePullSecrets: [ghcr-pull], rollout succeeded",
   "CF tunnel be2cc0b0 ingress regex extended to ^/xrpc/ai\\.gftd\\.apps\\.yata\\.(bmc|signup|invite|revoke|lead).*$ (cfd_tunnel/configurations PUT v15, persisted via dashboard)",
   "50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml mirrored to match (was already committed 9ab34d2438d by parallel agent)",
@@ -570,7 +570,7 @@ status = "shipped"
 result = "lg-yatabase pod is live + reachable. /auth/v1/signup returns 200 OK end-to-end through the dispatcher proxy in ~600ms (first call) / 4-7ms (warm)."
 done = [
   "Patched pymagatama dispatcher_main.py: auth_middleware accepts HMAC-SHA256(body, secret) in addition to raw shared-secret. _proxy_to_lg_yatabase forwards yata.(signup|invite|revoke|lead|bmc)* to http://lg-yatabase.mitama-udf.svc.cluster.local:8000 using the original raw body bytes (so the pod's HMAC verification on the same shared secret still matches).",
-  "Built + pushed ghcr.io/gftdcojp/pymagatama:p59b-af419fe080c-amd64 (multiarch BuildKit, ~5 min including PyTorch CPU wheel).",
+  "Built + pushed ghcr.io/etzhayyim/pymagatama:p59b-af419fe080c-amd64 (multiarch BuildKit, ~5 min including PyTorch CPU wheel).",
   "kubectl set image deployment/bpmn-dispatcher dispatcher=...:p59b-...",
   "CF tunnel ingress v17: dropped the yata-specific path so it falls through to the bpmn-dispatcher catch-all where the proxy fires.",
   "Smoke verified: POST /auth/v1/signup returns 200 with apiKey + orgDid + tenantName + AWS creds. Pod log confirms /xrpc/ai.gftd.apps.yata.signup hit lg-yatabase via the proxy.",
@@ -593,8 +593,8 @@ status = "blocked_on_cluster_network"
 result = "All code is shipped. Cloudflared on this VKE intermittently/persistently fails to dial origin services in the mitama-udf namespace with `dial tcp ... i/o timeout` regardless of FQDN / svc IP / pod IP / hostNetwork / externalIPs. Other tunnels (geth-rpc, ipfs, keiei-llm) work fine on the same node. Reproducible from a known-good state by simply rolling either bpmn-dispatcher or cloudflared."
 done = [
   "Pod-side: lg_yatabase.auth.repository.resolve_api_key_by_hash + POST /xrpc/ai.gftd.apps.yata.authResolveApiKey handler with same HMAC trust.",
-  "Built + pushed ghcr.io/gftdcojp/lg-yatabase:0.0.3-amd64 (with the new XRPC route).",
-  "Built + pushed ghcr.io/gftdcojp/pymagatama:p60-e92278c5a99-amd64 (broadened LG_YATABASE_PROXY_PREFIXES to all ai.gftd.apps.yata.*).",
+  "Built + pushed ghcr.io/etzhayyim/lg-yatabase:0.0.3-amd64 (with the new XRPC route).",
+  "Built + pushed ghcr.io/etzhayyim/pymagatama:p60-e92278c5a99-amd64 (broadened LG_YATABASE_PROXY_PREFIXES to all ai.gftd.apps.yata.*).",
   "Worker: yatabase Worker resolveAuthContext now resolves sk_live_yata_* via the dispatcher proxy (HMAC-signed body); ES256 JWT / session tokens still fall through to PDS getSession.",
   "Deployed: bpmn-dispatcher rolling to p60-... ; lg-yatabase still on 0.0.2 (the new 0.0.3 was built but rollout deferred pending cluster connectivity).",
   "Yatabase Worker re-deployed with new auth path.",
@@ -672,14 +672,14 @@ attempted = [
   "Nginx sidecar in same pod, route cloudflared → 127.0.0.1:8888 (cloudflared cannot even dial localhost when peer container can).",
   "Explicit dnsConfig nameserver=10.96.0.10 (no change).",
   "kube-proxy and calico-node restart (no change).",
-  "Switched DNS dispatcher.gftd.ai → working geth tunnel (69cf11d5) and added dispatcher routes to its remote+local config — geth's old pod cxxp4 picked up the config update via remote-config polling, but ALSO can't dial bpmn-dispatcher.mitama-udf cross-namespace (timeout). The same pod CAN still dial geth-private.geth-private same-namespace fine. So whatever bug is happening makes cross-namespace TCP origin dial fail from any cloudflared, while in-cluster pod-network fresh pods cross-ns dial works.",
+  "Switched DNS dispatcher.etzhayyim.com → working geth tunnel (69cf11d5) and added dispatcher routes to its remote+local config — geth's old pod cxxp4 picked up the config update via remote-config polling, but ALSO can't dial bpmn-dispatcher.mitama-udf cross-namespace (timeout). The same pod CAN still dial geth-private.geth-private same-namespace fine. So whatever bug is happening makes cross-namespace TCP origin dial fail from any cloudflared, while in-cluster pod-network fresh pods cross-ns dial works.",
   "SIGHUP via hostPID privileged signal pod to all cloudflared PIDs — caused cxxp4 to restart (RESTARTS=1), did NOT cause graceful config reload.",
 ]
 firm_diagnosis = """
 cloudflared/2025.4.0 and /2024.12.2 on this VKE have broken cross-namespace DNS resolution from their network namespace. Same-namespace lookups work; non-cloudflared pods in either namespace resolve cross-ns fine. This is specifically the cloudflared Go DNS resolver hitting some interaction with Vultr VKE Calico Felix programming.
 """
 restored_state = [
-  "DNS dispatcher.gftd.ai → be2cc0b0 tunnel (original)",
+  "DNS dispatcher.etzhayyim.com → be2cc0b0 tunnel (original)",
   "geth tunnel remote config: removed dispatcher rules",
   "geth-rpc ConfigMap: removed dispatcher rules, reverted to geth-only",
   "cloudflared-geth-rpc: replicas=2",
@@ -710,14 +710,14 @@ This is genuinely a Vultr-platform × cloudflared-binary interaction that can on
 """
 recommendation = """
 Operator action — pick one:
-1. Install nginx-ingress-controller on the cluster, point dispatcher.gftd.ai DNS at the ingress LoadBalancer IP (or use Vultr LB → ingress). The yatabase Worker already HMAC-signs against DISPATCHER_INTERNAL_SECRET; the ingress just needs to forward x-internal-trust verbatim.
+1. Install nginx-ingress-controller on the cluster, point dispatcher.etzhayyim.com DNS at the ingress LoadBalancer IP (or use Vultr LB → ingress). The yatabase Worker already HMAC-signs against DISPATCHER_INTERNAL_SECRET; the ingress just needs to forward x-internal-trust verbatim.
 2. Open a Vultr support ticket: cloudflared TCP egress times out from Vultr VKE Calico CNI; other images on same pod's network namespace work fine.
 3. Wait for Vultr to restock vhf-16c-58gb in LAX (we are blocked from full node recycle because of stock shortage), then drain risingwave-pool node and let it come back fresh.
 """
 restored_state = [
   "cloudflared-bpmn-dispatcher deployment renamed to y4t4b4se-tunnel (1 replica on edge-pool); same tunnel ID (be2cc0b0).",
   "edge-pool node-pool created in Vultr (1 × vhf-2c-4gb $24/mo) for cloudflared workloads.",
-  "DNS dispatcher.gftd.ai → be2cc0b0 tunnel (original).",
+  "DNS dispatcher.etzhayyim.com → be2cc0b0 tunnel (original).",
   "All yatabase Worker / pod / dispatcher app code remains shipped and verified to work end-to-end during cycle_03's working window.",
 ]
 
@@ -725,8 +725,8 @@ restored_state = [
 overall_status = "code-complete; blocked on cluster-network infrastructure (cloudflared × Vultr VKE bug)"
 date = "2026-05-11"
 code_shipped = [
-  "Pod: lg_yatabase auth/handlers.py + auth/repository.py (signup, invite, revoke, authResolveApiKey). Pod image ghcr.io/gftdcojp/lg-yatabase:0.0.3-amd64 built+pushed.",
-  "Dispatcher: pymagatama dispatcher_main.py auth_middleware accepts HMAC-SHA256(body, secret); LG_YATABASE_PROXY_PREFIXES routes all ai.gftd.apps.yata.* to lg-yatabase pod over cluster networking. Image ghcr.io/gftdcojp/pymagatama:p60-e92278c5a99-amd64 built+pushed and deployed.",
+  "Pod: lg_yatabase auth/handlers.py + auth/repository.py (signup, invite, revoke, authResolveApiKey). Pod image ghcr.io/etzhayyim/lg-yatabase:0.0.3-amd64 built+pushed.",
+  "Dispatcher: pymagatama dispatcher_main.py auth_middleware accepts HMAC-SHA256(body, secret); LG_YATABASE_PROXY_PREFIXES routes all ai.gftd.apps.yata.* to lg-yatabase pod over cluster networking. Image ghcr.io/etzhayyim/pymagatama:p60-e92278c5a99-amd64 built+pushed and deployed.",
   "Worker: yatabase src/app.ts resolveAuthContext resolves sk_live_yata_* via the dispatcher proxy (HMAC-signed). Deployed (deploy id f5447a64-add9-4e3c-acba-7fa0e55a0cb9).",
   "Tunnel: cloudflared ingress rule yata.* → lg-yatabase removed; falls through to bpmn-dispatcher catch-all which proxies to the pod.",
 ]
@@ -738,24 +738,24 @@ The cloudflared 2024.12.2 / 2025.4.0 docker images on this Vultr VKE cluster hav
 Confirmed via GODEBUG=netdns=go+2: `hostLookupOrder(...) = files,dns` then DNS lookup times out.
 """
 recommendation_to_operator = """
-1. Install nginx-ingress-controller on this cluster (helm install ingress-nginx ingress-nginx/ingress-nginx --set controller.service.type=LoadBalancer). Point dispatcher.gftd.ai DNS at the resulting Vultr LB IP. Configure the ingress to forward `x-internal-trust` header verbatim to bpmn-dispatcher. Cloudflared becomes optional.
+1. Install nginx-ingress-controller on this cluster (helm install ingress-nginx ingress-nginx/ingress-nginx --set controller.service.type=LoadBalancer). Point dispatcher.etzhayyim.com DNS at the resulting Vultr LB IP. Configure the ingress to forward `x-internal-trust` header verbatim to bpmn-dispatcher. Cloudflared becomes optional.
 2. OR wait for Vultr to restock plan vhf-16c-58gb in LAX so the existing risingwave-pool node can be drained + recycled.
 3. OR open a Vultr support ticket: cloudflared TCP egress times out from Vultr VKE Calico CNI; all other workloads on same node work fine.
 """
 
 [product.deployment.runtime_state_2026_05_11]
 node_pools = "risingwave-pool-58gb (1 × vhf-16c-58gb, the original cluster compute) + edge-pool (1 × vhf-2c-4gb, $24/mo, added during cycle_06 for cloudflared workloads — was supposed to be the fresh node to fix the bug; the bug followed cloudflared anyway)"
-cloudflared_deployments = "y4t4b4se-tunnel in mitama-udf pinned to edge-pool (broken egress); cloudflared-geth-rpc in geth-private serving geth-origin.gftd.ai (still works for its own same-namespace targets)"
+cloudflared_deployments = "y4t4b4se-tunnel in mitama-udf pinned to edge-pool (broken egress); cloudflared-geth-rpc in geth-private serving geth-origin.etzhayyim.com (still works for its own same-namespace targets)"
 lg_yatabase = "lg-yatabase Deployment in mitama-udf serves /xrpc/ai.gftd.apps.yata.* via Granian; image 0.0.2-amd64 currently running (0.0.3-amd64 with authResolveApiKey was built but rollout deferred while cluster network is broken)"
-yatabase_worker = "magatama-y4t4b4se on yatabase.gftd.ai/* — version f5447a64-add9-4e3c-acba-7fa0e55a0cb9; auth-middleware redirects sk_live_yata_* through dispatcher proxy"
-bpmn_dispatcher = "deployment/bpmn-dispatcher in mitama-udf running ghcr.io/gftdcojp/pymagatama:p60-e92278c5a99-amd64 (with yata-proxy + HMAC auth support); externalIPs [149.28.89.211] restored on the Service"
+yatabase_worker = "magatama-y4t4b4se on yatabase.etzhayyim.com/* — version f5447a64-add9-4e3c-acba-7fa0e55a0cb9; auth-middleware redirects sk_live_yata_* through dispatcher proxy"
+bpmn_dispatcher = "deployment/bpmn-dispatcher in mitama-udf running ghcr.io/etzhayyim/pymagatama:p60-e92278c5a99-amd64 (with yata-proxy + HMAC auth support); externalIPs [149.28.89.211] restored on the Service"
 
 [product.lean_cycles.cycle_20260511_07_nginx_ingress_landed]
 started_at = "2026-05-11T07:30Z"
 ended_at = "2026-05-11T08:45Z"
 status = "shipped_for_cloudflared_bypass; rw_writes_blocked_separately"
 result = """
-nginx-ingress-controller installed as the dispatcher.gftd.ai origin,
+nginx-ingress-controller installed as the dispatcher.etzhayyim.com origin,
 fully bypassing the broken cloudflared tunnel. POST /auth/v1/signup
 returns 200 OK end-to-end through:
   Client → CF Edge (TLS) → Vultr LB 108.61.207.153 → nginx-ingress pod
@@ -768,10 +768,10 @@ done = [
   "Created edge-pool node-pool (vhf-2c-4gb $24/mo) in Vultr VKE.",
   "Installed ingress-nginx via Helm pinned to edge-pool: helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace --set controller.service.type=LoadBalancer --set controller.nodeSelector.\"vke\\.vultr\\.com/node-pool\"=edge-pool.",
   "Vultr provisioned LoadBalancer with public IP 108.61.207.153.",
-  "Provisioned CF Origin Certificate via API for dispatcher.gftd.ai + *.gftd.ai (15-year cert).",
+  "Provisioned CF Origin Certificate via API for dispatcher.etzhayyim.com + *.etzhayyim.com (15-year cert).",
   "Installed TLS secret dispatcher-gftd-ai-tls in mitama-udf + ingress-nginx namespaces.",
   "Created Ingress dispatcher-gftd-ai in mitama-udf forwarding HTTPS to bpmn-dispatcher:8080. Manifest committed to 50-infra/k8s/nginx-ingress-yatabase.yaml.",
-  "Updated dispatcher.gftd.ai DNS: CNAME be2cc0b0.cfargotunnel.com → A 108.61.207.153 (proxied=true).",
+  "Updated dispatcher.etzhayyim.com DNS: CNAME be2cc0b0.cfargotunnel.com → A 108.61.207.153 (proxied=true).",
   "Verified signup returns 200 with full body: apiKey, orgDid, tenantName, AWS creds.",
 ]
 remaining_issue = """
@@ -789,9 +789,9 @@ manual INSERTs (102 -> 117 total) prove the write path itself is sound.
 """
 artifacts = [
   "50-infra/k8s/nginx-ingress-yatabase.yaml — Ingress manifest committed.",
-  "CF Origin Cert hostnames=['dispatcher.gftd.ai','*.gftd.ai'] validity=5475d",
+  "CF Origin Cert hostnames=['dispatcher.etzhayyim.com','*.etzhayyim.com'] validity=5475d",
   "Vultr LoadBalancer 108.61.207.153 (pinned to edge-pool node).",
-  "DNS dispatcher.gftd.ai → A 108.61.207.153 proxied=true.",
+  "DNS dispatcher.etzhayyim.com → A 108.61.207.153 proxied=true.",
 ]
 
 [product.lean_cycles.cycle_20260511_08_bmc_schema_apply_blocked]
@@ -814,7 +814,7 @@ done = [
   "Deployed lg-yatabase Deployment + Service + ServiceAccount via 50-infra/k8s/lg-yatabase/{deployment.yaml,kustomization.yaml,secret.yaml.example,RUNBOOK.md} (newly created — pod had never been deployed before; was P19/P20 backlog).",
   "Created k8s Secret `lg-yatabase-secrets` in mitama-udf with RW_URL=ROOT_URL (Keychain `gftd.rw / ROOT_URL`), LG_YATABASE_API_KEY (fresh uuidgen `B7DF0D6F-0168-4C5D-B347-1D528943A222`, persisted to /tmp/lg-yatabase-api-key.txt), DISPATCHER_INTERNAL_SECRET (rotated from placeholder to canonical k8s `bpmn-dispatcher-auth.internal-secret` value).",
   "Created k8s Secret `ghcr-pull` in mitama-udf with gh auth token (was missing — first lg-yatabase deploy in this namespace).",
-  "Rotated DISPATCHER_INTERNAL_SECRET via `wrangler secret put DISPATCHER_INTERNAL_SECRET` on magatama-y4t4b4se Worker so HMAC matches the bpmn-dispatcher / lg-yatabase side. Also set LG_YATABASE_URL=https://dispatcher.gftd.ai (CF tunnel egress now superseded by nginx-ingress from cycle_07).",
+  "Rotated DISPATCHER_INTERNAL_SECRET via `wrangler secret put DISPATCHER_INTERNAL_SECRET` on magatama-y4t4b4se Worker so HMAC matches the bpmn-dispatcher / lg-yatabase side. Also set LG_YATABASE_URL=https://dispatcher.etzhayyim.com (CF tunnel egress now superseded by nginx-ingress from cycle_07).",
   "Updated CF Tunnel `bpmn-dispatcher` config via API (v5..v21) — initially added direct lg-yatabase route, then reverted to Option A (cycle_07 nginx-ingress + dispatcher proxy `_proxy_to_lg_yatabase`) per the project's chosen topology. Final tunnel rules: shinshi → lg-shinshi, default → bpmn-dispatcher, 404 catch-all.",
   "Restarted risingwave-meta-0 after manual snapshot backup (rw-meta-backup-prestart-1778485235 Job) — meta recovered cleanly with 0 background DDL jobs, but DDL coordination still hangs (no longer with `cluster is bootstrapping` fast-fail).",
   "Validated lg-yatabase pod end-to-end via kubectl port-forward 18001:8000 — /health 200, /graphs lists 4 graphs (health/marketing/sales/bmc_iteration), HMAC verify on /xrpc/ai.gftd.apps.yata.bmcGetState passes, asyncpg pool connects to RW PG :4566, repository reaches `mv_bmc_state_head` SELECT — only failure is the MV does not exist (schema not applied).",
@@ -847,7 +847,7 @@ artifacts = [
   "60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/bmc/{db,models,repository,handlers}.py — pod-side BMC module (~1k lines), single writer for vertex_bmc_*.",
   "60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/graphs/bmc_iteration.py — STUB nodes replaced with repository-backed async implementations.",
   "50-infra/k8s/lg-yatabase/{deployment.yaml,kustomization.yaml,secret.yaml.example,RUNBOOK.md} — k8s deployment scaffolding (new directory).",
-  "ghcr.io/gftdcojp/lg-yatabase:0.0.6-amd64 — image with uvicorn + asyncpg UNLISTEN override + bmc module.",
+  "ghcr.io/etzhayyim/lg-yatabase:0.0.6-amd64 — image with uvicorn + asyncpg UNLISTEN override + bmc module.",
   "NATS JetStream: 3 memory streams (MITAMA, GRADIENT_FLOW, PDS_REPO) created via nats-box pod in nats namespace.",
   "CF Tunnel be2cc0b0 config v21: shinshi route + bpmn-dispatcher catchall + 404 (lg-yatabase NSIDs fall through to bpmn-dispatcher proxy).",
   "/tmp/bmc-apply-all.sh + /tmp/bmc-upgrade-inplace.sql — schema apply scripts ready to fire when compactor stabilizes.",
@@ -902,7 +902,7 @@ operator_action_required = """
    script at 70-tools/scripts/yatabase-customer-journey.mjs.
 """
 service_state_today = """
-Browser → CF Edge https://yatabase.gftd.ai → 200 OK on every public
+Browser → CF Edge https://yatabase.etzhayyim.com → 200 OK on every public
 surface (/, /studio, /comparison, /quickstart, /docs, /webhook/stripe
 verify route, /auth/v1/signup minting JSON responses with valid
 sk_live_yata_* keys). Worker→pod path is fully verified at the wire
@@ -915,7 +915,7 @@ work without further code or infra changes.
 date = "2026-05-12"
 status = "shipped"
 result = """
-yatabase.gftd.ai is LIVE end-to-end as a paying service:
+yatabase.etzhayyim.com is LIVE end-to-end as a paying service:
 
   POST /auth/v1/signup              → 200 OK { apiKey, orgDid, tenantName, awsAccessKeyId, awsSecretAccessKey }
   GET  /xrpc/ai.gftd.apps.yata.leadList?limit=2      → 200 OK { count, leads[] }
@@ -951,7 +951,7 @@ status = "shipped"
 result = """
 yatabase-customer-journey.mjs (the 11-step E2E proof script that mirrors
 a real paying customer's flow) is now GREEN against production
-https://yatabase.gftd.ai:
+https://yatabase.etzhayyim.com:
 
   STEP                                                  RESULT
   1.  POST /auth/v1/signup                              PASS (2.3s)
@@ -1089,7 +1089,7 @@ Pod: lg-yatabase:0.0.9-amd64 (in mitama-udf, edge-pool node)
 Dispatcher: pymagatama:p62-content-type-fix-amd64
 Edge: Vultr LB 108.61.207.153 → nginx-ingress → bpmn-dispatcher → pod
 KV namespace: fbb9ca096633432486a7daee53e8cfd9
-DNS: dispatcher.gftd.ai → CF tunnel be2cc0b0 (unused — service routes via yatabase.gftd.ai → bpmn-dispatcher LB direct)
+DNS: dispatcher.etzhayyim.com → CF tunnel be2cc0b0 (unused — service routes via yatabase.etzhayyim.com → bpmn-dispatcher LB direct)
 
 vertex_api_key total grew 120 → 132 today (post-meta restart RW writes
 are persisting; KV is no longer just a workaround but a hot-cache layer
@@ -1115,7 +1115,7 @@ via the pod once it's ready. Not blocking customer flow.
 date = "2026-05-12"
 status = "shipped"
 result = """
-yatabase.gftd.ai: every customer-touchable surface returns HTTP 200.
+yatabase.etzhayyim.com: every customer-touchable surface returns HTTP 200.
 Verified production sweep:
 
   PUBLIC (no auth)
@@ -1194,8 +1194,8 @@ Production-grade HTTP semantics layered onto the journey-GREEN service:
     - referrer-policy:           strict-origin-when-cross-origin
     - permissions-policy:        geolocation=(), microphone=(), camera=(), payment=()
     - content-security-policy:   default-src 'self'; script-src 'self' 'unsafe-inline';
-                                  connect-src 'self' https://yatabase.gftd.ai
-                                                 https://atproto.gftd.ai
+                                  connect-src 'self' https://yatabase.etzhayyim.com
+                                                 https://atproto.etzhayyim.com
                                                  https://api.resend.com;
                                   frame-ancestors 'self'; base-uri 'self';
                                   form-action 'self'  (HTML responses only)
@@ -1252,7 +1252,7 @@ Surfaces upgraded:
          nodes:{label}:{nodeId}, deletes the index itself.
        - Returns {columns:[], data:[]} (Cypher DELETE has no result rows).
 
-All three verified live on yatabase.gftd.ai post-P70:
+All three verified live on yatabase.etzhayyim.com post-P70:
   PUT  /storage/v1/object/p70/hello.txt          → 200 kv-fallback
   POST /storage/v1/object/list/p70               → 200 objects[1]
   DELETE /storage/v1/object/p70/hello.txt        → 200 deleted
@@ -1383,7 +1383,7 @@ src/public-acl.ts:
     the R2 response body directly (no buffering) so 5 MiB+ files don't
     pressure Worker memory.
 
-Verified live (yatabase.gftd.ai 2026-05-12):
+Verified live (yatabase.etzhayyim.com 2026-05-12):
   PUT 100 KiB              → StorageTier=r2
   PUT 5 MiB                → StorageTier=r2 (was 413 before P73)
   GET 5 MiB                → tier=r2, provider=cloudflare-r2, SHA-256 match
@@ -1559,7 +1559,7 @@ status = "shipped"
 result = """
 openapi.json now documents the 4 P76 auth endpoints + the P77
 account-delete counters. SDK consumers running
-`openapi-typescript https://yatabase.gftd.ai/openapi.json` get typed
+`openapi-typescript https://yatabase.etzhayyim.com/openapi.json` get typed
 helpers for the full recovery flow:
 
   GET  /auth/v1/whoami        → operationId getWhoami
@@ -1811,7 +1811,7 @@ Customer journey gained step 6b — a manual SigV4 signer (no @aws-sdk
 dep, just node:crypto) that PUTs to /s3/journey-s3/hi.txt. 16 → 17 PASS.
 
 Verified live with @aws-sdk/client-s3 v3:
-  endpoint=https://yatabase.gftd.ai/s3, forcePathStyle=true,
+  endpoint=https://yatabase.etzhayyim.com/s3, forcePathStyle=true,
   credentials from signup. PutObjectCommand → 200 etag.
   GetObjectCommand → 200 body roundtrips. Real `boto3` / aws-cli /
   rclone setups now work.

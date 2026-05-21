@@ -13,13 +13,13 @@ branch_labels = None
 depends_on = None
 
 UP = [{'sql': 'UPDATE vertex_maps_coverage_target SET world_total = $1 WHERE source_did = $2',
-  'parameters': [1500, 'did:web:maps.gftd.ai:eonet:volcanoes']},
+  'parameters': [1500, 'did:web:maps.etzhayyim.com:eonet:volcanoes']},
  {'sql': 'UPDATE vertex_maps_coverage_target SET world_total = $1 WHERE source_did = $2',
-  'parameters': [200, 'did:web:maps.gftd.ai:eonet:seaLakeIce']},
+  'parameters': [200, 'did:web:maps.etzhayyim.com:eonet:seaLakeIce']},
  {'sql': 'UPDATE vertex_maps_coverage_target SET world_total = $1 WHERE source_did = $2',
-  'parameters': [1500, 'did:web:maps.gftd.ai:eonet:wildfires']},
+  'parameters': [1500, 'did:web:maps.etzhayyim.com:eonet:wildfires']},
  {'sql': 'UPDATE vertex_maps_coverage_target SET world_total = $1 WHERE source_did = $2',
-  'parameters': [500, 'did:web:maps.gftd.ai:registry:wikidata:museumShip']},
+  'parameters': [500, 'did:web:maps.etzhayyim.com:registry:wikidata:museumShip']},
  {'sql': 'FLUSH', 'parameters': []}]
 
 DOWN = []

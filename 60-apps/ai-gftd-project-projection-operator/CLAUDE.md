@@ -1,16 +1,16 @@
 # ai-gftd-project-projection-operator
 
-Unified project runtime — projection-manager for org/project governance + projection-operator for project execution. 1 Project = 1 Org model (authn.gftd.ai DID-based).
+Unified project runtime — projection-manager for org/project governance + projection-operator for project execution. 1 Project = 1 Org model (authn.etzhayyim.com DID-based).
 
-**URL**: `https://po.gftd.ai`
+**URL**: `https://po.etzhayyim.com`
 
 ## Components
 
 | Component | Nanoid | Endpoint | Purpose |
 |-----------|--------|----------|---------|
-| `projection-manager-mcp` | `pm7k3x9n` | `https://pm7k3x9n.gftd.ai/api/mcp` | Org/Project management, contracts, auctions, member invitations |
-| `projection-operator-mcp` | `po1x9k2m` | `https://po1x9k2m.gftd.ai/api/mcp` | Project execution, inbox routing, run gates |
-| `po-ui` | `po1x9k2m` | `https://po.gftd.ai` | Projection operator UI |
+| `projection-manager-mcp` | `pm7k3x9n` | `https://pm7k3x9n.etzhayyim.com/api/mcp` | Org/Project management, contracts, auctions, member invitations |
+| `projection-operator-mcp` | `po1x9k2m` | `https://po1x9k2m.etzhayyim.com/api/mcp` | Project execution, inbox routing, run gates |
+| `po-ui` | `po1x9k2m` | `https://po.etzhayyim.com` | Projection operator UI |
 
 ## Directory Structure
 
@@ -37,11 +37,11 @@ wasm/
 
 | Actor | Nanoid | MCP Endpoint | 役割 |
 |---|---|---|---|
-| **projection-manager-mcp** | `pm7k3x9n` | `https://pm7k3x9n.gftd.ai/api/mcp` | Org リソース割当、プロジェクトライフサイクル、契約ガバナンス、auction |
-| **matrix-mcp** | `br8bojxp` | `https://br8bojxp.gftd.ai/api/mcp` | Matrix room 管理 (SWE 対話) |
-| **scheduler-mcp** | `5dcfvsbd` | `https://5dcfvsbd.gftd.ai/api/mcp` | Agent Orchestrator、タスクスケジューリング |
-| **projection-operator-mcp** | `po1x9k2m` | `https://po1x9k2m.gftd.ai/api/mcp` | Project 実行基盤 (inbox routing, runs, approval gates) |
-| **hub-mcp** | `qk6cjn0l` | `https://qk6cjn0l.gftd.ai/api/mcp` | Git 互換 project hub (repos, PRs, commits) |
+| **projection-manager-mcp** | `pm7k3x9n` | `https://pm7k3x9n.etzhayyim.com/api/mcp` | Org リソース割当、プロジェクトライフサイクル、契約ガバナンス、auction |
+| **matrix-mcp** | `br8bojxp` | `https://br8bojxp.etzhayyim.com/api/mcp` | Matrix room 管理 (SWE 対話) |
+| **scheduler-mcp** | `5dcfvsbd` | `https://5dcfvsbd.etzhayyim.com/api/mcp` | Agent Orchestrator、タスクスケジューリング |
+| **projection-operator-mcp** | `po1x9k2m` | `https://po1x9k2m.etzhayyim.com/api/mcp` | Project 実行基盤 (inbox routing, runs, approval gates) |
+| **hub-mcp** | `qk6cjn0l` | `https://qk6cjn0l.etzhayyim.com/api/mcp` | Git 互換 project hub (repos, PRs, commits) |
 
 **MCP tool namespace**: `manager.*` (projection-manager)
 
@@ -145,7 +145,7 @@ gftd build
 
 Required headers: `Content-Type,Authorization,X-GFTD-ORG-ID,X-GFTD-USER-ID`
 
-Allowed origins: `*.gftd.ai`, `https://gftd.ai`, `http://localhost*`
+Allowed origins: `*.etzhayyim.com`, `https://etzhayyim.com`, `http://localhost*`
 
 ## Conventions
 

@@ -40,7 +40,7 @@ async def emit_audit(
     """Send one OCEL event to BPMN dispatcher's `generic.audit.emit`.
 
     Args:
-        actor: did:web:media-gamers.gftd.ai (or sub-actor DID for path-based scope)
+        actor: did:web:media-gamers.etzhayyim.com (or sub-actor DID for path-based scope)
         activity: e.g. "media_gamers.guide.generate", "media_gamers.charts.ingest"
         object_id: e.g. "elden-ring:boss-guide"
         object_type: e.g. "media_gamers.guide"

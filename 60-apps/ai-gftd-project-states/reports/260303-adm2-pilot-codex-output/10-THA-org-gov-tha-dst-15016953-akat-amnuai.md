@@ -9,17 +9,17 @@
 - `states/tha/akat-amnuai/README-data.md` (optional) – ingestion notes, ADM2 total tracking (928 gap closure log).  
 
 **K8s Manifest Skeleton Names**  
-- `App/org-gov-tha-dst-15016953-akat-amnuai` (namespace `magatama-runtime`, image `ghcr.io/gftdcojp/org-gov-tha-dst-15016953-akat-amnuai:<tag>`).  
+- `App/org-gov-tha-dst-15016953-akat-amnuai` (namespace `magatama-runtime`, image `ghcr.io/etzhayyim/org-gov-tha-dst-15016953-akat-amnuai:<tag>`).  
 - `Deployment/org-gov-tha-dst-15016953-akat-amnuai` (if App wraps workloads, ensure annotations for Connect gRPC-Web).  
 - `Service/org-gov-tha-dst-15016953-akat-amnuai` (ClusterIP).  
-- `HTTPRoute/org-gov-tha-dst-15016953-akat-amnuai` (namespace `edge-router-performers`, host `https://<nanoid>.gftd.ai/api/grpc`).  
+- `HTTPRoute/org-gov-tha-dst-15016953-akat-amnuai` (namespace `edge-router-performers`, host `https://<nanoid>.etzhayyim.com/api/grpc`).  
 - `ConfigMap/org-gov-tha-dst-15016953-akat-amnuai` (optional for ADM2 payload/template).  
 
 **Quality Gates Checklist**  
-- Image hosted at `ghcr.io/gftdcojp/...`, metadata.name matches image stem; explicit tag (no `:latest`).  
+- Image hosted at `ghcr.io/etzhayyim/...`, metadata.name matches image stem; explicit tag (no `:latest`).  
 - App namespace `magatama-runtime`; HTTPRoute namespace `edge-router-performers`.  
-- Endpoint string follows `https://{nanoid}.gftd.ai/api/grpc`; Connect gRPC-Web client from `@connectrpc/connect-web`.  
-- UI leverages `@gftdcojp/appshellv2` + `@gftdcojp/design-system`, meets Apple HIG iPad breakpoints (md/lg/xl).  
+- Endpoint string follows `https://{nanoid}.etzhayyim.com/api/grpc`; Connect gRPC-Web client from `@connectrpc/connect-web`.  
+- UI leverages `@etzhayyim/appshellv2` + `@etzhayyim/design-system`, meets Apple HIG iPad breakpoints (md/lg/xl).  
 - No `<style>` blocks in Svelte; touch targets ≥44px, hover-optional interactions only.  
 - Git hygiene: small incremental commits, only scoped files staged.  
 - DNS/Gateway alignment: HTTPRoute hostnames feed external-dns, no manual DNS writes.  

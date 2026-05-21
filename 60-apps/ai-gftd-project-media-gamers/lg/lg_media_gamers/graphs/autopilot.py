@@ -35,9 +35,9 @@ from lg_media_gamers.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_APP_DID = os.environ.get("MEDIA_GAMERS_APP_DID", "did:web:media-gamers.gftd.ai")
-_REPO_DID = os.environ.get("MEDIA_GAMERS_REPO_DID", "did:web:a7m8oocs.gftd.ai")
-_PDS_BASE = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
+_APP_DID = os.environ.get("MEDIA_GAMERS_APP_DID", "did:web:media-gamers.etzhayyim.com")
+_REPO_DID = os.environ.get("MEDIA_GAMERS_REPO_DID", "did:web:a7m8oocs.etzhayyim.com")
+_PDS_BASE = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
 _MURAKUMO_URL = os.environ.get("MURAKUMO_OPENAI_URL", "").rstrip("/")
 _MURAKUMO_KEY = os.environ.get("MURAKUMO_API_KEY", "")
 _RUNPOD_URL = os.environ.get("RUNPOD_OPENAI_URL", "").rstrip("/")
@@ -46,7 +46,7 @@ _LLM_MODEL = os.environ.get("LLM_MODEL", "qwen3.5-4b")
 _LLM_TIMEOUT = float(os.environ.get("LLM_TIMEOUT_SEC", "60"))
 _COMMIT_GUIDE_XRPC = os.environ.get(
     "COMMIT_GUIDE_XRPC_URL",
-    "https://media-gamers.gftd.ai/xrpc/ai.gftd.apps.media_gamers.guide.commitGuide",
+    "https://media-gamers.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.guide.commitGuide",
 )
 _THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL)
 
@@ -297,7 +297,7 @@ async def _node_post(state: _State) -> dict[str, Any]:
 
     hashtag_genre = game_genre.replace("-", "").replace(" ", "")
     hashtag_guide = guide_type.replace("-", "").replace(" ", "")
-    guide_url = f"https://media-gamers.gftd.ai/en/game/{slug}/{guide_type}"
+    guide_url = f"https://media-gamers.etzhayyim.com/en/game/{slug}/{guide_type}"
 
     text = (
         f"{title}\n\n"

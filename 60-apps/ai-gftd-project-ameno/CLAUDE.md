@@ -4,14 +4,14 @@
 
 **Browser-side WebGPU inference via Gemma 4 E2B multimodal。** transformers.js ONNX + WebGPU compute shaders で推論を完全にブラウザ内で実行。per-actor LoRA adapter merge + RAG context injection。
 
-- **`ameno.gftd.ai`** — Browser WebGPU inference
+- **`ameno.etzhayyim.com`** — Browser WebGPU inference
 - **nanoid**: `d94d27cb`
-- **DID**: `did:web:ameno.gftd.ai`
+- **DID**: `did:web:ameno.etzhayyim.com`
 
 ## Architecture
 
 ```
-ameno.gftd.ai (CF Worker — TS Native)
+ameno.etzhayyim.com (CF Worker — TS Native)
   ├─ Backend (src/app.ts)
   │   ├─ ai.gftd.apps.ameno.listModels     — ONNX model registry
   │   ├─ ai.gftd.apps.ameno.saveResult     — Persist inference result to the graph query layer

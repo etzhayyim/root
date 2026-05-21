@@ -1,13 +1,13 @@
 # ai-gftd-project-shiharai — 支払 Web 自動化 Actor
 
-`did:web:shiharai.gftd.ai` / nanoid `sh1h4r41`。Gmail 等の請求 email を抽出し、
+`did:web:shiharai.etzhayyim.com` / nanoid `sh1h4r41`。Gmail 等の請求 email を抽出し、
 Web 支払いページを Playwright 駆動で埋め、**最終 submit まで** 実行する汎用 actor。
 
 ## Scope
 
 - **用途**: 汎用 (jun784 個人 + gftd 社用 両方)
 - **最終 submit**: **実行可** (ADR-0032 `決済=禁止` を本 actor は override)
-- **Credential**: macOS Keychain → local daemon 経由で vault.gftd.ai (ADR-0029)
+- **Credential**: macOS Keychain → local daemon 経由で vault.etzhayyim.com (ADR-0029)
   に ephemeral wrap push → Worker が 60s 以内に decrypt して使用 → 即破棄
 - **Browser**: Playwright Worker (local Node.js daemon on user's Mac
   — CF Browser Rendering + `@cloudflare/playwright` は Phase 3)
@@ -26,7 +26,7 @@ Web 支払いページを Playwright 駆動で埋め、**最終 submit まで** 
                         │ XRPC (ai.gftd.apps.shiharai.*)
                         ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│ T4 shiharai.gftd.ai Worker (this project)                        │
+│ T4 shiharai.etzhayyim.com Worker (this project)                        │
 │  - extractBill         LLM parse via murakumo                    │
 │  - listPendingBills    SQL vertex_shiharai_bill WHERE state=due  │
 │  - preparePayment      enqueue job, return {jobId, payUrl}       │
@@ -49,11 +49,11 @@ Web 支払いページを Playwright 駆動で埋め、**最終 submit まで** 
                                           ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │ T0 Local Mac — `gftd shiharai agent` daemon (LaunchAgent)        │
-│  1. Long-poll shiharai.gftd.ai/xrpc/ai.gftd.apps.shiharai.dequeue│
+│  1. Long-poll shiharai.etzhayyim.com/xrpc/ai.gftd.apps.shiharai.dequeue│
 │  2. Fetch creds from macOS Keychain (service=gftd.shiharai.X)    │
 │  3. Run Playwright: Chrome / WebKit launch → navigate → fill     │
 │     → (confirmPayment if authorized) → submit                    │
-│  4. POST result to shiharai.gftd.ai/xrpc/...reportJobResult      │
+│  4. POST result to shiharai.etzhayyim.com/xrpc/...reportJobResult      │
 │  Credentials NEVER leave the Mac. Only bill/session state does.  │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -70,7 +70,7 @@ T2 vault (creds), T1 pds (XRPC), T0 auth.
 - **Keychain service naming**: `gftd.shiharai.{biller-handle}` → account =
   username, generic password = JSON `{password, totpSeed?, customerNumber?}`
 - **Wire**: 支払い実行時、local daemon が Keychain から読み、
-  `vault.gftd.ai` の `injectWorkerSecret` pattern (ADR-0029) で shiharai
+  `vault.etzhayyim.com` の `injectWorkerSecret` pattern (ADR-0029) で shiharai
   Worker に 1 回限り pass。Worker memory のみ、persist 禁止。
 - **1Password**: Phase 3 で `op` CLI plugin 経由 read サポート (同じ
   injectWorkerSecret 境界)。

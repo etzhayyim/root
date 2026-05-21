@@ -22,7 +22,7 @@ import {
 type JsonRow = Record<string, unknown>;
 
 const APP_ID = "insatsu-ins4tup1";
-const YUUBIN_DID = "did:web:yuubin.gftd.ai";
+const YUUBIN_DID = "did:web:yuubin.etzhayyim.com";
 
 function json<T>(raw: unknown): T {
   if (!raw) return {} as T;
@@ -62,7 +62,7 @@ function serializePartner(partner: PrintPartner): Record<string, unknown> {
   };
 }
 
-const ACTOR_DID = "did:web:insatsu.gftd.ai";
+const ACTOR_DID = "did:web:insatsu.etzhayyim.com";
 
 function camelToSnake(s: string): string {
   return s.replace(/[A-Z]/g, (c) => "_" + c.toLowerCase());
@@ -255,7 +255,7 @@ async function cmdRegisterPrintPartner(sdk: HostSDK, payload: Uint8Array): Promi
     return out({ error: "missingRequiredFields", required: ["slug", "display_name", "country"] });
   }
 
-  const partnerDid = `did:web:insatsu.gftd.ai:partner:${slug}`;
+  const partnerDid = `did:web:insatsu.etzhayyim.com:partner:${slug}`;
   const record = {
     partnerDid,
     slug,

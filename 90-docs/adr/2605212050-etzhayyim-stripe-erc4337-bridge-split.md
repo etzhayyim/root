@@ -107,7 +107,7 @@ The handler lives in a **new** etzhayyim service: `50-infra/etzhayyim-fiat-bridg
 
 Vendor → etzhayyim XRPC calls authenticate via an **x-internal-trust** JWT signed by a vendor service key registered in etzhayyim authz (per ADR-2605212030). The JWT carries:
 
-- `iss`: vendor service DID (`did:web:authz.gftd.ai` or per-service did:web)
+- `iss`: vendor service DID (`did:web:authz.etzhayyim.com` or per-service did:web)
 - `aud`: `org.etzhayyim.payment.creditFromFiat`
 - `exp`: ≤ 60s TTL
 - `nonce`: single-use, tracked in etzhayyim service KV

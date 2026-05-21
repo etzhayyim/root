@@ -13,7 +13,7 @@
  *   3. Build canonical `rootDid = did:erc725:gftd:260425:<identityAddr>`
  *      and return it. authn writes that string as the session JWT's
  *      `accountDid`.
- *   4. Optional facade pass — register legacy `did:web:authn.gftd.ai:user:*`
+ *   4. Optional facade pass — register legacy `did:web:authn.etzhayyim.com:user:*`
  *      hashes as facades pointing to the same root identity, so in-flight
  *      sessions whose JWT.iss is still the legacy DID resolve to the
  *      freshly-deployed identity via `resolveFacade(keccak256(legacyDid))`.

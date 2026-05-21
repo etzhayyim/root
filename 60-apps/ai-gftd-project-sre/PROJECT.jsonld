@@ -1,13 +1,13 @@
 {
   "@context": {
     "@vocab": "https://schema.org/",
-    "gftd": "https://gftd.ai/ns/"
+    "gftd": "https://etzhayyim.com/ns/"
   },
   "@type": "SoftwareApplication",
-  "@id": "https://gftd.ai/projects/ai-gftd-project-sre",
+  "@id": "https://etzhayyim.com/projects/ai-gftd-project-sre",
   "name": "ai-gftd-project-sre",
-  "description": "Site Reliability Engineering project - SRE toolbar extension and monitoring tools for the gftd.ai ecosystem.",
-  "url": "https://sre.gftd.ai",
+  "description": "Site Reliability Engineering project - SRE toolbar extension and monitoring tools for the etzhayyim.com ecosystem.",
+  "url": "https://sre.etzhayyim.com",
   "applicationCategory": "ai-gftd-project-sre",
   "gftd:projectCategory": "ai-gftd-project-sre",
   "gftd:status": "development",
@@ -27,7 +27,7 @@
     {
       "@type": "SoftwareApplication",
       "name": "sre-toolbar-extension",
-      "description": "Chrome Manifest V3 browser extension providing SRE toolbar overlay on gftd.ai domains.",
+      "description": "Chrome Manifest V3 browser extension providing SRE toolbar overlay on etzhayyim.com domains.",
       "gftd:path": "extension/",
       "gftd:technology": [
         "Chrome Extension",
@@ -39,15 +39,15 @@
     {
       "@type": "WebSite",
       "name": "sre-ui",
-      "description": "Landing page at sre.gftd.ai for downloading the SRE toolbar extension.",
-      "url": "https://sre.gftd.ai",
+      "description": "Landing page at sre.etzhayyim.com for downloading the SRE toolbar extension.",
+      "url": "https://sre.etzhayyim.com",
       "gftd:path": "ui/",
       "gftd:technology": [
         "SvelteKit",
         "SSG"
       ],
       "gftd:tier": "static",
-      "gftd:hostname": "sre.gftd.ai"
+      "gftd:hostname": "sre.etzhayyim.com"
     }
   ],
   "rdfUnifiedDocuments": {
@@ -61,7 +61,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

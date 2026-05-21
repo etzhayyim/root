@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/05/1/0/waste-management",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/05/1/0/waste-management",
       "type": "dodaf:Capability",
       "name": "Waste Management and Resource Recovery Capability",
       "description": "Functional capability for managing waste collection, recycling processes, and disposal compliance. Classification: COFOG Division 05, Group 1, Class 0.",

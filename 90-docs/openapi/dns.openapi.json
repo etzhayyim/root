@@ -345,7 +345,7 @@
           },
           "zoneDid": {
             "type": "string",
-            "description": "did:web:dns.gftd.ai:zone:{domain_slug} — populated on success"
+            "description": "did:web:dns.etzhayyim.com:zone:{domain_slug} — populated on success"
           },
           "cloudflareZoneId": {
             "type": "string"
@@ -399,11 +399,11 @@
           },
           "cfRegistrarDid": {
             "type": "string",
-            "description": "did:web:scndu0rf.gftd.ai:actor:cfRegistrar"
+            "description": "did:web:scndu0rf.etzhayyim.com:actor:cfRegistrar"
           },
           "sqExporterDid": {
             "type": "string",
-            "description": "did:web:sqddf3sp.gftd.ai:actor:sqExporter"
+            "description": "did:web:sqddf3sp.etzhayyim.com:actor:sqExporter"
           },
           "projectConvoId": {
             "type": "string",

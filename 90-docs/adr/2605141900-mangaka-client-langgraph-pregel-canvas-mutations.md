@@ -29,7 +29,7 @@ superseded_by: []
 
 # Context
 
-mangaka.gftd.ai's Genko canvas had ~15 imperative mutation paths scattered
+mangaka.etzhayyim.com's Genko canvas had ~15 imperative mutation paths scattered
 across `Canvas.svelte` (resize, drag, image_offset, tail_drag, face_add,
 tail_anchor, …) and `Genko.svelte` (add_node, add_nodes, delete, update_props,
 face_clear, tail_clear). Each path duplicated:
@@ -55,10 +55,10 @@ client closes the impedance mismatch between pod-side and client-side
 mutation logic.
 
 Separately, the cloudflared sidecar (tunnel `be2cc0b0-...`) routing
-`dispatcher.gftd.ai/*` to the bpmn-dispatcher Service was failing with
+`dispatcher.etzhayyim.com/*` to the bpmn-dispatcher Service was failing with
 `dial tcp: lookup *.svc.cluster.local: i/o timeout` from inside the
 cloudflared pods, while fresh `kubectl run` pods on the same node resolved
-cluster DNS fine. Symptom: every external XRPC call to mangaka.gftd.ai
+cluster DNS fine. Symptom: every external XRPC call to mangaka.etzhayyim.com
 returned 502 (CF edge wraps tunnel origin error). The Go-internal DNS
 resolver inside cloudflared was failing to use kube-dns reliably on the
 Calico mesh.
@@ -96,7 +96,7 @@ Calico mesh.
 
 2. **`@langchain/langgraph` 1.3 + `@langchain/core` 1.1.46** are added to
    the svelte app's package.json AND as optional peerDependencies on the
-   shared `@gftdcojp/kami-engine-sdk` (else rolldown can't resolve the
+   shared `@etzhayyim/kami-engine-sdk` (else rolldown can't resolve the
    import from the SDK file). `@langchain/langgraph/web` subpath doesn't
    resolve under rolldown — the main entry (`@langchain/langgraph`) works
    because the package's `exports` field maps `.` → browser-compatible
@@ -108,7 +108,7 @@ Calico mesh.
      `App.svelte`; the SPA parses `location.pathname` and calls
      `loadDocument` XRPC).
    - `xrpc/[nsid]/+server.ts` — proxies `ai.gftd.mangaka.*` POSTs to
-     `dispatcher.gftd.ai` with the `x-internal-trust` header from the CF
+     `dispatcher.etzhayyim.com` with the `x-internal-trust` header from the CF
      Secrets Store binding.
    - `blob/[cid]/+server.ts` — direct B2 SigV4 GET for ai-image blobs
      (bypasses the PDS `com.atproto.sync.getBlob` POST-only endpoint).
@@ -185,10 +185,10 @@ Calico mesh.
 
 - `cd 60-apps/.../mng4k4x1/svelte && pnpm build` succeeds with new
   StateGraph imports.
-- Live: `mangaka.gftd.ai/xrpc/ai.gftd.mangaka.detectFaces` →
+- Live: `mangaka.etzhayyim.com/xrpc/ai.gftd.mangaka.detectFaces` →
   HTTP 200, method=`anime-cascade`, 2 faces per ai-image,
   1.9s latency end-to-end.
-- Live: `mangaka.gftd.ai/blob/{cid}?did=anonymous` → HTTP 200,
+- Live: `mangaka.etzhayyim.com/blob/{cid}?did=anonymous` → HTTP 200,
   image/jpeg, 3 MB stream, cache-control immutable.
 - Hard-refresh test in browser: resize, drag, add fukidashi, delete,
   update props, face anchor — all dispatch through `runCanvasOp`,

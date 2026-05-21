@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-a1b931a1fffb",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a1b931a1fffb",
   "entityId": "ent-a1b931a1fffb",
   "canonicalName": "ftx trading ltd.",
   "aliases": [

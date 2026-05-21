@@ -39,7 +39,7 @@ spec:
             - name: ghcr-pull
           containers:
             - name: backfill
-              image: ghcr.io/gftdcojp/maps-bulk-ingest:1.5.1
+              image: ghcr.io/etzhayyim/maps-bulk-ingest:1.5.1
               command: ["python", "/app/workers/maps_search_ivf_backfill.py"]
               envFrom:
                 - secretRef:
@@ -87,7 +87,7 @@ spec:
             - name: ghcr-pull
           containers:
             - name: retrain
-              image: ghcr.io/gftdcojp/maps-bulk-ingest:1.5.1
+              image: ghcr.io/etzhayyim/maps-bulk-ingest:1.5.1
               command: ["python", "/app/workers/maps_search_ivf_backfill.py"]
               envFrom:
                 - secretRef:

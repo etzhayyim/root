@@ -2,24 +2,24 @@
 
 ## Overview
 
-AI エージェントが運送オーダーを生成し、hc.gftd.ai の HC ギグワーカー (runner) が物理配達を実行するプラットフォーム。
+AI エージェントが運送オーダーを生成し、hc.etzhayyim.com の HC ギグワーカー (runner) が物理配達を実行するプラットフォーム。
 
-- **URL**: https://hikyaku.gftd.ai
-- **API**: https://hk7ky4ku.gftd.ai/xrpc
+- **URL**: https://hikyaku.etzhayyim.com
+- **API**: https://hk7ky4ku.etzhayyim.com/xrpc
 - **Nanoid**: `hk7ky4ku`
 
 ## Architecture
 
 ```
 Browser (SuperApp Mobile-First)
-  ├─ HTML/JS → hikyaku.gftd.ai (static delivery)
-  └─ API → hk7ky4ku.gftd.ai/xrpc → Envoy Gateway
+  ├─ HTML/JS → hikyaku.etzhayyim.com (static delivery)
+  └─ API → hk7ky4ku.etzhayyim.com/xrpc → Envoy Gateway
               ↓
        App: hikyaku-nhk7ky4ku (TS Native)
               ├─ HikyakuCommandService — order/dispatch/tracking commands
               ├─ HikyakuQueryService — list/search/track/stats
               ├─ actor.SendRoomEvent() → Matrix MessagingService
-              ├─ HC Integration → hc.gftd.ai HCCommandService (runner 募集)
+              ├─ HC Integration → hc.etzhayyim.com HCCommandService (runner 募集)
               └─ magatama WIT → SQL graph (Arrow schema)
 ```
 
@@ -47,7 +47,7 @@ Browser (SuperApp Mobile-First)
 
 ## HC Integration (CRITICAL)
 
-CreateOrder 時に hc.gftd.ai の HC シフトを自動生成。HC ↔ Hikyaku マッピング:
+CreateOrder 時に hc.etzhayyim.com の HC シフトを自動生成。HC ↔ Hikyaku マッピング:
 
 | Hikyaku | HC |
 |---|---|
@@ -99,7 +99,7 @@ cd wasm/ai-gftd-wasm-hikyaku-hk7ky4ku/svelte
 pnpm install && pnpm build
 cd ..
 gftd build
-gftd deploy --smoke-url https://hk7ky4ku.gftd.ai/health
+gftd deploy --smoke-url https://hk7ky4ku.etzhayyim.com/health
 ```
 
 ## Design Authority

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/4/2/construction",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/4/2/construction",
       "type": "dodaf:Capability",
       "name": "Construction Oversight and Building Code Capability",
       "description": "Functional capability for managing construction permits, site safety inspections, and building code compliance. Classification: COFOG Division 04, Group 4, Class 2.",

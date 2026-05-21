@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # MCP/XRPC submission sequence for yorishiro-japanpost-enaiyo.
 # Prerequisites:
-#   1. `gftd deploy` completed in this component dir (jp4n41y0.gftd.ai reachable)
+#   1. `gftd deploy` completed in this component dir (jp4n41y0.etzhayyim.com reachable)
 #   2. provider-vault has japanpost-enaiyo credentials at
 #      secret/data/orgs/gftd/users/<user>/services/japanpost-enaiyo/primary
 #   3. yorishiro-provider is running with the japanpost-enaiyo-single flow
 
 set -euo pipefail
-BASE="https://jp4n41y0.gftd.ai"
+BASE="https://jp4n41y0.etzhayyim.com"
 TOKEN="${GFTD_TOKEN:?set GFTD_TOKEN (AT Protocol session JWT)}"
 
 step() { printf '\n===== %s =====\n' "$*"; }

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # MCP/XRPC cashback claim sequence for yorishiro-nuro.
 # Prerequisites:
-#   1. `gftd deploy` completed in this component dir (nur0cb01.gftd.ai reachable)
+#   1. `gftd deploy` completed in this component dir (nur0cb01.etzhayyim.com reachable)
 #   2. provider-vault has NURO credentials + bank account at:
 #        secret/data/orgs/<org>/users/<user>/services/nuro/login
 #        secret/data/orgs/<org>/users/<user>/services/nuro/bankAccount/primary
 #   3. yorishiro-provider is running with the nuro-* flows
 
 set -euo pipefail
-BASE="https://nur0cb01.gftd.ai"
+BASE="https://nur0cb01.etzhayyim.com"
 TOKEN="${GFTD_TOKEN:?set GFTD_TOKEN (AT Protocol session JWT)}"
 
 step() { printf '\n===== %s =====\n' "$*"; }

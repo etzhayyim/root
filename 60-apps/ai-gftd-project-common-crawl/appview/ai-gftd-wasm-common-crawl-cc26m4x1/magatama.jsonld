@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:cc26m4x1.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:cc26m4x1.etzhayyim.com",
   "nanoid": "cc26m4x1",
   "name": "common-crawl",
   "displayName": "Common Crawl",

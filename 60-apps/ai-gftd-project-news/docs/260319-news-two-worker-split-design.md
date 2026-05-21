@@ -1,8 +1,8 @@
-# news.gftd.ai Two-Worker Split Design
+# news.etzhayyim.com Two-Worker Split Design
 
 ## Goal
 
-`news.gftd.ai` の現状は 1 つの worker に以下が同居している。
+`news.etzhayyim.com` の現状は 1 つの worker に以下が同居している。
 
 - SvelteKit SSR/public page rendering
 - `/xrpc/...` の XRPC backend
@@ -14,16 +14,16 @@
 
 現状の混在点:
 
-- [`60-apps/ai-gftd-project-news/wasm/news-core-component/gftd.json`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-news/wasm/news-core-component/gftd.json) で `news.gftd.ai` と `news-core.gftd.ai` を同一 worker に割り当て
-- [`60-apps/ai-gftd-project-news/wasm/news-core-component/magatama.toml`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-news/wasm/news-core-component/magatama.toml) で `/api/...` と static 配信を同居
-- [`60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts) と [`60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/connect.ts`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/connect.ts) がどちらも相対パス `/xrpc/...` を前提
-- [`60-apps/ai-gftd-project-news/wasm/news-core-component/main.go`](/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-news/wasm/news-core-component/main.go) が query/command に加えて生成・翻訳・品質評価・進化まで同一 app に保持
+- [`60-apps/ai-gftd-project-news/wasm/news-core-component/gftd.json`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/gftd.json) で `news.etzhayyim.com` と `news-core.etzhayyim.com` を同一 worker に割り当て
+- [`60-apps/ai-gftd-project-news/wasm/news-core-component/magatama.toml`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/magatama.toml) で `/api/...` と static 配信を同居
+- [`60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts) と [`60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/connect.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/connect.ts) がどちらも相対パス `/xrpc/...` を前提
+- [`60-apps/ai-gftd-project-news/wasm/news-core-component/main.go`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/main.go) が query/command に加えて生成・翻訳・品質評価・進化まで同一 app に保持
 
 この構成だと、SSR の変更が backend deploy を巻き込み、逆に jobs や graph 起因の不安定化が public page latency に波及する。
 
 ## Design Principles
 
-- `news.gftd.ai` の公開入口は UI worker を正とする
+- `news.etzhayyim.com` の公開入口は UI worker を正とする
 - backend worker は XRPC / job / internal API 専用に寄せる
 - public mutation 用 REST は増やさない。業務 API は XRPC を維持する
 - SSR worker は read-mostly。write-heavy/job-heavy 処理を持たない
@@ -34,14 +34,14 @@
 
 ```text
 Browser / Crawler
-  -> news.gftd.ai                (UI worker)
+  -> news.etzhayyim.com                (UI worker)
       - SvelteKit SSR
       - ISR cache
       - static assets
       - BFF route (/xrpc public query subset)
       - optional signed internal fetch to backend
 
-  -> news-api.gftd.ai            (backend worker, private/public limited)
+  -> news-api.etzhayyim.com            (backend worker, private/public limited)
       - XRPC CommandService / QueryService
       - jobs, scheduler, ingest, translate, quality, evolve
       - Cypher / KV / W Protocol / cross-actor
@@ -50,9 +50,9 @@ Browser / Crawler
 
 推奨ホスト:
 
-- `news.gftd.ai`: public UI
-- `api.news.gftd.ai` または `news-api.gftd.ai`: backend public/internal endpoint
-- `news-core.gftd.ai`: 既存互換 alias として段階的に backend 側へ寄せる
+- `news.etzhayyim.com`: public UI
+- `api.news.etzhayyim.com` または `news-api.etzhayyim.com`: backend public/internal endpoint
+- `news-core.etzhayyim.com`: 既存互換 alias として段階的に backend 側へ寄せる
 
 ## Worker Responsibilities
 
@@ -104,9 +104,9 @@ Browser / Crawler
 
 ```text
 Browser
-  -> news.gftd.ai/xrpc/gftd.news.v1.NewsQueryService/ListArticles
+  -> news.etzhayyim.com/xrpc/gftd.news.v1.NewsQueryService/ListArticles
       UI worker validates + caches + proxies
-        -> news-api.gftd.ai/xrpc/gftd.news.v1.NewsQueryService/ListArticles
+        -> news-api.etzhayyim.com/xrpc/gftd.news.v1.NewsQueryService/ListArticles
 ```
 
 ### Query split
@@ -149,11 +149,11 @@ command は backend worker だけが受ける。
 
 ### External routing
 
-- `news.gftd.ai/*` -> UI worker
-- `news.gftd.ai/xrpc/gftd.news.v1.NewsQueryService/*` -> UI worker が受ける
-- `api.news.gftd.ai/xrpc/*` -> backend worker
-- `api.news.gftd.ai/jobs/*` -> backend worker
-- `api.news.gftd.ai/scheduler/*` -> backend worker
+- `news.etzhayyim.com/*` -> UI worker
+- `news.etzhayyim.com/xrpc/gftd.news.v1.NewsQueryService/*` -> UI worker が受ける
+- `api.news.etzhayyim.com/xrpc/*` -> backend worker
+- `api.news.etzhayyim.com/jobs/*` -> backend worker
+- `api.news.etzhayyim.com/scheduler/*` -> backend worker
 
 ### Internal call pattern
 
@@ -268,13 +268,13 @@ UI worker はデータ owner ではなく projection consumer。
 
 - Svelte 側の `workerCall()` / `browserCall()` を backend base URL or binding 経由へ抽象化
 - public query 一覧を allowlist 化
-- backend host を `api.news.gftd.ai` として追加
+- backend host を `api.news.etzhayyim.com` として追加
 
 ### Phase 2: Route split
 
-- `news.gftd.ai` の public route を UI worker に移す
+- `news.etzhayyim.com` の public route を UI worker に移す
 - `/jobs/*`, `/scheduler/*`, internal `/xrpc/*` を backend 専用化
-- `news-core.gftd.ai` を backend alias に寄せる
+- `news-core.etzhayyim.com` を backend alias に寄せる
 
 ### Phase 3: Query/BFF hardening
 
@@ -322,7 +322,7 @@ UI worker はデータ owner ではなく projection consumer。
 
 ## Decision
 
-`news.gftd.ai` は次の構成を採用する。
+`news.etzhayyim.com` は次の構成を採用する。
 
 - **UI worker = public web + SSR + cache + query BFF**
 - **backend worker = XRPC authority + jobs + data ownership**

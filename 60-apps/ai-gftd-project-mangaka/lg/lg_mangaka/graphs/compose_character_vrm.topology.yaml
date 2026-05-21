@@ -35,7 +35,7 @@ description: |
   Per-character runtime ~3-5 GPU min on a 24 GB card; 57 characters
   ~3 GPU hours total.
 checkpointer_mode: postgres
-authored_by: did:web:mangaka.gftd.ai
+authored_by: did:web:mangaka.etzhayyim.com
 
 state_keys:
   - character_rkey
@@ -105,7 +105,7 @@ nodes:
       result_key: __scatter__   # {multiviewImages: [b64 × 4..6]}
       gpu_required: true
       pod_pool: vke-render-pool
-      pod_image: ghcr.io/gftdcojp/character-gen:0.1
+      pod_image: ghcr.io/etzhayyim/character-gen:0.1
 
   - id: reconstruct_mesh
     kind: mcp_tool
@@ -119,7 +119,7 @@ nodes:
       result_key: __scatter__   # {meshGlbB64: "..."}
       gpu_required: true
       pod_pool: vke-render-pool
-      pod_image: ghcr.io/gftdcojp/hunyuan3d-2:0.2
+      pod_image: ghcr.io/etzhayyim/hunyuan3d-2:0.2
 
   - id: extract_blendshapes
     kind: mcp_tool
@@ -135,7 +135,7 @@ nodes:
       result_key: __scatter__   # {blendshapePack: {arkitBlendshapes: {...}, mediapipeLandmarks: {...}}}
       gpu_required: false
       pod_pool: vke-cpu-pool
-      pod_image: ghcr.io/gftdcojp/mediapipe-face:1
+      pod_image: ghcr.io/etzhayyim/mediapipe-face:1
 
   - id: auto_rig
     kind: mcp_tool
@@ -164,7 +164,7 @@ nodes:
       result_key: __scatter__   # {riggedGlbB64: "...", rigSource: "rigify"|"rignet"}
       gpu_required: false
       pod_pool: vke-cpu-pool
-      pod_image: ghcr.io/gftdcojp/blender-rigify-rignet:0.1
+      pod_image: ghcr.io/etzhayyim/blender-rigify-rignet:0.1
 
   - id: bind_vrm
     kind: mcp_tool
@@ -181,7 +181,7 @@ nodes:
       result_key: __scatter__   # {vrmB64: "..."}
       gpu_required: false
       pod_pool: vke-cpu-pool
-      pod_image: ghcr.io/gftdcojp/blender-vrm:4.1
+      pod_image: ghcr.io/etzhayyim/blender-vrm:4.1
 
   - id: validate_vrm
     kind: mcp_tool

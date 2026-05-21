@@ -12,13 +12,13 @@ related:
   - adr-2605072000-langgraph-agent-loop-pattern
 ---
 
-# Competitive Intelligence Dashboard (`compintel.gftd.ai`)
+# Competitive Intelligence Dashboard (`compintel.etzhayyim.com`)
 
 ADR-2605072000 business model ④ of 5.
 
 ## Actor
 
-- DID: `did:web:compintel.gftd.ai`
+- DID: `did:web:compintel.etzhayyim.com`
 - Nanoid: `cpti0001`
 - CF Worker: `60-apps/ai-gftd-project-compintel/appview/compintel-cpti0001/`
 - Python worker: `20-actors/magatama/py/src/pymagatama/compintel_worker_main.py`
@@ -65,9 +65,9 @@ AGENTGATEWAY_MCP_URL        gRPC address (default 127.0.0.1:26500)
 RW_URL               RisingWave postgres URL
 ANTHROPIC_API_KEY
 RESEND_API_KEY
-RESEND_FROM          sender (default digest@gftd.ai)
+RESEND_FROM          sender (default digest@etzhayyim.com)
 DIGEST_TO            recipient for weekly digest email
-ADS_XRPC_URL         ads.gftd.ai base (default https://adsm4d5c.gftd.ai)
+ADS_XRPC_URL         ads.etzhayyim.com base (default https://adsm4d5c.etzhayyim.com)
 ```
 
 ## Start worker

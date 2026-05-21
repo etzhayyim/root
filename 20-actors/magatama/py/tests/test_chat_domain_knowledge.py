@@ -69,6 +69,7 @@ def test_tool_web_search_uses_internal_vector_fallback(monkeypatch):
     out = chat.tool_web_search({"query": "internal query", "topK": 3})
 
     assert out["ok"] is True
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
     assert out["provider"] == "risingwave-vector-ann"
     assert out["method"] == "pod-embedding-rw-vector-index"
     assert out["hits"][0]["snippet"] == "internal vector hit"

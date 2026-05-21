@@ -1,4 +1,4 @@
-// air-sms.gftd.ai — airline safety management system layer
+// air-sms.etzhayyim.com — airline safety management system layer
 // Thin-edge dispatcher: business logic in AgentGateway MCP + pod-side LangServer.
 // 8 methods: submitSafetyReport / assessRisk / recordIosaFinding / fileRegulatoryReport / reportOccurrence / distributeSafetyBulletin / screenDangerousGoods / handleSecurityAlert
 
@@ -11,7 +11,7 @@ interface Env {
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const NSID_PREFIX = "ai.gftd.apps.airSms.";
-const ACTOR_DID = "did:web:air-sms.gftd.ai";
+const ACTOR_DID = "did:web:air-sms.etzhayyim.com";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -52,7 +52,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const secret = typeof env.DISPATCHER_INTERNAL_SECRET === "object"
     ? await env.DISPATCHER_INTERNAL_SECRET.get()
     : (env.DISPATCHER_INTERNAL_SECRET ?? "");

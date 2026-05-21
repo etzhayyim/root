@@ -13,13 +13,13 @@ related:
   - adr-0018-pii-tier3-cohort-first
 ---
 
-# Personalized Content Engine (`contentengine.gftd.ai`)
+# Personalized Content Engine (`contentengine.etzhayyim.com`)
 
 ADR-2605072000 business model ⑤ of 5.
 
 ## Actor
 
-- DID: `did:web:contentengine.gftd.ai`
+- DID: `did:web:contentengine.etzhayyim.com`
 - Nanoid: `cten0001`
 - CF Worker: `60-apps/ai-gftd-project-contentengine/appview/contentengine-cten0001/`
 - Python worker: `20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py`
@@ -66,7 +66,7 @@ No individual PII — cohort-level only (sensitivity_ord=0, ADR-0018).
 AGENTGATEWAY_MCP_URL              gRPC address (default 127.0.0.1:26500)
 RW_URL                     RisingWave postgres URL
 ANTHROPIC_API_KEY
-ADS_XRPC_URL               ads.gftd.ai base (default https://adsm4d5c.gftd.ai)
+ADS_XRPC_URL               ads.etzhayyim.com base (default https://adsm4d5c.etzhayyim.com)
 CONTENT_QUALITY_THRESHOLD  min score to pass (default 0.65)
 ```
 

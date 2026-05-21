@@ -12,7 +12,7 @@ export async function generateGemini(prompt: string): Promise<string> {
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://ghosthacker.gftd.ai",
+      "HTTP-Referer": "https://ghosthacker.etzhayyim.com",
       "X-Title": "ghosthacker-arc0-1-hybrid",
     },
     body: JSON.stringify({

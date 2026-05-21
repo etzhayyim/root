@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Toggle } from '@gftdcojp/design-system';
+	import { Toggle } from '@etzhayyim/design-system';
 	import { setupConvoPush, unsubscribePush } from '$lib/atproto-agent';
 
 	interface Props {

@@ -4,7 +4,7 @@
  * Semiconductor + electronic-materials chemical plant cyber incident
  * training scenario. Branching playbook graded against NIST CSF 2.0 +
  * IEC 62443-3-3 + METI factory cybersecurity guideline 2.0 +
- * IPA J-CSIP. Sold as part of the gftdcojp cyber-drill product.
+ * IPA J-CSIP. Sold as part of the etzhayyim cyber-drill product.
  *
  * Setting: a Japan-based 300 mm wafer fab co-located with a photoresist /
  * developer chemical plant. Night shift. SCADA HMI flags a recipe-table
@@ -20,7 +20,7 @@
  *   → vendor-only. NOT eligible for etzhayyim/root open org mirror.
  */
 
-import type { IncidentScenario } from '@gftdcojp/kami-engine-sdk/webvr';
+import type { IncidentScenario } from '@etzhayyim/kami-engine-sdk/webvr';
 
 export const SEMI_PLANT_INCIDENT: IncidentScenario = Object.freeze({
   id: 'ai.gftd.apps.cyberDrill.scenario.semiconductorChemPlantIncident.v1',

@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-electricity-market-recordMechanism-v1',
-                 'did:web:open-electricity-market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-electricity-market-recordMechanism-v1',
+                 'did:web:open-electricity-market.etzhayyim.com',
                  'open_electricity_market_record_mechanism',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_electricity_market_record_mechanism" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-electricity-market" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-electricity-market" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_electricity_market_record_mechanism" '
                  'name="recordMechanism" isExecutable="true">\n'
@@ -60,7 +60,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-electricity-market.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-electricity-market.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.electricityMarket.recordMechanism&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -77,10 +77,10 @@ UP = [{'sql': '\n'
                  2380,
                  '00-contracts/bpmn/ai/gftd/open-electricity-market/recordMechanism.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-electricity-market.gftd.ai',
-                 'did:web:open-electricity-market.gftd.ai',
+                 'did:web:open-electricity-market.etzhayyim.com',
+                 'did:web:open-electricity-market.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-electricity-market-recordMechanism-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-electricity-market-recordMechanism-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,15 +94,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-electricity-market-flagMissingMoney-v1',
-                 'did:web:open-electricity-market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-electricity-market-flagMissingMoney-v1',
+                 'did:web:open-electricity-market.etzhayyim.com',
                  'open_electricity_market_flag_missing_money',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_electricity_market_flag_missing_money" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-electricity-market" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-electricity-market" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_electricity_market_flag_missing_money" '
                  'name="flagMissingMoney" isExecutable="true">\n'
@@ -128,7 +128,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-electricity-market.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-electricity-market.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.electricityMarket.flagMissingMoney&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -145,10 +145,10 @@ UP = [{'sql': '\n'
                  2306,
                  '00-contracts/bpmn/ai/gftd/open-electricity-market/flagMissingMoney.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-electricity-market.gftd.ai',
-                 'did:web:open-electricity-market.gftd.ai',
+                 'did:web:open-electricity-market.etzhayyim.com',
+                 'did:web:open-electricity-market.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-electricity-market-flagMissingMoney-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-electricity-market-flagMissingMoney-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -162,15 +162,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-recordCrossBorderFlow-v1',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-recordCrossBorderFlow-v1',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
                  'open_power_grid_interconnect_record_cross_border_flow',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_power_grid_interconnect_record_cross_border_flow" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-power-grid-interconnect" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-power-grid-interconnect" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_power_grid_interconnect_record_cross_border_flow" '
                  'name="recordCrossBorderFlow" isExecutable="true">\n'
@@ -204,7 +204,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-power-grid-interconnect.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-power-grid-interconnect.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.powerGridInterconnect.recordCrossBorderFlow&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -221,10 +221,10 @@ UP = [{'sql': '\n'
                  2846,
                  '00-contracts/bpmn/ai/gftd/open-power-grid-interconnect/recordCrossBorderFlow.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-recordCrossBorderFlow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-recordCrossBorderFlow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -238,15 +238,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-flagCurtailment-v1',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-flagCurtailment-v1',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
                  'open_power_grid_interconnect_flag_curtailment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_power_grid_interconnect_flag_curtailment" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-power-grid-interconnect" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-power-grid-interconnect" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_power_grid_interconnect_flag_curtailment" '
                  'name="flagCurtailment" isExecutable="true">\n'
@@ -278,7 +278,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-power-grid-interconnect.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-power-grid-interconnect.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.powerGridInterconnect.flagCurtailment&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -295,10 +295,10 @@ UP = [{'sql': '\n'
                  2700,
                  '00-contracts/bpmn/ai/gftd/open-power-grid-interconnect/flagCurtailment.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-flagCurtailment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-flagCurtailment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -312,15 +312,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-scarcity-recordBasinMetric-v1',
-                 'did:web:open-water-scarcity.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-scarcity-recordBasinMetric-v1',
+                 'did:web:open-water-scarcity.etzhayyim.com',
                  'open_water_scarcity_record_basin_metric',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_water_scarcity_record_basin_metric" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-water-scarcity" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-water-scarcity" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_water_scarcity_record_basin_metric" '
                  'name="recordBasinMetric" isExecutable="true">\n'
@@ -352,7 +352,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-water-scarcity.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-water-scarcity.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.waterScarcity.recordBasinMetric&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -369,10 +369,10 @@ UP = [{'sql': '\n'
                  2720,
                  '00-contracts/bpmn/ai/gftd/open-water-scarcity/recordBasinMetric.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-water-scarcity.gftd.ai',
-                 'did:web:open-water-scarcity.gftd.ai',
+                 'did:web:open-water-scarcity.etzhayyim.com',
+                 'did:web:open-water-scarcity.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-scarcity-recordBasinMetric-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-scarcity-recordBasinMetric-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -386,15 +386,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-scarcity-flagTreatyDispute-v1',
-                 'did:web:open-water-scarcity.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-scarcity-flagTreatyDispute-v1',
+                 'did:web:open-water-scarcity.etzhayyim.com',
                  'open_water_scarcity_flag_treaty_dispute',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_water_scarcity_flag_treaty_dispute" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-water-scarcity" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-water-scarcity" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_water_scarcity_flag_treaty_dispute" '
                  'name="flagTreatyDispute" isExecutable="true">\n'
@@ -421,7 +421,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-water-scarcity.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-water-scarcity.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.waterScarcity.flagTreatyDispute&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -438,10 +438,10 @@ UP = [{'sql': '\n'
                  2378,
                  '00-contracts/bpmn/ai/gftd/open-water-scarcity/flagTreatyDispute.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-water-scarcity.gftd.ai',
-                 'did:web:open-water-scarcity.gftd.ai',
+                 'did:web:open-water-scarcity.etzhayyim.com',
+                 'did:web:open-water-scarcity.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-scarcity-flagTreatyDispute-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-scarcity-flagTreatyDispute-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -455,15 +455,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-stewardship-recordStewardshipPlan-v1',
-                 'did:web:open-water-stewardship.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-stewardship-recordStewardshipPlan-v1',
+                 'did:web:open-water-stewardship.etzhayyim.com',
                  'open_water_stewardship_record_stewardship_plan',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_water_stewardship_record_stewardship_plan" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-water-stewardship" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-water-stewardship" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_water_stewardship_record_stewardship_plan" '
                  'name="recordStewardshipPlan" isExecutable="true">\n'
@@ -490,7 +490,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-water-stewardship.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-water-stewardship.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.waterStewardship.recordStewardshipPlan&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -507,10 +507,10 @@ UP = [{'sql': '\n'
                  2410,
                  '00-contracts/bpmn/ai/gftd/open-water-stewardship/recordStewardshipPlan.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-water-stewardship.gftd.ai',
-                 'did:web:open-water-stewardship.gftd.ai',
+                 'did:web:open-water-stewardship.etzhayyim.com',
+                 'did:web:open-water-stewardship.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-stewardship-recordStewardshipPlan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-stewardship-recordStewardshipPlan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -524,15 +524,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-stewardship-flagBasinStress-v1',
-                 'did:web:open-water-stewardship.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-stewardship-flagBasinStress-v1',
+                 'did:web:open-water-stewardship.etzhayyim.com',
                  'open_water_stewardship_flag_basin_stress',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_water_stewardship_flag_basin_stress" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-water-stewardship" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-water-stewardship" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_water_stewardship_flag_basin_stress" '
                  'name="flagBasinStress" isExecutable="true">\n'
@@ -558,7 +558,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-water-stewardship.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-water-stewardship.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.waterStewardship.flagBasinStress&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -575,10 +575,10 @@ UP = [{'sql': '\n'
                  2322,
                  '00-contracts/bpmn/ai/gftd/open-water-stewardship/flagBasinStress.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-water-stewardship.gftd.ai',
-                 'did:web:open-water-stewardship.gftd.ai',
+                 'did:web:open-water-stewardship.etzhayyim.com',
+                 'did:web:open-water-stewardship.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-stewardship-flagBasinStress-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-stewardship-flagBasinStress-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -592,15 +592,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-registerFacility-v1',
-                 'did:web:open-wastewater-reuse.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-registerFacility-v1',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
                  'open_wastewater_reuse_register_facility',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_wastewater_reuse_register_facility" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-wastewater-reuse" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-wastewater-reuse" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_wastewater_reuse_register_facility" '
                  'name="registerFacility" isExecutable="true">\n'
@@ -628,7 +628,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-wastewater-reuse.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-wastewater-reuse.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.wastewaterReuse.registerFacility&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -645,10 +645,10 @@ UP = [{'sql': '\n'
                  2388,
                  '00-contracts/bpmn/ai/gftd/open-wastewater-reuse/registerFacility.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-wastewater-reuse.gftd.ai',
-                 'did:web:open-wastewater-reuse.gftd.ai',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-registerFacility-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-registerFacility-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -662,15 +662,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-recordMonitoringMetric-v1',
-                 'did:web:open-wastewater-reuse.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-recordMonitoringMetric-v1',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
                  'open_wastewater_reuse_record_monitoring_metric',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_wastewater_reuse_record_monitoring_metric" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-wastewater-reuse" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-wastewater-reuse" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_wastewater_reuse_record_monitoring_metric" '
                  'name="recordMonitoringMetric" isExecutable="true">\n'
@@ -701,7 +701,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-wastewater-reuse.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-wastewater-reuse.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.wastewaterReuse.recordMonitoringMetric&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -718,10 +718,10 @@ UP = [{'sql': '\n'
                  2710,
                  '00-contracts/bpmn/ai/gftd/open-wastewater-reuse/recordMonitoringMetric.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-wastewater-reuse.gftd.ai',
-                 'did:web:open-wastewater-reuse.gftd.ai',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-recordMonitoringMetric-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-recordMonitoringMetric-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -735,15 +735,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-telecom-infra-registerCable-v1',
-                 'did:web:open-telecom-infra.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-telecom-infra-registerCable-v1',
+                 'did:web:open-telecom-infra.etzhayyim.com',
                  'open_telecom_infra_register_cable',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_telecom_infra_register_cable" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-telecom-infra" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-telecom-infra" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_telecom_infra_register_cable" name="registerCable" '
                  'isExecutable="true">\n'
@@ -774,7 +774,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-telecom-infra.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-telecom-infra.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.telecomInfra.registerCable&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -791,10 +791,10 @@ UP = [{'sql': '\n'
                  2620,
                  '00-contracts/bpmn/ai/gftd/open-telecom-infra/registerCable.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-telecom-infra.gftd.ai',
-                 'did:web:open-telecom-infra.gftd.ai',
+                 'did:web:open-telecom-infra.etzhayyim.com',
+                 'did:web:open-telecom-infra.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-telecom-infra-registerCable-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-telecom-infra-registerCable-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -808,15 +808,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-telecom-infra-flagCableFault-v1',
-                 'did:web:open-telecom-infra.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-telecom-infra-flagCableFault-v1',
+                 'did:web:open-telecom-infra.etzhayyim.com',
                  'open_telecom_infra_flag_cable_fault',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_telecom_infra_flag_cable_fault" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-telecom-infra" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-telecom-infra" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_telecom_infra_flag_cable_fault" name="flagCableFault" '
                  'isExecutable="true">\n'
@@ -847,7 +847,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-telecom-infra.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-telecom-infra.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.telecomInfra.flagCableFault&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -864,10 +864,10 @@ UP = [{'sql': '\n'
                  2583,
                  '00-contracts/bpmn/ai/gftd/open-telecom-infra/flagCableFault.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-telecom-infra.gftd.ai',
-                 'did:web:open-telecom-infra.gftd.ai',
+                 'did:web:open-telecom-infra.etzhayyim.com',
+                 'did:web:open-telecom-infra.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-telecom-infra-flagCableFault-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-telecom-infra-flagCableFault-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -881,15 +881,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rural-broadband-registerDeployment-v1',
-                 'did:web:open-rural-broadband.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rural-broadband-registerDeployment-v1',
+                 'did:web:open-rural-broadband.etzhayyim.com',
                  'open_rural_broadband_register_deployment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_rural_broadband_register_deployment" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-rural-broadband" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-rural-broadband" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_rural_broadband_register_deployment" '
                  'name="registerDeployment" isExecutable="true">\n'
@@ -917,7 +917,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-rural-broadband.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-rural-broadband.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.ruralBroadband.registerDeployment&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -934,10 +934,10 @@ UP = [{'sql': '\n'
                  2456,
                  '00-contracts/bpmn/ai/gftd/open-rural-broadband/registerDeployment.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-rural-broadband.gftd.ai',
-                 'did:web:open-rural-broadband.gftd.ai',
+                 'did:web:open-rural-broadband.etzhayyim.com',
+                 'did:web:open-rural-broadband.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rural-broadband-registerDeployment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rural-broadband-registerDeployment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -951,15 +951,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rural-broadband-flagDigitalDivideGap-v1',
-                 'did:web:open-rural-broadband.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rural-broadband-flagDigitalDivideGap-v1',
+                 'did:web:open-rural-broadband.etzhayyim.com',
                  'open_rural_broadband_flag_digital_divide_gap',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_rural_broadband_flag_digital_divide_gap" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-rural-broadband" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-rural-broadband" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_rural_broadband_flag_digital_divide_gap" '
                  'name="flagDigitalDivideGap" isExecutable="true">\n'
@@ -986,7 +986,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-rural-broadband.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-rural-broadband.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.ruralBroadband.flagDigitalDivideGap&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -1003,10 +1003,10 @@ UP = [{'sql': '\n'
                  2395,
                  '00-contracts/bpmn/ai/gftd/open-rural-broadband/flagDigitalDivideGap.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-rural-broadband.gftd.ai',
-                 'did:web:open-rural-broadband.gftd.ai',
+                 'did:web:open-rural-broadband.etzhayyim.com',
+                 'did:web:open-rural-broadband.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rural-broadband-flagDigitalDivideGap-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rural-broadband-flagDigitalDivideGap-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1020,15 +1020,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-recordCorridorFlow-v1',
-                 'did:web:open-rail-cross-border.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-recordCorridorFlow-v1',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
                  'open_rail_cross_border_record_corridor_flow',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_rail_cross_border_record_corridor_flow" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-rail-cross-border" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-rail-cross-border" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_rail_cross_border_record_corridor_flow" '
                  'name="recordCorridorFlow" isExecutable="true">\n'
@@ -1057,7 +1057,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-rail-cross-border.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-rail-cross-border.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.railCrossBorder.recordCorridorFlow&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -1074,10 +1074,10 @@ UP = [{'sql': '\n'
                  2536,
                  '00-contracts/bpmn/ai/gftd/open-rail-cross-border/recordCorridorFlow.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-rail-cross-border.gftd.ai',
-                 'did:web:open-rail-cross-border.gftd.ai',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-recordCorridorFlow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-recordCorridorFlow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1091,15 +1091,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-flagInteropFailure-v1',
-                 'did:web:open-rail-cross-border.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-flagInteropFailure-v1',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
                  'open_rail_cross_border_flag_interop_failure',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_rail_cross_border_flag_interop_failure" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-rail-cross-border" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-rail-cross-border" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_rail_cross_border_flag_interop_failure" '
                  'name="flagInteropFailure" isExecutable="true">\n'
@@ -1125,7 +1125,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-rail-cross-border.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-rail-cross-border.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.railCrossBorder.flagInteropFailure&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -1142,10 +1142,10 @@ UP = [{'sql': '\n'
                  2331,
                  '00-contracts/bpmn/ai/gftd/open-rail-cross-border/flagInteropFailure.bpmn',
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-rail-cross-border.gftd.ai',
-                 'did:web:open-rail-cross-border.gftd.ai',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-flagInteropFailure-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-flagInteropFailure-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1159,16 +1159,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-electricity-market-recordMechanism-v1',
-                 'did:web:open-electricity-market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-electricity-market-recordMechanism-v1',
+                 'did:web:open-electricity-market.etzhayyim.com',
                  'ai.gftd.apps.electricityMarket.recordMechanism',
                  'open_electricity_market_record_mechanism',
                  15000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-electricity-market.gftd.ai',
-                 'did:web:open-electricity-market.gftd.ai',
+                 'did:web:open-electricity-market.etzhayyim.com',
+                 'did:web:open-electricity-market.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-electricity-market-recordMechanism-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-electricity-market-recordMechanism-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1182,16 +1182,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-electricity-market-flagMissingMoney-v1',
-                 'did:web:open-electricity-market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-electricity-market-flagMissingMoney-v1',
+                 'did:web:open-electricity-market.etzhayyim.com',
                  'ai.gftd.apps.electricityMarket.flagMissingMoney',
                  'open_electricity_market_flag_missing_money',
                  30000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-electricity-market.gftd.ai',
-                 'did:web:open-electricity-market.gftd.ai',
+                 'did:web:open-electricity-market.etzhayyim.com',
+                 'did:web:open-electricity-market.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-electricity-market-flagMissingMoney-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-electricity-market-flagMissingMoney-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1205,16 +1205,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-recordCrossBorderFlow-v1',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-recordCrossBorderFlow-v1',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
                  'ai.gftd.apps.powerGridInterconnect.recordCrossBorderFlow',
                  'open_power_grid_interconnect_record_cross_border_flow',
                  15000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-recordCrossBorderFlow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-recordCrossBorderFlow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1228,16 +1228,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-flagCurtailment-v1',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-flagCurtailment-v1',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
                  'ai.gftd.apps.powerGridInterconnect.flagCurtailment',
                  'open_power_grid_interconnect_flag_curtailment',
                  30000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
-                 'did:web:open-power-grid-interconnect.gftd.ai',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
+                 'did:web:open-power-grid-interconnect.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-flagCurtailment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-flagCurtailment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1251,16 +1251,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-scarcity-recordBasinMetric-v1',
-                 'did:web:open-water-scarcity.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-scarcity-recordBasinMetric-v1',
+                 'did:web:open-water-scarcity.etzhayyim.com',
                  'ai.gftd.apps.waterScarcity.recordBasinMetric',
                  'open_water_scarcity_record_basin_metric',
                  15000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-water-scarcity.gftd.ai',
-                 'did:web:open-water-scarcity.gftd.ai',
+                 'did:web:open-water-scarcity.etzhayyim.com',
+                 'did:web:open-water-scarcity.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-scarcity-recordBasinMetric-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-scarcity-recordBasinMetric-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1274,16 +1274,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-scarcity-flagTreatyDispute-v1',
-                 'did:web:open-water-scarcity.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-scarcity-flagTreatyDispute-v1',
+                 'did:web:open-water-scarcity.etzhayyim.com',
                  'ai.gftd.apps.waterScarcity.flagTreatyDispute',
                  'open_water_scarcity_flag_treaty_dispute',
                  30000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-water-scarcity.gftd.ai',
-                 'did:web:open-water-scarcity.gftd.ai',
+                 'did:web:open-water-scarcity.etzhayyim.com',
+                 'did:web:open-water-scarcity.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-scarcity-flagTreatyDispute-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-scarcity-flagTreatyDispute-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1297,16 +1297,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-stewardship-recordStewardshipPlan-v1',
-                 'did:web:open-water-stewardship.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-stewardship-recordStewardshipPlan-v1',
+                 'did:web:open-water-stewardship.etzhayyim.com',
                  'ai.gftd.apps.waterStewardship.recordStewardshipPlan',
                  'open_water_stewardship_record_stewardship_plan',
                  15000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-water-stewardship.gftd.ai',
-                 'did:web:open-water-stewardship.gftd.ai',
+                 'did:web:open-water-stewardship.etzhayyim.com',
+                 'did:web:open-water-stewardship.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-stewardship-recordStewardshipPlan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-stewardship-recordStewardshipPlan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1320,16 +1320,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-stewardship-flagBasinStress-v1',
-                 'did:web:open-water-stewardship.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-stewardship-flagBasinStress-v1',
+                 'did:web:open-water-stewardship.etzhayyim.com',
                  'ai.gftd.apps.waterStewardship.flagBasinStress',
                  'open_water_stewardship_flag_basin_stress',
                  30000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-water-stewardship.gftd.ai',
-                 'did:web:open-water-stewardship.gftd.ai',
+                 'did:web:open-water-stewardship.etzhayyim.com',
+                 'did:web:open-water-stewardship.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-stewardship-flagBasinStress-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-stewardship-flagBasinStress-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1343,16 +1343,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-registerFacility-v1',
-                 'did:web:open-wastewater-reuse.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-registerFacility-v1',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
                  'ai.gftd.apps.wastewaterReuse.registerFacility',
                  'open_wastewater_reuse_register_facility',
                  15000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-wastewater-reuse.gftd.ai',
-                 'did:web:open-wastewater-reuse.gftd.ai',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-registerFacility-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-registerFacility-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1366,16 +1366,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-recordMonitoringMetric-v1',
-                 'did:web:open-wastewater-reuse.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-recordMonitoringMetric-v1',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
                  'ai.gftd.apps.wastewaterReuse.recordMonitoringMetric',
                  'open_wastewater_reuse_record_monitoring_metric',
                  30000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-wastewater-reuse.gftd.ai',
-                 'did:web:open-wastewater-reuse.gftd.ai',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
+                 'did:web:open-wastewater-reuse.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-recordMonitoringMetric-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-recordMonitoringMetric-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1389,16 +1389,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-telecom-infra-registerCable-v1',
-                 'did:web:open-telecom-infra.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-telecom-infra-registerCable-v1',
+                 'did:web:open-telecom-infra.etzhayyim.com',
                  'ai.gftd.apps.telecomInfra.registerCable',
                  'open_telecom_infra_register_cable',
                  15000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-telecom-infra.gftd.ai',
-                 'did:web:open-telecom-infra.gftd.ai',
+                 'did:web:open-telecom-infra.etzhayyim.com',
+                 'did:web:open-telecom-infra.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-telecom-infra-registerCable-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-telecom-infra-registerCable-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1412,16 +1412,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-telecom-infra-flagCableFault-v1',
-                 'did:web:open-telecom-infra.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-telecom-infra-flagCableFault-v1',
+                 'did:web:open-telecom-infra.etzhayyim.com',
                  'ai.gftd.apps.telecomInfra.flagCableFault',
                  'open_telecom_infra_flag_cable_fault',
                  30000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-telecom-infra.gftd.ai',
-                 'did:web:open-telecom-infra.gftd.ai',
+                 'did:web:open-telecom-infra.etzhayyim.com',
+                 'did:web:open-telecom-infra.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-telecom-infra-flagCableFault-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-telecom-infra-flagCableFault-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1435,16 +1435,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rural-broadband-registerDeployment-v1',
-                 'did:web:open-rural-broadband.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rural-broadband-registerDeployment-v1',
+                 'did:web:open-rural-broadband.etzhayyim.com',
                  'ai.gftd.apps.ruralBroadband.registerDeployment',
                  'open_rural_broadband_register_deployment',
                  15000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-rural-broadband.gftd.ai',
-                 'did:web:open-rural-broadband.gftd.ai',
+                 'did:web:open-rural-broadband.etzhayyim.com',
+                 'did:web:open-rural-broadband.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rural-broadband-registerDeployment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rural-broadband-registerDeployment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1458,16 +1458,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rural-broadband-flagDigitalDivideGap-v1',
-                 'did:web:open-rural-broadband.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rural-broadband-flagDigitalDivideGap-v1',
+                 'did:web:open-rural-broadband.etzhayyim.com',
                  'ai.gftd.apps.ruralBroadband.flagDigitalDivideGap',
                  'open_rural_broadband_flag_digital_divide_gap',
                  30000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-rural-broadband.gftd.ai',
-                 'did:web:open-rural-broadband.gftd.ai',
+                 'did:web:open-rural-broadband.etzhayyim.com',
+                 'did:web:open-rural-broadband.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rural-broadband-flagDigitalDivideGap-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rural-broadband-flagDigitalDivideGap-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1481,16 +1481,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-cross-border-recordCorridorFlow-v1',
-                 'did:web:open-rail-cross-border.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-cross-border-recordCorridorFlow-v1',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
                  'ai.gftd.apps.railCrossBorder.recordCorridorFlow',
                  'open_rail_cross_border_record_corridor_flow',
                  15000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-rail-cross-border.gftd.ai',
-                 'did:web:open-rail-cross-border.gftd.ai',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-cross-border-recordCorridorFlow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-cross-border-recordCorridorFlow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1504,81 +1504,81 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-cross-border-flagInteropFailure-v1',
-                 'did:web:open-rail-cross-border.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-cross-border-flagInteropFailure-v1',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
                  'ai.gftd.apps.railCrossBorder.flagInteropFailure',
                  'open_rail_cross_border_flag_interop_failure',
                  30000,
                  '2026-04-27T07:30:00Z',
-                 'did:web:open-rail-cross-border.gftd.ai',
-                 'did:web:open-rail-cross-border.gftd.ai',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
+                 'did:web:open-rail-cross-border.etzhayyim.com',
                  'sys.bpmn.seed.extended-infra',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-cross-border-flagInteropFailure-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-cross-border-flagInteropFailure-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-electricity-market-recordMechanism-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-electricity-market-recordMechanism-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-electricity-market-flagMissingMoney-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-electricity-market-flagMissingMoney-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-recordCrossBorderFlow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-recordCrossBorderFlow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-flagCurtailment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-power-grid-interconnect-flagCurtailment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-scarcity-recordBasinMetric-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-scarcity-recordBasinMetric-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-scarcity-flagTreatyDispute-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-scarcity-flagTreatyDispute-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-stewardship-recordStewardshipPlan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-stewardship-recordStewardshipPlan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-water-stewardship-flagBasinStress-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-stewardship-flagBasinStress-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-registerFacility-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-registerFacility-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-recordMonitoringMetric-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-wastewater-reuse-recordMonitoringMetric-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-telecom-infra-registerCable-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-telecom-infra-registerCable-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-telecom-infra-flagCableFault-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-telecom-infra-flagCableFault-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rural-broadband-registerDeployment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rural-broadband-registerDeployment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rural-broadband-flagDigitalDivideGap-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rural-broadband-flagDigitalDivideGap-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-cross-border-recordCorridorFlow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-cross-border-recordCorridorFlow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-rail-cross-border-flagInteropFailure-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-rail-cross-border-flagInteropFailure-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-electricity-market-recordMechanism-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-electricity-market-recordMechanism-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-electricity-market-flagMissingMoney-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-electricity-market-flagMissingMoney-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-recordCrossBorderFlow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-recordCrossBorderFlow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-flagCurtailment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-power-grid-interconnect-flagCurtailment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-scarcity-recordBasinMetric-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-scarcity-recordBasinMetric-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-scarcity-flagTreatyDispute-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-scarcity-flagTreatyDispute-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-stewardship-recordStewardshipPlan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-stewardship-recordStewardshipPlan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-water-stewardship-flagBasinStress-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-stewardship-flagBasinStress-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-registerFacility-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-registerFacility-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-recordMonitoringMetric-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-wastewater-reuse-recordMonitoringMetric-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-telecom-infra-registerCable-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-telecom-infra-registerCable-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-telecom-infra-flagCableFault-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-telecom-infra-flagCableFault-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rural-broadband-registerDeployment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rural-broadband-registerDeployment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rural-broadband-flagDigitalDivideGap-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rural-broadband-flagDigitalDivideGap-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-recordCorridorFlow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-recordCorridorFlow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-flagInteropFailure-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-rail-cross-border-flagInteropFailure-v1']}]
 
 
 def upgrade() -> None:

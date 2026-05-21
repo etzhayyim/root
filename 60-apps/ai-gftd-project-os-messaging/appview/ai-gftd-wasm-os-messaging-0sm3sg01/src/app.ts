@@ -178,7 +178,7 @@ async function replyToPlatform(
   // Platform-specific reply via external API
   // Secrets are resolved from env bindings at dispatch time
   const outId = genID("out");
-  const ownerDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.gftd.ai";
+  const ownerDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.etzhayyim.com";
   const db = createKyselyDb();
   let data: Record<string, unknown>;
   switch (msg.platform) {
@@ -221,7 +221,7 @@ async function dispatchToAgent(
   // Dispatch to PDS ai.gftd.convo.send → agentInfer pipeline
   // The PDS handler auto-detects peer agent DID and runs agentInfer
   const inboundId = genID("in");
-  const selfDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.gftd.ai";
+  const selfDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.etzhayyim.com";
   const db = createKyselyDb();
   await db.insertInto("vertex_os_messaging_inbound" as any).values({
     vertex_id: `at://${selfDid}/ai.gftd.apps.osMessaging.inbound/${inboundId}`,
@@ -259,7 +259,7 @@ export default createWorkerExport((sdk) => {
           if (input.type === 1) return { type: 1 }; // Discord PING
           const msg = parseDiscordWebhook(input);
           if (!msg) return { status: "ignored" };
-          const result = await dispatchToAgent(sdk, msg, "did:web:os.gftd.ai");
+          const result = await dispatchToAgent(sdk, msg, "did:web:os.etzhayyim.com");
           return { status: "dispatched", result };
         }),
       ),
@@ -274,7 +274,7 @@ export default createWorkerExport((sdk) => {
         withOCELEvent("osMessaging:webhookTelegram")(async (input: Record<string, unknown>) => {
           const msg = parseTelegramWebhook(input);
           if (!msg) return { status: "ignored" };
-          const result = await dispatchToAgent(sdk, msg, "did:web:os.gftd.ai");
+          const result = await dispatchToAgent(sdk, msg, "did:web:os.etzhayyim.com");
           return { status: "dispatched", result };
         }),
       ),
@@ -291,7 +291,7 @@ export default createWorkerExport((sdk) => {
           if (input.type === "url_verification") return { challenge: input.challenge };
           const msg = parseSlackWebhook(input);
           if (!msg) return { status: "ignored" };
-          const result = await dispatchToAgent(sdk, msg, "did:web:os.gftd.ai");
+          const result = await dispatchToAgent(sdk, msg, "did:web:os.etzhayyim.com");
           return { status: "dispatched", result };
         }),
       ),
@@ -306,7 +306,7 @@ export default createWorkerExport((sdk) => {
         withOCELEvent("osMessaging:webhookLine")(async (input: Record<string, unknown>) => {
           const msg = parseLineWebhook(input);
           if (!msg) return { status: "ignored" };
-          const result = await dispatchToAgent(sdk, msg, "did:web:os.gftd.ai");
+          const result = await dispatchToAgent(sdk, msg, "did:web:os.etzhayyim.com");
           return { status: "dispatched", result };
         }),
       ),
@@ -321,7 +321,7 @@ export default createWorkerExport((sdk) => {
         withOCELEvent("osMessaging:webhookWhatsapp")(async (input: Record<string, unknown>) => {
           const msg = parseWhatsappWebhook(input);
           if (!msg) return { status: "ignored" };
-          const result = await dispatchToAgent(sdk, msg, "did:web:os.gftd.ai");
+          const result = await dispatchToAgent(sdk, msg, "did:web:os.etzhayyim.com");
           return { status: "dispatched", result };
         }),
       ),
@@ -341,7 +341,7 @@ export default createWorkerExport((sdk) => {
           gftdDid: string;
         }) => {
           const mappingId = genID("map");
-          const selfDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.gftd.ai";
+          const selfDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.etzhayyim.com";
           const db = createKyselyDb();
           await db.insertInto("vertex_os_messaging_platform_mapping" as any).values({
             vertex_id: `at://${selfDid}/ai.gftd.apps.osMessaging.platformMapping/${mappingId}`,
@@ -370,7 +370,7 @@ export default createWorkerExport((sdk) => {
       withCapabilityTags(["platform-user-mapping"])(
         withOCELEvent("osMessaging:disconnectPlatform")(async (input: { platform: Platform; platformUid: string }) => {
           const disconnectId = genID("map");
-          const selfDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.gftd.ai";
+          const selfDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.etzhayyim.com";
           const db = createKyselyDb();
           await db.insertInto("vertex_os_messaging_platform_mapping" as any).values({
             vertex_id: `at://${selfDid}/ai.gftd.apps.osMessaging.platformMapping/${disconnectId}`,

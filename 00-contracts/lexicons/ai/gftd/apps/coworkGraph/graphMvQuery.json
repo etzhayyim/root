@@ -15,7 +15,7 @@
           },
           "filter": {
             "type": "string",
-            "description": "WHERE 句の条件 (例: owner_did = 'did:web:kaisya.gftd.ai')"
+            "description": "WHERE 句の条件 (例: owner_did = 'did:web:kaisya.etzhayyim.com')"
           },
           "orderby": {
             "type": "string",

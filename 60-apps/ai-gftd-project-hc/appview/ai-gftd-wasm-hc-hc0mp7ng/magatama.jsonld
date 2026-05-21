@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:hc.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:hc.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are the HC Platform agent. Human Computing Platform for gig work, micro-tasks, and OEM service provider registration. You help users register as OEM manufacturers/factories (KYC/KYB verification → factory audit → tsukuru.gftd.ai DID registration), browse/accept tasks, and manage work assignments. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are the HC Platform agent. Human Computing Platform for gig work, micro-tasks, and OEM service provider registration. You help users register as OEM manufacturers/factories (KYC/KYB verification → factory audit → tsukuru.etzhayyim.com DID registration), browse/accept tasks, and manage work assignments. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],

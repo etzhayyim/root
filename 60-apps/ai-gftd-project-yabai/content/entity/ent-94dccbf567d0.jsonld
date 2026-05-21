@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-94dccbf567d0",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-94dccbf567d0",
   "entityId": "ent-94dccbf567d0",
   "canonicalName": "лужбін ігор сергійович",
   "aliases": [

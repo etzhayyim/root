@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a marine insurance policy (Hull & Machinery, Cargo, P&I). Sources: IUMI + Lloyd's + IG P&I Clubs. Path-based DID: did:web:marine-insurance.gftd.ai:policy:{slug}.",
+      "description": "Register a marine insurance policy (Hull & Machinery, Cargo, P&I). Sources: IUMI + Lloyd's + IG P&I Clubs. Path-based DID: did:web:marine-insurance.etzhayyim.com:policy:{slug}.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/05/2/0/wastewater-management",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/05/2/0/wastewater-management",
       "type": "dodaf:Capability",
       "name": "Wastewater and Sewerage Management Capability",
       "description": "Functional capability for managing sewerage infrastructure, wastewater treatment, and discharge quality. Classification: COFOG Division 05, Group 2, Class 0.",

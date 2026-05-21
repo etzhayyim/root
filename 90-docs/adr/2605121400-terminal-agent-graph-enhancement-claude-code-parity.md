@@ -42,7 +42,7 @@ related:
 
 Status: **Active** (2026-05-12).
 Operating Entity: etzhayyim.
-Author: gftdcojp Claude Agent on behalf of CEO 河崎.
+Author: etzhayyim Claude Agent on behalf of CEO 河崎.
 
 ## 1. Decision
 
@@ -192,7 +192,7 @@ Fetches any HTTP/HTTPS URL and returns readable content:
 - Download capped at 512 KB; output capped at 8000 chars with truncation notice.
 - Uses `urllib.request` only — no third-party dependencies (`httpx`, `requests`
   not required).
-- User-Agent: `terminal-agent/1.0 (research; +https://gftd.ai)`.
+- User-Agent: `terminal-agent/1.0 (research; +https://etzhayyim.com)`.
 
 ### 3.22 Real-time bash streaming (Phase K — 2026-05-13)
 

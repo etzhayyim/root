@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-1c579649447b",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1c579649447b",
   "entityId": "ent-1c579649447b",
   "canonicalName": "daba naualna",
   "aliases": [

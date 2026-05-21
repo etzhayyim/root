@@ -18,7 +18,7 @@ pub struct NodeConfig {
 impl Default for NodeConfig {
     fn default() -> Self {
         Self {
-            endpoint: "https://murakumo.gftd.ai".to_string(),
+            endpoint: "https://murakumo.etzhayyim.com".to_string(),
             role: "worker".to_string(),
             mode: "worker".to_string(),
             node_id: String::new(),

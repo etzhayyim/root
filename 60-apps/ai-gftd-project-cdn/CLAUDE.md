@@ -1,6 +1,6 @@
 # ai-gftd-project-cdn
 
-CDN ブロブストレージゲートウェイ (`cdn.gftd.ai`)。
+CDN ブロブストレージゲートウェイ (`cdn.etzhayyim.com`)。
 キーでデータを公開し、実データは Backblaze B2 に保存、Cloudflare CDN で配信する。
 
 ## App Components
@@ -14,7 +14,7 @@ CDN ブロブストレージゲートウェイ (`cdn.gftd.ai`)。
 ```
 Client
   ↓ GET /cdn/{key}
-cdn.gftd.ai (Cloudflare proxied)
+cdn.etzhayyim.com (Cloudflare proxied)
   ↓ Cache-Control: public, max-age=86400
 App (cdn7gft2)
   ↓ S3 SigV4
@@ -23,9 +23,9 @@ Cloudflare R2 (bucket: ai-gftd-graph, key: cdn/{key})
 
 ## API Endpoints
 
-- App direct: `https://cdn7gft2.gftd.ai`
-- CDN: `https://cdn.gftd.ai/cdn/{key}`
-- XRPC: `https://cdn7gft2.gftd.ai/xrpc`
+- App direct: `https://cdn7gft2.etzhayyim.com`
+- CDN: `https://cdn.etzhayyim.com/cdn/{key}`
+- XRPC: `https://cdn7gft2.etzhayyim.com/xrpc`
 
 ## Arrow Tables
 

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:pry-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:pry-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Paraguay (República del Paraguay) AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -109,7 +109,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "pry-state.gftd.ai",
+      "host": "pry-state.etzhayyim.com",
       "paths": [
         "/"
       ],

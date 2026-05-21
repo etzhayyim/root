@@ -123,16 +123,16 @@ must not be written to chain.
 ## ERC-8004 Agent Registration JSON
 
 `AgentIdentityRegistry.agentURI(tokenId)` points to an IPFS CID served through
-`https://ipfs.gftd.ai/ipfs/<cid>`. The registration file is canonical for public
+`https://ipfs.etzhayyim.com/ipfs/<cid>`. The registration file is canonical for public
 discovery; RisingWave remains canonical for internal dispatch. The protocol-root
 envelope is defined by ADR-2604262145 as
-`https://gftd.ai/schemas/erc8004-agent-registration/v1.json`; the older
+`https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json`; the older
 flat `agent-runtime-registration/v1` shape remains a narrow runtime-oriented
 schema and must not be used for new public actor registrations.
 
 ```json
 {
-  "schema": "https://gftd.ai/schemas/erc8004-agent-registration/v1.json",
+  "schema": "https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json",
   "agent": {
     "agentRegistry": "eip155:260425:0x...",
     "agentId": "123",
@@ -143,25 +143,25 @@ schema and must not be used for new public actor registrations.
     "chainId": 260425,
     "address": "0x...",
     "rootDid": "did:erc725:gftd:260425:0x...",
-    "facadeDids": ["did:web:yoro.gftd.ai"],
+    "facadeDids": ["did:web:yoro.etzhayyim.com"],
     "policyCid": "ipfs://bafy..."
   },
   "protocols": [
     {
       "kind": "atproto-xrpc",
-      "service": "https://atproto.gftd.ai",
-      "pdsDid": "did:web:atproto.gftd.ai",
-      "actorDid": "did:web:yoro.gftd.ai",
+      "service": "https://atproto.etzhayyim.com",
+      "pdsDid": "did:web:atproto.etzhayyim.com",
+      "actorDid": "did:web:yoro.etzhayyim.com",
       "facadeFor": "did:erc725:gftd:260425:0x..."
     },
     {
       "kind": "mcp",
-      "endpoint": "https://agent.example.gftd.ai/mcp",
+      "endpoint": "https://agent.example.etzhayyim.com/mcp",
       "transport": "streamable-http",
       "auth": {
         "method": "oauth2-dpop",
-        "issuer": "https://authn.gftd.ai",
-        "resource": "https://agent.example.gftd.ai/mcp",
+        "issuer": "https://authn.etzhayyim.com",
+        "resource": "https://agent.example.etzhayyim.com/mcp",
         "scopes": ["ai.gftd.agent.invoke"]
       }
     },
@@ -196,9 +196,9 @@ bindings). Do not model it as two separate profiles.
 ```json
 {
   "kind": "atproto-xrpc",
-  "service": "https://atproto.gftd.ai",
-  "pdsDid": "did:web:atproto.gftd.ai",
-  "actorDid": "did:web:yoro.gftd.ai",
+  "service": "https://atproto.etzhayyim.com",
+  "pdsDid": "did:web:atproto.etzhayyim.com",
+  "actorDid": "did:web:yoro.etzhayyim.com",
   "facadeFor": "did:erc725:gftd:260425:0x...",
   "xrpc": {
     "repoMethods": [
@@ -237,7 +237,7 @@ The public runtime manifest is a redacted projection of the k8s workload:
 
 ```json
 {
-  "schema": "https://gftd.ai/schemas/k8s-runtime-public/v1.json",
+  "schema": "https://etzhayyim.com/schemas/k8s-runtime-public/v1.json",
   "cluster": "vultr-vke-lax",
   "namespace": "mitama-udf",
   "workload": {
@@ -245,13 +245,13 @@ The public runtime manifest is a redacted projection of the k8s workload:
     "kind": "Deployment",
     "name": "zeebe-worker"
   },
-  "image": "ghcr.io/gftdcojp/pymagatama@sha256:...",
+  "image": "ghcr.io/etzhayyim/pymagatama@sha256:...",
   "ports": [
     { "name": "http", "public": false },
     {
       "name": "mcp",
       "public": true,
-      "url": "https://agent.example.gftd.ai/mcp"
+      "url": "https://agent.example.etzhayyim.com/mcp"
     }
   ],
   "runtime": {
@@ -274,14 +274,14 @@ Rules:
   `geth-private`, or a new `agent-runtime-<domain>` namespace.
 - Public manifests must remove `env`, `secretKeyRef`, service-account tokens,
   private RPC URLs, and internal bearer values.
-- The public manifest CID is pinned through `ipfs.gftd.ai` and stored in both
+- The public manifest CID is pinned through `ipfs.etzhayyim.com` and stored in both
   RisingWave and the ERC-8004 `agentURI` document.
 
 ## Build And Deploy Flow
 
 ```text
 1. Build runtime image
-   -> ghcr.io/gftdcojp/<image>@sha256:<digest>
+   -> ghcr.io/etzhayyim/<image>@sha256:<digest>
 
 2. Render operational manifest
    -> namespace-specific k8s Deployment/Job/CronJob/Service
@@ -334,13 +334,13 @@ Implemented:
   - `00-contracts/schemas/agent-runtime-registration.schema.json`
   - `00-contracts/schemas/k8s-runtime-public.schema.json`
 - Protocol-root registration envelope:
-  `https://gftd.ai/schemas/erc8004-agent-registration/v1.json` per
+  `https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json` per
   ADR-2604262145 and the live `public-agent-registration*.json` templates.
 - Public runtime renderer:
   `70-tools/scripts/contract/render-agent-runtime-public.py`.
 - `gftd agent-runtime render`: renders redacted k8s public runtime JSON.
 - `gftd agent-runtime publish`: dry-run hash summary by default; with
-  `--dry-run=false`, pins rendered public runtime JSON to `ipfs.gftd.ai`
+  `--dry-run=false`, pins rendered public runtime JSON to `ipfs.etzhayyim.com`
   through the HMAC-protected Kubo API.
 - `gftd agent-runtime register`: derives `rootDidHash`, owner, and
   `metadataHash`, then dry-runs or submits
@@ -357,7 +357,7 @@ Implemented:
 
 Updated 2026-04-27:
 
-- `did:web:yoro.gftd.ai` is linked as an AT facade for the canonical ERC725
+- `did:web:yoro.etzhayyim.com` is linked as an AT facade for the canonical ERC725
   root DID
   `did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`.
 - `GftdRootIdentityRegistry` has the canonical `keccak256(utf8(rootDid))`
@@ -591,7 +591,7 @@ pointers only.
 3. Done: add an `agent-runtime-registration` JSON schema and redacted k8s public
    manifest schema.
 4. Done for explicit CLI: add `gftd agent-runtime render|publish|publish-agent`
-   to render and pin public runtime manifests to `ipfs.gftd.ai`. Still pending
+   to render and pin public runtime manifests to `ipfs.etzhayyim.com`. Still pending
    integration into the default `gftd deploy` flow. As part of this, `atproto`
    and `xrpc` are now normalized into the single `atproto-xrpc` profile in
    public protocol registration design.
@@ -601,7 +601,7 @@ pointers only.
    `agent_publication`, `agent_runtime_artifact`, `agent_runtime_receipt`.
 7. Add a reconciler that compares RisingWave rows, IPFS CIDs, and EVM events.
 8. In progress: publish the first runtime:
-   `yoro.gftd.ai` Zeebe worker + MCP adapter in namespace `yoro-actors`.
+   `yoro.etzhayyim.com` Zeebe worker + MCP adapter in namespace `yoro-actors`.
 9. Publish the shared Python worker runtime in namespace `mitama-udf`.
 10. Add verification script:
     `gftd agent verify --did <rootDid>` that resolves ERC725, ERC-8004,
@@ -611,7 +611,7 @@ pointers only.
 
 - ADR-0074: ERC725 Root Identity + Coinbase Smart Wallet Execution Topology
 - ADR-2604261830: Ethereum-anchored WASM/BPMN actor runtime
-- ADR-2604261936: ipfs.gftd.ai self-hosted Kubo on Vultr VKE with B2
+- ADR-2604261936: ipfs.etzhayyim.com self-hosted Kubo on Vultr VKE with B2
 - ADR-2604251830: Shannon-optimal layered architecture
 - ADR-0056: BPMN-as-actor
 - ERC-725: contract-based identity and generic key/value claims

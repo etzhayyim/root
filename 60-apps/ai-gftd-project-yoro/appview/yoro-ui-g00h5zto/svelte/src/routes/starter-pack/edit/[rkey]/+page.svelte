@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
 	import { getStarterPack, getCurrentDID, searchActors } from '$lib/atproto-agent';
 
 	const rkey = $derived(decodeURIComponent(($page.params as Record<string, string>).rkey ?? ''));

@@ -17,8 +17,8 @@
 
 | 層 | 値 |
 |---|---|
-| Primary DID | `did:plc:bim` (Phase 5 `plc.gftd.ai` で genesis、当面 `did:web:bim.gftd.ai`) |
-| Handle | `bim.gftd.ai` |
+| Primary DID | `did:plc:bim` (Phase 5 `plc.etzhayyim.com` で genesis、当面 `did:web:bim.etzhayyim.com`) |
+| Handle | `bim.etzhayyim.com` |
 | Legacy nanoid | `b1m3d1tr` (grandfather、deprecate 2026-10-01) |
 | NSID | `ai.gftd.apps.bim.*` |
 
@@ -29,7 +29,7 @@
 | **Viewer (hot path)** | `kami-app-bim` per-game WASM crate (`40-engine/kami-engine/kami-app-bim/`)。`run_bim_v2(canvas)` を JS から呼び、WebGPU で storey を描画 |
 | **App Worker** | TS Native (`runtimeType: "worker"`)。Hono + host-sdk。XRPC `ai.gftd.apps.bim.*` を提供 |
 | **Heavy job** | IFC parse / tessellation / IFC export は CF Container `bim-job` サブ service (lite 256 MiB) に分離。viewer path は Worker 1 経路で完結 |
-| **UI overlay** | `@gftdcojp/kami-engine-sdk` + Svelte AppShell v2。storey switcher / space list / comment panel / viewpoint thumbnail を DOM overlay |
+| **UI overlay** | `@etzhayyim/kami-engine-sdk` + Svelte AppShell v2。storey switcher / space list / comment panel / viewpoint thumbnail を DOM overlay |
 
 `kami-web` は触らない。新しい viewer 機能は `kami-bim` + `kami-app-bim` + `kami-pipelines` (`BimSceneAdapter`) に追加する。
 
@@ -39,12 +39,12 @@
 
 | Path DID | 役割 |
 |---|---|
-| `did:web:bim.gftd.ai` | controller |
-| `did:web:bim.gftd.ai:actor:importer` | IFC STEP / XML / ZIP parser (CF Container) |
-| `did:web:bim.gftd.ai:actor:tessellator` | BREP → triangle mesh (LOD 3 段階) |
-| `did:web:bim.gftd.ai:actor:reviewer` | BCF annotation / viewpoint 管理 |
-| `did:web:bim.gftd.ai:actor:exporter` | IFC / glTF / BCF / xlsx schedule 書き出し |
-| `did:web:bim.gftd.ai:actor:classifier` | Uniclass / OmniClass / MasterFormat 自動付与 (LLM) |
+| `did:web:bim.etzhayyim.com` | controller |
+| `did:web:bim.etzhayyim.com:actor:importer` | IFC STEP / XML / ZIP parser (CF Container) |
+| `did:web:bim.etzhayyim.com:actor:tessellator` | BREP → triangle mesh (LOD 3 段階) |
+| `did:web:bim.etzhayyim.com:actor:reviewer` | BCF annotation / viewpoint 管理 |
+| `did:web:bim.etzhayyim.com:actor:exporter` | IFC / glTF / BCF / xlsx schedule 書き出し |
+| `did:web:bim.etzhayyim.com:actor:classifier` | Uniclass / OmniClass / MasterFormat 自動付与 (LLM) |
 
 ## Domain Model
 

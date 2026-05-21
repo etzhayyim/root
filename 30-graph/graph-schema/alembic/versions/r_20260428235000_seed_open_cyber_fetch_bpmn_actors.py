@@ -19,14 +19,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'open_cyber_vuln_fetch_nvd_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_cyber_vuln_fetch_nvd_delta" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-cyber-vuln" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-cyber-vuln" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_cyber_vuln_fetch_nvd_delta" name="fetchNvdDelta" '
                  'isExecutable="true">\n'
@@ -83,7 +83,7 @@ UP = [{'sql': '\n'
                  'processId="open_cyber_vuln_cve"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-cyber-vuln.gftd.ai/ai.gftd.apps.cyberVuln.recordCveDisclosure/&quot; '
+                 'source="=&quot;at://did:web:open-cyber-vuln.etzhayyim.com/ai.gftd.apps.cyberVuln.recordCveDisclosure/&quot; '
                  '+ item.cve.id" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.cve.id" target="cveId"/>\n'
                  '          <zeebe:input source="=if item.cve.configurations != null then '
@@ -102,7 +102,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=false" target="exploitAvailable"/>\n'
                  '          <zeebe:input source="=false" target="inTheWild"/>\n'
                  '          <zeebe:input source="=item.cve.published" target="publishedAt"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-cyber-vuln.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-cyber-vuln.etzhayyim.com&quot;" '
                  'target="callerDid"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
@@ -136,10 +136,10 @@ UP = [{'sql': '\n'
                  5455,
                  '00-contracts/bpmn/ai/gftd/open-cyber-vuln/fetchNvdDelta.bpmn',
                  '2026-04-28T23:50:00Z',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
-                 'did:web:open-cyber-vuln.gftd.ai:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
+                 'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -147,14 +147,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1',
-                 'did:web:open-kev-catalog.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1',
+                 'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'open_kev_catalog_fetch_kev_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_kev_catalog_fetch_kev_delta" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-kev-catalog" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-kev-catalog" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_kev_catalog_fetch_kev_delta" name="fetchKevDelta" '
                  'isExecutable="true">\n'
@@ -194,7 +194,7 @@ UP = [{'sql': '\n'
                  'processId="open_kev_catalog_record_entry"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-kev-catalog.gftd.ai/ai.gftd.apps.kevCatalog.recordEntry/&quot; '
+                 'source="=&quot;at://did:web:open-kev-catalog.etzhayyim.com/ai.gftd.apps.kevCatalog.recordEntry/&quot; '
                  '+ item.cveID" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.cveID" target="entryId"/>\n'
                  '          <zeebe:input source="=item.cveID" target="cveId"/>\n'
@@ -204,7 +204,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=null" target="disclosureGapVid"/>\n'
                  '          <zeebe:input source="=item.dueDate" target="dueDate"/>\n'
                  '          <zeebe:input source="=item.dateAdded" target="addedAt"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-kev-catalog.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-kev-catalog.etzhayyim.com&quot;" '
                  'target="callerDid"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
@@ -237,10 +237,10 @@ UP = [{'sql': '\n'
                  4073,
                  '00-contracts/bpmn/ai/gftd/open-kev-catalog/fetchKevDelta.bpmn',
                  '2026-04-28T23:50:00Z',
-                 'did:web:open-kev-catalog.gftd.ai:ops',
-                 'did:web:open-kev-catalog.gftd.ai:ops',
+                 'did:web:open-kev-catalog.etzhayyim.com:ops',
+                 'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -248,14 +248,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1',
-                 'did:web:open-oss-vuln.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1',
+                 'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'open_oss_vuln_fetch_ghsa_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_oss_vuln_fetch_ghsa_delta" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-oss-vuln" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-oss-vuln" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_oss_vuln_fetch_ghsa_delta" name="fetchGhsaDelta" '
                  'isExecutable="true">\n'
@@ -313,7 +313,7 @@ UP = [{'sql': '\n'
                  'processId="open_oss_vuln_register_advisory"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-oss-vuln.gftd.ai/ai.gftd.apps.ossVuln.registerAdvisory/&quot; '
+                 'source="=&quot;at://did:web:open-oss-vuln.etzhayyim.com/ai.gftd.apps.ossVuln.registerAdvisory/&quot; '
                  '+ item.ghsa_id" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.ghsa_id" target="advisoryId"/>\n'
                  '          <zeebe:input source="=&quot;ghsa&quot;" target="scheme"/>\n'
@@ -335,7 +335,7 @@ UP = [{'sql': '\n'
                  'target="versionRanges"/>\n'
                  '          <zeebe:input source="=false" target="kevTagged"/>\n'
                  '          <zeebe:input source="=item.published_at" target="publishedAt"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-oss-vuln.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-oss-vuln.etzhayyim.com&quot;" '
                  'target="callerDid"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
@@ -369,10 +369,10 @@ UP = [{'sql': '\n'
                  5641,
                  '00-contracts/bpmn/ai/gftd/open-oss-vuln/fetchGhsaDelta.bpmn',
                  '2026-04-28T23:50:00Z',
-                 'did:web:open-oss-vuln.gftd.ai:ops',
-                 'did:web:open-oss-vuln.gftd.ai:ops',
+                 'did:web:open-oss-vuln.etzhayyim.com:ops',
+                 'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -380,14 +380,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1',
-                 'did:web:open-cyber-threat.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1',
+                 'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'open_cyber_threat_fetch_mitre_attack_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_cyber_threat_fetch_mitre_attack_delta" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-cyber-threat" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-cyber-threat" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_cyber_threat_fetch_mitre_attack_delta" '
                  'name="fetchMitreAttackDelta" isExecutable="true">\n'
@@ -427,7 +427,7 @@ UP = [{'sql': '\n'
                  'processId="open_cyber_threat_actor"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-cyber-threat.gftd.ai/ai.gftd.apps.cyberThreat.recordThreatActor/&quot; '
+                 'source="=&quot;at://did:web:open-cyber-threat.etzhayyim.com/ai.gftd.apps.cyberThreat.recordThreatActor/&quot; '
                  '+ item.id" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.id" target="actorIdCode"/>\n'
                  '          <zeebe:input source="=item.name" target="actorName"/>\n'
@@ -439,7 +439,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;espionage&quot;" '
                  'target="primaryMotivation"/>\n'
                  '          <zeebe:input source="=item.created" target="firstObserved"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-cyber-threat.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-cyber-threat.etzhayyim.com&quot;" '
                  'target="callerDid"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
@@ -472,10 +472,10 @@ UP = [{'sql': '\n'
                  4334,
                  '00-contracts/bpmn/ai/gftd/open-cyber-threat/fetchMitreAttackDelta.bpmn',
                  '2026-04-28T23:50:00Z',
-                 'did:web:open-cyber-threat.gftd.ai:ops',
-                 'did:web:open-cyber-threat.gftd.ai:ops',
+                 'did:web:open-cyber-threat.etzhayyim.com:ops',
+                 'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -483,14 +483,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1',
-                 'did:web:open-cyber-soc.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1',
+                 'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'open_cyber_soc_fetch_cisa_alert_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_cyber_soc_fetch_cisa_alert_delta" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-cyber-soc" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-cyber-soc" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_cyber_soc_fetch_cisa_alert_delta" '
                  'name="fetchCisaAlertDelta" isExecutable="true">\n'
@@ -531,7 +531,7 @@ UP = [{'sql': '\n'
                  'processId="open_cyber_soc_alert"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-cyber-soc.gftd.ai/ai.gftd.apps.cyberSoc.recordSocAlert/&quot; '
+                 'source="=&quot;at://did:web:open-cyber-soc.etzhayyim.com/ai.gftd.apps.cyberSoc.recordSocAlert/&quot; '
                  '+ replace(item.link, &quot;https://www.cisa.gov/uscert/ncas/alerts/&quot;, '
                  '&quot;&quot;)" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.link" target="alertId"/>\n'
@@ -541,7 +541,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=item.published" target="firedAt"/>\n'
                  '          <zeebe:input source="=item.published" target="triagedAt"/>\n'
                  '          <zeebe:input source="=false" target="falsePositive"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-cyber-soc.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-cyber-soc.etzhayyim.com&quot;" '
                  'target="callerDid"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
@@ -574,21 +574,21 @@ UP = [{'sql': '\n'
                  4196,
                  '00-contracts/bpmn/ai/gftd/open-cyber-soc/fetchCisaAlertDelta.bpmn',
                  '2026-04-28T23:50:00Z',
-                 'did:web:open-cyber-soc.gftd.ai:ops',
-                 'did:web:open-cyber-soc.gftd.ai:ops',
+                 'did:web:open-cyber-soc.etzhayyim.com:ops',
+                 'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1']}]
 
 
 def upgrade() -> None:

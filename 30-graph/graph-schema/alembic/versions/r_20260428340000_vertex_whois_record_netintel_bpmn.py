@@ -51,8 +51,8 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_dns_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -68,7 +68,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_netintel_dns_delta"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/ingest/netintel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/ingest/netintel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="netintel_dns_delta" name="netintel dns delta" '
@@ -127,7 +127,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:ingest.gftd.ai&quot;"       '
+                 '          <zeebe:input source="=&quot;did:web:ingest.etzhayyim.com&quot;"       '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;netintel.dns.delta&quot;"            '
                  'target="action"/>\n'
@@ -167,10 +167,10 @@ UP = [{'sql': '\n'
                  4636,
                  '00-contracts/bpmn/ai/gftd/ingest/netintelDnsDelta.bpmn',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -183,15 +183,15 @@ UP = [{'sql': '\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_dns_delta',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_dns_observation,vertex_ingest_run',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -202,8 +202,8 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_ip_enrich_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -218,7 +218,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_netintel_ip_enrich_delta"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/ingest/netintel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/ingest/netintel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="netintel_ip_enrich_delta" name="netintel ip enrich delta" '
@@ -277,7 +277,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:ingest.gftd.ai&quot;"    '
+                 '          <zeebe:input source="=&quot;did:web:ingest.etzhayyim.com&quot;"    '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;netintel.ip.enrich&quot;"         '
                  'target="action"/>\n'
@@ -317,10 +317,10 @@ UP = [{'sql': '\n'
                  4587,
                  '00-contracts/bpmn/ai/gftd/ingest/ipEnrichDelta.bpmn',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -333,15 +333,15 @@ UP = [{'sql': '\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_ip_enrich_delta',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_ip_address,vertex_ingest_run',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -352,8 +352,8 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_whois_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -368,7 +368,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_netintel_whois_delta"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/ingest/netintel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/ingest/netintel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="netintel_whois_delta" name="netintel whois delta" '
@@ -427,7 +427,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:ingest.gftd.ai&quot;"  '
+                 '          <zeebe:input source="=&quot;did:web:ingest.etzhayyim.com&quot;"  '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;netintel.whois.delta&quot;"     '
                  'target="action"/>\n'
@@ -467,10 +467,10 @@ UP = [{'sql': '\n'
                  4588,
                  '00-contracts/bpmn/ai/gftd/ingest/whoisDelta.bpmn',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -483,15 +483,15 @@ UP = [{'sql': '\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_whois_delta',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_whois_record,vertex_ingest_run',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -502,8 +502,8 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_scan_banner_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -520,7 +520,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_netintel_scan_banner_delta"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/ingest/netintel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/ingest/netintel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="netintel_scan_banner_delta" name="netintel scan banner '
@@ -579,7 +579,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:ingest.gftd.ai&quot;"   '
+                 '          <zeebe:input source="=&quot;did:web:ingest.etzhayyim.com&quot;"   '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;netintel.scan.banner&quot;"      '
                  'target="action"/>\n'
@@ -619,10 +619,10 @@ UP = [{'sql': '\n'
                  4718,
                  '00-contracts/bpmn/ai/gftd/ingest/scanBannerDelta.bpmn',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -635,15 +635,15 @@ UP = [{'sql': '\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_scan_banner_delta',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_scan_result,vertex_ingest_run',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -654,8 +654,8 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_fingerprint_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -673,7 +673,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_netintel_fingerprint_delta"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/ingest/netintel"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/ingest/netintel"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="netintel_fingerprint_delta" name="netintel fingerprint '
@@ -732,7 +732,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:ingest.gftd.ai&quot;"        '
+                 '          <zeebe:input source="=&quot;did:web:ingest.etzhayyim.com&quot;"        '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;netintel.fingerprint.delta&quot;"     '
                  'target="action"/>\n'
@@ -772,10 +772,10 @@ UP = [{'sql': '\n'
                  4790,
                  '00-contracts/bpmn/ai/gftd/ingest/fingerprintDelta.bpmn',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -788,36 +788,36 @@ UP = [{'sql': '\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'netintel_fingerprint_delta',
                  '2026-04-28T18:00:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_scan_result,vertex_ingest_run',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_whois_record', 'parameters': []}]
 
 

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:crypto-asset-freeze.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:crypto-asset-freeze.etzhayyim.com",
   "name": "crypto-asset-freeze",
   "nanoid": "qjp7mjyb",
   "performerType": "service",
@@ -54,12 +54,12 @@
   "deploy": {},
   "routes": [
     {
-      "host": "crypto-asset-freeze.gftd.ai",
+      "host": "crypto-asset-freeze.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     },
     {
-      "host": "qjp7mjyb.gftd.ai",
+      "host": "qjp7mjyb.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }

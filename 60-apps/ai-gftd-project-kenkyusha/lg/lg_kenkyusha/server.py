@@ -60,7 +60,7 @@ def _enforce_auth(
     Three accepted paths:
       1. ``exempt=True``                        — cron sidechannel
       2. ``X-Magatama-Internal-Token`` matches  — MCP-adapter Worker proxy
-                                                  (atproto.gftd.ai/mcp)
+                                                  (atproto.etzhayyim.com/mcp)
       3. ``x-api-key`` matches LG_KENKYUSHA_API_KEY — yoro / dispatcher
     """
     if exempt:
@@ -276,8 +276,8 @@ async def _list_frontiers(
 
 # ── XRPC NSID surface (Phase 2A MCP facade) ──────────────────────────────────
 #
-# atproto.gftd.ai/mcp tools/call dispatches to
-# https://kenkyusha.gftd.ai/xrpc/ai.gftd.apps.kenkyusha.<method>. The pod
+# atproto.etzhayyim.com/mcp tools/call dispatches to
+# https://kenkyusha.etzhayyim.com/xrpc/ai.gftd.apps.kenkyusha.<method>. The pod
 # (this server) is the canonical owner of vertex_kenkyusha_* (ADR-2605111200),
 # so these routes are NSID-style aliases for /frontiers/* with input shape
 # matching 00-contracts/lexicons/ai/gftd/apps/kenkyusha/<method>.json.

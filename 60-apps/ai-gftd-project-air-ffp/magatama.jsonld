@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:air-ffp.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:air-ffp.etzhayyim.com",
   "name": "air-ffp",
   "nanoid": "a1rffp01",
   "project": "air-ffp",

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-b584c555a9b7",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b584c555a9b7",
   "entityId": "ent-b584c555a9b7",
   "canonicalName": "住吉会 (sumiyoshi-kai)",
   "aliases": [

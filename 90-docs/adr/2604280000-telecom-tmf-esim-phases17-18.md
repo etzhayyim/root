@@ -25,7 +25,7 @@ related:
 
 ## Context
 
-Telecom carrier actor (`did:web:telecom.gftd.ai`) reached phases 1–16 across prior sessions.
+Telecom carrier actor (`did:web:telecom.etzhayyim.com`) reached phases 1–16 across prior sessions.
 This ADR documents the final two phases of the initial 18-phase MNO/MVNO actor build.
 
 **Phase 17 — TM Forum Open APIs (TMF 620/622/637/641/640/638/666/678)**  

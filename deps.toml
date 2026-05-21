@@ -50,7 +50,7 @@ github_org_open_monorepo = "etzhayyim/root"
 
 [platform.deployment]
 # etzhayyim/* の deployment target は Murakumo Mac-mini fleet のみ。
-# gftd.ai legacy は Vultr 残置(本 monorepo 範囲外)。
+# etzhayyim.com legacy は Vultr 残置(本 monorepo 範囲外)。
 # ADR-2605191346 で hard rule 化。
 tier_0_edge = "Cloudflare Workers / Pages (CDN as thin layer; persistent state in MST/IPFS/L2)"
 tier_1_compute = "Murakumo Mac-mini fleet (10 nodes, ADR-2605182312)"
@@ -63,7 +63,7 @@ prohibited = [
   "EKS / GKE / AKS / DigitalOcean Kubernetes",
   "any commercial K8s control plane",
 ]
-vultr_status = "gftd.ai legacy only; etzhayyim/* completely separated per ADR-2605191346"
+vultr_status = "etzhayyim.com legacy only; etzhayyim/* completely separated per ADR-2605191346"
 
 [platform.substrate]
 # Hard rules for any module under etzhayyim/root.
@@ -127,7 +127,7 @@ deploy_status = "local-anvil-validated"
 
 [platform.l2.authz_contract]
 # EtzhayyimAuthz — ERC725 root identity registry (etzhayyim authz; replaces
-# vendor authz.gftd.ai ERC725 issuance per substrate centralization axis).
+# vendor authz.etzhayyim.com ERC725 issuance per substrate centralization axis).
 # Source: 50-infra/etzhayyim-authz/contracts/src/EtzhayyimAuthz.sol
 source = "50-infra/etzhayyim-authz/contracts/"
 xrpc_handler = "50-infra/etzhayyim-authz/src/worker.ts"   # CF Worker, viem chain integration
@@ -696,7 +696,7 @@ path = "90-docs/adr/2605191257-ameno-daemon-path-b-pymagatama-python.md"
 id = "2605191346"
 title = "etzhayyim is Vultr-free — Murakumo Mac-mini fleet as the only Tier-1 substrate"
 status = "proposed"
-status_note = "Hard architectural boundary: etzhayyim/* は Vultr / 他 commercial K8s 一切非依存。gftd.ai legacy は Vultr 残置(本 ADR 範囲外)。Tier 1 = Murakumo Mac-mini fleet only。Control plane primary = native systemd/launchd(軽量 stateless)、secondary = K3s HA on 3 Mac minis(HA stateful only)。geth-private migration ADR-2605172800 §Option C を本 ADR で確定。Cloudflare edge は retain(別 ADR で離脱検討)。Deadlines: M1 K3s bring-up 2026-06-15, M5 geth production switch 2026-08-15, M6 Vultr decommission 2026-09-01, M7 50-infra/vultr/* 別 repo 物理分離 2026-09-15。"
+status_note = "Hard architectural boundary: etzhayyim/* は Vultr / 他 commercial K8s 一切非依存。etzhayyim.com legacy は Vultr 残置(本 ADR 範囲外)。Tier 1 = Murakumo Mac-mini fleet only。Control plane primary = native systemd/launchd(軽量 stateless)、secondary = K3s HA on 3 Mac minis(HA stateful only)。geth-private migration ADR-2605172800 §Option C を本 ADR で確定。Cloudflare edge は retain(別 ADR で離脱検討)。Deadlines: M1 K3s bring-up 2026-06-15, M5 geth production switch 2026-08-15, M6 Vultr decommission 2026-09-01, M7 50-infra/vultr/* 別 repo 物理分離 2026-09-15。"
 path = "90-docs/adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md"
 
 [[adrs]]
@@ -923,7 +923,7 @@ path = "90-docs/adr/2605202100-etzhayyim-magatama-cell-runner-launchd.md"
 id = "2605211845"
 title = "gftd org cleanup completion + kami-engine-sdk standalone publication"
 status = "accepted"
-status_note = "Closes the long-running gftdcojp [MOVED → etzhayyim/root] cleanup. 15 MOVED-tagged repos physically deleted (0 remaining). public-global was MOVED-tagged but never actually imported — fetched into 60-apps/ai-gftd-project-public-global/ before deletion to reconcile the description (commit 690135d3). kami-engine-sdk republished as standalone read-only mirror at github.com/etzhayyim/kami-engine-sdk (monorepo SoT preserved); npm scope renamed @gftdcojp/kami-engine-sdk → @etzhayyim/kami-engine-sdk in 7 files (commit d302f274). Standalone-mirror policy = explicit one-by-one decision, no bulk; kami-engine-sdk is the only carve-out at the time of this ADR. Operational note: a concurrent 6-wave religious-corp cell substrate commit plan (yoro / shinka / etzhayyim-sdk-py / joucho / council + cross-cutting) committed 5 waves (64804ab2..0b6bfa55) to PR #254 but the cross-cutting wave was lost to a parallel git reset --hard origin/main; PR #254 closed without merge in favour of the user's parallel reconstruction."
+status_note = "Closes the long-running etzhayyim [MOVED → etzhayyim/root] cleanup. 15 MOVED-tagged repos physically deleted (0 remaining). public-global was MOVED-tagged but never actually imported — fetched into 60-apps/ai-gftd-project-public-global/ before deletion to reconcile the description (commit 690135d3). kami-engine-sdk republished as standalone read-only mirror at github.com/etzhayyim/kami-engine-sdk (monorepo SoT preserved); npm scope renamed @etzhayyim/kami-engine-sdk → @etzhayyim/kami-engine-sdk in 7 files (commit d302f274). Standalone-mirror policy = explicit one-by-one decision, no bulk; kami-engine-sdk is the only carve-out at the time of this ADR. Operational note: a concurrent 6-wave religious-corp cell substrate commit plan (yoro / shinka / etzhayyim-sdk-py / joucho / council + cross-cutting) committed 5 waves (64804ab2..0b6bfa55) to PR #254 but the cross-cutting wave was lost to a parallel git reset --hard origin/main; PR #254 closed without merge in favour of the user's parallel reconstruction."
 path = "90-docs/adr/2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone.md"
 
 # ─── Module registry ────────────────────────────────────────────────
@@ -1657,7 +1657,7 @@ status = "mechanical-complete-2026-05-18"
 closure_summary = """Tranche F mechanical migration COMPLETE 2026-05-18.
 27 PRs landed (17 vendor + 10 etzhayyim/root). ~520 items NSID-migrated,
 ~3,500 files touched, 17 npm packages published. Vendor side closure
-canonical: gftdcojp/ai-gftd-apps-gftdcojp deps.toml [[migrations]]
+canonical: etzhayyim/etzhayyim-root deps.toml [[migrations]]
 id=tranche-f-closure-summary-2026-05-18 (PR #1306).
 ADR closure: 90-docs/adr/2605172400 # Closure section (PR #1307).
 
@@ -1898,7 +1898,7 @@ authoritative_doc = "50-infra/cluster/murakumo/MIGRATION-NOTES.md"
 authoritative_adr = "2605214000"
 target_count = 40
 scope = "50-infra/cluster/murakumo/ (Rust runtime — Cargo.toml, src/*.rs, deploy-mesh.sh)"
-description = "Atomic rename of cluster runtime identifiers: GFTD_* env vars → ETZHAYYIM_*, ~/.gftd/ → ~/.etzhayyim/, binary gftd-murakumo → etzhayyim-murakumo, DNS .mesh.gftd.ai → .mesh.etzhayyim.com, launchd label ai.gftd.murakumo-mesh → com.etzhayyim.murakumo-mesh, cargo crate name. Dry-run verified cargo check PASSES with all renames applied. Intentional remainders: MESH_KEY_CTX (DH crypto context tag, fleet protocol bump needed) + gftd.murakumo.v1.* XRPC namespace (separate CF Worker + Lexicon update)."
+description = "Atomic rename of cluster runtime identifiers: GFTD_* env vars → ETZHAYYIM_*, ~/.gftd/ → ~/.etzhayyim/, binary gftd-murakumo → etzhayyim-murakumo, DNS .mesh.etzhayyim.com → .mesh.etzhayyim.com, launchd label ai.gftd.murakumo-mesh → com.etzhayyim.murakumo-mesh, cargo crate name. Dry-run verified cargo check PASSES with all renames applied. Intentional remainders: MESH_KEY_CTX (DH crypto context tag, fleet protocol bump needed) + gftd.murakumo.v1.* XRPC namespace (separate CF Worker + Lexicon update)."
 dry_run_completed_at = "2026-05-21"
 last_verified = "2026-05-21"
 
@@ -2055,7 +2055,7 @@ follow_up = [
 date = "2026-05-20"
 adrs_added = 2
 prs_merged = []
-prs_open = ["#73 (yobel)", "#75 (amnesty)", "gftdcojp#1312 (vendor cross-actor wire)"]
+prs_open = ["#73 (yobel)", "#75 (amnesty)", "etzhayyim#1312 (vendor cross-actor wire)"]
 description = """Religious-corp doctrinal runtime for monetary debt release.
 Two symmetric sibling actors fill the Charter §1 (構造的労働解放)
 monetary-debt dimension under voluntary opt-in + Council ratification +
@@ -2084,7 +2084,7 @@ violation (1024-run fuzz). Symmetric mutual deferral: yobel returns
 deferToAmnesty=true for legal-person debtors; amnesty returns
 deferToYobel=true for natural-person debtors.
 
-Cross-repo: vendor gftdcojp#1312 adds the consumer-side
+Cross-repo: vendor etzhayyim#1312 adds the consumer-side
 recordYobelRiteReference lexicon + yobel-bridge CLI utility + 12 anvil
 integration tests + vendor:bankruptcy CLAUDE.md cross-actor doc.
 Amnesty counterpart (recordAmnestyRestructuringReference) follows in
@@ -2105,7 +2105,7 @@ date = "2026-05-21"
 prs_open = []
 description = """public-malak.etzhayyim.com — Phase 1 scaffold mirror landed.
 
-Vendor (gftdcojp/ai-gftd-apps-gftdcojp) deps.toml
+Vendor (etzhayyim/etzhayyim-root) deps.toml
 `tranche-f-public-malak-classification-2026-05-20` (status
 `judgment-recorded`) confirmed public-malak as an etzhayyim move target
 via 3-axis OR-test (Liability + Custody + Settlement all clean — TLP
@@ -2149,7 +2149,7 @@ etzhayyim already had the BPMN (00-contracts/bpmn/ai/gftd/public-malak/
 follow_up = [
   "Phase 2 rw-free implementation (src/app.ts + ad-library API ingest + PDS XRPC writes)",
   "Phase 3 corpus residency Option A activation (vendor B2 mirror retention contract)",
-  "Phase 4 vendor sunset (gftdcojp git rm of 60-apps/ai-gftd-project-public-malak/ + publicMalak/ lexicons)",
+  "Phase 4 vendor sunset (etzhayyim git rm of 60-apps/ai-gftd-project-public-malak/ + publicMalak/ lexicons)",
   "Worker XRPC adapter wiring per ADR-2605211000 (when rw-free lands; public-malak slots into Tier 1 or Tier 2 depending on user-session exposure)",
 ]
 
@@ -2159,7 +2159,7 @@ prs_open = []
 description = """open-jpn-mynumber.etzhayyim.com — Tranche F classification +
 corpus residency Option A recorded.
 
-Vendor (gftdcojp/ai-gftd-apps-gftdcojp) deps.toml
+Vendor (etzhayyim/etzhayyim-root) deps.toml
 `tranche-f-open-jpn-mynumber-classification-2026-05-20` judged this
 project an etzhayyim move target (3-axis OR-test all clean: PUBLIC
 gov-published policy docs, no fiduciary, no citizen PII, no commerce).
@@ -2183,7 +2183,7 @@ mirror) for the 923-file ~177 MB corpus.
   lexicon for this project; not 14 like publicMalak).
 - `60-apps/ai-gftd-project-open-jpn-mynumber/CLAUDE.md` — adds Tranche F
   status section + cross-repo state table + substrate-boundary notes.
-  Domain reference flipped from `*.gftd.ai` → `*.etzhayyim.com`.
+  Domain reference flipped from `*.etzhayyim.com` → `*.etzhayyim.com`.
 - This session_summary entry.
 
 ## Corpus residency Option A — activated, not migrated
@@ -2236,7 +2236,7 @@ workflow with customer custody (lg/ pod) → vendor.
 
 ## Cross-repo state (2026-05-21 audit)
 
-| Artifact | Vendor (gftdcojp/ai-gftd-apps-gftdcojp) | etzhayyim (this repo) |
+| Artifact | Vendor (etzhayyim/etzhayyim-root) | etzhayyim (this repo) |
 |---|---|---|
 | Lexicons (`apps/dougaka/`) | present (2 JSON files) | **present** (`health.json`, `render.json` — 2 files, already mirrored Phase 3 wave 6) |
 | BPMN (`bpmn/ai/gftd/dougaka/`) | absent | absent |
@@ -2286,7 +2286,7 @@ date = "2026-05-21"
 prs_open = []
 description = """ransomwatch.etzhayyim.com — Phase 1 scaffold mirror landed.
 
-Vendor `gftdcojp/ai-gftd-apps-gftdcojp` deps.toml
+Vendor `etzhayyim/etzhayyim-root` deps.toml
 `tranche-f-post-freeze-7-actors-audit-2026-05-21` (vendor PR #1339,
 audit-recorded) classified ransomwatch as MOVE TARGET: 3-axis OR-test
 all clean (TLP:WHITE public OSINT, no victim PII, no commerce), and
@@ -2305,7 +2305,7 @@ the vendor `magatama.jsonld` already declared `profile.operator =
 
 ## Cross-repo state at this commit
 
-| Artifact | Vendor (gftdcojp) | etzhayyim (this repo) |
+| Artifact | Vendor (etzhayyim) | etzhayyim (this repo) |
 |---|---|---|
 | Spec / CLAUDE.md | absent (only magatama.jsonld + wrangler.jsonc at appview path) | present (this commit) |
 | Lexicons (apps/ransomwatch/) | present (4 JSON) | present (this commit, mirrored) |
@@ -2341,9 +2341,9 @@ follow_up = [
 [session_summaries.deai-council-referral-2026-05-21]
 date = "2026-05-21"
 prs_open = []
-description = """deai.gftd.ai — Council Lv6+ ruling referral filed.
+description = """deai.etzhayyim.com — Council Lv6+ ruling referral filed.
 
-Vendor post-freeze 3-axis audit (gftdcojp PR #1339) flagged deai for
+Vendor post-freeze 3-axis audit (etzhayyim PR #1339) flagged deai for
 charter-compatibility ruling: magatama.jsonld declares
 `operator: etzhayyim` but the 3-axis OR-test default verdict is
 vendor (2 of 3 HIT: Liability + Custody, Settlement clean).
@@ -2387,14 +2387,14 @@ follow_up = [
 date = "2026-05-21"
 adr = "2605211845"
 prs_closed = ["#254 (Religious-corp Pregel cell waves — closed without merge in favour of user parallel reconstruction)"]
-description = """gftdcojp [MOVED → etzhayyim/root] cleanup completion +
+description = """etzhayyim [MOVED → etzhayyim/root] cleanup completion +
 kami-engine-sdk standalone publication + religious-corp Pregel cell
 substrate wave attempt (partial, see Operational note).
 
-## gftdcojp MOVED-tagged repos: deleted (15 → 0)
+## etzhayyim MOVED-tagged repos: deleted (15 → 0)
 
 Physical deletion (not archive). Verified outcome:
-`gh repo list gftdcojp --jq '[.[]|select(.description|startswith(\"[MOVED\"))]|length'` = **0**.
+`gh repo list etzhayyim --jq '[.[]|select(.description|startswith(\"[MOVED\"))]|length'` = **0**.
 
 Deletion batches and corresponding etzhayyim/root SoT paths:
 
@@ -2422,7 +2422,7 @@ via `git clone --depth 1` and committed to
 
 `github.com/etzhayyim/kami-engine-sdk` created as **public read-only
 mirror**. Monorepo subdir `20-actors/kami-engine-sdk/` is SoT. Package
-name renamed `@gftdcojp/kami-engine-sdk` → `@etzhayyim/kami-engine-sdk`
+name renamed `@etzhayyim/kami-engine-sdk` → `@etzhayyim/kami-engine-sdk`
 in 7 files (package.json + README + src + 3 consumer files in
 magatama-host-sdk / yoro genko-stub).
 
@@ -2432,9 +2432,9 @@ commit. Future syncs are manual one-time pushes (no automation).
 ## Standalone-mirror policy
 
 `kami-engine-sdk` is the only intentional carve-out at the time of this
-ADR. Other gftdcojp public SDKs (bpmn-engine-ts, bpmn-sdk-rs, rs-jsonnet,
+ADR. Other etzhayyim public SDKs (bpmn-engine-ts, bpmn-sdk-rs, rs-jsonnet,
 effect-actor, ontology, shigarami, sparql-ts, gftd) are left at
-gftdcojp per user direction — they are vendor-tier SDKs without
+etzhayyim per user direction — they are vendor-tier SDKs without
 Charter Rider and replicating would imply etzhayyim sponsorship that
 does not exist.
 

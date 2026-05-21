@@ -5,11 +5,11 @@
   "identifier": "ai-gftd-project-global",
   "status": "Active",
   "description": "Global resource flow visualization platform. Aggregates worldwide resource statistics by year, infers time-series flows, and renders interactive 3D visualizations.",
-  "url": "https://global.gftd.ai",
+  "url": "https://global.etzhayyim.com",
   "hasPart": [
-    { "@type": "WebApplication", "name": "Global Systems View", "url": "https://global.gftd.ai/systems" },
-    { "@type": "WebApplication", "name": "Resource Flow Visualization", "url": "https://global.gftd.ai/resource-flow" },
-    { "@type": "WebApplication", "name": "Resource Explorer", "url": "https://global.gftd.ai/resources" }
+    { "@type": "WebApplication", "name": "Global Systems View", "url": "https://global.etzhayyim.com/systems" },
+    { "@type": "WebApplication", "name": "Resource Flow Visualization", "url": "https://global.etzhayyim.com/resource-flow" },
+    { "@type": "WebApplication", "name": "Resource Explorer", "url": "https://global.etzhayyim.com/resources" }
   ],
   "keywords": [
     "resource-flow",

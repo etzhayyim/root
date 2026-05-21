@@ -1,4 +1,4 @@
-# lawfirm.gftd.ai — Deploy + E2E runbook
+# lawfirm.etzhayyim.com — Deploy + E2E runbook
 
 Phase A–D lawfirm appview Worker. Covers deploy and smoke verification.
 
@@ -30,8 +30,8 @@ gftd deploy  # reads wrangler.jsonc, bundles src/app.ts, attaches svelte/build v
 Deploy smoke:
 
 ```bash
-curl -s https://lawfirm.gftd.ai/health
-curl -s https://lawfirm.gftd.ai/_app/meta | jq '.commands | length'
+curl -s https://lawfirm.etzhayyim.com/health
+curl -s https://lawfirm.etzhayyim.com/_app/meta | jq '.commands | length'
 # → expect 16 (14 mutating + 2 list)
 ```
 
@@ -42,7 +42,7 @@ cd 60-apps/ai-gftd-project-lawfirm/appview/ai-gftd-wasm-lawfirm-lf1rm8k0/e2e
 pnpm install
 pnpm exec playwright install chromium
 
-export LAWFIRM_BASE_URL=https://lawfirm.gftd.ai
+export LAWFIRM_BASE_URL=https://lawfirm.etzhayyim.com
 export LAWFIRM_AUTH_BEARER=$(jq -r '.session.accessJwt' ~/.gftd/auth.json)
 export LAWFIRM_FIRM_DID=$(jq -r '.session.accountDid' ~/.gftd/auth.json)
 

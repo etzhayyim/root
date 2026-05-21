@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/10/2/0/old-age",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/2/0/old-age",
       "type": "dodaf:Capability",
       "name": "Old Age Pension and Wellness Capability",
       "description": "Functional capability for managing old age pension eligibility, benefit calculation, and senior population wellness monitoring. Classification: COFOG Division 10, Group 2, Class 0.",

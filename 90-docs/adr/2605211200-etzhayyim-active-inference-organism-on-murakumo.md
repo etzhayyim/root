@@ -80,9 +80,9 @@ embodiment + self-maintenance** as the organism architecture. The organism is
   `20260507220000_vertex_agent_delegated_authority_policy.ts` +
   graph-sos-intel-actor seed).
 - LLM synthesis (ki-cycle 5-node chain etc.) currently calls
-  `all-llm.gftd.ai` → RunPod 6000 Ada (ADR-2605010000) via vendor CF Worker.
+  `all-llm.etzhayyim.com` → RunPod 6000 Ada (ADR-2605010000) via vendor CF Worker.
 
-All of the above is in the **vendor (gftdcojp) monorepo**. None of it is in
+All of the above is in the **vendor (etzhayyim) monorepo**. None of it is in
 etzhayyim/root yet.
 
 ## C2. The etzhayyim substrate boundary forbids the current persistence path
@@ -110,7 +110,7 @@ Two axes hit → without intervention the organism stays vendor.
 
 ADR-2605010000 declared **"murakumo は LLM 推論としては想定しない"** and moved
 the LLM inference SSoT to a single RunPod 6000 Ada pod served at
-`all-llm.gftd.ai`. The 11-node Mac mini fleet (Ansible group
+`all-llm.etzhayyim.com`. The 11-node Mac mini fleet (Ansible group
 `murakumo-fleet`, dnsmasq SSoT `murakumo-fleet.conf`, k8s DaemonSet
 `murakumo-system/llama-vulkan-fleet`) retained only:
 
@@ -227,7 +227,7 @@ hardware) and **settlement-clean** (no per-token invoice; capex amortization
 on etzhayyim hardware).
 
 **Path 2 (optional, vendor capability)**: heavy synthesis (Sonnet / Opus / Gemma4-
-e4b / >7B class) served via `all-llm.gftd.ai` → RunPod 6000 Ada (ADR-2605010000).
+e4b / >7B class) served via `all-llm.etzhayyim.com` → RunPod 6000 Ada (ADR-2605010000).
 This stays vendor because:
 
 - RunPod rental + Anthropic API key are billed to Gftd Japan (Settlement axis HIT)
@@ -236,7 +236,7 @@ This stays vendor because:
 The organism reaches this path only when (a) Path 1 model fails a quality
 gate (e.g. self-consistency disagreement above threshold), or (b) the
 specific node declares `synthesis_tier="heavy"`. Each Path 2 call goes
-through the magatama MCP facade at `mcp.gftd.ai` per ADR-2605091400 with an
+through the magatama MCP facade at `mcp.etzhayyim.com` per ADR-2605091400 with an
 explicit **consent capability** scoped to that synthesis. The vendor never
 sees plaintext belief state or PII — only the prompt the organism chose to
 expose, gated by the organism's own ADR-2605061300 effect classifier.
@@ -277,7 +277,7 @@ After D1+D2+D3 the organism's 3-axis position becomes:
    `BeliefStore` protocol with two implementations:
    - `RisingWaveBeliefStore` (existing path, default during Phase 1)
    - `AtIpfsLocalBeliefStore` (new: SQLite hot + AT record canonical + IPFS
-     large-blob; uses `sdk.pds.createRecord` + `pinning.gftd.ai` for IPFS)
+     large-blob; uses `sdk.pds.createRecord` + `pinning.etzhayyim.com` for IPFS)
 3. Switch primitive callers (`active_inference.py`, `agent_status_main.py`,
    `zeebe_worker_main.py`) to read/write through the `BeliefStore` protocol
    instead of direct `psycopg` calls.
@@ -317,7 +317,7 @@ saikin-cycle / koke-cycle CronJobs complete successfully on murakumo.
    `etzhayyim-organism-py` PyPI / GH Packages distribution.
 3. Vendor business apps that previously invoked organism primitives directly
    (lawfirm legal-reasoner / mailer triage / shosha decision narrator etc.)
-   switch to **consent capability** invocation via `mcp.gftd.ai/mcp` →
+   switch to **consent capability** invocation via `mcp.etzhayyim.com/mcp` →
    etzhayyim organism. This mirrors the open-core / vendor-binding pattern
    already used for `@etzhayyim/sdk` / `magatama-go` / `kami-engine-sdk` per
    ADR-2605172400 Wave 2.
@@ -358,7 +358,7 @@ end; murakumo k8s pods read code from etzhayyim/root image registry.
   high-quality reasoning still requires Path 2 (RunPod), which carries a
   Settlement-axis residual cost (mitigated by the ≥90% Path 1 ratio target).
 - IPFS pinning availability + retrieval latency become organism dependencies
-  — handled by pinning.gftd.ai redundant pin sets per existing IPFS substrate
+  — handled by pinning.etzhayyim.com redundant pin sets per existing IPFS substrate
   practice; failure modes documented in Phase 1 verification.
 - Mac mini fleet hardware-purchase cash outlay for etzhayyim (vs continued
   vendor lease). The savings vs RunPod LLM token spend should amortize
@@ -435,7 +435,7 @@ below — none of which is executed by the PR stack).
 ## Phase 3 (vendor decoupling) — separate ADR
 
 Phase 3 is intentionally **NOT** in the 14-PR stack. It is the cutover
-of the organism's source-of-truth from the vendor `gftdcojp` monorepo
+of the organism's source-of-truth from the vendor `etzhayyim` monorepo
 to `etzhayyim/root`, gated per-actor by ADR-2605172400 three-axis split.
 This ADR's scope ends at Phase 2 + production rollout readiness. Phase 3
 will land as its own ADR (`2606XXXXXXXX-etzhayyim-organism-phase-3-vendor-decouple.md`)
@@ -458,4 +458,4 @@ once Phase 2 has run 30+ days clean in production.
 - ADR-2605172400 — etzhayyim / vendor 3-axis split rule
 - deps.toml `myco-yeast-organism-bringup` (status="live", 2026-05-07)
 - deps.toml `[platform.operating_entity]` — etzhayyim canonical identity
-- deps.toml `[gftdcojp_agent]` — vendor relationship contract
+- deps.toml `[etzhayyim_agent]` — vendor relationship contract

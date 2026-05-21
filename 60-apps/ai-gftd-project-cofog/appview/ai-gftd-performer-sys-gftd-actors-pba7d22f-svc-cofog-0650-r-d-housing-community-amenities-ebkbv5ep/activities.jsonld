@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/06/5/0/r-d-housing-community-amenities/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/06/5/0/r-d-housing-community-amenities/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Urban Innovation Lifecycle",
       "description": "The research and development process of planning urban living research, simulating housing models, and evaluating community solutions.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/06/5/0/r-d-housing-community-amenities"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/5/0/r-d-housing-community-amenities"
     }
   ]
 }

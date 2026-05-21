@@ -1,6 +1,6 @@
-// microsoft.gftd.ai — Microsoft 365 write facade.
+// microsoft.etzhayyim.com — Microsoft 365 write facade.
 //
-// Policy (per deps.toml [gftdcojp_agent.auth]):
+// Policy (per deps.toml [etzhayyim_agent.auth]):
 //   - All-internal recipients  → direct Mail.Send.
 //   - Any external recipient   → createDraft → human approval → sendDraft.
 //
@@ -71,7 +71,7 @@ export default createWorkerExport((sdk) => {
 		nsid("ai.gftd.apps.microsoft.sendMail"),
 		async (_ctx, body) => {
 			const env = sdk.env;
-			const internalDomains = parseList(String(env.INTERNAL_EMAIL_DOMAINS ?? "gftd.co.jp,gftd.ai,gftd.works,gftd.group"));
+			const internalDomains = parseList(String(env.INTERNAL_EMAIL_DOMAINS ?? "gftd.co.jp,etzhayyim.com,gftd.works,gftd.group"));
 			const internalSuffixes = parseList(String(env.INTERNAL_EMAIL_SUFFIXES ?? ".onmicrosoft.com"));
 			const input = parseLexiconInput("ai.gftd.apps.microsoft.sendMail", body);
 			const fromUpn = resolveFromUpn(input, env);
@@ -126,14 +126,14 @@ export default createWorkerExport((sdk) => {
 						: String(keyRaw))
 					: "";
 				if (serviceKey) {
-					const kaisyaUrl = String(env.KAISYA_CREATE_TASK_URL ?? "https://kaisya.gftd.ai");
+					const kaisyaUrl = String(env.KAISYA_CREATE_TASK_URL ?? "https://kaisya.etzhayyim.com");
 					const externalList = allRecipients.slice(0, 3).join(", ") + (allRecipients.length > 3 ? ` 他${allRecipients.length - 3}名` : "");
 					await fetch(`${kaisyaUrl}/xrpc/ai.gftd.apps.kaisya.createTask`, {
 						method: "POST",
 						headers: { "content-type": "application/json", authorization: `Bearer ${serviceKey}` },
 						body: JSON.stringify({
-							agentId: "did:web:microsoft.gftd.ai",
-							humanDid: "did:web:auth.gftd.ai:admin:bootstrap",
+							agentId: "did:web:microsoft.etzhayyim.com",
+							humanDid: "did:web:auth.etzhayyim.com:admin:bootstrap",
 							title: `メール下書き要確認: ${input.subject ?? "(件名なし)"} → ${externalList}`,
 							contextJson: JSON.stringify({ draftId: draft.id, webLink: draft.webLink, subject: input.subject, to, cc, ...(bcc.length > 0 ? { bcc } : {}) }),
 							priority: 2,
@@ -153,7 +153,7 @@ export default createWorkerExport((sdk) => {
 			return JSON.stringify(output);
 		},
 		asAgentTool(
-			"Send email via Microsoft 365. All-internal recipients (@gftd.co.jp / @gftd.ai / @gftd.works / @gftd.group and Teams channel email addresses) send directly. Any external recipient creates a draft in Outlook and returns draftId + webLink for human approval (caller then invokes sendDraft).",
+			"Send email via Microsoft 365. All-internal recipients (@gftd.co.jp / @etzhayyim.com / @gftd.works / @gftd.group and Teams channel email addresses) send directly. Any external recipient creates a draft in Outlook and returns draftId + webLink for human approval (caller then invokes sendDraft).",
 		),
 	);
 
@@ -181,7 +181,7 @@ export default createWorkerExport((sdk) => {
 			"Send a previously created draft by id (post human approval). Use after ai.gftd.apps.microsoft.sendMail returns status=drafted, once a human has reviewed the draft at webLink.",
 		),
 		// Governance gate: external-recipient mail requires human approval.
-		// deps.toml [gftdcojp_agent.auth].email_send_external = "draft_only" → sendDraft
+		// deps.toml [etzhayyim_agent.auth].email_send_external = "draft_only" → sendDraft
 		// cannot fire autonomously; PDS governance manifest blocks until one human (class C
 		// decision, low risk tier) approves the specific invocation.
 		requireApproval(DecisionClass.C, 1, "low"),

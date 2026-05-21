@@ -1,8 +1,8 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-banking.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-banking.etzhayyim.com",
   "name": "open-banking",
-  "handle": "open-banking.gftd.ai",
+  "handle": "open-banking.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-banking",

@@ -51,7 +51,7 @@
   ];
 
   const ecosystem = [
-    { label: 'GitHub', desc: 'HW / FW / ROS2 パッケージ全公開', link: 'https://github.com/gftdcojp/otete' },
+    { label: 'GitHub', desc: 'HW / FW / ROS2 パッケージ全公開', link: 'https://github.com/etzhayyim/otete' },
     { label: 'ROS2 Humble', desc: 'ノード・トピック・アクション完全対応', link: null },
     { label: 'MoveIt! 2', desc: '軌道計画・衝突回避', link: null },
     { label: 'OpenCV + IMX477', desc: 'Sony 12MP カメラ物体認識', link: null },
@@ -363,7 +363,7 @@
     </div>
     <div class="mt-8 text-center">
       <a
-        href="https://github.com/gftdcojp/otete"
+        href="https://github.com/etzhayyim/otete"
         target="_blank" rel="noopener"
         class="inline-flex items-center gap-2 px-5 py-2.5 border border-[#30363d] hover:border-slate-500 text-slate-300 hover:text-white rounded-full text-sm transition-colors"
       >
@@ -458,7 +458,7 @@
     <div>
       <div class="text-white font-semibold text-sm mb-3">リンク</div>
       <ul class="space-y-1.5 text-xs">
-        <li><a href="https://github.com/gftdcojp/otete" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a></li>
+        <li><a href="https://github.com/etzhayyim/otete" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a></li>
         <li><a href="/blog" class="hover:text-white transition-colors">技術ブログ</a></li>
         <li><a href="mailto:sales@gftd.co.jp" class="hover:text-white transition-colors">法人・教育機関問い合わせ</a></li>
         <li><a href="https://tsukuru.etzhayyim.com" target="_blank" rel="noopener" class="hover:text-white transition-colors">tsukuru.etzhayyim.com (B2B)</a></li>

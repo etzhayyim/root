@@ -35,7 +35,7 @@ pnpm test:bdd:debug
 
 ### 環境変数
 
-- `DOCS_BASE_URL`: テスト対象のURL（デフォルト: `https://docs.systems.gftd.ai`）
+- `DOCS_BASE_URL`: テスト対象のURL（デフォルト: `https://docs.systems.etzhayyim.com`）
 - `HEADLESS`: `false`に設定するとヘッドフルモードで実行（デフォルト: `true`）
 - `CI`: CI環境では自動的にヘッドレスモードになる
 

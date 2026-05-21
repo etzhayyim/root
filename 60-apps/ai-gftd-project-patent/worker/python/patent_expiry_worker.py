@@ -278,7 +278,7 @@ def collect_payload(payload: dict[str, Any]) -> dict[str, Any]:
                 "vertex_open_patent_drug_expiry",
                 {
                     "vertex_id": vertex_id,
-                    "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+                    "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
                     "patent_vertex_id": patent_vertex_id,
                     "patent_number": patent_number,
                     "jurisdiction": candidate["jurisdiction"],
@@ -292,8 +292,8 @@ def collect_payload(payload: dict[str, Any]) -> dict[str, Any]:
                     "status": "eligible_expired",
                     "created_at": now_iso(),
                     "sensitivity_ord": 2,
-                    "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-                    "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+                    "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+                    "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
                     "actor_id": "sys.worker.open-patent-expiry",
                 },
                 ignore_conflict=True,
@@ -306,7 +306,7 @@ def collect_payload(payload: dict[str, Any]) -> dict[str, Any]:
             "vertex_open_patent_expiry_backlog_run",
             {
                 "vertex_id": run_vertex_id,
-                "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+                "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
                 "as_of": as_of.isoformat(),
                 "jurisdiction": jurisdiction,
                 "limit_count": limit,
@@ -316,8 +316,8 @@ def collect_payload(payload: dict[str, Any]) -> dict[str, Any]:
                 "status": "completed",
                 "created_at": now_iso(),
                 "sensitivity_ord": 2,
-                "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-                "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+                "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+                "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
                 "actor_id": "sys.worker.open-patent-expiry",
             },
             ignore_conflict=True,
@@ -505,7 +505,7 @@ def record_blocker_payload(payload: dict[str, Any]) -> dict[str, Any]:
     )
     row = {
         "vertex_id": vertex_id,
-        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "patent_vertex_id": payload["patentVertexId"],
         "patent_number": payload["patentNumber"],
         "jurisdiction": payload["jurisdiction"],
@@ -519,8 +519,8 @@ def record_blocker_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "status": status,
         "created_at": now_iso(),
         "sensitivity_ord": 2,
-        "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-        "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+        "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "actor_id": "sys.worker.open-patent-expiry",
     }
     if not payload.get("dryRun"):
@@ -552,7 +552,7 @@ def screen_payload(payload: dict[str, Any]) -> dict[str, Any]:
 
     row = {
         "vertex_id": vertex_id,
-        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "patent_vertex_id": payload["patentVertexId"],
         "patent_number": payload["patentNumber"],
         "jurisdiction": payload["jurisdiction"],
@@ -566,8 +566,8 @@ def screen_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "status": status,
         "created_at": now_iso(),
         "sensitivity_ord": 2,
-        "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-        "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+        "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "actor_id": "sys.worker.open-patent-expiry",
     }
     if not payload.get("dryRun"):
@@ -591,7 +591,7 @@ def plan_payload(payload: dict[str, Any]) -> dict[str, Any]:
     status = "candidate_ready"
     row = {
         "vertex_id": vertex_id,
-        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "expiry_screen_vid": payload["expiryScreenVid"],
         "product_id": payload["productId"],
         "candidate_kind": candidate_kind,
@@ -604,8 +604,8 @@ def plan_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "status": status,
         "created_at": now_iso(),
         "sensitivity_ord": 2,
-        "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-        "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+        "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "actor_id": "sys.worker.open-patent-expiry",
     }
     if not payload.get("dryRun"):
@@ -626,7 +626,7 @@ def handoff_payload(payload: dict[str, Any]) -> dict[str, Any]:
     status = "handoff_ready"
     row = {
         "vertex_id": vertex_id,
-        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "generic_candidate_vid": payload["genericCandidateVid"],
         "product_id": payload["productId"],
         "seiyaku_process_id": seiyaku_process_id,
@@ -638,8 +638,8 @@ def handoff_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "status": status,
         "created_at": now_iso(),
         "sensitivity_ord": 2,
-        "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-        "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+        "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "actor_id": "sys.worker.open-patent-expiry",
     }
     if not payload.get("dryRun"):
@@ -670,7 +670,7 @@ def prepare_batch_draft_payload(payload: dict[str, Any]) -> dict[str, Any]:
     status = "batch_draft_ready"
     row = {
         "vertex_id": vertex_id,
-        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "handoff_vid": payload["handoffVid"],
         "product_id": payload["productId"],
         "manufacturer_org_id": payload["manufacturerOrgId"],
@@ -684,8 +684,8 @@ def prepare_batch_draft_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "status": status,
         "created_at": now_iso(),
         "sensitivity_ord": 2,
-        "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-        "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+        "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "actor_id": "sys.worker.open-patent-expiry",
     }
     if not payload.get("dryRun"):
@@ -726,15 +726,15 @@ def validate_batch_draft_payload(payload: dict[str, Any]) -> dict[str, Any]:
     vertex_id = str(payload.get("vertexId") or new_id("open_patent_seiyaku_batch_validation", payload.get("batchDraftVid"), merged.get("batchNumber")))
     row = {
         "vertex_id": vertex_id,
-        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "batch_draft_vid": payload.get("batchDraftVid"),
         "passed": passed,
         "status": status,
         "findings": Json(findings) if Json is not None else json.dumps(findings, sort_keys=True),
         "created_at": now_iso(),
         "sensitivity_ord": 2,
-        "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-        "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+        "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "actor_id": "sys.worker.open-patent-expiry",
     }
     if not payload.get("dryRun"):
@@ -760,7 +760,7 @@ def queue_seiyaku_batch_start_payload(payload: dict[str, Any]) -> dict[str, Any]
     status = "queued"
     row = {
         "vertex_id": vertex_id,
-        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "batch_draft_vid": payload["batchDraftVid"],
         "validation_vid": payload.get("validationVid"),
         "start_nsid": start_nsid,
@@ -769,8 +769,8 @@ def queue_seiyaku_batch_start_payload(payload: dict[str, Any]) -> dict[str, Any]
         "status": status,
         "created_at": now_iso(),
         "sensitivity_ord": 2,
-        "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-        "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+        "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "actor_id": "sys.worker.open-patent-expiry",
     }
     if not payload.get("dryRun"):
@@ -800,7 +800,7 @@ def acknowledge_seiyaku_batch_start_payload(payload: dict[str, Any]) -> dict[str
     vertex_id = str(payload.get("vertexId") or new_id("open_patent_seiyaku_start_ack", payload["startRequestVid"], status, seiyaku_instance_key or "none"))
     row = {
         "vertex_id": vertex_id,
-        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "start_request_vid": payload["startRequestVid"],
         "seiyaku_instance_key": seiyaku_instance_key,
         "seiyaku_batch_vertex_id": seiyaku_batch_vertex_id,
@@ -808,8 +808,8 @@ def acknowledge_seiyaku_batch_start_payload(payload: dict[str, Any]) -> dict[str
         "message": payload.get("message"),
         "created_at": now_iso(),
         "sensitivity_ord": 2,
-        "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-        "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+        "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "actor_id": "sys.worker.open-patent-expiry",
     }
     if not payload.get("dryRun"):
@@ -845,7 +845,7 @@ def summarize_seiyaku_start_progress_payload(payload: dict[str, Any]) -> dict[st
     vertex_id = str(payload.get("vertexId") or new_id("open_patent_seiyaku_progress", payload["startRequestVid"], payload.get("ackVid") or "no_ack"))
     row = {
         "vertex_id": vertex_id,
-        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "owner_did": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "start_request_vid": payload["startRequestVid"],
         "ack_vid": payload.get("ackVid"),
         "progress_status": progress_status,
@@ -854,8 +854,8 @@ def summarize_seiyaku_start_progress_payload(payload: dict[str, Any]) -> dict[st
         "message": payload.get("message"),
         "created_at": now_iso(),
         "sensitivity_ord": 2,
-        "org_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
-        "user_id": str(payload.get("callerDid") or "did:web:open-patent.gftd.ai"),
+        "org_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
+        "user_id": str(payload.get("callerDid") or "did:web:open-patent.etzhayyim.com"),
         "actor_id": "sys.worker.open-patent-expiry",
     }
     if not payload.get("dryRun"):
@@ -901,7 +901,7 @@ def main(argv: list[str]) -> int:
         return 0
     if args.command == "dry-run":
         sample = {
-            "patentVertexId": "at://did:web:patent.gftd.ai/patent/example",
+            "patentVertexId": "at://did:web:patent.etzhayyim.com/patent/example",
             "patentNumber": "EX-1999-0001",
             "jurisdiction": "USA",
             "productId": "demo-amoxicillin",
@@ -947,7 +947,7 @@ def main(argv: list[str]) -> int:
             {
                 "startRequestVid": start_request["vertexId"],
                 "seiyakuInstanceKey": 123456789,
-                "seiyakuBatchVertexId": "at://did:web:open-seiyaku.gftd.ai/batch/demo",
+                "seiyakuBatchVertexId": "at://did:web:open-seiyaku.etzhayyim.com/batch/demo",
                 "status": "started",
                 "dryRun": True,
             }

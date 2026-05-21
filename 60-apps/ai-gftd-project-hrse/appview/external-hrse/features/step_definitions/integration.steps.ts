@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#IntegrationSteps
+// @etzhayyim/cyber-freelance#IntegrationSteps
 // Integration関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

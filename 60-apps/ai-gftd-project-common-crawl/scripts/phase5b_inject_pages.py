@@ -90,13 +90,13 @@ def adapter_write(records: list[dict], retries: int = 2) -> dict:
 def get_registered_domains() -> set[str]:
     """Get domains already registered in vertex_did."""
     rows = adapter_query(
-        "SELECT did FROM vertex_did WHERE did LIKE 'did:web:site.gftd.ai:%'"
+        "SELECT did FROM vertex_did WHERE did LIKE 'did:web:site.etzhayyim.com:%'"
     )
     domains = set()
     for r in rows:
         did = r.get("did", "")
-        if did.startswith("did:web:site.gftd.ai:"):
-            slug = did.split("did:web:site.gftd.ai:")[1]
+        if did.startswith("did:web:site.etzhayyim.com:"):
+            slug = did.split("did:web:site.etzhayyim.com:")[1]
             domains.add(slug)
     return domains
 
@@ -182,7 +182,7 @@ def process_batch_file(
             page = parse_cypher_page(line)
             if page:
                 # Filter: only pages belonging to registered domains
-                slug = page["domain_did"].replace("did:web:site.gftd.ai:", "")
+                slug = page["domain_did"].replace("did:web:site.etzhayyim.com:", "")
                 if slug not in registered_slugs:
                     continue
                 if page["rkey"] in seen_rkeys:
@@ -194,7 +194,7 @@ def process_batch_file(
             # HOSTS_PAGE edge
             hp = parse_cypher_hosts_page(line)
             if hp:
-                slug = hp[0].replace("did:web:site.gftd.ai:", "")
+                slug = hp[0].replace("did:web:site.etzhayyim.com:", "")
                 if slug in registered_slugs:
                     hosts_edges.append(hp)
                 continue

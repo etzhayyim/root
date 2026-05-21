@@ -1,8 +1,8 @@
-# ipfs.gftd.ai — self-hosted Kubo on Vultr VKE
+# ipfs.etzhayyim.com — self-hosted Kubo on Vultr VKE
 
 ADR-2604261936 reference deployment. Kubo (go-ipfs) v0.31.0 single-replica
 StatefulSet, blocks on Backblaze B2 via `go-ds-s3`, gateway exposed through
-caddy → Vultr LB → CF Worker (`ai-gftd-ipfs-proxy`) at `ipfs.gftd.ai`.
+caddy → Vultr LB → CF Worker (`ai-gftd-ipfs-proxy`) at `ipfs.etzhayyim.com`.
 
 | Field | Value |
 |---|---|
@@ -14,8 +14,8 @@ caddy → Vultr LB → CF Worker (`ai-gftd-ipfs-proxy`) at `ipfs.gftd.ai`.
 | API (in-cluster) | `http://kubo.ipfs.svc.cluster.local:5001` (NEVER public) |
 | Swarm | NodePort 30401 (TCP+UDP) |
 | TLS proxy | `caddy-ipfs-tls` Deployment, replicas=2, Vultr LB :443 |
-| Public DNS | `ipfs.gftd.ai` (CF proxied) → Worker `ai-gftd-ipfs-proxy` |
-| Origin DNS | `ipfs-origin.gftd.ai` (CF proxied) — port-rewrite rule to :8443 |
+| Public DNS | `ipfs.etzhayyim.com` (CF proxied) → Worker `ai-gftd-ipfs-proxy` |
+| Origin DNS | `ipfs-origin.etzhayyim.com` (CF proxied) — port-rewrite rule to :8443 |
 
 ## Layout
 
@@ -50,21 +50,21 @@ Pre-reqs:
    security find-generic-password -s gftd.b2 -a ACCESS_KEY_ID -w >/dev/null && echo OK
    ```
    No new application key required.
-2. **CF Origin Cert** (self-signed leaf valid 10 y for `ipfs-origin.gftd.ai`)
+2. **CF Origin Cert** (self-signed leaf valid 10 y for `ipfs-origin.etzhayyim.com`)
    — generate locally with `openssl` and store in Keychain:
    ```
    openssl req -x509 -newkey rsa:2048 -days 3650 -nodes \
-     -subj '/CN=ipfs-origin.gftd.ai' \
-     -addext 'subjectAltName=DNS:ipfs-origin.gftd.ai' \
+     -subj '/CN=ipfs-origin.etzhayyim.com' \
+     -addext 'subjectAltName=DNS:ipfs-origin.etzhayyim.com' \
      -keyout ipfs-origin.key -out ipfs-origin.crt
    security add-generic-password -U -s gftd.cloudflare -a IPFS_ORIGIN_CERT_PEM -w "$(cat ipfs-origin.crt)"
    security add-generic-password -U -s gftd.cloudflare -a IPFS_ORIGIN_CERT_KEY -w "$(cat ipfs-origin.key)"
    rm ipfs-origin.{crt,key}
    ```
-3. **CF zone settings**: SSL mode = "Full" (the default for `gftd.ai`).
-4. **CF Origin Rule**: when `http.host == "ipfs-origin.gftd.ai"` rewrite the
+3. **CF zone settings**: SSL mode = "Full" (the default for `etzhayyim.com`).
+4. **CF Origin Rule**: when `http.host == "ipfs-origin.etzhayyim.com"` rewrite the
    origin port to `443` (Vultr LB), and let zone SSL handle TLS to caddy:8443.
-5. **CF DNS**: add `ipfs.gftd.ai` (CNAME → CF proxied) and `ipfs-origin.gftd.ai`
+5. **CF DNS**: add `ipfs.etzhayyim.com` (CNAME → CF proxied) and `ipfs-origin.etzhayyim.com`
    (A record → Vultr LB external IP, CF proxied). Both via `gftd dns-sync`.
 6. **CF Workers Secrets Store**: provision the HMAC key for the Worker:
    ```
@@ -99,18 +99,18 @@ Smoke:
 
 ```bash
 # Public — should serve the well-known empty-directory CID
-curl -sSI https://ipfs.gftd.ai/ipfs/bafybeiczsscdsbs7ffqz55asqdf3smv6klcw3gofszvwlyarci47bgf354 | head
+curl -sSI https://ipfs.etzhayyim.com/ipfs/bafybeiczsscdsbs7ffqz55asqdf3smv6klcw3gofszvwlyarci47bgf354 | head
 
 # Read API
-curl -sS -X POST 'https://ipfs.gftd.ai/api/v0/version'
+curl -sS -X POST 'https://ipfs.etzhayyim.com/api/v0/version'
 
 # Write API without HMAC → 401
-curl -sS -X POST 'https://ipfs.gftd.ai/api/v0/pin/add?arg=bafy...' -w "\n%{http_code}\n"
+curl -sS -X POST 'https://ipfs.etzhayyim.com/api/v0/pin/add?arg=bafy...' -w "\n%{http_code}\n"
 
 # Write API with HMAC
 BODY="$(printf 'arg=bafy...&recursive=true' )"
 SIG=$(printf '%s' "$BODY" | openssl dgst -sha256 -hmac "$(security find-generic-password -s gftd.cloudflare -a IPFS_HMAC -w)" -binary | xxd -p -c 999)
-curl -sS -X POST 'https://ipfs.gftd.ai/api/v0/pin/add' \
+curl -sS -X POST 'https://ipfs.etzhayyim.com/api/v0/pin/add' \
   -H "X-Gftd-Ipfs-Auth: $SIG" \
   -H "content-type: application/x-www-form-urlencoded" \
   -d "$BODY"
@@ -244,11 +244,11 @@ pnpm db:migrate latest
 
 ```bash
 # PDS blob → IPFS (after redeploy):
-curl -sS https://atproto.gftd.ai/xrpc/com.atproto.repo.uploadBlob \
+curl -sS https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: image/webp" \
   --data-binary @some.webp | jq .
-# → then check https://ipfs.gftd.ai/ipfs/<cid-returned> within ~5s
+# → then check https://ipfs.etzhayyim.com/ipfs/<cid-returned> within ~5s
 
 # Evidence crawler (one source):
 cd 70-tools/evidence-crawler

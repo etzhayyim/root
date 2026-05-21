@@ -21,13 +21,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/eonet-seaLakeIce:SpatialEvent',
-                 'did:web:maps.gftd.ai:eonet:seaLakeIce',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-seaLakeIce:SpatialEvent',
+                 'did:web:maps.etzhayyim.com:eonet:seaLakeIce',
                  'SpatialEvent',
                  50,
                  0.3,
                  6,
-                 'did:web:maps.gftd.ai:eonet:seaLakeIce',
+                 'did:web:maps.etzhayyim.com:eonet:seaLakeIce',
                  '2026-05-08T00:19:08.108Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -38,13 +38,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/eonet-snow:SpatialEvent',
-                 'did:web:maps.gftd.ai:eonet:snow',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-snow:SpatialEvent',
+                 'did:web:maps.etzhayyim.com:eonet:snow',
                  'SpatialEvent',
                  20,
                  0.3,
                  6,
-                 'did:web:maps.gftd.ai:eonet:snow',
+                 'did:web:maps.etzhayyim.com:eonet:snow',
                  '2026-05-08T00:19:08.108Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -55,13 +55,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/eonet-dustHaze:SpatialEvent',
-                 'did:web:maps.gftd.ai:eonet:dustHaze',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-dustHaze:SpatialEvent',
+                 'did:web:maps.etzhayyim.com:eonet:dustHaze',
                  'SpatialEvent',
                  30,
                  0.3,
                  6,
-                 'did:web:maps.gftd.ai:eonet:dustHaze',
+                 'did:web:maps.etzhayyim.com:eonet:dustHaze',
                  '2026-05-08T00:19:08.108Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -72,13 +72,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/eonet-tempExtremes:SpatialEvent',
-                 'did:web:maps.gftd.ai:eonet:tempExtremes',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-tempExtremes:SpatialEvent',
+                 'did:web:maps.etzhayyim.com:eonet:tempExtremes',
                  'SpatialEvent',
                  20,
                  0.3,
                  6,
-                 'did:web:maps.gftd.ai:eonet:tempExtremes',
+                 'did:web:maps.etzhayyim.com:eonet:tempExtremes',
                  '2026-05-08T00:19:08.108Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -89,13 +89,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/eonet-earthquakes:SpatialEvent',
-                 'did:web:maps.gftd.ai:eonet:earthquakes',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-earthquakes:SpatialEvent',
+                 'did:web:maps.etzhayyim.com:eonet:earthquakes',
                  'SpatialEvent',
                  100,
                  0.3,
                  6,
-                 'did:web:maps.gftd.ai:eonet:earthquakes',
+                 'did:web:maps.etzhayyim.com:eonet:earthquakes',
                  '2026-05-08T00:19:08.108Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

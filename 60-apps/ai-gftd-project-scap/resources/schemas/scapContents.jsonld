@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -39,7 +39,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/resources/schemas/scapContents",
+  "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents",
   "@type": [
     "dodaf:Resource",
     "dodaf:DataType"
@@ -51,12 +51,12 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "primaryKey": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/id"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/id"
     }
   ],
   "column": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/id",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/id",
       "name": "id",
       "description": "Primary key identifier",
       "dataType": {
@@ -65,7 +65,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/title",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/title",
       "name": "title",
       "description": "Title of the SCAP content",
       "dataType": {
@@ -74,7 +74,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/description",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/description",
       "name": "description",
       "description": "Description of the SCAP content",
       "dataType": {
@@ -83,7 +83,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/type",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/type",
       "name": "type",
       "description": "SCAP content type (cve, oval, xccdf, cce, cpe, scap-benchmark, stig)",
       "dataType": {
@@ -101,7 +101,7 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/version",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/version",
       "name": "version",
       "description": "Version of the SCAP content",
       "dataType": {
@@ -110,7 +110,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/status",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/status",
       "name": "status",
       "description": "Status of the SCAP content (active, inactive, deprecated)",
       "dataType": {
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/source",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/source",
       "name": "source",
       "description": "Source of the SCAP content",
       "dataType": {
@@ -134,7 +134,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/publishedDate",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/publishedDate",
       "name": "publishedDate",
       "description": "Date when the SCAP content was published",
       "dataType": {
@@ -143,7 +143,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/lastUpdated",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/lastUpdated",
       "name": "lastUpdated",
       "description": "Date when the SCAP content was last updated",
       "dataType": {
@@ -152,7 +152,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/metadata",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/metadata",
       "name": "metadata",
       "description": "JSON metadata containing publisher, severity, platforms, tags, references",
       "dataType": {
@@ -161,7 +161,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/content",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/content",
       "name": "content",
       "description": "JSON content containing raw, parsed, checksum, and size",
       "dataType": {
@@ -170,7 +170,7 @@
       "required": true
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/createdAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/createdAt",
       "name": "createdAt",
       "description": "Timestamp when the record was created",
       "dataType": {
@@ -180,7 +180,7 @@
       "default": "now()"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/updatedAt",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/updatedAt",
       "name": "updatedAt",
       "description": "Timestamp when the record was last updated",
       "dataType": {
@@ -192,35 +192,35 @@
   ],
   "index": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/typeIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/typeIdx",
       "name": "scap_contents_type_idx",
       "columns": [
         "type"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/statusIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/statusIdx",
       "name": "scap_contents_status_idx",
       "columns": [
         "status"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/sourceIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/sourceIdx",
       "name": "scap_contents_source_idx",
       "columns": [
         "source"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/publishedDateIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/publishedDateIdx",
       "name": "scap_contents_published_date_idx",
       "columns": [
         "publishedDate"
       ]
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents/lastUpdatedIdx",
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents/lastUpdatedIdx",
       "name": "scap_contents_last_updated_idx",
       "columns": [
         "lastUpdated"
@@ -228,7 +228,7 @@
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/src/internal/zod/scapContent.ts"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/zod/scapContent.ts"
   ]
 }

@@ -8,6 +8,7 @@
  */
 import type { HostImports } from "./types.js";
 import { genID, nowISO } from "./helpers.js";
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { createKyselyDb } from "./kysely.js";
 import type { XrpcClient } from "./xrpc-client.js";
 

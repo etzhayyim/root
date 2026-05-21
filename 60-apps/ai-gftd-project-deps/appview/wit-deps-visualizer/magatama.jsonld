@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:deps.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:deps.etzhayyim.com",
   "convoSystemPrompt": "You are magatama-linker-dependencies agent. Component WIT dependency graph, linker scoring, and deployment hook ingestion. Respond helpfully in the users language.",
   "deploy": {},
   "duties": [
@@ -21,7 +21,7 @@
       "kind": "http",
       "name": "deps-self-ingest",
       "timeoutSec": 15,
-      "url": "https://deps.gftd.ai/api/hooks/component"
+      "url": "https://deps.etzhayyim.com/api/hooks/component"
     }
   ],
   "kpi": [

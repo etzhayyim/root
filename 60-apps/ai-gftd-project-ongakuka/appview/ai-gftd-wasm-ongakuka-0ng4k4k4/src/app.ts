@@ -32,7 +32,7 @@ async function ensurePathDids(sdk: HostSDK): Promise<void> {
 type InternalSecret = string | { get(): Promise<string> };
 type EnvLike = { DISPATCHER_URL?: string; HYPERDRIVE?: unknown; DISPATCHER_INTERNAL_SECRET?: InternalSecret };
 function envOf(sdk: unknown): EnvLike { return ((sdk as { env?: EnvLike }).env ?? {}) as EnvLike; }
-function dispatcherUrl(sdk: unknown): string { return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.gftd.ai"; }
+function dispatcherUrl(sdk: unknown): string { return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com"; }
 async function internalTrustHeader(sdk: unknown): Promise<string> {
   const binding = envOf(sdk).DISPATCHER_INTERNAL_SECRET;
   if (!binding) return "";
@@ -96,7 +96,7 @@ export default createWorkerExport((sdk) => {
   sdk.app.command(nsid("ai.gftd.ongakuka.health"), async () => cmdHealth());
 
   // Public blob serving for generated tracks (Phase 0).
-  // GET https://ongakuka.gftd.ai/blobs/{sha256}.wav → B2 stream.
+  // GET https://ongakuka.etzhayyim.com/blobs/{sha256}.wav → B2 stream.
   const router = (sdk as unknown as { router: any }).router;
   router.get("/blobs/:key", async (c: any) => {
     const cenv = c?.env as B2Env | undefined;

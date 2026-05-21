@@ -179,4 +179,4 @@ RunPod (ADR-2605010000) serves **ComfyUI image generation only** once Secure sup
 
 # Critical conventions (added)
 
-`vultr-a16-keiei-llm-in-cluster` (deps.toml [[conventions]]): All K8s workloads in the `gftd-risingwave-sjc-gpu` cluster MUST reach LLM via `http://keiei-litellm.keiei-llm.svc.cluster.local:4000`. Public hostname (`gemma.gftd.ai` via CF Tunnel) is for operator access only, not for pod-to-pod calls. Cross-namespace callers MUST copy the bearer secret locally (see operator step above).
+`vultr-a16-keiei-llm-in-cluster` (deps.toml [[conventions]]): All K8s workloads in the `gftd-risingwave-sjc-gpu` cluster MUST reach LLM via `http://keiei-litellm.keiei-llm.svc.cluster.local:4000`. Public hostname (`gemma.etzhayyim.com` via CF Tunnel) is for operator access only, not for pod-to-pod calls. Cross-namespace callers MUST copy the bearer secret locally (see operator step above).

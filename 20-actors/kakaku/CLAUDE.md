@@ -1,6 +1,6 @@
 # ai-gftd-project-kakaku
 
-kakaku.gftd.ai — 商品 x ECサイト x 価格更新の比較サイト actor。canonical product と merchant-specific offer を分離し、価格・送料・在庫・配送条件を時系列で管理する。
+kakaku.etzhayyim.com — 商品 x ECサイト x 価格更新の比較サイト actor。canonical product と merchant-specific offer を分離し、価格・送料・在庫・配送条件を時系列で管理する。
 
 ## Architecture
 
@@ -8,7 +8,7 @@ kakaku.gftd.ai — 商品 x ECサイト x 価格更新の比較サイト actor�
 Browser / API client
   → /xrpc/ai.gftd.apps.kakaku.*
     ↓
-  did:web:kakaku.gftd.ai
+  did:web:kakaku.etzhayyim.com
     ├─ Catalog: registerProduct / updateProduct / getProduct
     ├─ Merchant Registry: registerMerchant / updateMerchant / getMerchant
     ├─ Offer Ingest: upsertOffer / ingestOfferFromUrl / archiveOffer / ingestMerchantFeed
@@ -35,27 +35,27 @@ Browser / API client
 ## Actor Composition
 
 ```
-did:web:kakaku.gftd.ai
-did:web:kakaku.gftd.ai:actor:catalog
-did:web:kakaku.gftd.ai:actor:merchantRegistry
-did:web:kakaku.gftd.ai:actor:offerIngest
-did:web:kakaku.gftd.ai:actor:matcher
-did:web:kakaku.gftd.ai:actor:priceMonitor
-did:web:kakaku.gftd.ai:actor:ranking
+did:web:kakaku.etzhayyim.com
+did:web:kakaku.etzhayyim.com:actor:catalog
+did:web:kakaku.etzhayyim.com:actor:merchantRegistry
+did:web:kakaku.etzhayyim.com:actor:offerIngest
+did:web:kakaku.etzhayyim.com:actor:matcher
+did:web:kakaku.etzhayyim.com:actor:priceMonitor
+did:web:kakaku.etzhayyim.com:actor:ranking
 ```
 
 ## Path Resolve
 
-entity は path-based DID で解決する。controller は `did:web:kakaku.gftd.ai`。
+entity は path-based DID で解決する。controller は `did:web:kakaku.etzhayyim.com`。
 
 ### DID Patterns
 
 | Entity | DID pattern | Notes |
 |---|---|---|
-| Product | `did:web:kakaku.gftd.ai:product:{product_key}` | canonical product |
-| Merchant | `did:web:kakaku.gftd.ai:merchant:{merchant_key}` | EC site / seller |
-| Offer | `did:web:kakaku.gftd.ai:offer:{merchant_key}:{offer_key}` | merchant-scoped current offer |
-| Match candidate | `did:web:kakaku.gftd.ai:match:{merchant_key}:{source_sku}` | source listing reconciliation |
+| Product | `did:web:kakaku.etzhayyim.com:product:{product_key}` | canonical product |
+| Merchant | `did:web:kakaku.etzhayyim.com:merchant:{merchant_key}` | EC site / seller |
+| Offer | `did:web:kakaku.etzhayyim.com:offer:{merchant_key}:{offer_key}` | merchant-scoped current offer |
+| Match candidate | `did:web:kakaku.etzhayyim.com:match:{merchant_key}:{source_sku}` | source listing reconciliation |
 
 ### Resolution Priority
 
@@ -91,9 +91,9 @@ entity は path-based DID で解決する。controller は `did:web:kakaku.gftd.
 
 | Input | Resolved DID |
 |---|---|
-| JAN `4901777300443` | `did:web:kakaku.gftd.ai:product:jan_4901777300443` |
-| Merchant `www.yodobashi.com` | `did:web:kakaku.gftd.ai:merchant:yodobashi_com` |
-| Offer `merchant=yodobashi_com, sku=4549995501234` | `did:web:kakaku.gftd.ai:offer:yodobashi_com:4549995501234` |
+| JAN `4901777300443` | `did:web:kakaku.etzhayyim.com:product:jan_4901777300443` |
+| Merchant `www.yodobashi.com` | `did:web:kakaku.etzhayyim.com:merchant:yodobashi_com` |
+| Offer `merchant=yodobashi_com, sku=4549995501234` | `did:web:kakaku.etzhayyim.com:offer:yodobashi_com:4549995501234` |
 
 ## Update Flow
 

@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-04-24
 authoritative_for:
   - Why AT Protocol `com.atproto.repo.*` commits must stay on the PDS Worker
-  - Why chat.gftd.ai / signal.gftd.ai / actor Workers only serve reads + non-commit state
+  - Why chat.etzhayyim.com / signal.etzhayyim.com / actor Workers only serve reads + non-commit state
   - Split-service boundary rule — what can move out of PDS and what can't
   - Conditions under which this invariant could ever be revisited
 related:
@@ -24,7 +24,7 @@ superseded_by: []
 # Context
 
 ADR-2604241038 Phase δ splits `chat.bsky.convo.*` and `ai.gftd.signal.*`
-off the PDS into dedicated Workers (`chat.gftd.ai`, `signal.gftd.ai`).
+off the PDS into dedicated Workers (`chat.etzhayyim.com`, `signal.etzhayyim.com`).
 Phase δ2 / δ3 migrated the **read** handlers (`listConvos`, `getConvo*`,
 `getMessages`, `listDevices`, `getPrekeyBundle*`, `getIdentityFingerprint`)
 but **writes** (`sendMessage`, `acceptConvo`, `leaveConvo`,
@@ -212,7 +212,7 @@ explicitly answer the other three — not just the one it solves.
 
 # Alternatives considered (and rejected)
 
-## A1. Move chat writes into chat.gftd.ai
+## A1. Move chat writes into chat.etzhayyim.com
 
 - **Pros:** isolation, chat latency detached from PDS write queue.
 - **Cons:** violates every one of the four reasons in #Why. Worst of

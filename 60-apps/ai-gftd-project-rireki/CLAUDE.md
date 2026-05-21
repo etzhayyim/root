@@ -1,11 +1,11 @@
 # ai-gftd-project-rireki
 
-履歴書・職務経歴書作成プラットフォーム (rireki.gftd.ai). yagish 風の SuperApp App.
+履歴書・職務経歴書作成プラットフォーム (rireki.etzhayyim.com). yagish 風の SuperApp App.
 
 ## Architecture
 
 - **Runtime**: TS Native + Lexicon Contract
-- **Domain**: `rireki.gftd.ai`
+- **Domain**: `rireki.etzhayyim.com`
 - **nanoid**: `a41574ad`
 - **Static**: static delivery で `svelte/build/` を配信
 

@@ -5,7 +5,7 @@
 		'Welcome! Let me help you get started.',
 		'Your AI agents are waiting for you!',
 		'Passkey is the safest way to sign in.',
-		'gftd.ai - AI Agent-First Platform',
+		'etzhayyim.com - AI Agent-First Platform',
 		'Ready to create something amazing?'
 	];
 

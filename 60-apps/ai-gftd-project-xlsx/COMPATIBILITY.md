@@ -1,8 +1,8 @@
-# xlsx.gftd.ai — API Compatibility Matrix
+# xlsx.etzhayyim.com — API Compatibility Matrix
 
-## Feature Coverage: xlsx.gftd.ai vs Google Sheets API v4 vs Excel (Office.js + OOXML)
+## Feature Coverage: xlsx.etzhayyim.com vs Google Sheets API v4 vs Excel (Office.js + OOXML)
 
-| Category | Feature | xlsx.gftd.ai | Google Sheets | Excel |
+| Category | Feature | xlsx.etzhayyim.com | Google Sheets | Excel |
 |---|---|---|---|---|
 | **Workbook** | Create / Open / Save | YES | YES | YES |
 | | Title / Properties | YES | YES | YES |
@@ -130,7 +130,7 @@
 
 ## Coverage Summary (2026-04-05)
 
-| Metric | xlsx.gftd.ai | Google Sheets API | Excel |
+| Metric | xlsx.etzhayyim.com | Google Sheets API | Excel |
 |---|---|---|---|
 | **Formula Functions** | **131** | ~400 | ~500+ |
 | **Chart Types** | 7 | 16 | 40+ |

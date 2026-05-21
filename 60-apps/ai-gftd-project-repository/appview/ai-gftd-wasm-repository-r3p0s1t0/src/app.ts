@@ -9,6 +9,7 @@ import {
   nsid,
 } from "@gftd/magatama-host-sdk";
 import type { Database } from "@gftd/graph-schema";
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
 
 /**
@@ -35,7 +36,7 @@ import { Kysely } from "kysely";
  */
 
 const ACTOR_NAME = "repository";
-const ACTOR_DID = "did:web:repository.gftd.ai";
+const ACTOR_DID = "did:web:repository.etzhayyim.com";
 const INLINE_TIER_CUTOFF_BYTES = 16 * 1024;
 
 // ─── Per-isolate recent-write cache (Task 3: Hyperdrive / RisingWave read-after-write lag) ─
@@ -193,8 +194,8 @@ function canonicalCommitText(c: {
 }
 
 // did:web resolver per ADR-0019 path-based DID spec.
-//   did:web:host.gftd.ai           → https://host.gftd.ai/.well-known/did.json
-//   did:web:host.gftd.ai:a:b:c     → https://host.gftd.ai/a/b/c/did.json
+//   did:web:host.etzhayyim.com           → https://host.etzhayyim.com/.well-known/did.json
+//   did:web:host.etzhayyim.com:a:b:c     → https://host.etzhayyim.com/a/b/c/did.json
 function didToDocUrl(did: string): string | null {
   if (!did.startsWith("did:web:")) return null;
   const rest = did.slice("did:web:".length);

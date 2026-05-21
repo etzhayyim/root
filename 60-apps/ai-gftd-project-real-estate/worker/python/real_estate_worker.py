@@ -44,7 +44,7 @@ def normalize(row: dict[str, Any]) -> tuple[str, dict[str, Any]]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("jsonl", help="normalized JSONL file, or '-' for stdin")
-    parser.add_argument("--dispatcher-url", default=os.environ.get("DISPATCHER_URL", "https://dispatcher.gftd.ai"))
+    parser.add_argument("--dispatcher-url", default=os.environ.get("DISPATCHER_URL", "https://dispatcher.etzhayyim.com"))
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 

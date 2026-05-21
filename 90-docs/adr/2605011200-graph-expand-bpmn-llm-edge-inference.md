@@ -111,7 +111,7 @@ ADR-2604282300 §「CF Worker = edge only / business logic = Zeebe Python worker
 
 ```sql
 CREATE TABLE vertex_graph_expand_proposal (
-  vertex_id          VARCHAR PRIMARY KEY,    -- at://did:web:graph.gftd.ai/ai.gftd.apps.graph.expandProposal/{rkey}
+  vertex_id          VARCHAR PRIMARY KEY,    -- at://did:web:graph.etzhayyim.com/ai.gftd.apps.graph.expandProposal/{rkey}
   _seq               BIGINT,
   created_date       DATE,
   sensitivity_ord    BIGINT,
@@ -179,9 +179,9 @@ Shinka が既に `langgraph.StateGraph` を使用している (`pymagatama/shink
 
 ```sql
 DELETE FROM vertex_bpmn_lexicon_binding
- WHERE vertex_id = 'at://did:web:bpmn.gftd.ai/ai.gftd.bpmn.lexiconBinding/graph-expandTick-v1';
+ WHERE vertex_id = 'at://did:web:bpmn.etzhayyim.com/ai.gftd.bpmn.lexiconBinding/graph-expandTick-v1';
 DELETE FROM vertex_bpmn_process_def
- WHERE vertex_id = 'at://did:web:bpmn.gftd.ai/ai.gftd.bpmn.processDef/graph-expandTick-v1';
+ WHERE vertex_id = 'at://did:web:bpmn.etzhayyim.com/ai.gftd.bpmn.processDef/graph-expandTick-v1';
 DROP TABLE IF EXISTS vertex_graph_expand_proposal;
 ```
 

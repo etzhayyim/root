@@ -146,15 +146,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/fund-managerDiscovery-v1',
-                 'did:web:fund.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/fund-managerDiscovery-v1',
+                 'did:web:fund.etzhayyim.com',
                  'fund_manager_discovery',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Fund manager discovery pilot.\n'
                  '\n'
                  '  NSID:       ai.gftd.apps.fund.managerDiscovery\n'
-                 '  Owner DID:  did:web:fund.gftd.ai\n'
+                 '  Owner DID:  did:web:fund.etzhayyim.com\n'
                  '  Process ID: fund_manager_discovery\n'
                  '\n'
                  '  The Zeebe task types follow ADR-2604261200. Raw artifacts are persisted\n'
@@ -165,7 +165,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_fund_manager_discovery"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/fund"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/fund"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="fund_manager_discovery" name="fund manager discovery" '
@@ -288,7 +288,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:fund.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:fund.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;fund.managerDiscovery.rwDegraded&quot;" '
                  'target="action"/>\n'
@@ -307,7 +307,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:fund.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:fund.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;fund.managerDiscovery.completed&quot;" '
                  'target="action"/>\n'
@@ -331,10 +331,10 @@ UP = [{'sql': '\n'
                  '00-contracts/bpmn/ai/gftd/fund/managerDiscovery.bpmn',
                  '2026-04-27T04:00:00Z',
                  2,
-                 'did:web:fund.gftd.ai',
-                 'did:web:fund.gftd.ai',
+                 'did:web:fund.etzhayyim.com',
+                 'did:web:fund.etzhayyim.com',
                  'sys.bpmn.seed.fund',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/fund-managerDiscovery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/fund-managerDiscovery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -349,15 +349,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ma-startDealWorkflow-v1',
-                 'did:web:ma.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ma-startDealWorkflow-v1',
+                 'did:web:ma.etzhayyim.com',
                  'ma_start_deal_workflow',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Global M&A brokerage workflow.\n'
                  '\n'
                  '  NSID:       ai.gftd.apps.ma.startDealWorkflow\n'
-                 '  Owner DID:  did:web:ma.gftd.ai\n'
+                 '  Owner DID:  did:web:ma.etzhayyim.com\n'
                  '  Process ID: ma_start_deal_workflow\n'
                  '\n'
                  '  This is the first executable shell for ai-gftd-project-ma. It wires MA Core,\n'
@@ -369,7 +369,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_ma_start_deal_workflow"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/ma"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/ma"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="ma_start_deal_workflow" name="M&amp;A deal workflow" '
@@ -545,7 +545,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:ma.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:ma.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ma.startDealWorkflow.rwDegraded&quot;" '
                  'target="action"/>\n'
@@ -564,7 +564,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:ma.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:ma.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ma.startDealWorkflow.completed&quot;" '
                  'target="action"/>\n'
@@ -588,10 +588,10 @@ UP = [{'sql': '\n'
                  '00-contracts/bpmn/ai/gftd/ma/startDealWorkflow.bpmn',
                  '2026-04-27T04:00:00Z',
                  3,
-                 'did:web:ma.gftd.ai',
-                 'did:web:ma.gftd.ai',
+                 'did:web:ma.etzhayyim.com',
+                 'did:web:ma.etzhayyim.com',
                  'sys.bpmn.seed.ma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ma-startDealWorkflow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ma-startDealWorkflow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -607,18 +607,18 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/fund-managerDiscovery-v1',
-                 'did:web:fund.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/fund-managerDiscovery-v1',
+                 'did:web:fund.etzhayyim.com',
                  'ai.gftd.apps.fund.managerDiscovery',
                  'fund_manager_discovery',
                  600000,
                  '2026-04-27T04:00:00Z',
                  2,
-                 'did:web:fund.gftd.ai',
-                 'did:web:fund.gftd.ai',
+                 'did:web:fund.etzhayyim.com',
+                 'did:web:fund.etzhayyim.com',
                  'sys.bpmn.seed.fund',
                  'vertex_fund,vertex_fund_manager,vertex_fund_investor,vertex_fund_investee,edge_fund_managed_by,edge_fund_backed_by,edge_fund_invests_in,edge_fund_sponsored_by',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/fund-managerDiscovery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/fund-managerDiscovery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -634,27 +634,27 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ma-startDealWorkflow-v1',
-                 'did:web:ma.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ma-startDealWorkflow-v1',
+                 'did:web:ma.etzhayyim.com',
                  'ai.gftd.apps.ma.startDealWorkflow',
                  'ma_start_deal_workflow',
                  900000,
                  '2026-04-27T04:00:00Z',
                  3,
-                 'did:web:ma.gftd.ai',
-                 'did:web:ma.gftd.ai',
+                 'did:web:ma.etzhayyim.com',
+                 'did:web:ma.etzhayyim.com',
                  'sys.bpmn.seed.ma',
                  'vertex_ma_deal,vertex_ma_candidate,vertex_ma_valuation,vertex_ma_match,edge_ma_deal_candidate,edge_ma_deal_buyer',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ma-startDealWorkflow-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ma-startDealWorkflow-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/fund-managerDiscovery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/fund-managerDiscovery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ma-startDealWorkflow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ma-startDealWorkflow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/fund-managerDiscovery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/fund-managerDiscovery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ma-startDealWorkflow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ma-startDealWorkflow-v1']},
  {'sql': 'DROP TABLE IF EXISTS edge_ma_deal_buyer', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS edge_ma_deal_candidate', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_ma_match', 'parameters': []},

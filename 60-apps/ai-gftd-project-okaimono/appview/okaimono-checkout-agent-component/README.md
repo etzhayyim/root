@@ -1,6 +1,6 @@
 # okaimono-checkout-agent-component
 
-Checkout SAGA orchestrator for okaimono.gftd.ai (nanoid: `chk8uty2`)。
+Checkout SAGA orchestrator for okaimono.etzhayyim.com (nanoid: `chk8uty2`)。
 
 ## Data Access
 

@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-9e61a4e64c1f",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9e61a4e64c1f",
   "entityId": "ent-9e61a4e64c1f",
   "canonicalName": "beijing shuoke zhongkexin electronic equipment co., ltd.",
   "aliases": [

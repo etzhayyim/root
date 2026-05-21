@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:gtm-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:gtm-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Guatemala (República de Guatemala) AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -109,7 +109,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "gtm-state.gftd.ai",
+      "host": "gtm-state.etzhayyim.com",
       "paths": [
         "/"
       ],

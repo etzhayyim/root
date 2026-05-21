@@ -4,8 +4,8 @@
 #   WAT (gz) → Rust cc-phase3 (rayon) → Parquet (ZSTD) → S3 (kagami-graphar/cc-parquet-v2/)
 #   → RisingWave s3 connector → ALTER TABLE SWAP (no TRUNCATE, no downtime)
 #
-#   Page DID  = URL directory path (did:web:site.gftd.ai:{domain-slug}:{path-seg}:…)
-#   Domain DID = did:web:site.gftd.ai:{domain-slug} (self-owned actor)
+#   Page DID  = URL directory path (did:web:site.etzhayyim.com:{domain-slug}:{path-seg}:…)
+#   Domain DID = did:web:site.etzhayyim.com:{domain-slug} (self-owned actor)
 #   Legacy rkey (SHA-16 hex) coexists via vertex_did_alias + view_cc_page_canonical.
 #
 # S3 bucket layout (cc-parquet-v2/ prefix):
@@ -45,7 +45,7 @@ depends_on = [
 ]
 
 provides = [
-  "site.gftd.ai coverage",    # web domain → DID mapping
+  "site.etzhayyim.com coverage",    # web domain → DID mapping
   "vertex_page",               # web pages (rkey PK, domain FK — HOSTS implicit)
   "vertex_domain",             # web domains (derived from vertex_page.domain via MV)
   "edge_links_to",             # page → page cross-links
@@ -53,7 +53,7 @@ provides = [
 ]
 
 [invariants]
-target_db = "risingwave://kagami.gftd.ai:4566"
+target_db = "risingwave://kagami.etzhayyim.com:4566"
 schema_source = "../../30-graph/graph-schema-py/graphar_schema/models.py"
 cc_dataset = "common-crawl/CC-MAIN-*"
 crawl_id = "CC-MAIN-2026-12"
@@ -95,7 +95,7 @@ description = "yabai/threat scoring → vertex_page.intel fields"
 [files."scripts/phase5_inject_did.py"]
 role = "did-injector"
 flags = ["editable"]
-description = "Map domain → DID (did:web:site.gftd.ai:{slug})"
+description = "Map domain → DID (did:web:site.etzhayyim.com:{slug})"
 
 [files."scripts/phase5b_inject_pages.py"]
 role = "page-injector"
@@ -130,7 +130,7 @@ archived_reason = "Shannon: PG wire INSERT too slow (RTT bottleneck). file_scan(
 [files."scripts/phase3g_copy_ingest.py"]
 role = "cc-ingester"
 flags = ["editable"]
-description = "ACTIVE: Local parquet → RisingWave plain Hummock tables via psycopg2 execute_values (path-j-cc-hummock). vertex_domain populate_domains() sets did = owner_did = did:web:site.gftd.ai:{slug} (self-owned domain actor, 2026-04-14)."
+description = "ACTIVE: Local parquet → RisingWave plain Hummock tables via psycopg2 execute_values (path-j-cc-hummock). vertex_domain populate_domains() sets did = owner_did = did:web:site.etzhayyim.com:{slug} (self-owned domain actor, 2026-04-14)."
 
 # ── Phase 3h: parquet-to-parquet transform (2026-04-14) ──
 #

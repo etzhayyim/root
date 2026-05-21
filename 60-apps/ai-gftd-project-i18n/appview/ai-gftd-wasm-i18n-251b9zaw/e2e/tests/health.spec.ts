@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.I18N_BASE_URL ?? 'https://i18n.gftd.ai';
+const BASE = process.env.I18N_BASE_URL ?? 'https://i18n.etzhayyim.com';
 
 test.describe('i18n App Health', () => {
 	test('GET /health returns ok', async ({ request }) => {

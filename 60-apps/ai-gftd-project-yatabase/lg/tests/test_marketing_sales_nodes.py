@@ -41,6 +41,7 @@ class TestTemplates:
         assert len(s) == 3
 
     def test_segment_classify(self):
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
         assert templates.classify_segment({"tech_stack": "supabase,kysely"}) == "dev-tooling-saas"
         assert templates.classify_segment({"tech_stack": "atproto", "signal": ""}) == "bsky-builders"
         assert templates.classify_segment({"tech_stack": "", "signal": "bluesky stuff"}) == "bsky-builders"
@@ -59,7 +60,7 @@ class TestTemplates:
         assert "Starter" in b2.body_text
 
         b3 = templates.sales_touch("sales-book-call", "did:gftd:test")
-        assert "cal.gftd.ai/nishino" in b3.body_text
+        assert "cal.etzhayyim.com/nishino" in b3.body_text
 
 
 # ---------------------------------------------------------------------------

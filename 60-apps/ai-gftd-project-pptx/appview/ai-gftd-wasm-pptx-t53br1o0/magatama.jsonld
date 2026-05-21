@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:pptx.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:pptx.etzhayyim.com",
   "component": {
     "env": {},
     "path": "component.wasm"
@@ -39,7 +39,7 @@
   "project": "pptx",
   "routes": [
     {
-      "host": "pptx.gftd.ai",
+      "host": "pptx.etzhayyim.com",
       "paths": [
         "/"
       ],
@@ -77,5 +77,5 @@
     }
   },
   "uiType": "appview",
-  "embedUrl": "https://t53br1o0.gftd.ai/embed"
+  "embedUrl": "https://t53br1o0.etzhayyim.com/embed"
 }

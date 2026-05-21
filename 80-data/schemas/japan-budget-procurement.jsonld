@@ -1,7 +1,7 @@
 {
   "@context": {
     "@vocab": "https://schema.org/",
-    "gftd": "https://gftd.ai/ns/",
+    "gftd": "https://etzhayyim.com/ns/",
     "cofog": "https://unstats.un.org/unsd/cr/registry/regcst.asp?Cl=4&Lg=1",
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   },

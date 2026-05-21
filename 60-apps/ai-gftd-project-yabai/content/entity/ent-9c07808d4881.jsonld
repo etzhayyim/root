@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-9c07808d4881",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9c07808d4881",
   "entityId": "ent-9c07808d4881",
   "canonicalName": "carrillo fuentes, vicente",
   "aliases": [

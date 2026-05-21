@@ -5,8 +5,8 @@
 | Field | Value |
 |---|---|
 | nanoid | `sv8q2k5r` |
-| domain | `sense.gftd.ai` |
-| AT bot DID | `did:web:sense.gftd.ai` |
+| domain | `sense.etzhayyim.com` |
+| AT bot DID | `did:web:sense.etzhayyim.com` |
 | Runtime | TS Native (`src/app.ts`) + Rust WASM (5 compute modules) |
 | Data store | W Protocol Event Stream |
 | UI mode | iframe (KAMI 3D renderer) |
@@ -48,13 +48,13 @@
 
 | DID | Role |
 |---|---|
-| `did:web:sense.gftd.ai` | Primary (orchestrator) |
-| `did:web:sense.gftd.ai:scan` | スキャンセッション管理 |
-| `did:web:sense.gftd.ai:building` | 建物 3D モデル |
-| `did:web:sense.gftd.ai:floor` | フロアプラン |
-| `did:web:sense.gftd.ai:room` | 部屋単位データ |
-| `did:web:sense.gftd.ai:structure` | 構造物 (壁/柱/梁/配管) |
-| `did:web:sense.gftd.ai:sensor` | センサーデバイス登録 |
+| `did:web:sense.etzhayyim.com` | Primary (orchestrator) |
+| `did:web:sense.etzhayyim.com:scan` | スキャンセッション管理 |
+| `did:web:sense.etzhayyim.com:building` | 建物 3D モデル |
+| `did:web:sense.etzhayyim.com:floor` | フロアプラン |
+| `did:web:sense.etzhayyim.com:room` | 部屋単位データ |
+| `did:web:sense.etzhayyim.com:structure` | 構造物 (壁/柱/梁/配管) |
+| `did:web:sense.etzhayyim.com:sensor` | センサーデバイス登録 |
 
 ## NSID (ai.gftd.apps.sense.*)
 

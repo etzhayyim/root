@@ -62,7 +62,7 @@ ADR-0056 規約により `generic.*` で済むものは新規 task 不要:
 
 ## ERC-8004 agent registration への影響
 
-新規 token は不要。既存の `did:web:telecom.gftd.ai` agent registration の
+新規 token は不要。既存の `did:web:telecom.etzhayyim.com` agent registration の
 `protocols[].mcp.tools[]` と `collections[]` に Phase 2 の 8 NSID を追加して
 再 publish (`gftd agent-runtime publish-agent`) するだけ。`registries.toolRegistryRows[]`
 にも 8 行追加。

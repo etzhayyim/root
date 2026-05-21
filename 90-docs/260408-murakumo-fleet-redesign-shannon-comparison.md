@@ -195,7 +195,7 @@ Client → CF Worker (model router)
 
 - **Mac Mini fleet 全廃**。全推論を Cloudflare Workers AI に委譲
 - **CF Worker** が model routing + fallback + cost optimization
-- **llm.gftd.ai 統合**: murakumo.gftd.ai と llm.gftd.ai を単一 Worker に統合
+- **llm.etzhayyim.com 統合**: murakumo.etzhayyim.com と llm.etzhayyim.com を単一 Worker に統合
 - **Model catalog**: Qwen3-30b (primary), Gemma-3-12b (lightweight), Llama-3.3-70b (reasoning)
 - **Image generation**: Workers AI の SDXL or 外部 API (Replicate/fal.ai)
 
@@ -269,13 +269,13 @@ async route(request: Request): Promise<Response> {
 ```bash
 # Each Mac Mini runs cloudflared (outbound only, no inbound ports)
 cloudflared tunnel create murakumo-fleet
-cloudflared tunnel route dns murakumo-fleet ray-serve.murakumo.gftd.ai
+cloudflared tunnel route dns murakumo-fleet ray-serve.murakumo.etzhayyim.com
 
 # Config: ~/.cloudflared/config.yml
 tunnel: <tunnel-id>
 credentials-file: ~/.cloudflared/<tunnel-id>.json
 ingress:
-  - hostname: ray-serve.murakumo.gftd.ai
+  - hostname: ray-serve.murakumo.etzhayyim.com
     service: http://localhost:8000  # Ray Serve HTTP endpoint
   - service: http_status:404
 ```
@@ -510,8 +510,8 @@ Design A'' (final): N independent serve_plain.py (Starlette + mlx_lm, zero frame
 | Item | Detail |
 |---|---|
 | **Tunnel ID** | `ae341542-96bd-4ffd-8214-03188677e8cd` (murakumo-fleet) |
-| **Tunnel hostname** | `murakumo-serve.gftd.ai` (single, CF auto-LB across connectors) |
-| **Per-node hostnames** | `murakumo-{simeon,naphtali,levi}.gftd.ai` (dispatcher ORIGIN_PASSTHROUGH) |
+| **Tunnel hostname** | `murakumo-serve.etzhayyim.com` (single, CF auto-LB across connectors) |
+| **Per-node hostnames** | `murakumo-{simeon,naphtali,levi}.etzhayyim.com` (dispatcher ORIGIN_PASSTHROUGH) |
 | **cloudflared config** | 全ノード同一: 全 hostname → `http://localhost:8000` |
 | **Server** | `serve_plain.py` (Starlette + uvicorn + mlx_lm, no Ray) on port 8000 |
 | **protobuf version** | 5.29.6 (7.x は FieldDescriptor.label AttributeError) |

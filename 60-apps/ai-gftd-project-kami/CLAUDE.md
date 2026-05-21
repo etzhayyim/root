@@ -1,10 +1,10 @@
-# ai-gftd-project-kami — kami.gftd.ai / worlds.gftd.ai
+# ai-gftd-project-kami — kami.etzhayyim.com / worlds.etzhayyim.com
 
 **KAMI** — wgpu + KNP + hecs + KAMI Interface による次世代ゲームエンジン + 対話的ゲーム制作ワークベンチ。29 ゲーム (22 Godot + 6 Brainrot + 1 Suika) を KAMI Islands に移行済み。共通世界 "KAMI World" 上でユーザー制作ゲームが共存。**ログイン不要 (Guest Mode)** で world 作成・プレイ可能。Minecraft/Fortnite/Roblox 風テンプレートから即座に 3D ワールドを生成し、WebGPU でブラウザ内プレイ。
 
 ## Guest Mode (CRITICAL)
 
-**kami.gftd.ai はログイン不要で利用可能。** Anonymous guest DID (`did:web:kami.gftd.ai:guest:*`) で world 作成・プレイ・マルチプレイ参加ができる。
+**kami.etzhayyim.com はログイン不要で利用可能。** Anonymous guest DID (`did:web:kami.etzhayyim.com:guest:*`) で world 作成・プレイ・マルチプレイ参加ができる。
 
 | Feature | Guest | Logged In |
 |---|---|---|
@@ -40,9 +40,9 @@
 | 項目 | 値 |
 |---|---|
 | Engine | **KAMI Engine** (`40-engine/kami-engine/`) — 7 Rust crates, 103+ tests, ~8500 行 |
-| Workbench | `kami.gftd.ai` — Island CRUD, LLM scene 生成, AssetHub cross-actor, Publish, **Guest Mode** (Tier 1) |
-| World | `worlds.gftd.ai` — Hub Island, Portal registry, matchmaking, **Guest Join** (Tier 1) |
-| Runtime | `kami-rt.gftd.ai` — Actor lifecycle, physics sync |
+| Workbench | `kami.etzhayyim.com` — Island CRUD, LLM scene 生成, AssetHub cross-actor, Publish, **Guest Mode** (Tier 1) |
+| World | `worlds.etzhayyim.com` — Hub Island, Portal registry, matchmaking, **Guest Join** (Tier 1) |
+| Runtime | `kami-rt.etzhayyim.com` — Actor lifecycle, physics sync |
 | WIT | `gftd:kami@1.0.0` (`wit/kami/package.wit`) — island, scene, asset-bridge, actor-sync, **character**, publish, **catalog**, **player**, **ranking**, **emote**, **economy**, **physics**, **trigger**, **npc**, **inventory**, **terrain**, **pokoa**, **gacha**, **actor-conversation**, **call-effect** (21 interfaces)。`gftd:kami-coloring@1.0.0` (`wit/coloring/package.wit`) — canvas-lifecycle, color-graph, collab-session。`gftd:kami-battle-royale@1.0.0` (`wit/battle-royale/package.wit`) — match-lifecycle, ranked-queue, match-state。`gftd:kami-suika@1.0.0` (`wit/suika/package.wit`) — game-lifecycle, merge-physics, leaderboard。**`gftd:kami-cine@1.0.0`** (`40-engine/kami-engine/wit/cine/package.wit`) — world-model, usd-scene, neural-geom, temporal-field, neural-render, diffusion-pass, exr-seq, encode (8 interfaces, shared by mangaka/animeka/dogaka) |
 | Character | **Nintendo Mii-style parametric avatar** (`gftd:kami/character@1.0.0`)。yoro Agent 作成時に使用。SVG プレビュー + wgpu 3D レンダリング |
 | Persistence | W Protocol Event Stream (operational) + MDAG CAS (scene) + SQL (analytics) |
@@ -51,7 +51,7 @@
 | Scene Format | **JSON-LD** (`@context`, `@type`, `@id`) — `IslandScene` + `CharacterDef` + `CharacterAppearance`。後方互換 (plain JSON も parse 可) |
 | Games | 29 games → 29 KAMI Islands (22 Godot + 6 Brainrot + 1 Suika, published + portals registered) |
 | **Brainrot** | 6 Brainrot ゲーム + 6 キャラクター (Skibidi/Sigma/Ohio/Grimace/Rizz/Fanum)。Mii-style パラメトリック avatar |
-| **Battle Royale** | `royale.kami.gftd.ai` — 100-player BR with storm, building, loot, ranked seasons, **6 Brainrot POIs** |
+| **Battle Royale** | `royale.kami.etzhayyim.com` — 100-player BR with storm, building, loot, ranked seasons, **6 Brainrot POIs** |
 | BR WIT | `gftd:kami-battle-royale@1.0.0` (`wit/battle-royale/package.wit`) |
 | **2D Side-Scroll** | Orthographic camera on 3D PBR pipeline. `camera_mode: "orthographic-side"` in scene JSON-LD. Z-depth layers + parallax. `sprite.rs` for Sprite2D → Plane conversion |
 
@@ -247,14 +247,14 @@ rkey, _ := magatama.WRecord("kami.callEffectActive", activePayload)
 
 | Component | nanoid | Domain | Worker |
 |---|---|---|---|
-| **kami-workbench** | `k4m1w0rk` | `kami.gftd.ai` | `magatama-kami` |
-| **kami-world** | `k4m1w0ld` | `worlds.gftd.ai` | `magatama-worlds` |
-| **kami-runtime** | `k4m1r0nt` | `kami-rt.gftd.ai` | `magatama-kami-rt` |
-| **kami-royale** | `k4m1r0yl` | `royale.kami.gftd.ai` | `magatama-kami-royale` |
-| **kami-coloring** | `cbn8gf7x` | `color-by-number.gftd.ai` | `magatama-kami-coloring` |
-| **kami-suika** | `su1k4gm3` | `suika.kami.gftd.ai` | `magatama-su1k4gm3` |
-| **kami-kaede** | `k43d3gm3` | `kaede.kami.gftd.ai` | `magatama-k43d3gm3` |
-| **kami-ketsu-gorilla** | `k3t5g0r1` | `ketsu-gorilla.kami.gftd.ai` | `magatama-k3t5g0r1` |
+| **kami-workbench** | `k4m1w0rk` | `kami.etzhayyim.com` | `magatama-kami` |
+| **kami-world** | `k4m1w0ld` | `worlds.etzhayyim.com` | `magatama-worlds` |
+| **kami-runtime** | `k4m1r0nt` | `kami-rt.etzhayyim.com` | `magatama-kami-rt` |
+| **kami-royale** | `k4m1r0yl` | `royale.kami.etzhayyim.com` | `magatama-kami-royale` |
+| **kami-coloring** | `cbn8gf7x` | `color-by-number.etzhayyim.com` | `magatama-kami-coloring` |
+| **kami-suika** | `su1k4gm3` | `suika.kami.etzhayyim.com` | `magatama-su1k4gm3` |
+| **kami-kaede** | `k43d3gm3` | `kaede.kami.etzhayyim.com` | `magatama-k43d3gm3` |
+| **kami-ketsu-gorilla** | `k3t5g0r1` | `ketsu-gorilla.kami.etzhayyim.com` | `magatama-k3t5g0r1` |
 
 ## Scene Format (CRITICAL): JSON-LD
 

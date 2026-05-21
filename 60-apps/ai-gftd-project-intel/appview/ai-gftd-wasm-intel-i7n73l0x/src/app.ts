@@ -137,7 +137,7 @@ function intelRecordId(collection: string, rec: Record<string, unknown>): string
 
 function toIntelRow(collection: string, rec: Record<string, unknown>): Record<string, unknown> {
   const rkey = intelRecordId(collection, rec);
-  const ownerDid = "did:web:intel.gftd.ai";
+  const ownerDid = "did:web:intel.etzhayyim.com";
   const row: Record<string, unknown> = {
     vertex_id: str(rec.vertex_id ?? `at://${ownerDid}/ai.gftd.apps.intel.${collection}/${rkey}`),
     rkey,
@@ -271,9 +271,9 @@ const INTEL_LABELS: Record<string, string> = {
   "network-intelligence": "IntelAnalysis:Network", "demographics": "IntelAnalysis:Demographics",
 };
 const SOURCE_DIDS: Record<string, string> = {
-  handotai: "@handotai.gftd.ai", malak: "@malak.gftd.ai", yabai: "@yabai.gftd.ai",
-  "ct-monitor": "@ct-monitor.gftd.ai", ipaddress: "@ipaddress.gftd.ai",
-  "natural-person": "@natural-person.gftd.ai",
+  handotai: "@handotai.etzhayyim.com", malak: "@malak.etzhayyim.com", yabai: "@yabai.etzhayyim.com",
+  "ct-monitor": "@ct-monitor.etzhayyim.com", ipaddress: "@ipaddress.etzhayyim.com",
+  "natural-person": "@natural-person.etzhayyim.com",
 };
 
 async function onPeerIntelCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeReposCommit, sourceName: string, domain: string): void {
@@ -286,7 +286,7 @@ async function onPeerIntelCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeRe
   const content = str(row.description ?? row.content ?? row.summary ?? "");
   const analysisId = genID("peer");
   const graphLabel = INTEL_LABELS[domain] ?? "IntelAnalysis";
-  const sourceDid = SOURCE_DIDS[sourceName] ?? `@${sourceName.replace(/\.gftd\.ai$/, "")}.gftd.ai`;
+  const sourceDid = SOURCE_DIDS[sourceName] ?? `@${sourceName.replace(/\.gftd\.ai$/, "")}.etzhayyim.com`;
 
   write(sdk, "report", {
     'analysisId': analysisId, title: truncateText(title, 200),
@@ -474,7 +474,7 @@ async function cmdInferCoverage(sdk: HostSDK, payload: Uint8Array): Promise<unkn
 
   write(sdk, "inferenceChain", {
     'chainId': chainId,
-    'subjectDid': req.subjectDid ?? `did:web:${appId}.gftd.ai:org:${subjectName.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`,
+    'subjectDid': req.subjectDid ?? `did:web:${appId}.etzhayyim.com:org:${subjectName.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`,
     'subjectName': subjectName,
     industry, trigger: "manual",
     'sourceUrl': req.sourceUrl ?? "",
@@ -735,7 +735,7 @@ async function inferFromCompanyCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscr
 
   write(sdk, "inferenceChain", {
     'chainId': chainId,
-    'subjectDid': `did:web:${appId}.gftd.ai:org:${companyName.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`,
+    'subjectDid': `did:web:${appId}.etzhayyim.com:org:${companyName.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`,
     'subjectName': companyName,
     industry, trigger: "followCommit",
     'sourceUrl': "", 'stepCount': steps.length, status: "active",
@@ -750,7 +750,7 @@ async function inferFromCompanyCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscr
     const cohortHash = djb2(canonical);
     write(sdk, "inferredCohort", {
       'cohortId': `infer-${coverageDomain}-${cohortHash}`, 'chainId': chainId,
-      'subjectDid': `did:web:${appId}.gftd.ai:org:${companyName.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`,
+      'subjectDid': `did:web:${appId}.etzhayyim.com:org:${companyName.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`,
       'subjectName': companyName,
       'targetDomain': coverageDomain, 'entityType': step.outputEntityType,
       layer: step.layer, 'estimatedCount': step.estimatedCount,
@@ -875,7 +875,7 @@ const INTEL_CATEGORIES = new Map<string, string>([
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:i7n73l0x.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:i7n73l0x.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   // --- shouldDrill: kyumei-koji self-research ---
@@ -907,7 +907,7 @@ async function cmdExportData(sdk: HostSDK, p: Uint8Array): Promise<unknown> {
 }
 
 function cmdDescribe(_sdk: HostSDK, _p: Uint8Array): unknown {
-  return { name: "Intel", did: `did:web:${appId}.gftd.ai`, nanoid: "i7n73l0x",
+  return { name: "Intel", did: `did:web:${appId}.etzhayyim.com`, nanoid: "i7n73l0x",
     capabilities: ["info", "status", "stats", "export", "describe", "summarize", "audit"],
     protocols: ["xrpc", "w-protocol", "mcp"] };
 }
@@ -936,7 +936,7 @@ async function cmdIngest(_sdk: HostSDK, p: Uint8Array): Promise<unknown> {
   void args;
   const jobId = `ingest-${Date.now()}`;
   const rkey = jobId;
-  const actorDID = "did:web:intel.gftd.ai";
+  const actorDID = "did:web:intel.etzhayyim.com";
   const vertexId = `at://${actorDID}/${INTEL_REPORT_COLLECTION}/${rkey}`;
   await createKyselyDb().insertInto(VERTEX_INTEL_REPORT_TABLE as any).values({
     vertex_id: vertexId,

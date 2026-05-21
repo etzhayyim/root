@@ -8,7 +8,7 @@
     {
       "@type": "WebApplication",
       "name": "Briefing App",
-      "url": "https://briefing.gftd.ai"
+      "url": "https://briefing.etzhayyim.com"
     }
   ],
   "performers": [
@@ -36,7 +36,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

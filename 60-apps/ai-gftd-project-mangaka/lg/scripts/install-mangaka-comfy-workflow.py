@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install a mangaka.gftd.ai cine workflow into ComfyUI's user library.
+"""Install a mangaka.etzhayyim.com cine workflow into ComfyUI's user library.
 
 Emits a 13-node multi-pass workflow that exposes the kami-cine pipeline as
 ComfyUI nodes the artist can edit visually:
@@ -238,7 +238,7 @@ def _build_workflow() -> dict[str, Any]:
             "ds": {"scale": 0.7, "offset": [0, 0]},
             "info": {
                 "name": "mangaka cine pipeline",
-                "author": "studio.gftd.ai",
+                "author": "studio.etzhayyim.com",
                 "description": (
                     "2-pass mangaka panel generator. Pass 1 (top row) builds "
                     "the composition latent; pass 2 (bottom row) refines into "

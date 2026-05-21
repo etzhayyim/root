@@ -3,12 +3,13 @@ import {
   type HostSDK, nowISO, str, genID, nsid,
 } from "@gftd/magatama-host-sdk";
 import type { Database } from "@gftd/graph-schema";
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
 import puppeteer, { type Browser, type Page } from "@cloudflare/puppeteer";
 
 const ACTOR_NAME = "cloudflare-browser-render";
 const ACTOR_NSID_NS = "cloudflareBrowserRender";
-const ACTOR_DID = `did:web:${ACTOR_NAME}.gftd.ai`;
+const ACTOR_DID = `did:web:${ACTOR_NAME}.etzhayyim.com`;
 
 function camelToSnake(s: string): string {
   return s.replace(/[A-Z]/g, m => "_" + m.toLowerCase()).replace(/^_/, "");

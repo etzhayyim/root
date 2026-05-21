@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:malak.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:malak.etzhayyim.com",
   "build": {
     "guestLanguage": "go"
   },
@@ -59,14 +59,14 @@
   "project": "malak",
   "routes": [
     {
-      "host": "malak.gftd.ai",
+      "host": "malak.etzhayyim.com",
       "paths": [
         "/"
       ],
       "tls": true
     },
     {
-      "host": "m4l4k001.gftd.ai",
+      "host": "m4l4k001.etzhayyim.com",
       "paths": [
         "/"
       ],

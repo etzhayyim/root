@@ -1,8 +1,8 @@
 # ai-gftd-project-dojo
 
-Readiness-focused skill training, scenario drills, qualification gates, and AAR loops. **society6.gftd.ai well-becoming scoring の competence/resilience 軸の data source。**
+Readiness-focused skill training, scenario drills, qualification gates, and AAR loops. **society6.etzhayyim.com well-becoming scoring の competence/resilience 軸の data source。**
 
-**URL**: `https://dojo.gftd.ai`
+**URL**: `https://dojo.etzhayyim.com`
 
 ## Scope
 

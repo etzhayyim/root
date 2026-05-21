@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#ServiceWrapper
+// @etzhayyim/cyber-freelance#ServiceWrapper
 // BDDテスト用のサービス関数ラッパー
 // 循環依存を回避するために、遅延ロードを使用
 

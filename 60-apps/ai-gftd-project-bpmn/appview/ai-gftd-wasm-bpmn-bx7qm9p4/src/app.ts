@@ -3,11 +3,12 @@ import {
   type HostSDK, nowISO, str, genID, nsid,
 } from "@gftd/magatama-host-sdk";
 import type { Database } from "@gftd/graph-schema";
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
 import { runEngine, stopEngine, extractTimerDurations, type EngineResult } from "./engine.js";
 
 const ACTOR_NAME = "bpmn";
-const ACTOR_DID = `did:web:${ACTOR_NAME}.gftd.ai`;
+const ACTOR_DID = `did:web:${ACTOR_NAME}.etzhayyim.com`;
 
 
 function decodeParams(payload: any): Record<string, any> {
@@ -246,7 +247,7 @@ function compileJsonToXml(doc: BpmnJson): string {
     .map(m => `<bpmn:message id="${esc(m)}" name="${esc(m)}"/>`).join("\n  ");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gftd="https://gftd.ai/bpmn/extension" id="def-${processId}" targetNamespace="https://gftd.ai/bpmn">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gftd="https://etzhayyim.com/bpmn/extension" id="def-${processId}" targetNamespace="https://etzhayyim.com/bpmn">
   ${messageDefs}
   <bpmn:process id="${processId}" name="${processName}" isExecutable="true">
     ${elements.join("\n    ")}

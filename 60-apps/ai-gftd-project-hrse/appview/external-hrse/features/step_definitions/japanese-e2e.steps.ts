@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#JapaneseE2ESteps
+// @etzhayyim/cyber-freelance#JapaneseE2ESteps
 // 日本語E2Eテスト関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

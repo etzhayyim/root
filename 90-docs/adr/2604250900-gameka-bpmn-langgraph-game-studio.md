@@ -1,6 +1,6 @@
 ---
 id: adr-2604250900-gameka-bpmn-langgraph-game-studio
-title: "ADR: gameka.gftd.ai — autonomous game studio actor on BPMN + LangGraph substrate"
+title: "ADR: gameka.etzhayyim.com — autonomous game studio actor on BPMN + LangGraph substrate"
 status: proposed
 doc_type: adr
 topic: agentic-actor-game-studio
@@ -29,7 +29,7 @@ superseded_by: []
 
 # Goal
 
-`gameka.gftd.ai` を、ゲーム企画から WASM build、QA、公開、フォロー反応まで
+`gameka.etzhayyim.com` を、ゲーム企画から WASM build、QA、公開、フォロー反応まで
 自律的に回す **agentic actor** として、ADR-0056 (BPMN-as-actor) と
 ADR-2604250836 (LangGraph as Zeebe ServiceTask) の上に置く。
 
@@ -45,12 +45,12 @@ ADR-2604250836 (LangGraph as Zeebe ServiceTask) の上に置く。
 
 # Executive Summary
 
-`gameka.gftd.ai` は **新規 Worker を建てない**。`bpmn.gftd.ai` 上に
+`gameka.etzhayyim.com` は **新規 Worker を建てない**。`bpmn.etzhayyim.com` 上に
 `INSERT 2 rows` (ADR-0056 規約) で 5 BPMN process を登録し、企画 step
 だけを `generic.langgraph.run` (ADR-2604250836) の ServiceTask として
 LangGraph に委譲する。生成は `kami-engine` の `kami-app-{slug}` crate
 template + `wasm-pack` build、公開は per-game sub-DID
-(`did:web:gameka.gftd.ai:game:{slug}`) + `app.bsky.feed.post`。
+(`did:web:gameka.etzhayyim.com:game:{slug}`) + `app.bsky.feed.post`。
 trend scan からの自律企画 cadence は yoro と同形の R/PT2H timer-start。
 
 # Decision
@@ -60,21 +60,21 @@ trend scan からの自律企画 cadence は yoro と同形の R/PT2H timer-star
 | 項目 | 採用 |
 |---|---|
 | AT 15-Layer (ADR-2604231811) | Layer 10 Actor Worker (GFTD ext.) |
-| Worker host | `bpmn.gftd.ai` (Zeebe + pyzeebe)、新 Worker 不要 |
-| Primary DID | `did:web:gameka.gftd.ai` (ADR-0019, did:web sub-actor path) |
+| Worker host | `bpmn.etzhayyim.com` (Zeebe + pyzeebe)、新 Worker 不要 |
+| Primary DID | `did:web:gameka.etzhayyim.com` (ADR-0019, did:web sub-actor path) |
 | NSID prefix | `ai.gftd.gameka.*` |
 | Persistence (ADR-0036) | domain write = Worker-direct Hyperdrive、social = `sdk.pds.dispatch` |
 | Inference | Murakumo MLX → RunPod fallback (yoro `infer.ts` 同経路) |
 | Game build | `kami-engine` `kami-app-{slug}` Rust crate + `wasm-pack` (Vultr build runner) |
-| Hosting | 既存 `game-play-uploader` Worker (`game-play.gftd.ai/{slug}`) |
+| Hosting | 既存 `game-play-uploader` Worker (`game-play.etzhayyim.com/{slug}`) |
 | Playtest | 既存 `playwright` actor を headless WebGPU runner として再利用 |
 
 ## D2. Multi-DID topology
 
 ```
-did:web:gameka.gftd.ai                       # primary (controller agent)
-├── did:web:gameka.gftd.ai:game:{slug}       # 1 game = 1 sub-DID (Title)
-└── did:web:gameka.gftd.ai:critic:playtest   # QA/critic agent
+did:web:gameka.etzhayyim.com                       # primary (controller agent)
+├── did:web:gameka.etzhayyim.com:game:{slug}       # 1 game = 1 sub-DID (Title)
+└── did:web:gameka.etzhayyim.com:critic:playtest   # QA/critic agent
 ```
 
 per-game sub-DID は ADR-0023 multi-key rotation + host-sdk did.json
@@ -149,11 +149,11 @@ Start
 
 ```
 Start
-  → Task_MintSubDid       generic.http.fetch  POST authn.gftd.ai (sub-actor path key)
+  → Task_MintSubDid       generic.http.fetch  POST authn.etzhayyim.com (sub-actor path key)
   → Task_RegisterTitle    generic.db.insert   vertex_gameka_title
   → Task_RegisterUploader generic.http.fetch  POST game-play-uploader register
   → Task_SocialPost       generic.pds.dispatch app.bsky.feed.post
-                          repo = did:web:gameka.gftd.ai:game:{slug}
+                          repo = did:web:gameka.etzhayyim.com:game:{slug}
   → Task_Audit            generic.audit.emit  gameka.title.published
   → End
 ```

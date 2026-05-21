@@ -50,7 +50,7 @@ async function write(_sdk: HostSDK, kind: string, rec: Record<string, unknown>):
     training: "vertex_hr_training",
   };
   const table = tableMap[kind] ?? `vertex_hr_${camelToSnake(kind)}`;
-  const ownerDid = actorDID || "did:web:mdtpqjc8.gftd.ai";
+  const ownerDid = actorDID || "did:web:mdtpqjc8.etzhayyim.com";
   const rkey = str(rec.employeeId ?? rec.positionId ?? rec.skillId ?? rec.assignmentId ?? rec.evaluationId ?? rec.enrollmentId ?? "") || genID();
   const vertex_id = `at://${ownerDid}/ai.gftd.app.kyber.hr.${kind}/${rkey}`;
   const snakeRec = Object.fromEntries(Object.entries(rec).map(([k, v]) => [camelToSnake(k), v]));

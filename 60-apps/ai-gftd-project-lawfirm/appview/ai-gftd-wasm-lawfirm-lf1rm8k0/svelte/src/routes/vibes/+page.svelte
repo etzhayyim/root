@@ -1,7 +1,7 @@
 <script lang="ts">
   /**
    * Firm space — practice-area channels mirrored from magatama.jsonld `space.convos`.
-   * Each channel card links to yoro.gftd.ai where the actual feed renders; lawfirm
+   * Each channel card links to yoro.etzhayyim.com where the actual feed renders; lawfirm
    * surfaces only the index + deep-link so we don't duplicate AT Protocol transport.
    */
 
@@ -20,7 +20,7 @@
   ];
 
   function channelUrl(c: Channel): string {
-    return `https://yoro.gftd.ai/space/lawfirm/${encodeURIComponent(c.name)}`;
+    return `https://yoro.etzhayyim.com/space/lawfirm/${encodeURIComponent(c.name)}`;
   }
 
   function kindBadge(kind: Channel["kind"]): string {
@@ -53,7 +53,7 @@
         {/if}
       </div>
       <p class="mt-2 text-xs text-neutral-600 dark:text-neutral-400">{c.description}</p>
-      <div class="mt-3 text-[10px] text-neutral-500 font-mono">yoro.gftd.ai/space/lawfirm/{c.name} →</div>
+      <div class="mt-3 text-[10px] text-neutral-500 font-mono">yoro.etzhayyim.com/space/lawfirm/{c.name} →</div>
     </a>
   {/each}
 </div>

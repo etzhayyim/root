@@ -25,7 +25,7 @@ from langgraph.graph import END, START, StateGraph
 
 _log = logging.getLogger(__name__)
 
-_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _NSID = "ai.gftd.mangaka.document"
 _RW_URL = os.environ.get("RW_URL", "")
 

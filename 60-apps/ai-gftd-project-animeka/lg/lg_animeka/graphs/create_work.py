@@ -20,7 +20,7 @@ from lg_animeka.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
-_DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.gftd.ai")
+_DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.etzhayyim.com")
 
 
 def _gen_rkey(prefix: str = "work") -> str:
@@ -66,7 +66,7 @@ async def _node_insert(state: _CreateWorkState) -> dict[str, Any]:
     vertex_id = f"at://{owner_did}/{collection}/{rkey}"
     created_at = datetime.now(tz=timezone.utc).isoformat()
     work_status = state.get("status") or "planning"
-    work_did = f"did:web:animeka.gftd.ai:work:{slug}"
+    work_did = f"did:web:animeka.etzhayyim.com:work:{slug}"
 
     try:
         import psycopg  # type: ignore

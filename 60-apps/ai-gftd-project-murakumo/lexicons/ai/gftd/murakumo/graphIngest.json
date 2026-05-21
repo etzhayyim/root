@@ -34,7 +34,7 @@
             },
             "pdsUrl": {
               "type": "string",
-              "default": "https://atproto.gftd.ai"
+              "default": "https://atproto.etzhayyim.com"
             }
           }
         }

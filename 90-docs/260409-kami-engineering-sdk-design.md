@@ -1436,7 +1436,7 @@ wasm-pack build --target web kami-eng-web
 
 # Deploy engineering workbench app
 cd 60-apps/ai-gftd-project-kami/appview/kami-eng-workbench
-gftd deploy --smoke-url https://eng.kami.gftd.ai/health
+gftd deploy --smoke-url https://eng.kami.etzhayyim.com/health
 ```
 
 ## Phase Plan

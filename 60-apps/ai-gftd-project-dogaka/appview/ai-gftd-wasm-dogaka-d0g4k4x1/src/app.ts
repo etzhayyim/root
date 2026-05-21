@@ -1,8 +1,8 @@
-// dogaka.gftd.ai — 3D cinematic edge proxy.
+// dogaka.etzhayyim.com — 3D cinematic edge proxy.
 // CF Worker = edge-only per ADR-2605111200. All pipeline execution (8-stage
 // kami-cine: world-model -> usd-scene -> neural-geom -> temporal-field ->
 // neural-render -> diffusion-pass -> exr-seq -> encode) runs in K8s
-// LangServer pods reached via dispatcher.gftd.ai -> bpmn-dispatcher ->
+// LangServer pods reached via dispatcher.etzhayyim.com -> bpmn-dispatcher ->
 // AgentGateway MCP.
 
 interface SecretBinding {
@@ -29,7 +29,7 @@ export default {
     if (url.pathname === "/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:dogaka.gftd.ai",
+        actor: "did:web:dogaka.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "d0g4k4x1",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         pipeline: "gftd:kami-cine@1.0.0",
@@ -75,7 +75,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

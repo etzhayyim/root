@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-a493897c6aec",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a493897c6aec",
   "entityId": "ent-a493897c6aec",
   "canonicalName": "salim kony",
   "aliases": [

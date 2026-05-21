@@ -3,7 +3,7 @@
 const XRPC_BASE = '/xrpc';
 // Blob fetching goes directly to the PDS — animeka's /xrpc proxy only handles
 // ai.gftd.animeka.* and would 404 on com.atproto.sync.getBlob.
-const PDS_BASE = 'https://atproto.gftd.ai';
+const PDS_BASE = 'https://atproto.etzhayyim.com';
 
 // Autopilot blobs are uploaded via legacy-trust header (no JWT session),
 // so auth.userDid is undefined and PDS stores them under "anonymous".

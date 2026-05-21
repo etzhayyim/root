@@ -21,8 +21,8 @@ superseded_by: []
 
 # Context
 
-`tsukuru.gftd.ai` already had an industry profile catalog, but the runtime
-surface still centered on the controller DID `did:web:tsukuru.gftd.ai`.
+`tsukuru.etzhayyim.com` already had an industry profile catalog, but the runtime
+surface still centered on the controller DID `did:web:tsukuru.etzhayyim.com`.
 That made it hard to expose sector-specific BPMN pipelines or to publish
 stable actor identities for each industry view.
 
@@ -87,8 +87,8 @@ Tradeoffs:
 
 # 2026-04-27 Update: EUV Design/Manufacturing BPMN Actors
 
-`tsukuru.gftd.ai` now has a semiconductor EUV design/manufacturing lane
-under the ISIC C actor owner DID `did:web:tsukuru.gftd.ai:industry:isic:c`.
+`tsukuru.etzhayyim.com` now has a semiconductor EUV design/manufacturing lane
+under the ISIC C actor owner DID `did:web:tsukuru.etzhayyim.com:industry:isic:c`.
 This lane keeps the broad ISIC section actors from this ADR, but adds
 specialized BPMN actors for the high-value EUV workflow and supplier CAD/RFQ
 boundary.

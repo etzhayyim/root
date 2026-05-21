@@ -26,7 +26,7 @@ actor clusters via mechanisms analogous to bacterial horizontal gene transfer (H
 
 ## Scope
 
-- `saikin.gftd.ai` CF Worker (nanoid `s41k1n01`)
+- `saikin.etzhayyim.com` CF Worker (nanoid `s41k1n01`)
 - `vertex_saikin_colony`, `vertex_saikin_signal`, `edge_saikin_transfer`, `edge_saikin_member` graph tables
 - 4 Zeebe task types: `saikin.probe_environment`, `saikin.transfer_signal`,
   `saikin.form_colony`, `saikin.lyse`

@@ -1,4 +1,4 @@
-# open-ports.gftd.ai — Maritime Port Operations & Network Design (OSS)
+# open-ports.etzhayyim.com — Maritime Port Operations & Network Design (OSS)
 
 **Status**: MVP scaffold (2026-04-20). Reference implementation for
 DID-addressed maritime port operations — port / berth / vessel call /

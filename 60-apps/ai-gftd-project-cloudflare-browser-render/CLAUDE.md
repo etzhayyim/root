@@ -1,6 +1,6 @@
 # ai-gftd-project-cloudflare-browser-render — CF Browser Rendering backend
 
-`did:web:cloudflare-browser-render.gftd.ai` / nanoid `cfbr0w53`.
+`did:web:cloudflare-browser-render.etzhayyim.com` / nanoid `cfbr0w53`.
 `ai.gftd.apps.playwright` の `target=cf-browser` 実体。CF Workers
 `browser` binding + `@cloudflare/playwright` で serverless Playwright。
 

@@ -2,7 +2,7 @@
 
 `70-tools/gftd-static-site` ベースの Society6 static portal component です。
 
-- Host: `https://society6.gftd.ai`
+- Host: `https://society6.etzhayyim.com`
 - Focus:
   - COFOG wasm components access portal
   - Society6 policy proposal and implementation principles

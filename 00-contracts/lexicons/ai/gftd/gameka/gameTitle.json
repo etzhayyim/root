@@ -12,14 +12,14 @@
           "title":            { "type": "string" },
           "subDid": {
             "type": "string",
-            "description": "Per-title path-based DID, e.g. did:web:gameka.gftd.ai:game:quarry-rune. Auto-served by host-sdk did.json (ADR-0023)."
+            "description": "Per-title path-based DID, e.g. did:web:gameka.etzhayyim.com:game:quarry-rune. Auto-served by host-sdk did.json (ADR-0023)."
           },
           "parentSpecId":     { "type": "string" },
           "parentArtifactId": { "type": "string" },
           "parentQaId":       { "type": "string" },
           "playUrl": {
             "type": "string",
-            "description": "Public play URL, e.g. https://game-play.gftd.ai/{slug}. Resolves to a kami-app shell that loads the latest -built artefact for this title."
+            "description": "Public play URL, e.g. https://game-play.etzhayyim.com/{slug}. Resolves to a kami-app shell that loads the latest -built artefact for this title."
           },
           "version": {
             "type": "string",

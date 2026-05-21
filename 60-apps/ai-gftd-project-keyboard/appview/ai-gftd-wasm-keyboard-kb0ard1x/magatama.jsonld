@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:keyboard.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:keyboard.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are keyboard.gftd.ai — ergonomic split keyboard product intelligence agent. Help users configure their KB-SPLIT keyboard, recommend ergonomic settings, and manage firmware. Respond in the user's language.",
+  "convoSystemPrompt": "You are keyboard.etzhayyim.com — ergonomic split keyboard product intelligence agent. Help users configure their KB-SPLIT keyboard, recommend ergonomic settings, and manage firmware. Respond in the user's language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -43,7 +43,7 @@
   "project": "keyboard",
   "routes": [
     {
-      "host": "keyboard.gftd.ai",
+      "host": "keyboard.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }
@@ -95,7 +95,7 @@
     }
   },
   "uiType": "appview",
-  "embedUrl": "https://kb0ard1x.gftd.ai/embed",
+  "embedUrl": "https://kb0ard1x.etzhayyim.com/embed",
   "derive": {
     "social": [
       {
@@ -109,14 +109,14 @@
       },
       {
         "on": "ai.gftd.apps.keyboard.crowdfundingRequest",
-        "template": "[KB-SPLIT] クラウドファンディング開始を crowdfunding.gftd.ai に依頼しました — {{productName}}"
+        "template": "[KB-SPLIT] クラウドファンディング開始を crowdfunding.etzhayyim.com に依頼しました — {{productName}}"
       }
     ],
     "invoke": [
       {
         "on": "ai.gftd.apps.keyboard.crowdfundingRequest",
         "when": { "status": "requested" },
-        "target": "did:web:crowdfunding.gftd.ai",
+        "target": "did:web:crowdfunding.etzhayyim.com",
         "method": "ai.gftd.apps.crowdfunding.launchForProduct",
         "map": {
           "productDid": "{{productDid}}",

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:saikin.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:saikin.etzhayyim.com",
   "name": "saikin",
   "nanoid": "s41k1n01",
   "project": "saikin",

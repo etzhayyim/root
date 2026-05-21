@@ -78,6 +78,7 @@ vi.mock("@gftd/magatama-host-sdk", () => ({
   nsid: (value: string) => value,
 }));
 
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 vi.mock("kysely", () => ({
   sql: (_strings: TemplateStringsArray, ...values: unknown[]) => ({ values }),
 }));
@@ -125,8 +126,8 @@ describe("print partners", () => {
   it("returns seeded partner by slug", async () => {
     const handler = getHandler("ai.gftd.apps.insatsu.printPartner.getPrintPartner")!;
     const result = await dec(handler(null, enc({ slug: "tokyo-printpost" })));
-    expect(result.partnerDid).toBe("did:web:insatsu.gftd.ai:partner:tokyo-printpost");
-    expect(result.downstreamActorDid).toBe("did:web:yuubin.gftd.ai");
+    expect(result.partnerDid).toBe("did:web:insatsu.etzhayyim.com:partner:tokyo-printpost");
+    expect(result.downstreamActorDid).toBe("did:web:yuubin.etzhayyim.com");
   });
 
   it("lists seeded APAC partners", async () => {
@@ -161,13 +162,13 @@ describe("print mail jobs", () => {
       mail_class: "registered",
       service_level: "standard",
     })));
-    expect(result.partnerDid).toBe("did:web:insatsu.gftd.ai:partner:tokyo-printpost");
-    expect(result.downstreamActorDid).toBe("did:web:yuubin.gftd.ai");
+    expect(result.partnerDid).toBe("did:web:insatsu.etzhayyim.com:partner:tokyo-printpost");
+    expect(result.downstreamActorDid).toBe("did:web:yuubin.etzhayyim.com");
     expect(result.routeType).toBe("postal-handoff");
   });
 
   it("creates Japan job and invokes yuubin", async () => {
-    invokeResponses["did:web:yuubin.gftd.ai:ai.gftd.apps.yuubin.composeAndPost"] = JSON.stringify({ ok: true, txId: "post_123" });
+    invokeResponses["did:web:yuubin.etzhayyim.com:ai.gftd.apps.yuubin.composeAndPost"] = JSON.stringify({ ok: true, txId: "post_123" });
     const handler = getHandler("ai.gftd.apps.insatsu.printMailJob.createPrintMailJob")!;
     const result = await dec(handler(null, enc({
       document_url: "https://cdn.example.com/doc.pdf",
@@ -183,7 +184,7 @@ describe("print mail jobs", () => {
       case_id: "case-1",
     })));
     expect(result.status).toBe("dispatched");
-    expect(result.downstreamActorDid).toBe("did:web:yuubin.gftd.ai");
+    expect(result.downstreamActorDid).toBe("did:web:yuubin.etzhayyim.com");
     expect(invokeCalls).toHaveLength(1);
     expect(invokeCalls[0].method).toBe("ai.gftd.apps.yuubin.composeAndPost");
     expect(insertCalls.some((call) => call.table === "vertex_insatsu_print_mail_job")).toBe(true);
@@ -214,7 +215,7 @@ describe("print mail jobs", () => {
     sqlResults = [[{
       jobId: "pmj_abc",
       status: "queued",
-      partnerDid: "did:web:insatsu.gftd.ai:partner:berlin-direct-mail",
+      partnerDid: "did:web:insatsu.etzhayyim.com:partner:berlin-direct-mail",
     }]];
     const handler = getHandler("ai.gftd.apps.insatsu.printMailJob.getPrintMailJob")!;
     const result = await dec(handler(null, enc({ job_id: "pmj_abc" })));

@@ -43,8 +43,8 @@ Each task must produce:
 
 Hard constraints:
 - `metadata.name` and `spec.image` stem must match
-- image registry: `ghcr.io/gftdcojp/*`
-- API endpoint convention: `https://{nanoid}.gftd.ai/xrpc`
+- image registry: `ghcr.io/etzhayyim/*`
+- API endpoint convention: `https://{nanoid}.etzhayyim.com/xrpc`
 
 ## 6. Quality Gates
 - Gate A: file completeness (required files present)

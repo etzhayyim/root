@@ -1,10 +1,10 @@
-# domain.gftd.ai TLD Registration Assist
+# domain.etzhayyim.com TLD Registration Assist
 
 Date: 2026-05-07
 
 ## Scope
 
-`domain.gftd.ai` is a T2 actor for TLD registration assistance. Phase 1 is
+`domain.etzhayyim.com` is a T2 actor for TLD registration assistance. Phase 1 is
 advisory and ledger-only: it checks eligibility, recommends registrars, and
 writes a draft registration row for operator follow-up. It does not automate
 registrar checkout, payment, WHOIS contact submission, DNS changes, or legal

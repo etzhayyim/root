@@ -1,4 +1,4 @@
-// Dispatcher — manimani.gftd.ai → bpmn-dispatcher (K8s ClusterIP) →
+// Dispatcher — manimani.etzhayyim.com → bpmn-dispatcher (K8s ClusterIP) →
 // LangGraph Server /runs (ADR-2605080600 / ADR-2605080800).
 //
 // Trust model (ADR-2604282300 §Addendum 2026-04-30):
@@ -16,7 +16,7 @@ type DispatcherEnv = {
   DISPATCHER_INTERNAL_SECRET?: string;
 };
 
-const DEFAULT_DISPATCHER_URL = "https://dispatcher.gftd.ai";
+const DEFAULT_DISPATCHER_URL = "https://dispatcher.etzhayyim.com";
 
 export interface DispatcherCallerContext {
   did: string;

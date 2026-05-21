@@ -29,7 +29,7 @@ const REPOS = [
 ];
 
 const USER_AGENT =
-  "yatabase-github-bot/0.1 (+https://yatabase.gftd.ai/.well-known/agent.json)";
+  "yatabase-github-bot/0.1 (+https://yatabase.etzhayyim.com/.well-known/agent.json)";
 
 const TWO_LABEL_TLD = new Set([
   "co.uk", "co.jp", "co.kr", "co.in", "co.nz", "com.au", "com.br",

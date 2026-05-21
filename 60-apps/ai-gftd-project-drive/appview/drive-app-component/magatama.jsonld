@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:drive.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:drive.etzhayyim.com",
   "name": "drive",
   "nanoid": "dr1v3st0",
   "performerType": "service",

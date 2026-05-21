@@ -16,10 +16,10 @@ Segment  (2桁)  ~55 segments    → APP boundary (1 APP per segment)
 全 record に `commodity_code` (8桁) フィールドを持ち、commodity entity を特定。
 canonical DID は alpha-start ルール準拠:
 
-- App DID: `did:web:unispsc.gftd.ai`
-- Segment DID: `did:web:unispsc.gftd.ai:seg{2-digit}` (例: `seg43`)
-- Commodity DID: `did:web:unispsc.gftd.ai:seg{2-digit}:commodity:c{8-digit-code}`
-  - 例: `did:web:unispsc.gftd.ai:seg43:commodity:c43211501`
+- App DID: `did:web:unispsc.etzhayyim.com`
+- Segment DID: `did:web:unispsc.etzhayyim.com:seg{2-digit}` (例: `seg43`)
+- Commodity DID: `did:web:unispsc.etzhayyim.com:seg{2-digit}:commodity:c{8-digit-code}`
+  - 例: `did:web:unispsc.etzhayyim.com:seg43:commodity:c43211501`
   - `c` prefix で数字始まりを回避
 
 | Lexicon NSID | WRecord kind | Rkey | Entity ID | 用途 |
@@ -262,7 +262,7 @@ magatama.Invoke("", "get-spec", `{"commodity_code":"43211501"}`)
 
 `60-apps/ai-gftd-project-chotatsu/` (公共調達) が UNSPSC commodity code で品目分類。`Invoke("", "get-spec", ...)` で commodity entity の調達仕様を取得。
 
-## okaimono.gftd.ai Integration (EC Marketplace)
+## okaimono.etzhayyim.com Integration (EC Marketplace)
 
 okaimono (ok4imn1o) が全 51 UNSPSC segment を Follow → commodity 登録 commit を reactive に受信 → `okaimono_catalog_item` として自動カタログ登録。
 

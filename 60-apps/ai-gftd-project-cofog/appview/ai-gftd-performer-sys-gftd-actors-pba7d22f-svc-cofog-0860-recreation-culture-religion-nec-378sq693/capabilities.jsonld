@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/08/6/0/recreation-culture-religion-nec",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/6/0/recreation-culture-religion-nec",
       "type": "dodaf:Capability",
       "name": "Miscellaneous Recreation, Culture and Religion Oversight Capability",
       "description": "Functional capability for managing unclassified cultural services, multi-agency arts coordination, and regulatory oversight. Classification: COFOG Division 08, Group 6, Class 0.",

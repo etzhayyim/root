@@ -1,7 +1,7 @@
 {
   "name": "ai-gftd-wasm-animeka-an1m3k4x",
   "version": "0.1.0",
-  "description": "animeka.gftd.ai — Team-based anime creation appview (KAMI Engine X-sheet timeline, 12-stage pipeline)",
+  "description": "animeka.etzhayyim.com — Team-based anime creation appview (KAMI Engine X-sheet timeline, 12-stage pipeline)",
   "main": "svelte/.svelte-kit/cloudflare/_worker.js",
   "type": "module",
   "private": true,

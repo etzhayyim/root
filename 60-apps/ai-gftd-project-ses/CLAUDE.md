@@ -1,14 +1,14 @@
 # ai-gftd-project-ses — SES案件・状況 ingest pipeline
 
 ADR: `90-docs/adr/2605120000-ses-anken-jokyo-ingest-langgraph.md`
-Nanoid: `s3s4nk3n` | DID: `did:web:ses.gftd.ai` | Tier: T3 | Non-federable
+Nanoid: `s3s4nk3n` | DID: `did:web:ses.etzhayyim.com` | Tier: T3 | Non-federable
 
 ## Architecture
 
 ```
 SES案件 email (Outlook/Exchange)
    ↓ Phase 3: ai.gftd.apps.microsoft.listMails (15min pull)
-CF Worker (ses.gftd.ai / s3s4nk3n.gftd.ai)
+CF Worker (ses.etzhayyim.com / s3s4nk3n.etzhayyim.com)
    ↓ XRPC ai.gftd.apps.ses.ingestAnken
 bpmn-dispatcher → LangGraph Server (ses-langgraph.mitama-udf.svc:8000)
    ↓ 6-node StateGraph

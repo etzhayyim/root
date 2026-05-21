@@ -1,19 +1,19 @@
 {
-  "@context": "https://magatama.gftd.ai/ns/v1",
+  "@context": "https://magatama.etzhayyim.com/ns/v1",
   "@type": "MagatamaApp",
   "nanoid": "otch0001",
   "name": "outreach",
   "displayName": "GFTD Sales Outreach",
   "description": "Sales Outreach Automation — LangGraph research→draft loop + DNC gate + Resend multi-step sequence + reply detection via gmail/m365Ingest.",
-  "did": "did:web:outreach.gftd.ai",
-  "domain": "outreach.gftd.ai",
+  "did": "did:web:outreach.etzhayyim.com",
+  "domain": "outreach.etzhayyim.com",
   "performerType": "service",
   "uiType": "appview",
   "runtimeType": "ts-thin-edge",
   "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/outreach",
   "routes": [
-    { "pattern": "otch0001.gftd.ai/*", "zone_name": "gftd.ai" },
-    { "pattern": "outreach.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "otch0001.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "outreach.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ],
   "subscribeRepos": [
     {

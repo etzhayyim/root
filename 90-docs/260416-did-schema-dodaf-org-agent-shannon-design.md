@@ -37,8 +37,8 @@ superseded_by: []
 > に圧縮。Shannon η は ~0.71 → ~0.955 に向上。
 >
 > **Amendment (2026-04-19, ADR-0033)**: `did:gftd` identity の federation (外部
-> atproto / Bluesky 連携) は **did:web shim via `did.gftd.ai`** に集約する。
-> plc.directory / 自前 plc.gftd.ai への依存は排除 (ADR-0014 は supersede)。
+> atproto / Bluesky 連携) は **did:web shim via `did.etzhayyim.com`** に集約する。
+> plc.directory / 自前 plc.etzhayyim.com への依存は排除 (ADR-0014 は supersede)。
 > federation-visible subset は `vertex_gftd_identity.federated` flag で管理し、
 > 数千億 actor の大部分は internal pure `did:gftd` のまま。
 >
@@ -76,7 +76,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (外部連携のみ)
                       did:gftd DID Doc の federationDID で参照
 ```
 
-- Resolver: `did.gftd.ai` (unified, did:gftd + did:plc both)
+- Resolver: `did.etzhayyim.com` (unified, did:gftd + did:plc both)
 - L2 dead stub (ADR-0023) を did:gftd DID Doc で解消
 - OAuth (Google/Microsoft) + Email + Passkey → did:gftd `authentication[]` field に統合
 - Organization management: org DID Doc, members, teams, invite, RBAC role hierarchy
@@ -134,7 +134,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
-    "https://did.gftd.ai/context/v1"
+    "https://did.etzhayyim.com/context/v1"
   ],
   "id": "did:gftd:abc123",
   "type": ["Agent", "DoDAFSystem"],
@@ -174,7 +174,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
   "consent": {
     "model": "gnap-vp",
     "piiTier": 1,
-    "grantEndpoint": "https://authn.gftd.ai/gnap"
+    "grantEndpoint": "https://authn.etzhayyim.com/gnap"
   },
   "dodaf": {
     "viewpoint": "SV-1",
@@ -185,21 +185,21 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
     {
       "id": "#gftd_pds",
       "type": "GftdPDS",
-      "serviceEndpoint": "https://atproto.gftd.ai"
+      "serviceEndpoint": "https://atproto.etzhayyim.com"
     },
     {
       "id": "#consent-gnap",
       "type": "GNAPAuthorizationServer",
-      "serviceEndpoint": "https://authn.gftd.ai/gnap"
+      "serviceEndpoint": "https://authn.etzhayyim.com/gnap"
     },
     {
       "id": "#vp-verifier",
       "type": "VerifiablePresentationService",
-      "serviceEndpoint": "https://authn.gftd.ai/vp/verify"
+      "serviceEndpoint": "https://authn.etzhayyim.com/vp/verify"
     }
   ],
 
-  "alsoKnownAs": ["at://kami.gftd.ai", "did:plc:abc123"]
+  "alsoKnownAs": ["at://kami.etzhayyim.com", "did:plc:abc123"]
 }
 ```
 
@@ -229,12 +229,12 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
       "publicKeyMultibase": "zDna..."
     }
   ],
-  "alsoKnownAs": ["at://kami.gftd.ai"],
+  "alsoKnownAs": ["at://kami.etzhayyim.com"],
   "service": [
     {
       "id": "#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://atproto.gftd.ai"
+      "serviceEndpoint": "https://atproto.etzhayyim.com"
     }
   ]
 }
@@ -247,13 +247,13 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
 ### Resolver
 
 ```
-did.gftd.ai    <- unified DID resolver
+did.etzhayyim.com    <- unified DID resolver
                   GET /did:gftd:{hash}   -> did:gftd DID Document (authn + authz + governance)
                   GET /did:plc:{hash}    -> did:plc DID Document (federation adapter)
 ```
 
 - 単一 Worker (`ai-gftd-did-directory`) + D1
-- `plc.gftd.ai` を `did.gftd.ai` に統合 (redirect → 廃止)
+- `plc.etzhayyim.com` を `did.etzhayyim.com` に統合 (redirect → 廃止)
 - Federation export (`/_export`) は現時点で対応不要
 
 D1 schema:
@@ -273,7 +273,7 @@ CREATE TABLE gftd_did_log (
   PRIMARY KEY (did, seq)
 );
 
--- did:plc (plc.gftd.ai から移行)
+-- did:plc (plc.etzhayyim.com から移行)
 -- plc_ops, plc_did_head は既存テーブルをそのまま使用
 ```
 
@@ -311,7 +311,7 @@ PDS authenticate()                                    verify.ts
   ├─ JWT.iss starts with "did:gftd:"
   │   │
   │   ├─ [1] Resolve did:gftd DID Document              ← 1 fetch
-  │   │   DID_SERVICE.fetch("https://did.gftd.ai/did:gftd:abc123")
+  │   │   DID_SERVICE.fetch("https://did.etzhayyim.com/did:gftd:abc123")
   │   │   → DID Doc (2KB, cached 300s)
   │   │
   │   ├─ [2] AuthN: verify JWT signature                 ← L1
@@ -409,8 +409,8 @@ async function resolveGftdDID(did: string, env: Env): Promise<GftdDidDoc | null>
   const cached = _gftdDocCache.get(did);
   if (cached && cached.exp > Date.now()) return cached.doc;
 
-  // Layer 1: DID_SERVICE binding (did.gftd.ai)
-  const res = await env.DID_SERVICE.fetch(`https://did.gftd.ai/${did}`);
+  // Layer 1: DID_SERVICE binding (did.etzhayyim.com)
+  const res = await env.DID_SERVICE.fetch(`https://did.etzhayyim.com/${did}`);
   if (!res.ok) return null;
 
   const doc = await res.json() as GftdDidDoc;
@@ -465,7 +465,7 @@ export function canAccess(auth: PdsAuth, nsid: string, mode: 'read' | 'write'): 
 ### Auth Worker — JWT Minting Change
 
 ```typescript
-// authn.gftd.ai handleGetServiceAuth
+// authn.etzhayyim.com handleGetServiceAuth
 async function handleGetServiceAuth(body: { iss: string; aud: string; lxm?: string }, env: Env) {
   const { iss, aud, lxm } = body;
   // iss = "did:gftd:abc123" — caller's platform DID
@@ -501,7 +501,7 @@ func mintScopedJWT(baseToken, nsid string) (string, error) {
 ### Signing Key Custody — KEK Envelope Encryption (ADR-0010 Stage 1)
 
 ```
-KEYS_DB (D1, authn.gftd.ai):
+KEYS_DB (D1, authn.etzhayyim.com):
   vertex_gftd_key_signing:
     vertex_id = "did:gftd:abc123"
     encrypted_private_key = "AES-256-GCM ciphertext"    <- D1 never sees plaintext
@@ -539,17 +539,17 @@ Stage 2→3 の移行: org KEK を Vault `AES-KW` で wrap。auth Worker は `va
 ### Service Binding Topology
 
 ```
-PDS (atproto.gftd.ai)
-  └─ AUTH_SERVICE → authn.gftd.ai        (JWT mint, key custody)
-  └─ DID_SERVICE  → did.gftd.ai         (did:gftd + did:plc resolution)
+PDS (atproto.etzhayyim.com)
+  └─ AUTH_SERVICE → authn.etzhayyim.com        (JWT mint, key custody)
+  └─ DID_SERVICE  → did.etzhayyim.com         (did:gftd + did:plc resolution)
 
-authn.gftd.ai
-  └─ PDS_SERVICE → atproto.gftd.ai      (createApiKey bootstrap)
+authn.etzhayyim.com
+  └─ PDS_SERVICE → atproto.etzhayyim.com      (createApiKey bootstrap)
   └─ KEYS_DB (D1)                       (signing key custody)
 
-did.gftd.ai
+did.etzhayyim.com
   └─ DID_DB (D1)                        (DID Documents + op log)
-  └─ PDS_SERVICE → atproto.gftd.ai      (firehose emit, optional)
+  └─ PDS_SERVICE → atproto.etzhayyim.com      (firehose emit, optional)
 ```
 
 ---
@@ -714,11 +714,11 @@ GFTD platform 内では did:gftd を使う。外部 AT Protocol federation (Blue
 ```
 GFTD internal call:
   JWT.iss = did:gftd:abc123
-  PDS → did.gftd.ai resolve → authn + authz
+  PDS → did.etzhayyim.com resolve → authn + authz
 
 AT Protocol federation call (from/to Bluesky):
   JWT.iss = did:plc:abc123
-  PDS → did.gftd.ai resolve did:plc → authn only (既存パス)
+  PDS → did.etzhayyim.com resolve did:plc → authn only (既存パス)
   → authz は N/A (federation は public read)
 ```
 
@@ -728,7 +728,7 @@ did:gftd DID Doc の `federationDID` field で did:plc を参照:
 {
   "id": "did:gftd:abc123",
   "federationDID": "did:plc:abc123",
-  "alsoKnownAs": ["at://kami.gftd.ai", "did:plc:abc123"]
+  "alsoKnownAs": ["at://kami.etzhayyim.com", "did:plc:abc123"]
 }
 ```
 
@@ -742,7 +742,7 @@ Federation が必要な actor のみ `federationDID` を持つ。cohort agent �
 
 | 項目 | 現状 | 問題 |
 |---|---|---|
-| Account DID | `did:web:authn.gftd.ai:user:{nanoid}` | did:gftd と無関係。domain-coupled |
+| Account DID | `did:web:authn.etzhayyim.com:user:{nanoid}` | did:gftd と無関係。domain-coupled |
 | Passkey | 新規登録の唯一の方法。AUTH_DB に保管 | did:gftd DID Doc に未反映 |
 | Google OAuth | 後付けリンクのみ。linked_auth_methods D1 | did:gftd DID Doc に未反映 |
 | Microsoft/Outlook OAuth | 後付けリンクのみ。linked_auth_methods D1 | did:gftd DID Doc に未反映 |
@@ -826,14 +826,14 @@ actorScore = 25 × (verified authentication methods count)
   Max: 100
 ```
 
-`actorScore` は DID Doc 内に保持。linked method の追加/削除時に `did.gftd.ai` の DID Doc を更新。
+`actorScore` は DID Doc 内に保持。linked method の追加/削除時に `did.etzhayyim.com` の DID Doc を更新。
 
 ### 認証フロー (OAuth / Email / Passkey → did:gftd)
 
 #### 新規登録 (Passkey)
 
 ```
-User → authn.gftd.ai /sign-up
+User → authn.etzhayyim.com /sign-up
   → Passkey (WebAuthn) registration
   → auth Worker:
       1. passkey credential → AUTH_DB.passkey_credentials
@@ -850,7 +850,7 @@ User → authn.gftd.ai /sign-up
 #### OAuth リンク追加
 
 ```
-User → authn.gftd.ai /xrpc/ai.gftd.auth.linkOAuthStart { provider: "google" }
+User → authn.etzhayyim.com /xrpc/ai.gftd.auth.linkOAuthStart { provider: "google" }
   → Google OAuth flow → callback
   → auth Worker:
       1. Google profile 取得 (openid email)
@@ -865,20 +865,20 @@ User → authn.gftd.ai /xrpc/ai.gftd.auth.linkOAuthStart { provider: "google" }
 
 ```
 [Passkey ログイン]
-  User → authn.gftd.ai /sign-in (WebAuthn)
+  User → authn.etzhayyim.com /sign-in (WebAuthn)
     → passkey assertion verify (AUTH_DB)
     → passkey credential → account DID = did:gftd:{hash}
     → JWT mint (iss = did:gftd:{hash})
 
 [Google OAuth ログイン]
-  User → authn.gftd.ai /sign-in → Google OAuth flow
+  User → authn.etzhayyim.com /sign-in → Google OAuth flow
     → Google profile → provider_subject
     → linked_auth_methods WHERE provider='google' AND provider_subject=?
     → account DID = did:gftd:{hash}
     → JWT mint (iss = did:gftd:{hash})
 
 [Email magic link ログイン]
-  User → authn.gftd.ai /xrpc/ai.gftd.auth.linkEmailBegin { email: "jun@gftd.group" }
+  User → authn.etzhayyim.com /xrpc/ai.gftd.auth.linkEmailBegin { email: "jun@gftd.group" }
     → OTP code 生成 → email 送信
   User → /xrpc/ai.gftd.auth.linkEmailVerify { email, code }
     → linked_auth_methods WHERE provider='email' AND email=?
@@ -891,21 +891,21 @@ User → authn.gftd.ai /xrpc/ai.gftd.auth.linkOAuthStart { provider: "google" }
 ### D1 テーブル関係
 
 ```
-AUTH_DB (authn.gftd.ai):
+AUTH_DB (authn.etzhayyim.com):
   passkey_credentials    ← WebAuthn public key + sign count
   email_link_codes       ← OTP codes (10min expiry)
 
-ACCOUNTS_DB (authn.gftd.ai → 将来 accounts.gftd.ai 分離):
+ACCOUNTS_DB (authn.etzhayyim.com → 将来 accounts.etzhayyim.com 分離):
   linked_auth_methods    ← provider, provider_subject, email, verified
     account_did TEXT      ← "did:gftd:{hash}" (移行後)
 
-KEYS_DB (authn.gftd.ai):
+KEYS_DB (authn.etzhayyim.com):
   did_keys               ← signing key custody
     did TEXT PK           ← "did:gftd:{hash}" (移行後)
     private_key_b64 TEXT
     public_key_multibase TEXT
 
-DID_DB (did.gftd.ai):
+DID_DB (did.etzhayyim.com):
   gftd_did_docs          ← DID Document (authentication[] 含む)
     did TEXT PK           ← "did:gftd:{hash}"
     document TEXT         ← JSON DID Doc
@@ -982,7 +982,7 @@ DID_DB (did.gftd.ai):
       "enforced": false
     },
     "defaultRole": "member",
-    "allowedDomains": ["gftd.group", "gftd.ai"]
+    "allowedDomains": ["gftd.group", "etzhayyim.com"]
   },
 
   "capabilityDelegation": [
@@ -1045,14 +1045,14 @@ did:gftd:alice456 の DID Doc fetch (1 fetch)
       role: "admin"
     }
 
-    → authn.gftd.ai が invite token 発行 (HMAC, 7d expiry)
+    → authn.etzhayyim.com が invite token 発行 (HMAC, 7d expiry)
     → email 送信 (invite link with token)
     → org DID Doc の members[] に pending entry 追加:
         { did: null, role: "admin", email: "alice@gftd.group", acceptedAt: null }
 
 [承認]
   Invitee
-    → invite link click → authn.gftd.ai
+    → invite link click → authn.etzhayyim.com
     → 未登録: Passkey sign-up → did:gftd:{hash} mint
     → 登録済み: ログイン (Passkey / OAuth / Email)
     → invite token verify
@@ -1203,19 +1203,19 @@ Comparison to Schema F (split):
 
 # Implementation Roadmap
 
-## Phase 1: `did.gftd.ai` Worker + did:gftd Resolution
+## Phase 1: `did.etzhayyim.com` Worker + did:gftd Resolution
 
-- `plc.gftd.ai` Worker (`ai-gftd-plc-directory`) を `did.gftd.ai` にリネーム/拡張
+- `plc.etzhayyim.com` Worker (`ai-gftd-plc-directory`) を `did.etzhayyim.com` にリネーム/拡張
 - D1 に `gftd_did_docs` / `gftd_did_log` テーブル追加
 - `GET /did:gftd:{hash}` endpoint 追加
 - `POST /did:gftd:{hash}` endpoint 追加 (DID Doc create/update)
 - did:plc resolution は既存のまま維持
-- `plc.gftd.ai` → `did.gftd.ai` redirect
+- `plc.etzhayyim.com` → `did.etzhayyim.com` redirect
 - CLI: `gftd did resolve did:gftd:{hash}`
 
 ## Phase 2: Signing Key Custody Migration (KEYS_DB → did:gftd)
 
-- `KEYS_DB.did_keys` の key を `did:web:*.gftd.ai` → `did:gftd:{hash}` に migration
+- `KEYS_DB.did_keys` の key を `did:web:*.etzhayyim.com` → `did:gftd:{hash}` に migration
 - 新規 actor は `did:gftd` で signing key 発行
 - `did:gftd` DID Doc の `verificationMethod` に public key publish
 - 既存 actor は grace period で `did:web` / `did:plc` key も並行維持
@@ -1243,7 +1243,7 @@ Comparison to Schema F (split):
 - Email link リンク → did:gftd DID Doc の `authentication[]` に `EmailVerification` entry 追加
 - OAuth/Email ログイン → `linked_auth_methods` で account DID (`did:gftd`) lookup → JWT mint
 - `actorScore` を DID Doc 内で管理 (25pt × verified methods)
-- `linked_auth_methods.account_did` を `did:web:authn.gftd.ai:user:{nanoid}` → `did:gftd:{hash}` に migration
+- `linked_auth_methods.account_did` を `did:web:authn.etzhayyim.com:user:{nanoid}` → `did:gftd:{hash}` に migration
 
 ## Phase 6: Organization Management
 
@@ -1260,7 +1260,7 @@ Comparison to Schema F (split):
 - Enterprise SSO (OIDC/SAML) → org DID Doc の `orgSettings.sso` で設定
 - `enforced: true` で org メンバーに SSO ログインを強制
 - Cohort actor → org member として追加 (role = `agent-runtime`, 自動承認)
-- `gftd cohort seed` → did:gftd DID Doc を `did.gftd.ai` に mint
+- `gftd cohort seed` → did:gftd DID Doc を `did.etzhayyim.com` に mint
 - fission 時に新 did:gftd + signing key を pair で発行
 - federation 不要な cohort は `federationDID` を省略
 

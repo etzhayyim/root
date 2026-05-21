@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "@vocab": "https://scap.gftd.ai/ontology#",
+    "@vocab": "https://scap.etzhayyim.com/ontology#",
     "id": "@id",
     "type": "@type",
     "dodaf": "https://dod.af/dodaf/dm2#",
@@ -60,7 +60,7 @@
       "@container": "@set"
     }
   },
-  "@id": "https://scap.gftd.ai/activities/scap-scan-execution",
+  "@id": "https://scap.etzhayyim.com/activities/scap-scan-execution",
   "@type": [
     "dodaf:Activity",
     "prov:Activity"
@@ -71,68 +71,68 @@
   "updatedAt": "2024-01-01T00:00:00Z",
   "performedBy": [
     {
-      "@id": "https://scap.gftd.ai/performers/services/scap-scan-service"
+      "@id": "https://scap.etzhayyim.com/performers/services/scap-scan-service"
     }
   ],
   "produces": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapScanResults"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapScanResults"
     }
   ],
   "consumes": [
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/scapContents"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/scapContents"
     },
     {
-      "@id": "https://scap.gftd.ai/resources/schemas/integrations"
+      "@id": "https://scap.etzhayyim.com/resources/schemas/integrations"
     }
   ],
   "requires": [
     {
-      "@id": "https://scap.gftd.ai/capabilities/compliance-scanning"
+      "@id": "https://scap.etzhayyim.com/capabilities/compliance-scanning"
     },
     {
-      "@id": "https://scap.gftd.ai/capabilities/vulnerability-assessment"
+      "@id": "https://scap.etzhayyim.com/capabilities/vulnerability-assessment"
     }
   ],
   "enables": [
     {
-      "@id": "https://scap.gftd.ai/effect/automated-compliance"
+      "@id": "https://scap.etzhayyim.com/effect/automated-compliance"
     }
   ],
   "realizes": [
     {
-      "@id": "https://scap.gftd.ai/goal/execute-scap-scans"
+      "@id": "https://scap.etzhayyim.com/goal/execute-scap-scans"
     }
   ],
   "step": [
     {
-      "@id": "https://scap.gftd.ai/activities/scap-scan-execution/prepare-scan",
+      "@id": "https://scap.etzhayyim.com/activities/scap-scan-execution/prepare-scan",
       "name": "Prepare Scan",
       "description": "Prepare SCAP scan configuration and target identification",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/services/scap-scan-service.ts"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/services/scap-scan-service.ts"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-scan-execution/execute-scan",
+      "@id": "https://scap.etzhayyim.com/activities/scap-scan-execution/execute-scan",
       "name": "Execute Scan",
       "description": "Execute SCAP compliance scan against target using integration",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/services/scap-scan-service.ts"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/services/scap-scan-service.ts"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-scan-execution/evaluate-results",
+      "@id": "https://scap.etzhayyim.com/activities/scap-scan-execution/evaluate-results",
       "name": "Evaluate Results",
       "description": "Evaluate scan results and calculate compliance percentage",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/services/scap-scan-service.ts"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/services/scap-scan-service.ts"
     },
     {
-      "@id": "https://scap.gftd.ai/activities/scap-scan-execution/store-results",
+      "@id": "https://scap.etzhayyim.com/activities/scap-scan-execution/store-results",
       "name": "Store Results",
       "description": "Store scan results in database and send real-time notifications",
-      "wasDerivedFrom": "https://github.com/gftdcojp/ai-gftd-scap/blob/main/services/scap-scan-service.ts"
+      "wasDerivedFrom": "https://github.com/etzhayyim/ai-gftd-scap/blob/main/services/scap-scan-service.ts"
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/services/scap-scan-service.ts",
-    "https://github.com/gftdcojp/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs"
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/services/scap-scan-service.ts",
+    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs"
   ]
 }

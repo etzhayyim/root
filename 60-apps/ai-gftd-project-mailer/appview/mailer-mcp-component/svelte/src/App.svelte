@@ -110,7 +110,7 @@
     </nav>
 
     <div class="sidebar-footer">
-      <div class="domain-badge">*@gftd.ai</div>
+      <div class="domain-badge">*@etzhayyim.com</div>
       <div class="subtitle">DID email platform</div>
     </div>
   </aside>
@@ -143,7 +143,7 @@
           <div class="empty-state">
             <span class="empty-icon">📭</span>
             <p>No emails yet</p>
-            <p class="hint">Send an email to <code>you@gftd.ai</code> to get started</p>
+            <p class="hint">Send an email to <code>you@etzhayyim.com</code> to get started</p>
           </div>
         {:else}
           <ul class="email-list">
@@ -182,7 +182,7 @@
             </div>
             <div class="meta-row">
               <span class="meta-label">To</span>
-              <span class="meta-value">{selected.toLocal}@gftd.ai</span>
+              <span class="meta-value">{selected.toLocal}@etzhayyim.com</span>
             </div>
             <div class="meta-row">
               <span class="meta-label">Received</span>
@@ -212,7 +212,7 @@
         <div class="empty-state">
           <span class="empty-icon">🔗</span>
           <p>Email → DID mappings</p>
-          <p class="hint">Each sender email is auto-mapped to a path-based DID under <code>ml1nb0nd.gftd.ai</code></p>
+          <p class="hint">Each sender email is auto-mapped to a path-based DID under <code>ml1nb0nd.etzhayyim.com</code></p>
         </div>
       </div>
     {/if}

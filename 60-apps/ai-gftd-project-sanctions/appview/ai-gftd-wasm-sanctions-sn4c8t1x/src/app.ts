@@ -67,7 +67,7 @@ async function write(_sdk: HostSDK, collection: string, rec: Record<string, unkn
     match: "vertex_sanctions_match",
   };
   const table = tableMap[collection] ?? `vertex_sanctions_${camelToSnake(collection)}`;
-  const ownerDid = `did:web:sn4c8t1x.gftd.ai`;
+  const ownerDid = `did:web:sn4c8t1x.etzhayyim.com`;
   const rkey = str(rec.matchId ?? rec.entryId ?? rec.updateId ?? "") || genID();
   const vertex_id = `at://${ownerDid}/ai.gftd.apps.sanctions.${collection}/${rkey}`;
   const snakeRec = Object.fromEntries(Object.entries(rec).map(([k, v]) => [camelToSnake(k), v]));

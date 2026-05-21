@@ -1,7 +1,7 @@
 [project]
 name = "lg-yukkuri"
 version = "0.1.0"
-description = "yukkuri.gftd.ai OSS LangGraph FastAPI server — AI yukkuri video generation"
+description = "yukkuri.etzhayyim.com OSS LangGraph FastAPI server — AI yukkuri video generation"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",

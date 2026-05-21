@@ -33,7 +33,7 @@ did:web:sbom.etzhayyim.com:patchaction:{action-id}        — this slice (PatchA
 
 ## Pattern translation (Option B)
 
-| Vendor (`sbom.gftd.ai`) | etzhayyim (this PR) |
+| Vendor (`sbom.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
 | `db.insertInto("vertex_sbom_artifact").values({...}).execute()` | `e.write({ collection: "ai.gftd.apps.sbom.artifact", record, rkey })` |
@@ -91,7 +91,7 @@ Option C (IPFS) rejected — SBOM records are small structured data, not blobs.
 
 **ISN'T**:
 - A deployed Worker (scaffold-only, matches open-isco / hanrei / ipaddress rw-free state).
-- A production replacement for `sbom.gftd.ai` — vendor `sbom` continues to serve builds during migration.
+- A production replacement for `sbom.etzhayyim.com` — vendor `sbom` continues to serve builds during migration.
 - Full command parity — VulnMatch/PatchPolicy/PatchAction tiers + CVE pipeline ship in follow-up slices.
 - mst-projector views — Phase 3 dependency for graph walks (blast radius).
 

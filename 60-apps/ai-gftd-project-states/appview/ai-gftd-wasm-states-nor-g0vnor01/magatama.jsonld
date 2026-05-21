@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:nor-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:nor-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Norway AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -86,7 +86,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "nor-state.gftd.ai",
+      "host": "nor-state.etzhayyim.com",
       "paths": [
         "/"
       ],

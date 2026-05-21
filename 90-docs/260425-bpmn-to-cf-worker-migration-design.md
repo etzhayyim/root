@@ -20,7 +20,7 @@ PDS (XRPC pipethrough) → bpmn-dispatcher pod (admin trust) → Zeebe broker
 Three structural issues:
 
 1. **Authority scope** — `pyzeebe` holds a single root credential. The `generic.db.insert` task accepts any `table` name; only the format regex (`vertex_*|edge_*|mv_*`) is enforced. Wave-5 onward we added an explicit `write_table_allowlist` per binding (mig 20260425160000), which closes the worst hole, but the credential itself is still root.
-2. **Identity collapse** — 105 distinct `did:web:open-{project}.gftd.ai:ops` owners share one execution pool. The owner_did column is a label, not an enforcement boundary.
+2. **Identity collapse** — 105 distinct `did:web:open-{project}.etzhayyim.com:ops` owners share one execution pool. The owner_did column is a label, not an enforcement boundary.
 3. **Idle floor** — `pyzeebe` and `bpmn-dispatcher` are always-on. With 105 stub BPMNs that each do `start → db.insert → audit.emit → end` (linear, ~50 ms work), the orchestration overhead is essentially zero work, but we pay for two persistent pods.
 
 CF Worker pattern (gftd app actor T3) is the inverse: per-DID isolate, Service Auth scoped to that NSID, scale-to-zero between requests.

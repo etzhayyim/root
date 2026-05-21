@@ -20,7 +20,7 @@ superseded_by: []
 
 # Maps Vision & Satellite Pipeline Design
 
-maps.gftd.ai の画像分析・衛星データ統合パイプライン設計。4 段階で User Post EXIF → Mapraly → Murakumo Vision → Satellite を統合。
+maps.etzhayyim.com の画像分析・衛星データ統合パイプライン設計。4 段階で User Post EXIF → Mapraly → Murakumo Vision → Satellite を統合。
 
 ## Goal
 
@@ -36,10 +36,10 @@ maps-ui (`uqpel6i6`) の 14 新コマンド + handleCommit 拡張。maps-collect
 
 | Step | Source | Source DID | コマンド数 | 出力ノード |
 |---|---|---|---|---|
-| 1 | User Post EXIF | `did:web:maps.gftd.ai:user_post` | 2 | SpatialEvent, Place |
-| 2 | Mapraly | `did:web:maps.gftd.ai:mapraly` | 3 | Spot, Route, CollectionJob |
-| 3 | Murakumo Vision | `did:web:maps.gftd.ai:vision` | 3 | VisionResult + 任意エンティティ |
-| 4 | Satellite (STAC) | `did:web:maps.gftd.ai:satellite` | 5 | SatelliteScene, CollectionJob |
+| 1 | User Post EXIF | `did:web:maps.etzhayyim.com:user_post` | 2 | SpatialEvent, Place |
+| 2 | Mapraly | `did:web:maps.etzhayyim.com:mapraly` | 3 | Spot, Route, CollectionJob |
+| 3 | Murakumo Vision | `did:web:maps.etzhayyim.com:vision` | 3 | VisionResult + 任意エンティティ |
+| 4 | Satellite (STAC) | `did:web:maps.etzhayyim.com:satellite` | 5 | SatelliteScene, CollectionJob |
 
 ## Decision
 
@@ -47,10 +47,10 @@ maps-ui (`uqpel6i6`) の 14 新コマンド + handleCommit 拡張。maps-collect
 
 | DID | 外部ソース | TTL |
 |---|---|---|
-| `did:web:maps.gftd.ai:user_post` | app.bsky.feed.post 画像 EXIF | 無期限 |
-| `did:web:maps.gftd.ai:mapraly` | Mapraly REST API | 7d |
-| `did:web:maps.gftd.ai:vision` | Murakumo Vision (qwen3-vl-8b) | 無期限 |
-| `did:web:maps.gftd.ai:satellite` | Sentinel-2/1, Landsat, HLS, Copernicus DEM, NAIP (全無料 STAC) | 30d |
+| `did:web:maps.etzhayyim.com:user_post` | app.bsky.feed.post 画像 EXIF | 無期限 |
+| `did:web:maps.etzhayyim.com:mapraly` | Mapraly REST API | 7d |
+| `did:web:maps.etzhayyim.com:vision` | Murakumo Vision (qwen3-vl-8b) | 無期限 |
+| `did:web:maps.etzhayyim.com:satellite` | Sentinel-2/1, Landsat, HLS, Copernicus DEM, NAIP (全無料 STAC) | 30d |
 
 ### Graph Schema 追加
 
@@ -263,7 +263,7 @@ satellite_ingest (bbox + date_from/to + satellite + max_cloud_cover)
 | 光学衛星 | Pleiades Neo | **30cm** | 2021年〜 |
 | 偵察衛星 (機密) | KH-11 (米軍) | **~5-10cm** | 非商用 |
 
-衛星は解像度に関わらず「真上からの鳥瞰」のみ。建物壁面 (ファサード) の撮影は物理的に不可能 (高度 300-600km では 50m ビルが視野角 0.005°)。壁面が必要な場合は航空写真 (EagleView/Nearmap) または Mapillary ストリートビュー (`did:web:maps.gftd.ai:street_view` 実装済み)。
+衛星は解像度に関わらず「真上からの鳥瞰」のみ。建物壁面 (ファサード) の撮影は物理的に不可能 (高度 300-600km では 50m ビルが視野角 0.005°)。壁面が必要な場合は航空写真 (EagleView/Nearmap) または Mapillary ストリートビュー (`did:web:maps.etzhayyim.com:street_view` 実装済み)。
 
 ### 推奨フェーズ (アーカイブ前提)
 
@@ -309,7 +309,7 @@ interface satellite-intelligence {
 
 ```
                     ┌─────────────────────────────────────────────┐
-                    │              maps.gftd.ai                    │
+                    │              maps.etzhayyim.com                    │
                     │           (yata Cypher graph)                │
                     │                                              │
   User Post ──EXIF──┤  SpatialEvent ─┐                            │

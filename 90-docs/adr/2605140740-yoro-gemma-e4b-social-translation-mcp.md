@@ -7,7 +7,7 @@ topic: yoro-i18n
 authoritative: true
 last_verified: 2026-05-14
 authoritative_for:
-  - yoro.gftd.ai social post translation worker topology
+  - yoro.etzhayyim.com social post translation worker topology
   - yoro social translation MCP tool exposure
   - scheduled target language set for yoro post backfill
 related:
@@ -45,7 +45,7 @@ social translation:
   `http://keiei-llm-e4b.keiei-llm.svc.cluster.local:8080/v1/chat/completions`
   with `GFTD_LLM_MODEL=gemma-4-E4B-it`.
 - The active image verified on 2026-05-14 is
-  `ghcr.io/gftdcojp/pymagatama:yoro-translation-i18n5-653ce4e7159-20260514072956-amd64`.
+  `ghcr.io/etzhayyim/pymagatama:yoro-translation-i18n5-653ce4e7159-20260514072956-amd64`.
 - Translation calls use an explicit language label in the prompt, deterministic
   temperature, `max_tokens=1200`, and `YORO_TRANSLATION_LLM_TIMEOUT_SEC=300`.
 
@@ -76,7 +76,7 @@ http://yoro-mcp-adapter.yoro-actors.svc.cluster.local:8080/mcp
 ```
 
 `tools/list` returns both translation tools. External unauthenticated requests
-to `https://yoro.gftd.ai/mcp` and `https://atproto.gftd.ai/mcp` are expected
+to `https://yoro.etzhayyim.com/mcp` and `https://atproto.etzhayyim.com/mcp` are expected
 to be denied at the edge (`403`) unless the caller satisfies the public MCP
 auth policy.
 

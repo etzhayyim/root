@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/ai-gftd-hrse#ConnectHooks
+ * @etzhayyim/ai-gftd-hrse#ConnectHooks
  * Connect-Web React Hooks
  * 
  * Connect-RPC サービスを React で使用するためのカスタムフック

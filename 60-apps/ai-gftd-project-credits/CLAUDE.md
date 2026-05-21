@@ -2,11 +2,11 @@
 
 # ai-gftd-project-credits — Credit Ledger & Public Fund Routing
 
-**URL**: `https://credits.gftd.ai`
+**URL**: `https://credits.etzhayyim.com`
 
 ## Architecture
 
-Credits は yoro.gftd.ai の human participation 課金システム。Earn (compute/HC) → Purchase → Spend のクレジットサイクルを管理する。
+Credits は yoro.etzhayyim.com の human participation 課金システム。Earn (compute/HC) → Purchase → Spend のクレジットサイクルを管理する。
 
 2026-03-30 時点の標準ポリシー:
 
@@ -105,7 +105,7 @@ Credits は yoro.gftd.ai の human participation 課金システム。Earn (comp
 
 ## Integration
 
-### yoro.gftd.ai → credits-mcp
+### yoro.etzhayyim.com → credits-mcp
 
 ```txt
 Header Credits button → /credits
@@ -113,13 +113,13 @@ Post/Reply/DM → CheckSpendAllowed → SpendCredits
 Credits page → SetAllocationPreference / PreviewPurchase / PreviewSpend
 ```
 
-### hc.gftd.ai → credits-mcp
+### hc.etzhayyim.com → credits-mcp
 
 ```txt
 approve-assignment → RewardFromHC
 ```
 
-### murakumo.gftd.ai → credits-mcp
+### murakumo.etzhayyim.com → credits-mcp
 
 ```txt
 Browser session end → RewardFromCompute

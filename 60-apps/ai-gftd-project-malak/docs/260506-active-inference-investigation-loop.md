@@ -58,7 +58,7 @@ and draft state.
 `vertex_malak_phishing_trap`
 
 Owned inbound-only trap registrations. The current live trap is email-only under
-`gftd.ai`; Telnyx/SMS remains postponed.
+`etzhayyim.com`; Telnyx/SMS remains postponed.
 
 `vertex_malak_trap_message`
 
@@ -113,10 +113,10 @@ submission.
 The trap pipeline is operational and bounded:
 
 ```text
-trap-email-malak-spamtrap-primary@gftd.ai
+trap-email-malak-spamtrap-primary@etzhayyim.com
   -> Cloudflare Email Routing
   -> ai-gftd-email-relay
-  -> did:web:ml1nb0nd.gftd.ai / ai.gftd.apps.mailer.inboundEmail
+  -> did:web:ml1nb0nd.etzhayyim.com / ai.gftd.apps.mailer.inboundEmail
   -> vertex_malak_trap_message
 ```
 

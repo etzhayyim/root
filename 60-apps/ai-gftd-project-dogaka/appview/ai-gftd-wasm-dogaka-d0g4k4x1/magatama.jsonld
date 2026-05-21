@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:dogaka.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:dogaka.etzhayyim.com",
   "component": {
     "env": {
       "APP_EMBED_MODE": "viewport",
@@ -41,7 +41,7 @@
   "project": "dogaka",
   "routes": [
     {
-      "host": "dogaka.gftd.ai",
+      "host": "dogaka.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }

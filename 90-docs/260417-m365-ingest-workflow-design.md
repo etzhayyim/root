@@ -1,6 +1,6 @@
 # M365 Ingest Workflow + Actor Pipeline DSL (2026-04-17)
 
-Ad-hoc `~/.gftd/ingest/m365_mail_ingest.py` Python script を T1 actor manifest pipeline + derive-based routing に置き換える設計。Actor = `m365-ingest` (nanoid `m3650xin`, `did:web:m365-ingest.gftd.ai`)。
+Ad-hoc `~/.gftd/ingest/m365_mail_ingest.py` Python script を T1 actor manifest pipeline + derive-based routing に置き換える設計。Actor = `m365-ingest` (nanoid `m3650xin`, `did:web:m365-ingest.etzhayyim.com`)。
 
 ## 目的
 
@@ -16,7 +16,7 @@ Ad-hoc `~/.gftd/ingest/m365_mail_ingest.py` Python script を T1 actor manifest 
 | Actor | Role | Reads | Writes |
 |---|---|---|---|
 | `m365-ingest` (T1, 新規) | **R** — Graph API raw fetch + classification | `vertex_m365_user`, Graph `/users/*` | `vertex_m365_sync_state`, `ai.gftd.apps.kyber.inbox.emailSignal` |
-| `email-service-adapter` (既存, `outlook.gftd.ai`) | **A** — OAuth UI + per-user consent | PDS `oauth_connection` | `oauth_connection` (不変) |
+| `email-service-adapter` (既存, `outlook.etzhayyim.com`) | **A** — OAuth UI + per-user consent | PDS `oauth_connection` | `oauth_connection` (不変) |
 | `kyber-inbox` (既存, `inb0x4k2`) | **C** — signal/noise + dept routing | `emailSignal` (subscribeRepos) | `vertex_email_message` |
 | `yabai` (既存, `y8b41k0x`) | **C** — threat scoring | `emailSignal` where `signalClass='yabai'` | `yabai.entity/evidence/risk` |
 

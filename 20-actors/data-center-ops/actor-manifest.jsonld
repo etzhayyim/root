@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:data-center-ops.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:data-center-ops.etzhayyim.com",
   "actors": [
     {
       "displayName": "Facility Registry",

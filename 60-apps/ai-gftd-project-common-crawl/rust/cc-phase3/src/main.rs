@@ -7,7 +7,7 @@
 //!
 //! Per-page DID (W3C did:web, path-isomorphic):
 //!   URL  https://example.com/foo/bar
-//!   DID  did:web:site.gftd.ai:example-com:foo:bar
+//!   DID  did:web:site.etzhayyim.com:example-com:foo:bar
 //!   rkey example-com:foo:bar (= vertex_id)
 //!
 //! Features:
@@ -399,13 +399,13 @@ fn url_hash(url: &str) -> String {
 
 /// Maximum total page DID length before SHA-256 fallback kicks in.
 const PAGE_DID_MAX_LEN: usize = 2048;
-const DID_PREFIX: &str = "did:web:site.gftd.ai:";
+const DID_PREFIX: &str = "did:web:site.etzhayyim.com:";
 
 /// Build (rkey, page_did) from URL using directory path → DID path isomorphism.
 ///
 /// `https://example.com/foo/bar/page.html` →
 ///   rkey = `example-com:foo:bar:page.html`
-///   did  = `did:web:site.gftd.ai:example-com:foo:bar:page.html`
+///   did  = `did:web:site.etzhayyim.com:example-com:foo:bar:page.html`
 ///
 /// Root path (`/`) → `{slug}:_root`. Query / fragment stripped. Long URLs fall
 /// back to `{slug}:_h:{16hex}` to stay under PAGE_DID_MAX_LEN.
@@ -443,7 +443,7 @@ fn page_did_from_url(url: &str) -> Option<(String, String)> {
     Some((rkey, did))
 }
 
-/// Domain DID — `did:web:site.gftd.ai:{domain-slug}`.
+/// Domain DID — `did:web:site.etzhayyim.com:{domain-slug}`.
 fn domain_did_from_slug(domain_slug: &str) -> String {
     format!("{DID_PREFIX}{domain_slug}")
 }
@@ -459,7 +459,7 @@ fn parquet_props() -> WriterProperties {
 /// Write pages batch as vertex_page Parquet.
 ///
 /// Each page row carries its own DID actor (`owner_did`) derived from the URL
-/// directory path: `did:web:site.gftd.ai:{domain-slug}:{path-segments}`.
+/// directory path: `did:web:site.etzhayyim.com:{domain-slug}:{path-segments}`.
 /// `rkey` / `vertex_id` use the same path slug (domain-slug:seg1:seg2…).
 fn write_pages_parquet(
     pages: &[PageRecord],
@@ -652,7 +652,7 @@ fn write_links_parquet(
 
 /// Write domain-level link aggregation as edge_links_to_domain Parquet.
 ///
-/// owner_did = src domain DID (`did:web:site.gftd.ai:{src-slug}`).
+/// owner_did = src domain DID (`did:web:site.etzhayyim.com:{src-slug}`).
 fn write_dlinks_parquet(
     pages: &[PageRecord],
     path: &Path,

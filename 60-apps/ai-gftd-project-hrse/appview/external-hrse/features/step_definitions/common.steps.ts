@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#CommonSteps
+// @etzhayyim/cyber-freelance#CommonSteps
 // 共通のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

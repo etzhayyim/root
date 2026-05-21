@@ -2,7 +2,7 @@
 
 # ai-gftd-project-jp-ashiba
 
-jp-ashiba.gftd.ai — 足場レンタル・サブスクリプション AI Agent (performerType: service)
+jp-ashiba.etzhayyim.com — 足場レンタル・サブスクリプション AI Agent (performerType: service)
 
 ## Overview
 
@@ -28,7 +28,7 @@ jp-ashiba.gftd.ai — 足場レンタル・サブスクリプション AI Agent 
 建設会社 / 工務店 (XRPC client)
   │
   ▼
-jp-ashiba.gftd.ai (App Worker)
+jp-ashiba.etzhayyim.com (App Worker)
   ├─ 足場資材カタログ (種別・規格・在庫)
   ├─ レンタル契約 lifecycle (見積→契約→配送→回収)
   ├─ サブスクリプション管理 (tier・利用量・更新)
@@ -36,9 +36,9 @@ jp-ashiba.gftd.ai (App Worker)
   ├─ 安全点検 (法定点検記録・不良品管理)
   ├─ GovernanceGate (RBAC + contract + trust)
   ▼
-atproto.gftd.ai/xrpc/{NSID} (W Protocol Event Stream)
+atproto.etzhayyim.com/xrpc/{NSID} (W Protocol Event Stream)
   ├─ kagami graph (RisingWave Hyperdrive)
-  └─ kakin.gftd.ai (課金連携)
+  └─ kakin.etzhayyim.com (課金連携)
 ```
 
 ## performerType: service
@@ -92,7 +92,7 @@ AT Lexicon namespace: `ai.gftd.apps.jpAshiba.*`
 | `contractId` | string | nanoid |
 | `customerDid` | string | 顧客 DID |
 | `siteAddress` | string | 現場住所 |
-| `siteGeo` | object | `{lat, lng}` (maps.gftd.ai 連携) |
+| `siteGeo` | object | `{lat, lng}` (maps.etzhayyim.com 連携) |
 | `items` | array | `[{itemId, quantity, days}]` |
 | `status` | enum | `quote` / `confirmed` / `delivered` / `inUse` / `dismantling` / `returned` / `completed` / `cancelled` |
 | `startDate` | string | ISO 8601 |
@@ -169,23 +169,23 @@ AT Lexicon namespace: `ai.gftd.apps.jpAshiba.*`
 
 | DID | Role | 責務 |
 |---|---|---|
-| `did:web:jp-ashiba.gftd.ai` | controller | Primary app DID |
-| `did:web:jp-ashiba.gftd.ai:actor:estimator` | 見積 AI | 現場条件→最適足場種別・数量の提案、価格算出 |
-| `did:web:jp-ashiba.gftd.ai:actor:scheduler` | 配送計画 AI | 配送ルート最適化、作業班アサイン、天候考慮 |
-| `did:web:jp-ashiba.gftd.ai:actor:inspector` | 安全点検 AI | 点検チェックリスト生成、写真 AI 解析、不良予測 |
-| `did:web:jp-ashiba.gftd.ai:actor:inventory` | 在庫管理 AI | 在庫最適化、補充タイミング予測、稼働率分析 |
-| `did:web:jp-ashiba.gftd.ai:actor:support` | 顧客対応 AI | 問い合わせ対応、FAQ、エスカレーション判定 |
+| `did:web:jp-ashiba.etzhayyim.com` | controller | Primary app DID |
+| `did:web:jp-ashiba.etzhayyim.com:actor:estimator` | 見積 AI | 現場条件→最適足場種別・数量の提案、価格算出 |
+| `did:web:jp-ashiba.etzhayyim.com:actor:scheduler` | 配送計画 AI | 配送ルート最適化、作業班アサイン、天候考慮 |
+| `did:web:jp-ashiba.etzhayyim.com:actor:inspector` | 安全点検 AI | 点検チェックリスト生成、写真 AI 解析、不良予測 |
+| `did:web:jp-ashiba.etzhayyim.com:actor:inventory` | 在庫管理 AI | 在庫最適化、補充タイミング予測、稼働率分析 |
+| `did:web:jp-ashiba.etzhayyim.com:actor:support` | 顧客対応 AI | 問い合わせ対応、FAQ、エスカレーション判定 |
 
 ## Cross-App Integration
 
 | App | 連携内容 |
 |---|---|
-| `kakin.gftd.ai` | サブスク課金・従量課金・請求書発行 |
-| `maps.gftd.ai` | 現場位置情報・配送ルート最適化 |
-| `jinushi.gftd.ai` | 現場土地登記情報との照合 |
-| `ops.gftd.ai` | プロジェクト管理連携 |
-| `yotei.gftd.ai` | 配送・作業スケジュール連携 |
-| `photos.gftd.ai` | 点検写真保存・AI 解析 |
+| `kakin.etzhayyim.com` | サブスク課金・従量課金・請求書発行 |
+| `maps.etzhayyim.com` | 現場位置情報・配送ルート最適化 |
+| `jinushi.etzhayyim.com` | 現場土地登記情報との照合 |
+| `ops.etzhayyim.com` | プロジェクト管理連携 |
+| `yotei.etzhayyim.com` | 配送・作業スケジュール連携 |
+| `photos.etzhayyim.com` | 点検写真保存・AI 解析 |
 
 ## Regulatory Compliance
 

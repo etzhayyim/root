@@ -373,9 +373,9 @@ def _extract_actor_name(agent_did: str) -> str | None:
     """Best-effort extraction of the actor short-name from an agent DID.
 
     Examples:
-      did:web:etzhayyim-kobo.gftd.ai -> "kobo"
-      did:web:etzhayyim-kabi.gftd.ai     -> "kabi"
-      did:web:kinoko.gftd.ai             -> "kinoko"
+      did:web:etzhayyim-kobo.etzhayyim.com -> "kobo"
+      did:web:etzhayyim-kabi.etzhayyim.com     -> "kabi"
+      did:web:kinoko.etzhayyim.com             -> "kinoko"
       did:plc:something                   -> None
     """
     if not agent_did:

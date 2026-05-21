@@ -67,7 +67,7 @@ export type VertexSpatialProjection = {
  * vertex_spatial row. Returns null for control-plane entities — caller is
  * responsible for routing those to their typed tables.
  *
- * @param repoDid DID of the writer (e.g. did:web:maps.gftd.ai or sub-DID)
+ * @param repoDid DID of the writer (e.g. did:web:maps.etzhayyim.com or sub-DID)
  * @param entity entity name (maps collection slug, e.g. "building", "source")
  * @param rec   record payload (camelCase JS object, same as legacy write())
  */

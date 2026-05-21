@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-577944f38157",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-577944f38157",
   "entityId": "ent-577944f38157",
   "canonicalName": "comercializacion de productos varios",
   "aliases": [

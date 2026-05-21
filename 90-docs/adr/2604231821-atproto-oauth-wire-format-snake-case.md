@@ -48,23 +48,23 @@ profile で、独自の snake_case 拡張 (`dpop_bound_access_tokens: true`,
 
 ## 現状 (2026-04-23 監査)
 
-本 PDS / OAuth AS (`atproto.gftd.ai`) は **response / metadata を全面 camelCase**
+本 PDS / OAuth AS (`atproto.etzhayyim.com`) は **response / metadata を全面 camelCase**
 で出している:
 
 ### AS metadata (`50-infra/cloudflare/workers/atproto/src/app.ts:730-745`)
 
 ```json
 {
-  "issuer": "https://atproto.gftd.ai",
-  "authorizationEndpoint": "https://atproto.gftd.ai/oauth/authorize",
-  "tokenEndpoint": "https://atproto.gftd.ai/oauth/token",
+  "issuer": "https://atproto.etzhayyim.com",
+  "authorizationEndpoint": "https://atproto.etzhayyim.com/oauth/authorize",
+  "tokenEndpoint": "https://atproto.etzhayyim.com/oauth/token",
   "tokenEndpointAuthMethodsSupported": ["none", "privateKeyJwt"],
   "grantTypesSupported": ["authorizationCode", "refreshToken"],
   "responseTypesSupported": ["code"],
   "scopesSupported": [...],
   "dpopSigningAlgValuesSupported": ["ES256"],
   "codeChallengeMethodsSupported": ["S256"],
-  "pushedAuthorizationRequestEndpoint": "https://atproto.gftd.ai/oauth/par",
+  "pushedAuthorizationRequestEndpoint": "https://atproto.etzhayyim.com/oauth/par",
   "requirePushedAuthorizationRequests": true,
   "clientIdMetadataDocumentSupported": true
 }
@@ -74,8 +74,8 @@ profile で、独自の snake_case 拡張 (`dpop_bound_access_tokens: true`,
 
 ```json
 {
-  "resource": "https://atproto.gftd.ai",
-  "authorizationServers": ["https://atproto.gftd.ai"],
+  "resource": "https://atproto.etzhayyim.com",
+  "authorizationServers": ["https://atproto.etzhayyim.com"],
   "bearerMethodsSupported": ["header", "DPoP"],
   "scopesSupported": [...]
 }
@@ -95,7 +95,7 @@ profile で、独自の snake_case 拡張 (`dpop_bound_access_tokens: true`,
 
 ```json
 {
-  "clientId": "https://atproto.gftd.ai/client-metadata.json",
+  "clientId": "https://atproto.etzhayyim.com/client-metadata.json",
   "clientName": "GFTD PDS",
   "redirectUris": [...],
   "grantTypes": ["authorizationCode", "refreshToken"],
@@ -113,7 +113,7 @@ authn Worker は form POST を parse する際に snake_case → camelCase の a
 を持つ (`grant_type → grantType`, `client_id → clientId`, ...)。この結果:
 
 - 外部 client が snake_case で送った **request** は authn Worker では処理できる
-- ただし atproto.gftd.ai の PAR endpoint (`handlers/oauth.ts:41-51`) は `c.req.raw.formData()` を直接読むだけで alias が無い — snake_case body は受けられない
+- ただし atproto.etzhayyim.com の PAR endpoint (`handlers/oauth.ts:41-51`) は `c.req.raw.formData()` を直接読むだけで alias が無い — snake_case body は受けられない
 - response は両 Worker とも camelCase 固定
 
 ## 影響
@@ -133,7 +133,7 @@ snake_case 層の上でしか発火できないが、その層が無いので外
 # Decision
 
 OAuth 2.0 RFC 群 + AT Protocol OAuth spec に準拠した **snake_case wire format**
-を atproto.gftd.ai (PDS + OAuth AS) と authn.gftd.ai (OAuth AS split) の全 OAuth
+を atproto.etzhayyim.com (PDS + OAuth AS) と authn.etzhayyim.com (OAuth AS split) の全 OAuth
 endpoint / metadata response で採用する。内部 TypeScript 変数名は camelCase を
 維持 (root CLAUDE.md §Identifier: camelCase) し、**serialize / deserialize 境界
 でのみ snake_case に変換**する。
@@ -189,17 +189,17 @@ camelCase field を出すこと。
 app.get("/.well-known/oauth-authorization-server", (c) => {
   c.header("Cache-Control", "public, max-age=3600");
   return c.json({
-    issuer: "https://atproto.gftd.ai",
-    authorization_endpoint: "https://atproto.gftd.ai/oauth/authorize",
-    token_endpoint: "https://atproto.gftd.ai/oauth/token",
-    jwks_uri: "https://authn.gftd.ai/.well-known/jwks.json",
+    issuer: "https://atproto.etzhayyim.com",
+    authorization_endpoint: "https://atproto.etzhayyim.com/oauth/authorize",
+    token_endpoint: "https://atproto.etzhayyim.com/oauth/token",
+    jwks_uri: "https://authn.etzhayyim.com/.well-known/jwks.json",
     token_endpoint_auth_methods_supported: ["none", "private_key_jwt"],
     token_endpoint_auth_signing_alg_values_supported: ["ES256"],
     grant_types_supported: ["authorization_code", "refresh_token"],
     response_types_supported: ["code"],
     scopes_supported: buildScopesSupported(),
     code_challenge_methods_supported: ["S256"],
-    pushed_authorization_request_endpoint: "https://atproto.gftd.ai/oauth/par",
+    pushed_authorization_request_endpoint: "https://atproto.etzhayyim.com/oauth/par",
     require_pushed_authorization_requests: true,
     dpop_signing_alg_values_supported: ["ES256"],
     dpop_bound_access_tokens: true,
@@ -210,8 +210,8 @@ app.get("/.well-known/oauth-authorization-server", (c) => {
 app.get("/.well-known/oauth-protected-resource", (c) => {
   c.header("Cache-Control", "public, max-age=3600");
   return c.json({
-    resource: "https://atproto.gftd.ai",
-    authorization_servers: ["https://atproto.gftd.ai"],
+    resource: "https://atproto.etzhayyim.com",
+    authorization_servers: ["https://atproto.etzhayyim.com"],
     bearer_methods_supported: ["header", "DPoP"],
     scopes_supported: buildScopesSupported(),
     dpop_bound_access_tokens_required: true,
@@ -287,7 +287,7 @@ return c.json({
   refresh_token: session.refreshJwt,
   scope: granted_scope,
   sub,
-  iss: "https://atproto.gftd.ai",
+  iss: "https://atproto.etzhayyim.com",
 }, { headers: { "Cache-Control": "no-store" } });
 ```
 
@@ -307,12 +307,12 @@ return c.json({
 export function handleClientMetadata(c: Context<AppType>): Response {
   c.header("Cache-Control", "public, max-age=3600");
   return c.json({
-    client_id: "https://atproto.gftd.ai/client-metadata.json",
+    client_id: "https://atproto.etzhayyim.com/client-metadata.json",
     client_name: "GFTD PDS",
-    client_uri: "https://atproto.gftd.ai",
+    client_uri: "https://atproto.etzhayyim.com",
     redirect_uris: [
-      "https://atproto.gftd.ai/oauth/callback",
-      "https://yoro.gftd.ai/oauth/callback",
+      "https://atproto.etzhayyim.com/oauth/callback",
+      "https://yoro.etzhayyim.com/oauth/callback",
     ],
     grant_types: ["authorization_code", "refresh_token"],
     response_types: ["code"],
@@ -347,7 +347,7 @@ nonce enforcement は follow-up ADR とする。
 ## S5. authn Worker `/oauth/token` response (MEDIUM)
 
 `worker/src-ts/index.ts` の既存 alias は **input 側のみ** で response は
-camelCase で返している。OAuth flow 上は atproto.gftd.ai が AS の front を張り
+camelCase で返している。OAuth flow 上は atproto.etzhayyim.com が AS の front を張り
 authn は internal binding なので、authn の response が camelCase でも外部
 client には直接見えない。しかし `/xrpc/com.atproto.server.getServiceAuth` や
 `ai.gftd.auth.*` が snake_case/camelCase 混在すると後続 ADR で困る。
@@ -399,7 +399,7 @@ RFC 7009, introspection endpoint RFC 7662) を別 ADR で扱う。本 ADR の sc
 ## Positive
 
 - **federation 完全復活**: `@atproto/api` / Bluesky App / Ivory / Graysky /
-  汎用 OAuth 2.0 library が atproto.gftd.ai を AS として使える
+  汎用 OAuth 2.0 library が atproto.etzhayyim.com を AS として使える
 - **spec compliance claim 可**: AT Protocol OAuth spec の全 MUST を満たす
   (DPoP verify は ADR-2604231800 で、wire format は本 ADR で)
 - **RFC 9207 `iss` で mix-up attack 防御**: 複数 AS 相手の client が正しい AS
@@ -445,7 +445,7 @@ RFC 7009, introspection endpoint RFC 7662) を別 ADR で扱う。本 ADR の sc
   `access_token` と `accessToken` が両方あると保守上混乱。response size も
   倍近く。**却下**
 
-## A4. atproto.gftd.ai は snake_case、authn.gftd.ai は camelCase のまま
+## A4. atproto.etzhayyim.com は snake_case、authn.etzhayyim.com は camelCase のまま
 
 - pros: Phase 5 (authn 側書き換え) 不要
 - cons: internal consistency が崩れ、今後 T4 split 再構成時に drift 再発。

@@ -558,7 +558,7 @@ function cmdHealth(sdk: HostSDK, _body: Uint8Array): Uint8Array {
     status: "healthy",
     agent: "PPTX Editor",
     nanoid: "t53br1o0",
-    did: `did:web:${appId}.gftd.ai`,
+    did: `did:web:${appId}.etzhayyim.com`,
     ts: nowISO(),
   });
 }
@@ -567,7 +567,7 @@ function cmdHealth(sdk: HostSDK, _body: Uint8Array): Uint8Array {
 function cmdDescribe(sdk: HostSDK, _body: Uint8Array): Uint8Array {
   return encodeJson({
     name: "PPTX Editor",
-    did: `did:web:${appId}.gftd.ai`,
+    did: `did:web:${appId}.etzhayyim.com`,
     nanoid: "t53br1o0",
     domain: "pptx",
     capabilities: [
@@ -624,7 +624,7 @@ function handleComAtprotoSyncSubscribeReposCommit(
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:t53br1o0.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:t53br1o0.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   if (actions.length === 1) actions.push({ action: "noop", mood: cadence.mood, ts });

@@ -4,7 +4,7 @@
 
 ## Overview
 
-food.gftd.ai — basic.gftd.ai の食料領域。受給者への食料配給管理、注文追跡、配送管理。food-processor (食肉加工) とは別の消費者向け食料供給サービス。
+food.etzhayyim.com — basic.etzhayyim.com の食料領域。受給者への食料配給管理、注文追跡、配送管理。food-processor (食肉加工) とは別の消費者向け食料供給サービス。
 
 ## Domain Model
 

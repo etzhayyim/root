@@ -17,7 +17,7 @@
  *   LG_API_KEY        optional shared secret enforced by the pod's
  *                     `/runs` and `/xrpc/*` routes.
  *   B2_PUBLIC_BASE    base URL for fetching blobs by key (e.g.
- *                     `https://blobs.gftd.ai` or the raw B2 endpoint).
+ *                     `https://blobs.etzhayyim.com` or the raw B2 endpoint).
  *                     Required when using `fetchRenderToFile`.
  */
 

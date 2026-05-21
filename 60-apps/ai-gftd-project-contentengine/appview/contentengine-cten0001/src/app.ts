@@ -1,4 +1,4 @@
-// contentengine.gftd.ai — Personalized Content Engine (thin edge facade).
+// contentengine.etzhayyim.com — Personalized Content Engine (thin edge facade).
 // Business logic: 20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py
 // LangGraph loop: load_cohort_profile → match_sources → draft_content → rank_variants → quality_gate → store_content
 // Cohort-first personalization — no individual PII (ADR-0018).
@@ -20,13 +20,13 @@ export default {
     if (url.pathname === "/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:contentengine.gftd.ai",
+        actor: "did:web:contentengine.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "cten0001",
         execution: "edge-bpmn+langgraph-langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/contentengine",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
-        integrations: ["ads.gftd.ai", "news.gftd.ai", "narou.gftd.ai"],
+        integrations: ["ads.etzhayyim.com", "news.etzhayyim.com", "narou.etzhayyim.com"],
         personalization: "cohort-first (ADR-0018) — no individual PII",
       });
     }
@@ -56,7 +56,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

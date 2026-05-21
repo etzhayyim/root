@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama",
-  "@id": "did:web:mfbtsuyc.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama",
+  "@id": "did:web:mfbtsuyc.etzhayyim.com",
   "nanoid": "mfbtsuyc",
   "name": "watashi",
   "displayName": "Watashi (渡し) Coordinator",

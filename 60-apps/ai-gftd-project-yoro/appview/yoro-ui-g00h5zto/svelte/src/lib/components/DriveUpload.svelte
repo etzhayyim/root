@@ -2,7 +2,7 @@
   DriveUpload — file upload using AppShell blob upload (Blake3 + multipart).
 -->
 <script lang="ts">
-	import { Button } from '@gftdcojp/design-system';
+	import { Button } from '@etzhayyim/design-system';
 	import { uploadBlob, getCurrentDID, createRecord } from '$lib/atproto-agent';
 
 	const COLLECTION = 'ai.gftd.apps.yoro.driveItem';

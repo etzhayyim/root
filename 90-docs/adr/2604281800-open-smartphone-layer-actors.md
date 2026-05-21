@@ -51,17 +51,17 @@ related:
 
 ### 7つの独立 T1 Actor (BPMN-as-actor, ADR-0056)
 
-各 actor は独立した `{name}.gftd.ai` ドメイン、`did:web:{name}.gftd.ai` AT facade を持ち、0個の新規 CF Worker を追加しない。
+各 actor は独立した `{name}.etzhayyim.com` ドメイン、`did:web:{name}.etzhayyim.com` AT facade を持ち、0個の新規 CF Worker を追加しない。
 
 | Actor | DID | 担当層 | timer BPMN |
 |---|---|---|---|
-| open-smartphone-soc | did:web:open-smartphone-soc.gftd.ai | L1: Silicon / ISA / Fab | fetchRiscvEcosystemDelta (R/P7D) |
-| open-smartphone-modem | did:web:open-smartphone-modem.gftd.ai | L2: Radio / RAT / SEP | fetchSepDelta (R/P1D) |
-| open-smartphone-sensor | did:web:open-smartphone-sensor.gftd.ai | L3: Sensors / Drivers | fetchDriverAvailability (R/P7D), dailyPulse (R/P1D) |
-| open-smartphone-os | did:web:open-smartphone-os.gftd.ai | L4: OS / HAL / OTA | fetchSecurityPatchDelta (R/P1D) |
-| open-smartphone-ems | did:web:open-smartphone-ems.gftd.ai | L5: EMS製造拠点 | fetchComplianceDelta (R/P7D), dailyPulse (R/P1D) |
-| open-smartphone-bom | did:web:open-smartphone-bom.gftd.ai | L6: BOM統合 / Open Score | (XRPC-only) |
-| open-smartphone-patent | did:web:open-smartphone-patent.gftd.ai | L7: SEP / Patent Pool | fetchSepLandscapeDelta (R/P1D), flagExpiryGate (R/P7D) |
+| open-smartphone-soc | did:web:open-smartphone-soc.etzhayyim.com | L1: Silicon / ISA / Fab | fetchRiscvEcosystemDelta (R/P7D) |
+| open-smartphone-modem | did:web:open-smartphone-modem.etzhayyim.com | L2: Radio / RAT / SEP | fetchSepDelta (R/P1D) |
+| open-smartphone-sensor | did:web:open-smartphone-sensor.etzhayyim.com | L3: Sensors / Drivers | fetchDriverAvailability (R/P7D), dailyPulse (R/P1D) |
+| open-smartphone-os | did:web:open-smartphone-os.etzhayyim.com | L4: OS / HAL / OTA | fetchSecurityPatchDelta (R/P1D) |
+| open-smartphone-ems | did:web:open-smartphone-ems.etzhayyim.com | L5: EMS製造拠点 | fetchComplianceDelta (R/P7D), dailyPulse (R/P1D) |
+| open-smartphone-bom | did:web:open-smartphone-bom.etzhayyim.com | L6: BOM統合 / Open Score | (XRPC-only) |
+| open-smartphone-patent | did:web:open-smartphone-patent.etzhayyim.com | L7: SEP / Patent Pool | fetchSepLandscapeDelta (R/P1D), flagExpiryGate (R/P7D) |
 
 ### BPMN inventory — 27 flows, 0 new CF Workers
 
@@ -208,7 +208,7 @@ Score 0% = 全クローズド (Apple/Qualcomm フルスタック)
 
 - **全27 BPMN** が Zeebe F5 watcher 経由で自動デプロイ (bpmn-dispatcher 30s polling)
 - **timer-start BPMN**: fetchRiscvEcosystemDelta (R/P7D), fetchSepDelta (R/P1D), fetchDriverAvailability (R/P7D), fetchSecurityPatchDelta (R/P1D), fetchComplianceDelta (R/P7D), dailyPulse×2 (R/P1D), fetchSepLandscapeDelta (R/P1D), flagExpiryGate (R/P7D) = 計9本
-- **XRPC endpoint**: `dispatcher.gftd.ai:8080/xrpc/ai.gftd.openSmartphone{Layer}.{method}` 経由
+- **XRPC endpoint**: `dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.openSmartphone{Layer}.{method}` 経由
 - **`write_table_allowlist`**: NULL (unrestricted) — domain stabilization 後に per-table tighten
 - **ERC725 root**: 全7 actor とも `erc725_root_pending = true` — `provision-root-identity` 別 PR
 - **実装参照**: RISC-V Foundation、Osmocom、postmarketOS、Fairphone、Framework Laptop の設計哲学を参考にしている

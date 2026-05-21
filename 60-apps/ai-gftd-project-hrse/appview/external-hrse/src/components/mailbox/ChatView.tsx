@@ -11,7 +11,7 @@ import {
 } from "@/gen/proto/hrse/v1/mailbox_pb";
 
 /**
- * @gftdcojp/ai-gftd-hrse#ChatView
+ * @etzhayyim/ai-gftd-hrse#ChatView
  * Chat-style message view component
  */
 interface ChatViewProps {

@@ -59,7 +59,7 @@ const MAX_FILE_TRANSFER_BYTES = 1024 * 1024 * 1024;
 /** Supported platforms for cross-platform sharing. */
 const SUPPORTED_PLATFORMS = ["macos", "windows", "linux"] as const;
 const RELAY_TOKEN_TTL_SEC = 10 * 60;
-const DEFAULT_RELAY_URL = "https://watashi-relay.gftd.ai/relay";
+const DEFAULT_RELAY_URL = "https://watashi-relay.etzhayyim.com/relay";
 
 type RelayPolicy = {
   allowInputInbound: boolean;
@@ -777,12 +777,12 @@ async function cmdInitiatePairing(
   const result: Record<string, unknown> = { ok: true, pairingId, method, expiresInSeconds: 300 };
 
   if (method === "webauthn") {
-    // Return WebAuthn challenge for the remote device to complete via auth.gftd.ai
+    // Return WebAuthn challenge for the remote device to complete via auth.etzhayyim.com
     result.webauthn = {
       challenge,
-      rpId: "watashi.gftd.ai",
+      rpId: "watashi.etzhayyim.com",
       userVerification: "preferred",
-      authUrl: `https://auth.gftd.ai/pair?challenge=${challenge}&app=watashi&pairingId=${pairingId}`,
+      authUrl: `https://auth.etzhayyim.com/pair?challenge=${challenge}&app=watashi&pairingId=${pairingId}`,
     };
   } else if (method === "pin") {
     result.pin = pin;
@@ -897,7 +897,7 @@ async function cmdIssueRelaySession(
   const exp = Math.floor(Date.now() / 1000) + RELAY_TOKEN_TTL_SEC;
 
   const baseClaims = {
-    iss: actorDID || "did:web:watashi.gftd.ai",
+    iss: actorDID || "did:web:watashi.etzhayyim.com",
     aud: "watashi-relay",
     app: "watashi",
     session_id: relaySessionId,

@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 DATA_DIR = ROOT / "60-apps/ai-gftd-project-states/data/gov"
-REPO = "states.gftd.ai"
+REPO = "states.etzhayyim.com"
 
 # ISO3 → (name, region) extracted from seed_domains.go sovereignSeeds()
 COUNTRY = {

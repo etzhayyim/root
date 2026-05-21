@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#CucumberConfig
+// @etzhayyim/cyber-freelance#CucumberConfig
 // Cucumber設定ファイル
 
 import { IConfiguration } from "@cucumber/cucumber";

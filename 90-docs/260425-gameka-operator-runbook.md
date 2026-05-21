@@ -1,6 +1,6 @@
 ---
 id: doc-260425-gameka-operator-runbook
-title: "gameka.gftd.ai operator runbook (P1–P14)"
+title: "gameka.etzhayyim.com operator runbook (P1–P14)"
 status: active
 doc_type: how-to
 topic: gameka-rollout
@@ -18,9 +18,9 @@ related:
   - adr-0023-auth-shannon-optimal-4-layer
 ---
 
-# gameka.gftd.ai operator runbook
+# gameka.etzhayyim.com operator runbook
 
-A single page covering every step needed to bring `gameka.gftd.ai`
+A single page covering every step needed to bring `gameka.etzhayyim.com`
 online from a clean repo. Authoritative for the rollout order;
 ADR 2604250900 owns the design rationale.
 
@@ -51,15 +51,15 @@ The shared platform must already be running:
 
 | Component | Owner | Notes |
 |---|---|---|
-| `atproto.gftd.ai` (PDS Worker) | infra | NSID routing table reads gameka entries |
-| `dispatcher.gftd.ai:8080` (bpmn-dispatcher) | infra | `BPMN_URL` binding in PDS Worker |
+| `atproto.etzhayyim.com` (PDS Worker) | infra | NSID routing table reads gameka entries |
+| `dispatcher.etzhayyim.com:8080` (bpmn-dispatcher) | infra | `BPMN_URL` binding in PDS Worker |
 | Zeebe broker (`zeebe-gateway.mitama-udf.svc:26500`) | infra | shared with yabai/yoro/etc. |
 | `mitama-udf` namespace zeebe-worker pod | infra | rebuild on each gameka task addition |
 | RisingWave + Hyperdrive `e84c0a2b…` | infra | shared graph DB |
 | Backblaze B2 account + Bandwidth Ally enabled | infra | `B2_*` Secrets reused from patent-blob-converter |
 | Murakumo LLM tier | infra | yoro / news already use it |
 | `playwright` actor (Layer-10 Worker) | apps | QA loop's `goto`/`evaluate`/`screenshot` |
-| `authn.gftd.ai` with sub-DID provisioning NSID | apps | the **only** operator hook (see §Hook 1) |
+| `authn.etzhayyim.com` with sub-DID provisioning NSID | apps | the **only** operator hook (see §Hook 1) |
 
 ## Operator hooks (the only 2 things you must wire by hand)
 
@@ -84,8 +84,8 @@ INSERT INTO vertex_gameka_studio_config (
   config_id, tick_live_mode, max_iterations, score_threshold,
   note, created_at
 ) VALUES (
-  'at://did:web:gameka.gftd.ai/ai.gftd.gameka.studioConfig/global',
-  'did:web:gameka.gftd.ai', 'global', 'did:web:gameka.gftd.ai',
+  'at://did:web:gameka.etzhayyim.com/ai.gftd.gameka.studioConfig/global',
+  'did:web:gameka.etzhayyim.com', 'global', 'did:web:gameka.etzhayyim.com',
   'global', true, 3, 0.8,
   'P7 cutover', NOW()::text
 );
@@ -99,7 +99,7 @@ is the same INSERT with `false`.)
 Every step is idempotent except secret creation; re-running is safe.
 
 ```bash
-REPO=/path/to/ai-gftd-apps-gftdcojp
+REPO=/path/to/etzhayyim-root
 DATABASE_URL=$(security find-generic-password -s gftd.rw -a ROOT_URL -w)
 
 # ── 0. lint baseline ───────────────────────────────────────────
@@ -131,9 +131,9 @@ b2 bucket create ai-gftd-gameka allPrivate
 # ── 4. build + push the wasm-pack runner image ─────────────────
 cd $REPO
 docker build -f 50-infra/vultr/gameka-build-runner/Dockerfile \
-  -t ghcr.io/gftdcojp/gameka-build-runner:$(date +%Y%m%d-%H%M%S) \
-  -t ghcr.io/gftdcojp/gameka-build-runner:latest .
-docker push ghcr.io/gftdcojp/gameka-build-runner:latest
+  -t ghcr.io/etzhayyim/gameka-build-runner:$(date +%Y%m%d-%H%M%S) \
+  -t ghcr.io/etzhayyim/gameka-build-runner:latest .
+docker push ghcr.io/etzhayyim/gameka-build-runner:latest
 kubectl apply -f 50-infra/vultr/gameka-build-runner/deployment.yaml
 
 # ── 5. rebuild + roll the zeebe-worker pod (registers 4 task types) ──
@@ -142,12 +142,12 @@ kubectl apply -f 50-infra/vultr/gameka-build-runner/deployment.yaml
 # gameka.codegen.renderKamiApp
 # gameka.avatar.render
 cd $REPO/20-actors/magatama/py
-docker build -t ghcr.io/gftdcojp/zeebe-worker:$(date +%Y%m%d-%H%M%S) \
-              -t ghcr.io/gftdcojp/zeebe-worker:latest .
-docker push ghcr.io/gftdcojp/zeebe-worker:latest
+docker build -t ghcr.io/etzhayyim/zeebe-worker:$(date +%Y%m%d-%H%M%S) \
+              -t ghcr.io/etzhayyim/zeebe-worker:latest .
+docker push ghcr.io/etzhayyim/zeebe-worker:latest
 kubectl rollout restart deployment/zeebe-worker -n mitama-udf
 
-# ── 6. deploy the playtest-shell Worker (claims game-play.gftd.ai/play/* + /__playtest__.html) ──
+# ── 6. deploy the playtest-shell Worker (claims game-play.etzhayyim.com/play/* + /__playtest__.html) ──
 cd $REPO/50-infra/cloudflare/workers/gameka-playtest-shell
 pnpm install
 pnpm typecheck
@@ -170,7 +170,7 @@ node $REPO/70-tools/scripts/lint/lint-gameka-rollout.mjs
 ### Smoke 1 — the studio loop (P1 only, no build)
 
 ```bash
-curl -X POST https://atproto.gftd.ai/xrpc/ai.gftd.gameka.proposeGame \
+curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.gameka.proposeGame \
   -H "authorization: Bearer $GFTD_TOKEN" \
   -H "content-type: application/json" \
   -d '{"brief":"a cozy quarry-walk roguelike with one weather rune"}'
@@ -182,7 +182,7 @@ Expect within ~60s: 1 row in `vertex_gameka_spec` with `score >= 0`.
 
 ```bash
 SPEC=spec-merge-grid-2048   # or spec-merge-drop-suika / spec-merge-field-triple
-curl -X POST https://atproto.gftd.ai/xrpc/ai.gftd.gameka.generateGame \
+curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.gameka.generateGame \
   -H "authorization: Bearer $GFTD_TOKEN" \
   -d "{\"specId\":\"$SPEC\"}"
 ```
@@ -196,7 +196,7 @@ Expect within ~5 min (cold sccache):
 Manual fire of the autonomous tick (skips the 2h timer):
 
 ```bash
-curl -X POST https://atproto.gftd.ai/xrpc/ai.gftd.gameka.tickStudio \
+curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.gameka.tickStudio \
   -H "authorization: Bearer $GFTD_TOKEN" -d '{}'
 ```
 
@@ -208,10 +208,10 @@ fires asynchronously over the next ~5-15 min.
 ### Smoke 4 — manual end-user play page
 
 ```bash
-curl -I https://game-play.gftd.ai/play/grid-merge-quarry
-# expect: 302 Found, Location: /__playtest__.html?c=…&w=…&j=…&e=run_grid_merge_quarry&d=did:web:gameka.gftd.ai:game:grid-merge-quarry&t=ttl…&a=data:image/png;base64,…
+curl -I https://game-play.etzhayyim.com/play/grid-merge-quarry
+# expect: 302 Found, Location: /__playtest__.html?c=…&w=…&j=…&e=run_grid_merge_quarry&d=did:web:gameka.etzhayyim.com:game:grid-merge-quarry&t=ttl…&a=data:image/png;base64,…
 
-curl -I 'https://game-play.gftd.ai/__playtest__.html'
+curl -I 'https://game-play.etzhayyim.com/__playtest__.html'
 # expect: 200, content-type: text/html
 
 # Pull the page in a browser and verify:

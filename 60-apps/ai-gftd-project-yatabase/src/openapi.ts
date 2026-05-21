@@ -8,7 +8,7 @@
 //   - Postman / Swagger UI / openapi-typescript can import directly
 //   - Cursor / Continue.dev / other LLM-coding tools can call the spec
 //     to autogenerate type-safe clients
-//   - Operator can `curl yatabase.gftd.ai/openapi.json` as a "did the
+//   - Operator can `curl yatabase.etzhayyim.com/openapi.json` as a "did the
 //     API contract change?" diff source
 
 const SPEC = {
@@ -21,25 +21,25 @@ const SPEC = {
       "Single-host BaaS combining a Cypher-subset graph DB on RisingWave,",
       "Supabase-shape storage REST + AWS SigV4 compat, an MCP JSON-RPC tool",
       "surface, and AT Protocol XRPC pass-through. One bearer token across",
-      "every surface. See https://yatabase.gftd.ai/docs for narrative docs.",
+      "every surface. See https://yatabase.etzhayyim.com/docs for narrative docs.",
     ].join(" "),
-    termsOfService: "https://yatabase.gftd.ai/terms",
+    termsOfService: "https://yatabase.etzhayyim.com/terms",
     contact: {
       name: "Yatabase support",
-      url: "https://yatabase.gftd.ai/team",
-      email: "support@gftd.ai",
+      url: "https://yatabase.etzhayyim.com/team",
+      email: "support@etzhayyim.com",
     },
     license: {
       name: "Yatabase Terms of Service",
-      url: "https://yatabase.gftd.ai/terms",
+      url: "https://yatabase.etzhayyim.com/terms",
     },
   },
   servers: [
-    { url: "https://yatabase.gftd.ai", description: "Production (Cloudflare Workers + RisingWave Vultr LAX)" },
+    { url: "https://yatabase.etzhayyim.com", description: "Production (Cloudflare Workers + RisingWave Vultr LAX)" },
   ],
   externalDocs: {
     description: "Narrative documentation",
-    url: "https://yatabase.gftd.ai/docs",
+    url: "https://yatabase.etzhayyim.com/docs",
   },
   security: [{ bearerAuth: [] }],
   tags: [
@@ -85,7 +85,7 @@ const SPEC = {
           ok: { type: "boolean" },
           apiKey: { type: "string", description: "sk_live_yata_* — shown ONCE. Persist it; we keep only the SHA-256 hash." },
           keyId: { type: "string", examples: ["apikey:abc123..."] },
-          orgDid: { type: "string", examples: ["did:web:t-xxxxx-yata-tenant.gftd.ai"] },
+          orgDid: { type: "string", examples: ["did:web:t-xxxxx-yata-tenant.etzhayyim.com"] },
           tenantName: { type: "string" },
           awsAccessKeyId: { type: "string", description: "For S3 SigV4 access via /s3/{bucket}/{key}" },
           emailStatus: { type: "string", examples: ["sent", "queued-no-recipient", "skipped-no-email"] },
@@ -341,7 +341,7 @@ const SPEC = {
               schema: {
                 type: "object",
                 properties: {
-                  returnUrl: { type: "string", format: "uri", description: "Where Stripe returns the customer after they close the portal. Default: https://yatabase.gftd.ai/dashboard" },
+                  returnUrl: { type: "string", format: "uri", description: "Where Stripe returns the customer after they close the portal. Default: https://yatabase.etzhayyim.com/dashboard" },
                 },
               },
             },
@@ -737,7 +737,7 @@ const SPEC = {
       },
     },
     "/s3/{bucket}/{key}": {
-      put: { summary: "S3 SigV4 PUT", operationId: "s3Put", tags: ["storage"], parameters: [{ name: "bucket", in: "path", required: true, schema: { type: "string" } }, { name: "key", in: "path", required: true, schema: { type: "string" } }], security: [], responses: { "200": { description: "OK" } }, description: "Use awsAccessKeyId + awsSecretAccessKey from /auth/v1/signup. Standard AWS SDK works against `--endpoint-url https://yatabase.gftd.ai/s3`." },
+      put: { summary: "S3 SigV4 PUT", operationId: "s3Put", tags: ["storage"], parameters: [{ name: "bucket", in: "path", required: true, schema: { type: "string" } }, { name: "key", in: "path", required: true, schema: { type: "string" } }], security: [], responses: { "200": { description: "OK" } }, description: "Use awsAccessKeyId + awsSecretAccessKey from /auth/v1/signup. Standard AWS SDK works against `--endpoint-url https://yatabase.etzhayyim.com/s3`." },
       get: { summary: "S3 SigV4 GET", operationId: "s3Get", tags: ["storage"], parameters: [{ name: "bucket", in: "path", required: true, schema: { type: "string" } }, { name: "key", in: "path", required: true, schema: { type: "string" } }], security: [], responses: { "200": { description: "OK" } } },
     },
     "/mcp": {

@@ -15,7 +15,7 @@
 - `GET /healthz`
 - `GET /readyz`
 - `POST /api/mcp`
-- `POST https://{nanoid}.gftd.ai/api/mcp`
+- `POST https://{nanoid}.etzhayyim.com/api/mcp`
 
 ## Svelte Demo Console API
 

@@ -1,8 +1,8 @@
-// newsletter.gftd.ai — Newsletter Factory (thin edge facade).
+// newsletter.etzhayyim.com — Newsletter Factory (thin edge facade).
 // Business logic: 20-actors/magatama/py/src/pymagatama/newsletter_worker_main.py
 // LangGraph loop: ingest → filter → rank → draft → edit → personalize → store
 // Delivery: Resend batch send (weekly cron via LangServer, on-demand via sendCampaign)
-// Integration: news.gftd.ai + narou.gftd.ai (input), ads.gftd.ai (sponsor slot)
+// Integration: news.etzhayyim.com + narou.etzhayyim.com (input), ads.etzhayyim.com (sponsor slot)
 
 interface SecretBinding { get(): Promise<string>; }
 interface Env {
@@ -21,13 +21,13 @@ export default {
     if (url.pathname === "/health" || url.pathname === "/_app/meta") {
       return json({
         ok: true,
-        actor: "did:web:newsletter.gftd.ai",
+        actor: "did:web:newsletter.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "nwsl0001",
         execution: "edge-bpmn+langgraph-langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/newsletter_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/newsletter",
         schedule: "0 0 * * 2 (Asia/Tokyo — every Tuesday 9:00)",
-        integrations: ["news.gftd.ai", "narou.gftd.ai", "ads.gftd.ai", "resend"],
+        integrations: ["news.etzhayyim.com", "narou.etzhayyim.com", "ads.etzhayyim.com", "resend"],
       });
     }
 
@@ -62,7 +62,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

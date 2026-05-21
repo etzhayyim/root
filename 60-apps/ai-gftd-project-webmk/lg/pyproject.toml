@@ -1,7 +1,7 @@
 [project]
 name = "lg-webmk"
 version = "0.1.0"
-description = "webmk.gftd.ai OSS LangGraph FastAPI server — Web Marketing Proposal Agent"
+description = "webmk.etzhayyim.com OSS LangGraph FastAPI server — Web Marketing Proposal Agent"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",

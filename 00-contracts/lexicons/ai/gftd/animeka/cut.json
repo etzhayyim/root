@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Tier 2 domain record for a cut (カット / ショット) — the atomic work unit of anime production. Each cut has a path-based DID `did:web:animeka.gftd.ai:cut:{rkey}` for per-cut addressing. Pipeline progress per stage lives in `stageStatus`; the Pipeline Board (UI B) renders one row per cut × 12 stage columns.",
+      "description": "Tier 2 domain record for a cut (カット / ショット) — the atomic work unit of anime production. Each cut has a path-based DID `did:web:animeka.etzhayyim.com:cut:{rkey}` for per-cut addressing. Pipeline progress per stage lives in `stageStatus`; the Pipeline Board (UI B) renders one row per cut × 12 stage columns.",
       "key": "any",
       "record": {
         "type": "object",

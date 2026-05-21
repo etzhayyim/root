@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-add4abba03dd",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-add4abba03dd",
   "entityId": "ent-add4abba03dd",
   "canonicalName": "muhammad yusuf ahmad mansur",
   "aliases": [

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:forms.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:forms.etzhayyim.com",
   "accent": "#6366f1",
   "component": {
     "path": "component.wasm"

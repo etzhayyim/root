@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.ai/ns/project/v1",
+  "@context": "https://etzhayyim.com/ns/project/v1",
   "@id": "did:web:open-otology-uhl-r.etzhayyim.com",
   "name": "open-otology-uhl-r",
   "displayName": "Open Otology — UHL-R (right-sided congenital SNHL, neural axis)",

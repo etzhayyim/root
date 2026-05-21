@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/04/7/2/hotels-and-restaurants",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/7/2/hotels-and-restaurants",
       "type": "dodaf:Capability",
       "name": "Hospitality Industry Oversight and Licensing Capability",
       "description": "Functional capability for managing hospitality licensing, facility standards, and health/safety monitoring. Classification: COFOG Division 04, Group 7, Class 2.",

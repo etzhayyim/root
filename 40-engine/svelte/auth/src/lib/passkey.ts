@@ -16,9 +16,9 @@ import {
 	orgLoading,
 } from './stores.js';
 
-const AUTH_BASE = 'https://atproto.gftd.ai';
-// ADR-0024 T4 split: auth.gftd.ai retired 2026-04-16 → authn.gftd.ai (AuthN Worker).
-const AUTH_RPC_BASE = 'https://authn.gftd.ai';
+const AUTH_BASE = 'https://atproto.etzhayyim.com';
+// ADR-0024 T4 split: auth.etzhayyim.com retired 2026-04-16 → authn.etzhayyim.com (AuthN Worker).
+const AUTH_RPC_BASE = 'https://authn.etzhayyim.com';
 const SESSION_STORAGE_KEY = 'gftd-auth-session';
 const REFRESH_STORAGE_KEY = 'gftd-auth-refresh';
 const CREDENTIAL_STORAGE_KEY = 'gftd-auth-credential';
@@ -67,7 +67,7 @@ function isAllowedRedirectUrl(url: string): boolean {
 		return (
 			parsed.hostname === 'localhost' ||
 			parsed.hostname === '127.0.0.1' ||
-			parsed.hostname.endsWith('.gftd.ai')
+			parsed.hostname.endsWith('.etzhayyim.com')
 		);
 	} catch {
 		return false;
@@ -274,7 +274,7 @@ export async function completeAuth(did: string, handle: string, oauth?: OAuthPar
 			location.href = buildCrossOriginAuthUrl(returnTo, s);
 			return;
 		}
-		location.href = buildCrossOriginAuthUrl('https://yoro.gftd.ai/', s);
+		location.href = buildCrossOriginAuthUrl('https://yoro.etzhayyim.com/', s);
 	}
 }
 
@@ -298,7 +298,7 @@ export async function initClerk(config?: AuthConfig): Promise<any> {
 	if (initialized) return null;
 	initialized = true;
 
-	// Receive session from authn.gftd.ai via hash fragment (cross-origin transfer)
+	// Receive session from authn.etzhayyim.com via hash fragment (cross-origin transfer)
 	if (typeof window !== 'undefined' && window.location.hash.startsWith('#auth=')) {
 		try {
 			const encoded = window.location.hash.slice('#auth='.length);
@@ -377,7 +377,7 @@ async function refreshSessionFromStored(stored: StoredSession): Promise<void> {
 }
 
 function updateUserFromDid(did: string): void {
-	// ADR-0024 T4 split: accept both legacy (auth.gftd.ai) and current (authn.gftd.ai) DID prefixes.
+	// ADR-0024 T4 split: accept both legacy (auth.etzhayyim.com) and current (authn.etzhayyim.com) DID prefixes.
 	const handle = did
 		.replace(/^did:web:(?:auth|authn)\.gftd\.ai:/, '')
 		.replace(/:/g, '.');
@@ -412,7 +412,7 @@ export async function passkeyAuth(): Promise<PasskeyResult> {
 	credential = (await navigator.credentials.get({
 		publicKey: publicKeyBase,
 	})) as PublicKeyCredential | null;
-	if (!credential) throw new Error('No passkey was selected for gftd.ai');
+	if (!credential) throw new Error('No passkey was selected for etzhayyim.com');
 
 	const response = credential.response as AuthenticatorAssertionResponse;
 	const credentialId = base64urlEncode(credential.rawId);
@@ -447,7 +447,7 @@ export async function passkeyAuth(): Promise<PasskeyResult> {
 export async function passkeyRegister(): Promise<PasskeyResult> {
 	const beginResp = await authRpc('/xrpc/ai.gftd.auth.passkeyBeginRegister', {
 		userId: crypto.randomUUID(),
-		userName: `${crypto.randomUUID().slice(0, 8)}@gftd.ai`,
+		userName: `${crypto.randomUUID().slice(0, 8)}@etzhayyim.com`,
 	});
 	const credential = await navigator.credentials.create({
 		publicKey: {

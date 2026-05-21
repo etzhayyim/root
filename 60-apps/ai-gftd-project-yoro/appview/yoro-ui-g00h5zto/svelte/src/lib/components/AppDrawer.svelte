@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Avatar } from '@gftdcojp/design-system';
+	import { Avatar } from '@etzhayyim/design-system';
 	import { isSignedIn, clerkUser, displayName as clerkDisplayName } from '$lib/auth';
 	import { playClick } from '$lib/sound';
 	import * as yoroApi from '$lib/atproto-agent';

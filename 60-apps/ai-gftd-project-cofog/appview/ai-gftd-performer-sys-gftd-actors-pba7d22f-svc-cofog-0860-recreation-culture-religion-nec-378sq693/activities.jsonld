@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/08/6/0/recreation-culture-religion-nec/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/08/6/0/recreation-culture-religion-nec/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Ancillary Cultural and Sports Orchestration Process",
       "description": "The administrative process of managing miscellaneous cultural requests, coordinating inter-agency arts policies, and executing regulatory oversight.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/08/6/0/recreation-culture-religion-nec"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/08/6/0/recreation-culture-religion-nec"
     }
   ]
 }

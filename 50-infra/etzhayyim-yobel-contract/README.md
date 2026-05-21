@@ -17,7 +17,7 @@ Both contracts follow the etzhayyim constitutional contract pattern: **no admin 
 - **No loan / interest / margin / liquidation methods.** Schema-level Charter Rider §2(b) enforcement — these methods simply do not exist
 - **No upgrade.** To change behavior, deploy a new contract under a new yobel actor version. ADR-2605201800 design SSoT must be amended first via Council Lv9 vote
 - **Privacy.** DIDs + signatures + doctrinal text stored as keccak256 hashes only; plaintext lives in encrypted AT MST records (XChaCha20-Poly1305 per ADR-2605181100)
-- **Cross-link only.** Contracts emit events; off-chain indexers (yoro, Public Fund audit, vendor:bankruptcy.gftd.ai) consume them and cross-correlate
+- **Cross-link only.** Contracts emit events; off-chain indexers (yoro, Public Fund audit, vendor:bankruptcy.etzhayyim.com) consume them and cross-correlate
 
 ## Build & test
 

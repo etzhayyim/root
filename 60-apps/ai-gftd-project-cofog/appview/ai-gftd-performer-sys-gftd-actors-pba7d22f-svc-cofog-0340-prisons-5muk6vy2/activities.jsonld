@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/03/4/0/prisons/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/03/4/0/prisons/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Correctional Management Lifecycle",
       "description": "The administrative process of processing inmate admissions, monitoring rehabilitation progress, and coordinating facility security.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/03/4/0/prisons"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/03/4/0/prisons"
     }
   ]
 }

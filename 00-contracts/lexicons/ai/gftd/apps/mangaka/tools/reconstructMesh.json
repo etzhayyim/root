@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "P16 step 4 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs Hunyuan3D-2 (Tencent OSS) on the VKE render pool to turn 4–6 multi-view images into a textured binary-glTF mesh. Self-hosted on `ghcr.io/gftdcojp/hunyuan3d-2:0.2` (open-weight, no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_reconstruct_mesh.",
+      "description": "P16 step 4 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs Hunyuan3D-2 (Tencent OSS) on the VKE render pool to turn 4–6 multi-view images into a textured binary-glTF mesh. Self-hosted on `ghcr.io/etzhayyim/hunyuan3d-2:0.2` (open-weight, no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_reconstruct_mesh.",
       "input": {
         "encoding": "application/json",
         "schema": {

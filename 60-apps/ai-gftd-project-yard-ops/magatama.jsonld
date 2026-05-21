@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:yard-ops.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:yard-ops.etzhayyim.com",
   "name": "yard-ops",
   "nanoid": "y4rd0p5x",
   "project": "yard-ops",

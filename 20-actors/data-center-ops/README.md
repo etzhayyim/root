@@ -4,7 +4,7 @@ Data Center operations actor scaffold.
 
 ## DID
 
-- `did:web:data-center-ops.gftd.ai`
+- `did:web:data-center-ops.etzhayyim.com`
 
 ## Manifest
 

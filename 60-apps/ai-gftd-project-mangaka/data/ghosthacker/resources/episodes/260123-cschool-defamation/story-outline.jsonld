@@ -2,7 +2,7 @@
   "@context": {
     "character": "gh:character/",
     "dct": "http://purl.org/dc/terms/",
-    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "gh": "https://ghosthacker.etzhayyim.com/ns/",
     "schema": "http://schema.org/"
   },
   "@id": "story:cschool-defamation-v2",

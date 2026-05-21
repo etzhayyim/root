@@ -1,5 +1,5 @@
 {
-  "name": "@gftdcojp/minpaku-frontend",
+  "name": "@etzhayyim/minpaku-frontend",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -22,7 +22,7 @@
     "@bufbuild/protobuf": "^2.11.0",
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1",
-    "@gftdcojp/design-system": "workspace:*"
+    "@etzhayyim/design-system": "workspace:*"
   },
   "type": "module"
 }

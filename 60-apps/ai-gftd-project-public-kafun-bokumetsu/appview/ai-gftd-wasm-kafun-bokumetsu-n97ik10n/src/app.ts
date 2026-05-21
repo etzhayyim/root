@@ -133,7 +133,7 @@ async function sendEmailAndPublish(
 ): Promise<void> {
   // Outbound mail goes through the microsoft.etzhayyim.com actor (`ai.gftd.apps.microsoft.sendMail`).
   // Direct dispatch is intentional — we route through host-imports invoke so the
-  // microsoft actor handles tenant binding (root CLAUDE.md §gftdcojp Agent).
+  // microsoft actor handles tenant binding (root CLAUDE.md §etzhayyim Agent).
   const params = { to: [to], subject, body };
   const paramsJson = JSON.stringify(params);
   try {

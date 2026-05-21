@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/06/2/0/community-development/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/06/2/0/community-development/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Community Infrastructure and Engagement Lifecycle",
       "description": "The administrative process of analyzing community needs, coordinating local amenities, and monitoring program impact.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/06/2/0/community-development"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/06/2/0/community-development"
     }
   ]
 }

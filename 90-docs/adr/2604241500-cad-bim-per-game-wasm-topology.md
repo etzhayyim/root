@@ -7,8 +7,8 @@ topic: cad-bim-runtime
 authoritative: true
 last_verified: 2026-04-24
 authoritative_for:
-  - cad.gftd.ai viewer runtime
-  - bim.gftd.ai viewer runtime
+  - cad.etzhayyim.com viewer runtime
+  - bim.etzhayyim.com viewer runtime
   - kami-app-{cad,bim} / kami-bim / kami-cad responsibility split
 related:
   - adr-0036-worker-direct-hyperdrive-persistence
@@ -33,11 +33,11 @@ kami-engine 側の素材:
   parametric feature tree + assembly, f64 精度)
 - `kami-sdf` / `kami-mesher` / `kami-gltf` / `kami-scad` が CAD に必要な
   生成・出力スタックを提供
-- `@gftdcojp/kami-engine-sdk` (TS/Svelte) が WASM ラッパーとして存在
+- `@etzhayyim/kami-engine-sdk` (TS/Svelte) が WASM ラッパーとして存在
 - `kami-app` Builder SDK + `kami-pipelines` shared adapter (Sky/Terrain/
   Water/Voxel/Particle) が整備済
 
-同時に `bim.gftd.ai` は未作成で、IFC native のドメインモデルが
+同時に `bim.etzhayyim.com` は未作成で、IFC native のドメインモデルが
 `30-graph` にも `40-engine` にも存在しない。
 
 現状をそのまま放置すると以下の不整合が固定化する:
@@ -51,10 +51,10 @@ kami-engine 側の素材:
 
 # Decision
 
-`cad.gftd.ai` と `bim.gftd.ai` は **per-game WASM topology** を DEFAULT
+`cad.etzhayyim.com` と `bim.etzhayyim.com` は **per-game WASM topology** を DEFAULT
 とする。container runtime は「STEP/IGES/IFC parse、tessellation、
 rebuild、図面 export など、Worker の CPU/memory 制約では無理な処理」
-に限定した **heavy job service** (`cad-job.gftd.ai` / `bim-job.gftd.ai`)
+に限定した **heavy job service** (`cad-job.etzhayyim.com` / `bim-job.etzhayyim.com`)
 に縮退する。viewer hot path は Worker 1 経路で完結させる。
 
 ## Topology (CAD / BIM 共通形)
@@ -80,7 +80,7 @@ rebuild、図面 export など、Worker の CPU/memory 制約では無理な処�
 ┌─ L1 kami-render (GPU bootstrap, pipelines, shaders) ────────────┐
 └─────────────────────────────────────────────────────────────────┘
 
-Off-path:  cad-job.gftd.ai / bim-job.gftd.ai (CF Container, standard-1 4 GiB)
+Off-path:  cad-job.etzhayyim.com / bim-job.etzhayyim.com (CF Container, standard-1 4 GiB)
   ├─ STEP / IGES / IFC parse (ifcopenshell + trimesh; OCP for STEP/IGES Phase 2.5)
   ├─ Tessellation caches (→ B2 content-addressed, ADR-0048)
   ├─ Rebuild / boolean / section
@@ -91,8 +91,8 @@ Off-path:  cad-job.gftd.ai / bim-job.gftd.ai (CF Container, standard-1 4 GiB)
 
 | 項目 | CAD | BIM |
 |---|---|---|
-| Primary handle | `cad.gftd.ai` | `bim.gftd.ai` |
-| Primary DID | `did:web:cad.gftd.ai` → `did:plc:cad` (Phase 5) | `did:web:bim.gftd.ai` → `did:plc:bim` |
+| Primary handle | `cad.etzhayyim.com` | `bim.etzhayyim.com` |
+| Primary DID | `did:web:cad.etzhayyim.com` → `did:plc:cad` (Phase 5) | `did:web:bim.etzhayyim.com` → `did:plc:bim` |
 | Nanoid | `cd4dview` (既存) | `b1m3d1tr` (新規) |
 | Runtime | `worker` (TS Native + `@gftd/magatama-host-sdk`) | `worker` |
 | Lexicon root | `ai.gftd.apps.cad.*` | `ai.gftd.apps.bim.*` |

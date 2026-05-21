@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:air-book.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:air-book.etzhayyim.com",
   "name": "air-book",
   "nanoid": "a1rb00k1",
   "project": "air-book",

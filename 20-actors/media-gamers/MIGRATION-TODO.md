@@ -6,7 +6,7 @@
 
 ## Substrate-boundary checks
 
-This actor SDK was copied verbatim from `ai-gftd-apps-gftdcojp/20-actors/media-gamers`.
+This actor SDK was copied verbatim from `etzhayyim-root/20-actors/media-gamers`.
 Following must be remediated:
 
 - [ ] Replace direct `@atproto/api` / `viem` / IPFS / Signal client imports with `@etzhayyim/sdk`.

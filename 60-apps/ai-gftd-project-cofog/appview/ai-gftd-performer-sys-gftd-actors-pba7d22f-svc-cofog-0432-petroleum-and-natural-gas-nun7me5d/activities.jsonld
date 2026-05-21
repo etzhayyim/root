@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/3/2/petroleum-and-natural-gas/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/3/2/petroleum-and-natural-gas/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Oil and Gas Resource Management Lifecycle",
       "description": "The administrative process of surveying reservoirs, coordinating extraction logistics, and monitoring safety compliance.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/2/petroleum-and-natural-gas"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/2/petroleum-and-natural-gas"
     }
   ]
 }

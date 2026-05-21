@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:animeka.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:animeka.etzhayyim.com",
   "component": {
     "env": {
       "APP_EMBED_MODE": "pipeline"
@@ -33,7 +33,7 @@
   "project": "animeka",
   "routes": [
     {
-      "host": "animeka.gftd.ai",
+      "host": "animeka.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }
@@ -98,7 +98,7 @@
         "emit": {
           "type": "app.bsky.feed.post",
           "did": "{{resolve(record.workRef).workDid}}",
-          "text": "🎬 #{{record.episodeNum}} {{record.titleJP}} 公開\nwatch → https://animeka.gftd.ai/at/an1m3k4x.gftd.ai/ai.gftd.animeka.episode/{{self.rkey}}",
+          "text": "🎬 #{{record.episodeNum}} {{record.titleJP}} 公開\nwatch → https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.episode/{{self.rkey}}",
           "embed": {
             "$type": "app.bsky.embed.recordWithMedia",
             "record": {
@@ -124,7 +124,7 @@
       }
     ],
     "_pipelineIntent": {
-      "note": "ADR-2604231328 — 12-stage animeka pipeline handoff. MVP triggers each stage via /cuts UI Generate button (XRPC POST to dispatcher.gftd.ai:8080/xrpc/ai.gftd.animeka.<stage>). Auto-derive chain below is Phase 2 (requires dispatcher emit type support).",
+      "note": "ADR-2604231328 — 12-stage animeka pipeline handoff. MVP triggers each stage via /cuts UI Generate button (XRPC POST to dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.animeka.<stage>). Auto-derive chain below is Phase 2 (requires dispatcher emit type support).",
       "handoffRules": [
         { "on": "scene.create",                      "invoke": "ai.gftd.animeka.breakdownScene" },
         { "on": "cut.create",                        "invokeN": 3, "invoke": "ai.gftd.animeka.generateStoryboard", "fanoutVar": "candidateNum" },

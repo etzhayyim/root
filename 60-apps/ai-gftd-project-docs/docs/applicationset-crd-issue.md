@@ -49,13 +49,13 @@ metadata:
   namespace: pulumi
   labels:
     app.kubernetes.io/part-of: ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4
-    1.gftd.ai: "true"
+    1.etzhayyim.com: "true"
   finalizers:
     - resources-finalizer.pulumi.argoproj.io
 spec:
   project: default
   source:
-    repoURL: git@github.com:gftdcojp/ai-gftd-apps-gftdcojp.git
+    repoURL: git@github.com:etzhayyim/etzhayyim-root.git
     targetRevision: HEAD
     path: ${dir}
   destination:

@@ -9,14 +9,14 @@
 #   ai.gftd.apps.maps.aismarine.master.upsert
 #
 # Gate: pod CrashLoopBackOff's unless both
-#   AIS_STREAM_API_KEY        (Keychain `gftd.aisstream/API_KEY`)
+#   AIS_STREAM_API_KEY        (Keychain `etzhayyim.comsstream/API_KEY`)
 #   AISMARINE_INTERNAL_SECRET (K8s Secret `bpmn-dispatcher-auth/internal-secret`)
 # are present.
 #
 # To enable:
-#   security add-generic-password -s gftd.aisstream -a API_KEY -w '<key>' -U
+#   security add-generic-password -s etzhayyim.comsstream -a API_KEY -w '<key>' -U
 #   kubectl -n maps-bulk-ingest create secret generic aismarine-credentials \
-#     --from-literal=AIS_STREAM_API_KEY="$(security find-generic-password -s gftd.aisstream -a API_KEY -w)"
+#     --from-literal=AIS_STREAM_API_KEY="$(security find-generic-password -s etzhayyim.comsstream -a API_KEY -w)"
 #   kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-aismarine --replicas=1
 #
 apiVersion: apps/v1
@@ -50,7 +50,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: consumer
-          image: ghcr.io/gftdcojp/maps-bulk-ingest:1.3.2
+          image: ghcr.io/etzhayyim/maps-bulk-ingest:1.3.2
           imagePullPolicy: IfNotPresent
           command: ["python", "/app/workers/aismarine_consumer.py"]
           ports:

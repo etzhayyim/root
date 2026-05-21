@@ -1,12 +1,12 @@
-# gyotaku.gftd.ai — Internet Archive (Wayback Machine)
+# gyotaku.etzhayyim.com — Internet Archive (Wayback Machine)
 
-site.gftd.ai が収集した WET/WAT/WebP スナップショットを時系列で閲覧する Internet Archive ビューア。
+site.etzhayyim.com が収集した WET/WAT/WebP スナップショットを時系列で閲覧する Internet Archive ビューア。
 
 ## Architecture
 
-- **Read-only viewer**: site.gftd.ai の既存データ (WET/WAT/screenshot) を SQL query で読み取り表示
-- **DID**: `did:web:gyotaku.gftd.ai` (1 primary DID, sub-DID なし)
-- **Data source**: site.gftd.ai の AT Record (`ai.gftd.apps.site.wet`, `ai.gftd.apps.site.wat`, `ai.gftd.apps.site.screenshot`)
+- **Read-only viewer**: site.etzhayyim.com の既存データ (WET/WAT/screenshot) を SQL query で読み取り表示
+- **DID**: `did:web:gyotaku.etzhayyim.com` (1 primary DID, sub-DID なし)
+- **Data source**: site.etzhayyim.com の AT Record (`ai.gftd.apps.site.wet`, `ai.gftd.apps.site.wat`, `ai.gftd.apps.site.screenshot`)
 
 ## UI
 

@@ -62,7 +62,7 @@ LangGraph は **BPMN ServiceTask** として ADR-0056 の worker runtime
 
 CF Worker は edge BFF / 認証 / rate-limit / SSR の役割に純化し、
 agentic compute は持たない。`POST /xrpc/{nsid}` は従来通り
-bpmn-dispatcher (`dispatcher.gftd.ai:8080`) に転送される。
+bpmn-dispatcher (`dispatcher.etzhayyim.com:8080`) に転送される。
 
 case A (K8s only) は edge gateway invariant (ADR-0003 / ADR-0023) を
 反故にするため不採用。case B (BPMN バイパス) は escape hatch として
@@ -95,7 +95,7 @@ Client
   ▼  HTTPS POST /xrpc/{nsid}
 ┌─────────────────────────┐
 │ CF Worker (edge BFF)    │   auth / rate-limit / NSID validation
-│  atproto.gftd.ai (PDS)  │
+│  atproto.etzhayyim.com (PDS)  │
 └──────────┬──────────────┘
            │  pipethrough (NSID-routed)
            ▼
@@ -142,7 +142,7 @@ incident として上がり、Operate UI で再開可能。
 state ref scheme は ADR-0056 の AT URI 流儀を踏襲する:
 
 ```
-at://did:web:langgraph.gftd.ai/ai.gftd.langgraph.state/{run_id}
+at://did:web:langgraph.etzhayyim.com/ai.gftd.langgraph.state/{run_id}
 ```
 
 ### Tool surface

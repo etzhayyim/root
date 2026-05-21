@@ -7,7 +7,7 @@ topic: malak-surveillance-international-collapse
 authoritative: true
 last_verified: 2026-05-13
 authoritative_for:
-  - malak.gftd.ai surveillance capability cluster (15 NSID)
+  - malak.etzhayyim.com surveillance capability cluster (15 NSID)
   - International LEA seed scope (INTERPOL 196 members)
   - cooperation_status filter (prohibited / restricted / standard / unverified)
   - etzhayyim ↔ Gftd Japan operating-entity / vendor boundary for surveillance
@@ -28,7 +28,7 @@ superseded_by: []
 notes: |
   Background: original project "mehikari" (眼光り) was scoped as a JP-police-only
   surveillance vendor. 2026-05-13 user directive collapsed it into
-  malak.gftd.ai (existing cybercrime intelligence platform, m4l4k001) and
+  malak.etzhayyim.com (existing cybercrime intelligence platform, m4l4k001) and
   expanded the scope to all INTERPOL member countries. This ADR records
   the resulting design.
 ---
@@ -46,7 +46,7 @@ surveillance vendor under the project name "mehikari" with:
 
 A user directive on 2026-05-13 redirected this scope: the platform must
 also serve **international law-enforcement agencies (LEAs)** beyond Japan.
-The existing `malak.gftd.ai` actor already implemented cybercrime
+The existing `malak.etzhayyim.com` actor already implemented cybercrime
 intelligence with `AgencyReferral` lexicon + INTERPOL Notice graph node
 (`intel:notice-`) + `ThreatActor` + 19 BPMN-as-actor flows. Adding a new
 "mehikari" actor next to malak created two redundant cybercrime-investigation
@@ -55,7 +55,7 @@ surfaces with overlapping addressee semantics.
 # Decision
 
 **Collapse mehikari into malak.surveillance capability cluster** of the
-existing `malak.gftd.ai` actor (`m4l4k001`). malak's actor identity, DID,
+existing `malak.etzhayyim.com` actor (`m4l4k001`). malak's actor identity, DID,
 sensitivity policy (invite-only, TLP:AMBER default), and existing 10
 NSIDs are retained. Surveillance becomes a new capability cluster
 (8 search + 7 outreach NSIDs) within malak rather than a separate actor.

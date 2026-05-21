@@ -1,7 +1,7 @@
 """
 kaisya.etzhayyim.com member assistant LangGraph.
 
-Per-member chat surface that wraps gftdcojp-company-ops and
+Per-member chat surface that wraps etzhayyim-company-ops and
 lawfirm-marketing-ops behind a member-identity-aware supervisor.
 
 Flow:
@@ -198,7 +198,7 @@ def resolve_member(state: MemberChatState) -> dict:
         }
 
     rows = _db_query(
-        "SELECT display_name, title, department FROM vertex_gftdcojp_person "
+        "SELECT display_name, title, department FROM vertex_etzhayyim_person "
         "WHERE person_did = :did LIMIT 1",
         {"did": member_did},
     )
@@ -221,7 +221,7 @@ def load_context(state: MemberChatState) -> dict:
         return {"raci_summary": ""}
     raci = _db_query(
         "SELECT task_nsid, raci_role, context "
-        "FROM vertex_gftdcojp_raci WHERE person_did = :did "
+        "FROM vertex_etzhayyim_raci WHERE person_did = :did "
         "ORDER BY effective_date DESC LIMIT 20",
         {"did": member_did},
     )
@@ -271,9 +271,9 @@ def supervisor(state: MemberChatState) -> dict:
 # ── Node: company_ops dispatcher ──────────────────────────────────────────────
 
 def company_ops_dispatch(state: MemberChatState) -> dict:
-    """Submit user message to gftdcojp-company-ops graph as task."""
+    """Submit user message to etzhayyim-company-ops graph as task."""
     try:
-        from pymagatama.langgraph_graphs.gftdcojp_company_ops import build_graph
+        from pymagatama.langgraph_graphs.etzhayyim_company_ops import build_graph
         sub = build_graph().invoke({
             "task_type": "governance.chat",
             "payload": {"message": state.get("user_message", "")},

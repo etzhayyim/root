@@ -89,13 +89,13 @@
     {
       "@context": "./context.jsonld",
       "@type": "Contract",
-      "@id": "https://gftd.ai/data/contracts/us-gov-spacex-2020",
+      "@id": "https://etzhayyim.com/data/contracts/us-gov-spacex-2020",
       "name": "NASA Commercial Crew Program Contract",
       "identifier": "NNK14MA74C",
       "contractType": "procurement",
       "parties": [
-        "https://gftd.ai/data/organizations/nasa",
-        "https://gftd.ai/data/organizations/spacex"
+        "https://etzhayyim.com/data/organizations/nasa",
+        "https://etzhayyim.com/data/organizations/spacex"
       ],
       "effectiveDate": "2014-09-16",
       "value": 2600000000,

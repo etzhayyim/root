@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#LicensesSectionConnect
+ * @etzhayyim/ai-gftd-hrse#LicensesSectionConnect
  * ライセンス管理セクション（Connect-Web版）
  */
 

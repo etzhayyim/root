@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-4cf42c4eba22",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4cf42c4eba22",
   "entityId": "ent-4cf42c4eba22",
   "canonicalName": "michael david mummert",
   "aliases": [

@@ -9,7 +9,7 @@
  *
  * Env:
  *   SIP_SOURCE_DIR   default: /Users/junkawasaki/github/260208-spirit-in-physics
- *   MURAKUMO_URL     default: https://murakumo.gftd.ai/api/openai/v1/chat/completions
+ *   MURAKUMO_URL     default: https://murakumo.etzhayyim.com/api/openai/v1/chat/completions
  *   MURAKUMO_MODEL   default: qwen3-30b
  *   MURAKUMO_API_KEY default: macOS Keychain (gftd.murakumo/MURAKUMO_API_KEY) or ansible fallback
  *
@@ -29,13 +29,13 @@
  *
  * Provider-neutral design — MURAKUMO_URL / MURAKUMO_MODEL / MURAKUMO_API_KEY
  * can point to any OpenAI-compat chat/completions endpoint:
- *   - https://murakumo.gftd.ai/api/openai/v1/chat/completions  (default, currently degraded 2026-04-20)
+ *   - https://murakumo.etzhayyim.com/api/openai/v1/chat/completions  (default, currently degraded 2026-04-20)
  *   - https://api.openai.com/v1/chat/completions               (MODEL=gpt-4o-mini, KEY=sk-…)
  *   - http://localhost:11434/v1/chat/completions                (local Ollama, MODEL=gemma2:2b)
  *   - http://127.0.0.1:4000/v1/chat/completions                 (LiteLLM proxy, MODEL=gemma3:1b, KEY=sk-gftd-litellm-local)
  *
  * Operational status of the default MURAKUMO_URL (2026-04-20):
- *   curl https://murakumo.gftd.ai/health → {"status":"degraded","backend":"unreachable",
+ *   curl https://murakumo.etzhayyim.com/health → {"status":"degraded","backend":"unreachable",
  *     "linodeGpu":{"healthy":false,"error":"http 404"},"fleet":{"healthPct":0}}
  *   The Worker routes correctly; the upstream (Linode GPU Ollama at LINODE_OLLAMA_URL,
  *   Mac Mini fleet at FLEET_SERVE_URL) are both down. Fix is in 50-infra/cloudflare/workers/murakumo,
@@ -44,7 +44,7 @@
  */
 
 const SOURCE_DIR   = Deno.env.get("SIP_SOURCE_DIR") ?? "/Users/junkawasaki/github/260208-spirit-in-physics";
-const MURAKUMO_URL = Deno.env.get("MURAKUMO_URL")   ?? "https://murakumo.gftd.ai/api/openai/v1/chat/completions";
+const MURAKUMO_URL = Deno.env.get("MURAKUMO_URL")   ?? "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions";
 const MODEL        = Deno.env.get("MURAKUMO_MODEL") ?? "qwen3-30b";
 // Resolve auth via: env MURAKUMO_API_KEY -> macOS Keychain (gftd.murakumo/MURAKUMO_API_KEY)
 // -> ansible fallback (documented in 60-apps/ai-gftd-project-murakumo/CLAUDE.md §Murakumo Fleet)
@@ -74,7 +74,7 @@ RESPOND WITH ONE JSON OBJECT. No prose. No markdown fences. No trailing commas.
 
 Top-level shape:
   "@context" — copy this EXACT object verbatim:
-    { "schema": "http://schema.org/", "gh": "https://ghosthacker.gftd.ai/ns/", "Page": "gh:Page", "Panel": "gh:Panel", "layout": "gh:layout", "panels": "gh:panels", "camera": "gh:camera", "dialogue": "gh:dialogue", "narration": "gh:narration", "sfx": "gh:sfx", "emotion": "gh:emotion", "colorNote": "gh:colorNote", "characters": "gh:characters", "location": "gh:location", "transition": "gh:transition" }
+    { "schema": "http://schema.org/", "gh": "https://ghosthacker.etzhayyim.com/ns/", "Page": "gh:Page", "Panel": "gh:Panel", "layout": "gh:layout", "panels": "gh:panels", "camera": "gh:camera", "dialogue": "gh:dialogue", "narration": "gh:narration", "sfx": "gh:sfx", "emotion": "gh:emotion", "colorNote": "gh:colorNote", "characters": "gh:characters", "location": "gh:location", "transition": "gh:transition" }
   "@id"         — string, pattern "gh:storyboard/<storyboardId>"
   "@type"       — literal "gh:Storyboard"
   "schema:name" — chapter title (from episode.jsonld dct:title_ja if present)
@@ -243,7 +243,7 @@ Output: the full JSON-LD storyboard. Include @context, @id="gh:storyboard/${stor
 async function probe(): Promise<void> {
   // Show murakumo fleet status (/health aggregates backend probes)
   try {
-    const health = await fetch("https://murakumo.gftd.ai/health").then((r) => r.json()) as Record<string, unknown>;
+    const health = await fetch("https://murakumo.etzhayyim.com/health").then((r) => r.json()) as Record<string, unknown>;
     console.log(`  murakumo /health: status=${health.status} backend=${health.backend} linodeGpu.healthy=${((health.linodeGpu ?? {}) as Record<string, unknown>).healthy} fleet.healthPct=${((health.fleet ?? {}) as Record<string, unknown>).healthPct}`);
   } catch (e) {
     console.log(`  murakumo /health: ERROR ${(e as Error).message}`);
@@ -252,7 +252,7 @@ async function probe(): Promise<void> {
   // Try a tiny completion on the configured endpoint + a few candidates
   const candidates: Array<{ label: string; url: string; model: string; key?: string }> = [
     { label: "configured", url: MURAKUMO_URL, model: MODEL, key: MURAKUMO_KEY },
-    { label: "murakumo /v1", url: "https://murakumo.gftd.ai/v1/chat/completions", model: "gemma4:e4b", key: MURAKUMO_KEY },
+    { label: "murakumo /v1", url: "https://murakumo.etzhayyim.com/v1/chat/completions", model: "gemma4:e4b", key: MURAKUMO_KEY },
     { label: "local-ollama", url: "http://localhost:11434/v1/chat/completions", model: "gemma2:2b" },
     { label: "litellm-local", url: "http://127.0.0.1:4000/v1/chat/completions", model: "gemma3:1b", key: "sk-gftd-litellm-local" },
   ];

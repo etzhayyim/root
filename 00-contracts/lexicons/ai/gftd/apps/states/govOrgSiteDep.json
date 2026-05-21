@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Declaration that a govOrg is following / depends on a site nanoid for inbound commits. Used by states → site.gftd.ai Follow registration. NOTE: no dedicated vertex_gov_org_site_dep table yet; writes currently fall back to generic vertex handling. Create dedicated table in PR 2.",
+      "description": "Declaration that a govOrg is following / depends on a site nanoid for inbound commits. Used by states → site.etzhayyim.com Follow registration. NOTE: no dedicated vertex_gov_org_site_dep table yet; writes currently fall back to generic vertex handling. Create dedicated table in PR 2.",
       "x-bootstrap": true,
       "key": "any",
       "record": {
@@ -13,7 +13,7 @@
         "properties": {
           "path": { "type": "string", "description": "govOrg path" },
           "siteNanoid": { "type": "string", "description": "Upstream site Worker nanoid" },
-          "siteTopicDid": { "type": "string", "description": "Optional topic DID, e.g. did:web:site.gftd.ai:topic:government" },
+          "siteTopicDid": { "type": "string", "description": "Optional topic DID, e.g. did:web:site.etzhayyim.com:topic:government" },
           "updated_at": { "type": "string", "format": "datetime" }
         }
       }

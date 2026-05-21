@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-bbb7f8fcbcb9",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-bbb7f8fcbcb9",
   "entityId": "ent-bbb7f8fcbcb9",
   "canonicalName": "onsong county mss detention centre",
   "aliases": [

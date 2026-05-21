@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/07/1/1/pharmaceutical-products/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/07/1/1/pharmaceutical-products/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Pharmaceutical Licensing and Surveillance Lifecycle",
       "description": "The administrative process of reviewing drug efficacy, coordinating marketing authorization, and monitoring side effects.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/07/1/1/pharmaceutical-products"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/07/1/1/pharmaceutical-products"
     }
   ]
 }

@@ -58,7 +58,7 @@
 | Type | **Native Go Provider** (goroutine, net/http, WebSocket 必須) |
 | WIT namespace | `gftd:taikomochi` |
 | Deploy target | `magatama-runtime` namespace |
-| Image registry | `ghcr.io/gftdcojp/taikomochi-twitch-agent` |
+| Image registry | `ghcr.io/etzhayyim/taikomochi-twitch-agent` |
 
 ## Key Design Decisions
 

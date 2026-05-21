@@ -49,7 +49,7 @@ GitHub (all public repos)
   ├─ repository.publicized webhook             → POST /webhook/github (action=publicized)
   └─ Secret Scanning Partner Program          → POST /webhook/github-secret-scanning
           ↓ (all paths)
-CF Worker mamoru.gftd.ai  (L3 Dispatcher, stateless)
+CF Worker mamoru.etzhayyim.com  (L3 Dispatcher, stateless)
           ↓ x-internal-trust HMAC
 bpmn-dispatcher  (K8s ClusterIP)
           ↓ NSID routing
@@ -152,10 +152,10 @@ client-side routing for `/scan` and `/incident/[id]`.
 
 # Deployment
 
-- **CF Worker**: `magatama-m4m0ru01`, routes `mamoru.gftd.ai/*` + `m4m0ru01.gftd.ai/*`
-- **Pod image**: `ghcr.io/gftdcojp/pymagatama:0.3.110-mamoru-20260518104334-amd64`
+- **CF Worker**: `magatama-m4m0ru01`, routes `mamoru.etzhayyim.com/*` + `m4m0ru01.etzhayyim.com/*`
+- **Pod image**: `ghcr.io/etzhayyim/pymagatama:0.3.110-mamoru-20260518104334-amd64`
 - **Helm release**: `mitama-mamoru-pool` (namespace `mitama-udf`, revision 4)
-- **Dashboard**: `https://mamoru.gftd.ai/` (SvelteKit SPA, dark theme)
+- **Dashboard**: `https://mamoru.etzhayyim.com/` (SvelteKit SPA, dark theme)
 
 # Forbidden
 

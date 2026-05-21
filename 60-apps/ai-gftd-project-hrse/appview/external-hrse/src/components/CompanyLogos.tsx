@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 /**
- * @gftdcojp/cyber-freelance#CompanyLogos
+ * @etzhayyim/cyber-freelance#CompanyLogos
  * 企業ロゴセクション
  * Toptalスタイルの信頼性セクション
  * 

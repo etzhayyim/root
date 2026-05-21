@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PG = ["-h", process.env.RW_HOST ?? "45.32.79.245", "-p", process.env.RW_PORT ?? "4566",
             "-U", process.env.RW_USER ?? "root", "-d", process.env.RW_DB ?? "dev"];
-const FROM = process.env.ABUSE_FROM ?? "abuse-liaison@gftd.ai";
+const FROM = process.env.ABUSE_FROM ?? "abuse-liaison@etzhayyim.com";
 const REPLY_TO = process.env.ABUSE_REPLY_TO ?? "jun@gftd.group";
 
 const ABUSE_TARGETS = {
@@ -70,7 +70,7 @@ applicable ICANN / local law obligations.
 We can provide additional evidence (original phishing SMS/email payload,
 victim reports, timeline) on request. Please reply to ${REPLY_TO}.
 
-— Gftd Security Intel, https://yabai.gftd.ai
+— Gftd Security Intel, https://yabai.etzhayyim.com
 `.trim();
 
 async function hostingDrafts() {

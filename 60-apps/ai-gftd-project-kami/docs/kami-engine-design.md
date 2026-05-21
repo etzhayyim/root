@@ -99,7 +99,7 @@ console 用 wgpu-hal backend は NDA 下で別 crate 開発。Engine 本体は�
 - [x] GameClock (fixed timestep)
 - [x] Engine integration (snapshot → delta → KNP wire)
 - [x] 7 tests passing
-- [x] App: kami.gftd.ai + worlds.gftd.ai + kami-rt.gftd.ai deployed (Tier 1)
+- [x] App: kami.etzhayyim.com + worlds.etzhayyim.com + kami-rt.etzhayyim.com deployed (Tier 1)
 
 ### Phase 2: Render Pipeline (DONE)
 - [x] WGSL PBR shader: Cook-Torrance BRDF (GGX + Fresnel + Smith G) + Reinhard tonemap + shadow sampling. Single .wgsl source, naga transpile for all backends
@@ -139,8 +139,8 @@ console 用 wgpu-hal backend は NDA 下で別 crate 開発。Engine 本体は�
 - [x] Island scene format: JSON → LLM generates → Engine loads → wgpu renders
 - [x] Workbench UI: Svelte miniapp (create + generate + preview + publish)
 - [x] LLM Island Generator: murakumo prompt → IslandScene JSON (genre fallback scenes)
-- [x] generate-island + get-scene-json commands deployed to kami.gftd.ai
-- [x] games.gftd.ai publish pipeline: cross-actor → publish → URL
+- [x] generate-island + get-scene-json commands deployed to kami.etzhayyim.com
+- [x] games.etzhayyim.com publish pipeline: cross-actor → publish → URL
 
 ### Phase 7: Browser Live (DONE)
 - [x] WASM bundle on B2: engine/index.html + kami_web.js + kami_web_bg.wasm
@@ -159,5 +159,5 @@ console 用 wgpu-hal backend は NDA 下で別 crate 開発。Engine 本体は�
 ### Phase 9: Godot → KAMI Migration (DONE)
 - [x] 22 Godot games → KAMI Islands: genre-based scene generation (IoMultiplayer/RPG/Puzzle/Arcade/Sim). 3 tests
 - [x] W Protocol Event Stream: WRecord (write → AT Record → MDAG) + G (Cypher). 2 tests
-- [x] Batch publish: 22/22 games created → generated → published → portals registered on worlds.gftd.ai
-- [x] All islands playable: actor spawn verified on kami-rt.gftd.ai
+- [x] Batch publish: 22/22 games created → generated → published → portals registered on worlds.etzhayyim.com
+- [x] All islands playable: actor spawn verified on kami-rt.etzhayyim.com

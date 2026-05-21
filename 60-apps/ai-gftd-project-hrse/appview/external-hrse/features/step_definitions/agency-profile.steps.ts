@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#AgencyProfileSteps
+// @etzhayyim/cyber-freelance#AgencyProfileSteps
 // Agency Profile関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

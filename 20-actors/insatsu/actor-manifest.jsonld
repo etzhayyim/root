@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:insatsu.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:insatsu.etzhayyim.com",
   "name": "insatsu",
   "nanoid": "ins4tup1",
   "displayName": "Insatsu - Global Cloud Print & Mail Network",
-  "description": "Global cloud print and postal orchestration actor. Routes jobs to individual regional print shops, applies print/mail preflight, and hands off domestic Japan mail to yuubin.gftd.ai when appropriate.",
+  "description": "Global cloud print and postal orchestration actor. Routes jobs to individual regional print shops, applies print/mail preflight, and hands off domestic Japan mail to yuubin.etzhayyim.com when appropriate.",
   "runtime": "k8s-langserver",
   "edge": "sveltekit-proxy",
   "legacyExecutionTier": "T1",
@@ -40,7 +40,7 @@
     "agent.invoke",
     "derive:social"
   ],
-  "convoSystemPrompt": "You are Insatsu, a global cloud print and mail orchestration actor. You route document print jobs to local print shops, select postal injection lanes, validate print/mail constraints, and hand off Japan domestic postal fulfillment to yuubin.gftd.ai when available. Prefer nearest-capable shop, predictable SLA, and compliance-safe handling of address and document metadata.",
+  "convoSystemPrompt": "You are Insatsu, a global cloud print and mail orchestration actor. You route document print jobs to local print shops, select postal injection lanes, validate print/mail constraints, and hand off Japan domestic postal fulfillment to yuubin.etzhayyim.com when available. Prefer nearest-capable shop, predictable SLA, and compliance-safe handling of address and document metadata.",
   "profile": {
     "agentType": "autonomous",
     "isBot": true,
@@ -67,10 +67,10 @@
   "entities": [
     {
       "category": "downstream",
-      "did": "did:web:yuubin.gftd.ai",
+      "did": "did:web:yuubin.etzhayyim.com",
       "name": "YUUBIN Gateway",
       "sourceId": "yuubin-japan-post",
-      "url": "https://yuubin.gftd.ai/",
+      "url": "https://yuubin.etzhayyim.com/",
       "role": "japan-domestic-postal-handoff",
       "note": "Used when destination country is JPN and the selected route is compatible with Web ゆうびん / Japan Post automation."
     }

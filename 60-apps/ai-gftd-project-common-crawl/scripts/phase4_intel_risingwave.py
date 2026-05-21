@@ -8,6 +8,7 @@ Also stores intel JSON in vertex_domain.topics column.
 Replaces phase4_intel_extract.py (file-based JSONL → direct RisingWave PG INSERT/UPDATE).
 
 Usage:
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
   python3 phase4_intel_risingwave.py --limit 10 --dry-run     # test 10 domains
   python3 phase4_intel_risingwave.py --limit 100              # process 100
   python3 phase4_intel_risingwave.py                          # all CC domains
@@ -35,7 +36,7 @@ RW_PORT = int(os.environ.get("RW_PORT", "4566"))
 RW_USER = os.environ.get("RW_USER", "root")
 RW_DB = os.environ.get("RW_DB", "dev")
 
-MURAKUMO_URL = os.environ.get("MURAKUMO_URL", "https://murakumo.gftd.ai")
+MURAKUMO_URL = os.environ.get("MURAKUMO_URL", "https://murakumo.etzhayyim.com")
 MURAKUMO_MODEL = os.environ.get("MURAKUMO_MODEL", "qwen3.5-9b")
 MURAKUMO_API_KEY = os.environ.get(
     "MURAKUMO_API_KEY",
@@ -43,12 +44,12 @@ MURAKUMO_API_KEY = os.environ.get(
 )
 
 # ── RunPod fallback ──
-RUNPOD_GATEWAY_URL  = os.environ.get("RUNPOD_GATEWAY_URL", "https://runpod.gftd.ai")
+RUNPOD_GATEWAY_URL  = os.environ.get("RUNPOD_GATEWAY_URL", "https://runpod.etzhayyim.com")
 RUNPOD_GATEWAY_KEY  = os.environ.get("RUNPOD_GATEWAY_KEY", "rpgw_7kXm3Nv8QwPf2RsYtUeH4JcLbA9DzGiO6WhK1MpV5nBx")
 RUNPOD_MODEL        = os.environ.get("RUNPOD_MODEL", "gemma4:31b-it-q4_K_M")
 
-PDS_URL = os.environ.get("PDS_URL", "https://atproto.gftd.ai")
-SITE_APP_DID = "did:web:site.gftd.ai"
+PDS_URL = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
+SITE_APP_DID = "did:web:site.etzhayyim.com"
 
 STATE_FILE = Path("/tmp/.phase4_rw_state.json")
 MAX_RETRIES = 2

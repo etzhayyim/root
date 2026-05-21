@@ -1,5 +1,5 @@
 {
-  "name": "@gftdcojp/auth",
+  "name": "@etzhayyim/auth",
   "version": "0.1.0",
   "type": "module",
   "exports": {
@@ -18,13 +18,13 @@
     "svelte": "^5.0.0"
   },
   "peerDependenciesMeta": {
-    "@gftdcojp/design-system": {
+    "@etzhayyim/design-system": {
       "optional": true
     }
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp.git",
+    "url": "https://github.com/etzhayyim/etzhayyim-root.git",
     "directory": "packages/svelte/auth"
   }
 }

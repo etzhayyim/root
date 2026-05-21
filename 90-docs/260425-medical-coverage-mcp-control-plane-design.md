@@ -41,7 +41,7 @@ Initial runtime:
 
 - Namespace: `risingwave`
 - Existing CronJob: `medical-coverage-ingester`
-- Existing image: `ghcr.io/gftdcojp/medical-coverage-ingester:latest`
+- Existing image: `ghcr.io/etzhayyim/medical-coverage-ingester:latest`
 - Existing DB sink: `vertex_repo_record`
 - Existing coverage view: `mv_world_collection_coverage_live`
 
@@ -126,8 +126,8 @@ Implementation:
 - Create `batch/v1 Job` from the stored CronJob template.
 - Add labels:
   - `app.kubernetes.io/name=medical-coverage-ingester`
-  - `ai.gftd.ai/requested-by=mcp`
-  - `ai.gftd.ai/ingest-targets=<csv>`
+  - `ai.etzhayyim.com/requested-by=mcp`
+  - `ai.etzhayyim.com/ingest-targets=<csv>`
 - Override env only for approved variables:
   - `TARGETS`
   - `MAX_RECORDS_PER_RUN`
@@ -206,9 +206,9 @@ Implementation:
 
 - Patch `CronJob.spec.suspend=true`.
 - Record an annotation:
-  - `ai.gftd.ai/paused-by`
-  - `ai.gftd.ai/paused-at`
-  - `ai.gftd.ai/pause-reason`
+  - `ai.etzhayyim.com/paused-by`
+  - `ai.etzhayyim.com/paused-at`
+  - `ai.etzhayyim.com/pause-reason`
 
 ### `medical.ingest.resume`
 
@@ -396,10 +396,10 @@ Retries:
 
 Every triggered Job should include:
 
-- `ai.gftd.ai/requested-by`
-- `ai.gftd.ai/idempotency-key` when supplied
-- `ai.gftd.ai/targets`
-- `ai.gftd.ai/run-kind=manual|scheduled|backfill`
+- `ai.etzhayyim.com/requested-by`
+- `ai.etzhayyim.com/idempotency-key` when supplied
+- `ai.etzhayyim.com/targets`
+- `ai.etzhayyim.com/run-kind=manual|scheduled|backfill`
 
 Ingester logs must keep the current concise format:
 

@@ -171,9 +171,9 @@ Current verifier checks:
 - warning on base vertex scans without `WHERE`
 - warning on multi-table queries that should pass an `EXPLAIN` budget gate
 
-## llm.gftd.ai / RunPod Gemma4
+## llm.etzhayyim.com / RunPod Gemma4
 
-`llm.gftd.ai` is the independent RunPod OpenAI-compatible gateway. It is not a
+`llm.etzhayyim.com` is the independent RunPod OpenAI-compatible gateway. It is not a
 Murakumo or `magatama-llm8cf4ai` pass-through path.
 
 Current public model aliases:
@@ -182,7 +182,7 @@ Current public model aliases:
 - `tier0-runpod`
 - `gemma4:26b-a4b-it-q4_K_M`
 
-End-to-end schema RAG through `llm.gftd.ai`:
+End-to-end schema RAG through `llm.etzhayyim.com`:
 
 ```bash
 pnpm --dir 30-graph/graph-schema rag:llm -- \
@@ -194,28 +194,28 @@ pnpm --dir 30-graph/graph-schema rag:llm -- \
 The CLI performs:
 
 1. trained schema retrieval
-2. LLM SQL draft through `llm.gftd.ai`
+2. LLM SQL draft through `llm.etzhayyim.com`
 3. local SQL verifier
 
 ### 2026-04-29 Deployment Check
 
-`llm.gftd.ai` is served by the `ai-gftd-runpod` Cloudflare Worker. The route is:
+`llm.etzhayyim.com` is served by the `ai-gftd-runpod` Cloudflare Worker. The route is:
 
 ```text
-client -> llm.gftd.ai -> ai-gftd-runpod -> RunPod Serverless 3fctheq51haikt
+client -> llm.etzhayyim.com -> ai-gftd-runpod -> RunPod Serverless 3fctheq51haikt
        -> Ollama gemma4:26b-a4b-it-q4_K_M
 ```
 
 Verification:
 
 ```bash
-curl https://llm.gftd.ai/_app/meta
-curl -H 'x-magatama-verified: true' https://llm.gftd.ai/v1/models
+curl https://llm.etzhayyim.com/_app/meta
+curl -H 'x-magatama-verified: true' https://llm.etzhayyim.com/v1/models
 pnpm --dir 30-graph/graph-schema rag:evaluate
 pnpm --dir 30-graph/graph-schema rag:train
 ```
 
-`llm.gftd.ai/xrpc/ai.gftd.apps.llm.answerWithKnowledge` is intentionally not
+`llm.etzhayyim.com/xrpc/ai.gftd.apps.llm.answerWithKnowledge` is intentionally not
 served by this gateway:
 
 ```json

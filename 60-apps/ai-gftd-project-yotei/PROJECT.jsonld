@@ -1,13 +1,13 @@
 {
   "@context": {
     "@vocab": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/dodaf/"
+    "dodaf": "https://resources.etzhayyim.com/dodaf/"
   },
   "@type": "Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-yotei/id/Project/ai-gftd-project-yotei",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-yotei/id/Project/ai-gftd-project-yotei",
   "name": "ai-gftd-project-yotei",
   "description": "Calendar scheduling & availability coordination — Calendly-like AI Agent for DID-addressed booking, availability management, and meeting coordination",
-  "url": "https://yotei.gftd.ai",
+  "url": "https://yotei.etzhayyim.com",
   "dodaf:capability": [
     "Calendar Management",
     "Availability Scheduling",

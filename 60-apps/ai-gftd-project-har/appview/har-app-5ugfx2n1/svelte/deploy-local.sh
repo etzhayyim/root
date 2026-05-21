@@ -6,7 +6,7 @@ REGISTRY="ghcr.io"
 IMAGE_NAME="ai-gftd-har"
 PLATFORM="linux/amd64"
 BUILDER="${BUILDKIT_BUILDER:-gftd-vke}"
-CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/gftdcojp/build-cache:ai-gftd-har}"
+CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/etzhayyim/build-cache:ai-gftd-har}"
 
 echo "🚀 Starting local build for ${IMAGE_NAME}..."
 

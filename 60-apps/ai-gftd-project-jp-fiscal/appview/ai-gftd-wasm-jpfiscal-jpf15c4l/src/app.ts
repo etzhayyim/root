@@ -31,7 +31,7 @@ function envOf(sdk: unknown): EnvLike {
 }
 
 function dispatcherUrl(sdk: unknown): string {
-  return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  return envOf(sdk).DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
 }
 
 async function internalTrustHeader(sdk: unknown): Promise<string> {
@@ -60,7 +60,7 @@ async function proxyToBpmn(sdk: HostSDK, toolNsid: string, input: unknown): Prom
 }
 
 const ACTOR_NAME = "jp-fiscal";
-const ACTOR_DID = `did:web:${ACTOR_NAME}.gftd.ai`;
+const ACTOR_DID = `did:web:${ACTOR_NAME}.etzhayyim.com`;
 const RATE_MS = 1500;
 
 const lastByHost = new Map<string, number>();
@@ -173,7 +173,7 @@ interface IngestResult { wrote: number; source: string; note?: string }
 
 async function ingestBudgetBook(sdk: HostSDK, year: number, doc = "initial-budget", accountType = "general"): Promise<IngestResult> {
   const sourceUrl = `https://www.mof.go.jp/policy/budget/budger_workflow/budget/fy${year}/`;
-  await writeDomain(sdk, "did:web:gov.gftd.ai:country:jpn:mof:budget-bureau", "budgetBook",
+  await writeDomain(sdk, "did:web:gov.etzhayyim.com:country:jpn:mof:budget-bureau", "budgetBook",
     `${year}-${doc}-${accountType}`,
     { fiscalYear: year, docType: doc, accountType, totalJpy: 0, sourceUrl, createdAt: nowIso() });
   return { wrote: 1, source: sourceUrl };
@@ -193,7 +193,7 @@ async function ingestEgovContract(sdk: HostSDK, sourceUrl: string, ministryDid: 
       issuerDid: ministryDid,
       contractNo: c[0],
       contractorJcn: c[1],
-      contractorDid: `did:web:legal-entity.gftd.ai:jcn:${c[1]}`,
+      contractorDid: `did:web:legal-entity.etzhayyim.com:jcn:${c[1]}`,
       method: c[2] || "unknown",
       amountJpy,
       signedDate: c[4] || undefined,
@@ -250,7 +250,7 @@ async function ingestNtaStatistic(_sdk: HostSDK, year: number): Promise<IngestRe
 async function ingestUboList(sdk: HostSDK, childJcn: string, evidenceUrl = ""): Promise<IngestResult> {
   // Real impl: PDF (legal affairs bureau disclosure) → Murakumo LLM extract.
   // Here we just emit a PENDING placeholder so reverse-resolution can index it.
-  const childDid = `did:web:legal-entity.gftd.ai:jcn:${childJcn}`;
+  const childDid = `did:web:legal-entity.etzhayyim.com:jcn:${childJcn}`;
   await writeDomain(sdk, childDid, "beneficialOwner", `${childJcn}-pending-${todayDate()}`, {
     childDid, childJcn, parentDid: "", evidenceKind: "UBO_LIST", evidenceUrl,
     observedAt: todayDate(), status: "PENDING", piiTier: 1, createdAt: nowIso(),
@@ -272,8 +272,8 @@ async function ingestEdinetLargeholding(sdk: HostSDK, date: string): Promise<Ing
     const target = String(d.secCode || d.subjectEdinetCode || "").trim();
     const filer = String(d.edinetCode || d.filerName || "").trim();
     if (!target || !filer) continue;
-    const childDid  = `did:web:legal-entity.gftd.ai:sec:${target}`;
-    const parentDid = `did:web:legal-entity.gftd.ai:edinet:${filer}`;
+    const childDid  = `did:web:legal-entity.etzhayyim.com:sec:${target}`;
+    const parentDid = `did:web:legal-entity.etzhayyim.com:edinet:${filer}`;
     const evidenceUrl = `https://disclosure.edinet-fsa.go.jp/PublicDoc/${d.docID}`;
     await writeDomain(sdk, childDid, "beneficialOwner", `edinet-${d.docID}`, {
       childDid, childJcn: target,
@@ -328,7 +328,7 @@ async function ingestAppropriation(sdk: HostSDK, p: {
 /** FY2026 一般会計 当初予算 official distribution (MOF 公表) — backfill in one call. */
 async function backfillMofFy2026(sdk: HostSDK): Promise<IngestResult> {
   const fy = 2026;
-  const src = "did:web:gov.gftd.ai:country:jpn:mof:budget-bureau";
+  const src = "did:web:gov.etzhayyim.com:country:jpn:mof:budget-bureau";
   const url = `https://www.mof.go.jp/policy/budget/budger_workflow/budget/fy${fy}/`;
   // 主要 12 経費 (FY2026 当初予算, 兆円単位 → 円換算)。当初予算 ~115 兆円。
   const items: Array<[string, string, number, string]> = [
@@ -348,22 +348,22 @@ async function backfillMofFy2026(sdk: HostSDK): Promise<IngestResult> {
   let wrote = 0;
   for (const [path, basis, jpy, code] of items) {
     await ingestAppropriation(sdk, {
-      fiscalYear: fy, sourceDid: src, recipientDid: `did:web:gov.gftd.ai:${path}`,
+      fiscalYear: fy, sourceDid: src, recipientDid: `did:web:gov.etzhayyim.com:${path}`,
       amountJpy: jpy, basis, programCode: code, stage: "L5", sourceUrl: url,
     });
     wrote++;
   }
   // Revenue side: NTA → Treasury (一般会計税収 ~75 兆円) を 1 本入れる
-  await writeDomain(sdk, "did:web:gov.gftd.ai:country:jpn:nta", "taxPayment", `summary-${fy}`, {
-    payerCohortDid: "did:web:gov.gftd.ai:country:jpn:taxpayer:cohort:all",
-    receiverDid: "did:web:gov.gftd.ai:country:jpn:treasury",
+  await writeDomain(sdk, "did:web:gov.etzhayyim.com:country:jpn:nta", "taxPayment", `summary-${fy}`, {
+    payerCohortDid: "did:web:gov.etzhayyim.com:country:jpn:taxpayer:cohort:all",
+    receiverDid: "did:web:gov.etzhayyim.com:country:jpn:treasury",
     taxCode: "general-revenue-summary", amountJpy: 75000_000_000_000,
     periodIso: String(fy), piiTier: 1, sourceUrl: url, createdAt: nowIso(),
   });
   await writeFiscalEdge(sdk, {
     edgeId: `revenue-nta-treasury-${fy}`,
-    fromDid: "did:web:gov.gftd.ai:country:jpn:nta",
-    toDid: "did:web:gov.gftd.ai:country:jpn:treasury",
+    fromDid: "did:web:gov.etzhayyim.com:country:jpn:nta",
+    toDid: "did:web:gov.etzhayyim.com:country:jpn:treasury",
     stage: "L7", fiscalYear: fy, amountJpy: 75000_000_000_000,
     basis: "general-revenue-summary", programCode: "revenue.tax.all",
     sourceUrl: url, observedAt: `${fy}-04-01`,
@@ -371,7 +371,7 @@ async function backfillMofFy2026(sdk: HostSDK): Promise<IngestResult> {
   // Treasury → MOF budget bureau pool (formal hand-off)
   await writeFiscalEdge(sdk, {
     edgeId: `treasury-mofbb-${fy}`,
-    fromDid: "did:web:gov.gftd.ai:country:jpn:treasury",
+    fromDid: "did:web:gov.etzhayyim.com:country:jpn:treasury",
     toDid: src, stage: "L7", fiscalYear: fy, amountJpy: 115000_000_000_000,
     basis: "general-account-pool", programCode: "treasury.general",
     sourceUrl: url, observedAt: `${fy}-04-01`,
@@ -430,9 +430,9 @@ const worker = createWorkerExport((sdk: HostSDK) => {
         };
         // parallel + short timeouts to fit in host-sdk 25s budget
         await Promise.all([
-          probe("health-public",  () => globalThis.fetch("https://murakumo.gftd.ai/health",     { signal: AbortSignal.timeout(8_000) })),
-          probe("models-authd",   () => globalThis.fetch("https://murakumo.gftd.ai/v1/models",  { headers: { "x-magatama-verified": "true" }, signal: AbortSignal.timeout(8_000) })),
-          probe("chat-tiny",      () => globalThis.fetch("https://murakumo.gftd.ai/v1/chat/completions", {
+          probe("health-public",  () => globalThis.fetch("https://murakumo.etzhayyim.com/health",     { signal: AbortSignal.timeout(8_000) })),
+          probe("models-authd",   () => globalThis.fetch("https://murakumo.etzhayyim.com/v1/models",  { headers: { "x-magatama-verified": "true" }, signal: AbortSignal.timeout(8_000) })),
+          probe("chat-tiny",      () => globalThis.fetch("https://murakumo.etzhayyim.com/v1/chat/completions", {
             method: "POST", headers: { "content-type": "application/json", "x-magatama-verified": "true" },
             body: JSON.stringify({ model: "gemma3-1b", messages: [{ role: "user", content: "ok" }], max_tokens: 4 }),
             signal: AbortSignal.timeout(20_000),

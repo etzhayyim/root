@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://gftd.ai/schemas/security/zk-v1-envelope.schema.json",
+  "$id": "https://etzhayyim.com/schemas/security/zk-v1-envelope.schema.json",
   "title": "ZK Envelope v1",
   "type": "object",
   "required": [

@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-15
 implementation_notes: |
   - media-gamers first impl (2026-05-13): capability_worker=a7m8oocs, 4 tools in vertex_capability, NSID alias in app.ts, profile.tools[] in magatama.jsonld
-  - malak.surveillance dual-wire impl (2026-05-15): 4 chains in `00-contracts/lexicons/ai/gftd/apps/malak/` simultaneously power (a) MCP tools at mcp.gftd.ai/mcp and (b) internal XRPC at dispatcher.gftd.ai/xrpc/ai.gftd.apps.malak.*. Same lexicon JSON, two wires. SvelteKit `/mcp` route + `bpmn-dispatcher` both derive routing/validation from the lexicon.
+  - malak.surveillance dual-wire impl (2026-05-15): 4 chains in `00-contracts/lexicons/ai/gftd/apps/malak/` simultaneously power (a) MCP tools at mcp.etzhayyim.com/mcp and (b) internal XRPC at dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.malak.*. Same lexicon JSON, two wires. SvelteKit `/mcp` route + `bpmn-dispatcher` both derive routing/validation from the lexicon.
 authoritative_for:
   - MCP as sole external API surface (external = cell membrane)
   - Lexicon = dual-wire contract SSoT (drives MCP tool schema AND internal XRPC contract)
@@ -59,10 +59,10 @@ XRPC + lexicon は、cohort 内 (cytoplasm) の細胞間通信としては
 > Lexicon JSON in `00-contracts/lexicons/` is **first-class contract SSoT**
 > and explicitly serves **two wires simultaneously**:
 >
-> 1. **External wire = MCP** (`mcp.gftd.ai/mcp`). Lexicon → `tools/list`
+> 1. **External wire = MCP** (`mcp.etzhayyim.com/mcp`). Lexicon → `tools/list`
 >    inputSchema / `tools/call` result validation. External callers
 >    (Claude desktop, partner AI ecosystem, human operator) consume this.
-> 2. **Internal wire = XRPC** (`dispatcher.gftd.ai/xrpc/<nsid>` →
+> 2. **Internal wire = XRPC** (`dispatcher.etzhayyim.com/xrpc/<nsid>` →
 >    bpmn-dispatcher → K8s pod-side LangServer). Same lexicon, same NSID,
 >    used for cytoplasmic cohort-internal traffic. `x-internal-trust`
 >    strict-mode gated.
@@ -75,8 +75,8 @@ XRPC + lexicon は、cohort 内 (cytoplasm) の細胞間通信としては
 >
 > Reference implementation: malak.surveillance 4 chains (2026-05-15).
 > Same `bitnestExitPursuit.json` lexicon drives `malak.bitnestExitPursuit`
-> at `mcp.gftd.ai/mcp` and `ai.gftd.apps.malak.bitnestExitPursuit` at
-> `dispatcher.gftd.ai/xrpc/...`.
+> at `mcp.etzhayyim.com/mcp` and `ai.gftd.apps.malak.bitnestExitPursuit` at
+> `dispatcher.etzhayyim.com/xrpc/...`.
 
 ## A. 三層境界
 
@@ -106,8 +106,8 @@ lexicon JSON は `00-contracts/lexicons/` に置く **first-class contract SSoT*
 
 | 用途 | wire | endpoint | 駆動部分 |
 |---|---|---|---|
-| 外部 API (membrane) | MCP JSON-RPC | `mcp.gftd.ai/mcp` | `tools/list[].inputSchema` ← lexicon `parameters` / `input.schema`、`tools/call.result` validation ← lexicon `output.schema` |
-| 内部 RPC (cytoplasm) | XRPC | `dispatcher.gftd.ai/xrpc/<nsid>` → bpmn-dispatcher → K8s langserver pod | NSID = lexicon path、handler input/output validation = lexicon schema |
+| 外部 API (membrane) | MCP JSON-RPC | `mcp.etzhayyim.com/mcp` | `tools/list[].inputSchema` ← lexicon `parameters` / `input.schema`、`tools/call.result` validation ← lexicon `output.schema` |
+| 内部 RPC (cytoplasm) | XRPC | `dispatcher.etzhayyim.com/xrpc/<nsid>` → bpmn-dispatcher → K8s langserver pod | NSID = lexicon path、handler input/output validation = lexicon schema |
 
 ルール:
 
@@ -274,11 +274,11 @@ by network RTT plus pod/database latency. Therefore:
 > **MCP = sole external API; XRPC = internal cytoplasmic wire;
 > Lexicon JSON = dual-wire contract SSoT.**
 >
-> - External-facing tools MUST be exposed via magatama MCP facade (`mcp.gftd.ai/mcp`).
+> - External-facing tools MUST be exposed via magatama MCP facade (`mcp.etzhayyim.com/mcp`).
 > - Direct XRPC exposure to external principals is prohibited.
 > - Internal XRPC remains active for cytoplasmic (cohort-internal) wire.
 >   `x-internal-trust`-gated callers (CF Worker edge BFF, K8s pods, operator CLI)
->   use `dispatcher.gftd.ai/xrpc/<nsid>` freely.
+>   use `dispatcher.etzhayyim.com/xrpc/<nsid>` freely.
 > - **Lexicon JSON drives both wires from one source**: MCP `tools/list`/`tools/call`
 >   schemas AND internal XRPC NSID + validation. Adding 1 lexicon = 2-wire surface.
 
@@ -307,7 +307,7 @@ agent 実装が MCP に揃った後の roll-back は agent 改修コストが高
 # J. capability_worker Naming Convention (2026-05-13)
 
 `vertex_capability.capability_worker` は MCP adapter が
-`https://{capability_worker}.gftd.ai/xrpc/ai.gftd.apps.{capability_worker}.{method}`
+`https://{capability_worker}.etzhayyim.com/xrpc/ai.gftd.apps.{capability_worker}.{method}`
 の形式でルーティングするため、**DNS-safe な値 (ハイフン・英数字のみ) が必須**。
 アンダースコアは RFC 1123 hostname として無効。
 
@@ -335,13 +335,13 @@ Worker 内部の `media_gamers` ルーティングロジックに届く。
 - `magatama.jsonld` `profile.tools[]` に 4 エントリ追加
 - `app.ts` に `NSID_PREFIX_ALIAS` alias handler 追加
 
-# Known Issue: atproto.gftd.ai MCP router 522 (2026-05-13)
+# Known Issue: atproto.etzhayyim.com MCP router 522 (2026-05-13)
 
-`POST https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message` が HTTP 522 を返す。
+`POST https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` が HTTP 522 を返す。
 原因: デプロイ済みの atproto Worker (SvelteKit BFF) の
-`AGENTGATEWAY_MCP_ROUTER_URL` が `https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message`
+`AGENTGATEWAY_MCP_ROUTER_URL` が `https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`
 に設定されており、同一 CF zone 内の自己ループになっている。
-`atproto-canary.gftd.ai` (実装側) は `x-internal-trust` ヘッダーなしで
+`atproto-canary.etzhayyim.com` (実装側) は `x-internal-trust` ヘッダーなしで
 アクセス不可。この問題は media-gamers とは無関係の既存 infra rot。
 
 修正方法: `50-infra/cloudflare/workers/atproto/` で `gftd deploy` を実行し
@@ -355,7 +355,7 @@ both wires from one lexicon JSON each:
 
 | Lexicon path | MCP tool (external) | XRPC NSID (internal) |
 |---|---|---|
-| `bitnestExitPursuit.json` | `malak.bitnestExitPursuit` at `mcp.gftd.ai/mcp` | `ai.gftd.apps.malak.bitnestExitPursuit` at `dispatcher.gftd.ai/xrpc/...` |
+| `bitnestExitPursuit.json` | `malak.bitnestExitPursuit` at `mcp.etzhayyim.com/mcp` | `ai.gftd.apps.malak.bitnestExitPursuit` at `dispatcher.etzhayyim.com/xrpc/...` |
 | `exportSurveillanceEvidence.json` | `malak.exportSurveillanceEvidence` | `ai.gftd.apps.malak.exportSurveillanceEvidence` |
 | `agencyOutreachFullFlow.json` | `malak.agencyOutreachFullFlow` | `ai.gftd.apps.malak.agencyOutreachFullFlow` |
 | `draftAgencyBriefing.json` | `malak.draftAgencyBriefing` | `ai.gftd.apps.malak.draftAgencyBriefing` |
@@ -365,7 +365,7 @@ both wires from one lexicon JSON each:
 ```
                     cell membrane (external)
                               │
-   external caller ──MCP JSON-RPC──▶ mcp.gftd.ai/mcp
+   external caller ──MCP JSON-RPC──▶ mcp.etzhayyim.com/mcp
    (Claude desktop,                   (SvelteKit /mcp route)
     partner AI, ...)                      │
                                           │ DISPATCHER_INTERNAL_SECRET
@@ -376,7 +376,7 @@ both wires from one lexicon JSON each:
    ═══════════════════════════════════════════════════════════════
                                           │
                                           ▼
-                              dispatcher.gftd.ai/xrpc/<nsid>
+                              dispatcher.etzhayyim.com/xrpc/<nsid>
                               (bpmn-dispatcher, K8s pod)
    ┌──────────────────────────────────────┤
    │                                      │
@@ -389,7 +389,7 @@ both wires from one lexicon JSON each:
    ▲
    │
    internal caller (CF Worker, cohort pod, CLI)
-   ──XRPC + x-internal-trust──▶ dispatcher.gftd.ai/xrpc/<nsid>
+   ──XRPC + x-internal-trust──▶ dispatcher.etzhayyim.com/xrpc/<nsid>
 ```
 
 **Files** (1 lexicon → 2 wires):

@@ -158,7 +158,7 @@ Collect{Country} command
 ```
 HandleHeartbeat (60s)
   → G() query: zone/parcel/building/job counts
-  → AgentChat(stats, "cadastral analyst") → murakumo.gftd.ai (qwen3-vl-8b)
+  → AgentChat(stats, "cadastral analyst") → murakumo.etzhayyim.com (qwen3-vl-8b)
   → KyumeiDeclareSources(geospatial + registry + authority)
   → Result: ai.gftd.agent.chat_result record (async flush)
 ```
@@ -166,11 +166,11 @@ HandleHeartbeat (60s)
 ### DID Naming Convention
 
 ```
-Zone:     did:web:jinushi.gftd.ai:zone:{iso3}:{region}:{code}
-Parcel:   did:web:jinushi.gftd.ai:{iso3}:{region}:{id}
-Building: did:web:jinushi.gftd.ai:{iso3}:{region}:{id}
-Owner:    did:web:jinushi.gftd.ai:owner:{id}
-Contract: did:web:jinushi.gftd.ai:contract:{id}
+Zone:     did:web:jinushi.etzhayyim.com:zone:{iso3}:{region}:{code}
+Parcel:   did:web:jinushi.etzhayyim.com:{iso3}:{region}:{id}
+Building: did:web:jinushi.etzhayyim.com:{iso3}:{region}:{id}
+Owner:    did:web:jinushi.etzhayyim.com:owner:{id}
+Contract: did:web:jinushi.etzhayyim.com:contract:{id}
 ```
 
 Country codes: ISO 3166-1 alpha-3 (jpn, gbr, usa, fra, deu, ...)

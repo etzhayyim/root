@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Badge } from '@gftdcojp/design-system';
+	import { Badge } from '@etzhayyim/design-system';
 	import { getSession } from '$lib/atproto-agent';
 	import { isSignedIn } from '$lib/auth/stores.js';
 	import { getSessionToken } from '$lib/auth';

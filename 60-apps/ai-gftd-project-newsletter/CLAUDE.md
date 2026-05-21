@@ -1,7 +1,7 @@
 # ai-gftd-project-newsletter — Newsletter Factory
 
-**URL**: `https://newsletter.gftd.ai` / `https://nwsl0001.gftd.ai`  
-**DID**: `did:web:newsletter.gftd.ai`  
+**URL**: `https://newsletter.etzhayyim.com` / `https://nwsl0001.etzhayyim.com`  
+**DID**: `did:web:newsletter.etzhayyim.com`  
 **nanoid**: `nwsl0001`  
 **ADR**: `90-docs/adr/2605072000-langgraph-agent-loop-pattern.md`
 
@@ -11,8 +11,8 @@
 - **Agent Loop**: LangGraph (Python, L8) via LangServer
 - **Delivery**: Resend batch (per-subscriber personalized)
 - **Schedule**: Every Tuesday 09:00 JST (LangServer BPMN-contract timer `0 0 * * 2`)
-- **Input**: news.gftd.ai (`ai.gftd.apps.news.article`) + narou.gftd.ai chapters via subscribeRepos
-- **Ad Integration**: ads.gftd.ai `createCampaign` (optional sponsor slot)
+- **Input**: news.etzhayyim.com (`ai.gftd.apps.news.article`) + narou.etzhayyim.com chapters via subscribeRepos
+- **Ad Integration**: ads.etzhayyim.com `createCampaign` (optional sponsor slot)
 
 ## Flow
 
@@ -20,7 +20,7 @@
 Weekly BPMN timer (Tue 09:00 JST)
   → newsletter.run_curation_agent  (LangGraph: ingest → filter → rank → draft → personalize → store)
   → newsletter.send_via_resend     (Resend batch, per-cohort personalization)
-  → newsletter.create_sponsor_slot (ads.gftd.ai createCampaign, if includeAdSlot=true)
+  → newsletter.create_sponsor_slot (ads.etzhayyim.com createCampaign, if includeAdSlot=true)
 
 On-demand:
   createCampaign XRPC → CF Worker → Dispatcher → LangServer
@@ -63,7 +63,7 @@ On-demand:
 Job types:
 - `newsletter.run_curation_agent` — LangGraph loop (180s, 2 retries)
 - `newsletter.send_via_resend` — Resend batch (120s, 3 retries)
-- `newsletter.create_sponsor_slot` — ads.gftd.ai XRPC (30s, 2 retries)
+- `newsletter.create_sponsor_slot` — ads.etzhayyim.com XRPC (30s, 2 retries)
 
 ## Env
 
@@ -72,9 +72,9 @@ AGENTGATEWAY_MCP_URL        — LangServer gRPC
 RW_URL               — RisingWave postgres
 ANTHROPIC_API_KEY
 RESEND_API_KEY
-RESEND_FROM          — newsletter@gftd.ai
-ADS_XRPC_URL         — ads.gftd.ai base
-NEWS_XRPC_URL        — news.gftd.ai base (default https://news.gftd.ai)
+RESEND_FROM          — newsletter@etzhayyim.com
+ADS_XRPC_URL         — ads.etzhayyim.com base
+NEWS_XRPC_URL        — news.etzhayyim.com base (default https://news.etzhayyim.com)
 ```
 
 ## Deploy
@@ -85,11 +85,11 @@ gftd deploy
 
 python -m pymagatama.newsletter_worker_main
 
-curl https://nwsl0001.gftd.ai/health
-curl -X POST https://nwsl0001.gftd.ai/xrpc/ai.gftd.apps.newsletter.addSubscriber \
+curl https://nwsl0001.etzhayyim.com/health
+curl -X POST https://nwsl0001.etzhayyim.com/xrpc/ai.gftd.apps.newsletter.addSubscriber \
   -H "Content-Type: application/json" \
   -d '{"email":"test@example.com","name":"Test User","cohortName":"cohort-apqc-3-market-sell"}'
-curl -X POST https://nwsl0001.gftd.ai/xrpc/ai.gftd.apps.newsletter.createCampaign \
+curl -X POST https://nwsl0001.etzhayyim.com/xrpc/ai.gftd.apps.newsletter.createCampaign \
   -H "Content-Type: application/json" \
   -d '{"name":"Weekly AI Digest #1","topic":"AI business tools and marketing automation"}'
 ```

@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/news-socialArbitrageIntel-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-socialArbitrageIntel-v1',
+                 'did:web:news.etzhayyim.com',
                  'news_social_arbitrage_intel',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  news.socialArbitrageIntel\n'
                  '\n'
                  '  Finds public-information arbitrage that can bridge inequality, loneliness, or\n'
-                 '  separation, then sends the prepared intel to news.gftd.ai publishing gates.\n'
+                 '  separation, then sends the prepared intel to news.etzhayyim.com publishing gates.\n'
                  '\n'
                  '  Input variables:\n'
                  '    seedUrls, topic, region, publish\n'
@@ -43,7 +43,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_news_social_arbitrage_intel"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/news"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/news"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="news_social_arbitrage_intel" name="news social arbitrage '
@@ -118,7 +118,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:news.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;news.socialArbitrageIntel&quot;" '
                  'target="action"/>\n'
@@ -141,10 +141,10 @@ UP = [{'sql': '\n'
                  4691,
                  '00-contracts/bpmn/ai/gftd/news/socialArbitrageIntel.bpmn',
                  '2026-04-29T09:01:00Z',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/news-socialArbitrageIntel-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-socialArbitrageIntel-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -158,16 +158,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/news-socialArbitrageIntel-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-socialArbitrageIntel-v1',
+                 'did:web:news.etzhayyim.com',
                  'ai.gftd.apps.news.socialArbitrageIntel',
                  'news_social_arbitrage_intel',
                  120000,
                  '2026-04-29T09:01:00Z',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/news-socialArbitrageIntel-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-socialArbitrageIntel-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -181,14 +181,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/news-rssIngest-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-rssIngest-v1',
+                 'did:web:news.etzhayyim.com',
                  'news_rss_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  news.rssIngest\n'
                  '\n'
-                 '  Zeebe-owned RSS pipeline for news.gftd.ai. Python worker performs feed fetch,\n'
+                 '  Zeebe-owned RSS pipeline for news.etzhayyim.com. Python worker performs feed fetch,\n'
                  '  parsing, translation, and social-post drafting. The Cloudflare news worker is\n'
                  '  only the thin edge boundary for PDS writes through commitArticle.\n'
                  '\n'
@@ -199,7 +199,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_news_rss_ingest"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/news"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/news"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="news_rss_ingest" name="news rss ingest" '
@@ -245,7 +245,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:news.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;news.rssIngest&quot;" target="action"/>\n'
                  '          <zeebe:input source="={ sourceId: string(sourceId), results: results '
@@ -266,10 +266,10 @@ UP = [{'sql': '\n'
                  3216,
                  '00-contracts/bpmn/ai/gftd/news/rssIngest.bpmn',
                  '2026-04-29T09:01:00Z',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/news-rssIngest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-rssIngest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -283,16 +283,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/news-rssIngest-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-rssIngest-v1',
+                 'did:web:news.etzhayyim.com',
                  'ai.gftd.apps.news.rssIngest',
                  'news_rss_ingest',
                  120000,
                  '2026-04-29T09:01:00Z',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/news-rssIngest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-rssIngest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -306,8 +306,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/news-liveAudioIngest-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-liveAudioIngest-v1',
+                 'did:web:news.etzhayyim.com',
                  'news_live_audio_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -329,7 +329,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_news_live_audio_ingest"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/news"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/news"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="news_live_audio_ingest" name="news live audio ingest" '
@@ -414,7 +414,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.news.analyzeIntel"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:news.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="={ title: string(extracted.title), url: string(if '
                  'sourceUrl != null and sourceUrl != &quot;&quot; then sourceUrl else streamUrl), '
@@ -470,7 +470,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:news.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;news.liveAudioIngest&quot;" '
                  'target="action"/>\n'
@@ -501,10 +501,10 @@ UP = [{'sql': '\n'
                  9458,
                  '00-contracts/bpmn/ai/gftd/news/liveAudioIngest.bpmn',
                  '2026-04-29T09:01:00Z',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/news-liveAudioIngest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-liveAudioIngest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -518,29 +518,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/news-liveAudioIngest-v1',
-                 'did:web:news.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-liveAudioIngest-v1',
+                 'did:web:news.etzhayyim.com',
                  'ai.gftd.apps.news.liveAudioIngest',
                  'news_live_audio_ingest',
                  240000,
                  '2026-04-29T09:01:00Z',
-                 'did:web:news.gftd.ai',
-                 'did:web:news.gftd.ai',
+                 'did:web:news.etzhayyim.com',
+                 'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/news-liveAudioIngest-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-liveAudioIngest-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/news-socialArbitrageIntel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-socialArbitrageIntel-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/news-socialArbitrageIntel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-socialArbitrageIntel-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/news-rssIngest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-rssIngest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/news-rssIngest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-rssIngest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/news-liveAudioIngest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-liveAudioIngest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/news-liveAudioIngest-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-liveAudioIngest-v1']}]
 
 
 def upgrade() -> None:

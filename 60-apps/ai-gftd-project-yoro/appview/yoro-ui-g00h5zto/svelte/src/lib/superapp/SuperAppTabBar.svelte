@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { BottomNav } from '@gftdcojp/design-system';
+	import { BottomNav } from '@etzhayyim/design-system';
 import { page } from '$app/stores';
 import { currentTab, threadUnreadCount, type SuperAppTab } from './stores.js';
 import { moodColor } from '../tuner/vibes-store.js';

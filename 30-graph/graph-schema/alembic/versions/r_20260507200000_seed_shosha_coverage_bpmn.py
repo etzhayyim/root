@@ -19,12 +19,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_coverage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — coverage snapshot (XRPC ai.gftd.apps.shosha.coverage).\n'
+                 '  shosha.etzhayyim.com — coverage snapshot (XRPC ai.gftd.apps.shosha.coverage).\n'
                  '\n'
                  '  Phase 3 step 1: wire the Phase 1 schema-only coverage lexicon to a real\n'
                  '  BPMN + primitive. Returns aggregated metrics over all shosha tables for\n'
@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_coverage"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_coverage" name="shosha coverage snapshot" '
@@ -102,10 +102,10 @@ UP = [{'sql': '\n'
                  3633,
                  '00-contracts/bpmn/ai/gftd/shosha/coverage.bpmn',
                  '2026-05-07T20:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha.phase3',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -113,21 +113,21 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-coverage-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-coverage-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'ai.gftd.apps.shosha.coverage',
                  'shosha_coverage',
                  15000,
                  '2026-05-07T20:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha.phase3',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-coverage-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-coverage-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/shosha-coverage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/shosha-coverage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-coverage-v1']}]
 
 
 def upgrade() -> None:

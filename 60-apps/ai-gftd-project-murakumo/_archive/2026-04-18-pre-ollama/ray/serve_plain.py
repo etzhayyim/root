@@ -31,7 +31,7 @@ from starlette.routing import Route
 
 VERSION = "2.2.0"
 DEFAULT_MODEL = os.environ.get("GFTD_DEFAULT_MODEL", "gemma-4-e2b-it")
-R2_MODEL_BASE = os.environ.get("GFTD_R2_MODEL_BASE", "https://cdn.gftd.ai/mlx-models")
+R2_MODEL_BASE = os.environ.get("GFTD_R2_MODEL_BASE", "https://cdn.etzhayyim.com/mlx-models")
 
 THINKING_RETRY_DEADLINE_S = 2.5
 THINKING_RETRY_MAX = 1
@@ -95,7 +95,7 @@ def _r2_model_base_candidates() -> list[str]:
     raw = os.environ.get("GFTD_R2_MODEL_BASE_CANDIDATES", "")
     candidates = [part.strip().rstrip("/") for part in raw.split(",") if part.strip()]
     if not candidates:
-        candidates = [R2_MODEL_BASE.rstrip("/"), "https://cdn.gftd.ai/models"]
+        candidates = [R2_MODEL_BASE.rstrip("/"), "https://cdn.etzhayyim.com/models"]
     seen: set[str] = set()
     unique: list[str] = []
     for candidate in candidates:

@@ -33,13 +33,13 @@ GLEIF LEI (3M active) を起点に、全世界 194+ カ国の法人登記デー�
 ### DID Hierarchy (Extended)
 
 ```
-did:web:legal-entity.gftd.ai                              — controller
-did:web:legal-entity.gftd.ai:lei:{LEI}                    — GLEIF LEI entity
-did:web:legal-entity.gftd.ai:{iso3}                       — jurisdiction (e.g. :jpn, :usa, :gbr)
-did:web:legal-entity.gftd.ai:{iso3}:{reg_id}              — national registry entity
-did:web:legal-entity.gftd.ai:industry:{isic_section}       — ISIC section
-did:web:legal-entity.gftd.ai:bridge:wikidata:{QID}         — Wikidata bridging key
-did:web:legal-entity.gftd.ai:bridge:opencorporates:{id}    — OpenCorporates bridging key
+did:web:legal-entity.etzhayyim.com                              — controller
+did:web:legal-entity.etzhayyim.com:lei:{LEI}                    — GLEIF LEI entity
+did:web:legal-entity.etzhayyim.com:{iso3}                       — jurisdiction (e.g. :jpn, :usa, :gbr)
+did:web:legal-entity.etzhayyim.com:{iso3}:{reg_id}              — national registry entity
+did:web:legal-entity.etzhayyim.com:industry:{isic_section}       — ISIC section
+did:web:legal-entity.etzhayyim.com:bridge:wikidata:{QID}         — Wikidata bridging key
+did:web:legal-entity.etzhayyim.com:bridge:opencorporates:{id}    — OpenCorporates bridging key
 ```
 
 ### vertex_legal_entity Schema Extension (Multi-Source)

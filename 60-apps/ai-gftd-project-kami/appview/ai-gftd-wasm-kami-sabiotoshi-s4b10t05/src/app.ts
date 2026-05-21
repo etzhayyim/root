@@ -261,9 +261,9 @@ async function cmdNewGame(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
   const item = ITEM_CATALOG[0];
   const gameRkey = genID("game");
   await createKyselyDb().insertInto("vertex_kami_sabiotoshi_game" as any).values({
-    vertex_id: `at://${actorDID || "did:web:s4b10t05.gftd.ai"}/ai.gftd.apps.kami.sabiotoshi.game/${gameRkey}`,
+    vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/ai.gftd.apps.kami.sabiotoshi.game/${gameRkey}`,
     sensitivity_ord: 2,
-    owner_did: actorDID || "did:web:s4b10t05.gftd.ai",
+    owner_did: actorDID || "did:web:s4b10t05.etzhayyim.com",
     actor_id: appId || "s4b10t05",
     item_count: count,
     status: "started",
@@ -332,9 +332,9 @@ async function cmdSpray(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
       stateIn.phase = "complete";
       const sprayScoreRkey = genID("score");
       await createKyselyDb().insertInto("vertex_kami_sabiotoshi_score" as any).values({
-        vertex_id: `at://${actorDID || "did:web:s4b10t05.gftd.ai"}/ai.gftd.apps.kami.sabiotoshi.score/${sprayScoreRkey}`,
+        vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/ai.gftd.apps.kami.sabiotoshi.score/${sprayScoreRkey}`,
         sensitivity_ord: 2,
-        owner_did: actorDID || "did:web:s4b10t05.gftd.ai",
+        owner_did: actorDID || "did:web:s4b10t05.etzhayyim.com",
         actor_id: appId || "s4b10t05",
         score: stateIn.score,
         items_completed: stateIn.itemsCompleted,
@@ -390,9 +390,9 @@ async function cmdSubmitScore(sdk: HostSDK, body: Uint8Array): Promise<unknown> 
   const combo = Number(args.maxCombo) || 0;
   const id = genID("score");
   await createKyselyDb().insertInto("vertex_kami_sabiotoshi_score" as any).values({
-    vertex_id: `at://${actorDID || "did:web:s4b10t05.gftd.ai"}/ai.gftd.apps.kami.sabiotoshi.score/${id}`,
+    vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/ai.gftd.apps.kami.sabiotoshi.score/${id}`,
     sensitivity_ord: 2,
-    owner_did: actorDID || "did:web:s4b10t05.gftd.ai",
+    owner_did: actorDID || "did:web:s4b10t05.etzhayyim.com",
     actor_id: appId || "s4b10t05",
     score,
     items_completed: items,
@@ -479,9 +479,9 @@ async function cmdClassifyItem(sdk: HostSDK, body: Uint8Array): Promise<unknown>
   if (!item) return { error: "unknown item" };
   const classifiedRkey = genID("classified");
   await createKyselyDb().insertInto("vertex_kami_sabiotoshi_classified_item" as any).values({
-    vertex_id: `at://${actorDID || "did:web:s4b10t05.gftd.ai"}/ai.gftd.apps.kami.sabiotoshi.classifiedItem/${classifiedRkey}`,
+    vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/ai.gftd.apps.kami.sabiotoshi.classifiedItem/${classifiedRkey}`,
     sensitivity_ord: 2,
-    owner_did: actorDID || "did:web:s4b10t05.gftd.ai",
+    owner_did: actorDID || "did:web:s4b10t05.etzhayyim.com",
     actor_id: appId || "s4b10t05",
     item_id: item.id,
     name: item.name,
@@ -522,7 +522,7 @@ const shinkaEnabled = true;
 export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
   const ts = nowISO();
-  const cadence = await resolveHeartbeatCadence("did:web:s4b10t05.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:s4b10t05.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts });
 
   // --- shouldDrill: kyumei-koji self-research ---

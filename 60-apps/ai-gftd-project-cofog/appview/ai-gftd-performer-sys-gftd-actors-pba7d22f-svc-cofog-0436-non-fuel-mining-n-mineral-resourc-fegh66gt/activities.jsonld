@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/04/3/6/non-fuel-mining-and-mineral-resources/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/04/3/6/non-fuel-mining-and-mineral-resources/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Non-Fuel Mineral Management Lifecycle",
       "description": "The administrative process of surveying mineral deposits, processing extraction licences, and monitoring sustainable reclamation.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/04/3/6/non-fuel-mining-and-mineral-resources"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/04/3/6/non-fuel-mining-and-mineral-resources"
     }
   ]
 }

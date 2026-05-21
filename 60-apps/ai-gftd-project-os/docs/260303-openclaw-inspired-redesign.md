@@ -71,7 +71,7 @@ WASM サンドボックスの安全性とクラウドスケールを両立する
 │  └──────────────────────────────────────────────────────────────┘    │
 │                                                                      │
 │  All Apps in `magatama-runtime` namespace                                │
-│  All routing via `{nanoid}.gftd.ai` per-subdomain direct routing     │
+│  All routing via `{nanoid}.etzhayyim.com` per-subdomain direct routing     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -310,7 +310,7 @@ mem.{uid}.st.{conv_id}.1      → { role: "assistant", text: "...", ts: ... }
 
 ```
 mem.{uid}.sem.name        → "Jun Kawasaki"
-mem.{uid}.sem.role        → "AI architect, founder of gftd.ai"
+mem.{uid}.sem.role        → "AI architect, founder of etzhayyim.com"
 mem.{uid}.sem.preferences → { "language": "ja", "model": "claude-sonnet-4-6", ... }
 mem.{uid}.sem.contacts    → [{ name: "...", relation: "...", platform: "..." }, ...]
 mem.{uid}.sem.routines    → [{ time: "09:00", task: "morning briefing", ... }, ...]
@@ -378,7 +378,7 @@ type ToolDefinition struct {
 ```
 os-agent → tool_call: "search_news"
   → os-skills/Execute("gftd-news", "search", {query: "..."})
-    → XRPC → news-mcp (r5wvpkot.gftd.ai)
+    → XRPC → news-mcp (r5wvpkot.etzhayyim.com)
     → result 返却
 ```
 
@@ -511,7 +511,7 @@ Settings → Profile (Semantic Memory bootstrap)
 [Telegram] ─┤
 [Discord]  ─┤  Webhook
 [Slack]    ─┼──────────▶ os-messaging ──gRPC──▶ os-agent
-[Signal]   ─┤            {nanoid}.gftd.ai     {nanoid}.gftd.ai
+[Signal]   ─┤            {nanoid}.etzhayyim.com     {nanoid}.etzhayyim.com
 [LINE]     ─┤                                      │
 [iMessage] ─┤                              ┌───────┼───────┐
 [os-ui]    ─┘                              │       │       │

@@ -341,7 +341,7 @@ if (loadKey()) loadAll();
 </script>
 
 <footer>
-  <p>© 2026 etz hayim · <a href="/">yatabase.gftd.ai</a> · <a href="/docs">/docs</a> · <a href="/status">/status</a> · <a href="/privacy">/privacy</a></p>
+  <p>© 2026 etz hayim · <a href="/">yatabase.etzhayyim.com</a> · <a href="/docs">/docs</a> · <a href="/status">/status</a> · <a href="/privacy">/privacy</a></p>
 </footer>
 
 </body></html>`;

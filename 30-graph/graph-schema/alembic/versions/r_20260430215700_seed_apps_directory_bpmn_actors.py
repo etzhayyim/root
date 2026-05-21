@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-register-app-listing-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-register-app-listing-v1',
+                 'did:web:apps.etzhayyim.com',
                  'apps_directory_register_app_listing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_apps_directory_register_app_listing" '
-                 'targetNamespace="https://gftd.ai/bpmn/appsDirectory"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/appsDirectory"><bpmn:process '
                  'id="apps_directory_register_app_listing" name="appsDirectory registerAppListing" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.apps.registerAppListing", "version": 1, "resultTimeoutMs": 30000 '
@@ -48,11 +48,11 @@ UP = [{'sql': '\n'
                  1080,
                  '00-contracts/bpmn/ai/gftd/appsDirectory/registerAppListing.bpmn',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-register-app-listing-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-register-app-listing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,17 +67,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-register-app-listing-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-register-app-listing-v1',
+                 'did:web:apps.etzhayyim.com',
                  'ai.gftd.apps.apps.registerAppListing',
                  'apps_directory_register_app_listing',
                  'vertex_apps_directory_listing,vertex_apps_directory_feature,vertex_apps_directory_install_intent,edge_apps_directory_listing_feature,edge_apps_directory_listing_install_intent',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-register-app-listing-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-register-app-listing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -93,14 +93,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-update-app-listing-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-update-app-listing-v1',
+                 'did:web:apps.etzhayyim.com',
                  'apps_directory_update_app_listing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_apps_directory_update_app_listing" '
-                 'targetNamespace="https://gftd.ai/bpmn/appsDirectory"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/appsDirectory"><bpmn:process '
                  'id="apps_directory_update_app_listing" name="appsDirectory updateAppListing" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.apps.updateAppListing", "version": 1, "resultTimeoutMs": 30000 '
@@ -114,11 +114,11 @@ UP = [{'sql': '\n'
                  1068,
                  '00-contracts/bpmn/ai/gftd/appsDirectory/updateAppListing.bpmn',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-update-app-listing-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-update-app-listing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -133,17 +133,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-update-app-listing-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-update-app-listing-v1',
+                 'did:web:apps.etzhayyim.com',
                  'ai.gftd.apps.apps.updateAppListing',
                  'apps_directory_update_app_listing',
                  'vertex_apps_directory_listing,vertex_apps_directory_feature,vertex_apps_directory_install_intent,edge_apps_directory_listing_feature,edge_apps_directory_listing_install_intent',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-update-app-listing-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-update-app-listing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -159,14 +159,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-list-apps-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-list-apps-v1',
+                 'did:web:apps.etzhayyim.com',
                  'apps_directory_list_apps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_apps_directory_list_apps" '
-                 'targetNamespace="https://gftd.ai/bpmn/appsDirectory"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/appsDirectory"><bpmn:process '
                  'id="apps_directory_list_apps" name="appsDirectory listApps" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": "ai.gftd.apps.apps.listApps", '
                  '"version": 1, "resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
@@ -179,11 +179,11 @@ UP = [{'sql': '\n'
                  1017,
                  '00-contracts/bpmn/ai/gftd/appsDirectory/listApps.bpmn',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-list-apps-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-list-apps-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -198,17 +198,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-list-apps-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-list-apps-v1',
+                 'did:web:apps.etzhayyim.com',
                  'ai.gftd.apps.apps.listApps',
                  'apps_directory_list_apps',
                  '',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-list-apps-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-list-apps-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -224,14 +224,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-get-app-listing-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-get-app-listing-v1',
+                 'did:web:apps.etzhayyim.com',
                  'apps_directory_get_app_listing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_apps_directory_get_app_listing" '
-                 'targetNamespace="https://gftd.ai/bpmn/appsDirectory"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/appsDirectory"><bpmn:process '
                  'id="apps_directory_get_app_listing" name="appsDirectory getAppListing" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.apps.getAppListing", "version": 1, "resultTimeoutMs": 30000 '
@@ -245,11 +245,11 @@ UP = [{'sql': '\n'
                  1050,
                  '00-contracts/bpmn/ai/gftd/appsDirectory/getAppListing.bpmn',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-get-app-listing-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-get-app-listing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -264,17 +264,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-get-app-listing-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-get-app-listing-v1',
+                 'did:web:apps.etzhayyim.com',
                  'ai.gftd.apps.apps.getAppListing',
                  'apps_directory_get_app_listing',
                  '',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-get-app-listing-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-get-app-listing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -290,14 +290,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-feature-app-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-feature-app-v1',
+                 'did:web:apps.etzhayyim.com',
                  'apps_directory_feature_app',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_apps_directory_feature_app" '
-                 'targetNamespace="https://gftd.ai/bpmn/appsDirectory"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/appsDirectory"><bpmn:process '
                  'id="apps_directory_feature_app" name="appsDirectory featureApp" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.apps.featureApp", "version": 1, "resultTimeoutMs": 30000 '
@@ -311,11 +311,11 @@ UP = [{'sql': '\n'
                  1029,
                  '00-contracts/bpmn/ai/gftd/appsDirectory/featureApp.bpmn',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-feature-app-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-feature-app-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -330,17 +330,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-feature-app-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-feature-app-v1',
+                 'did:web:apps.etzhayyim.com',
                  'ai.gftd.apps.apps.featureApp',
                  'apps_directory_feature_app',
                  'vertex_apps_directory_listing,vertex_apps_directory_feature,vertex_apps_directory_install_intent,edge_apps_directory_listing_feature,edge_apps_directory_listing_install_intent',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-feature-app-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-feature-app-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -356,14 +356,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-record-install-intent-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-record-install-intent-v1',
+                 'did:web:apps.etzhayyim.com',
                  'apps_directory_record_install_intent',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_apps_directory_record_install_intent" '
-                 'targetNamespace="https://gftd.ai/bpmn/appsDirectory"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/appsDirectory"><bpmn:process '
                  'id="apps_directory_record_install_intent" name="appsDirectory '
                  'recordInstallIntent" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.apps.recordInstallIntent", "version": 1, "resultTimeoutMs": 30000 '
@@ -377,11 +377,11 @@ UP = [{'sql': '\n'
                  1086,
                  '00-contracts/bpmn/ai/gftd/appsDirectory/recordInstallIntent.bpmn',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-record-install-intent-v1']},
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-record-install-intent-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -396,42 +396,42 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-record-install-intent-v1',
-                 'did:web:apps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-record-install-intent-v1',
+                 'did:web:apps.etzhayyim.com',
                  'ai.gftd.apps.apps.recordInstallIntent',
                  'apps_directory_record_install_intent',
                  'vertex_apps_directory_listing,vertex_apps_directory_feature,vertex_apps_directory_install_intent,edge_apps_directory_listing_feature,edge_apps_directory_listing_install_intent',
                  '2026-04-30T21:57:00+09:00',
-                 'did:web:apps.gftd.ai',
-                 'did:web:apps.gftd.ai',
+                 'did:web:apps.etzhayyim.com',
+                 'did:web:apps.etzhayyim.com',
                  'sys.bpmn.seed.apps-directory',
-                 'did:web:apps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-record-install-intent-v1']}]
+                 'did:web:apps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-record-install-intent-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-register-app-listing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-register-app-listing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-register-app-listing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-register-app-listing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-update-app-listing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-update-app-listing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-update-app-listing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-update-app-listing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-list-apps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-list-apps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-list-apps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-list-apps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-get-app-listing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-get-app-listing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-get-app-listing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-get-app-listing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-feature-app-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-feature-app-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-feature-app-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-feature-app-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-directory-record-install-intent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-directory-record-install-intent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-directory-record-install-intent-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-directory-record-install-intent-v1']}]
 
 
 def upgrade() -> None:

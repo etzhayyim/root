@@ -1,6 +1,6 @@
 # ai-gftd-project-open-kyber — Open Source ERP (APQC-aligned)
 
-**Status**: Source-of-truth (2026-04-15; etzhayyim DID-swap 2026-05-21). Apache-2.0 OSS mirror originally at `github.com/gftdcojp/ai-gftd-project-open-kyber`; this monorepo (`github.com/etzhayyim/root`) runs the etzhayyim tenancy. Deployed instance: `kyber.etzhayyim.com` (replaces former `kyber.gftd.ai`). Legacy gftd tenancy remains a separate proprietary deployment.
+**Status**: Source-of-truth (2026-04-15; etzhayyim DID-swap 2026-05-21). Apache-2.0 OSS mirror originally at `github.com/etzhayyim/ai-gftd-project-open-kyber`; this monorepo (`github.com/etzhayyim/root`) runs the etzhayyim tenancy. Deployed instance: `kyber.etzhayyim.com` (replaces former `kyber.etzhayyim.com`). Legacy gftd tenancy remains a separate proprietary deployment.
 
 **Consolidates** the former `ai-gftd-project-kyber/appview/*`. Product brand = **Kyber**; repo folder = **open-kyber**. NSIDs remain `ai.gftd.apps.kyber.*` / `ai.gftd.kyber.projector.*` (rename would break deployed records + graph labels + ADR-0025 bootstrap).
 
@@ -41,7 +41,7 @@
 | Artifact | License |
 |---|---|
 | `CLAUDE.md`, `README.md`, `PROJECT.jsonld`, `ai-gftd-wasm-kyber-erp-kyb3rerp/**`, `ai-gftd-wasm-kyber-projector-kyb3proj/**` | Apache-2.0 |
-| Deployed `kyber.etzhayyim.com` + `kyber-projector.etzhayyim.com` (and legacy `*.gftd.ai`) tenant data, Signal keys, Hyperdrive creds | Proprietary (not in repo) |
+| Deployed `kyber.etzhayyim.com` + `kyber-projector.etzhayyim.com` (and legacy `*.etzhayyim.com`) tenant data, Signal keys, Hyperdrive creds | Proprietary (not in repo) |
 | `00-contracts/lexicons/ai/gftd/kyber/**`, `00-contracts/lexicons/ai/gftd/app/kyber/**` | Apache-2.0 (contract) |
 | `90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md` | Apache-2.0 (governance record) |
 

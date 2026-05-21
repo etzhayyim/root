@@ -1,8 +1,8 @@
-// vault.gftd.ai — Cloudflare Worker entry point.
+// vault.etzhayyim.com — Cloudflare Worker entry point.
 //
 // Zero-knowledge secret manager. All ciphertext + wrapped keys are opaque to
 // this Worker; client (gftd CLI / browser) handles AES-GCM + AES-key-wrap.
-// Identity is delegated to AUTH_SERVICE (auth.gftd.ai).
+// Identity is delegated to AUTH_SERVICE (auth.etzhayyim.com).
 //
 // Routes (XRPC):
 //   POST /xrpc/ai.gftd.vault.createVault

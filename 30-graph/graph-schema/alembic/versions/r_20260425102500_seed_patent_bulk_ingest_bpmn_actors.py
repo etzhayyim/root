@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/patent-ingest-uspto-weekly-v1',
-                 'did:web:patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-ingest-uspto-weekly-v1',
+                 'did:web:patent.etzhayyim.com',
                  'patent_ingest_uspto_weekly',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_patent_ingest_uspto_weekly"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/patent"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/patent"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="patent_ingest_uspto_weekly" name="patent ingest USPTO '
@@ -100,7 +100,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:patent.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:patent.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;patent.ingest.uspto.weekly&quot;" '
                  'target="action"/>\n'
@@ -124,10 +124,10 @@ UP = [{'sql': '\n'
                  4122,
                  '00-contracts/bpmn/ai/gftd/patent/ingestUsptoWeekly.bpmn',
                  '2026-04-25T10:24:00Z',
-                 'did:web:patent.gftd.ai',
-                 'did:web:patent.gftd.ai',
+                 'did:web:patent.etzhayyim.com',
+                 'did:web:patent.etzhayyim.com',
                  'sys.bpmn.seed.patent-bulk-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/patent-ingest-uspto-weekly-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-ingest-uspto-weekly-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -135,8 +135,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/patent-ingest-epo-citation-fill-v1',
-                 'did:web:patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-ingest-epo-citation-fill-v1',
+                 'did:web:patent.etzhayyim.com',
                  'patent_ingest_epo_citation_fill',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -155,7 +155,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_patent_ingest_epo_citation_fill"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/patent"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/patent"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="patent_ingest_epo_citation_fill" name="patent EPO OPS '
@@ -215,7 +215,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:patent.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:patent.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;patent.ingest.epo.citationFill&quot;" '
                  'target="action"/>\n'
@@ -240,10 +240,10 @@ UP = [{'sql': '\n'
                  4079,
                  '00-contracts/bpmn/ai/gftd/patent/ingestEpoCitationFill.bpmn',
                  '2026-04-25T10:24:00Z',
-                 'did:web:patent.gftd.ai',
-                 'did:web:patent.gftd.ai',
+                 'did:web:patent.etzhayyim.com',
+                 'did:web:patent.etzhayyim.com',
                  'sys.bpmn.seed.patent-bulk-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/patent-ingest-epo-citation-fill-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-ingest-epo-citation-fill-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -251,8 +251,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/patent-blob-convert-v1',
-                 'did:web:patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-blob-convert-v1',
+                 'did:web:patent.etzhayyim.com',
                  'patent_blob_convert',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -278,7 +278,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_patent_blob_convert"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/patent"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/patent"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="patent_blob_convert" name="patent PDF→webp B2 persistence" '
@@ -340,7 +340,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:patent.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:patent.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;patent.blob.convert&quot;" '
                  'target="action"/>\n'
@@ -367,10 +367,10 @@ UP = [{'sql': '\n'
                  4815,
                  '00-contracts/bpmn/ai/gftd/patent/patentBlobConvert.bpmn',
                  '2026-04-25T10:24:00Z',
-                 'did:web:patent.gftd.ai',
-                 'did:web:patent.gftd.ai',
+                 'did:web:patent.etzhayyim.com',
+                 'did:web:patent.etzhayyim.com',
                  'sys.bpmn.seed.patent-bulk-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/patent-blob-convert-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-blob-convert-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -378,16 +378,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/patent-ingestUsptoWeekly-v1',
-                 'did:web:patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-ingestUsptoWeekly-v1',
+                 'did:web:patent.etzhayyim.com',
                  'ai.gftd.apps.patent.ingestUsptoWeekly',
                  'patent_ingest_uspto_weekly',
                  600000,
                  '2026-04-25T10:24:00Z',
-                 'did:web:patent.gftd.ai',
-                 'did:web:patent.gftd.ai',
+                 'did:web:patent.etzhayyim.com',
+                 'did:web:patent.etzhayyim.com',
                  'sys.bpmn.seed.patent-bulk-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/patent-ingestUsptoWeekly-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-ingestUsptoWeekly-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -395,16 +395,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/patent-ingestEpoCitationFill-v1',
-                 'did:web:patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-ingestEpoCitationFill-v1',
+                 'did:web:patent.etzhayyim.com',
                  'ai.gftd.apps.patent.ingestEpoCitationFill',
                  'patent_ingest_epo_citation_fill',
                  300000,
                  '2026-04-25T10:24:00Z',
-                 'did:web:patent.gftd.ai',
-                 'did:web:patent.gftd.ai',
+                 'did:web:patent.etzhayyim.com',
+                 'did:web:patent.etzhayyim.com',
                  'sys.bpmn.seed.patent-bulk-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/patent-ingestEpoCitationFill-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-ingestEpoCitationFill-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -412,29 +412,29 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/patent-blobConvert-v1',
-                 'did:web:patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-blobConvert-v1',
+                 'did:web:patent.etzhayyim.com',
                  'ai.gftd.apps.patent.blobConvert',
                  'patent_blob_convert',
                  300000,
                  '2026-04-25T10:24:00Z',
-                 'did:web:patent.gftd.ai',
-                 'did:web:patent.gftd.ai',
+                 'did:web:patent.etzhayyim.com',
+                 'did:web:patent.etzhayyim.com',
                  'sys.bpmn.seed.patent-bulk-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/patent-blobConvert-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-blobConvert-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/patent-ingestUsptoWeekly-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-ingestUsptoWeekly-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/patent-ingestEpoCitationFill-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-ingestEpoCitationFill-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/patent-blobConvert-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-blobConvert-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/patent-ingest-uspto-weekly-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-ingest-uspto-weekly-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/patent-ingest-epo-citation-fill-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-ingest-epo-citation-fill-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/patent-blob-convert-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-blob-convert-v1']}]
 
 
 def upgrade() -> None:

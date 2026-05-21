@@ -1,5 +1,5 @@
 {
-  "@context": "https://1.gftd.ai/project",
+  "@context": "https://1.etzhayyim.com/project",
   "@type": "Project",
   "name": "ai-gftd-project-search",
   "description": "GFTD Search — RisingWave IVF/IVF+PQ web and multimodal search for humans and AI agents/LLMs",
@@ -12,7 +12,7 @@
       "keda": true,
       "routes": [
         {
-          "host": "search.gftd.ai",
+          "host": "search.etzhayyim.com",
           "paths": [
             "/api/"
           ]
@@ -25,7 +25,7 @@
       "stack": "sveltekit",
       "routes": [
         {
-          "host": "search.gftd.ai",
+          "host": "search.etzhayyim.com",
           "paths": [
             "/"
           ]
@@ -65,7 +65,7 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
+              "gftd": "https://etzhayyim.com/schemas/",
               "capabilities": "gftd:capabilities",
               "survivalIndicators": "gftd:survivalIndicators",
               "scheduler": "gftd:scheduler",

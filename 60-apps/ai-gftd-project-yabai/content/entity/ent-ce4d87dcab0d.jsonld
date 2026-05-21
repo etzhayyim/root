@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-ce4d87dcab0d",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ce4d87dcab0d",
   "entityId": "ent-ce4d87dcab0d",
   "canonicalName": "murad fathi",
   "aliases": [

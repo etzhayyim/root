@@ -2,7 +2,7 @@
 
 RW-free port of the APQC PCF (Process Classification Framework) under the substrate rules of [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md). Promotes the project from the Phase 2 scaffold (README + CLAUDE.md only) to Phase 3 with a working taxonomy publisher.
 
-Fourth rw-free actor after [`open-isco`](../../ai-gftd-project-open-isco/rw-free/) (occupations), [`open-isic`](../../ai-gftd-project-open-isic/rw-free/) (industry classes), and [`open-unispsc`](../../ai-gftd-project-open-unispsc/rw-free/) (procurement segments). The Phase 2 vendor-port plan (PCF catalog + BPMN task catalog + projector spec from `gftdcojp/ai-gftd-apps-gftdcojp`) is deferred — this PR delivers the substrate-publication surface using the public v7.4 cross-industry framework data directly.
+Fourth rw-free actor after [`open-isco`](../../ai-gftd-project-open-isco/rw-free/) (occupations), [`open-isic`](../../ai-gftd-project-open-isic/rw-free/) (industry classes), and [`open-unispsc`](../../ai-gftd-project-open-unispsc/rw-free/) (procurement segments). The Phase 2 vendor-port plan (PCF catalog + BPMN task catalog + projector spec from `etzhayyim/etzhayyim-root`) is deferred — this PR delivers the substrate-publication surface using the public v7.4 cross-industry framework data directly.
 
 ## Phase 1 scope: the 13 L1 process categories
 
@@ -111,7 +111,7 @@ pnpm test
 | Anchor verify against deployed contract | ⏳ pending Gate 3 EtzhayyimAnchor deploy |
 | L2 (`processGroup`) record lexicon + seed | ⏳ future PR (~80 entries, requires CSV/JSON catalog) |
 | L3 / L4 / L5 layers | ⏳ future PRs |
-| Vendor PCF catalog port (gftdcojp/ai-gftd-apps-gftdcojp) | ⏳ deferred (Phase 2 plan in project CLAUDE.md) |
+| Vendor PCF catalog port (etzhayyim/etzhayyim-root) | ⏳ deferred (Phase 2 plan in project CLAUDE.md) |
 
 ## See also
 

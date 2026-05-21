@@ -67,7 +67,7 @@ security find-generic-password -s "gftd.m365" -a "CLIENT_SECRET" -w
 | `gftd.rw` | `ROOT_URL` / `KAISYA_URL` |
 | `gftd.bitwarden` | `BW_SESSION` |
 
-正本: `deps.toml [gftdcojp_agent.keychain]`
+正本: `deps.toml [etzhayyim_agent.keychain]`
 
 ## D3b. 1Password mirror registry (2026-04-29)
 
@@ -143,7 +143,7 @@ created in 1Password. Examples: `gftd.hf/HF_TOKEN`, `gftd.cf/*`,
 
 # References
 
-- `deps.toml [gftdcojp_agent.keychain]`
+- `deps.toml [etzhayyim_agent.keychain]`
 - `~/.local/outlook-cache/load-credentials.mjs`
 - `~/.local/outlook-cache/get-delegated-token.mjs`
 - 1Password vault `Gftd Japan株式会社` (mirror / backup)

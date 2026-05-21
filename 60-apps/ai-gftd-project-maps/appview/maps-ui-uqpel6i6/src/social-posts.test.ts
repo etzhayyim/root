@@ -9,7 +9,7 @@ describe("maps social post formatter", () => {
       floors: 45,
       heightM: 240,
       city: "Tokyo",
-    })).toBe("[Building] Tokyo Midtown Yaesu (45F / 240m / Tokyo)\ncc @jinushi.gftd.ai");
+    })).toBe("[Building] Tokyo Midtown Yaesu (45F / 240m / Tokyo)\ncc @jinushi.etzhayyim.com");
   });
 
   it("formats land registry updates", () => {
@@ -17,7 +17,7 @@ describe("maps social post formatter", () => {
       registryNumber: "JP-13-0001",
       jurisdiction: "Tokyo",
       propertyType: "residential",
-    })).toBe("[LandRegistry] JP-13-0001 (Tokyo, residential)\ncc @jinushi.gftd.ai");
+    })).toBe("[LandRegistry] JP-13-0001 (Tokyo, residential)\ncc @jinushi.etzhayyim.com");
   });
 
   it("ignores unrelated collections", () => {

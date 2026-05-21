@@ -10,12 +10,12 @@ Task types:
 Wired to existing lawfirm_sales_cadence_tick BPMN (R/PT24H, deployed via
 20260509010000_vertex_lawfirm_sales_cadence.ts seed).
 
-Mail bodies live in `_working/gftdcojp-revenue/outbox/08[a-g]-*-warm-intro.eml`
+Mail bodies live in `_working/etzhayyim-revenue/outbox/08[a-g]-*-warm-intro.eml`
 on the dispatcher pod's mounted ConfigMap. Filename derived from
 `vertex_lawfirm_lead.notes` field "Outreach: outbox/<file>" pattern.
 
 ADR-0036 Hyperdrive direct.
-gftdcojp_agent rule: external mail = draft-only by default; send_now=False
+etzhayyim_agent rule: external mail = draft-only by default; send_now=False
 unless explicit override flag. CEO/COO approval gate stays in place.
 """
 
@@ -34,7 +34,7 @@ LOG = logging.getLogger("lawfirm.cadence")
 _FIRM_DID = "did:web:lawfirm.etzhayyim.com"
 _OUTBOX_DIR = os.environ.get(
     "LAWFIRM_OUTBOX_DIR",
-    "/etc/gftdcojp/outbox",  # ConfigMap mount path in mitama-udf pod
+    "/etc/etzhayyim/outbox",  # ConfigMap mount path in mitama-udf pod
 )
 _DISPATCHER_URL = os.environ.get(
     "BPMN_DISPATCHER_INTERNAL_URL",
@@ -118,7 +118,7 @@ def _read_eml(rel_path: str) -> dict | None:
     except FileNotFoundError:
         # Fallback: also try repo-relative path during local dev
         repo_path = Path(
-            "/Users/junkawasaki/github/etzhayyim/root/_working/gftdcojp-revenue"
+            "/Users/junkawasaki/github/etzhayyim/root/_working/etzhayyim-revenue"
         ) / rel_path
         try:
             return _parse_eml(repo_path.read_text(encoding="utf-8"))
@@ -135,7 +135,7 @@ def _read_eml(rel_path: str) -> dict | None:
 def _dispatch_send_draft(parsed: dict, send_now: bool = False) -> dict:
     """
     POST to bpmn-dispatcher → microsoft.etzhayyim.com sendDraft (default) or sendMail.
-    gftdcojp_agent rule: external mail defaults to send_now=False (draft only).
+    etzhayyim_agent rule: external mail defaults to send_now=False (draft only).
     """
     nsid = "ai.gftd.apps.microsoft.sendMail" if send_now else "ai.gftd.apps.microsoft.sendDraft"
     body = json.dumps({

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kyber-qzzg06nh.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kyber-qzzg06nh.etzhayyim.com",
   "accent": "#6366f1",
   "component": {
     "path": "component.wasm"
@@ -19,17 +19,17 @@
     "roles": [
       {
         "description": "Maintains static app delivery and publishing workflows.",
-        "did": "did:web:kyber-qzzg06nh.gftd.ai:static",
+        "did": "did:web:kyber-qzzg06nh.etzhayyim.com:static",
         "role": "static-site-operator"
       },
       {
         "description": "Approves static app content and release scope.",
-        "did": "did:web:kyber-qzzg06nh.gftd.ai:content",
+        "did": "did:web:kyber-qzzg06nh.etzhayyim.com:content",
         "role": "content-owner"
       },
       {
         "description": "Reviews accessibility and release traceability for static surfaces.",
-        "did": "did:web:kyber-qzzg06nh.gftd.ai:frontend",
+        "did": "did:web:kyber-qzzg06nh.etzhayyim.com:frontend",
         "role": "frontend-reviewer"
       }
     ]
@@ -37,7 +37,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "gftdcojp-apps-static-component",
+  "name": "etzhayyim-apps-static-component",
   "nanoid": "gftdapps",
   "performerType": "service",
   "profile": {

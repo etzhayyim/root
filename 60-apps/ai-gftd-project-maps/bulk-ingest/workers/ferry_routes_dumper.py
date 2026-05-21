@@ -13,7 +13,7 @@ Output schema (vertex_spatial extras land in props JSON):
   - Port      → {osm_node_id, name_en, ferry_terminal, harbour}
 
 Source license: ODbL (OSM). Path-based DID:
-  did:web:maps.gftd.ai:registry:osm:ferry
+  did:web:maps.etzhayyim.com:registry:osm:ferry
 
 ENV:
   DATABASE_URL, B2_ACCESS_KEY_ID, B2_SECRET_ACCESS_KEY,
@@ -132,7 +132,7 @@ def _bbox_str(bbox: tuple[float, float, float, float]) -> str:
 
 def _build_searoute_rows(slug: str, bbox: tuple[float, float, float, float],
                          elements: list[dict]) -> list[dict]:
-    repo_did = "did:web:maps.gftd.ai"
+    repo_did = "did:web:maps.etzhayyim.com"
     rows: list[dict] = []
     for el in elements:
         if el.get("type") != "relation":
@@ -182,7 +182,7 @@ def _build_searoute_rows(slug: str, bbox: tuple[float, float, float, float],
             "display_name": name,
             "lat": lat,
             "lng": lng,
-            "source_did": "did:web:maps.gftd.ai:registry:osm:ferry",
+            "source_did": "did:web:maps.etzhayyim.com:registry:osm:ferry",
             "source": "osm-overpass",
             "category": "seaRoute",
             "description": (f"{tags.get('operator','?')} — {tags.get('from','?')} → {tags.get('to','?')}")[:500],
@@ -198,7 +198,7 @@ def _build_searoute_rows(slug: str, bbox: tuple[float, float, float, float],
 
 
 def _build_port_rows(slug: str, elements: list[dict]) -> list[dict]:
-    repo_did = "did:web:maps.gftd.ai"
+    repo_did = "did:web:maps.etzhayyim.com"
     rows: list[dict] = []
     for el in elements:
         if el.get("type") != "node":
@@ -233,7 +233,7 @@ def _build_port_rows(slug: str, elements: list[dict]) -> list[dict]:
             "display_name": name,
             "lat": lat,
             "lng": lng,
-            "source_did": "did:web:maps.gftd.ai:registry:osm:ferry",
+            "source_did": "did:web:maps.etzhayyim.com:registry:osm:ferry",
             "source": "osm-overpass",
             "category": "port",
             "description": (f"OSM ferry terminal / harbour: {name}")[:500],

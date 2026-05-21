@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/09/7/0/r-d-education/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/09/7/0/r-d-education/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Educational Innovation Lifecycle",
       "description": "The research and development process of planning learning research, simulating pedagogical impact, and evaluating EdTech.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/09/7/0/r-d-education"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/09/7/0/r-d-education"
     }
   ]
 }

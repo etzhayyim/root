@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:www-crawler.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:www-crawler.etzhayyim.com",
   "@type": "Service",
   "convoSystemPrompt": "You are the crawler control extension governance agent. Govern crawl-control actions, sensitive extension invocations, and traceability for crawler operations.",
   "duties": [
@@ -16,17 +16,17 @@
     "roles": [
       {
         "description": "Operates crawl-control actions and extension invocations.",
-        "did": "did:web:www-crawler.gftd.ai:ops",
+        "did": "did:web:www-crawler.etzhayyim.com:ops",
         "role": "crawl-operator"
       },
       {
         "description": "Approves sensitive control actions that affect crawl scope or mitigations.",
-        "did": "did:web:www-crawler.gftd.ai:security",
+        "did": "did:web:www-crawler.etzhayyim.com:security",
         "role": "threat-reviewer"
       },
       {
         "description": "Owns traceability and escalation records for control-plane extensions.",
-        "did": "did:web:www-crawler.gftd.ai",
+        "did": "did:web:www-crawler.etzhayyim.com",
         "role": "platform-owner"
       }
     ]

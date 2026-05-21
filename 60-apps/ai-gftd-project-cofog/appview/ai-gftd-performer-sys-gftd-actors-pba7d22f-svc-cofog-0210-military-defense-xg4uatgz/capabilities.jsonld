@@ -10,7 +10,7 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/capabilities/cofog/02/1/0/military-defense",
+      "id": "https://kyber-services.etzhayyim.com/capabilities/cofog/02/1/0/military-defense",
       "type": "dodaf:Capability",
       "name": "Military Defense Operations Management",
       "description": "Functional capability for managing military defense, strategic planning, and readiness. Classification: COFOG Division 02, Group 1, Class 0.",

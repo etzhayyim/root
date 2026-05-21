@@ -31,7 +31,7 @@ infrastructure discovery could not expand from observed pages.
 
 The production crawl also had operational fragility:
 
-- `darkweb-proxy.gftd.ai/health` was accidentally served by the SvelteKit
+- `darkweb-proxy.etzhayyim.com/health` was accidentally served by the SvelteKit
   worker path instead of the Cloudflare Container companion.
 - `onion_crawl_seeds` was not passing queued seeds into `process_queue`.
 - The topology assistant state did not preserve `runs`, so the static graph
@@ -96,7 +96,7 @@ move crawl execution to a separate worker process if frontier volume grows.
 
 Verified on 2026-05-17:
 
-- `darkweb-proxy.gftd.ai/health` returns 200 with Tor proxy status.
+- `darkweb-proxy.etzhayyim.com/health` returns 200 with Tor proxy status.
 - `onion_crawl_seeds` CronJob is enabled: `suspend=false`, schedule
   `0 */6 * * *`.
 - `langgraph-server`, `crawler-resident`, and `malak-langserver` are all

@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#SemanticMatchingSteps
+// @etzhayyim/cyber-freelance#SemanticMatchingSteps
 // Semantic Matching関連のステップ定義
 
 import { Given, When, Then } from "@cucumber/cucumber";

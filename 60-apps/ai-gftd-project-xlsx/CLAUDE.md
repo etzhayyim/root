@@ -1,4 +1,4 @@
-# ai-gftd-project-xlsx — xlsx.gftd.ai
+# ai-gftd-project-xlsx — xlsx.etzhayyim.com
 
 **Excel editor** — XLSX upload, HTML DOM grid editing, 131-function formula engine, kagami graph persistence, XLSX/CSV export.
 
@@ -6,7 +6,7 @@
 
 | Item | Value |
 |---|---|
-| Domain | `xlsx.gftd.ai` |
+| Domain | `xlsx.etzhayyim.com` |
 | Runtime | **Single Worker** (TS Native) |
 | nanoid | `il0ndq6a` |
 | performerType | `service` (default sensitivity: `internal`) |
@@ -77,9 +77,9 @@ Upload (.xlsx ZIP / .csv)
 
 | DID | Purpose |
 |---|---|
-| `did:web:xlsx.gftd.ai` | Controller (app) |
-| `did:web:xlsx.gftd.ai:workbook:{nanoid}` | Individual workbook |
-| `did:web:xlsx.gftd.ai:template:{nanoid}` | Reusable workbook template |
+| `did:web:xlsx.etzhayyim.com` | Controller (app) |
+| `did:web:xlsx.etzhayyim.com:workbook:{nanoid}` | Individual workbook |
+| `did:web:xlsx.etzhayyim.com:template:{nanoid}` | Reusable workbook template |
 
 ## Design E 3-Tier Write
 

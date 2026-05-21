@@ -6,7 +6,7 @@
 - Keep scheduler stable (no uncontrolled seed explosion).
 
 ## Current State (Measured)
-- Endpoint: `https://422c6fae.gftd.ai`
+- Endpoint: `https://422c6fae.etzhayyim.com`
 - Health: `200` (healthy)
 - Stats snapshot:
   - `hosts=262`, `total_urls=1464`, `completed=914`, `errors=115`, `pending=23`
@@ -133,7 +133,7 @@ Top filtered hosts not in current seed list:
 - `nhentai.net` (score 1793.4)
 - `hentai2read.com` (269.2)
 - `br.youporn.com` (155.4)
-- `gftd.ai` (152.4)
+- `etzhayyim.com` (152.4)
 - `fr.xvideos.com` (105.2)
 - `it.xvideos.com` (105.2)
 - `example.com` (41.0)

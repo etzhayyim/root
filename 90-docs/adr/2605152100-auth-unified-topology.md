@@ -1,13 +1,13 @@
 ---
 id: adr-2605152100-auth-unified-topology
-title: "Auth Unified Topology — auth.gftd.ai canonical, 4-layer minimum, x-magatama-verified retirement"
+title: "Auth Unified Topology — auth.etzhayyim.com canonical, 4-layer minimum, x-magatama-verified retirement"
 status: active
 doc_type: adr
 topic: auth-topology
 authoritative: true
 last_verified: 2026-05-15 (Phase 3 callsite migration done)
 authoritative_for:
-  - auth canonical domain (auth.gftd.ai)
+  - auth canonical domain (auth.etzhayyim.com)
   - worker split (auth = AuthN, authz = AuthZ)
   - oauth-as physical location (PDS)
   - x-magatama-verified cutover date
@@ -33,9 +33,9 @@ ADR-0022 / 0023 / 0024 で認証設計を段階的に整理してきたが、3 �
 
 | # | 不整合 | 根拠 |
 |---|---|---|
-| 1 | `authn.gftd.ai` vs `auth.gftd.ai` | 0024 実装は authn だが 2605131700 / CLI コードは auth |
-| 2 | OAuth AS の物理位置 | `atproto.gftd.ai/oauth/authorize` が live、`authn.gftd.ai/oauth/authorize` は 404 |
-| 3 | DID 発行責務 | authn Worker / plc.gftd.ai / ERC725 の 3 経路が並存 |
+| 1 | `authn.etzhayyim.com` vs `auth.etzhayyim.com` | 0024 実装は authn だが 2605131700 / CLI コードは auth |
+| 2 | OAuth AS の物理位置 | `atproto.etzhayyim.com/oauth/authorize` が live、`authn.etzhayyim.com/oauth/authorize` は 404 |
+| 3 | DID 発行責務 | authn Worker / plc.etzhayyim.com / ERC725 の 3 経路が並存 |
 | 4 | `x-magatama-verified` 退役日未定 | "zero-traffic 1 sprint 後" の条件が消化されず進まない |
 
 本 ADR はこの 4 点を確定し、0022/0023/0024 を supersede する。
@@ -46,13 +46,13 @@ ADR-0022 / 0023 / 0024 で認証設計を段階的に整理してきたが、3 �
 
 ## 1. Domain Canonical
 
-**`auth.gftd.ai` を canonical とする。`authn.gftd.ai` は 301 redirect。**
+**`auth.etzhayyim.com` を canonical とする。`authn.etzhayyim.com` は 301 redirect。**
 
 ```
-auth.gftd.ai   → ai-gftd-auth Worker     (AuthN: passkey UI, API Key, session)
-authz.gftd.ai  → ai-gftd-authz Worker    (AuthZ: linked methods, org, actor score)
-accounts.gftd.ai → authz Worker alias    (hostname alias のまま, redirect 不要)
-authn.gftd.ai  → 301 → auth.gftd.ai/*   (deprecated, 2026-10-01 DNS 廃止)
+auth.etzhayyim.com   → ai-gftd-auth Worker     (AuthN: passkey UI, API Key, session)
+authz.etzhayyim.com  → ai-gftd-authz Worker    (AuthZ: linked methods, org, actor score)
+accounts.etzhayyim.com → authz Worker alias    (hostname alias のまま, redirect 不要)
+authn.etzhayyim.com  → 301 → auth.etzhayyim.com/*   (deprecated, 2026-10-01 DNS 廃止)
 ```
 
 Worker 名・リポジトリパスは変えない (`ai-gftd-auth` / `ai-gftd-authz` を維持)。
@@ -63,7 +63,7 @@ wrangler.jsonc の routes を更新するだけ。
 ```
 L0  Human Auth Root
       Browser:  WebAuthn / Passkey (Touch ID / Face ID)
-                → auth.gftd.ai PKCE → mintBootstrapApiKey → sk_live_*
+                → auth.etzhayyim.com PKCE → mintBootstrapApiKey → sk_live_*
       Agent/CI: ~/.gftd/auth.json { apiKey: sk_live_* }
       Worker:   CF Secrets { SS_SERVICE_AUTH_PRIVATE_KEY }
 
@@ -71,8 +71,8 @@ L1  Per-request Proof  (60s, 1 form only)
       Authorization: Bearer <ES256 JWT>
       Claims: { iss, aud, lxm, exp, jti }
       iss PRIMARY:  did:erc725:gftd:260425:{identityContract}
-      iss COMPAT:   did:web:auth.gftd.ai:user:{id}  (→ 2026-10-01)
-      iss WORKER:   did:web:{worker}.gftd.ai
+      iss COMPAT:   did:web:auth.etzhayyim.com:user:{id}  (→ 2026-10-01)
+      iss WORKER:   did:web:{worker}.etzhayyim.com
 
 L2  Authority Resolution  (server-side, 60s cache)
       Primary key:  actor_did = did:erc725:gftd:260425:{contract}
@@ -86,29 +86,29 @@ L3  E2E Confidentiality  (orthogonal, Signal X25519)
 
 ## 3. OAuth AS の物理位置
 
-**OAuth AS = `atproto.gftd.ai` (PDS) のみ。**
+**OAuth AS = `atproto.etzhayyim.com` (PDS) のみ。**
 
 ```
-/.well-known/oauth-authorization-server → atproto.gftd.ai
-/oauth/authorize                        → atproto.gftd.ai  ← LIVE
-/oauth/token                            → atproto.gftd.ai  ← LIVE
-/oauth/revoke                           → atproto.gftd.ai  (ADR-2604240914)
-/oauth/introspect                       → atproto.gftd.ai  (ADR-2604240914)
+/.well-known/oauth-authorization-server → atproto.etzhayyim.com
+/oauth/authorize                        → atproto.etzhayyim.com  ← LIVE
+/oauth/token                            → atproto.etzhayyim.com  ← LIVE
+/oauth/revoke                           → atproto.etzhayyim.com  (ADR-2604240914)
+/oauth/introspect                       → atproto.etzhayyim.com  (ADR-2604240914)
 ```
 
-`auth.gftd.ai` は **OAuth AS ではない**。担当は:
+`auth.etzhayyim.com` は **OAuth AS ではない**。担当は:
 - `POST /xrpc/ai.gftd.auth.createApiKey` — passkey セッション → sk_live_* 発行
 - `GET  /.well-known/did.json` — Worker 自身の did:web document
 - `GET  /sign-in` / `/sign-up` — passkey UI (HTML)
 - `POST /xrpc/ai.gftd.auth.passkeyRegister` / `passkeyAuthenticate`
 
 CLI の `gftd authn signin` は現状 2 つの問題がある (ADR-2605141700):
-1. URL が stale: `authn.gftd.ai/oauth/authorize` → `atproto.gftd.ai/oauth/authorize` に修正必要
+1. URL が stale: `authn.etzhayyim.com/oauth/authorize` → `atproto.etzhayyim.com/oauth/authorize` に修正必要
 2. DPoP 未対応: AT Protocol OAuth AS は `dpop_bound_access_tokens=true` を要求するが CLI は PKCE のみ
 
 **このため `gftd authn signin` は別 ADR で DPoP 実装が完了するまで broken のまま。**
 canonical な CLI 認証フローは以下:
-1. ブラウザで `https://auth.gftd.ai/sign-in` を開き passkey 認証
+1. ブラウザで `https://auth.etzhayyim.com/sign-in` を開き passkey 認証
 2. 発行された `sk_live_*` を `~/.gftd/auth.json` に手動コピー、または `gftd authn set-key <key>`
 3. 以降の全 XRPC 呼び出しは API Key → scoped ES256 JWT で自動認証
 
@@ -120,16 +120,16 @@ pending として記録する (本 ADR の scope 外)。
 | 対象 | 発行 DID | 担当 |
 |---|---|---|
 | 新規ユーザ signup | `did:erc725:gftd:260425:{contract}` | ERC725 provisioning (authz Worker) |
-| Worker サービス | `did:web:{worker}.gftd.ai` | per-Worker `.well-known/did.json` |
-| AT federation actor | `did:plc:{...}` | `plc.gftd.ai` (ADR-0014, unchanged) |
-| **廃止 (新規発行禁止)** | `did:web:auth.gftd.ai:user:*` | — (既存は 2026-10-01 まで read-only) |
+| Worker サービス | `did:web:{worker}.etzhayyim.com` | per-Worker `.well-known/did.json` |
+| AT federation actor | `did:plc:{...}` | `plc.etzhayyim.com` (ADR-0014, unchanged) |
+| **廃止 (新規発行禁止)** | `did:web:auth.etzhayyim.com:user:*` | — (既存は 2026-10-01 まで read-only) |
 
-`did:web:authn.gftd.ai:user:*` の resolution:
-- **外部 HTTPS 呼出**: `authn.gftd.ai` → 301 → `auth.gftd.ai` でブラウザ/curl は透過的にフォロー
+`did:web:authn.etzhayyim.com:user:*` の resolution:
+- **外部 HTTPS 呼出**: `authn.etzhayyim.com` → 301 → `auth.etzhayyim.com` でブラウザ/curl は透過的にフォロー
 - **PDS 内部 service binding**: CF Worker-to-Worker は 301 を follow しない。PDS の
-  `resolveDIDSigningKey` は `did:web:authn.gftd.ai:user:*` を検出したら `env.AUTH_SERVICE.fetch()`
-  (service binding) 経由で `authn.gftd.ai` を直接呼ぶ既存パスを維持し、**auth Worker 側は
-  両ホスト名 (`auth.gftd.ai` / `authn.gftd.ai`) に対して同一の `/users/:id/did.json`
+  `resolveDIDSigningKey` は `did:web:authn.etzhayyim.com:user:*` を検出したら `env.AUTH_SERVICE.fetch()`
+  (service binding) 経由で `authn.etzhayyim.com` を直接呼ぶ既存パスを維持し、**auth Worker 側は
+  両ホスト名 (`auth.etzhayyim.com` / `authn.etzhayyim.com`) に対して同一の `/users/:id/did.json`
   レスポンスを返す**。301 redirect ではなく同一 Worker が両 route を持つことで解決。
 - 既存 DB レコードの書き換えは不要。`/users/:id/did.json` ハンドラを auth Worker に追加するだけ。
 
@@ -151,9 +151,9 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 
 | Worker | DNS | NSID prefix |
 |---|---|---|
-| ai-gftd-auth | `auth.gftd.ai` | `ai.gftd.auth.*` |
-| ai-gftd-authz | `authz.gftd.ai` (+ accounts alias) | `ai.gftd.authz.*` |
-| ai-gftd-pds (atproto) | `atproto.gftd.ai` | `com.atproto.*` |
+| ai-gftd-auth | `auth.etzhayyim.com` | `ai.gftd.auth.*` |
+| ai-gftd-authz | `authz.etzhayyim.com` (+ accounts alias) | `ai.gftd.authz.*` |
+| ai-gftd-pds (atproto) | `atproto.etzhayyim.com` | `com.atproto.*` |
 
 **廃止 legacy alias (authz Worker から削除)**:
 - `GET  /xrpc/ai.gftd.auth.getSession` on authz → `ai.gftd.authz.getSession` に rename
@@ -165,10 +165,10 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 
 ```
 # Domain (即時)
-[x] wrangler.jsonc (ai-gftd-auth): routes に "auth.gftd.ai/*" 追加、"authn.gftd.ai/*" は 301 handler に変更
-[x] auth Worker fetch handler: Host=authn.gftd.ai への受信を 301 → auth.gftd.ai にする
+[x] wrangler.jsonc (ai-gftd-auth): routes に "auth.etzhayyim.com/*" 追加、"authn.etzhayyim.com/*" は 301 handler に変更
+[x] auth Worker fetch handler: Host=authn.etzhayyim.com への受信を 301 → auth.etzhayyim.com にする
 [x] auth Worker: /users/:id/did.json ハンドラ追加 (両ホスト名で同一レスポンス)
-[x] PDS resolveDIDSigningKey: did:web:authn.gftd.ai 検出時に env.AUTH_SERVICE.fetch() 経路を維持 (変更不要を確認)
+[x] PDS resolveDIDSigningKey: did:web:authn.etzhayyim.com 検出時に env.AUTH_SERVICE.fetch() 経路を維持 (変更不要を確認)
 
 # NSID rename (Lexicon JSON 同時更新必須)
 [ ] authz Worker: ai.gftd.auth.getSession → ai.gftd.authz.getSession (Lexicon JSON + handler)
@@ -176,7 +176,7 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 
 # Phase 3 callsite migration (2026-05-15 完了)
 [x] auth Worker getServiceAuth: _SVC_AUTH_ISS_ALLOWLIST (6 entries) + Option B HMAC gate (magatama のみ)
-[x] auth Worker: /svc/browser-host/did.json — did:web:authn.gftd.ai:svc:browser-host DID document
+[x] auth Worker: /svc/browser-host/did.json — did:web:authn.etzhayyim.com:svc:browser-host DID document
 [x] ai-gftd-email-relay: AUTH_RPC binding + getServiceAuthJwt + dual-header (pdsXrpc/pdsXrpcAs/pdsSqlQuery)
 [x] ai-gftd-plc-directory: AUTH_RPC binding + getServiceAuthJwt + dual-header in emitFirehose
 [x] ai-gftd-browser-host: AUTH_RPC binding + getServiceAuthJwt + dual-header + wrangler main → worker.ts
@@ -190,7 +190,7 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 [x] deps.toml [[migrations]] に "cli-dpop-gftd-authn-signin" を pending で記録 (本 ADR の scope 外)
 
 # DNS 廃止
-[ ] DNS: authn.gftd.ai CF zone record 削除 (2026-10-01)
+[ ] DNS: authn.etzhayyim.com CF zone record 削除 (2026-10-01)
 ```
 
 ---
@@ -198,8 +198,8 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 # Consequences
 
 **Positive**
-- `auth.gftd.ai` 1 ドメインで "認証" を想起できる。内外のドキュメント・CLI 出力が一致
-- OAuth AS = PDS の現実と設計書が一致 → "authn.gftd.ai/oauth/authorize が 404" バグが設計レベルで解消
+- `auth.etzhayyim.com` 1 ドメインで "認証" を想起できる。内外のドキュメント・CLI 出力が一致
+- OAuth AS = PDS の現実と設計書が一致 → "authn.etzhayyim.com/oauth/authorize が 404" バグが設計レベルで解消
 - ADR 3 本 → 1 本 (本 ADR) に集約。残 ADR は直交テーマのみ
 - `x-magatama-verified` の終端日確定 → security entropy が 0.34 → 0.90+ に収束
 
@@ -207,7 +207,7 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 - wrangler.jsonc の routes 変更 (1 file, ~10 lines)
 - CLI の URL 1 箇所修正
 - authz Worker の NSID rename は Lexicon JSON も同時更新が必要 (CLAUDE.md LLM Guardrails)
-- `authn.gftd.ai` の DNS を 2026-10-01 まで維持するコスト (CF zone record 1 件)
+- `authn.etzhayyim.com` の DNS を 2026-10-01 まで維持するコスト (CF zone record 1 件)
 
 # References
 

@@ -2,7 +2,7 @@
 
 Self-hosted MVT tile server reading **OpenMapTiles**-schema **PMTiles** from
 Cloudflare R2. Serves standard Mapbox Vector Tiles over
-`https://tiles.maps.gftd.ai/v1/{z}/{x}/{y}.pbf`.
+`https://tiles.maps.etzhayyim.com/v1/{z}/{x}/{y}.pbf`.
 
 ## Routes
 
@@ -70,10 +70,10 @@ gftd deploy
 ## Post-deploy smoke test
 
 ```bash
-curl -sS https://tiles.maps.gftd.ai/health
-curl -sS https://tiles.maps.gftd.ai/v1/manifest.json | jq .
+curl -sS https://tiles.maps.etzhayyim.com/health
+curl -sS https://tiles.maps.etzhayyim.com/v1/manifest.json | jq .
 curl -sS -o /tmp/t.pbf -w '%{http_code} %{size_download} %{content_type}\n' \
-  https://tiles.maps.gftd.ai/v1/0/0/0.pbf
+  https://tiles.maps.etzhayyim.com/v1/0/0/0.pbf
 ```
 
 ## Version bump procedure
@@ -91,7 +91,7 @@ curl -sS -o /tmp/t.pbf -w '%{http_code} %{size_download} %{content_type}\n' \
 - **TODO**: z ≥ 15 gated by AT session JWT + CF WAF rate-limit rule
   (document in the next iteration — not in scope here).
 - **Rate limiting**: rely on CF WAF / Bot Fight for now; configure per-zone
-  rules on `tiles.maps.gftd.ai`.
+  rules on `tiles.maps.etzhayyim.com`.
 
 ## R2 cost model
 
@@ -106,7 +106,7 @@ curl -sS -o /tmp/t.pbf -w '%{http_code} %{size_download} %{content_type}\n' \
 ## Integration
 
 - Frontend switch: point `cfg.mapTileUrl` in `maps-ui-uqpel6i6/svelte` at
-  `https://tiles.maps.gftd.ai/v1/{z}/{x}/{y}.pbf` and call
+  `https://tiles.maps.etzhayyim.com/v1/{z}/{x}/{y}.pbf` and call
   `applyOpenMapTilesStyle(map, tileUrl)` from
   `./src/lib/kami-openmaptiles-style.ts`.
 - Parent agent is handling the runtime config swap — do not change

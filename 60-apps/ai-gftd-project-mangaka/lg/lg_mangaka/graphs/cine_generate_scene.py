@@ -64,7 +64,7 @@ from lg_mangaka.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _RW_URL = os.environ.get("RW_URL", "")
 _DEFAULT_FPS = 24
 _DEFAULT_GEOM_REGIONS = 4

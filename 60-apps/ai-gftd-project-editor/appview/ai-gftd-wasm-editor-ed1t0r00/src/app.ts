@@ -150,7 +150,7 @@ const UI_HTML = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Editor — editor.gftd.ai</title>
+<title>Editor — editor.etzhayyim.com</title>
 <style>
   :root { --bg:#0b0d10; --fg:#e6e6e6; --panel:#15181d; --border:#262a31; --accent:#7aa2ff; }
   * { box-sizing:border-box; }
@@ -237,7 +237,7 @@ function toast(msg) {
 }
 
 // ── CodeMirror 6 ──
-const initialDoc = "// Welcome to editor.gftd.ai\\n// Create a project and start coding, or describe what you want below.\\n";
+const initialDoc = "// Welcome to editor.etzhayyim.com\\n// Create a project and start coding, or describe what you want below.\\n";
 let view = new EditorView({
   state: EditorState.create({
     doc: initialDoc,
@@ -395,11 +395,11 @@ function handleUIPath(request: Request): Response | null {
   return null;
 }
 
-// ── Blob proxy: GET /api/blob/{sha256hex} → cdn.gftd.ai ──
+// ── Blob proxy: GET /api/blob/{sha256hex} → cdn.etzhayyim.com ──
 //
 // Files are uploaded via `sdk.pds.cdnUpload("editor", sha256, ...)`,
 // which writes to the PDS-owned B2 bucket. Reads are served by the
-// canonical public CDN endpoint at `https://cdn.gftd.ai/editor/{sha256}`
+// canonical public CDN endpoint at `https://cdn.etzhayyim.com/editor/{sha256}`
 // (cdnPublicUrl convention). This route stays for backward
 // compatibility and same-origin requests; it 302-redirects so the
 // browser caches the canonical URL directly.
@@ -407,7 +407,7 @@ function handleBlobPath(request: Request): Response | null {
   const url = new URL(request.url);
   const m = url.pathname.match(/^\/api\/blob\/([a-f0-9]{64})$/);
   if (!m || request.method !== "GET") return null;
-  return Response.redirect(`https://cdn.gftd.ai/editor/${m[1]}`, 302);
+  return Response.redirect(`https://cdn.etzhayyim.com/editor/${m[1]}`, 302);
 }
 
 // ── Worker export ──

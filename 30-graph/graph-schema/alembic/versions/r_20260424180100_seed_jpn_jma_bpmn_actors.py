@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jma-report-earthquake-v1',
-                 'did:web:jpn-jma.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-report-earthquake-v1',
+                 'did:web:jpn-jma.etzhayyim.com',
                  'jpn_jma_report_earthquake',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_jpn_jma_report_earthquake"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/jpn-jma"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/jpn-jma"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="jpn_jma_report_earthquake" name="JMA 地震情報" '
                  'isExecutable="true">\n'
@@ -107,7 +107,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-jma.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-jma.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnJma.earthquake.emergency&quot;" '
                  'target="action"/>\n'
@@ -126,7 +126,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-jma.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-jma.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnJma.earthquake.routine&quot;" '
                  'target="action"/>\n'
@@ -149,10 +149,10 @@ UP = [{'sql': '\n'
                  5597,
                  '00-contracts/bpmn/ai/gftd/jpn-jma/reportEarthquake.bpmn',
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-jma.gftd.ai',
-                 'did:web:jpn-jma.gftd.ai',
+                 'did:web:jpn-jma.etzhayyim.com',
+                 'did:web:jpn-jma.etzhayyim.com',
                  'sys.bpmn.seed.jpn-jma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jma-report-earthquake-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-report-earthquake-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -160,8 +160,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1',
-                 'did:web:jpn-jma.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1',
+                 'did:web:jpn-jma.etzhayyim.com',
                  'jpn_jma_issue_weather_warning',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -169,7 +169,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_jpn_jma_issue_weather_warning"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/jpn-jma"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/jpn-jma"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="jpn_jma_issue_weather_warning" name="JMA 気象警報" '
                  'isExecutable="true">\n'
@@ -241,7 +241,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-jma.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-jma.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnJma.warning.broadcast&quot;" '
                  'target="action"/>\n'
@@ -259,7 +259,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-jma.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-jma.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnJma.warning.log&quot;" '
                  'target="action"/>\n'
@@ -282,10 +282,10 @@ UP = [{'sql': '\n'
                  5100,
                  '00-contracts/bpmn/ai/gftd/jpn-jma/issueWeatherWarning.bpmn',
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-jma.gftd.ai',
-                 'did:web:jpn-jma.gftd.ai',
+                 'did:web:jpn-jma.etzhayyim.com',
+                 'did:web:jpn-jma.etzhayyim.com',
                  'sys.bpmn.seed.jpn-jma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -293,16 +293,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jma-reportEarthquake-v1',
-                 'did:web:jpn-jma.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-reportEarthquake-v1',
+                 'did:web:jpn-jma.etzhayyim.com',
                  'ai.gftd.apps.jpnJma.reportEarthquake',
                  'jpn_jma_report_earthquake',
                  30000,
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-jma.gftd.ai',
-                 'did:web:jpn-jma.gftd.ai',
+                 'did:web:jpn-jma.etzhayyim.com',
+                 'did:web:jpn-jma.etzhayyim.com',
                  'sys.bpmn.seed.jpn-jma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jma-reportEarthquake-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-reportEarthquake-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -310,25 +310,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1',
-                 'did:web:jpn-jma.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1',
+                 'did:web:jpn-jma.etzhayyim.com',
                  'ai.gftd.apps.jpnJma.issueWeatherWarning',
                  'jpn_jma_issue_weather_warning',
                  30000,
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-jma.gftd.ai',
-                 'did:web:jpn-jma.gftd.ai',
+                 'did:web:jpn-jma.etzhayyim.com',
+                 'did:web:jpn-jma.etzhayyim.com',
                  'sys.bpmn.seed.jpn-jma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jma-reportEarthquake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-reportEarthquake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jma-report-earthquake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-report-earthquake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1']}]
 
 
 def upgrade() -> None:

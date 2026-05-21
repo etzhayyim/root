@@ -22,8 +22,8 @@ eKYC (electronic Know Your Customer) project — Clerk-integrated identity verif
 ### Services (SvcV-1)
 | Service | Type | Protocol | URL |
 |---|---|---|---|
-| ekyc-service | XRPC MCP | XRPC (HTTP/2) | `ekyc.gftd.ai` |
-| ekyc-ui | Static UI | HTTP/1.1 | `ekyc.gftd.ai` |
+| ekyc-service | XRPC MCP | XRPC (HTTP/2) | `ekyc.etzhayyim.com` |
+| ekyc-ui | Static UI | HTTP/1.1 | `ekyc.etzhayyim.com` |
 
 ### Resource Flows (OV-2)
 ```
@@ -56,7 +56,7 @@ gRPC eKYC service with Clerk JWT validation and MCP integration.
 
 **Environment:**
 ```bash
-CLERK_JWKS_URL=https://clerk.gftd.ai/.well-known/jwks.json
+CLERK_JWKS_URL=https://clerk.etzhayyim.com/.well-known/jwks.json
 POSTGRES_STATE_STORE=org-statestore
 MCP_APQC_KYC_ENDPOINT=ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-12-4-5-kyc-v2:8080
 APP_GRPC_ENDPOINT=http://shared-ekyc-service-legacy-runtime:50001
@@ -82,7 +82,7 @@ SvelteKit eKYC frontend with Clerk authentication.
 - Clerk JS SDK
 - Connect-gRPC web client (placeholder, uses fetch for now)
 
-**URL:** `https://ekyc.gftd.ai`
+**URL:** `https://ekyc.etzhayyim.com`
 
 ## Deployment
 
@@ -101,7 +101,7 @@ mage Deploy
 **Generated Resources:**
 - Deployment: `ekyc-service`
 - Service: `ekyc-service` (ClusterIP)
-- GRPCRoute: `ekyc.gftd.ai` → `ekyc-service:8080`
+- GRPCRoute: `ekyc.etzhayyim.com` → `ekyc-service:8080`
 - KEDA ScaledObject: HTTP trigger, 0-5 replicas
 - App runtime Pulumi Application: `shared-ekyc-service`
 
@@ -123,7 +123,7 @@ mage Deploy
 **Generated Resources:**
 - Deployment: `ekyc-ui` (nginx)
 - Service: `ekyc-ui` (ClusterIP)
-- HTTPRoute: `ekyc.gftd.ai` → `ekyc-ui:80`
+- HTTPRoute: `ekyc.etzhayyim.com` → `ekyc-ui:80`
 - KEDA HTTPScaledObject: 0-3 replicas
 
 ## MCP Integration with APQC 12.4.5 KYC
@@ -145,10 +145,10 @@ ekyc-service integrates with APQC 12.4.5 KYC performer via MCP:
 
 ## Authentication Flow
 
-1. User signs in via Clerk (`ekyc-ui` → `clerk.gftd.ai`)
+1. User signs in via Clerk (`ekyc-ui` → `clerk.etzhayyim.com`)
 2. Clerk issues JWT with claims: `{ sub, org_id, org_slug, org_role, email }`
 3. ekyc-ui sends XRPC requests with `Authorization: Bearer <jwt>`
-4. ekyc-service validates JWT via JWKS (`clerk.gftd.ai/.well-known/jwks.json`)
+4. ekyc-service validates JWT via JWKS (`clerk.etzhayyim.com/.well-known/jwks.json`)
 5. ekyc-service extracts `user_id` and `org_id` from JWT claims
 6. All operations are org-scoped (user can only view their org's verifications)
 

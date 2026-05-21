@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:crowdfunding.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:crowdfunding.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are crowdfunding.gftd.ai — AI-driven crowdfunding platform for OEM D2C products. Help creators launch campaigns, backers discover projects, and manage campaign lifecycle. Respond in the user's language.",
+  "convoSystemPrompt": "You are crowdfunding.etzhayyim.com — AI-driven crowdfunding platform for OEM D2C products. Help creators launch campaigns, backers discover projects, and manage campaign lifecycle. Respond in the user's language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -45,7 +45,7 @@
   "project": "crowdfunding",
   "routes": [
     {
-      "host": "crowdfunding.gftd.ai",
+      "host": "crowdfunding.etzhayyim.com",
       "paths": ["/"],
       "tls": true
     }
@@ -97,13 +97,13 @@
     }
   },
   "uiType": "appview",
-  "embedUrl": "https://cf0und1n.gftd.ai/embed",
+  "embedUrl": "https://cf0und1n.etzhayyim.com/embed",
   "derive": {
     "social": [
       {
         "on": "ai.gftd.apps.crowdfunding.campaign",
         "when": { "status": "live" },
-        "template": "[Crowdfunding] \"{{title}}\" is now live! Goal: ¥{{goalAmount}} — Support now at crowdfunding.gftd.ai"
+        "template": "[Crowdfunding] \"{{title}}\" is now live! Goal: ¥{{goalAmount}} — Support now at crowdfunding.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.crowdfunding.campaign",
@@ -118,7 +118,7 @@
       {
         "on": "ai.gftd.apps.crowdfunding.campaign",
         "when": { "status": "fulfillment" },
-        "template": "[Crowdfunding → Manufacturing] \"{{title}}\" 製造発注完了 → tsukuru.gftd.ai"
+        "template": "[Crowdfunding → Manufacturing] \"{{title}}\" 製造発注完了 → tsukuru.etzhayyim.com"
       },
       {
         "on": "ai.gftd.apps.crowdfunding.campaignUpdate",
@@ -139,7 +139,7 @@
       {
         "on": "ai.gftd.apps.crowdfunding.campaign",
         "when": { "status": "fulfillment" },
-        "target": "did:web:tsukuru.gftd.ai",
+        "target": "did:web:tsukuru.etzhayyim.com",
         "method": "ai.gftd.apps.tsukuru.productionOrder.createProductionOrder",
         "map": {
           "okaimono_order_id": "cf_{{id}}",

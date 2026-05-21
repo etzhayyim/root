@@ -7,7 +7,7 @@ region            = "lax"
 namespace         = "geth-private"
 node_pool         = "risingwave-pool-32gb"                  # shared with risingwave (geth req 100m CPU / 256Mi)
 storage_pvc_gb    = 50
-public_url        = "https://geth.gftd.ai"
+public_url        = "https://geth.etzhayyim.com"
 public_path       = "CF Worker geth-rpc-proxy → Cloudflare Tunnel (cloudflared-geth-rpc Deployment, geth-private ns, tunnel ID 69cf11d5-001f-494c-abce-4a1422ac47d8) → geth-private:8545 (in-cluster). Cutover 2026-05-07."
 internal_endpoint = "geth-private.geth-private.svc.cluster.local:8545"
 monthly_cost_usd  = 11               # Vultr LB only — being retired 2026-05-08 post-24h-soak (CF Tunnel cutover 2026-05-07, see 90-docs/260507-cost-waste-runbook.md). Post-cleanup: 0
@@ -46,8 +46,8 @@ tls_secret_name   = "caddy-geth-cert"
 
 [geth_private.proxy]
 worker_name       = "ai-gftd-geth-rpc-proxy"
-worker_route      = "geth.gftd.ai/*"
-origin_dns        = "geth-origin.gftd.ai"   # non-proxied A record → 149.248.2.241
+worker_route      = "geth.etzhayyim.com/*"
+origin_dns        = "geth-origin.etzhayyim.com"   # non-proxied A record → 149.248.2.241
 hmac_secret_id    = "1824561668fe47cc9127d493961885af/geth_rpc_hmac"
 public_methods    = "eth_chainId, net_version, web3_clientVersion, eth_blockNumber, eth_getBalance, eth_getCode, eth_getStorageAt, eth_getBlock*, eth_getTransaction*, eth_getLogs, eth_call, eth_estimateGas, eth_gasPrice, eth_feeHistory, eth_maxPriorityFeePerGas, eth_syncing, eth_protocolVersion, eth_sendRawTransaction (signed-tx security)"
 
@@ -69,11 +69,11 @@ actor_runtime_registry  = "0x9C730960e9BF7A403E610Dca0C8a565CF655b6a1"  # WASM/B
 status = "active"
 adr = "90-docs/adr/2604262100-erc725-erc8004-k8s-ipfs-agent-runtime.md"
 chain_id = 260425
-rpc_url = "https://geth.gftd.ai"
+rpc_url = "https://geth.etzhayyim.com"
 agent_registry = "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865"
-ipfs_gateway = "https://ipfs.gftd.ai"
-runtime_schema = "https://gftd.ai/schemas/k8s-runtime-public/v1.json"
-registration_schema = "https://gftd.ai/schemas/erc8004-agent-registration/v1.json"
+ipfs_gateway = "https://ipfs.etzhayyim.com"
+runtime_schema = "https://etzhayyim.com/schemas/k8s-runtime-public/v1.json"
+registration_schema = "https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json"
 cli = "(removed 2026-05-20 with 70-tools/gftd/; re-port pending)"
 render_script = "70-tools/scripts/contract/render-agent-runtime-public.py"
 publish_auth = "macOS Keychain service=gftd.cloudflare account=IPFS_HMAC"
@@ -88,9 +88,9 @@ chain_submit_status = "completed; kami-agent tokenId=3 via Safe tx 0x52879650ccc
 latest_agent_registration_cid = "ipfs://bafkreifsrp65mol2uo6wn3pgyaynbpp7u3ajyfyjvz4l3pjvautkckh6aa"
 latest_agent_registration_tx = "0x82bc9f893eb5695ffeaf59c27f3a5dc892b84d89966b945cab864122565ffa75"
 latest_agent_registration_safe_tx_hash = "0xbd348de3eb59a33efc675e6e0618554824c505e756cadf7c35250c09b53e3411"
-public_status_url = "https://organism.gftd.ai"
-public_status_api = "https://organism.gftd.ai/api/status"
-public_monitor_api = "https://organism.gftd.ai/api/monitor"
+public_status_url = "https://organism.etzhayyim.com"
+public_status_api = "https://organism.etzhayyim.com/api/status"
+public_monitor_api = "https://organism.etzhayyim.com/api/monitor"
 public_monitor_cron = "Cloudflare Worker schedule */5 * * * *"
 public_status_latest = "verified; erc8004=verified ipfs=verified runtime=verified rw=verified (2026-05-07)"
 publish_cli = "gftd agent organism publish --no-dry-run --submit-chain"
@@ -139,8 +139,8 @@ chain_id = 260425
 root_identity_registry = "0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8"
 authn_worker = "ai-gftd-auth"
 authz_worker = "ai-gftd-authz"
-authn_route = "POST https://authn.gftd.ai/xrpc/ai.gftd.auth.createGuestAccount"
-authz_internal_route = "POST https://authz.gftd.ai/internal/provision-root-identity"
+authn_route = "POST https://authn.etzhayyim.com/xrpc/ai.gftd.auth.createGuestAccount"
+authz_internal_route = "POST https://authz.etzhayyim.com/internal/provision-root-identity"
 service_binding = "AUTHZ_RPC (ai-gftd-auth -> ai-gftd-authz)"
 internal_auth = "HMAC-SHA256 over canonical JSON body in x-claim-settler-auth"
 hmac_secret = "Worker secret CLAIM_SETTLER_HMAC, shared by ai-gftd-auth, ai-gftd-authz, ai-gftd-claim-consumer"
@@ -161,8 +161,8 @@ verified_commands = [
   "wrangler secret put CLAIM_SETTLER_HMAC --config 50-infra/cloudflare/workers/claim-consumer/wrangler.jsonc",
   "wrangler deploy --config 60-apps/ai-gftd-project-auth/worker-authz/wrangler.jsonc --dry-run",
   "wrangler deploy --config 60-apps/ai-gftd-project-auth/worker/wrangler.jsonc --dry-run",
-  "curl -sS -X POST https://authz.gftd.ai/internal/provision-root-identity -H content-type:application/json -H x-claim-settler-auth:<hmac> --data <stableId,label>",
-  "curl -sS -X POST https://authn.gftd.ai/xrpc/ai.gftd.auth.createGuestAccount -H content-type:application/json --data <username,password>",
+  "curl -sS -X POST https://authz.etzhayyim.com/internal/provision-root-identity -H content-type:application/json -H x-claim-settler-auth:<hmac> --data <stableId,label>",
+  "curl -sS -X POST https://authn.etzhayyim.com/xrpc/ai.gftd.auth.createGuestAccount -H content-type:application/json --data <username,password>",
   "eth_call GftdRootIdentityRegistry.resolveFacade(keccak256(legacyDid))",
 ]
 verified_smoke = "guest signup returned did:erc725:gftd:260425:0x7794624f467730754c00a183662db41395f77d95 and resolveFacade(legacyDid) returned the same identity"
@@ -184,7 +184,7 @@ claim_consumer_routes = [
   "/judge HMAC-gated ops route",
   "/settler HMAC-gated ops route",
 ]
-murakumo_judge = "MURAKUMO_URL=https://murakumo.gftd.ai/api/openai/v1/chat/completions, MURAKUMO_MODEL=qwen3-30b-a3b, SS_MURAKUMO_API_KEY Secrets Store"
+murakumo_judge = "MURAKUMO_URL=https://murakumo.etzhayyim.com/api/openai/v1/chat/completions, MURAKUMO_MODEL=qwen3-30b-a3b, SS_MURAKUMO_API_KEY Secrets Store"
 rw_cursors = [
   "cursor:claim-consumer:chain-260425:default",
   "cursor:claim-consumer:rego-arbiter:default",
@@ -207,7 +207,7 @@ verified_on = "2026-04-27"
 [geth_private.root_identity_projection.yoro]
 root_did = "did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643"
 root_identity_addr = "0xe506d815690ab0b81bf2f34b5057d7b8b96fe643"
-facade_did = "did:web:yoro.gftd.ai"
+facade_did = "did:web:yoro.etzhayyim.com"
 register_root_identity_tx = "0x8ec4f45113bd93226fc8caccfd416892ee6da28ec65c186e06f072d6b9f45892"
 link_facade_tx = "0x3c1a39efc3e86efd9e1ecdb1b70c91a14ce749748a570012ca26ad655546768a"
 rw_projection_status = "synced"
@@ -230,7 +230,7 @@ review_recorded_on = "2026-04-30"
 
 [geth_private.callers]
 # What in the platform consumes chain 260425
-authz_worker     = "60-apps/ai-gftd-project-auth/worker-authz/ — getActorAccount XRPC (eth_call into actorByDid via geth.gftd.ai)"
+authz_worker     = "60-apps/ai-gftd-project-auth/worker-authz/ — getActorAccount XRPC (eth_call into actorByDid via geth.etzhayyim.com)"
 authn_worker     = "60-apps/ai-gftd-project-auth/worker/ — createGuestAccount provisions ERC725 root identity through AUTHZ_RPC"
 claim_consumer   = "50-infra/cloudflare/workers/claim-consumer/ — tails ClaimStakeEscrow + RegoArbiter events, persists rebuttals, judges, and auto-settles through AUTHZ_RPC"
 gftd_cli         = "(removed 2026-05-20 with 70-tools/gftd/; recordDeploy + registerAgent re-port pending)"

@@ -8,7 +8,7 @@
 Build:
   docker buildx build --platform linux/amd64 \\
     --build-context py=../../../20-actors/magatama/py \\
-    -t ghcr.io/gftdcojp/lg-legal-entity:0.1.0-amd64 --push .
+    -t ghcr.io/etzhayyim/lg-legal-entity:0.1.0-amd64 --push .
 """
 
 from __future__ import annotations

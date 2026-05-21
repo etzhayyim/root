@@ -65,7 +65,7 @@ const NSID = {
   orgDeleteJob: "ai.gftd.yorishiro.flyio.orgDeleteJob",
 } as const;
 
-const PROVIDER_DID = "did:web:yorishiro.gftd.ai";
+const PROVIDER_DID = "did:web:yorishiro.etzhayyim.com";
 
 // Fly.io dashboard URLs (browser automation entry points)
 const FLYIO_SIGNIN = "https://fly.io/app/sign-in";
@@ -173,7 +173,7 @@ async function cmdGetAccountInfo(sdk: HostSDK, payload: Uint8Array): Promise<unk
     vaultRef: req.vaultRef ?? "flyio/default",
   });
 
-  const ownerDid = actorDID || "did:web:fly10001.gftd.ai";
+  const ownerDid = actorDID || "did:web:fly10001.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroFlyio_cancellationJob" as any)
     .values({
@@ -246,7 +246,7 @@ async function cmdDeleteApp(sdk: HostSDK, payload: Uint8Array): Promise<unknown>
     vaultRef: req.vaultRef ?? "flyio/default",
   });
 
-  const ownerDid = actorDID || "did:web:fly10001.gftd.ai";
+  const ownerDid = actorDID || "did:web:fly10001.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroFlyio_appDeleteJob" as any)
     .values({
@@ -297,7 +297,7 @@ async function cmdDeleteOrg(sdk: HostSDK, payload: Uint8Array): Promise<unknown>
     vaultRef: req.vaultRef ?? "flyio/default",
   });
 
-  const ownerDid = actorDID || "did:web:fly10001.gftd.ai";
+  const ownerDid = actorDID || "did:web:fly10001.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroFlyio_orgDeleteJob" as any)
     .values({
@@ -351,7 +351,7 @@ async function cmdCloseAccount(sdk: HostSDK, payload: Uint8Array): Promise<unkno
     vaultRef: req.vaultRef ?? "flyio/default",
   });
 
-  const ownerDid = actorDID || "did:web:fly10001.gftd.ai";
+  const ownerDid = actorDID || "did:web:fly10001.etzhayyim.com";
   await getDb()
     .insertInto("vertex_yorishiroFlyio_cancellationJob" as any)
     .values({

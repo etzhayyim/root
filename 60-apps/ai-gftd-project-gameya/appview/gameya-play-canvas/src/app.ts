@@ -8,8 +8,8 @@ interface ExportedHandler<E> {
 
 const ACTOR = {
   ok: true,
-  actor: "did:web:gameya.gftd.ai",
-  name: "gameya.gftd.ai",
+  actor: "did:web:gameya.etzhayyim.com",
+  name: "gameya.etzhayyim.com",
   nanoid: "g4m3ya00",
   assistantId: "gameya_quality_loop",
   qualityLoop: "/xrpc/ai.gftd.apps.gameya.qualityLoop",
@@ -27,10 +27,10 @@ export default {
         assistant_id: "gameya_quality_loop",
         run: {
           assistant_id: "gameya_quality_loop",
-          actor_did: "did:web:gameya.gftd.ai",
+          actor_did: "did:web:gameya.etzhayyim.com",
           input: {
             title: "Sky Bento Dash",
-            build_url: "https://gameya.gftd.ai",
+            build_url: "https://gameya.etzhayyim.com",
             target_quality: "nintendo-quality",
             playtest: {
               fps: 60,

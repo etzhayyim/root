@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#E2ECucumberHooks
+// @etzhayyim/cyber-freelance#E2ECucumberHooks
 // E2E BDD用のCucumber hooks
 
 import {

@@ -24,7 +24,7 @@
   "dependencies": {
     "@connectrpc/connect": "^1.7.0",
     "@connectrpc/connect-web": "^1.7.0",
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/design-system": "workspace:*",
     "lucide-svelte": "^0.300.0"
   }
 }

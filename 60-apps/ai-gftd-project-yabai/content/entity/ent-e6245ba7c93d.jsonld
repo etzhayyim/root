@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-e6245ba7c93d",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e6245ba7c93d",
   "entityId": "ent-e6245ba7c93d",
   "canonicalName": "celsius network llc",
   "aliases": [

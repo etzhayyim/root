@@ -1,6 +1,6 @@
 # ai-gftd-project-business-edge
 
-開発者向けエッジコンピューティングプラットフォーム。`business-edge.gftd.ai`
+開発者向けエッジコンピューティングプラットフォーム。`business-edge.etzhayyim.com`
 
 magatama の全プリミティブ（KV, Graph, CDN, PubSub, Lock, Secrets, VirtualActor）をテナント分離で外部提供する管理プレーン App。
 
@@ -9,13 +9,13 @@ magatama の全プリミティブ（KV, Graph, CDN, PubSub, Lock, Secrets, Virtu
 | Key | Value |
 |---|---|
 | nanoid | `bz4x8m2w` |
-| domain | `business-edge.gftd.ai` |
+| domain | `business-edge.etzhayyim.com` |
 | performer ID | `bz4x8m2w` |
-| AT bot DID | `did:web:business-edge.gftd.ai` |
+| AT bot DID | `did:web:business-edge.etzhayyim.com` |
 
 ## Architecture: Control Plane / Data Plane
 
-- **Control Plane**: この App (`business-edge.gftd.ai`) — テナント管理、デプロイ、メタリング
+- **Control Plane**: この App (`business-edge.etzhayyim.com`) — テナント管理、デプロイ、メタリング
 - **Data Plane**: `edge-runtime` (magatama-server multi-tenant Deployment) — テナント WASM 実行
 
 ## XRPC Services

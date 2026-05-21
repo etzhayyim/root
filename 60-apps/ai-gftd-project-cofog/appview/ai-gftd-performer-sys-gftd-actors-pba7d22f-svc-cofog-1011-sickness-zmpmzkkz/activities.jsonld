@@ -14,11 +14,11 @@
   },
   "@graph": [
     {
-      "id": "https://kyber-services.gftd.ai/activities/cofog/10/1/1/sickness/main-process",
+      "id": "https://kyber-services.etzhayyim.com/activities/cofog/10/1/1/sickness/main-process",
       "type": "dodaf:OperationalActivity",
       "name": "Sickness Benefit and Leave Lifecycle",
       "description": "The administrative process of verifying medical eligibility, coordinating sickness benefits, and monitoring recovery status.",
-      "realizes": "https://kyber-services.gftd.ai/capabilities/cofog/10/1/1/sickness"
+      "realizes": "https://kyber-services.etzhayyim.com/capabilities/cofog/10/1/1/sickness"
     }
   ]
 }

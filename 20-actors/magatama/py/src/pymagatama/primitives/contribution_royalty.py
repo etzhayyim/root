@@ -12,7 +12,7 @@ Two entry points:
 
 Environment variables:
   RW_URL                   — RisingWave connection string (same as rest of worker)
-  ETH_RPC_URL              — https://geth.gftd.ai
+  ETH_RPC_URL              — https://geth.etzhayyim.com
   PRIVATE_KEY              — sealer EOA private key (oracle on ContributionRoyaltyRegistry)
   GCC_ADDR                 — 0x8e9A5162b2800E0D19acC1708A531A3954900E21
   CONTRIBUTION_REGISTRY_ADDR — 0x689706981d7D10D4CC8244C2BF1a4cA8b0f67cD7
@@ -36,7 +36,7 @@ LOG = logging.getLogger("contribution_royalty")
 
 # ── env ────────────────────────────────────────────────────────────────────
 
-_ETH_RPC_URL = os.environ.get("ETH_RPC_URL", "https://geth.gftd.ai").strip()
+_ETH_RPC_URL = os.environ.get("ETH_RPC_URL", "https://geth.etzhayyim.com").strip()
 _GCC_ADDR = os.environ.get("GCC_ADDR", "0x8e9A5162b2800E0D19acC1708A531A3954900E21").strip()
 _REGISTRY_ADDR = os.environ.get(
     "CONTRIBUTION_REGISTRY_ADDR",

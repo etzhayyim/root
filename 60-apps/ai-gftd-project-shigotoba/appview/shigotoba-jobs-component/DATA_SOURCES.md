@@ -2,7 +2,7 @@
 
 ## Objective
 
-`shigotoba.gftd.ai` の求人データを固定 seed ではなく、認証不要の公開 API から継続取得して反映する。
+`shigotoba.etzhayyim.com` の求人データを固定 seed ではなく、認証不要の公開 API から継続取得して反映する。
 
 ## Sources (current)
 

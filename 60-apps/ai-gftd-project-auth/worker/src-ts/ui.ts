@@ -201,7 +201,7 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
       localStorage.setItem("gftd-auth-session", JSON.stringify(s));
       localStorage.setItem("gftd-auth-did", s.did);
       const target = new URLSearchParams(location.search).get("redirectUrl") || "/";
-      const dest = target.startsWith("http") ? target : ("https://yoro.gftd.ai" + target);
+      const dest = target.startsWith("http") ? target : ("https://yoro.etzhayyim.com" + target);
       location.href = dest + "#auth=" + encodeURIComponent(JSON.stringify(s));
     }
 
@@ -374,7 +374,7 @@ export function renderLinkResultPage(ok: boolean, provider: string, message = ""
   <main class="card">
     <h1>${title}</h1>
     <p>${safeMessage}</p>
-    <a href="https://accounts.gftd.ai/manage">Back to Accounts</a>
+    <a href="https://accounts.etzhayyim.com/manage">Back to Accounts</a>
   </main>
 </body>
 </html>`;

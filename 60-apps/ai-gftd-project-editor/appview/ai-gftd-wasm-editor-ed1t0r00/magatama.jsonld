@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:editor.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:editor.etzhayyim.com",
   "name": "ai-gftd-wasm-editor",
   "nanoid": "ed1t0r00",
   "project": "editor",
@@ -14,7 +14,7 @@
     "classification": "internal",
     "complianceFrameworks": []
   },
-  "convoSystemPrompt": "You are the editor.gftd.ai code editor agent. Help users create projects, write/edit files, and generate code from natural-language specs (v0.dev-style). Respond in the user's language.",
+  "convoSystemPrompt": "You are the editor.etzhayyim.com code editor agent. Help users create projects, write/edit files, and generate code from natural-language specs (v0.dev-style). Respond in the user's language.",
   "profile": {
     "displayName": "Editor",
     "description": "Web code editor + project manager — CodeMirror 6 + Sandpack preview, v0-style LLM gen",
@@ -58,8 +58,8 @@
     }
   },
   "routes": [
-    { "host": "editor.gftd.ai", "paths": ["/"], "tls": true },
-    { "host": "ed1t0r00.gftd.ai", "paths": ["/"], "tls": true }
+    { "host": "editor.etzhayyim.com", "paths": ["/"], "tls": true },
+    { "host": "ed1t0r00.etzhayyim.com", "paths": ["/"], "tls": true }
   ],
   "deploy": {},
   "pool": {},

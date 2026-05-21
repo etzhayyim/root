@@ -169,7 +169,7 @@
     error = '';
     loading = true;
     try {
-      const guestId = 'did:web:kami.gftd.ai:guest:' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      const guestId = 'did:web:kami.etzhayyim.com:guest:' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
       const method = mode === 'ranked' ? 'queue-ranked' : 'queue-casual';
       const body = mode === 'ranked'
         ? { 'player_did': ctx.userId || guestId, 'display_name': ctx.actorId || 'Player', 'character_id': characters[selectedChar].id }

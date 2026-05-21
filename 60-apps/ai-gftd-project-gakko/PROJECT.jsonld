@@ -1,15 +1,15 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "@id": "https://gakko.gftd.ai/api/grpc",
+  "@id": "https://gakko.etzhayyim.com/api/grpc",
   "name": "ai-gftd-project-gakko",
   "description": "Learning Management System (LMS) for courses, enrollments, progress tracking, and taxonomy-linked recommendations on SpinKube",
   "applicationCategory": "Education",
   "operatingSystem": "Kubernetes",
   "author": {
     "@type": "Organization",
-    "name": "gftdcojp",
-    "url": "https://gftd.ai"
+    "name": "etzhayyim",
+    "url": "https://etzhayyim.com"
   },
   "component": [
     {

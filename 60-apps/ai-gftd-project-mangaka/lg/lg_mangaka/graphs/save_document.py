@@ -1,7 +1,7 @@
 """mangaka `save_document` graph — persistence for ai.gftd.mangaka.document.
 
 ADR-2605111200: CF Worker cannot reach Hyperdrive directly. The mangaka
-edge Worker proxies `/xrpc/{nsid}` to dispatcher.gftd.ai or to this
+edge Worker proxies `/xrpc/{nsid}` to dispatcher.etzhayyim.com or to this
 LangGraph server. This graph INSERTs one row into `vertex_mangaka` with
 `kind='document'` and the full Genko canvas JSON in `props`.
 
@@ -38,7 +38,7 @@ from lg_mangaka.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.gftd.ai")
+_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _NSID = "ai.gftd.mangaka.document"
 _DEFAULT_ORG_DID = os.environ.get(
     "MANGAKA_DEFAULT_ORG_DID",

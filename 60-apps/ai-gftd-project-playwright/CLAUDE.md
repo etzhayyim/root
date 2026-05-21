@@ -1,13 +1,13 @@
 # ai-gftd-project-playwright — Browser automation primitives actor
 
-`did:web:playwright.gftd.ai` / nanoid `pl4y1t8r`。Browser 操作を XRPC primitive
+`did:web:playwright.etzhayyim.com` / nanoid `pl4y1t8r`。Browser 操作を XRPC primitive
 に分解。`ai.gftd.apps.bpmn` の serviceTask から呼ばれる汎用 capability。
 
 ## Scope
 
 - 汎用 (shiharai / common-crawl / keiyaku / kaisya ... 全 app 共有)
 - **Execution target**: `local` (Mac daemon) / `cf-browser` (→ `ai.gftd.apps.cloudflareBrowserRender` delegate)
-- **Credential**: `valueRef: "vault://..."` 記法で vault.gftd.ai から ephemeral 取得 (ADR-0029)
+- **Credential**: `valueRef: "vault://..."` 記法で vault.etzhayyim.com から ephemeral 取得 (ADR-0029)
 - recipe / orchestration は **持たない** — BPMN actor の責務
 
 ## XRPC surface (11 methods)
@@ -40,7 +40,7 @@ Migration: `30-graph/graph-schema/migrations/20260419140000_vertex_playwright_ta
 
 | scheme | 意味 | 解決先 |
 |---|---|---|
-| `vault://path/to/secret` | vault.gftd.ai 内 secret | `VAULT_SERVICE` binding |
+| `vault://path/to/secret` | vault.etzhayyim.com 内 secret | `VAULT_SERVICE` binding |
 | `keychain:gftd.shiharai.<biller>/<key>` | macOS Keychain (local daemon のみ) | `security find-generic-password` |
 | `1password://<vault>/<item>/<field>` | 1Password (local daemon のみ) | `op` CLI |
 | `env:<NAME>` | Worker env var | `env.<NAME>` |

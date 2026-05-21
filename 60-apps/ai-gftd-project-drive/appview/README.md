@@ -14,5 +14,5 @@
 
 ## ルーティング方針
 
-- backend は `https://[nanoid].gftd.ai/api/mcp` に統一。
-- Drive は `https://ntca7tit.gftd.ai/api/mcp` を利用。
+- backend は `https://[nanoid].etzhayyim.com/api/mcp` に統一。
+- Drive は `https://ntca7tit.etzhayyim.com/api/mcp` を利用。

@@ -31,7 +31,7 @@ superseded_by: []
 
 ## Context
 
-`tsukuru.gftd.ai` は B2B factory-direct OEM 製造プラットフォームとして、AutoCAD / Fusion 360 / STEP ファイルを `supplierExchange` パッケージとして受け入れる。しかし設計者が 3D CAD ファイルを手元に持っていない場合 — 製品のスケッチ写真、多視点画像、テキスト説明 — から tsukuru RFQ に直接繋ぐ経路がなかった。
+`tsukuru.etzhayyim.com` は B2B factory-direct OEM 製造プラットフォームとして、AutoCAD / Fusion 360 / STEP ファイルを `supplierExchange` パッケージとして受け入れる。しかし設計者が 3D CAD ファイルを手元に持っていない場合 — 製品のスケッチ写真、多視点画像、テキスト説明 — から tsukuru RFQ に直接繋ぐ経路がなかった。
 
 **ADSKAILab (Autodesk AI Lab / HuggingFace)** が 2026-04〜05 にかけて公開したモデル群がこのギャップを埋める:
 
@@ -55,10 +55,10 @@ superseded_by: []
 
 | 属性 | 値 |
 |---|---|
-| Domain | `aidesk.gftd.ai` |
+| Domain | `aidesk.etzhayyim.com` |
 | Nanoid | `a1d3sk00` |
 | Primary DID | `did:erc725:gftd:260505:{identityContract}` |
-| AT facade DID | `did:web:aidesk.gftd.ai` |
+| AT facade DID | `did:web:aidesk.etzhayyim.com` |
 | NSID prefix (商用) | `ai.gftd.apps.aidesk.*` |
 | NSID prefix (研究) | `ai.gftd.apps.aidesk.research.*` (Phase 2) |
 | AT Protocol layer | L3 Dispatcher (CF Worker) + L7 BPMN (pymagatama) |
@@ -75,7 +75,7 @@ superseded_by: []
 # 50-infra/vultr/mitama-udf-pool/values.yaml への追記 (Phase 2)
 aideskWorker:
   enabled: false   # Phase 1 = pymagatama 同居, Phase 2 = dedicated pod
-  image: ghcr.io/gftdcojp/pymagatama:{tag}
+  image: ghcr.io/etzhayyim/pymagatama:{tag}
   resources:
     requests: { cpu: "4", memory: "12Gi" }
     limits:   { cpu: "8", memory: "16Gi" }
@@ -90,7 +90,7 @@ aideskWorker:
 [User / tsukuru]
       │  upload images / STEP / text
       ▼
- T3 CF Worker (aidesk.gftd.ai, thin L3 Dispatcher)
+ T3 CF Worker (aidesk.etzhayyim.com, thin L3 Dispatcher)
    - XRPC facade: submitDesignJob / getDesignJob / listDesignJobs / exportToTsukuru
    - Blob upload → B2 (SHA-256 content-addressed, ADR-0036)
    - Hyperdrive Kysely INSERT vertex_aidesk_design_job (status=queued)
@@ -171,7 +171,7 @@ Research NSID は tsukuru handler から **import 不可** (BPMN 依存なし、
 ```sql
 -- Commercial artifacts (Apache 2.0 only, tsukuru-joinable)
 CREATE TABLE vertex_aidesk_design_job (
-    vertex_id       VARCHAR PRIMARY KEY,   -- at://did:web:aidesk.gftd.ai/ai.gftd.apps.aidesk.designJob/{rkey}
+    vertex_id       VARCHAR PRIMARY KEY,   -- at://did:web:aidesk.etzhayyim.com/ai.gftd.apps.aidesk.designJob/{rkey}
     actor_did       VARCHAR NOT NULL,      -- did:erc725:... (ADR-0095)
     org_did         VARCHAR NOT NULL,
     at_did          VARCHAR,               -- nullable, federation alias
@@ -185,7 +185,7 @@ CREATE TABLE vertex_aidesk_design_job (
 );
 
 CREATE TABLE vertex_aidesk_artifact (
-    vertex_id       VARCHAR PRIMARY KEY,   -- at://did:web:aidesk.gftd.ai/ai.gftd.apps.aidesk.artifact/{rkey}
+    vertex_id       VARCHAR PRIMARY KEY,   -- at://did:web:aidesk.etzhayyim.com/ai.gftd.apps.aidesk.artifact/{rkey}
     job_id          VARCHAR NOT NULL,
     actor_did       VARCHAR NOT NULL,
     org_did         VARCHAR NOT NULL,
@@ -372,7 +372,7 @@ export default createWorkerExport((sdk) => {
   sdk.app.command("ai.gftd.apps.aidesk.submitDesignJob", async ({ input }) => {
     const jobId = `aidesk-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     await db.insertInto("vertex_aidesk_design_job").values({
-      vertex_id:    `at://did:web:aidesk.gftd.ai/ai.gftd.apps.aidesk.designJob/${jobId}`,
+      vertex_id:    `at://did:web:aidesk.etzhayyim.com/ai.gftd.apps.aidesk.designJob/${jobId}`,
       actor_did:    input.actorDid,
       org_did:      input.orgDid ?? "anon",
       at_did:       input.atDid ?? null,

@@ -24,8 +24,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-expand-tick-v1',
-                 'did:web:graph.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-expand-tick-v1',
+                 'did:web:graph.etzhayyim.com',
                  'graph_expand_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -39,14 +39,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID:      ai.gftd.apps.graph.expandTick\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-expandTick-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-expandTick-v1\n'
                  '  binding allowlist: vertex_graph_expand_proposal\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_graph_expand_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/graph"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/graph"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="graph_expand_tick" name="graph expand tick" '
@@ -150,11 +150,11 @@ UP = [{'sql': '\n'
                  '(vertex_id, source_vid, proposed_dst_label, edge_kind, confidence, rationale, '
                  'llm_model, status, created_at, owner_did, sensitivity_ord, org_id, user_id, '
                  "actor_id, actor_did, org_did) VALUES ($1, $2, $3, $4, $5, $6, $7, 'proposed', "
-                 "$8, 'did:web:graph.gftd.ai', 1, 'did:web:graph.gftd.ai', "
-                 "'did:web:graph.gftd.ai', 'sys.bpmn.graph.expand', 'did:web:graph.gftd.ai', "
+                 "$8, 'did:web:graph.etzhayyim.com', 1, 'did:web:graph.etzhayyim.com', "
+                 "'did:web:graph.etzhayyim.com', 'sys.bpmn.graph.expand', 'did:web:graph.etzhayyim.com', "
                  '\'anon\')&quot;" target="sql"/>\n'
                  '          <zeebe:input source="=[ '
-                 '&quot;at://did:web:graph.gftd.ai/ai.gftd.apps.graph.expandProposal/&quot; + (if '
+                 '&quot;at://did:web:graph.etzhayyim.com/ai.gftd.apps.graph.expandProposal/&quot; + (if '
                  'seedCount &gt; 0 then seedRows[1].vertex_id else &quot;empty&quot;) + '
                  '&quot;|&quot; + (if llmOk then llmData.edgeKind else &quot;none&quot;) + '
                  '&quot;|&quot; + (if llmOk then llmData.dstLabel else &quot;none&quot;), if '
@@ -199,10 +199,10 @@ UP = [{'sql': '\n'
                  7830,
                  '00-contracts/bpmn/ai/gftd/graph/expandTick.bpmn',
                  '2026-05-01T13:00:00Z',
-                 'did:web:graph.gftd.ai',
-                 'did:web:graph.gftd.ai',
+                 'did:web:graph.etzhayyim.com',
+                 'did:web:graph.etzhayyim.com',
                  'sys.bpmn.seed.graph',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-expand-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-expand-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -216,23 +216,23 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/graph-expandTick-v1',
-                 'did:web:graph.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/graph-expandTick-v1',
+                 'did:web:graph.etzhayyim.com',
                  'ai.gftd.apps.graph.expandTick',
                  'graph_expand_tick',
                  60000,
                  'vertex_graph_expand_proposal',
                  '2026-05-01T13:00:00Z',
-                 'did:web:graph.gftd.ai',
-                 'did:web:graph.gftd.ai',
+                 'did:web:graph.etzhayyim.com',
+                 'did:web:graph.etzhayyim.com',
                  'sys.bpmn.seed.graph',
-                 'did:web:graph.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/graph-expandTick-v1']}]
+                 'did:web:graph.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/graph-expandTick-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/graph-expandTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/graph-expandTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-expand-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-expand-tick-v1']}]
 
 
 def upgrade() -> None:

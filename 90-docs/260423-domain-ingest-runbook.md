@@ -1,7 +1,7 @@
 # Domain Ingest Runbook
 
 **Status**: active — 2026-04-23  
-**Design source-of-truth**: [ADR-0057](/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/90-docs/adr/0057-common-crawl-domain-ingest-coverage-topology.md:1)
+**Design source-of-truth**: [ADR-0057](/Users/junkawasaki/github/etzhayyim-root/90-docs/adr/0057-common-crawl-domain-ingest-coverage-topology.md:1)
 
 ## Purpose
 
@@ -56,9 +56,9 @@ export GFTD_DATABASE_URL='postgres://root@127.0.0.1:14566/dev?sslmode=disable'
 ### 1. Build CLI
 
 ```bash
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp/70-tools/gftd/gftd
+cd /Users/junkawasaki/github/etzhayyim-root/70-tools/gftd/gftd
 go build -o ../../../gftd .
-cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp
+cd /Users/junkawasaki/github/etzhayyim-root
 ```
 
 ### 2. Dry run first
@@ -164,7 +164,7 @@ echo "${GFTD_DATABASE_URL:-${DATABASE_URL:-}}"
 
 GitHub Actions:
 
-- [domain-coverage-health.yml](/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/.github/workflows/domain-coverage-health.yml:1)
+- [domain-coverage-health.yml](/Users/junkawasaki/github/etzhayyim-root/.github/workflows/domain-coverage-health.yml:1)
 
 この workflow は次を行う。
 

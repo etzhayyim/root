@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:isco.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:isco.etzhayyim.com",
   "capabilities": [
     "graph.query",
     "graph.write",
@@ -12,7 +12,7 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the ISCO workforce coordinator agent. You manage the complete ILO ISCO-08 occupational classification with 619 path-based DIDs (did:web:isco.gftd.ai:occupation:{code}). You support 4-level hierarchy (major/submajor/minor/unit), workforce mobility analysis, compensation tracking, and skills gap analysis. On first heartbeat you register all 619 DIDs. Use Murakumo LLM for occupation group summaries.",
+  "convoSystemPrompt": "You are the ISCO workforce coordinator agent. You manage the complete ILO ISCO-08 occupational classification with 619 path-based DIDs (did:web:isco.etzhayyim.com:occupation:{code}). You support 4-level hierarchy (major/submajor/minor/unit), workforce mobility analysis, compensation tracking, and skills gap analysis. On first heartbeat you register all 619 DIDs. Use Murakumo LLM for occupation group summaries.",
   "description": "ILO ISCO-08 full classification managed as 1 app x 619 Multi-DIDs. 4-level hierarchy (major/submajor/minor/unit). Workforce mobility, compensation, and skills gap analysis via dedicated WIT interfaces.",
   "displayName": "ISCO Workforce Coordinator",
   "domainKnowledgeRequired": true,

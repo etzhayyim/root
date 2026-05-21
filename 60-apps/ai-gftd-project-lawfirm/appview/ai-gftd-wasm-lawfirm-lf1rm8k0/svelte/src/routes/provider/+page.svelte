@@ -4,8 +4,8 @@
 
   /**
    * Provider tab — Murakumo LLM + cross-actor cards.
-   * Cards are entry points; invocation routes into murakumo.gftd.ai /
-   * hanrei.gftd.ai / bengoshi.gftd.ai via wRPC cross-actor (not yet wired from here —
+   * Cards are entry points; invocation routes into murakumo.etzhayyim.com /
+   * hanrei.etzhayyim.com / bengoshi.etzhayyim.com via wRPC cross-actor (not yet wired from here —
    * the cards surface the tool contract and deep-link to the right runner).
    */
 
@@ -38,10 +38,10 @@
       icon: "📝",
       summary: "Murakumo drafts a jurisdiction-aware motion from the matter's subject + prior pleadings. Output enters status=pendingReview awaiting ISCO-2611 approval (RULE-003).",
       inputHint: "matter · motion type · audience court",
-      routesTo: "wRPC → murakumo.gftd.ai:draftMotion → uploadDocument(aiGenerated=true)",
+      routesTo: "wRPC → murakumo.etzhayyim.com:draftMotion → uploadDocument(aiGenerated=true)",
       action: () => {
         if (!selectedMatter) return;
-        location.assign(`https://murakumo.gftd.ai/agent/draft-motion?matterDid=${encodeURIComponent(selectedMatter.matterDid)}`);
+        location.assign(`https://murakumo.etzhayyim.com/agent/draft-motion?matterDid=${encodeURIComponent(selectedMatter.matterDid)}`);
       },
       disabled: !selectedMatter ? "pick a matter first" : undefined,
     },
@@ -49,12 +49,12 @@
       id: "cite-check",
       title: "Cite check",
       icon: "📚",
-      summary: "Resolves every citation in an uploaded document against hanrei.gftd.ai precedent index + e-Gov laws. Flags overruled / reversed / superseded cites.",
+      summary: "Resolves every citation in an uploaded document against hanrei.etzhayyim.com precedent index + e-Gov laws. Flags overruled / reversed / superseded cites.",
       inputHint: "documentDid OR raw text",
-      routesTo: "wRPC → hanrei.gftd.ai:resolveCitations",
+      routesTo: "wRPC → hanrei.etzhayyim.com:resolveCitations",
       action: () => {
         if (!selectedMatter) return;
-        location.assign(`https://hanrei.gftd.ai/agent/cite-check?matterDid=${encodeURIComponent(selectedMatter.matterDid)}`);
+        location.assign(`https://hanrei.etzhayyim.com/agent/cite-check?matterDid=${encodeURIComponent(selectedMatter.matterDid)}`);
       },
       disabled: !selectedMatter ? "pick a matter first" : undefined,
     },
@@ -77,10 +77,10 @@
       icon: "💰",
       summary: "Projects next-period invoice total from current billable hours velocity + pending flat fees. Soft preview of what issueInvoice would settle on day N.",
       inputHint: "matter · projection window",
-      routesTo: "wRPC → murakumo.gftd.ai:invoiceForecast (read-only)",
+      routesTo: "wRPC → murakumo.etzhayyim.com:invoiceForecast (read-only)",
       action: () => {
         if (!selectedMatter) return;
-        location.assign(`https://murakumo.gftd.ai/agent/invoice-forecast?matterDid=${encodeURIComponent(selectedMatter.matterDid)}`);
+        location.assign(`https://murakumo.etzhayyim.com/agent/invoice-forecast?matterDid=${encodeURIComponent(selectedMatter.matterDid)}`);
       },
       disabled: !selectedMatter ? "pick a matter first" : undefined,
     },
@@ -104,7 +104,7 @@
 
 <p class="text-xs text-neutral-500 mb-4">
   4 agent tools auto-registered to the platform agent graph via <code>capabilityDeclare()</code>.
-  Discover via <code>POST mcp.gftd.ai/mcp</code> <code>tools/list</code>.
+  Discover via <code>POST mcp.etzhayyim.com/mcp</code> <code>tools/list</code>.
 </p>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">

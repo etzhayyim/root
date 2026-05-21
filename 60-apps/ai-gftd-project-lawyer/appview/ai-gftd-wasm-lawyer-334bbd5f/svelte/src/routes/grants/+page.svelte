@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  const FIRM_DID = 'did:web:lawyer.gftd.ai';
-  const LAWYER_DID = 'did:web:k-bakshi.gftd.ai';
+  const FIRM_DID = 'did:web:lawyer.etzhayyim.com';
+  const LAWYER_DID = 'did:web:k-bakshi.etzhayyim.com';
 
   type Grant = {
     grantDid: string;
@@ -35,7 +35,7 @@
       role: 'coCounsel',
       capabilities: ['read', 'comment', 'uploadDocument'],
       expiresAt: '2026-08-18T00:00:00Z',
-      grantingFirmDid: 'did:web:lawfirm.gftd.ai',
+      grantingFirmDid: 'did:web:lawfirm.etzhayyim.com',
       grantingFirmName: 'Gftd Lawfirm',
       status: 'invited',
     },
@@ -60,7 +60,7 @@
       role: 'coCounsel',
       capabilities: ['read', 'comment'],
       expiresAt: '2027-01-01T00:00:00Z',
-      grantingFirmDid: 'did:web:lawfirm.gftd.ai',
+      grantingFirmDid: 'did:web:lawfirm.etzhayyim.com',
       grantingFirmName: 'Gftd Lawfirm',
       status: 'accepted',
       acceptedAt: '2026-04-01T09:30:00Z',

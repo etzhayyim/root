@@ -11,7 +11,7 @@
 
 import seed from "./seed/preset-taxa.json" with { type: "json" };
 
-const PDS = process.env.PDS ?? "https://atproto.gftd.ai";
+const PDS = process.env.PDS ?? "https://atproto.etzhayyim.com";
 const ROOT_DID = process.env.ROOT_DID ?? "did:plc:y3nnbwowvrtamshornglr7fa";
 const PROJECT_ID = "seibutsu";
 

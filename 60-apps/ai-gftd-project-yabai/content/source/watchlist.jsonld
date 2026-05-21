@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Dataset",
-  "@id": "https://yabai.gftd.ai/content/source/watchlist",
+  "@id": "https://yabai.etzhayyim.com/content/source/watchlist",
   "name": "YABAI Consolidated Sanctions Watchlist",
   "description": "Aggregated from OFAC SDN (18,712 entries), UN Security Council (1,002 entries), EU Financial Sanctions, UK OFSI, OpenSanctions (78,351 entries), Japan MOF/METI, and law enforcement actions. Priority-filtered to highest-impact designations.",
   "generatedAt": "2026-03-16T12:00:00Z",

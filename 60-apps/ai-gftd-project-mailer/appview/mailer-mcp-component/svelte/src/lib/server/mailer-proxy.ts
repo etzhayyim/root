@@ -1,6 +1,6 @@
-const ACTOR = 'did:web:mailer.gftd.ai';
+const ACTOR = 'did:web:mailer.etzhayyim.com';
 const APP = 'mailer';
-const DEFAULT_DISPATCHER_URL = 'https://dispatcher.gftd.ai';
+const DEFAULT_DISPATCHER_URL = 'https://dispatcher.etzhayyim.com';
 const DISPATCHER_FALLBACK_URLS = [
   'http://66.42.104.29.sslip.io',
   'http://66.42.104.29',
@@ -8,7 +8,7 @@ const DISPATCHER_FALLBACK_URLS = [
   'http://45.77.121.69:8080',
 ];
 const NSID_PREFIX = 'ai.gftd.apps.mailer.';
-const PDS_ORIGIN = 'https://atproto.gftd.ai';
+const PDS_ORIGIN = 'https://atproto.etzhayyim.com';
 
 type SecretBinding = { get(): Promise<string> };
 type Env = Record<string, unknown> & {

@@ -46,7 +46,7 @@
 1. 転送失敗時は callback queue 自動登録
 2. 家族通知を高優先で送信
 
-## Epic C: Family Portal (`ohanashi.gftd.ai`)
+## Epic C: Family Portal (`ohanashi.etzhayyim.com`)
 
 ### OHN-020 家族アカウントと同意管理
 - Goal: 通話要約共有の同意フローを実装
@@ -86,10 +86,10 @@
 - Goal: `ohanashi-voice-orchestrator` の deploy manifest を定義
 - Acceptance:
 1. namespace は `magatama-runtime`
-2. image は `ghcr.io/gftdcojp/*`
+2. image は `ghcr.io/etzhayyim/*`
 
 ### OHN-041 HTTPRoute 作成
-- Goal: `ohanashi.gftd.ai` で `api/mcp` を公開
+- Goal: `ohanashi.etzhayyim.com` で `api/mcp` を公開
 - Acceptance:
 1. path-based legacy endpoint を使わない
 2. health endpoint `/_app/version.json` で疎通確認

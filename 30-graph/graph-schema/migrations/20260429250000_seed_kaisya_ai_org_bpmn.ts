@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-// Seed vertex_bpmn_process_def + vertex_bpmn_lexicon_binding for gftdcojp
+// Seed vertex_bpmn_process_def + vertex_bpmn_lexicon_binding for etzhayyim
 // Artificial Organism (ADR-2604291800 § ai_org). 8 AI agents, timer-start cadence.
 // Humans only act as tasklist approvers via vertex_kaisya_task.
 

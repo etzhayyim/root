@@ -7,12 +7,12 @@ topic: cyber-drill-webvr-visual-stack
 authoritative: true
 last_verified: 2026-05-21
 authoritative_for:
-  - cyber-drill.gftd.ai VR visual stack (room shell + spark backdrop + per-node effects)
+  - cyber-drill.etzhayyim.com VR visual stack (room shell + spark backdrop + per-node effects)
   - choice-card reveal UX contract (narration-gated, fade-in + scale pop)
   - selection deadline policy (30s post-narration, inaction auto-fire)
   - cyber-drill scenario authoring contract (IncidentNode.effects)
-  - @gftdcojp/kami-engine-sdk/webvr public surface for incident drills
-  - @gftdcojp/kami-engine-sdk/spark scene-attachable splat layer API
+  - @etzhayyim/kami-engine-sdk/webvr public surface for incident drills
+  - @etzhayyim/kami-engine-sdk/spark scene-attachable splat layer API
 priority: 7.4
 axis: experience-pipeline
 weight: 0.74
@@ -36,7 +36,7 @@ superseded_by: []
 # Context
 
 `60-apps/ai-gftd-project-cyber-drill/` ships smartphone-first WebVR OT
-cybersecurity training scenarios on top of `@gftdcojp/kami-engine-sdk`.
+cybersecurity training scenarios on top of `@etzhayyim/kami-engine-sdk`.
 The first scenario — semiconductor + electronic-materials chemical
 plant incident — exercises every stage of the kami-cine pipeline
 (`gftd:kami-cine@1.0.0`) and is the vendor's first real visual product
@@ -61,13 +61,13 @@ The cyber-drill VR visual stack is locked at **four concentric layers**,
 each owned by a distinct API surface:
 
 1. **Room shell** (toon room + 4 walls + ceiling + outline) — produced
-   by `@gftdcojp/kami-engine-sdk/webvr::mountIncidentScene` using
+   by `@etzhayyim/kami-engine-sdk/webvr::mountIncidentScene` using
    `MeshToonMaterial` with a 3-step gradient texture (`NearestFilter`,
    floor band lifted to 50%). Per-`LocationKind` palette.
 
 2. **Spark Gaussian backdrop** — per-`LocationKind` procedural 3DGS
    cloud (~3-5k splats) attached via
-   `@gftdcojp/kami-engine-sdk/spark::createSplatCloudLayer(camera,
+   `@etzhayyim/kami-engine-sdk/spark::createSplatCloudLayer(camera,
    cloud, opts)`. Additive blending, painter sort each frame,
    foveation 0.15, opacity multiplier 1.4. Clouds:
    - `scadaRoom`     — monitor halos + amber LEDs + blue haze
@@ -79,7 +79,7 @@ each owned by a distinct API surface:
    - `utilityRoom`   — steel cabinets + grey ambient
 
 3. **Per-node visual effects** — 7-effect registry in
-   `@gftdcojp/kami-engine-sdk/webvr::buildNodeEffect(kind, opts)`,
+   `@etzhayyim/kami-engine-sdk/webvr::buildNodeEffect(kind, opts)`,
    stacked per `IncidentNode.effects`:
    | kind | use |
    |---|---|

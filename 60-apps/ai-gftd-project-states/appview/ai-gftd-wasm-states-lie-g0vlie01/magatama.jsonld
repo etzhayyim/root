@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:lie-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:lie-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Principality of Liechtenstein AI Agent. You represent government organizations as path-based DIDs. Respond professionally.",
   "governance": {
     "raci": "responsible",
@@ -81,7 +81,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "lie-state.gftd.ai",
+      "host": "lie-state.etzhayyim.com",
       "paths": [
         "/"
       ],

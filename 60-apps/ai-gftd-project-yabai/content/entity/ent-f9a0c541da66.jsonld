@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Organization",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-f9a0c541da66",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f9a0c541da66",
   "entityId": "ent-f9a0c541da66",
   "canonicalName": "fu yuan yu 8644",
   "aliases": [

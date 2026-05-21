@@ -1,7 +1,7 @@
 {
-  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
   "@type": "Person",
-  "@id": "https://yabai.gftd.ai/content/entity/ent-c64c7851e518",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c64c7851e518",
   "entityId": "ent-c64c7851e518",
   "canonicalName": "umar siddique kathio azmarai",
   "aliases": [

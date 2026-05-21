@@ -1,4 +1,4 @@
-# lg-jukyu — LangGraph Server actor for jukyu.gftd.ai
+# lg-jukyu — LangGraph Server actor for jukyu.etzhayyim.com
 
 Global Supply Demand System. OSS LangGraph FastAPI pattern (mirrors lg-yukkuri).
 
@@ -89,8 +89,8 @@ Halting: max 8 supersteps; stop if max delta < 0.03 for 2 consecutive supersteps
 | Var | Default | Purpose |
 |---|---|---|
 | `RW_URL` / `LG_CHECKPOINTER_URL` | (required) | RisingWave PG :4566 |
-| `JUKYU_APP_DID` | `did:web:jukyu.gftd.ai` | Actor DID for audit |
-| `JUKYU_LLM_URL` | `http://llm.gftd.ai` | LiteLLM gateway |
+| `JUKYU_APP_DID` | `did:web:jukyu.etzhayyim.com` | Actor DID for audit |
+| `JUKYU_LLM_URL` | `http://llm.etzhayyim.com` | LiteLLM gateway |
 | `JUKYU_LLM_API_KEY` | `""` | Bearer token |
 | `JUKYU_LLM_EXTRACTION_MODEL` | `qwen3-30b` | Shock extraction model |
 | `JUKYU_LLM_NARRATIVE_MODEL` | `gemma-4-e4b-it` | Narrative model |
@@ -106,7 +106,7 @@ Halting: max 8 supersteps; stop if max delta < 0.03 for 2 consecutive supersteps
 | **P1** LangGraph scaffold | 12 graphs + server + Dockerfile + langgraph.json | ✅ 2026-05-15 |
 | **P1** DB schema | `vertex_jukyu_*`, `edge_jukyu_*`, `mv_jukyu_*` | ✅ migrations at `30-graph/graph-schema/migrations/20260514153000_jukyu_global_supply_demand_sos.ts` + `202605150002_jukyu_entity_vessel_transport.ts` |
 | **P1** Helm chart | `50-infra/vultr/lg-jukyu-pool/` | ✅ deployment.yaml + cronjob.yaml |
-| **P1** build + push amd64 | `ghcr.io/gftdcojp/pymagatama:jukyu-entity-transport-*-amd64` | ✅ uses shared pymagatama image (values.yaml pinned) |
+| **P1** build + push amd64 | `ghcr.io/etzhayyim/pymagatama:jukyu-entity-transport-*-amd64` | ✅ uses shared pymagatama image (values.yaml pinned) |
 | **P1** CF tunnel route | cloudflared ConfigMap jukyu NSID routes | ✅ 2026-05-15 added to bpmn-dispatcher-tunnel.yaml |
 | **P2** naphtha MV connection | live `mv_naphtha_*` → jukyu normalization | ⏳ |
 | **P2** UI cockpit | SvelteKit balance/chain/company/scenario views | ✅ `60-apps/ai-gftd-project-jukyu/appview/jukyu-ui-jukyu001/svelte/src/App.svelte` |

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.gftd.ai:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = JSON、Phase 2 で anchorTokenId に ERC725 anchor 追加可能。",
+      "description": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = JSON、Phase 2 で anchorTokenId に ERC725 anchor 追加可能。",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -25,7 +25,7 @@
           "required": ["ok", "certificateUri", "ritualUri", "itemCount"],
           "properties": {
             "ok": {"type": "boolean"},
-            "certificateUri": {"type": "string", "description": "at://did:web:otakiage.gftd.ai:ritual/ai.gftd.apps.otakiage.certificate/{rkey}"},
+            "certificateUri": {"type": "string", "description": "at://did:web:otakiage.etzhayyim.com:ritual/ai.gftd.apps.otakiage.certificate/{rkey}"},
             "ritualUri": {"type": "string"},
             "itemCount": {"type": "integer"},
             "categoryBreakdown": {"type": "string", "description": "JSON {category: count}"},

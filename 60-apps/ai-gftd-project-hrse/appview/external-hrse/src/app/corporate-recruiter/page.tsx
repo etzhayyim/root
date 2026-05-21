@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @gftdcojp/ai-gftd-hrse#CorporateRecruiterDashboard
+ * @etzhayyim/ai-gftd-hrse#CorporateRecruiterDashboard
  * リクルーター向けダッシュボード
  */
 

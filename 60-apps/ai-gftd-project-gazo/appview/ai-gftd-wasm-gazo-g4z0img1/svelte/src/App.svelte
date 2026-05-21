@@ -1,5 +1,5 @@
 <!--
-  gazo.gftd.ai — Browser-local Stable Diffusion verification page.
+  gazo.etzhayyim.com — Browser-local Stable Diffusion verification page.
   ONNX Runtime WebGPU + Sequential CLIP → UNet → VAE.
 -->
 <script lang="ts">

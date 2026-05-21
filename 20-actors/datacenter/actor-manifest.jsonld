@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/actor/v1",
-  "@id": "did:web:infra.gftd.ai:datacenter",
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:infra.etzhayyim.com:datacenter",
   "name": "datacenter",
   "nanoid": "d7c3n7r0",
   "displayName": "Datacenter Operations Actor",
@@ -9,7 +9,7 @@
   "edge": "sveltekit-proxy",
   "legacyExecutionTier": "T1",
   "performerType": "service",
-  "parentDid": "did:web:infra.gftd.ai",
+  "parentDid": "did:web:infra.etzhayyim.com",
   "heartbeatRequired": true,
   "domainKnowledgeRequired": true,
   "capabilities": [

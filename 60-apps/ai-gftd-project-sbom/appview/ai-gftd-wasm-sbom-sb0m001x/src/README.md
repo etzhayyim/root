@@ -15,7 +15,7 @@ Vendor source NOT carried over — wave-3 follow-up sub-PRs will port each comma
 - Lexicons: 5 files migrated to `00-contracts/lexicons/ai/gftd/sbom/`
 - rw-free reference impl: deferred (Option B pattern follows etz #89 / #90)
 - sbom.etzhayyim.com deploy: NOT yet (operator stage)
-- sbom.gftd.ai (vendor) status: **LIVE** — wait for operator Stage 4 (routing-gateway 301) + 1-week observation before vendor rm
+- sbom.etzhayyim.com (vendor) status: **LIVE** — wait for operator Stage 4 (routing-gateway 301) + 1-week observation before vendor rm
 
 ## Related
 - ADR-2605172000 — RW-free substrate

@@ -1,11 +1,11 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:jp4n41y0.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:jp4n41y0.etzhayyim.com",
   "name": "yorishiro-japanpost-enaiyo",
   "nanoid": "jp4n41y0",
   "component": {
     "env": {
-      "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions"
+      "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions"
     }
   },
   "convoSystemPrompt": "You are the yorishiro-japanpost-enaiyo agent — automated submission of 電子内容証明 (e-naiyo certified mail) via post.japanpost.jp. You draft sender/recipient/body records, delegate browser automation to the yorishiro-provider (Playwright), and track delivery receipts. All PII (customer number, card details, body text) is stored via provider-vault or Signal-encrypted private records; never in the public Repo. Respond in the user's language.",

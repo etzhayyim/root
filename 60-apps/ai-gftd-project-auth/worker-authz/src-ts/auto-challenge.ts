@@ -14,7 +14,7 @@
  *      counterBond)`. Note `msg.sender = sealer`, so on-chain the
  *      challenger.address row is the sealer, but `challengerDidHash` is
  *      whatever the auto-challenger picked (e.g. `keccak256(rootDid of
- *      did:web:yabai.gftd.ai)`). Slashed/refunded payouts go to sealer
+ *      did:web:yabai.etzhayyim.com)`). Slashed/refunded payouts go to sealer
  *      address; treasury redirection is a Phase 3 concern.
  *
  * Same pattern as the auto-settler — single sealer, deterministic on a

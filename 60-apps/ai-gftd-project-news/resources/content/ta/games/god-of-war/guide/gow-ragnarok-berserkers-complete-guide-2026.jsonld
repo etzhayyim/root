@@ -18,7 +18,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "GFTD",
-    "url": "https://news.gftd.ai"
+    "url": "https://news.etzhayyim.com"
   },
   "about": {
     "@type": "VideoGame",
@@ -40,12 +40,12 @@
       "url": "https://www.gamesradar.com/god-of-war-ragnarok-berserker-locations/"
     }
   ],
-  "url": "https://news.gftd.ai/ta/articles/gow-ragnarok-berserkers-complete-guide-2026",
+  "url": "https://news.etzhayyim.com/ta/articles/gow-ragnarok-berserkers-complete-guide-2026",
   "isPartOf": [
     {
       "@type": "CreativeWork",
       "name": "God of War Ragnarok Guide Hub",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-guide-hub-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-guide-hub-2026"
     }
   ],
   "keywords": [
@@ -59,62 +59,62 @@
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-fraekni-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-fraekni-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-fraekni-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-hardrefill-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-hardrefill-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-hardrefill-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-hjalti-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-hjalti-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-hjalti-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-haklangr-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-haklangr-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-haklangr-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-hvitserkr-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-hvitserkr-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-hvitserkr-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-beigadr-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-beigadr-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-beigadr-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-skjothendi-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-skjothendi-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-skjothendi-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-bodvar-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-bodvar-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-bodvar-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-starolfr-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-starolfr-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-starolfr-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-svipdagr-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-svipdagr-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-svipdagr-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-hromundr-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-hromundr-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-hromundr-guide-2026"
     },
     {
       "@type": "CreativeWork",
       "name": "gow-ragnarok-vottr-guide-2026",
-      "url": "https://news.gftd.ai/en/articles/gow-ragnarok-vottr-guide-2026"
+      "url": "https://news.etzhayyim.com/en/articles/gow-ragnarok-vottr-guide-2026"
     }
   ]
 }

@@ -1,5 +1,5 @@
 /**
- * @gftdcojp/cyber-freelance#StatCard
+ * @etzhayyim/cyber-freelance#StatCard
  * 統計データ表示カード
  * Toptalスタイルの統計カード
  */

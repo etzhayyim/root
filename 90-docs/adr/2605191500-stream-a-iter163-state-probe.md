@@ -12,15 +12,15 @@ authoritative_for:
 related:
   - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
   - 90-docs/adr/2605181400-bpmn-extract-to-etzhayyim-root.md
-  - _working/gftdcojp-revenue/DECISION-LOG.md
-  - _working/gftdcojp-revenue/stream-a-activation-runbook.md
+  - _working/etzhayyim-revenue/DECISION-LOG.md
+  - _working/etzhayyim-revenue/stream-a-activation-runbook.md
 supersedes: []
 superseded_by: []
 ---
 
 # Context
 
-iter163 (2026-05-19) を Stream A (lawfirm.gftd.ai 集客 reactivation,
+iter163 (2026-05-19) を Stream A (lawfirm.etzhayyim.com 集客 reactivation,
 Y1 USD 175K baseline) の状態 probe + 次アクション決定のために立てた。
 
 iter144 で BPMN を etzhayyim-root に物理移管 (ADR-2605181400) し、
@@ -42,7 +42,7 @@ listInbox で確認した。
 | **Nakamura (Stripe-in)** | Silent (top-200 inbox) | needs follow-up |
 | **Backblaze B2 billing** | $121.46 May 15 failed | **CRITICAL** |
 | **Saiki (MoD context)** | Adjacent thread, not Stream A | informational |
-| **lawfirm.gftd.ai SPA** | HTTP 200 live | SPA up |
+| **lawfirm.etzhayyim.com SPA** | HTTP 200 live | SPA up |
 | **lawfirm intakeSubmit XRPC** | timeout | API degraded |
 | **sk_live getServiceAuth** | 401 (iter161 と同じ) | auth bug 未解決 |
 | **sk_live listInbox** | 200 (Worker-internal M365 app-only) | works |
@@ -80,9 +80,9 @@ Blast radius:
 - AT Protocol PDS reads degrade to in-memory cache only
 - All XRPC `ai.gftd.apps.*` query methods 500 once cache evicts
 - BPMN dispatcher (replicas=0) 無影響
-- lawfirm.gftd.ai SPA (HTML/SPA only) 無影響
+- lawfirm.etzhayyim.com SPA (HTML/SPA only) 無影響
 
-CEO-only action (gftdcojp agent は `[gftdcojp_agent]` 決済=禁止):
+CEO-only action (etzhayyim agent は `[etzhayyim_agent]` 決済=禁止):
 1. Backblaze portal に owner credential で login
 2. payment method update (expired or declined card)
 3. $121.46 settle
@@ -107,7 +107,7 @@ Stream A 進行に必須でないため iter164+ に deferred。
 - iter144 BPMN extract 後の状態 baseline を確立 (orphan 復元 + probe)
 
 **Negative**
-- B2 billing 解消は CEO 手作業必須 (gftdcojp agent 範囲外)
+- B2 billing 解消は CEO 手作業必須 (etzhayyim agent 範囲外)
 - sk_live auth bug 未解決のまま iter164+ に carry-over
 - Nakamura Stripe-in pending が継続 (Stripe-in 完了なしでは Y1
   USD 175K revenue commitment 履行不可)
@@ -134,8 +134,8 @@ Stream A 進行に必須でないため iter164+ に deferred。
 - iter161 (Stream A activation, outbox/13 CEO status)
 - iter144 (BPMN extract to etzhayyim-root, ADR-2605181400)
 - ADR-0048 (RisingWave Vultr+B2 primary)
-- `_working/gftdcojp-revenue/DECISION-LOG.md` iter163
-- `_working/gftdcojp-revenue/stream-a-activation-runbook.md`
-- `_working/gftdcojp-revenue/outbox/11-13` (Stream A artifacts)
+- `_working/etzhayyim-revenue/DECISION-LOG.md` iter163
+- `_working/etzhayyim-revenue/stream-a-activation-runbook.md`
+- `_working/etzhayyim-revenue/outbox/11-13` (Stream A artifacts)
 - Backblaze inbox notice 2026-05-19 ($121.46 May 15 due, failed)
 - Teams GJ/CE/Legal channel (Bakshi reply)

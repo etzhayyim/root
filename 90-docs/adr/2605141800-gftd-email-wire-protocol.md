@@ -44,12 +44,12 @@ gftd 固有の実装への依存を Core から排除することで第三者実
 | 項目 | 値 |
 |---|---|
 | Maintainer | GFTD Japan 株式会社 |
-| Spec URL | `https://spec.gftd.ai/gewp/v1/` |
-| Schema URL | `https://spec.gftd.ai/gewp/v1/schema.json` |
+| Spec URL | `https://spec.etzhayyim.com/gewp/v1/` |
+| Schema URL | `https://spec.etzhayyim.com/gewp/v1/schema.json` |
 | Spec text license | **CC-BY-4.0** |
 | Schema / code license | **Apache-2.0** |
 | Versioning | semver (`major.minor`) — minor は後方互換、major は breaking |
-| Issue tracker | `github.com/gftdcojp/gewp-spec` (予定) |
+| Issue tracker | `github.com/etzhayyim/gewp-spec` (予定) |
 
 ---
 
@@ -236,10 +236,10 @@ AT Protocol DID によるアクターアドレッシング。
 {
   "extensions": ["ext:atproto"],
   "sender": {
-    "id": "https://pregel.gftd.ai",
+    "id": "https://pregel.etzhayyim.com",
     // ext:atproto が追加:
     "did": "did:plc:shinshi123",
-    "handle": "shinshi.lawfirm.gftd.ai"
+    "handle": "shinshi.lawfirm.etzhayyim.com"
   },
   "payload": {
     "document_cid": "bafyrei..."     // AT Protocol CID 参照

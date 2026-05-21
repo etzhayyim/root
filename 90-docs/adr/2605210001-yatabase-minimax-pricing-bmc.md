@@ -24,7 +24,7 @@ superseded_by: []
 
 ## 0. Scope と背景
 
-本 ADR は **yatabase.gftd.ai** を「純粋な Managed Graph DB BaaS」として再定義し、価格設計を **minimax regret 原則** で再構築する。2026-05-21 時点で LP 上から "S3 互換 object storage" メッセージを削除し、「3 query 言語 (Cypher / SPARQL / SQL) + MCP native + OWL reasoning を 1 engine で提供する Graph DB BaaS」に positioning を絞り込んだ。
+本 ADR は **yatabase.etzhayyim.com** を「純粋な Managed Graph DB BaaS」として再定義し、価格設計を **minimax regret 原則** で再構築する。2026-05-21 時点で LP 上から "S3 互換 object storage" メッセージを削除し、「3 query 言語 (Cypher / SPARQL / SQL) + MCP native + OWL reasoning を 1 engine で提供する Graph DB BaaS」に positioning を絞り込んだ。
 
 前 ADR (ADR-2605190000) は object storage + graph DB のハイブリッド前提で BMC を組んでいたため supersede。価格 axis は ADR-2605080000 を ground-truth に minimax で再評価する。
 

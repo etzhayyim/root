@@ -79,7 +79,7 @@ matching the canonical 8-layer Shannon-optimal topology
 | **L7 Orchestration** | Zeebe (Vultr k8s) | XOR command routing, sub-process call activities, retry, OCEL audit emission, guardrail boundary events. |
 | **L7 pyzeebe** | `pymagatama.primitives.projector.*` | LangGraph StateGraph entries: ReAct (`projector.agent.loop`), ToT (`projector.tot.expand`), Self-Consistency (`projector.sc.parallel`), Reflexion R/W (`projector.reflexion.{load,write}`), MCP discovery (`projector.tools.discover`), persist (`projector.persist.message`), command parser (`projector.command.parse`). |
 | **L4 Registry** | RisingWave PG | `vertex_bpmn_process_def` × 4 + `vertex_bpmn_lexicon_binding` × 4 (this ADR's seed migration). `vertex_projector_reflection` for episodic memory. `vertex_repo_record` for projector replies (graph-visible to existing yoro UI fetch path). |
-| **L8 Tool Pods** | (Phase 3 only) site.gftd.ai pod | `pm.web_research` HTTP fetch — not in Phase 1+2. |
+| **L8 Tool Pods** | (Phase 3 only) site.etzhayyim.com pod | `pm.web_research` HTTP fetch — not in Phase 1+2. |
 
 ### BPMN process graph
 
@@ -171,7 +171,7 @@ answer plus `(self-consistency: N/M paths agreed)` summary.
 
 `projector.persist.message` writes the projector's reply to
 `vertex_repo_record` under `collection=ai.gftd.convo.message`,
-`repo=did:web:ops.gftd.ai` (PM agent DID). yoro's existing
+`repo=did:web:ops.etzhayyim.com` (PM agent DID). yoro's existing
 `loadProjectChat` graph SQL query already reads this surface, so
 the UI sees BPMN-produced replies with no client-side change.
 
@@ -189,7 +189,7 @@ Protocol firehose).
 |---|---|---|
 | **Phase 1** | ✅ Scaffolded | 4 BPMN files, `pymagatama.primitives.projector` module with LangGraph ReAct, Reflexion, history loader, tool discovery, persist primitive. Migration `20260427160000_seed_projector_bpmn_actors.ts` registers `process_def` + `lexicon_binding`. Worker registration in `zeebe_worker_main.py`. |
 | **Phase 2** | ✅ Scaffolded | Tree-of-Thoughts (`projector.tot.expand`) and Self-Consistency (`projector.sc.parallel`) implementations, `treeOfThoughts.bpmn` + `selfConsistency.bpmn`, XOR routing in `sendProjectMessage.bpmn`. |
-| **Phase 3** | ✅ implemented (flag-gated, default off) | (a) CF Worker `handleSendProjectMessage` now branches on `env.PROJECTOR_USE_BPMN`: when `1`/`true`, it `waitUntil(fetch(dispatcher.gftd.ai/xrpc/ai.gftd.apps.projector.sendProjectMessage))` and returns `202 + {convoId, backend:"bpmn"}`. (b) yoro Worker exposes `GET /sse/projects/{convoId}` (90s server budget, auto-reconnect) — Server-Sent Events stream of new `vertex_repo_record` rows scoped to that convoId. (c) `/projects/[projectId]/+page.svelte` opens `EventSource` on `initProjectChat`, dedups by rkey, appends BPMN replies as they land. (d) `projector.persist.message` honours `PROJECTOR_PERSIST_VIA_PDS=1` to route the reply through `generic.pds.dispatch` (HMAC-mint Service Auth) so it federates; default = direct `vertex_repo_record` INSERT (graph-visible, non-federable). (e) `projector.auth.mint` task type exposes the existing `_mint_pds_service_auth(lxm)` helper to BPMN flows so PM tools can splice a Bearer for downstream `generic.http.fetch` / `generic.pds.dispatch` without 401. `/image` and `/think` slash commands stay on the deferred shim (BPMN-side reply text) — moving them to dedicated `imageGen.bpmn` / `deepReason.bpmn` sub-processes is deferred to Phase 5. |
+| **Phase 3** | ✅ implemented (flag-gated, default off) | (a) CF Worker `handleSendProjectMessage` now branches on `env.PROJECTOR_USE_BPMN`: when `1`/`true`, it `waitUntil(fetch(dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.projector.sendProjectMessage))` and returns `202 + {convoId, backend:"bpmn"}`. (b) yoro Worker exposes `GET /sse/projects/{convoId}` (90s server budget, auto-reconnect) — Server-Sent Events stream of new `vertex_repo_record` rows scoped to that convoId. (c) `/projects/[projectId]/+page.svelte` opens `EventSource` on `initProjectChat`, dedups by rkey, appends BPMN replies as they land. (d) `projector.persist.message` honours `PROJECTOR_PERSIST_VIA_PDS=1` to route the reply through `generic.pds.dispatch` (HMAC-mint Service Auth) so it federates; default = direct `vertex_repo_record` INSERT (graph-visible, non-federable). (e) `projector.auth.mint` task type exposes the existing `_mint_pds_service_auth(lxm)` helper to BPMN flows so PM tools can splice a Bearer for downstream `generic.http.fetch` / `generic.pds.dispatch` without 401. `/image` and `/think` slash commands stay on the deferred shim (BPMN-side reply text) — moving them to dedicated `imageGen.bpmn` / `deepReason.bpmn` sub-processes is deferred to Phase 5. |
 | **Phase 4** | pending | Delete the obsolete TS reasoning code from `pds-handlers-gftd.ts` (≈ 1500 LoC), keep PDS-bound writes (`branchConvo`, `addReflection`, `newProjectConvo` metadata) in TS. CF Worker bundle size measurement target: −30%. |
 | **Phase 5** | pending | DMN guardrail rules (richer policy beyond the Phase 1 deny-list), per-tool RACI binding in `vertex_bpmn_lexicon_binding.governance_json`, A/B vs CF Worker direct path on a 5% canary cohort. |
 
@@ -245,16 +245,16 @@ Protocol firehose).
    on staging via `pnpm db:migrate latest` (or
    `30-graph/graph-schema/scripts/apply-pending.sh` per
    ADR-2604241342 if pnpm path hits the known kysely+RW corruption).
-2. **F5 watcher** in `dispatcher.gftd.ai:8080` picks up the 4 new
+2. **F5 watcher** in `dispatcher.etzhayyim.com:8080` picks up the 4 new
    `vertex_bpmn_process_def` rows within 30s and deploys to Zeebe.
-3. **Smoke**: `curl -X POST http://dispatcher.gftd.ai:8080/xrpc/
+3. **Smoke**: `curl -X POST http://dispatcher.etzhayyim.com:8080/xrpc/
    ai.gftd.apps.projector.sendProjectMessage -d '{"convoId":"…",
    "text":"hello","callerDid":"did:web:…"}'`. Expect 202 + a new
    `vertex_repo_record` row for the projector reply within 10s.
 4. **Phase 3 cutover** (this ADR's Phase 3 row, now ✅):
-   - Flip `PROJECTOR_USE_BPMN=1` env on the PDS Worker (`atproto.gftd.ai`);
+   - Flip `PROJECTOR_USE_BPMN=1` env on the PDS Worker (`atproto.etzhayyim.com`);
      `handleSendProjectMessage` then delegates to Zeebe via
-     `dispatcher.gftd.ai:8080` and returns 202 + convoId.
+     `dispatcher.etzhayyim.com:8080` and returns 202 + convoId.
    - (Optional) `PROJECTOR_PERSIST_VIA_PDS=1` env on the pyzeebe pod
      so projector replies enter the AT firehose. Default off keeps
      replies graph-visible-only.

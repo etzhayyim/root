@@ -1,7 +1,7 @@
 /**
  * Typed XRPC client for lawfirm app procedures.
  *
- * All lawfirm commands proxy through the PDS XRPC gateway at atproto.gftd.ai.
+ * All lawfirm commands proxy through the PDS XRPC gateway at atproto.etzhayyim.com.
  * Session JWT is pulled from the appshellv2 auth store.
  *
  * Base NSIDs:
@@ -10,7 +10,7 @@
  *     uploadDocument,scheduleHearing,closeMatter}
  */
 
-const XRPC_SERVICE = "https://atproto.gftd.ai";
+const XRPC_SERVICE = "https://atproto.etzhayyim.com";
 
 type XrpcOptions = {
   bearerToken?: string;

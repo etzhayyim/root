@@ -1,19 +1,19 @@
 # ai-gftd-project-repository
 
-ADR-0039 **Repository-in-Graph** backing Worker for `repository.gftd.ai`. Owns the git object model (blob / tree / commit / ref) over Actor DID, and drives FaaS build dispatch via Cloudflare Workers for Platforms.
+ADR-0039 **Repository-in-Graph** backing Worker for `repository.etzhayyim.com`. Owns the git object model (blob / tree / commit / ref) over Actor DID, and drives FaaS build dispatch via Cloudflare Workers for Platforms.
 
 ## Scope
 
 - SSoT: `vertex_repository_{blob,tree,commit,ref}` + 6 edge labels (ADR-0039 §1).
 - Repository ≡ Actor DID. `vertex_actor` is reused; no new repository entity.
 - Lexicons: `00-contracts/lexicons/ai/gftd/repository/*.json` (13 files — 12 method + 1 record).
-- **Not a PDS replacement.** `ai.gftd.repository.*` is served by this Worker directly; PDS (`atproto.gftd.ai`) still owns `app.bsky.*`, `com.atproto.*`, `chat.bsky.convo.*`, `ai.gftd.vault.*`, `ai.gftd.signal.*` per ADR-0036.
+- **Not a PDS replacement.** `ai.gftd.repository.*` is served by this Worker directly; PDS (`atproto.etzhayyim.com`) still owns `app.bsky.*`, `com.atproto.*`, `chat.bsky.convo.*`, `ai.gftd.vault.*`, `ai.gftd.signal.*` per ADR-0036.
 
 ## Architecture
 
 ```
 Browser / CLI / yoro code-editor
-  → repository.gftd.ai/xrpc/ai.gftd.repository.*
+  → repository.etzhayyim.com/xrpc/ai.gftd.repository.*
   → this Worker (ai-gftd-wasm-repository-r3p0s1t0)
      ├─ createBlob / createTree / createCommit  → vertex_repository_* INSERT (Hyperdrive, 1-RTT per ADR-0036)
      ├─ createRef / updateRef                   → vertex_repository_ref + edge_repository_ref_points rewrite
@@ -52,12 +52,12 @@ See `30-graph/graph-schema/migrations/20260420100000_vertex_repository_tables.ts
 
 ```bash
 cd 60-apps/ai-gftd-project-repository/appview/ai-gftd-wasm-repository-r3p0s1t0
-gftd deploy --smoke-url https://r3p0s1t0.gftd.ai/health
+gftd deploy --smoke-url https://r3p0s1t0.etzhayyim.com/health
 ```
 
 Routes (per `magatama.jsonld`):
-- `r3p0s1t0.gftd.ai/*` (nanoid direct)
-- `repository.gftd.ai/*` (vanity)
+- `r3p0s1t0.etzhayyim.com/*` (nanoid direct)
+- `repository.etzhayyim.com/*` (vanity)
 
 ## Key Invariants (ADR-0039)
 

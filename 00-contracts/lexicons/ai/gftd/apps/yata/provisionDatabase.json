@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Provision a per-tenant RisingWave database for the caller's org_did. Creates `yata_<sha256(did)[:16]>` database + dedicated PG ROLE + applies storage schema migration inside the new DB. Idempotent. Caller MUST be `did:web:billing.gftd.ai` admin or an authorized provisioning agent.",
+      "description": "Provision a per-tenant RisingWave database for the caller's org_did. Creates `yata_<sha256(did)[:16]>` database + dedicated PG ROLE + applies storage schema migration inside the new DB. Idempotent. Caller MUST be `did:web:billing.etzhayyim.com` admin or an authorized provisioning agent.",
       "input": {
         "encoding": "application/json",
         "schema": {

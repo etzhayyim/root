@@ -1,4 +1,4 @@
-# ai-gftd-project-dogaka — dogaka.gftd.ai
+# ai-gftd-project-dogaka — dogaka.etzhayyim.com
 
 **Cinematic / 3D video creation appview** — sister project to `mangaka` (manga = still panels) and `animeka` (anime = cel timeline). dogaka = 動画 (dōga), the **3D / live-action cinematic** stage. Atom = `shot` (cinematic shot with camera, lights, characters, FX); the canonical internal representation is **USD scene graph**, and renders go through the 8-stage **kami-cine** pipeline (WIT `gftd:kami-cine@1.0.0`).
 
@@ -6,7 +6,7 @@
 
 | 項目 | 値 |
 |---|---|
-| Domain | `dogaka.gftd.ai` |
+| Domain | `dogaka.etzhayyim.com` |
 | Runtime | **Single Worker** (TS Native, edge proxy only per ADR-2605111200) |
 | nanoid | `d0g4k4x1` |
 | performerType | `service` (default sensitivity: `public`) |
@@ -17,22 +17,22 @@
 
 | DID | 用途 |
 |---|---|
-| `did:web:dogaka.gftd.ai` | Controller (app 本体) |
-| `did:web:dogaka.gftd.ai:project:{nanoid}` | Project (作品) |
-| `did:web:dogaka.gftd.ai:sequence:{nanoid}` | Sequence (シーン/段) |
-| `did:web:dogaka.gftd.ai:shot:{nanoid}` | Shot (ショット — atom) |
-| `did:web:dogaka.gftd.ai:asset:{nanoid}` | Asset (character / set / prop / lookdev) |
-| `did:web:dogaka.gftd.ai:actor:worldArchitect` | World model AI (stage 1) |
-| `did:web:dogaka.gftd.ai:actor:usdRigger` | USD scene assembly AI (stage 2) |
-| `did:web:dogaka.gftd.ai:actor:geomReconstructor` | Neural geometry AI (stage 3) |
-| `did:web:dogaka.gftd.ai:actor:temporalSolver` | 4D temporal field AI (stage 4) |
-| `did:web:dogaka.gftd.ai:actor:neuralRenderer` | Neural rasterizer AI (stage 5) |
-| `did:web:dogaka.gftd.ai:actor:cinematicRefiner` | Diffusion refinement AI (stage 6) |
-| `did:web:dogaka.gftd.ai:actor:compositor` | EXR compositing AI (stage 7) |
-| `did:web:dogaka.gftd.ai:actor:finalizer` | Encode AI (stage 8) |
-| `did:web:dogaka.gftd.ai:actor:director` | Shot direction / camera planning AI |
-| `did:web:dogaka.gftd.ai:actor:dop` | Cinematography / lighting AI |
-| `did:web:dogaka.gftd.ai:actor:soundDesigner` | Audio AI |
+| `did:web:dogaka.etzhayyim.com` | Controller (app 本体) |
+| `did:web:dogaka.etzhayyim.com:project:{nanoid}` | Project (作品) |
+| `did:web:dogaka.etzhayyim.com:sequence:{nanoid}` | Sequence (シーン/段) |
+| `did:web:dogaka.etzhayyim.com:shot:{nanoid}` | Shot (ショット — atom) |
+| `did:web:dogaka.etzhayyim.com:asset:{nanoid}` | Asset (character / set / prop / lookdev) |
+| `did:web:dogaka.etzhayyim.com:actor:worldArchitect` | World model AI (stage 1) |
+| `did:web:dogaka.etzhayyim.com:actor:usdRigger` | USD scene assembly AI (stage 2) |
+| `did:web:dogaka.etzhayyim.com:actor:geomReconstructor` | Neural geometry AI (stage 3) |
+| `did:web:dogaka.etzhayyim.com:actor:temporalSolver` | 4D temporal field AI (stage 4) |
+| `did:web:dogaka.etzhayyim.com:actor:neuralRenderer` | Neural rasterizer AI (stage 5) |
+| `did:web:dogaka.etzhayyim.com:actor:cinematicRefiner` | Diffusion refinement AI (stage 6) |
+| `did:web:dogaka.etzhayyim.com:actor:compositor` | EXR compositing AI (stage 7) |
+| `did:web:dogaka.etzhayyim.com:actor:finalizer` | Encode AI (stage 8) |
+| `did:web:dogaka.etzhayyim.com:actor:director` | Shot direction / camera planning AI |
+| `did:web:dogaka.etzhayyim.com:actor:dop` | Cinematography / lighting AI |
+| `did:web:dogaka.etzhayyim.com:actor:soundDesigner` | Audio AI |
 
 8 pipeline actor DIDs + 3 creative actor DIDs are registered at boot via `ensureActorDids(sdk)`. Stage records (`ai.gftd.apps.cine.*`) carry `producerDid` = the actor that ran that stage.
 
@@ -81,7 +81,7 @@ Stage records use a shared `pipelineRunId` (TID) to group the 8 artifacts of one
 Browser (KAMI viewport)
   → XRPC POST /xrpc/ai.gftd.apps.dogaka.renderShot {shotId, lookdev, takeOpts}
     → dogaka edge worker (src/app.ts) — proxy only (ADR-2605111200)
-      → dispatcher.gftd.ai → bpmn-dispatcher → AgentGateway MCP
+      → dispatcher.etzhayyim.com → bpmn-dispatcher → AgentGateway MCP
         → K8s LangServer pod (kami-cine pipeline)
           ├ stage 1  worldModel.generate(...)      → record + CID
           ├ stage 2  usdScene.compose(...)         → record + CID
@@ -104,7 +104,7 @@ Heavy compute (geom reconstruction, diffusion) is **pod-side only** — CF Worke
 ## Read Path (KAMI viewport)
 
 - Shot list / asset library / take history: XRPC query → pod SELECT
-- Per-stage artifact preview (USD inspector, splat viewer, EXR thumbnail, video player): client fetches `https://cdn.gftd.ai/blob/<cid>` directly
+- Per-stage artifact preview (USD inspector, splat viewer, EXR thumbnail, video player): client fetches `https://cdn.etzhayyim.com/blob/<cid>` directly
 - Live cooperative editing: convo-based (`chat.bsky.convo.*`) project room
 
 ## KAMI Engine Integration
@@ -124,5 +124,5 @@ Future Rust crates (deferred — not in this pass): `kami-cine-world-model`, `ka
 ```bash
 cd 60-apps/ai-gftd-project-dogaka/appview/ai-gftd-wasm-dogaka-d0g4k4x1
 gftd build
-gftd deploy --smoke-url https://d0g4k4x1.gftd.ai/health
+gftd deploy --smoke-url https://d0g4k4x1.etzhayyim.com/health
 ```

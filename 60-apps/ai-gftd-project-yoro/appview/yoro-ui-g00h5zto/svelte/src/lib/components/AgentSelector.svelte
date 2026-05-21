@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Avatar, Badge, Card } from '@gftdcojp/design-system';
+	import { Avatar, Badge, Card } from '@etzhayyim/design-system';
 	import { playClick } from '$lib/sound';
 	import type { AgentInfo } from '$lib/auth';
 

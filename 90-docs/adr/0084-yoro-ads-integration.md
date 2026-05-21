@@ -52,7 +52,7 @@ yoro は既に 3 つのアドネットワーク script を app.html に宣言し
 
 - `placement` prop を受け、`AD_SLOTS[placement]` から slot id / format / label / minHeight を解決
 - `IntersectionObserver` で viewport 200px 手前まで来た時に lazy-load (描画コスト削減)
-- Consent declined または `UNPROVISIONED` の場合は **house ad fallback** を描画 (gftd.ai 自己宣伝)
+- Consent declined または `UNPROVISIONED` の場合は **house ad fallback** を描画 (etzhayyim.com 自己宣伝)
 - Media.net 経路は cookie consent 不要 (DPDPA 準拠、contextual)
 - `<div class="ad-label">Sponsored</div>` を常時表示 (transparency; AdSense policy §Ad placement)
 
@@ -69,7 +69,7 @@ yoro は既に 3 つのアドネットワーク script を app.html に宣言し
 ### Current Runtime State (2026-04-20)
 
 - `providers.adsense = false` / `providers.exoclick = true` → AdSlot は ExoClick path を使用
-- **ExoClick site**: `yoro.gftd.ai` (site id 1094566), category Entertainment & Lifestyle
+- **ExoClick site**: `yoro.etzhayyim.com` (site id 1094566), category Entertainment & Lifestyle
 - **Provisioned zones** (all banner, ad_type=2 / media_type=2):
 
 | Placement | Zone id | Size |
@@ -212,13 +212,13 @@ score = 0.5 · (viewer follows advertiser)
 
 | Path | 役割 |
 |---|---|
-| `magatama.jsonld` | DID `did:web:ads.gftd.ai`, nanoid `adsm4d5c`, performerType `service`, profile, governance |
+| `magatama.jsonld` | DID `did:web:ads.etzhayyim.com`, nanoid `adsm4d5c`, performerType `service`, profile, governance |
 | `src/app.ts` | 3 XRPC command (`createCampaign` / `postSponsored` / `listCampaigns`) |
 | `wrangler.jsonc` | Stub (`gftd deploy` で regenerate) |
 | `CLAUDE.md` | project runbook + deploy flow |
 
 Lexicons at `00-contracts/lexicons/ai/gftd/apps/ads/`:
-- `createCampaign.json` — procedure → path-DID `did:web:ads.gftd.ai:campaign:{id}` を issue
+- `createCampaign.json` — procedure → path-DID `did:web:ads.etzhayyim.com:campaign:{id}` を issue
 - `postSponsored.json` — procedure → campaign DID で `app.bsky.feed.post` + `!ad` self-label を発行
 - `listCampaigns.json` — query → caller-owned campaign 一覧
 

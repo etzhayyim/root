@@ -1,6 +1,6 @@
 # ai-gftd-project-site — Site Intelligence Platform (Internet Clone Gateway)
 
-**唯一の外部 web fetch gateway。** 全 App の外部 web fetch/crawl は site.gftd.ai 経由必須 (直接 HTTP fetch 禁止)。100B-scale hierarchical DID page archive with topic coordinator routing for selective Follow. WET (Markdown) + WAT (JSON metadata) + WebP (screenshot) output pipeline for LLM embedding.
+**唯一の外部 web fetch gateway。** 全 App の外部 web fetch/crawl は site.etzhayyim.com 経由必須 (直接 HTTP fetch 禁止)。100B-scale hierarchical DID page archive with topic coordinator routing for selective Follow. WET (Markdown) + WAT (JSON metadata) + WebP (screenshot) output pipeline for LLM embedding.
 
 ## CRITICAL: Internet Clone Gateway Role
 
@@ -8,52 +8,52 @@
 
 ## CRITICAL: did:gftd Migration (ADR-0029)
 
-**新規 page DID は `did:gftd:{cidv1}:{cidv1}:{cidv1}` (W3C DID Core + CIDv1) を canonical とする。** 既存の `did:web:site.gftd.ai:{domain-slug}:{page-slug}` は legacy として grandfathered。`alsoKnownAs` で双方向 alias 維持、`edge_gftd_federation` で AT Proto 連携継続。
+**新規 page DID は `did:gftd:{cidv1}:{cidv1}:{cidv1}` (W3C DID Core + CIDv1) を canonical とする。** 既存の `did:web:site.etzhayyim.com:{domain-slug}:{page-slug}` は legacy として grandfathered。`alsoKnownAs` で双方向 alias 維持、`edge_gftd_federation` で AT Proto 連携継続。
 
 | 旧 (legacy) | 新 (canonical) |
 |---|---|
-| `did:web:site.gftd.ai` | `did:gftd:bafkrei...site` (root genesis) |
-| `did:web:site.gftd.ai:topic:semiconductor` | `did:gftd:bafkrei...site:bafkrei...topic-sem` |
-| `did:web:site.gftd.ai:example-com` | `did:gftd:bafkrei...site:bafkrei...example-com` |
-| `did:web:site.gftd.ai:example-com:docs-api-v2` | `did:gftd:bafkrei...site:bafkrei...example-com:bafkrei...docs-api-v2` |
+| `did:web:site.etzhayyim.com` | `did:gftd:bafkrei...site` (root genesis) |
+| `did:web:site.etzhayyim.com:topic:semiconductor` | `did:gftd:bafkrei...site:bafkrei...topic-sem` |
+| `did:web:site.etzhayyim.com:example-com` | `did:gftd:bafkrei...site:bafkrei...example-com` |
+| `did:web:site.etzhayyim.com:example-com:docs-api-v2` | `did:gftd:bafkrei...site:bafkrei...example-com:bafkrei...docs-api-v2` |
 
 - Spec: `90-docs/adr/0029-did-gftd-method-specification.md`
 - Lib: `10-protocol/did-gftd/` (CIDv1 + DAG-CBOR genesis op + W3C DID Doc)
-- Resolver: `did.gftd.ai` (`10-protocol/did-gftd/resolver/`)
+- Resolver: `did.etzhayyim.com` (`10-protocol/did-gftd/resolver/`)
 - Migration XRPC: `ai.gftd.identity.submitOp` (PDS handler)
-- 既存 15,283 wikipedia path は **topological-sort で root → leaf 順** に CIDv1 化 (`gftd identity migrate-paths --root did:web:site.gftd.ai`、scaffold 予定)
+- 既存 15,283 wikipedia path は **topological-sort で root → leaf 順** に CIDv1 化 (`gftd identity migrate-paths --root did:web:site.etzhayyim.com`、scaffold 予定)
 
 CONTROLS chain は path syntax で自動的に表現される (parent = `did.split(':').slice(0,-1).join(':')`)。新規追加に `:CONTROLS` edge の手動 INSERT は不要 (ADR-0029 §Path-Form DID Resolution)。
 
 ## Architecture: 3-Level DID Hierarchy + Topic Routing
 
 ```
-site.gftd.ai (single APP, 1 Worker)
+site.etzhayyim.com (single APP, 1 Worker)
   → 1 primary DID (coordinator, Follow 禁止 at 100B scale)
     → N Topic coordinator DIDs (follower routing layer)
-      → did:web:site.gftd.ai:topic:{topic-slug}
+      → did:web:site.etzhayyim.com:topic:{topic-slug}
     → N Domain DIDs (per crawled domain)
-      → did:web:site.gftd.ai:{domain-slug}
+      → did:web:site.etzhayyim.com:{domain-slug}
         → N Page DIDs (per crawled page, each page = DID)
-          → did:web:site.gftd.ai:{domain-slug}:{page-slug}
+          → did:web:site.etzhayyim.com:{domain-slug}:{page-slug}
 ```
 
 ### DID Path Hierarchy
 
 | Level | DID Representation | 例 | Follow 対象 |
 |---|---|---|---|
-| **APP** | primary DID | `did:web:site.gftd.ai` | ❌ (100B fan-out) |
-| **Topic** | topic coordinator DID | `did:web:site.gftd.ai:topic:semiconductor` | ✅ followers subscribe here |
-| **Domain** | domain DID | `did:web:site.gftd.ai:example-com` | ✅ domain-level followers |
-| **Page** | page DID (under domain) | `did:web:site.gftd.ai:example-com:docs-api-v2` | ✅ page-level tracking |
+| **APP** | primary DID | `did:web:site.etzhayyim.com` | ❌ (100B fan-out) |
+| **Topic** | topic coordinator DID | `did:web:site.etzhayyim.com:topic:semiconductor` | ✅ followers subscribe here |
+| **Domain** | domain DID | `did:web:site.etzhayyim.com:example-com` | ✅ domain-level followers |
+| **Page** | page DID (under domain) | `did:web:site.etzhayyim.com:example-com:docs-api-v2` | ✅ page-level tracking |
 
 ### CONTROLS Chain
 
 ```sql
-(:DID {id:"did:web:site.gftd.ai"})
-  -[:CONTROLS]->(:DID {id:"did:web:site.gftd.ai:topic:semiconductor"})
-  -[:CONTROLS]->(:DID {id:"did:web:site.gftd.ai:example-com"})
-    -[:CONTROLS]->(:DID {id:"did:web:site.gftd.ai:example-com:docs-api-v2"})
+(:DID {id:"did:web:site.etzhayyim.com"})
+  -[:CONTROLS]->(:DID {id:"did:web:site.etzhayyim.com:topic:semiconductor"})
+  -[:CONTROLS]->(:DID {id:"did:web:site.etzhayyim.com:example-com"})
+    -[:CONTROLS]->(:DID {id:"did:web:site.etzhayyim.com:example-com:docs-api-v2"})
 ```
 
 ## Design E 3-Tier Write + 3-Layer Reactive Pipeline
@@ -77,7 +77,7 @@ site.gftd.ai (single APP, 1 Worker)
 ### Follower Routing (100B Scale)
 
 ```
-Follower (e.g., handotai.gftd.ai):
+Follower (e.g., handotai.etzhayyim.com):
   1. Heartbeat: G("WebTopic").Match(Eq{"topic":"semiconductor"}) → discover topic DID
   2. Follow(topic DID) → subscribe to semiconductor pages only
   3. ComAtprotoSyncSubscribeRepos: receive AppBskyFeedPost from topic DID → analyze → own domain records
@@ -133,7 +133,7 @@ enqueue-url / enqueue-bulk / ComAtprotoSyncSubscribeRepos (cross-actor URL menti
 | `bulk_ingest_gutenberg` | Project Gutenberg | ~70,000 works | Gutendex JSON API → UTF-8 text |
 | `bulk_ingest_ndl` | NDL Digital Collection (国会図書館) | ~500,000 PD works | SRU/IIIF API → OCR text |
 
-All use Collection Job pattern. Results flow to isbn.gftd.ai via ComAtprotoSyncSubscribeRepos (isbn Follows webpage).
+All use Collection Job pattern. Results flow to isbn.etzhayyim.com via ComAtprotoSyncSubscribeRepos (isbn Follows webpage).
 
 ## WET/WAT/WebP Output Pipeline (LLM Embedding Optimized)
 
@@ -176,7 +176,7 @@ collection_job completed (HTML)
 
 ### Common Crawl Bulk Pipeline (CC-MAIN-2026-12)
 
-site.gftd.ai は Common Crawl の月次クロールデータを大規模取り込みし、gftd coverage world (403 world domains) の link graph 構築 + DID 分類に活用する。
+site.etzhayyim.com は Common Crawl の月次クロールデータを大規模取り込みし、gftd coverage world (403 world domains) の link graph 構築 + DID 分類に活用する。
 
 #### Data Scale
 
@@ -233,12 +233,12 @@ CDX API 不安定のため、全ファイルをストリーミング処理しド
 3. Auto-triggers CommonCrawl CDX seed for historical pages per domain
 4. Posts progress to technology topic DID
 
-**Example**: maps.gftd.ai invokes `seedForProject({project:"maps", domains:["nlftp.mlit.go.jp","www.gsi.go.jp",...]})` → site crawls 36 geo domains + CC backfill → WET/WAT output → maps subscribes and extracts geo entities via Murakumo NER.
+**Example**: maps.etzhayyim.com invokes `seedForProject({project:"maps", domains:["nlftp.mlit.go.jp","www.gsi.go.jp",...]})` → site crawls 36 geo domains + CC backfill → WET/WAT output → maps subscribes and extracts geo entities via Murakumo NER.
 
 ### Embedding Pipeline (Heartbeat Auto-Trigger)
 
-- **Text**: Heartbeat auto-queries `mv_wet_chunk_unembedded` (WetChunk WHERE embedding IS NULL) → cross-actor invoke murakumo.gftd.ai `embed-text` (qwen3-vl-8b) → write back to `vertex_wet_chunk.embedding` (REAL[])
-- **Visual**: Heartbeat auto-queries unembedded screenshots → cross-actor invoke murakumo.gftd.ai `embed-visual` (ColPali)
+- **Text**: Heartbeat auto-queries `mv_wet_chunk_unembedded` (WetChunk WHERE embedding IS NULL) → cross-actor invoke murakumo.etzhayyim.com `embed-text` (qwen3-vl-8b) → write back to `vertex_wet_chunk.embedding` (REAL[])
+- **Visual**: Heartbeat auto-queries unembedded screenshots → cross-actor invoke murakumo.etzhayyim.com `embed-visual` (ColPali)
 - **Cadence**: `shouldAnalyze` / `shouldPost` triggers text embedding (batch=30), `shouldPost` triggers visual embedding (batch=10)
 
 ### GraphRAG Retrieval (cmdAnswerConvo)

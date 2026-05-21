@@ -163,9 +163,9 @@ async function cmdRegisterTaxon(_sdk: HostSDK, body: Uint8Array): Promise<unknow
   if (!did || !rank || !scientificName) return { error: "did, rank, scientificName required" };
   const rkey = str(args.did ?? "") || genID("taxon");
   await db().insertInto("vertex_seibutsu_taxon" as any).values({
-    vertex_id: `at://${actorDID || "did:web:seibutsu.gftd.ai"}/ai.gftd.apps.seibutsu.taxon/${rkey}`,
+    vertex_id: `at://${actorDID || "did:web:seibutsu.etzhayyim.com"}/ai.gftd.apps.seibutsu.taxon/${rkey}`,
     sensitivity_ord: 2,
-    owner_did: actorDID || "did:web:seibutsu.gftd.ai",
+    owner_did: actorDID || "did:web:seibutsu.etzhayyim.com",
     did,
     rank,
     scientific_name: scientificName,
@@ -181,9 +181,9 @@ async function cmdDeriveTraits(_sdk: HostSDK, body: Uint8Array): Promise<unknown
   if (!taxonDid) return { error: "taxonDid required" };
   const rkey = taxonDid.replace(/[^a-z0-9-]/gi, "-");
   await db().insertInto("vertex_seibutsu_traits" as any).values({
-    vertex_id: `at://${actorDID || "did:web:seibutsu.gftd.ai"}/ai.gftd.apps.seibutsu.traits/${rkey}`,
+    vertex_id: `at://${actorDID || "did:web:seibutsu.etzhayyim.com"}/ai.gftd.apps.seibutsu.traits/${rkey}`,
     sensitivity_ord: 2,
-    owner_did: actorDID || "did:web:seibutsu.gftd.ai",
+    owner_did: actorDID || "did:web:seibutsu.etzhayyim.com",
     taxon_did: taxonDid,
     created_at: nowISO(),
     actor_id: APP_SLUG,
@@ -198,9 +198,9 @@ async function cmdIngestObservation(_sdk: HostSDK, body: Uint8Array): Promise<un
   if (!taxonDid || !observerDid) return { error: "taxonDid, observerDid required" };
   const id = genID("obs");
   await db().insertInto("vertex_seibutsu_observation" as any).values({
-    vertex_id: `at://${actorDID || "did:web:seibutsu.gftd.ai"}/ai.gftd.apps.seibutsu.observation/${id}`,
+    vertex_id: `at://${actorDID || "did:web:seibutsu.etzhayyim.com"}/ai.gftd.apps.seibutsu.observation/${id}`,
     sensitivity_ord: 2,
-    owner_did: actorDID || "did:web:seibutsu.gftd.ai",
+    owner_did: actorDID || "did:web:seibutsu.etzhayyim.com",
     id,
     taxon_did: taxonDid,
     observer_did: observerDid,

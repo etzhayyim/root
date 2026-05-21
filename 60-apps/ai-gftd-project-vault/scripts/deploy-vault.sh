@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# deploy-vault.sh — provision + deploy vault.gftd.ai.
+# deploy-vault.sh — provision + deploy vault.etzhayyim.com.
 #
 # Idempotent. Safe to re-run; each wrangler command errors gracefully if the
 # resource already exists, and we only update wrangler.jsonc when the D1 id is
@@ -62,7 +62,7 @@ say "Step 2/3: apply D1 migrations"
 say "Step 3/3: deploy ai-gftd-vault Worker"
 ( cd "$WORKER_DIR" && wrangler deploy )
 
-say "done. next: update PDS (atproto.gftd.ai) to pick up VAULT_SERVICE binding"
+say "done. next: update PDS (atproto.etzhayyim.com) to pick up VAULT_SERVICE binding"
 say "  cd 50-infra/cloudflare/workers/atproto && wrangler deploy"
 say ""
 say "then smoke test with: ./scripts/smoke-vault.sh"

@@ -150,7 +150,7 @@ Recorded fields stay identical to Oka (`base_model`, `base_model_revision`,
 |---|---|---|---|
 | Server CPU pod | `bitnet.cpp` (Microsoft, MIT) | i2_s | Slot into `pymagatama.primitives.chat` as a CPU fallback when the 6000 Ada inference pod is rate-limited or unreachable. |
 | Apple Silicon (laptop) | `bitnet.cpp` ARM NEON kernel | i2_s | Same blob; auto-detect at load. |
-| Browser (WebGPU) | `transformers.js` + custom WebGPU shader | i2_s ⇒ packed-int8 dequant in shader | Shipped as static asset on `baien.gftd.ai`. |
+| Browser (WebGPU) | `transformers.js` + custom WebGPU shader | i2_s ⇒ packed-int8 dequant in shader | Shipped as static asset on `baien.etzhayyim.com`. |
 | Browser (WASM) | `wasm-bitnet` (vendored, fallback) | i2_s | For browsers without WebGPU or with mobile GPU memory caps. |
 | Embedded (Pi / mobile) | `llama.cpp` BitNet kernel | i2_s | Same blob; quality matches CPU. |
 
@@ -170,7 +170,7 @@ edge" and the registry returns Baien rather than a server-bound model.
   `"cpu"` — all three default to `baien-bitnet-1.58bit-base`.
 - **Asset SSoT**: bf16 + i2_s blobs live under
   `b2://gftd-models/baien/{ver}/`. Browser assets are mirrored to
-  `baien.gftd.ai` static origin via Workers Assets.
+  `baien.etzhayyim.com` static origin via Workers Assets.
 
 ## 6. Cost
 

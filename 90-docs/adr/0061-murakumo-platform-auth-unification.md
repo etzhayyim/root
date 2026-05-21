@@ -19,7 +19,7 @@ related:
 
 ## Goal
 
-`murakumo.gftd.ai` を platform の単一 API key (`sk_live_*`) トポロジーに統合し、
+`murakumo.etzhayyim.com` を platform の単一 API key (`sk_live_*`) トポロジーに統合し、
 独立した `murk_*` shared secret / hardcoded fallback / CLI 側の
 `~/.config/gftd/murakumo_api_key` path を廃止する。将来の credits 課金統合
 (CheckSpendAllowed / SpendCredits / inferenceUsage metering) の土台を置く。
@@ -39,7 +39,7 @@ related:
 Caller
   │  Authorization: Bearer sk_live_*        ← ADR 0022 で統一した platform key
   ▼
-murakumo.gftd.ai (CF Worker)
+murakumo.etzhayyim.com (CF Worker)
   │  verifyApiKey(sk_live_*)                 ← vertex_api_key lookup (HYPERDRIVE)
   │  → { ownerDid, scopes }
   │  scope check: "murakumo:inference" OR "*"
@@ -85,7 +85,7 @@ post-inference: SpendCredits(ownerDid, actual_tokens * rate)
 ### 5. CC Worker (cc26m4x1) への影響
 
 CC Worker は既に `Authorization: Bearer ${env.MURAKUMO_API_KEY}` を
-`murakumo.gftd.ai` に送る実装になっている (CC-Worker src/app.ts)。
+`murakumo.etzhayyim.com` に送る実装になっている (CC-Worker src/app.ts)。
 
 - **変更**: `env.MURAKUMO_API_KEY` の **値** を `sk_live_*` に差し替えるだけ。
   Worker コード変更不要 (Authorization header 形式は同じ)
@@ -98,7 +98,7 @@ CC Worker は既に `Authorization: Bearer ${env.MURAKUMO_API_KEY}` を
    `HARDCODED_MURAKUMO_API_KEY` の git leak risk を 0 に。
 2. **監査可能性**: 各 inference call が `ownerDid` 付きで記録可能になり、
    ADR 0022 の "2-token model" + ADR 0023 の metering hook で per-user 使用量把握。
-3. **rotate**: `gftd authz create-api-key` / `revoke-api-key` で `murakumo.gftd.ai` の
+3. **rotate**: `gftd authz create-api-key` / `revoke-api-key` で `murakumo.etzhayyim.com` の
    認可も自動的に切替わる。専用 rotate 手順消失。
 4. **credits 開発の前提** を作っておく (blocker 除去)。
 

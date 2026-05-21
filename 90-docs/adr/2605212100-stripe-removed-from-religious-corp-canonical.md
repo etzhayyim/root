@@ -51,7 +51,7 @@ Exactly one finding landed in the `violation` bucket:
 
 The Stripe integration predates the Charter Rider v2.0 wave (ADR-2605192200,
 2026-05-19) and the §1.3 narrowing (ADR-2605192115, 2026-05-19). At
-authoring time, `kyber.gftd.ai` (the gftdcojp commercial tenancy of the
+authoring time, `kyber.etzhayyim.com` (the etzhayyim commercial tenancy of the
 open-kyber codebase) was operated as a paid ERP. Post-Charter, this is
 no longer compatible with the canonical religious-corp repo.
 
@@ -138,10 +138,10 @@ Two reasons to keep the function signature:
 
 ## Negative
 
-- `kyber.gftd.ai` (the deployed commercial tenancy) will not collect
+- `kyber.etzhayyim.com` (the deployed commercial tenancy) will not collect
   customers / report usage to Stripe until the downstream fork patches
   `stripePost` back in. This is the expected outcome — the deployed
-  instance operates under gftdcojp's commercial license, not under
+  instance operates under etzhayyim's commercial license, not under
   the religious-corp Charter Rider.
 - A future contributor might re-add Stripe (or another payment
   processor) at a different call site. The `no-external-purchase-purpose`

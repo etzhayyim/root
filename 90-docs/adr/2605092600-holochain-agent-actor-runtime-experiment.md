@@ -119,7 +119,7 @@ macOS Docker:
 
 ```text
 builder: gftd-vke
-image: ghcr.io/gftdcojp/holochain-agent-actor-runtime:experimental-amd64
+image: ghcr.io/etzhayyim/holochain-agent-actor-runtime:experimental-amd64
 digest: sha256:29a1f2f037a31a8ae0518272706368714610b3eba845667e9690834b31a031b0
 platform: linux/amd64
 ```
@@ -132,7 +132,7 @@ Local contract smoke:
 cd 70-tools/gftd/gftd
 go test . -run Holochain
 go run . agent-runtime holochain-plan \
-  --agent-did did:web:kami-agent.gftd.ai \
+  --agent-did did:web:kami-agent.etzhayyim.com \
   --happ-uri ipfs://bafy-happ \
   --dna-hash uhC0kagentactorruntime \
   --out ../../../90-docs/proof/holochain-agent-runtime-plan.local.json
@@ -152,7 +152,7 @@ VKE runtime smoke, 2026-05-09:
 - `mitama-udf/langgraph-server` returned `/healthz` OK and exposed the `echo`
   assistant.
 - A LangGraph actor run was created with
-  `actor_did=did:web:holochain-agent-runtime.gftd.ai` and
+  `actor_did=did:web:holochain-agent-runtime.etzhayyim.com` and
   `thread_id=holochain-actor-thread-20260509`.
 - Run `be761cd8-0a01-46e4-836f-4709ceabd925` reached `success` with output
   `echo: holochain langgraph actor smoke 2026-05-09`.

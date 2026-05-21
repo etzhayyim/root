@@ -32,7 +32,7 @@ from typing import Any
 
 SF_REPO_ID = "jamiequint/sf_criminal_court"
 SF_OWNER_DID = "did:web:legal-corpus.etzhayyim.com"
-WORLD_DEFAULT_REPO_ID = "gftdcojp/world_criminal_court"
+WORLD_DEFAULT_REPO_ID = "etzhayyim/world_criminal_court"
 SCRIPT_ACTOR = "sys.legal-court-hf-datasets"
 
 SF_TABLES: dict[str, dict[str, Any]] = {

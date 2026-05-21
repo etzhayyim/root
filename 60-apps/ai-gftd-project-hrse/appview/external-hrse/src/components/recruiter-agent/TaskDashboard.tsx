@@ -4,7 +4,7 @@ import { TouchOptimizedButton } from "@/components/TouchOptimizedButton";
 import type { Task } from "@/gen/proto/hrse/v1/recruiter_agent_pb";
 
 /**
- * @gftdcojp/ai-gftd-hrse#TaskDashboard
+ * @etzhayyim/ai-gftd-hrse#TaskDashboard
  * Task dashboard component for recruiter agent
  */
 

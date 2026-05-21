@@ -6,7 +6,7 @@ doc_type: adr
 topic: yoro-migration-to-etzhayyim
 authoritative: true
 last_verified: 2026-05-18
-status_note: "Activated 2026-05-18 by vendor Phase 4c wave 4 (PR #1294) — full yoro NSID migration ai.gftd.apps.yoro.* → ai.gftd.yoro.* completed across 91 vendor consumer files. Stages 3-5 (DNS cutover yoro.gftd.ai → yoro.etzhayyim.com, redirect, vendor 60-apps/ai-gftd-project-yoro/ deletion) remain operator runbook items."
+status_note: "Activated 2026-05-18 by vendor Phase 4c wave 4 (PR #1294) — full yoro NSID migration ai.gftd.apps.yoro.* → ai.gftd.yoro.* completed across 91 vendor consumer files. Stages 3-5 (DNS cutover yoro.etzhayyim.com → yoro.etzhayyim.com, redirect, vendor 60-apps/ai-gftd-project-yoro/ deletion) remain operator runbook items."
 priority: 7.0
 axis: organization
 weight: 0.70

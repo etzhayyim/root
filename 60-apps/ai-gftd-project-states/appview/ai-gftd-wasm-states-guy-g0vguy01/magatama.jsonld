@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:guy-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:guy-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Guyana (Co-operative Republic of Guyana) AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -104,7 +104,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "guy-state.gftd.ai",
+      "host": "guy-state.etzhayyim.com",
       "paths": [
         "/"
       ],

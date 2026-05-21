@@ -1,6 +1,6 @@
 # okaimono-shopping-mcp-component
 
-okaimono.gftd.ai の App marketplace コンポーネント (nanoid: `ok4imn1o`)。
+okaimono.etzhayyim.com の App marketplace コンポーネント (nanoid: `ok4imn1o`)。
 
 ## Data Access
 

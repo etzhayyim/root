@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#EmailAnalyzerTest
+// @etzhayyim/cyber-freelance#EmailAnalyzerTest
 // Email AnalyzerサービスのVitestテスト（カバレッジ測定用）
 
 import { describe, it, expect, vi, beforeEach } from "vitest";

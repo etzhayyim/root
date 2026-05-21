@@ -49,7 +49,7 @@ SES（システムエンジニアリングサービス）の **案件** (クラ�
 
 ### In scope (Phase A — 本 ADR で contract 確定)
 
-- T3 actor `ses.gftd.ai` の CF Worker edge facade 定義
+- T3 actor `ses.etzhayyim.com` の CF Worker edge facade 定義
 - LangGraph StateGraph 6 node (`parse_source` → `classify_anken` → `extract_details` → `update_jokyo` → `persist` → `emit_audit`)
 - RisingWave schema: 5 vertex + 2 edge + 2 MV
 - 6 NSID lexicon (`ai.gftd.apps.ses.*`)
@@ -58,15 +58,15 @@ SES（システムエンジニアリングサービス）の **案件** (クラ�
 
 ### Out of scope
 
-- ~~UI（yoro AppView 上の案件一覧 / 状況ボード）— Phase 4~~ → **Phase 4 完了** (ses.gftd.ai/anken)
+- ~~UI（yoro AppView 上の案件一覧 / 状況ボード）— Phase 4~~ → **Phase 4 完了** (ses.etzhayyim.com/anken)
 - Outlook webhook 自動 ingest（cron pull は Phase 2 で追加）
 - エンジニアマッチング推薦（案件 ↔ エンジニア embedding 類似度）— Phase B
 - 請求書・契約書 PDF 抽出 — 別 ADR
-- vault.gftd.ai E2E 暗号化 — Phase C
+- vault.etzhayyim.com E2E 暗号化 — Phase C
 
 ## Executive Summary
 
-新規 T3 actor `ses.gftd.ai` を立ち上げる。CF Worker は edge facade（Hono + auth + XRPC）のみを持ち、business logic は LangGraph Server + Granian（ADR-2605080600）で実行する。
+新規 T3 actor `ses.etzhayyim.com` を立ち上げる。CF Worker は edge facade（Hono + auth + XRPC）のみを持ち、business logic は LangGraph Server + Granian（ADR-2605080600）で実行する。
 
 案件抽出は **LLM 主導** とする。Anthropic structured output で `AnkenExtraction` を返し、既存案件との同一性照合（クライアント名 + 期間の重複チェック）は SQL で行う。状況更新は `AnkenJokyo` append-only log に積み、最新状況は `mv_ses_anken_latest_jokyo` で提供する。
 
@@ -78,8 +78,8 @@ ADR-2605111200 に準拠し、CF Worker は `env.HYPERDRIVE` を持たない。�
 
 | 項目 | 値 |
 |---|---|
-| host | `ses.gftd.ai` |
-| DID | `did:web:ses.gftd.ai` |
+| host | `ses.etzhayyim.com` |
+| DID | `did:web:ses.etzhayyim.com` |
 | AT Protocol Layer | 9 Client App + Actor Worker |
 | Tier | T3 (CF Worker = edge facade、LangGraph Server = execution) |
 | Federable | **No** (domain write のみ、AT Repo emit なし) |
@@ -89,7 +89,7 @@ ADR-2605111200 に準拠し、CF Worker は `env.HYPERDRIVE` を持たない。�
 
 | Layer | 担当 |
 |---|---|
-| L1 Edge | `ses.gftd.ai` CF Worker — Hono dispatcher、auth middleware、XRPC facade のみ |
+| L1 Edge | `ses.etzhayyim.com` CF Worker — Hono dispatcher、auth middleware、XRPC facade のみ |
 | L3 Routing | `bpmn-dispatcher.mitama-udf.svc.cluster.local:8080` (HMAC `x-internal-trust`) |
 | L3 Execution | LangGraph Server + Granian (`mitama-ses-pool` Helm release) |
 | L4 SSoT | `vertex_ses_{anken,jokyo,client,engineer,run}` + `edge_ses_{anken_client,anken_engineer}` |
@@ -303,7 +303,7 @@ mv_ses_anken_active
 ```
 60-apps/ai-gftd-project-ses/
 ├─ magatama.jsonld          T3 dispatcher actor
-├─ wrangler.jsonc           ses.gftd.ai/* + PDS_SERVICE / AUTHN_SERVICE binding (HYPERDRIVE なし)
+├─ wrangler.jsonc           ses.etzhayyim.com/* + PDS_SERVICE / AUTHN_SERVICE binding (HYPERDRIVE なし)
 ├─ package.json
 ├─ tsconfig.json
 ├─ CLAUDE.md
@@ -339,7 +339,7 @@ mv_ses_anken_active
 
 ```
 60-apps/ai-gftd-project-ses/
-├─ wrangler.jsonc          SES_MCP_URL = "" (set to ses-api.gftd.ai after tunnel infra)
+├─ wrangler.jsonc          SES_MCP_URL = "" (set to ses-api.etzhayyim.com after tunnel infra)
 └─ svelte/src/
    ├─ lib/
    │  ├─ contracts/ses-mcp.ts     SES_MCP_TOOLS const + SesMcpToolName + I/O types
@@ -353,11 +353,11 @@ mv_ses_anken_active
          └─ +page.svelte          案件詳細 + 状況遷移タイムライン
 ```
 
-**Routing note**: `ses-langgraph` は ClusterIP のみ。AppView が live になるには Cloudflare Tunnel ingress rule `ses-api.gftd.ai → ses-langgraph.mitama-udf.svc:8000` + DNS CNAME が必要。`SES_MCP_URL` 未設定時は `/anken` が 503 エラーバナーを表示（AppView 自体は起動可）。
+**Routing note**: `ses-langgraph` は ClusterIP のみ。AppView が live になるには Cloudflare Tunnel ingress rule `ses-api.etzhayyim.com → ses-langgraph.mitama-udf.svc:8000` + DNS CNAME が必要。`SES_MCP_URL` 未設定時は `/anken` が 503 エラーバナーを表示（AppView 自体は起動可）。
 
 Standalone K8s manifests: `50-infra/k8s/lg-ses/` (ServiceAccount + Deployment + Service + CronJob)
 ClusterIP: `lg-ses.mitama-udf.svc.cluster.local:8000`
-Image: `ghcr.io/gftdcojp/lg-ses:{version}-amd64` (Dockerfile: `20-actors/magatama/py/Dockerfile.ses`)
+Image: `ghcr.io/etzhayyim/lg-ses:{version}-amd64` (Dockerfile: `20-actors/magatama/py/Dockerfile.ses`)
 Helm release (legacy): `50-infra/vultr/mitama-ses-pool/` (superseded by standalone manifests)
 
 ### Forbidden patterns
@@ -393,8 +393,8 @@ intra-job で LLM call が ≥2 (classifier + extractor)、かつ `update_jokyo`
 ## Exceptions
 
 - **[Phase 3 完了 2026-05-14]** `source_kind='email_cron'` を `state.py` の Literal に追加済み。`outlook_pull.py` で Graph API client_credentials + differential fetch (cursor = `vertex_m365_sync_state`, `vertex_id=sha256(upn|data_kind)[:16]`)。CronJob `ses-outlook-cron` (*/15 Asia/Tokyo, concurrencyPolicy: Forbid) が `mitama-udf` namespace に稼働。
-- **[Phase 4 コード完了 2026-05-14]** `server.py` に `POST /mcp` 追加 (version 0.3.0)。3 MCP tools (listAnken / getAnken / listJokyo)、`sync_cursor()` + `asyncio.to_thread()`、LIMIT/OFFSET インライン展開、`jokyo_current` は correlated subquery (`mv_ses_anken_latest_jokyo` MV 依存なし)。`jokyo_prev` 列は `vertex_ses_jokyo` に存在しないため `None` を返す（schema gap、Phase B-2 以降の対処対象）。Svelte AppView `/anken` + `/anken/[id]` route 実装済み。**live 化には Cloudflare Tunnel ingress rule `ses-api.gftd.ai → ses-langgraph.mitama-udf.svc:8000` + DNS CNAME + `SES_MCP_URL` 設定 + image rebuild + helm upgrade が必要**。
-- **[Phase 5 完了 2026-05-19]** `outlook_pull.py` に `_delete_message()` 追加 — 成功パスのみ `DELETE /users/{upn}/messages/{id}` (Graph API)。失敗は warning ログで非 fatal (cursor は前進)。戻り値に `deleted` カウンタ追加。**Mail.ReadWrite** application permission が Azure AD 側で必要 (Mail.Read のみだと 403、warn で無視される)。`Dockerfile.ses` 新規作成。`deployment.yaml`: image tag `0.3.0` → `0.4.0-amd64`、env var 名を `M365_*` → `AZURE_*` に修正 (server.py は `AZURE_TENANT_ID/CLIENT_ID/CLIENT_SECRET` を読む)。`cronjob.yaml`: `suspend: true` → `suspend: false` で 15 分 cron 常駐開始。`ghcr.io/gftdcojp/lg-ses:0.4.0-amd64` build 済み (remote BuildKit gftd-vke-local)。health: `{m365_creds_configured:true, phase:'3'}`。
+- **[Phase 4 コード完了 2026-05-14]** `server.py` に `POST /mcp` 追加 (version 0.3.0)。3 MCP tools (listAnken / getAnken / listJokyo)、`sync_cursor()` + `asyncio.to_thread()`、LIMIT/OFFSET インライン展開、`jokyo_current` は correlated subquery (`mv_ses_anken_latest_jokyo` MV 依存なし)。`jokyo_prev` 列は `vertex_ses_jokyo` に存在しないため `None` を返す（schema gap、Phase B-2 以降の対処対象）。Svelte AppView `/anken` + `/anken/[id]` route 実装済み。**live 化には Cloudflare Tunnel ingress rule `ses-api.etzhayyim.com → ses-langgraph.mitama-udf.svc:8000` + DNS CNAME + `SES_MCP_URL` 設定 + image rebuild + helm upgrade が必要**。
+- **[Phase 5 完了 2026-05-19]** `outlook_pull.py` に `_delete_message()` 追加 — 成功パスのみ `DELETE /users/{upn}/messages/{id}` (Graph API)。失敗は warning ログで非 fatal (cursor は前進)。戻り値に `deleted` カウンタ追加。**Mail.ReadWrite** application permission が Azure AD 側で必要 (Mail.Read のみだと 403、warn で無視される)。`Dockerfile.ses` 新規作成。`deployment.yaml`: image tag `0.3.0` → `0.4.0-amd64`、env var 名を `M365_*` → `AZURE_*` に修正 (server.py は `AZURE_TENANT_ID/CLIENT_ID/CLIENT_SECRET` を読む)。`cronjob.yaml`: `suspend: true` → `suspend: false` で 15 分 cron 常駐開始。`ghcr.io/etzhayyim/lg-ses:0.4.0-amd64` build 済み (remote BuildKit gftd-vke-local)。health: `{m365_creds_configured:true, phase:'3'}`。
 - エンジニアマッチング推薦を Phase B で追加する場合は `edge_ses_anken_engineer` の `confidence` 列を追記し、別 ADR を参照させる
 
 ## Migration plan

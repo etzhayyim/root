@@ -1,65 +1,65 @@
 # ai-gftd-project-hospitality
 
-`hospitality.gftd.ai` — Hotel / OTA / property umbrella project。ADR-0028 Phase 1 pilot。
+`hospitality.etzhayyim.com` — Hotel / OTA / property umbrella project。ADR-0028 Phase 1 pilot。
 chain / OTA / individual property を path-based actor DID で立て、各 actor が
 `ai.gftd.apps.resourceFlow.legalEntity{Currency|Personnel|Service}Flow` を発行する。
-`resource-flow.gftd.ai` が Follow で集約し sankey / lineage / comparison を可視化。
+`resource-flow.etzhayyim.com` が Follow で集約し sankey / lineage / comparison を可視化。
 
 ## Identity
 
 | Field | Value |
 |---|---|
-| Domain | `hospitality.gftd.ai` |
+| Domain | `hospitality.etzhayyim.com` |
 | Role | Resource-flow emitter (ADR-0028) + hotel actor roster |
-| Primary DID | `did:web:hospitality.gftd.ai` |
+| Primary DID | `did:web:hospitality.etzhayyim.com` |
 | Sensitivity | public (individual PII は ADR-0018 tier 3, cohort_size ≥ 5) |
 
 ## Responsibility Split (yadoya / minpaku / hospitality)
 
 | Project | Responsibility | 実装状態 |
 |---|---|---|
-| `yadoya.gftd.ai` | Booking engine + MCP AI Agent + B2C/B2B UI + 予約ライフサイクル + ADR-0028 resource-flow emission | Bootstrap 2026-04-28 (worker/, ADR-0036 Worker-direct, 6 NSID + 4 BPMN). ADR-0074 aligned: every yadoya/RF vertex has `root_did` / `facade_did` / `migration_status` columns; sankey MV keys on `COALESCE(root_did, source_did)`. ERC725 root contract deployment is owned by the auth team — `migration_status="facade-only"` until backfill runs `migrate-rw-erc725-root.mjs --did did:web:yadoya.gftd.ai`. Legacy SpinApp `b7r4n2xq` retired to `_archive/`. |
-| `minpaku.gftd.ai` | OSM Overpass + 観光庁 open data 2 次収集 (10 JP 都市) | LIVE (mp7k9x2w) |
-| `hospitality.gftd.ai` | **chain / OTA / property actor roster** + revenue / headcount / room-nights flow 発行 | Scaffold (本 project) |
+| `yadoya.etzhayyim.com` | Booking engine + MCP AI Agent + B2C/B2B UI + 予約ライフサイクル + ADR-0028 resource-flow emission | Bootstrap 2026-04-28 (worker/, ADR-0036 Worker-direct, 6 NSID + 4 BPMN). ADR-0074 aligned: every yadoya/RF vertex has `root_did` / `facade_did` / `migration_status` columns; sankey MV keys on `COALESCE(root_did, source_did)`. ERC725 root contract deployment is owned by the auth team — `migration_status="facade-only"` until backfill runs `migrate-rw-erc725-root.mjs --did did:web:yadoya.etzhayyim.com`. Legacy SpinApp `b7r4n2xq` retired to `_archive/`. |
+| `minpaku.etzhayyim.com` | OSM Overpass + 観光庁 open data 2 次収集 (10 JP 都市) | LIVE (mp7k9x2w) |
+| `hospitality.etzhayyim.com` | **chain / OTA / property actor roster** + revenue / headcount / room-nights flow 発行 | Scaffold (本 project) |
 
 責務が重ならないよう、**hospitality は新規 booking / catalog を持たない**。既存の yadoya catalog / minpaku OSM から actor を昇格させ、flow record 発行に専念する。
 
 ## Actor Composition (Multi-DID)
 
 ```
-did:web:hospitality.gftd.ai                                    (controller)
+did:web:hospitality.etzhayyim.com                                    (controller)
 
 # ── Chain (ISIC I5510 — Hotels and similar accommodation) ──
-did:web:hospitality.gftd.ai:actor:chain:marriott
-did:web:hospitality.gftd.ai:actor:chain:hilton
-did:web:hospitality.gftd.ai:actor:chain:hyatt
-did:web:hospitality.gftd.ai:actor:chain:ihg
-did:web:hospitality.gftd.ai:actor:chain:accor
-did:web:hospitality.gftd.ai:actor:chain:wyndham
-did:web:hospitality.gftd.ai:actor:chain:choice
-did:web:hospitality.gftd.ai:actor:chain:hoshino           # 星野リゾート
-did:web:hospitality.gftd.ai:actor:chain:prince            # プリンスホテル
-did:web:hospitality.gftd.ai:actor:chain:tokyu-stay
-did:web:hospitality.gftd.ai:actor:chain:apa
-did:web:hospitality.gftd.ai:actor:chain:route-inn
+did:web:hospitality.etzhayyim.com:actor:chain:marriott
+did:web:hospitality.etzhayyim.com:actor:chain:hilton
+did:web:hospitality.etzhayyim.com:actor:chain:hyatt
+did:web:hospitality.etzhayyim.com:actor:chain:ihg
+did:web:hospitality.etzhayyim.com:actor:chain:accor
+did:web:hospitality.etzhayyim.com:actor:chain:wyndham
+did:web:hospitality.etzhayyim.com:actor:chain:choice
+did:web:hospitality.etzhayyim.com:actor:chain:hoshino           # 星野リゾート
+did:web:hospitality.etzhayyim.com:actor:chain:prince            # プリンスホテル
+did:web:hospitality.etzhayyim.com:actor:chain:tokyu-stay
+did:web:hospitality.etzhayyim.com:actor:chain:apa
+did:web:hospitality.etzhayyim.com:actor:chain:route-inn
 
 # ── OTA (ISIC N7911 — Travel agency activities) ──
-did:web:hospitality.gftd.ai:actor:ota:booking             # Booking.com
-did:web:hospitality.gftd.ai:actor:ota:expedia
-did:web:hospitality.gftd.ai:actor:ota:agoda
-did:web:hospitality.gftd.ai:actor:ota:airbnb
-did:web:hospitality.gftd.ai:actor:ota:rakuten-travel      # 楽天トラベル
-did:web:hospitality.gftd.ai:actor:ota:jalan               # じゃらん
-did:web:hospitality.gftd.ai:actor:ota:ikyu                # 一休.com
-did:web:hospitality.gftd.ai:actor:ota:trip-com
+did:web:hospitality.etzhayyim.com:actor:ota:booking             # Booking.com
+did:web:hospitality.etzhayyim.com:actor:ota:expedia
+did:web:hospitality.etzhayyim.com:actor:ota:agoda
+did:web:hospitality.etzhayyim.com:actor:ota:airbnb
+did:web:hospitality.etzhayyim.com:actor:ota:rakuten-travel      # 楽天トラベル
+did:web:hospitality.etzhayyim.com:actor:ota:jalan               # じゃらん
+did:web:hospitality.etzhayyim.com:actor:ota:ikyu                # 一休.com
+did:web:hospitality.etzhayyim.com:actor:ota:trip-com
 
 # ── Industry association ──
-did:web:hospitality.gftd.ai:actor:assoc:unwto             # UN World Tourism Organization
-did:web:hospitality.gftd.ai:actor:assoc:jnto              # Japan National Tourism Organization
-did:web:hospitality.gftd.ai:actor:assoc:str-global        # STR (industry benchmark)
+did:web:hospitality.etzhayyim.com:actor:assoc:unwto             # UN World Tourism Organization
+did:web:hospitality.etzhayyim.com:actor:assoc:jnto              # Japan National Tourism Organization
+did:web:hospitality.etzhayyim.com:actor:assoc:str-global        # STR (industry benchmark)
 
 # ── Individual property (minpaku 昇格) ──
-did:web:hospitality.gftd.ai:actor:property:{osm-id}       # OSM node / way id
+did:web:hospitality.etzhayyim.com:actor:property:{osm-id}       # OSM node / way id
 ```
 
 ## Global Coverage Expansion (Reverse Toposort)
@@ -164,9 +164,9 @@ B2 regional OTA (demand aggregator) → R3 regional chain (supply operator) → 
 
 ### R4: Individual Property (leaves)
 
-`minpaku` OSM node を昇格。**DID scheme**: `did:web:hospitality.gftd.ai:actor:property:osm:{city-slug}`
+`minpaku` OSM node を昇格。**DID scheme**: `did:web:hospitality.etzhayyim.com:actor:property:osm:{city-slug}`
 を city-level aggregator DID として立て、個別 OSM node は `edge_located_in` で吊るす
-(`vertex_id = did:web:hospitality.gftd.ai:actor:property:osm:{city}` → `edge_located_in` → minpaku 由来
+(`vertex_id = did:web:hospitality.etzhayyim.com:actor:property:osm:{city}` → `edge_located_in` → minpaku 由来
 `vertex_accommodation.listing_id`)。per-OSM-node を independent DID 化すると R3 で作成した
 actor_profile に fan-out が effective 10k+ になるため、city aggregator 止めとする。
 
@@ -182,7 +182,7 @@ Phase 2 で追加。R3 chain の children は `edge_owned_by` で別途吊る (c
 // 1. Profile meta (vertex_actor_profile_meta, migration 0006)
 await sdk.pds.dispatch({
   type: "com.atproto.repo.createRecord",
-  did: "did:web:hospitality.gftd.ai:actor:chain:melia",
+  did: "did:web:hospitality.etzhayyim.com:actor:chain:melia",
   collection: "app.bsky.actor.profile",
   record: {
     displayName: "Meliá Hotels International",
@@ -192,7 +192,7 @@ await sdk.pds.dispatch({
 });
 
 // 2. LEI bridge (edge_same_as → vertex_legal_entity)
-//    `legal-entity.gftd.ai` の LEI row と :SAME_AS 接続
+//    `legal-entity.etzhayyim.com` の LEI row と :SAME_AS 接続
 //    (Phase 2 で automated mapping)
 ```
 
@@ -237,7 +237,7 @@ await sdk.pds.dispatch({
 `data/actor-roster.jsonl` (JSON Lines) が actor profile SSoT。各行は以下の shape:
 
 ```json
-{"tier":"R1|R2|R3|R4","region":"global|europe|mena|apac|latam|africa|us|jp|cis|cee|south-asia|oceania|caribbean","did":"did:web:hospitality.gftd.ai:actor:...","isic":"I5510|N7911|N7990","displayName":"...","description":"...","avatar":"XX","lei":"...optional","source":"sec-10k|jp-edinet|cnmv|..."}
+{"tier":"R1|R2|R3|R4","region":"global|europe|mena|apac|latam|africa|us|jp|cis|cee|south-asia|oceania|caribbean","did":"did:web:hospitality.etzhayyim.com:actor:...","isic":"I5510|N7911|N7990","displayName":"...","description":"...","avatar":"XX","lei":"...optional","source":"sec-10k|jp-edinet|cnmv|..."}
 ```
 
 ### Ingestion path (jsonl → RisingWave)
@@ -253,7 +253,7 @@ data/actor-roster.jsonl
   │      │        record: { displayName, description, avatar } })
   │      │   c. if lei: sdk.pds.dispatch({ type: "com.atproto.repo.createRecord",
   │      │        collection: "ai.gftd.apps.hospitality.leiBridge",
-  │      │        record: { actorDid: did, lei, legalEntityDid: `did:web:legal-entity.gftd.ai:lei:${lei}` } })
+  │      │        record: { actorDid: did, lei, legalEntityDid: `did:web:legal-entity.etzhayyim.com:lei:${lei}` } })
   │      └─ emit one firehose commit per row
   │
   └─(2) PDS firehose → graph-writer → RisingWave hummock tables
@@ -271,26 +271,26 @@ data/actor-roster.jsonl
 ```sql
 -- R1/R2/R3 actor が vertex_actor_profile_meta に昇格しているか
 SELECT COUNT(*) FROM vertex_actor_profile_meta
-WHERE vertex_id LIKE 'did:web:hospitality.gftd.ai:actor:%';
+WHERE vertex_id LIKE 'did:web:hospitality.etzhayyim.com:actor:%';
 -- 目標: Iter 2 時点で 115 (jsonl 行数と一致)
 
 -- Region balance (owner_did prefix で region を別出し予定, 暫定は description 文字列)
 SELECT SUBSTRING(vertex_id FROM 'actor:([^:]+):') AS tier_slug, COUNT(*)
 FROM vertex_actor_profile_meta
-WHERE vertex_id LIKE 'did:web:hospitality.gftd.ai:%'
+WHERE vertex_id LIKE 'did:web:hospitality.etzhayyim.com:%'
 GROUP BY 1 ORDER BY 2 DESC;
 -- 目標: chain 55, ota 36, assoc 24
 
 -- LEI bridge (edge_same_as → vertex_legal_entity)
 SELECT COUNT(*) FROM edge_same_as e
 JOIN vertex_legal_entity le ON le.vertex_id = e.dst_vid
-WHERE e.src_vid LIKE 'did:web:hospitality.gftd.ai:%'
+WHERE e.src_vid LIKE 'did:web:hospitality.etzhayyim.com:%'
   AND le.lei IS NOT NULL;
 -- 目標: jsonl で lei 付与済の行数と一致 (Iter 2 時点で ~10)
 
 -- Coverage snapshot (mv_world_vertex_per_host)
 SELECT * FROM mv_world_vertex_per_host WHERE app_host = 'hospitality';
--- Phase 2 で legal-entity.gftd.ai と並んで行が増えること
+-- Phase 2 で legal-entity.etzhayyim.com と並んで行が増えること
 ```
 
 **MV safety (graph-schema CLAUDE.md §MV Memory Safety Guardrails 準拠)**:
@@ -306,7 +306,7 @@ SELECT * FROM mv_world_vertex_per_host WHERE app_host = 'hospitality';
 -- 1. Roster 総数 (jsonl 行数と一致すること)
 SELECT COUNT(*) AS total
 FROM vertex_actor_profile_meta
-WHERE vertex_id LIKE 'did:web:hospitality.gftd.ai:actor:%';
+WHERE vertex_id LIKE 'did:web:hospitality.etzhayyim.com:actor:%';
 
 -- 2. Kind 別 (MV): chain / ota / assoc / property / cruise
 SELECT kind, actor_cnt FROM mv_hospitality_actor_coverage ORDER BY actor_cnt DESC;
@@ -320,7 +320,7 @@ ORDER BY direct_children DESC LIMIT 20;
 SELECT COUNT(*) AS bridges
 FROM edge_same_as e
 JOIN vertex_legal_entity le ON le.vertex_id = e.dst_vid
-WHERE e.src_vid LIKE 'did:web:hospitality.gftd.ai:%'
+WHERE e.src_vid LIKE 'did:web:hospitality.etzhayyim.com:%'
   AND le.lei IS NOT NULL;
 
 -- 5. Region prefix 別の actor 分布 (region は owner_did 側に無いため ad-hoc):
@@ -337,7 +337,7 @@ IVF cluster 化された vector 列で **similarity search** + **region/tier fil
 
 ```
 vertex_actor_profile_meta (migration 0006)
-  vertex_id = did:web:hospitality.gftd.ai:actor:chain:marriott
+  vertex_id = did:web:hospitality.etzhayyim.com:actor:chain:marriott
   display_name = "Marriott International"
   description = "[AI Agent — unofficial] US-HQ hospitality chain, ISIC I5510"
        ↓ profile-fragment-embedder Worker (cron trigger)
@@ -350,10 +350,10 @@ vertex_profile_fragment (migration 0039)
 ```
 
 **Ingestion rule (ADR-0028 + MV safety guardrail)**:
-- Embedder は `WHERE vertex_id LIKE 'did:web:hospitality.gftd.ai:actor:%'` でスキャン (hospitality-scoped)
+- Embedder は `WHERE vertex_id LIKE 'did:web:hospitality.etzhayyim.com:actor:%'` でスキャン (hospitality-scoped)
 - IVF `nlist = 16` (cardinality 308 actors で過大設定にしない、log scale)
 - Rerun は 24h 差分のみ (`updated_at > now() - interval '24 hours'`)
-- Vector search: `ORDER BY embedding <-> query_vec LIMIT k` + `WHERE vertex_id LIKE 'did:web:hospitality.gftd.ai:actor:{kind}:%'`
+- Vector search: `ORDER BY embedding <-> query_vec LIMIT k` + `WHERE vertex_id LIKE 'did:web:hospitality.etzhayyim.com:actor:{kind}:%'`
 - **LLM 禁止事項**: `description` 生成時に実在組織の financial numbers / PII を捏造しない。displayName + ISIC code + region のみから短文生成
 
 ### Iteration cadence
@@ -361,7 +361,7 @@ vertex_profile_fragment (migration 0039)
 cron `3-59/10 * * * *` (job `1901d69c`) が 10 分毎に `/loop` prompt を再実行する。各 iteration は reverse-toposort 内の欠けた region / tier を 1 batch 埋める。7 日で auto-expire。
 
 **Registration**: path-based DID は `sdk.did.create(path, document)` で登録する (Multi-DID CRITICAL rule 準拠)。
-chain / OTA actor は LEI を DID document に含め、`legal-entity.gftd.ai` の `vertex_legal_entity` と
+chain / OTA actor は LEI を DID document に含め、`legal-entity.etzhayyim.com` の `vertex_legal_entity` と
 `:SAME_AS` で接続する (ADR-0019 bridging)。
 
 ## Resource-Flow Emission (ADR-0028)
@@ -376,10 +376,10 @@ chain / OTA actor は LEI を DID document に含め、`legal-entity.gftd.ai` �
 ```ts
 await sdk.pds.dispatch({
   type: "com.atproto.repo.createRecord",
-  did: "did:web:hospitality.gftd.ai:actor:chain:marriott",
+  did: "did:web:hospitality.etzhayyim.com:actor:chain:marriott",
   collection: "ai.gftd.apps.resourceFlow.legalEntityCurrencyFlow",
   record: {
-    sourceDid: "did:web:hospitality.gftd.ai:actor:chain:marriott",
+    sourceDid: "did:web:hospitality.etzhayyim.com:actor:chain:marriott",
     fiscalPeriod: "2025-Q4",
     flowType: "revenue",
     amount: 6_340_000_000,
@@ -396,7 +396,7 @@ await sdk.pds.dispatch({
 
 ```ts
 {
-  sourceDid: "did:web:hospitality.gftd.ai:actor:chain:hoshino",
+  sourceDid: "did:web:hospitality.etzhayyim.com:actor:chain:hoshino",
   fiscalPeriod: "2025-Q4",
   flowType: "hire",
   headcountDelta: 412,
@@ -411,14 +411,14 @@ await sdk.pds.dispatch({
 
 ```ts
 {
-  sourceDid: "did:web:hospitality.gftd.ai:actor:chain:prince",
+  sourceDid: "did:web:hospitality.etzhayyim.com:actor:chain:prince",
   fiscalPeriod: "2025-Q4",
   serviceClass: "room_night",
   count: 1_820_000,
   unit: "room_nights",
   revenue: 48_500_000_000,
   revenueCurrency: "JPY",
-  cohortId: "did:web:talent.gftd.ai:cohort:jpn-domestic-leisure",
+  cohortId: "did:web:talent.etzhayyim.com:cohort:jpn-domestic-leisure",
   cohortSize: 1_240_000,
   industryCode: "I5510",
   sourceUrl: "https://www.princehotels.co.jp/ir/...",

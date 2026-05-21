@@ -33,7 +33,7 @@ python handler.py
 #    "plyBase64":"<base64 …>", "stats":{"stub":true}, …}
 
 # Build + push (CPU image is fine for Phase 1)
-IMAGE=ghcr.io/gftdcojp/maps-runpod-gsplat:phase1-$(date -u +%Y%m%d%H%M%S)
+IMAGE=ghcr.io/etzhayyim/maps-runpod-gsplat:phase1-$(date -u +%Y%m%d%H%M%S)
 docker build --platform linux/amd64 -t "$IMAGE" .
 docker push "$IMAGE"
 ```
@@ -71,7 +71,7 @@ Promotion / build:
 
 ```bash
 # 1. Build the GPU image (separate Dockerfile so Phase 1 stays slim).
-IMAGE=ghcr.io/gftdcojp/maps-runpod-gsplat:phase2-$(date -u +%Y%m%d%H%M%S)
+IMAGE=ghcr.io/etzhayyim/maps-runpod-gsplat:phase2-$(date -u +%Y%m%d%H%M%S)
 docker build --platform linux/amd64 -f Dockerfile.phase2 -t "$IMAGE" .
 docker push "$IMAGE"
 

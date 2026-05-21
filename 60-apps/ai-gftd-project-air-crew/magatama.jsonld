@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:air-crew.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:air-crew.etzhayyim.com",
   "name": "air-crew",
   "nanoid": "a1rcr3w0",
   "project": "air-crew",

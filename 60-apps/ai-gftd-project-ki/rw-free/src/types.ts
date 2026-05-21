@@ -13,7 +13,7 @@
  *   ring       → RingRecord       (time-window snapshot, dendrochronology)
  *
  * Note on architecture: ki is a thin-edge dispatcher in vendor — its
- * Worker proxies XRPC calls to dispatcher.gftd.ai which then writes to
+ * Worker proxies XRPC calls to dispatcher.etzhayyim.com which then writes to
  * RisingWave. On the etzhayyim substrate, ki's record stream IS the
  * dispatch — the LangServer pod owns the LLM call and writes the
  * SynthesisRecord directly via e.write(). Worker = pure thin facade.

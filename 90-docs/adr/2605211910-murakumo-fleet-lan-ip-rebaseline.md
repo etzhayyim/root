@@ -109,7 +109,7 @@ the runtime impact is concentrated on LiteLLM-routed inference.
 
 4. **Vendor-repo reconciliation is out of scope for this ADR.** The
    vendor docs and ansible inventory live under
-   `github.com/gftdcojp/ai-gftd-apps-gftdcojp` and are governed by that
+   `github.com/etzhayyim/etzhayyim-root` and are governed by that
    repo's own change process; this ADR records that the Ethernet
    rebaseline supersedes their values within the etzhayyim scope and
    that reconciliation is an open item.

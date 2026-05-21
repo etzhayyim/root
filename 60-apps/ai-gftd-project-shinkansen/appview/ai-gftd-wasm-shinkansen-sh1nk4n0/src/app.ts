@@ -44,13 +44,13 @@ const APP_DEF: AppDef = {
 };
 
 const A = {
-  smartex: "did:web:shinkansen.gftd.ai:actor:smartex",
-  ekinet: "did:web:shinkansen.gftd.ai:actor:ekinet",
-  availability: "did:web:shinkansen.gftd.ai:actor:availability",
-  fare: "did:web:shinkansen.gftd.ai:actor:fare",
-  timetable: "did:web:shinkansen.gftd.ai:actor:timetable",
-  operation: "did:web:shinkansen.gftd.ai:actor:operation",
-  seat: "did:web:shinkansen.gftd.ai:actor:seat",
+  smartex: "did:web:shinkansen.etzhayyim.com:actor:smartex",
+  ekinet: "did:web:shinkansen.etzhayyim.com:actor:ekinet",
+  availability: "did:web:shinkansen.etzhayyim.com:actor:availability",
+  fare: "did:web:shinkansen.etzhayyim.com:actor:fare",
+  timetable: "did:web:shinkansen.etzhayyim.com:actor:timetable",
+  operation: "did:web:shinkansen.etzhayyim.com:actor:operation",
+  seat: "did:web:shinkansen.etzhayyim.com:actor:seat",
 } as const;
 
 const cadenceState = createCadenceState();

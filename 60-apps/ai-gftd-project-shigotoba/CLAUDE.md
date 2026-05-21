@@ -2,7 +2,7 @@
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/shigotoba/actor-manifest.jsonld`).
 
-`shigotoba.gftd.ai` — 400M business establishments globally (ILO + national business registries). Per-establishment path-based DID.
+`shigotoba.etzhayyim.com` — 400M business establishments globally (ILO + national business registries). Per-establishment path-based DID.
 
 ## cross-actor
 - `legal-entity` — parent corporate identity

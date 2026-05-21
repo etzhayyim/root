@@ -107,7 +107,7 @@ Recommended composition:
 
 ```bash
 forge script script/MigrateOwnersToSafe.s.sol \
-  --rpc-url https://geth.gftd.ai \
+  --rpc-url https://geth.etzhayyim.com \
   --sig 'simulate(address)' 0x{SAFE_ADDR}
 ```
 
@@ -120,7 +120,7 @@ Live cutover requires the explicit `--broadcast` flag *and*
 
 ```bash
 MIGRATE_LIVE=true forge script script/MigrateOwnersToSafe.s.sol \
-  --rpc-url https://geth.gftd.ai \
+  --rpc-url https://geth.etzhayyim.com \
   --broadcast \
   --legacy \
   --private-key "$(cat 50-infra/vultr/geth-private/.local-secrets/sealer.priv)" \
@@ -162,7 +162,7 @@ After cutover:
 ```bash
 # Every privileged role returns the Safe address, not the sealer
 for addr in $(jq -r '.[]' 50-infra/vultr/geth-private/contracts/ADDRESSES.json); do
-  cast call "$addr" 'owner()(address)' --rpc-url https://geth.gftd.ai
+  cast call "$addr" 'owner()(address)' --rpc-url https://geth.etzhayyim.com
 done | sort -u
 # → exactly one address: the Safe
 ```
@@ -174,7 +174,7 @@ in `deps.toml` flips from `"phase-2-sealer"` to `"phase-3-multisig"`.
 ## Why now
 
 - PR #1145 ships Blockscout. Once that's live, every role transfer
-  is publicly visible on `https://explorer.gftd.ai/` — auditable in
+  is publicly visible on `https://explorer.etzhayyim.com/` — auditable in
   real time.
 - ADR-2604261717 Phase 2-B settler ships in this PR. It assumes the
   sealer signs `settle()` — Phase 3 makes the Safe the new arbiter

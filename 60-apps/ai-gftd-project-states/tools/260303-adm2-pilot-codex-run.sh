@@ -51,9 +51,9 @@ Input:
 Constraints:
 - spinapp namespace must be spinkube
 - Edge route namespace must be edge-router-performers
-- image must use ghcr.io/gftdcojp/*
+- image must use ghcr.io/etzhayyim/*
 - metadata.name and image stem must match
-- endpoint convention: https://{nanoid}.gftd.ai/api/grpc
+- endpoint convention: https://{nanoid}.etzhayyim.com/api/grpc
 
 Output sections:
 1) slug validation

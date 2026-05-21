@@ -97,7 +97,7 @@ function nowISO(): string {
 // rank queries return neutral defaults until schema lands. Writes use Hyperdrive direct (ADR-0036).
 
 const ACTOR_NANOID = "s6c9m2q1";
-const ACTOR_HOST = `did:web:society6.gftd.ai`;
+const ACTOR_HOST = `did:web:society6.etzhayyim.com`;
 
 function camelToSnake(s: string): string {
   return s.replace(/[A-Z]/g, (c) => "_" + c.toLowerCase());

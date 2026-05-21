@@ -1,10 +1,10 @@
-# yoro.gftd.ai Security Topology Analysis
+# yoro.etzhayyim.com Security Topology Analysis
 
 Date: 2026-04-15
 
 ## Scope
 
-- Target: `https://yoro.gftd.ai`
+- Target: `https://yoro.etzhayyim.com`
 - Code paths:
   - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts`
   - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`
@@ -13,16 +13,16 @@ Date: 2026-04-15
   - `10-protocol/wproto/src/client.ts`
   - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/_svelte/_headers`
 - Live checks:
-  - `curl -I https://yoro.gftd.ai/`
-  - `curl -I https://yoro.gftd.ai/profile/did:web:yoro.gftd.ai`
-  - `curl -X POST https://yoro.gftd.ai/api/internal/cache/purge -H 'content-type: application/json' -d '{}'`
+  - `curl -I https://yoro.etzhayyim.com/`
+  - `curl -I https://yoro.etzhayyim.com/profile/did:web:yoro.etzhayyim.com`
+  - `curl -X POST https://yoro.etzhayyim.com/api/internal/cache/purge -H 'content-type: application/json' -d '{}'`
 
 ## Topology
 
 1. Browser
-   - Loads `yoro.gftd.ai` SPA or SSR route HTML.
+   - Loads `yoro.etzhayyim.com` SPA or SSR route HTML.
    - Stores the active AT Protocol session in browser-readable state.
-   - Uses `atproto.gftd.ai` / `authn.gftd.ai` for authenticated session creation and refresh.
+   - Uses `atproto.etzhayyim.com` / `authn.etzhayyim.com` for authenticated session creation and refresh.
 
 2. yoro Worker
    - Serves `svelte/build` assets through the `ASSETS` binding.
@@ -34,12 +34,12 @@ Date: 2026-04-15
    - Public `profile/{handle}` route is SSR-enabled but currently returns no JSON-LD payload.
 
 4. PDS / Auth
-   - `atproto.gftd.ai` is the XRPC gateway.
-   - `authn.gftd.ai` issues and refreshes access/refresh JWTs.
+   - `atproto.etzhayyim.com` is the XRPC gateway.
+   - `authn.etzhayyim.com` issues and refreshes access/refresh JWTs.
 
 The credible current attack chain is:
 
-`attacker-controlled post text` -> `JSON-LD script break-out on /profile/{handle}/post/{rkey}` -> `browser JS execution on yoro.gftd.ai` -> `read access/refresh tokens from browser state` -> `session reuse against atproto/auth APIs`
+`attacker-controlled post text` -> `JSON-LD script break-out on /profile/{handle}/post/{rkey}` -> `browser JS execution on yoro.etzhayyim.com` -> `read access/refresh tokens from browser state` -> `session reuse against atproto/auth APIs`
 
 ## Current Findings
 
@@ -56,7 +56,7 @@ Why it is real:
 
 - `JSON.stringify()` does not escape `</script>`.
 - The route is SSR-enabled and public, so an attacker only needs a victim to open the post detail URL.
-- A payload such as `</script><script>...</script>` in post text can terminate the JSON-LD block and execute JavaScript in the `yoro.gftd.ai` origin.
+- A payload such as `</script><script>...</script>` in post text can terminate the JSON-LD block and execute JavaScript in the `yoro.etzhayyim.com` origin.
 
 ### P1: Same-origin JavaScript can read active access and refresh tokens
 
@@ -93,8 +93,8 @@ Evidence in runtime path:
 
 Observed live on 2026-04-15 17:02 JST:
 
-- `curl -I https://yoro.gftd.ai/`
-- `curl -I https://yoro.gftd.ai/profile/did:web:yoro.gftd.ai`
+- `curl -I https://yoro.etzhayyim.com/`
+- `curl -I https://yoro.etzhayyim.com/profile/did:web:yoro.etzhayyim.com`
 
 Observed headers do not include:
 

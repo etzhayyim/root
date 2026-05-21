@@ -7,7 +7,7 @@
 #   cd 60-apps/ai-gftd-project-yatabase/lg
 #   docker buildx build --platform linux/amd64 \
 #     --build-context py=../../../20-actors/magatama/py \
-#     -t ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64 --push .
+#     -t ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64 --push .
 #
 # Apply:
 #   kubectl -n mitama-udf apply -f k8s/lg-yatabase.yaml
@@ -62,7 +62,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: lg-yatabase
-          image: ghcr.io/gftdcojp/lg-yatabase:0.0.2-amd64
+          image: ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -73,7 +73,7 @@ spec:
             - name: PORT
               value: "8000"
             - name: PDS_URL
-              value: https://atproto.gftd.ai
+              value: https://atproto.etzhayyim.com
             - name: BPMN_DISPATCHER_INTERNAL_URL
               value: http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080
             - name: RW_URL

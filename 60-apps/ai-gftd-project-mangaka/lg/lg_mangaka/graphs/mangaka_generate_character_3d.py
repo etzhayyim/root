@@ -5,7 +5,7 @@ from a `mangaka_generate_character` design sheet — uploads it to ComfyUI,
 runs TripoSR (single-image → 3D mesh), and exports the result as a GLB
 file. The GLB lives in ComfyUI's output dir and can be converted to USD /
 USDZ downstream (Blender → USD plugin, Pixar USD tools, etc.) for the
-mangaka.gftd.ai asset library.
+mangaka.etzhayyim.com asset library.
 
 Pregel: upload → build → submit → poll → END
 

@@ -47,7 +47,7 @@ GFTD OS への drive 統合機能。Google Drive/Dropbox 風のローカル-ク�
 │                │ XRPC (MCP)                                 │
 └────────────────┼────────────────────────────────────────────┘
                  │
-                 │ https://ds7yn3kw.gftd.ai/api/mcp
+                 │ https://ds7yn3kw.etzhayyim.com/api/mcp
                  │
                  ▼
 ┌─────────────────────────────────────────────────────────────┐
@@ -101,7 +101,7 @@ GFTD OS への drive 統合機能。Google Drive/Dropbox 風のローカル-ク�
 
 ### MCP Endpoint
 
-- **URL**: `https://ds7yn3kw.gftd.ai/api/mcp`
+- **URL**: `https://ds7yn3kw.etzhayyim.com/api/mcp`
 - **Protocol**: XRPC (Connect protocol via Envoy Gateway)
 - **nanoid**: `ds7yn3kw` (drive-sync component identifier)
 
@@ -178,7 +178,7 @@ GFTD OS への drive 統合機能。Google Drive/Dropbox 風のローカル-ク�
 - **Path**: `60-apps/ai-gftd-project-os/wasm/drive-sync-component/`
 - **WADM**: `wadm/drive-sync.wadm.yaml`
 - **HTTPRoute**: `k8s/http-routes.yaml`
-- **Build**: Tekton pipeline `gftd-wasm-sync` → `ghcr.io/gftdcojp/drive-sync-component:latest`
+- **Build**: Tekton pipeline `gftd-wasm-sync` → `ghcr.io/etzhayyim/drive-sync-component:latest`
 
 ### Tauri Backend
 

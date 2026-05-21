@@ -18,5 +18,5 @@
   - `POST /api/mcp`, `POST /{nanoid}/api/mcp`
   - 既存互換 REST: `/jobs/git-flush`, `/api/state/*`, `/api/proposal`, `/api/issues`
 - `github-webhook-bridge-component`
-  - `GET|POST /webhooks` (公開URL: `https://github.gftd.ai/webhooks`)
+  - `GET|POST /webhooks` (公開URL: `https://github.etzhayyim.com/webhooks`)
   - GitHub App callback query を upstream (`https://git.systems.gftd.dev/webhooks/github`) へ転送

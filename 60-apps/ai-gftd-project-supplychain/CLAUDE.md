@@ -2,14 +2,14 @@
 
 > **Runtime**: K8s pod-side LangServer / MCP / LangGraph Pregel. Cloudflare edge is UI and proxy only.
 
-`supplychain.gftd.ai` analyzes upstream material pressure and supply-chain stress across the cleaning robot manufacturing graph. It is a domain actor within the Jukyu System-of-Systems: it normalizes automotive material and robotics package tables into the shared Jukyu SoS schema and runs Pregel pressure-propagation over that domain slice.
+`supplychain.etzhayyim.com` analyzes upstream material pressure and supply-chain stress across the cleaning robot manufacturing graph. It is a domain actor within the Jukyu System-of-Systems: it normalizes automotive material and robotics package tables into the shared Jukyu SoS schema and runs Pregel pressure-propagation over that domain slice.
 
 ## App Identity
 
 | Key | Value |
 |---|---|
 | **nanoid** | `supplychain001` |
-| **DID** | `did:web:supplychain.gftd.ai` |
+| **DID** | `did:web:supplychain.etzhayyim.com` |
 | **Runtime** | `k8s-langserver` |
 | **Graph** | `supplychain_cleaning_robot_v1` |
 | **Domain** | `cleaning_robot` |
@@ -99,7 +99,7 @@ Auth: `LG_SUPPLYCHAIN_API_KEY` env var. Unset = unauthenticated access allowed (
 
 Helm release: `lg-supplychain-pool` in namespace `mitama-udf`  
 Chart: `50-infra/vultr/lg-supplychain-pool/`  
-Image: `ghcr.io/gftdcojp/lg-supplychain:0.1.0-amd64`  
+Image: `ghcr.io/etzhayyim/lg-supplychain:0.1.0-amd64`  
 Dockerfile: `20-actors/magatama/py/Dockerfile.supplychain`
 
 Build:
@@ -107,7 +107,7 @@ Build:
 cd 20-actors/magatama/py
 docker buildx build \
   -f Dockerfile.supplychain \
-  -t ghcr.io/gftdcojp/lg-supplychain:0.1.0-amd64 \
+  -t ghcr.io/etzhayyim/lg-supplychain:0.1.0-amd64 \
   --push .
 ```
 

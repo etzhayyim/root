@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:eth-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:eth-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Ethiopia AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English and Amharic.",
   "governance": {
     "raci": "responsible",
@@ -118,7 +118,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "eth-state.gftd.ai",
+      "host": "eth-state.etzhayyim.com",
       "paths": [
         "/"
       ],

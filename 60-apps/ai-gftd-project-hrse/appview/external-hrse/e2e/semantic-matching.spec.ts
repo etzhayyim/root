@@ -1,4 +1,4 @@
-// @gftdcojp/cyber-freelance#SemanticMatchingE2E
+// @etzhayyim/cyber-freelance#SemanticMatchingE2E
 // セマンティックマッチングCapabilityのE2Eテスト（TDDアプローチ）
 
 import { test, expect } from "@playwright/test";

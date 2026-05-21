@@ -180,7 +180,7 @@ func init() {{
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {{
 \torigin := r.Header.Get("Origin")
-\tif origin != "" && (strings.HasSuffix(origin, ".gftd.ai") || strings.HasPrefix(origin, "http://localhost:")) {{
+\tif origin != "" && (strings.HasSuffix(origin, ".etzhayyim.com") || strings.HasPrefix(origin, "http://localhost:")) {{
 \t\tw.Header().Set("Access-Control-Allow-Origin", origin)
 \t\tw.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 \t\tw.Header().Set("Access-Control-Allow-Headers", "Content-Type")
@@ -392,8 +392,8 @@ func agentProfile() map[string]any {{
 \treturn map[string]any{{
 \t\t"name":               componentName,
 \t\t"description":        "ADM2 government messaging endpoint",
-\t\t"url":                "https://" + componentNanoID + ".gftd.ai/api/grpc",
-\t\t"messageEndpoint":    "https://" + componentNanoID + ".gftd.ai/api/messages/send",
+\t\t"url":                "https://" + componentNanoID + ".etzhayyim.com/api/grpc",
+\t\t"messageEndpoint":    "https://" + componentNanoID + ".etzhayyim.com/api/messages/send",
 \t\t"supportedProtocols": []string{{"mcp/1.0", "grpc"}},
 \t\t"skills": []map[string]any{{
 \t\t\t{{"name": "get_division_info", "description": "Read division profile from KV"}},
@@ -406,11 +406,11 @@ func agentManifest() map[string]any {{
 \treturn map[string]any{{
 \t\t"name":        "@ai-gftd-project-states/{escaped_slug}-agent",
 \t\t"description": "Agent manifest for {escaped_slug}",
-\t\t"url":         "https://" + componentNanoID + ".gftd.ai/api/grpc",
+\t\t"url":         "https://" + componentNanoID + ".etzhayyim.com/api/grpc",
 \t\t"version":     "1.0.0",
 \t\t"provider": map[string]any{{
 \t\t\t"service": "GFTD",
-\t\t\t"url":     "https://kyber-services.gftd.ai",
+\t\t\t"url":     "https://kyber-services.etzhayyim.com",
 \t\t}},
 \t\t"supportedProtocols": []string{{"mcp/1.0", "grpc"}},
 \t\t"skills": []map[string]any{{
@@ -430,8 +430,8 @@ func getOrganizationInfo() map[string]any {{
 \t\t"nanoid":      componentNanoID,
 \t\t"type":        "government-adm2-district",
 \t\t"endpoints": map[string]string{{
-\t\t\t"grpc":     "https://" + componentNanoID + ".gftd.ai/api/grpc",
-\t\t\t"messages": "https://" + componentNanoID + ".gftd.ai/api/messages/send",
+\t\t\t"grpc":     "https://" + componentNanoID + ".etzhayyim.com/api/grpc",
+\t\t\t"messages": "https://" + componentNanoID + ".etzhayyim.com/api/messages/send",
 \t\t}},
 \t\t"protocol":    "MCP JSON-RPC 2.0",
 \t\t"description": "ADM2 municipal interface for " + countryName,
@@ -503,7 +503,7 @@ metadata:
     app.kubernetes.io/name: {label_name}
     app.kubernetes.io/managed-by: adm2-multi-agent-generator
 spec:
-  image: ghcr.io/gftdcojp/{slug}-component:spinkube-0.1.0
+  image: ghcr.io/etzhayyim/{slug}-component:spinkube-0.1.0
   replicas: 1
   executor: containerd-shim-spin-nats
   imagePullSecrets:
@@ -519,8 +519,8 @@ def render_jsonld(entity_name: str, iso_u: str, nanoid: str) -> str:
         "description": f"ADM2 municipal interface with grpc/mcp/messaging for {entity_name}.",
         "identifier": nanoid,
         "address": {"@type": "PostalAddress", "addressCountry": iso_u},
-        "url": f"https://{nanoid}.gftd.ai",
-        "mainEntityOfPage": f"https://{nanoid}.gftd.ai/api/grpc",
+        "url": f"https://{nanoid}.etzhayyim.com",
+        "mainEntityOfPage": f"https://{nanoid}.etzhayyim.com/api/grpc",
     }
     return json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
 
@@ -529,9 +529,9 @@ def render_agent_json(slug: str, nanoid: str) -> str:
     payload = {
         "name": f"@ai-gftd-project-states/{slug}-agent",
         "description": f"Agent manifest for {slug}.",
-        "url": f"https://{nanoid}.gftd.ai/api/grpc",
+        "url": f"https://{nanoid}.etzhayyim.com/api/grpc",
         "version": "1.0.0",
-        "provider": {"service": "GFTD", "url": "https://kyber-services.gftd.ai"},
+        "provider": {"service": "GFTD", "url": "https://kyber-services.etzhayyim.com"},
         "supportedProtocols": ["mcp/1.0", "grpc"],
         "skills": [
             {"name": "get_division_info", "description": "Read ADM2 division metadata"},

@@ -23,7 +23,7 @@ Two existing root rules already define how secrets are handled:
   individual operator's gftd.* credentials. Naming: `service=gftd.{provider}`,
   `account={KEY_NAME}`. Synced across the operator's Apple devices via iCloud
   Keychain.
-- **Credential Sharing = gftd Vault + Bitwarden (CRITICAL)** — `vault.gftd.ai`
+- **Credential Sharing = gftd Vault + Bitwarden (CRITICAL)** — `vault.etzhayyim.com`
   (zero-knowledge, ECIES-shared) is the *runtime* org-share path. Bitwarden
   is the supplementary external-service vault. Slack/Teams/email/code 内の
   raw key 記載は禁止。
@@ -55,7 +55,7 @@ operator stores in macOS Keychain.
   - Keychain remains the runtime SSoT for the operator's local environment.
     Scripts and BPMN workers continue to read from Keychain, never from
     1Password.
-  - `vault.gftd.ai` remains the *workload* org-share path (zero-knowledge,
+  - `vault.etzhayyim.com` remains the *workload* org-share path (zero-knowledge,
     ECIES, programmatic access by Workers / pyzeebe).
   - 1Password "Gftd Japan株式会社" is **operator UI only** — readable in
     the desktop app, browser extension, and `op` CLI by Gftd Japan members
@@ -99,7 +99,7 @@ operator stores in macOS Keychain.
   Keychain as the local SSoT, and would force a session token (`op
   signin`) into BPMN worker pods that currently authenticate via Service
   Auth JWT only.
-- **Mirror Keychain into `vault.gftd.ai` (gftd Vault) instead**. Rejected:
+- **Mirror Keychain into `vault.etzhayyim.com` (gftd Vault) instead**. Rejected:
   gftd Vault is zero-knowledge with ECIES shares; it is the *workload*
   share path (Workers / pyzeebe / browser via WebAuthn PRF). Adding a
   second purpose ("operator UI mirror") would dilute the zero-knowledge
@@ -133,19 +133,19 @@ sha256[:12] + length match.
 Other `gftd.*/*` items already in the vault (gftd.cloudflare/*,
 gftd.private-chain/*, gftd.safe-owners/*, gftd.m365/*, gftd.bitwarden/*,
 gftd.webyubin/*, gftd.ipfs/*, gftd.murakumo.k3s/*, gftd.rego-arbiter/*,
-gftd.ai/pulumi/*, gftd.linode/*) are **not** in the operator's Keychain
+etzhayyim.com/pulumi/*, gftd.linode/*) are **not** in the operator's Keychain
 and remain 1Password-only. They are out of scope for the keychain-mirror
 policy until added to Keychain.
 
 # References
 
-- `deps.toml [gftdcojp_agent.keychain]` — Keychain SSoT rules and
+- `deps.toml [etzhayyim_agent.keychain]` — Keychain SSoT rules and
   registry of currently-stored services.
 - `deps.toml [[conventions]] op-item-get-csv-escape-quirk` —
   verification gotcha codified.
 - `deps.toml [[migrations]] gftd-keychain-1password-mirror-20260429` —
   mirror operation log entry.
 - ADR-2604231811 — AT Protocol 15-Layer Service Taxonomy (places
-  `vault.gftd.ai` as Layer "Secret Vault").
+  `vault.etzhayyim.com` as Layer "Secret Vault").
 - Root rule **Vault Zero-Knowledge Invariant (CRITICAL)** in
   `CLAUDE.md`.

@@ -1,11 +1,11 @@
 # ai-gftd-project-omise
 
-omise.gftd.ai — Shopify-like multi-tenant EC marketplace。Platform / Seller (出店者) / Buyer (購入者) の三者構造。出店→商品登録→販売→決済→出荷→精算の全フローを AI Actor が自律運営。
+omise.etzhayyim.com — Shopify-like multi-tenant EC marketplace。Platform / Seller (出店者) / Buyer (購入者) の三者構造。出店→商品登録→販売→決済→出荷→精算の全フローを AI Actor が自律運営。
 
 ## Architecture
 
 ```
-Browser → omise.gftd.ai (Svelte CSR)
+Browser → omise.etzhayyim.com (Svelte CSR)
   → XRPC /xrpc/ai.gftd.apps.omise.*
     ↓
   App: ai-gftd-wasm-omise-om1s3sh0p
@@ -39,26 +39,26 @@ Read: createKyselyDb(env.HYPERDRIVE).selectFrom("vertex_{label}").where(...).exe
 ## Actor Composition (Multi-DID) — 三者構造
 
 ```
-did:web:omise.gftd.ai                              (controller — marketplace)
+did:web:omise.etzhayyim.com                              (controller — marketplace)
 
 # ── Platform (marketplace governance) ──
-did:web:omise.gftd.ai:actor:platformAdmin           (ISCO 1120 — seller approval, suspension, governance)
-did:web:omise.gftd.ai:actor:platformSupport         (ISCO 4222 — dispute resolution, escalated CS)
+did:web:omise.etzhayyim.com:actor:platformAdmin           (ISCO 1120 — seller approval, suspension, governance)
+did:web:omise.etzhayyim.com:actor:platformSupport         (ISCO 4222 — dispute resolution, escalated CS)
 
 # ── Seller 出店者 ──
-did:web:omise.gftd.ai:actor:sellerOnboarding        (ISCO 3339 — registration, KYC, profile setup)
-did:web:omise.gftd.ai:actor:sellerCatalog           (ISCO 5221 — product listing, pricing, inventory)
-did:web:omise.gftd.ai:actor:sellerFulfillment       (ISCO 4321 — order processing, packing, ship-ready)
-did:web:omise.gftd.ai:actor:sellerFinance           (ISCO 3313 — settlement, payout, revenue)
-did:web:omise.gftd.ai:actor:sellerMarketing         (ISCO 2431 — coupons, promotions, campaigns)
+did:web:omise.etzhayyim.com:actor:sellerOnboarding        (ISCO 3339 — registration, KYC, profile setup)
+did:web:omise.etzhayyim.com:actor:sellerCatalog           (ISCO 5221 — product listing, pricing, inventory)
+did:web:omise.etzhayyim.com:actor:sellerFulfillment       (ISCO 4321 — order processing, packing, ship-ready)
+did:web:omise.etzhayyim.com:actor:sellerFinance           (ISCO 3313 — settlement, payout, revenue)
+did:web:omise.etzhayyim.com:actor:sellerMarketing         (ISCO 2431 — coupons, promotions, campaigns)
 
 # ── Buyer 購入者 ──
-did:web:omise.gftd.ai:actor:buyerAssistant          (ISCO 5223 — cart, checkout, order tracking)
-did:web:omise.gftd.ai:actor:buyerReview             (ISCO 2641 — product reviews, ratings)
+did:web:omise.etzhayyim.com:actor:buyerAssistant          (ISCO 5223 — cart, checkout, order tracking)
+did:web:omise.etzhayyim.com:actor:buyerReview             (ISCO 2641 — product reviews, ratings)
 
 # ── Shared ──
-did:web:omise.gftd.ai:actor:logistics               (ISCO 4323 — shipment, carrier integration)
-did:web:omise.gftd.ai:actor:analyst                  (ISCO 2120 — platform + seller KPI analytics)
+did:web:omise.etzhayyim.com:actor:logistics               (ISCO 4323 — shipment, carrier integration)
+did:web:omise.etzhayyim.com:actor:analyst                  (ISCO 2120 — platform + seller KPI analytics)
 ```
 
 ## ISCO Actor → Command Mapping
@@ -116,7 +116,7 @@ did:web:omise.gftd.ai:actor:analyst                  (ISCO 2120 — platform + s
 
 ```
 validateCart → checkInventory → reserveStock → applyCoupon (discount)
-  → Invoke("did:web:kakin.gftd.ai", "processPayment", {amount, currency, method})
+  → Invoke("did:web:kakin.etzhayyim.com", "processPayment", {amount, currency, method})
     → kakin: payment intent → stripe/credits
   → confirmOrder → sellerFulfillment notification
   → acceptOrder (seller) → markReadyToShip → requestPickup
@@ -133,18 +133,18 @@ Compensation:
 order completed + delivered confirmed
   → platform commission deduction (rate from OmiseSeller.commission_rate)
   → OmiseSettlement record (settlement_id, seller_id, order_id, gross_amount, commission, net_amount)
-  → requestPayout (seller) → Invoke("did:web:kakin.gftd.ai", "transferPayout")
+  → requestPayout (seller) → Invoke("did:web:kakin.etzhayyim.com", "transferPayout")
 ```
 
 ## Integration
 
 | Service | Role |
 |---|---|
-| kakin.gftd.ai | Payment intent + confirm + refund + seller payout |
-| credits.gftd.ai | Murakumo credit ledger |
-| stripe.gftd.ai | Card auth execution |
-| i18n.gftd.ai | Product description translation |
-| moderator.gftd.ai | Seller KYC verification |
+| kakin.etzhayyim.com | Payment intent + confirm + refund + seller payout |
+| credits.etzhayyim.com | Murakumo credit ledger |
+| stripe.etzhayyim.com | Card auth execution |
+| i18n.etzhayyim.com | Product description translation |
+| moderator.etzhayyim.com | Seller KYC verification |
 
 ## Build & Deploy
 
@@ -153,5 +153,5 @@ cd 60-apps/ai-gftd-project-omise/wasm/ai-gftd-wasm-omise-om1s3sh0p/svelte
 pnpm install && pnpm build
 cd ..
 gftd build
-gftd deploy --smoke-url https://om1s3sh0p.gftd.ai/health
+gftd deploy --smoke-url https://om1s3sh0p.etzhayyim.com/health
 ```

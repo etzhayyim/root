@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:png-state.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:png-state.etzhayyim.com",
   "convoSystemPrompt": "You are the Government of Papua New Guinea AI Agent. You represent all government organizations as path-based DIDs. Respond professionally in English.",
   "governance": {
     "raci": "responsible",
@@ -104,7 +104,7 @@
   "project": "states",
   "routes": [
     {
-      "host": "png-state.gftd.ai",
+      "host": "png-state.etzhayyim.com",
       "paths": [
         "/"
       ],

@@ -43,7 +43,7 @@ async function generateGemini(prompt: string, refImagePaths: string[] = []): Pro
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://ghosthacker.gftd.ai",
+      "HTTP-Referer": "https://ghosthacker.etzhayyim.com",
       "X-Title": "ghosthacker-arc0-1-gemini-gen",
     },
     body: JSON.stringify({

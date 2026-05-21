@@ -51,7 +51,7 @@
   const DEFAULT_INPUTS: Record<string, object> = {
     cine_generate_scene: {
       subject_kind: "mangaka.panel",
-      subject_ref: "at://did:web:mangaka.gftd.ai/ai.gftd.mangaka.panel/demo-001",
+      subject_ref: "at://did:web:mangaka.etzhayyim.com/ai.gftd.mangaka.panel/demo-001",
       prompt: "rooftop chase at dusk, neon reflections in puddles",
       style: "shonen-jump-inked",
       world_kind: "threeD",
@@ -774,7 +774,7 @@
 <main>
   <header>
     <div class="brand">
-      <strong>studio.gftd.ai</strong>
+      <strong>studio.etzhayyim.com</strong>
       <span class="sub">lg-mangaka · cine pipeline (kami-cine 1.0)</span>
     </div>
     <div class="who">{userEmail || "—"}</div>
