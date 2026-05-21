@@ -1,0 +1,42 @@
+[project]
+name = "etzhayyim-sdk"
+version = "0.1.0"
+description = "Python binding for the @etzhayyim/sdk RW-free substrate (AT Protocol MST + IPFS + Base L2)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "etzhayyim", email = "dev@etzhayyim.com" }]
+keywords = ["atproto", "mst", "ipfs", "l2", "etzhayyim"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "httpx>=0.27.0",
+    "eth-account>=0.12.0",
+    "websockets>=12.0",
+    "cbor2>=5.6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "httpx>=0.27.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/etzhayyim_sdk"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+addopts = "--import-mode=importlib"
