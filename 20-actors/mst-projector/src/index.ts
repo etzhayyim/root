@@ -12,6 +12,23 @@ export * from "./inmemory.js";
 export * from "./orchestrator.js";
 export { kiyoProjector } from "./kiyo-config.js";
 
+// Production adapters — export for backend selection at deploy time
+export type { EmbeddingProvider, BackendAdapter } from "./adapters.js";
+export { LanceDbTextIndexStub, DuckDbAggregateIndexStub } from "./adapters.js";
+
+// Re-export LanceDB and DuckDB production impls
+export { LanceDbTextIndex } from "./adapters/lancedb.js";
+export type { LanceDbTextIndexConfig, LanceDbSearchHit } from "./adapters/lancedb.js";
+export { DuckDbAttributeIndex, DuckDbAggregateIndex } from "./adapters/duckdb.js";
+export type { DuckDbIndexConfig } from "./adapters/duckdb.js";
+
+// Embedding providers
+export { createTransformersEmbedder, TRANSFORMERS_PRESETS } from "./embedders/transformers.js";
+export type { TransformersEmbedderOptions } from "./embedders/transformers.js";
+
+export { createHuggingFaceEmbedder, HUGGINGFACE_PRESETS } from "./embedders/huggingface.js";
+export type { HuggingFaceEmbeddingConfig } from "./embedders/huggingface.js";
+
 import type {
   ProjectorConfig,
   ProjectorStatus,
