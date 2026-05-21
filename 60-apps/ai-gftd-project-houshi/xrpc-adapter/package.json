@@ -8,8 +8,9 @@
     "deploy": "wrangler deploy"
   },
   "dependencies": {
+    "@etzhayyim/houshi-rw-free": "workspace:*",
     "@etzhayyim/sdk": "workspace:*",
-    "@etzhayyim/houshi-rw-free": "workspace:*"
+    "@etzhayyim/sdk-auth": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240712.0",
