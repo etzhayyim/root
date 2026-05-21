@@ -1,21 +1,29 @@
 # orchestrator — Pregel demos for open-ot
 
-Demonstrates ADR-2605151200's central architectural claim — **IEC 61499 event tick ≡ Pregel super-step** — with cells running as real WASM modules and the orchestrator coordinating multi-cell loops. Two implementations of the same `:loop:freq-droop` microgrid loop:
+Demonstrates ADR-2605151200's central architectural claim — **IEC 61499 event tick ≡ Pregel super-step** — with cells running as real WASM modules and the orchestrator coordinating multi-cell loops.
 
-| File | Variant | Runtime | Tests |
-|---|---|---|---|
-| `microgrid_pregel.py` | minimal Python BSP, no LangGraph | bespoke `pregel_runner.py` | 7 / 7 |
-| `microgrid_langgraph.py` | real LangGraph SDK | `langgraph.graph.StateGraph` + `MemorySaver` | 5 / 5 |
+| File | Variant | Loop | Cells | Tests |
+|---|---|---|---|---|
+| `microgrid_pregel.py` | minimal Python BSP | `:loop:freq-droop` | DROOP_P_F × N | 7 / 7 |
+| `microgrid_langgraph.py` | LangGraph SDK | `:loop:freq-droop` | DROOP_P_F × N | 5 / 5 |
+| `microgrid_async_langgraph.py` | LangGraph async | `:loop:freq-droop` | DROOP_P_F × N | covered |
+| `microgrid_islanding_langgraph.py` | multi-event | `:loop:islanding-decision` | ANTI_ISLANDING_ROCOF | covered |
+| `microgrid_volt_var_langgraph.py` | **multi-cell-type** | `:loop:volt-var` | **VV_CURVE × N + LTC_TAP_FSM** | 7 / 7 |
 
-Both run **the same droop-p-f cells** loaded by the same `cell_loader.py` shim. They produce **byte-identical cohort ΔP outputs** for the same input schedule, which is the equivalence proof.
+The first four demos run a single cell type. `microgrid_volt_var_langgraph.py` is the **first multi-cell-type** orchestrator loop — N inverter VV_CURVE cells feed a bus-voltage aggregator that drives an LTC_TAP_FSM supervisory tap controller. This is the pattern other multi-cell loops (`:loop:bess-charge-discharge` SOC_KALMAN→DROOP_P_F, `:loop:pv-mppt`, full islanding+black-start coordination) will follow.
+
+The freq-droop demos produce **byte-identical cohort ΔP outputs** for the same input schedule, which is the equivalence proof for the IEC 61499 ⇄ Pregel binding.
 
 ## Build & run
 
 ```bash
 # 1. Build cells once (one-time per cell change).
 cd ../cells
-cargo build --release --no-default-features --target wasm32-unknown-unknown -p droop-p-f
-cargo build --release --no-default-features --target wasm32-unknown-unknown -p pid-limited
+cargo build --release --no-default-features --target wasm32-unknown-unknown \
+  -p droop-p-f -p pid-limited -p anti-islanding-rocof \
+  -p vv-curve -p ltc-tap-fsm
+# Other microgrid cells (mppt-perturb-observe, black-start-seq, soc-kalman)
+# build on the same pattern — add `-p <cell>` for the loops you want to run.
 
 # 2. Set up Python venv (uv).
 cd ../orchestrator

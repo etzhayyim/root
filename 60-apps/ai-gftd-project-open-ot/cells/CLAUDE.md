@@ -11,10 +11,15 @@ This directory holds gftd-native open-ot **Basic Function Block (BFB) cells** in
 | `droop-p-f/` | reference BFB #2 — IEC 61499 `DROOP_P_F` (P-f frequency droop with deadband, 5 ECC states, i128 intermediate). 10 tests. Used by `:loop:freq-droop` per `PROTOTYPE-MICROGRID.md` §2.3 |
 | `anti-islanding-rocof/` | reference BFB #3 — IEC 61499 `ANTI_ISLANDING_ROCOF` (multi-event-input REQ + RESET, multi-event-output CNF + TRIP + ALM, latched Tripped state, ROCOF time-derivative, 3-counter N-sample debounce). 14 tests. Used by `:loop:islanding-decision` per `PROTOTYPE-MICROGRID.md` §2.5 |
 | `pid-stack-100/` | Risk-1 Gate A workload BFB — 100 independent PI controllers per tick, shared params + per-instance state. ~3 KB scratch per tick. Not deployed in microgrid loops; exercises the SPEC §14.1 100-in/100-out memory-access pattern. 5 tests. Manifest schemas omit array fields (current schema doesn't model `[T; N]`); codegen emits Params class only |
+| `vv-curve/` | microgrid BFB #4 — IEC 61499 `VV_CURVE` (Volt-VAR piecewise-linear lookup, IEEE 1547 default curve compatible, 6 ECC states). 8 tests. Used by `:loop:volt-var` per `PROTOTYPE-MICROGRID.md` §13.2 |
+| `ltc-tap-fsm/` | microgrid BFB #5 — IEC 61499 `LTC_TAP_FSM` (Load Tap Changer FSM, deadband + dwell timer + raise/lower commands, 6 ECC states + tap_min/tap_max limits). 7 tests. Used by `:loop:volt-var` per `PROTOTYPE-MICROGRID.md` §13.2 |
+| `mppt-perturb-observe/` | microgrid BFB #6 — IEC 61499 `MPPT_PERTURB_OBSERVE` (PV array Maximum Power Point Tracking via Perturb & Observe, 100 Hz field-tier, 4 ECC states). 7 tests. Used by `:loop:pv-array-mppt` per `PROTOTYPE-MICROGRID.md` §13.2 |
+| `black-start-seq/` | microgrid BFB #7 — IEC 61499 `BLACK_START_SEQ` (5-stage black-start FSM: Detecting → StartingGen → EnergizingBus → Syncing → Connected, multi-event REQ+ABORT, latched Alarm). 11 tests. Used by `:loop:islanding-decision` per `PROTOTYPE-MICROGRID.md` §13.2 |
+| `soc-kalman/` | microgrid BFB #8 — IEC 61499 `SOC_KALMAN` (battery SoC estimator, Coulomb counter + OCV correction blend, 5 ECC states, piecewise-linear OCV-SOC curve). 11 tests. Used by `:loop:bess-charge-discharge` per `PROTOTYPE-MICROGRID.md` §13.2 |
 
-Workspace: `cells/Cargo.toml` declares all five crates. `cargo test --workspace` runs all 34 unit tests in one shot.
+Workspace: `cells/Cargo.toml` declares all ten crates. `cargo test --workspace` runs all 78 unit tests in one shot.
 
-Future cells go alongside the existing three and depend on `openot-bfb-rs`.
+Future cells go alongside the existing nine and depend on `openot-bfb-rs`.
 
 ## Build constraints (CRITICAL — Risk-1 Gate A blocking)
 
