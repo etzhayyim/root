@@ -1,0 +1,210 @@
+/**
+ * did:gftd D1 auth schema — GraphAr convention (vertex_*/edge_*).
+ *
+ * Both D1 (auth control plane) and RisingWave (governance data plane)
+ * share the same GraphAr naming: vertex_*, edge_*, with vertex_id PK.
+ *
+ * D1 tables omit _seq and created_date (no firehose ingestion).
+ * D1 tables keep sensitivity_ord and owner_did for RLS consistency.
+ *
+ * Security boundary:
+ *   D1 AUTH_DB   = vertex_gftd_auth_*  / edge_gftd_auth_*  (secrets, credentials)
+ *   D1 KEYS_DB   = vertex_gftd_key_*                        (private keys, revocation)
+ *   RisingWave   = vertex_gftd_identity / edge_gftd_*       (public governance)
+ *
+ * Design doc: 90-docs/260416-did-schema-dodaf-org-agent-shannon-design.md
+ */
+
+// CHARTER-VIOLATION §substrate (centralized DB forbidden): migrate to AT MST + IPFS + Base L2 anchor
+import type { ColumnType, Generated, Insertable, Selectable, Updateable } from "kysely";
+
+// ═══════════════════════════════════════════════════════════════════════════
+// D1 AUTH_DB — auth control plane (GraphAr schema)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── vertex_gftd_auth_account ────────────────────────────────────────────
+// Auth control record for each did:gftd. No governance data.
+// vertex_id = did:gftd:{hash}
+
+export interface VertexGftdAuthAccountTable {
+  vertex_id: string;                // did:gftd:{hash}
+  sensitivity_ord: ColumnType<number, number | undefined, number>;
+  owner_did: string | null;         // = vertex_id (self)
+
+  did: string;                      // = vertex_id (denorm for query compat)
+  legacy_did: string | null;        // did:web:authn.gftd.ai:user:{nanoid}
+  handle: string | null;            // abc12345.gftd.ai
+  performer_type: string;           // person | organization | service | system
+  controller_did: string | null;    // parent authority did:gftd
+  actor_score: ColumnType<number, number | undefined, number>;
+  auth_methods_summary: ColumnType<string, string | undefined, string>; // JSON [{id,type,provider,verified}]
+  status: ColumnType<string, string | undefined, string>;               // active | suspended | deactivated
+  created_at: string;
+  updated_at: string;
+}
+
+export type VertexGftdAuthAccount = Selectable<VertexGftdAuthAccountTable>;
+export type NewVertexGftdAuthAccount = Insertable<VertexGftdAuthAccountTable>;
+
+// ── vertex_gftd_auth_credential ─────────────────────────────────────────
+// WebAuthn passkey credential. Replaces legacy passkey_credentials.
+// vertex_id = credential_id (base64url)
+
+export interface VertexGftdAuthCredentialTable {
+  vertex_id: string;                // credential_id (base64url)
+  sensitivity_ord: ColumnType<number, number | undefined, number>;
+  owner_did: string | null;         // did:gftd:{hash} of the account
+
+  did: string;                      // did:gftd:{hash}
+  handle: string;
+  public_key_b64: string;           // uncompressed P-256, 65 bytes, base64url
+  sign_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export type VertexGftdAuthCredential = Selectable<VertexGftdAuthCredentialTable>;
+
+// ── vertex_gftd_auth_invite ─────────────────────────────────────────────
+// Pending org invitation. HMAC token (security-sensitive).
+// vertex_id = invite:{id}
+
+export interface VertexGftdAuthInviteTable {
+  vertex_id: string;                // invite:{auto_id}
+  sensitivity_ord: ColumnType<number, number | undefined, number>;
+  owner_did: string | null;         // org_did
+
+  org_did: string;
+  email: string;
+  role: string;                     // owner | admin | member | viewer | agent-runtime
+  invite_token: string | null;      // HMAC token (cleared after acceptance)
+  expires_at: number;               // unix seconds
+  inviter_did: string;              // did:gftd of inviter
+  accepted_did: string | null;      // did:gftd of acceptor
+  status: ColumnType<string, string | undefined, string>;  // pending | accepted | expired | revoked
+  accepted_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export type VertexGftdAuthInvite = Selectable<VertexGftdAuthInviteTable>;
+
+// ── vertex_gftd_auth_otp ────────────────────────────────────────────────
+// Email OTP code (10min expiry). Replaces legacy email_link_codes.
+// vertex_id = otp:{account_did}:{email}
+
+export interface VertexGftdAuthOtpTable {
+  vertex_id: string;                // otp:{account_did}:{email}
+  sensitivity_ord: ColumnType<number, number | undefined, number>;
+  owner_did: string | null;         // account_did
+
+  account_did: string;
+  email: string;
+  code: string;                     // 6-digit OTP
+  expires_at: number;               // unix seconds
+  created_at: string;
+}
+
+export type VertexGftdAuthOtp = Selectable<VertexGftdAuthOtpTable>;
+
+// ── edge_gftd_auth_linked ───────────────────────────────────────────────
+// Linked auth method (OAuth/email). Replaces legacy linked_auth_methods.
+// edge_id = {account_did}:auth:{provider}:{provider_subject}
+
+export interface EdgeGftdAuthLinkedTable {
+  edge_id: string;                  // {account_did}:auth:{provider}:{provider_subject_hash}
+  src_vid: string;                  // account did:gftd
+  dst_vid: string;                  // provider:{provider_subject}
+  sensitivity_ord: ColumnType<number, number | undefined, number>;
+  owner_did: string | null;         // account did:gftd
+
+  provider: string;                 // email | google | microsoft
+  provider_subject: string;         // email address or OAuth subject ID
+  display_label: string;
+  verified: ColumnType<number, number | undefined, number>;
+  metadata_json: string | null;     // JSON {email, profile, verifiedAt}
+  created_at: string;
+  updated_at: string;
+}
+
+export type EdgeGftdAuthLinked = Selectable<EdgeGftdAuthLinkedTable>;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// D1 KEYS_DB — key custody (GraphAr schema)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── vertex_gftd_key_signing ─────────────────────────────────────────────
+// P-256 signing key custody. Replaces legacy did_keys.
+// vertex_id = did:gftd:{hash}
+
+export interface VertexGftdKeySigningTable {
+  vertex_id: string;                // did:gftd:{hash}
+  sensitivity_ord: ColumnType<number, number | undefined, number>;
+  owner_did: string | null;         // = vertex_id
+
+  did: string;                      // = vertex_id
+
+  // KEK envelope encrypted (ADR-0010 Stage 1)
+  encrypted_private_key: string;         // AES-256-GCM ciphertext of private_key_b64
+  wrapped_data_key: string;              // per-DID data key, wrapped by KEK (AES-256-GCM)
+  iv: string;                            // 12-byte AES-GCM IV (base64url)
+
+  performer_type: string;
+  public_key_multibase: string;     // z-prefixed base58btc compressed P-256 (always plaintext, public)
+  created_at: string;
+}
+
+export type VertexGftdKeySigning = Selectable<VertexGftdKeySigningTable>;
+
+// ── vertex_gftd_key_revoked_session ─────────────────────────────────────
+// JTI revocation record. Replaces legacy revoked_sessions.
+// vertex_id = jti:{uuid}
+
+export interface VertexGftdKeyRevokedSessionTable {
+  vertex_id: string;                // jti:{uuid}
+  sensitivity_ord: ColumnType<number, number | undefined, number>;
+  owner_did: string | null;         // did of session owner
+
+  jti: string;
+  did: string;
+  revoked_at: string;
+}
+
+export type VertexGftdKeyRevokedSession = Selectable<VertexGftdKeyRevokedSessionTable>;
+
+// ── vertex_gftd_key_otp ─────────────────────────────────────────────────
+// SMS OTP code. Replaces legacy otp_codes.
+// vertex_id = sms:{phone}
+
+export interface VertexGftdKeyOtpTable {
+  vertex_id: string;                // sms:{phone_digits}
+  sensitivity_ord: ColumnType<number, number | undefined, number>;
+  owner_did: string | null;
+
+  phone: string;
+  code: string;
+  expires_at: number;
+  created_at: string;
+}
+
+export type VertexGftdKeyOtp = Selectable<VertexGftdKeyOtpTable>;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Database interfaces (Kysely)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/** AUTH_DB (D1) — auth control plane, GraphAr convention. */
+export interface GftdAuthDatabase {
+  vertex_gftd_auth_account: VertexGftdAuthAccountTable;
+  vertex_gftd_auth_credential: VertexGftdAuthCredentialTable;
+  vertex_gftd_auth_invite: VertexGftdAuthInviteTable;
+  vertex_gftd_auth_otp: VertexGftdAuthOtpTable;
+  edge_gftd_auth_linked: EdgeGftdAuthLinkedTable;
+}
+
+/** KEYS_DB (D1) — key custody, GraphAr convention. */
+export interface GftdKeysDatabase {
+  vertex_gftd_key_signing: VertexGftdKeySigningTable;
+  vertex_gftd_key_revoked_session: VertexGftdKeyRevokedSessionTable;
+  vertex_gftd_key_otp: VertexGftdKeyOtpTable;
+}
