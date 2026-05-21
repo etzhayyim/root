@@ -1,0 +1,78 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:cad.gftd.ai",
+  "convoSystemPrompt": "You are ai-gftd-wasm-cad agent. Cad — AI Agent for browser-based CAD viewing, review, anchored comments, and export. Respond helpfully in the user's language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "cad-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-wasm-cad",
+  "nanoid": "cd4dview",
+  "performerType": "service",
+  "pool": {},
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "cad-import",
+      "cad-scene-projection",
+      "cad-anchored-comments",
+      "cad-export"
+    ],
+    "description": "Cad — AI Agent for browser-based CAD viewing, review, anchored comments, and export",
+    "displayName": "Cad",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "cad",
+  "routes": [
+    {
+      "host": "cad.gftd.ai",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "serviceBindings": [
+    {
+      "binding": "CAD_JOB",
+      "service": "cad-job",
+      "purpose": "Heavy CAD parse / tessellation / export — CF Container (lite/standard) at cad-job.gftd.ai. ADR 2604241500."
+    }
+  ],
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "cd4dview-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Cad"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.like",
+        "app.bsky.feed.post",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.cad.model",
+        "ai.gftd.apps.cad.revision",
+        "ai.gftd.apps.cad.comment"
+      ]
+    }
+  },
+  "uiType": "appview"
+}
