@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.shinka.kyumeiSignal",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Kyumei (究明) signal collected from adherent activity. Consumed by KarmaHegemonObservationCell on levi per ADR-2605215200 §1.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "adherentDid",
+          "signalKind",
+          "weight",
+          "recordedAt",
+          "evidenceCid"
+        ],
+        "properties": {
+          "adherentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the adherent whose activity generated this kyumei signal."
+          },
+          "signalKind": {
+            "type": "string",
+            "enum": [
+              "ritual",
+              "oath",
+              "contribution",
+              "governance-participation",
+              "kuniUmi-witness"
+            ],
+            "description": "Category of adherent activity that generated this signal."
+          },
+          "weight": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Signal strength in permille (0–1000) where 1000 = maximum weight."
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp when this signal was recorded."
+          },
+          "evidenceCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the evidence record that generated this signal."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional human-readable notes about this kyumei signal."
+          }
+        }
+      }
+    }
+  }
+}

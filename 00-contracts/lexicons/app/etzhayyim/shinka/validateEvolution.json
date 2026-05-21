@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.shinka.validateEvolution",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Output contract of EvolutionValidationCell on levi. Validates an evolution claim against Council attestation records and triggers EvolutionEmissionCell per ADR-2605215200 §1.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["claimId", "adherentDid", "proposedLevel", "evidenceCids"],
+          "properties": {
+            "claimId": {
+              "type": "string",
+              "description": "UUID of the evolution claim to validate."
+            },
+            "adherentDid": {
+              "type": "string",
+              "format": "did",
+              "description": "DID of the adherent whose level advancement is being validated."
+            },
+            "proposedLevel": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Proposed new karma level for the adherent."
+            },
+            "evidenceCids": {
+              "type": "array",
+              "items": { "type": "string", "format": "cid" },
+              "description": "IPFS CIDs of evidence records supporting the evolution claim."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["claimId", "valid", "attestationCount", "requiredAttestations", "reason"],
+          "properties": {
+            "claimId": {
+              "type": "string",
+              "description": "UUID of the evolution claim that was validated."
+            },
+            "valid": {
+              "type": "boolean",
+              "description": "Whether the evolution claim passed validation."
+            },
+            "attestationCount": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of Council attestations found for this claim."
+            },
+            "requiredAttestations": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Minimum number of attestations required to pass validation."
+            },
+            "reason": {
+              "type": "string",
+              "description": "Human-readable reason for the validation result."
+            }
+          }
+        }
+      }
+    }
+  }
+}

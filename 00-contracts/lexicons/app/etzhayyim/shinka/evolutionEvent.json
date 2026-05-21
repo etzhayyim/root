@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.shinka.evolutionEvent",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Canonical evolution event record written by EvolutionEmissionCell on simeon. Persisted to MST + IPFS pin + Base L2 anchor per ADR-2605215200 §1.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "adherentDid",
+          "previousLevel",
+          "newLevel",
+          "claimId",
+          "validatedAt",
+          "evidenceCids",
+          "attestationDids",
+          "l2AnchorTxHash"
+        ],
+        "properties": {
+          "adherentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the adherent whose karma level advanced."
+          },
+          "previousLevel": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Karma level before this evolution event."
+          },
+          "newLevel": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Karma level after this evolution event."
+          },
+          "claimId": {
+            "type": "string",
+            "description": "UUID of the validated evolution claim from EvolutionValidationCell."
+          },
+          "validatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp when the evolution claim was validated."
+          },
+          "evidenceCids": {
+            "type": "array",
+            "items": { "type": "string", "format": "cid" },
+            "description": "IPFS CIDs of evidence records supporting the evolution claim."
+          },
+          "attestationDids": {
+            "type": "array",
+            "items": { "type": "string", "format": "did" },
+            "description": "DIDs of Council members who attested to this evolution claim."
+          },
+          "l2AnchorTxHash": {
+            "type": "string",
+            "description": "Base L2 transaction hash from the ADR-2605171800 Stage 5 anchor pipeline."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional human-readable notes from the attesting Council member."
+          },
+          "effectiveMultiplier": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Phenotype effectiveMultiplier delta in permille (0–1000) per ADR-2605192230."
+          }
+        }
+      }
+    }
+  }
+}

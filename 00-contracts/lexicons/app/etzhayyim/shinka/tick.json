@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.shinka.tick",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Public wire entry point for the shinka Pregel super-step. Wire-shape parity with vendor shinka_tick_actor SQL UDF. If adherentDid is absent, ticks all due adherents per ADR-2605215200 §1.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "adherentDid": {
+              "type": "string",
+              "format": "did",
+              "description": "Optional DID of a specific adherent to tick. If absent, all due adherents are ticked."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cycle", "observed", "validated", "emitted", "errors"],
+          "properties": {
+            "cycle": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Current heartbeat cycle counter for this tick."
+            },
+            "observed": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of adherents observed during this tick."
+            },
+            "validated": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of evolution claims validated during this tick."
+            },
+            "emitted": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of evolution events emitted to MST during this tick."
+            },
+            "errors": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "List of error messages encountered during this tick."
+            }
+          }
+        }
+      }
+    }
+  }
+}

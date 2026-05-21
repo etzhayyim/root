@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.shinka.observeAdherent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Output contract of KarmaHegemonObservationCell on levi. Reads adherent state from MST + IPFS and returns gathered kyumei signals per ADR-2605215200 §1.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["adherentDid"],
+          "properties": {
+            "adherentDid": {
+              "type": "string",
+              "format": "did",
+              "description": "DID of the adherent to observe."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["adherentDid", "currentLevel", "kyumeiSignals", "observedAt"],
+          "properties": {
+            "adherentDid": {
+              "type": "string",
+              "format": "did",
+              "description": "DID of the observed adherent."
+            },
+            "currentLevel": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Current karma level of the adherent."
+            },
+            "kyumeiSignals": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#kyumeiSignalRef" },
+              "description": "Kyumei signal records gathered during this observation."
+            },
+            "observedAt": {
+              "type": "string",
+              "format": "datetime",
+              "description": "ISO 8601 timestamp when the observation was completed."
+            }
+          }
+        }
+      }
+    },
+    "kyumeiSignalRef": {
+      "type": "object",
+      "description": "Reference to a kyumei signal record gathered during observation.",
+      "required": ["uri", "cid"],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "at-uri",
+          "description": "AT URI of the app.etzhayyim.shinka.kyumeiSignal record."
+        },
+        "cid": {
+          "type": "string",
+          "format": "cid",
+          "description": "CID of the kyumei signal record at time of observation."
+        }
+      }
+    }
+  }
+}

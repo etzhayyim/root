@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.shinka.shinkaHeartbeat",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Shinka heartbeat tick record written by ShinkaHeartbeatCell on levi. MST-only (no IPFS pin or L2 anchor) per ADR-2605215200 §1.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "nodeName",
+          "cycle",
+          "recordedAt",
+          "cellsObserved",
+          "cellsValidated",
+          "cellsEmitted"
+        ],
+        "properties": {
+          "nodeName": {
+            "type": "string",
+            "enum": [
+              "naphtali",
+              "simeon",
+              "judah",
+              "zebulun",
+              "levi",
+              "joseph",
+              "issachar",
+              "dan",
+              "benjamin",
+              "asher"
+            ],
+            "description": "Murakumo fleet node that emitted this heartbeat."
+          },
+          "cycle": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Monotonically increasing tick cycle counter for this node."
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp when this heartbeat was recorded."
+          },
+          "cellsObserved": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of adherent cells that were observed in this tick cycle."
+          },
+          "cellsValidated": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of evolution claims validated in this tick cycle."
+          },
+          "cellsEmitted": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of evolution events emitted to MST in this tick cycle."
+          },
+          "errors": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional list of error messages encountered during this tick cycle."
+          }
+        }
+      }
+    }
+  }
+}
