@@ -2,19 +2,25 @@
 //
 // SKILL.md is the agent-discoverable summary of what the yorishiro can do.
 // Format: YAML frontmatter + Markdown body with tool list and JSON output
-// note.
+// note. Accepts ops from either openapi-v3 (NormalizedOp) or binary-cli
+// (BinaryOp) via a structural minimum.
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import type { NormalizedOp } from "../openapi/parse.js";
+export interface SkillOp {
+  opName: string;
+  summary?: string;
+  description?: string;
+}
 
 export interface EmitSkillArgs {
   repoRoot: string;
   name: string;
   kami: string;
+  transport: "openapi-v3" | "binary-cli" | "source-repo" | "browser-only";
   purposes: readonly string[];
-  ops: readonly NormalizedOp[];
+  ops: readonly SkillOp[];
 }
 
 export function emitSkill(args: EmitSkillArgs): string {
@@ -34,10 +40,27 @@ function render(args: EmitSkillArgs): string {
     })
     .join("\n");
 
+  const outputBlock = args.transport === "binary-cli"
+    ? `\`\`\`json
+{ "exitCode": <number>, "stdout"?: <string>, "stderr"?: <string>, "error"?: <string> }
+\`\`\`
+
+\`error\` is set only when the binary could not be launched at all
+(missing on PATH, timeout, spawn failure). Otherwise the binary's exit
+code, stdout, and stderr are reported verbatim.`
+    : `\`\`\`json
+{ "httpStatus": <number>, "json"?: <object>, "body"?: <string>, "error"?: <string> }
+\`\`\`
+
+\`json\` is present iff the kami returned \`application/json\` and the body
+parsed; otherwise the raw response is in \`body\`. \`httpStatus\` is \`0\` if
+the kami could not be reached at all.`;
+
   return `---
 name: etzhayyim-yorishiro-${args.name}
 description: Drive the ${args.name} yorishiro (kami: ${args.kami}) via MCP tools, XRPC, or in-process magatama actor calls.
 charter_purposes: ${JSON.stringify(args.purposes)}
+transport: ${args.transport}
 adr: 2605211900
 ---
 
@@ -59,13 +82,7 @@ ${tools}
 
 Every tool returns a JSON object:
 
-\`\`\`json
-{ "httpStatus": <number>, "json"?: <object>, "body"?: <string>, "error"?: <string> }
-\`\`\`
-
-\`json\` is present iff the kami returned \`application/json\` and the body
-parsed; otherwise the raw response is in \`body\`. \`httpStatus\` is \`0\` if
-the kami could not be reached at all.
+${outputBlock}
 
 ## Charter purposes
 

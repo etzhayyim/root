@@ -54,12 +54,19 @@ ADR-2605211900):
 ## CLI
 
 ```bash
-# Phase 1: OpenAPI v3 mode
+# Phase 1: OpenAPI v3 mode (external HTTP webservices)
 yorishiro create <name> \
   --from openapi-v3 \
   --source <url-or-path-to-openapi-spec> \
   --kami <fqdn>           \
   --purpose <csv>          # e.g. grant,kisha,donation
+
+# Phase 2: binary-cli mode (local binaries via kami manifest)
+yorishiro create <name> \
+  --from binary-cli \
+  --source <path-to-kami-manifest.json> \
+  --purpose <csv>
+  # --kami / --binary are taken from the manifest
 
 # regenerate from the same kami source (after kami API changes)
 yorishiro regen <name>
@@ -77,27 +84,69 @@ yorishiro audit
 | Mode | Status | Inputs |
 |---|---|---|
 | `openapi-v3` | **Phase 1 ✓** | OpenAPI 3.x JSON/YAML at a URL or local path |
-| `source-repo` | Phase 2 ⏳ | git URL or local repo path (CLI-Anything style AST analysis) |
+| `binary-cli` | **Phase 2 ✓** | Local binary + hand-authored kami manifest JSON |
+| `source-repo` | Phase 2.5 ⏳ | git URL or local repo path (CLI-Anything style Click/argparse/cobra AST analysis) |
 | `browser-only` | Phase 3 ⏳ | base URL + a Playwright/UI flow script + mcp__claude-in-chrome |
-| `binary-cli` | Phase 2 ⏳ | local binary with `--help` introspection |
+
+### binary-cli kami manifest
+
+`binary-cli` mode reads a kami manifest JSON at
+`00-contracts/kami/<name>.kami.json` that describes the binary's CLI
+surface:
+
+```json
+{
+  "kami": {
+    "id": "bin:<name>",
+    "binary": "<binary-name-or-absolute-path>",
+    "description": "...",
+    "version_flag": "--version"
+  },
+  "ops": [
+    {
+      "name": "convert",
+      "summary": "...",
+      "description": "...",
+      "stdout_capture": true,
+      "exit_code_ok": [0],
+      "timeout_seconds": 60,
+      "argv": [
+        { "kind": "flag",       "name": "<json-key>", "flag": "-f", "type": "integer", "description": "..." },
+        { "kind": "flag",       "name": "<json-key>", "flag": "--bool-flag", "type": "boolean", "description": "..." },
+        { "kind": "positional", "name": "<json-key>", "position": 0, "required": true, "description": "..." }
+      ]
+    }
+  ]
+}
+```
+
+The generated L2 cell uses Python `subprocess.run` (argv-as-list, no
+shell). The generated L3 MCP handle uses Node `child_process.spawn`
+(argv-as-list, no shell). The binary MUST be on the runtime's PATH —
+the generated code calls `shutil.which()` / spawn's ENOENT path and
+returns `error: "binary not found on PATH"` if missing.
 
 ## Reference yorishiri (shipped)
 
 | Name | Kami | Mode | Purposes | Ops |
 |---|---|---|---|---|
 | `arxiv` | `arxiv.org` | `openapi-v3` | `grant` | `searchPapers` |
+| `huggingface` | `huggingface.co` | `openapi-v3` | `grant` | `searchModels`, `searchDatasets` |
+| `openalex` | `api.openalex.org` | `openapi-v3` | `grant`, `kisha` | `searchWorks`, `searchAuthors` |
+| `crossref` | `api.crossref.org` | `openapi-v3` | `grant` | `searchWorks`, `getWorkByDoi` |
+| `pdftotext` | `bin:pdftotext` | `binary-cli` | `grant` | `convert` |
 
-The arXiv kami OpenAPI spec lives at
-`00-contracts/openapi/kami/arxiv.openapi.json` (hand-authored because
-arXiv does not publish OpenAPI). To regenerate the arXiv yorishiro:
+Kami specs (OpenAPI v3 JSON or kami manifest JSON) live at
+`00-contracts/openapi/kami/<name>.openapi.json` (HTTP kami) or
+`00-contracts/kami/<name>.kami.json` (binary kami). The 4 HTTP yorishiri
+above point at hand-authored OpenAPI specs because none of those kami
+publish a maintained OpenAPI document. To regenerate everything:
 
 ```bash
-cd 70-tools/etzhayyim-cli/yorishiro
-pnpm yorishiro create arxiv \
-  --from openapi-v3 \
-  --source ../../../00-contracts/openapi/kami/arxiv.openapi.json \
-  --kami arxiv.org \
-  --purpose grant
+cd /path/to/repo
+for n in arxiv huggingface openalex crossref pdftotext; do
+  tsx 70-tools/etzhayyim-cli/yorishiro/src/cli.ts regen "$n"
+done
 ```
 
 ## Charter compliance
