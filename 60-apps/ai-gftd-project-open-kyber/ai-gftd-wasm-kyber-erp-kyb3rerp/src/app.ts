@@ -611,26 +611,31 @@ function planLimits(planId: string): { maxUsers: number; maxMonthlyTxns: number 
   }
 }
 
+// Stripe integration is REMOVED from the canonical etzhayyim repo per
+// Charter Rider §1.3 + ADR-2605192115 + ADR-2605211900 §"Constitutional
+// invariants" (no fiat payment processors / no `subscription` purpose
+// on external substrate calls). Downstream commercial forks (e.g.
+// kyber.gftd.ai) that operate as for-profit ERP tenancies are expected
+// to patch in their own stripePost implementation locally.
+//
+// This stub keeps the call sites in cmdProvisionTenant + cmdReportUsage
+// type-correct without re-introducing the api.stripe.com URL into the
+// canonical source tree. Calls degrade silently: provision continues
+// without a customer id, usage reporting reports zero. The deployed
+// kyber.gftd.ai instance ships a separate billing-non-religious-corp
+// module that re-exports a real stripePost. See
+// 90-docs/adr/2605212100-stripe-removed-from-religious-corp-canonical.md.
 async function stripePost(
-  path: string,
-  params: Record<string, string>,
-  stripeKey: string,
+  _path: string,
+  _params: Record<string, string>,
+  _stripeKey: string,
 ): Promise<{ ok: boolean; id?: string; errorMessage?: string }> {
-  const body = new URLSearchParams(params).toString();
-  const res = await fetch(`https://api.stripe.com/v1/${path}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${stripeKey}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body,
-  });
-  const data = await res.json() as Record<string, unknown>;
-  if (!res.ok) {
-    const errObj = data.error as Record<string, unknown> | undefined;
-    return { ok: false, errorMessage: str(errObj?.message ?? res.statusText) };
-  }
-  return { ok: true, id: str(data.id ?? "") };
+  return {
+    ok: false,
+    errorMessage:
+      "Stripe disabled in canonical etzhayyim repo (Charter Rider §1.3). " +
+      "Patch your downstream commercial fork to re-implement stripePost.",
+  };
 }
 
 async function cmdProvisionTenant(sdk: HostSDK, body: Uint8Array) {
