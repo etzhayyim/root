@@ -1,0 +1,147 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:animeka.gftd.ai",
+  "component": {
+    "env": {
+      "APP_EMBED_MODE": "pipeline"
+    },
+    "path": "src/app.ts"
+  },
+  "convoSystemPrompt": "You are ai-gftd-wasm-animeka agent. Team-based anime creation platform powered by KAMI Engine X-sheet timeline — help users produce anime episodes across the full 12-stage pipeline (script → storyboard → layout → key animation → in-between → color design → finish → background → composite → edit → sound → delivery). Respond helpfully in the users language.",
+  "deploy": {},
+  "duties": ["勤労の義務"],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": ["animeka-policy"]
+  },
+  "kpi": ["credits の獲得"],
+  "name": "ai-gftd-wasm-animeka",
+  "nanoid": "an1m3k4x",
+  "performerType": "service",
+  "profile": {
+    "agentType": "semi-autonomous",
+    "capabilities": [
+      "edge-assets",
+      "bpmn-dispatch",
+      "timeline-wasm"
+    ],
+    "description": "Thin Cloudflare edge facade for Animeka. Work, episode, cut, retake, chat, and generation pipeline business logic runs in AgentGateway MCP + pod-side LangServer workers.",
+    "displayName": "Animeka",
+    "isBot": true
+  },
+  "project": "animeka",
+  "routes": [
+    {
+      "host": "animeka.gftd.ai",
+      "paths": ["/"],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "build": {
+    "guestLanguage": "ts",
+    "role": "thin-edge"
+  },
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "Public anime feed — new works, episodes, PV drops, delivery",
+        "kind": "public",
+        "name": "animeka-feed"
+      }
+    ],
+    "description": "Team-based anime creation platform powered by KAMI Engine",
+    "historyVisibility": "world-readable",
+    "joinRule": "public",
+    "name": "Animeka"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.graph.follow",
+        "ai.gftd.animeka.work",
+        "ai.gftd.animeka.episode",
+        "ai.gftd.animeka.script",
+        "ai.gftd.animeka.scene",
+        "ai.gftd.animeka.cut",
+        "ai.gftd.animeka.storyboard",
+        "ai.gftd.animeka.layout",
+        "ai.gftd.animeka.keyframe",
+        "ai.gftd.animeka.inbetween",
+        "ai.gftd.animeka.colorModel",
+        "ai.gftd.animeka.colorTrace",
+        "ai.gftd.animeka.background",
+        "ai.gftd.animeka.composite",
+        "ai.gftd.animeka.soundCue",
+        "ai.gftd.animeka.retake",
+        "ai.gftd.animeka.character",
+        "ai.gftd.animeka.asset",
+        "ai.gftd.animeka.project",
+        "ai.gftd.animeka.chatMessage"
+      ]
+    }
+  },
+  "derive": {
+    "rules": [
+      {
+        "id": "episode-published-social",
+        "description": "Tier 1 social announcement of a newly published episode. Auto-emits an app.bsky.feed.post authored by the work's path-based DID.",
+        "on": {
+          "collection": "ai.gftd.animeka.episode",
+          "action": "create",
+          "where": { "record.status": "published" }
+        },
+        "emit": {
+          "type": "app.bsky.feed.post",
+          "did": "{{resolve(record.workRef).workDid}}",
+          "text": "🎬 #{{record.episodeNum}} {{record.titleJP}} 公開\nwatch → https://animeka.gftd.ai/at/an1m3k4x.gftd.ai/ai.gftd.animeka.episode/{{self.rkey}}",
+          "embed": {
+            "$type": "app.bsky.embed.recordWithMedia",
+            "record": {
+              "$type": "app.bsky.embed.record",
+              "record": { "uri": "{{self.uri}}", "cid": "{{self.cid}}" }
+            },
+            "media": {
+              "$type": "app.bsky.embed.images",
+              "images": [
+                {
+                  "image": { "$type": "blob", "ref": { "$link": "{{record.thumbCid}}" }, "mimeType": "image/jpeg" },
+                  "alt": "{{record.titleJP}}"
+                }
+              ]
+            }
+          },
+          "_meta": {
+            "sideEffect": "linkBackPostUri",
+            "linkBackField": "episodePostUri",
+            "linkBackTarget": "{{self.uri}}"
+          }
+        }
+      }
+    ],
+    "_pipelineIntent": {
+      "note": "ADR-2604231328 — 12-stage animeka pipeline handoff. MVP triggers each stage via /cuts UI Generate button (XRPC POST to dispatcher.gftd.ai:8080/xrpc/ai.gftd.animeka.<stage>). Auto-derive chain below is Phase 2 (requires dispatcher emit type support).",
+      "handoffRules": [
+        { "on": "scene.create",                      "invoke": "ai.gftd.animeka.breakdownScene" },
+        { "on": "cut.create",                        "invokeN": 3, "invoke": "ai.gftd.animeka.generateStoryboard", "fanoutVar": "candidateNum" },
+        { "on": "storyboard.update status=approved", "invoke": "ai.gftd.animeka.generateLayout" },
+        { "on": "layout.update status=approved",     "parallel": ["ai.gftd.animeka.generateKeyframe", "ai.gftd.animeka.generateBackground"] },
+        { "on": "keyframe.pair_committed",           "invoke": "ai.gftd.animeka.generateInbetween" },
+        { "on": "colorModel.update status=ready",    "invoke": "ai.gftd.animeka.autoTrace",     "fanoutOver": "keyframes" },
+        { "on": "colorTrace.ready && background.ready", "invoke": "ai.gftd.animeka.renderComposite" },
+        { "on": "cut.update status=approved",        "invoke": "ai.gftd.animeka.generateSoundCue", "fanoutOver": "soundCues" },
+        { "on": "episode.update status=ready",       "invoke": "ai.gftd.animeka.publishEpisode", "hitl": true }
+      ]
+    },
+    "_helpers": {
+      "resolve": "Resolves a com.atproto.repo.strongRef to the target record (e.g. resolve workRef → work.did).",
+      "derived": "Looks up a previously-emitted derived-post strongRef via the linkBack field set by an upstream rule.",
+      "_matchText": "Resolves richtext facet byteStart/byteEnd by locating the literal substring in the emitted text."
+    }
+  },
+  "uiType": "appview"
+}
