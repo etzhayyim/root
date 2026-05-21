@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-a22f02d6fda1",
+  "entityId": "ent-a22f02d6fda1",
+  "canonicalName": "ooo standard line",
+  "aliases": [
+    "ooo standard line"
+  ]
+}
