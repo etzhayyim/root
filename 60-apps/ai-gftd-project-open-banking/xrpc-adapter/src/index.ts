@@ -13,6 +13,7 @@
  * Single-file principle: all routing and handler logic here.
  */
 
+import { z } from "zod";
 import {
   createAuthedEtzhayyim,
   extractBearerToken,
@@ -35,6 +36,21 @@ import {
   type ListTransactionsInput,
   type ListTransactionsOutput,
 } from "@etzhayyim/open-banking-rw-free";
+
+/**
+ * Inline Zod validator for transfer endpoint.
+ *
+ * Production: import from @etzhayyim/lexicon-to-zod/generated/openBanking.validators.js
+ */
+const transferInputSchema = z.object({
+  transferId: z.string().min(1),
+  clientRequestId: z.string().min(1),
+  fromAccountId: z.string().min(1),
+  toAccountId: z.string().min(1),
+  amountMinor: z.number().int().positive(),
+  currency: z.string().min(1),
+  memo: z.string().optional(),
+});
 
 interface Env {
   ACTOR_DID: string;
@@ -170,6 +186,21 @@ export default {
         },
         400
       );
+    }
+
+    // Validate input for transfer endpoint
+    if (nsid === `${NSID_BASE}.transfer`) {
+      const parsed = transferInputSchema.safeParse(input);
+      if (!parsed.success) {
+        return jsonResponse(
+          {
+            error: "InvalidInput",
+            issues: parsed.error.issues,
+          },
+          400
+        );
+      }
+      input = parsed.data;
     }
 
     // Call handler
