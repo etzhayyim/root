@@ -1,0 +1,17 @@
+name = "etzhayyim-anchorer-did-web"
+main = "src/worker.ts"
+compatibility_date = "2026-05-21"
+
+# Route the spec-required did:web resolution path. No other paths exist
+# on anchorer.etzhayyim.com — the anchor-cron substrate-mode runtime is
+# internal to the Mac mini fleet and exposes nothing via HTTPS.
+[[routes]]
+pattern = "anchorer.etzhayyim.com/.well-known/did.json"
+zone_name = "etzhayyim.com"
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+[placement]
+mode = "smart"
