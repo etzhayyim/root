@@ -1,0 +1,74 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "wproto XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://wproto.etzhayyim.com"
+    }
+  ],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "ai_gftd_wproto_did": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "The DID. Compatible with com.atproto.identity.defs#identityInfo.did.",
+            "format": "did"
+          },
+          "handle": {
+            "type": "string",
+            "description": "The handle. Compatible with com.atproto.identity.defs#identityInfo.handle.",
+            "format": "handle"
+          },
+          "document": {}
+        },
+        "required": [
+          "did",
+          "document"
+        ]
+      },
+      "ai_gftd_wproto_label": {
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string",
+            "description": "DID of the actor who created this label. Compatible with com.atproto.label.defs#label.src.",
+            "format": "did"
+          },
+          "uri": {
+            "type": "string",
+            "description": "AT URI of the resource this label applies to. Compatible with com.atproto.label.defs#label.uri.",
+            "format": "uri"
+          },
+          "val": {
+            "type": "string",
+            "description": "The short string name of the value or type of this label. Compatible with com.atproto.label.defs#label.val.",
+            "maxLength": 128
+          },
+          "neg": {
+            "type": "boolean",
+            "description": "If true, this is a negation label. Compatible with com.atproto.label.defs#label.neg."
+          },
+          "cts": {
+            "type": "string",
+            "description": "Timestamp when this label was created. Compatible with com.atproto.label.defs#label.cts.",
+            "format": "datetime"
+          },
+          "label": {
+            "type": "string",
+            "description": "GFTD extension: W Protocol label namespace identifier"
+          }
+        },
+        "required": [
+          "val",
+          "cts"
+        ]
+      }
+    }
+  }
+}

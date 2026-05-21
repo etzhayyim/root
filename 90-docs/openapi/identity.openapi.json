@@ -1,0 +1,340 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "identity XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://identity.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/ai.gftd.identity.getEngagement": {
+      "get": {
+        "summary": "ai.gftd.identity.getEngagement",
+        "operationId": "ai.gftd.identity.getEngagement",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "engagement": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "engagement"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.identity.list": {
+      "get": {
+        "summary": "ai.gftd.identity.list",
+        "operationId": "ai.gftd.identity.list",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "identities": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "cursor": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "identities"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.identity.pullFeed": {
+      "get": {
+        "summary": "ai.gftd.identity.pullFeed",
+        "operationId": "ai.gftd.identity.pullFeed",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "feed": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "feed"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.identity.register": {
+      "post": {
+        "summary": "ai.gftd.identity.register",
+        "operationId": "ai.gftd.identity.register",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nanoid": {
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "nanoid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "registered": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "registered"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.identity.resolve": {
+      "get": {
+        "summary": "ai.gftd.identity.resolve",
+        "operationId": "ai.gftd.identity.resolve",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "did"
+            }
+          },
+          {
+            "name": "handle",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "handle"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Returns official com.atproto.identity.defs#identityInfo (did, handle, didDoc)."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.identity.submitOp": {
+      "post": {
+        "summary": "ai.gftd.identity.submitOp",
+        "operationId": "ai.gftd.identity.submitOp",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string",
+                    "description": "Target did:gftd. For create the did MUST equal parent_did + ':' + CID(op). For update/deactivate the did MUST already exist."
+                  },
+                  "opType": {
+                    "type": "string",
+                    "enum": [
+                      "create",
+                      "update",
+                      "deactivate"
+                    ]
+                  },
+                  "op": {},
+                  "prev": {
+                    "type": "string",
+                    "description": "CID of previous op (required for update/deactivate)"
+                  },
+                  "sig": {
+                    "type": "string",
+                    "description": "Signature over CID(op), base64url. Required for update/deactivate; optional for create (genesis is self-attesting via CID)."
+                  },
+                  "sigKid": {
+                    "type": "string",
+                    "description": "verificationMethod id used to sign (required when sig is present)"
+                  }
+                },
+                "required": [
+                  "did",
+                  "opType",
+                  "op"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "opCid": {
+                      "type": "string",
+                      "description": "CIDv1 of the submitted op"
+                    },
+                    "opSeq": {
+                      "type": "integer",
+                      "description": "0 for genesis, +1 per update"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "opCid",
+                    "opSeq",
+                    "accepted"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}
