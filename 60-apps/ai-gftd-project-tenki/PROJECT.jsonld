@@ -1,0 +1,24 @@
+{
+  "@context": "https://schemas.gftd.ai/project",
+  "@type": "Project",
+  "name": "ai-gftd-project-tenki",
+  "description": "Weather information project for tenki.gftd.ai built on SpinApp components",
+  "category": "ai-gftd-project-workers",
+  "components": {
+    "app": {
+      "appId": "tenki-weather",
+      "tier": "event-driven",
+      "stack": "go",
+      "keda": false,
+      "routes": [
+        {
+          "host": "tenki.gftd.ai",
+          "paths": [
+            "/",
+            "/api/mcp"
+          ]
+        }
+      ]
+    }
+  }
+}
