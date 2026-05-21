@@ -169,7 +169,7 @@ async function createFromOpenApi(args: CreateArgs): Promise<void> {
     kami: args.kami,
     baseUrl,
     purposes,
-    generatedAt: new Date().toISOString(),
+    generatedAt: preserveGeneratedAt(repoRoot, args.name),
     generator: `@etzhayyim/yorishiro@${VERSION}`,
   };
   writeFileSync(join(cfgDir, `${args.name}.json`), JSON.stringify(cfg, null, 2) + "\n", "utf-8");
@@ -252,7 +252,7 @@ async function createFromBinaryCli(args: CreateArgs): Promise<void> {
     kami: manifest.kami.id,
     binary: manifest.kami.binary,
     purposes,
-    generatedAt: new Date().toISOString(),
+    generatedAt: preserveGeneratedAt(repoRoot, args.name),
     generator: `@etzhayyim/yorishiro@${VERSION}`,
   };
   writeFileSync(join(cfgDir, `${args.name}.json`), JSON.stringify(cfg, null, 2) + "\n", "utf-8");
@@ -381,6 +381,23 @@ function findRepoRoot(): string {
     }
     dir = parent;
   }
+}
+
+// Preserve the original generatedAt across regen so the registry file is
+// byte-stable. Only the first `create` stamps a new timestamp; every
+// later regen reuses it. This is what makes the CI regen-idempotency
+// check meaningful (otherwise wall-clock drift would always trip it).
+function preserveGeneratedAt(repoRoot: string, name: string): string {
+  const p = join(repoRoot, "70-tools/etzhayyim-cli/yorishiro/registry", `${name}.json`);
+  if (existsSync(p)) {
+    try {
+      const prior = JSON.parse(readFileSync(p, "utf-8"));
+      if (typeof prior.generatedAt === "string") return prior.generatedAt;
+    } catch {
+      // fall through to fresh stamp
+    }
+  }
+  return new Date().toISOString();
 }
 
 function resolveSource(src: string, repoRoot: string): string {

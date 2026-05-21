@@ -2,6 +2,7 @@
 name: etzhayyim-yorishiro-openalex
 description: Drive the openalex yorishiro (kami: api.openalex.org) via MCP tools, XRPC, or in-process magatama actor calls.
 charter_purposes: ["grant","kisha"]
+transport: openapi-v3
 adr: 2605211900
 ---
 

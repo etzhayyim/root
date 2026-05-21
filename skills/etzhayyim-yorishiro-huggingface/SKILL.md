@@ -2,6 +2,7 @@
 name: etzhayyim-yorishiro-huggingface
 description: Drive the huggingface yorishiro (kami: huggingface.co) via MCP tools, XRPC, or in-process magatama actor calls.
 charter_purposes: ["grant"]
+transport: openapi-v3
 adr: 2605211900
 ---
 

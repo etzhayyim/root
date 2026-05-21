@@ -2,6 +2,7 @@
 name: etzhayyim-yorishiro-crossref
 description: Drive the crossref yorishiro (kami: api.crossref.org) via MCP tools, XRPC, or in-process magatama actor calls.
 charter_purposes: ["grant"]
+transport: openapi-v3
 adr: 2605211900
 ---
 
