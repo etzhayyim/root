@@ -750,6 +750,13 @@ status = "proposed"
 status_note = "ADR-2605192415 §7.1 + ADR-2605201400-1900 (kuni-umi S0-S5) で spec 完成済みの religious-corp + kuni-umi daemon を Murakumo Mac mini fleet で 常駐起動するための OS-level boot path を closure。3 artefact: (1) 20-actors/magatama/py/pyproject.toml に `[project.scripts] magatama-cell-runner = pymagatama.cell_runner_main:main` 追加で CLI を PATH-resolvable に、(2) 50-infra/cluster/murakumo/cell-runner/com.etzhayyim.magatama-cell-runner.plist を @@PLACEHOLDER@@ 形式 template として固定 (litellm/ameno-daemon plist と同 pattern、no personal paths in git per GitGuardian lesson)、(3) install.sh が --node 12-tribe allowlist 検証 + uv sync + --health pre-flight check + bash parameter expansion 経由 placeholder substitution + sanity gate (@@-marker residue check) + idempotent launchctl reload。`start_cell` の subprocess spawn / MstCheckpointSaver / MST listener / healthz / swarm heartbeat は引き続き staged TODO — 本 ADR scope は OS-level boot path のみ。Plutil syntax + bash substitution + magatama-cell-runner --health smoke 全 PASS 検証済 (2026-05-20 dev laptop)."
 path = "90-docs/adr/2605202100-etzhayyim-magatama-cell-runner-launchd.md"
 
+[[adrs]]
+id = "2605211845"
+title = "gftd org cleanup completion + kami-engine-sdk standalone publication"
+status = "accepted"
+status_note = "Closes the long-running gftdcojp [MOVED → etzhayyim/root] cleanup. 15 MOVED-tagged repos physically deleted (0 remaining). public-global was MOVED-tagged but never actually imported — fetched into 60-apps/ai-gftd-project-public-global/ before deletion to reconcile the description (commit 690135d3). kami-engine-sdk republished as standalone read-only mirror at github.com/etzhayyim/kami-engine-sdk (monorepo SoT preserved); npm scope renamed @gftdcojp/kami-engine-sdk → @etzhayyim/kami-engine-sdk in 7 files (commit d302f274). Standalone-mirror policy = explicit one-by-one decision, no bulk; kami-engine-sdk is the only carve-out at the time of this ADR. Operational note: a concurrent 6-wave religious-corp cell substrate commit plan (yoro / shinka / etzhayyim-sdk-py / joucho / council + cross-cutting) committed 5 waves (64804ab2..0b6bfa55) to PR #254 but the cross-cutting wave was lost to a parallel git reset --hard origin/main; PR #254 closed without merge in favour of the user's parallel reconstruction."
+path = "90-docs/adr/2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -1969,4 +1976,89 @@ follow_up = [
   "If B: lexicon copy only + vendor magatama operator field correction (no runtime move)",
   "If C: vendor magatama operator correction + add deai to next vendor bulk closure entry",
   "Default disposition C activates 2026-06-20 if no Council ruling",
+]
+
+[session_summaries.gftd-org-cleanup-completion-2026-05-21]
+date = "2026-05-21"
+adr = "2605211845"
+prs_closed = ["#254 (Religious-corp Pregel cell waves — closed without merge in favour of user parallel reconstruction)"]
+description = """gftdcojp [MOVED → etzhayyim/root] cleanup completion +
+kami-engine-sdk standalone publication + religious-corp Pregel cell
+substrate wave attempt (partial, see Operational note).
+
+## gftdcojp MOVED-tagged repos: deleted (15 → 0)
+
+Physical deletion (not archive). Verified outcome:
+`gh repo list gftdcojp --jq '[.[]|select(.description|startswith(\"[MOVED\"))]|length'` = **0**.
+
+Deletion batches and corresponding etzhayyim/root SoT paths:
+
+| Batch | Repo | etzhayyim/root path |
+|---|---|---|
+| 1 | ai-gftd-project-open-banking | 60-apps/ai-gftd-project-open-banking/ |
+| 2 | signal-client / at-client / wproto | 10-protocol/{signal-client,at-client,wproto}/ |
+| 3 | ai-gftd-project-public-malak / resources / ai-gftd-project-public-global | 60-apps/ai-gftd-project-public-malak/, 00-contracts/resources/, 60-apps/ai-gftd-project-public-global/ (last one **fetched first**, see below) |
+| 4 | ai-gftd-project-open-lexicon / open-bpmn / open-isic / open-jpn-gov | 00-contracts/lexicons/ai/gftd/ + 00-contracts/bpmn/ai/gftd/ + 60-apps/ai-gftd-project-open-{isic,jpn-gov}/ |
+| 5 | magatama-go / watashi / yata / gftd-bpmn-sdk / kami-engine-sdk | 20-actors/{magatama-go,kami-engine-sdk,etzhayyim-bpmn-sdk}/, 60-apps/watashi/, 50-infra/yata/ |
+| 6 | cdn / nats-tiered-storage / nats-jetstream-objectstore-s3 | 70-tools/cdn/, 50-infra/{nats-tiered-storage,nats-jetstream-objectstore-s3}/ |
+
+## public-global reconciliation (commit 690135d3)
+
+`ai-gftd-project-public-global` was MOVED-tagged but never imported (gh
+api description vs local filesystem mismatch detected). 16 files
+(LICENSE, MCP_TOOLS.md, PROJECT.jsonld, README, scheduler.jsonld,
+wasm/global-mcp-component + wasm/resource-collector-component) fetched
+via `git clone --depth 1` and committed to
+`60-apps/ai-gftd-project-public-global/` before deletion. The initial
+`gh api .../contents` fetch missed nested subdirs (wadm/, wit/, k8s/) —
+`git clone` was required for full fidelity.
+
+## kami-engine-sdk standalone publication (commit d302f274)
+
+`github.com/etzhayyim/kami-engine-sdk` created as **public read-only
+mirror**. Monorepo subdir `20-actors/kami-engine-sdk/` is SoT. Package
+name renamed `@gftdcojp/kami-engine-sdk` → `@etzhayyim/kami-engine-sdk`
+in 7 files (package.json + README + src + 3 consumer files in
+magatama-host-sdk / yoro genko-stub).
+
+Mirror commit on standalone: 78 files pushed as single initial-mirror
+commit. Future syncs are manual one-time pushes (no automation).
+
+## Standalone-mirror policy
+
+`kami-engine-sdk` is the only intentional carve-out at the time of this
+ADR. Other gftdcojp public SDKs (bpmn-engine-ts, bpmn-sdk-rs, rs-jsonnet,
+effect-actor, ontology, shigarami, sparql-ts, gftd) are left at
+gftdcojp per user direction — they are vendor-tier SDKs without
+Charter Rider and replicating would imply etzhayyim sponsorship that
+does not exist.
+
+## Operational note (lost cross-cutting work)
+
+In the same session, a 6-wave commit plan was attempted for
+CLAUDE.md milestones #28-32 (yoro / shinka / etzhayyim-sdk-py /
+joucho / council + cross-cutting cleanup). Waves 1-5 landed as
+commits `64804ab2`, `88e97621`, `06946371`, `20d6c958`, `0b6bfa55`.
+The cross-cutting wave (94 staged entries) was committed externally
+as `e4868a8e` and wiped by a concurrent `git reset --hard
+origin/main` (reflog HEAD@{2}); working-tree restoration did not
+follow. Waves 1-5 were preserved as branch `260521-cell-waves` and
+PR #254 opened, but CI failed across the board (vitest + tsc)
+because the supporting cross-cutting (lockfile + pyproject +
+fleet.toml) was missing. User reconstructed the same primitives in
+parallel in the working tree (verified byte-identical); PR #254
+closed without merge to avoid duplication. SHAs still in reflog —
+cherry-pick recovery available within gc window if user's
+reconstruction misses anything.
+
+## What this commit lands
+
+- `90-docs/adr/2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone.md` — proposed-accepted ADR documenting the cleanup pattern + standalone-mirror policy
+- deps.toml: 1 ADR registry entry (id 2605211845) + this session_summary
+"""
+follow_up = [
+  "User-side fresh PR for religious-corp Pregel cell substrate (yoro / shinka / etzhayyim-sdk-py / joucho / council + cross-cutting) — supersedes the closed PR #254",
+  "Reconstruct lost CLAUDE.md milestone-table rows 28-32 in the user's fresh PR (content available from this session's reflog if needed)",
+  "Decide standalone-mirror status for ontology (DoDAF — etzhayyim adjacency) if/when downstream demand surfaces",
+  "Generic standalone-mirror sync runbook (manual one-time push) — currently only kami-engine-sdk; add when 2nd mirror lands",
 ]
