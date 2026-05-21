@@ -1,5 +1,5 @@
 {
-  "name": "@etzhayyim/ipaddress-xrpc-adapter",
+  "name": "@etzhayyim/otakiage-xrpc-adapter",
   "version": "0.1.0",
   "type": "module",
   "private": true,
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*",
-    "@etzhayyim/ipaddress-rw-free": "workspace:*"
+    "@etzhayyim/otakiage-rw-free": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240712.0",
