@@ -19,7 +19,9 @@ Operator deploys in strict order: Tier 1 → (wait 7 days) → Tier 2 → (wait 
 
 ### Tier 1: Public read-only (deploy first, lowest risk)
 
-**Actors**: `open-isco` / `isbn` / `gtin` / `ndc` / `houbun` / `hanrei` / `ipaddress` / `ocel`
+**Actors** (7, CI matrix: `.github/workflows/test.yml` + `wrangler-validate.yml`): `isbn` / `gtin` / `ndc` / `houbun` / `hanrei` / `ipaddress` / `ocel`
+
+> **open-isco excluded from xrpc-adapter cohort** (2026-05-21 reconciliation): the standalone CF Worker runtime is retired for open-isco (see `60-apps/ai-gftd-project-open-isco/CLAUDE.md` §"Active Runtime"). open-isco runs as BPMN + LangServer + LangGraph + UDF (`openIsco.classifyWorker` / `openIsco.recordConcordance`). The `@etzhayyim/open-isco-rw-free` package exists as a read-only embed surface (`queryByPrefix` / `getByCode` against `ai.gftd.apps.openIsco.occupation`) for other apps; no xrpc-adapter is shipped. Earlier drafts of this ADR listed open-isco at Tier 1; that was inconsistent with the BPMN-only runtime decision and is corrected here.
 
 **Rationale**: No PII, no mutations from public callers, idempotent write path (rkey-gated, existing record check before write).
 
@@ -84,10 +86,10 @@ wrangler deploy
 #   ✓ Published to <actor>.etzhayyim.com
 ```
 
-Example:
+Example (Tier 1 first actor):
 
 ```bash
-cd 60-apps/ai-gftd-project-open-isco/xrpc-adapter
+cd 60-apps/ai-gftd-project-isbn/xrpc-adapter
 wrangler deploy
 ```
 
@@ -112,17 +114,16 @@ Expected response (200):
 
 ### Write path test (per tier, first command)
 
-**Tier 1 example (open-isco — register organization)**:
+**Tier 1 example (isbn — register book)**:
 
 ```bash
-curl -X POST https://open-isco.etzhayyim.com/xrpc/ai.gftd.open-isco.registerOrganization \
+curl -X POST https://isbn.etzhayyim.com/xrpc/ai.gftd.isbn.registerBook \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer <pds-session-token>' \
   -d '{
-    "id": "US-0123456789",
-    "name": "Example Corporation",
-    "jurisdiction": "US",
-    "classificationScheme": "ISCO-08"
+    "isbn13": "9784106102845",
+    "title": "Example Book",
+    "source": "openlibrary"
   }'
 ```
 
@@ -131,8 +132,8 @@ Expected response (200):
 ```json
 {
   "status": "registered",
-  "did": "did:web:open-isco.etzhayyim.com#org-us-0123456789",
-  "uri": "at://did:web:open-isco.etzhayyim.com/ai.gftd.open-isco.organization/rkey-…"
+  "did": "did:web:isbn.etzhayyim.com#book-9784106102845",
+  "bookUri": "at://did:web:isbn.etzhayyim.com/ai.gftd.isbn.book/rkey-…"
 }
 ```
 
@@ -141,8 +142,8 @@ Or (if already exists):
 ```json
 {
   "status": "alreadyExists",
-  "error": "Organization already registered under this rkey",
-  "uri": "at://did:web:open-isco.etzhayyim.com/ai.gftd.open-isco.organization/rkey-…"
+  "error": "Book already registered under this rkey",
+  "bookUri": "at://did:web:isbn.etzhayyim.com/ai.gftd.isbn.book/rkey-…"
 }
 ```
 
