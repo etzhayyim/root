@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-f3e2658ffab2",
+  "entityId": "ent-f3e2658ffab2",
+  "canonicalName": "city pharm",
+  "aliases": [
+    "city pharm"
+  ]
+}
