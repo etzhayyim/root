@@ -20204,6 +20204,48 @@
       "description": "Document discrepancy under L/C"
     },
     {
+      "id": "ai.gftd.apps.surplusRouter.flagDeadStock",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/flagDeadStock.json",
+      "type": "procedure",
+      "description": "Flag a surplus lot as no longer redistributable; routing decision recycle-via-kozan -> dispose-licensed enforced per Wellbecoming (ADR-2605211241 / ADR-2605192100 §1.13)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.getSurplusLot",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/getSurplusLot.json",
+      "type": "query",
+      "description": "Get a single surplus lot by DID (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.listSurplusLots",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/listSurplusLots.json",
+      "type": "query",
+      "description": "List surplus lots with optional category/origin/state filters for demand-side matching (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.matchDemand",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/matchDemand.json",
+      "type": "procedure",
+      "description": "Demand-side claim against a registered surplus lot by Adherent-SBT or attested religious-corp downstream actor (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.recordKozanHandoff",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/recordKozanHandoff.json",
+      "type": "procedure",
+      "description": "Bridge a flagged-dead-stock surplus lot into toshiKozan e-waste recovery; emits paired ai.gftd.apps.toshiKozan.registerEwasteStream (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.recordRedistribution",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/recordRedistribution.json",
+      "type": "procedure",
+      "description": "Record physical handoff of a surplus lot from donor to matched receiver; closes redistribution path with optional warehouse.pick/putaway + freeport/FTZ bridge (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.registerSurplusLot",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/registerSurplusLot.json",
+      "type": "procedure",
+      "description": "Register a globally surplus / dead-stock / overstock / unsold-inventory lot for donation-based redistribution within the religious-corp economy with 10% in-kind tithe coupling (ADR-2605211241)."
+    },
+    {
       "id": "ai.gftd.apps.taxTransparency.flagDisclosureGap",
       "path": "00-contracts/lexicons/ai/gftd/apps/taxTransparency/flagDisclosureGap.json",
       "type": "procedure",
