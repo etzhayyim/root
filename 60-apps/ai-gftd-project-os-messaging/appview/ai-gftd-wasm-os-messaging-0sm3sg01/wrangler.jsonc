@@ -1,0 +1,44 @@
+{
+  "name": "magatama-0sm3sg01",
+  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2025-03-17",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_als"
+  ],
+  "vars": {
+    "APP_CAPABILITIES": "[\"multi-platform-messaging\",\"webhook-receiver\",\"platform-user-mapping\"]",
+    "APP_DESCRIPTION": "Multi-platform messaging gateway — Discord, Telegram, Slack, LINE, WhatsApp to GFTD agent network",
+    "APP_DISPLAY_NAME": "OS Messaging Gateway",
+    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "APP_NANOID": "0sm3sg01",
+    "APP_PERFORMER_TYPE": "service",
+    "APP_UI_TYPE": "yoro",
+    "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+  },
+  "rules": [
+    {
+      "type": "CompiledWasm",
+      "globs": [
+        "**/*.wasm"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "0sm3sg01.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    },
+    {
+      "pattern": "os-messaging.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    }
+  ],
+  "assets": {
+    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}

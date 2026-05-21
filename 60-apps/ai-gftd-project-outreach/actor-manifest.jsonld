@@ -1,0 +1,18 @@
+{
+  "@context": "https://magatama.gftd.ai/ns/actor-manifest/v1",
+  "@type": "ActorManifest",
+  "did": "did:web:outreach.gftd.ai",
+  "nanoid": "otch0001",
+  "name": "outreach",
+  "displayName": "GFTD Sales Outreach",
+  "description": "Sales Outreach Automation — LangGraph research→draft loop + DNC gate + Resend multi-step sequence.",
+  "performerType": "service",
+  "domain": "outreach.gftd.ai",
+  "capabilities": [
+    "ai.gftd.apps.outreach.createSequence",
+    "ai.gftd.apps.outreach.getSequence",
+    "ai.gftd.apps.outreach.listSequences",
+    "ai.gftd.apps.outreach.addProspect",
+    "ai.gftd.apps.outreach.addDnc"
+  ]
+}
