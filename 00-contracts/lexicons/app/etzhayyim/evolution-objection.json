@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.evolution-objection",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Objection filed against an evolution (Lv6→Lv7) advancement during the 30-day public objection window. Per ADR-2605215400 §4. If ≥1 objection is filed, the evolution remains in 'pending' status until the window closes. Only then is it finalized or reversed.",
+      "record": {
+        "type": "object",
+        "required": [
+          "claimId",
+          "adherentDid",
+          "proposedLevel",
+          "objectorDid",
+          "reason",
+          "filedAt"
+        ],
+        "properties": {
+          "claimId": {
+            "type": "string",
+            "description": "ID of the evolution claim being objected to."
+          },
+          "adherentDid": {
+            "type": "string",
+            "description": "DID of the adherent applying for advancement."
+          },
+          "proposedLevel": {
+            "type": "integer",
+            "minimum": 6,
+            "maximum": 7,
+            "description": "Evolution level being objected to (currently Lv6 or Lv7; Lv7 has 30-day window per ADR-2605215400)."
+          },
+          "objectorDid": {
+            "type": "string",
+            "description": "DID of the objector (any adherent or Council member, depending on level). For Lv7, typically a Council member or active witness."
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "insufficient-witness-quality",
+              "charter-non-compliance-undetected",
+              "procedural-error",
+              "conflict-of-interest",
+              "other"
+            ],
+            "description": "Category of objection grounds."
+          },
+          "narrative": {
+            "type": "string",
+            "maxLength": 4000,
+            "description": "Detailed objection narrative. Public and permanent record."
+          },
+          "evidenceCid": {
+            "type": "string",
+            "description": "Optional IPFS CID of supporting evidence (document, attestation, forensic data)."
+          },
+          "filedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp when objection was filed (within appeal window)."
+          }
+        }
+      }
+    }
+  }
+}

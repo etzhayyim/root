@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.council.member",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Council Lv6+ member registry record. Anchors a DID as Council voting member per ADR-2605192300 (5-seat Bootstrap Council). Used by mst.council_attestation_details + evolution_validation_cell Lv6/Lv7 paths (ADR-2605215400).",
+      "key": "literal:self",
+      "record": {
+        "type": "object",
+        "required": ["did", "level", "seatNumber", "ratifiedAt", "ratificationMethod"],
+        "properties": {
+          "did": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the Council member (Lv6+)."
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 6,
+            "maximum": 7,
+            "description": "Council level: 6 (eligible) or 7 (founder-equivalent)."
+          },
+          "seatNumber": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "Bootstrap Council seat (1-5 per ADR-2605192300)."
+          },
+          "ratifiedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Timestamp when the seat was ratified (after 30-day RFP objection period close)."
+          },
+          "ratificationMethod": {
+            "type": "string",
+            "description": "How ratified: rfp-objection-period-close | succession-vote | founder-bootstrap | replacement-vote."
+          },
+          "objectionPeriodStart": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the 30-day public objection period started (per ADR-2605192300)."
+          },
+          "objectionPeriodEnd": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the objection period closed without successful objection."
+          },
+          "expertiseAxis": {
+            "type": "string",
+            "description": "5-axis expertise area (per ADR-2605192300): philosophical | governance | engineering | spiritual | outreach."
+          },
+          "term": {
+            "type": "string",
+            "description": "Optional term descriptor (e.g. 'bootstrap', 'phase-2-renewable')."
+          },
+          "predecessorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Optional: DID of the predecessor if this seat is a replacement."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional human-readable notes."
+          }
+        }
+      }
+    }
+  }
+}
