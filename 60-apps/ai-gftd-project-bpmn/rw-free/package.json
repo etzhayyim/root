@@ -17,14 +17,16 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "node --test dist/**/*.test.js"
+    "test": "vitest run"
   },
   "dependencies": {
     "@etzhayyim/sdk": "^1.0.0"
   },
   "devDependencies": {
+    "@etzhayyim/sdk-mock": "workspace:*",
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vitest": "^2.0.0"
   },
   "keywords": [
     "bpmn",
