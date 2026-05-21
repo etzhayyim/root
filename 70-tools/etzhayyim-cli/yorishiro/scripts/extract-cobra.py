@@ -53,6 +53,12 @@ FLAG_RE = re.compile(
 # <cmdVar>.Args = cobra.ExactArgs(N) / cobra.MinimumNArgs(N) / cobra.MaximumNArgs(N)
 ARGS_RE = re.compile(r"(?P<owner>\w+)\.Args\s*=\s*cobra\.(?P<kind>Exact|Minimum|Maximum)N?Args\((?P<n>\d+)\)")
 
+# <cmdVar>.Args = cobra.NoArgs / cobra.ArbitraryArgs / cobra.OnlyValidArgs
+ARGS_NO_N_RE = re.compile(r"(?P<owner>\w+)\.Args\s*=\s*cobra\.(?P<kind>NoArgs|ArbitraryArgs|OnlyValidArgs)\b")
+
+# <cmdVar>.Args = cobra.RangeArgs(min, max)
+ARGS_RANGE_RE = re.compile(r"(?P<owner>\w+)\.Args\s*=\s*cobra\.RangeArgs\((?P<min>\d+)\s*,\s*(?P<max>\d+)\)")
+
 # Track <parent>.AddCommand(<child>) so persistent flags can be inherited
 ADD_CMD_RE = re.compile(r"(?P<parent>\w+)\.AddCommand\(\s*(?P<child>\w+)\s*\)")
 
@@ -187,6 +193,46 @@ def _extract_from_text(text: str) -> list[dict[str, Any]]:
                     "required": kind != "Maximum",
                     "type": "string",
                     "description": f"Positional argument {i} (cobra {kind}NArgs).",
+                }
+            )
+
+    for m in ARGS_NO_N_RE.finditer(text):
+        owner = m.group("owner")
+        if owner not in commands:
+            continue
+        kind = m.group("kind")
+        # NoArgs: zero positionals (explicit). ArbitraryArgs / OnlyValidArgs:
+        # variable count — emit one optional generic positional so the
+        # lexicon at least documents that args exist.
+        if kind == "NoArgs":
+            commands[owner].setdefault("no_args_explicit", True)
+            continue
+        commands[owner]["args"].append(
+            {
+                "kind": "positional",
+                "name": "args_rest",
+                "position": 0,
+                "required": False,
+                "type": "string",
+                "description": f"Variable positional args (cobra {kind}).",
+            }
+        )
+
+    for m in ARGS_RANGE_RE.finditer(text):
+        owner = m.group("owner")
+        if owner not in commands:
+            continue
+        mn = int(m.group("min"))
+        mx = int(m.group("max"))
+        for i in range(mx):
+            commands[owner]["args"].append(
+                {
+                    "kind": "positional",
+                    "name": f"arg{i}",
+                    "position": i,
+                    "required": i < mn,
+                    "type": "string",
+                    "description": f"Positional argument {i} (cobra RangeArgs({mn}, {mx})).",
                 }
             )
 
