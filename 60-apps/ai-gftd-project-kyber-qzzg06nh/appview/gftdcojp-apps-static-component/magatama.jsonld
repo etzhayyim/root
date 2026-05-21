@@ -1,0 +1,67 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:kyber-qzzg06nh.gftd.ai",
+  "accent": "#6366f1",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are the GFTD apps static governance agent. Govern static site publication, accessibility-sensitive changes, and release traceability for Kyber-hosted app surfaces.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "classification": "internal",
+    "complianceFrameworks": [
+      "WCAG 2.2",
+      "OWASP ASVS 4.0"
+    ],
+    "raci": "responsible",
+    "roles": [
+      {
+        "description": "Maintains static app delivery and publishing workflows.",
+        "did": "did:web:kyber-qzzg06nh.gftd.ai:static",
+        "role": "static-site-operator"
+      },
+      {
+        "description": "Approves static app content and release scope.",
+        "did": "did:web:kyber-qzzg06nh.gftd.ai:content",
+        "role": "content-owner"
+      },
+      {
+        "description": "Reviews accessibility and release traceability for static surfaces.",
+        "did": "did:web:kyber-qzzg06nh.gftd.ai:frontend",
+        "role": "frontend-reviewer"
+      }
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "gftdcojp-apps-static-component",
+  "nanoid": "gftdapps",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Static Kyber-hosted app surface governance component",
+    "displayName": "GFTD Apps Static",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "kyber-qzzg06nh",
+  "runtimeType": "worker",
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow"
+      ]
+    }
+  },
+  "uiType": "appview"
+}
