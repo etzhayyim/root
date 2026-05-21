@@ -19,7 +19,9 @@ import { emitBinaryCell } from "./binary/emit-cell-py.js";
 import { emitBinaryLexicons } from "./binary/emit-lexicon.js";
 import { emitBinaryMcp } from "./binary/emit-mcp.js";
 import { readKamiManifest } from "./binary/parse.js";
+import { emitBrowserCell } from "./browser/emit-cell-py.js";
 import { emitBrowserLexicons } from "./browser/emit-lexicon.js";
+import { emitBrowserMcp } from "./browser/emit-mcp.js";
 import { readBrowserKamiManifest } from "./browser/parse.js";
 import { emitCell } from "./emit/cell-py.js";
 import { emitLexicons } from "./emit/lexicon.js";
@@ -324,12 +326,22 @@ async function createFromBrowserOnly(args: CreateArgs): Promise<void> {
   const lexicons = emitBrowserLexicons({ repoRoot, name: args.name, purposes, manifest });
   console.error(`[yorishiro] L1: emitted ${lexicons.length} lexicon(s)`);
 
-  // L2 / L3 / SKILL.md are deliberately not emitted for browser-only
-  // yorishiri yet — Phase 3 ships the contract, not the driver. A
-  // future runner that uses mcp__claude-in-chrome (or Playwright in a
-  // sandboxed pod) will read x-yorishiro-browser off the lexicon and
-  // replay the step sequence. See ADR-2605211900 D4 row (c).
-  console.error(`[yorishiro] L2/L3 skipped — browser-only driver pending (Phase 3 follow-up).`);
+  const cell = emitBrowserCell({ repoRoot, name: args.name, purposes, manifest });
+  console.error(`[yorishiro] L2: wrote ${cell.path} (requires playwright + chromium on the cell runtime)`);
+
+  const mcp = emitBrowserMcp({ repoRoot, name: args.name, purposes, manifest });
+  console.error(`[yorishiro] L3: wrote ${mcp.files.length} file(s) under ${mcp.packageDir} (requires playwright + chromium on the MCP host)`);
+
+  const skill = emitSkill({
+    repoRoot,
+    name: args.name,
+    kami: manifest.kami.id,
+    transport: "browser-only",
+    purposes,
+    ops: manifest.ops.map((o) => ({ opName: o.name, summary: o.summary, description: o.description })),
+  });
+  console.error(`[yorishiro] SKILL.md: ${skill}`);
+
   console.error(`[yorishiro] done. Run \`yorishiro audit\` to verify Charter compliance.`);
 }
 
