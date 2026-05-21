@@ -13,13 +13,19 @@
  * Single-file principle: all routing and handler logic here.
  */
 
-import { Etzhayyim } from "@etzhayyim/sdk";
+import {
+  createAuthedEtzhayyim,
+  extractBearerToken,
+  type Etzhayyim,
+} from "@etzhayyim/sdk-auth";
 import * as dnsRwFree from "@etzhayyim/dns-rw-free";
 
 interface Env {
   ACTOR_DID: string;
   PDS_URL: string;
   L2_RPC_URL: string;
+  PDS_ACCESS_JWT?: string;
+  PDS_REFRESH_JWT?: string;
 }
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
