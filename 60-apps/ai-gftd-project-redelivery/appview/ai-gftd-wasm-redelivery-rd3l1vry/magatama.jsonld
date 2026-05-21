@@ -1,0 +1,63 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:redelivery.gftd.ai",
+  "accent": "#6366f1",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are redelivery agent. Redelivery — AI Agent. Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "redelivery-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-wasm-redelivery-rd3l1vry",
+  "nanoid": "rd3l1vry",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Redelivery — AI Agent",
+    "displayName": "Redelivery",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "redelivery",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "rd3l1vry-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Redelivery"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.redelivery.redeliveryEntity",
+        "ai.gftd.apps.redelivery.redeliveryEvent",
+        "ai.gftd.apps.redelivery.redeliveryReport"
+      ]
+    }
+  },
+  "uiType": "appview"
+}
