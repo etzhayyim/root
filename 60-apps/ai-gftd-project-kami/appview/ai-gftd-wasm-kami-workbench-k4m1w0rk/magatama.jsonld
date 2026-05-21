@@ -1,0 +1,124 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:kami.gftd.ai",
+  "auth": {
+    "guestAccess": true,
+    "guestCommands": [
+      "guest-create-island",
+      "guest-generate-island",
+      "browse-worlds",
+      "get-world-scene"
+    ],
+    "guestDIDPrefix": "did:web:kami.gftd.ai:guest:"
+  },
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are ai-gftd-wasm-kami-workbench agent. Kami — AI Agent for game-engine intelligence and analytics. Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "content-rating"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-wasm-kami-workbench",
+  "nanoid": "k4m1w0rk",
+  "performerType": "service",
+  "pool": {},
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "game-engine",
+      "3d-rendering"
+    ],
+    "description": "Kami — AI Agent for game-engine intelligence and analytics",
+    "displayName": "Kami",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "kami",
+  "routes": [
+    {
+      "host": "kami.gftd.ai",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    },
+    {
+      "host": "k4m1w0rk.gftd.ai",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "source": "template",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "New island creations and updates",
+        "kind": "public",
+        "name": "creations"
+      },
+      {
+        "description": "Playtest invitations and feedback",
+        "kind": "public",
+        "name": "playtesting"
+      },
+      {
+        "description": "KAMI World global events and announcements",
+        "kind": "public",
+        "name": "world-events"
+      }
+    ],
+    "description": "Game creation workbench + shared world platform — play without login",
+    "historyVisibility": "world-readable",
+    "joinRule": "public",
+    "name": "KAMI World"
+  },
+  "template": "ohsi-v1b3s0h1",
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "routes": [
+        "/api/grpc/...",
+        "/health",
+        "/healthz",
+        "/readyz",
+        "/..."
+      ],
+      "spa": true,
+      "staticDir": "/wasm/svelte/dist"
+    },
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.kami.kamiEntity",
+        "ai.gftd.apps.kami.kamiEvent",
+        "ai.gftd.apps.kami.kamiReport"
+      ]
+    }
+  },
+  "ui": {
+    "accent": "#f59e0b",
+    "icon": "⛩️"
+  },
+  "uiType": "appview",
+  "version": "1.0.0",
+  "yata": {
+    "dataDir": "/data/yata"
+  }
+}
