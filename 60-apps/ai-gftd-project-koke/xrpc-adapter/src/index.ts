@@ -3,13 +3,19 @@
  * Per ADR-2605210000 first execution-layer demonstration.
  */
 
-import { Etzhayyim } from "@etzhayyim/sdk";
+import {
+  createAuthedEtzhayyim,
+  extractBearerToken,
+  type Etzhayyim,
+} from "@etzhayyim/sdk-auth";
 import * as rwFree from "@etzhayyim/koke-rw-free";
 
 interface Env {
   ACTOR_DID: string;
   PDS_URL: string;
   L2_RPC_URL: string;
+  PDS_ACCESS_JWT?: string;
+  PDS_REFRESH_JWT?: string;
 }
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
