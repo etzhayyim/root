@@ -7,10 +7,15 @@
 # Cell placement per ADR-2605192415 §4 (Religious-Corp Daemon Architecture).
 # Each node runs `magatama-cell-runner --node <name>` via launchd
 # (com.etzhayyim.magatama-cell-runner.plist).
+#
+# LAN IPs (`ip_lan`) recorded per ADR-2605211910 — verified 2026-05-21 via
+# mDNS (`*.local`) + ARP on `en0 [ethernet]` from jacob (192.168.1.9).
+# These are the Ethernet-side post-migration values; the WiFi-side
+# vendor-repo inventory (.49..67) is superseded for etzhayyim scope.
 
 [fleet]
 name = "etzhayyim-murakumo"
-adr = ["2605192415", "2605191346", "2605182312"]
+adr = ["2605192415", "2605191346", "2605182312", "2605211910"]
 control_plane = "launchd (macOS) — no commercial K8s per ADR-2605191346"
 swarm_leader_election_adr = "2605191603"
 swarm_broadcast_adr = "2605191524"
@@ -22,6 +27,7 @@ cell_key_rotation_period_days = 90
 [[nodes]]
 name = "naphtali"
 hostname = "naphtalinomac-mini.local"
+ip_lan = "192.168.1.18"
 role = "charter-compliance-leader + kuni-umi-survey-leader"
 cells = [
   "CharterAttestationRequestCell",
@@ -34,6 +40,7 @@ replicas_of = []
 [[nodes]]
 name = "simeon"
 hostname = "simeonnomac-mini.local"
+ip_lan = "192.168.1.19"
 role = "ipfs-pinner + stewardship-leader + kuni-umi-commission-leader"
 cells = [
   "LandStewardshipMonitoringCell",
@@ -45,6 +52,7 @@ replicas_of = []
 [[nodes]]
 name = "judah"
 hostname = "judahnomac-mini.local"
+ip_lan = "192.168.1.17"  # also hosts LiteLLM gateway :4000
 role = "land-trust-leader"
 cells = [
   "LandDonationProcessingCell",
@@ -56,6 +64,7 @@ replicas_of = []
 [[nodes]]
 name = "zebulun"
 hostname = "zebulunnomac-mini.local"
+ip_lan = "192.168.1.11"
 role = "economic-leader + kuni-umi-planning-leader"
 cells = [
   "EligibilityCell",
@@ -69,6 +78,7 @@ replicas_of = []
 [[nodes]]
 name = "levi"
 hostname = "levinomac-mini.local"
+ip_lan = "192.168.1.16"
 role = "membership + council orchestration + kuni-umi-audit-leader"
 cells = [
   "AdherentAttestationCell",
@@ -81,6 +91,7 @@ replicas_of = []
 [[nodes]]
 name = "joseph"
 hostname = "josephnomac-mini.local"
+ip_lan = "192.168.1.15"
 role = "phenotype-agent-shard-0 + kuni-umi-construction-leader"
 cells = [
   "PhenotypeAgent",  # SBT tokenId range 0 to N/3
@@ -93,6 +104,7 @@ replicas_of = []
 [[nodes]]
 name = "issachar"
 hostname = "issacharnomac-mini.local"
+ip_lan = "192.168.1.12"
 role = "phenotype-agent-shard-1"
 cells = [
   "PhenotypeAgent",  # SBT tokenId range N/3 to 2N/3
@@ -104,6 +116,7 @@ replicas_of = []
 [[nodes]]
 name = "dan"
 hostname = "dannomac-mini.local"
+ip_lan = "192.168.1.13"
 role = "phenotype-agent-shard-2 + kuni-umi-decommission-leader"
 cells = [
   "PhenotypeAgent",  # SBT tokenId range 2N/3 to N
@@ -116,6 +129,7 @@ replicas_of = []
 [[nodes]]
 name = "benjamin"
 hostname = "benjaminomac-mini.local"
+ip_lan = "192.168.1.14"  # IP from dnsmasq SSoT; mDNS silent but L2 active
 role = "force + ethics leader"
 cells = [
   "ForceAuthorizationCell",
@@ -123,15 +137,14 @@ cells = [
   "EthicsContentClassifierCell",
 ]
 replicas_of = []
-status = "pending_wol_2026_05_18"
 
 [[nodes]]
 name = "asher"
 hostname = "ashernomac-mini.local"
+ip_lan = "192.168.1.21"  # IP from dnsmasq SSoT; mDNS silent but L2 active
 role = "replica + failover (any cell)"
 cells = []  # dynamic — picks up leader role on failover
 replicas_of = ["*"]  # replica of all
-status = "pending_wol_2026_05_18"
 
 # ─── Per-cell global config ─────────────────────────────────────────
 

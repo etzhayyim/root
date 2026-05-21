@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-503afc29945f",
+  "entityId": "ent-503afc29945f",
+  "canonicalName": "cubanatur",
+  "aliases": [
+    "cubanatur"
+  ]
+}

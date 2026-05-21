@@ -1,0 +1,63 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:swe.gftd.ai",
+  "accent": "#6366f1",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are git agent. Git — AI Agent. Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "swe-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-wasm-git-gt1v2w3x",
+  "nanoid": "gt1v2w3x",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Git — AI Agent",
+    "displayName": "Git",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "swe",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "gt1v2w3x-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Git"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.swe.sweEntity",
+        "ai.gftd.apps.swe.sweEvent",
+        "ai.gftd.apps.swe.sweReport"
+      ]
+    }
+  },
+  "uiType": "yoro"
+}

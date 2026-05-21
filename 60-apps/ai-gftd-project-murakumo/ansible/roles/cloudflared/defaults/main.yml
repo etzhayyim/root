@@ -1,0 +1,3 @@
+cloudflared_agent_hostname: "jacob-status.gftd.ai"
+cloudflared_llm_hostname: "llm.gftd.ai"
+cloudflared_metrics_domain: "murakumo-internal.gftd.ai"

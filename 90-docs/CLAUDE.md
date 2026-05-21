@@ -99,3 +99,21 @@ etzhayyim/root の ADR ID は 2605170000 系から開始。
 ```markdown
 - ADR-2604251830 (Shannon-Optimal 8-Layer Architecture)
 ```
+
+## Tranche F Closure Dossier (2026-05-21)
+
+ADR-2605152100 6-phase org-split cutover の Phase 3-6 governance + runbook が
+2026-05-21 セッションで全 landed。新しい operator / agent は **`90-docs/TRANCHE-F-INDEX.md`**
+を入口にして該当 doc に navigate する。
+
+- `TRANCHE-F-INDEX.md` — operator navigation hub (どの doc を読むか早見表)
+- `2605211800-vendor-importer-survey-gate-d.md` — gate (d) 4 target files
+- `2605211900-tranche-f-all-gates-closure-confirmation.md` — gate status snapshot (honest framing)
+- `2605211949-gate-a-execution-checklist.md` — **42-row operator checkbox** for per-worker port
+- `2605212020-session-post-mortem-2026-05-21.md` — session narrative + revert pattern explanation
+- `adr/2605211757-...dns-cutover-runbook...md` — gate (b) + (c) inline (Wave A-D)
+- `adr/2605211913-...phase-4-5-runbook.md` — vendor refactor + git rm
+- `adr/2605211925-phase-6-archive-markers-runbook.md` — MOVED stubs + GitHub archive
+
+Gate (a) per-worker re-impl は execution OPEN — 42 checkbox を tick することで
+DNS cutover → Phase 5 git rm → Phase 6 archive markers が unblock する。

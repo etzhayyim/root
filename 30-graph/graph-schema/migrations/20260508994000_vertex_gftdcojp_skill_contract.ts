@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 /**
  * gftdcojp.etzhayyim.com Skill matrix + Contract registry
- * Principal: amanomibashira. Vendor: Gftd Japan株式会社.
+ * Principal: etzhayyim. Vendor: Gftd Japan株式会社.
  *
  * Tier 1 (objective, non-PII): skills, contracts, IP assignments.
  * Companion: 20260508995000_vertex_gftdcojp_profile_minimax_tier3
@@ -192,7 +192,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         'did:web:gftd-japan.etzhayyim.com',
         'did:web:gftd-japan.etzhayyim.com',
         'Gftd Japan株式会社 Engineering Capacity SOW',
-        'amanomibashira が Gftd Japan のエンジニアリング capacity を契約調達。IP は amanomibashira 帰属、開発成果物は work-for-hire',
+        'etzhayyim が Gftd Japan のエンジニアリング capacity を契約調達。IP は etzhayyim 帰属、開発成果物は work-for-hire',
         '2026-01-01',
         true,
         NULL,
@@ -214,8 +214,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         'ip_assignment',
         'did:web:etz-hayim.etzhayyim.com',
         NULL, NULL,
-        'All work product (code, schemas, BPMN, ADRs) created under SOW = work-for-hire, IP vests in amanomibashira immediately.',
-        '本 SOW 配下で生成された全成果物 (コード/スキーマ/BPMN/ADR) は work-for-hire とし、IP は即時 amanomibashira に帰属。',
+        'All work product (code, schemas, BPMN, ADRs) created under SOW = work-for-hire, IP vests in etzhayyim immediately.',
+        '本 SOW 配下で生成された全成果物 (コード/スキーマ/BPMN/ADR) は work-for-hire とし、IP は即時 etzhayyim に帰属。',
         'critical',
         now()::varchar,
         'did:web:etz-hayim.etzhayyim.com'
@@ -225,7 +225,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         'gftd-japan-vendor-sow-v1',
         'nda',
         NULL,
-        'all amanomibashira platform internals + roadmap + customer info',
+        'all etzhayyim platform internals + roadmap + customer info',
         60,
         'NDA covers all platform internals + roadmap + customer info. 5-year survival post-termination.',
         'プラットフォーム内部仕様/ロードマップ/顧客情報を全面 NDA。終了後 5 年間有効。',
@@ -238,8 +238,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         'gftd-japan-vendor-sow-v1',
         'termination',
         NULL, NULL, NULL,
-        'amanomibashira may terminate for convenience with 30 days notice. Vendor must hand over all materials + access.',
-        'amanomibashira は 30 日前通知で随意解除可。Vendor は全資料・アクセス権を引き渡す。',
+        'etzhayyim may terminate for convenience with 30 days notice. Vendor must hand over all materials + access.',
+        'etzhayyim は 30 日前通知で随意解除可。Vendor は全資料・アクセス権を引き渡す。',
         'high',
         now()::varchar,
         'did:web:etz-hayim.etzhayyim.com'

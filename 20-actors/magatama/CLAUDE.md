@@ -8,6 +8,44 @@ Directory layout:
 - `hosts/magatama-kami-host`
 - `inference/magatama-inference`
 - `config/magatama-config`
+- `py/src/pymagatama/` — Python worker layer (29 etzhayyim-classified workers
+  + 4 ingest modules + 4 substrate primitives are gate (a) execution targets;
+  see Tranche F dossier)
+
+## Tranche F gate (a) — per-worker RW-free port (OPEN execution item)
+
+The Python files in `py/src/pymagatama/` are the gate (a) execution targets
+of ADR-2605212100 §2(a). As of 2026-05-21, the **patterns** are documented
+but per-worker **code** is not committed to this repo. Operators (or agents)
+porting a worker MUST:
+
+1. Read the gate (a) checklist row for that worker:
+   `90-docs/2605211949-gate-a-execution-checklist.md`
+2. Follow the pattern recipe (§0 of the checklist) for the row's pattern.
+3. Run the row's smoke test in a tmp `$ORGANISM_SQLITE_DIR`.
+4. Commit + tick the checklist row.
+
+6 patterns to choose from:
+
+- **BeliefStore** (organism cluster, 8 workers) — uses
+  `pymagatama.primitives.active_inference_substrate.select_belief_store()`
+  + per-actor SQLite at `$ORGANISM_SQLITE_DIR/{actor_did_sanitized}.db`.
+- **Audit log** (tools_audit) — append-only `audit-{repo}.db` mirroring
+  `vertex_repo_commit`.
+- **Read-cache** (sixir) — SELECT-only `{module}-{actor}.db`; external
+  ingest seeds the rows.
+- **Primary store** (10 workers: hub/web4/oshiete/resources/omikuji/
+  kareyanagi/kiyome/gov/narou/ge) — INSERT/SELECT/UPDATE/DELETE on
+  `{module}-{actor}.db`.
+- **worker_runtime + degraded stub** (4 zeebe-dep workers:
+  blockchain/houbun/curpus2skill/site_common_crawl) — replaces vendor
+  zeebe_worker_main import with `pymagatama.worker_runtime`; ingest tasks
+  delegate to per-actor ingest modules.
+- **Ingest module** (4 modules: blockchain/houbun/curpus2skill/
+  site_common_crawl + ingest.core) — RPC + per-actor SQLite + shared
+  `ingest.core` orchestration spine.
+
+Full Tranche F closure index: `90-docs/TRANCHE-F-INDEX.md`
 
 ⚠️ **DEPRECATED 2026-04-12 → REMOVED 2026-04-13**: SQL architecture fully removed. Use Kysely (`createKyselyDb(env.HYPERDRIVE)`) for graph reads and `ai.gftd.kagami.sql` for raw SQL. `sqlQuery*` host imports, `sql.ts`, Drizzle ORM, kagami SQL transpiler are archived.
 

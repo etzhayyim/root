@@ -1,0 +1,35 @@
+{
+  "@context": "https://magatama.gftd.ai/ns/v1",
+  "@type": "MagatamaApp",
+  "nanoid": "cpti0001",
+  "name": "compintel",
+  "displayName": "GFTD Competitive Intel",
+  "description": "Competitive Intelligence Dashboard — LangGraph multi-dimension research loop. Weekly refresh Monday 08:00 JST. Threat scoring + alert digest via Resend.",
+  "did": "did:web:compintel.gftd.ai",
+  "domain": "compintel.gftd.ai",
+  "performerType": "service",
+  "uiType": "appview",
+  "runtimeType": "ts-thin-edge",
+  "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/compintel",
+  "routes": [
+    { "pattern": "cpti0001.gftd.ai/*", "zone_name": "gftd.ai" },
+    { "pattern": "compintel.gftd.ai/*", "zone_name": "gftd.ai" }
+  ],
+  "subscribeRepos": [
+    {
+      "collection": "ai.gftd.apps.news.article",
+      "description": "Ingest news articles mentioning tracked competitors for signal extraction"
+    }
+  ],
+  "capabilities": [
+    "ai.gftd.apps.compintel.trackCompetitor",
+    "ai.gftd.apps.compintel.getSnapshot",
+    "ai.gftd.apps.compintel.listCompetitors",
+    "ai.gftd.apps.compintel.getAlert"
+  ],
+  "integrations": {
+    "ads": "ai.gftd.apps.ads.createCampaign",
+    "email": "resend",
+    "newsIngest": "ai.gftd.apps.news.article"
+  }
+}

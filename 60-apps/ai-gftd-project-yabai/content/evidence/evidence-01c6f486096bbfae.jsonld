@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "gftd:YabaiEvidence",
+  "@id": "https://yabai.gftd.ai/content/evidence/evidence-01c6f486096bbfae",
+  "evidenceId": "evidence-01c6f486096bbfae",
+  "entityId": "ent-24e0c9b8a879",
+  "category": "SanctionHit",
+  "source": "eu/organized-crime/camorra",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.95,
+  "severity": 5,
+  "probability": 0.005,
+  "jurisdiction": "EU",
+  "summary": "Watchlist signal"
+}

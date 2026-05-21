@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-95217d9506cd",
+  "entityId": "ent-95217d9506cd",
+  "canonicalName": "lpg om",
+  "aliases": [
+    "lpg om"
+  ]
+}

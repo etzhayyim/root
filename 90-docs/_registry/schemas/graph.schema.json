@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gftd.ai/docs/schemas/docs-graph.schema.json",
+  "title": "Docs Relation Graph",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@graph"
+  ],
+  "properties": {
+    "@context": {
+      "type": "object"
+    },
+    "@graph": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "type",
+          "title",
+          "status",
+          "topic",
+          "authoritative"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^doc:.+$"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "deprecated",
+              "superseded",
+              "proposed"
+            ]
+          },
+          "topic": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authoritative": {
+            "type": "boolean"
+          },
+          "authoritativeFor": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "related": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^doc:.+$"
+            }
+          },
+          "supersedes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^doc:.+$"
+            }
+          },
+          "supersededBy": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^doc:.+$"
+            }
+          }
+        }
+      }
+    }
+  }
+}

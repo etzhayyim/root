@@ -114,6 +114,13 @@ Bootstrap is temporary. Phase 2 (formal Council ADR per [ADR-2605192300 §4](90-
 
 Phase 2 transitions to 1 SBT = 1 vote election with term limits + size cap. Bootstrap Council members can stand for re-election but have no incumbent privilege.
 
+## How candidates are evaluated (rubric)
+
+Per-seat evaluation rubric, objection review workflow, selection deliberation
+window (2026-06-19 → constructor call), and failure-mode escalation tree are
+in `90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md`. Candidates
+can self-assess against the rubric there before submitting an application.
+
 ## Where to ask questions
 
 - **github discussions**: https://github.com/etzhayyim/root/discussions (preferred — public + permanent)

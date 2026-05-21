@@ -45,7 +45,7 @@ class TestSupervisorPrefixRouting(unittest.TestCase):
 class TestComplianceGate(unittest.TestCase):
     def test_platform_with_disclaimer_approved(self):
         from pymagatama.langgraph_graphs.lawfirm_marketing_ops import compliance_gate
-        state = _make_state(brand="platform", body_md="Our platform operator amanomibashira does not provide legal advice.")
+        state = _make_state(brand="platform", body_md="Our platform operator etzhayyim does not provide legal advice.")
         out = compliance_gate(state)
         self.assertEqual(out["compliance_check"], "approved")
 

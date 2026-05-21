@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-7a2b73f5e44f",
+  "entityId": "ent-7a2b73f5e44f",
+  "canonicalName": "bank saderat plc",
+  "aliases": [
+    "bank saderat plc"
+  ]
+}

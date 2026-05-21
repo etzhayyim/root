@@ -23,6 +23,9 @@
 autoInstallPeers: false
 
 packages:
+  # etzhayyim chain-substrate (ADR-2605211950 axis)
+  - "50-infra/etzhayyim-authz"
+
   # ameno cohort
   - "20-actors/ameno"
   - "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte"
@@ -44,3 +47,7 @@ packages:
 
   # Phase F worker XRPC adapters (25 actors)
   - "60-apps/ai-gftd-project-*/xrpc-adapter"
+
+  # yorishiro generator + emitted MCP servers (ADR-2605211900)
+  - "70-tools/etzhayyim-cli/yorishiro"
+  - "20-actors/magatama/mcp/yorishiro-*-mcp"

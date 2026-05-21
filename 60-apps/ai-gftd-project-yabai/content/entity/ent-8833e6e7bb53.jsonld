@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-8833e6e7bb53",
+  "entityId": "ent-8833e6e7bb53",
+  "canonicalName": "bank refah kargaran",
+  "aliases": [
+    "bank refah kargaran"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-bc8ac0290b86",
+  "entityId": "ent-bc8ac0290b86",
+  "canonicalName": "distribuidora medica hospitalaria, s.a. de c.v.",
+  "aliases": [
+    "distribuidora medica hospitalaria, s.a. de c.v."
+  ]
+}

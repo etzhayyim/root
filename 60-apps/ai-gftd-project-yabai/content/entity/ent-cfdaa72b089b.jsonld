@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-cfdaa72b089b",
+  "entityId": "ent-cfdaa72b089b",
+  "canonicalName": "革マル派 (kakumaru-ha)",
+  "aliases": [
+    "革マル派 (kakumaru-ha)"
+  ]
+}

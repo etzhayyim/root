@@ -1,0 +1,10 @@
+{
+  "name": "ai-gftd-wasm-handotai-dtyy44cr",
+  "version": "1.0.0",
+  "description": "handotai.gftd.ai TS-native semiconductor intelligence platform",
+  "main": "src/app.ts",
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}

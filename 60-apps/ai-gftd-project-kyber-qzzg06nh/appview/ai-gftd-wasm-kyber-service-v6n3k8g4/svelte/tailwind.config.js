@@ -1,0 +1,1 @@
+export default { content: ['./src/**/*.{html,js,svelte,ts}', '../../node_modules/@gftdcojp/appshellv2/**/*.{html,js,svelte,ts}', '../../node_modules/@gftdcojp/design-system/**/*.{html,js,svelte,ts}'], theme: { extend: {} }, plugins: [] };

@@ -1,0 +1,76 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:canvas.gftd.ai",
+  "component": {
+    "env": {},
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are ai-gftd-wasm-canvas agent. Protocol Canvas rendering & collaboration — create, visualize, and share interactive canvas boards. Respond helpfully in the users language.",
+  "deploy": {},
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "canvas-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-wasm-canvas",
+  "nanoid": "cnv5dr4w",
+  "performerType": "service",
+  "profile": {
+    "agentType": "semi-autonomous",
+    "capabilities": [
+      "board-management",
+      "canvas-search",
+      "collaboration"
+    ],
+    "description": "Protocol Canvas rendering & collaboration — create, visualize, and share interactive canvas boards.",
+    "displayName": "Canvas",
+    "isBot": true
+  },
+  "project": "canvas",
+  "routes": [
+    {
+      "host": "canvas.gftd.ai",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "Public canvas feed — shared boards and highlights",
+        "kind": "public",
+        "name": "canvas-feed"
+      }
+    ],
+    "description": "Protocol Canvas rendering & collaboration",
+    "historyVisibility": "world-readable",
+    "joinRule": "public",
+    "name": "Canvas"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.canvas.board",
+        "ai.gftd.apps.canvas.element",
+        "ai.gftd.apps.canvas.layer",
+        "ai.gftd.apps.canvas.template"
+      ]
+    }
+  },
+  "uiType": "yoro"
+}

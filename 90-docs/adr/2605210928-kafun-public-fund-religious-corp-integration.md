@@ -77,7 +77,7 @@ superseded_by: []
 
 > Do not introduce legacy organisation-specific prefixes in newly authored code. Use `etzhayyim-` or no prefix. Existing seeded files with legacy prefixes will be renamed in a follow-up cutover.
 
-Status #8 (`220-file amanomibashira → etzhayyim cutover`) は登記変更後 deferred 状態。kafun は seed 済み legacy だが、religious-corp 整合化の文脈で扱いを明確化する必要がある。
+Status #8 (`220-file etzhayyim → etzhayyim cutover`) は登記変更後 deferred 状態。kafun は seed 済み legacy だが、religious-corp 整合化の文脈で扱いを明確化する必要がある。
 
 ## 非整合 4 — Charter Rider 適用状態
 

@@ -1,0 +1,37 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Project",
+  "name": "Ride-Hailing Platform (ai-gftd-project-kago)",
+  "status": "In Progress",
+  "identifier": "ai-gftd-project-kago",
+  "description": "Uber-like ride-hailing SpinApp integrated with maps.gftd.ai for spatial routing, driver matching, and real-time ride tracking.",
+  "hasPart": [
+    {
+      "@type": "WebApplication",
+      "name": "kago.gftd.ai Portal",
+      "url": "wasm/ai-gftd-wasm-kago-ride-y83jjx4l/"
+    }
+  ],
+  "tasks": [
+    {
+      "status": "in_progress",
+      "task": "Implement ride request, driver matching, and ride lifecycle management."
+    },
+    {
+      "status": "in_progress",
+      "task": "Integrate with maps.gftd.ai for routing and ETA."
+    },
+    {
+      "status": "pending",
+      "task": "Deploy kago.gftd.ai to Kubernetes with GitOps."
+    }
+  ],
+  "performers": [
+    {
+      "@type": "Service",
+      "name": "Kago Ride Service",
+      "identifier": "ai-gftd-wasm-kago-ride-y83jjx4l",
+      "description": "Ride-hailing backend: ride lifecycle, driver matching, fare estimation, real-time tracking via maps.gftd.ai."
+    }
+  ]
+}

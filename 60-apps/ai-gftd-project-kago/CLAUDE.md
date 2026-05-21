@@ -1,0 +1,57 @@
+# ai-gftd-project-kago
+
+Uber-like ride-hailing platform (kago.gftd.ai). Integrated with maps.gftd.ai for spatial routing.
+
+## Components
+
+| Component | Folder | nanoid | 役割 |
+|---|---|---|---|
+| kago-ride | `ai-gftd-wasm-kago-ride-y83jjx4l` | y83jjx4l | Ride lifecycle, driver matching, fare, tracking |
+
+## KV Buckets
+
+| Bucket | Component | Store name in magatama.jsonld |
+|---|---|---|
+| `kago-ride-state` | ai-gftd-wasm-kago-ride-y83jjx4l | `default` |
+
+## maps.gftd.ai Integration
+
+| 機能 | maps API | 用途 |
+|---|---|---|
+| Route calculation | `MapsUIService/RouteSave` | 乗車ルート計算・保存 |
+| Location search | `MapsUIService/SearchResources` | 場所検索 (pickup/dropoff) |
+| Runtime config | `MapsUIService/RuntimeConfig` | Map tile URL, style 取得 |
+
+## MCP Tools (`/gftd.kago.v1.KagoRideService`)
+
+- `kago_ride.request_ride` — 配車リクエスト作成
+- `kago_ride.cancel_ride` — 配車キャンセル
+- `kago_ride.get_ride` — 配車ステータス取得
+- `kago_ride.list_rides` — 配車一覧 (paginated)
+- `kago_ride.driver_register` — ドライバー登録
+- `kago_ride.driver_update_location` — ドライバー位置更新
+- `kago_ride.driver_accept_ride` — ドライバーが配車を受諾
+- `kago_ride.driver_complete_ride` — 乗車完了
+- `kago_ride.estimate_fare` — 運賃見積もり
+- `kago_ride.search_location` — 場所検索 (maps.gftd.ai proxy)
+
+## API Endpoints
+
+- kago-ride: `https://y83jjx4l.gftd.ai/xrpc`
+
+## Ride States
+
+```
+requested → matched → driver_arriving → in_progress → completed
+    ↓          ↓           ↓                ↓
+ cancelled  cancelled   cancelled      cancelled
+```
+
+## Smoke Test
+
+```bash
+curl https://y83jjx4l.gftd.ai/health
+curl -X POST https://y83jjx4l.gftd.ai/xrpc/gftd.kago.v1.KagoRideService/EstimateFare \
+  -H "Content-Type: application/json" \
+  -d '{"pickup_lat":35.6812,"pickup_lng":139.7671,"dropoff_lat":35.6585,"dropoff_lng":139.7454}'
+```

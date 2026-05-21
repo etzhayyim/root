@@ -1,0 +1,15 @@
+# Generated report artifacts — not tracked in git.
+# Design docs (.md) and visual evidence (.png) are tracked.
+# Transient snapshots belong in 80-data/*/snapshots/*.parquet (Iceberg store).
+*.json
+*.json5
+*.jsonl
+*.ndjson
+*.csv
+*.tsv
+*.txt
+*.html
+*.svg
+*.dot
+*.js
+*.wasm

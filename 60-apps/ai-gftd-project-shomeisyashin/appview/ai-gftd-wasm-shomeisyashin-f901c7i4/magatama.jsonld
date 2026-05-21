@@ -1,0 +1,107 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:syomeisyashin.gftd.ai",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are ai-gftd-wasm-shomeisyashin agent. Shomeisyashin — AI Agent for id-photo intelligence and analytics. Respond helpfully in the users language.",
+  "deploy": {},
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "shomeisyashin-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-wasm-shomeisyashin",
+  "nanoid": "f901c7i4",
+  "performerType": "person",
+  "pool": {},
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Shomeisyashin — AI Agent for id-photo intelligence and analytics",
+    "displayName": "Shomeisyashin",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "shomeisyashin",
+  "routes": [
+    {
+      "host": "syomeisyashin.gftd.ai",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    },
+    {
+      "host": "shomeisyashin.gftd.ai",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    },
+    {
+      "host": "f901c7i4.gftd.ai",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "f901c7i4-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Shomeisyashin"
+  },
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "routes": [
+        "/api/grpc/...",
+        "/health",
+        "/healthz",
+        "/readyz",
+        "/..."
+      ],
+      "staticDir": "/wasm/svelte/dist",
+      "spa": true
+    },
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.like",
+        "app.bsky.feed.post",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.shomeisyashin.shomeisyashinEntity",
+        "ai.gftd.apps.shomeisyashin.shomeisyashinEvent",
+        "ai.gftd.apps.shomeisyashin.shomeisyashinReport"
+      ]
+    }
+  },
+  "ui": {
+    "accent": "#0f766e",
+    "icon": "📸"
+  },
+  "uiType": "appview",
+  "yata": {
+    "dataDir": "/data/yata",
+    "graphUri": "/data/graph"
+  }
+}

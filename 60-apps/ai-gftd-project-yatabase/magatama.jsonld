@@ -1,0 +1,75 @@
+{
+  "@context": "https://gftd.ai/ld/magatama/v1",
+  "name": "ai-gftd-project-yatabase",
+  "nanoid": "y4t4b4se",
+  "displayName": "Yatabase",
+  "description": "Real-time graph database with integrated Supabase-style object storage. PG-compatible reads, SPARQL/Cypher (Phase 2), S3-compatible /storage/v1/* (Supabase-shape REST) + /s3/* (AWS SigV4, Phase 2). yatabase.gftd.ai is a thin L3 dispatcher CF Worker (ADR-2604251830); all storage / sparql / provision operations route through bpmn-dispatcher to L7 LangServer pod-side LangServer handlers (ADR-2605080000 §D10).",
+  "did": "did:web:yatabase.gftd.ai",
+  "tier": "T3",
+  "uiType": "appview",
+  "embedUrl": "https://yatabase.gftd.ai/embed",
+  "routes": [
+    {
+      "host": "yatabase.gftd.ai",
+      "paths": ["/"],
+      "tls": true
+    }
+  ],
+  "layer": "edge-dispatcher",
+  "atStandard": false,
+  "nsidPrefixes": ["ai.gftd.apps.yata"],
+  "backendDependencies": {
+    "atproto": "https://atproto.gftd.ai",
+    "authn": "https://authn.gftd.ai",
+    "bpmnDispatcher": "https://dispatcher.gftd.ai",
+    "rwHyperdrive": "configured via env.HYPERDRIVE binding"
+  },
+  "profile": {
+    "displayName": "Yatabase",
+    "description": "Real-time graph DB + Supabase-style object storage. PG / SPARQL / S3-compat / XRPC / MCP — one bill, BWA-free egress.",
+    "avatar": "Y",
+    "category": "infrastructure",
+    "country": "jpn",
+    "operator": "etzhayyim",
+    "isBot": true,
+    "agentType": "reactive"
+  },
+  "actors": [
+    {
+      "name": "chikada",
+      "role": "dev",
+      "did": "did:web:yatabase.gftd.ai:actor:chikada",
+      "displayName": "Chikada (近田)",
+      "description": "Engineering agent — audit log 5xx triage, dev-incident-summary drafts."
+    },
+    {
+      "name": "tanaka",
+      "role": "qa",
+      "did": "did:web:yatabase.gftd.ai:actor:tanaka",
+      "displayName": "Tanaka (田中)",
+      "description": "QA agent — public surface probes, regression report drafts."
+    },
+    {
+      "name": "nishino",
+      "role": "sales",
+      "did": "did:web:yatabase.gftd.ai:actor:nishino",
+      "displayName": "Nishino (西野)",
+      "description": "Sales agent — upgrade-nudge + onboarding-nudge drafts."
+    },
+    {
+      "name": "sakamoto",
+      "role": "cs",
+      "did": "did:web:yatabase.gftd.ai:actor:sakamoto",
+      "displayName": "Sakamoto (坂本)",
+      "description": "Customer success agent — outbox triage + support-followup drafts."
+    }
+  ],
+  "adr": [
+    "2605080000",
+    "0036",
+    "0048",
+    "0056",
+    "2604282300",
+    "2604251830"
+  ]
+}

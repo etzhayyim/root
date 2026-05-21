@@ -24,6 +24,8 @@ Configuration:
 from __future__ import annotations
 
 import argparse
+import asyncio
+import importlib
 import logging
 import os
 import signal
@@ -31,6 +33,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from typing import Any, Awaitable, Callable
 
 try:
     import tomllib  # Python 3.11+
@@ -40,12 +43,25 @@ except ImportError:
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
 FLEET_TOML = REPO_ROOT / "50-infra" / "murakumo" / "fleet.toml"
+CELLS_TOML = REPO_ROOT / "50-infra" / "cluster" / "murakumo" / "cell-runner" / "cells.toml"
 CELLS_DIR = REPO_ROOT / "20-actors" / "magatama" / "cells"
 
+HEALTHZ_PORT_DEFAULT = 13000
+
 logger = logging.getLogger("magatama-cell-runner")
+_log = logger  # alias used by M3 helpers for consistent naming
 
 # Registry of spawned cell subprocesses (cell_name → Popen).
 _cell_processes: dict[str, subprocess.Popen] = {}
+
+# Track running asyncio cell tasks for graceful shutdown.
+_cell_tasks: list[asyncio.Task] = []
+
+# Module-level metadata list populated by spawn_cells_for_node.
+_active_cells_metadata: list[dict] = []
+
+# Process start time for uptime reporting.
+_start_time: float = time.time()
 
 
 def load_fleet_config(path: Path = FLEET_TOML) -> dict:
@@ -67,6 +83,352 @@ def get_node_cells(config: dict, node_name: str) -> list[str]:
 def get_cell_config(config: dict, cell_name: str) -> dict:
     """Get per-cell configuration block."""
     return config.get("cells", {}).get(cell_name, {})
+
+
+def load_cell_registry(path: Path | None = None) -> dict:
+    """Load cells.toml from default search paths, then merge in yorishiro fragments.
+
+    Search order for the base registry:
+      1. Explicit ``path`` argument (if provided)
+      2. /etc/etzhayyim/cells.toml       (system-wide install)
+      3. ~/.etzhayyim/cells.toml          (per-user install)
+      4. CELLS_TOML (50-infra/cluster/murakumo/cell-runner/cells.toml in repo checkout)
+
+    After loading the base, scans
+    ``20-actors/magatama/cells/yorishiro_*/cells.toml.fragment`` and appends
+    each fragment's ``[[cell]]`` entry. This means yorishiri register
+    themselves with zero edits to the central cells.toml — drop the
+    generator output into the tree and the cell-runner picks it up on
+    next start (ADR-2605211900 + ADR-2605202200).
+
+    Returns the merged dict, or an empty dict if neither base nor any
+    fragment is found.
+    """
+    candidates: list[Path] = []
+    if path is not None:
+        candidates.append(path)
+    candidates += [
+        Path("/etc/etzhayyim/cells.toml"),
+        Path.home() / ".etzhayyim" / "cells.toml",
+        CELLS_TOML,
+    ]
+    registry: dict = {}
+    for candidate in candidates:
+        if candidate.exists():
+            logger.debug("cell registry: loading %s", candidate)
+            with open(candidate, "rb") as f:
+                registry = tomllib.load(f)
+            break
+    else:
+        logger.debug("cell registry: no cells.toml found in search path; starting empty")
+
+    # Yorishiro auto-discovery (ADR-2605211900). Each emitted yorishiro
+    # ships a cells.toml.fragment alongside its cell.py; merge them here
+    # so the generator output is self-contained.
+    base_cells = list(registry.get("cell", []))
+    fragment_paths = sorted(CELLS_DIR.glob("yorishiro_*/cells.toml.fragment"))
+    yorishiro_count = 0
+    for frag in fragment_paths:
+        try:
+            with open(frag, "rb") as f:
+                frag_data = tomllib.load(f)
+        except Exception:
+            logger.exception("cell registry: failed to load fragment %s", frag)
+            continue
+        for cell in frag_data.get("cell", []):
+            base_cells.append(cell)
+            yorishiro_count += 1
+    if yorishiro_count:
+        logger.info(
+            "cell registry: merged %d yorishiro cell(s) from %d fragment(s) under %s",
+            yorishiro_count,
+            len(fragment_paths),
+            CELLS_DIR,
+        )
+        registry = {**registry, "cell": base_cells}
+
+    # Ensure 20-actors/magatama/cells/ is on sys.path so importlib can
+    # resolve `yorishiro_<name>.cell` (each cell ships its own __init__.py
+    # under that directory).
+    cells_dir_str = str(CELLS_DIR)
+    if cells_dir_str not in sys.path:
+        sys.path.insert(0, cells_dir_str)
+        logger.debug("cell registry: prepended %s to sys.path", cells_dir_str)
+
+    return registry
+
+
+def cells_for_node(registry: dict, node_name: str) -> list[dict]:
+    """Filter [[cell]] entries from cells.toml for the given node.
+
+    Returns cells whose ``node`` field equals ``node_name`` or ``"*"``
+    (wildcard — runs on any node).
+
+    Args:
+        registry:  Parsed cells.toml dict (from load_cell_registry()).
+        node_name: Murakumo tribe name (e.g. "levi", "simeon").
+
+    Returns:
+        List of cell dicts matching this node. Empty list if no registry or no match.
+    """
+    cells = registry.get("cell", [])
+    return [c for c in cells if c.get("node") in (node_name, "*")]
+
+
+# ── M3: Cell dispatch helpers ─────────────────────────────────────────────────
+
+
+def _import_cell_entry(module_path: str, entry_name: str) -> Callable[..., Awaitable[Any]]:
+    """Dynamically import a cell entry function."""
+    module = importlib.import_module(module_path)
+    fn = getattr(module, entry_name)
+    if not callable(fn):
+        raise RuntimeError(f"cell entry {module_path}.{entry_name} is not callable")
+    return fn  # type: ignore[return-value]
+
+
+def _cron_to_interval_s(expr: str) -> int:
+    """Parse cron expression → interval seconds.
+
+    Supports:
+        "*/N * * * *" → N*60 seconds (every N minutes)
+        "0 * * * *"   → 3600 seconds (hourly at :00)
+        "0 */N * * *" → N*3600 seconds (every N hours)
+        otherwise     → 3600 seconds (default hourly)
+    """
+    parts = expr.split()
+    if len(parts) != 5:
+        return 3600
+    minute, hour, _, _, _ = parts
+    if minute.startswith("*/"):
+        try:
+            return int(minute[2:]) * 60
+        except ValueError:
+            return 3600
+    if minute == "0" and hour == "*":
+        return 3600
+    if minute == "0" and hour.startswith("*/"):
+        try:
+            return int(hour[2:]) * 3600
+        except ValueError:
+            return 3600
+    return 3600
+
+
+async def _spawn_cron_cell(cell: dict[str, Any], stop_event: asyncio.Event) -> None:
+    """Spawn a cron-triggered cell.  Sleeps until next tick then fires entry.
+
+    For simplicity, parse only "*/N * * * *", "0 * * * *", or "0 */N * * *"
+    patterns.  Full croniter is the M4 enhancement.
+    """
+    name = cell.get("name", "<unnamed>")
+    module_path = cell.get("module")
+    entry_name = cell.get("entry")
+    trigger = cell.get("trigger") or {}
+    expr = trigger.get("expr", "0 * * * *")
+
+    try:
+        cell_fn = _import_cell_entry(module_path, entry_name)
+    except Exception as e:
+        _log.error("cron-cell %s: import failed: %s", name, e)
+        return
+
+    interval_s = _cron_to_interval_s(expr)
+    _log.info("cron-cell %s: every %ds (expr=%s)", name, interval_s, expr)
+
+    while not stop_event.is_set():
+        try:
+            # Wait until next tick or stop_event fires.
+            try:
+                await asyncio.wait_for(stop_event.wait(), timeout=interval_s)
+                return  # Stop event triggered before next tick.
+            except asyncio.TimeoutError:
+                pass  # Fall through to invoke.
+
+            _log.debug("cron-cell %s firing", name)
+            await cell_fn()
+        except Exception as e:
+            _log.error("cron-cell %s: invocation failed: %s", name, e, exc_info=True)
+
+
+def _extract_adherent_did(event: dict[str, Any]) -> str | None:
+    """Extract adherentDid (or actorDid) from a firehose event's first record op."""
+    ops = event.get("ops") or []
+    for op in ops:
+        path = op.get("path", "")
+        if "/" in path:
+            return event.get("repo")
+    return None
+
+
+async def _spawn_listener_cell(cell: dict[str, Any], stop_event: asyncio.Event) -> None:
+    """Spawn an mst-listener-triggered cell.
+
+    Subscribes via cursor helper, filters by listens_to collection, invokes
+    the entry function on match.
+    """
+    name = cell.get("name", "<unnamed>")
+    module_path = cell.get("module")
+    entry_name = cell.get("entry")
+    trigger = cell.get("trigger") or {}
+    collections = trigger.get("listens_to", [])
+    if not collections:
+        _log.warning("listener-cell %s: no listens_to collections specified", name)
+        return
+
+    try:
+        cell_fn = _import_cell_entry(module_path, entry_name)
+    except Exception as e:
+        _log.error("listener-cell %s: import failed: %s", name, e)
+        return
+
+    try:
+        from etzhayyim_sdk import cursor as _cursor_mod
+    except ImportError as e:
+        _log.error("listener-cell %s: etzhayyim_sdk.cursor not available: %s", name, e)
+        return
+
+    cursor_id = f"cell-runner.{name}"
+    _log.info(
+        "listener-cell %s: subscribing to %s (cursor_id=%s)", name, collections, cursor_id
+    )
+
+    try:
+        async for event in _cursor_mod.subscribe_with_checkpoint(
+            cursor_id=cursor_id,
+            collections=collections,
+        ):
+            if stop_event.is_set():
+                return
+            try:
+                adherent_did = _extract_adherent_did(event)
+                if adherent_did:
+                    await cell_fn(adherent_did)
+                else:
+                    await cell_fn()
+            except Exception as e:
+                _log.error(
+                    "listener-cell %s: invocation failed: %s", name, e, exc_info=True
+                )
+    except Exception as e:
+        _log.error(
+            "listener-cell %s: subscriber loop crashed: %s", name, e, exc_info=True
+        )
+
+
+async def _cell_runner_healthz(request: Any) -> Any:
+    """Cell-runner liveness probe. Returns 200 with cell catalog if alive."""
+    from aiohttp import web as _web
+
+    cells_loaded = len(_active_cells_metadata)
+    return _web.json_response({
+        "ok": True,
+        "service": "magatama-cell-runner",
+        "node": os.environ.get("ETZHAYYIM_NODE_NAME", "unknown"),
+        "cells_loaded": cells_loaded,
+        "cells": [
+            {"name": c.get("name"), "trigger": (c.get("trigger") or {}).get("kind")}
+            for c in _active_cells_metadata
+        ],
+        "uptime_s": int(time.time() - _start_time),
+    })
+
+
+async def _start_healthz_server(port: int) -> None:
+    """Run /healthz endpoint as concurrent asyncio task."""
+    from aiohttp import web as _web
+
+    app = _web.Application()
+    app.router.add_get("/healthz", _cell_runner_healthz)
+    runner = _web.AppRunner(app)
+    await runner.setup()
+    site = _web.TCPSite(runner, "127.0.0.1", port)
+    await site.start()
+    _log.info("cell-runner /healthz at http://127.0.0.1:%d/healthz", port)
+
+
+async def _spawn_xrpc_cell(cell: dict[str, Any], stop_event: asyncio.Event) -> None:
+    """Register an xrpc-triggered cell.
+
+    XRPC cells (typical of yorishiri — ADR-2605211900) are invoked on
+    demand from the XRPC gateway, not driven by a continuous loop. The
+    cell-runner's job here is to:
+
+      1. Import the cell module so it's resolvable when the gateway
+         dispatches to it (build_graph is the contract entry point).
+      2. Surface the cell in /healthz so operators can confirm it's loaded.
+      3. Sit idle until stop_event fires.
+
+    The actual XRPC dispatch — incoming request → state_from_event →
+    compiled graph → response — happens in the gateway layer, not here.
+    """
+    name = cell.get("name", "<unnamed>")
+    module_path = cell.get("module")
+    nsid = (cell.get("trigger") or {}).get("nsid", "<no-nsid>")
+
+    if not module_path:
+        _log.error("xrpc-cell %s: no module path declared, refusing to load", name)
+        return
+
+    try:
+        importlib.import_module(module_path)
+    except Exception as e:  # noqa: BLE001 — surface module loading failures
+        _log.error("xrpc-cell %s: import failed (%s): %s", name, module_path, e)
+        return
+
+    _log.info("xrpc-cell %s: registered (module=%s nsid=%s)", name, module_path, nsid)
+    # Idle until shutdown — the cell is now callable from the XRPC gateway.
+    await stop_event.wait()
+
+
+async def spawn_cells_for_node(
+    cells: list[dict[str, Any]], stop_event: asyncio.Event
+) -> None:
+    """Spawn all cells for this node as concurrent asyncio tasks."""
+    global _active_cells_metadata
+    _active_cells_metadata = list(cells)
+
+    for cell in cells:
+        trigger = cell.get("trigger") or {}
+        kind = trigger.get("kind", "")
+        if kind == "cron":
+            task = asyncio.create_task(_spawn_cron_cell(cell, stop_event))
+        elif kind == "mst-listener":
+            task = asyncio.create_task(_spawn_listener_cell(cell, stop_event))
+        elif kind == "xrpc":
+            task = asyncio.create_task(_spawn_xrpc_cell(cell, stop_event))
+        else:
+            _log.warning(
+                "cell %s: unknown trigger kind %r, skipping", cell.get("name"), kind
+            )
+            continue
+        _cell_tasks.append(task)
+
+    if _cell_tasks:
+        await asyncio.gather(*_cell_tasks, return_exceptions=True)
+
+
+async def _async_main(node_name: str, cells: list[dict[str, Any]]) -> None:
+    """Async main loop. Spawns cells and waits for shutdown."""
+    stop_event = asyncio.Event()
+
+    loop = asyncio.get_running_loop()
+    for sig in (signal.SIGTERM, signal.SIGINT):
+        loop.add_signal_handler(sig, stop_event.set)
+
+    healthz_port = int(
+        os.environ.get("ETZHAYYIM_CELL_RUNNER_HEALTHZ_PORT", str(HEALTHZ_PORT_DEFAULT))
+    )
+    asyncio.create_task(_start_healthz_server(healthz_port))
+
+    _log.info(
+        "cell-runner: spawning %d cells for node %s", len(cells), node_name
+    )
+    await spawn_cells_for_node(cells, stop_event)
+    _log.info("cell-runner: all cells exited cleanly")
+
+
+# ── End M3 helpers ────────────────────────────────────────────────────────────
 
 
 def _cell_dir(cell_name: str) -> Path:
@@ -202,6 +564,11 @@ def main(argv: list[str] | None = None) -> int:
         default=os.environ.get("ETZHAYYIM_LOG_DIR", str(Path.home() / ".etzhayyim" / "log")),
         help="Directory for per-cell stdout/stderr log files",
     )
+    parser.add_argument(
+        "--cells-toml",
+        default=None,
+        help="Path to cells.toml registry (default: auto-detected search path)",
+    )
     args = parser.parse_args(argv)
 
     logging.basicConfig(
@@ -215,6 +582,33 @@ def main(argv: list[str] | None = None) -> int:
     except (FileNotFoundError, ValueError) as e:
         logger.error("config error: %s", e)
         return 1
+
+    # Load cells.toml registry and log the catalog for this node.
+    # ETZHAYYIM_NODE_NAME is set by the launchd plist (com.etzhayyim.magatama-cell-runner.plist).
+    # Full cell spawning (cron scheduler + mst-listener loop) is deferred to M3.
+    cells_toml_path = Path(args.cells_toml) if args.cells_toml else None
+    registry = load_cell_registry(cells_toml_path)
+    node_name_for_registry = os.environ.get("ETZHAYYIM_NODE_NAME", args.node)
+    my_cells_registry = cells_for_node(registry, node_name_for_registry)
+    logger.info(
+        "cell-runner: loaded %d cells for node %s from cells.toml registry",
+        len(my_cells_registry),
+        node_name_for_registry,
+    )
+    for cell_entry in my_cells_registry:
+        logger.debug(
+            "  registry cell: name=%s module=%s entry=%s trigger=%s healthz_port=%s",
+            cell_entry.get("name"),
+            cell_entry.get("module"),
+            cell_entry.get("entry"),
+            cell_entry.get("trigger"),
+            cell_entry.get("healthz_port"),
+        )
+    # M3: spawn asyncio cell loops for all cells in the registry for this node.
+    # This runs _async_main which schedules cron + mst-listener tasks and blocks
+    # until a stop_event fires.  Placed here so the health-check path below can
+    # still exit early without entering the event loop.
+    _registry_spawn_cells = my_cells_registry  # captured for use after arg checks
 
     if args.cell_only:
         if args.cell_only not in cells:
@@ -235,30 +629,57 @@ def main(argv: list[str] | None = None) -> int:
         cell_config = get_cell_config(config, cell_name)
         start_cell(args.node, cell_name, cell_config, log_dir)
 
-    # Signal handlers for clean shutdown
-    shutdown_requested = False
+    # M3: run the asyncio event loop that drives cron + mst-listener cells from
+    # cells.toml.  Signal handling (SIGTERM/SIGINT → stop_event) is done inside
+    # _async_main via loop.add_signal_handler, which supersedes the old sync
+    # handle_sigterm approach for the asyncio path.  stop_all_cells() is called
+    # in the finally block so fleet.toml subprocesses are always reaped cleanly.
+    if _registry_spawn_cells:
+        try:
+            asyncio.run(_async_main(node_name_for_registry, _registry_spawn_cells))
+        finally:
+            logger.info(
+                "cell-runner exiting on %s — propagating SIGTERM to %d fleet cells",
+                args.node,
+                len(_cell_processes),
+            )
+            stop_all_cells(timeout=30.0)
+            logger.info("cell-runner exited on %s", args.node)
+    else:
+        # No cells.toml cells for this node — fall back to the original sync
+        # signal-wait loop so fleet.toml subprocesses are still supervised.
+        shutdown_requested = False
 
-    def handle_sigterm(signum, frame):
-        nonlocal shutdown_requested
-        logger.info("shutdown signal received (%d)", signum)
-        shutdown_requested = True
+        def handle_sigterm(signum, frame):
+            nonlocal shutdown_requested
+            logger.info("shutdown signal received (%d)", signum)
+            shutdown_requested = True
 
-    signal.signal(signal.SIGTERM, handle_sigterm)
-    signal.signal(signal.SIGINT, handle_sigterm)
+        signal.signal(signal.SIGTERM, handle_sigterm)
+        signal.signal(signal.SIGINT, handle_sigterm)
 
-    logger.info("cell-runner active on %s; awaiting signals", args.node)
-    while not shutdown_requested:
-        time.sleep(1)
-        # Reap dead children + log; full restart policy is launchd's job
-        for cell_name, proc in list(_cell_processes.items()):
-            rc = proc.poll()
-            if rc is not None and rc != 0:
-                logger.warning("[%s] cell %s exited unexpectedly with code %s", args.node, cell_name, rc)
-                del _cell_processes[cell_name]
+        logger.info("cell-runner active on %s; awaiting signals", args.node)
+        while not shutdown_requested:
+            time.sleep(1)
+            # Reap dead children + log; full restart policy is launchd's job.
+            for cell_name, proc in list(_cell_processes.items()):
+                rc = proc.poll()
+                if rc is not None and rc != 0:
+                    logger.warning(
+                        "[%s] cell %s exited unexpectedly with code %s",
+                        args.node,
+                        cell_name,
+                        rc,
+                    )
+                    del _cell_processes[cell_name]
 
-    logger.info("cell-runner exiting on %s — propagating SIGTERM to %d cells", args.node, len(_cell_processes))
-    stop_all_cells(timeout=30.0)
-    logger.info("cell-runner exited on %s", args.node)
+        logger.info(
+            "cell-runner exiting on %s — propagating SIGTERM to %d cells",
+            args.node,
+            len(_cell_processes),
+        )
+        stop_all_cells(timeout=30.0)
+        logger.info("cell-runner exited on %s", args.node)
     return 0
 
 

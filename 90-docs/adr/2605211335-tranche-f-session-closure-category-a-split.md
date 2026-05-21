@@ -143,7 +143,7 @@ These cannot be moved by code-side work:
 
 - maps Stage 0-5 (reader image build / backfill / shadow read / dual write / DNS cutover / vendor sunset)
 - etz worker XRPC × 25 deploy (Tier 1 → wait 7d → Tier 2 → wait 2d → Tier 3/4)
-- 220-file `amanomibashira` → `etzhayyim` sed cutover (after 法人登記変更)
+- 220-file `etzhayyim` → `etzhayyim` sed cutover (after 法人登記変更)
 - Base Sepolia testnet → Mainnet deploy (after Council Seat 2-5 RFP closes 2026-06-19)
 - LanceDB+DuckDB+@huggingface optional peer install on projector pod (per ADR-2605212000)
 - WebSocket `com.atproto.sync.subscribeRepos` client (replace PollingFirehose)

@@ -5,11 +5,11 @@ status: proposed
 doc_type: adr
 topic: etzhayyim-bootstrap-council-five
 authoritative: true
-last_verified: 2026-05-19
+last_verified: 2026-05-21
 priority: 8.0
 axis: governance
 weight: 0.80
-priority_note: "ADR-2605192230 §8 で要請した Bootstrap Council 5 名の具体的選定 + selection methodology + Phase 2 (formal Council ADR) 移行 path を定義。Charter Compliance attestation + Public Fund grant 評議 + Land dispute 解決のすべては Council Lv6+ 3 名以上の multisig に依存するため、本 ADR が承認・実装されるまで religious-corp の core governance functions が gating されている。"
+priority_note: "ADR-2605192230 §8 で要請した Bootstrap Council 5 名の具体的選定 + selection methodology + Phase 2 (formal Council ADR) 移行 path を定義。Charter Compliance attestation + Public Fund grant 評議 + Land dispute 解決のすべては Council Lv6+ 3 名以上の multisig に依存するため、本 ADR が承認・実装されるまで religious-corp の core governance functions が gating されている。Operational mechanics (2026-06-19 selection rubric + objection good-faith vs defamatory determination workflow + selection deliberation window + 5-mode failure escalation tree) は 2026-05-21 evening session で `90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md` に追補 — constitutional 内容は本 ADR、operational 内容は addendum という二層構成。"
 authoritative_for:
   - Bootstrap Council 5 名 initial roster (個別 DID + Smart Wallet address)
   - selection methodology (5 軸 expertise + 30 日 public objection period)
@@ -20,7 +20,8 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605172600-etzhayyim-membership-ritual
-related: []
+related:
+  - doc-2605212036-council-bootstrap-rfp-operational-addendum  # 2026-06-19 selection rubric + objection workflow + failure modes (operational only, does NOT change the constitutional mechanics here)
 supersedes: []
 superseded_by: []
 ---

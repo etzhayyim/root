@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ai-gftd-agentgateway",
+  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2024-12-20",
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    {
+      "pattern": "mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+      "zone_name": "gftd.ai"
+    }
+  ],
+  "assets": {
+    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  },
+  "vars": {
+    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+  }
+}

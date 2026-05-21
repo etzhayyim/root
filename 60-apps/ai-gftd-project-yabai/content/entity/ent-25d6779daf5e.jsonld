@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-25d6779daf5e",
+  "entityId": "ent-25d6779daf5e",
+  "canonicalName": "3d.ru",
+  "aliases": [
+    "3d.ru"
+  ]
+}

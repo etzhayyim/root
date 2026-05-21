@@ -1,0 +1,29 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "gftd": "https://gftd.co.jp/ns/",
+    "dodaf": "https://dodcio.defense.gov/dodaf/",
+    "isic": "https://unstats.un.org/unsd/classifications/Econ/ISIC/"
+  },
+  "@type": "dodaf:Project",
+  "@id": "gftd:project/isekai",
+  "schema:name": "isekai",
+  "schema:description": "Open 3D game world — Minecraft voxel sandbox × Pokoa creature collection × Brainrot meme chaos. KAMI Engine WebGPU, Guest Mode, procedural isekai overworld.",
+  "gftd:domains": ["isekai.gftd.ai"],
+  "gftd:nanoid": "is3k41w0",
+  "gftd:isicSection": "isic:J",
+  "gftd:isicClass": "isic:J/5820",
+  "gftd:iscoGroup": "isco:2166",
+  "dodaf:capability": [
+    "Open World Voxel Sandbox",
+    "Pokoa Creature Collection & Battle",
+    "Brainrot NPC Meme Events",
+    "Procedural Terrain Generation",
+    "Multiplayer Island Sessions"
+  ],
+  "dodaf:performer": [
+    "isekai-world (open world orchestrator)",
+    "isekai-pokoa (creature battle engine)",
+    "isekai-brainrot (meme event generator)"
+  ]
+}

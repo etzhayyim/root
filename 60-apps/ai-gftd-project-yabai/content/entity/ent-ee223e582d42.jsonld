@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-ee223e582d42",
+  "entityId": "ent-ee223e582d42",
+  "canonicalName": "朝鮮総聯 (chongryon)",
+  "aliases": [
+    "朝鮮総聯 (chongryon)"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "ai-gftd-wasm-kenkyusha-kk8r3n5v",
+  "version": "1.0.0",
+  "description": "kenkyusha.gftd.ai — AI 研究者 (ISCED-F taxonomy, frontier detection, hypothesis generation from bunken/isbn/issn/hanrei knowledge graph)",
+  "main": "src/app.ts",
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}

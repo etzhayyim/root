@@ -1,0 +1,20 @@
+{
+  "$schema": "https://gftd.ai/gftd.json",
+  "name": "ai-gftd-wasm-kami-eng",
+  "nanoid": "k4m13ng1",
+  "project": "kami",
+  "type": "worker",
+  "version": "1.0.0",
+  "routes": [
+    {
+      "host": "eng-kami.gftd.ai",
+      "tls": true,
+      "paths": ["/"]
+    },
+    {
+      "host": "k4m13ng1.gftd.ai",
+      "tls": true,
+      "paths": ["/"]
+    }
+  ]
+}

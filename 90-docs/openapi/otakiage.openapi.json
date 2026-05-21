@@ -191,7 +191,7 @@
     },
     "/xrpc/ai.gftd.otakiage.anchorCertificate": {
       "post": {
-        "summary": "供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する (Phase 2b1)。authority gated (issuer = did:web:otakiage.gftd.ai:ritual のみ)。Phase 2b1 = state tracking のみ (`anchor_status: pending → queued`)、Phase 2b2 で実 on-chain 取引を ethers/viem 経由で実装。anchored 状態に到達した certificate は amanomibashira の blockchain 登記の延長として永続証跡を持つ。redo 不可 (1 certificate = 1 anchor token、token_id = sha256(certificate_json))。",
+        "summary": "供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する (Phase 2b1)。authority gated (issuer = did:web:otakiage.gftd.ai:ritual のみ)。Phase 2b1 = state tracking のみ (`anchor_status: pending → queued`)、Phase 2b2 で実 on-chain 取引を ethers/viem 経由で実装。anchored 状態に到達した certificate は etzhayyim の blockchain 登記の延長として永続証跡を持つ。redo 不可 (1 certificate = 1 anchor token、token_id = sha256(certificate_json))。",
         "operationId": "ai.gftd.otakiage.anchorCertificate",
         "requestBody": {
           "required": true,

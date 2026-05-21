@@ -1,0 +1,8 @@
+{
+  "name": "ai-gftd-wasm-inference-if1m2n3o",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}

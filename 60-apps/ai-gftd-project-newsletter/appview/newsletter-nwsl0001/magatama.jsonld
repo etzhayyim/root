@@ -1,0 +1,38 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:newsletter.gftd.ai",
+  "name": "newsletter",
+  "nanoid": "nwsl0001",
+  "runtimeType": "worker",
+  "profile": {
+    "displayName": "GFTD Newsletter",
+    "description": "AI newsletter factory. Curates content from news.gftd.ai and narou.gftd.ai, personalizes per cohort, and delivers via Resend every Tuesday.",
+    "avatar": "NL",
+    "category": "marketing",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "etzhayyim"
+  },
+  "capabilities": [
+    "agent.invoke",
+    "graph.write",
+    "bpmn-dispatch",
+    "langgraph-loop",
+    "resend-batch"
+  ],
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.news.article",
+        "ai.gftd.narou.chapter"
+      ]
+    }
+  },
+  "space": {
+    "name": "GFTD Newsletter",
+    "description": "Newsletter campaigns and subscriber workspace",
+    "joinRule": "invite",
+    "historyVisibility": "invited",
+    "convos": [{ "name": "campaigns", "kind": "private", "default": true }]
+  }
+}

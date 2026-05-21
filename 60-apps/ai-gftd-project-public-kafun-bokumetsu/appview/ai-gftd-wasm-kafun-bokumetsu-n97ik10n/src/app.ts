@@ -316,7 +316,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     avatar: "🔬",
     category: "research",
     isBot: true,
-    operator: "amanomibashira",
+    operator: "etzhayyim",
   });
   void did.create?.("actor:proposer", {
     displayName: "Kafun Proposer",
@@ -324,7 +324,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     avatar: "💡",
     category: "research",
     isBot: true,
-    operator: "amanomibashira",
+    operator: "etzhayyim",
   });
   void did.create?.("actor:executor", {
     displayName: "Kafun Executor",
@@ -332,7 +332,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     avatar: "⚙️",
     category: "research",
     isBot: true,
-    operator: "amanomibashira",
+    operator: "etzhayyim",
   });
   void did.create?.("actor:envoy", {
     displayName: "Kafun Envoy",
@@ -340,7 +340,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     avatar: "✉️",
     category: "communications",
     isBot: true,
-    operator: "amanomibashira",
+    operator: "etzhayyim",
   });
   void did.create?.("actor:scout", {
     displayName: "Kafun Scout",
@@ -348,7 +348,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     avatar: "🛰️",
     category: "research",
     isBot: true,
-    operator: "amanomibashira",
+    operator: "etzhayyim",
   });
   void did.create?.("actor:cadastral", {
     displayName: "Kafun Cadastral",
@@ -356,7 +356,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     avatar: "📜",
     category: "research",
     isBot: true,
-    operator: "amanomibashira",
+    operator: "etzhayyim",
   });
 
   sdk.app

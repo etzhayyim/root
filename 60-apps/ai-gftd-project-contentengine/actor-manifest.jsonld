@@ -1,0 +1,17 @@
+{
+  "@context": "https://magatama.gftd.ai/ns/actor-manifest/v1",
+  "@type": "ActorManifest",
+  "did": "did:web:contentengine.gftd.ai",
+  "nanoid": "cten0001",
+  "name": "contentengine",
+  "displayName": "GFTD Content Engine",
+  "description": "Personalized Content Engine — LangGraph profile→match→draft→rank loop. Cohort-first personalization, no individual PII. Integrates news+narou signals. Optional ads.gftd.ai sponsor slot.",
+  "performerType": "service",
+  "domain": "contentengine.gftd.ai",
+  "capabilities": [
+    "ai.gftd.apps.contentengine.generateContent",
+    "ai.gftd.apps.contentengine.getContent",
+    "ai.gftd.apps.contentengine.listContent",
+    "ai.gftd.apps.contentengine.registerCohortProfile"
+  ]
+}

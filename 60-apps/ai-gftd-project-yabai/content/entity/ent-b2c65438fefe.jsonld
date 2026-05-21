@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-b2c65438fefe",
+  "entityId": "ent-b2c65438fefe",
+  "canonicalName": "russian universal bank",
+  "aliases": [
+    "russian universal bank"
+  ]
+}

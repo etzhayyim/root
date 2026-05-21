@@ -14,7 +14,7 @@
     "avatar": "苔",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["signal-fixation", "carbon-release", "hakkou-handoff"],
     "protocols": ["xrpc", "mcp"]
   },

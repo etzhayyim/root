@@ -1,0 +1,15 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "@id": "https://gameya.gftd.ai",
+  "name": "gameya.gftd.ai",
+  "description": "A polished browser arcade game and LangGraph-driven quality loop for GFTD game iteration.",
+  "url": "https://gameya.gftd.ai",
+  "applicationCategory": "Game",
+  "operatingSystem": "Web",
+  "author": {
+    "@type": "Organization",
+    "name": "gftdcojp",
+    "url": "https://gftd.ai"
+  }
+}

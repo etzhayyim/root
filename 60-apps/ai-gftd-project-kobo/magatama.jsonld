@@ -1,0 +1,30 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:kobo.gftd.ai",
+  "name": "kobo",
+  "nanoid": "k0b0y501",
+  "project": "kobo",
+  "runtimeType": "worker",
+  "performerType": "service",
+  "uiType": "yoro",
+  "convoSystemPrompt": "You are the kobo (酵母) individual agent lifecycle agent. You manage agent creation (spawn), asexual reproduction (budding with prion inheritance), stress escape (sporulation), and fermentation dispatch. Help users manage the lifecycle of kobo agents in the myco-yeast artificial organism.",
+  "profile": {
+    "displayName": "Kobo Agent Lifecycle",
+    "description": "kobo (酵母) — individual agent layer. Manages agent lifecycle: spawn, budding (asexual reproduction), sporulation (stress escape), and fermentation dispatch.",
+    "avatar": "酵",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "etzhayyim",
+    "capabilities": ["agent-spawn", "agent-budding", "sporulation", "fermentation-dispatch"],
+    "protocols": ["xrpc", "mcp"]
+  },
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": ["ai.gftd.apps.kobo.agent", "ai.gftd.apps.kobo.prion"]
+    }
+  }
+}

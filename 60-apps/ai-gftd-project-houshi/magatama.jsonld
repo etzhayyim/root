@@ -14,7 +14,7 @@
     "avatar": "胞",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["spore-custody", "spore-germination", "spore-list"],
     "protocols": ["xrpc", "mcp"]
   },

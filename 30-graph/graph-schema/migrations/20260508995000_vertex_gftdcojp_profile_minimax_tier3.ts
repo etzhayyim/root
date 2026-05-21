@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 /**
  * gftdcojp.etzhayyim.com Profile + Minimax Score (Tier 3 PII)
- * Principal: amanomibashira. Vendor: Gftd Japan株式会社.
+ * Principal: etzhayyim. Vendor: Gftd Japan株式会社.
  *
  * Tier 3 PII (ADR-0018): sensitivity_ord=300, NOT in AT Repo, NOT federable.
  * Read access: CEO (j-kawasaki) + COO (a-nakamura) + CLO (k-bakshi) only.

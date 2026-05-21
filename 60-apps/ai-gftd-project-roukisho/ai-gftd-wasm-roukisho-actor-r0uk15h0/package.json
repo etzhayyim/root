@@ -1,0 +1,10 @@
+{
+  "name": "ai-gftd-wasm-roukisho-actor-r0uk15h0",
+  "version": "1.0.0",
+  "description": "roukisho.gftd.ai — 労働基準監督署 (Labor Standards Inspection Office) registry + communication tracker",
+  "main": "src/app.ts",
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}

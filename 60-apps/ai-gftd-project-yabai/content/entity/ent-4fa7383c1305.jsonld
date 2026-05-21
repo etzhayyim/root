@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-4fa7383c1305",
+  "entityId": "ent-4fa7383c1305",
+  "canonicalName": "binance holdings limited",
+  "aliases": [
+    "binance holdings limited"
+  ]
+}

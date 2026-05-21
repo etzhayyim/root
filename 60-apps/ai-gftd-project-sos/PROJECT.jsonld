@@ -1,0 +1,49 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Project",
+  "name": "System of System Resource Intelligence (ai-gftd-project-sos)",
+  "identifier": "ai-gftd-project-sos",
+  "description": "A Threlte-driven system thinking app for sos.gftd.ai that maps resource stocks, causal loops, leverage points, and cross-domain dependencies as a system-of-systems.",
+  "url": "https://sos.gftd.ai",
+  "hasPart": [
+    {
+      "@type": "WebApplication",
+      "name": "systemofsystem",
+      "url": "https://sos.gftd.ai",
+      "applicationCategory": "Systems Intelligence"
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "ai-gftd-wasm-systemofsystem-s0s5ys0s",
+      "programmingLanguage": [
+        "Go",
+        "TypeScript"
+      ],
+      "runtimePlatform": "SpinKube + SvelteKit",
+      "codeRepository": "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp",
+      "path": "wasm/ai-gftd-wasm-systemofsystem-s0s5ys0s"
+    }
+  ],
+  "keywords": [
+    "system thinking",
+    "resources",
+    "Threlte",
+    "natad",
+    "LanceDB",
+    "causal loops"
+  ],
+  "tasks": [
+    {
+      "status": "completed",
+      "task": "Create sos.gftd.ai project scaffold for systemofsystem."
+    },
+    {
+      "status": "completed",
+      "task": "Design a Threlte-based 3D systems map covering resource domains and causal loops."
+    },
+    {
+      "status": "completed",
+      "task": "Define Arrow-schema-first natad metadata tables and LanceDB collection manifests."
+    }
+  ]
+}

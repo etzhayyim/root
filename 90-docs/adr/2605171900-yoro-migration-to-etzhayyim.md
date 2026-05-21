@@ -97,7 +97,7 @@ On the legacy CF zone, replace the current yoro routing with a 301 redirect Work
 return Response.redirect(`https://yoro.etzhayyim.com${url.pathname}${url.search}`, 301);
 ```
 
-Grace period: 12 months minimum (per the etz_hayim → amanomibashira → etzhayyim rename precedent in the operator email migration plan). After grace, the redirect Worker is decommissioned and any remaining traffic returns 404.
+Grace period: 12 months minimum (per the etz_hayim → etzhayyim → etzhayyim rename precedent in the operator email migration plan). After grace, the redirect Worker is decommissioned and any remaining traffic returns 404.
 
 ### Stage 5 — Upstream cleanup (⏳ pending)
 

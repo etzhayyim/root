@@ -12,6 +12,10 @@
     @@LOG_DIR@@         — Log directory (default /Users/@@USERNAME@@/.etzhayyim/log)
     @@PYTHONPATH@@      — Extra PYTHONPATH segments if any (default empty)
 
+  EnvironmentVariables set:
+    ETZHAYYIM_NODE      — legacy alias for @@NODE_NAME@@ (used by cell_runner_main.py start_cell)
+    ETZHAYYIM_NODE_NAME — node name read by load_cell_registry / cells_for_node (cells.toml registry)
+
   Install / status / stop:
     ./install.sh --node <NODE_NAME>
     launchctl list | grep magatama-cell-runner
@@ -42,6 +46,8 @@
     <key>ETZHAYYIM_REPO</key>
     <string>@@REPO_PATH@@</string>
     <key>ETZHAYYIM_NODE</key>
+    <string>@@NODE_NAME@@</string>
+    <key>ETZHAYYIM_NODE_NAME</key>
     <string>@@NODE_NAME@@</string>
     <key>ETZHAYYIM_LOG_DIR</key>
     <string>@@LOG_DIR@@</string>

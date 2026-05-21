@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-ee42cff6a653",
+  "entityId": "ent-ee42cff6a653",
+  "canonicalName": "tambov plant (tz) “october”",
+  "aliases": [
+    "tambov plant (tz) “october”"
+  ]
+}

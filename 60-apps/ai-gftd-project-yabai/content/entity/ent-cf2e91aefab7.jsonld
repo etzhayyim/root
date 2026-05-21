@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-cf2e91aefab7",
+  "entityId": "ent-cf2e91aefab7",
+  "canonicalName": "товариство з обмеженою відповідальністю «сичовський виробничо-технологічний комбінат»",
+  "aliases": [
+    "товариство з обмеженою відповідальністю «сичовський виробничо-технологічний комбінат»"
+  ]
+}

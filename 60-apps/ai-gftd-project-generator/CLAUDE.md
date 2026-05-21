@@ -1,0 +1,103 @@
+# ai-gftd-project-generator
+
+Multimodal AI Content Generator — text, text-to-image (t2i), text-to-video (t2v), and image-to-video (i2v) generation via OpenRouter integration.
+
+**URL**: `https://generator.gftd.ai`
+
+## Architecture
+
+```
+Browser (generator.gftd.ai)
+  ├─ HTML/JS/CSS → generator.gftd.ai (static delivery)
+  └─ API → gftd.ai/g3nrt0rx/xrpc → Envoy Gateway
+              ↓
+       App: generator-component (TS Native)
+              ├─ text-gen → openrouter-provider (cluster-internal :21090)
+              ├─ image-gen → OpenRouter image models (DALL-E 3, SDXL, Flux)
+              ├─ video-gen → OpenRouter video models (Veo 2, Sora, Runway)
+              └─ animate-gen → OpenRouter animate models (SVD, Kling)
+```
+
+## Components
+
+| Component | Type | Nanoid | Endpoint |
+|-----------|------|--------|----------|
+| `ai-gftd-wasm-generator-g3nrt0rx` | TS Native App | `g3nrt0rx` | `https://gftd.ai/g3nrt0rx/xrpc` |
+
+## WIT Interfaces
+
+Source of truth: `60-apps/ai-gftd-project-generator/wit/generator/package.wit`
+
+| Interface | Package | Description |
+|-----------|---------|-------------|
+| `text-gen` | `gftd:generator@0.1.0` | Chat completions via OpenRouter |
+| `image-gen` | `gftd:generator@0.1.0` | Text-to-image (t2i) generation |
+| `video-gen` | `gftd:generator@0.1.0` | Text-to-video (t2v) async generation |
+| `animate-gen` | `gftd:generator@0.1.0` | Image-to-video (i2v) async animation |
+
+## OpenRouter Integration
+
+Text generation routes through the cluster-internal `openrouter-provider` at `http://openrouter-provider.magatama-system.svc.cluster.local:21090/v1`.
+
+Image/video generation calls OpenRouter multimodal endpoints directly via `wasi:http/outgoing-handler` with the API key from `wasi:config/store`.
+
+### Native Provider
+
+- Location: `60-apps/ai-gftd-project-generator/provider/openrouter/`
+- Exports: `gftd:openrouter/chat@0.1.0`
+- Namespace: `magatama-runtime`
+
+### Default Models
+
+| Modality | Model | Provider |
+|----------|-------|----------|
+| text | `anthropic/claude-sonnet-4-6` | OpenRouter → Anthropic |
+| t2i | `openai/dall-e-3` | OpenRouter → OpenAI |
+| t2v | `google/veo-2` | OpenRouter → Google |
+| i2v | `stability/stable-video-diffusion` | OpenRouter → Stability AI |
+
+## Proto Definition
+
+`proto/gftd/generator/v1/generator.proto` — synced from WIT (WIT is source of truth).
+
+## KV Key Schema
+
+| Key Pattern | Value |
+|-------------|-------|
+| `gen:task:{taskId}` | Async generation task state (t2v/i2v) |
+| `gen:task-idx:{orgId}` | Task index per org |
+| `gen:asset:{assetId}` | Generated asset metadata |
+
+## Directory Structure
+
+```
+60-apps/ai-gftd-project-generator/
+├── CLAUDE.md
+├── PROJECT.jsonld
+├── OWNERS
+└── wasm/ai-gftd-wasm-generator-g3nrt0rx/
+    ├── wit/world.wit
+    ├── deploy config
+    └── proto/                          # Symlink or copy from proto/gftd/generator/v1/
+```
+
+## Static Delivery
+
+- Domain: `generator.gftd.ai`
+- `svelte/build/` は fileserver component に同梱して static delivery で公開
+
+## Build & Deploy
+
+```bash
+cd 60-apps/ai-gftd-project-generator/wasm/ai-gftd-wasm-generator-g3nrt0rx
+gftd build
+gftd deploy --smoke-url https://g3nrt0rx.gftd.ai/health
+```
+
+## Conventions
+
+- **pnpm** only (never npm)
+- Tailwind CSS + `@gftdcojp/design-system` + `@gftdcojp/appshell`
+- Auth headers: `Authorization: Bearer <JWT>`, `X-GFTD-ORG-ID`, `X-GFTD-USER-ID`
+- XRPC-first: no hardcoded nanoid URLs
+- Async operations (t2v/i2v): submit → poll pattern with KV-backed state

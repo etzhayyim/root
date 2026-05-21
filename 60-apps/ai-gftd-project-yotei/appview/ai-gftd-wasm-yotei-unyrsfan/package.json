@@ -1,0 +1,9 @@
+{
+  "name": "@gftdcojp/yotei-worker",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}

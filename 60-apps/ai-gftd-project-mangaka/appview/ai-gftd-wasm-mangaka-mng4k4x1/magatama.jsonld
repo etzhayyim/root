@@ -1,0 +1,90 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:mangaka.gftd.ai",
+  "component": {
+    "env": {
+      "APP_EMBED_MODE": "draw",
+      "B2_ENDPOINT": "s3.us-west-004.backblazeb2.com",
+      "B2_BUCKET": "ai-gftd-cdn",
+      "B2_REGION": "us-west-004"
+    },
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are ai-gftd-wasm-mangaka agent. Manga creation platform powered by KAMI Engine canvas -- help users create, edit, and publish manga works with AI-assisted panel layout, inking, and toning. Respond helpfully in the users language.",
+  "deploy": {},
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "mangaka-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-wasm-mangaka",
+  "nanoid": "mng4k4x1",
+  "performerType": "service",
+  "profile": {
+    "agentType": "semi-autonomous",
+    "capabilities": [
+      "work-management",
+      "panel-layout",
+      "asset-management",
+      "mangaka-search"
+    ],
+    "description": "Manga creation appview -- KAMI Engine canvas-based manga editor with AI-assisted drawing, panel layout, inking, and toning.",
+    "displayName": "Mangaka",
+    "isBot": true
+  },
+  "project": "mangaka",
+  "routes": [
+    {
+      "host": "mangaka.gftd.ai",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "Public manga feed -- new works, chapters, and highlights",
+        "kind": "public",
+        "name": "mangaka-feed"
+      }
+    ],
+    "description": "Manga creation platform powered by KAMI Engine",
+    "historyVisibility": "world-readable",
+    "joinRule": "public",
+    "name": "Mangaka"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.graph.follow",
+        "ai.gftd.mangaka.work",
+        "ai.gftd.mangaka.chapter",
+        "ai.gftd.mangaka.page",
+        "ai.gftd.mangaka.panel",
+        "ai.gftd.mangaka.asset",
+        "ai.gftd.mangaka.character",
+        "ai.gftd.mangaka.organization",
+        "ai.gftd.mangaka.environment",
+        "ai.gftd.mangaka.generatedImage",
+        "ai.gftd.mangaka.document",
+        "ai.gftd.mangaka.project",
+        "ai.gftd.mangaka.chatMessage"
+      ]
+    }
+  },
+  "uiType": "game"
+}

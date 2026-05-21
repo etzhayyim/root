@@ -90,6 +90,14 @@ dependencies = [
   "langchain-openai>=0.3.0",
   "openpyxl>=3.1.5",
   "python-docx>=1.2.0",
+  # L2 signing (ECDSA + keccak) for EligibilityCell phenotype payload.
+  "eth-account>=0.12.0",
+  # WebSocket client for MST subscriber (mst.subscribe stream).
+  "websockets>=12.0",
+  # CBOR2 decoder for MST event serialization (mst.subscribe CBOR packets).
+  "cbor2>=5.6.0",
+  # LanceDB vector store (mst-projector vector indexing, separate package).
+  "lancedb>=0.30.0",
   # MstCheckpointSaver IPC envelope (ADR-2605171800). Tiny pure-msgpack;
   # framing + serde stay Python-side, MST/IPFS/L2 stay in @etzhayyim/sdk.
   "msgpack>=1.1.0",

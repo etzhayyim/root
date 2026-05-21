@@ -33,7 +33,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | 5. Content seed (Tranches A-E + Wave 2) | ✅ |
 | 6. CI / wrangler / package.json `repository` field sed | ✅ done (11 pkg.json + 2 wrangler.jsonc) |
 | 7. did:web publish (DNS + wrangler deploy) | ✅ 2026-05-17T03:25Z (verified via curl + dev.uniresolver.io) |
-| 8. 220-file `amanomibashira` → `etzhayyim` cutover | ⏳ 登記変更後 |
+| 8. `amanomibashira` → `etzhayyim` cutover (code identifiers) | ✅ 2026-05-21 (118 files; alias docs preserved in CLAUDE.md/README.md/CHARTER-RIDER.md, 登記変更は別) |
 | 9. Religious-corp constitutional ADR wave (13 ADRs, ADR-2605192100 .. 2605192415) | ✅ 2026-05-19/20 |
 | 10. CHARTER-RIDER.md v2.0 + LANDS.md repo root | ✅ 2026-05-19 |
 | 11. Charter Rider applied to 39 first-party Apache-2.0 packages | ✅ 2026-05-20 (78 NOTICE + symlink entries) |

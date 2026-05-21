@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-04-30T00:00:00Z",
+  "scope": [
+    "ai-gftd-project-apqc",
+    "ai-gftd-project-open-isic",
+    "ai-gftd-project-open-isco"
+  ],
+  "runtimePattern": "pyzeebe-langgraph-udf",
+  "status": "implemented",
+  "projects": {
+    "ai-gftd-project-apqc": {
+      "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/apqc.py",
+      "handlerTarget": "20-actors/magatama/py/src/pymagatama/handlers/apqc.py",
+      "migrationLedger": "60-apps/ai-gftd-project-apqc/migration-plan.yaml",
+      "coverage": {
+        "apqcL1Actors": { "covered": 13, "total": 13 },
+        "apqcL2SubProcesses": { "covered": 183, "total": 183 },
+        "runtimeBpmnProcesses": { "covered": 3, "total": 3 },
+        "bpmnCatalogTasks": { "covered": 3, "total": 3 },
+        "pyzeebeTasks": { "covered": 3, "total": 3 },
+        "udfHelpers": { "covered": 2, "total": 2 },
+        "legacyComponentsRetired": { "covered": 295, "total": 295 }
+      },
+      "pyzeebeTasks": [
+        "apqc.materializeSubprocesses",
+        "apqc.emitEvent",
+        "apqc.coverageSnapshot"
+      ],
+      "udfHelpers": [
+        "ai.gftd.apqc.materializeSubprocessDid",
+        "ai.gftd.apqc.coverageSnapshot"
+      ],
+      "bpmnProcesses": [
+        "etzhayyim-root/00-contracts/bpmn/ai/gftd/apqc/materializeSubprocesses.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/ai/gftd/apqc/emitEvent.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/ai/gftd/apqc/coverageSnapshot.bpmn"
+      ],
+      "seedMigration": "30-graph/graph-schema/migrations/20260430224000_seed_apqc_bpmn_actors.ts",
+      "deploymentEvidence": {
+        "checkedAt": "2026-04-30T05:12:28Z",
+        "workerName": "magatama-kyb3proj",
+        "versionId": "bc9113f2-0322-43db-a9e8-0f67786b17e4",
+        "routes": [
+          "kyb3proj.gftd.ai/*",
+          "kyber-projector.gftd.ai/*"
+        ],
+        "health": {
+          "url": "https://kyber-projector.gftd.ai/health",
+          "status": "ok",
+          "app": "kyb3proj"
+        },
+        "didDocument": {
+          "url": "https://kyber-projector.gftd.ai/.well-known/did.json",
+          "id": "did:web:kyber-projector.gftd.ai",
+          "actorServiceEndpoint": "https://kyber-projector.gftd.ai"
+        },
+        "xrpc": {
+          "registerApqcActors": {
+            "ok": true,
+            "registered": 13,
+            "skipped": 0,
+            "kyberFollowed": true
+          },
+          "listApqcActors": {
+            "ok": true,
+            "total": 13,
+            "active": 13
+          },
+          "getApqcCoverage": {
+            "ok": true,
+            "registeredL1": 13,
+            "totalL1": 13,
+            "registeredSubProcesses": 183,
+            "totalSubProcesses": 183,
+            "boundBpmnTasks": 28,
+            "apqc9EventsToday": 1
+          },
+          "runBpmnTaskE2E": {
+            "ok": true,
+            "taskId": "bpmn-9-trial-balance",
+            "apqcCode": "9.0",
+            "caseId": "codex-live-direct-1777525876109",
+            "processInstanceId": "pi-1777525877381-1",
+            "ocelEventId": "ocel-1777525877381-2",
+            "apqcEventPersisted": true,
+            "listActivitiesTotal": 1,
+            "getActivity": {
+              "ok": true,
+              "eventType": "tb.computed",
+              "status": "completed"
+            }
+          },
+          "risingWaveFlushHandling": "APQC OCEL events are written directly to vertex_apqc_event through the deployed Worker Hyperdrive binding, then read back through listActivities/getActivity/getApqcCoverage. APQC actor coverage still bootstraps idempotently before read so status does not depend on graph consumer flush."
+        }
+      }
+    },
+    "ai-gftd-project-open-isic": {
+      "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isic.py",
+      "handlerTarget": "20-actors/magatama/py/src/pymagatama/handlers/open_isic.py",
+      "coverage": {
+        "taxonomyClasses": { "covered": 428, "total": 428 },
+        "bpmnProcesses": { "covered": 4, "total": 4 },
+        "pyzeebeTasks": { "covered": 4, "total": 4 },
+        "udfHelpers": { "covered": 2, "total": 2 },
+        "legacyStandaloneRuntime": { "status": "retired" },
+        "cloudflareWorker": { "status": "archived" }
+      },
+      "pyzeebeTasks": [
+        "openIsic.classifyEntity",
+        "openIsic.recordConcordance",
+        "openIsic.flagDualUseIndustry",
+        "openIsic.classifyArmsManufacturing"
+      ],
+      "udfHelpers": [
+        "ai.gftd.openIsic.verificationForConfidence",
+        "ai.gftd.openIsic.classificationVertexId"
+      ],
+      "bpmnProcesses": [
+        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isic/classifyEntity.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isic/recordConcordance.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isic/flagDualUseIndustry.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isic/classifyArmsManufacturing.bpmn"
+      ],
+      "runtimeEvidence": {
+        "checkedAt": "2026-04-30T05:18:18Z",
+        "rwWritePath": "pymagatama.db_sync sync_cursor -> RisingWave",
+        "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for RisingWave parser compatibility",
+        "classifyEntity": {
+          "ok": true,
+          "task": "openIsic.classifyEntity",
+          "entityDid": "did:web:example.com:entity:codex-isic-1777526214676",
+          "isicClassCode": "2520",
+          "vertexId": "at://did:web:open-isic.gftd.ai/ai.gftd.openIsic.classification/f63e0e0a1ed6fcc5c80226b6",
+          "edgeId": "at://did:web:open-isic.gftd.ai/ai.gftd.openIsic.classificationClass/ef2af0c0aba1d86d141c3506",
+          "verification": "authoritative",
+          "status": "confirmed",
+          "rwReadbackRows": {
+            "vertex_open_isic_classification": 1,
+            "edge_open_isic_classification_class": 1
+          }
+        },
+        "recordConcordance": {
+          "ok": true,
+          "task": "openIsic.recordConcordance",
+          "isicClassCode": "2520",
+          "otherTaxonomy": "NAICS",
+          "otherCode": "332992",
+          "relation": "exactMatch",
+          "vertexId": "at://did:web:open-isic.gftd.ai/ai.gftd.openIsic.concordance/a4e11e67086b2714a56b06cd",
+          "rwReadbackRows": {
+            "vertex_open_isic_concordance": 1
+          }
+        },
+        "dryRunTasks": {
+          "openIsic.flagDualUseIndustry": true,
+          "openIsic.classifyArmsManufacturing": true
+        }
+      }
+    },
+    "ai-gftd-project-open-isco": {
+      "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isco.py",
+      "handlerTarget": "20-actors/magatama/py/src/pymagatama/handlers/open_isco.py",
+      "coverage": {
+        "bpmnProcesses": { "covered": 2, "total": 2 },
+        "pyzeebeTasks": { "covered": 2, "total": 2 },
+        "udfHelpers": { "covered": 3, "total": 3 },
+        "legacyStandaloneRuntime": { "status": "retired" },
+        "legacyAppview": { "status": "archived" }
+      },
+      "pyzeebeTasks": [
+        "openIsco.classifyWorker",
+        "openIsco.recordConcordance"
+      ],
+      "udfHelpers": [
+        "ai.gftd.apps.openIsco.codeLevel",
+        "ai.gftd.apps.openIsco.verificationForConfidence",
+        "ai.gftd.apps.openIsco.classificationVertexId"
+      ],
+      "bpmnProcesses": [
+        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isco/classifyWorker.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isco/recordConcordance.bpmn"
+      ],
+      "runtimeEvidence": {
+        "checkedAt": "2026-04-30T05:18:18Z",
+        "rwWritePath": "pymagatama.db_sync sync_cursor -> RisingWave",
+        "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for RisingWave parser compatibility",
+        "classifyWorker": {
+          "ok": true,
+          "task": "openIsco.classifyWorker",
+          "workerDid": "did:web:example.com:worker:codex-isco-1777526214676",
+          "iscoCode": "2512",
+          "vertexId": "at://did:web:open-isco.gftd.ai/ai.gftd.apps.openIsco.classification/d83d798409d6171438dfce53",
+          "edgeId": "at://did:web:open-isco.gftd.ai/ai.gftd.apps.openIsco.classificationOccupation/7c55eeb29a235080f9319c43",
+          "codeLevel": "unit",
+          "verification": "authoritative",
+          "status": "confirmed",
+          "rwReadbackRows": {
+            "vertex_open_isco_classification": 1,
+            "edge_open_isco_classification_occ": 1
+          }
+        },
+        "recordConcordance": {
+          "ok": true,
+          "task": "openIsco.recordConcordance",
+          "iscoCode": "2512",
+          "otherTaxonomy": "SOC",
+          "otherCode": "15-1252",
+          "relation": "exactMatch",
+          "vertexId": "at://did:web:open-isco.gftd.ai/ai.gftd.apps.openIsco.concordance/90b26f9aa9afd55678fbd02d",
+          "rwReadbackRows": {
+            "vertex_open_isco_concordance": 1
+          }
+        }
+      }
+    }
+  },
+  "verification": {
+    "pythonCompile": "python3 -m py_compile primitives/handlers/worker migration files",
+    "pytest": "cd 20-actors/magatama/py && pytest -q tests/test_open_isic_apqc_primitives.py",
+    "bpmn": "npm run lint:bpmn:manifest && npm run lint:bpmn:coverage && npm run lint:bpmn:worker-tasks",
+    "json": "PROJECT.jsonld, bpmn-coverage-manifest.json, retired-cf-workers.json parse successfully",
+    "legacySearch": "Scoped APQC/open-isic/open-isco search has no active wasm/WIT/wadm runtime references; open-isic CF Worker and open-isco legacy appview are archived under _archive/retired-cf-workers/adr-2604282300"
+  },
+  "knownExternalGaps": []
+}

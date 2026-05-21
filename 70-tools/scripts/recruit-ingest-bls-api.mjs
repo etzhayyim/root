@@ -74,19 +74,42 @@ function makeSeriesId(soc, dataType) {
   return `OEUN0000000000000${soc}${type}`;
 }
 
-async function fetchBls(seriesIds, startYear, endYear) {
-  const payload = { seriesid: seriesIds, startyear: String(startYear), endyear: String(endYear) };
+/**
+ * Yorishiro-aligned BLS fetch (ADR-2605211900).
+ *
+ * Contract : ai.etzhayyim.yorishiro.bls.fetchTimeseries
+ * Lexicon  : 00-contracts/lexicons/ai/etzhayyim/yorishiro/bls/fetchTimeseries.json
+ * MCP equiv: @etzhayyim/yorishiro-bls-mcp
+ * Charter  : grant (read-only public-domain US Government data, 17 USC §105)
+ *
+ * Direct fetch is retained here because this is a standalone ingest script
+ * (no Node workspace context to resolve the yorishiro MCP package from);
+ * the request shape mirrors the lexicon's input schema exactly. The
+ * in-cluster equivalent (yorishiro_bls cell + cell-runner xrpc trigger)
+ * is the canonical path — this script will be retired once that lands.
+ */
+async function fetchBlsTimeseries(seriesIds, startYear, endYear) {
+  const body = {
+    seriesid: seriesIds,
+    startyear: String(startYear),
+    endyear: String(endYear),
+  };
   const res = await fetch("https://api.bls.gov/publicAPI/v2/timeseries/data/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(body),
     signal: AbortSignal.timeout(30000),
   });
   if (!res.ok) throw new Error(`BLS API HTTP ${res.status}`);
   const data = await res.json();
-  if (data.status !== "REQUEST_SUCCEEDED") throw new Error(`BLS API error: ${JSON.stringify(data.message)}`);
+  if (data.status !== "REQUEST_SUCCEEDED") {
+    throw new Error(`BLS API error: ${JSON.stringify(data.message)}`);
+  }
   return data.Results?.series ?? [];
 }
+
+// Backward-compat alias for existing callers within this script.
+const fetchBls = fetchBlsTimeseries;
 
 let _pgPool = null;
 async function pool() {
