@@ -234,6 +234,35 @@ export const ipaddressProjector: ProjectorConfig = {
 - [ ] Query interface documented in `@etzhayyim/sdk` v0.2 (`e.queryView()`)
 - [ ] Per-actor ProjectorConfig files checked into `20-actors/mst-projector/configs/` for all 25 actors
 
+## Phase 3 implementation notes (2026-05-21)
+
+Initial reference impl shipped as two layered packages:
+
+1. **In-memory baseline** (always-available, dependency-free):
+   - `InMemoryTextIndex` — token-frequency text search (TF-lite, no IDF)
+   - `InMemoryAttributeIndex` — attribute → value → Set<rkey> inverted map
+   - `InMemoryAggregateIndex` — groupBy → value → count with diff-aware upsert
+   - `InMemoryProjector` (orchestrator) — `processCommit` + `queryTextSearch` / `queryAttribute` / `queryAggregate`
+   - Vitest suite covers all 3 index types + delete + state transitions.
+
+2. **Production backends** (deploy-time configured):
+   - LanceDB (IVF embedding via `@lancedb/lancedb`) for text search at O(log N).
+   - DuckDB-async for aggregates + inverted attributes at O(1) hash lookup.
+   - HF Inference (or local `@xenova/transformers`) for embedding generation.
+   - Adapter stubs in `src/adapters.ts` declare the interface; real impls land
+     as `src/adapters/{lancedb,duckdb,embedding}.ts` per ops install.
+
+Firehose subscriber (`src/firehose.ts`):
+- `PollingFirehose` reads collections via `e.read()` paginate + diff against
+  in-memory snapshot. Suitable for tests + low-volume actors.
+- Production swaps the poll loop for a WebSocket client to
+  `com.atproto.sync.subscribeRepos`. Same `onCommit(event)` handler signature.
+
+Materialization (`src/materialize.ts`):
+- Writes projector outputs back to PDS as `ai.gftd.projector.aggregate` and
+  `ai.gftd.projector.textSearch` records so any client can read indexed
+  results via the standard `e.read()` API without coupling to LanceDB/DuckDB.
+
 ## Related
 
 - [ADR-2605203000](./2605203000-rw-free-write-target-options.md) — Phase E write-target options (Option B = PDS XRPC foundation)
