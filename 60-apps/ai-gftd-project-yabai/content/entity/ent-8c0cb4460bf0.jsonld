@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-8c0cb4460bf0",
+  "entityId": "ent-8c0cb4460bf0",
+  "canonicalName": "havanatur",
+  "aliases": [
+    "havanatur"
+  ]
+}

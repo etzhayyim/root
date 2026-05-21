@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-90bca827a926",
+  "entityId": "ent-90bca827a926",
+  "canonicalName": "lockbit ransomware group",
+  "aliases": [
+    "lockbit ransomware group"
+  ]
+}
