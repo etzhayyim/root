@@ -1,15 +1,15 @@
 """
-Yorishiro: arxiv (kami: arxiv.org)
+Yorishiro: huggingface (kami: huggingface.co)
 Generator: @etzhayyim/yorishiro v0.1.0
 Per ADR-2605211900 (yorishiro external-actor bridge) + ADR-2605202200
 (magatama cell.py runtime contract).
 
 Transport: openapi-v3
-Base URL : http://export.arxiv.org/api
+Base URL : https://huggingface.co
 Charter purposes: grant
 
 This file is generator output. Hand edits will be overwritten by
-`yorishiro regen arxiv` — extend the kami OpenAPI spec instead.
+`yorishiro regen huggingface` — extend the kami OpenAPI spec instead.
 """
 
 from __future__ import annotations
@@ -24,14 +24,14 @@ from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.graph import END, START, StateGraph
 
 
-YORISHIRO_NAME = "arxiv"
-YORISHIRO_KAMI = "arxiv.org"
-YORISHIRO_BASE_URL = "http://export.arxiv.org/api"
+YORISHIRO_NAME = "huggingface"
+YORISHIRO_KAMI = "huggingface.co"
+YORISHIRO_BASE_URL = "https://huggingface.co"
 YORISHIRO_PURPOSES = tuple(["grant"])
 USER_AGENT = f"etzhayyim-yorishiro-{YORISHIRO_NAME}/0.1"
 
 
-class ArxivState(TypedDict, total=False):
+class HuggingfaceState(TypedDict, total=False):
     # routing
     op: str
 
@@ -75,11 +75,11 @@ def _attempt_json(text: str) -> dict[str, Any] | None:
         return None
 
 
-def search_papers_node(state: dict[str, Any]) -> dict[str, Any]:
-    """Search arXiv for papers matching a structured query. Returns an Atom 1.0 feed. Either `searchQuery` or `idList` (or both) must be supplied. The Atom XML is returned verbatim — parsing belongs to the caller cell."""
+def search_models_node(state: dict[str, Any]) -> dict[str, Any]:
+    """List models with optional free-text search, author filter, and sort. Returns a JSON array of model summaries."""
     params = dict(state.get("params") or {})
     body = state.get("body") or None
-    path = "/query"
+    path = "/api/models"
     for key in list(params.keys()):
         token = "{" + key + "}"
         if token in path:
@@ -94,7 +94,34 @@ def search_papers_node(state: dict[str, Any]) -> dict[str, Any]:
         out["error"] = text[:1000]
         out["body_raw"] = text
         return out
-    if "application/atom+xml" == "application/json":
+    if "application/json" == "application/json":
+        parsed = _attempt_json(text)
+        if parsed is not None:
+            out["json"] = parsed
+            return out
+    out["body_raw"] = text
+    return out
+
+def search_datasets_node(state: dict[str, Any]) -> dict[str, Any]:
+    """List datasets with optional free-text search and tag filter."""
+    params = dict(state.get("params") or {})
+    body = state.get("body") or None
+    path = "/api/datasets"
+    for key in list(params.keys()):
+        token = "{" + key + "}"
+        if token in path:
+            path = path.replace(token, str(params.pop(key)))
+    url = f"{YORISHIRO_BASE_URL}{path}"
+    status, text = _http_call("GET", url, params, body if isinstance(body, dict) and body else None)
+    out: dict[str, Any] = {**state, "http_status": status}
+    if status == 0:
+        out["error"] = text
+        return out
+    if status >= 400:
+        out["error"] = text[:1000]
+        out["body_raw"] = text
+        return out
+    if "application/json" == "application/json":
         parsed = _attempt_json(text)
         if parsed is not None:
             out["json"] = parsed
@@ -104,17 +131,20 @@ def search_papers_node(state: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_graph(checkpointer: BaseCheckpointSaver | None = None):
-    g = StateGraph(ArxivState)
-    g.add_node("searchPapers", search_papers_node)
+    g = StateGraph(HuggingfaceState)
+    g.add_node("searchModels", search_models_node)
+    g.add_node("searchDatasets", search_datasets_node)
 
-    def _router(state: ArxivState) -> str:
-        op = state.get("op") or "searchPapers"
-        return op if op in {"searchPapers"} else "searchPapers"
+    def _router(state: HuggingfaceState) -> str:
+        op = state.get("op") or "searchModels"
+        return op if op in {"searchModels", "searchDatasets"} else "searchModels"
 
     g.add_conditional_edges(START, _router, {
-        "searchPapers": "searchPapers",
+        "searchModels": "searchModels",
+        "searchDatasets": "searchDatasets",
     })
-    g.add_edge("searchPapers", END)
+    g.add_edge("searchModels", END)
+    g.add_edge("searchDatasets", END)
 
     return g.compile(checkpointer=checkpointer)
 
@@ -122,10 +152,10 @@ def build_graph(checkpointer: BaseCheckpointSaver | None = None):
 # ── magatama cell-runner contract (ADR-2605202200) ───────────────────────────
 
 
-def state_from_event(event: dict[str, Any]) -> ArxivState:
+def state_from_event(event: dict[str, Any]) -> HuggingfaceState:
     """Map an MST / XRPC event payload into the cell's TypedDict state."""
     return {
-        "op": event.get("op", "searchPapers"),
+        "op": event.get("op", "searchModels"),
         "params": event.get("params", {}) or {},
         "body": event.get("body", {}) or {},
     }
@@ -151,15 +181,16 @@ def healthz() -> dict[str, Any]:
         "yorishiro": YORISHIRO_NAME,
         "kami": YORISHIRO_KAMI,
         "purposes": list(YORISHIRO_PURPOSES),
-        "ops": ["searchPapers"],
+        "ops": ["searchModels","searchDatasets"],
     }
 
 
 __all__ = [
-    "ArxivState",
+    "HuggingfaceState",
     "build_graph",
     "state_from_event",
     "thread_id_from_event",
     "healthz",
-    "search_papers_node",
+    "search_models_node",
+    "search_datasets_node",
 ]

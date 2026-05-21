@@ -1,37 +1,38 @@
-# yorishiro_arxiv
+# yorishiro_openalex
 
-Pregel cell for the **arxiv** yorishiro (kami: `arxiv.org`).
+Pregel cell for the **openalex** yorishiro (kami: `api.openalex.org`).
 
 Per **ADR-2605211900** (yorishiro external-actor bridge) +
 **ADR-2605202200** (magatama cell.py runtime contract).
 
 Generator: `@etzhayyim/yorishiro` v0.1.0
 Transport: `openapi-v3`
-Base URL : `http://export.arxiv.org/api`
-Charter purposes: `grant`
+Base URL : `https://api.openalex.org`
+Charter purposes: `grant, kisha`
 
 ## Ops
 
 | Op | HTTP | Summary |
 |---|---|---|
-| `searchPapers` | `GET` `/query` | Search arXiv papers |
+| `searchWorks` | `GET` `/works` | Search OpenAlex works (papers, preprints) |
+| `searchAuthors` | `GET` `/authors` | Search OpenAlex authors |
 
 ## Lexicon SSoT
 
-`00-contracts/lexicons/ai/etzhayyim/yorishiro/arxiv/<op>.json`
+`00-contracts/lexicons/ai/etzhayyim/yorishiro/openalex/<op>.json`
 
 ## MCP exposure
 
-`20-actors/magatama/mcp/yorishiro-arxiv-mcp/` (stdio + Streamable HTTP)
+`20-actors/magatama/mcp/yorishiro-openalex-mcp/` (stdio + Streamable HTTP)
 
 ## Regenerate
 
 ```bash
-yorishiro regen arxiv
+yorishiro regen openalex
 ```
 
 Hand edits to `cell.py` are overwritten on regen — extend the kami
-OpenAPI spec at `00-contracts/openapi/kami/arxiv.openapi.json` instead.
+OpenAPI spec at `00-contracts/openapi/kami/openalex.openapi.json` instead.
 
 ## Cell-runner registration
 
@@ -46,10 +47,10 @@ supports `20-actors/magatama/cells/yorishiro_*/cell.py` discovery
 ```json
 {
   "mcpServers": {
-    "etzhayyim-yorishiro-arxiv": {
+    "etzhayyim-yorishiro-openalex": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/repo/20-actors/magatama/mcp/yorishiro-arxiv-mcp/src/cli.ts"],
-      "env": { "YORISHIRO_ARXIV_BASE_URL": "http://export.arxiv.org/api" }
+      "args": ["/ABSOLUTE/PATH/TO/repo/20-actors/magatama/mcp/yorishiro-openalex-mcp/src/cli.ts"],
+      "env": { "YORISHIRO_OPENALEX_BASE_URL": "https://api.openalex.org" }
     }
   }
 }

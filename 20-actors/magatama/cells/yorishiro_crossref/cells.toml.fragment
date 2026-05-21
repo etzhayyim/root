@@ -1,4 +1,4 @@
-# cells.toml fragment for the YorishiroArxivCell.
+# cells.toml fragment for the YorishiroCrossrefCell.
 #
 # Append to 50-infra/cluster/murakumo/cell-runner/cells.toml when the
 # cell-runner is wired to discover yorishiri cells under
@@ -9,10 +9,10 @@
 # scavenger hunt.
 
 [[cell]]
-name = "YorishiroArxivCell"
-module = "yorishiro_arxiv.cell"
+name = "YorishiroCrossrefCell"
+module = "yorishiro_crossref.cell"
 entry = "build_graph"
 node = "*"
-trigger = { kind = "xrpc", nsid = "ai.etzhayyim.yorishiro.arxiv.searchPapers" }
-healthz_port = 13684
+trigger = { kind = "xrpc", nsid = "ai.etzhayyim.yorishiro.crossref.searchWorks" }
+healthz_port = 13833
 adr = ["2605211900", "2605202200"]

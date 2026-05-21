@@ -1,37 +1,38 @@
-# yorishiro_arxiv
+# yorishiro_huggingface
 
-Pregel cell for the **arxiv** yorishiro (kami: `arxiv.org`).
+Pregel cell for the **huggingface** yorishiro (kami: `huggingface.co`).
 
 Per **ADR-2605211900** (yorishiro external-actor bridge) +
 **ADR-2605202200** (magatama cell.py runtime contract).
 
 Generator: `@etzhayyim/yorishiro` v0.1.0
 Transport: `openapi-v3`
-Base URL : `http://export.arxiv.org/api`
+Base URL : `https://huggingface.co`
 Charter purposes: `grant`
 
 ## Ops
 
 | Op | HTTP | Summary |
 |---|---|---|
-| `searchPapers` | `GET` `/query` | Search arXiv papers |
+| `searchModels` | `GET` `/api/models` | Search HuggingFace Hub models |
+| `searchDatasets` | `GET` `/api/datasets` | Search HuggingFace Hub datasets |
 
 ## Lexicon SSoT
 
-`00-contracts/lexicons/ai/etzhayyim/yorishiro/arxiv/<op>.json`
+`00-contracts/lexicons/ai/etzhayyim/yorishiro/huggingface/<op>.json`
 
 ## MCP exposure
 
-`20-actors/magatama/mcp/yorishiro-arxiv-mcp/` (stdio + Streamable HTTP)
+`20-actors/magatama/mcp/yorishiro-huggingface-mcp/` (stdio + Streamable HTTP)
 
 ## Regenerate
 
 ```bash
-yorishiro regen arxiv
+yorishiro regen huggingface
 ```
 
 Hand edits to `cell.py` are overwritten on regen — extend the kami
-OpenAPI spec at `00-contracts/openapi/kami/arxiv.openapi.json` instead.
+OpenAPI spec at `00-contracts/openapi/kami/huggingface.openapi.json` instead.
 
 ## Cell-runner registration
 
@@ -46,10 +47,10 @@ supports `20-actors/magatama/cells/yorishiro_*/cell.py` discovery
 ```json
 {
   "mcpServers": {
-    "etzhayyim-yorishiro-arxiv": {
+    "etzhayyim-yorishiro-huggingface": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/repo/20-actors/magatama/mcp/yorishiro-arxiv-mcp/src/cli.ts"],
-      "env": { "YORISHIRO_ARXIV_BASE_URL": "http://export.arxiv.org/api" }
+      "args": ["/ABSOLUTE/PATH/TO/repo/20-actors/magatama/mcp/yorishiro-huggingface-mcp/src/cli.ts"],
+      "env": { "YORISHIRO_HUGGINGFACE_BASE_URL": "https://huggingface.co" }
     }
   }
 }

@@ -206,10 +206,14 @@ async function cmdRegen(rest: string[]): Promise<void> {
   const cfgPath = join(repoRoot, "70-tools/etzhayyim-cli/yorishiro/registry", `${name}.json`);
   if (!existsSync(cfgPath)) fail(`no registry entry for ${name} at ${cfgPath}`);
   const cfg = JSON.parse(readFileSync(cfgPath, "utf-8"));
+  // registry entries authored before the resolveSource() landing carry
+  // relative paths; rewrite them against repoRoot so the regen works
+  // from any cwd.
+  const sourceResolved = resolveSource(cfg.source, repoRoot);
   await createFromOpenApi({
     name: cfg.name,
     from: cfg.from,
-    source: cfg.source,
+    source: sourceResolved,
     kami: cfg.kami,
     purpose: cfg.purposes.join(","),
     baseUrl: cfg.baseUrl,
@@ -293,7 +297,11 @@ function findRepoRoot(): string {
 
 function resolveSource(src: string, repoRoot: string): string {
   if (src.startsWith("http://") || src.startsWith("https://")) return src;
-  return resolve(repoRoot, src);
+  // Path resolution: absolute paths pass through, relative paths resolve
+  // against the user's cwd (where they typed the `yorishiro` command).
+  // repoRoot is unused for source resolution but is the right anchor for
+  // the *output* tree (handled by the emitters).
+  return resolve(src);
 }
 
 main().catch((err) => {

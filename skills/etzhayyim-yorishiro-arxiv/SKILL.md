@@ -17,7 +17,7 @@ ways:
 
 ## Tools
 
-- `search_papers` — Search arXiv for papers matching a structured query. Returns an Atom 1.0 feed. Either `search_query` or `id_list` (or both) must be supplied. The Atom XML is returned verbatim — parsing belongs to the caller cell.
+- `search_papers` — Search arXiv papers
 
 ## JSON output
 
@@ -28,12 +28,11 @@ Every tool returns a JSON object:
 ```
 
 `json` is present iff the kami returned `application/json` and the body
-parsed; otherwise the raw response is in `body`. For arXiv, `body` will
-contain the Atom XML feed. `httpStatus` is `0` if the kami could not be
-reached at all.
+parsed; otherwise the raw response is in `body`. `httpStatus` is `0` if
+the kami could not be reached at all.
 
 ## Charter purposes
 
-This yorishiro is restricted to: `grant`. Calls that would imply a
-non-listed purpose are rejected at the lexicon validator seam.
-See ADR-2605192115 §4.
+This yorishiro is restricted to: `grant`. Calls that
+would imply a non-listed purpose are rejected at the lexicon validator
+seam. See ADR-2605192115 §4.

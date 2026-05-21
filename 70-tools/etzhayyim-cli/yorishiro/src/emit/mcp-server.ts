@@ -279,7 +279,15 @@ function renderTools(args: EmitMcpArgs): string {
   const schemas = args.ops
     .map((op) => {
       const params = op.parameters
-        .map((p) => `    ${quoteKey(p.name)}: ${zodFor(p.schema, p.required)},`)
+        .map((p) => {
+          // OpenAPI puts description on the parameter; bring it into
+          // the schema so zodFor can emit a .describe() call.
+          const merged: JsonSchema = {
+            ...p.schema,
+            description: p.description || p.schema.description,
+          };
+          return `    ${quoteKey(p.name)}: ${zodFor(merged, p.required)},`;
+        })
         .join("\n");
       const inputType = `${P}${pascal(op.opName)}Input`;
       const outputType = `${P}${pascal(op.opName)}Output`;

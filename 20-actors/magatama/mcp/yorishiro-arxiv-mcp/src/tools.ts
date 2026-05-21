@@ -6,42 +6,12 @@ export interface ArxivHandle {
 
 // ── searchPapers ─────────────────────────────────────────────────────────
 export const search_papersInputSchema = z.object({
-  search_query: z
-    .string()
-    .min(1)
-    .max(2048)
-    .describe("arXiv structured query (e.g. `cat:cs.AI AND ti:transformer`). At least one of `search_query` or `id_list` must be present.")
-    .optional(),
-  id_list: z
-    .string()
-    .max(4096)
-    .describe("Comma-separated list of arXiv ids (e.g. `2310.06825,2401.04088`).")
-    .optional(),
-  start: z
-    .number()
-    .int()
-    .min(0)
-    .default(0)
-    .describe("Result offset for paging (0-based).")
-    .optional(),
-  max_results: z
-    .number()
-    .int()
-    .min(1)
-    .max(2000)
-    .default(10)
-    .describe("Page size. arXiv caps this near 2000; the public API recommends ≤100 per call.")
-    .optional(),
-  sortBy: z
-    .enum(["relevance", "lastUpdatedDate", "submittedDate"] as [string, ...string[]])
-    .default("relevance")
-    .describe("Sort key.")
-    .optional(),
-  sortOrder: z
-    .enum(["ascending", "descending"] as [string, ...string[]])
-    .default("descending")
-    .describe("Sort direction.")
-    .optional(),
+    search_query: z.string().min(1).max(2048).describe("arXiv structured query (e.g. `cat:cs.AI AND ti:transformer`). At least one of `search_query` or `id_list` must be present.").optional(),
+    id_list: z.string().max(4096).describe("Comma-separated list of arXiv ids (e.g. `2310.06825,2401.04088`).").optional(),
+    start: z.number().int().min(0).default(0).describe("Result offset for paging (0-based).").optional(),
+    max_results: z.number().int().min(1).max(2000).default(10).describe("Page size. arXiv caps this near 2000; the public API recommends ≤100 per call.").optional(),
+    sortBy: z.enum(["relevance", "lastUpdatedDate", "submittedDate"] as [string, ...string[]]).default("relevance").describe("Sort key.").optional(),
+    sortOrder: z.enum(["ascending", "descending"] as [string, ...string[]]).default("descending").describe("Sort direction.").optional(),
 });
 export type ArxivSearchPapersInput = z.infer<typeof search_papersInputSchema>;
 
@@ -51,6 +21,7 @@ export interface ArxivSearchPapersOutput {
   body?: string;
   error?: string;
 }
+
 
 export interface ToolDefinition {
   name: string;
@@ -95,8 +66,7 @@ export const tools: ToolDefinition[] = [
   {
     name: "search_papers",
     title: "Search arXiv papers",
-    description:
-      "Search arXiv for papers matching a structured query. Returns an Atom 1.0 feed. Either `search_query` or `id_list` (or both) must be supplied. The Atom XML is returned verbatim — parsing belongs to the caller cell.",
+    description: "Search arXiv for papers matching a structured query. Returns an Atom 1.0 feed. Either `searchQuery` or `idList` (or both) must be supplied. The Atom XML is returned verbatim — parsing belongs to the caller cell.",
     inputSchema: search_papersInputSchema,
     jsonSchema: zodToJsonSchemaShim(search_papersInputSchema),
     invoke: async (handle, input) => handle.search_papers(input as ArxivSearchPapersInput),

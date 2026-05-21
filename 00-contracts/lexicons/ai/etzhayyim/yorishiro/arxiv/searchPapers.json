@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Search arXiv for papers matching a structured query. Returns an Atom 1.0 feed. Either `search_query` or `id_list` (or both) must be supplied. The Atom XML is returned verbatim — parsing belongs to the caller cell.",
+      "description": "Search arXiv for papers matching a structured query. Returns an Atom 1.0 feed. Either `searchQuery` or `idList` (or both) must be supplied. The Atom XML is returned verbatim — parsing belongs to the caller cell.",
       "x-yorishiro-external": true,
       "x-yorishiro-kami": "arxiv.org",
       "x-yorishiro-transport": "openapi-v3",
@@ -13,7 +13,9 @@
         "pathTemplate": "/query",
         "responseContentType": "application/atom+xml"
       },
-      "x-charter-purpose": ["grant"],
+      "x-charter-purpose": [
+        "grant"
+      ],
       "parameters": {
         "type": "params",
         "required": [],
@@ -44,13 +46,20 @@
           },
           "sortBy": {
             "type": "string",
-            "enum": ["relevance", "lastUpdatedDate", "submittedDate"],
+            "enum": [
+              "relevance",
+              "lastUpdatedDate",
+              "submittedDate"
+            ],
             "default": "relevance",
             "description": "Sort key."
           },
           "sortOrder": {
             "type": "string",
-            "enum": ["ascending", "descending"],
+            "enum": [
+              "ascending",
+              "descending"
+            ],
             "default": "descending",
             "description": "Sort direction."
           }
@@ -60,14 +69,20 @@
         "encoding": "application/json",
         "schema": {
           "type": "object",
-          "required": ["httpStatus"],
+          "required": [
+            "httpStatus"
+          ],
           "properties": {
-            "httpStatus": { "type": "integer" },
+            "httpStatus": {
+              "type": "integer"
+            },
             "body": {
               "type": "string",
               "description": "Raw application/atom+xml body from kami."
             },
-            "error": { "type": "string" }
+            "error": {
+              "type": "string"
+            }
           }
         }
       }
