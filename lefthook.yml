@@ -109,3 +109,24 @@ pre-commit:
       glob: "{package.json,Cargo.toml,pyproject.toml}"
       run: node 70-tools/scripts/lint/charter-rider-notice.mjs {staged_files}
       stage_fixed: false
+
+    validate-religious-corp-lexicons:
+      # Validate etzhayyim religious-corp lexicons per AT Protocol Lexicon v1
+      # rules (no float types, integer with implied units). Per ADR-2605190900.
+      glob: "00-contracts/lexicons/app/etzhayyim/**/*.json"
+      run: python3 70-tools/scripts/validate-lexicons.py --root 00-contracts/lexicons/app/etzhayyim/ --exit-on-error
+      tags: lexicon
+
+    no-external-purchase-purpose:
+      # Enforce ADR-2605211900 §D2 + ADR-2605192115 §4 on every yorishiro
+      # lexicon. Yorishiri are vessels (依代) that bridge external substrate;
+      # their x-charter-purpose must be a non-empty subset of:
+      #   donation / kisha / grant / tithe / escrow-refund
+      # and must never include subscription / purchase / tip /
+      # internal-purchase / internal-subscription / internal-promo
+      # (the internal-* values belong on SBT↔SBT carveout apps, NOT on
+      # yorishiri). x-yorishiro-external must also be true. See
+      # 70-tools/scripts/lint/no-external-purchase-purpose.mjs.
+      glob: "00-contracts/lexicons/ai/etzhayyim/yorishiro/**/*.json"
+      run: node 70-tools/scripts/lint/no-external-purchase-purpose.mjs {staged_files}
+      tags: lexicon yorishiro
