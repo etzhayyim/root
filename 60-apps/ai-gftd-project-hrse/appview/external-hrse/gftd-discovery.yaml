@@ -1,0 +1,19 @@
+apiVersion: gftd.io/v1alpha1
+kind: AppDiscovery
+metadata:
+  name: ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f
+  namespace: ai-gftd-apps-prod
+spec:
+  actorName: hrse-app
+  framework: nextjs
+  capabilities:
+    - EmailAnalysisCapability
+    - RecordRoutingCapability
+    - LLMIntegrationCapability
+    - ResendWebhookCapability
+    - AuthenticationCapability
+    - ClerkSubscriptionCapability
+    - MasterDataManagementCapability
+    - AgencyProfileCapability
+    - RecruiterAgentCapability
+    - SESEmailAutomationCapability
