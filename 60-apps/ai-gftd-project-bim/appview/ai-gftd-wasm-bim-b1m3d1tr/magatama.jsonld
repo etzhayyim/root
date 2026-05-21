@@ -1,0 +1,78 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:bim.gftd.ai",
+  "convoSystemPrompt": "You are ai-gftd-wasm-bim agent. Bim — AI Agent for BIM (Building Information Modeling) viewing, review, annotation, and IFC export. Respond helpfully in the user's language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "bim-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-wasm-bim",
+  "nanoid": "b1m3d1tr",
+  "performerType": "service",
+  "pool": {},
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "bim-ifc-import",
+      "bim-scene-projection",
+      "bim-annotation",
+      "bim-export"
+    ],
+    "description": "Bim — AI Agent for BIM (Building Information Modeling) viewing, review, annotation, and IFC export",
+    "displayName": "Bim",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "bim",
+  "routes": [
+    {
+      "host": "bim.gftd.ai",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "serviceBindings": [
+    {
+      "binding": "BIM_JOB",
+      "service": "bim-job",
+      "purpose": "Heavy IFC parse / tessellation / export — CF Container (lite/standard) at bim-job.gftd.ai. ADR 2604241500."
+    }
+  ],
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "b1m3d1tr-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Bim"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.like",
+        "app.bsky.feed.post",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.bim.project",
+        "ai.gftd.apps.bim.revision",
+        "ai.gftd.apps.bim.annotation"
+      ]
+    }
+  },
+  "uiType": "appview"
+}
