@@ -6,7 +6,13 @@ export interface BlsHandle {
 
 // ── fetchTimeseries ─────────────────────────────────────────────────────────
 export const fetch_timeseriesInputSchema = z.object({
-
+    seriesid: z.array(z.string().min(1).max(64)).describe("BLS series ids (e.g. `CES0000000001`, `LNS14000000`)."),
+    startyear: z.string().describe("Inclusive lower bound (4-digit year, string form per BLS contract).").optional(),
+    endyear: z.string().describe("Inclusive upper bound.").optional(),
+    registrationkey: z.string().describe("Optional BLS API registration key (extends quota).").optional(),
+    catalog: z.boolean().describe("If true, includes series metadata catalog in the response.").optional(),
+    calculations: z.boolean().describe("If true, includes 1/3/6/12-month percent change calculations.").optional(),
+    annualaverage: z.boolean().describe("If true, includes annual averages.").optional(),
 });
 export type BlsFetchTimeseriesInput = z.infer<typeof fetch_timeseriesInputSchema>;
 

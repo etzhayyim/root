@@ -11,7 +11,18 @@
       "x-yorishiro-http": {
         "method": "POST",
         "pathTemplate": "/publicAPI/v2/timeseries/data/",
-        "responseContentType": "application/json"
+        "responseContentType": "application/json",
+        "pathParams": [],
+        "queryParams": [],
+        "bodyParams": [
+          "seriesid",
+          "startyear",
+          "endyear",
+          "registrationkey",
+          "catalog",
+          "calculations",
+          "annualaverage"
+        ]
       },
       "x-charter-purpose": [
         "grant"

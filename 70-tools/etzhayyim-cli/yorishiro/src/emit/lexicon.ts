@@ -51,6 +51,13 @@ interface BuildArgs extends EmitLexiconArgs {
 function buildLexicon(args: BuildArgs): unknown {
   const { op, nsid, isQuery } = args;
 
+  // Partition op.parameters by `in` so the handle can route correctly:
+  //   path params  → URL template substitution
+  //   query params → URL search params
+  //   header / cookie are TODO; they default to query if a yorishiro
+  //   call passes them, which is fine for the GET-style cases.
+  const pathParams: string[] = [];
+  const queryParams: string[] = [];
   const paramProps: Record<string, JsonSchema> = {};
   const required: string[] = [];
   for (const p of op.parameters) {
@@ -59,6 +66,22 @@ function buildLexicon(args: BuildArgs): unknown {
       description: p.description || p.schema.description || "",
     };
     if (p.required) required.push(p.name);
+    if (p.in === "path") pathParams.push(p.name);
+    else queryParams.push(p.name);
+  }
+
+  // For non-query (POST/PUT/PATCH/DELETE), merge body schema fields
+  // into the lexicon input alongside path params. The handle knows
+  // which subset is body vs path via the x-yorishiro-http block.
+  const bodyParams: string[] = [];
+  if (!isQuery && op.requestBodySchema?.properties) {
+    for (const [k, v] of Object.entries(op.requestBodySchema.properties)) {
+      paramProps[k] = v;
+      bodyParams.push(k);
+    }
+    for (const r of op.requestBodySchema.required ?? []) {
+      if (!required.includes(r)) required.push(r);
+    }
   }
 
   const main: Record<string, unknown> = {
@@ -71,6 +94,9 @@ function buildLexicon(args: BuildArgs): unknown {
       method: op.httpMethod,
       pathTemplate: op.pathTemplate,
       responseContentType: op.responseContentType,
+      pathParams,
+      queryParams,
+      bodyParams,
     },
     "x-charter-purpose": [...args.purposes],
   };
@@ -82,15 +108,12 @@ function buildLexicon(args: BuildArgs): unknown {
       properties: paramProps,
     };
   } else {
-    const bodyProps =
-      op.requestBodySchema?.properties ?? paramProps;
-    const bodyRequired = op.requestBodySchema?.required ?? required;
     main.input = {
       encoding: "application/json",
       schema: {
         type: "object",
-        required: bodyRequired,
-        properties: bodyProps,
+        required,
+        properties: paramProps,
       },
     };
   }

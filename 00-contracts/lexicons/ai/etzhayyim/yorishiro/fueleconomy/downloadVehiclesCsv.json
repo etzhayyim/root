@@ -11,7 +11,10 @@
       "x-yorishiro-http": {
         "method": "GET",
         "pathTemplate": "/feg/epadata/vehicles.csv",
-        "responseContentType": "text/csv"
+        "responseContentType": "text/csv",
+        "pathParams": [],
+        "queryParams": [],
+        "bodyParams": []
       },
       "x-charter-purpose": [
         "grant"

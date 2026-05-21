@@ -11,7 +11,17 @@
       "x-yorishiro-http": {
         "method": "GET",
         "pathTemplate": "/query",
-        "responseContentType": "application/atom+xml"
+        "responseContentType": "application/atom+xml",
+        "pathParams": [],
+        "queryParams": [
+          "search_query",
+          "id_list",
+          "start",
+          "max_results",
+          "sortBy",
+          "sortOrder"
+        ],
+        "bodyParams": []
       },
       "x-charter-purpose": [
         "grant"

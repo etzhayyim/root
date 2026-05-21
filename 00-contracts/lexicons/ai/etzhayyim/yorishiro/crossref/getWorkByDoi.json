@@ -11,7 +11,12 @@
       "x-yorishiro-http": {
         "method": "GET",
         "pathTemplate": "/works/{doi}",
-        "responseContentType": "application/json"
+        "responseContentType": "application/json",
+        "pathParams": [
+          "doi"
+        ],
+        "queryParams": [],
+        "bodyParams": []
       },
       "x-charter-purpose": [
         "grant"

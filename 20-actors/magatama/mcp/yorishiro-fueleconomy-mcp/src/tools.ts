@@ -6,7 +6,7 @@ export interface FueleconomyHandle {
 
 // ── downloadVehiclesCsv ─────────────────────────────────────────────────────────
 export const download_vehicles_csvInputSchema = z.object({
-
+  // (no input fields)
 });
 export type FueleconomyDownloadVehiclesCsvInput = z.infer<typeof download_vehicles_csvInputSchema>;
 

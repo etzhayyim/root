@@ -278,22 +278,26 @@ function renderTools(args: EmitMcpArgs): string {
 
   const schemas = args.ops
     .map((op) => {
-      const params = op.parameters
-        .map((p) => {
-          // OpenAPI puts description on the parameter; bring it into
-          // the schema so zodFor can emit a .describe() call.
-          const merged: JsonSchema = {
-            ...p.schema,
-            description: p.description || p.schema.description,
-          };
-          return `    ${quoteKey(p.name)}: ${zodFor(merged, p.required)},`;
-        })
-        .join("\n");
+      // Combine URL parameters + request body fields into one zod input
+      // schema. The handle partitions back to path/query/body via the
+      // x-yorishiro-http block at runtime.
+      const urlLines = op.parameters.map((p) => {
+        const merged: JsonSchema = { ...p.schema, description: p.description || p.schema.description };
+        return `    ${quoteKey(p.name)}: ${zodFor(merged, p.required)},`;
+      });
+      const bodyLines: string[] = [];
+      if (op.requestBodySchema?.properties) {
+        const bodyRequired = new Set<string>(op.requestBodySchema.required ?? []);
+        for (const [k, v] of Object.entries(op.requestBodySchema.properties)) {
+          bodyLines.push(`    ${quoteKey(k)}: ${zodFor(v, bodyRequired.has(k))},`);
+        }
+      }
+      const params = [...urlLines, ...bodyLines].join("\n");
       const inputType = `${P}${pascal(op.opName)}Input`;
       const outputType = `${P}${pascal(op.opName)}Output`;
       return `// ── ${op.opName} ─────────────────────────────────────────────────────────
 export const ${snake(op.opName)}InputSchema = z.object({
-${params}
+${params || "  // (no input fields)"}
 });
 export type ${inputType} = z.infer<typeof ${snake(op.opName)}InputSchema>;
 
@@ -384,22 +388,48 @@ function renderHandle(args: EmitMcpArgs): string {
       const opSnake = snake(op.opName);
       const pathLit = JSON.stringify(op.pathTemplate);
       const method = JSON.stringify(op.httpMethod);
+      const pathNames = op.parameters.filter((p) => p.in === "path").map((p) => p.name);
+      const queryNames = op.parameters.filter((p) => p.in !== "path").map((p) => p.name);
+      const bodyNames = op.requestBodySchema?.properties
+        ? Object.keys(op.requestBodySchema.properties)
+        : [];
+      const hasBody = bodyNames.length > 0;
       return `  async ${opSnake}(input) {
-    const params: Record<string, unknown> = { ...input };
+    const inp = input as Record<string, unknown>;
+    const pathKeys: ReadonlySet<string> = new Set<string>(${JSON.stringify(pathNames)});
+    const queryKeys: ReadonlySet<string> = new Set<string>(${JSON.stringify(queryNames)});
+    const bodyKeys: ReadonlySet<string> = new Set<string>(${JSON.stringify(bodyNames)});
     let path = ${pathLit};
-    for (const key of Object.keys(params)) {
+    for (const key of pathKeys) {
       const token = \`{\${key}}\`;
-      if (path.includes(token)) {
-        path = path.split(token).join(String(params[key]));
-        delete params[key];
+      if (path.includes(token) && inp[key] !== undefined) {
+        path = path.split(token).join(String(inp[key]));
       }
     }
     const url = new URL(path, baseUrl);
-    for (const [k, v] of Object.entries(params)) {
+    for (const key of queryKeys) {
+      const v = inp[key];
       if (v === undefined || v === null || v === "") continue;
-      url.searchParams.append(k, String(v));
+      url.searchParams.append(key, String(v));
     }
-    const init: RequestInit = { method: ${method}, headers: { "User-Agent": "etzhayyim-yorishiro-${args.name}-mcp/0.1" } };
+    ${
+      hasBody
+        ? `const bodyObj: Record<string, unknown> = {};
+    for (const key of bodyKeys) {
+      const v = inp[key];
+      if (v !== undefined) bodyObj[key] = v;
+    }`
+        : `const bodyObj: Record<string, unknown> | undefined = undefined;`
+    }
+    const init: RequestInit = {
+      method: ${method},
+      headers: {
+        "User-Agent": "etzhayyim-yorishiro-${args.name}-mcp/0.1",
+        ${hasBody ? `"Content-Type": "application/json",` : ""}
+        ...(opts.headers ?? {}),
+      },
+      ${hasBody ? `body: JSON.stringify(bodyObj),` : ""}
+    };
     try {
       const res = await fetch(url, init);
       const text = await res.text();
@@ -420,7 +450,16 @@ function renderHandle(args: EmitMcpArgs): string {
   return `import type { ${P}Handle } from "./tools.js";
 
 export interface DefaultHandleOptions {
+  /** Base URL of the kami. Defaults to the spec's servers[0].url at generate time. */
   baseUrl: string;
+  /**
+   * Extra headers to attach to every outbound request. The yorishiro
+   * does NOT persist credentials — callers inject Authorization /
+   * X-API-Key / etc per their own auth scope (e.g. an env var read at
+   * the caller). User-Agent is set by the handle and is overridden by
+   * any same-named entry here.
+   */
+  headers?: Record<string, string>;
 }
 
 export function createDefault${P}Handle(opts: DefaultHandleOptions): ${P}Handle {

@@ -7,6 +7,8 @@ export interface HuggingfaceInferenceHandle {
 // ── extractFeatures ─────────────────────────────────────────────────────────
 export const extract_featuresInputSchema = z.object({
     model_id: z.string().min(3).max(256).describe("Model id on the Hub (e.g. `sentence-transformers/all-MiniLM-L6-v2`)."),
+    inputs: z.string().min(1).max(32768).describe("Text to embed (single string or batched). Phase 1: single only."),
+    wait_for_model: z.boolean().default(true).describe("Wait for cold-start instead of returning 503.").optional(),
 });
 export type HuggingfaceInferenceExtractFeaturesInput = z.infer<typeof extract_featuresInputSchema>;
 

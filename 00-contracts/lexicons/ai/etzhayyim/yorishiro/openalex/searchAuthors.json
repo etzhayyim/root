@@ -11,7 +11,15 @@
       "x-yorishiro-http": {
         "method": "GET",
         "pathTemplate": "/authors",
-        "responseContentType": "application/json"
+        "responseContentType": "application/json",
+        "pathParams": [],
+        "queryParams": [
+          "search",
+          "filter",
+          "per_page",
+          "page"
+        ],
+        "bodyParams": []
       },
       "x-charter-purpose": [
         "grant",

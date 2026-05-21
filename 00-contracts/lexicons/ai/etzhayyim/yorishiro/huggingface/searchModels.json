@@ -11,7 +11,17 @@
       "x-yorishiro-http": {
         "method": "GET",
         "pathTemplate": "/api/models",
-        "responseContentType": "application/json"
+        "responseContentType": "application/json",
+        "pathParams": [],
+        "queryParams": [
+          "search",
+          "author",
+          "filter",
+          "sort",
+          "direction",
+          "limit"
+        ],
+        "bodyParams": []
       },
       "x-charter-purpose": [
         "grant"
