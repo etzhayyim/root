@@ -1,0 +1,39 @@
+---
+id: 260403-governance-and-compliance-consolidated
+title: Governance and Compliance (Consolidated)
+status: active
+doc_type: explanation
+topic: governance-and-compliance
+authoritative: true
+last_verified: 2026-04-03
+authoritative_for:
+  - governance policy baseline across visibility and consent
+  - authority chain and content access compliance baseline
+related:
+  - 260403-w-protocol-core-and-security-consolidated
+supersedes:
+  - 260321-consent-gated-data-sharing-design
+  - 260323-actor-visibility-governance-design
+  - 260323-authority-chain-compliance-design
+  - 260323-compliance-content-access-control-design
+superseded_by: []
+---
+
+# Governance and Compliance (Consolidated)
+
+## Decision
+
+- consent, visibility, jurisdiction, content policy を同一ガバナンス層で扱う。
+- authority chain を policy evaluation の参照系として維持する。
+- access control は RBAC/RACI + sensitivity/clearance の併用で評価する。
+
+## Scope
+
+- consent-gated sharing
+- actor visibility governance
+- authority-chain compliance
+- compliance-based content access
+
+## Notes
+
+この統合文書が上記 4 文書の正本。
