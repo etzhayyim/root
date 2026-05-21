@@ -1,0 +1,36 @@
+{
+  "name": "magatama-cten0001",
+  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2025-03-17",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_als"
+  ],
+  "vars": {
+    "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"generateContent\",\"getContent\",\"listContent\",\"registerCohortProfile\"]",
+    "APP_DESCRIPTION": "Personalized Content Engine — LangGraph profile→match→draft→rank loop. Cohort-first personalization, no individual PII. Integrates news+narou signals. Optional ads.gftd.ai sponsor slot.",
+    "APP_DISPLAY_NAME": "GFTD Content Engine",
+    "APP_EMBED_URL": "https://cten0001.gftd.ai/?embed=1",
+    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "APP_NANOID": "cten0001",
+    "APP_PERFORMER_TYPE": "service",
+    "APP_UI_TYPE": "appview",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+  },
+  "routes": [
+    {
+      "pattern": "cten0001.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    },
+    {
+      "pattern": "contentengine.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    }
+  ],
+  "assets": {
+    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}
