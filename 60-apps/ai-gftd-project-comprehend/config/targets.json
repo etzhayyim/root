@@ -1,0 +1,15 @@
+{
+  "runEnabled": true,
+  "seedUrls": [
+    {
+      "url": "https://gftd.ai",
+      "maxDepth": 1
+    }
+  ],
+  "domains": [
+    "gftd.ai"
+  ],
+  "ips": [
+    "1.1.1.1"
+  ]
+}

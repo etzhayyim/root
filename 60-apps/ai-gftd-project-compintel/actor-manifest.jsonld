@@ -1,0 +1,17 @@
+{
+  "@context": "https://magatama.gftd.ai/ns/actor-manifest/v1",
+  "@type": "ActorManifest",
+  "did": "did:web:compintel.gftd.ai",
+  "nanoid": "cpti0001",
+  "name": "compintel",
+  "displayName": "GFTD Competitive Intel",
+  "description": "Competitive Intelligence Dashboard — LangGraph multi-dimension research loop. Weekly refresh Monday 08:00 JST. Threat scoring + alert digest via Resend.",
+  "performerType": "service",
+  "domain": "compintel.gftd.ai",
+  "capabilities": [
+    "ai.gftd.apps.compintel.trackCompetitor",
+    "ai.gftd.apps.compintel.getSnapshot",
+    "ai.gftd.apps.compintel.listCompetitors",
+    "ai.gftd.apps.compintel.getAlert"
+  ]
+}
