@@ -85,8 +85,8 @@ yorishiro audit
 |---|---|---|
 | `openapi-v3` | **Phase 1 ✓** (L1+L2+L3) | OpenAPI 3.x JSON/YAML at a URL or local path |
 | `binary-cli` | **Phase 2 ✓** (L1+L2+L3) | Local binary + hand-authored kami manifest JSON |
-| `browser-only` | **Phase 3 ✓** (L1 only) | base URL + DOM step sequence + extract selectors. L2/L3 driver (Playwright pod / mcp__claude-in-chrome bridge) is the Phase 3 follow-up. |
-| `source-repo` | Phase 2.5 ⏳ | git URL or local repo path (CLI-Anything style Click/argparse/cobra AST analysis) |
+| `source-repo` | **Phase 2.5 ✓** (Click only) | Python source repo path; AST walker extracts `@click.command` / `@click.option` / `@click.argument` into a kami manifest, then emits the binary-cli 3-layer. argparse / cobra / clap land in 2.5.1+ |
+| `browser-only` | **Phase 3 ✓** (L1+L2+L3 via Playwright) | base URL + DOM step sequence + extract selectors. L2 + L3 use Playwright sync_api / playwright Node respectively. |
 
 ### binary-cli kami manifest
 

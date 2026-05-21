@@ -23,6 +23,7 @@ import { emitBrowserCell } from "./browser/emit-cell-py.js";
 import { emitBrowserLexicons } from "./browser/emit-lexicon.js";
 import { emitBrowserMcp } from "./browser/emit-mcp.js";
 import { readBrowserKamiManifest } from "./browser/parse.js";
+import { extractClickManifest } from "./source-repo/extract.js";
 import { emitCell } from "./emit/cell-py.js";
 import { emitLexicons } from "./emit/lexicon.js";
 import { emitMcpServer } from "./emit/mcp-server.js";
@@ -39,6 +40,7 @@ interface CreateArgs {
   kami: string;
   purpose: string;
   baseUrl?: string;
+  binary?: string;
   dryRun: boolean;
 }
 
@@ -113,6 +115,7 @@ async function cmdCreate(rest: string[]): Promise<void> {
     kami: parsed.flags["kami"] ?? "",
     purpose: parsed.flags["purpose"] ?? "",
     baseUrl: parsed.flags["base-url"],
+    binary: parsed.flags["binary"],
     dryRun: parsed.boolFlags.has("dry-run"),
   };
   if (!args.source) fail("--source is required");
@@ -132,7 +135,11 @@ async function cmdCreate(rest: string[]): Promise<void> {
     await createFromBrowserOnly(args);
     return;
   }
-  fail(`--from ${args.from} not supported (Phase 1: openapi-v3; Phase 2: binary-cli; Phase 3: browser-only L1 only). source-repo lands in Phase 2.5.`);
+  if (args.from === "source-repo") {
+    await createFromSourceRepo(args);
+    return;
+  }
+  fail(`--from ${args.from} not supported (Phase 1: openapi-v3; Phase 2: binary-cli; Phase 2.5: source-repo (click); Phase 3: browser-only).`);
 }
 
 async function createFromOpenApi(args: CreateArgs): Promise<void> {
@@ -287,6 +294,72 @@ async function createFromBinaryCli(args: CreateArgs): Promise<void> {
   console.error(`[yorishiro] done. Run \`yorishiro audit\` to verify Charter compliance.`);
 }
 
+async function createFromSourceRepo(args: CreateArgs): Promise<void> {
+  const repoRoot = findRepoRoot();
+  const purposes = parsePurposeCsv(args.purpose);
+  const check = validateExternalPurposes(purposes);
+  if (!check.ok) {
+    console.error(`yorishiro: invalid --purpose values`);
+    if (check.forbidden.length > 0) console.error(`  forbidden (ADR-2605192115 §4): ${check.forbidden.join(", ")}`);
+    if (check.invalid.length > 0) console.error(`  unknown : ${check.invalid.join(", ")}`);
+    process.exit(1);
+  }
+
+  const kamiId = args.kami || `bin:${args.name}`;
+  const binary = args.binary || args.name;
+
+  console.error(`[yorishiro] extracting Click commands from ${args.source}`);
+  const manifest = extractClickManifest({
+    source: args.source,
+    kamiId,
+    binary,
+    description: `Auto-extracted from source repo at ${args.source}`,
+  });
+  console.error(
+    `[yorishiro] kami=${manifest.kami.id}  binary=${manifest.kami.binary}  ops=${manifest.ops.length}  purposes=[${purposes.join(",")}]`,
+  );
+
+  if (args.dryRun) {
+    for (const op of manifest.ops) console.error(`  (dry-run) ${op.name} (${op.argv.length} args)`);
+    return;
+  }
+
+  const cfgDir = join(repoRoot, "70-tools/etzhayyim-cli/yorishiro/registry");
+  mkdirSync(cfgDir, { recursive: true });
+  const cfg = {
+    name: args.name,
+    from: args.from,
+    source: resolveSource(args.source, repoRoot),
+    kami: manifest.kami.id,
+    binary: manifest.kami.binary,
+    purposes,
+    generatedAt: preserveGeneratedAt(repoRoot, args.name),
+    generator: `@etzhayyim/yorishiro@${VERSION}`,
+  };
+  writeFileSync(join(cfgDir, `${args.name}.json`), JSON.stringify(cfg, null, 2) + "\n", "utf-8");
+
+  // Hand off to the existing binary-cli emitters — the kami manifest
+  // produced by the Click AST walker is byte-for-byte the same shape
+  // that hand-authored binary-cli manifests use.
+  const lexicons = emitBinaryLexicons({ repoRoot, name: args.name, purposes, manifest });
+  console.error(`[yorishiro] L1: emitted ${lexicons.length} lexicon(s)`);
+  const cell = emitBinaryCell({ repoRoot, name: args.name, purposes, manifest });
+  console.error(`[yorishiro] L2: wrote ${cell.path}`);
+  const mcp = emitBinaryMcp({ repoRoot, name: args.name, purposes, manifest });
+  console.error(`[yorishiro] L3: wrote ${mcp.files.length} file(s) under ${mcp.packageDir}`);
+  const skill = emitSkill({
+    repoRoot,
+    name: args.name,
+    kami: manifest.kami.id,
+    transport: "binary-cli",
+    purposes,
+    ops: manifest.ops.map((o) => ({ opName: o.name, summary: o.summary, description: o.description })),
+  });
+  console.error(`[yorishiro] SKILL.md: ${skill}`);
+
+  console.error(`[yorishiro] done. Run \`yorishiro audit\` to verify Charter compliance.`);
+}
+
 async function createFromBrowserOnly(args: CreateArgs): Promise<void> {
   const repoRoot = findRepoRoot();
   const purposes = parsePurposeCsv(args.purpose);
@@ -371,6 +444,10 @@ async function cmdRegen(rest: string[]): Promise<void> {
     await createFromBinaryCli(next);
   } else if (cfg.from === "browser-only") {
     await createFromBrowserOnly(next);
+  } else if (cfg.from === "source-repo") {
+    next.binary = cfg.binary;
+    next.kami = cfg.kami;
+    await createFromSourceRepo(next);
   } else {
     await createFromOpenApi(next);
   }
@@ -386,7 +463,10 @@ function cmdList(): void {
   for (const f of readdirSync(dir)) {
     if (!f.endsWith(".json")) continue;
     const cfg = JSON.parse(readFileSync(join(dir, f), "utf-8"));
-    const surface = cfg.from === "binary-cli" ? `binary=${cfg.binary}` : `base=${cfg.baseUrl ?? cfg.base_url ?? "?"}`;
+    const surface =
+      cfg.from === "binary-cli" || cfg.from === "source-repo"
+        ? `binary=${cfg.binary ?? "?"}`
+        : `base=${cfg.baseUrl ?? cfg.base_url ?? "?"}`;
     console.log(`${cfg.name.padEnd(20)} from=${cfg.from.padEnd(12)} kami=${cfg.kami}  purposes=[${cfg.purposes.join(",")}]  ${surface}`);
   }
 }
