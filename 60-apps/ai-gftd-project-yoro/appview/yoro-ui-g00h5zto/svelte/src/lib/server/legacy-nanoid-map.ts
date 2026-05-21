@@ -107,7 +107,6 @@ export const LEGACY_NANOID_MAP: Record<string, string> = {
   "sh1nk4n0": "shinkansen.etzhayyim.com",
   "sm15h001": "smishing.etzhayyim.com",
   "sn4c8t1x": "sanctions.etzhayyim.com",
-  "st4rp301": "stripe.etzhayyim.com",
   "sv8q2k5r": "sense.etzhayyim.com",
   "t3ns0f1l": "tenso.etzhayyim.com",
   "t4sk1ist": "tasklist.etzhayyim.com",

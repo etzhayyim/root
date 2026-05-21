@@ -52,20 +52,22 @@
     "@bufbuild/protobuf": "^2.11.0",
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1",
-    "@gftd/ameno": "workspace:*",
-    "@etzhayyim/signal": "workspace:*",
-    "@etzhayyim/xrpc": "workspace:*",
-    "@gftdcojp/auth": "workspace:*",
-    "@gftdcojp/design-system": "workspace:*",
+    "@etzhayyim/signal": "file:../../../../../10-protocol/signal",
+    "@etzhayyim/xrpc": "file:../../../../../10-protocol/xrpc",
+    "@gftd/ameno": "file:../../../../../20-actors/ameno",
+    "@gftdcojp/auth": "file:../../../../../../ai-gftd-apps-gftdcojp/40-engine/svelte/auth",
+    "@gftdcojp/design-system": "file:../../../../../../ai-gftd-apps-gftdcojp/40-engine/svelte/design-system",
     "@huggingface/transformers": "^3.8.1",
     "@inlang/paraglide-js": "^2.15.3",
     "@langchain/core": "^1.1.46",
     "@langchain/langgraph-sdk": "^1.9.2",
     "@langchain/svelte": "^1.0.2",
     "@mlc-ai/web-llm": "^0.2.82",
+    "clsx": "^2.1.1",
     "kysely": "^0.27.6",
     "lucide-svelte": "^0.460.1",
-    "onnxruntime-web": "^1.24.3"
+    "onnxruntime-web": "^1.24.3",
+    "tailwind-merge": "^3.6.0"
   },
   "type": "module"
 }

@@ -41,74 +41,6 @@ export async function fetchEsimProfile(): Promise<ESimProfile | null> {
 	}
 }
 
-// ── Cards (Stripe Issuing) ──
-
-export interface IssuingCard {
-	id: string;
-	last4: string;
-	cardType: string;
-	status: string;
-	currency: string;
-	cardholderName: string;
-	spendingLimit?: { amount: number; interval: string };
-	createdAt: string;
-}
-
-export interface IssuingBalance {
-	amount: number;
-	currency: string;
-}
-
-export async function fetchCards(): Promise<{ cards: IssuingCard[]; balance: IssuingBalance | null }> {
-	try {
-		const [cardsResult, balanceResult] = await Promise.all([
-			atProcedure<{ data?: any[] }>('ai.gftd.apps.cards.listCards', { limit: 25 }),
-			atProcedure<{ issuingAvailable?: Array<{ amount: number; currency: string }> }>('ai.gftd.apps.cards.getBalance', {}),
-		]);
-		const rawCards = cardsResult?.data ?? (cardsResult as any)?.items ?? [];
-			const cards: IssuingCard[] = rawCards.map((c: any) => ({
-				id: String(c.id ?? ''),
-				last4: String(c.last4 ?? ''),
-				cardType: String(c.cardType ?? c.type ?? 'virtual'),
-				status: String(c.status ?? 'unknown'),
-				currency: String(c.currency ?? 'jpy'),
-				cardholderName: String(c.cardholderName ?? c.cardholder?.name ?? ''),
-				spendingLimit: c.spendingControls?.spendingLimits?.[0]
-					? { amount: Number(c.spendingControls.spendingLimits[0].amount), interval: String(c.spendingControls.spendingLimits[0].interval) }
-					: undefined,
-				createdAt: String(c.createdAt ?? (c.created ? new Date(c.created * 1000).toISOString() : '')),
-			}));
-			const avail = balanceResult?.issuingAvailable;
-		const balance = Array.isArray(avail) && avail.length > 0
-			? { amount: avail[0].amount, currency: avail[0].currency }
-			: null;
-		return { cards, balance };
-	} catch (e) {
-		console.warn('fetchCards failed', e);
-		return { cards: [], balance: null };
-	}
-}
-
-export async function freezeCard(cardId: string): Promise<boolean> {
-	try {
-		await atProcedure('ai.gftd.apps.cards.freezeCard', { 'cardId': cardId });
-		return true;
-	} catch (e) {
-		console.warn('freezeCard failed', e);
-		return false;
-	}
-}
-
-export async function unfreezeCard(cardId: string): Promise<boolean> {
-	try {
-		await atProcedure('ai.gftd.apps.cards.unfreezeCard', { 'cardId': cardId });
-		return true;
-	} catch (e) {
-		console.warn('unfreezeCard failed', e);
-		return false;
-	}
-}
-
 // ── Actor Scores (Dojo / Joucho) ──
 
 export async function fetchActorScores(actorDid: string): Promise<ActorScores | undefined> {
@@ -179,7 +111,6 @@ export const PROFILE_TABS_SELF = [
 	{ value: 'likes', label: 'いいね' },
 	{ value: 'dojo', label: 'Dojo' },
 	{ value: 'sim', label: 'SIM' },
-	{ value: 'cards', label: 'カード' },
 	{ value: 'feeds', label: 'フィード' },
 	{ value: 'starter', label: 'スターターパック' },
 ];

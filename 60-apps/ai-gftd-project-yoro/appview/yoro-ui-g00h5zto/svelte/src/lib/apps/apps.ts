@@ -327,16 +327,6 @@ export const apps: GfAppLink[] = [
 		external: false
 	},
 	{
-		id: 'cards',
-		name: 'cards.etzhayyim.com',
-		shortName: 'Cards',
-		href: 'https://cards.etzhayyim.com',
-		icon: '💳',
-		category: 'Services',
-		description: 'Stripe Issuing cards',
-		external: false
-	},
-	{
 		id: 'tenki',
 		name: 'tenki.etzhayyim.com',
 		shortName: 'Tenki',

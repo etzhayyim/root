@@ -51,25 +51,6 @@
 	let repostedItems = $state<Set<string>>(new Set());
 	let countsHydrating = $state(false);
 
-	// Card state (Stripe Issuing)
-	interface IssuedCard {
-		id: string;
-		cardType: string;
-		status: string;
-		lastFour: string;
-		currency: string;
-		spendingLimitAmount: number;
-		spendingLimitInterval: string;
-		createdAt: string;
-	}
-	let cardsList = $state<IssuedCard[]>([]);
-	let cardsLoading = $state(false);
-	let cardsError = $state('');
-	let showCardsOnboarding = $state(false);
-	let cardIssuing = $state(false);
-	let cardChargingId = $state('');
-	let chargeAmountByCard = $state<Record<string, string>>({});
-
 	// eSIM state
 	interface ESimProfile {
 		iccid: string;
@@ -100,7 +81,6 @@
 		{ value: 'likes', label: 'いいね' },
 		{ value: 'dojo', label: 'Dojo' },
 		{ value: 'sim', label: 'SIM' },
-		{ value: 'cards', label: 'カード' },
 		{ value: 'feeds', label: 'フィード' },
 		{ value: 'starter', label: 'スターターパック' },
 	];
@@ -203,11 +183,7 @@
 
 	async function handleProfileTabChange(tabId: string) {
 		profileActiveTab = tabId;
-		if (tabId === 'cards') {
-			const did = await resolveViewerDid();
-			if (did) void fetchCards(did);
-			return;
-		} else if (tabId === 'sim') {
+		if (tabId === 'sim') {
 			const did = await resolveViewerDid();
 			if (did) void fetchEsimProfile(did);
 			return;
@@ -415,169 +391,6 @@
 		}
 	}
 
-	// Card functions (Stripe Issuing)
-	async function fetchCards(_userDid: string) {
-		cardsLoading = true;
-		cardsError = '';
-		try {
-			const userDid = await resolveViewerDid();
-			const result = await atProcedure<{ items?: IssuedCard[] }>('ai.gftd.apps.stripe.listCards', { userId: userDid });
-			if (result?.items && result.items.length > 0) {
-				cardsList = result.items.map((raw: any) => ({
-					id: String(raw.id ?? ''),
-					cardType: String(raw.cardType ?? raw.card_type ?? 'virtual'),
-					status: String(raw.status ?? 'unknown'),
-					lastFour: String(raw.lastFour ?? raw.last_four ?? ''),
-					currency: String(raw.currency ?? 'jpy'),
-					spendingLimitAmount: Number(raw.spendingLimitAmount ?? raw.spending_limit_amount ?? 0),
-					spendingLimitInterval: String(raw.spendingLimitInterval ?? raw.spending_limit_interval ?? ''),
-					createdAt: String(raw.createdAt ?? raw.created_at ?? ''),
-				}));
-				showCardsOnboarding = false;
-			} else {
-				cardsList = [];
-				showCardsOnboarding = true;
-			}
-		} catch (e) {
-			console.warn('fetchCards failed', e);
-			cardsList = [];
-			showCardsOnboarding = true;
-		} finally {
-			cardsLoading = false;
-		}
-	}
-
-	function toStripeErrorCode(value: unknown): string {
-		return String(value ?? '').replaceAll('_', '').toLowerCase();
-	}
-
-	function prettyStripeError(code: unknown): string {
-		const normalized = toStripeErrorCode(code);
-		if (normalized === 'nocardholder') return 'カードホルダー登録が必要です';
-		if (normalized === 'authtierinsufficient') return '本人確認が必要です (Verified 以上)';
-		return String(code ?? 'カードの発行に失敗しました');
-	}
-
-	async function ensureStripeCardholder(userDid: string): Promise<boolean> {
-		const name = String(myProfile?.displayName ?? $displayName ?? 'User');
-		const email = String(
-			($clerkUser as any)?.primaryEmailAddress?.emailAddress
-			?? ($clerkUser as any)?.emailAddresses?.[0]?.emailAddress
-			?? '',
-		);
-		if (!email) {
-			cardsError = 'カードホルダー作成に必要なメールアドレスが見つかりません';
-			return false;
-		}
-		const created = await atProcedure<Record<string, unknown>>('ai.gftd.apps.stripe.createCardholder', {
-			userId: userDid,
-			name,
-			email,
-		});
-		if (created?.error) {
-			cardsError = prettyStripeError(created.error);
-			return false;
-		}
-		return true;
-	}
-
-	async function issueVirtualCard() {
-		cardIssuing = true;
-		cardsError = '';
-		try {
-			const userDid = await resolveViewerDid();
-			let result = await atProcedure<Record<string, unknown>>('ai.gftd.apps.stripe.issueCard', {
-				userId: userDid,
-				cardType: 'virtual',
-				currency: 'jpy',
-			});
-			if (toStripeErrorCode(result?.error) === 'nocardholder') {
-				const ready = await ensureStripeCardholder(userDid);
-				if (ready) {
-					result = await atProcedure<Record<string, unknown>>('ai.gftd.apps.stripe.issueCard', {
-						userId: userDid,
-						cardType: 'virtual',
-						currency: 'jpy',
-					});
-				}
-			}
-			if (result?.error) {
-				cardsError = prettyStripeError(result.error);
-			} else if (result?.card) {
-				const raw = result.card as any;
-				const card: IssuedCard = {
-					id: String(raw.id ?? ''),
-					cardType: String(raw.cardType ?? raw.card_type ?? 'virtual'),
-					status: String(raw.status ?? 'unknown'),
-					lastFour: String(raw.lastFour ?? raw.last_four ?? ''),
-					currency: String(raw.currency ?? 'jpy'),
-					spendingLimitAmount: Number(raw.spendingLimitAmount ?? raw.spending_limit_amount ?? 0),
-					spendingLimitInterval: String(raw.spendingLimitInterval ?? raw.spending_limit_interval ?? ''),
-					createdAt: String(raw.createdAt ?? raw.created_at ?? ''),
-				};
-				cardsList = [card, ...cardsList];
-				showCardsOnboarding = false;
-			}
-		} catch (e) {
-			cardsError = e instanceof Error ? e.message : 'カードの発行に失敗しました';
-			console.warn('issueVirtualCard failed', e);
-		} finally {
-			cardIssuing = false;
-		}
-	}
-
-	async function toggleCardFreeze(card: IssuedCard) {
-		try {
-				const userDid = await resolveViewerDid();
-				if (card.status === 'active') {
-					await atProcedure('ai.gftd.apps.stripe.freezeCard', { userId: userDid, cardId: card.id });
-					cardsList = cardsList.map(c => c.id === card.id ? { ...c, status: 'inactive' } : c);
-				} else if (card.status === 'inactive') {
-					await atProcedure('ai.gftd.apps.stripe.unfreezeCard', { userId: userDid, cardId: card.id });
-					cardsList = cardsList.map(c => c.id === card.id ? { ...c, status: 'active' } : c);
-				}
-		} catch (e) {
-			console.warn('toggleCardFreeze failed', e);
-		}
-	}
-
-	function setChargeAmount(cardId: string, value: string): void {
-		chargeAmountByCard = { ...chargeAmountByCard, [cardId]: value };
-	}
-
-	async function chargeCard(card: IssuedCard): Promise<void> {
-		const userDid = await resolveViewerDid();
-		if (!userDid) {
-			cardsError = 'ユーザー識別子の取得に失敗しました';
-			return;
-		}
-		const amount = Math.round(Number(chargeAmountByCard[card.id] ?? 0));
-		if (!Number.isFinite(amount) || amount <= 0) {
-			cardsError = 'チャージ金額は 1 以上で入力してください';
-			return;
-		}
-
-		cardChargingId = card.id;
-		cardsError = '';
-		try {
-			const result = await atProcedure<Record<string, unknown>>('ai.gftd.apps.stripe.assignCardCredits', {
-				userId: userDid,
-				cardId: card.id,
-				amount,
-			});
-			if (result?.error) {
-				cardsError = prettyStripeError(result.error);
-				return;
-			}
-			setChargeAmount(card.id, '');
-		} catch (e) {
-			cardsError = e instanceof Error ? e.message : 'チャージに失敗しました';
-			console.warn('chargeCard failed', e);
-		} finally {
-			cardChargingId = '';
-		}
-	}
-
 	async function saveProfile() {
 		editSaving = true;
 		try {
@@ -674,141 +487,7 @@
 
 		<!-- Tab content -->
 		<div>
-			{#if profileActiveTab === 'cards'}
-				<!-- Card Management Tab (Stripe Issuing) -->
-				<div class="px-4 py-6">
-					{#if cardsLoading}
-						<div class="flex flex-col items-center gap-4 py-12">
-							<div class="h-12 w-12 animate-pulse rounded-full bg-violet-500/20"></div>
-							<Skeleton variant="text" class="w-48" />
-							<Skeleton variant="text" class="w-32" />
-						</div>
-					{:else if cardsList.length > 0}
-						<!-- Card List -->
-						<div class="space-y-4">
-							{#each cardsList as card (card.id)}
-								<div class="rounded-2xl border border-gv2-border/30 bg-gradient-to-br from-gv2-bg-hover/50 to-gv2-bg-hover/20 p-5">
-									<div class="flex items-center justify-between mb-3">
-										<div class="flex items-center gap-3">
-											<div class="flex h-12 w-12 items-center justify-center rounded-xl {card.cardType === 'physical' ? 'bg-amber-500/20 text-amber-400' : 'bg-violet-500/20 text-violet-400'}">
-												<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>
-											</div>
-											<div>
-													<p class="text-[15px] font-bold text-gv2-text-primary">{card.cardType === 'physical' ? 'Physical Card' : 'Virtual Card'}</p>
-													<p class="text-[13px] text-gv2-text-muted font-mono">**** {card.lastFour}</p>
-											</div>
-										</div>
-										<span class="rounded-full px-3 py-1 text-[12px] font-bold {card.status === 'active' ? 'bg-emerald-500/20 text-emerald-400' : card.status === 'inactive' ? 'bg-amber-500/20 text-amber-400' : 'bg-gray-500/20 text-gray-400'}">
-											{card.status === 'active' ? '有効' : card.status === 'inactive' ? '凍結中' : card.status === 'canceled' ? '取消済み' : card.status}
-										</span>
-									</div>
-
-										{#if card.spendingLimitAmount > 0}
-											<div class="mb-3 text-[13px] text-gv2-text-muted">
-												<span>利用限度: {card.currency.toUpperCase()} {card.spendingLimitAmount.toLocaleString()} / {card.spendingLimitInterval === 'monthly' ? '月' : card.spendingLimitInterval}</span>
-											</div>
-										{/if}
-
-										{#if card.status !== 'canceled'}
-											<div class="space-y-3">
-												<div class="rounded-xl border border-gv2-border/25 bg-gv2-bg-hover/40 p-3">
-													<p class="mb-2 text-[12px] font-semibold text-gv2-text-muted">クレジットをチャージ</p>
-													<div class="flex items-center gap-2">
-														<input
-															type="number"
-															min="1"
-															step="1"
-															inputmode="numeric"
-															placeholder="1000"
-															class="h-11 flex-1 rounded-xl border border-gv2-border/40 bg-gv2-bg-primary px-3 text-[14px] text-gv2-text-primary outline-none focus:border-violet-500/70"
-															value={chargeAmountByCard[card.id] ?? ''}
-															oninput={(e) => setChargeAmount(card.id, (e.currentTarget as HTMLInputElement).value)}
-														/>
-														<button
-															type="button"
-															class="h-11 rounded-xl bg-violet-500 px-4 text-[13px] font-bold text-white touch-manipulation active:scale-[0.98] transition-transform disabled:opacity-50"
-															onclick={() => { playTap(); haptic('light'); void chargeCard(card); }}
-															disabled={cardChargingId === card.id}
-														>
-															{cardChargingId === card.id ? '処理中...' : 'チャージ'}
-														</button>
-													</div>
-												</div>
-											<div class="flex gap-3">
-												<button
-													type="button"
-													class="flex-1 rounded-xl {card.status === 'active' ? 'bg-gv2-bg-hover' : 'bg-violet-500'} py-3 text-center text-[14px] font-bold {card.status === 'active' ? 'text-gv2-text-muted' : 'text-white'} touch-manipulation active:scale-[0.98] transition-transform"
-													onclick={() => { playTap(); haptic('medium'); void toggleCardFreeze(card); }}
-												>
-													{card.status === 'active' ? '凍結する' : '解除する'}
-												</button>
-											</div>
-											</div>
-										{/if}
-								</div>
-							{/each}
-						</div>
-
-						<!-- Issue another card CTA -->
-						<button
-							type="button"
-							class="mt-4 w-full rounded-xl border-2 border-dashed border-gv2-border/40 py-4 text-center text-[14px] font-semibold text-gv2-text-muted touch-manipulation active:bg-gv2-bg-hover transition-colors"
-							onclick={() => { playTap(); haptic('medium'); void issueVirtualCard(); }}
-							disabled={cardIssuing}
-						>
-							{cardIssuing ? '発行中...' : '+ バーチャルカードを追加'}
-						</button>
-					{:else}
-						<!-- No Cards — Issue CTA -->
-						<div class="flex flex-col items-center gap-5 py-8">
-							<div class="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/20 to-indigo-500/20">
-								<svg class="h-10 w-10 text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>
-							</div>
-							<div class="text-center">
-								<h3 class="text-[17px] font-bold text-gv2-text-primary">カードを発行しよう</h3>
-								<p class="mt-1 max-w-[280px] text-[14px] text-gv2-text-muted">Murakumo クレジットで使えるバーチャルカード。オンライン決済に即利用可能。</p>
-							</div>
-
-							<div class="w-full max-w-[320px] space-y-2">
-								<div class="flex items-center justify-between rounded-xl border border-gv2-border/20 bg-gv2-bg-hover/30 p-4">
-									<div class="flex items-center gap-3">
-										<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/20 text-violet-400">
-											<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
-										</div>
-										<span class="text-[14px] text-gv2-text-primary font-medium">Virtual Card</span>
-									</div>
-									<span class="text-violet-400 font-bold text-[14px]">無料</span>
-								</div>
-								<div class="flex items-center justify-between rounded-xl border border-gv2-border/20 bg-gv2-bg-hover/30 p-4">
-									<div class="flex items-center gap-3">
-										<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/20 text-amber-400">
-											<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>
-										</div>
-										<span class="text-[14px] text-gv2-text-primary font-medium">Physical Card</span>
-									</div>
-									<span class="text-amber-400 font-bold text-[14px]">500 credits</span>
-								</div>
-							</div>
-
-							{#if cardsError}
-								<p class="text-[13px] text-red-400">{cardsError}</p>
-							{/if}
-
-							<button
-								type="button"
-								class="min-h-[48px] w-full max-w-[320px] rounded-full bg-violet-500 px-8 py-3 text-[15px] font-bold text-white tap-target-44 touch-manipulation active:scale-95 transition-transform disabled:opacity-40"
-								style="box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3)"
-								disabled={cardIssuing}
-								onclick={() => { playTap(); haptic('medium'); void issueVirtualCard(); }}
-							>
-								{cardIssuing ? '発行中...' : 'バーチャルカードを発行する'}
-							</button>
-
-							<p class="text-[11px] text-gv2-text-muted/60">Stripe Issuing / Murakumo Credits</p>
-						</div>
-					{/if}
-				</div>
-			{:else if profileActiveTab === 'dojo'}
+			{#if profileActiveTab === 'dojo'}
 				<!-- Dojo Drills Tab -->
 				<div class="px-4 py-6">
 					{#if dojoLoading}

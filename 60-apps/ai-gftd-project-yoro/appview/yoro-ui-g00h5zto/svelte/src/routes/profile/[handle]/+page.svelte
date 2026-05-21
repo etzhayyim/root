@@ -8,7 +8,7 @@
 	import { staggerFade } from '@gftdcojp/design-system/motion';
 	import { playTap, playTabSwitch, haptic } from '@gftdcojp/design-system/audio';
 	import { spring } from 'svelte/motion';
-	import { RichText, didFromRouteActor, postRkey, postRouteActor, type ESimProfile, fetchEsimProfile as _fetchEsim, type IssuingCard, type IssuingBalance, fetchCards as _fetchCards, freezeCard as _freezeCard, unfreezeCard as _unfreezeCard, fetchActorScores as _fetchActorScores, timeAgo } from '$lib/w';
+	import { RichText, didFromRouteActor, postRkey, postRouteActor, type ESimProfile, fetchEsimProfile as _fetchEsim, fetchActorScores as _fetchActorScores, timeAgo } from '$lib/w';
 		import { getAuthorProfile, getAuthorFeed, getFollowers, getFollows, followUser, unfollowUser, resolveHandle, getCurrentDID, isDid, setProfile, muteActor, unmuteActor, blockActor, unblockActor, reportContent, atProcedure, atQuery } from '$lib/atproto-agent';
 	import type { FeedItem, AuthorProfile } from '$lib/atproto-agent';
 	import { isSignedIn } from '$lib/auth';
@@ -71,10 +71,6 @@
 	let aiCalls = $state<AICall[]>([]);
 	let aiCallsLoading = $state(false);
 
-	// Cards (Stripe Issuing) state (types from $lib/w/profile-utils)
-	let cardsItems = $state<IssuingCard[]>([]);
-	let cardsLoading = $state(false);
-	let cardsBalance = $state<IssuingBalance | null>(null);
 	let showEsimOnboarding = $state(false);
 
 	// GCC token balance on the private chain (ADR-0074)
@@ -342,9 +338,6 @@
 			case 'sim':
 				await fetchEsimProfile(did);
 				break;
-			case 'cards':
-				await fetchCards();
-				break;
 			default:
 				feedItems = [];
 				break;
@@ -553,27 +546,6 @@
 		}
 	}
 
-	async function fetchCards() {
-		cardsLoading = true;
-		try {
-			const result = await _fetchCards();
-			cardsItems = result.cards;
-			cardsBalance = result.balance;
-		} catch {
-			cardsItems = [];
-		} finally {
-			cardsLoading = false;
-		}
-	}
-
-	async function freezeCard(cardId: string) {
-		if (await _freezeCard(cardId)) cardsItems = cardsItems.map((c) => c.id === cardId ? { ...c, status: 'inactive' } : c);
-	}
-
-	async function unfreezeCard(cardId: string) {
-		if (await _unfreezeCard(cardId)) cardsItems = cardsItems.map((c) => c.id === cardId ? { ...c, status: 'active' } : c);
-	}
-
 	function openEditProfile() {
 		editDisplayName = displayName;
 		editBio = bio;
@@ -608,7 +580,6 @@
 		{ value: 'karma', label: 'カルマ' },
 		{ value: 'flow', label: 'Resource Flow' },
 		...(isSelf ? [{ value: 'sim', label: 'SIM' }] : []),
-		...(isSelf ? [{ value: 'cards', label: 'カード' }] : []),
 		{ value: 'feeds', label: 'フィード' },
 		{ value: 'starter', label: 'スターターパック' },
 	]);
@@ -1054,107 +1025,6 @@
 								</button>
 
 								<p class="text-[11px] text-gv2-text-muted/60">Celler by GFTD / Telnyx Wireless</p>
-							</div>
-						{/if}
-					</div>
-				{:else if activeTab === 'cards' && isSelf}
-					<!-- Stripe Issuing Cards Tab -->
-					<div class="px-4 py-6">
-						{#if cardsLoading}
-							<div class="flex flex-col items-center gap-4 py-12">
-								<div class="h-12 w-12 animate-pulse rounded-full bg-[#635BFF]/20"></div>
-								<Skeleton variant="text" class="w-48" />
-								<Skeleton variant="text" class="w-32" />
-							</div>
-						{:else if cardsItems.length > 0}
-							<!-- Issuing Balance -->
-							{#if cardsBalance}
-								<div class="mb-4 rounded-xl bg-gradient-to-r from-[#635BFF]/10 to-[#635BFF]/5 border border-[#635BFF]/20 p-4">
-									<p class="text-[12px] text-gv2-text-muted mb-1">Issuing 残高</p>
-									<p class="text-[22px] font-bold text-gv2-text-primary">
-										{cardsBalance.currency === 'jpy' ? '¥' : cardsBalance.currency.toUpperCase() + ' '}{(cardsBalance.amount / (cardsBalance.currency === 'jpy' ? 1 : 100)).toLocaleString()}
-									</p>
-								</div>
-							{/if}
-
-							<!-- Card List -->
-							<div class="space-y-3">
-								{#each cardsItems as card (card.id)}
-									<div class="rounded-2xl border border-gv2-border/30 bg-gradient-to-br from-gv2-bg-hover/50 to-gv2-bg-hover/20 p-4">
-										<div class="flex items-center justify-between mb-3">
-											<div class="flex items-center gap-3">
-												<div class="flex h-10 w-10 items-center justify-center rounded-xl {card.status === 'active' ? 'bg-[#635BFF]/20 text-[#635BFF]' : card.status === 'inactive' ? 'bg-amber-500/20 text-amber-400' : 'bg-gray-500/20 text-gray-400'}">
-													<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2" /><line x1="1" y1="10" x2="23" y2="10" /></svg>
-												</div>
-												<div>
-													<p class="text-[15px] font-bold text-gv2-text-primary">•••• {card.last4}</p>
-													<p class="text-[12px] text-gv2-text-muted">{card.cardType === 'physical' ? 'Physical' : 'Virtual'} · {card.currency.toUpperCase()}</p>
-												</div>
-											</div>
-											<span class="rounded-full px-2.5 py-0.5 text-[11px] font-bold {card.status === 'active' ? 'bg-emerald-500/20 text-emerald-400' : card.status === 'inactive' ? 'bg-amber-500/20 text-amber-400' : 'bg-gray-500/20 text-gray-400'}">
-												{card.status === 'active' ? '有効' : card.status === 'inactive' ? '停止中' : '解約済み'}
-											</span>
-										</div>
-
-										{#if card.cardholderName}
-											<p class="text-[13px] text-gv2-text-muted mb-2">{card.cardholderName}</p>
-										{/if}
-
-										{#if card.spendingLimit}
-											<div class="text-[12px] text-gv2-text-muted mb-3">
-												利用上限: {card.currency === 'jpy' ? '¥' : ''}{card.spendingLimit.amount.toLocaleString()} / {card.spendingLimit.interval === 'monthly' ? '月' : card.spendingLimit.interval === 'daily' ? '日' : card.spendingLimit.interval}
-											</div>
-										{/if}
-
-										{#if card.status !== 'canceled'}
-											<div class="flex gap-2">
-												{#if card.status === 'active'}
-													<button
-														type="button"
-														class="flex-1 rounded-xl bg-gv2-bg-hover py-2.5 text-center text-[13px] font-bold text-gv2-text-muted touch-manipulation active:scale-[0.98] transition-transform"
-														onclick={() => { playTap(); haptic('medium'); void freezeCard(card.id); }}
-													>
-														一時停止
-													</button>
-												{:else if card.status === 'inactive'}
-													<button
-														type="button"
-														class="flex-1 rounded-xl bg-[#635BFF] py-2.5 text-center text-[13px] font-bold text-white touch-manipulation active:scale-[0.98] transition-transform"
-														onclick={() => { playTap(); haptic('medium'); void unfreezeCard(card.id); }}
-													>
-														再開
-													</button>
-												{/if}
-											</div>
-										{/if}
-									</div>
-								{/each}
-							</div>
-
-							<!-- Info -->
-							<div class="mt-4 rounded-xl bg-gv2-bg-hover/30 p-4">
-								<p class="text-[13px] text-gv2-text-muted">Stripe Issuing によるカード管理。DM で Cards agent に話しかけると、カード発行・利用上限変更・取引照会などが可能です。</p>
-							</div>
-						{:else}
-							<!-- No Cards — CTA -->
-							<div class="flex flex-col items-center gap-5 py-8">
-								<div class="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#635BFF]/20 to-[#635BFF]/10">
-									<svg class="h-10 w-10 text-[#635BFF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2" /><line x1="1" y1="10" x2="23" y2="10" /></svg>
-								</div>
-								<div class="text-center">
-									<h3 class="text-[17px] font-bold text-gv2-text-primary">カードを発行する</h3>
-									<p class="mt-1 max-w-[280px] text-[14px] text-gv2-text-muted">Stripe Issuing で virtual/physical カードを即時発行。利用制限・取引監視をリアルタイムで管理。</p>
-								</div>
-
-								<button
-									type="button"
-									class="min-h-[48px] w-full max-w-[320px] rounded-full bg-[#635BFF] px-8 py-3 text-[15px] font-bold text-white tap-target-44 touch-manipulation active:scale-95 transition-transform"
-									style="box-shadow: 0 4px 20px rgba(99, 91, 255, 0.3)"
-									onclick={() => { playTap(); haptic('medium'); goto('/profile/did:web:cards.etzhayyim.com'); }}
-								>
-									Cards agent に相談
-								</button>
-								<p class="text-[11px] text-gv2-text-muted/60">Stripe Issuing by GFTD</p>
 							</div>
 						{/if}
 					</div>
