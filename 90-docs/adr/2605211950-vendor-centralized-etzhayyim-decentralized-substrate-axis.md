@@ -148,22 +148,43 @@ The **centralization axis** is now the constitutional split between vendor and e
 
 ## Open Items (migration debt)
 
-These are tracked as future work, not part of this ADR's cutover. Updated 2026-05-21:
+These are tracked as future work, not part of this ADR's cutover. Updated 2026-05-21 (end-of-session):
 
 1. **Relocate ERC725 root identity issuance** from `gftdcojp/ai-gftd-apps-gftdcojp` authz to an etzhayyim service.
    - Design: **ADR-2605212030** — Base L2 mainnet + hybrid did:web/did:erc725 + 5-phase opt-in cutover + `org.etzhayyim.authz.*` namespace.
-   - Scaffold: `50-infra/etzhayyim-authz/README.md`.
-   - Code: pending.
+   - **Phase α P0 (contract)**: ✅ landed. `EtzhayyimAuthz.sol` Foundry contract + Deploy script + 17 tests passing + Anvil 31337 E2E smoke validated.
+   - **Phase α P1 (XRPC / chain client / docs)**: ✅ landed. CF Worker scaffold (`50-infra/etzhayyim-authz/src/worker.ts`) + viem chain reader (resolveRoot fully functional once env vars set) + Council Safe proposal builder + 5 lexicons under `00-contracts/lexicons/org/etzhayyim/authz/` + Base Sepolia deploy runbook + Council multisig SOP. did:web Worker extended with `/actor/<handle>/did.json` path-based per-handle DID document.
+   - **Phase α P2+ pending**: Base Sepolia actual deploy (funded key) → wrangler.toml [vars] AUTHZ_CONTRACT_ADDRESS set → KV provisioning → event log scan for `getProvenance` → wildcard DNS + subdomain CF route for canonical `did:web:<handle>.etzhayyim.com` form.
 2. **Relocate K2 on-chain components** (`KarmaAnchor.sol`, ERC-4337 bundler, RebirthGate, Filecoin pin) to `etzhayyim/root/50-infra/`.
    - Design: **ADR-2605212040** — Base L2 + own rundler bundler + Noir/Honk PLONK + web3.storage with redundant ipfs-pinner + yobel-as-K2-consumer.
-   - Scaffold: `50-infra/etzhayyim-k2/README.md`.
-   - Code: pending (Phase α contracts → Phase β bundler → Phase γ Filecoin).
+   - **Phase β P0 (contracts)**: ✅ landed. `KarmaAnchor.sol` (10 tests) + `CohortLifecycle.sol` (12 tests) Foundry under `50-infra/etzhayyim-k2/contracts/` + Deploy script. All 22 tests passing locally.
+   - **Phase β P1+ pending**: Base Sepolia deploy → rundler bundler k8s deploy → RebirthGate Noir circuits + Solidity verifier → Filecoin pin client (web3.storage + redundant ipfs-pinner) → yobel `release_settlement` refactor to consume K2 cohort primitives.
 3. **Move `00-contracts/lexicons/ai/gftd/authz/linkEthereum*.json`** to etzhayyim or deprecate.
-   - **Done (2026-05-21)**: deprecation marker landed in vendor lexicons; new etzhayyim namespace `org.etzhayyim.authz.*` defined in ADR-2605212030 §D4.
+   - **Done (2026-05-21)**: deprecation marker landed in vendor lexicons (vendor branch `260521-substrate-axis-vendor-side`); new etzhayyim namespace `org.etzhayyim.authz.*` defined in ADR-2605212030 §D4 and 5 lexicon JSONs landed under `00-contracts/lexicons/org/etzhayyim/authz/`.
 4. **Split Stripe Issuing → ERC-4337 bridge** into vendor (Stripe side) + etzhayyim (ERC-4337 side) connected via XRPC.
-   - Design: **ADR-2605212050** — vendor approves Stripe authorization → XRPC `org.etzhayyim.payment.creditFromFiat` → etzhayyim mints USDC from Council-multisig reserve + tithe-router atomic split + Council-multisig daily cap.
-   - Code: pending.
+   - Design: **ADR-2605212050** — vendor approves Stripe authorization → XRPC `org.etzhayyim.payment.creditFromFiat` → etzhayyim mints USDC from Council-multisig reserve + atomic 90/10 split + Council-multisig daily cap.
+   - **Phase δ P0 (Reserve contract)**: ✅ landed. `Reserve.sol` Foundry under `50-infra/etzhayyim-fiat-bridge/contracts/` + Deploy script + 25 tests passing (idempotency replay + daily cap rollover + tithe split + Council config + withdraw + solvency-strict).
+   - **Phase δ P1+ pending**: XRPC handler Worker scaffold + 4 payment lexicons under `00-contracts/lexicons/org/etzhayyim/payment/` + cross-repo vendor refund callback lexicon + Reserve solvency monitor cron + Base Sepolia deploy.
 5. **Update `60-apps/ai-gftd-project-murakumo/CLAUDE.md`** (vendor side) project topology to drop references to vendor-side chain anchoring.
    - **N/A (2026-05-21)**: investigation found the murakumo CLAUDE.md does not contain chain-anchoring references; it documents LLM inference only. No edit needed. Will revisit if vendor-side Stripe-bridge or K2 docs surface here.
 6. **Vendor ADR supersession PRs** for ADR-0074, ADR-0095, ADR-2604261830, ADR-2604262100.
-   - **Partial (2026-05-21)**: migration-note callouts + cross-reference to ADR-2605211950 landed in vendor branch `260521-substrate-axis-vendor-side`. Formal `superseded_by` will be authored once the etzhayyim code migrations (Items 1 + 2) land.
+   - **Partial (2026-05-21)**: migration-note callouts + cross-reference to ADR-2605211950 landed in vendor branch `260521-substrate-axis-vendor-side`. Formal `superseded_by` will be authored once the etzhayyim code migrations (Items 1 + 2) reach Base Sepolia testnet deploy + 1-month operation.
+
+## Session 2026-05-21 progress log
+
+End-of-day summary for the substrate-axis migration. Branches:
+- etzhayyim/root: `260521-yorishiro-phase1` (pushed)
+- gftdcojp/ai-gftd-apps-gftdcojp: `260521-substrate-axis-vendor-side` (pushed, PR-ready)
+
+| # | Open Item | Status before | Status after | Lines landed |
+|---|---|---|---|---|
+| 1 | ERC725 issuer relocation | scaffold only | Phase α P0 + P1 (contract + XRPC + chain client + docs + did:web ext) | ≈ 2 600 |
+| 2 | K2 on-chain | scaffold only | Phase β P0 (KarmaAnchor + CohortLifecycle + tests) | ≈ 660 |
+| 3 | linkEthereum* lexicons | open | done (vendor deprecation + etzhayyim namespace) | small |
+| 4 | Stripe-ERC4337 bridge | design only | Phase δ P0 (Reserve.sol + 25 tests) | ≈ 570 |
+| 5 | vendor murakumo CLAUDE.md | open | N/A (investigated, no edit needed) | — |
+| 6 | vendor ADR supersession | open | partial (migration notes + cross-ref) | small |
+
+Test totals: **64 Solidity tests passing locally** (17 EtzhayyimAuthz + 10 KarmaAnchor + 12 CohortLifecycle + 25 Reserve). Anvil 31337 smoke verified EtzhayyimAuthz provisionRoot E2E.
+
+Three design ADRs authored this session (2605212030, 2605212040, 2605212050) resolving the open design questions from the scaffold READMEs. `deps.toml [platform.l2.*]` extended with `authz_contract`, `karma_anchor_contract`, `cohort_lifecycle_contract`, `fiat_bridge_reserve` SSoT pointers (addresses pending Base Sepolia deploy).

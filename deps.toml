@@ -123,6 +123,59 @@ address_local_anvil = "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0"  # anvil chai
 levels = ["1=誓 Oath", "2=修 Practice", "3=献 Dedication", "4=証 Witness", "5=護 Steward", "6=議 Council", "7=老 Elder"]
 deploy_status = "local-anvil-validated"
 
+# ─── Substrate-axis migration contracts (ADR-2605211950 axis) ────────
+
+[platform.l2.authz_contract]
+# EtzhayyimAuthz — ERC725 root identity registry (etzhayyim authz; replaces
+# vendor authz.gftd.ai ERC725 issuance per substrate centralization axis).
+# Source: 50-infra/etzhayyim-authz/contracts/src/EtzhayyimAuthz.sol
+source = "50-infra/etzhayyim-authz/contracts/"
+xrpc_handler = "50-infra/etzhayyim-authz/src/worker.ts"   # CF Worker, viem chain integration
+lexicons = "00-contracts/lexicons/org/etzhayyim/authz/"   # 5 lexicons (begin/complete/resolve/mirror/getProvenance)
+adr_design = "2605212030"
+adr_axis = "2605211950"
+forge_tests = "17 passing locally (provisioning + mirror + rotation + deactivate + ownership)"
+address_mainnet = ""
+address_testnet = ""    # set after `forge script Deploy.s.sol run(councilSafe) --rpc-url base_sepolia --broadcast`
+address_local_anvil = "0x5fbdb2315678afecb367f032d93f642f64180aa3"  # anvil chainId 31337, 2026-05-21 smoke (deploy + provisionRoot + resolveDwebHandle E2E PASS)
+deploy_status = "anvil-31337-smoke-validated, base-sepolia-dry-run-validated (gas ~0.000016 ETH)"
+
+[platform.l2.karma_anchor_contract]
+# KarmaAnchor — daily Merkle-root + IPFS CID anchor for K2 cohort-internal events.
+# Source: 50-infra/etzhayyim-k2/contracts/src/KarmaAnchor.sol
+source = "50-infra/etzhayyim-k2/contracts/"
+adr_design = "2605212040"
+adr_axis = "2605211950"
+forge_tests = "10 passing (submitAnchor happy + reverts, verifyLeaf 4-leaf tree, ownership)"
+address_mainnet = ""
+address_testnet = ""
+deploy_status = "phase-β-scaffold (foundry build + test passing locally; testnet deploy pending)"
+
+[platform.l2.cohort_lifecycle_contract]
+# CohortLifecycle — K2 cohort state machine (Genesis / Active / Fissioned / Decommissioned / Resumed).
+# Source: 50-infra/etzhayyim-k2/contracts/src/CohortLifecycle.sol
+source = "50-infra/etzhayyim-k2/contracts/"
+adr_design = "2605212040"
+adr_axis = "2605211950"
+forge_tests = "12 passing (genesis / activate / fission / decommission / resume / ownership)"
+address_mainnet = ""
+address_testnet = ""
+deploy_status = "phase-β-scaffold (foundry build + test passing locally; testnet deploy pending)"
+
+[platform.l2.fiat_bridge_reserve]
+# Reserve — Council-controlled USDC reserve for the Stripe Issuing → ERC-4337 bridge.
+# Operator-gated creditFromFiat with atomic 90/10 split (recipient / Public Fund tithe).
+# Source: 50-infra/etzhayyim-fiat-bridge/contracts/src/Reserve.sol
+source = "50-infra/etzhayyim-fiat-bridge/contracts/"
+adr_design = "2605212050"
+adr_axis = "2605211950"
+forge_tests = "25 passing (construction + credit happy/reverts + cap rollover + tithe + Council config + withdraw)"
+default_daily_cap_micros = 50_000_000_000   # 50,000 USDC/day initial proposal
+default_tithe_bps = 1000                    # 10% per ADR-2605192130
+address_mainnet = ""
+address_testnet = ""
+deploy_status = "phase-δ-scaffold (foundry build + test passing locally; testnet deploy pending)"
+
 # ─── Private chain ────────────────────────────────────────────────────
 # geth-private migration to etzhayyim.com per ADR-2605172800 (in progress).
 
@@ -289,6 +342,117 @@ gateway_url = "http://simeonnomac-mini.local:8080"
 location_host = "simeon"
 kubo_version = "0.41.0"
 deploy_status = "live"
+
+[platform.langserver]
+# etzhayyim-langserver — Murakumo-fleet LSP 常駐 substrate.
+# Tier 1 launchd 常駐 per ADR-2605192415 §7.1.
+# Status as of 2026-05-21: L1 (host inventory) + L2 (plist template) + L3
+# (binary pins) landed. L4 (socket transport) → L9 (cell-runner integration)
+# pending. plist load gated on user confirmation per CLAUDE.md.
+module_path = "50-infra/etzhayyim-langserver/"
+manifest    = "50-infra/etzhayyim-langserver/langservers.toml"
+hosts_toml  = "50-infra/etzhayyim-langserver/hosts.toml"
+plist_template = "50-infra/etzhayyim-langserver/launchd/com.etzhayyim.langserver.template.plist"
+listen_port_range_proposed = [15500, 15600]  # collision-free vs cells 13000-14000, phenotype 14000+
+languages_pinned = ["rust", "python", "typescript", "go", "lua", "ruby"]
+transport_prereqs = ["socat@1.8.0.3", "jq@1.7.1"]
+ssot_authority = "langservers.toml"  # deps.toml mirrors; bumps land in langservers.toml first
+transports_toml = "50-infra/etzhayyim-langserver/transports.toml"
+
+[platform.langserver.transport_ports]
+# Mirror of transports.toml [[transport]] entries (L4 SSoT).
+# Default mode = mesh-both (Unix socket + mesh-IP TCP). L5 upgrades bind addr.
+rust       = 15510
+python     = 15511
+typescript = 15512
+go         = 15513
+lua        = 15514
+ruby       = 15515
+socket_dir_macos = "/tmp/etzhayyim-langserver-$USER"
+socket_mode = "0600"
+
+[platform.langserver.mesh]
+# L5 mesh binding policy. Mesh substrate: 50-infra/cluster/murakumo/.
+# Runtime mesh-IP resolved from ~/.etzhayyim/mesh/identity.json (target) or
+# ~/.gftd/mesh/identity.json (legacy; cutover pending).
+mesh_substrate_path = "50-infra/cluster/murakumo/"
+mesh_subnet = "10.99.0.0/16"
+default_bind_policy = "mesh"      # bind langserver TCP to mesh-IP, not loopback
+fleet_registry_script = "50-infra/etzhayyim-langserver/scripts/generate-fleet-registry.sh"
+fleet_registry_output = "50-infra/etzhayyim-langserver/scripts/lsp-fleet.json"
+listen_addr_default = "mesh-both"  # ETZHAYYIM_LISTEN_ADDR default in run-langserver.sh
+
+[platform.langserver.healthz]
+# L6 health-check sidecar. Spawned as background process by run-langserver.sh
+# (Python stdlib http.server, no third-party deps). Port = LSP port + 100.
+sidecar = "50-infra/etzhayyim-langserver/healthz/healthz-sidecar.py"
+port_range = [15600, 15700]
+port_offset_from_lsp = 100
+watchdog_script = "50-infra/etzhayyim-langserver/scripts/watchdog.sh"
+endpoint_path = "/healthz"
+probe_modes = ["tcp_connect", "lsp_initialize_handshake"]
+probe_mode_default = "tcp_connect"  # --deep flag opts into lsp_initialize_handshake
+process_supervision = "launchd KeepAlive + ThrottleInterval=15 (defined in plist)"
+flap_handling = "ThrottleInterval=15s minimum between restarts; deeper flap handling in future LangserverHealthMonitoringCell (L9)"
+
+[platform.langserver.observability]
+# L7 observability stack. Three signals: on-disk logs (launchd), metrics
+# (Prometheus textfile on healthz sidecar /metrics), optional stream (NATS).
+obs_toml = "50-infra/etzhayyim-langserver/obs.toml"
+on_disk_log_pattern = "/Users/<tribe>/.etzhayyim/log/langserver.<lang>.{stdout,stderr}.log"
+rotation_mechanism = "macOS newsyslog (system-provided)"
+rotation_config = "50-infra/etzhayyim-langserver/newsyslog.d/etzhayyim-langserver.conf"
+rotation_size_mb = 50
+rotation_keep = 5
+metrics_endpoint = "/metrics on healthz sidecar (Prometheus text/plain v0.0.4)"
+metrics_exposed = [
+  "etzhayyim_langserver_up",
+  "etzhayyim_langserver_uptime_seconds",
+  "etzhayyim_langserver_probe_latency_seconds (probe=tcp|deep)",
+  "etzhayyim_langserver_probe_failures_total",
+  "etzhayyim_langserver_probe_total",
+]
+nats_forwarder = "50-infra/etzhayyim-langserver/scripts/ship-logs-to-nats.sh"
+nats_enabled_default = false  # opt-in via --apply
+nats_subject_template = "etzhayyim.langserver.<host>.<lang>.<stream>"
+nats_dep = "nats CLI (brew install nats-io/nats-tools/nats)"
+prometheus_existing_endpoint = "http://murakumo.etzhayyim.local:9090"  # per [monitoring] in fleet.toml
+
+[platform.langserver.editor_bridge]
+# L8 editor remote-LSP attach. Single shim (attach-langserver.sh) is the
+# fleet-wide socat stdio↔TCP bridge; Neovim is special-cased to use its
+# native vim.lsp.rpc.connect() (no socat needed).
+attach_script = "50-infra/etzhayyim-langserver/scripts/attach-langserver.sh"
+attach_script_dependency = "socat (L3 prereq)"
+configs_dir = "50-infra/etzhayyim-langserver/editor-configs/"
+editors_supported = ["nvim", "helix", "zed", "vscode"]
+nvim_transport = "vim.lsp.rpc.connect (native TCP, no socat)"
+other_editor_transport = "stdio via attach-langserver.sh shim → socat → tcp://<mesh-ip>:<port>"
+source_of_truth = "scripts/lsp-fleet.json (no IPs duplicated in editor configs)"
+
+[platform.langserver.cell_integration]
+# L9 root layer. Pregel cells query fleet LSPs via langserver_client helper.
+client_module = "20-actors/magatama/py/src/pymagatama/primitives/langserver_client.py"
+reference_cell_module = "20-actors/magatama/py/src/pymagatama/primitives/langserver_murakumo.py"
+reference_cell_name = "LangserverHealthMonitoringCell"
+reference_cell_node = "levi"
+reference_cell_trigger = "cron */5 * * * *"
+reference_cell_healthz_port = 13028  # registered in cells.toml; sibling of joucho 13027
+cells_toml_path = "50-infra/cluster/murakumo/cell-runner/cells.toml"
+mst_listener_nsid_target = "ai.gftd.apps.etzhayyim.langserver.health"  # pending lexicon registration
+lexicon_status = "deferred (00-contracts/lexicons/app/etzhayyim/langserver/ unregistered as of 2026-05-21)"
+helpers_available = ["initialize", "shutdown", "hover", "definition", "references", "rename"]
+transport_default = "tcp"  # mesh-IP path; "unix" available for same-host cells
+
+[platform.langserver.pins]
+# Mirror of [[langserver]] entries in langservers.toml — keep in sync.
+# Bump via PR-per-language; refuse silent upgrades.
+rust       = { name = "rust-analyzer",             version = "2026-01-13", install = "rustup component add rust-analyzer" }
+python     = { name = "pyright",                   version = "1.1.401",    install = "npm install -g pyright@1.1.401" }
+typescript = { name = "typescript-language-server", version = "4.3.4",     install = "npm install -g typescript-language-server@4.3.4 typescript@5.7.3" }
+go         = { name = "gopls",                     version = "v0.18.1",    install = "go install golang.org/x/tools/gopls@v0.18.1" }
+lua        = { name = "lua-language-server",       version = "3.15.0",     install = "brew install lua-language-server" }
+ruby       = { name = "ruby-lsp",                  version = "0.23.0",     install = "gem install --user-install ruby-lsp -v 0.23.0" }
 
 [platform.cell_fleet]
 runtime = "Python 3 + web3.py + eth-account (uv-managed)"
@@ -665,6 +829,7 @@ title = "etzhayyim Bootstrap Council 5名 — initial Lv6+ ロスター + 5軸 e
 status = "proposed"
 status_note = "Seat 1 (Founder=Jun Kawasaki) 固定 + Seat 2-5 (Substrate/Legal-Ethics/Economics/Stewardship) を 30日 public objection period で確定。3-of-5 multisig が Charter attestation / PublicFund grant / Land dispute / Force authorization / Steward succession / Eros-Gore boundary 判断の sign-off。Phase 2 (formal Council ADR) 移行 trigger: 構成員1000名 / Council 1名 死亡 / 構成員 3 名 request / 12ヶ月経過"
 path = "90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md"
+operational_addendum = "90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md"  # 2026-06-19 selection rubric + objection workflow + 5-mode failure tree (2026-05-21 session)
 
 [[adrs]]
 id = "2605192315"
@@ -1585,10 +1750,139 @@ Phase 4 (business-app dep switch) and Phase 5 (upstream open-scope
 deletion). No file content is moved in Phase 2; Phase 3 (content copy via
 `git subtree split` / `git filter-repo`) is a separate work item."""
 
+# ─── Tranche F Phase 3-6 governance + runbook layer (2026-05-21) ───────
+
+[platform.tranche_f.phase_3_to_6_governance_2026_05_21]
+# Closure governance dossier landed during the 2026-05-21 evening session.
+# Captures the design + runbook + survey + checklist artifacts. Per-worker
+# Python code execution (gate (a)) remains OPEN at session end — see the
+# gate-a-execution-checklist + session post-mortem.
+status = "governance-complete-2026-05-21"
+gates_design_closed_at = "2026-05-21T17:57:00Z"
+gate_a_execution_state = "IN_PROGRESS — 11 / 42 rows ticked in checklist (§1 primitives 4/4 + §5 utility audit 5/5 + §3 Wave A 2/2; 31 remaining across §2/§3 Wave B-C/§4/§6)"
+gate_a_execution_percent = 26  # 11/42 ≈ 26%
+gate_a_session_progress_2026_05_21 = """Session 2026-05-21 evening Phase 1 close:
+
+§1 substrate primitives (P1-P4): 4/4 ✅
+  - P1 active_inference_substrate.py: _DualWriteBeliefStore class removed,
+    _build_single_backend_store rewritten RW-free, default backend at-ipfs-local
+  - P2 at_ipfs_belief_store.py: vendor verbatim copy (no RW imports in vendor)
+  - P3 worker_runtime.py: new file at pymagatama root, 4 symbols
+    (watchdog/activation_monitor/task_sqlite_health_probe/make_degraded_ingest_stub)
+  - P4 ingest/core.py: _psql_enabled() → False (RW path disabled);
+    4 helpers (upsert_run/mark_run_finished/upsert_cursor/upsert_artifact) retained
+
+§5 utility audit (U1-U5): 5/5 ✅
+  - tools_const/http/json/time/transform: all 0 SQL hits, byte-identical
+    copy to religious-corp
+
+§3 Wave A (W9-W10): 2/2 ✅
+  - tools_audit_worker_main.py: already ported (docstring confirms
+    "No psycopg / RW_URL dependency"); task_audit_emit importable
+  - sixir_worker_main.py: already ported; 8 task handlers importable
+    (list/get × company/filing/earnings)
+
+Remaining (31 rows):
+  §2 BeliefStore organism cluster (W1-W8):    8 rows
+  §3 Wave B+C (W11-W20):                      10 rows
+  §4 ingest-coupled (W21-W24):                4 rows
+  §6 ingest modules (I1-I4):                  4 rows
+  + 5 utility rows already done (§5)
+
+Session limit hit on parallel agent execution (Sonnet rate limit, Asia/Tokyo
+9:10pm reset). Direct implementation closed §1 P3+P4 + verified §5 + §3 Wave A
+imports."""
+governance_summary = """ADR-2605152100 6-phase cutover doc-runbook complete:
+
+- Phase 3 gate (a) per-worker re-impl       — 42-row execution checklist
+                                                (90-docs/2605211949-gate-a-execution-checklist.md)
+- Phase 3 gate (b) DNS cutover              — ADR-2605211757 (431 lines)
+- Phase 3 gate (c) deployment surface       — inline in ADR-2605211757 §0 + §3.1
+- Phase 3 gate (d) vendor importer survey   — 90-docs/2605211800-...md
+                                                + 3 lg relocates + 1 hume inline
+- Phase 4 vendor business-app dep switch    — ADR-2605211913 §1
+- Phase 5 vendor open-scope deletion        — ADR-2605211913 §2 (gated on gate (a))
+- Phase 6 archive markers                   — ADR-2605211925 (gated on Phase 5)
+
+Snapshot: 90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md
+Index:    90-docs/TRANCHE-F-INDEX.md
+Post-mortem: 90-docs/2605212020-session-post-mortem-2026-05-21.md (covers
+             intentional revert pattern + remaining open execution items)
+
+Cross-repo: gftd-side deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17
+            closure_confirmed_by + closure_evidence point back to this repo.
+            ADR-2605212100 §2 STATUS blocks (gftd) match this repo's honest framing."""
+artifacts = [
+  "README.md (Status section, +20 lines)",
+  "90-docs/TRANCHE-F-INDEX.md (120 lines, operator navigator)",
+  "90-docs/CLAUDE.md (Tranche F dossier section, +18 lines)",
+  "90-docs/2605211800-vendor-importer-survey-gate-d.md (99 lines)",
+  "90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md (159 lines)",
+  "90-docs/2605211949-gate-a-execution-checklist.md (200 lines, 42 checkbox rows)",
+  "90-docs/2605212020-session-post-mortem-2026-05-21.md (180 lines)",
+  "90-docs/adr/2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com.md (431 lines)",
+  "90-docs/adr/2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook.md (388 lines)",
+  "90-docs/adr/2605211925-phase-6-archive-markers-runbook.md (361 lines)",
+  "20-actors/magatama/CLAUDE.md (Tranche F gate (a) section, +40 lines)",
+  "60-apps/ai-gftd-project-curpus2skill/lg/ (gate (d) #3 relocate, 7 files)",
+  "60-apps/ai-gftd-project-legal-entity/lg/ (gate (d) #2 relocate, 7 files)",
+]
+remaining_execution = [
+  "Gate (a): per-worker SQLite ports (31 / 42 rows remaining) → 20-actors/magatama/py/src/pymagatama/",
+  "Gate (b): DNS cutover Wave A-D execution (operator-side, ADR-2605211757)",
+  "Phase 5: vendor git rm (operator-side, ADR-2605211913 §2)",
+  "Phase 6: archive markers (operator-side, ADR-2605211925)",
+]
+gate_a_execution_session_2026_05_21_evening = """Phase 1 close — 11 / 42 rows ticked.
+See `90-docs/2605211949-gate-a-execution-checklist.md` for the per-row status.
+deps.toml [platform.tranche_f.phase_3_to_6_governance_2026_05_21]
+gate_a_session_progress_2026_05_21 has the full audit trail."""
+related = [
+  "adr-2605152100-etzhayyim-github-org-boundary",
+  "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
+  "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+  "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook",
+  "adr-2605211925-phase-6-archive-markers-runbook",
+]
+
 [bring-up.murakumo]
 date = "2026-05-18"
 adr = "ADR-2605182312"
 description = "Local bring-up of Artificial Organism ecosystem on Murakumo Mac mini fleet using gemma4:e4b"
+
+# ─── Bootstrap Council Lv6+ — 2026-06-19 selection window ──────────────
+
+[platform.bootstrap_council]
+# Constitutional mechanics: ADR-2605192300.
+# Operational mechanics: 90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md
+# Public RFP doc: COUNCIL-BOOTSTRAP-RFP.md (window 2026-05-20 → 2026-06-19, 30 days)
+# Roster doc: COUNCIL.md
+status = "rfp-open-window-closes-2026-06-19"
+constitutional_adr = "ADR-2605192300"
+operational_addendum = "90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md"
+rfp_doc = "COUNCIL-BOOTSTRAP-RFP.md"
+roster_doc = "COUNCIL.md"
+window_opens_at = "2026-05-20"
+window_closes_at = "2026-06-19"
+constructor_target_at = "2026-06-22"  # Mon following Fri close (per addendum §3)
+deploy_target = "Base Sepolia testnet → ChartersComplianceRegistry.constructor(addresses[])"
+seats = [
+  { seat = 1, axis = "Doctrine", holder = "Jun Kawasaki", did = "did:web:jun.gftd.group (interim)", status = "confirmed" },
+  { seat = 2, axis = "Substrate / Technology", status = "open" },
+  { seat = 3, axis = "Legal / Ethics", status = "open" },
+  { seat = 4, axis = "Economics / Treasury", status = "open" },
+  { seat = 5, axis = "Stewardship / Land", status = "open" },
+]
+operator_checklist_ref = "90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md#5-operator-checklist-for-the-2026-06-19-deadline"
+failure_modes_ref = "90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md#4-failure-modes"
+phase_2_transition_triggers = [
+  "1000 active Adherent SBTs",
+  "any seat vacancy (death / resignation / objection upheld)",
+  "3 Adherent SBT holders' formal governance request",
+  "12 months from initial Bootstrap deploy",
+]
+operational_addendum_landed_at = "2026-05-21T20:36:00Z"  # rubric + objection workflow + failure modes landed
+session_closed_at = "2026-05-21T20:45:00Z"  # 2026-05-21 Tranche F + Council ops session terminus
 
 # ─── Migrations (Step 8 cutover) ─────────────────────────────────────
 
@@ -1601,6 +1895,7 @@ authoritative_adr = "2605214000"
 target_count = 40
 scope = "50-infra/cluster/murakumo/ (Rust runtime — Cargo.toml, src/*.rs, deploy-mesh.sh)"
 description = "Atomic rename of cluster runtime identifiers: GFTD_* env vars → ETZHAYYIM_*, ~/.gftd/ → ~/.etzhayyim/, binary gftd-murakumo → etzhayyim-murakumo, DNS .mesh.gftd.ai → .mesh.etzhayyim.com, launchd label ai.gftd.murakumo-mesh → com.etzhayyim.murakumo-mesh, cargo crate name. Dry-run verified cargo check PASSES with all renames applied. Intentional remainders: MESH_KEY_CTX (DH crypto context tag, fleet protocol bump needed) + gftd.murakumo.v1.* XRPC namespace (separate CF Worker + Lexicon update)."
+dry_run_completed_at = "2026-05-21"
 last_verified = "2026-05-21"
 
 [[migrations]]
@@ -1611,7 +1906,113 @@ authoritative_doc = "20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md"
 authoritative_adr = "2605215000"
 target_count = 76
 scope = "20-actors/magatama/py/** (pymagatama + magatama-host-sdk model registry) — REDIRECT 30 / VENDOR-ONLY 25 / REIMPLEMENT 15"
-description = "Strip all RunPod coupling from religious-corp pymagatama paths. Inference SSoT becomes Murakumo fleet only (LiteLLM gateway 127.0.0.1:4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b fallback). REIMPLEMENT targets include maps_sentinel L7/L8 (Sentinel-1/2 satellite analysis — needs successor MLX/ROCm impl per follow-up ADR), training_run.py (CPU client + GPU Serverless handler split), zeebe_worker_main.py ComfyUI dispatch (RunPod /runsync wrapper vs native /prompt+/history protocol diverge). VENDOR-ONLY paths stay operational for vendor gftd.co.jp — religious-corp callers must avoid via consent capability boundary."
+description = "Strip all RunPod coupling from religious-corp pymagatama paths. Inference SSoT becomes Murakumo fleet only (LiteLLM gateway 127.0.0.1:4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b fallback). REIMPLEMENT targets include maps_sentinel L7/L8 (Sentinel-1/2 satellite analysis — needs successor MLX/ROCm impl per follow-up ADR), training_run.py (CPU client + GPU Serverless handler split), zeebe_worker_main.py ComfyUI dispatch (RunPod /runsync wrapper vs native /prompt+/history protocol diverge). VENDOR-ONLY paths stay operational for vendor gftd.co.jp — religious-corp callers must avoid via consent capability boundary. PYMAGATAMA-MIGRATION-NOTES.md authored 2026-05-21 with 24 file:line targets + verdicts (30 REDIRECT / 25 VENDOR-ONLY / 15 REIMPLEMENT). M5 maps_sentinel REIMPLEMENT delivered as separate maps_sentinel_murakumo.py per ADR-2605215100."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "yoro-python-primitives-rewrite"
+status = "largely_complete"
+completion_percent = 100
+blocked_on = "Step 8 master gate (legal registration)"
+authoritative_doc = "20-actors/magatama/py/YORO-PYTHON-MIGRATION-NOTES.md"
+authoritative_adr = "ADR-2605215200"
+target_count = 40
+scope = "20-actors/magatama/py/src/pymagatama/primitives/yoro*.py (yoro.py + yoro_validation.py + yoro_registry.py)"
+description = "M2-M7 waves complete 2026-05-21. All 40 functions in YORO-PYTHON-MIGRATION-NOTES table implemented (4 sync shims, 1 VENDOR-ONLY at row #13, rest REIMPLEMENT). 313 tests pass. Step 8 cutover unblocked from yoro side."
+completion_note = "M2-M7 waves complete 2026-05-21. All 40 functions in YORO-PYTHON-MIGRATION-NOTES table implemented (4 sync shims, 1 VENDOR-ONLY at row #13, rest REIMPLEMENT). 313 tests pass. Step 8 cutover unblocked from yoro side."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "shinka-mst-rewrite"
+status = "largely_complete"
+completion_percent = 95
+blocked_on = "Council DID registry population pending RFP close 2026-06-19"
+authoritative_doc = "20-actors/magatama/py/SHINKA-MIGRATION-NOTES.md"
+authoritative_adr = "ADR-2605215300"
+target_count = 4
+scope = "20-actors/magatama/py/src/pymagatama/primitives/shinka*.py (4 cells: ShinkaTick + ShinkaTrigger + ShinkaBoundary + ShinkaBoundaryValidator)"
+description = "M2-M3 complete: 4 cells + tick + 3-tier Lv1-7 validation + Lv7 objection window enforcement + canonical EVOLUTION_WITNESS_MIN per ADR-2605215400 + Council DID registry binding (placeholder COUNCIL_LV6_DIDS until post-RFP-close 2026-06-19) + Charter Compliance gate. 46 shinka tests pass."
+completion_note = "M2-M3 complete: 4 cells + tick + 3-tier Lv1-7 validation + Lv7 objection window enforcement + canonical EVOLUTION_WITNESS_MIN per ADR-2605215400 + Council DID registry binding (placeholder COUNCIL_LV6_DIDS until post-RFP-close 2026-06-19) + Charter Compliance gate. 46 shinka tests pass."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "mst-projector-deploy-phase-3"
+status = "deploy_ready"
+completion_percent = 90
+blocked_on = "Physical deploy to simeon Mac mini"
+authoritative_doc = "50-infra/mst-projector/README.md"
+authoritative_adr = "ADR-2605215400"
+target_count = 5
+scope = "50-infra/mst-projector/ (indexer M1 + subscriber M2 + query_api M3 + M4 deploy assets + SDK wrapper M5)"
+description = "Python service M1 (indexer) + M2 (subscriber) + M3 (query_api 4 XRPC endpoints) + M5 (SDK client wrapper) all real impl. 51 tests pass. M4 deploy assets ready: launchd plist + install.sh + uninstall.sh + main.py CLI. Awaiting physical deploy to simeon Mac mini."
+completion_note = "Python service M1 (indexer) + M2 (subscriber) + M3 (query_api 4 XRPC endpoints) + M5 (SDK client wrapper) all real impl. 51 tests pass. M4 deploy assets ready: launchd plist + install.sh + uninstall.sh + main.py CLI. Awaiting physical deploy to simeon Mac mini."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "rasterio-pyproject-add-m1-unblock"
+status = "pending"
+blocked_on = "pyproject.toml dependency add"
+authoritative_doc = "20-actors/magatama/py/MAPS-SENTINEL-MIGRATION-NOTES.md"
+authoritative_adr = "ADR-2605215100"
+target_count = 3
+scope = "20-actors/magatama/py/pyproject.toml (rasterio>=1.3 + Pillow + GDAL)"
+description = "Required for maps_sentinel T0 _scene_to_thumbnail_png real impl. Currently a NotImplementedError stub; T1/T2 dispatch gracefully degrades. Blocking T1 LiteLLM dispatch + T2 VLM dispatch ready states."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "joucho-aggregation-cell-deploy"
+status = "deploy_ready"
+completion_percent = 100
+blocked_on = "Physical deploy to levi (Mac mini) via deploy-religious-corp-stack.sh"
+authoritative_doc = "20-actors/magatama/py/JOUCHO-MIGRATION-DESIGN.md"
+authoritative_adr = "ADR-2605215200 + ADR-2605215500"
+target_count = 4
+scope = "20-actors/magatama/py/src/pymagatama/primitives/joucho_murakumo.py + 00-contracts/lexicons/app/etzhayyim/joucho/joucho.json + 50-infra/murakumo/fleet.toml [cells.JouchoAggregationCell] + tests"
+description = "JouchoAggregationCell real impl on levi (port 13027) — aggregates 7-day kyumeiSignal records into 5-axis JouchoRecord. Hourly cron trigger. mst-projector wired for server-side filter. 63 joucho tests pass."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "religious-corp-fleet-deploy-readiness"
+status = "ready"
+blocked_on = "Operator physical deploy on Mac mini fleet + Step 8 legal registration cutover"
+authoritative_doc = "90-docs/operations/religious-corp-runbook.md"
+authoritative_adr = "ADR-2605191346 + ADR-2605215200 + ADR-2605215500"
+target_count = 10
+scope = "50-infra/deploy/deploy-religious-corp-stack.sh + 50-infra/deploy/precheck-node.sh + 50-infra/monitoring/{prometheus.yml,alerts.yml} + 90-docs/operations/religious-corp-runbook.md"
+description = "Deploy assets complete: master orchestrator (416 LoC, 5 phases, parallel SSH), per-node precheck (15 checks), Prometheus scrape config + 5 alert rules, 2131-word operations runbook with topology + bring-up + debug commands + rollback + backup procedures."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "evo-x2-litellm-benchmark-execution"
+status = "pending"
+blocked_on = "LAN access to 192.168.1.70 EVO-X2 inference pod (operator hands-on)"
+authoritative_doc = "20-actors/magatama/py/scripts/README.md"
+authoritative_adr = "ADR-2605215100"
+target_count = 1
+scope = "20-actors/magatama/py/scripts/bench_evo_x2_qwen3_vl_8b.py (340 LoC script ready)"
+description = "Qwen3-VL-8B-Instruct-4bit benchmark on EVO-X2 ROCm gfx1151 ready to execute. Pass criteria: p95 latency ≤60s + success rate ≥90% per ADR-2605215100 §1 T1. Awaits operator with LAN access."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "maps-sentinel-rasterio-pyproject-add"
+status = "pending"
+blocked_on = "pyproject.toml deps add: rasterio>=1.3 + Pillow + GDAL"
+authoritative_doc = "ADR-2605215100 §4 M1"
+authoritative_adr = "ADR-2605215100"
+target_count = 1
+scope = "20-actors/magatama/py/pyproject.toml [project.dependencies]"
+description = "maps_sentinel_murakumo.py _scene_to_thumbnail_png currently NotImplementedError. T0 preprocessing pipeline needs rasterio for Sentinel raster I/O. M2 deadline per ADR-2605215100 §4 (M0+30d 2026-07-15)."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "council-lv6-did-registry-population"
+status = "blocked_on_rfp_close"
+blocked_on = "Bootstrap Council RFP close 2026-06-19 (ADR-2605192300) + Council members write ratification records to PDS"
+authoritative_doc = "ADR-2605215400 §3.4"
+authoritative_adr = "ADR-2605215400"
+target_count = 4
+scope = "PDS records: app.etzhayyim.council.member (4 new records post-RFP)"
+description = "mst.get_council_lv6_dids() lazy query depends on Council member ratification records. Currently COUNCIL_LV6_DIDS hardcoded fallback contains founder seat 1 only. Lv6/Lv7 evolution gates (per ADR-2605215400) depend on this for Council co-signer count + supermajority enforcement."
 last_verified = "2026-05-21"
 
 # ─── Session summaries ──────────────────────────────────────────────
