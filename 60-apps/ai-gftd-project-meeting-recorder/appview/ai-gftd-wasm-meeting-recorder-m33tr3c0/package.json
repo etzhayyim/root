@@ -1,0 +1,18 @@
+{
+  "name": "ai-gftd-wasm-meeting-recorder-m33tr3c0",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "gftd deploy",
+    "dev": "wrangler dev",
+    "types": "wrangler types"
+  },
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*",
+    "@atproto/crypto": "^0.4.5"
+  },
+  "devDependencies": {
+    "wrangler": "^3.100.0"
+  }
+}
