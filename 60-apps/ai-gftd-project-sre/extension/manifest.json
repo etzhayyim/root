@@ -1,0 +1,51 @@
+{
+  "manifestVersion": 3,
+  "name": "gftd.ai SRE Toolbar",
+  "version": "1.0.0",
+  "description": "SRE toolbar for gftd.ai - system status, feedback, and operational monitoring.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "hostPermissions": [
+    "https://*.gftd.ai/*"
+  ],
+  "action": {
+    "defaultPopup": "popup.html"
+  },
+  "background": {
+    "serviceWorker": "background.js",
+    "type": "module"
+  },
+  "contentScripts": [
+    {
+      "matches": [
+        "https://*.gftd.ai/*"
+      ],
+      "js": [
+        "content/toolbar.js"
+      ],
+      "css": [
+        "content/toolbar.css"
+      ],
+      "runAt": "document_idle"
+    }
+  ],
+  "webAccessibleResources": [
+    {
+      "resources": [
+        "assets/*",
+        "content/inject.js"
+      ],
+      "matches": [
+        "https://*.gftd.ai/*"
+      ]
+    }
+  ]
+}
