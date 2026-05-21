@@ -1,4 +1,4 @@
-/** @gftdcojp/kami-engine-sdk — Svelte 5 VRM character viewer components + headless builders + Genko manga editor. */
+/** @etzhayyim/kami-engine-sdk — Svelte 5 VRM character viewer components + headless builders + Genko manga editor. */
 
 // Components
 export {
@@ -88,7 +88,7 @@ export type {
 } from './manufacturing/index.js';
 
 // Document (structured document model + KAMI scene bridge)
-// Use `import { ... } from '@gftdcojp/kami-engine-sdk/document'` for tree-shaking
+// Use `import { ... } from '@etzhayyim/kami-engine-sdk/document'` for tree-shaking
 export type {
   Emu,
   DocumentRect,
