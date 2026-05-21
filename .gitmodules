@@ -10,3 +10,6 @@
 [submodule "50-infra/etzhayyim-yobel-contract/lib/forge-std"]
 	path = 50-infra/etzhayyim-yobel-contract/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "50-infra/etzhayyim-authz/contracts/lib/forge-std"]
+	path = 50-infra/etzhayyim-authz/contracts/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

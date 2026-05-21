@@ -41,6 +41,7 @@ interface CreateArgs {
   purpose: string;
   baseUrl?: string;
   binary?: string;
+  framework?: string;
   dryRun: boolean;
 }
 
@@ -116,6 +117,7 @@ async function cmdCreate(rest: string[]): Promise<void> {
     purpose: parsed.flags["purpose"] ?? "",
     baseUrl: parsed.flags["base-url"],
     binary: parsed.flags["binary"],
+    framework: parsed.flags["framework"],
     dryRun: parsed.boolFlags.has("dry-run"),
   };
   if (!args.source) fail("--source is required");
@@ -308,12 +310,14 @@ async function createFromSourceRepo(args: CreateArgs): Promise<void> {
   const kamiId = args.kami || `bin:${args.name}`;
   const binary = args.binary || args.name;
 
-  console.error(`[yorishiro] extracting Click commands from ${args.source}`);
+  const framework = (args.framework ?? "auto") as "click" | "argparse" | "auto" | "cobra" | "clap";
+  console.error(`[yorishiro] extracting ${framework} commands from ${args.source}`);
   const manifest = extractClickManifest({
     source: args.source,
     kamiId,
     binary,
-    description: `Auto-extracted from source repo at ${args.source}`,
+    framework,
+    description: `Auto-extracted (${framework}) from source repo at ${args.source}`,
   });
   console.error(
     `[yorishiro] kami=${manifest.kami.id}  binary=${manifest.kami.binary}  ops=${manifest.ops.length}  purposes=[${purposes.join(",")}]`,
@@ -332,6 +336,7 @@ async function createFromSourceRepo(args: CreateArgs): Promise<void> {
     source: resolveSource(args.source, repoRoot),
     kami: manifest.kami.id,
     binary: manifest.kami.binary,
+    framework,
     purposes,
     generatedAt: preserveGeneratedAt(repoRoot, args.name),
     generator: `@etzhayyim/yorishiro@${VERSION}`,
@@ -339,7 +344,7 @@ async function createFromSourceRepo(args: CreateArgs): Promise<void> {
   writeFileSync(join(cfgDir, `${args.name}.json`), JSON.stringify(cfg, null, 2) + "\n", "utf-8");
 
   // Hand off to the existing binary-cli emitters — the kami manifest
-  // produced by the Click AST walker is byte-for-byte the same shape
+  // produced by the source-repo walkers is byte-for-byte the same shape
   // that hand-authored binary-cli manifests use.
   const lexicons = emitBinaryLexicons({ repoRoot, name: args.name, purposes, manifest });
   console.error(`[yorishiro] L1: emitted ${lexicons.length} lexicon(s)`);
@@ -447,6 +452,7 @@ async function cmdRegen(rest: string[]): Promise<void> {
   } else if (cfg.from === "source-repo") {
     next.binary = cfg.binary;
     next.kami = cfg.kami;
+    next.framework = cfg.framework;
     await createFromSourceRepo(next);
   } else {
     await createFromOpenApi(next);

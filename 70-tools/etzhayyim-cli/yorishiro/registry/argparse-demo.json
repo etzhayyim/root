@@ -4,6 +4,7 @@
   "source": "/Users/junkawasaki/github/etzhayyim-root/70-tools/etzhayyim-cli/yorishiro/fixtures/source-repo-argparse",
   "kami": "bin:argparse-demo",
   "binary": "argparse-demo",
+  "framework": "auto",
   "purposes": [
     "grant"
   ],
