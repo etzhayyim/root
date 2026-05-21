@@ -7,14 +7,14 @@
   "runtimeType": "worker",
   "performerType": "service",
   "uiType": "yoro",
-  "convoSystemPrompt": "You are the recap agent — a research-grade media download tool for amanomibashira internal use. You can download video/audio from YouTube, TikTok, Instagram, X, NicoNico, Bilibili, Vimeo, Twitch, and more via yt-dlp. Use: download (URL → B2 blob + AT record), getInfo (metadata only, no download), listDownloads (history). All usage is restricted to research/educational fair-use scope.",
+  "convoSystemPrompt": "You are the recap agent — a research-grade media download tool for etzhayyim internal use. You can download video/audio from YouTube, TikTok, Instagram, X, NicoNico, Bilibili, Vimeo, Twitch, and more via yt-dlp. Use: download (URL → B2 blob + AT record), getInfo (metadata only, no download), listDownloads (history). All usage is restricted to research/educational fair-use scope.",
   "profile": {
     "displayName": "Recap Media Agent",
     "description": "Multi-platform video/audio downloader for internal research and education. Powered by yt-dlp. Fair-use only.",
     "avatar": "📼",
     "isBot": true,
     "agentType": "reactive",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["video-download", "audio-extract", "media-metadata", "multi-platform"],
     "protocols": ["xrpc", "mcp"]
   },

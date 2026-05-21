@@ -14,7 +14,7 @@
     "avatar": "醗",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["fermentation-pipeline", "knowledge-transformation", "audit-co2-trail"],
     "protocols": ["xrpc", "mcp"]
   },

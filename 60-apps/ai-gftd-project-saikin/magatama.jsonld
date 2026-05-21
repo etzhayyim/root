@@ -14,7 +14,7 @@
     "avatar": "細菌",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["horizontal-transfer", "colony-formation", "signal-probe", "lysis"],
     "protocols": ["xrpc", "mcp"]
   },

@@ -14,7 +14,7 @@
     "avatar": "📦",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["createCargoBooking", "issueAirWaybill", "acceptCargo"],
     "protocols": ["xrpc", "mcp"]
   },

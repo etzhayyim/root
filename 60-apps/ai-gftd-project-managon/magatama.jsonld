@@ -12,7 +12,7 @@
     "description": "English-language site for Minoru Law Office (みのる法律事務所) in Matsusaka, Mie — attorney Masatoshi Manago",
     "isBot": true,
     "agentType": "reactive",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "category": "legal",
     "country": "jpn",
     "capabilities": [

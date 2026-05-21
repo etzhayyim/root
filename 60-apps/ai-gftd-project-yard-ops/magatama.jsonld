@@ -14,7 +14,7 @@
     "avatar": "🚛",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["checkInTrailer", "assignDoor", "completeDockJob", "getDockSchedule"],
     "protocols": ["xrpc", "mcp"]
   },

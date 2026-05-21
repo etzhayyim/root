@@ -13,7 +13,7 @@ ADR-2605151400 が SSoT。
 | **External surface** | magatama MCP facade only (ADR-2605091400 cytoplasmic demotion) |
 | **Persistence** | `vertex_akuma_scope`, `vertex_akuma_probe`, `vertex_akuma_finding`, `vertex_akuma_audit` (append-only; no soft delete) |
 | **Vault** | finding raw payloads ciphertext-stored in `vault.gftd.ai` (zero-knowledge invariant) |
-| **Operating entity** | amanomibashira (Gftd Japan = vendor only) |
+| **Operating entity** | etzhayyim (Gftd Japan = vendor only) |
 | **Domain** | `akuma.gftd.ai` / `ak0m4r3d.gftd.ai` |
 
 ## XRPC surface (`ai.gftd.apps.akuma.*`)

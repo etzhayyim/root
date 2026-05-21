@@ -7,7 +7,7 @@
     "category": "academic",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira"
+    "operator": "etzhayyim"
   },
   "routes": ["kiyo.etzhayyim.com"],
   "triggers": {

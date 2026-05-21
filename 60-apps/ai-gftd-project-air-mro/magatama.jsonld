@@ -14,7 +14,7 @@
     "avatar": "🔧",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["createWorkOrder", "trackComponent", "checkAirworthiness"],
     "protocols": ["xrpc", "mcp"]
   },

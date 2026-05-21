@@ -13,7 +13,7 @@
     "avatar": "🤖",
     "isBot": true,
     "agentType": "reactive",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["cdn", "landing"],
     "protocols": ["xrpc"]
   },

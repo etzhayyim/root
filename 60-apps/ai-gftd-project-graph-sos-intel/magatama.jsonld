@@ -9,7 +9,7 @@
     "category": "internal",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira"
+    "operator": "etzhayyim"
   },
   "triggers": {
     "cron": [

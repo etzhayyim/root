@@ -15,7 +15,7 @@
     "avatar": "🎋",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["drawFortune", "listFortunes", "getFortune", "resetFortune", "createShrine", "updateShrine", "listShrines", "getShrine"],
     "protocols": ["xrpc", "mcp"]
   },

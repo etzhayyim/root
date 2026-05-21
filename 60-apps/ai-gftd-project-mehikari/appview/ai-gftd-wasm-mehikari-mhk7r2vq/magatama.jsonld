@@ -10,7 +10,7 @@
       "RAW_CLIP_RETENTION_DAYS": "90",
       "OUTREACH_BUSINESS_HOURS_JST": "09:00-17:00",
       "OUTREACH_BUSINESS_DAYS": "Mon,Tue,Wed,Thu,Fri",
-      "OPERATING_ENTITY": "amanomibashira",
+      "OPERATING_ENTITY": "etzhayyim",
       "VENDOR": "Gftd Japan株式会社"
     }
   },
@@ -46,7 +46,7 @@
     "description": "Open-vocabulary scene search + warrant-gated person re-identification for Japanese police, with opt-in B2G sales pipeline. 顔特徴量は murakumo on-prem (国内 GPU) で AES-256-GCM 暗号化保管、外部 LLM / RunPod (US) への送信は protocol レベルで禁止。",
     "displayName": "眼光り (mehikari)",
     "isBot": true,
-    "operator": "amanomibashira"
+    "operator": "etzhayyim"
   },
   "project": "mehikari",
   "routes": [
@@ -58,7 +58,7 @@
     "channels": [
       {
         "default": true,
-        "description": "Internal sales / operations channel (amanomibashira sales managers only).",
+        "description": "Internal sales / operations channel (etzhayyim sales managers only).",
         "kind": "private",
         "name": "mehikari-ops"
       },

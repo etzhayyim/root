@@ -15,7 +15,7 @@
     "avatar": "🏪",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["createListing", "listListings", "createOrder", "listOrders", "updateInventory", "getInventory", "processTrade", "getTradeHistory"],
     "protocols": ["xrpc", "mcp"]
   },

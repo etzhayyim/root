@@ -14,7 +14,7 @@
     "avatar": "✈",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["registerSchedule", "requestSlot", "allocateSlot"],
     "protocols": ["xrpc", "mcp"]
   },

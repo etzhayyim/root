@@ -15,7 +15,7 @@
     "avatar": "✨",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["submitClearance", "listClearances", "approveClearance", "rejectClearance", "createAuditLog", "listAuditLogs", "getComplianceStatus", "runPurification"],
     "protocols": ["xrpc", "mcp"]
   },
