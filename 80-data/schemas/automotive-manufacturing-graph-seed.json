@@ -1,0 +1,128 @@
+{
+  "id": "automotive-manufacturing-graph-seed-20260426",
+  "description": "Small verified seed fixture for vehicle manufacturing graph wiring. It is intended for import tests and dry-run worker validation, not as exhaustive master data.",
+  "verifiedAt": "2026-04-26",
+  "sources": [
+    {
+      "id": "gleif-api",
+      "url": "https://api.gleif.org/api/v1/fuzzycompletions",
+      "note": "Used to verify DENSO CORPORATION and SUBARU CORPORATION LEI candidates during this update."
+    },
+    {
+      "id": "google-patents-us12325411b2",
+      "url": "https://patents.google.com/patent/US12325411B2/en",
+      "note": "Public patent page lists publication, inventors, current/original assignees, application date, and grant date."
+    }
+  ],
+  "vertices": {
+    "legalEntities": [
+      {
+        "vertex_id": "lei:549300RYPA10CQM3QK38",
+        "lei": "549300RYPA10CQM3QK38",
+        "legal_name": "DENSO CORPORATION",
+        "country": "JP",
+        "source": "GLEIF"
+      },
+      {
+        "vertex_id": "lei:549300N244BVAEE6HH86",
+        "lei": "549300N244BVAEE6HH86",
+        "legal_name": "SUBARU CORPORATION",
+        "country": "JP",
+        "source": "GLEIF"
+      }
+    ],
+    "patents": [
+      {
+        "vertex_id": "patent:US12325411B2",
+        "jurisdiction": "US",
+        "pub_number": "US12325411B2",
+        "app_number": "US17/747681",
+        "title": "Hybrid vehicle and control method thereof",
+        "published_at": "2025-06-10",
+        "source_url": "https://patents.google.com/patent/US12325411B2/en"
+      }
+    ],
+    "publicInventors": [
+      {
+        "vertex_id": "person:patent:US12325411B2:Dong-Jun-Shin",
+        "name": "Dong Jun Shin",
+        "role": "inventor",
+        "source_url": "https://patents.google.com/patent/US12325411B2/en"
+      },
+      {
+        "vertex_id": "person:patent:US12325411B2:Mingi-Jeong",
+        "name": "Mingi JEONG",
+        "role": "inventor",
+        "source_url": "https://patents.google.com/patent/US12325411B2/en"
+      },
+      {
+        "vertex_id": "person:patent:US12325411B2:Janghyo-Lee",
+        "name": "Janghyo Lee",
+        "role": "inventor",
+        "source_url": "https://patents.google.com/patent/US12325411B2/en"
+      },
+      {
+        "vertex_id": "person:patent:US12325411B2:Tae-Hyeong-Kim",
+        "name": "Tae Hyeong Kim",
+        "role": "inventor",
+        "source_url": "https://patents.google.com/patent/US12325411B2/en"
+      }
+    ],
+    "materials": [
+      {
+        "vertex_id": "auto-material:bev-battery-cell",
+        "material_id": "bev-battery-cell",
+        "material_kind": "battery_cell",
+        "preferred_standard": "EU Battery Passport / IEC 62660 evidence where applicable"
+      },
+      {
+        "vertex_id": "auto-material:automotive-steel-sheet",
+        "material_id": "automotive-steel-sheet",
+        "material_kind": "steel_sheet",
+        "preferred_standard": "JIS / ISO / customer material specification"
+      }
+    ],
+    "intermediates": [
+      {
+        "vertex_id": "auto-intermediate:battery-module",
+        "intermediate_id": "battery-module",
+        "intermediate_kind": "battery_module",
+        "build_level": "module"
+      },
+      {
+        "vertex_id": "auto-intermediate:body-in-white",
+        "intermediate_id": "body-in-white",
+        "intermediate_kind": "body_in_white",
+        "build_level": "subassembly"
+      }
+    ]
+  },
+  "edges": [
+    {
+      "edge_table": "edge_automotive_material_supplied_by",
+      "src_vid": "auto-material:bev-battery-cell",
+      "dst_vid": "lei:549300RYPA10CQM3QK38",
+      "supplier_lei": "549300RYPA10CQM3QK38",
+      "supplier_role": "tier1_component_supplier"
+    },
+    {
+      "edge_table": "edge_automotive_process_produces_intermediate",
+      "src_vid": "auto-process:cell-module-assembly",
+      "dst_vid": "auto-intermediate:battery-module",
+      "output_role": "battery_module"
+    },
+    {
+      "edge_table": "edge_automotive_package_references_patent",
+      "src_vid": "robotics-package:hybrid-control-reference",
+      "dst_vid": "patent:US12325411B2",
+      "patent_pub_number": "US12325411B2",
+      "relevance_kind": "hybrid_control_reference"
+    },
+    {
+      "edge_table": "edge_authored_by",
+      "src_vid": "patent:US12325411B2",
+      "dst_vid": "person:patent:US12325411B2:Dong-Jun-Shin",
+      "role": "inventor"
+    }
+  ]
+}
