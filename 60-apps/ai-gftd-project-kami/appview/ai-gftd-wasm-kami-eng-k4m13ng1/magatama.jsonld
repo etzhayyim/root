@@ -1,0 +1,48 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:eng-kami.gftd.ai",
+  "name": "ai-gftd-wasm-kami-eng",
+  "nanoid": "k4m13ng1",
+  "performerType": "service",
+  "project": "kami",
+  "runtimeType": "worker",
+  "version": "1.0.0",
+  "framework": "ts-thin-edge",
+  "component": { "path": "src/app.ts" },
+  "build": {
+    "role": "thin-edge",
+    "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/kami_eng.py",
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/kamiEng"
+  },
+  "profile": {
+    "displayName": "KAMI Engineering",
+    "description": "KAMI Engineering Workbench — EDA, CAD, CAM, RTL, CAE in browser (wgpu WebGPU)",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "gftd.co.jp",
+    "capabilities": ["bpmn-dispatch","eda-schematic","eda-pcb-layout","cad-brep-modeling","cad-parametric-design","cad-assembly","cam-toolpath-generation","cam-gcode-export","rtl-hdl-simulation","rtl-synthesis","cae-fea-analysis","cae-mesh-generation","mine-pds-registry","mine-pds-extraction-ledger","mine-ai-risk-assessment","mine-ai-extraction-planning"]
+  },
+  "routes": [
+    { "host": "eng-kami.gftd.ai", "paths": ["/"], "tls": true },
+    { "host": "mine-kami.gftd.ai", "paths": ["/"], "tls": true },
+    { "host": "k4m13ng1.gftd.ai", "paths": ["/"], "tls": true }
+  ],
+  "triggers": {
+    "subscribeRepos": {
+      "collections": ["app.bsky.feed.post","app.bsky.feed.like","app.bsky.graph.follow","ai.gftd.apps.kami.eng.project","ai.gftd.apps.kami.eda.schematic","ai.gftd.apps.kami.cad.model","ai.gftd.apps.kami.cam.job","ai.gftd.apps.kami.rtl.module","ai.gftd.apps.kami.cae.analysis","ai.gftd.apps.mine.mine","ai.gftd.apps.mine.mineral","ai.gftd.apps.mine.extraction_record"]
+    }
+  },
+  "space": {
+    "name": "KAMI Engineering",
+    "description": "Browser-based EDA/CAD/CAM/RTL/CAE engineering workbench",
+    "joinRule": "public",
+    "historyVisibility": "world-readable",
+    "channels": [{ "name": "designs", "kind": "public", "description": "Design updates and reviews", "default": true }]
+  },
+  "convoSystemPrompt": "You are KAMI Engineering agent. Respond helpfully in the user's language.",
+  "governance": { "raci": "responsible", "classification": "internal" },
+  "ui": { "accent": "#4ecdc4", "icon": "🔧" },
+  "uiType": "appview",
+  "duties": ["勤労の義務"],
+  "kpi": ["credits の獲得"]
+}
