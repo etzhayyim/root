@@ -96,8 +96,13 @@ fn select_cell(name: &str) -> Result<&'static CellLayout> {
         "pid_stack_100" => Ok(&PID_STACK_100),
         "droop_p_f" => Ok(&DROOP_P_F),
         "anti_islanding_rocof" => Ok(&ANTI_ISLANDING_ROCOF),
+        "vv_curve" => Ok(&VV_CURVE),
+        "ltc_tap_fsm" => Ok(&LTC_TAP_FSM),
+        "mppt_perturb_observe" => Ok(&MPPT_PERTURB_OBSERVE),
+        "black_start_seq" => Ok(&BLACK_START_SEQ),
+        "soc_kalman" => Ok(&SOC_KALMAN),
         other => bail!(
-            "unknown --cell {:?} (expected one of: pid_limited, pid_stack_100, droop_p_f, anti_islanding_rocof)",
+            "unknown --cell {:?} (expected one of: pid_limited, pid_stack_100, droop_p_f, anti_islanding_rocof, vv_curve, ltc_tap_fsm, mppt_perturb_observe, black_start_seq, soc_kalman)",
             other
         ),
     }
@@ -313,6 +318,227 @@ fn synthesize_data_in_anti_islanding_rocof(tick: u64) -> Vec<u8> {
     buf.push(0); // voltage_quality = Good (33)
     buf.push(1); // enable (34)
     buf.extend_from_slice(&[0u8; 5]); // tail-pad → 40
+    buf
+}
+
+// ---------------------------------------------------------------------------
+// vv_curve layout (per cells/vv-curve/src/lib.rs)
+// ---------------------------------------------------------------------------
+
+static VV_CURVE: CellLayout = CellLayout {
+    symbol: "vv_curve",
+    params_size: 20,    // i32 × 4 + u32 = 20
+    internal_size: 8,   // i32 + bool, align 4 → 8
+    data_in_size: 12,   // i32 + i32 + u8 + bool, align 4 → 12
+    data_out_size: 12,  // i32 + i32 + bool + bool, align 4 → 12
+    out_event_size: 1,
+    scratch_base: 0x10_0000,
+    required_pages: 32,
+    default_report: "gate-a-vv-curve-report.md",
+    build_params: build_params_vv_curve,
+    synthesize_data_in: synthesize_data_in_vv_curve,
+};
+
+fn build_params_vv_curve(cycle_period_ms: u32) -> Vec<u8> {
+    // IEEE 1547 default curve breakpoints.
+    let mut buf = Vec::with_capacity(20);
+    buf.extend_from_slice(&1_030_000_i32.to_le_bytes()); // v_dead_high_micro_pu
+    buf.extend_from_slice(&1_060_000_i32.to_le_bytes()); // v_full_high_micro_pu
+    buf.extend_from_slice(&970_000_i32.to_le_bytes());   // v_dead_low_micro_pu
+    buf.extend_from_slice(&900_000_i32.to_le_bytes());   // v_full_low_micro_pu
+    buf.extend_from_slice(&cycle_period_ms.to_le_bytes());
+    buf
+}
+
+fn synthesize_data_in_vv_curve(tick: u64) -> Vec<u8> {
+    // Voltage sweeps slowly across the curve so all branches get exercised.
+    let off = ((tick as i64).wrapping_mul(257) % 200_001) - 100_000; // ±0.1 pu
+    let v_micro_pu: i32 = (1_000_000_i64.saturating_add(off)) as i32;
+    let mut buf = Vec::with_capacity(12);
+    buf.extend_from_slice(&v_micro_pu.to_le_bytes());
+    buf.extend_from_slice(&100_000_000_i32.to_le_bytes()); // q_max = 100 kVAR
+    buf.push(0); // voltage_quality = Good
+    buf.push(1); // enable
+    buf.extend_from_slice(&[0u8; 2]); // tail-pad → 12
+    buf
+}
+
+// ---------------------------------------------------------------------------
+// ltc_tap_fsm layout (per cells/ltc-tap-fsm/src/lib.rs)
+// ---------------------------------------------------------------------------
+
+static LTC_TAP_FSM: CellLayout = CellLayout {
+    symbol: "ltc_tap_fsm",
+    params_size: 24,    // i64 + u32 + i16 + i16 + u32 + 4 pad = 24 (align 8)
+    internal_size: 8,   // u32 + TapCommand u8 + bool + 2 pad = 8 (align 4)
+    data_in_size: 24,   // i64 + i64 + i16 + u8 + bool + 4 pad = 24 (align 8)
+    data_out_size: 24,  // TapCommand u8 + 7 pad + i64 + u32 + bool + 3 pad = 24 (align 8)
+    out_event_size: 1,
+    scratch_base: 0x10_0000,
+    required_pages: 32,
+    default_report: "gate-a-ltc-tap-report.md",
+    build_params: build_params_ltc_tap_fsm,
+    synthesize_data_in: synthesize_data_in_ltc_tap_fsm,
+};
+
+fn build_params_ltc_tap_fsm(cycle_period_ms: u32) -> Vec<u8> {
+    // 11 kV bus, ±150 V deadband, 30 s dwell, ±8 tap range.
+    let mut buf = Vec::with_capacity(24);
+    buf.extend_from_slice(&150_000_000_i64.to_le_bytes()); // dead_band_micro_v (= 0.15 V at µV; for 11 kV scale tweak in real deployments)
+    buf.extend_from_slice(&30_000_u32.to_le_bytes());      // dwell_ms (8)
+    buf.extend_from_slice(&(-8_i16).to_le_bytes());        // tap_min (12)
+    buf.extend_from_slice(&8_i16.to_le_bytes());           // tap_max (14)
+    buf.extend_from_slice(&cycle_period_ms.to_le_bytes()); // (16)
+    buf.extend_from_slice(&[0u8; 4]);                       // tail-pad → 24
+    buf
+}
+
+fn synthesize_data_in_ltc_tap_fsm(tick: u64) -> Vec<u8> {
+    // Bus voltage oscillates slowly above and below target. Tap stays at 0
+    // for the host run; real deployments would track this in the loop.
+    let target_v: i64 = 11_000_000_000;
+    let off = ((tick as i64).wrapping_mul(311) % 1_000_001) - 500_000_000;
+    let meas_v: i64 = target_v.saturating_add(off);
+    let mut buf = Vec::with_capacity(24);
+    buf.extend_from_slice(&meas_v.to_le_bytes());   // voltage_meas (0)
+    buf.extend_from_slice(&target_v.to_le_bytes()); // voltage_target (8)
+    buf.extend_from_slice(&0_i16.to_le_bytes());    // tap_position (16)
+    buf.push(0);                                     // voltage_quality (18)
+    buf.push(1);                                     // enable (19)
+    buf.extend_from_slice(&[0u8; 4]);                // tail-pad → 24
+    buf
+}
+
+// ---------------------------------------------------------------------------
+// mppt_perturb_observe layout (per cells/mppt-perturb-observe/src/lib.rs)
+// ---------------------------------------------------------------------------
+
+static MPPT_PERTURB_OBSERVE: CellLayout = CellLayout {
+    symbol: "mppt_perturb_observe",
+    params_size: 32,    // i32 × 3 + 4 pad + i64 + u32 + 4 pad = 32 (align 8)
+    internal_size: 24,  // i32 + 4 pad + i64 + PerturbDir u8 + bool + 6 pad = 24 (align 8)
+    data_in_size: 12,   // i32 + i32 + u8 + u8 + bool + 1 pad = 12 (align 4)
+    data_out_size: 24,  // i32 + 4 pad + i64 + PerturbDir u8 + bool + 6 pad = 24 (align 8)
+    out_event_size: 1,
+    scratch_base: 0x10_0000,
+    required_pages: 32,
+    default_report: "gate-a-mppt-report.md",
+    build_params: build_params_mppt_perturb_observe,
+    synthesize_data_in: synthesize_data_in_mppt_perturb_observe,
+};
+
+fn build_params_mppt_perturb_observe(cycle_period_ms: u32) -> Vec<u8> {
+    // 200–600 V PV string, 0.1 V step, 5 W MPP tolerance.
+    let mut buf = Vec::with_capacity(32);
+    buf.extend_from_slice(&100_000_i32.to_le_bytes());     // perturb_step_micro_v (0)
+    buf.extend_from_slice(&200_000_000_i32.to_le_bytes()); // v_min (4)
+    buf.extend_from_slice(&600_000_000_i32.to_le_bytes()); // v_max (8)
+    buf.extend_from_slice(&[0u8; 4]);                       // pad to 16
+    buf.extend_from_slice(&5_000_000_000_000_i64.to_le_bytes()); // mpp_tolerance_pw (16) = 5 W
+    buf.extend_from_slice(&cycle_period_ms.to_le_bytes()); // (24)
+    buf.extend_from_slice(&[0u8; 4]);                       // tail-pad → 32
+    buf
+}
+
+fn synthesize_data_in_mppt_perturb_observe(tick: u64) -> Vec<u8> {
+    // 400 V nominal PV with small irradiance-driven drift in current.
+    let i_drift = ((tick as i64).wrapping_mul(257) % 5_000_001) - 2_500_000;
+    let i_micro_a: i32 = (25_000_000_i64.saturating_add(i_drift)) as i32;
+    let mut buf = Vec::with_capacity(12);
+    buf.extend_from_slice(&400_000_000_i32.to_le_bytes()); // pv_voltage (0)
+    buf.extend_from_slice(&i_micro_a.to_le_bytes());        // pv_current (4)
+    buf.push(0); // voltage_quality (8)
+    buf.push(0); // current_quality (9)
+    buf.push(1); // enable (10)
+    buf.extend_from_slice(&[0u8; 1]); // tail-pad → 12
+    buf
+}
+
+// ---------------------------------------------------------------------------
+// black_start_seq layout (per cells/black-start-seq/src/lib.rs)
+// ---------------------------------------------------------------------------
+
+static BLACK_START_SEQ: CellLayout = CellLayout {
+    symbol: "black_start_seq",
+    params_size: 20,    // 5 × u32 = 20 (align 4)
+    internal_size: 8,   // u32 + u8 + bool + 2 pad = 8 (align 4)
+    data_in_size: 5,    // 5 bools = 5 (align 1)
+    data_out_size: 12,  // u8 + Command u8 + 2 pad + u32 + bool + 3 pad = 12 (align 4)
+    out_event_size: 1,
+    scratch_base: 0x10_0000,
+    required_pages: 32,
+    default_report: "gate-a-black-start-report.md",
+    build_params: build_params_black_start_seq,
+    synthesize_data_in: synthesize_data_in_black_start_seq,
+};
+
+fn build_params_black_start_seq(cycle_period_ms: u32) -> Vec<u8> {
+    let mut buf = Vec::with_capacity(20);
+    buf.extend_from_slice(&5_000_u32.to_le_bytes());     // detect_dwell_ms
+    buf.extend_from_slice(&60_000_u32.to_le_bytes());    // gen_timeout_ms
+    buf.extend_from_slice(&30_000_u32.to_le_bytes());    // bus_timeout_ms
+    buf.extend_from_slice(&120_000_u32.to_le_bytes());   // sync_timeout_ms
+    buf.extend_from_slice(&cycle_period_ms.to_le_bytes());
+    buf
+}
+
+fn synthesize_data_in_black_start_seq(_tick: u64) -> Vec<u8> {
+    // Stable healthy-grid scenario: stays in Idle every tick. The state
+    // machine is well-tested in cell-side unit tests; the rig measures
+    // the steady-state tick budget.
+    let mut buf = Vec::with_capacity(5);
+    buf.push(1); // grid_present
+    buf.push(0); // gen_ready
+    buf.push(0); // bus_voltage_stable
+    buf.push(0); // voltage_synced
+    buf.push(1); // authorised
+    buf
+}
+
+// ---------------------------------------------------------------------------
+// soc_kalman layout (per cells/soc-kalman/src/lib.rs)
+// ---------------------------------------------------------------------------
+
+static SOC_KALMAN: CellLayout = CellLayout {
+    symbol: "soc_kalman",
+    params_size: 40,    // 4 × i64 + u16 + 2 pad + u32 + 4 pad = 40 (align 8)
+    internal_size: 24,  // i32 + 4 pad + i64 + u16 + bool + 5 pad = 24 (align 8)
+    data_in_size: 24,   // i64 + i64 + i32 + u8 + u8 + bool + 5 pad = 24 (align 8)
+    data_out_size: 32,  // i32 + 4 pad + i64 + i64 + u16 + 6 pad = 32 (align 8)
+    out_event_size: 1,
+    scratch_base: 0x10_0000,
+    required_pages: 32,
+    default_report: "gate-a-soc-kalman-report.md",
+    build_params: build_params_soc_kalman,
+    synthesize_data_in: synthesize_data_in_soc_kalman,
+};
+
+fn build_params_soc_kalman(cycle_period_ms: u32) -> Vec<u8> {
+    // 100 Ah LFP pack, 1 mΩ IR, 40–57.6 V OCV span, 10 % gain blend.
+    let mut buf = Vec::with_capacity(40);
+    buf.extend_from_slice(&360_000_000_000_i64.to_le_bytes()); // capacity_micro_c (0)
+    buf.extend_from_slice(&1_000_i64.to_le_bytes());           // internal_resistance (8)
+    buf.extend_from_slice(&40_000_000_i64.to_le_bytes());      // ocv_at_0_pct (16)
+    buf.extend_from_slice(&57_600_000_i64.to_le_bytes());      // ocv_at_100_pct (24)
+    buf.extend_from_slice(&100_u16.to_le_bytes());             // correction_gain_milli (32)
+    buf.extend_from_slice(&[0u8; 2]);                           // pad (34)
+    buf.extend_from_slice(&cycle_period_ms.to_le_bytes());     // (36)
+    buf.extend_from_slice(&[0u8; 4]);                           // tail-pad → 40
+    buf
+}
+
+fn synthesize_data_in_soc_kalman(tick: u64) -> Vec<u8> {
+    // Steady 48 V terminal with mild discharge current.
+    let i_drift = ((tick as i64).wrapping_mul(257) % 20_000_001) - 10_000_000;
+    let i_micro_a: i64 = 50_000_000_i64.saturating_add(i_drift); // ~50 A
+    let mut buf = Vec::with_capacity(24);
+    buf.extend_from_slice(&48_800_000_i64.to_le_bytes()); // voltage_micro_v (0)
+    buf.extend_from_slice(&i_micro_a.to_le_bytes());       // current_micro_a (8)
+    buf.extend_from_slice(&25_000_i32.to_le_bytes());      // temp_milli_c (16)
+    buf.push(0); // voltage_quality (20)
+    buf.push(0); // current_quality (21)
+    buf.push(1); // enable (22)
+    buf.extend_from_slice(&[0u8; 1]); // tail-pad → 24
     buf
 }
 

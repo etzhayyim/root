@@ -6,6 +6,11 @@ members = [
     "droop-p-f",
     "anti-islanding-rocof",
     "pid-stack-100",
+    "vv-curve",
+    "ltc-tap-fsm",
+    "mppt-perturb-observe",
+    "black-start-seq",
+    "soc-kalman",
 ]
 
 [workspace.package]

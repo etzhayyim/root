@@ -121,14 +121,18 @@ jobs:
         working-directory: ${{ env.OPEN_OT }}/cells
         run: |
           cargo build --release --no-default-features --target wasm32-unknown-unknown \
-            -p pid-limited -p droop-p-f -p anti-islanding-rocof -p pid-stack-100
+            -p pid-limited -p droop-p-f -p anti-islanding-rocof -p pid-stack-100 \
+            -p vv-curve -p ltc-tap-fsm -p mppt-perturb-observe \
+            -p black-start-seq -p soc-kalman
       - name: Build gate-a-rig
         working-directory: ${{ env.OPEN_OT }}/risk1/gate-a-rig
         run: cargo build --release
       - name: Run gate-a-rig on each cell with 200 µs deadline
         working-directory: ${{ env.OPEN_OT }}/risk1/gate-a-rig
         run: |
-          for cell in pid_limited droop_p_f anti_islanding_rocof pid_stack_100; do
+          for cell in pid_limited droop_p_f anti_islanding_rocof pid_stack_100 \
+                       vv_curve ltc_tap_fsm mppt_perturb_observe \
+                       black_start_seq soc_kalman; do
             echo "=== $cell ==="
             ../target/release/gate-a-rig --cell "$cell" \
               --iterations 50000 --deadline-ns 200000
@@ -183,6 +187,11 @@ jobs:
           - droop-p-f
           - anti-islanding-rocof
           - pid-stack-100
+          - vv-curve
+          - ltc-tap-fsm
+          - mppt-perturb-observe
+          - black-start-seq
+          - soc-kalman
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
