@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-ce4d87dcab0d",
+  "entityId": "ent-ce4d87dcab0d",
+  "canonicalName": "murad fathi",
+  "aliases": [
+    "murad fathi"
+  ]
+}
