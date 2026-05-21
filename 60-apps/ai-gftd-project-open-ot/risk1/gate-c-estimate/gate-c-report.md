@@ -8,6 +8,24 @@ Per ADR-2605151200 §R4 + SPEC §14.3.
 
 ---
 
+## 0. Software evidence today (Tier 1 follow-up landed)
+
+Paper → code follow-up under `risk1/gate-c-estimate/` and `60-apps/ai-gftd-project-open-ot/`:
+
+| Sub-item | Code / doc artefact | Evidence |
+|---|---|---|
+| §2.1 WAMR AOT determinism (cargo half) | `repro-build-rs/` Rust harness | `repro-build` PASS — 4 cells byte-identical across two clean builds; CI-gated |
+| §2.2 LLVM 18 pin policy | `docs/llvm-version-policy.md` | pin locations + update procedure + CVE policy |
+| §2.3 Rust FB memory-safety | `docs/openot-bfb-rs-memory-safety.md` + `cargo geiger` CI | by-construction argument + Risk-1 Gate A heap-delta = 0 evidence |
+| §2.4 Zephyr LTS supply chain | `docs/zephyr-lts-supply-chain.md` | module list + support SLAs + safety status |
+| §2.5 Signing / pinning CLI | `builder-sign-rs/` Rust crate (CLI + library) | 11 unit tests + smoke test signing a real `droop_p_f.wasm` + verify roundtrip |
+| §2.6 IEC 62443-3-3 SL-2 mapping | `docs/iec-62443-3-3-sl2-mapping.md` | 52 SRs traced; 31 ✅ / 12 🟡 / 2 ⏳ / 7 N/A |
+| CI gate | `.github/workflows/openot-gate-c.yml` | 6 jobs: geiger / repro-build / builder-sign / gate-a × 4 cells / gate-b / cells-tests |
+
+The remaining 🟡 and ⏳ items (Mimi firmware integration, Zenoh-TLS mTLS profile, SBT↔role audit verifier, kani harnesses) stay within the 1.5 PM §2.6 + 0.5 PM §2.3 residuals.
+
+---
+
 ## 1. Scope
 
 Gate C covers the **toolchain qualification work** required to position the open-ot WASM PLC stack for an IEC 62443-3-3 SL-2 cyber-physical security claim on the Q3 2026 microgrid prototype. It does **not** cover IEC 61508 / 61511 functional-safety certification — that remains out of scope per SPEC §11 and is delegated to certified parallel safety PLCs.
