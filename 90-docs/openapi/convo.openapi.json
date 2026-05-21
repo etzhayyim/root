@@ -1,0 +1,1992 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "convo XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://convo.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/ai.gftd.convo.archiveConvo": {
+      "post": {
+        "summary": "ai.gftd.convo.archiveConvo",
+        "operationId": "ai.gftd.convo.archiveConvo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.createConvo": {
+      "post": {
+        "summary": "ai.gftd.convo.createConvo",
+        "operationId": "ai.gftd.convo.createConvo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "GFTD extension: conversation kind",
+                    "x-knownValues": [
+                      "dm",
+                      "group",
+                      "channel",
+                      "project"
+                    ]
+                  },
+                  "members": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "did"
+                    }
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.diff": {
+      "post": {
+        "summary": "ai.gftd.convo.diff",
+        "operationId": "ai.gftd.convo.diff",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "oldRootCid": {
+                    "type": "string"
+                  },
+                  "newRootCid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "oldRootCid",
+                  "newRootCid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "addedEnvelopeCids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "removedEnvelopeCids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "addedMemberCids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "removedMemberCids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "addedKinds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "removedKinds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "channelChanged": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "addedEnvelopeCids",
+                    "removedEnvelopeCids",
+                    "addedMemberCids",
+                    "removedMemberCids",
+                    "addedKinds",
+                    "removedKinds",
+                    "channelChanged"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.edit": {
+      "post": {
+        "summary": "ai.gftd.convo.edit",
+        "operationId": "ai.gftd.convo.edit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "messageId": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string",
+                    "maxLength": 10000
+                  },
+                  "facets": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/app_bsky_richtext_facet"
+                    }
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "messageId",
+                  "text"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.fetchBlocks": {
+      "get": {
+        "summary": "ai.gftd.convo.fetchBlocks",
+        "operationId": "ai.gftd.convo.fetchBlocks",
+        "parameters": [
+          {
+            "name": "convoId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blocks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "blocks"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.forwardMessage": {
+      "post": {
+        "summary": "ai.gftd.convo.forwardMessage",
+        "operationId": "ai.gftd.convo.forwardMessage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "targetConvoId": {
+                    "type": "string"
+                  },
+                  "messageId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "targetConvoId",
+                  "messageId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.getProfile": {
+      "get": {
+        "summary": "ai.gftd.convo.getProfile",
+        "operationId": "ai.gftd.convo.getProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "profile": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "profile"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.getThread": {
+      "get": {
+        "summary": "ai.gftd.convo.getThread",
+        "operationId": "ai.gftd.convo.getThread",
+        "parameters": [
+          {
+            "name": "convoId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "messageId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "thread": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/chat_bsky_convo_defs_messageView"
+                          },
+                          {
+                            "$ref": "#/components/schemas/chat_bsky_convo_defs_deletedMessageView"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "thread"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.getUnread": {
+      "get": {
+        "summary": "ai.gftd.convo.getUnread",
+        "operationId": "ai.gftd.convo.getUnread",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.inviteMember": {
+      "post": {
+        "summary": "ai.gftd.convo.inviteMember",
+        "operationId": "ai.gftd.convo.inviteMember",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "memberDid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "memberDid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.joinConvo": {
+      "post": {
+        "summary": "ai.gftd.convo.joinConvo",
+        "operationId": "ai.gftd.convo.joinConvo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.listMembers": {
+      "get": {
+        "summary": "ai.gftd.convo.listMembers",
+        "operationId": "ai.gftd.convo.listMembers",
+        "parameters": [
+          {
+            "name": "convoId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "members"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.listPresence": {
+      "get": {
+        "summary": "ai.gftd.convo.listPresence",
+        "operationId": "ai.gftd.convo.listPresence",
+        "parameters": [
+          {
+            "name": "convoId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "presence": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "presence"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.listPublicConvos": {
+      "get": {
+        "summary": "ai.gftd.convo.listPublicConvos",
+        "operationId": "ai.gftd.convo.listPublicConvos",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "convos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "cursor": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "convos"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.pinMessage": {
+      "post": {
+        "summary": "ai.gftd.convo.pinMessage",
+        "operationId": "ai.gftd.convo.pinMessage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "messageId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "messageId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.react": {
+      "post": {
+        "summary": "ai.gftd.convo.react",
+        "operationId": "ai.gftd.convo.react",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "targetRkey": {
+                    "type": "string"
+                  },
+                  "emoji": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "targetRkey",
+                  "emoji"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.redact": {
+      "post": {
+        "summary": "ai.gftd.convo.redact",
+        "operationId": "ai.gftd.convo.redact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "rkey": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "rkey"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.search": {
+      "get": {
+        "summary": "ai.gftd.convo.search",
+        "operationId": "ai.gftd.convo.search",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "convoId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/chat_bsky_convo_defs_messageView"
+                      }
+                    },
+                    "cursor": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "results"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.send": {
+      "post": {
+        "summary": "ai.gftd.convo.send",
+        "operationId": "ai.gftd.convo.send",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string",
+                    "maxLength": 10000
+                  },
+                  "facets": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/app_bsky_richtext_facet"
+                    }
+                  },
+                  "embed": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/app_bsky_embed_record"
+                      }
+                    ]
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "GFTD extension: message kind"
+                  },
+                  "contentType": {
+                    "type": "string",
+                    "description": "GFTD extension: MIME content type"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "text"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.sendMessage": {
+      "post": {
+        "summary": "ai.gftd.convo.sendMessage",
+        "operationId": "ai.gftd.convo.sendMessage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string",
+                    "maxLength": 10000
+                  },
+                  "facets": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/app_bsky_richtext_facet"
+                    }
+                  },
+                  "embed": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/app_bsky_embed_record"
+                      }
+                    ]
+                  },
+                  "payload": {
+                    "type": "string",
+                    "description": "GFTD extension: arbitrary payload (JSON-stringified)"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "GFTD extension: message kind"
+                  },
+                  "contentType": {
+                    "type": "string",
+                    "description": "GFTD extension: MIME content type"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.sendTyping": {
+      "post": {
+        "summary": "ai.gftd.convo.sendTyping",
+        "operationId": "ai.gftd.convo.sendTyping",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.setEncryption": {
+      "post": {
+        "summary": "ai.gftd.convo.setEncryption",
+        "operationId": "ai.gftd.convo.setEncryption",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "convoId": {
+                      "type": "string"
+                    },
+                    "encryption": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "convoId",
+                    "encryption"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.setProfile": {
+      "post": {
+        "summary": "ai.gftd.convo.setProfile",
+        "operationId": "ai.gftd.convo.setProfile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "avatar": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.unpinMessage": {
+      "post": {
+        "summary": "ai.gftd.convo.unpinMessage",
+        "operationId": "ai.gftd.convo.unpinMessage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "messageId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "messageId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.unreact": {
+      "post": {
+        "summary": "ai.gftd.convo.unreact",
+        "operationId": "ai.gftd.convo.unreact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "targetRkey": {
+                    "type": "string"
+                  },
+                  "emoji": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "targetRkey",
+                  "emoji"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.updateConvo": {
+      "post": {
+        "summary": "ai.gftd.convo.updateConvo",
+        "operationId": "ai.gftd.convo.updateConvo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.updateMemberRole": {
+      "post": {
+        "summary": "ai.gftd.convo.updateMemberRole",
+        "operationId": "ai.gftd.convo.updateMemberRole",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "memberDid": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "memberDid",
+                  "role"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.convo.updatePresence": {
+      "post": {
+        "summary": "ai.gftd.convo.updatePresence",
+        "operationId": "ai.gftd.convo.updatePresence",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_gftd_convo_convo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "GFTD extension: human-readable conversation name (for group convos)"
+          },
+          "kind": {
+            "type": "string",
+            "description": "GFTD extension: conversation kind (dm, group, channel, project, etc.)",
+            "x-knownValues": [
+              "dm",
+              "group",
+              "channel",
+              "project"
+            ]
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/chat_bsky_actor_defs_profileViewBasic"
+            }
+          },
+          "muted": {
+            "type": "boolean",
+            "description": "Compatible with chat.bsky.convo.defs#convoView.muted"
+          },
+          "status": {
+            "type": "string",
+            "description": "Compatible with chat.bsky.convo.defs#convoView.status",
+            "x-knownValues": [
+              "request",
+              "accepted",
+              "archived"
+            ]
+          },
+          "unreadCount": {
+            "type": "integer",
+            "description": "Compatible with chat.bsky.convo.defs#convoView.unreadCount"
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "did"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "name",
+          "createdBy",
+          "createdAt"
+        ]
+      },
+      "ai_gftd_convo_convoUpdate": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId",
+          "updatedAt"
+        ]
+      },
+      "ai_gftd_convo_forward": {
+        "type": "object",
+        "properties": {
+          "sourceConvoId": {
+            "type": "string"
+          },
+          "targetConvoId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "forwardedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "sourceConvoId",
+          "targetConvoId",
+          "messageId",
+          "forwardedAt"
+        ]
+      },
+      "ai_gftd_convo_invite": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "invitedDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "invitedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "convoId",
+          "invitedDid",
+          "invitedAt"
+        ]
+      },
+      "ai_gftd_convo_member": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "memberDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/chat_bsky_actor_defs_profileViewBasic"
+          },
+          "role": {
+            "type": "string",
+            "description": "GFTD extension: member role in conversation",
+            "x-knownValues": [
+              "owner",
+              "admin",
+              "member",
+              "guest"
+            ]
+          }
+        },
+        "required": [
+          "convoId",
+          "memberDid"
+        ]
+      },
+      "ai_gftd_convo_membership": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "memberDid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId",
+          "action",
+          "memberDid"
+        ]
+      },
+      "ai_gftd_convo_message": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 10000
+          },
+          "facets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/app_bsky_richtext_facet"
+            }
+          },
+          "embed": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/app_bsky_embed_record"
+              }
+            ]
+          },
+          "sender": {
+            "$ref": "#/components/schemas/chat_bsky_convo_defs_messageViewSender"
+          },
+          "sentAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "kind": {
+            "type": "string",
+            "description": "GFTD extension: message kind (text, system, agent, etc.)"
+          },
+          "contentType": {
+            "type": "string",
+            "description": "GFTD extension: MIME content type for rich payloads"
+          },
+          "encrypted": {
+            "type": "boolean",
+            "description": "GFTD extension: whether this message is E2E encrypted via ai.gftd.signal"
+          }
+        },
+        "required": [
+          "convoId",
+          "sender",
+          "sentAt"
+        ]
+      },
+      "ai_gftd_convo_pin": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "pinnedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "convoId",
+          "messageId",
+          "pinnedAt"
+        ]
+      },
+      "ai_gftd_convo_presence": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "x-knownValues": [
+              "online",
+              "away",
+              "dnd",
+              "offline"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "status",
+          "updatedAt"
+        ]
+      },
+      "ai_gftd_convo_profile": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "maxLength": 640
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2560
+          },
+          "avatar": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "ai_gftd_convo_reaction": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "emoji": {
+            "type": "string",
+            "description": "Maps to chat.bsky.convo.defs#reactionView.value"
+          },
+          "reactor": {
+            "$ref": "#/components/schemas/chat_bsky_convo_defs_reactionViewSender"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "convoId",
+          "messageId",
+          "emoji",
+          "reactor",
+          "createdAt"
+        ]
+      },
+      "ai_gftd_convo_readReceipt": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "readAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "convoId",
+          "readAt"
+        ]
+      },
+      "ai_gftd_convo_roleUpdate": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "memberDid": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId",
+          "memberDid",
+          "role",
+          "updatedAt"
+        ]
+      }
+    }
+  }
+}

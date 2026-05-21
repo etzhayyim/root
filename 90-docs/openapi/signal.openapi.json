@@ -1,0 +1,722 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "signal XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://signal.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/ai.gftd.signal.ensureDevice": {
+      "post": {
+        "summary": "ai.gftd.signal.ensureDevice",
+        "operationId": "ai.gftd.signal.ensureDevice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deviceId": {
+                    "type": "string"
+                  },
+                  "deviceName": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deviceId": {
+                      "type": "string"
+                    },
+                    "did": {
+                      "type": "string"
+                    },
+                    "provisioned": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "deviceId",
+                    "did",
+                    "provisioned"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.getIdentityFingerprint": {
+      "get": {
+        "summary": "ai.gftd.signal.getIdentityFingerprint",
+        "operationId": "ai.gftd.signal.getIdentityFingerprint",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "fingerprint": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "fingerprint"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.getPrekeyBundle": {
+      "get": {
+        "summary": "ai.gftd.signal.getPrekeyBundle",
+        "operationId": "ai.gftd.signal.getPrekeyBundle",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bundle": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "bundle"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.getPrekeyBundles": {
+      "get": {
+        "summary": "ai.gftd.signal.getPrekeyBundles",
+        "operationId": "ai.gftd.signal.getPrekeyBundles",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bundles": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "bundles"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.listDevices": {
+      "get": {
+        "summary": "ai.gftd.signal.listDevices",
+        "operationId": "ai.gftd.signal.listDevices",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "devices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "devices"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.ratchetEncrypt": {
+      "post": {
+        "summary": "ai.gftd.signal.ratchetEncrypt",
+        "operationId": "ai.gftd.signal.ratchetEncrypt",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipientDid": {
+                    "type": "string"
+                  },
+                  "plaintext": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "recipientDid",
+                  "plaintext"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ciphertext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ciphertext"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.registerPrekeys": {
+      "post": {
+        "summary": "ai.gftd.signal.registerPrekeys",
+        "operationId": "ai.gftd.signal.registerPrekeys",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "identityKey": {
+                    "type": "string"
+                  },
+                  "signedPrekey": {
+                    "type": "object"
+                  },
+                  "oneTimePrekeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "deviceId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "identityKey",
+                  "signedPrekey",
+                  "oneTimePrekeys"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "registered": {
+                      "type": "boolean"
+                    },
+                    "otkCount": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "registered",
+                    "otkCount"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.renameDevice": {
+      "post": {
+        "summary": "ai.gftd.signal.renameDevice",
+        "operationId": "ai.gftd.signal.renameDevice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deviceId": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "deviceId",
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deviceId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "deviceId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.replenishOtpks": {
+      "post": {
+        "summary": "ai.gftd.signal.replenishOtpks",
+        "operationId": "ai.gftd.signal.replenishOtpks",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oneTimePrekeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "deviceId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "oneTimePrekeys"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "replenished": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "replenished",
+                    "count"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.revokeDevice": {
+      "post": {
+        "summary": "ai.gftd.signal.revokeDevice",
+        "operationId": "ai.gftd.signal.revokeDevice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deviceId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "deviceId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deviceId": {
+                      "type": "string"
+                    },
+                    "revoked": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "deviceId",
+                    "revoked"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.rotateGroupKey": {
+      "post": {
+        "summary": "ai.gftd.signal.rotateGroupKey",
+        "operationId": "ai.gftd.signal.rotateGroupKey",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "convoId": {
+                      "type": "string"
+                    },
+                    "rotated": {
+                      "type": "boolean"
+                    },
+                    "rkey": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "convoId",
+                    "rotated",
+                    "rkey"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.setEncryption": {
+      "post": {
+        "summary": "ai.gftd.signal.setEncryption",
+        "operationId": "ai.gftd.signal.setEncryption",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "convoId": {
+                      "type": "string"
+                    },
+                    "encryption": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "convoId",
+                    "encryption"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/ai.gftd.signal.verifyIdentity": {
+      "post": {
+        "summary": "ai.gftd.signal.verifyIdentity",
+        "operationId": "ai.gftd.signal.verifyIdentity",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string"
+                  },
+                  "fingerprint": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "did",
+                  "fingerprint"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "verified": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "verified"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_gftd_signal_groupKeyRotation": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "rotatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId",
+          "rotatedAt"
+        ]
+      },
+      "ai_gftd_signal_otpks": {
+        "type": "object",
+        "properties": {
+          "oneTimePrekeys": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "oneTimePrekeys"
+        ]
+      },
+      "ai_gftd_signal_prekeys": {
+        "type": "object",
+        "properties": {
+          "identityKey": {
+            "type": "string"
+          },
+          "signedPrekey": {},
+          "oneTimePrekeys": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "identityKey",
+          "signedPrekey",
+          "oneTimePrekeys"
+        ]
+      }
+    }
+  }
+}
