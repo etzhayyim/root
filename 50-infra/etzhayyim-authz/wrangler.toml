@@ -1,0 +1,33 @@
+name = "etzhayyim-authz"
+main = "src/worker.ts"
+compatibility_date = "2026-05-21"
+
+# XRPC base path: https://authz.etzhayyim.com/xrpc/org.etzhayyim.authz.*
+# DNS + route binding deferred to Phase α P1 deploy.
+# [[routes]]
+# pattern = "authz.etzhayyim.com/*"
+# zone_name = "etzhayyim.com"
+
+# Pending KV bindings (Phase α P1 chain integration):
+#   - NONCES: short-lived provisioning nonces (TTL 5 min)
+#   - ROOT_CACHE: did:web ↔ rootId cache, refreshed from on-chain events
+# [[kv_namespaces]]
+# binding = "NONCES"
+# id = "TBD"
+# [[kv_namespaces]]
+# binding = "ROOT_CACHE"
+# id = "TBD"
+
+[vars]
+# Set after Base Sepolia deploy (see docs/base-sepolia-deploy-runbook.md).
+AUTHZ_CONTRACT_ADDRESS = ""
+BASE_RPC_URL = "https://sepolia.base.org"
+CHAIN_ID = "84532"
+COUNCIL_SAFE_ADDRESS = ""
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+[placement]
+mode = "smart"
