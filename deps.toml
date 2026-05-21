@@ -1925,3 +1925,48 @@ follow_up = [
   "Phase 4 vendor sunset after 7-day soak",
   "Vendor amend: add code_side_complete=true entry for ransomwatch move",
 ]
+
+[session_summaries.deai-council-referral-2026-05-21]
+date = "2026-05-21"
+prs_open = []
+description = """deai.gftd.ai — Council Lv6+ ruling referral filed.
+
+Vendor post-freeze 3-axis audit (gftdcojp PR #1339) flagged deai for
+charter-compatibility ruling: magatama.jsonld declares
+`operator: etzhayyim` but the 3-axis OR-test default verdict is
+vendor (2 of 3 HIT: Liability + Custody, Settlement clean).
+
+This commit lands the Council referral as a `proposed` ADR. No
+scaffold mirror, no lexicon copy, no project dir created until
+Council rules disposition (A: full move / B: SPLIT / C: vendor
+confirmed).
+
+## What this commit lands
+
+- `90-docs/adr/2605211400-deai-disposition-council-ruling-required.md`
+  — proposed ADR with 3 dispositions + 5 ruling questions for Council
+- This session_summary entry
+
+## Default if no ruling within 30 days
+
+If Council does not rule by 2026-06-20 (= Bootstrap Council Seat 2-5
+RFP close + 1 day), default to Disposition C (vendor confirmed,
+correct magatama operator field). Preserves vendor liability
+shielding; matches default 3-axis verdict. Can later upgrade to A or
+B if charter clarification arrives.
+
+## Cross-repo
+
+- vendor `tranche-f-post-freeze-7-actors-audit-2026-05-21` (vendor PR
+  #1339) — original 3-axis judgment
+- ADR-2605211335 (this session Tranche F closure) — references this
+  ADR as the deai hanging-question pointer
+- ADR-2605192100 — Mission Charter §1.4 / §1.13 / §2(g) (decision
+  rule basis)"""
+follow_up = [
+  "Council Lv6+ ruling on deai disposition (A/B/C)",
+  "If A: etzhayyim scaffold mirror following public-malak (etz PR #226) / ransomwatch (etz PR #233) pattern + vendor sunset",
+  "If B: lexicon copy only + vendor magatama operator field correction (no runtime move)",
+  "If C: vendor magatama operator correction + add deai to next vendor bulk closure entry",
+  "Default disposition C activates 2026-06-20 if no Council ruling",
+]
