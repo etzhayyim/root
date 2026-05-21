@@ -1,0 +1,47 @@
+# talent — Global Talent Registry (PII Tier 3)
+
+ISCO-08 scoped candidate/workforce registry. T1 MCP-Compose (Logical Actor). **ADR-0018 PII Tier 3**.
+
+## CRITICAL Compliance Rules
+
+1. **Cohort-first default** — 個別 profile read は consent-gated。default read = cohort 集計 (`TalentCohort` node)
+2. **Signal E2E 必須** — identifying fields (`fullName` / `email` / `phone` / `address` / `dateOfBirth` / `governmentId`) は `signal:v1:{ciphertext}` 必須。平文投入は governance gate で reject
+3. **Self-sovereign 登録のみ** — 個人 profile は `registerSelf` (caller = subject) 経由のみ。第三者代理登録禁止
+4. **GDPR Art 17 cascade** — `forgetSelf` で即時 cascade delete。soft delete 禁止
+5. **商用候補者 DB 禁止** — LinkedIn / Indeed resumes / 購入リスト / scraped DB は `governance.dataSources.prohibited` で全 block。license 契約があっても gate 解除には ADR 承認必要
+
+## Allowed Enrichment Sources (public-consent)
+
+- **OrcID** (~20M 研究者、公式 API、CC0)
+- **GitHub public profile** (~100M 開発者、公式 API、ToS OK)
+- **公的資格 registry** (医師/弁護士/会計士 等、国別公開 DB)
+
+## DID Path Convention
+
+```
+did:web:talent.gftd.ai:cohort:{iscoCode}:{country}
+did:web:talent.gftd.ai:profile:{subjectDid-hash}     # self-sovereign のみ
+```
+
+## Commands
+
+| Command | NSID | Access |
+|---|---|---|
+| listOccupations | `ai.gftd.apps.talent.listOccupations` | public (cohort 集計) |
+| getCohortStats | `ai.gftd.apps.talent.getCohortStats` | public (cohort 集計) |
+| registerSelf | `ai.gftd.apps.talent.registerSelf` | caller = subject 必須 |
+| forgetSelf | `ai.gftd.apps.talent.forgetSelf` | caller = subject 必須、GDPR Art 17 |
+| stats | `ai.gftd.apps.talent.stats` | public |
+
+## cross-actor
+
+- Upstream: `isco.gftd.ai` (occupation taxonomy)
+- Peer: `natural-person.gftd.ai` (cohort-first 原則は共通、ADR-0018)
+- Downstream: `recruit.gftd.ai` (matching delegate、only cohort stats を提供)
+
+## Prohibited Writes (gate 実装必須)
+
+- 第三者 subject への write (`caller.did != subject.did`)
+- 平文 identifying field の write
+- `governance.dataSources.prohibited` domain からの ingest
+- soft delete (`_alive = false`) — hard delete のみ
