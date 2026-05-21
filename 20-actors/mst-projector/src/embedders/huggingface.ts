@@ -4,6 +4,19 @@
  * Calls out to `api-inference.huggingface.co` for embedding via HTTP.
  * Useful when local transformers.js is too slow or unavailable.
  *
+ * Yorishiro-aligned (ADR-2605211900).
+ *   Contract : ai.etzhayyim.yorishiro.huggingface-inference.extractFeatures
+ *   Lexicon  : 00-contracts/lexicons/ai/etzhayyim/yorishiro/huggingface-inference/extractFeatures.json
+ *   MCP equiv: @etzhayyim/yorishiro-huggingface-inference-mcp
+ *   Charter  : grant (read-only model inference; non-promotional)
+ *
+ * Direct fetch is retained here because this embedder is consumed from
+ * `mst-projector` worker code that already has the HF token in scope —
+ * routing through the MCP server would require copying the token across
+ * a process boundary for marginal benefit. The on-the-wire shape (POST
+ * /pipeline/feature-extraction/{model_id} with `inputs` body) matches
+ * the lexicon's input schema exactly.
+ *
  * Install: pnpm add @huggingface/inference
  *
  * Set `HF_INFERENCE_TOKEN` env var (from https://huggingface.co/settings/tokens).

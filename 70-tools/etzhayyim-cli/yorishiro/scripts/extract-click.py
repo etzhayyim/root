@@ -135,58 +135,133 @@ def _detect_framework(tree: ast.AST) -> str:
 def extract_argparse_commands_from(tree: ast.AST, _path: Path) -> list[dict[str, Any]]:
     """Walk a module for `argparse.ArgumentParser()` + `.add_argument(...)`.
 
-    Phase 2.5.1 scope: single-parser scripts. The walker finds the first
-    ArgumentParser assignment and collects every add_argument call on
-    its variable name. Subparsers are not chased — multi-parser apps
-    degrade to the top-level parser only.
+    Scope:
+      - Phase 2.5.1 — single ArgumentParser, no subparsers. Emits one op
+        named "main".
+      - Phase 2.5.2 — `parser.add_subparsers(...)` followed by
+        `<sub> = subparsers.add_parser("<name>", ...)`. Each subparser
+        becomes its own op. The parent parser's add_argument calls are
+        treated as common args and prepended to every subparser op.
+
+    Multi-parser scripts (multiple top-level ArgumentParser() calls)
+    still degrade to the first parser found — that's a future Phase.
     """
     parser_var: str | None = None
     parser_desc: str = ""
-    add_calls: list[ast.Call] = []
+    parser_add_calls: list[ast.Call] = []
+    subparsers_var: str | None = None
+    # subparser_name -> { "var": ast variable, "desc": help/description,
+    #                     "add_calls": [...] }
+    subparsers: dict[str, dict[str, Any]] = {}
+    # variable name -> subparser name (so .add_argument calls route back)
+    sub_var_to_name: dict[str, str] = {}
 
     for node in ast.walk(tree):
         if isinstance(node, ast.Assign) and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name):
-            if isinstance(node.value, ast.Call) and _attr_tail(node.value.func) == "ArgumentParser":
-                if parser_var is None:
-                    parser_var = node.targets[0].id
+            target = node.targets[0].id
+            if isinstance(node.value, ast.Call):
+                tail = _attr_tail(node.value.func)
+                if tail == "ArgumentParser" and parser_var is None:
+                    parser_var = target
                     for kw in node.value.keywords:
                         if kw.arg in ("description", "prog") and isinstance(kw.value, ast.Constant):
                             parser_desc = str(kw.value.value) or parser_desc
+                elif tail == "add_subparsers" and parser_var is not None:
+                    # subparsers = parser.add_subparsers(...)
+                    if isinstance(node.value.func, ast.Attribute) and isinstance(node.value.func.value, ast.Name):
+                        if node.value.func.value.id == parser_var:
+                            subparsers_var = target
+                elif tail == "add_parser" and subparsers_var is not None:
+                    # sub_x = subparsers.add_parser("name", ...)
+                    if (
+                        isinstance(node.value.func, ast.Attribute)
+                        and isinstance(node.value.func.value, ast.Name)
+                        and node.value.func.value.id == subparsers_var
+                        and node.value.args
+                        and isinstance(node.value.args[0], ast.Constant)
+                        and isinstance(node.value.args[0].value, str)
+                    ):
+                        sub_name = node.value.args[0].value
+                        desc = ""
+                        for kw in node.value.keywords:
+                            if kw.arg in ("help", "description") and isinstance(kw.value, ast.Constant):
+                                desc = str(kw.value.value) or desc
+                        subparsers[sub_name] = {"desc": desc, "add_calls": []}
+                        sub_var_to_name[target] = sub_name
         elif (
             isinstance(node, ast.Call)
             and isinstance(node.func, ast.Attribute)
             and node.func.attr == "add_argument"
             and isinstance(node.func.value, ast.Name)
-            and parser_var is not None
-            and node.func.value.id == parser_var
         ):
-            add_calls.append(node)
+            owner = node.func.value.id
+            if parser_var is not None and owner == parser_var:
+                parser_add_calls.append(node)
+            elif owner in sub_var_to_name:
+                subparsers[sub_var_to_name[owner]]["add_calls"].append(node)
 
-    if parser_var is None or not add_calls:
+    if parser_var is None:
         return []
 
+    if not subparsers:
+        # Phase 2.5.1 fallback: single-parser script.
+        if not parser_add_calls:
+            return []
+        argv = _argparse_argv(parser_add_calls)
+        return [
+            {
+                "name": "main",
+                "summary": parser_desc or "argparse-extracted main command",
+                "description": parser_desc or "Auto-extracted from a single argparse.ArgumentParser.",
+                "argv": argv,
+                "stdout_capture": True,
+                "stderr_capture": True,
+                "exit_code_ok": [0],
+                "timeout_seconds": 300,
+            }
+        ]
+
+    # Phase 2.5.2: emit one op per subparser; parent parser's
+    # add_arguments are prepended as common args (so e.g. --verbose
+    # on the parent surfaces on every subcommand).
+    ops: list[dict[str, Any]] = []
+    common_argv = _argparse_argv(parser_add_calls)
+    for sub_name, sub in subparsers.items():
+        sub_argv = _argparse_argv(sub["add_calls"])
+        # Re-number positional indices after concatenation.
+        merged: list[dict[str, Any]] = []
+        positional_index = 0
+        for arg in (*common_argv, *sub_argv):
+            if arg["kind"] == "positional":
+                arg = {**arg, "position": positional_index}
+                positional_index += 1
+            merged.append(arg)
+        ops.append(
+            {
+                "name": sub_name,
+                "summary": sub["desc"] or f"argparse subcommand: {sub_name}",
+                "description": sub["desc"] or f"Auto-extracted from argparse subparser `{sub_name}`.",
+                "argv": merged,
+                "stdout_capture": True,
+                "stderr_capture": True,
+                "exit_code_ok": [0],
+                "timeout_seconds": 300,
+            }
+        )
+    return ops
+
+
+def _argparse_argv(calls: list[ast.Call]) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
     positional_index = 0
-    argv: list[dict[str, Any]] = []
-    for call in add_calls:
+    for call in calls:
         a = _argparse_argument_to_arg(call, positional_index)
         if a is None:
             continue
-        argv.append(a)
+        out.append(a)
         if a["kind"] == "positional":
             positional_index += 1
-
-    return [
-        {
-            "name": "main",
-            "summary": parser_desc or "argparse-extracted main command",
-            "description": parser_desc or "Auto-extracted from a single argparse.ArgumentParser.",
-            "argv": argv,
-            "stdout_capture": True,
-            "stderr_capture": True,
-            "exit_code_ok": [0],
-            "timeout_seconds": 300,
-        }
-    ]
+    return out
 
 
 def _argparse_argument_to_arg(call: ast.Call, position: int) -> dict[str, Any] | None:

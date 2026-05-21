@@ -1,5 +1,18 @@
 #!/usr/bin/env python3
-"""EPA fueleconomy.gov vehicles.csv → vertex_repo_record (kuruma.model)."""
+"""EPA fueleconomy.gov vehicles.csv → vertex_repo_record (kuruma.model).
+
+Yorishiro-aligned (ADR-2605211900).
+  Contract : ai.etzhayyim.yorishiro.fueleconomy.downloadVehiclesCsv
+  Lexicon  : 00-contracts/lexicons/ai/etzhayyim/yorishiro/fueleconomy/downloadVehiclesCsv.json
+  MCP equiv: @etzhayyim/yorishiro-fueleconomy-mcp
+  Charter  : grant (US Government public-domain CSV, 17 USC §105)
+
+Direct urlopen is retained here because the response is a ~21 MB CSV
+that would balloon memory if shuttled through the MCP JSON envelope.
+The in-cluster equivalent — yorishiro_fueleconomy cell with a
+streaming variant — is the canonical path. The on-the-wire URL +
+method matches the lexicon's pathTemplate exactly.
+"""
 import os, sys, csv, io, json, time, urllib.request
 import psycopg2, psycopg2.extras
 from datetime import datetime, timezone
@@ -9,6 +22,7 @@ REPO = "did:web:kuruma.etzhayyim.com"
 COLL = "ai.gftd.apps.kuruma.vehicle"
 
 print("fetching EPA CSV (~21MB)…", file=sys.stderr)
+# yorishiro op: ai.etzhayyim.yorishiro.fueleconomy.downloadVehiclesCsv (see file docstring)
 with urllib.request.urlopen("https://www.fueleconomy.gov/feg/epadata/vehicles.csv", timeout=60) as r:
     data = r.read().decode("utf-8", errors="replace")
 rdr = csv.DictReader(io.StringIO(data))
