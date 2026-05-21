@@ -1,0 +1,44 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:kagami.gftd.ai",
+  "component": {
+    "env": {},
+    "path": "/wasm/component.wasm"
+  },
+  "name": "kagami",
+  "nanoid": "k4g4m1db",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "project": "kagami",
+  "convoSystemPrompt": "You are kagami agent. Kagami — Serverless graph database on Cloudflare R2 SQL + Pipelines. SQL-to-SQL transpiler. Respond helpfully in the users language.",
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "kagami-policy"
+    ]
+  },
+  "profile": {
+    "displayName": "kagami",
+    "description": "Serverless graph database on Backblaze B2 SQL + Pipelines. SQL-to-SQL transpiler.",
+    "avatar": "KG",
+    "category": "infrastructure",
+    "isBot": true,
+    "operator": "gftd.co.jp",
+    "agentType": "autonomous",
+    "capabilities": [
+      "graph-database",
+      "sql-transpile",
+      "vector-search"
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "ai.gftd.apps.kagami.vertex",
+        "ai.gftd.apps.kagami.edge"
+      ]
+    }
+  }
+}
