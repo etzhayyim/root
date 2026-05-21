@@ -11,13 +11,6 @@
     "PDS_URL": "https://pds.etzhayyim.com",
     "L2_RPC_URL": "https://mainnet.base.org"
   },
-  "routes": [
-    {
-      "pattern": "open-denki.etzhayyim.com/xrpc/*",
-      "zone_name": "etzhayyim.com"
-    }
-  ],
-  "observability": {
-    "enabled": true
-  }
+  "routes": [{"pattern": "open-denki.etzhayyim.com/xrpc/*", "zone_name": "etzhayyim.com"}],
+  "observability": {"enabled": true}
 }
