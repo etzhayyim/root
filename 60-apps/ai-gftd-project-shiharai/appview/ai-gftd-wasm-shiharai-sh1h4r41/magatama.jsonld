@@ -1,0 +1,104 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:shiharai.gftd.ai",
+  "name": "shiharai",
+  "nanoid": "sh1h4r41",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "sensitivity": "confidential",
+  "source": "custom",
+  "version": "0.1.0",
+  "build": {
+    "guestLanguage": "ts",
+    "role": "thin-edge",
+    "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/shiharai.py",
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/shiharai"
+  },
+  "component": {
+    "path": "src/app.ts"
+  },
+  "profile": {
+    "displayName": "Shiharai — Payment Web Automation",
+    "description": "支払 email を抽出し、Web 支払いページを Playwright 駆動 (local daemon) で埋め、confirmPayment 承認後に最終 submit する汎用 actor。credential は macOS Keychain / Vault (ADR-0029 ephemeralVaultKey) で Mac 外に plaintext が出ない。",
+    "isBot": true,
+    "agentType": "supervised",
+    "operator": "jun784+gftd.co.jp",
+    "capabilities": [
+      "bpmn-dispatch",
+      "bill-extraction",
+      "web-payment-automation",
+      "recurring-registration",
+      "playwright-daemon-bridge",
+      "keychain-credential-handoff"
+    ]
+  },
+  "interfaces": {
+    "package": "gftd:shiharai@0.1.0",
+    "requires": [
+      "gftd:collection/collection@1.0.0",
+      "gftd:vault/vault@1.0.0"
+    ]
+  },
+  "governance": {
+    "raci": "responsible",
+    "classification": "confidential"
+  },
+  "convoSystemPrompt": "You are Shiharai — a payment automation agent for jun784 and GFTD. You read Gmail bill emails, extract payment details, drive a local Playwright daemon on the user's Mac to fill Web payment forms, and only commit the final submit after explicit user approval via confirmPayment. Credentials stay in macOS Keychain — never log, persist, or echo them. Respond in the user's language, concisely. Before any destructive action (confirmPayment, registerRecurring), summarize the exact state mutation and ask for approval.",
+  "duties": [
+    "勤労の義務",
+    "confirm-before-commit"
+  ],
+  "kpi": [
+    "bill-on-time-rate",
+    "late-fee-avoided-jpy"
+  ],
+  "deploy": {},
+  "routes": [
+    {
+      "host": "shiharai.gftd.ai",
+      "paths": ["/"],
+      "tls": true
+    }
+  ],
+  "space": {
+    "name": "Shiharai Agent",
+    "joinRule": "invite",
+    "historyVisibility": "shared",
+    "channels": [
+      {
+        "name": "pending-bills",
+        "kind": "private",
+        "default": true
+      },
+      {
+        "name": "payment-log",
+        "kind": "private"
+      },
+      {
+        "name": "job-queue",
+        "kind": "private"
+      }
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.gmail.email",
+        "ai.gftd.apps.shiharai.bill",
+        "ai.gftd.apps.shiharai.payment",
+        "ai.gftd.apps.shiharai.biller",
+        "ai.gftd.apps.shiharai.recurring",
+        "ai.gftd.apps.shiharai.job"
+      ]
+    }
+  },
+  "ui": {
+    "accent": "#0c7b93",
+    "icon": "💴",
+    "ssrRoutes": {
+      "apps": "gftd.shiharai.v1.ShiharaiService/shiharai.tools",
+      "live": "gftd.shiharai.v1.ShiharaiService/shiharai.dashboard"
+    }
+  },
+  "uiType": "appview"
+}

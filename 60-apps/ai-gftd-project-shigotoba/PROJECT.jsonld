@@ -1,0 +1,28 @@
+{
+  "@context": "https://1.gftd.ai/project",
+  "@type": "Project",
+  "name": "ai-gftd-project-shigotoba",
+  "description": "Global job marketplace for shigotoba.gftd.ai (Indeed-style) on SpinApp",
+  "category": "ai-gftd-project-workers",
+  "components": {
+    "app": {
+      "appId": "shigotoba-jobs",
+      "tier": "event-driven",
+      "stack": "go",
+      "keda": false,
+      "routes": [
+        {
+          "host": "shigotoba.gftd.ai",
+          "paths": [
+            "/",
+            "/api/mcp",
+            "/api/v1/jobs/search",
+            "/api/v1/jobs",
+            "/api/v1/companies",
+            "/api/v1/applications"
+          ]
+        }
+      ]
+    }
+  }
+}
