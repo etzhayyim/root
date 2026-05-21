@@ -1785,3 +1785,62 @@ follow_up = [
   "Vendor amend: add code_side_complete=true to tranche-f-open-jpn-mynumber-classification-2026-05-20",
   "Phase 3 corpus residency Option B (IPFS pinner) — Tier 2 follow-up only if 50-infra/ipfs-pinner matures",
 ]
+
+[session_summaries.dougaka-split-confirmed-2026-05-21]
+date = "2026-05-21"
+prs_open = []
+description = """dougaka SPLIT — etzhayyim-side confirmation of the
+mechanically-in-effect split state per vendor
+`tranche-f-s6-dougaka-split-confirmation-2026-05-20`.
+
+## SPLIT shape (per vendor classification entry)
+
+C-group SPLIT pattern: lexicon JSON → etzhayyim; team-based production
+workflow with customer custody (lg/ pod) → vendor.
+
+## Cross-repo state (2026-05-21 audit)
+
+| Artifact | Vendor (gftdcojp/ai-gftd-apps-gftdcojp) | etzhayyim (this repo) |
+|---|---|---|
+| Lexicons (`apps/dougaka/`) | present (2 JSON files) | **present** (`health.json`, `render.json` — 2 files, already mirrored Phase 3 wave 6) |
+| BPMN (`bpmn/ai/gftd/dougaka/`) | absent | absent |
+| Project dir (`60-apps/ai-gftd-project-dougaka/`) | present — only `lg/` subtree | absent (matches SPLIT — pod is vendor) |
+| `lg/` LangGraph pod | **present** (Python — render.py uses B2 keys per vendor 3-axis judgment) | absent (per ADR-2605172000 RW-free + per SPLIT) |
+| pymagatama primitives | (none specific to dougaka) | n/a |
+
+## Why no etzhayyim project dir
+
+Per the vendor SPLIT confirmation entry: the C-group production
+workflow with B2-backed customer custody (video rendering pipeline)
+stays vendor-side per all 3 axes (Liability/Custody/Settlement HIT
+on the pod). Only the lexicons cross the boundary because they're
+spec-only — no operator binding.
+
+etzhayyim consumers that need dougaka lexicons (e.g., for cross-actor
+contract checks) import them from
+`00-contracts/lexicons/ai/gftd/apps/dougaka/`.
+
+## What this commit lands
+
+- This session_summary entry (no code changes — the SPLIT is already
+  in effect mechanically).
+
+## Deferred / not in scope
+
+- BPMN for dougaka — neither side has any. Add per use-case if a
+  workflow becomes necessary.
+- pymagatama primitives for dougaka — none today; vendor lg/ pod
+  handles render orchestration directly.
+- Vendor sunset — out of scope; the lg/ pod is structurally vendor.
+
+## Cross-repo
+
+- vendor: `tranche-f-s6-dougaka-split-confirmation-2026-05-20`
+  (judgment-recorded; bulk closure marked
+  `code_side_complete = true` via
+  `tranche-f-vendor-confirmed-actors-closure-2026-05-21` PR #1336)
+- ADR refs: 2605172000 (RW-free substrate) / 2605172400 (3-axis split
+  rule, C-group SPLIT pattern)"""
+follow_up = [
+  "No follow-up — SPLIT is the steady state. Re-check on quarterly Tranche F re-judgment cycle (2026-08-17 / 2026-11-17 / 2027-02-17 per ADR-2605172400).",
+]
