@@ -1,0 +1,39 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:cloudflare-browser-render.gftd.ai",
+  "name": "cloudflare-browser-render",
+  "nanoid": "cfbr0w53",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "sensitivity": "internal",
+  "source": "custom",
+  "version": "0.1.0",
+  "build": { "guestLanguage": "ts" },
+  "component": { "path": "src/app.ts" },
+  "profile": {
+    "displayName": "Cloudflare Browser Render",
+    "description": "Serverless Playwright backend using CF Workers 'browser' binding + @cloudflare/playwright. Session affinity via Durable Object. Invoked by ai.gftd.apps.playwright as target=cf-browser substrate.",
+    "isBot": true,
+    "agentType": "capability",
+    "operator": "gftd.co.jp",
+    "capabilities": ["cf-browser-render", "render-html", "render-png", "render-pdf", "session-do"]
+  },
+  "interfaces": { "package": "gftd:cloudflareBrowserRender@0.1.0", "requires": ["gftd:collection/collection@1.0.0", "magatama:browser/automation@1.0.0"] },
+  "governance": { "raci": "responsible", "classification": "internal" },
+  "convoSystemPrompt": "You are the CF Browser Rendering backend for ai.gftd.apps.playwright target=cf-browser. Session lives in a Durable Object instance keyed by sessionId, TTL 5 min. You receive fully resolved values (no valueRef resolution here). 1-shot renderPage is also supported for trivial render-and-return flows.",
+  "duties": ["capability-provisioning"],
+  "kpi": ["cf-browser-session-cost-usd", "render-success-rate"],
+  "deploy": {},
+  "routes": [ { "host": "cloudflare-browser-render.gftd.ai", "paths": ["/"], "tls": true } ],
+  "space": { "name": "CF Browser Render", "joinRule": "invite", "historyVisibility": "shared", "channels": [{"name":"session-log","kind":"private","default":true}] },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.cloudflareBrowserRender.session",
+        "ai.gftd.apps.cloudflareBrowserRender.artifact"
+      ]
+    }
+  },
+  "ui": { "accent": "#f38020", "icon": "☁️", "ssrRoutes": {} },
+  "uiType": "appview"
+}
