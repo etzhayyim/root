@@ -31,7 +31,7 @@ name = "etzhayyim"
 name_ja = "天御柱"
 name_hebrew = "עץ חיים"
 name_hebrew_romanized = "etzhayyim"
-aliases = ["amanomibashira", "etz hayim", "etz_hayim", "etzhayim", "etz chaim", "etz chayim", "エツ・ハイム", "天御柱"]
+aliases = ["etzhayyim", "etz hayim", "etz_hayim", "etzhayim", "etz chaim", "etz chayim", "エツ・ハイム", "天御柱"]
 form = "宗教法人 (任意団体)"
 form_en = "Religious voluntary association (unincorporated)"
 registry = "On-chain (blockchain-registered constitution and member roster)"
@@ -346,9 +346,13 @@ deploy_status = "live"
 [platform.langserver]
 # etzhayyim-langserver — Murakumo-fleet LSP 常駐 substrate.
 # Tier 1 launchd 常駐 per ADR-2605192415 §7.1.
-# Status as of 2026-05-21: L1 (host inventory) + L2 (plist template) + L3
-# (binary pins) landed. L4 (socket transport) → L9 (cell-runner integration)
-# pending. plist load gated on user confirmation per CLAUDE.md.
+# Status as of 2026-05-21: L1–L9 all 9 reverse-topo layers landed in one
+# session (host inventory → plist → binary pins → socket transport → mesh →
+# health probe → observability → editor bridge → cell-runner integration).
+# plist load gated on user confirmation per CLAUDE.md (HW probe required).
+# ADR: 2605212150-etzhayyim-langserver-substrate.md
+adr = "2605212150"
+session_built = "2026-05-21 (reverse-topo, 9 layers in one /loop run)"
 module_path = "50-infra/etzhayyim-langserver/"
 manifest    = "50-infra/etzhayyim-langserver/langservers.toml"
 hosts_toml  = "50-infra/etzhayyim-langserver/hosts.toml"

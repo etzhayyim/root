@@ -87,6 +87,14 @@ Per [ADR-2605192300 §4](90-docs/adr/2605192300-etzhayyim-bootstrap-council-five
 
 At sunset, a Phase 2 ADR is required that defines the formal Council via 1 SBT = 1 vote election, term limits, max-size cap, and the transition mechanics from Bootstrap to formal.
 
+## Operational addendum (2026-05-21)
+
+`COUNCIL-BOOTSTRAP-RFP.md` + this doc + ADR-2605192300 cover the **constitutional** mechanics. The **operational** mechanics (per-seat evaluation rubric for the 2026-06-19 selection step + objection good-faith vs defamatory determination workflow + selection deliberation window + 5-step failure-mode escalation tree) live in:
+
+- [`90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md`](90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md)
+
+The founder (or any operator assisting) should read the addendum before the 2026-06-19 selection step.
+
 ## See also
 
 - [`ChartersComplianceRegistry.sol`](50-infra/etzhayyim-chain-contracts/src/ChartersComplianceRegistry.sol) — the on-chain Council membership + attestation surface
