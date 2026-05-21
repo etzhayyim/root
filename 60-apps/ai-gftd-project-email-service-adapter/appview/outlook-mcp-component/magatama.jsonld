@@ -1,0 +1,34 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:outlook.gftd.ai",
+  "name": "outlook-mcp-component",
+  "nanoid": "outlook",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "project": "outlook",
+  "component": {
+    "path": "src/app.ts"
+  },
+  "build": {
+    "guestLanguage": "ts",
+    "role": "thin-edge"
+  },
+  "profile": {
+    "displayName": "Outlook",
+    "description": "Thin edge facade; Outlook OAuth and Graph sync run in AgentGateway MCP + pod-side LangServer",
+    "isBot": true,
+    "agentType": "autonomous",
+    "category": "email",
+    "operator": "gftd.co.jp",
+    "capabilities": ["bpmn-dispatch", "oauth-redirect", "mailbox-sync"]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.emailServiceAdapter.syncMailbox",
+        "ai.gftd.apps.emailServiceAdapter.syncJob"
+      ]
+    }
+  },
+  "uiType": "appview"
+}
