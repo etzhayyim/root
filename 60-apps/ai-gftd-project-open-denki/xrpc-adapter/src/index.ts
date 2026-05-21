@@ -1,14 +1,10 @@
 /**
- * open-denki XRPC adapter — CF Worker.
- *
- * Wires the rw-free reference impl (12 pure TS functions) into a deployable
- * CF Worker that exposes each function as an XRPC endpoint.
- *
+ * XRPC adapter — CF Worker (generated).
  * Per ADR-2605210000 first execution-layer demonstration.
  */
 
 import { Etzhayyim } from "@etzhayyim/sdk";
-import * as openDenkiRwFree from "@etzhayyim/open-denki-rw-free";
+import * as rwFree from "@etzhayyim/open-denki-rw-free";
 
 interface Env {
   ACTOR_DID: string;
@@ -26,54 +22,19 @@ interface RouteConfig {
 }
 
 const routes: Record<string, RouteConfig> = {
-  [`${NSID_BASE}.defineGenerationNode`]: {
-    method: "POST",
-    handler: (e, input) => openDenkiRwFree.defineGenerationNode(e, input as any),
-  },
-  [`${NSID_BASE}.defineSubstation`]: {
-    method: "POST",
-    handler: (e, input) => openDenkiRwFree.defineSubstation(e, input as any),
-  },
-  [`${NSID_BASE}.defineFeeder`]: {
-    method: "POST",
-    handler: (e, input) => openDenkiRwFree.defineFeeder(e, input as any),
-  },
-  [`${NSID_BASE}.registerSmartMeter`]: {
-    method: "POST",
-    handler: (e, input) => openDenkiRwFree.registerSmartMeter(e, input as any),
-  },
-  [`${NSID_BASE}.getNode`]: {
-    method: "GET",
-    handler: (e, input) => openDenkiRwFree.getNode(e, input as any),
-  },
-  [`${NSID_BASE}.recordMeterReading`]: {
-    method: "POST",
-    handler: (e, input) => openDenkiRwFree.recordMeterReading(e, input as any),
-  },
-  [`${NSID_BASE}.reportFault`]: {
-    method: "POST",
-    handler: (e, input) => openDenkiRwFree.reportFault(e, input as any),
-  },
-  [`${NSID_BASE}.recordDemandResponse`]: {
-    method: "POST",
-    handler: (e, input) => openDenkiRwFree.recordDemandResponse(e, input as any),
-  },
-  [`${NSID_BASE}.recordRenewableOutput`]: {
-    method: "POST",
-    handler: (e, input) => openDenkiRwFree.recordRenewableOutput(e, input as any),
-  },
-  [`${NSID_BASE}.listFeeders`]: {
-    method: "GET",
-    handler: (e, input) => openDenkiRwFree.listFeeders(e, input as any),
-  },
-  [`${NSID_BASE}.listFaults`]: {
-    method: "GET",
-    handler: (e, input) => openDenkiRwFree.listFaults(e, input as any),
-  },
-  [`${NSID_BASE}.listReadings`]: {
-    method: "GET",
-    handler: (e, input) => openDenkiRwFree.listReadings(e, input as any),
-  },
+  [`${NSID_BASE}.defineGenerationNode`]: { method: "POST", handler: (e, input) => rwFree.defineGenerationNode(e, input as any) },
+  [`${NSID_BASE}.defineSubstation`]: { method: "POST", handler: (e, input) => rwFree.defineSubstation(e, input as any) },
+  [`${NSID_BASE}.defineFeeder`]: { method: "POST", handler: (e, input) => rwFree.defineFeeder(e, input as any) },
+  [`${NSID_BASE}.registerSmartMeter`]: { method: "POST", handler: (e, input) => rwFree.registerSmartMeter(e, input as any) },
+  [`${NSID_BASE}.getNode`]: { method: "GET", handler: (e, input) => rwFree.getNode(e, input as any) },
+  [`${NSID_BASE}.recordMeterReading`]: { method: "POST", handler: (e, input) => rwFree.recordMeterReading(e, input as any) },
+  [`${NSID_BASE}.reportFault`]: { method: "POST", handler: (e, input) => rwFree.reportFault(e, input as any) },
+  [`${NSID_BASE}.recordDemandResponse`]: { method: "POST", handler: (e, input) => rwFree.recordDemandResponse(e, input as any) },
+  [`${NSID_BASE}.recordRenewableOutput`]: { method: "POST", handler: (e, input) => rwFree.recordRenewableOutput(e, input as any) },
+  [`${NSID_BASE}.listFeeders`]: { method: "GET", handler: (e, input) => rwFree.listFeeders(e, input as any) },
+  [`${NSID_BASE}.listFaults`]: { method: "GET", handler: (e, input) => rwFree.listFaults(e, input as any) },
+  [`${NSID_BASE}.listReadings`]: { method: "GET", handler: (e, input) => rwFree.listReadings(e, input as any) },
+
 };
 
 function mapStatus(status?: string): number {
@@ -109,8 +70,11 @@ export default {
     try {
       input = route.method === "POST" ? await req.json().catch(() => ({})) : Object.fromEntries(url.searchParams.entries());
       const typed = input as Record<string, unknown>;
-      ["limit", "offset", "maxScan", "capacityKw", "primaryVoltageKv", "secondaryVoltageKv", "capacityMva", "customerCount", "lengthM", "kwhCumulative", "kwDemand", "voltageV", "deviationPercentPermille", "affectedCustomers"].forEach(k => {
+      ["limit", "offset", "maxScan", "amountMinor", "seq", "depth", "capacityKw", "primaryVoltageKv", "secondaryVoltageKv", "capacityMva", "customerCount", "lengthM", "kwhCumulative", "kwDemand", "voltageV", "deviationPercentPermille", "affectedCustomers", "scorePermille", "capacityFactorPermille", "dddMg", "articleCount", "snapshotCount", "ruleSeq", "readingSeq", "outputSeq", "targetReductionKw", "actualReductionKw", "outputKw"].forEach(k => {
         if (typed[k]) typed[k] = Number(typed[k]);
+      });
+      ["includeBalance", "publicNoticeOnly", "publicDomainOnly", "released", "autoRitualize"].forEach(k => {
+        if (typed[k]) typed[k] = typed[k] === "true";
       });
     } catch (err) {
       return jsonResponse({ error: "InvalidInput", message: `Failed to parse ${route.method === "POST" ? "JSON" : "query params"}` }, 400);
