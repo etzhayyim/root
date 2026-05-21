@@ -1663,3 +1663,56 @@ follow_up = [
   "yoro UI Card for rite browsing (debtor + creditor self-service)",
   "Charter Rider §2 compliance scanner (automated regression防御)",
 ]
+
+[session_summaries.public-malak-scaffold-2026-05-21]
+date = "2026-05-21"
+prs_open = []
+description = """public-malak.etzhayyim.com — Phase 1 scaffold mirror landed.
+
+Vendor (gftdcojp/ai-gftd-apps-gftdcojp) deps.toml
+`tranche-f-public-malak-classification-2026-05-20` (status
+`judgment-recorded`) confirmed public-malak as an etzhayyim move target
+via 3-axis OR-test (Liability + Custody + Settlement all clean — TLP
+CLEAR/GREEN only, no fiat, no citizen PII).
+
+This commit lands the etzhayyim-side scaffold mirror so the project
+boundary is recorded in this repo before the worker rewrite happens:
+
+  60-apps/ai-gftd-project-public-malak/
+    CLAUDE.md       — etzhayyim-domain spec + Tranche F status + substrate notes
+    OWNERS          — junkawasaki approver/reviewer
+    PROJECT.jsonld  — Phase 1-4 milestone roadmap (scaffold → rw-free → corpus → vendor sunset)
+    magatama.jsonld — public-malak.etzhayyim.com manifest (did:web:public-malak.etzhayyim.com)
+  00-contracts/lexicons/ai/gftd/apps/publicMalak/
+    14 lexicons sed-mirrored from vendor (5 procedure + 9 query)
+
+etzhayyim already had the BPMN (00-contracts/bpmn/ai/gftd/public-malak/
+{analyzeAd,crawlAds}.bpmn) since the earlier Tranche F wave.
+
+## Deferred (per user direction 2026-05-21)
+
+- **rw-free implementation**: `src/app.ts` + per-domain rw-free modules
+  defer until project切り分け is complete across all Tranche F move
+  targets. The Phase E pattern (cnt.ts / escrow.ts in tsukuru rw-free)
+  is the reference once we resume.
+- **Corpus residency activation**: Option A (vendor RW mirror;
+  etzhayyim worker ingests fresh from public APIs) is the
+  architectural choice, mirroring ADR-2605202400 GTFS-RT carve-out.
+  No code change today — the 923-file `data/ingest/` corpus stays
+  vendor-side as historical artifact; activation happens when the
+  etzhayyim worker lands in Phase 2.
+- **Vendor sunset**: vendor 60-apps/ai-gftd-project-public-malak/
+  project dir + lexicons retained until etzhayyim worker passes the
+  7-day soak per ADR-2605211000 tier-1 pattern.
+
+## Cross-repo
+
+- vendor: `tranche-f-public-malak-classification-2026-05-20` (judgment-recorded — unchanged this PR)
+- etz BPMN: `00-contracts/bpmn/ai/gftd/public-malak/{analyzeAd,crawlAds}.bpmn` (present pre-this-PR)
+- ADR refs: 2605172000 (RW-free substrate) / 2605172400 (3-axis split rule) / 2605203000 (Phase E write-target) / 2605202400 (GTFS-RT carve-out pattern) / 2605211000 (worker XRPC deploy runbook)"""
+follow_up = [
+  "Phase 2 rw-free implementation (src/app.ts + ad-library API ingest + PDS XRPC writes)",
+  "Phase 3 corpus residency Option A activation (vendor B2 mirror retention contract)",
+  "Phase 4 vendor sunset (gftdcojp git rm of 60-apps/ai-gftd-project-public-malak/ + publicMalak/ lexicons)",
+  "Worker XRPC adapter wiring per ADR-2605211000 (when rw-free lands; public-malak slots into Tier 1 or Tier 2 depending on user-session exposure)",
+]
