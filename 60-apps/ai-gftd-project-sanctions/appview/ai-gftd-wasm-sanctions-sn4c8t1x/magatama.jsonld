@@ -1,0 +1,117 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:sanctions.gftd.ai",
+  "name": "sanctions",
+  "nanoid": "sn4c8t1x",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "sensitivity": "confidential",
+  "source": "custom",
+  "version": "0.1.0",
+  "build": {
+    "guestLanguage": "ts"
+  },
+  "component": {
+    "path": "src/app.ts"
+  },
+  "profile": {
+    "displayName": "Sanctions Screener",
+    "description": "OFAC/EU/UN/JP-MOF sanctions list screening — entity matching, fuzzy name resolution, real-time list updates, compliance reporting",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "gftd.co.jp",
+    "sensitivity": "confidential",
+    "capabilities": [
+      "sanctions-screening",
+      "entity-matching",
+      "fuzzy-name-resolution",
+      "list-update-monitoring",
+      "compliance-reporting"
+    ]
+  },
+  "interfaces": {
+    "package": "gftd:sanctions@1.0.0",
+    "requires": [
+      "gftd:collection/collection@1.0.0"
+    ]
+  },
+  "governance": {
+    "raci": "responsible",
+    "classification": "confidential",
+    "complianceFrameworks": [
+      "ofac-sdn",
+      "eu-sanctions",
+      "un-sanctions",
+      "jp-mof-fefta"
+    ]
+  },
+  "convoSystemPrompt": "You are the Sanctions Screener agent. You perform entity screening against OFAC SDN, EU Consolidated, UN Security Council, and JP-MOF FEFTA sanctions lists. You support fuzzy name matching, alias resolution, and real-time list update monitoring. Respond helpfully in the user's language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "kpi": [
+    "credits の獲得"
+  ],
+  "deploy": {},
+  "routes": [
+    {
+      "host": "sanctions.gftd.ai",
+      "paths": ["/"],
+      "tls": true
+    },
+    {
+      "host": "sn4c8t1x.gftd.ai",
+      "paths": ["/"],
+      "tls": true
+    }
+  ],
+  "space": {
+    "name": "Sanctions Screener — Compliance Intelligence",
+    "joinRule": "invite",
+    "historyVisibility": "shared",
+    "channels": [
+      {
+        "name": "screening-results",
+        "kind": "public",
+        "default": true
+      },
+      {
+        "name": "list-updates",
+        "kind": "public"
+      },
+      {
+        "name": "compliance-alerts",
+        "kind": "private"
+      }
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.sanctions.entry",
+        "ai.gftd.apps.sanctions.match",
+        "ai.gftd.apps.sanctions.screeningRequest",
+        "ai.gftd.apps.sanctions.listUpdate",
+        "ai.gftd.apps.sanctions.complianceReport",
+        "ai.gftd.apps.malak.threatActor",
+        "ai.gftd.apps.malak.threatOrganization",
+        "ai.gftd.apps.sanctions.dailyEvolution",
+        "ai.gftd.apps.sanctions.engagement",
+        "ai.gftd.apps.sanctions.newFollower"
+      ]
+    }
+  },
+  "ui": {
+    "accent": "#8b0000",
+    "icon": "🛡️",
+    "ssrRoutes": {
+      "apps": "gftd.sanctions.v1.SanctionsService/sanctions.tools",
+      "live": "gftd.sanctions.v1.SanctionsService/sanctions.dashboard"
+    }
+  },
+  "uiType": "appview"
+}
