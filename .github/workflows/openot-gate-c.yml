@@ -170,3 +170,30 @@ jobs:
       - name: Test all 5 cells (host-side, std)
         working-directory: ${{ env.OPEN_OT }}/cells
         run: cargo test --workspace --release
+
+  # Gate C §2.3 — kani symbolic verification on tick + init paths
+  kani:
+    name: kani symbolic verification (${{ matrix.cell }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        cell:
+          - pid-limited
+          - droop-p-f
+          - anti-islanding-rocof
+          - pid-stack-100
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install kani-verifier
+        run: cargo install --locked kani-verifier
+      - name: Kani version (triggers first-time setup download)
+        run: cargo kani --version
+      - name: Verify ${{ matrix.cell }}
+        working-directory: ${{ env.OPEN_OT }}/cells/${{ matrix.cell }}
+        run: |
+          # Two harnesses per cell: proofs::tick_never_panics, proofs::init_never_panics.
+          # pid-stack-100 carries a higher unwind bound for its 100-instance inner loop.
+          cargo kani --harness proofs::init_never_panics
+          cargo kani --harness proofs::tick_never_panics

@@ -16,3 +16,6 @@ openot-bfb-rs.workspace = true
 [features]
 default = ["std"]
 std = ["openot-bfb-rs/std"]
+
+[lints]
+workspace = true
