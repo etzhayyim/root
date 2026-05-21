@@ -19,6 +19,8 @@ import { emitBinaryCell } from "./binary/emit-cell-py.js";
 import { emitBinaryLexicons } from "./binary/emit-lexicon.js";
 import { emitBinaryMcp } from "./binary/emit-mcp.js";
 import { readKamiManifest } from "./binary/parse.js";
+import { emitBrowserLexicons } from "./browser/emit-lexicon.js";
+import { readBrowserKamiManifest } from "./browser/parse.js";
 import { emitCell } from "./emit/cell-py.js";
 import { emitLexicons } from "./emit/lexicon.js";
 import { emitMcpServer } from "./emit/mcp-server.js";
@@ -112,9 +114,9 @@ async function cmdCreate(rest: string[]): Promise<void> {
     dryRun: parsed.boolFlags.has("dry-run"),
   };
   if (!args.source) fail("--source is required");
-  // binary-cli reads kami id from the manifest; openapi-v3 requires --kami
-  // upfront because the OpenAPI spec doesn't carry an etzhayyim kami id.
-  if (!args.kami && args.from !== "binary-cli") fail("--kami is required");
+  // Only openapi-v3 needs --kami upfront — binary-cli and browser-only
+  // both read the kami id from the manifest at the source path.
+  if (!args.kami && args.from === "openapi-v3") fail("--kami is required for --from openapi-v3");
   if (!args.purpose) fail("--purpose is required (csv, e.g. grant,kisha)");
   if (args.from === "openapi-v3") {
     await createFromOpenApi(args);
@@ -124,7 +126,11 @@ async function cmdCreate(rest: string[]): Promise<void> {
     await createFromBinaryCli(args);
     return;
   }
-  fail(`--from ${args.from} not supported (Phase 1: openapi-v3; Phase 2: binary-cli). source-repo / browser-only land in Phase 2.5 / 3.`);
+  if (args.from === "browser-only") {
+    await createFromBrowserOnly(args);
+    return;
+  }
+  fail(`--from ${args.from} not supported (Phase 1: openapi-v3; Phase 2: binary-cli; Phase 3: browser-only L1 only). source-repo lands in Phase 2.5.`);
 }
 
 async function createFromOpenApi(args: CreateArgs): Promise<void> {
@@ -279,6 +285,54 @@ async function createFromBinaryCli(args: CreateArgs): Promise<void> {
   console.error(`[yorishiro] done. Run \`yorishiro audit\` to verify Charter compliance.`);
 }
 
+async function createFromBrowserOnly(args: CreateArgs): Promise<void> {
+  const repoRoot = findRepoRoot();
+  const purposes = parsePurposeCsv(args.purpose);
+  const check = validateExternalPurposes(purposes);
+  if (!check.ok) {
+    console.error(`yorishiro: invalid --purpose values`);
+    if (check.forbidden.length > 0) console.error(`  forbidden (ADR-2605192115 §4): ${check.forbidden.join(", ")}`);
+    if (check.invalid.length > 0) console.error(`  unknown : ${check.invalid.join(", ")}`);
+    process.exit(1);
+  }
+
+  console.error(`[yorishiro] reading browser kami manifest from ${args.source}`);
+  const manifest = await readBrowserKamiManifest(args.source);
+  console.error(
+    `[yorishiro] kami=${manifest.kami.id}  base_url=${manifest.kami.base_url}  ops=${manifest.ops.length}  purposes=[${purposes.join(",")}]`,
+  );
+
+  if (args.dryRun) {
+    for (const op of manifest.ops) console.error(`  (dry-run) ${op.name}  ${op.steps.length} step(s)`);
+    return;
+  }
+
+  const cfgDir = join(repoRoot, "70-tools/etzhayyim-cli/yorishiro/registry");
+  mkdirSync(cfgDir, { recursive: true });
+  const cfg = {
+    name: args.name,
+    from: args.from,
+    source: resolveSource(args.source, repoRoot),
+    kami: manifest.kami.id,
+    baseUrl: manifest.kami.base_url,
+    purposes,
+    generatedAt: preserveGeneratedAt(repoRoot, args.name),
+    generator: `@etzhayyim/yorishiro@${VERSION}`,
+  };
+  writeFileSync(join(cfgDir, `${args.name}.json`), JSON.stringify(cfg, null, 2) + "\n", "utf-8");
+
+  const lexicons = emitBrowserLexicons({ repoRoot, name: args.name, purposes, manifest });
+  console.error(`[yorishiro] L1: emitted ${lexicons.length} lexicon(s)`);
+
+  // L2 / L3 / SKILL.md are deliberately not emitted for browser-only
+  // yorishiri yet — Phase 3 ships the contract, not the driver. A
+  // future runner that uses mcp__claude-in-chrome (or Playwright in a
+  // sandboxed pod) will read x-yorishiro-browser off the lexicon and
+  // replay the step sequence. See ADR-2605211900 D4 row (c).
+  console.error(`[yorishiro] L2/L3 skipped — browser-only driver pending (Phase 3 follow-up).`);
+  console.error(`[yorishiro] done. Run \`yorishiro audit\` to verify Charter compliance.`);
+}
+
 async function cmdRegen(rest: string[]): Promise<void> {
   const name = rest[0];
   if (!name) fail("yorishiro regen: name required");
@@ -303,6 +357,8 @@ async function cmdRegen(rest: string[]): Promise<void> {
   };
   if (cfg.from === "binary-cli") {
     await createFromBinaryCli(next);
+  } else if (cfg.from === "browser-only") {
+    await createFromBrowserOnly(next);
   } else {
     await createFromOpenApi(next);
   }
@@ -318,8 +374,8 @@ function cmdList(): void {
   for (const f of readdirSync(dir)) {
     if (!f.endsWith(".json")) continue;
     const cfg = JSON.parse(readFileSync(join(dir, f), "utf-8"));
-    const surface = cfg.from === "binary-cli" ? `binary=${cfg.binary}` : `base=${cfg.baseUrl}`;
-    console.log(`${cfg.name.padEnd(20)} from=${cfg.from.padEnd(11)} kami=${cfg.kami}  purposes=[${cfg.purposes.join(",")}]  ${surface}`);
+    const surface = cfg.from === "binary-cli" ? `binary=${cfg.binary}` : `base=${cfg.baseUrl ?? cfg.base_url ?? "?"}`;
+    console.log(`${cfg.name.padEnd(20)} from=${cfg.from.padEnd(12)} kami=${cfg.kami}  purposes=[${cfg.purposes.join(",")}]  ${surface}`);
   }
 }
 

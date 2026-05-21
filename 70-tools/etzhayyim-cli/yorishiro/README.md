@@ -83,10 +83,10 @@ yorishiro audit
 
 | Mode | Status | Inputs |
 |---|---|---|
-| `openapi-v3` | **Phase 1 ✓** | OpenAPI 3.x JSON/YAML at a URL or local path |
-| `binary-cli` | **Phase 2 ✓** | Local binary + hand-authored kami manifest JSON |
+| `openapi-v3` | **Phase 1 ✓** (L1+L2+L3) | OpenAPI 3.x JSON/YAML at a URL or local path |
+| `binary-cli` | **Phase 2 ✓** (L1+L2+L3) | Local binary + hand-authored kami manifest JSON |
+| `browser-only` | **Phase 3 ✓** (L1 only) | base URL + DOM step sequence + extract selectors. L2/L3 driver (Playwright pod / mcp__claude-in-chrome bridge) is the Phase 3 follow-up. |
 | `source-repo` | Phase 2.5 ⏳ | git URL or local repo path (CLI-Anything style Click/argparse/cobra AST analysis) |
-| `browser-only` | Phase 3 ⏳ | base URL + a Playwright/UI flow script + mcp__claude-in-chrome |
 
 ### binary-cli kami manifest
 
