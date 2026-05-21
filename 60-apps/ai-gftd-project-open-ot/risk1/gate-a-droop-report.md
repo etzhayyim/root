@@ -1,16 +1,16 @@
 # Risk-1 Gate A — Wasmtime harness report
 
-**Cell**: `pid_limited`
+**Cell**: `droop_p_f`
 
-**Wasm artefact**: `../../cells/target/wasm32-unknown-unknown/release/pid_limited.wasm`
+**Wasm artefact**: `../../cells/target/wasm32-unknown-unknown/release/droop_p_f.wasm`
 
 **Iterations**: 50000
 
 **Cycle period**: 1 ms
 
-**Layout**: params=20 B  internal=16 B  data_in=12 B  data_out=12 B
+**Layout**: params=24 B  internal=8 B  data_in=24 B  data_out=24 B
 
-**Total wall-clock**: 0.006 s
+**Total wall-clock**: 0.005 s
 
 ## Tick latency (host, x86_64 / aarch64 — not embedded)
 
@@ -18,13 +18,13 @@
 |---|---|
 | n        | 50000 |
 | min      | 0 |
-| mean     | 48 |
+| mean     | 46 |
 | p50      | 42 |
 | p90      | 83 |
 | p99      | 84 |
-| p99.9    | 167 |
-| p99.99   | 209 |
-| max      | 9791 |
+| p99.9    | 125 |
+| p99.99   | 208 |
+| max      | 8833 |
 
 ## Counters
 

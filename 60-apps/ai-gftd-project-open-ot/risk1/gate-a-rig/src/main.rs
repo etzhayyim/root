@@ -39,7 +39,7 @@ struct Cli {
     #[arg(long)]
     wasm_path: Option<PathBuf>,
 
-    /// Cell name. One of `pid_limited` (default) or `pid_stack_100`.
+    /// Cell name. One of `pid_limited` (default), `pid_stack_100`, `droop_p_f`, `anti_islanding_rocof`.
     #[arg(long, default_value = "pid_limited")]
     cell: String,
 
@@ -54,6 +54,14 @@ struct Cli {
     /// Markdown report output path. Default depends on `--cell`.
     #[arg(long)]
     report: Option<PathBuf>,
+
+    /// Per-tick deadline in nanoseconds. If > 0, each tick that takes longer
+    /// is counted as a deadline miss and the rig exits non-zero when the
+    /// run finishes with > 0 misses. Default 0 disables enforcement so host
+    /// runs only report latency. The real Gate A budget on Mimi is 200_000
+    /// (200 µs) at p99.9 per SPEC §14.1.
+    #[arg(long, default_value_t = 0u64)]
+    deadline_ns: u64,
 }
 
 // ---------------------------------------------------------------------------
@@ -86,8 +94,10 @@ fn select_cell(name: &str) -> Result<&'static CellLayout> {
     match name {
         "pid_limited" => Ok(&PID_LIMITED),
         "pid_stack_100" => Ok(&PID_STACK_100),
+        "droop_p_f" => Ok(&DROOP_P_F),
+        "anti_islanding_rocof" => Ok(&ANTI_ISLANDING_ROCOF),
         other => bail!(
-            "unknown --cell {:?} (expected one of: pid_limited, pid_stack_100)",
+            "unknown --cell {:?} (expected one of: pid_limited, pid_stack_100, droop_p_f, anti_islanding_rocof)",
             other
         ),
     }
@@ -186,6 +196,123 @@ fn synthesize_data_in_pid_stack_100(tick: u64) -> Vec<u8> {
     buf.extend_from_slice(&[0u8; N]);
     // enables — all enabled
     buf.extend_from_slice(&[1u8; N]);
+    buf
+}
+
+// ---------------------------------------------------------------------------
+// droop_p_f layout (per cells/droop-p-f/src/lib.rs)
+// ---------------------------------------------------------------------------
+
+static DROOP_P_F: CellLayout = CellLayout {
+    symbol: "droop_p_f",
+    // Params: 5 × i32 + u32 = 24 bytes.
+    params_size: 24,
+    // Internal: i32 + bool, align 4 → 8 bytes.
+    internal_size: 8,
+    // DataIn: i64 + i64 + i32 + u8 + bool, align 8, tail-pad → 24 bytes.
+    data_in_size: 24,
+    // DataOut: i32 + i32 + i64 + bool + bool, align 8, tail-pad → 24 bytes.
+    data_out_size: 24,
+    // *mut u8.
+    out_event_size: 1,
+    scratch_base: 0x10_0000, // 1 MiB
+    required_pages: 32,       // 2 MiB
+    default_report: "gate-a-droop-report.md",
+    build_params: build_params_droop_p_f,
+    synthesize_data_in: synthesize_data_in_droop_p_f,
+};
+
+fn build_params_droop_p_f(cycle_period_ms: u32) -> Vec<u8> {
+    // 100 kW asset, ±100 kW clamp, 5 % droop, 0.2 Hz deadband.
+    let mut buf = Vec::with_capacity(24);
+    buf.extend_from_slice(&100_000_000_i32.to_le_bytes()); // p_rated_micro_kw (100 kW)
+    buf.extend_from_slice(&(-100_000_000_i32).to_le_bytes()); // p_min_micro_kw
+    buf.extend_from_slice(&100_000_000_i32.to_le_bytes()); // p_max_micro_kw
+    buf.extend_from_slice(&50_i32.to_le_bytes()); // droop_permille = 5 %
+    buf.extend_from_slice(&200_000_i32.to_le_bytes()); // dead_band_micro_hz (0.2 Hz)
+    buf.extend_from_slice(&cycle_period_ms.to_le_bytes());
+    buf
+}
+
+fn synthesize_data_in_droop_p_f(tick: u64) -> Vec<u8> {
+    // Sinusoidal-ish drift in grid frequency across the deadband boundary so
+    // the cell exits the trivial deadband branch on a meaningful share of
+    // ticks. Nominal 50 Hz, drift up to ±0.5 Hz (= ±500_000 µHz).
+    let drift_micro_hz = ((tick as i64).wrapping_mul(257) % 1_000_001) - 500_000;
+    let grid_freq_micro_hz: i64 = 50_000_000_i64.saturating_add(drift_micro_hz);
+    let freq_nominal_micro_hz: i64 = 50_000_000;
+    let current_p_micro_kw: i32 = 50_000_000; // 50 kW currently
+    let mut buf = Vec::with_capacity(24);
+    buf.extend_from_slice(&grid_freq_micro_hz.to_le_bytes()); // 0..8
+    buf.extend_from_slice(&freq_nominal_micro_hz.to_le_bytes()); // 8..16
+    buf.extend_from_slice(&current_p_micro_kw.to_le_bytes()); // 16..20
+    buf.push(0); // freq_quality = Good (20)
+    buf.push(1); // enable (21)
+    buf.extend_from_slice(&[0u8; 2]); // tail-pad → 24
+    buf
+}
+
+// ---------------------------------------------------------------------------
+// anti_islanding_rocof layout (per cells/anti-islanding-rocof/src/lib.rs)
+// ---------------------------------------------------------------------------
+
+static ANTI_ISLANDING_ROCOF: CellLayout = CellLayout {
+    symbol: "anti_islanding_rocof",
+    // Params: i64 + u32 + (pad 4) + i64 + i64 + u32 + (pad 4) + i64 + i64
+    //          + u32 + u32 = 64 bytes.
+    params_size: 64,
+    // Internal: i64 + u32 + u32 + u32 + u8 + bool, align 8, tail-pad → 24.
+    internal_size: 24,
+    // DataIn: 4 × i64 + 2 × u8 + bool, align 8, tail-pad → 40.
+    data_in_size: 40,
+    // DataOut: bool + u8 + pad6 + i64 + i32 + pad4 + i64 + 3 × u8, tail-pad → 40.
+    data_out_size: 40,
+    // *mut u16 — multi-event packed.
+    out_event_size: 2,
+    scratch_base: 0x10_0000,
+    required_pages: 32,
+    default_report: "gate-a-anti-islanding-report.md",
+    build_params: build_params_anti_islanding_rocof,
+    synthesize_data_in: synthesize_data_in_anti_islanding_rocof,
+};
+
+fn build_params_anti_islanding_rocof(cycle_period_ms: u32) -> Vec<u8> {
+    // ENTSO-E-ish defaults: 0.5 Hz/s ROCOF, ±10 % voltage envelope, ±1 % freq.
+    let mut buf = Vec::with_capacity(64);
+    buf.extend_from_slice(&500_000_i64.to_le_bytes()); // rocof_threshold_micro_hz_per_s (0..8)
+    buf.extend_from_slice(&3_u32.to_le_bytes()); // rocof_window_samples (8..12)
+    buf.extend_from_slice(&[0u8; 4]); // pad (12..16)
+    buf.extend_from_slice(&207_000_000_i64.to_le_bytes()); // voltage_min_micro_v (207 V) (16..24)
+    buf.extend_from_slice(&253_000_000_i64.to_le_bytes()); // voltage_max_micro_v (253 V) (24..32)
+    buf.extend_from_slice(&3_u32.to_le_bytes()); // voltage_window_samples (32..36)
+    buf.extend_from_slice(&[0u8; 4]); // pad (36..40)
+    buf.extend_from_slice(&49_500_000_i64.to_le_bytes()); // freq_min_micro_hz (49.5 Hz) (40..48)
+    buf.extend_from_slice(&50_500_000_i64.to_le_bytes()); // freq_max_micro_hz (50.5 Hz) (48..56)
+    buf.extend_from_slice(&3_u32.to_le_bytes()); // freq_window_samples (56..60)
+    buf.extend_from_slice(&cycle_period_ms.to_le_bytes()); // (60..64)
+    buf
+}
+
+fn synthesize_data_in_anti_islanding_rocof(tick: u64) -> Vec<u8> {
+    // Nominal 50 Hz / 230 V grid with sub-threshold drift so the cell stays
+    // in Monitoring and emits CNF every tick. Real Gate A criterion is
+    // p99.9 ≤ 200 µs in steady-state monitoring — fault transients are
+    // covered by replay tests on the cell, not here.
+    let drift_micro_hz = ((tick as i64).wrapping_mul(311) % 400_001) - 200_000;
+    let drift_micro_v = ((tick as i64).wrapping_mul(541) % 20_000_001) - 10_000_000;
+    let grid_freq_micro_hz: i64 = 50_000_000_i64.saturating_add(drift_micro_hz);
+    let freq_nominal_micro_hz: i64 = 50_000_000;
+    let grid_voltage_micro_v: i64 = 230_000_000_i64.saturating_add(drift_micro_v);
+    let voltage_nominal_micro_v: i64 = 230_000_000;
+    let mut buf = Vec::with_capacity(40);
+    buf.extend_from_slice(&grid_freq_micro_hz.to_le_bytes()); // 0..8
+    buf.extend_from_slice(&freq_nominal_micro_hz.to_le_bytes()); // 8..16
+    buf.extend_from_slice(&grid_voltage_micro_v.to_le_bytes()); // 16..24
+    buf.extend_from_slice(&voltage_nominal_micro_v.to_le_bytes()); // 24..32
+    buf.push(0); // freq_quality = Good (32)
+    buf.push(0); // voltage_quality = Good (33)
+    buf.push(1); // enable (34)
+    buf.extend_from_slice(&[0u8; 5]); // tail-pad → 40
     buf
 }
 
@@ -394,6 +521,7 @@ fn main() -> Result<()> {
     let mut last_ecc: u8 = 0;
     let mut alarm_count: u64 = 0;
     let mut error_count: u64 = 0;
+    let mut deadline_miss_count: u64 = 0;
     let zero_out_event = vec![0u8; layout.out_event_size as usize];
 
     let run_start = Instant::now();
@@ -421,6 +549,9 @@ fn main() -> Result<()> {
             .context("call <cell>_tick")?;
         let elapsed_ns = t0.elapsed().as_nanos() as u64;
         hist.record(elapsed_ns);
+        if cli.deadline_ns > 0 && elapsed_ns > cli.deadline_ns {
+            deadline_miss_count += 1;
+        }
 
         let out_event = read_u8(&memory, &mut store, mem.out_event)?;
         last_ecc = next_ecc as u8;
@@ -434,6 +565,8 @@ fn main() -> Result<()> {
         }
     }
     let total_elapsed = run_start.elapsed();
+    let final_pages = memory.size(&mut store);
+    let heap_delta_pages = final_pages.saturating_sub(layout.required_pages.max(cur_pages));
 
     let summary = hist.summary();
 
@@ -461,11 +594,24 @@ fn main() -> Result<()> {
     out.push_str(&format!("| max      | {} |\n\n", summary.max));
     out.push_str("## Counters\n\n");
     out.push_str(&format!("- ALM-emitting ticks: {}\n", alarm_count));
-    out.push_str(&format!("- Unexpected `out_event`: {}\n\n", error_count));
+    out.push_str(&format!("- Unexpected `out_event`: {}\n", error_count));
+    if cli.deadline_ns > 0 {
+        out.push_str(&format!(
+            "- Deadline ({} ns) misses: {}\n",
+            cli.deadline_ns, deadline_miss_count
+        ));
+    } else {
+        out.push_str("- Deadline enforcement: disabled (--deadline-ns 0)\n");
+    }
+    out.push_str(&format!(
+        "- Memory pages: initial={} final={} delta={} (1 page = 64 KB)\n\n",
+        cur_pages, final_pages, heap_delta_pages
+    ));
     out.push_str("## Notes\n\n");
     out.push_str("- This is **host harness validation**, not Mimi WCET measurement.\n");
     out.push_str("- Real Gate A criteria (per SPEC §14.1): STM32H753 @ 480 MHz, Zephyr LTS, WAMR AOT, 1 ms cycle, 10 h continuous. **PASS**: p99.9 tick latency ≤ 200 µs, zero deadline misses, observed heap delta = 0 bytes.\n");
     out.push_str("- Host run validates: artefact load, ABI surface, struct layouts (cell ⇄ rig), determinism, report pipeline.\n");
+    out.push_str("- `--deadline-ns 200_000` approximates the SPEC §14.1 budget on the host. PASS on host is necessary but not sufficient: a host p99.9 already above budget would mean the cell can't possibly meet it on Mimi.\n");
 
     std::fs::write(&report_path, out).with_context(|| format!("write {}", report_path.display()))?;
     eprintln!("[gate-a-rig] report written: {}", report_path.display());
@@ -476,6 +622,14 @@ fn main() -> Result<()> {
 
     if error_count > 0 {
         bail!("{} unexpected out_event values — possible ABI mismatch", error_count);
+    }
+    if cli.deadline_ns > 0 && deadline_miss_count > 0 {
+        bail!(
+            "{} of {} ticks missed the {} ns deadline",
+            deadline_miss_count,
+            cli.iterations,
+            cli.deadline_ns
+        );
     }
     Ok(())
 }

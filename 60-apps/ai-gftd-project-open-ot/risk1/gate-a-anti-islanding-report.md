@@ -1,14 +1,14 @@
 # Risk-1 Gate A — Wasmtime harness report
 
-**Cell**: `pid_limited`
+**Cell**: `anti_islanding_rocof`
 
-**Wasm artefact**: `../../cells/target/wasm32-unknown-unknown/release/pid_limited.wasm`
+**Wasm artefact**: `../../cells/target/wasm32-unknown-unknown/release/anti_islanding_rocof.wasm`
 
 **Iterations**: 50000
 
 **Cycle period**: 1 ms
 
-**Layout**: params=20 B  internal=16 B  data_in=12 B  data_out=12 B
+**Layout**: params=64 B  internal=24 B  data_in=40 B  data_out=40 B
 
 **Total wall-clock**: 0.006 s
 
@@ -18,13 +18,13 @@
 |---|---|
 | n        | 50000 |
 | min      | 0 |
-| mean     | 48 |
-| p50      | 42 |
-| p90      | 83 |
+| mean     | 77 |
+| p50      | 83 |
+| p90      | 84 |
 | p99      | 84 |
 | p99.9    | 167 |
-| p99.99   | 209 |
-| max      | 9791 |
+| p99.99   | 5834 |
+| max      | 8250 |
 
 ## Counters
 
