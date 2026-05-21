@@ -14,25 +14,38 @@ Host-side harness for Risk-1 Gate A (per SPEC §14.1). Loads a BFB cell as `wasm
 ## Build
 
 ```bash
-# 1. Build the cell as wasm32-unknown-unknown (no WASI imports).
+# 1. Build all four cells as wasm32-unknown-unknown (no WASI imports).
 cd 60-apps/ai-gftd-project-open-ot/cells
-cargo build --release --no-default-features --target wasm32-unknown-unknown -p pid-limited
+cargo build --release --no-default-features --target wasm32-unknown-unknown \
+  -p pid-limited -p droop-p-f -p anti-islanding-rocof -p pid-stack-100
 
-# 2. Build + run the rig.
+# 2. Build + run the rig once per cell (PASS gate at 200 µs).
 cd ../risk1/gate-a-rig
-cargo run --release -- --iterations 100000
+for cell in pid_limited droop_p_f anti_islanding_rocof pid_stack_100; do
+  cargo run --release -- --cell "$cell" --iterations 50000 --deadline-ns 200000
+done
 ```
+
+The rig exits non-zero on the first cell that misses the deadline, so the
+loop fails fast in CI.
 
 ## CLI
 
 ```
 gate-a-rig [OPTIONS]
 
-  --cell <NAME>               One of `pid_limited` (default) or `pid_stack_100`.
+  --cell <NAME>               One of `pid_limited` (default), `pid_stack_100`,
+                              `droop_p_f`, `anti_islanding_rocof`.
   --wasm-path <PATH>          Cell .wasm artefact (default: ../../cells/target/wasm32-unknown-unknown/release/<cell>.wasm)
   --iterations <N>            Tick iterations (default: 100_000)
   --cycle-period-ms <MS>      Params.cycle_period_ms (default: 1)
-  --report <PATH>             Markdown report output (default: ../gate-a-report.md or ../gate-a-stack100-report.md)
+  --deadline-ns <NS>          Per-tick deadline in ns. 0 disables enforcement
+                              (default). On Mimi the SPEC §14.1 budget is
+                              200_000 (200 µs) at p99.9; pass `--deadline-ns
+                              200000` to make the rig exit non-zero if any tick
+                              exceeds the host approximation.
+  --report <PATH>             Markdown report output (default: ../gate-a-<cell>-report.md
+                              — `pid_limited` keeps the legacy `../gate-a-report.md` name)
 ```
 
 Adding a new cell: declare its `CellLayout` and `synthesize_data_in_*` function in `src/main.rs`, register both in `select_cell`. The cell-agnostic main loop handles everything else.
