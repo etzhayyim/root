@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "prov": "http://www.w3.org/ns/prov#",
+    "dct": "http://purl.org/dc/terms/",
+    "gftd": "https://gftd.ai/schema#",
+    "name": "dct:title",
+    "description": "dct:description",
+    "status": "gftd:status"
+  },
+  "@id": "https://gftd.ai/projects/ai-gftd-project-fm",
+  "@type": "prov:Entity",
+  "name": "ai-gftd-project-fm (Fund Management Domain Design)",
+  "description": "Fund management domain blueprint that composes APQC process actors with ISCO role actors and ISIC industry actors.",
+  "gftd:category": "ai-gftd-project-fm",
+  "status": "Designed",
+  "gftd:seedScript": "seed.ts",
+  "prov:wasGeneratedBy": {
+    "@type": "prov:Activity",
+    "name": "Fund management actor composition planning"
+  },
+  "rdfUnifiedDocuments": {
+    "@type": "Dataset",
+    "name": "Unified top-level RDF/JSON-LD documents",
+    "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
+    "documents": [
+      {
+        "fileName": "ARCHITECTURE.jsonld",
+        "content": {
+          "@context": {
+            "gftd": "https://gftd.ai/schema#",
+            "name": "http://purl.org/dc/terms/title",
+            "description": "http://purl.org/dc/terms/description"
+          },
+          "@id": "https://gftd.ai/projects/ai-gftd-project-fm/architecture",
+          "@type": "gftd:Architecture",
+          "name": "Fund Management Actor Architecture",
+          "description": "Three-layer actor architecture for fund management: process (APQC), people (ISCO), and industry constraints (ISIC).",
+          "gftd:layers": [
+            {
+              "name": "Process Layer (APQC)",
+              "actors": [
+                "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-9-0-financial-management-cvaeukqn",
+                "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-9-1-2-cost-accounting-hs5myyk4",
+                "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-9-4-accounts-receivable-sq8qt88a"
+              ]
+            },
+            {
+              "name": "Role Layer (ISCO)",
+              "actors": [
+                "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-1211-treasury-manager-7df4q796",
+                "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2412-financial-and-investment-advisers-hhddguqm",
+                "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2412-investment-analyst-vccbzmvf"
+              ]
+            },
+            {
+              "name": "Industry Layer (ISIC)",
+              "actors": [
+                "ai-gftd-performer-sys-gftd-actors-pba7d22f-org-isic-k-64-643-6430-qkt6zyvr",
+                "ai-gftd-performer-sys-gftd-actors-pba7d22f-org-isic-k-64-643-6431-sfmtdkzd",
+                "ai-gftd-performer-sys-gftd-actors-pba7d22f-org-isic-k-65-653-6530-rveryau2"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
