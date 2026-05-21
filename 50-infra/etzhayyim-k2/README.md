@@ -1,8 +1,25 @@
-# etzhayyim-k2 — migration target for K2 ecosystem on-chain components
+# etzhayyim-k2 — K2 ecosystem on-chain components
 
-**Status**: scaffold (no code yet)
+**Status**: Phase β P0 landed — KarmaAnchor + CohortLifecycle Foundry contracts + tests + deploy script. Bundler / RebirthGate (zk-SNARK) / Filecoin pin pending.
+**Design**: ADR-2605212040 (chain / bundler / zk / Filecoin / K2-vs-yobel)
 **Tracking**: ADR-2605211950 Open Item (2)
 **Originating ADRs**: vendor ADR-2604261830 (ethereum-anchored-wasm-bpmn-runtime) + ADR-2604262100 (erc725-erc8004-k8s-ipfs-agent-runtime)
+
+## Phase β P0 — what landed
+
+- `contracts/src/KarmaAnchor.sol` — Council-owned daily Merkle-root + IPFS CID anchor per epoch. Inline `verifyLeaf` for sorted-pair proof verification (OZ-compatible). No upgrade, no pause.
+- `contracts/src/CohortLifecycle.sol` — Council-owned cohort state machine (Genesis / Active / Fissioned / Decommissioned / Resumed) with fission parent ↔ children edges + decommission reason hash. Used by yobel and other scriptural consumers via `slugHash → cohortId`.
+- `contracts/script/Deploy.s.sol` — `run(councilSafe)` for testnet/mainnet + `runLocal()` for Anvil.
+- `contracts/test/{KarmaAnchor,CohortLifecycle}.t.sol` — 22 tests (10 anchor + 12 lifecycle). All passing locally.
+- `contracts/lib/forge-std` submodule.
+
+## Phase β P1+ — what's next
+
+- Base Sepolia testnet deploy (mirror of the etzhayyim-authz runbook; `forge script ... --rpc-url base_sepolia`).
+- ERC-4337 bundler (rundler) — k8s deploy. Container image + manifests.
+- RebirthGate zk-SNARK — Noir circuits + Solidity verifier (PLONK / Honk).
+- Filecoin pin client — web3.storage UCAN wrapper, with redundant ipfs-pinner Tier 1.
+- yobel refactor (`20-actors/yobel/cells/release_settlement/`) to use K2 cohort primitives.
 
 ## Why this directory exists
 
