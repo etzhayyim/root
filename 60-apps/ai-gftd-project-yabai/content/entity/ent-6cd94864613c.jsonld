@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.gftd.ai/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.gftd.ai/content/entity/ent-6cd94864613c",
+  "entityId": "ent-6cd94864613c",
+  "canonicalName": "desert pulse trading fze",
+  "aliases": [
+    "desert pulse trading fze"
+  ]
+}
