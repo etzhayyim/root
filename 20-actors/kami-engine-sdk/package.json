@@ -1,5 +1,5 @@
 {
-  "name": "@gftdcojp/kami-engine-sdk",
+  "name": "@etzhayyim/kami-engine-sdk",
   "version": "0.1.0",
   "description": "KAMI Engine SDK: Svelte 5 VRM character components, headless builders, Genko manga editor, trackpad embeds, and manufacturing planning helpers.",
   "type": "module",
