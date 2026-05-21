@@ -478,6 +478,113 @@ pub unsafe extern "C" fn anti_islanding_rocof_tick(
 }
 
 // ---------------------------------------------------------------------------
+// kani harnesses (Gate C §2.3 follow-up).
+// ---------------------------------------------------------------------------
+
+#[cfg(kani)]
+mod proofs {
+    use super::*;
+
+    fn arbitrary_signal_quality() -> SignalQuality {
+        match kani::any::<u8>() & 0b11 {
+            0 => SignalQuality::Good,
+            1 => SignalQuality::Uncertain,
+            2 => SignalQuality::Bad,
+            _ => SignalQuality::Stale,
+        }
+    }
+
+    fn arbitrary_trip_reason() -> TripReason {
+        match kani::any::<u8>() % 6 {
+            0 => TripReason::None,
+            1 => TripReason::Rocof,
+            2 => TripReason::Overvoltage,
+            3 => TripReason::Undervoltage,
+            4 => TripReason::Overfrequency,
+            _ => TripReason::Underfrequency,
+        }
+    }
+
+    fn arbitrary_event_in() -> EventIn {
+        match kani::any::<u8>() & 1 {
+            0 => EventIn::Req,
+            _ => EventIn::Reset,
+        }
+    }
+
+    fn arbitrary_ecc_state() -> EccState {
+        match kani::any::<u8>() % 5 {
+            0 => EccState::Idle,
+            1 => EccState::Monitoring,
+            2 => EccState::Warning,
+            3 => EccState::Tripped,
+            _ => EccState::Alarm,
+        }
+    }
+
+    fn arbitrary_data_in() -> DataIn {
+        DataIn {
+            grid_freq_micro_hz: kani::any(),
+            freq_nominal_micro_hz: kani::any(),
+            grid_voltage_micro_v: kani::any(),
+            voltage_nominal_micro_v: kani::any(),
+            freq_quality: arbitrary_signal_quality(),
+            voltage_quality: arbitrary_signal_quality(),
+            enable: kani::any(),
+        }
+    }
+
+    fn arbitrary_internal() -> Internal {
+        Internal {
+            last_freq_micro_hz: kani::any(),
+            rocof_violation_count: kani::any(),
+            voltage_violation_count: kani::any(),
+            freq_violation_count: kani::any(),
+            last_trip_reason: arbitrary_trip_reason(),
+            initialized: kani::any(),
+        }
+    }
+
+    fn arbitrary_params() -> Params {
+        Params {
+            rocof_threshold_micro_hz_per_s: kani::any(),
+            rocof_window_samples: kani::any(),
+            voltage_min_micro_v: kani::any(),
+            voltage_max_micro_v: kani::any(),
+            voltage_window_samples: kani::any(),
+            freq_min_micro_hz: kani::any(),
+            freq_max_micro_hz: kani::any(),
+            freq_window_samples: kani::any(),
+            cycle_period_ms: kani::any(),
+        }
+    }
+
+    /// Multi-event tick: even with REQ + RESET + arbitrary ECC, the tick
+    /// path is total. Tested under both event inputs since RESET clears
+    /// counters and RESET-from-Tripped is the most logic-heavy branch.
+    #[kani::proof]
+    fn tick_never_panics() {
+        let data_in = arbitrary_data_in();
+        let mut internal = arbitrary_internal();
+        let params = arbitrary_params();
+        let super_step: u64 = kani::any();
+        let _ = AntiIslandingRocof::tick(
+            arbitrary_event_in(),
+            &data_in,
+            arbitrary_ecc_state(),
+            &mut internal,
+            &params,
+            super_step,
+        );
+    }
+
+    #[kani::proof]
+    fn init_never_panics() {
+        let _ = AntiIslandingRocof::init(&arbitrary_params());
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Tests.
 // ---------------------------------------------------------------------------
 

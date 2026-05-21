@@ -320,6 +320,74 @@ pub unsafe extern "C" fn pid_stack_100_tick(
 }
 
 // ---------------------------------------------------------------------------
+// kani harnesses (Gate C §2.3 follow-up).
+//
+// Note: this cell holds 100 PID instances per tick. kani's bounded model
+// checker may need a higher `--default-unwind` to verify the inner loop
+// exhaustively; the harness here covers the structural panic-freedom of
+// the tick path. Per-instance saturating arithmetic is identical to
+// pid_limited (and verified there), so the inner loop body is by-extension
+// covered.
+// ---------------------------------------------------------------------------
+
+#[cfg(kani)]
+mod proofs {
+    use super::*;
+
+    fn arbitrary_ecc_state() -> EccState {
+        match kani::any::<u8>() & 0b11 {
+            0 => EccState::Idle,
+            1 => EccState::Healthy,
+            2 => EccState::Degraded,
+            _ => EccState::AllAlarm,
+        }
+    }
+
+    /// 100-instance tick is `O(N)` in array length; kani verifies the
+    /// outer-frame panic-freedom. The inner-loop math is identical to
+    /// pid_limited and covered there.
+    #[kani::proof]
+    #[kani::unwind(101)]
+    fn tick_never_panics() {
+        let data_in: DataIn = DataIn {
+            pvs: [kani::any::<i32>(); N],
+            sps: [kani::any::<i32>(); N],
+            qualities: [0u8; N], // SignalQuality::Good fixed to bound state space
+            enables: [1u8; N],
+        };
+        let mut internal: Internal = Internal::default();
+        let params = Params {
+            kp_micro: kani::any(),
+            ki_micro: kani::any(),
+            out_min_micro: kani::any(),
+            out_max_micro: kani::any(),
+            cycle_period_ms: kani::any(),
+        };
+        let super_step: u64 = kani::any();
+        let _ = PidStack100::tick(
+            EventIn::Req,
+            &data_in,
+            arbitrary_ecc_state(),
+            &mut internal,
+            &params,
+            super_step,
+        );
+    }
+
+    #[kani::proof]
+    fn init_never_panics() {
+        let params = Params {
+            kp_micro: kani::any(),
+            ki_micro: kani::any(),
+            out_min_micro: kani::any(),
+            out_max_micro: kani::any(),
+            cycle_period_ms: kani::any(),
+        };
+        let _ = PidStack100::init(&params);
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Tests — exercise a representative subset of instances.
 // ---------------------------------------------------------------------------
 

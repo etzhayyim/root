@@ -33,11 +33,21 @@ mst-projector produces CAR files but doesn't pin them. Separating concerns:
 | **Filecoin (via Storacha)** | per-GB-month | deal-bound (1-2 years), renewable | long-term archive |
 | **Self-hosted Kubo** | infra cost | you decide | full control |
 
-Default: dual-pin to Pinata (hot) + Filecoin via Storacha (cold). Configurable via `ETZ_PINNER_PROVIDERS`.
+Default (Phase 1 dev): Kubo only (no API key, self-hosted, fits the
+religious-corp ethos). Production must override with `ETZ_PINNER_PROVIDERS=kubo,filecoin`
+(or similar dual-pin) to satisfy the replication-factor ≥ 2 invariant.
 
 ## Status
 
-**Scaffold v0.0.0**. Stubs only.
+**Phase 1 (Kubo-only working)** —
+- ✅ `app.etzhayyim.substrate.ipfsPin` lexicon (`00-contracts/lexicons/app/etzhayyim/substrate/ipfsPin.json`)
+- ✅ Kubo provider: real `/api/v0/dag/import` + `/api/v0/pin/add` round-trip
+- ✅ `buildPinRecord` + `emitPinRecord` (AtpAgent, mirrors mst-projector emit pattern)
+- ✅ `discoverCars` + `pinOne` + polling loop over the shared mst-projector data volume
+- ✅ Tests: 12/12 (`pnpm test`, node:test under tsx)
+- ⏳ Pinata / Web3.Storage / Filecoin (via Storacha) providers — stubs remain throw-on-call
+
+The producer side (mst-projector Phase 2) emits CAR files named by their AT-Protocol MST root CID; the pinner verifies the provider's returned CID equals the filename-encoded `rootCid` before emitting the pin record. CID mismatch is fatal.
 
 ## Layout
 
@@ -47,13 +57,16 @@ ipfs-pinner/
 ├── package.json
 ├── tsconfig.json
 ├── src/
-│   ├── index.ts        # CLI / service entry
+│   ├── index.ts        # CLI / service entry + discoverCars + pinOne + pollLoop
+│   ├── index.test.ts   # node:test — discoverCars walking shared volume
 │   ├── providers/
-│   │   ├── pinata.ts
-│   │   ├── web3storage.ts
-│   │   ├── filecoin.ts
-│   │   └── kubo.ts
-│   └── emit.ts         # writes ai.gftd.apps.substrate.ipfsPin AT records
+│   │   ├── pinata.ts        # stub (TODO)
+│   │   ├── web3storage.ts   # stub (TODO)
+│   │   ├── filecoin.ts      # stub (TODO)
+│   │   └── kubo.ts          # working: dag/import + pin/add
+│   ├── kubo.test.ts    # node:test — kubo HTTP round-trip with mocked fetch
+│   ├── emit.ts         # buildPinRecord + emitPinRecord (AtpAgent)
+│   └── emit.test.ts    # node:test — record shape + required-field invariants
 └── Dockerfile
 ```
 
@@ -61,7 +74,12 @@ ipfs-pinner/
 
 | env | default | purpose |
 |---|---|---|
-| `ETZ_PINNER_PROVIDERS` | `pinata,filecoin` | comma-separated provider list |
+| `ETZ_PINNER_PROVIDERS` | `kubo` | comma-separated provider list (production: `kubo,filecoin` or similar) |
+| `ETZ_PINNER_MIN_PROVIDERS` | `min(providers, 2)` | replication factor floor; pinOne errors if fewer providers confirmed |
+| `ETZ_PINNER_PDS_URL` | `https://pds.etzhayyim.com` | PDS where the pinner authenticates + writes pin records |
+| `ETZ_PINNER_PDS_SESSION` | — | JSON `{did,handle,accessJwt,refreshJwt}` (preferred) |
+| `ETZ_PINNER_PDS_AUTH` | — | JSON `{handle,password}` (fallback) |
+| `ETZ_PINNER_POLL_MS` | `10000` | dataDir polling interval |
 | `ETZ_PINATA_JWT` | (none, required if pinata enabled) | Pinata API JWT |
 | `ETZ_WEB3STORAGE_TOKEN` | (none, required if web3storage enabled) | Web3.Storage token |
 | `ETZ_STORACHA_DID` | (none, required if filecoin enabled) | Storacha account DID |

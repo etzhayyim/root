@@ -22,7 +22,7 @@ These cells are **Tier B (Per-Domain)** in the 3-layer actor hierarchy:
 | `land_dispute_resolution/` | Land Trust | MST listener | judah | LandRegistry |
 | [`steward_succession/`](steward_succession/) | Land Trust | MST listener + heartbeat | judah | LandRegistry |
 | `eligibility/` (existing, [ADR-2605172300](../../../90-docs/adr/2605172300-etzhayyim-bi-asset-substrate.md)) | Economic | 6-hour cron | zebulun | KishaStream, Phenotype |
-| `treasury_rebalance/` (existing) | Economic | monthly cron | zebulun | TreasuryMirror |
+| [`treasury_rebalance/`](treasury_rebalance/) | Economic | monthly cron | zebulun | TreasuryMirror, Governance |
 | `public_fund_grant/` ([ADR-2605192145](../../../90-docs/adr/2605192145-etzhayyim-public-fund-architecture.md)) | Economic | MST listener | zebulun | PublicFundGovernance |
 | [`tithe_routing/`](tithe_routing/) | Economic | MST listener | zebulun | TitheRouter |
 | `force_authorization/` | Force | MST listener | benjamin | ForceAuthorization |

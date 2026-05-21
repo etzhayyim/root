@@ -1,22 +1,23 @@
 /**
  * mst-projector — PDS firehose → shard-snapshot projector.
  *
- * Per ADR-2605191358 step 5 (Phase 1). Cycle:
+ * Phase 2 (per ADR-2605171800 + ADR-2605191655). Cycle:
  *   1. open firehose subscribeRepos WebSocket (resumed from cursor file)
  *   2. for each commit op: if its collection prefix is in
- *      ETZ_PROJECTOR_COLLECTIONS, apply to the per-shard in-memory record list
+ *      ETZ_PROJECTOR_COLLECTIONS, apply to the per-shard in-memory MST
+ *      (true AT-Protocol MST via @atproto/repo)
  *   3. on flush boundary (records-since-flush ≥ N or wall ≥ T seconds):
- *      - serialise the shard to a JSON manifest (Phase 1; CAR in Phase 2)
- *      - pin the manifest to IPFS (best-effort)
+ *      - serialise the shard to a CAR file (root + unstored MST blocks)
+ *      - pin the CAR to IPFS (best-effort)
  *      - emit `app.etzhayyim.substrate.shardSnapshot` AT record under the
- *        projector's DID, including snapshotHash + snapshotCid
+ *        projector's DID with `phase: 2`, `rootCid`, `snapshotCid`
  *   4. on SIGTERM: flush in-flight shards + exit
  */
 
 import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { startFirehose } from "./firehose.js";
-import { applyCommit, recordCount, shardSnapshot } from "./mst.js";
+import { applyCommit, recordCount } from "./mst.js";
 import {
   flushShard,
   notePending,
@@ -83,10 +84,10 @@ function loadConfig(): ResolvedConfig {
 
 async function flushAndEmit(
   config: ResolvedConfig,
-  shardKey: ShardKey
+  shardKey: ShardKey,
 ): Promise<void> {
-  const pre = shardSnapshot(shardKey);
   const flushed = await flushShard(shardKey, config.dataDir);
+  if (!flushed) return;
   try {
     const receipt = await emitShardSnapshot({
       did: config.did,
@@ -95,15 +96,15 @@ async function flushAndEmit(
       auth: config.auth,
       ipfsApiUrl: config.ipfsApiUrl,
       shardKey,
-      manifestPath: flushed.manifestPath,
-      snapshotHash: flushed.snapshotHash,
+      carPath: flushed.carPath,
+      rootCid: flushed.rootCid,
       recordCount: flushed.recordCount,
       byteSize: flushed.byteSize,
-      firstSeq: pre.firstSeq,
-      lastSeq: pre.lastSeq,
+      firstSeq: flushed.firstSeq,
+      lastSeq: flushed.lastSeq,
     });
     console.log(
-      `[mst-projector] flushed ${shardKey} count=${flushed.recordCount} hash=${flushed.snapshotHash} snapshotCid=${receipt.snapshotCid ?? "—"} uri=${receipt.uri}`
+      `[mst-projector] flushed ${shardKey} count=${flushed.recordCount} rootCid=${flushed.rootCid} snapshotCid=${receipt.snapshotCid ?? "—"} uri=${receipt.uri}`,
     );
   } catch (err) {
     console.error(`[mst-projector] emit failed for ${shardKey}:`, err);
@@ -122,16 +123,28 @@ async function main() {
     pdsUrl: config.pdsUrl,
     ipfsApiUrl: config.ipfsApiUrl ?? "(none)",
     authMode: config.session ? "session" : config.auth ? "password" : "none",
+    phase: 2,
   });
 
   await mkdir(config.dataDir, { recursive: true });
   const cursorFile = join(config.dataDir, "firehose.cursor");
 
+  let skippedSinceLastLog = 0;
+
   for await (const ev of startFirehose(config.firehoseUrl, { cursorFile })) {
     if (!config.collections.some((p) => ev.collection.startsWith(p))) continue;
 
     const shardKey: ShardKey = ev.collection;
-    applyCommit(shardKey, ev);
+    const res = await applyCommit(shardKey, ev);
+    if (!res.applied) {
+      skippedSinceLastLog += 1;
+      if (skippedSinceLastLog % 100 === 1) {
+        console.warn(
+          `[mst-projector] skip ${shardKey} seq=${ev.seq} reason=${res.reason}`,
+        );
+      }
+      continue;
+    }
     notePending(shardKey);
 
     if (shouldFlush(shardKey, config.flushRecords, config.flushSeconds)) {
