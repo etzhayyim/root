@@ -33,6 +33,13 @@ service = "magatama-yoro"
 # wildcard handle DNS is provisioned per ADR-2605212030 §D2.
 [vars]
 XRPC_UNISPSC_UPSTREAM = ""
+# AT Protocol / Bluesky stack — target the etzhayyim.com subdomain (handled by
+# etzhayyim-xrpc-proxy worker, which forwards via service binding to the
+# upstream ai-gftd-pds / ai-gftd-appview workers without hitting the
+# public-HTTP Bot Management blocks).
+XRPC_ATPROTO_UPSTREAM = "https://atproto.etzhayyim.com"
+XRPC_CHAT_UPSTREAM = "https://atproto.etzhayyim.com"
+XRPC_GFTD_UPSTREAM = "https://atproto.etzhayyim.com"
 
 # Observability — capture failed resolution attempts in CF Logs.
 [observability]
