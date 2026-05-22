@@ -50,6 +50,8 @@ jobs:
         run: npm install -g pnpm@10
       - name: Install deps
         run: pnpm install --frozen-lockfile || pnpm install
+      - name: Build @etzhayyim/sdk
+        run: pnpm -F @etzhayyim/sdk build
       - name: Run vitest
         working-directory: 60-apps/ai-gftd-project-${{ matrix.actor }}/rw-free
         run: pnpm test --reporter=verbose
@@ -74,6 +76,8 @@ jobs:
       - run: npm install -g pnpm@10
       - name: Install deps
         run: pnpm install --frozen-lockfile || pnpm install
+      - name: Build @etzhayyim/sdk
+        run: pnpm -F @etzhayyim/sdk build
       - name: tsc --noEmit
         working-directory: ${{ matrix.scope }}
         run: pnpm exec tsc --noEmit
@@ -89,6 +93,8 @@ jobs:
       - run: npm install -g pnpm@10
       - name: Install deps
         run: pnpm install --frozen-lockfile || pnpm install
+      - name: Build @etzhayyim/sdk
+        run: pnpm -F @etzhayyim/sdk build
       - name: Run Phase H suite
         working-directory: 70-tools/integration-tests
         run: pnpm test --reporter=verbose
