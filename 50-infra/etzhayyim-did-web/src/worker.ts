@@ -97,20 +97,48 @@ async function proxyXrpc(
   target.pathname = `/xrpc/${nsid}`;
   target.search = incoming.search;
 
+  // GET → POST normalization: the upstream PDS / AppView dispatcher serves
+  // every NSID (query and procedure) as POST + JSON body. AT Protocol clients
+  // (yoro included) send queries as GET with URL params. Convert the request
+  // so the upstream sees a uniform POST shape; query params become the JSON
+  // body, preserving the search string in the URL for any handler that still
+  // inspects it.
+  const isReadMethod = request.method === "GET" || request.method === "HEAD";
+  let outboundMethod = request.method;
+  let outboundBody: BodyInit | undefined = request.body ?? undefined;
   const fwd = new Headers(request.headers);
+  if (isReadMethod) {
+    const params: Record<string, unknown> = {};
+    for (const [k, v] of incoming.searchParams.entries()) {
+      const existing = params[k];
+      if (existing === undefined) {
+        params[k] = v;
+      } else if (Array.isArray(existing)) {
+        existing.push(v);
+      } else {
+        params[k] = [existing, v];
+      }
+    }
+    outboundMethod = "POST";
+    outboundBody = JSON.stringify(params);
+    fwd.set("content-type", "application/json");
+    // content-length will be set by fetch from the new body; remove any stale value.
+    fwd.delete("content-length");
+  }
   fwd.delete("host");
   fwd.set("x-forwarded-host", "etzhayyim.com");
   fwd.set("x-forwarded-proto", "https");
+  fwd.set("x-forwarded-method", request.method);
   fwd.set("x-etzhayyim-nsid", nsid);
 
   try {
     const upstreamResp = await fetch(target.toString(), {
-      method: request.method,
+      method: outboundMethod,
       headers: fwd,
       body:
-        request.method === "GET" || request.method === "HEAD"
+        outboundMethod === "GET" || outboundMethod === "HEAD"
           ? undefined
-          : request.body,
+          : outboundBody,
       redirect: "manual",
     });
     const respHeaders = new Headers(upstreamResp.headers);
