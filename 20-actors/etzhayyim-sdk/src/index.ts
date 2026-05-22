@@ -530,9 +530,21 @@ export * as paymaster from "./paymaster.js";
 export * as crypto from "./crypto.js";
 export * as signal from "./signal.js";
 export * as didSignal from "./did-signal.js";
+export * as atproto from "./atproto.js";
 export { parseUsdc, parseUsdcPerSecond, USDC_BASE } from "./pay.js";
 export {
   ETZHAYYIM_PRIVATE_CHAIN_ID,
   ETZHAYYIM_PRIVATE_RPC_DEFAULT,
 } from "./bi.js";
 export { sponsoredWriteContract, type SponsoredBundle } from "./paymaster.js";
+export {
+  AtpAgent,
+  AtpBaseClient,
+  createAgent,
+  xrpc,
+  type AppBskyActorDefs,
+  type AppBskyFeedDefs,
+  type AppBskyRichtextFacet,
+  type CreateAgentOpts,
+  type XrpcOpts,
+} from "./atproto.js";

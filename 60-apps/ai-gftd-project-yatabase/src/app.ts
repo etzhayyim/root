@@ -51,6 +51,8 @@ import { handleSignup } from "./auth-signup";
 import { emitMeter, getUsageLast24h } from "./metering";
 import { getQuotaStatus, quotaExceededResponse, PLAN_RULES } from "./plan-quota";
 import { handleUpgrade, handleStripeWebhook, handlePortal } from "./billing-stripe";
+import { handleDonate } from "./donate";
+import { handleUsdcWebhook } from "./webhook-usdc";
 import { handleInvoice, listInvoiceMonths } from "./invoice";
 import { resolvePlan } from "./plan-quota";
 import { listMembers, handleInvite, handleRevoke } from "./org-members";
@@ -189,7 +191,9 @@ app.get("/_app/meta", (c) =>
       "/auth/v1/upgrade",
       "/auth/v1/invite",
       "/auth/v1/revoke",
+      "/api/donate",
       "/webhook/stripe",
+      "/webhook/usdc",
       "/api/schema",
       "/api/usage",
       "/api/plan",
@@ -447,6 +451,8 @@ app.use("*", async (c, next) => {
   if (c.req.path === "/auth/v1/signup") return next();
   // Stripe webhook is signature-verified inline; no Bearer auth.
   if (c.req.path === "/webhook/stripe") return next();
+  // USDC donation webhook is attestation-verified inline; no Bearer auth.
+  if (c.req.path === "/webhook/usdc") return next();
   // Agent surfaces: /_agents/list is public; /_agents/{name}/run is gated
   // by x-yata-admin-key (operator-only). Tenant Bearer auth doesn't apply.
   if (c.req.path === "/_agents/list" || c.req.path.startsWith("/_agents/")) return next();
@@ -581,6 +587,22 @@ app.post("/auth/v1/upgrade", async (c) => {
   const auth = c.get("auth");
   if (!auth) return c.json({ error: "Unauthorized" }, 401);
   return handleUpgrade(c.env, auth.orgDid, c.req.raw);
+});
+
+// ── v0.2: USDC donation (Charter Rider §2 replacement for Stripe upgrade) ──
+app.post("/api/donate", async (c) => {
+  // Optional auth: can donate anonymously or as authed user
+  // TODO: when authed, record donation to org's vertex_donation_event for
+  // SBT mint eligibility + tax receipt generation
+  return handleDonate(c.req.raw, c.env as Record<string, unknown>);
+});
+
+// ── v0.2: USDC transfer webhook (Charter Rider §2 replacement for Stripe webhook) ──
+app.post("/webhook/usdc", async (c) => {
+  // Webhook from ChartersComplianceRegistry (or external attestation service).
+  // Verifies signature and updates recipient's plan / SBT state.
+  // TODO: wire real ChartersComplianceRegistry.verify() when available
+  return handleUsdcWebhook(c.req.raw, c.env as Record<string, unknown>);
 });
 
 // ── P71: Stripe Customer Portal (self-serve billing management) ──

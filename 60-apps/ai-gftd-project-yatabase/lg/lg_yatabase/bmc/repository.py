@@ -25,8 +25,6 @@ from collections.abc import AsyncIterator
 from datetime import datetime, timezone
 from typing import Any
 
-import asyncpg
-
 from lg_yatabase.bmc.db import execute, fetch, fetchrow, fetchval, get_pool
 
 _log = logging.getLogger(__name__)
@@ -553,21 +551,17 @@ async def block_health(org_did: str) -> list[dict[str, Any]]:
 
 @contextlib.asynccontextmanager
 async def iterate_lock(org_did: str) -> AsyncIterator[bool]:
-    """Per-org advisory lock so concurrent iterate triggers serialize.
+    """Per-org distributed lock via AT MST lock records.
 
-    Yields True if we hold the lock, False if another worker already
-    holds it (caller should bail out cleanly — the other run will
-    record the iteration).
+    TODO(substrate-boundary): Implement via MST lock record pattern.
+    For now, always yields True (no actual locking). Callers should
+    implement idempotency in their iterate() logic.
+
+    Historical: Used PG advisory locks (pg_try_advisory_lock).
     """
-    key = abs(hash(f"bmc:iterate:{org_did}")) % (2**31)
-    pool = await get_pool()
-    conn: asyncpg.Connection = await pool.acquire()
-    try:
-        got = await conn.fetchval("SELECT pg_try_advisory_lock($1)", key)
-        try:
-            yield bool(got)
-        finally:
-            if got:
-                await conn.execute("SELECT pg_advisory_unlock($1)", key)
-    finally:
-        await pool.release(conn)
+    # TODO: Implement MST-backed lock using a dedicated lock collection:
+    # - createRecord(org_did + "/bmc/iterate-lock") with timestamp
+    # - getRecord to check if current timestamp is within TTL
+    # - Cleanup via cron job for stale locks
+    _log.warning("[bmc.repository] iterate_lock: distributed lock not yet implemented; returning True")
+    yield True
