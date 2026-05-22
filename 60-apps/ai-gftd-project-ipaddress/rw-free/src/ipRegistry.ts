@@ -33,12 +33,22 @@ function ipRkey(address: string): string {
   return `ip-${ipSlug(address)}`;
 }
 
+const IPV4_RE = /^(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/;
+const IPV6_RE = /^(?:[0-9a-fA-F]{1,4}:){2,7}[0-9a-fA-F]{0,4}$|^::1$|^::$/;
+
+function isValidIp(address: string): boolean {
+  return IPV4_RE.test(address) || IPV6_RE.test(address);
+}
+
 export async function registerIp(
   e: Etzhayyim,
   input: RegisterIpInput
 ): Promise<RegisterIpOutput> {
   if (!input.address) {
     return { status: "rejected", error: "missingAddress" };
+  }
+  if (!isValidIp(input.address)) {
+    return { status: "rejected", error: "invalidAddressFormat" };
   }
   const rkey = ipRkey(input.address);
   const existing = await e

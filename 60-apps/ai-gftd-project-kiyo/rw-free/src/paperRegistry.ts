@@ -36,7 +36,7 @@ import {
 const PAPER_COLLECTION = "ai.gftd.kiyo.paper";
 
 function isPaperId(id: string): boolean {
-  return /^kiyo:\d{4}:[a-z0-9]{1,16}$/i.test(id);
+  return /^kiyo:\d{4}:[a-z0-9-]{1,32}$/i.test(id);
 }
 
 export async function submitPaper(

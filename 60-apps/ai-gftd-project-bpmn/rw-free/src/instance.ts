@@ -178,23 +178,28 @@ export async function signalInstance(
     return { status: "rejected", error: "notFound" };
   }
 
-  // Update instance state with signal payload
-  if (r.value && r.value.state === "running") {
-    const updated: InstanceRecord = {
-      ...r.value,
-      variables: {
-        ...(r.value.variables as any),
-        [`_signal_${input.messageName}`]: input.payload,
-      },
-      updatedAt: new Date().toISOString(),
+  if (!r.value || r.value.state !== "running") {
+    return {
+      status: "rejected",
+      error: r.value?.state === "cancelled" ? "instanceCancelled" : "instanceNotRunning",
     };
-
-    await e.write({
-      collection: INSTANCE_COLLECTION,
-      record: updated as unknown as Record<string, unknown>,
-      rkey,
-    });
   }
+
+  // Update instance state with signal payload
+  const updated: InstanceRecord = {
+    ...r.value,
+    variables: {
+      ...(r.value.variables as any),
+      [`_signal_${input.messageName}`]: input.payload,
+    },
+    updatedAt: new Date().toISOString(),
+  };
+
+  await e.write({
+    collection: INSTANCE_COLLECTION,
+    record: updated as unknown as Record<string, unknown>,
+    rkey,
+  });
 
   return {
     status: "signalled",
