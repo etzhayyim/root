@@ -926,6 +926,13 @@ status = "accepted"
 status_note = "Closes the long-running etzhayyim [MOVED → etzhayyim/root] cleanup. 15 MOVED-tagged repos physically deleted (0 remaining). public-global was MOVED-tagged but never actually imported — fetched into 60-apps/ai-gftd-project-public-global/ before deletion to reconcile the description (commit 690135d3). kami-engine-sdk republished as standalone read-only mirror at github.com/etzhayyim/kami-engine-sdk (monorepo SoT preserved); npm scope renamed @etzhayyim/kami-engine-sdk → @etzhayyim/kami-engine-sdk in 7 files (commit d302f274). Standalone-mirror policy = explicit one-by-one decision, no bulk; kami-engine-sdk is the only carve-out at the time of this ADR. Operational note: a concurrent 6-wave religious-corp cell substrate commit plan (yoro / shinka / etzhayyim-sdk-py / joucho / council + cross-cutting) committed 5 waves (64804ab2..0b6bfa55) to PR #254 but the cross-cutting wave was lost to a parallel git reset --hard origin/main; PR #254 closed without merge in favour of the user's parallel reconstruction."
 path = "90-docs/adr/2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone.md"
 
+[[adrs]]
+id = "2605222330"
+title = "etzhayyim.com substrate violation — transition window"
+status = "accepted"
+status_note = "Documents the current transient Charter §2 substrate violation introduced this session to unblock the yoro UI on etzhayyim.com. Five fixes shipped (bundle hashes / ad-tech URL scrub / xrpc-proxy worker / Kysely guard soften / apex /xrpc routing + GET→POST normalization) restore visible UI but at the cost of: (a) 100% gftd.ai DID corpus (0 etzhayyim.com actors) still served from RisingWave via softened ADR-2605111200 guard, (b) MST + IPFS + Base L2 anchor substrate not yet wired, (c) deployed bundle still contains AdSense/GA4/ExoClick code paths (URLs noop'd at runtime but source not yet rebuilt). Five hard exit criteria recorded. Authoritative for the runtime substrate state until superseded."
+path = "90-docs/adr/2605222330-etzhayyim-com-substrate-violation-transition-window.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
