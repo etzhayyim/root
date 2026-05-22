@@ -30,13 +30,13 @@ import json
 import logging
 import os
 import signal
+import sqlite3
 import time
 from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
-
-from pymagatama.db_sync import fetch_all, fetch_one, sync_cursor
+from pymagatama.primitives.active_inference_substrate import select_belief_store, SaikinSignalRecord, SaikinTransferRecord, SaikinColonyRecord, SaikinMemberRecord, KiAbsorbRecord
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("saikin_worker")
@@ -67,23 +67,28 @@ async def task_probe_environment(**_: Any) -> dict[str, Any]:
     """Probe environment for novel signals not yet in koke fixation."""
 
     def _run() -> dict[str, Any]:
-        rows = fetch_all(
-            f"""
-            SELECT vertex_id, signal_hash, input_kind, raw_ref
-            FROM vertex_saikin_signal
-            WHERE status = 'unprocessed'
-            ORDER BY created_at ASC
-            LIMIT {int(BATCH_SIZE)}
-            """,
-            (),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                rows = conn.execute(
+                    f"""
+                    SELECT vertex_id, signal_hash, input_kind, raw_ref
+                    FROM vertex_saikin_signal
+                    WHERE status = 'unprocessed'
+                    ORDER BY created_at ASC
+                    LIMIT {int(BATCH_SIZE)}
+                    """
+                ).fetchall()
+            except sqlite3.OperationalError:
+                rows = []
         signals = [
             {
-                "signalId": r[0].split("/")[-1],
-                "vertexId": r[0],
-                "signalHash": r[1] or "",
-                "inputKind": r[2] or "text",
-                "rawRef": r[3] or "",
+                "signalId": r["vertex_id"].split("/")[-1],
+                "vertexId": r["vertex_id"],
+                "signalHash": r["signal_hash"] or "",
+                "inputKind": r["input_kind"] or "text",
+                "rawRef": r["raw_ref"] or "",
             }
             for r in (rows or [])
         ]
@@ -129,28 +134,28 @@ async def task_transfer_signal(
     signal_hash = hashlib.sha256(raw_ref.encode()).hexdigest()[:32] if raw_ref else ""
 
     def _run() -> dict[str, Any]:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO edge_saikin_transfer
-                  (edge_id, src_vid, dst_vid, relation_kind, value_json,
-                   created_at, updated_at, owner_did, sensitivity_ord,
-                   signal_id, target_actor_did, transfer_kind, transferred_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    transfer_id,
-                    f"at://{SAIKIN_DID}/ai.gftd.apps.saikin.signal/{signal_id}",
-                    f"at://{target_did}/",
-                    "saikin_transfer",
-                    json.dumps({"inputKind": input_kind, "signalHash": signal_hash}),
-                    now, now, SAIKIN_DID, 0,
-                    signal_id, target_did, "horizontal", now,
-                ),
-            )
-            if signal_id:
-                cur.execute(
-                    "UPDATE vertex_saikin_signal SET status = 'transferred', updated_at = %s WHERE vertex_id LIKE %s",
+        store = select_belief_store()
+        rec = SaikinTransferRecord(
+            edge_id=transfer_id,
+            src_vid=f"at://{SAIKIN_DID}/ai.gftd.apps.saikin.signal/{signal_id}",
+            dst_vid=f"at://{target_did}/",
+            relation_kind="saikin_transfer",
+            value_json=json.dumps({"inputKind": input_kind, "signalHash": signal_hash}),
+            created_at=now,
+            updated_at=now,
+            owner_did=SAIKIN_DID,
+            sensitivity_ord=0,
+            signal_id=signal_id,
+            target_actor_did=target_did,
+            transfer_kind="horizontal",
+            transferred_at=now
+        )
+        store.put_edge_saikin_transfer(rec)
+
+        if signal_id:
+            with store._conn() as conn:
+                conn.execute(
+                    "UPDATE vertex_saikin_signal SET status = 'transferred', updated_at = ? WHERE vertex_id LIKE ?",
                     (now, f"%{signal_id}%"),
                 )
         return {
@@ -187,41 +192,45 @@ async def task_form_colony(
     member_count = len(signalIds)
 
     def _run() -> dict[str, Any]:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_saikin_colony
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   colony_label, member_count, formed_at, lysed_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    colony_vid, _uid("rec"), SAIKIN_DID,
-                    colonyLabel or "saikin_colony", "active", "",
-                    SAIKIN_DID, json.dumps({"signalIds": signalIds}),
-                    now, now, 0,
-                    colonyLabel or "", member_count, now, None,
-                ),
+        store = select_belief_store()
+
+        col_rec = SaikinColonyRecord(
+            vertex_id=colony_vid,
+            record_id=_uid("rec"),
+            owner_did=SAIKIN_DID,
+            label=colonyLabel or "saikin_colony",
+            status="active",
+            stream_id="",
+            agent_did=SAIKIN_DID,
+            value_json=json.dumps({"signalIds": signalIds}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            colony_label=colonyLabel or "",
+            member_count=member_count,
+            formed_at=now,
+            lysed_at=None
+        )
+        store.put_vertex_saikin_colony(col_rec)
+
+        for sid in signalIds:
+            edge_id = _uid("cmb")
+            mem_rec = SaikinMemberRecord(
+                edge_id=edge_id,
+                src_vid=colony_vid,
+                dst_vid=f"at://{SAIKIN_DID}/ai.gftd.apps.saikin.signal/{sid}",
+                relation_kind="saikin_member",
+                value_json=json.dumps({}),
+                created_at=now,
+                updated_at=now,
+                owner_did=SAIKIN_DID,
+                sensitivity_ord=0,
+                colony_id=colony_id,
+                signal_id=sid,
+                joined_at=now
             )
-            for sid in signalIds:
-                edge_id = _uid("cmb")
-                cur.execute(
-                    """
-                    INSERT INTO edge_saikin_member
-                      (edge_id, src_vid, dst_vid, relation_kind, value_json,
-                       created_at, updated_at, owner_did, sensitivity_ord,
-                       colony_id, signal_id, joined_at)
-                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                    """,
-                    (
-                        edge_id, colony_vid,
-                        f"at://{SAIKIN_DID}/ai.gftd.apps.saikin.signal/{sid}",
-                        "saikin_member", json.dumps({}),
-                        now, now, SAIKIN_DID, 0,
-                        colony_id, sid, now,
-                    ),
-                )
+            store.put_edge_saikin_member(mem_rec)
+
         return {
             "colonyId": colony_id,
             "colonyVertexId": colony_vid,
@@ -251,17 +260,24 @@ async def task_lyse(
     now = _now()
 
     def _run() -> dict[str, Any]:
-        row = fetch_one(
-            "SELECT vertex_id FROM vertex_saikin_signal WHERE vertex_id LIKE %s LIMIT 1",
-            (f"%{signalId}%",),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                row = conn.execute(
+                    "SELECT vertex_id FROM vertex_saikin_signal WHERE vertex_id LIKE ? LIMIT 1",
+                    (f"%{signalId}%",)
+                ).fetchone()
+            except sqlite3.OperationalError:
+                row = None
+
         if not row:
             return {"error": f"signal not found: {signalId}"}
 
-        vid = row[0]
-        with sync_cursor() as cur:
-            cur.execute(
-                "UPDATE vertex_saikin_signal SET status = 'lysed', updated_at = %s WHERE vertex_id = %s",
+        vid = row["vertex_id"]
+        with store._conn() as conn:
+            conn.execute(
+                "UPDATE vertex_saikin_signal SET status = 'lysed', updated_at = ? WHERE vertex_id = ?",
                 (now, vid),
             )
         return {
@@ -294,56 +310,71 @@ async def task_handoff_to_ki(
     now = _now()
 
     def _run() -> dict[str, Any]:
-        # Resolve source vertex: prefer colony, fall back to signal
+        store = select_belief_store()
         source_vid = ""
         input_kind = "text"
         content_snippet = ""
 
-        if colonyId:
-            colony = fetch_one(
-                "SELECT vertex_id, colony_label, value_json FROM vertex_saikin_colony WHERE vertex_id LIKE %s LIMIT 1",
-                (f"%{colonyId}%",),
-            )
-            if colony:
-                source_vid = colony[0]
-                content_snippet = colony[1] or ""
-                try:
-                    val = json.loads(colony[2] or "{}")
-                    content_snippet = content_snippet or str(val.get("signalIds", ""))
-                except (json.JSONDecodeError, TypeError):
-                    pass
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
 
-        if not source_vid and signalId:
-            sig = fetch_one(
-                "SELECT vertex_id, input_kind, raw_ref FROM vertex_saikin_signal WHERE vertex_id LIKE %s LIMIT 1",
-                (f"%{signalId}%",),
-            )
-            if sig:
-                source_vid = sig[0]
-                input_kind = sig[1] or "text"
-                content_snippet = sig[2] or ""
+            if colonyId:
+                try:
+                    colony = conn.execute(
+                        "SELECT vertex_id, colony_label, value_json FROM vertex_saikin_colony WHERE vertex_id LIKE ? LIMIT 1",
+                        (f"%{colonyId}%",)
+                    ).fetchone()
+                except sqlite3.OperationalError:
+                    colony = None
+
+                if colony:
+                    source_vid = colony["vertex_id"]
+                    content_snippet = colony["colony_label"] or ""
+                    try:
+                        val = json.loads(colony["value_json"] or "{}")
+                        content_snippet = content_snippet or str(val.get("signalIds", ""))
+                    except (json.JSONDecodeError, TypeError):
+                        pass
+
+            if not source_vid and signalId:
+                try:
+                    sig = conn.execute(
+                        "SELECT vertex_id, input_kind, raw_ref FROM vertex_saikin_signal WHERE vertex_id LIKE ? LIMIT 1",
+                        (f"%{signalId}%",)
+                    ).fetchone()
+                except sqlite3.OperationalError:
+                    sig = None
+
+                if sig:
+                    source_vid = sig["vertex_id"]
+                    input_kind = sig["input_kind"] or "text"
+                    content_snippet = sig["raw_ref"] or ""
 
         if not source_vid:
             return {"error": f"neither colony {colonyId!r} nor signal {signalId!r} found"}
 
         content_hash = hashlib.sha256(content_snippet.encode()).hexdigest()[:32]
 
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_ki_absorb
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   source_vertex_id, input_kind, content_hash, absorbed_at, synthesized_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    absorb_vid, _uid("rec"), KI_DID, "ki_absorb", "absorbed", "",
-                    SAIKIN_DID, json.dumps({"content": content_snippet[:500], "saikinColonyId": colonyId}),
-                    now, now, 0,
-                    source_vid, input_kind, content_hash, now, None,
-                ),
-            )
+        rec = KiAbsorbRecord(
+            vertex_id=absorb_vid,
+            record_id=_uid("rec"),
+            owner_did=KI_DID,
+            label="ki_absorb",
+            status="absorbed",
+            stream_id="",
+            agent_did=SAIKIN_DID,
+            value_json=json.dumps({"content": content_snippet[:500], "saikinColonyId": colonyId}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            source_vertex_id=source_vid,
+            input_kind=input_kind,
+            content_hash=content_hash,
+            absorbed_at=now,
+            synthesized_at=None
+        )
+        store.put_vertex_ki_absorb(rec)
+
         return {
             "kiAbsorbId": absorb_id,
             "kiAbsorbVertexId": absorb_vid,

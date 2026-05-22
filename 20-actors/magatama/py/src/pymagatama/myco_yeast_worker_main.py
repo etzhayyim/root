@@ -27,13 +27,13 @@ import json
 import logging
 import os
 import signal
+import sqlite3
 import time
 from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
-
-from pymagatama.db_sync import fetch_all, fetch_one, sync_cursor
+from pymagatama.primitives.active_inference_substrate import select_belief_store, KabiAnastomosisRecord, KabiHyphaRecord, KoboAgentRecord, KoboPrionRecord, KoboBuddingRecord, HoushiSporeRecord, KinokoBlockRecord, HakkouFermentRecord
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("myco_yeast_worker")
@@ -74,38 +74,50 @@ async def task_kabi_anastomosis_probe(
     """Gate protocol: decide whether two kabi networks may merge (anastomose)."""
 
     def _run() -> dict[str, Any]:
-        # fetch network η for A and B
-        row_a = fetch_one(
-            "SELECT total_flow, hypha_count FROM vertex_kabi_network WHERE agent_did = %s LIMIT 1",
-            (network_a_did,),
-        )
-        row_b = fetch_one(
-            "SELECT total_flow, hypha_count FROM vertex_kabi_network WHERE agent_did = %s LIMIT 1",
-            (network_b_did,),
-        )
-        # compute average eta per network from edge_kabi_hypha
-        eta_a_row = fetch_one(
-            "SELECT AVG(eta) FROM edge_kabi_hypha WHERE src_agent_did = %s AND pruned_at IS NULL",
-            (network_a_did,),
-        )
-        eta_b_row = fetch_one(
-            "SELECT AVG(eta) FROM edge_kabi_hypha WHERE src_agent_did = %s AND pruned_at IS NULL",
-            (network_b_did,),
-        )
-        eta_a = float((eta_a_row or [0])[0] or 0)
-        eta_b = float((eta_b_row or [0])[0] or 0)
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                # fetch network η for A and B
+                row_a = conn.execute(
+                    "SELECT total_flow, hypha_count FROM vertex_kabi_network WHERE agent_did = ? LIMIT 1",
+                    (network_a_did,)
+                ).fetchone()
+                row_b = conn.execute(
+                    "SELECT total_flow, hypha_count FROM vertex_kabi_network WHERE agent_did = ? LIMIT 1",
+                    (network_b_did,)
+                ).fetchone()
 
-        # check malignant prions from either side
-        malignant_a = fetch_one(
-            "SELECT COUNT(*) FROM vertex_kobo_prion WHERE agent_did = %s AND malignant_score > %s",
-            (network_a_did, PRION_MALIGNANT_THRESHOLD),
-        )
-        malignant_b = fetch_one(
-            "SELECT COUNT(*) FROM vertex_kobo_prion WHERE agent_did = %s AND malignant_score > %s",
-            (network_b_did, PRION_MALIGNANT_THRESHOLD),
-        )
-        prion_ok = (int((malignant_a or [0])[0] or 0) == 0
-                    and int((malignant_b or [0])[0] or 0) == 0)
+                # compute average eta per network from edge_kabi_hypha
+                eta_a_row = conn.execute(
+                    "SELECT AVG(eta) as avg_eta FROM edge_kabi_hypha WHERE src_agent_did = ? AND pruned_at IS NULL",
+                    (network_a_did,)
+                ).fetchone()
+                eta_b_row = conn.execute(
+                    "SELECT AVG(eta) as avg_eta FROM edge_kabi_hypha WHERE src_agent_did = ? AND pruned_at IS NULL",
+                    (network_b_did,)
+                ).fetchone()
+
+                # check malignant prions from either side
+                malignant_a = conn.execute(
+                    "SELECT COUNT(*) as count FROM vertex_kobo_prion WHERE agent_did = ? AND malignant_score > ?",
+                    (network_a_did, PRION_MALIGNANT_THRESHOLD)
+                ).fetchone()
+                malignant_b = conn.execute(
+                    "SELECT COUNT(*) as count FROM vertex_kobo_prion WHERE agent_did = ? AND malignant_score > ?",
+                    (network_b_did, PRION_MALIGNANT_THRESHOLD)
+                ).fetchone()
+            except sqlite3.OperationalError:
+                row_a, row_b = None, None
+                eta_a_row, eta_b_row = None, None
+                malignant_a, malignant_b = None, None
+
+        eta_a = float(eta_a_row["avg_eta"] or 0) if eta_a_row else 0.0
+        eta_b = float(eta_b_row["avg_eta"] or 0) if eta_b_row else 0.0
+
+        count_a = int(malignant_a["count"]) if malignant_a else 0
+        count_b = int(malignant_b["count"]) if malignant_b else 0
+        prion_ok = (count_a == 0 and count_b == 0)
 
         eta_diff = abs(eta_a - eta_b)
         # simple trust proxy: both networks must have ≥1 hypha
@@ -131,40 +143,46 @@ async def task_kabi_anastomosis_probe(
 
         # persist anastomosis decision
         edge_id = _uid("ana")
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO edge_kabi_anastomosis
-                  (edge_id, src_vid, dst_vid, relation_kind, value_json,
-                   created_at, updated_at, owner_did, sensitivity_ord,
-                   network_a_did, network_b_did, compatibility_score, result, reason)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    edge_id, network_a_did, network_b_did, "anastomosis",
-                    json.dumps({"eta_a": eta_a, "eta_b": eta_b}),
-                    _now(), _now(), KABI_DID, 0,
-                    network_a_did, network_b_did, compatibility_score, result, reason,
-                ),
-            )
-            if accept:
-                # add bidirectional hypha seeds
-                for src, dst in [(network_a_did, network_b_did), (network_b_did, network_a_did)]:
-                    hid = _uid("hyp")
-                    cur.execute(
-                        """
-                        INSERT INTO edge_kabi_hypha
-                          (edge_id, src_vid, dst_vid, relation_kind, value_json,
-                           created_at, updated_at, owner_did, sensitivity_ord,
-                           src_agent_did, dst_agent_did, eta, flow, pruned_at)
-                        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                        """,
-                        (
-                            hid, src, dst, "hypha", json.dumps({}),
-                            _now(), _now(), KABI_DID, 0,
-                            src, dst, round((eta_a + eta_b) / 2, 4), 0.0, None,
-                        ),
-                    )
+        ana_rec = KabiAnastomosisRecord(
+            edge_id=edge_id,
+            src_vid=network_a_did,
+            dst_vid=network_b_did,
+            relation_kind="anastomosis",
+            value_json=json.dumps({"eta_a": eta_a, "eta_b": eta_b}),
+            created_at=_now(),
+            updated_at=_now(),
+            owner_did=KABI_DID,
+            sensitivity_ord=0,
+            network_a_did=network_a_did,
+            network_b_did=network_b_did,
+            compatibility_score=compatibility_score,
+            result=result,
+            reason=reason
+        )
+        store.put_edge_kabi_anastomosis(ana_rec)
+
+        if accept:
+            # add bidirectional hypha seeds
+            for src, dst in [(network_a_did, network_b_did), (network_b_did, network_a_did)]:
+                hid = _uid("hyp")
+                hypha_rec = KabiHyphaRecord(
+                    edge_id=hid,
+                    src_vid=src,
+                    dst_vid=dst,
+                    relation_kind="hypha",
+                    value_json=json.dumps({}),
+                    created_at=_now(),
+                    updated_at=_now(),
+                    owner_did=KABI_DID,
+                    sensitivity_ord=0,
+                    src_agent_did=src,
+                    dst_agent_did=dst,
+                    eta=round((eta_a + eta_b) / 2, 4),
+                    flow=0.0,
+                    pruned_at=None
+                )
+                store.put_edge_kabi_hypha(hypha_rec)
+
         return {
             "result": result, "reason": reason,
             "compatibilityScore": compatibility_score, "edgeId": edge_id,
@@ -193,73 +211,91 @@ async def task_kobo_bud_agent(
         child_did = f"did:web:kobo.etzhayyim.com:agent:{_uid('bud')}"
 
     def _run() -> dict[str, Any]:
-        parent = fetch_one(
-            "SELECT vertex_id, eta, role, stress_score FROM vertex_kobo_agent WHERE agent_did = %s LIMIT 1",
-            (parent_did,),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                parent = conn.execute(
+                    "SELECT vertex_id, eta, role, stress_score FROM vertex_kobo_agent WHERE agent_did = ? LIMIT 1",
+                    (parent_did,)
+                ).fetchone()
+
+                # copy heritable prions
+                prions = conn.execute(
+                    "SELECT pattern_hash, heritable, malignant_score, content FROM vertex_kobo_prion "
+                    "WHERE agent_did = ? AND heritable = 1",
+                    (parent_did,)
+                ).fetchall()
+            except sqlite3.OperationalError:
+                parent = None
+                prions = []
+
         if not parent:
             return {"error": f"parent agent not found: {parent_did}"}
-
-        # copy heritable prions
-        prions = fetch_all(
-            "SELECT pattern_hash, heritable, malignant_score, content FROM vertex_kobo_prion "
-            "WHERE agent_did = %s AND heritable = true",
-            (parent_did,),
-        )
 
         now = _now()
         child_vid = f"at://{KOBO_DID}/ai.gftd.apps.kobo.agent/{child_did.split(':')[-1]}"
 
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_kobo_agent
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   parent_did, role, eta, stress_score)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    child_vid, _uid("rec"), KOBO_DID, "kobo_agent", "active", "",
-                    child_did, json.dumps({"origin": "budding"}),
-                    now, now, 0,
-                    parent_did, parent[2] or "general", parent[1] or 0.5, 0.0,
-                ),
+        agent_rec = KoboAgentRecord(
+            vertex_id=child_vid,
+            record_id=_uid("rec"),
+            owner_did=KOBO_DID,
+            label="kobo_agent",
+            status="active",
+            stream_id="",
+            agent_did=child_did,
+            value_json=json.dumps({"origin": "budding"}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            parent_did=parent_did,
+            role=parent["role"] or "general",
+            eta=float(parent["eta"] or 0.5),
+            stress_score=0.0
+        )
+        store.put_vertex_kobo_agent(agent_rec)
+
+        # transfer heritable prions
+        for p in prions:
+            pvid = f"at://{KOBO_DID}/ai.gftd.apps.kobo.prion/{_uid('prn')}"
+            prion_rec = KoboPrionRecord(
+                vertex_id=pvid,
+                record_id=_uid("rec"),
+                owner_did=KOBO_DID,
+                label="kobo_prion",
+                status="active",
+                stream_id="",
+                agent_did=child_did,
+                value_json=json.dumps({}),
+                created_at=now,
+                updated_at=now,
+                sensitivity_ord=0,
+                pattern_hash=p["pattern_hash"],
+                heritable=True,
+                malignant_score=float(p["malignant_score"] or 0.0),
+                content=p["content"] or ""
             )
-            # transfer heritable prions
-            for ph, _h, ms, content in prions:
-                pvid = f"at://{KOBO_DID}/ai.gftd.apps.kobo.prion/{_uid('prn')}"
-                cur.execute(
-                    """
-                    INSERT INTO vertex_kobo_prion
-                      (vertex_id, record_id, owner_did, label, status, stream_id,
-                       agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                       pattern_hash, heritable, malignant_score, content)
-                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                    """,
-                    (
-                        pvid, _uid("rec"), KOBO_DID, "kobo_prion", "active", "",
-                        child_did, json.dumps({}),
-                        now, now, 0,
-                        ph, True, ms or 0.0, content or "",
-                    ),
-                )
-            # record budding edge
-            eid = _uid("bud")
-            cur.execute(
-                """
-                INSERT INTO edge_kobo_budding
-                  (edge_id, src_vid, dst_vid, relation_kind, value_json,
-                   created_at, updated_at, owner_did, sensitivity_ord,
-                   parent_did, child_did, budded_at, prion_count)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    eid, parent[0], child_vid, "budding", json.dumps({}),
-                    now, now, KOBO_DID, 0,
-                    parent_did, child_did, now, len(prions),
-                ),
-            )
+            store.put_vertex_kobo_prion(prion_rec)
+
+        # record budding edge
+        eid = _uid("bud")
+        bud_rec = KoboBuddingRecord(
+            edge_id=eid,
+            src_vid=parent["vertex_id"],
+            dst_vid=child_vid,
+            relation_kind="budding",
+            value_json=json.dumps({}),
+            created_at=now,
+            updated_at=now,
+            owner_did=KOBO_DID,
+            sensitivity_ord=0,
+            parent_did=parent_did,
+            child_did=child_did,
+            budded_at=now,
+            prion_count=len(prions)
+        )
+        store.put_edge_kobo_budding(bud_rec)
+
         return {
             "childDid": child_did, "childVertexId": child_vid,
             "prionCount": len(prions), "edgeId": eid, "generated": generated_child,
@@ -284,23 +320,31 @@ async def task_kobo_sporulate(
         return {"error": "agent_did required"}
 
     def _run() -> dict[str, Any]:
-        agent = fetch_one(
-            "SELECT vertex_id, stress_score, value_json FROM vertex_kobo_agent "
-            "WHERE agent_did = %s AND status = 'active' LIMIT 1",
-            (agent_did,),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                agent = conn.execute(
+                    "SELECT vertex_id, stress_score, value_json FROM vertex_kobo_agent "
+                    "WHERE agent_did = ? AND status = 'active' LIMIT 1",
+                    (agent_did,)
+                ).fetchone()
+
+                prions = conn.execute(
+                    "SELECT pattern_hash, heritable, content FROM vertex_kobo_prion WHERE agent_did = ?",
+                    (agent_did,)
+                ).fetchall()
+            except sqlite3.OperationalError:
+                agent = None
+                prions = []
+
         if not agent:
             return {"error": f"active agent not found: {agent_did}"}
-
-        prions = fetch_all(
-            "SELECT pattern_hash, heritable, content FROM vertex_kobo_prion WHERE agent_did = %s",
-            (agent_did,),
-        )
 
         # CBOR-like blob: JSON-encoded essential state
         blob_data = {
             "agent_did": agent_did,
-            "prions": [{"ph": p[0], "heritable": p[1], "content": p[2]} for p in prions],
+            "prions": [{"ph": p["pattern_hash"], "heritable": p["heritable"], "content": p["content"]} for p in prions],
             "encoded_at": _now(),
         }
         blob_json = json.dumps(blob_data)
@@ -310,25 +354,30 @@ async def task_kobo_sporulate(
         spore_vid = f"at://{HOUSHI_DID}/ai.gftd.apps.houshi.spore/{spore_id}"
         now = _now()
 
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_houshi_spore
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   origin_agent_did, blob_cbor, revival_key_hint, quorum_n, germinated_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    spore_vid, _uid("rec"), HOUSHI_DID, "houshi_spore", "dormant", "",
-                    agent_did, json.dumps({}),
-                    now, now, 0,
-                    agent_did, blob_json, revival_key_hint, quorum_n, None,
-                ),
-            )
+        spore_rec = HoushiSporeRecord(
+            vertex_id=spore_vid,
+            record_id=_uid("rec"),
+            owner_did=HOUSHI_DID,
+            label="houshi_spore",
+            status="dormant",
+            stream_id="",
+            agent_did=agent_did,
+            value_json=json.dumps({}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            origin_agent_did=agent_did,
+            blob_cbor=blob_json,
+            revival_key_hint=revival_key_hint,
+            quorum_n=quorum_n,
+            germinated_at=None
+        )
+        store.put_vertex_houshi_spore(spore_rec)
+
+        with store._conn() as conn:
             # mark agent dormant
-            cur.execute(
-                "UPDATE vertex_kobo_agent SET status = 'dormant', updated_at = %s WHERE agent_did = %s",
+            conn.execute(
+                "UPDATE vertex_kobo_agent SET status = 'dormant', updated_at = ? WHERE agent_did = ?",
                 (now, agent_did),
             )
         return {"sporeId": spore_id, "sporeVertexId": spore_vid, "revivalKeyHint": revival_key_hint}
@@ -352,22 +401,30 @@ async def task_kobo_germinate(
         return {"error": "spore_id required"}
 
     def _run() -> dict[str, Any]:
-        spore = fetch_one(
-            "SELECT vertex_id, origin_agent_did, blob_cbor, quorum_n, germinated_at "
-            "FROM vertex_houshi_spore WHERE (vertex_id LIKE %s OR record_id = %s) LIMIT 1",
-            (f"%{spore_id}%", spore_id),
-        )
-        if not spore:
-            return {"error": f"spore not found: {spore_id}"}
-        if spore[4]:  # germinated_at is set
-            return {"error": "already germinated", "germinatedAt": spore[4]}
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                spore = conn.execute(
+                    "SELECT vertex_id, origin_agent_did, blob_cbor, quorum_n, germinated_at "
+                    "FROM vertex_houshi_spore WHERE (vertex_id LIKE ? OR record_id = ?) LIMIT 1",
+                    (f"%{spore_id}%", spore_id)
+                ).fetchone()
 
-        custody_count_row = fetch_one(
-            "SELECT COUNT(*) FROM edge_houshi_custody WHERE src_vid = %s AND custody_confirmed = true",
-            (spore[0],),
-        )
-        confirmed = int((custody_count_row or [0])[0] or 0)
-        quorum_needed = int(spore[3] or 3)
+                if not spore:
+                    return {"error": f"spore not found: {spore_id}"}
+                if spore["germinated_at"]:
+                    return {"error": "already germinated", "germinatedAt": spore["germinated_at"]}
+
+                custody_count_row = conn.execute(
+                    "SELECT COUNT(*) as count FROM edge_houshi_custody WHERE src_vid = ? AND custody_confirmed = 1",
+                    (spore["vertex_id"],)
+                ).fetchone()
+            except sqlite3.OperationalError:
+                return {"error": f"spore not found: {spore_id}"}
+
+        confirmed = int(custody_count_row["count"] if custody_count_row else 0)
+        quorum_needed = int(spore["quorum_n"] or 3)
         quorum_met = confirmed >= (quorum_needed // 2 + 1)
 
         if not quorum_met:
@@ -377,16 +434,16 @@ async def task_kobo_germinate(
                 "required": quorum_needed // 2 + 1,
             }
 
-        agent_did = spore[1]
+        agent_did = spore["origin_agent_did"]
         now = _now()
 
-        with sync_cursor() as cur:
-            cur.execute(
-                "UPDATE vertex_houshi_spore SET germinated_at = %s, updated_at = %s WHERE vertex_id = %s",
-                (now, now, spore[0]),
+        with store._conn() as conn:
+            conn.execute(
+                "UPDATE vertex_houshi_spore SET germinated_at = ?, updated_at = ? WHERE vertex_id = ?",
+                (now, now, spore["vertex_id"]),
             )
-            cur.execute(
-                "UPDATE vertex_kobo_agent SET status = 'active', updated_at = %s WHERE agent_did = %s",
+            conn.execute(
+                "UPDATE vertex_kobo_agent SET status = 'active', updated_at = ? WHERE agent_did = ?",
                 (now, agent_did),
             )
         return {"quorumMet": True, "agentDid": agent_did, "germinatedAt": now}
@@ -403,19 +460,26 @@ async def task_kinoko_check_flow_threshold(**_: Any) -> dict[str, Any]:
     """PoNF: if total_flow ≥ threshold AND avg_eta ≥ min, form a consensus block."""
 
     def _run() -> dict[str, Any]:
-        row = fetch_one(
-            """
-            SELECT SUM(flow), AVG(eta), COUNT(DISTINCT src_agent_did)
-            FROM edge_kabi_hypha
-            WHERE pruned_at IS NULL
-            """,
-        )
-        if not row or row[0] is None:
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                row = conn.execute(
+                    """
+                    SELECT SUM(flow) as sum_flow, AVG(eta) as avg_eta, COUNT(DISTINCT src_agent_did) as participants
+                    FROM edge_kabi_hypha
+                    WHERE pruned_at IS NULL
+                    """
+                ).fetchone()
+            except sqlite3.OperationalError:
+                row = None
+
+        if not row or row["sum_flow"] is None:
             return {"thresholdMet": False, "totalFlow": 0.0, "avgEta": 0.0}
 
-        total_flow = float(row[0] or 0)
-        avg_eta = float(row[1] or 0)
-        participants = int(row[2] or 0)
+        total_flow = float(row["sum_flow"] or 0)
+        avg_eta = float(row["avg_eta"] or 0)
+        participants = int(row["participants"] or 0)
 
         if total_flow < PONF_FLOW_THRESHOLD or avg_eta < PONF_ETA_MIN:
             return {
@@ -426,12 +490,18 @@ async def task_kinoko_check_flow_threshold(**_: Any) -> dict[str, Any]:
             }
 
         # form block
-        prev = fetch_one(
-            "SELECT vertex_id, block_hash FROM vertex_kinoko_block "
-            "WHERE block_status = 'final' ORDER BY created_at DESC LIMIT 1",
-        )
-        prev_block_id = (prev[0] if prev else "") or ""
-        prev_hash = (prev[1] if prev else "") or ""
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                prev = conn.execute(
+                    "SELECT vertex_id, block_hash FROM vertex_kinoko_block "
+                    "WHERE block_status = 'final' ORDER BY created_at DESC LIMIT 1"
+                ).fetchone()
+            except sqlite3.OperationalError:
+                prev = None
+
+        prev_block_id = (prev["vertex_id"] if prev else "") or ""
+        prev_hash = (prev["block_hash"] if prev else "") or ""
 
         block_id = _uid("blk")
         block_hash = hashlib.sha256(
@@ -440,27 +510,31 @@ async def task_kinoko_check_flow_threshold(**_: Any) -> dict[str, Any]:
         block_vid = f"at://{KINOKO_DID}/ai.gftd.apps.kinoko.block/{block_id}"
         now = _now()
 
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_kinoko_block
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   prev_block_id, block_hash, total_flow, participant_count,
-                   eta_min_used, block_status)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    block_vid, _uid("rec"), KINOKO_DID, "kinoko_block", "active", "",
-                    KINOKO_DID, json.dumps({"participants": participants}),
-                    now, now, 0,
-                    prev_block_id, block_hash,
-                    total_flow, participants, avg_eta, "final",
-                ),
-            )
+        rec = KinokoBlockRecord(
+            vertex_id=block_vid,
+            record_id=_uid("rec"),
+            owner_did=KINOKO_DID,
+            label="kinoko_block",
+            status="active",
+            stream_id="",
+            agent_did=KINOKO_DID,
+            value_json=json.dumps({"participants": participants}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            prev_block_id=prev_block_id,
+            block_hash=block_hash,
+            total_flow=total_flow,
+            participant_count=participants,
+            eta_min_used=avg_eta,
+            block_status="final"
+        )
+        store.put_vertex_kinoko_block(rec)
+
+        with store._conn() as conn:
             # reset flow counters on hypha edges
-            cur.execute(
-                "UPDATE edge_kabi_hypha SET flow = 0.0, updated_at = %s WHERE pruned_at IS NULL",
+            conn.execute(
+                "UPDATE edge_kabi_hypha SET flow = 0.0, updated_at = ? WHERE pruned_at IS NULL",
                 (now,),
             )
         return {
@@ -499,23 +573,27 @@ async def task_hakkou_create_ferment_record(
     now = _now()
 
     def _write() -> None:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_hakkou_ferment
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   input_kind, input_ref, output_vertex_id, output_kind,
-                   ethanol_hash, co2_audit_ref)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    vid, _uid("rec"), HAKKOU_DID, "hakkou_ferment", "pending", "",
-                    agent_did or HAKKOU_DID, json.dumps({}),
-                    now, now, 0,
-                    input_kind, input_ref, None, None, None, None,
-                ),
-            )
+        store = select_belief_store()
+        rec = HakkouFermentRecord(
+            vertex_id=vid,
+            record_id=_uid("rec"),
+            owner_did=HAKKOU_DID,
+            label="hakkou_ferment",
+            status="pending",
+            stream_id="",
+            agent_did=agent_did or HAKKOU_DID,
+            value_json=json.dumps({}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            input_kind=input_kind,
+            input_ref=input_ref,
+            output_vertex_id=None,
+            output_kind=None,
+            ethanol_hash=None,
+            co2_audit_ref=None
+        )
+        store.put_vertex_hakkou_ferment(rec)
 
     await asyncio.to_thread(_write)
     LOG.info("create_ferment_record: %s kind=%s", ferment_id, input_kind)
@@ -582,20 +660,21 @@ async def task_hakkou_finalize_ferment(
     now = _now()
 
     def _seal() -> int:
-        with sync_cursor() as cur:
-            cur.execute(
+        store = select_belief_store()
+        with store._conn() as conn:
+            cursor = conn.execute(
                 """
                 UPDATE vertex_hakkou_ferment
                 SET status = 'complete',
                     output_kind = 'structured_knowledge',
-                    ethanol_hash = %s,
-                    co2_audit_ref = %s,
-                    updated_at = %s
-                WHERE vertex_id LIKE %s
+                    ethanol_hash = ?,
+                    co2_audit_ref = ?,
+                    updated_at = ?
+                WHERE vertex_id LIKE ?
                 """,
                 (ethanolHash or "", co2_ref, now, f"%{ferment_id}%"),
             )
-            return cur.rowcount or 0
+            return cursor.rowcount or 0
 
     updated = await asyncio.to_thread(_seal)
     LOG.info("finalize_ferment: %s updated=%d co2=%s", ferment_id, updated, co2_ref)
