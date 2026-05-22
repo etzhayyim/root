@@ -49,7 +49,7 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@10
       - name: Install deps
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
       - name: Build @etzhayyim/sdk
         run: pnpm -F @etzhayyim/sdk build
       - name: Run vitest
@@ -75,7 +75,7 @@ jobs:
           node-version: "22"
       - run: npm install -g pnpm@10
       - name: Install deps
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
       - name: Build @etzhayyim/sdk
         run: pnpm -F @etzhayyim/sdk build
       - name: tsc --noEmit
@@ -92,7 +92,7 @@ jobs:
           node-version: "22"
       - run: npm install -g pnpm@10
       - name: Install deps
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
       - name: Build @etzhayyim/sdk
         run: pnpm -F @etzhayyim/sdk build
       - name: Run Phase H suite
