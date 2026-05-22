@@ -194,13 +194,78 @@ iter144 sed で path prefix は自動更新済 (`CLAUDE.md` は sed 対象)。
   context-sensitive 書き換え失敗時に 1 commit revert で巻き戻る範囲が
   巨大。**却下** — file-move と path-rewrite を分離。
 
+# Amendment 2026-05-22: D2 superseded — bpmn-dispatcher extracted
+
+`§D2 (bpmn-dispatcher = ai-gftd 側残置)` の前提が崩壊したため、
+当該条項を以下で置換する。
+
+**実態の変化** (2026-05-18 以降):
+- pymagatama 全体が etzhayyim-root へ移管完了
+  (`etzhayyim/20-actors/magatama/py/src/pymagatama/`)
+- ai-gftd-apps-gftdcojp 側 `20-actors/magatama/` は削除済
+- D2 の rationale (「pymagatama が gftd にあるので dispatcher も残置」)
+  は無効化
+
+**新 D2 (active)**: bpmn-dispatcher infra も etzhayyim-root 側に集約。
+配置先 = `50-infra/k8s/bpmn-dispatcher/`:
+
+| ファイル | 出典 (ai-gftd-apps-gftdcojp, 削除済) |
+|---|---|
+| `deployment-dispatcher.yaml` | `50-infra/vultr/mitama-udf-pool/templates/dispatcher.yaml` (Helm → plain manifest) |
+| `tunnel.yaml` | `50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml` |
+| `ingress-dispatcher.yaml` | `50-infra/vultr/mitama-udf-app-raw/manifests/ingress-networking-k8s-io-dispatcher-gftd-ai.json` |
+| `configmap-pymagatama-cache-fix.yaml` | `…/configmap-pymagatama-dispatcher-main-cache-fix.json` |
+| `configmap-pymagatama-sse-fix.yaml` | `…/configmap-pymagatama-dispatcher-main-sse-fix.json` |
+| `configmap-mailer-direct-patch.yaml` | `…/configmap-bpmn-dispatcher-mailer-direct-patch.json` |
+| `README.md` + `RUNBOOK.md` | new |
+
+Domain rewrites: `dispatcher.gftd.ai` → `dispatcher.etzhayyim.com`,
+`mcp.gftd.ai` → `mcp.etzhayyim.com`, `ses-api.gftd.ai` →
+`ses-api.etzhayyim.com`.
+
+**Substrate-boundary 注記** (ADR-2605172100 hard rule "MUST NOT integrate
+fiat payment processors"): 移管した dispatcher Deployment は pymagatama
+の `lawfirm_billing` / `lawfirm_checkout` / `ingest.stripe` 依存により
+`STRIPE_*` (5 個) + `RW_URL` env を継承する。本 iter では runtime 互換性
+維持のため preserve。Substrate purity 回復は pymagatama Stripe 抽出 +
+binding registry の AT MST 化を行う別 iter で対応。pymagatama 自体が
+2026-05-18 以前から etzhayyim 内に Stripe 関連ファイルを持つため、本
+移管は **新規違反を導入していない**。
+
+**Pending operator actions**:
+1. CF Tunnel 新規作成: etzhayyim CF account で
+   `cloudflared tunnel create bpmn-dispatcher` → `tunnel.yaml` の
+   `REPLACE_ME_TUNNEL_ID` + `REPLACE_ME_CREDENTIALS_JSON` を埋める。
+2. DNS: `dispatcher.etzhayyim.com` + `mcp.etzhayyim.com`
+   (+ `ses-api.etzhayyim.com`) CNAME → `<tunnel>.cfargotunnel.com`
+   (proxied=True)。
+3. pymagatama image build & push (`ghcr.io/etzhayyim/pymagatama:<tag>`)。
+4. Secret provision (`bpmn-dispatcher-auth` /
+   `bpmn-dispatcher-rw` / `lawfirm-stripe` 等)、namespace `mitama-udf`。
+5. `kubectl apply -f 50-infra/k8s/bpmn-dispatcher/` (etzhayyim VKE)。
+6. ai-gftd-apps-gftdcojp CF account の旧 tunnel
+   `be2cc0b0-ddee-4ca7-baf1-2bffbef18f31` 削除 + 同 VKE 側
+   Deployment `cloudflared-bpmn-dispatcher` + `bpmn-dispatcher`
+   削除 (cutover 検証後)。
+
+**触らない範囲** (本 iter 対象外、別 iter で sed):
+- ai-gftd-apps-gftdcojp 20+ files の `dispatcher.gftd.ai` 参照
+  (terraform / ingress RUNBOOK / K8s deployment.yaml / CF Worker
+  routing-table.ts 等) — §D3 follow-up と同様 path-rewrite iter で処理。
+- `00-contracts/bpmn/` の lexicon binding 列挙はそのまま (ADR-2605091400
+  MCP-as-cell-membrane の dual-wire SSoT 規約に従う)。
+- ai-gftd-apps-gftdcojp `50-infra/cloudflare/workers/wfp-dispatcher/`
+  は別物 (Workers for Platforms dispatcher)、本 iter スコープ外。
+
 # References
 
 - CEO 河崎 directive 2026-05-18「bpmn は etzhayyim-root に移動」
-- `_working/etzhayyim-revenue/DECISION-LOG.md` iter144 (本 iter)
-- etzhayyim-root commit `Import BPMN from etzhayyim-root`
+- CEO 河崎 directive 2026-05-22「dispatcher も取り出して」(本 amendment)
+- `_working/gftdcojp-revenue/DECISION-LOG.md` iter144 (本 iter)
+- ai-gftd-apps-gftdcojp commit `Import BPMN from ai-gftd-apps-gftdcojp`
   (branch `import-bpmn-from-ai-gftd`)
-- etzhayyim-root branch `iter144-bpmn-extract`
+- ai-gftd-apps-gftdcojp branch `iter144-bpmn-extract`
 - ADR-2605172000 (etzhayyim RW-free substrate SDK)
+- ADR-2605172100 (etzhayyim on-chain payment substrate — Stripe prohibition)
 - ADR-2605091400 (MCP-as-cell-membrane; XRPC demotion)
 - ADR-2605081200 (SpiffWorkflow BPMN engine)
