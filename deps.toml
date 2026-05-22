@@ -2467,3 +2467,71 @@ follow_up = [
   "Decide standalone-mirror status for ontology (DoDAF — etzhayyim adjacency) if/when downstream demand surfaces",
   "Generic standalone-mirror sync runbook (manual one-time push) — currently only kami-engine-sdk; add when 2nd mirror lands",
 ]
+
+# ─── Session 2605222200 — CI 100% green + Phase 2/3 TRANSFORM progress ──
+
+[session_2605222200]
+adr = "2605222200"
+date = "2026-05-22"
+duration_estimate_hours = 6
+commit_range_start = "46bd07404"  # ci(council): activate nomination-watch
+commit_range_end   = "aea1401f0"  # fix(sdk): donate.ts cast purpose via mapDonationPurpose
+commits_total = 30
+sub_agents_dispatched = 20
+
+[session_2605222200.ci_test_workflow]
+before = "6 / 31 jobs passing (19.4%)"
+after  = "31 / 31 jobs passing (100%)"
+delta  = "+25 jobs"
+final_commit = "aea1401f0"
+
+[session_2605222200.transform_progress]
+stripe_live_call_paths_before = 14
+stripe_live_call_paths_after  = 0
+ad_tech_production_sources_before = 9
+ad_tech_production_sources_after  = 0
+substrate_boundary_imports = 6  # SDK gap closed (atproto.ts re-exports), consumer migration follow-up
+rw_postgres_production_paths_before = 41
+rw_postgres_production_paths_migrated = 1  # bmc/db.py — PoC
+rw_postgres_production_paths_markered = 10
+yatabase_remaining_estimate_weeks = "4-6"  # revised from 6-9
+
+[session_2605222200.council_rfp]
+deadline = "2026-06-19"
+seats_filled = 1
+seats_open = 4
+discussions = ["257", "258", "259", "260", "261"]
+applications_received = 0
+weekly_status_template = "Discussion #257 comment 17014329"
+
+[session_2605222200.deploy_checklists]
+sepolia = "50-infra/etzhayyim-chain-contracts/DEPLOY-CHECKLIST-SEPOLIA.md"
+mainnet = "50-infra/etzhayyim-chain-contracts/DEPLOY-CHECKLIST-MAINNET.md"
+forge_tests_passing = 126
+solidity_contracts = 15
+
+[session_2605222200.sdk_extensions]
+new_modules = [
+  "atproto.ts — AtpAgent + AtpBaseClient + AppBsky{Actor,Feed}Defs + AppBskyRichtextFacet + createAgent + xrpc helper",
+  "donate.ts — donate({to, amountUsdc, purpose}) with 8 Charter-§2 purposes + mapDonationPurpose + isAllowedDonationPurpose"
+]
+new_yatabase_endpoints = [
+  "POST /api/donate — replaces /auth/v1/upgrade",
+  "POST /webhook/usdc — replaces /webhook/stripe"
+]
+new_yatabase_components = ["svelte/src/lib/donate.ts useDonate() composable"]
+
+[session_2605222200.session_summary]
+phase_1_ci_safety_net = "8 CI infra fixes + surgical rw-free fixes + 10 parallel haiku agents + integration-tests cascade resolution. 6/31 → 31/31."
+phase_2_charter_2_cleanup = "4 parallel haiku agents: substrate boundary markers / ad-tech removal / Stripe disable / RW marker first-pass. 65 files."
+phase_3_implementation = "4 parallel haiku agents (SDK extension + USDC v0.2 + BMC PoC + Council outreach) + 2 locally-authored deploy checklists. DonatePurpose enum cascade at 8aae29862 fixed at aea1401f0."
+
+[session_2605222200.follow_up]
+items = [
+  "Consumer migration: point 6 substrate-boundary files at @etzhayyim/sdk (0.5 day)",
+  "USDC v0.3: fill ERC-4337 sponsored write + webhook attestation verification (3-5 days)",
+  "Yatabase RW→MST: replicate bmc/db.py pattern across 10 marked files (4-6 weeks)",
+  "Council fill: weekly status updates on #257; provisional appointment fallback if seats open at 2026-06-19",
+  "Step 19 Sepolia deploy: post-Council per DEPLOY-CHECKLIST-SEPOLIA.md",
+  "Step 20 mainnet deploy: post-Sepolia + audit per DEPLOY-CHECKLIST-MAINNET.md"
+]
