@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": "./src/index.ts",
   "description": "hanrei rw-free reference implementation per ADR-2605203000 Option B. Japanese case-law corpus on PDS XRPC.",
   "scripts": {
     "test": "vitest run",

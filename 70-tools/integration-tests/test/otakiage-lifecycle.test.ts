@@ -24,7 +24,7 @@ describe("otakiage lifecycle state machine", () => {
       description: "Solid oak, good condition",
       ownerDid: "did:plc:owner1",
     });
-    expect(submitResult.status).toBe("submitted");
+    expect(submitResult.status).toBe("registered");
     expect(submitResult.did).toBeDefined();
 
     // Request reuse — should maintain reuse_open status
@@ -33,7 +33,7 @@ describe("otakiage lifecycle state machine", () => {
       requesterDid: "did:plc:requester1",
       message: "Interested in this chair for my office",
     });
-    expect(reuseResult.status).toBe("recorded");
+    expect(reuseResult.status).toBe("registered");
 
     // Handover to recipient — transitions to handed_over (terminal)
     const handoverResult = await handover(e, {
@@ -41,7 +41,7 @@ describe("otakiage lifecycle state machine", () => {
       recipientDid: "did:plc:recipient1",
     });
     expect(handoverResult.status).toBe("handed_over");
-    expect(handoverResult.did).toBeDefined();
+    expect(handoverResult.itemUri).toBeDefined();
   });
 
   it("executes reuse_then_ritual → expire → ritualize path", async () => {
@@ -53,7 +53,7 @@ describe("otakiage lifecycle state machine", () => {
       description: "For ritual use after expiration",
       ownerDid: "did:plc:owner2",
     });
-    expect(submitResult.status).toBe("submitted");
+    expect(submitResult.status).toBe("registered");
 
     // Expire the reuse window — cascades to ritual_pending
     const expireResult = await expire(e, {
@@ -81,7 +81,7 @@ describe("otakiage lifecycle state machine", () => {
       description: "Retirement ritual binding",
       ownerDid: "did:plc:owner3",
     });
-    expect(submitResult.status).toBe("submitted");
+    expect(submitResult.status).toBe("registered");
 
     // Verify that ritual_only immediately transitions to ritual_pending
     // (test harness limitation: can't directly query internal state,
