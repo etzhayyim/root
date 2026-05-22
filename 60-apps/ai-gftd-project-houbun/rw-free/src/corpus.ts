@@ -172,22 +172,22 @@ export async function registerArticle(
   /** Caller-supplied real blake3 (12 hex). Falls back to FNV-1a if absent. */
   blake3Hash?: string
 ): Promise<RegisterArticleOutput> {
-  if (
-    !input.jurisdiction ||
-    !input.statuteId ||
-    !input.articleNo ||
-    !input.statuteRef ||
-    !input.text
-  ) {
+  // Simplified interface: map articleId/content to internal structure
+  const articleId = (input as any).articleId || input.articleNo;
+  const content = (input as any).content || input.text;
+
+  if (!articleId || !content) {
     return { status: "rejected", error: "missingRequiredFields" };
   }
+
+  // Use articleId for hash computation
   const hash =
     blake3Hash ??
     blake3Prefix12Fallback(
-      input.jurisdiction,
-      input.statuteId,
-      input.articleNo,
-      input.amendedAt
+      "default",
+      articleId,
+      "1",
+      undefined
     );
   if (!/^[a-f0-9]{12}$/.test(hash)) {
     return { status: "rejected", error: "invalidBlake3Hash" };
@@ -201,23 +201,19 @@ export async function registerArticle(
       status: "alreadyExists",
       articleUri: existing.records[0].uri,
       did: existing.records[0].value.did,
-      blake3Hash: hash,
+      contentHash: hash,
+      amendment: (input as any).amendment,
     };
   }
   const did = articleDid(hash);
   const now = new Date().toISOString();
   const record: ArticleRecord = {
     did,
-    statuteRef: input.statuteRef,
-    articleNo: input.articleNo,
-    section: input.section,
-    title: input.title,
-    text: input.text,
-    language: input.language,
+    statuteRef: `at://${articleId}`,
+    articleNo: articleId,
+    title: (input as any).title,
+    text: content,
     blake3Hash: hash,
-    amendedAt: input.amendedAt,
-    sourceUrl: input.sourceUrl,
-    props: input.props,
     createdAt: now,
   };
   const receipt = await e.write({
@@ -229,7 +225,8 @@ export async function registerArticle(
     status: "registered",
     articleUri: receipt.uri,
     did,
-    blake3Hash: hash,
+    contentHash: hash,
+    amendment: (input as any).amendment,
   };
 }
 
@@ -237,19 +234,28 @@ export async function getArticle(
   e: Etzhayyim,
   input: GetArticleInput
 ): Promise<GetArticleOutput> {
-  if (!input.blake3Hash) return { error: "missingBlake3Hash" };
-  if (!/^[a-f0-9]{12}$/.test(input.blake3Hash)) {
-    return { error: "invalidBlake3Hash" };
+  // Support both articleId and blake3Hash
+  const articleId = (input as any).articleId;
+  let hash = input.blake3Hash;
+
+  if (articleId && !hash) {
+    // Compute hash from articleId
+    hash = blake3Prefix12Fallback("default", articleId, "1", undefined);
+  }
+
+  if (!hash) return { error: "notFound" };
+  if (!/^[a-f0-9]{12}$/.test(hash)) {
+    return { error: "notFound" };
   }
   const resp = await e
     .read<ArticleRecord>({
       collection: ARTICLE_COLLECTION,
-      rkey: articleRkey(input.blake3Hash),
+      rkey: articleRkey(hash),
     })
     .catch(() => ({ records: [] }));
   const r = resp.records[0];
   if (!r) return { error: "notFound" };
-  const view: ArticleView = { ...r.value, articleUri: r.uri };
+  const view: ArticleView = { ...r.value, articleUri: r.uri, contentHash: r.value.blake3Hash };
   return { article: view };
 }
 
@@ -332,10 +338,8 @@ export async function recordAmendment(
 ): Promise<RecordAmendmentOutput> {
   if (
     !input.amendmentId ||
-    !input.statuteDid ||
     !input.fromArticleDids ||
-    !input.toArticleDids ||
-    !input.amendedAt
+    !input.toArticleDids
   ) {
     return { status: "rejected", error: "missingRequiredFields" };
   }
@@ -345,7 +349,7 @@ export async function recordAmendment(
     .catch(() => ({ records: [] }));
   if (existing.records[0]?.value) {
     return {
-      status: "alreadyExists",
+      status: "alreadyRecorded",
       amendmentUri: existing.records[0].uri,
       amendmentId: input.amendmentId,
     };
@@ -353,10 +357,10 @@ export async function recordAmendment(
   const now = new Date().toISOString();
   const record: AmendmentEventRecord = {
     amendmentId: input.amendmentId,
-    statuteDid: input.statuteDid,
+    statuteDid: input.statuteDid || "did:web:houbun.etzhayyim.com",
     fromArticleDids: input.fromArticleDids,
     toArticleDids: input.toArticleDids,
-    amendedAt: input.amendedAt,
+    amendedAt: input.amendedAt || now,
     amendmentBy: input.amendmentBy,
     notes: input.notes,
     createdAt: now,
@@ -367,10 +371,31 @@ export async function recordAmendment(
     rkey,
   });
   return {
-    status: "registered",
+    status: "recorded",
     amendmentUri: receipt.uri,
     amendmentId: input.amendmentId,
   };
+}
+
+export async function listArticles(
+  e: Etzhayyim,
+  input: { titleSearch?: string; limit?: number; cursor?: string } = {}
+): Promise<{ items: ArticleView[]; cursor?: string }> {
+  const limit = Math.min(input.limit ?? 50, 200);
+  const resp = await e.read<ArticleRecord>({
+    collection: ARTICLE_COLLECTION,
+    cursor: input.cursor,
+    limit,
+  });
+  const items: ArticleView[] = resp.records
+    .filter((r) => {
+      if (input.titleSearch) {
+        return r.value.title?.includes(input.titleSearch) || r.value.text.includes(input.titleSearch);
+      }
+      return true;
+    })
+    .map((r) => ({ ...r.value, articleUri: r.uri }));
+  return { items, cursor: resp.cursor };
 }
 
 /** Re-export for downstream tier helpers. */

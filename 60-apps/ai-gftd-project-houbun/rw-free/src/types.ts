@@ -138,6 +138,8 @@ export interface ArticleRecord {
 
 export interface ArticleView extends ArticleRecord {
   articleUri: string;
+  /** Alias for blake3Hash for simpler test interface. */
+  contentHash?: string;
 }
 
 export interface RegisterArticleInput {

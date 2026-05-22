@@ -78,22 +78,22 @@ export interface SynthesisRecord {
 }
 
 export interface SynthesisView extends SynthesisRecord {
-  synthesisUri: string;
+  synthesizeUri: string;
 }
 
 export interface SynthesizeInput {
-  artifactId: string;
+  synthesizeId: string;
   absorbId: string;
-  synthesis: string;
+  name?: string;
   confidencePermille?: number;
   model?: string;
 }
 
 export interface SynthesizeOutput {
-  status: "registered" | "alreadyExists" | "rejected" | "absorbNotFound";
-  synthesisUri?: string;
-  artifactId?: string;
-  did?: string;
+  status: "created" | "alreadyExists" | "rejected";
+  synthesizeUri: string;
+  artifactId: string;
+  did: string;
   error?: string;
 }
 
@@ -113,11 +113,12 @@ export interface BloomView extends BloomRecord {
 
 export interface BloomInput {
   bloomId: string;
-  artifactId: string;
+  synthesizeId: string;
+  artifactId?: string;
 }
 
 export interface BloomOutput {
-  status: "registered" | "alreadyExists" | "rejected" | "artifactNotFound";
+  status: "bloomed" | "alreadyExists" | "rejected";
   bloomUri?: string;
   bloomId?: string;
   publishedAt?: string;

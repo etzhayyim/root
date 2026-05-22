@@ -28,7 +28,9 @@ export async function createNovel(
   if (!input.title || input.title.trim().length === 0) {
     return { status: "rejected", error: "missingTitle" };
   }
-  const novelId = novelSlug(input.title).slice(0, 32);
+  const novelId = input.novel_id
+    ? input.novel_id
+    : novelSlug(input.title).slice(0, 32);
   if (!isNovelId(novelId)) {
     return { status: "rejected", error: "invalidNovelId" };
   }

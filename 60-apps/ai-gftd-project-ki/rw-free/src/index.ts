@@ -18,4 +18,4 @@
  */
 
 export * from "./types.js";
-export { absorb, synthesize, bloom, ring } from "./vascular.js";
+export { absorb, synthesize, bloom, ring, mapRoute, getStatus } from "./vascular.js";

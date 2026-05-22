@@ -13,5 +13,11 @@ export * from "./types.js";
 export {
   startFerment,
   getFerment,
-  updateFermentStatus,
+  updateFermentStatus as updateFermentStatusForFerment,
 } from "./ferment.js";
+export {
+  registerBatch,
+  getBatch,
+  listBatches,
+  updateFermentStatus,
+} from "./batches.js";

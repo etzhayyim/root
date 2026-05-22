@@ -27,6 +27,8 @@ export interface ArtifactRecord {
   did: string;
   /** Content-addressed identifier — full SHA-256 of the SBOM file. */
   sha256: string;
+  /** Semantic identifier / name (e.g. "app-1.0"). */
+  artifactId?: string;
   format: SbomFormat;
   /** App / project the SBOM was built FOR (Yata App reference). */
   builtForAppDid?: string;
@@ -46,7 +48,10 @@ export interface ArtifactView extends ArtifactRecord {
 
 export interface RegisterArtifactInput {
   sha256: string;
-  format: SbomFormat;
+  artifactId?: string;
+  artifactType?: string;
+  name?: string;
+  format?: SbomFormat;
   builtForAppDid?: string;
   builtAt?: string;
   generator?: string;
@@ -83,6 +88,7 @@ export interface ComponentRecord {
   did: string;
   purl: Purl;
   name: string;
+  componentType?: string;
   version?: string;
   ecosystem?: string;
   license?: string[];
@@ -103,12 +109,15 @@ export interface ComponentView extends ComponentRecord {
 }
 
 export interface RegisterComponentInput {
-  purl: Purl;
+  purl?: Purl;
+  componentId?: string;
+  artifactId?: string;
+  artifactDid?: string;
   name: string;
+  componentType?: string;
   version?: string;
   ecosystem?: string;
   license?: string[];
-  artifactDid?: string;
   dependsOn?: Purl[];
 }
 
@@ -121,8 +130,10 @@ export interface RegisterComponentOutput {
 }
 
 export interface ListComponentsInput {
+  artifactId?: string;
   artifactDid?: string;
   ecosystem?: string;
+  componentType?: string;
   limit?: number;
   cursor?: string;
 }
@@ -243,8 +254,11 @@ export interface VulnMatchView extends VulnMatchRecord {
 }
 
 export interface RegisterVulnMatchInput {
-  cveId: string;
-  componentPurl: Purl;
+  cveId?: string;
+  cvId?: string;
+  vulnMatchId?: string;
+  componentPurl?: Purl;
+  componentId?: string;
   artifactDid?: string;
   affectedAppDid?: string;
   matchConfidencePermille?: number;

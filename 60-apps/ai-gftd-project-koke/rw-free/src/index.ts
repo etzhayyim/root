@@ -7,13 +7,13 @@
  * handing off to hakkou (ferment) → ki (absorb/synthesize/bloom).
  *
  * Slice 1: 4 of 4 canonical lexicons ported.
- *   fixSignal + getFixation + listFixations + releaseCarbon
+ *   registerCarbon + releaseCarbon + recordOffset + listOffsets
  */
 
 export * from "./types.js";
 export {
-  fixSignal,
-  getFixation,
-  listFixations,
+  registerCarbon,
   releaseCarbon,
+  recordOffset,
+  listOffsets,
 } from "./fixation.js";

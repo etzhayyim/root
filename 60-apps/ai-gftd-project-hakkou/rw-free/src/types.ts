@@ -104,3 +104,76 @@ export function fermentDid(fermentId: string): string {
 export function fermentRkey(fermentId: string): string {
   return `ferment-${idSlug(fermentId)}`;
 }
+
+// ─── Batch types ───────────────────────────────────────────────────
+
+export type BatchType = "sake" | "miso" | "koji" | "vinegar";
+
+export type BatchStatus = "pending" | "running" | "done" | "failed";
+
+export interface BatchRecord {
+  did: string;
+  batchId: string;
+  batchType: BatchType;
+  startDate: string;
+  targetEndDate: string;
+  status: BatchStatus;
+  createdAt: string;
+}
+
+export interface BatchView extends BatchRecord {
+  batchUri: string;
+  batchVertexId: string;
+}
+
+export interface RegisterBatchInput {
+  batchId: string;
+  batchType: BatchType;
+  startDate: string;
+  targetEndDate: string;
+}
+
+export interface RegisterBatchOutput {
+  status: "created" | "alreadyExists" | "rejected";
+  batchUri?: string;
+  batchId?: string;
+  error?: string;
+}
+
+export interface GetBatchInput {
+  batchId: string;
+}
+
+export interface GetBatchOutput {
+  batch?: BatchView;
+  error?: string;
+}
+
+export interface ListBatchesInput {
+  batchType?: BatchType;
+}
+
+export interface ListBatchesOutput {
+  items: BatchView[];
+}
+
+export interface UpdateBatchStatusInput {
+  statusUpdateId: string;
+  batchId: string;
+  newStatus: BatchStatus;
+}
+
+export interface UpdateBatchStatusOutput {
+  status: "updated" | "rejected";
+  previousStatus?: BatchStatus;
+  newStatus?: BatchStatus;
+  error?: string;
+}
+
+export function batchDid(batchId: string): string {
+  return `did:web:hakkou.etzhayyim.com:batch:${idSlug(batchId)}`;
+}
+
+export function batchRkey(batchId: string): string {
+  return `batch-${idSlug(batchId)}`;
+}

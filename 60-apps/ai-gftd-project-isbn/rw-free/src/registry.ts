@@ -184,6 +184,7 @@ export async function coverage(
       limit: PAGE_LIMIT,
     });
     for (const r of page.records) {
+      if (scanned >= maxScan) break;
       const v = r.value;
       if (v.language) {
         byLanguage[v.language] = (byLanguage[v.language] ?? 0) + 1;
@@ -195,9 +196,9 @@ export async function coverage(
       bySource[v.source as IsbnSource] =
         (bySource[v.source as IsbnSource] ?? 0) + 1;
       if (v.publicDomain) publicDomainCount += 1;
+      scanned += 1;
     }
-    scanned += page.records.length;
-    if (!page.cursor || page.records.length < PAGE_LIMIT) break;
+    if (scanned >= maxScan || !page.cursor || page.records.length < PAGE_LIMIT) break;
     cursor = page.cursor;
   }
   return {

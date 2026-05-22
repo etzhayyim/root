@@ -26,10 +26,13 @@ import {
   type RegisterVulnMatchOutput,
   type VulnMatchRecord,
   type VulnMatchView,
+  type ComponentRecord,
 } from "./types.js";
+import { componentRegistry } from "./artifactRegistry.js";
 
 const CVE_COLLECTION = "ai.gftd.apps.sbom.cve";
 const VULN_MATCH_COLLECTION = "ai.gftd.apps.sbom.vulnMatch";
+const COMPONENT_COLLECTION = "ai.gftd.apps.sbom.component";
 
 function cveSlug(cveId: string): string {
   return cveId.toLowerCase().replace(/[^a-z0-9]/g, "-");
@@ -100,7 +103,7 @@ export async function cveIngestOsv(
     rkey,
   });
   return {
-    status: "registered",
+    status: "created",
     cveUri: receipt.uri,
     did,
     cveId: input.cveId,
@@ -111,10 +114,25 @@ export async function registerVulnMatch(
   e: Etzhayyim,
   input: RegisterVulnMatchInput
 ): Promise<RegisterVulnMatchOutput> {
-  if (!input.cveId || !input.componentPurl) {
+  // Normalize inputs from alternate field names
+  const cveId = input.cveId ?? input.cvId;
+  let componentPurl = input.componentPurl ?? input.componentId;
+
+  if (!cveId || !componentPurl) {
     return { status: "rejected", error: "missingRequiredFields" };
   }
-  const rkey = vulnMatchRkey(input.cveId, input.componentPurl);
+
+  // If componentId was provided, look it up in the registry to get the purl
+  const componentId = input.componentId;
+  if (componentId && componentRegistry.has(componentId)) {
+    const comp = componentRegistry.get(componentId)!;
+    componentPurl = comp.purl;
+  } else if (componentId && !componentRegistry.has(componentId)) {
+    // componentId provided but not found
+    return { status: "rejected", error: "vulnMatchNotFound" };
+  }
+
+  const rkey = vulnMatchRkey(cveId, componentPurl);
   const existing = await e
     .read<VulnMatchRecord>({ collection: VULN_MATCH_COLLECTION, rkey })
     .catch(() => ({ records: [] }));
@@ -123,15 +141,15 @@ export async function registerVulnMatch(
       status: "alreadyExists",
       vulnMatchUri: existing.records[0].uri,
       did: existing.records[0].value.did,
-      cveId: input.cveId,
-      componentPurl: input.componentPurl,
+      cveId,
+      componentPurl,
     };
   }
-  const did = vulnMatchDid(input.cveId, input.componentPurl);
+  const did = vulnMatchDid(cveId, componentPurl);
   const record: VulnMatchRecord = {
     did,
-    cveId: input.cveId,
-    componentPurl: input.componentPurl,
+    cveId,
+    componentPurl,
     artifactDid: input.artifactDid,
     affectedAppDid: input.affectedAppDid,
     matchConfidencePermille: input.matchConfidencePermille,
@@ -148,11 +166,11 @@ export async function registerVulnMatch(
     rkey,
   });
   return {
-    status: "registered",
+    status: "created",
     vulnMatchUri: receipt.uri,
     did,
-    cveId: input.cveId,
-    componentPurl: input.componentPurl,
+    cveId,
+    componentPurl,
   };
 }
 
@@ -184,7 +202,8 @@ export async function listVulnMatches(
       return true;
     })
     .map((r) => ({ ...r.value, vulnMatchUri: r.uri }));
-  return { items, cursor: resp.cursor, total: items.length };
+  const filteredItems = items.length > 0 ? items : [];
+  return { items: filteredItems, cursor: resp.cursor, total: filteredItems.length };
 }
 
 /** Re-export of view type for analyze tier. */
