@@ -76,7 +76,7 @@ jobs:
         run: pnpm install --frozen-lockfile || pnpm install
       - name: tsc --noEmit
         working-directory: ${{ matrix.scope }}
-        run: npx tsc --noEmit
+        run: pnpm exec tsc --noEmit
 
   integration:
     name: integration-tests
