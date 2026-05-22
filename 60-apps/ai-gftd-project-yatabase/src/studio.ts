@@ -891,9 +891,9 @@ async function upgradeTo(plan) {
       $('upgradeStatus').innerHTML = '<span class="pill err">' + resp.status + '</span> ' + escapeHtml(body.message ?? body.error ?? 'failed');
       return;
     }
+    // CHARTER RIDER §2: Stripe mode disabled. Stripe integration removed.
     if (body.mode === 'stripe' && body.checkoutUrl) {
-      $('upgradeStatus').innerHTML = '<span class="pill ok">redirecting to Stripe…</span>';
-      window.location = body.checkoutUrl;
+      $('upgradeStatus').innerHTML = '<span class="pill err">Stripe payment is no longer supported (Charter Rider §2). Use the USDC donation flow instead.</span>';
       return;
     }
     $('upgradeStatus').innerHTML = '<span class="pill ok">' + escapeHtml(body.mode) + '</span> ' + escapeHtml(body.message ?? '');
@@ -927,9 +927,10 @@ async function loadAccount() {
             : ' <span class="pill warn">unverified — recovery disabled until you click the link in your inbox</span>')
         + '</td></tr>'
       : '<tr><td>attached email</td><td><span class="pill warn">none — attach one below</span></td></tr>';
+    // CHARTER RIDER §2: Stripe portal row hidden. Stripe integration removed.
     const portalRow = body.canOpenPortal
-      ? '<tr><td>Stripe customer</td><td>' + escapeHtml(body.stripeCustomerId) + ' <span class="pill ok">portal available</span></td></tr>'
-      : '<tr><td>Stripe customer</td><td><span class="pill warn">none — complete a Checkout first</span></td></tr>';
+      ? '<tr><td>Stripe customer [DEPRECATED]</td><td>' + escapeHtml(body.stripeCustomerId) + ' <span class="pill warn">portal unavailable (Charter Rider §2)</span></td></tr>'
+      : '<tr><td>Stripe customer [DEPRECATED]</td><td><span class="pill warn">none — Stripe payment is no longer supported</span></td></tr>';
     let html = '<table style="margin-top:14px"><tbody>';
     html += '<tr><td>orgDid</td><td>' + escapeHtml(body.orgDid) + '</td></tr>';
     html += '<tr><td>actorDid</td><td>' + escapeHtml(body.actorDid) + '</td></tr>';

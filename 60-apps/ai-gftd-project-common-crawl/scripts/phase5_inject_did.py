@@ -13,6 +13,10 @@ Usage:
   python3 phase5_inject_did.py --limit 100 --dry-run
   python3 phase5_inject_did.py --limit 500 --batch-size 50
   python3 phase5_inject_did.py --min-pages 10
+
+TODO(substrate-boundary): remove any RW integration that reads domain intelligence
+from RW before PDS injection. Phase 5 should read from MST via @etzhayyim/sdk
+per ADR-2605172000 (already mostly PDS-side, just drop RW fallback).
 """
 
 import gzip

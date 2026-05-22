@@ -6,6 +6,10 @@ Usage (from lg/ directory):
 Re-running is safe: bmcAppendState always appends a new version (v+1),
 and bmcAddHypothesis is a no-op if the slug PK already exists (PK
 re-INSERT in RW = implicit upsert / ignore on conflict).
+
+TODO(substrate-boundary): re-target this test seed to use MST fixtures instead
+of RW via @etzhayyim/sdk per ADR-2605172000. Use e.write() to populate test
+collections, remove RW_URL env dependency.
 """
 
 from __future__ import annotations

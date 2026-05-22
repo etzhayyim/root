@@ -23,8 +23,6 @@
 	import { useEmbedding } from '$lib/provider/embedding.svelte.js';
 	import AppDrawer from '$lib/components/AppDrawer.svelte';
 	import OpsFAB from '$lib/components/OpsFAB.svelte';
-	import NoCookieBanner from '$lib/components/NoCookieBanner.svelte';
-	import CookieConsent from '$lib/components/CookieConsent.svelte';
 	import InferenceConsent from '$lib/components/InferenceConsent.svelte';
 	import { hasInferenceConsent, requestInferenceConsent } from '$lib/components/inference-consent-state.svelte.js';
 	import { useGamification, AchievementToast } from '$lib/gamification';
@@ -257,6 +255,4 @@
 <AppDrawer bind:open={drawerOpen} />
 <ActionSheet bind:open={menuOpen} actions={menuActions} cancelLabel="キャンセル" />
 <AchievementToast />
-<NoCookieBanner />
-<CookieConsent />
 <InferenceConsent />

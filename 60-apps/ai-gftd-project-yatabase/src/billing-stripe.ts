@@ -197,6 +197,12 @@ const ALLOWED_TARGETS: PlanTier[] = ["free", "starter", "developer", "business"]
 /**
  * POST /auth/v1/upgrade — plan upgrade entry point.
  *
+ * CHARTER RIDER §2 MIGRATION: External fiat subscription replaced by USDC donation flow.
+ * See ADR-2605192115.
+ *
+ * TODO(charter §2): subscription replaced by SBT↔SBT internal-subscription via @etzhayyim/sdk.
+ * See ADR-2605192115.
+ *
  * Body: { plan: "starter" | "developer" | "business",
  *         successUrl?, cancelUrl? }
  */
@@ -242,78 +248,18 @@ export async function handleUpgrade(
     );
   }
 
-  // Real Stripe path when secret is configured.
-  if (env.STRIPE_SECRET_KEY) {
-    const priceId = stripePriceForPlan(env, plan);
-    if (!priceId) {
-      return new Response(
-        JSON.stringify({
-          error: "StripePriceUnconfigured",
-          message: `No Stripe price ID configured for ${plan} (set STRIPE_PRICE_${plan.toUpperCase()}).`,
-        }),
-        { status: 503, headers: { "content-type": "application/json" } },
-      );
-    }
-    const checkout = await createStripeCheckoutSession(env, orgDid, plan, priceId, body.successUrl, body.cancelUrl);
-    if (!checkout.url) {
-      return new Response(
-        JSON.stringify({ error: "StripeCheckoutFailed", upstream: checkout.error?.slice(0, 300) }),
-        { status: 502, headers: { "content-type": "application/json" } },
-      );
-    }
-    return new Response(
-      JSON.stringify({
-        ok: true,
-        mode: "stripe",
-        plan,
-        checkoutUrl: checkout.url,
-        sessionId: checkout.sessionId,
-        message: "Redirect the customer to checkoutUrl. After successful payment Stripe webhook activates the plan.",
-      }),
-      { status: 200, headers: { "content-type": "application/json" } },
-    );
-  }
-
-  // Stub mode (no Stripe credentials): activate the plan immediately and
-  // emit a synthetic invoice line so the metering / usage panes show
-  // the upgraded tier right away. Real production must use Stripe.
-  try {
-    await persistPlan(env, orgDid, plan, "stub-upgrade", null, null);
-  } catch (e) {
-    return new Response(
-      JSON.stringify({ error: "PersistFailed", message: e instanceof Error ? e.message.slice(0, 300) : "INSERT failed" }),
-      { status: 500, headers: { "content-type": "application/json" } },
-    );
-  }
-  // Sprint 1 H1: record referrer conversion.
-  try { await recordConversion(env, orgDid, plan); } catch { /* non-fatal */ }
-  // P15: outbox email confirmation. We don't have a per-tenant email yet
-  // (signup is anonymous), so this writes to outbox in 'queued-no-recipient'
-  // status — once the customer attaches an email via /auth/v1/signup body
-  // or a future verify flow, the cron resender will pick it up.
-  try {
-    const outbox = await import("./email-outbox");
-    const tpl = outbox.planUpgradeEmail(orgDid, plan, PLAN_RULES[plan].monthlyUsd);
-    await outbox.emitOutbox(env as unknown as { HYPERDRIVE?: unknown }, {
-      orgDid,
-      kind: "plan-upgrade",
-      subject: tpl.subject,
-      bodyText: tpl.text,
-      bodyHtml: tpl.html,
-    });
-  } catch (e) {
-    console.warn("[yatabase][upgrade] outbox emit failed:", e);
-  }
+  // CHARTER RIDER §2: External fiat subscription (Stripe) is prohibited.
+  // Allowed: donation/kisha/grant/tithe/escrow-refund via USDC on Base L2.
+  // Internal SBT↔SBT subscription carve-out requires internal-subscription purpose.
+  // This route is now disabled; forward to donation flow.
   return new Response(
     JSON.stringify({
-      ok: true,
-      mode: "stub",
-      plan,
-      message: `Stub upgrade to ${plan}. Real Stripe checkout requires STRIPE_SECRET_KEY + STRIPE_PRICE_${plan.toUpperCase()} wrangler secrets.`,
-      monthlyUsd: PLAN_RULES[plan].monthlyUsd,
-      monthlyJpy: PLAN_RULES[plan].monthlyJpy,
+      error: "external-fiat-not-permitted",
+      code: "CHARTER_RIDER_SECTION_2",
+      message: "External subscription payment via Stripe is not permitted per Charter Rider §2. Please use the donation flow with USDC on Base L2.",
+      learnMore: "https://github.com/etzhayyim/root/blob/main/CHARTER-RIDER.md#section-2-prohibited-payment-purposes",
     }),
-    { status: 200, headers: { "content-type": "application/json" } },
+    { status: 403, headers: { "content-type": "application/json" } },
   );
 }
 
@@ -344,79 +290,26 @@ interface PortalRequestBody {
 /**
  * POST /auth/v1/portal — Stripe Customer Portal session (P71).
  *
- * Allows customers to self-serve: change card, cancel, see invoice
- * history. Returns a hosted-page URL to redirect the customer to.
- * Requires that the org has already gone through Stripe checkout
- * (i.e. has a `cus_*` ID cached). Free / stub-upgraded orgs get a
- * 400 with a clear message telling them to upgrade via Checkout first.
+ * CHARTER RIDER §2 MIGRATION: Disabled. Stripe payment portal not permitted.
+ * See ADR-2605192115.
+ *
+ * TODO(charter §2): replace with USDC donation flow portal via @etzhayyim/sdk.
  */
 export async function handlePortal(
   env: BillingEnv,
   orgDid: string,
   req: Request,
 ): Promise<Response> {
-  if (!env.STRIPE_SECRET_KEY) {
-    return new Response(
-      JSON.stringify({ error: "StripeDisabled", message: "STRIPE_SECRET_KEY not configured" }),
-      { status: 503, headers: { "content-type": "application/json" } },
-    );
-  }
-  let body: PortalRequestBody = {};
-  try { body = await req.json(); } catch { /* empty body is fine */ }
-
-  const customerId = await kvGetStripeCustomerId(env, orgDid);
-  if (!customerId) {
-    return new Response(
-      JSON.stringify({
-        error: "NoStripeCustomer",
-        message: "This org has not completed a Stripe checkout yet. Upgrade via POST /auth/v1/upgrade first.",
-      }),
-      { status: 400, headers: { "content-type": "application/json" } },
-    );
-  }
-  const params = new URLSearchParams();
-  params.set("customer", customerId);
-  params.set("return_url", body.returnUrl ?? "https://yatabase.etzhayyim.com/dashboard");
-
-  try {
-    const resp = await fetch("https://api.stripe.com/v1/billing_portal/sessions", {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
-        "content-type": "application/x-www-form-urlencoded",
-      },
-      body: params.toString(),
-    });
-    const text = await resp.text().catch(() => "");
-    if (!resp.ok) {
-      return new Response(
-        JSON.stringify({ error: "StripePortalFailed", status: resp.status, upstream: text.slice(0, 300) }),
-        { status: 502, headers: { "content-type": "application/json" } },
-      );
-    }
-    const data = JSON.parse(text) as { id?: string; url?: string };
-    if (!data?.url) {
-      return new Response(
-        JSON.stringify({ error: "StripePortalNoUrl", upstream: text.slice(0, 300) }),
-        { status: 502, headers: { "content-type": "application/json" } },
-      );
-    }
-    return new Response(
-      JSON.stringify({
-        ok: true,
-        portalUrl: data.url,
-        sessionId: data.id,
-        customerId,
-        message: "Redirect the customer to portalUrl. They can change card, cancel, or view invoices there.",
-      }),
-      { status: 200, headers: { "content-type": "application/json" } },
-    );
-  } catch (e) {
-    return new Response(
-      JSON.stringify({ error: "StripePortalThrew", message: e instanceof Error ? e.message.slice(0, 300) : String(e) }),
-      { status: 502, headers: { "content-type": "application/json" } },
-    );
-  }
+  // CHARTER RIDER §2: External fiat payment (Stripe) is prohibited.
+  return new Response(
+    JSON.stringify({
+      error: "external-fiat-not-permitted",
+      code: "CHARTER_RIDER_SECTION_2",
+      message: "Stripe customer portal not available. External fiat payment is prohibited per Charter Rider §2.",
+      learnMore: "https://github.com/etzhayyim/root/blob/main/CHARTER-RIDER.md#section-2-prohibited-payment-purposes",
+    }),
+    { status: 403, headers: { "content-type": "application/json" } },
+  );
 }
 
 interface CheckoutResult {
@@ -471,99 +364,30 @@ async function createStripeCheckoutSession(
 }
 
 /**
- * POST /webhook/stripe — Stripe-side webhook (P8). Activates the plan
- * once Stripe confirms the customer has paid. Verifies the
- * `Stripe-Signature` header against `STRIPE_WEBHOOK_SECRET` to defend
- * against forged events.
+ * POST /webhook/stripe — Stripe-side webhook (P8).
  *
- * Handled events:
- *   checkout.session.completed       → activate plan
- *   customer.subscription.deleted    → revert to free
- *   customer.subscription.updated    → re-activate (plan change mid-cycle)
+ * CHARTER RIDER §2 MIGRATION: Disabled. Stripe webhooks not accepted.
+ * See ADR-2605192115.
+ *
+ * TODO(charter §2): replace with donation/tithe USDC webhook via @etzhayyim/sdk.
  */
 export async function handleStripeWebhook(env: BillingEnv, req: Request): Promise<Response> {
-  if (!env.STRIPE_WEBHOOK_SECRET) {
-    return new Response(
-      JSON.stringify({ error: "WebhookDisabled", message: "STRIPE_WEBHOOK_SECRET not configured" }),
-      { status: 503, headers: { "content-type": "application/json" } },
-    );
-  }
-  const sig = req.headers.get("stripe-signature") ?? "";
-  const raw = await req.text();
-  if (!await verifyStripeSignature(env.STRIPE_WEBHOOK_SECRET, sig, raw)) {
-    return new Response(
-      JSON.stringify({ error: "BadSignature" }),
-      { status: 400, headers: { "content-type": "application/json" } },
-    );
-  }
-  let event: { id?: string; type?: string; data?: { object?: Record<string, unknown> } } = {};
-  try {
-    event = JSON.parse(raw);
-  } catch {
-    return new Response(
-      JSON.stringify({ error: "BadJson" }),
-      { status: 400, headers: { "content-type": "application/json" } },
-    );
-  }
-  // P72: idempotency. Stripe retries webhooks (up to 3 days) until 2xx;
-  // re-processing the same checkout.session.completed event would
-  // re-flip the plan / re-emit confirmation emails. Track seen event
-  // IDs in KV (24h TTL — long after Stripe's retry budget) and short-
-  // circuit duplicates with a 200 OK + duplicate marker.
-  const eventId = (event.id ?? "").trim();
-  if (eventId && env.YATABASE_AUTH_CACHE) {
-    const dedupKey = `stripe_event:v1:${eventId}`;
-    try {
-      const seen = await env.YATABASE_AUTH_CACHE.get(dedupKey);
-      if (seen) {
-        return new Response(
-          JSON.stringify({ ok: true, duplicate: true, eventId, firstSeenAt: seen }),
-          { status: 200, headers: { "content-type": "application/json" } },
-        );
-      }
-      await env.YATABASE_AUTH_CACHE.put(dedupKey, new Date().toISOString(), { expirationTtl: 86400 });
-    } catch (e) {
-      // KV failure shouldn't break webhook processing — Stripe needs a 200.
-      console.warn("[yatabase][stripe-webhook] dedup KV failed (continuing):", e);
-    }
-  }
-  const obj = event.data?.object ?? {};
-  const orgDid = String((obj.metadata as Record<string, unknown> | undefined)?.org_did
-    ?? (obj.client_reference_id as string)
-    ?? "");
-  const plan = String((obj.metadata as Record<string, unknown> | undefined)?.plan ?? "") as PlanTier;
-  const subId = String(obj.subscription ?? obj.id ?? "");
-  const customerId = String(obj.customer ?? "");
-
-  switch (event.type) {
-    case "checkout.session.completed":
-    case "customer.subscription.updated":
-      if (orgDid && ALLOWED_TARGETS.includes(plan) && plan !== "free") {
-        try {
-          await persistPlan(env, orgDid, plan, "stripe-webhook", subId, customerId);
-        } catch (e) {
-          console.warn("[yatabase][stripe-webhook] persist failed:", e);
-        }
-        try { await recordConversion(env, orgDid, plan); } catch { /* non-fatal */ }
-      }
-      break;
-    case "customer.subscription.deleted":
-      if (orgDid) {
-        try {
-          await persistPlan(env, orgDid, "free", "stripe-webhook", null, customerId);
-        } catch (e) {
-          console.warn("[yatabase][stripe-webhook] downgrade failed:", e);
-        }
-      }
-      break;
-    default:
-      // Ignore other event types silently (Stripe expects 200 OK).
-      break;
-  }
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: { "content-type": "application/json" },
+  // CHARTER RIDER §2: External fiat payment (Stripe) is prohibited.
+  // Log the event for audit, but reject the webhook.
+  const raw = await req.text().catch(() => "");
+  console.log("[yatabase][stripe-webhook] REJECTED per Charter Rider §2: external-fiat-not-permitted", {
+    contentLength: raw.length,
+    timestamp: new Date().toISOString(),
   });
+
+  return new Response(
+    JSON.stringify({
+      ok: true,
+      note: "Stripe webhook endpoint is disabled per Charter Rider §2. External fiat payment is not permitted.",
+      code: "CHARTER_RIDER_SECTION_2",
+    }),
+    { status: 200, headers: { "content-type": "application/json" } },
+  );
 }
 
 async function verifyStripeSignature(secret: string, header: string, body: string): Promise<boolean> {

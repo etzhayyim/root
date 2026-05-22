@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { onMount } from 'svelte';
-  import GoogleAnalytics from './GoogleAnalytics.svelte';
   import './theme/tokens.css';
 
   interface Props {
@@ -12,7 +11,6 @@
     children?: Snippet;
     class?: string;
     style?: string;
-    gaId?: string;
     sidebarOpen?: boolean;
     onCloseSidebar?: () => void;
     mobileMode?: boolean;
@@ -26,7 +24,6 @@
     children,
     class: className = '',
     style: styleStr = '',
-    gaId = 'G-FPSMTY14DJ',
     sidebarOpen = false,
     onCloseSidebar,
     mobileMode
@@ -57,8 +54,6 @@
     onCloseSidebar?.();
   }
 </script>
-
-<GoogleAnalytics {gaId} />
 
 <div
   class={`flex h-dvh overflow-hidden bg-[var(--gv2-bg-primary,#1a1a1a)] text-[var(--gv2-text-primary,#ffffff)] ${className}`}

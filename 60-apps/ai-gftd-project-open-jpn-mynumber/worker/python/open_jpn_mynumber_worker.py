@@ -3,6 +3,11 @@
 
 The default adapter mode is mock. Real government connectors require separate
 approval, credentials, private specifications, and security review.
+
+TODO(substrate-boundary): replace RW writes (psycopg execute INSERT/UPDATE)
+with AT Protocol MST writes via @etzhayyim/sdk per ADR-2605172000.
+Collection: 'ai.gftd.apps.openJpnMynumber.personRef', rkey=person_id_hash.
+Remove RW_URL env dependency when migration complete.
 """
 
 from __future__ import annotations

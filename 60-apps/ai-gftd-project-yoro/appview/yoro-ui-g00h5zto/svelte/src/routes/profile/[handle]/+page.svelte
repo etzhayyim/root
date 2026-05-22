@@ -14,7 +14,6 @@
 	import { isSignedIn } from '$lib/auth';
 	import { fade, fly } from 'svelte/transition';
 	import { ActorHero } from '$lib/actor';
-	import AdSlot from '$lib/components/AdSlot.svelte';
 	import type { ActorProfileView, ActorScores } from '$lib/actor';
 	import AgentProfile from './AgentProfile.svelte';
 	import { XPBar, AchievementsGrid, BeliefKarmaTab } from '$lib/gamification';
@@ -738,11 +737,6 @@
 		{:else}
 			<!-- Human Profile — ActorHero + tabs -->
 			<ActorHero profile={actorProfileView} />
-
-			<!-- Sponsored slot under profile header -->
-			<div class="mx-4 mt-3">
-				<AdSlot placement="profile-header" class="rounded-xl" />
-			</div>
 
 			<!-- GCC Token Balance (shown when smart account is activated and balance > 0) -->
 			{#if gccBalanceFormatted}

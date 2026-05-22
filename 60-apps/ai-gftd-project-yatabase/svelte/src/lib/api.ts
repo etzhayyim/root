@@ -97,8 +97,10 @@ export const auth = {
 			},
 		});
 	},
+	// CHARTER RIDER §2: Stripe portal disabled. Stripe integration removed.
 	stripePortal(apiKey: string) {
-		return request<{ url: string; portalUrl?: string }>('/auth/v1/portal', {
+		// Returns error response; Stripe payment is prohibited
+		return request<{ error: string; code?: string }>('/auth/v1/portal', {
 			apiKey,
 			method: 'POST',
 			body: {},

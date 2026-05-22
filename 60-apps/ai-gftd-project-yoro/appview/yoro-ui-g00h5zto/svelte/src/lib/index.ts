@@ -4,7 +4,6 @@ export { default as Sidebar } from './Sidebar.svelte';
 export { default as Footer } from './Footer.svelte';
 export { default as ContentArea } from './ContentArea.svelte';
 export { default as ThemeToggle } from './ThemeToggle.svelte';
-export { default as GoogleAnalytics } from './GoogleAnalytics.svelte';
 export { default as LegalDocumentPage } from './legal/LegalDocumentPage.svelte';
 export {
 	privacyDocument,

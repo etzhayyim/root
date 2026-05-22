@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite dev",
     "prebuild:bpmn": "bash scripts/copy-bpmn-files.sh",
-    "build": "pnpm prebuild:bpmn && vite build",
+    "build": "pnpm prebuild:bpmn && vite build && node scripts/sync-static.mjs",
     "cache:purge": "node scripts/purge-cache.mjs",
     "deploy:prod": "wrangler deploy && node scripts/purge-cache.mjs",
     "preview": "vite preview",

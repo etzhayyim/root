@@ -316,6 +316,7 @@ const SPEC = {
                   type: "object",
                   properties: {
                     ok: { type: "boolean" },
+                    // DEPRECATED per Charter Rider §2: mode will no longer be "stripe"
                     mode: { type: "string", enum: ["stub", "stripe"] },
                     plan: { type: "string" },
                     checkoutUrl: { type: "string", nullable: true },
@@ -392,6 +393,7 @@ const SPEC = {
                     plan: { type: "string", enum: ["free", "starter", "developer", "business", "enterprise"] },
                     attachedEmail: { type: "string", nullable: true, format: "email" },
                     attachedEmailVerified: { type: "boolean" },
+                    // DEPRECATED per Charter Rider §2: Stripe integration removed
                     stripeCustomerId: { type: "string", nullable: true },
                     canOpenPortal: { type: "boolean" },
                   },
@@ -952,12 +954,12 @@ const SPEC = {
     },
     "/webhook/stripe": {
       post: {
-        summary: "Stripe webhook (signature-verified, no auth)",
-        description: "Used by Stripe Live to flip vertex_org_plan after a customer completes Checkout. Requires `Stripe-Signature` header + `STRIPE_WEBHOOK_SECRET` env. Internal — listed for transparency only.",
+        summary: "[DEPRECATED per Charter Rider §2] Stripe webhook (signature-verified, no auth)",
+        description: "DEPRECATED: Stripe integration has been removed per Charter Rider §2. This endpoint now rejects all Stripe webhooks. See ADR-2605192115 for USDC donation flow migration.",
         operationId: "stripeWebhook",
         tags: ["billing"],
         security: [],
-        responses: { "200": { description: "OK" }, "400": { description: "BadSignature / BadJson" }, "503": { description: "STRIPE_WEBHOOK_SECRET not configured" } },
+        responses: { "200": { description: "OK (webhook logged but ignored)" }, "400": { description: "BadSignature / BadJson" }, "503": { description: "STRIPE_WEBHOOK_SECRET not configured" } },
       },
     },
   },

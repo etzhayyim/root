@@ -7,6 +7,12 @@ Honours:
   * graph-schema CLAUDE.md §"CSR/CSC/SpMV Query Patterns" — current
     status is read from `mv_bmc_hypothesis_status`, current head from
     `mv_bmc_state_head`, latest iteration from `mv_bmc_iteration_latest`.
+
+TODO(substrate-boundary): replace all RW queries with AT Protocol MST writes
+per ADR-2605172000. append_state/append_hypothesis/append_iteration become
+e.write({collection: 'ai.gftd.apps.yata.bmc.state', ...}). Read paths use
+e.read() with MST prefix scans. Record-log semantics naturally enforce by
+MST immutability.
 """
 
 from __future__ import annotations

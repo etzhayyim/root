@@ -1,12 +1,13 @@
 /**
  * @etzhayyim/ai-gftd-hrse#ConnectServerClient
  * Connect-Web サーバーサイドクライアント
- * 
+ *
  * API Routes や Server Components で使用する Connect クライアント
  * サーバーサイドでは直接バックエンドに接続（プロキシ経由ではなく）
  */
 
-// CHARTER-VIOLATION §substrate (direct @atproto/api forbidden): use @etzhayyim/sdk wrapper
+// TODO(substrate-boundary): wrap AtpBaseClient XRPC transport behind @etzhayyim/sdk facade — see ADR-2605172000
+// SDK gap: does not export AtpBaseClient (low-level transport class)
 import { AtpBaseClient } from "@atproto/api";
 import { auth as clerkAuth } from "@clerk/nextjs/server";
 

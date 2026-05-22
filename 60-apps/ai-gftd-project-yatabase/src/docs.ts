@@ -296,6 +296,7 @@ curl -X POST <span class="s">https://yatabase.etzhayyim.com/auth/v1/redeem</span
 <pre>curl -H <span class="s">"authorization: Bearer $KEY"</span> <span class="s">https://yatabase.etzhayyim.com/auth/v1/whoami</span></pre>
 <p>Returns the tenant identity for the current bearer:
    <code>{orgDid, actorDid, plan, attachedEmail, stripeCustomerId, canOpenPortal}</code>.
+   Note: <code>stripeCustomerId</code> and <code>canOpenPortal</code> are deprecated (Charter Rider §2).
    Useful for client bootstrap, dashboard rendering, and confirming a recovered key
    resolved to the original tenant.</p>
 

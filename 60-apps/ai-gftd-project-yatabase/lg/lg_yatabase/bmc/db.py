@@ -9,6 +9,12 @@ serialized by `pg_advisory_xact_lock` in repository.iterate_lock().
 graph-schema CLAUDE.md §"Hyperdrive + pg.Pool Configuration" enforces
 serial writes inside one request, so callers MUST NOT `asyncio.gather`
 two writes against the same pool.
+
+TODO(substrate-boundary): replace all RW queries (fetch/fetchrow/fetchval/execute)
+with @etzhayyim/sdk e.read({collection,rkey,range}) + e.write({collection})
+per ADR-2605172000. MST collection key structure: org_did/bmc_state/v{N},
+org_did/bmc_hypothesis/{slug}, org_did/bmc_iteration/{id}. Update ADR-2605172100
+vertex→rkey mapping table.
 """
 
 from __future__ import annotations

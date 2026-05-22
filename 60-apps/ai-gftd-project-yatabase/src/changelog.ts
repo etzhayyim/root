@@ -112,10 +112,10 @@ const ENTRIES: ChangelogEntry[] = [
   {
     date: "2026-05-11",
     phase: "P23",
-    title: "Stripe webhook plan-flip integration test",
+    title: "Stripe webhook plan-flip integration test [DEPRECATED per Charter Rider §2]",
     detail:
-      "70-tools/scripts/yatabase-stripe-webhook-test.mjs — synthesizes a Stripe-signed `checkout.session.completed` event, " +
-      "verifies signature + plan flip + bad-signature reject. End-to-end proven: free → starter in 41 s.",
+      "70-tools/scripts/yatabase-stripe-webhook-test.mjs — [DEPRECATED] synthesized Stripe webhook test. " +
+      "Stripe external fiat payment is prohibited per Charter Rider §2. See ADR-2605192115 for USDC donation flow migration.",
   },
   {
     date: "2026-05-11",

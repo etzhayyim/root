@@ -31,6 +31,13 @@ packages:
   - "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte"
   - "60-apps/ai-gftd-project-ameno/daemon"
 
+  # yoro cohort (Charter-compliant rebuild — AdSense/GA4 removed)
+  - "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte"
+  - "10-protocol/signal"
+  - "10-protocol/xrpc"
+  - "40-engine/svelte/auth"
+  - "40-engine/svelte/design-system"
+
   # etzhayyim substrate SDKs
   - "20-actors/etzhayyim-sdk"
   - "20-actors/etzhayyim-sdk-auth"

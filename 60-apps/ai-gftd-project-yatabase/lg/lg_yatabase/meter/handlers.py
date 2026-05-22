@@ -8,6 +8,11 @@ when emitMeter() fires. The Worker can no longer write to RisingWave directly
 and keeps vertex_api_key growth columns in sync.
 
 Auth: x-internal-trust shared-secret (same as leads/auth handlers).
+
+TODO(substrate-boundary): replace RW billing event writes (execute INSERT into
+vertex_billing_event) with AT Protocol MST writes per ADR-2605172000. Billing events
+collection: 'ai.gftd.apps.yata.billing.events', rkey=timestamp_event_id. Immutable
+event log ensures audit trail integrity.
 """
 
 from __future__ import annotations

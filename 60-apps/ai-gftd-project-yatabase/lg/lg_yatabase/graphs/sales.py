@@ -30,6 +30,11 @@ Compliance: any outbound side-effect (email, calendar invite) lands in
 vertex_email_outbox with status='queued' until a human reviewer
 approves the recipient + body. Sales can only persuade; cannot ship
 without sign-off.
+
+TODO(substrate-boundary): replace RW queries (fetch from vertex_billing_event,
+vertex_audit_log, vertex_email_outbox, execute INSERT into vertex_email_outbox)
+with e.read/e.write per ADR-2605172000. Billing events: 'ai.gftd.apps.yata.billing.events',
+rkey=timestamp_event_id. Audit log: 'ai.gftd.apps.yata.audit.log', rkey=timestamp_request_id.
 """
 
 from __future__ import annotations

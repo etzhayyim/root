@@ -12,6 +12,7 @@ import type {
 } from './types.js';
 import type { LanguageCode } from '../language/types.js';
 
+// TODO(substrate-boundary): wrap XRPC client access behind @etzhayyim/sdk facade (expose agent factory or xrpc method helper) — see ADR-2605172000
 import { AtpAgent } from '@atproto/api';
 
 const DEFAULT_BASE = 'https://i18n.etzhayyim.com';

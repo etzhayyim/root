@@ -13,6 +13,10 @@ Usage:
   python3 phase4_intel_risingwave.py --limit 100              # process 100
   python3 phase4_intel_risingwave.py                          # all CC domains
   python3 phase4_intel_risingwave.py --reset                  # restart
+
+TODO(substrate-boundary): replace RW read/update operations (psycopg2 fetch/execute)
+with AT Protocol MST reads via @etzhayyim/sdk per ADR-2605172000. Domain intelligence
+collection: 'ai.gftd.apps.commonCrawl.domainIntel', rkey=domain_slug. Remove RW_URL env.
 """
 
 import argparse

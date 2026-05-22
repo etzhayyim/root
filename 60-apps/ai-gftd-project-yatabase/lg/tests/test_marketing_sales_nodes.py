@@ -6,6 +6,9 @@ fetchval/execute so no live RW connection is needed.
 LLM is tested only via the deterministic fallback paths — the real
 HTTP path is exercised by the integration smoke `curl /runs marketing`
 once the pod is deployed.
+
+TODO(substrate-boundary): re-target test fixtures to use @etzhayyim/sdk
+e.read/e.write MST mocks instead of asyncpg monkey-patching per ADR-2605172000.
 """
 
 from __future__ import annotations

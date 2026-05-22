@@ -9,6 +9,10 @@ NSIDs:
 Auth: x-internal-trust HMAC (same pattern as bmc/handlers.py).
 The CF Worker validates quota before forwarding here.
 The pod connects to RisingWave via asyncpg for both DDL and queries.
+
+TODO(substrate-boundary): replace RW query execution (db_execute, fetch via asyncpg)
+with AT Protocol storage per ADR-2605172000. Query registry: MST collection
+'ai.gftd.apps.yata.deployedQuery', results cached on IPFS. Update after schema finalized.
 """
 from __future__ import annotations
 

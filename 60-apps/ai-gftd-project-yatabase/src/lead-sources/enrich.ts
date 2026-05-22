@@ -53,6 +53,7 @@ const TECH_PATTERNS: Array<{ re: RegExp; tag: string }> = [
   { re: /\bhasura\b/i, tag: "hasura" },
   { re: /\bpostgres(ql)?\b/i, tag: "postgres" },
   { re: /\bfirebase(\.google\.com)?\b/i, tag: "firebase" },
+  // Note: Stripe detection is for prospecting only; etzhayyim does not use Stripe (Charter Rider §2).
   { re: /\bstripe\b|js\.stripe\.com/i, tag: "stripe" },
   { re: /shopify(\.com)?/i, tag: "shopify" },
   { re: /\b(open|webgl)?ai\b|openai\.com/i, tag: "ai" },

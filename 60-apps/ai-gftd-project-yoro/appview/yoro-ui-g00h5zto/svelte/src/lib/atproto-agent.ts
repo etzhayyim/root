@@ -1,3 +1,5 @@
+// TODO(substrate-boundary): wrap AppBsky types + AtpAgent behind @etzhayyim/sdk facade — see ADR-2605172000
+// SDK gap: does not export Bluesky Lexicon types (AppBskyActorDefs, AppBskyFeedDefs, AppBskyRichtextFacet)
 import { AtpAgent, type AppBskyActorDefs, type AppBskyFeedDefs, type AppBskyRichtextFacet } from '@atproto/api';
 import { setSignalTransport } from '@etzhayyim/signal';
 

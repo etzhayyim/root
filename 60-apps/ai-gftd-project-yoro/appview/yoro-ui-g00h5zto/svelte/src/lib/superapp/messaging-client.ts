@@ -6,6 +6,7 @@
  */
 import { get } from 'svelte/store';
 import { currentOrg, clerkUser, getSessionToken } from '../auth.js';
+// TODO(substrate-boundary): wrap AtpAgent + XRPC API calls behind @etzhayyim/sdk facade — see ADR-2605172000
 import { AtpAgent } from '@atproto/api';
 
 const _agent = new AtpAgent({ service: 'https://atproto.etzhayyim.com' });

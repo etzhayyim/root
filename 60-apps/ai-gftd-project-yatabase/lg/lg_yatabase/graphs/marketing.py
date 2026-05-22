@@ -29,6 +29,11 @@ Compliance:
   - LLM scoring is optional augmentation; deterministic heuristic
     fallback is always available so cron stays green when the LLM
     pod is down.
+
+TODO(substrate-boundary): replace RW queries (fetch from vertex_lead,
+execute UPDATE/INSERT into vertex_lead/vertex_email_outbox) with e.read/e.write
+per ADR-2605172000. Leads collection: 'ai.gftd.apps.yata.leads', rkey=company_domain.
+Outbox: 'ai.gftd.apps.yata.outbox', rkey=timestamp_hash. Update after SDK types land.
 """
 
 from __future__ import annotations

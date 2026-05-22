@@ -419,37 +419,23 @@ async def _measure_sql(metric_query: str) -> dict[str, Any]:
             "window_start_ms": since_ms, "window_end_ms": now_ms, "raw": ""}
 
 
+# CHARTER RIDER §2 MIGRATION: Stripe measurement disabled.
+# External fiat subscription (Stripe) is prohibited per Charter Rider §2.
+# See ADR-2605192115.
+# TODO(charter §2): Replace with USDC donation flow measurement via @etzhayyim/sdk.
+
 async def _measure_stripe(metric_query: str) -> dict[str, Any]:
-    key = os.environ.get("STRIPE_SECRET_KEY")
-    if not key:
-        return {"value": 0.0, "sample": 0, "source": "stripe-key-missing",
-                "error": "STRIPE_SECRET_KEY not set",
-                "window_start_ms": 0, "window_end_ms": int(time.time() * 1000), "raw": ""}
-    parts = metric_query.split(":")
-    filt = parts[2] if len(parts) > 2 else "active"
-    try:
-        async with httpx.AsyncClient(timeout=20.0) as client:
-            r = await client.get(
-                "https://api.stripe.com/v1/subscriptions",
-                params={"limit": 100, "status": filt},
-                headers={"authorization": f"Bearer {key}"},
-            )
-        if r.status_code != 200:
-            return {"value": 0.0, "sample": 0, "source": "stripe-http-error",
-                    "error": f"HTTP {r.status_code}",
-                    "window_start_ms": 0, "window_end_ms": int(time.time() * 1000),
-                    "raw": r.text[:512]}
-        data = r.json()
-        items = data.get("data", []) or []
-        return {"value": float(len(items)), "sample": len(items),
-                "source": f"stripe subscriptions(status={filt})",
-                "window_start_ms": 0, "window_end_ms": int(time.time() * 1000),
-                "raw": json.dumps({"count": len(items), "has_more": data.get("has_more", False)})[:512]}
-    except Exception as e:
-        _log.exception("[bmc.measure_stripe] failed")
-        return {"value": 0.0, "sample": 0, "source": "stripe-throw",
-                "error": str(e)[:200],
-                "window_start_ms": 0, "window_end_ms": int(time.time() * 1000), "raw": ""}
+    # Stripe integration has been removed per Charter Rider §2.
+    # This stub returns zero value with deprecation notice.
+    return {
+        "value": 0.0,
+        "sample": 0,
+        "source": "stripe-disabled-charter-section-2",
+        "error": "Stripe measurement disabled. External fiat payment is prohibited (Charter Rider §2). Use USDC donation flow.",
+        "window_start_ms": 0,
+        "window_end_ms": int(time.time() * 1000),
+        "raw": ""
+    }
 
 
 def _evaluate(state: _State) -> _State:

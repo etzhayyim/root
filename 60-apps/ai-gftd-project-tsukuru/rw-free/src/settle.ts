@@ -24,6 +24,7 @@
  */
 
 import { pay, type PaymentReceipt } from "@etzhayyim/sdk";
+// TODO(substrate-boundary): AtpAgent type is imported but only used in type annotations for pds option — consider adding pds wrapper to SDK or using generic agent interface — see ADR-2605172000
 import type { AtpAgent } from "@atproto/api";
 import type { PaymentIntent } from "./types.js";
 

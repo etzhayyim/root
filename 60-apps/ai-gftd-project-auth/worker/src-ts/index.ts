@@ -2260,33 +2260,23 @@ async function resolveSecret(source: unknown): Promise<string> {
   return "";
 }
 
+// CHARTER RIDER §2 MIGRATION: Stripe payment helpers disabled.
+// External fiat subscription (Stripe) is prohibited per Charter Rider §2.
+// See ADR-2605192115.
+
 async function resolveStripeSecretKey(env: Env): Promise<string> {
-  const store = await resolveSecret((env as { SS_STRIPE_SECRET_KEY_STORE?: unknown }).SS_STRIPE_SECRET_KEY_STORE);
-  if (store) return store;
-  return await resolveSecret(env.SS_STRIPE_SECRET_KEY);
+  // TODO(charter §2): Stripe removed. Use USDC donation flow via @etzhayyim/sdk.
+  return "";
 }
 
 async function resolveStripePublishableKey(env: Env): Promise<string> {
-  const store = await resolveSecret((env as { STRIPE_PUBLISHABLE_KEY_STORE?: unknown }).STRIPE_PUBLISHABLE_KEY_STORE);
-  if (store) return store;
-  return await resolveSecret(env.STRIPE_PUBLISHABLE_KEY);
+  // TODO(charter §2): Stripe removed. Use USDC donation flow via @etzhayyim/sdk.
+  return "";
 }
 
 async function handleCreateSetupIntent(env: Env): Promise<Response> {
-  const stripeKey = await resolveStripeSecretKey(env);
-  if (!stripeKey) return jsonErr(503, "ServiceUnavailable", "Stripe not configured - SS_STRIPE_SECRET_KEY missing");
-  const resp = await fetch("https://api.stripe.com/v1/setupIntents", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${stripeKey}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "usage=offSession&paymentMethodTypes[0]=card",
-  }).catch((_err) => null);
-  if (!resp) return jsonErr(502, "StripeError", "Stripe API call failed");
-  if (resp.status !== 200) return jsonErr(502, "StripeError", `SetupIntent creation failed: ${resp.status}`);
-  const data = await resp.json() as { clientSecret?: string; id?: string };
-  return json({ 'clientSecret': data.clientSecret || "", 'setupIntentId': data.id || "" });
+  // CHARTER RIDER §2: External fiat payment (Stripe) is prohibited.
+  return jsonErr(403, "external-fiat-not-permitted", "Stripe payment setup is not permitted per Charter Rider §2. Use USDC donation flow instead.");
 }
 
 async function storeCredential(env: Env, credentialId: string, value: Record<string, unknown>): Promise<void> {
@@ -2730,8 +2720,10 @@ app.get("/users/:id/did.json", async (c) => {
   });
 });
 app.get("/xrpc/ai.gftd.auth.getConfig", async (c) =>
+  // CHARTER RIDER §2: stripePk removed. Stripe payment is prohibited.
   json({
-    stripePk: await resolveStripePublishableKey(c.env),
+    // stripePk: await resolveStripePublishableKey(c.env), // DISABLED per Charter Rider §2
+    stripePk: "", // Stripe is prohibited; use USDC donation flow
     countryCode: c.req.raw.headers.get("CF-IPCountry") || "JP",
   }),
 );
@@ -2878,7 +2870,8 @@ app.post("/rpc/check-revoked", (c) => handleCheckRevoked(c.req.raw, c.env));
 app.post("/rpc/verify-session", (c) => handleVerifySession(c.req.raw, c.env));
 app.post("/webhook/telnyx", (c) => handleTelnyxWebhook(c.req.raw));
 app.post("/xrpc/ai.gftd.auth.createGuestAccount", (c) => handleCreateGuestAccount(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.createSetupIntent", (c) => handleCreateSetupIntent(c.env));
+// CHARTER RIDER §2: Stripe setup intent disabled. External fiat payment prohibited.
+// app.post("/xrpc/ai.gftd.auth.createSetupIntent", (c) => handleCreateSetupIntent(c.env));
 
 // Fallback: static assets for unmatched GET (Svelte CSR build).
 app.get("*", async (c) => {
