@@ -163,6 +163,7 @@ export interface RegisterArticleOutput {
   did?: string;
   blake3Hash?: string;
   contentHash?: string;
+  amendment?: unknown;
   error?: string;
 }
 
