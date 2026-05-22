@@ -138,7 +138,17 @@ export async function donate(opts: DonateOpts, cfg: DonateConfig): Promise<Donat
       amount: amountUsdc,
       reason: {
         collection: "ai.gftd.apps.payment.sent",
-        purpose: opts.purpose,
+        // mapDonationPurpose collapses v0.2 purposes onto v0.1 PaymentPurpose
+        // ("donation" placeholder) until pay.ts widens its enum (v0.3 TODO).
+        purpose: mapDonationPurpose(opts.purpose) as
+          | "donation"
+          | "tip"
+          | "subscription"
+          | "purchase"
+          | "refund"
+          | "grant"
+          | "offering"
+          | "split",
         forUri: opts.forUri,
         memo: opts.memo,
       },
