@@ -56,7 +56,7 @@ export async function registerJurisdiction(
     };
   }
 
-  const iso3 = input.iso3.toLowerCase();
+  const iso3 = input.iso3.toUpperCase();
   const rkey = jurisdictionRkey(iso3);
 
   const existing = await e
@@ -112,7 +112,7 @@ export async function getJurisdiction(
   const resp = await e
     .read<JurisdictionRecord>({
       collection: JURISDICTION_COLLECTION,
-      rkey: jurisdictionRkey(input.iso3),
+      rkey: jurisdictionRkey(input.iso3.toUpperCase()),
     })
     .catch(() => ({ records: [] }));
   const r = resp.records[0];

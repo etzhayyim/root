@@ -68,7 +68,7 @@ export async function seedCases(
       caseId: c.caseId,
       title: c.title,
       courtDid: c.courtDid,
-      jurisdiction: c.jurisdiction?.toLowerCase(),
+      jurisdiction: c.jurisdiction?.toUpperCase(),
       decidedAt: c.decidedAt,
       caseNumber: c.caseNumber,
       summary: c.summary,
@@ -117,7 +117,7 @@ export async function listCases(
     .filter((r) => {
       const v = r.value;
       if (input.courtDid && v.courtDid !== input.courtDid) return false;
-      if (input.jurisdiction && v.jurisdiction !== input.jurisdiction.toLowerCase()) return false;
+      if (input.jurisdiction && v.jurisdiction !== input.jurisdiction.toUpperCase()) return false;
       return true;
     })
     .map((r) => ({ ...r.value, caseUri: r.uri }));
