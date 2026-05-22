@@ -1,0 +1,146 @@
+---
+# lg-open-unispsc — resident LangServer for 18,342 UNSPSC commodity agents.
+#
+# Surface (per 00-contracts/lexicons/ai/gftd/apps/unispsc/*.json):
+#   GET  /xrpc/ai.gftd.apps.unispsc.health
+#   GET  /xrpc/ai.gftd.apps.unispsc.listAgents
+#   POST /xrpc/ai.gftd.apps.unispsc.invokeAgent
+#   POST /xrpc/ai.gftd.apps.unispsc.classify
+#
+# Upstream of the unified etzhayyim.com CF Worker
+# (50-infra/etzhayyim-did-web). The Worker routes
+# /xrpc/ai.gftd.apps.unispsc.* → this Service via env.XRPC_UNISPSC_UPSTREAM.
+# No per-actor subdomain (ADR-2605212030 §D2).
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: lg-open-unispsc
+  namespace: mitama-udf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lg-open-unispsc
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-open-unispsc
+    app.kubernetes.io/component: langgraph-server
+    app.kubernetes.io/part-of: etzhayyim.com
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lg-open-unispsc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lg-open-unispsc
+    spec:
+      serviceAccountName: lg-open-unispsc
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: server
+          image: ghcr.io/etzhayyim/pymagatama:main
+          imagePullPolicy: Always
+          command:
+            - granian
+            - "--interface"
+            - asgi
+            - "--host"
+            - 0.0.0.0
+            - "--port"
+            - "8080"
+            - "--workers"
+            - "1"
+            - pymagatama.langgraph_server_app:app
+          env:
+            - name: RW_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mitama-udf-pool-rw
+                  key: RW_URL
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mitama-udf-pool-rw
+                  key: RW_URL
+            - name: RW_SYNC_POOL
+              value: "1"
+            # Suppress the static-builtin assistants — this server's surface
+            # is the XRPC façade, not /runs?assistant_id=builtin_*.
+            - name: LANGGRAPH_DISABLE_BUILTINS
+              value: "1"
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: gemini-api-secrets
+                  key: GEMINI_API_KEY
+                  optional: true
+            - name: ANTHROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: anthropic-api-secrets
+                  key: ANTHROPIC_API_KEY
+                  optional: true
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /xrpc/ai.gftd.apps.unispsc.health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lg-open-unispsc
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-open-unispsc
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: lg-open-unispsc
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP

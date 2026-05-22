@@ -43,6 +43,92 @@ interface Env {
   AUTHZ_CONTRACT_ADDRESS?: string;
   BASE_RPC_URL?: string;
   CHAIN_ID?: string;
+  // Per-NSID-family XRPC upstream origins (populated from wrangler.toml [vars]).
+  // New actors are added here, NOT as new subdomains — this Worker is the
+  // single etzhayyim.com endpoint per ADR-2605212030 §D2.
+  XRPC_UNISPSC_UPSTREAM?: string;
+}
+
+// ─── XRPC routing ───────────────────────────────────────────────────────
+//
+// All `/xrpc/{NSID}` requests are routed by NSID *prefix* to the upstream
+// declared in env. Keeping this as a static map (rather than a generic
+// "look up the NSID owner" call) means the Worker stays a single fetch hop
+// and a misconfigured upstream is a deploy-time error, not a runtime one.
+
+interface NsidRoute {
+  prefix: string;
+  upstream: keyof Env; // must point to a string-valued Env field
+}
+
+const XRPC_ROUTES: NsidRoute[] = [
+  { prefix: "ai.gftd.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
+];
+
+function findXrpcRoute(nsid: string): NsidRoute | null {
+  for (const r of XRPC_ROUTES) {
+    if (nsid.startsWith(r.prefix)) return r;
+  }
+  return null;
+}
+
+async function proxyXrpc(
+  request: Request,
+  upstream: string,
+  nsid: string,
+): Promise<Response> {
+  const incoming = new URL(request.url);
+  const target = new URL(upstream);
+  // Preserve the canonical XRPC path so the upstream sees the same NSID.
+  target.pathname = `/xrpc/${nsid}`;
+  target.search = incoming.search;
+
+  const fwd = new Headers(request.headers);
+  fwd.delete("host");
+  fwd.set("x-forwarded-host", "etzhayyim.com");
+  fwd.set("x-forwarded-proto", "https");
+  fwd.set("x-etzhayyim-nsid", nsid);
+
+  try {
+    const upstreamResp = await fetch(target.toString(), {
+      method: request.method,
+      headers: fwd,
+      body:
+        request.method === "GET" || request.method === "HEAD"
+          ? undefined
+          : request.body,
+      redirect: "manual",
+    });
+    const respHeaders = new Headers(upstreamResp.headers);
+    for (const h of STRIPPED_RESPONSE_HEADERS) respHeaders.delete(h);
+    respHeaders.set("x-proxied-by", "etzhayyim-did-web");
+    respHeaders.set("x-proxied-upstream", upstream);
+    respHeaders.set(
+      "strict-transport-security",
+      "max-age=31536000; includeSubDomains",
+    );
+    return new Response(upstreamResp.body, {
+      status: upstreamResp.status,
+      statusText: upstreamResp.statusText,
+      headers: respHeaders,
+    });
+  } catch (err) {
+    return new Response(
+      JSON.stringify({
+        error: "UpstreamUnreachable",
+        message:
+          err instanceof Error ? err.message : "xrpc upstream fetch failed",
+        nsid,
+      }),
+      {
+        status: 502,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "x-proxied-by": "etzhayyim-did-web",
+        },
+      },
+    );
+  }
 }
 
 // ─── Per-actor DID Document ─────────────────────────────────────────────
@@ -224,7 +310,48 @@ export default {
     }
 
     // ──────────────────────────────────────────────────────────────────
-    // 3) All other paths — reverse-proxy to the yoro Worker via service
+    // 3) XRPC routing — `/xrpc/{NSID}` proxied by NSID prefix to the
+    //    registered upstream (langserver pod, MCP gateway, etc.). One
+    //    Worker handles every actor; new actors are added by appending
+    //    to XRPC_ROUTES rather than spinning up a new subdomain.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const m = url.pathname.match(/^\/xrpc\/([A-Za-z0-9._-]+)$/);
+      if (m) {
+        const nsid = m[1];
+        const route = findXrpcRoute(nsid);
+        if (!route) {
+          return new Response(
+            JSON.stringify({
+              error: "MethodNotImplemented",
+              message: `no upstream registered for NSID '${nsid}'`,
+            }),
+            {
+              status: 501,
+              headers: { "content-type": "application/json; charset=utf-8" },
+            },
+          );
+        }
+        const upstream = env[route.upstream] as string | undefined;
+        if (!upstream) {
+          return new Response(
+            JSON.stringify({
+              error: "UpstreamNotConfigured",
+              message: `env.${String(route.upstream)} is empty`,
+              nsid,
+            }),
+            {
+              status: 503,
+              headers: { "content-type": "application/json; charset=utf-8" },
+            },
+          );
+        }
+        return proxyXrpc(request, upstream, nsid);
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 4) All other paths — reverse-proxy to the yoro Worker via service
     // binding (env.YORO). This bypasses the CF edge/Bot Management block
     // that public-HTTP fetch hits inside the same zone.
     // ──────────────────────────────────────────────────────────────────
@@ -245,4 +372,4 @@ export default {
       );
     }
   },
-} satisfies ExportedHandler;
+} satisfies ExportedHandler<Env>;

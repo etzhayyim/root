@@ -23,6 +23,17 @@ zone_name = "etzhayyim.com"
 binding = "YORO"
 service = "magatama-yoro"
 
+# Per-NSID upstream map for /xrpc/* routing. Values are public HTTPS origins
+# (CF Tunnel or LoadBalancer) reachable from the Worker via fetch().
+# Empty string = upstream not yet provisioned → Worker returns a clean 503
+# UpstreamNotConfigured JSON instead of the CF edge's HTML 530.
+# Replace with the actual hostname once `kubectl apply -k 50-infra/k8s/lg-open-unispsc`
+# + CF Tunnel to the lg-open-unispsc Service are live.
+# Add new actors as separate vars; never introduce a new subdomain unless
+# wildcard handle DNS is provisioned per ADR-2605212030 §D2.
+[vars]
+XRPC_UNISPSC_UPSTREAM = ""
+
 # Observability — capture failed resolution attempts in CF Logs.
 [observability]
 enabled = true
