@@ -25,6 +25,7 @@ export class DuckDbAttributeIndex {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let mod: any;
     try {
+      // @ts-ignore — duckdb-async is an optional peer dep; falls back at runtime
       mod = await import(/* @vite-ignore */ "duckdb-async");
     } catch (err) {
       throw new Error(
@@ -113,6 +114,7 @@ export class DuckDbAggregateIndex {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let mod: any;
     try {
+      // @ts-ignore — duckdb-async is an optional peer dep; falls back at runtime
       mod = await import(/* @vite-ignore */ "duckdb-async");
     } catch (err) {
       throw new Error(

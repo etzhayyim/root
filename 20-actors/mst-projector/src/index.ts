@@ -23,9 +23,8 @@ export { DuckDbAttributeIndex, DuckDbAggregateIndex } from "./adapters/duckdb.js
 export type { DuckDbIndexConfig } from "./adapters/duckdb.js";
 
 // Embedding providers
-export { createTransformersEmbedder, TRANSFORMERS_PRESETS } from "./embedders/transformers.js";
-export type { TransformersEmbedderOptions } from "./embedders/transformers.js";
-
+// NOTE: transformers.js embedder is a pending implementation gap — re-add the
+// export when 20-actors/mst-projector/src/embedders/transformers.ts lands.
 export { createHuggingFaceEmbedder, HUGGINGFACE_PRESETS } from "./embedders/huggingface.js";
 export type { HuggingFaceEmbeddingConfig } from "./embedders/huggingface.js";
 
