@@ -34,7 +34,7 @@ function ipRkey(address: string): string {
 }
 
 const IPV4_RE = /^(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/;
-const IPV6_RE = /^(?:[0-9a-fA-F]{1,4}:){2,7}[0-9a-fA-F]{0,4}$|^::1$|^::$/;
+const IPV6_RE = /^(?:[0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$/;
 
 function isValidIp(address: string): boolean {
   return IPV4_RE.test(address) || IPV6_RE.test(address);
