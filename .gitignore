@@ -87,6 +87,18 @@ _working/
 tmp/
 .tmp/
 
+# Daemon output — running etzhayyim-organism CNS daemon writes cycle
+# observations here continuously. Per ADR-2605221411, observations are
+# ephemeral runtime state, not source.
+_observations/
+
+# Agent scratch — root-level codegen / patch scripts produced by background
+# agents during exploratory work. Promote to a real location if kept.
+/active_patch.py
+/apply_patches.py
+/codegen.py
+/codegen_substrate.py
+
 # Foundry transient lockfile (held during `forge` invocations; persists if forge crashes)
 foundry.lock
 

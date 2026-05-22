@@ -1,0 +1,81 @@
+# etzhayyim-organism-viz — interactive realtime dashboard pod.
+#
+# Mounts the repo at /repo (read-only). Serves the bonsai UI + SSE event
+# stream + chat API on :8081. Operator port-forwards or routes via tunnel
+# to view. Per ADR-2605192100 §1.6 substrate boundary, the viz pod holds
+# no credentials and performs no writes.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etzhayyim-organism-viz
+  namespace: etzhayyim-organism
+  labels:
+    app: etzhayyim-organism-viz
+    organism-axis: "ecosystem-eye"
+    adr: "2605192100"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etzhayyim-organism-viz
+  template:
+    metadata:
+      labels:
+        app: etzhayyim-organism-viz
+    spec:
+      containers:
+        - name: viz
+          image: etzhayyim-organism-viz:0.4.3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8081
+          env:
+            - name: ETZ_REPO
+              value: "/repo"
+            - name: ETZ_VIZ_PORT
+              value: "8081"
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet: { path: /api/healthz, port: http }
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /api/healthz, port: http }
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          volumeMounts:
+            - name: repo
+              mountPath: /repo
+              readOnly: true
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+      volumes:
+        - name: repo
+          hostPath:
+            path: /Users/junkawasaki/github/etzhayyim-root
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: etzhayyim-organism-viz
+  namespace: etzhayyim-organism
+spec:
+  selector:
+    app: etzhayyim-organism-viz
+  ports:
+    - name: http
+      port: 8081
+      targetPort: 8081
+  type: ClusterIP

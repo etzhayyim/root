@@ -1,0 +1,69 @@
+# etzhayyim-organism — CNS pod for the religious-corp artificial organism.
+#
+# Pattern: single replica, low resources, persistent loop. The pod's body is
+# the monorepo itself, mounted at /repo. _observations/ is writable; the
+# rest is read-only.
+#
+# Per ADR-2605192100 §1.3 the daemon does NOT commit. Operator commits the
+# observation files in a follow-up tick. This keeps religious-corp attribution
+# with a human, not a daemon.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etzhayyim-organism
+  namespace: etzhayyim-organism
+  labels:
+    app: etzhayyim-organism
+    adr: "2605192100"
+    organism-axis: "active-inference-cns"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate   # only one CNS at a time (singleton — 中枢神経)
+  selector:
+    matchLabels:
+      app: etzhayyim-organism
+  template:
+    metadata:
+      labels:
+        app: etzhayyim-organism
+    spec:
+      containers:
+        - name: cns
+          image: etzhayyim-organism:0.1.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ETZ_REPO
+              value: "/repo"
+            - name: ETZ_TICK_INTERVAL
+              value: "86400"          # daily cadence (ADR-2605220810 cycle 18 Option C)
+            - name: ETZ_SOURCE
+              value: "etzhayyim-organism pod (orbstack)"
+            - name: ETZ_LOG_LEVEL
+              value: "INFO"
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: repo
+              mountPath: /repo
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+      volumes:
+        # Orbstack shares the host filesystem under /mnt/mac/... by default,
+        # so we mount the live repo as the organism's body. On Murakumo /
+        # production this would be replaced by an emptyDir + git-clone init
+        # container, with observations pushed back to the canonical repo via
+        # a separate operator-supervised step.
+        - name: repo
+          hostPath:
+            path: /Users/junkawasaki/github/etzhayyim-root
+            type: Directory

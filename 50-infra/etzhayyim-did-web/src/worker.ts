@@ -47,6 +47,12 @@ interface Env {
   // New actors are added here, NOT as new subdomains — this Worker is the
   // single etzhayyim.com endpoint per ADR-2605212030 §D2.
   XRPC_UNISPSC_UPSTREAM?: string;
+  // AT Protocol / Bluesky stack — apex etzhayyim.com/xrpc/* proxy targets
+  // for the yoro frontend (which currently embeds relative `/xrpc/...` paths).
+  XRPC_BSKY_UPSTREAM?: string;
+  XRPC_ATPROTO_UPSTREAM?: string;
+  XRPC_CHAT_UPSTREAM?: string;
+  XRPC_GFTD_UPSTREAM?: string;
 }
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
@@ -63,6 +69,14 @@ interface NsidRoute {
 
 const XRPC_ROUTES: NsidRoute[] = [
   { prefix: "ai.gftd.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
+  // AT Protocol / Bluesky read+write (PDS handles both write paths and
+  // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
+  // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
+  { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
+  { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
+  { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
+  // GFTD platform extensions (convo, signal, kagami, projector, mcp, rtc).
+  { prefix: "ai.gftd.",              upstream: "XRPC_GFTD_UPSTREAM" },
 ];
 
 function findXrpcRoute(nsid: string): NsidRoute | null {
