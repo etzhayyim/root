@@ -56,8 +56,10 @@ export async function registerJurisdiction(
     };
   }
 
-  const iso3 = input.iso3.toUpperCase();
-  const rkey = jurisdictionRkey(iso3);
+  // rkey is normalized (uppercase) for lookup parity; record preserves original input case.
+  const rkeyIso = input.iso3.toUpperCase();
+  const iso3 = input.iso3;
+  const rkey = jurisdictionRkey(rkeyIso);
 
   const existing = await e
     .read<JurisdictionRecord>({
@@ -70,11 +72,11 @@ export async function registerJurisdiction(
       status: "alreadyExists",
       jurisdictionUri: existing.records[0].uri,
       did: existing.records[0].value.did,
-      iso3,
+      iso3: existing.records[0].value.iso3,
     };
   }
 
-  const did = jurisdictionDid(iso3);
+  const did = jurisdictionDid(rkeyIso);
   const record: JurisdictionRecord = {
     did,
     iso3,
