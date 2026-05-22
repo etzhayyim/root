@@ -60,7 +60,7 @@ export interface RegisterArtifactInput {
 }
 
 export interface RegisterArtifactOutput {
-  status: "registered" | "alreadyExists" | "rejected";
+  status: "registered" | "created" | "alreadyExists" | "rejected";
   artifactUri?: string;
   did?: string;
   sha256?: string;
@@ -122,7 +122,7 @@ export interface RegisterComponentInput {
 }
 
 export interface RegisterComponentOutput {
-  status: "registered" | "alreadyExists" | "rejected";
+  status: "registered" | "created" | "alreadyExists" | "rejected";
   componentUri?: string;
   did?: string;
   purl?: Purl;
@@ -226,7 +226,7 @@ export interface CveIngestOsvInput {
 }
 
 export interface CveIngestOsvOutput {
-  status: "registered" | "alreadyExists" | "rejected";
+  status: "registered" | "created" | "alreadyExists" | "rejected";
   cveUri?: string;
   did?: string;
   cveId?: string;
@@ -269,7 +269,7 @@ export interface RegisterVulnMatchInput {
 }
 
 export interface RegisterVulnMatchOutput {
-  status: "registered" | "alreadyExists" | "rejected";
+  status: "registered" | "created" | "alreadyExists" | "rejected";
   vulnMatchUri?: string;
   did?: string;
   cveId?: string;
@@ -323,7 +323,7 @@ export interface RegisterPatchPolicyInput {
 }
 
 export interface RegisterPatchPolicyOutput {
-  status: "registered" | "alreadyExists" | "rejected";
+  status: "registered" | "created" | "alreadyExists" | "rejected";
   patchPolicyUri?: string;
   did?: string;
   policyId?: string;
@@ -367,7 +367,7 @@ export interface RegisterPatchActionInput {
 }
 
 export interface RegisterPatchActionOutput {
-  status: "registered" | "alreadyExists" | "rejected";
+  status: "registered" | "created" | "alreadyExists" | "rejected";
   patchActionUri?: string;
   did?: string;
   actionId?: string;

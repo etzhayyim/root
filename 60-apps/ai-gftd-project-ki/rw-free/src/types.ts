@@ -91,9 +91,9 @@ export interface SynthesizeInput {
 
 export interface SynthesizeOutput {
   status: "created" | "alreadyExists" | "rejected";
-  synthesizeUri: string;
-  artifactId: string;
-  did: string;
+  synthesizeUri?: string;
+  artifactId?: string;
+  did?: string;
   error?: string;
 }
 

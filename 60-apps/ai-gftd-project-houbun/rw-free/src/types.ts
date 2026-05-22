@@ -162,6 +162,7 @@ export interface RegisterArticleOutput {
   articleUri?: string;
   did?: string;
   blake3Hash?: string;
+  contentHash?: string;
   error?: string;
 }
 
@@ -251,7 +252,7 @@ export interface RecordAmendmentInput {
 }
 
 export interface RecordAmendmentOutput {
-  status: "registered" | "alreadyExists" | "rejected";
+  status: "registered" | "alreadyExists" | "rejected" | "recorded" | "alreadyRecorded";
   amendmentUri?: string;
   amendmentId?: string;
   error?: string;
