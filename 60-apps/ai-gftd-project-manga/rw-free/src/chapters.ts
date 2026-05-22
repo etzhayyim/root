@@ -25,7 +25,7 @@ const TITLE_COLLECTION = "ai.gftd.manga.title";
 
 const VALID_TRANSITIONS: Record<ChapterStatus, ChapterStatus[]> = {
   draft: ["in_review", "published", "archived"],
-  in_review: ["approved", "draft", "archived"],
+  in_review: ["approved", "published", "draft", "archived"],
   approved: ["published", "draft", "archived"],
   published: ["archived"],
   archived: [],
