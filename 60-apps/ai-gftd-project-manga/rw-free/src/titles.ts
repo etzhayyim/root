@@ -21,7 +21,7 @@ const TITLE_COLLECTION = "ai.gftd.manga.title";
 const TAG_COLLECTION = "ai.gftd.manga.tag";
 
 function isTitleId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 export async function createTitle(

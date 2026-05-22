@@ -32,7 +32,7 @@ const VALID_TRANSITIONS: Record<ChapterStatus, ChapterStatus[]> = {
 };
 
 function isValidChapterId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 function canTransition(from: ChapterStatus, to: ChapterStatus): boolean {

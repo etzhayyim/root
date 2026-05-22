@@ -18,7 +18,7 @@ import {
 const NOVEL_COLLECTION = "ai.gftd.narou.novel";
 
 function isNovelId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 export async function createNovel(

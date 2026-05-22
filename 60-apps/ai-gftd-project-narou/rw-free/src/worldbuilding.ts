@@ -23,11 +23,11 @@ const CHARACTER_COLLECTION = "ai.gftd.narou.character";
 const NOVEL_COLLECTION = "ai.gftd.narou.novel";
 
 function isValidWorldId(id: string): boolean {
-  return /^[a-z0-9]{1,64}$/i.test(id);
+  return /^[a-z0-9-]{1,64}$/i.test(id);
 }
 
 function isValidCharacterId(id: string): boolean {
-  return /^[a-z0-9]{1,64}$/i.test(id);
+  return /^[a-z0-9-]{1,64}$/i.test(id);
 }
 
 export async function createWorldSetting(

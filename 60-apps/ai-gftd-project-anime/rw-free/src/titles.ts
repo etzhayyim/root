@@ -29,7 +29,7 @@ const TITLE_COLLECTION = "ai.gftd.anime.title";
 const SEASON_COLLECTION = "ai.gftd.anime.season";
 
 function isTitleId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 export async function createTitle(

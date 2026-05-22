@@ -45,19 +45,19 @@ const SCHEDULE_COLLECTION = "ai.gftd.anime.schedule";
 const REVIEW_COLLECTION = "ai.gftd.anime.review";
 
 function isSeasonId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 function isEpisodeId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 function isScheduleId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 function isReviewId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 export async function createSeason(
@@ -109,11 +109,11 @@ export async function createEpisode(
   e: Etzhayyim,
   input: CreateEpisodeInput
 ): Promise<CreateEpisodeOutput> {
-  if (!input.episodeId || !isEpisodeId(input.episodeId)) {
-    return { status: "rejected", error: "invalidEpisodeId" };
-  }
   if (!input.seasonId) {
     return { status: "rejected", error: "missingSeasonId" };
+  }
+  if (!input.episodeId || !isEpisodeId(input.episodeId)) {
+    return { status: "rejected", error: "invalidEpisodeId" };
   }
   if (!input.title) {
     return { status: "rejected", error: "missingTitle" };
