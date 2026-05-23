@@ -23,6 +23,11 @@ import {
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
 import * as yoroRwFree from "@etzhayyim/yoro-rw-free";
+import {
+  UNISPSC_AGENTS,
+  UNISPSC_TOTAL,
+  UNISPSC_GENERATED_AT,
+} from "./registry/unispsc-agents.gen";
 
 interface Env {
   ACTOR_DID: string;
@@ -39,7 +44,134 @@ interface RouteConfig {
   handler: Handler;
 }
 
+// ─── unispsc registry handlers ─────────────────────────────────────────
+//
+// Phase α: registry rows are bundled at build time (compact tuple form from
+// 00-contracts/actor-registry/unispsc.json via the generator script). The
+// rw-free contract per ADR-2605172000 requires reads resolve through the
+// MST/IPFS substrate — Phase β migrates this to an IPFS-gateway fetch keyed
+// by a CID stored in KV, with the bundle as a deploy-time fallback.
+
+const UNISPSC_CODE_INDEX: Map<string, number> = (() => {
+  const m = new Map<string, number>();
+  for (let i = 0; i < UNISPSC_AGENTS.length; i++) {
+    m.set(UNISPSC_AGENTS[i][0], i);
+  }
+  return m;
+})();
+
+async function unispscHealth(_e: Etzhayyim, _input: unknown): Promise<unknown> {
+  return {
+    status: UNISPSC_TOTAL > 0 ? "healthy" : "degraded",
+    registryReady: UNISPSC_TOTAL > 0,
+    agentCount: UNISPSC_TOTAL,
+    generatedAt: UNISPSC_GENERATED_AT,
+    substrate: "bundled-phase-α",
+  };
+}
+
+async function unispscListAgents(
+  _e: Etzhayyim,
+  input: unknown,
+): Promise<unknown> {
+  const params = (input ?? {}) as {
+    prefix?: string;
+    limit?: number;
+    cursor?: string;
+  };
+  const limit = Math.max(1, Math.min(1000, Number(params.limit) || 100));
+  const cursor = params.cursor ? Number(params.cursor) : 0;
+  if (!Number.isFinite(cursor) || cursor < 0) {
+    return { status: "rejected", error: "InvalidCursor" };
+  }
+  const prefix = params.prefix?.toString();
+
+  let filtered: typeof UNISPSC_AGENTS;
+  if (prefix) {
+    filtered = UNISPSC_AGENTS.filter((row) => row[0].startsWith(prefix));
+  } else {
+    filtered = UNISPSC_AGENTS;
+  }
+  const page = filtered.slice(cursor, cursor + limit);
+  const nextCursor =
+    cursor + limit < filtered.length ? String(cursor + limit) : undefined;
+  const agents = page.map(([code, handle, title, segment]) => ({
+    code,
+    handle,
+    did: `did:web:etzhayyim.com:actor:${handle}`,
+    title,
+    segment,
+  }));
+  return {
+    agents,
+    totalCount: filtered.length,
+    ...(nextCursor ? { cursor: nextCursor } : {}),
+  };
+}
+
+async function unispscClassify(
+  _e: Etzhayyim,
+  input: unknown,
+): Promise<unknown> {
+  const body = (input ?? {}) as {
+    description?: string;
+    topK?: number;
+  };
+  const desc = (body.description ?? "").toLowerCase();
+  if (!desc) {
+    return { status: "rejected", error: "DescriptionRequired" };
+  }
+  const topK = Math.max(1, Math.min(20, Number(body.topK) || 5));
+  const tokens = desc.split(/\W+/u).filter((t) => t.length >= 3);
+  const scored: { code: string; handle: string; title: string; confidence: number }[] = [];
+  for (const [code, handle, title, _segment] of UNISPSC_AGENTS) {
+    const lowered = title.toLowerCase();
+    let score = 0;
+    for (const tok of tokens) {
+      if (lowered.includes(tok)) score += 0.5;
+      if (code.includes(tok)) score += 0.2;
+    }
+    if (score > 0) {
+      scored.push({ code, handle, title, confidence: Math.min(score, 1.0) });
+    }
+  }
+  scored.sort((a, b) => b.confidence - a.confidence);
+  return {
+    candidates: scored.slice(0, topK),
+    modelUsed: "substring-phase-α",
+    escalated: false,
+  };
+}
+
+async function unispscInvokeAgent(
+  _e: Etzhayyim,
+  input: unknown,
+): Promise<unknown> {
+  const body = (input ?? {}) as { code?: string };
+  const code = body.code?.toString() ?? "";
+  if (!UNISPSC_CODE_INDEX.has(code)) {
+    return { status: "notFound", error: "AgentNotFound", code };
+  }
+  // Phase α: this adapter is read-only. invokeAgent dispatches to the
+  // Murakumo cell-runner (UnispscAgentExecutorCell, sharded across joseph/
+  // issachar/dan per fleet.toml). The bridge requires a service binding +
+  // mTLS to the LAN-side cell-runner that is not yet provisioned.
+  return {
+    status: "notReady",
+    error: "ExecutorBindingNotConfigured",
+    message:
+      "invokeAgent requires the UnispscAgentExecutorCell bridge; see ADR-2605192415 + fleet.toml",
+    code,
+  };
+}
+
 const routes: Record<string, RouteConfig> = {
+  // unispsc registry — bundled rw-free Phase α implementation.
+  ["ai.gftd.apps.unispsc.health"]: { method: "GET", handler: unispscHealth },
+  ["ai.gftd.apps.unispsc.listAgents"]: { method: "GET", handler: unispscListAgents },
+  ["ai.gftd.apps.unispsc.classify"]: { method: "POST", handler: unispscClassify },
+  ["ai.gftd.apps.unispsc.invokeAgent"]: { method: "POST", handler: unispscInvokeAgent },
+
   // Health & Registry
   ["ai.gftd.yoro.health"]: {
     method: "GET",

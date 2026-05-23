@@ -1,4 +1,9 @@
 import didDoc from "../did.json";
+import {
+  UNISPSC_HANDLES,
+  UNISPSC_GENERATED_AT,
+  UNISPSC_TOTAL_COUNT,
+} from "./registry/unispsc-handles.gen";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -38,6 +43,11 @@ const UPSTREAM_HOST = "yoro.etzhayyim.com";
 // Service binding name — populated from wrangler.toml [[services]] block.
 interface Env {
   YORO: Fetcher;
+  // Substrate-side XRPC adapter (rw-free reference impl). Service binding
+  // to `yoro-xrpc-adapter` — bypasses the public HTTP hop and CF Bot
+  // Management. Per ADR-2605172000: reads MUST resolve through MST/IPFS/L2,
+  // never through the gftd.ai PDS+AppView+RisingWave chain.
+  YORO_XRPC?: Fetcher;
   // Phase α P1 (ADR-2605212030): chain config for per-actor DID resolution.
   // Set in wrangler.toml [vars] once EtzhayyimAuthz is deployed to Base Sepolia.
   AUTHZ_CONTRACT_ADDRESS?: string;
@@ -54,6 +64,37 @@ interface Env {
   XRPC_CHAT_UPSTREAM?: string;
   XRPC_GFTD_UPSTREAM?: string;
 }
+
+// ─── Substrate NSID alias map ──────────────────────────────────────────
+//
+// Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
+// MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
+// rw-free reference impl under the `ai.gftd.yoro.*` NSID family). The
+// yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
+// this Worker rewrites them to the substrate-side equivalent before
+// dispatching through the service binding.
+//
+// Reads enumerated here SHORT-CIRCUIT the gftd.ai PDS proxy below.
+// Writes (createRecord, like, repost, follow, etc.) still flow through
+// the legacy path until the rw-free write path lands — they are not in
+// this map.
+const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
+  "app.bsky.feed.getTimeline":     "ai.gftd.yoro.feed.getTimeline",
+  "app.bsky.feed.getDiscoverFeed": "ai.gftd.yoro.feed.getDiscoverFeed",
+  "app.bsky.feed.getAuthorFeed":   "ai.gftd.yoro.feed.getAuthorFeed",
+  "app.bsky.feed.getPostThread":   "ai.gftd.yoro.feed.getPostThread",
+  "app.bsky.actor.getProfile":     "ai.gftd.yoro.actor.getProfile",
+  "app.bsky.actor.searchActors":   "ai.gftd.yoro.actor.searchActors",
+  "app.bsky.graph.getFollowers":   "ai.gftd.yoro.graph.getFollowers",
+  "app.bsky.graph.getFollows":     "ai.gftd.yoro.graph.getFollows",
+};
+
+// Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
+// NSID families already in their canonical rw-free shape (no app.bsky.* →
+// ai.gftd.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
+const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
+  "ai.gftd.apps.unispsc.",
+];
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
 //
@@ -180,10 +221,28 @@ async function proxyXrpc(
 // `<handle>.etzhayyim.com` is also a valid DNS name).
 const HANDLE_REGEX = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
 
+// Namespaced handles MUST exist in a known registry. unispsc actors are
+// `c\d{6,12}` per the unispsc_agents/c{code}.py filename convention.
+// Other namespaces (e.g. ISIC, future taxonomies) get their own regex +
+// registry entry as they come online.
+const UNISPSC_HANDLE_SHAPE = /^c\d{6,12}$/;
+
+function isNamespacedHandle(handle: string): boolean {
+  return UNISPSC_HANDLE_SHAPE.test(handle);
+}
+
+function isKnownHandle(handle: string): boolean {
+  if (UNISPSC_HANDLE_SHAPE.test(handle)) return UNISPSC_HANDLES.has(handle);
+  // Free-form handles (not yet in a registry) are permitted during Phase α
+  // so council seats / human members can resolve without a registry round-trip.
+  return true;
+}
+
 function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> {
   const pathBasedDid = `did:web:etzhayyim.com:actor:${handle}`;
   const subdomainDid = `did:web:${handle}.etzhayyim.com`;
   const alsoKnownAs: string[] = [subdomainDid];
+  const registered = isNamespacedHandle(handle);
 
   // When chain integration lands, embed the did:erc725:base form by reading
   // EtzhayyimAuthz.resolveDwebHandle(keccak256("<handle>.etzhayyim.com")).
@@ -215,8 +274,15 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       },
     ],
     _meta: {
-      adr: "2605212030",
+      adr: ["2605212030", "2605171800"],
       phase: "α P1 scaffold",
+      registry: registered
+        ? {
+            lexicon: "ai.gftd.apps.unispsc",
+            generatedAt: UNISPSC_GENERATED_AT,
+            totalCount: UNISPSC_TOTAL_COUNT,
+          }
+        : null,
       note: env.AUTHZ_CONTRACT_ADDRESS
         ? "rootId placeholder in alsoKnownAs[1] is pending on-chain lookup wiring"
         : "AUTHZ_CONTRACT_ADDRESS not configured; alsoKnownAs[did:erc725:base] omitted",
@@ -335,6 +401,23 @@ export default {
             { status: 400, headers: { "content-type": "application/json; charset=utf-8" } },
           );
         }
+        if (!isKnownHandle(handle)) {
+          return new Response(
+            JSON.stringify({
+              error: "HandleNotInRegistry",
+              message: `handle '${handle}' matches a namespaced registry shape but is not registered`,
+              registry: "ai.gftd.apps.unispsc",
+              registryTotalCount: UNISPSC_TOTAL_COUNT,
+            }),
+            {
+              status: 404,
+              headers: {
+                "content-type": "application/json; charset=utf-8",
+                "cache-control": "public, max-age=60, must-revalidate",
+              },
+            },
+          );
+        }
         const doc = buildPerActorDidDoc(handle, env);
         return new Response(JSON.stringify(doc, null, 2) + "\n", {
           status: 200,
@@ -356,11 +439,80 @@ export default {
     //    registered upstream (langserver pod, MCP gateway, etc.). One
     //    Worker handles every actor; new actors are added by appending
     //    to XRPC_ROUTES rather than spinning up a new subdomain.
+    //
+    //    Substrate short-circuit: if the NSID has a rw-free equivalent
+    //    (see SUBSTRATE_NSID_ALIASES) and the YORO_XRPC service binding
+    //    is configured, route to the adapter instead of the gftd.ai
+    //    upstream. Per ADR-2605172000, reads MUST resolve through MST.
     // ──────────────────────────────────────────────────────────────────
     {
       const m = url.pathname.match(/^\/xrpc\/([A-Za-z0-9._-]+)$/);
       if (m) {
         const nsid = m[1];
+
+        const aliasedNsid = SUBSTRATE_NSID_ALIASES[nsid];
+        const passthrough =
+          !aliasedNsid &&
+          SUBSTRATE_PASSTHROUGH_PREFIXES.some((p) => nsid.startsWith(p));
+        const substrateNsid = aliasedNsid ?? (passthrough ? nsid : undefined);
+        if (substrateNsid && env.YORO_XRPC) {
+          const substrateUrl = new URL(request.url);
+          substrateUrl.pathname = `/xrpc/${substrateNsid}`;
+          const fwd = new Headers(request.headers);
+          fwd.delete("host");
+          fwd.set("x-forwarded-host", "etzhayyim.com");
+          fwd.set("x-forwarded-proto", "https");
+          fwd.set("x-etzhayyim-nsid", nsid);
+          fwd.set("x-etzhayyim-substrate-nsid", substrateNsid);
+          try {
+            const upstreamResp = await env.YORO_XRPC.fetch(
+              new Request(substrateUrl.toString(), {
+                method: request.method,
+                headers: fwd,
+                body:
+                  request.method === "GET" || request.method === "HEAD"
+                    ? undefined
+                    : request.body,
+                redirect: "manual",
+              }),
+            );
+            const respHeaders = new Headers(upstreamResp.headers);
+            for (const h of STRIPPED_RESPONSE_HEADERS) respHeaders.delete(h);
+            respHeaders.set("x-proxied-by", "etzhayyim-did-web");
+            respHeaders.set("x-proxied-upstream", "service:yoro-xrpc-adapter");
+            respHeaders.set("x-etzhayyim-substrate", "mst-ipfs-l2");
+            respHeaders.set(
+              "strict-transport-security",
+              "max-age=31536000; includeSubDomains",
+            );
+            return new Response(upstreamResp.body, {
+              status: upstreamResp.status,
+              statusText: upstreamResp.statusText,
+              headers: respHeaders,
+            });
+          } catch (err) {
+            return new Response(
+              JSON.stringify({
+                error: "SubstrateUnreachable",
+                message:
+                  err instanceof Error
+                    ? err.message
+                    : "yoro-xrpc-adapter service binding fetch failed",
+                nsid,
+                substrateNsid,
+              }),
+              {
+                status: 502,
+                headers: {
+                  "content-type": "application/json; charset=utf-8",
+                  "x-proxied-by": "etzhayyim-did-web",
+                  "x-proxied-upstream": "service:yoro-xrpc-adapter",
+                },
+              },
+            );
+          }
+        }
+
         const route = findXrpcRoute(nsid);
         if (!route) {
           return new Response(
