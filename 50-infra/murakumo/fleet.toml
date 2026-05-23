@@ -107,13 +107,14 @@ replicas_of = []
 name = "levi"
 hostname = "levinomac-mini.local"
 ip_lan = "192.168.1.16"
-role = "membership + council orchestration + kuni-umi-audit-leader + kaizen-observer"
+role = "membership + council orchestration + kuni-umi-audit-leader + kaizen-observer + feed-post-membrane"
 cells = [
   "AdherentAttestationCell",
   "CouncilLevelAdvancementCell",
   "CouncilDeliberationCell",  # generic, multi-instance per attestation
   "AuditWitnessCell",  # kuni-umi continuous robot-witness audit (ADR-2605201400 §9)
   "KaizenObserverCell",  # ecosystem self-reflection (ADR-2605240200)
+  "FeedPostCell",  # yatachain §4 L3 verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4)
 ]
 replicas_of = []
 
@@ -288,6 +289,22 @@ llm_primary = "claude-sonnet-4-6"
 llm_fallback_local = "llama3.2:3b @ evo-x2 (per ADR-2605202345, 83 tok/s)"
 llm_fallback_local_secondary = "gemma3:4b (own-node Ollama, on evo-x2 unreachable)"
 llm_heavy_review = "llama3.3:70b @ evo-x2 (batch-only, 1.18 tok/s)"
+
+[cells.FeedPostCell]
+# yatachain §4 L3 deterministic verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4).
+# Trigger: PDS firehose `app.bsky.feed.post` create commits (read-only — does NOT
+# block the write; the verdict is a sidecar that consumes downstream of the firehose).
+# When ADR-2605231525 server-side signing-capability gate lands, this cell becomes
+# the canonical pre-flight for client-driven createRecord; until then it runs in
+# trail-and-attest mode and emits `app.etzhayyim.membrane.verdict` sidecar records.
+healthz_port = 13017
+trigger = "mst-listener"
+listens_to = ["app.bsky.feed.post"]
+emits = ["app.etzhayyim.membrane.verdict"]
+adr = ["2605231400", "2605192100", "2605192200", "2605192400"]
+rego_module = "app.bsky.feed.post"
+rego_source = "00-contracts/policies/app/bsky/feed/policy.rego"
+determinism = "strict"  # no clocks, no RNG, no LLM in verdict path
 
 [cells.AdherentAttestationCell]
 healthz_port = 13015

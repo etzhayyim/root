@@ -25,6 +25,15 @@ import {
   type ShardKey,
 } from "./shard.js";
 import { emitShardSnapshot } from "./emit.js";
+import {
+  applyFeedPostEvent,
+  applyVerdictEvent,
+  emitSnapshot as emitFeedDiscoverSnapshot,
+  isFeedPost,
+  isVerdict,
+  makeAtpRecordFetcher,
+  makeAtpVerdictFetcher,
+} from "./feed-discover.js";
 
 interface ResolvedConfig {
   firehoseUrl: string;
@@ -71,7 +80,12 @@ function loadConfig(): ResolvedConfig {
     flushSeconds: Number(process.env.ETZ_PROJECTOR_FLUSH_SECONDS ?? 60),
     collections: (
       process.env.ETZ_PROJECTOR_COLLECTIONS ??
-      "app.etzhayyim.,ai.gftd.apps."
+      // `app.bsky.feed.` is included so the feed-discover yatachain-projection
+      // (see src/feed-discover.ts + projection/yatachain-projection.toml) can
+      // index posts. `app.etzhayyim.membrane.` is the FeedPostCell verdict
+      // sidecar that drives applyVerdict on the projection. Per ADR-2605231500
+      // + ADR-2605231400 SPEC §4.
+      "app.etzhayyim.,ai.gftd.apps.,app.bsky.feed.,app.etzhayyim.membrane."
     )
       .split(",")
       .map((s) => s.trim())
@@ -130,9 +144,45 @@ async function main() {
   const cursorFile = join(config.dataDir, "firehose.cursor");
 
   let skippedSinceLastLog = 0;
+  // yatachain-projection: feed-discover hydration callbacks. See
+  // projection/yatachain-projection.toml.
+  const feedDiscoverFetcher = makeAtpRecordFetcher({
+    did: config.did,
+    pdsUrl: config.pdsUrl,
+    session: config.session,
+    auth: config.auth,
+  });
+  const verdictFetcher = makeAtpVerdictFetcher({
+    did: config.did,
+    pdsUrl: config.pdsUrl,
+    session: config.session,
+    auth: config.auth,
+  });
 
   for await (const ev of startFirehose(config.firehoseUrl, { cursorFile })) {
     if (!config.collections.some((p) => ev.collection.startsWith(p))) continue;
+
+    // yatachain-projection: feed-discover side-effects. Both updates the
+    // in-memory cross-DID index; emission piggy-backs on the shard flush
+    // cadence so there is no extra wall-clock timer.
+    if (isFeedPost(ev)) {
+      const fdRes = await applyFeedPostEvent(ev, feedDiscoverFetcher);
+      if (!fdRes.applied && fdRes.reason !== "delete-missing") {
+        // Silent skip — feed-discover is best-effort; the canonical record
+        // is still the MST entry.
+      }
+    } else if (isVerdict(ev)) {
+      // Membrane → projection wire: a FeedPostCell verdict observation
+      // drops (reject) or annotates (approve / escalate) the projection.
+      // Per ADR-2605231400 SPEC §4 + lexicon
+      // `app.etzhayyim.projection.feedDiscover` feedItem.verdict.
+      const vRes = await applyVerdictEvent(ev, verdictFetcher);
+      if (!vRes.applied && vRes.reason !== "skip-non-create") {
+        console.warn(
+          `[mst-projector] verdict skip seq=${ev.seq} reason=${vRes.reason}`,
+        );
+      }
+    }
 
     const shardKey: ShardKey = ev.collection;
     const res = await applyCommit(shardKey, ev);
@@ -150,6 +200,22 @@ async function main() {
     if (shouldFlush(shardKey, config.flushRecords, config.flushSeconds)) {
       if (recordCount(shardKey) === 0) continue;
       await flushAndEmit(config, shardKey);
+      // Same flush boundary → emit feed-discover snapshot if dirty.
+      try {
+        const fdReceipt = await emitFeedDiscoverSnapshot({
+          did: config.did,
+          pdsUrl: config.pdsUrl,
+          session: config.session,
+          auth: config.auth,
+        });
+        if (fdReceipt) {
+          console.log(
+            `[mst-projector] feed-discover snapshot emitted uri=${fdReceipt.uri}`,
+          );
+        }
+      } catch (err) {
+        console.error("[mst-projector] feed-discover emit failed:", err);
+      }
     }
   }
 }
