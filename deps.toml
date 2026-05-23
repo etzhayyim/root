@@ -933,6 +933,13 @@ status = "accepted"
 status_note = "Documents the current transient Charter §2 substrate violation introduced this session to unblock the yoro UI on etzhayyim.com. Five fixes shipped (bundle hashes / ad-tech URL scrub / xrpc-proxy worker / Kysely guard soften / apex /xrpc routing + GET→POST normalization) restore visible UI but at the cost of: (a) 100% gftd.ai DID corpus (0 etzhayyim.com actors) still served from RisingWave via softened ADR-2605111200 guard, (b) MST + IPFS + Base L2 anchor substrate not yet wired, (c) deployed bundle still contains AdSense/GA4/ExoClick code paths (URLs noop'd at runtime but source not yet rebuilt). Five hard exit criteria recorded. Authoritative for the runtime substrate state until superseded."
 path = "90-docs/adr/2605222330-etzhayyim-com-substrate-violation-transition-window.md"
 
+[[adrs]]
+id = "2605231230"
+title = "etzhayyim-esign actor — DID-bound, MST-recorded, L2-anchored document signing"
+status = "proposed"
+status_note = "Religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign. Phase 0 closed this session: 7 lexicons under app.etzhayyim.esign.* (envelope/signature/completedEvent/anchoredEvent records + requestEnvelope/signEnvelope/declineEnvelope procedures), actor scaffold at 20-actors/etzhayyim-esign/ (procedures return 501 NotYetImplemented), DID Worker scaffold + deployed at 50-infra/etzhayyim-esign-did-web/ (route esign.etzhayyim.com/.well-known/did.json bound at CF, Worker version cfb3b6c0). DNS for esign.etzhayyim.com (AAAA @=100:: proxied) still missing on the etzhayyim.com zone — Worker unreachable from public DNS until that one-time CF dashboard step lands. gftd lawfirm DocuSign passthrough (ai.gftd.apps.lawfirm.eSign*) retained but scoped to fiat receipts + India counsel intake only (ADR-2605192115 §4); religious-corp documents MUST use app.etzhayyim.esign.*. Phase 1 wires requestEnvelope through @etzhayyim/sdk + ipfs-pinner for Bootstrap Council Seats 2-5 RFP minutes (deadline 2026-06-19); Phase 2 adds Base Sepolia anchor via EsignAnchor.sol; Phase 3 adds mainnet + geth-private mirror; Phase 4 integrates Adherent SBT mint affirmation."
+path = "90-docs/adr/2605231230-etzhayyim-esign-actor-did-bound-mst-anchored.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -1025,6 +1032,24 @@ description = "Cloudflare Worker serving did:web:etzhayyim.com/.well-known/did.j
 adr = ["2605152100"]
 deployed_at = "2026-05-17T03:25:00Z"
 worker_version = "3a7b6806-a046-40bd-a1f9-5a02f776b683"
+
+[[modules]]
+path = "50-infra/etzhayyim-esign-did-web"
+kind = "cf-worker"
+version = "deployed"
+status = "deployed-no-dns"
+description = "Cloudflare Worker serving did:web:esign.etzhayyim.com/.well-known/did.json. Identity for the religious-corp document-signing actor (etzhayyim-esign). Route bound at the CF zone (esign.etzhayyim.com/.well-known/did.json), but the esign.etzhayyim.com AAAA record is not yet provisioned on the etzhayyim.com zone — Worker is unreachable from public DNS until that record exists (manual CF dashboard step, AAAA @=100:: proxied, same pattern as etzhayyim.com apex)."
+adr = ["2605231230"]
+deployed_at = "2026-05-23T03:30:00Z"
+worker_version = "cfb3b6c0-1d13-476f-8cec-0fbc20a8a023"
+
+[[modules]]
+path = "20-actors/etzhayyim-esign"
+kind = "cf-worker"
+version = "0.0.1"
+status = "scaffold"
+description = "etzhayyim-esign runtime actor — Phase 0 scaffold per ADR-2605231230. 3 XRPC procedures (app.etzhayyim.esign.requestEnvelope / signEnvelope / declineEnvelope) all return 501 NotYetImplemented. No route binding yet; Phase 1 will wire requestEnvelope through @etzhayyim/sdk + ipfs-pinner for Bootstrap Council Seats 2-5 RFP minutes (deadline 2026-06-19)."
+adr = ["2605231230"]
 
 [[modules]]
 path = "50-infra/mst-projector"

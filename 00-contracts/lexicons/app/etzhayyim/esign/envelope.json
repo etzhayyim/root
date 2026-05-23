@@ -1,0 +1,111 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.esign.envelope",
+  "description": "A document-signing envelope native to the religious-corp substrate (per ADR-2605231230). The PDF/document body lives on IPFS (referenced by `documentCid`); only metadata + signer roster lives on MST. Signers authenticate with DID + WebAuthn passkey assertions (no email/OAuth/SMS OTP). Completion produces an `app.etzhayyim.esign.completedEvent`, which is later anchored to Base L2 by anchor-cron yielding an `app.etzhayyim.esign.anchoredEvent`. Document signing for religious-corp documents MUST use this lexicon — DocuSign/Adobe/RazorpaySign passthroughs (`ai.gftd.apps.lawfirm.eSign*`) are reserved for fiat receipts and external counsel intake per ADR-2605192115 §4.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "requesterDid",
+          "documentCid",
+          "documentSha256",
+          "signers",
+          "signingOrder",
+          "status",
+          "createdAt"
+        ],
+        "properties": {
+          "requesterDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the principal that issued the envelope. Must hold the WebAuthn key controlling the requester role."
+          },
+          "subject": {
+            "type": "string",
+            "description": "Human-readable subject line for the envelope (no PII; metadata only).",
+            "maxLength": 256
+          },
+          "documentCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CIDv1 (raw codec, sha2-256, base32 lower) of the canonical document body (typically a PDF). Pinned by ipfs-pinner."
+          },
+          "documentSha256": {
+            "type": "string",
+            "description": "Hex-encoded SHA-256 of the canonical document bytes. Required as a defense-in-depth hash independent of IPFS multihash. Prefix `0x`, lowercase.",
+            "minLength": 66,
+            "maxLength": 66
+          },
+          "documentMimeType": {
+            "type": "string",
+            "description": "MIME type of the canonical document body. Default `application/pdf`.",
+            "maxLength": 128
+          },
+          "signers": {
+            "type": "array",
+            "description": "Ordered list of signer DIDs. Order matters when `signingOrder` is `sequential`.",
+            "minLength": 1,
+            "maxLength": 32,
+            "items": {
+              "type": "string",
+              "format": "did"
+            }
+          },
+          "signingOrder": {
+            "type": "string",
+            "description": "How signers must complete. `sequential` enforces the array order; `parallel` accepts any order.",
+            "enum": ["sequential", "parallel"]
+          },
+          "requiredMembershipTier": {
+            "type": "string",
+            "description": "Optional gating: if set, all signers must hold the named membership tier (per ADR-2605172700). Empty/omitted means no tier check.",
+            "enum": ["adherent", "council-lv6"]
+          },
+          "purpose": {
+            "type": "string",
+            "description": "Charter-aligned purpose tag. Constrains which template families may be used (per ADR-2605192115 §3 + Charter Rider v2.0 §2(b)(c)).",
+            "enum": [
+              "council-resolution",
+              "land-donation",
+              "membership-affirmation",
+              "force-rd-consent",
+              "public-fund-disbursement",
+              "internal-agreement",
+              "general"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 deadline after which the envelope auto-transitions to `expired`."
+          },
+          "status": {
+            "type": "string",
+            "description": "Current envelope state. State machine: draft → requested → partially_signed → completed → anchored (terminal). Branches: declined / expired (terminal).",
+            "enum": [
+              "draft",
+              "requested",
+              "partially_signed",
+              "completed",
+              "anchored",
+              "declined",
+              "expired"
+            ]
+          },
+          "councilMirror": {
+            "type": "boolean",
+            "description": "When true, the `anchoredEvent` MUST also mirror to the geth-private constitutional chain (per ADR-2605192245 4-layer pattern). Required for council-resolution / land-donation / force-rd-consent / public-fund-disbursement."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp of envelope creation."
+          }
+        }
+      }
+    }
+  }
+}

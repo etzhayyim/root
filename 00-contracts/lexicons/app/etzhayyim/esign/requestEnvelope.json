@@ -1,0 +1,128 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.esign.requestEnvelope",
+  "description": "Issue a new document-signing envelope. The Worker pins the document body to IPFS (via ipfs-pinner), writes the `app.etzhayyim.esign.envelope` record to MST, and notifies every signer DID through `app.bsky.feed.post` mentions plus a `wproto.convo` thread. Charter purpose tag MUST be set; `general` is reserved for low-stakes internal documents only.",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "requesterDid",
+            "documentBase64",
+            "signers",
+            "signingOrder",
+            "purpose"
+          ],
+          "properties": {
+            "requesterDid": {
+              "type": "string",
+              "format": "did",
+              "description": "DID of the principal issuing the envelope. MUST match the authenticated session DID."
+            },
+            "subject": {
+              "type": "string",
+              "description": "Optional human-readable subject line.",
+              "maxLength": 256
+            },
+            "documentBase64": {
+              "type": "string",
+              "description": "Base64-encoded canonical document body. Worker pins this to IPFS and stores only the CID + sha256 on the envelope record.",
+              "maxLength": 8388608
+            },
+            "documentMimeType": {
+              "type": "string",
+              "description": "MIME type of the document. Default `application/pdf`.",
+              "maxLength": 128
+            },
+            "signers": {
+              "type": "array",
+              "description": "Ordered list of signer DIDs.",
+              "minLength": 1,
+              "maxLength": 32,
+              "items": {
+                "type": "string",
+                "format": "did"
+              }
+            },
+            "signingOrder": {
+              "type": "string",
+              "enum": ["sequential", "parallel"]
+            },
+            "requiredMembershipTier": {
+              "type": "string",
+              "enum": ["adherent", "council-lv6"]
+            },
+            "purpose": {
+              "type": "string",
+              "enum": [
+                "council-resolution",
+                "land-donation",
+                "membership-affirmation",
+                "force-rd-consent",
+                "public-fund-disbursement",
+                "internal-agreement",
+                "general"
+              ]
+            },
+            "councilMirror": {
+              "type": "boolean",
+              "description": "Force geth-private mirror anchoring. Auto-true when `purpose` is council-resolution / land-donation / force-rd-consent / public-fund-disbursement."
+            },
+            "expiresInDays": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 365,
+              "description": "Days until the envelope auto-expires. Default 14."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "envelopeUri",
+            "documentCid",
+            "documentSha256",
+            "expiresAt"
+          ],
+          "properties": {
+            "envelopeUri": {
+              "type": "string",
+              "format": "at-uri"
+            },
+            "documentCid": {
+              "type": "string",
+              "format": "cid"
+            },
+            "documentSha256": {
+              "type": "string"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "errors": [
+        {
+          "name": "InvalidSigner",
+          "description": "One or more signer DIDs are not resolvable, or lack the required membership tier."
+        },
+        {
+          "name": "DocumentTooLarge",
+          "description": "Document exceeds 8 MiB. Use the chunked pin path (not yet implemented in Phase 0)."
+        },
+        {
+          "name": "CharterViolation",
+          "description": "Purpose tag conflicts with Charter Rider §2 — for example, an advertising or for-profit-sale document."
+        }
+      ]
+    }
+  }
+}
