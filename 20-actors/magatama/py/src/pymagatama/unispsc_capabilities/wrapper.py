@@ -126,8 +126,18 @@ def _record_observation(
     from pymagatama.primitives.active_inference_substrate import ObservationRecord
 
     log_tail = (result.get("log") or [])[-5:]
+    # Store the user-meaningful inner input (`payload["input"]`), not the
+    # whole wire-level payload (which contains wrapper-injected fields like
+    # `_prior_observations` / `_prior_consensus`). This keeps prior_input
+    # shape identical to current_input so the loose-match in
+    # `_compute_prior_consensus` actually finds matches.
+    inner_input = (
+        input_payload.get("input")
+        if isinstance(input_payload, dict) and "input" in input_payload
+        else input_payload
+    )
     obs_payload = {
-        "input": input_payload,
+        "input": inner_input,
         "log_tail": log_tail,
         "result": result.get("result"),
         "elapsed_ms": elapsed_ms,
