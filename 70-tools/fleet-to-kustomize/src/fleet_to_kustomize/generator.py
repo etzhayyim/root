@@ -91,7 +91,10 @@ def resolve_placements(fleet: dict[str, Any]) -> tuple[list[Placement], list[str
                     leader_node=node_name,
                     leader_hostname=node["hostname"],
                     leader_ip=node.get("ip_lan", ""),
-                    healthz_port=int(cell_cfg.get("healthz_port", 0)),
+                    healthz_port=int(
+                        cell_cfg.get("healthz_port")
+                        or cell_cfg.get("healthz_port_base", 0)
+                    ),
                     trigger=str(cell_cfg.get("trigger", "")),
                     listens_to=list(cell_cfg.get("listens_to", []) or []),
                     cron=cell_cfg.get("cron"),
@@ -130,6 +133,30 @@ def render_serviceaccount(p: Placement, ns: str) -> dict[str, Any]:
 
 def render_service(p: Placement, ns: str) -> dict[str, Any]:
     name = kebab(p.cell_name)
+    ports = [
+        # The cell-runner process serves /healthz on 13000 reflecting
+        # overall runner + cells.toml registry state. Probed by k8s.
+        {
+            "name": "runner-healthz",
+            "port": 13000,
+            "targetPort": "runner-healthz",
+            "protocol": "TCP",
+        },
+    ]
+    if p.healthz_port > 0:
+        # Per-cell subprocess healthz (declared in fleet.toml). May
+        # 404 until the cell finishes init — not used by k8s probes
+        # in Stage 2 (per-cell readiness gating is Stage 4+ work).
+        # Cells with healthz_port_base (dynamic per-instance ports)
+        # don't get a stable Service endpoint here.
+        ports.append(
+            {
+                "name": "cell-healthz",
+                "port": p.healthz_port,
+                "targetPort": "cell-healthz",
+                "protocol": "TCP",
+            }
+        )
     return {
         "apiVersion": "v1",
         "kind": "Service",
@@ -137,25 +164,7 @@ def render_service(p: Placement, ns: str) -> dict[str, Any]:
         "spec": {
             "type": "ClusterIP",
             "selector": {"app.kubernetes.io/name": name},
-            "ports": [
-                # The cell-runner process serves /healthz on 13000 reflecting
-                # overall runner + cells.toml registry state. Probed by k8s.
-                {
-                    "name": "runner-healthz",
-                    "port": 13000,
-                    "targetPort": "runner-healthz",
-                    "protocol": "TCP",
-                },
-                # Per-cell subprocess healthz (declared in fleet.toml). May
-                # 404 until the cell finishes init — not used by k8s probes
-                # in Stage 2 (per-cell readiness gating is Stage 4+ work).
-                {
-                    "name": "cell-healthz",
-                    "port": p.healthz_port,
-                    "targetPort": "cell-healthz",
-                    "protocol": "TCP",
-                },
-            ],
+            "ports": ports,
         },
     }
 
@@ -215,18 +224,26 @@ def render_daemonset(
                     # 0.0.0.0 bind inside Pods.
                     {"name": "ETZ_HEALTHZ_BIND", "value": "0.0.0.0"},
                 ],
-                "ports": [
-                    {
-                        "name": "runner-healthz",
-                        "containerPort": 13000,
-                        "protocol": "TCP",
-                    },
-                    {
-                        "name": "cell-healthz",
-                        "containerPort": p.healthz_port,
-                        "protocol": "TCP",
-                    },
-                ],
+                "ports": (
+                    [
+                        {
+                            "name": "runner-healthz",
+                            "containerPort": 13000,
+                            "protocol": "TCP",
+                        },
+                    ]
+                    + (
+                        [
+                            {
+                                "name": "cell-healthz",
+                                "containerPort": p.healthz_port,
+                                "protocol": "TCP",
+                            }
+                        ]
+                        if p.healthz_port > 0
+                        else []
+                    )
+                ),
                 # Stage 2 (per ADR-2605232100 §Migration plan): probe the
                 # runner's overall /healthz on 13000. Per-cell readiness
                 # gating (using p.healthz_port) is Stage 4+ work — it
@@ -259,6 +276,23 @@ def render_daemonset(
         container["volumeMounts"].append({"name": "repo", "mountPath": "/repo", "readOnly": True})
         pod_spec["volumes"].append(
             {"name": "repo", "hostPath": {"path": repo_hostpath, "type": "Directory"}},
+        )
+    else:
+        # Production: ConfigMap-mounted fleet.toml. Cell modules ship in
+        # the image. Per ADR-2605232100 §Migration plan, this replaces the
+        # orbstack hostPath pattern for the mac mini fleet.
+        container = pod_spec["containers"][0]
+        container["env"].append(
+            {"name": "FLEET_TOML", "value": "/etc/etzhayyim/fleet.toml"}
+        )
+        container["volumeMounts"].append(
+            {"name": "fleet-config", "mountPath": "/etc/etzhayyim", "readOnly": True}
+        )
+        pod_spec["volumes"].append(
+            {
+                "name": "fleet-config",
+                "configMap": {"name": "fleet-config", "items": [{"key": "fleet.toml", "path": "fleet.toml"}]},
+            }
         )
 
     return {

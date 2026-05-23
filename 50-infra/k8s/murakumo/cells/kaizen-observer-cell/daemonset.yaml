@@ -1,37 +1,37 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: charter-attestation-request-cell
+  name: kaizen-observer-cell
   namespace: etzhayyim-cells
   labels:
-    app.kubernetes.io/name: charter-attestation-request-cell
+    app.kubernetes.io/name: kaizen-observer-cell
     app.kubernetes.io/component: religious-corp-cell
     app.kubernetes.io/part-of: etzhayyim-religious-corp
-    etzhayyim.com/cell-name: CharterAttestationRequestCell
-    etzhayyim.com/leader-node: naphtali
+    etzhayyim.com/cell-name: KaizenObserverCell
+    etzhayyim.com/leader-node: levi
   annotations:
-    etzhayyim.com/leader-node: naphtali
-    etzhayyim.com/leader-hostname: naphtalinomac-mini.local
-    etzhayyim.com/trigger: mst-listener
-    etzhayyim.com/healthz-port: '13001'
-    etzhayyim.com/listens-to: ai.gftd.apps.etzhayyim.charter-attestation-request
-    etzhayyim.com/adr: 2605192230,2605192200
+    etzhayyim.com/leader-node: levi
+    etzhayyim.com/leader-hostname: levinomac-mini.local
+    etzhayyim.com/trigger: cron
+    etzhayyim.com/healthz-port: '13070'
+    etzhayyim.com/cron: '*/10 * * * *'
+    etzhayyim.com/adr: 2605240200,2605240100,2605240000,2605232345
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: charter-attestation-request-cell
+      app.kubernetes.io/name: kaizen-observer-cell
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: charter-attestation-request-cell
+        app.kubernetes.io/name: kaizen-observer-cell
         app.kubernetes.io/component: religious-corp-cell
         app.kubernetes.io/part-of: etzhayyim-religious-corp
-        etzhayyim.com/cell-name: CharterAttestationRequestCell
-        etzhayyim.com/leader-node: naphtali
+        etzhayyim.com/cell-name: KaizenObserverCell
+        etzhayyim.com/leader-node: levi
     spec:
-      serviceAccountName: charter-attestation-request-cell
+      serviceAccountName: kaizen-observer-cell
       nodeSelector:
-        kubernetes.io/hostname: naphtalinomac-mini.local
+        kubernetes.io/hostname: levinomac-mini.local
       imagePullSecrets:
         - name: ghcr-pull
       containers:
@@ -43,16 +43,16 @@ spec:
             - -m
             - pymagatama.cell_runner_main
             - --node
-            - naphtali
+            - levi
             - --cell-only
-            - CharterAttestationRequestCell
+            - KaizenObserverCell
           env:
             - name: ETZ_SUBSTRATE
               value: yatachain
             - name: ETZ_CHECKPOINTER_SOCKET
               value: /run/etzhayyim/checkpointer.sock
             - name: ETZ_CELL_NAME
-              value: CharterAttestationRequestCell
+              value: KaizenObserverCell
             - name: ETZHAYYIM_LOG_DIR
               value: /tmp/etzhayyim/log
             - name: ETZ_HEALTHZ_BIND
@@ -64,7 +64,7 @@ spec:
               containerPort: 13000
               protocol: TCP
             - name: cell-healthz
-              containerPort: 13001
+              containerPort: 13070
               protocol: TCP
           livenessProbe:
             httpGet:
