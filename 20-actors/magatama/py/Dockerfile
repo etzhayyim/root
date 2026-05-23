@@ -1,10 +1,19 @@
 FROM python:3.11-slim
 
-LABEL org.opencontainers.image.source="https://github.com/gftdcojp/ai-gftd-apps-gftdcojp"
-LABEL org.opencontainers.image.description="mitama reactive agent shared UDF pool (ADR-0049)"
+LABEL org.opencontainers.image.source="https://github.com/etzhayyim/root"
+LABEL org.opencontainers.image.description="mitama reactive agent pool + religious-corp cell catalog (ADR-0049 + ADR-2605232100)"
+
+# Build context: repo root. Bundles both the pymagatama Python package
+# and the religious-corp cell catalog + cells.toml registry so the
+# k3s DaemonSet pods can resolve cells without a hostPath mount of the
+# repo (per ADR-2605232100 Stage 2 — replaces the orbstack-only hostPath
+# pattern).
 
 WORKDIR /app
 ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+# Default repo root layout inside the image — cell_runner_main reads
+# ETZ_REPO and resolves $ETZ_REPO/20-actors/magatama/cells/<name>/cell.py.
+ENV ETZ_REPO=/repo
 ARG WASMTIME_VERSION=44.0.0
 ARG FOUNDRY_VERSION=1.5.0
 ARG TARGETARCH
@@ -15,8 +24,8 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 ARG CACHE_BUST=1
-COPY pyproject.toml /app/
-COPY src /app/src
+COPY 20-actors/magatama/py/pyproject.toml /app/
+COPY 20-actors/magatama/py/src /app/src
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates curl xz-utils \
@@ -39,6 +48,12 @@ RUN pip install --no-cache-dir \
       --extra-index-url https://download.pytorch.org/whl/cpu \
       "torch>=2.2,<3" \
  && pip install --no-cache-dir .
+
+# Religious-corp cell catalog + registry (ADR-2605232100 Stage 2).
+# Placed under /repo/... so cell_runner_main resolves them against
+# ETZ_REPO=/repo without needing hostPath mounts.
+COPY 20-actors/magatama/cells /repo/20-actors/magatama/cells
+COPY 50-infra/cluster/murakumo/cell-runner/cells.toml /repo/50-infra/cluster/murakumo/cell-runner/cells.toml
 
 EXPOSE 8815 9090
 
